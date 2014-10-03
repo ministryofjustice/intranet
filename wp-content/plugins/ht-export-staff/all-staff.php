@@ -1,4 +1,4 @@
- <?php
+<?php
 /*
 Plugin Name: HT Export staff
 Plugin URI: http://govintranetters.helpfulclients.com
@@ -14,13 +14,13 @@ if (!function_exists(downloadAllStaffCSV)) {
 
 	function downloadAllStaffCSV($csv,$filename) {
 		$now = gmdate('D, d M Y H:i:s') . ' GMT';
-		
+
 		header('Content-Type: application/x-msdownload');
 		header('Expires: ' . $now);
 		header('Content-Disposition: attachment; filename="'.$filename.'.csv"');
 		header('Pragma: no-cache');
         header("Expires: 0");
-        
+
 		echo $csv;
 		exit();
 	}
@@ -40,42 +40,42 @@ if (!class_exists('downloadAllStaffCSV')) {
     }
     static function plugins_loaded($csvdata) {
       global $pagenow;
-      if ($pagenow=='users.php' && 
-          current_user_can('download_csv') && 
-          isset($_GET['downloadAllStaffCSV'])  && 
+      if ($pagenow=='users.php' &&
+          current_user_can('download_csv') &&
+          isset($_GET['downloadAllStaffCSV'])  &&
           $_GET['downloadAllStaffCSV']=='1') {
 
 			global $wpdb;
 			$tdate= getdate();
 			$tdate = $tdate['year']."-".$tdate['mon']."-".$tdate['mday'];
-			
-			//$comments = "select ID, user_login, user_email from wp_users ;";	
-			
-			
+
+			//$comments = "select ID, user_login, user_email from wp_users ;";
+
+
 			$comments = "SELECT DISTINCT ID, user_login, user_email FROM wp_users order by id asc;";
-			
-			
+
+
 			$userrows = $wpdb->get_results($comments,ARRAY_A);
-				
-				$topline="ID\tFirst name\tLast name\tEmail\tJob title\tPhone\tTeam\r\n";			  
-			
+
+				$topline="ID\tFirst name\tLast name\tEmail\tJob title\tPhone\tTeam\r\n";
+
 			  if (count($userrows)>0) {
-					$fieldcount = 1;  
+					$fieldcount = 1;
 					$outputcsvline = array();
 					$outputcsvtmp=array();
-			  
+
 				  foreach($userrows as $user) {
 						$fieldcount++;
 						$outputcsvline=null;
 						$f = $user['ID'];
 						$outputcsvline[] = '"' . str_replace('"','""',$f) . '"';
-						
+
 						$f = get_user_meta($user['ID'], 'first_name',true);
 						$outputcsvline[] = '"' . str_replace('"','""',$f) . '"';
-						
+
 						$f = get_user_meta($user['ID'], 'last_name',true);
 						$outputcsvline[] = '"' . str_replace('"','""',$f) . '"';
-						
+
 						$f = $user['user_email'];
 						$outputcsvline[] = '"' . str_replace('"','""',$f) . '"';
 
@@ -99,14 +99,14 @@ if (!class_exists('downloadAllStaffCSV')) {
 						$temp = implode(", ", $temp);
 						$outputcsvline[] = '"' . str_replace('"','""',$temp) . '"';
 
-						$outputcsvtmp[] = implode("\t",$outputcsvline)."";						
+						$outputcsvtmp[] = implode("\t",$outputcsvline)."";
 
 					}
 
-					$outputcsv[] = implode("\r\n",$outputcsvtmp);						
+					$outputcsv[] = implode("\r\n",$outputcsvtmp);
 
 					$outputcsv2 = $topline . "\r\n" . implode("\r\n",array_reverse($outputcsv)); // oldest first
-					 
+
 				  $filename = "all-staff-".date("d-m-Y");
 				}
 
@@ -134,20 +134,20 @@ function ht_downloadallstaff_plugin_options() {
 	wp_die( __('You do not have sufficient permissions to access this page.') );
   }
 
-  
+
   // grab list of posts to help filter comment export (save in a variable so we can repeat it later, under the table of comments)
 
 
 
   echo '<div class="wrap">';
   echo "<h2>Download all staff</h2>";
-	
-	 
+
+
 		  $filename = "comments-".date("d-m-Y");
-			
+
 		  echo "<p><i class='glyphicon glyphicon-chevron-down'></i> <a href='" . $_SERVER['PHP_SELF'] . "?" . $_SERVER['QUERY_STRING'] . "&downloadAllStaffCSV=1'>Download in tab-separated Excel spreadsheet format (.xls)</a></p>";
 
-echo "</div>";   
+echo "</div>";
 }
 
 ?>

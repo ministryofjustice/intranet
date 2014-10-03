@@ -2,7 +2,7 @@
 /*
 Plugin Name: HT Feature news
 Plugin URI: http://www.helpfultechnology.com
-Description: Display feature news 
+Description: Display feature news
 Author: Luke Oatham
 Version: 3.0.7
 Author URI: http://www.helpfultechnology.com
@@ -22,8 +22,8 @@ function widget($args, $instance) {
     $listitems = intval($instance['listitems']);
 
     global $post;
-    echo $before_widget; 
-    if ( $title ) echo $before_title . $title . $after_title; 
+    echo $before_widget;
+    if ( $title ) echo $before_title . $title . $after_title;
 	echo "<div id='ht-feature-news'>";
 
 	//load manual sticky news stories
@@ -32,24 +32,24 @@ function widget($args, $instance) {
 
 
 	//forumalate grid of news stories and formats
-	$totalstories =  $largeitems + $mediumitems + $thumbnailitems + $listitems; 
+	$totalstories =  $largeitems + $mediumitems + $thumbnailitems + $listitems;
 
 	$newsgrid=array();
-	
+
 	for ($i = 1; $i <= $totalstories; $i++) {
 			if ($i <= $largeitems) {
 				$newsgrid[] = "L";
-			} 
+			}
 			elseif ($i <= $largeitems + $mediumitems) {
-				$newsgrid[] = "M";			
+				$newsgrid[] = "M";
 			}
 			elseif ($i <= $largeitems + $mediumitems + $thumbnailitems) {
-				$newsgrid[] = "T";			
+				$newsgrid[] = "T";
 			}
 			elseif ($i <= $largeitems + $mediumitems + $thumbnailitems + $listitems) {
-				$newsgrid[] = "Li";			
+				$newsgrid[] = "Li";
 			}
-		}	
+		}
 
 	$siteurl = site_url();
 
@@ -61,7 +61,7 @@ function widget($args, $instance) {
 	$k=-1;
 	$alreadydone= array();
 
-	if ( $num_top_slots > 0 ){ 
+	if ( $num_top_slots > 0 ){
 			foreach ((array)$top_slot as $slot){
 				$newspod = new Pod ( 'news' , $slot['ID'] );
 				if ($newspod->get_field('post_status')!='publish') {
@@ -70,50 +70,51 @@ function widget($args, $instance) {
 				$k++;
 				$alreadydone[] = $slot['ID'];
 				if (function_exists('get_video_thumbnail')){
-					$videostill = get_video_thumbnail( $slot['ID'] ); 
+					$videostill = get_video_thumbnail( $slot['ID'] );
 				}
-		
+
 				$thistitle = govintranetpress_custom_title($slot['post_title']);
 				$thisURL=$slot['post_name'];
 
 				if ($newsgrid[$k]=="L"){
 					$image_uri =  wp_get_attachment_image_src( get_post_thumbnail_id( $slot['ID'] ), 'newshead' );
 					if ($image_uri!="" && $videostill==''){
-						echo "<a href='".$siteurl."/news/".$slot['post_name']."/'><img class='img img-responsive' src='{$image_uri[0]}' width='{$image_uri[1]}' height='{$image_uri[2]}' alt='".govintranetpress_custom_title($slot)."' /></a>";									
-					} 
-				} 
-	
+						echo "<a href='".$siteurl."/news/".$slot['post_name']."/'><img class='img img-responsive' src='{$image_uri[0]}' width='{$image_uri[1]}' height='{$image_uri[2]}' alt='".govintranetpress_custom_title($slot)."' /></a>";
+					}
+				}
+
 				if ($newsgrid[$k]=="M"){
 					$image_uri =  wp_get_attachment_image_src( get_post_thumbnail_id( $slot['ID'] ), 'medium' );
 					if ($image_uri!="" && $videostill==''){
-						echo "<a href='".$siteurl."/news/".$slot['post_name']."/'><img class='img img-responsive' src='{$image_uri[0]}' width='{$image_uri[1]}' height='{$image_uri[2]}' alt='".govintranetpress_custom_title($slot)."' /></a>";									
-					} 
-				} 
-	
+						echo "<a href='".$siteurl."/news/".$slot['post_name']."/'><img class='img img-responsive' src='{$image_uri[0]}' width='{$image_uri[1]}' height='{$image_uri[2]}' alt='".govintranetpress_custom_title($slot)."' /></a>";
+					}
+				}
+
 				if ($newsgrid[$k]=="T"){
-					$image_uri = "<a class='pull-right' href='".$siteurl."/news/".$slot['post_name']."/'>".get_the_post_thumbnail($slot['ID'], 'thumbnail', array('class' => 'media-object hidden-xs'))."</a>";
+					$image_uri = "<a href='".$siteurl."/news/".$slot['post_name']."/'>".get_the_post_thumbnail($slot['ID'], 'thumbnail', array('class' => 'media-object hidden-xs'))."</a>";
 					if ($image_uri!="" && $videostill==''){
-						$image_url = "<a href='".$siteurl."/news/".$slot['post_name']."/'>".$image_uri."</a>";									
-					} 
-				} 
+						$image_url = "<a href='".$siteurl."/news/".$slot['post_name']."/'>".$image_uri."</a>";
+					}
+				}
 
 			$thisdate= $slot['post_date'];
 			$post = get_post( $slot['ID'] );
 			setup_postdata( $post );
 			$thisexcerpt= get_the_excerpt();
 			$thisdate=date("j M Y",strtotime($thisdate));
-			echo "<h3 class='noborder'><a class='' href='".$thisURL."'>".$thistitle."</a></h3>";
+
+			if ($newsgrid[$k]=="T"){
+				echo "<div class='media'>".$image_url;
+			}
 
 			if ($newsgrid[$k]=="Li"){
 				echo "<p><span class='news_date'>".$thisdate."";
 				echo " <a class='more' href='{$thisURL}' title='{$thistitle}'>Read more</a></span></p>";
 			} else {
-				echo "<p><span class='news_date'>".$thisdate."</span></p>";									
+				echo "<p><span class='news_date'>".$thisdate."</span></p>";
 			}
 
-			if ($newsgrid[$k]=="T"){
-				echo "<div class='media'>".$image_url;
-			}
+			echo "<h3 class='noborder'><a class='' href='".$thisURL."'>".$thistitle."</a></h3>";
 
 			echo "<div class='media-body'>";
 
@@ -130,7 +131,7 @@ function widget($args, $instance) {
 
 			echo "<hr class='light' />\n";
 
-		
+
 			}
 		} //end of stickies
 
@@ -163,44 +164,46 @@ function widget($args, $instance) {
 			$thistitle = get_the_title($news->ID);
 			$newspod = new Pod ( 'news' , $news->ID );
 			$newspod->display('title');
-			$thisURL=get_permalink($news->ID); 
+			$thisURL=get_permalink($news->ID);
 
 			if ($newsgrid[$k]=="L"){
 				$image_uri =  wp_get_attachment_image_src( get_post_thumbnail_id( $news->ID ), 'newshead' );
 				if ($image_uri!="" && $videostill==''){
-					echo "<a href='{$thisURL}'><img class='img img-responsive' src='{$image_uri[0]}' width='{$image_uri[1]}' height='{$image_uri[2]}' alt='".govintranetpress_custom_title($slot)."' /></a>";									
-				} 
-			} 
+					echo "<a href='{$thisURL}'><img class='img img-responsive' src='{$image_uri[0]}' width='{$image_uri[1]}' height='{$image_uri[2]}' alt='".govintranetpress_custom_title($slot)."' /></a>";
+				}
+			}
 
 			if ($newsgrid[$k]=="M"){
 				$image_uri =  wp_get_attachment_image_src( get_post_thumbnail_id( $news->ID ), 'medium' );
 				if ($image_uri!="" && $videostill==''){
-					echo "<a href='{$thisURL}'><img class='img' src='{$image_uri[0]}' width='{$image_uri[1]}' height='{$image_uri[2]}' alt='".govintranetpress_custom_title($slot)."' /></a>";									
-				} 
-			} 
+					echo "<a href='{$thisURL}'><img class='img' src='{$image_uri[0]}' width='{$image_uri[1]}' height='{$image_uri[2]}' alt='".govintranetpress_custom_title($slot)."' /></a>";
+				}
+			}
 
 			if ($newsgrid[$k]=="T"){
-				$image_uri = "<a class='pull-right' href='{$thisURL}'>".get_the_post_thumbnail($news->ID, 'thumbnail', array('class' => 'media-object hidden-xs'))."</a>";
+				$image_uri = "<a href='{$thisURL}'>".get_the_post_thumbnail($news->ID, 'thumbnail', array('class' => 'media-object hidden-xs'))."</a>";
 				if ($image_uri!="" && $videostill==''){
-					$image_url = "<a href='{$thisURL}'>".$image_uri."</a>";									
-				} 
-			} 
-			
+					$image_url = "<a href='{$thisURL}'>".$image_uri."</a>";
+				}
+			}
+
 			$thisdate= get_the_date();
 			$thisexcerpt= get_the_excerpt();
 			$thisdate=date("j M Y",strtotime($thisdate));
-			echo "<h3 class='noborder'><a class='' href='".$thisURL."'>".$thistitle."</a></h3>";
+
+
+			if ($newsgrid[$k]=="T"){
+				echo "<div class='media'>".$image_url;
+			}
 
 			if ($newsgrid[$k]=="Li"){
 				echo "<p><span class='news_date'>".$thisdate."";
 				echo " <a class='more' href='{$thisURL}' title='{$thistitle}'>Read more</a></span></p>";
 			} else {
-				echo "<p><span class='news_date'>".$thisdate."</span></p>";									
+				echo "<p><span class='news_date'>".$thisdate."</span></p>";
 			}
 
-			if ($newsgrid[$k]=="T"){
-				echo "<div class='media'>".$image_url;
-			}
+			echo "<h3 class='noborder'><a class='' href='".$thisURL."'>".$thistitle."</a></h3>";
 
 			echo "<div class='media-body'>";
 
@@ -218,14 +221,14 @@ function widget($args, $instance) {
 			echo "<hr class='light' />\n";
 		}
 		echo "</div>";
-		wp_reset_query();								
+		wp_reset_query();
 ?>
 		<div class="category-block"><p><strong><a title='More in news' class="small" href="<?php echo $siteurl; ?>/newspage/">More in news</a></strong> <i class='glyphicon glyphicon-chevron-right small'></i></p></div>
 
 
-<?php echo $after_widget; 
-    
-    }	
+<?php echo $after_widget;
+
+    }
 
     function update($new_instance, $old_instance) {
 		$instance = $old_instance;
@@ -245,24 +248,24 @@ function widget($args, $instance) {
         $listitems = esc_attr($instance['listitems']);
         ?>
          <p>
-          <label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title:'); ?></label> 
+          <label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title:'); ?></label>
           <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo $title; ?>" /><br><br>
           <label>Number of stories</label><br>
-          <label for="<?php echo $this->get_field_id('largeitems'); ?>"><?php _e('Large'); ?></label> 
+          <label for="<?php echo $this->get_field_id('largeitems'); ?>"><?php _e('Large'); ?></label>
           <input class="widefat" id="<?php echo $this->get_field_id('largeitems'); ?>" name="<?php echo $this->get_field_name('largeitems'); ?>" type="text" value="<?php echo $largeitems; ?>" /><br><br>
-          
-          <label for="<?php echo $this->get_field_id('mediumitems'); ?>"><?php _e('Medium'); ?></label> 
+
+          <label for="<?php echo $this->get_field_id('mediumitems'); ?>"><?php _e('Medium'); ?></label>
           <input class="widefat" id="<?php echo $this->get_field_id('mediumitems'); ?>" name="<?php echo $this->get_field_name('mediumitems'); ?>" type="text" value="<?php echo $mediumitems; ?>" /><br><br>
 
-          <label for="<?php echo $this->get_field_id('thumbnailitems'); ?>"><?php _e('Thumbnail'); ?></label> 
+          <label for="<?php echo $this->get_field_id('thumbnailitems'); ?>"><?php _e('Thumbnail'); ?></label>
           <input class="widefat" id="<?php echo $this->get_field_id('thumbnailitems'); ?>" name="<?php echo $this->get_field_name('thumbnailitems'); ?>" type="text" value="<?php echo $thumbnailitems; ?>" /><br><br>
-          
-          <label for="<?php echo $this->get_field_id('listitems'); ?>"><?php _e('List format (no photos)'); ?></label> 
+
+          <label for="<?php echo $this->get_field_id('listitems'); ?>"><?php _e('List format (no photos)'); ?></label>
           <input class="widefat" id="<?php echo $this->get_field_id('listitems'); ?>" name="<?php echo $this->get_field_name('listitems'); ?>" type="text" value="<?php echo $listitems; ?>" /><br><br>
 
         </p>
 
-        <?php 
+        <?php
     }
 
 }
