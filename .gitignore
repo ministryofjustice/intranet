@@ -96,3 +96,8 @@ wp-content/mysql.sql
 *.asf
 *.wmv
 *.avi
+
+
+
+# custom
+.sass-cache
