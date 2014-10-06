@@ -260,12 +260,11 @@
 /* line 26, ../scss/modules/_main_nav.scss */
 #mainnav #primarynav ul li a {
   display: block;
-  padding: 0.4em 1.25em 0.6em 1.25em;
-  color: #1E4287;
+  padding: 0.4em 1.25em 0.6em;
   color: #61415B;
   text-decoration: none;
 }
-/* line 33, ../scss/modules/_main_nav.scss */
+/* line 32, ../scss/modules/_main_nav.scss */
 #mainnav #primarynav ul li a:hover {
   background: white;
   color: #61415B;

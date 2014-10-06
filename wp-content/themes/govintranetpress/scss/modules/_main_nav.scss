@@ -25,14 +25,14 @@
 
         a {
           display: block;
-          padding: 0.4em 1.25em 0.6em 1.25em;
-          color: #1E4287; color: #61415B;
-          text-decoration: none;
-        }
-
-        a:hover  {
-          background: white;
+          padding: 0.4em 1.25em 0.6em;
           color: #61415B;
+          text-decoration: none;
+
+          &:hover  {
+            background: white;
+            color: #61415B;
+          }
         }
 
         &.current-menu-item,
