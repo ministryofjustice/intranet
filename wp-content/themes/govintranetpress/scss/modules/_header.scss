@@ -1,0 +1,18 @@
+#topstrip {
+	background: #000;
+	overflow: visible;
+
+  .row {
+    background: none;
+  }
+
+  #masthead {
+    text-align: left;
+    padding: 0;
+
+    #mainlogo {
+      float: left;
+      margin-right: 1em;
+    }
+  }
+}

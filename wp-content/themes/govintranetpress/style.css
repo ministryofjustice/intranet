@@ -58,24 +58,6 @@ h1 small, h2 small, h3 small {
 	margin-top: 0.5em;
 	font-weight: 200;
 }
-#topstrip  {
-	background: #000000;
-	overflow:visible;
-}
-
-#topstrip .row  {
-	background: none;
-}
-
-#masthead  {
-	text-align: left;
-	padding: 0;
-}
-
-#masthead #mainlogo  {
-	float: left;
-	margin-right: 1em;
-}
 
 #mainlogobw  {
 	display: none;
@@ -143,54 +125,6 @@ ul.subteams li {
 	color: #fff;
 }
 
-#primarynav  {
-	background: white;
-	padding: 0;
-}
-
-#primarynav ul  {
-	margin-top: 0;
-}
-
-#primarynav ul li  {
-	display: inline;
-	background: #eaedef;
-	font-weight: normal;
-	float: left;
-	font-size: 90%;
-	text-align: center;
-	margin-top: 1px;
-
-}
-
-#primarynav ul li:last-child,  #primarynav ul li.last-link  {
-}
-
-#primarynav ul li:first-child,  #primarynav ul li.first-link  {
-}
-
-#primarynav ul li a  {
-	display: block;
-	padding: 0.4em 1.25em 0.6em 1.25em;
-	color: #1E4287; color: #61415B;
-	text-decoration: none;
-}
-
-#primarynav ul li a:hover  {
-	background: white;
-	color: #61415B;
-}
-
-#primarynav ul li.current-menu-item,  #primarynav ul li.current-page-ancestor  {
-	background: white !important;
-}
-
-#primarynav ul li.current-menu-item a,  #primarynav ul li.current-page-ancestor a  {
-	color: #1E4287;
-}
-#primarynav ul li.current-menu-item,  #primarynav ul li.current-page-ancestor  {
-	border-bottom: 1px solid #fff;
-}
 
 
 /* HELPERS */

@@ -1,3 +1,65 @@
+/* line 1, ../scss/modules/_header.scss */
+#topstrip {
+  background: #000;
+  overflow: visible;
+}
+/* line 5, ../scss/modules/_header.scss */
+#topstrip .row {
+  background: none;
+}
+/* line 9, ../scss/modules/_header.scss */
+#topstrip #masthead {
+  text-align: left;
+  padding: 0;
+}
+/* line 13, ../scss/modules/_header.scss */
+#topstrip #masthead #mainlogo {
+  float: left;
+  margin-right: 1em;
+}
+
+/* line 2, ../scss/modules/_main_nav.scss */
+#mainnav #primarynav {
+  padding: 0;
+  background: white;
+}
+/* line 6, ../scss/modules/_main_nav.scss */
+#mainnav #primarynav ul {
+  margin-top: 0;
+}
+/* line 9, ../scss/modules/_main_nav.scss */
+#mainnav #primarynav ul li {
+  display: inline;
+  float: left;
+  margin-top: 1px;
+  background: #eaedef;
+  font-weight: normal;
+  font-size: 90%;
+  text-align: center;
+}
+/* line 26, ../scss/modules/_main_nav.scss */
+#mainnav #primarynav ul li a {
+  display: block;
+  padding: 0.4em 1.25em 0.6em 1.25em;
+  color: #1E4287;
+  color: #61415B;
+  text-decoration: none;
+}
+/* line 33, ../scss/modules/_main_nav.scss */
+#mainnav #primarynav ul li a:hover {
+  background: white;
+  color: #61415B;
+}
+/* line 38, ../scss/modules/_main_nav.scss */
+#mainnav #primarynav ul li.current-menu-item, #mainnav #primarynav ul li.current-page-ancestor {
+  background: white !important;
+  border-bottom: 1px solid #fff;
+}
+/* line 43, ../scss/modules/_main_nav.scss */
+#mainnav #primarynav ul li.current-menu-item a, #mainnav #primarynav ul li.current-page-ancestor a {
+  color: #1E4287;
+}
+
 /* line 2, ../scss/widgets/ht-feature-news/_main.scss */
 #ht-feature-news .news-date-wrapper {
   margin-top: 1em;
