@@ -96,11 +96,6 @@ header('X-Frame-Options: SAMEORIGIN');
 		$gishex = get_option($gis);
 		$basecol=HTMLToRGB($gishex);
 		$topborder = ChangeLuminosity($basecol, 33);
-		echo "
-		#topstrip  {
-		background: ".$gishex.";
-		}
-		";
 
 		echo "
 		#footerwrapper  {";

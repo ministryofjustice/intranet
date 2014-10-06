@@ -23,9 +23,7 @@ body  {
 	font-size: 18px;
 
 }
-#crownlogo {
-	padding-left: 0;
-}
+
 table .form-table .pods-meta, .form-table .pods-meta tr, .form-table .pods-meta td {
 	border: 0;
 }
@@ -50,13 +48,6 @@ h1 small, h2 small, h3 small {
 }
 .alignright {
 	float: right;
-}
-#crownlink  a {
-	font-size: 1.2em;
-	color: white;
-	text-decoration: none;
-	margin-top: 0.5em;
-	font-weight: 200;
 }
 
 #mainlogobw  {
@@ -1854,7 +1845,6 @@ li.comment .comment-body  {
 	display: block;
 }
 
-
 .touchdown  {
 	display: none;
 }
@@ -1872,7 +1862,6 @@ li.comment .comment-body  {
 #s {
   border: 2px solid #8cabb6;
 }
-
 
 .navbar-brand.visible-xs {
 	font-size: 0.9em !important;

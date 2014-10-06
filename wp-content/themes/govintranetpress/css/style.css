@@ -237,6 +237,18 @@
   float: left;
   margin-right: 1em;
 }
+/* line 19, ../scss/modules/_header.scss */
+#topstrip #crownlogo {
+  padding-left: 0;
+}
+/* line 23, ../scss/modules/_header.scss */
+#topstrip #crownlink a {
+  margin-top: 0.5em;
+  color: white;
+  font-size: 1.2em;
+  font-weight: 200;
+  text-decoration: none;
+}
 
 /* line 2, ../scss/modules/_main_nav.scss */
 #mainnav #primarynav {
@@ -321,15 +333,11 @@
 .home.page .category-block ul li.first-link {
   border-top: none !important;
 }
-/* line 34, ../scss/content/homepage/_main.scss */
-.home.page .category-block ul.first-link li:first-of-type {
-  border-top: none !important;
-}
-/* line 39, ../scss/content/homepage/_main.scss */
+/* line 35, ../scss/content/homepage/_main.scss */
 .home.page .category-block .widget-box {
   font-size: 1em;
 }
-/* line 44, ../scss/content/homepage/_main.scss */
+/* line 40, ../scss/content/homepage/_main.scss */
 .home.page img.size-full {
   width: 100%;
 }
