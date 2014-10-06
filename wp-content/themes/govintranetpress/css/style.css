@@ -1,3 +1,223 @@
+/* media queries for responsive styles */
+@media only screen and (max-width: 1200px) {
+  /* line 4, ../scss/framework/_grid.scss */
+  #peoplenav {
+    padding-top: 3em;
+  }
+
+  /* line 8, ../scss/framework/_grid.scss */
+  .grid-sizer {
+    width: 48% !important;
+  }
+
+  /* line 11, ../scss/framework/_grid.scss */
+  .grid-item {
+    width: 47% !important;
+  }
+
+  /* line 14, ../scss/framework/_grid.scss */
+  .pgrid-sizer {
+    width: 31% !important;
+  }
+
+  /* line 17, ../scss/framework/_grid.scss */
+  .pgrid-item {
+    width: 30% !important;
+  }
+
+  /* line 21, ../scss/framework/_grid.scss */
+  .page-template-page-full-width-php .grid-sizer {
+    width: 49% !important;
+  }
+
+  /* line 24, ../scss/framework/_grid.scss */
+  .page-template-page-full-width-php .grid-item {
+    width: 48% !important;
+  }
+
+  /* line 27, ../scss/framework/_grid.scss */
+  .page-template-page-left-nav-php .grid-sizer {
+    width: 48% !important;
+  }
+
+  /* line 30, ../scss/framework/_grid.scss */
+  .page-template-page-left-nav-php .grid-item {
+    width: 47% !important;
+  }
+
+  /* line 33, ../scss/framework/_grid.scss */
+  .page-template-page-left-nav-wide-php .grid-sizer {
+    width: 32%;
+  }
+
+  /* line 36, ../scss/framework/_grid.scss */
+  .page-template-page-left-nav-wide-php .grid-item {
+    width: 31%;
+  }
+
+  /* line 39, ../scss/framework/_grid.scss */
+  .content-wrapper {
+    padding: 0.5em 0.5em !important;
+  }
+}
+@media only screen and (max-width: 990px) {
+  /* line 45, ../scss/framework/_grid.scss */
+  .grid-sizer {
+    width: 48% !important;
+  }
+
+  /* line 48, ../scss/framework/_grid.scss */
+  .grid-item {
+    width: 47% !important;
+  }
+
+  /* line 51, ../scss/framework/_grid.scss */
+  .pgrid-sizer {
+    width: 48.5% !important;
+  }
+
+  /* line 54, ../scss/framework/_grid.scss */
+  .pgrid-item {
+    width: 47% !important;
+  }
+
+  /* line 58, ../scss/framework/_grid.scss */
+  .page-template-page-full-width-php .grid-sizer {
+    width: 48% !important;
+  }
+
+  /* line 61, ../scss/framework/_grid.scss */
+  .page-template-page-full-width-php .grid-item {
+    width: 47% !important;
+  }
+
+  /* line 64, ../scss/framework/_grid.scss */
+  .page-template-page-left-nav-php .grid-sizer {
+    width: 49% !important;
+  }
+
+  /* line 67, ../scss/framework/_grid.scss */
+  .page-template-page-left-nav-php .grid-item {
+    width: 48% !important;
+  }
+
+  /* line 70, ../scss/framework/_grid.scss */
+  .page-template-page-left-nav-wide-php .grid-sizer {
+    width: 49% !important;
+  }
+
+  /* line 73, ../scss/framework/_grid.scss */
+  .page-template-page-left-nav-wide-php .grid-item {
+    width: 48% !important;
+  }
+}
+@media only screen and (max-width: 768px) {
+  /* line 79, ../scss/framework/_grid.scss */
+  #crownlink {
+    font-size: 0.8em;
+  }
+
+  /* line 82, ../scss/framework/_grid.scss */
+  .grid-sizer {
+    width: 49% !important;
+  }
+
+  /* line 85, ../scss/framework/_grid.scss */
+  .grid-item {
+    width: 48% !important;
+  }
+
+  /* line 88, ../scss/framework/_grid.scss */
+  .pgrid-sizer {
+    width: 49% !important;
+  }
+
+  /* line 91, ../scss/framework/_grid.scss */
+  .pgrid-item {
+    width: 48% !important;
+  }
+
+  /* line 95, ../scss/framework/_grid.scss */
+  .page-template-page-full-width-php .grid-sizer {
+    width: 49% !important;
+  }
+
+  /* line 98, ../scss/framework/_grid.scss */
+  .page-template-page-full-width-php .grid-item {
+    width: 48% !important;
+  }
+
+  /* line 101, ../scss/framework/_grid.scss */
+  .page-template-page-left-nav-php .grid-sizer {
+    width: 100% !important;
+  }
+
+  /* line 104, ../scss/framework/_grid.scss */
+  .page-template-page-left-nav-php .grid-item {
+    width: 100% !important;
+  }
+
+  /* line 107, ../scss/framework/_grid.scss */
+  .page-template-page-left-nav-wide-php .grid-sizer {
+    width: 49% !important;
+  }
+
+  /* line 110, ../scss/framework/_grid.scss */
+  .page-template-page-left-nav-wide-php .grid-item {
+    width: 48% !important;
+  }
+}
+@media only screen and (max-width: 320px) {
+  /* line 116, ../scss/framework/_grid.scss */
+  .grid-sizer {
+    width: 100% !important;
+  }
+
+  /* line 119, ../scss/framework/_grid.scss */
+  .grid-item {
+    width: 100% !important;
+  }
+
+  /* line 122, ../scss/framework/_grid.scss */
+  .pgrid-sizer {
+    width: 100% !important;
+  }
+
+  /* line 125, ../scss/framework/_grid.scss */
+  .pgrid-item {
+    width: 100% !important;
+  }
+
+  /* line 129, ../scss/framework/_grid.scss */
+  .page-template-page-full-width-php .grid-sizer {
+    width: 100% !important;
+  }
+
+  /* line 132, ../scss/framework/_grid.scss */
+  .page-template-page-full-width-php .grid-item {
+    width: 100% !important;
+  }
+
+  /* line 135, ../scss/framework/_grid.scss */
+  .page-template-page-left-nav-php .grid-sizer {
+    width: 100% !important;
+  }
+
+  /* line 138, ../scss/framework/_grid.scss */
+  .page-template-page-left-nav-php .grid-item {
+    width: 100% !important;
+  }
+
+  /* line 141, ../scss/framework/_grid.scss */
+  .page-template-page-left-nav-wide-php .grid-sizer {
+    width: 100% !important;
+  }
+
+  /* line 144, ../scss/framework/_grid.scss */
+  .page-template-page-left-nav-wide-php .grid-item {
+    width: 100% !important;
+  }
+}
 /* line 1, ../scss/modules/_header.scss */
 #topstrip {
   background: #000;
