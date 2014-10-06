@@ -24,7 +24,7 @@ header('X-Frame-Options: SAMEORIGIN');
 		 * twentyten_filter_wp_title() in functions.php.
 		 */
 		wp_title( '', true, 'right' );
-	
+
 		?></title>
 
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -50,7 +50,7 @@ header('X-Frame-Options: SAMEORIGIN');
 	<![endif]-->
 
 
-	
+
 	<link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo( 'stylesheet_url' ); ?>" />
 	<link rel="stylesheet" type="text/css" media="print" href="<?php echo get_stylesheet_directory_uri(); ?>/print.css" />
 	<link href="<?php echo get_stylesheet_directory_uri(); ?>/css/custom.css" rel="stylesheet">
@@ -60,14 +60,14 @@ header('X-Frame-Options: SAMEORIGIN');
 	<![endif]-->
 
 	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
-			
+
 		<?php
 		/* We add some JavaScript to pages with the comment form
 		 * to support sites with threaded comments (when in use).
 		 */
 		if ( is_singular() && get_option( 'thread_comments' ) )
 			wp_enqueue_script( 'comment-reply' );
-	
+
 		/* Always have wp_head() just before the closing </head>
 		 * tag of your theme, or you will break many plugins, which
 		 * generally use this hook to add elements to <head> such
@@ -79,21 +79,21 @@ header('X-Frame-Options: SAMEORIGIN');
 	<style type='text/css'>
 	/* Custom CSS rules below: */
 	<?php
-	
+
 		$gis = "general_intranet_custom_css_code";
 		$giscss = get_option($gis);
 		echo $giscss;
 
 		$gis = "general_intranet_enable_automatic_complementary_colour";
 		$giscc = get_option($gis);
-		
+
 		// write custom css for background header colour
-		
+
 		$gis = "general_intranet_widget_border_height";
-		$gisheight = get_option($gis);		
+		$gisheight = get_option($gis);
 		if (!$gisheight) $gisheight = 7;
 		$gis = "general_intranet_header_background";
-		$gishex = get_option($gis);		
+		$gishex = get_option($gis);
 		$basecol=HTMLToRGB($gishex);
 		$topborder = ChangeLuminosity($basecol, 33);
 		echo "
@@ -124,15 +124,6 @@ header('X-Frame-Options: SAMEORIGIN');
 		";
 
 		echo "
-		.home.page .category-block h3 {
-			border-bottom: 3px solid ".$gishex.";
-		}
-		.h3border {
-		border-bottom: 3px solid ".$gishex.";
-		}
-		";
-		
-		echo "
 		#content .widget-box {
 		padding: .1em .4em .7em 0;
 		font-size: .9em;
@@ -147,19 +138,6 @@ header('X-Frame-Options: SAMEORIGIN');
 		";
 
 		echo "
-		.home.page .category-block h3 {";
-		if ($giscc==1){
-			echo "border-top: ".$gisheight."px solid ".RGBToHTML($topborder).";";
-		} else {
-			echo "border-top: ".$gisheight."px solid ".$gishex.";";
-		}
-		echo "border-bottom: none;
-		padding-top: .7em;
-		margin-top: .7em;
-		}
-		";
-		
-		echo "
 		.bbp-user-page .panel-heading {";
 		if ($giscc==1){
 			echo "border-bottom: ".$gisheight."px solid ".RGBToHTML($topborder).";";
@@ -169,25 +147,25 @@ header('X-Frame-Options: SAMEORIGIN');
 		echo "
 		}
 		";
-		
+
 		echo "
 		.page-template-page-news-php h1 {
 		border-bottom: ".$gisheight."px solid ".RGBToHTML($topborder).";
-		} 
+		}
 		.tax-team h2 {
 		border-bottom: ".$gisheight."px solid ".RGBToHTML($topborder).";
-		} 
+		}
 		";
 
 		//write custom css for logo
 		$gis = "general_intranet_header_logo";
-		$gisid = get_option($gis); 
-		$gislogow = wp_get_attachment_image_src( $gisid[0] ); 
+		$gisid = get_option($gis);
+		$gislogow = wp_get_attachment_image_src( $gisid[0] );
 		$gislogo = $gislogow[0] ;
 		$gisw = $gislogow[1] + 10;
 		echo "
 		#crownlink  {
-		background: url('".$gislogo."') no-repeat;	 
+		background: url('".$gislogo."') no-repeat;
 		background-position:left 10px;
 		padding: 16px 0 0 ".$gisw."px;
 		height: auto;
@@ -201,8 +179,8 @@ header('X-Frame-Options: SAMEORIGIN');
 		border-top: 1px solid ".$gishex.";
 		border-right: 1px solid ".$gishex.";
 		}
-		";		
-		
+		";
+
 		$terms = get_terms('category');
 		if ($terms) {
 	  		foreach ((array)$terms as $taxonomy ) {
@@ -220,14 +198,14 @@ header('X-Frame-Options: SAMEORIGIN');
 	  			echo ".glyphicon.glyphicon-stop.gb" . $themeid . "{color: " . $background . ";} \n";
 
 			}
-		}  
+		}
 	?>
 	</style>
 	<!--Google Analytics-->
-	<?php	
+	<?php
 		//write script for google analytics (only do on homepage if homepage tracking is set)
 		$gis = "general_intranet_track_homepage";
-		$gistrackhome = get_option($gis); 
+		$gistrackhome = get_option($gis);
 		if ( is_front_page() || is_search() ){
 			if ($gistrackhome == 1 || is_search() ){
 				$gis = "general_intranet_google_tracking_code";
@@ -240,24 +218,24 @@ header('X-Frame-Options: SAMEORIGIN');
 			$gisgtc = get_option($gis);
 			echo $gisgtc;
 		}
-		?>	
+		?>
 
 </head>
 
-<?php 
-	$parentpageclass = (renderLeftNav("FALSE")) ? "parentpage" : "notparentpage"; 
+<?php
+	$parentpageclass = (renderLeftNav("FALSE")) ? "parentpage" : "notparentpage";
 
 	if ($govintranetpress_options['leftSubNav'] == "1" && is_page() ) { // check if left nav is on, on a page
 		$leftnavflag = TRUE;
 	}
-	
+
 ?>
 
 <body <?php body_class($parentpageclass); ?>>
 
 <?php // include(get_stylesheet_directory() . "/sidebar-cookiebar.php"); ?>
 	<div id='topstrip'>
-				
+
 		<nav class="navbar navbar-inverse" role="navigation">
 		  <!-- Brand and toggle get grouped for better mobile display -->
 		  <div class="navbar-header">
@@ -271,19 +249,19 @@ header('X-Frame-Options: SAMEORIGIN');
 		  </div>
 
 		  <!-- Collect the nav links, forms, and other content for toggling -->
-		  <div class="collapse navbar-collapse navbar-ex1-collapse">				
-				
-				<div class="row" id="masthead">	
+		  <div class="collapse navbar-collapse navbar-ex1-collapse">
+
+				<div class="row" id="masthead">
 
 					<div class="container">
 						<a class="sr-only" href="#content">Skip to content</a>
-						<div class="row">							
+						<div class="row">
 						<!--logo and name-->
 							<div class="col-lg-8 col-md-7 col-sm-6 hidden-xs" id="crownlogo">
 								<div id="crownlink"><a href="<?php echo home_url( '/' ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>"  rel="home"><?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?></a>
 								</div>
 							</div>
-						
+
 						<!--search box-->
 							<div class="col-lg-4 col-md-5 col-sm-6 col-xs-12">
 								<div id='searchformdiv' class=''>
@@ -294,8 +272,8 @@ header('X-Frame-Options: SAMEORIGIN');
 
 <script>
 //jQuery("#s").focus();
-</script>							
-							<div class="sr-only" id="access">	
+</script>
+							<div class="sr-only" id="access">
 							  <?php /*  Allow screen readers / text browsers to skip the navigation menu and get right to the good stuff */ ?>
 								<a href="#content" class='hiddentext' accesskey='s' title="<?php esc_attr_e( 'Skip to content', 'twentyten' ); ?>"><?php _e( 'Skip to content', 'twentyten' ); ?></a>
 							</div>
@@ -312,11 +290,11 @@ header('X-Frame-Options: SAMEORIGIN');
 									<?php endif; ?>
 								</div>
 
-								<div  id="mainnav" class="pull-left">		
+								<div  id="mainnav" class="pull-left">
 
 									<div id="primarynav" role="navigation">
 											<?php /* Our navigation menu.  If one isn't filled out, wp_nav_menu falls back to wp_page_menu.  The menu assiged to the primary position is the one used.  If none is assigned, the menu with the lowest ID is used.  */ ?>
-											<?php 
+											<?php
 									wp_nav_menu( array( 'container_class' => 'menu-header', 'theme_location' => 'primary' ) ); ?>
 									</div>
 								</div>
@@ -324,8 +302,8 @@ header('X-Frame-Options: SAMEORIGIN');
 						</div>
 					</div>
 				</div><!-- /.navbar-collapse -->
-			</nav>						
-		</div>				
-				     
-		<div id="content" class="container">			
+			</nav>
+		</div>
+
+		<div id="content" class="container">
 			<div class="content-wrapper">

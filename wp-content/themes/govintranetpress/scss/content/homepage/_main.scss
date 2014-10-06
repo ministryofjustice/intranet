@@ -1,0 +1,47 @@
+.home.page {
+  #content .category-block ul li a {
+    font-size: 1em;
+  }
+
+  .category-block {
+    h3 {
+      margin-top: .7em;
+      margin-bottom: 1em !important;
+      padding-top: .7em;
+      border-top: none;
+      border-bottom: 1px solid #545454;
+    }
+
+    a h2 {
+      border-bottom: none;
+    }
+
+    ul {
+      list-style-type: none;
+      padding-left: 0;
+
+      li {
+        margin: 0;
+        padding: 0.5em 0 0.5em 0;
+        list-style: none;
+        border-top: 1px solid #eee;
+
+        &.first-link {
+          border-top: none !important;
+        }
+      }
+
+      &.first-link li:first-of-type {
+        border-top: none !important;
+      }
+    }
+
+    .widget-box {
+      font-size: 1em;
+    }
+  }
+
+  img.size-full {
+    width: 100%;
+  }
+}

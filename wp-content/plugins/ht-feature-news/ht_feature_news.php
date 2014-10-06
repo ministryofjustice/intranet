@@ -111,7 +111,7 @@ function widget($args, $instance) {
 				echo "<p><span class='news_date'>".$thisdate."";
 				echo " <a class='more' href='{$thisURL}' title='{$thistitle}'>Read more</a></span></p>";
 			} else {
-				echo "<p><span class='news_date'>".$thisdate."</span></p>";
+				echo "<p class='news-date-wrapper'><span class='news_date'>".$thisdate."</span></p>";
 			}
 
 			echo "<h3 class='noborder'><a class='' href='".$thisURL."'>".$thistitle."</a></h3>";
@@ -200,7 +200,7 @@ function widget($args, $instance) {
 				echo "<p><span class='news_date'>".$thisdate."";
 				echo " <a class='more' href='{$thisURL}' title='{$thistitle}'>Read more</a></span></p>";
 			} else {
-				echo "<p><span class='news_date'>".$thisdate."</span></p>";
+				echo "<p class='news-date-wrapper'><span class='news_date'>".$thisdate."</span></p>";
 			}
 
 			echo "<h3 class='noborder'><a class='' href='".$thisURL."'>".$thistitle."</a></h3>";

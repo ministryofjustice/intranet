@@ -204,26 +204,26 @@ function twentyten_filter_wp_title( $title, $separator ) {
 	}
 
 	// Otherwise, let's start by adding the site name to the end:
-	
+
 	if ( is_front_page() ){
 		$title .= get_bloginfo( 'name', 'display' );
 	}
-	
+
 	$slug = pods_url_variable(0);
 	$slug2 = pods_url_variable(1);
 	if ($slug == "task"  ) {
 
-		$taskpod = new Pod ('task' , pods_url_variable(1)); 
+		$taskpod = new Pod ('task' , pods_url_variable(1));
 		$taskparent=$taskpod->get_field('parent_guide');
 		$title_context='';
 		if ($taskparent){
-			$parent_guide_id = $taskparent[0]['ID']; 		
+			$parent_guide_id = $taskparent[0]['ID'];
 			$taskparent = get_post($parent_guide_id);
 			$title_context=" (".govintranetpress_custom_title($taskparent->post_title).")";
-		}			
+		}
 
-	
-	
+
+
 		$title .= $title_context. " - tasks and guides" ;
 	}
 	else if ($slug2 == "projects"  ) {
@@ -471,7 +471,7 @@ function twentyten_widgets_init() {
 		'after_widget' => '</div>',
 		'before_title' => '<h3><i class="foundicon-twitter"></i>',
 		'after_title' => '</h3>',
-	) );	
+	) );
 	register_sidebar( array(
 		'name' => __( 'Utility widget box', 'twentyten' ),
 		'id' => 'utility-widget-area',
@@ -479,7 +479,7 @@ function twentyten_widgets_init() {
 		'before_title' => '<h3>',
 		'after_title' => '</h3>',
 	) );
-	
+
 	register_sidebar( array(
 		'name' => __( 'Left footer', 'twentyten' ),
 		'id' => 'first-footer-widget-area',
@@ -526,7 +526,7 @@ function twentyten_widgets_init() {
 		'after_widget' => '</div>',
 		'before_title' => '<h3 class="widget-title">',
 		'after_title' => '</h3>',
-	) );	
+	) );
 	register_sidebar( array(
 		'name' => __( 'News sidebar', 'twentyten' ),
 		'id' => 'news-widget-area',
@@ -590,7 +590,7 @@ function twentyten_widgets_init() {
 		'before_title' => '',
 		'after_title' => '',
 	) );
-	
+
 }
 
 function govintranetpress_custom_title( $output ) {
@@ -674,7 +674,7 @@ endif;
 
 require_once ( get_stylesheet_directory() . '/theme-options.php'  );
 
-function remove_themeoptions_menu() { // needed to hide TwentyTen options that we're overriding 
+function remove_themeoptions_menu() { // needed to hide TwentyTen options that we're overriding
 	global $submenu;
 	if ( is_super_admin() ) {
 	foreach($submenu['themes.php'] as $k => $m) {
@@ -682,7 +682,7 @@ function remove_themeoptions_menu() { // needed to hide TwentyTen options that w
 			unset($submenu['themes.php'][$k]);
 		}
 	}
-	}	
+	}
 }
 
 /*
@@ -705,7 +705,7 @@ add_filter('user_contactmethods','remove_contactmethods' ,10,1);
 function enqueueThemeScripts() {
 	 wp_enqueue_script( 'jquery' );
 	 wp_enqueue_script( 'jquery-ui' );
-	 
+
 	 wp_register_script( 'bootstrap.min', get_stylesheet_directory_uri() . "/js/bootstrap.min.js");
 	 wp_enqueue_script( 'bootstrap.min' );
 
@@ -742,10 +742,10 @@ function renderLeftNav($outputcontent="TRUE") {
 		$navarray = array();
 		$currentpost = get_post($mainid);
 		$currenttitle = get_the_title();
-					
+
 		while (true){
 			//iteratively get the post's parent until we reach the top of the hierarchy
-			$post_parent = $currentpost->post_parent; 
+			$post_parent = $currentpost->post_parent;
 			if ($post_parent!=0){	//if found a parent
 				$navarray[] = $post_parent;
 				$currentpost = get_post($post_parent);
@@ -753,66 +753,66 @@ function renderLeftNav($outputcontent="TRUE") {
 			}
 			break; //we're done with the parents
 		};
-		
+
 		$navarray = array_reverse($navarray);
-		
+
 		foreach ($navarray as $nav){ //loop through nav array outputting menu options as appropriate (parent, current or child)
 			$currentpost = get_post($nav);
 			$subnavString .= "<li class='page_item menu-item-ancestor'>"; //parent page
 			$subnavString .=  "<a href='".$currentpost->guid."'>".$currentpost->post_title."</a></li>";
 		}
-										
+
 
 
 		if (!is_search() ) {
-		
+
 			$output = "
 				<div id='sectionnav'>
 				<ul>
 				{$subnavString}";
 		if (pageHasChildren($mainid)){
 		$subpages = wp_list_pages("echo=0&title_li=&depth=3&child_of=". $mainid);
-			$output .="	
+			$output .="
 				<li class='current_page_item'><a href='#'>{$currenttitle}</a></li>
 				<ul class='submenu'>{$subpages}</ul>";
 		} else {
 		$subpages = wp_list_pages("echo=0&title_li=&depth=3&child_of=". $parent);
-			$output .="	
+			$output .="
 				<ul class='submenu'>{$subpages}</ul>";
 		}
-			$output .="	
+			$output .="
 				</ul>
-				</div>	
+				</div>
 			";
-	
-			if ($outputcontent == "TRUE") { 
-				echo $output; 
+
+			if ($outputcontent == "TRUE") {
+				echo $output;
 			} else {
 				return true;
 			}
-			
+
 		} else {
 			$output = "
 				<div id='spacernav'>
-				</div>	
+				</div>
 			";
-	
-			if ($outputcontent == "TRUE") { 
-				echo $output; 
+
+			if ($outputcontent == "TRUE") {
+				echo $output;
 			} else {
 				return false;
 			}
-			
-		}			
+
+		}
 
 }
 
 function pageHasChildren($id="") {
 
 	global $post;
-	
+
 	if ($id) {
-		$children = get_pages('child_of='.$id);	
+		$children = get_pages('child_of='.$id);
 	} else {
 		$children = get_pages('child_of='.$post->ID);
 	}
@@ -830,15 +830,15 @@ function my_custom_login_logo() {
 	$loginimage =  wp_get_attachment_image_src( $hcitem[0], 'large' );
 	if ($hcitem){
     echo '<style type="text/css">
-           h1 a { background-image:url('.$loginimage[0].') !important; 
+           h1 a { background-image:url('.$loginimage[0].') !important;
            width: auto !important;
            background-size: auto !important;
            }
-        
+
     </style>';
     } else {
     echo '<style type="text/css">
-	h1 a { background-image:url('.get_stylesheet_directory_uri().'/images/loginbranding.png) !important; 
+	h1 a { background-image:url('.get_stylesheet_directory_uri().'/images/loginbranding.png) !important;
 	       width: auto !important;
            background-size: auto !important;
            }
@@ -930,9 +930,9 @@ function filter_search($query) {
     if ($query->is_tag) {
 		        $query->set('post_type', array('any'));
     }
-    
+
     return $query;
-}; 
+};
 add_filter('pre_get_posts', 'filter_search');
 
 function my_colorful_tag_cloud( $cat_id, $tc_tax, $tc_post_type ) {
@@ -947,7 +947,7 @@ if ((pods_url_variable(0)=='tasks')||(pods_url_variable(0)=='how-do-i')){
         'format' => 'flat', 'separator' => "\n", 'orderby' => 'name', 'order' => 'ASC',
         'exclude' => '', 'include' => '', 'link' => 'view', 'taxonomy' => 'post_tag', 'echo' => true
     );
-	
+
 }
     $args = wp_parse_args( $args, $defaults );
     global $wpdb;
@@ -960,7 +960,7 @@ if ((pods_url_variable(0)=='tasks')||(pods_url_variable(0)=='how-do-i')){
 
 	}
 
-					
+
 					if ($tc_post_type=='projects'){
 						$tquery="
 						SELECT DISTINCT
@@ -980,7 +980,7 @@ WHERE				$wpdb->posts.post_type = 'projects' AND
 					$wpdb->terms.term_id = $wpdb->term_taxonomy.term_id AND
 					$wpdb->term_taxonomy.count > 0
 					limit 45
-					
+
 						";
 					}
 
@@ -1003,7 +1003,7 @@ WHERE				$wpdb->posts.post_type = 'vacancies' AND
 					$wpdb->terms.term_id = $wpdb->term_taxonomy.term_id AND
 					$wpdb->term_taxonomy.count > 0
 					limit 45
-					
+
 						";
 					}
 
@@ -1026,12 +1026,12 @@ WHERE				$wpdb->posts.post_type = 'event' AND
 					$wpdb->terms.term_id = $wpdb->term_taxonomy.term_id AND
 					$wpdb->term_taxonomy.count > 0
 					limit 45
-					
+
 						";
 					}
 
 
-		$tags = $wpdb->get_results($tquery);			
+		$tags = $wpdb->get_results($tquery);
 
 //    $tags = get_terms( $args['taxonomy'], array_merge( $args, array( 'orderby' => 'count', 'order' => 'DESC' ) ) ); // Always query top tags
 //print_r($tags);
@@ -1138,10 +1138,10 @@ WHERE				$wpdb->posts.post_type = 'event' AND
         $tag_name = $tags[ $key ]->name;
         $min_color = "#5679b9";
         $max_color ="#af1410";
-        
+
         $color = round( ( $smallest + ( ( $count - $min_count ) * $font_step ) ) - ( $smallest - 1 ) ) ;
 		$basecol=HTMLToRGB('#3a6f9e');
-        
+
         $scolor = ChangeLuminosity($basecol, 60-($color*3.3));
         $scolor=RGBToHTML($scolor);
         $class = 'color-' . ( round( ( $smallest + ( ( $count - $min_count ) * $font_step ) ) - ( $smallest - 1 ) ) );
@@ -1200,14 +1200,14 @@ function get_terms_by_media_type( $taxonomies, $post_types ) {
 if (!current_user_can('level_1')){
 	add_action( 'admin_menu', 'my_remove_menu_pages' );
 	function my_remove_menu_pages() {
-	    remove_menu_page('edit.php?post_type=incsub_wiki');  
-	    remove_menu_page('video-user-manuals/plugin.php');  
-	    remove_menu_page('edit.php?post_type=task');  
-	    remove_menu_page('edit.php?post_type=projects');  
-	    remove_menu_page('edit.php?post_type=news');  
-	    remove_menu_page('edit.php?post_type=blog');  
-	    remove_menu_page('edit.php?post_type=vacancies');  
-	    remove_menu_page('index.php');  
+	    remove_menu_page('edit.php?post_type=incsub_wiki');
+	    remove_menu_page('video-user-manuals/plugin.php');
+	    remove_menu_page('edit.php?post_type=task');
+	    remove_menu_page('edit.php?post_type=projects');
+	    remove_menu_page('edit.php?post_type=news');
+	    remove_menu_page('edit.php?post_type=blog');
+	    remove_menu_page('edit.php?post_type=vacancies');
+	    remove_menu_page('index.php');
 	}
 }
 
@@ -1234,7 +1234,7 @@ function your_relevanssi_remove_punct($a) {
 	$a = str_replace("—", ' ', $a);
 	$a = str_replace("–", ' ', $a);
 	$a = str_replace("×", ' ', $a);
-    $a = preg_replace('/[[:space:]]+/', ' ', $a);	
+    $a = preg_replace('/[[:space:]]+/', ' ', $a);
 	$a = trim($a);
         return $a;
 }
@@ -1251,7 +1251,7 @@ function saveampersands_1($a) {
     $a = str_replace('&', 'AMPERSAND', $a);
     return $a;
 }
- 
+
 add_filter('relevanssi_remove_punctuation', 'saveampersands_2', 11);
 function saveampersands_2($a) {
     $a = str_replace('AMPERSAND', '&', $a);
@@ -1260,15 +1260,15 @@ function saveampersands_2($a) {
 
 /*
 add_filter('relevanssi_user_profile_to_post', 'users_to_posts');
-function users_to_posts(){}			
+function users_to_posts(){}
 */
 
-// Added to extend allowed file types in Media upload 
-add_filter('upload_mimes', 'custom_upload_mimes'); 
-function custom_upload_mimes ( $existing_mimes=array() ) { 
-	// Add *.RDP files to Media upload 
-	$existing_mimes['rdp'] = 'application/rdp'; 
-	return $existing_mimes; 
+// Added to extend allowed file types in Media upload
+add_filter('upload_mimes', 'custom_upload_mimes');
+function custom_upload_mimes ( $existing_mimes=array() ) {
+	// Add *.RDP files to Media upload
+	$existing_mimes['rdp'] = 'application/rdp';
+	return $existing_mimes;
 }
 
 //remove title functionality in bbPress which interferes with our custom page titles
@@ -1283,7 +1283,7 @@ remove_action('wp_title', 'bbp_title');
     {
       $htmlCode = $htmlCode[0] . $htmlCode[0] . $htmlCode[1] . $htmlCode[1] . $htmlCode[2] . $htmlCode[2];
     }
-    
+
     $r = hexdec($htmlCode[0] . $htmlCode[1]);
     $g = hexdec($htmlCode[2] . $htmlCode[3]);
     $b = hexdec($htmlCode[4] . $htmlCode[5]);
@@ -1300,10 +1300,10 @@ remove_action('wp_title', 'bbp_title');
     $r = dechex($r);
     $g = dechex($g);
     $b = dechex($b);
-    
+
     return "#" . str_pad($r, 2, "0", STR_PAD_LEFT) . str_pad($g, 2, "0", STR_PAD_LEFT) . str_pad($b, 2, "0", STR_PAD_LEFT);
   }
-  
+
   function ChangeLuminosity($RGB, $LuminosityPercent)
   {
     $HSL = RGBToHSL($RGB);
@@ -1348,7 +1348,7 @@ remove_action('wp_title', 'bbp_title');
       if($b == $maxC)
         $h = 4.0 + ($r - $g) / ($maxC - $minC);
 
-      $h = $h / 6.0; 
+      $h = $h / 6.0;
     }
 
     $h = (int)round(255.0 * $h);
@@ -1439,7 +1439,7 @@ add_image_size( "newshead", get_option('large_size_w'), get_option('large_size_h
  * @param int $from Unix timestamp from which the difference begins.
  * @param int $to Optional. Unix timestamp to end the time difference. Default becomes time() if not set.
  * @return string Human readable time difference.
- * Taken from formatting.php to include months and years - Luke Oatham 
+ * Taken from formatting.php to include months and years - Luke Oatham
  */
 function human_time_diff_plus( $from, $to = '' ) {
 	$tzone = get_option('timezone_string');
