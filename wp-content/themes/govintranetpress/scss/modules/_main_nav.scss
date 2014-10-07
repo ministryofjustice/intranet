@@ -13,6 +13,8 @@
         font-weight: normal;
         font-size: 90%;
         text-align: center;
+        border: 1px solid #333;
+        border-left: 0;
 
         &:last-child,
         &.last-link {

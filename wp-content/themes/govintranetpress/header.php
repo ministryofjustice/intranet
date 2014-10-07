@@ -159,14 +159,6 @@ header('X-Frame-Options: SAMEORIGIN');
 		$gislogo = $gislogow[0] ;
 		$gisw = $gislogow[1] + 10;
 
-		echo "
-		#primarynav ul li  {
-		border-bottom: 1px solid ".$gishex.";
-		border-top: 1px solid ".$gishex.";
-		border-right: 1px solid ".$gishex.";
-		}
-		";
-
 		$terms = get_terms('category');
 		if ($terms) {
 	  		foreach ((array)$terms as $taxonomy ) {

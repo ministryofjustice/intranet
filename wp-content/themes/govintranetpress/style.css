@@ -207,7 +207,7 @@ padding: 0.5em;
 }
 
 img.attachment-single-post-thumbnail {
-	align: right;
+	align: right; /* say what??? */
 }
 .single.single-post img.size-full {
 	width: 100%;
