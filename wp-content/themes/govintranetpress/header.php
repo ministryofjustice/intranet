@@ -158,16 +158,7 @@ header('X-Frame-Options: SAMEORIGIN');
 		$gislogow = wp_get_attachment_image_src( $gisid[0] );
 		$gislogo = $gislogow[0] ;
 		$gisw = $gislogow[1] + 10;
-		echo "
-		#crownlink  {
-		background: url('".$gislogo."') no-repeat;
-		background-position:left 10px;
-		padding: 16px 0 0 ".$gisw."px;
-		height: auto;
-		min-height: 50px;
-		margin-bottom: 0.6em;
-		}
-		";
+
 		echo "
 		#primarynav ul li  {
 		border-bottom: 1px solid ".$gishex.";
@@ -253,7 +244,13 @@ header('X-Frame-Options: SAMEORIGIN');
 						<div class="row">
 						<!--logo and name-->
 							<div class="col-lg-8 col-md-7 col-sm-6 hidden-xs" id="crownlogo">
-								<div id="crownlink"><a href="<?php echo home_url( '/' ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>"  rel="home"><?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?></a>
+								<div id="crownlink">
+                  <a href="<?php echo home_url( '/' ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>"  rel="home">
+                    <? if($gislogo): ?>
+                      <img src="<?=$gislogo?>" />
+                    <? endif ?>
+                    <?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>
+                  </a>
 								</div>
 							</div>
 
@@ -286,7 +283,6 @@ header('X-Frame-Options: SAMEORIGIN');
 								</div>
 
 								<div  id="mainnav" class="pull-left">
-
 									<div id="primarynav" role="navigation">
 											<?php /* Our navigation menu.  If one isn't filled out, wp_nav_menu falls back to wp_page_menu.  The menu assiged to the primary position is the one used.  If none is assigned, the menu with the lowest ID is used.  */ ?>
 											<?php

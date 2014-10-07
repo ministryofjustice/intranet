@@ -1,0 +1,73 @@
+div, span, p, li, h1, h2, h3, h4, h5, h6 {
+  font-family: arial, sans-serif;
+}
+
+/** Headings **/
+
+%smallest-heading {
+}
+
+%smaller-heading {
+}
+
+%small-heading {
+}
+
+%medium-heading {
+  font-size: 19px;
+  font-weight: bold;
+}
+
+%large-heading {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+%larger-heading {
+  font-size: 36px;
+  font-weight: bold;
+}
+
+%largest-heading {
+  font-size: 48px;
+  font-weight: bold;
+}
+
+
+/** Copy **/
+
+%lead-copy {
+  font-size: 24px;
+}
+
+%body-copy {
+  font-size: 19px;
+}
+
+%support-copy {
+  font-size: 16px;
+}
+
+%larger-copy {
+  font-size: 24px;
+}
+
+%large-copy {
+  font-size: 19px;
+}
+
+%medium-copy {
+  font-size: 16px;
+}
+
+%small-copy {
+  font-size: 14px;
+}
+
+%smaller-copy {
+  font-size: 13px;
+}
+
+%smallest-copy {
+  font-size: 12px;
+}

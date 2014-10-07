@@ -1,3 +1,16 @@
+/* line 1, ../scss/shared/_typography.scss */
+div, span, p, li, h1, h2, h3, h4, h5, h6 {
+  font-family: arial, sans-serif;
+}
+
+/** Headings **/
+/* line 21, ../scss/shared/_typography.scss */
+#topstrip #crownlink a {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+/** Copy **/
 /* media queries for responsive styles */
 @media only screen and (max-width: 1200px) {
   /* line 4, ../scss/framework/_grid.scss */
@@ -220,7 +233,7 @@
 }
 /* line 1, ../scss/modules/_header.scss */
 #topstrip {
-  background: #000;
+  background: #333;
   overflow: visible;
 }
 /* line 5, ../scss/modules/_header.scss */
@@ -240,13 +253,24 @@
 /* line 19, ../scss/modules/_header.scss */
 #topstrip #crownlogo {
   padding-left: 0;
+  margin-top: 15px;
 }
-/* line 23, ../scss/modules/_header.scss */
+/* line 24, ../scss/modules/_header.scss */
+#topstrip #crownlink {
+  display: block;
+  border-left: 2px solid #fff;
+  padding-left: 10px;
+}
+/* line 29, ../scss/modules/_header.scss */
+#topstrip #crownlink img {
+  margin-right: 10px;
+  width: 40px;
+}
+/* line 34, ../scss/modules/_header.scss */
 #topstrip #crownlink a {
-  margin-top: 0.5em;
-  color: white;
-  font-size: 1.2em;
-  font-weight: 200;
+  color: #fff;
+  font-weight: normal;
+  line-height: 40px;
   text-decoration: none;
 }
 
@@ -258,37 +282,66 @@
 /* line 6, ../scss/modules/_main_nav.scss */
 #mainnav #primarynav ul {
   margin-top: 0;
+  margin-bottom: 0;
 }
-/* line 9, ../scss/modules/_main_nav.scss */
+/* line 10, ../scss/modules/_main_nav.scss */
 #mainnav #primarynav ul li {
-  display: inline;
   float: left;
-  margin-top: 1px;
   background: #eaedef;
   font-weight: normal;
   font-size: 90%;
   text-align: center;
 }
-/* line 26, ../scss/modules/_main_nav.scss */
+/* line 25, ../scss/modules/_main_nav.scss */
 #mainnav #primarynav ul li a {
   display: block;
   padding: 0.4em 1.25em 0.6em;
   color: #61415B;
   text-decoration: none;
 }
-/* line 32, ../scss/modules/_main_nav.scss */
+/* line 31, ../scss/modules/_main_nav.scss */
 #mainnav #primarynav ul li a:hover {
   background: white;
   color: #61415B;
 }
-/* line 38, ../scss/modules/_main_nav.scss */
+/* line 37, ../scss/modules/_main_nav.scss */
 #mainnav #primarynav ul li.current-menu-item, #mainnav #primarynav ul li.current-page-ancestor {
   background: white !important;
   border-bottom: 1px solid #fff;
 }
-/* line 43, ../scss/modules/_main_nav.scss */
+/* line 42, ../scss/modules/_main_nav.scss */
 #mainnav #primarynav ul li.current-menu-item a, #mainnav #primarynav ul li.current-page-ancestor a {
   color: #1E4287;
+}
+
+/* line 1, ../scss/modules/_utility_bar.scss */
+#utilities {
+  text-align: right;
+}
+/* line 4, ../scss/modules/_utility_bar.scss */
+#utilities #utilitybar {
+  float: right;
+}
+/* line 7, ../scss/modules/_utility_bar.scss */
+#utilities #utilitybar ul.menu {
+  margin-bottom: 0;
+}
+/* line 11, ../scss/modules/_utility_bar.scss */
+#utilities #utilitybar ul#menu-utilities li {
+  display: inline-block;
+  list-style: none;
+}
+/* line 15, ../scss/modules/_utility_bar.scss */
+#utilities #utilitybar ul#menu-utilities li a {
+  display: block;
+  color: white;
+  font-size: 0.9em;
+  line-height: 40px;
+  padding: 0 10px;
+}
+/* line 23, ../scss/modules/_utility_bar.scss */
+#utilities #utilitybar ul#menu-utilities li.current-menu-item a {
+  text-decoration: underline;
 }
 
 /* line 2, ../scss/widgets/ht-feature-news/_main.scss */

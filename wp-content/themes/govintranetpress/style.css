@@ -954,26 +954,6 @@ p.taglisting.page {
 	text-align: left;
 }
 
-#utilitybar {
-	float: right;
-}
-#utilitybar ul#menu-utilities li  {
-	list-style: none;
-	display: inline;
-	border-right: 1px solid white;
-	padding: 0 0.5em 0 0.25em;
-	margin: 0;
-}
-#utilitybar ul#menu-utilities li.last-link  {
-	border-right: none !important;
-}
-#utilitybar ul#menu-utilities li.current-menu-item a {
-	text-decoration: underline;
-}
-#utilities {
-	text-align: right;
-	padding: .3em 0;
-}
 .utilities, .need,  {
 	list-style: none;
 	display: inline;
@@ -985,11 +965,6 @@ p.taglisting.page {
 }
 .submenu li a {
 	padding-left: 3em;
-
-}
-#utilitybar ul#menu-utilities li a {
-	color: white;
-	font-size: 0.9em;
 
 }
 

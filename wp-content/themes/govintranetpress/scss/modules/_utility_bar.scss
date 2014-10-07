@@ -1,0 +1,28 @@
+#utilities {
+	text-align: right;
+
+  #utilitybar {
+    float: right;
+
+    ul.menu {
+      margin-bottom: 0;
+    }
+
+    ul#menu-utilities li  {
+      display: inline-block;
+      list-style: none;
+
+      a {
+        display: block;
+        color: white;
+        font-size: 0.9em;
+        line-height: 40px;
+        padding: 0 10px;
+      }
+
+      &.current-menu-item a {
+        text-decoration: underline;
+      }
+    }
+  }
+}

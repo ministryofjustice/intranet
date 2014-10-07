@@ -1,5 +1,5 @@
 #topstrip {
-	background: #000;
+	background: #333;
 	overflow: visible;
 
   .row {
@@ -18,13 +18,25 @@
 
   #crownlogo {
     padding-left: 0;
+    margin-top: 15px;
   }
 
-  #crownlink  a {
-    margin-top: 0.5em;
-    color: white;
-    font-size: 1.2em;
-    font-weight: 200;
-    text-decoration: none;
+  #crownlink {
+    display: block;
+    border-left: 2px solid $white;
+    padding-left: 10px;
+
+    img {
+      margin-right: 10px;
+      width: 40px;
+    }
+
+    a {
+      @extend %large-heading;
+      color: $white;
+      font-weight: normal;
+      line-height: 40px;
+      text-decoration: none;
+    }
   }
 }

@@ -1,9 +1,9 @@
 <?php
 /* Template name: About page */
-					
+
 get_header(); ?>
 
-<?php if ( have_posts() ) while ( have_posts() ) : the_post(); 
+<?php if ( have_posts() ) while ( have_posts() ) : the_post();
 ?>
 
 
@@ -23,7 +23,7 @@ get_header(); ?>
 <?php
 
 $id = ($opts['id'] == "") ? $wp_query->post->ID : $opts['id'];
-	
+
 	$children = get_pages("child_of=".$id."&parent=".$id."&hierarchical=0&exclude=".$opts['exclude']."&posts_per_page=-1&post_type=page&sort_column=menu_order&sort_order=ASC");
 $catcount = 0;
 
@@ -38,8 +38,8 @@ $catcount = 0;
 				$excerpt = substr(strip_tags($c->post_content),0,128) . "&hellip;";
 			} elseif (!$c->post_content) {
 				$excerpt = "";
-			} else {			
-				$excerpt = strip_tags($c->post_content);				
+			} else {
+				$excerpt = strip_tags($c->post_content);
 			}
 		}
 			$excerpt = str_replace('[bbp-forum-index]', '', $excerpt);
@@ -72,7 +72,7 @@ $catcount = 0;
 
 ?>
 			</div>
-		
+
 
 
 
