@@ -273,6 +273,25 @@ div, span, p, li, h1, h2, h3, h4, h5, h6 {
   line-height: 40px;
   text-decoration: none;
 }
+/* line 43, ../scss/modules/_header.scss */
+#topstrip #searchformdiv {
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+/* line 47, ../scss/modules/_header.scss */
+#topstrip #searchformdiv .input-group {
+  width: 100%;
+  display: block;
+}
+/* line 52, ../scss/modules/_header.scss */
+#topstrip #searchformdiv .btn {
+  font-size: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  padding: 0 10px;
+}
 
 /* line 2, ../scss/modules/_main_nav.scss */
 #mainnav #primarynav {

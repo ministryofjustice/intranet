@@ -39,4 +39,23 @@
       text-decoration: none;
     }
   }
+
+  #searchformdiv {
+    padding-top: 1em;
+    padding-bottom: 1em;
+
+    .input-group {
+      width: 100%;
+      display: block;
+    }
+
+    .btn {
+    	font-size: 100%;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      padding: 0 10px;
+    }
+  }
 }

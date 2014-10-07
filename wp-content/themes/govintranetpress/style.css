@@ -78,17 +78,10 @@ ul.subteams li {
 	font-size: 16px;
 }
 
-#searchformdiv .btn {
-	font-size: 16px;
-}
+
 
 #sbc-search label {
 	margin-left: -0.7em;
-}
-
-#searchformdiv {
-	padding-top: 1em;
-	padding-bottom: 1em;
 }
 
 
@@ -1826,9 +1819,6 @@ li.comment .comment-body  {
 
 .searchbox {
 	width:100%;
-}
-#searchformdiv .btn {
-	font-size: 100%;
 }
 
 #s:focus {
