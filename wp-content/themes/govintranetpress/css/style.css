@@ -484,14 +484,14 @@ div, span, p, li, h1, h2, h3, h4, h5, h6 {
   border-top: 1px solid #eee;
 }
 /* line 29, ../scss/content/homepage/_main.scss */
-.home.page .category-block ul li.first-link {
-  border-top: none !important;
+.home.page .category-block ul li.first-link, .home.page .category-block ul li:first-of-type {
+  border-top-width: 0;
 }
-/* line 35, ../scss/content/homepage/_main.scss */
+/* line 36, ../scss/content/homepage/_main.scss */
 .home.page .category-block .widget-box {
   font-size: 1em;
 }
-/* line 40, ../scss/content/homepage/_main.scss */
+/* line 41, ../scss/content/homepage/_main.scss */
 .home.page img.size-full {
   width: 100%;
 }

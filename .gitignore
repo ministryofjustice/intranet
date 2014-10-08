@@ -102,3 +102,4 @@ wp-content/mysql.sql
 # custom
 .sass-cache
 .htaccess
+wp-content/plugins

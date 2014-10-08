@@ -26,8 +26,9 @@
         list-style: none;
         border-top: 1px solid #eee;
 
-        &.first-link {
-          border-top: none !important;
+        &.first-link,
+        &:first-of-type {
+          border-top-width: 0;
         }
       }
     }
