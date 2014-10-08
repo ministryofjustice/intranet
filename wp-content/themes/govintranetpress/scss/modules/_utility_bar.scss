@@ -23,6 +23,11 @@
       &.current-menu-item a {
         text-decoration: underline;
       }
+
+      &:last-child {
+        border-right: none !important;
+        padding-right: 0;
+      }
     }
   }
 }

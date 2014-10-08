@@ -293,6 +293,81 @@ div, span, p, li, h1, h2, h3, h4, h5, h6 {
   padding: 0 10px;
 }
 
+/* Footer styles */
+/* line 3, ../scss/modules/_footer.scss */
+#footerwrapper {
+  background: #dee0e2;
+  border-top: 1px solid #a1acb2;
+}
+/* line 7, ../scss/modules/_footer.scss */
+#footerwrapper #footer {
+  color: #454a4c;
+  min-height: 10em !important;
+  padding: 1em 0;
+}
+/* line 12, ../scss/modules/_footer.scss */
+#footerwrapper #footer.row {
+  background: none;
+}
+/* line 16, ../scss/modules/_footer.scss */
+#footerwrapper #footer h3 {
+  border-bottom: 1px solid #333;
+  padding-bottom: 5px;
+  font-size: 1.4em !important;
+}
+/* line 22, ../scss/modules/_footer.scss */
+#footerwrapper #footer ul {
+  padding-left: 0px;
+}
+/* line 26, ../scss/modules/_footer.scss */
+#footerwrapper #footer ul.xoxo {
+  margin: 0;
+  padding: 0;
+}
+/* line 31, ../scss/modules/_footer.scss */
+#footerwrapper #footer ul#menu-footer-left li {
+  list-style: none;
+  display: inline;
+  border-right: 1px solid #454a4c;
+  padding: 0 0.5em 0 0;
+}
+/* line 37, ../scss/modules/_footer.scss */
+#footerwrapper #footer ul#menu-footer-left li:last-child, #footerwrapper #footer ul#menu-footer-left li.last-link {
+  border-right: none !important;
+  padding-right: 0;
+}
+/* line 44, ../scss/modules/_footer.scss */
+#footerwrapper #footer a, #footerwrapper #footer h2, #footerwrapper #footer h3 {
+  color: #454a4c;
+}
+/* line 47, ../scss/modules/_footer.scss */
+#footerwrapper #footer a {
+  text-decoration: underline;
+}
+/* line 51, ../scss/modules/_footer.scss */
+#footerwrapper #footer hr {
+  display: none;
+}
+/* line 55, ../scss/modules/_footer.scss */
+#footerwrapper #footer .widget-box {
+  padding: 0 .3em .5em .5em;
+  background: #dee0e2;
+  border-bottom: none;
+}
+/* line 60, ../scss/modules/_footer.scss */
+#footerwrapper #footer .widget-box ul#menu-footer-left {
+  padding-left: 0 !important;
+}
+/* line 67, ../scss/modules/_footer.scss */
+#footerwrapper #footer-left p {
+  text-align: left;
+}
+/* line 71, ../scss/modules/_footer.scss */
+#footerwrapper ul#menu-footer-right li {
+  list-style: square;
+  margin-left: 0;
+}
+
 /* line 2, ../scss/modules/_main_nav.scss */
 #mainnav #primarynav {
   padding: 0;
@@ -363,6 +438,11 @@ div, span, p, li, h1, h2, h3, h4, h5, h6 {
 /* line 23, ../scss/modules/_utility_bar.scss */
 #utilities #utilitybar ul#menu-utilities li.current-menu-item a {
   text-decoration: underline;
+}
+/* line 27, ../scss/modules/_utility_bar.scss */
+#utilities #utilitybar ul#menu-utilities li:last-child {
+  border-right: none !important;
+  padding-right: 0;
 }
 
 /* line 2, ../scss/widgets/ht-feature-news/_main.scss */

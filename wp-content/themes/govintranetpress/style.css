@@ -917,35 +917,7 @@ p.taglisting.page {
 }
 
 
-/* Footer styles */
 
-#footerwrapper  {
-	background: #dee0e2;
-	border-top: 1px solid #a1acb2;
-}
-
-#footer  {
-	color: #454a4c;
-	min-height: 10em !important;
-	padding: 1em 0;
-}
-#footer h3  {
-	font-size: 1.4em !important;
-}
-
-
-#footer.row  {
-	background: none;
-}
-
-#footer ul.xoxo  {
-	margin: 0;
-	padding: 0;
-}
-
-#footer-left p  {
-	text-align: left;
-}
 
 .utilities, .need,  {
 	list-style: none;
@@ -961,41 +933,6 @@ p.taglisting.page {
 
 }
 
-#footer ul#menu-footer-left li  {
-	list-style: none;
-	display: inline;
-	border-right: 1px solid #454a4c;
-	padding: 0 0.5em 0 0;
-	}
-
-#footer .widget-box ul#menu-footer-left {
-	padding-left: 0 !important;
-}
-#footer ul#menu-footer-left li:last-child,  #footer ul#menu-footer-left li.last-link, #utilitybar ul#menu-utilities li:last-child  {
-	border-right: none !important;
-	padding-right: 0;
-}
-
-#footer a,  #footer h2,  #footer h3  {
-	color: #454a4c;
-}
-#footer a {
-	text-decoration: underline;
-}
-
-#footer hr {
-	display: none;
-}
-
-#footer .widget-box {
-	padding: 0 .3em .5em .5em;
-	background: #dee0e2;
-	border-bottom: none;
-}
-ul#menu-footer-right li{
-	list-style: square;
-	margin-left: 0;
-}
 .page-naviation ol {
 	margin: 0;
 	padding: 0;
@@ -1831,4 +1768,3 @@ li.comment .comment-body  {
 .navbar-brand.visible-xs {
 	font-size: 0.9em !important;
 }
-
