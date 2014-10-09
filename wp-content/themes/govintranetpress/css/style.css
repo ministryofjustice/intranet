@@ -445,6 +445,15 @@ div, span, p, li, h1, h2, h3, h4, h5, h6 {
   padding-right: 0;
 }
 
+/* line 1, ../scss/modules/menus/_shared.scss */
+.home.page #content {
+  /* add id selector to outweigh some irresponsible rules declared elsewhere */
+}
+/* line 2, ../scss/modules/menus/_shared.scss */
+.home.page #content .descriptive-menu li {
+  padding: 0;
+}
+
 /* line 2, ../scss/modules/menus/_most_viewed.scss */
 #menu-most-viewed li {
   border-top-width: 0;
