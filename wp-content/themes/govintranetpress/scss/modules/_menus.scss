@@ -1,5 +1,9 @@
 .home.page #content { /* add id selector to outweigh some irresponsible rules declared elsewhere */
-  .descriptive-menu li {
-    padding: 0;
+  .descriptive-menu,
+  .menu {
+    li {
+      padding: 0;
+      border-width: 0;
+    }
   }
 }
