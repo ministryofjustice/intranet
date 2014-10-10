@@ -3,11 +3,11 @@
     padding: 0;
     background: white;
 
-    ul {
+    ul.mega-menu {
       margin-top: 0;
       margin-bottom: 0;
 
-      li {
+      > li {
         float: left;
         background: #eaedef;
         font-weight: normal;
@@ -24,18 +24,6 @@
         &.first-link {
         }
 
-        a {
-          display: block;
-          padding: 0.4em 1.25em 0.6em;
-          color: #61415B;
-          text-decoration: none;
-
-          &:hover  {
-            background: white;
-            color: #61415B;
-          }
-        }
-
         &.current-menu-item,
         &.current-page-ancestor {
           background: white !important;
@@ -43,6 +31,17 @@
 
           a {
             color: #1E4287;
+          }
+        }
+
+        > a {
+          display: block;
+          color: #61415B;
+          text-decoration: none;
+
+          &:hover  {
+            background: white;
+            color: #61415B;
           }
         }
       }

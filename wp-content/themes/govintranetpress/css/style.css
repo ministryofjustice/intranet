@@ -297,7 +297,7 @@ div, span, p, li, h1, h2, h3, h4, h5, h6 {
 /* line 3, ../scss/modules/_footer.scss */
 #footerwrapper {
   background: #dee0e2;
-  border-top: 1px solid #a1acb2;
+  border-top: 10px solid #428bca;
 }
 /* line 7, ../scss/modules/_footer.scss */
 #footerwrapper #footer {
@@ -374,12 +374,12 @@ div, span, p, li, h1, h2, h3, h4, h5, h6 {
   background: white;
 }
 /* line 6, ../scss/modules/_main_nav.scss */
-#mainnav #primarynav ul {
+#mainnav #primarynav ul.mega-menu {
   margin-top: 0;
   margin-bottom: 0;
 }
 /* line 10, ../scss/modules/_main_nav.scss */
-#mainnav #primarynav ul li {
+#mainnav #primarynav ul.mega-menu > li {
   float: left;
   background: #eaedef;
   font-weight: normal;
@@ -389,25 +389,24 @@ div, span, p, li, h1, h2, h3, h4, h5, h6 {
   border-left: 0;
 }
 /* line 27, ../scss/modules/_main_nav.scss */
-#mainnav #primarynav ul li a {
-  display: block;
-  padding: 0.4em 1.25em 0.6em;
-  color: #61415B;
-  text-decoration: none;
-}
-/* line 33, ../scss/modules/_main_nav.scss */
-#mainnav #primarynav ul li a:hover {
-  background: white;
-  color: #61415B;
-}
-/* line 39, ../scss/modules/_main_nav.scss */
-#mainnav #primarynav ul li.current-menu-item, #mainnav #primarynav ul li.current-page-ancestor {
+#mainnav #primarynav ul.mega-menu > li.current-menu-item, #mainnav #primarynav ul.mega-menu > li.current-page-ancestor {
   background: white !important;
   border-bottom: 1px solid #fff;
 }
-/* line 44, ../scss/modules/_main_nav.scss */
-#mainnav #primarynav ul li.current-menu-item a, #mainnav #primarynav ul li.current-page-ancestor a {
+/* line 32, ../scss/modules/_main_nav.scss */
+#mainnav #primarynav ul.mega-menu > li.current-menu-item a, #mainnav #primarynav ul.mega-menu > li.current-page-ancestor a {
   color: #1E4287;
+}
+/* line 37, ../scss/modules/_main_nav.scss */
+#mainnav #primarynav ul.mega-menu > li > a {
+  display: block;
+  color: #61415B;
+  text-decoration: none;
+}
+/* line 42, ../scss/modules/_main_nav.scss */
+#mainnav #primarynav ul.mega-menu > li > a:hover {
+  background: white;
+  color: #61415B;
 }
 
 /* line 1, ../scss/modules/_utility_bar.scss */

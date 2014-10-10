@@ -98,15 +98,6 @@ header('X-Frame-Options: SAMEORIGIN');
 		$topborder = ChangeLuminosity($basecol, 33);
 
 		echo "
-		#footerwrapper  {";
-		if ($giscc==1){
-		echo "border-top: ".$gisheight."px solid ".RGBToHTML($topborder).";";
-		} else {
-		echo "border-top: ".$gisheight."px solid ".$gishex.";";
-		}
-		echo "}";
-
-		echo "
 		.page-template-page-about-php .category-block h2 {";
 		if ($giscc==1){
 		echo "border-top: ".$gisheight."px solid ".RGBToHTML($topborder).";";
