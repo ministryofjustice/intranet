@@ -353,13 +353,6 @@ body.home #secondarynav {
 	border-bottom: none;
 }
 
-body.home #ht-feature-news h3 {
-	border-top: none !important;
-	padding-bottom: 0;
-}
-#ht-feature-news .media-body a {
-	text-decoration: none !important;
-}
 #secondarynav {
 	padding-left: 0;
 	margin-left: 0;
@@ -796,12 +789,7 @@ p.taglisting.page {
 	margin-top: 0;
 	background-color: #ffffff;
 }
-#ht-feature-news h2 {
-	margin-bottom: 0;
-}
-#ht-feature-news .media {
-	margin-top: 0;
-}
+
 .accordionButton  {
 
 	width: 90%;

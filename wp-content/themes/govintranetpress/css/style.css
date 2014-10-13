@@ -519,8 +519,25 @@ div, span, p, li, h1, h2, h3, h4, h5, h6 {
   margin-bottom: 0;
 }
 /* line 7, ../scss/widgets/ht-feature-news/_main.scss */
+#ht-feature-news h2 {
+  margin-bottom: 0;
+}
+/* line 11, ../scss/widgets/ht-feature-news/_main.scss */
 #ht-feature-news h3 {
   margin-top: 0;
+}
+/* line 14, ../scss/widgets/ht-feature-news/_main.scss */
+body.home #ht-feature-news h3 {
+  border-top: none !important;
+  padding-bottom: 0;
+}
+/* line 20, ../scss/widgets/ht-feature-news/_main.scss */
+#ht-feature-news .media {
+  margin-top: 0;
+}
+/* line 24, ../scss/widgets/ht-feature-news/_main.scss */
+#ht-feature-news .media-body a {
+  text-decoration: none !important;
 }
 
 /* line 2, ../scss/content/homepage/_main.scss */
