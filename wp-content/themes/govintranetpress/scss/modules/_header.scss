@@ -45,8 +45,52 @@
     padding-bottom: 1em;
 
     .input-group {
+      @include clearfix;
       width: 100%;
       display: block;
+    }
+
+    .search-filter-container {
+      position: absolute;
+      left: 2px;
+      top: 2px;
+      bottom: 2px;
+      width: 70px;
+
+      &:after {
+        @extend %small-copy;
+        position: absolute;
+        top: 1px;
+        right: 0;
+        bottom: 1px;
+        width: 15px;
+        background-color: $grey-2;
+        color: $white;
+        line-height: 200%;
+        content: "\25be";
+        pointer-events: none;
+      }
+    }
+
+    .search-filter {
+      @extend %small-copy;
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      width: 100%;
+      margin-right: -2px;
+      padding-right: 0;
+      border: 1px solid $white;
+      border-right-width: 0;
+      background-color: $grey-2;
+      color: $white;
+      outline: none;
+    }
+
+    .form-control {
+      padding-left: 80px;
     }
 
     .btn {
