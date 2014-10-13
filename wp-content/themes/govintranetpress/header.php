@@ -255,7 +255,7 @@ header('X-Frame-Options: SAMEORIGIN');
 
 						<!--utility menu-->
 							<div class="row">
-								<div id="utilities" class="pull-right">
+								<div id="utilities" class="pull-right col-lg-4 col-md-4 col-sm-6 col-xs-12">
 									<?php if ( is_active_sidebar( 'utility-widget-area' ) ) : ?>
 										<div id='utilitybar'>
 											<ul class="menu">

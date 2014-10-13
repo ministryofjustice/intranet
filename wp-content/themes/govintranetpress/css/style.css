@@ -233,7 +233,7 @@ div, span, p, li, h1, h2, h3, h4, h5, h6 {
 }
 /* line 1, ../scss/modules/_header.scss */
 #topstrip {
-  background: #333;
+  background: #0b0c0c;
   overflow: visible;
 }
 /* line 5, ../scss/modules/_header.scss */
@@ -412,36 +412,33 @@ div, span, p, li, h1, h2, h3, h4, h5, h6 {
 /* line 1, ../scss/modules/_utility_bar.scss */
 #utilities {
   text-align: right;
+  padding: 0;
 }
-/* line 4, ../scss/modules/_utility_bar.scss */
+/* line 5, ../scss/modules/_utility_bar.scss */
 #utilities #utilitybar {
-  float: right;
+  float: left;
 }
-/* line 7, ../scss/modules/_utility_bar.scss */
+/* line 8, ../scss/modules/_utility_bar.scss */
 #utilities #utilitybar ul.menu {
   margin-bottom: 0;
 }
-/* line 11, ../scss/modules/_utility_bar.scss */
+/* line 12, ../scss/modules/_utility_bar.scss */
 #utilities #utilitybar ul#menu-utilities li {
   display: inline-block;
   list-style: none;
 }
-/* line 15, ../scss/modules/_utility_bar.scss */
+/* line 16, ../scss/modules/_utility_bar.scss */
 #utilities #utilitybar ul#menu-utilities li a {
   display: block;
   color: white;
   font-size: 0.9em;
   line-height: 40px;
   padding: 0 10px;
-}
-/* line 23, ../scss/modules/_utility_bar.scss */
-#utilities #utilitybar ul#menu-utilities li.current-menu-item a {
   text-decoration: underline;
 }
-/* line 27, ../scss/modules/_utility_bar.scss */
-#utilities #utilitybar ul#menu-utilities li:last-child {
-  border-right: none !important;
-  padding-right: 0;
+/* line 24, ../scss/modules/_utility_bar.scss */
+#utilities #utilitybar ul#menu-utilities li a:first-of-type {
+  padding-left: 0;
 }
 
 /* line 1, ../scss/modules/_menus.scss */
