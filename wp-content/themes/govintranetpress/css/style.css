@@ -400,12 +400,16 @@ div, span, p, li, h1, h2, h3, h4, h5, h6 {
   color: #1E4287;
 }
 /* line 38, ../scss/modules/_main_nav.scss */
+#mainnav #primarynav ul.mega-menu > li.mega-toggle-on {
+  background: white !important;
+}
+/* line 42, ../scss/modules/_main_nav.scss */
 #mainnav #primarynav ul.mega-menu > li > a {
   display: block;
   color: #61415B;
   text-decoration: none;
 }
-/* line 43, ../scss/modules/_main_nav.scss */
+/* line 47, ../scss/modules/_main_nav.scss */
 #mainnav #primarynav ul.mega-menu > li > a:hover {
   background: white;
   color: #61415B;
