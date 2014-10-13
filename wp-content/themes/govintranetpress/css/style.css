@@ -310,14 +310,15 @@ div, span, p, li, h1, h2, h3, h4, h5, h6 {
   top: 1px;
   right: 0;
   bottom: 1px;
-  width: 15px;
+  width: 20px;
   background-color: #bfc1c3;
   color: #fff;
   line-height: 200%;
+  text-align: center;
   content: "\25be";
   pointer-events: none;
 }
-/* line 75, ../scss/modules/_header.scss */
+/* line 76, ../scss/modules/_header.scss */
 #topstrip #searchformdiv .search-filter {
   position: absolute;
   top: 0;
@@ -333,11 +334,11 @@ div, span, p, li, h1, h2, h3, h4, h5, h6 {
   color: #fff;
   outline: none;
 }
-/* line 92, ../scss/modules/_header.scss */
+/* line 93, ../scss/modules/_header.scss */
 #topstrip #searchformdiv .form-control {
   padding-left: 80px;
 }
-/* line 96, ../scss/modules/_header.scss */
+/* line 97, ../scss/modules/_header.scss */
 #topstrip #searchformdiv .btn {
   font-size: 100%;
   position: absolute;
