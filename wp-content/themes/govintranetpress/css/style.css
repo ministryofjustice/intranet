@@ -12,7 +12,7 @@ div, span, p, li, h1, h2, h3, h4, h5, h6 {
 
 /** Copy **/
 /* line 63, ../scss/shared/_typography.scss */
-#topstrip #searchformdiv .search-filter-container:after, #topstrip #searchformdiv .search-filter {
+#topstrip #searchformdiv .search-filter-container:after, #topstrip #searchformdiv .search-filter, .home.page #content .descriptive-menu-description {
   font-size: 14px;
 }
 
