@@ -5,16 +5,16 @@ get_header(); ?>
 
 
 
-<?php if ( have_posts() ) while ( have_posts() ) : the_post(); 
+<?php if ( have_posts() ) while ( have_posts() ) : the_post();
 
 	// Load intranet homepage settings
 	$hc = "homepage_control_campaign_message";
 	$hcitem = get_option($hc);
-	$campaign_message = $hcitem; 
+	$campaign_message = $hcitem;
 
 	$hc = new Pod ('homepage_control');
 	$top_pages =  $hc->get_field('top_pages');
-	
+
 
 	$hc = "homepage_control_emergency_message";
 	$hcitem = get_option($hc);
@@ -29,31 +29,39 @@ get_header(); ?>
 	$hcitem = get_option($hc);
 	$homecols =  $hcitem;
 	if ($homecols){
-		$col1 = substr($homecols, 0,1); 
-		$col2 = substr($homecols, 4,1); 
-		$col3 = substr($homecols, 8,1); 
+		$col1 = substr($homecols, 0,1);
+		$col2 = substr($homecols, 4,1);
+		$col3 = substr($homecols, 8,1);
 	} else {
-		$col1 = 6; 
-		$col2 = 3; 
-		$col3 = 3; 
-		
+		$col1 = 6;
+		$col2 = 3;
+		$col3 = 3;
+
 	}
 	$gis = "general_intranet_forum_support";
 	$forumsupport = get_option($gis);
 
-	if ($homecontent ): //Display emergency message 
+	if ($homecontent ): //Display emergency message
 	?>
 		<div class="col-lg-12">
 			<div class="alert alert-dismissable alert-<?php echo $homecontentcolour; ?>">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 					<?php	echo apply_filters('the_content', $homecontent, true);	 ?>
 				</div>
-		</div>	
+		</div>
 <?php endif; ?>
 
 
 		<div class="col-lg-<?php echo $col1; ?> col-md-<?php echo $col1; ?> col-sm-7">
-			<?php 	dynamic_sidebar('home-widget-area0'); ?>	
+			<?php 	dynamic_sidebar('home-widget-area0'); ?>
+      <div class="row">
+        <div class="col-lg-6">
+          <?php dynamic_sidebar('home-widget-area0-1'); ?>
+        </div>
+        <div class="col-lg-6">
+          <?php dynamic_sidebar('home-widget-area0-2'); ?>
+        </div>
+      </div>
 		</div>
 		<div class="col-lg-<?php echo $col2; ?> col-md-<?php echo $col2; ?> col-sm-5">
 			<?php 	dynamic_sidebar('home-widget-area1'); ?>
@@ -64,7 +72,7 @@ get_header(); ?>
 	$gis = "general_intranet_forum_support";
 	$forumsupport = get_option($gis);
 
-	if ($forumsupport && is_active_sidebar('login-widget-area') ) : 
+	if ($forumsupport && is_active_sidebar('login-widget-area') ) :
 			$current_user = wp_get_current_user();
 			?>
 		<div id="loginrow" class="category-block">
@@ -72,9 +80,9 @@ get_header(); ?>
 			<h3 class="widget-title">
 			        <a class="accordion-toggle" data-toggle="collapse" data-parent="#loginaccordion" href="#logincollapseOne">
 				<?php if (is_user_logged_in()):?>
-					      <?php 
+					      <?php
 					      if (function_exists('get_wp_user_avatar')){
-						      echo get_wp_user_avatar(intval($current_user->id),32); 
+						      echo get_wp_user_avatar(intval($current_user->id),32);
 					      }
 					      echo " ".$current_user->display_name; ?>
 				<?php else :?>
@@ -85,20 +93,20 @@ get_header(); ?>
 			    </div>
 			    <div id="logincollapseOne" class="xpanel-collapse collapse out">
 			      <div class="xpanel-body">
-					<?php dynamic_sidebar('login-widget-area');	?> 
+					<?php dynamic_sidebar('login-widget-area');	?>
 				</div>
 <!-- 				<h3 class="widget-title>">Personalisation</h3> -->
-				
+
 			</div>
 		</div>
 <?php endif; ?>
 
-			<?php 	dynamic_sidebar('home-widget-area3'); 
-				if ($forumsupport):			?>	
+			<?php 	dynamic_sidebar('home-widget-area3');
+				if ($forumsupport):			?>
 					<div class="category-block"><hr><p><strong><a title="More in forums" class="small" href="<?php echo site_url();?>/forums/">More in forums</a></strong> <i class='glyphicon glyphicon-chevron-right small'></i></p></div>
-			<?php 	
+			<?php
 				endif;
-				dynamic_sidebar('home-widget-area4'); ?>	
+				dynamic_sidebar('home-widget-area4'); ?>
 		</div>
 
 		<?php	if ($campaign_message) :  //Display campaign message ?>
@@ -109,13 +117,13 @@ get_header(); ?>
 		</div>
 
 		<?php endif;?>
-	
+
 
 
 <?php endwhile; ?>
 <?php
 
-$removenews = get_transient('cached_removenews'); 
+$removenews = get_transient('cached_removenews');
 if (!$removenews || !is_array($removenews)){
 
 //process expired news
@@ -128,7 +136,7 @@ $tday = date( 'd' , strtotime($tdate) );
 $tmonth = date( 'm' , strtotime($tdate) );
 $tyear= date( 'Y' , strtotime($tdate) );
 $sdate=$tyear."-".$tmonth."-".$tday;
-$stime=date('H:i'); 
+$stime=date('H:i');
 
 $oldnews = query_posts(array(
 'post_type'=>'news',
@@ -156,15 +164,15 @@ if ( count($oldnews) > 0 ){
 			  delete_post_meta($old->ID, 'expiry_time');
 			  delete_post_meta($old->ID, 'expiry_action');
 			  if (function_exists('wp_cache_post_change')) wp_cache_post_change( $old->ID ) ;
-			  if (function_exists('wp_cache_post_change')) wp_cache_post_change( $my_post ) ;		  
-		}	
+			  if (function_exists('wp_cache_post_change')) wp_cache_post_change( $my_post ) ;
+		}
 		if ($expiryaction=='Change to regular news'){
-			update_post_meta($old->ID, 'news_listing_type', 'Regular', 'Need to know'); 
+			update_post_meta($old->ID, 'news_listing_type', 'Regular', 'Need to know');
 			  delete_post_meta($old->ID, 'expiry_date');
 			  delete_post_meta($old->ID, 'expiry_time');
 			  delete_post_meta($old->ID, 'expiry_action');
 			  if (function_exists('wp_cache_post_change')) wp_cache_post_change( $old->ID ) ;
-		}	
+		}
 		if ($expiryaction=='Move to trash'){
 			  $my_post = array();
 			  $my_post['ID'] = $old->ID;
@@ -174,8 +182,8 @@ if ( count($oldnews) > 0 ){
 			  delete_post_meta($old->ID, 'expiry_action');
 			  wp_update_post( $my_post );
 			  if (function_exists('wp_cache_post_change')) wp_cache_post_change( $old->ID ) ;
-			  if (function_exists('wp_cache_post_change')) wp_cache_post_change( $my_post ) ;		  
-		}	
+			  if (function_exists('wp_cache_post_change')) wp_cache_post_change( $my_post ) ;
+		}
 	}
 }
 $timer=array();

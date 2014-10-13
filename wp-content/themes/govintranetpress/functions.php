@@ -437,6 +437,26 @@ function twentyten_widgets_init() {
 	) );
 
 	register_sidebar( array(
+		'name' => __( 'Homepage widget box 0-1', 'twentyten' ),
+		'id' => 'home-widget-area0-1',
+		'description' => __( 'Homepage top left', 'twentyten' ),
+		'before_widget' => '<div class="category-block">',
+		'after_widget' => '</div>',
+		'before_title' => '<h3>',
+		'after_title' => '</h3>',
+	) );
+
+	register_sidebar( array(
+		'name' => __( 'Homepage widget box 0-2', 'twentyten' ),
+		'id' => 'home-widget-area0-2',
+		'description' => __( 'Homepage top left', 'twentyten' ),
+		'before_widget' => '<div class="category-block">',
+		'after_widget' => '</div>',
+		'before_title' => '<h3>',
+		'after_title' => '</h3>',
+	) );
+
+	register_sidebar( array(
 		'name' => __( 'Homepage widget box 1', 'twentyten' ),
 		'id' => 'home-widget-area1',
 		'description' => __( 'Homepage top left', 'twentyten' ),
@@ -445,6 +465,7 @@ function twentyten_widgets_init() {
 		'before_title' => '<h3>',
 		'after_title' => '</h3>',
 	) );
+
 	register_sidebar( array(
 		'name' => __( 'Homepage widget box2', 'twentyten' ),
 		'id' => 'home-widget-area2',

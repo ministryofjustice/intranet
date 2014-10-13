@@ -389,21 +389,21 @@ div, span, p, li, h1, h2, h3, h4, h5, h6 {
   border-left: 0;
 }
 /* line 27, ../scss/modules/_main_nav.scss */
-#mainnav #primarynav ul.mega-menu > li.current-menu-item, #mainnav #primarynav ul.mega-menu > li.current-page-ancestor {
+#mainnav #primarynav ul.mega-menu > li.current-menu-item, #mainnav #primarynav ul.mega-menu > li.mega-current_page_item, #mainnav #primarynav ul.mega-menu > li.current-page-ancestor {
   background: white !important;
   border-bottom: 1px solid #fff;
 }
-/* line 32, ../scss/modules/_main_nav.scss */
-#mainnav #primarynav ul.mega-menu > li.current-menu-item a, #mainnav #primarynav ul.mega-menu > li.current-page-ancestor a {
+/* line 33, ../scss/modules/_main_nav.scss */
+#mainnav #primarynav ul.mega-menu > li.current-menu-item a, #mainnav #primarynav ul.mega-menu > li.mega-current_page_item a, #mainnav #primarynav ul.mega-menu > li.current-page-ancestor a {
   color: #1E4287;
 }
-/* line 37, ../scss/modules/_main_nav.scss */
+/* line 38, ../scss/modules/_main_nav.scss */
 #mainnav #primarynav ul.mega-menu > li > a {
   display: block;
   color: #61415B;
   text-decoration: none;
 }
-/* line 42, ../scss/modules/_main_nav.scss */
+/* line 43, ../scss/modules/_main_nav.scss */
 #mainnav #primarynav ul.mega-menu > li > a:hover {
   background: white;
   color: #61415B;
