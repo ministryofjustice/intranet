@@ -53,3 +53,49 @@
     }
   }
 }
+
+
+/* MAIN NAVIGATION */
+.navbar {
+	margin-bottom: 0;
+	border: 0;
+}
+.navbar-inverse {
+	background: transparent;
+}
+.navbar-inverse .navbar-brand {
+	color: #fff;
+}
+
+.navbar-toggle {
+  margin-right: 0;
+}
+
+@media(max-width: 767px){
+  #mainnav {
+    float: none;
+    width: 100%;
+
+    #primarynav {
+      .mega-menu-wrap {
+        display: table;
+        width: 100%;
+
+        > ul {
+          display: table-row;
+
+          > li {
+            display: table-cell;
+            float: none;
+
+            > a {
+              text-align: center;
+              padding-left: 0;
+              padding-right: 0;
+            }
+          }
+        }
+      }
+    }
+  }
+}

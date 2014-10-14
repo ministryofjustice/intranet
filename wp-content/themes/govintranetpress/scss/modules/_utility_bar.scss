@@ -31,3 +31,14 @@
     }
   }
 }
+
+@media(max-width: 767px){
+  .mobile-nav {
+    margin-top: 10px;
+    padding-right: 0;
+
+    button {
+      margin-bottom: 0;
+    }
+  }
+}

@@ -208,25 +208,17 @@ header('X-Frame-Options: SAMEORIGIN');
 		<nav class="navbar navbar-inverse" role="navigation">
 		  <!-- Brand and toggle get grouped for better mobile display -->
 		  <div class="navbar-header">
-		    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-		      <span class="sr-only">Toggle navigation</span>
-		      <span class="icon-bar"></span>
-		      <span class="icon-bar"></span>
-		      <span class="icon-bar"></span>
-		    </button>
-		    <p><a class='navbar-brand visible-xs pull-left' href="<?php echo home_url( '/' ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>"  rel="home"><i class="glyphicon glyphicon-home"></i> Home</a></p>
+		    <!--<p><a class='navbar-brand visible-xs pull-left' href="<?php echo home_url( '/' ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>"  rel="home"><i class="glyphicon glyphicon-home"></i> Home</a></p>-->
 		  </div>
 
 		  <!-- Collect the nav links, forms, and other content for toggling -->
-		  <div class="collapse navbar-collapse navbar-ex1-collapse">
+		  <div>
 
-				<div class="row" id="masthead">
-
+				<div id="masthead">
 					<div class="container">
 						<a class="sr-only" href="#content">Skip to content</a>
-						<div class="row">
-						<!--logo and name-->
-							<div class="col-lg-8 col-md-7 col-sm-6 hidden-xs" id="crownlogo">
+            <div class="row header-top">
+							<div class="col-lg-8 col-md-8 col-sm-6 col-xs-10" id="crownlogo">
 								<div id="crownlink">
                   <a href="<?php echo home_url( '/' ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>"  rel="home">
                     <? if($gislogo): ?>
@@ -237,46 +229,52 @@ header('X-Frame-Options: SAMEORIGIN');
 								</div>
 							</div>
 
-						<!--search box-->
-							<div class="col-lg-4 col-md-5 col-sm-6 col-xs-12">
-								<div id='searchformdiv' class=''>
-										<?php get_search_form(true); ?>
-								</div>
-							</div>
+              <div class="col-xs-2 visible-xs mobile-nav">
+                <button class="navbar-toggle" type="button" data-target=".mobile-menu-collapse" data-toggle="collapse">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                </button>
+              </div>
+
+              <!--search box-->
+              <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <div id='searchformdiv' class=''>
+                  <?php get_search_form(true); ?>
+                </div>
+              </div>
 						</div>
 
-<script>
-//jQuery("#s").focus();
-</script>
-							<div class="sr-only" id="access">
-							  <?php /*  Allow screen readers / text browsers to skip the navigation menu and get right to the good stuff */ ?>
-								<a href="#content" class='hiddentext' accesskey='s' title="<?php esc_attr_e( 'Skip to content', 'twentyten' ); ?>"><?php _e( 'Skip to content', 'twentyten' ); ?></a>
-							</div>
+            <div class="row">
+              <!--utility menu-->
+              <div id="utilities" class="pull-right col-lg-4 col-md-4 col-sm-4 col-xs-12 mobile-menu-collapse collapse visible-sm">
+                <?php if ( is_active_sidebar( 'utility-widget-area' ) ) : ?>
+                  <div id='utilitybar'>
+                    <ul class="menu">
+                    <?php dynamic_sidebar( 'utility-widget-area' ); ?>
+                    </ul>
+                  </div>
+                <?php endif; ?>
+              </div>
 
-						<!--utility menu-->
-							<div class="row">
-								<div id="utilities" class="pull-right col-lg-4 col-md-4 col-sm-6 col-xs-12">
-									<?php if ( is_active_sidebar( 'utility-widget-area' ) ) : ?>
-										<div id='utilitybar'>
-											<ul class="menu">
-											<?php dynamic_sidebar( 'utility-widget-area' ); ?>
-											</ul>
-										</div>
-									<?php endif; ?>
-								</div>
+              <div id="mainnav" class="pull-left">
+                <div id="primarynav" role="navigation">
+                    <?php /* Our navigation menu.  If one isn't filled out, wp_nav_menu falls back to wp_page_menu.  The menu assiged to the primary position is the one used.  If none is assigned, the menu with the lowest ID is used.  */ ?>
+                    <?php
+                wp_nav_menu( array( 'container_class' => 'menu-header', 'theme_location' => 'primary' ) ); ?>
+                </div>
+              </div>
+            </div>
 
-								<div  id="mainnav" class="pull-left">
-									<div id="primarynav" role="navigation">
-											<?php /* Our navigation menu.  If one isn't filled out, wp_nav_menu falls back to wp_page_menu.  The menu assiged to the primary position is the one used.  If none is assigned, the menu with the lowest ID is used.  */ ?>
-											<?php
-									wp_nav_menu( array( 'container_class' => 'menu-header', 'theme_location' => 'primary' ) ); ?>
-									</div>
-								</div>
-							</div>
-						</div>
+            <div class="sr-only" id="access">
+              <?php /*  Allow screen readers / text browsers to skip the navigation menu and get right to the good stuff */ ?>
+              <a href="#content" class='hiddentext' accesskey='s' title="<?php esc_attr_e( 'Skip to content', 'twentyten' ); ?>"><?php _e( 'Skip to content', 'twentyten' ); ?></a>
+            </div>
 					</div>
-				</div><!-- /.navbar-collapse -->
-			</nav>
+				</div>
+      </div>
+    </nav>
 		</div>
 
 		<div id="content" class="container">

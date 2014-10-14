@@ -104,3 +104,10 @@
     }
   }
 }
+
+@media(max-width: 767px){
+  .header-top {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}

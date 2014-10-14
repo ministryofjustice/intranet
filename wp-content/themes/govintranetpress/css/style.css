@@ -348,6 +348,13 @@ div, span, p, li, h1, h2, h3, h4, h5, h6 {
   padding: 0 10px;
 }
 
+@media (max-width: 767px) {
+  /* line 109, ../scss/modules/_header.scss */
+  .header-top {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
 /* Footer styles */
 /* line 3, ../scss/modules/_footer.scss */
 #footerwrapper {
@@ -470,6 +477,55 @@ div, span, p, li, h1, h2, h3, h4, h5, h6 {
   color: #61415B;
 }
 
+/* MAIN NAVIGATION */
+/* line 59, ../scss/modules/_main_nav.scss */
+.navbar {
+  margin-bottom: 0;
+  border: 0;
+}
+
+/* line 63, ../scss/modules/_main_nav.scss */
+.navbar-inverse {
+  background: transparent;
+}
+
+/* line 66, ../scss/modules/_main_nav.scss */
+.navbar-inverse .navbar-brand {
+  color: #fff;
+}
+
+/* line 70, ../scss/modules/_main_nav.scss */
+.navbar-toggle {
+  margin-right: 0;
+}
+
+@media (max-width: 767px) {
+  /* line 75, ../scss/modules/_main_nav.scss */
+  #mainnav {
+    float: none;
+    width: 100%;
+  }
+  /* line 80, ../scss/modules/_main_nav.scss */
+  #mainnav #primarynav .mega-menu-wrap {
+    display: table;
+    width: 100%;
+  }
+  /* line 84, ../scss/modules/_main_nav.scss */
+  #mainnav #primarynav .mega-menu-wrap > ul {
+    display: table-row;
+  }
+  /* line 87, ../scss/modules/_main_nav.scss */
+  #mainnav #primarynav .mega-menu-wrap > ul > li {
+    display: table-cell;
+    float: none;
+  }
+  /* line 91, ../scss/modules/_main_nav.scss */
+  #mainnav #primarynav .mega-menu-wrap > ul > li > a {
+    text-align: center;
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
 /* line 1, ../scss/modules/_utility_bar.scss */
 #utilities {
   text-align: right;
@@ -502,6 +558,17 @@ div, span, p, li, h1, h2, h3, h4, h5, h6 {
   padding-left: 0;
 }
 
+@media (max-width: 767px) {
+  /* line 36, ../scss/modules/_utility_bar.scss */
+  .mobile-nav {
+    margin-top: 10px;
+    padding-right: 0;
+  }
+  /* line 40, ../scss/modules/_utility_bar.scss */
+  .mobile-nav button {
+    margin-bottom: 0;
+  }
+}
 /* line 1, ../scss/modules/_menus.scss */
 .home.page #content {
   /* add id selector to outweigh some irresponsible rules declared elsewhere */

@@ -97,19 +97,6 @@ ul.subteams li {
 }
 
 
-/* MAIN NAVIGATION */
-.navbar {
-	margin-bottom: 0;
-	border: 0;
-}
-.navbar-inverse {
-	background: transparent;
-}
-.navbar-inverse .navbar-brand {
-	color: #fff;
-}
-
-
 
 /* HELPERS */
 
