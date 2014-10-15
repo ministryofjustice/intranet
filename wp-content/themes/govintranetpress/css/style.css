@@ -354,6 +354,38 @@ div, span, p, li, h1, h2, h3, h4, h5, h6 {
     padding-left: 10px;
     padding-right: 10px;
   }
+
+  /* line 115, ../scss/modules/_header.scss */
+  #masthead #utilities {
+    display: none;
+  }
+  /* line 120, ../scss/modules/_header.scss */
+  #masthead.mobile-menu-enabled .search-box,
+  #masthead.mobile-menu-enabled #mainnav {
+    display: none;
+  }
+  /* line 125, ../scss/modules/_header.scss */
+  #masthead.mobile-menu-enabled #utilities {
+    display: block;
+  }
+
+  /* line 131, ../scss/modules/_header.scss */
+  .mobile-nav button {
+    float: right;
+    width: 30px;
+    height: 30px;
+    border: none;
+    background-color: transparent;
+    background-image: url("../images/mobile_menu.svg");
+    background-size: 60px 30px;
+    background-position: 0 0;
+    margin-top: 20px;
+    margin-right: -10px;
+  }
+  /* line 143, ../scss/modules/_header.scss */
+  .mobile-menu-enabled .mobile-nav button {
+    background-position: 30px 0;
+  }
 }
 /* Footer styles */
 /* line 3, ../scss/modules/_footer.scss */
@@ -531,21 +563,23 @@ div, span, p, li, h1, h2, h3, h4, h5, h6 {
   text-align: right;
   padding: 0;
 }
-/* line 5, ../scss/modules/_utility_bar.scss */
-#utilities #utilitybar {
+
+/* line 6, ../scss/modules/_utility_bar.scss */
+#utilitybar {
   float: left;
 }
-/* line 8, ../scss/modules/_utility_bar.scss */
-#utilities #utilitybar ul.menu {
+/* line 9, ../scss/modules/_utility_bar.scss */
+#utilitybar ul.menu {
   margin-bottom: 0;
 }
-/* line 12, ../scss/modules/_utility_bar.scss */
-#utilities #utilitybar ul#menu-utilities li {
+
+/* line 14, ../scss/modules/_utility_bar.scss */
+#menu-utilities li {
   display: inline-block;
   list-style: none;
 }
-/* line 16, ../scss/modules/_utility_bar.scss */
-#utilities #utilitybar ul#menu-utilities li a {
+/* line 18, ../scss/modules/_utility_bar.scss */
+#menu-utilities li a {
   display: block;
   color: white;
   font-size: 0.9em;
@@ -553,20 +587,32 @@ div, span, p, li, h1, h2, h3, h4, h5, h6 {
   padding: 0 10px;
   text-decoration: underline;
 }
-/* line 24, ../scss/modules/_utility_bar.scss */
-#utilities #utilitybar ul#menu-utilities li a:first-of-type {
+/* line 26, ../scss/modules/_utility_bar.scss */
+#menu-utilities li a:first-of-type {
   padding-left: 0;
 }
 
 @media (max-width: 767px) {
-  /* line 36, ../scss/modules/_utility_bar.scss */
-  .mobile-nav {
-    margin-top: 10px;
-    padding-right: 0;
+  /* line 37, ../scss/modules/_utility_bar.scss */
+  .mobile-menu-enabled #utilities #utilitybar {
+    float: none;
   }
-  /* line 40, ../scss/modules/_utility_bar.scss */
-  .mobile-nav button {
-    margin-bottom: 0;
+  /* line 41, ../scss/modules/_utility_bar.scss */
+  .mobile-menu-enabled #utilities #menu-utilities {
+    margin: 15px 45px;
+  }
+  /* line 44, ../scss/modules/_utility_bar.scss */
+  .mobile-menu-enabled #utilities #menu-utilities li {
+    display: block;
+    border-bottom: 1px solid #dee0e2;
+  }
+  /* line 48, ../scss/modules/_utility_bar.scss */
+  .mobile-menu-enabled #utilities #menu-utilities li:last-of-type {
+    border-bottom: none;
+  }
+  /* line 52, ../scss/modules/_utility_bar.scss */
+  .mobile-menu-enabled #utilities #menu-utilities li a {
+    text-align: left;
   }
 }
 /* line 1, ../scss/modules/_menus.scss */

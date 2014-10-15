@@ -230,16 +230,13 @@ header('X-Frame-Options: SAMEORIGIN');
 							</div>
 
               <div class="col-xs-2 visible-xs mobile-nav">
-                <button class="navbar-toggle" type="button" data-target=".mobile-menu-collapse" data-toggle="collapse">
+                <button type="button">
                   <span class="sr-only">Toggle navigation</span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
                 </button>
               </div>
 
               <!--search box-->
-              <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+              <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 search-box">
                 <div id='searchformdiv' class=''>
                   <?php get_search_form(true); ?>
                 </div>
@@ -248,7 +245,7 @@ header('X-Frame-Options: SAMEORIGIN');
 
             <div class="row">
               <!--utility menu-->
-              <div id="utilities" class="pull-right col-lg-4 col-md-4 col-sm-4 col-xs-12 mobile-menu-collapse collapse visible-sm">
+              <div id="utilities" class="pull-right col-lg-4 col-md-4 col-sm-4 col-xs-12">
                 <?php if ( is_active_sidebar( 'utility-widget-area' ) ) : ?>
                   <div id='utilitybar'>
                     <ul class="menu">

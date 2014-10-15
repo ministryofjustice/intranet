@@ -110,4 +110,38 @@
     padding-left: 10px;
     padding-right: 10px;
   }
+
+  #masthead {
+    #utilities {
+      display: none;
+    }
+
+    &.mobile-menu-enabled {
+      .search-box,
+      #mainnav {
+        display: none;
+      }
+
+      #utilities {
+        display: block;
+      }
+    }
+  }
+
+  .mobile-nav button {
+    float: right;
+    width: 30px;
+    height: 30px;
+    border: none;
+    background-color: transparent;
+    background-image: url('../images/mobile_menu.svg');
+    background-size: 60px 30px;
+    background-position: 0 0;
+    margin-top: 20px;
+    margin-right: -10px;
+
+    .mobile-menu-enabled & {
+      background-position: 30px 0;
+    }
+  }
 }

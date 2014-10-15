@@ -733,6 +733,9 @@ function enqueueThemeScripts() {
 	 wp_register_script( 'ht-scripts', get_stylesheet_directory_uri() . "/js/ht-scripts.js");
 	 wp_enqueue_script( 'ht-scripts' );
 
+   wp_register_script('app', get_stylesheet_directory_uri() . "/js/app.js");
+	 wp_enqueue_script('app');
+
 	 wp_register_script( 'jquery.ht-timediff', get_stylesheet_directory_uri() . "/js/jquery.ht-timediff.js");
 	 wp_enqueue_script( 'jquery.ht-timediff',90 );
 
