@@ -1346,7 +1346,7 @@ category-block {
 
 .category-block h3 {
 	font-size: 1.25em;;
-	margin-bottom: 0 !important;
+	margin-bottom: 0;
 }
 
 .h3border {

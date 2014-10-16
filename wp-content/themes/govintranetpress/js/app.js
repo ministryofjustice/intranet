@@ -33,13 +33,43 @@ jQuery(function(){
 
       bindEvents: function(){
         var _this = this;
-        this.$top.on('click', 'button', function(){
-          _this.toggleMenu();
+        this.$top.on('click', 'button', $.proxy(this.toggleMenu, this));
+      },
+
+      toggleMenu: function(){
+        this.$top.toggleClass(this.config.menuToggleClass);
+      }
+    };
+  }(window.jQuery));
+
+  /** Mobile menu
+   */
+  (function($){
+    "use strict";
+
+    App.StickyNews = function(){
+      this.init();
+      this.cacheEls();
+      this.bindEvents();
+    };
+
+    App.StickyNews.prototype = {
+      init: function(){
+        this.$top = $('#need-to-know');
+      },
+
+      cacheEls: function(){
+      },
+
+      bindEvents: function(){
+        var _this = this;
+        this.$top.on('click', '.close-icon', function(){
+          _this.collapse();
         });
       },
 
-      toggleMenu: function(toggle){
-        this.$top.toggleClass(this.config.menuToggleClass);
+      collapse: function(){
+        this.$top.hide();
       }
     };
   }(window.jQuery));
@@ -48,4 +78,5 @@ jQuery(function(){
    * This section should remain in this file
    */
   var mobileMenu = new App.MobileMenu();
+  var stickyNews = new App.StickyNews();
 });
