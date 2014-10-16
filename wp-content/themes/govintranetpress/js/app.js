@@ -69,7 +69,7 @@ jQuery(function(){
       },
 
       collapse: function(){
-        this.$top.hide();
+        this.$top.slideUp(200);
       }
     };
   }(window.jQuery));
