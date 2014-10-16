@@ -688,21 +688,25 @@ body.home #ht-feature-news h3 {
 #need-to-know h3 a {
   color: #fff;
 }
-/* line 35, ../scss/widgets/dw_sticky_news/_main.scss */
+/* line 33, ../scss/widgets/dw_sticky_news/_main.scss */
+#need-to-know h3 a:visited, #need-to-know h3 a:active, #need-to-know h3 a:hover {
+  color: #fff !important;
+}
+/* line 41, ../scss/widgets/dw_sticky_news/_main.scss */
 #need-to-know .news-date-wrapper {
   margin: 10px 0;
 }
-/* line 38, ../scss/widgets/dw_sticky_news/_main.scss */
+/* line 44, ../scss/widgets/dw_sticky_news/_main.scss */
 #need-to-know .news-date-wrapper span {
   color: #fff !important;
   /* outweighing another irresponsible !important defined elsewhere... */
 }
-/* line 43, ../scss/widgets/dw_sticky_news/_main.scss */
+/* line 49, ../scss/widgets/dw_sticky_news/_main.scss */
 #need-to-know .excerpt {
   color: #fff;
   margin-bottom: 0;
 }
-/* line 48, ../scss/widgets/dw_sticky_news/_main.scss */
+/* line 54, ../scss/widgets/dw_sticky_news/_main.scss */
 #need-to-know ul.need-to-know-list {
   margin-bottom: 0;
 }

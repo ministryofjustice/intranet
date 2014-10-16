@@ -29,12 +29,18 @@
 
     a {
       color: $white;
+
+      &:visited,
+      &:active,
+      &:hover {
+        color: $white !important;
+      }
     }
   }
 
   .news-date-wrapper {
     margin: 10px 0;
-    
+
     span {
       color: $white !important; /* outweighing another irresponsible !important defined elsewhere... */
     }

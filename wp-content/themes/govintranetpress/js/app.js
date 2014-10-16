@@ -58,8 +58,7 @@ jQuery(function(){
         this.$top = $('#need-to-know');
       },
 
-      cacheEls: function(){
-      },
+      cacheEls: function(){},
 
       bindEvents: function(){
         var _this = this;
@@ -74,8 +73,7 @@ jQuery(function(){
     };
   }(window.jQuery));
 
-  /** init section
-   * This section should remain in this file
+  /** init section - this should be in a separate file - init.js
    */
   var mobileMenu = new App.MobileMenu();
   var stickyNews = new App.StickyNews();
