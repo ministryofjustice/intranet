@@ -108,10 +108,27 @@ jQuery(function(){
         this.$subcategoriesContainer = this.$top.find('.subcategories');
         this.$linksContainer = this.$top.find('.links');
 
-        this.$categories = this.$categoriesContainer.find('li');
+        this.$sortList = this.$top.find('.sort');
+        this.$sortPopular = this.$sortList.find('[data-sort-type="popular"]');
+        this.$sortAlphabetical = this.$sortList.find('[data-sort-type="alphabetical"]');
       },
 
       bindEvents: function(){
+        var _this = this;
+
+        this.$sortAlphabetical.on('click', 'a', function(e){
+          e.preventDefault();
+          _this.sort('alphabetical');
+          _this.$sortList.find('> li').removeClass('selected');
+          $(this).parent().addClass('selected');
+        });
+
+        this.$sortPopular.on('click', 'a', function(e){
+          e.preventDefault();
+          _this.sort('popular');
+          _this.$sortList.find('> li').removeClass('selected');
+          $(this).parent().addClass('selected');
+        });
       },
 
       categoryClick: function(parentId, level, e){
@@ -123,15 +140,25 @@ jQuery(function(){
         var _this = this;
         var $container = this.$top.find('.level-'+level);
         var $el;
+        var order = 1; //!!! to be deleted when the API bug is fixed
 
         $.getJSON(this.config.serviceUrl+'/'+parentId, function(data){
           $container.empty();
+          if(level<3){
+            _this.$top.find('.level-3').empty();
+          }
 
           $.each(data.items, function(index, item){
             $el = $(_this.itemTemplate);
             $el.attr('data-page-id', item.id);
-            $el.attr('data-order', item.order); //the API doesnt supply
+            /*!!! there's a bug in the API - order is always null so it wont work
+             * as a temporary mesasure I'm asssigning order based on the order they came in...
+            */
+            //$el.attr('data-popularity-order', item.order);
+            $el.attr('data-popularity-order', order); order++;
+            $el.attr('data-name', item.title);
             $el.find('a').html(item.title);
+            $el.find('a').attr('href', item.url);
             if(level<3){
               $el.on('click', 'a', $.proxy(_this.categoryClick, _this, item.id, level+1));
               $el.find('.description').html(item.excerpt);
@@ -146,6 +173,42 @@ jQuery(function(){
         var id = $el.data('page-id');
 
         return id;
+      },
+
+      /** sorts items in all columns alphabetically or by popularity depending on type param
+       * @param {String} type Type of sort [alphabetical/popular]
+       */
+      sort: function(type){
+        var level;
+        var items;
+        var sortMethod;
+        var $container;
+
+        if(!type){
+          type = this.$sortList.find('.selected').data('sort-type');
+        }
+
+        for(level=1; level<=3; level++){
+          $container = this.$top.find('.level-'+level);
+          items = $container.find(' > li').toArray();
+
+          sortMethod = type==='alphabetical' ? this.helpers.alphabeticalComparator : this.helpers.popularComparator;
+          items.sort(sortMethod);
+          $container.append(items);
+        }
+      },
+
+      helpers: {
+        alphabeticalComparator: function(a, b){
+          var label1 = $(a).data('name');
+          var label2 = $(b).data('name');
+          return (label1 < label2) ? -1 : (label1 > label2) ? 1 : 0;
+        },
+        popularComparator: function(a, b){
+          var label1 = $(a).data('popularity-order');
+          var label2 = $(b).data('popularity-order');
+          return (label1 < label2) ? -1 : (label1 > label2) ? 1 : 0;
+        }
       }
     };
   }(window.jQuery));
