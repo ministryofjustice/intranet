@@ -132,7 +132,8 @@
       }
     }
 
-    .description {
+    #content & .description {
+      @extend %medium-copy;
       color: #333;
       margin: 0 !important;
     }
@@ -147,6 +148,11 @@
   .categories,
   .subcategories {
     border-right: 1px solid #333;
+
+    h3 {
+      @extend %large-heading;
+      padding-right: 10px;
+    }
 
     ul a {
       &:after {
@@ -186,5 +192,5 @@
 
 
 @media(max-width: 767px) {
-  
+
 }

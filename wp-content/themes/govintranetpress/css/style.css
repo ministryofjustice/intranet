@@ -12,22 +12,28 @@ div, span, p, li, h1, h2, h3, h4, h5, h6 {
 /* line 16, ../scss/shared/_typography.scss */
 .a-z .links h3 {
   font-size: 19px;
-  font-weight: bold;
 }
 
-/* line 21, ../scss/shared/_typography.scss */
-#topstrip #crownlink a {
+/* line 20, ../scss/shared/_typography.scss */
+#topstrip #crownlink a, .a-z .categories h3,
+.a-z .subcategories h3 {
   font-size: 24px;
-  font-weight: bold;
 }
 
 /** Copy **/
-/* line 63, ../scss/shared/_typography.scss */
+/* line 55, ../scss/shared/_typography.scss */
+#content .a-z .categories .description, #content
+.a-z .subcategories .description, #content
+.a-z .links .description {
+  font-size: 16px;
+}
+
+/* line 59, ../scss/shared/_typography.scss */
 #topstrip #searchformdiv .search-filter-container:after, #topstrip #searchformdiv .search-filter, .home.page #content .descriptive-menu-description {
   font-size: 14px;
 }
 
-/* line 71, ../scss/shared/_typography.scss */
+/* line 67, ../scss/shared/_typography.scss */
 .a-z .sort li .label {
   font-size: 12px;
 }
@@ -913,22 +919,27 @@ body.home #ht-feature-news h3 {
   color: #333;
 }
 /* line 135, ../scss/content/a_z/_main.scss */
-.a-z .categories .description,
-.a-z .subcategories .description,
+#content .a-z .categories .description, #content
+.a-z .subcategories .description, #content
 .a-z .links .description {
   color: #333;
   margin: 0 !important;
 }
-/* line 142, ../scss/content/a_z/_main.scss */
+/* line 143, ../scss/content/a_z/_main.scss */
 .a-z .categories .description {
   display: none;
 }
-/* line 147, ../scss/content/a_z/_main.scss */
+/* line 148, ../scss/content/a_z/_main.scss */
 .a-z .categories,
 .a-z .subcategories {
   border-right: 1px solid #333;
 }
 /* line 152, ../scss/content/a_z/_main.scss */
+.a-z .categories h3,
+.a-z .subcategories h3 {
+  padding-right: 10px;
+}
+/* line 158, ../scss/content/a_z/_main.scss */
 .a-z .categories ul a:after,
 .a-z .subcategories ul a:after {
   position: absolute;
@@ -939,7 +950,7 @@ body.home #ht-feature-news h3 {
   margin-top: -15px;
   content: "\203a";
 }
-/* line 163, ../scss/content/a_z/_main.scss */
+/* line 169, ../scss/content/a_z/_main.scss */
 .a-z .categories li.loading a:after,
 .a-z .subcategories li.loading a:after {
   content: "";
@@ -949,7 +960,7 @@ body.home #ht-feature-news h3 {
   top: 50%;
   margin-top: -8px;
 }
-/* line 173, ../scss/content/a_z/_main.scss */
+/* line 179, ../scss/content/a_z/_main.scss */
 .a-z .subcategories,
 .a-z .links {
   margin-left: -1px;
