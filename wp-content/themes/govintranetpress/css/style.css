@@ -801,8 +801,9 @@ body.home #ht-feature-news h3 {
   padding-right: 20px;
   text-align: center;
   text-decoration: none;
+  outline: none;
 }
-/* line 26, ../scss/content/a_z/_main.scss */
+/* line 27, ../scss/content/a_z/_main.scss */
 .a-z .sort li .icon {
   display: inline-block;
   margin: 0 auto;
@@ -812,38 +813,38 @@ body.home #ht-feature-news h3 {
   line-height: 30px;
   color: #fff;
 }
-/* line 35, ../scss/content/a_z/_main.scss */
+/* line 36, ../scss/content/a_z/_main.scss */
 .selected .a-z .sort li .icon {
   background-color: #428bca;
 }
-/* line 40, ../scss/content/a_z/_main.scss */
+/* line 41, ../scss/content/a_z/_main.scss */
 .a-z .sort li .label {
   display: inline-block;
   color: #333;
 }
-/* line 46, ../scss/content/a_z/_main.scss */
+/* line 47, ../scss/content/a_z/_main.scss */
 .a-z .sort li[data-sort-type="popular"] {
   margin-right: 15px;
 }
-/* line 48, ../scss/content/a_z/_main.scss */
+/* line 49, ../scss/content/a_z/_main.scss */
 .a-z .sort li[data-sort-type="popular"] .icon {
   line-height: 25px;
   font-size: 25px;
 }
-/* line 52, ../scss/content/a_z/_main.scss */
+/* line 53, ../scss/content/a_z/_main.scss */
 .a-z .sort li[data-sort-type="popular"] .icon:after {
   content: "\2605";
 }
-/* line 59, ../scss/content/a_z/_main.scss */
+/* line 60, ../scss/content/a_z/_main.scss */
 .a-z .sort li[data-sort-type="alphabetical"] .icon {
   font-weight: bold;
   font-size: 15px;
 }
-/* line 63, ../scss/content/a_z/_main.scss */
+/* line 64, ../scss/content/a_z/_main.scss */
 .a-z .sort li[data-sort-type="alphabetical"] .icon:after {
   content: "A";
 }
-/* line 71, ../scss/content/a_z/_main.scss */
+/* line 72, ../scss/content/a_z/_main.scss */
 .a-z .tree {
   margin-bottom: 30px;
 }
@@ -855,12 +856,12 @@ body.home #ht-feature-news h3 {
   clear: both;
   visibility: hidden;
 }
-/* line 76, ../scss/content/a_z/_main.scss */
+/* line 77, ../scss/content/a_z/_main.scss */
 .a-z .tree.contracted .subcategories {
   margin-left: -15%;
   transition: margin-left .3s;
 }
-/* line 83, ../scss/content/a_z/_main.scss */
+/* line 84, ../scss/content/a_z/_main.scss */
 .a-z .categories,
 .a-z .subcategories,
 .a-z .links {
@@ -872,7 +873,7 @@ body.home #ht-feature-news h3 {
   box-sizing: border-box;
   transition: margin-left .3s;
 }
-/* line 94, ../scss/content/a_z/_main.scss */
+/* line 95, ../scss/content/a_z/_main.scss */
 .a-z .categories ul,
 .a-z .subcategories ul,
 .a-z .links ul {
@@ -880,14 +881,14 @@ body.home #ht-feature-news h3 {
   padding: 0;
   list-style-type: none;
 }
-/* line 100, ../scss/content/a_z/_main.scss */
+/* line 101, ../scss/content/a_z/_main.scss */
 .a-z .categories h2,
 .a-z .subcategories h2,
 .a-z .links h2 {
   margin-top: 0;
   padding-left: 20px;
 }
-/* line 105, ../scss/content/a_z/_main.scss */
+/* line 106, ../scss/content/a_z/_main.scss */
 .a-z .categories h3,
 .a-z .subcategories h3,
 .a-z .links h3 {
@@ -895,7 +896,7 @@ body.home #ht-feature-news h3 {
   padding: 0;
   color: #428bca;
 }
-/* line 111, ../scss/content/a_z/_main.scss */
+/* line 112, ../scss/content/a_z/_main.scss */
 .a-z .categories ul a,
 .a-z .subcategories ul a,
 .a-z .links ul a {
@@ -905,46 +906,46 @@ body.home #ht-feature-news h3 {
   text-decoration: none;
   outline: none;
 }
-/* line 120, ../scss/content/a_z/_main.scss */
+/* line 121, ../scss/content/a_z/_main.scss */
 .a-z .categories li.selected,
 .a-z .subcategories li.selected,
 .a-z .links li.selected {
   background-color: #dee0e2;
 }
-/* line 123, ../scss/content/a_z/_main.scss */
+/* line 124, ../scss/content/a_z/_main.scss */
 .a-z .categories li.selected h3,
 .a-z .subcategories li.selected h3,
 .a-z .links li.selected h3 {
   color: #333;
 }
-/* line 129, ../scss/content/a_z/_main.scss */
+/* line 130, ../scss/content/a_z/_main.scss */
 .a-z .categories li:hover h3,
 .a-z .subcategories li:hover h3,
 .a-z .links li:hover h3 {
   color: #333;
 }
-/* line 135, ../scss/content/a_z/_main.scss */
+/* line 136, ../scss/content/a_z/_main.scss */
 #content .a-z .categories .description, #content
 .a-z .subcategories .description, #content
 .a-z .links .description {
   color: #333;
   margin: 0 !important;
 }
-/* line 143, ../scss/content/a_z/_main.scss */
+/* line 144, ../scss/content/a_z/_main.scss */
 .a-z .categories .description {
   display: none;
 }
-/* line 148, ../scss/content/a_z/_main.scss */
+/* line 149, ../scss/content/a_z/_main.scss */
 .a-z .categories,
 .a-z .subcategories {
   border-right: 1px solid #333;
 }
-/* line 152, ../scss/content/a_z/_main.scss */
+/* line 153, ../scss/content/a_z/_main.scss */
 .a-z .categories h3,
 .a-z .subcategories h3 {
   padding-right: 10px;
 }
-/* line 158, ../scss/content/a_z/_main.scss */
+/* line 159, ../scss/content/a_z/_main.scss */
 .a-z .categories ul a:after,
 .a-z .subcategories ul a:after {
   position: absolute;
@@ -955,7 +956,7 @@ body.home #ht-feature-news h3 {
   margin-top: -15px;
   content: "\203a";
 }
-/* line 169, ../scss/content/a_z/_main.scss */
+/* line 170, ../scss/content/a_z/_main.scss */
 .a-z .categories li.loading a:after,
 .a-z .subcategories li.loading a:after {
   content: "";
@@ -965,7 +966,7 @@ body.home #ht-feature-news h3 {
   top: 50%;
   margin-top: -8px;
 }
-/* line 179, ../scss/content/a_z/_main.scss */
+/* line 180, ../scss/content/a_z/_main.scss */
 .a-z .subcategories,
 .a-z .links {
   margin-left: -1px;
