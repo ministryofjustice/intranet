@@ -15,7 +15,7 @@ header('X-Frame-Options: SAMEORIGIN');
 ?><!DOCTYPE html>
 
 <html <?php language_attributes(); ?>>
-<head>
+<head data-application-url="<?=site_url()?>">
 	<meta charset="<?php bloginfo( 'charset' ); ?>" />
 	<title><?php
 		/*

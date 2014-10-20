@@ -91,22 +91,24 @@ jQuery(function(){
     App.PageIndex.prototype = {
       init: function(){
         this.config = {
-          serviceUrl: 'http://localhost/mojintranet/service/children' //hard-coding for now
+          serviceUrl: $('head').data('application-url')+'/service/children'
         };
 
         this.topPageId = this.$top.data('page-id');
         this.itemTemplate = this.$top.find('template[data-name="a-z-category-item"]').html();
+        this.serviceXHR = null;
 
         this.cacheEls();
         this.bindEvents();
 
-        this.populateChildren(this.topPageId, 1);
+        this.addChildren(this.topPageId, 1);
       },
 
       cacheEls: function(){
-        this.$categoriesContainer = this.$top.find('.categories ul');
-        this.$subcategoriesContainer = this.$top.find('.subcategories');
-        this.$linksContainer = this.$top.find('.links');
+        this.$tree = this.$top.find('.tree');
+        this.$categoriesContainer = this.$tree.find('.categories');
+        this.$subcategoriesContainer = this.$tree.find('.subcategories');
+        this.$linksContainer = this.$tree.find('.links');
 
         this.$sortList = this.$top.find('.sort');
         this.$sortPopular = this.$sortList.find('[data-sort-type="popular"]');
@@ -132,40 +134,86 @@ jQuery(function(){
       },
 
       categoryClick: function(parentId, level, e){
+        var $container = this.$top.find('.level-'+level);
+        var $parent = $container.find('[data-page-id='+parentId+']');
         e.preventDefault();
-        this.populateChildren(parentId, level);
+
+        if($container.find('[data-page-id='+parentId+']').hasClass('selected')){ return; }
+
+        $container.find('.selected').removeClass('selected');
+        $parent.addClass('selected');
+        this.addChildren(parentId, level+1);
       },
 
-      populateChildren: function(parentId, level){
-        var _this = this;
-        var $container = this.$top.find('.level-'+level);
-        var $el;
-        var order = 1; //!!! to be deleted when the API bug is fixed
+      slideCategories: function(toggle){
+        this.$tree.toggleClass('contracted', toggle);
+      },
 
-        $.getJSON(this.config.serviceUrl+'/'+parentId, function(data){
+      addChildren: function(parentId, level){
+        var $parent = this.$tree.find('[data-page-id="'+parentId+'"]'); //the clicked element which is a parent to the children we populate the container with
+        this.loading($parent);
+
+        if(this.serviceXHR){
+          this.serviceXHR.abort();
+        }
+
+        this.requestChildren(parentId, level);
+      },
+
+      requestChildren: function(parentId, level){
+        var _this = this;
+        var $container = this.$tree.find('.level-'+level);
+        var $child;
+
+        this.serviceXHR = $.getJSON(_this.config.serviceUrl+'/'+parentId, function(data){
+          _this.$tree.find('.level-'+(level+1)).parent().hide();
           $container.empty();
+
           if(level<3){
-            _this.$top.find('.level-3').empty();
+            _this.$tree.find('.level-3').empty();
+          }
+
+          if(level>1){
+            $container.parent().find('> .title').html(data.title);
           }
 
           $.each(data.items, function(index, item){
-            $el = $(_this.itemTemplate);
-            $el.attr('data-page-id', item.id);
-            /*!!! there's a bug in the API - order is always null so it wont work
-             * as a temporary mesasure I'm asssigning order based on the order they came in...
-            */
-            //$el.attr('data-popularity-order', item.order);
-            $el.attr('data-popularity-order', order); order++;
-            $el.attr('data-name', item.title);
-            $el.find('a').html(item.title);
-            $el.find('a').attr('href', item.url);
-            if(level<3){
-              $el.on('click', 'a', $.proxy(_this.categoryClick, _this, item.id, level+1));
-              $el.find('.description').html(item.excerpt);
-            }
-            $container.append($el);
+            $child = _this.setUpChild(item, level);
+            $container.append($child);
           });
+
+          _this.sort();
+          $container.parent().show();
+          _this.stopLoading();
+          _this.serviceXHR = false;
         });
+      },
+
+      setUpChild: function(data, level){
+        var _this = this;
+        var $child = $(_this.itemTemplate);
+        $child.attr('data-page-id', data.id);
+        $child.attr('data-popularity-order', data.id); //!!! for now the order will be based on IDs
+        $child.attr('data-name', data.title);
+        $child.find('h3').html(data.title);
+        $child.find('a').attr('href', data.url);
+        $child.on('click', 'a', $.proxy(_this.slideCategories, _this, level!==1));
+
+        if(level<3){
+          $child.on('click', 'a', $.proxy(_this.categoryClick, _this, data.id, level));
+          $child.find('.description').html(data.excerpt);
+        }
+
+        return $child;
+      },
+
+      loading: function($item){
+        this.stopLoading();
+        $item.addClass('loading');
+      },
+
+      stopLoading: function(){
+        this.$tree.find('.item.loading').removeClass('loading');
       },
 
       getId: function($el){

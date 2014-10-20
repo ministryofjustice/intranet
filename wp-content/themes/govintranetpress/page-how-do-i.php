@@ -7,13 +7,13 @@ get_header();
 
 <div class="a-z" data-page-id="<?=get_the_id()?>">
   <ul class="sort">
-    <li data-sort-type="alphabetical">
+    <li class="selected" data-sort-type="alphabetical">
       <a href="">
         <span class="icon"></span>
         <span class="label">A - Z</span>
       </a>
     </li>
-    <li class="selected" data-sort-type="popular">
+    <li data-sort-type="popular">
       <a href="">
         <span class="icon"></span>
         <span class="label">Popular</span>
@@ -22,19 +22,29 @@ get_header();
   </ul>
 
   <div class="tree">
-    <ul class="categories level-1">
-    </ul>
-    <ul class="subcategories level-2">
-    </ul>
-    <ul class="links level-3">
-    </ul>
+    <div class="categories">
+      <ul class="level-1">
+      </ul>
+      <a></a>
+    </div>
+    <div class="subcategories">
+      <h2 class="title"></h2>
+      <ul class="level-2">
+      </ul>
+    </div>
+    <div class="links">
+      <h2 class="title"></h2>
+      <ul class="level-3">
+      </ul>
+    </div>
 
     <template data-name="a-z-category-item">
-      <li>
-        <h3 class="title">
-          <a></a>
-        </h3>
-        <p class="description"></p>
+      <li class="item">
+        <a>
+          <h3 class="title">
+          </h3>
+          <p class="description"></p>
+        </a>
       </li>
     </template>
   </div>
