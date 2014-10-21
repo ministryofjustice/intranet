@@ -882,10 +882,10 @@ body.home #ht-feature-news h3 {
   transition: margin-left .3s;
 }
 /* line 104, ../scss/content/a_z/_main.scss */
-.a-z .categories ul,
-.a-z .subcategories ul,
-.a-z .links ul {
-  margin: 0;
+#content .a-z .categories .item-list, #content
+.a-z .subcategories .item-list, #content
+.a-z .links .item-list {
+  margin-bottom: 0;
   padding: 0;
   list-style-type: none;
 }
@@ -1004,8 +1004,8 @@ body.home #ht-feature-news h3 {
 /* line 215, ../scss/content/a_z/_main.scss */
 .a-z .subcategories .item-list,
 .a-z .links .item-list {
-  background-color: #fff;
   position: relative;
+  background-color: #fff;
 }
 /* line 220, ../scss/content/a_z/_main.scss */
 .a-z .subcategories .item-list,

@@ -101,8 +101,8 @@
     box-sizing: border-box;
     transition: margin-left .3s;
 
-    ul {
-      margin: 0;
+    #content & .item-list {
+      margin-bottom: 0;
       padding: 0;
       list-style-type: none;
     }
@@ -213,8 +213,8 @@
     }
 
     .item-list {
-      background-color: $white;
       position: relative;
+      background-color: $white;
     }
 
     .item-list,
