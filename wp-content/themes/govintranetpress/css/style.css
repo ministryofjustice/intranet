@@ -857,7 +857,7 @@ body.home #ht-feature-news h3 {
   visibility: hidden;
 }
 /* line 77, ../scss/content/a_z/_main.scss */
-.a-z .tree.contracted .subcategories {
+.a-z .tree.collapsed .subcategories {
   margin-left: -15%;
   transition: margin-left .3s;
 }

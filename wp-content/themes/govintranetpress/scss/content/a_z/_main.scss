@@ -73,7 +73,7 @@
     @include clearfix;
     margin-bottom: 30px;
 
-    &.contracted {
+    &.collapsed {
       .subcategories {
         margin-left: -15%;
         transition: margin-left .3s;

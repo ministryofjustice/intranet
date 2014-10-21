@@ -77,7 +77,7 @@ jQuery(function(){
     };
   }(window.jQuery));
 
-  /** A-Z
+  /** A-Z page index
    */
   (function($){
     "use strict";
@@ -101,14 +101,12 @@ jQuery(function(){
         this.cacheEls();
         this.bindEvents();
 
-        this.addChildren(this.topPageId, 1);
+        this.loadChildren(this.topPageId, 1);
       },
 
       cacheEls: function(){
         this.$tree = this.$top.find('.tree');
-        this.$categoriesContainer = this.$tree.find('.categories');
-        this.$subcategoriesContainer = this.$tree.find('.subcategories');
-        this.$linksContainer = this.$tree.find('.links');
+        this.$columns = this.$tree.find('.item-container');
 
         this.$sortList = this.$top.find('.sort');
         this.$sortPopular = this.$sortList.find('[data-sort-type="popular"]');
@@ -136,27 +134,28 @@ jQuery(function(){
 
         this.$allCategoriesLink.on('click', function(e){
           e.preventDefault();
-          _this.toggleCategories(true);
+          _this.toggleTopLevelCategories(true);
         });
       },
 
       /** Performs tasks after user clicks on a category link
-       * @param {Number} parentId Parent ID
+       * @param {Number} categoryId Category ID
        * @param {Number} level Level number (1-3)
        * @param {Event} e Event
        */
-      categoryClick: function(parentId, level, e){
-        var $container = this.$top.find('.level-'+level);
-        var $parent = $container.find('[data-page-id='+parentId+']');
+      categoryClick: function(categoryId, level, e){
+        var $container = this.$columns.filter('.level-'+level);
+        var $parent = $container.find('[data-page-id='+categoryId+']');
+
         e.preventDefault();
 
         if(!$parent.hasClass('selected')){
           $container.find('.selected').removeClass('selected');
           $parent.addClass('selected');
-          this.addChildren(parentId, level+1);
+          this.loadChildren(categoryId, level+1);
 
           if(level===1){
-            this.toggleCategories(false);
+            this.toggleTopLevelCategories(false);
           }
         }
       },
@@ -164,138 +163,158 @@ jQuery(function(){
       /** Toggles all top-level categories
        * @param {Boolean} toggle Whether to show or hide categories
        */
-      toggleCategories: function(toggle){
+      toggleTopLevelCategories: function(toggle){
         if(toggle===undefined){
           throw new Error('toggle parameter must be set to boolean');
         }
-        this.$categoriesContainer.find('.item:not(.selected)').slideToggle(toggle);
+        this.$columns.filter('.level-1').find('.item:not(.selected)').slideToggle(toggle);
         this.$allCategoriesLink.toggle(!toggle);
 
         if(toggle){
-          this.collapseCategories(false);
+          this.collapseTopLevelColumn(false);
         }
       },
 
-      collapseCategories: function(toggle){
-        this.$tree.toggleClass('contracted', toggle);
+      /** Collapses the level 1 column (CSS-controlled)
+       * @param {Boolean} toggle Toggle state
+       */
+      collapseTopLevelColumn: function(toggle){
+        this.$tree.toggleClass('collapsed', toggle);
       },
 
-      addChildren: function(parentId, level){
-        var $parent = this.$tree.find('[data-page-id="'+parentId+'"]'); //the clicked element which is a parent to the children we populate the container with
-        this.loading($parent);
+      /** Load children based on category ID
+       * @param {Number} categoryId Category ID
+       * @param {Number} level Level of the child container [1-3]
+       */
+      loadChildren: function(categoryId, level){
+        this.$tree.find('[data-page-id="'+categoryId+'"]').addClass('loading');
+        this.stopLoadingChildren();
+        this.requestChildren(categoryId, level);
+      },
 
+      /** Stops loading children elements
+       */
+      stopLoadingChildren: function(){
+        this.$tree.find('.item.loading').removeClass('loading');
         if(this.serviceXHR){
           this.serviceXHR.abort();
+          this.serviceXHR = null;
         }
-
-        this.requestChildren(parentId, level);
       },
 
-      requestChildren: function(parentId, level){
+      /** Performs an XHR to get children and adds the children to the relevant column
+       * @param {Number} categoryId ID of the category we request the children of
+       * @param {Number} level Level of the child container [1-3]
+       */
+      requestChildren: function(categoryId, level){
         var _this = this;
-        var $container = this.$tree.find('.level-'+level);
-        var $child;
 
-        this.serviceXHR = $.getJSON(_this.config.serviceUrl+'/'+parentId, function(data){
-          _this.toggleElement(_this.$tree.find('.level-'+(level+1)).closest('.item-container'), false);
-          $container.empty();
+        this.serviceXHR = $.getJSON(_this.config.serviceUrl+'/'+categoryId, function(data){
+          var $thisLevelContainer = _this.$columns.filter('.level-'+level); //this level = the child level
+          var $nextLevelContainer = _this.$columns.filter('.level-'+(level+1)); //next level = the grandchild level
+          var $thisItemList = $thisLevelContainer.find('.item-list');
+          var $child;
+          var a;
 
-          if(level<3){
-            _this.$tree.find('.level-3').empty();
+          _this.helpers.toggleElement($nextLevelContainer, false);
+
+          //clear all subcolumns
+          for(a=level;a<=3;a++){
+            _this.$columns.filter('.level-'+a).find('.item-list').empty();
           }
 
           if(level>1){
-            $container.closest('.item-container').find('.category-name').html(data.title);
+            $thisLevelContainer.find('.category-name').html(data.title);
           }
 
           $.each(data.items, function(index, item){
             $child = _this.setUpChild(item, level);
-            $container.append($child);
+            $thisItemList.append($child);
           });
 
           _this.sort();
-          _this.toggleElement($container.closest('.item-container'), true);
-          _this.stopLoading();
-          _this.serviceXHR = false;
+          _this.helpers.toggleElement($thisLevelContainer, true);
+          _this.stopLoadingChildren();
         });
       },
 
-      /** Generic method which toggles classes indicating visibility on an element
-       * N.B. due to its generic nature this method could and should be moved
-       * to app library (whenever we build one...)
+      /** Sets up and returns a child element
+       * @param {Object} data Child data model
+       * @param {Number} level Item level (1-3)
+       * @returns {jQuery} Populated child element
        */
-      toggleElement: function($element, toggle){
-        $element.toggleClass('visible', toggle);
-        $element.toggleClass('hidden', !toggle);
-      },
-
       setUpChild: function(data, level){
         var _this = this;
-        var $child = $(_this.itemTemplate);
+        var $child = $(this.itemTemplate);
         $child.attr('data-page-id', data.id);
         $child.attr('data-popularity-order', data.id); //!!! for now the order will be based on IDs
         $child.attr('data-name', data.title);
-        $child.find('h3').html(data.title);
+        $child.find('.title').html(data.title);
         $child.find('a').attr('href', data.url);
-        $child.on('click', 'a', $.proxy(_this.collapseCategories, _this, level!==1));
+        $child.on('click', 'a', $.proxy(this.collapseTopLevelColumn, this, level!==1));
 
         if(level<3){
-          $child.on('click', 'a', $.proxy(_this.categoryClick, _this, data.id, level));
           $child.find('.description').html(data.excerpt);
+          $child.on('click', 'a', $.proxy(_this.categoryClick, _this, data.id, level));
         }
 
         return $child;
       },
 
-      loading: function($item){
-        this.stopLoading();
-        $item.addClass('loading');
-      },
-
-      stopLoading: function(){
-        this.$tree.find('.item.loading').removeClass('loading');
-      },
-
-      getId: function($el){
-        return $(el).data('page-id');
-      },
-
-      /** sorts items in all columns alphabetically or by popularity depending on type param
+      /** Sorts items in all columns alphabetically or by popularity
        * @param {String} type Type of sort [alphabetical/popular]
        */
       sort: function(type){
         var level;
         var items;
         var sortMethod;
-        var $container;
+        var sortLabel;
+        var $list;
 
         if(!type){
           type = this.$sortList.find('.selected').data('sort-type');
         }
 
-        for(level=1; level<=3; level++){
-          $container = this.$top.find('.level-'+level);
-          items = $container.find(' > li').toArray();
+        sortMethod = type==='alphabetical' ? this.helpers.alphabeticalComparator : this.helpers.popularComparator;
+        sortLabel = type==='alphabetical' ? 'A to Z' : 'Popular';
 
-          sortMethod = type==='alphabetical' ? this.helpers.alphabeticalComparator : this.helpers.popularComparator;
+        for(level=1; level<=3; level++){
+          $list = this.$columns.filter('.level-'+level).find('.item-list');
+          items = $list.find('li').toArray();
           items.sort(sortMethod);
-          $container.append(items);
+          $list.append(items);
         }
 
         //update sort labels
-        this.$tree.find('.sort-order').text(type==='alphabetical' ? 'A to Z' : 'Popular');
+        this.$tree.find('.sort-order').text(sortLabel);
       },
 
       helpers: {
+        /** Sort comparator for alphabetical order
+         */
         alphabeticalComparator: function(a, b){
           var label1 = $(a).data('name');
           var label2 = $(b).data('name');
           return (label1 < label2) ? -1 : (label1 > label2) ? 1 : 0;
         },
+
+        /** Sort comparator for popular order
+         */
         popularComparator: function(a, b){
           var label1 = $(a).data('popularity-order');
           var label2 = $(b).data('popularity-order');
           return (label1 < label2) ? -1 : (label1 > label2) ? 1 : 0;
+        },
+
+        /** Generic method which toggles classes indicating visibility on an element
+         * N.B. due to the generic nature of this method it could and should be moved
+         * to become a part of the app toolkit (doesn't exist yet)
+         * @param {jQuery} $element Subject element
+         * @param {Boolean} toogle Toggle state
+         */
+        toggleElement: function($element, toggle){
+          $element.toggleClass('visible', toggle);
+          $element.toggleClass('hidden', !toggle);
         }
       }
     };

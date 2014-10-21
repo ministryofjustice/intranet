@@ -22,31 +22,30 @@ get_header();
   </ul>
 
   <div class="tree">
-    <div class="item-container categories">
-      <ul class="level-1">
+    <div class="item-container level-1 categories">
+      <ul class="item-list">
       </ul>
       <a href="#" class="all-categories">See all categories</a>
     </div>
-    <div class="item-container subcategories">
+    <div class="item-container level-2 subcategories">
       <h2 class="category-name"></h2>
       <div class="list-wrapper">
         <p class="sort-order"></p>
-        <ul class="level-2"></ul>
+        <ul class="item-list"></ul>
       </div>
     </div>
-    <div class="item-container links">
+    <div class="item-container level-3 links">
       <h2 class="category-name"></h2>
       <div class="list-wrapper">
         <p class="sort-order"></p>
-        <ul class="level-3"></ul>
+        <ul class="item-list"></ul>
       </div>
     </div>
 
     <template data-name="a-z-category-item">
       <li class="item">
         <a>
-          <h3 class="title">
-          </h3>
+          <h3 class="title"></h3>
           <p class="description"></p>
         </a>
       </li>
