@@ -165,11 +165,18 @@ jQuery(function(){
        * @param {Boolean} toggle Whether to show or hide categories
        */
       toggleCategories: function(toggle){
+        if(toggle===undefined){
+          throw new Error('toggle parameter must be set to boolean');
+        }
         this.$categoriesContainer.find('.item:not(.selected)').slideToggle(toggle);
         this.$allCategoriesLink.toggle(!toggle);
+
+        if(toggle){
+          this.collapseCategories(false);
+        }
       },
 
-      slideCategories: function(toggle){
+      collapseCategories: function(toggle){
         this.$tree.toggleClass('contracted', toggle);
       },
 
@@ -230,7 +237,7 @@ jQuery(function(){
         $child.attr('data-name', data.title);
         $child.find('h3').html(data.title);
         $child.find('a').attr('href', data.url);
-        $child.on('click', 'a', $.proxy(_this.slideCategories, _this, level!==1));
+        $child.on('click', 'a', $.proxy(_this.collapseCategories, _this, level!==1));
 
         if(level<3){
           $child.on('click', 'a', $.proxy(_this.categoryClick, _this, data.id, level));
