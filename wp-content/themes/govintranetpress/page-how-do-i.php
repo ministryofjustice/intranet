@@ -28,14 +28,18 @@ get_header();
       <a href="#" class="all-categories">See all categories</a>
     </div>
     <div class="item-container subcategories">
-      <h2 class="title"></h2>
-      <ul class="level-2">
-      </ul>
+      <h2 class="category-name"></h2>
+      <div class="list-wrapper">
+        <p class="sort-order"></p>
+        <ul class="level-2"></ul>
+      </div>
     </div>
     <div class="item-container links">
-      <h2 class="title"></h2>
-      <ul class="level-3">
-      </ul>
+      <h2 class="category-name"></h2>
+      <div class="list-wrapper">
+        <p class="sort-order"></p>
+        <ul class="level-3"></ul>
+      </div>
     </div>
 
     <template data-name="a-z-category-item">

@@ -140,19 +140,24 @@ jQuery(function(){
         });
       },
 
+      /** Performs tasks after user clicks on a category link
+       * @param {Number} parentId Parent ID
+       * @param {Number} level Level number (1-3)
+       * @param {Event} e Event
+       */
       categoryClick: function(parentId, level, e){
         var $container = this.$top.find('.level-'+level);
         var $parent = $container.find('[data-page-id='+parentId+']');
         e.preventDefault();
 
-        if($container.find('[data-page-id='+parentId+']').hasClass('selected')){ return; }
+        if(!$parent.hasClass('selected')){
+          $container.find('.selected').removeClass('selected');
+          $parent.addClass('selected');
+          this.addChildren(parentId, level+1);
 
-        $container.find('.selected').removeClass('selected');
-        $parent.addClass('selected');
-        this.addChildren(parentId, level+1);
-
-        if(level===1){
-          this.toggleCategories(false);
+          if(level===1){
+            this.toggleCategories(false);
+          }
         }
       },
 
@@ -185,7 +190,7 @@ jQuery(function(){
         var $child;
 
         this.serviceXHR = $.getJSON(_this.config.serviceUrl+'/'+parentId, function(data){
-          _this.$tree.find('.level-'+(level+1)).closest('.item-container').hide();
+          _this.toggleElement(_this.$tree.find('.level-'+(level+1)).closest('.item-container'), false);
           $container.empty();
 
           if(level<3){
@@ -193,7 +198,7 @@ jQuery(function(){
           }
 
           if(level>1){
-            $container.closest('.item-container').find('> .title').html(data.title);
+            $container.closest('.item-container').find('.category-name').html(data.title);
           }
 
           $.each(data.items, function(index, item){
@@ -202,10 +207,19 @@ jQuery(function(){
           });
 
           _this.sort();
-          $container.parent().show();
+          _this.toggleElement($container.closest('.item-container'), true);
           _this.stopLoading();
           _this.serviceXHR = false;
         });
+      },
+
+      /** Generic method which toggles classes indicating visibility on an element
+       * N.B. due to its generic nature this method could and should be moved
+       * to app library (whenever we build one...)
+       */
+      toggleElement: function($element, toggle){
+        $element.toggleClass('visible', toggle);
+        $element.toggleClass('hidden', !toggle);
       },
 
       setUpChild: function(data, level){
@@ -260,6 +274,9 @@ jQuery(function(){
           items.sort(sortMethod);
           $container.append(items);
         }
+
+        //update sort labels
+        this.$tree.find('.sort-order').text(type==='alphabetical' ? 'A to Z' : 'Popular');
       },
 
       helpers: {
