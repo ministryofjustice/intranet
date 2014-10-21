@@ -187,8 +187,8 @@ jQuery(function(){
        * @param {Number} level Level of the child container [1-3]
        */
       loadChildren: function(categoryId, level){
-        this.$tree.find('[data-page-id="'+categoryId+'"]').addClass('loading');
         this.stopLoadingChildren();
+        this.$tree.find('[data-page-id="'+categoryId+'"]').addClass('loading');
         this.requestChildren(categoryId, level);
       },
 
