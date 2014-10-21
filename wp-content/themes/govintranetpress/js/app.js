@@ -1,4 +1,4 @@
-/** This file will be broken down to separate modules and then concatenated
+/** This file will be broken down into separate modules and then concatenated
  * to app.js during a build process (which we don't have at the moment).
  * The individual modules are already built to work on their own.
  */
@@ -235,6 +235,8 @@ jQuery(function(){
           _this.sort();
           _this.helpers.toggleElement($thisLevelContainer, true);
           _this.stopLoadingChildren();
+          _this.$columns.removeClass('current');
+          _this.$columns.filter('.level-'+level).addClass('current');
         });
       },
 

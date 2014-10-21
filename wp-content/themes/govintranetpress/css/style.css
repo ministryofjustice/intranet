@@ -983,32 +983,43 @@ body.home #ht-feature-news h3 {
   margin-left: -1px;
   border-left: 1px solid #333;
 }
-/* line 197, ../scss/content/a_z/_main.scss */
+/* line 199, ../scss/content/a_z/_main.scss */
 .a-z .subcategories.visible,
 .a-z .links.visible {
   display: block;
 }
-/* line 201, ../scss/content/a_z/_main.scss */
-.a-z .subcategories .category-name,
-.a-z .links .category-name {
-  margin-left: 90px;
-}
-/* line 205, ../scss/content/a_z/_main.scss */
-.a-z .subcategories .list-wrapper,
-.a-z .links .list-wrapper {
-  display: flex;
-}
-/* line 209, ../scss/content/a_z/_main.scss */
+/* line 203, ../scss/content/a_z/_main.scss */
 .a-z .subcategories .sort-order,
 .a-z .links .sort-order {
   width: 90px;
-  text-align: center;
-  padding: 10px 0 0;
+  position: absolute;
+  box-sizing: border-box;
+  margin: 10px;
   font-weight: bold;
   line-height: 24px;
+  text-align: center;
+  overflow: hidden;
+  white-space: nowrap;
 }
-/* line 217, ../scss/content/a_z/_main.scss */
-.a-z .subcategories ul,
-.a-z .links ul {
-  flex: 1;
+/* line 215, ../scss/content/a_z/_main.scss */
+.a-z .subcategories .item-list,
+.a-z .links .item-list {
+  background-color: #fff;
+  position: relative;
+}
+/* line 220, ../scss/content/a_z/_main.scss */
+.a-z .subcategories .item-list,
+.a-z .subcategories .category-name,
+.a-z .links .item-list,
+.a-z .links .category-name {
+  margin-left: 0;
+  transition: margin-left .3s;
+}
+/* line 227, ../scss/content/a_z/_main.scss */
+.a-z .subcategories.current .item-list,
+.a-z .subcategories.current .category-name,
+.a-z .links.current .item-list,
+.a-z .links.current .category-name {
+  margin-left: 90px;
+  transition: margin-left .3s;
 }

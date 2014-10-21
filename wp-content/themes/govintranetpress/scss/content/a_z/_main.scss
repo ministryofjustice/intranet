@@ -189,6 +189,8 @@
 
   .subcategories,
   .links {
+    $sortLabelWidth: 90px;
+
     display: none;
     position: relative;
     margin-left: -1px;
@@ -198,24 +200,35 @@
       display: block;
     }
 
-    .category-name {
-      margin-left: 90px;
-    }
-
-    .list-wrapper {
-      display: flex;
-    }
-
     .sort-order {
-      width: 90px;
-      text-align: center;
-      padding: 10px 0 0;
+      width: $sortLabelWidth;
+      position: absolute;
+      box-sizing: border-box;
+      margin: 10px;
       font-weight: bold;
       line-height: 24px;
+      text-align: center;
+      overflow: hidden;
+      white-space: nowrap;
     }
 
-    ul {
-      flex: 1;
+    .item-list {
+      background-color: $white;
+      position: relative;
+    }
+
+    .item-list,
+    .category-name {
+      margin-left: 0;
+      transition: margin-left .3s;
+    }
+
+    &.current {
+      .item-list,
+      .category-name {
+        margin-left: $sortLabelWidth;
+        transition: margin-left .3s;
+      }
     }
   }
 
