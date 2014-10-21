@@ -156,8 +156,11 @@ jQuery(function(){
         }
       },
 
+      /** Toggles all top-level categories
+       * @param {Boolean} toggle Whether to show or hide categories
+       */
       toggleCategories: function(toggle){
-        this.$categoriesContainer.find('.item:not(.selected)').toggle(toggle);
+        this.$categoriesContainer.find('.item:not(.selected)').slideToggle(toggle);
         this.$allCategoriesLink.toggle(!toggle);
       },
 
@@ -182,7 +185,7 @@ jQuery(function(){
         var $child;
 
         this.serviceXHR = $.getJSON(_this.config.serviceUrl+'/'+parentId, function(data){
-          _this.$tree.find('.level-'+(level+1)).parent().hide();
+          _this.$tree.find('.level-'+(level+1)).closest('.item-container').hide();
           $container.empty();
 
           if(level<3){
@@ -190,7 +193,7 @@ jQuery(function(){
           }
 
           if(level>1){
-            $container.parent().find('> .title').html(data.title);
+            $container.closest('.item-container').find('> .title').html(data.title);
           }
 
           $.each(data.items, function(index, item){

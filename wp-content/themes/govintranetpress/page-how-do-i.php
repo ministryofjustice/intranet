@@ -22,17 +22,17 @@ get_header();
   </ul>
 
   <div class="tree">
-    <div class="categories">
+    <div class="item-container categories">
       <ul class="level-1">
       </ul>
       <a href="#" class="all-categories">See all categories</a>
     </div>
-    <div class="subcategories">
+    <div class="item-container subcategories">
       <h2 class="title"></h2>
       <ul class="level-2">
       </ul>
     </div>
-    <div class="links">
+    <div class="item-container links">
       <h2 class="title"></h2>
       <ul class="level-3">
       </ul>
