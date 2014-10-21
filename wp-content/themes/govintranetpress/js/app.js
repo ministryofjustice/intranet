@@ -149,14 +149,12 @@ jQuery(function(){
 
         e.preventDefault();
 
-        if(!$parent.hasClass('selected')){
-          $container.find('.selected').removeClass('selected');
-          $parent.addClass('selected');
-          this.loadChildren(categoryId, level+1);
+        $container.find('.selected').removeClass('selected');
+        $parent.addClass('selected');
+        this.loadChildren(categoryId, level+1);
 
-          if(level===1){
-            this.toggleTopLevelCategories(false);
-          }
+        if(level===1){
+          this.toggleTopLevelCategories(false);
         }
       },
 
