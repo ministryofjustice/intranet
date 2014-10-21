@@ -863,7 +863,7 @@ body.home #ht-feature-news h3 {
 }
 /* line 83, ../scss/content/a_z/_main.scss */
 .a-z .tree .all-categories {
-  display: block;
+  display: none;
   padding: 20px;
   color: #0b0c0c;
   text-decoration: underline;

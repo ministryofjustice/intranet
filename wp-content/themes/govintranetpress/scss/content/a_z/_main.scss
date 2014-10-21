@@ -82,7 +82,7 @@
 
     .all-categories {
       @extend %small-copy;
-      display: block;
+      display: none;
       padding: 20px;
       color: $black;
       text-decoration: underline;

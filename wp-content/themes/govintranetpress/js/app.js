@@ -158,6 +158,7 @@ jQuery(function(){
 
       toggleCategories: function(toggle){
         this.$categoriesContainer.find('.item:not(.selected)').toggle(toggle);
+        this.$allCategoriesLink.toggle(!toggle);
       },
 
       slideCategories: function(toggle){
@@ -232,10 +233,7 @@ jQuery(function(){
       },
 
       getId: function($el){
-        $el = $($el);
-        var id = $el.data('page-id');
-
-        return id;
+        return $(el).data('page-id');
       },
 
       /** sorts items in all columns alphabetically or by popularity depending on type param
