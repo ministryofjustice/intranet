@@ -25,7 +25,7 @@ get_header();
     <div class="categories">
       <ul class="level-1">
       </ul>
-      <a></a>
+      <a href="#" class="all-categories">See all categories</a>
     </div>
     <div class="subcategories">
       <h2 class="title"></h2>

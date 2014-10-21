@@ -70,14 +70,23 @@
   }
 
   .tree {
-    margin-bottom: 30px;
     @include clearfix;
+    margin-bottom: 30px;
 
     &.contracted {
       .subcategories {
         margin-left: -15%;
         transition: margin-left .3s;
       }
+    }
+
+    .all-categories {
+      @extend %small-copy;
+      display: block;
+      padding: 20px;
+      color: $black;
+      text-decoration: underline;
+      outline: none;
     }
   }
 

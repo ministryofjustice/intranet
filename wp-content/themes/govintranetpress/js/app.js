@@ -113,6 +113,8 @@ jQuery(function(){
         this.$sortList = this.$top.find('.sort');
         this.$sortPopular = this.$sortList.find('[data-sort-type="popular"]');
         this.$sortAlphabetical = this.$sortList.find('[data-sort-type="alphabetical"]');
+
+        this.$allCategoriesLink = this.$tree.find('.all-categories');
       },
 
       bindEvents: function(){
@@ -131,6 +133,11 @@ jQuery(function(){
           _this.$sortList.find('> li').removeClass('selected');
           $(this).parent().addClass('selected');
         });
+
+        this.$allCategoriesLink.on('click', function(e){
+          e.preventDefault();
+          _this.toggleCategories(true);
+        });
       },
 
       categoryClick: function(parentId, level, e){
@@ -143,6 +150,14 @@ jQuery(function(){
         $container.find('.selected').removeClass('selected');
         $parent.addClass('selected');
         this.addChildren(parentId, level+1);
+
+        if(level===1){
+          this.toggleCategories(false);
+        }
+      },
+
+      toggleCategories: function(toggle){
+        this.$categoriesContainer.find('.item:not(.selected)').toggle(toggle);
       },
 
       slideCategories: function(toggle){
