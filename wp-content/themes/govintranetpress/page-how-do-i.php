@@ -8,19 +8,24 @@ function get_children_from_API($id){
   return htmlspecialchars(json_encode($results->results_array));
 }
 
-$post_id = get_the_id();
 $levels = array();
+$post_id = get_the_id();
 $ids = get_post_ancestors($post_id);
 $ids = array_reverse($ids);
 array_push($ids, $post_id);
 
+//get JSON data
 foreach($ids as $key=>$id){
   $levels[$key] = get_children_from_API($ids[$key]);
 }
 
+//get the slug of the top page - we need this for deep-linking (JS)
+$top_level_post = get_post($ids[0]);
+$top_slug = htmlspecialchars($top_level_post->post_name);
+
 ?>
 
-<div class="a-z">
+<div class="a-z" data-top-level-slug="<?=$top_slug?>">
   <ul class="sort">
     <li class="selected" data-sort-type="alphabetical">
       <a href="">

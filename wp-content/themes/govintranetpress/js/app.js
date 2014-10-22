@@ -90,11 +90,10 @@ jQuery(function(){
 
     App.PageIndex.prototype = {
       init: function(){
-        this.config = {
-          serviceUrl: $('head').data('application-url')+'/service/children'
-        };
+        this.applicationUrl = $('head').data('application-url');
+        this.serviceUrl = this.applicationUrl+'/service/children';
+        this.pageBase = this.applicationUrl+'/'+this.$top.data('top-level-slug');
 
-        this.topPageId = this.$top.data('page-id');
         this.itemTemplate = this.$top.find('template[data-name="a-z-category-item"]').html();
         this.serviceXHR = null;
 
@@ -156,6 +155,25 @@ jQuery(function(){
         if(level===1){
           this.toggleTopLevelCategories(false);
         }
+      },
+
+      /** Updates the url based on the selected categories
+       */
+      updateUrl: function(){
+        var $item;
+        var slugs = [];
+
+        this.$columns.each(function(){
+          $item = $(this).find('.item.selected');
+          if($item.length){
+            slugs.push($item.data('slug'));
+            return true;
+          }
+
+          return false;
+        });
+
+        history.pushState({}, "", this.pageBase+'/'+slugs.join('/')+'/');
       },
 
       markItem: function($item){
@@ -234,7 +252,7 @@ jQuery(function(){
        * @param {Number} level Level of the child container [1-3]
        */
       requestChildren: function(categoryId, level){
-        this.serviceXHR = $.getJSON(this.config.serviceUrl+'/'+categoryId, $.proxy(this.populateColumn, this, level));
+        this.serviceXHR = $.getJSON(this.serviceUrl+'/'+categoryId, $.proxy(this.populateColumn, this, level));
       },
 
       /** Populates a specified column (based on level) with children specified in data object
@@ -270,6 +288,8 @@ jQuery(function(){
         this.stopLoadingChildren();
         this.$columns.removeClass('current');
         this.$columns.filter('.level-'+level).addClass('current');
+
+        this.updateUrl();
       },
 
       /** Sets up and returns a child element
@@ -283,6 +303,7 @@ jQuery(function(){
         $child.attr('data-page-id', data.id);
         $child.attr('data-popularity-order', data.id); //!!! for now the order will be based on IDs
         $child.attr('data-name', data.title);
+        $child.attr('data-slug', data.slug);
         $child.find('.title').html(data.title);
         $child.find('a').attr('href', data.url);
         $child.on('click', 'a', $.proxy(this.collapseTopLevelColumn, this, level!==1));
