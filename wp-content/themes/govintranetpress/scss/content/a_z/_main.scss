@@ -128,15 +128,10 @@
     }
 
     li {
-      &.selected {
+      &.selected,
+      &:hover {
         background-color: $grey-3;
 
-        h3 {
-          color: #333;
-        }
-      }
-
-      &:hover {
         h3 {
           color: #333;
         }
