@@ -161,19 +161,19 @@ jQuery(function(){
        */
       updateUrl: function(){
         var $item;
-        var slugs = [];
+        var urlParts = [this.pageBase];
 
         this.$columns.each(function(){
           $item = $(this).find('.item.selected');
           if($item.length){
-            slugs.push($item.data('slug'));
+            urlParts.push($item.data('slug'));
             return true;
           }
 
           return false;
         });
 
-        history.pushState({}, "", this.pageBase+'/'+slugs.join('/')+'/');
+        history.pushState({}, "", urlParts.join('/')+'/');
       },
 
       markItem: function($item){
@@ -215,7 +215,7 @@ jQuery(function(){
           if(data){
             level++;
             _this.populateColumn(level, data);
-            _this.markItem($column.find('[data-page-id='+selectedId+']'));
+            _this.markItem($column.find('[data-page-id="'+selectedId+'"]'));
           }
         });
 
