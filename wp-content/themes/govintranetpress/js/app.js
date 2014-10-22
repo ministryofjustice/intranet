@@ -101,7 +101,7 @@ jQuery(function(){
         this.cacheEls();
         this.bindEvents();
 
-        this.loadChildren(this.topPageId, 1);
+        this.prepopulateColumns();
       },
 
       cacheEls: function(){
@@ -135,6 +135,7 @@ jQuery(function(){
         this.$allCategoriesLink.on('click', function(e){
           e.preventDefault();
           _this.toggleTopLevelCategories(true);
+          _this.collapseTopLevelColumn(false);
         });
       },
 
@@ -149,13 +150,17 @@ jQuery(function(){
 
         e.preventDefault();
 
-        $container.find('.selected').removeClass('selected');
-        $parent.addClass('selected');
+        this.markItem($parent);
         this.loadChildren(categoryId, level+1);
 
         if(level===1){
           this.toggleTopLevelCategories(false);
         }
+      },
+
+      markItem: function($item){
+        $item.closest('.item-list').find('.selected').removeClass('selected');
+        $item.addClass('selected');
       },
 
       /** Toggles all top-level categories
@@ -167,10 +172,6 @@ jQuery(function(){
         }
         this.$columns.filter('.level-1').find('.item:not(.selected)').slideToggle(toggle);
         this.$allCategoriesLink.toggle(!toggle);
-
-        if(toggle){
-          this.collapseTopLevelColumn(false);
-        }
       },
 
       /** Collapses the level 1 column (CSS-controlled)
@@ -178,6 +179,34 @@ jQuery(function(){
        */
       collapseTopLevelColumn: function(toggle){
         this.$tree.toggleClass('collapsed', toggle);
+      },
+
+      /** Populates all columns based on data properties generated server-side
+       */
+      prepopulateColumns: function(){
+        var _this = this;
+        var $column;
+        var selectedId;
+        var data = {};
+        var level = 0;
+
+        this.$columns.each(function(){
+          $column = $(this);
+          data = $column.data('items');
+          selectedId = $column.data('selected-id');
+          if(data){
+            level++;
+            _this.populateColumn(level, data);
+            _this.markItem($column.find('[data-page-id='+selectedId+']'));
+          }
+        });
+
+        if(level>1){
+          this.toggleTopLevelCategories(false);
+        }
+        if(level>2){
+          this.collapseTopLevelColumn();
+        }
       },
 
       /** Load children based on category ID
@@ -205,37 +234,42 @@ jQuery(function(){
        * @param {Number} level Level of the child container [1-3]
        */
       requestChildren: function(categoryId, level){
+        this.serviceXHR = $.getJSON(this.config.serviceUrl+'/'+categoryId, $.proxy(this.populateColumn, this, level));
+      },
+
+      /** Populates a specified column (based on level) with children specified in data object
+       * @param {Number} level Item level (1-3)
+       * @param {Object} data Children data
+       */
+      populateColumn: function(level, data){
         var _this = this;
+        var $thisLevelContainer = this.$columns.filter('.level-'+level); //this level = the child level
+        var $nextLevelContainer = this.$columns.filter('.level-'+(level+1)); //next level = the grandchild level
+        var $thisItemList = $thisLevelContainer.find('.item-list');
+        var $child;
+        var a;
 
-        this.serviceXHR = $.getJSON(_this.config.serviceUrl+'/'+categoryId, function(data){
-          var $thisLevelContainer = _this.$columns.filter('.level-'+level); //this level = the child level
-          var $nextLevelContainer = _this.$columns.filter('.level-'+(level+1)); //next level = the grandchild level
-          var $thisItemList = $thisLevelContainer.find('.item-list');
-          var $child;
-          var a;
+        this.helpers.toggleElement($nextLevelContainer, false);
 
-          _this.helpers.toggleElement($nextLevelContainer, false);
+        //clear all subcolumns
+        for(a=level;a<=3;a++){
+          this.$columns.filter('.level-'+a).find('.item-list').empty();
+        }
 
-          //clear all subcolumns
-          for(a=level;a<=3;a++){
-            _this.$columns.filter('.level-'+a).find('.item-list').empty();
-          }
+        if(level>1){
+          $thisLevelContainer.find('.category-name').html(data.title);
+        }
 
-          if(level>1){
-            $thisLevelContainer.find('.category-name').html(data.title);
-          }
-
-          $.each(data.items, function(index, item){
-            $child = _this.setUpChild(item, level);
-            $thisItemList.append($child);
-          });
-
-          _this.sort();
-          _this.helpers.toggleElement($thisLevelContainer, true);
-          _this.stopLoadingChildren();
-          _this.$columns.removeClass('current');
-          _this.$columns.filter('.level-'+level).addClass('current');
+        $.each(data.items, function(index, item){
+          $child = _this.buildChild(item, level);
+          $thisItemList.append($child);
         });
+
+        this.sort();
+        this.helpers.toggleElement($thisLevelContainer, true);
+        this.stopLoadingChildren();
+        this.$columns.removeClass('current');
+        this.$columns.filter('.level-'+level).addClass('current');
       },
 
       /** Sets up and returns a child element
@@ -243,7 +277,7 @@ jQuery(function(){
        * @param {Number} level Item level (1-3)
        * @returns {jQuery} Populated child element
        */
-      setUpChild: function(data, level){
+      buildChild: function(data, level){
         var _this = this;
         var $child = $(this.itemTemplate);
         $child.attr('data-page-id', data.id);
