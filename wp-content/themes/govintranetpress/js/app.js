@@ -176,6 +176,9 @@ jQuery(function(){
         history.pushState({}, "", urlParts.join('/')+'/');
       },
 
+      /** Marks a specified item as selected
+       * @param {jQuery} item Item element
+       */
       markItem: function($item){
         $item.closest('.item-list').find('.selected').removeClass('selected');
         $item.addClass('selected');
