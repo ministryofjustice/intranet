@@ -71,6 +71,7 @@
 
   .tree {
     @include clearfix;
+    display: flex;
     margin-bottom: 30px;
 
     &.collapsed {
