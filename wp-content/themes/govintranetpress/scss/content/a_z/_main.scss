@@ -69,6 +69,7 @@
     }
   }
 
+
   .tree {
     @include clearfix;
     display: flex;
@@ -91,15 +92,12 @@
     }
   }
 
-  .categories,
-  .subcategories,
-  .links {
+  .item-container {
     position: relative;
     float: left;
     width: 33%;
     overflow: hidden;
     background-color: $white;
-    box-sizing: border-box;
     transition: margin-left .3s;
 
     #content & .item-list {
@@ -199,7 +197,6 @@
     .sort-order {
       width: $sortLabelWidth;
       position: absolute;
-      box-sizing: border-box;
       margin: 10px;
       font-weight: bold;
       line-height: 24px;
@@ -236,5 +233,50 @@
 }
 
 @media(max-width: 767px) {
+  .a-z {
+    .tree-container {
+      overflow: hidden;
+      width: 100%;
+    }
 
+    .tree {
+      width: 303%;
+      transition: margin-left .15s;
+
+      &[data-show-column="1"] {
+        margin-left: 0%;
+      }
+
+      &[data-show-column="2"] {
+        margin-left: -100%;
+      }
+
+      &[data-show-column="3"] {
+        margin-left: -200%;
+      }
+
+      &.collapsed {
+        .subcategories {
+          margin-left: 0;
+        }
+      }
+    }
+
+    .item-container {
+      border: none;
+      margin-left: 0;
+
+      &.current {
+        .item-list,
+        .category-name {
+          margin-left: 0;
+          transition: margin-left .3s;
+        }
+      }
+
+      .item {
+        display: block !important;
+      }
+    }
+  }
 }

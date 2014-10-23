@@ -2,7 +2,6 @@
  * to app.js during a build process (which we don't have at the moment).
  * The individual modules are already built to work on their own.
  */
-
 jQuery(function(){
   "use strict";
 
@@ -136,6 +135,32 @@ jQuery(function(){
           _this.toggleTopLevelCategories(true);
           _this.collapseTopLevelColumn(false);
         });
+
+        this.$tree.hammer().on('swipeleft', $.proxy(this.swipeMobileColumns, this, 'left'));
+        this.$tree.hammer().on('swiperight', $.proxy(this.swipeMobileColumns, this, 'right'));
+        $(document).on('keydown', $.proxy(this.swipeMobileColumns, this, null));
+      },
+
+      /** Switches between A-Z columns on mobile view
+       */
+      swipeMobileColumns: function(direction, e){
+        var currentColumn;
+        var newColumn;
+
+        if(e.type==='keydown'){
+          if(e.keyCode===37){ direction = 'right'; }
+          else if(e.keyCode===39){ direction = 'left'; }
+          else { return; }
+        }
+
+        currentColumn = parseInt(this.$tree.attr('data-show-column'), 10);
+        newColumn = (direction==='left') ? currentColumn+1 : currentColumn-1;
+
+        if(this.$columns.filter('.level-'+newColumn).is(':visible')){
+          this.$tree.attr('data-show-column', newColumn);
+        }
+
+        //console.log('direction: '+direction+', currentColumn: '+currentColumn + ', newColumn: '+newColumn+ ', applying: '+this.$columns.filter('.level-'+newColumn).is(':visible'));
       },
 
       /** Performs tasks after user clicks on a category link
@@ -215,6 +240,11 @@ jQuery(function(){
           $column = $(this);
           data = $column.data('items');
           selectedId = $column.data('selected-id');
+
+          //clean-up
+          $column.removeAttr('data-items'); //remove data from the element
+          $column.removeAttr('data-selected-id'); //remove data from the element
+
           if(data){
             level++;
             _this.populateColumn(level, data);
@@ -293,6 +323,8 @@ jQuery(function(){
         this.$columns.filter('.level-'+level).addClass('current');
 
         this.updateUrl();
+
+        this.$tree.attr('data-show-column', level);
       },
 
       /** Sets up and returns a child element
