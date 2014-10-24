@@ -76,24 +76,24 @@ jQuery(function(){
     };
   }(window.jQuery));
 
-  /** A-Z page index
+  /** Guidance and Support page index
    */
   (function($){
     "use strict";
 
-    App.PageIndex = function(){
-      this.$top = $('.a-z');
+    App.GuidanceAndSupport = function(){
+      this.$top = $('.guidance-and-support');
       if(!this.$top.length){ return; }
       this.init();
     };
 
-    App.PageIndex.prototype = {
+    App.GuidanceAndSupport.prototype = {
       init: function(){
         this.applicationUrl = $('head').data('application-url');
         this.serviceUrl = this.applicationUrl+'/service/children';
         this.pageBase = this.applicationUrl+'/'+this.$top.data('top-level-slug');
 
-        this.itemTemplate = this.$top.find('template[data-name="a-z-category-item"]').html();
+        this.itemTemplate = this.$top.find('template[data-name="guidance-and-support-category-item"]').html();
         this.serviceXHR = null;
 
         this.cacheEls();
@@ -414,5 +414,5 @@ jQuery(function(){
    */
   var mobileMenu = new App.MobileMenu();
   var stickyNews = new App.StickyNews();
-  var pageIndex = new App.PageIndex();
+  var guidanceAndSupport = new App.GuidanceAndSupport();
 });

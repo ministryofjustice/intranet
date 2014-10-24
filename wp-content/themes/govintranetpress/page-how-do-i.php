@@ -1,5 +1,5 @@
 <?php
-/* Template name: A-Z */
+/* Template name: Guidance & Support */
 
 get_header();
 
@@ -33,7 +33,7 @@ $top_slug = htmlspecialchars($top_level_post->post_name);
   </div>
 </div>
 
-<div class="a-z" data-top-level-slug="<?=$top_slug?>">
+<div class="guidance-and-support" data-top-level-slug="<?=$top_slug?>">
   <ul class="sort">
     <li class="selected" data-sort-type="alphabetical">
       <a href="">
@@ -71,7 +71,7 @@ $top_slug = htmlspecialchars($top_level_post->post_name);
         </div>
       </div>
 
-      <template data-name="a-z-category-item">
+      <template data-name="guidance-and-support-category-item">
         <li class="item">
           <a>
             <h3 class="title"></h3>
