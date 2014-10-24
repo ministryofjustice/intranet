@@ -1038,18 +1038,22 @@ body.home #ht-feature-news h3 {
   .a-z .tree.collapsed .subcategories {
     margin-left: 0;
   }
-  /* line 279, ../scss/content/a_z/_main.scss */
+  /* line 277, ../scss/content/a_z/_main.scss */
+  .a-z .tree.collapsed .links {
+    width: 33%;
+  }
+  /* line 283, ../scss/content/a_z/_main.scss */
   .a-z .item-container {
     border: none;
     margin-left: 0;
   }
-  /* line 284, ../scss/content/a_z/_main.scss */
+  /* line 288, ../scss/content/a_z/_main.scss */
   .a-z .item-container.current .item-list,
   .a-z .item-container.current .category-name {
     margin-left: 0;
     transition: margin-left .3s;
   }
-  /* line 291, ../scss/content/a_z/_main.scss */
+  /* line 295, ../scss/content/a_z/_main.scss */
   .a-z .item-container .item {
     display: block !important;
   }
