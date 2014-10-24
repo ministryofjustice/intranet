@@ -77,8 +77,13 @@
 
     &.collapsed {
       .subcategories {
-        margin-left: -15%;
+        margin-left: -13%;
         transition: margin-left .3s;
+      }
+
+      .links {
+        width: 50%;
+        transition: width .3s;
       }
     }
 
@@ -98,7 +103,6 @@
     width: 33%;
     overflow: hidden;
     background-color: $white;
-    transition: margin-left .3s;
 
     #content & .item-list {
       margin-bottom: 0;
@@ -225,7 +229,17 @@
     }
   }
 
+  .subcategories {
+    &.item-container {
+      transition: margin-left .3s;
+    }
+  }
+
   .links {
+    &.item-container {
+      transition: width .3s;
+    }
+
     h3 {
       @extend %small-heading;
     }
