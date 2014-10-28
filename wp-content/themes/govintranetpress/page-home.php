@@ -63,50 +63,15 @@ get_header(); ?>
         </div>
       </div>
 		</div>
-		<div class="col-lg-<?php echo $col2; ?> col-md-<?php echo $col2; ?> col-sm-5">
-			<?php 	dynamic_sidebar('home-widget-area1'); ?>
-			<?php 	dynamic_sidebar('home-widget-area2'); ?>
-		</div>
-		<div class="col-lg-<?php echo $col3; ?> col-md-<?php echo $col3; ?> col-sm-5">
-		<?php
-	$gis = "general_intranet_forum_support";
-	$forumsupport = get_option($gis);
-
-	if ($forumsupport && is_active_sidebar('login-widget-area') ) :
-			$current_user = wp_get_current_user();
-			?>
-		<div id="loginrow" class="category-block">
-			<div id="loginaccordion">
-			<h3 class="widget-title">
-			        <a class="accordion-toggle" data-toggle="collapse" data-parent="#loginaccordion" href="#logincollapseOne">
-				<?php if (is_user_logged_in()):?>
-					      <?php
-					      if (function_exists('get_wp_user_avatar')){
-						      echo get_wp_user_avatar(intval($current_user->id),32);
-					      }
-					      echo " ".$current_user->display_name; ?>
-				<?php else :?>
-					       Login <i class="glyphicon glyphicon-chevron-down"></i>
-				<?php endif; ?>
-			        </a>
-			</h3>
-			    </div>
-			    <div id="logincollapseOne" class="xpanel-collapse collapse out">
-			      <div class="xpanel-body">
-					<?php dynamic_sidebar('login-widget-area');	?>
-				</div>
-<!-- 				<h3 class="widget-title>">Personalisation</h3> -->
-
-			</div>
-		</div>
-<?php endif; ?>
-
-			<?php 	dynamic_sidebar('home-widget-area3');
-				if ($forumsupport):			?>
-					<div class="category-block"><hr><p><strong><a title="More in forums" class="small" href="<?php echo site_url();?>/forums/">More in forums</a></strong> <i class='glyphicon glyphicon-chevron-right small'></i></p></div>
-			<?php
-				endif;
-				dynamic_sidebar('home-widget-area4'); ?>
+		<div class="col-lg-6 col-md-6 col-sm-5">
+      <div class="homepage-settings-placeholder">
+        <!--
+        this is just a placeholder which will be replaced with a proper
+        module as soon as it's developed
+        -->
+        <img class="placeholder-image" src="<?=get_stylesheet_directory_uri()?>/images/homepage_settings.png" data-img-dir="<?=get_stylesheet_directory_uri()?>/images/" />
+        <a href="#" class="swap-link"></a>
+      </div>
 		</div>
 
 		<?php	if ($campaign_message) :  //Display campaign message ?>

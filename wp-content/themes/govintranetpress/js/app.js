@@ -437,7 +437,46 @@ jQuery(function(){
       bindEvents: function(){
       }
     };
-  }());
+  }(jQuery));
+
+  /** Homepage settings module
+   */
+  (function($){
+    "use strict";
+
+    App.HomepageSettings = function(){
+      this.$top = $('.homepage-settings-placeholder');
+      if(!this.$top.length){ return; }
+      this.init();
+    };
+
+    App.HomepageSettings.prototype = {
+      init: function(){
+        this.cacheEls();
+        this.bindEvents();
+
+        this.imageDir = this.$image.data('img-dir');
+        this.imageSrcDefault = this.imageDir+'homepage_settings.png';
+        this.imageSrcOpened = this.imageDir+'homepage_settings_2.png';
+      },
+
+      cacheEls: function(){
+        this.$link = this.$top.find('.swap-link');
+        this.$image = this.$top.find('.placeholder-image');
+      },
+
+      bindEvents: function(){
+        this.$top.on('click', $.proxy(this.swapImage, this, false));
+        this.$link.on('click', $.proxy(this.swapImage, this, true));
+      },
+
+      swapImage: function(openedState, e){
+        e.stopPropagation();
+        this.$image.attr('src', openedState ? this.imageSrcOpened : this.imageSrcDefault);
+      }
+    };
+  }(jQuery));
+
 
   /** init section - this should be in a separate file - init.js
    */
@@ -445,4 +484,5 @@ jQuery(function(){
   var stickyNews = new App.StickyNews();
   var guidanceAndSupport = new App.GuidanceAndSupport();
   var azIndex = new App.AZIndex();
+  var homepageSettings = new App.HomepageSettings();
 });

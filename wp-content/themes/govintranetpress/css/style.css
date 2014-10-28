@@ -777,6 +777,25 @@ body.home #ht-feature-news h3 {
   width: 100%;
 }
 
+/* line 47, ../scss/content/homepage/_main.scss */
+.homepage-settings-placeholder {
+  position: relative;
+  margin-top: 35px;
+}
+/* line 51, ../scss/content/homepage/_main.scss */
+.homepage-settings-placeholder img {
+  width: 100%;
+}
+/* line 55, ../scss/content/homepage/_main.scss */
+.homepage-settings-placeholder a {
+  position: absolute;
+  right: 2.8%;
+  top: 1.4%;
+  width: 37.8%;
+  height: 3.5%;
+  /*background-color: rgba(255, 0, 0, .3);*/
+}
+
 /* line 2, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .tabbed-filter {
   display: inline-block;
