@@ -471,6 +471,7 @@ jQuery(function(){
       },
 
       swapImage: function(openedState, e){
+        e.preventDefault();
         e.stopPropagation();
         this.$image.attr('src', openedState ? this.imageSrcOpened : this.imageSrcDefault);
       }
