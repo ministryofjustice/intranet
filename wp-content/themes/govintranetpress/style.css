@@ -97,19 +97,6 @@ ul.subteams li {
 }
 
 
-/* MAIN NAVIGATION */
-.navbar {
-	margin-bottom: 0;
-	border: 0;
-}
-.navbar-inverse {
-	background: transparent;
-}
-.navbar-inverse .navbar-brand {
-	color: #fff;
-}
-
-
 
 /* HELPERS */
 
@@ -353,13 +340,6 @@ body.home #secondarynav {
 	border-bottom: none;
 }
 
-body.home #ht-feature-news h3 {
-	border-top: none !important;
-	padding-bottom: 0;
-}
-#ht-feature-news .media-body a {
-	text-decoration: none !important;
-}
 #secondarynav {
 	padding-left: 0;
 	margin-left: 0;
@@ -796,12 +776,7 @@ p.taglisting.page {
 	margin-top: 0;
 	background-color: #ffffff;
 }
-#ht-feature-news h2 {
-	margin-bottom: 0;
-}
-#ht-feature-news .media {
-	margin-top: 0;
-}
+
 .accordionButton  {
 
 	width: 90%;
@@ -1371,7 +1346,7 @@ category-block {
 
 .category-block h3 {
 	font-size: 1.25em;;
-	margin-bottom: 0 !important;
+	margin-bottom: 0;
 }
 
 .h3border {

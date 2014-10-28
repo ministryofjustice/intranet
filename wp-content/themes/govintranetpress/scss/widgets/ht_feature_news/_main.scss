@@ -1,0 +1,27 @@
+#ht-feature-news {
+  .news-date-wrapper {
+    margin-top: 1em;
+    margin-bottom: 0;
+  }
+
+  h2 {
+    margin-bottom: 0;
+  }
+
+  h3 {
+    margin-top: 0;
+
+    body.home & {
+      border-top: none !important;
+      padding-bottom: 0;
+    }
+  }
+
+  .media {
+    margin-top: 0;
+  }
+
+  .media-body a {
+    text-decoration: none !important;
+  }
+}

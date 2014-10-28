@@ -6,4 +6,8 @@
       border-width: 0;
     }
   }
+
+  .descriptive-menu-description {
+    @extend %small-copy;
+  }
 }

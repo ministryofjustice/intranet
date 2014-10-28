@@ -1,0 +1,57 @@
+#need-to-know {
+  background-color: #428bca;
+  position: relative;
+  margin-top: 35px;
+  padding: 10px 15px;
+
+  .close-icon {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    width: 36px;
+    height: 36px;
+    padding: 8px;
+    line-height: 20px;
+    font-size: 24px;
+    text-align: center;
+    color: $white;
+    cursor: pointer;
+
+    &:after {
+      content: "\2a2f";
+    }
+  }
+
+  h3 {
+    margin: 0;
+    padding: 0 20px 0 0;
+    border-bottom: none;
+
+    a {
+      color: $white;
+
+      &:visited,
+      &:active,
+      &:hover {
+        color: $white !important;
+      }
+    }
+  }
+
+  .news-date-wrapper {
+    margin: 10px 0;
+
+    span {
+      color: $white !important; /* outweighing another irresponsible !important defined elsewhere... */
+    }
+  }
+
+  .excerpt {
+    color: $white;
+    margin-bottom: 0;
+  }
+
+  ul.need-to-know-list {
+    margin-bottom: 0;
+  }
+}

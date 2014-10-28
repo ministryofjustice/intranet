@@ -55,7 +55,7 @@ $catcount = 0;
   		    }
 */
   			echo "
-			<div class='col-lg-3 col-md-6 col-sm-6 white";
+			<div class='col-lg-4 col-md-6 col-sm-6 white";
 			echo "'>
 				<div class='category-block'>
 					<h2><a href='{$themeURL}/'>".govintranetpress_custom_title($c->post_title)."</a></h2>
