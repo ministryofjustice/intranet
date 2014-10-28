@@ -29,12 +29,12 @@ $top_slug = htmlspecialchars($top_level_post->post_name);
   <div class='breadcrumbs'>
     <?php if(function_exists('bcn_display') && !is_front_page()) {
       bcn_display();
-      }?>
+    }?>
   </div>
 </div>
 
 <div class="guidance-and-support" data-top-level-slug="<?=$top_slug?>">
-  <ul class="sort">
+  <ul class="tabbed-filter">
     <li class="selected" data-sort-type="alphabetical">
       <a href="">
         <span class="icon"></span>

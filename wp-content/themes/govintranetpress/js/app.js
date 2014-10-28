@@ -106,7 +106,7 @@ jQuery(function(){
         this.$tree = this.$top.find('.tree');
         this.$columns = this.$tree.find('.item-container');
 
-        this.$sortList = this.$top.find('.sort');
+        this.$sortList = this.$top.find('.tabbed-filter');
         this.$sortPopular = this.$sortList.find('[data-sort-type="popular"]');
         this.$sortAlphabetical = this.$sortList.find('[data-sort-type="alphabetical"]');
 
@@ -410,9 +410,39 @@ jQuery(function(){
     };
   }(window.jQuery));
 
+  /** A-Z page
+   */
+  (function($){
+    "use strict";
+
+    App.AZIndex = function(){
+      this.$top = $('.a-z');
+      if(!this.$top.length){ return; }
+      this.init();
+    };
+
+    App.AZIndex.prototype = {
+      init: function(){
+        this.applicationUrl = $('head').data('application-url');
+        this.serviceUrl = this.applicationUrl+'/service/a_z';
+        this.pageBase = this.applicationUrl+'/'+this.$top.data('top-level-slug');
+
+        this.cacheEls();
+        this.bindEvents();
+      },
+
+      cacheEls: function(){
+      },
+
+      bindEvents: function(){
+      }
+    };
+  }());
+
   /** init section - this should be in a separate file - init.js
    */
   var mobileMenu = new App.MobileMenu();
   var stickyNews = new App.StickyNews();
   var guidanceAndSupport = new App.GuidanceAndSupport();
+  var azIndex = new App.AZIndex();
 });

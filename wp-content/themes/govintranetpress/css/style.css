@@ -37,7 +37,7 @@ div, span, p, li, h1, h2, h3, h4, h5, h6 {
 }
 
 /* line 68, ../scss/shared/_typography.scss */
-.guidance-and-support .sort li .label {
+.guidance-and-support .tabbed-filter li .label {
   font-size: 12px;
 }
 
@@ -778,23 +778,23 @@ body.home #ht-feature-news h3 {
 }
 
 /* line 2, ../scss/content/guidance_and_support/_main.scss */
-.guidance-and-support .sort {
+.guidance-and-support .tabbed-filter {
   display: inline-block;
   margin-top: 30px;
   padding-left: 0;
 }
 /* line 7, ../scss/content/guidance_and_support/_main.scss */
-.guidance-and-support .sort li {
+.guidance-and-support .tabbed-filter li {
   display: inline-block;
   border-radius: 10px;
   vertical-align: bottom;
 }
 /* line 14, ../scss/content/guidance_and_support/_main.scss */
-.guidance-and-support .sort li:hover .icon, .guidance-and-support .sort li.selected .icon {
+.guidance-and-support .tabbed-filter li:hover .icon, .guidance-and-support .tabbed-filter li.selected .icon {
   background-color: #428bca;
 }
 /* line 19, ../scss/content/guidance_and_support/_main.scss */
-.guidance-and-support .sort li a {
+.guidance-and-support .tabbed-filter li a {
   display: block;
   padding-right: 20px;
   text-align: center;
@@ -802,7 +802,7 @@ body.home #ht-feature-news h3 {
   outline: none;
 }
 /* line 27, ../scss/content/guidance_and_support/_main.scss */
-.guidance-and-support .sort li .icon {
+.guidance-and-support .tabbed-filter li .icon {
   display: inline-block;
   margin: 0 auto;
   width: 30px;
@@ -812,34 +812,34 @@ body.home #ht-feature-news h3 {
   color: #fff;
 }
 /* line 36, ../scss/content/guidance_and_support/_main.scss */
-.selected .guidance-and-support .sort li .icon {
+.selected .guidance-and-support .tabbed-filter li .icon {
   background-color: #428bca;
 }
 /* line 41, ../scss/content/guidance_and_support/_main.scss */
-.guidance-and-support .sort li .label {
+.guidance-and-support .tabbed-filter li .label {
   display: inline-block;
   color: #333;
 }
 /* line 47, ../scss/content/guidance_and_support/_main.scss */
-.guidance-and-support .sort li[data-sort-type="popular"] {
+.guidance-and-support .tabbed-filter li[data-sort-type="popular"] {
   margin-right: 15px;
 }
 /* line 49, ../scss/content/guidance_and_support/_main.scss */
-.guidance-and-support .sort li[data-sort-type="popular"] .icon {
+.guidance-and-support .tabbed-filter li[data-sort-type="popular"] .icon {
   line-height: 25px;
   font-size: 25px;
 }
 /* line 53, ../scss/content/guidance_and_support/_main.scss */
-.guidance-and-support .sort li[data-sort-type="popular"] .icon:after {
+.guidance-and-support .tabbed-filter li[data-sort-type="popular"] .icon:after {
   content: "\2605";
 }
 /* line 60, ../scss/content/guidance_and_support/_main.scss */
-.guidance-and-support .sort li[data-sort-type="alphabetical"] .icon {
+.guidance-and-support .tabbed-filter li[data-sort-type="alphabetical"] .icon {
   font-weight: bold;
   font-size: 15px;
 }
 /* line 64, ../scss/content/guidance_and_support/_main.scss */
-.guidance-and-support .sort li[data-sort-type="alphabetical"] .icon:after {
+.guidance-and-support .tabbed-filter li[data-sort-type="alphabetical"] .icon:after {
   content: "A";
 }
 /* line 73, ../scss/content/guidance_and_support/_main.scss */
