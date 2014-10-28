@@ -42,48 +42,67 @@ get_header(); ?>
 	$forumsupport = get_option($gis);
 
 	if ($homecontent ): //Display emergency message
-	?>
-  <div class="col-lg-12">
-    <div class="message message-<?php echo $homecontentcolour; ?>">
-      <div class="row">
-        <button type="button" class="close" data-dismiss="message" aria-hidden="true">&times;</button>
-        <div class="col-lg-4 col-md-4">
-          <div class="meta">
-            <h3>Emergency message</h3>
-            <span class="timestamp">29 August 2014</span>
-          </div>
-        </div>
-        <div class="col-lg-8 col-md-8">
-          <div class="content">
-            <?php	echo apply_filters('the_content', $homecontent, true); ?>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <?php endif; ?>
-
-  <div class="col-lg-<?php echo $col1; ?> col-md-<?php echo $col1; ?> col-sm-7">
-    <?php 	dynamic_sidebar('home-widget-area0'); ?>
+    ?>
     <div class="row">
-      <div class="col-lg-6">
-        <?php dynamic_sidebar('home-widget-area0-1'); ?>
-      </div>
-      <div class="col-lg-6">
-        <?php dynamic_sidebar('home-widget-area0-2'); ?>
+      <div class="col-lg-12">
+        <div class="message message-<?php echo $homecontentcolour; ?>">
+          <div class="row">
+            <button type="button" class="close" data-dismiss="message" aria-hidden="true">&times;</button>
+            <div class="col-lg-4 col-md-4">
+              <div class="meta">
+                <h3>Emergency message</h3>
+                <span class="timestamp">29 August 2014</span>
+              </div>
+            </div>
+            <div class="col-lg-8 col-md-8">
+              <div class="content">
+                <?php	echo apply_filters('the_content', $homecontent, true); ?>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="col-lg-6 col-md-6 col-sm-5">
-    <div class="homepage-settings-placeholder">
-      <!--
-      this is just a placeholder which will be replaced with a proper
-      module as soon as it's developed
-      -->
-      <img class="placeholder-image" src="<?=get_stylesheet_directory_uri()?>/images/homepage_settings.png" data-img-dir="<?=get_stylesheet_directory_uri()?>/images/" />
-      <a href="#" class="swap-link"></a>
+    <?php endif; ?>
+
+    <div class="row">
+      <div class="col-lg-<?php echo $col1; ?> col-md-<?php echo $col1; ?> col-sm-7">
+        <?php 	dynamic_sidebar('home-widget-area0'); ?>
+        <div class="row">
+          <div class="col-lg-6">
+            <?php dynamic_sidebar('home-widget-area0-1'); ?>
+          </div>
+          <div class="col-lg-6">
+            <?php dynamic_sidebar('home-widget-area0-2'); ?>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-5">
+        <div class="homepage-settings-placeholder">
+          <!--
+          this is just a placeholder which will be replaced with a proper
+          module as soon as it's developed
+          -->
+          <img class="placeholder-image" src="<?=get_stylesheet_directory_uri()?>/images/homepage_settings.png" data-img-dir="<?=get_stylesheet_directory_uri()?>/images/" />
+          <a href="#" class="swap-link"></a>
+        </div>
+      </div>
     </div>
-  </div>
+
+    <div class="row feeds">
+      <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+        <img src="<?=get_stylesheet_directory_uri()?>/images/feed_events.png" />
+      </div>
+      <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+        <img src="<?=get_stylesheet_directory_uri()?>/images/feed_stats.png" />
+      </div>
+      <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+        <img src="<?=get_stylesheet_directory_uri()?>/images/feed_twitter.png" />
+      </div>
+      <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+        <img src="<?=get_stylesheet_directory_uri()?>/images/feed_yammer.png" />
+      </div>
+    </div>
 
   <?php	if ($campaign_message) :  //Display campaign message ?>
   <div class="clearfix"></div>

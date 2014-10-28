@@ -61,3 +61,17 @@
     /*background-color: rgba(255, 0, 0, .3);*/
   }
 }
+
+.feeds {
+  margin-top: 40px;
+  margin-bottom: 40px;
+  padding-top: 40px;
+  border-top: 3px solid $black;
+
+  img {
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width: 992px) {
+}
