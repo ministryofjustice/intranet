@@ -1,42 +1,42 @@
-/* line 1, ../scss/_common.scss */
+/* line 1, ../scss/global/_common.scss */
 template {
   display: none;
 }
 
-/* line 1, ../scss/shared/_typography.scss */
+/* line 1, ../scss/global/_typography.scss */
 div, span, p, li, h1, h2, h3, h4, h5, h6 {
   font-family: arial, sans-serif;
 }
 
 /** Headings **/
-/* line 13, ../scss/shared/_typography.scss */
+/* line 13, ../scss/global/_typography.scss */
 .guidance-and-support .links h3 {
   font-size: 16px;
 }
 
-/* line 17, ../scss/shared/_typography.scss */
+/* line 17, ../scss/global/_typography.scss */
 .guidance-and-support .categories h3,
 .guidance-and-support .subcategories h3 {
   font-size: 19px;
 }
 
-/* line 21, ../scss/shared/_typography.scss */
+/* line 21, ../scss/global/_typography.scss */
 #topstrip #crownlink a {
   font-size: 24px;
 }
 
 /** Copy **/
-/* line 56, ../scss/shared/_typography.scss */
+/* line 56, ../scss/global/_typography.scss */
 #content .guidance-and-support .item-container .description {
   font-size: 16px;
 }
 
-/* line 60, ../scss/shared/_typography.scss */
+/* line 60, ../scss/global/_typography.scss */
 #topstrip #searchformdiv .search-filter-container:after, #topstrip #searchformdiv .search-filter, .home.page #content .descriptive-menu-description, .guidance-and-support .tree .all-categories {
   font-size: 14px;
 }
 
-/* line 68, ../scss/shared/_typography.scss */
+/* line 68, ../scss/global/_typography.scss */
 .guidance-and-support .tabbed-filter li .label {
   font-size: 12px;
 }
@@ -313,7 +313,7 @@ div, span, p, li, h1, h2, h3, h4, h5, h6 {
   width: 100%;
   display: block;
 }
-/* line 2, ../scss/shared/_mixins.scss */
+/* line 2, ../scss/global/_mixins.scss */
 #topstrip #searchformdiv .input-group:after {
   content: ".";
   display: block;
@@ -736,6 +736,54 @@ body.home #ht-feature-news h3 {
   margin-bottom: 0;
 }
 
+/* line 1, ../scss/shared/_message.scss */
+.message {
+  padding: 15px;
+  border: 1px solid transparent;
+  border-radius: 0;
+  position: relative;
+}
+/* line 7, ../scss/shared/_message.scss */
+.message h3 {
+  margin: 0;
+  padding-bottom: 0;
+}
+/* line 12, ../scss/shared/_message.scss */
+.message .meta {
+  margin-left: 20px;
+}
+/* line 16, ../scss/shared/_message.scss */
+.message .content {
+  margin-right: 20px;
+}
+/* line 20, ../scss/shared/_message.scss */
+#content .message .content p:last-of-type {
+  /* again, using the id selector only to overpower another irresponsible rule defined elsewhere */
+  margin-bottom: 0;
+}
+/* line 24, ../scss/shared/_message.scss */
+.message.message-warning {
+  background-color: #ffc10e;
+}
+/* line 28, ../scss/shared/_message.scss */
+.message .close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  opacity: 1;
+  color: #fff;
+  text-shadow: none;
+  font-weight: normal;
+  font-size: 24px;
+}
+
+@media only screen and (max-width: 992px) {
+  /* line 41, ../scss/shared/_message.scss */
+  .content {
+    margin-left: 20px;
+    margin-top: 10px;
+  }
+}
 /* line 2, ../scss/content/homepage/_main.scss */
 .home.page #content .category-block ul li a {
   font-size: 1em;
@@ -866,7 +914,7 @@ body.home #ht-feature-news h3 {
   display: flex;
   margin-bottom: 30px;
 }
-/* line 2, ../scss/shared/_mixins.scss */
+/* line 2, ../scss/global/_mixins.scss */
 .guidance-and-support .tree:after {
   content: ".";
   display: block;
