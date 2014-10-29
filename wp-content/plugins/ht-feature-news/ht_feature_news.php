@@ -67,6 +67,19 @@ function widget($args, $instance) {
 				if ($newspod->get_field('post_status')!='publish') {
 					continue;
 				}
+
+				if ($newsgrid[$k]=="L"){
+          $container_class = 'news-large';
+				}
+				elseif ($newsgrid[$k]=="M"){
+          $container_class = 'news-medium';
+				}
+				elseif ($newsgrid[$k]=="T"){
+          $container_class = 'news-thumbnail';
+				}
+
+        echo'<div class="news-item '.$container_class.'">';
+
 				$k++;
 				$alreadydone[] = $slot['ID'];
 				if (function_exists('get_video_thumbnail')){
@@ -97,41 +110,41 @@ function widget($args, $instance) {
 					}
 				}
 
-			$thisdate= $slot['post_date'];
-			$post = get_post( $slot['ID'] );
-			setup_postdata( $post );
-			$thisexcerpt= get_the_excerpt();
-			$thisdate=date("j M Y",strtotime($thisdate));
+        $thisdate= $slot['post_date'];
+        $post = get_post( $slot['ID'] );
+        setup_postdata( $post );
+        $thisexcerpt= get_the_excerpt();
+        $thisdate=date("j M Y",strtotime($thisdate));
 
-			if ($newsgrid[$k]=="T"){
-				echo "<div class='media'>".$image_url;
-			}
+        if ($newsgrid[$k]=="T"){
+          echo "<div class='media'>".$image_url;
+        }
 
-			if ($newsgrid[$k]=="Li"){
-				echo "<p><span class='news_date'>".$thisdate."";
-				echo " <a class='more' href='{$thisURL}' title='{$thistitle}'>Read more</a></span></p>";
-			} else {
-				echo "<p class='news-date-wrapper'><span class='news_date'>".$thisdate."</span></p>";
-			}
+        if ($newsgrid[$k]=="Li"){
+          echo "<p><span class='news_date'>".$thisdate."";
+          echo " <a class='more' href='{$thisURL}' title='{$thistitle}'>Read more</a></span></p>";
+        } else {
+          echo "<p class='news-date-wrapper'><span class='news_date'>".$thisdate."</span></p>";
+        }
 
-			echo "<h3 class='noborder'><a class='' href='".$thisURL."'>".$thistitle."</a></h3>";
+        echo "<h3 class='noborder'><a class='' href='".$thisURL."'>".$thistitle."</a></h3>";
 
-			echo "<div class='media-body'>";
+        echo "<div class='media-body'>";
 
-			if ($newsgrid[$k]!="Li"){
-				echo $thisexcerpt."<p class='news_date'>";
-				echo "<a class='more' href='{$thisURL}' title='{$thistitle}'>Read more</a></p>";
-			}
+        if ($newsgrid[$k]!="Li"){
+          echo $thisexcerpt."<p class='news_date'>";
+          echo "<a class='more' href='{$thisURL}' title='{$thistitle}'>Read more</a></p>";
+        }
 
-				echo "</div>";
+        echo "</div>";
 
-			if ($newsgrid[$k]=="T"){
-				echo "</div>";
-			}
+        if ($newsgrid[$k]=="T"){
+          echo "</div>";
+        }
 
-			echo "<hr class='light' />\n";
+        echo "<hr class='light' />\n";
 
-
+        echo'</div>';
 			}
 		} //end of stickies
 
@@ -161,6 +174,19 @@ function widget($args, $instance) {
 			if ($k >= $totalstories){
 				break;
 			}
+
+      if ($newsgrid[$k]=="L"){
+        $container_class = 'news-large';
+      }
+      elseif ($newsgrid[$k]=="M"){
+        $container_class = 'news-medium';
+      }
+      elseif ($newsgrid[$k]=="T"){
+        $container_class = 'news-thumbnail';
+      }
+
+      echo'<div class="news-item '.$container_class.'">';
+
 			$thistitle = get_the_title($news->ID);
 			$newspod = new Pod ( 'news' , $news->ID );
 			$newspod->display('title');
@@ -219,6 +245,8 @@ function widget($args, $instance) {
 			}
 
 			echo "<hr class='light' />\n";
+
+      echo'</div>';
 		}
 		echo "</div>";
 		wp_reset_query();

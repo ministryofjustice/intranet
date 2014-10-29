@@ -2,25 +2,7 @@
   background-color: #428bca;
   position: relative;
   margin-top: 35px;
-  padding: 10px 15px;
-
-  .close-icon {
-    position: absolute;
-    top: 0px;
-    right: 0px;
-    width: 36px;
-    height: 36px;
-    padding: 8px;
-    line-height: 20px;
-    font-size: 24px;
-    text-align: center;
-    color: $white;
-    cursor: pointer;
-
-    &:after {
-      content: "\2a2f";
-    }
-  }
+  padding: 20px 35px;
 
   h3 {
     margin: 0;
@@ -51,7 +33,37 @@
     margin-bottom: 0;
   }
 
-  ul.need-to-know-list {
+  .need-to-know-list {
     margin-bottom: 0;
+
+    li {
+      display: none;
+      border-top: 0;
+
+      &:first-of-type {
+        display: list-item;
+      }
+    }
+  }
+
+  .page-list {
+    text-align: center;
+    margin-bottom: 0;
+
+    li {
+      @extend %small-copy;
+      display: inline-block;
+      padding: 0px 10px;
+      border: 1px solid #d5e8f4;
+      color: #d5e8f4;
+      line-height: 24px;
+      cursor: pointer;
+
+      &.selected,
+      &:hover {
+        background-color: #b2d4eb;
+        color: #428bca;
+      }
+    }
   }
 }

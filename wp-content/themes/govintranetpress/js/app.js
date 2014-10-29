@@ -51,7 +51,6 @@ jQuery(function(){
     App.StickyNews = function(){
       this.$top = $('#need-to-know');
       if(!this.$top.length){ return; }
-
       this.init();
     };
 
@@ -59,19 +58,27 @@ jQuery(function(){
       init: function(){
         this.cacheEls();
         this.bindEvents();
+        this.showItem(1);
       },
 
-      cacheEls: function(){},
+      cacheEls: function(){
+        this.$pages = this.$top.find('.need-to-know-list > li');
+        this.$pageLinks = this.$top.find('.page-list > li');
+      },
 
       bindEvents: function(){
-        var _this = this;
-        this.$top.on('click', '.close-icon', function(){
-          _this.collapse();
-        });
+        this.$pageLinks.on('click', $.proxy(this.showItem, this, null));
       },
 
-      collapse: function(){
-        this.$top.slideUp(200);
+      showItem: function(pageId, e){
+        if(!pageId){
+          pageId = $(e.target).data('page-id');
+        }
+
+        this.$pages.hide();
+        this.$pageLinks.removeClass('selected');
+        this.$pages.filter('[data-page="'+pageId+'"]').show();
+        this.$pageLinks.filter('[data-page-id="'+pageId+'"]').addClass('selected');
       }
     };
   }(window.jQuery));
@@ -478,6 +485,37 @@ jQuery(function(){
     };
   }(jQuery));
 
+  /** Emergency message
+   */
+  (function($){
+    "use strict";
+
+    App.EmergencyMessage = function(){
+      this.$top = $('.message');
+      if(!this.$top.length){ return; }
+      this.init();
+    };
+
+    App.EmergencyMessage.prototype = {
+      init: function(){
+        this.cacheEls();
+        this.bindEvents();
+      },
+
+      cacheEls: function(){
+        this.$closeButton = this.$top.find('.close');
+      },
+
+      bindEvents: function(){
+        this.$closeButton.on('click', $.proxy(this.close, this));
+      },
+
+      close: function(){
+        this.$top.slideUp(200);
+      }
+    };
+  }(window.jQuery));
+
 
   /** init section - this should be in a separate file - init.js
    */
@@ -486,4 +524,5 @@ jQuery(function(){
   var guidanceAndSupport = new App.GuidanceAndSupport();
   var azIndex = new App.AZIndex();
   var homepageSettings = new App.HomepageSettings();
+  var emergencyMessage = new App.EmergencyMessage();
 });

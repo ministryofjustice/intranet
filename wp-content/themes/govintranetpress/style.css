@@ -1019,16 +1019,6 @@ h3  {
 	margin-top: 0 !important;
 }
 
-#need-to-know ul li {
-	border-bottom: none !important;
-	padding: 0;
-	padding-bottom: 0.3em;
-	border-top: none;
-}
-
-#need-to-know ul li a:visited {
-	color: #a6a6a6;
-}
 h3.noborder {
 	border-top: 0 !important;
   border-bottom: 0 !important;
