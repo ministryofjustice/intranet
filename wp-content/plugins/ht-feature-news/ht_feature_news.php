@@ -9,8 +9,6 @@ Author URI: http://www.helpfultechnology.com
 */
 
 class htFeatureNews extends WP_Widget {
-  static $alreadydone = array();
-
   function htFeatureNews() {
     parent::WP_Widget(false, 'HT Feature news', array('description' => 'Display feature news stories'));
   }
@@ -28,7 +26,7 @@ class htFeatureNews extends WP_Widget {
     global $post;
     echo $before_widget;
     if ( $title ) echo $before_title . $title . $after_title;
-    echo '<div class="ht-feature-news '.$containerclasses.'">';
+    echo '<div class="ht-feature-news clearfix '.$containerclasses.'">';
 
     //forumalate grid of news stories and formats
     $totalstories =  $largeitems + $mediumitems + $thumbnailitems + $listitems;
@@ -73,11 +71,7 @@ class htFeatureNews extends WP_Widget {
 		while ($news->have_posts()) {
 			$news->the_post();
 
-			if (in_array($post->ID, htFeatureNews::$alreadydone )) { //don't show if already shown in another instance
-				continue;
-			}
 			$k++;
-      htFeatureNews::$alreadydone[] = $post->ID;
 
 			if ($k >= $totalstories){
 				break;
@@ -103,21 +97,21 @@ class htFeatureNews extends WP_Widget {
 			if ($newsgrid[$k]=="L"){
 				$image_uri =  wp_get_attachment_image_src( get_post_thumbnail_id( $news->ID ), 'newshead' );
 				if ($image_uri!="" && $videostill==''){
-					echo "<a href='{$thisURL}'><img class='img img-responsive' src='{$image_uri[0]}' alt='".govintranetpress_custom_title($slot)."' /></a>";
+					echo "<a href='{$thisURL}'><img src='{$image_uri[0]}' alt='".govintranetpress_custom_title($slot)."' /></a>";
 				}
 			}
 
 			if ($newsgrid[$k]=="M"){
 				$image_uri =  wp_get_attachment_image_src( get_post_thumbnail_id( $news->ID ), 'medium' );
 				if ($image_uri!="" && $videostill==''){
-					echo "<a href='{$thisURL}'><img class='img' src='{$image_uri[0]}' alt='".govintranetpress_custom_title($slot)."' /></a>";
+					echo "<a href='{$thisURL}'><img src='{$image_uri[0]}' alt='".govintranetpress_custom_title($slot)."' /></a>";
 				}
 			}
 
 			if ($newsgrid[$k]=="T"){
-				$image_uri = "<a href='{$thisURL}'>".get_the_post_thumbnail($news->ID, 'thumbnail', array('class' => 'media-object hidden-xs'))."</a>";
+				$image_uri =  wp_get_attachment_image_src( get_post_thumbnail_id( $news->ID ), 'thumbnail' );
 				if ($image_uri!="" && $videostill==''){
-					$image_url = "<a href='{$thisURL}'>".$image_uri."</a>";
+					echo "<a href='{$thisURL}'><img src='{$image_uri[0]}' alt='".govintranetpress_custom_title($slot)."' /></a>";
 				}
 			}
 
@@ -133,13 +127,17 @@ class htFeatureNews extends WP_Widget {
 			if ($newsgrid[$k]=="Li"){
 				echo "<p><span class='news_date'>".$thisdate."";
 				echo " <a class='more' href='{$thisURL}' title='{$thistitle}'>Read more</a></span></p>";
-			} else {
+			} elseif($newsgrid[$k]!="T"){
 				echo "<p class='news-date-wrapper'><span class='news_date'>".$thisdate."</span></p>";
 			}
 
 			echo "<h3 class='noborder'><a class='' href='".$thisURL."'>".$thistitle."</a></h3>";
 
 			echo "<div class='media-body'>";
+
+      if($newsgrid[$k]=="T"){
+				echo "<p class='news-date-wrapper'><span class='news_date'>".$thisdate."</span></p>";
+			}
 
 			if ($newsgrid[$k]!="Li"){
 				echo $thisexcerpt."<p class='news_date'>";
@@ -154,10 +152,15 @@ class htFeatureNews extends WP_Widget {
 
       echo'</div>';
 		}
-		echo "</div>";
+
+    ?>
+
+		<div class="category-block more-in-news"><p><strong><a title='More in news' class="small" href="<?php echo $siteurl; ?>/newspage/">More in news</a></strong> <i class='glyphicon glyphicon-chevron-right small'></i></p></div>
+		</div>
+
+    <?php
 		wp_reset_query();
     ?>
-		<div class="category-block more-in-news"><p><strong><a title='More in news' class="small" href="<?php echo $siteurl; ?>/newspage/">More in news</a></strong> <i class='glyphicon glyphicon-chevron-right small'></i></p></div>
 
     <?php echo $after_widget;
   }
