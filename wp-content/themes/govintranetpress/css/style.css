@@ -687,7 +687,7 @@ body.home .ht-feature-news h3 {
 }
 /* line 32, ../scss/widgets/ht_feature_news/_main.scss */
 .ht-feature-news .news-medium {
-  float: left;
+  display: inline-block;
   width: 50%;
   padding-bottom: 20px;
 }
