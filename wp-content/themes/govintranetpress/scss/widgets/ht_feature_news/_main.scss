@@ -105,19 +105,13 @@
   }
 
   &.department-news {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
 
     .news-item {
+      float: left;
       width: 50%;
       padding-right: 20px;
       border-top: none !important;
       border-bottom: 1px solid #888;
-    }
-
-    .more-in-news {
-      display: none;
     }
   }
 }
