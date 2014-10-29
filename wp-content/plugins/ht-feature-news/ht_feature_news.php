@@ -72,7 +72,8 @@ class htFeatureNews extends WP_Widget {
     $k=-1;
 		while ($news->have_posts()) {
 			$news->the_post();
-			if (in_array($post->ID, htFeatureNews::$alreadydone )) { //don't show if already in stickies
+
+			if (in_array($post->ID, htFeatureNews::$alreadydone )) { //don't show if already shown in another instance
 				continue;
 			}
 			$k++;
@@ -155,56 +156,54 @@ class htFeatureNews extends WP_Widget {
 		}
 		echo "</div>";
 		wp_reset_query();
-?>
+    ?>
 		<div class="category-block more-in-news"><p><strong><a title='More in news' class="small" href="<?php echo $siteurl; ?>/newspage/">More in news</a></strong> <i class='glyphicon glyphicon-chevron-right small'></i></p></div>
 
+    <?php echo $after_widget;
+  }
 
-<?php echo $after_widget;
-
-    }
-
-    function update($new_instance, $old_instance) {
-		$instance = $old_instance;
-		$instance['title'] = strip_tags($new_instance['title']);
-		$instance['largeitems'] = strip_tags($new_instance['largeitems']);
-		$instance['mediumitems'] = strip_tags($new_instance['mediumitems']);
-		$instance['thumbnailitems'] = strip_tags($new_instance['thumbnailitems']);
-		$instance['listitems'] = strip_tags($new_instance['listitems']);
+  function update($new_instance, $old_instance) {
+    $instance = $old_instance;
+    $instance['title'] = strip_tags($new_instance['title']);
+    $instance['largeitems'] = strip_tags($new_instance['largeitems']);
+    $instance['mediumitems'] = strip_tags($new_instance['mediumitems']);
+    $instance['thumbnailitems'] = strip_tags($new_instance['thumbnailitems']);
+    $instance['listitems'] = strip_tags($new_instance['listitems']);
     $instance['containerclasses'] = strip_tags($new_instance['containerclasses']);
-       return $instance;
-    }
+    return $instance;
+  }
 
-    function form($instance) {
-        $title = esc_attr($instance['title']);
-        $largeitems = esc_attr($instance['largeitems']);
-        $mediumitems = esc_attr($instance['mediumitems']);
-        $thumbnailitems = esc_attr($instance['thumbnailitems']);
-        $listitems = esc_attr($instance['listitems']);
-        $containerclasses = esc_attr($instance['containerclasses']);
-        ?>
-         <p>
-          <label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title:'); ?></label>
-          <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo $title; ?>" /><br><br>
-          <label>Number of stories</label><br>
-          <label for="<?php echo $this->get_field_id('largeitems'); ?>"><?php _e('Large'); ?></label>
-          <input class="widefat" id="<?php echo $this->get_field_id('largeitems'); ?>" name="<?php echo $this->get_field_name('largeitems'); ?>" type="text" value="<?php echo $largeitems; ?>" /><br><br>
+  function form($instance) {
+    $title = esc_attr($instance['title']);
+    $largeitems = esc_attr($instance['largeitems']);
+    $mediumitems = esc_attr($instance['mediumitems']);
+    $thumbnailitems = esc_attr($instance['thumbnailitems']);
+    $listitems = esc_attr($instance['listitems']);
+    $containerclasses = esc_attr($instance['containerclasses']);
+    ?>
+     <p>
+      <label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title:'); ?></label>
+      <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo $title; ?>" /><br><br>
+      <label>Number of stories</label><br>
+      <label for="<?php echo $this->get_field_id('largeitems'); ?>"><?php _e('Large'); ?></label>
+      <input class="widefat" id="<?php echo $this->get_field_id('largeitems'); ?>" name="<?php echo $this->get_field_name('largeitems'); ?>" type="text" value="<?php echo $largeitems; ?>" /><br><br>
 
-          <label for="<?php echo $this->get_field_id('mediumitems'); ?>"><?php _e('Medium'); ?></label>
-          <input class="widefat" id="<?php echo $this->get_field_id('mediumitems'); ?>" name="<?php echo $this->get_field_name('mediumitems'); ?>" type="text" value="<?php echo $mediumitems; ?>" /><br><br>
+      <label for="<?php echo $this->get_field_id('mediumitems'); ?>"><?php _e('Medium'); ?></label>
+      <input class="widefat" id="<?php echo $this->get_field_id('mediumitems'); ?>" name="<?php echo $this->get_field_name('mediumitems'); ?>" type="text" value="<?php echo $mediumitems; ?>" /><br><br>
 
-          <label for="<?php echo $this->get_field_id('thumbnailitems'); ?>"><?php _e('Thumbnail'); ?></label>
-          <input class="widefat" id="<?php echo $this->get_field_id('thumbnailitems'); ?>" name="<?php echo $this->get_field_name('thumbnailitems'); ?>" type="text" value="<?php echo $thumbnailitems; ?>" /><br><br>
+      <label for="<?php echo $this->get_field_id('thumbnailitems'); ?>"><?php _e('Thumbnail'); ?></label>
+      <input class="widefat" id="<?php echo $this->get_field_id('thumbnailitems'); ?>" name="<?php echo $this->get_field_name('thumbnailitems'); ?>" type="text" value="<?php echo $thumbnailitems; ?>" /><br><br>
 
-          <label for="<?php echo $this->get_field_id('listitems'); ?>"><?php _e('List format (no photos)'); ?></label>
-          <input class="widefat" id="<?php echo $this->get_field_id('listitems'); ?>" name="<?php echo $this->get_field_name('listitems'); ?>" type="text" value="<?php echo $listitems; ?>" /><br><br>
+      <label for="<?php echo $this->get_field_id('listitems'); ?>"><?php _e('List format (no photos)'); ?></label>
+      <input class="widefat" id="<?php echo $this->get_field_id('listitems'); ?>" name="<?php echo $this->get_field_name('listitems'); ?>" type="text" value="<?php echo $listitems; ?>" /><br><br>
 
-          <label for="<?php echo $this->get_field_id('containerclasses'); ?>"><?php _e('Extra container classes'); ?></label>
-          <input class="widefat" id="<?php echo $this->get_field_id('containerclasses'); ?>" name="<?php echo $this->get_field_name('containerclasses'); ?>" type="text" value="<?php echo $containerclasses; ?>" /><br><br>
+      <label for="<?php echo $this->get_field_id('containerclasses'); ?>"><?php _e('Extra container classes'); ?></label>
+      <input class="widefat" id="<?php echo $this->get_field_id('containerclasses'); ?>" name="<?php echo $this->get_field_name('containerclasses'); ?>" type="text" value="<?php echo $containerclasses; ?>" /><br><br>
 
-        </p>
+    </p>
 
-        <?php
-    }
+    <?php
+  }
 
 }
 
