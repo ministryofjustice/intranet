@@ -149,8 +149,6 @@ class htFeatureNews extends WP_Widget {
 				echo "</div>";
 			}
 
-			echo "<hr class='light' />\n";
-
       echo'</div>';
 		}
 		echo "</div>";
