@@ -154,7 +154,7 @@ class htFeatureNews extends WP_Widget {
 		echo "</div>";
 		wp_reset_query();
 ?>
-		<div class="category-block"><p><strong><a title='More in news' class="small" href="<?php echo $siteurl; ?>/newspage/">More in news</a></strong> <i class='glyphicon glyphicon-chevron-right small'></i></p></div>
+		<div class="category-block more-in-news"><p><strong><a title='More in news' class="small" href="<?php echo $siteurl; ?>/newspage/">More in news</a></strong> <i class='glyphicon glyphicon-chevron-right small'></i></p></div>
 
 
 <?php echo $after_widget;
