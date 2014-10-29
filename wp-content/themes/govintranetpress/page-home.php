@@ -89,6 +89,12 @@ get_header(); ?>
       </div>
     </div>
 
+    <div class="row department-news-container">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <?php dynamic_sidebar('home-widget-area5'); ?>
+      </div>
+    </div>
+
     <div class="row feeds">
       <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
         <img src="<?=get_stylesheet_directory_uri()?>/images/feed_events.png" />

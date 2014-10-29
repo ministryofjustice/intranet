@@ -753,7 +753,30 @@ body.home .ht-feature-news h3 {
 .ht-feature-news.small-news .more-in-news {
   border-top: 1px solid #888;
 }
+/* line 107, ../scss/widgets/ht_feature_news/_main.scss */
+.ht-feature-news.department-news {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+/* line 112, ../scss/widgets/ht_feature_news/_main.scss */
+.ht-feature-news.department-news .news-item {
+  width: 50%;
+  padding-right: 20px;
+  border-top: none !important;
+  border-bottom: 1px solid #888;
+}
+/* line 119, ../scss/widgets/ht_feature_news/_main.scss */
+.ht-feature-news.department-news .more-in-news {
+  display: none;
+}
 
+@media only screen and (max-width: 767px) {
+  /* line 128, ../scss/widgets/ht_feature_news/_main.scss */
+  .ht-feature-news.department-news .news-item {
+    width: 100%;
+  }
+}
 /* line 1, ../scss/widgets/dw_sticky_news/_main.scss */
 #need-to-know {
   background-color: #428bca;
@@ -912,18 +935,17 @@ body.home .ht-feature-news h3 {
 .home.page img.size-full {
   width: 100%;
 }
-
-/* line 47, ../scss/content/homepage/_main.scss */
-.homepage-settings-placeholder {
+/* line 45, ../scss/content/homepage/_main.scss */
+.home.page .homepage-settings-placeholder {
   position: relative;
   margin-top: 35px;
 }
-/* line 51, ../scss/content/homepage/_main.scss */
-.homepage-settings-placeholder img {
+/* line 49, ../scss/content/homepage/_main.scss */
+.home.page .homepage-settings-placeholder img {
   width: 100%;
 }
-/* line 55, ../scss/content/homepage/_main.scss */
-.homepage-settings-placeholder a {
+/* line 53, ../scss/content/homepage/_main.scss */
+.home.page .homepage-settings-placeholder a {
   position: absolute;
   right: 2.8%;
   top: 1.4%;
@@ -931,16 +953,15 @@ body.home .ht-feature-news h3 {
   height: 3.5%;
   /*background-color: rgba(255, 0, 0, .3);*/
 }
-
-/* line 65, ../scss/content/homepage/_main.scss */
-.feeds {
+/* line 63, ../scss/content/homepage/_main.scss */
+.home.page .feeds {
   margin-top: 40px;
   margin-bottom: 40px;
   padding-top: 40px;
   border-top: 3px solid #0b0c0c;
 }
-/* line 71, ../scss/content/homepage/_main.scss */
-.feeds img {
+/* line 69, ../scss/content/homepage/_main.scss */
+.home.page .feeds img {
   width: 100%;
 }
 

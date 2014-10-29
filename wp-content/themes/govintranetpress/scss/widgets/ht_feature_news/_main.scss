@@ -103,4 +103,31 @@
       border-top: 1px solid #888;
     }
   }
+
+  &.department-news {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    .news-item {
+      width: 50%;
+      padding-right: 20px;
+      border-top: none !important;
+      border-bottom: 1px solid #888;
+    }
+
+    .more-in-news {
+      display: none;
+    }
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .ht-feature-news {
+    &.department-news {
+      .news-item {
+        width: 100%;
+      }
+    }
+  }
 }
