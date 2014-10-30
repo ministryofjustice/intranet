@@ -42,81 +42,74 @@ get_header(); ?>
 	$forumsupport = get_option($gis);
 
 	if ($homecontent ): //Display emergency message
-	?>
-		<div class="col-lg-12">
-			<div class="alert alert-dismissable alert-<?php echo $homecontentcolour; ?>">
-				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-					<?php	echo apply_filters('the_content', $homecontent, true);	 ?>
-				</div>
-		</div>
-<?php endif; ?>
-
-
-		<div class="col-lg-<?php echo $col1; ?> col-md-<?php echo $col1; ?> col-sm-7">
-			<?php 	dynamic_sidebar('home-widget-area0'); ?>
-      <div class="row">
-        <div class="col-lg-6">
-          <?php dynamic_sidebar('home-widget-area0-1'); ?>
-        </div>
-        <div class="col-lg-6">
-          <?php dynamic_sidebar('home-widget-area0-2'); ?>
+    ?>
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="message message-<?php echo $homecontentcolour; ?>">
+          <div class="row">
+            <button type="button" class="close" data-dismiss="message" aria-hidden="true">&times;</button>
+            <div class="col-lg-4 col-md-4">
+              <div class="meta">
+                <h3>Emergency message</h3>
+                <span class="timestamp">29 August 2014</span>
+              </div>
+            </div>
+            <div class="col-lg-8 col-md-8">
+              <div class="content">
+                <?php	echo apply_filters('the_content', $homecontent, true); ?>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-		</div>
-		<div class="col-lg-<?php echo $col2; ?> col-md-<?php echo $col2; ?> col-sm-5">
-			<?php 	dynamic_sidebar('home-widget-area1'); ?>
-			<?php 	dynamic_sidebar('home-widget-area2'); ?>
-		</div>
-		<div class="col-lg-<?php echo $col3; ?> col-md-<?php echo $col3; ?> col-sm-5">
-		<?php
-	$gis = "general_intranet_forum_support";
-	$forumsupport = get_option($gis);
+    </div>
+    <?php endif; ?>
 
-	if ($forumsupport && is_active_sidebar('login-widget-area') ) :
-			$current_user = wp_get_current_user();
-			?>
-		<div id="loginrow" class="category-block">
-			<div id="loginaccordion">
-			<h3 class="widget-title">
-			        <a class="accordion-toggle" data-toggle="collapse" data-parent="#loginaccordion" href="#logincollapseOne">
-				<?php if (is_user_logged_in()):?>
-					      <?php
-					      if (function_exists('get_wp_user_avatar')){
-						      echo get_wp_user_avatar(intval($current_user->id),32);
-					      }
-					      echo " ".$current_user->display_name; ?>
-				<?php else :?>
-					       Login <i class="glyphicon glyphicon-chevron-down"></i>
-				<?php endif; ?>
-			        </a>
-			</h3>
-			    </div>
-			    <div id="logincollapseOne" class="xpanel-collapse collapse out">
-			      <div class="xpanel-body">
-					<?php dynamic_sidebar('login-widget-area');	?>
-				</div>
-<!-- 				<h3 class="widget-title>">Personalisation</h3> -->
+    <div class="row">
+      <div class="col-lg-<?php echo $col1; ?> col-md-<?php echo $col1; ?> col-sm-7">
+        <?php dynamic_sidebar('home-widget-area0'); ?>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-5">
+        <div class="homepage-settings-placeholder">
+          <!--
+          this is just a placeholder which will be replaced with a proper
+          module as soon as it's developed
+          -->
+          <img class="placeholder-image" src="<?=get_stylesheet_directory_uri()?>/images/homepage_settings.png" data-img-dir="<?=get_stylesheet_directory_uri()?>/images/" />
+          <a href="#" class="swap-link"></a>
+        </div>
+      </div>
+    </div>
 
-			</div>
-		</div>
-<?php endif; ?>
+    <div class="row department-news-container">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <?php dynamic_sidebar('home-widget-area5'); ?>
+      </div>
+    </div>
 
-			<?php 	dynamic_sidebar('home-widget-area3');
-				if ($forumsupport):			?>
-					<div class="category-block"><hr><p><strong><a title="More in forums" class="small" href="<?php echo site_url();?>/forums/">More in forums</a></strong> <i class='glyphicon glyphicon-chevron-right small'></i></p></div>
-			<?php
-				endif;
-				dynamic_sidebar('home-widget-area4'); ?>
-		</div>
+    <div class="row feeds">
+      <div class="col-lg-3 col-md-3 col-sm-4 col-xs-6">
+        <img src="<?=get_stylesheet_directory_uri()?>/images/feed_events.png" />
+      </div>
+      <div class="col-lg-3 col-md-3 col-sm-4 col-xs-6">
+        <img src="<?=get_stylesheet_directory_uri()?>/images/feed_stats.png" />
+      </div>
+      <div class="col-lg-3 col-md-3 col-sm-4 col-xs-6">
+        <img src="<?=get_stylesheet_directory_uri()?>/images/feed_twitter.png" />
+      </div>
+      <div class="col-lg-3 col-md-3 col-sm-4 col-xs-6">
+        <img src="<?=get_stylesheet_directory_uri()?>/images/feed_yammer.png" />
+      </div>
+    </div>
 
-		<?php	if ($campaign_message) :  //Display campaign message ?>
-		<div class="clearfix"></div>
-		<div class="col-lg-12">
-			<?php 	echo apply_filters('the_content', $campaign_message, true);	 ?>
-			<br>
-		</div>
+  <?php	if ($campaign_message) :  //Display campaign message ?>
+  <div class="clearfix"></div>
+  <div class="col-lg-12">
+    <?php 	echo apply_filters('the_content', $campaign_message, true);	 ?>
+    <br>
+  </div>
 
-		<?php endif;?>
+  <?php endif;?>
 
 
 

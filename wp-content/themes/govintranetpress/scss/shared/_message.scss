@@ -1,0 +1,47 @@
+.message {
+  padding: 15px;
+  border: 1px solid transparent;
+  border-radius: 0;
+  position: relative;
+
+  h3 {
+    margin: 0;
+    padding-bottom: 0;
+  }
+
+  .meta {
+    margin-left: 20px;
+  }
+
+  .content {
+    margin-right: 20px;
+  }
+
+  #content & .content p:last-of-type { /* again, using the id selector only to overpower another irresponsible rule defined elsewhere */
+    margin-bottom: 0;
+  }
+
+  &.message-warning {
+    background-color: #ffc10e;
+  }
+
+  .close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    opacity: 1;
+    color: $white;
+    text-shadow: none;
+    font-weight: normal;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 1;
+  }
+}
+
+@media only screen and (max-width: 992px) {
+  .content {
+    margin-left: 20px;
+    margin-top: 10px;
+  }
+}

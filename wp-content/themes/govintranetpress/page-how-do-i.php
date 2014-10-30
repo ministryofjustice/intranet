@@ -1,5 +1,5 @@
 <?php
-/* Template name: A-Z */
+/* Template name: Guidance & Support */
 
 get_header();
 
@@ -29,12 +29,12 @@ $top_slug = htmlspecialchars($top_level_post->post_name);
   <div class='breadcrumbs'>
     <?php if(function_exists('bcn_display') && !is_front_page()) {
       bcn_display();
-      }?>
+    }?>
   </div>
 </div>
 
-<div class="a-z" data-top-level-slug="<?=$top_slug?>">
-  <ul class="sort">
+<div class="guidance-and-support" data-top-level-slug="<?=$top_slug?>">
+  <ul class="tabbed-filter">
     <li class="selected" data-sort-type="alphabetical">
       <a href="">
         <span class="icon"></span>
@@ -71,7 +71,7 @@ $top_slug = htmlspecialchars($top_level_post->post_name);
         </div>
       </div>
 
-      <template data-name="a-z-category-item">
+      <template data-name="guidance-and-support-category-item">
         <li class="item">
           <a>
             <h3 class="title"></h3>

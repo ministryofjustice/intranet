@@ -1,28 +1,22 @@
 #need-to-know {
   background-color: #428bca;
+  border: 1px solid #428bca;
   position: relative;
   margin-top: 35px;
-  padding: 10px 15px;
 
-  .close-icon {
-    position: absolute;
-    top: 0px;
-    right: 0px;
-    width: 36px;
-    height: 36px;
-    padding: 8px;
-    line-height: 20px;
-    font-size: 24px;
-    text-align: center;
-    color: $white;
-    cursor: pointer;
-
-    &:after {
-      content: "\2a2f";
-    }
+  .need-to-know-inner {
+    padding: 15px 15px;
   }
 
-  h3 {
+  .widget-title {
+    margin: 0;
+    padding: 5px 15px;
+    background-color: $white;
+    color: #428bca;
+    border-bottom: none;
+  }
+
+  .item-title {
     margin: 0;
     padding: 0 20px 0 0;
     border-bottom: none;
@@ -51,7 +45,39 @@
     margin-bottom: 0;
   }
 
-  ul.need-to-know-list {
+  .need-to-know-list {
+    margin-top: 15px;
     margin-bottom: 0;
+
+    li {
+      display: none;
+      padding-top: 0;
+      border-top: 0;
+
+      &:first-of-type {
+        display: list-item;
+      }
+    }
+  }
+
+  .page-list {
+    text-align: center;
+    margin-bottom: 0;
+
+    li {
+      @extend %small-copy;
+      display: inline-block;
+      padding: 0px 10px;
+      border: 1px solid #d5e8f4;
+      color: #d5e8f4;
+      line-height: 24px;
+      cursor: pointer;
+
+      &.selected,
+      &:hover {
+        background-color: #b2d4eb;
+        color: #428bca;
+      }
+    }
   }
 }

@@ -51,7 +51,6 @@ jQuery(function(){
     App.StickyNews = function(){
       this.$top = $('#need-to-know');
       if(!this.$top.length){ return; }
-
       this.init();
     };
 
@@ -59,41 +58,49 @@ jQuery(function(){
       init: function(){
         this.cacheEls();
         this.bindEvents();
+        this.showItem(1);
       },
 
-      cacheEls: function(){},
+      cacheEls: function(){
+        this.$pages = this.$top.find('.need-to-know-list > li');
+        this.$pageLinks = this.$top.find('.page-list > li');
+      },
 
       bindEvents: function(){
-        var _this = this;
-        this.$top.on('click', '.close-icon', function(){
-          _this.collapse();
-        });
+        this.$pageLinks.on('click', $.proxy(this.showItem, this, null));
       },
 
-      collapse: function(){
-        this.$top.slideUp(200);
+      showItem: function(pageId, e){
+        if(!pageId){
+          pageId = $(e.target).data('page-id');
+        }
+
+        this.$pages.hide();
+        this.$pageLinks.removeClass('selected');
+        this.$pages.filter('[data-page="'+pageId+'"]').show();
+        this.$pageLinks.filter('[data-page-id="'+pageId+'"]').addClass('selected');
       }
     };
   }(window.jQuery));
 
-  /** A-Z page index
+  /** Guidance and Support page index
    */
   (function($){
     "use strict";
 
-    App.PageIndex = function(){
-      this.$top = $('.a-z');
+    App.GuidanceAndSupport = function(){
+      this.$top = $('.guidance-and-support');
       if(!this.$top.length){ return; }
       this.init();
     };
 
-    App.PageIndex.prototype = {
+    App.GuidanceAndSupport.prototype = {
       init: function(){
         this.applicationUrl = $('head').data('application-url');
         this.serviceUrl = this.applicationUrl+'/service/children';
         this.pageBase = this.applicationUrl+'/'+this.$top.data('top-level-slug');
 
-        this.itemTemplate = this.$top.find('template[data-name="a-z-category-item"]').html();
+        this.itemTemplate = this.$top.find('template[data-name="guidance-and-support-category-item"]').html();
         this.serviceXHR = null;
 
         this.cacheEls();
@@ -106,7 +113,7 @@ jQuery(function(){
         this.$tree = this.$top.find('.tree');
         this.$columns = this.$tree.find('.item-container');
 
-        this.$sortList = this.$top.find('.sort');
+        this.$sortList = this.$top.find('.tabbed-filter');
         this.$sortPopular = this.$sortList.find('[data-sort-type="popular"]');
         this.$sortAlphabetical = this.$sortList.find('[data-sort-type="alphabetical"]');
 
@@ -410,9 +417,112 @@ jQuery(function(){
     };
   }(window.jQuery));
 
+  /** A-Z page
+   */
+  (function($){
+    "use strict";
+
+    App.AZIndex = function(){
+      this.$top = $('.a-z');
+      if(!this.$top.length){ return; }
+      this.init();
+    };
+
+    App.AZIndex.prototype = {
+      init: function(){
+        this.applicationUrl = $('head').data('application-url');
+        this.serviceUrl = this.applicationUrl+'/service/a_z';
+        this.pageBase = this.applicationUrl+'/'+this.$top.data('top-level-slug');
+
+        this.cacheEls();
+        this.bindEvents();
+      },
+
+      cacheEls: function(){
+      },
+
+      bindEvents: function(){
+      }
+    };
+  }(jQuery));
+
+  /** Homepage settings module
+   */
+  (function($){
+    "use strict";
+
+    App.HomepageSettings = function(){
+      this.$top = $('.homepage-settings-placeholder');
+      if(!this.$top.length){ return; }
+      this.init();
+    };
+
+    App.HomepageSettings.prototype = {
+      init: function(){
+        this.cacheEls();
+        this.bindEvents();
+
+        this.imageDir = this.$image.data('img-dir');
+        this.imageSrcDefault = this.imageDir+'homepage_settings.png';
+        this.imageSrcOpened = this.imageDir+'homepage_settings_2.png';
+      },
+
+      cacheEls: function(){
+        this.$link = this.$top.find('.swap-link');
+        this.$image = this.$top.find('.placeholder-image');
+      },
+
+      bindEvents: function(){
+        this.$top.on('click', $.proxy(this.swapImage, this, false));
+        this.$link.on('click', $.proxy(this.swapImage, this, true));
+      },
+
+      swapImage: function(openedState, e){
+        e.preventDefault();
+        e.stopPropagation();
+        this.$image.attr('src', openedState ? this.imageSrcOpened : this.imageSrcDefault);
+      }
+    };
+  }(jQuery));
+
+  /** Emergency message
+   */
+  (function($){
+    "use strict";
+
+    App.EmergencyMessage = function(){
+      this.$top = $('.message');
+      if(!this.$top.length){ return; }
+      this.init();
+    };
+
+    App.EmergencyMessage.prototype = {
+      init: function(){
+        this.cacheEls();
+        this.bindEvents();
+      },
+
+      cacheEls: function(){
+        this.$closeButton = this.$top.find('.close');
+      },
+
+      bindEvents: function(){
+        this.$closeButton.on('click', $.proxy(this.close, this));
+      },
+
+      close: function(){
+        this.$top.slideUp(200);
+      }
+    };
+  }(window.jQuery));
+
+
   /** init section - this should be in a separate file - init.js
    */
   var mobileMenu = new App.MobileMenu();
   var stickyNews = new App.StickyNews();
-  var pageIndex = new App.PageIndex();
+  var guidanceAndSupport = new App.GuidanceAndSupport();
+  var azIndex = new App.AZIndex();
+  var homepageSettings = new App.HomepageSettings();
+  var emergencyMessage = new App.EmergencyMessage();
 });

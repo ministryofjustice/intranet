@@ -494,6 +494,15 @@ function twentyten_widgets_init() {
 		'after_title' => '</h3>',
 	) );
 	register_sidebar( array(
+		'name' => __( 'Homepage widget box 5', 'twentyten' ),
+		'id' => 'home-widget-area5',
+		'description' => __( 'Homepage bottom right', 'twentyten' ),
+		'before_widget' => '<div class="category-block">',
+		'after_widget' => '</div>',
+		'before_title' => '<h3>',
+		'after_title' => '</h3>',
+	) );
+	register_sidebar( array(
 		'name' => __( 'Utility widget box', 'twentyten' ),
 		'id' => 'utility-widget-area',
 		'description' => __( 'The utility widget area', 'twentyten' ),

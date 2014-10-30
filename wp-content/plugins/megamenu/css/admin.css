@@ -1,0 +1,182 @@
+/**
+ * NAV MENUS
+ */
+ /** TRIBE IMAGE WIDGET **/
+.uploader input.button {
+	width: 100%;
+	height: 34px;
+	line-height: 33px;
+	margin-top: 15px;
+}
+.tribe_preview .aligncenter {
+	display: block;
+	margin-left: auto !important;
+	margin-right: auto !important;
+}
+.tribe_preview {
+	overflow: hidden;
+	max-height: 300px;
+}
+.tribe_preview img {
+	margin: 10px 0;
+	height: auto;
+	max-width: 100%;
+}
+/** END TRIBE IMAGE WIDGET **/
+
+li .mega-menu-wrap {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ccc;
+}
+
+li .mega-menu-wrap p {
+	line-height: 28px;
+}
+
+li .mega-menu-wrap .show-on-depth-0-only {
+	display: none;
+}
+
+li.menu-item-depth-0 .mega-menu-wrap .show-on-depth-0-only {
+	display: block;
+}
+
+li .mega-menu-wrap p label input[type=checkbox] {
+	margin-top: 0;
+}
+
+
+li .mega-menu-wrap .button{
+    margin-bottom: 10px;
+    margin-top: 5px;
+}
+
+li .mega-menu-wrap h4 {
+	margin: 0 0 8px 0;
+	border-bottom: 1px solid #ccc;
+	padding: 0 0 5px 0;
+	color: #666;
+	font-style: italic;
+}
+
+li .mega-menu-wrap select.mega-menu-widget-area {
+    font-size: 0.9em;
+    margin: 0;
+}
+
+
+li .mega-menu-wrap label input,
+li .mega-menu-wrap label select,
+li .mega-menu-wrap label .selected_icon {
+    float: right;
+    font-size: 0.9em;
+}
+
+.mega_menu_meta_box div#megamenu_accordion h3 {
+    padding: 0 0 10px 0;
+    margin: 0;
+    cursor: pointer;
+    outline: none;
+    float: left;
+    width: 100%;
+    color: #888;
+}
+
+.mega_menu_meta_box div#megamenu_accordion h3.ui-state-active,
+.mega_menu_meta_box div#megamenu_accordion h3:hover {
+	color: #333;
+}
+
+.mega_menu_meta_box div#megamenu_accordion h3:hover::before {
+	color: black;
+}
+
+.mega_menu_meta_box div#megamenu_accordion th::before,
+.mega_menu_meta_box div#megamenu_accordion h3::before {
+	right: 0;
+	content: '\f139';
+	border: 0;
+	background: 0 0;
+	font: 400 20px/1 dashicons;
+	speak: none;
+	float: left;
+	padding: 0;
+	text-indent: 0;
+	text-align: center;
+	position: relative;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	text-decoration: none!important;
+	margin-right: 6px;
+}
+
+.mega_menu_meta_box div#megamenu_accordion h3.ui-state-active::before {
+	content: '\f140';
+}
+
+.mega_menu_meta_box div.accordion_content {
+	padding-bottom: 20px;
+	float: left;
+	width: 100%;
+}
+.mega_menu_meta_box div table {
+	font-size: 0.9em;
+	width: 100%;
+	margin-bottom: 5px;
+}
+
+.mega_menu_meta_box div table select {
+	font-size: 0.9em;
+	max-width: 120px;
+}
+
+.mega_menu_meta_box div table tr {
+	height: 29px;
+	vertical-align: middle;
+}
+
+.mega_menu_meta_box div table th {
+	border-bottom: 1px solid #ccc;
+	font-size: 1.1em;
+}
+
+.mega_menu_meta_box div table td:nth-child(1) {
+	padding-left: 5px;
+}
+
+.mega_menu_meta_box div table td:nth-child(2) {
+	text-align: right;
+	min-width: 150px;
+}
+
+.mega_menu_meta_box th::before {
+	content: '\f100';
+}
+
+.mega_menu_meta_box th.settings::before {
+	content: '\f111';
+}
+
+.mega_menu_meta_box p.submit {
+	float: left;
+	text-align: right;
+	width: 100%;
+	margin: 0 0 15px 0;
+	padding: 0;
+}
+
+#nav-menu-meta .mega_menu_meta_box .accordion-section-content  {
+	padding: 0 13px 0px 13px;
+}
+
+.mega_menu_meta_box .selected_icon::before,
+.mega-menu-wrap .selected_icon::before {
+	font: 400 20px/1 dashicons;
+	speak: none;
+	padding: 5px 0 0 5px;
+	display: inline-block;
+	vertical-align: top;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
