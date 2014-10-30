@@ -96,16 +96,16 @@ get_header(); ?>
     </div>
 
     <div class="row feeds">
-      <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+      <div class="col-lg-3 col-md-3 col-sm-4 col-xs-6">
         <img src="<?=get_stylesheet_directory_uri()?>/images/feed_events.png" />
       </div>
-      <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+      <div class="col-lg-3 col-md-3 col-sm-4 col-xs-6">
         <img src="<?=get_stylesheet_directory_uri()?>/images/feed_stats.png" />
       </div>
-      <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+      <div class="col-lg-3 col-md-3 col-sm-4 col-xs-6">
         <img src="<?=get_stylesheet_directory_uri()?>/images/feed_twitter.png" />
       </div>
-      <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+      <div class="col-lg-3 col-md-3 col-sm-4 col-xs-6">
         <img src="<?=get_stylesheet_directory_uri()?>/images/feed_yammer.png" />
       </div>
     </div>
