@@ -105,12 +105,13 @@
   }
 }
 
-
 @media only screen and (max-width: 767px) {
-  .ht-feature-news {
-    &.department-news {
-      .news-item {
-        width: 100%;
+  .home.page {
+    .ht-feature-news {
+      &.department-news {
+        .news-item {
+          width: 100%;
+        }
       }
     }
   }
