@@ -71,6 +71,7 @@
       float: left;
       max-width: 100px;
       margin-right: 20px;
+      border: 1px solid #aaa;
     }
 
     h3 {
@@ -89,38 +90,6 @@
 
     .more {
       display: none;
-    }
-  }
-
-  &.large-news {
-    .more-in-news {
-      display: none;
-    }
-  }
-
-  &.small-news {
-    .more-in-news {
-      border-top: 1px solid #888;
-    }
-  }
-
-  &.department-news {
-    .news-item {
-      display: inline-block;
-      width: 50%;
-      padding-right: 20px;
-      border-top: none !important;
-      border-bottom: 1px solid #888;
-    }
-  }
-}
-
-@media only screen and (max-width: 767px) {
-  .ht-feature-news {
-    &.department-news {
-      .news-item {
-        width: 100%;
-      }
     }
   }
 }

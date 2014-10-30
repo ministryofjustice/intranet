@@ -76,7 +76,42 @@
       margin-bottom: 0;
     }
   }
+
+  .department-news {
+    .news-item {
+      display: inline-block;
+      width: 50%;
+      vertical-align: top;
+      padding-right: 20px;
+      border-top: 1px solid #888;
+    }
+    .more-in-news {
+      border-top: 1px solid #888;
+    }
+  }
+
+  .ht-feature-news {
+    &.large-news {
+      .more-in-news {
+        display: none;
+      }
+    }
+
+    &.small-news {
+      .more-in-news {
+        border-top: 1px solid #888;
+      }
+    }
+  }
 }
 
-@media only screen and (max-width: 992px) {
+
+@media only screen and (max-width: 767px) {
+  .ht-feature-news {
+    &.department-news {
+      .news-item {
+        width: 100%;
+      }
+    }
+  }
 }
