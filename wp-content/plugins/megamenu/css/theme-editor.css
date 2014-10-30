@@ -1,0 +1,230 @@
+
+/**
+ * theme EDITOR
+ */
+.appearance_page_megamenu_theme_editor .megamenu_wrap {
+	width: 100%;
+	float: left;
+}
+.appearance_page_megamenu_theme_editor .megamenu_left {
+	float: left;
+	width: 190px;
+	margin-left: -100%;
+	margin-top: 20px;
+}
+
+.appearance_page_megamenu_theme_editor .megamenu_left h4 {
+	margin: 0 0 10px 2px;
+}
+
+.appearance_page_megamenu_theme_editor .megamenu_left ul li {
+	border: 1px solid #ccc;
+	background: white;
+	
+}
+
+.appearance_page_megamenu_theme_editor .megamenu_left ul li a {
+	text-decoration: none;
+	color: #333;
+	width: 100%;
+	display: block;
+	padding: 5px 10px;
+	box-sizing: border-box;
+}
+
+.appearance_page_megamenu_theme_editor .megamenu_left ul li.error {
+	border-left: 3px solid #dd3d36;
+}
+.appearance_page_megamenu_theme_editor .megamenu_left ul li.mega_active {
+	font-weight: bold;
+}
+.appearance_page_megamenu_theme_editor .megamenu_left ul li.mega_active a:after {
+	right: 0;
+	content: '\f139';
+	border: 0;
+	background: 0 0;
+	font: 400 20px/1 dashicons;
+	speak: none;
+	float: right;
+	padding: 0;
+	text-indent: 0;
+	text-align: center;
+	position: relative;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	text-decoration: none!important;
+	margin-right: 0;
+}
+.nav-tab-active {
+	background: white;
+}
+.appearance_page_megamenu_theme_editor .megamenu_right {
+	margin-left: 190px;
+	padding: 20px;
+	box-sizing: border-box;
+}
+.appearance_page_megamenu_theme_editor .megamenu_right h4 {
+	clear: both;
+	border-bottom: 1px solid #cccccc;
+	padding: 0 0 10px 0;
+	font-size: 1.2em;
+	margin: 1.33em 0 0.7em 0;
+}
+.appearance_page_megamenu_theme_editor .megamenu_right .theme_settings .duplicate {
+	margin-left: 15px;
+}
+.appearance_page_megamenu_theme_editor .megamenu_right .theme_settings {
+	background: white;
+	padding: 10px 20px 30px 20px;
+	border: 1px solid #ccc;
+}
+.appearance_page_megamenu_theme_editor .megamenu_right .nav-tab-active {
+	background: white;
+}
+.appearance_page_megamenu_theme_editor .megamenu_right .theme_settings tr:first-child td {
+	border-top: 0;
+}
+.appearance_page_megamenu_theme_editor .megamenu_right .theme_settings td {
+	padding-bottom: 25px;
+	padding-top: 10px;
+	border-top: 1px solid #efefef;
+}
+.appearance_page_megamenu_theme_editor .megamenu_right .theme_settings td.mega-name {
+	width: 27%;
+	line-height: 2em;
+	padding-right: 30px;
+	vertical-align: top;
+}
+.appearance_page_megamenu_theme_editor .megamenu_right .theme_settings td.mega-value {
+	padding-top: 10px;
+}
+.appearance_page_megamenu_theme_editor .megamenu_right .theme_settings td.mega-name .mega-description {
+	font-size: 0.9em;
+	color: #aaa;
+	line-height: 1.5em;
+}
+
+.appearance_page_megamenu_theme_editor .megamenu_right .theme_settings table textarea,
+.appearance_page_megamenu_theme_editor .megamenu_right .theme_settings table input,
+.appearance_page_megamenu_theme_editor .megamenu_right .theme_settings table select {
+	font-size: 0.9em;
+	height: 28px;
+	line-height: 28px;
+	vertical-align: top;
+}
+.appearance_page_megamenu_theme_editor .megamenu_right .theme_settings table textarea {
+	width: 100%;
+	height: 150px;
+	font-family: monospace;
+	line-height: 1.5em;
+}
+.appearance_page_megamenu_theme_editor .megamenu_right .theme_settings table .CodeMirror {
+	height: 150px;
+	border: 1px solid #aaa;
+}
+
+.appearance_page_megamenu_theme_editor .megamenu_right .theme_settings table ul.custom_styling_tips {
+	list-style-type: disc;
+	list-style-position: inside;
+}
+.appearance_page_megamenu_theme_editor .megamenu_right .theme_settings table ul.custom_styling_tips code {
+	margin: 10px 0 0 0;
+	font-size: 0.9em;
+}
+.appearance_page_megamenu_theme_editor .megamenu_right .theme_settings table input {
+	width: 70px;
+	margin-right: 20px;
+}
+.appearance_page_megamenu_theme_editor .megamenu_right .theme_settings table {
+	width: 100%;
+}
+.appearance_page_megamenu_theme_editor .megamenu_right .theme_settings table label span.mega-short-desc {
+	font-size: 0.8em;
+	text-transform: uppercase;
+	color: #aaa;
+	display: block;
+	margin: 0 0 2px 1px;
+}
+.appearance_page_megamenu_theme_editor .megamenu_right .theme_settings table label {
+	float: left;
+}
+
+
+.appearance_page_megamenu_theme_editor .megamenu_right .theme_settings .row h5 {
+	margin: 0;
+	font-weight: normal;
+	float: left;
+	width: 250px;
+	font-size: 1em;
+}
+
+.appearance_page_megamenu_theme_editor .megamenu_right .theme_settings .fail {
+	border: 1px solid #aaa;
+	border-left: 4px solid #dd3d36;
+	background: #fff;
+	box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+	padding: 10px 0 11px 15px;
+	padding: 7px 0 7px 15px;
+}
+.appearance_page_megamenu_theme_editor .megamenu_right .theme_settings .success {
+	border: 1px solid #aaa;
+	border-left: 4px solid #7ad03a;
+	background: #fff;
+	box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+	padding: 10px 0 11px 15px;
+	padding: 7px 0 7px 15px;
+}
+
+.appearance_page_megamenu_theme_editor .megamenu_right .theme_settings .selected_icon::before {
+	font: 400 20px/1 dashicons;
+	speak: none;
+	padding: 5px 0 0 5px;
+	display: inline-block;
+	vertical-align: top;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.appearance_page_megamenu_theme_editor .mm-picker-container .sp-replacer {
+	margin: 0;
+	float: left;
+}
+
+.appearance_page_megamenu_theme_editor .mm-picker-container .sp-replacer .sp-preview {
+	border: 0;
+	height: 26px;
+	width: 26px;
+	margin: 0;
+}
+.appearance_page_megamenu_theme_editor .mm-picker-container input.mm_colorpicker {
+	float: left;
+	border: 0;
+	height: 23px;
+	box-shadow: 0 0 0;
+	margin: 0;
+}
+
+.appearance_page_megamenu_theme_editor .mm-picker-container {
+	border-radius: 3px;
+	box-shadow: 0 1px 0 rgba(0,0,0,.08);
+	border: 1px solid #ccc;
+	font-size: 0.9em;
+	margin-right: 20px;
+	float: left;
+}
+
+.appearance_page_megamenu_theme_editor .mm-picker-container div.chosen-color {
+	background: #f7f7f7;
+	-webkit-border-radius: 0 2px 2px 0;
+	border-radius: 0 2px 2px 0;
+	border-left: 1px solid #ccc;
+	color: #555;
+	font-size: 11px;
+	line-height: 26px;
+	padding: 0 6px;
+	text-align: center;
+	-webkit-box-shadow: inset 0 1px 0 #fff;
+	box-shadow: inset 0 1px 0 #fff;
+	float: left;
+	cursor: default;
+}

@@ -67,15 +67,7 @@ get_header(); ?>
 
     <div class="row">
       <div class="col-lg-<?php echo $col1; ?> col-md-<?php echo $col1; ?> col-sm-7">
-        <?php 	dynamic_sidebar('home-widget-area0'); ?>
-        <div class="row">
-          <div class="col-lg-6">
-            <?php dynamic_sidebar('home-widget-area0-1'); ?>
-          </div>
-          <div class="col-lg-6">
-            <?php dynamic_sidebar('home-widget-area0-2'); ?>
-          </div>
-        </div>
+        <?php dynamic_sidebar('home-widget-area0'); ?>
       </div>
       <div class="col-lg-6 col-md-6 col-sm-5">
         <div class="homepage-settings-placeholder">

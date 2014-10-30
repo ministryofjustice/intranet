@@ -1,10 +1,22 @@
 #need-to-know {
   background-color: #428bca;
+  border: 1px solid #428bca;
   position: relative;
   margin-top: 35px;
-  padding: 20px 35px;
 
-  h3 {
+  .need-to-know-inner {
+    padding: 15px 15px;
+  }
+
+  .widget-title {
+    margin: 0;
+    padding: 5px 15px;
+    background-color: $white;
+    color: #428bca;
+    border-bottom: none;
+  }
+
+  .item-title {
     margin: 0;
     padding: 0 20px 0 0;
     border-bottom: none;
@@ -34,10 +46,12 @@
   }
 
   .need-to-know-list {
+    margin-top: 15px;
     margin-bottom: 0;
 
     li {
       display: none;
+      padding-top: 0;
       border-top: 0;
 
       &:first-of-type {

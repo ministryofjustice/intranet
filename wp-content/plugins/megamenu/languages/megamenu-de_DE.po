@@ -1,0 +1,384 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: MaxMenu v1.2.2\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2014-07-21 08:04:43+0000\n"
+"Last-Translator: thomas <t.meyer@me.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: CSL v1.x\n"
+"X-Poedit-Language: German\n"
+"X-Poedit-Country: GERMANY\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;\n"
+"X-Poedit-Basepath: ../\n"
+"X-Poedit-Bookmarks: \n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Textdomain-Support: yes"
+
+#: classes/nav-menus.class.php:95
+#@ megamenu
+msgid "Mega Menu Options"
+msgstr "Mega Menu Optionen"
+
+#: classes/nav-menus.class.php:97
+#@ megamenu
+msgid "Configure Panel Widgets for"
+msgstr "Erstelle Widgets für"
+
+#: classes/nav-menus.class.php:101
+#@ megamenu
+msgid "Sub Menu Type"
+msgstr "Untermenü Typ"
+
+#: classes/nav-menus.class.php:103
+#@ megamenu
+msgid "Flyout Menu"
+msgstr "Flyout-Menü"
+
+#: classes/nav-menus.class.php:104
+#@ megamenu
+msgid "Mega Menu Panel"
+msgstr "Mega Menu Panel"
+
+#: classes/nav-menus.class.php:110
+#@ megamenu
+msgid "Sub Menu Position"
+msgstr "Untermenü Position"
+
+#: classes/nav-menus.class.php:112
+#@ megamenu
+msgid "Left"
+msgstr "Links"
+
+#: classes/nav-menus.class.php:113
+#@ megamenu
+msgid "Right"
+msgstr "Rechts"
+
+#: classes/nav-menus.class.php:119
+#@ megamenu
+msgid "Menu Icon"
+msgstr "Menü Icon"
+
+#: classes/nav-menus.class.php:124
+#: classes/theme-editor.class.php:544
+#@ megamenu
+msgid "Disabled"
+msgstr "Deaktiviert"
+
+#: classes/nav-menus.class.php:189
+#@ megamenu
+msgid "Mega Menu Settings"
+msgstr "Mega Menu Einstellungen"
+
+#: classes/nav-menus.class.php:234
+#@ megamenu
+msgid "Launched for Menu ID"
+msgstr "Für Menü-ID gestartet"
+
+#: classes/nav-menus.class.php:235
+#@ megamenu
+msgid "Added to list"
+msgstr "Zur Liste hinzugefügt"
+
+#: classes/nav-menus.class.php:236
+#@ megamenu
+msgid "Select a widget to display in the Mega Panel"
+msgstr "Widget für das Mega Panel auswählen"
+
+#: classes/nav-menus.class.php:238
+#@ megamenu
+msgid "Oops. Something went wrong. Please reload the page."
+msgstr "Oops. Irgendwas ist schief gelaufen. Bitte lade die Seite neu."
+
+#: classes/nav-menus.class.php:304
+#@ megamenu
+msgid "This theme does not have any menu locations."
+msgstr "Dieses Theme besitzt keine Menü Positionen."
+
+#: classes/nav-menus.class.php:308
+#@ megamenu
+msgid "This menu is not tagged to a location. Please tag a location to enable the Mega Menu settings."
+msgstr "Dieses Menü ist keiner Position zugeordnet. Bitte weise dem Menü eine Position zu, um die Mega Menü Einstellungen zu aktivieren. "
+
+#: classes/nav-menus.class.php:348
+#: classes/widget-manager.class.php:484
+#@ default
+msgid "Save"
+msgstr ""
+
+#: classes/nav-menus.class.php:363
+#@ megamenu
+msgid "Enable"
+msgstr "Aktiv"
+
+#: classes/nav-menus.class.php:369
+#@ megamenu
+msgid "Event"
+msgstr "Auslöser"
+
+#: classes/nav-menus.class.php:372
+#@ megamenu
+msgid "Hover"
+msgstr "Hover"
+
+#: classes/nav-menus.class.php:373
+#@ megamenu
+msgid "Click"
+msgstr "Klick"
+
+#: classes/nav-menus.class.php:378
+#@ megamenu
+msgid "Effect"
+msgstr "Effekt"
+
+#: classes/nav-menus.class.php:381
+#@ megamenu
+msgid "None"
+msgstr "Keiner"
+
+#: classes/nav-menus.class.php:382
+#@ megamenu
+msgid "Fade"
+msgstr "Einblenden"
+
+#: classes/nav-menus.class.php:383
+#@ megamenu
+msgid "Slide"
+msgstr "Herunterklappen"
+
+#: classes/nav-menus.class.php:388
+#@ megamenu
+msgid "Theme"
+msgstr "Vorlage"
+
+#: classes/style-manager.class.php:45
+#@ megamenu
+msgid "Default"
+msgstr "Standard"
+
+#: classes/style-manager.class.php:341
+#@ megamenu
+msgid "Warning: CSS compilation failed. Please check your changes or revert the theme."
+msgstr "Achtung: CSS-Erstellung fehlgeschlagen. Bitte überprüfe die Änderungen oder setze das Theme zurück."
+
+#: classes/theme-editor.class.php:273
+#@ megamenu
+msgid "Mega Menu Themes"
+msgstr "Mega Menu Themes"
+
+#: classes/theme-editor.class.php:273
+#@ megamenu
+msgid "Menu Themes"
+msgstr "Menü Themes"
+
+#: classes/theme-editor.class.php:297
+#@ megamenu
+msgid "Select theme to edit"
+msgstr "Theme zum Bearbeiten auswählen"
+
+#: classes/theme-editor.class.php:301
+#@ megamenu
+msgid "Create a new theme"
+msgstr "Neues Theme erstellen"
+
+#: classes/theme-editor.class.php:324
+#@ megamenu
+msgid "Failed to delete theme. The theme is in use by a menu."
+msgstr "Theme kann nicht gelöscht werden, da es von einem Menü benutzt wird."
+
+#: classes/theme-editor.class.php:328
+#@ megamenu
+msgid "Theme Deleted"
+msgstr "Theme gelöscht"
+
+#: classes/theme-editor.class.php:332
+#@ megamenu
+msgid "Theme Duplicated"
+msgstr "Theme dupliziert"
+
+#: classes/theme-editor.class.php:336
+#@ megamenu
+msgid "Changes Saved"
+msgstr "Änderungen gespeichert"
+
+#: classes/theme-editor.class.php:340
+#@ megamenu
+msgid "Theme Reverted"
+msgstr "Theme wiederhergestellt"
+
+#: classes/theme-editor.class.php:344
+#@ megamenu
+msgid "New Theme Created"
+msgstr "Neues Theme erstellt"
+
+#: classes/theme-editor.class.php:413
+#@ megamenu
+msgid "General Settings"
+msgstr "Allgemeine Einstellungen"
+
+#: classes/theme-editor.class.php:417
+#@ megamenu
+msgid "Menu Bar"
+msgstr "Menü Leiste"
+
+#: classes/theme-editor.class.php:421
+#@ megamenu
+msgid "Top Level Menu Items"
+msgstr "Hauptmenü Einträge"
+
+#: classes/theme-editor.class.php:425
+#@ megamenu
+msgid "Mega Panels"
+msgstr "Mega Panels"
+
+#: classes/theme-editor.class.php:429
+#@ megamenu
+msgid "Flyout Menus"
+msgstr "Flyout-Menü"
+
+#: classes/theme-editor.class.php:433
+#@ megamenu
+msgid "Custom SCSS"
+msgstr "Eigenes CSS"
+
+#: classes/theme-editor.class.php:462
+#@ megamenu
+msgid "Editing Theme: "
+msgstr "Bearbeiten von Theme: "
+
+#: classes/theme-editor.class.php:511
+#@ megamenu
+msgid "Delete Theme"
+msgstr "Theme löschen"
+
+#: classes/theme-editor.class.php:515
+#@ megamenu
+msgid "Revert Changes"
+msgstr "Änderungen verwerfen"
+
+#: classes/theme-editor.class.php:519
+#@ megamenu
+msgid "Duplicate Theme"
+msgstr "Theme kopieren"
+
+#: classes/theme-editor.class.php:586
+#: classes/theme-editor.class.php:603
+#@ megamenu
+msgid "Normal"
+msgstr "Normal"
+
+#: classes/theme-editor.class.php:587
+#@ megamenu
+msgid "Bold"
+msgstr "Fett"
+
+#: classes/theme-editor.class.php:604
+#@ megamenu
+msgid "Capitalize"
+msgstr "GROSSBUCHSTABEN"
+
+#: classes/theme-editor.class.php:605
+#@ megamenu
+msgid "Uppercase"
+msgstr "Großschreibung"
+
+#: classes/theme-editor.class.php:606
+#@ megamenu
+msgid "Lowercase"
+msgstr "kleinschreibung"
+
+#: classes/theme-editor.class.php:637
+#@ megamenu
+msgid "Theme Default"
+msgstr "Theme Vorgabe"
+
+#: classes/theme-editor.class.php:735
+#@ megamenu
+msgid "Are you sure?"
+msgstr "Sind Du sicher?"
+
+#: classes/widget-manager.class.php:74
+#@ megamenu
+msgid "Mega Menu Widgets"
+msgstr "Mega Menu Widgets"
+
+#: classes/widget-manager.class.php:75
+#@ megamenu
+msgid "Do not manually edit this area."
+msgstr "Diesen Bereich bitte nicht manuell ändern."
+
+#: classes/widget-manager.class.php:142
+#, php-format
+#@ megamenu
+msgid "Saved %s"
+msgstr "%s gesichert"
+
+#: classes/widget-manager.class.php:143
+#, php-format
+#@ megamenu
+msgid "Failed to save %s"
+msgstr "Fehler beim Speichern von %s"
+
+#: classes/widget-manager.class.php:167
+#, php-format
+#@ megamenu
+msgid "Updated %s (new columns: %d)"
+msgstr "%s aktualisiert (neue Spalten: %d)"
+
+#: classes/widget-manager.class.php:168
+#, php-format
+#@ megamenu
+msgid "Failed to update %s"
+msgstr "Fehler beim Aktualisieren von %s"
+
+#: classes/widget-manager.class.php:193
+#, php-format
+#@ megamenu
+msgid "Failed to add %s to %d"
+msgstr "Fehler beim Hinzufügen von %s zu %d"
+
+#: classes/widget-manager.class.php:216
+#, php-format
+#@ megamenu
+msgid "Deleted %s"
+msgstr "%s gelöscht"
+
+#: classes/widget-manager.class.php:217
+#, php-format
+#@ megamenu
+msgid "Failed to delete %s"
+msgstr "Fehler beim Löschen von %s"
+
+#: classes/widget-manager.class.php:242
+#, php-format
+#@ megamenu
+msgid "Moved %s to %d (%s)"
+msgstr "%s verschoben zu %d (%s)"
+
+#: classes/widget-manager.class.php:243
+#, php-format
+#@ megamenu
+msgid "Failed to move %s to %d"
+msgstr "Fehler beim Verschieben von %s zu %d"
+
+#: megamenu.php:361
+#@ megamenu
+msgid "Mega Menu is not compatible with your version of WordPress. Please upgrade WordPress to the latest version or disable Mega Menu."
+msgstr "Mega Menu ist nicht kompatibel mit dieser WordPress Version. Bitte WordPress auf die aktuelle Version aktualisieren oder Mega Menu deaktivieren."
+
+#: megamenu.php:371
+#@ megamenu
+msgid "Mega Menu is not compatible with Uber Menu. Please disable Uber Menu."
+msgstr "Mega Menu ist nicht kompatibel mit Über Menu. Bitte Über Menu deaktivieren."
+
+#: classes/theme-editor.class.php:100
+#@ megamenu
+msgid " Copy"
+msgstr " Kopie"
+
