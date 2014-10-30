@@ -56,8 +56,6 @@ class dwStickyNews extends WP_Widget{
     $title = apply_filters('widget_title', $instance['title']);
     $items = intval($instance['items']);
 
-    $containerclasses = $instance['containerclasses'];
-
     $cquery = array(
       'orderby'=>'post_date',
       'order'=>'DESC',
@@ -69,25 +67,28 @@ class dwStickyNews extends WP_Widget{
 
     $news = new WP_Query($cquery);
 
-    $widget_data = array();
-    $widget_data['title'] = $title;
-    $widget_data['before_widget'] = $before_widget;
-    $widget_data['after_widget'] = $after_widget;
-    $widget_data['items'] = array();
+    $widget_data = array(
+      'title' => $title,
+      'before_widget' => $before_widget,
+      'after_widget' => $after_widget,
+      'items' => array()
+    );
 
-    $k = 0;
+    $news_count = 0;
 
     while($news->have_posts()){
       $news->the_post();
-      $k++;
-      if($k > 5){
+
+      $news_count++;
+
+      if($news_count > 5){
         break;
       }
 
       $newspod = new Pod('news', $post->ID);
 
       $widget_data['items'][] = array(
-        'offset' => $k,
+        'offset' => $news_count,
         'id' => $post->ID,
         'url' => get_permalink($ID),
         'title' => get_the_title($post->ID),
