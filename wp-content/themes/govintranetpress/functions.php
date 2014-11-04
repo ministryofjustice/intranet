@@ -47,7 +47,6 @@
 if ( ! isset( $content_width ) )
 	$content_width = 640;
 
-
 /** Tell WordPress to run twentyten_setup() when the 'after_setup_theme' hook is run. */
 add_action( 'after_setup_theme', 'twentyten_setup' );
 
@@ -552,7 +551,7 @@ function twentyten_widgets_init() {
 		'name' => __( 'News landing page', 'twentyten' ),
 		'id' => 'newslanding-widget-area',
 		'description' => __( 'The right-hand col on the news page', 'twentyten' ),
-		'before_widget' => '<div class="widget-box">',
+		'before_widget' => '<div>',
 		'after_widget' => '</div>',
 		'before_title' => '<h3 class="widget-title">',
 		'after_title' => '</h3>',
@@ -1552,8 +1551,3 @@ function relevanssi_user_filter($hits) {
     return $tothits;
 }
 
-?>
-
-<?php
-
-include_once('mvc/core/init.php');

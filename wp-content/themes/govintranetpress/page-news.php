@@ -1,9 +1,6 @@
 <?php
 /* Template name: News landing */
 
-error_reporting(E_ALL ^ E_NOTICE);
-ini_set('display_errors', 1);
-
 class Page_news extends MVC_controller {
   function main(){
     $data = ['test'=>'abc'];

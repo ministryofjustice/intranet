@@ -4,26 +4,30 @@ template {
 
 h1 {
   @extend %largest-heading;
-  font-weight: 500;
 }
 
 h2 {
   @extend %larger-heading;
-  font-weight: 500;
 }
 
 h3 {
   @extend %large-heading;
-  font-weight: 500;
 }
 
 h4 {
+  @extend %medium-heading;
 }
 
 h5 {
+  @extend %small-heading;
 }
 
 h6 {
+  @extend %smaller-heading;
+}
+
+ul {
+  padding-left: 0;
 }
 
 li {
