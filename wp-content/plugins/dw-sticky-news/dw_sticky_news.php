@@ -106,6 +106,7 @@ class dwStickyNews extends WP_Widget{
     $instance = $old_instance;
     $instance['title'] = strip_tags($new_instance['title']);
     $instance['items'] = strip_tags($new_instance['items']);
+
     return $instance;
   }
 

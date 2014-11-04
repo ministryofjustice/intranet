@@ -1,5 +1,9 @@
-div, span, p, li, h1, h2, h3, h4, h5, h6 {
+div, span, p {
   font-family: arial, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Helvetica Neue", Helvetica, arial, sans-serif;
 }
 
 /** Headings **/

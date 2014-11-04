@@ -1,0 +1,27 @@
+template {
+  display: none;
+}
+
+h1 {
+  @extend %largest-heading;
+  font-weight: 500;
+}
+
+h2 {
+  @extend %larger-heading;
+  font-weight: 500;
+}
+
+h3 {
+  @extend %large-heading;
+  font-weight: 500;
+}
+
+h4 {
+}
+
+h5 {
+}
+
+h6 {
+}
