@@ -561,7 +561,7 @@ function twentyten_widgets_init() {
 		'name' => __( 'News sidebar', 'twentyten' ),
 		'id' => 'news-widget-area',
 		'description' => __( 'News widget area', 'twentyten' ),
-		'before_widget' => '<div class="widget-box">',
+		'before_widget' => '<div>',
 		'after_widget' => '</div>',
 		'before_title' => '<h3>',
 		'after_title' => '</h3>',
@@ -1553,3 +1553,7 @@ function relevanssi_user_filter($hits) {
 }
 
 ?>
+
+<?php
+
+include_once('mvc/core/init.php');
