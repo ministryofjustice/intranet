@@ -18,6 +18,11 @@ h3 {
   font-weight: 500;
 }
 
+/* line 29, ../scss/global/_base.scss */
+li {
+  list-style-type: none;
+}
+
 /* line 1, ../scss/global/_common.scss */
 .news_date {
   color: #6f777b;
