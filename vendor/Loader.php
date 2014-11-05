@@ -13,7 +13,7 @@ abstract class MVC_loader {
     //!!! TO BE IMPLEMENTED
   }
 
-  function view($path, $data = []){
+  function view($path, $data = array()){
     foreach($data as $key=>$value){
       $$key = $value;
     }
