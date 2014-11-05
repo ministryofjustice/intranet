@@ -3,7 +3,7 @@
 
 class Page_news extends MVC_controller {
   function main(){
-    $data = ['test'=>'abc'];
+    $data = array('test'=>'abc');
 
     get_header();
     $this->view('shared/breadcrumbs');
@@ -12,8 +12,8 @@ class Page_news extends MVC_controller {
   }
 
   function get_data(){
-    return [
-    ];
+    return array(
+    );
   }
 }
 
