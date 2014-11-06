@@ -7,7 +7,15 @@
 	<?php the_content() ?>
 
   <div class="row">
+    <div class="col-md-4">
+      &nbsp;
+    </div>
+    <div class="col-md-8">
+      <?php $this->view('pages/tabs', array('selected'=>'news')) ?>
+    </div>
+  </div>
 
+  <div class="row">
     <div class="col-md-4">
       <form class="news-filters">
         <div class="form-row">

@@ -42,6 +42,11 @@ h1 {
 }
 
 /** Copy **/
+/* line 58, ../scss/global/_typography.scss */
+.page-news .news-tabs li a {
+  font-size: 19px;
+}
+
 /* line 62, ../scss/global/_typography.scss */
 #content .guidance-and-support .item-container .description, .page-news .news-filters .label {
   font-size: 16px;
@@ -82,9 +87,14 @@ li {
   margin: 15px 0;
 }
 
+/* line 1, ../scss/global/_common.scss */
+h1 {
+  border-bottom: 1px solid #545454;
+}
+
 /* line 1, ../scss/global/_button.scss */
-input[type=submit],
-input[type=button],
+input[type="submit"],
+input[type="button"],
 button {
   background-color: #aeaeae;
   border: none;
@@ -1345,4 +1355,34 @@ form .form-row:first-of-type {
 .page-news .news-filters .label {
   color: #333;
   padding: 0;
+}
+/* line 29, ../scss/content/news/_main.scss */
+.page-news .news-tabs {
+  margin-top: 45px;
+  margin-bottom: 45px;
+}
+/* line 2, ../scss/global/_mixins.scss */
+.page-news .news-tabs:after {
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+/* line 34, ../scss/content/news/_main.scss */
+.page-news .news-tabs li {
+  float: left;
+  width: 50%;
+}
+/* line 38, ../scss/content/news/_main.scss */
+.page-news .news-tabs li a {
+  display: block;
+  padding: 20px;
+  border: 1px solid transparent;
+  border-bottom-color: #aaa;
+}
+/* line 47, ../scss/content/news/_main.scss */
+.page-news .news-tabs li.selected a {
+  border-color: #aaa;
+  border-bottom-color: transparent;
 }
