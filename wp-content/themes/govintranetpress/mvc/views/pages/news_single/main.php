@@ -40,7 +40,9 @@
         <li class="previous">
           <span>
             <? if($prev_news_exists): ?>
-              <a href="<?=$prev_news_url?>">Previous</a>
+              <a href="<?=$prev_news_url?>">
+                Previous
+              </a>
             <? else: ?>
               Previous
             <? endif ?>
@@ -50,7 +52,9 @@
         <li class="next">
           <span>
             <? if($next_news_exists): ?>
-              <a href="<?=$next_news_url?>">Next</a>
+              <a href="<?=$next_news_url?>">
+                Next
+              </a>
             <? else: ?>
               Next
             <? endif ?>
