@@ -32,7 +32,31 @@
     </div>
 
     <div class="col-md-8">
-      <?=$content?>
+      <div class="content">
+        <?=$content?>
+      </div>
+
+      <ul class="news-nav">
+        <li class="previous">
+          <span>
+            <? if($prev_news_exists): ?>
+              <a href="<?=$prev_news_url?>">Previous</a>
+            <? else: ?>
+              Previous
+            <? endif ?>
+          </span>
+        </li>
+
+        <li class="next">
+          <span>
+            <? if($next_news_exists): ?>
+              <a href="<?=$next_news_url?>">Next</a>
+            <? else: ?>
+              Next
+            <? endif ?>
+          </span>
+        </li>
+      </ul>
     </div>
   </div>
 </div>

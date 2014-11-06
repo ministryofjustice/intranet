@@ -43,7 +43,7 @@ h1 {
 
 /** Copy **/
 /* line 54, ../scss/global/_typography.scss */
-.news-single .excerpt {
+.news-single .excerpt, .news-single .news-nav {
   font-size: 24px;
 }
 
@@ -1414,7 +1414,43 @@ form .form-row:first-of-type {
   border-bottom: none;
 }
 /* line 20, ../scss/content/news_single/_main.scss */
+.news-single .content {
+  margin-bottom: 45px;
+}
+/* line 24, ../scss/content/news_single/_main.scss */
 .news-single .excerpt {
   margin-top: 45px;
   margin-bottom: 20px;
+}
+/* line 2, ../scss/global/_mixins.scss */
+.news-single .news-nav:after {
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+/* line 35, ../scss/content/news_single/_main.scss */
+.news-single .news-nav li:before, .news-single .news-nav li:after {
+  font-size: 24px;
+}
+/* line 41, ../scss/content/news_single/_main.scss */
+.news-single .news-nav li.previous {
+  float: left;
+}
+/* line 44, ../scss/content/news_single/_main.scss */
+.news-single .news-nav li.previous:before {
+  content: '\2039';
+}
+/* line 49, ../scss/content/news_single/_main.scss */
+.news-single .news-nav li.next {
+  float: right;
+}
+/* line 52, ../scss/content/news_single/_main.scss */
+.news-single .news-nav li.next:after {
+  content: '\203a';
+}
+/* line 57, ../scss/content/news_single/_main.scss */
+.news-single .news-nav li a {
+  padding: 10px 0;
 }
