@@ -11,7 +11,8 @@
       &nbsp;
     </div>
     <div class="col-md-8">
-      <?php $this->view('pages/tabs', array('selected'=>'news')) ?>
+      <?php dynamic_sidebar('newslanding-widget-area0'); ?>
+      <?php /*$this->view('pages/tabs', array('selected'=>'news'));*/ ?>
     </div>
   </div>
 
@@ -38,7 +39,7 @@
     </div>
 
     <div class="col-md-8">
-      <?php dynamic_sidebar('newslanding-widget-area'); ?>
+      <?php dynamic_sidebar('newslanding-widget-area1'); ?>
     </div>
 
   </div>

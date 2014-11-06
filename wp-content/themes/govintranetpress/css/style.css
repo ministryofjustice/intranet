@@ -1382,7 +1382,7 @@ form .form-row:first-of-type {
   border-bottom-color: #aaa;
 }
 /* line 47, ../scss/content/news/_main.scss */
-.page-news .news-tabs li.selected a {
+.page-news .news-tabs li.current-menu-item a {
   border-color: #aaa;
   border-bottom-color: transparent;
 }

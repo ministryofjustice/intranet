@@ -548,9 +548,18 @@ function twentyten_widgets_init() {
 		'after_title' => '</h3>',
 	) );
 	register_sidebar( array(
-		'name' => __( 'News landing page', 'twentyten' ),
-		'id' => 'newslanding-widget-area',
-		'description' => __( 'The right-hand col on the news page', 'twentyten' ),
+		'name' => __( 'News landing page area 0', 'twentyten' ),
+		'id' => 'newslanding-widget-area0',
+		'description' => __( 'The top area on the news page', 'twentyten' ),
+		'before_widget' => '<div>',
+		'after_widget' => '</div>',
+		'before_title' => '<h3 class="widget-title">',
+		'after_title' => '</h3>',
+	) );
+	register_sidebar( array(
+		'name' => __( 'News landing page area 1', 'twentyten' ),
+		'id' => 'newslanding-widget-area1',
+		'description' => __( 'The right col area on the news page', 'twentyten' ),
 		'before_widget' => '<div>',
 		'after_widget' => '</div>',
 		'before_title' => '<h3 class="widget-title">',
@@ -1550,4 +1559,3 @@ function relevanssi_user_filter($hits) {
     }
     return $tothits;
 }
-
