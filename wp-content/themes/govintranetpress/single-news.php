@@ -21,6 +21,10 @@ class Page_single_news extends MVC_controller {
   function get_data(){
     $article_date = get_the_date();
 
+    ob_start();
+    the_content();
+    $content = ob_get_clean();
+
     return array(
       'id' => $post->ID,
       'thumbnail' => wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), 'newshead'),
@@ -28,7 +32,7 @@ class Page_single_news extends MVC_controller {
       'author' => get_the_author(),
       'title' => get_the_title(),
       'excerpt' => get_the_excerpt(),
-      'content' => get_the_content(),
+      'content' => $content,
       'raw_date' => $article_date,
       'human_date' => date("j F Y", strtotime($article_date))
     );
