@@ -1,13 +1,14 @@
-<?php
-/* Template name: News landing */
+<?php if (!defined('ABSPATH')) die();
+
+/**
+ * Template name: News landing
+*/
 
 class Page_news extends MVC_controller {
   function main(){
-    $data = array('test'=>'abc');
-
     get_header();
     $this->view('shared/breadcrumbs');
-    $this->view('pages/news', $this->get_data());
+    $this->view('pages/news_landing/main', $this->get_data());
     get_footer();
   }
 

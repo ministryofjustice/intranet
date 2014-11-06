@@ -7,11 +7,11 @@ if ($catquery[1] == "news") {
 	wp_redirect('/newspage/');
 }
 
-get_header(); 
+get_header();
 
 $cat_name = $_GET['cat'];
 $catpod = new Pod ('category' , $cat_name);
-$catname = $catpod->get_field('name');				
+$catname = $catpod->get_field('name');
 $catslug = $catpod->get_field('slug');				//echo $catslug;
 $catid = $catpod->get_field('id');				//echo $catid;
 ?>
@@ -21,11 +21,11 @@ $catid = $catpod->get_field('id');				//echo $catid;
 	<div class="col-lg-7 col-md-8 col-sm-12 white">
 		<div class="row">
 			<div class='breadcrumbs'>
-				<a title="Go to Home." href="<?php echo site_url(); ?>/" class="site-home">Home</a> &raquo; 
+				<a title="Go to Home." href="<?php echo site_url(); ?>/" class="site-home">Home</a> &raquo;
 				<a title="Go to News" href="<?php echo site_url(); ?>/newspage/">News</a> &raquo; <?php echo $catname; ?>
 			</div>
 		</div>
-	
+
 <?php
 		echo "<h1 class='h1_" . $catid . "'>".$catname." news</h1>";
 ?>
@@ -61,22 +61,22 @@ jQuery("#sbc-s").focus();
 	            'field' => 'slug',
 	            'terms' => $catslug,
 		       ),
-		    ),	
+		    ),
 
 		    'post_type' => 'news',
 		    'orderby'=>'post_date',
 		    'order'=>'DESC',
 		    'posts_per_page' => 10,
-		    'paged' => $paged												
+		    'paged' => $paged
 		)
 		;
-	$newsstories = new WP_Query( $cquery );		
+	$newsstories = new WP_Query( $cquery );
 	if ($newsstories->post_count==0){
 		echo "<p>Nothing to show.</p>";
 	}
 				$context = "news";
 		$contexturl = "/news/";
-			$icon = "star-empty";			
+			$icon = "star-empty";
 
 	while ($newsstories->have_posts()) {
 		$newsstories->the_post();
@@ -86,7 +86,7 @@ jQuery("#sbc-s").focus();
 
 
 		echo "<hr>";
-?>	<h3>				
+?>	<h3>
 	<a href="<?php the_permalink(); ?>" title="<?php printf( esc_attr__( '%s %s', 'govintranetpress' ), the_title_attribute( 'echo=0' ), " (" . $context . ")" ); ?>" rel="bookmark"><?php the_title(); echo $title_context; ?></a></h3>
 <?php
 	echo "<div class='media'>" ;
@@ -97,27 +97,27 @@ jQuery("#sbc-s").focus();
 	echo "'><div class='hidden-xs'>".$image_url."</div></a>" ;
 
 	echo "<div class='media-body'>";
-	
+
 		echo "<div><p>";
 			   $thisdate= $post->post_date;
 			   $thisdate=date("j M Y",strtotime($thisdate));
 			   echo "<span class='listglyph'><i class='glyphicon glyphicon-calendar'></i> Updated ".$thisdate."</span> ";
 		echo "</p></div>";
 
-		the_excerpt(); 
+		the_excerpt();
 ?>
 	</div></div>
 <?php } // End the loop. Whew. ?>
-<?php 
+<?php
 	if (  $newsstories->max_num_pages > 1 ) : ?>
 <?php if (function_exists(wp_pagenavi)) : ?>
 		<?php wp_pagenavi(array('query' => $newsstories)); ?>
 		<?php else : ?>
 		<?php next_posts_link('&larr; Older items', $newsstories->max_num_pages); ?>
-		<?php previous_posts_link('Newer items &rarr;', $newsstories->max_num_pages); ?>						
-<?php endif; 
-	endif; 
-	wp_reset_query();								
+		<?php previous_posts_link('Newer items &rarr;', $newsstories->max_num_pages); ?>
+<?php endif;
+	endif;
+	wp_reset_query();
 ?>
 
 </div>
@@ -125,12 +125,12 @@ jQuery("#sbc-s").focus();
 <div class="col-lg-4 col-lg-offset-1 col-md-4 col-sm-12">
 	<div class='widget-box'>
 		<h3 class='widget-title'>Search by tag</h3>
-<?php 
+<?php
 		$slug = $_GET['cat'];
 		$thisterm = get_term_by('slug', $slug, 'category');
 		$varcat = $thisterm->term_id;
 		echo "<div class='tagcloud'>";
-		echo my_colorful_tag_cloud($varcat, 'category' , 'news'); 
+		echo my_colorful_tag_cloud($varcat, 'category' , 'news');
 		echo "</div>";
 ?>
 	</div>
@@ -151,8 +151,8 @@ jQuery("#sbc-s").focus();
 					}
 					echo "</p></div>";
 				}
-				?>	
+				?>
 
 </div>
-				
+
 <?php get_footer(); ?>
