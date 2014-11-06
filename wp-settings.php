@@ -154,7 +154,7 @@ require( ABSPATH . WPINC . '/nav-menu.php' );
 require( ABSPATH . WPINC . '/nav-menu-template.php' );
 require( ABSPATH . WPINC . '/admin-bar.php' );
 
-require( ABSPATH . '/vendor/init.php' );
+require( ABSPATH . '/custom/mvc/init.php' );
 
 // Load multisite-specific files.
 if ( is_multisite() ) {
