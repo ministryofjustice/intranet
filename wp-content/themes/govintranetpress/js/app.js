@@ -461,26 +461,25 @@ jQuery(function(){
       init: function(){
         this.cacheEls();
         this.bindEvents();
-
-        this.imageDir = this.$image.data('img-dir');
-        this.imageSrcDefault = this.imageDir+'homepage_settings.png';
-        this.imageSrcOpened = this.imageDir+'homepage_settings_2.png';
       },
 
       cacheEls: function(){
         this.$link = this.$top.find('.swap-link');
-        this.$image = this.$top.find('.placeholder-image');
       },
 
       bindEvents: function(){
-        this.$top.on('click', $.proxy(this.swapImage, this, false));
-        this.$link.on('click', $.proxy(this.swapImage, this, true));
+        this.$top.on('click', $.proxy(this.toggle, this, false));
+        this.$link.on('click', $.proxy(this.toggle, this, null));
       },
 
-      swapImage: function(openedState, e){
-        e.preventDefault();
+      toggle: function(toggle, e){
         e.stopPropagation();
-        this.$image.attr('src', openedState ? this.imageSrcOpened : this.imageSrcDefault);
+        if($.type(toggle)==='boolean'){
+          this.$top.toggleClass('opened', toggle);
+        }
+        else{
+          this.$top.toggleClass('opened');
+        }
       }
     };
   }(jQuery));

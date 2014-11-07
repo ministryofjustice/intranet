@@ -75,8 +75,18 @@ get_header(); ?>
           this is just a placeholder which will be replaced with a proper
           module as soon as it's developed
           -->
-          <img class="placeholder-image" src="<?=get_stylesheet_directory_uri()?>/images/homepage_settings.png" data-img-dir="<?=get_stylesheet_directory_uri()?>/images/" />
+          <img class="placeholder-image opened" src="<?=get_stylesheet_directory_uri()?>/images/homepage_settings_2.png" />
+          <img class="placeholder-image closed" src="<?=get_stylesheet_directory_uri()?>/images/homepage_settings.png" />
           <a href="#" class="swap-link"></a>
+          <a href="#" class="app-link link-1"></a>
+          <a href="#" class="app-link link-2"></a>
+          <a href="#" class="app-link link-3"></a>
+          <a href="#" class="app-link link-4"></a>
+          <a href="#" class="app-link link-5"></a>
+          <a href="#" class="app-link link-6"></a>
+          <a href="#" class="app-link link-7"></a>
+          <a href="#" class="app-link link-8"></a>
+          <a href="#" class="app-link link-9"></a>
         </div>
       </div>
     </div>
