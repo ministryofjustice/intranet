@@ -568,8 +568,6 @@ jQuery(function(){
 
   /** Table of contents
    */
-
-
   //!!! to be implemented
   //(function($){
   //  "use strict";
