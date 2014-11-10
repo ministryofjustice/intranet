@@ -48,7 +48,7 @@ h1 {
 }
 
 /* line 58, ../scss/global/_typography.scss */
-.page-news .news-tabs li a {
+.content-tabs li a {
   font-size: 19px;
 }
 
@@ -97,6 +97,30 @@ li {
 /* line 1, ../scss/global/_common.scss */
 h1 {
   border-bottom: 1px solid #545454;
+}
+
+/* line 5, ../scss/global/_common.scss */
+p {
+  margin: 0;
+}
+/* line 8, ../scss/global/_common.scss */
+p + p {
+  margin-top: 10px;
+}
+
+/* line 14, ../scss/global/_common.scss */
+.editable ul {
+  padding-left: 20px;
+  margin: 0;
+}
+/* line 18, ../scss/global/_common.scss */
+.editable ul li {
+  list-style-type: disc;
+  margin: 0;
+}
+/* line 22, ../scss/global/_common.scss */
+.editable ul li + li {
+  margin-top: 10px;
 }
 
 /* line 1, ../scss/global/_button.scss */
@@ -785,6 +809,37 @@ form .form-row:first-of-type {
     text-align: left;
   }
 }
+/* line 1, ../scss/modules/_content_tabs.scss */
+.content-tabs {
+  margin-top: 45px;
+  margin-bottom: 45px;
+}
+/* line 2, ../scss/global/_mixins.scss */
+.content-tabs:after {
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+/* line 6, ../scss/modules/_content_tabs.scss */
+.content-tabs li {
+  float: left;
+  width: 50%;
+}
+/* line 10, ../scss/modules/_content_tabs.scss */
+.content-tabs li a {
+  display: block;
+  padding: 20px;
+  border: 1px solid transparent;
+  border-bottom-color: #aaa;
+}
+/* line 19, ../scss/modules/_content_tabs.scss */
+.content-tabs li.current-menu-item a {
+  border-color: #aaa;
+  border-bottom-color: transparent;
+}
+
 /* line 2, ../scss/widgets/ht_feature_news/_main.scss */
 .ht-feature-news > h3 {
   margin-top: 16px;
@@ -1454,36 +1509,6 @@ form .form-row:first-of-type {
   color: #333;
   padding: 0;
 }
-/* line 29, ../scss/content/news_landing/_main.scss */
-.page-news .news-tabs {
-  margin-top: 45px;
-  margin-bottom: 45px;
-}
-/* line 2, ../scss/global/_mixins.scss */
-.page-news .news-tabs:after {
-  content: ".";
-  display: block;
-  height: 0;
-  clear: both;
-  visibility: hidden;
-}
-/* line 34, ../scss/content/news_landing/_main.scss */
-.page-news .news-tabs li {
-  float: left;
-  width: 50%;
-}
-/* line 38, ../scss/content/news_landing/_main.scss */
-.page-news .news-tabs li a {
-  display: block;
-  padding: 20px;
-  border: 1px solid transparent;
-  border-bottom-color: #aaa;
-}
-/* line 47, ../scss/content/news_landing/_main.scss */
-.page-news .news-tabs li.current-menu-item a {
-  border-color: #aaa;
-  border-bottom-color: transparent;
-}
 
 /* line 2, ../scss/content/news_single/_main.scss */
 .news-single .info-list {
@@ -1543,4 +1568,27 @@ form .form-row:first-of-type {
 /* line 57, ../scss/content/news_single/_main.scss */
 .news-single .news-nav li a {
   padding: 10px 0;
+}
+
+/* line 2, ../scss/content/annual_leave/_main.scss */
+.annual-leave h1 {
+  border-bottom: none;
+}
+/* line 6, ../scss/content/annual_leave/_main.scss */
+.annual-leave .right-hand-menu {
+  margin-top: 40px;
+  border-top: 5px solid #333;
+}
+/* line 10, ../scss/content/annual_leave/_main.scss */
+.annual-leave .right-hand-menu h3 {
+  margin-top: 10px;
+}
+/* line 16, ../scss/content/annual_leave/_main.scss */
+.annual-leave .table-of-contents li {
+  display: block;
+  border-bottom: 1px solid #333;
+}
+/* line 20, ../scss/content/annual_leave/_main.scss */
+.annual-leave .table-of-contents li:first-of-type {
+  border-top: 1px solid #333;
 }
