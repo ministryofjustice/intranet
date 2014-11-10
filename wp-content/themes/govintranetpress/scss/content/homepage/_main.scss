@@ -138,6 +138,19 @@
       top: $row2-top;
       left: $col4-left;
     }
+
+    .quick-link {
+      position: absolute;
+      top: 61%;
+      left: 6.1%;
+      width: 87.5%;
+      height: 4%;
+      /*background-color: rgba(255, 0, 0, .3);*/
+
+      &:hover {
+        background-color: rgba(#000, .05);
+      }
+    }
   }
 
   .feeds {

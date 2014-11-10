@@ -78,8 +78,8 @@ get_header(); ?>
           <img class="placeholder-image opened" src="<?=get_stylesheet_directory_uri()?>/images/homepage_settings_2.png" />
           <img class="placeholder-image closed" src="<?=get_stylesheet_directory_uri()?>/images/homepage_settings.png" />
           <a href="#" class="swap-link"></a>
-          <a href="#" class="app-link link-1"></a>
-          <a href="#" class="app-link link-2"></a>
+          <a href="https://people-finder.dsd.io/sessions/new" class="app-link link-1"></a>
+          <a href="https://courttribunalfinder.service.gov.uk/" class="app-link link-2"></a>
           <a href="#" class="app-link link-3"></a>
           <a href="#" class="app-link link-4"></a>
           <a href="#" class="app-link link-5"></a>
@@ -87,6 +87,7 @@ get_header(); ?>
           <a href="#" class="app-link link-7"></a>
           <a href="#" class="app-link link-8"></a>
           <a href="#" class="app-link link-9"></a>
+          <a href="guidance-and-support/hr/leave/annual-leave" class="quick-link link-1"></a>
         </div>
       </div>
     </div>
