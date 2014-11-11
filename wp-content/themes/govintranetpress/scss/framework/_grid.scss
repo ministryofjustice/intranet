@@ -1,148 +1,77 @@
-/* media queries for responsive styles */
+*, *:after, *:before {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
 
-@media only screen and (max-width: 1200px) {
-  #peoplenav  {
-    padding-top: 3em;
+$gap: 30px;
+$vgap: $gap;
+
+/**
+ */
+.grid {
+  width: 100%;
+	max-width: 1020px;
+	min-width: 755px;
+  margin-left: auto;
+  margin-right: auto;
+
+  [class*='col-'] {
+    float: left;
+    padding-left: $gap/2;
+    padding-right: $gap/2;
+    overflow: hidden;
   }
 
-  .grid-sizer {
-    width: 48% !important;
-  }
-  .grid-item {
-    width: 47% !important;
-  }
-  .pgrid-sizer {
-    width: 31% !important;
-  }
-  .pgrid-item {
-    width: 30% !important;
+  &:after {
+    display: table;
+    clear: both;
+    content: "";
   }
 
-  .page-template-page-full-width-php .grid-sizer {
-    width: 49% !important;
-  }
-  .page-template-page-full-width-php .grid-item {
-    width: 48% !important;
-  }
-  .page-template-page-left-nav-php .grid-sizer {
-    width: 48% !important;
-  }
-  .page-template-page-left-nav-php .grid-item {
-    width: 47% !important;
-  }
-  .page-template-page-left-nav-wide-php .grid-sizer {
-    width: 32%;
-  }
-  .page-template-page-left-nav-wide-php .grid-item {
-    width: 31%;
-  }
-  .content-wrapper {
-    padding: 0.5em 0.5em !important;
+  &.double-outer-gap {
+    padding-left: $gap/2;
+    padding-right: $gap/2;
   }
 }
 
-@media only screen and (max-width: 990px) {
-  .grid-sizer {
-    width: 48% !important;
-  }
-  .grid-item {
-    width: 47% !important;
-  }
-  .pgrid-sizer {
-    width: 48.5% !important;
-  }
-  .pgrid-item {
-    width: 47% !important;
-  }
+.grid-nest {
+  margin-left: -$gap/2;
+  margin-right: -$gap/2;
 
-  .page-template-page-full-width-php .grid-sizer {
-    width: 48% !important;
-  }
-  .page-template-page-full-width-php .grid-item {
-    width: 47% !important;
-  }
-  .page-template-page-left-nav-php .grid-sizer {
-    width: 49% !important;
-  }
-  .page-template-page-left-nav-php .grid-item {
-    width: 48% !important;
-  }
-  .page-template-page-left-nav-wide-php .grid-sizer {
-    width: 49% !important;
-  }
-  .page-template-page-left-nav-wide-php .grid-item {
-    width: 48% !important;
+  &:after {
+    display: table;
+    clear: both;
+    content: "";
   }
 }
 
-@media only screen and (max-width: 768px) {
-  #crownlink {
-    font-size: 0.8em;
-  }
-  .grid-sizer {
-    width: 49% !important;
-  }
-  .grid-item {
-    width: 48% !important;
-  }
-  .pgrid-sizer {
-    width: 49% !important;
-  }
-  .pgrid-item {
-    width: 48% !important;
-  }
-
-  .page-template-page-full-width-php .grid-sizer {
-    width: 49% !important;
-  }
-  .page-template-page-full-width-php .grid-item {
-    width: 48% !important;
-  }
-  .page-template-page-left-nav-php .grid-sizer {
-    width: 100% !important;
-  }
-  .page-template-page-left-nav-php .grid-item {
-    width: 100% !important;
-  }
-  .page-template-page-left-nav-wide-php .grid-sizer {
-    width: 49% !important;
-  }
-  .page-template-page-left-nav-wide-php .grid-item {
-    width: 48% !important;
+@for $i from 1 through 11 {
+  .push-#{$i} {
+    margin-left: (100%*$i/12);
   }
 }
 
-@media only screen and (max-width: 320px) {
-  .grid-sizer {
-    width: 100% !important;
-  }
-  .grid-item {
-    width: 100% !important;
-  }
-  .pgrid-sizer {
-    width: 100% !important;
-  }
-  .pgrid-item {
-    width: 100% !important;
-  }
-
-  .page-template-page-full-width-php .grid-sizer {
-    width: 100% !important;
-  }
-  .page-template-page-full-width-php .grid-item {
-    width: 100% !important;
-  }
-  .page-template-page-left-nav-php .grid-sizer {
-    width: 100% !important;
-  }
-  .page-template-page-left-nav-php .grid-item {
-    width: 100% !important;
-  }
-  .page-template-page-left-nav-wide-php .grid-sizer {
-    width: 100% !important;
-  }
-  .page-template-page-left-nav-wide-php .grid-item {
-    width: 100% !important;
+@media handheld, only screen and (min-width: 1024px) {
+  @for $i from 1 through 12 {
+    .col-lg-#{$i} {
+      width: (100%/12*$i);
+    }
   }
 }
 
+@media handheld, only screen and (min-width: 768px) and (max-width: 1023px) {
+  @for $i from 1 through 12 {
+    .col-md-#{$i} {
+      width: (100%/12*$i);
+    }
+  }
+}
+
+@media handheld, only screen and (max-width: 767px) {
+  @for $i from 1 through 12 {
+    .col-sm-#{$i} {
+      width: (100%/12*$i);
+    }
+  }
+}

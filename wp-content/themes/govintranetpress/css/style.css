@@ -143,224 +143,290 @@ form .form-row:first-of-type {
   padding-top: 0;
 }
 
-/* media queries for responsive styles */
-@media only screen and (max-width: 1200px) {
-  /* line 4, ../scss/framework/_grid.scss */
-  #peoplenav {
-    padding-top: 3em;
+/* line 1, ../scss/framework/_grid.scss */
+*, *:after, *:before {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+/**
+ */
+/* line 12, ../scss/framework/_grid.scss */
+.grid {
+  width: 100%;
+  max-width: 1020px;
+  min-width: 755px;
+  margin-left: auto;
+  margin-right: auto;
+}
+/* line 19, ../scss/framework/_grid.scss */
+.grid [class*='col-'] {
+  float: left;
+  padding-left: 15px;
+  padding-right: 15px;
+  overflow: hidden;
+}
+/* line 26, ../scss/framework/_grid.scss */
+.grid:after {
+  display: table;
+  clear: both;
+  content: "";
+}
+/* line 32, ../scss/framework/_grid.scss */
+.grid.double-outer-gap {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+/* line 38, ../scss/framework/_grid.scss */
+.grid-nest {
+  margin-left: -15px;
+  margin-right: -15px;
+}
+/* line 42, ../scss/framework/_grid.scss */
+.grid-nest:after {
+  display: table;
+  clear: both;
+  content: "";
+}
+
+/* line 50, ../scss/framework/_grid.scss */
+.push-1 {
+  margin-left: 8.33333%;
+}
+
+/* line 50, ../scss/framework/_grid.scss */
+.push-2 {
+  margin-left: 16.66667%;
+}
+
+/* line 50, ../scss/framework/_grid.scss */
+.push-3 {
+  margin-left: 25%;
+}
+
+/* line 50, ../scss/framework/_grid.scss */
+.push-4 {
+  margin-left: 33.33333%;
+}
+
+/* line 50, ../scss/framework/_grid.scss */
+.push-5 {
+  margin-left: 41.66667%;
+}
+
+/* line 50, ../scss/framework/_grid.scss */
+.push-6 {
+  margin-left: 50%;
+}
+
+/* line 50, ../scss/framework/_grid.scss */
+.push-7 {
+  margin-left: 58.33333%;
+}
+
+/* line 50, ../scss/framework/_grid.scss */
+.push-8 {
+  margin-left: 66.66667%;
+}
+
+/* line 50, ../scss/framework/_grid.scss */
+.push-9 {
+  margin-left: 75%;
+}
+
+/* line 50, ../scss/framework/_grid.scss */
+.push-10 {
+  margin-left: 83.33333%;
+}
+
+/* line 50, ../scss/framework/_grid.scss */
+.push-11 {
+  margin-left: 91.66667%;
+}
+
+@media handheld, only screen and (min-width: 1024px) {
+  /* line 57, ../scss/framework/_grid.scss */
+  .col-lg-1 {
+    width: 8.33333%;
   }
 
-  /* line 8, ../scss/framework/_grid.scss */
-  .grid-sizer {
-    width: 48% !important;
+  /* line 57, ../scss/framework/_grid.scss */
+  .col-lg-2 {
+    width: 16.66667%;
   }
 
-  /* line 11, ../scss/framework/_grid.scss */
-  .grid-item {
-    width: 47% !important;
+  /* line 57, ../scss/framework/_grid.scss */
+  .col-lg-3 {
+    width: 25%;
   }
 
-  /* line 14, ../scss/framework/_grid.scss */
-  .pgrid-sizer {
-    width: 31% !important;
+  /* line 57, ../scss/framework/_grid.scss */
+  .col-lg-4 {
+    width: 33.33333%;
   }
 
-  /* line 17, ../scss/framework/_grid.scss */
-  .pgrid-item {
-    width: 30% !important;
+  /* line 57, ../scss/framework/_grid.scss */
+  .col-lg-5 {
+    width: 41.66667%;
   }
 
-  /* line 21, ../scss/framework/_grid.scss */
-  .page-template-page-full-width-php .grid-sizer {
-    width: 49% !important;
+  /* line 57, ../scss/framework/_grid.scss */
+  .col-lg-6 {
+    width: 50%;
   }
 
-  /* line 24, ../scss/framework/_grid.scss */
-  .page-template-page-full-width-php .grid-item {
-    width: 48% !important;
+  /* line 57, ../scss/framework/_grid.scss */
+  .col-lg-7 {
+    width: 58.33333%;
   }
 
-  /* line 27, ../scss/framework/_grid.scss */
-  .page-template-page-left-nav-php .grid-sizer {
-    width: 48% !important;
+  /* line 57, ../scss/framework/_grid.scss */
+  .col-lg-8 {
+    width: 66.66667%;
   }
 
-  /* line 30, ../scss/framework/_grid.scss */
-  .page-template-page-left-nav-php .grid-item {
-    width: 47% !important;
+  /* line 57, ../scss/framework/_grid.scss */
+  .col-lg-9 {
+    width: 75%;
   }
 
-  /* line 33, ../scss/framework/_grid.scss */
-  .page-template-page-left-nav-wide-php .grid-sizer {
-    width: 32%;
+  /* line 57, ../scss/framework/_grid.scss */
+  .col-lg-10 {
+    width: 83.33333%;
   }
 
-  /* line 36, ../scss/framework/_grid.scss */
-  .page-template-page-left-nav-wide-php .grid-item {
-    width: 31%;
+  /* line 57, ../scss/framework/_grid.scss */
+  .col-lg-11 {
+    width: 91.66667%;
   }
 
-  /* line 39, ../scss/framework/_grid.scss */
-  .content-wrapper {
-    padding: 0.5em 0.5em !important;
+  /* line 57, ../scss/framework/_grid.scss */
+  .col-lg-12 {
+    width: 100%;
   }
 }
-@media only screen and (max-width: 990px) {
-  /* line 45, ../scss/framework/_grid.scss */
-  .grid-sizer {
-    width: 48% !important;
+@media handheld, only screen and (min-width: 768px) and (max-width: 1023px) {
+  /* line 65, ../scss/framework/_grid.scss */
+  .col-md-1 {
+    width: 8.33333%;
   }
 
-  /* line 48, ../scss/framework/_grid.scss */
-  .grid-item {
-    width: 47% !important;
+  /* line 65, ../scss/framework/_grid.scss */
+  .col-md-2 {
+    width: 16.66667%;
   }
 
-  /* line 51, ../scss/framework/_grid.scss */
-  .pgrid-sizer {
-    width: 48.5% !important;
+  /* line 65, ../scss/framework/_grid.scss */
+  .col-md-3 {
+    width: 25%;
   }
 
-  /* line 54, ../scss/framework/_grid.scss */
-  .pgrid-item {
-    width: 47% !important;
+  /* line 65, ../scss/framework/_grid.scss */
+  .col-md-4 {
+    width: 33.33333%;
   }
 
-  /* line 58, ../scss/framework/_grid.scss */
-  .page-template-page-full-width-php .grid-sizer {
-    width: 48% !important;
+  /* line 65, ../scss/framework/_grid.scss */
+  .col-md-5 {
+    width: 41.66667%;
   }
 
-  /* line 61, ../scss/framework/_grid.scss */
-  .page-template-page-full-width-php .grid-item {
-    width: 47% !important;
+  /* line 65, ../scss/framework/_grid.scss */
+  .col-md-6 {
+    width: 50%;
   }
 
-  /* line 64, ../scss/framework/_grid.scss */
-  .page-template-page-left-nav-php .grid-sizer {
-    width: 49% !important;
+  /* line 65, ../scss/framework/_grid.scss */
+  .col-md-7 {
+    width: 58.33333%;
   }
 
-  /* line 67, ../scss/framework/_grid.scss */
-  .page-template-page-left-nav-php .grid-item {
-    width: 48% !important;
+  /* line 65, ../scss/framework/_grid.scss */
+  .col-md-8 {
+    width: 66.66667%;
   }
 
-  /* line 70, ../scss/framework/_grid.scss */
-  .page-template-page-left-nav-wide-php .grid-sizer {
-    width: 49% !important;
+  /* line 65, ../scss/framework/_grid.scss */
+  .col-md-9 {
+    width: 75%;
+  }
+
+  /* line 65, ../scss/framework/_grid.scss */
+  .col-md-10 {
+    width: 83.33333%;
+  }
+
+  /* line 65, ../scss/framework/_grid.scss */
+  .col-md-11 {
+    width: 91.66667%;
+  }
+
+  /* line 65, ../scss/framework/_grid.scss */
+  .col-md-12 {
+    width: 100%;
+  }
+}
+@media handheld, only screen and (max-width: 767px) {
+  /* line 73, ../scss/framework/_grid.scss */
+  .col-sm-1 {
+    width: 8.33333%;
   }
 
   /* line 73, ../scss/framework/_grid.scss */
-  .page-template-page-left-nav-wide-php .grid-item {
-    width: 48% !important;
-  }
-}
-@media only screen and (max-width: 768px) {
-  /* line 79, ../scss/framework/_grid.scss */
-  #crownlink {
-    font-size: 0.8em;
+  .col-sm-2 {
+    width: 16.66667%;
   }
 
-  /* line 82, ../scss/framework/_grid.scss */
-  .grid-sizer {
-    width: 49% !important;
+  /* line 73, ../scss/framework/_grid.scss */
+  .col-sm-3 {
+    width: 25%;
   }
 
-  /* line 85, ../scss/framework/_grid.scss */
-  .grid-item {
-    width: 48% !important;
+  /* line 73, ../scss/framework/_grid.scss */
+  .col-sm-4 {
+    width: 33.33333%;
   }
 
-  /* line 88, ../scss/framework/_grid.scss */
-  .pgrid-sizer {
-    width: 49% !important;
+  /* line 73, ../scss/framework/_grid.scss */
+  .col-sm-5 {
+    width: 41.66667%;
   }
 
-  /* line 91, ../scss/framework/_grid.scss */
-  .pgrid-item {
-    width: 48% !important;
+  /* line 73, ../scss/framework/_grid.scss */
+  .col-sm-6 {
+    width: 50%;
   }
 
-  /* line 95, ../scss/framework/_grid.scss */
-  .page-template-page-full-width-php .grid-sizer {
-    width: 49% !important;
+  /* line 73, ../scss/framework/_grid.scss */
+  .col-sm-7 {
+    width: 58.33333%;
   }
 
-  /* line 98, ../scss/framework/_grid.scss */
-  .page-template-page-full-width-php .grid-item {
-    width: 48% !important;
+  /* line 73, ../scss/framework/_grid.scss */
+  .col-sm-8 {
+    width: 66.66667%;
   }
 
-  /* line 101, ../scss/framework/_grid.scss */
-  .page-template-page-left-nav-php .grid-sizer {
-    width: 100% !important;
+  /* line 73, ../scss/framework/_grid.scss */
+  .col-sm-9 {
+    width: 75%;
   }
 
-  /* line 104, ../scss/framework/_grid.scss */
-  .page-template-page-left-nav-php .grid-item {
-    width: 100% !important;
+  /* line 73, ../scss/framework/_grid.scss */
+  .col-sm-10 {
+    width: 83.33333%;
   }
 
-  /* line 107, ../scss/framework/_grid.scss */
-  .page-template-page-left-nav-wide-php .grid-sizer {
-    width: 49% !important;
+  /* line 73, ../scss/framework/_grid.scss */
+  .col-sm-11 {
+    width: 91.66667%;
   }
 
-  /* line 110, ../scss/framework/_grid.scss */
-  .page-template-page-left-nav-wide-php .grid-item {
-    width: 48% !important;
-  }
-}
-@media only screen and (max-width: 320px) {
-  /* line 116, ../scss/framework/_grid.scss */
-  .grid-sizer {
-    width: 100% !important;
-  }
-
-  /* line 119, ../scss/framework/_grid.scss */
-  .grid-item {
-    width: 100% !important;
-  }
-
-  /* line 122, ../scss/framework/_grid.scss */
-  .pgrid-sizer {
-    width: 100% !important;
-  }
-
-  /* line 125, ../scss/framework/_grid.scss */
-  .pgrid-item {
-    width: 100% !important;
-  }
-
-  /* line 129, ../scss/framework/_grid.scss */
-  .page-template-page-full-width-php .grid-sizer {
-    width: 100% !important;
-  }
-
-  /* line 132, ../scss/framework/_grid.scss */
-  .page-template-page-full-width-php .grid-item {
-    width: 100% !important;
-  }
-
-  /* line 135, ../scss/framework/_grid.scss */
-  .page-template-page-left-nav-php .grid-sizer {
-    width: 100% !important;
-  }
-
-  /* line 138, ../scss/framework/_grid.scss */
-  .page-template-page-left-nav-php .grid-item {
-    width: 100% !important;
-  }
-
-  /* line 141, ../scss/framework/_grid.scss */
-  .page-template-page-left-nav-wide-php .grid-sizer {
-    width: 100% !important;
-  }
-
-  /* line 144, ../scss/framework/_grid.scss */
-  .page-template-page-left-nav-wide-php .grid-item {
-    width: 100% !important;
+  /* line 73, ../scss/framework/_grid.scss */
+  .col-sm-12 {
+    width: 100%;
   }
 }
 /* line 1, ../scss/modules/_breadcrumbs.scss */
