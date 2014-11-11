@@ -1,5 +1,4 @@
 <?php
-/* Template name: Home page */
 
 function rows($lg, $md, $sm){
   ?>
