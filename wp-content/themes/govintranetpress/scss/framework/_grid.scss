@@ -4,23 +4,55 @@
 	box-sizing: border-box;
 }
 
-$gap: 30px;
-$vgap: $gap;
+$gap: 30px; /*total whitespace between columns */
+$size-desktop: 1024px; /* desktop starts at this point */
+$size-tablet: 768px; /* tablet starts at this point */
+$grid-min-size: 320px; /* grid's minimum width (incl. outer spacing) */
+$grid-max-size: 1020px; /* grid's maximum width (incl. outer spacing) */
 
-/**
- */
+@mixin breakpoint($min, $max) {
+  @if $max == null {
+    @media (min-width: $min) {
+      @content;
+    }
+  }
+  @else {
+    @media (min-width: $min) and (max-width: ($max - 1)) {
+      @content;
+    }
+  }
+}
+
+@mixin desktop-mq(){
+  @include breakpoint($size-desktop, null) {
+    @content;
+  }
+}
+
+@mixin tablet-mq(){
+  @include breakpoint($size-tablet, $size-desktop) {
+    @content;
+  }
+}
+
+@mixin mobile-mq(){
+  @include breakpoint(0, $size-tablet) {
+    @content;
+  }
+}
+
 .grid {
   width: 100%;
-	max-width: 1020px;
-	min-width: 755px;
+	max-width: $grid-max-size;
+	min-width: $grid-min-size;
   margin-left: auto;
   margin-right: auto;
 
   [class*='col-'] {
     float: left;
+    overflow: hidden;
     padding-left: $gap/2;
     padding-right: $gap/2;
-    overflow: hidden;
   }
 
   &:after {
@@ -33,16 +65,16 @@ $vgap: $gap;
     padding-left: $gap/2;
     padding-right: $gap/2;
   }
-}
 
-.grid-nest {
-  margin-left: -$gap/2;
-  margin-right: -$gap/2;
+  .grid-nest {
+    margin-left: -$gap/2;
+    margin-right: -$gap/2;
 
-  &:after {
-    display: table;
-    clear: both;
-    content: "";
+    &:after {
+      display: table;
+      clear: both;
+      content: "";
+    }
   }
 }
 
@@ -52,15 +84,14 @@ $vgap: $gap;
   }
 }
 
-@media handheld, only screen and (min-width: 1024px) {
-  @for $i from 1 through 12 {
-    .col-lg-#{$i} {
-      width: (100%/12*$i);
-    }
+@for $i from 1 through 12 {
+  .col-lg-#{$i} {
+    width: (100%/12*$i);
   }
 }
 
-@media handheld, only screen and (min-width: 768px) and (max-width: 1023px) {
+/* tablet */
+@include tablet-mq(){
   @for $i from 1 through 12 {
     .col-md-#{$i} {
       width: (100%/12*$i);
@@ -68,7 +99,8 @@ $vgap: $gap;
   }
 }
 
-@media handheld, only screen and (max-width: 767px) {
+/* mobile */
+@include mobile-mq(){
   @for $i from 1 through 12 {
     .col-sm-#{$i} {
       width: (100%/12*$i);

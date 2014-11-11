@@ -1,5 +1,9 @@
 <?php
 
+/** Grid demo - for dev purposes only.
+ * This file is meant to be accessed directly, not via WP.
+ */
+
 function rows($lg, $md, $sm){
   ?>
   <?php for($a=0,$count=count($lg); $a<$count; $a++): ?>
@@ -13,6 +17,7 @@ function rows($lg, $md, $sm){
 ?>
 <html>
   <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link type="text/css" rel="stylesheet" href="css/style.css" />
     <style>
       div {
@@ -24,17 +29,20 @@ function rows($lg, $md, $sm){
         background-color: #fff;
       }
 
-      .grid {
+      .grid,
+      .grid-nest {
         padding-bottom: 10px;
       }
 
-      .grid:first-of-type {
+      .grid:first-of-type,
+      .grid-nest:first-of-type {
         padding-top: 10px;
       }
 
       .red { background-color: #f00; }
       .green { background-color: #0f0; }
-      .blue { background-color: #00f; }
+      .blue,
+      .grid-nest { background-color: #00f; }
       .grey { background-color: #aaa; }
     </style>
   </head>
@@ -62,8 +70,11 @@ function rows($lg, $md, $sm){
         <?php rows(array(6), array(6), array(12)); ?>
         <div class="col-lg-6 col-md-6 col-sm-12">
           <div class="green">
-            <div class="grid-nest red">
-              <?php rows(array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1), array(2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2), array(4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4)); ?>
+            <div class="grid-nest">
+              <?php rows(array(4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4), array(4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4), array(2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2)); ?>
+            </div>
+            <div class="grid-nest">
+              <?php rows(array(6, 6, 6, 6), array(6, 6, 6, 6), array(3, 3, 3, 3)); ?>
             </div>
           </div>
         </div>
