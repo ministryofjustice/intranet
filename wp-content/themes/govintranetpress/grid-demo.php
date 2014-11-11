@@ -40,29 +40,29 @@ function rows($lg, $md, $sm){
   <body>
     <div class="grey">
       <div class="grid red">
-        <?php rows([12], [12], [12]); ?>
+        <?php rows(array(12), array(12), array(12)); ?>
       </div>
       <div class="grid red">
-        <?php rows([6, 6], [6, 6], [12, 12]); ?>
+        <?php rows(array(6, 6), array(6, 6), array(12, 12)); ?>
       </div>
       <div class="grid red">
-        <?php rows([4, 4, 4], [6, 6, 6], [12, 12, 12]); ?>
+        <?php rows(array(4, 4, 4), array(6, 6, 6), array(12, 12, 12)); ?>
       </div>
       <div class="grid red">
-        <?php rows([3, 3, 3, 3], [6, 6, 6, 6], [12, 12, 12, 12]); ?>
+        <?php rows(array(3, 3, 3, 3), array(6, 6, 6, 6), array(12, 12, 12, 12)); ?>
       </div>
       <div class="grid red">
-        <?php rows([2, 2, 2, 2, 2, 2], [4, 4, 4, 4, 4, 4], [6, 6, 6, 6, 6, 6]); ?>
+        <?php rows(array(2, 2, 2, 2, 2, 2), array(4, 4, 4, 4, 4, 4), array(6, 6, 6, 6, 6, 6)); ?>
       </div>
       <div class="grid red">
-        <?php rows([1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2], [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4]); ?>
+        <?php rows(array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1), array(2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2), array(4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4)); ?>
       </div>
       <div class="grid red">
-        <?php rows([6], [6], [12]); ?>
+        <?php rows(array(6), array(6), array(12)); ?>
         <div class="col-lg-6 col-md-6 col-sm-6">
           <div class="green">
             <div class="grid-nest red">
-              <?php rows([1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2], [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4]); ?>
+              <?php rows(array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1), array(2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2), array(4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4)); ?>
             </div>
           </div>
         </div>
