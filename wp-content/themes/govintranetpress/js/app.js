@@ -556,50 +556,70 @@ jQuery(function(){
 
       switchTab: function(e){
         var $el = $(e.currentTarget);
-        console.log($el);
         var contentName = $el.attr('data-content');
         this.$tabContent.html(this.templates[contentName]);
         this.$tabs.removeClass('current-menu-item');
         $el.addClass('current-menu-item');
         e.preventDefault();
+
+        //hopefully one day we can replace this manual call with Mutation Observer
+        App.ins.tableOfContents.generate();
       }
     };
   }(jQuery));
 
   /** Table of contents
+   * Note: it's designed to work with only one instance per page
    */
-  //!!! to be implemented
-  //(function($){
-  //  "use strict";
-  //
-  //  App.TableOfContents = function(){
-  //    this.$tabs = $('.content-tabs li');
-  //    if(!this.$tabs.length){ return; }
-  //    this.init();
-  //  };
-  //
-  //  App.TableOfContents.prototype = {
-  //    init: function(){
-  //      this.cacheEls();
-  //      this.bindEvents();
-  //    },
-  //
-  //    cacheEls: function(){
-  //    },
-  //
-  //    bindEvents: function(){
-  //    },
-  //  };
-  //}(jQuery));
+  (function($){
+    "use strict";
+
+    App.TableOfContents = function(){
+      this.$tableOfContents = $('.table-of-contents');
+      if(!this.$tableOfContents.length){ return; }
+      this.init();
+    };
+
+    App.TableOfContents.prototype = {
+      init: function(){
+        this.cacheEls();
+        this.bindEvents();
+        this.generate();
+      },
+
+      cacheEls: function(){
+        this.$contentContainer = $(this.$tableOfContents.attr('data-content-container-selector'));
+      },
+
+      bindEvents: function(){
+      },
+
+      generate: function(){
+        var _this = this;
+        this.$tableOfContents.empty();
+        //find all H* tags with ID's
+        this.$contentContainer.find('h1, h2, h3, h4, h5, h6').filter('[id]').each(function(){
+          var $el = $(this);
+          var $item = $('<li><a></a></li>');
+
+          $item.find('a')
+            .text($el.text())
+            .attr('href', '#'+$el.attr('id'));
+          $item.appendTo(_this.$tableOfContents);
+        });
+      }
+    };
+  }(jQuery));
 
   /** init section - this should be in a separate file - init.js
    */
-  var mobileMenu = new App.MobileMenu();
-  var stickyNews = new App.StickyNews();
-  var guidanceAndSupport = new App.GuidanceAndSupport();
-  var azIndex = new App.AZIndex();
-  var homepageSettings = new App.HomepageSettings();
-  var emergencyMessage = new App.EmergencyMessage();
-  var tabbedContent = new App.TabbedContent();
-  //var tableOfContents = new App.TableOfContents();
+  App.ins = {}; //keeps references to module instances
+  App.ins.mobileMenu = new App.MobileMenu();
+  App.ins.stickyNews = new App.StickyNews();
+  App.ins.guidanceAndSupport = new App.GuidanceAndSupport();
+  App.ins.azIndex = new App.AZIndex();
+  App.ins.homepageSettings = new App.HomepageSettings();
+  App.ins.emergencyMessage = new App.EmergencyMessage();
+  App.ins.tableOfContents = new App.TableOfContents();
+  App.ins.tabbedContent = new App.TabbedContent();
 });

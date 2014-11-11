@@ -51,7 +51,7 @@
   <div class="row">
     <div class="col-md-3">
       <h4>Contents</h4>
-      <ul class="table-of-contents">
+      <ul class="table-of-contents" data-content-container-selector=".tab-content">
         <li>
           <a href="#content-what-you-need-to-know">What you need to know</a>
         </li>
@@ -111,6 +111,12 @@
   </template>
 
   <template data-template-type="tab-content" data-content-name="managers">
+    <h3 id="content-what-you-need-to-do">What you need to do</h3>
+    <ul>
+      <li>Follow local procedures for recording your annual and privilege leave.</li>
+      <li>Calculate your annual leave entitlement for each 12-month period using the <a href="#">annual leave calculator</a>, then agree with your line manager that the calculation is correct.</li>
+    </ul>
+
     <h3 id="content-what-you-need-to-know">What you need to know</h3>
     <ul>
       <li>The MoJ leave year is a period of 12 months starting from your date of appointment.</li>
@@ -124,30 +130,24 @@
         <strong>Staff in post after 1 March 2014</strong>
         <p>New civil service staff recruited to posts advertised on or after 1 March 2014 and staff transferring from other civil service employers where they are already on modernised terms and conditions will be entitled to 25 days' annual leave on appointment and one privilege day. This increases to 30 days after 5 years' service in MoJ. Entitlement to public holidays will be 8 days per year.</p>
       </li>
-      <li>To qualify to buy and sell annual leave you must have completed the relevant probation period and be an 'effective' performer or better. For more information see the Flexible Benefits guidance.</li>
+      <li>To qualify to buy and sell annual leave you must have completed the relevant probation period and be an 'effective' performer or better. For more information see the <a href="#">Flexible Benefits guidance.</a></li>
       <li>Leave entitlement is prorated for staff who aren't full-time.</li>
       <li>Your request for annual leave must be authorised by your line manager via manager self service.</li>
     </ul>
 
-    <h3 id="content-what-you-need-to-do">What you need to do</h3>
-    <ul>
-      <li>Follow local procedures for recording your annual and privilege leave.</li>
-      <li>Calculate your annual leave entitlement for each 12-month period using the annual leave calculator, then agree with your line manager that the calculation is correct.</li>
-    </ul>
-
     <h3 id="content-links">Links</h3>
     <ul>
-      <li>Accrued leave calculator</li>
-      <li>Annual leave and sickness absence Q&A</li>
-      <li>Annual leave calculation from days to hours</li>
-      <li>Annual leave calculation and public and privilege days for scheduled ushers</li>
-      <li>Annual leave calculator</li>
-      <li>Annual leave policy statement</li>
-      <li>Application for leave form</li>
-      <li>Bank Holiday and privilege day entitlement 2013/14</li>
-      <li>Buy and sell annual leave calculator</li>
-      <li>Civil Service Reform - changes to annual and privilege leave - FAQs</li>
-      <li>Flexible benefits guidance</li>
+      <li><a href="#">Accrued leave calculator</a></li>
+      <li><a href="#">Annual leave and sickness absence Q&A</a></li>
+      <li><a href="#">Annual leave calculation from days to hours</a></li>
+      <li><a href="#">Annual leave calculation and public and privilege days for scheduled ushers</a></li>
+      <li><a href="#">Annual leave calculator</a></li>
+      <li><a href="#">Annual leave policy statement</a></li>
+      <li><a href="#">Application for leave form</a></li>
+      <li><a href="#">Bank Holiday and privilege day entitlement 2013/14</a></li>
+      <li><a href="#">Buy and sell annual leave calculator</a></li>
+      <li><a href="#">Civil Service Reform - changes to annual and privilege leave - FAQs</a></li>
+      <li><a href="#">Flexible benefits guidance</a></li>
     </ul>
   </template>
 </div>
