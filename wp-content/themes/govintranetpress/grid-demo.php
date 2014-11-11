@@ -20,6 +20,7 @@ function rows($lg, $md, $sm){
       }
 
       body {
+        margin: 0;
         background-color: #fff;
       }
 
@@ -59,7 +60,7 @@ function rows($lg, $md, $sm){
       </div>
       <div class="grid red">
         <?php rows(array(6), array(6), array(12)); ?>
-        <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-6 col-md-6 col-sm-12">
           <div class="green">
             <div class="grid-nest red">
               <?php rows(array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1), array(2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2), array(4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4)); ?>
