@@ -10,18 +10,37 @@ p {
   }
 }
 
-.editable {
-  ul {
-    padding-left: 20px;
-    margin: 0;
-
-    li {
-      list-style-type: disc;
+#content {
+  .editable {
+    ul {
+      padding-left: 20px;
       margin: 0;
 
-      + li {
-        margin-top: 10px;
+      li {
+        list-style-type: disc;
+        margin: 0;
+
+        + li {
+          margin-top: 10px;
+        }
       }
+    }
+  }
+
+  ul li {
+    line-height: 1.4;
+  }
+
+  .info-list {
+    display: table;
+
+    li {
+      display: table-row;
+    }
+
+    span {
+      display: table-cell;
+      padding-right: 15px;
     }
   }
 }

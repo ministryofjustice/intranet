@@ -43,11 +43,11 @@ get_header(); ?>
 
 	if ($homecontent ): //Display emergency message
     ?>
-    <div class="row">
+    <div class="grid">
       <div class="col-lg-12">
         <div class="message message-<?php echo $homecontentcolour; ?>">
-          <div class="row">
-            <button type="button" class="close" data-dismiss="message" aria-hidden="true">&times;</button>
+          <div class="grid">
+            <span class="close">&times;</span>
             <div class="col-lg-4 col-md-4">
               <div class="meta">
                 <h3>Emergency message</h3>
@@ -65,11 +65,11 @@ get_header(); ?>
     </div>
     <?php endif; ?>
 
-    <div class="row">
-      <div class="col-lg-<?php echo $col1; ?> col-md-<?php echo $col1; ?> col-sm-7">
+    <div class="grid">
+      <div class="col-lg-6 col-md-6 col-sm-12">
         <?php dynamic_sidebar('home-widget-area0'); ?>
       </div>
-      <div class="col-lg-6 col-md-6 col-sm-5">
+      <div class="col-lg-6 col-md-6 col-sm-12">
         <div class="homepage-settings-placeholder">
           <!--
           this is just a placeholder which will be replaced with a proper
@@ -92,13 +92,13 @@ get_header(); ?>
       </div>
     </div>
 
-    <div class="row department-news-container">
+    <div class="grid department-news-container">
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <?php dynamic_sidebar('home-widget-area5'); ?>
       </div>
     </div>
 
-    <div class="row feeds">
+    <div class="grid feeds">
       <div class="col-lg-3 col-md-3 col-sm-4 col-xs-6">
         <img src="<?=get_stylesheet_directory_uri()?>/images/feed_events.png" />
       </div>

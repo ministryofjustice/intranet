@@ -3,20 +3,22 @@
 <?php if ( have_posts() ) while ( have_posts() ) : the_post() ?>
 
 <div class="page-news">
-  <h1 class="page-title"><?php the_title() ?></h1>
-	<?php the_content() ?>
-
-  <div class="row">
-    <div class="col-md-4">
-      &nbsp;
+  <div class="grid">
+    <div class="col-lg-12">
+      <h1 class="page-title"><?php the_title() ?></h1>
+      <?php the_content() ?>
     </div>
-    <div class="col-md-8">
+  </div>
+
+  <div class="grid">
+    <div class="col-lg-4"></div>
+    <div class="col-lg-8">
       <?php dynamic_sidebar('newslanding-widget-area0'); ?>
     </div>
   </div>
 
-  <div class="row">
-    <div class="col-md-4">
+  <div class="grid">
+    <div class="col-lg-4">
       <form class="news-filters">
         <div class="form-row">
           <span class="label">Filter by:</span>
@@ -37,7 +39,7 @@
       </form>
     </div>
 
-    <div class="col-md-8">
+    <div class="col-lg-8">
       <?php dynamic_sidebar('newslanding-widget-area1'); ?>
     </div>
   </div>

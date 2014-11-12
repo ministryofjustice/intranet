@@ -1,12 +1,14 @@
 #utilities {
 	text-align: right;
-  padding: 0;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
 #utilitybar {
   float: left;
 
   ul.menu {
+    margin-top: 0;
     margin-bottom: 0;
   }
 }

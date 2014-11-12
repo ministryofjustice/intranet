@@ -1,8 +1,8 @@
 <?php if (!defined('ABSPATH')) die(); ?>
 
 <div class="annual-leave">
-  <div class="row">
-    <div class="col-md-8">
+  <div class="grid">
+    <div class="col-lg-8">
       <h1 class="page-title"><?=$title?></h1>
 
       <ul class="info-list">
@@ -20,7 +20,7 @@
       </div>
     </div>
 
-    <div class="col-md-4">
+    <div class="col-lg-4">
       <div class="right-hand-menu">
         <h3>Policy</h3>
         <ul>
@@ -32,11 +32,11 @@
     </div>
   </div>
 
-  <div class="row">
-    <div class="col-md-3">
+  <div class="grid">
+    <div class="col-lg-3">
       &nbsp;
     </div>
-    <div class="col-md-9">
+    <div class="col-lg-9">
       <ul class="content-tabs">
         <li data-content="all-staff">
           <a href="">All staff</a>
@@ -48,8 +48,8 @@
     </div>
   </div>
 
-  <div class="row">
-    <div class="col-md-3">
+  <div class="grid">
+    <div class="col-lg-3">
       <h4>Contents</h4>
       <ul class="table-of-contents" data-content-container-selector=".tab-content">
         <li>
@@ -63,7 +63,7 @@
         </li>
       </ul>
     </div>
-    <div class="col-md-9">
+    <div class="col-lg-9">
       <div class="tab-content editable">
       </div>
     </div>

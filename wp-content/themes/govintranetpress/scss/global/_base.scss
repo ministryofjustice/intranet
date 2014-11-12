@@ -42,3 +42,22 @@ li {
 .content-wrapper {
   margin: 15px 0;
 }
+
+a {
+  &,
+  &:hover,
+  &:active,
+  &:visited {
+    color: $link-active-colour;
+  }
+
+  &,
+  &:active,
+  &:visited {
+    text-decoration: none;
+  }
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
