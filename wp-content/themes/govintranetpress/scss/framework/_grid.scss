@@ -42,7 +42,6 @@ $grid-max-size: 1020px; /* grid's maximum width (incl. outer spacing) */
 }
 
 .grid {
-  width: 100%;
 	max-width: $grid-max-size;
 	min-width: $grid-min-size;
   margin-left: auto;
@@ -66,15 +65,9 @@ $grid-max-size: 1020px; /* grid's maximum width (incl. outer spacing) */
     padding-right: $gap/2;
   }
 
-  .grid-nest {
+  .grid {
     margin-left: -$gap/2;
     margin-right: -$gap/2;
-
-    &:after {
-      display: table;
-      clear: both;
-      content: "";
-    }
   }
 }
 
@@ -96,6 +89,17 @@ $grid-max-size: 1020px; /* grid's maximum width (incl. outer spacing) */
     .col-md-#{$i} {
       width: (100%/12*$i);
     }
+  }
+}
+
+
+.mobile-only {
+  display: none;
+}
+
+@include mobile-mq(){
+  .mobile-only {
+    display: block;
   }
 }
 

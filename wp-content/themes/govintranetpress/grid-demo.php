@@ -29,20 +29,18 @@ function rows($lg, $md, $sm){
         background-color: #fff;
       }
 
-      .grid,
-      .grid-nest {
+      .grid {
         padding-bottom: 10px;
       }
 
-      .grid:first-of-type,
-      .grid-nest:first-of-type {
+      .grid:first-of-type {
         padding-top: 10px;
       }
 
       .red { background-color: #f00; }
       .green { background-color: #0f0; }
       .blue,
-      .grid-nest { background-color: #00f; }
+      .grid .grid { background-color: #00f; }
       .grey { background-color: #aaa; }
     </style>
   </head>
@@ -69,13 +67,11 @@ function rows($lg, $md, $sm){
       <div class="grid red">
         <?php rows(array(6), array(6), array(12)); ?>
         <div class="col-lg-6 col-md-6 col-sm-12">
-          <div class="green">
-            <div class="grid-nest">
-              <?php rows(array(4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4), array(4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4), array(2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2)); ?>
-            </div>
-            <div class="grid-nest">
-              <?php rows(array(6, 6, 6, 6), array(6, 6, 6, 6), array(3, 3, 3, 3)); ?>
-            </div>
+          <div class="grid">
+            <?php rows(array(4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4), array(4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4), array(2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2)); ?>
+          </div>
+          <div class="grid">
+            <?php rows(array(6, 6, 6, 6), array(6, 6, 6, 6), array(3, 3, 3, 3)); ?>
           </div>
         </div>
       </div>
