@@ -744,9 +744,6 @@ function enqueueThemeScripts() {
 	 wp_enqueue_script( 'jquery' );
 	 wp_enqueue_script( 'jquery-ui' );
 
-	 wp_register_script( 'bootstrap.min', get_stylesheet_directory_uri() . "/js/bootstrap.min.js");
-	 wp_enqueue_script( 'bootstrap.min' );
-
    wp_register_script( 'hammer', get_stylesheet_directory_uri() . "/js/hammer.min.js");
 	 wp_enqueue_script( 'hammer' );
 
