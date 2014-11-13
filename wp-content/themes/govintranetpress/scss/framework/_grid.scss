@@ -41,6 +41,18 @@ $grid-max-size: 1020px; /* grid's maximum width (incl. outer spacing) */
   }
 }
 
+@mixin lte-tablet-mq(){
+  @include breakpoint(0, $size-desktop) {
+    @content;
+  }
+}
+
+@mixin gte-tablet-mq(){
+  @include breakpoint($size-tablet, null) {
+    @content;
+  }
+}
+
 .grid {
 	max-width: $grid-max-size;
 	min-width: $grid-min-size;
@@ -71,15 +83,18 @@ $grid-max-size: 1020px; /* grid's maximum width (incl. outer spacing) */
   }
 }
 
-@for $i from 1 through 11 {
-  .push-#{$i} {
-    margin-left: (100%*$i/12);
+/* desktop */
+@inlcude desktop-mq(){
+  @for $i from 1 through 11 {
+    .push-lg-#{$i} {
+      margin-left: (100%*$i/12);
+    }
   }
-}
 
-@for $i from 1 through 12 {
-  .col-lg-#{$i} {
-    width: (100%/12*$i);
+  @for $i from 1 through 12 {
+    .col-lg-#{$i} {
+      width: (100%/12*$i);
+    }
   }
 }
 
@@ -90,16 +105,11 @@ $grid-max-size: 1020px; /* grid's maximum width (incl. outer spacing) */
       width: (100%/12*$i);
     }
   }
-}
 
-
-.mobile-only {
-  display: none;
-}
-
-@include mobile-mq(){
-  .mobile-only {
-    display: block;
+  @for $i from 1 through 11 {
+    .push-md-#{$i} {
+      margin-left: (100%*$i/12);
+    }
   }
 }
 
@@ -109,5 +119,23 @@ $grid-max-size: 1020px; /* grid's maximum width (incl. outer spacing) */
     .col-sm-#{$i} {
       width: (100%/12*$i);
     }
+  }
+
+  @for $i from 1 through 11 {
+    .push-sm-#{$i} {
+      margin-left: (100%*$i/12);
+    }
+  }
+}
+
+@include gte-tablet-mq(){
+  .mobile-only {
+    display: none;
+  }
+}
+
+@include mobile-mq(){
+  .mobile-hide {
+    display: none;
   }
 }

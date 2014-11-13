@@ -77,10 +77,14 @@
   margin-right: 0;
 }
 
-@media(max-width: 767px){
+@include mobile_mq(){
   #mainnav {
     float: none;
     width: 100%;
+
+    #mega-menu-wrap-primary-2 {
+      position: static;
+    }
 
     #primarynav {
       .mega-menu-wrap {
@@ -89,6 +93,7 @@
 
         > ul {
           display: table-row;
+          position: relative;
 
           > li {
             display: table-cell;

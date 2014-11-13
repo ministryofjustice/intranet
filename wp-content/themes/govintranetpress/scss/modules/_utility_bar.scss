@@ -34,7 +34,11 @@
   }
 }
 
-@media(max-width: 767px){
+@include mobile_mq(){
+  #utilities {
+    display: none;
+  }
+
   .mobile-menu-enabled #utilities {
     #utilitybar {
       float: none;

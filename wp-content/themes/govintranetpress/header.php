@@ -153,17 +153,17 @@ header('X-Frame-Options: SAMEORIGIN');
         </div>
       </div>
 
+      <!-- mobile menu button -->
+      <div class="col-sm-6 mobile-only">
+        <div class="mobile-nav">
+          <button type="button"></button>
+        </div>
+      </div>
+
       <!-- search box -->
       <div class="col-lg-4 col-md-4 col-sm-12 search-box">
         <div id='searchformdiv' class=''>
           <?php get_search_form(true); ?>
-        </div>
-      </div>
-
-      <!-- mobile menu button -->
-      <div class="mobile-only">
-        <div class="mobile-nav">
-          <button type="button"></button>
         </div>
       </div>
     </div>
@@ -176,11 +176,9 @@ header('X-Frame-Options: SAMEORIGIN');
           wp_nav_menu( array( 'container_class' => 'menu-header', 'theme_location' => 'primary' ) ); ?>
         </div>
       </div>
-      
-      <div class="col-lg-8 col-md-4 col-sm-12">&nbsp;</div>
 
       <!--utility menu-->
-      <div id="utilities" class="col-lg-4 col-md-4 col-sm-12">
+      <div id="utilities" class="col-lg-4 col-md-4 col-sm-12 push-lg-8 push-md-8 mobile-hide">
         <?php if ( is_active_sidebar( 'utility-widget-area' ) ) : ?>
           <div id='utilitybar'>
             <ul class="menu">

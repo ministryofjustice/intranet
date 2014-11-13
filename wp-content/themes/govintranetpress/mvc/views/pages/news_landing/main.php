@@ -34,7 +34,7 @@
           <input type="text" placeholder="Keywords" name="keywords" />
         </div>
         <div class="form-row">
-          <input type="submit" value="Search" />
+          <input type="submit" class="cta" value="Search" />
         </div>
       </form>
     </div>
