@@ -13,7 +13,7 @@ jQuery(function(){
     "use strict";
 
     App.MobileMenu = function(){
-      this.$top = $('#masthead');
+      this.$top = $('.header');
       if(!this.$top.length){ return; }
 
       this.config = {
