@@ -11,7 +11,7 @@
   </div>
 
   <div class="grid">
-    <div class="col-lg-4"></div>
+    <div class="col-lg-4">&nbsp;</div>
     <div class="col-lg-8">
       <?php dynamic_sidebar('newslanding-widget-area0'); ?>
     </div>
