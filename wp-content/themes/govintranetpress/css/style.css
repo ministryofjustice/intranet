@@ -592,8 +592,8 @@ p + p {
 }
 
 /* line 3, ../scss/global/_button.scss */
-input .cta,
-button .cta {
+input.cta,
+button.cta {
   background-color: #aeaeae;
   border: none;
   border-bottom: 2px solid #1d1d1b;
