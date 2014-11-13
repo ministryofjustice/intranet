@@ -3,7 +3,7 @@
 #footerwrapper {
   @include clearfix;
 	background: #dee0e2;
-  border-top: 10px solid #428bca;
+  border-top: 10px solid $dw-link;
 
   #footer {
     color: #454a4c;

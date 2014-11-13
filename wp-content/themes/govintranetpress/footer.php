@@ -16,17 +16,17 @@
 <div id='footerwrapper'>
   <div class="container">
     <div id='footer' class="grid">
-      <div id='footer-left' class="col-lg-4 col-md-4 col-sm-8">
+      <div id='footer-left' class="col-lg-4 col-md-6 col-sm-12">
         <?php if ( is_active_sidebar( 'first-footer-widget-area' ) ) : ?>
           <?php dynamic_sidebar( 'first-footer-widget-area' ); ?>
         <?php endif; ?>
       </div>
-      <div id='footer-3' class="col-lg-4 col-md-4 col-sm-4">
+      <div id='footer-3' class="col-lg-4 col-md-6 col-sm-12">
         <?php if ( is_active_sidebar( 'right1-footer-widget-area' ) ) : ?>
           <?php dynamic_sidebar( 'right1-footer-widget-area' ); ?>
         <?php endif; ?>
       </div>
-      <div id='footer-right' class="col-lg-4 col-md-4 col-sm-4">
+      <div id='footer-right' class="col-lg-4 col-md-6 col-sm-12">
         <?php if ( is_active_sidebar( 'right2-footer-widget-area' ) ) : ?>
           <?php dynamic_sidebar( 'right2-footer-widget-area' ); ?>
         <?php endif; ?>
