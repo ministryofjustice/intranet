@@ -1783,7 +1783,7 @@ form .form-row:first-of-type {
 #need-to-know .widget-title {
   display: inline-block;
   margin: 0 0 0 15px;
-  padding: 5px 45px 5px 15px;
+  padding: 5px 15px;
   background-color: #fff;
   color: #428bca;
   border-bottom: none;

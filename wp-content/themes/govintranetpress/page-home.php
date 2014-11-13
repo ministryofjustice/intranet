@@ -69,6 +69,7 @@ get_header(); ?>
       <div class="col-lg-6 col-md-6 col-sm-12">
         <?php dynamic_sidebar('home-widget-area0'); ?>
       </div>
+      
       <div class="col-lg-6 col-md-6 col-sm-12">
         <div class="homepage-settings-placeholder">
           <!--
