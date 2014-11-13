@@ -140,7 +140,8 @@ class htFeatureNews extends WP_Widget {
 			}
 
 			if ($newsgrid[$k]!="Li"){
-				echo $thisexcerpt."<p class='news_date'>";
+        echo '<p class="excerpt">'.$thisexcerpt.'</p>';
+				echo "<p class='news_date'>";
 				echo "<a class='more' href='{$thisURL}' title='{$thistitle}'>Read more</a></p>";
 			}
 

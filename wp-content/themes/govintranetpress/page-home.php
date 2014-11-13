@@ -92,26 +92,31 @@ get_header(); ?>
       </div>
     </div>
 
-    <div class="grid department-news-container">
-      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <?php dynamic_sidebar('home-widget-area5'); ?>
+    <div class="grid">
+      <div class="col-lg-6 col-md-6 col-sm-12">
+        <div class="department-news-container">
+          <?php dynamic_sidebar('home-widget-area5'); ?>
+        </div>
+      </div>
+
+      <div class="col-lg-6 col-md-6 col-sm-12">
+        <div class="grid feeds">
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <img src="<?=get_stylesheet_directory_uri()?>/images/feed_events.png" />
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <img src="<?=get_stylesheet_directory_uri()?>/images/feed_stats.png" />
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <img src="<?=get_stylesheet_directory_uri()?>/images/feed_twitter.png" />
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <img src="<?=get_stylesheet_directory_uri()?>/images/feed_yammer.png" />
+          </div>
+        </div>
       </div>
     </div>
 
-    <div class="grid feeds">
-      <div class="col-lg-3 col-md-3 col-sm-4 col-xs-6">
-        <img src="<?=get_stylesheet_directory_uri()?>/images/feed_events.png" />
-      </div>
-      <div class="col-lg-3 col-md-3 col-sm-4 col-xs-6">
-        <img src="<?=get_stylesheet_directory_uri()?>/images/feed_stats.png" />
-      </div>
-      <div class="col-lg-3 col-md-3 col-sm-4 col-xs-6">
-        <img src="<?=get_stylesheet_directory_uri()?>/images/feed_twitter.png" />
-      </div>
-      <div class="col-lg-3 col-md-3 col-sm-4 col-xs-6">
-        <img src="<?=get_stylesheet_directory_uri()?>/images/feed_yammer.png" />
-      </div>
-    </div>
 
   <?php	if ($campaign_message) :  //Display campaign message ?>
   <div class="clearfix"></div>

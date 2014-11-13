@@ -1,7 +1,7 @@
 /************
 ** Config
 ************/
-$gap: 30px; /*total whitespace between columns */
+$grid-gutter: 30px; /*total whitespace between columns */
 $size-desktop: 1024px; /* desktop starts at this point */
 $size-tablet: 768px; /* tablet starts at this point */
 $grid-min-size: 320px; /* grid's minimum width (incl. outer spacing) */
@@ -76,21 +76,21 @@ $grid-max-size: 1020px; /* grid's maximum width (incl. outer spacing) */
     content: "";
   }
 
-  &.double-outer-gap {
-    padding-left: $gap/2;
-    padding-right: $gap/2;
+  &.double-outer-gutter {
+    padding-left: $grid-gutter/2;
+    padding-right: $grid-gutter/2;
   }
 
   [class*='col-'] {
     float: left;
     overflow: hidden;
-    padding-left: $gap/2;
-    padding-right: $gap/2;
+    padding-left: $grid-gutter/2;
+    padding-right: $grid-gutter/2;
   }
 
   .grid {
-    margin-left: -$gap/2;
-    margin-right: -$gap/2;
+    margin-left: -$grid-gutter/2;
+    margin-right: -$grid-gutter/2;
   }
 }
 

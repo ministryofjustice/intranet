@@ -1,4 +1,8 @@
 .home.page {
+  .content-wrapper {
+    margin-top: 0;
+  }
+
   #content .category-block ul li a {
     font-size: 1em;
   }
@@ -36,7 +40,7 @@
 
   .homepage-settings-placeholder {
     position: relative;
-    margin-top: 35px;
+    margin-top: 20px;
     $row1-top: 17.4%;
     $row2-top: 32.9%;
     $col1-left: 6.3%;
@@ -156,8 +160,6 @@
   .feeds {
     margin-top: 40px;
     margin-bottom: 40px;
-    padding-top: 40px;
-    border-top: 3px solid $black;
 
     img {
       width: 100%;
@@ -165,6 +167,10 @@
   }
 
   .department-news-container {
+    > h3 {
+      border-top: 2px solid #888;
+    }
+
     h3 {
       margin-bottom: 0;
     }
@@ -172,14 +178,14 @@
 
   .department-news {
     .news-item {
-      display: inline-block;
-      width: 50%;
-      vertical-align: top;
-      padding-right: 20px;
-      border-top: 1px solid #888;
+      border-top: 1px solid #ccc;
+
+      &:first-of-type {
+        border-top: none;
+      }
     }
     .more-in-news {
-      border-top: 1px solid #888;
+      border-top: 1px solid #ccc;
     }
   }
 
