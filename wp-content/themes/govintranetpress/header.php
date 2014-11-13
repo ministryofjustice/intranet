@@ -142,7 +142,7 @@ header('X-Frame-Options: SAMEORIGIN');
 
 	<div class="header">
     <div class="grid header-top">
-      <div class="col-lg-8 col-md-8 col-sm-6">
+      <div class="col-lg-8 col-md-8 col-sm-10">
         <div class="logo">
           <a href="<?php echo home_url( '/' ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>"  rel="home">
             <? if($gislogo): ?>
@@ -154,7 +154,7 @@ header('X-Frame-Options: SAMEORIGIN');
       </div>
 
       <!-- mobile menu button -->
-      <div class="col-sm-6 mobile-only">
+      <div class="col-sm-2 mobile-only">
         <div class="mobile-nav">
           <button type="button"></button>
         </div>
