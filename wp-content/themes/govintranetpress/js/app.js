@@ -585,6 +585,7 @@ jQuery(function(){
         this.cacheEls();
         this.bindEvents();
         this.generate();
+        this.initialized = true;
       },
 
       cacheEls: function(){
@@ -596,6 +597,9 @@ jQuery(function(){
 
       generate: function(){
         var _this = this;
+
+        if(!this.initialized){ return; }
+
         this.$tableOfContents.empty();
         //find all H* tags with ID's
         this.$contentContainer.find('h1, h2, h3, h4, h5, h6').filter('[id]').each(function(){
