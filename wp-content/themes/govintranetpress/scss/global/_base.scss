@@ -4,6 +4,7 @@ template {
 
 h1 {
   @extend %largest-heading;
+  border-bottom: 1px solid #545454;
 }
 
 h2 {
@@ -35,14 +36,6 @@ li {
   list-style-type: none;
 }
 
-.news_date {
-  color: #6f777b;
-}
-
-.content-wrapper {
-  margin: 15px 0;
-}
-
 a {
   &,
   &:hover,
@@ -59,5 +52,13 @@ a {
 
   &:hover {
     text-decoration: underline;
+  }
+}
+
+p {
+  margin: 0;
+
+  + p {
+    margin-top: 10px;
   }
 }

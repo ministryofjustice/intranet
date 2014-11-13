@@ -1,15 +1,15 @@
-*, *:after, *:before {
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
-}
-
+/************
+** Config
+************/
 $gap: 30px; /*total whitespace between columns */
 $size-desktop: 1024px; /* desktop starts at this point */
 $size-tablet: 768px; /* tablet starts at this point */
 $grid-min-size: 320px; /* grid's minimum width (incl. outer spacing) */
 $grid-max-size: 1020px; /* grid's maximum width (incl. outer spacing) */
 
+/************
+** Mixins
+************/
 @mixin breakpoint($min, $max) {
   @if $max == null {
     @media (min-width: $min) {
@@ -53,18 +53,22 @@ $grid-max-size: 1020px; /* grid's maximum width (incl. outer spacing) */
   }
 }
 
+/************
+** The style
+************/
+*,
+*:after,
+*:before {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
 .grid {
 	max-width: $grid-max-size;
 	min-width: $grid-min-size;
   margin-left: auto;
   margin-right: auto;
-
-  [class*='col-'] {
-    float: left;
-    overflow: hidden;
-    padding-left: $gap/2;
-    padding-right: $gap/2;
-  }
 
   &:after {
     display: table;
@@ -77,6 +81,13 @@ $grid-max-size: 1020px; /* grid's maximum width (incl. outer spacing) */
     padding-right: $gap/2;
   }
 
+  [class*='col-'] {
+    float: left;
+    overflow: hidden;
+    padding-left: $gap/2;
+    padding-right: $gap/2;
+  }
+
   .grid {
     margin-left: -$gap/2;
     margin-right: -$gap/2;
@@ -84,16 +95,16 @@ $grid-max-size: 1020px; /* grid's maximum width (incl. outer spacing) */
 }
 
 /* desktop */
-@inlcude desktop-mq(){
-  @for $i from 1 through 11 {
-    .push-lg-#{$i} {
-      margin-left: (100%*$i/12);
-    }
-  }
-
+@include desktop-mq(){
   @for $i from 1 through 12 {
     .col-lg-#{$i} {
       width: (100%/12*$i);
+    }
+  }
+
+  @for $i from 1 through 11 {
+    .push-lg-#{$i} {
+      margin-left: (100%*$i/12);
     }
   }
 }

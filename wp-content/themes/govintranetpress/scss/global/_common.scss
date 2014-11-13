@@ -1,13 +1,17 @@
-h1 {
-  border-bottom: 1px solid #545454;
+.clearfix {
+  &:after {
+    content: "";
+    display: table-cell;
+    clear: both;
+  }
 }
 
-p {
-  margin: 0;
+.news_date {
+  color: #6f777b;
+}
 
-  + p {
-    margin-top: 10px;
-  }
+.content-wrapper {
+  margin: 15px 0;
 }
 
 #content {
@@ -44,3 +48,4 @@ p {
     }
   }
 }
+

@@ -25,8 +25,15 @@
     margin-top: 0;
   }
 
-  .media-body a {
-    text-decoration: none !important;
+  .media-body {
+    a {
+      text-decoration: none !important;
+    }
+  }
+
+  .media,
+  .media-body {
+    overflow: hidden;
   }
 
   .news-item {
