@@ -4,21 +4,21 @@
 
 <div class="page-news">
   <div class="grid">
-    <div class="col-lg-12">
+    <div class="col-lg-12 col-md-12 col-sm-12">
       <h1 class="page-title"><?php the_title() ?></h1>
       <?php the_content() ?>
     </div>
   </div>
 
   <div class="grid">
-    <div class="col-lg-4">&nbsp;</div>
-    <div class="col-lg-8">
+    <div class="col-lg-4 col-md-4 mobile-hide">&nbsp;</div>
+    <div class="col-lg-8 col-md-8 col-sm-12">
       <?php dynamic_sidebar('newslanding-widget-area0'); ?>
     </div>
   </div>
 
   <div class="grid">
-    <div class="col-lg-4">
+    <div class="col-lg-4 col-md-4 col-sm-12">
       <form class="news-filters">
         <div class="form-row">
           <span class="label">Filter by:</span>
@@ -39,7 +39,7 @@
       </form>
     </div>
 
-    <div class="col-lg-8">
+    <div class="col-lg-8 col-md-8 col-sm-12">
       <?php dynamic_sidebar('newslanding-widget-area1'); ?>
     </div>
   </div>
