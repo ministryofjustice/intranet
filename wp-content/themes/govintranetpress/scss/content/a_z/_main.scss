@@ -1,0 +1,81 @@
+.a-z {
+  .input-group {
+    @include clearfix;
+    width: 100%;
+    display: block;
+    position: relative;
+  }
+
+  .form-control {
+    height: 36px;
+    width: 100%;
+    padding-left: 10px;
+  }
+
+  .search-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 36px;
+    padding: 0;
+    background-color: #428bca;
+    border-color: #357ebd;
+
+    &:after {
+      position: absolute;
+      left: 10px;
+      top: 10px;
+      right: 10px;
+      bottom: 10px;
+      width: 16px;
+      height: 16px;
+      background-image: url('../images/search_icon.svg');
+      background-size: 16px 16px;
+      content: "";
+    }
+  }
+
+  .filters {
+    margin-top: 60px;
+
+    select {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid $grey-2;
+      background: $white;
+    }
+
+    .description {
+      @extend %medium-copy;
+      margin-bottom: 20px;
+      padding: 0;
+      color: #333;
+    }
+
+    .label {
+      @extend %medium-copy;
+      padding: 0;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .form-row {
+    }
+  }
+
+  .results {
+    margin-top: 60px;
+
+    h3 {
+      margin-top: 40px;
+      margin-bottom: 0;
+    }
+
+    .meta {
+      span {
+        color: $grey-2;
+      }
+    }
+  }
+}

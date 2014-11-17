@@ -1,54 +1,91 @@
-<?php
-/* Template name: A-Z */
+<?php if (!defined('ABSPATH')) die();
 
-get_header();
+/**
+ * Template name: A-Z
+ *
+ * @package WordPress
+ * @subpackage Starkers
+ * @since Starkers 3.0
+ */
+class Page_single_news extends MVC_controller {
+  function main(){
+    while(have_posts()){
+      the_post();
+      get_header();
+      $this->view('shared/breadcrumbs');
+      $this->view('pages/a_z/main', $this->get_data());
+      get_footer();
+    }
+  }
 
-function get_children_from_API($id){
-  $results = new children_request($id);
-  return htmlspecialchars(json_encode($results->results_array));
+  private function get_data(){
+    $results = array(
+      array(
+        'title' => 'Annual leave',
+        'date' => '2014-11-7',
+        'category' => 'Guidance',
+        'breadcrumbs' => 'HQ &gt; HR',
+        'description' => 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nam nibh. Nunc varius facilisis eros.'
+      ),
+
+      array(
+        'title' => 'Annual leave form',
+        'date' => '2014-11-7',
+        'category' => 'Guidance',
+        'breadcrumbs' => 'HQ &gt; HR',
+        'description' => 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nam nibh. Nunc varius facilisis eros.'
+      ),
+
+      array(
+        'title' => 'Absence without leave form',
+        'date' => '2014-11-7',
+        'category' => 'Guidance',
+        'breadcrumbs' => 'HQ &gt; HR',
+        'description' => 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nam nibh. Nunc varius facilisis eros.'
+      ),
+
+      array(
+        'title' => 'Disability leave',
+        'date' => '2014-11-7',
+        'category' => 'Guidance',
+        'breadcrumbs' => 'HQ &gt; HR',
+        'description' => 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nam nibh. Nunc varius facilisis eros.'
+      ),
+
+      array(
+        'title' => 'Parental leave',
+        'date' => '2014-11-7',
+        'category' => 'Guidance',
+        'breadcrumbs' => 'HQ &gt; HR',
+        'description' => 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nam nibh. Nunc varius facilisis eros.'
+      ),
+
+      array(
+        'title' => 'Parental leave form',
+        'date' => '2014-11-7',
+        'category' => 'Guidance',
+        'breadcrumbs' => 'HQ &gt; HR',
+        'description' => 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nam nibh. Nunc varius facilisis eros.'
+      ),
+
+      array(
+        'title' => 'Holiday',
+        'date' => '2014-11-7',
+        'category' => 'Guidance',
+        'breadcrumbs' => 'HQ &gt; HR',
+        'description' => 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nam nibh. Nunc varius facilisis eros.'
+      )
+    );
+
+    //add formatted dates
+    foreach($results as $key=>$result){
+      $results[$key]['human_date'] = date("j F Y", strtotime($result['date']));
+    }
+
+    return array(
+      'results' => $results
+    );
+  }
 }
 
-$levels = array();
-$post_id = get_the_id();
-$ids = get_post_ancestors($post_id);
-$ids = array_reverse($ids);
-array_push($ids, $post_id);
-
-//get JSON data
-foreach($ids as $key=>$id){
-  $levels[$key] = get_children_from_API($ids[$key]);
-}
-
-//get the slug of the top page - we need this for deep-linking (JS)
-$top_level_post = get_post($ids[0]);
-$top_slug = htmlspecialchars($top_level_post->post_name);
-
-?>
-
-<div class="row">
-  <div class='breadcrumbs'>
-    <?php if(function_exists('bcn_display') && !is_front_page()) {
-      bcn_display();
-    }?>
-  </div>
-</div>
-
-<div class="a-z" data-top-level-slug="<?=$top_slug?>">
-  <ul class="tabbed-filter">
-    <li class="selected" data-sort-type="alphabetical">
-      <a href="">
-        <span class="icon"></span>
-        <span class="label">Content</span>
-      </a>
-    </li>
-    <li data-sort-type="popular">
-      <a href="">
-        <span class="icon"></span>
-        <span class="label">Forms &amp; templates</span>
-      </a>
-    </li>
-  </ul>
-</div>
-
-<?php
-get_footer();
+new Page_single_news();
