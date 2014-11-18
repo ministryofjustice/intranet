@@ -3,7 +3,7 @@
 <div class="news-archive">
   <div class="grid">
     <div class="col-lg-4 col-md-4 col-sm-12">
-      <form class="news-filters">
+      <form class="content-filters">
         <div class="form-row">
           <span class="label">Filter by:</span>
         </div>
@@ -16,9 +16,6 @@
         </div>
         <div class="form-row">
           <input type="text" placeholder="Keywords" name="keywords" />
-        </div>
-        <div class="form-row">
-          <input type="submit" class="cta" value="Search" />
         </div>
       </form>
     </div>
