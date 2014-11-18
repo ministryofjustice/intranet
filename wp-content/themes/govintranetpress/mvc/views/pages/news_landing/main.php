@@ -11,15 +11,16 @@
   </div>
 
   <div class="grid">
-    <div class="col-lg-4 col-md-4 mobile-hide">&nbsp;</div>
-    <div class="col-lg-8 col-md-8 col-sm-12">
+    <div class="col-lg-3 col-md-3 mobile-hide">&nbsp;</div>
+    <div class="col-lg-8 col-md-8 col-sm-12 push-lg-1 push-md-1">
       <?php dynamic_sidebar('newslanding-widget-area0'); ?>
     </div>
   </div>
 
   <div class="grid">
-    <div class="col-lg-4 col-md-4 col-sm-12">
+    <div class="col-lg-3 col-md-3 col-sm-12">
       <form class="content-filters">
+        <p class="description">You can use the filters to show only results that match your interests</p>
         <div class="form-row">
           <span class="label">Filter by:</span>
         </div>
@@ -36,8 +37,30 @@
       </form>
     </div>
 
-    <div class="col-lg-8 col-md-8 col-sm-12">
+    <div class="col-lg-8 col-md-8 col-sm-12 push-lg-1 push-md-1">
       <?php dynamic_sidebar('newslanding-widget-area1'); ?>
+
+      <ul class="content-nav">
+        <li class="previous">
+          <span>
+            <? if($prev_news_exists): ?>
+              <a href="<?=$prev_news_url?>">Previous</a>
+            <? else: ?>
+              Previous
+            <? endif ?>
+          </span>
+        </li>
+
+        <li class="next">
+          <span>
+            <? if($next_news_exists): ?>
+              <a href="<?=$next_news_url?>">Next</a>
+            <? else: ?>
+              Next
+            <? endif ?>
+          </span>
+        </li>
+      </ul>
     </div>
   </div>
 </div>

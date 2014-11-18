@@ -491,7 +491,7 @@ h1 {
 }
 
 /* line 62, ../scss/global/_typography.scss */
-.content-filters .label, .content-filters .description, #content .guidance-and-support .item-container .description, .page-news .news-filters .label {
+.content-filters .label, .content-filters .description, #content .guidance-and-support .item-container .description {
   font-size: 16px;
 }
 
@@ -2378,27 +2378,21 @@ form .form-row:first-of-type {
   }
 }
 /* line 2, ../scss/content/news_landing/_main.scss */
-.page-news .news-filters {
-  margin-top: 60px;
-  padding: 15px;
-  background-color: #dee0e2;
+.page-news .content-filters {
+  margin-top: 20px;
 }
 /* line 7, ../scss/content/news_landing/_main.scss */
-.page-news .news-filters select,
-.page-news .news-filters input[type="text"] {
-  width: 100%;
+.page-news .small-news h3 {
+  margin-bottom: 40px;
 }
-/* line 12, ../scss/content/news_landing/_main.scss */
-.page-news .news-filters input[type="text"],
-.page-news .news-filters select {
-  padding: 8px;
-  border: 1px solid #bfc1c3;
-  background: #fff;
+/* line 11, ../scss/content/news_landing/_main.scss */
+.page-news .small-news .news-item {
+  border-top: none;
+  border-bottom: 1px solid #bfc1c3;
 }
-/* line 19, ../scss/content/news_landing/_main.scss */
-.page-news .news-filters .label {
-  color: #333;
-  padding: 0;
+/* line 16, ../scss/content/news_landing/_main.scss */
+.page-news .small-news .more-in-news {
+  display: none;
 }
 
 /* line 2, ../scss/content/news_single/_main.scss */

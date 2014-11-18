@@ -1,28 +1,20 @@
 .page-news {
-  .news-filters {
-    margin-top: 60px;
-    padding: 15px;
-    background-color: $grey-3;
+  .content-filters {
+    margin-top: 20px;
+  }
 
-    select,
-    input[type="text"] {
-      width: 100%;
+  .small-news {
+    h3 {
+      margin-bottom: 40px;
     }
 
-    input[type="text"],
-    select {
-      padding: 8px;
-      border: 1px solid $grey-2;
-      background: $white;
+    .news-item {
+      border-top: none;
+      border-bottom: 1px solid $grey-2;
     }
 
-    .label {
-      @extend %medium-copy;
-      color: #333;
-      padding: 0;
-    }
-
-    .form-row {
+    .more-in-news {
+      display: none;
     }
   }
 }
