@@ -598,37 +598,6 @@ p + p {
   padding-right: 15px;
 }
 
-/* line 2, ../scss/global/_mixins.scss */
-.content-nav:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-/* line 57, ../scss/global/_common.scss */
-.content-nav li:before, .content-nav li:after {
-  font-size: 24px;
-}
-/* line 63, ../scss/global/_common.scss */
-.content-nav li.previous {
-  float: left;
-}
-/* line 66, ../scss/global/_common.scss */
-.content-nav li.previous:before {
-  content: '\2039';
-}
-/* line 71, ../scss/global/_common.scss */
-.content-nav li.next {
-  float: right;
-}
-/* line 74, ../scss/global/_common.scss */
-.content-nav li.next:after {
-  content: '\203a';
-}
-/* line 79, ../scss/global/_common.scss */
-.content-nav li a {
-  padding: 10px 0;
-}
-
 /* line 3, ../scss/global/_button.scss */
 input.cta,
 button.cta {
@@ -1706,6 +1675,41 @@ form .form-row:first-of-type {
   margin-bottom: 20px;
   padding: 0;
   color: #333;
+}
+
+/* line 2, ../scss/global/_mixins.scss */
+.content-nav:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+/* line 6, ../scss/modules/_content_nav.scss */
+.content-nav li:before, .content-nav li:after {
+  font-size: 24px;
+}
+/* line 12, ../scss/modules/_content_nav.scss */
+.content-nav li.previous {
+  float: left;
+}
+/* line 15, ../scss/modules/_content_nav.scss */
+.content-nav li.previous:before {
+  content: '\2039';
+}
+/* line 20, ../scss/modules/_content_nav.scss */
+.content-nav li.next {
+  float: right;
+}
+/* line 23, ../scss/modules/_content_nav.scss */
+.content-nav li.next:after {
+  content: '\203a';
+}
+/* line 28, ../scss/modules/_content_nav.scss */
+.content-nav li a {
+  padding: 10px 0;
+}
+/* line 32, ../scss/modules/_content_nav.scss */
+.content-nav li .page-number {
+  display: block;
 }
 
 /* line 2, ../scss/widgets/ht_feature_news/_main.scss */

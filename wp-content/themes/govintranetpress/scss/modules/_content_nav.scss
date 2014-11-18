@@ -1,0 +1,36 @@
+.content-nav {
+  @extend %larger-copy;
+  @include clearfix;
+
+  li {
+    &:before,
+    &:after {
+      font-size: 24px;
+    }
+
+
+    &.previous {
+      float: left;
+
+      &:before {
+        content: '\2039';
+      }
+    }
+
+    &.next {
+      float: right;
+
+      &:after {
+        content: '\203a';
+      }
+    }
+
+    a {
+      padding: 10px 0;
+    }
+
+    .page-number {
+      display: block;
+    }
+  }
+}
