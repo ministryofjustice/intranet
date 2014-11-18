@@ -45,6 +45,32 @@
             </li>
           <?php endforeach ?>
         </ul>
+
+        <ul class="content-nav">
+          <li class="previous">
+            <span>
+              <? if($prev_page_exists): ?>
+                <a href="<?=$prev_page_url?>">
+                  Previous
+                </a>
+              <? else: ?>
+                Previous
+              <? endif ?>
+            </span>
+          </li>
+
+          <li class="next">
+            <span>
+              <? if($next_page_exists): ?>
+                <a href="<?=$next_page_url?>">
+                  Next
+                </a>
+              <? else: ?>
+                Next
+              <? endif ?>
+            </span>
+          </li>
+        </ul>
       </div>
     </div>
   </div>

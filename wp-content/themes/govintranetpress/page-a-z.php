@@ -83,7 +83,9 @@ class Page_single_news extends MVC_controller {
     }
 
     return array(
-      'results' => $results
+      'results' => $results,
+      'prev_page_exists' => false,
+      'next_page_exists' => false
     );
   }
 }
