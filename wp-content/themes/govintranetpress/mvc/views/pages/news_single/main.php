@@ -40,7 +40,7 @@
         <?=$content?>
       </div>
 
-      <ul class="news-nav">
+      <ul class="content-nav">
         <li class="previous">
           <span>
             <? if($prev_news_exists): ?>
