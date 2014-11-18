@@ -1134,21 +1134,11 @@ form .form-row:first-of-type {
 #footerwrapper #footer hr {
   display: none;
 }
-/* line 60, ../scss/modules/_footer.scss */
-#footerwrapper #footer .widget-box {
-  padding: 0 .3em .5em .5em;
-  background: #dee0e2;
-  border-bottom: none;
-}
-/* line 65, ../scss/modules/_footer.scss */
-#footerwrapper #footer .widget-box ul#menu-footer-left {
-  padding-left: 0 !important;
-}
-/* line 72, ../scss/modules/_footer.scss */
+/* line 62, ../scss/modules/_footer.scss */
 #footerwrapper #footer-left p {
   text-align: left;
 }
-/* line 76, ../scss/modules/_footer.scss */
+/* line 66, ../scss/modules/_footer.scss */
 #footerwrapper ul#menu-footer-right li {
   list-style: square;
   margin-left: 0;
