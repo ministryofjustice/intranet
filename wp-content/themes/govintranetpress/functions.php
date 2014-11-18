@@ -1556,3 +1556,5 @@ function relevanssi_user_filter($hits) {
     }
     return $tothits;
 }
+
+include('debug.php');
