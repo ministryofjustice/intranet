@@ -44,9 +44,10 @@
         <li class="previous">
           <span>
             <? if($prev_news_exists): ?>
-              <a href="<?=$prev_news_url?>">Previous</a>
+              <a href="<?=$prev_news_url?>">Previous page</a>
+              <span class="page-number">2 of 35</span>
             <? else: ?>
-              Previous
+              Previous page
             <? endif ?>
           </span>
         </li>
@@ -54,9 +55,10 @@
         <li class="next">
           <span>
             <? if($next_news_exists): ?>
-              <a href="<?=$next_news_url?>">Next</a>
+              <a href="<?=$next_news_url?>">Next page</a>
+              <span class="page-number">4 of 35</span>
             <? else: ?>
-              Next
+              Next page
             <? endif ?>
           </span>
         </li>
