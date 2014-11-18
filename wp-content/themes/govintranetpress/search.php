@@ -5,52 +5,57 @@
  * @package WordPress
  * @subpackage Bootstrap 3
  */
- 
- //****************************************************
- // if only one result found, zoom straight to the page
 
-$gis = "general_intranet_enable_helpful_search";
-$gishelpfulsearch = get_option($gis);
-if ($gishelpfulsearch == 1){
-	if ($wp_query->found_posts==1){
-		$location='';
-		while ( have_posts() ) : the_post(); 
-			if ($post->post_type == 'user' ){
-				$location=$post->link;
-				$location=str_replace('/author', '/staff', $location);
-			} else {
-					if ($_GET['pt'] != 'user') {
-	
-				$location=$post->guid; 
-			}
-		}
-		endwhile;
-		if ($location){
-			$location = str_replace( "#038;", "&", $location);
-			header('Location: '.$location);
-			exit;
-		}
-	}
+
+class Page_search_results {
+  function main(){
+    $this->redirect_if_one_result();
+    $this->view('shared/breadcrumbs');
+
+    get_header();
+
+    get_footer();
+  }
+
+  function redirect_if_one_result(){
+    //****************************************************
+    // if only one result found, zoom straight to the page
+
+    $gis = "general_intranet_enable_helpful_search";
+    $gishelpfulsearch = get_option($gis);
+    if ($gishelpfulsearch == 1){
+      if ($wp_query->found_posts==1){
+        $location='';
+        while (have_posts()){
+          the_post();
+          if ($post->post_type == 'user' ){
+            $location=$post->link;
+            $location=str_replace('/author', '/staff', $location);
+          } else {
+            if ($_GET['pt'] != 'user') {
+              $location=$post->guid;
+            }
+          }
+        }
+        if ($location){
+          $location = str_replace( "#038;", "&", $location);
+          header('Location: '.$location);
+          exit;
+        }
+      }
+    }
+  }
 }
-				
- //*****************************************************				
 
-get_header(); ?>
+new Page_search_results();
 
-	<div class="col-lg-7 col-md-8 col-sm-12 white">
-		<div class="row">
-			<div class='breadcrumbs'>
-				<?php if(function_exists('bcn_display') && !is_front_page()) {
-						bcn_display();
-					}?>
-			</div>
-		</div>
-	
+exit();
 
-<?php 
+ //*****************************************************
+
 	$s=$_GET['s'];
-	if ( have_posts() ) : 
-	
+	if ( have_posts() ) :
+
 		if ($_GET['pt']=='forums'){
 			$query->query_vars['s'] = $s;
 			$query->query_vars['posts_per_page'] = 10;
@@ -71,7 +76,7 @@ get_header(); ?>
 				relevanssi_do_query($query);
 			}
 		endif;
-	
+
 ?>
 	<h1><?php printf( __( 'Search results for: %s', 'twentyten' ), '' . $s . '' ); ?></h1>
 	<?php
@@ -103,25 +108,25 @@ get_header(); ?>
 <?php
 
 	endif;
-	
+
 /* Run the loop for the search to output the results.
  * If you want to overload this in a child theme then include a file
  * called loop-search.php and that will be used instead.
  */
  get_template_part( 'loop', 'search' );
 ?>
-<?php else : 
+<?php else :
 	if ($_GET['pt'] != 'user'):
-	
+
 		$searchnotfound=get_option('general_intranet_search_not_found');
 		if (!$searchnotfound) $searchnotfound = "Nope";
-	
+
 ?>
 	<h1><?php echo $searchnotfound; ?></h1>
 	<script type="text/javascript">
 	_gaq.push(['_trackEvent', 'Search', 'Empty results', '<?php echo the_search_query();?>']);
 	</script>
-	<?php 
+	<?php
 	$pt = $_GET['post_type'];
 	$ct = $_GET['cat'];
 	$ct = get_category($ct);
@@ -142,24 +147,24 @@ get_header(); ?>
 		$searchcon.=' the forums';
 		$pt=$_GET['pt'];
 	}					 ?>
-	<p><?php 
+	<p><?php
 	if ($pt){
-	_e( 'Couldn\'t find anything in ' . $searchcon . ' like that. Try searching the whole intranet.', 'twentyten' ); 
+	_e( 'Couldn\'t find anything in ' . $searchcon . ' like that. Try searching the whole intranet.', 'twentyten' );
 	}
 	else
 	{
-	_e( 'Couldn\'t find anything on the intranet like that. Sometimes using fewer words can help.', 'twentyten' ); 				
+	_e( 'Couldn\'t find anything on the intranet like that. Sometimes using fewer words can help.', 'twentyten' );
 	}
 	?>
-	
+
 	</p>
-	
+
 
 <?php
 $q = $_GET['s'];
 
 // add did you mean function
- if (function_exists('relevanssi_didyoumean')) { 
+ if (function_exists('relevanssi_didyoumean')) {
  	relevanssi_didyoumean(get_search_query(), "<p>Did you mean: ", "?</p>", 5);
  }
 
@@ -180,15 +185,15 @@ $q = $_GET['s'];
 	</div>
 	<script>
 	jQuery("#snf").focus();
-	</script>							
+	</script>
 
-<?php endif; 
+<?php endif;
 endif;
 	if ($_GET['pt'] == 'user' && $foundstaff == 0):
 		echo "<h2>Not on the directory</h2><p>Try searching again or go back to the <a href='".site_url()."/staff-directory'>staff directory</a></p><br>";
 	endif;
-	
-	
+
+
 ?>
 		<div class="wp_pagenavi">
 <?php if (  $items->max_num_pages > 1  && $_GET['pt'] != 'user'  ) : ?>
@@ -197,13 +202,13 @@ endif;
 		<?php else : ?>
 
 		<?php next_posts_link('&larr; Older items', $items->max_num_pages); ?>
-		<?php previous_posts_link('Newer items &rarr;', $items->max_num_pages); ?>						
-	
+		<?php previous_posts_link('Newer items &rarr;', $items->max_num_pages); ?>
+
 	<?php endif; ?>
 <?php endif; ?>
 
-<?php 
-//wp_reset_postdata(); 
+<?php
+//wp_reset_postdata();
     wp_reset_query();
 ?>
 
@@ -218,7 +223,7 @@ endif;
 
 </div>
 <div class="col-lg-4 col-lg-offset-1 col-md-4 col-sm-12">
-	<?php 	dynamic_sidebar('serp-widget-area'); ?>	
+	<?php 	dynamic_sidebar('serp-widget-area'); ?>
 </div>
 
 <?php get_footer(); ?>
