@@ -36,34 +36,6 @@
     }
   }
 
-  .filters {
-    margin-top: 60px;
-
-    select {
-      width: 100%;
-      padding: 8px;
-      border: 1px solid $grey-2;
-      background: $white;
-    }
-
-    .description {
-      @extend %medium-copy;
-      margin-bottom: 20px;
-      padding: 0;
-      color: #333;
-    }
-
-    .label {
-      @extend %medium-copy;
-      padding: 0;
-      font-weight: bold;
-      color: #333;
-    }
-
-    .form-row {
-    }
-  }
-
   .results {
     margin-top: 60px;
 

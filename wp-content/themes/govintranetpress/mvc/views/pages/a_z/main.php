@@ -12,7 +12,7 @@
   </div>
   <div class="grid">
     <div class="col-lg-4 col-md-4 col-sm-12">
-      <form class="filters">
+      <form class="content-filters">
         <p class="description">You can use the filters to show only results that match your interests</p>
         <div class="form-row">
           <span class="label">Filter by</span>

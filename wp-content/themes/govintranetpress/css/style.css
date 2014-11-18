@@ -491,7 +491,7 @@ h1 {
 }
 
 /* line 62, ../scss/global/_typography.scss */
-#content .guidance-and-support .item-container .description, .page-news .news-filters .label, .a-z .filters .description, .a-z .filters .label {
+.content-filters .label, .content-filters .description, #content .guidance-and-support .item-container .description, .page-news .news-filters .label {
   font-size: 16px;
 }
 
@@ -1690,6 +1690,34 @@ form .form-row:first-of-type {
   border-bottom-color: transparent;
 }
 
+/* line 1, ../scss/modules/_content_filters.scss */
+.content-filters {
+  margin-top: 60px;
+}
+/* line 4, ../scss/modules/_content_filters.scss */
+.content-filters select,
+.content-filters input[type="text"] {
+  width: 100%;
+}
+/* line 9, ../scss/modules/_content_filters.scss */
+.content-filters input[type="text"],
+.content-filters select {
+  padding: 8px;
+  border: 1px solid #bfc1c3;
+  background: #fff;
+}
+/* line 16, ../scss/modules/_content_filters.scss */
+.content-filters .label {
+  color: #333;
+  padding: 0;
+}
+/* line 22, ../scss/modules/_content_filters.scss */
+.content-filters .description {
+  margin-bottom: 20px;
+  padding: 0;
+  color: #333;
+}
+
 /* line 2, ../scss/widgets/ht_feature_news/_main.scss */
 .ht-feature-news > h3 {
   margin-top: 16px;
@@ -2458,38 +2486,15 @@ form .form-row:first-of-type {
   content: "";
 }
 /* line 39, ../scss/content/a_z/_main.scss */
-.a-z .filters {
-  margin-top: 60px;
-}
-/* line 42, ../scss/content/a_z/_main.scss */
-.a-z .filters select {
-  width: 100%;
-  padding: 8px;
-  border: 1px solid #bfc1c3;
-  background: #fff;
-}
-/* line 49, ../scss/content/a_z/_main.scss */
-.a-z .filters .description {
-  margin-bottom: 20px;
-  padding: 0;
-  color: #333;
-}
-/* line 56, ../scss/content/a_z/_main.scss */
-.a-z .filters .label {
-  padding: 0;
-  font-weight: bold;
-  color: #333;
-}
-/* line 67, ../scss/content/a_z/_main.scss */
 .a-z .results {
   margin-top: 60px;
 }
-/* line 70, ../scss/content/a_z/_main.scss */
+/* line 42, ../scss/content/a_z/_main.scss */
 .a-z .results h3 {
   margin-top: 40px;
   margin-bottom: 0;
 }
-/* line 76, ../scss/content/a_z/_main.scss */
+/* line 48, ../scss/content/a_z/_main.scss */
 .a-z .results .meta span {
   color: #bfc1c3;
 }
