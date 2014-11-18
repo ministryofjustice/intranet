@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * usage:
+ * Debug::brief($var) - shows the structure of $variable, doesn't recurse objects
+ * Debug::full($var) - shows the structure of $variable, recurses objects
+ * Debug::raw($var) - does pre_print($var) wrapped in <pre></pre>
+ */
 class Debug {
 	private static $styleAttached = false;
 	private static $recurseObjects = false;
