@@ -460,7 +460,7 @@ h5, .guidance-and-support .links h3 {
 
 /* line 23, ../scss/global/_typography.scss */
 h4, .ht-feature-news h3, #need-to-know .item-title, .guidance-and-support .categories h3,
-.guidance-and-support .subcategories h3 {
+.guidance-and-support .subcategories h3, .search-results .news-item h3 {
   font-size: 19px;
 }
 
@@ -2508,4 +2508,44 @@ form .form-row:first-of-type {
 /* line 48, ../scss/content/a_z/_main.scss */
 .a-z .results .meta span {
   color: #bfc1c3;
+}
+
+/* line 2, ../scss/content/search_results/_main.scss */
+.search-results .news-item {
+  border-bottom: 1px solid #bfc1c3;
+  padding: 10px 0;
+}
+/* line 2, ../scss/global/_mixins.scss */
+.search-results .news-item:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+/* line 7, ../scss/content/search_results/_main.scss */
+.search-results .news-item .thumbnail {
+  float: left;
+  width: 160px;
+  min-height: 1px;
+}
+/* line 12, ../scss/content/search_results/_main.scss */
+.search-results .news-item .thumbnail img {
+  width: 100%;
+}
+/* line 17, ../scss/content/search_results/_main.scss */
+.search-results .news-item .details {
+  overflow: hidden;
+  padding-left: 20px;
+}
+/* line 22, ../scss/content/search_results/_main.scss */
+.search-results .news-item h3 {
+  margin: 0;
+}
+/* line 27, ../scss/content/search_results/_main.scss */
+.search-results .news-item .meta {
+  margin-bottom: 10px;
+}
+/* line 28, ../scss/content/search_results/_main.scss */
+.search-results .news-item .meta span {
+  color: #bfc1c3;
+  padding-right: 45px;
 }

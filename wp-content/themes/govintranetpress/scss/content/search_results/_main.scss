@@ -1,0 +1,36 @@
+.search-results {
+  .news-item {
+    @include clearfix;
+    border-bottom: 1px solid $grey-2;
+    padding: 10px 0;
+
+    .thumbnail {
+      float: left;
+      width: 160px;
+      min-height: 1px;
+
+      img {
+        width: 100%;
+      }
+    }
+
+    .details {
+      overflow: hidden;
+      padding-left: 20px;
+    }
+
+    h3 {
+      @extend %medium-heading;
+      margin: 0;
+    }
+
+    .meta {
+      span {
+        color: $grey-2;
+        padding-right: 45px;
+      }
+
+      margin-bottom: 10px;
+    }
+  }
+}
