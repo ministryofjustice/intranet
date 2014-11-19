@@ -10,6 +10,22 @@
  * @package WordPress
  */
 
+class Page_news_archive extends MVC_controller {
+  function main(){
+    get_header();
+    $this->view('shared/breadcrumbs');
+    $this->view('pages/news_landing/main', $this->get_data());
+    get_footer();
+  }
+
+  function get_data(){
+    return array(
+    );
+  }
+}
+
+new Page_news_archive();
+
 get_header(); ?>
 
 <?php
@@ -40,7 +56,7 @@ get_header(); ?>
 			 * we can run the loop properly, in full.
 			 */
 			rewind_posts();
-		
+
 			/* Run the loop for the archives page to output the posts.
 			 * If you want to overload this in a child theme then include a file
 			 * called loop-archives.php and that will be used instead.
@@ -55,7 +71,7 @@ get_header(); ?>
 		</div>
 	</div>
 
-<?php 
+<?php
 wp_reset_query();
-get_footer(); 
+get_footer();
 ?>
