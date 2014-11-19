@@ -1,0 +1,80 @@
+.tabbed-filters {
+  display: inline-block;
+  margin-top: 30px;
+  padding-left: 0;
+
+  li {
+    display: inline-block;
+    border-radius: 10px;
+    vertical-align: bottom;
+    margin-left: 15px;
+
+    &:first-of-type {
+      margin-left: 0;
+    }
+
+    &:hover,
+    &.selected {
+      .icon {
+        background-color: #428bca;
+      }
+    }
+
+    a {
+      display: block;
+      padding-right: 20px;
+      text-align: center;
+      text-decoration: none;
+      outline: none;
+    }
+
+    .icon {
+      display: inline-block;
+      margin: 0 auto;
+      width: 30px;
+      height: 30px;
+      background-color: #ddd;
+      line-height: 30px;
+      color: $white;
+
+      .selected & {
+        background-color: #428bca;
+      }
+    }
+
+    .label {
+      @extend %smallest-copy;
+      display: inline-block;
+      color: #333;
+    }
+
+    .icon {
+      &:after {
+        display: inline-block;
+        content: " ";
+      }
+    }
+
+    &.star {
+      .icon {
+        line-height: 25px;
+        font-size: 25px;
+
+        &:after {
+          content: "\2605";
+        }
+      }
+    }
+
+    &.alpha {
+      .icon {
+        font-weight: bold;
+        font-size: 15px;
+
+        &:after {
+          content: "A";
+        }
+      }
+    }
+  }
+}

@@ -1,52 +1,18 @@
 .a-z {
-  .input-group {
-    @include clearfix;
-    width: 100%;
-    display: block;
-    position: relative;
+  .content-filters {
+    margin-top: 0;
   }
 
-  .form-control {
-    height: 36px;
-    width: 100%;
-    padding-left: 10px;
-  }
+  .letters {
+    li {
+      display: inline-block;
+      padding: 2px 10px;
 
-  .search-btn {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    width: 36px;
-    padding: 0;
-    background-color: #428bca;
-    border-color: #357ebd;
-
-    &:after {
-      position: absolute;
-      left: 10px;
-      top: 10px;
-      right: 10px;
-      bottom: 10px;
-      width: 16px;
-      height: 16px;
-      background-image: url('../images/search_icon.svg');
-      background-size: 16px 16px;
-      content: "";
-    }
-  }
-
-  .results {
-    margin-top: 60px;
-
-    h3 {
-      margin-top: 40px;
-      margin-bottom: 0;
-    }
-
-    .meta {
-      span {
-        color: $grey-2;
+      &.selected,
+      &:first-of-type, /* temporary only */
+      &:hover {
+        background-color: $grey-2;
+        cursor: pointer;
       }
     }
   }
