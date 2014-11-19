@@ -22,7 +22,7 @@
       <form class="content-filters">
         <p class="description">You can use the filters to show only results that match your interests</p>
         <div class="form-row">
-          <span class="label">Filter by:</span>
+          <span class="label">Filter by</span>
         </div>
         <div class="form-row">
           <select name="category">
@@ -32,6 +32,8 @@
           </select>
         </div>
         <div class="form-row">
+          <span class="label">Contains</span>
+        </div>        <div class="form-row">
           <input type="text" placeholder="Keywords" name="keywords" />
         </div>
       </form>
@@ -40,27 +42,20 @@
     <div class="col-lg-8 col-md-8 col-sm-12 push-lg-1 push-md-1">
       <?php dynamic_sidebar('newslanding-widget-area1'); ?>
 
-      <ul class="content-nav">
-        <li class="previous">
-          <span>
-            <? if($prev_news_exists): ?>
-              <a href="<?=$prev_news_url?>">Previous page</a>
-              <span class="page-number">2 of 35</span>
-            <? else: ?>
-              Previous page
-            <? endif ?>
-          </span>
+      <ul class="content-nav grid">
+        <li class="previous col-lg-6 col-md-6 col-sm-6">
+          <a href="<?=$prev_news_url ?: '#'?>">
+            <span class="nav-label">&lsaquo; Previous page</span>
+            <span class="page-number">2 of 35</span>
+          </a>
+
         </li>
 
-        <li class="next">
-          <span>
-            <? if($next_news_exists): ?>
-              <a href="<?=$next_news_url?>">Next page</a>
-              <span class="page-number">4 of 35</span>
-            <? else: ?>
-              Next page
-            <? endif ?>
-          </span>
+        <li class="next col-lg-6 col-md-6 col-sm-6">
+          <a href="<?=$next_news_url ?: '#'?>">
+            <span class="nav-label">Next page &rsaquo;</span>
+            <span class="page-number">4 of 35</span>
+          </a>
         </li>
       </ul>
     </div>

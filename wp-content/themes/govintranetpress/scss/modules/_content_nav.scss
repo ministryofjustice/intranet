@@ -8,29 +8,48 @@
       font-size: 24px;
     }
 
+    &:hover {
+      background-color: $grey-4;
+    }
 
     &.previous {
       float: left;
 
-      &:before {
-        content: '\2039';
+      .nav-label {
+        display: block;
+        text-align: left;
+      }
+
+      .page-number {
+        padding-left: 15px;
+        text-align: left;
       }
     }
 
     &.next {
       float: right;
 
-      &:after {
-        content: '\203a';
+      .nav-label {
+        display: block;
+        text-align: right;
+      }
+
+      .page-number {
+        padding-right: 15px;
+        text-align: right;
       }
     }
 
     a {
+      display: block;
       padding: 10px 0;
+      text-decoration: none;
     }
 
     .page-number {
+      @extend %small-copy;
       display: block;
+      color: $grey-1;
     }
   }
 }
