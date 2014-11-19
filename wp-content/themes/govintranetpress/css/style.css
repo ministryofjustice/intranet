@@ -480,6 +480,12 @@ h1 {
 }
 
 /** Copy **/
+/* line 46, ../scss/global/_typography.scss */
+.a-z .results .title,
+.a-z-2 .results .title {
+  font-size: 16px;
+}
+
 /* line 54, ../scss/global/_typography.scss */
 .content-nav, .news-single .excerpt {
   font-size: 24px;
@@ -2461,19 +2467,51 @@ form .form-row:first-of-type {
   margin-top: 20px;
 }
 
-/* line 2, ../scss/content/a_z/_main.scss */
-.a-z .content-filters {
+/* line 3, ../scss/content/a_z/_main.scss */
+.a-z .content-filters,
+.a-z-2 .content-filters {
   margin-top: 0;
 }
 /* line 7, ../scss/content/a_z/_main.scss */
-.a-z .letters li {
+.a-z .letters,
+.a-z-2 .letters {
+  margin-top: 20px;
+}
+/* line 10, ../scss/content/a_z/_main.scss */
+.a-z .letters li,
+.a-z-2 .letters li {
   display: inline-block;
   padding: 2px 10px;
 }
-/* line 11, ../scss/content/a_z/_main.scss */
-.a-z .letters li.selected, .a-z .letters li:first-of-type, .a-z .letters li:hover {
+/* line 14, ../scss/content/a_z/_main.scss */
+.a-z .letters li.selected, .a-z .letters li:first-of-type, .a-z .letters li:hover,
+.a-z-2 .letters li.selected,
+.a-z-2 .letters li:first-of-type,
+.a-z-2 .letters li:hover {
   background-color: #bfc1c3;
   cursor: pointer;
+}
+/* line 23, ../scss/content/a_z/_main.scss */
+.a-z .results,
+.a-z-2 .results {
+  margin-top: 60px;
+}
+/* line 26, ../scss/content/a_z/_main.scss */
+.a-z .results .result,
+.a-z-2 .results .result {
+  border-top: 1px solid #bfc1c3;
+  padding: 10px 0;
+}
+/* line 31, ../scss/content/a_z/_main.scss */
+.a-z .results .title,
+.a-z-2 .results .title {
+  margin: 0;
+  font-weight: normal;
+}
+
+/* line 44, ../scss/content/a_z/_main.scss */
+.a-z-2 .letters li {
+  padding: 2px 4px;
 }
 
 /* line 2, ../scss/content/search_results/_main.scss */
