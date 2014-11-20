@@ -1772,36 +1772,35 @@ form .form-row:first-of-type {
   margin-top: 16px;
   margin-bottom: 20px;
   padding-top: 16px;
-  padding-bottom: 8px;
   border-top: none;
   border-bottom: 1px solid #545454;
 }
-/* line 12, ../scss/widgets/ht_feature_news/_main.scss */
+/* line 11, ../scss/widgets/ht_feature_news/_main.scss */
 .ht-feature-news .news-date-wrapper {
   margin-top: 1em;
   margin-bottom: 0;
 }
-/* line 17, ../scss/widgets/ht_feature_news/_main.scss */
+/* line 16, ../scss/widgets/ht_feature_news/_main.scss */
 .ht-feature-news h2 {
   margin-bottom: 0;
 }
-/* line 21, ../scss/widgets/ht_feature_news/_main.scss */
+/* line 20, ../scss/widgets/ht_feature_news/_main.scss */
 .ht-feature-news h3 {
   margin-top: 0;
 }
-/* line 26, ../scss/widgets/ht_feature_news/_main.scss */
+/* line 25, ../scss/widgets/ht_feature_news/_main.scss */
 .ht-feature-news .excerpt {
   margin-top: 5px;
 }
-/* line 35, ../scss/widgets/ht_feature_news/_main.scss */
+/* line 34, ../scss/widgets/ht_feature_news/_main.scss */
 .ht-feature-news .media {
   margin-top: 0;
 }
-/* line 40, ../scss/widgets/ht_feature_news/_main.scss */
+/* line 39, ../scss/widgets/ht_feature_news/_main.scss */
 .ht-feature-news .media-body a {
   text-decoration: none !important;
 }
-/* line 45, ../scss/widgets/ht_feature_news/_main.scss */
+/* line 44, ../scss/widgets/ht_feature_news/_main.scss */
 .ht-feature-news .media,
 .ht-feature-news .media-body {
   overflow: hidden;
@@ -1812,65 +1811,65 @@ form .form-row:first-of-type {
   display: table;
   clear: both;
 }
-/* line 54, ../scss/widgets/ht_feature_news/_main.scss */
+/* line 53, ../scss/widgets/ht_feature_news/_main.scss */
 .ht-feature-news .news-medium {
   display: inline-block;
   width: 50%;
   padding-bottom: 20px;
   vertical-align: top;
 }
-/* line 60, ../scss/widgets/ht_feature_news/_main.scss */
+/* line 59, ../scss/widgets/ht_feature_news/_main.scss */
 .ht-feature-news .news-medium:nth-of-type(1) {
   padding-right: 10px;
 }
-/* line 64, ../scss/widgets/ht_feature_news/_main.scss */
+/* line 63, ../scss/widgets/ht_feature_news/_main.scss */
 .ht-feature-news .news-medium:nth-of-type(2) {
   padding-left: 10px;
 }
-/* line 68, ../scss/widgets/ht_feature_news/_main.scss */
+/* line 67, ../scss/widgets/ht_feature_news/_main.scss */
 .ht-feature-news .news-medium img {
   width: 100%;
 }
-/* line 72, ../scss/widgets/ht_feature_news/_main.scss */
+/* line 71, ../scss/widgets/ht_feature_news/_main.scss */
 .ht-feature-news .news-medium .media-body {
   display: none;
 }
-/* line 77, ../scss/widgets/ht_feature_news/_main.scss */
+/* line 76, ../scss/widgets/ht_feature_news/_main.scss */
 #content .ht-feature-news .news-medium p {
   margin-top: 5px;
   margin-bottom: 0;
 }
-/* line 82, ../scss/widgets/ht_feature_news/_main.scss */
+/* line 81, ../scss/widgets/ht_feature_news/_main.scss */
 #content .ht-feature-news .news-medium h3 {
   margin-top: 0;
   margin-bottom: 0;
 }
-/* line 89, ../scss/widgets/ht_feature_news/_main.scss */
+/* line 88, ../scss/widgets/ht_feature_news/_main.scss */
 .ht-feature-news .news-thumbnail {
   padding: 10px 0;
   border-top: 1px solid #888;
 }
-/* line 93, ../scss/widgets/ht_feature_news/_main.scss */
+/* line 92, ../scss/widgets/ht_feature_news/_main.scss */
 .ht-feature-news .news-thumbnail img {
   float: left;
   max-width: 100px;
   margin-right: 20px;
   border: 1px solid #aaa;
 }
-/* line 100, ../scss/widgets/ht_feature_news/_main.scss */
+/* line 99, ../scss/widgets/ht_feature_news/_main.scss */
 .ht-feature-news .news-thumbnail h3 {
   margin-top: 0 !important;
   margin-bottom: 0 !important;
 }
-/* line 105, ../scss/widgets/ht_feature_news/_main.scss */
+/* line 104, ../scss/widgets/ht_feature_news/_main.scss */
 .ht-feature-news .news-thumbnail .news-date-wrapper {
   margin-top: 0;
 }
-/* line 109, ../scss/widgets/ht_feature_news/_main.scss */
+/* line 108, ../scss/widgets/ht_feature_news/_main.scss */
 #content .ht-feature-news .news-thumbnail p {
   margin-bottom: 0;
 }
-/* line 113, ../scss/widgets/ht_feature_news/_main.scss */
+/* line 112, ../scss/widgets/ht_feature_news/_main.scss */
 .ht-feature-news .news-thumbnail .more {
   display: none;
 }
