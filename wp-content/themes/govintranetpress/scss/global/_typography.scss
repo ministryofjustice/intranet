@@ -1,10 +1,10 @@
-div, span, p {
-  font-family: arial, sans-serif;
+* {
+  font-family: "nta", Helvetica, arial, sans-serif;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: "Helvetica Neue", Helvetica, arial, sans-serif;
-  font-weight: 500;
+  font-weight: 700;
 }
 
 /** Headings **/
