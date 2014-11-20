@@ -489,7 +489,7 @@ h5, .guidance-and-support .links h3 {
 h4, .ht-feature-news h3, #need-to-know .item-title, .guidance-and-support .categories h3,
 .guidance-and-support .subcategories h3, .search-results .news-item h3 {
   font-size: 19px;
-  line-height: 25px;
+  line-height: 22px;
 }
 
 /* line 31, ../scss/global/_typography.scss */
@@ -520,7 +520,7 @@ h1 {
 /* line 69, ../scss/global/_typography.scss */
 .content-tabs li a {
   font-size: 19px;
-  line-height: 25px;
+  line-height: 22px;
 }
 
 /* line 74, ../scss/global/_typography.scss */
