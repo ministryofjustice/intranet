@@ -1925,7 +1925,7 @@ form .form-row:first-of-type {
 }
 /* line 54, ../scss/widgets/dw_sticky_news/_main.scss */
 #need-to-know .need-to-know-list {
-  margin-top: 10px;
+  margin-top: 0;
   margin-bottom: 0;
 }
 /* line 58, ../scss/widgets/dw_sticky_news/_main.scss */
