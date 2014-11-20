@@ -1567,10 +1567,6 @@ function relevanssi_user_filter($hits) {
     	}
     }
     return $tothits;
-<<<<<<< HEAD
-}
-=======
 }
 
 include('debug.php');
->>>>>>> 580c40350ca8043c9963611bf98678a471332146
