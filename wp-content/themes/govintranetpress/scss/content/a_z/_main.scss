@@ -40,9 +40,26 @@
 }
 
 .a-z-2 {
+  h2 {
+    margin-bottom: 60px;
+  }
+
   .letters {
+    margin-top: 0;
+
     li {
       padding: 2px 4px;
+    }
+  }
+
+  .results-column {
+    border-left: 1px solid $grey-2;
+  }
+
+  @include mobile-mq {
+    .letters {
+      margin-top: 40px;
+      text-align: center;
     }
   }
 }

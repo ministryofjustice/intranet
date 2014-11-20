@@ -6,7 +6,7 @@
       <h2><?=$title?></h2>
     </div>
 
-    <div class="col-lg-3 filters-column">
+    <div class="col-lg-3 col-md-4 col-sm-12 filters-column">
       <form class="content-filters content-filters-horizontal">
         <div class="form-row">
           <span class="label">Type</span>
@@ -35,7 +35,8 @@
         </div>
       </form>
     </div>
-    <div class="col-lg-9">
+
+    <div class="col-lg-9 col-md-8 col-sm-12 results-column">
       <ul class="letters">
         <?php foreach($letters as $letter): ?>
           <li>
@@ -46,9 +47,11 @@
 
       <ul class="results">
         <?php foreach($results as $result): ?>
-          <li class="result grid">
-            <h4 class="title col-lg-3"><?=$result['title']?></h4>
-            <p class="description col-lg-5"><?=$result['description']?></p>
+          <li class="result">
+            <div class="grid">
+              <h4 class="title col-lg-4"><?=$result['title']?></h4>
+              <p class="description col-lg-8"><?=$result['description']?></p>
+            </div>
           </li>
         <?php endforeach ?>
       </ul>

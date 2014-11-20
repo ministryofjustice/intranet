@@ -2509,9 +2509,28 @@ form .form-row:first-of-type {
   font-weight: normal;
 }
 
-/* line 44, ../scss/content/a_z/_main.scss */
+/* line 43, ../scss/content/a_z/_main.scss */
+.a-z-2 h2 {
+  margin-bottom: 60px;
+}
+/* line 47, ../scss/content/a_z/_main.scss */
+.a-z-2 .letters {
+  margin-top: 0;
+}
+/* line 50, ../scss/content/a_z/_main.scss */
 .a-z-2 .letters li {
   padding: 2px 4px;
+}
+/* line 55, ../scss/content/a_z/_main.scss */
+.a-z-2 .results-column {
+  border-left: 1px solid #bfc1c3;
+}
+@media (min-width: 0) and (max-width: 767px) {
+  /* line 60, ../scss/content/a_z/_main.scss */
+  .a-z-2 .letters {
+    margin-top: 40px;
+    text-align: center;
+  }
 }
 
 /* line 2, ../scss/content/search_results/_main.scss */
