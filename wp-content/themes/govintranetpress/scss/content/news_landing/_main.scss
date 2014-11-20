@@ -1,0 +1,24 @@
+.page-news {
+  .content-filters {
+    margin-top: 20px;
+
+    .label {
+      font-weight: bold;
+    }
+  }
+
+  .small-news {
+    h3 {
+      margin-bottom: 40px;
+    }
+
+    .news-item {
+      border-top: none;
+      border-bottom: 1px solid $grey-2;
+    }
+
+    .more-in-news {
+      display: none;
+    }
+  }
+}

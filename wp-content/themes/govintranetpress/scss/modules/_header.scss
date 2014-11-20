@@ -1,27 +1,17 @@
-#topstrip {
-	background: $black;
-	overflow: visible;
+.header {
+  position: relative;
+  background: $black;
 
-  .row {
-    background: none;
+  .header-top {
+    padding-top: 10px;
+    padding-bottom: 15px;
   }
 
-  #masthead {
-    text-align: left;
-    padding: 0;
-
-    #mainlogo {
-      float: left;
-      margin-right: 1em;
-    }
+  .header-bottom {
+    position: relative;
   }
 
-  #crownlogo {
-    padding-left: 0;
-    margin-top: 15px;
-  }
-
-  #crownlink {
+  .logo {
     display: block;
     border-left: 2px solid $white;
     padding-left: 10px;
@@ -29,25 +19,30 @@
     img {
       margin-right: 10px;
       width: 40px;
+      vertical-align: middle;
     }
 
     a {
       @extend %large-heading;
       color: $white;
-      font-weight: normal;
       line-height: 40px;
       text-decoration: none;
+      vertical-align: middle;
     }
   }
 
-  #searchformdiv {
-    padding-top: 1em;
-    padding-bottom: 1em;
-
+  #searchform {
     .input-group {
       @include clearfix;
       width: 100%;
       display: block;
+      position: relative;
+    }
+
+    .form-control {
+      height: 36px;
+      width: 100%;
+      padding-left: 80px;
     }
 
     .search-filter-container {
@@ -90,42 +85,35 @@
       outline: none;
     }
 
-    .form-control {
-      padding-left: 80px;
-    }
-
-    .btn {
-    	font-size: 100%;
+    .search-btn {
       position: absolute;
       top: 0;
       right: 0;
       bottom: 0;
-      padding: 0 10px;
+      width: 36px;
+      padding: 0;
+      background-color: #428bca;
+      border-color: #357ebd;
+
+      &:after {
+        position: absolute;
+        left: 10px;
+        top: 10px;
+        right: 10px;
+        bottom: 10px;
+        width: 16px;
+        height: 16px;
+        background-image: url('../images/search_icon.svg');
+        background-size: 16px 16px;
+        content: "";
+      }
     }
   }
 }
 
-@media(max-width: 767px) {
-  .header-top {
-    padding-left: 10px;
-    padding-right: 10px;
-  }
-
-  #masthead {
-    #utilities {
-      display: none;
-    }
-
-    &.mobile-menu-enabled {
-      .search-box,
-      #mainnav {
-        display: none;
-      }
-
-      #utilities {
-        display: block;
-      }
-    }
+@include mobile-mq() {
+  #searchformdiv {
+    padding-top: 10px;
   }
 
   .mobile-nav button {
@@ -137,11 +125,157 @@
     background-image: url('../images/mobile_menu.svg');
     background-size: 60px 30px;
     background-position: 0 0;
-    margin-top: 20px;
-    margin-right: -10px;
+    margin-top: 5px;
 
     .mobile-menu-enabled & {
       background-position: 30px 0;
     }
+  }
+
+  .header {
+    &.mobile-menu-enabled {
+      .search-box,
+      #mainnav {
+        display: none;
+      }
+
+      #utilities {
+        display: block;
+      }
+    }
+  }
+}
+
+#zzz {
+  #topstrip {
+    overflow: visible;
+
+    .row {
+      background: none;
+    }
+
+    #masthead {
+      text-align: left;
+      padding: 0;
+
+      #mainlogo {
+        float: left;
+        margin-right: 1em;
+      }
+    }
+
+    #crownlogo {
+      padding-left: 0;
+      margin-top: 15px;
+    }
+
+    #crownlink {
+      display: block;
+      border-left: 2px solid $white;
+      padding-left: 10px;
+
+      img {
+        margin-right: 10px;
+        width: 40px;
+      }
+
+      a {
+        @extend %large-heading;
+        color: $white;
+        font-weight: normal;
+        line-height: 40px;
+        text-decoration: none;
+      }
+    }
+
+    #searchformdiv {
+      padding-top: 1em;
+      padding-bottom: 1em;
+
+      .input-group {
+        @include clearfix;
+        width: 100%;
+        display: block;
+      }
+
+      .search-filter-container {
+        position: absolute;
+        left: 2px;
+        top: 2px;
+        bottom: 2px;
+        width: 70px;
+
+        &:after {
+          @extend %small-copy;
+          position: absolute;
+          top: 1px;
+          right: 0;
+          bottom: 1px;
+          width: 20px;
+          background-color: $grey-2;
+          color: $white;
+          line-height: 200%;
+          text-align: center;
+          content: "\25be";
+          pointer-events: none;
+        }
+      }
+
+      .search-filter {
+        @extend %small-copy;
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        width: 100%;
+        margin-right: -2px;
+        padding-right: 0;
+        border: 1px solid $white;
+        border-right-width: 0;
+        background-color: $grey-2;
+        color: $white;
+        outline: none;
+      }
+
+      .form-control {
+        padding-left: 80px;
+      }
+
+      .btn {
+        font-size: 100%;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        padding: 0 10px;
+      }
+    }
+  }
+
+  @media(max-width: 767px) {
+    .header-top {
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+
+    #masthead {
+      #utilities {
+        display: none;
+      }
+
+      &.mobile-menu-enabled {
+        .search-box,
+        #mainnav {
+          display: none;
+        }
+
+        #utilities {
+          display: block;
+        }
+      }
+    }
+
+
   }
 }

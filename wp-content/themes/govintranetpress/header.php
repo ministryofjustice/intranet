@@ -138,78 +138,57 @@ header('X-Frame-Options: SAMEORIGIN');
 ?>
 
 <body <?php body_class($parentpageclass); ?>>
+  <?php // include(get_stylesheet_directory() . "/sidebar-cookiebar.php"); ?>
 
-<?php // include(get_stylesheet_directory() . "/sidebar-cookiebar.php"); ?>
-	<div id='topstrip'>
-
-		<nav class="navbar navbar-inverse" role="navigation">
-		  <!-- Brand and toggle get grouped for better mobile display -->
-		  <div class="navbar-header">
-		    <!--<p><a class='navbar-brand visible-xs pull-left' href="<?php echo home_url( '/' ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>"  rel="home"><i class="glyphicon glyphicon-home"></i> Home</a></p>-->
-		  </div>
-
-		  <!-- Collect the nav links, forms, and other content for toggling -->
-		  <div>
-
-				<div id="masthead">
-					<div class="container">
-						<a class="sr-only" href="#content">Skip to content</a>
-            <div class="row header-top">
-							<div class="col-lg-8 col-md-8 col-sm-6 col-xs-10" id="crownlogo">
-								<div id="crownlink">
-                  <a href="<?php echo home_url( '/' ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>"  rel="home">
-                    <? if($gislogo): ?>
-                      <img src="<?=$gislogo?>" />
-                    <? endif ?>
-                    <?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>
-                  </a>
-								</div>
-							</div>
-
-              <div class="col-xs-2 visible-xs mobile-nav">
-                <button type="button">
-                  <span class="sr-only">Toggle navigation</span>
-                </button>
-              </div>
-
-              <!--search box-->
-              <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 search-box">
-                <div id='searchformdiv' class=''>
-                  <?php get_search_form(true); ?>
-                </div>
-              </div>
-						</div>
-
-            <div class="row">
-              <!--utility menu-->
-              <div id="utilities" class="pull-right col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                <?php if ( is_active_sidebar( 'utility-widget-area' ) ) : ?>
-                  <div id='utilitybar'>
-                    <ul class="menu">
-                    <?php dynamic_sidebar( 'utility-widget-area' ); ?>
-                    </ul>
-                  </div>
-                <?php endif; ?>
-              </div>
-
-              <div id="mainnav" class="pull-left">
-                <div id="primarynav" role="navigation">
-                    <?php /* Our navigation menu.  If one isn't filled out, wp_nav_menu falls back to wp_page_menu.  The menu assiged to the primary position is the one used.  If none is assigned, the menu with the lowest ID is used.  */ ?>
-                    <?php
-                wp_nav_menu( array( 'container_class' => 'menu-header', 'theme_location' => 'primary' ) ); ?>
-                </div>
-              </div>
-            </div>
-
-            <div class="sr-only" id="access">
-              <?php /*  Allow screen readers / text browsers to skip the navigation menu and get right to the good stuff */ ?>
-              <a href="#content" class='hiddentext' accesskey='s' title="<?php esc_attr_e( 'Skip to content', 'twentyten' ); ?>"><?php _e( 'Skip to content', 'twentyten' ); ?></a>
-            </div>
-					</div>
-				</div>
+	<div class="header">
+    <div class="grid header-top">
+      <div class="col-lg-8 col-md-8 col-sm-10">
+        <div class="logo">
+          <a href="<?php echo home_url( '/' ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>"  rel="home">
+            <? if($gislogo): ?>
+              <img src="<?=$gislogo?>" />
+            <? endif ?>
+            <?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>
+          </a>
+        </div>
       </div>
-    </nav>
-		</div>
 
-		<div id="content" class="container">
-			<div class="content-wrapper">
+      <!-- mobile menu button -->
+      <div class="col-sm-2 mobile-only">
+        <div class="mobile-nav">
+          <button type="button"></button>
+        </div>
+      </div>
+
+      <!-- search box -->
+      <div class="col-lg-4 col-md-4 col-sm-12 search-box">
+        <div id='searchformdiv' class=''>
+          <?php get_search_form(true); ?>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid" class="header-bottom">
+      <div id="mainnav">
+        <div id="primarynav" role="navigation">
+          <?php /* Our navigation menu.  If one isn't filled out, wp_nav_menu falls back to wp_page_menu.  The menu assiged to the primary position is the one used.  If none is assigned, the menu with the lowest ID is used.  */ ?>
+          <?php
+          wp_nav_menu( array( 'container_class' => 'menu-header', 'theme_location' => 'primary' ) ); ?>
+        </div>
+      </div>
+
+      <!--utility menu-->
+      <div id="utilities" class="col-lg-4 col-md-4 col-sm-12 push-lg-8 push-md-8 mobile-hide">
+        <?php if ( is_active_sidebar( 'utility-widget-area' ) ) : ?>
+          <div id='utilitybar'>
+            <ul class="menu">
+              <?php dynamic_sidebar( 'utility-widget-area' ); ?>
+            </ul>
+          </div>
+        <?php endif; ?>
+      </div>
+    </div>
+  </div>
+
+  <div id="content" class="container">
+    <div class="content-wrapper">

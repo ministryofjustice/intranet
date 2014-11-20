@@ -1,0 +1,28 @@
+.content-filters {
+  margin-top: 60px;
+
+  select,
+  input[type="text"] {
+    width: 100%;
+  }
+
+  input[type="text"],
+  select {
+    padding: 8px;
+    border: 1px solid $grey-2;
+    background: $white;
+  }
+
+  .label {
+    @extend %medium-copy;
+    color: #333;
+    padding: 0;
+  }
+
+  .description {
+    @extend %medium-copy;
+    margin-bottom: 20px;
+    padding: 0;
+    color: #333;
+  }
+}

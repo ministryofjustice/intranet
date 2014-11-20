@@ -13,7 +13,7 @@ jQuery(function(){
     "use strict";
 
     App.MobileMenu = function(){
-      this.$top = $('#masthead');
+      this.$top = $('.header');
       if(!this.$top.length){ return; }
 
       this.config = {
@@ -461,26 +461,25 @@ jQuery(function(){
       init: function(){
         this.cacheEls();
         this.bindEvents();
-
-        this.imageDir = this.$image.data('img-dir');
-        this.imageSrcDefault = this.imageDir+'homepage_settings.png';
-        this.imageSrcOpened = this.imageDir+'homepage_settings_2.png';
       },
 
       cacheEls: function(){
         this.$link = this.$top.find('.swap-link');
-        this.$image = this.$top.find('.placeholder-image');
       },
 
       bindEvents: function(){
-        this.$top.on('click', $.proxy(this.swapImage, this, false));
-        this.$link.on('click', $.proxy(this.swapImage, this, true));
+        this.$top.on('click', $.proxy(this.toggle, this, false));
+        this.$link.on('click', $.proxy(this.toggle, this, null));
       },
 
-      swapImage: function(openedState, e){
-        e.preventDefault();
+      toggle: function(toggle, e){
         e.stopPropagation();
-        this.$image.attr('src', openedState ? this.imageSrcOpened : this.imageSrcDefault);
+        if($.type(toggle)==='boolean'){
+          this.$top.toggleClass('opened', toggle);
+        }
+        else{
+          this.$top.toggleClass('opened');
+        }
       }
     };
   }(jQuery));
@@ -516,13 +515,115 @@ jQuery(function(){
     };
   }(window.jQuery));
 
+  /** Tabbed content
+   */
+  (function($){
+    "use strict";
+
+    App.TabbedContent = function(){
+      this.$tabs = $('.content-tabs li');
+      if(!this.$tabs.length){ return; }
+      this.init();
+    };
+
+    App.TabbedContent.prototype = {
+      init: function(){
+        this.cacheEls();
+        this.bindEvents();
+        this.cacheTemplates();
+
+        this.$tabs.eq(0).click();
+      },
+
+      cacheEls: function(){
+        this.$tabContent = $('.tab-content');
+      },
+
+      cacheTemplates: function(){
+        var _this = this;
+
+        this.templates = [];
+
+        $('template[data-template-type]').each(function(){
+          var $el = $(this);
+          _this.templates[$el.attr('data-content-name')] = $el.html();
+        });
+      },
+
+      bindEvents: function(){
+        this.$tabs.on('click', $.proxy(this.switchTab, this));
+      },
+
+      switchTab: function(e){
+        var $el = $(e.currentTarget);
+        var contentName = $el.attr('data-content');
+        this.$tabContent.html(this.templates[contentName]);
+        this.$tabs.removeClass('current-menu-item');
+        $el.addClass('current-menu-item');
+        e.preventDefault();
+
+        //hopefully one day we can replace this manual call with Mutation Observer
+        App.ins.tableOfContents.generate();
+      }
+    };
+  }(jQuery));
+
+  /** Table of contents
+   * Note: it's designed to work with only one instance per page
+   */
+  (function($){
+    "use strict";
+
+    App.TableOfContents = function(){
+      this.$tableOfContents = $('.table-of-contents');
+      if(!this.$tableOfContents.length){ return; }
+      this.init();
+    };
+
+    App.TableOfContents.prototype = {
+      init: function(){
+        this.cacheEls();
+        this.bindEvents();
+        this.generate();
+        this.initialized = true;
+      },
+
+      cacheEls: function(){
+        this.$contentContainer = $(this.$tableOfContents.attr('data-content-container-selector'));
+      },
+
+      bindEvents: function(){
+      },
+
+      generate: function(){
+        var _this = this;
+
+        if(!this.initialized){ return; }
+
+        this.$tableOfContents.empty();
+        //find all H* tags with ID's
+        this.$contentContainer.find('h1, h2, h3, h4, h5, h6').filter('[id]').each(function(){
+          var $el = $(this);
+          var $item = $('<li><a></a></li>');
+
+          $item.find('a')
+            .text($el.text())
+            .attr('href', '#'+$el.attr('id'));
+          $item.appendTo(_this.$tableOfContents);
+        });
+      }
+    };
+  }(jQuery));
 
   /** init section - this should be in a separate file - init.js
    */
-  var mobileMenu = new App.MobileMenu();
-  var stickyNews = new App.StickyNews();
-  var guidanceAndSupport = new App.GuidanceAndSupport();
-  var azIndex = new App.AZIndex();
-  var homepageSettings = new App.HomepageSettings();
-  var emergencyMessage = new App.EmergencyMessage();
+  App.ins = {}; //keeps references to module instances
+  App.ins.mobileMenu = new App.MobileMenu();
+  App.ins.stickyNews = new App.StickyNews();
+  App.ins.guidanceAndSupport = new App.GuidanceAndSupport();
+  App.ins.azIndex = new App.AZIndex();
+  App.ins.homepageSettings = new App.HomepageSettings();
+  App.ins.emergencyMessage = new App.EmergencyMessage();
+  App.ins.tableOfContents = new App.TableOfContents();
+  App.ins.tabbedContent = new App.TabbedContent();
 });

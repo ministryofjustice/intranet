@@ -1,8 +1,9 @@
 /* Footer styles */
 
 #footerwrapper {
+  @include clearfix;
 	background: #dee0e2;
-  border-top: 10px solid #428bca;
+  border-top: 10px solid $dw-link;
 
   #footer {
     color: #454a4c;
@@ -22,7 +23,9 @@
     }
 
     ul {
-      padding-left: 0px;
+      li {
+        line-height: 1.4;
+      }
     }
 
     ul.xoxo {
@@ -52,16 +55,6 @@
 
     hr {
       display: none;
-    }
-
-    .widget-box {
-      padding: 0 .3em .5em .5em;
-      background: #dee0e2;
-      border-bottom: none;
-
-      ul#menu-footer-left {
-        padding-left: 0 !important;
-      }
     }
   }
 

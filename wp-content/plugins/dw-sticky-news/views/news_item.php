@@ -1,3 +1,5 @@
+<?php if (!defined('ABSPATH')) die(); ?>
+
 <li data-page="<?=$data['offset']?>">
   <h3 class="item-title">
     <a href="<?=$data['url']?>"><?=$data['title']?></a>

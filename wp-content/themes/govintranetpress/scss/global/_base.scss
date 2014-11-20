@@ -4,6 +4,7 @@ template {
 
 h1 {
   @extend %largest-heading;
+  border-bottom: 1px solid #545454;
 }
 
 h2 {
@@ -28,16 +29,36 @@ h6 {
 
 ul {
   padding-left: 0;
+  margin-bottom: 0;
 }
 
 li {
   list-style-type: none;
 }
 
-.news_date {
-  color: #6f777b;
+a {
+  &,
+  &:hover,
+  &:active,
+  &:visited {
+    color: $link-active-colour;
+  }
+
+  &,
+  &:active,
+  &:visited {
+    text-decoration: none;
+  }
+
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
-.content-wrapper {
-  margin: 15px 0;
+p {
+  margin: 0;
+
+  + p {
+    margin-top: 10px;
+  }
 }

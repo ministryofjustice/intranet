@@ -32,7 +32,7 @@ if ($placeholder!=''){
         </select>
       </div>
       <input type="text" class="form-control" placeholder="<?php echo $randex ;?>" name="s" id="s" value="<?php echo the_search_query();?>">
-      <button class="btn btn-primary" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+      <button class="search-btn cta" type="submit"></button>
     </div><!-- /input-group -->
   </div>
 </form>

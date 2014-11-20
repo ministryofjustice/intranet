@@ -1,3 +1,5 @@
+<?php if (!defined('ABSPATH')) die(); ?>
+
 <div id="need-to-know">
   <?=$data['before_widget']?>
   <h3 class="widget-title"><?=$data['title']?></h3>

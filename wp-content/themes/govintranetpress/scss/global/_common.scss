@@ -1,3 +1,50 @@
-h1 {
-  border-bottom: 1px solid #545454;
+.clearfix {
+  &:after {
+    content: "";
+    display: table-cell;
+    clear: both;
+  }
+}
+
+.news_date {
+  color: #6f777b;
+}
+
+.content-wrapper {
+  margin: 15px 0 60px 0;
+}
+
+#content {
+  .editable {
+    ul {
+      padding-left: 20px;
+      margin: 0;
+
+      li {
+        list-style-type: disc;
+        margin: 0;
+
+        + li {
+          margin-top: 10px;
+        }
+      }
+    }
+  }
+
+  ul li {
+    line-height: 1.4;
+  }
+
+  .info-list {
+    display: table;
+
+    li {
+      display: table-row;
+    }
+
+    span {
+      display: table-cell;
+      padding-right: 15px;
+    }
+  }
 }

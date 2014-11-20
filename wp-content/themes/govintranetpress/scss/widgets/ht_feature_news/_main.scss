@@ -1,5 +1,6 @@
 .ht-feature-news {
   > h3 {
+    @extend %large-heading;
     margin-top: 16px;
     margin-bottom: 20px;
     padding-top: 16px;
@@ -18,15 +19,32 @@
   }
 
   h3 {
+    @extend %medium-heading;
     margin-top: 0;
+  }
+
+  .excerpt {
+    @extend %small-copy;
+    margin-top: 5px;
+  }
+
+  .news-date-wrapper {
+    @extend %smallest-copy;
   }
 
   .media {
     margin-top: 0;
   }
 
-  .media-body a {
-    text-decoration: none !important;
+  .media-body {
+    a {
+      text-decoration: none !important;
+    }
+  }
+
+  .media,
+  .media-body {
+    overflow: hidden;
   }
 
   .news-item {
@@ -69,8 +87,8 @@
   }
 
   .news-thumbnail {
-    border-top: 1px solid #888;
     padding: 10px 0;
+    border-top: 1px solid #888;
 
     img {
       float: left;
@@ -80,7 +98,6 @@
     }
 
     h3 {
-      @extend %medium-heading;
       margin-top: 0 !important;
       margin-bottom: 0 !important;
     }

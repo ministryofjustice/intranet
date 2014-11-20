@@ -43,11 +43,11 @@ get_header(); ?>
 
 	if ($homecontent ): //Display emergency message
     ?>
-    <div class="row">
+    <div class="grid">
       <div class="col-lg-12">
         <div class="message message-<?php echo $homecontentcolour; ?>">
-          <div class="row">
-            <button type="button" class="close" data-dismiss="message" aria-hidden="true">&times;</button>
+          <div class="grid">
+            <span class="close">&times;</span>
             <div class="col-lg-4 col-md-4">
               <div class="meta">
                 <h3>Emergency message</h3>
@@ -65,42 +65,59 @@ get_header(); ?>
     </div>
     <?php endif; ?>
 
-    <div class="row">
-      <div class="col-lg-<?php echo $col1; ?> col-md-<?php echo $col1; ?> col-sm-7">
+    <div class="grid">
+      <div class="col-lg-6 col-md-6 col-sm-12">
         <?php dynamic_sidebar('home-widget-area0'); ?>
       </div>
-      <div class="col-lg-6 col-md-6 col-sm-5">
+      
+      <div class="col-lg-6 col-md-6 col-sm-12">
         <div class="homepage-settings-placeholder">
           <!--
           this is just a placeholder which will be replaced with a proper
           module as soon as it's developed
           -->
-          <img class="placeholder-image" src="<?=get_stylesheet_directory_uri()?>/images/homepage_settings.png" data-img-dir="<?=get_stylesheet_directory_uri()?>/images/" />
+          <img class="placeholder-image opened" src="<?=get_stylesheet_directory_uri()?>/images/homepage_settings_2.png" />
+          <img class="placeholder-image closed" src="<?=get_stylesheet_directory_uri()?>/images/homepage_settings.png" />
           <a href="#" class="swap-link"></a>
+          <a href="https://people-finder.dsd.io/sessions/new" target="_blank" class="app-link link-1"></a>
+          <a href="https://courttribunalfinder.service.gov.uk/" target="_blank" class="app-link link-2"></a>
+          <a href="#" class="app-link link-3"></a>
+          <a href="#" class="app-link link-4"></a>
+          <a href="#" class="app-link link-5"></a>
+          <a href="#" class="app-link link-6"></a>
+          <a href="#" class="app-link link-7"></a>
+          <a href="#" class="app-link link-8"></a>
+          <a href="#" class="app-link link-9"></a>
+          <a href="guidance-and-support/hr/leave/annual-leave" class="quick-link link-1"></a>
         </div>
       </div>
     </div>
 
-    <div class="row department-news-container">
-      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <?php dynamic_sidebar('home-widget-area5'); ?>
+    <div class="grid">
+      <div class="col-lg-6 col-md-6 col-sm-12">
+        <div class="department-news-container">
+          <?php dynamic_sidebar('home-widget-area5'); ?>
+        </div>
+      </div>
+
+      <div class="col-lg-6 col-md-6 col-sm-12">
+        <div class="grid feeds">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <img src="<?=get_stylesheet_directory_uri()?>/images/feed_events.png" />
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <img src="<?=get_stylesheet_directory_uri()?>/images/feed_stats.png" />
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <img src="<?=get_stylesheet_directory_uri()?>/images/feed_twitter.png" />
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <img src="<?=get_stylesheet_directory_uri()?>/images/feed_yammer.png" />
+          </div>
+        </div>
       </div>
     </div>
 
-    <div class="row feeds">
-      <div class="col-lg-3 col-md-3 col-sm-4 col-xs-6">
-        <img src="<?=get_stylesheet_directory_uri()?>/images/feed_events.png" />
-      </div>
-      <div class="col-lg-3 col-md-3 col-sm-4 col-xs-6">
-        <img src="<?=get_stylesheet_directory_uri()?>/images/feed_stats.png" />
-      </div>
-      <div class="col-lg-3 col-md-3 col-sm-4 col-xs-6">
-        <img src="<?=get_stylesheet_directory_uri()?>/images/feed_twitter.png" />
-      </div>
-      <div class="col-lg-3 col-md-3 col-sm-4 col-xs-6">
-        <img src="<?=get_stylesheet_directory_uri()?>/images/feed_yammer.png" />
-      </div>
-    </div>
 
   <?php	if ($campaign_message) :  //Display campaign message ?>
   <div class="clearfix"></div>

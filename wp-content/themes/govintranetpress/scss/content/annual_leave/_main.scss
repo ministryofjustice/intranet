@@ -1,0 +1,29 @@
+.annual-leave {
+  h1 {
+    border-bottom: none;
+  }
+
+  .right-hand-menu {
+    margin-top: 40px;
+    border-top: 5px solid #333;
+
+    h3 {
+      margin-top: 10px;
+    }
+  }
+
+  .table-of-contents {
+    li {
+      display: block;
+      border-bottom: 1px solid #333;
+
+      &:first-of-type {
+        border-top: 1px solid #333;
+      }
+    }
+  }
+
+  .excerpt {
+    margin-top: 20px;
+  }
+}
