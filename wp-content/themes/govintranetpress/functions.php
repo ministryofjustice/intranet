@@ -47,7 +47,6 @@
 if ( ! isset( $content_width ) )
 	$content_width = 640;
 
-
 /** Tell WordPress to run twentyten_setup() when the 'after_setup_theme' hook is run. */
 add_action( 'after_setup_theme', 'twentyten_setup' );
 
@@ -549,10 +548,19 @@ function twentyten_widgets_init() {
 		'after_title' => '</h3>',
 	) );
 	register_sidebar( array(
-		'name' => __( 'News landing page', 'twentyten' ),
-		'id' => 'newslanding-widget-area',
-		'description' => __( 'The right-hand col on the news page', 'twentyten' ),
-		'before_widget' => '<div class="widget-box">',
+		'name' => __( 'News landing page area 0', 'twentyten' ),
+		'id' => 'newslanding-widget-area0',
+		'description' => __( 'The top area on the news page', 'twentyten' ),
+		'before_widget' => '<div>',
+		'after_widget' => '</div>',
+		'before_title' => '<h3 class="widget-title">',
+		'after_title' => '</h3>',
+	) );
+	register_sidebar( array(
+		'name' => __( 'News landing page area 1', 'twentyten' ),
+		'id' => 'newslanding-widget-area1',
+		'description' => __( 'The right col area on the news page', 'twentyten' ),
+		'before_widget' => '<div>',
 		'after_widget' => '</div>',
 		'before_title' => '<h3 class="widget-title">',
 		'after_title' => '</h3>',
@@ -561,7 +569,7 @@ function twentyten_widgets_init() {
 		'name' => __( 'News sidebar', 'twentyten' ),
 		'id' => 'news-widget-area',
 		'description' => __( 'News widget area', 'twentyten' ),
-		'before_widget' => '<div class="widget-box">',
+		'before_widget' => '<div>',
 		'after_widget' => '</div>',
 		'before_title' => '<h3>',
 		'after_title' => '</h3>',
@@ -943,6 +951,18 @@ if( !function_exists('base_custom_mce_format') ){
 	add_filter('tiny_mce_before_init', 'base_custom_mce_format' );
 }
 
+// Filters all buttons from TinyMCE editor to hide toolbar for non-admins
+function intranet_tinymce_settings($settings){
+	// print_r($settings);
+	if ( !current_user_can( 'manage_options' ) ) {
+		$settings['toolbar1'] = array();
+		$settings['toolbar2'] = array();
+		return $settings;
+	} else {
+		return $settings;
+	}
+}
+add_filter( 'tiny_mce_before_init', 'intranet_tinymce_settings' );
 
 // extra warning bar (managed as a widget area) about cookies -- but could also use for other alerting
 
@@ -962,7 +982,7 @@ function ht_cookiebar_widget() {
 
 function filter_search($query) {
     if ($query->is_search) {
-		if ( $_GET['pt'] == 'forums'  ){
+		if ( isset($_GET['pt']) && $_GET['pt'] == 'forums'  ){
 		        $query->set('post_type', array('topic', 'reply', 'forum'));
 		}
     };
@@ -1551,5 +1571,3 @@ function relevanssi_user_filter($hits) {
     }
     return $tothits;
 }
-
-?>

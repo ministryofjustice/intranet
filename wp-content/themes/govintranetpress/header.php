@@ -97,52 +97,6 @@ header('X-Frame-Options: SAMEORIGIN');
 		$basecol=HTMLToRGB($gishex);
 		$topborder = ChangeLuminosity($basecol, 33);
 
-		echo "
-		.page-template-page-about-php .category-block h2 {";
-		if ($giscc==1){
-		echo "border-top: ".$gisheight."px solid ".RGBToHTML($topborder).";";
-		} else {
-		echo "border-top: ".$gisheight."px solid ".$gishex.";";
-		}
-
-		echo "padding: 0.6em 0;
-		}
-		";
-
-		echo "
-		#content .widget-box {
-		padding: .1em .4em .7em 0;
-		font-size: .9em;
-		background: #fff;";
-		if ($giscc==1){
-			echo "border-top: ".$gisheight."px solid ".RGBToHTML($topborder).";";
-		} else {
-			echo "border-top: ".$gisheight."px solid ".$gishex.";";
-		}
-		echo "margin-top: .7em;
-		}
-		";
-
-		echo "
-		.bbp-user-page .panel-heading {";
-		if ($giscc==1){
-			echo "border-bottom: ".$gisheight."px solid ".RGBToHTML($topborder).";";
-		} else {
-			echo "border-bottom: ".$gisheight."px solid ".$gishex.";";
-		}
-		echo "
-		}
-		";
-
-		echo "
-		.page-template-page-news-php h1 {
-		border-bottom: ".$gisheight."px solid ".RGBToHTML($topborder).";
-		}
-		.tax-team h2 {
-		border-bottom: ".$gisheight."px solid ".RGBToHTML($topborder).";
-		}
-		";
-
 		//write custom css for logo
 		$gis = "general_intranet_header_logo";
 		$gisid = get_option($gis);
@@ -151,23 +105,6 @@ header('X-Frame-Options: SAMEORIGIN');
 		$gisw = $gislogow[1] + 10;
 
 		$terms = get_terms('category');
-		if ($terms) {
-	  		foreach ((array)$terms as $taxonomy ) {
-	  		    $themeid = $taxonomy->term_id;
-	  		    $themeURL= $taxonomy->slug;
-	  			$thistheme = new pod('category', $themeid);
-	  			$background=$thistheme->get_field('cat_background_colour');
-	  			$foreground=$thistheme->get_field('cat_foreground_colour');
-	  			echo ".t" . $themeid . "{color: " . $foreground . "; background: " . $background . ";} \n";
-	  			echo ".t" . $themeid . " a {color: " . $foreground . " !important;} \n";
-	  			echo ".brd" . $themeid . "{border-left: 1.2em solid " . $background . ";} \n";
-	  			echo ".hr" . $themeid . "{border-bottom: 1px solid " . $background . ";} \n";
-	  			echo ".h1_" . $themeid . "{border-bottom: ".$gisheight."px solid " . $background . "; margin-bottom: 0.4em; padding-bottom: 0.3em;} \n";
-	  			echo ".b" . $themeid . "{border-left: 20px solid " . $background . ";} \n";
-	  			echo ".glyphicon.glyphicon-stop.gb" . $themeid . "{color: " . $background . ";} \n";
-
-			}
-		}
 	?>
 	</style>
 	<!--Google Analytics-->

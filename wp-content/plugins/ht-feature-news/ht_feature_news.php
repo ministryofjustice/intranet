@@ -25,8 +25,8 @@ class htFeatureNews extends WP_Widget {
 
     global $post;
     echo $before_widget;
-    if ( $title ) echo $before_title . $title . $after_title;
     echo '<div class="ht-feature-news clearfix '.$containerclasses.'">';
+    if ( $title ) echo $before_title . $title . $after_title;
 
     //forumalate grid of news stories and formats
     $totalstories =  $largeitems + $mediumitems + $thumbnailitems + $listitems;

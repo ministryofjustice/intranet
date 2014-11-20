@@ -1,0 +1,9 @@
+form {
+  .form-row {
+    padding-top: 10px;
+
+    &:first-of-type {
+      padding-top: 0;
+    }
+  }
+}

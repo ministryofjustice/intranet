@@ -1,5 +1,10 @@
-div, span, p, li, h1, h2, h3, h4, h5, h6 {
+div, span, p {
   font-family: arial, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Helvetica Neue", Helvetica, arial, sans-serif;
+  font-weight: 500;
 }
 
 /** Headings **/
@@ -8,6 +13,7 @@ div, span, p, li, h1, h2, h3, h4, h5, h6 {
 }
 
 %smaller-heading {
+  font-size: 14px;
 }
 
 %small-heading {
@@ -23,11 +29,11 @@ div, span, p, li, h1, h2, h3, h4, h5, h6 {
 }
 
 %larger-heading {
-  font-size: 36px;
+  font-size: 28px;
 }
 
 %largest-heading {
-  font-size: 48px;
+  font-size: 36px;
 }
 
 

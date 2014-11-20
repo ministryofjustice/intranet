@@ -1,0 +1,9 @@
+.breadcrumbs  {
+	padding: 15px 10px 0;
+  margin-bottom: 25px;
+
+  a,
+  span {
+    @extend %small-copy;
+  }
+}
