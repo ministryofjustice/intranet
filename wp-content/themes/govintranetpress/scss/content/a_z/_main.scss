@@ -44,6 +44,14 @@
     margin-bottom: 60px;
   }
 
+  .columns {
+    display: flex;
+  }
+
+  .filters-column,
+  .results-column {
+  }
+
   .letters {
     margin-top: 0;
 

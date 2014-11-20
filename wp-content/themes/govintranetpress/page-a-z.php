@@ -52,6 +52,41 @@ class Page_guidance_and_support extends MVC_controller {
       array(
         'title' => 'Holiday',
         'description' => 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nam nibh. Nunc varius facilisis eros.'
+      ),
+
+      array(
+        'title' => 'Annual leave',
+        'description' => 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nam nibh. Nunc varius facilisis eros.'
+      ),
+
+      array(
+        'title' => 'Annual leave form',
+        'description' => 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nam nibh. Nunc varius facilisis eros.'
+      ),
+
+      array(
+        'title' => 'Absence without leave form',
+        'description' => 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nam nibh. Nunc varius facilisis eros.'
+      ),
+
+      array(
+        'title' => 'Disability leave',
+        'description' => 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nam nibh. Nunc varius facilisis eros.'
+      ),
+
+      array(
+        'title' => 'Parental leave',
+        'description' => 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nam nibh. Nunc varius facilisis eros.'
+      ),
+
+      array(
+        'title' => 'Parental leave form',
+        'description' => 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nam nibh. Nunc varius facilisis eros.'
+      ),
+
+      array(
+        'title' => 'Holiday',
+        'description' => 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nam nibh. Nunc varius facilisis eros.'
       )
     );
 

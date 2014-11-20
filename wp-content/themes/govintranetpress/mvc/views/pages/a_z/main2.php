@@ -5,7 +5,9 @@
     <div class="col-lg-12 col-md-12 col-sm-12">
       <h2><?=$title?></h2>
     </div>
+  </div>
 
+  <div class="grid columns">
     <div class="col-lg-3 col-md-4 col-sm-12 filters-column">
       <form class="content-filters content-filters-horizontal">
         <div class="form-row">
