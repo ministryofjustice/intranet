@@ -464,68 +464,69 @@ th {
 * {
   font-family: "nta", Helvetica, arial, sans-serif;
   -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: grayscale;
 }
 
-/* line 6, ../scss/global/_typography.scss */
+/* line 7, ../scss/global/_typography.scss */
 h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
 }
 
 /** Headings **/
-/* line 15, ../scss/global/_typography.scss */
+/* line 16, ../scss/global/_typography.scss */
 h6, #need-to-know .widget-title {
   font-size: 14px;
 }
 
-/* line 19, ../scss/global/_typography.scss */
+/* line 20, ../scss/global/_typography.scss */
 h5, .guidance-and-support .links h3 {
   font-size: 16px;
 }
 
-/* line 23, ../scss/global/_typography.scss */
+/* line 24, ../scss/global/_typography.scss */
 h4, .ht-feature-news h3, #need-to-know .item-title, .guidance-and-support .categories h3,
 .guidance-and-support .subcategories h3, .search-results .news-item h3 {
   font-size: 19px;
 }
 
-/* line 27, ../scss/global/_typography.scss */
+/* line 28, ../scss/global/_typography.scss */
 h3, .header .logo a, #zzz #topstrip #crownlink a, .ht-feature-news > h3 {
   font-size: 24px;
 }
 
-/* line 31, ../scss/global/_typography.scss */
+/* line 32, ../scss/global/_typography.scss */
 h2 {
   font-size: 28px;
 }
 
-/* line 35, ../scss/global/_typography.scss */
+/* line 36, ../scss/global/_typography.scss */
 h1 {
   font-size: 36px;
 }
 
 /** Copy **/
-/* line 54, ../scss/global/_typography.scss */
+/* line 55, ../scss/global/_typography.scss */
 .content-nav, .news-single .excerpt {
   font-size: 24px;
 }
 
-/* line 58, ../scss/global/_typography.scss */
+/* line 59, ../scss/global/_typography.scss */
 .content-tabs li a {
   font-size: 19px;
 }
 
-/* line 62, ../scss/global/_typography.scss */
+/* line 63, ../scss/global/_typography.scss */
 .content-filters .label, .content-filters .description, #content .guidance-and-support .item-container .description {
   font-size: 16px;
 }
 
-/* line 66, ../scss/global/_typography.scss */
+/* line 67, ../scss/global/_typography.scss */
 .breadcrumbs a,
 .breadcrumbs span, .header #searchform .search-filter-container:after, .header #searchform .search-filter, #zzz #topstrip #searchformdiv .search-filter-container:after, #zzz #topstrip #searchformdiv .search-filter, .home.page #content .descriptive-menu-description, .content-nav li .page-number, .ht-feature-news .excerpt, #need-to-know .excerpt, #need-to-know .page-list li, .guidance-and-support .tree .all-categories {
   font-size: 14px;
 }
 
-/* line 74, ../scss/global/_typography.scss */
+/* line 75, ../scss/global/_typography.scss */
 .ht-feature-news .news-date-wrapper, #need-to-know .news-date-wrapper, .guidance-and-support .tabbed-filter li .label {
   font-size: 12px;
 }
