@@ -12,7 +12,6 @@
       padding: 2px 10px;
 
       &.selected,
-      &:first-of-type, /* temporary only */
       &:hover {
         background-color: $grey-2;
         cursor: pointer;

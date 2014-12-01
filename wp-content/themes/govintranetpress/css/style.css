@@ -2521,45 +2521,44 @@ form .form-row:first-of-type {
   padding: 2px 10px;
 }
 /* line 14, ../scss/content/a_z/_main.scss */
-.a-z .letters li.selected, .a-z .letters li:first-of-type, .a-z .letters li:hover,
+.a-z .letters li.selected, .a-z .letters li:hover,
 .a-z-2 .letters li.selected,
-.a-z-2 .letters li:first-of-type,
 .a-z-2 .letters li:hover {
   background-color: #bfc1c3;
   cursor: pointer;
 }
-/* line 23, ../scss/content/a_z/_main.scss */
+/* line 22, ../scss/content/a_z/_main.scss */
 .a-z .results,
 .a-z-2 .results {
   margin-top: 60px;
 }
-/* line 26, ../scss/content/a_z/_main.scss */
+/* line 25, ../scss/content/a_z/_main.scss */
 .a-z .results .result,
 .a-z-2 .results .result {
   border-top: 1px solid #bfc1c3;
   padding: 10px 0;
 }
-/* line 31, ../scss/content/a_z/_main.scss */
+/* line 30, ../scss/content/a_z/_main.scss */
 .a-z .results .title,
 .a-z-2 .results .title {
   margin: 0;
   font-weight: normal;
 }
 
-/* line 43, ../scss/content/a_z/_main.scss */
+/* line 42, ../scss/content/a_z/_main.scss */
 .a-z-2 h2 {
   margin-bottom: 60px;
 }
-/* line 47, ../scss/content/a_z/_main.scss */
+/* line 46, ../scss/content/a_z/_main.scss */
 .a-z-2 .letters {
   margin-top: 0;
 }
-/* line 50, ../scss/content/a_z/_main.scss */
+/* line 49, ../scss/content/a_z/_main.scss */
 .a-z-2 .letters li {
   padding: 2px 4px;
 }
 @media (min-width: 0) and (max-width: 767px) {
-  /* line 56, ../scss/content/a_z/_main.scss */
+  /* line 55, ../scss/content/a_z/_main.scss */
   .a-z-2 .letters {
     margin-top: 40px;
     text-align: center;

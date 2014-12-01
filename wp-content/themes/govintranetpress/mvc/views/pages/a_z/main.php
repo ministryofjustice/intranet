@@ -53,22 +53,15 @@
     <div class="col-lg-12 col-md-12 col-sm-12">
       <ul class="letters">
         <?php foreach($letters as $letter): ?>
-          <li>
-            <?=$letter?>
+          <li class="letter" data-letter="<?=$letter?>">
+            <a href="#"><?=$letter?></a>
           </li>
         <?php endforeach ?>
       </ul>
     </div>
 
     <div class="col-lg-12 col-md-12 col-sm-12">
-      <ul class="results">
-        <?php foreach($results as $result): ?>
-          <li class="result grid">
-            <h4 class="title col-lg-3"><?=$result['title']?></h4>
-            <p class="description col-lg-5"><?=$result['description']?></p>
-          </li>
-        <?php endforeach ?>
-      </ul>
+      <ul class="results"></ul>
 
       <ul class="content-nav grid">
         <li class="previous col-lg-6 col-md-6 col-sm-6">
@@ -88,4 +81,27 @@
       </ul>
     </div>
   </div>
+
+  <template data-name="a-z-result-item">
+    <li class="result grid">
+      <h4 class="title col-lg-3"></h4>
+      <p class="description col-lg-9"></p>
+    </li>
+  </template>
+
+  <template data-name="a-z-results-initial">
+    <li class="result grid">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <p>No results found.</p>
+      </div>
+    </li>
+  </template>
+
+  <template data-name="a-z-no-results">
+    <li class="no-results grid">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <p>No results found.</p>
+      </div>
+    </li>
+  </template>
 </div>
