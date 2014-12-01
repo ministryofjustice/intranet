@@ -10,7 +10,7 @@
   }
 
   .widget-title {
-    @extend %smaller-heading;
+    @extend %small-heading;
     display: inline-block;
     margin: 0 0 0 $grid-gutter/2;
     padding: 5px 15px;
@@ -46,7 +46,7 @@
   }
 
   .excerpt {
-    @extend %small-copy;
+    @extend %medium-copy;
     margin-bottom: 0;
     color: $white;
   }

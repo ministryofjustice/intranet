@@ -21,6 +21,7 @@
       margin: 0;
 
       li {
+        @extend %medium-copy;
         list-style-type: disc;
         margin: 0;
 

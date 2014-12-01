@@ -113,4 +113,13 @@
       display: none;
     }
   }
+
+  .more-in-news {
+    text-align: right;
+    font-weight: bold;
+
+    a {
+      text-decoration: underline;
+    }
+  }
 }
