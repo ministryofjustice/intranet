@@ -519,15 +519,9 @@ h1 {
 }
 
 /* line 64, ../scss/global/_typography.scss */
-.content-nav, .news-single .excerpt {
+.content-tabs li a, .content-nav, .news-single .excerpt, .annual-leave .excerpt {
   font-size: 24px;
   line-height: 30px;
-}
-
-/* line 69, ../scss/global/_typography.scss */
-.content-tabs li a {
-  font-size: 19px;
-  line-height: 22px;
 }
 
 /* line 74, ../scss/global/_typography.scss */
@@ -1706,11 +1700,13 @@ form .form-row:first-of-type {
   padding: 20px;
   border: 1px solid transparent;
   border-bottom-color: #aaa;
+  color: #0b0c0c;
 }
-/* line 19, ../scss/modules/_content_tabs.scss */
+/* line 20, ../scss/modules/_content_tabs.scss */
 .content-tabs li.current-menu-item a {
   border-color: #aaa;
   border-bottom-color: transparent;
+  color: #2e8aca;
 }
 
 /* line 1, ../scss/modules/_content_filters.scss */
@@ -2527,16 +2523,31 @@ form .form-row:first-of-type {
 .annual-leave .right-hand-menu h3 {
   margin-top: 10px;
 }
-/* line 16, ../scss/content/annual_leave/_main.scss */
-.annual-leave .table-of-contents li {
-  display: block;
-  border-bottom: 1px solid #333;
+/* line 15, ../scss/content/annual_leave/_main.scss */
+.annual-leave h4 {
+  margin-bottom: 0px;
+  font-weight: normal;
 }
 /* line 20, ../scss/content/annual_leave/_main.scss */
-.annual-leave .table-of-contents li:first-of-type {
-  border-top: 1px solid #333;
+.annual-leave .table-of-contents {
+  margin-top: 5px;
 }
-/* line 26, ../scss/content/annual_leave/_main.scss */
+/* line 23, ../scss/content/annual_leave/_main.scss */
+.annual-leave .table-of-contents li {
+  display: block;
+  border-bottom: 1px solid #bfc1c3;
+}
+/* line 27, ../scss/content/annual_leave/_main.scss */
+.annual-leave .table-of-contents li:first-of-type {
+  border-top: 1px solid #bfc1c3;
+}
+/* line 31, ../scss/content/annual_leave/_main.scss */
+.annual-leave .table-of-contents li a {
+  display: block;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+/* line 39, ../scss/content/annual_leave/_main.scss */
 .annual-leave .excerpt {
   margin-top: 20px;
 }

@@ -22,7 +22,7 @@
 
     <div class="col-lg-4">
       <div class="right-hand-menu">
-        <h3>Policy</h3>
+        <h3>Quick links</h3>
         <ul>
           <li>
             <a href="#">Annual leave policy (PDF)</a>
