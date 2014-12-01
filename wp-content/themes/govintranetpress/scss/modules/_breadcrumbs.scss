@@ -4,6 +4,26 @@
 
   a,
   span {
-    @extend %small-copy;
+    @extend %medium-copy;
+    color: $black;
+  }
+
+  a {
+    text-decoration: underline;
+  }
+
+  > span {
+    &:after {
+      display: inline-block;
+      width: 8px;
+      height: 13px;
+      margin: 0 8px;
+      background-image: url('../images/breadcrumb-separator.gif');
+      content: "";
+    }
+
+    &:last-of-type:after {
+      display: none;
+    }
   }
 }

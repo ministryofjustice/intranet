@@ -531,14 +531,14 @@ h1 {
 }
 
 /* line 74, ../scss/global/_typography.scss */
-#content .editable ul li, .message .content, #menu-utilities li a, .content-filters .label, .content-filters .description, #need-to-know .excerpt, #content .guidance-and-support .item-container .description, .guidance-and-support .categories .item h3 {
+#content .editable ul li, .breadcrumbs a,
+.breadcrumbs span, .message .content, #menu-utilities li a, .content-filters .label, .content-filters .description, #need-to-know .excerpt, #content .guidance-and-support .item-container .description, .guidance-and-support .categories .item h3 {
   font-size: 16px;
   line-height: 20px;
 }
 
 /* line 79, ../scss/global/_typography.scss */
-body, .breadcrumbs a,
-.breadcrumbs span, .header #searchform .search-filter-container:after, .header #searchform .search-filter, #zzz #topstrip #searchformdiv .search-filter-container:after, #zzz #topstrip #searchformdiv .search-filter, .home.page #content .descriptive-menu-description, .message .timestamp, .content-nav li .page-number, .ht-feature-news .excerpt, #need-to-know .page-list li, .guidance-and-support .tree .all-categories {
+body, .header #searchform .search-filter-container:after, .header #searchform .search-filter, #zzz #topstrip #searchformdiv .search-filter-container:after, #zzz #topstrip #searchformdiv .search-filter, .home.page #content .descriptive-menu-description, .message .timestamp, .content-nav li .page-number, .ht-feature-news .excerpt, #need-to-know .page-list li, .guidance-and-support .tree .all-categories {
   font-size: 14px;
   line-height: 20px;
 }
@@ -1081,6 +1081,28 @@ form .form-row:first-of-type {
 .breadcrumbs {
   padding: 15px 10px 0;
   margin-bottom: 25px;
+}
+/* line 5, ../scss/modules/_breadcrumbs.scss */
+.breadcrumbs a,
+.breadcrumbs span {
+  color: #0b0c0c;
+}
+/* line 11, ../scss/modules/_breadcrumbs.scss */
+.breadcrumbs a {
+  text-decoration: underline;
+}
+/* line 16, ../scss/modules/_breadcrumbs.scss */
+.breadcrumbs > span:after {
+  display: inline-block;
+  width: 8px;
+  height: 13px;
+  margin: 0 8px;
+  background-image: url("../images/breadcrumb-separator.gif");
+  content: "";
+}
+/* line 25, ../scss/modules/_breadcrumbs.scss */
+.breadcrumbs > span:last-of-type:after {
+  display: none;
 }
 
 /* Footer styles */
