@@ -1,6 +1,6 @@
-.tabbed-filters {
+.tabbed-filters ul {
   display: inline-block;
-  margin-top: 30px;
+  margin-top: 10px;
   padding-left: 0;
 
   li {
@@ -17,6 +17,10 @@
     &.selected {
       .icon {
         background-color: #428bca;
+      }
+
+      .label {
+        text-decoration: underline;
       }
     }
 
@@ -43,9 +47,10 @@
     }
 
     .label {
-      @extend %smallest-copy;
+      @extend %small-copy;
       display: inline-block;
-      color: #333;
+      margin-left: 5px;
+      color: $link-colour;
     }
 
     .icon {
