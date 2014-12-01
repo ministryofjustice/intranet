@@ -1,93 +1,101 @@
 <?php if (!defined('ABSPATH')) die();
+/* Template name: A-Z */
 
-/**
- * Template name: A-Z
- *
- * @package WordPress
- * @subpackage Starkers
- * @since Starkers 3.0
- */
-class Page_single_news extends MVC_controller {
+class Page_guidance_and_support extends MVC_controller {
   function main(){
     while(have_posts()){
       the_post();
       get_header();
       $this->view('shared/breadcrumbs');
-      $this->view('pages/a_z/main', $this->get_data());
+      if($_GET['v2']){
+        $this->view('pages/a_z/main2', $this->get_data());
+      }
+      else{
+        $this->view('pages/a_z/main', $this->get_data());
+      }
       get_footer();
     }
   }
 
-  private function get_data(){
+  function get_data(){
     $results = array(
       array(
         'title' => 'Annual leave',
-        'date' => '2014-11-7',
-        'category' => 'Guidance',
-        'breadcrumbs' => 'HQ &gt; HR',
         'description' => 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nam nibh. Nunc varius facilisis eros.'
       ),
 
       array(
         'title' => 'Annual leave form',
-        'date' => '2014-11-7',
-        'category' => 'Guidance',
-        'breadcrumbs' => 'HQ &gt; HR',
         'description' => 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nam nibh. Nunc varius facilisis eros.'
       ),
 
       array(
         'title' => 'Absence without leave form',
-        'date' => '2014-11-7',
-        'category' => 'Guidance',
-        'breadcrumbs' => 'HQ &gt; HR',
         'description' => 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nam nibh. Nunc varius facilisis eros.'
       ),
 
       array(
         'title' => 'Disability leave',
-        'date' => '2014-11-7',
-        'category' => 'Guidance',
-        'breadcrumbs' => 'HQ &gt; HR',
         'description' => 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nam nibh. Nunc varius facilisis eros.'
       ),
 
       array(
         'title' => 'Parental leave',
-        'date' => '2014-11-7',
-        'category' => 'Guidance',
-        'breadcrumbs' => 'HQ &gt; HR',
         'description' => 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nam nibh. Nunc varius facilisis eros.'
       ),
 
       array(
         'title' => 'Parental leave form',
-        'date' => '2014-11-7',
-        'category' => 'Guidance',
-        'breadcrumbs' => 'HQ &gt; HR',
         'description' => 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nam nibh. Nunc varius facilisis eros.'
       ),
 
       array(
         'title' => 'Holiday',
-        'date' => '2014-11-7',
-        'category' => 'Guidance',
-        'breadcrumbs' => 'HQ &gt; HR',
+        'description' => 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nam nibh. Nunc varius facilisis eros.'
+      ),
+
+      array(
+        'title' => 'Annual leave',
+        'description' => 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nam nibh. Nunc varius facilisis eros.'
+      ),
+
+      array(
+        'title' => 'Annual leave form',
+        'description' => 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nam nibh. Nunc varius facilisis eros.'
+      ),
+
+      array(
+        'title' => 'Absence without leave form',
+        'description' => 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nam nibh. Nunc varius facilisis eros.'
+      ),
+
+      array(
+        'title' => 'Disability leave',
+        'description' => 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nam nibh. Nunc varius facilisis eros.'
+      ),
+
+      array(
+        'title' => 'Parental leave',
+        'description' => 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nam nibh. Nunc varius facilisis eros.'
+      ),
+
+      array(
+        'title' => 'Parental leave form',
+        'description' => 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nam nibh. Nunc varius facilisis eros.'
+      ),
+
+      array(
+        'title' => 'Holiday',
         'description' => 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nam nibh. Nunc varius facilisis eros.'
       )
     );
 
-    //add formatted dates
-    foreach($results as $key=>$result){
-      $results[$key]['human_date'] = date("j F Y", strtotime($result['date']));
-    }
-
     return array(
-      'results' => $results,
-      'prev_page_exists' => false,
-      'next_page_exists' => false
+      'title' => get_the_title(),
+      'letters' => explode(';', 'All;A;B;C;D;E;F;G;H;I;J;K;L;M;N;O;P;Q;R;S;T;U;V;W;X;Y;Z'),
+      'results' => $results
     );
   }
 }
 
-new Page_single_news();
+new Page_guidance_and_support();

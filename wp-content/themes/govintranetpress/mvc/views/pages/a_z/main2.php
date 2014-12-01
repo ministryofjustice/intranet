@@ -1,28 +1,26 @@
 <?php if (!defined('ABSPATH')) die(); ?>
 
-<?php if ( have_posts() ) while ( have_posts() ) : the_post() ?>
-
-<div class="page-news">
+<div class="a-z-2">
   <div class="grid">
     <div class="col-lg-12 col-md-12 col-sm-12">
-      <h1 class="page-title"><?php the_title() ?></h1>
-      <?php the_content() ?>
+      <h2><?=$title?></h2>
     </div>
   </div>
 
-  <div class="grid">
-    <div class="col-lg-3 col-md-3 mobile-hide">&nbsp;</div>
-    <div class="col-lg-8 col-md-8 col-sm-12 push-lg-1 push-md-1">
-      <?php dynamic_sidebar('newslanding-widget-area0'); ?>
-    </div>
-  </div>
-
-  <div class="grid">
-    <div class="col-lg-3 col-md-3 col-sm-12">
-      <form class="content-filters">
-        <p class="description">You can use the filters to show only results that match your interests</p>
+  <div class="grid columns">
+    <div class="col-lg-3 col-md-4 col-sm-12 filters-column">
+      <form class="content-filters content-filters-horizontal">
         <div class="form-row">
-          <span class="label">Filter by</span>
+          <span class="label">Type</span>
+        </div>
+        <div class="form-row">
+          <select name="category">
+            <option>Pages</option>
+            <option>Forms &amp; templates</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <span class="label">Category</span>
         </div>
         <div class="form-row">
           <select name="category">
@@ -40,8 +38,25 @@
       </form>
     </div>
 
-    <div class="col-lg-8 col-md-8 col-sm-12 push-lg-1 push-md-1">
-      <?php dynamic_sidebar('newslanding-widget-area1'); ?>
+    <div class="col-lg-9 col-md-8 col-sm-12 results-column">
+      <ul class="letters">
+        <?php foreach($letters as $letter): ?>
+          <li>
+            <?=$letter?>
+          </li>
+        <?php endforeach ?>
+      </ul>
+
+      <ul class="results">
+        <?php foreach($results as $result): ?>
+          <li class="result">
+            <div class="grid">
+              <h4 class="title col-lg-4"><?=$result['title']?></h4>
+              <p class="description col-lg-8"><?=$result['description']?></p>
+            </div>
+          </li>
+        <?php endforeach ?>
+      </ul>
 
       <ul class="content-nav grid">
         <li class="previous col-lg-6 col-md-6 col-sm-6">
@@ -62,5 +77,3 @@
     </div>
   </div>
 </div>
-
-<?php endwhile ?>
