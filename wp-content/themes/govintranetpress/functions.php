@@ -1570,3 +1570,9 @@ function relevanssi_user_filter($hits) {
 }
 
 include('debug.php');
+
+// Force logout after 1 hour
+function keep_me_logged_in_for_1_hour( $expirein ) {
+    return 3600; // 1 hour in seconds
+}
+add_filter( 'auth_cookie_expiration', 'keep_me_logged_in_for_1_hour' );
