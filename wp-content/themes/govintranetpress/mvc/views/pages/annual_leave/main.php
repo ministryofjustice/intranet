@@ -3,6 +3,7 @@
 <div class="annual-leave">
   <div class="grid">
     <div class="col-lg-8">
+      <h2 class="page-category">Guidance</h2>
       <h1 class="page-title"><?=$title?></h1>
 
       <ul class="info-list">
@@ -25,7 +26,7 @@
         <h3>Quick links</h3>
         <ul>
           <li>
-            <a href="#">Annual leave policy (PDF)</a>
+            <a href="#">Annual leave policy</a>
           </li>
         </ul>
       </div>
