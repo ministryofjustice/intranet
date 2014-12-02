@@ -10,6 +10,11 @@
     h3 {
       margin-top: 10px;
     }
+
+    a {
+      @extend %medium-copy;
+      text-decoration: underline;
+    }
   }
 
   h4 {
@@ -29,6 +34,7 @@
       }
 
       a {
+        @extend %medium-copy;
         display: block;
         padding-top: 5px;
         padding-bottom: 5px;
@@ -38,6 +44,6 @@
 
   .excerpt {
     @extend %larger-copy;
-    margin-top: 20px;
+    margin-top: 50px;
   }
 }

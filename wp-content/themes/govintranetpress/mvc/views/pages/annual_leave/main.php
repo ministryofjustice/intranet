@@ -25,7 +25,7 @@
         <h3>Quick links</h3>
         <ul>
           <li>
-            <a href="#">Annual leave policy (PDF)</a>
+            <a href="#">Annual leave policy</a>
           </li>
         </ul>
       </div>

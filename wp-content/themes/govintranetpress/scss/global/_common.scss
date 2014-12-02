@@ -16,12 +16,19 @@
 
 #content {
   .editable {
+    h3:not(:first-of-type) {
+      margin-top: 50px;
+    }
+
+    p, li {
+      @extend %large-copy;
+    }
+
     ul {
       padding-left: 20px;
       margin: 0;
 
       li {
-        @extend %medium-copy;
         list-style-type: disc;
         margin: 0;
 
