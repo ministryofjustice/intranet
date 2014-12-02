@@ -2518,16 +2518,20 @@ form .form-row:first-of-type {
 .page-news .content-filters .label {
   font-weight: bold;
 }
-/* line 11, ../scss/content/news_landing/_main.scss */
+/* line 9, ../scss/content/news_landing/_main.scss */
+.page-news .content-filters .contains {
+  margin-top: 20px;
+}
+/* line 15, ../scss/content/news_landing/_main.scss */
 .page-news .small-news h3 {
   margin-bottom: 40px;
 }
-/* line 15, ../scss/content/news_landing/_main.scss */
+/* line 19, ../scss/content/news_landing/_main.scss */
 .page-news .small-news .news-item {
   border-top: none;
   border-bottom: 1px solid #bfc1c3;
 }
-/* line 20, ../scss/content/news_landing/_main.scss */
+/* line 24, ../scss/content/news_landing/_main.scss */
 .page-news .small-news .more-in-news {
   display: none;
 }
