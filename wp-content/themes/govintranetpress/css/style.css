@@ -1719,7 +1719,7 @@ form .form-row:first-of-type {
 /* line 10, ../scss/modules/_content_tabs.scss */
 .content-tabs li a {
   display: block;
-  padding: 20px;
+  padding: 17px 20px;
   border: 1px solid transparent;
   border-bottom-color: #aaa;
   color: #0b0c0c;
