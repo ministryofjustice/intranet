@@ -538,14 +538,9 @@ h1 {
 }
 
 /* line 79, ../scss/global/_typography.scss */
-body, .header #searchform .search-filter-container:after, .header #searchform .search-filter, #zzz #topstrip #searchformdiv .search-filter-container:after, #zzz #topstrip #searchformdiv .search-filter, .home.page #content .descriptive-menu-description, .message .timestamp, .content-nav li .page-number, .tabbed-filters ul li .label, .ht-feature-news .news-date-wrapper, #need-to-know .page-list li, .guidance-and-support .tree .all-categories {
+body, .header #searchform .search-filter-container:after, .header #searchform .search-filter, #zzz #topstrip #searchformdiv .search-filter-container:after, #zzz #topstrip #searchformdiv .search-filter, .home.page #content .descriptive-menu-description, .message .timestamp, .content-nav li .page-number, .tabbed-filters ul li .label, .ht-feature-news .news-date-wrapper, #need-to-know .news-date-wrapper, #need-to-know .page-list li, .guidance-and-support .tree .all-categories {
   font-size: 14px;
   line-height: 20px;
-}
-
-/* line 88, ../scss/global/_typography.scss */
-#need-to-know .news-date-wrapper {
-  font-size: 12px;
 }
 
 /** **/
@@ -1490,85 +1485,83 @@ form .form-row:first-of-type {
 #mainnav #primarynav ul.mega-menu > li {
   float: left;
   background: #eaedef;
-  font-weight: normal;
-  font-size: 90%;
   text-align: center;
   border: 1px solid #333;
   border-left: 0;
 }
-/* line 33, ../scss/modules/_main_nav.scss */
+/* line 31, ../scss/modules/_main_nav.scss */
 #mainnav #primarynav ul.mega-menu > li.current-menu-item, #mainnav #primarynav ul.mega-menu > li.mega-current_page_item, #mainnav #primarynav ul.mega-menu > li.current-page-ancestor {
   background: white !important;
   border-bottom: 1px solid #fff;
 }
-/* line 39, ../scss/modules/_main_nav.scss */
+/* line 37, ../scss/modules/_main_nav.scss */
 #mainnav #primarynav ul.mega-menu > li.current-menu-item a, #mainnav #primarynav ul.mega-menu > li.mega-current_page_item a, #mainnav #primarynav ul.mega-menu > li.current-page-ancestor a {
   color: #1E4287;
 }
-/* line 44, ../scss/modules/_main_nav.scss */
+/* line 42, ../scss/modules/_main_nav.scss */
 #mainnav #primarynav ul.mega-menu > li.mega-toggle-on {
   background: white !important;
 }
-/* line 48, ../scss/modules/_main_nav.scss */
+/* line 46, ../scss/modules/_main_nav.scss */
 #mainnav #primarynav ul.mega-menu > li > a {
   display: block;
   color: #61415B;
   text-decoration: none;
 }
-/* line 53, ../scss/modules/_main_nav.scss */
+/* line 51, ../scss/modules/_main_nav.scss */
 #mainnav #primarynav ul.mega-menu > li > a:hover {
   background: white;
   color: #61415B;
 }
 
 /* MAIN NAVIGATION */
-/* line 65, ../scss/modules/_main_nav.scss */
+/* line 63, ../scss/modules/_main_nav.scss */
 .navbar {
   margin-bottom: 0;
   border: 0;
 }
 
-/* line 69, ../scss/modules/_main_nav.scss */
+/* line 67, ../scss/modules/_main_nav.scss */
 .navbar-inverse {
   background: transparent;
 }
 
-/* line 72, ../scss/modules/_main_nav.scss */
+/* line 70, ../scss/modules/_main_nav.scss */
 .navbar-inverse .navbar-brand {
   color: #fff;
 }
 
-/* line 76, ../scss/modules/_main_nav.scss */
+/* line 74, ../scss/modules/_main_nav.scss */
 .navbar-toggle {
   margin-right: 0;
 }
 
 @media (min-width: 0) and (max-width: 767px) {
-  /* line 81, ../scss/modules/_main_nav.scss */
+  /* line 79, ../scss/modules/_main_nav.scss */
   #mainnav {
     float: none;
     width: 100%;
   }
-  /* line 85, ../scss/modules/_main_nav.scss */
+  /* line 83, ../scss/modules/_main_nav.scss */
   #mainnav #mega-menu-wrap-primary-2 {
     position: static;
   }
-  /* line 90, ../scss/modules/_main_nav.scss */
+  /* line 88, ../scss/modules/_main_nav.scss */
   #mainnav #primarynav .mega-menu-wrap {
     display: table;
     width: 100%;
   }
-  /* line 94, ../scss/modules/_main_nav.scss */
+  /* line 92, ../scss/modules/_main_nav.scss */
   #mainnav #primarynav .mega-menu-wrap > ul {
     display: table-row;
     position: relative;
   }
-  /* line 98, ../scss/modules/_main_nav.scss */
+  /* line 96, ../scss/modules/_main_nav.scss */
   #mainnav #primarynav .mega-menu-wrap > ul > li {
     display: table-cell;
     float: none;
   }
-  /* line 102, ../scss/modules/_main_nav.scss */
+  /* line 100, ../scss/modules/_main_nav.scss */
   #mainnav #primarynav .mega-menu-wrap > ul > li > a {
     text-align: center;
     padding-left: 0;
