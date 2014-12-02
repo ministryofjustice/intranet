@@ -37,20 +37,26 @@ li {
 }
 
 a {
-  &,
-  &:hover,
-  &:active,
-  &:visited {
+  color: $link-colour;
+
+  &:hover {
+    color: $link-hover-colour;
+  }
+
+  &:active {
     color: $link-active-colour;
   }
 
-  &,
-  &:active,
   &:visited {
+    color: $link-visited-colour;
+  }
+
+  & {
     text-decoration: none;
   }
 
-  &:hover {
+  &:hover,
+  &:active {
     text-decoration: underline;
   }
 }
