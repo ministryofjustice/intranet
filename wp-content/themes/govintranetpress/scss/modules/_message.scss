@@ -14,7 +14,12 @@
     margin-left: 20px;
   }
 
+  .timestamp {
+    @extend %small-copy;
+  }
+
   .content {
+    @extend %medium-copy;
     margin-right: 20px;
   }
 

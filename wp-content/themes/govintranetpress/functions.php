@@ -98,7 +98,7 @@ function twentyten_setup() {
 	) );
 
 	// This theme allows users to set a custom background
-	add_custom_background();
+	add_theme_support( 'custom-background', array() );
 
 	// Your changeable header business starts here
 	define( 'HEADER_TEXTCOLOR', '' );
@@ -120,7 +120,7 @@ function twentyten_setup() {
 
 	// Add a way for the custom header to be styled in the admin panel that controls
 	// custom headers. See twentyten_admin_header_style(), below.
-	add_custom_image_header( '', 'twentyten_admin_header_style' );
+        add_theme_support( 'custom-header', array( '', 'twentyten_admin_header_style' ) );
 
 	// ... and thus ends the changeable header business.
 
@@ -948,6 +948,18 @@ if( !function_exists('base_custom_mce_format') ){
 	add_filter('tiny_mce_before_init', 'base_custom_mce_format' );
 }
 
+// Filters all buttons from TinyMCE editor to hide toolbar for non-admins
+function intranet_tinymce_settings($settings){
+	// print_r($settings);
+	if ( !current_user_can( 'manage_options' ) ) {
+		$settings['toolbar1'] = array();
+		$settings['toolbar2'] = array();
+		return $settings;
+	} else {
+		return $settings;
+	}
+}
+add_filter( 'tiny_mce_before_init', 'intranet_tinymce_settings' );
 
 // extra warning bar (managed as a widget area) about cookies -- but could also use for other alerting
 
@@ -967,7 +979,7 @@ function ht_cookiebar_widget() {
 
 function filter_search($query) {
     if ($query->is_search) {
-		if ( $_GET['pt'] == 'forums'  ){
+		if ( isset($_GET['pt']) && $_GET['pt'] == 'forums'  ){
 		        $query->set('post_type', array('topic', 'reply', 'forum'));
 		}
     };
@@ -1558,3 +1570,9 @@ function relevanssi_user_filter($hits) {
 }
 
 include('debug.php');
+
+// Force logout after 1 hour
+function keep_me_logged_in_for_1_hour( $expirein ) {
+    return 3600; // 1 hour in seconds
+}
+add_filter( 'auth_cookie_expiration', 'keep_me_logged_in_for_1_hour' );

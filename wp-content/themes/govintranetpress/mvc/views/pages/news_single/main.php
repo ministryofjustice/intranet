@@ -7,7 +7,7 @@
 
       <ul class="info-list">
         <li>
-          <span>From:</span>
+          <span>Content owner:</span>
           <span><?=$author?></span>
         </li>
         <li>

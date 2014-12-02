@@ -3,20 +3,23 @@
 <div class="guidance-and-support" data-top-level-slug="<?=$top_slug?>">
   <div class="grid">
     <div class="col-lg-12 col-md-12 col-sm-12">
-      <ul class="tabbed-filter">
-        <li class="selected" data-sort-type="alphabetical">
-          <a href="">
-            <span class="icon"></span>
-            <span class="label">A - Z</span>
-          </a>
-        </li>
-        <li data-sort-type="popular">
-          <a href="">
-            <span class="icon"></span>
-            <span class="label">Popular</span>
-          </a>
-        </li>
-      </ul>
+      <div class="tabbed-filters">
+        <p>Sort by</p>
+        <ul class="tabbed-filters">
+          <li class="selected alpha" data-sort-type="alphabetical">
+            <a href="">
+              <span class="icon"></span>
+              <span class="label">A - Z</span>
+            </a>
+          </li>
+          <li class="star" data-sort-type="popular">
+            <a href="">
+              <span class="icon"></span>
+              <span class="label">Popular</span>
+            </a>
+          </li>
+        </ul>
+      </div>
 
       <div class="tree-container">
         <div class="tree" data-show-column="">

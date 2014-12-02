@@ -33,7 +33,8 @@
         </div>
         <div class="form-row">
           <span class="label">Contains</span>
-        </div>        <div class="form-row">
+        </div>
+        <div class="form-row">
           <input type="text" placeholder="Keywords" name="keywords" />
         </div>
       </form>

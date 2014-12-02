@@ -1,6 +1,6 @@
 <?php if (!defined('ABSPATH')) die(); ?>
 
-<div class="news-archive">
+<div class="search-results">
   <div class="grid">
     <div class="col-lg-4 col-md-4 col-sm-12">
       <form class="content-filters">

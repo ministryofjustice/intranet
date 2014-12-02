@@ -23,7 +23,7 @@ class Menu_With_Description extends Walker_Nav_Menu {
 	}
 
 	// This renders each element
-    function start_el(&$output, $item, $depth, $args) {
+    function start_el(&$output, $item, $depth = 0, $args = Array(), $id = 0) {
         global $wp_query;
         $indent = ( $depth ) ? str_repeat( "\t", $depth ) : '';
         

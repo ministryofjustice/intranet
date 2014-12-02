@@ -12,18 +12,32 @@
     }
   }
 
+  h4 {
+    margin-bottom: 0px;
+    font-weight: normal;
+  }
+
   .table-of-contents {
+    margin-top: 5px;
+
     li {
       display: block;
-      border-bottom: 1px solid #333;
+      border-bottom: 1px solid $grey-2;
 
       &:first-of-type {
-        border-top: 1px solid #333;
+        border-top: 1px solid $grey-2;
+      }
+
+      a {
+        display: block;
+        padding-top: 5px;
+        padding-bottom: 5px;
       }
     }
   }
 
   .excerpt {
+    @extend %larger-copy;
     margin-top: 20px;
   }
 }

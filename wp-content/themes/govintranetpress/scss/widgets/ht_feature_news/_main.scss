@@ -4,7 +4,6 @@
     margin-top: 16px;
     margin-bottom: 20px;
     padding-top: 16px;
-    padding-bottom: 8px;
     border-top: none;
     border-bottom: 1px solid #545454;
   }
@@ -112,6 +111,15 @@
 
     .more {
       display: none;
+    }
+  }
+
+  .more-in-news {
+    text-align: right;
+    font-weight: bold;
+
+    a {
+      text-decoration: underline;
     }
   }
 }
