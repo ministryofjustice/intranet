@@ -651,6 +651,19 @@ p + p {
   display: table-cell;
   padding-right: 15px;
 }
+/* line 59, ../scss/global/_common.scss */
+#content select {
+  width: 100%;
+  padding: 5px 20px 5px 10px;
+  box-shadow: 1px 1px 1px #fff;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  -moz-user-select: none;
+  background: url("../images/dropdown-background.png") no-repeat scroll right center #fff;
+  border: 1px solid #bfc1c3;
+  border-radius: 5px;
+}
 
 /* line 3, ../scss/global/_button.scss */
 input.cta,
