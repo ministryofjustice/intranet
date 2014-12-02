@@ -1,6 +1,15 @@
 .annual-leave {
-  h1 {
+  .page-title {
+    margin-top: 10px;
     border-bottom: none;
+  }
+
+  .page-category {
+    @extend %larger-heading;
+    margin-top: 27px;
+    margin-bottom: 12px;
+    font-weight: normal;
+    color: $grey-1;
   }
 
   .right-hand-menu {

@@ -3,6 +3,7 @@
 <div class="annual-leave">
   <div class="grid">
     <div class="col-lg-8">
+      <h2 class="page-category">Guidance</h2>
       <h1 class="page-title"><?=$title?></h1>
 
       <ul class="info-list">

@@ -499,7 +499,7 @@ h3, .header .logo a, #zzz #topstrip #crownlink a, .ht-feature-news > h3 {
 }
 
 /* line 36, ../scss/global/_typography.scss */
-h2 {
+h2, .annual-leave .page-category {
   font-size: 27px;
   line-height: 30px;
 }
@@ -2548,48 +2548,56 @@ form .form-row:first-of-type {
 }
 
 /* line 2, ../scss/content/annual_leave/_main.scss */
-.annual-leave h1 {
+.annual-leave .page-title {
+  margin-top: 10px;
   border-bottom: none;
 }
-/* line 6, ../scss/content/annual_leave/_main.scss */
+/* line 7, ../scss/content/annual_leave/_main.scss */
+.annual-leave .page-category {
+  margin-top: 27px;
+  margin-bottom: 12px;
+  font-weight: normal;
+  color: #6f777b;
+}
+/* line 15, ../scss/content/annual_leave/_main.scss */
 .annual-leave .right-hand-menu {
   margin-top: 40px;
   border-top: 5px solid #333;
 }
-/* line 10, ../scss/content/annual_leave/_main.scss */
+/* line 19, ../scss/content/annual_leave/_main.scss */
 .annual-leave .right-hand-menu h3 {
   margin-top: 10px;
   margin-bottom: 14px;
 }
-/* line 15, ../scss/content/annual_leave/_main.scss */
+/* line 24, ../scss/content/annual_leave/_main.scss */
 .annual-leave .right-hand-menu a {
   text-decoration: underline;
 }
-/* line 21, ../scss/content/annual_leave/_main.scss */
+/* line 30, ../scss/content/annual_leave/_main.scss */
 .annual-leave h4 {
   margin-bottom: 0px;
   font-weight: normal;
 }
-/* line 26, ../scss/content/annual_leave/_main.scss */
+/* line 35, ../scss/content/annual_leave/_main.scss */
 .annual-leave .table-of-contents {
   margin-top: 5px;
 }
-/* line 29, ../scss/content/annual_leave/_main.scss */
+/* line 38, ../scss/content/annual_leave/_main.scss */
 .annual-leave .table-of-contents li {
   display: block;
   border-bottom: 1px solid #bfc1c3;
 }
-/* line 33, ../scss/content/annual_leave/_main.scss */
+/* line 42, ../scss/content/annual_leave/_main.scss */
 .annual-leave .table-of-contents li:first-of-type {
   border-top: 1px solid #bfc1c3;
 }
-/* line 37, ../scss/content/annual_leave/_main.scss */
+/* line 46, ../scss/content/annual_leave/_main.scss */
 .annual-leave .table-of-contents li a {
   display: block;
   padding-top: 5px;
   padding-bottom: 5px;
 }
-/* line 46, ../scss/content/annual_leave/_main.scss */
+/* line 55, ../scss/content/annual_leave/_main.scss */
 .annual-leave .excerpt {
   margin-top: 50px;
 }
