@@ -532,19 +532,19 @@ h1 {
 
 /* line 74, ../scss/global/_typography.scss */
 .breadcrumbs a,
-.breadcrumbs span, .message .content, #menu-utilities li a, .content-filters .label, .content-filters .description, #need-to-know .excerpt, #content .guidance-and-support .item-container .description, .guidance-and-support .categories .item h3, .annual-leave .right-hand-menu a, .annual-leave .table-of-contents li a {
+.breadcrumbs span, .message .content, #menu-utilities li a, .content-filters .label, .content-filters .description, .ht-feature-news .excerpt, #need-to-know .excerpt, #content .guidance-and-support .item-container .description, .guidance-and-support .categories .item h3, .annual-leave .right-hand-menu a, .annual-leave .table-of-contents li a {
   font-size: 16px;
   line-height: 20px;
 }
 
 /* line 79, ../scss/global/_typography.scss */
-body, .header #searchform .search-filter-container:after, .header #searchform .search-filter, #zzz #topstrip #searchformdiv .search-filter-container:after, #zzz #topstrip #searchformdiv .search-filter, .home.page #content .descriptive-menu-description, .message .timestamp, .content-nav li .page-number, .tabbed-filters ul li .label, .ht-feature-news .excerpt, #need-to-know .page-list li, .guidance-and-support .tree .all-categories {
+body, .header #searchform .search-filter-container:after, .header #searchform .search-filter, #zzz #topstrip #searchformdiv .search-filter-container:after, #zzz #topstrip #searchformdiv .search-filter, .home.page #content .descriptive-menu-description, .message .timestamp, .content-nav li .page-number, .tabbed-filters ul li .label, .ht-feature-news .news-date-wrapper, #need-to-know .page-list li, .guidance-and-support .tree .all-categories {
   font-size: 14px;
   line-height: 20px;
 }
 
 /* line 88, ../scss/global/_typography.scss */
-.ht-feature-news .news-date-wrapper, #need-to-know .news-date-wrapper {
+#need-to-know .news-date-wrapper {
   font-size: 12px;
 }
 

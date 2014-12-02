@@ -23,12 +23,12 @@
   }
 
   .excerpt {
-    @extend %small-copy;
+    @extend %medium-copy;
     margin-top: 5px;
   }
 
   .news-date-wrapper {
-    @extend %smallest-copy;
+    @extend %small-copy;
   }
 
   .media {
