@@ -9,7 +9,7 @@
           <li class="selected alpha" data-sort-type="alphabetical">
             <a href="">
               <span class="icon"></span>
-              <span class="label">A - Z</span>
+              <span class="label">A to Z</span>
             </a>
           </li>
           <li class="star" data-sort-type="popular">

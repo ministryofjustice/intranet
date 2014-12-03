@@ -579,7 +579,7 @@ a:active {
 }
 /* line 50, ../scss/global/_base.scss */
 a:visited {
-  color: #4c2c92;
+  color: #005ea5;
 }
 /* line 54, ../scss/global/_base.scss */
 a {
@@ -1503,12 +1503,12 @@ form .form-row:first-of-type {
   border-left: 0;
 }
 /* line 31, ../scss/modules/_main_nav.scss */
-#mainnav #primarynav ul.mega-menu > li.current-menu-item, #mainnav #primarynav ul.mega-menu > li.mega-current_page_item, #mainnav #primarynav ul.mega-menu > li.current-page-ancestor {
+#mainnav #primarynav ul.mega-menu > li.current-menu-item, #mainnav #primarynav ul.mega-menu > li.mega-current_page_item, #mainnav #primarynav ul.mega-menu > li.mega-current-page-ancestor {
   background: white !important;
   border-bottom: 1px solid #fff;
 }
 /* line 37, ../scss/modules/_main_nav.scss */
-#mainnav #primarynav ul.mega-menu > li.current-menu-item a, #mainnav #primarynav ul.mega-menu > li.mega-current_page_item a, #mainnav #primarynav ul.mega-menu > li.current-page-ancestor a {
+#mainnav #primarynav ul.mega-menu > li.current-menu-item a, #mainnav #primarynav ul.mega-menu > li.mega-current_page_item a, #mainnav #primarynav ul.mega-menu > li.mega-current-page-ancestor a {
   color: #1E4287;
 }
 /* line 42, ../scss/modules/_main_nav.scss */
