@@ -18,9 +18,9 @@
   list-style: none;
 
   a {
+    @extend %medium-copy;
     display: block;
     color: white;
-    font-size: 0.9em;
     line-height: 40px;
     padding: 0 10px;
     text-decoration: underline;

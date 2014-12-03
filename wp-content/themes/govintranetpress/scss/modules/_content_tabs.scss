@@ -1,24 +1,26 @@
 .content-tabs {
   @include clearfix;
   margin-top: 45px;
-  margin-bottom: 45px;
+  margin-bottom: 25px;
 
   li {
     float: left;
     width: 50%;
 
     a {
-      @extend %large-copy;
+      @extend %larger-copy;
       display: block;
-      padding: 20px;
+      padding: 17px 20px;
       border: 1px solid transparent;
       border-bottom-color: #aaa;
+      color: $black;
     }
 
     &.current-menu-item {
       a {
         border-color: #aaa;
         border-bottom-color: transparent;
+        color: $link-active-colour;
       }
     }
   }

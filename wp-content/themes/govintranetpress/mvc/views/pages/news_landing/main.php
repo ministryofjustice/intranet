@@ -31,7 +31,7 @@
             <option>Category 2</option>
           </select>
         </div>
-        <div class="form-row">
+        <div class="form-row contains">
           <span class="label">Contains</span>
         </div>
         <div class="form-row">

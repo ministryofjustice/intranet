@@ -23,12 +23,12 @@
   }
 
   .excerpt {
-    @extend %small-copy;
+    @extend %medium-copy;
     margin-top: 5px;
   }
 
   .news-date-wrapper {
-    @extend %smallest-copy;
+    @extend %small-copy;
   }
 
   .media {
@@ -68,10 +68,6 @@
       width: 100%;
     }
 
-    .media-body {
-      display: none;
-    }
-
     #content & {
       p {
         margin-top: 5px;
@@ -82,6 +78,10 @@
         margin-top: 0;
         margin-bottom: 0;
       }
+    }
+
+    .more {
+      display: none;
     }
   }
 
@@ -111,6 +111,19 @@
 
     .more {
       display: none;
+    }
+
+    .media-body {
+      display: none;
+    }
+  }
+
+  .more-in-news {
+    text-align: right;
+    font-weight: bold;
+
+    a {
+      text-decoration: underline;
     }
   }
 }

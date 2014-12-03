@@ -78,6 +78,11 @@
   }
 
   .categories {
+    .item h3 {
+      @extend %medium-copy;
+      font-weight: normal;
+    }
+
     .description {
       display: none;
     }
