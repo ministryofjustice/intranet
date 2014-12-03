@@ -1,7 +1,7 @@
 <?php
 
 /*
-  Plugin Name: marcin-MVC
+  Plugin Name: dw-MVC
   Description: Adds MVC structure to WordPress code
   Author: Marcin Cichon
   Version: 0.1
