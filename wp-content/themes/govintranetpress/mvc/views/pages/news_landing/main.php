@@ -41,7 +41,7 @@
     </div>
 
     <div class="col-lg-8 col-md-8 col-sm-12 push-lg-1 push-md-1">
-      <?php dynamic_sidebar('newslanding-widget-area1'); ?>
+      <ul class="results"></ul>
 
       <ul class="content-nav grid">
         <li class="previous col-lg-6 col-md-6 col-sm-6">

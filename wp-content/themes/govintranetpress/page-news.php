@@ -5,16 +5,29 @@
 */
 
 class Page_news extends MVC_controller {
-  function main(){
+  function __construct() {
+    parent::__construct();
+    $this->page_number = get_query_var('paged') ?: 1;
+  }
+
+  function main() {
     get_header();
     $this->view('shared/breadcrumbs');
     $this->view('pages/news_landing/main', $this->get_data());
     get_footer();
   }
 
-  function get_data(){
+  function get_data() {
+    //$results = $this->get_news_from_API();
+
     return array(
+      'results' => array()
     );
+  }
+
+  private function get_news_from_API() {
+    $results = new news_request(array('', '', '', '', $page_id));
+    return htmlspecialchars(json_encode($results->results_array));
   }
 }
 
