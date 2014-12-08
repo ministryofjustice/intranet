@@ -44,18 +44,26 @@
       <ul class="results"></ul>
 
       <ul class="content-nav grid">
-        <li class="previous col-lg-6 col-md-6 col-sm-6">
+        <li class="previous disabled col-lg-6 col-md-6 col-sm-6">
           <a href="<?=$prev_news_url ?: '#'?>">
             <span class="nav-label">&lsaquo; Previous page</span>
-            <span class="page-number">2 of 35</span>
+            <span class="page-info">
+              <span class="prev-page"></span>
+              of
+              <span class="total-pages"></span>
+            </span>
           </a>
 
         </li>
 
-        <li class="next col-lg-6 col-md-6 col-sm-6">
+        <li class="next disabled col-lg-6 col-md-6 col-sm-6">
           <a href="<?=$next_news_url ?: '#'?>">
             <span class="nav-label">Next page &rsaquo;</span>
-            <span class="page-number">4 of 35</span>
+            <span class="page-info">
+              <span class="next-page"></span>
+              of
+              <span class="total-pages"></span>
+            </span>
           </a>
         </li>
       </ul>
@@ -64,12 +72,16 @@
 
   <template data-name="news-item">
     <li class="news-item">
-      <img />
-      <h3 class="title">test</h3>
-      <div>
-        <span class="date">date</span>
+      <div class="thumbnail-container">
+        <img class="thumbnail" />
       </div>
-      <p class="excerpt">desc</p>
+      <div class="content">
+        <h3 class="title">test</h3>
+        <div class="meta">
+          <span class="date">date</span>
+        </div>
+        <p class="excerpt">desc</p>
+      </div>
     </li>
   </template>
 </div>

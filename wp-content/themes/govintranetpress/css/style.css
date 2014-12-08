@@ -538,7 +538,7 @@ h1 {
 }
 
 /* line 79, ../scss/global/_typography.scss */
-body, .header #searchform .search-filter-container:after, .header #searchform .search-filter, #zzz #topstrip #searchformdiv .search-filter-container:after, #zzz #topstrip #searchformdiv .search-filter, .home.page #content .descriptive-menu-description, .message .timestamp, .content-nav li .page-number, .tabbed-filters ul li .label, .ht-feature-news .news-date-wrapper, #need-to-know .news-date-wrapper, #need-to-know .page-list li, .guidance-and-support .tree .all-categories {
+body, .header #searchform .search-filter-container:after, .header #searchform .search-filter, #zzz #topstrip #searchformdiv .search-filter-container:after, #zzz #topstrip #searchformdiv .search-filter, .home.page #content .descriptive-menu-description, .message .timestamp, .content-nav li .page-info, .tabbed-filters ul li .label, .ht-feature-news .news-date-wrapper, #need-to-know .news-date-wrapper, #need-to-know .page-list li, .guidance-and-support .tree .all-categories {
   font-size: 14px;
   line-height: 20px;
 }
@@ -1780,41 +1780,45 @@ form .form-row:first-of-type {
   background-color: #f8f8f8;
 }
 /* line 15, ../scss/modules/_content_nav.scss */
+.content-nav li.disabled {
+  visibility: hidden;
+}
+/* line 19, ../scss/modules/_content_nav.scss */
 .content-nav li.previous {
   float: left;
 }
-/* line 18, ../scss/modules/_content_nav.scss */
+/* line 22, ../scss/modules/_content_nav.scss */
 .content-nav li.previous .nav-label {
   display: block;
   text-align: left;
 }
-/* line 23, ../scss/modules/_content_nav.scss */
-.content-nav li.previous .page-number {
+/* line 27, ../scss/modules/_content_nav.scss */
+.content-nav li.previous .page-info {
   padding-left: 15px;
   text-align: left;
 }
-/* line 29, ../scss/modules/_content_nav.scss */
+/* line 33, ../scss/modules/_content_nav.scss */
 .content-nav li.next {
   float: right;
 }
-/* line 32, ../scss/modules/_content_nav.scss */
+/* line 36, ../scss/modules/_content_nav.scss */
 .content-nav li.next .nav-label {
   display: block;
   text-align: right;
 }
-/* line 37, ../scss/modules/_content_nav.scss */
-.content-nav li.next .page-number {
+/* line 41, ../scss/modules/_content_nav.scss */
+.content-nav li.next .page-info {
   padding-right: 15px;
   text-align: right;
 }
-/* line 43, ../scss/modules/_content_nav.scss */
+/* line 47, ../scss/modules/_content_nav.scss */
 .content-nav li a {
   display: block;
   padding: 10px 0;
   text-decoration: none;
 }
-/* line 49, ../scss/modules/_content_nav.scss */
-.content-nav li .page-number {
+/* line 53, ../scss/modules/_content_nav.scss */
+.content-nav li .page-info {
   display: block;
   color: #6f777b;
 }
@@ -2522,18 +2526,40 @@ form .form-row:first-of-type {
 .page-news .content-filters .contains {
   margin-top: 20px;
 }
-/* line 15, ../scss/content/news_landing/_main.scss */
-.page-news .small-news h3 {
-  margin-bottom: 40px;
+/* line 14, ../scss/content/news_landing/_main.scss */
+.page-news .news-item {
+  padding: 10px 0;
+  border-bottom: 1px solid #6f777b;
+}
+/* line 2, ../scss/global/_mixins.scss */
+.page-news .news-item:after {
+  content: "";
+  display: table;
+  clear: both;
 }
 /* line 19, ../scss/content/news_landing/_main.scss */
-.page-news .small-news .news-item {
-  border-top: none;
-  border-bottom: 1px solid #bfc1c3;
+.page-news .news-item .thumbnail-container {
+  float: left;
+  width: 150px;
+  height: 100px;
+  margin-right: 10px;
 }
-/* line 24, ../scss/content/news_landing/_main.scss */
-.page-news .small-news .more-in-news {
-  display: none;
+/* line 26, ../scss/content/news_landing/_main.scss */
+.page-news .news-item .content {
+  overflow: hidden;
+}
+/* line 31, ../scss/content/news_landing/_main.scss */
+.page-news .news-item .meta span {
+  color: #6f777b;
+}
+/* line 36, ../scss/content/news_landing/_main.scss */
+.page-news .news-item .title {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+/* line 41, ../scss/content/news_landing/_main.scss */
+.page-news .news-item .excerpt {
+  margin-top: 10px;
 }
 
 /* line 2, ../scss/content/news_single/_main.scss */

@@ -2,25 +2,27 @@
  * to app.js during a build process (which we don't have at the moment).
  * The individual modules are already built to work on their own.
  *
+ * #############################################################################
  *
  * TODO: some modules share functionality when it comes to getting results via XHR. This should be abstracted at some point.
+ *
  * Left to do for News:
  * - Pagination
  * - Deep linking
  */
-jQuery(function(){
+jQuery(function() {
   "use strict";
 
   var App = {};
 
   /** Mobile menu
    */
-  (function($){
+  (function($) {
     "use strict";
 
-    App.MobileMenu = function(){
+    App.MobileMenu = function() {
       this.$top = $('.header');
-      if(!this.$top.length){ return; }
+      if(!this.$top.length) { return; }
 
       this.config = {
         menuToggleClass: 'mobile-menu-enabled'
@@ -30,20 +32,20 @@ jQuery(function(){
     };
 
     App.MobileMenu.prototype = {
-      init: function(){
+      init: function() {
         this.cacheEls();
         this.bindEvents();
       },
 
-      cacheEls: function(){
+      cacheEls: function() {
         this.$menuButton = this.$top.find('.mobile-nav button');
       },
 
-      bindEvents: function(){
+      bindEvents: function() {
         this.$top.on('click', 'button', $.proxy(this.toggleMenu, this));
       },
 
-      toggleMenu: function(){
+      toggleMenu: function() {
         this.$top.toggleClass(this.config.menuToggleClass);
       }
     };
@@ -51,33 +53,33 @@ jQuery(function(){
 
   /** Sticky news
    */
-  (function($){
+  (function($) {
     "use strict";
 
-    App.StickyNews = function(){
+    App.StickyNews = function() {
       this.$top = $('#need-to-know');
-      if(!this.$top.length){ return; }
+      if(!this.$top.length) { return; }
       this.init();
     };
 
     App.StickyNews.prototype = {
-      init: function(){
+      init: function() {
         this.cacheEls();
         this.bindEvents();
         this.showItem(1);
       },
 
-      cacheEls: function(){
+      cacheEls: function() {
         this.$pages = this.$top.find('.need-to-know-list > li');
         this.$pageLinks = this.$top.find('.page-list > li');
       },
 
-      bindEvents: function(){
+      bindEvents: function() {
         this.$pageLinks.on('click', $.proxy(this.showItem, this, null));
       },
 
-      showItem: function(pageId, e){
-        if(!pageId){
+      showItem: function(pageId, e) {
+        if(!pageId) {
           pageId = $(e.target).data('page-id');
         }
 
@@ -91,17 +93,17 @@ jQuery(function(){
 
   /** Guidance and Support page index
    */
-  (function($){
+  (function($) {
     "use strict";
 
-    App.GuidanceAndSupport = function(){
+    App.GuidanceAndSupport = function() {
       this.$top = $('.guidance-and-support');
-      if(!this.$top.length){ return; }
+      if(!this.$top.length) { return; }
       this.init();
     };
 
     App.GuidanceAndSupport.prototype = {
-      init: function(){
+      init: function() {
         this.applicationUrl = $('head').data('application-url');
         this.serviceUrl = this.applicationUrl+'/service/children';
         this.pageBase = this.applicationUrl+'/'+this.$top.data('top-level-slug');
@@ -115,7 +117,7 @@ jQuery(function(){
         this.prepopulateColumns();
       },
 
-      cacheEls: function(){
+      cacheEls: function() {
         this.$tree = this.$top.find('.tree');
         this.$columns = this.$tree.find('.item-container');
 
@@ -126,24 +128,24 @@ jQuery(function(){
         this.$allCategoriesLink = this.$tree.find('.all-categories');
       },
 
-      bindEvents: function(){
+      bindEvents: function() {
         var _this = this;
 
-        this.$sortAlphabetical.on('click', 'a', function(e){
+        this.$sortAlphabetical.on('click', 'a', function(e) {
           e.preventDefault();
           _this.sort('alphabetical');
           _this.$sortList.find('> li').removeClass('selected');
           $(this).parent().addClass('selected');
         });
 
-        this.$sortPopular.on('click', 'a', function(e){
+        this.$sortPopular.on('click', 'a', function(e) {
           e.preventDefault();
           _this.sort('popular');
           _this.$sortList.find('> li').removeClass('selected');
           $(this).parent().addClass('selected');
         });
 
-        this.$allCategoriesLink.on('click', function(e){
+        this.$allCategoriesLink.on('click', function(e) {
           e.preventDefault();
           _this.toggleTopLevelCategories(true);
           _this.collapseTopLevelColumn(false);
@@ -156,20 +158,20 @@ jQuery(function(){
 
       /** Switches between A-Z columns on mobile view
        */
-      swipeMobileColumns: function(direction, e){
+      swipeMobileColumns: function(direction, e) {
         var currentColumn;
         var newColumn;
 
-        if(e.type==='keydown'){
-          if(e.keyCode===37){ direction = 'right'; }
-          else if(e.keyCode===39){ direction = 'left'; }
+        if(e.type==='keydown') {
+          if(e.keyCode===37) { direction = 'right'; }
+          else if(e.keyCode===39) { direction = 'left'; }
           else { return; }
         }
 
         currentColumn = parseInt(this.$tree.attr('data-show-column'), 10);
         newColumn = (direction==='left') ? currentColumn+1 : currentColumn-1;
 
-        if(this.$columns.filter('.level-'+newColumn).is(':visible')){
+        if(this.$columns.filter('.level-'+newColumn).is(':visible')) {
           this.$tree.attr('data-show-column', newColumn);
         }
 
@@ -181,7 +183,7 @@ jQuery(function(){
        * @param {Number} level Level number (1-3)
        * @param {Event} e Event
        */
-      categoryClick: function(categoryId, level, e){
+      categoryClick: function(categoryId, level, e) {
         var $container = this.$columns.filter('.level-'+level);
         var $parent = $container.find('[data-page-id='+categoryId+']');
 
@@ -190,20 +192,20 @@ jQuery(function(){
         this.markItem($parent);
         this.loadChildren(categoryId, level+1);
 
-        if(level===1){
+        if(level===1) {
           this.toggleTopLevelCategories(false);
         }
       },
 
       /** Updates the url based on the selected categories
        */
-      updateUrl: function(){
+      updateUrl: function() {
         var $item;
         var urlParts = [this.pageBase];
 
-        this.$columns.each(function(){
+        this.$columns.each(function() {
           $item = $(this).find('.item.selected');
-          if($item.length){
+          if($item.length) {
             urlParts.push($item.data('slug'));
             return true;
           }
@@ -217,7 +219,7 @@ jQuery(function(){
       /** Marks a specified item as selected
        * @param {jQuery} item Item element
        */
-      markItem: function($item){
+      markItem: function($item) {
         $item.closest('.item-list').find('.selected').removeClass('selected');
         $item.addClass('selected');
       },
@@ -225,8 +227,8 @@ jQuery(function(){
       /** Toggles all top-level categories
        * @param {Boolean} toggle Whether to show or hide categories
        */
-      toggleTopLevelCategories: function(toggle){
-        if(toggle===undefined){
+      toggleTopLevelCategories: function(toggle) {
+        if(toggle===undefined) {
           throw new Error('toggle parameter must be set to boolean');
         }
         this.$columns.filter('.level-1').find('.item:not(.selected)').slideToggle(toggle);
@@ -236,20 +238,20 @@ jQuery(function(){
       /** Collapses the level 1 column (CSS-controlled)
        * @param {Boolean} toggle Toggle state
        */
-      collapseTopLevelColumn: function(toggle){
+      collapseTopLevelColumn: function(toggle) {
         this.$tree.toggleClass('collapsed', toggle);
       },
 
       /** Populates all columns based on data properties generated server-side
        */
-      prepopulateColumns: function(){
+      prepopulateColumns: function() {
         var _this = this;
         var $column;
         var selectedId;
         var data = {};
         var level = 0;
 
-        this.$columns.each(function(){
+        this.$columns.each(function() {
           $column = $(this);
           data = $column.data('items');
           selectedId = $column.data('selected-id');
@@ -258,17 +260,17 @@ jQuery(function(){
           $column.removeAttr('data-items'); //remove data from the element
           $column.removeAttr('data-selected-id'); //remove data from the element
 
-          if(data){
+          if(data) {
             level++;
             _this.populateColumn(level, data);
             _this.markItem($column.find('[data-page-id="'+selectedId+'"]'));
           }
         });
 
-        if(level>1){
+        if(level>1) {
           this.toggleTopLevelCategories(false);
         }
-        if(level>2){
+        if(level>2) {
           this.collapseTopLevelColumn();
         }
       },
@@ -277,7 +279,7 @@ jQuery(function(){
        * @param {Number} categoryId Category ID
        * @param {Number} level Level of the child container [1-3]
        */
-      loadChildren: function(categoryId, level){
+      loadChildren: function(categoryId, level) {
         this.stopLoadingChildren();
         this.$tree.find('[data-page-id="'+categoryId+'"]').addClass('loading');
         this.requestChildren(categoryId, level);
@@ -285,9 +287,9 @@ jQuery(function(){
 
       /** Stops loading children elements
        */
-      stopLoadingChildren: function(){
+      stopLoadingChildren: function() {
         this.$tree.find('.item.loading').removeClass('loading');
-        if(this.serviceXHR){
+        if(this.serviceXHR) {
           this.serviceXHR.abort();
           this.serviceXHR = null;
         }
@@ -297,7 +299,7 @@ jQuery(function(){
        * @param {Number} categoryId ID of the category we request the children of
        * @param {Number} level Level of the child container [1-3]
        */
-      requestChildren: function(categoryId, level){
+      requestChildren: function(categoryId, level) {
         this.serviceXHR = $.getJSON(this.serviceUrl+'/'+categoryId, $.proxy(this.populateColumn, this, level));
       },
 
@@ -305,7 +307,7 @@ jQuery(function(){
        * @param {Number} level Item level (1-3)
        * @param {Object} data Children data
        */
-      populateColumn: function(level, data){
+      populateColumn: function(level, data) {
         var _this = this;
         var $thisLevelContainer = this.$columns.filter('.level-'+level); //this level = the child level
         var $nextLevelContainer = this.$columns.filter('.level-'+(level+1)); //next level = the grandchild level
@@ -316,15 +318,15 @@ jQuery(function(){
         this.helpers.toggleElement($nextLevelContainer, false);
 
         //clear all subcolumns
-        for(a=level;a<=3;a++){
+        for(a=level;a<=3;a++) {
           this.$columns.filter('.level-'+a).find('.item-list').empty();
         }
 
-        if(level>1){
+        if(level>1) {
           $thisLevelContainer.find('.category-name').html(data.title);
         }
 
-        $.each(data.items, function(index, item){
+        $.each(data.items, function(index, item) {
           $child = _this.buildChild(item, level);
           $thisItemList.append($child);
         });
@@ -345,7 +347,7 @@ jQuery(function(){
        * @param {Number} level Item level (1-3)
        * @returns {jQuery} Populated child element
        */
-      buildChild: function(data, level){
+      buildChild: function(data, level) {
         var _this = this;
         var $child = $(this.itemTemplate);
         $child.attr('data-page-id', data.id);
@@ -356,7 +358,7 @@ jQuery(function(){
         $child.find('a').attr('href', data.url);
         $child.on('click', 'a', $.proxy(this.collapseTopLevelColumn, this, level!==1));
 
-        if(level<3){
+        if(level<3) {
           $child.find('.description').html(data.excerpt);
           $child.on('click', 'a', $.proxy(_this.categoryClick, _this, data.id, level));
         }
@@ -367,21 +369,21 @@ jQuery(function(){
       /** Sorts items in all columns alphabetically or by popularity
        * @param {String} type Type of sort [alphabetical/popular]
        */
-      sort: function(type){
+      sort: function(type) {
         var level;
         var items;
         var sortMethod;
         var sortLabel;
         var $list;
 
-        if(!type){
+        if(!type) {
           type = this.$sortList.find('.selected').data('sort-type');
         }
 
         sortMethod = type==='alphabetical' ? this.helpers.alphabeticalComparator : this.helpers.popularComparator;
         sortLabel = type==='alphabetical' ? 'A to Z' : 'Popular';
 
-        for(level=1; level<=3; level++){
+        for(level=1; level<=3; level++) {
           $list = this.$columns.filter('.level-'+level).find('.item-list');
           items = $list.find('li').toArray();
           items.sort(sortMethod);
@@ -395,7 +397,7 @@ jQuery(function(){
       helpers: {
         /** Sort comparator for alphabetical order
          */
-        alphabeticalComparator: function(a, b){
+        alphabeticalComparator: function(a, b) {
           var label1 = $(a).data('name');
           var label2 = $(b).data('name');
           return (label1 < label2) ? -1 : (label1 > label2) ? 1 : 0;
@@ -403,7 +405,7 @@ jQuery(function(){
 
         /** Sort comparator for popular order
          */
-        popularComparator: function(a, b){
+        popularComparator: function(a, b) {
           var label1 = $(a).data('popularity-order');
           var label2 = $(b).data('popularity-order');
           return (label1 < label2) ? -1 : (label1 > label2) ? 1 : 0;
@@ -415,7 +417,7 @@ jQuery(function(){
          * @param {jQuery} $element Subject element
          * @param {Boolean} toogle Toggle state
          */
-        toggleElement: function($element, toggle){
+        toggleElement: function($element, toggle) {
           $element.toggleClass('visible', toggle);
           $element.toggleClass('hidden', !toggle);
         }
@@ -425,19 +427,19 @@ jQuery(function(){
 
   /** A-Z page
    */
-  (function($){
+  (function($) {
     "use strict";
 
-    App.AZIndex = function(){
+    App.AZIndex = function() {
       this.$top = $('.a-z');
-      if(!this.$top.length){ return; }
+      if(!this.$top.length) { return; }
       this.init();
 
       this.goToLetter(null);
     };
 
     App.AZIndex.prototype = {
-      init: function(){
+      init: function() {
         this.applicationUrl = $('head').data('application-url');
         this.serviceUrl = this.applicationUrl+'/service/search';
         this.pageBase = this.applicationUrl+'/'+this.$top.data('top-level-slug');
@@ -449,16 +451,16 @@ jQuery(function(){
         this.bindEvents();
       },
 
-      cacheEls: function(){
+      cacheEls: function() {
         this.$categoryInput = this.$top.find('[name="category"]');
         this.$keywordsInput = this.$top.find('[name="keywords"]');
         this.$letters = this.$top.find('.letter');
         this.$results = this.$top.find('.results');
       },
 
-      bindEvents: function(){
+      bindEvents: function() {
         var _this = this;
-        this.$letters.click(function(e){
+        this.$letters.click(function(e) {
           e.preventDefault();
           var $letter = $(this);
           var letter = $letter.data('letter');
@@ -467,12 +469,12 @@ jQuery(function(){
           _this.loadResults();
         });
 
-        this.$keywordsInput.keyup(function(e){
+        this.$keywordsInput.keyup(function(e) {
           _this.loadResults();
         });
       },
 
-      loadResults: function(requestData){
+      loadResults: function(requestData) {
         var _this = this;
 
         requestData = this.getRequestData(requestData);
@@ -481,47 +483,47 @@ jQuery(function(){
         this.requestResults(requestData);
       },
 
-      stopLoadingResults: function(){
+      stopLoadingResults: function() {
         //this.$tree.find('.item.loading').removeClass('loading');
-        if(this.serviceXHR){
+        if(this.serviceXHR) {
           this.serviceXHR.abort();
           this.serviceXHR = null;
         }
       },
 
-      requestResults: function(data){
+      requestResults: function(data) {
         var dataArray = [];
 
-        $.each(data, function(key, value){
+        $.each(data, function(key, value) {
           dataArray.push(value);
         });
 
         this.serviceXHR = $.getJSON(this.serviceUrl+'/'+dataArray.join('/'), $.proxy(this.displayResults, this));
       },
 
-      clearResults: function(){
+      clearResults: function() {
         this.$results.empty();
       },
 
-      displayResults: function(data){
+      displayResults: function(data) {
         var _this = this;
         var $child;
 
         this.clearResults();
 
-        $.each(data.data, function(index, group){
-          $.each(group.results, function(groupIndex, result){
+        $.each(data.data, function(index, group) {
+          $.each(group.results, function(groupIndex, result) {
             $child = _this.buildResultRow(result);
             _this.$results.append($child);
           });
         });
       },
 
-      getSelectedInitial: function(){
+      getSelectedInitial: function() {
         return this.$letters.filter('.selected').data('letter');
       },
 
-      buildResultRow: function(data){
+      buildResultRow: function(data) {
         var _this = this;
         var $child = $(this.itemTemplate);
         $child.find('.title').html(data.title);
@@ -530,8 +532,8 @@ jQuery(function(){
         return $child;
       },
 
-      goToLetter: function(letter){
-        if(!letter){
+      goToLetter: function(letter) {
+        if(!letter) {
           letter = 'All';
         }
         else{
@@ -543,7 +545,7 @@ jQuery(function(){
         this.loadResults();
       },
 
-      getRequestData: function(data){
+      getRequestData: function(data) {
         var _this = this;
 
         var base = {
@@ -555,8 +557,8 @@ jQuery(function(){
           'resultsPerPage': 20
         };
 
-        if(data){
-          $.each(data, function(key, value){
+        if(data) {
+          $.each(data, function(key, value) {
             base[key] = value;
           });
         }
@@ -568,33 +570,33 @@ jQuery(function(){
 
   /** Homepage settings module
    */
-  (function($){
+  (function($) {
     "use strict";
 
-    App.HomepageSettings = function(){
+    App.HomepageSettings = function() {
       this.$top = $('.homepage-settings-placeholder');
-      if(!this.$top.length){ return; }
+      if(!this.$top.length) { return; }
       this.init();
     };
 
     App.HomepageSettings.prototype = {
-      init: function(){
+      init: function() {
         this.cacheEls();
         this.bindEvents();
       },
 
-      cacheEls: function(){
+      cacheEls: function() {
         this.$link = this.$top.find('.swap-link');
       },
 
-      bindEvents: function(){
+      bindEvents: function() {
         this.$top.on('click', $.proxy(this.toggle, this, false));
         this.$link.on('click', $.proxy(this.toggle, this, null));
       },
 
-      toggle: function(toggle, e){
+      toggle: function(toggle, e) {
         e.stopPropagation();
-        if($.type(toggle)==='boolean'){
+        if($.type(toggle)==='boolean') {
           this.$top.toggleClass('opened', toggle);
         }
         else{
@@ -606,30 +608,30 @@ jQuery(function(){
 
   /** Emergency message
    */
-  (function($){
+  (function($) {
     "use strict";
 
-    App.EmergencyMessage = function(){
+    App.EmergencyMessage = function() {
       this.$top = $('.message');
-      if(!this.$top.length){ return; }
+      if(!this.$top.length) { return; }
       this.init();
     };
 
     App.EmergencyMessage.prototype = {
-      init: function(){
+      init: function() {
         this.cacheEls();
         this.bindEvents();
       },
 
-      cacheEls: function(){
+      cacheEls: function() {
         this.$closeButton = this.$top.find('.close');
       },
 
-      bindEvents: function(){
+      bindEvents: function() {
         this.$closeButton.on('click', $.proxy(this.close, this));
       },
 
-      close: function(){
+      close: function() {
         this.$top.slideUp(200);
       }
     };
@@ -637,17 +639,17 @@ jQuery(function(){
 
   /** Tabbed content
    */
-  (function($){
+  (function($) {
     "use strict";
 
-    App.TabbedContent = function(){
+    App.TabbedContent = function() {
       this.$tabs = $('.content-tabs li');
-      if(!this.$tabs.length){ return; }
+      if(!this.$tabs.length) { return; }
       this.init();
     };
 
     App.TabbedContent.prototype = {
-      init: function(){
+      init: function() {
         this.cacheEls();
         this.bindEvents();
         this.cacheTemplates();
@@ -655,26 +657,26 @@ jQuery(function(){
         this.$tabs.eq(0).click();
       },
 
-      cacheEls: function(){
+      cacheEls: function() {
         this.$tabContent = $('.tab-content');
       },
 
-      cacheTemplates: function(){
+      cacheTemplates: function() {
         var _this = this;
 
         this.templates = [];
 
-        $('template[data-template-type]').each(function(){
+        $('template[data-template-type]').each(function() {
           var $el = $(this);
           _this.templates[$el.attr('data-content-name')] = $el.html();
         });
       },
 
-      bindEvents: function(){
+      bindEvents: function() {
         this.$tabs.on('click', $.proxy(this.switchTab, this));
       },
 
-      switchTab: function(e){
+      switchTab: function(e) {
         var $el = $(e.currentTarget);
         var contentName = $el.attr('data-content');
         this.$tabContent.html(this.templates[contentName]);
@@ -691,38 +693,38 @@ jQuery(function(){
   /** Table of contents
    * Note: it's designed to work with only one instance per page
    */
-  (function($){
+  (function($) {
     "use strict";
 
-    App.TableOfContents = function(){
+    App.TableOfContents = function() {
       this.$tableOfContents = $('.table-of-contents');
-      if(!this.$tableOfContents.length){ return; }
+      if(!this.$tableOfContents.length) { return; }
       this.init();
     };
 
     App.TableOfContents.prototype = {
-      init: function(){
+      init: function() {
         this.cacheEls();
         this.bindEvents();
         this.generate();
         this.initialized = true;
       },
 
-      cacheEls: function(){
+      cacheEls: function() {
         this.$contentContainer = $(this.$tableOfContents.attr('data-content-container-selector'));
       },
 
-      bindEvents: function(){
+      bindEvents: function() {
       },
 
-      generate: function(){
+      generate: function() {
         var _this = this;
 
-        if(!this.initialized){ return; }
+        if(!this.initialized) { return; }
 
         this.$tableOfContents.empty();
         //find all H* tags with ID's
-        this.$contentContainer.find('h1, h2, h3, h4, h5, h6').filter('[id]').each(function(){
+        this.$contentContainer.find('h1, h2, h3, h4, h5, h6').filter('[id]').each(function() {
           var $el = $(this);
           var $item = $('<li><a></a></li>');
 
@@ -737,17 +739,17 @@ jQuery(function(){
 
   /** News
    */
-  (function($){
+  (function($) {
     "use strict";
 
-    App.News = function(){
+    App.News = function() {
       this.$top = $('.page-news');
-      if(!this.$top.length){ return; }
+      if(!this.$top.length) { return; }
       this.init();
     };
 
     App.News.prototype = {
-      init: function(){
+      init: function() {
         this.applicationUrl = $('head').data('application-url');
         this.serviceUrl = this.applicationUrl+'/service/news';
         this.pageBase = this.applicationUrl+'/'+this.$top.data('top-level-slug');
@@ -761,21 +763,37 @@ jQuery(function(){
         this.loadResults();
       },
 
-      cacheEls: function(){
+      cacheEls: function() {
         this.$categoryInput = this.$top.find('[name="category"]');
         this.$keywordsInput = this.$top.find('[name="keywords"]');
         this.$results = this.$top.find('.results');
+        this.$prevPage = this.$top.find('.previous');
+        this.$nextPage = this.$top.find('.next');
       },
 
-      bindEvents: function(){
+      bindEvents: function() {
         var _this = this;
 
-        this.$keywordsInput.keyup(function(e){
+        this.$keywordsInput.keyup(function(e) {
           _this.loadResults();
+        });
+
+        this.$prevPage.click(function(e) {
+          e.preventDefault();
+          _this.loadResults({
+            'page': $(this).attr('data-page')
+          });
+        });
+
+        this.$nextPage.click(function(e) {
+          e.preventDefault();
+          _this.loadResults({
+            'page': $(this).attr('data-page')
+          });
         });
       },
 
-      loadResults: function(requestData){
+      loadResults: function(requestData) {
         var _this = this;
 
         requestData = this.getDataObject(requestData);
@@ -785,52 +803,63 @@ jQuery(function(){
         this.requestResults(requestData);
       },
 
-      stopLoadingResults: function(){
+      stopLoadingResults: function() {
         this.$top.removeClass('loading-results');
-        if(this.serviceXHR){
+        if(this.serviceXHR) {
           this.serviceXHR.abort();
           this.serviceXHR = null;
         }
       },
 
-      requestResults: function(data){
+      requestResults: function(data) {
         var dataArray = [];
 
-        $.each(data, function(key, value){
+        $.each(data, function(key, value) {
           dataArray.push(value);
         });
 
         this.serviceXHR = $.getJSON(this.serviceUrl+'/'+dataArray.join('/'), $.proxy(this.displayResults, this));
       },
 
-      clearResults: function(){
+      clearResults: function() {
         this.$results.empty();
       },
 
-      displayResults: function(data){
+      displayResults: function(data) {
         var _this = this;
         var $newsItem;
 
         this.clearResults();
 
-        $.each(data.results, function(index, result){
+        $.each(data.results, function(index, result) {
           $newsItem = _this.buildResultRow(result);
           _this.$results.append($newsItem);
         });
+
+        this.updatePagination(data);
         this.stopLoadingResults();
       },
 
-      buildResultRow: function(data){
+      buildResultRow: function(data) {
         var _this = this;
         var $child = $(this.itemTemplate);
+        var date = this.parseDate(data.timestamp);
+
+        if(data.thumbnail_url) {
+          $child.find('.thumbnail').attr('src', data.thumbnail_url);
+        }
+        else {
+          $child.find('.thumbnail').remove(); //we don't want an img element with no src
+        }
+
         $child.find('.title').html(data.title);
-        $child.find('.date').html(data.timestamp);
+        $child.find('.date').html(this.formatDate(date));
         $child.find('.excerpt').html(data.excerpt);
 
         return $child;
       },
 
-      getDataObject: function(data){
+      getDataObject: function(data) {
         var _this = this;
 
         var base = {
@@ -840,16 +869,48 @@ jQuery(function(){
           'resultsPerPage': 2
         };
 
-        if(data){
-          $.each(data, function(key, value){
+        if(data) {
+          $.each(data, function(key, value) {
             base[key] = value;
           });
         }
 
         return base;
+      },
+
+      parseDate: function(dateString) {
+        dateString = dateString.replace(/-/g, '/');
+        return new Date(dateString);
+      },
+
+      formatDate: function(dateObject) {
+        var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+        return dateObject.getDate()+' '+months[dateObject.getMonth()]+' '+dateObject.getFullYear();
+      },
+
+      updatePagination: function(data) {
+        var currentPage = parseInt(data.urlParams.page, 10);
+        var perPage = parseInt(data.urlParams.per_page, 10);
+        var totalResults = parseInt(data.totalResults, 10);
+        var totalPages = perPage > 0 ? Math.ceil(totalResults/perPage) : 1;
+        var prevPage = Math.max(currentPage-1, 1);
+        var nextPage = Math.min(currentPage+1, totalPages);
+
+        //visibility of the pagination buttons
+        this.$prevPage.toggleClass('disabled', currentPage <= 1);
+        this.$nextPage.toggleClass('disabled', currentPage >= totalPages);
+
+        //update data attr used for navigation
+        this.$prevPage.attr('data-page', prevPage);
+        this.$nextPage.attr('data-page', nextPage);
+
+        //update labels
+        this.$prevPage.find('.prev-page').text(prevPage);
+        this.$nextPage.find('.next-page').text(nextPage);
+        this.$top.find('.total-pages').text(totalPages);
       }
     }
-
   }(jQuery));
 
   /** init section - this should be in a separate file - init.js

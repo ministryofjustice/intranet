@@ -12,6 +12,10 @@
       background-color: $grey-4;
     }
 
+    &.disabled {
+      visibility: hidden;
+    }
+
     &.previous {
       float: left;
 
@@ -20,7 +24,7 @@
         text-align: left;
       }
 
-      .page-number {
+      .page-info {
         padding-left: 15px;
         text-align: left;
       }
@@ -34,7 +38,7 @@
         text-align: right;
       }
 
-      .page-number {
+      .page-info {
         padding-right: 15px;
         text-align: right;
       }
@@ -46,7 +50,7 @@
       text-decoration: none;
     }
 
-    .page-number {
+    .page-info {
       @extend %small-copy;
       display: block;
       color: $grey-1;
