@@ -1,6 +1,12 @@
 /** This file will be broken down into separate modules and then concatenated
  * to app.js during a build process (which we don't have at the moment).
  * The individual modules are already built to work on their own.
+ *
+ *
+ * TODO: some modules share functionality when it comes to getting results via XHR. This should be abstracted at some point.
+ * Left to do for News:
+ * - Pagination
+ * - Deep linking
  */
 jQuery(function(){
   "use strict";
@@ -775,11 +781,12 @@ jQuery(function(){
         requestData = this.getDataObject(requestData);
 
         this.stopLoadingResults();
+        this.$top.addClass('loading-results');
         this.requestResults(requestData);
       },
 
       stopLoadingResults: function(){
-        //this.$tree.find('.item.loading').removeClass('loading');
+        this.$top.removeClass('loading-results');
         if(this.serviceXHR){
           this.serviceXHR.abort();
           this.serviceXHR = null;
@@ -810,6 +817,7 @@ jQuery(function(){
           $newsItem = _this.buildResultRow(result);
           _this.$results.append($newsItem);
         });
+        this.stopLoadingResults();
       },
 
       buildResultRow: function(data){
