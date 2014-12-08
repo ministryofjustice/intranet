@@ -729,6 +729,121 @@ jQuery(function(){
     };
   }(jQuery));
 
+  /** News
+   */
+  (function($){
+    "use strict";
+
+    App.News = function(){
+      this.$top = $('.page-news');
+      if(!this.$top.length){ return; }
+      this.init();
+    };
+
+    App.News.prototype = {
+      init: function(){
+        this.applicationUrl = $('head').data('application-url');
+        this.serviceUrl = this.applicationUrl+'/service/news';
+        this.pageBase = this.applicationUrl+'/'+this.$top.data('top-level-slug');
+
+        this.itemTemplate = this.$top.find('template[data-name="news-item"]').html();
+        this.serviceXHR = null;
+
+        this.cacheEls();
+        this.bindEvents();
+
+        this.loadResults();
+      },
+
+      cacheEls: function(){
+        this.$categoryInput = this.$top.find('[name="category"]');
+        this.$keywordsInput = this.$top.find('[name="keywords"]');
+        this.$results = this.$top.find('.results');
+      },
+
+      bindEvents: function(){
+        var _this = this;
+
+        this.$keywordsInput.keyup(function(e){
+          _this.loadResults();
+        });
+      },
+
+      loadResults: function(requestData){
+        var _this = this;
+
+        requestData = this.getDataObject(requestData);
+
+        this.stopLoadingResults();
+        this.requestResults(requestData);
+      },
+
+      stopLoadingResults: function(){
+        //this.$tree.find('.item.loading').removeClass('loading');
+        if(this.serviceXHR){
+          this.serviceXHR.abort();
+          this.serviceXHR = null;
+        }
+      },
+
+      requestResults: function(data){
+        var dataArray = [];
+
+        $.each(data, function(key, value){
+          dataArray.push(value);
+        });
+
+        this.serviceXHR = $.getJSON(this.serviceUrl+'/'+dataArray.join('/'), $.proxy(this.displayResults, this));
+      },
+
+      clearResults: function(){
+        this.$results.empty();
+      },
+
+      displayResults: function(data){
+        var _this = this;
+        var $newsItem;
+
+        this.clearResults();
+
+        $.each(data.results, function(index, result){
+          $newsItem = _this.buildResultRow(result);
+          _this.$results.append($newsItem);
+        });
+      },
+
+      buildResultRow: function(data){
+        var _this = this;
+        var $child = $(this.itemTemplate);
+        $child.find('.title').html(data.title);
+        $child.find('.date').html(data.timestamp);
+        $child.find('.excerpt').html(data.excerpt);
+
+        return $child;
+      },
+
+      getDataObject: function(data){
+        var _this = this;
+
+        var base = {
+          'category': '',
+          'keywords': _this.$keywordsInput.val(),
+          'page': 1,
+          'resultsPerPage': 2
+        };
+
+        if(data){
+          $.each(data, function(key, value){
+            base[key] = value;
+          });
+        }
+
+        return base;
+      }
+    }
+
+  }(jQuery));
+
   /** init section - this should be in a separate file - init.js
    */
   App.ins = {}; //keeps references to module instances
@@ -740,4 +855,5 @@ jQuery(function(){
   App.ins.emergencyMessage = new App.EmergencyMessage();
   App.ins.tableOfContents = new App.TableOfContents();
   App.ins.tabbedContent = new App.TabbedContent();
+  App.ins.news = new App.News();
 });

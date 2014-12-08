@@ -18,7 +18,7 @@ class Page_news extends MVC_controller {
   }
 
   function get_data() {
-    //$results = $this->get_news_from_API();
+    $results = $this->get_news_from_API();
 
     return array(
       'results' => array()
@@ -26,7 +26,7 @@ class Page_news extends MVC_controller {
   }
 
   private function get_news_from_API() {
-    $results = new news_request(array('', '', '', '', $page_id));
+    $results = new news_request(array('', '', 1));
     return htmlspecialchars(json_encode($results->results_array));
   }
 }

@@ -61,6 +61,17 @@
       </ul>
     </div>
   </div>
+
+  <template data-name="news-item">
+    <li class="news-item">
+      <img />
+      <h3 class="title">test</h3>
+      <div>
+        <span class="date">date</span>
+      </div>
+      <p class="excerpt">desc</p>
+    </li>
+  </template>
 </div>
 
 <?php endwhile ?>
