@@ -755,7 +755,10 @@ jQuery(function() {
         this.pageBase = this.applicationUrl+'/'+this.$top.data('top-level-slug');
 
         this.itemTemplate = this.$top.find('template[data-name="news-item"]').html();
+        this.groupSeparatorTemplate = this.$top.find('template[data-name="news-group-separator"]').html();
         this.serviceXHR = null;
+        this.months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+
 
         this.cacheEls();
         this.bindEvents();
@@ -828,10 +831,40 @@ jQuery(function() {
       displayResults: function(data) {
         var _this = this;
         var $newsItem;
+        var resultsPage = parseInt(data.urlParams.page, 10);
+        var $groupSeparator = null;
+        var itemDate = null;
+        var previousMonth = null;
+        var previousYear = null;
+        var thisMonth = null;
+        var thisYear = null;
 
         this.clearResults();
 
+        //"Latest" for first page of results
+        if(resultsPage === 1) {
+          $groupSeparator = $(this.groupSeparatorTemplate);
+          this.$results.append($groupSeparator);
+        }
+
         $.each(data.results, function(index, result) {
+          //Month+year for all pages excerpt page 1
+          //if(resultsPage > 1) {
+          //  itemDate = _this.parseDate(result.timestamp);
+          //  thisMonth = itemDate.getMonth();
+          //  thisYear = itemDate.getFullYear();
+          //
+          //  if(previousMonth !== thisMonth || previousYear !== thisYear){
+          //    $groupSeparator = $(_this.groupSeparatorTemplate);
+          //    $groupSeparator.html(_this.months[thisMonth] + ' ' + thisYear);
+          //    console.log($groupSeparator);
+          //    _this.$results.append($groupSeparator);
+          //
+          //    previousMonth = thisMonth;
+          //    previousYear = thisYear;
+          //  }
+          //}
+
           $newsItem = _this.buildResultRow(result);
           _this.$results.append($newsItem);
         });
@@ -884,9 +917,7 @@ jQuery(function() {
       },
 
       formatDate: function(dateObject) {
-        var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-
-        return dateObject.getDate()+' '+months[dateObject.getMonth()]+' '+dateObject.getFullYear();
+        return dateObject.getDate()+' '+this.months[dateObject.getMonth()]+' '+dateObject.getFullYear();
       },
 
       updatePagination: function(data) {

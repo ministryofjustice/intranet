@@ -84,6 +84,10 @@
       </div>
     </li>
   </template>
+
+  <template data-name="news-group-separator">
+    <h3 class="news-group-separator">Latest</h3>
+  </template>
 </div>
 
 <?php endwhile ?>
