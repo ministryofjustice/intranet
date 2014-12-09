@@ -759,7 +759,6 @@ jQuery(function() {
         this.serviceXHR = null;
         this.months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 
-
         this.cacheEls();
         this.bindEvents();
 
@@ -803,11 +802,18 @@ jQuery(function() {
 
         this.stopLoadingResults();
         this.$top.addClass('loading-results');
+        this.clearResults();
+
+        var $groupSeparator = $(this.groupSeparatorTemplate);
+        $groupSeparator.text('Loading results...');
+        this.$results.append($groupSeparator);
+
         this.requestResults(requestData);
       },
 
       stopLoadingResults: function() {
         this.$top.removeClass('loading-results');
+        this.$top.find('.news-group-separator.loading');
         if(this.serviceXHR) {
           this.serviceXHR.abort();
           this.serviceXHR = null;
@@ -815,13 +821,17 @@ jQuery(function() {
       },
 
       requestResults: function(data) {
+        var _this = this;
         var dataArray = [];
 
         $.each(data, function(key, value) {
           dataArray.push(value);
         });
 
-        this.serviceXHR = $.getJSON(this.serviceUrl+'/'+dataArray.join('/'), $.proxy(this.displayResults, this));
+        /* use the timeout for debugging purposes */
+        //window.setTimeout(function(){
+          _this.serviceXHR = $.getJSON(_this.serviceUrl+'/'+dataArray.join('/'), $.proxy(_this.displayResults, _this));
+        //}, 2000);
       },
 
       clearResults: function() {
