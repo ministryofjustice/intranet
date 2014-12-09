@@ -11,7 +11,7 @@
     }
   }
 
-  .news-group-separator {
+  .news-results-page-title {
     border-bottom: 1px solid $grey-2;
   }
 
@@ -19,6 +19,12 @@
     @include clearfix;
     padding: 10px 0;
     border-bottom: 1px solid $grey-2;
+    transition: opacity .3s;
+
+    &.faded {
+      transition: opacity .3s;
+      opacity: .3;
+    }
 
     .thumbnail-container {
       float: left;

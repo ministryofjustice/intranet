@@ -755,7 +755,8 @@ jQuery(function() {
         this.pageBase = this.applicationUrl+'/'+this.$top.data('top-level-slug');
 
         this.itemTemplate = this.$top.find('template[data-name="news-item"]').html();
-        this.groupSeparatorTemplate = this.$top.find('template[data-name="news-group-separator"]').html();
+        this.resultsPageTitleTemplate = this.$top.find('template[data-name="news-results-page-title"]').html();
+        this.noResultsTemplate = this.$top.find('template[data-name="news-no-results"]').html();
         this.serviceXHR = null;
         this.months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 
@@ -776,7 +777,8 @@ jQuery(function() {
       bindEvents: function() {
         var _this = this;
 
-        this.$keywordsInput.keyup(function(e) {
+        //!!! TODO: this will require a fallback for IE's
+        this.$keywordsInput.on('input', function(e) {
           _this.loadResults();
         });
 
@@ -797,16 +799,21 @@ jQuery(function() {
 
       loadResults: function(requestData) {
         var _this = this;
+        var $title = this.$top.find('.news-results-page-title');
+
+        if(!$title.length){
+          $title = $(this.resultsPageTitleTemplate);
+          this.$results.append($title);
+        }
 
         requestData = this.getDataObject(requestData);
 
         this.stopLoadingResults();
         this.$top.addClass('loading-results');
-        this.clearResults();
 
-        var $groupSeparator = $(this.groupSeparatorTemplate);
-        $groupSeparator.text('Loading results...');
-        this.$results.append($groupSeparator);
+        this.$top.find('.news-results-page-title').text('Loading results...');
+
+        this.$results.find('.news-item').addClass('faded');
 
         this.requestResults(requestData);
       },
@@ -829,9 +836,9 @@ jQuery(function() {
         });
 
         /* use the timeout for debugging purposes */
-        //window.setTimeout(function(){
+        window.setTimeout(function() {
           _this.serviceXHR = $.getJSON(_this.serviceUrl+'/'+dataArray.join('/'), $.proxy(_this.displayResults, _this));
-        //}, 2000);
+        }, 2000);
       },
 
       clearResults: function() {
@@ -851,34 +858,18 @@ jQuery(function() {
 
         this.clearResults();
 
-        //"Latest" for first page of results
-        if(resultsPage === 1) {
-          $groupSeparator = $(this.groupSeparatorTemplate);
-          this.$results.append($groupSeparator);
-        }
+        $groupSeparator = $(this.resultsPageTitleTemplate);
+        $groupSeparator.text(resultsPage === 1 ? 'Latest' : 'Archive');
+        this.$results.append($groupSeparator);
 
         $.each(data.results, function(index, result) {
-          /*Month+year for all pages excerpt page 1
-          if(resultsPage > 1) {
-            itemDate = _this.parseDate(result.timestamp);
-            thisMonth = itemDate.getMonth();
-            thisYear = itemDate.getFullYear();
-
-            if(previousMonth !== thisMonth || previousYear !== thisYear){
-              $groupSeparator = $(_this.groupSeparatorTemplate);
-              $groupSeparator.html(_this.months[thisMonth] + ' ' + thisYear);
-              console.log($groupSeparator);
-              _this.$results.append($groupSeparator);
-
-              previousMonth = thisMonth;
-              previousYear = thisYear;
-            }
-          }
-          */
-
           $newsItem = _this.buildResultRow(result);
           _this.$results.append($newsItem);
         });
+
+        if(data.results.length === 0) {
+          this.$results.append($(this.noResultsTemplate));
+        }
 
         this.updatePagination(data);
         this.stopLoadingResults();

@@ -2527,13 +2527,14 @@ form .form-row:first-of-type {
   margin-top: 20px;
 }
 /* line 14, ../scss/content/news_landing/_main.scss */
-.page-news .news-group-separator {
+.page-news .news-results-page-title {
   border-bottom: 1px solid #bfc1c3;
 }
 /* line 18, ../scss/content/news_landing/_main.scss */
 .page-news .news-item {
   padding: 10px 0;
   border-bottom: 1px solid #bfc1c3;
+  transition: opacity .3s;
 }
 /* line 2, ../scss/global/_mixins.scss */
 .page-news .news-item:after {
@@ -2541,27 +2542,32 @@ form .form-row:first-of-type {
   display: table;
   clear: both;
 }
-/* line 23, ../scss/content/news_landing/_main.scss */
+/* line 24, ../scss/content/news_landing/_main.scss */
+.page-news .news-item.faded {
+  transition: opacity .3s;
+  opacity: .3;
+}
+/* line 29, ../scss/content/news_landing/_main.scss */
 .page-news .news-item .thumbnail-container {
   float: left;
   width: 150px;
   height: 100px;
   margin-right: 10px;
 }
-/* line 30, ../scss/content/news_landing/_main.scss */
+/* line 36, ../scss/content/news_landing/_main.scss */
 .page-news .news-item .content {
   overflow: hidden;
 }
-/* line 35, ../scss/content/news_landing/_main.scss */
+/* line 41, ../scss/content/news_landing/_main.scss */
 .page-news .news-item .meta span {
   color: #6f777b;
 }
-/* line 40, ../scss/content/news_landing/_main.scss */
+/* line 46, ../scss/content/news_landing/_main.scss */
 .page-news .news-item .title {
   margin-top: 0px;
   margin-bottom: 0px;
 }
-/* line 45, ../scss/content/news_landing/_main.scss */
+/* line 51, ../scss/content/news_landing/_main.scss */
 .page-news .news-item .excerpt {
   margin-top: 10px;
 }

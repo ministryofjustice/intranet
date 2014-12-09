@@ -85,8 +85,14 @@
     </li>
   </template>
 
-  <template data-name="news-group-separator">
-    <h3 class="news-group-separator">Latest</h3>
+  <template data-name="news-no-results">
+    <li class="news-item">
+      <p class="no-results">No results found.</p>
+    </li>
+  </template>
+
+  <template data-name="news-results-page-title">
+    <h3 class="news-results-page-title">Latest</h3>
   </template>
 </div>
 
