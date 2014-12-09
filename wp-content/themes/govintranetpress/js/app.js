@@ -7,7 +7,7 @@
  * TODO: some modules share functionality when it comes to getting results via XHR. This should be abstracted at some point.
  *
  * Left to do for News:
- * - Pagination
+ * v Pagination
  * - Deep linking
  */
 jQuery(function() {
@@ -848,22 +848,23 @@ jQuery(function() {
         }
 
         $.each(data.results, function(index, result) {
-          //Month+year for all pages excerpt page 1
-          //if(resultsPage > 1) {
-          //  itemDate = _this.parseDate(result.timestamp);
-          //  thisMonth = itemDate.getMonth();
-          //  thisYear = itemDate.getFullYear();
-          //
-          //  if(previousMonth !== thisMonth || previousYear !== thisYear){
-          //    $groupSeparator = $(_this.groupSeparatorTemplate);
-          //    $groupSeparator.html(_this.months[thisMonth] + ' ' + thisYear);
-          //    console.log($groupSeparator);
-          //    _this.$results.append($groupSeparator);
-          //
-          //    previousMonth = thisMonth;
-          //    previousYear = thisYear;
-          //  }
-          //}
+          /*Month+year for all pages excerpt page 1
+          if(resultsPage > 1) {
+            itemDate = _this.parseDate(result.timestamp);
+            thisMonth = itemDate.getMonth();
+            thisYear = itemDate.getFullYear();
+
+            if(previousMonth !== thisMonth || previousYear !== thisYear){
+              $groupSeparator = $(_this.groupSeparatorTemplate);
+              $groupSeparator.html(_this.months[thisMonth] + ' ' + thisYear);
+              console.log($groupSeparator);
+              _this.$results.append($groupSeparator);
+
+              previousMonth = thisMonth;
+              previousYear = thisYear;
+            }
+          }
+          */
 
           $newsItem = _this.buildResultRow(result);
           _this.$results.append($newsItem);
@@ -894,10 +895,13 @@ jQuery(function() {
 
       getDataObject: function(data) {
         var _this = this;
+        var keywords = _this.$keywordsInput.val();
+
+        keywords = keywords.replace(/\s+/g, '+');
 
         var base = {
           'category': '',
-          'keywords': _this.$keywordsInput.val(),
+          'keywords': keywords,
           'page': 1,
           'resultsPerPage': 2
         };
