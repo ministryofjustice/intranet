@@ -768,6 +768,11 @@ jQuery(function() {
         this.cacheEls();
         this.bindEvents();
 
+        //update keywords field with keywords from url
+        var segments = this.getSegmentsFromUrl();
+        if(segments[2]) {
+          this.$keywordsInput.val(segments[2].replace('+', ' '));
+        }
 
         this.loadResults();
       },
@@ -842,9 +847,9 @@ jQuery(function() {
         });
 
         /* use the timeout for dev/debugging purposes */
-        //window.setTimeout(function() {
+        //**/window.setTimeout(function() {
           _this.serviceXHR = $.getJSON(_this.serviceUrl+'/'+dataArray.join('/'), $.proxy(_this.displayResults, _this));
-        //}, 2000);
+        //**/}, 2000);
       },
 
       clearResults: function() {
@@ -902,8 +907,7 @@ jQuery(function() {
       },
 
       getDataObject: function(data) {
-        var _this = this;
-        var keywords = _this.$keywordsInput.val();
+        var keywords = this.$keywordsInput.val();
         var segments = this.getSegmentsFromUrl();
 
         keywords = keywords.replace(/^\s+|\s+$/g, '');
@@ -911,6 +915,7 @@ jQuery(function() {
 
         var base = {
           'category': '',
+          'date': '',
           'keywords': keywords,
           'page': segments[1] || 1,
           'resultsPerPage': 2
@@ -977,10 +982,8 @@ jQuery(function() {
 
         //keywords
         if(keywords.length) {
-          urlParts.push('keywords');
           urlParts.push(keywords);
         }
-
 
         history.pushState({}, "", urlParts.join('/')+'/');
       },
