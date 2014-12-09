@@ -7,8 +7,9 @@
  * TODO: some modules share functionality when it comes to getting results via XHR. This should be abstracted at some point.
  *
  * Left to do for News:
- * v Pagination
- * - Deep linking
+ * v - Pagination
+ *   - Results shouln't have Latest/Archive labels but it should say instead: X results containing "keywords"
+ *   - Deep linking
  */
 jQuery(function() {
   "use strict";
@@ -835,7 +836,7 @@ jQuery(function() {
           dataArray.push(value);
         });
 
-        /* use the timeout for debugging purposes */
+        /* use the timeout for dev/debugging purposes */
         window.setTimeout(function() {
           _this.serviceXHR = $.getJSON(_this.serviceUrl+'/'+dataArray.join('/'), $.proxy(_this.displayResults, _this));
         }, 2000);
