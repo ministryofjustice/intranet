@@ -14,7 +14,10 @@
 jQuery(function() {
   "use strict";
 
-  var App = {};
+  var App = {
+    tools: {},
+    ins: {}
+  };
 
   /** Mobile menu
    */
@@ -760,9 +763,11 @@ jQuery(function() {
         this.noResultsTemplate = this.$top.find('template[data-name="news-no-results"]').html();
         this.serviceXHR = null;
         this.months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+        this.currentPage = null;
 
         this.cacheEls();
         this.bindEvents();
+
 
         this.loadResults();
       },
@@ -802,7 +807,7 @@ jQuery(function() {
         var _this = this;
         var $title = this.$top.find('.news-results-page-title');
 
-        if(!$title.length){
+        if(!$title.length) {
           $title = $(this.resultsPageTitleTemplate);
           this.$results.append($title);
         }
@@ -837,9 +842,9 @@ jQuery(function() {
         });
 
         /* use the timeout for dev/debugging purposes */
-        window.setTimeout(function() {
+        //window.setTimeout(function() {
           _this.serviceXHR = $.getJSON(_this.serviceUrl+'/'+dataArray.join('/'), $.proxy(_this.displayResults, _this));
-        }, 2000);
+        //}, 2000);
       },
 
       clearResults: function() {
@@ -873,6 +878,7 @@ jQuery(function() {
         }
 
         this.updatePagination(data);
+        this.updateUrl();
         this.stopLoadingResults();
       },
 
@@ -898,13 +904,15 @@ jQuery(function() {
       getDataObject: function(data) {
         var _this = this;
         var keywords = _this.$keywordsInput.val();
+        var segments = this.getSegmentsFromUrl();
 
+        keywords = keywords.replace(/^\s+|\s+$/g, '');
         keywords = keywords.replace(/\s+/g, '+');
 
         var base = {
           'category': '',
           'keywords': keywords,
-          'page': 1,
+          'page': segments[1] || 1,
           'resultsPerPage': 2
         };
 
@@ -927,16 +935,16 @@ jQuery(function() {
       },
 
       updatePagination: function(data) {
-        var currentPage = parseInt(data.urlParams.page, 10);
+        this.currentPage = parseInt(data.urlParams.page, 10);
         var perPage = parseInt(data.urlParams.per_page, 10);
         var totalResults = parseInt(data.totalResults, 10);
         var totalPages = perPage > 0 ? Math.ceil(totalResults/perPage) : 1;
-        var prevPage = Math.max(currentPage-1, 1);
-        var nextPage = Math.min(currentPage+1, totalPages);
+        var prevPage = Math.max(this.currentPage-1, 1);
+        var nextPage = Math.min(this.currentPage+1, totalPages);
 
         //visibility of the pagination buttons
-        this.$prevPage.toggleClass('disabled', currentPage <= 1);
-        this.$nextPage.toggleClass('disabled', currentPage >= totalPages);
+        this.$prevPage.toggleClass('disabled', this.currentPage <= 1);
+        this.$nextPage.toggleClass('disabled', this.currentPage >= totalPages);
 
         //update data attr used for navigation
         this.$prevPage.attr('data-page', prevPage);
@@ -946,13 +954,41 @@ jQuery(function() {
         this.$prevPage.find('.prev-page').text(prevPage);
         this.$nextPage.find('.next-page').text(nextPage);
         this.$top.find('.total-pages').text(totalPages);
-      }
+      },
+
+      getSegmentsFromUrl: function() {
+        var url = window.location.href;
+        var sub = url.substr(this.pageBase.length);
+        sub = sub.replace(/^[/]+|[/]+$/g, ''); //remove leading and trailing slashes
+        return sub.split('/');
+      },
+
+      /** Updates the url based on user selections
+       */
+      updateUrl: function() {
+        var urlParts = [this.pageBase];
+        var keywords = this.$keywordsInput.val();
+        keywords = keywords.replace(/^\s+|\s+$/g, '');
+        keywords = keywords.replace(/\s+/g, '+');
+
+        //page number
+        urlParts.push('page');
+        urlParts.push(this.currentPage);
+
+        //keywords
+        if(keywords.length) {
+          urlParts.push('keywords');
+          urlParts.push(keywords);
+        }
+
+
+        history.pushState({}, "", urlParts.join('/')+'/');
+      },
     }
   }(jQuery));
 
   /** init section - this should be in a separate file - init.js
    */
-  App.ins = {}; //keeps references to module instances
   App.ins.mobileMenu = new App.MobileMenu();
   App.ins.stickyNews = new App.StickyNews();
   App.ins.guidanceAndSupport = new App.GuidanceAndSupport();

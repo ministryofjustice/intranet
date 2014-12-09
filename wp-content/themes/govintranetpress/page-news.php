@@ -5,9 +5,14 @@
 */
 
 class Page_news extends MVC_controller {
+  private $page_number;
+  private $post;
+
   function __construct() {
-    parent::__construct();
     $this->page_number = get_query_var('paged') ?: 1;
+    $this->post = get_post(get_the_id());
+
+    parent::__construct();
   }
 
   function main() {
@@ -18,10 +23,10 @@ class Page_news extends MVC_controller {
   }
 
   function get_data() {
-    $results = $this->get_news_from_API();
+    $top_slug = $this->post->post_name;
 
     return array(
-      'results' => array()
+      'top_slug' => htmlspecialchars($top_slug)
     );
   }
 

@@ -12,7 +12,7 @@
   }
 
   .news-results-page-title {
-    border-bottom: 1px solid $grey-2;
+    border-bottom: 1px solid $grey-1;
   }
 
   .news-item {
@@ -22,7 +22,6 @@
     transition: opacity .3s;
 
     &.faded {
-      transition: opacity .3s;
       opacity: .3;
     }
 
