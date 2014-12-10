@@ -15,6 +15,15 @@
     border-bottom: 1px solid $grey-1;
   }
 
+  .news-filtered-results-title {
+    font-weight: normal;
+
+    .results-count,
+    .keywords {
+      font-weight: bold;
+    }
+  }
+
   .news-item {
     @include clearfix;
     padding: 10px 0;

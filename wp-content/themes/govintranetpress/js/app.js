@@ -760,6 +760,7 @@ jQuery(function() {
 
         this.itemTemplate = this.$top.find('template[data-name="news-item"]').html();
         this.resultsPageTitleTemplate = this.$top.find('template[data-name="news-results-page-title"]').html();
+        this.filteredResultsTitleTemplate = this.$top.find('template[data-name="news-filtered-results-title"]').html();
         this.noResultsTemplate = this.$top.find('template[data-name="news-no-results"]').html();
         this.serviceXHR = null;
         this.months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
@@ -860,18 +861,26 @@ jQuery(function() {
         var _this = this;
         var $newsItem;
         var resultsPage = parseInt(data.urlParams.page, 10);
-        var $groupSeparator = null;
+        var $resultsTitle = $(this.resultsPageTitleTemplate);
+        var $filteredResultsTitle = $(this.filteredResultsTitleTemplate);
         var itemDate = null;
         var previousMonth = null;
         var previousYear = null;
         var thisMonth = null;
         var thisYear = null;
+        var totalResults = parseInt(data.totalResults, 10);
 
         this.clearResults();
 
-        $groupSeparator = $(this.resultsPageTitleTemplate);
-        $groupSeparator.text(resultsPage === 1 ? 'Latest' : 'Archive');
-        this.$results.append($groupSeparator);
+        if(this.hasKeywords()) {
+          $filteredResultsTitle.find('.results-count').text(totalResults + ' ' + (totalResults === 1 ? 'result' : 'results'));
+          $filteredResultsTitle.find('.keywords').text(this.getSanitizedKeywords());
+          this.$results.append($filteredResultsTitle);
+        }
+        else {
+          $resultsTitle.text(resultsPage === 1 ? 'Latest' : 'Archive');
+          this.$results.append($resultsTitle);
+        }
 
         $.each(data.results, function(index, result) {
           $newsItem = _this.buildResultRow(result);
@@ -885,6 +894,17 @@ jQuery(function() {
         this.updatePagination(data);
         this.updateUrl();
         this.stopLoadingResults();
+      },
+
+      hasKeywords: function() {
+        return this.$keywordsInput.val().length > 0;
+      },
+
+      getSanitizedKeywords: function() {
+        var keywords = this.$keywordsInput.val();
+        keywords = keywords.replace(/^\s+|\s+$/g, '');
+        keywords = keywords.replace(/\s+/g, ' ');
+        return keywords;
       },
 
       buildResultRow: function(data) {
@@ -972,9 +992,8 @@ jQuery(function() {
        */
       updateUrl: function() {
         var urlParts = [this.pageBase];
-        var keywords = this.$keywordsInput.val();
-        keywords = keywords.replace(/^\s+|\s+$/g, '');
-        keywords = keywords.replace(/\s+/g, '+');
+        var keywords = this.getSanitizedKeywords();
+        keywords = keywords.replace(/\s/g, '+');
 
         //page number
         urlParts.push('page');

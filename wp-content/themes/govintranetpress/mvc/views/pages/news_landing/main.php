@@ -94,6 +94,14 @@
   <template data-name="news-results-page-title">
     <h3 class="news-results-page-title">Latest</h3>
   </template>
+
+  <template data-name="news-filtered-results-title">
+    <h3 class="news-filtered-results-title">
+      <span class="results-count"></span>
+      containing
+      <span class="keywords"></span>
+    </h3>
+  </template>
 </div>
 
 <?php endwhile ?>
