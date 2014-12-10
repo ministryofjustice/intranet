@@ -36,7 +36,7 @@
     </div>
 
     <div class="col-lg-8">
-      <div class="content">
+      <div class="content editable">
         <?=$content?>
       </div>
 
