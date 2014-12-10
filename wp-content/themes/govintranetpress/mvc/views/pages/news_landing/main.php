@@ -46,7 +46,7 @@
       <ul class="content-nav grid">
         <li class="previous disabled col-lg-6 col-md-6 col-sm-6">
           <a href="<?=$prev_news_url ?: '#'?>">
-            <span class="nav-label">&lsaquo; Previous page</span>
+            <span class="nav-label">Previous page</span>
             <span class="page-info">
               <span class="prev-page"></span>
               of
@@ -58,7 +58,7 @@
 
         <li class="next disabled col-lg-6 col-md-6 col-sm-6">
           <a href="<?=$next_news_url ?: '#'?>">
-            <span class="nav-label">Next page &rsaquo;</span>
+            <span class="nav-label">Next page</span>
             <span class="page-info">
               <span class="next-page"></span>
               of
@@ -73,10 +73,14 @@
   <template data-name="news-item">
     <li class="news-item">
       <div class="thumbnail-container">
-        <img class="thumbnail" />
+        <a href="" class="news-link">
+          <img class="thumbnail" />
+        </a>
       </div>
       <div class="content">
-        <h3 class="title">test</h3>
+        <a href="" class="news-link">
+          <h3 class="title">test</h3>
+        </a>
         <div class="meta">
           <span class="date">date</span>
         </div>
@@ -85,20 +89,15 @@
     </li>
   </template>
 
-  <template data-name="news-no-results">
-    <li class="news-item">
-      <p class="no-results">No results found.</p>
-    </li>
-  </template>
-
   <template data-name="news-results-page-title">
-    <h3 class="news-results-page-title">Latest</h3>
+    <h3 class="news-results-page-title news-results-title">Latest</h3>
   </template>
 
   <template data-name="news-filtered-results-title">
-    <h3 class="news-filtered-results-title">
+    <h3 class="news-filtered-results-title news-results-title">
       <span class="results-count"></span>
-      containing
+      <span class="results-count-description"></span>
+      <span class="containing">containing</span>
       <span class="keywords"></span>
     </h3>
   </template>
