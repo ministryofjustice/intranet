@@ -2,14 +2,6 @@
  * to app.js during a build process (which we don't have at the moment).
  * The individual modules are already built to work on their own.
  *
- * #############################################################################
- *
- * TODO: some modules share functionality when it comes to getting results via XHR. This should be abstracted at some point.
- *
- * Left to do for News:
- * v - Pagination
- *   - Results shouln't have Latest/Archive labels but it should say instead: X results containing "keywords"
- *   - Deep linking
  */
 jQuery(function() {
   "use strict";
@@ -937,8 +929,8 @@ jQuery(function() {
           'category': '',
           'date': '',
           'keywords': keywords,
-          'page': segments[1] || 1,
-          'resultsPerPage': 2
+          'page': segments[1] || 1
+          //'resultsPerPage': 20 //commenting out - we want it to use the default setting from the API for now
         };
 
         if(data) {
