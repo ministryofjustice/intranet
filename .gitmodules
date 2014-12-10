@@ -1,12 +1,12 @@
 [submodule "wp-content/plugins/dw-mvc"]
 	path = wp-content/plugins/dw-mvc
-	url = git@github.com:ministryofjustice/dw-mvc.git
+	url = https://github.com/ministryofjustice/dw-mvc.git
 [submodule "wp-content/plugins/dw-pageapi"]
 	path = wp-content/plugins/dw-pageapi
-	url = git@github.com:ministryofjustice/dw-pageapi.git
+	url = https://github.com/ministryofjustice/dw-pageapi.git
 [submodule "wp-content/plugins/dw-sticky-news"]
 	path = wp-content/plugins/dw-sticky-news
-	url = git@github.com:ministryofjustice/dw-sticky-news.git
+	url = https://github.com/ministryofjustice/dw-sticky-news.git
 [submodule "wp-content/plugins/dw-feature-news"]
 	path = wp-content/plugins/dw-feature-news
-	url = git@github.com:ministryofjustice/dw-feature-news.git
+	url = https://github.com/ministryofjustice/dw-feature-news.git

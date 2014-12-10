@@ -1576,3 +1576,11 @@ function keep_me_logged_in_for_1_hour( $expirein ) {
     return 3600; // 1 hour in seconds
 }
 add_filter( 'auth_cookie_expiration', 'keep_me_logged_in_for_1_hour' );
+
+function newspage_rewrite_rule() {
+  $regex = '^newspage/page/([0-9]+)/(.*)';
+  $redirect = 'index.php?page_id='.get_page_by_path('newspage')->ID;
+  add_rewrite_rule($regex, $redirect, 'top');
+}
+
+add_action('init', 'newspage_rewrite_rule');
