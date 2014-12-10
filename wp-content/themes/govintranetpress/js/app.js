@@ -932,7 +932,6 @@ jQuery(function() {
           'keywords': keywords,
           'page': segments[1] || 1
           //'resultsPerPage': 20 //commenting out - we want it to use the default setting from the API for now
-          ,'resultsPerPage': 2
         };
 
         if(data) {
