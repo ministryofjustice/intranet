@@ -5,7 +5,7 @@
     margin-bottom: 20px;
     padding-top: 16px;
     border-top: none;
-    border-bottom: 1px solid #545454;
+    border-bottom: 1px solid $grey-2;
   }
 
   .news-date-wrapper {
@@ -87,13 +87,13 @@
 
   .news-thumbnail {
     padding: 10px 0;
-    border-top: 1px solid #888;
+    border-top: 1px solid $grey-2;
 
     img {
       float: left;
       max-width: 100px;
       margin-right: 20px;
-      border: 1px solid #aaa;
+      border: 1px solid $grey-2;
     }
 
     h3 {

@@ -20,7 +20,7 @@
         margin: 0;
         padding: 0.5em 0 0.5em 0;
         list-style: none;
-        border-top: 1px solid #eee;
+        border-top: 1px solid $grey-2;
 
         &.first-link,
         &:first-of-type {
@@ -170,7 +170,7 @@
     margin-top: 25px;
 
     > h3 {
-      border-top: 2px solid #888;
+      border-top: 2px solid $grey-2;
     }
 
     h3 {
@@ -180,14 +180,14 @@
 
   .department-news {
     .news-item {
-      border-top: 1px solid #ccc;
+      border-top: 1px solid $grey-2;
 
       &:first-of-type {
         border-top: none;
       }
     }
     .more-in-news {
-      border-top: 1px solid #ccc;
+      border-top: 1px solid $grey-2;
     }
   }
 
@@ -200,7 +200,7 @@
 
     &.small-news {
       .more-in-news {
-        border-top: 1px solid #888;
+        border-top: 1px solid $grey-2;
       }
     }
   }
