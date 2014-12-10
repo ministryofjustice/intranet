@@ -753,7 +753,6 @@ jQuery(function() {
         this.itemTemplate = this.$top.find('template[data-name="news-item"]').html();
         this.resultsPageTitleTemplate = this.$top.find('template[data-name="news-results-page-title"]').html();
         this.filteredResultsTitleTemplate = this.$top.find('template[data-name="news-filtered-results-title"]').html();
-        this.noResultsTemplate = this.$top.find('template[data-name="news-no-results"]').html();
         this.serviceXHR = null;
         this.months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
         this.currentPage = null;
@@ -783,7 +782,9 @@ jQuery(function() {
 
         //!!! TODO: this will require a fallback for IE's
         this.$keywordsInput.on('input', function(e) {
-          _this.loadResults();
+          _this.loadResults({
+            page: 1
+          });
         });
 
         this.$prevPage.click(function(e) {
@@ -815,7 +816,8 @@ jQuery(function() {
         this.stopLoadingResults();
         this.$top.addClass('loading-results');
 
-        this.$top.find('.news-results-page-title').text('Loading results...');
+        this.$top.find('.news-results-title').remove();
+        this.$results.prepend($(this.resultsPageTitleTemplate).text('Loading results...'));
 
         this.$results.find('.news-item').addClass('faded');
 
@@ -865,7 +867,8 @@ jQuery(function() {
         this.clearResults();
 
         if(this.hasKeywords()) {
-          $filteredResultsTitle.find('.results-count').text(totalResults + ' ' + (totalResults === 1 ? 'result' : 'results'));
+          $filteredResultsTitle.find('.results-count').text(totalResults);
+          $filteredResultsTitle.find('.results-count-description').text(totalResults === 1 ? 'result' : 'results');
           $filteredResultsTitle.find('.keywords').text(this.getSanitizedKeywords());
           this.$results.append($filteredResultsTitle);
         }
@@ -878,10 +881,6 @@ jQuery(function() {
           $newsItem = _this.buildResultRow(result);
           _this.$results.append($newsItem);
         });
-
-        if(data.results.length === 0) {
-          this.$results.append($(this.noResultsTemplate));
-        }
 
         this.updatePagination(data);
         this.updateUrl();
@@ -912,6 +911,7 @@ jQuery(function() {
         }
 
         $child.find('.title').html(data.title);
+        $child.find('.news-link').attr('href', data.url);
         $child.find('.date').html(this.formatDate(date));
         $child.find('.excerpt').html(data.excerpt);
 
@@ -921,6 +921,7 @@ jQuery(function() {
       getDataObject: function(data) {
         var keywords = this.$keywordsInput.val();
         var segments = this.getSegmentsFromUrl();
+        var page = segments[1] || 1;
 
         keywords = keywords.replace(/^\s+|\s+$/g, '');
         keywords = keywords.replace(/\s+/g, '+');
