@@ -103,4 +103,5 @@ wp-content/mysql.sql
 .sass-cache
 .htaccess
 /wp-content/plugins/pageapi/
+nbproject
 

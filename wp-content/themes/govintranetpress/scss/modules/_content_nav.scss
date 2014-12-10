@@ -5,23 +5,40 @@
   li {
     &:before,
     &:after {
-      font-size: 24px;
     }
 
     &:hover {
       background-color: $grey-4;
     }
 
+    &.disabled {
+      visibility: hidden;
+    }
+
+    &.previous,
+    &.next {
+      a {
+        padding-left: 25px;
+        padding-right: 25px;
+        background-repeat: no-repeat;
+        background-size: 21px 38px;
+      }
+    }
+
     &.previous {
       float: left;
+
+      a {
+        background-image: url("../images/chevron_left_x2.png");
+        background-position: left 6px;
+      }
 
       .nav-label {
         display: block;
         text-align: left;
       }
 
-      .page-number {
-        padding-left: 15px;
+      .page-info {
         text-align: left;
       }
     }
@@ -29,26 +46,31 @@
     &.next {
       float: right;
 
+      a {
+        background-image: url("../images/chevron_right_x2.png");
+        background-position: right 6px;
+      }
+
       .nav-label {
         display: block;
         text-align: right;
       }
 
-      .page-number {
-        padding-right: 15px;
+      .page-info {
         text-align: right;
       }
     }
 
     a {
       display: block;
-      padding: 10px 0;
+      padding: 10px 12px;
       text-decoration: none;
     }
 
-    .page-number {
+    .page-info {
       @extend %small-copy;
       display: block;
+      padding-top: 5px;
       color: $grey-1;
     }
   }
