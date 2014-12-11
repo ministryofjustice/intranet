@@ -1503,79 +1503,81 @@ form .form-row:first-of-type {
   border: 1px solid #333;
   border-left: 0;
 }
-/* line 31, ../scss/modules/_main_nav.scss */
+/* line 23, ../scss/modules/_main_nav.scss */
 #mainnav #primarynav ul.mega-menu > li.current-menu-item, #mainnav #primarynav ul.mega-menu > li.mega-current_page_item, #mainnav #primarynav ul.mega-menu > li.mega-current-page-ancestor {
   background: white !important;
   border-bottom: 1px solid #fff;
 }
-/* line 37, ../scss/modules/_main_nav.scss */
+/* line 29, ../scss/modules/_main_nav.scss */
 #mainnav #primarynav ul.mega-menu > li.current-menu-item a, #mainnav #primarynav ul.mega-menu > li.mega-current_page_item a, #mainnav #primarynav ul.mega-menu > li.mega-current-page-ancestor a {
   color: #1E4287;
 }
-/* line 42, ../scss/modules/_main_nav.scss */
+/* line 34, ../scss/modules/_main_nav.scss */
 #mainnav #primarynav ul.mega-menu > li.mega-toggle-on {
   background: white !important;
 }
-/* line 46, ../scss/modules/_main_nav.scss */
+/* line 38, ../scss/modules/_main_nav.scss */
 #mainnav #primarynav ul.mega-menu > li > a {
   display: block;
   color: #61415B;
+  font-weight: bold !important;
+  /* outweighing the plugin style which is id-based and variable... */
   text-decoration: none;
 }
-/* line 51, ../scss/modules/_main_nav.scss */
+/* line 44, ../scss/modules/_main_nav.scss */
 #mainnav #primarynav ul.mega-menu > li > a:hover {
   background: white;
   color: #61415B;
 }
 
 /* MAIN NAVIGATION */
-/* line 63, ../scss/modules/_main_nav.scss */
+/* line 55, ../scss/modules/_main_nav.scss */
 .navbar {
   margin-bottom: 0;
   border: 0;
 }
 
-/* line 67, ../scss/modules/_main_nav.scss */
+/* line 59, ../scss/modules/_main_nav.scss */
 .navbar-inverse {
   background: transparent;
 }
 
-/* line 70, ../scss/modules/_main_nav.scss */
+/* line 62, ../scss/modules/_main_nav.scss */
 .navbar-inverse .navbar-brand {
   color: #fff;
 }
 
-/* line 74, ../scss/modules/_main_nav.scss */
+/* line 66, ../scss/modules/_main_nav.scss */
 .navbar-toggle {
   margin-right: 0;
 }
 
 @media (min-width: 0) and (max-width: 767px) {
-  /* line 79, ../scss/modules/_main_nav.scss */
+  /* line 71, ../scss/modules/_main_nav.scss */
   #mainnav {
     float: none;
     width: 100%;
   }
-  /* line 83, ../scss/modules/_main_nav.scss */
+  /* line 75, ../scss/modules/_main_nav.scss */
   #mainnav #mega-menu-wrap-primary-2 {
     position: static;
   }
-  /* line 88, ../scss/modules/_main_nav.scss */
+  /* line 80, ../scss/modules/_main_nav.scss */
   #mainnav #primarynav .mega-menu-wrap {
     display: table;
     width: 100%;
   }
-  /* line 92, ../scss/modules/_main_nav.scss */
+  /* line 84, ../scss/modules/_main_nav.scss */
   #mainnav #primarynav .mega-menu-wrap > ul {
     display: table-row;
     position: relative;
   }
-  /* line 96, ../scss/modules/_main_nav.scss */
+  /* line 88, ../scss/modules/_main_nav.scss */
   #mainnav #primarynav .mega-menu-wrap > ul > li {
     display: table-cell;
     float: none;
   }
-  /* line 100, ../scss/modules/_main_nav.scss */
+  /* line 92, ../scss/modules/_main_nav.scss */
   #mainnav #primarynav .mega-menu-wrap > ul > li > a {
     text-align: center;
     padding-left: 0;
