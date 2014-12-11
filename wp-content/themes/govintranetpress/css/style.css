@@ -2436,28 +2436,38 @@ form .form-row:first-of-type {
 .guidance-and-support .categories .description {
   display: none;
 }
-/* line 91, ../scss/content/guidance_and_support/_main.scss */
+/* line 90, ../scss/content/guidance_and_support/_main.scss */
+.guidance-and-support .categories li.item.selected a:after {
+  background-image: url("../images/chevron_white.png");
+}
+/* line 95, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .categories,
 .guidance-and-support .subcategories {
   border-right: 1px solid #bfc1c3;
 }
-/* line 95, ../scss/content/guidance_and_support/_main.scss */
+/* line 99, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .categories h3,
 .guidance-and-support .subcategories h3 {
   padding-right: 10px;
 }
-/* line 101, ../scss/content/guidance_and_support/_main.scss */
+/* line 106, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .categories ul a:after,
 .guidance-and-support .subcategories ul a:after {
   position: absolute;
-  font-size: 30px;
-  line-height: 30px;
   right: 10px;
   top: 50%;
-  margin-top: -15px;
-  content: "\203a";
+  width: 6px;
+  height: 9px;
+  margin-top: -5px;
+  background-image: url("../images/chevron_blue.png");
+  content: "";
 }
-/* line 112, ../scss/content/guidance_and_support/_main.scss */
+/* line 116, ../scss/content/guidance_and_support/_main.scss */
+.guidance-and-support .categories ul a:after:hover,
+.guidance-and-support .subcategories ul a:after:hover {
+  background-image: url("../images/chevron_white.png");
+}
+/* line 123, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .categories li.loading a:after,
 .guidance-and-support .subcategories li.loading a:after {
   content: "";
@@ -2467,7 +2477,7 @@ form .form-row:first-of-type {
   top: 50%;
   margin-top: -8px;
 }
-/* line 122, ../scss/content/guidance_and_support/_main.scss */
+/* line 133, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .subcategories,
 .guidance-and-support .links {
   display: none;
@@ -2475,12 +2485,12 @@ form .form-row:first-of-type {
   margin-left: -1px;
   border-left: 1px solid #bfc1c3;
 }
-/* line 131, ../scss/content/guidance_and_support/_main.scss */
+/* line 142, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .subcategories.visible,
 .guidance-and-support .links.visible {
   display: block;
 }
-/* line 135, ../scss/content/guidance_and_support/_main.scss */
+/* line 146, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .subcategories .sort-order,
 .guidance-and-support .links .sort-order {
   width: 90px;
@@ -2492,13 +2502,13 @@ form .form-row:first-of-type {
   overflow: hidden;
   white-space: nowrap;
 }
-/* line 146, ../scss/content/guidance_and_support/_main.scss */
+/* line 157, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .subcategories .item-list,
 .guidance-and-support .links .item-list {
   position: relative;
   background-color: #fff;
 }
-/* line 151, ../scss/content/guidance_and_support/_main.scss */
+/* line 162, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .subcategories .item-list,
 .guidance-and-support .subcategories .category-name,
 .guidance-and-support .links .item-list,
@@ -2506,7 +2516,7 @@ form .form-row:first-of-type {
   margin-left: 0;
   transition: margin-left .3s;
 }
-/* line 158, ../scss/content/guidance_and_support/_main.scss */
+/* line 169, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .subcategories.current .item-list,
 .guidance-and-support .subcategories.current .category-name,
 .guidance-and-support .links.current .item-list,
@@ -2514,58 +2524,58 @@ form .form-row:first-of-type {
   margin-left: 90px;
   transition: margin-left .3s;
 }
-/* line 167, ../scss/content/guidance_and_support/_main.scss */
+/* line 178, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .subcategories.item-container {
   transition: margin-left .3s;
 }
-/* line 173, ../scss/content/guidance_and_support/_main.scss */
+/* line 184, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .links.item-container {
   transition: width .3s;
 }
 
 @media (max-width: 767px) {
-  /* line 185, ../scss/content/guidance_and_support/_main.scss */
+  /* line 196, ../scss/content/guidance_and_support/_main.scss */
   .guidance-and-support .tree-container {
     overflow: hidden;
     width: 100%;
   }
-  /* line 190, ../scss/content/guidance_and_support/_main.scss */
+  /* line 201, ../scss/content/guidance_and_support/_main.scss */
   .guidance-and-support .tree {
     width: 303%;
     transition: margin-left .15s;
   }
-  /* line 194, ../scss/content/guidance_and_support/_main.scss */
+  /* line 205, ../scss/content/guidance_and_support/_main.scss */
   .guidance-and-support .tree[data-show-column="1"] {
     margin-left: 0%;
   }
-  /* line 198, ../scss/content/guidance_and_support/_main.scss */
+  /* line 209, ../scss/content/guidance_and_support/_main.scss */
   .guidance-and-support .tree[data-show-column="2"] {
     margin-left: -100%;
   }
-  /* line 202, ../scss/content/guidance_and_support/_main.scss */
+  /* line 213, ../scss/content/guidance_and_support/_main.scss */
   .guidance-and-support .tree[data-show-column="3"] {
     margin-left: -200%;
   }
-  /* line 207, ../scss/content/guidance_and_support/_main.scss */
+  /* line 218, ../scss/content/guidance_and_support/_main.scss */
   .guidance-and-support .tree.collapsed .subcategories {
     margin-left: 0;
   }
-  /* line 211, ../scss/content/guidance_and_support/_main.scss */
+  /* line 222, ../scss/content/guidance_and_support/_main.scss */
   .guidance-and-support .tree.collapsed .links {
     width: 33%;
   }
-  /* line 217, ../scss/content/guidance_and_support/_main.scss */
+  /* line 228, ../scss/content/guidance_and_support/_main.scss */
   .guidance-and-support .item-container {
     border: none;
     margin-left: 0;
   }
-  /* line 222, ../scss/content/guidance_and_support/_main.scss */
+  /* line 233, ../scss/content/guidance_and_support/_main.scss */
   .guidance-and-support .item-container.current .item-list,
   .guidance-and-support .item-container.current .category-name {
     margin-left: 0;
     transition: margin-left .3s;
   }
-  /* line 229, ../scss/content/guidance_and_support/_main.scss */
+  /* line 240, ../scss/content/guidance_and_support/_main.scss */
   .guidance-and-support .item-container .item {
     display: block !important;
   }

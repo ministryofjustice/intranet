@@ -86,6 +86,10 @@
     .description {
       display: none;
     }
+
+    li.item.selected a:after {
+      background-image: url("../images/chevron_white.png");
+    }
   }
 
   .categories,
@@ -97,15 +101,22 @@
       padding-right: 10px;
     }
 
-    ul a {
-      &:after {
-        position: absolute;
-        font-size: 30px;
-        line-height: 30px;
-        right: 10px;
-        top: 50%;
-        margin-top: -15px;
-        content: "\203a";
+    ul {
+      a {
+        &:after {
+          position: absolute;
+          right: 10px;
+          top: 50%;
+          width: 6px;
+          height: 9px;
+          margin-top: -5px;
+          background-image: url("../images/chevron_blue.png");
+          content: "";
+
+          &:hover {
+            background-image: url("../images/chevron_white.png");
+          }
+        }
       }
     }
 
