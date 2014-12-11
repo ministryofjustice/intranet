@@ -72,4 +72,49 @@
     border: 1px solid $grey-2;
     border-radius: 5px;
   }
+
+  .content-info {
+    margin-top: 20px;
+    padding-top: 10px;
+    border-top: 1px solid $grey-2;
+
+    p {
+      @extend %medium-copy;
+      margin: 10px 0;
+    }
+
+    .print,
+    .share {
+      &:before {
+        display: inline-block;
+        background-repeat: no-repeat;
+        content: "";
+        margin-right: 10px;
+      }
+    }
+
+    .print {
+      &:before {
+        width: 20px;
+        height: 21px;
+        background-image: url("../images/printer.png");
+        vertical-align: text-bottom;
+      }
+    }
+
+    .share {
+      &:before {
+        width: 19px;
+        height: 14px;
+        margin-left: 20px;
+        background-image: url("../images/email_x2.png");
+        background-size: 100%;
+        vertical-align: middle;
+      }
+    }
+
+    .last-updated {
+      color: $grey-1;
+    }
+  }
 }

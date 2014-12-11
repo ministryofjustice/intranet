@@ -532,7 +532,7 @@ h1 {
 }
 
 /* line 74, ../scss/global/_typography.scss */
-.breadcrumbs a,
+#content .content-info p, .breadcrumbs a,
 .breadcrumbs span, .message .content, #menu-utilities li a, .content-filters .label, .content-filters .description, .ht-feature-news .excerpt, #need-to-know .excerpt, #content .guidance-and-support .item-container .description, .guidance-and-support .categories .item h3, .annual-leave .right-hand-menu a, .annual-leave .table-of-contents li a {
   font-size: 16px;
   line-height: 20px;
@@ -680,6 +680,44 @@ p + p {
   background: url("../images/dropdown-background.png") no-repeat scroll right center #fff;
   border: 1px solid #bfc1c3;
   border-radius: 5px;
+}
+/* line 76, ../scss/global/_common.scss */
+#content .content-info {
+  margin-top: 20px;
+  padding-top: 10px;
+  border-top: 1px solid #bfc1c3;
+}
+/* line 81, ../scss/global/_common.scss */
+#content .content-info p {
+  margin: 10px 0;
+}
+/* line 88, ../scss/global/_common.scss */
+#content .content-info .print:before,
+#content .content-info .share:before {
+  display: inline-block;
+  background-repeat: no-repeat;
+  content: "";
+  margin-right: 10px;
+}
+/* line 97, ../scss/global/_common.scss */
+#content .content-info .print:before {
+  width: 20px;
+  height: 21px;
+  background-image: url("../images/printer.png");
+  vertical-align: text-bottom;
+}
+/* line 106, ../scss/global/_common.scss */
+#content .content-info .share:before {
+  width: 19px;
+  height: 14px;
+  margin-left: 20px;
+  background-image: url("../images/email_x2.png");
+  background-size: 100%;
+  vertical-align: middle;
+}
+/* line 116, ../scss/global/_common.scss */
+#content .content-info .last-updated {
+  color: #6f777b;
 }
 
 /* line 3, ../scss/global/_button.scss */
