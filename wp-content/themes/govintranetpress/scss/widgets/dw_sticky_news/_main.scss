@@ -38,7 +38,7 @@
 
   .news-date-wrapper {
     @extend %small-copy;
-    margin: 10px 0;
+    margin: 3px 0 0;
 
     span {
       color: $white !important; /* outweighing another irresponsible !important defined elsewhere... */
@@ -47,6 +47,7 @@
 
   .excerpt {
     @extend %medium-copy;
+    margin-top: 7px;
     margin-bottom: 0;
     color: $white;
   }

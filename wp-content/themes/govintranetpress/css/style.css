@@ -1503,79 +1503,81 @@ form .form-row:first-of-type {
   border: 1px solid #333;
   border-left: 0;
 }
-/* line 31, ../scss/modules/_main_nav.scss */
+/* line 23, ../scss/modules/_main_nav.scss */
 #mainnav #primarynav ul.mega-menu > li.current-menu-item, #mainnav #primarynav ul.mega-menu > li.mega-current_page_item, #mainnav #primarynav ul.mega-menu > li.mega-current-page-ancestor {
   background: white !important;
   border-bottom: 1px solid #fff;
 }
-/* line 37, ../scss/modules/_main_nav.scss */
+/* line 29, ../scss/modules/_main_nav.scss */
 #mainnav #primarynav ul.mega-menu > li.current-menu-item a, #mainnav #primarynav ul.mega-menu > li.mega-current_page_item a, #mainnav #primarynav ul.mega-menu > li.mega-current-page-ancestor a {
   color: #1E4287;
 }
-/* line 42, ../scss/modules/_main_nav.scss */
+/* line 34, ../scss/modules/_main_nav.scss */
 #mainnav #primarynav ul.mega-menu > li.mega-toggle-on {
   background: white !important;
 }
-/* line 46, ../scss/modules/_main_nav.scss */
+/* line 38, ../scss/modules/_main_nav.scss */
 #mainnav #primarynav ul.mega-menu > li > a {
   display: block;
   color: #61415B;
+  font-weight: bold !important;
+  /* outweighing the plugin style which is id-based and variable... */
   text-decoration: none;
 }
-/* line 51, ../scss/modules/_main_nav.scss */
+/* line 44, ../scss/modules/_main_nav.scss */
 #mainnav #primarynav ul.mega-menu > li > a:hover {
   background: white;
   color: #61415B;
 }
 
 /* MAIN NAVIGATION */
-/* line 63, ../scss/modules/_main_nav.scss */
+/* line 55, ../scss/modules/_main_nav.scss */
 .navbar {
   margin-bottom: 0;
   border: 0;
 }
 
-/* line 67, ../scss/modules/_main_nav.scss */
+/* line 59, ../scss/modules/_main_nav.scss */
 .navbar-inverse {
   background: transparent;
 }
 
-/* line 70, ../scss/modules/_main_nav.scss */
+/* line 62, ../scss/modules/_main_nav.scss */
 .navbar-inverse .navbar-brand {
   color: #fff;
 }
 
-/* line 74, ../scss/modules/_main_nav.scss */
+/* line 66, ../scss/modules/_main_nav.scss */
 .navbar-toggle {
   margin-right: 0;
 }
 
 @media (min-width: 0) and (max-width: 767px) {
-  /* line 79, ../scss/modules/_main_nav.scss */
+  /* line 71, ../scss/modules/_main_nav.scss */
   #mainnav {
     float: none;
     width: 100%;
   }
-  /* line 83, ../scss/modules/_main_nav.scss */
+  /* line 75, ../scss/modules/_main_nav.scss */
   #mainnav #mega-menu-wrap-primary-2 {
     position: static;
   }
-  /* line 88, ../scss/modules/_main_nav.scss */
+  /* line 80, ../scss/modules/_main_nav.scss */
   #mainnav #primarynav .mega-menu-wrap {
     display: table;
     width: 100%;
   }
-  /* line 92, ../scss/modules/_main_nav.scss */
+  /* line 84, ../scss/modules/_main_nav.scss */
   #mainnav #primarynav .mega-menu-wrap > ul {
     display: table-row;
     position: relative;
   }
-  /* line 96, ../scss/modules/_main_nav.scss */
+  /* line 88, ../scss/modules/_main_nav.scss */
   #mainnav #primarynav .mega-menu-wrap > ul > li {
     display: table-cell;
     float: none;
   }
-  /* line 100, ../scss/modules/_main_nav.scss */
+  /* line 92, ../scss/modules/_main_nav.scss */
   #mainnav #primarynav .mega-menu-wrap > ul > li > a {
     text-align: center;
     padding-left: 0;
@@ -1623,22 +1625,9 @@ form .form-row:first-of-type {
 .message.message-warning {
   background-color: #ffc10e;
 }
-/* line 34, ../scss/modules/_message.scss */
-.message .close {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  opacity: 1;
-  color: #fff;
-  text-shadow: none;
-  font-weight: normal;
-  font-size: 24px;
-  cursor: pointer;
-  z-index: 1;
-}
 
 @media only screen and (max-width: 992px) {
-  /* line 49, ../scss/modules/_message.scss */
+  /* line 36, ../scss/modules/_message.scss */
   .content {
     margin-left: 20px;
     margin-top: 10px;
@@ -2020,7 +2009,7 @@ form .form-row:first-of-type {
   display: none;
 }
 /* line 116, ../scss/widgets/ht_feature_news/_main.scss */
-.ht-feature-news .news-thumbnail .media-body {
+.ht-feature-news .news-thumbnail .media-body .excerpt {
   display: none;
 }
 /* line 121, ../scss/widgets/ht_feature_news/_main.scss */
@@ -2070,7 +2059,7 @@ form .form-row:first-of-type {
 }
 /* line 39, ../scss/widgets/dw_sticky_news/_main.scss */
 #need-to-know .news-date-wrapper {
-  margin: 10px 0;
+  margin: 3px 0 0;
 }
 /* line 43, ../scss/widgets/dw_sticky_news/_main.scss */
 #need-to-know .news-date-wrapper span {
@@ -2079,30 +2068,31 @@ form .form-row:first-of-type {
 }
 /* line 48, ../scss/widgets/dw_sticky_news/_main.scss */
 #need-to-know .excerpt {
+  margin-top: 7px;
   margin-bottom: 0;
   color: #fff;
 }
-/* line 54, ../scss/widgets/dw_sticky_news/_main.scss */
+/* line 55, ../scss/widgets/dw_sticky_news/_main.scss */
 #need-to-know .need-to-know-list {
   margin-top: 0;
   margin-bottom: 0;
 }
-/* line 58, ../scss/widgets/dw_sticky_news/_main.scss */
+/* line 59, ../scss/widgets/dw_sticky_news/_main.scss */
 #need-to-know .need-to-know-list li {
   display: none;
   padding-top: 0;
   border-top: 0;
 }
-/* line 63, ../scss/widgets/dw_sticky_news/_main.scss */
+/* line 64, ../scss/widgets/dw_sticky_news/_main.scss */
 #need-to-know .need-to-know-list li:first-of-type {
   display: list-item;
 }
-/* line 69, ../scss/widgets/dw_sticky_news/_main.scss */
+/* line 70, ../scss/widgets/dw_sticky_news/_main.scss */
 #need-to-know .page-list {
   text-align: center;
   margin-bottom: 0;
 }
-/* line 73, ../scss/widgets/dw_sticky_news/_main.scss */
+/* line 74, ../scss/widgets/dw_sticky_news/_main.scss */
 #need-to-know .page-list li {
   display: inline-block;
   padding: 0px 10px;
@@ -2111,7 +2101,7 @@ form .form-row:first-of-type {
   line-height: 24px;
   cursor: pointer;
 }
-/* line 82, ../scss/widgets/dw_sticky_news/_main.scss */
+/* line 83, ../scss/widgets/dw_sticky_news/_main.scss */
 #need-to-know .page-list li.selected, #need-to-know .page-list li:hover {
   background-color: #b2d4eb;
   color: #428bca;
@@ -2271,40 +2261,44 @@ form .form-row:first-of-type {
   width: 100%;
 }
 /* line 169, ../scss/content/homepage/_main.scss */
+.home.page .more-in-news p {
+  padding-top: 7px;
+}
+/* line 173, ../scss/content/homepage/_main.scss */
 .home.page .department-news-container {
   margin-top: 25px;
 }
-/* line 172, ../scss/content/homepage/_main.scss */
+/* line 176, ../scss/content/homepage/_main.scss */
 .home.page .department-news-container > h3 {
   border-top: 2px solid #888;
 }
-/* line 176, ../scss/content/homepage/_main.scss */
+/* line 180, ../scss/content/homepage/_main.scss */
 .home.page .department-news-container h3 {
   margin-bottom: 0;
 }
-/* line 182, ../scss/content/homepage/_main.scss */
+/* line 186, ../scss/content/homepage/_main.scss */
 .home.page .department-news .news-item {
   border-top: 1px solid #ccc;
 }
-/* line 185, ../scss/content/homepage/_main.scss */
+/* line 189, ../scss/content/homepage/_main.scss */
 .home.page .department-news .news-item:first-of-type {
   border-top: none;
 }
-/* line 189, ../scss/content/homepage/_main.scss */
+/* line 193, ../scss/content/homepage/_main.scss */
 .home.page .department-news .more-in-news {
   border-top: 1px solid #ccc;
 }
-/* line 196, ../scss/content/homepage/_main.scss */
+/* line 200, ../scss/content/homepage/_main.scss */
 .home.page .ht-feature-news.large-news .more-in-news {
   display: none;
 }
-/* line 202, ../scss/content/homepage/_main.scss */
+/* line 206, ../scss/content/homepage/_main.scss */
 .home.page .ht-feature-news.small-news .more-in-news {
   border-top: 1px solid #888;
 }
 
 @media only screen and (max-width: 767px) {
-  /* line 213, ../scss/content/homepage/_main.scss */
+  /* line 217, ../scss/content/homepage/_main.scss */
   .home.page .ht-feature-news.department-news .news-item {
     width: 100%;
   }

@@ -47,7 +47,6 @@ get_header(); ?>
       <div class="col-lg-12">
         <div class="message message-<?php echo $homecontentcolour; ?>">
           <div class="grid">
-            <span class="close">&times;</span>
             <div class="col-lg-4 col-md-4">
               <div class="meta">
                 <h3>Emergency message</h3>
