@@ -97,7 +97,7 @@
 
     <h3 id="content-links">Links</h3>
     <ul>
-      <li><a href="#">Accrued leave calculator</a></li>
+      <li><a href="#" rel="external">Accrued leave calculator</a></li>
       <li><a href="#">Annual leave and sickness absence Q&A</a></li>
       <li><a href="#">Annual leave calculation from days to hours</a></li>
       <li><a href="#">Annual leave calculation and public and privilege days for scheduled ushers</a></li>
