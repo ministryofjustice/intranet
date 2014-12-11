@@ -2009,7 +2009,7 @@ form .form-row:first-of-type {
   display: none;
 }
 /* line 116, ../scss/widgets/ht_feature_news/_main.scss */
-.ht-feature-news .news-thumbnail .media-body {
+.ht-feature-news .news-thumbnail .media-body .excerpt {
   display: none;
 }
 /* line 121, ../scss/widgets/ht_feature_news/_main.scss */
