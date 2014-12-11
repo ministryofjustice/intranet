@@ -1899,23 +1899,18 @@ form .form-row:first-of-type {
 /* line 6, ../scss/modules/_tabbed_filters.scss */
 .tabbed-filters ul li {
   display: inline-block;
-  border-radius: 10px;
   vertical-align: bottom;
   margin-left: 15px;
 }
-/* line 12, ../scss/modules/_tabbed_filters.scss */
+/* line 11, ../scss/modules/_tabbed_filters.scss */
 .tabbed-filters ul li:first-of-type {
   margin-left: 0;
 }
-/* line 18, ../scss/modules/_tabbed_filters.scss */
-.tabbed-filters ul li:hover .icon, .tabbed-filters ul li.selected .icon {
-  background-color: #428bca;
-}
-/* line 22, ../scss/modules/_tabbed_filters.scss */
-.tabbed-filters ul li:hover .label, .tabbed-filters ul li.selected .label {
+/* line 16, ../scss/modules/_tabbed_filters.scss */
+.tabbed-filters ul li:hover .label {
   text-decoration: underline;
 }
-/* line 27, ../scss/modules/_tabbed_filters.scss */
+/* line 21, ../scss/modules/_tabbed_filters.scss */
 .tabbed-filters ul li a {
   display: block;
   padding-right: 20px;
@@ -1923,48 +1918,42 @@ form .form-row:first-of-type {
   text-decoration: none;
   outline: none;
 }
-/* line 35, ../scss/modules/_tabbed_filters.scss */
+/* line 29, ../scss/modules/_tabbed_filters.scss */
 .tabbed-filters ul li .icon {
   display: inline-block;
   margin: 0 auto;
   width: 30px;
   height: 30px;
-  background-color: #ddd;
+  background-image: url("../images/filters_x2.png");
+  background-size: 200%;
   line-height: 30px;
-  color: #fff;
+}
+/* line 38, ../scss/modules/_tabbed_filters.scss */
+.tabbed-filters ul li .icon:after {
+  display: inline-block;
+  content: " ";
 }
 /* line 44, ../scss/modules/_tabbed_filters.scss */
-.selected .tabbed-filters ul li .icon {
-  background-color: #428bca;
-}
-/* line 49, ../scss/modules/_tabbed_filters.scss */
 .tabbed-filters ul li .label {
   display: inline-block;
   margin-left: 5px;
   color: #005ea5;
 }
-/* line 57, ../scss/modules/_tabbed_filters.scss */
-.tabbed-filters ul li .icon:after {
-  display: inline-block;
-  content: " ";
-}
-/* line 64, ../scss/modules/_tabbed_filters.scss */
+/* line 52, ../scss/modules/_tabbed_filters.scss */
 .tabbed-filters ul li.star .icon {
-  line-height: 25px;
-  font-size: 25px;
+  background-position: -30px -30px;
 }
-/* line 68, ../scss/modules/_tabbed_filters.scss */
-.tabbed-filters ul li.star .icon:after {
-  content: "\2605";
-}
-/* line 75, ../scss/modules/_tabbed_filters.scss */
+/* line 58, ../scss/modules/_tabbed_filters.scss */
 .tabbed-filters ul li.alpha .icon {
-  font-weight: bold;
-  font-size: 15px;
+  background-position: 0px -30px;
 }
-/* line 79, ../scss/modules/_tabbed_filters.scss */
-.tabbed-filters ul li.alpha .icon:after {
-  content: "A";
+/* line 65, ../scss/modules/_tabbed_filters.scss */
+.tabbed-filters ul li:hover.star .icon, .tabbed-filters ul li.selected.star .icon {
+  background-position: -30px 0;
+}
+/* line 69, ../scss/modules/_tabbed_filters.scss */
+.tabbed-filters ul li:hover.alpha .icon, .tabbed-filters ul li.selected.alpha .icon {
+  background-position: 0px 0;
 }
 
 /* line 2, ../scss/widgets/ht_feature_news/_main.scss */
