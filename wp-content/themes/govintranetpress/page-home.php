@@ -89,17 +89,7 @@ get_header(); ?>
           <a href="#" class="app-link link-9"></a>
           <a href="guidance-and-support/hr/leave/annual-leave" class="quick-link link-1"></a>
         </div>
-      </div>
-    </div>
 
-    <div class="grid">
-      <div class="col-lg-6 col-md-6 col-sm-12">
-        <div class="department-news-container">
-          <?php dynamic_sidebar('home-widget-area5'); ?>
-        </div>
-      </div>
-
-      <div class="col-lg-6 col-md-6 col-sm-12">
         <div class="grid feeds">
           <div class="col-lg-6 col-md-6 col-sm-6">
             <img src="<?=get_stylesheet_directory_uri()?>/images/feed_events.png" />
