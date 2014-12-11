@@ -65,6 +65,19 @@
           </span>
         </li>
       </ul>
+
+      <div class="content-info">
+        <p>
+          <a href="#" class="print">Print news</a>
+          <a href="#" class="share">Share this page by email</a>
+        </p>
+
+        <p class="report-issue">
+          <a href="#">Is there anything wrong with this page?</a>
+        </p>
+
+        <p class="last-updated">Last updated: 14 October 2014</p>
+      </div>
     </div>
   </div>
 </div>

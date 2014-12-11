@@ -1,8 +1,8 @@
 #need-to-know {
   position: relative;
   margin-top: 20px;
-  background-color: #428bca;
-  border: 1px solid #428bca;
+  background-color: $sticky-news;
+  border: 1px solid $sticky-news;
   border-top-width: 0;
 
   .need-to-know-inner {
@@ -75,15 +75,15 @@
       @extend %small-copy;
       display: inline-block;
       padding: 0px 10px;
-      border: 1px solid #d5e8f4;
+      border: 1px solid $light-blue-25;
       color: #d5e8f4;
       line-height: 24px;
       cursor: pointer;
 
       &.selected,
       &:hover {
-        background-color: #b2d4eb;
-        color: #428bca;
+        background-color: $light-blue-25;
+        color: $sticky-news;
       }
     }
   }
