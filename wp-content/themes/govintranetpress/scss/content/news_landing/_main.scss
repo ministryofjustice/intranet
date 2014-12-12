@@ -21,13 +21,15 @@
       font-weight: bold;
     }
 
-    .containing {
+    .containing,
+    .for-date {
       @extend %large-copy;
       font-weight: normal;
     }
 
     .results-count-description,
-    .keywords {
+    .keywords,
+    .date {
       @extend %large-copy;
       font-weight: bold;
     }

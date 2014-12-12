@@ -25,10 +25,8 @@
           <span class="label">Filter by</span>
         </div>
         <div class="form-row">
-          <select name="category">
-            <option>All</option>
-            <option>Category 1</option>
-            <option>Category 2</option>
+          <select name="date">
+            <option value="">All</option>
           </select>
         </div>
         <div class="form-row contains">
@@ -99,6 +97,8 @@
       <span class="results-count-description"></span>
       <span class="containing">containing</span>
       <span class="keywords"></span>
+      <span class="for-date">for</span>
+      <span class="date"></span>
     </h3>
   </template>
 </div>
