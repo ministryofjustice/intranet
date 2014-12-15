@@ -2,19 +2,23 @@
 
 /**
  * The template for displaying Search Results pages.
+ *
+ * Template name: Search results
  */
-class Page_search_results extends MVC_controller {
-  function main($category_slug = null, $keywords = null){
-    $this->category_slug = $category_slug;
-    $this->keywords = $keywords;
 
+Debug::full($_GET);
+Debug::full(get_query_var('s'));
+
+
+class Page_search_results extends MVC_controller {
+  function main() {
     get_header();
     $this->view('shared/breadcrumbs');
     $this->view('pages/search_results/main', $this->get_data());
     get_footer();
   }
 
-  private function get_data(){
+  private function get_data() {
     $results = $this->get_results($this->category_slug, $this->keywords);
 
     $data = array(
@@ -25,7 +29,7 @@ class Page_search_results extends MVC_controller {
 
     //Debug::full($results, 2);
 
-    while($results->have_posts()){
+    while($results->have_posts()) {
       $results->the_post();
 
       $post_id = $post->ID;
@@ -47,7 +51,7 @@ class Page_search_results extends MVC_controller {
     return $data;
   }
 
-  private function get_results($category_slug, $keywords){
+  private function get_results($category_slug, $keywords) {
     $results = new WP_Query(array(
       'posts_per_page' => 10,
       'paged' => 1, //page number

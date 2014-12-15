@@ -12,10 +12,6 @@ get_header(); ?>
 	$hcitem = get_option($hc);
 	$campaign_message = $hcitem;
 
-	$hc = new Pod ('homepage_control');
-	$top_pages =  $hc->get_field('top_pages');
-
-
 	$hc = "homepage_control_emergency_message";
 	$hcitem = get_option($hc);
 	$homecontent =  $hcitem;
