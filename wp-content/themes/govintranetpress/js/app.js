@@ -833,11 +833,15 @@ jQuery(function() {
 
       setFilters: function() {
         var segments = this.getSegmentsFromUrl();
-        var keywords = segments[2].replace('+', ' ');
+        var keywords;
 
-        //update keywords field with keywords from url
-        if(keywords) {
-          this.$keywordsInput.val(keywords === '-' ? '' : keywords);
+        if(segments[2]) {
+          keywords = segments[2].replace('+', ' ');
+
+          //update keywords field with keywords from url
+          if(keywords) {
+            this.$keywordsInput.val(keywords === '-' ? '' : keywords);
+          }
         }
 
         //update date field with date from url
@@ -1062,7 +1066,7 @@ jQuery(function() {
         urlParts.push(keywords || '-');
 
         //date
-        urlParts.push(this.$dateInput.val());
+        urlParts.push(this.$dateInput.val() || '-');
 
         history.pushState({}, "", urlParts.join('/')+'/');
       }
