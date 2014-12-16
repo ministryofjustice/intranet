@@ -31,7 +31,7 @@ if ($placeholder!=''){
           <option>Docs</option>
         </select>
       </div>
-      <input type="text" class="form-control" placeholder="<?php echo $randex ;?>" name="s" id="s" value="<?php echo the_search_query();?>">
+      <input type="text" class="form-control" placeholder="<?php echo $randex ;?>" name="s" id="s" value="<?=get_query_var('search-string')?>">
       <button class="search-btn cta" type="submit"></button>
     </div><!-- /input-group -->
   </div>
