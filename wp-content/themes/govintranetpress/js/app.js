@@ -1143,6 +1143,8 @@ jQuery(function() {
         this.cacheEls();
         this.bindEvents();
 
+        this.$keywordsInput.focus();
+
         this.setFilters();
 
         this.loadResults();

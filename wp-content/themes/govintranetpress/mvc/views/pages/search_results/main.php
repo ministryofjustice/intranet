@@ -12,16 +12,16 @@
 
   <div class="grid">
     <div class="col-lg-8 col-md-8 col-sm-12">
-      <form name="search-string" class="search-string">
-        <input type="text" placeholder="Keywords" name="keywords" class="main-search-field" value="<?=get_query_var('search-string')?>" />
-        <button type="submit" class="cta search-btn"></button>
-      </form>
+      <div class="search-string">
+        <input form="search-form" type="text" placeholder="Keywords" name="keywords" class="main-search-field" value="<?=get_query_var('search-string')?>" />
+        <button form="search-form" type="submit" class="cta search-btn"></button>
+      </div>
     </div>
   </div>
 
   <div class="grid">
     <div class="col-lg-3 col-md-3 col-sm-12">
-      <form class="content-filters">
+      <form id="search-form" class="content-filters">
         <p class="description">You can use the filters to show only results that match your interests</p>
         <div class="form-row">
           <span class="label">Filter by</span>
@@ -88,7 +88,7 @@
       <p class="excerpt"></p>
       <p class="file">
         Download
-        <a class="file-link" href=""></a>, 
+        <a class="file-link" href=""></a>,
         <span class="file-size"></span>,
         <span class="file-length"></span>
         Pages

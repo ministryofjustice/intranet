@@ -1,7 +1,12 @@
 .page-search-results {
+  .page-title {
+    @extend %large-heading;
+    border-bottom: none;
+  }
+
   .search-string {
     position: relative;
-    margin-bottom: 32px;
+    margin-bottom: 52px;
 
     .main-search-field {
       height: 36px;
@@ -45,7 +50,34 @@
     margin-top: 24px;
   }
 
+  .search-results-title {
+    font-weight: normal;
+    margin-bottom: 50px;
+  }
+
+  .search-filtered-results-title {
+    .results-count {
+      @extend %large-heading;
+      font-weight: bold;
+    }
+
+    .containing {
+      @extend %large-copy;
+      font-weight: normal;
+    }
+
+    .results-count-description,
+    .keywords {
+      @extend %large-copy;
+      font-weight: bold;
+    }
+  }
+
   .search-item {
+    .title {
+      margin-top: 30px;
+    }
+
     .meta {
       color: $grey-2;
     }
@@ -56,6 +88,7 @@
     }
 
     .excerpt {
+      @extend %medium-copy;
     }
 
     .file {
