@@ -1599,11 +1599,10 @@ function dw_rewrite_rules() {
 
   //Search results page
   $regex = '^search-results/([^/]*)/([^/]*)/?';
-  $redirect = 'index.php?page_id=' . get_page_by_path('search-results')->ID/* . '&search-filter=$matches[1]&s=$matches[2]'*/;
-  add_rewrite_tag('%search-filter%', '([^&]+)');
-  add_rewrite_tag('%s%', '([^&]+)');
+  $redirect = 'index.php?page_id=' . get_page_by_path('search-results')->ID . '&search-filter=$matches[1]&search-string=$matches[2]';
   add_rewrite_rule($regex, $redirect, 'top');
-  //Debug::full($redirect);
+  add_rewrite_tag('%search-filter%', '([^&]+)');
+  add_rewrite_tag('%search-string%', '([^&]+)');
 }
 
 add_action('init', 'dw_redirects');
