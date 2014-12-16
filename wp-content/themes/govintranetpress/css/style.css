@@ -487,7 +487,7 @@ h5, #need-to-know .widget-title, .guidance-and-support .links h3 {
 
 /* line 26, ../scss/global/_typography.scss */
 h4, .ht-feature-news h3, #need-to-know .item-title, .guidance-and-support .categories h3,
-.guidance-and-support .subcategories h3, .page-news .news-item .title, .search-results .news-item h3 {
+.guidance-and-support .subcategories h3, .page-news .news-item .title {
   font-size: 19px;
   line-height: 25px;
 }
@@ -1373,13 +1373,18 @@ form .form-row:first-of-type {
   content: "";
 }
 
+/* line 115, ../scss/modules/_header.scss */
+.page-template-search-results-php #searchform {
+  display: none;
+}
+
 @media (min-width: 0) and (max-width: 767px) {
-  /* line 115, ../scss/modules/_header.scss */
+  /* line 121, ../scss/modules/_header.scss */
   #searchformdiv {
     padding-top: 10px;
   }
 
-  /* line 119, ../scss/modules/_header.scss */
+  /* line 125, ../scss/modules/_header.scss */
   .mobile-nav button {
     float: right;
     width: 30px;
@@ -1391,17 +1396,17 @@ form .form-row:first-of-type {
     background-position: 0 0;
     margin-top: 5px;
   }
-  /* line 130, ../scss/modules/_header.scss */
+  /* line 136, ../scss/modules/_header.scss */
   .mobile-menu-enabled .mobile-nav button {
     background-position: 30px 0;
   }
 
-  /* line 137, ../scss/modules/_header.scss */
+  /* line 143, ../scss/modules/_header.scss */
   .header.mobile-menu-enabled .search-box,
   .header.mobile-menu-enabled #mainnav {
     display: none;
   }
-  /* line 142, ../scss/modules/_header.scss */
+  /* line 148, ../scss/modules/_header.scss */
   .header.mobile-menu-enabled #utilities {
     display: block;
   }
@@ -2651,41 +2656,65 @@ form .form-row:first-of-type {
 }
 
 /* line 2, ../scss/content/search_results/_main.scss */
-.search-results .news-item {
-  border-bottom: 1px solid #bfc1c3;
-  padding: 10px 0;
+.page-search-results .search-string {
+  position: relative;
+  margin-bottom: 32px;
 }
-/* line 2, ../scss/global/_mixins.scss */
-.search-results .news-item:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-/* line 7, ../scss/content/search_results/_main.scss */
-.search-results .news-item .thumbnail {
-  float: left;
-  width: 160px;
-  min-height: 1px;
-}
-/* line 12, ../scss/content/search_results/_main.scss */
-.search-results .news-item .thumbnail img {
+/* line 6, ../scss/content/search_results/_main.scss */
+.page-search-results .search-string .main-search-field {
+  height: 36px;
   width: 100%;
+  background-color: #fff;
+  border: 1px solid #bfc1c3;
+  padding: 8px;
 }
-/* line 17, ../scss/content/search_results/_main.scss */
-.search-results .news-item .details {
-  overflow: hidden;
-  padding-left: 20px;
+/* line 14, ../scss/content/search_results/_main.scss */
+.page-search-results .search-string .search-btn {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 36px;
+  padding: 0;
+  background-color: #428bca;
+  border-color: #357ebd;
 }
-/* line 22, ../scss/content/search_results/_main.scss */
-.search-results .news-item h3 {
-  margin: 0;
+/* line 29, ../scss/content/search_results/_main.scss */
+.page-search-results .search-string .search-btn:after {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  right: 10px;
+  bottom: 10px;
+  width: 16px;
+  height: 16px;
+  background-image: url("../images/search_icon.png");
+  background-size: 16px 16px;
+  content: "";
 }
-/* line 27, ../scss/content/search_results/_main.scss */
-.search-results .news-item .meta {
-  margin-bottom: 10px;
+/* line 44, ../scss/content/search_results/_main.scss */
+.page-search-results .content-filters {
+  margin-top: 24px;
 }
-/* line 28, ../scss/content/search_results/_main.scss */
-.search-results .news-item .meta span {
+/* line 49, ../scss/content/search_results/_main.scss */
+.page-search-results .search-item .meta {
   color: #bfc1c3;
-  padding-right: 45px;
+}
+/* line 53, ../scss/content/search_results/_main.scss */
+.page-search-results .search-item .title,
+.page-search-results .search-item .meta {
+  margin-bottom: 5px;
+}
+/* line 61, ../scss/content/search_results/_main.scss */
+.page-search-results .search-item .file {
+  margin-top: 5px;
+  color: #6f777b;
+}
+/* line 65, ../scss/content/search_results/_main.scss */
+.page-search-results .search-item .file .file-link {
+  text-decoration: underline;
 }

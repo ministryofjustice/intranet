@@ -1,36 +1,70 @@
-.search-results {
-  .news-item {
-    @include clearfix;
-    border-bottom: 1px solid $grey-2;
-    padding: 10px 0;
+.page-search-results {
+  .search-string {
+    position: relative;
+    margin-bottom: 32px;
 
-    .thumbnail {
-      float: left;
-      width: 160px;
-      min-height: 1px;
+    .main-search-field {
+      height: 36px;
+      width: 100%;
+      background-color: $white;
+      border: 1px solid $grey-2;
+      padding: 8px;
+    }
 
-      img {
-        width: 100%;
+    .search-btn {
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 36px;
+      padding: 0;
+      background-color: #428bca;
+      border-color: #357ebd;
+
+      &:after {
+        position: absolute;
+        left: 10px;
+        top: 10px;
+        right: 10px;
+        bottom: 10px;
+        width: 16px;
+        height: 16px;
+        background-image: url('../images/search_icon.png');
+        background-size: 16px 16px;
+        content: "";
       }
     }
+  }
 
-    .details {
-      overflow: hidden;
-      padding-left: 20px;
-    }
+  .content-filters {
+    margin-top: 24px;
+  }
 
-    h3 {
-      @extend %medium-heading;
-      margin: 0;
-    }
-
+  .search-item {
     .meta {
-      span {
-        color: $grey-2;
-        padding-right: 45px;
-      }
+      color: $grey-2;
+    }
 
-      margin-bottom: 10px;
+    .title,
+    .meta {
+      margin-bottom: 5px;
+    }
+
+    .excerpt {
+    }
+
+    .file {
+      margin-top: 5px;
+      color: $grey-1;
+
+      .file-link {
+        text-decoration: underline;
+      }
     }
   }
 }

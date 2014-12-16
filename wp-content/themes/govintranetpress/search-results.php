@@ -7,6 +7,13 @@
  */
 
 class Page_search_results extends MVC_controller {
+  private $post;
+
+  function __construct() {
+    $this->post = get_post($id);
+    parent::__construct();
+  }
+
   function main() {
     get_header();
     $this->view('shared/breadcrumbs');
@@ -15,10 +22,11 @@ class Page_search_results extends MVC_controller {
   }
 
   private function get_data() {
-    $data = array(
-    );
+    $top_slug = $this->post->post_name;
 
-    return $data;
+    return array(
+      'top_slug' => htmlspecialchars($top_slug)
+    );
   }
 }
 
