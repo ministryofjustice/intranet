@@ -2310,21 +2310,24 @@ form .form-row:first-of-type {
 .guidance-and-support .categories .description {
   display: none;
 }
-/* line 98, ../scss/content/guidance_and_support/_main.scss */
-.guidance-and-support .categories .item.selected a:after {
+/* line 103, ../scss/content/guidance_and_support/_main.scss */
+.guidance-and-support .categories .item.selected a:after,
+.guidance-and-support .categories .item:hover a:after,
+.guidance-and-support .subcategories .item.selected a:after,
+.guidance-and-support .subcategories .item:hover a:after {
   background-image: url("../images/chevron_white.png");
 }
-/* line 103, ../scss/content/guidance_and_support/_main.scss */
+/* line 109, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .categories,
 .guidance-and-support .subcategories {
   border-right: 1px solid #bfc1c3;
 }
-/* line 107, ../scss/content/guidance_and_support/_main.scss */
+/* line 113, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .categories h3,
 .guidance-and-support .subcategories h3 {
   padding-right: 10px;
 }
-/* line 114, ../scss/content/guidance_and_support/_main.scss */
+/* line 120, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .categories ul a:after,
 .guidance-and-support .subcategories ul a:after {
   position: absolute;
@@ -2336,12 +2339,12 @@ form .form-row:first-of-type {
   background-image: url("../images/chevron_blue.png");
   content: "";
 }
-/* line 124, ../scss/content/guidance_and_support/_main.scss */
+/* line 130, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .categories ul a:after:hover,
 .guidance-and-support .subcategories ul a:after:hover {
   background-image: url("../images/chevron_white.png");
 }
-/* line 131, ../scss/content/guidance_and_support/_main.scss */
+/* line 137, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .categories li.item.loading a:after,
 .guidance-and-support .subcategories li.item.loading a:after {
   content: "";
@@ -2351,7 +2354,7 @@ form .form-row:first-of-type {
   top: 50%;
   margin-top: -8px;
 }
-/* line 141, ../scss/content/guidance_and_support/_main.scss */
+/* line 147, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .subcategories,
 .guidance-and-support .links {
   display: none;
@@ -2359,12 +2362,12 @@ form .form-row:first-of-type {
   margin-left: -1px;
   border-left: 1px solid #bfc1c3;
 }
-/* line 150, ../scss/content/guidance_and_support/_main.scss */
+/* line 156, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .subcategories.visible,
 .guidance-and-support .links.visible {
   display: block;
 }
-/* line 154, ../scss/content/guidance_and_support/_main.scss */
+/* line 160, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .subcategories .sort-order,
 .guidance-and-support .links .sort-order {
   width: 90px;
@@ -2376,13 +2379,13 @@ form .form-row:first-of-type {
   overflow: hidden;
   white-space: nowrap;
 }
-/* line 165, ../scss/content/guidance_and_support/_main.scss */
+/* line 171, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .subcategories .item-list,
 .guidance-and-support .links .item-list {
   position: relative;
   background-color: #fff;
 }
-/* line 170, ../scss/content/guidance_and_support/_main.scss */
+/* line 176, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .subcategories .item-list,
 .guidance-and-support .subcategories .category-name,
 .guidance-and-support .links .item-list,
@@ -2390,7 +2393,7 @@ form .form-row:first-of-type {
   margin-left: 0;
   transition: margin-left .3s;
 }
-/* line 177, ../scss/content/guidance_and_support/_main.scss */
+/* line 183, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .subcategories.current .item-list,
 .guidance-and-support .subcategories.current .category-name,
 .guidance-and-support .links.current .item-list,
@@ -2398,58 +2401,58 @@ form .form-row:first-of-type {
   margin-left: 90px;
   transition: margin-left .3s;
 }
-/* line 186, ../scss/content/guidance_and_support/_main.scss */
+/* line 192, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .subcategories.item-container {
   transition: margin-left .3s;
 }
-/* line 192, ../scss/content/guidance_and_support/_main.scss */
+/* line 198, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .links.item-container {
   transition: width .3s;
 }
 
 @media (max-width: 767px) {
-  /* line 204, ../scss/content/guidance_and_support/_main.scss */
+  /* line 210, ../scss/content/guidance_and_support/_main.scss */
   .guidance-and-support .tree-container {
     overflow: hidden;
     width: 100%;
   }
-  /* line 209, ../scss/content/guidance_and_support/_main.scss */
+  /* line 215, ../scss/content/guidance_and_support/_main.scss */
   .guidance-and-support .tree {
     width: 303%;
     transition: margin-left .15s;
   }
-  /* line 213, ../scss/content/guidance_and_support/_main.scss */
+  /* line 219, ../scss/content/guidance_and_support/_main.scss */
   .guidance-and-support .tree[data-show-column="1"] {
     margin-left: 0%;
   }
-  /* line 217, ../scss/content/guidance_and_support/_main.scss */
+  /* line 223, ../scss/content/guidance_and_support/_main.scss */
   .guidance-and-support .tree[data-show-column="2"] {
     margin-left: -100%;
   }
-  /* line 221, ../scss/content/guidance_and_support/_main.scss */
+  /* line 227, ../scss/content/guidance_and_support/_main.scss */
   .guidance-and-support .tree[data-show-column="3"] {
     margin-left: -200%;
   }
-  /* line 226, ../scss/content/guidance_and_support/_main.scss */
+  /* line 232, ../scss/content/guidance_and_support/_main.scss */
   .guidance-and-support .tree.collapsed .subcategories {
     margin-left: 0;
   }
-  /* line 230, ../scss/content/guidance_and_support/_main.scss */
+  /* line 236, ../scss/content/guidance_and_support/_main.scss */
   .guidance-and-support .tree.collapsed .links {
     width: 33%;
   }
-  /* line 236, ../scss/content/guidance_and_support/_main.scss */
+  /* line 242, ../scss/content/guidance_and_support/_main.scss */
   .guidance-and-support .item-container {
     border: none;
     margin-left: 0;
   }
-  /* line 241, ../scss/content/guidance_and_support/_main.scss */
+  /* line 247, ../scss/content/guidance_and_support/_main.scss */
   .guidance-and-support .item-container.current .item-list,
   .guidance-and-support .item-container.current .category-name {
     margin-left: 0;
     transition: margin-left .3s;
   }
-  /* line 248, ../scss/content/guidance_and_support/_main.scss */
+  /* line 254, ../scss/content/guidance_and_support/_main.scss */
   .guidance-and-support .item-container .item {
     display: block !important;
   }

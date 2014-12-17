@@ -94,9 +94,15 @@
     .description {
       display: none;
     }
+  }
 
-    .item.selected a:after {
-      background-image: url("../images/chevron_white.png");
+  .categories,
+  .subcategories {
+    .item.selected,
+    .item:hover {
+      a:after {
+        background-image: url("../images/chevron_white.png");
+      }
     }
   }
 
