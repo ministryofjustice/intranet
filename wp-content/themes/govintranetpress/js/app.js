@@ -1244,153 +1244,8 @@ jQuery(function() {
 
         /* use the timeout for dev/debugging purposes */
         //**/window.setTimeout(function() {
-          //_this.serviceXHR = $.getJSON(_this.serviceUrl+'/'+dataArray.join('/'), $.proxy(_this.displayResults, _this));
+          _this.serviceXHR = $.getJSON(_this.serviceUrl+'/'+dataArray.join('/'), $.proxy(_this.displayResults, _this));
         //**/}, 2000);
-
-        this.displayResults({
-          "urlParams": {
-            "category": null,
-            "type": null,
-            "keywords": "",
-            "page": 1,
-            "per_page": 20
-          },
-          "totalResults": 122,
-          "results": [
-            {
-              title: 'Page title',
-              url: 'http://www.some.url/for/this/page',
-              slug: 'page-title',
-              excerpt: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nam nibh. Nunc varius facilisis eros.',
-              timestamp: '2014-12-01 12:24:57',
-              file_url: 'http://www.some.url/some-file.pdf', /*always a string, even if empty; can be static for now*/
-              file_name: 'Some file.pdf', /*always a string, even if empty; can be static for now*/
-              file_size: 137743, /* always a number, not string; in bytes, can be static for now*/
-              file_pages: 13 /*always a number, not string; can be static for now*/
-            },
-            {
-              title: 'Page title 2',
-              url: 'http://www.some.url/for/this/page',
-              slug: 'page-title',
-              excerpt: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nam nibh. Nunc varius facilisis eros.',
-              timestamp: '2014-12-01 12:24:57',
-              file_url: 'http://www.some.url/some-file.pdf', /*always a string, even if empty; can be static for now*/
-              file_name: 'Some file.pdf', /*always a string, even if empty; can be static for now*/
-              file_size: 24794, /* always a number, not string; in bytes, can be static for now*/
-              file_pages: 3 /*always a number, not string; can be static for now*/
-            },
-            {
-              title: 'Page title 3',
-              url: 'http://www.some.url/for/this/page',
-              slug: 'page-title',
-              excerpt: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nam nibh. Nunc varius facilisis eros.',
-              timestamp: '2014-12-01 12:24:57',
-              file_url: 'http://www.some.url/some-file.pdf', /*always a string, even if empty; can be static for now*/
-              file_name: 'Some file.pdf', /*always a string, even if empty; can be static for now*/
-              file_size: 72135, /* always a number, not string; in bytes, can be static for now*/
-              file_pages: 8 /*always a number, not string; can be static for now*/
-            },
-            {
-              title: 'Page title 4',
-              url: 'http://www.some.url/for/this/page',
-              slug: 'page-title',
-              excerpt: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nam nibh. Nunc varius facilisis eros.',
-              timestamp: '2014-12-01 12:24:57',
-              file_url: 'http://www.some.url/some-file.pdf', /*always a string, even if empty; can be static for now*/
-              file_name: 'Some file.pdf', /*always a string, even if empty; can be static for now*/
-              file_size: 137743, /* always a number, not string; in bytes, can be static for now*/
-              file_pages: 13 /*always a number, not string; can be static for now*/
-            },
-            {
-              title: 'Page title 5',
-              url: 'http://www.some.url/for/this/page',
-              slug: 'page-title',
-              excerpt: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nam nibh. Nunc varius facilisis eros.',
-              timestamp: '2014-12-01 12:24:57',
-              file_url: 'http://www.some.url/some-file.pdf', /*always a string, even if empty; can be static for now*/
-              file_name: 'Some file.pdf', /*always a string, even if empty; can be static for now*/
-              file_size: 24794, /* always a number, not string; in bytes, can be static for now*/
-              file_pages: 3 /*always a number, not string; can be static for now*/
-            },
-            {
-              title: 'Page title 6',
-              url: 'http://www.some.url/for/this/page',
-              slug: 'page-title',
-              excerpt: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nam nibh. Nunc varius facilisis eros.',
-              timestamp: '2014-12-01 12:24:57',
-              file_url: 'http://www.some.url/some-file.pdf', /*always a string, even if empty; can be static for now*/
-              file_name: 'Some file.pdf', /*always a string, even if empty; can be static for now*/
-              file_size: 72135, /* always a number, not string; in bytes, can be static for now*/
-              file_pages: 8 /*always a number, not string; can be static for now*/
-            },
-            {
-              title: 'Page title 7',
-              url: 'http://www.some.url/for/this/page',
-              slug: 'page-title',
-              excerpt: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nam nibh. Nunc varius facilisis eros.',
-              timestamp: '2014-12-01 12:24:57',
-              file_url: 'http://www.some.url/some-file.pdf', /*always a string, even if empty; can be static for now*/
-              file_name: 'Some file.pdf', /*always a string, even if empty; can be static for now*/
-              file_size: 137743, /* always a number, not string; in bytes, can be static for now*/
-              file_pages: 13 /*always a number, not string; can be static for now*/
-            },
-            {
-              title: 'Page title 8',
-              url: 'http://www.some.url/for/this/page',
-              slug: 'page-title',
-              excerpt: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nam nibh. Nunc varius facilisis eros.',
-              timestamp: '2014-12-01 12:24:57',
-              file_url: 'http://www.some.url/some-file.pdf', /*always a string, even if empty; can be static for now*/
-              file_name: 'Some file.pdf', /*always a string, even if empty; can be static for now*/
-              file_size: 24794, /* always a number, not string; in bytes, can be static for now*/
-              file_pages: 3 /*always a number, not string; can be static for now*/
-            },
-            {
-              title: 'Page title 9',
-              url: 'http://www.some.url/for/this/page',
-              slug: 'page-title',
-              excerpt: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nam nibh. Nunc varius facilisis eros.',
-              timestamp: '2014-12-01 12:24:57',
-              file_url: 'http://www.some.url/some-file.pdf', /*always a string, even if empty; can be static for now*/
-              file_name: 'Some file.pdf', /*always a string, even if empty; can be static for now*/
-              file_size: 72135, /* always a number, not string; in bytes, can be static for now*/
-              file_pages: 8 /*always a number, not string; can be static for now*/
-            },
-            {
-              title: 'Page title 10',
-              url: 'http://www.some.url/for/this/page',
-              slug: 'page-title',
-              excerpt: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nam nibh. Nunc varius facilisis eros.',
-              timestamp: '2014-12-01 12:24:57',
-              file_url: 'http://www.some.url/some-file.pdf', /*always a string, even if empty; can be static for now*/
-              file_name: 'Some file.pdf', /*always a string, even if empty; can be static for now*/
-              file_size: 137743, /* always a number, not string; in bytes, can be static for now*/
-              file_pages: 13 /*always a number, not string; can be static for now*/
-            },
-            {
-              title: 'Page title 11',
-              url: 'http://www.some.url/for/this/page',
-              slug: 'page-title',
-              excerpt: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nam nibh. Nunc varius facilisis eros.',
-              timestamp: '2014-12-01 12:24:57',
-              file_url: 'http://www.some.url/some-file.pdf', /*always a string, even if empty; can be static for now*/
-              file_name: 'Some file.pdf', /*always a string, even if empty; can be static for now*/
-              file_size: 24794, /* always a number, not string; in bytes, can be static for now*/
-              file_pages: 3 /*always a number, not string; can be static for now*/
-            },
-            {
-              title: 'Page title 12',
-              url: 'http://www.some.url/for/this/page',
-              slug: 'page-title',
-              excerpt: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nam nibh. Nunc varius facilisis eros.',
-              timestamp: '2014-12-01 12:24:57',
-              file_url: 'http://www.some.url/some-file.pdf', /*always a string, even if empty; can be static for now*/
-              file_name: 'Some file.pdf', /*always a string, even if empty; can be static for now*/
-              file_size: 72135, /* always a number, not string; in bytes, can be static for now*/
-              file_pages: 8 /*always a number, not string; can be static for now*/
-            },
-          ]
-        });
       },
 
       clearResults: function() {
@@ -1487,8 +1342,8 @@ jQuery(function() {
           'type': '',
           'category': '',
           'keywords': keywords,
-          'page': page
-          //'resultsPerPage': 20 //commenting out - we want it to use the default setting from the API for now
+          'page': page,
+          'resultsPerPage': 10
         };
 
         if(data) {
