@@ -1205,12 +1205,6 @@ jQuery(function() {
 
       loadResults: function(requestData) {
         var _this = this;
-        var $title = this.$top.find('.search-results-page-title');
-
-        if(!$title.length) {
-          $title = $(this.resultsPageTitleTemplate);
-          this.$results.append($title);
-        }
 
         requestData = this.getDataObject(requestData);
 
