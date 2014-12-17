@@ -2348,7 +2348,7 @@ form .form-row:first-of-type {
 .guidance-and-support .categories li.item.loading a:after,
 .guidance-and-support .subcategories li.item.loading a:after {
   content: "";
-  background-image: url("../images/loading.png");
+  background-image: url("../images/loader.gif");
   width: 16px;
   height: 16px;
   top: 50%;
