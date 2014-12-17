@@ -1,12 +1,21 @@
 .guidance-and-support {
+  .tabbed-filters {
+    margin-top: 30px;
+  }
+
   .tree {
     @include clearfix;
     display: flex;
+    margin-top: 60px;
     margin-bottom: 30px;
 
     &.collapsed {
+      .categories {
+      }
+
       .subcategories {
-        margin-left: -13%;
+        margin-left: -22%;
+        width: 25%;
         transition: margin-left .3s;
       }
 
@@ -62,18 +71,17 @@
     li {
       &.selected,
       &:hover {
-        background-color: $grey-3;
+        background-color: $dw-link;
 
-        h3 {
-          color: #333;
+        h3,
+        .description {
+          color: $white;
         }
       }
     }
 
-    #content & .description {
-      @extend %medium-copy;
-      color: #333;
-      margin: 0 !important;
+    .description {
+      color: $black;
     }
   }
 
@@ -87,7 +95,7 @@
       display: none;
     }
 
-    li.item.selected a:after {
+    .item.selected a:after {
       background-image: url("../images/chevron_white.png");
     }
   }
@@ -120,7 +128,7 @@
       }
     }
 
-    li.loading a:after {
+    li.item.loading a:after {
       content: "";
       background-image: url('../images/loading.png');
       width: 16px;
@@ -186,7 +194,7 @@
     }
 
     h3 {
-      @extend %small-heading;
+      @extend %medium-heading;
     }
   }
 }

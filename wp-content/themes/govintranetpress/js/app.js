@@ -117,7 +117,7 @@ jQuery(function() {
         this.$tree = this.$top.find('.tree');
         this.$columns = this.$tree.find('.item-container');
 
-        this.$sortList = this.$top.find('.tabbed-filter');
+        this.$sortList = this.$top.find('.tabbed-filters');
         this.$sortPopular = this.$sortList.find('[data-sort-type="popular"]');
         this.$sortAlphabetical = this.$sortList.find('[data-sort-type="alphabetical"]');
 
@@ -130,14 +130,14 @@ jQuery(function() {
         this.$sortAlphabetical.on('click', 'a', function(e) {
           e.preventDefault();
           _this.sort('alphabetical');
-          _this.$sortList.find('> li').removeClass('selected');
+          _this.$sortList.find('.filter-item').removeClass('selected');
           $(this).parent().addClass('selected');
         });
 
         this.$sortPopular.on('click', 'a', function(e) {
           e.preventDefault();
           _this.sort('popular');
-          _this.$sortList.find('> li').removeClass('selected');
+          _this.$sortList.find('.filter-item').removeClass('selected');
           $(this).parent().addClass('selected');
         });
 
@@ -227,6 +227,7 @@ jQuery(function() {
         if(toggle===undefined) {
           throw new Error('toggle parameter must be set to boolean');
         }
+
         this.$columns.filter('.level-1').find('.item:not(.selected)').slideToggle(toggle);
         this.$allCategoriesLink.toggle(!toggle);
       },
@@ -296,7 +297,11 @@ jQuery(function() {
        * @param {Number} level Level of the child container [1-3]
        */
       requestChildren: function(categoryId, level) {
-        this.serviceXHR = $.getJSON(this.serviceUrl+'/'+categoryId, $.proxy(this.populateColumn, this, level));
+        var _this = this;
+
+        //**/window.setTimeout(function() {
+          _this.serviceXHR = $.getJSON(_this.serviceUrl+'/'+categoryId, $.proxy(_this.populateColumn, _this, level));
+        //**/}, 2000);
       },
 
       /** Populates a specified column (based on level) with children specified in data object
