@@ -1194,7 +1194,10 @@ jQuery(function() {
         }
 
         if(segments[1]) {
-          keywords = segments[1].replace('+', ' ');
+          keywords = segments[1];
+          keywords = decodeURI(keywords);
+          keywords = keywords.replace('+', ' ');
+          keywords = keywords.replace(/[^a-zA-Z0-9\s']+/g, '');
 
           //update keywords field with keywords from url
           if(keywords) {
@@ -1291,8 +1294,8 @@ jQuery(function() {
       getSanitizedKeywords: function() {
         var keywords = this.$keywordsInput.val();
         keywords = keywords.replace(/^\s+|\s+$/g, '');
+        keywords = keywords.replace(/[^a-zA-Z0-9\s']+/g, ' ');
         keywords = keywords.replace(/\s+/g, ' ');
-        keywords = keywords.replace(/[^a-zA-Z0-9\s]+/g, '');
         return keywords;
       },
 
@@ -1396,12 +1399,13 @@ jQuery(function() {
       updateUrl: function() {
         var urlParts = [this.pageBase];
         var keywords = this.getSanitizedKeywords();
-        keywords = keywords.replace(/\s/g, '+');
 
         //type
         urlParts.push(this.$typeInput.val() || 'All');
 
         //keywords
+        keywords = keywords.replace(/\s/g, '+');
+        keywords = encodeURI(keywords);
         urlParts.push(keywords || '-');
 
         //page number
