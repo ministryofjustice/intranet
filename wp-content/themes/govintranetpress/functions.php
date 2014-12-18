@@ -1584,3 +1584,17 @@ function newspage_rewrite_rule() {
 }
 
 add_action('init', 'newspage_rewrite_rule');
+
+function dw_add_editor_style() {
+    add_editor_style( 'style.css' );
+}
+add_action( 'after_setup_theme', 'dw_add_editor_style' );
+
+// Adds markdown support (wpcom-markdown) to Pods CPTs
+function add_markdown_to_cpts() {
+	$post_types = array('blog','event','glossaryitem','news','projects','task','vacancies');
+	foreach ($post_types as $post_type) {
+		add_post_type_support( $post_type, 'wpcom-markdown' );
+	}
+}
+add_action('init', 'add_markdown_to_cpts');
