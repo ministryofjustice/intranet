@@ -74,7 +74,7 @@
   </div>
 
   <template data-template-type="tab-content" data-content-name="all-staff">
-    <h2 id="content-what-you-need-to-know">What you need to know</h2>
+    <h2>What you need to know</h2>
     <ul>
       <li>The MoJ leave year is a period of 12 months starting from your date of appointment.</li>
       <li>In addition to annual leave entitlement, all staff are entitled to public holidays (8 per year) and privilege holidays (2.5 per year).</li>
@@ -92,13 +92,13 @@
       <li>Your request for annual leave must be authorised by your line manager via manager self service.</li>
     </ul>
 
-    <h2 id="content-what-you-need-to-do">What you need to do</h2>
+    <h2>What you need to do</h2>
     <ul>
       <li>Follow local procedures for recording your annual and privilege leave.</li>
       <li>Calculate your annual leave entitlement for each 12-month period using the <a href="#">annual leave calculator</a>, then agree with your line manager that the calculation is correct.</li>
     </ul>
 
-    <h2 id="content-links">Links</h2>
+    <h2>Links</h2>
     <ul>
       <li><a href="#" rel="external">Accrued leave calculator</a></li>
       <li><a href="#">Annual leave and sickness absence Q&A</a></li>
@@ -115,13 +115,13 @@
   </template>
 
   <template data-template-type="tab-content" data-content-name="managers">
-    <h2 id="content-what-you-need-to-do">What you need to do</h2>
+    <h2>What you need to do</h2>
     <ul>
       <li>Follow local procedures for recording your annual and privilege leave.</li>
       <li>Calculate your annual leave entitlement for each 12-month period using the <a href="#">annual leave calculator</a>, then agree with your line manager that the calculation is correct.</li>
     </ul>
 
-    <h2 id="content-what-you-need-to-know">What you need to know</h2>
+    <h2>What you need to know</h2>
     <ul>
       <li>The MoJ leave year is a period of 12 months starting from your date of appointment.</li>
       <li>In addition to annual leave entitlement, all staff are entitled to public holidays (8 per year) and privilege holidays (2.5 per year).</li>
@@ -139,7 +139,7 @@
       <li>Your request for annual leave must be authorised by your line manager via manager self service.</li>
     </ul>
 
-    <h2 id="content-links">Links</h2>
+    <h2>Links</h2>
     <ul>
       <li><a href="#">Accrued leave calculator</a></li>
       <li><a href="#">Annual leave and sickness absence Q&A</a></li>

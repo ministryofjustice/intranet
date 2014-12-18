@@ -762,10 +762,18 @@ jQuery(function() {
         if(!this.initialized) { return; }
 
         this.$tableOfContents.empty();
-        //find all H* tags with ID's
-        this.$contentContainer.find('h1, h2, h3, h4, h5, h6').filter('[id]').each(function() {
+        //find all H2 tags with ID's
+        this.$contentContainer.find('h2').each(function() {
           var $el = $(this);
           var $item = $('<li><a></a></li>');
+          var attr;
+
+          if(!$el.filter('[id]').length) {
+            attr = $el.text().toLowerCase();
+            attr = attr.replace(/[^A-Za-z0-9\s-]/g, '');
+            attr = attr.replace(/[\s+]/g, '-');
+            $el.attr('id', attr);
+          }
 
           $item.find('a')
             .text($el.text())
