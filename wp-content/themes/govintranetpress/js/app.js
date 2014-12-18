@@ -1151,6 +1151,7 @@ jQuery(function() {
       },
 
       cacheEls: function() {
+        this.$searchForm = this.$top.find('#search-form');
         this.$typeInput = this.$top.find('[name="type"]');
         this.$categoryInput = this.$top.find('[name="category"]');
         this.$keywordsInput = this.$top.find('[name="keywords"]');
@@ -1181,6 +1182,10 @@ jQuery(function() {
           _this.loadResults({
             'page': $(this).attr('data-page')
           });
+        });
+
+        this.$searchForm.on('submit', function(e) {
+          e.preventDefault();
         });
       },
 
