@@ -111,6 +111,12 @@
   }
 }
 
+.page-template-search-results-php {
+  #searchform {
+    display: none;
+  }
+}
+
 @include mobile-mq() {
   #searchformdiv {
     padding-top: 10px;

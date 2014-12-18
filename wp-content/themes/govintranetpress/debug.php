@@ -35,7 +35,7 @@ class Debug {
 		//get original variable name
 		//note: this will not work correctly when this function is called more than once in one line of code
 		$backtrace = debug_backtrace();
-		$x = $backtrace[0]; //check 2 steps behind (first step is inside dv() where we're calling this method)
+		$x = $backtrace[1]; //check 1 step behind
 		$fname = $x['file'];
 		$fline = $x['line'];
 		$ffunc = $x['function'];
