@@ -632,50 +632,50 @@ p + p {
   margin: 15px 0 60px 0;
 }
 
-/* line 21, ../scss/global/_common.scss */
+/* line 19, ../scss/global/_common.scss */
+#content .editable h2 {
+  margin-top: 50px;
+}
+/* line 23, ../scss/global/_common.scss */
 #content .editable h2:first-of-type {
   margin-top: 24px;
 }
-/* line 25, ../scss/global/_common.scss */
-#content .editable h2:not(:first-of-type) {
-  margin-top: 50px;
-}
-/* line 34, ../scss/global/_common.scss */
+/* line 32, ../scss/global/_common.scss */
 #content .editable ul {
   padding-left: 20px;
   margin: 0;
 }
-/* line 38, ../scss/global/_common.scss */
+/* line 36, ../scss/global/_common.scss */
 #content .editable ul li {
   list-style-type: disc;
   margin: 0;
 }
-/* line 42, ../scss/global/_common.scss */
+/* line 40, ../scss/global/_common.scss */
 #content .editable ul li + li {
   margin-top: 10px;
 }
-/* line 48, ../scss/global/_common.scss */
+/* line 46, ../scss/global/_common.scss */
 #content .editable a {
   text-decoration: underline;
 }
-/* line 53, ../scss/global/_common.scss */
+/* line 51, ../scss/global/_common.scss */
 #content ul li {
   line-height: 1.4;
 }
-/* line 57, ../scss/global/_common.scss */
+/* line 55, ../scss/global/_common.scss */
 #content .info-list {
   display: table;
 }
-/* line 60, ../scss/global/_common.scss */
+/* line 58, ../scss/global/_common.scss */
 #content .info-list li {
   display: table-row;
 }
-/* line 64, ../scss/global/_common.scss */
+/* line 62, ../scss/global/_common.scss */
 #content .info-list span {
   display: table-cell;
   padding-right: 15px;
 }
-/* line 70, ../scss/global/_common.scss */
+/* line 68, ../scss/global/_common.scss */
 #content select {
   width: 100%;
   padding: 5px 20px 5px 10px;
@@ -688,17 +688,17 @@ p + p {
   border: 1px solid #bfc1c3;
   border-radius: 5px;
 }
-/* line 83, ../scss/global/_common.scss */
+/* line 81, ../scss/global/_common.scss */
 #content .content-info {
   margin-top: 20px;
   padding-top: 10px;
   border-top: 1px solid #bfc1c3;
 }
-/* line 88, ../scss/global/_common.scss */
+/* line 86, ../scss/global/_common.scss */
 #content .content-info p {
   margin: 10px 0;
 }
-/* line 95, ../scss/global/_common.scss */
+/* line 93, ../scss/global/_common.scss */
 #content .content-info .print:before,
 #content .content-info .share:before {
   display: inline-block;
@@ -706,14 +706,14 @@ p + p {
   content: "";
   margin-right: 10px;
 }
-/* line 104, ../scss/global/_common.scss */
+/* line 102, ../scss/global/_common.scss */
 #content .content-info .print:before {
   width: 20px;
   height: 21px;
   background-image: url("../images/printer.png");
   vertical-align: text-bottom;
 }
-/* line 113, ../scss/global/_common.scss */
+/* line 111, ../scss/global/_common.scss */
 #content .content-info .share:before {
   width: 19px;
   height: 14px;
@@ -722,7 +722,7 @@ p + p {
   background-size: 100%;
   vertical-align: middle;
 }
-/* line 123, ../scss/global/_common.scss */
+/* line 121, ../scss/global/_common.scss */
 #content .content-info .last-updated {
   color: #6f777b;
 }

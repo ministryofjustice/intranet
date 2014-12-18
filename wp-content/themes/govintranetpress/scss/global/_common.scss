@@ -18,12 +18,10 @@
   .editable {
     h2 {
       @extend %large-heading;
+      margin-top: 50px;
+
       &:first-of-type {
         margin-top: 24px;
-      }
-
-      &:not(:first-of-type) {
-        margin-top: 50px;
       }
     }
 
