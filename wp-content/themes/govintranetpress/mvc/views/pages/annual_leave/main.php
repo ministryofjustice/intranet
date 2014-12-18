@@ -51,18 +51,20 @@
 
   <div class="grid">
     <div class="col-lg-3">
-      <h4>Contents</h4>
-      <ul class="table-of-contents" data-content-container-selector=".tab-content">
-        <li>
-          <a href="#content-what-you-need-to-know">What you need to know</a>
-        </li>
-        <li>
-          <a href="#content-what-you-need-to-do">What you need to do</a>
-        </li>
-        <li>
-          <a href="#content-links">Links</a>
-        </li>
-      </ul>
+      <div class="js-floater" data-floater-limiter-selector=".tab-content">
+        <h4>Contents</h4>
+        <ul class="table-of-contents" data-content-container-selector=".tab-content">
+          <li>
+            <a href="#content-what-you-need-to-know">What you need to know</a>
+          </li>
+          <li>
+            <a href="#content-what-you-need-to-do">What you need to do</a>
+          </li>
+          <li>
+            <a href="#content-links">Links</a>
+          </li>
+        </ul>
+      </div>
     </div>
     <div class="col-lg-9">
       <div class="tab-content editable">

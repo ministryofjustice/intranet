@@ -1418,6 +1418,48 @@ jQuery(function() {
     }
   }(jQuery));
 
+  /** Floating context menu
+   * NOTE: the floater limiter might have dynamic content. It is important to recalculate the height on every call
+   */
+  (function($) {
+    "use strict";
+
+    App.FloatingContextMenu = function() {
+      this.$floaters = $('.js-floater');
+      if(!this.$floaters.length) { return; }
+      this.init();
+    };
+
+    App.FloatingContextMenu.prototype = {
+      init: function() {
+        this.cacheEls();
+        this.bindEvents();
+        this.setUpFloaters();
+      },
+
+      cacheEls: function() {
+      },
+
+      bindEvents: function() {
+        $(window).on('scroll', $.proxy(this.scrollHandler, this));
+      },
+
+      setUpFloaters: function() {
+        this.$floaters.each(function() {
+          var $floater = $(this);
+          $floater.attr('data-start-position', App.tools.round($floater.offset().top, 0));
+        });
+      },
+
+      scrollHandler: function() {
+        this.$floaters.each(function() {
+          var $floater = $(this);
+          var floaterHeight = $floater.outerHeight();
+        });
+      }
+    };
+  }(jQuery));
+
   /** init section - this should be in a separate file - init.js
    */
   App.ins.mobileMenu = new App.MobileMenu();
@@ -1430,4 +1472,5 @@ jQuery(function() {
   App.ins.tabbedContent = new App.TabbedContent();
   App.ins.news = new App.News();
   App.ins.searchResults = new App.SearchResults();
+  App.ins.floatingContextMenu = new App.FloatingContextMenu();
 });
