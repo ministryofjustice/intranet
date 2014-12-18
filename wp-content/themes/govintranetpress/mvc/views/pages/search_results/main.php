@@ -28,7 +28,7 @@
         </div>
         <div class="form-row">
           <select name="category">
-            <option value="">All</option>
+            <option value="All">All</option>
           </select>
         </div>
         <div class="form-row contains">
@@ -36,7 +36,7 @@
         </div>
         <div class="form-row">
           <select name="type">
-            <option value="">All</option>
+            <option value="All">All</option>
           </select>
         </div>
       </form>

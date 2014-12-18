@@ -1151,6 +1151,7 @@ jQuery(function() {
       },
 
       cacheEls: function() {
+        this.$searchForm = this.$top.find('#search-form');
         this.$typeInput = this.$top.find('[name="type"]');
         this.$categoryInput = this.$top.find('[name="category"]');
         this.$keywordsInput = this.$top.find('[name="keywords"]');
@@ -1182,6 +1183,10 @@ jQuery(function() {
             'page': $(this).attr('data-page')
           });
         });
+
+        this.$searchForm.on('submit', function(e) {
+          e.preventDefault();
+        });
       },
 
       setFilters: function() {
@@ -1194,7 +1199,10 @@ jQuery(function() {
         }
 
         if(segments[1]) {
-          keywords = segments[1].replace('+', ' ');
+          keywords = segments[1];
+          keywords = decodeURI(keywords);
+          keywords = keywords.replace('+', ' ');
+          keywords = keywords.replace(/[^a-zA-Z0-9\s']+/g, '');
 
           //update keywords field with keywords from url
           if(keywords) {
@@ -1205,12 +1213,6 @@ jQuery(function() {
 
       loadResults: function(requestData) {
         var _this = this;
-        var $title = this.$top.find('.search-results-page-title');
-
-        if(!$title.length) {
-          $title = $(this.resultsPageTitleTemplate);
-          this.$results.append($title);
-        }
 
         requestData = this.getDataObject(requestData);
 
@@ -1297,8 +1299,8 @@ jQuery(function() {
       getSanitizedKeywords: function() {
         var keywords = this.$keywordsInput.val();
         keywords = keywords.replace(/^\s+|\s+$/g, '');
+        keywords = keywords.replace(/[^a-zA-Z0-9\s']+/g, ' ');
         keywords = keywords.replace(/\s+/g, ' ');
-        keywords = keywords.replace(/[^a-zA-Z0-9\s]+/g, '');
         return keywords;
       },
 
@@ -1402,12 +1404,13 @@ jQuery(function() {
       updateUrl: function() {
         var urlParts = [this.pageBase];
         var keywords = this.getSanitizedKeywords();
-        keywords = keywords.replace(/\s/g, '+');
 
         //type
         urlParts.push(this.$typeInput.val() || 'All');
 
         //keywords
+        keywords = keywords.replace(/\s/g, '+');
+        keywords = encodeURI(keywords);
         urlParts.push(keywords || '-');
 
         //page number
