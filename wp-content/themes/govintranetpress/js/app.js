@@ -1418,19 +1418,19 @@ jQuery(function() {
     }
   }(jQuery));
 
-  /** Floating context menu
-   * NOTE: the floater limiter might have dynamic content. It is important to recalculate the height on every call
+  /** Floaters
+   * Handles floating elements which have minimum and maximum position determined by its container
    */
   (function($) {
     "use strict";
 
-    App.FloatingContextMenu = function() {
+    App.Floaters = function() {
       this.$floaters = $('.js-floater');
       if(!this.$floaters.length) { return; }
       this.init();
     };
 
-    App.FloatingContextMenu.prototype = {
+    App.Floaters.prototype = {
       init: function() {
         this.cacheEls();
         this.bindEvents();
@@ -1487,5 +1487,5 @@ jQuery(function() {
   App.ins.tabbedContent = new App.TabbedContent();
   App.ins.news = new App.News();
   App.ins.searchResults = new App.SearchResults();
-  App.ins.floatingContextMenu = new App.FloatingContextMenu();
+  App.ins.floaters = new App.Floaters();
 });
