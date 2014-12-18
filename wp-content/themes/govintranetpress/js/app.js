@@ -750,7 +750,7 @@ jQuery(function() {
       },
 
       cacheEls: function() {
-        this.$contentContainer = $(this.$tableOfContents.attr('data-content-container-selector'));
+        this.$contentContainer = $(this.$tableOfContents.attr('data-content-selector'));
       },
 
       bindEvents: function() {
@@ -1454,7 +1454,22 @@ jQuery(function() {
       scrollHandler: function() {
         this.$floaters.each(function() {
           var $floater = $(this);
+          var $container = $($floater.attr('data-floater-limiter-selector'));
           var floaterHeight = $floater.outerHeight();
+          var limiterTop = App.tools.round($container.offset().top, 0);
+          var limiterHeight = $container.outerHeight();
+          var scrollTop = $(window).scrollTop();
+
+          if(scrollTop > limiterTop) {
+            $floater.css({
+              marginTop: Math.min(scrollTop - limiterTop, limiterHeight - floaterHeight - 100) + 'px'
+            });
+          }
+          else {
+            $floater.css({
+              marginTop: '' //restore original
+            });
+          }
         });
       }
     };

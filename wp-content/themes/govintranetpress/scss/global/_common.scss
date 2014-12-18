@@ -16,8 +16,15 @@
 
 #content {
   .editable {
-    h3:not(:first-of-type) {
-      margin-top: 50px;
+    h2 {
+      @extend %large-heading;
+      &:first-of-type {
+        margin-top: 24px;
+      }
+
+      &:not(:first-of-type) {
+        margin-top: 50px;
+      }
     }
 
     p, li {

@@ -49,11 +49,11 @@
     </div>
   </div>
 
-  <div class="grid">
-    <div class="col-lg-3">
-      <div class="js-floater" data-floater-limiter-selector=".tab-content">
+  <div class="grid content-container">
+    <div class="col-lg-3 col-md-4">
+      <div class="js-floater context-menu" data-floater-limiter-selector=".content-container">
         <h4>Contents</h4>
-        <ul class="table-of-contents" data-content-container-selector=".tab-content">
+        <ul class="table-of-contents" data-content-selector=".tab-content">
           <li>
             <a href="#content-what-you-need-to-know">What you need to know</a>
           </li>
@@ -65,15 +65,16 @@
           </li>
         </ul>
       </div>
+      &nbsp;
     </div>
-    <div class="col-lg-9">
+    <div class="col-lg-9 col-md-8">
       <div class="tab-content editable">
       </div>
     </div>
   </div>
 
   <template data-template-type="tab-content" data-content-name="all-staff">
-    <h3 id="content-what-you-need-to-know">What you need to know</h3>
+    <h2 id="content-what-you-need-to-know">What you need to know</h2>
     <ul>
       <li>The MoJ leave year is a period of 12 months starting from your date of appointment.</li>
       <li>In addition to annual leave entitlement, all staff are entitled to public holidays (8 per year) and privilege holidays (2.5 per year).</li>
@@ -91,13 +92,13 @@
       <li>Your request for annual leave must be authorised by your line manager via manager self service.</li>
     </ul>
 
-    <h3 id="content-what-you-need-to-do">What you need to do</h3>
+    <h2 id="content-what-you-need-to-do">What you need to do</h2>
     <ul>
       <li>Follow local procedures for recording your annual and privilege leave.</li>
       <li>Calculate your annual leave entitlement for each 12-month period using the <a href="#">annual leave calculator</a>, then agree with your line manager that the calculation is correct.</li>
     </ul>
 
-    <h3 id="content-links">Links</h3>
+    <h2 id="content-links">Links</h2>
     <ul>
       <li><a href="#" rel="external">Accrued leave calculator</a></li>
       <li><a href="#">Annual leave and sickness absence Q&A</a></li>
@@ -114,13 +115,13 @@
   </template>
 
   <template data-template-type="tab-content" data-content-name="managers">
-    <h3 id="content-what-you-need-to-do">What you need to do</h3>
+    <h2 id="content-what-you-need-to-do">What you need to do</h2>
     <ul>
       <li>Follow local procedures for recording your annual and privilege leave.</li>
       <li>Calculate your annual leave entitlement for each 12-month period using the <a href="#">annual leave calculator</a>, then agree with your line manager that the calculation is correct.</li>
     </ul>
 
-    <h3 id="content-what-you-need-to-know">What you need to know</h3>
+    <h2 id="content-what-you-need-to-know">What you need to know</h2>
     <ul>
       <li>The MoJ leave year is a period of 12 months starting from your date of appointment.</li>
       <li>In addition to annual leave entitlement, all staff are entitled to public holidays (8 per year) and privilege holidays (2.5 per year).</li>
@@ -138,7 +139,7 @@
       <li>Your request for annual leave must be authorised by your line manager via manager self service.</li>
     </ul>
 
-    <h3 id="content-links">Links</h3>
+    <h2 id="content-links">Links</h2>
     <ul>
       <li><a href="#">Accrued leave calculator</a></li>
       <li><a href="#">Annual leave and sickness absence Q&A</a></li>
