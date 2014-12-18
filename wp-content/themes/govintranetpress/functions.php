@@ -208,8 +208,11 @@ function twentyten_filter_wp_title( $title, $separator ) {
 		$title .= get_bloginfo( 'name', 'display' );
 	}
 
-	$slug = pods_url_variable(0);
-	$slug2 = pods_url_variable(1);
+  if(function_exists('pods_url_variable')) {
+    $slug = pods_url_variable(0);
+    $slug2 = pods_url_variable(1);
+  }
+
 	if ($slug == "task"  ) {
 
 		$taskpod = new Pod ('task' , pods_url_variable(1));
@@ -1577,10 +1580,30 @@ function keep_me_logged_in_for_1_hour( $expirein ) {
 }
 add_filter( 'auth_cookie_expiration', 'keep_me_logged_in_for_1_hour' );
 
-function newspage_rewrite_rule() {
-  $regex = '^newspage/page/([0-9]+)/(.*)';
-  $redirect = 'index.php?page_id='.get_page_by_path('newspage')->ID;
-  add_rewrite_rule($regex, $redirect, 'top');
+function dw_redirects() {
+  //Search form -> search results page
+  if($_POST['s'] || $_POST['search-filter']) {
+    $keywords = $_POST['s'] ?: '';
+    $filter = $_POST['search-filter'] ?: 'All';
+
+    header('Location: ' . site_url() . '/search-results/' . $filter . '/' . $keywords);
+    exit;
+  }
 }
 
-add_action('init', 'newspage_rewrite_rule');
+function dw_rewrite_rules() {
+  //News page
+  $regex = '^newspage/page/([0-9]+)/(.*)';
+  $redirect = 'index.php?page_id=' . get_page_by_path('newspage')->ID;
+  add_rewrite_rule($regex, $redirect, 'top');
+
+  //Search results page
+  $regex = '^search-results/([^/]*)/([^/]*)/?';
+  $redirect = 'index.php?page_id=' . get_page_by_path('search-results')->ID . '&search-filter=$matches[1]&search-string=$matches[2]';
+  add_rewrite_rule($regex, $redirect, 'top');
+  add_rewrite_tag('%search-filter%', '([^&]+)');
+  add_rewrite_tag('%search-string%', '([^&]+)');
+}
+
+add_action('init', 'dw_redirects');
+add_action('init', 'dw_rewrite_rules');
