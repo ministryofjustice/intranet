@@ -9,7 +9,7 @@
   </div>
   <div class="my-moj-body">
     <div class="apps-container">
-      <h3>My MoJ</h3>
+      <h3 class="category-name">My MoJ</h3>
       <ul class="apps-list">
         <?php foreach($apps as $app): ?>
           <?php $this->view('pages/homepage/my_moj/app_item', $app) ?>
@@ -18,7 +18,7 @@
     </div>
 
     <div class="quick-links-container">
-      <h3>Quick links</h3>
+      <h3 class="category-name">Quick links</h3>
       <ul class="quick-links-list">
         <?php foreach($quick_links as $quick_link): ?>
           <?php $this->view('pages/homepage/my_moj/quick_link_item', $quick_link) ?>

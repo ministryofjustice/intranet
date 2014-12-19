@@ -547,6 +547,11 @@ body, .header #searchform .search-filter-container:after, .header #searchform .s
   line-height: 20px;
 }
 
+/* line 84, ../scss/global/_typography.scss */
+.my-moj .apps-list .app-link {
+  font-size: 13px;
+}
+
 /** **/
 /* line 1, ../scss/global/_base.scss */
 template {
@@ -574,16 +579,16 @@ a {
   color: #005ea5;
 }
 /* line 42, ../scss/global/_base.scss */
-a:hover {
-  color: #2e8aca;
-}
-/* line 46, ../scss/global/_base.scss */
 a:active {
   color: #2e8aca;
 }
-/* line 50, ../scss/global/_base.scss */
+/* line 46, ../scss/global/_base.scss */
 a:visited {
   color: #005ea5;
+}
+/* line 50, ../scss/global/_base.scss */
+a:hover {
+  color: #2e8aca;
 }
 /* line 54, ../scss/global/_base.scss */
 a {
@@ -2231,13 +2236,23 @@ form .form-row:first-of-type {
 /* line 1, ../scss/content/homepage/_my_moj.scss */
 .my-moj {
   margin-top: 20px;
+  background-color: #ececec;
 }
-/* line 3, ../scss/content/homepage/_my_moj.scss */
+/* line 5, ../scss/content/homepage/_my_moj.scss */
+.my-moj .category-name {
+  border-bottom: 1px solid #6f777b;
+  font-weight: normal;
+}
+/* line 11, ../scss/content/homepage/_my_moj.scss */
+.my-moj .apps-container .category-name {
+  margin-top: 0;
+}
+/* line 16, ../scss/content/homepage/_my_moj.scss */
 .my-moj .my-moj-top {
   padding: 10px 30px;
   background-color: #28a197;
 }
-/* line 7, ../scss/content/homepage/_my_moj.scss */
+/* line 20, ../scss/content/homepage/_my_moj.scss */
 .my-moj .my-moj-top .department {
   max-width: 220px;
   background: #fff;
@@ -2245,6 +2260,106 @@ form .form-row:first-of-type {
   border: none;
   box-shadow: none;
   font-weight: bold;
+}
+/* line 30, ../scss/content/homepage/_my_moj.scss */
+.my-moj .my-moj-body {
+  padding: 30px;
+}
+/* line 34, ../scss/content/homepage/_my_moj.scss */
+.my-moj .apps-list {
+  margin-right: -10px;
+}
+/* line 2, ../scss/global/_mixins.scss */
+.my-moj .apps-list:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+/* line 38, ../scss/content/homepage/_my_moj.scss */
+.my-moj .apps-list .app-item {
+  float: left;
+  width: 74px;
+  height: 135px;
+  margin-right: 12px;
+  text-align: center;
+}
+/* line 46, ../scss/content/homepage/_my_moj.scss */
+.my-moj .apps-list .app-item:hover .app-icon {
+  border: 1px solid #ffc10e;
+}
+/* line 52, ../scss/content/homepage/_my_moj.scss */
+.my-moj .apps-list .app-link {
+  display: block;
+}
+/* line 56, ../scss/content/homepage/_my_moj.scss */
+.my-moj .apps-list .app-link:after {
+  background-image: none;
+}
+/* line 61, ../scss/content/homepage/_my_moj.scss */
+.my-moj .apps-list .app-name {
+  display: block;
+  text-align: center;
+}
+/* line 66, ../scss/content/homepage/_my_moj.scss */
+.my-moj .apps-list .app-icon {
+  width: 74px;
+  height: 74px;
+  max-width: 74px;
+  max-height: 74px;
+  display: inline-block;
+  margin: 0 auto;
+  background-repeat: no-repeat;
+  background-image: url("../images/my_moj_icons.png");
+  border: 1px solid #bfc1c3;
+  border-radius: 5px;
+}
+/* line 78, ../scss/content/homepage/_my_moj.scss */
+.my-moj .apps-list .app-icon.people-finder-icon {
+  background-position: 0 0;
+}
+/* line 82, ../scss/content/homepage/_my_moj.scss */
+.my-moj .apps-list .app-icon.courtfinder-icon {
+  background-position: -74px 0;
+}
+/* line 86, ../scss/content/homepage/_my_moj.scss */
+.my-moj .apps-list .app-icon.jobs-icon {
+  background-position: -148px 0;
+}
+/* line 90, ../scss/content/homepage/_my_moj.scss */
+.my-moj .apps-list .app-icon.iexpense-icon {
+  background-position: -222px 0;
+}
+/* line 94, ../scss/content/homepage/_my_moj.scss */
+.my-moj .apps-list .app-icon.civil-service-learning-icon {
+  background-position: -296px 0;
+}
+/* line 98, ../scss/content/homepage/_my_moj.scss */
+.my-moj .apps-list .app-icon.travel-booking-icon {
+  background-position: -370px 0;
+}
+/* line 102, ../scss/content/homepage/_my_moj.scss */
+.my-moj .apps-list .app-icon.phoenix-icon {
+  background-position: -444px 0;
+}
+/* line 106, ../scss/content/homepage/_my_moj.scss */
+.my-moj .apps-list .app-icon.online-toolkit-icon {
+  background-position: -518px 0;
+}
+/* line 110, ../scss/content/homepage/_my_moj.scss */
+.my-moj .apps-list .app-icon.hmcts-intranet-icon {
+  background-position: -592px 0;
+}
+/* line 117, ../scss/content/homepage/_my_moj.scss */
+.my-moj .quick-links-list a {
+  text-decoration: underline;
+}
+/* line 121, ../scss/content/homepage/_my_moj.scss */
+.my-moj .quick-links-list .quick-link-item {
+  margin-top: 10px;
+}
+/* line 124, ../scss/content/homepage/_my_moj.scss */
+.my-moj .quick-links-list .quick-link-item:first-of-type a {
+  margin-top: 0;
 }
 
 /* line 2, ../scss/content/guidance_and_support/_main.scss */

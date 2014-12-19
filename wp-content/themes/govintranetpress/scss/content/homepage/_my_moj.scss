@@ -1,6 +1,18 @@
 .my-moj {
   margin-top: 20px;
-  
+  background-color: #ececec;
+
+  .category-name {
+    border-bottom: 1px solid $grey-1;
+    font-weight: normal;
+  }
+
+  .apps-container {
+    .category-name {
+      margin-top: 0;
+    }
+  }
+
   .my-moj-top {
     padding: 10px 30px;
     background-color: $turquoise;
@@ -12,6 +24,106 @@
       border: none;
       box-shadow: none;
       font-weight: bold;
+    }
+  }
+
+  .my-moj-body {
+    padding: 30px;
+  }
+
+  .apps-list {
+    margin-right: -10px;
+    @include clearfix;
+
+    .app-item {
+      float: left;
+      width: 74px;
+      height: 135px;
+      margin-right: 12px;
+      text-align: center;
+
+      &:hover {
+        .app-icon {
+          border: 1px solid $dw-warning;
+        }
+      }
+    }
+
+    .app-link {
+      @extend %smaller-copy;
+      display: block;
+
+      &:after {
+        background-image: none;
+      }
+    }
+
+    .app-name {
+      display: block;
+      text-align: center;
+    }
+
+    .app-icon {
+      width: 74px;
+      height: 74px;
+      max-width: 74px;
+      max-height: 74px;
+      display: inline-block;
+      margin: 0 auto;
+      background-repeat: no-repeat;
+      background-image: url('../images/my_moj_icons.png');
+      border: 1px solid $grey-2;
+      border-radius: 5px;
+
+      &.people-finder-icon {
+        background-position: 0 0;
+      }
+
+      &.courtfinder-icon {
+        background-position: -74px 0;
+      }
+
+      &.jobs-icon {
+        background-position: -148px 0;
+      }
+
+      &.iexpense-icon {
+        background-position: -222px 0;
+      }
+
+      &.civil-service-learning-icon {
+        background-position: -296px 0;
+      }
+
+      &.travel-booking-icon {
+        background-position: -370px 0;
+      }
+
+      &.phoenix-icon {
+        background-position: -444px 0;
+      }
+
+      &.online-toolkit-icon {
+        background-position: -518px 0;
+      }
+
+      &.hmcts-intranet-icon {
+        background-position: -592px 0;
+      }
+    }
+  }
+
+  .quick-links-list {
+    a {
+      text-decoration: underline;
+    }
+
+    .quick-link-item {
+      margin-top: 10px;
+
+      &:first-of-type a {
+        margin-top: 0;
+      }
     }
   }
 }
