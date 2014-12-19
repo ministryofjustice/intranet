@@ -10,3 +10,6 @@
 [submodule "wp-content/plugins/dw-feature-news"]
 	path = wp-content/plugins/dw-feature-news
 	url = https://github.com/ministryofjustice/dw-feature-news.git
+[submodule "wp-content/plugins/dw-markdown-preview"]
+	path = wp-content/plugins/dw-markdown-preview
+	url = https://github.com/ministryofjustice/dw-markdown-preview.git

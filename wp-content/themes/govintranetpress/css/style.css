@@ -493,7 +493,7 @@ h4, .ht-feature-news h3, #need-to-know .item-title, .guidance-and-support .categ
 }
 
 /* line 31, ../scss/global/_typography.scss */
-h3, .header .logo a, .ht-feature-news > h3, .page-news .news-filtered-results-title .results-count, .page-search-results .page-title, .page-search-results .search-filtered-results-title .results-count {
+h3, .main-content .editable h2, .header .logo a, .ht-feature-news > h3, .page-news .news-filtered-results-title .results-count, .page-search-results .page-title, .page-search-results .search-filtered-results-title .results-count {
   font-size: 24px;
   line-height: 30px;
 }
@@ -638,45 +638,49 @@ p + p {
 }
 
 /* line 19, ../scss/global/_common.scss */
-.main-content .editable h3:not(:first-of-type) {
+.main-content .editable h2 {
   margin-top: 50px;
 }
-/* line 27, ../scss/global/_common.scss */
+/* line 23, ../scss/global/_common.scss */
+.main-content .editable h2:first-of-type {
+  margin-top: 24px;
+}
+/* line 32, ../scss/global/_common.scss */
 .main-content .editable ul {
   padding-left: 20px;
   margin: 0;
 }
-/* line 31, ../scss/global/_common.scss */
+/* line 36, ../scss/global/_common.scss */
 .main-content .editable ul li {
   list-style-type: disc;
   margin: 0;
 }
-/* line 35, ../scss/global/_common.scss */
+/* line 40, ../scss/global/_common.scss */
 .main-content .editable ul li + li {
   margin-top: 10px;
 }
-/* line 41, ../scss/global/_common.scss */
+/* line 46, ../scss/global/_common.scss */
 .main-content .editable a {
   text-decoration: underline;
 }
-/* line 46, ../scss/global/_common.scss */
+/* line 51, ../scss/global/_common.scss */
 .main-content ul li {
   line-height: 1.4;
 }
-/* line 50, ../scss/global/_common.scss */
+/* line 55, ../scss/global/_common.scss */
 .main-content .info-list {
   display: table;
 }
-/* line 53, ../scss/global/_common.scss */
+/* line 58, ../scss/global/_common.scss */
 .main-content .info-list li {
   display: table-row;
 }
-/* line 57, ../scss/global/_common.scss */
+/* line 62, ../scss/global/_common.scss */
 .main-content .info-list span {
   display: table-cell;
   padding-right: 15px;
 }
-/* line 63, ../scss/global/_common.scss */
+/* line 68, ../scss/global/_common.scss */
 .main-content select {
   width: 100%;
   padding: 5px 20px 5px 10px;
@@ -689,17 +693,17 @@ p + p {
   border: 1px solid #bfc1c3;
   border-radius: 5px;
 }
-/* line 76, ../scss/global/_common.scss */
+/* line 81, ../scss/global/_common.scss */
 .main-content .content-info {
   margin-top: 20px;
   padding-top: 10px;
   border-top: 1px solid #bfc1c3;
 }
-/* line 81, ../scss/global/_common.scss */
+/* line 86, ../scss/global/_common.scss */
 .main-content .content-info p {
   margin: 10px 0;
 }
-/* line 88, ../scss/global/_common.scss */
+/* line 93, ../scss/global/_common.scss */
 .main-content .content-info .print:before,
 .main-content .content-info .share:before {
   display: inline-block;
@@ -707,14 +711,14 @@ p + p {
   content: "";
   margin-right: 10px;
 }
-/* line 97, ../scss/global/_common.scss */
+/* line 102, ../scss/global/_common.scss */
 .main-content .content-info .print:before {
   width: 20px;
   height: 21px;
   background-image: url("../images/printer.png");
   vertical-align: text-bottom;
 }
-/* line 106, ../scss/global/_common.scss */
+/* line 111, ../scss/global/_common.scss */
 .main-content .content-info .share:before {
   width: 19px;
   height: 14px;
@@ -723,7 +727,7 @@ p + p {
   background-size: 100%;
   vertical-align: middle;
 }
-/* line 116, ../scss/global/_common.scss */
+/* line 121, ../scss/global/_common.scss */
 .main-content .content-info .last-updated {
   color: #6f777b;
 }
@@ -2707,29 +2711,31 @@ form .form-row:first-of-type {
 }
 /* line 30, ../scss/content/annual_leave/_main.scss */
 .annual-leave h4 {
+  margin-top: 0;
+  padding-top: 24px;
   margin-bottom: 0px;
   font-weight: normal;
 }
-/* line 35, ../scss/content/annual_leave/_main.scss */
+/* line 37, ../scss/content/annual_leave/_main.scss */
 .annual-leave .table-of-contents {
   margin-top: 5px;
 }
-/* line 38, ../scss/content/annual_leave/_main.scss */
+/* line 40, ../scss/content/annual_leave/_main.scss */
 .annual-leave .table-of-contents li {
   display: block;
   border-bottom: 1px solid #bfc1c3;
 }
-/* line 42, ../scss/content/annual_leave/_main.scss */
+/* line 44, ../scss/content/annual_leave/_main.scss */
 .annual-leave .table-of-contents li:first-of-type {
   border-top: 1px solid #bfc1c3;
 }
-/* line 46, ../scss/content/annual_leave/_main.scss */
+/* line 48, ../scss/content/annual_leave/_main.scss */
 .annual-leave .table-of-contents li a {
   display: block;
   padding-top: 5px;
   padding-bottom: 5px;
 }
-/* line 55, ../scss/content/annual_leave/_main.scss */
+/* line 57, ../scss/content/annual_leave/_main.scss */
 .annual-leave .excerpt {
   margin-top: 50px;
 }
