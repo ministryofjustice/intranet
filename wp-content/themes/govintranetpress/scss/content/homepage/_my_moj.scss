@@ -1,0 +1,17 @@
+.my-moj {
+  margin-top: 20px;
+  
+  .my-moj-top {
+    padding: 10px 30px;
+    background-color: $turquoise;
+
+    .department {
+      max-width: 220px;
+      background: $white;
+      border-radius: 0;
+      border: none;
+      box-shadow: none;
+      font-weight: bold;
+    }
+  }
+}

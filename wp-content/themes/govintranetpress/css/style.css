@@ -525,7 +525,7 @@ h1 {
 }
 
 /* line 69, ../scss/global/_typography.scss */
-#content .editable p, #content .editable li, .page-news .news-filtered-results-title .containing,
+.main-content .editable p, .main-content .editable li, .page-news .news-filtered-results-title .containing,
 .page-news .news-filtered-results-title .for-date, .page-news .news-filtered-results-title .results-count-description,
 .page-news .news-filtered-results-title .keywords,
 .page-news .news-filtered-results-title .date, .page-search-results .search-filtered-results-title .containing, .page-search-results .search-filtered-results-title .results-count-description,
@@ -535,7 +535,7 @@ h1 {
 }
 
 /* line 74, ../scss/global/_typography.scss */
-#content .content-info p, .breadcrumbs a,
+.main-content .content-info p, .breadcrumbs a,
 .breadcrumbs span, .message .content, #menu-utilities li a, .content-filters .description, .content-filters .label, .ht-feature-news .excerpt, .guidance-and-support .categories .item h3, .annual-leave .right-hand-menu a, .annual-leave .table-of-contents li a, .page-search-results .search-item .excerpt {
   font-size: 16px;
   line-height: 20px;
@@ -633,46 +633,46 @@ p + p {
 }
 
 /* line 19, ../scss/global/_common.scss */
-#content .editable h3:not(:first-of-type) {
+.main-content .editable h3:not(:first-of-type) {
   margin-top: 50px;
 }
 /* line 27, ../scss/global/_common.scss */
-#content .editable ul {
+.main-content .editable ul {
   padding-left: 20px;
   margin: 0;
 }
 /* line 31, ../scss/global/_common.scss */
-#content .editable ul li {
+.main-content .editable ul li {
   list-style-type: disc;
   margin: 0;
 }
 /* line 35, ../scss/global/_common.scss */
-#content .editable ul li + li {
+.main-content .editable ul li + li {
   margin-top: 10px;
 }
 /* line 41, ../scss/global/_common.scss */
-#content .editable a {
+.main-content .editable a {
   text-decoration: underline;
 }
 /* line 46, ../scss/global/_common.scss */
-#content ul li {
+.main-content ul li {
   line-height: 1.4;
 }
 /* line 50, ../scss/global/_common.scss */
-#content .info-list {
+.main-content .info-list {
   display: table;
 }
 /* line 53, ../scss/global/_common.scss */
-#content .info-list li {
+.main-content .info-list li {
   display: table-row;
 }
 /* line 57, ../scss/global/_common.scss */
-#content .info-list span {
+.main-content .info-list span {
   display: table-cell;
   padding-right: 15px;
 }
 /* line 63, ../scss/global/_common.scss */
-#content select {
+.main-content select {
   width: 100%;
   padding: 5px 20px 5px 10px;
   box-shadow: 1px 1px 1px #fff;
@@ -685,32 +685,32 @@ p + p {
   border-radius: 5px;
 }
 /* line 76, ../scss/global/_common.scss */
-#content .content-info {
+.main-content .content-info {
   margin-top: 20px;
   padding-top: 10px;
   border-top: 1px solid #bfc1c3;
 }
 /* line 81, ../scss/global/_common.scss */
-#content .content-info p {
+.main-content .content-info p {
   margin: 10px 0;
 }
 /* line 88, ../scss/global/_common.scss */
-#content .content-info .print:before,
-#content .content-info .share:before {
+.main-content .content-info .print:before,
+.main-content .content-info .share:before {
   display: inline-block;
   background-repeat: no-repeat;
   content: "";
   margin-right: 10px;
 }
 /* line 97, ../scss/global/_common.scss */
-#content .content-info .print:before {
+.main-content .content-info .print:before {
   width: 20px;
   height: 21px;
   background-image: url("../images/printer.png");
   vertical-align: text-bottom;
 }
 /* line 106, ../scss/global/_common.scss */
-#content .content-info .share:before {
+.main-content .content-info .share:before {
   width: 19px;
   height: 14px;
   margin-left: 20px;
@@ -719,7 +719,7 @@ p + p {
   vertical-align: middle;
 }
 /* line 116, ../scss/global/_common.scss */
-#content .content-info .last-updated {
+.main-content .content-info .last-updated {
   color: #6f777b;
 }
 
@@ -2228,6 +2228,25 @@ form .form-row:first-of-type {
     width: 100%;
   }
 }
+/* line 1, ../scss/content/homepage/_my_moj.scss */
+.my-moj {
+  margin-top: 20px;
+}
+/* line 3, ../scss/content/homepage/_my_moj.scss */
+.my-moj .my-moj-top {
+  padding: 10px 30px;
+  background-color: #28a197;
+}
+/* line 7, ../scss/content/homepage/_my_moj.scss */
+.my-moj .my-moj-top .department {
+  max-width: 220px;
+  background: #fff;
+  border-radius: 0;
+  border: none;
+  box-shadow: none;
+  font-weight: bold;
+}
+
 /* line 2, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .tabbed-filters {
   margin-top: 30px;

@@ -2,7 +2,7 @@
 
 <div class="my-moj">
   <div class="my-moj-top">
-    <select>
+    <select class="department">
       <option value="">Choose your department</option>
     </select>
     <span class="help-icon"></span>
