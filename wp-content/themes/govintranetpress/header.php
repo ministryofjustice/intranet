@@ -188,5 +188,5 @@ header('X-Frame-Options: SAMEORIGIN');
     </div>
   </div>
 
-  <div id="content" class="container">
+  <div id="content" class="container main-content">
     <div class="content-wrapper">
