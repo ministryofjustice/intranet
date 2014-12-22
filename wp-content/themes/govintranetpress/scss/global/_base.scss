@@ -39,16 +39,16 @@ li {
 a {
   color: $link-colour;
 
-  &:hover {
-    color: $link-hover-colour;
-  }
-
   &:active {
     color: $link-active-colour;
   }
 
   &:visited {
     color: $link-colour;
+  }
+
+  &:hover {
+    color: $link-hover-colour;
   }
 
   & {
