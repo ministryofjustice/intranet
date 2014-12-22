@@ -4,15 +4,14 @@
   <div class="grid">
     <div class="col-lg-12 col-md-12 col-sm-12">
       <div class="tabbed-filters">
-        <p>Sort by</p>
-        <ul class="tabbed-filters">
-          <li class="selected alpha" data-sort-type="alphabetical">
+        <ul>
+          <li class="filter-item selected alpha" data-sort-type="alphabetical">
             <a href="">
               <span class="icon"></span>
               <span class="label">A to Z</span>
             </a>
           </li>
-          <li class="star" data-sort-type="popular">
+          <li class="filter-item star" data-sort-type="popular">
             <a href="">
               <span class="icon"></span>
               <span class="label">Popular</span>

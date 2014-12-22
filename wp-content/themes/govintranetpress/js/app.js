@@ -160,7 +160,7 @@ jQuery(function() {
         this.$tree = this.$top.find('.tree');
         this.$columns = this.$tree.find('.item-container');
 
-        this.$sortList = this.$top.find('.tabbed-filter');
+        this.$sortList = this.$top.find('.tabbed-filters');
         this.$sortPopular = this.$sortList.find('[data-sort-type="popular"]');
         this.$sortAlphabetical = this.$sortList.find('[data-sort-type="alphabetical"]');
 
@@ -173,14 +173,14 @@ jQuery(function() {
         this.$sortAlphabetical.on('click', 'a', function(e) {
           e.preventDefault();
           _this.sort('alphabetical');
-          _this.$sortList.find('> li').removeClass('selected');
+          _this.$sortList.find('.filter-item').removeClass('selected');
           $(this).parent().addClass('selected');
         });
 
         this.$sortPopular.on('click', 'a', function(e) {
           e.preventDefault();
           _this.sort('popular');
-          _this.$sortList.find('> li').removeClass('selected');
+          _this.$sortList.find('.filter-item').removeClass('selected');
           $(this).parent().addClass('selected');
         });
 
@@ -270,6 +270,7 @@ jQuery(function() {
         if(toggle===undefined) {
           throw new Error('toggle parameter must be set to boolean');
         }
+
         this.$columns.filter('.level-1').find('.item:not(.selected)').slideToggle(toggle);
         this.$allCategoriesLink.toggle(!toggle);
       },
@@ -339,7 +340,11 @@ jQuery(function() {
        * @param {Number} level Level of the child container [1-3]
        */
       requestChildren: function(categoryId, level) {
-        this.serviceXHR = $.getJSON(this.serviceUrl+'/'+categoryId, $.proxy(this.populateColumn, this, level));
+        var _this = this;
+
+        //**/window.setTimeout(function() {
+          _this.serviceXHR = $.getJSON(_this.serviceUrl+'/'+categoryId, $.proxy(_this.populateColumn, _this, level));
+        //**/}, 2000);
       },
 
       /** Populates a specified column (based on level) with children specified in data object
@@ -750,7 +755,7 @@ jQuery(function() {
       },
 
       cacheEls: function() {
-        this.$contentContainer = $(this.$tableOfContents.attr('data-content-container-selector'));
+        this.$contentContainer = $(this.$tableOfContents.attr('data-content-selector'));
       },
 
       bindEvents: function() {
@@ -762,10 +767,18 @@ jQuery(function() {
         if(!this.initialized) { return; }
 
         this.$tableOfContents.empty();
-        //find all H* tags with ID's
-        this.$contentContainer.find('h1, h2, h3, h4, h5, h6').filter('[id]').each(function() {
+        //find all H2 tags with ID's
+        this.$contentContainer.find('h2').each(function() {
           var $el = $(this);
           var $item = $('<li><a></a></li>');
+          var attr;
+
+          if(!$el.filter('[id]').length) {
+            attr = $el.text().toLowerCase();
+            attr = attr.replace(/[^A-Za-z0-9\s-]/g, '');
+            attr = attr.replace(/[\s+]/g, '-');
+            $el.attr('id', attr);
+          }
 
           $item.find('a')
             .text($el.text())
@@ -1421,6 +1434,63 @@ jQuery(function() {
     }
   }(jQuery));
 
+  /** Floaters
+   * Handles floating elements which have minimum and maximum position determined by its container
+   */
+  (function($) {
+    "use strict";
+
+    App.Floaters = function() {
+      this.$floaters = $('.js-floater');
+      if(!this.$floaters.length) { return; }
+      this.init();
+    };
+
+    App.Floaters.prototype = {
+      init: function() {
+        this.cacheEls();
+        this.bindEvents();
+        this.setUpFloaters();
+      },
+
+      cacheEls: function() {
+      },
+
+      bindEvents: function() {
+        $(window).on('scroll', $.proxy(this.scrollHandler, this));
+      },
+
+      setUpFloaters: function() {
+        this.$floaters.each(function() {
+          var $floater = $(this);
+          $floater.attr('data-start-position', App.tools.round($floater.offset().top, 0));
+        });
+      },
+
+      scrollHandler: function() {
+        this.$floaters.each(function() {
+          var $floater = $(this);
+          var $container = $($floater.attr('data-floater-limiter-selector'));
+          var floaterHeight = $floater.outerHeight();
+          var limiterTop = App.tools.round($container.offset().top, 0);
+          var limiterHeight = $container.outerHeight();
+          var scrollTop = $(window).scrollTop();
+
+          if(scrollTop > limiterTop) {
+            $floater.css({
+              marginTop: Math.min(scrollTop - limiterTop, limiterHeight - floaterHeight - 100) + 'px'
+            });
+          }
+          else {
+            $floater.css({
+              marginTop: '' //restore original
+            });
+          }
+        });
+      }
+    };
+  }(jQuery));
+
   /** init section - this should be in a separate file - init.js
    */
   App.ins.mobileMenu = new App.MobileMenu();
@@ -1433,4 +1503,5 @@ jQuery(function() {
   App.ins.tabbedContent = new App.TabbedContent();
   App.ins.news = new App.News();
   App.ins.searchResults = new App.SearchResults();
+  App.ins.floaters = new App.Floaters();
 });

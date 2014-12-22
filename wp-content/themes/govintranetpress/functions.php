@@ -1584,6 +1584,7 @@ function dw_redirects() {
   //Search form -> search results page
   if($_POST['s'] || $_POST['search-filter']) {
     $keywords = $_POST['s'] ?: '';
+    $keywords = urlencode(stripslashes($keywords));
     $filter = $_POST['search-filter'] ?: 'All';
 
     header('Location: ' . site_url() . '/search-results/' . $filter . '/' . $keywords);
