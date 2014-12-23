@@ -13,3 +13,6 @@
 [submodule "wp-content/plugins/dw-markdown-preview"]
 	path = wp-content/plugins/dw-markdown-preview
 	url = https://github.com/ministryofjustice/dw-markdown-preview.git
+[submodule "wp-content/plugins/dw-markdown"]
+	path = wp-content/plugins/dw-markdown
+	url = git@github.com:ministryofjustice/dw-markdown.git
