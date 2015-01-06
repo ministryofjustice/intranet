@@ -50,6 +50,9 @@ if ( ! isset( $content_width ) )
 /** Tell WordPress to run twentyten_setup() when the 'after_setup_theme' hook is run. */
 add_action( 'after_setup_theme', 'twentyten_setup' );
 
+/** Adds extra columns to tables in wp-admin */
+require_once('inc/admin-tables.php');
+
 if ( ! function_exists( 'twentyten_setup' ) ):
 /**
  * Sets up theme defaults and registers support for various WordPress features.
@@ -1578,7 +1581,7 @@ include('debug.php');
 function keep_me_logged_in_for_1_hour( $expirein ) {
     return 3600; // 1 hour in seconds
 }
-add_filter( 'auth_cookie_expiration', 'keep_me_logged_in_for_1_hour' );
+// add_filter( 'auth_cookie_expiration', 'keep_me_logged_in_for_1_hour' );
 
 function dw_redirects() {
   //Search form -> search results page
@@ -1621,3 +1624,24 @@ function add_markdown_to_cpts() {
 	}
 }
 add_action('init', 'add_markdown_to_cpts');
+
+// Setup news customiser
+require_once('inc/news-customiser.php');
+// Extra customiser controls
+require_once('inc/customiser-controls.php');
+
+// Allow editors to access theme options
+$role_object = get_role( 'editor' );
+$role_object->add_cap( 'edit_theme_options' );
+
+// Make sure autocomplete dropdown is not hidden by customizer
+function dw_customizer_styles() { ?>
+    <style>
+      .ui-autocomplete {
+    		z-index: 500001 !important;
+			}
+    </style>
+    <?php
+
+}
+add_action( 'customize_controls_print_styles', 'dw_customizer_styles', 999 );
