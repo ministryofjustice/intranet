@@ -105,3 +105,4 @@ wp-content/mysql.sql
 /wp-content/plugins/pageapi/
 nbproject
 /wp-content/languages/
+deploy_dev.cfg
