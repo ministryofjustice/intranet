@@ -1579,9 +1579,9 @@ include('debug.php');
 
 // Force logout after 1 hour
 function keep_me_logged_in_for_1_hour( $expirein ) {
-    return 3600; // 1 hour in seconds
+    return 3600*8; // 1 hour in seconds
 }
-// add_filter( 'auth_cookie_expiration', 'keep_me_logged_in_for_1_hour' );
+add_filter( 'auth_cookie_expiration', 'keep_me_logged_in_for_1_hour' );
 
 function dw_redirects() {
   //Search form -> search results page
