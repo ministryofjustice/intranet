@@ -20,12 +20,18 @@ class Page_home extends MVC_controller {
   }
 
   private function get_emergency_message() {
+    $visible = get_option("emergency_toggle");
+    $title = get_option("emergency_title");
+    $date = get_option("emergency_date");
     $message = get_option("homepage_control_emergency_message");
     $message = apply_filters('the_content', $message, true);
 
     return array(
-      'message' => $message,
-      'type' => strtolower(get_option("homepage_control_emergency_message_style"))
+      'visible'     => $visible,
+      'title'       => $title,
+      'date'        => $date,
+      'message'     => $message,
+      'type'        => strtolower(get_option("homepage_control_emergency_message_style"))
     );
   }
 
