@@ -24,6 +24,7 @@
 
       public function load_autocomplete() {
         wp_enqueue_script('jquery-ui-autocomplete');
+        wp_enqueue_script('customizer',get_template_directory_uri()."/js/customizer.js",array('jquery-ui-datepicker'),null,true);
         wp_enqueue_style('jquery-admin-ui-css', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/themes/overcast/jquery-ui.css', false, 0.1, false);
       }
 
@@ -108,6 +109,36 @@
           'panel'           => 'news_customisation',
         ) );
 
+        $wp_customize->add_setting( 'emergency_toggle', array(
+          'type'      => 'option',
+          'priority'  => 10,
+          'section'   => 'emergency_message_section',
+          'label'     => 'Emergency On/Off',
+          'transport' => 'refresh',
+        ) );
+
+        $wp_customize->add_control( new WP_Customize_Control($wp_customize, 'emergency_toggle_control', array (
+          'label'     =>  'Emergency On/Off',
+          'section'   =>  'emergency_message_section',
+          'settings'  =>  'emergency_toggle',
+          'type'      =>  'checkbox'
+        )  )  );
+
+        $wp_customize->add_setting( 'emergency_title', array(
+          'type'      => 'option',
+          'priority'  => 10,
+          'section'   => 'emergency_message_section',
+          'label'     => 'Emergency Title',
+          'transport' => 'refresh',
+        ) );
+
+        $wp_customize->add_control( new WP_Customize_Control($wp_customize, 'emergency_title_control', array (
+          'label'     =>  'Emergency Title',
+          'section'   =>  'emergency_message_section',
+          'settings'  =>  'emergency_title',
+          'type'      =>  'text'
+        )  )  );
+
         $wp_customize->add_setting( 'homepage_control_emergency_message', array(
           'type'      => 'option',
           'priority'  => 10,
@@ -122,6 +153,22 @@
           'settings'  =>  'homepage_control_emergency_message',
           'type'      =>  'textarea'
         )  )  );
+
+        $wp_customize->add_setting( 'emergency_date', array(
+          'type'      => 'option',
+          'priority'  => 10,
+          'section'   => 'emergency_message_section',
+          'label'     => 'Emergency Date',
+          'transport' => 'refresh',
+        ) );
+
+        $wp_customize->add_control( new WP_Customize_Control($wp_customize, 'emergency_date_control', array (
+          'label'     =>  'Emergency Date',
+          'section'   =>  'emergency_message_section',
+          'settings'  =>  'emergency_date',
+          'type'      =>  'text'
+        )  )  );
+
       }
 
       // Auto-promotes news on save

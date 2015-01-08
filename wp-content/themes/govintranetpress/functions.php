@@ -1637,7 +1637,7 @@ $role_object->add_cap( 'edit_theme_options' );
 // Make sure autocomplete dropdown is not hidden by customizer
 function dw_customizer_styles() { ?>
     <style>
-      .ui-autocomplete {
+      .ui-front, .ui-widget {
     		z-index: 500001 !important;
 			}
     </style>
