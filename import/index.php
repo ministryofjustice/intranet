@@ -4,7 +4,7 @@ error_reporting(E_ALL ^ E_NOTICE);
 ini_set('display_errors', 1);
 
 
-require('wp-blog-header.php');
+require('../wp-blog-header.php');
 
 class Import {
   const REGEX = '/^([- ]+)/';
