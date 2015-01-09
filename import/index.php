@@ -131,5 +131,5 @@ class Import {
   }
 }
 
-new Import('migration-hr.csv', 265, 1);
-new Import('migration-rest.csv', 131, 0);
+new Import('migration-hr.csv', 293, 1);
+new Import('migration-rest.csv', 290, 0);
