@@ -104,6 +104,7 @@ class Import {
 
     add_post_meta($post_id, 'redirect_url', $data['url'], true);
     add_post_meta($post_id, 'redirect_enabled', true, true);
+    add_post_meta($post_id, '_wp_page_template', 'page-guidance-and-support.php', true);
     add_post_meta($post_id, 'keywords', implode(' ', $data['keywords']), true);
 
     return $post_id;
