@@ -480,20 +480,21 @@ h6 {
 }
 
 /* line 21, ../scss/global/_typography.scss */
-h5, #need-to-know .widget-title {
+h5, #need-to-know .widget-title, .guidance-and-support .categories h3,
+.guidance-and-support .subcategories h3 {
   font-size: 16px;
   line-height: 20px;
 }
 
 /* line 26, ../scss/global/_typography.scss */
-h4, .ht-feature-news h3, #need-to-know .item-title, .guidance-and-support .categories h3,
-.guidance-and-support .subcategories h3, .guidance-and-support .links h3, .page-news .news-item .title {
+h4, .ht-feature-news h3, #need-to-know .item-title, .guidance-and-support .links h3, .page-news .news-item .title {
   font-size: 19px;
   line-height: 25px;
 }
 
 /* line 31, ../scss/global/_typography.scss */
-h3, .main-content .editable h2, .header .logo a, .ht-feature-news > h3, .page-news .news-filtered-results-title .results-count, .page-search-results .page-title, .page-search-results .search-filtered-results-title .results-count {
+h3, .main-content .editable h2, .header .logo a, .ht-feature-news > h3, .guidance-and-support .subcategories .sort-order,
+.guidance-and-support .links .sort-order, .page-news .news-filtered-results-title .results-count, .page-search-results .page-title, .page-search-results .search-filtered-results-title .results-count {
   font-size: 24px;
   line-height: 30px;
 }
@@ -536,13 +537,13 @@ h1 {
 
 /* line 74, ../scss/global/_typography.scss */
 .main-content .content-info p, .breadcrumbs a,
-.breadcrumbs span, .message .content, #menu-utilities li a, .content-filters .description, .content-filters .label, .ht-feature-news .excerpt, .guidance-and-support .categories .item h3, .annual-leave .right-hand-menu a, .annual-leave .table-of-contents li a, .page-search-results .search-item .excerpt {
+.breadcrumbs span, .message .content, #menu-utilities li a, .content-filters .description, .content-filters .label, .ht-feature-news .excerpt, .guidance-and-support .tree .all-categories, .annual-leave .right-hand-menu a, .annual-leave .table-of-contents li a, .page-search-results .search-item .excerpt {
   font-size: 16px;
   line-height: 20px;
 }
 
 /* line 79, ../scss/global/_typography.scss */
-body, .header #searchform .search-filter-container:after, .header #searchform .search-filter, .home.page #content .descriptive-menu-description, .message .timestamp, .content-nav li .page-info, .tabbed-filters ul li .label, .ht-feature-news .news-date-wrapper, #need-to-know .news-date-wrapper, #need-to-know .excerpt, #need-to-know .page-list li, .guidance-and-support .tree .all-categories {
+body, .header #searchform .search-filter-container:after, .header #searchform .search-filter, .home.page #content .descriptive-menu-description, .message .timestamp, .content-nav li .page-info, .tabbed-filters ul li .label, .ht-feature-news .news-date-wrapper, #need-to-know .news-date-wrapper, #need-to-know .excerpt, #need-to-know .page-list li {
   font-size: 14px;
   line-height: 20px;
 }
@@ -2384,7 +2385,7 @@ form .form-row:first-of-type {
 }
 /* line 16, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .tree.collapsed .subcategories {
-  margin-left: -22%;
+  margin-left: -12%;
   width: 25%;
   transition: margin-left .3s;
 }
@@ -2397,36 +2398,53 @@ form .form-row:first-of-type {
 .guidance-and-support .tree .all-categories {
   display: none;
   padding: 20px;
+  padding-top: 10px;
   color: #0b0c0c;
+  font-weight: bold;
   text-decoration: underline;
   outline: none;
 }
 /* line 38, ../scss/content/guidance_and_support/_main.scss */
+.guidance-and-support .tree .all-categories.visible {
+  display: block;
+}
+/* line 44, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .item-container {
   position: relative;
   float: left;
-  width: 33%;
   overflow: hidden;
   background-color: #fff;
 }
-/* line 45, ../scss/content/guidance_and_support/_main.scss */
+/* line 50, ../scss/content/guidance_and_support/_main.scss */
+.guidance-and-support .item-container.categories {
+  width: 24%;
+}
+/* line 54, ../scss/content/guidance_and_support/_main.scss */
+.guidance-and-support .item-container.subcategories {
+  width: 38%;
+}
+/* line 58, ../scss/content/guidance_and_support/_main.scss */
+.guidance-and-support .item-container.links {
+  width: 38%;
+}
+/* line 62, ../scss/content/guidance_and_support/_main.scss */
 #content .guidance-and-support .item-container .item-list {
   margin-bottom: 0;
   padding: 0;
   list-style-type: none;
 }
-/* line 51, ../scss/content/guidance_and_support/_main.scss */
+/* line 68, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .item-container .category-name {
   margin-top: 0;
   padding-left: 20px;
 }
-/* line 56, ../scss/content/guidance_and_support/_main.scss */
+/* line 73, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .item-container h3 {
   margin: 0;
   padding: 0;
   color: #428bca;
 }
-/* line 62, ../scss/content/guidance_and_support/_main.scss */
+/* line 79, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .item-container ul a {
   position: relative;
   display: block;
@@ -2435,46 +2453,47 @@ form .form-row:first-of-type {
   line-height: 24px;
   outline: none;
 }
-/* line 72, ../scss/content/guidance_and_support/_main.scss */
-.guidance-and-support .item-container li.selected, .guidance-and-support .item-container li:hover {
+/* line 89, ../scss/content/guidance_and_support/_main.scss */
+.guidance-and-support .item-container li:hover {
+  background-color: #dee0e2;
+}
+/* line 93, ../scss/content/guidance_and_support/_main.scss */
+.guidance-and-support .item-container li.selected {
   background-color: #2e8aca;
 }
-/* line 76, ../scss/content/guidance_and_support/_main.scss */
+/* line 96, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .item-container li.selected h3,
-.guidance-and-support .item-container li.selected .description, .guidance-and-support .item-container li:hover h3,
-.guidance-and-support .item-container li:hover .description {
+.guidance-and-support .item-container li.selected .description {
   color: #fff;
 }
-/* line 83, ../scss/content/guidance_and_support/_main.scss */
+/* line 103, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .item-container .description {
   color: #0b0c0c;
 }
-/* line 89, ../scss/content/guidance_and_support/_main.scss */
+/* line 109, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .categories .item h3 {
   font-weight: normal;
 }
-/* line 94, ../scss/content/guidance_and_support/_main.scss */
+/* line 113, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .categories .description {
   display: none;
 }
-/* line 103, ../scss/content/guidance_and_support/_main.scss */
+/* line 121, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .categories .item.selected a:after,
-.guidance-and-support .categories .item:hover a:after,
-.guidance-and-support .subcategories .item.selected a:after,
-.guidance-and-support .subcategories .item:hover a:after {
+.guidance-and-support .subcategories .item.selected a:after {
   background-image: url("../images/chevron_white.png");
 }
-/* line 109, ../scss/content/guidance_and_support/_main.scss */
+/* line 127, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .categories,
 .guidance-and-support .subcategories {
   border-right: 1px solid #bfc1c3;
 }
-/* line 113, ../scss/content/guidance_and_support/_main.scss */
+/* line 131, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .categories h3,
 .guidance-and-support .subcategories h3 {
   padding-right: 10px;
 }
-/* line 120, ../scss/content/guidance_and_support/_main.scss */
+/* line 138, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .categories ul a:after,
 .guidance-and-support .subcategories ul a:after {
   position: absolute;
@@ -2486,12 +2505,25 @@ form .form-row:first-of-type {
   background-image: url("../images/chevron_blue.png");
   content: "";
 }
-/* line 130, ../scss/content/guidance_and_support/_main.scss */
+/* line 148, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .categories ul a:after:hover,
 .guidance-and-support .subcategories ul a:after:hover {
   background-image: url("../images/chevron_white.png");
 }
-/* line 137, ../scss/content/guidance_and_support/_main.scss */
+/* line 153, ../scss/content/guidance_and_support/_main.scss */
+.guidance-and-support .categories ul a[rel="external"]:after,
+.guidance-and-support .subcategories ul a[rel="external"]:after {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  background-image: url("../images/external_link_x2.png");
+  background-position: -12px 0;
+  background-size: 200%;
+  background-repeat: no-repeat;
+  right: 7px;
+  content: "";
+}
+/* line 167, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .categories li.item.loading a:after,
 .guidance-and-support .subcategories li.item.loading a:after {
   content: "";
@@ -2501,7 +2533,7 @@ form .form-row:first-of-type {
   top: 50%;
   margin-top: -8px;
 }
-/* line 147, ../scss/content/guidance_and_support/_main.scss */
+/* line 177, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .subcategories,
 .guidance-and-support .links {
   display: none;
@@ -2509,12 +2541,12 @@ form .form-row:first-of-type {
   margin-left: -1px;
   border-left: 1px solid #bfc1c3;
 }
-/* line 156, ../scss/content/guidance_and_support/_main.scss */
+/* line 186, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .subcategories.visible,
 .guidance-and-support .links.visible {
   display: block;
 }
-/* line 160, ../scss/content/guidance_and_support/_main.scss */
+/* line 190, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .subcategories .sort-order,
 .guidance-and-support .links .sort-order {
   width: 90px;
@@ -2526,13 +2558,13 @@ form .form-row:first-of-type {
   overflow: hidden;
   white-space: nowrap;
 }
-/* line 171, ../scss/content/guidance_and_support/_main.scss */
+/* line 202, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .subcategories .item-list,
 .guidance-and-support .links .item-list {
   position: relative;
   background-color: #fff;
 }
-/* line 176, ../scss/content/guidance_and_support/_main.scss */
+/* line 207, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .subcategories .item-list,
 .guidance-and-support .subcategories .category-name,
 .guidance-and-support .links .item-list,
@@ -2540,7 +2572,7 @@ form .form-row:first-of-type {
   margin-left: 0;
   transition: margin-left .3s;
 }
-/* line 183, ../scss/content/guidance_and_support/_main.scss */
+/* line 214, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .subcategories.current .item-list,
 .guidance-and-support .subcategories.current .category-name,
 .guidance-and-support .links.current .item-list,
@@ -2548,58 +2580,74 @@ form .form-row:first-of-type {
   margin-left: 90px;
   transition: margin-left .3s;
 }
-/* line 192, ../scss/content/guidance_and_support/_main.scss */
+/* line 223, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .subcategories.item-container {
   transition: margin-left .3s;
 }
-/* line 198, ../scss/content/guidance_and_support/_main.scss */
+/* line 229, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .links.item-container {
   transition: width .3s;
 }
+/* line 238, ../scss/content/guidance_and_support/_main.scss */
+.guidance-and-support .links a[rel="external"]:after {
+  display: none;
+}
+/* line 242, ../scss/content/guidance_and_support/_main.scss */
+.guidance-and-support .links a[rel="external"] h3:after {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  background-image: url("../images/external_link_x2.png");
+  background-position: -12px 0;
+  background-size: 200%;
+  background-repeat: no-repeat;
+  margin-left: 6px;
+  content: "";
+}
 
 @media (max-width: 767px) {
-  /* line 210, ../scss/content/guidance_and_support/_main.scss */
+  /* line 259, ../scss/content/guidance_and_support/_main.scss */
   .guidance-and-support .tree-container {
     overflow: hidden;
     width: 100%;
   }
-  /* line 215, ../scss/content/guidance_and_support/_main.scss */
+  /* line 264, ../scss/content/guidance_and_support/_main.scss */
   .guidance-and-support .tree {
     width: 303%;
     transition: margin-left .15s;
   }
-  /* line 219, ../scss/content/guidance_and_support/_main.scss */
+  /* line 268, ../scss/content/guidance_and_support/_main.scss */
   .guidance-and-support .tree[data-show-column="1"] {
     margin-left: 0%;
   }
-  /* line 223, ../scss/content/guidance_and_support/_main.scss */
+  /* line 272, ../scss/content/guidance_and_support/_main.scss */
   .guidance-and-support .tree[data-show-column="2"] {
     margin-left: -100%;
   }
-  /* line 227, ../scss/content/guidance_and_support/_main.scss */
+  /* line 276, ../scss/content/guidance_and_support/_main.scss */
   .guidance-and-support .tree[data-show-column="3"] {
     margin-left: -200%;
   }
-  /* line 232, ../scss/content/guidance_and_support/_main.scss */
+  /* line 281, ../scss/content/guidance_and_support/_main.scss */
   .guidance-and-support .tree.collapsed .subcategories {
     margin-left: 0;
   }
-  /* line 236, ../scss/content/guidance_and_support/_main.scss */
+  /* line 285, ../scss/content/guidance_and_support/_main.scss */
   .guidance-and-support .tree.collapsed .links {
     width: 33%;
   }
-  /* line 242, ../scss/content/guidance_and_support/_main.scss */
+  /* line 291, ../scss/content/guidance_and_support/_main.scss */
   .guidance-and-support .item-container {
     border: none;
     margin-left: 0;
   }
-  /* line 247, ../scss/content/guidance_and_support/_main.scss */
+  /* line 296, ../scss/content/guidance_and_support/_main.scss */
   .guidance-and-support .item-container.current .item-list,
   .guidance-and-support .item-container.current .category-name {
     margin-left: 0;
     transition: margin-left .3s;
   }
-  /* line 254, ../scss/content/guidance_and_support/_main.scss */
+  /* line 303, ../scss/content/guidance_and_support/_main.scss */
   .guidance-and-support .item-container .item {
     display: block !important;
   }

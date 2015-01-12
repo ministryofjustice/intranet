@@ -276,7 +276,7 @@ jQuery(function() {
         }
 
         this.$columns.filter('.level-1').find('.item:not(.selected)').slideToggle(toggle);
-        this.$allCategoriesLink.toggle(!toggle);
+        this.$allCategoriesLink.toggleClass('visible', !toggle);
       },
 
       /** Collapses the level 1 column (CSS-controlled)

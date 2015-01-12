@@ -14,7 +14,7 @@
       }
 
       .subcategories {
-        margin-left: -22%;
+        margin-left: -12%;
         width: 25%;
         transition: margin-left .3s;
       }
@@ -26,21 +26,38 @@
     }
 
     .all-categories {
-      @extend %small-copy;
+      @extend %medium-copy;
       display: none;
       padding: 20px;
+      padding-top: 10px;
       color: $black;
+      font-weight: bold;
       text-decoration: underline;
       outline: none;
+
+      &.visible {
+        display: block;
+      }
     }
   }
 
   .item-container {
     position: relative;
     float: left;
-    width: 33%;
     overflow: hidden;
     background-color: $white;
+
+    &.categories {
+      width: 24%;
+    }
+
+    &.subcategories {
+      width: 38%;
+    }
+
+    &.links {
+      width: 38%;
+    }
 
     #content & .item-list {
       margin-bottom: 0;
@@ -69,8 +86,11 @@
     }
 
     li {
-      &.selected,
       &:hover {
+        background-color: $grey-3;
+      }
+
+      &.selected {
         background-color: $dw-link;
 
         h3,
@@ -87,7 +107,6 @@
 
   .categories {
     .item h3 {
-      @extend %medium-copy;
       font-weight: normal;
     }
 
@@ -98,8 +117,7 @@
 
   .categories,
   .subcategories {
-    .item.selected,
-    .item:hover {
+    .item.selected {
       a:after {
         background-image: url("../images/chevron_white.png");
       }
@@ -111,7 +129,7 @@
     border-right: 1px solid $grey-2;
 
     h3 {
-      @extend %medium-heading;
+      @extend %small-heading;
       padding-right: 10px;
     }
 
@@ -130,6 +148,18 @@
           &:hover {
             background-image: url("../images/chevron_white.png");
           }
+        }
+
+        &[rel="external"]:after {
+          display: inline-block;
+          width: 12px;
+          height: 12px;
+          background-image: url('../images/external_link_x2.png');
+          background-position: -12px 0;
+          background-size: 200%;
+          background-repeat: no-repeat;
+          right: 7px;
+          content: "";
         }
       }
     }
@@ -158,6 +188,7 @@
     }
 
     .sort-order {
+      @extend %large-heading;
       width: $sortLabelWidth;
       position: absolute;
       margin: 10px;
@@ -201,6 +232,24 @@
 
     h3 {
       @extend %medium-heading;
+    }
+
+    a[rel="external"] {
+      &:after {
+        display: none;
+      }
+
+      h3:after {
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        background-image: url('../images/external_link_x2.png');
+        background-position: -12px 0;
+        background-size: 200%;
+        background-repeat: no-repeat;
+        margin-left: 6px;
+        content: "";
+      }
     }
   }
 }
