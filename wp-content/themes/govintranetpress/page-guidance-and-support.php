@@ -8,6 +8,7 @@
 class Page_guidance_and_support extends MVC_controller {
   function main(){
     while(have_posts()){
+      the_post();
       get_header();
       get_footer();
     }
