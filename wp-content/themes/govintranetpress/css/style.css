@@ -543,7 +543,7 @@ h1 {
 }
 
 /* line 79, ../scss/global/_typography.scss */
-body, .header #searchform .search-filter-container:after, .header #searchform .search-filter, .home.page #content .descriptive-menu-description, .message .timestamp, .content-nav li .page-info, .tabbed-filters ul li .label, .ht-feature-news .news-date-wrapper, #need-to-know .news-date-wrapper, #need-to-know .excerpt, #need-to-know .page-list li {
+body, .header #searchform .search-filter-container:after, .header #searchform .search-filter, .home.page #content .descriptive-menu-description, .message .timestamp, .content-nav li .page-info, .tabbed-filters .tabbed-filters-label, .tabbed-filters ul li .label, .ht-feature-news .news-date-wrapper, #need-to-know .news-date-wrapper, #need-to-know .excerpt, #need-to-know .page-list li {
   font-size: 14px;
   line-height: 20px;
 }
@@ -1772,27 +1772,31 @@ form .form-row:first-of-type {
   color: #6f777b;
 }
 
-/* line 1, ../scss/modules/_tabbed_filters.scss */
+/* line 2, ../scss/modules/_tabbed_filters.scss */
+.tabbed-filters .tabbed-filters-label {
+  display: block;
+}
+/* line 7, ../scss/modules/_tabbed_filters.scss */
 .tabbed-filters ul {
   display: inline-block;
   margin-top: 10px;
   padding-left: 0;
 }
-/* line 6, ../scss/modules/_tabbed_filters.scss */
+/* line 12, ../scss/modules/_tabbed_filters.scss */
 .tabbed-filters ul li {
   display: inline-block;
   vertical-align: bottom;
   margin-left: 15px;
 }
-/* line 11, ../scss/modules/_tabbed_filters.scss */
+/* line 17, ../scss/modules/_tabbed_filters.scss */
 .tabbed-filters ul li:first-of-type {
   margin-left: 0;
 }
-/* line 16, ../scss/modules/_tabbed_filters.scss */
+/* line 22, ../scss/modules/_tabbed_filters.scss */
 .tabbed-filters ul li:hover .label {
   text-decoration: underline;
 }
-/* line 21, ../scss/modules/_tabbed_filters.scss */
+/* line 27, ../scss/modules/_tabbed_filters.scss */
 .tabbed-filters ul li a {
   display: block;
   padding-right: 20px;
@@ -1800,7 +1804,7 @@ form .form-row:first-of-type {
   text-decoration: none;
   outline: none;
 }
-/* line 29, ../scss/modules/_tabbed_filters.scss */
+/* line 35, ../scss/modules/_tabbed_filters.scss */
 .tabbed-filters ul li .icon {
   display: inline-block;
   margin: 0 auto;
@@ -1810,30 +1814,30 @@ form .form-row:first-of-type {
   background-size: 200%;
   line-height: 30px;
 }
-/* line 38, ../scss/modules/_tabbed_filters.scss */
+/* line 44, ../scss/modules/_tabbed_filters.scss */
 .tabbed-filters ul li .icon:after {
   display: inline-block;
   content: " ";
 }
-/* line 44, ../scss/modules/_tabbed_filters.scss */
+/* line 50, ../scss/modules/_tabbed_filters.scss */
 .tabbed-filters ul li .label {
   display: inline-block;
   margin-left: 5px;
   color: #005ea5;
 }
-/* line 52, ../scss/modules/_tabbed_filters.scss */
+/* line 58, ../scss/modules/_tabbed_filters.scss */
 .tabbed-filters ul li.star .icon {
   background-position: -30px -30px;
 }
-/* line 58, ../scss/modules/_tabbed_filters.scss */
+/* line 64, ../scss/modules/_tabbed_filters.scss */
 .tabbed-filters ul li.alpha .icon {
   background-position: 0px -30px;
 }
-/* line 65, ../scss/modules/_tabbed_filters.scss */
+/* line 71, ../scss/modules/_tabbed_filters.scss */
 .tabbed-filters ul li:hover.star .icon, .tabbed-filters ul li.selected.star .icon {
   background-position: -30px 0;
 }
-/* line 69, ../scss/modules/_tabbed_filters.scss */
+/* line 75, ../scss/modules/_tabbed_filters.scss */
 .tabbed-filters ul li:hover.alpha .icon, .tabbed-filters ul li.selected.alpha .icon {
   background-position: 0px 0;
 }
@@ -2430,22 +2434,23 @@ form .form-row:first-of-type {
 }
 /* line 62, ../scss/content/guidance_and_support/_main.scss */
 #content .guidance-and-support .item-container .item-list {
+  margin-top: 0;
   margin-bottom: 0;
   padding: 0;
   list-style-type: none;
 }
-/* line 68, ../scss/content/guidance_and_support/_main.scss */
+/* line 69, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .item-container .category-name {
   margin-top: 0;
   padding-left: 20px;
 }
-/* line 73, ../scss/content/guidance_and_support/_main.scss */
+/* line 74, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .item-container h3 {
   margin: 0;
   padding: 0;
   color: #428bca;
 }
-/* line 79, ../scss/content/guidance_and_support/_main.scss */
+/* line 80, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .item-container ul a {
   position: relative;
   display: block;
@@ -2454,69 +2459,75 @@ form .form-row:first-of-type {
   line-height: 24px;
   outline: none;
 }
-/* line 89, ../scss/content/guidance_and_support/_main.scss */
+/* line 90, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .item-container li:hover {
   background-color: #dee0e2;
 }
-/* line 93, ../scss/content/guidance_and_support/_main.scss */
+/* line 94, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .item-container li.selected {
   background-color: #2e8aca;
 }
-/* line 96, ../scss/content/guidance_and_support/_main.scss */
+/* line 97, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .item-container li.selected h3,
 .guidance-and-support .item-container li.selected .description {
   color: #fff;
 }
-/* line 103, ../scss/content/guidance_and_support/_main.scss */
+/* line 104, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .item-container .description {
   color: #0b0c0c;
 }
-/* line 109, ../scss/content/guidance_and_support/_main.scss */
+/* line 110, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .categories .item h3 {
   font-weight: normal;
 }
-/* line 113, ../scss/content/guidance_and_support/_main.scss */
+/* line 114, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .categories .description {
   display: none;
 }
-/* line 121, ../scss/content/guidance_and_support/_main.scss */
+/* line 122, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .categories .item.selected a:after,
 .guidance-and-support .subcategories .item.selected a:after {
-  background-image: url("../images/chevron_white.png");
+  content: "\203a";
+  margin-top: -8px;
+  height: 16px;
+  color: #fff;
+  line-height: 16px;
 }
-/* line 127, ../scss/content/guidance_and_support/_main.scss */
+/* line 132, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .categories,
 .guidance-and-support .subcategories {
   border-right: 1px solid #bfc1c3;
 }
-/* line 131, ../scss/content/guidance_and_support/_main.scss */
+/* line 136, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .categories h3,
 .guidance-and-support .subcategories h3 {
   padding-right: 10px;
 }
-/* line 138, ../scss/content/guidance_and_support/_main.scss */
+/* line 143, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .categories ul a:after,
 .guidance-and-support .subcategories ul a:after {
   position: absolute;
   right: 10px;
   top: 50%;
+  margin-top: -8px;
   width: 6px;
-  height: 9px;
-  margin-top: -5px;
-  background-image: url("../images/chevron_blue.png");
-  content: "";
+  height: 16px;
+  content: "\203a";
+  color: #2e8aca;
+  line-height: 16px;
 }
-/* line 148, ../scss/content/guidance_and_support/_main.scss */
-.guidance-and-support .categories ul a:after:hover,
-.guidance-and-support .subcategories ul a:after:hover {
-  background-image: url("../images/chevron_white.png");
-}
-/* line 153, ../scss/content/guidance_and_support/_main.scss */
+/* line 156, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .categories ul a[rel="external"]:after,
 .guidance-and-support .subcategories ul a[rel="external"]:after {
+  display: none;
+}
+/* line 160, ../scss/content/guidance_and_support/_main.scss */
+.guidance-and-support .categories ul a[rel="external"] .title:after,
+.guidance-and-support .subcategories ul a[rel="external"] .title:after {
   display: inline-block;
   width: 12px;
   height: 12px;
+  margin-left: 6px;
   background-image: url("../images/external_link_x2.png");
   background-position: -12px 0;
   background-size: 200%;
@@ -2524,7 +2535,7 @@ form .form-row:first-of-type {
   right: 7px;
   content: "";
 }
-/* line 167, ../scss/content/guidance_and_support/_main.scss */
+/* line 176, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .categories li.item.loading a:after,
 .guidance-and-support .subcategories li.item.loading a:after {
   content: "";
@@ -2534,7 +2545,7 @@ form .form-row:first-of-type {
   top: 50%;
   margin-top: -8px;
 }
-/* line 177, ../scss/content/guidance_and_support/_main.scss */
+/* line 186, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .subcategories,
 .guidance-and-support .links {
   display: none;
@@ -2542,12 +2553,12 @@ form .form-row:first-of-type {
   margin-left: -1px;
   border-left: 1px solid #bfc1c3;
 }
-/* line 186, ../scss/content/guidance_and_support/_main.scss */
+/* line 195, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .subcategories.visible,
 .guidance-and-support .links.visible {
   display: block;
 }
-/* line 190, ../scss/content/guidance_and_support/_main.scss */
+/* line 199, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .subcategories .sort-order,
 .guidance-and-support .links .sort-order {
   width: 90px;
@@ -2559,13 +2570,13 @@ form .form-row:first-of-type {
   overflow: hidden;
   white-space: nowrap;
 }
-/* line 202, ../scss/content/guidance_and_support/_main.scss */
+/* line 211, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .subcategories .item-list,
 .guidance-and-support .links .item-list {
   position: relative;
   background-color: #fff;
 }
-/* line 207, ../scss/content/guidance_and_support/_main.scss */
+/* line 216, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .subcategories .item-list,
 .guidance-and-support .subcategories .category-name,
 .guidance-and-support .links .item-list,
@@ -2573,7 +2584,7 @@ form .form-row:first-of-type {
   margin-left: 0;
   transition: margin-left .3s;
 }
-/* line 214, ../scss/content/guidance_and_support/_main.scss */
+/* line 223, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .subcategories.current .item-list,
 .guidance-and-support .subcategories.current .category-name,
 .guidance-and-support .links.current .item-list,
@@ -2581,19 +2592,19 @@ form .form-row:first-of-type {
   margin-left: 90px;
   transition: margin-left .3s;
 }
-/* line 223, ../scss/content/guidance_and_support/_main.scss */
+/* line 232, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .subcategories.item-container {
   transition: margin-left .3s;
 }
-/* line 229, ../scss/content/guidance_and_support/_main.scss */
+/* line 238, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .links.item-container {
   transition: width .3s;
 }
-/* line 238, ../scss/content/guidance_and_support/_main.scss */
+/* line 247, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .links a[rel="external"]:after {
   display: none;
 }
-/* line 242, ../scss/content/guidance_and_support/_main.scss */
+/* line 251, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .links a[rel="external"] h3:after {
   display: inline-block;
   width: 12px;
@@ -2607,48 +2618,48 @@ form .form-row:first-of-type {
 }
 
 @media (max-width: 767px) {
-  /* line 259, ../scss/content/guidance_and_support/_main.scss */
+  /* line 268, ../scss/content/guidance_and_support/_main.scss */
   .guidance-and-support .tree-container {
     overflow: hidden;
     width: 100%;
   }
-  /* line 264, ../scss/content/guidance_and_support/_main.scss */
+  /* line 273, ../scss/content/guidance_and_support/_main.scss */
   .guidance-and-support .tree {
     width: 303%;
     transition: margin-left .15s;
   }
-  /* line 268, ../scss/content/guidance_and_support/_main.scss */
+  /* line 277, ../scss/content/guidance_and_support/_main.scss */
   .guidance-and-support .tree[data-show-column="1"] {
     margin-left: 0%;
   }
-  /* line 272, ../scss/content/guidance_and_support/_main.scss */
+  /* line 281, ../scss/content/guidance_and_support/_main.scss */
   .guidance-and-support .tree[data-show-column="2"] {
     margin-left: -100%;
   }
-  /* line 276, ../scss/content/guidance_and_support/_main.scss */
+  /* line 285, ../scss/content/guidance_and_support/_main.scss */
   .guidance-and-support .tree[data-show-column="3"] {
     margin-left: -200%;
   }
-  /* line 281, ../scss/content/guidance_and_support/_main.scss */
+  /* line 290, ../scss/content/guidance_and_support/_main.scss */
   .guidance-and-support .tree.collapsed .subcategories {
     margin-left: 0;
   }
-  /* line 285, ../scss/content/guidance_and_support/_main.scss */
+  /* line 294, ../scss/content/guidance_and_support/_main.scss */
   .guidance-and-support .tree.collapsed .links {
     width: 33%;
   }
-  /* line 291, ../scss/content/guidance_and_support/_main.scss */
+  /* line 300, ../scss/content/guidance_and_support/_main.scss */
   .guidance-and-support .item-container {
     border: none;
     margin-left: 0;
   }
-  /* line 296, ../scss/content/guidance_and_support/_main.scss */
+  /* line 305, ../scss/content/guidance_and_support/_main.scss */
   .guidance-and-support .item-container.current .item-list,
   .guidance-and-support .item-container.current .category-name {
     margin-left: 0;
     transition: margin-left .3s;
   }
-  /* line 303, ../scss/content/guidance_and_support/_main.scss */
+  /* line 312, ../scss/content/guidance_and_support/_main.scss */
   .guidance-and-support .item-container .item {
     display: block !important;
   }

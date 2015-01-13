@@ -1,73 +1,80 @@
-.tabbed-filters ul {
-  display: inline-block;
-  margin-top: 10px;
-  padding-left: 0;
+.tabbed-filters {
+  .tabbed-filters-label {
+    @extend %small-copy;
+    display: block;
+  }
 
-  li {
+  ul {
     display: inline-block;
-    vertical-align: bottom;
-    margin-left: 15px;
+    margin-top: 10px;
+    padding-left: 0;
 
-    &:first-of-type {
-      margin-left: 0;
-    }
-
-    &:hover {
-      .label {
-        text-decoration: underline;
-      }
-    }
-
-    a {
-      display: block;
-      padding-right: 20px;
-      text-align: center;
-      text-decoration: none;
-      outline: none;
-    }
-
-    .icon {
+    li {
       display: inline-block;
-      margin: 0 auto;
-      width: 30px;
-      height: 30px;
-      background-image: url("../images/filters_x2.png");
-      background-size: 200%;
-      line-height: 30px;
+      vertical-align: bottom;
+      margin-left: 15px;
 
-      &:after {
+      &:first-of-type {
+        margin-left: 0;
+      }
+
+      &:hover {
+        .label {
+          text-decoration: underline;
+        }
+      }
+
+      a {
+        display: block;
+        padding-right: 20px;
+        text-align: center;
+        text-decoration: none;
+        outline: none;
+      }
+
+      .icon {
         display: inline-block;
-        content: " ";
-      }
-    }
+        margin: 0 auto;
+        width: 30px;
+        height: 30px;
+        background-image: url("../images/filters_x2.png");
+        background-size: 200%;
+        line-height: 30px;
 
-    .label {
-      @extend %small-copy;
-      display: inline-block;
-      margin-left: 5px;
-      color: $link-colour;
-    }
-
-    &.star {
-      .icon {
-        background-position: -30px -30px;
-      }
-    }
-
-    &.alpha {
-      .icon {
-        background-position: 0px -30px;
-      }
-    }
-
-    &:hover,
-    &.selected {
-      &.star .icon {
-        background-position: -30px 0;
+        &:after {
+          display: inline-block;
+          content: " ";
+        }
       }
 
-      &.alpha .icon {
-        background-position: 0px 0;
+      .label {
+        @extend %small-copy;
+        display: inline-block;
+        margin-left: 5px;
+        color: $link-colour;
+      }
+
+      &.star {
+        .icon {
+          background-position: -30px -30px;
+        }
+      }
+
+      &.alpha {
+        .icon {
+          background-position: 0px -30px;
+        }
+      }
+
+      &:hover,
+      &.selected {
+        &.star .icon {
+          background-position: -30px 0;
+        }
+
+        &.alpha .icon {
+          background-position: 0px 0;
+        }
       }
     }
   }

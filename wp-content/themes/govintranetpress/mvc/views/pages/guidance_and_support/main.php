@@ -4,6 +4,7 @@
   <div class="grid">
     <div class="col-lg-12 col-md-12 col-sm-12">
       <div class="tabbed-filters">
+        <span class="tabbed-filters-label">Sort by</span>
         <ul>
           <li class="filter-item selected alpha" data-sort-type="alphabetical">
             <a href="">
