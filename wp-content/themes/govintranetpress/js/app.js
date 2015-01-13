@@ -477,6 +477,33 @@ jQuery(function() {
     };
   }(window.jQuery));
 
+  /** Guidance and Support content template
+   */
+  (function($) {
+    "use strict";
+
+    App.GuidanceAndSupportContent = function() {
+      this.$top = $('.guidance-and-support-content');
+      if(!this.$top.length) { return; }
+      this.init();
+    };
+
+    App.GuidanceAndSupportContent.prototype = {
+      init: function() {
+        this.redirectUrl = this.$top.attr('data-redirect-url');
+        this.redirectEnabled = this.$top.attr('data-redirect-enabled');
+
+        if(this.redirectUrl && this.redirectEnabled==="1") {
+          this.redirect(this.redirectUrl);
+        }
+      },
+
+      redirect: function(url) {
+        window.location.href = url;
+      }
+    };
+  }(window.jQuery));
+
   /** A-Z page
    */
   (function($) {
@@ -1504,6 +1531,7 @@ jQuery(function() {
   App.ins.mobileMenu = new App.MobileMenu();
   App.ins.stickyNews = new App.StickyNews();
   App.ins.guidanceAndSupport = new App.GuidanceAndSupport();
+  App.ins.guidanceAndSupportContent = new App.GuidanceAndSupportContent();
   App.ins.azIndex = new App.AZIndex();
   App.ins.homepageSettings = new App.HomepageSettings();
   App.ins.emergencyMessage = new App.EmergencyMessage();
