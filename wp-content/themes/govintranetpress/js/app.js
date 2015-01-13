@@ -228,6 +228,10 @@ jQuery(function() {
 
         e.preventDefault();
 
+        if($parent.hasClass('selected')) {
+          return;
+        }
+
         this.markItem($parent);
         this.loadChildren(categoryId, level+1);
 
@@ -268,11 +272,11 @@ jQuery(function() {
        */
       toggleTopLevelCategories: function(toggle) {
         if(toggle===undefined) {
-          throw new Error('toggle parameter must be set to boolean');
+          throw new Error('toggle parameter must be set (boolean)');
         }
 
         this.$columns.filter('.level-1').find('.item:not(.selected)').slideToggle(toggle);
-        this.$allCategoriesLink.toggle(!toggle);
+        this.$allCategoriesLink.toggleClass('visible', !toggle);
       },
 
       /** Collapses the level 1 column (CSS-controlled)
@@ -402,7 +406,11 @@ jQuery(function() {
         $child.find('a').attr('href', data.url);
         $child.on('click', 'a', $.proxy(this.collapseTopLevelColumn, this, level!==1));
 
-        if(level<3) {
+        if(data.is_external && !data.child_count) {
+          $child.find('a').attr('rel', 'external');
+        }
+
+        if(level<3 && data.child_count>0) {
           $child.find('.description').html(data.excerpt);
           $child.on('click', 'a', $.proxy(_this.categoryClick, _this, data.id, level));
         }
