@@ -15,10 +15,11 @@
   > span {
     &:after {
       display: inline-block;
-      width: 8px;
-      height: 13px;
+      width: 6px;
+      height: 11px;
       margin: 0 8px;
-      background-image: url('../images/breadcrumb-separator.gif');
+      background-image: url('../images/breadcrumb_separator_x2.png');
+      background-size: 100% 100%;
       content: "";
     }
 
