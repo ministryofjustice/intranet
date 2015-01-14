@@ -526,7 +526,7 @@ h1 {
 }
 
 /* line 69, ../scss/global/_typography.scss */
-.main-content .editable p, .main-content .editable li, .page-news .news-filtered-results-title .containing,
+.main-content .editable p, .main-content .editable li, .main-content .editable .address, .page-news .news-filtered-results-title .containing,
 .page-news .news-filtered-results-title .for-date, .page-news .news-filtered-results-title .results-count-description,
 .page-news .news-filtered-results-title .keywords,
 .page-news .news-filtered-results-title .date, .page-search-results .search-filtered-results-title .containing, .page-search-results .search-filtered-results-title .results-count-description,
@@ -757,6 +757,12 @@ p + p {
 .main-content .editable table th.numeric,
 .main-content .editable table td.numeric {
   text-align: right;
+}
+/* line 57, ../scss/global/_editable.scss */
+.main-content .editable .address {
+  border-left: 1px solid #bfc1c3;
+  padding-left: 15px;
+  padding: 7px 0 3px 15px;
 }
 
 /* line 3, ../scss/global/_button.scss */
