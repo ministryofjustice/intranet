@@ -536,7 +536,8 @@ h1 {
 }
 
 /* line 74, ../scss/global/_typography.scss */
-.main-content .content-info p, .breadcrumbs a,
+.main-content .content-info p, .main-content .editable table th,
+.main-content .editable table td, .breadcrumbs a,
 .breadcrumbs span, .message .content, #menu-utilities li a, .content-filters .description, .content-filters .label, .ht-feature-news .excerpt, .guidance-and-support .tree .all-categories, .annual-leave .right-hand-menu a, .annual-leave .table-of-contents li a, .page-search-results .search-item .excerpt {
   font-size: 16px;
   line-height: 20px;
@@ -740,6 +741,22 @@ p + p {
 /* line 36, ../scss/global/_editable.scss */
 .main-content .editable ol li {
   list-style-type: decimal;
+}
+/* line 41, ../scss/global/_editable.scss */
+.main-content .editable table {
+  width: 100%;
+}
+/* line 44, ../scss/global/_editable.scss */
+.main-content .editable table th,
+.main-content .editable table td {
+  padding: 12px 20px 9px 0;
+  border-bottom: 1px solid #bfc1c3;
+  text-align: left;
+}
+/* line 51, ../scss/global/_editable.scss */
+.main-content .editable table th.numeric,
+.main-content .editable table td.numeric {
+  text-align: right;
 }
 
 /* line 3, ../scss/global/_button.scss */

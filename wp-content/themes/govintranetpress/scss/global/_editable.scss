@@ -37,4 +37,20 @@
       list-style-type: decimal;
     }
   }
+
+  table {
+    width: 100%;
+
+    th,
+    td {
+      @extend %medium-copy;
+      padding: 12px 20px 9px 0;
+      border-bottom: 1px solid $grey-2;
+      text-align: left;
+
+      &.numeric {
+        text-align: right;
+      }
+    }
+  }
 }
