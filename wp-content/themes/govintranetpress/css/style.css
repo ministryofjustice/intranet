@@ -526,7 +526,7 @@ h1 {
 }
 
 /* line 69, ../scss/global/_typography.scss */
-.main-content .editable p, .main-content .editable li, .main-content .editable .address, .page-news .news-filtered-results-title .containing,
+.main-content .editable p, .main-content .editable li, .main-content .editable .address, .main-content .editable .contact, .page-news .news-filtered-results-title .containing,
 .page-news .news-filtered-results-title .for-date, .page-news .news-filtered-results-title .results-count-description,
 .page-news .news-filtered-results-title .keywords,
 .page-news .news-filtered-results-title .date, .page-search-results .search-filtered-results-title .containing, .page-search-results .search-filtered-results-title .results-count-description,
