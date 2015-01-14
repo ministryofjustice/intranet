@@ -6,7 +6,9 @@
       <h1><?=$title?></h1>
     </div>
     <div class="col-lg-12">
-      <?=$content?>
+      <div class="editable">
+        <?=$content?>
+      </div>
     </div>
   </div>
 </div>
