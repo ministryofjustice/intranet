@@ -100,4 +100,8 @@
     @extend %large-copy;
     padding-left: 15px;
   }
+
+  .summary {
+    @extend %large-copy;
+  }
 }
