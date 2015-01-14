@@ -64,4 +64,40 @@
   .contact {
     @extend %large-copy;
   }
+
+  .info-notice {
+    padding: 20px 0 16px;
+    border-left: 10px solid $grey-2;
+  }
+
+  .help-notice {
+    @extend %large-copy;
+    position: relative;
+    padding-left: 50px;
+    padding-top: 12px;
+    padding-bottom: 8px;
+
+    &:before {
+      content: "";
+      position: absolute;
+      display: inline-block;
+      left: 0;
+      top: 50%;
+      width: 35px;
+      height: 35px;
+      margin-top: -17px;
+      background: url('../images/icon-important.png') no-repeat;
+    }
+  }
+
+  .example {
+    border-left: 10px solid $grey-3;
+  }
+
+
+  .info-notice,
+  .example {
+    @extend %large-copy;
+    padding-left: 15px;
+  }
 }
