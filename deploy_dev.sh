@@ -57,7 +57,7 @@ fi
 source $config_file
 
 # deploy all files
-rsync -r --delete --progress --exclude=deploy_dev.sh --exclude=wp-config.php -e ssh ./* $user@$app-mojintranet.rhcloud.com:/var/lib/openshift/$user/app-root/runtime/repo/
+rsync -rlpt --delete --progress --exclude=deploy_dev.sh --exclude=wp-config.php -e ssh ./* $user@$app-mojintranet.rhcloud.com:/var/lib/openshift/$user/app-root/runtime/repo/
 
 # create and deploy mysql dump
 mysqldump -u $db_user --password=$db_pass $db_db >> deploy_dump.sql
