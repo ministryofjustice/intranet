@@ -1,0 +1,40 @@
+.main-content .editable {
+  h2 {
+    @extend %large-heading;
+    margin-top: 50px;
+
+    &:first-of-type {
+      margin-top: 24px;
+    }
+  }
+
+  p, li {
+    @extend %large-copy;
+  }
+
+  ul {
+    padding-left: 20px;
+    margin: 0;
+  }
+
+  li {
+    list-style-type: disc;
+    margin: 0;
+
+    + li {
+      margin-top: 5px;
+    }
+  }
+
+  a {
+    text-decoration: underline;
+  }
+
+  ol {
+    padding-left: 20px;
+
+    li {
+      list-style-type: decimal;
+    }
+  }
+}

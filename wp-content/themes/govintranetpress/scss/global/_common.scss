@@ -15,39 +15,6 @@
 }
 
 .main-content {
-  .editable {
-    h2 {
-      @extend %large-heading;
-      margin-top: 50px;
-
-      &:first-of-type {
-        margin-top: 24px;
-      }
-    }
-
-    p, li {
-      @extend %large-copy;
-    }
-
-    ul {
-      padding-left: 20px;
-      margin: 0;
-
-      li {
-        list-style-type: disc;
-        margin: 0;
-
-        + li {
-          margin-top: 10px;
-        }
-      }
-    }
-
-    a {
-      text-decoration: underline;
-    }
-  }
-
   ul li {
     line-height: 1.4;
   }

@@ -618,7 +618,7 @@ p {
 }
 /* line 79, ../scss/global/_base.scss */
 p + p {
-  margin-top: 10px;
+  margin-top: 25px;
 }
 
 /* line 2, ../scss/global/_common.scss */
@@ -638,50 +638,24 @@ p + p {
   margin: 15px 0 60px 0;
 }
 
-/* line 19, ../scss/global/_common.scss */
-.main-content .editable h2 {
-  margin-top: 50px;
-}
-/* line 23, ../scss/global/_common.scss */
-.main-content .editable h2:first-of-type {
-  margin-top: 24px;
-}
-/* line 32, ../scss/global/_common.scss */
-.main-content .editable ul {
-  padding-left: 20px;
-  margin: 0;
-}
-/* line 36, ../scss/global/_common.scss */
-.main-content .editable ul li {
-  list-style-type: disc;
-  margin: 0;
-}
-/* line 40, ../scss/global/_common.scss */
-.main-content .editable ul li + li {
-  margin-top: 10px;
-}
-/* line 46, ../scss/global/_common.scss */
-.main-content .editable a {
-  text-decoration: underline;
-}
-/* line 51, ../scss/global/_common.scss */
+/* line 18, ../scss/global/_common.scss */
 .main-content ul li {
   line-height: 1.4;
 }
-/* line 55, ../scss/global/_common.scss */
+/* line 22, ../scss/global/_common.scss */
 .main-content .info-list {
   display: table;
 }
-/* line 58, ../scss/global/_common.scss */
+/* line 25, ../scss/global/_common.scss */
 .main-content .info-list li {
   display: table-row;
 }
-/* line 62, ../scss/global/_common.scss */
+/* line 29, ../scss/global/_common.scss */
 .main-content .info-list span {
   display: table-cell;
   padding-right: 15px;
 }
-/* line 68, ../scss/global/_common.scss */
+/* line 35, ../scss/global/_common.scss */
 .main-content select {
   width: 100%;
   padding: 5px 20px 5px 10px;
@@ -694,17 +668,17 @@ p + p {
   border: 1px solid #bfc1c3;
   border-radius: 5px;
 }
-/* line 81, ../scss/global/_common.scss */
+/* line 48, ../scss/global/_common.scss */
 .main-content .content-info {
   margin-top: 20px;
   padding-top: 10px;
   border-top: 1px solid #bfc1c3;
 }
-/* line 86, ../scss/global/_common.scss */
+/* line 53, ../scss/global/_common.scss */
 .main-content .content-info p {
   margin: 10px 0;
 }
-/* line 93, ../scss/global/_common.scss */
+/* line 60, ../scss/global/_common.scss */
 .main-content .content-info .print:before,
 .main-content .content-info .share:before {
   display: inline-block;
@@ -712,14 +686,14 @@ p + p {
   content: "";
   margin-right: 10px;
 }
-/* line 102, ../scss/global/_common.scss */
+/* line 69, ../scss/global/_common.scss */
 .main-content .content-info .print:before {
   width: 20px;
   height: 21px;
   background-image: url("../images/printer.png");
   vertical-align: text-bottom;
 }
-/* line 111, ../scss/global/_common.scss */
+/* line 78, ../scss/global/_common.scss */
 .main-content .content-info .share:before {
   width: 19px;
   height: 14px;
@@ -728,9 +702,44 @@ p + p {
   background-size: 100%;
   vertical-align: middle;
 }
-/* line 121, ../scss/global/_common.scss */
+/* line 88, ../scss/global/_common.scss */
 .main-content .content-info .last-updated {
   color: #6f777b;
+}
+
+/* line 2, ../scss/global/_editable.scss */
+.main-content .editable h2 {
+  margin-top: 50px;
+}
+/* line 6, ../scss/global/_editable.scss */
+.main-content .editable h2:first-of-type {
+  margin-top: 24px;
+}
+/* line 15, ../scss/global/_editable.scss */
+.main-content .editable ul {
+  padding-left: 20px;
+  margin: 0;
+}
+/* line 20, ../scss/global/_editable.scss */
+.main-content .editable li {
+  list-style-type: disc;
+  margin: 0;
+}
+/* line 24, ../scss/global/_editable.scss */
+.main-content .editable li + li {
+  margin-top: 5px;
+}
+/* line 29, ../scss/global/_editable.scss */
+.main-content .editable a {
+  text-decoration: underline;
+}
+/* line 33, ../scss/global/_editable.scss */
+.main-content .editable ol {
+  padding-left: 20px;
+}
+/* line 36, ../scss/global/_editable.scss */
+.main-content .editable ol li {
+  list-style-type: decimal;
 }
 
 /* line 3, ../scss/global/_button.scss */
