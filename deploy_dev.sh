@@ -57,11 +57,11 @@ fi
 source $config_file
 
 # deploy all files
-rsync -rlpt --delete --progress --exclude=deploy_dev.sh --exclude=wp-config.php -e ssh ./* $user@$app-mojintranet.rhcloud.com:/var/lib/openshift/$user/app-root/runtime/repo/
+rsync -rlptu --delete --progress --exclude=deploy_dev.sh --exclude=wp-config.php -e ssh ./* $user@$app-mojintranet.rhcloud.com:/var/lib/openshift/$user/app-root/runtime/repo/
 
 # create and deploy mysql dump
 mysqldump -u $db_user --password=$db_pass $db_db >> deploy_dump.sql
-rsync --progress -e ssh ./deploy_dump.sql $user@$app-mojintranet.rhcloud.com:/var/lib/openshift/$user/app-root/runtime/
+rsync -zu --progress -e ssh ./deploy_dump.sql $user@$app-mojintranet.rhcloud.com:/var/lib/openshift/$user/app-root/runtime/
 
 # import the mysql dump on the server
 ssh $user@$app-mojintranet.rhcloud.com <<ENDSSH
