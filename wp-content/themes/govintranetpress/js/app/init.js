@@ -1,4 +1,4 @@
-(function($) {
+jQuery(function($) {
   "use strict";
 
   var App = window.App;
@@ -14,4 +14,4 @@
   App.ins.news = new App.News();
   App.ins.searchResults = new App.SearchResults();
   App.ins.floaters = new App.Floaters();
-}(jQuery));
+});
