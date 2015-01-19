@@ -57,8 +57,6 @@
 (function($) {
   "use strict";
 
-  alert('test');
-
   var App = window.App;
 
   App.AZIndex = function() {
