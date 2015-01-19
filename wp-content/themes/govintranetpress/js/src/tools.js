@@ -34,7 +34,7 @@
       var level = 0;
 
       while(size >= 1024) {
-        size = size / 1024;
+        size = App.tools.round(size / 1024, 2);
         level++;
       }
 
