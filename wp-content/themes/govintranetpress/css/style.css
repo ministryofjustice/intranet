@@ -2530,7 +2530,11 @@ form .form-row {
 .ie7 #menu-utilities {
   margin-left: 0;
   padding-left: 0; }
-  /* line 5, ../scss/ie/_utility_bar.scss */
+  /* line 6, ../scss/ie/_utility_bar.scss */
   .ie7 #menu-utilities li {
     display: inline;
     zoom: 1; }
+
+/* line 2, ../scss/ie/_main_nav.scss */
+.ie7 #mainnav #primarynav .mega-sub-menu {
+  background-color: #eaedef; }

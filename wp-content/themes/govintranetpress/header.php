@@ -170,16 +170,14 @@ header('X-Frame-Options: SAMEORIGIN');
     </div>
 
     <div class="grid" class="header-bottom">
-      <div id="mainnav">
+      <div id="mainnav" class="col-lg-8 col-md-8 col-sm-12">
         <div id="primarynav" role="navigation">
-          <?php /* Our navigation menu.  If one isn't filled out, wp_nav_menu falls back to wp_page_menu.  The menu assiged to the primary position is the one used.  If none is assigned, the menu with the lowest ID is used.  */ ?>
-          <?php
-          wp_nav_menu( array( 'container_class' => 'menu-header', 'theme_location' => 'primary' ) ); ?>
+          <?php wp_nav_menu( array( 'container_class' => 'menu-header', 'theme_location' => 'primary' ) ); ?>
         </div>
       </div>
 
       <!--utility menu-->
-      <div id="utilities" class="col-lg-4 col-md-4 col-sm-12 push-lg-8 push-md-8 mobile-hide">
+      <div id="utilities" class="col-lg-4 col-md-4 col-sm-12 mobile-hide">
         <?php if ( is_active_sidebar( 'utility-widget-area' ) ) : ?>
           <div id='utilitybar'>
             <ul class="menu">
