@@ -1,0 +1,11 @@
+.ie7 {
+  @for $i from 1 through 12 {
+    .col-lg-#{$i} {
+      width: expression((this.parentNode.clientWidth/12*#{$i} - parseInt(this.currentStyle['paddingLeft']) - parseInt(this.currentStyle['paddingRight'])) + 'px');
+      float: left;
+      overflow: hidden;
+      padding-left: $grid-gutter/2;
+      padding-right: $grid-gutter/2;
+    }
+  }
+}

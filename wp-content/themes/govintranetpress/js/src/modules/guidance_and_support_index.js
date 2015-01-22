@@ -60,7 +60,7 @@
         _this.collapseTopLevelColumn(false);
       });
 
-      if(App.ie>=8 || !App.ie) {
+      if(!App.ie) {
         this.$tree.hammer().on('swipeleft', $.proxy(this.swipeMobileColumns, this, 'left'));
         this.$tree.hammer().on('swiperight', $.proxy(this.swipeMobileColumns, this, 'right'));
       }
