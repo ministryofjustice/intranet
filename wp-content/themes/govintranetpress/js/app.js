@@ -22,7 +22,7 @@
     }
   }());
 
-  App.ie = 7; //for debugging purposes
+  //App.ie = 7; //for debugging purposes
 }(jQuery));
 
 /** App tools - generic set of tools used across the whole application

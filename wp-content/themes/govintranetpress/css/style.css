@@ -1087,89 +1087,82 @@ form .form-row {
       line-height: 40px;
       text-decoration: none;
       vertical-align: middle; }
-  /* line 35, ../scss/modules/_header.scss */
-  .header #searchform .input-group {
-    width: 100%;
-    display: block;
+  /* line 34, ../scss/modules/_header.scss */
+  .header #searchform {
     position: relative; }
-    /* line 2, ../scss/global/_mixins.scss */
-    .header #searchform .input-group:after {
-      content: "";
-      display: table;
-      clear: both; }
-  /* line 42, ../scss/modules/_header.scss */
-  .header #searchform .form-control {
-    height: 36px;
-    width: 100%;
-    padding-left: 80px; }
-  /* line 48, ../scss/modules/_header.scss */
-  .header #searchform .search-filter-container {
-    position: absolute;
-    left: 2px;
-    top: 2px;
-    bottom: 2px;
-    width: 70px; }
-    /* line 55, ../scss/modules/_header.scss */
-    .header #searchform .search-filter-container:after {
+    /* line 37, ../scss/modules/_header.scss */
+    .header #searchform .input-group {
+      width: 100%;
+      display: block;
+      position: relative; }
+      /* line 2, ../scss/global/_mixins.scss */
+      .header #searchform .input-group:after {
+        content: "";
+        display: table;
+        clear: both; }
+    /* line 44, ../scss/modules/_header.scss */
+    .header #searchform .form-control {
+      height: 36px;
+      width: 100%;
+      padding-left: 80px; }
+    /* line 50, ../scss/modules/_header.scss */
+    .header #searchform .search-filter-container {
       position: absolute;
-      top: 1px;
-      right: 0;
-      bottom: 1px;
-      width: 20px;
+      left: 2px;
+      top: 2px;
+      bottom: 2px;
+      width: 70px; }
+      /* line 57, ../scss/modules/_header.scss */
+      .header #searchform .search-filter-container:after {
+        position: absolute;
+        top: 1px;
+        right: 0;
+        bottom: 1px;
+        width: 20px;
+        background-color: #bfc1c3;
+        color: #fff;
+        line-height: 200%;
+        text-align: center;
+        content: "\25be";
+        pointer-events: none; }
+    /* line 73, ../scss/modules/_header.scss */
+    .header #searchform .search-filter {
+      display: block;
+      width: 100%;
+      height: 100%;
+      margin-right: -2px;
+      padding-right: 0;
+      border: 1px solid #fff;
+      border-right-width: 0;
       background-color: #bfc1c3;
       color: #fff;
-      line-height: 200%;
-      text-align: center;
-      content: "\25be";
-      pointer-events: none; }
-  /* line 71, ../scss/modules/_header.scss */
-  .header #searchform .search-filter {
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    width: 100%;
-    margin-right: -2px;
-    padding-right: 0;
-    border: 1px solid #fff;
-    border-right-width: 0;
-    background-color: #bfc1c3;
-    color: #fff;
-    outline: none; }
-  /* line 88, ../scss/modules/_header.scss */
-  .header #searchform .search-btn {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    width: 36px;
-    padding: 0;
-    background-color: #428bca;
-    border-color: #357ebd; }
-    /* line 98, ../scss/modules/_header.scss */
-    .header #searchform .search-btn:after {
+      outline: none; }
+    /* line 87, ../scss/modules/_header.scss */
+    .header #searchform .search-btn {
       position: absolute;
-      left: 10px;
-      top: 10px;
-      right: 10px;
-      bottom: 10px;
-      width: 16px;
-      height: 16px;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 36px;
+      padding: 0;
+      background-color: #428bca;
+      border-color: #357ebd;
       background-image: url("../images/search_icon.png");
       background-size: 16px 16px;
+      background-repeat: no-repeat;
+      background-position: 10px 10px;
       content: ""; }
 
-/* line 115, ../scss/modules/_header.scss */
+/* line 106, ../scss/modules/_header.scss */
 .page-template-search-results-php #searchform {
   display: none; }
 
 @media (min-width: 0) and (max-width: 767px) {
-  /* line 121, ../scss/modules/_header.scss */
+  /* line 112, ../scss/modules/_header.scss */
   #searchformdiv {
     padding-top: 10px; }
 
-  /* line 125, ../scss/modules/_header.scss */
+  /* line 116, ../scss/modules/_header.scss */
   .mobile-nav button {
     float: right;
     width: 30px;
@@ -1180,15 +1173,15 @@ form .form-row {
     background-size: 60px 30px;
     background-position: 0 0;
     margin-top: 5px; }
-    /* line 136, ../scss/modules/_header.scss */
+    /* line 127, ../scss/modules/_header.scss */
     .mobile-menu-enabled .mobile-nav button {
       background-position: 30px 0; }
 
-  /* line 143, ../scss/modules/_header.scss */
+  /* line 134, ../scss/modules/_header.scss */
   .header.mobile-menu-enabled .search-box,
   .header.mobile-menu-enabled #mainnav {
     display: none; }
-  /* line 148, ../scss/modules/_header.scss */
+  /* line 139, ../scss/modules/_header.scss */
   .header.mobile-menu-enabled #utilities {
     display: block; } }
 /* line 2, ../scss/modules/_main_nav.scss */
@@ -1317,52 +1310,49 @@ form .form-row {
     margin-top: 10px; } }
 /* line 1, ../scss/modules/_utility_bar.scss */
 #utilities {
-  text-align: right;
   padding-top: 0;
   padding-bottom: 0; }
 
 /* line 7, ../scss/modules/_utility_bar.scss */
-#utilitybar {
-  float: left; }
-  /* line 10, ../scss/modules/_utility_bar.scss */
-  #utilitybar ul.menu {
-    margin-top: 0;
-    margin-bottom: 0; }
+#utilitybar ul.menu {
+  margin-top: 0;
+  margin-left: 0;
+  margin-bottom: 0; }
 
-/* line 16, ../scss/modules/_utility_bar.scss */
+/* line 14, ../scss/modules/_utility_bar.scss */
 #menu-utilities li {
   display: inline-block;
   list-style: none; }
-  /* line 20, ../scss/modules/_utility_bar.scss */
+  /* line 18, ../scss/modules/_utility_bar.scss */
   #menu-utilities li a {
     display: block;
     color: white;
     line-height: 40px;
     padding: 0 10px;
     text-decoration: underline; }
-    /* line 28, ../scss/modules/_utility_bar.scss */
+    /* line 26, ../scss/modules/_utility_bar.scss */
     #menu-utilities li a:first-of-type {
       padding-left: 0; }
 
 @media (min-width: 0) and (max-width: 767px) {
-  /* line 38, ../scss/modules/_utility_bar.scss */
+  /* line 33, ../scss/modules/_utility_bar.scss */
   #utilities {
     display: none; }
 
-  /* line 43, ../scss/modules/_utility_bar.scss */
+  /* line 38, ../scss/modules/_utility_bar.scss */
   .mobile-menu-enabled #utilities #utilitybar {
     float: none; }
-  /* line 47, ../scss/modules/_utility_bar.scss */
+  /* line 42, ../scss/modules/_utility_bar.scss */
   .mobile-menu-enabled #utilities #menu-utilities {
     margin: 15px 45px; }
-    /* line 50, ../scss/modules/_utility_bar.scss */
+    /* line 45, ../scss/modules/_utility_bar.scss */
     .mobile-menu-enabled #utilities #menu-utilities li {
       display: block;
       border-bottom: 1px solid #dee0e2; }
-      /* line 54, ../scss/modules/_utility_bar.scss */
+      /* line 49, ../scss/modules/_utility_bar.scss */
       .mobile-menu-enabled #utilities #menu-utilities li:last-of-type {
         border-bottom: none; }
-      /* line 58, ../scss/modules/_utility_bar.scss */
+      /* line 53, ../scss/modules/_utility_bar.scss */
       .mobile-menu-enabled #utilities #menu-utilities li a {
         text-align: left; } }
 /* line 1, ../scss/modules/_content_tabs.scss */
@@ -2512,6 +2502,9 @@ form .form-row {
   overflow: hidden;
   padding-left: 15px;
   padding-right: 15px; }
+/* line 12, ../scss/ie/_grid.scss */
+.ie7 .mobile-only {
+  display: none; }
 
 /* line 2, ../scss/ie/_tabbed_filters.scss */
 .ie7 .tabbed-filters ul,
@@ -2528,3 +2521,16 @@ form .form-row {
   display: inline;
   zoom: 1;
   margin-right: 10px; }
+
+/* line 3, ../scss/ie/_header.scss */
+.ie7 .header #searchform .form-control {
+  width: expression((this.parentNode.clientWidth - parseInt(this.currentStyle['paddingLeft']) - parseInt(this.currentStyle['paddingRight']) - parseInt(this.currentStyle['borderLeftWidth']) - parseInt(this.currentStyle['borderRightWidth'])) + 'px'); }
+
+/* line 2, ../scss/ie/_utility_bar.scss */
+.ie7 #menu-utilities {
+  margin-left: 0;
+  padding-left: 0; }
+  /* line 5, ../scss/ie/_utility_bar.scss */
+  .ie7 #menu-utilities li {
+    display: inline;
+    zoom: 1; }

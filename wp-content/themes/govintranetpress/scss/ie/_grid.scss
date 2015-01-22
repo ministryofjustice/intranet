@@ -8,4 +8,8 @@
       padding-right: $grid-gutter/2;
     }
   }
+
+  .mobile-only {
+    display: none;
+  }
 }

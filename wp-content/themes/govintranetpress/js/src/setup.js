@@ -22,5 +22,5 @@
     }
   }());
 
-  App.ie = 7; //for debugging purposes
+  //App.ie = 7; //for debugging purposes
 }(jQuery));
