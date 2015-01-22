@@ -13,7 +13,10 @@ header('X-Frame-Options: SAMEORIGIN');
 
 ?><!DOCTYPE html>
 
-<html <?php language_attributes(); ?>>
+<!--[if lt IE 7 ]> <html <?php language_attributes(); ?> class="ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html <?php language_attributes(); ?> class="ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html <?php language_attributes(); ?> class="ie8"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html <?php language_attributes(); ?>><!--<![endif]-->
 <head data-application-url="<?=site_url()?>">
 	<meta charset="<?php bloginfo( 'charset' ); ?>" />
 	<title><?php

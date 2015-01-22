@@ -5,6 +5,24 @@
     tools: {},
     ins: {}
   };
+
+  App.ie = null;
+
+  (function() {
+    var $html = $('.html');
+
+    if($html.hasClass('ie7')) {
+      App.ie = 7;
+    }
+    else if($html.hasClass('ie8')) {
+      App.ie = 8;
+    }
+    else if($html.hasClass('ie9')) {
+      App.ie = 9;
+    }
+  }());
+
+  App.ie = 7; //for debugging purposes
 }(jQuery));
 
 /** App tools - generic set of tools used across the whole application
@@ -337,7 +355,7 @@
       this.serviceUrl = this.applicationUrl+'/service/children';
       this.pageBase = this.applicationUrl+'/'+this.$top.data('top-level-slug');
 
-      this.itemTemplate = this.$top.find('template[data-name="guidance-and-support-category-item"]').html();
+      this.itemTemplate = this.$top.find('.template-partial[data-name="guidance-and-support-category-item"]').html();
       this.serviceXHR = null;
 
       this.cacheEls();
@@ -380,8 +398,10 @@
         _this.collapseTopLevelColumn(false);
       });
 
-      this.$tree.hammer().on('swipeleft', $.proxy(this.swipeMobileColumns, this, 'left'));
-      this.$tree.hammer().on('swiperight', $.proxy(this.swipeMobileColumns, this, 'right'));
+      if(App.ie>=8 || !App.ie) {
+        this.$tree.hammer().on('swipeleft', $.proxy(this.swipeMobileColumns, this, 'left'));
+        this.$tree.hammer().on('swiperight', $.proxy(this.swipeMobileColumns, this, 'right'));
+      }
       $(document).on('keydown', $.proxy(this.swipeMobileColumns, this, null));
     },
 
@@ -446,7 +466,9 @@
         return false;
       });
 
-      history.pushState({}, "", urlParts.join('/')+'/');
+      if(!App.ie) {
+        history.pushState({}, "", urlParts.join('/')+'/');
+      }
     },
 
     /** Marks a specified item as selected
@@ -576,6 +598,7 @@
       this.$columns.filter('.level-'+level).addClass('current');
 
       this.updateUrl();
+
 
       this.$tree.attr('data-show-column', level);
     },

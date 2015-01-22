@@ -38,5 +38,10 @@
 <?php
 	wp_footer();
 ?>
+<!--[if (gte IE 8)|!(IE)]><!-->
+  <script type="text/javascript" src="<?=get_stylesheet_directory_uri()?>/js/hammer.min.js"></script>
+  <script type="text/javascript" src="<?=get_stylesheet_directory_uri()?>/js/jquery.hammer.js"></script>
+<!--<![endif]-->
+<script type="text/javascript" src="<?=get_stylesheet_directory_uri()?>/js/app.js"></script>
 </body>
 </html>
