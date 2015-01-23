@@ -9,7 +9,7 @@
   App.ie = null;
 
   (function() {
-    var $html = $('.html');
+    var $html = $('html');
 
     if($html.hasClass('ie7')) {
       App.ie = 7;
