@@ -47,15 +47,15 @@
 
     bindEvents: function() {
       var _this = this;
+      var inputFallbackEvent = (App.ie && App.ie < 9) ? 'keyup' : '';
 
-      this.$dateInput.on('change', function() {
+      this.$keywordsInput.on('input ' + inputFallbackEvent, function(e) {
         _this.loadResults({
           page: 1
         });
       });
 
-      //!!! TODO: this will require a fallback for IE's
-      this.$keywordsInput.on('input', function(e) {
+      this.$dateInput.on('change', function() {
         _this.loadResults({
           page: 1
         });
