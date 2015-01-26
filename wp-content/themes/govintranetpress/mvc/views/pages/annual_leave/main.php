@@ -73,7 +73,7 @@
     </div>
   </div>
 
-  <template data-template-type="tab-content" data-content-name="all-staff">
+  <div class="template-partial" data-template-type="tab-content" data-content-name="all-staff">
     <h2>What you need to know</h2>
     <ul>
       <li>The MoJ leave year is a period of 12 months starting from your date of appointment.</li>
@@ -112,9 +112,9 @@
       <li><a href="#">Civil Service Reform - changes to annual and privilege leave - FAQs</a></li>
       <li><a href="#">Flexible benefits guidance</a></li>
     </ul>
-  </template>
+  </div>
 
-  <template data-template-type="tab-content" data-content-name="managers">
+  <div class="template-partial" data-template-type="tab-content" data-content-name="managers">
     <h2>What you need to do</h2>
     <ul>
       <li>Follow local procedures for recording your annual and privilege leave.</li>
@@ -153,5 +153,5 @@
       <li><a href="#">Civil Service Reform - changes to annual and privilege leave - FAQs</a></li>
       <li><a href="#">Flexible benefits guidance</a></li>
     </ul>
-  </template>
+  </div>
 </div>
