@@ -31,9 +31,9 @@ header('X-Frame-Options: SAMEORIGIN');
 
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<link rel="profile" href="https://gmpg.org/xfn/11" />
-
-	<!--[if lte IE 8]>
-		<link rel="stylesheet" href="<?php bloginfo( 'template_url' ); ?>/css/ie8.css" type="text/css" media="screen" />
+  
+  <!--[if lte IE 9]>
+		<link rel="stylesheet" href="<?php bloginfo( 'template_url' ); ?>/css/ie.css" type="text/css" media="screen" />
 	<![endif]-->
 
 	<link href="<?php echo get_stylesheet_directory_uri(); ?>/css/prettyPhoto.css" rel="stylesheet">
