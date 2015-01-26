@@ -300,7 +300,7 @@
       //page number
       urlParts.push(this.currentPage);
 
-      if(!App.ie) {
+      if(history.pushState) {
         history.pushState({}, "", urlParts.join('/')+'/');
       }
     }

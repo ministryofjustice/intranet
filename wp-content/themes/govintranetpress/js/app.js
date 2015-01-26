@@ -466,7 +466,7 @@
         return false;
       });
 
-      if(!App.ie) {
+      if(history.pushState) {
         history.pushState({}, "", urlParts.join('/')+'/');
       }
     },
@@ -751,9 +751,9 @@
       this.serviceUrl = this.applicationUrl+'/service/news';
       this.pageBase = this.applicationUrl+'/'+this.$top.data('top-level-slug');
 
-      this.itemTemplate = this.$top.find('template[data-name="news-item"]').html();
-      this.resultsPageTitleTemplate = this.$top.find('template[data-name="news-results-page-title"]').html();
-      this.filteredResultsTitleTemplate = this.$top.find('template[data-name="news-filtered-results-title"]').html();
+      this.itemTemplate = this.$top.find('.template-partial[data-name="news-item"]').html();
+      this.resultsPageTitleTemplate = this.$top.find('.template-partial[data-name="news-results-page-title"]').html();
+      this.filteredResultsTitleTemplate = this.$top.find('.template-partial[data-name="news-filtered-results-title"]').html();
       this.serviceXHR = null;
       this.months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
       this.currentPage = null;
@@ -1065,7 +1065,9 @@
       //date
       urlParts.push(this.$dateInput.val() || '-');
 
-      history.pushState({}, "", urlParts.join('/')+'/');
+      if(history.pushState) {
+        history.pushState({}, "", urlParts.join('/')+'/');
+      }
     }
   };
 }(jQuery));
@@ -1372,7 +1374,7 @@
       //page number
       urlParts.push(this.currentPage);
 
-      if(!App.ie) {
+      if(history.pushState) {
         history.pushState({}, "", urlParts.join('/')+'/');
       }
     }

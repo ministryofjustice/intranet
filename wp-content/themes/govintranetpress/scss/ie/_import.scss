@@ -1,10 +1,23 @@
+//global
 @import "grid";
+@import "common";
+
+//shared
 @import "tabbed_filters";
-@import "breadcrumbs";
+@import "content_filters";
+
+//modules
 @import "header";
-@import "utility_bar";
 @import "main_nav";
-@import "sticky_news";
+@import "utility_bar";
+@import "breadcrumbs";
 @import "my_moj";
-@import "ht_feature_news";
+
+//content-based
 @import "search_results";
+@import "news_landing";
+@import "content_nav";
+
+//widgets
+@import "ht_feature_news";
+@import "sticky_news";

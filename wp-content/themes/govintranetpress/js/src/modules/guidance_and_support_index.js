@@ -128,7 +128,7 @@
         return false;
       });
 
-      if(!App.ie) {
+      if(history.pushState) {
         history.pushState({}, "", urlParts.join('/')+'/');
       }
     },
