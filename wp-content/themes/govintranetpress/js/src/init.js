@@ -14,4 +14,5 @@ jQuery(function($) {
   App.ins.news = new App.News();
   App.ins.searchResults = new App.SearchResults();
   App.ins.floaters = new App.Floaters();
+  App.ins.collapsibleBlock = new App.CollapsibleBlock();
 });

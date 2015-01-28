@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /*! normalize.css v3.0.2 | MIT License | git.io/normalize */
 /**
  * 1. Set default font family to sans-serif.
@@ -453,7 +454,7 @@ h1 {
 
 /* line 69, ../scss/global/_typography.scss */
 .main-content .editable p, .main-content .editable li, .main-content .editable .address, .main-content .editable .contact, .main-content .editable .help-notice, .main-content .editable .info-notice,
-.main-content .editable .example, .main-content .editable .summary, .page-news .news-filtered-results-title .containing,
+.main-content .editable .example, .main-content .editable .summary, .collapsible-block-container .collapsible-block-toggle, .page-news .news-filtered-results-title .containing,
 .page-news .news-filtered-results-title .for-date, .page-news .news-filtered-results-title .results-count-description,
 .page-news .news-filtered-results-title .keywords,
 .page-news .news-filtered-results-title .date, .page-search-results .search-filtered-results-title .containing, .page-search-results .search-filtered-results-title .results-count-description,
@@ -1576,6 +1577,33 @@ form .form-row {
     .tabbed-filters ul li:hover.alpha .icon, .tabbed-filters ul li.selected.alpha .icon {
       background-position: 0px 0; }
 
+/* line 2, ../scss/modules/collapsible_block.scss */
+.collapsible-block-container .collapsible-block-toggle {
+  display: block;
+  margin-left: 18px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  font-weight: bold; }
+  /* line 10, ../scss/modules/collapsible_block.scss */
+  .collapsible-block-container .collapsible-block-toggle:before {
+    display: inline-block;
+    margin-bottom: -2px;
+    margin-right: 5px;
+    margin-left: 0;
+    content: "►"; }
+/* line 19, ../scss/modules/collapsible_block.scss */
+.collapsible-block-container .collapsible-block {
+  display: none; }
+/* line 25, ../scss/modules/collapsible_block.scss */
+.collapsible-block-container.opened .collapsible-block-toggle:before {
+  content: "▼"; }
+/* line 29, ../scss/modules/collapsible_block.scss */
+.collapsible-block-container.opened .collapsible-block-toggle.reversed:before {
+  content: "▲"; }
+/* line 34, ../scss/modules/collapsible_block.scss */
+.collapsible-block-container.opened .collapsible-block {
+  display: block; }
+
 /* line 2, ../scss/widgets/ht_feature_news/_main.scss */
 .ht-feature-news > h3 {
   margin-top: 16px;
@@ -2315,12 +2343,12 @@ form .form-row {
 
 /* line 2, ../scss/content/annual_leave/_main.scss */
 .annual-leave .page-title {
-  margin-top: 10px;
+  margin-top: 0px;
   border-bottom: none; }
 /* line 7, ../scss/content/annual_leave/_main.scss */
 .annual-leave .page-category {
   margin-top: 27px;
-  margin-bottom: 12px;
+  margin-bottom: 0px;
   font-weight: normal;
   color: #6f777b; }
 /* line 15, ../scss/content/annual_leave/_main.scss */

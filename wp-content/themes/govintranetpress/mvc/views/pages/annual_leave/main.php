@@ -98,20 +98,38 @@
       <li>Calculate your annual leave entitlement for each 12-month period using the <a href="#">annual leave calculator</a>, then agree with your line manager that the calculation is correct.</li>
     </ul>
 
-    <h2>Links</h2>
+    <h2>Download</h2>
     <ul>
-      <li><a href="#" rel="external">Accrued leave calculator</a></li>
-      <li><a href="#">Annual leave and sickness absence Q&A</a></li>
-      <li><a href="#">Annual leave calculation from days to hours</a></li>
-      <li><a href="#">Annual leave calculation and public and privilege days for scheduled ushers</a></li>
-      <li><a href="#">Annual leave calculator</a></li>
-      <li><a href="#">Annual leave policy statement</a></li>
-      <li><a href="#">Application for leave form</a></li>
-      <li><a href="#">Bank Holiday and privilege day entitlement 2013/14</a></li>
-      <li><a href="#">Buy and sell annual leave calculator</a></li>
-      <li><a href="#">Civil Service Reform - changes to annual and privilege leave - FAQs</a></li>
-      <li><a href="#">Flexible benefits guidance</a></li>
+      <li><a href="#">Application for leave form</a> (PDF, 238KB, 2 pages)</li>
+      <li><a href="#">Flexible benefits guidance</a> (PDF, 363KB, 4 pages)</li>
     </ul>
+
+    <div class="collapsible-block-container">
+      <ul class="collapsible-block">
+        <li><a href="#">Another one</a> (PDF, 238KB, 2 pages)</li>
+        <li><a href="#">Different file</a> (PDF, 363KB, 4 pages)</li>
+        <li><a href="#">A larger file</a> (PDF, 1.24MB, 12 pages)</li>
+      </ul>
+
+      <a class="collapsible-block-toggle reversed" href="" data-closed-label="More" data-opened-label="Less">More</a>
+    </div>
+
+    <h2>Related pages</h2>
+    <ul class="top-links">
+      <li><a href="#" rel="external">Accrued leave calculator</a></li>
+      <li><a href="#">Annual leave calculator</a></li>
+    </ul>
+
+    <div class="collapsible-block-container">
+      <ul class="collapsible-block">
+        <li><a href="#">Bank Holiday and privilege day entitlement 2013/14</a></li>
+        <li><a href="#">Buy and sell annual leave calculator</a></li>
+        <li><a href="#">Civil Service Reform - changes to annual and privilege leave - FAQs</a></li>
+        <li><a href="#">Flexible benefits guidance</a></li>
+      </ul>
+
+      <a class="collapsible-block-toggle reversed" href="" data-closed-label="More" data-opened-label="Less">More</a>
+    </div>
   </div>
 
   <div class="template-partial" data-template-type="tab-content" data-content-name="managers">
