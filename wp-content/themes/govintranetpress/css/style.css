@@ -452,7 +452,8 @@ h1 {
   line-height: 30px; }
 
 /* line 69, ../scss/global/_typography.scss */
-.main-content .editable p, .main-content .editable li, .page-news .news-filtered-results-title .containing,
+.main-content .editable p, .main-content .editable li, .main-content .editable .address, .main-content .editable .contact, .main-content .editable .help-notice, .main-content .editable .info-notice,
+.main-content .editable .example, .main-content .editable .summary, .page-news .news-filtered-results-title .containing,
 .page-news .news-filtered-results-title .for-date, .page-news .news-filtered-results-title .results-count-description,
 .page-news .news-filtered-results-title .keywords,
 .page-news .news-filtered-results-title .date, .page-search-results .search-filtered-results-title .containing, .page-search-results .search-filtered-results-title .results-count-description,
@@ -461,7 +462,8 @@ h1 {
   line-height: 25px; }
 
 /* line 74, ../scss/global/_typography.scss */
-.main-content .content-info p, .breadcrumbs a,
+.main-content .content-info p, .main-content .editable table th,
+.main-content .editable table td, .breadcrumbs a,
 .breadcrumbs span, .message .content, #menu-utilities li a, .content-filters .description, .content-filters .label, .ht-feature-news .excerpt, .guidance-and-support .tree .all-categories, .annual-leave .right-hand-menu a, .annual-leave .table-of-contents li a, .page-search-results .search-item .excerpt {
   font-size: 16px;
   line-height: 20px; }
@@ -533,7 +535,7 @@ p {
   margin: 0; }
   /* line 81, ../scss/global/_base.scss */
   p + p {
-    margin-top: 10px; }
+    margin-top: 25px; }
 
 /* line 2, ../scss/global/_common.scss */
 .clearfix:after {
@@ -553,40 +555,20 @@ p {
 .content-wrapper {
   margin: 15px 0 60px 0; }
 
-/* line 23, ../scss/global/_common.scss */
-.main-content .editable h2 {
-  margin-top: 50px; }
-  /* line 27, ../scss/global/_common.scss */
-  .main-content .editable h2:first-of-type {
-    margin-top: 24px; }
-/* line 36, ../scss/global/_common.scss */
-.main-content .editable ul {
-  padding-left: 20px;
-  margin: 0; }
-  /* line 40, ../scss/global/_common.scss */
-  .main-content .editable ul li {
-    list-style-type: disc;
-    margin: 0; }
-    /* line 44, ../scss/global/_common.scss */
-    .main-content .editable ul li + li {
-      margin-top: 10px; }
-/* line 50, ../scss/global/_common.scss */
-.main-content .editable a {
-  text-decoration: underline; }
-/* line 55, ../scss/global/_common.scss */
+/* line 22, ../scss/global/_common.scss */
 .main-content ul li {
   line-height: 1.4; }
-/* line 59, ../scss/global/_common.scss */
+/* line 26, ../scss/global/_common.scss */
 .main-content .info-list {
   display: table; }
-  /* line 62, ../scss/global/_common.scss */
+  /* line 29, ../scss/global/_common.scss */
   .main-content .info-list li {
     display: table-row; }
-  /* line 66, ../scss/global/_common.scss */
+  /* line 33, ../scss/global/_common.scss */
   .main-content .info-list span {
     display: table-cell;
     padding-right: 15px; }
-/* line 72, ../scss/global/_common.scss */
+/* line 39, ../scss/global/_common.scss */
 .main-content select {
   width: 100%;
   padding: 5px 20px 5px 10px;
@@ -598,28 +580,28 @@ p {
   background: url("../images/dropdown-background.png") no-repeat scroll right center #fff;
   border: 1px solid #bfc1c3;
   border-radius: 5px; }
-/* line 85, ../scss/global/_common.scss */
+/* line 52, ../scss/global/_common.scss */
 .main-content .content-info {
   margin-top: 20px;
   padding-top: 10px;
   border-top: 1px solid #bfc1c3; }
-  /* line 90, ../scss/global/_common.scss */
+  /* line 57, ../scss/global/_common.scss */
   .main-content .content-info p {
     margin: 10px 0; }
-  /* line 97, ../scss/global/_common.scss */
+  /* line 64, ../scss/global/_common.scss */
   .main-content .content-info .print:before,
   .main-content .content-info .share:before {
     display: inline-block;
     background-repeat: no-repeat;
     content: "";
     margin-right: 10px; }
-  /* line 106, ../scss/global/_common.scss */
+  /* line 73, ../scss/global/_common.scss */
   .main-content .content-info .print:before {
     width: 20px;
     height: 21px;
     background-image: url("../images/printer.png");
     vertical-align: text-bottom; }
-  /* line 115, ../scss/global/_common.scss */
+  /* line 82, ../scss/global/_common.scss */
   .main-content .content-info .share:before {
     width: 19px;
     height: 14px;
@@ -627,9 +609,82 @@ p {
     background-image: url("../images/email_x2.png");
     background-size: 100%;
     vertical-align: middle; }
-  /* line 125, ../scss/global/_common.scss */
+  /* line 92, ../scss/global/_common.scss */
   .main-content .content-info .last-updated {
     color: #6f777b; }
+
+/* line 2, ../scss/global/_editable.scss */
+.main-content .editable h2 {
+  margin-top: 50px; }
+  /* line 6, ../scss/global/_editable.scss */
+  .main-content .editable h2:first-of-type {
+    margin-top: 24px; }
+/* line 15, ../scss/global/_editable.scss */
+.main-content .editable ul {
+  padding-left: 20px;
+  margin: 0; }
+/* line 20, ../scss/global/_editable.scss */
+.main-content .editable li {
+  list-style-type: disc;
+  margin: 0; }
+  /* line 24, ../scss/global/_editable.scss */
+  .main-content .editable li + li {
+    margin-top: 5px; }
+/* line 29, ../scss/global/_editable.scss */
+.main-content .editable a {
+  text-decoration: underline; }
+/* line 33, ../scss/global/_editable.scss */
+.main-content .editable ol {
+  padding-left: 20px; }
+  /* line 36, ../scss/global/_editable.scss */
+  .main-content .editable ol li {
+    list-style-type: decimal; }
+/* line 41, ../scss/global/_editable.scss */
+.main-content .editable table {
+  width: 100%; }
+  /* line 44, ../scss/global/_editable.scss */
+  .main-content .editable table th,
+  .main-content .editable table td {
+    padding: 12px 20px 9px 0;
+    border-bottom: 1px solid #bfc1c3;
+    text-align: left; }
+    /* line 51, ../scss/global/_editable.scss */
+    .main-content .editable table th.numeric,
+    .main-content .editable table td.numeric {
+      text-align: right; }
+/* line 57, ../scss/global/_editable.scss */
+.main-content .editable .address {
+  border-left: 1px solid #bfc1c3;
+  padding-left: 15px;
+  padding: 7px 0 3px 15px; }
+/* line 68, ../scss/global/_editable.scss */
+.main-content .editable .info-notice {
+  padding: 20px 0 16px;
+  border-left: 10px solid #bfc1c3; }
+/* line 73, ../scss/global/_editable.scss */
+.main-content .editable .help-notice {
+  position: relative;
+  padding-left: 50px;
+  padding-top: 12px;
+  padding-bottom: 8px; }
+  /* line 80, ../scss/global/_editable.scss */
+  .main-content .editable .help-notice:before {
+    content: "";
+    position: absolute;
+    display: inline-block;
+    left: 0;
+    top: 50%;
+    width: 35px;
+    height: 35px;
+    margin-top: -17px;
+    background: url("../images/icon-important.png") no-repeat; }
+/* line 93, ../scss/global/_editable.scss */
+.main-content .editable .example {
+  border-left: 10px solid #dee0e2; }
+/* line 98, ../scss/global/_editable.scss */
+.main-content .editable .info-notice,
+.main-content .editable .example {
+  padding-left: 15px; }
 
 /* line 3, ../scss/global/_button.scss */
 input.cta,
