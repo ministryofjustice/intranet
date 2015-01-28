@@ -465,18 +465,14 @@ h1 {
 /* line 74, ../scss/global/_typography.scss */
 .main-content .content-info p, .main-content .editable table th,
 .main-content .editable table td, .breadcrumbs a,
-.breadcrumbs span, .message .content, #menu-utilities li a, .content-filters .description, .content-filters .label, .ht-feature-news .excerpt, .guidance-and-support .tree .all-categories, .annual-leave .right-hand-menu a, .annual-leave .table-of-contents li a, .page-search-results .search-item .excerpt {
+.breadcrumbs span, .message .content, #menu-utilities li a, .content-filters .description, .content-filters .label, #need-to-know .excerpt, .my-moj .quick-links-list a, .guidance-and-support .tree .all-categories, .annual-leave .right-hand-menu a, .annual-leave .table-of-contents li a, .page-search-results .search-item .excerpt {
   font-size: 16px;
   line-height: 20px; }
 
 /* line 79, ../scss/global/_typography.scss */
-body, .header #searchform .search-filter-container:after, .header #searchform .search-filter, .home.page #content .descriptive-menu-description, .message .timestamp, .content-nav li .page-info, .tabbed-filters .tabbed-filters-label, .tabbed-filters ul li .label, .ht-feature-news .news-date-wrapper, #need-to-know .news-date-wrapper, #need-to-know .excerpt, #need-to-know .page-list li {
+body, .header #searchform .search-filter-container:after, .header #searchform .search-filter, .home.page #content .descriptive-menu-description, .message .timestamp, .content-nav li .page-info, .tabbed-filters .tabbed-filters-label, .tabbed-filters ul li .label, .ht-feature-news .excerpt, .ht-feature-news .news-date-wrapper, #need-to-know .news-date-wrapper, #need-to-know .page-list li, .my-moj .apps-list .app-link {
   font-size: 14px;
   line-height: 20px; }
-
-/* line 84, ../scss/global/_typography.scss */
-.my-moj .apps-list .app-link {
-  font-size: 13px; }
 
 /** **/
 /* line 1, ../scss/global/_base.scss */
@@ -1244,87 +1240,93 @@ form .form-row {
   /* line 138, ../scss/modules/_header.scss */
   .header.mobile-menu-enabled #utilities {
     display: block; } }
-/* line 2, ../scss/modules/_main_nav.scss */
-#mainnav #mega-menu-wrap-primary-2 {
-  position: static; }
-/* line 6, ../scss/modules/_main_nav.scss */
-#mainnav #primarynav {
-  padding: 0;
-  background: white; }
-  /* line 10, ../scss/modules/_main_nav.scss */
-  #mainnav #primarynav ul.mega-menu {
-    position: absolute;
-    bottom: 0;
-    margin-top: 0;
-    margin-bottom: 0; }
-    /* line 16, ../scss/modules/_main_nav.scss */
-    #mainnav #primarynav ul.mega-menu > li {
-      float: left;
-      background: #eaedef;
-      text-align: center;
-      border: 1px solid #333;
-      border-left: 0; }
-      /* line 23, ../scss/modules/_main_nav.scss */
-      #mainnav #primarynav ul.mega-menu > li.current-menu-item, #mainnav #primarynav ul.mega-menu > li.mega-current_page_item, #mainnav #primarynav ul.mega-menu > li.mega-current-page-ancestor {
-        background: white !important;
-        border-bottom: 1px solid #fff; }
-        /* line 29, ../scss/modules/_main_nav.scss */
-        #mainnav #primarynav ul.mega-menu > li.current-menu-item a, #mainnav #primarynav ul.mega-menu > li.mega-current_page_item a, #mainnav #primarynav ul.mega-menu > li.mega-current-page-ancestor a {
-          color: #1E4287; }
-      /* line 34, ../scss/modules/_main_nav.scss */
-      #mainnav #primarynav ul.mega-menu > li.mega-toggle-on {
-        background: white !important; }
-      /* line 38, ../scss/modules/_main_nav.scss */
-      #mainnav #primarynav ul.mega-menu > li > a {
-        display: block;
-        color: #61415B;
-        font-weight: bold !important;
-        /* outweighing the plugin style which is id-based and variable... */
-        text-decoration: none; }
-        /* line 44, ../scss/modules/_main_nav.scss */
-        #mainnav #primarynav ul.mega-menu > li > a:hover {
-          background: white;
-          color: #61415B; }
+/* line 1, ../scss/modules/_main_nav.scss */
+#mainnav {
+  margin-top: 40px; }
+  /* line 4, ../scss/modules/_main_nav.scss */
+  #mainnav #mega-menu-wrap-primary-2 {
+    position: static; }
+  /* line 8, ../scss/modules/_main_nav.scss */
+  #mainnav #primarynav {
+    padding: 0;
+    background: white; }
+    /* line 12, ../scss/modules/_main_nav.scss */
+    #mainnav #primarynav ul.mega-menu {
+      position: absolute;
+      bottom: 0;
+      margin-top: 0;
+      margin-bottom: 0; }
+      /* line 18, ../scss/modules/_main_nav.scss */
+      #mainnav #primarynav ul.mega-menu > li {
+        float: left;
+        background: #eaedef;
+        text-align: center;
+        border: 1px solid #333;
+        border-left: 0; }
+        /* line 25, ../scss/modules/_main_nav.scss */
+        #mainnav #primarynav ul.mega-menu > li.current-menu-item, #mainnav #primarynav ul.mega-menu > li.mega-current_page_item, #mainnav #primarynav ul.mega-menu > li.mega-current-page-ancestor {
+          background: white !important;
+          border-bottom: 1px solid #fff; }
+          /* line 31, ../scss/modules/_main_nav.scss */
+          #mainnav #primarynav ul.mega-menu > li.current-menu-item a, #mainnav #primarynav ul.mega-menu > li.mega-current_page_item a, #mainnav #primarynav ul.mega-menu > li.mega-current-page-ancestor a {
+            color: #1E4287; }
+        /* line 36, ../scss/modules/_main_nav.scss */
+        #mainnav #primarynav ul.mega-menu > li.mega-toggle-on {
+          background: white !important; }
+        /* line 40, ../scss/modules/_main_nav.scss */
+        #mainnav #primarynav ul.mega-menu > li > a {
+          display: block;
+          color: #61415B;
+          font-weight: bold !important;
+          /* outweighing the plugin style which is id-based and variable... */
+          text-decoration: none; }
+          /* line 46, ../scss/modules/_main_nav.scss */
+          #mainnav #primarynav ul.mega-menu > li > a:hover {
+            background: white;
+            color: #61415B; }
+        /* line 52, ../scss/modules/_main_nav.scss */
+        #mainnav #primarynav ul.mega-menu > li:first-of-type > a {
+          color: #005ea5; }
 
 /* MAIN NAVIGATION */
-/* line 55, ../scss/modules/_main_nav.scss */
+/* line 61, ../scss/modules/_main_nav.scss */
 .navbar {
   margin-bottom: 0;
   border: 0; }
 
-/* line 59, ../scss/modules/_main_nav.scss */
+/* line 65, ../scss/modules/_main_nav.scss */
 .navbar-inverse {
   background: transparent; }
 
-/* line 62, ../scss/modules/_main_nav.scss */
+/* line 68, ../scss/modules/_main_nav.scss */
 .navbar-inverse .navbar-brand {
   color: #fff; }
 
-/* line 66, ../scss/modules/_main_nav.scss */
+/* line 72, ../scss/modules/_main_nav.scss */
 .navbar-toggle {
   margin-right: 0; }
 
 @media (min-width: 0) and (max-width: 767px) {
-  /* line 71, ../scss/modules/_main_nav.scss */
+  /* line 77, ../scss/modules/_main_nav.scss */
   #mainnav {
     float: none;
     width: 100%; }
-    /* line 75, ../scss/modules/_main_nav.scss */
+    /* line 81, ../scss/modules/_main_nav.scss */
     #mainnav #mega-menu-wrap-primary-2 {
       position: static; }
-    /* line 80, ../scss/modules/_main_nav.scss */
+    /* line 86, ../scss/modules/_main_nav.scss */
     #mainnav #primarynav .mega-menu-wrap {
       display: table;
       width: 100%; }
-      /* line 84, ../scss/modules/_main_nav.scss */
+      /* line 90, ../scss/modules/_main_nav.scss */
       #mainnav #primarynav .mega-menu-wrap > ul {
         display: table-row;
         position: relative; }
-        /* line 88, ../scss/modules/_main_nav.scss */
+        /* line 94, ../scss/modules/_main_nav.scss */
         #mainnav #primarynav .mega-menu-wrap > ul > li {
           display: table-cell;
           float: none; }
-          /* line 92, ../scss/modules/_main_nav.scss */
+          /* line 98, ../scss/modules/_main_nav.scss */
           #mainnav #primarynav .mega-menu-wrap > ul > li > a {
             text-align: center;
             padding-left: 0;
@@ -1610,7 +1612,7 @@ form .form-row {
   margin-bottom: 20px;
   padding-top: 16px;
   border-top: none;
-  border-bottom: 1px solid #bfc1c3; }
+  border-bottom: 1px solid #6f777b; }
 /* line 11, ../scss/widgets/ht_feature_news/_main.scss */
 .ht-feature-news .news-date-wrapper {
   margin-top: 1em;
@@ -1934,20 +1936,30 @@ form .form-row {
     width: 100%; } }
 /* line 1, ../scss/content/homepage/_my_moj.scss */
 .my-moj {
+  position: relative;
   margin-top: 20px;
   background-color: #ececec; }
-  /* line 5, ../scss/content/homepage/_my_moj.scss */
+  /* line 6, ../scss/content/homepage/_my_moj.scss */
+  .my-moj .help-icon {
+    position: absolute;
+    right: 20px;
+    top: 17px;
+    width: 20px;
+    height: 20px;
+    background-image: url("../images/question_mark_x2.png");
+    background-size: 100%; }
+  /* line 16, ../scss/content/homepage/_my_moj.scss */
   .my-moj .category-name {
     border-bottom: 1px solid #6f777b;
     font-weight: normal; }
-  /* line 11, ../scss/content/homepage/_my_moj.scss */
+  /* line 22, ../scss/content/homepage/_my_moj.scss */
   .my-moj .apps-container .category-name {
     margin-top: 0; }
-  /* line 16, ../scss/content/homepage/_my_moj.scss */
+  /* line 27, ../scss/content/homepage/_my_moj.scss */
   .my-moj .my-moj-top {
     padding: 10px 30px;
     background-color: #28a197; }
-    /* line 20, ../scss/content/homepage/_my_moj.scss */
+    /* line 31, ../scss/content/homepage/_my_moj.scss */
     .my-moj .my-moj-top .department {
       max-width: 220px;
       background: #fff;
@@ -1955,10 +1967,10 @@ form .form-row {
       border: none;
       box-shadow: none;
       font-weight: bold; }
-  /* line 30, ../scss/content/homepage/_my_moj.scss */
+  /* line 41, ../scss/content/homepage/_my_moj.scss */
   .my-moj .my-moj-body {
     padding: 30px; }
-  /* line 34, ../scss/content/homepage/_my_moj.scss */
+  /* line 45, ../scss/content/homepage/_my_moj.scss */
   .my-moj .apps-list {
     margin-right: -10px; }
     /* line 2, ../scss/global/_mixins.scss */
@@ -1966,27 +1978,27 @@ form .form-row {
       content: "";
       display: table;
       clear: both; }
-    /* line 38, ../scss/content/homepage/_my_moj.scss */
+    /* line 49, ../scss/content/homepage/_my_moj.scss */
     .my-moj .apps-list .app-item {
       float: left;
       width: 74px;
       height: 135px;
       margin-right: 12px;
       text-align: center; }
-      /* line 46, ../scss/content/homepage/_my_moj.scss */
+      /* line 57, ../scss/content/homepage/_my_moj.scss */
       .my-moj .apps-list .app-item:hover .app-icon {
         border: 1px solid #ffc10e; }
-    /* line 52, ../scss/content/homepage/_my_moj.scss */
+    /* line 63, ../scss/content/homepage/_my_moj.scss */
     .my-moj .apps-list .app-link {
       display: block; }
-      /* line 56, ../scss/content/homepage/_my_moj.scss */
+      /* line 67, ../scss/content/homepage/_my_moj.scss */
       .my-moj .apps-list .app-link:after {
         background-image: none; }
-    /* line 61, ../scss/content/homepage/_my_moj.scss */
+    /* line 72, ../scss/content/homepage/_my_moj.scss */
     .my-moj .apps-list .app-name {
       display: block;
       text-align: center; }
-    /* line 66, ../scss/content/homepage/_my_moj.scss */
+    /* line 77, ../scss/content/homepage/_my_moj.scss */
     .my-moj .apps-list .app-icon {
       width: 74px;
       height: 74px;
@@ -1998,40 +2010,40 @@ form .form-row {
       background-image: url("../images/my_moj_icons.png");
       border: 1px solid #bfc1c3;
       border-radius: 5px; }
-      /* line 78, ../scss/content/homepage/_my_moj.scss */
+      /* line 89, ../scss/content/homepage/_my_moj.scss */
       .my-moj .apps-list .app-icon.people-finder-icon {
         background-position: 0 0; }
-      /* line 82, ../scss/content/homepage/_my_moj.scss */
+      /* line 93, ../scss/content/homepage/_my_moj.scss */
       .my-moj .apps-list .app-icon.courtfinder-icon {
         background-position: -74px 0; }
-      /* line 86, ../scss/content/homepage/_my_moj.scss */
+      /* line 97, ../scss/content/homepage/_my_moj.scss */
       .my-moj .apps-list .app-icon.jobs-icon {
         background-position: -148px 0; }
-      /* line 90, ../scss/content/homepage/_my_moj.scss */
+      /* line 101, ../scss/content/homepage/_my_moj.scss */
       .my-moj .apps-list .app-icon.iexpense-icon {
         background-position: -222px 0; }
-      /* line 94, ../scss/content/homepage/_my_moj.scss */
+      /* line 105, ../scss/content/homepage/_my_moj.scss */
       .my-moj .apps-list .app-icon.civil-service-learning-icon {
         background-position: -296px 0; }
-      /* line 98, ../scss/content/homepage/_my_moj.scss */
+      /* line 109, ../scss/content/homepage/_my_moj.scss */
       .my-moj .apps-list .app-icon.travel-booking-icon {
         background-position: -370px 0; }
-      /* line 102, ../scss/content/homepage/_my_moj.scss */
+      /* line 113, ../scss/content/homepage/_my_moj.scss */
       .my-moj .apps-list .app-icon.phoenix-icon {
         background-position: -444px 0; }
-      /* line 106, ../scss/content/homepage/_my_moj.scss */
+      /* line 117, ../scss/content/homepage/_my_moj.scss */
       .my-moj .apps-list .app-icon.online-toolkit-icon {
         background-position: -518px 0; }
-      /* line 110, ../scss/content/homepage/_my_moj.scss */
+      /* line 121, ../scss/content/homepage/_my_moj.scss */
       .my-moj .apps-list .app-icon.hmcts-intranet-icon {
         background-position: -592px 0; }
-  /* line 117, ../scss/content/homepage/_my_moj.scss */
+  /* line 128, ../scss/content/homepage/_my_moj.scss */
   .my-moj .quick-links-list a {
     text-decoration: underline; }
-  /* line 121, ../scss/content/homepage/_my_moj.scss */
+  /* line 133, ../scss/content/homepage/_my_moj.scss */
   .my-moj .quick-links-list .quick-link-item {
     margin-top: 10px; }
-    /* line 124, ../scss/content/homepage/_my_moj.scss */
+    /* line 136, ../scss/content/homepage/_my_moj.scss */
     .my-moj .quick-links-list .quick-link-item:first-of-type a {
       margin-top: 0; }
 

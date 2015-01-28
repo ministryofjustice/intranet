@@ -46,7 +46,7 @@
   }
 
   .excerpt {
-    @extend %small-copy;
+    @extend %medium-copy;
     margin-top: 7px;
     margin-bottom: 0;
     color: $white;

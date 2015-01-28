@@ -177,7 +177,7 @@ header('X-Frame-Options: SAMEORIGIN');
       </div>
 
       <!--utility menu-->
-      <div id="utilities" class="col-lg-4 col-md-4 col-sm-12 mobile-hide">
+<!--      <div id="utilities" class="col-lg-4 col-md-4 col-sm-12 mobile-hide">
         <?php if ( is_active_sidebar( 'utility-widget-area' ) ) : ?>
           <div id='utilitybar'>
             <ul class="menu">
@@ -185,7 +185,7 @@ header('X-Frame-Options: SAMEORIGIN');
             </ul>
           </div>
         <?php endif; ?>
-      </div>
+      </div>-->
     </div>
   </div>
 

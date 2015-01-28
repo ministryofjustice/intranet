@@ -150,6 +150,10 @@
 .ie7 .my-moj .department {
   width: auto; }
 /* line 6, ../scss/ie/_my_moj.scss */
+.ie7 .my-moj .help-icon {
+  top: 12px;
+  background-image: url("../images/question_mark.png"); }
+/* line 11, ../scss/ie/_my_moj.scss */
 .ie7 .my-moj .quick-links-container {
   clear: both; }
 
