@@ -21,9 +21,9 @@
       this.serviceUrl = this.applicationUrl+'/service/news';
       this.pageBase = this.applicationUrl+'/'+this.$top.data('top-level-slug');
 
-      this.itemTemplate = this.$top.find('template[data-name="news-item"]').html();
-      this.resultsPageTitleTemplate = this.$top.find('template[data-name="news-results-page-title"]').html();
-      this.filteredResultsTitleTemplate = this.$top.find('template[data-name="news-filtered-results-title"]').html();
+      this.itemTemplate = this.$top.find('.template-partial[data-name="news-item"]').html();
+      this.resultsPageTitleTemplate = this.$top.find('.template-partial[data-name="news-results-page-title"]').html();
+      this.filteredResultsTitleTemplate = this.$top.find('.template-partial[data-name="news-filtered-results-title"]').html();
       this.serviceXHR = null;
       this.months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
       this.currentPage = null;
@@ -47,15 +47,15 @@
 
     bindEvents: function() {
       var _this = this;
+      var inputFallbackEvent = (App.ie && App.ie < 9) ? 'keyup' : '';
 
-      this.$dateInput.on('change', function() {
+      this.$keywordsInput.on('input ' + inputFallbackEvent, function(e) {
         _this.loadResults({
           page: 1
         });
       });
 
-      //!!! TODO: this will require a fallback for IE's
-      this.$keywordsInput.on('input', function(e) {
+      this.$dateInput.on('change', function() {
         _this.loadResults({
           page: 1
         });
@@ -335,7 +335,9 @@
       //date
       urlParts.push(this.$dateInput.val() || '-');
 
-      history.pushState({}, "", urlParts.join('/')+'/');
+      if(history.pushState) {
+        history.pushState({}, "", urlParts.join('/')+'/');
+      }
     }
   };
 }(jQuery));

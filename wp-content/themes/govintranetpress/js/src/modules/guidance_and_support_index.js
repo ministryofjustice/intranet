@@ -17,7 +17,7 @@
       this.serviceUrl = this.applicationUrl+'/service/children';
       this.pageBase = this.applicationUrl+'/'+this.$top.data('top-level-slug');
 
-      this.itemTemplate = this.$top.find('template[data-name="guidance-and-support-category-item"]').html();
+      this.itemTemplate = this.$top.find('.template-partial[data-name="guidance-and-support-category-item"]').html();
       this.serviceXHR = null;
 
       this.cacheEls();
@@ -60,8 +60,10 @@
         _this.collapseTopLevelColumn(false);
       });
 
-      this.$tree.hammer().on('swipeleft', $.proxy(this.swipeMobileColumns, this, 'left'));
-      this.$tree.hammer().on('swiperight', $.proxy(this.swipeMobileColumns, this, 'right'));
+      if(!App.ie) {
+        this.$tree.hammer().on('swipeleft', $.proxy(this.swipeMobileColumns, this, 'left'));
+        this.$tree.hammer().on('swiperight', $.proxy(this.swipeMobileColumns, this, 'right'));
+      }
       $(document).on('keydown', $.proxy(this.swipeMobileColumns, this, null));
     },
 
@@ -126,7 +128,9 @@
         return false;
       });
 
-      history.pushState({}, "", urlParts.join('/')+'/');
+      if(history.pushState) {
+        history.pushState({}, "", urlParts.join('/')+'/');
+      }
     },
 
     /** Marks a specified item as selected
@@ -256,6 +260,7 @@
       this.$columns.filter('.level-'+level).addClass('current');
 
       this.updateUrl();
+
 
       this.$tree.attr('data-show-column', level);
     },

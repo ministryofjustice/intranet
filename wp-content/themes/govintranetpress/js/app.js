@@ -5,6 +5,24 @@
     tools: {},
     ins: {}
   };
+
+  App.ie = null;
+
+  (function() {
+    var $html = $('html');
+
+    if($html.hasClass('ie7')) {
+      App.ie = 7;
+    }
+    else if($html.hasClass('ie8')) {
+      App.ie = 8;
+    }
+    else if($html.hasClass('ie9')) {
+      App.ie = 9;
+    }
+  }());
+
+  //App.ie = 7; //for debugging purposes
 }(jQuery));
 
 /** App tools - generic set of tools used across the whole application
@@ -197,6 +215,46 @@
   };
 }(jQuery));
 
+/** Sticky news
+ */
+(function($) {
+  "use strict";
+
+  var App = window.App;
+
+  App.CollapsibleBlock = function() {
+    this.$toggleLinks = $('.collapsible-block-toggle');
+    if(!this.$toggleLinks.length) { return; }
+    this.init();
+  };
+
+  App.CollapsibleBlock.prototype = {
+    init: function() {
+      this.bindEvents();
+    },
+
+    bindEvents: function() {
+      var _this = this;
+      this.$toggleLinks.on('click', $.proxy(this.toggleList, this));
+    },
+
+    toggleList: function(e) {
+      var $toggle = $(e.target);
+      var $container = $toggle.closest('.collapsible-block-container');
+      var openedLabel = $toggle.attr('data-opened-label');
+      var closedLabel = $toggle.attr('data-closed-label');
+
+      e.preventDefault();
+
+      $container.toggleClass('opened');
+
+      if($.type(openedLabel)!=='undefined' && $.type(closedLabel)!=='undefined') {
+        $toggle.text($container.hasClass('opened') ? openedLabel : closedLabel);
+      }
+    }
+  };
+}(window.jQuery));
+
 /** Emergency message
  */
 (function($) {
@@ -337,7 +395,7 @@
       this.serviceUrl = this.applicationUrl+'/service/children';
       this.pageBase = this.applicationUrl+'/'+this.$top.data('top-level-slug');
 
-      this.itemTemplate = this.$top.find('template[data-name="guidance-and-support-category-item"]').html();
+      this.itemTemplate = this.$top.find('.template-partial[data-name="guidance-and-support-category-item"]').html();
       this.serviceXHR = null;
 
       this.cacheEls();
@@ -380,8 +438,10 @@
         _this.collapseTopLevelColumn(false);
       });
 
-      this.$tree.hammer().on('swipeleft', $.proxy(this.swipeMobileColumns, this, 'left'));
-      this.$tree.hammer().on('swiperight', $.proxy(this.swipeMobileColumns, this, 'right'));
+      if(!App.ie) {
+        this.$tree.hammer().on('swipeleft', $.proxy(this.swipeMobileColumns, this, 'left'));
+        this.$tree.hammer().on('swiperight', $.proxy(this.swipeMobileColumns, this, 'right'));
+      }
       $(document).on('keydown', $.proxy(this.swipeMobileColumns, this, null));
     },
 
@@ -446,7 +506,9 @@
         return false;
       });
 
-      history.pushState({}, "", urlParts.join('/')+'/');
+      if(history.pushState) {
+        history.pushState({}, "", urlParts.join('/')+'/');
+      }
     },
 
     /** Marks a specified item as selected
@@ -576,6 +638,7 @@
       this.$columns.filter('.level-'+level).addClass('current');
 
       this.updateUrl();
+
 
       this.$tree.attr('data-show-column', level);
     },
@@ -728,9 +791,9 @@
       this.serviceUrl = this.applicationUrl+'/service/news';
       this.pageBase = this.applicationUrl+'/'+this.$top.data('top-level-slug');
 
-      this.itemTemplate = this.$top.find('template[data-name="news-item"]').html();
-      this.resultsPageTitleTemplate = this.$top.find('template[data-name="news-results-page-title"]').html();
-      this.filteredResultsTitleTemplate = this.$top.find('template[data-name="news-filtered-results-title"]').html();
+      this.itemTemplate = this.$top.find('.template-partial[data-name="news-item"]').html();
+      this.resultsPageTitleTemplate = this.$top.find('.template-partial[data-name="news-results-page-title"]').html();
+      this.filteredResultsTitleTemplate = this.$top.find('.template-partial[data-name="news-filtered-results-title"]').html();
       this.serviceXHR = null;
       this.months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
       this.currentPage = null;
@@ -754,15 +817,15 @@
 
     bindEvents: function() {
       var _this = this;
+      var inputFallbackEvent = (App.ie && App.ie < 9) ? 'keyup' : '';
 
-      this.$dateInput.on('change', function() {
+      this.$keywordsInput.on('input ' + inputFallbackEvent, function(e) {
         _this.loadResults({
           page: 1
         });
       });
 
-      //!!! TODO: this will require a fallback for IE's
-      this.$keywordsInput.on('input', function(e) {
+      this.$dateInput.on('change', function() {
         _this.loadResults({
           page: 1
         });
@@ -1042,7 +1105,9 @@
       //date
       urlParts.push(this.$dateInput.val() || '-');
 
-      history.pushState({}, "", urlParts.join('/')+'/');
+      if(history.pushState) {
+        history.pushState({}, "", urlParts.join('/')+'/');
+      }
     }
   };
 }(jQuery));
@@ -1066,9 +1131,9 @@
       this.serviceUrl = this.applicationUrl+'/service/search';
       this.pageBase = this.applicationUrl+'/'+this.$top.data('top-level-slug');
 
-      this.itemTemplate = this.$top.find('template[data-name="search-item"]').html();
-      this.resultsPageTitleTemplate = this.$top.find('template[data-name="search-results-page-title"]').html();
-      this.filteredResultsTitleTemplate = this.$top.find('template[data-name="search-filtered-results-title"]').html();
+      this.itemTemplate = this.$top.find('.template-partial[data-name="search-item"]').html();
+      this.resultsPageTitleTemplate = this.$top.find('.template-partial[data-name="search-results-page-title"]').html();
+      this.filteredResultsTitleTemplate = this.$top.find('.template-partial[data-name="search-filtered-results-title"]').html();
       this.serviceXHR = null;
       this.months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
       this.currentPage = null;
@@ -1095,9 +1160,9 @@
 
     bindEvents: function() {
       var _this = this;
+      var inputFallbackEvent = (App.ie && App.ie < 9) ? 'keyup' : '';
 
-      //!!! TODO: this will require a fallback for IE's
-      this.$keywordsInput.on('input', function(e) {
+      this.$keywordsInput.on('input ' + inputFallbackEvent, function(e) {
         _this.loadResults({
           page: 1
         });
@@ -1349,7 +1414,9 @@
       //page number
       urlParts.push(this.currentPage);
 
-      history.pushState({}, "", urlParts.join('/')+'/');
+      if(history.pushState) {
+        history.pushState({}, "", urlParts.join('/')+'/');
+      }
     }
   };
 }(jQuery));
@@ -1427,7 +1494,7 @@
 
       this.templates = [];
 
-      $('template[data-template-type]').each(function() {
+      $('.template-partial[data-template-type]').each(function() {
         var $el = $(this);
         _this.templates[$el.attr('data-content-name')] = $el.html();
       });
@@ -1524,4 +1591,5 @@ jQuery(function($) {
   App.ins.news = new App.News();
   App.ins.searchResults = new App.SearchResults();
   App.ins.floaters = new App.Floaters();
+  App.ins.collapsibleBlock = new App.CollapsibleBlock();
 });

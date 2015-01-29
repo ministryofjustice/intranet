@@ -1,14 +1,12 @@
 #utilities {
-	text-align: right;
   padding-top: 0;
   padding-bottom: 0;
 }
 
 #utilitybar {
-  float: left;
-
   ul.menu {
     margin-top: 0;
+    margin-left: 0;
     margin-bottom: 0;
   }
 }
@@ -28,9 +26,6 @@
     &:first-of-type {
       padding-left: 0;
     }
-  }
-
-  &.current-menu-item a {
   }
 }
 

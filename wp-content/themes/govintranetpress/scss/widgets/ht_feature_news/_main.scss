@@ -5,7 +5,7 @@
     margin-bottom: 20px;
     padding-top: 16px;
     border-top: none;
-    border-bottom: 1px solid $grey-2;
+    border-bottom: 1px solid $grey-1;
   }
 
   .news-date-wrapper {
@@ -23,7 +23,7 @@
   }
 
   .excerpt {
-    @extend %medium-copy;
+    @extend %small-copy;
     margin-top: 5px;
   }
 
@@ -86,8 +86,13 @@
   }
 
   .news-thumbnail {
+    @include clearfix;
     padding: 10px 0;
     border-top: 1px solid $grey-2;
+
+    .news_date {
+      display: none;
+    }
 
     img {
       float: left;

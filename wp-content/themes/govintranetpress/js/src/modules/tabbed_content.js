@@ -29,7 +29,7 @@
 
       this.templates = [];
 
-      $('template[data-template-type]').each(function() {
+      $('.template-partial[data-template-type]').each(function() {
         var $el = $(this);
         _this.templates[$el.attr('data-content-name')] = $el.html();
       });
