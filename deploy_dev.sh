@@ -57,7 +57,7 @@ fi
 source $config_file
 
 # deploy all files
-rsync -rlptu --delete --progress --exclude=deploy_dev.sh --exclude=wp-config.php -e ssh ./* $user@$app-mojintranet.rhcloud.com:/var/lib/openshift/$user/app-root/runtime/repo/
+rsync -rlptu --delete --progress --exclude='.htaccess' --exclude=deploy_dev.sh --exclude=deploy_dev.cfg --exclude=wp-config.php -e ssh ./ $user@$app-mojintranet.rhcloud.com:/var/lib/openshift/$user/app-root/runtime/repo/
 
 # create and deploy mysql dump
 mysqldump -u $db_user --password=$db_pass $db_db >> deploy_dump.sql
@@ -65,7 +65,7 @@ rsync -zu --progress -e ssh ./deploy_dump.sql $user@$app-mojintranet.rhcloud.com
 
 # import the mysql dump on the server
 ssh $user@$app-mojintranet.rhcloud.com <<ENDSSH
-mysql $app < /var/lib/openshift/$user/app-root/runtime/deploy_dump.sql
+  mysql $app < /var/lib/openshift/$user/app-root/runtime/deploy_dump.sql
 ENDSSH
 
 # delete the local dump file (we still keep the remote one - means faster deploys as the file doesn't always need to be transferred)
