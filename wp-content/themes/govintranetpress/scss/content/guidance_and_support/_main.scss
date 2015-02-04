@@ -39,6 +39,22 @@
         display: block;
       }
     }
+
+    &.collapsed {
+      .categories,
+      .subcategories {
+        .item-list .item:not(.selected):not(:hover) {
+          a:after,
+          .title {
+            color: $grey-1;
+          }
+        }
+      }
+
+      .subcategories .category-name {
+        color: $grey-1;
+      }
+    }
   }
 
   .item-container {
@@ -74,7 +90,7 @@
     h3 {
       margin: 0;
       padding: 0;
-      color: #428bca;
+      color: $govuk-blue;
     }
 
     ul a {
@@ -92,7 +108,7 @@
       }
 
       &.selected {
-        background-color: $dw-link;
+        background-color: $govuk-blue;
 
         h3,
         .description {
@@ -113,19 +129,6 @@
 
     .description {
       display: none;
-    }
-  }
-
-  .categories,
-  .subcategories {
-    .item.selected {
-      a:after {
-        content: "\203a";
-        margin-top: -8px;
-        height: 16px;
-        color: $white;
-        line-height: 16px;
-      }
     }
   }
 
@@ -181,6 +184,16 @@
       top: 50%;
       margin-top: -8px;
     }
+
+    .item.selected {
+      a:after {
+        content: "\203a";
+        margin-top: -8px;
+        height: 16px;
+        color: $white;
+        line-height: 16px;
+      }
+    }
   }
 
   .subcategories,
@@ -197,7 +210,7 @@
     }
 
     .sort-order {
-      @extend %large-heading;
+      @extend %medium-heading;
       width: $sortLabelWidth;
       position: absolute;
       margin: 10px;
