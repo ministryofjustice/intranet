@@ -7,7 +7,6 @@
 Thumbs.db
 
 # wordpress specific
-wp-config.php
 wp-content/uploads/
 wp-content/blogs.dir/
 wp-content/upgrade/*
@@ -101,7 +100,6 @@ wp-content/mysql.sql
 
 # custom
 .sass-cache
-.htaccess
 nbproject
 /wp-content/languages/
 deploy_dev.cfg
