@@ -37,8 +37,7 @@ esac
 
 config_file='deploy_dev.cfg'
 
-if [ ! -f $config_file ];
-then
+if [ ! -f $config_file ]; then
   get_db_details
 
   # try to connect to local DB
@@ -57,16 +56,18 @@ fi
 source $config_file
 
 # deploy all files
-rsync -rlpt --delete --progress --exclude='.htaccess' --exclude=deploy_dev.sh --exclude=deploy_dev.cfg --exclude=wp-config.php -e ssh ./ $user@$app-mojintranet.rhcloud.com:/var/lib/openshift/$user/app-root/runtime/repo/
+rsync -rlpt --force --delete --progress --exclude='.htaccess' --exclude=deploy_dev.sh --exclude=deploy_dev.cfg --exclude=wp-config.php -e ssh ./ $user@$app-mojintranet.rhcloud.com:/var/lib/openshift/$user/app-root/runtime/repo/
 
-# create and deploy mysql dump
-mysqldump -u $db_user --password=$db_pass $db_db >> deploy_dump.sql
-rsync -z --progress -e ssh ./deploy_dump.sql $user@$app-mojintranet.rhcloud.com:/var/lib/openshift/$user/app-root/runtime/
+if [ "$2" = "db" ]; then
+  # create and deploy mysql dump
+  mysqldump -u $db_user --password=$db_pass $db_db >> deploy_dump.sql
+  rsync -z --progress -e ssh ./deploy_dump.sql $user@$app-mojintranet.rhcloud.com:/var/lib/openshift/$user/app-root/runtime/
 
-# import the mysql dump on the server
+  # import the mysql dump on the server
 ssh $user@$app-mojintranet.rhcloud.com <<ENDSSH
   mysql $app < /var/lib/openshift/$user/app-root/runtime/deploy_dump.sql
 ENDSSH
 
-# delete the local dump file (we still keep the remote one - means faster deploys as the file doesn't always need to be transferred)
-rm deploy_dump.sql
+  # delete the local dump file (we still keep the remote one - means faster deploys as the file doesn't always need to be transferred)
+  rm deploy_dump.sql
+fi
