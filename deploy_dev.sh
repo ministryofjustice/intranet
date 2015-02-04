@@ -25,6 +25,10 @@ case $1 in
     user="54b3d6954382ec279f00001d"
     app="dev2"
     ;;
+  bdev1)
+    user="54d24cb2e0b8cdb3840001a3"
+    app="bdev1"
+    ;;
   editor)
     user="54aa7710e0b8cdcf560000e5"
     app="php"
