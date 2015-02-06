@@ -18,31 +18,18 @@
 
     .search-btn {
       position: absolute;
-      right: 0;
-      top: 0;
-      bottom: 0;
-
-      position: absolute;
       top: 0;
       right: 0;
-      bottom: 0;
+      bottom: 1px;
       width: 36px;
       padding: 0;
       background-color: #428bca;
       border-color: #357ebd;
+      background-image: url('../images/search_icon.png');
+      background-size: 16px 16px;
+      background-repeat: no-repeat;
+      background-position: 10px 10px;
 
-      &:after {
-        position: absolute;
-        left: 10px;
-        top: 10px;
-        right: 10px;
-        bottom: 10px;
-        width: 16px;
-        height: 16px;
-        background-image: url('../images/search_icon.png');
-        background-size: 16px 16px;
-        content: "";
-      }
     }
   }
 

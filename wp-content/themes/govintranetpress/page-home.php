@@ -96,7 +96,7 @@ class Page_home extends MVC_controller {
       'quick_links' => array(
         array(
           'title' => 'Annual leave',
-          'url' => get_permalink(get_page_by_path('annual-leave')),
+          'url' => get_permalink(get_page_by_path('guidance-and-support/hr/leave/annual-leave')),
           'external' => false
         ),
         array(

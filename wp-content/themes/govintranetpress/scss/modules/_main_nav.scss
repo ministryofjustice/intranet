@@ -1,4 +1,6 @@
 #mainnav {
+  margin-top: 40px;
+
   #mega-menu-wrap-primary-2 {
     position: static;
   }
@@ -45,6 +47,10 @@
             background: white;
             color: #61415B;
           }
+        }
+
+        &:first-of-type > a {
+          color: $govuk-blue;
         }
       }
     }

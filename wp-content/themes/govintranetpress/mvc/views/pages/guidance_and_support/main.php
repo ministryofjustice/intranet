@@ -43,14 +43,14 @@
             </div>
           </div>
 
-          <template data-name="guidance-and-support-category-item">
+          <div class="template-partial" data-name="guidance-and-support-category-item">
             <li class="item">
               <a>
                 <h3 class="title"></h3>
                 <p class="description"></p>
               </a>
             </li>
-          </template>
+          </div>
         </div>
       </div>
     </div>

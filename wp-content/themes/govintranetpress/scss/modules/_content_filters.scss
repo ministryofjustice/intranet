@@ -4,10 +4,6 @@
   select,
   input[type="text"] {
     width: 100%;
-  }
-
-  input[type="text"],
-  select {
     padding: 8px;
     border: 1px solid $grey-2;
     background: $white;
