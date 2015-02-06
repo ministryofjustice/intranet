@@ -85,7 +85,7 @@ jQuery(function($) {
                 <label>Tab Title</label>\
               </th>\
               <td>\
-                <input class='regular-text' id='' name='' type='text'>\
+                <input class='regular-text tab-title' id='' name='' type='text'>\
               </td>\
             </tr>\
             <tr>\
@@ -123,6 +123,7 @@ jQuery(function($) {
         </table>\
       </div>\
     ");
+    $('#tab-count').val(tabCount);
     $("#tab-" + tabCount + "-section-1-content").wp_editor();
     gsTabs.tabs("refresh");
     $('#tabs-' + tabCount + ' .accordion').accordion({
@@ -130,6 +131,9 @@ jQuery(function($) {
     });
     e.preventDefault();
   });
+  // Change tab title on field edit
+
+
   // Sections
   $('.accordion').accordion({
     heightStyle: 'content'  
@@ -163,6 +167,7 @@ jQuery(function($) {
         </table>\
       </div>\
     ");
+    $('#tab-' + currentTab + '-section-count').val(sectionCount);
     $("#tab-" + currentTab + "-section-" + sectionCount + "-content").wp_editor();
     sectionContainer.accordion("refresh")
     sectionContainer.accordion({

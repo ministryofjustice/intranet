@@ -173,7 +173,6 @@ function quick_links_save($post_id) {
             return;
         }
     }
-    // Debug::full($_POST);
     $link_fields = array('link-text','url');
     for($i=1; $i<=5; $i++) {
         foreach($link_fields as $link_field) {
@@ -193,7 +192,7 @@ function content_tabs_callback($post) {
     $ns = 'content_tabs'; // Quick namespace variable
     wp_nonce_field( $ns.'_meta_box', $ns.'_meta_box_nonce' );
 
-    $tab_count = 1;
+    $tab_count = get_post_meta( $post->ID, '_'.$ns.'-tab-count', true )!=null?get_post_meta( $post->ID, 'tab-count', true ):1;
     ?>
     <input type="hidden" id="tab-count" name="tab-count" value="<?=$tab_count?>">
     <table class="form-table">
@@ -208,12 +207,18 @@ function content_tabs_callback($post) {
     <div class='<?=$ns?>-container tabs'>
         <ul>
             <?php for($tab=1;$tab<=$tab_count;$tab++) { ?>
-                <li><a href="#tabs-<?=$tab?>">Tab 1</a><span class="ui-icon ui-icon-close" role="presentation">Remove Tab</span></li>
+                <li><a href="#tabs-<?=$tab?>">Tab <?=$tab?></a><span class="ui-icon ui-icon-close" role="presentation">Remove Tab</span></li>
             <?php } ?>
         </ul>
-        <?php // Start tab ?>
-        <?php for($tab=1;$tab<=$tab_count;$tab++) { ?>
-        <div id="tabs-1">
+        <?php
+            // Start tab
+            for($tab=1;$tab<=$tab_count;$tab++) { 
+                $section_count = get_post_meta( $post->ID, '_'.$ns.'-tab-'.$tab.'-section-count', true );
+                $section_count= $section_count!=null?:1; echo $section_count;
+                $tab_title = get_post_meta( $post->ID, '_'.$ns.'-tab-title'.$tab, true );
+        ?>
+        <div id="tabs-<?=$tab?>">
+            <input type="hidden" id="tab-<?=$tab?>-section-count" name="tab-<?=$tab?>-section-count" value="<?=$tab_count?>">
             <table class='form-table'>
                 <tbody>
                     <tr class="form-field">
@@ -221,7 +226,7 @@ function content_tabs_callback($post) {
                             <label>Tab Title</label>
                         </th>
                         <td>
-                            <input class="regular-text tab-title" id="tab-<?=$tab?>-title" name="tab-<?=$tab?>-title" type="text">
+                            <input class="regular-text tab-title" id="tab-<?=$tab?>-title" name="tab-<?=$tab?>-title" type="text" value="<?=$tab_title?>">
                         </td>
                     </tr>
                     <tr>
@@ -232,28 +237,36 @@ function content_tabs_callback($post) {
                     <tr>
                         <td colspan="2">
                             <div class="accordion">
-                                <?php // Start section ?>
-                                <h3>Section 1</h3>
-                                <div>
-                                    <table>
-                                        <tbody>
-                                            <tr class="form-field">
-                                                <th>
-                                                    <label>Section Title</label>
-                                                </th>
-                                                <td>
-                                                    <input type="text">
-                                                </td>
-                                            </tr>
-                                            <tr class="form-field">
-                                                <td colspan="2">
-                                                    <?php wp_editor(null,'tab-1-section-1-content'); ?>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <?php // End section ?>
+                                <?php
+                                    // Start section 
+                                    for($section=1;$section<=$section_count;$section++) {
+                                        $section_title = get_post_meta($post->ID,'_'.$ns.'-tab-'.$tab.'-section-'.$section.'-title',true);
+                                        $section_content = get_post_meta($post->ID,'_'.$ns.'-tab-'.$tab.'-section-'.$section.'-content',true);
+                                    ?>
+                                    <h3><?php echo $section_title?:"Section ".$section; ?></h3>
+                                    <div>
+                                        <table>
+                                            <tbody>
+                                                <tr class="form-field">
+                                                    <th>
+                                                        <label>Section Title</label>
+                                                    </th>
+                                                    <td>
+                                                        <input type="text" id="tab-<?=$tab?>-section-<?=$section?>-title" name="tab-<?=$tab?>-section-<?=$section?>-title" value="<?=$section_title?>">
+                                                    </td>
+                                                </tr>
+                                                <tr class="form-field">
+                                                    <td colspan="2">
+                                                        <?php wp_editor($section_content,'tab-' . $tab . '-section-' . $section . '-content'); ?>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <?php 
+                                    // End section 
+                                    }
+                                ?>
                             </div>
                         </td>
                     </tr>
@@ -285,11 +298,31 @@ function content_tabs_save($post_id) {
             return;
         }
     }
-    $tab_count = $_POST['tab-count'];
-    for($tab=1;$tab<=$tab_count;$tab++) {
-        if (isset($_POST["tab-" . $tab . "-title"])) {
-            $data = sanitize_text_field($_POST["tab-" . $tab . "-title"]);
-            update_post_meta($post_id, "_".$ns."-tab-title".$tab,$data);
+    if (isset($_POST["tab-count"])) { 
+        // Save tab count
+        $data = sanitize_text_field( $_POST["tab-count"] );
+        update_post_meta($post_id, "_".$ns."-tab-count",$data);
+        $tab_count = $_POST['tab-count'];
+        // Save tab data
+        for($tab=1;$tab<=$tab_count;$tab++) {
+            if (isset($_POST["tab-" . $tab . "-title"])) {
+                $data = sanitize_text_field($_POST["tab-" . $tab . "-title"]);
+                update_post_meta($post_id, "_".$ns."-tab-title".$tab,$data);
+            }
+            // Save section count
+            $data = sanitize_text_field( $_POST["tab-".$tab."-section-count"] );
+            update_post_meta($post_id, "_".$ns."-tab-".$tab."-section-count",$data);
+            $section_count = $_POST["tab-".$tab."-section-count"];
+            // Save section data
+            $section_fields = array('title','content');
+            for ($section=1;$section<=$section_count;$section++) {
+                foreach($section_fields as $section_field) {
+                    if (isset($_POST["tab-" . $tab . "-section-" . $section . "-".$section_field])) { 
+                        $data = sanitize_text_field($_POST["tab-" . $tab . "-section-" . $section . "-".$section_field]); 
+                        update_post_meta($post_id, "_".$ns."-tab-" . $tab . "-section-" . $section . "-".$section_field,$data);
+                    }
+                }
+            }
         }
     }
 }
