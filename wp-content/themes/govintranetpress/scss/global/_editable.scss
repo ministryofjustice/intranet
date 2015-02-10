@@ -12,9 +12,14 @@
     @extend %large-copy;
   }
 
+  p {
+    margin-top: 17px;
+    margin-bottom: 17px;
+  }
+
   ul {
+    margin: 12px 0;
     padding-left: 16px;
-    margin: 0;
   }
 
   li {
