@@ -127,7 +127,7 @@ jQuery(function($) {
     $("#tab-" + tabCount + "-section-1-content").wp_editor();
     gsTabs.tabs("refresh");
     $('#tabs-' + tabCount + ' .accordion').accordion({
-      heightStyle: 'content'  
+      heightStyle: 'content'
     });
     e.preventDefault();
   });
@@ -136,7 +136,7 @@ jQuery(function($) {
 
   // Sections
   $('.accordion').accordion({
-    heightStyle: 'content'  
+    heightStyle: 'content'
   });
   // Add Section
   $('#content_tabs').on('click','.add-section',function(e){
@@ -155,7 +155,7 @@ jQuery(function($) {
                 <label>Section Title</label>\
               </th>\
               <td>\
-                <input type='text'>\
+                <input type='text' id='tab-" + currentTab + "-section-" + sectionCount + "-title' name='tab-" + currentTab + "-section-" + sectionCount + "-title'>\
               </td>\
             </tr>\
             <tr class='form-field'>\

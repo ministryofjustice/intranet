@@ -40,7 +40,7 @@
 
 		if( !$(this).is('textarea') || typeof tinyMCEPreInit == 'undefined' || typeof QTags == 'undefined' || typeof ap_vars == 'undefined' )
 			return this;
-		
+
 		var default_options = {
 			'mode': 'html',
 			'mceInit' : {

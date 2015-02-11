@@ -28,7 +28,7 @@ $template_options = array(
 function template_customise() {
     global $template_options;
 
-    // if post not set, just return 
+    // if post not set, just return
     // fix when post not set, throws PHP's undefined index warning
     if (isset($_GET['post'])) {
         $post_id = $_GET['post'];
@@ -69,7 +69,7 @@ function template_customise() {
         }
     }
 }
-add_action('init', 'template_customise');
+add_action('init', 'template_customise',110);
 
 function process_metaboxes() {
     global $template_options;
@@ -83,7 +83,7 @@ function process_metaboxes() {
     }
     preg_match('/^page-(.+)\.php/',get_post_meta($post_id, '_wp_page_template', TRUE),$matches);
     $template_file = $matches[1];
-    
+
     // Add custom metaboxes for matching template
     if(isset($template_options[$template_file]['metaboxes'])) {
         foreach($template_options[$template_file]['metaboxes'] as $metabox) {
@@ -107,7 +107,7 @@ function quick_links_callback($post) {
 
     // Populate link array
     $record_count = 0;
-    for($i=1;$i<=5;$i++) { 
+    for($i=1;$i<=5;$i++) {
         $link_text = get_post_meta($post->ID, "_" . $ns . "-link-text" . $i,true);
         $link_url = get_post_meta($post->ID, "_" . $ns . "-url" . $i,true);
         if ($link_text!=null || $link_url!=null) {
@@ -192,7 +192,7 @@ function content_tabs_callback($post) {
     $ns = 'content_tabs'; // Quick namespace variable
     wp_nonce_field( $ns.'_meta_box', $ns.'_meta_box_nonce' );
 
-    $tab_count = get_post_meta( $post->ID, '_'.$ns.'-tab-count', true )!=null?get_post_meta( $post->ID, 'tab-count', true ):1;
+    $tab_count = get_post_meta( $post->ID, '_'.$ns.'-tab-count', true )!=null?get_post_meta( $post->ID, '_'.$ns.'-tab-count', true ):1;
     ?>
     <input type="hidden" id="tab-count" name="tab-count" value="<?=$tab_count?>">
     <table class="form-table">
@@ -206,19 +206,22 @@ function content_tabs_callback($post) {
     </table>
     <div class='<?=$ns?>-container tabs'>
         <ul>
-            <?php for($tab=1;$tab<=$tab_count;$tab++) { ?>
-                <li><a href="#tabs-<?=$tab?>">Tab <?=$tab?></a><span class="ui-icon ui-icon-close" role="presentation">Remove Tab</span></li>
+            <?php
+                for($tab=1;$tab<=$tab_count;$tab++) {
+                    $tab_title = get_post_meta( $post->ID, '_'.$ns.'-tab-title'.$tab, true );
+                    ?>
+                <li><a href="#tabs-<?=$tab?>"><?=$tab_title?></a><span class="ui-icon ui-icon-close" role="presentation">Remove Tab</span></li>
             <?php } ?>
         </ul>
         <?php
             // Start tab
-            for($tab=1;$tab<=$tab_count;$tab++) { 
+            for($tab=1;$tab<=$tab_count;$tab++) {
                 $section_count = get_post_meta( $post->ID, '_'.$ns.'-tab-'.$tab.'-section-count', true );
-                $section_count= $section_count!=null?:1; echo $section_count;
+                $section_count= $section_count?:1;
                 $tab_title = get_post_meta( $post->ID, '_'.$ns.'-tab-title'.$tab, true );
         ?>
         <div id="tabs-<?=$tab?>">
-            <input type="hidden" id="tab-<?=$tab?>-section-count" name="tab-<?=$tab?>-section-count" value="<?=$tab_count?>">
+            <input type="hidden" id="tab-<?=$tab?>-section-count" name="tab-<?=$tab?>-section-count" value="<?=$section_count?>">
             <table class='form-table'>
                 <tbody>
                     <tr class="form-field">
@@ -238,7 +241,7 @@ function content_tabs_callback($post) {
                         <td colspan="2">
                             <div class="accordion">
                                 <?php
-                                    // Start section 
+                                    // Start section
                                     for($section=1;$section<=$section_count;$section++) {
                                         $section_title = get_post_meta($post->ID,'_'.$ns.'-tab-'.$tab.'-section-'.$section.'-title',true);
                                         $section_content = get_post_meta($post->ID,'_'.$ns.'-tab-'.$tab.'-section-'.$section.'-content',true);
@@ -263,8 +266,8 @@ function content_tabs_callback($post) {
                                             </tbody>
                                         </table>
                                     </div>
-                                    <?php 
-                                    // End section 
+                                    <?php
+                                    // End section
                                     }
                                 ?>
                             </div>
@@ -298,7 +301,7 @@ function content_tabs_save($post_id) {
             return;
         }
     }
-    if (isset($_POST["tab-count"])) { 
+    if (isset($_POST["tab-count"])) {
         // Save tab count
         $data = sanitize_text_field( $_POST["tab-count"] );
         update_post_meta($post_id, "_".$ns."-tab-count",$data);
@@ -316,13 +319,20 @@ function content_tabs_save($post_id) {
             // Save section data
             $section_fields = array('title','content');
             for ($section=1;$section<=$section_count;$section++) {
+                // echo $section."<br>";
                 foreach($section_fields as $section_field) {
-                    if (isset($_POST["tab-" . $tab . "-section-" . $section . "-".$section_field])) { 
-                        $data = sanitize_text_field($_POST["tab-" . $tab . "-section-" . $section . "-".$section_field]); 
+                    if (isset($_POST["tab-" . $tab . "-section-" . $section . "-".$section_field])) {
+                        // echo $section_field . "set<br>";
+                        $data = $_POST["tab-" . $tab . "-section-" . $section . "-".$section_field];
                         update_post_meta($post_id, "_".$ns."-tab-" . $tab . "-section-" . $section . "-".$section_field,$data);
+                        if($section_field=="content") {
+                            $data = WPCom_Markdown::get_instance()->transform( $data );
+                            update_post_meta($post_id, "_".$ns."-tab-" . $tab . "-section-" . $section . "-".$section_field . "-html",$data);
+                        }
                     }
                 }
             }
         }
     }
+    // Debug::full($_POST); exit;
 }
