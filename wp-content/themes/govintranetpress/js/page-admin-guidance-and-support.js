@@ -85,7 +85,7 @@ jQuery(function($) {
                 <label>Tab Title</label>\
               </th>\
               <td>\
-                <input class='regular-text tab-title' id='' name='' type='text'>\
+                <input class='regular-text tab-title' id='tab-" + tabCount + "-title' name='tab-" + tabCount + "-title' type='text'>\
               </td>\
             </tr>\
             <tr>\
@@ -105,7 +105,7 @@ jQuery(function($) {
                             <label>Section Title</label>\
                           </th>\
                           <td>\
-                            <input type='text'>\
+                            <input type='text' id='tab-" + tabCount + "-section-1-title' name='tab-" + tabCount + "-section-1-title'>\
                           </td>\
                         </tr>\
                         <tr class='form-field'>\
@@ -126,6 +126,9 @@ jQuery(function($) {
     $('#tab-count').val(tabCount);
     $("#tab-" + tabCount + "-section-1-content").wp_editor();
     gsTabs.tabs("refresh");
+    gsTabs.tabs({
+      active: -1
+    });
     $('#tabs-' + tabCount + ' .accordion').accordion({
       heightStyle: 'content'
     });
