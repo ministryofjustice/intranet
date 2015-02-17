@@ -1644,7 +1644,6 @@ function dw_customizer_styles() { ?>
 
 }
 add_action( 'customize_controls_print_styles', 'dw_customizer_styles', 999 );
-<<<<<<< HEAD
 
 // Adds excerpts to pages
 function add_page_excerpts() {
@@ -1662,5 +1661,3 @@ function setup_js_wp_editor() {
 	}
 }
 add_action( 'init', 'setup_js_wp_editor',100);
-=======
->>>>>>> 5e20e94c7f9345d92d3b96048df1453b90ce2f8b
