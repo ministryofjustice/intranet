@@ -102,7 +102,7 @@ wp-content/mysql.sql
 # custom
 .sass-cache
 .htaccess
-/wp-content/plugins/pageapi/
 nbproject
 /wp-content/languages/
 deploy_dev.cfg
+/node_modules/

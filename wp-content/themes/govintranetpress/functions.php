@@ -754,23 +754,16 @@ add_filter('user_contactmethods','remove_contactmethods' ,10,1);
 // check jQuery is available
 
 function enqueueThemeScripts() {
-	 wp_enqueue_script( 'jquery' );
-	 wp_enqueue_script( 'jquery-ui' );
+  global $wp_scripts;
 
-   wp_register_script( 'hammer', get_stylesheet_directory_uri() . "/js/hammer.min.js");
-	 wp_enqueue_script( 'hammer' );
+  wp_enqueue_script( 'jquery' );
+  wp_enqueue_script( 'jquery-ui' );
 
-   wp_register_script( 'jquery.hammer', get_stylesheet_directory_uri() . "/js/jquery.hammer.js");
-	 wp_enqueue_script( 'jquery.hammer' );
+  wp_register_script( 'ht-scripts', get_stylesheet_directory_uri() . "/js/ht-scripts.js");
+  wp_enqueue_script( 'ht-scripts' );
 
-	 wp_register_script( 'ht-scripts', get_stylesheet_directory_uri() . "/js/ht-scripts.js");
-	 wp_enqueue_script( 'ht-scripts' );
-
-   wp_register_script('app', get_stylesheet_directory_uri() . "/js/app.js");
-	 wp_enqueue_script('app');
-
-	 wp_register_script( 'jquery.ht-timediff', get_stylesheet_directory_uri() . "/js/jquery.ht-timediff.js");
-	 wp_enqueue_script( 'jquery.ht-timediff',90 );
+  wp_register_script( 'jquery.ht-timediff', get_stylesheet_directory_uri() . "/js/jquery.ht-timediff.js");
+  wp_enqueue_script( 'jquery.ht-timediff',90 );
 
 }
 add_action('wp_enqueue_scripts','enqueueThemeScripts');
@@ -1651,6 +1644,7 @@ function dw_customizer_styles() { ?>
 
 }
 add_action( 'customize_controls_print_styles', 'dw_customizer_styles', 999 );
+<<<<<<< HEAD
 
 // Adds excerpts to pages
 function add_page_excerpts() {
@@ -1668,3 +1662,5 @@ function setup_js_wp_editor() {
 	}
 }
 add_action( 'init', 'setup_js_wp_editor',100);
+=======
+>>>>>>> 5e20e94c7f9345d92d3b96048df1453b90ce2f8b

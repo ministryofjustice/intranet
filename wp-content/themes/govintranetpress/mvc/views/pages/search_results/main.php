@@ -72,7 +72,7 @@
     </div>
   </div>
 
-  <template data-name="search-item">
+  <div class="template-partial" data-name="search-item">
     <li class="search-item">
       <a href="" class="search-link">
         <h3 class="title"></h3>
@@ -94,20 +94,20 @@
         Pages
       </p>
     </li>
-  </template>
+  </div>
 
-  <template data-name="search-results-page-title">
+  <div class="template-partial" data-name="search-results-page-title">
     <h3 class="search-results-page-title search-results-title">Latest</h3>
-  </template>
+  </div>
 
-  <template data-name="search-filtered-results-title">
+  <div class="template-partial" data-name="search-filtered-results-title">
     <h3 class="search-filtered-results-title search-results-title">
       <span class="results-count"></span>
       <span class="results-count-description"></span>
       <span class="containing">containing</span>
       <span class="keywords"></span>
     </h3>
-  </template>
+  </div>
 </div>
 
 <?php endwhile ?>

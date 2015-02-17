@@ -68,7 +68,7 @@
     </div>
   </div>
 
-  <template data-name="news-item">
+  <div class="template-partial" data-name="news-item">
     <li class="news-item">
       <div class="thumbnail-container">
         <a href="" class="news-link">
@@ -85,13 +85,13 @@
         <p class="excerpt">desc</p>
       </div>
     </li>
-  </template>
+  </div>
 
-  <template data-name="news-results-page-title">
+  <div class="template-partial" data-name="news-results-page-title">
     <h3 class="news-results-page-title news-results-title">Latest</h3>
-  </template>
+  </div>
 
-  <template data-name="news-filtered-results-title">
+  <div class="template-partial" data-name="news-filtered-results-title">
     <h3 class="news-filtered-results-title news-results-title">
       <span class="results-count"></span>
       <span class="results-count-description"></span>
@@ -100,7 +100,7 @@
       <span class="for-date">for</span>
       <span class="date"></span>
     </h3>
-  </template>
+  </div>
 </div>
 
 <?php endwhile ?>

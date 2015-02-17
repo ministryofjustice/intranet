@@ -95,17 +95,15 @@ $grid-max-size: 1020px; /* grid's maximum width (incl. outer spacing) */
 }
 
 /* desktop */
-@include desktop-mq(){
-  @for $i from 1 through 12 {
-    .col-lg-#{$i} {
-      width: (100%/12*$i);
-    }
+@for $i from 1 through 12 {
+  .col-lg-#{$i} {
+    width: (100%/12*$i);
   }
+}
 
-  @for $i from 1 through 11 {
-    .push-lg-#{$i} {
-      margin-left: (100%*$i/12);
-    }
+@for $i from 1 through 11 {
+  .push-lg-#{$i} {
+    margin-left: (100%*$i/12);
   }
 }
 
