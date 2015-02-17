@@ -56,6 +56,10 @@ require_once('inc/admin-tables.php');
 /** Customises page editor based on template */
 require_once('inc/template-functions.php');
 
+/** Tidy up CMS */
+require_once('inc/tidy-up.php');
+
+
 if ( ! function_exists( 'twentyten_setup' ) ):
 /**
  * Sets up theme defaults and registers support for various WordPress features.
@@ -1664,13 +1668,3 @@ function setup_js_wp_editor() {
 	}
 }
 add_action( 'init', 'setup_js_wp_editor',100);
-
-// Hide dashboard widgets
-function remove_dashboard_widgets() {
-	remove_meta_box( 'dashboard_right_now', 'dashboard', 'normal' );
-	remove_meta_box( 'dashboard_activity', 'dashboard', 'normal' );
-	remove_meta_box( 'dashboard_quick_press', 'dashboard', 'side' );
-	remove_meta_box( 'dashboard_primary', 'dashboard', 'side' );
-	remove_action( 'welcome_panel', 'wp_welcome_panel' );
-}
-add_action('wp_dashboard_setup', 'remove_dashboard_widgets' );
