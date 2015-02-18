@@ -431,7 +431,7 @@ h3, .main-content .editable h2, .header .logo a, .ht-feature-news > h3, .guidanc
   line-height: 30px; }
 
 /* line 36, ../scss/global/_typography.scss */
-h2, .annual-leave .page-category {
+h2, .guidance-and-support-content .page-category {
   font-size: 27px;
   line-height: 30px; }
 
@@ -448,7 +448,7 @@ h1 {
   line-height: 25px; }
 
 /* line 64, ../scss/global/_typography.scss */
-.content-tabs li a, .content-nav, .news-single .excerpt, .annual-leave .excerpt {
+.content-tabs li a, .content-nav, .guidance-and-support-content .excerpt, .news-single .excerpt {
   font-size: 24px;
   line-height: 30px; }
 
@@ -465,7 +465,7 @@ h1 {
 /* line 74, ../scss/global/_typography.scss */
 .main-content .content-info p, .main-content .editable table th,
 .main-content .editable table td, .breadcrumbs a,
-.breadcrumbs span, .message .content, #menu-utilities li a, .content-filters .description, .content-filters .label, #need-to-know .excerpt, .my-moj .quick-links-list a, .guidance-and-support .tree .all-categories, .annual-leave .right-hand-menu a, .annual-leave .table-of-contents li a, .page-search-results .search-item .excerpt {
+.breadcrumbs span, .message .content, #menu-utilities li a, .content-filters .description, .content-filters .label, #need-to-know .excerpt, .my-moj .quick-links-list a, .guidance-and-support .tree .all-categories, .guidance-and-support-content .right-hand-menu a, .guidance-and-support-content .table-of-contents li a, .page-search-results .search-item .excerpt {
   font-size: 16px;
   line-height: 20px; }
 
@@ -2296,6 +2296,52 @@ form .form-row {
     /* line 312, ../scss/content/guidance_and_support/_main.scss */
     .guidance-and-support .item-container .item {
       display: block !important; } }
+/* line 2, ../scss/content/guidance_and_support_content/_main.scss */
+.guidance-and-support-content .page-title {
+  margin-top: 0px;
+  border-bottom: none; }
+/* line 7, ../scss/content/guidance_and_support_content/_main.scss */
+.guidance-and-support-content .page-category {
+  margin-top: 27px;
+  margin-bottom: 0px;
+  font-weight: normal;
+  color: #6f777b; }
+/* line 15, ../scss/content/guidance_and_support_content/_main.scss */
+.guidance-and-support-content .right-hand-menu {
+  margin-top: 40px;
+  border-top: 5px solid #6f777b; }
+  /* line 19, ../scss/content/guidance_and_support_content/_main.scss */
+  .guidance-and-support-content .right-hand-menu h3 {
+    margin-top: 10px;
+    margin-bottom: 14px; }
+  /* line 24, ../scss/content/guidance_and_support_content/_main.scss */
+  .guidance-and-support-content .right-hand-menu a {
+    text-decoration: underline; }
+/* line 30, ../scss/content/guidance_and_support_content/_main.scss */
+.guidance-and-support-content h4 {
+  margin-top: 0;
+  padding-top: 24px;
+  margin-bottom: 0px;
+  font-weight: normal; }
+/* line 37, ../scss/content/guidance_and_support_content/_main.scss */
+.guidance-and-support-content .table-of-contents {
+  margin-top: 5px; }
+  /* line 40, ../scss/content/guidance_and_support_content/_main.scss */
+  .guidance-and-support-content .table-of-contents li {
+    display: block;
+    border-bottom: 1px solid #bfc1c3; }
+    /* line 44, ../scss/content/guidance_and_support_content/_main.scss */
+    .guidance-and-support-content .table-of-contents li:first-of-type {
+      border-top: 1px solid #bfc1c3; }
+    /* line 48, ../scss/content/guidance_and_support_content/_main.scss */
+    .guidance-and-support-content .table-of-contents li a {
+      display: block;
+      padding-top: 5px;
+      padding-bottom: 5px; }
+/* line 57, ../scss/content/guidance_and_support_content/_main.scss */
+.guidance-and-support-content .excerpt {
+  margin-top: 50px; }
+
 /* line 2, ../scss/content/news_landing/_main.scss */
 .page-news .content-filters {
   margin-top: 20px; }
@@ -2358,52 +2404,6 @@ form .form-row {
 .news-single .excerpt {
   margin-top: 45px;
   margin-bottom: 20px; }
-
-/* line 2, ../scss/content/annual_leave/_main.scss */
-.annual-leave .page-title {
-  margin-top: 0px;
-  border-bottom: none; }
-/* line 7, ../scss/content/annual_leave/_main.scss */
-.annual-leave .page-category {
-  margin-top: 27px;
-  margin-bottom: 0px;
-  font-weight: normal;
-  color: #6f777b; }
-/* line 15, ../scss/content/annual_leave/_main.scss */
-.annual-leave .right-hand-menu {
-  margin-top: 40px;
-  border-top: 5px solid #6f777b; }
-  /* line 19, ../scss/content/annual_leave/_main.scss */
-  .annual-leave .right-hand-menu h3 {
-    margin-top: 10px;
-    margin-bottom: 14px; }
-  /* line 24, ../scss/content/annual_leave/_main.scss */
-  .annual-leave .right-hand-menu a {
-    text-decoration: underline; }
-/* line 30, ../scss/content/annual_leave/_main.scss */
-.annual-leave h4 {
-  margin-top: 0;
-  padding-top: 24px;
-  margin-bottom: 0px;
-  font-weight: normal; }
-/* line 37, ../scss/content/annual_leave/_main.scss */
-.annual-leave .table-of-contents {
-  margin-top: 5px; }
-  /* line 40, ../scss/content/annual_leave/_main.scss */
-  .annual-leave .table-of-contents li {
-    display: block;
-    border-bottom: 1px solid #bfc1c3; }
-    /* line 44, ../scss/content/annual_leave/_main.scss */
-    .annual-leave .table-of-contents li:first-of-type {
-      border-top: 1px solid #bfc1c3; }
-    /* line 48, ../scss/content/annual_leave/_main.scss */
-    .annual-leave .table-of-contents li a {
-      display: block;
-      padding-top: 5px;
-      padding-bottom: 5px; }
-/* line 57, ../scss/content/annual_leave/_main.scss */
-.annual-leave .excerpt {
-  margin-top: 50px; }
 
 /* line 3, ../scss/content/a_z/_main.scss */
 .a-z .content-filters,
