@@ -625,13 +625,13 @@ p {
   margin: 12px 0;
   padding-left: 16px; }
 /* line 25, ../scss/global/_editable.scss */
-.main-content .editable li {
+.main-content .editable ul li {
   margin: 0;
   padding-left: 5px;
   list-style-type: disc;
   list-style-image: url("../images/bullet.gif"); }
   /* line 31, ../scss/global/_editable.scss */
-  .main-content .editable li + li {
+  .main-content .editable ul li + li {
     margin-top: 8px; }
 /* line 36, ../scss/global/_editable.scss */
 .main-content .editable a {
