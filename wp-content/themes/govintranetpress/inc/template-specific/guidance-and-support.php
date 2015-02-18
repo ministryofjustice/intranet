@@ -233,5 +233,39 @@ function content_tabs_save($post_id) {
             }
         }
     }
-    // Debug::full($_POST); exit;
 }
+
+// Hide preview button (temp solution until preview works properly)
+global $pagenow;
+if ( 'post.php' == $pagenow || 'post-new.php' == $pagenow ) {
+    add_action( 'admin_head', 'wpse_125800_custom_publish_box' );
+    function wpse_125800_custom_publish_box() {
+        if( !is_admin() )
+            return;
+
+        $style = '';
+        $style .= '<style type="text/css">';
+        $style .= '#preview-action';
+        $style .= '{display: none; }';
+        $style .= '</style>';
+
+        echo $style;
+    }
+}
+
+// Force preview to work with custom meta - to be continued (TODO)!
+/*
+add_filter('_wp_post_revision_fields', 'dw_add_field_debug_preview');
+function dw_add_field_debug_preview($fields){
+    $ns = 'content_tabs'; // Quick namespace variable
+    $tab_count = $_POST['tab-count'];
+    $fields["_".$ns."tab-count"] = $tab_count;
+    // for($tab=1;$tab<=$tab_count;$tab++) {
+    //     $section_count = $_POST["tab-".$tab."-section-count"];
+    //     for ($section=1;$section<=$section_count;$section++) {
+    //         $fields["debug_preview"] = "debug_preview";
+    //     }
+    // }
+    return $fields;
+}
+*/
