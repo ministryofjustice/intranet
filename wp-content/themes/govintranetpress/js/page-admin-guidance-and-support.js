@@ -34,7 +34,7 @@ jQuery(function($) {
       alert('No more than 5 quick links allowed');
     }
     e.preventDefault();
-  })
+  });
 
   // Remove links
   $('.quick_links-container').on('click','.delete-link',function(e){
@@ -57,7 +57,7 @@ jQuery(function($) {
       $(this).show();
     });
     // Bring back Add Link if less than 5
-    if(totalLinks=5) {
+    if(totalLinks==5) {
       $('.quick_links-container .add-link').closest('tr').show();
     }
     e.preventDefault();
