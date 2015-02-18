@@ -19,6 +19,7 @@ class Page_guidance_and_support extends MVC_controller {
   function get_data(){
     $post_ID = get_the_ID();
     $ns = 'quick_links'; // Quick namespace variable
+    $max_links = 7;
     $article_date = get_the_modified_date();
     $post = get_post($post_ID);
     ob_start();
@@ -28,7 +29,7 @@ class Page_guidance_and_support extends MVC_controller {
     $this_id = $post->ID;
 
     // Populate link array
-    for($i=1;$i<=5;$i++) {
+    for($i=1;$i<=$max_links;$i++) {
         $link_text = get_post_meta($post->ID, "_" . $ns . "-link-text" . $i,true);
         $link_url = get_post_meta($post->ID, "_" . $ns . "-url" . $i,true);
         if ($link_text!=null || $link_url!=null) {
@@ -72,7 +73,8 @@ class Page_guidance_and_support extends MVC_controller {
       'redirect_enabled' => get_post_meta($post_ID, 'redirect_enabled', true),
       'link_array' => $link_array,
       'tab_count' => $tab_count,
-      'tab_array' => $tab_array
+      'tab_array' => $tab_array,
+      'max_links' => $max_links
     );
   }
 }

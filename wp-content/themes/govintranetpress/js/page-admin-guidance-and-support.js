@@ -1,4 +1,5 @@
 jQuery(function($) {
+  maxLinks = $('.quick_links-container').attr('data-max-links');
   // Add links
   $('.quick_links-container').on('click','.add-link',function(e){
     container = $(this).closest('div');
@@ -7,7 +8,7 @@ jQuery(function($) {
     namespace = container.attr('class').replace(/-container$/,'');
     // Check if max links reached
     totalLinks = $('.'+namespace+'-line').size();
-    if(totalLinks<5) {
+    if(totalLinks<maxLinks) {
       linkNumber = totalLinks + 1;
       // Add new link fields
       // Note: I added tabindex='-1' to Delete links to remove them from taborder to prevent accidental triggering
@@ -27,11 +28,11 @@ jQuery(function($) {
           </td>\
         </tr>\
         ").insertBefore($(this).closest('tr'));
-      if (linkNumber==5) {
+      if (linkNumber==maxLinks) {
         $(this).closest('tr').hide();
       }
     } else {
-      alert('No more than 5 quick links allowed');
+      alert('No more than ' + maxLinks + ' quick links allowed');
     }
     e.preventDefault();
   });
@@ -56,8 +57,8 @@ jQuery(function($) {
       $('tr.quick_links-line').last().remove();
       $(this).show();
     });
-    // Bring back Add Link if less than 5
-    if(totalLinks==5) {
+    // Bring back Add Link if less than maxLinks
+    if(totalLinks==maxLinks) {
       $('.quick_links-container .add-link').closest('tr').show();
     }
     e.preventDefault();
