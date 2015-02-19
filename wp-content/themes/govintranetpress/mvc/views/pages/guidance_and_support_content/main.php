@@ -70,12 +70,12 @@
   </div>
 
   <?php for($i=1;$i<=$tab_count;$i++) { ?>
-  <template data-template-type="tab-content" data-content-name="<?=str_replace(' ','_',preg_replace('/[^\da-z ]/i', '',strtolower(esc_attr($tab_array[$i]['title']))))?>">
+  <div class="template-partial" data-template-type="tab-content" data-content-name="<?=str_replace(' ','_',preg_replace('/[^\da-z ]/i', '',strtolower(esc_attr($tab_array[$i]['title']))))?>">
     <?php for($j=1;$j<=count($tab_array[$i]['sections']);$j++) { ?>
     <h2><?=$tab_array[$i]['sections'][$j]['title']?></h2>
     <?=wpautop($tab_array[$i]['sections'][$j]['content'] )?>
     <?php } ?>
-  </template>
+  </div>
 <?php } ?>
 </div>
 
