@@ -101,7 +101,6 @@ wp-content/mysql.sql
 
 # custom
 .sass-cache
-.htaccess
 nbproject
 /wp-content/languages/
 deploy_dev.cfg
