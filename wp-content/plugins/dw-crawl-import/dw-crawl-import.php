@@ -54,8 +54,10 @@
          * @var string
          */
         $rewrite_string = 'index.php?crawl_import=1&crawl_switch=$matches[1]';
+        $rewrite_string_simple = 'index.php?crawl_import=1';
 
-        add_rewrite_rule(CI_ENDPOINT.'/([^/]+)/?',$rewrite_string,'top');
+        add_rewrite_rule('^'.CI_ENDPOINT.'/([^/]+)/?',$rewrite_string,'top');
+        add_rewrite_rule('^'.CI_ENDPOINT.'/?',$rewrite_string_simple,'top');
         add_rewrite_tag('%crawl_import%', '([^&]+)');
         add_rewrite_tag('%crawl_switch%', '([^&]+)');
         // global $wp_rewrite;var_dump($wp_rewrite);
@@ -113,14 +115,15 @@
          * @var string
          */
         $crawl_switch = get_query_var('crawl_switch');
-        if ($crawl_set===1) {
-          if(strlen($crawl_switch)<1) {
+        if ($crawl_set==1) {
+          if(strlen($crawl_switch)<1||!isset($crawl_switch)) {
             // Process import object
             $output_ns = "_content_tabs-";
             $post_id = $source->id;
 
             // Process data string
             $import_data = json_decode($source->data);
+
             $postarr = array(
               'ID' => $post_id,
               'post_title' => $import_data->title
@@ -177,7 +180,10 @@
             'import_status'=>true,
             'import_flag'=>$crawl_switch
             );
+        } else {
+          return;
         }
+        $this->output_json($results);
       }
 
       function output_json($results_array) {
