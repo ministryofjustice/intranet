@@ -62,8 +62,10 @@ class Page_guidance_and_support extends MVC_controller {
 
     return array(
       'id' => $this_id,
-      'author' => get_the_author(),
-      'author_email' => get_the_author_meta('user_email'),
+      // 'author' => get_the_author(),
+      'author' => "Intranet content team",
+      // 'author_email' => get_the_author_meta('user_email'),
+      'author_email' => "newintranet@digital.justice.gov.uk",
       'title' => get_the_title(),
       'excerpt' => $post->post_excerpt, // Not using get_the_excerpt() to prevent auto-generated excerpts being displayed
       'content' => $content,
