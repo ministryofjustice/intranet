@@ -240,8 +240,8 @@ function content_tabs_save($post_id) {
 // Hide preview button (temp solution until preview works properly)
 global $pagenow;
 if ( 'post.php' == $pagenow || 'post-new.php' == $pagenow ) {
-    add_action( 'admin_head', 'wpse_125800_custom_publish_box' );
-    function wpse_125800_custom_publish_box() {
+    add_action( 'admin_head', 'dw_custom_publish_box' );
+    function dw_custom_publish_box() {
         if( !is_admin() )
             return;
 
