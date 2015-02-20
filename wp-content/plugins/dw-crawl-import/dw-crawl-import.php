@@ -148,10 +148,10 @@
             }
 
             // Set redirect_enabled flag to 0
-            $meta_array['redirect_enabled'] = 0;
+            update_post_meta($post_id,'redirect_enabled',0);
 
             // Set is_imported flag to 1
-            $meta_array['is_imported'] = 1;
+            update_post_meta($post_id,'is_imported',1);
 
             // Process metadata
             foreach($meta_array as $key=>$value) {
