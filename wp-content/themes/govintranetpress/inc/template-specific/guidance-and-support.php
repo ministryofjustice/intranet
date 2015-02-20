@@ -31,7 +31,7 @@ function quick_links_callback($post) {
                         <input class='<?=$ns?>-link-text <?=$ns?>-link-text<?=$i?> regular-text' id='<?=$ns?>-link-text<?=$i?>' name='<?=$ns?>-link-text<?=$i?>' type='text' placeholder='Link text' value='<?=esc_attr($link_array[$i]['linktext'])?>'>
                     </td>
                     <td>
-                        <input class='<?=$ns?>-url <?=$ns?>=url<?=$i?> regular-text' id='<?=$ns?>-url<?=$i?>' name='<?=$ns?>-url<?=$i?>' type='url' placeholder='Link URL'  value='<?=esc_attr($link_array[$i]['linkurl'])?>'>
+                        <input class='<?=$ns?>-url <?=$ns?>=url<?=$i?> regular-text' id='<?=$ns?>-url<?=$i?>' name='<?=$ns?>-url<?=$i?>' type='text' placeholder='Link URL'  value='<?=esc_attr($link_array[$i]['linkurl'])?>'>
                     </td>
                     <td>
                         <a href='#' class='hide-if-no-js delete-link'>Delete</a>

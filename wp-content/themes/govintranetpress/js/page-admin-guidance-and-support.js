@@ -21,7 +21,7 @@ jQuery(function($) {
             <input class='" + namespace + "-link-text " + namespace + "-link-text" + linkNumber + " regular-text' id='" + namespace + "-link-text" + linkNumber + "' name='" + namespace + "-link-text" + linkNumber + "' type='text' placeholder='Link text'>\
           </td>\
           <td>\
-            <input class='" + namespace + "-url " + namespace + "-url" + linkNumber + " regular-text' id='" + namespace + "-url" + linkNumber + "' name='" + namespace + "-url" + linkNumber + "' type='url' placeholder='Link URL'>\
+            <input class='" + namespace + "-url " + namespace + "-url" + linkNumber + " regular-text' id='" + namespace + "-url" + linkNumber + "' name='" + namespace + "-url" + linkNumber + "' type='text' placeholder='Link URL'>\
           </td>\
           <td>\
             <a href='#' class='hide-if-no-js delete-link' tabindex='-1'>Delete</a>\
