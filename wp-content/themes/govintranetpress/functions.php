@@ -1578,7 +1578,8 @@ include('debug.php');
 
 // Force logout after 1 hour
 function keep_me_logged_in_for_1_hour( $expirein ) {
-    return 3600*8; // 1 hour in seconds
+	$hour = 3600; // 1 hour in seconds
+  return $hour*8*7;
 }
 add_filter( 'auth_cookie_expiration', 'keep_me_logged_in_for_1_hour' );
 
@@ -1661,3 +1662,10 @@ function setup_js_wp_editor() {
 	}
 }
 add_action( 'init', 'setup_js_wp_editor',100);
+
+// Extend query parameters for PODS api
+function dw_slug_allow_meta( $valid_vars ) {
+	$valid_vars = array_merge( $valid_vars, array( 'meta_key', 'meta_value' ) );
+	return $valid_vars;
+}
+add_filter( 'json_query_vars', 'dw_slug_allow_meta' );

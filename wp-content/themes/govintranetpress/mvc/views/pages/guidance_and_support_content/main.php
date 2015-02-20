@@ -24,7 +24,7 @@
       <div class="right-hand-menu">
         <h3>Quick links</h3>
         <ul>
-            <?php for($i=1;$i<=5;$i++) { ?>
+            <?php for($i=1;$i<=$max_links;$i++) { ?>
             <li>
                 <a href="<?=esc_attr($link_array[$i]['linkurl'])?>"><?=esc_attr($link_array[$i]['linktext'])?></a>
             </li>

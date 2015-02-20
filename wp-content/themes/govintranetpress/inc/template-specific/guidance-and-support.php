@@ -2,11 +2,12 @@
 // Quick Links metabox
 function quick_links_callback($post) {
     $ns = 'quick_links'; // Quick namespace variable
+    $max_links = 7;
     wp_nonce_field( $ns.'_meta_box', $ns.'_meta_box_nonce' );
 
     // Populate link array
     $record_count = 0;
-    for($i=1;$i<=5;$i++) {
+    for($i=1;$i<=$max_links;$i++) {
         $link_text = get_post_meta($post->ID, "_" . $ns . "-link-text" . $i,true);
         $link_url = get_post_meta($post->ID, "_" . $ns . "-url" . $i,true);
         if ($link_text!=null || $link_url!=null) {
@@ -18,7 +19,7 @@ function quick_links_callback($post) {
         }
     }
     ?>
-    <div class='<?=$ns?>-container'>
+    <div class='<?=$ns?>-container' data-max-links='<?=$max_links?>'>
         <table class='form-table'>
             <tbody>
                 <?php for($i=1;$i<=$record_count;$i++) { ?>
@@ -37,7 +38,7 @@ function quick_links_callback($post) {
                     </td>
                 </tr>
                 <?php } ?>
-                <?php if ($record_count<5) { ?>
+                <?php if ($record_count<$max_links) { ?>
                 <tr>
                     <th scope='row' valign='top'>
                         <a href='#' class='hide-if-no-js add-link'>+ Add link</a>
@@ -48,12 +49,13 @@ function quick_links_callback($post) {
         </table>
     </div>
 
-    <p>You are allowed to enter up to 5 quick links</p>
+    <p>You are allowed to enter up to <?=$max_links?> quick links</p>
 
     <?php
 }
 function quick_links_save($post_id) {
     $ns = 'quick_links'; // Quick namespace variable
+    $max_links = 7;
     if ( ! isset( $_POST[$ns.'_meta_box_nonce'] ) ) {
         return;
     }
@@ -73,7 +75,7 @@ function quick_links_save($post_id) {
         }
     }
     $link_fields = array('link-text','url');
-    for($i=1; $i<=5; $i++) {
+    for($i=1; $i<=$max_links; $i++) {
         foreach($link_fields as $link_field) {
             if (isset($_POST[$ns . "-" . $link_field . $i])) {
                 $data = sanitize_text_field( $_POST[$ns . "-" . $link_field . $i] );
@@ -233,5 +235,39 @@ function content_tabs_save($post_id) {
             }
         }
     }
-    // Debug::full($_POST); exit;
 }
+
+// Hide preview button (temp solution until preview works properly)
+global $pagenow;
+if ( 'post.php' == $pagenow || 'post-new.php' == $pagenow ) {
+    add_action( 'admin_head', 'wpse_125800_custom_publish_box' );
+    function wpse_125800_custom_publish_box() {
+        if( !is_admin() )
+            return;
+
+        $style = '';
+        $style .= '<style type="text/css">';
+        $style .= '#preview-action';
+        $style .= '{display: none; }';
+        $style .= '</style>';
+
+        echo $style;
+    }
+}
+
+// Force preview to work with custom meta - to be continued (TODO)!
+/*
+add_filter('_wp_post_revision_fields', 'dw_add_field_debug_preview');
+function dw_add_field_debug_preview($fields){
+    $ns = 'content_tabs'; // Quick namespace variable
+    $tab_count = $_POST['tab-count'];
+    $fields["_".$ns."tab-count"] = $tab_count;
+    // for($tab=1;$tab<=$tab_count;$tab++) {
+    //     $section_count = $_POST["tab-".$tab."-section-count"];
+    //     for ($section=1;$section<=$section_count;$section++) {
+    //         $fields["debug_preview"] = "debug_preview";
+    //     }
+    // }
+    return $fields;
+}
+*/
