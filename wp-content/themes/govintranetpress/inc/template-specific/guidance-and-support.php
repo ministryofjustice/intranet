@@ -109,7 +109,7 @@ function content_tabs_callback($post) {
         <ul>
             <?php
                 for($tab=1;$tab<=$tab_count;$tab++) {
-                    $tab_title = get_post_meta( $post->ID, '_'.$ns.'-tab-title'.$tab, true )?:"Tab 1";
+                    $tab_title = get_post_meta( $post->ID, '_'.$ns.'-tab-' . $tab . '-title', true )?:"Tab 1";
                     ?>
                 <li><a href="#tabs-<?=$tab?>"><?=$tab_title?></a><span class="ui-icon ui-icon-close" role="presentation">Remove Tab</span></li>
             <?php } ?>
@@ -119,7 +119,7 @@ function content_tabs_callback($post) {
             for($tab=1;$tab<=$tab_count;$tab++) {
                 $section_count = get_post_meta( $post->ID, '_'.$ns.'-tab-'.$tab.'-section-count', true );
                 $section_count= $section_count?:1;
-                $tab_title = get_post_meta( $post->ID, '_'.$ns.'-tab-title'.$tab, true )?:"Tab ".$tab;
+                $tab_title = get_post_meta( $post->ID, '_'.$ns.'-tab-' . $tab . '-title', true )?:"Tab ".$tab;
         ?>
         <div id="tabs-<?=$tab?>">
             <input type="hidden" id="tab-<?=$tab?>-section-count" name="tab-<?=$tab?>-section-count" value="<?=$section_count?>">
@@ -211,7 +211,7 @@ function content_tabs_save($post_id) {
         for($tab=1;$tab<=$tab_count;$tab++) {
             if (isset($_POST["tab-" . $tab . "-title"])) {
                 $data = sanitize_text_field($_POST["tab-" . $tab . "-title"]);
-                update_post_meta($post_id, "_".$ns."-tab-title".$tab,$data);
+                update_post_meta($post_id, "_".$ns."-tab-" . $tab . "-title",$data);
             }
             // Save section count
             $data = sanitize_text_field( $_POST["tab-".$tab."-section-count"] );

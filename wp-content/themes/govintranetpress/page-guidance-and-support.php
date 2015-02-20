@@ -53,7 +53,7 @@ class Page_guidance_and_support extends MVC_controller {
             'content' => $section_content
           );
       }
-      $tab_title = get_post_meta($post_ID,'_'.$ns.'-tab-title'.$i,true);
+      $tab_title = get_post_meta($post_ID,'_'.$ns.'-tab-' . $i . '-title',true);
       $tab_array[$i] = array(
           'title' => $tab_title,
           'sections' => $section_array
