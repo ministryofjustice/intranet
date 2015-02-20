@@ -111,7 +111,7 @@ jQuery(function($) {
                         </tr>\
                         <tr class='form-field'>\
                           <td colspan='2'>\
-                            <textarea id='tab-" + tabCount + "-section-1-content'></textarea>\
+                            <textarea id='tab-" + tabCount + "-section-1-content' name='tab-" + tabCount + "-section-1-content'></textarea>\
                           </td>\
                         </tr>\
                       </tbody>\
@@ -164,7 +164,7 @@ jQuery(function($) {
             </tr>\
             <tr class='form-field'>\
               <td colspan='2'>\
-                <textarea id='tab-" + currentTab + "-section-" + sectionCount + "-content'></textarea>\
+                <textarea id='tab-" + currentTab + "-section-" + sectionCount + "-content' name='tab-" + currentTab + "-section-" + sectionCount + "-content'></textarea>\
               </td>\
             </tr>\
           </tbody>\
