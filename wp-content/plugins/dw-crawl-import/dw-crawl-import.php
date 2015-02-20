@@ -147,6 +147,12 @@
               }
             }
 
+            // Set redirect_enabled flag to 0
+            $meta_array['redirect_enabled'] = 0;
+
+            // Set is_imported flag to 1
+            $meta_array['is_imported'] = 1;
+
             // Process metadata
             foreach($meta_array as $key=>$value) {
               update_post_meta($post_id,$output_ns.$key,$value);
