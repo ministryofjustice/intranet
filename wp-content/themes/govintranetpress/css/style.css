@@ -1066,62 +1066,33 @@ form .form-row {
 
 /* Footer styles */
 /* line 3, ../scss/modules/_footer.scss */
-#footerwrapper {
+.footerwrapper {
   background: #dee0e2;
-  border-top: 10px solid #2e8aca; }
+  border-top: 1px solid #6f777b; }
   /* line 2, ../scss/global/_mixins.scss */
-  #footerwrapper:after {
+  .footerwrapper:after {
     content: "";
     display: table;
     clear: both; }
   /* line 8, ../scss/modules/_footer.scss */
-  #footerwrapper #footer {
-    color: #454a4c;
-    min-height: 10em !important;
-    padding: 2em 0;
-    border-bottom: 1px solid #333;
-    margin-bottom: 3em; }
-    /* line 15, ../scss/modules/_footer.scss */
-    #footerwrapper #footer.row {
-      background: none; }
-    /* line 19, ../scss/modules/_footer.scss */
-    #footerwrapper #footer h3 {
-      border-bottom: 1px solid #333;
-      padding-bottom: 5px;
-      font-size: 1.4em !important; }
-    /* line 26, ../scss/modules/_footer.scss */
-    #footerwrapper #footer ul li {
-      line-height: 1.4; }
-    /* line 31, ../scss/modules/_footer.scss */
-    #footerwrapper #footer ul.xoxo {
-      margin: 0;
-      padding: 0; }
-    /* line 36, ../scss/modules/_footer.scss */
-    #footerwrapper #footer ul#menu-footer-left li {
-      list-style: none;
-      display: inline;
-      border-right: 1px solid #454a4c;
-      padding: 0 0.5em 0 0; }
-      /* line 42, ../scss/modules/_footer.scss */
-      #footerwrapper #footer ul#menu-footer-left li:last-child, #footerwrapper #footer ul#menu-footer-left li.last-link {
-        border-right: none !important;
-        padding-right: 0; }
-    /* line 49, ../scss/modules/_footer.scss */
-    #footerwrapper #footer a, #footerwrapper #footer h2, #footerwrapper #footer h3 {
-      color: #454a4c; }
-    /* line 52, ../scss/modules/_footer.scss */
-    #footerwrapper #footer a {
-      text-decoration: underline; }
-    /* line 56, ../scss/modules/_footer.scss */
-    #footerwrapper #footer hr {
+  .footerwrapper .footer {
+    margin: 150px 0 50px;
+    color: #454a4c; }
+    /* line 12, ../scss/modules/_footer.scss */
+    .footerwrapper .footer .widget-title {
       display: none; }
-  /* line 62, ../scss/modules/_footer.scss */
-  #footerwrapper #footer-left p {
-    text-align: left; }
-  /* line 66, ../scss/modules/_footer.scss */
-  #footerwrapper ul#menu-footer-right li {
-    list-style: square;
-    margin-left: 0; }
+    /* line 16, ../scss/modules/_footer.scss */
+    .footerwrapper .footer a {
+      text-decoration: underline;
+      color: #454a4c; }
+    /* line 21, ../scss/modules/_footer.scss */
+    .footerwrapper .footer li {
+      display: inline-block;
+      margin-right: 15px; }
+      /* line 25, ../scss/modules/_footer.scss */
+      .footerwrapper .footer li.built-by:before {
+        content: "Built by ";
+        display: inline; }
 
 /* line 1, ../scss/modules/_header.scss */
 .header {
