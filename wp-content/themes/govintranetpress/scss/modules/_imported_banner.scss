@@ -1,0 +1,8 @@
+.imported-banner {
+  margin-bottom: 10px;
+  
+  .message {
+    border: 5px solid #56DA94;
+    @extend %large-copy;
+  }
+}
