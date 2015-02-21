@@ -28,13 +28,70 @@
     padding: 10px 30px;
     background-color: $turquoise;
 
+    &:before {
+      display: inline-block;
+      width: 25px;
+      height: 25px;
+      margin-right: 0px;
+      background-image: url('../images/department_crest_white_x2.png');
+      background-size: 200px 50px;
+      background-position: -12px -12px;
+      background-repeat: no-repeat;
+      vertical-align: text-bottom;
+      content: "";
+    }
+
     .department {
-      max-width: 220px;
-      background: $white;
+      @extend %medium-copy;
+      max-width: 250px;
+      height: 33px;
+      background: transparent;
+      color: $white;
       border-radius: 0;
       border: none;
       box-shadow: none;
       font-weight: bold;
+
+      option {
+        padding: 10px 40px;
+        background-color: $white;
+        color: $black;
+
+        &:before {
+          display: inline-block;
+          width: 25px;
+          height: 25px;
+          margin-right: 10px;
+          background-image: url('../images/department_crest_x2.png');
+          background-size: 200px 50px;
+          background-position: -12px -12px;
+          background-repeat: no-repeat;
+          vertical-align: text-bottom;
+          content: "";
+        }
+
+        &.legal-aid-agency,
+        &.hm-courts-and-tribunals-service,
+        &.judicial-office,
+        &.opg,
+        &.ospt {
+          &:before {
+            background-position: -12px -12px;
+          }
+        }
+
+        &.judicial-appointments-commission:before {
+          background-position: -62px -12px;
+        }
+
+        &.law-commission:before {
+          background-position: -112px -12px;
+        }
+
+        &.probation:before {
+          background-position: -162px -12px;
+        }
+      }
     }
   }
 

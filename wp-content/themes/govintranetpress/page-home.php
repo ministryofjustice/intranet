@@ -37,6 +37,40 @@ class Page_home extends MVC_controller {
 
   private function get_my_moj() {
     return array(
+      'departments' => array(
+        array(
+          'name' => 'legal-aid-agency',
+          'label' => 'Legal Aid Agency'
+        ),
+        array(
+          'name' => 'hm-courts-and-tribunals-service',
+          'label' => 'HM Courts &amp; Tribunals Service'
+        ),
+        array(
+          'name' => 'judicial-appointments-commission',
+          'label' => 'Judicial Appointments Commission'
+        ),
+        array(
+          'name' => 'judicial-office',
+          'label' => 'Judicial Office'
+        ),
+        array(
+          'name' => 'law-commission',
+          'label' => 'Law Commission'
+        ),
+        array(
+          'name' => 'opg',
+          'label' => 'OPG'
+        ),
+        array(
+          'name' => 'ospt',
+          'label' => 'OSPT'
+        ),
+        array(
+          'name' => 'probation',
+          'label' => 'Probation'
+        )
+      ),
       'apps' => array(
         array(
           'title' => 'People finder',

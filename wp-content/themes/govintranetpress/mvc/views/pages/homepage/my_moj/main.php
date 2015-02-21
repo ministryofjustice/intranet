@@ -4,6 +4,9 @@
   <div class="my-moj-top">
     <select class="department">
       <option value="">Choose your department</option>
+      <?php foreach($departments as $department): ?>
+        <option class="<?=$department['name']?>"><?=$department['label']?></option>
+      <?php endforeach ?>
     </select>
     <span class="help-icon"></span>
   </div>
