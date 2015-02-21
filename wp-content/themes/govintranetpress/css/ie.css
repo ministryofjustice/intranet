@@ -153,7 +153,11 @@
 .ie7 .my-moj .help-icon {
   top: 12px;
   background-image: url("../images/question_mark.png"); }
-/* line 11, ../scss/ie/_my_moj.scss */
+/* line 12, ../scss/ie/_my_moj.scss */
+.ie7 .my-moj .apps-list .app-icon-inner {
+  background-image: url("../images/app_icons.png");
+  background-size: auto; }
+/* line 18, ../scss/ie/_my_moj.scss */
 .ie7 .my-moj .quick-links-container {
   clear: both; }
 
