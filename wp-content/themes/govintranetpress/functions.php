@@ -1662,10 +1662,3 @@ function setup_js_wp_editor() {
 	}
 }
 add_action( 'init', 'setup_js_wp_editor',100);
-
-// Extend query parameters for PODS api
-function dw_slug_allow_meta( $valid_vars ) {
-	$valid_vars = array_merge( $valid_vars, array( 'meta_key', 'meta_value' ) );
-	return $valid_vars;
-}
-add_filter( 'json_query_vars', 'dw_slug_allow_meta' );

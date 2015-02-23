@@ -9,6 +9,10 @@
   width: 100%;
 }
 
+#content_tabs .ui-icon-close {
+  float: left;
+}
+
 #poststuff h3.ui-accordion-header {
   padding-left: 26px;
 }
