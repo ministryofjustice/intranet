@@ -10,8 +10,15 @@ class Page_guidance_and_support extends MVC_controller {
     while(have_posts()){
       the_post();
       get_header();
+
+      $this->post_ID = get_the_ID();
+      $is_imported = get_post_meta($this->post_ID, 'is_imported', true);
+      if($is_imported) {
+        $this->view('shared/imported_banner');
+      }
       $this->view('shared/breadcrumbs');
       $this->view('pages/guidance_and_support_content/main', $this->get_data());
+
       get_footer();
     }
   }
