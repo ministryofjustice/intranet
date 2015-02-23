@@ -2,13 +2,15 @@
 
 <div class="my-moj">
   <div class="my-moj-top">
-    <select class="department">
-      <option value="">Choose your department</option>
-      <?php foreach($departments as $department): ?>
-        <option class="<?=$department['name']?>"><?=$department['label']?></option>
-      <?php endforeach ?>
-    </select>
-    <span class="help-icon"></span>
+    <div class="department-dropdown-box">
+      <select class="department">
+        <option class="select-department" value="">Choose your department</option>
+        <?php foreach($departments as $department): ?>
+          <option class="<?=$department['name']?>"><?=$department['label']?></option>
+        <?php endforeach ?>
+      </select>
+      <span class="help-icon"></span>
+    </div>
   </div>
   <div class="my-moj-body">
     <div class="apps-container">

@@ -28,29 +28,35 @@
     padding: 10px 30px;
     background-color: $turquoise;
 
-    &:before {
+    .department-dropdown-box {
       display: inline-block;
-      width: 25px;
-      height: 25px;
-      margin-right: 0px;
-      background-image: url('../images/department_crest_white_x2.png');
-      background-size: 200px 50px;
-      background-position: -12px -12px;
-      background-repeat: no-repeat;
-      vertical-align: text-bottom;
-      content: "";
+
+      &:before {
+        display: inline-block;
+        width: 25px;
+        height: 25px;
+        margin-right: 0px;
+        background-image: url('../images/department_crest_white_x2.png');
+        background-size: 200px 50px;
+        background-position: -12px -12px;
+        background-repeat: no-repeat;
+        vertical-align: text-bottom;
+        content: "";
+      }
     }
 
     .department {
       @extend %medium-copy;
-      max-width: 250px;
+      max-width: 255px;
       height: 33px;
+      padding-left: 0;
+      padding-right: 0;
       background: transparent;
       color: $white;
       border-radius: 0;
       border: none;
       box-shadow: none;
-      font-weight: bold;
+      font-family: Helvetica;
 
       option {
         padding: 10px 40px;
@@ -64,35 +70,38 @@
           margin-right: 10px;
           background-image: url('../images/department_crest_x2.png');
           background-size: 200px 50px;
-          background-position: -12px -12px;
           background-repeat: no-repeat;
           vertical-align: text-bottom;
           content: "";
         }
-
-        &.legal-aid-agency,
-        &.hm-courts-and-tribunals-service,
-        &.judicial-office,
-        &.opg,
-        &.ospt {
-          &:before {
-            background-position: -12px -12px;
-          }
-        }
-
-        &.judicial-appointments-commission:before {
-          background-position: -62px -12px;
-        }
-
-        &.law-commission:before {
-          background-position: -112px -12px;
-        }
-
-        &.probation:before {
-          background-position: -162px -12px;
-        }
       }
     }
+  }
+
+  .select-department:before {
+    background-position: 100px 100px;
+  }
+
+  .legal-aid-agency,
+  .hm-courts-and-tribunals-service,
+  .judicial-office,
+  .opg,
+  .ospt {
+    &:before {
+      background-position: -12px -12px;
+    }
+  }
+
+  .judicial-appointments-commission:before {
+    background-position: -62px -12px;
+  }
+
+  .law-commission:before {
+    background-position: -112px -12px;
+  }
+
+  .probation:before {
+    background-position: -162px -12px;
   }
 
   .my-moj-body {
