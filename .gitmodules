@@ -18,7 +18,7 @@
 	url = https://github.com/ministryofjustice/dw-markdown.git
 [submodule "wp-content/plugins/wp-amazon-s3-and-cloudfront"]
 	path = wp-content/plugins/wp-amazon-s3-and-cloudfront
-	url = git@github.com:deliciousbrains/wp-amazon-s3-and-cloudfront.git
+	url = https://github.com/deliciousbrains/wp-amazon-s3-and-cloudfront.git
 [submodule "wp-content/plugins/wp-amazon-web-services"]
 	path = wp-content/plugins/wp-amazon-web-services
-	url = git@github.com:deliciousbrains/wp-amazon-web-services.git
+	url = https://github.com/deliciousbrains/wp-amazon-web-services.git

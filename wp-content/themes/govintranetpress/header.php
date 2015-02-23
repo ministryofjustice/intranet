@@ -7,6 +7,16 @@
  * @package WordPress
  */
 
+class Page_header extends MVC_controller {
+  function main() {
+    $this->view('shared/beta_banner');
+  }
+
+  private function get_data() {
+    return array(
+    );
+  }
+}
 
 // prevent clickjacking, advised by Context security review
 header('X-Frame-Options: SAMEORIGIN');
@@ -31,7 +41,7 @@ header('X-Frame-Options: SAMEORIGIN');
 
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<link rel="profile" href="https://gmpg.org/xfn/11" />
-  
+
   <!--[if lte IE 9]>
 		<link rel="stylesheet" href="<?php bloginfo( 'template_url' ); ?>/css/ie.css" type="text/css" media="screen" />
 	<![endif]-->
@@ -191,3 +201,8 @@ header('X-Frame-Options: SAMEORIGIN');
 
   <div id="content" class="container main-content">
     <div class="content-wrapper">
+
+
+<?php
+
+new Page_header();

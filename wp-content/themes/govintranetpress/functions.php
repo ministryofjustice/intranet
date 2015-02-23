@@ -53,6 +53,13 @@ add_action( 'after_setup_theme', 'twentyten_setup' );
 /** Adds extra columns to tables in wp-admin */
 require_once('inc/admin-tables.php');
 
+/** Customises page editor based on template */
+require_once('inc/template-functions.php');
+
+/** Tidy up CMS */
+require_once('inc/tidy-up.php');
+
+
 if ( ! function_exists( 'twentyten_setup' ) ):
 /**
  * Sets up theme defaults and registers support for various WordPress features.
@@ -760,7 +767,6 @@ function enqueueThemeScripts() {
 
 }
 add_action('wp_enqueue_scripts','enqueueThemeScripts');
-
 
 function govintranetpress_custom_excerpt_more( $output ) {
 	return preg_replace('/<a[^>]+>Continue reading.*?<\/a>/i','',$output);
@@ -1572,7 +1578,8 @@ include('debug.php');
 
 // Force logout after 1 hour
 function keep_me_logged_in_for_1_hour( $expirein ) {
-    return 3600*8; // 1 hour in seconds
+	$hour = 3600; // 1 hour in seconds
+  return $hour*8*7;
 }
 add_filter( 'auth_cookie_expiration', 'keep_me_logged_in_for_1_hour' );
 
@@ -1638,3 +1645,27 @@ function dw_customizer_styles() { ?>
 
 }
 add_action( 'customize_controls_print_styles', 'dw_customizer_styles', 999 );
+
+// Adds excerpts to pages
+function add_page_excerpts() {
+	add_post_type_support('page','excerpt' );
+}
+add_action('init','add_page_excerpts');
+
+/*
+ *	Include JavaScript WordPress editor functions
+ */
+function setup_js_wp_editor() {
+	if( file_exists( get_template_directory() . '/inc/js-wp-editor.php' ) ) {
+		require_once( get_template_directory() . '/inc/js-wp-editor.php' );
+		js_wp_editor();
+	}
+}
+add_action( 'init', 'setup_js_wp_editor',100);
+
+// Extend query parameters for PODS api
+function dw_slug_allow_meta( $valid_vars ) {
+	$valid_vars = array_merge( $valid_vars, array( 'meta_key', 'meta_value' ) );
+	return $valid_vars;
+}
+add_filter( 'json_query_vars', 'dw_slug_allow_meta' );
