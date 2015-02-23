@@ -46,7 +46,7 @@
   }
 
   .excerpt {
-    @extend %small-copy;
+    @extend %medium-copy;
     margin-top: 7px;
     margin-bottom: 0;
     color: $white;
@@ -55,6 +55,7 @@
   .need-to-know-list {
     margin-top: 0;
     margin-bottom: 0;
+    margin-left: 0;
 
     li {
       display: none;

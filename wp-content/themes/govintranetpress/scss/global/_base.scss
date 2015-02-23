@@ -13,6 +13,7 @@ h2 {
 
 h3 {
   @extend %large-heading;
+  margin: 24px 0;
 }
 
 h4 {
@@ -30,6 +31,7 @@ h6 {
 ul {
   padding-left: 0;
   margin-bottom: 0;
+  margin-left: 0;
 }
 
 li {

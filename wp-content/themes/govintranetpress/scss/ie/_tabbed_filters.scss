@@ -1,0 +1,14 @@
+.ie7 .tabbed-filters {
+  ul,
+  li,
+  .label {
+    display: inline;
+    zoom: 1;
+  }
+
+  .icon {
+    display: inline;
+    zoom: 1;
+    background-image: url("../images/filters.png");
+  }
+}
