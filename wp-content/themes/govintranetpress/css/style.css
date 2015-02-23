@@ -465,7 +465,7 @@ h1 {
 /* line 74, ../scss/global/_typography.scss */
 .main-content .content-info p, .main-content .editable table th,
 .main-content .editable table td, .breadcrumbs a,
-.breadcrumbs span, .message .content, #menu-utilities li a, .content-filters .description, .content-filters .label, #need-to-know .excerpt, .my-moj .quick-links-list a, .guidance-and-support .tree .all-categories, .guidance-and-support-content .right-hand-menu a, .guidance-and-support-content .table-of-contents li a, .page-search-results .search-item .excerpt {
+.breadcrumbs span, .footerwrapper .footer li, .message .content, #menu-utilities li a, .content-filters .description, .content-filters .label, #need-to-know .excerpt, .my-moj .quick-links-list a, .guidance-and-support .tree .all-categories, .guidance-and-support-content .right-hand-menu a, .guidance-and-support-content .table-of-contents li a, .page-search-results .search-item .excerpt {
   font-size: 16px;
   line-height: 20px; }
 
@@ -1089,7 +1089,7 @@ form .form-row {
     .footerwrapper .footer li {
       display: inline-block;
       margin-right: 15px; }
-      /* line 25, ../scss/modules/_footer.scss */
+      /* line 26, ../scss/modules/_footer.scss */
       .footerwrapper .footer li.built-by:before {
         content: "Built by ";
         display: inline; }
