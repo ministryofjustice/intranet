@@ -1089,7 +1089,9 @@ form .form-row {
   margin-bottom: 10px; }
   /* line 4, ../scss/modules/_imported_banner.scss */
   .imported-banner .message {
-    border: 5px solid #57da95; }
+    padding: 20px 10%;
+    border: 5px solid #57da95;
+    text-align: center; }
 
 /* Footer styles */
 /* line 3, ../scss/modules/_footer.scss */
