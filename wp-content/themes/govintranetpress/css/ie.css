@@ -105,7 +105,9 @@
   zoom: 1; }
 /* line 9, ../scss/ie/_tabbed_filters.scss */
 .ie7 .tabbed-filters .icon {
-  display: none; }
+  display: inline;
+  zoom: 1;
+  background-image: url("../images/filters.png"); }
 
 /* line 2, ../scss/ie/_content_filters.scss */
 .ie7 .content-filters input {
