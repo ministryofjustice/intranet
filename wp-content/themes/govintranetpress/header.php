@@ -147,12 +147,8 @@ header('X-Frame-Options: SAMEORIGIN');
 	}
 
   // Are we in MOJ Story?
-  $moj_story = get_posts(array(
-    'name'      => 'moj-story',
-    'post_type' => 'page'
-    ));
-  $moj_story_id = $moj_story[0]->ID;
-  $is_moj_story = get_the_id()==$moj_story_id;
+  $moj_slug = 'moj-story';
+  $is_moj_story = (has_ancestor($moj_slug) || $post->post_name==$moj_slug) && !((current_user_can('editor') || current_user_can('administrator')));
 ?>
 
 <body <?php body_class($parentpageclass); ?>>
