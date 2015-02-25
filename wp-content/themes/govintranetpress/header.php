@@ -18,6 +18,18 @@ class Page_header extends MVC_controller {
   }
 }
 
+// Are we in MOJ Story? Need to run early because of redirect
+$moj_slug = 'moj-story';
+if (is_user_logged_in()) {
+  $is_moj_story = false;
+} else {
+  if (has_ancestor($moj_slug) || $post->post_name==$moj_slug) {
+    $is_moj_story = true;
+  } else {
+    wp_redirect( get_permalink_by_slug($moj_slug ), 302 );
+  }
+}
+
 // prevent clickjacking, advised by Context security review
 header('X-Frame-Options: SAMEORIGIN');
 
@@ -146,9 +158,6 @@ header('X-Frame-Options: SAMEORIGIN');
 		$leftnavflag = TRUE;
 	}
 
-  // Are we in MOJ Story?
-  $moj_slug = 'moj-story';
-  $is_moj_story = (has_ancestor($moj_slug) || $post->post_name==$moj_slug) && !((current_user_can('editor') || current_user_can('administrator')));
 ?>
 
 <body <?php body_class($parentpageclass); ?>>
