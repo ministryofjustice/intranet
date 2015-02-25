@@ -1663,3 +1663,20 @@ function setup_js_wp_editor() {
 	}
 }
 add_action( 'init', 'setup_js_wp_editor',100);
+
+/* checks to see if the a post has an ancestor by slug name */
+function has_ancestor($s) {
+
+	global $post;
+
+	$a = get_post_ancestors( $post );
+
+	foreach (array_reverse($a) as $v) {
+		$p = get_post($v);
+		if ($p->post_name==$s) {
+			return true;
+		}
+	}
+	return false;
+
+}
