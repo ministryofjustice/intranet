@@ -26,7 +26,9 @@ if (is_user_logged_in() || MOJSTORYREDIRECT!=true) {
   if (has_ancestor($moj_slug) || $post->post_name==$moj_slug ) {
     $is_moj_story = true;
   } else {
-    wp_redirect( get_permalink_by_slug($moj_slug ), 302 );
+    // wp_redirect( get_permalink_by_slug($moj_slug ), 302 );
+    wp_redirect( site_url( '/about/moj-story' ), 302 ); // Hard coded as by function was too slow
+    die;
   }
 }
 

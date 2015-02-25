@@ -1681,7 +1681,7 @@ function has_ancestor($s) {
 
 }
 
-// Get permalink by slug
+// Get permalink by slug (warning - can be slow - should rewrite)
 function get_permalink_by_slug($page_slug, $output = OBJECT, $post_type = 'page' ) {
   global $wpdb;
    $page = $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE post_name = %s AND post_type= %s AND post_status = 'publish'", $page_slug, $post_type ) );
