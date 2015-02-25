@@ -1258,7 +1258,7 @@ form .form-row {
 #mainnav {
   margin-top: 40px; }
   /* line 4, ../scss/modules/_main_nav.scss */
-  #mainnav #mega-menu-wrap-primary-2 {
+  #mainnav .mega-menu-wrap {
     position: static; }
   /* line 8, ../scss/modules/_main_nav.scss */
   #mainnav #primarynav {
