@@ -79,9 +79,9 @@ class Page_guidance_and_support extends MVC_controller {
     $this->tab_count = get_post_meta($this->post_ID,'_'.$ns.'-tab-count',true);
 
     $tab_array = array();
-    $section_array = array();
     for($i=1;$i<=$this->tab_count;$i++) {
       $section_count = get_post_meta($this->post_ID,'_'.$ns.'-tab-' . $i . '-section-count',true);
+      $section_array = array();
       for($j=1;$j<=$section_count;$j++) {
         $section_title = get_post_meta($this->post_ID,'_' . $ns . '-tab-' . $i . '-section-' . $j . '-title',true);
         $section_content = get_post_meta($this->post_ID,'_' . $ns . '-tab-' . $i . '-section-' . $j . '-content-html',true);
