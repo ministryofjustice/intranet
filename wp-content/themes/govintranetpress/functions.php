@@ -105,6 +105,7 @@ function twentyten_setup() {
 	// This theme uses wp_nav_menu() in one location.
 	register_nav_menus( array(
 		'primary' => __( 'Primary Navigation', 'twentyten' ),
+		'moj_story' => __( 'MOJ Story Navigation', 'twentyten' ),
 	) );
 
 	// This theme allows users to set a custom background
@@ -1662,3 +1663,29 @@ function setup_js_wp_editor() {
 	}
 }
 add_action( 'init', 'setup_js_wp_editor',100);
+
+/* checks to see if the a post has an ancestor by slug name */
+function has_ancestor($s) {
+
+	global $post;
+
+	$a = get_post_ancestors( $post );
+
+	foreach (array_reverse($a) as $v) {
+		$p = get_post($v);
+		if ($p->post_name==$s) {
+			return true;
+		}
+	}
+	return false;
+
+}
+
+// Get permalink by slug (warning - can be slow - should rewrite)
+function get_permalink_by_slug($page_slug, $output = OBJECT, $post_type = 'page' ) {
+  global $wpdb;
+   $page = $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE post_name = %s AND post_type= %s AND post_status = 'publish'", $page_slug, $post_type ) );
+     if ( $page )
+        return get_post($page, $output)->post_name;
+    return null;
+  }

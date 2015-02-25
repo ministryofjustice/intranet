@@ -18,6 +18,20 @@ class Page_header extends MVC_controller {
   }
 }
 
+// Are we in MOJ Story? Need to run early because of redirect
+$moj_slug = 'moj-story';
+if (is_user_logged_in() || MOJSTORYREDIRECT!=true) {
+  $is_moj_story = false;
+} else {
+  if (has_ancestor($moj_slug) || $post->post_name==$moj_slug ) {
+    $is_moj_story = true;
+  } else {
+    // wp_redirect( get_permalink_by_slug($moj_slug ), 302 );
+    wp_redirect( site_url( '/about/moj-story' ), 302 ); // Hard coded as by function was too slow
+    die;
+  }
+}
+
 // prevent clickjacking, advised by Context security review
 header('X-Frame-Options: SAMEORIGIN');
 
@@ -173,16 +187,22 @@ header('X-Frame-Options: SAMEORIGIN');
 
       <!-- search box -->
       <div class="col-lg-4 col-md-4 col-sm-12 search-box">
+        <?php if(!$is_moj_story) { ?>
         <div id='searchformdiv' class=''>
           <?php get_search_form(true); ?>
         </div>
+        <?php } ?>
       </div>
     </div>
 
     <div class="grid" class="header-bottom">
       <div id="mainnav" class="col-lg-8 col-md-8 col-sm-12">
         <div id="primarynav" role="navigation">
-          <?php wp_nav_menu( array( 'container_class' => 'menu-header', 'theme_location' => 'primary' ) ); ?>
+          <?php if(!$is_moj_story) { ?>
+            <?php wp_nav_menu( array( 'container_class' => 'menu-header', 'theme_location' => 'primary' ) ); ?>
+          <?php } else { ?>
+            <?php wp_nav_menu( array( 'container_class' => 'menu-header', 'theme_location' => 'moj_story' ) ); ?>
+          <?php } ?>
         </div>
       </div>
 
