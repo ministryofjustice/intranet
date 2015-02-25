@@ -20,10 +20,10 @@ class Page_header extends MVC_controller {
 
 // Are we in MOJ Story? Need to run early because of redirect
 $moj_slug = 'moj-story';
-if (is_user_logged_in()) {
+if (is_user_logged_in() || MOJSTORYREDIRECT!=true) {
   $is_moj_story = false;
 } else {
-  if ((has_ancestor($moj_slug) || $post->post_name==$moj_slug) && NOSTORYREDIRECT ) {
+  if (has_ancestor($moj_slug) || $post->post_name==$moj_slug ) {
     $is_moj_story = true;
   } else {
     wp_redirect( get_permalink_by_slug($moj_slug ), 302 );
