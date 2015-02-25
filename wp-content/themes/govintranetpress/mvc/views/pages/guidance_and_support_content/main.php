@@ -21,29 +21,31 @@
     </div>
 
     <div class="col-lg-4">
-      <div class="right-hand-menu">
-        <h3>Quick links</h3>
-        <ul>
-          <?php foreach($link_array as $link_row): ?>
-          <li>
-            <a href="<?=$link_row['linkurl']?>"><?=$link_row['linktext']?></a>
-          </li>
-          <?php endforeach ?>
-        </ul>
-      </div>
+      <?php if($has_links): ?>
+        <div class="right-hand-menu">
+          <h3>Quick links</h3>
+          <ul>
+            <?php foreach($link_array as $link_row): ?>
+            <li>
+              <a href="<?=$link_row['linkurl']?>"><?=$link_row['linktext']?></a>
+            </li>
+            <?php endforeach ?>
+          </ul>
+        </div>
+      <?php endif ?>
     </div>
   </div>
 
-  <div class="grid">
+  <div class="grid <?=$tab_count <= 1 ? 'hidden' : ''?>">
     <div class="col-lg-3">
       &nbsp;
     </div>
     <div class="col-lg-9">
       <ul class="content-tabs">
         <?php foreach($tab_array as $tab_row): ?>
-        <li data-content="<?=$tab_row['name']?>">
-          <a href=""><?=$tab_row['title']?></a>
-        </li>
+          <li data-content="<?=$tab_row['name']?>">
+            <a href=""><?=$tab_row['title']?></a>
+          </li>
         <?php endforeach ?>
       </ul>
     </div>
@@ -72,7 +74,9 @@
   <?php foreach($tab_array as $tab_row): ?>
     <div class="template-partial" data-template-type="tab-content" data-content-name="<?=$tab_row['name']?>">
       <?php foreach($tab_row['sections'] as $section): ?>
-        <h2><?=$section['title']?></h2>
+        <?php if(strlen($section['title'])): ?>
+          <h2><?=$section['title']?></h2>
+        <?php endif ?>
         <?=wpautop($section['content'])?>
       <?php endforeach ?>
     </div>

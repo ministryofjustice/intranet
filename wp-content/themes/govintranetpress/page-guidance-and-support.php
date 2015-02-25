@@ -25,6 +25,7 @@ class Page_guidance_and_support extends MVC_controller {
 
   function get_data(){
     $this->max_links = 7;
+    $this->has_links = false;
     $article_date = get_the_modified_date();
     $post = get_post($this->post_ID);
 
@@ -48,7 +49,7 @@ class Page_guidance_and_support extends MVC_controller {
       'link_array' => $this->get_link_array(),
       'tab_array' => $this->get_tab_array(),
       'tab_count' => $this->tab_count,
-      'max_links' => $max_links
+      'has_links' => $this->has_links
     );
   }
 
@@ -65,6 +66,7 @@ class Page_guidance_and_support extends MVC_controller {
           'linktext' => esc_attr($link_text),
           'linkurl' => esc_attr($link_url)
         );
+        $this->has_links = true;
       }
     }
 

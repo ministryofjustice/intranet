@@ -2342,27 +2342,30 @@ form .form-row {
   .guidance-and-support-content .right-hand-menu a {
     text-decoration: underline; }
 /* line 30, ../scss/content/guidance_and_support_content/_main.scss */
+.guidance-and-support-content .hidden {
+  display: none; }
+/* line 34, ../scss/content/guidance_and_support_content/_main.scss */
 .guidance-and-support-content h4 {
   margin-top: 0;
   padding-top: 24px;
   margin-bottom: 0px;
   font-weight: normal; }
-/* line 37, ../scss/content/guidance_and_support_content/_main.scss */
+/* line 41, ../scss/content/guidance_and_support_content/_main.scss */
 .guidance-and-support-content .table-of-contents {
   margin-top: 5px; }
-  /* line 40, ../scss/content/guidance_and_support_content/_main.scss */
+  /* line 44, ../scss/content/guidance_and_support_content/_main.scss */
   .guidance-and-support-content .table-of-contents li {
     display: block;
     border-bottom: 1px solid #bfc1c3; }
-    /* line 44, ../scss/content/guidance_and_support_content/_main.scss */
+    /* line 48, ../scss/content/guidance_and_support_content/_main.scss */
     .guidance-and-support-content .table-of-contents li:first-of-type {
       border-top: 1px solid #bfc1c3; }
-    /* line 48, ../scss/content/guidance_and_support_content/_main.scss */
+    /* line 52, ../scss/content/guidance_and_support_content/_main.scss */
     .guidance-and-support-content .table-of-contents li a {
       display: block;
       padding-top: 5px;
       padding-bottom: 5px; }
-/* line 57, ../scss/content/guidance_and_support_content/_main.scss */
+/* line 61, ../scss/content/guidance_and_support_content/_main.scss */
 .guidance-and-support-content .excerpt {
   margin-top: 50px; }
 
