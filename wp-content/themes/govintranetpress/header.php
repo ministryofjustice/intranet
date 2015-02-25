@@ -23,7 +23,7 @@ $moj_slug = 'moj-story';
 if (is_user_logged_in()) {
   $is_moj_story = false;
 } else {
-  if (has_ancestor($moj_slug) || $post->post_name==$moj_slug) {
+  if (has_ancestor($moj_slug) || $post->post_name==$moj_slug || NOSTORYREDIRECT ) {
     $is_moj_story = true;
   } else {
     wp_redirect( get_permalink_by_slug($moj_slug ), 302 );
