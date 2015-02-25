@@ -24,11 +24,11 @@
       <div class="right-hand-menu">
         <h3>Quick links</h3>
         <ul>
-            <?php for($i=1;$i<=$max_links;$i++) { ?>
-            <li>
-                <a href="<?=esc_attr($link_array[$i]['linkurl'])?>"><?=esc_attr($link_array[$i]['linktext'])?></a>
-            </li>
-            <?php } ?>
+          <?php foreach($link_array as $link_row): ?>
+          <li>
+            <a href="<?=$link_row['linkurl']?>"><?=$link_row['linktext']?></a>
+          </li>
+          <?php endforeach ?>
         </ul>
       </div>
     </div>
@@ -40,11 +40,11 @@
     </div>
     <div class="col-lg-9">
       <ul class="content-tabs">
-        <?php for($i=1;$i<=$tab_count;$i++) { ?>
-        <li data-content="<?=str_replace(' ','_',preg_replace('/[^\da-z ]/i', '',strtolower(esc_attr($tab_array[$i]['title']))))?>">
-          <a href=""><?=esc_attr($tab_array[$i]['title'])?></a>
+        <?php foreach($tab_array as $tab_row): ?>
+        <li data-content="<?=$tab_row['name']?>">
+          <a href=""><?=$tab_row['title']?></a>
         </li>
-        <?php } ?>
+        <?php endforeach ?>
       </ul>
     </div>
   </div>
@@ -54,11 +54,11 @@
       <div class="js-floater context-menu" data-floater-limiter-selector=".content-container">
         <h4>Contents</h4>
         <ul class="table-of-contents" data-content-selector=".tab-content">
-        <?php for($i=1;$i<=$tab_count;$i++) { ?>
+        <?php foreach($tab_array as $tab_row): ?>
           <li>
-            <a href="#<?=str_replace(' ','_',preg_replace('/[^\da-z ]/i', '',strtolower(esc_attr($tab_array[$i]['title']))))?>"><?=esc_attr($tab_array[$i]['title'])?></a>
+            <a href="#<?=$tab_row['name']?>"><?=$tab_row['title']?></a>
           </li>
-        <?php } ?>
+        <?php endforeach ?>
         </ul>
       </div>
       &nbsp;
@@ -69,14 +69,12 @@
     </div>
   </div>
 
-  <?php for($i=1;$i<=$tab_count;$i++) { ?>
-  <div class="template-partial" data-template-type="tab-content" data-content-name="<?=str_replace(' ','_',preg_replace('/[^\da-z ]/i', '',strtolower(esc_attr($tab_array[$i]['title']))))?>">
-    <?php for($j=1;$j<=count($tab_array[$i]['sections']);$j++) { ?>
-    <h2><?=$tab_array[$i]['sections'][$j]['title']?></h2>
-    <?=wpautop($tab_array[$i]['sections'][$j]['content'] )?>
-    <?php } ?>
-  </div>
-<?php } ?>
+  <?php foreach($tab_array as $tab_row): ?>
+    <div class="template-partial" data-template-type="tab-content" data-content-name="<?=$tab_row['name']?>">
+      <?php foreach($tab_row['sections'] as $section): ?>
+        <h2><?=$section['title']?></h2>
+        <?=wpautop($section['content'])?>
+      <?php endforeach ?>
+    </div>
+  <?php endforeach ?>
 </div>
-
-
