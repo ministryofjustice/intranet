@@ -1514,7 +1514,6 @@
       this.cacheEls();
       this.bindEvents();
       this.cacheTemplates();
-
       this.$tabs.eq(0).click();
     },
 

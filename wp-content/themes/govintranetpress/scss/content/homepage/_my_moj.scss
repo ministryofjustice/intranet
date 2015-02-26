@@ -151,51 +151,60 @@
     }
 
     .app-icon {
+      display: inline-block;
       width: 74px;
       height: 74px;
       max-width: 74px;
       max-height: 74px;
-      display: inline-block;
       margin: 0 auto;
-      background-repeat: no-repeat;
-      background-image: url('../images/my_moj_icons.png');
+      background-color: $white;
       border: 1px solid $grey-2;
       border-radius: 5px;
+    }
+
+    .app-icon-inner {
+      display: inline-block;
+      width: 64px;
+      height: 64px;
+      margin: 4px;
+      background-repeat: no-repeat;
+      background-image: url('../images/app_icons_x2.png');
+      background-size: 640px 64px;
 
       &.people-finder-icon {
         background-position: 0 0;
       }
 
       &.courtfinder-icon {
-        background-position: -74px 0;
+        background-position: -64px 0;
       }
 
       &.jobs-icon {
-        background-position: -148px 0;
+        background-position: -128px 0;
       }
 
       &.iexpense-icon {
-        background-position: -222px 0;
+        background-position: -192px 0;
       }
 
       &.civil-service-learning-icon {
-        background-position: -296px 0;
+        background-position: -256px 0;
       }
 
       &.travel-booking-icon {
-        background-position: -370px 0;
+        background-position: -320px 0;
       }
 
       &.phoenix-icon {
-        background-position: -444px 0;
+        background-position: -384px 0;
       }
 
       &.online-toolkit-icon {
-        background-position: -518px 0;
+        background-position: -448px 0;
       }
 
       &.hmcts-intranet-icon {
-        background-position: -592px 0;
+        background-position: -512px 0;
       }
     }
   }

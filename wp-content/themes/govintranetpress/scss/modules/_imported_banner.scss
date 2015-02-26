@@ -1,0 +1,10 @@
+.imported-banner {
+  margin-bottom: 10px;
+
+  .message {
+    @extend %large-copy;
+    padding: 20px 10%;
+    border: 5px solid #57da95;
+    text-align: center;
+  }
+}
