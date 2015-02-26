@@ -9,7 +9,7 @@
   </div>
   <div class="my-moj-body">
     <div class="apps-container">
-      <h3 class="category-name">My MoJ</h3>
+      <h3 class="category-name">My MOJ</h3>
       <ul class="apps-list">
         <?php foreach($apps as $app): ?>
           <?php $this->view('pages/homepage/my_moj/app_item', $app) ?>
