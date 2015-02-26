@@ -2,11 +2,11 @@
 
 <div class="my-moj">
   <div class="my-moj-top">
-    <div class="department-dropdown-box">
+    <div data-department="select-department" class="department-dropdown-box">
       <select class="department">
-        <option class="select-department" value="">Choose your department</option>
+        <option data-department="select-department" value="">Choose your department</option>
         <?php foreach($departments as $department): ?>
-          <option class="<?=$department['name']?>"><?=$department['label']?></option>
+          <option data-department="<?=$department['name']?>"><?=$department['label']?></option>
         <?php endforeach ?>
       </select>
       <span class="help-icon"></span>
