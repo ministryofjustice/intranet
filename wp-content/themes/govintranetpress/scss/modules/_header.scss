@@ -11,23 +11,12 @@
     position: relative;
   }
 
-  .logo {
+  .site-logo {
     display: block;
-    border-left: 2px solid $white;
-    padding-left: 10px;
 
     img {
-      margin-right: 10px;
-      width: 40px;
-      vertical-align: middle;
-    }
-
-    a {
-      @extend %large-heading;
-      color: $white;
-      line-height: 40px;
-      text-decoration: none;
-      vertical-align: middle;
+      width: 254px;
+      height: 36px;
     }
   }
 
