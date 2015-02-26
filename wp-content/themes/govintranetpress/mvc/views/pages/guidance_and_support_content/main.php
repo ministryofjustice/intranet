@@ -41,7 +41,7 @@
       &nbsp;
     </div>
     <div class="col-lg-9">
-      <ul class="content-tabs">
+      <ul class="content-tabs <?=$tab_count >= 3 ? 'small-tabs' : ''?>">
         <?php foreach($tab_array as $tab_row): ?>
           <li data-content="<?=$tab_row['name']?>">
             <a href=""><?=$tab_row['title']?></a>
