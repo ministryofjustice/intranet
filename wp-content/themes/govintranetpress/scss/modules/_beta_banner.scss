@@ -9,7 +9,8 @@
 
   .beta-icon {
     display: inline-block;
-    background-color: $orange;
+    /*background-color: $orange; <-- beta */
+    background-color: $pink;
     font-weight: bold;
     text-transform: uppercase;
     color: $white;
