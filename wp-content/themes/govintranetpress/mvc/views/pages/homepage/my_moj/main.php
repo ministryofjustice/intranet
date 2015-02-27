@@ -24,11 +24,14 @@
 
     <div class="quick-links-container">
       <h3 class="category-name">Quick links</h3>
+      <?php dynamic_sidebar('my-moj-quick-links'); ?>
+      <!--
       <ul class="quick-links-list">
-        <?php foreach($quick_links as $quick_link): ?>
+        <?php /*foreach($quick_links as $quick_link): ?>
           <?php $this->view('pages/homepage/my_moj/quick_link_item', $quick_link) ?>
-        <?php endforeach ?>
+        <?php endforeach*/ ?>
       </ul>
+      -->
     </div>
   </div>
 </div>

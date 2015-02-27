@@ -209,13 +209,13 @@
     }
   }
 
-  .quick-links-list {
+  .menu-my-moj-quick-links-container ul {
     a {
       @extend %medium-copy;
       text-decoration: underline;
     }
 
-    .quick-link-item {
+    .menu-item {
       margin-top: 10px;
 
       &:first-of-type a {

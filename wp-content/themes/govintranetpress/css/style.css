@@ -466,7 +466,7 @@ h1 {
 .main-content .content-info p, .main-content .editable table th,
 .main-content .editable table td, .breadcrumbs a,
 .breadcrumbs span, .beta-banner .beta-icon,
-.beta-banner .message, .footerwrapper .footer li, .message .content, #menu-utilities li a, .content-filters .description, .content-filters .label, #need-to-know .excerpt, .my-moj .my-moj-top .department, .my-moj .quick-links-list a, .guidance-and-support .tree .all-categories, .guidance-and-support-content .right-hand-menu a, .guidance-and-support-content .table-of-contents li a, .page-search-results .search-item .excerpt {
+.beta-banner .message, .footerwrapper .footer li, .message .content, #menu-utilities li a, .content-filters .description, .content-filters .label, #need-to-know .excerpt, .my-moj .my-moj-top .department, .my-moj .menu-my-moj-quick-links-container ul a, .guidance-and-support .tree .all-categories, .guidance-and-support-content .right-hand-menu a, .guidance-and-support-content .table-of-contents li a, .page-search-results .search-item .excerpt {
   font-size: 16px;
   line-height: 20px; }
 
@@ -2110,13 +2110,13 @@ form .form-row {
       .my-moj .apps-list .app-icon-inner.hmcts-intranet-icon {
         background-position: -512px 0; }
   /* line 213, ../scss/content/homepage/_my_moj.scss */
-  .my-moj .quick-links-list a {
+  .my-moj .menu-my-moj-quick-links-container ul a {
     text-decoration: underline; }
   /* line 218, ../scss/content/homepage/_my_moj.scss */
-  .my-moj .quick-links-list .quick-link-item {
+  .my-moj .menu-my-moj-quick-links-container ul .menu-item {
     margin-top: 10px; }
     /* line 221, ../scss/content/homepage/_my_moj.scss */
-    .my-moj .quick-links-list .quick-link-item:first-of-type a {
+    .my-moj .menu-my-moj-quick-links-container ul .menu-item:first-of-type a {
       margin-top: 0; }
 
 /* line 2, ../scss/content/guidance_and_support/_main.scss */
