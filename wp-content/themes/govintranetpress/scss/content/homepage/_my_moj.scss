@@ -24,17 +24,93 @@
     }
   }
 
+  [data-department="select-department"]:before {
+    background-position: 100px 100px;
+  }
+
+  [data-department="legal-aid-agency"],
+  [data-department="hm-courts-and-tribunals-service"],
+  [data-department="judicial-office"],
+  [data-department="opg"],
+  [data-department="ospt"] {
+    &:before {
+      background-position: -12px -12px;
+    }
+  }
+
+  [data-department="judicial-appointments-commission"]:before {
+    background-position: -62px -12px;
+  }
+
+  [data-department="law-commission"]:before {
+    background-position: -112px -12px;
+  }
+
+  [data-department="probation"]:before {
+    background-position: -162px -12px;
+  }
+
   .my-moj-top {
     padding: 10px 30px;
     background-color: $turquoise;
 
+    .department-dropdown-box {
+      display: inline-block;
+      width: 100%;
+
+      &:before {
+        display: inline-block;
+        width: 26px;
+        height: 25px;
+        margin-right: 0px;
+        background-repeat: no-repeat;
+        text-align: center;
+        vertical-align: text-bottom;
+        color: $white;
+      }
+
+      &[data-department]:before {
+        background-image: url('../images/department_crest_white_x2.png');
+        background-size: 200px 50px;
+        content: "";
+      }
+
+      &[data-department="select-department"]:before {
+        background-image: none;
+        content: "\25be";
+      }
+    }
+
     .department {
-      max-width: 220px;
-      background: $white;
+      @extend %medium-copy;
+      max-width: 255px;
+      height: 33px;
+      padding-left: 0;
+      padding-right: 0;
+      background: transparent;
+      color: $white;
       border-radius: 0;
       border: none;
       box-shadow: none;
-      font-weight: bold;
+      font-family: Helvetica;
+
+      option {
+        padding: 10px 40px;
+        background-color: $white;
+        color: $black;
+
+        &:before {
+          display: inline-block;
+          width: 26px;
+          height: 25px;
+          margin-right: 10px;
+          background-repeat: no-repeat;
+          background-image: url('../images/department_crest_x2.png');
+          background-size: 200px 50px;
+          vertical-align: text-bottom;
+          content: "";
+        }
+      }
     }
   }
 

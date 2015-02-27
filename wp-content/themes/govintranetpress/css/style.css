@@ -466,7 +466,7 @@ h1 {
 .main-content .content-info p, .main-content .editable table th,
 .main-content .editable table td, .breadcrumbs a,
 .breadcrumbs span, .beta-banner .beta-icon,
-.beta-banner .message, .footerwrapper .footer li, .message .content, #menu-utilities li a, .content-filters .description, .content-filters .label, #need-to-know .excerpt, .my-moj .quick-links-list a, .guidance-and-support .tree .all-categories, .guidance-and-support-content .right-hand-menu a, .guidance-and-support-content .table-of-contents li a, .page-search-results .search-item .excerpt {
+.beta-banner .message, .footerwrapper .footer li, .message .content, #menu-utilities li a, .content-filters .description, .content-filters .label, #need-to-know .excerpt, .my-moj .my-moj-top .department, .my-moj .quick-links-list a, .guidance-and-support .tree .all-categories, .guidance-and-support-content .right-hand-menu a, .guidance-and-support-content .table-of-contents li a, .page-search-results .search-item .excerpt {
   font-size: 16px;
   line-height: 20px; }
 
@@ -1958,21 +1958,83 @@ form .form-row {
   .my-moj .apps-container .category-name {
     margin-top: 0; }
   /* line 27, ../scss/content/homepage/_my_moj.scss */
+  .my-moj [data-department="select-department"]:before {
+    background-position: 100px 100px; }
+  /* line 36, ../scss/content/homepage/_my_moj.scss */
+  .my-moj [data-department="legal-aid-agency"]:before,
+  .my-moj [data-department="hm-courts-and-tribunals-service"]:before,
+  .my-moj [data-department="judicial-office"]:before,
+  .my-moj [data-department="opg"]:before,
+  .my-moj [data-department="ospt"]:before {
+    background-position: -12px -12px; }
+  /* line 41, ../scss/content/homepage/_my_moj.scss */
+  .my-moj [data-department="judicial-appointments-commission"]:before {
+    background-position: -62px -12px; }
+  /* line 45, ../scss/content/homepage/_my_moj.scss */
+  .my-moj [data-department="law-commission"]:before {
+    background-position: -112px -12px; }
+  /* line 49, ../scss/content/homepage/_my_moj.scss */
+  .my-moj [data-department="probation"]:before {
+    background-position: -162px -12px; }
+  /* line 53, ../scss/content/homepage/_my_moj.scss */
   .my-moj .my-moj-top {
     padding: 10px 30px;
     background-color: #28a197; }
-    /* line 31, ../scss/content/homepage/_my_moj.scss */
+    /* line 57, ../scss/content/homepage/_my_moj.scss */
+    .my-moj .my-moj-top .department-dropdown-box {
+      display: inline-block;
+      width: 100%; }
+      /* line 61, ../scss/content/homepage/_my_moj.scss */
+      .my-moj .my-moj-top .department-dropdown-box:before {
+        display: inline-block;
+        width: 26px;
+        height: 25px;
+        margin-right: 0px;
+        background-repeat: no-repeat;
+        text-align: center;
+        vertical-align: text-bottom;
+        color: #fff; }
+      /* line 72, ../scss/content/homepage/_my_moj.scss */
+      .my-moj .my-moj-top .department-dropdown-box[data-department]:before {
+        background-image: url("../images/department_crest_white_x2.png");
+        background-size: 200px 50px;
+        content: ""; }
+      /* line 78, ../scss/content/homepage/_my_moj.scss */
+      .my-moj .my-moj-top .department-dropdown-box[data-department="select-department"]:before {
+        background-image: none;
+        content: "\25be"; }
+    /* line 84, ../scss/content/homepage/_my_moj.scss */
     .my-moj .my-moj-top .department {
-      max-width: 220px;
-      background: #fff;
+      max-width: 255px;
+      height: 33px;
+      padding-left: 0;
+      padding-right: 0;
+      background: transparent;
+      color: #fff;
       border-radius: 0;
       border: none;
       box-shadow: none;
-      font-weight: bold; }
-  /* line 41, ../scss/content/homepage/_my_moj.scss */
+      font-family: Helvetica; }
+      /* line 97, ../scss/content/homepage/_my_moj.scss */
+      .my-moj .my-moj-top .department option {
+        padding: 10px 40px;
+        background-color: #fff;
+        color: #0b0c0c; }
+        /* line 102, ../scss/content/homepage/_my_moj.scss */
+        .my-moj .my-moj-top .department option:before {
+          display: inline-block;
+          width: 26px;
+          height: 25px;
+          margin-right: 10px;
+          background-repeat: no-repeat;
+          background-image: url("../images/department_crest_x2.png");
+          background-size: 200px 50px;
+          vertical-align: text-bottom;
+          content: ""; }
+  /* line 117, ../scss/content/homepage/_my_moj.scss */
   .my-moj .my-moj-body {
     padding: 30px; }
-  /* line 45, ../scss/content/homepage/_my_moj.scss */
+  /* line 121, ../scss/content/homepage/_my_moj.scss */
   .my-moj .apps-list {
     margin-right: -10px; }
     /* line 2, ../scss/global/_mixins.scss */
@@ -1980,27 +2042,27 @@ form .form-row {
       content: "";
       display: table;
       clear: both; }
-    /* line 49, ../scss/content/homepage/_my_moj.scss */
+    /* line 125, ../scss/content/homepage/_my_moj.scss */
     .my-moj .apps-list .app-item {
       float: left;
       width: 74px;
       height: 135px;
       margin-right: 12px;
       text-align: center; }
-      /* line 57, ../scss/content/homepage/_my_moj.scss */
+      /* line 133, ../scss/content/homepage/_my_moj.scss */
       .my-moj .apps-list .app-item:hover .app-icon {
         border: 1px solid #ffc10e; }
-    /* line 63, ../scss/content/homepage/_my_moj.scss */
+    /* line 139, ../scss/content/homepage/_my_moj.scss */
     .my-moj .apps-list .app-link {
       display: block; }
-      /* line 67, ../scss/content/homepage/_my_moj.scss */
+      /* line 143, ../scss/content/homepage/_my_moj.scss */
       .my-moj .apps-list .app-link:after {
         background-image: none; }
-    /* line 72, ../scss/content/homepage/_my_moj.scss */
+    /* line 148, ../scss/content/homepage/_my_moj.scss */
     .my-moj .apps-list .app-name {
       display: block;
       text-align: center; }
-    /* line 77, ../scss/content/homepage/_my_moj.scss */
+    /* line 153, ../scss/content/homepage/_my_moj.scss */
     .my-moj .apps-list .app-icon {
       display: inline-block;
       width: 74px;
@@ -2011,7 +2073,7 @@ form .form-row {
       background-color: #fff;
       border: 1px solid #bfc1c3;
       border-radius: 5px; }
-    /* line 89, ../scss/content/homepage/_my_moj.scss */
+    /* line 165, ../scss/content/homepage/_my_moj.scss */
     .my-moj .apps-list .app-icon-inner {
       display: inline-block;
       width: 64px;
@@ -2020,40 +2082,40 @@ form .form-row {
       background-repeat: no-repeat;
       background-image: url("../images/app_icons_x2.png");
       background-size: 640px 64px; }
-      /* line 98, ../scss/content/homepage/_my_moj.scss */
+      /* line 174, ../scss/content/homepage/_my_moj.scss */
       .my-moj .apps-list .app-icon-inner.people-finder-icon {
         background-position: 0 0; }
-      /* line 102, ../scss/content/homepage/_my_moj.scss */
+      /* line 178, ../scss/content/homepage/_my_moj.scss */
       .my-moj .apps-list .app-icon-inner.courtfinder-icon {
         background-position: -64px 0; }
-      /* line 106, ../scss/content/homepage/_my_moj.scss */
+      /* line 182, ../scss/content/homepage/_my_moj.scss */
       .my-moj .apps-list .app-icon-inner.jobs-icon {
         background-position: -128px 0; }
-      /* line 110, ../scss/content/homepage/_my_moj.scss */
+      /* line 186, ../scss/content/homepage/_my_moj.scss */
       .my-moj .apps-list .app-icon-inner.iexpense-icon {
         background-position: -192px 0; }
-      /* line 114, ../scss/content/homepage/_my_moj.scss */
+      /* line 190, ../scss/content/homepage/_my_moj.scss */
       .my-moj .apps-list .app-icon-inner.civil-service-learning-icon {
         background-position: -256px 0; }
-      /* line 118, ../scss/content/homepage/_my_moj.scss */
+      /* line 194, ../scss/content/homepage/_my_moj.scss */
       .my-moj .apps-list .app-icon-inner.travel-booking-icon {
         background-position: -320px 0; }
-      /* line 122, ../scss/content/homepage/_my_moj.scss */
+      /* line 198, ../scss/content/homepage/_my_moj.scss */
       .my-moj .apps-list .app-icon-inner.phoenix-icon {
         background-position: -384px 0; }
-      /* line 126, ../scss/content/homepage/_my_moj.scss */
+      /* line 202, ../scss/content/homepage/_my_moj.scss */
       .my-moj .apps-list .app-icon-inner.online-toolkit-icon {
         background-position: -448px 0; }
-      /* line 130, ../scss/content/homepage/_my_moj.scss */
+      /* line 206, ../scss/content/homepage/_my_moj.scss */
       .my-moj .apps-list .app-icon-inner.hmcts-intranet-icon {
         background-position: -512px 0; }
-  /* line 137, ../scss/content/homepage/_my_moj.scss */
+  /* line 213, ../scss/content/homepage/_my_moj.scss */
   .my-moj .quick-links-list a {
     text-decoration: underline; }
-  /* line 142, ../scss/content/homepage/_my_moj.scss */
+  /* line 218, ../scss/content/homepage/_my_moj.scss */
   .my-moj .quick-links-list .quick-link-item {
     margin-top: 10px; }
-    /* line 145, ../scss/content/homepage/_my_moj.scss */
+    /* line 221, ../scss/content/homepage/_my_moj.scss */
     .my-moj .quick-links-list .quick-link-item:first-of-type a {
       margin-top: 0; }
 
