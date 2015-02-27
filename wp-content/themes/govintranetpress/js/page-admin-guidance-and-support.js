@@ -76,7 +76,7 @@ jQuery(function($) {
   $('#content_tabs').on('click','.add-tab',function(e){
     tabCount = gsTabs.find(".ui-tabs-nav li").size();
     tabCount++;
-    gsTabs.find(".ui-tabs-nav").append("<li><a href='#tabs-" + tabCount + "'>Tab " + tabCount + "</a><span class='ui-icon ui-icon-close' role='presentation'>Remove Tab</span></li>");
+    gsTabs.find(".ui-tabs-nav").append("<li><a href='#tabs-" + tabCount + "'>Tab " + tabCount + "</a><a href='#' class='delete-tab'><span class='ui-icon ui-icon-close' role='presentation'>Remove Tab</span></a></li>");
     gsTabs.append("\
       <div id='tabs-" + tabCount + "'>\
         <table class='form-table'>\
@@ -135,6 +135,52 @@ jQuery(function($) {
     });
     e.preventDefault();
   });
+  // Delete tabs
+  $('#content_tabs').on('click','.delete-tab',function(e){
+    var clickedLink = this;
+    // parent = $(this).parent();
+    // currentTab = $(parent).attr('aria-controls').match(/^tabs-(.+)/)[1];
+    $("body").append("<div id='dialog-confirm-delete-tab' class='hidden' title='Confirm'><p>Are you sure you want to delete this tab?</p></div>");
+    $("#dialog-confirm-delete-tab").dialog({
+      autoOpen: true,
+      draggable: false,
+      height: 'auto',
+      width: 'auto',
+      modal: true,
+      resizable: false,
+      open: function(){
+        jQuery('.ui-widget-overlay').bind('click',function(){
+          jQuery('#ourID').dialog('close');
+        })
+      },
+      buttons: {
+        Cancel: function() {
+          $(this).dialog("close");
+        },
+        "Delete": function() {
+          var panelId = deletedTab = $( clickedLink ).closest( "li" ).fadeOut('slow',function(){$(this).remove();}).attr( "aria-controls" );
+          var tabCount = Number($('#tab-count').attr('value'));
+          var deletedTab = Number(panelId.match(/tabs-(\d+)/)[1]);
+          $( "#" + panelId ).fadeOut('slow',function(){$(this).remove();});
+          gsTabs.tabs( "refresh" );
+          // Loop through remaining tabs and associated sections so tab n+1 becomes tab n
+          for (i=deletedTab+1;i<=tabCount;i++) {
+            var elements = ['id','name','class'];
+            for (var j=0; j<=elements.length; j++) {
+              el = elements[j];
+              $("[" + el + "*=tab-"+i+"]").prop(el, function(index,id) {
+                return id.replace(/(.*)tab-(\d+)(.*)/g,"$1tab-"+(i-1)+"$3");
+              });
+            }
+          }
+          $('#tab-count').attr('value',tabCount-1);
+          $(this).dialog("close");
+        }
+      }
+    });
+    e.preventDefault();
+  });
+
   // Change tab title on field edit
 
 
@@ -167,16 +213,83 @@ jQuery(function($) {
                 <textarea id='tab-" + currentTab + "-section-" + sectionCount + "-content' name='tab-" + currentTab + "-section-" + sectionCount + "-content'></textarea>\
               </td>\
             </tr>\
+            <tr>\
+              <td colspan='2'>\
+                <a href='#' class='delete-section'>Delete this section<span class='ui-icon ui-icon-close' role='presentation'></span></a>\
+              </td>\
+            </tr>\
           </tbody>\
         </table>\
       </div>\
     ");
     $('#tab-' + currentTab + '-section-count').val(sectionCount);
     $("#tab-" + currentTab + "-section-" + sectionCount + "-content").wp_editor();
-    sectionContainer.accordion("refresh")
+    sectionContainer.accordion("refresh");
     sectionContainer.accordion({
       active: -1
     });
     e.preventDefault();
   });
+  // Delete Section
+  $('#content_tabs').on('click','.delete-section',function(e){
+    var parent = $(this).closest('div');
+    var head = parent.prev('h3');
+    var sectionContainer = $(parent).parent();
+    var sectionCount = sectionContainer.find(".ui-accordion-header").size();
+    var inputName = $(parent).find('input').attr('name');
+    var sectionDetails = inputName.match(/tab-(\d+)-section-(\d+)-title/);
+    var currentTab = Number(sectionDetails[1]);
+    var deletedSection = Number(sectionDetails[2]);
+    // Set up confirmation dialog
+    $("body").append("<div id='dialog-confirm-delete-section' class='hidden' title='Confirm'><p>Are you sure you want to delete this section?</p></div>");
+    $("#dialog-confirm-delete-section").dialog({
+      autoOpen: true,
+      draggable: false,
+      height: 'auto',
+      width: 'auto',
+      modal: true,
+      resizable: false,
+      open: function(){
+        jQuery('.ui-widget-overlay').bind('click',function(){
+          jQuery('#ourID').dialog('close');
+        })
+      },
+      buttons: {
+        Cancel: function() {
+          $(this).dialog("close");
+        },
+        "Delete": function() {
+          parent.add(head).fadeOut('slow',function(){$(this).remove();});
+          // Loop through remaining sections so section n+1 becomes section n
+          for (i=deletedSection+1;i<=sectionCount;i++) {
+            var elements = ['id','name','class'];
+            for (var j=0; j<=elements.length; j++) {
+              el = elements[j];
+              $("[" + el + "*=tab-"+currentTab+"-section-"+i+"]").prop(el, function(index,id) {
+                return id.replace(/(.*)tab-(\d+)-section-\d+(.*)/g,"$1tab-$2-section-"+(i-1)+"$3");
+              });
+            }
+          }
+          $('#tab-'+currentTab+'-section-count').attr('value',sectionCount-1);
+          $(this).dialog("close");
+        }
+      }
+    });
+    e.preventDefault();
+  });
 });
+
+function debugTabs() {
+  jQuery(function($) {
+    var gsTabs = $('#content_tabs .tabs .ui-tabs-panel');
+    var tabCount = gsTabs.size();
+    var logMessage = "TOTAL TABS = "+tabCount+"\n";
+    for(var i=0; i<tabCount; i++) {
+      var sectionCount = $("#content_tabs .tabs .ui-tabs-panel:eq(" + i + ") .ui-accordion-header").size();
+      logMessage += "Tab " + i + " - " + sectionCount + " section(s)\n";
+    }
+    console.log(logMessage);
+  });
+
+  // return true;
+}
