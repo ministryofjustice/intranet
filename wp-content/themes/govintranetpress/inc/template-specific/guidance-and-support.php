@@ -164,6 +164,11 @@ function content_tabs_callback($post) {
                                                         <?php wp_editor($section_content,'tab-' . $tab . '-section-' . $section . '-content'); ?>
                                                     </td>
                                                 </tr>
+                                                <tr>
+                                                    <td colspan="2">
+                                                        <a href="#" class="delete-section">Delete this section<span class="ui-icon ui-icon-close" role="presentation"></span></a>
+                                                    </td>
+                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>
