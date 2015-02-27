@@ -217,6 +217,4 @@
 
   }
 
-if ( isset( $_REQUEST['wp_customize'] ) ) {
   $news_customiser = new NewsCustomiser;
-}
