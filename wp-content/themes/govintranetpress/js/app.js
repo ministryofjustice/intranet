@@ -278,12 +278,15 @@
 
     bindEvents: function() {
       this.$departmentDropdown.on('change keyup', $.proxy(this.changeDepartmentHandle, this));
-      $(window).on('DOMContentLoaded load', $.proxy(this.changeDepartmentHandle, this));
+      //$(window).on('DOMContentLoaded load', $.proxy(this.changeDepartmentHandle, this));
     },
 
     changeDepartmentHandle: function() {
-      var deptName = this.$departmentDropdown.find('option:selected').attr('data-department');
-      this.$departmentDropdownBox.attr('data-department', deptName);
+      var url = this.$departmentDropdown.find('option:selected').attr('data-url');
+      window.location.href = url;
+
+      //var deptName = this.$departmentDropdown.find('option:selected').attr('data-department');
+      //this.$departmentDropdownBox.attr('data-department', deptName);
     }
   };
 }(window.jQuery));

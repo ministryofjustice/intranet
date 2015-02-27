@@ -6,7 +6,7 @@
       <select class="department">
         <option data-department="select-department" value="">Choose your department</option>
         <?php foreach($departments as $department): ?>
-          <option data-department="<?=$department['name']?>"><?=$department['label']?></option>
+          <option data-url="<?=$department['url']?>" data-department="<?=$department['name']?>"><?=$department['label']?></option>
         <?php endforeach ?>
       </select>
       <span class="help-icon"></span>
