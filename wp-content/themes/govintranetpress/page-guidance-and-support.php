@@ -58,7 +58,7 @@ class Page_guidance_and_support extends MVC_controller {
     $ns = 'quick_links'; // Quick namespace variable
     $link_array = array();
 
-    for($i=1;$i<=$max_links;$i++) {
+    for($i=1;$i<=$this->max_links;$i++) {
       $link_text = get_post_meta($this->post_ID, "_" . $ns . "-link-text" . $i,true);
       $link_url = get_post_meta($this->post_ID, "_" . $ns . "-url" . $i,true);
       if ($link_text!=null || $link_url!=null) {
@@ -68,6 +68,7 @@ class Page_guidance_and_support extends MVC_controller {
         );
         $this->has_links = true;
       }
+
     }
 
     return $link_array;

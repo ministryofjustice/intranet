@@ -21,7 +21,7 @@
     </div>
 
     <div class="col-lg-4">
-      <?php if($has_links): ?>
+      <?php if($has_links==true): ?>
         <div class="right-hand-menu">
           <h3>Quick links</h3>
           <ul>
