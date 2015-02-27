@@ -642,6 +642,15 @@ function twentyten_widgets_init() {
 		'before_title' => '',
 		'after_title' => '',
 	) );
+	register_sidebar( array(
+		'name' => __( 'My MOJ - Quick Links', 'twentyten' ),
+		'id' => 'my-moj-quick-links',
+		'description' => __( 'My MOJ - Quick Links', 'twentyten' ),
+		'before_widget' => '',
+		'after_widget' => '',
+		'before_title' => '',
+		'after_title' => '',
+	) );
 
 }
 
