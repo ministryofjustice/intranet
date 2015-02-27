@@ -111,7 +111,7 @@ function content_tabs_callback($post) {
                 for($tab=1;$tab<=$tab_count;$tab++) {
                     $tab_title = get_post_meta( $post->ID, '_'.$ns.'-tab-' . $tab . '-title', true )?:"Tab 1";
                     ?>
-                <li><a href="#tabs-<?=$tab?>"><?=$tab_title?></a><span class="ui-icon ui-icon-close" role="presentation">Remove Tab</span></li>
+                <li><a href="#tabs-<?=$tab?>"><?=$tab_title?></a><a href='#' class='delete-tab'><span class="ui-icon ui-icon-close" role="presentation">Remove Tab</span></a></li>
             <?php } ?>
         </ul>
         <?php
