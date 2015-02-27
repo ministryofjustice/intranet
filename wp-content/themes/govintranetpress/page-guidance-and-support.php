@@ -28,6 +28,11 @@ class Page_guidance_and_support extends MVC_controller {
     $this->has_links = false;
     $article_date = get_the_modified_date();
     $post = get_post($this->post_ID);
+    if (has_ancestor('about') || $post->post_name=='about' ) {
+      $this->page_category = 'About us';
+    } else {
+      $this->page_category = 'Guidance';
+    }
 
     ob_start();
     the_content();
@@ -49,7 +54,8 @@ class Page_guidance_and_support extends MVC_controller {
       'link_array' => $this->get_link_array(),
       'tab_array' => $this->get_tab_array(),
       'tab_count' => $this->tab_count,
-      'has_links' => $this->has_links
+      'has_links' => $this->has_links,
+      'page_category' => $this->page_category
     );
   }
 
