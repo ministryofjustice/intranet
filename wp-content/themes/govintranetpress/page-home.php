@@ -37,6 +37,48 @@ class Page_home extends MVC_controller {
 
   private function get_my_moj() {
     return array(
+      'departments' => array(
+        array(
+          'name' => 'legal-aid-agency',
+          'label' => 'Legal Aid Agency',
+          'url' => ''
+        ),
+        array(
+          'name' => 'hm-courts-and-tribunals-service',
+          'label' => 'HM Courts &amp; Tribunals Service',
+          'url' => 'http://libra.lcd.gsi.gov.uk/hmcts/index.htm'
+        ),
+        array(
+          'name' => 'judicial-appointments-commission',
+          'label' => 'Judicial Appointments Commission',
+          'url' => 'http://intranet.justice.gsi.gov.uk/jac/index.htm'
+        ),
+        array(
+          'name' => 'judicial-office',
+          'label' => 'Judicial Office',
+          'url' => 'http://intranet.justice.gsi.gov.uk/joew/index.htm'
+        ),
+        array(
+          'name' => 'law-commission',
+          'label' => 'Law Commission',
+          'url' => 'http://intranet.justice.gsi.gov.uk/lawcommission/index.htm'
+        ),
+        array(
+          'name' => 'opg',
+          'label' => 'OPG',
+          'url' => 'http://intranet.justice.gsi.gov.uk/opg/index.htm'
+        ),
+        array(
+          'name' => 'ospt',
+          'label' => 'OSPT',
+          'url' => 'http://intranet.justice.gsi.gov.uk/ospt/index.htm'
+        ),
+        array(
+          'name' => 'probation',
+          'label' => 'Probation',
+          'url' => 'http://npsintranet.probation.gsi.gov.uk/index.htm'
+        )
+      ),
       'apps' => array(
         array(
           'title' => 'People finder',
