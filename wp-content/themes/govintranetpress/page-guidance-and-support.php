@@ -28,6 +28,11 @@ class Page_guidance_and_support extends MVC_controller {
     $this->has_links = false;
     $article_date = get_the_modified_date();
     $post = get_post($this->post_ID);
+    if (has_ancestor('about') || $post->post_name=='about' ) {
+      $this->page_category = 'About us';
+    } else {
+      $this->page_category = 'Guidance';
+    }
 
     ob_start();
     the_content();
@@ -49,7 +54,8 @@ class Page_guidance_and_support extends MVC_controller {
       'link_array' => $this->get_link_array(),
       'tab_array' => $this->get_tab_array(),
       'tab_count' => $this->tab_count,
-      'has_links' => $this->has_links
+      'has_links' => $this->has_links,
+      'page_category' => $this->page_category
     );
   }
 
@@ -58,7 +64,7 @@ class Page_guidance_and_support extends MVC_controller {
     $ns = 'quick_links'; // Quick namespace variable
     $link_array = array();
 
-    for($i=1;$i<=$max_links;$i++) {
+    for($i=1;$i<=$this->max_links;$i++) {
       $link_text = get_post_meta($this->post_ID, "_" . $ns . "-link-text" . $i,true);
       $link_url = get_post_meta($this->post_ID, "_" . $ns . "-url" . $i,true);
       if ($link_text!=null || $link_url!=null) {
@@ -68,6 +74,7 @@ class Page_guidance_and_support extends MVC_controller {
         );
         $this->has_links = true;
       }
+
     }
 
     return $link_array;

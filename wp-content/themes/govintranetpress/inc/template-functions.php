@@ -20,8 +20,8 @@ $template_options = array(
                 'priority' => 'core'
             )
         ),
-        'js' => array('jquery','jquery-ui-draggable','jquery-ui-tabs','jquery-ui-accordion'),
-        'css' => array('jquery-admin-ui-css')
+        'js' => array('jquery','jquery-ui-draggable','jquery-ui-tabs','jquery-ui-accordion','jquery-ui-dialog'),
+        'css' => array('wp-jquery-ui-dialog','jquery-admin-ui-css')
     )
 );
 

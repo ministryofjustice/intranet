@@ -168,13 +168,10 @@ header('X-Frame-Options: SAMEORIGIN');
 	<div class="header">
     <div class="grid header-top">
       <div class="col-lg-8 col-md-8 col-sm-10">
-        <div class="logo">
+        <div class="site-logo">
           <a href="http://intranet.justice.gsi.gov.uk/" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>">
-            <!--<a href="<?php echo home_url( '/' ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>"  rel="home">-->
-            <? if($gislogo): ?>
-              <img src="<?=$gislogo?>" />
-            <? endif ?>
-            <?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>
+          <!--<a href="<?php echo home_url( '/' ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>"  rel="home">-->
+            <img src="<?=get_stylesheet_directory_uri()?>/images/moj_logo.png" />
           </a>
         </div>
       </div>

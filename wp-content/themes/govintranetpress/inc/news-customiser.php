@@ -217,4 +217,7 @@
 
   }
 
+global $wp_customize;
+if ( isset( $wp_customize ) ) {
   $news_customiser = new NewsCustomiser;
+}

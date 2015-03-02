@@ -2,7 +2,7 @@
 <div class="guidance-and-support-content" data-redirect-url="<?=$redirect_url?>" data-redirect-enabled="<?=$redirect_enabled?>">
   <div class="grid">
     <div class="col-lg-8">
-      <h2 class="page-category">Guidance</h2>
+      <h2 class="page-category"><?=$page_category ?></h2>
       <h1 class="page-title"><?=$title?></h1>
 
       <ul class="info-list">
@@ -21,7 +21,7 @@
     </div>
 
     <div class="col-lg-4">
-      <?php if($has_links): ?>
+      <?php if($has_links==true): ?>
         <div class="right-hand-menu">
           <h3>Quick links</h3>
           <ul>
