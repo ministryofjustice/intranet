@@ -38,6 +38,14 @@
     font-weight: normal;
   }
 
+  .table-of-contents-box {
+    display: none;
+    
+    &.visible {
+      display: block;
+    }
+  }
+
   .table-of-contents {
     margin-top: 5px;
 
