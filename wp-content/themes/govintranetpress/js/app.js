@@ -1576,6 +1576,7 @@
     },
 
     cacheEls: function() {
+      this.$tableOfContentsBox = $('.table-of-contents-box');
       this.$contentContainer = $(this.$tableOfContents.attr('data-content-selector'));
     },
 
@@ -1606,6 +1607,12 @@
           .attr('href', '#'+$el.attr('id'));
         $item.appendTo(_this.$tableOfContents);
       });
+
+      this.updateBoxVisibility();
+    },
+
+    updateBoxVisibility: function() {
+      this.$tableOfContentsBox.toggleClass('visible', this.$tableOfContents.find('> li').length > 0);
     }
   };
 }(jQuery));
