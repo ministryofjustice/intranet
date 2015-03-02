@@ -2090,19 +2090,19 @@ form .form-row {
       .my-moj .apps-list .app-icon-inner.courtfinder-icon {
         background-position: -64px 0; }
       /* line 182, ../scss/content/homepage/_my_moj.scss */
-      .my-moj .apps-list .app-icon-inner.jobs-icon {
+      .my-moj .apps-list .app-icon-inner.travel-booking-icon {
         background-position: -128px 0; }
       /* line 186, ../scss/content/homepage/_my_moj.scss */
-      .my-moj .apps-list .app-icon-inner.iexpense-icon {
+      .my-moj .apps-list .app-icon-inner.phoenix-icon {
         background-position: -192px 0; }
       /* line 190, ../scss/content/homepage/_my_moj.scss */
-      .my-moj .apps-list .app-icon-inner.civil-service-learning-icon {
+      .my-moj .apps-list .app-icon-inner.it-portal-icon {
         background-position: -256px 0; }
       /* line 194, ../scss/content/homepage/_my_moj.scss */
-      .my-moj .apps-list .app-icon-inner.travel-booking-icon {
+      .my-moj .apps-list .app-icon-inner.civil-service-learning-icon {
         background-position: -320px 0; }
       /* line 198, ../scss/content/homepage/_my_moj.scss */
-      .my-moj .apps-list .app-icon-inner.phoenix-icon {
+      .my-moj .apps-list .app-icon-inner.jobs-icon {
         background-position: -384px 0; }
       /* line 202, ../scss/content/homepage/_my_moj.scss */
       .my-moj .apps-list .app-icon-inner.online-toolkit-icon {
@@ -2110,13 +2110,16 @@ form .form-row {
       /* line 206, ../scss/content/homepage/_my_moj.scss */
       .my-moj .apps-list .app-icon-inner.hmcts-intranet-icon {
         background-position: -512px 0; }
-  /* line 213, ../scss/content/homepage/_my_moj.scss */
+      /* line 210, ../scss/content/homepage/_my_moj.scss */
+      .my-moj .apps-list .app-icon-inner.pension-icon {
+        background-position: -576px 0; }
+  /* line 217, ../scss/content/homepage/_my_moj.scss */
   .my-moj .menu-my-moj-quick-links-container ul a {
     text-decoration: underline; }
-  /* line 218, ../scss/content/homepage/_my_moj.scss */
+  /* line 222, ../scss/content/homepage/_my_moj.scss */
   .my-moj .menu-my-moj-quick-links-container ul .menu-item {
     margin-top: 10px; }
-    /* line 221, ../scss/content/homepage/_my_moj.scss */
+    /* line 225, ../scss/content/homepage/_my_moj.scss */
     .my-moj .menu-my-moj-quick-links-container ul .menu-item:first-of-type a {
       margin-top: 0; }
 
