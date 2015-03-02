@@ -9,7 +9,7 @@
           <option data-url="<?=$department['url']?>" data-department="<?=$department['name']?>"><?=$department['label']?></option>
         <?php endforeach ?>
       </select>
-      <span class="help-icon"></span>
+      <!--<span class="help-icon"></span>-->
     </div>
   </div>
   <div class="my-moj-body">
