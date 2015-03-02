@@ -1080,12 +1080,13 @@ form .form-row {
   /* line 10, ../scss/modules/_beta_banner.scss */
   .beta-banner .beta-icon {
     display: inline-block;
-    background-color: #f47738;
+    /*background-color: $orange; <-- beta */
+    background-color: #d53880;
     font-weight: bold;
     text-transform: uppercase;
     color: #fff;
     padding: 2px 10px 0; }
-  /* line 19, ../scss/modules/_beta_banner.scss */
+  /* line 20, ../scss/modules/_beta_banner.scss */
   .beta-banner .message {
     display: inline-block;
     margin-top: 0;
