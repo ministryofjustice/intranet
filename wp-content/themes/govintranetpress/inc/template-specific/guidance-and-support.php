@@ -65,13 +65,11 @@ function quick_links_callback($post) {
                     </td>
                 </tr>
                 <?php } ?>
-                <?php if ($record_count<$max_links) { ?>
                 <tr>
                     <th scope='row' valign='top'>
                         <a href='#' class='hide-if-no-js add-link'>+ Add link</a>
                     </th>
                 </tr>
-                <?php } ?>
             </tbody>
         </table>
     </div>
