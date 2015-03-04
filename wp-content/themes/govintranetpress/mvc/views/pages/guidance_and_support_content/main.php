@@ -25,7 +25,7 @@
         <div class="right-hand-menu">
           <h3>Quick links</h3>
           <ul>
-            <?php foreach($link_array->q_link_array as $link_row): ?>
+            <?php foreach($link_array->quick_links as $link_row): ?>
             <li>
               <a href="<?=$link_row['linkurl']?>"><?=$link_row['linktext']?></a>
             </li>

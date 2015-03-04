@@ -69,8 +69,8 @@ class Page_guidance_and_support extends MVC_controller {
     $link_array = new stdClass();
     $link_array->quick_links = array();
     $link_array->tabs = array(
-      0 => array(),
-      1 => array()
+      1 => array(),
+      2 => array()
     );
 
     $link_meta_exists = true;
@@ -91,13 +91,13 @@ class Page_guidance_and_support extends MVC_controller {
           $this->has_q_links = true;
         }
         if ($firsttab=='on') {
-          $link_array->tabs[0][] = array(
+          $link_array->tabs[1][] = array(
             'linktext' => esc_attr($link_text),
             'linkurl' => esc_attr($url)
           );
         }
         if ($secondtab=='on') {
-          $link_array->tabs[1][] = array(
+          $link_array->tabs[2][] = array(
             'linktext' => esc_attr($link_text),
             'linkurl' => esc_attr($url)
           );
