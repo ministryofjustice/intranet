@@ -215,6 +215,50 @@
   };
 }(jQuery));
 
+/** Children pages
+ * Note: it's designed to work with only one instance per page
+ */
+(function($) {
+  "use strict";
+
+  var App = window.App;
+
+  App.ChildrenPages = function() {
+    this.$childrenPages = $('.children-pages');
+    this.isImported = !!$('.guidance-and-support-content[data-is-imported="1"]').length;
+    if(!this.$childrenPages.length || this.isImported) { return; }
+    this.init();
+  };
+
+  App.ChildrenPages.prototype = {
+    init: function() {
+      this.cacheEls();
+      this.bindEvents();
+      this.generate();
+      this.initialized = true;
+    },
+
+    cacheEls: function() {
+      this.$childrenPagesBox = $('.children-pages-box');
+    },
+
+    bindEvents: function() {
+    },
+
+    generate: function() {
+      var _this = this;
+
+      if(!this.initialized) { return; }
+    },
+
+    getChildren: function() {
+    },
+
+    populateChildrenList: function() {
+    }
+  };
+}(jQuery));
+
 /** Sticky news
  */
 (function($) {
@@ -400,6 +444,7 @@
     init: function() {
       this.redirectUrl = this.$top.attr('data-redirect-url');
       this.redirectEnabled = this.$top.attr('data-redirect-enabled');
+      this.isImported = this.$top.attr('data-is-imported');
 
       if(this.redirectUrl && this.redirectEnabled==="1") {
         this.redirect(this.redirectUrl);
@@ -1563,7 +1608,8 @@
 
   App.TableOfContents = function() {
     this.$tableOfContents = $('.table-of-contents');
-    if(!this.$tableOfContents.length) { return; }
+    this.isImported = !!$('.guidance-and-support-content[data-is-imported="1"]').length;
+    if(!this.$tableOfContents.length || this.isImported) { return; }
     this.init();
   };
 

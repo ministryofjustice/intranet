@@ -38,9 +38,10 @@
     font-weight: normal;
   }
 
-  .table-of-contents-box {
+  .table-of-contents-box,
+  .children-pages-box {
     display: none;
-    
+
     &.visible {
       display: block;
     }

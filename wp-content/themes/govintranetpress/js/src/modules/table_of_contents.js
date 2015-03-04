@@ -8,7 +8,8 @@
 
   App.TableOfContents = function() {
     this.$tableOfContents = $('.table-of-contents');
-    if(!this.$tableOfContents.length) { return; }
+    this.isImported = !!$('.guidance-and-support-content[data-is-imported="1"]').length;
+    if(!this.$tableOfContents.length || this.isImported) { return; }
     this.init();
   };
 

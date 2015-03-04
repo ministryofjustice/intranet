@@ -1,5 +1,5 @@
 <?php if (!defined('ABSPATH')) die(); ?>
-<div class="guidance-and-support-content" data-redirect-url="<?=$redirect_url?>" data-redirect-enabled="<?=$redirect_enabled?>">
+<div class="guidance-and-support-content" data-redirect-url="<?=$redirect_url?>" data-redirect-enabled="<?=$redirect_enabled?>" data-is-imported="<?=$is_imported?>">
   <div class="grid">
     <div class="col-lg-8">
       <h2 class="page-category"><?=$page_category ?></h2>
@@ -61,6 +61,11 @@
             <a href="#<?=$tab_row['name']?>"><?=$tab_row['title']?></a>
           </li>
         <?php endforeach ?>
+        </ul>
+      </div>
+      <div class="children-pages-box">
+        <h4>Children pages</h4>
+        <ul class="children-pages">
         </ul>
       </div>
       &nbsp;
