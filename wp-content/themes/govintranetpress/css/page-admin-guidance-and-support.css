@@ -1,3 +1,15 @@
+#quick_links input.regular-text {
+  width: 20em;
+}
+
+#quick_links .form-table th {
+  padding: 15px 10px 0px 0;
+}
+
+#quick_links .form-table td {
+  padding: 15px 10px 10px 0;
+}
+
 #content_tabs .ui-widget-content,
 #content_tabs .ui-widget-header {
   background: none;

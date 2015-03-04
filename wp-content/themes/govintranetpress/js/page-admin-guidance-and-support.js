@@ -8,7 +8,7 @@ jQuery(function($) {
     namespace = container.attr('class').replace(/-container$/,'');
     // Check if max links reached
     totalLinks = $('.'+namespace+'-line').size();
-    if(totalLinks<maxLinks) {
+    // if(totalLinks<maxLinks) {
       linkNumber = totalLinks + 1;
       // Add new link fields
       // Note: I added tabindex='-1' to Delete links to remove them from taborder to prevent accidental triggering
@@ -24,17 +24,35 @@ jQuery(function($) {
             <input class='" + namespace + "-url " + namespace + "-url" + linkNumber + " regular-text' id='" + namespace + "-url" + linkNumber + "' name='" + namespace + "-url" + linkNumber + "' type='text' placeholder='Link URL'>\
           </td>\
           <td>\
+            <input class='" + namespace + "-qlink " + namespace + "-qlink" + linkNumber + "' id='" + namespace + "-qlink" + linkNumber + "' name='" + namespace + "-qlink" + linkNumber + "' type='checkbox'>\
+          </td>\
+          <td>\
+            <input class='" + namespace + "-firsttab " + namespace + "-firsttab" + linkNumber + "' id='" + namespace + "-firsttab" + linkNumber + "' name='" + namespace + "-firsttab" + linkNumber + "' type='checkbox'>\
+          </td>\
+          <td>\
+            <input class='" + namespace + "-secondtab " + namespace + "-secondtab" + linkNumber + "' id='" + namespace + "-secondtab" + linkNumber + "' name='" + namespace + "-secondtab" + linkNumber + "' type='checkbox'>\
+          </td>\
+          <td>\
             <a href='#' class='hide-if-no-js delete-link' tabindex='-1'>Delete</a>\
           </td>\
         </tr>\
         ").insertBefore($(this).closest('tr'));
-      if (linkNumber==maxLinks) {
-        $(this).closest('tr').hide();
-      }
-    } else {
-      alert('No more than ' + maxLinks + ' quick links allowed');
-    }
+      // if (linkNumber==maxLinks) {
+        // $(this).closest('tr').hide();
+      // }
+    // } else {
+      // alert('No more than ' + maxLinks + ' quick links allowed');
+    // }
     e.preventDefault();
+  });
+
+  // Limit quick links to 7
+  $('.quick_links-container').on('change','.quick_links-qlink',function(e) {
+    qlCount = $('.quick_links-qlink:checked').size();
+    if(qlCount>maxLinks) {
+      alert("No more than " + maxLinks + " Quick Links allowed");
+      $(this).attr('checked',null);
+    }
   });
 
   // Remove links

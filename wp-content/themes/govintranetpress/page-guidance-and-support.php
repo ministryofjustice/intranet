@@ -54,7 +54,9 @@ class Page_guidance_and_support extends MVC_controller {
       'link_array' => $this->get_link_array(),
       'tab_array' => $this->get_tab_array(),
       'tab_count' => $this->tab_count,
-      'has_links' => $this->has_links,
+      'has_q_links' => $this->has_q_links,
+      'has_firsttab_links' => $this->has_firsttab_links,
+      'has_secondtab_links' => $this->has_secondtab_links,
       'page_category' => $this->page_category
     );
   }
@@ -62,19 +64,45 @@ class Page_guidance_and_support extends MVC_controller {
   private function get_link_array() {
     // Populate link array
     $ns = 'quick_links'; // Quick namespace variable
-    $link_array = array();
+    $link_array = new stdClass();
+    $link_array->q_link_array = array();
+    $link_array->firsttab_link_array = array();
+    $link_array->secondtab_link_array = array();
+    $link_meta_exists = true;
+    $i=1;
 
-    for($i=1;$i<=$this->max_links;$i++) {
-      $link_text = get_post_meta($this->post_ID, "_" . $ns . "-link-text" . $i,true);
-      $link_url = get_post_meta($this->post_ID, "_" . $ns . "-url" . $i,true);
-      if ($link_text!=null || $link_url!=null) {
-        $link_array[] = array(
-          'linktext' => esc_attr($link_text),
-          'linkurl' => esc_attr($link_url)
-        );
-        $this->has_links = true;
+    while ($link_meta_exists) {
+      $link_fields = array('link-text','url','qlink','firsttab','secondtab');
+      if(metadata_exists( 'post', $this->post_ID, "_" . $ns . "-link-text" . $i )) {
+        foreach($link_fields as $link_field) {
+            $link_field_transformed = str_replace('-','_',$link_field);
+            $$link_field_transformed = get_post_meta($this->post_ID, "_" . $ns . "-" . $link_field . $i,true);
+        }
+        if ($qlink=='on') {
+          $link_array->q_link_array[] = array(
+            'linktext' => esc_attr($link_text),
+            'linkurl' => esc_attr($url)
+          );
+          $this->has_q_links = true;
+        }
+        if ($firsttab=='on') {
+          $link_array->firsttab_link_array[] = array(
+            'linktext' => esc_attr($link_text),
+            'linkurl' => esc_attr($url)
+          );
+          $this->has_firsttab_links = true;
+        }
+        if ($secondtab=='on') {
+          $link_array->secondtab_link_array[] = array(
+            'linktext' => esc_attr($link_text),
+            'linkurl' => esc_attr($url)
+          );
+          $this->has_secondtab_links = true;
+        }
+        $i++;
+      } else {
+        $link_meta_exists = false;
       }
-
     }
 
     return $link_array;
