@@ -21,11 +21,11 @@
     </div>
 
     <div class="col-lg-4">
-      <?php if($has_links==true): ?>
+      <?php if($has_q_links==true): ?>
         <div class="right-hand-menu">
           <h3>Quick links</h3>
           <ul>
-            <?php foreach($link_array as $link_row): ?>
+            <?php foreach($link_array->quick_links as $link_row): ?>
             <li>
               <a href="<?=$link_row['linkurl']?>"><?=$link_row['linktext']?></a>
             </li>
@@ -71,14 +71,28 @@
     </div>
   </div>
 
-  <?php foreach($tab_array as $tab_row): ?>
+  <?php $tab_no=1; ?>
+  <?php foreach($tab_array as $tab_number=>$tab_row): ?>
     <div class="template-partial" data-template-type="tab-content" data-content-name="<?=$tab_row['name']?>">
       <?php foreach($tab_row['sections'] as $section): ?>
         <?php if(strlen($section['title'])): ?>
           <h2><?=$section['title']?></h2>
         <?php endif ?>
-        <?=wpautop($section['content'])?>
+        <?=$section['content']?>
       <?php endforeach ?>
+
+      <?php if(count($link_array->tabs[$tab_number])): ?>
+          <h2><?=$links_title?></h2>
+          <ul>
+            <?php foreach($link_array->tabs[$tab_number] as $link_row): ?>
+            <li>
+              <a href="<?=$link_row['linkurl']?>"><?=$link_row['linktext']?></a>
+            </li>
+            <?php endforeach ?>
+          </ul>
+        </div>
+      <?php endif ?>
     </div>
+    <?php $tab_no++; ?>
   <?php endforeach ?>
 </div>
