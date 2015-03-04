@@ -34,6 +34,9 @@ class Page_guidance_and_support extends MVC_controller {
       $this->page_category = 'Guidance';
     }
 
+    $links_title = get_post_meta($this->post_ID, '_quick_links-title', true);
+    $this->links_title = $links_title==null?"Links":$links_title;
+
     ob_start();
     the_content();
     $content = ob_get_clean();
@@ -54,6 +57,7 @@ class Page_guidance_and_support extends MVC_controller {
       'link_array' => $this->get_link_array(),
       'tab_array' => $this->get_tab_array(),
       'tab_count' => $this->tab_count,
+      'links_title' => $this->links_title,
       'has_q_links' => $this->has_q_links,
       'has_firsttab_links' => $this->has_firsttab_links,
       'has_secondtab_links' => $this->has_secondtab_links,

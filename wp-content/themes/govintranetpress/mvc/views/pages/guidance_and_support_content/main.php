@@ -81,7 +81,7 @@
         <?=wpautop($section['content'])?>
       <?php endforeach ?>
       <?php if($has_firsttab_links==true && $tab_no==1): ?>
-          <h2>Links</h2>
+          <h2><?=$links_title?></h2>
           <ul>
             <?php foreach($link_array->firsttab_link_array as $link_row): ?>
             <li>
@@ -92,7 +92,7 @@
         </div>
       <?php endif ?>
       <?php if($has_secondtab_links==true && $tab_no==2): ?>
-          <h2>Links</h2>
+          <h2><?=$links_title?></h2>
           <ul>
             <?php foreach($link_array->secondtab_link_array as $link_row): ?>
             <li>

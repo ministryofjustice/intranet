@@ -24,8 +24,12 @@ function quick_links_callback($post) {
             );
         }
     }
+    $links_title = get_post_meta($post->ID, "_" . $ns . "-title",true);
     ?>
     <div class='<?=$ns?>-container' data-max-links='<?=$max_links?>'>
+        <p><strong>Links Title (defaults to Links)</strong></p>
+        <label class="screen-reader-text" for='<?=$ns?>-title'>Links Title (defaults to Links)</label>
+        <input class='<?=$ns?>-title regular-text' id='<?=$ns?>-title' name='<?=$ns?>-title' type='text' value='<?=esc_attr($links_title)?>'>
         <table class='form-table'>
             <tbody>
                 <tr>
@@ -108,6 +112,8 @@ function quick_links_save($post_id) {
             }
         }
     }
+
+    update_post_meta( $post_id, "_" . $ns . "-title", sanitize_text_field( $_POST[$ns . "-title"] ));
 }
 
 // Content Tabs metabox
