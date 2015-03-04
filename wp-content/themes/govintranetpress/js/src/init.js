@@ -15,4 +15,5 @@ jQuery(function($) {
   App.ins.searchResults = new App.SearchResults();
   App.ins.floaters = new App.Floaters();
   App.ins.collapsibleBlock = new App.CollapsibleBlock();
+  App.ins.departmentDropdown = new App.DepartmentDropdown();
 });

@@ -2,7 +2,7 @@
 <div class="guidance-and-support-content" data-redirect-url="<?=$redirect_url?>" data-redirect-enabled="<?=$redirect_enabled?>">
   <div class="grid">
     <div class="col-lg-8">
-      <h2 class="page-category">Guidance</h2>
+      <h2 class="page-category"><?=$page_category ?></h2>
       <h1 class="page-title"><?=$title?></h1>
 
       <ul class="info-list">
@@ -21,7 +21,7 @@
     </div>
 
     <div class="col-lg-4">
-      <?php if($has_links): ?>
+      <?php if($has_links==true): ?>
         <div class="right-hand-menu">
           <h3>Quick links</h3>
           <ul>
@@ -53,7 +53,7 @@
 
   <div class="grid content-container">
     <div class="col-lg-3 col-md-4">
-      <div class="js-floater context-menu" data-floater-limiter-selector=".content-container">
+      <div class="js-floater table-of-contents-box" data-floater-limiter-selector=".content-container">
         <h4>Contents</h4>
         <ul class="table-of-contents" data-content-selector=".tab-content">
         <?php foreach($tab_array as $tab_row): ?>

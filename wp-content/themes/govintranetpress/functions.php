@@ -642,6 +642,15 @@ function twentyten_widgets_init() {
 		'before_title' => '',
 		'after_title' => '',
 	) );
+	register_sidebar( array(
+		'name' => __( 'My MOJ - Quick Links', 'twentyten' ),
+		'id' => 'my-moj-quick-links',
+		'description' => __( 'My MOJ - Quick Links', 'twentyten' ),
+		'before_widget' => '',
+		'after_widget' => '',
+		'before_title' => '',
+		'after_title' => '',
+	) );
 
 }
 
@@ -938,6 +947,7 @@ class HT_Walker extends Walker_Nav_Menu {
 
 function add_my_editor_style() {
 	add_editor_style();
+	wp_register_style('jquery-admin-ui-css', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/themes/overcast/jquery-ui.css', false, 0.1, false);
 }
 
 add_action( 'admin_init', 'add_my_editor_style' );

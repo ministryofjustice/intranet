@@ -111,7 +111,7 @@ function content_tabs_callback($post) {
                 for($tab=1;$tab<=$tab_count;$tab++) {
                     $tab_title = get_post_meta( $post->ID, '_'.$ns.'-tab-' . $tab . '-title', true )?:"Tab 1";
                     ?>
-                <li><a href="#tabs-<?=$tab?>"><?=$tab_title?></a><span class="ui-icon ui-icon-close" role="presentation">Remove Tab</span></li>
+                <li><a href="#tabs-<?=$tab?>"><?=$tab_title?></a><a href='#' class='delete-tab'><span class="ui-icon ui-icon-close" role="presentation">Remove Tab</span></a></li>
             <?php } ?>
         </ul>
         <?php
@@ -162,6 +162,11 @@ function content_tabs_callback($post) {
                                                 <tr class="form-field">
                                                     <td colspan="2">
                                                         <?php wp_editor($section_content,'tab-' . $tab . '-section-' . $section . '-content'); ?>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="2">
+                                                        <a href="#" class="delete-section">Delete this section<span class="ui-icon ui-icon-close" role="presentation"></span></a>
                                                     </td>
                                                 </tr>
                                             </tbody>

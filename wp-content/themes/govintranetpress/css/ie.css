@@ -148,6 +148,12 @@
   zoom: 1;
   margin-right: 10px; }
 
+/* line 2, ../scss/ie/_beta_banner.scss */
+.ie7 .beta-banner .beta-icon,
+.ie7 .beta-banner .message {
+  display: inline;
+  zoom: 1; }
+
 /* line 2, ../scss/ie/_my_moj.scss */
 .ie7 .my-moj .department {
   width: auto; }

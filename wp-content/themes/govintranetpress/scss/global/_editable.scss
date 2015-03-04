@@ -63,6 +63,21 @@
     }
   }
 
+  blockquote {
+    margin-left: 0;
+    
+    p {
+      padding-left: 30px;
+
+      &::before {
+        clear: both;
+        content: "“";
+        float: left;
+        margin-left: -15px;
+      }
+    }
+  }
+
   table {
     width: 100%;
 

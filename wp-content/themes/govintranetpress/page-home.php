@@ -37,59 +37,107 @@ class Page_home extends MVC_controller {
 
   private function get_my_moj() {
     return array(
+      'departments' => array(
+        array(
+          'name' => 'legal-aid-agency',
+          'label' => 'Legal Aid Agency',
+          'url' => ''
+        ),
+        array(
+          'name' => 'hm-courts-and-tribunals-service',
+          'label' => 'HM Courts &amp; Tribunals Service',
+          'url' => 'http://libra.lcd.gsi.gov.uk/hmcts/index.htm'
+        ),
+        array(
+          'name' => 'judicial-appointments-commission',
+          'label' => 'Judicial Appointments Commission',
+          'url' => 'http://intranet.justice.gsi.gov.uk/jac/index.htm'
+        ),
+        array(
+          'name' => 'judicial-office',
+          'label' => 'Judicial Office',
+          'url' => 'http://intranet.justice.gsi.gov.uk/joew/index.htm'
+        ),
+        array(
+          'name' => 'law-commission',
+          'label' => 'Law Commission',
+          'url' => 'http://intranet.justice.gsi.gov.uk/lawcommission/index.htm'
+        ),
+        array(
+          'name' => 'opg',
+          'label' => 'OPG',
+          'url' => 'http://intranet.justice.gsi.gov.uk/opg/index.htm'
+        ),
+        array(
+          'name' => 'ospt',
+          'label' => 'OSPT',
+          'url' => 'http://intranet.justice.gsi.gov.uk/ospt/index.htm'
+        ),
+        array(
+          'name' => 'probation',
+          'label' => 'Probation',
+          'url' => 'http://npsintranet.probation.gsi.gov.uk/index.htm'
+        )
+      ),
       'apps' => array(
         array(
           'title' => 'People finder',
           'icon' => 'people-finder',
-          'url' => 'https://people-finder.dsd.io/',
+          'url' => 'http://intranet.justice.gsi.gov.uk/global/peoplefinder/',
           'external' => true
         ),
         array(
           'title' => 'Courtfinder',
           'icon' => 'courtfinder',
-          'url' => 'https://courttribunalfinder.service.gov.uk/',
+          'url' => 'https://courttribunalfinder.service.gov.uk/search/',
           'external' => true
         ),
         array(
           'title' => 'Jobs',
           'icon' => 'jobs',
-          'url' => '#',
+          'url' => 'http://hmps.i-grasp.gse.gov.uk/fe/tpl_moj02.asp?newms=hm',
           'external' => true
         ),
         array(
-          'title' => 'iExpense',
-          'icon' => 'iexpense',
-          'url' => '#',
+          'title' => 'IT portal',
+          'icon' => 'it-portal',
+          'url' => 'http://physmt.unisys.co.uk:8001/OA_HTML/AppsLocalLogin.jsp',
           'external' => true
         ),
         array(
           'title' => 'Civil Service Learning',
           'icon' => 'civil-service-learning',
-          'url' => '#',
+          'url' => 'https://civilservicelearning.civilservice.gov.uk/',
           'external' => true
         ),
         array(
           'title' => 'Travel booking',
           'icon' => 'travel-booking',
-          'url' => '#',
+          'url' => 'https://www.trips.uk.com/js/SABS/Corporate.html',
           'external' => true
         ),
         array(
           'title' => 'Phoenix',
           'icon' => 'phoenix',
-          'url' => '#',
+          'url' => 'http://physmt.unisys.co.uk:8001/OA_HTML/AppsLocalLogin.jsp',
           'external' => true
         ),
         array(
-          'title' => 'Online Toolkit',
-          'icon' => 'online-toolkit',
-          'url' => '#',
+          'title' => 'Pension',
+          'icon' => 'pension',
+          'url' => 'http://www.civilservicepensionscheme.org.uk/',
           'external' => true
         ),
         array(
-          'title' => 'HMCTS Intranet',
-          'icon' => 'hmcts-intranet',
-          'url' => '#',
+          'title' => 'Ministry of Justice',
+          'icon' => 'ministry-of-justice',
+          'url' => 'http://www.justice.gov.uk/',
+          'external' => true
+        ),
+        array(
+          'title' => 'GOV.UK',
+          'icon' => 'gov-uk',
+          'url' => 'https://www.gov.uk/',
           'external' => true
         ),
       ),
