@@ -22,6 +22,24 @@
     padding-left: 16px;
   }
 
+  img,
+  .imageBox {
+    float: left;
+    margin-right: 30px;
+    margin-bottom: 10px;
+  }
+
+  .imageBox {
+    img {
+      float: none;
+      margin: 0;
+    }
+
+    span {
+      display: none;
+    }
+  }
+
   ul li {
     margin: 0;
     padding-left: 5px;
