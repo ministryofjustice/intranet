@@ -83,55 +83,61 @@ class Page_home extends MVC_controller {
         array(
           'title' => 'People finder',
           'icon' => 'people-finder',
-          'url' => 'https://people-finder.dsd.io/',
+          'url' => 'http://intranet.justice.gsi.gov.uk/global/peoplefinder/',
           'external' => true
         ),
         array(
           'title' => 'Courtfinder',
           'icon' => 'courtfinder',
-          'url' => 'https://courttribunalfinder.service.gov.uk/',
+          'url' => 'https://courttribunalfinder.service.gov.uk/search/',
           'external' => true
         ),
         array(
           'title' => 'Jobs',
           'icon' => 'jobs',
-          'url' => '#',
+          'url' => 'http://hmps.i-grasp.gse.gov.uk/fe/tpl_moj02.asp?newms=hm',
           'external' => true
         ),
         array(
-          'title' => 'iExpense',
-          'icon' => 'iexpense',
-          'url' => '#',
+          'title' => 'IT portal',
+          'icon' => 'it-portal',
+          'url' => 'http://physmt.unisys.co.uk:8001/OA_HTML/AppsLocalLogin.jsp',
           'external' => true
         ),
         array(
           'title' => 'Civil Service Learning',
           'icon' => 'civil-service-learning',
-          'url' => '#',
+          'url' => 'https://civilservicelearning.civilservice.gov.uk/',
           'external' => true
         ),
         array(
           'title' => 'Travel booking',
           'icon' => 'travel-booking',
-          'url' => '#',
+          'url' => 'https://www.trips.uk.com/js/SABS/Corporate.html',
           'external' => true
         ),
         array(
           'title' => 'Phoenix',
           'icon' => 'phoenix',
-          'url' => '#',
+          'url' => 'http://physmt.unisys.co.uk:8001/OA_HTML/AppsLocalLogin.jsp',
           'external' => true
         ),
         array(
-          'title' => 'Online Toolkit',
-          'icon' => 'online-toolkit',
-          'url' => '#',
+          'title' => 'Pension',
+          'icon' => 'pension',
+          'url' => 'http://www.civilservicepensionscheme.org.uk/',
           'external' => true
         ),
         array(
-          'title' => 'HMCTS Intranet',
-          'icon' => 'hmcts-intranet',
-          'url' => '#',
+          'title' => 'Ministry of Justice',
+          'icon' => 'ministry-of-justice',
+          'url' => 'http://www.justice.gov.uk/',
+          'external' => true
+        ),
+        array(
+          'title' => 'GOV.UK',
+          'icon' => 'gov-uk',
+          'url' => 'https://www.gov.uk/',
           'external' => true
         ),
       ),
