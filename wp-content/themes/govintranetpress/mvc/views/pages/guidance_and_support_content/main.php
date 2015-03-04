@@ -72,29 +72,19 @@
   </div>
 
   <?php $tab_no=1; ?>
-  <?php foreach($tab_array as $tab_row): ?>
+  <?php foreach($tab_array as $tab_number=>$tab_row): ?>
     <div class="template-partial" data-template-type="tab-content" data-content-name="<?=$tab_row['name']?>">
       <?php foreach($tab_row['sections'] as $section): ?>
         <?php if(strlen($section['title'])): ?>
           <h2><?=$section['title']?></h2>
         <?php endif ?>
-        <?=wpautop($section['content'])?>
+        <?=$section['content']?>
       <?php endforeach ?>
-      <?php if($has_firsttab_links==true && $tab_no==1): ?>
+
+      <?php if(count($link_array->tabs[$tab_number])): ?>
           <h2><?=$links_title?></h2>
           <ul>
-            <?php foreach($link_array->firsttab_link_array as $link_row): ?>
-            <li>
-              <a href="<?=$link_row['linkurl']?>"><?=$link_row['linktext']?></a>
-            </li>
-            <?php endforeach ?>
-          </ul>
-        </div>
-      <?php endif ?>
-      <?php if($has_secondtab_links==true && $tab_no==2): ?>
-          <h2><?=$links_title?></h2>
-          <ul>
-            <?php foreach($link_array->secondtab_link_array as $link_row): ?>
+            <?php foreach($link_array->tabs[$tab_number] as $link_row): ?>
             <li>
               <a href="<?=$link_row['linkurl']?>"><?=$link_row['linktext']?></a>
             </li>

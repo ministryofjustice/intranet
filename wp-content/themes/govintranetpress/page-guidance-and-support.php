@@ -59,8 +59,6 @@ class Page_guidance_and_support extends MVC_controller {
       'tab_count' => $this->tab_count,
       'links_title' => $this->links_title,
       'has_q_links' => $this->has_q_links,
-      'has_firsttab_links' => $this->has_firsttab_links,
-      'has_secondtab_links' => $this->has_secondtab_links,
       'page_category' => $this->page_category
     );
   }
@@ -69,9 +67,12 @@ class Page_guidance_and_support extends MVC_controller {
     // Populate link array
     $ns = 'quick_links'; // Quick namespace variable
     $link_array = new stdClass();
-    $link_array->q_link_array = array();
-    $link_array->firsttab_link_array = array();
-    $link_array->secondtab_link_array = array();
+    $link_array->quick_links = array();
+    $link_array->tabs = array(
+      0 => array(),
+      1 => array()
+    );
+
     $link_meta_exists = true;
     $i=1;
 
@@ -83,25 +84,23 @@ class Page_guidance_and_support extends MVC_controller {
             $$link_field_transformed = get_post_meta($this->post_ID, "_" . $ns . "-" . $link_field . $i,true);
         }
         if ($qlink=='on') {
-          $link_array->q_link_array[] = array(
+          $link_array->quick_links[] = array(
             'linktext' => esc_attr($link_text),
             'linkurl' => esc_attr($url)
           );
           $this->has_q_links = true;
         }
         if ($firsttab=='on') {
-          $link_array->firsttab_link_array[] = array(
+          $link_array->tabs[0][] = array(
             'linktext' => esc_attr($link_text),
             'linkurl' => esc_attr($url)
           );
-          $this->has_firsttab_links = true;
         }
         if ($secondtab=='on') {
-          $link_array->secondtab_link_array[] = array(
+          $link_array->tabs[1][] = array(
             'linktext' => esc_attr($link_text),
             'linkurl' => esc_attr($url)
           );
-          $this->has_secondtab_links = true;
         }
         $i++;
       } else {
@@ -126,7 +125,7 @@ class Page_guidance_and_support extends MVC_controller {
         $section_content = get_post_meta($this->post_ID,'_' . $ns . '-tab-' . $i . '-section-' . $j . '-content-html',true);
         $section_array[$j] = array(
           'title' => $section_title,
-          'content' => $section_content
+          'content' => wpautop($section_content)
         );
       }
       $tab_title = get_post_meta($this->post_ID,'_'.$ns.'-tab-' . $i . '-title', true);
