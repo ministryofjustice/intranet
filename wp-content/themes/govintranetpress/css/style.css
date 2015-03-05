@@ -1161,25 +1161,26 @@ form .form-row {
 /* line 1, ../scss/modules/_header.scss */
 .header {
   position: relative;
+  z-index: 1;
   background: #0b0c0c; }
-  /* line 5, ../scss/modules/_header.scss */
+  /* line 6, ../scss/modules/_header.scss */
   .header .header-top {
     padding-top: 10px;
     padding-bottom: 15px; }
-  /* line 10, ../scss/modules/_header.scss */
+  /* line 11, ../scss/modules/_header.scss */
   .header .header-bottom {
     position: relative; }
-  /* line 14, ../scss/modules/_header.scss */
+  /* line 15, ../scss/modules/_header.scss */
   .header .site-logo {
     display: block; }
-    /* line 17, ../scss/modules/_header.scss */
+    /* line 18, ../scss/modules/_header.scss */
     .header .site-logo img {
       width: 254px;
       height: 36px; }
-  /* line 23, ../scss/modules/_header.scss */
+  /* line 24, ../scss/modules/_header.scss */
   .header #searchform {
     position: relative; }
-    /* line 26, ../scss/modules/_header.scss */
+    /* line 27, ../scss/modules/_header.scss */
     .header #searchform .input-group {
       width: 100%;
       display: block;
@@ -1189,19 +1190,19 @@ form .form-row {
         content: "";
         display: table;
         clear: both; }
-    /* line 33, ../scss/modules/_header.scss */
+    /* line 34, ../scss/modules/_header.scss */
     .header #searchform .form-control {
       height: 36px;
       width: 100%;
       padding-left: 80px; }
-    /* line 39, ../scss/modules/_header.scss */
+    /* line 40, ../scss/modules/_header.scss */
     .header #searchform .search-filter-container {
       position: absolute;
       left: 2px;
       top: 2px;
       bottom: 2px;
       width: 70px; }
-      /* line 46, ../scss/modules/_header.scss */
+      /* line 47, ../scss/modules/_header.scss */
       .header #searchform .search-filter-container:after {
         position: absolute;
         top: 1px;
@@ -1214,7 +1215,7 @@ form .form-row {
         text-align: center;
         content: "\25be";
         pointer-events: none; }
-    /* line 62, ../scss/modules/_header.scss */
+    /* line 63, ../scss/modules/_header.scss */
     .header #searchform .search-filter {
       display: block;
       width: 100%;
@@ -1226,7 +1227,7 @@ form .form-row {
       background-color: #bfc1c3;
       color: #fff;
       outline: none; }
-    /* line 76, ../scss/modules/_header.scss */
+    /* line 77, ../scss/modules/_header.scss */
     .header #searchform .search-btn {
       position: absolute;
       top: 0;
@@ -1241,16 +1242,16 @@ form .form-row {
       background-repeat: no-repeat;
       background-position: 10px 10px; }
 
-/* line 94, ../scss/modules/_header.scss */
+/* line 95, ../scss/modules/_header.scss */
 .page-template-search-results-php #searchform {
   display: none; }
 
 @media (min-width: 0) and (max-width: 767px) {
-  /* line 100, ../scss/modules/_header.scss */
+  /* line 101, ../scss/modules/_header.scss */
   #searchformdiv {
     padding-top: 10px; }
 
-  /* line 104, ../scss/modules/_header.scss */
+  /* line 105, ../scss/modules/_header.scss */
   .mobile-nav button {
     float: right;
     width: 30px;
@@ -1261,15 +1262,15 @@ form .form-row {
     background-size: 60px 30px;
     background-position: 0 0;
     margin-top: 5px; }
-    /* line 115, ../scss/modules/_header.scss */
+    /* line 116, ../scss/modules/_header.scss */
     .mobile-menu-enabled .mobile-nav button {
       background-position: 30px 0; }
 
-  /* line 122, ../scss/modules/_header.scss */
+  /* line 123, ../scss/modules/_header.scss */
   .header.mobile-menu-enabled .search-box,
   .header.mobile-menu-enabled #mainnav {
     display: none; }
-  /* line 127, ../scss/modules/_header.scss */
+  /* line 128, ../scss/modules/_header.scss */
   .header.mobile-menu-enabled #utilities {
     display: block; } }
 /* line 1, ../scss/modules/_main_nav.scss */

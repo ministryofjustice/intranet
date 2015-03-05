@@ -65,13 +65,13 @@ jQuery(function($) {
     // Cascade changes through remaining links
     for(var i=(clickedLink); i<=(totalLinks); i++) {
       oldText = $('input.' + namespace + '-link-text' + (i+1)).val();
-      oldUrl = $('input.' + namespace + '-link-text' + (i+1)).val();
+      oldUrl = $('input.' + namespace + '-url' + (i+1)).val();
       $('input.' + namespace + '-link-text' + i).val(oldText);
-      $('input.' + namespace + '-link-url' + i).val(oldUrl);
+      $('input.' + namespace + '-url' + i).val(oldUrl);
     }
     // Remove link
     // $(this).closest('tr').remove();
-    $(this).closest('tr').fadeOut(250, function() {
+    $(this).closest('tr').fadeOut(0, function() {
       $('tr.quick_links-line').last().remove();
       $(this).show();
     });
