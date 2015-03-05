@@ -7,13 +7,21 @@ function quick_links_callback($post) {
 
     // Populate link array
     $record_count = 0;
-    for($i=1;$i<=$max_links;$i++) {
-        $link_fields = array('link-text','url','qlink','firsttab','secondtab');
+    $link_fields = array('link-text','url','qlink','firsttab','secondtab');
+    $i=0;
+    while($field_count<sizeof($link_fields)) {
+        $i++;
+        $field_count=0;
         foreach($link_fields as $link_field) {
             $link_field_transformed = str_replace('-','_',$link_field);
-            $$link_field_transformed = get_post_meta($post->ID, "_" . $ns . "-" . $link_field . $i,true);
+            if(metadata_exists( 'post', $post->ID, "_" . $ns . "-" . $link_field . $i )) {
+                $$link_field_transformed = get_post_meta($post->ID, "_" . $ns . "-" . $link_field . $i,true);
+            } else {
+                $$link_field_transformed = null;
+                $field_count++;
+            }
         }
-        if ($link_text || $link_url || $qlink || $firsttab || $secondtab) {
+        if (($link_text || $link_url || $qlink || $firsttab || $secondtab) && $field_count<sizeof($link_fields)) {
             $record_count++;
             $link_array[$record_count] = array(
                 'linktext' => $link_text,
@@ -100,13 +108,17 @@ function quick_links_save($post_id) {
         }
     }
     $link_fields = array('link-text','url','qlink','firsttab','secondtab');
-    for($i=1; $i<=$max_links; $i++) {
+    $i=0;
+    while($field_count<sizeof($link_fields)) {
+        $i++;
+        $field_count=0;
         foreach($link_fields as $link_field) {
             if (isset($_POST[$ns . "-" . $link_field . $i])) {
                 $data = sanitize_text_field( $_POST[$ns . "-" . $link_field . $i] );
                 update_post_meta( $post_id, "_" . $ns . "-" . $link_field . $i, $data );
             } else {
                 delete_post_meta( $post_id, "_" . $ns . "-" . $link_field . $i);
+                $field_count++;
             }
         }
     }
