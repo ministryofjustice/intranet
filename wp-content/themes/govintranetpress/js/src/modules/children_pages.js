@@ -13,7 +13,7 @@
 
     this.$childrenPages = $('.children-pages');
     this.$pageContainer = $('.guidance-and-support-content');
-      this.pageId = this.$pageContainer.attr('data-page-id');
+    this.pageId = this.$pageContainer.attr('data-page-id');
     if(!this.$childrenPages.length || !this.pageId) { return; }
     this.init();
   };
