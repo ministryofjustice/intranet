@@ -14,6 +14,7 @@
       border: 1px solid transparent;
       border-bottom-color: #aaa;
       color: $black;
+      outline: none;
     }
 
     &.current-menu-item {
@@ -22,6 +23,17 @@
         border-bottom-color: transparent;
         color: $link-active-colour;
       }
+    }
+  }
+
+  &.small-tabs {
+    border-bottom: 1px solid #aaa;
+
+    li {
+      width: 33.33333%;
+      margin-top: 10px;
+      margin-bottom: -1px;
+      background-color: $white;
     }
   }
 }

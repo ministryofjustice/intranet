@@ -8,20 +8,38 @@ function quick_links_callback($post) {
     // Populate link array
     $record_count = 0;
     for($i=1;$i<=$max_links;$i++) {
-        $link_text = get_post_meta($post->ID, "_" . $ns . "-link-text" . $i,true);
-        $link_url = get_post_meta($post->ID, "_" . $ns . "-url" . $i,true);
-        if ($link_text!=null || $link_url!=null) {
+        $link_fields = array('link-text','url','qlink','firsttab','secondtab');
+        foreach($link_fields as $link_field) {
+            $link_field_transformed = str_replace('-','_',$link_field);
+            $$link_field_transformed = get_post_meta($post->ID, "_" . $ns . "-" . $link_field . $i,true);
+        }
+        if ($link_text || $link_url || $qlink || $firsttab || $secondtab) {
             $record_count++;
             $link_array[$record_count] = array(
                 'linktext' => $link_text,
-                'linkurl' => $link_url
+                'linkurl' => $url,
+                'qlink' => $qlink=='on'?' checked':'',
+                'firsttab' => $firsttab=='on'?' checked':'',
+                'secondtab' => $secondtab=='on'?' checked':''
             );
         }
     }
+    $links_title = get_post_meta($post->ID, "_" . $ns . "-title",true);
     ?>
     <div class='<?=$ns?>-container' data-max-links='<?=$max_links?>'>
+        <p><strong>Links Title (defaults to Links)</strong></p>
+        <label class="screen-reader-text" for='<?=$ns?>-title'>Links Title (defaults to Links)</label>
+        <input class='<?=$ns?>-title regular-text' id='<?=$ns?>-title' name='<?=$ns?>-title' type='text' value='<?=esc_attr($links_title)?>'>
         <table class='form-table'>
             <tbody>
+                <tr>
+                    <th>Link text</th>
+                    <th>Link URL</th>
+                    <th>Quick Link</th>
+                    <th>Tab&nbsp;1</th>
+                    <th>Tab&nbsp;2</th>
+                    <th></th>
+                </tr>
                 <?php for($i=1;$i<=$record_count;$i++) { ?>
                 <tr class='<?=$ns?>-line <?=$ns?>-line[<?=$i?>] draggable'>
                     <!--<td>
@@ -31,20 +49,27 @@ function quick_links_callback($post) {
                         <input class='<?=$ns?>-link-text <?=$ns?>-link-text<?=$i?> regular-text' id='<?=$ns?>-link-text<?=$i?>' name='<?=$ns?>-link-text<?=$i?>' type='text' placeholder='Link text' value='<?=esc_attr($link_array[$i]['linktext'])?>'>
                     </td>
                     <td>
-                        <input class='<?=$ns?>-url <?=$ns?>=url<?=$i?> regular-text' id='<?=$ns?>-url<?=$i?>' name='<?=$ns?>-url<?=$i?>' type='text' placeholder='Link URL'  value='<?=esc_attr($link_array[$i]['linkurl'])?>'>
+                        <input class='<?=$ns?>-url <?=$ns?>-url<?=$i?> regular-text' id='<?=$ns?>-url<?=$i?>' name='<?=$ns?>-url<?=$i?>' type='text' placeholder='Link URL'  value='<?=esc_attr($link_array[$i]['linkurl'])?>'>
+                    </td>
+                    <td>
+                        <input class='<?=$ns?>-qlink <?=$ns?>-qlink<?=$i?>' type='checkbox' id='<?=$ns?>-qlink<?=$i?>' name='<?=$ns?>-qlink<?=$i?>'<?=$link_array[$i]['qlink']?>>
+                    </td>
+                    <td>
+                        <input class='<?=$ns?>-firsttab <?=$ns?>-firsttab<?=$i?>' type='checkbox' id='<?=$ns?>-firsttab<?=$i?>' name='<?=$ns?>-firsttab<?=$i?>'<?=$link_array[$i]['firsttab']?>>
+                    </td>
+                    <td>
+                        <input class='<?=$ns?>-secondtab <?=$ns?>-secondtab<?=$i?>' type='checkbox' id='<?=$ns?>-secondtab<?=$i?>' name='<?=$ns?>-secondtab<?=$i?>'<?=$link_array[$i]['secondtab']?>>
                     </td>
                     <td>
                         <a href='#' class='hide-if-no-js delete-link'>Delete</a>
                     </td>
                 </tr>
                 <?php } ?>
-                <?php if ($record_count<$max_links) { ?>
                 <tr>
                     <th scope='row' valign='top'>
                         <a href='#' class='hide-if-no-js add-link'>+ Add link</a>
                     </th>
                 </tr>
-                <?php } ?>
             </tbody>
         </table>
     </div>
@@ -74,7 +99,7 @@ function quick_links_save($post_id) {
             return;
         }
     }
-    $link_fields = array('link-text','url');
+    $link_fields = array('link-text','url','qlink','firsttab','secondtab');
     for($i=1; $i<=$max_links; $i++) {
         foreach($link_fields as $link_field) {
             if (isset($_POST[$ns . "-" . $link_field . $i])) {
@@ -85,6 +110,8 @@ function quick_links_save($post_id) {
             }
         }
     }
+
+    update_post_meta( $post_id, "_" . $ns . "-title", sanitize_text_field( $_POST[$ns . "-title"] ));
 }
 
 // Content Tabs metabox

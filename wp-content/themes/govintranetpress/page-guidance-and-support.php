@@ -34,6 +34,9 @@ class Page_guidance_and_support extends MVC_controller {
       $this->page_category = 'Guidance';
     }
 
+    $links_title = get_post_meta($this->post_ID, '_quick_links-title', true);
+    $this->links_title = $links_title==null?"Links":$links_title;
+
     ob_start();
     the_content();
     $content = ob_get_clean();
@@ -55,7 +58,8 @@ class Page_guidance_and_support extends MVC_controller {
       'link_array' => $this->get_link_array(),
       'tab_array' => $this->get_tab_array(),
       'tab_count' => $this->tab_count,
-      'has_links' => $this->has_links,
+      'links_title' => $this->links_title,
+      'has_q_links' => $this->has_q_links,
       'page_category' => $this->page_category
     );
   }
@@ -63,19 +67,46 @@ class Page_guidance_and_support extends MVC_controller {
   private function get_link_array() {
     // Populate link array
     $ns = 'quick_links'; // Quick namespace variable
-    $link_array = array();
+    $link_array = new stdClass();
+    $link_array->quick_links = array();
+    $link_array->tabs = array(
+      1 => array(),
+      2 => array()
+    );
 
-    for($i=1;$i<=$this->max_links;$i++) {
-      $link_text = get_post_meta($this->post_ID, "_" . $ns . "-link-text" . $i,true);
-      $link_url = get_post_meta($this->post_ID, "_" . $ns . "-url" . $i,true);
-      if ($link_text!=null || $link_url!=null) {
-        $link_array[] = array(
-          'linktext' => esc_attr($link_text),
-          'linkurl' => esc_attr($link_url)
-        );
-        $this->has_links = true;
+    $link_meta_exists = true;
+    $i=1;
+
+    while ($link_meta_exists) {
+      $link_fields = array('link-text','url','qlink','firsttab','secondtab');
+      if(metadata_exists( 'post', $this->post_ID, "_" . $ns . "-link-text" . $i )) {
+        foreach($link_fields as $link_field) {
+            $link_field_transformed = str_replace('-','_',$link_field);
+            $$link_field_transformed = get_post_meta($this->post_ID, "_" . $ns . "-" . $link_field . $i,true);
+        }
+        if ($qlink=='on') {
+          $link_array->quick_links[] = array(
+            'linktext' => esc_attr($link_text),
+            'linkurl' => esc_attr($url)
+          );
+          $this->has_q_links = true;
+        }
+        if ($firsttab=='on') {
+          $link_array->tabs[1][] = array(
+            'linktext' => esc_attr($link_text),
+            'linkurl' => esc_attr($url)
+          );
+        }
+        if ($secondtab=='on') {
+          $link_array->tabs[2][] = array(
+            'linktext' => esc_attr($link_text),
+            'linkurl' => esc_attr($url)
+          );
+        }
+        $i++;
+      } else {
+        $link_meta_exists = false;
       }
-
     }
 
     return $link_array;
@@ -95,7 +126,7 @@ class Page_guidance_and_support extends MVC_controller {
         $section_content = get_post_meta($this->post_ID,'_' . $ns . '-tab-' . $i . '-section-' . $j . '-content-html',true);
         $section_array[$j] = array(
           'title' => $section_title,
-          'content' => $section_content
+          'content' => wpautop($section_content)
         );
       }
       $tab_title = get_post_meta($this->post_ID,'_'.$ns.'-tab-' . $i . '-title', true);
