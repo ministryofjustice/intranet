@@ -466,7 +466,8 @@ h1 {
 .main-content .content-info p, .main-content .editable table th,
 .main-content .editable table td, .breadcrumbs a,
 .breadcrumbs span, .beta-banner .beta-icon,
-.beta-banner .message, .footerwrapper .footer li, .message .content, #menu-utilities li a, .content-filters .description, .content-filters .label, #need-to-know .excerpt, .my-moj .my-moj-top .department, .my-moj .menu-my-moj-quick-links-container ul a, .guidance-and-support .tree .all-categories, .guidance-and-support-content .right-hand-menu a, .guidance-and-support-content .table-of-contents li a, .page-search-results .search-item .excerpt {
+.beta-banner .message, .footerwrapper .footer li, .message .content, #menu-utilities li a, .content-filters .description, .content-filters .label, #need-to-know .excerpt, .my-moj .my-moj-top .department, .my-moj .menu-my-moj-quick-links-container ul a, .guidance-and-support .tree .all-categories, .guidance-and-support-content .right-hand-menu a, .guidance-and-support-content .table-of-contents li a,
+.guidance-and-support-content .children-pages li a, .page-search-results .search-item .excerpt {
   font-size: 16px;
   line-height: 20px; }
 
@@ -2414,21 +2415,25 @@ form .form-row {
   .guidance-and-support-content .children-pages-box.visible {
     display: block; }
 /* line 50, ../scss/content/guidance_and_support_content/_main.scss */
-.guidance-and-support-content .table-of-contents {
+.guidance-and-support-content .table-of-contents,
+.guidance-and-support-content .children-pages {
   margin-top: 5px; }
-  /* line 53, ../scss/content/guidance_and_support_content/_main.scss */
-  .guidance-and-support-content .table-of-contents li {
+  /* line 54, ../scss/content/guidance_and_support_content/_main.scss */
+  .guidance-and-support-content .table-of-contents li,
+  .guidance-and-support-content .children-pages li {
     display: block;
     border-bottom: 1px solid #bfc1c3; }
-    /* line 57, ../scss/content/guidance_and_support_content/_main.scss */
-    .guidance-and-support-content .table-of-contents li:first-of-type {
+    /* line 58, ../scss/content/guidance_and_support_content/_main.scss */
+    .guidance-and-support-content .table-of-contents li:first-of-type,
+    .guidance-and-support-content .children-pages li:first-of-type {
       border-top: 1px solid #bfc1c3; }
-    /* line 61, ../scss/content/guidance_and_support_content/_main.scss */
-    .guidance-and-support-content .table-of-contents li a {
+    /* line 62, ../scss/content/guidance_and_support_content/_main.scss */
+    .guidance-and-support-content .table-of-contents li a,
+    .guidance-and-support-content .children-pages li a {
       display: block;
       padding-top: 5px;
       padding-bottom: 5px; }
-/* line 70, ../scss/content/guidance_and_support_content/_main.scss */
+/* line 71, ../scss/content/guidance_and_support_content/_main.scss */
 .guidance-and-support-content .excerpt {
   margin-top: 50px; }
 

@@ -7,9 +7,14 @@
   var App = window.App;
 
   App.ChildrenPages = function() {
+    this.settings = {
+      serviceUrl: '/service/children/'
+    };
+
     this.$childrenPages = $('.children-pages');
-    this.isImported = !!$('.guidance-and-support-content[data-is-imported="1"]').length;
-    if(!this.$childrenPages.length || this.isImported) { return; }
+    this.$pageContainer = $('.guidance-and-support-content');
+      this.pageId = this.$pageContainer.attr('data-page-id');
+    if(!this.$childrenPages.length || !this.pageId) { return; }
     this.init();
   };
 
@@ -17,8 +22,7 @@
     init: function() {
       this.cacheEls();
       this.bindEvents();
-      this.generate();
-      this.initialized = true;
+      this.getChildren();
     },
 
     cacheEls: function() {
@@ -28,16 +32,48 @@
     bindEvents: function() {
     },
 
-    generate: function() {
+    getChildren: function() {
       var _this = this;
 
-      if(!this.initialized) { return; }
+      $.ajax({
+        url: this.settings.serviceUrl + this.pageId,
+        type: 'json',
+        success: function(data) {
+          _this.populateChildrenList(data);
+        },
+        error: function() {
+        }
+      });
     },
 
-    getChildren: function() {
+    populateChildrenList: function(data) {
+      var _this = this;
+      var $child;
+
+      $.each(data.items, function(index, child) {
+        $child = _this.constructChildLink(child);
+        $child.appendTo(_this.$childrenPages);
+      });
+
+      this.updateVisibility();
     },
 
-    populateChildrenList: function() {
+    constructChildLink: function(childData) {
+      var $child = $('<li></li>');
+      var $link = $('<a></a>');
+
+      $link.attr('href', childData.url);
+      $link.text(childData.title);
+      if(childData.isExternal) {
+        $link.attr('rel', 'external');
+      }
+      $link.appendTo($child);
+
+      return $child;
+    },
+
+    updateVisibility: function() {
+      this.$childrenPagesBox.toggleClass('visible', this.$childrenPages.find('li').length > 0);
     }
   };
 }(jQuery));
