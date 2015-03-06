@@ -20,7 +20,7 @@ class Page_header extends MVC_controller {
 
 // Are we in MOJ Story? Need to run early because of redirect
 $moj_slug = 'moj-story';
-if (is_user_logged_in() || MOJSTORYREDIRECT!=true) {
+if (is_user_logged_in() || DW_MICROSITE!==true) {
   $is_moj_story = false;
 } else {
   if (has_ancestor($moj_slug) || $post->post_name==$moj_slug ) {
