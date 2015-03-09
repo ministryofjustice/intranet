@@ -155,6 +155,10 @@ header('X-Frame-Options: SAMEORIGIN');
 
     </script>";
     $analytics_extra = "";
+    // Add custom var for microsite tracking
+    if ($is_moj_story) {
+      $analytics_extra .= "ga('set', 'dimension1', 1);";
+    }
 		$gis = "general_intranet_track_homepage";
 		$gistrackhome = get_option($gis);
 		if ( is_front_page() || is_search() ){
