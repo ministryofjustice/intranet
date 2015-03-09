@@ -23,13 +23,20 @@ session_start();
 $moj_slug = 'moj-story';
 $full_site = $_GET['full_site']!==null?(boolean) $_GET['full_site']:null;
 
-if($full_site!==null) {
+if($full_site !== null) { //use manual override
   $_SESSION['full_site'] = $full_site;
-  $new_url = remove_query_arg( 'full_site' );
+}
+elseif(is_user_logged_in()) {
+  $_SESSION['full_site'] = true;
+}
+
+if($full_site !== null) {
+  $new_url = remove_query_arg('full_site');
   wp_redirect($new_url);
   die();
 }
-if (is_user_logged_in() || $_SESSION['full_site']) {
+
+if ($_SESSION['full_site']) {
   $is_moj_story = false;
 } else {
   if (has_ancestor($moj_slug) || $post->post_name==$moj_slug ) {
