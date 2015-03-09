@@ -19,6 +19,7 @@ class Page_header extends MVC_controller {
 }
 
 // Are we in MOJ Story? Need to run early because of redirect
+session_start();
 $moj_slug = 'moj-story';
 $full_site = $_GET['full_site']!==null?(boolean) $_GET['full_site']:null;
 
