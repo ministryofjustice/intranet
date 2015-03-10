@@ -26,7 +26,10 @@
 
     changeDepartmentHandle: function() {
       var url = this.$departmentDropdown.find('option:selected').attr('data-url');
-      window.location.href = url;
+
+      if(url) {
+        window.location.href = url;
+      }
 
       //var deptName = this.$departmentDropdown.find('option:selected').attr('data-department');
       //this.$departmentDropdownBox.attr('data-department', deptName);
