@@ -19,8 +19,17 @@ class Page_header extends MVC_controller {
 }
 
 // Are we in MOJ Story? Need to run early because of redirect
+session_start();
 $moj_slug = 'moj-story';
-if (is_user_logged_in() || MOJSTORYREDIRECT!=true) {
+$full_site = $_GET['full_site']!==null?(boolean) $_GET['full_site']:null;
+
+if($full_site!==null) {
+  $_SESSION['full_site'] = $full_site;
+  $new_url = remove_query_arg( 'full_site' );
+  wp_redirect($new_url);
+  die();
+}
+if (is_user_logged_in() || $_SESSION['full_site']) {
   $is_moj_story = false;
 } else {
   if (has_ancestor($moj_slug) || $post->post_name==$moj_slug ) {
@@ -135,19 +144,39 @@ header('X-Frame-Options: SAMEORIGIN');
 	<!--Google Analytics-->
 	<?php
 		//write script for google analytics (only do on homepage if homepage tracking is set)
+    $tracking_code = "<script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', '%s', 'auto');
+      %s
+      ga('send', 'pageview');
+
+    </script>";
+    $analytics_extra = "";
+    // Add custom var for microsite tracking
+    if ($is_moj_story) {
+      $analytics_extra .= "ga('set', 'dimension1', 1);";
+    }
 		$gis = "general_intranet_track_homepage";
 		$gistrackhome = get_option($gis);
 		if ( is_front_page() || is_search() ){
 			if ($gistrackhome == 1 || is_search() ){
-				$gis = "general_intranet_google_tracking_code";
-				$gisgtc = get_option($gis);
-				echo $gisgtc;
+				$gis = "general_intranet_ga_id";
+				$ga_id = get_option($gis);
+        if($ga_id!=null) {
+				  echo sprintf($tracking_code, $ga_id, $analytics_extra);
+        }
 			}
 		}
 		else {
-			$gis = "general_intranet_google_tracking_code";
-			$gisgtc = get_option($gis);
-			echo $gisgtc;
+			$gis = "general_intranet_ga_id";
+			$ga_id = get_option($gis);
+      if($ga_id!=null) {
+			 echo sprintf($tracking_code, $ga_id, $analytics_extra);
+      }
 		}
 		?>
 
