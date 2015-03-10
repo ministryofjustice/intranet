@@ -105,3 +105,13 @@ nbproject
 /wp-content/languages/
 deploy_dev.cfg
 /node_modules/
+
+# plugins
+wp-content/plugins/
+!/wp-content/plugins/dw-crawl-import
+!/wp-content/plugins/dw-mvc
+!/wp-content/plugins/dw-pageapi
+!/wp-content/plugins/dw-feature-news
+!/wp-content/plugins/dw-markdown
+!/wp-content/plugins/dw-markdown-preview
+!/wp-content/plugins/dw-sticky-news
