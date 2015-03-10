@@ -13,36 +13,37 @@ jQuery(function($) {
       // Add new link fields
       // Note: I added tabindex='-1' to Delete links to remove them from taborder to prevent accidental triggering
       $("\
-        <tr class='" + namespace + "-line " + namespace + "-line[" +  linkNumber + "]'>\
-          <!--<td>\
+        <tr class='" + namespace + "-line " + namespace + "-line[" +  linkNumber + "] draggable'>\
+          <td>\
             <span class='dashicons dashicons-sort'></span>\
-          </td>-->\
+          </td>\
           <td>\
             <input class='" + namespace + "-link-text " + namespace + "-link-text" + linkNumber + " regular-text' id='" + namespace + "-link-text" + linkNumber + "' name='" + namespace + "-link-text" + linkNumber + "' type='text' placeholder='Link text'>\
           </td>\
           <td>\
             <input class='" + namespace + "-url " + namespace + "-url" + linkNumber + " regular-text' id='" + namespace + "-url" + linkNumber + "' name='" + namespace + "-url" + linkNumber + "' type='text' placeholder='Link URL'>\
           </td>\
-          <td>\
+          <td class='center'>\
             <input class='" + namespace + "-qlink " + namespace + "-qlink" + linkNumber + "' id='" + namespace + "-qlink" + linkNumber + "' name='" + namespace + "-qlink" + linkNumber + "' type='checkbox'>\
           </td>\
-          <td>\
+          <td class='center'>\
             <input class='" + namespace + "-firsttab " + namespace + "-firsttab" + linkNumber + "' id='" + namespace + "-firsttab" + linkNumber + "' name='" + namespace + "-firsttab" + linkNumber + "' type='checkbox'>\
           </td>\
-          <td>\
+          <td class='center'>\
             <input class='" + namespace + "-secondtab " + namespace + "-secondtab" + linkNumber + "' id='" + namespace + "-secondtab" + linkNumber + "' name='" + namespace + "-secondtab" + linkNumber + "' type='checkbox'>\
           </td>\
           <td>\
             <a href='#' class='hide-if-no-js delete-link' tabindex='-1'>Delete</a>\
           </td>\
         </tr>\
-        ").insertBefore($(this).closest('tr'));
+        ").insertAfter($('tr',container).last());
       // if (linkNumber==maxLinks) {
         // $(this).closest('tr').hide();
       // }
     // } else {
       // alert('No more than ' + maxLinks + ' quick links allowed');
     // }
+    $('.quick_links-container tr.draggable').draggable();
     e.preventDefault();
   });
 
@@ -63,30 +64,71 @@ jQuery(function($) {
     clickedLink = Number($(this).closest('tr').attr('class').match(/\[(.+)\]/)[1]);
     totalLinks = $('.'+namespace+'-line').size();
     // Cascade changes through remaining links
-    for(var i=(clickedLink); i<=(totalLinks); i++) {
-      oldText = $('input.' + namespace + '-link-text' + (i+1)).val();
-      oldUrl = $('input.' + namespace + '-url' + (i+1)).val();
-      $('input.' + namespace + '-link-text' + i).val(oldText);
-      $('input.' + namespace + '-url' + i).val(oldUrl);
-    }
+    reorderLinks(clickedLink,-1,namespace);
     // Remove link
-    // $(this).closest('tr').remove();
     $(this).closest('tr').fadeOut(0, function() {
       $('tr.quick_links-line').last().remove();
       $(this).show();
     });
-    // Bring back Add Link if less than maxLinks
-    if(totalLinks==maxLinks) {
-      $('.quick_links-container .add-link').closest('tr').show();
-    }
     e.preventDefault();
   });
 
+  function reorderLinks(sourceElement, targetElement, namespace) {
+    totalLinks = $('.'+namespace+'-line').size();
+    if(targetElement<0) {
+      tempRow = $('.quick_links-line')[sourceElement-1];
+      for(var i=(sourceElement); i<=(totalLinks); i++) {
+        currentRow = $('.quick_links-line')[i-1];
+        $.each($(currentRow).find('input'),function(j,inputElement){
+          inputIdArray = $(inputElement).attr('id').match(/(.+)(\d+)$/);
+          inputIdText = inputIdArray[1];
+          $('input.' + inputIdText + i).val($('input.' + inputIdText + (i+1)).val())
+          if($('input.' + inputIdText + (i+1)).prop('checked')==true) {
+            $('input.' + inputIdText + i).prop('checked',true);
+          } else {
+            $('input.' + inputIdText + i).prop('checked',false);
+          }
+        });
+      }
+    } else {
+      for (var i=1; i<=totalLinks; i++) {
+        currentRow = $('.quick_links-line')[i-1];
+        $.each($(currentRow).find('input'),function(j,inputElement){
+          inputIdArray = $(inputElement).attr('id').match(/(.+)(\d+)$/);
+          // Change class
+          $(inputElement).removeClass(inputIdArray[1] + inputIdArray[2]);
+          $(inputElement).addClass(inputIdArray[1] + i);
+          // Change name
+          $(inputElement).attr('name',inputIdArray[1] + i);
+          // Change ID
+          $(inputElement).attr('id',inputIdArray[1] + i);
+        });
+      }
+    }
+  }
+
   // Drag and drop
   $('.quick_links-container tr.draggable').draggable({
-      helper: "clone",
-      handle: ".dashicons.dashicons-sort"
+      handle: ".dashicons.dashicons-sort",
+      axis: "y",
+      connectToSortable: '.quick_links-container tbody',
+      containment: "parent"
   });
+
+  $('.quick_links-container tbody').sortable({
+    items: "> tr",
+    forcePlaceholderSize: true,
+    placeholder:'.dashicons.dashicons-sort',
+    revert: true,
+    update: function(event, ui) {
+      container = $(this).closest('div');
+      // Get namespace
+      namespace = container.attr('class').replace(/-container$/,'');
+      draggedItem = ui.item[0];
+      itemNo = $(draggedItem).attr('class').match(/quick_links-line\[(\d+)\]/)[1];
+      reorderLinks(itemNo,ui.item.index(),namespace);
+    }
+  }).disableSelection();
 
   // Tabs
   var gsTabs = $('#content_tabs .tabs').tabs();
