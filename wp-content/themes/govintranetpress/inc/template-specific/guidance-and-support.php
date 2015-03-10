@@ -38,34 +38,37 @@ function quick_links_callback($post) {
         <p><strong>Links Title (defaults to Links)</strong></p>
         <label class="screen-reader-text" for='<?=$ns?>-title'>Links Title (defaults to Links)</label>
         <input class='<?=$ns?>-title regular-text' id='<?=$ns?>-title' name='<?=$ns?>-title' type='text' value='<?=esc_attr($links_title)?>'>
-        <table class='form-table'>
-            <tbody>
+        <table class=''>
+            <thead>
                 <tr>
-                    <th>Link text</th>
-                    <th>Link URL</th>
-                    <th>Quick Link</th>
-                    <th>Tab&nbsp;1</th>
-                    <th>Tab&nbsp;2</th>
-                    <th></th>
+                    <th scope="col" class="check-column"></th>
+                    <th scope="col" class="">Link text</th>
+                    <th scope="col" class="">Link URL</th>
+                    <th scope="col" class="check-column">Quick Link</th>
+                    <th scope="col" class="check-column">Tab&nbsp;1</th>
+                    <th scope="col" class="check-column">Tab&nbsp;2</th>
+                    <th scope="col" class=""></th>
                 </tr>
-                <?php for($i=1;$i<=$record_count;$i++) { ?>
+            </thead>
+            <tbody>
+                <?php for($i=1;$i==1 || $i<=$record_count;$i++) { ?>
                 <tr class='<?=$ns?>-line <?=$ns?>-line[<?=$i?>] draggable'>
-                    <!--<td>
+                    <td>
                         <span class="dashicons dashicons-sort"></span>
-                    </td>-->
+                    </td>
                     <td>
                         <input class='<?=$ns?>-link-text <?=$ns?>-link-text<?=$i?> regular-text' id='<?=$ns?>-link-text<?=$i?>' name='<?=$ns?>-link-text<?=$i?>' type='text' placeholder='Link text' value='<?=esc_attr($link_array[$i]['linktext'])?>'>
                     </td>
                     <td>
                         <input class='<?=$ns?>-url <?=$ns?>-url<?=$i?> regular-text' id='<?=$ns?>-url<?=$i?>' name='<?=$ns?>-url<?=$i?>' type='text' placeholder='Link URL'  value='<?=esc_attr($link_array[$i]['linkurl'])?>'>
                     </td>
-                    <td>
+                    <td class="center">
                         <input class='<?=$ns?>-qlink <?=$ns?>-qlink<?=$i?>' type='checkbox' id='<?=$ns?>-qlink<?=$i?>' name='<?=$ns?>-qlink<?=$i?>'<?=$link_array[$i]['qlink']?>>
                     </td>
-                    <td>
+                    <td class="center">
                         <input class='<?=$ns?>-firsttab <?=$ns?>-firsttab<?=$i?>' type='checkbox' id='<?=$ns?>-firsttab<?=$i?>' name='<?=$ns?>-firsttab<?=$i?>'<?=$link_array[$i]['firsttab']?>>
                     </td>
-                    <td>
+                    <td class="center">
                         <input class='<?=$ns?>-secondtab <?=$ns?>-secondtab<?=$i?>' type='checkbox' id='<?=$ns?>-secondtab<?=$i?>' name='<?=$ns?>-secondtab<?=$i?>'<?=$link_array[$i]['secondtab']?>>
                     </td>
                     <td>
@@ -73,13 +76,9 @@ function quick_links_callback($post) {
                     </td>
                 </tr>
                 <?php } ?>
-                <tr>
-                    <th scope='row' valign='top'>
-                        <a href='#' class='hide-if-no-js add-link'>+ Add link</a>
-                    </th>
-                </tr>
             </tbody>
         </table>
+        <a href='#' class='hide-if-no-js add-link'>+ Add link</a>
     </div>
 
     <p>You are allowed to enter up to <?=$max_links?> quick links</p>

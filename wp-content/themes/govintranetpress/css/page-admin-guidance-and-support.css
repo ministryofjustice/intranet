@@ -1,5 +1,5 @@
 #quick_links input.regular-text {
-  width: 20em;
+  /*width: 20em;*/
 }
 
 #quick_links .form-table th {
@@ -8,6 +8,10 @@
 
 #quick_links .form-table td {
   padding: 15px 10px 10px 0;
+}
+
+#quick_links .ui-draggable-handle {
+  cursor: move;
 }
 
 #content_tabs .ui-widget-content,
@@ -36,4 +40,12 @@
 #content_tabs .add-section {
   color: #0074a2;
   font-family: 'Open Sans', sans-serif;
+}
+
+td.center, th.center {
+  text-align: center;
+}
+
+button.switch-tmce {
+  display: none;
 }
