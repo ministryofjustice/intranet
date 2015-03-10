@@ -27,6 +27,7 @@
 
     cacheEls: function() {
       this.$childrenPagesBox = $('.children-pages-box');
+      this.$childrenPagesJumpBox = $('.children-pages-jump-box');
     },
 
     bindEvents: function() {
@@ -73,7 +74,10 @@
     },
 
     updateVisibility: function() {
-      this.$childrenPagesBox.toggleClass('visible', this.$childrenPages.find('li').length > 0);
+      var hasChildrenPages = this.$childrenPages.find('li').length > 0;
+
+      this.$childrenPagesBox.toggleClass('visible', hasChildrenPages);
+      this.$childrenPagesJumpBox.toggleClass('visible', hasChildrenPages);
     }
   };
 }(jQuery));
