@@ -466,7 +466,7 @@ h1 {
 .main-content .content-info p, .main-content .editable table th,
 .main-content .editable table td, .breadcrumbs a,
 .breadcrumbs span, .beta-banner .beta-icon,
-.beta-banner .message, .footerwrapper .footer li, .message .content, #menu-utilities li a, .content-filters .description, .content-filters .label, #need-to-know .excerpt, .my-moj .my-moj-top .department, .my-moj .menu-my-moj-quick-links-container ul a, .guidance-and-support .tree .all-categories, .guidance-and-support-content .right-hand-menu a, .guidance-and-support-content .table-of-contents li a, .page-search-results .search-item .excerpt {
+.beta-banner .message, .footerwrapper .footer li, .message .content, #menu-utilities li a, .content-filters .description, .content-filters .label, .children-pages-jump-box a, #need-to-know .excerpt, .my-moj .my-moj-top .department, .my-moj .menu-my-moj-quick-links-container ul a, .guidance-and-support .tree .all-categories, .guidance-and-support-content .right-hand-menu a, .guidance-and-support-content .table-of-contents li a, .page-search-results .search-item .excerpt {
   font-size: 16px;
   line-height: 20px; }
 
@@ -1648,6 +1648,38 @@ form .form-row {
 .collapsible-block-container.opened .collapsible-block {
   display: block; }
 
+/* line 2, ../scss/modules/_children_pages.scss */
+.children-pages-jump-box li {
+  background-color: #2e8aca; }
+/* line 6, ../scss/modules/_children_pages.scss */
+.children-pages-jump-box a {
+  display: block;
+  padding: 5px 15px;
+  color: #fff; }
+
+/* line 15, ../scss/modules/_children_pages.scss */
+.children-pages-box.editable .children-heading {
+  padding: 5px 15px;
+  background-color: #2e8aca;
+  color: #fff; }
+/* line 21, ../scss/modules/_children_pages.scss */
+.children-pages-box.editable .children-pages {
+  margin-left: 20px; }
+  /* line 24, ../scss/modules/_children_pages.scss */
+  .children-pages-box.editable .children-pages a {
+    display: block;
+    padding-top: 5px;
+    padding-bottom: 5px; }
+
+/* line 32, ../scss/modules/_children_pages.scss */
+.children-pages-box,
+.children-pages-jump-box {
+  display: none; }
+  /* line 36, ../scss/modules/_children_pages.scss */
+  .children-pages-box.visible,
+  .children-pages-jump-box.visible {
+    display: block; }
+
 /* line 2, ../scss/widgets/ht_feature_news/_main.scss */
 .ht-feature-news > h3 {
   margin-top: 16px;
@@ -2141,10 +2173,10 @@ form .form-row {
       .my-moj .apps-list .app-icon-inner.jobs-icon {
         background-position: -384px 0; }
       /* line 202, ../scss/content/homepage/_my_moj.scss */
-      .my-moj .apps-list .app-icon-inner.online-toolkit-icon {
+      .my-moj .apps-list .app-icon-inner.ministry-of-justice-icon {
         background-position: -448px 0; }
       /* line 206, ../scss/content/homepage/_my_moj.scss */
-      .my-moj .apps-list .app-icon-inner.hmcts-intranet-icon {
+      .my-moj .apps-list .app-icon-inner.gov-uk-icon {
         background-position: -512px 0; }
       /* line 210, ../scss/content/homepage/_my_moj.scss */
       .my-moj .apps-list .app-icon-inner.pension-icon {

@@ -10,6 +10,7 @@ jQuery(function($) {
   App.ins.azIndex = new App.AZIndex();
   App.ins.emergencyMessage = new App.EmergencyMessage();
   App.ins.tableOfContents = new App.TableOfContents();
+  App.ins.childrenPages = new App.ChildrenPages();
   App.ins.tabbedContent = new App.TabbedContent();
   App.ins.news = new App.News();
   App.ins.searchResults = new App.SearchResults();

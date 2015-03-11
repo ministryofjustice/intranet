@@ -1,5 +1,9 @@
 <?php if (!defined('ABSPATH')) die(); ?>
-<div class="guidance-and-support-content" data-redirect-url="<?=$redirect_url?>" data-redirect-enabled="<?=$redirect_enabled?>">
+<div class="guidance-and-support-content"
+     data-redirect-url="<?=$redirect_url?>"
+     data-redirect-enabled="<?=$redirect_enabled?>"
+     data-is-imported="<?=$is_imported?>"
+     data-page-id="<?=$id?>">
   <div class="grid">
     <div class="col-lg-8">
       <h2 class="page-category"><?=$page_category ?></h2>
@@ -53,20 +57,35 @@
 
   <div class="grid content-container">
     <div class="col-lg-3 col-md-4">
-      <div class="js-floater table-of-contents-box" data-floater-limiter-selector=".content-container">
-        <h4>Contents</h4>
-        <ul class="table-of-contents" data-content-selector=".tab-content">
-        <?php foreach($tab_array as $tab_row): ?>
-          <li>
-            <a href="#<?=$tab_row['name']?>"><?=$tab_row['title']?></a>
-          </li>
-        <?php endforeach ?>
-        </ul>
+      <div class="js-floater" data-floater-limiter-selector=".content-container">
+        <div class="table-of-contents-box">
+          <h4>Contents</h4>
+          <ul class="table-of-contents" data-content-selector=".tab-content">
+          <?php foreach($tab_array as $tab_row): ?>
+            <li>
+              <a href="#<?=$tab_row['name']?>"><?=$tab_row['title']?></a>
+            </li>
+          <?php endforeach ?>
+          </ul>
+        </div>
+        <div class="children-pages-jump-box">
+          <ul>
+            <li>
+              <a href="#children-pages">Pages in this section</a>
+            </li>
+          </ul>
+        </div>
       </div>
       &nbsp;
     </div>
     <div class="col-lg-9 col-md-8">
       <div class="tab-content editable">
+      </div>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12">
+      <div class="children-pages-box editable">
+        <h2 class="children-heading" id="children-pages">Pages in this section</h2>
+        <ul class="children-pages"></ul>
       </div>
     </div>
   </div>

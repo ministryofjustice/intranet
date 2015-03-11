@@ -15,6 +15,7 @@
     init: function() {
       this.redirectUrl = this.$top.attr('data-redirect-url');
       this.redirectEnabled = this.$top.attr('data-redirect-enabled');
+      this.isImported = this.$top.attr('data-is-imported');
 
       if(this.redirectUrl && this.redirectEnabled==="1") {
         this.redirect(this.redirectUrl);
