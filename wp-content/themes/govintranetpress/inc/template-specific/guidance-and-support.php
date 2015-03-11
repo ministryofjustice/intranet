@@ -127,7 +127,10 @@ function quick_links_save($post_id) {
 
 // Content Tabs metabox
 function content_tabs_callback($post) {
-    js_wp_editor();
+    if( file_exists( get_template_directory() . '/inc/js-wp-editor.php' ) ) {
+        require_once( get_template_directory() . '/inc/js-wp-editor.php' );
+        js_wp_editor();
+    }
     $ns = 'content_tabs'; // Quick namespace variable
     wp_nonce_field( $ns.'_meta_box', $ns.'_meta_box_nonce' );
 

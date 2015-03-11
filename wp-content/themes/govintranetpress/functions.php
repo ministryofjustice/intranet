@@ -1670,17 +1670,6 @@ function add_page_excerpts() {
 }
 add_action('init','add_page_excerpts');
 
-/*
- *	Include JavaScript WordPress editor functions
- */
-function setup_js_wp_editor() {
-	if( file_exists( get_template_directory() . '/inc/js-wp-editor.php' ) ) {
-		require_once( get_template_directory() . '/inc/js-wp-editor.php' );
-		js_wp_editor();
-	}
-}
-add_action( 'init', 'setup_js_wp_editor',100);
-
 /* checks to see if the a post has an ancestor by slug name */
 function has_ancestor($s) {
 
