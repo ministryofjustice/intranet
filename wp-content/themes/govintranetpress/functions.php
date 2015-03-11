@@ -1604,6 +1604,13 @@ function dw_redirects() {
     header('Location: ' . site_url() . '/search-results/' . $filter . '/' . $keywords);
     exit;
   }
+
+  $path = $_SERVER['REQUEST_URI'];
+  if(strpos($path, 'guidance-and-support') || strpos($path, 'guidance-support')) {
+  	$new_path = str_replace(array('guidance-and-support','guidance-support'), 'guidance', $path);
+  	header('Location: ' . site_url() . $new_path);
+  	exit;
+  }
 }
 
 function dw_rewrite_rules() {
