@@ -1604,6 +1604,13 @@ function dw_redirects() {
     header('Location: ' . site_url() . '/search-results/' . $filter . '/' . $keywords);
     exit;
   }
+
+  $path = $_SERVER['REQUEST_URI'];
+  if(strpos($path, 'guidance-and-support')) {
+  	$new_path = str_replace('guidance-and-support', 'guidance', $path);
+  	header('Location: ' . site_url() . $new_path);
+  	exit;
+  }
 }
 
 function dw_rewrite_rules() {
@@ -1618,6 +1625,15 @@ function dw_rewrite_rules() {
   add_rewrite_rule($regex, $redirect, 'top');
   add_rewrite_tag('%search-filter%', '([^&]+)');
   add_rewrite_tag('%search-string%', '([^&]+)');
+
+  // guidance-and-support -> guidance rewrite
+	// $path = $_SERVER['REQUEST_URI'];
+ //  if(strpos($path, 'guidance-and-support')) {
+ //  	$new_path = str_replace('guidance-and-support', 'guidance', $path);
+ //  }
+ //  $regex = '^guidance-and-support/(.*)';
+ //  $redirect = 'index.php?page_id=' . get_page_by_path($new_path)->ID;
+ //  add_rewrite_rule($regex, $redirect, 'top');
 }
 add_action('init', 'dw_redirects');
 add_action('init', 'dw_rewrite_rules');
