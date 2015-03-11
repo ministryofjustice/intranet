@@ -57,6 +57,9 @@
 
   <div class="grid content-container">
     <div class="col-lg-3 col-md-4">
+      <?php if($thumbnail) { ?>
+      <img src="<?=$thumbnail[0]?>" class="img img-responsive" alt="<?=$title?>" />
+      <?php } ?>
       <div class="js-floater" data-floater-limiter-selector=".content-container">
         <div class="table-of-contents-box">
           <h4>Contents</h4>
