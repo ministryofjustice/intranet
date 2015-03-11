@@ -1679,7 +1679,7 @@ function setup_js_wp_editor() {
 		js_wp_editor();
 	}
 }
-add_action( 'init', 'setup_js_wp_editor',100);
+// add_action( 'init', 'setup_js_wp_editor',100);
 
 /* checks to see if the a post has an ancestor by slug name */
 function has_ancestor($s) {
