@@ -1,0 +1,39 @@
+.children-pages-jump-box {
+  li {
+    background-color: $dw-link;
+  }
+
+  a {
+    @extend %medium-copy;
+    display: block;
+    padding: 5px 15px;
+    color: $white;
+  }
+}
+
+.children-pages-box.editable {
+  .children-heading {
+    padding: 5px 15px;
+    background-color: $dw-link;
+    color: $white;
+  }
+
+  .children-pages {
+    margin-left: 20px;
+
+    a {
+      display: block;
+      padding-top: 5px;
+      padding-bottom: 5px;
+    }
+  }
+}
+
+.children-pages-box,
+.children-pages-jump-box {
+  display: none;
+
+  &.visible {
+    display: block;
+  }
+}
