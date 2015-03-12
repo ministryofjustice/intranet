@@ -92,7 +92,7 @@
           var script = document.createElement('script');
           script.type = 'text/javascript';
           script.async = true;
-          script.onload = function(){
+          script.onload = function() {
             _this.scriptLoaded();
           };
           script.src = url;
