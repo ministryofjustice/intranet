@@ -66,7 +66,54 @@
       }
 
       return (level > 0 ? this.round(size, 2) : size) + settings.sizeUnits[level];
-    }
+    },
+
+    inject: (function() {
+      var Inject = function(url, callback) {
+        this.callback = callback;
+        this.loadedCount = 0;
+
+        if(url instanceof Array) {
+          this.count = url.length;
+
+          for(var a=0; a<url.length; a++) {
+            this.loadScript(url[a]);
+          }
+        }
+        else {
+          this.count = 1;
+          this.loadScript(url);
+        }
+      };
+
+      Inject.prototype = {
+        loadScript: function(url) {
+          var _this = this;
+          var script = document.createElement('script');
+          script.type = 'text/javascript';
+          script.async = true;
+          script.onload = function(){
+            _this.scriptLoaded();
+          };
+          script.src = url;
+          document.getElementsByTagName('head')[0].appendChild(script);
+        },
+
+        scriptLoaded: function() {
+          this.loadedCount++;
+
+          if(this.loadedCount >= this.count) {
+            if(this.callback) {
+              this.callback();
+            }
+          }
+        }
+      };
+
+      return function(url, callback) {
+        return new Inject(url, callback);
+      };
+    }())
   };
 }(jQuery));
 
@@ -407,6 +454,45 @@
 
     close: function() {
       this.$top.slideUp(200);
+    }
+  };
+}(window.jQuery));
+
+(function($) {
+  "use strict";
+
+  var App = window.App;
+
+  App.Feeds = function() {
+    this.$top = $('.feeds');
+    if(!this.$top.length) { return; }
+    this.init();
+  };
+
+  App.Feeds.prototype = {
+    init: function() {
+      this.initializeTwitter();
+      this.initializeYammer();
+    },
+
+    initializeTwitter: function() {
+      var scheme = /^http:/.test(window.location.href) ? 'http' : 'https';
+      App.tools.inject(scheme + '://platform.twitter.com/widgets.js');
+    },
+
+    initializeYammer: function() {
+      App.tools.inject('https://assets.yammer.com/assets/platform_embed.js', function() {
+        window.yam.connect.embedFeed({
+          container: '#yammer-feed',
+          network: 'justice.gsi.gov.uk',
+          feedType: 'group',
+          feedId: 'all'
+        });
+
+        $('#embed-feed').css({
+          height: '600px'
+        });
+      });
     }
   };
 }(window.jQuery));
@@ -1724,4 +1810,5 @@ jQuery(function($) {
   App.ins.floaters = new App.Floaters();
   App.ins.collapsibleBlock = new App.CollapsibleBlock();
   App.ins.departmentDropdown = new App.DepartmentDropdown();
+  App.ins.feeds = new App.Feeds();
 });
