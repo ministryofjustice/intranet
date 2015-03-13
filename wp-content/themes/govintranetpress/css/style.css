@@ -2526,22 +2526,25 @@ form .form-row {
 /* line 2, ../scss/content/news_landing/_main.scss */
 .page-news .content-filters {
   margin-top: 20px; }
-/* line 6, ../scss/content/news_landing/_main.scss */
+  /* line 5, ../scss/content/news_landing/_main.scss */
+  .page-news .content-filters select {
+    border-radius: 0; }
+/* line 10, ../scss/content/news_landing/_main.scss */
 .page-news .news-results-title {
   border-bottom: 1px solid #6f777b; }
-/* line 11, ../scss/content/news_landing/_main.scss */
+/* line 15, ../scss/content/news_landing/_main.scss */
 .page-news .news-filtered-results-title .results-count {
   font-weight: bold; }
-/* line 16, ../scss/content/news_landing/_main.scss */
+/* line 20, ../scss/content/news_landing/_main.scss */
 .page-news .news-filtered-results-title .containing,
 .page-news .news-filtered-results-title .for-date {
   font-weight: normal; }
-/* line 22, ../scss/content/news_landing/_main.scss */
+/* line 26, ../scss/content/news_landing/_main.scss */
 .page-news .news-filtered-results-title .results-count-description,
 .page-news .news-filtered-results-title .keywords,
 .page-news .news-filtered-results-title .date {
   font-weight: bold; }
-/* line 30, ../scss/content/news_landing/_main.scss */
+/* line 34, ../scss/content/news_landing/_main.scss */
 .page-news .news-item {
   padding: 15px 0;
   border-bottom: 1px solid #bfc1c3;
@@ -2551,26 +2554,26 @@ form .form-row {
     content: "";
     display: table;
     clear: both; }
-  /* line 36, ../scss/content/news_landing/_main.scss */
+  /* line 40, ../scss/content/news_landing/_main.scss */
   .page-news .news-item.faded {
     opacity: .3; }
-  /* line 40, ../scss/content/news_landing/_main.scss */
+  /* line 44, ../scss/content/news_landing/_main.scss */
   .page-news .news-item .thumbnail-container {
     float: left;
     width: 150px;
     height: 100px;
     margin-right: 20px; }
-  /* line 47, ../scss/content/news_landing/_main.scss */
+  /* line 51, ../scss/content/news_landing/_main.scss */
   .page-news .news-item .content {
     overflow: hidden; }
-  /* line 52, ../scss/content/news_landing/_main.scss */
+  /* line 56, ../scss/content/news_landing/_main.scss */
   .page-news .news-item .meta span {
     color: #6f777b; }
-  /* line 57, ../scss/content/news_landing/_main.scss */
+  /* line 61, ../scss/content/news_landing/_main.scss */
   .page-news .news-item .title {
     margin-top: 0px;
     margin-bottom: 0px; }
-  /* line 63, ../scss/content/news_landing/_main.scss */
+  /* line 67, ../scss/content/news_landing/_main.scss */
   .page-news .news-item .excerpt {
     margin-top: 10px; }
 

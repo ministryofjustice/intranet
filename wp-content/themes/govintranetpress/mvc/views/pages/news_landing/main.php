@@ -10,12 +10,12 @@
     </div>
   </div>
 
-  <div class="grid">
-    <div class="col-lg-3 col-md-3 mobile-hide">&nbsp;</div>
-    <div class="col-lg-8 col-md-8 col-sm-12 push-lg-1 push-md-1">
-      <?php dynamic_sidebar('newslanding-widget-area0'); ?>
-    </div>
-  </div>
+  <!--<div class="grid">-->
+  <!--  <div class="col-lg-3 col-md-3 mobile-hide">&nbsp;</div>-->
+  <!--  <div class="col-lg-8 col-md-8 col-sm-12 push-lg-1 push-md-1">-->
+  <!--    <?php dynamic_sidebar('newslanding-widget-area0'); ?>-->
+  <!--  </div>-->
+  <!--</div>-->
 
   <div class="grid">
     <div class="col-lg-3 col-md-3 col-sm-12">
