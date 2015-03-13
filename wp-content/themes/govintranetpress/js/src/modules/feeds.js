@@ -11,17 +11,18 @@
 
   App.Feeds.prototype = {
     init: function() {
+      this.scheme = /^http:/.test(window.location.href) ? 'http' : 'https'; //can't we just use scheme-agnostic URL's? to be tested on IE7
+
       this.initializeTwitter();
       this.initializeYammer();
     },
 
     initializeTwitter: function() {
-      var scheme = /^http:/.test(window.location.href) ? 'http' : 'https';
-      App.tools.inject(scheme + '://platform.twitter.com/widgets.js');
+      App.tools.inject(this.scheme + '://platform.twitter.com/widgets.js');
     },
 
     initializeYammer: function() {
-      App.tools.inject('https://assets.yammer.com/assets/platform_embed.js', function() {
+      App.tools.inject(this.scheme + '://assets.yammer.com/assets/platform_embed.js', function() {
         window.yam.connect.embedFeed({
           container: '#yammer-feed',
           network: 'justice.gsi.gov.uk',
