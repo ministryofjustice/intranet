@@ -16,7 +16,7 @@
         </li>
         <li>
           <span>Department:</span>
-          <span>HMCTS</span>
+          <span>MOJ</span>
         </li>
       </ul>
     </div>
