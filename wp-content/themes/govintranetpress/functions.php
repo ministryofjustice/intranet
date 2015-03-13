@@ -1707,11 +1707,11 @@ add_filter('query_vars','add_full_site_param');
 
 function auto_login() {
 	//change these 2 items
-	$loginpageid = 'fullsite'; //Page ID/slug of your login page
+	$loginpage = 'fullsite'; //Page ID/slug of your login page
 	$loginusername = 'fullsite'; //username of the WordPress user account to impersonate
 
     if (!is_user_logged_in()
-    	&& is_page($loginpageid)) { //only attempt to auto-login if at www.site.com/auto-login/ (i.e. www.site.com/?p=1234 )
+    	&& is_page($loginpage)) { //only attempt to auto-login if at www.site.com/auto-login/ (i.e. www.site.com/?p=1234 )
 
         //get user's ID
         $user = get_user_by('login', $loginusername);
@@ -1728,10 +1728,28 @@ function auto_login() {
         //redirect to home page after logging in (i.e. don't show content of www.site.com/?p=1234 )
         wp_redirect( home_url() );
         exit;
-    } elseif(is_page($loginpageid)) {
+    } elseif(is_page($loginpage)) {
         //prevent viewing of login page even if logged in
         wp_redirect( home_url() );
         exit;
     } else {}
 }
 add_action('wp', 'auto_login');
+
+function auto_logout() {
+	$logoutpage = 'microsite';
+	$logoutusername = 'fullsite';
+
+  if (is_page($logoutpage)) { //only attempt to auto-login if at www.site.com/auto-login/ (i.e. www.site.com/?p=1234 )
+  	wp_logout();
+
+  	// Set fullsite session var
+  	$_SESSION['full_site'] = false;
+
+  	// wp_redirect( home_url() );
+
+	} else {
+		// wp_redirect( home_url() );
+	}
+}
+add_action('wp', 'auto_logout');
