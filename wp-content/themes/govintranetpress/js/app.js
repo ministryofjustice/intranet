@@ -465,7 +465,7 @@
 
   App.Feeds = function() {
     this.$top = $('.feeds');
-    if(!this.$top.length) { return; }
+    if(!this.$top.length || App.ie && App.ie < 9) { return; }
     this.init();
   };
 
@@ -484,7 +484,7 @@
     initializeYammer: function() {
       App.tools.inject(this.scheme + '://assets.yammer.com/assets/platform_embed.js', function() {
         window.yam.connect.embedFeed({
-          container: '#yammer-feed',
+          container: '.yammer-feed',
           network: 'justice.gsi.gov.uk',
           feedType: 'group',
           feedId: 'all'
