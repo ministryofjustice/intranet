@@ -39,6 +39,53 @@
       }
 
       return (level > 0 ? this.round(size, 2) : size) + settings.sizeUnits[level];
-    }
+    },
+
+    inject: (function() {
+      var Inject = function(url, callback) {
+        this.callback = callback;
+        this.loadedCount = 0;
+
+        if(url instanceof Array) {
+          this.count = url.length;
+
+          for(var a=0; a<url.length; a++) {
+            this.loadScript(url[a]);
+          }
+        }
+        else {
+          this.count = 1;
+          this.loadScript(url);
+        }
+      };
+
+      Inject.prototype = {
+        loadScript: function(url) {
+          var _this = this;
+          var script = document.createElement('script');
+          script.type = 'text/javascript';
+          script.async = true;
+          script.onload = function() {
+            _this.scriptLoaded();
+          };
+          script.src = url;
+          document.getElementsByTagName('head')[0].appendChild(script);
+        },
+
+        scriptLoaded: function() {
+          this.loadedCount++;
+
+          if(this.loadedCount >= this.count) {
+            if(this.callback) {
+              this.callback();
+            }
+          }
+        }
+      };
+
+      return function(url, callback) {
+        return new Inject(url, callback);
+      };
+    }())
   };
 }(jQuery));

@@ -1,0 +1,38 @@
+.feeds {
+  h3 {
+    font-weight: normal;
+    border-bottom: 1px solid $grey-1;
+  }
+
+  .fallback {
+    display: none;
+  }
+
+  .regular {
+    h3 {
+      &:before {
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        margin-right: 10px;
+        background-image: url('../images/feeds_x2.png');
+        background-size: cover;
+        background-repeat: none;
+        vertical-align: text-top;
+        content: "";
+      }
+    }
+
+    .twitter {
+      h3:before {
+        background-position: -120px 0;
+      }
+    }
+
+    .yammer {
+      h3:before {
+        background-position: -180px 0;
+      }
+    }
+  }
+}

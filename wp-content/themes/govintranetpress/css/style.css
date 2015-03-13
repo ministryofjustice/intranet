@@ -1680,6 +1680,31 @@ form .form-row {
   .children-pages-jump-box.visible {
     display: block; }
 
+/* line 2, ../scss/modules/_feeds.scss */
+.feeds h3 {
+  font-weight: normal;
+  border-bottom: 1px solid #6f777b; }
+/* line 7, ../scss/modules/_feeds.scss */
+.feeds .fallback {
+  display: none; }
+/* line 13, ../scss/modules/_feeds.scss */
+.feeds .regular h3:before {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+  background-image: url("../images/feeds_x2.png");
+  background-size: cover;
+  background-repeat: none;
+  vertical-align: text-top;
+  content: ""; }
+/* line 27, ../scss/modules/_feeds.scss */
+.feeds .regular .twitter h3:before {
+  background-position: -120px 0; }
+/* line 33, ../scss/modules/_feeds.scss */
+.feeds .regular .yammer h3:before {
+  background-position: -180px 0; }
+
 /* line 2, ../scss/widgets/ht_feature_news/_main.scss */
 .ht-feature-news > h3 {
   margin-top: 16px;
