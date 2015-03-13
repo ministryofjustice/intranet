@@ -1,6 +1,10 @@
 .page-news {
   .content-filters {
     margin-top: 20px;
+
+    select {
+      border-radius: 0;
+    }
   }
 
   .news-results-title {

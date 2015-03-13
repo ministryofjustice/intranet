@@ -1,6 +1,6 @@
 <?php if (!defined('ABSPATH')) die();
 
-$feedback_url = $_SESSION['full_site'] ? 'https://www.surveymonkey.com/r/CKP9JZG' : 'https://www.surveymonkey.com/r/HQImicro';
+$feedback_url = $_SESSION['full_site'] ? 'https://www.surveymonkey.com/r/9LLLVH7' : 'https://www.surveymonkey.com/r/HQImicro';
 
 ?>
 
