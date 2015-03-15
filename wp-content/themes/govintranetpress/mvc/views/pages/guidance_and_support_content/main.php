@@ -85,6 +85,9 @@
       <div class="tab-content editable">
       </div>
     </div>
+  </div>
+
+  <div class="grid">
     <div class="col-lg-12 col-md-12 col-sm-12">
       <div class="children-pages-box editable">
         <h2 class="children-heading" id="children-pages">In this section</h2>
