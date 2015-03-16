@@ -722,6 +722,27 @@ p {
 .main-content .editable .info-notice,
 .main-content .editable .example {
   padding-left: 15px; }
+/* line 157, ../scss/global/_editable.scss */
+.main-content .editable ol.steps {
+  padding-left: 0; }
+  /* line 161, ../scss/global/_editable.scss */
+  .main-content .editable ol.steps li {
+    list-style-type: none;
+    counter-increment: step-counter;
+    padding: 15px 0; }
+    /* line 166, ../scss/global/_editable.scss */
+    .main-content .editable ol.steps li::before {
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+      margin-right: 10px;
+      border-radius: 12px;
+      background-color: #0b0c0c;
+      color: white;
+      text-align: center;
+      font-weight: bold;
+      font-size: 12px;
+      content: counter(step-counter); }
 
 /* line 3, ../scss/global/_button.scss */
 input.cta,
