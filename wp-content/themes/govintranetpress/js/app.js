@@ -328,7 +328,7 @@
       var $link = $('<a></a>');
 
       $link.attr('href', childData.url);
-      $link.text(childData.title);
+      $link.html(childData.title);
       if(childData.isExternal) {
         $link.attr('rel', 'external');
       }
