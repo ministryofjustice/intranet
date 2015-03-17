@@ -57,42 +57,19 @@
 
   <div class="grid content-container">
     <div class="col-lg-3 col-md-4">
-      <?php if($thumbnail) { ?>
-      <img src="<?=$thumbnail[0]?>" class="img img-responsive" alt="<?=$title?>" />
-      <?php } ?>
+      <?php if($thumbnail): ?>
+        <img src="<?=$thumbnail[0]?>" class="img img-responsive" alt="<?=$title?>" />
+      <?php endif ?>
       <div class="js-floater" data-floater-limiter-selector=".content-container">
-        <div class="table-of-contents-box">
-          <h4>On this page</h4>
-          <ul class="table-of-contents" data-content-selector=".tab-content">
-          <?php foreach($tab_array as $tab_row): ?>
-            <li>
-              <a href="#<?=$tab_row['name']?>"><?=$tab_row['title']?></a>
-            </li>
-          <?php endforeach ?>
-          </ul>
-        </div>
-        <div class="children-pages-jump-box">
-          <ul>
-            <li>
-              <a href="#children-pages">In this section</a>
-            </li>
-          </ul>
+        <div class="children-pages-box">
+          <h4>In this section</h4>
+          <ul class="children-pages"></ul>
         </div>
       </div>
       &nbsp;
     </div>
     <div class="col-lg-9 col-md-8">
-      <div class="tab-content editable">
-      </div>
-    </div>
-  </div>
-
-  <div class="grid">
-    <div class="col-lg-12 col-md-12 col-sm-12">
-      <div class="children-pages-box editable">
-        <h2 class="children-heading" id="children-pages">In this section</h2>
-        <ul class="children-pages"></ul>
-      </div>
+      <div class="tab-content editable"></div>
     </div>
   </div>
 
