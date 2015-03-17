@@ -4,7 +4,7 @@
      data-redirect-enabled="<?=$redirect_enabled?>"
      data-is-imported="<?=$is_imported?>"
      data-page-id="<?=$id?>">
-  <div class="grid">
+  <div class="grid content-head">
     <div class="col-lg-8">
       <h2 class="page-category"><?=$page_category ?></h2>
       <h1 class="page-title"><?=$title?></h1>
