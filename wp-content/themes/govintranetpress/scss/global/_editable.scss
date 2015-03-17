@@ -1,6 +1,5 @@
 .main-content .editable {
   h2 {
-    @extend %large-heading;
     margin-top: 50px;
 
     &:first-of-type {
@@ -152,5 +151,30 @@
 
   .summary {
     @extend %large-copy;
+  }
+
+  ol.steps {
+    $step-icon-size: 24px;
+    padding-left: 0;
+
+    li {
+      list-style-type: none;
+      counter-increment: step-counter;
+      padding: 15px 0;
+
+      &::before {
+        display: inline-block;
+        width: $step-icon-size;
+        height: $step-icon-size;
+        margin-right: 10px;
+        border-radius: $step-icon-size/2;
+        background-color: $black;
+        color: white;
+        text-align: center;
+        font-weight: bold;
+        font-size: 12px;
+        content: counter(step-counter);
+      }
+    }
   }
 }
