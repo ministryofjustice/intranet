@@ -1816,14 +1816,11 @@ form .form-row {
   /* line 117, ../scss/widgets/ht_feature_news/_main.scss */
   .ht-feature-news .news-thumbnail .more {
     display: none; }
-  /* line 121, ../scss/widgets/ht_feature_news/_main.scss */
-  .ht-feature-news .news-thumbnail .media-body .excerpt {
-    display: none; }
-/* line 126, ../scss/widgets/ht_feature_news/_main.scss */
+/* line 122, ../scss/widgets/ht_feature_news/_main.scss */
 .ht-feature-news .more-in-news {
   text-align: right;
   font-weight: bold; }
-  /* line 130, ../scss/widgets/ht_feature_news/_main.scss */
+  /* line 126, ../scss/widgets/ht_feature_news/_main.scss */
   .ht-feature-news .more-in-news a {
     text-decoration: underline; }
 
