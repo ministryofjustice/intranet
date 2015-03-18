@@ -176,11 +176,19 @@
       }
     }
 
+    li.item.overview,
+    li.item.no-children {
+      a:after {
+        display: none;
+      }
+    }
+
     li.item.loading a:after {
       content: "";
       background-image: url('../images/loader.gif');
       width: 16px;
       height: 16px;
+      background-size: 100%;
       top: 50%;
       margin-top: -8px;
     }

@@ -316,7 +316,10 @@
         $(this).trigger('item-click');
       });
 
-      if(data.is_external && !data.child_count) {
+      if(!data.child_count) {
+        $child.addClass('no-children');
+      }
+      if(data.is_external) {
         $child.find('a').attr('rel', 'external');
       }
 
