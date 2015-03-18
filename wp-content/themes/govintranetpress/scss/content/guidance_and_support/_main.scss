@@ -274,6 +274,21 @@
       }
     }
   }
+
+  .item.overview::after {
+    background-color: $grey-2;
+    content: "";
+    display: block;
+    height: 1px;
+    left: 20px;
+    position: absolute;
+    right: 0;
+    width: 100%;
+  }
+
+  :not(.current).subcategories .item.overview::after {
+    left: 0;
+  }
 }
 
 @media(max-width: 767px) {

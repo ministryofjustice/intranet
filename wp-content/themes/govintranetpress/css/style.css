@@ -2443,41 +2443,54 @@ form .form-row {
   background-repeat: no-repeat;
   margin-left: 6px;
   content: ""; }
+/* line 278, ../scss/content/guidance_and_support/_main.scss */
+.guidance-and-support .item.overview::after {
+  background-color: #bfc1c3;
+  content: "";
+  display: block;
+  height: 1px;
+  left: 20px;
+  position: absolute;
+  right: 0;
+  width: 100%; }
+/* line 289, ../scss/content/guidance_and_support/_main.scss */
+.guidance-and-support :not(.current).subcategories .item.overview::after {
+  left: 0; }
 
 @media (max-width: 767px) {
-  /* line 281, ../scss/content/guidance_and_support/_main.scss */
+  /* line 296, ../scss/content/guidance_and_support/_main.scss */
   .guidance-and-support .tree-container {
     overflow: hidden;
     width: 100%; }
-  /* line 286, ../scss/content/guidance_and_support/_main.scss */
+  /* line 301, ../scss/content/guidance_and_support/_main.scss */
   .guidance-and-support .tree {
     width: 303%;
     transition: margin-left .15s; }
-    /* line 290, ../scss/content/guidance_and_support/_main.scss */
+    /* line 305, ../scss/content/guidance_and_support/_main.scss */
     .guidance-and-support .tree[data-show-column="1"] {
       margin-left: 0%; }
-    /* line 294, ../scss/content/guidance_and_support/_main.scss */
+    /* line 309, ../scss/content/guidance_and_support/_main.scss */
     .guidance-and-support .tree[data-show-column="2"] {
       margin-left: -100%; }
-    /* line 298, ../scss/content/guidance_and_support/_main.scss */
+    /* line 313, ../scss/content/guidance_and_support/_main.scss */
     .guidance-and-support .tree[data-show-column="3"] {
       margin-left: -200%; }
-    /* line 303, ../scss/content/guidance_and_support/_main.scss */
+    /* line 318, ../scss/content/guidance_and_support/_main.scss */
     .guidance-and-support .tree.collapsed .subcategories {
       margin-left: 0; }
-    /* line 307, ../scss/content/guidance_and_support/_main.scss */
+    /* line 322, ../scss/content/guidance_and_support/_main.scss */
     .guidance-and-support .tree.collapsed .links {
       width: 33%; }
-  /* line 313, ../scss/content/guidance_and_support/_main.scss */
+  /* line 328, ../scss/content/guidance_and_support/_main.scss */
   .guidance-and-support .item-container {
     border: none;
     margin-left: 0; }
-    /* line 318, ../scss/content/guidance_and_support/_main.scss */
+    /* line 333, ../scss/content/guidance_and_support/_main.scss */
     .guidance-and-support .item-container.current .item-list,
     .guidance-and-support .item-container.current .category-name {
       margin-left: 0;
       transition: margin-left .3s; }
-    /* line 325, ../scss/content/guidance_and_support/_main.scss */
+    /* line 340, ../scss/content/guidance_and_support/_main.scss */
     .guidance-and-support .item-container .item {
       display: block !important; } }
 /* line 2, ../scss/content/guidance_and_support_content/_main.scss */
