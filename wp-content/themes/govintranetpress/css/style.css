@@ -722,15 +722,15 @@ p {
 .main-content .editable .info-notice,
 .main-content .editable .example {
   padding-left: 15px; }
-/* line 157, ../scss/global/_editable.scss */
+/* line 156, ../scss/global/_editable.scss */
 .main-content .editable ol.steps {
   padding-left: 0; }
-  /* line 161, ../scss/global/_editable.scss */
+  /* line 160, ../scss/global/_editable.scss */
   .main-content .editable ol.steps li {
     list-style-type: none;
     counter-increment: step-counter;
     padding: 15px 0; }
-    /* line 166, ../scss/global/_editable.scss */
+    /* line 165, ../scss/global/_editable.scss */
     .main-content .editable ol.steps li::before {
       display: inline-block;
       width: 24px;
