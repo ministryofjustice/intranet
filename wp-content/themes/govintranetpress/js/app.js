@@ -1498,7 +1498,7 @@
       if(segments[1]) {
         keywords = segments[1];
         keywords = decodeURI(keywords);
-        keywords = keywords.replace('+', ' ');
+        keywords = keywords.replace(/\+/g, ' ');
         keywords = keywords.replace(/[^a-zA-Z0-9\s']+/g, '');
 
         //update keywords field with keywords from url
