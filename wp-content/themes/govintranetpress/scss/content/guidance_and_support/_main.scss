@@ -176,11 +176,19 @@
       }
     }
 
+    li.item.overview,
+    li.item.no-children {
+      a:after {
+        display: none;
+      }
+    }
+
     li.item.loading a:after {
       content: "";
       background-image: url('../images/loader.gif');
       width: 16px;
       height: 16px;
+      background-size: 100%;
       top: 50%;
       margin-top: -8px;
     }
@@ -273,6 +281,21 @@
         content: "";
       }
     }
+  }
+
+  .item.overview::after {
+    background-color: $grey-2;
+    content: "";
+    display: block;
+    height: 1px;
+    left: 20px;
+    position: absolute;
+    right: 0;
+    width: 100%;
+  }
+
+  :not(.current).subcategories .item.overview::after {
+    left: 0;
   }
 }
 
