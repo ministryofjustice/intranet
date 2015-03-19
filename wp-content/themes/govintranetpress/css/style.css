@@ -1472,7 +1472,7 @@ form .form-row {
         text-align: left; } }
 /* line 1, ../scss/modules/_content_tabs.scss */
 .content-tabs {
-  margin-top: 45px;
+  margin-top: 0;
   margin-bottom: 25px; }
   /* line 2, ../scss/global/_mixins.scss */
   .content-tabs:after {
@@ -2501,36 +2501,39 @@ form .form-row {
     .guidance-and-support .item-container .item {
       display: block !important; } }
 /* line 2, ../scss/content/guidance_and_support_content/_main.scss */
+.guidance-and-support-content .content-head {
+  padding-bottom: 45px; }
+/* line 6, ../scss/content/guidance_and_support_content/_main.scss */
 .guidance-and-support-content .page-title {
   margin-top: 0px;
   border-bottom: none; }
-/* line 7, ../scss/content/guidance_and_support_content/_main.scss */
+/* line 11, ../scss/content/guidance_and_support_content/_main.scss */
 .guidance-and-support-content .page-category {
   margin-top: 27px;
   margin-bottom: 0px;
   font-weight: normal;
   color: #6f777b; }
-/* line 15, ../scss/content/guidance_and_support_content/_main.scss */
+/* line 19, ../scss/content/guidance_and_support_content/_main.scss */
 .guidance-and-support-content .right-hand-menu {
   margin-top: 40px;
   border-top: 5px solid #6f777b; }
-  /* line 19, ../scss/content/guidance_and_support_content/_main.scss */
+  /* line 23, ../scss/content/guidance_and_support_content/_main.scss */
   .guidance-and-support-content .right-hand-menu h3 {
     margin-top: 10px;
     margin-bottom: 14px; }
-  /* line 24, ../scss/content/guidance_and_support_content/_main.scss */
+  /* line 28, ../scss/content/guidance_and_support_content/_main.scss */
   .guidance-and-support-content .right-hand-menu a {
     text-decoration: underline; }
-/* line 30, ../scss/content/guidance_and_support_content/_main.scss */
+/* line 34, ../scss/content/guidance_and_support_content/_main.scss */
 .guidance-and-support-content .hidden {
   display: none; }
-/* line 34, ../scss/content/guidance_and_support_content/_main.scss */
+/* line 38, ../scss/content/guidance_and_support_content/_main.scss */
 .guidance-and-support-content h4 {
   margin-top: 0;
   padding-top: 24px;
   margin-bottom: 0px;
   font-weight: normal; }
-/* line 41, ../scss/content/guidance_and_support_content/_main.scss */
+/* line 45, ../scss/content/guidance_and_support_content/_main.scss */
 .guidance-and-support-content .excerpt {
   margin-top: 50px; }
 
