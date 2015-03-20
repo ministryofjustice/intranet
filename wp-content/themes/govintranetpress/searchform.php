@@ -22,17 +22,8 @@ if ($placeholder!=''){
 <form class="form-horizontal" role="form" id="searchform" name="searchform" action="<?=site_url()?>/search-results/" method="post">
   <div class="row">
     <div class="input-group">
-      <div class="search-filter-container">
-        <select name="search-filter" class="search-filter">
-          <option selected>All</option>
-          <option>News</option>
-          <option>Pages</option>
-          <option>Posts</option>
-          <option>Docs</option>
-        </select>
-      </div>
       <input type="text" class="form-control" placeholder="<?php echo $randex ;?>" name="s" id="s" value="<?=get_query_var('search-string')?>">
-      <button class="search-btn cta" type="submit"></button>
-    </div><!-- /input-group -->
+      <input class="search-btn cta" type="submit" value="Search" />
+    </div>
   </div>
 </form>

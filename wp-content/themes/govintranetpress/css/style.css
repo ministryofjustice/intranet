@@ -2645,38 +2645,39 @@ form .form-row {
     background-image: url("../images/search_icon.png");
     background-size: 16px 16px;
     background-repeat: no-repeat;
-    background-position: 10px 10px; }
-/* line 35, ../scss/content/search_results/_main.scss */
+    background-position: 10px 10px;
+    text-indent: -5000px; }
+/* line 36, ../scss/content/search_results/_main.scss */
 .page-search-results .content-filters {
   margin-top: 24px; }
-/* line 39, ../scss/content/search_results/_main.scss */
+/* line 40, ../scss/content/search_results/_main.scss */
 .page-search-results .search-results-title {
   font-weight: normal;
   margin-bottom: 50px; }
-/* line 45, ../scss/content/search_results/_main.scss */
+/* line 46, ../scss/content/search_results/_main.scss */
 .page-search-results .search-filtered-results-title .results-count {
   font-weight: bold; }
-/* line 50, ../scss/content/search_results/_main.scss */
+/* line 51, ../scss/content/search_results/_main.scss */
 .page-search-results .search-filtered-results-title .containing {
   font-weight: normal; }
-/* line 55, ../scss/content/search_results/_main.scss */
+/* line 56, ../scss/content/search_results/_main.scss */
 .page-search-results .search-filtered-results-title .results-count-description,
 .page-search-results .search-filtered-results-title .keywords {
   font-weight: bold; }
-/* line 63, ../scss/content/search_results/_main.scss */
+/* line 64, ../scss/content/search_results/_main.scss */
 .page-search-results .search-item .title {
   margin-top: 30px; }
-/* line 67, ../scss/content/search_results/_main.scss */
+/* line 68, ../scss/content/search_results/_main.scss */
 .page-search-results .search-item .meta {
   color: #bfc1c3; }
-/* line 71, ../scss/content/search_results/_main.scss */
+/* line 72, ../scss/content/search_results/_main.scss */
 .page-search-results .search-item .title,
 .page-search-results .search-item .meta {
   margin-bottom: 5px; }
-/* line 80, ../scss/content/search_results/_main.scss */
+/* line 81, ../scss/content/search_results/_main.scss */
 .page-search-results .search-item .file {
   margin-top: 5px;
   color: #6f777b; }
-  /* line 84, ../scss/content/search_results/_main.scss */
+  /* line 85, ../scss/content/search_results/_main.scss */
   .page-search-results .search-item .file .file-link {
     text-decoration: underline; }

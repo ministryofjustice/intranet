@@ -14,7 +14,7 @@
     <div class="col-lg-8 col-md-8 col-sm-12">
       <div class="search-string">
         <input form="search-form" type="text" placeholder="Keywords" name="keywords" class="main-search-field" value="<?=get_query_var('search-string')?>" />
-        <button form="search-form" type="submit" class="cta search-btn"></button>
+        <input form="search-form" type="submit" class="cta search-btn" />
       </div>
     </div>
   </div>
