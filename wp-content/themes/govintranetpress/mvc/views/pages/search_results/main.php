@@ -24,18 +24,18 @@
       <form id="search-form" class="content-filters">
         <p class="description">You can use the filters to show only results that match your interests</p>
         <div class="form-row">
-          <span class="label">Filter by</span>
+          <label for="input-results-category">Filter by</label>
         </div>
         <div class="form-row">
-          <select name="category">
+          <select name="category" id="input-results-category">
             <option value="All">All</option>
           </select>
         </div>
         <div class="form-row contains">
-          <span class="label">Type of pages</span>
+          <label for="input-results-type">Type of pages</label>
         </div>
         <div class="form-row">
-          <select name="type">
+          <select name="type" id="input-results-type">
             <option value="All">All</option>
           </select>
         </div>
