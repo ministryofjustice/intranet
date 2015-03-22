@@ -15,6 +15,10 @@
   .site-logo {
     display: block;
 
+    a {
+      display: inline-block;
+    }
+
     img {
       width: 254px;
       height: 36px;

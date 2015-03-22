@@ -82,18 +82,16 @@ template {
 /**
  * Remove the gray background color from active links in IE 10.
  */
-/* line 89, ../scss/global/_normalize.scss */
-a {
-  background-color: transparent; }
-
+/*a {*/
+/*  background-color: transparent;*/
+/*}*/
 /**
  * Improve readability when focused and also mouse hovered in all browsers.
  */
-/* line 97, ../scss/global/_normalize.scss */
-a:active,
-a:hover {
-  outline: 0; }
-
+/*a:active,*/
+/*a:hover {*/
+/*  outline: 0;*/
+/*}*/
 /* Text-level semantics
    ========================================================================== */
 /**
@@ -476,6 +474,22 @@ body, .home.page #content .descriptive-menu-description, .message .timestamp, .c
   line-height: 20px; }
 
 /** **/
+/* line 1, ../scss/global/_accessibility.scss */
+a:focus {
+  outline: 3px solid #ffbf47;
+  background-color: #ffbf47; }
+
+/* line 6, ../scss/global/_accessibility.scss */
+input,
+select,
+textarea {
+  border: none; }
+  /* line 11, ../scss/global/_accessibility.scss */
+  input:focus,
+  select:focus,
+  textarea:focus {
+    outline: 3px solid #ffbf47; }
+
 /* line 1, ../scss/global/_base.scss */
 template {
   display: none; }
@@ -1194,13 +1208,16 @@ form .form-row {
   .header .site-logo {
     display: block; }
     /* line 18, ../scss/modules/_header.scss */
+    .header .site-logo a {
+      display: inline-block; }
+    /* line 22, ../scss/modules/_header.scss */
     .header .site-logo img {
       width: 254px;
       height: 36px; }
-  /* line 24, ../scss/modules/_header.scss */
+  /* line 28, ../scss/modules/_header.scss */
   .header #searchform {
     position: relative; }
-    /* line 27, ../scss/modules/_header.scss */
+    /* line 31, ../scss/modules/_header.scss */
     .header #searchform .input-group {
       width: 100%;
       display: block;
@@ -1210,12 +1227,12 @@ form .form-row {
         content: "";
         display: table;
         clear: both; }
-    /* line 34, ../scss/modules/_header.scss */
+    /* line 38, ../scss/modules/_header.scss */
     .header #searchform .form-control {
       height: 36px;
       width: 100%;
       padding-left: 10px; }
-    /* line 40, ../scss/modules/_header.scss */
+    /* line 44, ../scss/modules/_header.scss */
     .header #searchform .search-btn {
       position: absolute;
       top: 0;
@@ -1231,16 +1248,16 @@ form .form-row {
       background-position: 10px 10px;
       text-indent: -5000px; }
 
-/* line 59, ../scss/modules/_header.scss */
+/* line 63, ../scss/modules/_header.scss */
 .page-template-search-results-php #searchform {
   display: none; }
 
 @media (min-width: 0) and (max-width: 767px) {
-  /* line 65, ../scss/modules/_header.scss */
+  /* line 69, ../scss/modules/_header.scss */
   #searchformdiv {
     padding-top: 10px; }
 
-  /* line 69, ../scss/modules/_header.scss */
+  /* line 73, ../scss/modules/_header.scss */
   .mobile-nav button {
     float: right;
     width: 30px;
@@ -1251,15 +1268,15 @@ form .form-row {
     background-size: 60px 30px;
     background-position: 0 0;
     margin-top: 5px; }
-    /* line 80, ../scss/modules/_header.scss */
+    /* line 84, ../scss/modules/_header.scss */
     .mobile-menu-enabled .mobile-nav button {
       background-position: 30px 0; }
 
-  /* line 87, ../scss/modules/_header.scss */
+  /* line 91, ../scss/modules/_header.scss */
   .header.mobile-menu-enabled .search-box,
   .header.mobile-menu-enabled #mainnav {
     display: none; }
-  /* line 92, ../scss/modules/_header.scss */
+  /* line 96, ../scss/modules/_header.scss */
   .header.mobile-menu-enabled #utilities {
     display: block; } }
 /* line 1, ../scss/modules/_main_nav.scss */
@@ -1306,49 +1323,53 @@ form .form-row {
           #mainnav #primarynav ul.mega-menu > li > a:hover {
             background: white;
             color: #61415B; }
-        /* line 52, ../scss/modules/_main_nav.scss */
+          /* line 51, ../scss/modules/_main_nav.scss */
+          #mainnav #primarynav ul.mega-menu > li > a:focus {
+            outline: 3px solid #ffbf47;
+            background-color: #ffbf47; }
+        /* line 57, ../scss/modules/_main_nav.scss */
         #mainnav #primarynav ul.mega-menu > li:first-of-type > a {
           color: #005ea5; }
 
 /* MAIN NAVIGATION */
-/* line 61, ../scss/modules/_main_nav.scss */
+/* line 66, ../scss/modules/_main_nav.scss */
 .navbar {
   margin-bottom: 0;
   border: 0; }
 
-/* line 65, ../scss/modules/_main_nav.scss */
+/* line 70, ../scss/modules/_main_nav.scss */
 .navbar-inverse {
   background: transparent; }
 
-/* line 68, ../scss/modules/_main_nav.scss */
+/* line 73, ../scss/modules/_main_nav.scss */
 .navbar-inverse .navbar-brand {
   color: #fff; }
 
-/* line 72, ../scss/modules/_main_nav.scss */
+/* line 77, ../scss/modules/_main_nav.scss */
 .navbar-toggle {
   margin-right: 0; }
 
 @media (min-width: 0) and (max-width: 767px) {
-  /* line 77, ../scss/modules/_main_nav.scss */
+  /* line 82, ../scss/modules/_main_nav.scss */
   #mainnav {
     float: none;
     width: 100%; }
-    /* line 81, ../scss/modules/_main_nav.scss */
+    /* line 86, ../scss/modules/_main_nav.scss */
     #mainnav #mega-menu-wrap-primary-2 {
       position: static; }
-    /* line 86, ../scss/modules/_main_nav.scss */
+    /* line 91, ../scss/modules/_main_nav.scss */
     #mainnav #primarynav .mega-menu-wrap {
       display: table;
       width: 100%; }
-      /* line 90, ../scss/modules/_main_nav.scss */
+      /* line 95, ../scss/modules/_main_nav.scss */
       #mainnav #primarynav .mega-menu-wrap > ul {
         display: table-row;
         position: relative; }
-        /* line 94, ../scss/modules/_main_nav.scss */
+        /* line 99, ../scss/modules/_main_nav.scss */
         #mainnav #primarynav .mega-menu-wrap > ul > li {
           display: table-cell;
           float: none; }
-          /* line 98, ../scss/modules/_main_nav.scss */
+          /* line 103, ../scss/modules/_main_nav.scss */
           #mainnav #primarynav .mega-menu-wrap > ul > li > a {
             text-align: center;
             padding-left: 0;
@@ -1757,32 +1778,36 @@ form .form-row {
     display: table;
     clear: both; }
   /* line 93, ../scss/widgets/ht_feature_news/_main.scss */
+  .ht-feature-news .news-thumbnail > a {
+    float: left;
+    display: block;
+    margin-right: 20px; }
+  /* line 99, ../scss/widgets/ht_feature_news/_main.scss */
   .ht-feature-news .news-thumbnail .news_date {
     display: none; }
-  /* line 97, ../scss/widgets/ht_feature_news/_main.scss */
+  /* line 103, ../scss/widgets/ht_feature_news/_main.scss */
   .ht-feature-news .news-thumbnail img {
     float: left;
     max-width: 100px;
-    margin-right: 20px;
     border: 1px solid #bfc1c3; }
-  /* line 104, ../scss/widgets/ht_feature_news/_main.scss */
+  /* line 109, ../scss/widgets/ht_feature_news/_main.scss */
   .ht-feature-news .news-thumbnail h3 {
     margin-top: 0 !important;
     margin-bottom: 0 !important; }
-  /* line 109, ../scss/widgets/ht_feature_news/_main.scss */
+  /* line 114, ../scss/widgets/ht_feature_news/_main.scss */
   .ht-feature-news .news-thumbnail .news-date-wrapper {
     margin-top: 0; }
-  /* line 113, ../scss/widgets/ht_feature_news/_main.scss */
+  /* line 118, ../scss/widgets/ht_feature_news/_main.scss */
   #content .ht-feature-news .news-thumbnail p {
     margin-bottom: 0; }
-  /* line 117, ../scss/widgets/ht_feature_news/_main.scss */
+  /* line 122, ../scss/widgets/ht_feature_news/_main.scss */
   .ht-feature-news .news-thumbnail .more {
     display: none; }
-/* line 122, ../scss/widgets/ht_feature_news/_main.scss */
+/* line 127, ../scss/widgets/ht_feature_news/_main.scss */
 .ht-feature-news .more-in-news {
   text-align: right;
   font-weight: bold; }
-  /* line 126, ../scss/widgets/ht_feature_news/_main.scss */
+  /* line 131, ../scss/widgets/ht_feature_news/_main.scss */
   .ht-feature-news .more-in-news a {
     text-decoration: underline; }
 
