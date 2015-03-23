@@ -173,7 +173,6 @@ header('X-Frame-Options: SAMEORIGIN');
 			if ($gistrackhome == 1 || is_search() ){
 				$gis = "general_intranet_ga_id";
 				$ga_id = get_option($gis);
-        echo $ga_id;
         if($ga_id!=null) {
 				  echo sprintf($tracking_code, $ga_id, $analytics_extra);
         }
