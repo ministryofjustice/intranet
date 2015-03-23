@@ -87,6 +87,7 @@ function quick_links_callback($post) {
 }
 function quick_links_save($post_id) {
     $ns = 'quick_links'; // Quick namespace variable
+    $search_content = null;
     $max_links = 7;
     if ( ! isset( $_POST[$ns.'_meta_box_nonce'] ) ) {
         return;
@@ -115,6 +116,9 @@ function quick_links_save($post_id) {
             if (isset($_POST[$ns . "-" . $link_field . $i])) {
                 $data = sanitize_text_field( $_POST[$ns . "-" . $link_field . $i] );
                 update_post_meta( $post_id, "_" . $ns . "-" . $link_field . $i, $data );
+                if($link_field=='link-text') {
+                    $search_content .= $data."\r\n";
+                }
             } else {
                 delete_post_meta( $post_id, "_" . $ns . "-" . $link_field . $i);
                 $field_count++;
@@ -123,6 +127,8 @@ function quick_links_save($post_id) {
     }
 
     update_post_meta( $post_id, "_" . $ns . "-title", sanitize_text_field( $_POST[$ns . "-title"] ));
+
+    create_search_content('quicklinks_search',$search_content,$post_id);
 }
 
 // Content Tabs metabox
@@ -230,6 +236,7 @@ function content_tabs_callback($post) {
 }
 function content_tabs_save($post_id) {
     $ns = 'content_tabs'; // Quick namespace variable
+    $search_content = null;
     if ( ! isset( $_POST[$ns.'_meta_box_nonce'] ) ) {
         return;
     }
@@ -258,6 +265,7 @@ function content_tabs_save($post_id) {
             if (isset($_POST["tab-" . $tab . "-title"])) {
                 $data = sanitize_text_field($_POST["tab-" . $tab . "-title"]);
                 update_post_meta($post_id, "_".$ns."-tab-" . $tab . "-title",$data);
+                $search_content .= $data."\r\n";
             }
             // Save section count
             $data = sanitize_text_field( $_POST["tab-".$tab."-section-count"] );
@@ -272,14 +280,17 @@ function content_tabs_save($post_id) {
                         // echo $section_field . "set<br>";
                         $data = $_POST["tab-" . $tab . "-section-" . $section . "-".$section_field];
                         update_post_meta($post_id, "_".$ns."-tab-" . $tab . "-section-" . $section . "-".$section_field,$data);
+                        $search_content .= $data."\r\n";
                         if($section_field=="content") {
                             $data = WPCom_Markdown::get_instance()->transform( $data );
                             update_post_meta($post_id, "_".$ns."-tab-" . $tab . "-section-" . $section . "-".$section_field . "-html",$data);
+                            $search_content .= $data."\r\n";
                         }
                     }
                 }
             }
         }
+        create_search_content('tabs_search',$search_content,$post_id);
     }
 }
 
