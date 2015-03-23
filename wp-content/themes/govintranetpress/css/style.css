@@ -2581,17 +2581,23 @@ form .form-row {
     width: 150px;
     height: 100px;
     margin-right: 20px; }
-  /* line 51, ../scss/content/news_landing/_main.scss */
+    /* line 50, ../scss/content/news_landing/_main.scss */
+    .page-news .news-item .thumbnail-container .news-link {
+      display: block; }
+    /* line 54, ../scss/content/news_landing/_main.scss */
+    .page-news .news-item .thumbnail-container img {
+      display: block; }
+  /* line 59, ../scss/content/news_landing/_main.scss */
   .page-news .news-item .content {
     overflow: hidden; }
-  /* line 56, ../scss/content/news_landing/_main.scss */
+  /* line 64, ../scss/content/news_landing/_main.scss */
   .page-news .news-item .meta span {
     color: #6f777b; }
-  /* line 61, ../scss/content/news_landing/_main.scss */
+  /* line 69, ../scss/content/news_landing/_main.scss */
   .page-news .news-item .title {
     margin-top: 0px;
     margin-bottom: 0px; }
-  /* line 67, ../scss/content/news_landing/_main.scss */
+  /* line 75, ../scss/content/news_landing/_main.scss */
   .page-news .news-item .excerpt {
     margin-top: 10px; }
 

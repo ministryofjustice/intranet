@@ -76,9 +76,9 @@
         </a>
       </div>
       <div class="content">
-        <a href="" class="news-link">
-          <h3 class="title">test</h3>
-        </a>
+        <h3 class="title">
+          <a href="" class="news-link"></a>
+        </h3>
         <div class="meta">
           <span class="date">date</span>
         </div>
