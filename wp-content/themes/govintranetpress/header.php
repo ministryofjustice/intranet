@@ -220,12 +220,10 @@ header('X-Frame-Options: SAMEORIGIN');
       </div>
 
       <!-- search box -->
-      <div class="col-lg-4 col-md-4 col-sm-12 search-box">
-        <?php if(!$is_moj_story) { ?>
-        <div id='searchformdiv' class=''>
+      <div class="col-lg-4 col-md-4 col-sm-12">
+        <?php if($_SESSION['full_site']): ?>
           <?php get_search_form(true); ?>
-        </div>
-        <?php } ?>
+        <?php endif ?>
       </div>
     </div>
 
