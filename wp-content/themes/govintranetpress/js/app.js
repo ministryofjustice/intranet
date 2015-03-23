@@ -923,6 +923,8 @@
           paddingTop: $overviewPageLink.outerHeight() + 'px'
         });
       }
+
+      $thisLevelContainer.find('.item').first().find('a').focus();
     },
 
     buildOverviewPageLink: function(level, $selectedItem) {
