@@ -1,9 +1,9 @@
 .ui-autocomplete {
   float: left;
   z-index: 1;
+  overflow: hidden;
   background-color: #fff;
   border: 1px solid $black;
-  overflow: hidden;
 
   .ui-menu-item {
     padding: 5px 10px;

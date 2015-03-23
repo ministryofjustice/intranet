@@ -6,23 +6,25 @@
 
   .search-string {
     position: relative;
-    margin-bottom: 52px;
+    padding: 3px 0; /* room for the outline */
+    margin-right: 36px;
 
-    .main-search-field {
-      height: 36px;
+    .keywords-field {
+      display: block;
       width: 100%;
-      background-color: $white;
+      height: 36px;
+      padding-left: 10px;
       border: 1px solid $grey-2;
-      padding: 8px;
     }
 
     .search-btn {
       position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 1px;
+      right: -36px;
+      top: 3px;
+      bottom: 3px;
       width: 36px;
       padding: 0;
+      overflow: hidden;
       background-color: #428bca;
       border-color: #357ebd;
       background-image: url('../images/search_icon.png');
