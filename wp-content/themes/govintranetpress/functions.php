@@ -1753,3 +1753,33 @@ function auto_logout() {
 	}
 }
 add_action('wp', 'auto_logout');
+
+/**
+ * Combines custom fields to create one field for Relevanssi to index/search
+ * @param string $meta_key The name the new field should be given
+ * @param  array $content The combined content
+ * @param int $post_id ID of the post the meta data is to be attached to
+ * @return [type]         [description]
+ */
+function create_search_content($meta_key,$content,$post_id) {
+	// Ensures that '_' (underscore) is present at beginning of $field_name
+	if(substr($meta_key, 0, 1)!="_") {
+		$meta_key = "_$meta_key";
+	}
+
+	$meta_id = update_post_meta( $post_id, $meta_key, $content );
+
+	return $meta_id;
+}
+
+/**
+ * Adds custom fields to Relevanssi
+ */
+function custom_fields_to_excerpts($content, $post, $query) {
+    $custom_field = get_post_meta($post->ID, '_tabs_search', true);
+    $content .= " " . $custom_field;
+    $custom_field = get_post_meta($post->ID, '_quicklinks_search', true);
+    $content .= " " . $custom_field;
+    return $content;
+}
+add_filter('relevanssi_excerpt_content', 'custom_fields_to_excerpts', 10, 3);
