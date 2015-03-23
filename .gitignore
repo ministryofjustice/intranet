@@ -105,3 +105,4 @@ nbproject
 /wp-content/languages/
 deploy_dev.cfg
 /node_modules/
+wp-content/plugins/relevanssi*/
