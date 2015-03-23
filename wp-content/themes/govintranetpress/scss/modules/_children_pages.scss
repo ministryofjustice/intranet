@@ -1,37 +1,27 @@
-.children-pages-jump-box {
-  li {
-    background-color: $dw-link;
-  }
-
-  a {
-    @extend %medium-copy;
-    display: block;
-    padding: 5px 15px;
-    color: $white;
-  }
-}
-
-.children-pages-box.editable {
-  .children-heading {
-    padding: 5px 15px;
-    background-color: $dw-link;
-    color: $white;
-  }
-
-  .children-pages {
-    margin-left: 20px;
-
-    a {
-      display: block;
-    }
-  }
-}
-
-.children-pages-box,
-.children-pages-jump-box {
+.children-pages-box {
   display: none;
 
   &.visible {
     display: block;
+  }
+}
+
+.children-pages {
+  margin-top: 5px;
+
+  li {
+    display: block;
+    border-bottom: 1px solid $grey-2;
+
+    &:first-of-type {
+      border-top: 1px solid $grey-2;
+    }
+
+    a {
+      @extend %medium-copy;
+      display: block;
+      padding-top: 5px;
+      padding-bottom: 5px;
+    }
   }
 }

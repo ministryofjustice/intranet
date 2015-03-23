@@ -101,7 +101,7 @@ class Page_home extends MVC_controller {
         array(
           'title' => 'IT portal',
           'icon' => 'it-portal',
-          'url' => 'http://physmt.unisys.co.uk:8001/OA_HTML/AppsLocalLogin.jsp',
+          'url' => 'http://itportal.dom1.infra.int:8080/Pages/default.aspx',
           'external' => true
         ),
         array(
