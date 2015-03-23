@@ -200,7 +200,7 @@
         $child.find('.thumbnail').remove(); //we don't want an img element with no src
       }
 
-      $child.find('.title').html(data.title);
+      $child.find('.search-link').html(data.title);
       $child.find('.search-link').attr('href', data.url);
       $child.find('.date').html(this.formatDate(date));
       $child.find('.excerpt').html(data.excerpt);

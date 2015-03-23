@@ -1508,20 +1508,21 @@ form .form-row {
 
 /* line 1, ../scss/modules/_content_filters.scss */
 .content-filters {
-  margin-top: 60px; }
-  /* line 4, ../scss/modules/_content_filters.scss */
+  margin-top: 60px;
+  padding-bottom: 3px; }
+  /* line 5, ../scss/modules/_content_filters.scss */
   .content-filters select,
   .content-filters input[type="text"] {
     width: 100%;
     padding: 8px;
     border: 1px solid #bfc1c3;
     background: #fff; }
-  /* line 12, ../scss/modules/_content_filters.scss */
+  /* line 13, ../scss/modules/_content_filters.scss */
   .content-filters .description {
     margin-bottom: 0px;
     padding: 0;
     color: #333; }
-  /* line 19, ../scss/modules/_content_filters.scss */
+  /* line 20, ../scss/modules/_content_filters.scss */
   .content-filters label {
     display: inline-block;
     margin-top: 20px;

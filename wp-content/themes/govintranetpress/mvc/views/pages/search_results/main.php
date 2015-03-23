@@ -74,9 +74,9 @@
 
   <div class="template-partial" data-name="search-item">
     <li class="search-item">
-      <a href="" class="search-link">
-        <h3 class="title"></h3>
-      </a>
+      <h3 class="title">
+        <a href="" class="search-link"></a>
+      </h3>
       <div class="meta grid">
         <div class="col-lg-3">
           <span class="date"></span>
