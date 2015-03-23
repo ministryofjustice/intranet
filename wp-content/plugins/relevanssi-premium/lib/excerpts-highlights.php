@@ -43,17 +43,21 @@ function relevanssi_do_excerpt($t_post, $query) {
 		$comment_content = relevanssi_get_comments($post->ID);
 		$comment_content = preg_replace('/(<\/[^>]+?>)(<[^>\/][^>]*?>)/', '$1 $2', $comment_content); // add spaces between tags to avoid getting words stuck together
 		$comment_content = strip_tags($comment_content, get_option('relevanssi_excerpt_allowable_tags', '')); // this removes the tags, but leaves the content
-		$comment_excerpts = relevanssi_create_excerpt($comment_content, $terms, $query);
-		if ($comment_excerpts[1] > $excerpt_data[1]) {
-			$excerpt_data = $comment_excerpts;
+		if (!empty($comment_content)) {
+			$comment_excerpts = relevanssi_create_excerpt($comment_content, $terms, $query);
+			if ($comment_excerpts[1] > $excerpt_data[1]) {
+				$excerpt_data = $comment_excerpts;
+			}
 		}
 	}
 
-	if (get_option("relevanssi_index_excerpt") != 'none') {
+	if (get_option("relevanssi_index_excerpt") != 'off') {
 		$excerpt_content = $post->post_excerpt;
-		$excerpt_excerpts = relevanssi_create_excerpt($excerpt_content, $terms, $query);
-		if ($excerpt_excerpts[1] > $excerpt_data[1]) {
-			$excerpt_data = $excerpt_excerpts;
+		if (!empty($excerpt_content)) {
+			$excerpt_excerpts = relevanssi_create_excerpt($excerpt_content, $terms, $query);
+			if ($excerpt_excerpts[1] > $excerpt_data[1]) {
+				$excerpt_data = $excerpt_excerpts;
+			}
 		}
 	}
 	
@@ -62,6 +66,9 @@ function relevanssi_do_excerpt($t_post, $query) {
 	$excerpt = $excerpt_data[0];	
 	$excerpt = trim($excerpt);
 	$excerpt = apply_filters('relevanssi_excerpt', $excerpt);
+
+	if (empty($excerpt) && !empty($post->post_excerpt)) $excerpt = $post->post_excerpt;
+	$excerpt == $post->post_content ? $whole_post_excerpted = true : $whole_post_excerpted = false;
 
 	$ellipsis = apply_filters('relevanssi_ellipsis', '...');
 
@@ -75,14 +82,16 @@ function relevanssi_do_excerpt($t_post, $query) {
 
 	$excerpt = relevanssi_close_tags($excerpt);
 
-	if (!$start && !empty($excerpt)) {
-		$excerpt = $ellipsis . $excerpt;
-		// do not add three dots to the beginning of the post
+	if (!$whole_post_excerpted) {
+		if (!$start && !empty($excerpt)) {
+			$excerpt = $ellipsis . $excerpt;
+			// do not add three dots to the beginning of the post
+		}
+
+		if (!empty($excerpt))
+			$excerpt = $excerpt . $ellipsis;
 	}
-
-	if (!empty($excerpt))
-		$excerpt = $excerpt . $ellipsis;
-
+	
 	if (relevanssi_s2member_level($post->ID) == 1) $excerpt = $post->post_excerpt;
 
 	if ($old_global_post != NULL) $post = $old_global_post;
@@ -129,7 +138,8 @@ function relevanssi_create_excerpt($content, $terms, $query) {
 		foreach (array_keys($terms) as $term) {
 			$term = trim($term);
 			$term_key = $term;
-			$term = " $term";
+			get_option('relevanssi_fuzzy') != 'none' ? $term = "$term" : $term = " $term";
+
 			$pos = 0;
 			$n = 0;
 			while (false !== $pos) {
@@ -147,13 +157,15 @@ function relevanssi_create_excerpt($content, $terms, $query) {
 		$quarter = floor($excerpt_length/4); // adjustment, so the excerpt doesn't start with the search term
 		for ($i = 0; $i < count($positions); $i++) {
 			$key = $positions[$i];
+			$orig_key = $key;
 			$key = $key - $quarter;
 			if ($key < 0) $key = 0;
 			
 			$j = $i + 1; 
 			
 			$this_excerpt_terms = array();
-			if (isset($term_positions[$key])) $this_excerpt_terms[$term_positions[$key]] = true;
+			
+			if (isset($term_positions[$orig_key])) $this_excerpt_terms[$term_positions[$orig_key]] = true;
 			
 			while (isset($positions[$j])) {
 				if (isset($positions[$j])) {
@@ -168,18 +180,27 @@ function relevanssi_create_excerpt($content, $terms, $query) {
 				}
 				$j++;
 			}
-			
+
 			if (count($this_excerpt_terms) > $best_position_hits) {
 				$best_position_hits = count($this_excerpt_terms);
 				$best_position = $key;
 			}
 		}
-		
+	
 		if ($best_position + $excerpt_length < strlen($content)) {
 			if (function_exists('mb_substr'))
 				$excerpt = mb_substr($content, $best_position, $excerpt_length);
 			else
 				$excerpt = substr($content, $best_position, $excerpt_length);
+		}
+		else {
+			$fixed_position = strlen($content) - $excerpt_length;
+			if ($fixed_position > 0) {
+				if (function_exists('mb_substr'))
+					$excerpt = mb_substr($content, $fixed_position, $excerpt_length);
+				else
+					$excerpt = substr($content, $fixed_position, $excerpt_length);			
+			}
 		}
 		
 		if ($best_position == 0) $start = true;
@@ -265,7 +286,7 @@ function relevanssi_create_excerpt($content, $terms, $query) {
 			$start = true;
 		}
 	}
-	
+
 	return array($excerpt, $best_excerpt_term_hits, $start);
 }
 
@@ -286,7 +307,9 @@ function relevanssi_highlight_in_docs($content) {
 				// Local search
 				if (isset($query['s'])) {
 					$q = relevanssi_add_synonyms($query['s']);
-					$content = relevanssi_highlight_terms($content, $q);
+					$highlighted_content = relevanssi_highlight_terms($content, $q);
+					if (!empty($highlighted_content)) $content = $highlighted_content;
+					// Sometimes the content comes back empty; until I figure out why, this tries to be a solution.
 				}
 			}
 			if (function_exists('relevanssi_nonlocal_highlighting')) {
@@ -375,13 +398,17 @@ function relevanssi_highlight_terms($excerpt, $query) {
 //		$pr_term = relevanssi_replace_punctuation(preg_quote($term, '/'));
 		$pr_term = preg_quote($term, '/');
 		
+		$undecoded_excerpt = $excerpt;
 		$excerpt = html_entity_decode($excerpt);
-		
+	
 		if ($word_boundaries) {
-			$excerpt = preg_replace("/(\b$pr_term|$pr_term\b)(?!(^&+)?(;))/iu", $start_emp_token . '\\1' . $end_emp_token, $excerpt);
+			get_option('relevanssi_fuzzy') != 'none' ? $regex = "/($pr_term)(?!(^&+)?(;))/iu" : $regex = "/(\b$pr_term|$pr_term\b)(?!(^&+)?(;))/iu";
+			$excerpt = preg_replace($regex, $start_emp_token . '\\1' . $end_emp_token, $excerpt);
+			if (empty($excerpt)) $excerpt = preg_replace($regex, $start_emp_token . '\\1' . $end_emp_token, $undecoded_excerpt);
 		}
 		else {
 			$excerpt = preg_replace("/($pr_term)(?!(^&+)?(;))/iu", $start_emp_token . '\\1' . $end_emp_token, $excerpt);
+			if (empty($excerpt)) $excerpt = preg_replace("/($pr_term)(?!(^&+)?(;))/iu", $start_emp_token . '\\1' . $end_emp_token, $undecoded_excerpt);
 		}
 	
 		$preg_start = preg_quote($start_emp_token);

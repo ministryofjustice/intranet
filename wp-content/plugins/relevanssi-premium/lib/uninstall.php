@@ -3,8 +3,6 @@
 function relevanssi_clear_database_tables() {
 	global $wpdb;
 	
-	if (defined('RELEVANSSI_PREMIUM')) return;	// Relevanssi Premium exists, do not delete the tables
-	
 	wp_clear_scheduled_hook('relevanssi_truncate_cache');
 
 	$relevanssi_table = $wpdb->prefix . "relevanssi";	

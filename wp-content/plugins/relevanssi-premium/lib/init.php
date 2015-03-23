@@ -23,12 +23,13 @@ add_filter('relevanssi_remove_punctuation', 'relevanssi_remove_punct');
 add_filter('relevanssi_post_ok', 'relevanssi_default_post_ok', 9, 2);
 add_filter('relevanssi_query_filter', 'relevanssi_limit_filter');
 add_filter('query_vars', 'relevanssi_query_vars');
+add_filter('relevanssi_indexing_values', 'relevanssi_update_doc_count', 98, 2);
 
 global $relevanssi_variables;
 register_activation_hook($relevanssi_variables['file'], 'relevanssi_install');
 
 function relevanssi_init() {
-	global $pagenow, $relevanssi_variables;
+	global $pagenow, $relevanssi_variables, $wpdb;
 	$plugin_dir = dirname(plugin_basename($relevanssi_variables['file']));
 	load_plugin_textdomain('relevanssi', false, $plugin_dir);
 
@@ -40,9 +41,15 @@ function relevanssi_init() {
 			   . __('You do not have an index! Remember to build the index (click the "Build the index" button), otherwise searching won\'t work.')
 			   . "</strong></p></div>";
 		}
-		if ( 'options-general.php' == $pagenow and isset( $_GET['page'] ) and plugin_basename($relevanssi_variables['file']) == $_GET['page'] )
+		if ( 'options-general.php' == $pagenow and isset( $_GET['page'] ) and plugin_basename($relevanssi_variables['file']) == $_GET['page'] ) {
 			add_action('admin_notices', 'relevanssi_warning');
-	}
+		} else {
+			// We always want to run this on init, if the index is finishd building.
+			$relevanssi_table = $relevanssi_variables['relevanssi_table'];
+			$D = $wpdb->get_var("SELECT COUNT(DISTINCT(relevanssi.doc)) FROM $relevanssi_table AS relevanssi");
+			update_option( 'relevanssi_doc_count', $D);
+ 		}
+ 	}
 	
 	if (!function_exists('mb_internal_encoding')) {
 		function relevanssi_mb_warning() {

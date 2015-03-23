@@ -66,7 +66,8 @@ function relevanssi_options() {
 	}
 	relevanssi_options_form();
 	
-	relevanssi_common_words();
+	if (apply_filters('relevanssi_display_common_words', true)) 
+		relevanssi_common_words();
 	
 	echo "<div style='clear:both'></div>";
 	
@@ -335,7 +336,16 @@ function relevanssi_add_single_stopword($term) {
 	global $wpdb, $relevanssi_variables;
 	if ('' == $term) return;
 
+	if (method_exists($wpdb, 'esc_like')) {
+		$term = $wpdb->esc_like(esc_sql($term));
+	}
+	else {
+		// Compatibility for pre-4.0 WordPress
+		$term = like_escape(esc_sql($term));
+	}
+
 	$q = $wpdb->prepare("INSERT INTO " . $relevanssi_variables['stopword_table'] . " (stopword) VALUES (%s)", $term);
+	// Clean: escaped.
 	$success = $wpdb->query($q);
 	
 	if ($success) {
@@ -789,6 +799,9 @@ function relevanssi_options_form() {
 	
 		$index_subscribers = ('on' == get_option('relevanssi_index_subscribers') ? 'checked="checked"' : ''); 
 		$serialize_options['relevanssi_index_subscribers'] = get_option('relevanssi_index_subscribers');
+
+		$index_synonyms = ('on' == get_option('relevanssi_index_synonyms') ? 'checked="checked"' : ''); 
+		$serialize_options['relevanssi_index_synonyms'] = get_option('relevanssi_index_synonyms');
 	
 		$index_taxonomies = ('on' == get_option('relevanssi_index_taxonomies') ? 'checked="checked"' : ''); 
 		$serialize_options['relevanssi_index_taxonomies'] = get_option('relevanssi_index_taxonomies');
@@ -843,9 +856,9 @@ function relevanssi_options_form() {
 
 	<h3><?php _e('Quick tools', 'relevanssi') ?></h3>
 	<p>
-	<input type='submit' name='submit' value='<?php _e(esc_attr('Save options'), 'relevanssi'); ?>' class='button-primary' />
-	<input type="submit" name="index" value="<?php _e(esc_attr('Build the index'), 'relevanssi') ?>" class='button-primary' />
-	<input type="submit" name="index_extend" value="<?php _e(esc_attr('Continue indexing'), 'relevanssi') ?>" class='button-secondary' />, <?php _e('add', 'relevanssi'); ?> <input type="text" size="4" name="relevanssi_index_limit" value="<?php echo $index_limit ?>" /> <?php _e('documents.', 'relevanssi'); ?></p>
+	<input type='submit' name='submit' value='<?php esc_attr(_e('Save options', 'relevanssi')); ?>' class='button-primary' />
+	<input type="submit" name="index" value="<?php esc_attr(_e('Build the index', 'relevanssi')); ?>" class='button-primary' />
+	<input type="submit" name="index_extend" value="<?php esc_attr(_e('Continue indexing', 'relevanssi')); ?>" class='button-secondary' />, <?php _e('add', 'relevanssi'); ?> <input type="text" size="4" name="relevanssi_index_limit" value="<?php echo $index_limit ?>" /> <?php _e('documents.', 'relevanssi'); ?></p>
 
 <?php
 	if (empty($index_post_types)) {
@@ -1162,7 +1175,7 @@ function relevanssi_options_form() {
 	<br />
 	<br />
 	
-	<input type='submit' name='submit' value='<?php _e(esc_attr('Save the options'), 'relevanssi'); ?>' class='button button-primary' />
+	<input type='submit' name='submit' value='<?php esc_attr(_e('Save the options', 'relevanssi')); ?>' class='button button-primary' />
 
 	<h3 id="indexing"><?php _e('Indexing options', 'relevanssi'); ?></h3>
 
@@ -1308,17 +1321,19 @@ EOH;
 
 <?php if (function_exists('relevanssi_form_index_taxonomies')) relevanssi_form_index_taxonomies($index_taxonomies, $index_terms); ?>
 
-	<input type='submit' name='index' value='<?php _e(esc_attr("Save indexing options, erase index and rebuild the index"), 'relevanssi'); ?>' class='button button-primary' />
+	<input type='submit' name='index' value='<?php esc_attr(_e("Save indexing options, erase index and rebuild the index", 'relevanssi')); ?>' class='button button-primary' />
 
-	<input type='submit' name='index_extend' value='<?php _e(esc_attr("Continue indexing"), 'relevanssi'); ?>' class='button' />
+	<input type='submit' name='index_extend' value='<?php esc_attr(_e("Continue indexing", 'relevanssi')); ?>' class='button' />
 
 	<h3 id="synonyms"><?php _e("Synonyms", "relevanssi"); ?></h3>
 	
-	<p><textarea name='relevanssi_synonyms' id='relevanssi_synonyms' rows='9' cols='60'><?php echo $synonyms ?></textarea></p>
+	<p><textarea name='relevanssi_synonyms' id='relevanssi_synonyms' rows='9' cols='60'><?php echo htmlspecialchars($synonyms); ?></textarea></p>
 
 	<p><small><?php _e("Add synonyms here in 'key = value' format. When searching with the OR operator, any search of 'key' will be expanded to include 'value' as well. Using phrases is possible. The key-value pairs work in one direction only, but you can of course repeat the same pair reversed.", "relevanssi"); ?></small></p>
 
-	<input type='submit' name='submit' value='<?php _e(esc_attr('Save the options'), 'relevanssi'); ?>' class='button' />
+<?php if (function_exists('relevanssi_form_index_synonyms')) relevanssi_form_index_synonyms($index_synonyms); ?>	
+
+	<input type='submit' name='submit' value='<?php esc_attr(_e('Save the options', 'relevanssi')); ?>' class='button' />
 
 	<h3 id="stopwords"><?php _e("Stopwords", "relevanssi"); ?></h3>
 	
@@ -1342,7 +1357,7 @@ function relevanssi_show_stopwords() {
 	_e("<p>Enter a word here to add it to the list of stopwords. The word will automatically be removed from the index, so re-indexing is not necessary. You can enter many words at the same time, separate words with commas.</p>", 'relevanssi');
 
 ?><label for="addstopword"><p><?php _e("Stopword(s) to add: ", 'relevanssi'); ?><textarea name="addstopword" id="addstopword" rows="2" cols="40"></textarea>
-<input type="submit" value="<?php _e(esc_attr("Add"), 'relevanssi'); ?>" class='button' /></p></label>
+<input type="submit" value="<?php esc_attr(_e("Add", 'relevanssi')); ?>" class='button' /></p></label>
 <?php
 
 	_e("<p>Here's a list of stopwords in the database. Click a word to remove it from stopwords. Removing stopwords won't automatically return them to index, so you need to re-index all posts after removing stopwords to get those words back to index.", 'relevanssi');
@@ -1371,10 +1386,10 @@ function relevanssi_show_stopwords() {
 	echo "</ul>";
 	
 ?>
-<p><input type="submit" name="removeallstopwords" value="<?php _e(esc_attr('Remove all stopwords'), 'relevanssi'); ?>" class='button' /></p>
+<p><input type="submit" name="removeallstopwords" value="<?php esc_attr(_e('Remove all stopwords', 'relevanssi')); ?>" class='button' /></p>
 <?php
 
-	$exportlist = implode(", ", $exportlist);
+	$exportlist = htmlspecialchars(implode(", ", $exportlist));
 	
 ?>
 <p><?php _e("Here's a list of stopwords you can use to export the stopwords to another blog.", "relevanssi"); ?></p>

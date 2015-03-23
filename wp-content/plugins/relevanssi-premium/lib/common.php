@@ -448,6 +448,11 @@ function relevanssi_prevent_default_request( $request, $query ) {
 		
 		$prevent = true;
 		$prevent = apply_filters('relevanssi_prevent_default_request', $prevent, $query );
+
+		if (empty($query->query_vars['s'])) {
+			$prevent = false;
+			$admin_search_ok = false;
+		}
 		
 		if (!is_admin() && $prevent )
 			$request = "SELECT * FROM $wpdb->posts WHERE 1=2";		
@@ -690,4 +695,12 @@ function relevanssi_get_the_title($post_id) {
 	return $post->post_highlighted_title;
 }
 
+function relevanssi_update_doc_count( $values, $post ) {
+	$D = get_option( 'relevanssi_doc_count');
+	$count = count($values);
+	if ($values && $count > 0) {
+		update_option( 'relevanssi_doc_count', $D + $count);
+	}
+	return $values;
+}
 ?>

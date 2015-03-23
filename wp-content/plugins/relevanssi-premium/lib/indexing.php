@@ -119,6 +119,10 @@ function relevanssi_build_index($extend = false) {
 		. '</p></div>';
 	update_option('relevanssi_indexed', 'done');
 
+	// We always want to run this on init, if the index is finishd building.
+	$D = $wpdb->get_var("SELECT COUNT(DISTINCT(relevanssi.doc)) FROM $relevanssi_table AS relevanssi");
+	update_option( 'relevanssi_doc_count', $D);
+
 	if (function_exists('wp_suspend_cache_addition')) 
 		wp_suspend_cache_addition(false);	// Thanks to Julien Mession
 }
@@ -196,19 +200,17 @@ function relevanssi_index_doc($indexpost, $remove_first = false, $custom_fields 
 		}
 	}
 
-	if (true == apply_filters('relevanssi_do_not_index', false, $post->ID)) {
-		// filter says no
-		if ($post_was_null) $post = null;
-		if ($previous_post) $post = $previous_post;
-		return;
-	}
-
 	$index_this_post = false;
 
 	$post->indexing_content = true;
 	$index_types = get_option('relevanssi_index_post_types');
 	if (!is_array($index_types)) $index_types = array();
 	if (in_array($post->post_type, $index_types)) $index_this_post = true;
+
+	if (true == apply_filters('relevanssi_do_not_index', false, $post->ID)) {
+		// filter says no
+		$index_this_post = false;
+	}
 
 	if ($remove_first) {
 		// we are updating a post, so remove the old stuff first
@@ -219,9 +221,7 @@ function relevanssi_index_doc($indexpost, $remove_first = false, $custom_fields 
 	}
 
 	// This needs to be here, after the call to relevanssi_remove_doc(), because otherwise
-	// a post that's in the index but shouldn't be there won't get removed. A remote chance,
-	// I mean who ever flips exclude_from_search between true and false once it's set, but
-	// I'd like to cover all bases.
+	// a post that's in the index but shouldn't be there won't get removed.
 	if (!$index_this_post) {
 		if ($post_was_null) $post = null;
 		if ($previous_post) $post = $previous_post;
@@ -312,7 +312,7 @@ function relevanssi_index_doc($indexpost, $remove_first = false, $custom_fields 
 
 	$index_titles = true;
 	if (apply_filters('relevanssi_index_titles', $index_titles)) {
-		$filtered_title = apply_filters('relevanssi_post_title_before_tokenize', $post->post_title);
+		$filtered_title = apply_filters('relevanssi_post_title_before_tokenize', $post->post_title, $post);
 		$titles = relevanssi_tokenize(apply_filters('the_title', $filtered_title));
 
 		if (count($titles) > 0) {
@@ -358,7 +358,10 @@ function relevanssi_index_doc($indexpost, $remove_first = false, $custom_fields 
 				remove_shortcode('starrater');				// GD Star Rating rater shortcode causes problems
 				remove_shortcode('responsive-flipbook');	// Responsive Flipbook causes problems
 				remove_shortcode('avatar_upload');			// WP User Avatar is incompatible
-				
+				remove_shortcode('product_categories');		// A problematic WooCommerce shortcode
+				remove_shortcode('recent_products');		// A problematic WooCommerce shortcode
+				remove_shortcode('php');					// PHP Code for Posts
+								
 				$post_before_shortcode = $post;
 				$contents = do_shortcode($contents);
 				$post = $post_before_shortcode;
