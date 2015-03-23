@@ -96,16 +96,16 @@
      */
     categoryClick: function(categoryId, level, e) {
       var $container = this.$columns.filter('.level-'+level);
-      var $parent = $container.find('[data-page-id='+categoryId+']');
+      var $selectedItem = $container.find('[data-page-id='+categoryId+']');
 
       e.preventDefault();
 
-      if($parent.hasClass('selected')) {
+      if($selectedItem.hasClass('selected')) {
         return;
       }
 
-      this.markItem($parent);
-      this.loadChildren(categoryId, level+1);
+      this.markItem($selectedItem);
+      this.loadChildren($selectedItem, level+1);
 
       if(level===1) {
         this.toggleTopLevelCategories(false);
@@ -116,7 +116,7 @@
      */
     updateUrl: function() {
       var $item;
-      var urlParts = [this.pageBase];
+      var urlParts = ['#'];
 
       this.$columns.each(function() {
         $item = $(this).find('.item.selected');
@@ -128,9 +128,12 @@
         return false;
       });
 
-      if(history.pushState) {
-        history.pushState({}, "", urlParts.join('/')+'/');
-      }
+      window.location.hash = urlParts.join('/') + '/';
+    },
+
+    getPartialSegments: function() {
+      var partial = document.location.hash;
+      return partial.replace(/^\/+|\/+$/g, '').split('/');
     },
 
     /** Marks a specified item as selected
@@ -165,31 +168,32 @@
     prepopulateColumns: function() {
       var _this = this;
       var $column;
-      var selectedId;
       var data = {};
-      var level = 0;
+      var level = 1;
+      var urlParts = this.getPartialSegments();
+      var $categoryItem;
 
-      this.$columns.each(function() {
-        $column = $(this);
-        data = $column.data('items');
-        selectedId = $column.data('selected-id');
+      $column = this.$columns.first();
+      data = $column.data('items');
 
-        //clean-up
-        $column.removeAttr('data-items'); //remove data from the element
-        $column.removeAttr('data-selected-id'); //remove data from the element
+      //clean-up
+      $column.removeAttr('data-items'); //remove data from the element
+      $column.removeAttr('data-selected-id'); //remove data from the element
 
-        if(data) {
+      this.populateColumn(level, null, data);
+
+      //!!! To be refactored (or killed off when we replace the lemon tree with new nav)
+      if(urlParts[level]) {
+        $categoryItem = $column.find('[data-slug="' + urlParts[level] + '"]');
+        $categoryItem.on('load-children', function() {
+          $categoryItem.off('load-children');
+
           level++;
-          _this.populateColumn(level, data);
-          _this.markItem($column.find('[data-page-id="'+selectedId+'"]'));
-        }
-      });
-
-      if(level>1) {
-        this.toggleTopLevelCategories(false);
-      }
-      if(level>2) {
-        this.collapseTopLevelColumn();
+          if(urlParts[level]) {
+            _this.$columns.find('[data-slug="' + urlParts[level] + '"] a').click();
+          }
+        });
+        $categoryItem.find('a').click();
       }
     },
 
@@ -197,10 +201,10 @@
      * @param {Number} categoryId Category ID
      * @param {Number} level Level of the child container [1-3]
      */
-    loadChildren: function(categoryId, level) {
+    loadChildren: function($selectedItem, level) {
       this.stopLoadingChildren();
-      this.$tree.find('[data-page-id="'+categoryId+'"]').addClass('loading');
-      this.requestChildren(categoryId, level);
+      $selectedItem.addClass('loading');
+      this.requestChildren($selectedItem, level);
     },
 
     /** Stops loading children elements
@@ -217,11 +221,12 @@
      * @param {Number} categoryId ID of the category we request the children of
      * @param {Number} level Level of the child container [1-3]
      */
-    requestChildren: function(categoryId, level) {
+    requestChildren: function($selectedItem, level) {
       var _this = this;
+      var categoryId = $selectedItem.attr('data-page-id');
 
       //**/window.setTimeout(function() {
-        _this.serviceXHR = $.getJSON(_this.serviceUrl+'/'+categoryId, $.proxy(_this.populateColumn, _this, level));
+        _this.serviceXHR = $.getJSON(_this.serviceUrl+'/'+categoryId, $.proxy(_this.populateColumn, _this, level, $selectedItem));
       //**/}, 2000);
     },
 
@@ -229,18 +234,19 @@
      * @param {Number} level Item level (1-3)
      * @param {Object} data Children data
      */
-    populateColumn: function(level, data) {
+    populateColumn: function(level, $selectedItem, data) {
       var _this = this;
       var $thisLevelContainer = this.$columns.filter('.level-'+level); //this level = the child level
       var $nextLevelContainer = this.$columns.filter('.level-'+(level+1)); //next level = the grandchild level
       var $thisItemList = $thisLevelContainer.find('.item-list');
       var $child;
+      var $overviewPageLink;
       var a;
 
       this.helpers.toggleElement($nextLevelContainer, false);
 
       //clear all subcolumns
-      for(a=level;a<=3;a++) {
+      for(a=level; a<=3; a++) {
         this.$columns.filter('.level-'+a).find('.item-list').empty();
       }
 
@@ -261,8 +267,33 @@
 
       this.updateUrl();
 
-
       this.$tree.attr('data-show-column', level);
+
+      if($selectedItem) {
+        $selectedItem.trigger('load-children');
+
+        //add overview page link
+        $overviewPageLink = this.buildOverviewPageLink(level, $selectedItem);
+        $thisItemList.prepend($overviewPageLink);
+
+        //adjust position of the A-Z/Popular
+        $thisItemList.prev().css({
+          paddingTop: $overviewPageLink.outerHeight() + 'px'
+        });
+      }
+    },
+
+    buildOverviewPageLink: function(level, $selectedItem) {
+      var $overviewItem = this.buildChild(JSON.parse($selectedItem.attr('data-data')), level);
+      var text = $overviewItem.find('.title').text();
+      $overviewItem.find('.title').text(text + ' overview');
+      $overviewItem.find('.description').html('');
+      $overviewItem.off('click');
+      $overviewItem.removeAttr('data-name');
+      $overviewItem.removeAttr('data-popularity-order');
+      $overviewItem.addClass('overview');
+
+      return $overviewItem;
     },
 
     /** Sets up and returns a child element
@@ -273,6 +304,7 @@
     buildChild: function(data, level) {
       var _this = this;
       var $child = $(this.itemTemplate);
+      $child.attr('data-data', JSON.stringify(data));
       $child.attr('data-page-id', data.id);
       $child.attr('data-popularity-order', data.id); //!!! for now the order will be based on IDs
       $child.attr('data-name', data.title);
@@ -280,8 +312,14 @@
       $child.find('.title').html(data.title);
       $child.find('a').attr('href', data.url);
       $child.on('click', 'a', $.proxy(this.collapseTopLevelColumn, this, level!==1));
+      $child.on('click', 'a', function() {
+        $(this).trigger('item-click');
+      });
 
-      if(data.is_external && !data.child_count) {
+      if(!data.child_count) {
+        $child.addClass('no-children');
+      }
+      if(data.is_external) {
         $child.find('a').attr('rel', 'external');
       }
 
@@ -312,7 +350,7 @@
 
       for(level=1; level<=3; level++) {
         $list = this.$columns.filter('.level-'+level).find('.item-list');
-        items = $list.find('li').toArray();
+        items = $list.find('li:not(.overview)').toArray();
         items.sort(sortMethod);
         $list.append(items);
       }

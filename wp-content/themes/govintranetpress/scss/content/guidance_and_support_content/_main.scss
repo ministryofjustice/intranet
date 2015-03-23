@@ -1,4 +1,8 @@
 .guidance-and-support-content {
+  .content-head {
+    padding-bottom: 45px;
+  }
+
   .page-title {
     margin-top: 0px;
     border-bottom: none;
@@ -36,34 +40,6 @@
     padding-top: 24px;
     margin-bottom: 0px;
     font-weight: normal;
-  }
-
-  .table-of-contents-box {
-    display: none;
-
-    &.visible {
-      display: block;
-    }
-  }
-
-  .table-of-contents {
-    margin-top: 5px;
-
-    li {
-      display: block;
-      border-bottom: 1px solid $grey-2;
-
-      &:first-of-type {
-        border-top: 1px solid $grey-2;
-      }
-
-      a {
-        @extend %medium-copy;
-        display: block;
-        padding-top: 5px;
-        padding-bottom: 5px;
-      }
-    }
   }
 
   .excerpt {
