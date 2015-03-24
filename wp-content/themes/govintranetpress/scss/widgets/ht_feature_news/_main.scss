@@ -90,6 +90,12 @@
     padding: 10px 0;
     border-top: 1px solid $grey-2;
 
+    > a {
+      float: left;
+      display: block;
+      margin-right: 20px;
+    }
+
     .news_date {
       display: none;
     }
@@ -97,7 +103,6 @@
     img {
       float: left;
       max-width: 100px;
-      margin-right: 20px;
       border: 1px solid $grey-2;
     }
 

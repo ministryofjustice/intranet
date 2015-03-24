@@ -38,7 +38,7 @@
       this.$searchForm = this.$top.find('#search-form');
       this.$typeInput = this.$top.find('[name="type"]');
       this.$categoryInput = this.$top.find('[name="category"]');
-      this.$keywordsInput = this.$top.find('[name="keywords"]');
+      this.$keywordsInput = this.$top.find('.keywords-field');
       this.$results = this.$top.find('.results');
       this.$prevPage = this.$top.find('.previous');
       this.$nextPage = this.$top.find('.next');
@@ -200,7 +200,7 @@
         $child.find('.thumbnail').remove(); //we don't want an img element with no src
       }
 
-      $child.find('.title').html(data.title);
+      $child.find('.search-link').html(data.title);
       $child.find('.search-link').attr('href', data.url);
       $child.find('.date').html(this.formatDate(date));
       $child.find('.excerpt').html(data.excerpt);

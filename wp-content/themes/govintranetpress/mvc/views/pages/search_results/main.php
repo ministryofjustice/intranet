@@ -13,8 +13,8 @@
   <div class="grid">
     <div class="col-lg-8 col-md-8 col-sm-12">
       <div class="search-string">
-        <input form="search-form" type="text" placeholder="Keywords" name="keywords" class="main-search-field" value="<?=get_query_var('search-string')?>" />
-        <button form="search-form" type="submit" class="cta search-btn"></button>
+        <input class="keywords-field" type="text" placeholder="Search" name="s" id="s" value="<?=urldecode(get_query_var('search-string'))?>">
+        <input class="search-btn cta" type="submit" value="Search" />
       </div>
     </div>
   </div>
@@ -24,18 +24,18 @@
       <form id="search-form" class="content-filters">
         <p class="description">You can use the filters to show only results that match your interests</p>
         <div class="form-row">
-          <span class="label">Filter by</span>
+          <label for="input-results-category">Filter by</label>
         </div>
         <div class="form-row">
-          <select name="category">
+          <select name="category" id="input-results-category">
             <option value="All">All</option>
           </select>
         </div>
         <div class="form-row contains">
-          <span class="label">Type of pages</span>
+          <label for="input-results-type">Type of pages</label>
         </div>
         <div class="form-row">
-          <select name="type">
+          <select name="type" id="input-results-type">
             <option value="All">All</option>
           </select>
         </div>
@@ -74,9 +74,9 @@
 
   <div class="template-partial" data-name="search-item">
     <li class="search-item">
-      <a href="" class="search-link">
-        <h3 class="title"></h3>
-      </a>
+      <h3 class="title">
+        <a href="" class="search-link"></a>
+      </h3>
       <div class="meta grid">
         <div class="col-lg-3">
           <span class="date"></span>

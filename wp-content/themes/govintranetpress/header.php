@@ -207,7 +207,7 @@ header('X-Frame-Options: SAMEORIGIN');
         <div class="site-logo">
           <a href="http://intranet.justice.gsi.gov.uk/" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>">
           <!--<a href="<?php echo home_url( '/' ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>"  rel="home">-->
-            <img src="<?=get_stylesheet_directory_uri()?>/images/moj_logo.png" />
+            <img src="<?=get_stylesheet_directory_uri()?>/images/moj_logo.png" alt="" />
           </a>
         </div>
       </div>
@@ -220,12 +220,10 @@ header('X-Frame-Options: SAMEORIGIN');
       </div>
 
       <!-- search box -->
-      <div class="col-lg-4 col-md-4 col-sm-12 search-box">
-        <?php if(!$is_moj_story) { ?>
-        <div id='searchformdiv' class=''>
+      <div class="col-lg-4 col-md-4 col-sm-12">
+        <?php if($_SESSION['full_site']): ?>
           <?php get_search_form(true); ?>
-        </div>
-        <?php } ?>
+        <?php endif ?>
       </div>
     </div>
 

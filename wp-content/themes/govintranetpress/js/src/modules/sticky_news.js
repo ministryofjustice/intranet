@@ -24,12 +24,12 @@
     },
 
     bindEvents: function() {
-      this.$pageLinks.on('click', $.proxy(this.showItem, this, null));
+      this.$pageLinks.on('click', 'a', $.proxy(this.showItem, this, null));
     },
 
     showItem: function(pageId, e) {
       if(!pageId) {
-        pageId = $(e.target).data('page-id');
+        pageId = $(e.target).closest('.item').data('page-id');
       }
 
       this.$pages.hide();
