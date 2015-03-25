@@ -2389,16 +2389,20 @@ form .form-row {
   .guidance-and-support .subcategories li.item.no-children a:after {
     display: none; }
   /* line 186, ../scss/content/guidance_and_support/_main.scss */
-  .guidance-and-support .categories li.item.loading a:after,
-  .guidance-and-support .subcategories li.item.loading a:after {
-    content: "";
-    background-image: url("../images/loader.gif");
-    width: 16px;
-    height: 16px;
-    background-size: 100%;
-    top: 50%;
-    margin-top: -8px; }
-  /* line 197, ../scss/content/guidance_and_support/_main.scss */
+  .guidance-and-support .categories li.item.loading a,
+  .guidance-and-support .subcategories li.item.loading a {
+    background-color: #005ea5; }
+    /* line 189, ../scss/content/guidance_and_support/_main.scss */
+    .guidance-and-support .categories li.item.loading a:after,
+    .guidance-and-support .subcategories li.item.loading a:after {
+      content: "";
+      background-image: url("../images/loader.gif");
+      width: 16px;
+      height: 16px;
+      background-size: 100%;
+      top: 50%;
+      margin-top: -8px; }
+  /* line 201, ../scss/content/guidance_and_support/_main.scss */
   .guidance-and-support .categories .item.selected a:after,
   .guidance-and-support .subcategories .item.selected a:after {
     content: "\203a";
@@ -2406,18 +2410,18 @@ form .form-row {
     height: 16px;
     color: #fff;
     line-height: 16px; }
-/* line 207, ../scss/content/guidance_and_support/_main.scss */
+/* line 211, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .subcategories,
 .guidance-and-support .links {
   display: none;
   position: relative;
   margin-left: -1px;
   border-left: 1px solid #bfc1c3; }
-  /* line 216, ../scss/content/guidance_and_support/_main.scss */
+  /* line 220, ../scss/content/guidance_and_support/_main.scss */
   .guidance-and-support .subcategories.visible,
   .guidance-and-support .links.visible {
     display: block; }
-  /* line 220, ../scss/content/guidance_and_support/_main.scss */
+  /* line 224, ../scss/content/guidance_and_support/_main.scss */
   .guidance-and-support .subcategories .sort-order,
   .guidance-and-support .links .sort-order {
     width: 90px;
@@ -2428,35 +2432,35 @@ form .form-row {
     text-align: center;
     overflow: hidden;
     white-space: nowrap; }
-  /* line 232, ../scss/content/guidance_and_support/_main.scss */
+  /* line 236, ../scss/content/guidance_and_support/_main.scss */
   .guidance-and-support .subcategories .item-list,
   .guidance-and-support .links .item-list {
     position: relative;
     background-color: #fff; }
-  /* line 237, ../scss/content/guidance_and_support/_main.scss */
+  /* line 241, ../scss/content/guidance_and_support/_main.scss */
   .guidance-and-support .subcategories .item-list,
   .guidance-and-support .subcategories .category-name,
   .guidance-and-support .links .item-list,
   .guidance-and-support .links .category-name {
     margin-left: 0;
     transition: margin-left .3s; }
-  /* line 244, ../scss/content/guidance_and_support/_main.scss */
+  /* line 248, ../scss/content/guidance_and_support/_main.scss */
   .guidance-and-support .subcategories.current .item-list,
   .guidance-and-support .subcategories.current .category-name,
   .guidance-and-support .links.current .item-list,
   .guidance-and-support .links.current .category-name {
     margin-left: 90px;
     transition: margin-left .3s; }
-/* line 253, ../scss/content/guidance_and_support/_main.scss */
+/* line 257, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .subcategories.item-container {
   transition: margin-left .3s; }
-/* line 259, ../scss/content/guidance_and_support/_main.scss */
+/* line 263, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .links.item-container {
   transition: width .3s; }
-/* line 268, ../scss/content/guidance_and_support/_main.scss */
+/* line 272, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .links a[rel="external"]:after {
   display: none; }
-/* line 272, ../scss/content/guidance_and_support/_main.scss */
+/* line 276, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .links a[rel="external"] h3:after {
   display: inline-block;
   width: 12px;
@@ -2467,7 +2471,7 @@ form .form-row {
   background-repeat: no-repeat;
   margin-left: 6px;
   content: ""; }
-/* line 286, ../scss/content/guidance_and_support/_main.scss */
+/* line 290, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .item.overview::after {
   background-color: #bfc1c3;
   content: "";
@@ -2477,44 +2481,44 @@ form .form-row {
   position: absolute;
   right: 0;
   width: 100%; }
-/* line 297, ../scss/content/guidance_and_support/_main.scss */
+/* line 301, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support :not(.current).subcategories .item.overview::after {
   left: 0; }
 
 @media (max-width: 767px) {
-  /* line 304, ../scss/content/guidance_and_support/_main.scss */
+  /* line 308, ../scss/content/guidance_and_support/_main.scss */
   .guidance-and-support .tree-container {
     overflow: hidden;
     width: 100%; }
-  /* line 309, ../scss/content/guidance_and_support/_main.scss */
+  /* line 313, ../scss/content/guidance_and_support/_main.scss */
   .guidance-and-support .tree {
     width: 303%;
     transition: margin-left .15s; }
-    /* line 313, ../scss/content/guidance_and_support/_main.scss */
+    /* line 317, ../scss/content/guidance_and_support/_main.scss */
     .guidance-and-support .tree[data-show-column="1"] {
       margin-left: 0%; }
-    /* line 317, ../scss/content/guidance_and_support/_main.scss */
+    /* line 321, ../scss/content/guidance_and_support/_main.scss */
     .guidance-and-support .tree[data-show-column="2"] {
       margin-left: -100%; }
-    /* line 321, ../scss/content/guidance_and_support/_main.scss */
+    /* line 325, ../scss/content/guidance_and_support/_main.scss */
     .guidance-and-support .tree[data-show-column="3"] {
       margin-left: -200%; }
-    /* line 326, ../scss/content/guidance_and_support/_main.scss */
+    /* line 330, ../scss/content/guidance_and_support/_main.scss */
     .guidance-and-support .tree.collapsed .subcategories {
       margin-left: 0; }
-    /* line 330, ../scss/content/guidance_and_support/_main.scss */
+    /* line 334, ../scss/content/guidance_and_support/_main.scss */
     .guidance-and-support .tree.collapsed .links {
       width: 33%; }
-  /* line 336, ../scss/content/guidance_and_support/_main.scss */
+  /* line 340, ../scss/content/guidance_and_support/_main.scss */
   .guidance-and-support .item-container {
     border: none;
     margin-left: 0; }
-    /* line 341, ../scss/content/guidance_and_support/_main.scss */
+    /* line 345, ../scss/content/guidance_and_support/_main.scss */
     .guidance-and-support .item-container.current .item-list,
     .guidance-and-support .item-container.current .category-name {
       margin-left: 0;
       transition: margin-left .3s; }
-    /* line 348, ../scss/content/guidance_and_support/_main.scss */
+    /* line 352, ../scss/content/guidance_and_support/_main.scss */
     .guidance-and-support .item-container .item {
       display: block !important; } }
 /* line 2, ../scss/content/guidance_and_support_content/_main.scss */
