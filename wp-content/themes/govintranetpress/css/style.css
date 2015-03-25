@@ -464,7 +464,7 @@ h1 {
 .main-content .content-info p, .main-content .editable table th,
 .main-content .editable table td, .breadcrumbs a,
 .breadcrumbs span, .beta-banner .beta-icon,
-.beta-banner .message, .footerwrapper .footer li, .message .content, #menu-utilities li a, .content-filters .description, .content-filters label, .children-pages li a, #need-to-know .excerpt, .my-moj .my-moj-top .department, .my-moj .menu-my-moj-quick-links-container ul a, .guidance-and-support .tree .all-categories, .guidance-and-support-content .right-hand-menu a, .page-search-results .search-item .excerpt {
+.beta-banner .message, .footerwrapper .footer li, .header .skip-to-content-container a, .message .content, #menu-utilities li a, .content-filters .description, .content-filters label, .children-pages li a, #need-to-know .excerpt, .my-moj .my-moj-top .department, .my-moj .menu-my-moj-quick-links-container ul a, .guidance-and-support .tree .all-categories, .guidance-and-support-content .right-hand-menu a, .page-search-results .search-item .excerpt {
   font-size: 16px;
   line-height: 20px; }
 
@@ -1213,35 +1213,48 @@ form .form-row {
   z-index: 1;
   background: #0b0c0c; }
   /* line 6, ../scss/modules/_header.scss */
+  .header .skip-to-content-container {
+    height: 0;
+    padding-top: 10px;
+    overflow: hidden; }
+    /* line 11, ../scss/modules/_header.scss */
+    .header .skip-to-content-container.focused {
+      height: auto; }
+    /* line 15, ../scss/modules/_header.scss */
+    .header .skip-to-content-container a {
+      line-height: 30px;
+      color: #005ea5;
+      text-decoration: underline; }
+  /* line 23, ../scss/modules/_header.scss */
   .header .header-top {
     padding-top: 10px;
     padding-bottom: 15px; }
-  /* line 11, ../scss/modules/_header.scss */
+  /* line 28, ../scss/modules/_header.scss */
   .header .header-bottom {
     position: relative; }
-  /* line 15, ../scss/modules/_header.scss */
+  /* line 32, ../scss/modules/_header.scss */
   .header .site-logo {
     display: block; }
-    /* line 18, ../scss/modules/_header.scss */
+    /* line 35, ../scss/modules/_header.scss */
     .header .site-logo a {
       display: inline-block; }
-    /* line 22, ../scss/modules/_header.scss */
+    /* line 39, ../scss/modules/_header.scss */
     .header .site-logo img {
       width: 254px;
       height: 36px; }
-  /* line 28, ../scss/modules/_header.scss */
+  /* line 45, ../scss/modules/_header.scss */
   .header .search-form {
     position: relative;
     padding: 3px 0;
     /* room for the outline */
     margin-right: 36px; }
-    /* line 33, ../scss/modules/_header.scss */
+    /* line 50, ../scss/modules/_header.scss */
     .header .search-form .keywords-field {
       display: block;
       width: 100%;
       height: 36px;
       padding-left: 10px; }
-    /* line 40, ../scss/modules/_header.scss */
+    /* line 57, ../scss/modules/_header.scss */
     .header .search-form .search-btn {
       position: absolute;
       right: -36px;
@@ -1258,16 +1271,16 @@ form .form-row {
       background-position: 10px 10px;
       text-indent: -5000px; }
 
-/* line 60, ../scss/modules/_header.scss */
+/* line 77, ../scss/modules/_header.scss */
 .page-template-search-results-php .search-form {
   display: none; }
 
 @media (min-width: 0) and (max-width: 767px) {
-  /* line 66, ../scss/modules/_header.scss */
+  /* line 83, ../scss/modules/_header.scss */
   #searchformdiv {
     padding-top: 10px; }
 
-  /* line 70, ../scss/modules/_header.scss */
+  /* line 87, ../scss/modules/_header.scss */
   .mobile-nav button {
     float: right;
     width: 30px;
@@ -1278,15 +1291,15 @@ form .form-row {
     background-size: 60px 30px;
     background-position: 0 0;
     margin-top: 5px; }
-    /* line 81, ../scss/modules/_header.scss */
+    /* line 98, ../scss/modules/_header.scss */
     .mobile-menu-enabled .mobile-nav button {
       background-position: 30px 0; }
 
-  /* line 88, ../scss/modules/_header.scss */
+  /* line 105, ../scss/modules/_header.scss */
   .header.mobile-menu-enabled .search-box,
   .header.mobile-menu-enabled #mainnav {
     display: none; }
-  /* line 93, ../scss/modules/_header.scss */
+  /* line 110, ../scss/modules/_header.scss */
   .header.mobile-menu-enabled #utilities {
     display: block; } }
 /* line 1, ../scss/modules/_main_nav.scss */

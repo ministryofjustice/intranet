@@ -201,7 +201,12 @@ header('X-Frame-Options: SAMEORIGIN');
 <body <?php body_class($parentpageclass); ?>>
   <?php // include(get_stylesheet_directory() . "/sidebar-cookiebar.php"); ?>
 
-	<div class="header">
+	<div class="header" role="banner">
+    <div class="grid skip-to-content-container">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <a href="#content">Skip to main content</a>
+      </div>
+    </div>
     <div class="grid header-top">
       <div class="col-lg-8 col-md-8 col-sm-10">
         <div class="site-logo">
@@ -251,7 +256,7 @@ header('X-Frame-Options: SAMEORIGIN');
     </div>
   </div>
 
-  <div id="content" class="container main-content">
+  <div id="content" class="container main-content" role="main">
     <div class="content-wrapper">
 
 
