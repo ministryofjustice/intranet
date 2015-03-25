@@ -61,10 +61,10 @@
         <img src="<?=$thumbnail[0]?>" class="img img-responsive" alt="<?=$title?>" />
       <?php endif ?>
       <div>
-        <div class="children-pages-box">
+        <nav class="children-pages-box">
           <h4>In this section</h4>
           <ul class="children-pages"></ul>
-        </div>
+        </nav>
       </div>
       &nbsp;
     </div>

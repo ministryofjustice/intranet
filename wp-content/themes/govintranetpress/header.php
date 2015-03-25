@@ -234,13 +234,13 @@ header('X-Frame-Options: SAMEORIGIN');
 
     <div class="grid" class="header-bottom">
       <div id="mainnav" class="col-lg-8 col-md-8 col-sm-12">
-        <div id="primarynav" role="navigation">
+        <nav id="primarynav" role="navigation">
           <?php if(!$is_moj_story) { ?>
             <?php wp_nav_menu( array( 'container_class' => 'menu-header', 'theme_location' => 'primary' ) ); ?>
           <?php } else { ?>
             <?php wp_nav_menu( array( 'container_class' => 'menu-header', 'theme_location' => 'moj_story' ) ); ?>
           <?php } ?>
-        </div>
+        </nav>
       </div>
 
       <!--utility menu-->

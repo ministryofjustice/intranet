@@ -22,7 +22,7 @@
       </ul>
     </div>
 
-    <div class="quick-links-container">
+    <nav class="quick-links-container">
       <h3 class="category-name">Quick links</h3>
       <?php dynamic_sidebar('my-moj-quick-links'); ?>
       <!--
@@ -32,6 +32,6 @@
         <?php endforeach*/ ?>
       </ul>
       -->
-    </div>
+    </nav>
   </div>
 </div>
