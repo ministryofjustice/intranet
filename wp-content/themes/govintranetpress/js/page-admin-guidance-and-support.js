@@ -43,7 +43,12 @@ jQuery(function($) {
     // } else {
       // alert('No more than ' + maxLinks + ' quick links allowed');
     // }
-    $('.quick_links-container tr.draggable').draggable();
+    $('.quick_links-container tr.draggable').draggable({
+      handle: ".dashicons.dashicons-sort",
+      axis: "y",
+      connectToSortable: '.quick_links-container tbody',
+      containment: "parent"
+    });
     e.preventDefault();
   });
 
@@ -80,7 +85,7 @@ jQuery(function($) {
       for(var i=(sourceElement); i<=(totalLinks); i++) {
         currentRow = $('.quick_links-line')[i-1];
         $.each($(currentRow).find('input'),function(j,inputElement){
-          inputIdArray = $(inputElement).attr('id').match(/(.+)(\d+)$/);
+          inputIdArray = $(inputElement).attr('id').match(/(.*\D)(\d+)$/);
           inputIdText = inputIdArray[1];
           $('input.' + inputIdText + i).val($('input.' + inputIdText + (i+1)).val())
           if($('input.' + inputIdText + (i+1)).prop('checked')==true) {
@@ -94,7 +99,7 @@ jQuery(function($) {
       for (var i=1; i<=totalLinks; i++) {
         currentRow = $('.quick_links-line')[i-1];
         $.each($(currentRow).find('input'),function(j,inputElement){
-          inputIdArray = $(inputElement).attr('id').match(/(.+)(\d+)$/);
+          inputIdArray = $(inputElement).attr('id').match(/(.*\D)(\d+)$/);
           // Change class
           $(inputElement).removeClass(inputIdArray[1] + inputIdArray[2]);
           $(inputElement).addClass(inputIdArray[1] + i);
