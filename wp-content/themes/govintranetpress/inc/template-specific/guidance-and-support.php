@@ -88,7 +88,6 @@ function quick_links_callback($post) {
 function quick_links_save($post_id) {
     $ns = 'quick_links'; // Quick namespace variable
     $search_content = null;
-    $max_links = 7;
     if ( ! isset( $_POST[$ns.'_meta_box_nonce'] ) ) {
         return;
     }
