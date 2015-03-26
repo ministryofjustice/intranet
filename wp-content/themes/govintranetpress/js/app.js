@@ -923,6 +923,8 @@
           paddingTop: $overviewPageLink.outerHeight() + 'px'
         });
       }
+
+      $thisLevelContainer.find('.item').first().find('a').focus();
     },
 
     buildOverviewPageLink: function(level, $selectedItem) {
@@ -1316,7 +1318,7 @@
         $child.find('.thumbnail').remove(); //we don't want an img element with no src
       }
 
-      $child.find('.title').html(data.title);
+      $child.find('.title .news-link').html(data.title);
       $child.find('.news-link').attr('href', data.url);
       $child.find('.date').html(this.formatDate(date));
       $child.find('.excerpt').html(data.excerpt);
@@ -1454,7 +1456,7 @@
       this.$searchForm = this.$top.find('#search-form');
       this.$typeInput = this.$top.find('[name="type"]');
       this.$categoryInput = this.$top.find('[name="category"]');
-      this.$keywordsInput = this.$top.find('[name="keywords"]');
+      this.$keywordsInput = this.$top.find('.keywords-field');
       this.$results = this.$top.find('.results');
       this.$prevPage = this.$top.find('.previous');
       this.$nextPage = this.$top.find('.next');
@@ -1616,7 +1618,7 @@
         $child.find('.thumbnail').remove(); //we don't want an img element with no src
       }
 
-      $child.find('.title').html(data.title);
+      $child.find('.search-link').html(data.title);
       $child.find('.search-link').attr('href', data.url);
       $child.find('.date').html(this.formatDate(date));
       $child.find('.excerpt').html(data.excerpt);
@@ -1749,12 +1751,12 @@
     },
 
     bindEvents: function() {
-      this.$pageLinks.on('click', $.proxy(this.showItem, this, null));
+      this.$pageLinks.on('click', 'a', $.proxy(this.showItem, this, null));
     },
 
     showItem: function(pageId, e) {
       if(!pageId) {
-        pageId = $(e.target).data('page-id');
+        pageId = $(e.target).closest('.item').data('page-id');
       }
 
       this.$pages.hide();

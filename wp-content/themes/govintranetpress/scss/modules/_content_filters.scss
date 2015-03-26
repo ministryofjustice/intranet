@@ -1,5 +1,6 @@
 .content-filters {
   margin-top: 60px;
+  padding-bottom: 3px;
 
   select,
   input[type="text"] {
@@ -16,7 +17,7 @@
     color: #333;
   }
 
-  .label {
+  label {
     @extend %medium-copy;
     display: inline-block;
     margin-top: 20px;

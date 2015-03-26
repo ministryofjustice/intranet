@@ -22,18 +22,18 @@
       <form class="content-filters">
         <p class="description">You can use the filters to show only results that match your interests</p>
         <div class="form-row">
-          <span class="label">Filter by</span>
+          <label for="input-filter-date">Filter by</label>
         </div>
         <div class="form-row">
-          <select name="date">
+          <select name="date" id="input-filter-date">
             <option value="">All</option>
           </select>
         </div>
         <div class="form-row contains">
-          <span class="label">Contains</span>
+          <label for="input-filter-contains">Contains</label>
         </div>
         <div class="form-row">
-          <input type="text" placeholder="Keywords" name="keywords" />
+          <input type="text" placeholder="Keywords" name="keywords" id="input-filter-contains" />
         </div>
       </form>
     </div>
@@ -76,9 +76,9 @@
         </a>
       </div>
       <div class="content">
-        <a href="" class="news-link">
-          <h3 class="title">test</h3>
-        </a>
+        <h3 class="title">
+          <a href="" class="news-link"></a>
+        </h3>
         <div class="meta">
           <span class="date">date</span>
         </div>

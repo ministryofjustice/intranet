@@ -47,6 +47,11 @@
             background: white;
             color: #61415B;
           }
+          
+          &:focus {
+            outline: 3px solid $yellow;
+            background-color: $yellow;
+          }
         }
 
         &:first-of-type > a {

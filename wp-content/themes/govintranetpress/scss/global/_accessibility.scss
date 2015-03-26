@@ -1,0 +1,14 @@
+a:focus {
+  outline: 3px solid $yellow;
+  background-color: $yellow;
+}
+
+input,
+select,
+textarea {
+  border: none;
+
+  &:focus {
+    outline: 3px solid $yellow;
+  }
+}

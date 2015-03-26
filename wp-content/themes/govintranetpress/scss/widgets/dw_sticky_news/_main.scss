@@ -73,18 +73,23 @@
     margin-bottom: 0;
 
     li {
-      @extend %small-copy;
       display: inline-block;
-      padding: 0px 10px;
-      border: 1px solid $light-blue-25;
-      color: #d5e8f4;
-      line-height: 24px;
-      cursor: pointer;
+
+      a {
+        @extend %small-copy;
+        display: inline-block;
+        padding: 0px 10px;
+        border: 1px solid $light-blue-25;
+        color: #d5e8f4;
+        line-height: 24px;
+      }
 
       &.selected,
       &:hover {
-        background-color: $light-blue-25;
-        color: $sticky-news;
+        a {
+          background-color: $light-blue-25;
+          color: $sticky-news;
+        }
       }
     }
   }
