@@ -3,6 +3,23 @@
   z-index: 1;
   background: $black;
 
+  .skip-to-content-container {
+    height: 0;
+    padding-top: 10px;
+    overflow: hidden;
+
+    &.focused {
+      height: auto;
+    }
+
+    a {
+      @extend %medium-copy;
+      line-height: 30px;
+      color: $govuk-blue;
+      text-decoration: underline;
+    }
+  }
+
   .header-top {
     padding-top: 10px;
     padding-bottom: 15px;

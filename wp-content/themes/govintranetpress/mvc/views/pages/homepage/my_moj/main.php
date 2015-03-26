@@ -3,7 +3,7 @@
 <div class="my-moj">
   <div class="my-moj-top">
     <div data-department="select-department" class="department-dropdown-box">
-      <select class="department">
+      <select class="department" title="Select your intranet">
         <option data-department="select-department" value="">Choose your intranet</option>
         <?php foreach($departments as $department): ?>
           <option data-url="<?=$department['url']?>" data-department="<?=$department['name']?>"><?=$department['label']?></option>
@@ -22,7 +22,7 @@
       </ul>
     </div>
 
-    <div class="quick-links-container">
+    <nav class="quick-links-container">
       <h3 class="category-name">Quick links</h3>
       <?php dynamic_sidebar('my-moj-quick-links'); ?>
       <!--
@@ -32,6 +32,6 @@
         <?php endforeach*/ ?>
       </ul>
       -->
-    </div>
+    </nav>
   </div>
 </div>
