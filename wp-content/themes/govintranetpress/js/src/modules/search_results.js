@@ -23,6 +23,7 @@
       this.serviceXHR = null;
       this.months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
       this.currentPage = null;
+      this.minKeywordLength = 2;
 
       this.cacheEls();
       this.bindEvents();
@@ -88,27 +89,49 @@
         keywords = keywords.replace(/\+/g, ' ');
         keywords = keywords.replace(/[^a-zA-Z0-9\s']+/g, '');
 
-        //update keywords field with keywords from url
-        if(keywords) {
-          this.$keywordsInput.val(keywords === '-' ? '' : keywords);
-        }
+        this.$keywordsInput.val(keywords);
       }
     },
 
     loadResults: function(requestData) {
       var _this = this;
+      var data;
 
       requestData = this.getDataObject(requestData);
 
-      this.stopLoadingResults();
-      this.$top.addClass('loading-results');
+      if(this.hasKeywords()) {
+        this.stopLoadingResults();
 
-      this.$top.find('.search-results-title').remove();
-      this.$results.prepend($(this.resultsPageTitleTemplate).text('Loading results...'));
+        this.$top.addClass('loading-results');
 
-      this.$results.find('.search-item').addClass('faded');
+        this.$top.find('.search-results-title').remove();
+        this.$results.prepend($(this.resultsPageTitleTemplate).text('Loading results...'));
 
-      this.requestResults(requestData);
+        this.$results.find('.search-item').addClass('faded');
+
+        this.requestResults(requestData);
+      }
+      else {
+        this.stopLoadingResults();
+        this.clearResults();
+        this.$top.find('.search-results-title').remove();
+
+        data = {
+          results: [],
+          totalResults: 0,
+          urlParams: {
+            category: null,
+            keywords: "",
+            page: "1",
+            per_page: "10",
+            type: "page"
+          }
+        };
+
+        this.updatePagination(data);
+        this.updateUrl();
+        this.setResultsHeading(data);
+      }
     },
 
     stopLoadingResults: function() {
@@ -177,14 +200,27 @@
     },
 
     hasKeywords: function() {
-      return this.getSanitizedKeywords().length > 0;
+      var keywords = this.getSanitizedKeywords();
+      var keywordsArray = keywords.split();
+      var a, l;
+
+      if(!keywords.length){ return false; }
+
+      for(a=0, l=keywordsArray.length; a<l; a++) {
+        if(keywordsArray[a].length >= this.minKeywordLength) {
+          return true;
+        }
+      }
+
+      return true;
     },
 
     getSanitizedKeywords: function() {
       var keywords = this.$keywordsInput.val();
-      keywords = keywords.replace(/^\s+|\s+$/g, '');
       keywords = keywords.replace(/[^a-zA-Z0-9\s']+/g, ' ');
       keywords = keywords.replace(/\s+/g, ' ');
+      keywords = keywords.replace(/^\s+|\s+$/g, '');
+
       return keywords;
     },
 
