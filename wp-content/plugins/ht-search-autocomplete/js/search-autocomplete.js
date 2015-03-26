@@ -8,7 +8,7 @@
 
 		options.fieldName = $('<div />').html(options.fieldName).text();
 
-		
+
 
 		$(options.fieldName).autocomplete({
 			source: function( request, response ) {
@@ -20,10 +20,12 @@
 			            term: $(options.fieldName).val()
 			        },
 			        success: function( data ) {
+                var title;
 			            response( $.map( data.results, function( item ) {
+                    title = $('<div>').html(item.title).text();
 			                return {
-			                	label: item.title,
-			                	value: item.title,
+			                	label: title,
+			                	value: title,
 			                	url: item.url
 			                }
 			            }));

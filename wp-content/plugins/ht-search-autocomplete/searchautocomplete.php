@@ -74,11 +74,11 @@ class SearchAutocomplete {
 			wp_enqueue_style( 'SearchAutocomplete-theme', plugins_url( 'css' . $this->options['autocomplete_theme'], __FILE__ ), array(), '1.9.2' );
 		}
 		if ( wp_script_is( 'jquery-ui-autocomplete', 'registered' ) ) {
-			wp_enqueue_script( 'SearchAutocomplete', plugins_url( 'js/search-autocomplete.min.js', __FILE__ ), array( 'jquery-ui-autocomplete' ), '1.0.0', true );
+			wp_enqueue_script( 'SearchAutocomplete', plugins_url( 'js/search-autocomplete.js', __FILE__ ), array( 'jquery-ui-autocomplete' ), '1.0.0', true );
 		}
 		else {
 			wp_register_script( 'jquery-ui-autocomplete', plugins_url( 'js/jquery-ui-1.9.2.custom.min.js', __FILE__ ), array( 'jquery-ui' ), '1.9.2', true );
-			wp_enqueue_script( 'SearchAutocomplete', plugins_url( 'js/search-autocomplete.min.js', __FILE__ ), array( 'jquery-ui-autocomplete' ), '1.0.0', true );
+			wp_enqueue_script( 'SearchAutocomplete', plugins_url( 'js/search-autocomplete.js', __FILE__ ), array( 'jquery-ui-autocomplete' ), '1.0.0', true );
 		}
 		wp_localize_script( 'SearchAutocomplete', 'SearchAutocomplete', $localVars );
 	}
@@ -102,9 +102,9 @@ class SearchAutocomplete {
 		$resultsTerms = array();
 		$term         = sanitize_text_field( $_GET['term'] );
 		if ( count( $this->options['autocomplete_posttypes'] ) > 0 ) {
-		
+
 		// extra code added here to use Relevanssi instead of regular search
-		
+
 			if (!function_exists('relevanssi_do_query')){
 				$tempPosts = get_posts( array(
 				's'           => $term,
@@ -132,7 +132,7 @@ class SearchAutocomplete {
 						'type' => 'user',
 						'taxonomy' => null,
 						'postType' => $post->post_type
-					);					
+					);
 				} else {
 					$tempObject = array(
 						'id' => $post->ID,
@@ -188,7 +188,7 @@ class SearchAutocomplete {
 				if ( ! in_array( 'taxonomies', $this->options['autocomplete_hotlinks'] ) ) {
 					$linkURL = '#';
 				} else {
-					$linkURL = get_term_link( $term->guid, $term->taxonomy );	
+					$linkURL = get_term_link( $term->guid, $term->taxonomy );
 					$linkURL = apply_filters( 'search_autocomplete_modify_url', $linkURL, $tempObject );
 				}
 				$resultsTerms[] = array(

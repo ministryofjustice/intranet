@@ -5,7 +5,7 @@
 <div class="page-search-results" data-top-level-slug="<?=$top_slug?>">
   <div class="grid">
     <div class="col-lg-12 col-md-12 col-sm-12">
-      <h1 class="page-title"><?php the_title() ?></h1>
+      <h1 class="page-title">Search results</h1>
       <?php the_content() ?>
     </div>
   </div>
@@ -20,29 +20,30 @@
   </div>
 
   <div class="grid">
-    <div class="col-lg-3 col-md-3 col-sm-12">
-      <form id="search-form" class="content-filters">
-        <p class="description">You can use the filters to show only results that match your interests</p>
-        <div class="form-row">
-          <label for="input-results-category">Filter by</label>
-        </div>
-        <div class="form-row">
-          <select name="category" id="input-results-category">
-            <option value="All">All</option>
-          </select>
-        </div>
-        <div class="form-row contains">
-          <label for="input-results-type">Type of pages</label>
-        </div>
-        <div class="form-row">
-          <select name="type" id="input-results-type">
-            <option value="All">All</option>
-          </select>
-        </div>
-      </form>
-    </div>
-
-    <div class="col-lg-8 col-md-8 col-sm-12 push-lg-1 push-md-1">
+    <!--<div class="col-lg-3 col-md-3 col-sm-12">-->
+    <!--  <form id="search-form" class="content-filters">-->
+    <!--    <p class="description">You can use the filters to show only results that match your interests</p>-->
+    <!--    <div class="form-row">-->
+    <!--      <label for="input-results-category">Filter by</label>-->
+    <!--    </div>-->
+    <!--    <div class="form-row">-->
+    <!--      <select name="category" id="input-results-category">-->
+    <!--        <option value="All">All</option>-->
+    <!--      </select>-->
+    <!--    </div>-->
+    <!--    <div class="form-row contains">-->
+    <!--      <label for="input-results-type">Type of pages</label>-->
+    <!--    </div>-->
+    <!--    <div class="form-row">-->
+    <!--      <select name="type" id="input-results-type">-->
+    <!--        <option value="All">All</option>-->
+    <!--      </select>-->
+    <!--    </div>-->
+    <!--  </form>-->
+    <!--</div>-->
+    <!---->
+    <!--<div class="col-lg-8 col-md-8 col-sm-12 push-lg-1 push-md-1">-->
+    <div class="col-lg-8 col-md-8 col-sm-12">
       <ul class="results"></ul>
 
       <ul class="content-nav grid">
