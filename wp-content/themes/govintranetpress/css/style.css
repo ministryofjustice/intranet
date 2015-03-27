@@ -2729,19 +2729,25 @@ form .form-row {
 .page-search-results .search-filtered-results-title .keywords {
   font-weight: bold; }
 /* line 66, ../scss/content/search_results/_main.scss */
+.page-search-results .no-results-info h4 {
+  margin-bottom: 0; }
+/* line 70, ../scss/content/search_results/_main.scss */
+.page-search-results .no-results-info.hidden {
+  display: none; }
+/* line 76, ../scss/content/search_results/_main.scss */
 .page-search-results .search-item .title {
   margin-top: 30px; }
-/* line 70, ../scss/content/search_results/_main.scss */
+/* line 80, ../scss/content/search_results/_main.scss */
 .page-search-results .search-item .meta {
   color: #bfc1c3; }
-/* line 74, ../scss/content/search_results/_main.scss */
+/* line 84, ../scss/content/search_results/_main.scss */
 .page-search-results .search-item .title,
 .page-search-results .search-item .meta {
   margin-bottom: 5px; }
-/* line 83, ../scss/content/search_results/_main.scss */
+/* line 93, ../scss/content/search_results/_main.scss */
 .page-search-results .search-item .file {
   margin-top: 5px;
   color: #6f777b; }
-  /* line 87, ../scss/content/search_results/_main.scss */
+  /* line 97, ../scss/content/search_results/_main.scss */
   .page-search-results .search-item .file .file-link {
     text-decoration: underline; }
