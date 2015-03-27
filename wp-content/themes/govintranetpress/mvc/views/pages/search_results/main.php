@@ -106,8 +106,6 @@
       <h3>
         <span class="results-count"></span>
         <span class="results-count-description"></span>
-        <span class="containing">containing</span>
-        <span class="keywords"></span>
       </h3>
       <div class="no-results-info hidden">
         <ul>

@@ -1637,7 +1637,6 @@
         this.$results.append($filteredResultsTitle);
         $filteredResultsTitle.find('.results-count').text(totalResults);
         $filteredResultsTitle.find('.results-count-description').text(totalResults === 1 ? 'result' : 'results');
-        $filteredResultsTitle.find('.keywords').text(this.getSanitizedKeywords());
 
         if(!totalResults) {
           $filteredResultsTitle.find('.no-results-info').removeClass('hidden');
