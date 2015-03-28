@@ -1812,26 +1812,25 @@ form .form-row {
   /* line 103, ../scss/widgets/ht_feature_news/_main.scss */
   .ht-feature-news .news-thumbnail img {
     float: left;
-    max-width: 100px;
-    border: 1px solid #bfc1c3; }
-  /* line 109, ../scss/widgets/ht_feature_news/_main.scss */
+    max-width: 100px; }
+  /* line 108, ../scss/widgets/ht_feature_news/_main.scss */
   .ht-feature-news .news-thumbnail h3 {
     margin-top: 0 !important;
     margin-bottom: 0 !important; }
-  /* line 114, ../scss/widgets/ht_feature_news/_main.scss */
+  /* line 113, ../scss/widgets/ht_feature_news/_main.scss */
   .ht-feature-news .news-thumbnail .news-date-wrapper {
     margin-top: 0; }
-  /* line 118, ../scss/widgets/ht_feature_news/_main.scss */
+  /* line 117, ../scss/widgets/ht_feature_news/_main.scss */
   #content .ht-feature-news .news-thumbnail p {
     margin-bottom: 0; }
-  /* line 122, ../scss/widgets/ht_feature_news/_main.scss */
+  /* line 121, ../scss/widgets/ht_feature_news/_main.scss */
   .ht-feature-news .news-thumbnail .more {
     display: none; }
-/* line 127, ../scss/widgets/ht_feature_news/_main.scss */
+/* line 126, ../scss/widgets/ht_feature_news/_main.scss */
 .ht-feature-news .more-in-news {
   text-align: right;
   font-weight: bold; }
-  /* line 131, ../scss/widgets/ht_feature_news/_main.scss */
+  /* line 130, ../scss/widgets/ht_feature_news/_main.scss */
   .ht-feature-news .more-in-news a {
     text-decoration: underline; }
 

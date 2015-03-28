@@ -23,7 +23,7 @@
   </div>
 
   <div class="grid">
-    <div class="col-lg-12 col-md-12 col-sm-12">
+    <div class="col-lg-11 col-md-11 col-sm-12">
       <div class="excerpt">
         <?=$excerpt?>
       </div>
