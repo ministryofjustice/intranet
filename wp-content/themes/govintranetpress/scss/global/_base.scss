@@ -62,16 +62,22 @@ a {
     text-decoration: underline;
   }
 
-  &[rel="external"]:after {
-    display: inline-block;
-    width: 12px;
-    height: 12px;
-    background-image: url('../images/external_link_x2.png');
-    background-position: -12px 0;
-    background-size: 200%;
-    background-repeat: no-repeat;
-    margin-left: 6px;
-    content: "";
+  &[rel="external"] {
+    &:after {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      background-image: url('../images/external_link_x2.png');
+      background-position: -12px 0;
+      background-size: 200%;
+      background-repeat: no-repeat;
+      margin-left: 6px;
+      content: "";
+    }
+
+    &[href*="://moj-wp-prod.s3.amazonaws.com/"]:after {
+      display: none;
+    }
   }
 }
 

@@ -530,7 +530,7 @@ a {
   /* line 60, ../scss/global/_base.scss */
   a:hover, a:active {
     text-decoration: underline; }
-  /* line 65, ../scss/global/_base.scss */
+  /* line 66, ../scss/global/_base.scss */
   a[rel="external"]:after {
     display: inline-block;
     width: 12px;
@@ -541,11 +541,14 @@ a {
     background-repeat: no-repeat;
     margin-left: 6px;
     content: ""; }
+  /* line 78, ../scss/global/_base.scss */
+  a[rel="external"][href*="://moj-wp-prod.s3.amazonaws.com/"]:after {
+    display: none; }
 
-/* line 78, ../scss/global/_base.scss */
+/* line 84, ../scss/global/_base.scss */
 p {
   margin: 0; }
-  /* line 81, ../scss/global/_base.scss */
+  /* line 87, ../scss/global/_base.scss */
   p + p {
     margin-top: 25px; }
 
