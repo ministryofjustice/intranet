@@ -6,15 +6,19 @@
   li {
     float: left;
     width: 50%;
+    border: 1px solid transparent;
+    border-bottom-color: #aaa;
 
     a {
-      @extend %larger-copy;
+      @extend %large-copy;
       display: block;
+      margin: 2px;
       padding: 17px 20px;
       background-color: $grey-3;
-      border: 1px solid transparent;
-      border-bottom-color: #aaa;
+      overflow: hidden;
       outline: none;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
     a:focus {
@@ -22,18 +26,17 @@
     }
 
     &.current-menu-item {
+      border-color: #aaa;
+      border-bottom-color: transparent;
+
       a {
         background-color: $white;
-        border-color: #aaa;
-        border-bottom-color: transparent;
         color: $black;
       }
     }
   }
 
   &.small-tabs {
-    border-bottom: 1px solid #aaa;
-
     li {
       width: 33.33333%;
       margin-top: 10px;
