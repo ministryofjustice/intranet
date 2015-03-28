@@ -11,17 +11,22 @@
       @extend %larger-copy;
       display: block;
       padding: 17px 20px;
+      background-color: $grey-3;
       border: 1px solid transparent;
       border-bottom-color: #aaa;
-      color: $black;
       outline: none;
+    }
+
+    a:focus {
+      background-color: $yellow !important;
     }
 
     &.current-menu-item {
       a {
+        background-color: $white;
         border-color: #aaa;
         border-bottom-color: transparent;
-        color: $link-active-colour;
+        color: $black;
       }
     }
   }

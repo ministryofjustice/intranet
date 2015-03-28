@@ -1500,19 +1500,23 @@ form .form-row {
     .content-tabs li a {
       display: block;
       padding: 17px 20px;
+      background-color: #dee0e2;
       border: 1px solid transparent;
       border-bottom-color: #aaa;
-      color: #0b0c0c;
       outline: none; }
-    /* line 21, ../scss/modules/_content_tabs.scss */
+    /* line 20, ../scss/modules/_content_tabs.scss */
+    .content-tabs li a:focus {
+      background-color: #ffbf47 !important; }
+    /* line 25, ../scss/modules/_content_tabs.scss */
     .content-tabs li.current-menu-item a {
+      background-color: #fff;
       border-color: #aaa;
       border-bottom-color: transparent;
-      color: #2e8aca; }
-  /* line 29, ../scss/modules/_content_tabs.scss */
+      color: #0b0c0c; }
+  /* line 34, ../scss/modules/_content_tabs.scss */
   .content-tabs.small-tabs {
     border-bottom: 1px solid #aaa; }
-    /* line 32, ../scss/modules/_content_tabs.scss */
+    /* line 37, ../scss/modules/_content_tabs.scss */
     .content-tabs.small-tabs li {
       width: 33.33333%;
       margin-top: 10px;
