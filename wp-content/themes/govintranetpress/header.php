@@ -73,7 +73,7 @@ header('X-Frame-Options: SAMEORIGIN');
 	<link rel="profile" href="https://gmpg.org/xfn/11" />
 
   <!--[if lte IE 9]>
-		<link rel="stylesheet" href="<?php bloginfo( 'template_url' ); ?>/css/ie.css" type="text/css" media="screen" />
+		<link rel="stylesheet" href="<?php bloginfo( 'template_url' ); ?>/css/ie.css?<?=add_checksum_param('css/ie.css')?>" type="text/css" media="screen" />
 	<![endif]-->
 
 	<link href="<?php echo get_stylesheet_directory_uri(); ?>/css/prettyPhoto.css" rel="stylesheet">
@@ -90,9 +90,7 @@ header('X-Frame-Options: SAMEORIGIN');
 	 <script type="text/javascript" src="<?php echo get_stylesheet_directory_uri(); ?>/js/respond.min.js"></script>
 	<![endif]-->
 
-
-
-	<link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo( 'stylesheet_url' ); ?>" />
+	<link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo( 'stylesheet_url' ); ?>?<?=add_checksum_param('css/style.css')?>" />
 	<link rel="stylesheet" type="text/css" media="print" href="<?php echo get_stylesheet_directory_uri(); ?>/print.css" />
 	<link href="<?php echo get_stylesheet_directory_uri(); ?>/css/custom.css" rel="stylesheet">
 
