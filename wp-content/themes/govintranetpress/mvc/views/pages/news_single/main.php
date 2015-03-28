@@ -32,7 +32,9 @@
 
   <div class="grid">
     <div class="col-lg-4">
-      <img src="<?=$thumbnail[0]?>" class="img img-responsive" alt="<?=$title?>" />
+      <div class="story-image">
+        <img src="<?=$thumbnail[0]?>" class="img img-responsive" alt="<?=$title?>" />
+      </div>
     </div>
 
     <div class="col-lg-8">

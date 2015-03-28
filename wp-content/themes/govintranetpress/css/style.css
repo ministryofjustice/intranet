@@ -2625,6 +2625,9 @@ form .form-row {
 .news-single .content {
   margin-bottom: 45px; }
 /* line 11, ../scss/content/news_single/_main.scss */
+.news-single .story-image {
+  margin-top: 17px; }
+/* line 15, ../scss/content/news_single/_main.scss */
 .news-single .excerpt {
   margin-top: 45px;
   margin-bottom: 20px; }
