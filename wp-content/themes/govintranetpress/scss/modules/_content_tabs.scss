@@ -10,7 +10,7 @@
     border-bottom-color: #aaa;
 
     a {
-      @extend %large-copy;
+      @extend %larger-copy;
       display: block;
       margin: 2px;
       padding: 17px 20px;
@@ -37,6 +37,10 @@
   }
 
   &.small-tabs {
+    a {
+      @extend %large-copy;
+    }
+
     li {
       width: 33.33333%;
       margin-top: 10px;

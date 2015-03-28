@@ -446,13 +446,13 @@ h1 {
   line-height: 25px; }
 
 /* line 64, ../scss/global/_typography.scss */
-.content-nav, .guidance-and-support-content .excerpt, .news-single .excerpt {
+.content-tabs li a, .content-nav, .guidance-and-support-content .excerpt, .news-single .excerpt {
   font-size: 24px;
   line-height: 30px; }
 
 /* line 69, ../scss/global/_typography.scss */
 .main-content .editable p, .main-content .editable li, .main-content .editable .address, .main-content .editable .contact, .main-content .editable .help-notice, .main-content .editable .info-notice,
-.main-content .editable .example, .main-content .editable .summary, .imported-banner .message, .content-tabs li a, .collapsible-block-container .collapsible-block-toggle, .page-news .news-filtered-results-title .containing,
+.main-content .editable .example, .main-content .editable .summary, .imported-banner .message, .content-tabs.small-tabs a, .collapsible-block-container .collapsible-block-toggle, .page-news .news-filtered-results-title .containing,
 .page-news .news-filtered-results-title .for-date, .page-news .news-filtered-results-title .results-count-description,
 .page-news .news-filtered-results-title .keywords,
 .page-news .news-filtered-results-title .date, .page-search-results .search-filtered-results-title .containing, .page-search-results .search-filtered-results-title .results-count-description,
@@ -1519,7 +1519,7 @@ form .form-row {
       .content-tabs li.current-menu-item a {
         background-color: #fff;
         color: #0b0c0c; }
-  /* line 40, ../scss/modules/_content_tabs.scss */
+  /* line 44, ../scss/modules/_content_tabs.scss */
   .content-tabs.small-tabs li {
     width: 33.33333%;
     margin-top: 10px;
