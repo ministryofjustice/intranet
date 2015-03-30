@@ -59,6 +59,9 @@ require_once('inc/template-functions.php');
 /** Tidy up CMS */
 require_once('inc/tidy-up.php');
 
+include('helpers/debug.php');
+include('helpers/cachebuster.php');
+
 
 if ( ! function_exists( 'twentyten_setup' ) ):
 /**
@@ -1586,8 +1589,6 @@ function relevanssi_user_filter($hits) {
     }
     return $tothits;
 }
-
-include('debug.php');
 
 // Force logout after 1 hour
 function keep_me_logged_in_for_1_hour( $expirein ) {
