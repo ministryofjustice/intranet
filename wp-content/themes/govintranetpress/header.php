@@ -75,6 +75,9 @@ header('X-Frame-Options: SAMEORIGIN');
   <!--[if lte IE 9]>
 		<link rel="stylesheet" href="<?php bloginfo( 'template_url' ); ?>/css/ie.css?<?=add_checksum_param('css/ie.css')?>" type="text/css" media="screen" />
 	<![endif]-->
+  <!--[if lte IE 7]>
+		<script type="text/javascript" src="<?php bloginfo( 'template_url' ); ?>/js/json3.min.js"></script>
+	<![endif]-->
 
 	<link href="<?php echo get_stylesheet_directory_uri(); ?>/css/prettyPhoto.css" rel="stylesheet">
 
