@@ -16,7 +16,7 @@
         </li>
         <li>
           <span>Department:</span>
-          <span>MOJ</span>
+          <span>MoJ</span>
         </li>
       </ul>
     </div>

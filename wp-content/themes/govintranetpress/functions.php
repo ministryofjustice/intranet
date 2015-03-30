@@ -108,7 +108,7 @@ function twentyten_setup() {
 	// This theme uses wp_nav_menu() in one location.
 	register_nav_menus( array(
 		'primary' => __( 'Primary Navigation', 'twentyten' ),
-		'moj_story' => __( 'MOJ Story Navigation', 'twentyten' ),
+		'moj_story' => __( 'MoJ Story Navigation', 'twentyten' ),
 	) );
 
 	// This theme allows users to set a custom background
@@ -646,9 +646,9 @@ function twentyten_widgets_init() {
 		'after_title' => '',
 	) );
 	register_sidebar( array(
-		'name' => __( 'My MOJ - Quick Links', 'twentyten' ),
+		'name' => __( 'My MoJ - Quick Links', 'twentyten' ),
 		'id' => 'my-moj-quick-links',
-		'description' => __( 'My MOJ - Quick Links', 'twentyten' ),
+		'description' => __( 'My MoJ - Quick Links', 'twentyten' ),
 		'before_widget' => '',
 		'after_widget' => '',
 		'before_title' => '',
