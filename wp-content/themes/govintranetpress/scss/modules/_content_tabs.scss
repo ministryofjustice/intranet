@@ -6,28 +6,38 @@
   li {
     float: left;
     width: 50%;
+    border: 1px solid transparent;
+    border-bottom-color: #aaa;
 
     a {
       @extend %larger-copy;
       display: block;
+      margin: 2px;
       padding: 17px 20px;
-      border: 1px solid transparent;
-      border-bottom-color: #aaa;
-      color: $black;
-      outline: none;
+      background-color: $grey-3;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    a:focus {
     }
 
     &.current-menu-item {
+      border-color: #aaa;
+      border-bottom-color: transparent;
+
       a {
-        border-color: #aaa;
-        border-bottom-color: transparent;
-        color: $link-active-colour;
+        background-color: $white;
+        color: $black;
       }
     }
   }
 
   &.small-tabs {
-    border-bottom: 1px solid #aaa;
+    a {
+      @extend %large-copy;
+    }
 
     li {
       width: 33.33333%;

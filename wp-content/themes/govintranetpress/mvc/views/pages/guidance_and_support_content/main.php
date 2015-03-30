@@ -41,10 +41,10 @@
   </div>
 
   <div class="grid <?=$tab_count <= 1 ? 'hidden' : ''?>">
-    <div class="col-lg-3">
+    <div class="col-lg-3 col-md-4 col-sm-12">
       &nbsp;
     </div>
-    <div class="col-lg-9">
+    <div class="col-lg-9 col-md-8 col-sm-12">
       <ul class="content-tabs <?=$tab_count >= 3 ? 'small-tabs' : ''?>">
         <?php foreach($tab_array as $tab_row): ?>
           <li data-content="<?=$tab_row['name']?>">
@@ -56,7 +56,7 @@
   </div>
 
   <div class="grid content-container">
-    <div class="col-lg-3 col-md-4">
+    <div class="col-lg-3 col-md-4 col-sm-12">
       <?php if($thumbnail): ?>
         <img src="<?=$thumbnail[0]?>" class="img img-responsive" alt="<?=$title?>" />
       <?php endif ?>
@@ -68,7 +68,7 @@
       </div>
       &nbsp;
     </div>
-    <div class="col-lg-9 col-md-8">
+    <div class="col-lg-9 col-md-8 col-sm-12">
       <div class="tab-content editable"></div>
     </div>
   </div>
