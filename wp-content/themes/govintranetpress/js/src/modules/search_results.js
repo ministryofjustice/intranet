@@ -85,9 +85,9 @@
 
       if(segments[1]) {
         keywords = segments[1];
-        keywords = decodeURI(keywords);
+        keywords = decodeURIComponent(keywords);
         keywords = keywords.replace(/\+/g, ' ');
-        keywords = keywords.replace(/[^a-zA-Z0-9\s']+/g, '');
+        keywords = keywords.replace(/[^&a-zA-Z0-9\s']+/g, '');
 
         this.$keywordsInput.val(keywords);
       }
@@ -99,12 +99,12 @@
 
       requestData = this.getDataObject(requestData);
 
+      this.stopLoadingResults();
+      this.$top.find('.search-results-title').remove();
+
+
       if(this.hasKeywords()) {
-        this.stopLoadingResults();
-
         this.$top.addClass('loading-results');
-
-        this.$top.find('.search-results-title').remove();
         this.$results.prepend($(this.resultsPageTitleTemplate).text('Loading results...'));
 
         this.$results.find('.search-item').addClass('faded');
@@ -112,9 +112,7 @@
         this.requestResults(requestData);
       }
       else {
-        this.stopLoadingResults();
         this.clearResults();
-        this.$top.find('.search-results-title').remove();
 
         data = {
           results: [],
@@ -186,38 +184,30 @@
       var date;
       var formattedDate;
 
-      this.$results.append($filteredResultsTitle);
-      $filteredResultsTitle.find('.results-count').text(totalResults);
-      $filteredResultsTitle.find('.results-count-description').text(totalResults === 1 ? 'result' : 'results');
-
       if(this.hasKeywords()) {
-        $filteredResultsTitle.find('.keywords').text(this.getSanitizedKeywords());
-      }
-      else {
-        $filteredResultsTitle.find('.containing').hide();
-        $filteredResultsTitle.find('.keywords').hide();
+        this.$results.append($filteredResultsTitle);
+        $filteredResultsTitle.find('.results-count').text(totalResults);
+        $filteredResultsTitle.find('.results-count-description').text(totalResults === 1 ? 'result' : 'results');
+
+        if(!totalResults) {
+          $filteredResultsTitle.find('.no-results-info').removeClass('hidden');
+        }
       }
     },
 
     hasKeywords: function() {
       var keywords = this.getSanitizedKeywords();
-      var keywordsArray = keywords.split();
-      var a, l;
+      var keywordsArray = keywords.split(' ');
 
       if(!keywords.length){ return false; }
 
-      for(a=0, l=keywordsArray.length; a<l; a++) {
-        if(keywordsArray[a].length >= this.minKeywordLength) {
-          return true;
-        }
-      }
 
       return true;
     },
 
     getSanitizedKeywords: function() {
       var keywords = this.$keywordsInput.val();
-      keywords = keywords.replace(/[^a-zA-Z0-9\s']+/g, ' ');
+      keywords = keywords.replace(/[^&a-zA-Z0-9\s']+/g, ' ');
       keywords = keywords.replace(/\s+/g, ' ');
       keywords = keywords.replace(/^\s+|\s+$/g, '');
 
@@ -330,7 +320,7 @@
 
       //keywords
       keywords = keywords.replace(/\s/g, '+');
-      keywords = encodeURI(keywords);
+      keywords = encodeURIComponent(keywords);
       urlParts.push(keywords || '-');
 
       //page number

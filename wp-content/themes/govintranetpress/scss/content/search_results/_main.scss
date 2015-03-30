@@ -50,15 +50,19 @@
       font-weight: bold;
     }
 
-    .containing {
-      @extend %large-copy;
-      font-weight: normal;
-    }
-
-    .results-count-description,
-    .keywords {
+    .results-count-description {
       @extend %large-copy;
       font-weight: bold;
+    }
+  }
+
+  .no-results-info {
+    h4 {
+      margin-bottom: 0;
+    }
+
+    &.hidden {
+      display: none;
     }
   }
 
