@@ -1505,21 +1505,17 @@ form .form-row {
       padding: 17px 20px;
       background-color: #dee0e2;
       overflow: hidden;
-      outline: none;
       text-overflow: ellipsis;
       white-space: nowrap; }
-    /* line 24, ../scss/modules/_content_tabs.scss */
-    .content-tabs li a:focus {
-      background-color: #ffbf47 !important; }
-    /* line 28, ../scss/modules/_content_tabs.scss */
+    /* line 26, ../scss/modules/_content_tabs.scss */
     .content-tabs li.current-menu-item {
       border-color: #aaa;
       border-bottom-color: transparent; }
-      /* line 32, ../scss/modules/_content_tabs.scss */
+      /* line 30, ../scss/modules/_content_tabs.scss */
       .content-tabs li.current-menu-item a {
         background-color: #fff;
         color: #0b0c0c; }
-  /* line 44, ../scss/modules/_content_tabs.scss */
+  /* line 42, ../scss/modules/_content_tabs.scss */
   .content-tabs.small-tabs li {
     width: 33.33333%;
     margin-top: 10px;

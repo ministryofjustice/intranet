@@ -16,13 +16,11 @@
       padding: 17px 20px;
       background-color: $grey-3;
       overflow: hidden;
-      outline: none;
       text-overflow: ellipsis;
       white-space: nowrap;
     }
 
     a:focus {
-      background-color: $yellow !important;
     }
 
     &.current-menu-item {
