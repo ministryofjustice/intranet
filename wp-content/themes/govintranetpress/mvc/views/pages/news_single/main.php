@@ -23,7 +23,7 @@
   </div>
 
   <div class="grid">
-    <div class="col-lg-12 col-md-12 col-sm-12">
+    <div class="col-lg-11 col-md-11 col-sm-12">
       <div class="excerpt">
         <?=$excerpt?>
       </div>
@@ -32,7 +32,9 @@
 
   <div class="grid">
     <div class="col-lg-4">
-      <img src="<?=$thumbnail[0]?>" class="img img-responsive" alt="<?=$title?>" />
+      <div class="story-image">
+        <img src="<?=$thumbnail[0]?>" class="img img-responsive" alt="<?=$title?>" />
+      </div>
     </div>
 
     <div class="col-lg-8">
