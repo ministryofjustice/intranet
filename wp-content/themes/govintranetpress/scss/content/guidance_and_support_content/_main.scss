@@ -29,6 +29,14 @@
       @extend %medium-copy;
       text-decoration: underline;
     }
+
+    li {
+      margin-bottom: 10px;
+
+      &:last-of-type {
+        margin-bottom: 0;
+      }
+    }
   }
 
   .hidden {
