@@ -2550,16 +2550,22 @@ form .form-row {
   /* line 28, ../scss/content/guidance_and_support_content/_main.scss */
   .guidance-and-support-content .right-hand-menu a {
     text-decoration: underline; }
-/* line 34, ../scss/content/guidance_and_support_content/_main.scss */
+  /* line 33, ../scss/content/guidance_and_support_content/_main.scss */
+  .guidance-and-support-content .right-hand-menu li {
+    margin-bottom: 10px; }
+    /* line 36, ../scss/content/guidance_and_support_content/_main.scss */
+    .guidance-and-support-content .right-hand-menu li:last-of-type {
+      margin-bottom: 0; }
+/* line 42, ../scss/content/guidance_and_support_content/_main.scss */
 .guidance-and-support-content .hidden {
   display: none; }
-/* line 38, ../scss/content/guidance_and_support_content/_main.scss */
+/* line 46, ../scss/content/guidance_and_support_content/_main.scss */
 .guidance-and-support-content h4 {
   margin-top: 0;
   padding-top: 24px;
   margin-bottom: 0px;
   font-weight: normal; }
-/* line 45, ../scss/content/guidance_and_support_content/_main.scss */
+/* line 53, ../scss/content/guidance_and_support_content/_main.scss */
 .guidance-and-support-content .excerpt {
   margin-top: 50px; }
 
