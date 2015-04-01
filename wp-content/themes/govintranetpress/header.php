@@ -232,7 +232,7 @@ header('X-Frame-Options: SAMEORIGIN');
       </div>
     </div>
 
-    <div class="grid" class="header-bottom">
+    <div class="grid header-bottom">
       <div id="mainnav" class="col-lg-8 col-md-8 col-sm-12">
         <nav id="primarynav" role="navigation">
           <?php if(!$is_moj_story) { ?>
