@@ -211,8 +211,7 @@ header('X-Frame-Options: SAMEORIGIN');
     <div class="grid header-top">
       <div class="col-lg-8 col-md-8 col-sm-10">
         <div class="site-logo">
-          <a href="http://intranet.justice.gsi.gov.uk/" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>">
-          <!--<a href="<?php echo home_url( '/' ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>"  rel="home">-->
+          <a href="<?=WP_SITEURL?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home">
             <img src="<?=get_stylesheet_directory_uri()?>/images/moj_logo.png" alt="" />
           </a>
         </div>
@@ -233,7 +232,7 @@ header('X-Frame-Options: SAMEORIGIN');
       </div>
     </div>
 
-    <div class="grid" class="header-bottom">
+    <div class="grid header-bottom">
       <div id="mainnav" class="col-lg-8 col-md-8 col-sm-12">
         <nav id="primarynav" role="navigation">
           <?php if(!$is_moj_story) { ?>
