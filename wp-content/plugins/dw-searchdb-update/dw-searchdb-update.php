@@ -116,14 +116,14 @@ if (!class_exists('DWDBUpdate')) {
     public function show_admin_page() {
       ?>
         <div class="wrap">
-          <h2>Optimise database for G&S search</h2>
+          <h2>Optimise database for G&amp;S search</h2>
           <form method='post' action>
             <p>
-              Pressing the button below will regenerate the fields that Relevanssi uses to index the content on the Guidance & Support pages.
+              Pressing the button below will regenerate the fields that Relevanssi uses to index the content on the Guidance &amp; Support pages.
               This should only be done when there is a problem with the search index and/or content has been imported from another source.
             </p>
             <p>
-              <input type='submit' class='button hide-if-no-js' name='dwdbupdate-optimise' id='dwdbupdate-optimise' value='Optimise database for G&S search'>
+              <input type='submit' class='button hide-if-no-js' name='dwdbupdate-optimise' id='dwdbupdate-optimise' value='Optimise database for G&amp;S search'>
             </p>
           </form>
           <div id="dwdbupdate-feedback"></div>
