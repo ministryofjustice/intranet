@@ -463,7 +463,7 @@ h1 {
 .main-content .content-info p, .main-content .editable table th,
 .main-content .editable table td, .breadcrumbs a,
 .breadcrumbs span, .beta-banner .beta-icon,
-.beta-banner .message, .footerwrapper .footer li, .header .skip-to-content-container a, .menu-list .menu-item .menu-item-link, .menu-list .child-item-link, .message .content, #menu-utilities li a, .content-filters .description, .content-filters label, .children-pages li a, #need-to-know .excerpt, .my-moj .my-moj-top .department, .my-moj .menu-my-moj-quick-links-container ul a, .guidance-and-support .tree .all-categories, .guidance-and-support-content .right-hand-menu a, .page-search-results .search-item .excerpt {
+.beta-banner .message, .footerwrapper .footer li, .header .skip-to-content-container a, .menu-list .menu-item .menu-item-link, .menu-list .child-item-link, .message .content, #menu-utilities li a, .content-filters .description, .content-filters label, .children-pages li a, .page-feedback-container .page-feedback-link, #need-to-know .excerpt, .my-moj .my-moj-top .department, .my-moj .menu-my-moj-quick-links-container ul a, .guidance-and-support .tree .all-categories, .guidance-and-support-content .right-hand-menu a, .page-search-results .search-item .excerpt {
   font-size: 16px;
   line-height: 20px; }
 
@@ -1795,6 +1795,14 @@ form .form-row {
 /* line 33, ../scss/modules/_feeds.scss */
 .feeds .regular .yammer h3:before {
   background-position: -180px 0; }
+
+/* line 1, ../scss/modules/_page_feedback.scss */
+.page-feedback-container {
+  margin-bottom: 20px; }
+  /* line 4, ../scss/modules/_page_feedback.scss */
+  .page-feedback-container .page-feedback-link {
+    color: #6f777b;
+    text-decoration: underline; }
 
 /* line 2, ../scss/widgets/ht_feature_news/_main.scss */
 .ht-feature-news > h3 {
