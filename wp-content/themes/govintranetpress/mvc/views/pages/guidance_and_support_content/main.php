@@ -73,6 +73,12 @@
     </div>
   </div>
 
+  <div class="grid">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+      <a href="mailto:newintranet@digital.justice.gov.uk" class="page-feedback-link">Is there anything wrong with this page?</a>
+    </div>
+  </div>
+
   <?php $tab_no=1; ?>
   <?php foreach($tab_array as $tab_number=>$tab_row): ?>
     <div class="template-partial" data-template-type="tab-content" data-content-name="<?=$tab_row['name']?>">

@@ -19,4 +19,5 @@ jQuery(function($) {
   App.ins.departmentDropdown = new App.DepartmentDropdown();
   App.ins.feeds = new App.Feeds();
   App.ins.skipToContent = new App.SkipToContent();
+  App.ins.pageFeedback = new App.PageFeedback();
 });
