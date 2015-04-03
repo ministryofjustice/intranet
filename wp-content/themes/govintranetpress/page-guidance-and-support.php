@@ -12,11 +12,8 @@ class Page_guidance_and_support extends MVC_controller {
       get_header();
 
       $this->post_ID = get_the_ID();
-      $is_imported = get_post_meta($this->post_ID, 'is_imported', true);
-      if($is_imported) {
-        $this->view('shared/imported_banner');
-      }
-      $this->view('shared/breadcrumbs');
+
+      //$this->view('shared/breadcrumbs');
       $this->view('pages/guidance_and_support_content/main', $this->get_data());
 
       get_footer();
@@ -62,7 +59,8 @@ class Page_guidance_and_support extends MVC_controller {
       'tab_count' => $this->tab_count,
       'links_title' => $this->links_title,
       'has_q_links' => $this->has_q_links,
-      'page_category' => $this->page_category
+      'page_category' => $this->page_category,
+      'children_data' => $this->get_children_data()
     );
   }
 
@@ -141,6 +139,25 @@ class Page_guidance_and_support extends MVC_controller {
     }
 
     return $tab_array;
+  }
+
+  private function get_children_data() {
+    $id = $this->post_ID;
+    $children = array();
+
+    do {
+      array_push($children, $this->get_children_from_API($id));
+    }
+    while($id = wp_get_post_parent_id($id));
+
+    $children = array_reverse($children);
+
+    return htmlspecialchars(json_encode($children));
+  }
+
+  private function get_children_from_API($id) {
+    $results = new children_request(array($id));
+    return $results->results_array;
   }
 }
 

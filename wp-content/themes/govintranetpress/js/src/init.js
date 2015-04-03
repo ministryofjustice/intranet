@@ -1,4 +1,4 @@
-jQuery(function($) {
+jQuery(function() {
   "use strict";
 
   var App = window.App;
@@ -20,4 +20,5 @@ jQuery(function($) {
   App.ins.feeds = new App.Feeds();
   App.ins.skipToContent = new App.SkipToContent();
   App.ins.pageFeedback = new App.PageFeedback();
+  App.ins.navigation = new App.Navigation();
 });

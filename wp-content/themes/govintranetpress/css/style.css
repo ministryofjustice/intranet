@@ -452,7 +452,7 @@ h1 {
 
 /* line 69, ../scss/global/_typography.scss */
 .main-content .editable p, .main-content .editable li, .main-content .editable .address, .main-content .editable .contact, .main-content .editable .help-notice, .main-content .editable .info-notice,
-.main-content .editable .example, .main-content .editable .summary, .imported-banner .message, .content-tabs.small-tabs a, .collapsible-block-container .collapsible-block-toggle, .page-news .news-filtered-results-title .containing,
+.main-content .editable .example, .main-content .editable .summary, .imported-banner .message, .content-tabs li a, .collapsible-block-container .collapsible-block-toggle, .page-news .news-filtered-results-title .containing,
 .page-news .news-filtered-results-title .for-date, .page-news .news-filtered-results-title .results-count-description,
 .page-news .news-filtered-results-title .keywords,
 .page-news .news-filtered-results-title .date, .page-search-results .search-filtered-results-title .results-count-description {
@@ -463,7 +463,7 @@ h1 {
 .main-content .content-info p, .main-content .editable table th,
 .main-content .editable table td, .breadcrumbs a,
 .breadcrumbs span, .beta-banner .beta-icon,
-.beta-banner .message, .footerwrapper .footer li, .header .skip-to-content-container a, .message .content, #menu-utilities li a, .content-filters .description, .content-filters label, .children-pages li a, #need-to-know .excerpt, .my-moj .my-moj-top .department, .my-moj .menu-my-moj-quick-links-container ul a, .guidance-and-support .tree .all-categories, .guidance-and-support-content .right-hand-menu a, .page-search-results .search-item .excerpt {
+.beta-banner .message, .footerwrapper .footer li, .header .skip-to-content-container a, .menu-list .menu-item .menu-item-link, .menu-list .child-item-link, .message .content, #menu-utilities li a, .content-filters .description, .content-filters label, .children-pages li a, #need-to-know .excerpt, .my-moj .my-moj-top .department, .my-moj .menu-my-moj-quick-links-container ul a, .guidance-and-support .tree .all-categories, .guidance-and-support-content .right-hand-menu a, .page-search-results .search-item .excerpt {
   font-size: 16px;
   line-height: 20px; }
 
@@ -1399,6 +1399,65 @@ form .form-row {
             text-align: center;
             padding-left: 0;
             padding-right: 0; } }
+/* line 1, ../scss/modules/_navigation.scss */
+.menu-list {
+  margin: 20px 0 3px; }
+  /* line 4, ../scss/modules/_navigation.scss */
+  .menu-list .menu-item {
+    position: relative; }
+    /* line 7, ../scss/modules/_navigation.scss */
+    .menu-list .menu-item:after {
+      position: absolute;
+      display: block;
+      right: 5px;
+      top: 2px;
+      transform: rotate(180deg);
+      color: #888;
+      font-size: 18px;
+      content: "\25be";
+      pointer-events: none; }
+    /* line 19, ../scss/modules/_navigation.scss */
+    .menu-list .menu-item.collapsed:after {
+      transform: rotate(0deg); }
+    /* line 23, ../scss/modules/_navigation.scss */
+    .menu-list .menu-item.no-children:after {
+      display: none; }
+    /* line 27, ../scss/modules/_navigation.scss */
+    .menu-list .menu-item .menu-item-link {
+      display: block;
+      margin-top: 5px;
+      padding: 5px 10px 4px;
+      border: 1px solid #bfc1c3;
+      background-color: #f8f8f8; }
+    /* line 37, ../scss/modules/_navigation.scss */
+    .menu-list .menu-item.current:after {
+      color: #fff; }
+    /* line 41, ../scss/modules/_navigation.scss */
+    .menu-list .menu-item.current .menu-item-link {
+      border: 1px solid #005ea5;
+      background-color: #005ea5;
+      color: #fff;
+      font-weight: bold; }
+  /* line 50, ../scss/modules/_navigation.scss */
+  .menu-list .children-list {
+    margin-left: 0; }
+  /* line 54, ../scss/modules/_navigation.scss */
+  .menu-list .child-item {
+    border-bottom: 1px solid #ddd; }
+  /* line 58, ../scss/modules/_navigation.scss */
+  .menu-list .child-item:last-of-type {
+    border-bottom: none; }
+  /* line 62, ../scss/modules/_navigation.scss */
+  .menu-list .child-item-link {
+    display: block;
+    padding: 5px 10px 4px; }
+  /* line 68, ../scss/modules/_navigation.scss */
+  .menu-list .child-item.highlight .child-item-link {
+    font-weight: bold; }
+  /* line 72, ../scss/modules/_navigation.scss */
+  .menu-list .collapsed .children-list {
+    display: none; }
+
 /* line 1, ../scss/modules/_menus.scss */
 .home.page #content {
   /* add id selector to outweigh some irresponsible rules declared elsewhere */ }
@@ -1487,20 +1546,21 @@ form .form-row {
         text-align: left; } }
 /* line 1, ../scss/modules/_content_tabs.scss */
 .content-tabs {
-  margin-top: 0;
-  margin-bottom: 25px; }
+  margin-top: 10px;
+  margin-bottom: 25px;
+  border-bottom: 1px solid #aaa; }
   /* line 2, ../scss/global/_mixins.scss */
   .content-tabs:after {
     content: "";
     display: table;
     clear: both; }
-  /* line 6, ../scss/modules/_content_tabs.scss */
+  /* line 8, ../scss/modules/_content_tabs.scss */
   .content-tabs li {
     float: left;
     width: 50%;
     border: 1px solid transparent;
     border-bottom-color: #aaa; }
-    /* line 12, ../scss/modules/_content_tabs.scss */
+    /* line 14, ../scss/modules/_content_tabs.scss */
     .content-tabs li a {
       display: block;
       margin: 2px;
@@ -1509,16 +1569,16 @@ form .form-row {
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap; }
-    /* line 26, ../scss/modules/_content_tabs.scss */
+    /* line 25, ../scss/modules/_content_tabs.scss */
     .content-tabs li.current-menu-item {
       border-color: #aaa;
       border-bottom-color: transparent; }
-      /* line 30, ../scss/modules/_content_tabs.scss */
+      /* line 29, ../scss/modules/_content_tabs.scss */
       .content-tabs li.current-menu-item a {
         background-color: #fff;
         color: #0b0c0c; }
-  /* line 42, ../scss/modules/_content_tabs.scss */
-  .content-tabs.small-tabs li {
+  /* line 37, ../scss/modules/_content_tabs.scss */
+  .content-tabs li {
     width: 33.33333%;
     margin-top: 10px;
     margin-bottom: -1px;
@@ -2528,7 +2588,7 @@ form .form-row {
       display: block !important; } }
 /* line 2, ../scss/content/guidance_and_support_content/_main.scss */
 .guidance-and-support-content .content-head {
-  padding-bottom: 45px; }
+  padding-bottom: 15px; }
 /* line 6, ../scss/content/guidance_and_support_content/_main.scss */
 .guidance-and-support-content .page-title {
   margin-top: 0px;
@@ -2567,7 +2627,7 @@ form .form-row {
   font-weight: normal; }
 /* line 53, ../scss/content/guidance_and_support_content/_main.scss */
 .guidance-and-support-content .excerpt {
-  margin-top: 50px; }
+  margin-top: 30px; }
 
 /* line 2, ../scss/content/news_landing/_main.scss */
 .page-news .content-filters {
