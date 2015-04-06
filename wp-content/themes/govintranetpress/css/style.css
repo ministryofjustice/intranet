@@ -412,14 +412,12 @@ h6 {
   line-height: 20px; }
 
 /* line 21, ../scss/global/_typography.scss */
-h5, #need-to-know .widget-title, .guidance-and-support .categories h3,
-.guidance-and-support .subcategories h3 {
+h5, #need-to-know .widget-title {
   font-size: 16px;
   line-height: 20px; }
 
 /* line 26, ../scss/global/_typography.scss */
-h4, .ht-feature-news h3, #need-to-know .item-title, .guidance-and-support .subcategories .sort-order,
-.guidance-and-support .links .sort-order, .guidance-and-support .links h3, .page-news .news-item .title {
+h4, .ht-feature-news h3, #need-to-know .item-title, .guidance-and-support .guidance-categories .menu > .menu-item > a, .page-news .news-item .title {
   font-size: 19px;
   line-height: 25px; }
 
@@ -463,7 +461,7 @@ h1 {
 .main-content .content-info p, .main-content .editable table th,
 .main-content .editable table td, .breadcrumbs a,
 .breadcrumbs span, .beta-banner .beta-icon,
-.beta-banner .message, .footerwrapper .footer li, .header .skip-to-content-container a, .message .content, #menu-utilities li a, .content-filters .description, .content-filters label, .children-pages li a, #need-to-know .excerpt, .my-moj .my-moj-top .department, .my-moj .menu-my-moj-quick-links-container ul a, .guidance-and-support .tree .all-categories, .guidance-and-support-content .right-hand-menu a, .page-search-results .search-item .excerpt {
+.beta-banner .message, .footerwrapper .footer li, .header .skip-to-content-container a, .message .content, #menu-utilities li a, .content-filters .description, .content-filters label, .children-pages li a, #need-to-know .excerpt, .my-moj .my-moj-top .department, .my-moj .menu-my-moj-quick-links-container ul a, .guidance-and-support .guidance-categories .sub-menu .menu-item > a, .guidance-and-support-content .right-hand-menu a, .page-search-results .search-item .excerpt {
   font-size: 16px;
   line-height: 20px; }
 
@@ -2250,282 +2248,32 @@ form .form-row {
     .my-moj .menu-my-moj-quick-links-container ul .menu-item:first-of-type a {
       margin-top: 0; }
 
-/* line 2, ../scss/content/guidance_and_support/_main.scss */
-.guidance-and-support .tabbed-filters {
-  margin-top: 30px; }
-/* line 6, ../scss/content/guidance_and_support/_main.scss */
-.guidance-and-support .tree {
-  display: flex;
-  margin-top: 60px;
-  margin-bottom: 30px; }
-  /* line 2, ../scss/global/_mixins.scss */
-  .guidance-and-support .tree:after {
-    content: "";
-    display: table;
-    clear: both; }
-  /* line 16, ../scss/content/guidance_and_support/_main.scss */
-  .guidance-and-support .tree.collapsed .subcategories {
-    margin-left: -12%;
-    width: 25%;
-    transition: margin-left .3s; }
-  /* line 22, ../scss/content/guidance_and_support/_main.scss */
-  .guidance-and-support .tree.collapsed .links {
-    width: 50%;
-    transition: width .3s; }
-  /* line 28, ../scss/content/guidance_and_support/_main.scss */
-  .guidance-and-support .tree .all-categories {
-    display: none;
-    padding: 20px;
-    padding-top: 10px;
+/* line 4, ../scss/content/guidance_and_support/_main.scss */
+.guidance-and-support .guidance-categories .menu > .menu-item {
+  float: left;
+  width: 33.3333%;
+  margin-bottom: 20px;
+  border-top: 1px solid #bfc1c3;
+  padding-top: 20px; }
+  /* line 11, ../scss/content/guidance_and_support/_main.scss */
+  .guidance-and-support .guidance-categories .menu > .menu-item > a {
     color: #0b0c0c;
     font-weight: bold;
-    text-decoration: underline;
-    outline: none; }
-    /* line 38, ../scss/content/guidance_and_support/_main.scss */
-    .guidance-and-support .tree .all-categories.visible {
-      display: block; }
-  /* line 47, ../scss/content/guidance_and_support/_main.scss */
-  .guidance-and-support .tree.collapsed .categories .item-list .item:not(.selected):not(:hover) a:after,
-  .guidance-and-support .tree.collapsed .categories .item-list .item:not(.selected):not(:hover) .title,
-  .guidance-and-support .tree.collapsed .subcategories .item-list .item:not(.selected):not(:hover) a:after,
-  .guidance-and-support .tree.collapsed .subcategories .item-list .item:not(.selected):not(:hover) .title {
-    color: #6f777b; }
-  /* line 54, ../scss/content/guidance_and_support/_main.scss */
-  .guidance-and-support .tree.collapsed .subcategories .category-name {
-    color: #6f777b; }
-/* line 60, ../scss/content/guidance_and_support/_main.scss */
-.guidance-and-support .item-container {
-  position: relative;
-  float: left;
-  overflow: hidden;
-  background-color: #fff; }
-  /* line 66, ../scss/content/guidance_and_support/_main.scss */
-  .guidance-and-support .item-container.categories {
-    width: 24%; }
-  /* line 70, ../scss/content/guidance_and_support/_main.scss */
-  .guidance-and-support .item-container.subcategories {
-    width: 38%; }
-  /* line 74, ../scss/content/guidance_and_support/_main.scss */
-  .guidance-and-support .item-container.links {
-    width: 38%; }
-  /* line 78, ../scss/content/guidance_and_support/_main.scss */
-  #content .guidance-and-support .item-container .item-list {
-    margin-top: 0;
-    margin-bottom: 0;
-    padding: 0;
-    list-style-type: none; }
-  /* line 85, ../scss/content/guidance_and_support/_main.scss */
-  .guidance-and-support .item-container .category-name {
-    margin-top: 0;
-    padding-left: 20px; }
-  /* line 90, ../scss/content/guidance_and_support/_main.scss */
-  .guidance-and-support .item-container h3 {
-    margin: 0;
-    padding: 0;
-    color: #005ea5; }
-  /* line 96, ../scss/content/guidance_and_support/_main.scss */
-  .guidance-and-support .item-container ul a {
-    position: relative;
-    display: block;
-    padding: 10px 20px;
     text-decoration: none;
-    line-height: 24px;
-    outline: none; }
-  /* line 106, ../scss/content/guidance_and_support/_main.scss */
-  .guidance-and-support .item-container li:hover {
-    background-color: #dee0e2; }
-  /* line 110, ../scss/content/guidance_and_support/_main.scss */
-  .guidance-and-support .item-container li.selected {
-    background-color: #005ea5; }
-    /* line 113, ../scss/content/guidance_and_support/_main.scss */
-    .guidance-and-support .item-container li.selected h3,
-    .guidance-and-support .item-container li.selected .description {
-      color: #fff; }
-  /* line 120, ../scss/content/guidance_and_support/_main.scss */
-  .guidance-and-support .item-container .description {
-    color: #0b0c0c; }
-/* line 126, ../scss/content/guidance_and_support/_main.scss */
-.guidance-and-support .categories .item h3 {
-  font-weight: normal; }
-/* line 130, ../scss/content/guidance_and_support/_main.scss */
-.guidance-and-support .categories .description {
-  display: none; }
-/* line 135, ../scss/content/guidance_and_support/_main.scss */
-.guidance-and-support .categories,
-.guidance-and-support .subcategories {
-  border-right: 1px solid #bfc1c3; }
-  /* line 139, ../scss/content/guidance_and_support/_main.scss */
-  .guidance-and-support .categories h3,
-  .guidance-and-support .subcategories h3 {
-    padding-right: 10px; }
-  /* line 146, ../scss/content/guidance_and_support/_main.scss */
-  .guidance-and-support .categories ul a:after,
-  .guidance-and-support .subcategories ul a:after {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    margin-top: -8px;
-    width: 6px;
-    height: 16px;
-    content: "\203a";
-    color: #2e8aca;
-    line-height: 16px; }
-  /* line 159, ../scss/content/guidance_and_support/_main.scss */
-  .guidance-and-support .categories ul a[rel="external"]:after,
-  .guidance-and-support .subcategories ul a[rel="external"]:after {
-    display: none; }
-  /* line 163, ../scss/content/guidance_and_support/_main.scss */
-  .guidance-and-support .categories ul a[rel="external"] .title:after,
-  .guidance-and-support .subcategories ul a[rel="external"] .title:after {
-    display: inline-block;
-    width: 12px;
-    height: 12px;
-    margin-left: 6px;
-    background-image: url("../images/external_link_x2.png");
-    background-position: -12px 0;
-    background-size: 200%;
-    background-repeat: no-repeat;
-    right: 7px;
-    content: ""; }
-  /* line 181, ../scss/content/guidance_and_support/_main.scss */
-  .guidance-and-support .categories li.item.overview a:after,
-  .guidance-and-support .categories li.item.no-children a:after,
-  .guidance-and-support .subcategories li.item.overview a:after,
-  .guidance-and-support .subcategories li.item.no-children a:after {
-    display: none; }
-  /* line 186, ../scss/content/guidance_and_support/_main.scss */
-  .guidance-and-support .categories li.item.loading a,
-  .guidance-and-support .subcategories li.item.loading a {
-    background-color: #005ea5; }
-    /* line 189, ../scss/content/guidance_and_support/_main.scss */
-    .guidance-and-support .categories li.item.loading a:after,
-    .guidance-and-support .subcategories li.item.loading a:after {
-      content: "";
-      background-image: url("../images/loader.gif");
-      width: 16px;
-      height: 16px;
-      background-size: 100%;
-      top: 50%;
-      margin-top: -8px; }
-  /* line 201, ../scss/content/guidance_and_support/_main.scss */
-  .guidance-and-support .categories .item.selected a:after,
-  .guidance-and-support .subcategories .item.selected a:after {
-    content: "\203a";
-    margin-top: -8px;
-    height: 16px;
-    color: #fff;
-    line-height: 16px; }
-/* line 211, ../scss/content/guidance_and_support/_main.scss */
-.guidance-and-support .subcategories,
-.guidance-and-support .links {
-  display: none;
-  position: relative;
-  margin-left: -1px;
-  border-left: 1px solid #bfc1c3; }
-  /* line 220, ../scss/content/guidance_and_support/_main.scss */
-  .guidance-and-support .subcategories.visible,
-  .guidance-and-support .links.visible {
-    display: block; }
-  /* line 224, ../scss/content/guidance_and_support/_main.scss */
-  .guidance-and-support .subcategories .sort-order,
-  .guidance-and-support .links .sort-order {
-    width: 90px;
-    position: absolute;
-    margin: 10px;
-    font-weight: bold;
-    line-height: 24px;
-    text-align: center;
-    overflow: hidden;
-    white-space: nowrap; }
-  /* line 236, ../scss/content/guidance_and_support/_main.scss */
-  .guidance-and-support .subcategories .item-list,
-  .guidance-and-support .links .item-list {
-    position: relative;
-    background-color: #fff; }
-  /* line 241, ../scss/content/guidance_and_support/_main.scss */
-  .guidance-and-support .subcategories .item-list,
-  .guidance-and-support .subcategories .category-name,
-  .guidance-and-support .links .item-list,
-  .guidance-and-support .links .category-name {
-    margin-left: 0;
-    transition: margin-left .3s; }
-  /* line 248, ../scss/content/guidance_and_support/_main.scss */
-  .guidance-and-support .subcategories.current .item-list,
-  .guidance-and-support .subcategories.current .category-name,
-  .guidance-and-support .links.current .item-list,
-  .guidance-and-support .links.current .category-name {
-    margin-left: 90px;
-    transition: margin-left .3s; }
-/* line 257, ../scss/content/guidance_and_support/_main.scss */
-.guidance-and-support .subcategories.item-container {
-  transition: margin-left .3s; }
-/* line 263, ../scss/content/guidance_and_support/_main.scss */
-.guidance-and-support .links.item-container {
-  transition: width .3s; }
-/* line 272, ../scss/content/guidance_and_support/_main.scss */
-.guidance-and-support .links a[rel="external"]:after {
-  display: none; }
-/* line 276, ../scss/content/guidance_and_support/_main.scss */
-.guidance-and-support .links a[rel="external"] h3:after {
-  display: inline-block;
-  width: 12px;
-  height: 12px;
-  background-image: url("../images/external_link_x2.png");
-  background-position: -12px 0;
-  background-size: 200%;
-  background-repeat: no-repeat;
-  margin-left: 6px;
-  content: ""; }
-/* line 290, ../scss/content/guidance_and_support/_main.scss */
-.guidance-and-support .item.overview::after {
-  background-color: #bfc1c3;
-  content: "";
-  display: block;
-  height: 1px;
-  left: 20px;
-  position: absolute;
-  right: 0;
-  width: 100%; }
-/* line 301, ../scss/content/guidance_and_support/_main.scss */
-.guidance-and-support :not(.current).subcategories .item.overview::after {
-  left: 0; }
+    pointer-events: none; }
+  /* line 19, ../scss/content/guidance_and_support/_main.scss */
+  .guidance-and-support .guidance-categories .menu > .menu-item:nth-of-type(-n + 3) {
+    border-top: none; }
+  /* line 23, ../scss/content/guidance_and_support/_main.scss */
+  .guidance-and-support .guidance-categories .menu > .menu-item:nth-of-type(3n + 1) {
+    clear: both; }
+/* line 29, ../scss/content/guidance_and_support/_main.scss */
+.guidance-and-support .guidance-categories .sub-menu {
+  padding-left: 10px; }
+  /* line 32, ../scss/content/guidance_and_support/_main.scss */
+  .guidance-and-support .guidance-categories .sub-menu .menu-item {
+    margin-top: 5px; }
 
-@media (max-width: 767px) {
-  /* line 308, ../scss/content/guidance_and_support/_main.scss */
-  .guidance-and-support .tree-container {
-    overflow: hidden;
-    width: 100%; }
-  /* line 313, ../scss/content/guidance_and_support/_main.scss */
-  .guidance-and-support .tree {
-    width: 303%;
-    transition: margin-left .15s; }
-    /* line 317, ../scss/content/guidance_and_support/_main.scss */
-    .guidance-and-support .tree[data-show-column="1"] {
-      margin-left: 0%; }
-    /* line 321, ../scss/content/guidance_and_support/_main.scss */
-    .guidance-and-support .tree[data-show-column="2"] {
-      margin-left: -100%; }
-    /* line 325, ../scss/content/guidance_and_support/_main.scss */
-    .guidance-and-support .tree[data-show-column="3"] {
-      margin-left: -200%; }
-    /* line 330, ../scss/content/guidance_and_support/_main.scss */
-    .guidance-and-support .tree.collapsed .subcategories {
-      margin-left: 0; }
-    /* line 334, ../scss/content/guidance_and_support/_main.scss */
-    .guidance-and-support .tree.collapsed .links {
-      width: 33%; }
-  /* line 340, ../scss/content/guidance_and_support/_main.scss */
-  .guidance-and-support .item-container {
-    border: none;
-    margin-left: 0; }
-    /* line 345, ../scss/content/guidance_and_support/_main.scss */
-    .guidance-and-support .item-container.current .item-list,
-    .guidance-and-support .item-container.current .category-name {
-      margin-left: 0;
-      transition: margin-left .3s; }
-    /* line 352, ../scss/content/guidance_and_support/_main.scss */
-    .guidance-and-support .item-container .item {
-      display: block !important; } }
 /* line 2, ../scss/content/guidance_and_support_content/_main.scss */
 .guidance-and-support-content .content-head {
   padding-bottom: 45px; }
