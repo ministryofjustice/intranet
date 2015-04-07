@@ -5,7 +5,7 @@ jQuery(function($) {
 
   App.ins.mobileMenu = new App.MobileMenu();
   App.ins.stickyNews = new App.StickyNews();
-  App.ins.guidanceAndSupport = new App.GuidanceAndSupport();
+  //App.ins.guidanceAndSupport = new App.GuidanceAndSupport();
   App.ins.guidanceAndSupportContent = new App.GuidanceAndSupportContent();
   App.ins.azIndex = new App.AZIndex();
   App.ins.emergencyMessage = new App.EmergencyMessage();

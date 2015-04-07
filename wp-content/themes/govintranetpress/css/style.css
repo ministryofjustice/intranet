@@ -417,7 +417,7 @@ h5, #need-to-know .widget-title {
   line-height: 20px; }
 
 /* line 26, ../scss/global/_typography.scss */
-h4, .ht-feature-news h3, #need-to-know .item-title, .guidance-and-support .guidance-categories .menu > .menu-item > a, .page-news .news-item .title {
+h4, .ht-feature-news h3, #need-to-know .item-title, .guidance-and-support .guidance-categories-list .category-item .category-title, .page-news .news-item .title {
   font-size: 19px;
   line-height: 25px; }
 
@@ -461,7 +461,7 @@ h1 {
 .main-content .content-info p, .main-content .editable table th,
 .main-content .editable table td, .breadcrumbs a,
 .breadcrumbs span, .beta-banner .beta-icon,
-.beta-banner .message, .footerwrapper .footer li, .header .skip-to-content-container a, .message .content, #menu-utilities li a, .content-filters .description, .content-filters label, .children-pages li a, #need-to-know .excerpt, .my-moj .my-moj-top .department, .my-moj .menu-my-moj-quick-links-container ul a, .guidance-and-support .guidance-categories .sub-menu .menu-item > a, .guidance-and-support-content .right-hand-menu a, .page-search-results .search-item .excerpt {
+.beta-banner .message, .footerwrapper .footer li, .header .skip-to-content-container a, .message .content, #menu-utilities li a, .content-filters .description, .content-filters label, .children-pages li a, #need-to-know .excerpt, .my-moj .my-moj-top .department, .my-moj .menu-my-moj-quick-links-container ul a, .guidance-and-support .guidance-categories-list .children-list .child-item .child-title a, .guidance-and-support-content .right-hand-menu a, .page-search-results .search-item .excerpt {
   font-size: 16px;
   line-height: 20px; }
 
@@ -1244,43 +1244,17 @@ form .form-row {
       height: 36px; }
   /* line 45, ../scss/modules/_header.scss */
   .header .search-form {
-    position: relative;
-    padding: 3px 0;
-    /* room for the outline */
-    margin-right: 36px; }
-    /* line 50, ../scss/modules/_header.scss */
+    width: auto; }
+    /* line 48, ../scss/modules/_header.scss */
     .header .search-form .keywords-field {
-      display: block;
-      width: 100%;
-      height: 36px;
-      padding-left: 10px; }
-    /* line 57, ../scss/modules/_header.scss */
-    .header .search-form .search-btn {
-      position: absolute;
-      right: -36px;
-      top: 3px;
-      bottom: 3px;
-      width: 36px;
-      padding: 0;
-      overflow: hidden;
-      background-color: #428bca;
-      border-color: #357ebd;
-      background-image: url("../images/search_icon.png");
-      background-size: 16px 16px;
-      background-repeat: no-repeat;
-      background-position: 10px 10px;
-      text-indent: -5000px; }
-
-/* line 77, ../scss/modules/_header.scss */
-.page-template-search-results-php .search-form {
-  display: none; }
+      border: none; }
 
 @media (min-width: 0) and (max-width: 767px) {
-  /* line 83, ../scss/modules/_header.scss */
+  /* line 55, ../scss/modules/_header.scss */
   #searchformdiv {
     padding-top: 10px; }
 
-  /* line 87, ../scss/modules/_header.scss */
+  /* line 59, ../scss/modules/_header.scss */
   .mobile-nav button {
     float: right;
     width: 30px;
@@ -1291,15 +1265,15 @@ form .form-row {
     background-size: 60px 30px;
     background-position: 0 0;
     margin-top: 5px; }
-    /* line 98, ../scss/modules/_header.scss */
+    /* line 70, ../scss/modules/_header.scss */
     .mobile-menu-enabled .mobile-nav button {
       background-position: 30px 0; }
 
-  /* line 105, ../scss/modules/_header.scss */
+  /* line 77, ../scss/modules/_header.scss */
   .header.mobile-menu-enabled .search-box,
   .header.mobile-menu-enabled #mainnav {
     display: none; }
-  /* line 110, ../scss/modules/_header.scss */
+  /* line 82, ../scss/modules/_header.scss */
   .header.mobile-menu-enabled #utilities {
     display: block; } }
 /* line 1, ../scss/modules/_main_nav.scss */
@@ -1733,6 +1707,37 @@ form .form-row {
 /* line 33, ../scss/modules/_feeds.scss */
 .feeds .regular .yammer h3:before {
   background-position: -180px 0; }
+
+/* line 1, ../scss/modules/_search_form.scss */
+.search-form {
+  position: relative;
+  width: 500px;
+  margin: 0 auto;
+  padding: 3px 0;
+  /* room for the outline */ }
+  /* line 7, ../scss/modules/_search_form.scss */
+  .search-form .keywords-field {
+    display: block;
+    width: 100%;
+    height: 36px;
+    padding-left: 10px;
+    border: 1px solid #bfc1c3; }
+  /* line 15, ../scss/modules/_search_form.scss */
+  .search-form .search-btn {
+    position: absolute;
+    right: 0px;
+    top: 3px;
+    bottom: 3px;
+    width: 36px;
+    padding: 0;
+    overflow: hidden;
+    background-color: #428bca;
+    border-color: #357ebd;
+    background-image: url("../images/search_icon.png");
+    background-size: 16px 16px;
+    background-repeat: no-repeat;
+    background-position: 10px 10px;
+    text-indent: -5000px; }
 
 /* line 2, ../scss/widgets/ht_feature_news/_main.scss */
 .ht-feature-news > h3 {
@@ -2248,31 +2253,63 @@ form .form-row {
     .my-moj .menu-my-moj-quick-links-container ul .menu-item:first-of-type a {
       margin-top: 0; }
 
-/* line 4, ../scss/content/guidance_and_support/_main.scss */
-.guidance-and-support .guidance-categories .menu > .menu-item {
+/* line 2, ../scss/content/guidance_and_support/_main.scss */
+.guidance-and-support .search-form {
+  margin-top: 50px;
+  margin-bottom: 20px; }
+/* line 2, ../scss/global/_mixins.scss */
+.guidance-and-support .guidance-categories-list:after {
+  content: "";
+  display: table;
+  clear: both; }
+/* line 10, ../scss/content/guidance_and_support/_main.scss */
+.guidance-and-support .guidance-categories-list .category-item {
   float: left;
   width: 33.3333%;
   margin-bottom: 20px;
-  border-top: 1px solid #bfc1c3;
   padding-top: 20px; }
-  /* line 11, ../scss/content/guidance_and_support/_main.scss */
-  .guidance-and-support .guidance-categories .menu > .menu-item > a {
-    color: #0b0c0c;
-    font-weight: bold;
-    text-decoration: none;
-    pointer-events: none; }
-  /* line 19, ../scss/content/guidance_and_support/_main.scss */
-  .guidance-and-support .guidance-categories .menu > .menu-item:nth-of-type(-n + 3) {
+  /* line 16, ../scss/content/guidance_and_support/_main.scss */
+  .guidance-and-support .guidance-categories-list .category-item .category-title {
+    margin: 0; }
+    /* line 20, ../scss/content/guidance_and_support/_main.scss */
+    .guidance-and-support .guidance-categories-list .category-item .category-title a {
+      text-decoration: underline; }
+  /* line 25, ../scss/content/guidance_and_support/_main.scss */
+  .guidance-and-support .guidance-categories-list .category-item:nth-of-type(-n + 3) {
     border-top: none; }
-  /* line 23, ../scss/content/guidance_and_support/_main.scss */
-  .guidance-and-support .guidance-categories .menu > .menu-item:nth-of-type(3n + 1) {
+  /* line 29, ../scss/content/guidance_and_support/_main.scss */
+  .guidance-and-support .guidance-categories-list .category-item:nth-of-type(3n + 1) {
     clear: both; }
-/* line 29, ../scss/content/guidance_and_support/_main.scss */
-.guidance-and-support .guidance-categories .sub-menu {
+/* line 34, ../scss/content/guidance_and_support/_main.scss */
+.guidance-and-support .guidance-categories-list.small {
+  margin-top: 50px;
+  padding-top: 50px;
+  border-top: 3px solid #0b0c0c; }
+  /* line 39, ../scss/content/guidance_and_support/_main.scss */
+  .guidance-and-support .guidance-categories-list.small .children-list {
+    display: none; }
+/* line 44, ../scss/content/guidance_and_support/_main.scss */
+.guidance-and-support .guidance-categories-list .children-list {
   padding-left: 10px; }
-  /* line 32, ../scss/content/guidance_and_support/_main.scss */
-  .guidance-and-support .guidance-categories .sub-menu .menu-item {
-    margin-top: 5px; }
+  /* line 47, ../scss/content/guidance_and_support/_main.scss */
+  .guidance-and-support .guidance-categories-list .children-list .child-item {
+    margin-top: 5px;
+    list-style-type: circle; }
+    /* line 51, ../scss/content/guidance_and_support/_main.scss */
+    .guidance-and-support .guidance-categories-list .children-list .child-item.see-all {
+      margin-top: 15px; }
+      /* line 54, ../scss/content/guidance_and_support/_main.scss */
+      .guidance-and-support .guidance-categories-list .children-list .child-item.see-all .child-title a {
+        font-weight: bold; }
+        /* line 57, ../scss/content/guidance_and_support/_main.scss */
+        .guidance-and-support .guidance-categories-list .children-list .child-item.see-all .child-title a:after {
+          content: " \00bb"; }
+    /* line 63, ../scss/content/guidance_and_support/_main.scss */
+    .guidance-and-support .guidance-categories-list .children-list .child-item .child-title {
+      margin: 0; }
+      /* line 66, ../scss/content/guidance_and_support/_main.scss */
+      .guidance-and-support .guidance-categories-list .children-list .child-item .child-title a {
+        font-weight: normal; }
 
 /* line 2, ../scss/content/guidance_and_support_content/_main.scss */
 .guidance-and-support-content .content-head {
@@ -2445,67 +2482,38 @@ form .form-row {
 .page-search-results .page-title {
   border-bottom: none; }
 /* line 7, ../scss/content/search_results/_main.scss */
-.page-search-results .search-string {
-  position: relative;
-  padding: 3px 0;
-  /* room for the outline */
-  margin-right: 36px; }
-  /* line 12, ../scss/content/search_results/_main.scss */
-  .page-search-results .search-string .keywords-field {
-    display: block;
-    width: 100%;
-    height: 36px;
-    padding-left: 10px;
-    border: 1px solid #bfc1c3; }
-  /* line 20, ../scss/content/search_results/_main.scss */
-  .page-search-results .search-string .search-btn {
-    position: absolute;
-    right: -36px;
-    top: 3px;
-    bottom: 3px;
-    width: 36px;
-    padding: 0;
-    overflow: hidden;
-    background-color: #428bca;
-    border-color: #357ebd;
-    background-image: url("../images/search_icon.png");
-    background-size: 16px 16px;
-    background-repeat: no-repeat;
-    background-position: 10px 10px;
-    text-indent: -5000px; }
-/* line 38, ../scss/content/search_results/_main.scss */
 .page-search-results .content-filters {
   margin-top: 24px; }
-/* line 42, ../scss/content/search_results/_main.scss */
+/* line 11, ../scss/content/search_results/_main.scss */
 .page-search-results .search-results-title {
   font-weight: normal;
   margin-bottom: 50px; }
-/* line 48, ../scss/content/search_results/_main.scss */
+/* line 17, ../scss/content/search_results/_main.scss */
 .page-search-results .search-filtered-results-title .results-count {
   font-weight: bold; }
-/* line 53, ../scss/content/search_results/_main.scss */
+/* line 22, ../scss/content/search_results/_main.scss */
 .page-search-results .search-filtered-results-title .results-count-description {
   font-weight: bold; }
-/* line 60, ../scss/content/search_results/_main.scss */
+/* line 29, ../scss/content/search_results/_main.scss */
 .page-search-results .no-results-info h4 {
   margin-bottom: 0; }
-/* line 64, ../scss/content/search_results/_main.scss */
+/* line 33, ../scss/content/search_results/_main.scss */
 .page-search-results .no-results-info.hidden {
   display: none; }
-/* line 70, ../scss/content/search_results/_main.scss */
+/* line 39, ../scss/content/search_results/_main.scss */
 .page-search-results .search-item .title {
   margin-top: 30px; }
-/* line 74, ../scss/content/search_results/_main.scss */
+/* line 43, ../scss/content/search_results/_main.scss */
 .page-search-results .search-item .meta {
   color: #bfc1c3; }
-/* line 78, ../scss/content/search_results/_main.scss */
+/* line 47, ../scss/content/search_results/_main.scss */
 .page-search-results .search-item .title,
 .page-search-results .search-item .meta {
   margin-bottom: 5px; }
-/* line 87, ../scss/content/search_results/_main.scss */
+/* line 56, ../scss/content/search_results/_main.scss */
 .page-search-results .search-item .file {
   margin-top: 5px;
   color: #6f777b; }
-  /* line 91, ../scss/content/search_results/_main.scss */
+  /* line 60, ../scss/content/search_results/_main.scss */
   .page-search-results .search-item .file .file-link {
     text-decoration: underline; }

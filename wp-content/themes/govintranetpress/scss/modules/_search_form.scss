@@ -1,0 +1,31 @@
+.search-form {
+  position: relative;
+  width: 500px;
+  margin: 0 auto;
+  padding: 3px 0; /* room for the outline */
+
+  .keywords-field {
+    display: block;
+    width: 100%;
+    height: 36px;
+    padding-left: 10px;
+    border: 1px solid $grey-2;
+  }
+
+  .search-btn {
+    position: absolute;
+    right: 0px;
+    top: 3px;
+    bottom: 3px;
+    width: 36px;
+    padding: 0;
+    overflow: hidden;
+    background-color: #428bca;
+    border-color: #357ebd;
+    background-image: url('../images/search_icon.png');
+    background-size: 16px 16px;
+    background-repeat: no-repeat;
+    background-position: 10px 10px;
+    text-indent: -5000px;
+  }
+}
