@@ -1,6 +1,6 @@
 .guidance-and-support {
   .search-form {
-    margin-top: 50px;
+    margin-top: 20px;
     margin-bottom: 20px;
   }
 
@@ -32,8 +32,8 @@
     }
 
     &.small {
-      margin-top: 50px;
-      padding-top: 50px;
+      margin-top: 40px;
+      padding-top: 40px;
       border-top: 3px solid $black;
 
       .children-list {
@@ -46,7 +46,7 @@
 
       .child-item {
         margin-top: 5px;
-        list-style-type: circle;
+        list-style-type: disc;
 
         &.see-all {
           margin-top: 15px;

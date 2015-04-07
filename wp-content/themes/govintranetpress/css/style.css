@@ -1375,9 +1375,12 @@ form .form-row {
 .menu-list {
   margin: 20px 0 3px; }
   /* line 4, ../scss/modules/_navigation.scss */
+  .menu-list *:focus {
+    background-color: transparent; }
+  /* line 8, ../scss/modules/_navigation.scss */
   .menu-list .menu-item {
     position: relative; }
-    /* line 7, ../scss/modules/_navigation.scss */
+    /* line 11, ../scss/modules/_navigation.scss */
     .menu-list .menu-item:after {
       position: absolute;
       display: block;
@@ -1388,45 +1391,46 @@ form .form-row {
       font-size: 18px;
       content: "\25be";
       pointer-events: none; }
-    /* line 19, ../scss/modules/_navigation.scss */
+    /* line 23, ../scss/modules/_navigation.scss */
     .menu-list .menu-item.collapsed:after {
       transform: rotate(0deg); }
-    /* line 23, ../scss/modules/_navigation.scss */
+    /* line 27, ../scss/modules/_navigation.scss */
     .menu-list .menu-item.no-children:after {
       display: none; }
-    /* line 27, ../scss/modules/_navigation.scss */
+    /* line 31, ../scss/modules/_navigation.scss */
     .menu-list .menu-item .menu-item-link {
       display: block;
       margin-top: 5px;
       padding: 5px 10px 4px;
       border: 1px solid #bfc1c3;
-      background-color: #f8f8f8; }
-    /* line 37, ../scss/modules/_navigation.scss */
+      background-color: #f8f8f8;
+      font-weight: bold; }
+    /* line 42, ../scss/modules/_navigation.scss */
     .menu-list .menu-item.current:after {
       color: #fff; }
-    /* line 41, ../scss/modules/_navigation.scss */
+    /* line 46, ../scss/modules/_navigation.scss */
     .menu-list .menu-item.current .menu-item-link {
       border: 1px solid #005ea5;
       background-color: #005ea5;
       color: #fff;
       font-weight: bold; }
-  /* line 50, ../scss/modules/_navigation.scss */
+  /* line 55, ../scss/modules/_navigation.scss */
   .menu-list .children-list {
     margin-left: 0; }
-  /* line 54, ../scss/modules/_navigation.scss */
+  /* line 59, ../scss/modules/_navigation.scss */
   .menu-list .child-item {
     border-bottom: 1px solid #ddd; }
-  /* line 58, ../scss/modules/_navigation.scss */
+  /* line 63, ../scss/modules/_navigation.scss */
   .menu-list .child-item:last-of-type {
     border-bottom: none; }
-  /* line 62, ../scss/modules/_navigation.scss */
+  /* line 67, ../scss/modules/_navigation.scss */
   .menu-list .child-item-link {
     display: block;
     padding: 5px 10px 4px; }
-  /* line 68, ../scss/modules/_navigation.scss */
+  /* line 73, ../scss/modules/_navigation.scss */
   .menu-list .child-item.highlight .child-item-link {
     font-weight: bold; }
-  /* line 72, ../scss/modules/_navigation.scss */
+  /* line 77, ../scss/modules/_navigation.scss */
   .menu-list .collapsed .children-list {
     display: none; }
 
@@ -1772,17 +1776,16 @@ form .form-row {
 .search-form {
   position: relative;
   width: 500px;
-  margin: 0 auto;
   padding: 3px 0;
   /* room for the outline */ }
-  /* line 7, ../scss/modules/_search_form.scss */
+  /* line 6, ../scss/modules/_search_form.scss */
   .search-form .keywords-field {
     display: block;
     width: 100%;
     height: 36px;
     padding-left: 10px;
     border: 1px solid #bfc1c3; }
-  /* line 15, ../scss/modules/_search_form.scss */
+  /* line 14, ../scss/modules/_search_form.scss */
   .search-form .search-btn {
     position: absolute;
     right: 0px;
@@ -2315,7 +2318,7 @@ form .form-row {
 
 /* line 2, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .search-form {
-  margin-top: 50px;
+  margin-top: 20px;
   margin-bottom: 20px; }
 /* line 2, ../scss/global/_mixins.scss */
 .guidance-and-support .guidance-categories-list:after {
@@ -2342,8 +2345,8 @@ form .form-row {
     clear: both; }
 /* line 34, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .guidance-categories-list.small {
-  margin-top: 50px;
-  padding-top: 50px;
+  margin-top: 40px;
+  padding-top: 40px;
   border-top: 3px solid #0b0c0c; }
   /* line 39, ../scss/content/guidance_and_support/_main.scss */
   .guidance-and-support .guidance-categories-list.small .children-list {
@@ -2354,7 +2357,7 @@ form .form-row {
   /* line 47, ../scss/content/guidance_and_support/_main.scss */
   .guidance-and-support .guidance-categories-list .children-list .child-item {
     margin-top: 5px;
-    list-style-type: circle; }
+    list-style-type: disc; }
     /* line 51, ../scss/content/guidance_and_support/_main.scss */
     .guidance-and-support .guidance-categories-list .children-list .child-item.see-all {
       margin-top: 15px; }
