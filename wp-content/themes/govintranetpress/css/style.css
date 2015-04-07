@@ -1387,7 +1387,7 @@ form .form-row {
       right: 5px;
       top: 2px;
       transform: rotate(180deg);
-      color: #888;
+      color: #0b0c0c;
       font-size: 18px;
       content: "\25be";
       pointer-events: none; }
