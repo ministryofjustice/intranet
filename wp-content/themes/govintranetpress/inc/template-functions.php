@@ -66,7 +66,7 @@ function template_customise() {
     }
     if(isset($template_options[$template_file]['metaboxes'])) {
         foreach($template_options[$template_file]['metaboxes'] as $metabox) {
-            add_action('save_post',$metabox['id'].'_save');
+            add_action('save_post',$metabox['id'].'_save',5);
         }
     }
 }
