@@ -1219,10 +1219,6 @@
 
         $link = _this.$menu.find('.child-item[data-id="' + id + '"]');
         $link.addClass('highlight');
-        $link.off('click');
-        $link.click(function(e) {
-          e.preventDefault();
-        });
       });
     }
   };
