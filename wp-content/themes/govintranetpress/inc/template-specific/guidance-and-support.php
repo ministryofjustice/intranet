@@ -7,7 +7,7 @@ function quick_links_callback($post) {
 
     // Populate link array
     $record_count = 0;
-    $link_fields = array('link-text','url','qlink','firsttab','secondtab');
+    $link_fields = array('link-text','url','qlink','firsttab','secondtab','heading');
     $i=0;
     while($field_count<sizeof($link_fields)) {
         $i++;
@@ -21,47 +21,54 @@ function quick_links_callback($post) {
                 $field_count++;
             }
         }
-        if (($link_text || $link_url || $qlink || $firsttab || $secondtab) && $field_count<sizeof($link_fields)) {
+        if (($link_text || $link_url || $qlink || $firsttab || $secondtab || $heading) && $field_count<sizeof($link_fields)) {
             $record_count++;
             $link_array[$record_count] = array(
                 'linktext' => $link_text,
                 'linkurl' => $url,
                 'qlink' => $qlink=='on'?' checked':'',
                 'firsttab' => $firsttab=='on'?' checked':'',
-                'secondtab' => $secondtab=='on'?' checked':''
+                'secondtab' => $secondtab=='on'?' checked':'',
+                'heading' => $heading=='on'?' checked':'',
+                'linkurl_disabled' => $heading=='on'?' disabled="disabled"':''
             );
         }
     }
     $links_title = get_post_meta($post->ID, "_" . $ns . "-title",true);
     ?>
     <div class='<?=$ns?>-container' data-max-links='<?=$max_links?>'>
-        <p><strong>Links Title (defaults to Links)</strong></p>
-        <label class="screen-reader-text" for='<?=$ns?>-title'>Links Title (defaults to Links)</label>
-        <input class='<?=$ns?>-title regular-text' id='<?=$ns?>-title' name='<?=$ns?>-title' type='text' value='<?=esc_attr($links_title)?>'>
-        <table class=''>
+        <table>
+            <tr>
+                <td>
+                    <p><strong>Links Title (defaults to Links)</strong></p>
+                    <label class="screen-reader-text" for='<?=$ns?>-title'>Links Title (defaults to Links)</label>
+                </td>
+                <td>
+                    <input class='<?=$ns?>-title regular-text' id='<?=$ns?>-title' name='<?=$ns?>-title' type='text' value='<?=esc_attr($links_title)?>'>
+                </td>
+            </tr>
+        </table>
+        <table class='gands-links'>
             <thead>
                 <tr>
                     <th scope="col" class="check-column"></th>
-                    <th scope="col" class="">Link text</th>
-                    <th scope="col" class="">Link URL</th>
+                    <th scope="col" class="">Link text/URL</th>
                     <th scope="col" class="check-column">Quick Link</th>
                     <th scope="col" class="check-column">Tab&nbsp;1</th>
                     <th scope="col" class="check-column">Tab&nbsp;2</th>
-                    <!-- <th scope="col" class="check-column">Heading</th> -->
+                    <th scope="col" class="check-column">Heading</th>
                     <th scope="col" class=""></th>
                 </tr>
             </thead>
             <tbody>
                 <?php for($i=1;$i==1 || $i<=$record_count;$i++) { ?>
                 <tr class='<?=$ns?>-line <?=$ns?>-line[<?=$i?>] draggable'>
-                    <td>
+                    <td class="center">
                         <span class="dashicons dashicons-sort"></span>
                     </td>
                     <td>
                         <input class='<?=$ns?>-link-text <?=$ns?>-link-text<?=$i?> regular-text' id='<?=$ns?>-link-text<?=$i?>' name='<?=$ns?>-link-text<?=$i?>' type='text' placeholder='Link text' value='<?=esc_attr($link_array[$i]['linktext'])?>'>
-                    </td>
-                    <td>
-                        <input class='<?=$ns?>-url <?=$ns?>-url<?=$i?> regular-text' id='<?=$ns?>-url<?=$i?>' name='<?=$ns?>-url<?=$i?>' type='text' placeholder='Link URL'  value='<?=esc_attr($link_array[$i]['linkurl'])?>'>
+                        <input class='<?=$ns?>-url <?=$ns?>-url<?=$i?> regular-text' id='<?=$ns?>-url<?=$i?>' name='<?=$ns?>-url<?=$i?>' type='text' placeholder='Link URL'  value='<?=esc_attr($link_array[$i]['linkurl'])?>'<?=$link_array[$i]['linkurl_disabled']?>>
                     </td>
                     <td class="center">
                         <input class='<?=$ns?>-qlink <?=$ns?>-qlink<?=$i?>' type='checkbox' id='<?=$ns?>-qlink<?=$i?>' name='<?=$ns?>-qlink<?=$i?>'<?=$link_array[$i]['qlink']?>>
@@ -72,9 +79,9 @@ function quick_links_callback($post) {
                     <td class="center">
                         <input class='<?=$ns?>-secondtab <?=$ns?>-secondtab<?=$i?>' type='checkbox' id='<?=$ns?>-secondtab<?=$i?>' name='<?=$ns?>-secondtab<?=$i?>'<?=$link_array[$i]['secondtab']?>>
                     </td>
-<!--                     <td class="center">
+                    <td class="center">
                         <input class='<?=$ns?>-heading <?=$ns?>-heading<?=$i?>' type='checkbox' id='<?=$ns?>-heading<?=$i?>' name='<?=$ns?>-heading<?=$i?>'<?=$link_array[$i]['heading']?>>
-                    </td> -->
+                    </td>
                     <td>
                         <a href='#' class='hide-if-no-js delete-link'>Delete</a>
                     </td>
@@ -110,7 +117,7 @@ function quick_links_save($post_id) {
             return;
         }
     }
-    $link_fields = array('link-text','url','qlink','firsttab','secondtab');
+    $link_fields = array('link-text','url','qlink','firsttab','secondtab','heading');
     $i=0;
     while($field_count<sizeof($link_fields)) {
         $i++;
