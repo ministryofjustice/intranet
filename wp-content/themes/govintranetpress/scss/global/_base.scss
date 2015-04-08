@@ -1,3 +1,13 @@
+%doc-icon {
+  @extend %smaller-copy;
+  display: inline-block !important;
+  background: none !important;
+  width: auto !important;
+  height: auto !important;
+  margin-left: 4px !important;
+  color: $grey-1;
+}
+
 template {
   display: none;
 }
@@ -75,9 +85,32 @@ a {
       content: "";
     }
 
-    &[href*="://moj-wp-prod.s3.amazonaws.com/"]:after {
-      display: none;
+    &[href*="://moj-wp-prod.s3.amazonaws.com/"],
+    &[href*="://intranet.justice.gsi.gov.uk/"] {
+      &:after {
+        display: none;
+      }
     }
+  }
+
+  &[href$=".pdf"]:after {
+    @extend %doc-icon;
+    content: " (PDF)";
+  }
+
+  &[href$=".doc"]:after {
+    @extend %doc-icon;
+    content: " (DOC)";
+  }
+
+  &[href$=".xls"]:after {
+    @extend %doc-icon;
+    content: " (XLS)";
+  }
+
+  &[href$=".pps"]:after {
+    @extend %doc-icon;
+    content: " (PPS)";
   }
 }
 
