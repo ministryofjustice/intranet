@@ -45,7 +45,7 @@
         }
       });
 
-      this.highlightCurrentInParent();
+      this.highlightInAncestors();
     },
 
     buildMenuItem: function(data) {
@@ -102,13 +102,22 @@
       });
     },
 
-    highlightCurrentInParent: function() {
-      var currentId = this.$menu.find('.current').attr('data-id');
-      var $currentPageLink = this.$menu.find('.child-item[data-id="' + currentId + '"]');
-      $currentPageLink.addClass('highlight');
-      $currentPageLink.off('click');
-      $currentPageLink.click(function(e) {
-        e.preventDefault();
+    highlightInAncestors: function() {
+      var _this = this;
+      var $categoryItem;
+      var $link;
+      var id;
+
+      this.$menu.find('.menu-item').each(function() {
+        $categoryItem = $(this);
+        id = $categoryItem.attr('data-id');
+
+        $link = _this.$menu.find('.child-item[data-id="' + id + '"]');
+        $link.addClass('highlight');
+        $link.off('click');
+        $link.click(function(e) {
+          e.preventDefault();
+        });
       });
     }
   };

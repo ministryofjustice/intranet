@@ -72,6 +72,7 @@
 
   .child-item.highlight .child-item-link {
     font-weight: bold;
+    pointer-events: none;
   }
 
   .collapsed .children-list {

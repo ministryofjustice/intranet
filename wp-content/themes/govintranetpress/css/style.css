@@ -1429,8 +1429,9 @@ form .form-row {
     padding: 5px 10px 4px; }
   /* line 73, ../scss/modules/_navigation.scss */
   .menu-list .child-item.highlight .child-item-link {
-    font-weight: bold; }
-  /* line 77, ../scss/modules/_navigation.scss */
+    font-weight: bold;
+    pointer-events: none; }
+  /* line 78, ../scss/modules/_navigation.scss */
   .menu-list .collapsed .children-list {
     display: none; }
 
