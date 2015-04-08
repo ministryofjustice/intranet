@@ -1,7 +1,9 @@
 .content-tabs {
   @include clearfix;
-  margin-top: 0;
+  margin-top: 10px;
   margin-bottom: 25px;
+  border-bottom: 1px solid #aaa;
+
 
   li {
     float: left;
@@ -20,9 +22,6 @@
       white-space: nowrap;
     }
 
-    a:focus {
-    }
-
     &.current-menu-item {
       border-color: #aaa;
       border-bottom-color: transparent;
@@ -34,16 +33,16 @@
     }
   }
 
-  &.small-tabs {
-    a {
-      @extend %large-copy;
-    }
-
+  & {
     li {
       width: 33.33333%;
       margin-top: 10px;
       margin-bottom: -1px;
       background-color: $white;
+
+      a {
+        @extend %large-copy;
+      }
     }
   }
 }
