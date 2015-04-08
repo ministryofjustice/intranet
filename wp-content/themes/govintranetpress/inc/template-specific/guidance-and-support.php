@@ -47,6 +47,7 @@ function quick_links_callback($post) {
                     <th scope="col" class="check-column">Quick Link</th>
                     <th scope="col" class="check-column">Tab&nbsp;1</th>
                     <th scope="col" class="check-column">Tab&nbsp;2</th>
+                    <!-- <th scope="col" class="check-column">Heading</th> -->
                     <th scope="col" class=""></th>
                 </tr>
             </thead>
@@ -71,6 +72,9 @@ function quick_links_callback($post) {
                     <td class="center">
                         <input class='<?=$ns?>-secondtab <?=$ns?>-secondtab<?=$i?>' type='checkbox' id='<?=$ns?>-secondtab<?=$i?>' name='<?=$ns?>-secondtab<?=$i?>'<?=$link_array[$i]['secondtab']?>>
                     </td>
+<!--                     <td class="center">
+                        <input class='<?=$ns?>-heading <?=$ns?>-heading<?=$i?>' type='checkbox' id='<?=$ns?>-heading<?=$i?>' name='<?=$ns?>-heading<?=$i?>'<?=$link_array[$i]['heading']?>>
+                    </td> -->
                     <td>
                         <a href='#' class='hide-if-no-js delete-link'>Delete</a>
                     </td>
@@ -264,7 +268,9 @@ function content_tabs_save($post_id) {
             if (isset($_POST["tab-" . $tab . "-title"])) {
                 $data = sanitize_text_field($_POST["tab-" . $tab . "-title"]);
                 update_post_meta($post_id, "_".$ns."-tab-" . $tab . "-title",$data);
-                $search_content .= $data."\r\n";
+                if ($data!="Tab 1") {
+                    $search_content .= $data."\r\n";
+                }
             }
             // Save section count
             $data = sanitize_text_field( $_POST["tab-".$tab."-section-count"] );
@@ -276,15 +282,13 @@ function content_tabs_save($post_id) {
                 // echo $section."<br>";
                 foreach($section_fields as $section_field) {
                     if (isset($_POST["tab-" . $tab . "-section-" . $section . "-".$section_field])) {
-                        // echo $section_field . "set<br>";
                         $data = $_POST["tab-" . $tab . "-section-" . $section . "-".$section_field];
                         update_post_meta($post_id, "_".$ns."-tab-" . $tab . "-section-" . $section . "-".$section_field,$data);
-                        $search_content .= $data."\r\n";
                         if($section_field=="content") {
                             $data = WPCom_Markdown::get_instance()->transform( $data );
                             update_post_meta($post_id, "_".$ns."-tab-" . $tab . "-section-" . $section . "-".$section_field . "-html",$data);
-                            $search_content .= $data."\r\n";
                         }
+                        $search_content .= $data."\r\n";
                     }
                 }
             }

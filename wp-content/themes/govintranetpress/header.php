@@ -226,7 +226,10 @@ header('X-Frame-Options: SAMEORIGIN');
 
       <!-- search box -->
       <div class="col-lg-4 col-md-4 col-sm-12">
-        <?php if($_SESSION['full_site']): ?>
+        <?php if($_SESSION['full_site'] &&
+          !is_page_template('page-guidance-and-support-index.php') &&
+          !is_page_template('search-results.php')):
+        ?>
           <?php get_search_form(true); ?>
         <?php endif ?>
       </div>
