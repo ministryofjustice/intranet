@@ -118,7 +118,7 @@
         ) );
 
         $wp_customize->add_control( new WP_Customize_Control($wp_customize, 'emergency_toggle_control', array (
-          'label'     =>  'Notification On/Off',
+          'label'     =>  'Enable notification',
           'section'   =>  'emergency_message_section',
           'settings'  =>  'emergency_toggle',
           'type'      =>  'checkbox'
