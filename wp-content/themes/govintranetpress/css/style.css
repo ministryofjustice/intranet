@@ -1465,11 +1465,17 @@ form .form-row {
     /* again, using the id selector only to overpower another irresponsible rule defined elsewhere */
     margin-bottom: 0; }
   /* line 30, ../scss/modules/_message.scss */
-  .message.message-warning {
-    background-color: #ffc10e; }
+  .message.message-emergency {
+    background-color: #df3034; }
+    /* line 33, ../scss/modules/_message.scss */
+    .message.message-emergency * {
+      color: #fff; }
+  /* line 38, ../scss/modules/_message.scss */
+  .message.message-service-update {
+    background-color: #ffbf47; }
 
 @media only screen and (max-width: 992px) {
-  /* line 36, ../scss/modules/_message.scss */
+  /* line 44, ../scss/modules/_message.scss */
   .content {
     margin-left: 20px;
     margin-top: 10px; } }
