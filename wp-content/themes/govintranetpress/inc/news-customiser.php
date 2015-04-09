@@ -104,8 +104,8 @@
         $wp_customize->add_section( 'emergency_message_section', array(
           'priority'        => 10,
           'capability'      => 'edit_theme_options',
-          'title'           => 'Emergency Message',
-          'description'     => 'Controls the emergency message',
+          'title'           => 'Notification message',
+          'description'     => 'Controls the emergency message banner',
           'panel'           => 'news_customisation',
         ) );
 
@@ -113,12 +113,12 @@
           'type'      => 'option',
           'priority'  => 10,
           'section'   => 'emergency_message_section',
-          'label'     => 'Emergency On/Off',
+          'label'     => 'Notification On/Off',
           'transport' => 'refresh',
         ) );
 
         $wp_customize->add_control( new WP_Customize_Control($wp_customize, 'emergency_toggle_control', array (
-          'label'     =>  'Emergency On/Off',
+          'label'     =>  'Notification On/Off',
           'section'   =>  'emergency_message_section',
           'settings'  =>  'emergency_toggle',
           'type'      =>  'checkbox'
@@ -128,12 +128,12 @@
           'type'      => 'option',
           'priority'  => 10,
           'section'   => 'emergency_message_section',
-          'label'     => 'Emergency Title',
+          'label'     => 'Notification Title',
           'transport' => 'refresh',
         ) );
 
         $wp_customize->add_control( new WP_Customize_Control($wp_customize, 'emergency_title_control', array (
-          'label'     =>  'Emergency Title',
+          'label'     =>  'Notification Title',
           'section'   =>  'emergency_message_section',
           'settings'  =>  'emergency_title',
           'type'      =>  'text'
@@ -143,12 +143,12 @@
           'type'      => 'option',
           'priority'  => 10,
           'section'   => 'emergency_message_section',
-          'label'     => 'Emergency Message',
+          'label'     => 'Notification Message',
           'transport' => 'refresh',
         ) );
 
         $wp_customize->add_control( new WP_Customize_Control($wp_customize, 'emergency_message_control', array (
-          'label'     =>  'Emergency Message',
+          'label'     =>  'Notification Message',
           'section'   =>  'emergency_message_section',
           'settings'  =>  'homepage_control_emergency_message',
           'type'      =>  'textarea'
@@ -158,15 +158,35 @@
           'type'      => 'option',
           'priority'  => 10,
           'section'   => 'emergency_message_section',
-          'label'     => 'Emergency Date',
+          'label'     => 'Notification Date',
           'transport' => 'refresh',
         ) );
 
         $wp_customize->add_control( new WP_Customize_Control($wp_customize, 'emergency_date_control', array (
-          'label'     =>  'Emergency Date',
+          'label'     =>  'Notification Date',
           'section'   =>  'emergency_message_section',
           'settings'  =>  'emergency_date',
           'type'      =>  'text'
+        )  )  );
+
+        $wp_customize->add_setting( 'emergency_type', array(
+          'type'      =>  'option',
+          'priority'  =>  10,
+          'section'   =>  'emergency_message_section',
+          'label'     =>  'Notification Type',
+          'transport' =>  'refresh',
+          'default'   =>  'emergency'
+        ) );
+
+        $wp_customize->add_control( new WP_Customize_Control($wp_customize, 'emergency_type_control', array (
+          'label'     =>  'Notification Type',
+          'section'   =>  'emergency_message_section',
+          'settings'  =>  'emergency_type',
+          'type'      =>  'radio',
+          'choices'   =>  array(
+            'emergency'       =>  __('Emergency'),
+            'service-update'  =>  __('Service update')
+          )
         )  )  );
 
       }
