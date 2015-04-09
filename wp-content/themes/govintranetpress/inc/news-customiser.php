@@ -113,7 +113,7 @@
           'type'      => 'option',
           'priority'  => 10,
           'section'   => 'emergency_message_section',
-          'label'     => 'Notification On/Off',
+          'label'     => 'Enable Notification',
           'transport' => 'refresh',
         ) );
 
