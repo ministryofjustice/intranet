@@ -1650,9 +1650,11 @@
 
       if(segments[1]) {
         keywords = segments[1];
-        keywords = decodeURIComponent(keywords);
+        if(keywords === '-') {
+          keywords = '';
+        }
+        keywords = this.urldecode(keywords);
         keywords = keywords.replace(/\+/g, ' ');
-        keywords = keywords.replace(/[^&a-zA-Z0-9\s']+/g, '');
 
         this.$keywordsInput.val(keywords);
       }
@@ -1710,9 +1712,13 @@
       var _this = this;
       var dataArray = [];
 
+      data.keywords = this.urlencode(data.keywords);
+
       $.each(data, function(key, value) {
         dataArray.push(value);
       });
+
+
 
       /* use the timeout for dev/debugging purposes */
       //**/window.setTimeout(function() {
@@ -1772,7 +1778,6 @@
 
     getSanitizedKeywords: function() {
       var keywords = this.$keywordsInput.val();
-      keywords = keywords.replace(/[^&a-zA-Z0-9\s']+/g, ' ');
       keywords = keywords.replace(/\s+/g, ' ');
       keywords = keywords.replace(/^\s+|\s+$/g, '');
 
@@ -1812,8 +1817,6 @@
       var keywords = this.getSanitizedKeywords();
       var segments = this.getSegmentsFromUrl();
       var page = segments[2] || 1;
-
-      keywords = keywords.replace(/\s+/g, '+');
 
       var base = {
         'type': '',
@@ -1885,7 +1888,7 @@
 
       //keywords
       keywords = keywords.replace(/\s/g, '+');
-      keywords = encodeURIComponent(keywords);
+      keywords = this.urlencode(keywords);
       urlParts.push(keywords || '-');
 
       //page number
@@ -1894,6 +1897,22 @@
       if(history.pushState) {
         history.pushState({}, "", urlParts.join('/')+'/');
       }
+    },
+
+    urlencode: function(string) {
+      string = encodeURIComponent(string);
+      string = string.replace(/%2F/g, '%252F');
+      string = string.replace(/%5C/g, '%255C');
+
+      return string;
+    },
+
+    urldecode: function(string) {
+      string = string.replace(/%252F/g, '%2F');
+      string = string.replace(/%255C/g, '%5C');
+      string = decodeURIComponent(string);
+
+      return string;
     }
   };
 }(jQuery));
