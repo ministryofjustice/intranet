@@ -2384,7 +2384,6 @@ form .form-row {
       line-height: 20px; }
       /* line 71, ../scss/content/guidance_and_support/_main.scss */
       .guidance-and-support .guidance-categories-list .children-list .child-item .child-title a {
-        display: block;
         font-weight: normal; }
 
 /* line 2, ../scss/content/guidance_and_support_content/_main.scss */
