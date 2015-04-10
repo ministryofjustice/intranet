@@ -88,7 +88,7 @@
         if(keywords === '-') {
           keywords = '';
         }
-        keywords = this.urldecode(keywords);
+        keywords = App.tools.urldecode(keywords);
         keywords = keywords.replace(/\+/g, ' ');
 
         this.$keywordsInput.val(keywords);
@@ -147,7 +147,7 @@
       var _this = this;
       var dataArray = [];
 
-      data.keywords = this.urlencode(data.keywords);
+      data.keywords = App.tools.urlencode(data.keywords);
 
       $.each(data, function(key, value) {
         dataArray.push(value);
@@ -323,7 +323,7 @@
 
       //keywords
       keywords = keywords.replace(/\s/g, '+');
-      keywords = this.urlencode(keywords);
+      keywords = App.tools.urlencode(keywords);
       urlParts.push(keywords || '-');
 
       //page number
@@ -332,22 +332,6 @@
       if(history.pushState) {
         history.pushState({}, "", urlParts.join('/')+'/');
       }
-    },
-
-    urlencode: function(string) {
-      string = encodeURIComponent(string);
-      string = string.replace(/%2F/g, '%252F');
-      string = string.replace(/%5C/g, '%255C');
-
-      return string;
-    },
-
-    urldecode: function(string) {
-      string = string.replace(/%252F/g, '%2F');
-      string = string.replace(/%255C/g, '%5C');
-      string = decodeURIComponent(string);
-
-      return string;
     }
   };
 }(jQuery));
