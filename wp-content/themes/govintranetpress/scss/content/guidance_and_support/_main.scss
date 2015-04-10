@@ -1,7 +1,6 @@
 .guidance-and-support {
   .search-form {
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin-top: 30px;
   }
 
   .guidance-categories-list {
@@ -12,6 +11,7 @@
       width: 33.3333%;
       margin-bottom: 20px;
       padding-top: 20px;
+      padding-right: 20px;
 
       .category-title {
         @extend %medium-heading;
@@ -35,6 +35,10 @@
       margin-top: 40px;
       padding-top: 40px;
       border-top: 3px solid $black;
+
+      .category-item {
+        margin-bottom: 0;
+      }
 
       .children-list {
         display: none;
@@ -62,9 +66,11 @@
 
         .child-title {
           margin: 0;
+          line-height: 20px;
 
           a {
             @extend %medium-copy;
+            display: block;
             font-weight: normal;
           }
         }
