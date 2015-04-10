@@ -60,6 +60,7 @@ class Page_guidance_and_support extends MVC_controller {
       'links_title' => $this->links_title,
       'has_q_links' => $this->has_q_links,
       'page_category' => $this->page_category,
+      'autoheadings' => $this->autoheadings,
       'children_data' => $this->get_children_data()
     );
   }
@@ -76,32 +77,32 @@ class Page_guidance_and_support extends MVC_controller {
 
     $link_meta_exists = true;
     $i=1;
+    $this->autoheadings = true;
 
     while ($link_meta_exists) {
-      $link_fields = array('link-text','url','qlink','firsttab','secondtab');
+      $link_fields = array('link-text','url','qlink','firsttab','secondtab','heading');
       if(metadata_exists( 'post', $this->post_ID, "_" . $ns . "-link-text" . $i )) {
         foreach($link_fields as $link_field) {
             $link_field_transformed = str_replace('-','_',$link_field);
             $$link_field_transformed = get_post_meta($this->post_ID, "_" . $ns . "-" . $link_field . $i,true);
         }
+        $new_link_array = array(
+          'linktext' => esc_attr($link_text),
+          'linkurl' => esc_attr($url),
+          'heading' => $heading=='on'?1:0
+        );
         if ($qlink=='on') {
-          $link_array->quick_links[] = array(
-            'linktext' => esc_attr($link_text),
-            'linkurl' => esc_attr($url)
-          );
+          $link_array->quick_links[] = $new_link_array;
           $this->has_q_links = true;
         }
         if ($firsttab=='on') {
-          $link_array->tabs[1][] = array(
-            'linktext' => esc_attr($link_text),
-            'linkurl' => esc_attr($url)
-          );
+          $link_array->tabs[1][] = $new_link_array;
         }
         if ($secondtab=='on') {
-          $link_array->tabs[2][] = array(
-            'linktext' => esc_attr($link_text),
-            'linkurl' => esc_attr($url)
-          );
+          $link_array->tabs[2][] = $new_link_array;
+        }
+        if ($heading=='on') {
+          $this->autoheadings = false;
         }
         $i++;
       } else {

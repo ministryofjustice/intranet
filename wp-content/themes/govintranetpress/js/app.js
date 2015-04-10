@@ -1579,6 +1579,54 @@
   };
 }(jQuery));
 
+/** Tabbed content
+ */
+(function($) {
+  "use strict";
+
+  var App = window.App;
+
+  App.PageFeedback = function() {
+    this.$link = $('.page-feedback-link');
+    if(!this.$link.length) { return; }
+    this.init();
+  };
+
+  App.PageFeedback.prototype = {
+    init: function() {
+      this.cacheEls();
+      this.bindEvents();
+    },
+
+    cacheEls: function() {
+    },
+
+    bindEvents: function() {
+      this.$link.click($.proxy(this.prepareEmail, this));
+    },
+
+    prepareEmail: function(e) {
+      var email = this.$link.attr('href');
+      var subject = 'Page feedback - ' + $('title').text();
+      var body = [];
+      var nl = '\n';
+
+      e.preventDefault();
+
+      body.push(new Array(71).join('-'));
+      body.push('This information will help us a lot with resolving the issue. Please do not delete.');
+      body.push('Page URL: ' + window.location.href);
+      body.push('User agent: ' + window.navigator.userAgent);
+      body.push('Screen resolution: ' + window.screen.availWidth + 'x' + window.screen.availHeight);
+      body.push(new Array(71).join('-'));
+
+      body = nl + nl + body.join(nl) + nl;
+
+      window.location.href = email + '?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
+    }
+  };
+}(jQuery));
+
 /** SearchResults
  */
 (function($) {
@@ -2098,5 +2146,6 @@ jQuery(function() {
   App.ins.departmentDropdown = new App.DepartmentDropdown();
   App.ins.feeds = new App.Feeds();
   App.ins.skipToContent = new App.SkipToContent();
+  App.ins.pageFeedback = new App.PageFeedback();
   App.ins.navigation = new App.Navigation();
 });
