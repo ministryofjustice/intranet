@@ -1,17 +1,3 @@
 .ie7 .header {
   z-index: 1;
-
-  #searchform {
-    .form-control {
-      width: expression((this.parentNode.clientWidth - parseInt(this.currentStyle['paddingLeft']) - parseInt(this.currentStyle['paddingRight']) - parseInt(this.currentStyle['borderLeftWidth']) - parseInt(this.currentStyle['borderRightWidth'])) + 'px');
-      padding-top: 15px;
-      height: auto;
-      padding-top: 8px;
-      padding-bottom: 7px;
-    }
-  }
-}
-
-.ie7 .ui-autocomplete {
-  z-index: 1;
 }
