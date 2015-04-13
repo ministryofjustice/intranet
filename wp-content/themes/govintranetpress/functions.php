@@ -1792,3 +1792,5 @@ function custom_fields_to_excerpts($content, $post, $query) {
     return $content;
 }
 add_filter('relevanssi_excerpt_content', 'custom_fields_to_excerpts', 10, 3);
+
+include(get_template_directory().'/helpers/moj_story.php');

@@ -13,17 +13,18 @@ class Page_news extends MVC_controller {
   }
 
   function main() {
-    get_header();
-    $this->view('shared/breadcrumbs');
-    $this->view('pages/news_landing/main', $this->get_data());
-    get_footer();
+    $this->view('layouts/default', $this->get_data());
   }
 
   function get_data() {
     $top_slug = $this->post->post_name;
 
     return array(
-      'top_slug' => htmlspecialchars($top_slug)
+      'page' => 'pages/news_landing/main',
+      'breadcrumbs' => true,
+      'page_data' => array(
+        'top_slug' => htmlspecialchars($top_slug)
+      )
     );
   }
 }
