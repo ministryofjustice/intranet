@@ -13,10 +13,22 @@ abstract class MVC_loader {
     //!!! TO BE IMPLEMENTED
   }
 
-  function view($path, $data = array()){
-    foreach($data as $key=>$value){
-      $$key = $value;
+  function view($path, $data = array(), $return_as_string = false) {
+    if(is_array($data)) {
+      foreach($data as $key=>$value){
+        $$key = $value;
+      }
     }
+
+    ob_start();
     include($this->views_dir.$path.'.php');
+    $html = ob_get_clean();
+    if($return_as_string) {
+      return $html;
+    }
+    else {
+      echo $html;
+      return null;
+    }
   }
 }
