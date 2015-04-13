@@ -422,12 +422,12 @@ h4, .ht-feature-news h3, #need-to-know .item-title, .guidance-and-support .guida
   line-height: 25px; }
 
 /* line 31, ../scss/global/_typography.scss */
-h3, .ht-feature-news > h3, .page-news .news-filtered-results-title .results-count, .page-search-results .page-title, .page-search-results .search-filtered-results-title .results-count {
+h3, .ht-feature-news > h3, .guidance-and-support-content .page-category, .page-news .news-filtered-results-title .results-count, .page-search-results .page-title, .page-search-results .search-filtered-results-title .results-count {
   font-size: 24px;
   line-height: 30px; }
 
 /* line 36, ../scss/global/_typography.scss */
-h2, .guidance-and-support-content .page-category {
+h2 {
   font-size: 27px;
   line-height: 30px; }
 
@@ -461,12 +461,12 @@ h1 {
 .main-content .content-info p, .main-content .editable table th,
 .main-content .editable table td, .breadcrumbs a,
 .breadcrumbs span, .beta-banner .beta-icon,
-.beta-banner .message, .footerwrapper .footer li, .header .skip-to-content-container a, .menu-list .menu-item .menu-item-link, .menu-list .child-item-link, .message .content, #menu-utilities li a, .content-filters .description, .content-filters label, .children-pages li a, .page-feedback-container .page-feedback-link, #need-to-know .excerpt, .my-moj .my-moj-top .department, .my-moj .menu-my-moj-quick-links-container ul a, .guidance-and-support .guidance-categories-list .children-list .child-item .child-title a, .guidance-and-support-content .right-hand-menu a, .page-search-results .search-item .excerpt {
+.beta-banner .message, .footerwrapper .footer li, .header .skip-to-content-container a, .message .content, #menu-utilities li a, .content-filters .description, .content-filters label, .children-pages li a, .page-feedback-container .page-feedback-link, #need-to-know .excerpt, .my-moj .my-moj-top .department, .my-moj .menu-my-moj-quick-links-container ul a, .guidance-and-support .guidance-categories-list .children-list .child-item .child-title a, .guidance-and-support-content .right-hand-menu a, .page-search-results .search-item .excerpt {
   font-size: 16px;
   line-height: 20px; }
 
 /* line 79, ../scss/global/_typography.scss */
-body, a[href$=".pdf"]:after, a[href$=".doc"]:after, a[href$=".xls"]:after, a[href$=".pps"]:after, .home.page #content .descriptive-menu-description, .message .timestamp, .content-nav li .page-info, .tabbed-filters .tabbed-filters-label, .tabbed-filters ul li .label, .ht-feature-news .excerpt, .ht-feature-news .news-date-wrapper, #need-to-know .news-date-wrapper, #need-to-know .page-list li a, .my-moj .apps-list .app-link {
+body, a[href$=".pdf"]:after, a[href$=".doc"]:after, a[href$=".xls"]:after, a[href$=".pps"]:after, .menu-list .menu-item .menu-item-link, .menu-list .child-item-link, .home.page #content .descriptive-menu-description, .message .timestamp, .content-nav li .page-info, .tabbed-filters .tabbed-filters-label, .tabbed-filters ul li .label, .ht-feature-news .excerpt, .ht-feature-news .news-date-wrapper, #need-to-know .news-date-wrapper, #need-to-know .page-list li a, .my-moj .apps-list .app-link {
   font-size: 14px;
   line-height: 20px; }
 
@@ -1398,7 +1398,7 @@ form .form-row {
             padding-right: 0; } }
 /* line 1, ../scss/modules/_navigation.scss */
 .menu-list {
-  margin: 20px 0 3px; }
+  margin: 20px 30px 3px 0; }
   /* line 4, ../scss/modules/_navigation.scss */
   .menu-list *:focus {
     background-color: transparent; }
@@ -1426,7 +1426,7 @@ form .form-row {
     .menu-list .menu-item .menu-item-link {
       display: block;
       margin-top: 5px;
-      padding: 5px 10px 4px;
+      padding: 5px 20px 4px 10px;
       border: 1px solid #bfc1c3;
       background-color: #f8f8f8;
       font-weight: bold; }
@@ -1490,11 +1490,17 @@ form .form-row {
     /* again, using the id selector only to overpower another irresponsible rule defined elsewhere */
     margin-bottom: 0; }
   /* line 30, ../scss/modules/_message.scss */
-  .message.message-warning {
-    background-color: #ffc10e; }
+  .message.message-emergency {
+    background-color: #df3034; }
+    /* line 33, ../scss/modules/_message.scss */
+    .message.message-emergency * {
+      color: #fff; }
+  /* line 38, ../scss/modules/_message.scss */
+  .message.message-service-update {
+    background-color: #ffbf47; }
 
 @media only screen and (max-width: 992px) {
-  /* line 36, ../scss/modules/_message.scss */
+  /* line 44, ../scss/modules/_message.scss */
   .content {
     margin-left: 20px;
     margin-top: 10px; } }
@@ -2351,19 +2357,19 @@ form .form-row {
 
 /* line 2, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .search-form {
-  margin-top: 20px;
-  margin-bottom: 20px; }
+  margin-top: 30px; }
 /* line 2, ../scss/global/_mixins.scss */
 .guidance-and-support .guidance-categories-list:after {
   content: "";
   display: table;
   clear: both; }
-/* line 10, ../scss/content/guidance_and_support/_main.scss */
+/* line 9, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .guidance-categories-list .category-item {
   float: left;
   width: 33.3333%;
   margin-bottom: 20px;
-  padding-top: 20px; }
+  padding-top: 20px;
+  padding-right: 20px; }
   /* line 16, ../scss/content/guidance_and_support/_main.scss */
   .guidance-and-support .guidance-categories-list .category-item .category-title {
     margin: 0; }
@@ -2382,28 +2388,32 @@ form .form-row {
   padding-top: 40px;
   border-top: 3px solid #0b0c0c; }
   /* line 39, ../scss/content/guidance_and_support/_main.scss */
+  .guidance-and-support .guidance-categories-list.small .category-item {
+    margin-bottom: 0; }
+  /* line 43, ../scss/content/guidance_and_support/_main.scss */
   .guidance-and-support .guidance-categories-list.small .children-list {
     display: none; }
-/* line 44, ../scss/content/guidance_and_support/_main.scss */
+/* line 48, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .guidance-categories-list .children-list {
   padding-left: 10px; }
-  /* line 47, ../scss/content/guidance_and_support/_main.scss */
+  /* line 51, ../scss/content/guidance_and_support/_main.scss */
   .guidance-and-support .guidance-categories-list .children-list .child-item {
     margin-top: 5px;
     list-style-type: disc; }
-    /* line 51, ../scss/content/guidance_and_support/_main.scss */
+    /* line 55, ../scss/content/guidance_and_support/_main.scss */
     .guidance-and-support .guidance-categories-list .children-list .child-item.see-all {
       margin-top: 15px; }
-      /* line 54, ../scss/content/guidance_and_support/_main.scss */
+      /* line 58, ../scss/content/guidance_and_support/_main.scss */
       .guidance-and-support .guidance-categories-list .children-list .child-item.see-all .child-title a {
         font-weight: bold; }
-        /* line 57, ../scss/content/guidance_and_support/_main.scss */
+        /* line 61, ../scss/content/guidance_and_support/_main.scss */
         .guidance-and-support .guidance-categories-list .children-list .child-item.see-all .child-title a:after {
           content: " \00bb"; }
-    /* line 63, ../scss/content/guidance_and_support/_main.scss */
+    /* line 67, ../scss/content/guidance_and_support/_main.scss */
     .guidance-and-support .guidance-categories-list .children-list .child-item .child-title {
-      margin: 0; }
-      /* line 66, ../scss/content/guidance_and_support/_main.scss */
+      margin: 0;
+      line-height: 20px; }
+      /* line 71, ../scss/content/guidance_and_support/_main.scss */
       .guidance-and-support .guidance-categories-list .children-list .child-item .child-title a {
         font-weight: normal; }
 
@@ -2416,7 +2426,7 @@ form .form-row {
   border-bottom: none; }
 /* line 11, ../scss/content/guidance_and_support_content/_main.scss */
 .guidance-and-support-content .page-category {
-  margin-top: 27px;
+  margin-top: 16px;
   margin-bottom: 0px;
   font-weight: normal;
   color: #6f777b; }

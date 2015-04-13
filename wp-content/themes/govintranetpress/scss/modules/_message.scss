@@ -27,8 +27,16 @@
     margin-bottom: 0;
   }
 
-  &.message-warning {
-    background-color: #ffc10e;
+  &.message-emergency {
+    background-color: $mellow-red;
+
+    * {
+      color: $white;
+    }
+  }
+
+  &.message-service-update {
+    background-color: $yellow;
   }
 }
 
