@@ -204,13 +204,17 @@
 .ie7 .ui-autocomplete {
   z-index: 1; }
 
-/* line 2, ../scss/ie/_navigation.scss */
-.ie7 .menu-list .menu-item {
-  padding-top: 1px; }
-  /* line 5, ../scss/ie/_navigation.scss */
-  .ie7 .menu-list .menu-item .menu-item-link {
-    padding-right: 10px;
-    zoom: 1; }
+/* line 1, ../scss/ie/_navigation.scss */
+.ie7 .menu-list {
+  margin-right: 20px; }
+  /* line 4, ../scss/ie/_navigation.scss */
+  .ie7 .menu-list .menu-item {
+    padding-top: 1px;
+    margin-bottom: 5px; }
+    /* line 8, ../scss/ie/_navigation.scss */
+    .ie7 .menu-list .menu-item .menu-item-link {
+      padding-right: 10px;
+      zoom: 1; }
 
 /* line 2, ../scss/ie/_search_results.scss */
 .ie7 .page-search-results .main-search-field {
