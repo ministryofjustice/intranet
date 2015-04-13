@@ -72,3 +72,13 @@
     }
   }
 }
+
+@include mobile-mq() {
+  .guidance-and-support {
+    .guidance-categories-list {
+      .category-item {
+        width: 100%;
+      }
+    }
+  }
+}
