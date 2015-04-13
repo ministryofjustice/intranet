@@ -25,13 +25,14 @@ class Page_home extends MVC_controller {
     $date = get_option("emergency_date");
     $message = get_option("homepage_control_emergency_message");
     $message = apply_filters('the_content', $message, true);
+    $type = get_option("emergency_type");
 
     return array(
       'visible'     => $visible,
       'title'       => $title,
       'date'        => $date,
       'message'     => $message,
-      'type'        => strtolower(get_option("homepage_control_emergency_message_style"))
+      'type'        => $type
     );
   }
 
