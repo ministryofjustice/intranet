@@ -1,4 +1,18 @@
 .ie7 .guidance-and-support {
+  .guidance-categories-list {
+    .category-item {
+      padding-right: 0;
+    }
+
+    &.small {
+      border-top: none;
+
+      .category-item {
+        padding-top: 0;
+      }
+    }
+  }
+
   .children-list {
     margin-left: 5px;
   }
