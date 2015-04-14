@@ -422,12 +422,12 @@ h4, .ht-feature-news h3, #need-to-know .item-title, .guidance-and-support .guida
   line-height: 25px; }
 
 /* line 31, ../scss/global/_typography.scss */
-h3, .ht-feature-news > h3, .page-news .news-filtered-results-title .results-count, .page-search-results .page-title, .page-search-results .search-filtered-results-title .results-count {
+h3, .ht-feature-news > h3, .guidance-and-support-content .page-category, .page-news .news-filtered-results-title .results-count, .page-search-results .page-title, .page-search-results .search-filtered-results-title .results-count {
   font-size: 24px;
   line-height: 30px; }
 
 /* line 36, ../scss/global/_typography.scss */
-h2, .guidance-and-support-content .page-category {
+h2 {
   font-size: 27px;
   line-height: 30px; }
 
@@ -461,12 +461,12 @@ h1 {
 .main-content .content-info p, .main-content .editable table th,
 .main-content .editable table td, .breadcrumbs a,
 .breadcrumbs span, .beta-banner .beta-icon,
-.beta-banner .message, .footerwrapper .footer li, .header .skip-to-content-container a, .menu-list .menu-item .menu-item-link, .menu-list .child-item-link, .message .content, #menu-utilities li a, .content-filters .description, .content-filters label, .children-pages li a, .page-feedback-container .page-feedback-link, #need-to-know .excerpt, .my-moj .my-moj-top .department, .my-moj .menu-my-moj-quick-links-container ul a, .guidance-and-support .guidance-categories-list .children-list .child-item .child-title a, .guidance-and-support-content .right-hand-menu a, .page-search-results .search-item .excerpt {
+.beta-banner .message, .footerwrapper .footer li, .header .skip-to-content-container a, .message .content, #menu-utilities li a, .content-filters .description, .content-filters label, .children-pages li a, .page-feedback-container .page-feedback-link, #need-to-know .excerpt, .my-moj .my-moj-top .department, .my-moj .menu-my-moj-quick-links-container ul a, .guidance-and-support .guidance-categories-list .children-list .child-item .child-title a, .guidance-and-support-content .right-hand-menu a, .page-search-results .search-item .excerpt {
   font-size: 16px;
   line-height: 20px; }
 
 /* line 79, ../scss/global/_typography.scss */
-body, .home.page #content .descriptive-menu-description, .message .timestamp, .content-nav li .page-info, .tabbed-filters .tabbed-filters-label, .tabbed-filters ul li .label, .ht-feature-news .excerpt, .ht-feature-news .news-date-wrapper, #need-to-know .news-date-wrapper, #need-to-know .page-list li a, .my-moj .apps-list .app-link {
+body, a[href$=".pdf"]:after, a[href$=".doc"]:after, a[href$=".xls"]:after, a[href$=".pps"]:after, .menu-list .menu-item .menu-item-link, .menu-list .child-item-link, .home.page #content .descriptive-menu-description, .message .timestamp, .content-nav li .page-info, .tabbed-filters .tabbed-filters-label, .tabbed-filters ul li .label, .ht-feature-news .excerpt, .ht-feature-news .news-date-wrapper, #need-to-know .news-date-wrapper, #need-to-know .page-list li a, .my-moj .apps-list .app-link {
   font-size: 14px;
   line-height: 20px; }
 
@@ -488,46 +488,55 @@ textarea {
     outline: 3px solid #ffbf47; }
 
 /* line 1, ../scss/global/_base.scss */
+a[href$=".pdf"]:after, a[href$=".doc"]:after, a[href$=".xls"]:after, a[href$=".pps"]:after {
+  display: inline-block !important;
+  background: none !important;
+  width: auto !important;
+  height: auto !important;
+  margin-left: 4px !important;
+  color: #6f777b; }
+
+/* line 11, ../scss/global/_base.scss */
 template {
   display: none; }
 
-/* line 5, ../scss/global/_base.scss */
+/* line 15, ../scss/global/_base.scss */
 h1 {
   border-bottom: 1px solid #bfc1c3; }
 
-/* line 14, ../scss/global/_base.scss */
+/* line 24, ../scss/global/_base.scss */
 h3 {
   margin: 24px 0; }
 
-/* line 31, ../scss/global/_base.scss */
+/* line 41, ../scss/global/_base.scss */
 ul {
   padding-left: 0;
   margin-bottom: 0;
   margin-left: 0; }
 
-/* line 37, ../scss/global/_base.scss */
+/* line 47, ../scss/global/_base.scss */
 li {
   list-style-type: none; }
 
-/* line 41, ../scss/global/_base.scss */
+/* line 51, ../scss/global/_base.scss */
 a {
   color: #005ea5; }
-  /* line 44, ../scss/global/_base.scss */
+  /* line 54, ../scss/global/_base.scss */
   a:active {
     color: #2e8aca; }
-  /* line 48, ../scss/global/_base.scss */
+  /* line 58, ../scss/global/_base.scss */
   a:visited {
     color: #005ea5; }
-  /* line 52, ../scss/global/_base.scss */
+  /* line 62, ../scss/global/_base.scss */
   a:hover {
     color: #2e8aca; }
-  /* line 56, ../scss/global/_base.scss */
+  /* line 66, ../scss/global/_base.scss */
   a {
     text-decoration: none; }
-  /* line 60, ../scss/global/_base.scss */
+  /* line 70, ../scss/global/_base.scss */
   a:hover, a:active {
     text-decoration: underline; }
-  /* line 66, ../scss/global/_base.scss */
+  /* line 76, ../scss/global/_base.scss */
   a[rel="external"]:after {
     display: inline-block;
     width: 12px;
@@ -538,14 +547,26 @@ a {
     background-repeat: no-repeat;
     margin-left: 6px;
     content: ""; }
-  /* line 78, ../scss/global/_base.scss */
-  a[rel="external"][href*="://moj-wp-prod.s3.amazonaws.com/"]:after {
+  /* line 90, ../scss/global/_base.scss */
+  a[rel="external"][href*="://moj-wp-prod.s3.amazonaws.com/"]:after, a[rel="external"][href*="://intranet.justice.gsi.gov.uk/"]:after {
     display: none; }
+  /* line 96, ../scss/global/_base.scss */
+  a[href$=".pdf"]:after {
+    content: " (PDF)"; }
+  /* line 101, ../scss/global/_base.scss */
+  a[href$=".doc"]:after {
+    content: " (DOC)"; }
+  /* line 106, ../scss/global/_base.scss */
+  a[href$=".xls"]:after {
+    content: " (XLS)"; }
+  /* line 111, ../scss/global/_base.scss */
+  a[href$=".pps"]:after {
+    content: " (PPS)"; }
 
-/* line 84, ../scss/global/_base.scss */
+/* line 117, ../scss/global/_base.scss */
 p {
   margin: 0; }
-  /* line 87, ../scss/global/_base.scss */
+  /* line 120, ../scss/global/_base.scss */
   p + p {
     margin-top: 25px; }
 
@@ -658,67 +679,71 @@ p {
   padding-left: 5px;
   list-style-type: disc;
   list-style-image: url("../images/bullet.gif"); }
-  /* line 48, ../scss/global/_editable.scss */
-  .main-content .editable ul li + li {
-    margin-top: 8px; }
-/* line 53, ../scss/global/_editable.scss */
+/* line 51, ../scss/global/_editable.scss */
+.main-content .editable ul li + li,
+.main-content .editable ol li + li {
+  margin-top: 8px; }
+/* line 56, ../scss/global/_editable.scss */
+.main-content .editable ol li {
+  padding-left: 10px; }
+/* line 60, ../scss/global/_editable.scss */
 .main-content .editable a {
   text-decoration: underline; }
-/* line 57, ../scss/global/_editable.scss */
+/* line 64, ../scss/global/_editable.scss */
 .main-content .editable ol {
   padding-left: 20px; }
-  /* line 60, ../scss/global/_editable.scss */
+  /* line 67, ../scss/global/_editable.scss */
   .main-content .editable ol li {
     list-style-type: decimal; }
-/* line 65, ../scss/global/_editable.scss */
+/* line 72, ../scss/global/_editable.scss */
 .main-content .editable blockquote {
   margin-left: 0; }
-  /* line 68, ../scss/global/_editable.scss */
+  /* line 75, ../scss/global/_editable.scss */
   .main-content .editable blockquote p {
     padding-left: 30px; }
-    /* line 71, ../scss/global/_editable.scss */
+    /* line 78, ../scss/global/_editable.scss */
     .main-content .editable blockquote p::before {
       clear: both;
       content: "“";
       float: left;
       margin-left: -15px; }
-/* line 80, ../scss/global/_editable.scss */
+/* line 87, ../scss/global/_editable.scss */
 .main-content .editable table {
   width: 100%; }
-  /* line 83, ../scss/global/_editable.scss */
+  /* line 90, ../scss/global/_editable.scss */
   .main-content .editable table th,
   .main-content .editable table td {
     padding: 12px 20px 9px 0;
     border-bottom: 1px solid #bfc1c3;
     text-align: left; }
-    /* line 90, ../scss/global/_editable.scss */
+    /* line 97, ../scss/global/_editable.scss */
     .main-content .editable table th.left,
     .main-content .editable table td.left {
       text-align: left; }
-    /* line 94, ../scss/global/_editable.scss */
+    /* line 101, ../scss/global/_editable.scss */
     .main-content .editable table th.center,
     .main-content .editable table td.center {
       text-align: center; }
-    /* line 98, ../scss/global/_editable.scss */
+    /* line 105, ../scss/global/_editable.scss */
     .main-content .editable table th.right,
     .main-content .editable table td.right {
       text-align: right; }
-/* line 105, ../scss/global/_editable.scss */
+/* line 112, ../scss/global/_editable.scss */
 .main-content .editable .address {
   border-left: 1px solid #bfc1c3;
   padding-left: 15px;
   padding: 7px 0 3px 15px; }
-/* line 116, ../scss/global/_editable.scss */
+/* line 123, ../scss/global/_editable.scss */
 .main-content .editable .info-notice {
   padding: 20px 0 16px;
   border-left: 10px solid #bfc1c3; }
-/* line 121, ../scss/global/_editable.scss */
+/* line 128, ../scss/global/_editable.scss */
 .main-content .editable .help-notice {
   position: relative;
   padding-left: 50px;
   padding-top: 12px;
   padding-bottom: 8px; }
-  /* line 128, ../scss/global/_editable.scss */
+  /* line 135, ../scss/global/_editable.scss */
   .main-content .editable .help-notice:before {
     content: "";
     position: absolute;
@@ -729,22 +754,22 @@ p {
     height: 35px;
     margin-top: -17px;
     background: url("../images/icon-important.png") no-repeat; }
-/* line 141, ../scss/global/_editable.scss */
+/* line 148, ../scss/global/_editable.scss */
 .main-content .editable .example {
   border-left: 10px solid #dee0e2; }
-/* line 146, ../scss/global/_editable.scss */
+/* line 153, ../scss/global/_editable.scss */
 .main-content .editable .info-notice,
 .main-content .editable .example {
   padding-left: 15px; }
-/* line 156, ../scss/global/_editable.scss */
+/* line 163, ../scss/global/_editable.scss */
 .main-content .editable ol.steps {
   padding-left: 0; }
-  /* line 160, ../scss/global/_editable.scss */
+  /* line 167, ../scss/global/_editable.scss */
   .main-content .editable ol.steps li {
     list-style-type: none;
     counter-increment: step-counter;
     padding: 15px 0; }
-    /* line 165, ../scss/global/_editable.scss */
+    /* line 172, ../scss/global/_editable.scss */
     .main-content .editable ol.steps li::before {
       display: inline-block;
       width: 24px;
@@ -1373,7 +1398,7 @@ form .form-row {
             padding-right: 0; } }
 /* line 1, ../scss/modules/_navigation.scss */
 .menu-list {
-  margin: 20px 0 3px; }
+  margin: 20px 30px 3px 0; }
   /* line 4, ../scss/modules/_navigation.scss */
   .menu-list *:focus {
     background-color: transparent; }
@@ -1401,7 +1426,7 @@ form .form-row {
     .menu-list .menu-item .menu-item-link {
       display: block;
       margin-top: 5px;
-      padding: 5px 10px 4px;
+      padding: 5px 20px 4px 10px;
       border: 1px solid #bfc1c3;
       background-color: #f8f8f8;
       font-weight: bold; }
@@ -1465,11 +1490,17 @@ form .form-row {
     /* again, using the id selector only to overpower another irresponsible rule defined elsewhere */
     margin-bottom: 0; }
   /* line 30, ../scss/modules/_message.scss */
-  .message.message-warning {
-    background-color: #ffc10e; }
+  .message.message-emergency {
+    background-color: #df3034; }
+    /* line 33, ../scss/modules/_message.scss */
+    .message.message-emergency * {
+      color: #fff; }
+  /* line 38, ../scss/modules/_message.scss */
+  .message.message-service-update {
+    background-color: #ffbf47; }
 
 @media only screen and (max-width: 992px) {
-  /* line 36, ../scss/modules/_message.scss */
+  /* line 44, ../scss/modules/_message.scss */
   .content {
     margin-left: 20px;
     margin-top: 10px; } }
@@ -2326,19 +2357,19 @@ form .form-row {
 
 /* line 2, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .search-form {
-  margin-top: 20px;
-  margin-bottom: 20px; }
+  margin-top: 30px; }
 /* line 2, ../scss/global/_mixins.scss */
 .guidance-and-support .guidance-categories-list:after {
   content: "";
   display: table;
   clear: both; }
-/* line 10, ../scss/content/guidance_and_support/_main.scss */
+/* line 9, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .guidance-categories-list .category-item {
   float: left;
   width: 33.3333%;
   margin-bottom: 20px;
-  padding-top: 20px; }
+  padding-top: 20px;
+  padding-right: 20px; }
   /* line 16, ../scss/content/guidance_and_support/_main.scss */
   .guidance-and-support .guidance-categories-list .category-item .category-title {
     margin: 0; }
@@ -2357,28 +2388,32 @@ form .form-row {
   padding-top: 40px;
   border-top: 3px solid #0b0c0c; }
   /* line 39, ../scss/content/guidance_and_support/_main.scss */
+  .guidance-and-support .guidance-categories-list.small .category-item {
+    margin-bottom: 0; }
+  /* line 43, ../scss/content/guidance_and_support/_main.scss */
   .guidance-and-support .guidance-categories-list.small .children-list {
     display: none; }
-/* line 44, ../scss/content/guidance_and_support/_main.scss */
+/* line 48, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .guidance-categories-list .children-list {
   padding-left: 10px; }
-  /* line 47, ../scss/content/guidance_and_support/_main.scss */
+  /* line 51, ../scss/content/guidance_and_support/_main.scss */
   .guidance-and-support .guidance-categories-list .children-list .child-item {
     margin-top: 5px;
     list-style-type: disc; }
-    /* line 51, ../scss/content/guidance_and_support/_main.scss */
+    /* line 55, ../scss/content/guidance_and_support/_main.scss */
     .guidance-and-support .guidance-categories-list .children-list .child-item.see-all {
       margin-top: 15px; }
-      /* line 54, ../scss/content/guidance_and_support/_main.scss */
+      /* line 58, ../scss/content/guidance_and_support/_main.scss */
       .guidance-and-support .guidance-categories-list .children-list .child-item.see-all .child-title a {
         font-weight: bold; }
-        /* line 57, ../scss/content/guidance_and_support/_main.scss */
+        /* line 61, ../scss/content/guidance_and_support/_main.scss */
         .guidance-and-support .guidance-categories-list .children-list .child-item.see-all .child-title a:after {
           content: " \00bb"; }
-    /* line 63, ../scss/content/guidance_and_support/_main.scss */
+    /* line 67, ../scss/content/guidance_and_support/_main.scss */
     .guidance-and-support .guidance-categories-list .children-list .child-item .child-title {
-      margin: 0; }
-      /* line 66, ../scss/content/guidance_and_support/_main.scss */
+      margin: 0;
+      line-height: 20px; }
+      /* line 71, ../scss/content/guidance_and_support/_main.scss */
       .guidance-and-support .guidance-categories-list .children-list .child-item .child-title a {
         font-weight: normal; }
 
@@ -2391,7 +2426,7 @@ form .form-row {
   border-bottom: none; }
 /* line 11, ../scss/content/guidance_and_support_content/_main.scss */
 .guidance-and-support-content .page-category {
-  margin-top: 27px;
+  margin-top: 16px;
   margin-bottom: 0px;
   font-weight: normal;
   color: #6f777b; }
