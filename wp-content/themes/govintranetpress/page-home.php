@@ -42,7 +42,7 @@ class Page_home extends MVC_controller {
         array(
           'name' => 'legal-aid-agency',
           'label' => 'Legal Aid Agency',
-          'url' => ''
+          'url' => 'http://intranet.justice.gsi.gov.uk/laa/index.htm'
         ),
         array(
           'name' => 'hm-courts-and-tribunals-service',
@@ -96,7 +96,7 @@ class Page_home extends MVC_controller {
         array(
           'title' => 'Jobs',
           'icon' => 'jobs',
-          'url' => 'http://hmps.i-grasp.gse.gov.uk/fe/tpl_moj02.asp?newms=hm',
+          'url' => 'http://justice-intranet.dsd.io/jobs/',
           'external' => true
         ),
         array(
@@ -124,7 +124,7 @@ class Page_home extends MVC_controller {
           'external' => true
         ),
         array(
-          'title' => 'Pension',
+          'title' => 'Pensions',
           'icon' => 'pension',
           'url' => 'http://www.civilservicepensionscheme.org.uk/',
           'external' => true
