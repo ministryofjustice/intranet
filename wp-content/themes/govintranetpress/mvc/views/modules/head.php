@@ -69,4 +69,4 @@ header('X-Frame-Options: SAMEORIGIN');
   }
   ?>
 
-<?php wp_head(); ?>
+

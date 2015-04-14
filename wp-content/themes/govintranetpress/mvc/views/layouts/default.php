@@ -8,6 +8,7 @@
 <!--[if (gte IE 9)|!(IE)]><!--><html <?php language_attributes(); ?>><!--<![endif]-->
 <head data-application-url="<?=site_url()?>">
   <?php $this->view('modules/head') ?>
+  <?=$this->wp_head?>
 </head>
 <body>
   <?php $this->view('modules/header'); ?>

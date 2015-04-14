@@ -1794,3 +1794,5 @@ function custom_fields_to_excerpts($content, $post, $query) {
 add_filter('relevanssi_excerpt_content', 'custom_fields_to_excerpts', 10, 3);
 
 include(get_template_directory().'/helpers/moj_story.php');
+
+add_action('wp_head', 'moj_story_init', 0);
