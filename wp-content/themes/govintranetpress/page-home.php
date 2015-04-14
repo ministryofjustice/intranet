@@ -124,7 +124,7 @@ class Page_home extends MVC_controller {
           'external' => true
         ),
         array(
-          'title' => 'Pension',
+          'title' => 'Pensions',
           'icon' => 'pension',
           'url' => 'http://www.civilservicepensionscheme.org.uk/',
           'external' => true
