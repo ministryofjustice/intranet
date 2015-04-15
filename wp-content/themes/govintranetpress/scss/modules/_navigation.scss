@@ -44,8 +44,8 @@
       }
 
       .menu-item-link {
-        border: 1px solid $govuk-blue;
-        background-color: $govuk-blue;
+        border: 1px solid $link-hover-colour;
+        background-color: $link-hover-colour;
         color: $white;
         font-weight: bold;
       }
@@ -57,7 +57,7 @@
   }
 
   .child-item {
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid $grey-4;
   }
 
   .child-item:last-of-type {
@@ -72,7 +72,6 @@
 
   .child-item.highlight .child-item-link {
     font-weight: bold;
-    pointer-events: none;
   }
 
   .collapsed .children-list {
