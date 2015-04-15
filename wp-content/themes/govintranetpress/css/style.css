@@ -2527,6 +2527,11 @@ form .form-row {
   .page-news .news-item .excerpt {
     margin-top: 10px; }
 
+@media (min-width: 0) and (max-width: 767px) {
+  /* line 84, ../scss/content/news_landing/_main.scss */
+  .page-news .news-item .thumbnail-container {
+    float: none;
+    margin-bottom: 10px; } }
 /* line 2, ../scss/content/news_single/_main.scss */
 .news-single h1 {
   margin-bottom: 25px;

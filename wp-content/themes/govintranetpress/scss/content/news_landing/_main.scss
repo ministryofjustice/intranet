@@ -77,3 +77,14 @@
     }
   }
 }
+
+@include mobile-mq() {
+  .page-news {
+    .news-item {
+      .thumbnail-container {
+        float: none;
+        margin-bottom: 10px;
+      }
+    }
+  }
+}
