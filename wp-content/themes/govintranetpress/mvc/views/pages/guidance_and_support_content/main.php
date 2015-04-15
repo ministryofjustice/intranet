@@ -5,9 +5,6 @@
      data-is-imported="<?=$is_imported?>"
      data-page-id="<?=$id?>"
      data-children-data="<?=$children_data?>">
-  <div class="grid content-head">
-
-  </div>
 
   <div class="grid content-container">
     <div class="col-lg-3 col-md-4 col-sm-12">

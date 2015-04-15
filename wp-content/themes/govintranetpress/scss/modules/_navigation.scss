@@ -1,5 +1,5 @@
 .menu-list {
-  margin: 20px 0 3px;
+  margin: 20px 30px 3px 0;
 
   *:focus {
     background-color: transparent;
@@ -29,10 +29,10 @@
     }
 
     .menu-item-link {
-      @extend %medium-copy;
+      @extend %small-copy;
       display: block;
       margin-top: 5px;
-      padding: 5px 10px 4px;
+      padding: 5px 20px 4px 10px;
       border: 1px solid $grey-2;
       background-color: $grey-4;
       font-weight: bold;
@@ -65,7 +65,7 @@
   }
 
   .child-item-link {
-    @extend %medium-copy;
+    @extend %small-copy;
     display: block;
     padding: 5px 10px 4px;
   }

@@ -117,17 +117,6 @@
 /* line 1, ../scss/ie/_header.scss */
 .ie7 .header {
   z-index: 1; }
-  /* line 5, ../scss/ie/_header.scss */
-  .ie7 .header #searchform .form-control {
-    width: expression((this.parentNode.clientWidth - parseInt(this.currentStyle['paddingLeft']) - parseInt(this.currentStyle['paddingRight']) - parseInt(this.currentStyle['borderLeftWidth']) - parseInt(this.currentStyle['borderRightWidth'])) + 'px');
-    padding-top: 15px;
-    height: auto;
-    padding-top: 8px;
-    padding-bottom: 7px; }
-
-/* line 15, ../scss/ie/_header.scss */
-.ie7 .ui-autocomplete {
-  z-index: 1; }
 
 /* line 2, ../scss/ie/_main_nav.scss */
 .ie7 #mainnav #primarynav .mega-sub-menu {
@@ -197,6 +186,36 @@
 .ie8 .feeds .regular {
   display: none; }
 
+/* line 3, ../scss/ie/_search_form.scss */
+.ie7 .search-form .keywords-field {
+  width: expression((this.parentNode.clientWidth - parseInt(this.currentStyle['paddingLeft']) - parseInt(this.currentStyle['paddingRight']) - parseInt(this.currentStyle['borderLeftWidth']) - parseInt(this.currentStyle['borderRightWidth'])) + 'px');
+  height: 16px;
+  padding-top: 10px;
+  padding-bottom: 10px; }
+/* line 10, ../scss/ie/_search_form.scss */
+.ie7 .search-form .search-btn {
+  right: -1px;
+  top: 4px;
+  bottom: 4px;
+  border-bottom: none;
+  text-transform: capitalize;
+  /* hide the text hack... Noone knows why this works in IE7 :) */ }
+/* line 19, ../scss/ie/_search_form.scss */
+.ie7 .ui-autocomplete {
+  z-index: 1; }
+
+/* line 1, ../scss/ie/_navigation.scss */
+.ie7 .menu-list {
+  margin-right: 20px; }
+  /* line 4, ../scss/ie/_navigation.scss */
+  .ie7 .menu-list .menu-item {
+    padding-top: 1px;
+    margin-bottom: 5px; }
+    /* line 8, ../scss/ie/_navigation.scss */
+    .ie7 .menu-list .menu-item .menu-item-link {
+      padding-right: 10px;
+      zoom: 1; }
+
 /* line 2, ../scss/ie/_search_results.scss */
 .ie7 .page-search-results .main-search-field {
   height: 18px; }
@@ -215,6 +234,23 @@
 /* line 6, ../scss/ie/_content_nav.scss */
 .ie7 .content-nav li.next a {
   background-image: url("../images/chevron_right.png"); }
+
+/* line 3, ../scss/ie/_guidance_and_support.scss */
+.ie7 .guidance-and-support .guidance-categories-list .category-item {
+  padding-right: 0; }
+/* line 7, ../scss/ie/_guidance_and_support.scss */
+.ie7 .guidance-and-support .guidance-categories-list.small {
+  border-top: none; }
+  /* line 10, ../scss/ie/_guidance_and_support.scss */
+  .ie7 .guidance-and-support .guidance-categories-list.small .category-item {
+    padding-top: 0; }
+/* line 16, ../scss/ie/_guidance_and_support.scss */
+.ie7 .guidance-and-support .children-list {
+  margin-left: 5px; }
+
+/* line 2, ../scss/ie/_guidance_and_support_content.scss */
+.ie7 .guidance-and-support-content .tab-content {
+  clear: both; }
 
 /* line 2, ../scss/ie/_ht_feature_news.scss */
 .ie7 .ht-feature-news .news-medium {
