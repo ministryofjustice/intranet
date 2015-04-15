@@ -57,7 +57,7 @@
   }
 
   .child-item {
-    border-bottom: 1px solid $grey-4;
+    border-bottom: 1px solid $grey-2;
   }
 
   .child-item:last-of-type {
@@ -71,7 +71,8 @@
   }
 
   .child-item.highlight .child-item-link {
-    font-weight: bold;
+    color: $grey-1;
+    pointer-events: none;
   }
 
   .collapsed .children-list {
