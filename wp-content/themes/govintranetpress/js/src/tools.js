@@ -86,6 +86,22 @@
       return function(url, callback) {
         return new Inject(url, callback);
       };
-    }())
+    }()),
+
+    urlencode: function(string) {
+      string = encodeURIComponent(string);
+      string = string.replace(/%2F/g, '%252F');
+      string = string.replace(/%5C/g, '%255C');
+
+      return string;
+    },
+
+    urldecode: function(string) {
+      string = string.replace(/%252F/g, '%2F');
+      string = string.replace(/%255C/g, '%5C');
+      string = decodeURIComponent(string);
+
+      return string;
+    }
   };
 }(jQuery));

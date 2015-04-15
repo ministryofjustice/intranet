@@ -1,7 +1,7 @@
 <?php if (!defined('ABSPATH')) die(); ?>
 
 <li class="app-item">
-  <a href="<?=$url?>" <?=$external ? 'rel="external" target="_blank"' : ''?> class="app-link">
+  <a href="<?=$url?>" <?=$external ? 'rel="external"' : ''?> class="app-link">
     <span class="app-icon">
       <span class="app-icon-inner <?=$icon?>-icon"></span>
     </span>
