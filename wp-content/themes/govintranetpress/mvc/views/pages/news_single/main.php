@@ -31,13 +31,13 @@
   </div>
 
   <div class="grid">
-    <div class="col-lg-4">
+    <div class="col-lg-4 col-md-4 col-sm-12">
       <div class="story-image">
         <img src="<?=$thumbnail[0]?>" class="img img-responsive" alt="<?=$title?>" />
       </div>
     </div>
 
-    <div class="col-lg-8">
+    <div class="col-lg-8 col-md-4 col-sm-12">
       <div class="content editable">
         <?=$content?>
       </div>

@@ -41,8 +41,10 @@
 }
 
 @media only screen and (max-width: 992px) {
-  .content {
-    margin-left: 20px;
-    margin-top: 10px;
+  .message {
+    .content {
+      margin-left: 20px;
+      margin-top: 10px;
+    }
   }
 }

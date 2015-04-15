@@ -1499,8 +1499,8 @@ form .form-row {
     background-color: #ffbf47; }
 
 @media only screen and (max-width: 992px) {
-  /* line 44, ../scss/modules/_message.scss */
-  .content {
+  /* line 45, ../scss/modules/_message.scss */
+  .message .content {
     margin-left: 20px;
     margin-top: 10px; } }
 /* line 1, ../scss/modules/_utility_bar.scss */
