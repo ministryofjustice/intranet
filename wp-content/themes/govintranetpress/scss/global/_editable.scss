@@ -44,10 +44,17 @@
     padding-left: 5px;
     list-style-type: disc;
     list-style-image: url('../images/bullet.gif');
+  }
 
-    + li {
+  ul,
+  ol {
+    li + li {
       margin-top: 8px;
     }
+  }
+
+  ol li {
+    padding-left: 10px;
   }
 
   a {

@@ -113,7 +113,23 @@
       return function(url, callback) {
         return new Inject(url, callback);
       };
-    }())
+    }()),
+
+    urlencode: function(string) {
+      string = encodeURIComponent(string);
+      string = string.replace(/%2F/g, '%252F');
+      string = string.replace(/%5C/g, '%255C');
+
+      return string;
+    },
+
+    urldecode: function(string) {
+      string = string.replace(/%252F/g, '%2F');
+      string = string.replace(/%255C/g, '%5C');
+      string = decodeURIComponent(string);
+
+      return string;
+    }
   };
 }(jQuery));
 
@@ -1568,6 +1584,54 @@
   };
 }(jQuery));
 
+/** Tabbed content
+ */
+(function($) {
+  "use strict";
+
+  var App = window.App;
+
+  App.PageFeedback = function() {
+    this.$link = $('.page-feedback-link');
+    if(!this.$link.length) { return; }
+    this.init();
+  };
+
+  App.PageFeedback.prototype = {
+    init: function() {
+      this.cacheEls();
+      this.bindEvents();
+    },
+
+    cacheEls: function() {
+    },
+
+    bindEvents: function() {
+      this.$link.click($.proxy(this.prepareEmail, this));
+    },
+
+    prepareEmail: function(e) {
+      var email = this.$link.attr('href');
+      var subject = 'Page feedback - ' + $('title').text();
+      var body = [];
+      var nl = '\n';
+
+      e.preventDefault();
+
+      body.push(new Array(71).join('-'));
+      body.push('This information will help us a lot with resolving the issue. Please do not delete.');
+      body.push('Page URL: ' + window.location.href);
+      body.push('User agent: ' + window.navigator.userAgent);
+      body.push('Screen resolution: ' + window.screen.availWidth + 'x' + window.screen.availHeight);
+      body.push(new Array(71).join('-'));
+
+      body = nl + nl + body.join(nl) + nl;
+
+      window.location.href = email + '?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
+    }
+  };
+}(jQuery));
+
 /** SearchResults
  */
 (function($) {
@@ -1655,9 +1719,11 @@
 
       if(segments[1]) {
         keywords = segments[1];
-        keywords = decodeURIComponent(keywords);
+        if(keywords === '-') {
+          keywords = '';
+        }
+        keywords = App.tools.urldecode(keywords);
         keywords = keywords.replace(/\+/g, ' ');
-        keywords = keywords.replace(/[^&a-zA-Z0-9\s']+/g, '');
 
         this.$keywordsInput.val(keywords);
       }
@@ -1715,9 +1781,13 @@
       var _this = this;
       var dataArray = [];
 
+      data.keywords = App.tools.urlencode(data.keywords);
+
       $.each(data, function(key, value) {
         dataArray.push(value);
       });
+
+
 
       /* use the timeout for dev/debugging purposes */
       //**/window.setTimeout(function() {
@@ -1777,7 +1847,6 @@
 
     getSanitizedKeywords: function() {
       var keywords = this.$keywordsInput.val();
-      keywords = keywords.replace(/[^&a-zA-Z0-9\s']+/g, ' ');
       keywords = keywords.replace(/\s+/g, ' ');
       keywords = keywords.replace(/^\s+|\s+$/g, '');
 
@@ -1817,8 +1886,6 @@
       var keywords = this.getSanitizedKeywords();
       var segments = this.getSegmentsFromUrl();
       var page = segments[2] || 1;
-
-      keywords = keywords.replace(/\s+/g, '+');
 
       var base = {
         'type': '',
@@ -1890,7 +1957,7 @@
 
       //keywords
       keywords = keywords.replace(/\s/g, '+');
-      keywords = encodeURIComponent(keywords);
+      keywords = App.tools.urlencode(keywords);
       urlParts.push(keywords || '-');
 
       //page number
@@ -2084,5 +2151,6 @@ jQuery(function() {
   App.ins.departmentDropdown = new App.DepartmentDropdown();
   App.ins.feeds = new App.Feeds();
   App.ins.skipToContent = new App.SkipToContent();
+  App.ins.pageFeedback = new App.PageFeedback();
   App.ins.navigation = new App.Navigation();
 });

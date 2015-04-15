@@ -25,13 +25,14 @@ class Page_home extends MVC_controller {
     $date = get_option("emergency_date");
     $message = get_option("homepage_control_emergency_message");
     $message = apply_filters('the_content', $message, true);
+    $type = get_option("emergency_type");
 
     return array(
       'visible'     => $visible,
       'title'       => $title,
       'date'        => $date,
       'message'     => $message,
-      'type'        => strtolower(get_option("homepage_control_emergency_message_style"))
+      'type'        => $type
     );
   }
 
@@ -41,7 +42,7 @@ class Page_home extends MVC_controller {
         array(
           'name' => 'legal-aid-agency',
           'label' => 'Legal Aid Agency',
-          'url' => ''
+          'url' => 'http://intranet.justice.gsi.gov.uk/laa/index.htm'
         ),
         array(
           'name' => 'hm-courts-and-tribunals-service',
@@ -95,7 +96,7 @@ class Page_home extends MVC_controller {
         array(
           'title' => 'Jobs',
           'icon' => 'jobs',
-          'url' => 'http://hmps.i-grasp.gse.gov.uk/fe/tpl_moj02.asp?newms=hm',
+          'url' => 'http://justice-intranet.dsd.io/jobs/',
           'external' => true
         ),
         array(
@@ -123,7 +124,7 @@ class Page_home extends MVC_controller {
           'external' => true
         ),
         array(
-          'title' => 'Pension',
+          'title' => 'Pensions',
           'icon' => 'pension',
           'url' => 'http://www.civilservicepensionscheme.org.uk/',
           'external' => true

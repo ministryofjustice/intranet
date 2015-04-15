@@ -1,3 +1,5 @@
+/*jshint multistr: true */
+
 jQuery(function($) {
   maxLinks = $('.quick_links-container').attr('data-max-links');
   // Add links
@@ -14,13 +16,11 @@ jQuery(function($) {
       // Note: I added tabindex='-1' to Delete links to remove them from taborder to prevent accidental triggering
       $("\
         <tr class='" + namespace + "-line " + namespace + "-line[" +  linkNumber + "] draggable'>\
-          <td>\
+          <td class='center'>\
             <span class='dashicons dashicons-sort'></span>\
           </td>\
           <td>\
             <input class='" + namespace + "-link-text " + namespace + "-link-text" + linkNumber + " regular-text' id='" + namespace + "-link-text" + linkNumber + "' name='" + namespace + "-link-text" + linkNumber + "' type='text' placeholder='Link text'>\
-          </td>\
-          <td>\
             <input class='" + namespace + "-url " + namespace + "-url" + linkNumber + " regular-text' id='" + namespace + "-url" + linkNumber + "' name='" + namespace + "-url" + linkNumber + "' type='text' placeholder='Link URL'>\
           </td>\
           <td class='center'>\
@@ -31,6 +31,9 @@ jQuery(function($) {
           </td>\
           <td class='center'>\
             <input class='" + namespace + "-secondtab " + namespace + "-secondtab" + linkNumber + "' id='" + namespace + "-secondtab" + linkNumber + "' name='" + namespace + "-secondtab" + linkNumber + "' type='checkbox'>\
+          </td>\
+          <td class='center'>\
+            <input class='" + namespace + "-heading " + namespace + "-heading" + linkNumber + "' id='" + namespace + "-heading" + linkNumber + "' name='" + namespace + "-heading" + linkNumber + "' type='checkbox'>\
           </td>\
           <td>\
             <a href='#' class='hide-if-no-js delete-link' tabindex='-1'>Delete</a>\
@@ -78,6 +81,17 @@ jQuery(function($) {
     e.preventDefault();
   });
 
+  // Disable URL field if header selected
+  $('.quick_links-container').on('click','.quick_links-heading',function(e){
+    container = $(this).closest('tr');
+    isHeading = $(this).attr('checked')=='checked'?true:false;
+    if(isHeading) {
+      $(container).find('.quick_links-url').attr('disabled','disabled');
+    } else {
+      $(container).find('.quick_links-url').attr('disabled',null);
+    }
+  });
+
   function reorderLinks(sourceElement, targetElement, namespace) {
     totalLinks = $('.'+namespace+'-line').size();
     if(targetElement<0) {
@@ -87,8 +101,8 @@ jQuery(function($) {
         $.each($(currentRow).find('input'),function(j,inputElement){
           inputIdArray = $(inputElement).attr('id').match(/(.*\D)(\d+)$/);
           inputIdText = inputIdArray[1];
-          $('input.' + inputIdText + i).val($('input.' + inputIdText + (i+1)).val())
-          if($('input.' + inputIdText + (i+1)).prop('checked')==true) {
+          $('input.' + inputIdText + i).val($('input.' + inputIdText + (i+1)).val());
+          if($('input.' + inputIdText + (i+1)).prop('checked')===true) {
             $('input.' + inputIdText + i).prop('checked',true);
           } else {
             $('input.' + inputIdText + i).prop('checked',false);
