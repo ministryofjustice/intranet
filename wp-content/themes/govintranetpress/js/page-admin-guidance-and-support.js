@@ -66,18 +66,16 @@ jQuery(function($) {
 
   // Remove links
   $('.quick_links-container').on('click','.delete-link',function(e){
-    container = $(this).closest('div');
     // Get namespace
+    container = $(this).closest('div');
     namespace = container.attr('class').replace(/-container$/,'');
-    clickedLink = Number($(this).closest('tr').attr('class').match(/\[(.+)\]/)[1]);
-    totalLinks = $('.'+namespace+'-line').size();
+
+    // Remove the link
+    $(this).closest('tr').remove();
+
     // Cascade changes through remaining links
-    reorderLinks(clickedLink,-1,namespace);
-    // Remove link
-    $(this).closest('tr').fadeOut(0, function() {
-      $('tr.quick_links-line').last().remove();
-      $(this).show();
-    });
+    reorderLinks(namespace);
+
     e.preventDefault();
   });
 
@@ -92,38 +90,25 @@ jQuery(function($) {
     }
   });
 
-  function reorderLinks(sourceElement, targetElement, namespace) {
+  function reorderLinks(namespace) {
     totalLinks = $('.'+namespace+'-line').size();
-    if(targetElement<0) {
-      tempRow = $('.quick_links-line')[sourceElement-1];
-      for(var i=(sourceElement); i<=(totalLinks); i++) {
-        currentRow = $('.quick_links-line')[i-1];
-        $.each($(currentRow).find('input'),function(j,inputElement){
-          inputIdArray = $(inputElement).attr('id').match(/(.*\D)(\d+)$/);
-          inputIdText = inputIdArray[1];
-          $('input.' + inputIdText + i).val($('input.' + inputIdText + (i+1)).val());
-          if($('input.' + inputIdText + (i+1)).prop('checked')===true) {
-            $('input.' + inputIdText + i).prop('checked',true);
-          } else {
-            $('input.' + inputIdText + i).prop('checked',false);
-          }
-        });
-      }
-    } else {
-      for (var i=1; i<=totalLinks; i++) {
-        currentRow = $('.quick_links-line')[i-1];
-        $.each($(currentRow).find('input'),function(j,inputElement){
-          inputIdArray = $(inputElement).attr('id').match(/(.*\D)(\d+)$/);
-          // Change class
-          $(inputElement).removeClass(inputIdArray[1] + inputIdArray[2]);
-          $(inputElement).addClass(inputIdArray[1] + i);
-          // Change name
-          $(inputElement).attr('name',inputIdArray[1] + i);
-          // Change ID
-          $(inputElement).attr('id',inputIdArray[1] + i);
-        });
-      }
+    for (var i=1; i<=totalLinks; i++) {
+      currentRow = $('.quick_links-line')[i-1];
+      $.each($(currentRow).find('input'),function(j,inputElement){
+        inputIdArray = $(inputElement).attr('id').match(/(.*\D)(\d+)$/);
+        // Change class
+        $(inputElement).removeClass(inputIdArray[1] + inputIdArray[2]);
+        $(inputElement).addClass(inputIdArray[1] + i);
+        // Change name
+        $(inputElement).attr('name',inputIdArray[1] + i);
+        // Change ID
+        $(inputElement).attr('id',inputIdArray[1] + i);
+      });
     }
+    $('.quick_links-line').each(function(index,el) {
+      lineId = $(el).attr('class').match(/quick_links-line\[(\d+)\]/)[1];
+      $(el).removeClass('quick_links-line[' + lineId + ']').addClass('quick_links-line[' + (index+1) + ']');
+    });
   }
 
   // Drag and drop
@@ -140,12 +125,11 @@ jQuery(function($) {
     placeholder:'.dashicons.dashicons-sort',
     revert: true,
     update: function(event, ui) {
-      container = $(this).closest('div');
       // Get namespace
+      container = $(this).closest('div');
       namespace = container.attr('class').replace(/-container$/,'');
-      draggedItem = ui.item[0];
-      itemNo = $(draggedItem).attr('class').match(/quick_links-line\[(\d+)\]/)[1];
-      reorderLinks(itemNo,ui.item.index(),namespace);
+
+      reorderLinks(namespace);
     }
   }).disableSelection();
 
