@@ -1794,7 +1794,12 @@ function custom_relevanssi_excerpts($content, $post, $query) {
   $content .= " " . $custom_field;
   // Remove phrases from excerpt
   $unwanted_phrases = array(
-  	"Tab 1"
+  	"Tab 1",
+  	"Tab 2",
+  	"Tab 3",
+  	"Tab 4",
+  	"Tab 5",
+  	"Tab 6"
   	);
   $content = str_replace($unwanted_phrases, "", $content);
   return $content;
