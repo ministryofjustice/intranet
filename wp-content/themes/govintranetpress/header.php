@@ -48,6 +48,8 @@ if ($_SESSION['full_site']) {
   }
 }
 */
+// Ensure full site session var is set - remove after MVC code/refactoring
+$_SESSION['full_site'] = 1;
 // prevent clickjacking, advised by Context security review
 header('X-Frame-Options: SAMEORIGIN');
 
