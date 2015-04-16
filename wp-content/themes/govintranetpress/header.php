@@ -17,7 +17,7 @@ class Page_header extends MVC_controller {
     );
   }
 }
-
+/*
 // Are we in MOJ Story? Need to run early because of redirect
 session_start();
 $moj_slug = 'moj-story';
@@ -47,7 +47,7 @@ if ($_SESSION['full_site']) {
     die;
   }
 }
-
+*/
 // prevent clickjacking, advised by Context security review
 header('X-Frame-Options: SAMEORIGIN');
 
