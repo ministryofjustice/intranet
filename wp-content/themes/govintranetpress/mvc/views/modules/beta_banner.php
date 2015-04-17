@@ -1,6 +1,6 @@
 <?php if (!defined('ABSPATH')) die();
 
-$feedback_url = $_SESSION['full_site'] ? 'https://www.surveymonkey.com/r/9LLLVH7' : 'https://www.surveymonkey.com/r/HQImicro';
+$feedback_url = 'https://www.surveymonkey.com/r/VDVMLB7';
 
 ?>
 
@@ -12,7 +12,8 @@ $feedback_url = $_SESSION['full_site'] ? 'https://www.surveymonkey.com/r/9LLLVH7
         This is a trial service - your
         <a href="<?=$feedback_url?>" target="_blank" rel="external">feedback</a>
         will help us to improve it.
-        This site is not optimised for IE7, please use Firefox.
+        This site is not optimised for IE7,
+        please use <a href="/about-firefox">Firefox</a> instead.
       </p>
     </div>
   </div>

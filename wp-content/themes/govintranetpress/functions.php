@@ -1785,15 +1785,27 @@ function create_search_content($meta_key,$content,$post_id) {
 }
 
 /**
- * Adds custom fields to Relevanssi
+ * Filters Relevanssi excerpts
  */
-function custom_fields_to_excerpts($content, $post, $query) {
-    $custom_field = get_post_meta($post->ID, '_tabs_search', true);
-    $content .= " " . $custom_field;
-    $custom_field = get_post_meta($post->ID, '_quicklinks_search', true);
-    $content .= " " . $custom_field;
-    return $content;
+function custom_relevanssi_excerpts($content, $post, $query) {
+	// Adds custom fields to Relevanssi
+  $custom_field = get_post_meta($post->ID, '_tabs_search', true);
+  $content .= " " . $custom_field;
+  $custom_field = get_post_meta($post->ID, '_quicklinks_search', true);
+  $content .= " " . $custom_field;
+  // Remove phrases from excerpt
+  $unwanted_phrases = array(
+  	"Tab 1",
+  	"Tab 2",
+  	"Tab 3",
+  	"Tab 4",
+  	"Tab 5",
+  	"Tab 6"
+  	);
+  $content = str_replace($unwanted_phrases, "", $content);
+  return $content;
 }
+
 add_filter('relevanssi_excerpt_content', 'custom_fields_to_excerpts', 10, 3);
 
 add_action('wp_head', 'moj_story_init', 0);
