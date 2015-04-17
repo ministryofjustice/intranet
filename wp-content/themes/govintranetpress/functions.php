@@ -1761,4 +1761,18 @@ function custom_relevanssi_excerpts($content, $post, $query) {
   return $content;
 }
 
-add_filter('relevanssi_excerpt_content', 'custom_fields_to_excerpts', 10, 3);
+add_filter('relevanssi_excerpt_content', 'custom_relevanssi_excerpts', 10, 3);
+
+// Elevate exact title matches to top of search results
+add_filter('relevanssi_match', 'exact_title_matches');
+
+function exact_title_matches($match) {
+	global $wp_query;
+
+	// Get search query and convert to lower case
+	$search_query = urldecode(strtolower($wp_query->query['param3']));
+	if ($search_query == strtolower(get_the_title($match->doc))) {
+ 		$match->weight = $match->weight * 10;
+	}
+	return $match;
+}
