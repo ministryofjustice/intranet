@@ -61,7 +61,6 @@ require_once('inc/tidy-up.php');
 
 include('helpers/debug.php');
 include('helpers/cachebuster.php');
-include('helpers/moj_story.php');
 
 
 if ( ! function_exists( 'twentyten_setup' ) ):
@@ -1807,5 +1806,3 @@ function custom_relevanssi_excerpts($content, $post, $query) {
 }
 
 add_filter('relevanssi_excerpt_content', 'custom_fields_to_excerpts', 10, 3);
-
-add_action('wp_head', 'moj_story_init', 0);
