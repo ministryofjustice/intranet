@@ -14,7 +14,7 @@
     </div>
     <div class="col-lg-9 col-md-8 col-sm-12">
       <?php if($is_imported): ?>
-        <? $this->view('shared/imported_banner'); ?>
+        <? $this->view('modules/imported_banner'); ?>
       <?php endif ?>
 
       <div class="">

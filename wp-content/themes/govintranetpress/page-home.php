@@ -6,16 +6,17 @@
  */
 class Page_home extends MVC_controller {
   function main() {
-    get_header();
     if(have_posts()) the_post();
-    $this->view('pages/homepage/main', $this->get_data());
-    get_footer();
+    $this->view('layouts/default', $this->get_data());
   }
 
   private function get_data() {
     return array(
-      'emergency_message' => $this->get_emergency_message(),
-      'my_moj' => $this->get_my_moj()
+      'page' => 'pages/homepage/main',
+      'page_data' => array(
+        'emergency_message' => $this->get_emergency_message(),
+        'my_moj' => $this->get_my_moj()
+      )
     );
   }
 
