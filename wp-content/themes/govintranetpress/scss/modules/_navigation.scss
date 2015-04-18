@@ -1,5 +1,5 @@
 .menu-list {
-  margin: 20px 30px 3px 0;
+  margin: 20px 20px 3px 0;
 
   *:focus {
     background-color: transparent;
@@ -18,18 +18,23 @@
       right: 0;
       top: 0;
       bottom: 0;
-      transform: rotate(180deg);
-      color: $black;
-      font-size: 16px;
       background: none;
       border: none;
+      border-left: 1px solid $grey-2;
+
+      .icon {
+        display: block;
+        transform: rotate(180deg);
+        color: $black;
+        font-size: 16px;
+      }
 
       &:hover {
         background-color: rgba(0, 0, 0, .1);
       }
     }
 
-    &.collapsed .dropdown-button {
+    &.collapsed .dropdown-button .icon {
       transform: rotate(0deg);
     }
 
@@ -41,7 +46,7 @@
       @extend %small-copy;
       display: block;
       margin-top: 5px;
-      padding: 5px 20px 4px 10px;
+      padding: 5px 30px 4px 10px;
       border: 1px solid $grey-2;
       background-color: $grey-4;
       font-weight: bold;
@@ -57,6 +62,14 @@
         background-color: $link-hover-colour;
         color: $white;
         font-weight: bold;
+      }
+
+      .dropdown-button {
+        border-left: 1px solid $white;
+
+        .icon {
+          color: $white;
+        }
       }
     }
   }

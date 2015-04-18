@@ -73,7 +73,9 @@
     <li class="menu-item">
       <div class="menu-item-container">
         <a href="" class="menu-item-link"></a>
-        <button href="" class="dropdown-button">&#9662;</button>
+        <button href="" class="dropdown-button">
+          <span class="icon">&#9662;</span>
+        </button>
       </div>
       <ul class="children-list">
       </ul>
