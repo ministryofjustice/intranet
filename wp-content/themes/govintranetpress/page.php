@@ -7,10 +7,7 @@ class Page_default extends MVC_controller {
   function main() {
     while(have_posts()) {
       the_post();
-      get_header();
-      $this->view('shared/breadcrumbs');
-      $this->view('pages/default/main', $this->get_data());
-      get_footer();
+      $this->view('layouts/default', $this->get_data());
     }
   }
 
@@ -20,8 +17,11 @@ class Page_default extends MVC_controller {
     $content = ob_get_clean();
 
     return array(
-      'title' => get_the_title(),
-      'content' => $content
+      'page' => 'pages/default/main',
+      'page_data' => array(
+        'title' => get_the_title(),
+        'content' => $content
+      )
     );
   }
 }

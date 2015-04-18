@@ -5,15 +5,17 @@ class Page_guidance_and_support extends MVC_controller {
   function main(){
     while(have_posts()){
       the_post();
-      get_header();
-      $this->view('pages/guidance_and_support/main', $this->get_data());
-      get_footer();
+
+      $this->view('layouts/default', $this->get_data());
     }
   }
 
   private function get_data() {
     return array(
-      'title' => get_the_title()
+      'page' => 'pages/guidance_and_support/main',
+      'page_data' => array(
+        'title' => get_the_title()
+      )
     );
   }
 }

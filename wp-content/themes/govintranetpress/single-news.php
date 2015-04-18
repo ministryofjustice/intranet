@@ -11,10 +11,7 @@ class Page_single_news extends MVC_controller {
   function main(){
     while(have_posts()){
       the_post();
-      get_header();
-      $this->view('shared/breadcrumbs');
-      $this->view('pages/news_single/main', $this->get_data());
-      get_footer();
+      $this->view('layouts/default', $this->get_data());
     }
   }
 
@@ -31,19 +28,22 @@ class Page_single_news extends MVC_controller {
     $next_news = get_next_post();
 
     return array(
-      'id' => $this_id,
-      'thumbnail' => wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), 'newshead'),
-      'thumbnail_caption' => get_post_thumbnail_caption(),
-      'author' => get_the_author(),
-      'title' => get_the_title(),
-      'excerpt' => get_the_excerpt(),
-      'content' => $content,
-      'raw_date' => $article_date,
-      'human_date' => date("j F Y", strtotime($article_date)),
-      'prev_news_exists' => is_object($prev_news),
-      'next_news_exists' => is_object($next_news),
-      'prev_news_url' => get_post_permalink($prev_news),
-      'next_news_url' => get_post_permalink($next_news)
+      'page' => 'pages/news_single/main',
+      'page_data' => array(
+        'id' => $this_id,
+        'thumbnail' => wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), 'newshead'),
+        'thumbnail_caption' => get_post_thumbnail_caption(),
+        'author' => get_the_author(),
+        'title' => get_the_title(),
+        'excerpt' => get_the_excerpt(),
+        'content' => $content,
+        'raw_date' => $article_date,
+        'human_date' => date("j F Y", strtotime($article_date)),
+        'prev_news_exists' => is_object($prev_news),
+        'next_news_exists' => is_object($next_news),
+        'prev_news_url' => get_post_permalink($prev_news),
+        'next_news_url' => get_post_permalink($next_news)
+      )
     );
   }
 }

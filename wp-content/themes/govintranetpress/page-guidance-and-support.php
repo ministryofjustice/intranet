@@ -9,14 +9,10 @@ class Page_guidance_and_support extends MVC_controller {
   function main(){
     while(have_posts()){
       the_post();
-      get_header();
 
       $this->post_ID = get_the_ID();
 
-      //$this->view('shared/breadcrumbs');
-      $this->view('pages/guidance_and_support_content/main', $this->get_data());
-
-      get_footer();
+      $this->view('layouts/default', $this->get_data());
     }
   }
 
@@ -39,29 +35,32 @@ class Page_guidance_and_support extends MVC_controller {
     $content = ob_get_clean();
 
     return array(
-      'id' => $this->post_ID,
-      // 'author' => get_the_author(),
-      'author' => "Intranet content team",
-      // 'author_email' => get_the_author_meta('user_email'),
-      'author_email' => "newintranet@digital.justice.gov.uk",
-      'title' => get_the_title(),
-      'excerpt' => $post->post_excerpt, // Not using get_the_excerpt() to prevent auto-generated excerpts being displayed
-      'thumbnail' => wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), 'gandshead'),
-      'thumbnail_caption' => get_post_thumbnail_caption(),
-      'content' => $content,
-      'raw_date' => $article_date,
-      'human_date' => date("j F Y", strtotime($article_date)),
-      'redirect_url' => get_post_meta($this->post_ID, 'redirect_url', true),
-      'redirect_enabled' => get_post_meta($this->post_ID, 'redirect_enabled', true),
-      'is_imported' => get_post_meta($this->post_ID, 'is_imported', true),
-      'link_array' => $this->get_link_array(),
-      'tab_array' => $this->get_tab_array(),
-      'tab_count' => $this->tab_count,
-      'links_title' => $this->links_title,
-      'has_q_links' => $this->has_q_links,
-      'page_category' => $this->page_category,
-      'autoheadings' => $this->autoheadings,
-      'children_data' => $this->get_children_data()
+      'page' => 'pages/guidance_and_support_content/main',
+      'page_data' => array(
+        'id' => $this->post_ID,
+        // 'author' => get_the_author(),
+        'author' => "Intranet content team",
+        // 'author_email' => get_the_author_meta('user_email'),
+        'author_email' => "newintranet@digital.justice.gov.uk",
+        'title' => get_the_title(),
+        'excerpt' => $post->post_excerpt, // Not using get_the_excerpt() to prevent auto-generated excerpts being displayed
+        'thumbnail' => wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), 'gandshead'),
+        'thumbnail_caption' => get_post_thumbnail_caption(),
+        'content' => $content,
+        'raw_date' => $article_date,
+        'human_date' => date("j F Y", strtotime($article_date)),
+        'redirect_url' => get_post_meta($this->post_ID, 'redirect_url', true),
+        'redirect_enabled' => get_post_meta($this->post_ID, 'redirect_enabled', true),
+        'is_imported' => get_post_meta($this->post_ID, 'is_imported', true),
+        'link_array' => $this->get_link_array(),
+        'tab_array' => $this->get_tab_array(),
+        'tab_count' => $this->tab_count,
+        'links_title' => $this->links_title,
+        'has_q_links' => $this->has_q_links,
+        'page_category' => $this->page_category,
+        'autoheadings' => $this->autoheadings,
+        'children_data' => $this->get_children_data()
+      )
     );
   }
 
