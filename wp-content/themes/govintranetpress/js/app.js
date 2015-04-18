@@ -1175,10 +1175,12 @@
       var $childrenList = $menuItem.find('.children-list');
 
       $menuItem.attr('data-id', data.id);
-
       $menuItem.find('.menu-item-link')
-        .click($.proxy(_this.toggle, _this))
+        .attr('href', data.url)
         .html(data.title);
+
+      $menuItem.find('.dropdown-button')
+        .click($.proxy(_this.toggle, _this));
 
       $.each(data.items, function(index, data) {
         _this.buildChildItem(data).appendTo($childrenList);

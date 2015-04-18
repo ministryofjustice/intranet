@@ -71,7 +71,10 @@
 
   <div class="template-partial" data-name="menu-item">
     <li class="menu-item">
-      <a href="" class="menu-item-link"></a>
+      <div class="menu-item-container">
+        <a href="" class="menu-item-link"></a>
+        <button href="" class="dropdown-button">&#9662;</button>
+      </div>
       <ul class="children-list">
       </ul>
     </li>

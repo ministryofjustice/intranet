@@ -5,26 +5,35 @@
     background-color: transparent;
   }
 
+  .menu-item-container {
+    position: relative;
+  }
+
   .menu-item {
     position: relative;
 
-    &:after {
+    .dropdown-button {
       position: absolute;
       display: block;
-      right: 5px;
-      top: 2px;
+      right: 0;
+      top: 0;
+      bottom: 0;
       transform: rotate(180deg);
       color: $black;
-      font-size: 18px;
-      content: "\25be";
-      pointer-events: none;
+      font-size: 16px;
+      background: none;
+      border: none;
+
+      &:hover {
+        background-color: rgba(0, 0, 0, .1);
+      }
     }
 
-    &.collapsed:after {
+    &.collapsed .dropdown-button {
       transform: rotate(0deg);
     }
 
-    &.no-children:after {
+    &.no-children .dropdown-button {
       display: none;
     }
 
