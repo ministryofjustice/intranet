@@ -1,4 +1,8 @@
-<?php if (!defined('ABSPATH')) die(); ?>
+<?php if (!defined('ABSPATH')) die();
+
+header('X-Frame-Options: SAMEORIGIN');
+
+?>
 
 <!DOCTYPE html>
 
