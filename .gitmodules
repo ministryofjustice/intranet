@@ -25,6 +25,3 @@
 [submodule "wp-content/plugins/dw-guidance-index"]
 	path = wp-content/plugins/dw-guidance-index
 	url = git@github.com:ministryofjustice/dw-guidance-index.git
-[submodule "wp-content/plugins/dw-main-menu"]
-	path = wp-content/plugins/dw-main-menu
-	url = git@github.com:ministryofjustice/dw-main-menu.git
