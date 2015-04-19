@@ -96,7 +96,7 @@
 
       $item.toggleClass('collapsed');
 
-      this.$menu.find('.menu-item').each(function() {
+      this.$menu.find('.menu-item').not('.current').each(function() {
         var $this = $(this);
         if($this.get(0) !== $item.get(0)) {
           $this.addClass('collapsed');
