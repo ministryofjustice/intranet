@@ -10,7 +10,7 @@
     <div class="col-lg-8 col-md-8 col-sm-10">
       <div class="site-logo">
         <a href="<?=WP_SITEURL?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home">
-          <img src="<?=get_stylesheet_directory_uri()?>/images/moj_logo.png" alt="" />
+          <img src="<?=get_template_directory_uri()?>/images/moj_logo.png" alt="" />
         </a>
       </div>
     </div>
@@ -34,13 +34,11 @@
   </div>
 
   <div class="grid header-bottom">
-    <div id="mainnav" class="col-lg-8 col-md-8 col-sm-12">
-      <nav id="primarynav" role="navigation">
-        <?php if(!$is_moj_story) { ?>
-          <?php wp_nav_menu( array( 'container_class' => 'menu-header', 'theme_location' => 'primary' ) ); ?>
-        <?php } else { ?>
-          <?php wp_nav_menu( array( 'container_class' => 'menu-header', 'theme_location' => 'moj_story' ) ); ?>
-        <?php } ?>
+    <div class="col-lg-8 col-md-8 col-sm-12">
+      <nav class="primary-nav" role="navigation">
+        <?php if(is_active_sidebar('main-menu')): ?>
+          <?php dynamic_sidebar('main-menu'); ?>
+        <?php endif ?>
       </nav>
     </div>
   </div>
