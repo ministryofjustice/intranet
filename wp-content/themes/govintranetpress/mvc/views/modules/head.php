@@ -1,35 +1,26 @@
-<?php if (!defined('ABSPATH')) die();
+<?php if (!defined('ABSPATH')) die(); ?>
 
-header('X-Frame-Options: SAMEORIGIN');
+<title><?php wp_title('', true, 'right'); ?></title>
 
-?>
-
-<title><?php wp_title( '', true, 'right' ); ?></title>
-
-<meta charset="<?php bloginfo( 'charset' ); ?>" />
+<meta charset="<?php bloginfo('charset'); ?>" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<link rel="stylesheet" type="text/css" media="all" href="<?=get_template_directory_uri()?>/css/style.css" />
+<link rel="stylesheet" type="text/css" media="all" href="<?=get_template_directory_uri()?>/css/fonts.css" />
+<link rel="stylesheet" type="text/css" media="print" href="<?=get_template_directory_uri()?>/css/print.css" />
+
 <!--[if lte IE 9]>
-  <link rel="stylesheet" href="<?php bloginfo( 'template_url' ); ?>/css/ie.css?<?=add_checksum_param('css/ie.css')?>" type="text/css" media="screen" />
+  <link rel="stylesheet" type="text/css" media="screen" href="<?=get_template_directory_uri()?>/css/ie.css?<?=add_checksum_param('css/ie.css')?>" />
 <![endif]-->
 
-<link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo( 'stylesheet_url' ); ?>?<?=add_checksum_param('css/style.css')?>" />
-<link rel="stylesheet" type="text/css" media="print" href="<?php echo get_stylesheet_directory_uri(); ?>/print.css" />
-
-<!--[if (IE)&(lt IE 9) ]>
-  <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8" />
-<!--<![endif]-->
-<!--[if (IE)&(gt IE 8) ]>
-  <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-<!--<![endif]-->
-
-<!--[if lte IE 7]>
-  <script type="text/javascript" src="<?php bloginfo( 'template_url' ); ?>/js/json3.min.js"></script>
-<![endif]-->
 <!--[if lt IE 9]>
-  <script type="text/javascript" src="<?php echo get_stylesheet_directory_uri(); ?>/js/html5-shiv.min.js"></script>
-  <script type="text/javascript" src="<?php echo get_stylesheet_directory_uri(); ?>/js/respond.min.js"></script>
+  <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8" />
+<![endif]-->
+<!--[if gt IE 8]>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
 <![endif]-->
 
+<!-- TODO the GA script to be optimised -->
 <!--Google Analytics-->
 <?php
   //write script for google analytics (only do on homepage if homepage tracking is set)
