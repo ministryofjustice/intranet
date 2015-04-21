@@ -461,7 +461,7 @@ h1 {
 .main-content .content-info p, .main-content .editable table th,
 .main-content .editable table td, .breadcrumbs a,
 .breadcrumbs span, .beta-banner .beta-icon,
-.beta-banner .message, .footerwrapper .footer li, .header .skip-to-content-container a, .message .content, #menu-utilities li a, .content-filters .description, .content-filters label, .children-pages li a, .page-feedback-container .page-feedback-link, #need-to-know .excerpt, .my-moj .my-moj-top .department, .my-moj .menu-my-moj-quick-links-container ul a, .guidance-and-support .guidance-categories-list .children-list .child-item .child-title a, .guidance-and-support-content .right-hand-menu a, .page-search-results .search-item .excerpt {
+.beta-banner .message, .footerwrapper .footer li, .header .skip-to-content-container a, .primary-nav .category-item .category-link, .message .content, #menu-utilities li a, .content-filters .description, .content-filters label, .children-pages li a, .page-feedback-container .page-feedback-link, #need-to-know .excerpt, .my-moj .my-moj-top .department, .my-moj .menu-my-moj-quick-links-container ul a, .guidance-and-support .guidance-categories-list .children-list .child-item .child-title a, .guidance-and-support-content .right-hand-menu a, .page-search-results .search-item .excerpt {
   font-size: 16px;
   line-height: 20px; }
 
@@ -1301,101 +1301,36 @@ form .form-row {
   /* line 82, ../scss/modules/_header.scss */
   .header.mobile-menu-enabled #utilities {
     display: block; } }
-/* line 1, ../scss/modules/_main_nav.scss */
-#mainnav {
-  margin-top: 40px; }
-  /* line 4, ../scss/modules/_main_nav.scss */
-  #mainnav .mega-menu-wrap {
-    position: static; }
-  /* line 8, ../scss/modules/_main_nav.scss */
-  #mainnav #primarynav {
-    padding: 0;
-    background: white; }
-    /* line 12, ../scss/modules/_main_nav.scss */
-    #mainnav #primarynav ul.mega-menu {
-      position: absolute;
-      bottom: 0;
-      margin-top: 0;
-      margin-bottom: 0; }
-      /* line 18, ../scss/modules/_main_nav.scss */
-      #mainnav #primarynav ul.mega-menu > li {
-        float: left;
-        background: #eaedef;
-        text-align: center;
-        border: 1px solid #333;
-        border-left: 0; }
-        /* line 25, ../scss/modules/_main_nav.scss */
-        #mainnav #primarynav ul.mega-menu > li.current-menu-item, #mainnav #primarynav ul.mega-menu > li.mega-current_page_item, #mainnav #primarynav ul.mega-menu > li.mega-current-page-ancestor {
-          background: white !important;
-          border-bottom: 1px solid #fff; }
-          /* line 31, ../scss/modules/_main_nav.scss */
-          #mainnav #primarynav ul.mega-menu > li.current-menu-item a, #mainnav #primarynav ul.mega-menu > li.mega-current_page_item a, #mainnav #primarynav ul.mega-menu > li.mega-current-page-ancestor a {
-            color: #1E4287; }
-        /* line 36, ../scss/modules/_main_nav.scss */
-        #mainnav #primarynav ul.mega-menu > li.mega-toggle-on {
-          background: white !important; }
-        /* line 40, ../scss/modules/_main_nav.scss */
-        #mainnav #primarynav ul.mega-menu > li > a {
-          display: block;
-          color: #61415B;
-          font-weight: bold !important;
-          /* outweighing the plugin style which is id-based and variable... */
-          text-decoration: none; }
-          /* line 46, ../scss/modules/_main_nav.scss */
-          #mainnav #primarynav ul.mega-menu > li > a:hover {
-            background: white;
-            color: #61415B; }
-          /* line 51, ../scss/modules/_main_nav.scss */
-          #mainnav #primarynav ul.mega-menu > li > a:focus {
-            outline: 3px solid #ffbf47;
-            background-color: #ffbf47; }
-        /* line 57, ../scss/modules/_main_nav.scss */
-        #mainnav #primarynav ul.mega-menu > li:first-of-type > a {
-          color: #005ea5; }
+/* line 2, ../scss/modules/_main_nav.scss */
+.primary-nav .categories-list {
+  margin-top: 0; }
+/* line 6, ../scss/modules/_main_nav.scss */
+.primary-nav .category-item {
+  float: left; }
+  /* line 9, ../scss/modules/_main_nav.scss */
+  .primary-nav .category-item .category-link {
+    display: block;
+    padding: 0 20px;
+    background-color: #eaedef;
+    border-right: 1px solid #0b0c0c;
+    border-bottom: 1px solid #0b0c0c;
+    font-weight: bold;
+    line-height: 40px; }
+    /* line 19, ../scss/modules/_main_nav.scss */
+    .primary-nav .category-item .category-link:hover {
+      background-color: #fff;
+      text-decoration: none; }
+  /* line 26, ../scss/modules/_main_nav.scss */
+  .primary-nav .category-item.current .category-link {
+    background-color: #fff;
+    border-bottom-color: #fff; }
+  /* line 33, ../scss/modules/_main_nav.scss */
+  .primary-nav .category-item.not-current .category-link {
+    color: #666; }
+  /* line 39, ../scss/modules/_main_nav.scss */
+  .primary-nav .category-item:last-of-type .category-link {
+    border-right: none; }
 
-/* MAIN NAVIGATION */
-/* line 66, ../scss/modules/_main_nav.scss */
-.navbar {
-  margin-bottom: 0;
-  border: 0; }
-
-/* line 70, ../scss/modules/_main_nav.scss */
-.navbar-inverse {
-  background: transparent; }
-
-/* line 73, ../scss/modules/_main_nav.scss */
-.navbar-inverse .navbar-brand {
-  color: #fff; }
-
-/* line 77, ../scss/modules/_main_nav.scss */
-.navbar-toggle {
-  margin-right: 0; }
-
-@media (min-width: 0) and (max-width: 767px) {
-  /* line 82, ../scss/modules/_main_nav.scss */
-  #mainnav {
-    float: none;
-    width: 100%; }
-    /* line 86, ../scss/modules/_main_nav.scss */
-    #mainnav #mega-menu-wrap-primary-2 {
-      position: static; }
-    /* line 91, ../scss/modules/_main_nav.scss */
-    #mainnav #primarynav .mega-menu-wrap {
-      display: table;
-      width: 100%; }
-      /* line 95, ../scss/modules/_main_nav.scss */
-      #mainnav #primarynav .mega-menu-wrap > ul {
-        display: table-row;
-        position: relative; }
-        /* line 99, ../scss/modules/_main_nav.scss */
-        #mainnav #primarynav .mega-menu-wrap > ul > li {
-          display: table-cell;
-          float: none; }
-          /* line 103, ../scss/modules/_main_nav.scss */
-          #mainnav #primarynav .mega-menu-wrap > ul > li > a {
-            text-align: center;
-            padding-left: 0;
-            padding-right: 0; } }
 /* line 1, ../scss/modules/_navigation.scss */
 .menu-list {
   margin: 20px 30px 3px 0; }

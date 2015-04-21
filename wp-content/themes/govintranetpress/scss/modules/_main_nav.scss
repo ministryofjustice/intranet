@@ -1,112 +1,43 @@
-#mainnav {
-  margin-top: 40px;
-
-  .mega-menu-wrap {
-    position: static;
+.primary-nav {
+  .categories-list {
+    margin-top: 0;
   }
 
-  #primarynav {
-    padding: 0;
-    background: white;
+  .category-item {
+    float: left;
 
-    ul.mega-menu {
-      position: absolute;
-      bottom: 0;
-      margin-top: 0;
-      margin-bottom: 0;
+    .category-link {
+      @extend %medium-copy;
+      display: block;
+      padding: 0 20px;
+      background-color: $main-nav-bg;
+      border-right: 1px solid $black;
+      border-bottom: 1px solid $black;
+      font-weight: bold;
+      line-height: 40px;
 
-      > li {
-        float: left;
-        background: #eaedef;
-        text-align: center;
-        border: 1px solid #333;
-        border-left: 0;
-
-        &.current-menu-item,
-        &.mega-current_page_item,
-        &.mega-current-page-ancestor {
-          background: white !important;
-          border-bottom: 1px solid #fff;
-
-          a {
-            color: #1E4287;
-          }
-        }
-
-        &.mega-toggle-on {
-          background: white !important;
-        }
-
-        > a {
-          display: block;
-          color: #61415B;
-          font-weight: bold !important; /* outweighing the plugin style which is id-based and variable... */
-          text-decoration: none;
-
-          &:hover  {
-            background: white;
-            color: #61415B;
-          }
-          
-          &:focus {
-            outline: 3px solid $yellow;
-            background-color: $yellow;
-          }
-        }
-
-        &:first-of-type > a {
-          color: $govuk-blue;
-        }
+      &:hover {
+        background-color: $white;
+        text-decoration: none;
       }
     }
-  }
-}
 
-/* MAIN NAVIGATION */
-.navbar {
-	margin-bottom: 0;
-	border: 0;
-}
-.navbar-inverse {
-	background: transparent;
-}
-.navbar-inverse .navbar-brand {
-	color: #fff;
-}
-
-.navbar-toggle {
-  margin-right: 0;
-}
-
-@include mobile_mq(){
-  #mainnav {
-    float: none;
-    width: 100%;
-
-    #mega-menu-wrap-primary-2 {
-      position: static;
+    &.current {
+      .category-link {
+        background-color: $white;
+        border-bottom-color: $white;
+      }
     }
 
-    #primarynav {
-      .mega-menu-wrap {
-        display: table;
-        width: 100%;
+    &.not-current {
+      .category-link {
+        color: #666;
+      }
+    }
 
-        > ul {
-          display: table-row;
-          position: relative;
-
-          > li {
-            display: table-cell;
-            float: none;
-
-            > a {
-              text-align: center;
-              padding-left: 0;
-              padding-right: 0;
-            }
-          }
-        }
+    &:last-of-type {
+      .category-link {
+        border-right: none;
       }
     }
   }
