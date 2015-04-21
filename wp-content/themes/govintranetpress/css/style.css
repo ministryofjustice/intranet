@@ -1415,25 +1415,26 @@ form .form-row {
       right: 0;
       top: 0;
       bottom: 0;
+      padding: 6px;
       background: none;
       border: none;
       border-left: 1px solid #bfc1c3; }
-      /* line 25, ../scss/modules/_navigation.scss */
+      /* line 26, ../scss/modules/_navigation.scss */
       .menu-list .menu-item .dropdown-button .icon {
         display: block;
         transform: rotate(180deg);
         color: #0b0c0c;
         font-size: 16px; }
-      /* line 32, ../scss/modules/_navigation.scss */
+      /* line 33, ../scss/modules/_navigation.scss */
       .menu-list .menu-item .dropdown-button:hover {
         background-color: rgba(0, 0, 0, 0.1); }
-    /* line 37, ../scss/modules/_navigation.scss */
+    /* line 38, ../scss/modules/_navigation.scss */
     .menu-list .menu-item.collapsed .dropdown-button .icon {
       transform: rotate(0deg); }
-    /* line 41, ../scss/modules/_navigation.scss */
+    /* line 42, ../scss/modules/_navigation.scss */
     .menu-list .menu-item.no-children .dropdown-button {
       display: none; }
-    /* line 45, ../scss/modules/_navigation.scss */
+    /* line 46, ../scss/modules/_navigation.scss */
     .menu-list .menu-item .menu-item-link {
       display: block;
       margin-top: 5px;
@@ -1441,39 +1442,39 @@ form .form-row {
       border: 1px solid #bfc1c3;
       background-color: #f8f8f8;
       font-weight: bold; }
-    /* line 56, ../scss/modules/_navigation.scss */
+    /* line 57, ../scss/modules/_navigation.scss */
     .menu-list .menu-item.current:after {
       color: #fff; }
-    /* line 60, ../scss/modules/_navigation.scss */
+    /* line 61, ../scss/modules/_navigation.scss */
     .menu-list .menu-item.current .menu-item-link {
       border: 1px solid #2e8aca;
       background-color: #2e8aca;
       color: #fff;
       font-weight: bold; }
-    /* line 67, ../scss/modules/_navigation.scss */
+    /* line 68, ../scss/modules/_navigation.scss */
     .menu-list .menu-item.current .dropdown-button {
       border-left: 1px solid #fff; }
-      /* line 70, ../scss/modules/_navigation.scss */
+      /* line 71, ../scss/modules/_navigation.scss */
       .menu-list .menu-item.current .dropdown-button .icon {
         color: #fff; }
-  /* line 77, ../scss/modules/_navigation.scss */
+  /* line 78, ../scss/modules/_navigation.scss */
   .menu-list .children-list {
     margin-left: 0; }
-  /* line 81, ../scss/modules/_navigation.scss */
+  /* line 82, ../scss/modules/_navigation.scss */
   .menu-list .child-item {
     border-bottom: 1px solid #bfc1c3; }
-  /* line 85, ../scss/modules/_navigation.scss */
+  /* line 86, ../scss/modules/_navigation.scss */
   .menu-list .child-item:last-of-type {
     border-bottom: none; }
-  /* line 89, ../scss/modules/_navigation.scss */
+  /* line 90, ../scss/modules/_navigation.scss */
   .menu-list .child-item-link {
     display: block;
     padding: 5px 10px 4px; }
-  /* line 95, ../scss/modules/_navigation.scss */
+  /* line 96, ../scss/modules/_navigation.scss */
   .menu-list .child-item.highlight .child-item-link {
     color: #6f777b;
     pointer-events: none; }
-  /* line 100, ../scss/modules/_navigation.scss */
+  /* line 101, ../scss/modules/_navigation.scss */
   .menu-list .collapsed .children-list {
     display: none; }
 

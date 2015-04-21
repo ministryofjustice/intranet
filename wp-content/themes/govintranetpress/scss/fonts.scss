@@ -1,1 +1,12 @@
-@import "global/fonts";
+@font-face {
+  font-family: 'nta';
+  src: url('../fonts/nta_light.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'nta';
+  src: url('../fonts/nta_bold.woff') format('woff');
+  font-weight: bold;
+}
