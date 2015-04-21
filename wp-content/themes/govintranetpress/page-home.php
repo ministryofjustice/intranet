@@ -122,7 +122,7 @@ class Page_home extends MVC_controller {
           'title' => 'Phoenix',
           'icon' => 'phoenix',
           'url' => site_url('/phoenix/'),
-          'external' => true
+          'external' => false
         ),
         array(
           'title' => 'Pensions',
