@@ -15,17 +15,17 @@ class Page_search_results extends MVC_controller {
   }
 
   function main() {
-    get_header();
-    //$this->view('shared/breadcrumbs');
-    $this->view('pages/search_results/main', $this->get_data());
-    get_footer();
+    $this->view('layouts/default', $this->get_data());
   }
 
   private function get_data() {
     $top_slug = $this->post->post_name;
 
     return array(
-      'top_slug' => htmlspecialchars($top_slug)
+      'page' => 'pages/search_results/main',
+      'page_data' => array(
+        'top_slug' => htmlspecialchars($top_slug)
+      )
     );
   }
 }
