@@ -1335,6 +1335,10 @@ form .form-row {
   /* line 46, ../scss/modules/_main_nav.scss */
   .primary-nav .category-item:last-of-type .category-link {
     border-right: none; }
+/* line 52, ../scss/modules/_main_nav.scss */
+.primary-nav .category-link:focus {
+  background-color: #ffbf47 !important;
+  outline: none; }
 
 /* line 1, ../scss/modules/_navigation.scss */
 .menu-list {

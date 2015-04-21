@@ -48,4 +48,9 @@
       }
     }
   }
+
+  .category-link:focus {
+    background-color: $yellow !important;
+    outline: none;
+  }
 }
