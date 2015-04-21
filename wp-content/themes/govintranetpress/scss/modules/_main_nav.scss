@@ -9,15 +9,13 @@
     .category-link {
       @extend %medium-copy;
       display: block;
-      padding: 0 20px;
-      background-color: $main-nav-bg;
+      padding: 10px 20px;
+      background-color: $grey-3;
       border-right: 1px solid $black;
       border-bottom: 1px solid $black;
       font-weight: bold;
-      line-height: 40px;
 
       &:hover {
-        background-color: $white;
         text-decoration: none;
       }
     }
@@ -26,12 +24,21 @@
       .category-link {
         background-color: $white;
         border-bottom-color: $white;
+
+        &:hover {
+          color: $link-colour;
+        }
       }
     }
 
     &.not-current {
       .category-link {
-        color: #666;
+        color: #555;
+
+        &:hover {
+          border-bottom: 4px solid #1d8feb;
+          padding-bottom: 6px;
+        }
       }
     }
 
