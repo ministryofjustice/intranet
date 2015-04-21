@@ -1467,14 +1467,17 @@ form .form-row {
   .menu-list .child-item:last-of-type {
     border-bottom: none; }
   /* line 90, ../scss/modules/_navigation.scss */
+  .menu-list .menu-item:last-of-type .child-item:last-of-type {
+    border-bottom: 1px solid #bfc1c3; }
+  /* line 94, ../scss/modules/_navigation.scss */
   .menu-list .child-item-link {
     display: block;
     padding: 5px 10px 4px; }
-  /* line 96, ../scss/modules/_navigation.scss */
+  /* line 100, ../scss/modules/_navigation.scss */
   .menu-list .child-item.highlight .child-item-link {
     color: #6f777b;
     pointer-events: none; }
-  /* line 101, ../scss/modules/_navigation.scss */
+  /* line 105, ../scss/modules/_navigation.scss */
   .menu-list .collapsed .children-list {
     display: none; }
 

@@ -87,6 +87,10 @@
     border-bottom: none;
   }
 
+  .menu-item:last-of-type .child-item:last-of-type {
+    border-bottom: 1px solid $grey-2;
+  }
+
   .child-item-link {
     @extend %small-copy;
     display: block;
