@@ -1,4 +1,6 @@
-<?php if (!defined('ABSPATH')) die(); ?>
+<?php if (!defined('ABSPATH')) die();
+
+?>
 
 <div class="header" role="banner">
   <div class="grid skip-to-content-container">
@@ -18,7 +20,7 @@
     <!-- mobile menu button -->
     <div class="col-sm-2 mobile-only">
       <div class="mobile-nav">
-        <button type="button"></button>
+        <button type="button" class="mobile-menu-btn"></button>
       </div>
     </div>
 
@@ -39,6 +41,7 @@
         <?php if(is_active_sidebar('main-menu')): ?>
           <?php dynamic_sidebar('main-menu'); ?>
         <?php endif ?>
+        <?php $this->view('pages/homepage/my_moj/main', $my_moj) ?>
       </nav>
     </div>
   </div>

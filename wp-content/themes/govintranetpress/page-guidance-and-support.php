@@ -7,6 +7,8 @@
  */
 class Page_guidance_and_support extends MVC_controller {
   function main(){
+    $this->model('my_moj');
+
     while(have_posts()){
       the_post();
 

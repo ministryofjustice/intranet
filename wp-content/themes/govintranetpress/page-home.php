@@ -5,7 +5,20 @@
  * Template name: Home page
  */
 class Page_home extends MVC_controller {
+  function __construct() {
+    echo'asd';
+    parent::__construct();
+
+    $this->model('my_moj');
+    //Debug::full($this);
+    //Debug::full($this->my_moj_model);
+    echo'1';
+    //Debug::full($this->my_moj_model->get_data());
+  }
+
   function main() {
+    echo'2';
+    //Debug::full($this->my_moj_model->get_data());
     if(have_posts()) the_post();
     $this->view('layouts/default', $this->get_data());
   }
@@ -15,7 +28,7 @@ class Page_home extends MVC_controller {
       'page' => 'pages/homepage/main',
       'page_data' => array(
         'emergency_message' => $this->get_emergency_message(),
-        'my_moj' => $this->get_my_moj()
+        //'my_moj' => $this->my_moj_model->get_data()
       )
     );
   }
@@ -36,152 +49,4 @@ class Page_home extends MVC_controller {
       'type'        => $type
     );
   }
-
-  private function get_my_moj() {
-    return array(
-      'departments' => array(
-        array(
-          'name' => 'legal-aid-agency',
-          'label' => 'Legal Aid Agency',
-          'url' => 'http://intranet.justice.gsi.gov.uk/laa/index.htm'
-        ),
-        array(
-          'name' => 'hm-courts-and-tribunals-service',
-          'label' => 'HM Courts &amp; Tribunals Service',
-          'url' => 'http://libra.lcd.gsi.gov.uk/hmcts/index.htm'
-        ),
-        array(
-          'name' => 'judicial-appointments-commission',
-          'label' => 'Judicial Appointments Commission',
-          'url' => 'http://intranet.justice.gsi.gov.uk/jac/index.htm'
-        ),
-        array(
-          'name' => 'judicial-office',
-          'label' => 'Judicial Office',
-          'url' => 'http://intranet.justice.gsi.gov.uk/joew/index.htm'
-        ),
-        array(
-          'name' => 'law-commission',
-          'label' => 'Law Commission',
-          'url' => 'http://intranet.justice.gsi.gov.uk/lawcommission/index.htm'
-        ),
-        array(
-          'name' => 'opg',
-          'label' => 'OPG',
-          'url' => 'http://intranet.justice.gsi.gov.uk/opg/index.htm'
-        ),
-        array(
-          'name' => 'ospt',
-          'label' => 'OSPT',
-          'url' => 'http://intranet.justice.gsi.gov.uk/ospt/index.htm'
-        ),
-        array(
-          'name' => 'probation',
-          'label' => 'Probation',
-          'url' => 'http://npsintranet.probation.gsi.gov.uk/index.htm'
-        )
-      ),
-      'apps' => array(
-        array(
-          'title' => 'People finder',
-          'icon' => 'people-finder',
-          'url' => 'http://intranet.justice.gsi.gov.uk/global/peoplefinder/',
-          'external' => true
-        ),
-        array(
-          'title' => 'Courtfinder',
-          'icon' => 'courtfinder',
-          'url' => 'https://courttribunalfinder.service.gov.uk/search/',
-          'external' => true
-        ),
-        array(
-          'title' => 'Jobs',
-          'icon' => 'jobs',
-          'url' => 'http://justice-intranet.dsd.io/jobs/',
-          'external' => true
-        ),
-        array(
-          'title' => 'IT portal',
-          'icon' => 'it-portal',
-          'url' => 'http://itportal.dom1.infra.int:8080/Pages/default.aspx',
-          'external' => true
-        ),
-        array(
-          'title' => 'Civil Service Learning',
-          'icon' => 'civil-service-learning',
-          'url' => 'https://civilservicelearning.civilservice.gov.uk/',
-          'external' => true
-        ),
-        array(
-          'title' => 'Travel booking',
-          'icon' => 'travel-booking',
-          'url' => 'https://www.trips.uk.com/js/SABS/Corporate.html',
-          'external' => true
-        ),
-        array(
-          'title' => 'Phoenix',
-          'icon' => 'phoenix',
-          'url' => site_url('/phoenix/'),
-          'external' => false
-        ),
-        array(
-          'title' => 'Pensions',
-          'icon' => 'pension',
-          'url' => 'http://www.civilservicepensionscheme.org.uk/',
-          'external' => true
-        ),
-        array(
-          'title' => 'Ministry of Justice',
-          'icon' => 'ministry-of-justice',
-          'url' => 'http://www.justice.gov.uk/',
-          'external' => true
-        ),
-        array(
-          'title' => 'GOV.UK',
-          'icon' => 'gov-uk',
-          'url' => 'https://www.gov.uk/',
-          'external' => true
-        ),
-      ),
-      'quick_links' => array(
-        array(
-          'title' => 'Annual leave',
-          'url' => get_permalink(get_page_by_path('guidance-and-support/hr/leave/annual-leave')),
-          'external' => false
-        ),
-        array(
-          'title' => 'HR',
-          'url' => '#',
-          'external' => false
-        ),
-        array(
-          'title' => 'Organisation',
-          'url' => '#',
-          'external' => false
-        ),
-        array(
-          'title' => 'Learning &amp; Development',
-          'url' => '#',
-          'external' => false
-        ),
-        array(
-          'title' => 'Statistics',
-          'url' => '#',
-          'external' => false
-        ),
-        array(
-          'title' => 'Finances',
-          'url' => '#',
-          'external' => false
-        ),
-        array(
-          'title' => 'Justice academy',
-          'url' => '#',
-          'external' => false
-        )
-      )
-    );
-  }
 }
-
-new Page_home();

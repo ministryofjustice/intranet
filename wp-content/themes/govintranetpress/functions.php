@@ -1728,6 +1728,7 @@ function fullsite_redirect() {
 		wp_redirect( home_url() );
 	}
 }
+
 add_action('wp', 'fullsite_redirect');
 
 /**

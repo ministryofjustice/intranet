@@ -1081,40 +1081,64 @@
   };
 }(window.jQuery));
 
-/** Mobile menu
+/** Mobile header
  */
 (function($) {
   "use strict";
 
   var App = window.App;
 
-  App.MobileMenu = function() {
+  App.MobileHeader = function() {
     this.$top = $('.header');
     if(!this.$top.length) { return; }
 
     this.config = {
-      menuToggleClass: 'mobile-menu-enabled'
+      menuToggleClass: 'menu-opened',
+      searchToggleClass: 'search-opened'
     };
 
     this.init();
   };
 
-  App.MobileMenu.prototype = {
+  App.MobileHeader.prototype = {
     init: function() {
       this.cacheEls();
       this.bindEvents();
     },
 
     cacheEls: function() {
-      this.$menuButton = this.$top.find('.mobile-nav button');
+      this.$searchInput = this.$top.find('.keywords-field');
+      this.$searchButton = this.$top.find('.search-btn');
+      this.$menuButton = this.$top.find('.mobile-menu-btn');
     },
 
     bindEvents: function() {
-      this.$top.on('click', 'button', $.proxy(this.toggleMenu, this));
+      this.$menuButton.on('click', $.proxy(this.toggleMenu, this));
+      this.$searchButton.on('click', $.proxy(this.searchClick, this));
+      //this.$searchInput.on('blur', $.proxy(this.toggleSearch, this, false));
+      $(document).on('click', $.proxy(this.outsideSearchClick, this));
     },
 
-    toggleMenu: function() {
+    toggleMenu: function(e) {
       this.$top.toggleClass(this.config.menuToggleClass);
+    },
+
+    searchClick: function(e) {
+      if(!this.$top.hasClass(this.config.searchToggleClass)) {
+        e.preventDefault();
+        this.toggleSearch(true);
+        this.$searchInput.focus();
+      }
+    },
+
+    toggleSearch: function(toggleState) {
+      this.$top.toggleClass(this.config.searchToggleClass, toggleState);
+    },
+
+    outsideSearchClick: function(e) {
+      if(!$(e.target).closest('.search-form').length) {
+        this.toggleSearch(false);
+      }
     }
   };
 }(window.jQuery));
@@ -2130,7 +2154,7 @@ jQuery(function() {
 
   var App = window.App;
 
-  App.ins.mobileMenu = new App.MobileMenu();
+  App.ins.mobileHeader = new App.MobileHeader();
   App.ins.stickyNews = new App.StickyNews();
   //App.ins.guidanceAndSupport = new App.GuidanceAndSupport();
   App.ins.guidanceAndSupportContent = new App.GuidanceAndSupportContent();
