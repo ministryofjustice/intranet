@@ -26,7 +26,7 @@ if($unlock!="unlock") {
 //relative or absolute path of directory to parse for files
 $import_directory = 'wp-content/import/';
 //type of file to import
-$extension = array('pdf','doc','xls','ppt','jpg');
+$extension = array('pdf','doc','xls','ppt','jpg','gif','pps');
 //initial revision log message (optional)
 $revision_message = '';
 //id of author to associate with documents, must be valid
