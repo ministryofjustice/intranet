@@ -37,7 +37,7 @@
     <div class="col-lg-8 col-md-8 col-sm-12">
       <nav class="primary-nav" role="navigation">
         <?php if(is_active_sidebar('main-menu')): ?>
-          <?php dynamic_sidebar('main-menu'); ?>
+          <?php dynamic_sidebar('main-menu') ?>
         <?php endif ?>
         <?php $this->view('pages/homepage/my_moj/main', $my_moj) ?>
       </nav>

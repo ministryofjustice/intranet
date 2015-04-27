@@ -94,6 +94,8 @@
       border: none;
       box-shadow: none;
       font-family: Helvetica;
+      -moz-appearance: none;
+      appearance: none;
 
       option {
         padding: 10px 40px;
@@ -226,6 +228,41 @@
       &:first-of-type a {
         margin-top: 0;
       }
+    }
+  }
+}
+
+@include mobile-mq() {
+  .my-moj {
+    display: block;
+    margin-top: 0;
+
+    .my-moj-top {
+      padding: 4px 15px 3px;
+    }
+
+    .my-moj-body {
+      padding: 0;
+
+      .category-name {
+        font-size: 16px;
+        padding: 5px 20px;
+
+        &:before {
+          display: inline-block;
+          margin-right: 15px;
+          font-size: 20px;
+          text-align: center;
+          vertical-align: middle;
+          color: $black;
+          content: "\25be";
+        }
+      }
+    }
+
+    .apps-list {
+      margin-right: 0;
+      padding: 0 20px;
     }
   }
 }

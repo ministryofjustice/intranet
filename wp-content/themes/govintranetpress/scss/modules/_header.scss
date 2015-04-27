@@ -49,6 +49,10 @@
       border: none;
     }
   }
+
+  .my-moj {
+    display: none;
+  }
 }
 
 @include mobile-mq() {
@@ -102,6 +106,9 @@
       top: 55px;
       left: 0;
       right: 0;
+      max-height: 500px;
+      overflow-x: scroll;
+      border-bottom: 3px solid $black;
 
       .category-item {
         float: none;

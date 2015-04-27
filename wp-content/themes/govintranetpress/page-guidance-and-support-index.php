@@ -19,5 +19,3 @@ class Page_guidance_and_support extends MVC_controller {
     );
   }
 }
-
-new Page_guidance_and_support();
