@@ -50,6 +50,7 @@ function mmvc_init($template) {
 
   $controller_name = ucfirst(basename($template));
   $controller_name = preg_replace('/\.[^.]+$/', '', $controller_name);
+  $controller_name = str_replace('-', '_', $controller_name);
   $obj  = new $controller_name();
   $obj->main();
 }
