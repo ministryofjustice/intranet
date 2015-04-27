@@ -7,7 +7,7 @@
  * @subpackage Starkers
  * @since Starkers 3.0
  */
-class Page_single_news extends MVC_controller {
+class Single_news extends MVC_controller {
   function main(){
     while(have_posts()){
       the_post();
@@ -47,5 +47,3 @@ class Page_single_news extends MVC_controller {
     );
   }
 }
-
-new Page_single_news();
