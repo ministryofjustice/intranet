@@ -17,14 +17,16 @@ if (!defined('ABSPATH')) {
 
 if (!class_exists('mmvc')) {
   class mmvc {
-
     function __construct() {
       define('MVC_PATH', get_template_directory().'/mvc/');
       define('MVC_VIEWS_DIR', 'views/');
       define('MVC_VIEWS_PATH', MVC_PATH.MVC_VIEWS_DIR);
+      define('MVC_MODELS_DIR', 'models/');
+      define('MVC_MODELS_PATH', MVC_PATH.MVC_MODELS_DIR);
 
       include_once(plugin_dir_path( __FILE__ ).'Loader.php');
       include_once(plugin_dir_path( __FILE__ ).'Controller.php');
+      include_once(plugin_dir_path( __FILE__ ).'Model.php');
     }
   }
 
@@ -32,7 +34,7 @@ if (!class_exists('mmvc')) {
 }
 
 // Force mmvc plugin to loads before all others
-function mmvc_load_first(){
+function mmvc_load_first() {
   $path = str_replace( WP_PLUGIN_DIR . '/', '', __FILE__ );
   if ( $plugins = get_option( 'active_plugins' ) ) {
     if ( $key = array_search( $path, $plugins ) ) {
@@ -43,4 +45,14 @@ function mmvc_load_first(){
   }
 }
 
+function mmvc_init($template) {
+  include($template);
+
+  $controller_name = ucfirst(basename($template));
+  $controller_name = preg_replace('/\.[^.]+$/', '', $controller_name);
+  $obj  = new $controller_name();
+  $obj->main();
+}
+
 add_action( 'activated_plugin', 'mmvc_load_first', 1);
+add_action('template_include', 'mmvc_init');

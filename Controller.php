@@ -7,9 +7,5 @@ abstract class MVC_controller extends MVC_loader {
     ob_start();
     wp_head();
     $this->wp_head = ob_get_clean();
-
-    if(method_exists($this, 'main')){
-      $this->main();
-    }
   }
 }
