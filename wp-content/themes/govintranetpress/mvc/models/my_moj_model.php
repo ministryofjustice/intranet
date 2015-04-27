@@ -1,10 +1,6 @@
 <?php
 
 class My_moj_model extends MVC_model {
-  function __construct() {
-    echo 'My moj model initialized';
-  }
-
   function get_data() {
     return array(
       'departments' => array(

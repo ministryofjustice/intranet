@@ -1,6 +1,4 @@
-<?php if (!defined('ABSPATH')) die();
-
-?>
+<?php if (!defined('ABSPATH')) die(); ?>
 
 <div class="header" role="banner">
   <div class="grid skip-to-content-container">
