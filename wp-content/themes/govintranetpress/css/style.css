@@ -766,18 +766,18 @@ h1 {
   line-height: 40px; }
 
 /** Copy **/
-/* line 54, ../scss/global/_typography.scss */
+/* line 59, ../scss/global/_typography.scss */
 .a-z .results .title,
 .a-z-2 .results .title {
   font-size: 19px;
   line-height: 25px; }
 
-/* line 64, ../scss/global/_typography.scss */
+/* line 68, ../scss/global/_typography.scss */
 .content-tabs li a, .content-nav, .guidance-and-support-content .excerpt, .news-single .excerpt {
   font-size: 24px;
   line-height: 30px; }
 
-/* line 69, ../scss/global/_typography.scss */
+/* line 73, ../scss/global/_typography.scss */
 .main-content .editable p, .main-content .editable li, .main-content .editable .address, .main-content .editable .contact, .main-content .editable .help-notice, .main-content .editable .info-notice,
 .main-content .editable .example, .main-content .editable .summary, .imported-banner .message, .content-tabs li a, .collapsible-block-container .collapsible-block-toggle, .page-news .news-filtered-results-title .containing,
 .page-news .news-filtered-results-title .for-date, .page-news .news-filtered-results-title .results-count-description,
@@ -786,7 +786,7 @@ h1 {
   font-size: 19px;
   line-height: 25px; }
 
-/* line 74, ../scss/global/_typography.scss */
+/* line 78, ../scss/global/_typography.scss */
 .main-content .content-info p, .main-content .editable table th,
 .main-content .editable table td, .breadcrumbs a,
 .breadcrumbs span, .beta-banner .beta-icon,
@@ -794,7 +794,7 @@ h1 {
   font-size: 16px;
   line-height: 20px; }
 
-/* line 79, ../scss/global/_typography.scss */
+/* line 82, ../scss/global/_typography.scss */
 body, a[href$=".pdf"]:after, a[href$=".doc"]:after, a[href$=".xls"]:after, a[href$=".xlsx"]:after, a[href$=".pps"]:after, a[href$=".ppt"]:after, .menu-list .menu-item .menu-item-link, .menu-list .child-item-link, .home.page #content .descriptive-menu-description, .message .timestamp, .content-nav li .page-info, .tabbed-filters .tabbed-filters-label, .tabbed-filters ul li .label, .ht-feature-news .excerpt, .ht-feature-news .news-date-wrapper, #need-to-know .news-date-wrapper, #need-to-know .page-list li a, .my-moj .apps-list .app-link {
   font-size: 14px;
   line-height: 20px; }
@@ -2370,6 +2370,7 @@ form .form-row {
       /* line 247, ../scss/content/homepage/_my_moj.scss */
       .my-moj .my-moj-body .category-name {
         font-size: 16px;
+        line-height: 20px;
         margin: 0;
         padding: 5px 20px; }
         /* line 252, ../scss/content/homepage/_my_moj.scss */

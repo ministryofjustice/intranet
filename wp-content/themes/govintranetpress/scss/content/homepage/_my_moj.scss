@@ -245,7 +245,7 @@
       padding: 0;
 
       .category-name {
-        font-size: 16px;
+        @include medium-copy;
         margin: 0;
         padding: 5px 20px;
 
