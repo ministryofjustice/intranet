@@ -1423,24 +1423,24 @@ form .form-row {
       border: none;
       border-left: 1px solid #bfc1c3; }
       /* line 26, ../scss/modules/_navigation.scss */
-      .menu-list .menu-item .dropdown-button, .menu-list .menu-item .dropdown-button:hover {
+      .menu-list .menu-item .dropdown-button:hover {
         text-decoration: none; }
-      /* line 31, ../scss/modules/_navigation.scss */
+      /* line 30, ../scss/modules/_navigation.scss */
       .menu-list .menu-item .dropdown-button .icon {
         display: block;
         transform: rotate(180deg);
         color: #0b0c0c;
         font-size: 16px; }
-      /* line 38, ../scss/modules/_navigation.scss */
+      /* line 37, ../scss/modules/_navigation.scss */
       .menu-list .menu-item .dropdown-button:hover {
         background-color: rgba(0, 0, 0, 0.1); }
-    /* line 43, ../scss/modules/_navigation.scss */
+    /* line 42, ../scss/modules/_navigation.scss */
     .menu-list .menu-item.collapsed .dropdown-button .icon {
       transform: rotate(0deg); }
-    /* line 47, ../scss/modules/_navigation.scss */
+    /* line 46, ../scss/modules/_navigation.scss */
     .menu-list .menu-item.no-children .dropdown-button {
       display: none; }
-    /* line 51, ../scss/modules/_navigation.scss */
+    /* line 50, ../scss/modules/_navigation.scss */
     .menu-list .menu-item .menu-item-link {
       display: block;
       margin-top: 5px;
@@ -1448,42 +1448,42 @@ form .form-row {
       border: 1px solid #bfc1c3;
       background-color: #f8f8f8;
       font-weight: bold; }
-    /* line 62, ../scss/modules/_navigation.scss */
+    /* line 61, ../scss/modules/_navigation.scss */
     .menu-list .menu-item.current:after {
       color: #fff; }
-    /* line 66, ../scss/modules/_navigation.scss */
+    /* line 65, ../scss/modules/_navigation.scss */
     .menu-list .menu-item.current .menu-item-link {
       border: 1px solid #2e8aca;
       background-color: #2e8aca;
       color: #fff;
       font-weight: bold; }
-    /* line 73, ../scss/modules/_navigation.scss */
+    /* line 72, ../scss/modules/_navigation.scss */
     .menu-list .menu-item.current .dropdown-button {
       border-left: 1px solid #fff; }
-      /* line 76, ../scss/modules/_navigation.scss */
+      /* line 75, ../scss/modules/_navigation.scss */
       .menu-list .menu-item.current .dropdown-button .icon {
         color: #fff; }
-  /* line 83, ../scss/modules/_navigation.scss */
+  /* line 82, ../scss/modules/_navigation.scss */
   .menu-list .children-list {
     margin-left: 0; }
-  /* line 87, ../scss/modules/_navigation.scss */
+  /* line 86, ../scss/modules/_navigation.scss */
   .menu-list .child-item {
     border-bottom: 1px solid #bfc1c3; }
-  /* line 91, ../scss/modules/_navigation.scss */
+  /* line 90, ../scss/modules/_navigation.scss */
   .menu-list .child-item:last-of-type {
     border-bottom: none; }
-  /* line 95, ../scss/modules/_navigation.scss */
+  /* line 94, ../scss/modules/_navigation.scss */
   .menu-list .menu-item:last-of-type .child-item:last-of-type {
     border-bottom: 1px solid #bfc1c3; }
-  /* line 99, ../scss/modules/_navigation.scss */
+  /* line 98, ../scss/modules/_navigation.scss */
   .menu-list .child-item-link {
     display: block;
     padding: 5px 10px 4px; }
-  /* line 105, ../scss/modules/_navigation.scss */
+  /* line 104, ../scss/modules/_navigation.scss */
   .menu-list .child-item.highlight .child-item-link {
     color: #6f777b;
     pointer-events: none; }
-  /* line 110, ../scss/modules/_navigation.scss */
+  /* line 109, ../scss/modules/_navigation.scss */
   .menu-list .collapsed .children-list {
     display: none; }
 
