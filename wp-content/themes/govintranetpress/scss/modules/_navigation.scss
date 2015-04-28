@@ -23,6 +23,10 @@
       border: none;
       border-left: 1px solid $grey-2;
 
+      &:hover {
+        text-decoration: none;
+      }
+
       .icon {
         display: block;
         transform: rotate(180deg);
