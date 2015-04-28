@@ -246,6 +246,7 @@
 
       .category-name {
         font-size: 16px;
+        margin: 0;
         padding: 5px 20px;
 
         &:before {
@@ -257,6 +258,15 @@
           color: $black;
           content: "\25be";
         }
+      }
+
+      .quick-links-container .category-name {
+        border-top: 1px solid $grey-1;
+      }
+
+      .menu-my-moj-quick-links-container .menu {
+        margin: 0;
+        padding: 5px 20px 15px;
       }
     }
 

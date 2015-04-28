@@ -54,3 +54,12 @@
     outline: none;
   }
 }
+
+
+@include mobile-mq() {
+  .primary-nav {
+    .category-item:last-of-type .category-link {
+      border-bottom: none !important;
+    }
+  }
+}

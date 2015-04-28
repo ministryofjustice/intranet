@@ -1344,6 +1344,9 @@ form .form-row {
             border-bottom: 1px solid #0b0c0c !important; }
     /* line 129, ../scss/modules/_header.scss */
     .header.menu-opened .primary-nav {
+      display: block; }
+    /* line 134, ../scss/modules/_header.scss */
+    .header .my-moj {
       display: block; } }
 /* line 2, ../scss/modules/_main_nav.scss */
 .primary-nav .categories-list {
@@ -1384,6 +1387,10 @@ form .form-row {
   background-color: #ffbf47 !important;
   outline: none; }
 
+@media (min-width: 0) and (max-width: 767px) {
+  /* line 61, ../scss/modules/_main_nav.scss */
+  .primary-nav .category-item:last-of-type .category-link {
+    border-bottom: none !important; } }
 /* line 1, ../scss/modules/_navigation.scss */
 .menu-list {
   margin: 20px 30px 3px 0; }
@@ -2363,8 +2370,9 @@ form .form-row {
       /* line 247, ../scss/content/homepage/_my_moj.scss */
       .my-moj .my-moj-body .category-name {
         font-size: 16px;
+        margin: 0;
         padding: 5px 20px; }
-        /* line 251, ../scss/content/homepage/_my_moj.scss */
+        /* line 252, ../scss/content/homepage/_my_moj.scss */
         .my-moj .my-moj-body .category-name:before {
           display: inline-block;
           margin-right: 15px;
@@ -2373,7 +2381,14 @@ form .form-row {
           vertical-align: middle;
           color: #0b0c0c;
           content: "\25be"; }
-    /* line 263, ../scss/content/homepage/_my_moj.scss */
+      /* line 263, ../scss/content/homepage/_my_moj.scss */
+      .my-moj .my-moj-body .quick-links-container .category-name {
+        border-top: 1px solid #6f777b; }
+      /* line 267, ../scss/content/homepage/_my_moj.scss */
+      .my-moj .my-moj-body .menu-my-moj-quick-links-container .menu {
+        margin: 0;
+        padding: 5px 20px 15px; }
+    /* line 273, ../scss/content/homepage/_my_moj.scss */
     .my-moj .apps-list {
       margin-right: 0;
       padding: 0 20px; } }
