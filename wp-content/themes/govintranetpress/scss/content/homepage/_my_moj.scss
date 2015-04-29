@@ -66,7 +66,7 @@
         background-repeat: no-repeat;
         font-size: 20px;
         text-align: center;
-        vertical-align: middle;
+        vertical-align: text-bottom;
         color: $white;
       }
 
@@ -86,8 +86,7 @@
       @extend %medium-copy;
       max-width: 255px;
       height: 33px;
-      padding-left: 0;
-      padding-right: 0;
+      padding: 3px 0 0;
       background: transparent;
       color: $white;
       border-radius: 0;
@@ -238,7 +237,11 @@
     margin-top: 0;
 
     .my-moj-top {
-      padding: 4px 15px 3px;
+      padding: 4px 20px 3px;
+
+      .department-dropdown-box:before {
+        text-align: left;
+      }
     }
 
     .my-moj-body {
@@ -247,13 +250,14 @@
       .category-name {
         @include medium-copy;
         margin: 0;
-        padding: 5px 20px;
+        padding: 10px 20px 9px;
 
         &:before {
           display: inline-block;
-          margin-right: 15px;
+          width: 26px;
+          margin-right: 6px;
           font-size: 20px;
-          text-align: center;
+          text-align: left;
           vertical-align: middle;
           color: $black;
           content: "\25be";
@@ -270,8 +274,11 @@
       }
     }
 
+    .apps-container {
+      overflow: hidden;
+    }
+
     .apps-list {
-      margin-right: 0;
       padding: 0 20px;
     }
   }

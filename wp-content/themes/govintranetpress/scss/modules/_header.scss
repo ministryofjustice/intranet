@@ -100,37 +100,6 @@
       }
     }
 
-    .primary-nav {
-      position: absolute;
-      display: none;
-      top: 55px;
-      left: 0;
-      right: 0;
-      max-height: 500px;
-      overflow-x: scroll;
-      border-bottom: 3px solid $black;
-
-      .category-item {
-        float: none;
-
-        .category-link {
-          background-color: $white;
-          &,
-          &:hover {
-            border: none;
-            padding-bottom: 10px !important;
-            border-bottom: 1px solid $black !important;
-          }
-        }
-      }
-    }
-
-    &.menu-opened {
-      .primary-nav {
-        display: block;
-      }
-    }
-
     .my-moj {
       display: block;
     }
