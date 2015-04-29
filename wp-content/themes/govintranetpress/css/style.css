@@ -466,7 +466,7 @@ h1 {
   line-height: 20px; }
 
 /* line 79, ../scss/global/_typography.scss */
-body, a[href$=".pdf"]:after, a[href$=".doc"]:after, a[href$=".xls"]:after, a[href$=".pps"]:after, .menu-list .menu-item .menu-item-link, .menu-list .child-item-link, .home.page #content .descriptive-menu-description, .message .timestamp, .content-nav li .page-info, .tabbed-filters .tabbed-filters-label, .tabbed-filters ul li .label, .ht-feature-news .excerpt, .ht-feature-news .news-date-wrapper, #need-to-know .news-date-wrapper, #need-to-know .page-list li a, .my-moj .apps-list .app-link {
+body, a[href$=".pdf"]:after, a[href$=".doc"]:after, a[href$=".xls"]:after, a[href$=".xlsx"]:after, a[href$=".pps"]:after, a[href$=".ppt"]:after, .menu-list .menu-item .menu-item-link, .menu-list .child-item-link, .home.page #content .descriptive-menu-description, .message .timestamp, .content-nav li .page-info, .tabbed-filters .tabbed-filters-label, .tabbed-filters ul li .label, .ht-feature-news .excerpt, .ht-feature-news .news-date-wrapper, #need-to-know .news-date-wrapper, #need-to-know .page-list li a, .my-moj .apps-list .app-link {
   font-size: 14px;
   line-height: 20px; }
 
@@ -488,7 +488,7 @@ textarea {
     outline: 3px solid #ffbf47; }
 
 /* line 1, ../scss/global/_base.scss */
-a[href$=".pdf"]:after, a[href$=".doc"]:after, a[href$=".xls"]:after, a[href$=".pps"]:after {
+a[href$=".pdf"]:after, a[href$=".doc"]:after, a[href$=".xls"]:after, a[href$=".xlsx"]:after, a[href$=".pps"]:after, a[href$=".ppt"]:after {
   display: inline-block !important;
   background: none !important;
   width: auto !important;
@@ -552,21 +552,24 @@ a {
     display: none; }
   /* line 96, ../scss/global/_base.scss */
   a[href$=".pdf"]:after {
-    content: " (PDF)"; }
+    content: " (pdf)"; }
   /* line 101, ../scss/global/_base.scss */
   a[href$=".doc"]:after {
-    content: " (DOC)"; }
-  /* line 106, ../scss/global/_base.scss */
-  a[href$=".xls"]:after {
-    content: " (XLS)"; }
-  /* line 111, ../scss/global/_base.scss */
+    content: " (doc)"; }
+  /* line 108, ../scss/global/_base.scss */
+  a[href$=".xls"]:after, a[href$=".xlsx"]:after {
+    content: " (xls)"; }
+  /* line 114, ../scss/global/_base.scss */
   a[href$=".pps"]:after {
-    content: " (PPS)"; }
+    content: " (pps)"; }
+  /* line 119, ../scss/global/_base.scss */
+  a[href$=".ppt"]:after {
+    content: " (ppt)"; }
 
-/* line 117, ../scss/global/_base.scss */
+/* line 125, ../scss/global/_base.scss */
 p {
   margin: 0; }
-  /* line 120, ../scss/global/_base.scss */
+  /* line 128, ../scss/global/_base.scss */
   p + p {
     margin-top: 25px; }
 
@@ -1342,64 +1345,89 @@ form .form-row {
 
 /* line 1, ../scss/modules/_navigation.scss */
 .menu-list {
-  margin: 20px 30px 3px 0; }
+  margin: 20px 20px 3px 0; }
   /* line 4, ../scss/modules/_navigation.scss */
   .menu-list *:focus {
     background-color: transparent; }
   /* line 8, ../scss/modules/_navigation.scss */
+  .menu-list .menu-item-container {
+    position: relative; }
+  /* line 12, ../scss/modules/_navigation.scss */
   .menu-list .menu-item {
     position: relative; }
-    /* line 11, ../scss/modules/_navigation.scss */
-    .menu-list .menu-item:after {
+    /* line 15, ../scss/modules/_navigation.scss */
+    .menu-list .menu-item .dropdown-button {
       position: absolute;
       display: block;
-      right: 5px;
-      top: 2px;
-      transform: rotate(180deg);
-      color: #0b0c0c;
-      font-size: 18px;
-      content: "\25be";
-      pointer-events: none; }
-    /* line 23, ../scss/modules/_navigation.scss */
-    .menu-list .menu-item.collapsed:after {
+      right: 0;
+      top: 0;
+      bottom: 0;
+      padding: 6px;
+      background: none;
+      border: none;
+      border-left: 1px solid #bfc1c3; }
+      /* line 26, ../scss/modules/_navigation.scss */
+      .menu-list .menu-item .dropdown-button:hover {
+        text-decoration: none; }
+      /* line 30, ../scss/modules/_navigation.scss */
+      .menu-list .menu-item .dropdown-button .icon {
+        display: block;
+        transform: rotate(180deg);
+        color: #0b0c0c;
+        font-size: 16px; }
+      /* line 37, ../scss/modules/_navigation.scss */
+      .menu-list .menu-item .dropdown-button:hover {
+        background-color: rgba(0, 0, 0, 0.1); }
+    /* line 42, ../scss/modules/_navigation.scss */
+    .menu-list .menu-item.collapsed .dropdown-button .icon {
       transform: rotate(0deg); }
-    /* line 27, ../scss/modules/_navigation.scss */
-    .menu-list .menu-item.no-children:after {
+    /* line 46, ../scss/modules/_navigation.scss */
+    .menu-list .menu-item.no-children .dropdown-button {
       display: none; }
-    /* line 31, ../scss/modules/_navigation.scss */
+    /* line 50, ../scss/modules/_navigation.scss */
     .menu-list .menu-item .menu-item-link {
       display: block;
       margin-top: 5px;
-      padding: 5px 20px 4px 10px;
+      padding: 5px 30px 4px 10px;
       border: 1px solid #bfc1c3;
       background-color: #f8f8f8;
       font-weight: bold; }
-    /* line 42, ../scss/modules/_navigation.scss */
+    /* line 61, ../scss/modules/_navigation.scss */
     .menu-list .menu-item.current:after {
       color: #fff; }
-    /* line 46, ../scss/modules/_navigation.scss */
+    /* line 65, ../scss/modules/_navigation.scss */
     .menu-list .menu-item.current .menu-item-link {
-      border: 1px solid #005ea5;
-      background-color: #005ea5;
+      border: 1px solid #2e8aca;
+      background-color: #2e8aca;
       color: #fff;
       font-weight: bold; }
-  /* line 55, ../scss/modules/_navigation.scss */
+    /* line 72, ../scss/modules/_navigation.scss */
+    .menu-list .menu-item.current .dropdown-button {
+      border-left: 1px solid #fff; }
+      /* line 75, ../scss/modules/_navigation.scss */
+      .menu-list .menu-item.current .dropdown-button .icon {
+        color: #fff; }
+  /* line 82, ../scss/modules/_navigation.scss */
   .menu-list .children-list {
     margin-left: 0; }
-  /* line 59, ../scss/modules/_navigation.scss */
+  /* line 86, ../scss/modules/_navigation.scss */
   .menu-list .child-item {
-    border-bottom: 1px solid #ddd; }
-  /* line 63, ../scss/modules/_navigation.scss */
+    border-bottom: 1px solid #bfc1c3; }
+  /* line 90, ../scss/modules/_navigation.scss */
   .menu-list .child-item:last-of-type {
     border-bottom: none; }
-  /* line 67, ../scss/modules/_navigation.scss */
+  /* line 94, ../scss/modules/_navigation.scss */
+  .menu-list .menu-item:last-of-type .child-item:last-of-type {
+    border-bottom: 1px solid #bfc1c3; }
+  /* line 98, ../scss/modules/_navigation.scss */
   .menu-list .child-item-link {
     display: block;
     padding: 5px 10px 4px; }
-  /* line 73, ../scss/modules/_navigation.scss */
+  /* line 104, ../scss/modules/_navigation.scss */
   .menu-list .child-item.highlight .child-item-link {
-    font-weight: bold; }
-  /* line 77, ../scss/modules/_navigation.scss */
+    color: #6f777b;
+    pointer-events: none; }
+  /* line 109, ../scss/modules/_navigation.scss */
   .menu-list .collapsed .children-list {
     display: none; }
 

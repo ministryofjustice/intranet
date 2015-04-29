@@ -97,6 +97,18 @@
   .ie7 .content-info a {
     display: block; }
 
+/*@import "global/fonts";*/
+@font-face {
+  font-family: 'nta';
+  src: url("../fonts/nta_light.eot");
+  src: url("../fonts/nta_light.eot?#iefix") format("embedded-opentype");
+  font-weight: normal;
+  font-style: normal; }
+@font-face {
+  font-family: 'nta';
+  src: url("../fonts/nta_bold.eot");
+  src: url("../fonts/nta_bold.eot?#iefix") format("embedded-opentype");
+  font-weight: bold; }
 /* line 2, ../scss/ie/_tabbed_filters.scss */
 .ie7 .tabbed-filters ul,
 .ie7 .tabbed-filters li,
@@ -204,16 +216,18 @@
 .ie7 .ui-autocomplete {
   z-index: 1; }
 
-/* line 1, ../scss/ie/_navigation.scss */
-.ie7 .menu-list {
-  margin-right: 20px; }
-  /* line 4, ../scss/ie/_navigation.scss */
-  .ie7 .menu-list .menu-item {
-    padding-top: 1px;
-    margin-bottom: 5px; }
-    /* line 8, ../scss/ie/_navigation.scss */
-    .ie7 .menu-list .menu-item .menu-item-link {
-      padding-right: 10px;
+/* line 3, ../scss/ie/_navigation.scss */
+.ie7 .menu-list,
+.ie8 .menu-list {
+  margin-right: 10px; }
+  /* line 6, ../scss/ie/_navigation.scss */
+  .ie7 .menu-list .menu-item,
+  .ie8 .menu-list .menu-item {
+    padding-top: 1px; }
+    /* line 9, ../scss/ie/_navigation.scss */
+    .ie7 .menu-list .menu-item .menu-item-link,
+    .ie8 .menu-list .menu-item .menu-item-link {
+      padding-right: 20px;
       zoom: 1; }
 
 /* line 2, ../scss/ie/_search_results.scss */

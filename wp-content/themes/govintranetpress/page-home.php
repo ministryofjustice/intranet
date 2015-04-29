@@ -121,8 +121,8 @@ class Page_home extends MVC_controller {
         array(
           'title' => 'Phoenix',
           'icon' => 'phoenix',
-          'url' => 'http://physmt.unisys.co.uk:8001/OA_HTML/AppsLocalLogin.jsp',
-          'external' => true
+          'url' => site_url('/phoenix/'),
+          'external' => false
         ),
         array(
           'title' => 'Pensions',

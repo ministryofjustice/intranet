@@ -95,22 +95,30 @@ a {
 
   &[href$=".pdf"]:after {
     @extend %doc-icon;
-    content: " (PDF)";
+    content: " (pdf)";
   }
 
   &[href$=".doc"]:after {
     @extend %doc-icon;
-    content: " (DOC)";
+    content: " (doc)";
   }
 
-  &[href$=".xls"]:after {
-    @extend %doc-icon;
-    content: " (XLS)";
+  &[href$=".xls"],
+  &[href$=".xlsx"] {
+    &:after {
+      @extend %doc-icon;
+      content: " (xls)";
+    }
   }
 
   &[href$=".pps"]:after {
     @extend %doc-icon;
-    content: " (PPS)";
+    content: " (pps)";
+  }
+
+  &[href$=".ppt"]:after {
+    @extend %doc-icon;
+    content: " (ppt)";
   }
 }
 
