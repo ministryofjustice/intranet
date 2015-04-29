@@ -280,6 +280,21 @@
 
     .apps-list {
       padding: 0 20px;
+
+      .app-item {
+        margin-right: 8px;
+      }
+    }
+
+    .mobile-collapsed {
+      .category-name {
+        border-bottom: none;
+      }
+
+      .apps-list,
+      .menu-my-moj-quick-links-container {
+        display: none;
+      }
     }
   }
 }

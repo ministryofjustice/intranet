@@ -13,7 +13,7 @@
     </div>
   </div>
   <div class="my-moj-body">
-    <div class="apps-container">
+    <div class="apps-container mobile-collapsed">
       <h3 class="category-name">My MoJ</h3>
       <ul class="apps-list">
         <?php foreach($apps as $app): ?>
@@ -22,7 +22,7 @@
       </ul>
     </div>
 
-    <nav class="quick-links-container">
+    <nav class="quick-links-container mobile-collapsed">
       <h3 class="category-name">Quick links</h3>
       <?php dynamic_sidebar('my-moj-quick-links'); ?>
       <!--

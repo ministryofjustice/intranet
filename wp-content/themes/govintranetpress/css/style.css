@@ -1383,13 +1383,14 @@ form .form-row {
       /* line 78, ../scss/modules/_main_nav.scss */
       .primary-nav .category-item .category-link, .primary-nav .category-item .category-link:hover {
         border: none;
-        padding-bottom: 10px !important;
+        padding-top: 11px !important;
+        padding-bottom: 9px !important;
         border-bottom: 1px solid #0b0c0c !important; }
-      /* line 86, ../scss/modules/_main_nav.scss */
+      /* line 87, ../scss/modules/_main_nav.scss */
       .primary-nav .category-item:last-of-type .category-link:hover {
         border-bottom: none !important; }
 
-  /* line 93, ../scss/modules/_main_nav.scss */
+  /* line 94, ../scss/modules/_main_nav.scss */
   .header.menu-opened .primary-nav {
     display: block; } }
 /* line 1, ../scss/modules/_navigation.scss */
@@ -2423,7 +2424,17 @@ form .form-row {
       overflow: hidden; }
     /* line 281, ../scss/content/homepage/_my_moj.scss */
     .my-moj .apps-list {
-      padding: 0 20px; } }
+      padding: 0 20px; }
+      /* line 284, ../scss/content/homepage/_my_moj.scss */
+      .my-moj .apps-list .app-item {
+        margin-right: 8px; }
+    /* line 290, ../scss/content/homepage/_my_moj.scss */
+    .my-moj .mobile-collapsed .category-name {
+      border-bottom: none; }
+    /* line 294, ../scss/content/homepage/_my_moj.scss */
+    .my-moj .mobile-collapsed .apps-list,
+    .my-moj .mobile-collapsed .menu-my-moj-quick-links-container {
+      display: none; } }
 /* line 2, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .search-form {
   margin-top: 30px; }
