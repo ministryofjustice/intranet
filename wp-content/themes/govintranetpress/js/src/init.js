@@ -3,10 +3,10 @@ jQuery(function() {
 
   var App = window.App;
 
-  //early
+  //Early
   App.ins.breakpoint = new App.Breakpoint();
 
-  //mid
+  //Mid
   App.ins.mobileHeader = new App.MobileHeader();
   App.ins.stickyNews = new App.StickyNews();
   //App.ins.guidanceAndSupport = new App.GuidanceAndSupport();
@@ -26,6 +26,6 @@ jQuery(function() {
   App.ins.pageFeedback = new App.PageFeedback();
   App.ins.navigation = new App.Navigation();
 
-  //late
+  //Late
   App.ins.breakpoint.trigger();
 });

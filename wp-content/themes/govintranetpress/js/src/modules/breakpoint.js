@@ -63,15 +63,27 @@
     },
 
     triggerBreakpoint: function(breakpointName) {
+      var classNames = ['breakpoint-mobile', 'breakpoint-tablet', 'breakpoint-desktop', 'breakpoint-gte-tablet', 'breakpoint-lte-tablet'];
+      var $html = $('html');
+      var eventName;
+
       if(this.currentBreakpoint !== breakpointName) {
-        $(window).trigger('breakpoint-' + breakpointName);
+        $html.removeClass(classNames.join(' '));
+
+        eventName = 'breakpoint-' + breakpointName;
+        $(window).trigger(eventName);
+        $html.addClass(eventName);
 
         if(breakpointName === 'tablet' || breakpointName === 'desktop') {
-          $(window).trigger('breakpoint-gte-tablet');
+          eventName = 'breakpoint-gte-tablet';
+          $(window).trigger(eventName);
+          $html.addClass(eventName);
         }
 
         if(breakpointName === 'tablet' || breakpointName === 'mobile') {
-          $(window).trigger('breakpoint-lte-tablet');
+          eventName = 'breakpoint-lte-tablet';
+          $(window).trigger(eventName);
+          $html.addClass(eventName);
         }
 
         this.currentBreakpoint = breakpointName;

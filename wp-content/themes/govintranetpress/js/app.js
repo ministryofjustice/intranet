@@ -374,15 +374,27 @@
     },
 
     triggerBreakpoint: function(breakpointName) {
+      var classNames = ['breakpoint-mobile', 'breakpoint-tablet', 'breakpoint-desktop', 'breakpoint-gte-tablet', 'breakpoint-lte-tablet'];
+      var $html = $('html');
+      var eventName;
+
       if(this.currentBreakpoint !== breakpointName) {
-        $(window).trigger('breakpoint-' + breakpointName);
+        $html.removeClass(classNames.join(' '));
+
+        eventName = 'breakpoint-' + breakpointName;
+        $(window).trigger(eventName);
+        $html.addClass(eventName);
 
         if(breakpointName === 'tablet' || breakpointName === 'desktop') {
-          $(window).trigger('breakpoint-gte-tablet');
+          eventName = 'breakpoint-gte-tablet';
+          $(window).trigger(eventName);
+          $html.addClass(eventName);
         }
 
         if(breakpointName === 'tablet' || breakpointName === 'mobile') {
-          $(window).trigger('breakpoint-lte-tablet');
+          eventName = 'breakpoint-lte-tablet';
+          $(window).trigger(eventName);
+          $html.addClass(eventName);
         }
 
         this.currentBreakpoint = breakpointName;
@@ -2251,10 +2263,10 @@ jQuery(function() {
 
   var App = window.App;
 
-  //early
+  //Early
   App.ins.breakpoint = new App.Breakpoint();
 
-  //mid
+  //Mid
   App.ins.mobileHeader = new App.MobileHeader();
   App.ins.stickyNews = new App.StickyNews();
   //App.ins.guidanceAndSupport = new App.GuidanceAndSupport();
@@ -2274,6 +2286,6 @@ jQuery(function() {
   App.ins.pageFeedback = new App.PageFeedback();
   App.ins.navigation = new App.Navigation();
 
-  //late
+  //Late
   App.ins.breakpoint.trigger();
 });
