@@ -663,6 +663,15 @@ function twentyten_widgets_init() {
 		'before_title' => '',
 		'after_title' => '',
 	) );
+	register_sidebar( array(
+		'name' => __( 'Main menu', 'twentyten' ),
+		'id' => 'main-menu',
+		'description' => __( 'Main menu', 'twentyten' ),
+		'before_widget' => '',
+		'after_widget' => '',
+		'before_title' => '',
+		'after_title' => '',
+	) );
 }
 
 function govintranetpress_custom_title( $output ) {
