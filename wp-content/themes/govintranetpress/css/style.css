@@ -1394,64 +1394,89 @@ form .form-row {
     display: block; } }
 /* line 1, ../scss/modules/_navigation.scss */
 .menu-list {
-  margin: 20px 30px 3px 0; }
+  margin: 20px 20px 3px 0; }
   /* line 4, ../scss/modules/_navigation.scss */
   .menu-list *:focus {
     background-color: transparent; }
   /* line 8, ../scss/modules/_navigation.scss */
+  .menu-list .menu-item-container {
+    position: relative; }
+  /* line 12, ../scss/modules/_navigation.scss */
   .menu-list .menu-item {
     position: relative; }
-    /* line 11, ../scss/modules/_navigation.scss */
-    .menu-list .menu-item:after {
+    /* line 15, ../scss/modules/_navigation.scss */
+    .menu-list .menu-item .dropdown-button {
       position: absolute;
       display: block;
-      right: 5px;
-      top: 2px;
-      transform: rotate(180deg);
-      color: #0b0c0c;
-      font-size: 18px;
-      content: "\25be";
-      pointer-events: none; }
-    /* line 23, ../scss/modules/_navigation.scss */
-    .menu-list .menu-item.collapsed:after {
+      right: 0;
+      top: 0;
+      bottom: 0;
+      padding: 6px;
+      background: none;
+      border: none;
+      border-left: 1px solid #bfc1c3; }
+      /* line 26, ../scss/modules/_navigation.scss */
+      .menu-list .menu-item .dropdown-button:hover {
+        text-decoration: none; }
+      /* line 30, ../scss/modules/_navigation.scss */
+      .menu-list .menu-item .dropdown-button .icon {
+        display: block;
+        transform: rotate(180deg);
+        color: #0b0c0c;
+        font-size: 16px; }
+      /* line 37, ../scss/modules/_navigation.scss */
+      .menu-list .menu-item .dropdown-button:hover {
+        background-color: rgba(0, 0, 0, 0.1); }
+    /* line 42, ../scss/modules/_navigation.scss */
+    .menu-list .menu-item.collapsed .dropdown-button .icon {
       transform: rotate(0deg); }
-    /* line 27, ../scss/modules/_navigation.scss */
-    .menu-list .menu-item.no-children:after {
+    /* line 46, ../scss/modules/_navigation.scss */
+    .menu-list .menu-item.no-children .dropdown-button {
       display: none; }
-    /* line 31, ../scss/modules/_navigation.scss */
+    /* line 50, ../scss/modules/_navigation.scss */
     .menu-list .menu-item .menu-item-link {
       display: block;
       margin-top: 5px;
-      padding: 5px 20px 4px 10px;
+      padding: 5px 30px 4px 10px;
       border: 1px solid #bfc1c3;
       background-color: #f8f8f8;
       font-weight: bold; }
-    /* line 42, ../scss/modules/_navigation.scss */
+    /* line 61, ../scss/modules/_navigation.scss */
     .menu-list .menu-item.current:after {
       color: #fff; }
-    /* line 46, ../scss/modules/_navigation.scss */
+    /* line 65, ../scss/modules/_navigation.scss */
     .menu-list .menu-item.current .menu-item-link {
-      border: 1px solid #005ea5;
-      background-color: #005ea5;
+      border: 1px solid #2e8aca;
+      background-color: #2e8aca;
       color: #fff;
       font-weight: bold; }
-  /* line 55, ../scss/modules/_navigation.scss */
+    /* line 72, ../scss/modules/_navigation.scss */
+    .menu-list .menu-item.current .dropdown-button {
+      border-left: 1px solid #fff; }
+      /* line 75, ../scss/modules/_navigation.scss */
+      .menu-list .menu-item.current .dropdown-button .icon {
+        color: #fff; }
+  /* line 82, ../scss/modules/_navigation.scss */
   .menu-list .children-list {
     margin-left: 0; }
-  /* line 59, ../scss/modules/_navigation.scss */
+  /* line 86, ../scss/modules/_navigation.scss */
   .menu-list .child-item {
-    border-bottom: 1px solid #ddd; }
-  /* line 63, ../scss/modules/_navigation.scss */
+    border-bottom: 1px solid #bfc1c3; }
+  /* line 90, ../scss/modules/_navigation.scss */
   .menu-list .child-item:last-of-type {
     border-bottom: none; }
-  /* line 67, ../scss/modules/_navigation.scss */
+  /* line 94, ../scss/modules/_navigation.scss */
+  .menu-list .menu-item:last-of-type .child-item:last-of-type {
+    border-bottom: 1px solid #bfc1c3; }
+  /* line 98, ../scss/modules/_navigation.scss */
   .menu-list .child-item-link {
     display: block;
     padding: 5px 10px 4px; }
-  /* line 73, ../scss/modules/_navigation.scss */
+  /* line 104, ../scss/modules/_navigation.scss */
   .menu-list .child-item.highlight .child-item-link {
-    font-weight: bold; }
-  /* line 77, ../scss/modules/_navigation.scss */
+    color: #6f777b;
+    pointer-events: none; }
+  /* line 109, ../scss/modules/_navigation.scss */
   .menu-list .collapsed .children-list {
     display: none; }
 

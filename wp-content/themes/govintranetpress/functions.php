@@ -1786,3 +1786,13 @@ function exact_title_matches($match) {
 	}
 	return $match;
 }
+
+// Prevents WordPress from "guessing" URLs
+add_filter('redirect_canonical', 'no_redirect_on_404');
+function no_redirect_on_404($redirect_url)
+{
+    if (is_404()) {
+        return false;
+    }
+    return $redirect_url;
+}
