@@ -1166,7 +1166,7 @@
         }
       });
 
-      this.highlightCurrentInParent();
+      this.highlightInAncestors();
     },
 
     buildMenuItem: function(data) {
@@ -1175,10 +1175,12 @@
       var $childrenList = $menuItem.find('.children-list');
 
       $menuItem.attr('data-id', data.id);
-
       $menuItem.find('.menu-item-link')
-        .click($.proxy(_this.toggle, _this))
+        .attr('href', data.url)
         .html(data.title);
+
+      $menuItem.find('.dropdown-button')
+        .click($.proxy(_this.toggle, _this));
 
       $.each(data.items, function(index, data) {
         _this.buildChildItem(data).appendTo($childrenList);
@@ -1215,7 +1217,7 @@
 
       $item.toggleClass('collapsed');
 
-      this.$menu.find('.menu-item').each(function() {
+      this.$menu.find('.menu-item').not('.current').each(function() {
         var $this = $(this);
         if($this.get(0) !== $item.get(0)) {
           $this.addClass('collapsed');
@@ -1223,13 +1225,18 @@
       });
     },
 
-    highlightCurrentInParent: function() {
-      var currentId = this.$menu.find('.current').attr('data-id');
-      var $currentPageLink = this.$menu.find('.child-item[data-id="' + currentId + '"]');
-      $currentPageLink.addClass('highlight');
-      $currentPageLink.off('click');
-      $currentPageLink.click(function(e) {
-        e.preventDefault();
+    highlightInAncestors: function() {
+      var _this = this;
+      var $categoryItem;
+      var $link;
+      var id;
+
+      this.$menu.find('.menu-item').each(function() {
+        $categoryItem = $(this);
+        id = $categoryItem.attr('data-id');
+
+        $link = _this.$menu.find('.child-item[data-id="' + id + '"]');
+        $link.addClass('highlight');
       });
     }
   };

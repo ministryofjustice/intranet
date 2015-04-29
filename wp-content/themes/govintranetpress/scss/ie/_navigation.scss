@@ -1,13 +1,15 @@
-.ie7 .menu-list {
-  margin-right: 20px;
+.ie7,
+.ie8 {
+  .menu-list {
+    margin-right: 10px;
 
-  .menu-item {
-    padding-top: 1px;
-    margin-bottom: 5px;
+    .menu-item {
+      padding-top: 1px;
 
-    .menu-item-link {
-      padding-right: 10px;
-      zoom: 1;
+      .menu-item-link {
+        padding-right: 20px;
+        zoom: 1;
+      }
     }
   }
 }
