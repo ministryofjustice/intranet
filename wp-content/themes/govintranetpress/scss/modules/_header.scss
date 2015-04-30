@@ -61,17 +61,33 @@
     top: 0;
     left: 0;
     right: 0;
+    height: 40px;
 
-    .mobile-nav button {
-      float: right;
-      width: 30px;
-      height: 30px;
+    .site-logo img {
+      width: auto;
+      height: 24px;
+      margin-top: 8px;
+    }
+
+    .header-top {
+      padding-bottom: 0;
+    }
+
+    .skip-to-content-container {
+      display: none;
+    }
+
+    .mobile-menu-btn {
+      position: absolute;
+      right: 0px;
+      width: 40px;
+      height: 40px;
       border: none;
       background-color: transparent;
-      background-image: url('../images/mobile_menu.svg');
+      background-image: url('../images/mobile_header.svg');
       background-size: 60px 30px;
-      background-position: 0 0;
-      margin-top: 5px;
+      background-position: -25px 5px;
+      background-repeat: no-repeat;
     }
 
     .header-bottom {
@@ -81,22 +97,51 @@
     .search-form {
       position: absolute;
       left: auto;
-      right: 60px;
-      top: 8px;
-      width: 30px;
+      right: 40px;
+      top: 0;
+      width: 42px;
+      height: 40px;
+      padding: 0 0 0 0px;
       transition: width .5s;
-      padding-left: 75px;
+      border-left: 1px solid $white;
+      border-right: 1px solid $white;
 
       .keywords-field {
-        width: 100%;
         float: right;
+        width: 100%;
+        height: 38px;
+        margin-top: 1px;
+        outline: none;
       }
+    }
+
+    .search-form .search-btn {
+      top: 0;
+      width: 40px;
+      height: 40px;
+      background-color: $black;
+      border-bottom: none;
+      background-image: url('../images/search_icon.svg');
+      background-position: 8px 8px;
+      background-size: 23px 23px;
     }
 
     &.search-opened {
       .search-form {
-        width: 100%;
+        width: calc(100% - 40px);
         transition: width .5s;
+        border-right: 1px solid $dw-link;
+        border-left: none;
+
+        .search-btn {
+          background-color: $dw-link;
+        }
+      }
+    }
+
+    &.menu-opened {
+      .mobile-menu-btn {
+        background-position: 5px 5px;
       }
     }
 

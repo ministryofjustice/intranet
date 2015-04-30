@@ -1289,39 +1289,76 @@ form .form-row {
     position: fixed;
     top: 0;
     left: 0;
-    right: 0; }
-    /* line 65, ../scss/modules/_header.scss */
-    .header .mobile-nav button {
-      float: right;
-      width: 30px;
-      height: 30px;
+    right: 0;
+    height: 40px; }
+    /* line 66, ../scss/modules/_header.scss */
+    .header .site-logo img {
+      width: auto;
+      height: 24px;
+      margin-top: 8px; }
+    /* line 72, ../scss/modules/_header.scss */
+    .header .header-top {
+      padding-bottom: 0; }
+    /* line 76, ../scss/modules/_header.scss */
+    .header .skip-to-content-container {
+      display: none; }
+    /* line 80, ../scss/modules/_header.scss */
+    .header .mobile-menu-btn {
+      position: absolute;
+      right: 0px;
+      width: 40px;
+      height: 40px;
       border: none;
       background-color: transparent;
-      background-image: url("../images/mobile_menu.svg");
+      background-image: url("../images/mobile_header.svg");
       background-size: 60px 30px;
-      background-position: 0 0;
-      margin-top: 5px; }
-    /* line 77, ../scss/modules/_header.scss */
+      background-position: -25px 5px;
+      background-repeat: no-repeat; }
+    /* line 93, ../scss/modules/_header.scss */
     .header .header-bottom {
       position: static; }
-    /* line 81, ../scss/modules/_header.scss */
+    /* line 97, ../scss/modules/_header.scss */
     .header .search-form {
       position: absolute;
       left: auto;
-      right: 60px;
-      top: 8px;
-      width: 30px;
+      right: 40px;
+      top: 0;
+      width: 42px;
+      height: 40px;
+      padding: 0 0 0 0px;
       transition: width .5s;
-      padding-left: 75px; }
-      /* line 90, ../scss/modules/_header.scss */
+      border-left: 1px solid #fff;
+      border-right: 1px solid #fff; }
+      /* line 109, ../scss/modules/_header.scss */
       .header .search-form .keywords-field {
+        float: right;
         width: 100%;
-        float: right; }
-    /* line 97, ../scss/modules/_header.scss */
+        height: 38px;
+        margin-top: 1px;
+        outline: none; }
+    /* line 118, ../scss/modules/_header.scss */
+    .header .search-form .search-btn {
+      top: 0;
+      width: 40px;
+      height: 40px;
+      background-color: #0b0c0c;
+      border-bottom: none;
+      background-image: url("../images/search_icon.svg");
+      background-position: 8px 8px;
+      background-size: 23px 23px; }
+    /* line 130, ../scss/modules/_header.scss */
     .header.search-opened .search-form {
-      width: 100%;
-      transition: width .5s; }
-    /* line 103, ../scss/modules/_header.scss */
+      width: calc(100% - 40px);
+      transition: width .5s;
+      border-right: 1px solid #2e8aca;
+      border-left: none; }
+      /* line 136, ../scss/modules/_header.scss */
+      .header.search-opened .search-form .search-btn {
+        background-color: #2e8aca; }
+    /* line 143, ../scss/modules/_header.scss */
+    .header.menu-opened .mobile-menu-btn {
+      background-position: 5px 5px; }
+    /* line 148, ../scss/modules/_header.scss */
     .header .my-moj {
       display: block; } }
 /* line 2, ../scss/modules/_main_nav.scss */
@@ -1368,7 +1405,7 @@ form .form-row {
   .primary-nav {
     position: absolute;
     display: none;
-    top: 55px;
+    top: 40px;
     left: 0;
     right: 0;
     max-height: 500px;
@@ -2273,14 +2310,15 @@ form .form-row {
       border: none;
       box-shadow: none;
       font-family: Helvetica;
+      -webkit-appearance: none;
       -moz-appearance: none;
       appearance: none; }
-      /* line 99, ../scss/content/homepage/_my_moj.scss */
+      /* line 100, ../scss/content/homepage/_my_moj.scss */
       .my-moj .my-moj-top .department option {
         padding: 10px 40px;
         background-color: #fff;
         color: #0b0c0c; }
-        /* line 104, ../scss/content/homepage/_my_moj.scss */
+        /* line 105, ../scss/content/homepage/_my_moj.scss */
         .my-moj .my-moj-top .department option:before {
           display: inline-block;
           width: 26px;
@@ -2291,10 +2329,10 @@ form .form-row {
           background-size: 200px 50px;
           vertical-align: text-bottom;
           content: ""; }
-  /* line 119, ../scss/content/homepage/_my_moj.scss */
+  /* line 120, ../scss/content/homepage/_my_moj.scss */
   .my-moj .my-moj-body {
     padding: 30px; }
-  /* line 123, ../scss/content/homepage/_my_moj.scss */
+  /* line 124, ../scss/content/homepage/_my_moj.scss */
   .my-moj .apps-list {
     margin-right: -10px; }
     /* line 2, ../scss/global/_mixins.scss */
@@ -2302,27 +2340,27 @@ form .form-row {
       content: "";
       display: table;
       clear: both; }
-    /* line 127, ../scss/content/homepage/_my_moj.scss */
+    /* line 128, ../scss/content/homepage/_my_moj.scss */
     .my-moj .apps-list .app-item {
       float: left;
       width: 74px;
       height: 135px;
       margin-right: 12px;
       text-align: center; }
-      /* line 135, ../scss/content/homepage/_my_moj.scss */
+      /* line 136, ../scss/content/homepage/_my_moj.scss */
       .my-moj .apps-list .app-item:hover .app-icon {
         border: 1px solid #ffc10e; }
-    /* line 141, ../scss/content/homepage/_my_moj.scss */
+    /* line 142, ../scss/content/homepage/_my_moj.scss */
     .my-moj .apps-list .app-link {
       display: block; }
-      /* line 145, ../scss/content/homepage/_my_moj.scss */
+      /* line 146, ../scss/content/homepage/_my_moj.scss */
       .my-moj .apps-list .app-link:after {
         background-image: none; }
-    /* line 150, ../scss/content/homepage/_my_moj.scss */
+    /* line 151, ../scss/content/homepage/_my_moj.scss */
     .my-moj .apps-list .app-name {
       display: block;
       text-align: center; }
-    /* line 155, ../scss/content/homepage/_my_moj.scss */
+    /* line 156, ../scss/content/homepage/_my_moj.scss */
     .my-moj .apps-list .app-icon {
       display: inline-block;
       width: 74px;
@@ -2333,7 +2371,7 @@ form .form-row {
       background-color: #fff;
       border: 1px solid #bfc1c3;
       border-radius: 5px; }
-    /* line 167, ../scss/content/homepage/_my_moj.scss */
+    /* line 168, ../scss/content/homepage/_my_moj.scss */
     .my-moj .apps-list .app-icon-inner {
       display: inline-block;
       width: 64px;
@@ -2342,67 +2380,67 @@ form .form-row {
       background-repeat: no-repeat;
       background-image: url("../images/app_icons_x2.png");
       background-size: 640px 64px; }
-      /* line 176, ../scss/content/homepage/_my_moj.scss */
+      /* line 177, ../scss/content/homepage/_my_moj.scss */
       .my-moj .apps-list .app-icon-inner.people-finder-icon {
         background-position: 0 0; }
-      /* line 180, ../scss/content/homepage/_my_moj.scss */
+      /* line 181, ../scss/content/homepage/_my_moj.scss */
       .my-moj .apps-list .app-icon-inner.courtfinder-icon {
         background-position: -64px 0; }
-      /* line 184, ../scss/content/homepage/_my_moj.scss */
+      /* line 185, ../scss/content/homepage/_my_moj.scss */
       .my-moj .apps-list .app-icon-inner.travel-booking-icon {
         background-position: -128px 0; }
-      /* line 188, ../scss/content/homepage/_my_moj.scss */
+      /* line 189, ../scss/content/homepage/_my_moj.scss */
       .my-moj .apps-list .app-icon-inner.phoenix-icon {
         background-position: -192px 0; }
-      /* line 192, ../scss/content/homepage/_my_moj.scss */
+      /* line 193, ../scss/content/homepage/_my_moj.scss */
       .my-moj .apps-list .app-icon-inner.it-portal-icon {
         background-position: -256px 0; }
-      /* line 196, ../scss/content/homepage/_my_moj.scss */
+      /* line 197, ../scss/content/homepage/_my_moj.scss */
       .my-moj .apps-list .app-icon-inner.civil-service-learning-icon {
         background-position: -320px 0; }
-      /* line 200, ../scss/content/homepage/_my_moj.scss */
+      /* line 201, ../scss/content/homepage/_my_moj.scss */
       .my-moj .apps-list .app-icon-inner.jobs-icon {
         background-position: -384px 0; }
-      /* line 204, ../scss/content/homepage/_my_moj.scss */
+      /* line 205, ../scss/content/homepage/_my_moj.scss */
       .my-moj .apps-list .app-icon-inner.ministry-of-justice-icon {
         background-position: -448px 0; }
-      /* line 208, ../scss/content/homepage/_my_moj.scss */
+      /* line 209, ../scss/content/homepage/_my_moj.scss */
       .my-moj .apps-list .app-icon-inner.gov-uk-icon {
         background-position: -512px 0; }
-      /* line 212, ../scss/content/homepage/_my_moj.scss */
+      /* line 213, ../scss/content/homepage/_my_moj.scss */
       .my-moj .apps-list .app-icon-inner.pension-icon {
         background-position: -576px 0; }
-  /* line 219, ../scss/content/homepage/_my_moj.scss */
+  /* line 220, ../scss/content/homepage/_my_moj.scss */
   .my-moj .menu-my-moj-quick-links-container ul a {
     text-decoration: underline; }
-  /* line 224, ../scss/content/homepage/_my_moj.scss */
+  /* line 225, ../scss/content/homepage/_my_moj.scss */
   .my-moj .menu-my-moj-quick-links-container ul .menu-item {
     margin-top: 10px; }
-    /* line 227, ../scss/content/homepage/_my_moj.scss */
+    /* line 228, ../scss/content/homepage/_my_moj.scss */
     .my-moj .menu-my-moj-quick-links-container ul .menu-item:first-of-type a {
       margin-top: 0; }
 
 @media (min-width: 0) and (max-width: 767px) {
-  /* line 235, ../scss/content/homepage/_my_moj.scss */
+  /* line 236, ../scss/content/homepage/_my_moj.scss */
   .my-moj {
     display: block;
     margin-top: 0; }
-    /* line 239, ../scss/content/homepage/_my_moj.scss */
+    /* line 240, ../scss/content/homepage/_my_moj.scss */
     .my-moj .my-moj-top {
       padding: 4px 20px 3px; }
-      /* line 242, ../scss/content/homepage/_my_moj.scss */
+      /* line 243, ../scss/content/homepage/_my_moj.scss */
       .my-moj .my-moj-top .department-dropdown-box:before {
         text-align: left; }
-    /* line 247, ../scss/content/homepage/_my_moj.scss */
+    /* line 248, ../scss/content/homepage/_my_moj.scss */
     .my-moj .my-moj-body {
       padding: 0; }
-      /* line 250, ../scss/content/homepage/_my_moj.scss */
+      /* line 251, ../scss/content/homepage/_my_moj.scss */
       .my-moj .my-moj-body .category-name {
         font-size: 16px;
         line-height: 20px;
         margin: 0;
         padding: 10px 20px 9px; }
-        /* line 255, ../scss/content/homepage/_my_moj.scss */
+        /* line 256, ../scss/content/homepage/_my_moj.scss */
         .my-moj .my-moj-body .category-name:before {
           display: inline-block;
           width: 26px;
@@ -2412,26 +2450,26 @@ form .form-row {
           vertical-align: middle;
           color: #0b0c0c;
           content: "\25be"; }
-      /* line 267, ../scss/content/homepage/_my_moj.scss */
+      /* line 268, ../scss/content/homepage/_my_moj.scss */
       .my-moj .my-moj-body .quick-links-container .category-name {
         border-top: 1px solid #6f777b; }
-      /* line 271, ../scss/content/homepage/_my_moj.scss */
+      /* line 272, ../scss/content/homepage/_my_moj.scss */
       .my-moj .my-moj-body .menu-my-moj-quick-links-container .menu {
         margin: 0;
         padding: 5px 20px 15px; }
-    /* line 277, ../scss/content/homepage/_my_moj.scss */
+    /* line 278, ../scss/content/homepage/_my_moj.scss */
     .my-moj .apps-container {
       overflow: hidden; }
-    /* line 281, ../scss/content/homepage/_my_moj.scss */
+    /* line 282, ../scss/content/homepage/_my_moj.scss */
     .my-moj .apps-list {
       padding: 0 20px; }
-      /* line 284, ../scss/content/homepage/_my_moj.scss */
+      /* line 285, ../scss/content/homepage/_my_moj.scss */
       .my-moj .apps-list .app-item {
         margin-right: 8px; }
-    /* line 290, ../scss/content/homepage/_my_moj.scss */
+    /* line 291, ../scss/content/homepage/_my_moj.scss */
     .my-moj .mobile-collapsed .category-name {
       border-bottom: none; }
-    /* line 294, ../scss/content/homepage/_my_moj.scss */
+    /* line 295, ../scss/content/homepage/_my_moj.scss */
     .my-moj .mobile-collapsed .apps-list,
     .my-moj .mobile-collapsed .menu-my-moj-quick-links-container {
       display: none; } }
