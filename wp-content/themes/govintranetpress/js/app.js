@@ -1258,7 +1258,8 @@
   App.News.prototype = {
     init: function() {
       this.settings = {
-        dateDropdownMonths: 12
+        dateDropdownLength: 12,
+        dateDropdownStartDate: new Date(2015, 0, 1)
       };
 
       this.applicationUrl = $('head').data('application-url');
@@ -1328,13 +1329,20 @@
       var thisDate;
       var thisYear;
       var thisMonth;
+      var thisDay;
       var $option;
       var a;
 
-      for(a=0; a<this.settings.dateDropdownMonths; a++) {
+      for(a=0; a<this.settings.dateDropdownLength; a++) {
         thisDate = new Date(startYear, startMonth - a, startDay);
+        thisDay = thisDate.getDate();
         thisMonth = thisDate.getMonth();
         thisYear = thisDate.getFullYear();
+
+        if(new Date(thisYear, thisMonth, thisDay) < this.settings.dateDropdownStartDate) {
+          break;
+        }
+
         $option = $('<option>');
         $option.text(this.months[thisMonth] + ' ' + thisYear);
         $option.val(thisYear + '-' + (thisMonth+1));
