@@ -59,14 +59,15 @@
       width: 100%;
 
       &:before {
-        display: inline-block;
+        float: left;
         width: 26px;
         height: 25px;
-        margin-right: 0px;
+        margin-right: 6px;
         background-repeat: no-repeat;
         font-size: 20px;
+        line-height: 30px;
         text-align: center;
-        vertical-align: text-bottom;
+        vertical-align: text-b0ottom;
         color: $white;
       }
 
@@ -86,13 +87,14 @@
       @extend %medium-copy;
       max-width: 255px;
       height: 33px;
-      padding: 3px 0 0;
+      padding: 0 0 0;
       background: transparent;
       color: $white;
       border-radius: 0;
       border: none;
       box-shadow: none;
       font-family: Helvetica;
+      vertical-align: baseline;
       -webkit-appearance: none;
       -moz-appearance: none;
       appearance: none;
@@ -106,7 +108,7 @@
           display: inline-block;
           width: 26px;
           height: 25px;
-          margin-right: 10px;
+          margin-right: 6px;
           background-repeat: no-repeat;
           background-image: url('../images/department_crest_x2.png');
           background-size: 200px 50px;
@@ -242,6 +244,7 @@
 
       .department-dropdown-box:before {
         text-align: left;
+        margin-right: 3px;
       }
     }
 
@@ -251,15 +254,19 @@
       .category-name {
         @include medium-copy;
         margin: 0;
-        padding: 10px 20px 9px;
+        padding: 4px 20px 3px;
+        line-height: 33px;
 
         &:before {
-          display: inline-block;
+          float: left;
           width: 26px;
+          height: 25px;
           margin-right: 6px;
           font-size: 20px;
+          line-height: 20px;
+          padding-top: 4px;
           text-align: left;
-          vertical-align: middle;
+          vertical-align: text-bottom;
           color: $black;
           content: "\25be";
         }

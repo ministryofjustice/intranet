@@ -132,3 +132,12 @@
     }
   }
 }
+
+@include mobile-mq() {
+  .ht-feature-news {
+    .news-medium {
+      width: 100%;
+      padding-right: 0 !important;
+    }
+  }
+}
