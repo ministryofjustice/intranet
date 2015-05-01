@@ -952,7 +952,7 @@ p {
 @media (min-width: 0) and (max-width: 767px) {
   /* line 135, ../scss/global/_base.scss */
   body {
-    margin-top: 70px; } }
+    margin-top: 60px; } }
 /* line 2, ../scss/global/_common.scss */
 .clearfix:after {
   content: "";
@@ -2382,6 +2382,9 @@ form .form-row {
     .my-moj .mobile-collapsed .menu-my-moj-quick-links-container {
       display: none; } }
 /* line 2, ../scss/content/guidance_and_support/_main.scss */
+.guidance-and-support h1 {
+  border-bottom: none; }
+/* line 6, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .search-form {
   margin-top: 30px; }
 /* line 2, ../scss/global/_mixins.scss */
@@ -2389,62 +2392,62 @@ form .form-row {
   content: "";
   display: table;
   clear: both; }
-/* line 9, ../scss/content/guidance_and_support/_main.scss */
+/* line 13, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .guidance-categories-list .category-item {
   float: left;
   width: 33.3333%;
   margin-bottom: 20px;
   padding-top: 20px;
   padding-right: 20px; }
-  /* line 16, ../scss/content/guidance_and_support/_main.scss */
+  /* line 20, ../scss/content/guidance_and_support/_main.scss */
   .guidance-and-support .guidance-categories-list .category-item .category-title {
     margin: 0; }
-    /* line 20, ../scss/content/guidance_and_support/_main.scss */
+    /* line 24, ../scss/content/guidance_and_support/_main.scss */
     .guidance-and-support .guidance-categories-list .category-item .category-title a {
       text-decoration: underline; }
-  /* line 25, ../scss/content/guidance_and_support/_main.scss */
+  /* line 29, ../scss/content/guidance_and_support/_main.scss */
   .guidance-and-support .guidance-categories-list .category-item:nth-of-type(-n + 3) {
     border-top: none; }
-  /* line 29, ../scss/content/guidance_and_support/_main.scss */
+  /* line 33, ../scss/content/guidance_and_support/_main.scss */
   .guidance-and-support .guidance-categories-list .category-item:nth-of-type(3n + 1) {
     clear: both; }
-/* line 34, ../scss/content/guidance_and_support/_main.scss */
+/* line 38, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .guidance-categories-list.small {
   margin-top: 40px;
   padding-top: 40px;
   border-top: 3px solid #0b0c0c; }
-  /* line 39, ../scss/content/guidance_and_support/_main.scss */
+  /* line 43, ../scss/content/guidance_and_support/_main.scss */
   .guidance-and-support .guidance-categories-list.small .category-item {
     margin-bottom: 0; }
-  /* line 43, ../scss/content/guidance_and_support/_main.scss */
+  /* line 47, ../scss/content/guidance_and_support/_main.scss */
   .guidance-and-support .guidance-categories-list.small .children-list {
     display: none; }
-/* line 48, ../scss/content/guidance_and_support/_main.scss */
+/* line 52, ../scss/content/guidance_and_support/_main.scss */
 .guidance-and-support .guidance-categories-list .children-list {
   padding-left: 10px; }
-  /* line 51, ../scss/content/guidance_and_support/_main.scss */
+  /* line 55, ../scss/content/guidance_and_support/_main.scss */
   .guidance-and-support .guidance-categories-list .children-list .child-item {
     margin-top: 5px;
     list-style-type: disc; }
-    /* line 55, ../scss/content/guidance_and_support/_main.scss */
+    /* line 59, ../scss/content/guidance_and_support/_main.scss */
     .guidance-and-support .guidance-categories-list .children-list .child-item.see-all {
       margin-top: 15px; }
-      /* line 58, ../scss/content/guidance_and_support/_main.scss */
+      /* line 62, ../scss/content/guidance_and_support/_main.scss */
       .guidance-and-support .guidance-categories-list .children-list .child-item.see-all .child-title a {
         font-weight: bold; }
-        /* line 61, ../scss/content/guidance_and_support/_main.scss */
+        /* line 65, ../scss/content/guidance_and_support/_main.scss */
         .guidance-and-support .guidance-categories-list .children-list .child-item.see-all .child-title a:after {
           content: " \00bb"; }
-    /* line 67, ../scss/content/guidance_and_support/_main.scss */
+    /* line 71, ../scss/content/guidance_and_support/_main.scss */
     .guidance-and-support .guidance-categories-list .children-list .child-item .child-title {
       margin: 0;
       line-height: 20px; }
-      /* line 71, ../scss/content/guidance_and_support/_main.scss */
+      /* line 75, ../scss/content/guidance_and_support/_main.scss */
       .guidance-and-support .guidance-categories-list .children-list .child-item .child-title a {
         font-weight: normal; }
 
 @media (min-width: 0) and (max-width: 767px) {
-  /* line 84, ../scss/content/guidance_and_support/_main.scss */
+  /* line 88, ../scss/content/guidance_and_support/_main.scss */
   .guidance-and-support .guidance-categories-list .category-item {
     width: 100%; } }
 /* line 1, ../scss/content/guidance_and_support_content/_main.scss */
@@ -2494,27 +2497,30 @@ form .form-row {
     margin-top: 30px; }
 
 /* line 2, ../scss/content/news_landing/_main.scss */
+.page-news h1 {
+  border-bottom: none; }
+/* line 6, ../scss/content/news_landing/_main.scss */
 .page-news .content-filters {
   margin-top: 20px; }
-  /* line 5, ../scss/content/news_landing/_main.scss */
+  /* line 9, ../scss/content/news_landing/_main.scss */
   .page-news .content-filters select {
     border-radius: 0; }
-/* line 10, ../scss/content/news_landing/_main.scss */
+/* line 14, ../scss/content/news_landing/_main.scss */
 .page-news .news-results-title {
   border-bottom: 1px solid #6f777b; }
-/* line 15, ../scss/content/news_landing/_main.scss */
+/* line 19, ../scss/content/news_landing/_main.scss */
 .page-news .news-filtered-results-title .results-count {
   font-weight: bold; }
-/* line 20, ../scss/content/news_landing/_main.scss */
+/* line 24, ../scss/content/news_landing/_main.scss */
 .page-news .news-filtered-results-title .containing,
 .page-news .news-filtered-results-title .for-date {
   font-weight: normal; }
-/* line 26, ../scss/content/news_landing/_main.scss */
+/* line 30, ../scss/content/news_landing/_main.scss */
 .page-news .news-filtered-results-title .results-count-description,
 .page-news .news-filtered-results-title .keywords,
 .page-news .news-filtered-results-title .date {
   font-weight: bold; }
-/* line 34, ../scss/content/news_landing/_main.scss */
+/* line 38, ../scss/content/news_landing/_main.scss */
 .page-news .news-item {
   padding: 15px 0;
   border-bottom: 1px solid #bfc1c3;
@@ -2524,37 +2530,37 @@ form .form-row {
     content: "";
     display: table;
     clear: both; }
-  /* line 40, ../scss/content/news_landing/_main.scss */
+  /* line 44, ../scss/content/news_landing/_main.scss */
   .page-news .news-item.faded {
     opacity: .3; }
-  /* line 44, ../scss/content/news_landing/_main.scss */
+  /* line 48, ../scss/content/news_landing/_main.scss */
   .page-news .news-item .thumbnail-container {
     float: left;
     width: 150px;
     height: 100px;
     margin-right: 20px; }
-    /* line 50, ../scss/content/news_landing/_main.scss */
+    /* line 54, ../scss/content/news_landing/_main.scss */
     .page-news .news-item .thumbnail-container .news-link {
       display: block; }
-    /* line 54, ../scss/content/news_landing/_main.scss */
+    /* line 58, ../scss/content/news_landing/_main.scss */
     .page-news .news-item .thumbnail-container img {
       display: block; }
-  /* line 59, ../scss/content/news_landing/_main.scss */
+  /* line 63, ../scss/content/news_landing/_main.scss */
   .page-news .news-item .content {
     overflow: hidden; }
-  /* line 64, ../scss/content/news_landing/_main.scss */
+  /* line 68, ../scss/content/news_landing/_main.scss */
   .page-news .news-item .meta span {
     color: #6f777b; }
-  /* line 69, ../scss/content/news_landing/_main.scss */
+  /* line 73, ../scss/content/news_landing/_main.scss */
   .page-news .news-item .title {
     margin-top: 0px;
     margin-bottom: 0px; }
-  /* line 75, ../scss/content/news_landing/_main.scss */
+  /* line 79, ../scss/content/news_landing/_main.scss */
   .page-news .news-item .excerpt {
     margin-top: 10px; }
 
 @media (min-width: 0) and (max-width: 767px) {
-  /* line 84, ../scss/content/news_landing/_main.scss */
+  /* line 88, ../scss/content/news_landing/_main.scss */
   .page-news .news-item .thumbnail-container {
     float: none;
     margin-bottom: 10px; } }
