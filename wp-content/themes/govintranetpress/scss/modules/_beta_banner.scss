@@ -9,12 +9,13 @@
 
   .beta-icon {
     display: inline-block;
+    margin-right: 10px;
+    padding: 2px 10px 0;
     /*background-color: $orange; <-- beta */
     background-color: $pink;
     font-weight: bold;
     text-transform: uppercase;
     color: $white;
-    padding: 2px 10px 0;
   }
 
   .message {
@@ -22,5 +23,12 @@
     margin-top: 0;
     padding: 0;
     padding-left: 10px;
+  }
+}
+
+@include mobile-mq() {
+  .beta-banner {
+    .message {
+    }
   }
 }

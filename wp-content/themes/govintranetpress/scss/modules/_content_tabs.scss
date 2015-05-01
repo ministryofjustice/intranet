@@ -46,3 +46,17 @@
     }
   }
 }
+
+@include mobile-mq() {
+  .content-tabs {
+    li {
+      width: 100%;
+      border: 1px solid #aaa;
+      margin-top: 0;
+
+      a {
+        margin: 0;
+      }
+    }
+  }
+}

@@ -7,8 +7,8 @@ $feedback_url = 'https://www.surveymonkey.com/r/VDVMLB7';
 <div class="grid">
   <div class="col-lg-12 col-md-12 col-sm-12">
     <div class="beta-banner">
-      <span class="beta-icon">Alpha</span>
       <p class="message">
+        <span class="beta-icon">Alpha</span>
         This is a trial service - your
         <a href="<?=$feedback_url?>" target="_blank" rel="external">feedback</a>
         will help us to improve it.

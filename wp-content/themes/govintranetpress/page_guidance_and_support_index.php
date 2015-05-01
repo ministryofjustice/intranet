@@ -1,7 +1,7 @@
 <?php if (!defined('ABSPATH')) die();
 /* Template name: Guidance & Support Index */
 
-class Page_guidance_and_support extends MVC_controller {
+class Page_guidance_and_support_index extends MVC_controller {
   function main(){
     while(have_posts()){
       the_post();
@@ -19,5 +19,3 @@ class Page_guidance_and_support extends MVC_controller {
     );
   }
 }
-
-new Page_guidance_and_support();

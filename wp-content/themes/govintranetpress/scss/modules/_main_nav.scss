@@ -54,3 +54,45 @@
     outline: none;
   }
 }
+
+
+@include mobile-mq() {
+  .primary-nav {
+    .category-item:last-of-type .category-link {
+      border-bottom: none !important;
+    }
+
+    position: absolute;
+    display: none;
+    top: 48px;
+    left: 0;
+    right: 0;
+    max-height: 500px;
+    overflow-x: scroll;
+    border-bottom: 3px solid $black;
+
+    .category-item {
+      float: none;
+
+      .category-link {
+        &,
+        &:hover {
+          border: none;
+          padding-top: 11px !important;
+          padding-bottom: 9px !important;
+          border-bottom: 1px solid $black !important;
+        }
+      }
+
+      &:last-of-type .category-link:hover {
+        border-bottom: none !important;
+      }
+    }
+  }
+
+  .header.menu-opened {
+    .primary-nav {
+      display: block;
+    }
+  }
+}

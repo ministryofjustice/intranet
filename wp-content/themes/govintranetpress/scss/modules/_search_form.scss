@@ -28,3 +28,9 @@
     text-indent: -5000px;
   }
 }
+
+@include mobile-mq() {
+  .search-form {
+    width: 100%;
+  }
+}

@@ -1,12 +1,10 @@
-<?php
+<?php if (!defined('ABSPATH')) die();
 
 /**
- * The template for displaying Search Results pages.
- *
- * Template name: Search results
- */
+ * Template name: News landing
+*/
 
-class Page_search_results extends MVC_controller {
+class Page_news extends MVC_controller {
   private $post;
 
   function __construct() {
@@ -18,16 +16,15 @@ class Page_search_results extends MVC_controller {
     $this->view('layouts/default', $this->get_data());
   }
 
-  private function get_data() {
+  function get_data() {
     $top_slug = $this->post->post_name;
 
     return array(
-      'page' => 'pages/search_results/main',
+      'page' => 'pages/news_landing/main',
+      'breadcrumbs' => true,
       'page_data' => array(
         'top_slug' => htmlspecialchars($top_slug)
       )
     );
   }
 }
-
-new Page_search_results();

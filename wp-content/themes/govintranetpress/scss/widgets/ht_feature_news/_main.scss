@@ -50,6 +50,12 @@
     @include clearfix;
   }
 
+  &.large-news {
+    .more-in-news {
+      display: none;
+    }
+  }
+
   .news-medium {
     display: inline-block;
     width: 50%;
@@ -96,10 +102,6 @@
       margin-right: 20px;
     }
 
-    .news_date {
-      display: none;
-    }
-
     img {
       float: left;
       max-width: 100px;
@@ -129,6 +131,15 @@
 
     a {
       text-decoration: underline;
+    }
+  }
+}
+
+@include mobile-mq() {
+  .ht-feature-news {
+    .news-medium {
+      width: 100%;
+      padding-right: 0 !important;
     }
   }
 }

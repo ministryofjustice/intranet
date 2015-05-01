@@ -49,39 +49,104 @@
       border: none;
     }
   }
+
+  .my-moj {
+    display: none;
+  }
 }
 
 @include mobile-mq() {
-  #searchformdiv {
-    padding-top: 10px;
-  }
-
-  .mobile-nav button {
-    float: right;
-    width: 30px;
-    height: 30px;
-    border: none;
-    background-color: transparent;
-    background-image: url('../images/mobile_menu.svg');
-    background-size: 60px 30px;
-    background-position: 0 0;
-    margin-top: 5px;
-
-    .mobile-menu-enabled & {
-      background-position: 30px 0;
-    }
-  }
-
   .header {
-    &.mobile-menu-enabled {
-      .search-box,
-      #mainnav {
-        display: none;
-      }
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 48px;
 
-      #utilities {
-        display: block;
+    .site-logo img {
+      width: auto;
+      height: 32px;
+      margin-top: 8px;
+    }
+
+    .header-top {
+      padding-bottom: 0;
+    }
+
+    .skip-to-content-container {
+      display: none;
+    }
+
+    .mobile-menu-btn {
+      position: absolute;
+      right: 0px;
+      width: 48px;
+      height: 48px;
+      border: none;
+      background-color: transparent;
+      background-image: url('../images/mobile_header.svg');
+      background-size: 76px 38px;
+      background-position: -33px 5px;
+      background-repeat: no-repeat;
+    }
+
+    .header-bottom {
+      position: static;
+    }
+
+    .search-form {
+      position: absolute;
+      left: auto;
+      right: 48px;
+      top: 0;
+      width: 50px;
+      height: 48px;
+      padding: 0 0 0 0px;
+      transition: width .5s;
+      border-left: 1px solid $white;
+      border-right: 1px solid $white;
+
+      .keywords-field {
+        float: right;
+        width: 100%;
+        height: 46px;
+        margin-top: 1px;
+        outline: none;
       }
+    }
+
+    .search-form .search-btn {
+      top: 0;
+      width: 48px;
+      height: 48px;
+      background-color: $black;
+      border-bottom: none;
+      background-image: url('../images/search_icon.svg');
+      background-position: 8px 8px;
+      background-size: 30px 30px;
+    }
+
+    &.search-opened {
+      .search-form {
+        width: calc(100% - 48px);
+        transition: width .5s;
+        border-right: 1px solid $dw-link;
+        border-left: none;
+
+        .search-btn {
+          background-color: $dw-link;
+        }
+      }
+    }
+
+    &.menu-opened {
+      .mobile-menu-btn {
+        background-position: 5px 5px;
+      }
+    }
+
+    .my-moj {
+      display: block;
     }
   }
 }

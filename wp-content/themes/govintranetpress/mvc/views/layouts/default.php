@@ -15,7 +15,7 @@ header('X-Frame-Options: SAMEORIGIN');
   <?=$this->wp_head?>
 </head>
 <body>
-  <?php $this->view('modules/header'); ?>
+  <?php $this->view('modules/header', $this->header_model->get_data()); ?>
 
   <div id="content" class="container main-content" role="main">
     <div class="content-wrapper">

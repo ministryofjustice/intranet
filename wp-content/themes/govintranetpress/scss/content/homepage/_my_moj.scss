@@ -59,14 +59,15 @@
       width: 100%;
 
       &:before {
-        display: inline-block;
+        float: left;
         width: 26px;
         height: 25px;
-        margin-right: 0px;
+        margin-right: 6px;
         background-repeat: no-repeat;
         font-size: 20px;
+        line-height: 30px;
         text-align: center;
-        vertical-align: middle;
+        vertical-align: text-bottom;
         color: $white;
       }
 
@@ -86,14 +87,17 @@
       @extend %medium-copy;
       max-width: 255px;
       height: 33px;
-      padding-left: 0;
-      padding-right: 0;
+      padding: 0 0 0;
       background: transparent;
       color: $white;
       border-radius: 0;
       border: none;
       box-shadow: none;
       font-family: Helvetica;
+      vertical-align: baseline;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
 
       option {
         padding: 10px 40px;
@@ -104,7 +108,7 @@
           display: inline-block;
           width: 26px;
           height: 25px;
-          margin-right: 10px;
+          margin-right: 6px;
           background-repeat: no-repeat;
           background-image: url('../images/department_crest_x2.png');
           background-size: 200px 50px;
@@ -225,6 +229,79 @@
 
       &:first-of-type a {
         margin-top: 0;
+      }
+    }
+  }
+}
+
+@include mobile-mq() {
+  .my-moj {
+    display: block;
+    margin-top: 0;
+
+    .my-moj-top {
+      padding: 4px 20px 3px;
+
+      .department-dropdown-box:before {
+        text-align: left;
+        margin-right: 3px;
+      }
+    }
+
+    .my-moj-body {
+      padding: 0;
+
+      .category-name {
+        @include medium-copy;
+        margin: 0;
+        padding: 4px 20px 3px;
+        line-height: 33px;
+
+        &:before {
+          float: left;
+          width: 26px;
+          height: 25px;
+          margin-right: 6px;
+          font-size: 20px;
+          line-height: 20px;
+          padding-top: 4px;
+          text-align: left;
+          vertical-align: text-bottom;
+          color: $black;
+          content: "\25be";
+        }
+      }
+
+      .quick-links-container .category-name {
+        border-top: 1px solid $grey-1;
+      }
+
+      .menu-my-moj-quick-links-container .menu {
+        margin: 0;
+        padding: 5px 20px 15px;
+      }
+    }
+
+    .apps-container {
+      overflow: hidden;
+    }
+
+    .apps-list {
+      padding: 0 20px;
+
+      .app-item {
+        margin-right: 8px;
+      }
+    }
+
+    .mobile-collapsed {
+      .category-name {
+        border-bottom: none;
+      }
+
+      .apps-list,
+      .menu-my-moj-quick-links-container {
+        display: none;
       }
     }
   }

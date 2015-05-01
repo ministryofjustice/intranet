@@ -1,4 +1,8 @@
 .page-news {
+  h1 {
+    border-bottom: none;
+  }
+
   .content-filters {
     margin-top: 20px;
 
@@ -74,6 +78,17 @@
 
     .excerpt {
       margin-top: 10px;
+    }
+  }
+}
+
+@include mobile-mq() {
+  .page-news {
+    .news-item {
+      .thumbnail-container {
+        float: none;
+        margin-bottom: 10px;
+      }
     }
   }
 }

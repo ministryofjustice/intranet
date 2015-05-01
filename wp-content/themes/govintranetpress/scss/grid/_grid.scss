@@ -1,61 +1,3 @@
-/************
-** Config
-************/
-$grid-gutter: 30px; /*total whitespace between columns */
-$size-desktop: 1024px; /* desktop starts at this point */
-$size-tablet: 768px; /* tablet starts at this point */
-$grid-min-size: 320px; /* grid's minimum width (incl. outer spacing) */
-$grid-max-size: 1020px; /* grid's maximum width (incl. outer spacing) */
-
-/************
-** Mixins
-************/
-@mixin breakpoint($min, $max) {
-  @if $max == null {
-    @media (min-width: $min) {
-      @content;
-    }
-  }
-  @else {
-    @media (min-width: $min) and (max-width: ($max - 1)) {
-      @content;
-    }
-  }
-}
-
-@mixin desktop-mq(){
-  @include breakpoint($size-desktop, null) {
-    @content;
-  }
-}
-
-@mixin tablet-mq(){
-  @include breakpoint($size-tablet, $size-desktop) {
-    @content;
-  }
-}
-
-@mixin mobile-mq(){
-  @include breakpoint(0, $size-tablet) {
-    @content;
-  }
-}
-
-@mixin lte-tablet-mq(){
-  @include breakpoint(0, $size-desktop) {
-    @content;
-  }
-}
-
-@mixin gte-tablet-mq(){
-  @include breakpoint($size-tablet, null) {
-    @content;
-  }
-}
-
-/************
-** The style
-************/
 *,
 *:after,
 *:before {
@@ -95,15 +37,17 @@ $grid-max-size: 1020px; /* grid's maximum width (incl. outer spacing) */
 }
 
 /* desktop */
-@for $i from 1 through 12 {
-  .col-lg-#{$i} {
-    width: (100%/12*$i);
+@include desktop-mq(){
+  @for $i from 1 through 12 {
+    .col-lg-#{$i} {
+      width: (100%/12*$i);
+    }
   }
-}
 
-@for $i from 1 through 11 {
-  .push-lg-#{$i} {
-    margin-left: (100%*$i/12);
+  @for $i from 1 through 11 {
+    .push-lg-#{$i} {
+      margin-left: (100%*$i/12);
+    }
   }
 }
 
@@ -115,7 +59,7 @@ $grid-max-size: 1020px; /* grid's maximum width (incl. outer spacing) */
     }
   }
 
-  @for $i from 1 through 11 {
+  @for $i from 0 through 11 {
     .push-md-#{$i} {
       margin-left: (100%*$i/12);
     }
@@ -130,7 +74,7 @@ $grid-max-size: 1020px; /* grid's maximum width (incl. outer spacing) */
     }
   }
 
-  @for $i from 1 through 11 {
+  @for $i from 0 through 11 {
     .push-sm-#{$i} {
       margin-left: (100%*$i/12);
     }

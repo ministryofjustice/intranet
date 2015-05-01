@@ -46,6 +46,11 @@ h1, h2, h3, h4, h5, h6 {
 
 /** Copy **/
 
+@mixin medium-copy {
+  font-size: 16px;
+  line-height: 20px;
+}
+
 %lead-copy {
   font-size: 24px;
   line-height: 30px;
@@ -57,8 +62,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 %support-copy {
-  font-size: 16px;
-  line-height: 20px;
+  @include medium-copy;
 }
 
 %larger-copy {
@@ -72,8 +76,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 %medium-copy {
-  font-size: 16px;
-  line-height: 20px;
+  @include medium-copy;
 }
 
 %small-copy {
@@ -94,4 +97,47 @@ h1, h2, h3, h4, h5, h6 {
 
 body {
   @extend %small-copy;
+}
+
+@include mobile-mq() {
+  %small-heading {
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  %medium-heading {
+    font-size: 16px;
+    line-height: 20px;
+  }
+
+  %large-heading {
+    font-size: 19px;
+    line-height: 25px;
+  }
+
+  %larger-heading {
+    font-size: 24px;
+    line-height: 30px;
+  }
+
+  %largest-heading {
+    font-size: 32px;
+    line-height: 35px;
+  }
+
+
+  %larger-copy {
+    font-size: 19px;
+    line-height: 25px;
+  }
+
+  %large-copy {
+    font-size: 18px;
+    line-height: 21.6px;
+  }
+
+  %medium-copy {
+    font-size: 16px;
+    line-height: 20px;
+  }
 }

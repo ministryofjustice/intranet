@@ -1,43 +1,7 @@
 <?php
-/**
- * The template for displaying Search Results pages.
- *
- * Template name: Home page
- */
-class Page_home extends MVC_controller {
-  function main() {
-    if(have_posts()) the_post();
-    $this->view('layouts/default', $this->get_data());
-  }
 
-  private function get_data() {
-    return array(
-      'page' => 'pages/homepage/main',
-      'page_data' => array(
-        'emergency_message' => $this->get_emergency_message(),
-        'my_moj' => $this->get_my_moj()
-      )
-    );
-  }
-
-  private function get_emergency_message() {
-    $visible = get_option("emergency_toggle");
-    $title = get_option("emergency_title");
-    $date = get_option("emergency_date");
-    $message = get_option("homepage_control_emergency_message");
-    $message = apply_filters('the_content', $message, true);
-    $type = get_option("emergency_type");
-
-    return array(
-      'visible'     => $visible,
-      'title'       => $title,
-      'date'        => $date,
-      'message'     => $message,
-      'type'        => $type
-    );
-  }
-
-  private function get_my_moj() {
+class My_moj_model extends MVC_model {
+  function get_data() {
     return array(
       'departments' => array(
         array(
@@ -141,47 +105,8 @@ class Page_home extends MVC_controller {
           'icon' => 'gov-uk',
           'url' => 'https://www.gov.uk/',
           'external' => true
-        ),
-      ),
-      'quick_links' => array(
-        array(
-          'title' => 'Annual leave',
-          'url' => get_permalink(get_page_by_path('guidance-and-support/hr/leave/annual-leave')),
-          'external' => false
-        ),
-        array(
-          'title' => 'HR',
-          'url' => '#',
-          'external' => false
-        ),
-        array(
-          'title' => 'Organisation',
-          'url' => '#',
-          'external' => false
-        ),
-        array(
-          'title' => 'Learning &amp; Development',
-          'url' => '#',
-          'external' => false
-        ),
-        array(
-          'title' => 'Statistics',
-          'url' => '#',
-          'external' => false
-        ),
-        array(
-          'title' => 'Finances',
-          'url' => '#',
-          'external' => false
-        ),
-        array(
-          'title' => 'Justice academy',
-          'url' => '#',
-          'external' => false
         )
       )
     );
   }
 }
-
-new Page_home();

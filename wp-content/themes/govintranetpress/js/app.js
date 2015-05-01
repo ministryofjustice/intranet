@@ -309,6 +309,115 @@
   };
 }(jQuery));
 
+/**
+ * breakpoint.js
+ * triggers events on window and changes a class on html element when certain breakpoints are reached
+ * it also restricts the amount of resize events getting triggered during resizing which improves performance
+ */
+(function($) {
+  "use strict";
+
+  var App = window.App;
+
+  App.Breakpoint = function() {
+    this.settings = {
+      delay: 200,
+      breakpoints: {
+        mobile: 0,
+        tablet: 768,
+        desktop: 1024
+      }
+    };
+
+    this.isLocked = false;
+    this.unlockHandle = null;
+    this.currentBreakpoint = null;
+
+    this.init();
+  };
+
+  App.Breakpoint.prototype = {
+    init: function() {
+      this.cacheEls();
+      this.bindEvents();
+    },
+
+    cacheEls: function() {
+    },
+
+    bindEvents: function() {
+      $(window).on('resize', $.proxy(this.resizeHandle, this));
+    },
+
+    resizeHandle: function() {
+      if(!this.isLocked) {
+        this.trigger();
+        this.lock();
+      }
+    },
+
+    trigger: function() {
+      var width = window.innerWidth || document.body.clientWidth;
+      var breakpointName;
+
+      if(width < this.settings.breakpoints.tablet) {
+        this.triggerBreakpoint('mobile', true);
+      }
+
+      if(width >= this.settings.breakpoints.tablet && width < this.settings.breakpoints.desktop) {
+        this.triggerBreakpoint('tablet', true);
+      }
+
+      if(width >= this.settings.breakpoints.desktop) {
+        this.triggerBreakpoint('desktop', true);
+      }
+    },
+
+    triggerBreakpoint: function(breakpointName) {
+      var classNames = ['breakpoint-mobile', 'breakpoint-tablet', 'breakpoint-desktop', 'breakpoint-gte-tablet', 'breakpoint-lte-tablet'];
+      var $html = $('html');
+      var eventName;
+
+      if(this.currentBreakpoint !== breakpointName) {
+        $html.removeClass(classNames.join(' '));
+
+        eventName = 'breakpoint-' + breakpointName;
+        $(window).trigger(eventName);
+        $html.addClass(eventName);
+
+        if(breakpointName === 'tablet' || breakpointName === 'desktop') {
+          eventName = 'breakpoint-gte-tablet';
+          $(window).trigger(eventName);
+          $html.addClass(eventName);
+        }
+
+        if(breakpointName === 'tablet' || breakpointName === 'mobile') {
+          eventName = 'breakpoint-lte-tablet';
+          $(window).trigger(eventName);
+          $html.addClass(eventName);
+        }
+
+        this.currentBreakpoint = breakpointName;
+      }
+    },
+
+    lock: function() {
+      var _this = this;
+      if(this.isLocked) {
+        window.clearTimeout(this.unlockHandle);
+        this.unlockHandle = null;
+      }
+
+      this.isLocked = true;
+
+      this.unlockHandle = window.setTimeout(function() {
+        _this.isLocked = false;
+        _this.trigger();
+      }, this.settings.delay);
+    }
+  };
+}(jQuery));
+
 /** Children pages
  * Note: it's designed to work with only one instance per page
  */
@@ -1081,40 +1190,76 @@
   };
 }(window.jQuery));
 
-/** Mobile menu
+/** Mobile header
  */
 (function($) {
   "use strict";
 
   var App = window.App;
 
-  App.MobileMenu = function() {
+  App.MobileHeader = function() {
     this.$top = $('.header');
     if(!this.$top.length) { return; }
 
     this.config = {
-      menuToggleClass: 'mobile-menu-enabled'
+      menuToggleClass: 'menu-opened',
+      searchToggleClass: 'search-opened'
     };
 
     this.init();
   };
 
-  App.MobileMenu.prototype = {
+  App.MobileHeader.prototype = {
     init: function() {
       this.cacheEls();
       this.bindEvents();
     },
 
     cacheEls: function() {
-      this.$menuButton = this.$top.find('.mobile-nav button');
+      this.$searchInput = this.$top.find('.keywords-field');
+      this.$searchButton = this.$top.find('.search-btn');
+      this.$menuButton = this.$top.find('.mobile-menu-btn');
+      this.$myMoj = this.$top.find('.my-moj');
+      this.$appsContainer = this.$myMoj.find('.apps-container');
+      this.$quickLinksContainer = this.$myMoj.find('.quick-links-container');
     },
 
     bindEvents: function() {
-      this.$top.on('click', 'button', $.proxy(this.toggleMenu, this));
+      this.$menuButton.on('click', $.proxy(this.toggleMenu, this));
+      this.$searchButton.on('click', $.proxy(this.searchClick, this));
+      //this.$searchInput.on('blur', $.proxy(this.toggleSearch, this, false));
+      $(document).on('click', $.proxy(this.outsideSearchClick, this));
+      this.$appsContainer.on('click', '.category-name', $.proxy(this.collapsibleBlockToggle, this));
+      this.$quickLinksContainer.on('click', '.category-name', $.proxy(this.collapsibleBlockToggle, this));
     },
 
-    toggleMenu: function() {
+    toggleMenu: function(e) {
       this.$top.toggleClass(this.config.menuToggleClass);
+    },
+
+    searchClick: function(e) {
+      if(!this.$top.hasClass(this.config.searchToggleClass)) {
+        e.preventDefault();
+        this.toggleSearch(true);
+        this.$searchInput.focus();
+      }
+    },
+
+    toggleSearch: function(toggleState) {
+      this.$top.toggleClass(this.config.searchToggleClass, toggleState);
+    },
+
+    outsideSearchClick: function(e) {
+      if(!$(e.target).closest('.search-form').length) {
+        this.toggleSearch(false);
+      }
+    },
+
+    collapsibleBlockToggle: function(e) {
+      var $this = $(e.target);
+      var $container = $(e.delegateTarget);
+
+      $container.toggleClass('mobile-collapsed');
     }
   };
 }(window.jQuery));
@@ -2145,7 +2290,11 @@ jQuery(function() {
 
   var App = window.App;
 
-  App.ins.mobileMenu = new App.MobileMenu();
+  //Early
+  App.ins.breakpoint = new App.Breakpoint();
+
+  //Mid
+  App.ins.mobileHeader = new App.MobileHeader();
   App.ins.stickyNews = new App.StickyNews();
   //App.ins.guidanceAndSupport = new App.GuidanceAndSupport();
   App.ins.guidanceAndSupportContent = new App.GuidanceAndSupportContent();
@@ -2163,4 +2312,7 @@ jQuery(function() {
   App.ins.skipToContent = new App.SkipToContent();
   App.ins.pageFeedback = new App.PageFeedback();
   App.ins.navigation = new App.Navigation();
+
+  //Late
+  App.ins.breakpoint.trigger();
 });
