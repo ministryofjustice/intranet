@@ -299,7 +299,7 @@
 
     updatePagination: function(data) {
       this.currentPage = parseInt(data.urlParams.page, 10);
-      var perPage = parseInt(data.urlParams.per_page, 10);
+      var perPage = parseInt(data.urlParams.per_page, 10) || 10;
       var totalResults = parseInt(data.totalResults, 10);
       var totalPages = perPage > 0 ? Math.ceil(totalResults/perPage) : 1;
       var prevPage = Math.max(this.currentPage-1, 1);
