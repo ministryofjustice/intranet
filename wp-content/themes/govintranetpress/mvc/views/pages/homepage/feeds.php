@@ -18,13 +18,13 @@
   </div>
 
   <div class="regular">
-    <div class="col-lg-6 col-md-6 col-sm-6">
+    <div class="col-lg-6 col-md-6 col-sm-12">
       <div class="twitter">
         <h3>MoJ Twitter</h3>
         <a class="twitter-timeline" data-dnt="true" href="https://twitter.com/MoJGovUK" data-widget-id="342624967134961666">Tweets by @MoJGovUK</a>
       </div>
     </div>
-    <div class="col-lg-6 col-md-6 col-sm-6">
+    <div class="col-lg-6 col-md-6 col-sm-12">
       <div class="yammer">
         <h3>MoJ Yammer</h3>
         <div class="yammer-feed"></div>
