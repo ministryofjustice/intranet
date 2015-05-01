@@ -1258,7 +1258,8 @@
   App.News.prototype = {
     init: function() {
       this.settings = {
-        dateDropdownMonths: 12
+        dateDropdownLength: 12,
+        dateDropdownStartDate: new Date(2015, 0, 1)
       };
 
       this.applicationUrl = $('head').data('application-url');
@@ -1328,13 +1329,20 @@
       var thisDate;
       var thisYear;
       var thisMonth;
+      var thisDay;
       var $option;
       var a;
 
-      for(a=0; a<this.settings.dateDropdownMonths; a++) {
+      for(a=0; a<this.settings.dateDropdownLength; a++) {
         thisDate = new Date(startYear, startMonth - a, startDay);
+        thisDay = thisDate.getDate();
         thisMonth = thisDate.getMonth();
         thisYear = thisDate.getFullYear();
+
+        if(new Date(thisYear, thisMonth, thisDay) < this.settings.dateDropdownStartDate) {
+          break;
+        }
+
         $option = $('<option>');
         $option.text(this.months[thisMonth] + ' ' + thisYear);
         $option.val(thisYear + '-' + (thisMonth+1));
@@ -1535,7 +1543,7 @@
 
     updatePagination: function(data) {
       this.currentPage = parseInt(data.urlParams.page, 10);
-      var perPage = parseInt(data.urlParams.per_page, 10);
+      var perPage = parseInt(data.urlParams.per_page, 10) || 10;
       var totalResults = parseInt(data.totalResults, 10);
       var totalPages = perPage > 0 ? Math.ceil(totalResults/perPage) : 1;
       var prevPage = Math.max(this.currentPage-1, 1);
