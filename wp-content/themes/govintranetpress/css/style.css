@@ -1693,6 +1693,15 @@ form .form-row {
     margin-bottom: -1px;
     background-color: #fff; }
 
+@media (min-width: 0) and (max-width: 767px) {
+  /* line 52, ../scss/modules/_content_tabs.scss */
+  .content-tabs li {
+    width: 100%;
+    border: 1px solid #aaa;
+    margin-top: 0; }
+    /* line 57, ../scss/modules/_content_tabs.scss */
+    .content-tabs li a {
+      margin: 0; } }
 /* line 1, ../scss/modules/_content_filters.scss */
 .content-filters {
   margin-top: 60px;
