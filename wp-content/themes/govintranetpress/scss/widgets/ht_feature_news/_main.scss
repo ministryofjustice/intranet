@@ -50,6 +50,12 @@
     @include clearfix;
   }
 
+  &.large-news {
+    .more-in-news {
+      display: none;
+    }
+  }
+
   .news-medium {
     display: inline-block;
     width: 50%;
@@ -94,10 +100,6 @@
       float: left;
       display: block;
       margin-right: 20px;
-    }
-
-    .news_date {
-      display: none;
     }
 
     img {
