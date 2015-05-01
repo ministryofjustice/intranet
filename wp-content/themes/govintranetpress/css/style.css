@@ -2199,7 +2199,7 @@ form .form-row {
         font-size: 20px;
         line-height: 30px;
         text-align: center;
-        vertical-align: text-b0ottom;
+        vertical-align: text-bottom;
         color: #fff; }
       /* line 74, ../scss/content/homepage/_my_moj.scss */
       .my-moj .my-moj-top .department-dropdown-box[data-department]:before {
