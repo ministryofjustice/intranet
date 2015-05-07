@@ -37,7 +37,8 @@ function template_customise() {
     } else {
         return;
     }
-    preg_match('/^page-(.+)\.php/',get_post_meta($post_id, '_wp_page_template', TRUE),$matches);
+    $page_template = str_replace('_','-',get_post_meta($post_id, '_wp_page_template', TRUE));
+    preg_match('/^page-(.+)\.php/',$page_template,$matches);
     $template_file = $matches[1];
     if (isset($template_options[$template_file])) {
         require(get_stylesheet_directory()."/inc/template-specific/".$template_file.".php");
@@ -84,7 +85,9 @@ function process_metaboxes() {
     } else {
         return;
     }
-    preg_match('/^page-(.+)\.php/',get_post_meta($post_id, '_wp_page_template', TRUE),$matches);
+
+    $page_template = str_replace('_','-',get_post_meta($post_id, '_wp_page_template', TRUE));
+    preg_match('/^page-(.+)\.php/',$page_template,$matches);
     $template_file = $matches[1];
 
     // Add custom metaboxes for matching template
