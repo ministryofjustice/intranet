@@ -24,8 +24,9 @@
       //$(window).on('DOMContentLoaded load', $.proxy(this.changeDepartmentHandle, this));
     },
 
-    changeDepartmentHandle: function() {
-      var url = this.$departmentDropdown.find('option:selected').attr('data-url');
+    changeDepartmentHandle: function(e) {
+      var selectedDropdown = $(e.currentTarget);
+      var url = selectedDropdown.find('option:selected').attr('data-url');
 
       if(url) {
         window.location.href = url;
