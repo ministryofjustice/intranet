@@ -1,0 +1,11 @@
+.election-banner {
+  border: 4px solid $purple;
+  .content {
+    margin-bottom: 0;
+    h3 {
+      color: $purple;
+      text-align: center;
+      font-weight: 400;
+    }
+  }
+}

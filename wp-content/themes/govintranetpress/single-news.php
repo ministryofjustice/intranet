@@ -42,7 +42,10 @@ class Single_news extends MVC_controller {
         'prev_news_exists' => is_object($prev_news),
         'next_news_exists' => is_object($next_news),
         'prev_news_url' => get_post_permalink($prev_news),
-        'next_news_url' => get_post_permalink($next_news)
+        'next_news_url' => get_post_permalink($next_news),
+        'election_banner' => array(
+          'visible' => strtotime($article_date) < strtotime('8 May 2015')?1:0
+        )
       )
     );
   }

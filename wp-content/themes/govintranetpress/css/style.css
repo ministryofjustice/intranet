@@ -2588,6 +2588,18 @@ form .form-row {
   margin-top: 45px;
   margin-bottom: 20px; }
 
+/* line 1, ../scss/content/news_single/_election_banner.scss */
+.election-banner {
+  border: 4px solid #2e358b; }
+  /* line 3, ../scss/content/news_single/_election_banner.scss */
+  .election-banner .content {
+    margin-bottom: 0; }
+    /* line 5, ../scss/content/news_single/_election_banner.scss */
+    .election-banner .content h3 {
+      color: #2e358b;
+      text-align: center;
+      font-weight: 400; }
+
 /* line 3, ../scss/content/a_z/_main.scss */
 .a-z .content-filters,
 .a-z-2 .content-filters {
