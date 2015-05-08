@@ -1,6 +1,8 @@
 <?php if (!defined('ABSPATH')) die(); ?>
 
 <div class="news-single">
+  <?php $this->view('pages/news_single/election_banner', $election_banner) ?>
+
   <div class="grid">
     <div class="col-lg-12 col-md-12 col-sm-12">
       <h1 class="page-title"><?=$title?></h1>
