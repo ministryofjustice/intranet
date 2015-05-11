@@ -44,7 +44,7 @@ class Single_news extends MVC_controller {
         'prev_news_url' => get_post_permalink($prev_news),
         'next_news_url' => get_post_permalink($next_news),
         'election_banner' => array(
-          'visible' => strtotime($article_date) < strtotime('8 May 2015')?1:0
+          'visible' => strtotime($article_date) < strtotime('9 May 2015')?1:0
         )
       )
     );
