@@ -1,12 +1,15 @@
+# CORS rules
+Header always set Access-Control-Allow-Methods "POST, GET, PUT, OPTIONS, PATCH"
+Header always set Access-Control-Allow-Headers "X-Accept-Charset,X-Accept,Content-Type"
 
 # BEGIN WordPress
 <IfModule mod_rewrite.c>
 RewriteEngine On
-
+RewriteBase /
 RewriteRule ^index\.php$ - [L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule . index.php [L]
+RewriteRule . /index.php [L]
 </IfModule>
 
 # END WordPress
