@@ -2,6 +2,13 @@
 Header always set Access-Control-Allow-Methods "POST, GET, PUT, OPTIONS, PATCH"
 Header always set Access-Control-Allow-Headers "X-Accept-Charset,X-Accept,Content-Type"
 
+# Block xmlrpc
+<Files xmlrpc.php>
+    Order Deny,Allow
+    Deny from all
+</Files>
+
+
 # BEGIN WordPress
 <IfModule mod_rewrite.c>
 RewriteEngine On
