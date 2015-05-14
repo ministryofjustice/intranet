@@ -13,7 +13,7 @@
   <div class="grid">
     <div class="col-lg-8 col-md-8 col-sm-12">
       <div role="search form" class="search-form search-string">
-        <input class="keywords-field" type="text" placeholder="Search" name="s" value="<?=urldecode(get_query_var('search-string'))?>">
+        <input class="keywords-field" type="text" placeholder="Search" name="s" value="<?=htmlspecialchars(urldecode(get_query_var('search-string')))?>">
         <input class="search-btn cta" type="submit" value="Search" />
       </div>
     </div>
