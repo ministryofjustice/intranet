@@ -1806,3 +1806,21 @@ function remove_x_pingback($headers) {
     return $headers;
 }
 add_filter('wp_headers', 'remove_x_pingback');
+
+// Remove autocomplete for password on wp-login.php
+add_action('login_init', 'acme_autocomplete_login_init');
+function acme_autocomplete_login_init()
+{
+    ob_start();
+}
+add_action('login_form', 'acme_autocomplete_login_form');
+function acme_autocomplete_login_form()
+{
+    $content = ob_get_contents();
+    ob_end_clean();
+
+    $content = str_replace('id="loginform"', 'id="loginform" autocomplete="off"', $content);
+    $content = str_replace('id="user_pass"', 'id="user_pass" autocomplete="off"', $content);
+
+    echo $content;
+}
