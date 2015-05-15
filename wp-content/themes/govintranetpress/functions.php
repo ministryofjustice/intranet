@@ -1796,3 +1796,13 @@ function no_redirect_on_404($redirect_url)
     }
     return $redirect_url;
 }
+
+// Disable xmlrpc
+add_filter('xmlrpc_enabled', '__return_false');
+
+// Disable pingbacls
+function remove_x_pingback($headers) {
+    unset($headers['X-Pingback']);
+    return $headers;
+}
+add_filter('wp_headers', 'remove_x_pingback');
