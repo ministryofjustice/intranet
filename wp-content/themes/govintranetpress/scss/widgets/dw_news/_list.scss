@@ -1,0 +1,40 @@
+.news-widget.list {
+
+  .news-widget-list {
+    margin-top: 0;
+  }
+
+  .news-item {
+    padding: 10px 0;
+    border-top: 1px solid $grey-2;
+
+    .news-heading {
+      @extend %medium-heading;
+      margin: 0;
+    }
+
+    .news-thumbnail-container {
+      float: left;
+      margin-right: 20px;
+    }
+
+    .news-thumbnail {
+      max-width: 100px;
+    }
+
+    .news-date {
+      color: $grey-1;
+    }
+
+    .news-content {
+      overflow: hidden;
+    }
+  }
+
+  .see-all-container {
+    margin-top: 10px;
+    font-weight: bold;
+    text-align: right;
+    text-decoration: underline;
+  }
+}
