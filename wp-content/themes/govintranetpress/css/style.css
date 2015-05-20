@@ -2138,7 +2138,7 @@ form .form-row {
         color: #2e8aca; }
 
 /* line 3, ../scss/widgets/dw_news/_list.scss */
-.news-widget.list .news-widget-list {
+.news-widget.list .news-list {
   margin-top: 0; }
 /* line 7, ../scss/widgets/dw_news/_list.scss */
 .news-widget.list .news-item {
