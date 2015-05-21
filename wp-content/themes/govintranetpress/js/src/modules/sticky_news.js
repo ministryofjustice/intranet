@@ -6,7 +6,7 @@
   var App = window.App;
 
   App.StickyNews = function() {
-    this.$top = $('#need-to-know');
+    this.$top = $('.news-widget.need-to-know');
     if(!this.$top.length) { return; }
     this.init();
   };
@@ -15,21 +15,30 @@
     init: function() {
       this.cacheEls();
       this.bindEvents();
-      this.showItem(1);
+      this.showItem(true);
     },
 
     cacheEls: function() {
-      this.$pages = this.$top.find('.need-to-know-list > li');
-      this.$pageLinks = this.$top.find('.page-list > li');
+      this.$pages = this.$top.find('.news-item');
+      this.$pageLinks = this.$top.find('.page');
     },
 
     bindEvents: function() {
-      this.$pageLinks.on('click', 'a', $.proxy(this.showItem, this, null));
+      this.$pageLinks.on('click', 'a', $.proxy(this.showItem, this, false));
     },
 
-    showItem: function(pageId, e) {
-      if(!pageId) {
-        pageId = $(e.target).closest('.item').data('page-id');
+    showItem: function(showFirst, e) {
+      var pageId;
+
+      if(e) {
+        e.preventDefault();
+      }
+
+      if(showFirst) {
+        pageId = this.$pageLinks.first().attr('data-page-id');
+      }
+      else {
+        pageId = $(e.target).closest('.page').attr('data-page-id');
       }
 
       this.$pages.hide();
