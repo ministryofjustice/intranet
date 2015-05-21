@@ -2204,8 +2204,8 @@ form .form-row {
     margin: 0 0 0 15px;
     padding: 5px 15px;
     background-color: #fff;
-    color: #428bca;
     border-bottom: none;
+    color: #428bca;
     text-align: center; }
   /* line 18, ../scss/widgets/dw_news/_need_to_know.scss */
   .news-widget.need-to-know .news-list {
@@ -2234,7 +2234,7 @@ form .form-row {
       padding-left: 15px; }
     /* line 55, ../scss/widgets/dw_news/_need_to_know.scss */
     .news-widget.need-to-know .news-item .news-content {
-      margin-right: 15px; }
+      padding-right: 15px; }
     /* line 59, ../scss/widgets/dw_news/_need_to_know.scss */
     .news-widget.need-to-know .news-item .news-date {
       margin-top: 3px;
@@ -2245,8 +2245,8 @@ form .form-row {
       color: #fff; }
   /* line 70, ../scss/widgets/dw_news/_need_to_know.scss */
   .news-widget.need-to-know .page-list {
-    text-align: center;
-    margin-bottom: 20px; }
+    margin-bottom: 20px;
+    text-align: center; }
     /* line 74, ../scss/widgets/dw_news/_need_to_know.scss */
     .news-widget.need-to-know .page-list .page {
       display: inline-block; }
@@ -2262,6 +2262,11 @@ form .form-row {
         background-color: #d5e8f3;
         color: #2e8aca; }
 
+@media (min-width: 0) and (max-width: 1023px) {
+  /* line 99, ../scss/widgets/dw_news/_need_to_know.scss */
+  .news-widget.need-to-know .news-item .news-content {
+    margin-top: 20px;
+    padding-left: 15px; } }
 @media (min-width: 0) and (max-width: 767px) {
   /* line 6, ../scss/content/homepage/_main.scss */
   .page-home .my-moj {
