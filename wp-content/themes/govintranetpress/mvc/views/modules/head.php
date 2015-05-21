@@ -35,6 +35,7 @@
 
     ga('create', '%s', 'auto');
     ga('send', 'pageview');
+    ga('set', 'anonymizeIp', true);
 
   </script>";
   $gis = "general_intranet_track_homepage";
