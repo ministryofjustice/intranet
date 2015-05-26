@@ -1,3 +1,29 @@
+.autocomplete-list {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin-top: 0;
+  z-index: 1;
+  background-color: $white;
+  border: 1px solid $black;
+
+  .item {
+    padding: 5px 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+
+    &:hover,
+    &.highlighted {
+      background-color: $govuk-blue;
+      color: $white;
+    }
+  }
+}
+
+
+
 .ui-autocomplete {
   float: left;
   z-index: 1;
