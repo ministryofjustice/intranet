@@ -1966,6 +1966,10 @@
       var dataArray = [];
       var keywords = this.sanitizeKeywords($target.val());
 
+      this.stopLoadingResults();
+      this.appendList($target);
+      this.hideList();
+
       if(!keywords.length) {
         return;
       }
@@ -1986,10 +1990,7 @@
         dataArray.push(value);
       });
 
-      this.stopLoadingResults();
       this.$list.addClass('loading');
-      this.appendList($target);
-      this.hideList();
 
       /* use the timeout for dev/debugging purposes */
       //**/window.setTimeout(function() {
