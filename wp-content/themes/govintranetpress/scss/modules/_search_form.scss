@@ -33,5 +33,9 @@
 @include mobile-mq() {
   .search-form {
     width: 100%;
+
+    .keywords-field {
+      padding-right: 10px;
+    }
   }
 }

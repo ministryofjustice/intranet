@@ -1979,7 +1979,10 @@ form .form-row {
 @media (min-width: 0) and (max-width: 767px) {
   /* line 34, ../scss/modules/_search_form.scss */
   .search-form {
-    width: 100%; } }
+    width: 100%; }
+    /* line 37, ../scss/modules/_search_form.scss */
+    .search-form .keywords-field {
+      padding-right: 10px; } }
 /* line 2, ../scss/widgets/ht_feature_news/_main.scss */
 .ht-feature-news > h3 {
   margin-top: 16px;
