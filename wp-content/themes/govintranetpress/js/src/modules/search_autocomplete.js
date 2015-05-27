@@ -15,9 +15,10 @@
     init: function() {
       this.applicationUrl = $('head').data('application-url');
       this.serviceUrl = this.applicationUrl+'/service/search';
+      this.serviceXHR = null;
 
       this.cacheEls();
-      this.createAutocompleteBox();
+      this.createList();
       this.bindEvents();
       this.turnNativeAutocompleteOff();
 
@@ -36,7 +37,7 @@
       var _this = this;
       this.$searchField.on('keyup', $.proxy(this.autocompleteTypingHandle, this));
       this.$searchField.on('keypress', $.proxy(this.autocompleteNavigationHandle, this));
-      //this.$searchField.on('blur', $.proxy(this.emptyAutocompleteBox, this));
+      this.$searchField.on('blur', $.proxy(this.emptyList, this));
     },
 
     turnNativeAutocompleteOff: function() {
@@ -45,7 +46,7 @@
 
     autocompleteNavigationHandle: function(e) {
       var key = e.which || e.keyCode;
-      var $highlighted = this.$autocompleteBox.find('.highlighted');
+      var $highlighted = this.$list.find('.highlighted');
       var $target = $(e.target);
       var val;
 
@@ -53,7 +54,7 @@
         e.preventDefault();
 
         if(!$highlighted.length) {
-          $highlighted = this.$autocompleteBox.find('.item').first();
+          $highlighted = this.$list.find('.item').first();
           $highlighted.addClass('highlighted');
         }
         else {
@@ -76,7 +77,7 @@
         e.preventDefault();
 
         if(!$highlighted.length) {
-          $highlighted = this.$autocompleteBox.find('.item').last();
+          $highlighted = this.$list.find('.item').last();
           $highlighted.addClass('highlighted');
         }
         else {
@@ -103,7 +104,12 @@
         }
       }
       else if(key === 27) { //esc
-        this.hideAutocompleteBox();
+        this.hideList();
+        $target.val($target.attr('data-current-keywords'));
+      }
+
+      if(this.isListEmpty() && (key === 38 || key === 40)) {
+        this.requestResults($target.val());
       }
     },
 
@@ -116,7 +122,7 @@
         return;
       }
 
-      this.appendAutocompleteBox($target);
+      this.appendList($target);
 
       $target.attr('data-current-keywords', $target.val());
 
@@ -126,26 +132,31 @@
       }
     },
 
-    createAutocompleteBox: function() {
-      this.$autocompleteBox = $('<ul></ul>')
+    createList: function() {
+      this.$list = $('<ul></ul>')
         .addClass('autocomplete-list');
     },
 
-    emptyAutocompleteBox: function() {
-      this.$autocompleteBox.empty();
+    emptyList: function() {
+      this.$list.empty();
     },
 
-    hideAutocompleteBox: function() {
-      this.$autocompleteBox.addClass('hidden');
+    hideList: function() {
+      this.$list.addClass('hidden');
+      this.emptyList();
     },
 
-    showAutocompleteBox: function() {
-      this.$autocompleteBox.removeClass('hidden');
-      this.emptyAutocompleteBox();
+    showList: function() {
+      this.$list.removeClass('hidden');
+      this.emptyList();
     },
 
-    appendAutocompleteBox: function($target) {
-      $target.after(this.$autocompleteBox);
+    appendList: function($target) {
+      $target.after(this.$list);
+    },
+
+    isListEmpty: function() {
+      return !this.$list.find('.item').length;
     },
 
     requestResults: function(keywords) {
@@ -171,29 +182,36 @@
         dataArray.push(value);
       });
 
+      this.stopLoadingResults();
+
+      this.$list.addClass('loading');
+      this.hideList();
+
       /* use the timeout for dev/debugging purposes */
       //**/window.setTimeout(function() {
         _this.serviceXHR = $.getJSON(_this.serviceUrl+'/'+dataArray.join('/'), $.proxy(_this.displayResults, _this));
       //**/}, 2000);
     },
 
-    sanitizeKeywords: function(keywords) {
-      keywords = keywords.replace(/\s+/g, ' ');
-      keywords = keywords.replace(/^\s+|\s+$/g, '');
-
-      return keywords;
+    stopLoadingResults: function() {
+      if(this.serviceXHR) {
+        this.serviceXHR.abort();
+      }
+      this.$list.removeClass('loading');
     },
 
     displayResults: function(data) {
       var _this = this;
       var $row;
 
-      this.showAutocompleteBox();
+      this.showList();
 
       $.each(data.results, function(index, result) {
         $row = _this.buildResultRow(result);
-        $row.appendTo(_this.$autocompleteBox);
+        $row.appendTo(_this.$list);
       });
+
+      this.serviceXHR = null;
     },
 
     buildResultRow: function(data) {
@@ -207,6 +225,13 @@
         });
 
       return $row;
+    },
+
+    sanitizeKeywords: function(keywords) {
+      keywords = keywords.replace(/\s+/g, ' ');
+      keywords = keywords.replace(/^\s+|\s+$/g, '');
+
+      return keywords;
     }
   };
 }(jQuery));
