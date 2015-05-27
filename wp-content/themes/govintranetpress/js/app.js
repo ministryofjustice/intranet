@@ -1796,7 +1796,7 @@
   var App = window.App;
 
   App.SearchAutocomplete = function() {
-    this.$top = $('.search-form');
+    this.$top = $('.search-form:not(.no-dw-autocomplete)');
     if(!this.$top.length) { return; }
     this.init();
   };
@@ -1826,8 +1826,8 @@
     bindEvents: function() {
       var _this = this;
       this.$searchField.on('keyup', $.proxy(this.autocompleteTypingHandle, this));
-      this.$searchField.on('keypress', $.proxy(this.autocompleteNavigationHandle, this));
-      this.$searchField.on('blur', $.proxy(this.emptyList, this));
+      this.$searchField.on('keydown', $.proxy(this.autocompleteNavigationHandle, this));
+      this.$searchField.on('blur', $.proxy(this.hideList, this));
     },
 
     turnNativeAutocompleteOff: function() {
@@ -1887,10 +1887,13 @@
         }
       }
       else if(key === 13) { //enter
-        e.preventDefault();
-
         if($highlighted.length) {
+          e.preventDefault();
+
           window.location.href = $highlighted.attr('data-url');
+        }
+        else {
+          $target.closest('.search-form').submit();
         }
       }
       else if(key === 27) { //esc
@@ -1899,7 +1902,7 @@
       }
 
       if(this.isListEmpty() && (key === 38 || key === 40)) {
-        this.requestResults($target.val());
+        this.requestResults($target);
       }
     },
 
@@ -1908,18 +1911,13 @@
       var $highlighted;
       var $target = $(e.target);
 
-      if(key === 38 || key === 40) {
+      if(key === 38 || key === 40 || key === 27) {
         return;
       }
 
-      this.appendList($target);
-
       $target.attr('data-current-keywords', $target.val());
 
-      if(this.lastKeywordsLength !== this.$searchField.val().length) {
-        this.lastKeywordsLength = this.$searchField.val().length;
-        this.requestResults($target.val());
-      }
+      this.requestResults($target);
     },
 
     createList: function() {
@@ -1945,19 +1943,35 @@
       $target.after(this.$list);
     },
 
+    buildResultRow: function(data) {
+      var $row = $('<li></li>');
+      $row
+        .addClass('item')
+        .html(data.title)
+        .attr('data-url', data.url)
+        .click(function() {
+          window.location.href = data.url;
+        });
+
+      return $row;
+    },
+
     isListEmpty: function() {
       return !this.$list.find('.item').length;
     },
 
-    requestResults: function(keywords) {
+    requestResults: function($target) {
       var _this = this;
       var data = {};
       var dataArray = [];
-
-      keywords = this.sanitizeKeywords(keywords);
+      var keywords = this.sanitizeKeywords($target.val());
 
       if(!keywords.length) {
         return;
+      }
+
+      if(this.lastKeywordsLength !== this.$searchField.val().length) {
+        this.lastKeywordsLength = this.$searchField.val().length;
       }
 
       data = {
@@ -1973,8 +1987,8 @@
       });
 
       this.stopLoadingResults();
-
       this.$list.addClass('loading');
+      this.appendList($target);
       this.hideList();
 
       /* use the timeout for dev/debugging purposes */
@@ -1994,7 +2008,9 @@
       var _this = this;
       var $row;
 
-      this.showList();
+      if(data.results.length) {
+        this.showList();
+      }
 
       $.each(data.results, function(index, result) {
         $row = _this.buildResultRow(result);
@@ -2002,19 +2018,6 @@
       });
 
       this.serviceXHR = null;
-    },
-
-    buildResultRow: function(data) {
-      var $row = $('<li></li>');
-      $row
-        .addClass('item')
-        .html(data.title)
-        .attr('data-url', data.url)
-        .click(function() {
-          window.location.href = data.url;
-        });
-
-      return $row;
     },
 
     sanitizeKeywords: function(keywords) {
