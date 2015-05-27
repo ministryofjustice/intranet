@@ -1205,21 +1205,12 @@ form .form-row {
       background-color: #005ea5;
       color: #fff; }
 
-/* line 31, ../scss/modules/_autocomplete.scss */
-.ui-autocomplete {
-  float: left;
-  z-index: 1;
-  overflow: hidden;
-  background-color: #fff;
-  border: 1px solid #0b0c0c; }
-  /* line 38, ../scss/modules/_autocomplete.scss */
-  .ui-autocomplete .ui-menu-item {
-    padding: 5px 10px; }
-  /* line 42, ../scss/modules/_autocomplete.scss */
-  .ui-autocomplete .ui-state-focus {
-    background-color: #005ea5;
-    color: #fff; }
-
+@media (min-width: 0) and (max-width: 767px) {
+  /* line 30, ../scss/modules/_autocomplete.scss */
+  .autocomplete-list {
+    top: 47px;
+    right: -2px;
+    left: -1px; } }
 /* line 1, ../scss/modules/_breadcrumbs.scss */
 .breadcrumbs {
   padding: 15px 0 0;

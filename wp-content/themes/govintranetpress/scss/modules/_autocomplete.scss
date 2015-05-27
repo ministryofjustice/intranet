@@ -26,21 +26,10 @@
   }
 }
 
-
-
-.ui-autocomplete {
-  float: left;
-  z-index: 1;
-  overflow: hidden;
-  background-color: #fff;
-  border: 1px solid $black;
-
-  .ui-menu-item {
-    padding: 5px 10px;
-  }
-
-  .ui-state-focus {
-    background-color: $govuk-blue;
-    color: $white;
+@include mobile-mq() {
+  .autocomplete-list {
+    top: 47px;
+    right: -2px;
+    left: -1px;
   }
 }
