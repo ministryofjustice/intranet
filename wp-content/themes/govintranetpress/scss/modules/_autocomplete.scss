@@ -7,6 +7,10 @@
   background-color: $white;
   border: 1px solid $black;
 
+  &.hidden {
+    display: none;
+  }
+
   .item {
     padding: 5px 10px;
     overflow: hidden;

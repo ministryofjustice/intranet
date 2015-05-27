@@ -1191,28 +1191,31 @@ form .form-row {
   background-color: #fff;
   border: 1px solid #0b0c0c; }
   /* line 10, ../scss/modules/_autocomplete.scss */
+  .autocomplete-list.hidden {
+    display: none; }
+  /* line 14, ../scss/modules/_autocomplete.scss */
   .autocomplete-list .item {
     padding: 5px 10px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     cursor: pointer; }
-    /* line 17, ../scss/modules/_autocomplete.scss */
+    /* line 21, ../scss/modules/_autocomplete.scss */
     .autocomplete-list .item:hover, .autocomplete-list .item.highlighted {
       background-color: #005ea5;
       color: #fff; }
 
-/* line 27, ../scss/modules/_autocomplete.scss */
+/* line 31, ../scss/modules/_autocomplete.scss */
 .ui-autocomplete {
   float: left;
   z-index: 1;
   overflow: hidden;
   background-color: #fff;
   border: 1px solid #0b0c0c; }
-  /* line 34, ../scss/modules/_autocomplete.scss */
+  /* line 38, ../scss/modules/_autocomplete.scss */
   .ui-autocomplete .ui-menu-item {
     padding: 5px 10px; }
-  /* line 38, ../scss/modules/_autocomplete.scss */
+  /* line 42, ../scss/modules/_autocomplete.scss */
   .ui-autocomplete .ui-state-focus {
     background-color: #005ea5;
     color: #fff; }

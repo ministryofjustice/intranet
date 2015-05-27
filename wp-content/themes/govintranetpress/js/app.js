@@ -1811,6 +1811,10 @@
       this.bindEvents();
       this.turnNativeAutocompleteOff();
 
+      this.$searchField.each(function() {
+        $(this).attr('data-current-keywords', $(this).val());
+      });
+
       this.lastKeywordsLength = this.$searchField.val().length;
     },
 
@@ -1832,8 +1836,12 @@
     autocompleteNavigationHandle: function(e) {
       var key = e.which || e.keyCode;
       var $highlighted = this.$autocompleteBox.find('.highlighted');
+      var $target = $(e.target);
+      var val;
 
       if(key === 40) { //down
+        e.preventDefault();
+
         if(!$highlighted.length) {
           $highlighted = this.$autocompleteBox.find('.item').first();
           $highlighted.addClass('highlighted');
@@ -1841,40 +1849,70 @@
         else {
           //highlight next
           $highlighted.removeClass('highlighted');
-          $highlighted.next().addClass('highlighted');
+          $highlighted = $highlighted.next();
+          $highlighted.addClass('highlighted');
+        }
+
+        val = $highlighted.text();
+
+        if(val.length) {
+          $target.val(val);
+        }
+        else {
+          $target.val($target.attr('data-current-keywords'));
         }
       }
       else if(key === 38) { //up
+        e.preventDefault();
+
         if(!$highlighted.length) {
           $highlighted = this.$autocompleteBox.find('.item').last();
           $highlighted.addClass('highlighted');
         }
         else {
-          //highlight next
+          //highlight previous
           $highlighted.removeClass('highlighted');
-          $highlighted.prev().addClass('highlighted');
+          $highlighted = $highlighted.prev();
+          $highlighted.addClass('highlighted');
+        }
+
+        val = $highlighted.text();
+
+        if(val.length) {
+          $target.val(val);
+        }
+        else {
+          $target.val($target.attr('data-current-keywords'));
         }
       }
       else if(key === 13) { //enter
+        e.preventDefault();
+
         if($highlighted.length) {
-          e.preventDefault();
           window.location.href = $highlighted.attr('data-url');
         }
       }
       else if(key === 27) { //esc
-        this.emptyAutocompleteBox();
+        this.hideAutocompleteBox();
       }
     },
 
     autocompleteTypingHandle: function(e) {
       var key = e.which || e.keyCode;
       var $highlighted;
+      var $target = $(e.target);
 
-      this.appendAutocompleteBox($(e.target));
+      if(key === 38 || key === 40) {
+        return;
+      }
+
+      this.appendAutocompleteBox($target);
+
+      $target.attr('data-current-keywords', $target.val());
 
       if(this.lastKeywordsLength !== this.$searchField.val().length) {
         this.lastKeywordsLength = this.$searchField.val().length;
-        this.requestResults($(e.target).val());
+        this.requestResults($target.val());
       }
     },
 
@@ -1885,6 +1923,15 @@
 
     emptyAutocompleteBox: function() {
       this.$autocompleteBox.empty();
+    },
+
+    hideAutocompleteBox: function() {
+      this.$autocompleteBox.addClass('hidden');
+    },
+
+    showAutocompleteBox: function() {
+      this.$autocompleteBox.removeClass('hidden');
+      this.emptyAutocompleteBox();
     },
 
     appendAutocompleteBox: function($target) {
@@ -1931,7 +1978,7 @@
       var _this = this;
       var $row;
 
-      this.emptyAutocompleteBox();
+      this.showAutocompleteBox();
 
       $.each(data.results, function(index, result) {
         $row = _this.buildResultRow(result);
@@ -1946,7 +1993,6 @@
         .html(data.title)
         .attr('data-url', data.url)
         .click(function() {
-          console.log(data.url);
           window.location.href = data.url;
         });
 
