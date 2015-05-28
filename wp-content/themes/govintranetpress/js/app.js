@@ -1827,7 +1827,7 @@
       var _this = this;
       this.$searchField.on('keyup', $.proxy(this.autocompleteTypingHandle, this));
       this.$searchField.on('keydown', $.proxy(this.autocompleteNavigationHandle, this));
-      this.$searchField.on('blur', $.proxy(this.hideList, this));
+      $(document).on('click', $.proxy(this.outsideClickHandle, this));
     },
 
     turnNativeAutocompleteOff: function() {
@@ -1918,6 +1918,14 @@
       $target.attr('data-current-keywords', $target.val());
 
       this.requestResults($target);
+    },
+
+    outsideClickHandle: function(e) {
+      var $target = $(e.target);
+
+      if(!$target.is(this.$list) && !$target.next().is(this.$list)) {
+        this.hideList();
+      }
     },
 
     createList: function() {
