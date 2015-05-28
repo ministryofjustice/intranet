@@ -1890,7 +1890,7 @@
         }
 
         if(this.isListEmpty()) {
-          this.requestResults($target);
+          this.requestResults($target, true);
         }
       }
     },
@@ -1957,23 +1957,27 @@
       return $row;
     },
 
-    requestResults: function($target) {
+    requestResults: function($target, forceResults) {
       var _this = this;
       var data = {};
       var dataArray = [];
       var keywords = this.sanitizeKeywords($target.val());
 
-      this.stopLoadingResults();
-      this.appendList($target);
-      this.hideList();
 
       if(!keywords.length) {
         return;
       }
 
-      if(this.lastKeywordsLength !== this.$searchField.val().length) {
-        this.lastKeywordsLength = this.$searchField.val().length;
+      if(this.lastKeywordsLength !== keywords.length) {
+        this.lastKeywordsLength = keywords.length;
       }
+      else if(!forceResults) {
+        return;
+      }
+
+      this.stopLoadingResults();
+      this.appendList($target);
+      this.hideList();
 
       data = {
         'type': '',
