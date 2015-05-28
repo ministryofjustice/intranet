@@ -741,12 +741,12 @@ h6 {
   line-height: 20px; }
 
 /* line 21, ../scss/global/_typography.scss */
-h5, #need-to-know .widget-title {
+h5, #need-to-know .widget-title, .news-widget.need-to-know .title {
   font-size: 16px;
   line-height: 20px; }
 
 /* line 26, ../scss/global/_typography.scss */
-h4, .ht-feature-news h3, #need-to-know .item-title, .news-widget.list .news-item .news-heading, .news-widget.featured .news-item .news-heading, .guidance-and-support .guidance-categories-list .category-item .category-title, .page-news .news-item .title {
+h4, .ht-feature-news h3, #need-to-know .item-title, .news-widget.list .news-item .news-heading, .news-widget.featured .news-item .news-heading, .news-widget.need-to-know .news-item .news-heading, .guidance-and-support .guidance-categories-list .category-item .category-title, .page-news .news-item .title {
   font-size: 19px;
   line-height: 25px; }
 
@@ -795,19 +795,19 @@ h1 {
   line-height: 20px; }
 
 /* line 82, ../scss/global/_typography.scss */
-body, a[href$=".pdf"]:after, a[href$=".doc"]:after, a[href$=".xls"]:after, a[href$=".xlsx"]:after, a[href$=".pps"]:after, a[href$=".ppt"]:after, .menu-list .menu-item .menu-item-link, .menu-list .child-item-link, .home.page #content .descriptive-menu-description, .message .timestamp, .content-nav li .page-info, .tabbed-filters .tabbed-filters-label, .tabbed-filters ul li .label, .ht-feature-news .excerpt, .ht-feature-news .news-date-wrapper, #need-to-know .news-date-wrapper, #need-to-know .page-list li a, .my-moj .apps-list .app-link {
+body, a[href$=".pdf"]:after, a[href$=".doc"]:after, a[href$=".xls"]:after, a[href$=".xlsx"]:after, a[href$=".pps"]:after, a[href$=".ppt"]:after, .menu-list .menu-item .menu-item-link, .menu-list .child-item-link, .home.page #content .descriptive-menu-description, .message .timestamp, .content-nav li .page-info, .tabbed-filters .tabbed-filters-label, .tabbed-filters ul li .label, .ht-feature-news .excerpt, .ht-feature-news .news-date-wrapper, #need-to-know .news-date-wrapper, #need-to-know .page-list li a, .news-widget.need-to-know .page-list .page a, .my-moj .apps-list .app-link {
   font-size: 14px;
   line-height: 20px; }
 
 /** **/
 @media (min-width: 0) and (max-width: 767px) {
   /* line 103, ../scss/global/_typography.scss */
-  h5, #need-to-know .widget-title {
+  h5, #need-to-know .widget-title, .news-widget.need-to-know .title {
     font-size: 14px;
     line-height: 20px; }
 
   /* line 108, ../scss/global/_typography.scss */
-  h4, .ht-feature-news h3, #need-to-know .item-title, .news-widget.list .news-item .news-heading, .news-widget.featured .news-item .news-heading, .guidance-and-support .guidance-categories-list .category-item .category-title, .page-news .news-item .title {
+  h4, .ht-feature-news h3, #need-to-know .item-title, .news-widget.list .news-item .news-heading, .news-widget.featured .news-item .news-heading, .news-widget.need-to-know .news-item .news-heading, .guidance-and-support .guidance-categories-list .category-item .category-title, .page-news .news-item .title {
     font-size: 16px;
     line-height: 20px; }
 
@@ -2192,6 +2192,81 @@ form .form-row {
   .news-widget.featured .news-item .news-excerpt {
     margin-top: 5px; }
 
+/* line 1, ../scss/widgets/dw_news/_need_to_know.scss */
+.news-widget.need-to-know {
+  margin-top: 20px;
+  background-color: #2e8aca;
+  border: 1px solid #2e8aca;
+  border-top-width: 0; }
+  /* line 7, ../scss/widgets/dw_news/_need_to_know.scss */
+  .news-widget.need-to-know .title {
+    display: block;
+    margin: 0 0 0 15px;
+    padding: 5px 15px;
+    background-color: #fff;
+    border-bottom: none;
+    color: #428bca;
+    text-align: center; }
+  /* line 18, ../scss/widgets/dw_news/_need_to_know.scss */
+  .news-widget.need-to-know .news-list {
+    margin-top: 0; }
+  /* line 22, ../scss/widgets/dw_news/_need_to_know.scss */
+  .news-widget.need-to-know .news-item {
+    display: none;
+    margin: 15px 0; }
+    /* line 26, ../scss/widgets/dw_news/_need_to_know.scss */
+    .news-widget.need-to-know .news-item:selected {
+      display: block; }
+    /* line 30, ../scss/widgets/dw_news/_need_to_know.scss */
+    .news-widget.need-to-know .news-item .news-heading {
+      margin: 0;
+      padding: 0;
+      border-bottom: none; }
+      /* line 36, ../scss/widgets/dw_news/_need_to_know.scss */
+      .news-widget.need-to-know .news-item .news-heading a {
+        color: #fff; }
+        /* line 39, ../scss/widgets/dw_news/_need_to_know.scss */
+        .news-widget.need-to-know .news-item .news-heading a:visited, .news-widget.need-to-know .news-item .news-heading a:active, .news-widget.need-to-know .news-item .news-heading a:hover {
+          color: #fff !important; }
+    /* line 50, ../scss/widgets/dw_news/_need_to_know.scss */
+    .news-widget.need-to-know .news-item .news-thumbnail {
+      max-width: 100%;
+      padding-left: 15px; }
+    /* line 55, ../scss/widgets/dw_news/_need_to_know.scss */
+    .news-widget.need-to-know .news-item .news-content {
+      padding-right: 15px; }
+    /* line 59, ../scss/widgets/dw_news/_need_to_know.scss */
+    .news-widget.need-to-know .news-item .news-date {
+      margin-top: 3px;
+      color: #fff; }
+    /* line 64, ../scss/widgets/dw_news/_need_to_know.scss */
+    .news-widget.need-to-know .news-item .news-excerpt {
+      margin-top: 7px;
+      color: #fff; }
+  /* line 70, ../scss/widgets/dw_news/_need_to_know.scss */
+  .news-widget.need-to-know .page-list {
+    margin-bottom: 20px;
+    text-align: center; }
+    /* line 74, ../scss/widgets/dw_news/_need_to_know.scss */
+    .news-widget.need-to-know .page-list .page {
+      display: inline-block; }
+      /* line 77, ../scss/widgets/dw_news/_need_to_know.scss */
+      .news-widget.need-to-know .page-list .page a {
+        display: inline-block;
+        padding: 0px 10px;
+        border: 1px solid #d5e8f3;
+        color: #d5e8f4;
+        line-height: 24px; }
+      /* line 88, ../scss/widgets/dw_news/_need_to_know.scss */
+      .news-widget.need-to-know .page-list .page.selected a, .news-widget.need-to-know .page-list .page:hover a {
+        background-color: #d5e8f3;
+        color: #2e8aca; }
+
+@media (min-width: 0) and (max-width: 1023px) {
+  /* line 99, ../scss/widgets/dw_news/_need_to_know.scss */
+  .news-widget.need-to-know .news-item .news-content {
+    margin-top: 20px;
+    padding-left: 15px; } }
 @media (min-width: 0) and (max-width: 767px) {
   /* line 6, ../scss/content/homepage/_main.scss */
   .page-home .my-moj {
