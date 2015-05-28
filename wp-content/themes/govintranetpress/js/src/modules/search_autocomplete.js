@@ -20,11 +20,7 @@
       this.cacheEls();
       this.createList();
       this.bindEvents();
-      this.turnNativeAutocompleteOff();
-
-      this.$searchField.each(function() {
-        $(this).attr('data-current-keywords', $(this).val());
-      });
+      this.setUpTheForms();
 
       this.lastKeywordsLength = this.$searchField.val().length;
     },
@@ -40,8 +36,12 @@
       $(document).on('click', $.proxy(this.outsideClickHandle, this));
     },
 
-    turnNativeAutocompleteOff: function() {
+    setUpTheForms: function() {
       this.$top.attr('autocomplete', 'off');
+
+      this.$searchField.each(function() {
+        $(this).attr('data-current-keywords', $(this).val());
+      });
     },
 
     autocompleteNavigationHandle: function(e) {
@@ -51,49 +51,23 @@
       var val;
 
       if(key === 40) { //down
-        e.preventDefault();
-
         if(!$highlighted.length) {
           $highlighted = this.$list.find('.item').first();
-          $highlighted.addClass('highlighted');
         }
         else {
           //highlight next
           $highlighted.removeClass('highlighted');
           $highlighted = $highlighted.next();
-          $highlighted.addClass('highlighted');
-        }
-
-        val = $highlighted.text();
-
-        if(val.length) {
-          $target.val(val);
-        }
-        else {
-          $target.val($target.attr('data-current-keywords'));
         }
       }
       else if(key === 38) { //up
-        e.preventDefault();
-
         if(!$highlighted.length) {
           $highlighted = this.$list.find('.item').last();
-          $highlighted.addClass('highlighted');
         }
         else {
           //highlight previous
           $highlighted.removeClass('highlighted');
           $highlighted = $highlighted.prev();
-          $highlighted.addClass('highlighted');
-        }
-
-        val = $highlighted.text();
-
-        if(val.length) {
-          $target.val(val);
-        }
-        else {
-          $target.val($target.attr('data-current-keywords'));
         }
       }
       else if(key === 13) { //enter
@@ -111,8 +85,23 @@
         $target.val($target.attr('data-current-keywords'));
       }
 
-      if(this.isListEmpty() && (key === 38 || key === 40)) {
-        this.requestResults($target);
+      if(key === 38 || key === 40) {
+        e.preventDefault();
+
+        $highlighted.addClass('highlighted');
+
+        val = $highlighted.text();
+
+        if(val.length) {
+          $target.val(val);
+        }
+        else {
+          $target.val($target.attr('data-current-keywords'));
+        }
+
+        if(this.isListEmpty()) {
+          this.requestResults($target);
+        }
       }
     },
 
@@ -161,6 +150,10 @@
       $target.after(this.$list);
     },
 
+    isListEmpty: function() {
+      return !this.$list.find('.item').length;
+    },
+
     buildResultRow: function(data) {
       var $row = $('<li></li>');
       $row
@@ -172,10 +165,6 @@
         });
 
       return $row;
-    },
-
-    isListEmpty: function() {
-      return !this.$list.find('.item').length;
     },
 
     requestResults: function($target) {
