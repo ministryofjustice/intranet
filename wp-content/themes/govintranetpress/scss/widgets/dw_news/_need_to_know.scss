@@ -3,17 +3,6 @@
   background-color: $sticky-news;
   border-top-width: 0;
 
-  .title {
-    @extend %small-heading;
-    display: block;
-    margin: 0 0 0 $grid-gutter/2;
-    padding: 5px 15px;
-    background-color: $white;
-    border-bottom: none;
-    color: #428bca;
-    text-align: center;
-  }
-
   .news-list {
     margin-top: 0;
   }
@@ -50,6 +39,7 @@
 
     .news-thumbnail {
       max-width: 100%;
+      border: 1px solid $white;
     }
 
     .news-content {
