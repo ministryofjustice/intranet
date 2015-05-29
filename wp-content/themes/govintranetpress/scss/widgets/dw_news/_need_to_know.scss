@@ -89,8 +89,13 @@
         background-color: $grey-3;
         border-style: solid;
         border-color: $white;
-        border-width: 0 1px;
+        border-width: 0;
+        margin-left: 1px;
+        margin-right: 1px;
+        overflow: hidden;
         text-decoration: underline;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
 
       &.selected,

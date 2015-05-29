@@ -2271,9 +2271,14 @@ form .form-row {
         background-color: #dee0e2;
         border-style: solid;
         border-color: #fff;
-        border-width: 0 1px;
-        text-decoration: underline; }
-      /* line 98, ../scss/widgets/dw_news/_need_to_know.scss */
+        border-width: 0;
+        margin-left: 1px;
+        margin-right: 1px;
+        overflow: hidden;
+        text-decoration: underline;
+        text-overflow: ellipsis;
+        white-space: nowrap; }
+      /* line 103, ../scss/widgets/dw_news/_need_to_know.scss */
       .news-widget.need-to-know .page-list .page.selected a, .news-widget.need-to-know .page-list .page:hover a {
         margin-bottom: 0;
         padding-bottom: 2px;
@@ -2283,7 +2288,7 @@ form .form-row {
         text-decoration: none; }
 
 @media (min-width: 0) and (max-width: 1023px) {
-  /* line 113, ../scss/widgets/dw_news/_need_to_know.scss */
+  /* line 118, ../scss/widgets/dw_news/_need_to_know.scss */
   .news-widget.need-to-know .news-item .news-content {
     margin-top: 20px;
     padding-left: 15px; } }
