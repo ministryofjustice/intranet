@@ -1,7 +1,6 @@
 .news-widget.need-to-know {
   margin-top: 20px;
   background-color: $sticky-news;
-  border: 1px solid $sticky-news;
   border-top-width: 0;
 
   .title {
@@ -45,14 +44,16 @@
     }
 
     .news-thumbnail-container {
+      display: block;
+      margin-left: 15px;
     }
 
     .news-thumbnail {
       max-width: 100%;
-      padding-left: 15px;
     }
 
     .news-content {
+      margin-bottom: 15px;
       padding-right: 15px;
     }
 
@@ -68,26 +69,39 @@
   }
 
   .page-list {
+    @include clearfix;
     margin-bottom: 20px;
-    text-align: center;
+    margin-right: -1px;
+    margin-left: -1px;
+    text-align: left;
+    background-color: $white;
 
     .page {
-      display: inline-block;
+      width: 33.33333%;
+      float: left;
 
       a {
         @extend %small-copy;
-        display: inline-block;
-        padding: 0px 10px;
-        border: 1px solid $light-blue-25;
-        color: #d5e8f4;
-        line-height: 24px;
+        display: block;
+        margin-bottom: 2px;
+        padding: 0 15px;
+        line-height: 40px;
+        background-color: $grey-3;
+        border-style: solid;
+        border-color: $white;
+        border-width: 0 1px;
+        text-decoration: underline;
       }
 
       &.selected,
       &:hover {
         a {
-          background-color: $light-blue-25;
-          color: $sticky-news;
+          margin-bottom: 0;
+          padding-bottom: 2px;
+          background-color: $sticky-news;
+          border-color: $white;
+          color: $white;
+          text-decoration: none;
         }
       }
     }
