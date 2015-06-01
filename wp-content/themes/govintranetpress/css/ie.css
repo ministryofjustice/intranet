@@ -145,12 +145,6 @@
     display: inline;
     zoom: 1; }
 
-/* line 2, ../scss/ie/_breadcrumbs.scss */
-.ie7 .breadcrumbs span {
-  display: inline;
-  zoom: 1;
-  margin-right: 10px; }
-
 /* line 2, ../scss/ie/_beta_banner.scss */
 .ie7 .beta-banner .beta-icon,
 .ie7 .beta-banner .message {
