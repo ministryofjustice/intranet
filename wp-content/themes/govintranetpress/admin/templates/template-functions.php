@@ -1,29 +1,7 @@
 <?php
 
-// Defines template editor options
-// Template name doesn't need 'page-' prefix or '.php' suffix
-$template_options = array(
-    'guidance-and-support'  =>  array(
-        'add' => array(),
-        'del' => array('editor'),
-        'metaboxes' => array(
-            array(
-                'id' => 'quick_links',
-                'title' => 'Quick Links',
-                'context' => 'normal',
-                'priority' => 'core'
-            ),
-            array(
-                'id' => 'content_tabs',
-                'title' => 'Content Tabs',
-                'context' => 'normal',
-                'priority' => 'core'
-            )
-        ),
-        'js' => array('jquery','jquery-ui-draggable','jquery-ui-tabs','jquery-ui-accordion','jquery-ui-dialog'),
-        'css' => array('wp-jquery-ui-dialog','jquery-admin-ui-css')
-    )
-);
+// Grab the config array
+require_once(get_stylesheet_directory()."/admin/templates/template-config.php");
 
 function template_customise() {
     global $template_options;
@@ -41,7 +19,7 @@ function template_customise() {
     preg_match('/^page-(.+)\.php/',$page_template,$matches);
     $template_file = $matches[1];
     if (isset($template_options[$template_file])) {
-        require(get_stylesheet_directory()."/inc/template-specific/".$template_file.".php");
+        require(get_stylesheet_directory()."/admin/templates/template-specific/".$template_file.".php");
         // Add post type support for matching template
         if(isset($template_options[$template_file]['add'])) {
             add_post_type_support('page', $template_options[$template_file]['add'] );
@@ -56,15 +34,15 @@ function template_customise() {
         }
     }
     // Add template specific javascript file
-    $template_js = get_stylesheet_directory().'/js/page-admin-'.$template_file.'.js';
+    $template_js = get_stylesheet_directory().'/admin/templates/template-specific/page-admin-'.$template_file.'.js';
     if(file_exists($template_js)) {
-        wp_register_script($template_file, get_stylesheet_directory_uri()."/js/page-admin-".$template_file.".js",$template_options[$template_file]['js'],filemtime($template_js));
+        wp_register_script($template_file, get_stylesheet_directory_uri()."/admin/templates/template-specific/page-admin-".$template_file.".js",$template_options[$template_file]['js'],filemtime($template_js));
         wp_enqueue_script($template_file );
     }
     // Add template specific stylesheet
-    $template_css = get_stylesheet_directory().'/css/page-admin-'.$template_file.'.css';
+    $template_css = get_stylesheet_directory().'/admin/templates/template-specific/page-admin-'.$template_file.'.css';
     if(file_exists($template_css)) {
-        wp_register_style($template_file, get_stylesheet_directory_uri()."/css/page-admin-".$template_file.".css",$template_options[$template_file]['css'],filemtime($template_css));
+        wp_register_style($template_file, get_stylesheet_directory_uri()."/admin/templates/template-specific/page-admin-".$template_file.".css",$template_options[$template_file]['css'],filemtime($template_css));
         wp_enqueue_style($template_file );
     }
     if(isset($template_options[$template_file]['metaboxes'])) {
