@@ -2287,6 +2287,10 @@ form .form-row {
     margin-top: 20px;
     padding-left: 15px; } }
 @media (min-width: 0) and (max-width: 767px) {
+  /* line 117, ../scss/widgets/dw_news/_need_to_know.scss */
+  .news-widget.need-to-know .page-list .page {
+    width: 100%; } }
+@media (min-width: 0) and (max-width: 767px) {
   /* line 6, ../scss/content/homepage/_main.scss */
   .page-home .my-moj {
     display: none; } }
