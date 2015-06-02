@@ -18,7 +18,7 @@ if (!defined('ABSPATH')) {
 if (!class_exists('mmvc')) {
   class mmvc {
     function __construct() {
-      define('MVC_PATH', get_template_directory().'/mvc/');
+      define('MVC_PATH', get_template_directory().'/');
       define('MVC_VIEWS_DIR', 'views/');
       define('MVC_VIEWS_PATH', MVC_PATH.MVC_VIEWS_DIR);
       define('MVC_MODELS_DIR', 'models/');
