@@ -25,307 +25,306 @@
   /* line 26, src/grid/_grid.scss */
   .grid [class*='col-'] {
     float: left;
-    overflow: hidden;
     padding-left: 15px;
     padding-right: 15px; }
-  /* line 33, src/grid/_grid.scss */
+  /* line 32, src/grid/_grid.scss */
   .grid .grid {
     margin-left: -15px;
     margin-right: -15px; }
 
 /* desktop */
 @media (min-width: 1024px) {
-  /* line 42, src/grid/_grid.scss */
+  /* line 41, src/grid/_grid.scss */
   .col-lg-1 {
     width: 8.33333%; }
 
-  /* line 42, src/grid/_grid.scss */
+  /* line 41, src/grid/_grid.scss */
   .col-lg-2 {
     width: 16.66667%; }
 
-  /* line 42, src/grid/_grid.scss */
+  /* line 41, src/grid/_grid.scss */
   .col-lg-3 {
     width: 25%; }
 
-  /* line 42, src/grid/_grid.scss */
+  /* line 41, src/grid/_grid.scss */
   .col-lg-4 {
     width: 33.33333%; }
 
-  /* line 42, src/grid/_grid.scss */
+  /* line 41, src/grid/_grid.scss */
   .col-lg-5 {
     width: 41.66667%; }
 
-  /* line 42, src/grid/_grid.scss */
+  /* line 41, src/grid/_grid.scss */
   .col-lg-6 {
     width: 50%; }
 
-  /* line 42, src/grid/_grid.scss */
+  /* line 41, src/grid/_grid.scss */
   .col-lg-7 {
     width: 58.33333%; }
 
-  /* line 42, src/grid/_grid.scss */
+  /* line 41, src/grid/_grid.scss */
   .col-lg-8 {
     width: 66.66667%; }
 
-  /* line 42, src/grid/_grid.scss */
+  /* line 41, src/grid/_grid.scss */
   .col-lg-9 {
     width: 75%; }
 
-  /* line 42, src/grid/_grid.scss */
+  /* line 41, src/grid/_grid.scss */
   .col-lg-10 {
     width: 83.33333%; }
 
-  /* line 42, src/grid/_grid.scss */
+  /* line 41, src/grid/_grid.scss */
   .col-lg-11 {
     width: 91.66667%; }
 
-  /* line 42, src/grid/_grid.scss */
+  /* line 41, src/grid/_grid.scss */
   .col-lg-12 {
     width: 100%; }
 
-  /* line 48, src/grid/_grid.scss */
+  /* line 47, src/grid/_grid.scss */
   .push-lg-1 {
     margin-left: 8.33333%; }
 
-  /* line 48, src/grid/_grid.scss */
+  /* line 47, src/grid/_grid.scss */
   .push-lg-2 {
     margin-left: 16.66667%; }
 
-  /* line 48, src/grid/_grid.scss */
+  /* line 47, src/grid/_grid.scss */
   .push-lg-3 {
     margin-left: 25%; }
 
-  /* line 48, src/grid/_grid.scss */
+  /* line 47, src/grid/_grid.scss */
   .push-lg-4 {
     margin-left: 33.33333%; }
 
-  /* line 48, src/grid/_grid.scss */
+  /* line 47, src/grid/_grid.scss */
   .push-lg-5 {
     margin-left: 41.66667%; }
 
-  /* line 48, src/grid/_grid.scss */
+  /* line 47, src/grid/_grid.scss */
   .push-lg-6 {
     margin-left: 50%; }
 
-  /* line 48, src/grid/_grid.scss */
+  /* line 47, src/grid/_grid.scss */
   .push-lg-7 {
     margin-left: 58.33333%; }
 
-  /* line 48, src/grid/_grid.scss */
+  /* line 47, src/grid/_grid.scss */
   .push-lg-8 {
     margin-left: 66.66667%; }
 
-  /* line 48, src/grid/_grid.scss */
+  /* line 47, src/grid/_grid.scss */
   .push-lg-9 {
     margin-left: 75%; }
 
-  /* line 48, src/grid/_grid.scss */
+  /* line 47, src/grid/_grid.scss */
   .push-lg-10 {
     margin-left: 83.33333%; }
 
-  /* line 48, src/grid/_grid.scss */
+  /* line 47, src/grid/_grid.scss */
   .push-lg-11 {
     margin-left: 91.66667%; } }
 /* tablet */
 @media (min-width: 768px) and (max-width: 1023px) {
-  /* line 57, src/grid/_grid.scss */
+  /* line 56, src/grid/_grid.scss */
   .col-md-1 {
     width: 8.33333%; }
 
-  /* line 57, src/grid/_grid.scss */
+  /* line 56, src/grid/_grid.scss */
   .col-md-2 {
     width: 16.66667%; }
 
-  /* line 57, src/grid/_grid.scss */
+  /* line 56, src/grid/_grid.scss */
   .col-md-3 {
     width: 25%; }
 
-  /* line 57, src/grid/_grid.scss */
+  /* line 56, src/grid/_grid.scss */
   .col-md-4 {
     width: 33.33333%; }
 
-  /* line 57, src/grid/_grid.scss */
+  /* line 56, src/grid/_grid.scss */
   .col-md-5 {
     width: 41.66667%; }
 
-  /* line 57, src/grid/_grid.scss */
+  /* line 56, src/grid/_grid.scss */
   .col-md-6 {
     width: 50%; }
 
-  /* line 57, src/grid/_grid.scss */
+  /* line 56, src/grid/_grid.scss */
   .col-md-7 {
     width: 58.33333%; }
 
-  /* line 57, src/grid/_grid.scss */
+  /* line 56, src/grid/_grid.scss */
   .col-md-8 {
     width: 66.66667%; }
 
-  /* line 57, src/grid/_grid.scss */
+  /* line 56, src/grid/_grid.scss */
   .col-md-9 {
     width: 75%; }
 
-  /* line 57, src/grid/_grid.scss */
+  /* line 56, src/grid/_grid.scss */
   .col-md-10 {
     width: 83.33333%; }
 
-  /* line 57, src/grid/_grid.scss */
+  /* line 56, src/grid/_grid.scss */
   .col-md-11 {
     width: 91.66667%; }
 
-  /* line 57, src/grid/_grid.scss */
+  /* line 56, src/grid/_grid.scss */
   .col-md-12 {
     width: 100%; }
 
-  /* line 63, src/grid/_grid.scss */
+  /* line 62, src/grid/_grid.scss */
   .push-md-0 {
     margin-left: 0%; }
 
-  /* line 63, src/grid/_grid.scss */
+  /* line 62, src/grid/_grid.scss */
   .push-md-1 {
     margin-left: 8.33333%; }
 
-  /* line 63, src/grid/_grid.scss */
+  /* line 62, src/grid/_grid.scss */
   .push-md-2 {
     margin-left: 16.66667%; }
 
-  /* line 63, src/grid/_grid.scss */
+  /* line 62, src/grid/_grid.scss */
   .push-md-3 {
     margin-left: 25%; }
 
-  /* line 63, src/grid/_grid.scss */
+  /* line 62, src/grid/_grid.scss */
   .push-md-4 {
     margin-left: 33.33333%; }
 
-  /* line 63, src/grid/_grid.scss */
+  /* line 62, src/grid/_grid.scss */
   .push-md-5 {
     margin-left: 41.66667%; }
 
-  /* line 63, src/grid/_grid.scss */
+  /* line 62, src/grid/_grid.scss */
   .push-md-6 {
     margin-left: 50%; }
 
-  /* line 63, src/grid/_grid.scss */
+  /* line 62, src/grid/_grid.scss */
   .push-md-7 {
     margin-left: 58.33333%; }
 
-  /* line 63, src/grid/_grid.scss */
+  /* line 62, src/grid/_grid.scss */
   .push-md-8 {
     margin-left: 66.66667%; }
 
-  /* line 63, src/grid/_grid.scss */
+  /* line 62, src/grid/_grid.scss */
   .push-md-9 {
     margin-left: 75%; }
 
-  /* line 63, src/grid/_grid.scss */
+  /* line 62, src/grid/_grid.scss */
   .push-md-10 {
     margin-left: 83.33333%; }
 
-  /* line 63, src/grid/_grid.scss */
+  /* line 62, src/grid/_grid.scss */
   .push-md-11 {
     margin-left: 91.66667%; } }
 /* mobile */
 @media (min-width: 0) and (max-width: 767px) {
-  /* line 72, src/grid/_grid.scss */
+  /* line 71, src/grid/_grid.scss */
   .col-sm-1 {
     width: 8.33333%; }
 
-  /* line 72, src/grid/_grid.scss */
+  /* line 71, src/grid/_grid.scss */
   .col-sm-2 {
     width: 16.66667%; }
 
-  /* line 72, src/grid/_grid.scss */
+  /* line 71, src/grid/_grid.scss */
   .col-sm-3 {
     width: 25%; }
 
-  /* line 72, src/grid/_grid.scss */
+  /* line 71, src/grid/_grid.scss */
   .col-sm-4 {
     width: 33.33333%; }
 
-  /* line 72, src/grid/_grid.scss */
+  /* line 71, src/grid/_grid.scss */
   .col-sm-5 {
     width: 41.66667%; }
 
-  /* line 72, src/grid/_grid.scss */
+  /* line 71, src/grid/_grid.scss */
   .col-sm-6 {
     width: 50%; }
 
-  /* line 72, src/grid/_grid.scss */
+  /* line 71, src/grid/_grid.scss */
   .col-sm-7 {
     width: 58.33333%; }
 
-  /* line 72, src/grid/_grid.scss */
+  /* line 71, src/grid/_grid.scss */
   .col-sm-8 {
     width: 66.66667%; }
 
-  /* line 72, src/grid/_grid.scss */
+  /* line 71, src/grid/_grid.scss */
   .col-sm-9 {
     width: 75%; }
 
-  /* line 72, src/grid/_grid.scss */
+  /* line 71, src/grid/_grid.scss */
   .col-sm-10 {
     width: 83.33333%; }
 
-  /* line 72, src/grid/_grid.scss */
+  /* line 71, src/grid/_grid.scss */
   .col-sm-11 {
     width: 91.66667%; }
 
-  /* line 72, src/grid/_grid.scss */
+  /* line 71, src/grid/_grid.scss */
   .col-sm-12 {
     width: 100%; }
 
-  /* line 78, src/grid/_grid.scss */
+  /* line 77, src/grid/_grid.scss */
   .push-sm-0 {
     margin-left: 0%; }
 
-  /* line 78, src/grid/_grid.scss */
+  /* line 77, src/grid/_grid.scss */
   .push-sm-1 {
     margin-left: 8.33333%; }
 
-  /* line 78, src/grid/_grid.scss */
+  /* line 77, src/grid/_grid.scss */
   .push-sm-2 {
     margin-left: 16.66667%; }
 
-  /* line 78, src/grid/_grid.scss */
+  /* line 77, src/grid/_grid.scss */
   .push-sm-3 {
     margin-left: 25%; }
 
-  /* line 78, src/grid/_grid.scss */
+  /* line 77, src/grid/_grid.scss */
   .push-sm-4 {
     margin-left: 33.33333%; }
 
-  /* line 78, src/grid/_grid.scss */
+  /* line 77, src/grid/_grid.scss */
   .push-sm-5 {
     margin-left: 41.66667%; }
 
-  /* line 78, src/grid/_grid.scss */
+  /* line 77, src/grid/_grid.scss */
   .push-sm-6 {
     margin-left: 50%; }
 
-  /* line 78, src/grid/_grid.scss */
+  /* line 77, src/grid/_grid.scss */
   .push-sm-7 {
     margin-left: 58.33333%; }
 
-  /* line 78, src/grid/_grid.scss */
+  /* line 77, src/grid/_grid.scss */
   .push-sm-8 {
     margin-left: 66.66667%; }
 
-  /* line 78, src/grid/_grid.scss */
+  /* line 77, src/grid/_grid.scss */
   .push-sm-9 {
     margin-left: 75%; }
 
-  /* line 78, src/grid/_grid.scss */
+  /* line 77, src/grid/_grid.scss */
   .push-sm-10 {
     margin-left: 83.33333%; }
 
-  /* line 78, src/grid/_grid.scss */
+  /* line 77, src/grid/_grid.scss */
   .push-sm-11 {
     margin-left: 91.66667%; } }
 @media (min-width: 768px) {
-  /* line 85, src/grid/_grid.scss */
+  /* line 84, src/grid/_grid.scss */
   .mobile-only {
     display: none; } }
 @media (min-width: 0) and (max-width: 767px) {
-  /* line 91, src/grid/_grid.scss */
+  /* line 90, src/grid/_grid.scss */
   .mobile-hide {
     display: none; } }
 /*! normalize.css v3.0.2 | MIT License | git.io/normalize */
@@ -1181,20 +1180,35 @@ form .form-row {
     padding-top: 0; }
 
 /* line 1, src/modules/_autocomplete.scss */
-.ui-autocomplete {
-  float: left;
+.autocomplete-list {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin-top: 0;
   z-index: 1;
-  overflow: hidden;
   background-color: #fff;
   border: 1px solid #0b0c0c; }
-  /* line 8, src/modules/_autocomplete.scss */
-  .ui-autocomplete .ui-menu-item {
-    padding: 5px 10px; }
-  /* line 12, src/modules/_autocomplete.scss */
-  .ui-autocomplete .ui-state-focus {
-    background-color: #005ea5;
-    color: #fff; }
+  /* line 10, src/modules/_autocomplete.scss */
+  .autocomplete-list.hidden {
+    display: none; }
+  /* line 14, src/modules/_autocomplete.scss */
+  .autocomplete-list .item {
+    padding: 5px 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer; }
+    /* line 21, src/modules/_autocomplete.scss */
+    .autocomplete-list .item:hover, .autocomplete-list .item.highlighted {
+      background-color: #005ea5;
+      color: #fff; }
 
+@media (min-width: 0) and (max-width: 767px) {
+  /* line 30, src/modules/_autocomplete.scss */
+  .autocomplete-list {
+    top: 47px;
+    right: -2px;
+    left: -1px; } }
 /* line 1, src/modules/_beta_banner.scss */
 .beta-banner {
   border-bottom: 1px solid #bfc1c3;
@@ -1908,8 +1922,9 @@ form .form-row {
     width: 100%;
     height: 36px;
     padding-left: 10px;
+    padding-right: 46px;
     border: 1px solid #bfc1c3; }
-  /* line 14, src/modules/_search_form.scss */
+  /* line 15, src/modules/_search_form.scss */
   .search-form .search-btn {
     position: absolute;
     right: 0px;
@@ -1927,9 +1942,12 @@ form .form-row {
     text-indent: -5000px; }
 
 @media (min-width: 0) and (max-width: 767px) {
-  /* line 33, src/modules/_search_form.scss */
+  /* line 34, src/modules/_search_form.scss */
   .search-form {
-    width: 100%; } }
+    width: 100%; }
+    /* line 37, src/modules/_search_form.scss */
+    .search-form .keywords-field {
+      padding-right: 10px; } }
 @media (min-width: 0) and (max-width: 767px) {
   /* line 6, src/content/homepage/_main.scss */
   .page-home .my-moj {
