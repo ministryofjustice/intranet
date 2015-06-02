@@ -9,7 +9,6 @@
           <option data-url="<?=$department['url']?>" data-department="<?=$department['name']?>"><?=$department['label']?></option>
         <?php endforeach ?>
       </select>
-      <!--<span class="help-icon"></span>-->
     </div>
   </div>
   <div class="my-moj-body">
@@ -25,13 +24,6 @@
     <nav class="quick-links-container mobile-collapsed">
       <h3 class="category-name">Quick links</h3>
       <?php dynamic_sidebar('my-moj-quick-links'); ?>
-      <!--
-      <ul class="quick-links-list">
-        <?php /*foreach($quick_links as $quick_link): ?>
-          <?php $this->view('pages/homepage/my_moj/quick_link_item', $quick_link) ?>
-        <?php endforeach*/ ?>
-      </ul>
-      -->
     </nav>
   </div>
 </div>

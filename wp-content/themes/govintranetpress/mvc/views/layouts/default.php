@@ -20,9 +20,6 @@ header('X-Frame-Options: SAMEORIGIN');
   <div id="content" class="container main-content" role="main">
     <div class="content-wrapper">
       <?php $this->view('modules/beta_banner'); ?>
-      <?php if($breadcrumbs): ?>
-        <?php $this->view('modules/breadcrumbs'); ?>
-      <?php endif ?>
       <?php $this->view($page, $page_data) ?>
     </div>
   </div>
