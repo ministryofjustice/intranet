@@ -4,10 +4,7 @@
   <div class="grid">
     <div class="col-lg-12 col-md-12 col-sm-12">
       <h1><?=$title?></h1>
-      <form role="search form" class="search-form" name="search-form" method="post" action="<?=site_url()?>/search-results/" >
-        <input class="keywords-field ui-autocomplete-input" type="text" placeholder="Search" name="s" id="s" value="<?=urldecode(get_query_var('search-string'))?>">
-        <input class="search-btn cta" type="submit" value="Search" />
-      </form>
+      <?php $this->view('modules/search_form') ?>
     </div>
   </div>
 

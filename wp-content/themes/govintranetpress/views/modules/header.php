@@ -24,7 +24,7 @@
 
     <!-- search box -->
     <div class="col-lg-4 col-md-4 col-sm-12">
-      <?php get_search_form(true); ?>
+      <?php $this->view('modules/search_form') ?>
     </div>
   </div>
 
