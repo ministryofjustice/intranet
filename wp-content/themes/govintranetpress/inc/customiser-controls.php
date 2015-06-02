@@ -11,7 +11,7 @@ class News_Dropdown_Custom_Control extends WP_Customize_Control
 
     public function __construct($manager, $id, $args = array(), $options = array())
     {
-        $postargs = wp_parse_args($options, array('numberposts' => '-1', 'post_type' => 'news'));
+        $postargs = wp_parse_args($options, array('numberposts' => '10', 'post_type' => 'news'));
         $this->posts = get_posts($postargs);
 
         parent::__construct( $manager, $id, $args );
@@ -26,7 +26,7 @@ class News_Dropdown_Custom_Control extends WP_Customize_Control
         {
             ?>
                 <label>
-                    <span class="customize-post-dropdown"><?php echo esc_html( $this->label ); ?></span>
+                    <span class="customize-control-title"><?php echo esc_html( $this->label ); ?></span>
                     <input id="<?php echo $this->id; ?>-autocomplete" value="<?php echo get_the_title($this->value()); ?>">
                     <input id="<?php echo $this->id; ?>" value="<?php echo $this->value(); ?>" <?php $this->link(); ?> type="hidden">
                     <a href="#" onclick="clearField('<?php echo $this->id; ?>');">Clear</a>
@@ -68,4 +68,5 @@ class News_Dropdown_Custom_Control extends WP_Customize_Control
         }
     }
 }
+
 ?>
