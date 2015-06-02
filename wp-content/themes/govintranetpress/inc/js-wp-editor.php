@@ -59,7 +59,7 @@ function js_wp_editor( $settings = array() ) {
 		'includes_url' => includes_url()
 	);
 
-	wp_register_script( 'ap_wpeditor_init', get_template_directory_uri() . '/js/js-wp-editor.js', array( 'jquery' ), '1.1', true );
+	wp_register_script( 'ap_wpeditor_init', get_template_directory_uri() . '/admin/js/js-wp-editor.js', array( 'jquery' ), '1.1', true );
 	wp_localize_script( 'ap_wpeditor_init', 'ap_vars', $ap_vars );
 	wp_enqueue_script( 'ap_wpeditor_init' );
 }
