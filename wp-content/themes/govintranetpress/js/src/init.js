@@ -18,6 +18,7 @@ jQuery(function() {
   App.ins.tabbedContent = new App.TabbedContent();
   App.ins.news = new App.News();
   App.ins.searchResults = new App.SearchResults();
+  App.ins.searchAutocomplete = new App.SearchAutocomplete();
   App.ins.floaters = new App.Floaters();
   App.ins.collapsibleBlock = new App.CollapsibleBlock();
   App.ins.departmentDropdown = new App.DepartmentDropdown();
