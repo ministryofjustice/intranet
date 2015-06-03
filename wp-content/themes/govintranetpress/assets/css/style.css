@@ -778,7 +778,7 @@ h1 {
 
 /* line 73, src/global/_typography.scss */
 .main-content .editable p, .main-content .editable li, .main-content .editable .address, .main-content .editable .contact, .main-content .editable .help-notice, .main-content .editable .info-notice,
-.main-content .editable .example, .main-content .editable .summary, .imported-banner .message, .content-tabs li a, .collapsible-block-container .collapsible-block-toggle, .page-news .news-filtered-results-title .containing,
+.main-content .editable .example, .main-content .editable .summary, .imported-banner .message, .content-tabs li a, .collapsible-block-container .collapsible-block-toggle, .page-error .description, .page-error a, .page-news .news-filtered-results-title .containing,
 .page-news .news-filtered-results-title .for-date, .page-news .news-filtered-results-title .results-count-description,
 .page-news .news-filtered-results-title .keywords,
 .page-news .news-filtered-results-title .date, .page-search-results .search-filtered-results-title .results-count-description {
@@ -831,7 +831,7 @@ body, a[href$=".pdf"]:after, a[href$=".doc"]:after, a[href$=".xls"]:after, a[hre
 
   /* line 134, src/global/_typography.scss */
   .main-content .editable p, .main-content .editable li, .main-content .editable .address, .main-content .editable .contact, .main-content .editable .help-notice, .main-content .editable .info-notice,
-  .main-content .editable .example, .main-content .editable .summary, .imported-banner .message, .content-tabs li a, .collapsible-block-container .collapsible-block-toggle, .page-news .news-filtered-results-title .containing,
+  .main-content .editable .example, .main-content .editable .summary, .imported-banner .message, .content-tabs li a, .collapsible-block-container .collapsible-block-toggle, .page-error .description, .page-error a, .page-news .news-filtered-results-title .containing,
   .page-news .news-filtered-results-title .for-date, .page-news .news-filtered-results-title .results-count-description,
   .page-news .news-filtered-results-title .keywords,
   .page-news .news-filtered-results-title .date, .page-search-results .search-filtered-results-title .results-count-description {
@@ -1948,6 +1948,17 @@ form .form-row {
     /* line 37, src/modules/_search_form.scss */
     .search-form .keywords-field {
       padding-right: 10px; } }
+/* line 2, src/content/error/_main.scss */
+.page-error .title {
+  border-bottom: none; }
+/* line 6, src/content/error/_main.scss */
+.page-error .description {
+  margin-bottom: 30px;
+  font-weight: bold; }
+/* line 12, src/content/error/_main.scss */
+.page-error a {
+  text-decoration: underline; }
+
 @media (min-width: 0) and (max-width: 767px) {
   /* line 6, src/content/homepage/_main.scss */
   .page-home .my-moj {
