@@ -35,3 +35,11 @@ function dw_rewrite_rules() {
 }
 add_action('init', 'dw_redirects');
 add_action('init', 'dw_rewrite_rules');
+
+function redirect_404($template) {
+  $error_template = locate_template( 'error.php' );
+  if($error_template!='') {
+    return $error_template;
+  }
+}
+add_action('404_template','redirect_404',99);
