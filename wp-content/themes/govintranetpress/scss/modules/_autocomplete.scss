@@ -1,16 +1,35 @@
-.ui-autocomplete {
-  float: left;
+.autocomplete-list {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin-top: 0;
   z-index: 1;
-  overflow: hidden;
-  background-color: #fff;
+  background-color: $white;
   border: 1px solid $black;
 
-  .ui-menu-item {
-    padding: 5px 10px;
+  &.hidden {
+    display: none;
   }
 
-  .ui-state-focus {
-    background-color: $govuk-blue;
-    color: $white;
+  .item {
+    padding: 5px 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+
+    &:hover,
+    &.highlighted {
+      background-color: $govuk-blue;
+      color: $white;
+    }
+  }
+}
+
+@include mobile-mq() {
+  .autocomplete-list {
+    top: 47px;
+    right: -2px;
+    left: -1px;
   }
 }
