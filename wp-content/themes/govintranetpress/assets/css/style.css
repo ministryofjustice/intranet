@@ -2308,8 +2308,14 @@ form .form-row {
     margin-bottom: 0px;
     font-weight: normal; }
   /* line 55, src/content/guidance_and_support_content/_main.scss */
+  .guidance-and-support-content .tab-content {
+    margin-bottom: 40px; }
+  /* line 59, src/content/guidance_and_support_content/_main.scss */
   .guidance-and-support-content .excerpt {
     margin-top: 30px; }
+  /* line 64, src/content/guidance_and_support_content/_main.scss */
+  .guidance-and-support-content .date-updated {
+    color: #6f777b; }
 
 /* line 2, src/content/news_landing/_main.scss */
 .page-news h1 {
