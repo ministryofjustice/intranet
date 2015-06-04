@@ -1,12 +1,5 @@
 <?php if (!defined('ABSPATH')) die();
 
-/**
- * The Template for displaying all single posts.
- *
- * @package WordPress
- * @subpackage Starkers
- * @since Starkers 3.0
- */
 class Single_news extends MVC_controller {
   function main(){
     while(have_posts()){
