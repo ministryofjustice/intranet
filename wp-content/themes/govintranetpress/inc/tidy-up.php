@@ -47,3 +47,40 @@ function dw_customize_redirect() {
   }
 }
 add_action( 'load-themes.php', 'dw_customize_redirect' );
+
+// Apply site styling to post editor
+function dw_add_editor_style() {
+    add_editor_style( 'style.css' );
+}
+add_action( 'after_setup_theme', 'dw_add_editor_style' );
+
+// Filters all buttons from TinyMCE editor to hide toolbar for non-admins
+function intranet_tinymce_settings($settings){
+  // print_r($settings);
+  if ( !current_user_can( 'manage_options' ) ) {
+    $settings['toolbar1'] = array();
+    $settings['toolbar2'] = array();
+    return $settings;
+  } else {
+    return $settings;
+  }
+}
+add_filter( 'tiny_mce_before_init', 'intranet_tinymce_settings' );
+
+// Customize the format dropdown items
+if( !function_exists('base_custom_mce_format') ){
+  function base_custom_mce_format($init) {
+    // Add block format elements you want to show in dropdown
+    $init['theme_advanced_blockformats'] = 'p,h2,h3,h4,h5,h6,pre,blockquote';
+    //$init['extended_valid_elements'] = 'code[*]';
+    return $init;
+  }
+  add_filter('tiny_mce_before_init', 'base_custom_mce_format' );
+}
+
+// add custom styles from editor-style.css to TinyMCE menu
+function add_my_editor_style() {
+  add_editor_style();
+  wp_register_style('jquery-admin-ui-css', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/themes/overcast/jquery-ui.css', false, 0.1, false);
+}
+add_action( 'admin_init', 'add_my_editor_style' );

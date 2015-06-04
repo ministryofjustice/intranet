@@ -1,0 +1,39 @@
+.news-widget.featured {
+  .title {
+    margin-top: 0;
+    margin-bottom: 0px;
+    padding-top: 16px;
+    border-bottom: 1px solid $grey-1;
+  }
+
+  .news-list {
+    margin-top: 20px;
+  }
+
+  .news-item {
+    margin-bottom: 20px;
+
+    .news-heading {
+      @extend %medium-heading;
+      margin: 0;
+    }
+
+    .news-thumbnail-container {
+    }
+
+    .news-thumbnail {
+      width: 100%;
+    }
+
+    .news-date {
+      color: $grey-1;
+    }
+
+    .news-content {
+    }
+
+    .news-excerpt {
+      margin-top: 5px;
+    }
+  }
+}

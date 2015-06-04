@@ -25,3 +25,6 @@
 [submodule "wp-content/plugins/dw-nested-menu"]
 	path = wp-content/plugins/dw-nested-menu
 	url = git@github.com:ministryofjustice/dw-nested-menu.git
+[submodule "wp-content/plugins/dw-news"]
+	path = wp-content/plugins/dw-news
+	url = git@github.com:ministryofjustice/dw-news.git

@@ -1,0 +1,16 @@
+.page-error {
+  .title {
+    border-bottom: none;
+  }
+
+  .description {
+    @extend %large-copy;
+    margin-bottom: 30px;
+    font-weight: bold;
+  }
+
+  a {
+    @extend %large-copy;
+    text-decoration: underline;
+  }
+}

@@ -24,7 +24,7 @@
 
       public function load_autocomplete() {
         wp_enqueue_script('jquery-ui-autocomplete');
-        wp_enqueue_script('customizer',get_template_directory_uri()."/js/customizer.js",array('jquery-ui-datepicker'),null,true);
+        wp_enqueue_script('customizer',get_template_directory_uri()."/admin/js/customizer.js",array('jquery-ui-datepicker'),null,true);
         wp_enqueue_style('jquery-admin-ui-css', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/themes/overcast/jquery-ui.css', false, 0.1, false);
       }
 
@@ -73,6 +73,11 @@
       // Need to know functions
 
       public function need_to_know($wp_customize,$total_stories = 3) {
+        // $wp_customize->add_control( new Heading_Custom_Control($wp_customize, 'need_to_know_heading'.$x.'_control', array (
+        //   'label'     =>  'Need to know story '.$x,
+        //   'section'   =>  'need_to_know'
+        // )  )  );
+
         $wp_customize->add_section( 'need_to_know', array(
           'priority'        => 10,
           'capability'      => 'edit_theme_options',
@@ -94,6 +99,21 @@
             'label'     =>  'Need to know story '.$x,
             'section'   =>  'need_to_know',
             'settings'  =>  'need_to_know_story'.$x
+          )  )  );
+
+          $wp_customize->add_setting( 'need_to_know_tab'.$x, array(
+            'type'      => 'option',
+            'priority'  => 10,
+            'section'   => 'need_to_know',
+            'label'     => 'Need to know tab '.$x,
+            'transport' => 'refresh',
+          ) );
+
+          $wp_customize->add_control( new WP_Customize_Control($wp_customize, 'need_to_know_tab'.$x, array (
+            'label'     =>  'Need to know tab '.$x,
+            'section'   =>  'need_to_know',
+            'settings'  =>  'need_to_know_tab'.$x,
+            'type'      =>  'text'
           )  )  );
         }
       }
