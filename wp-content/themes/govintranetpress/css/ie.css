@@ -97,18 +97,20 @@
   .ie7 .content-info a {
     display: block; }
 
-/*@import "global/fonts";*/
-@font-face {
-  font-family: 'nta';
-  src: url("../fonts/nta_light.eot");
-  src: url("../fonts/nta_light.eot?#iefix") format("embedded-opentype");
-  font-weight: normal;
-  font-style: normal; }
-@font-face {
-  font-family: 'nta';
-  src: url("../fonts/nta_bold.eot");
-  src: url("../fonts/nta_bold.eot?#iefix") format("embedded-opentype");
-  font-weight: bold; }
+/*@font-face {*/
+/*  font-family: 'nta';*/
+/*  src: url('../fonts/nta_light.eot');*/
+/*  src: url('../fonts/nta_light.eot?#iefix') format('embedded-opentype');*/
+/*  font-weight: normal;*/
+/*  font-style: normal;*/
+/*}*/
+/**/
+/*@font-face {*/
+/*  font-family: 'nta';*/
+/*  src: url('../fonts/nta_bold.eot');*/
+/*  src: url('../fonts/nta_bold.eot?#iefix') format('embedded-opentype');*/
+/*  font-weight: bold;*/
+/*}*/
 /* line 2, ../scss/ie/_tabbed_filters.scss */
 .ie7 .tabbed-filters ul,
 .ie7 .tabbed-filters li,
@@ -282,14 +284,7 @@
 .ie7 .ht-feature-news .more-in-news {
   clear: both; }
 
-/* line 2, ../scss/ie/_sticky_news.scss */
-.ie7 #need-to-know .widget-title {
-  display: inline;
+/* line 2, ../scss/ie/_need_to_know.scss */
+.ie7 .news-widget.need-to-know .page-list {
+  margin-left: 0;
   zoom: 1; }
-/* line 7, ../scss/ie/_sticky_news.scss */
-.ie7 #need-to-know .page-list {
-  margin-left: 0; }
-  /* line 10, ../scss/ie/_sticky_news.scss */
-  .ie7 #need-to-know .page-list .item {
-    display: inline;
-    zoom: 1; }

@@ -6,8 +6,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 <link rel="stylesheet" type="text/css" media="all" href="<?=get_template_directory_uri()?>/css/style.css?<?=add_checksum_param('css/style.css')?>" />
-<link rel="stylesheet" type="text/css" media="all" href="<?=get_template_directory_uri()?>/css/fonts.css" />
 <link rel="stylesheet" type="text/css" media="print" href="<?=get_template_directory_uri()?>/css/print.css" />
+
+<!--[if !IE]><!-->
+  <link rel="stylesheet" type="text/css" media="all" href="<?=get_template_directory_uri()?>/css/fonts.css" />
+<!--<![endif]-->
 
 <!--[if lte IE 9]>
   <link rel="stylesheet" type="text/css" media="screen" href="<?=get_template_directory_uri()?>/css/ie.css?<?=add_checksum_param('css/ie.css')?>" />
@@ -30,6 +33,7 @@
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
+    ga('set', 'anonymizeIp', true);
     ga('create', '%s', 'auto');
     ga('send', 'pageview');
 
