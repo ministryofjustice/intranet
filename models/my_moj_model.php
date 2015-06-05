@@ -27,7 +27,7 @@ class My_moj_model extends MVC_model {
         array(
           'name' => 'law-commission',
           'label' => 'Law Commission',
-          'url' => 'http://intranet.justice.gsi.gov.uk/lawcommission/index.htm'
+          'url' => 'http://lawcommission.intranet.service.justice.gov.uk/'
         ),
         array(
           'name' => 'opg',
