@@ -1,30 +1,6 @@
-[submodule "wp-content/plugins/dw-mvc"]
-	path = wp-content/plugins/dw-mvc
-	url = https://github.com/ministryofjustice/dw-mvc.git
-[submodule "wp-content/plugins/dw-pageapi"]
-	path = wp-content/plugins/dw-pageapi
-	url = https://github.com/ministryofjustice/dw-pageapi.git
 [submodule "wp-content/plugins/dw-sticky-news"]
 	path = wp-content/plugins/dw-sticky-news
 	url = https://github.com/ministryofjustice/dw-sticky-news.git
 [submodule "wp-content/plugins/dw-feature-news"]
 	path = wp-content/plugins/dw-feature-news
 	url = https://github.com/ministryofjustice/dw-feature-news.git
-[submodule "wp-content/plugins/dw-markdown-preview"]
-	path = wp-content/plugins/dw-markdown-preview
-	url = https://github.com/ministryofjustice/dw-markdown-preview.git
-[submodule "wp-content/plugins/dw-markdown"]
-	path = wp-content/plugins/dw-markdown
-	url = https://github.com/ministryofjustice/dw-markdown.git
-[submodule "wp-content/plugins/wp-amazon-s3-and-cloudfront"]
-	path = wp-content/plugins/wp-amazon-s3-and-cloudfront
-	url = https://github.com/deliciousbrains/wp-amazon-s3-and-cloudfront.git
-[submodule "wp-content/plugins/wp-amazon-web-services"]
-	path = wp-content/plugins/wp-amazon-web-services
-	url = https://github.com/deliciousbrains/wp-amazon-web-services.git
-[submodule "wp-content/plugins/dw-nested-menu"]
-	path = wp-content/plugins/dw-nested-menu
-	url = git@github.com:ministryofjustice/dw-nested-menu.git
-[submodule "wp-content/plugins/dw-news"]
-	path = wp-content/plugins/dw-news
-	url = git@github.com:ministryofjustice/dw-news.git

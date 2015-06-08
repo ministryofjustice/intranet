@@ -1,0 +1,14 @@
+/**
+ * Custom CSS for the login screen
+ */
+
+html body {
+  font-family: "nta", Helvetica, arial, sans-serif;
+}
+
+#login h1 a {
+  background-image:url('../images/loginbranding.png');
+  width: auto;
+  background-size: 150px;
+  height: 120px;
+}
