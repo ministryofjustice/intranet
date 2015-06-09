@@ -5,11 +5,6 @@ class My_moj_model extends MVC_model {
     return array(
       'departments' => array(
         array(
-          'name' => 'legal-aid-agency',
-          'label' => 'Legal Aid Agency',
-          'url' => 'http://intranet.justice.gsi.gov.uk/laa/index.htm'
-        ),
-        array(
           'name' => 'hm-courts-and-tribunals-service',
           'label' => 'HM Courts &amp; Tribunals Service',
           'url' => 'http://libra.lcd.gsi.gov.uk/hmcts/index.htm'
@@ -28,6 +23,11 @@ class My_moj_model extends MVC_model {
           'name' => 'law-commission',
           'label' => 'Law Commission',
           'url' => 'http://lawcommission.intranet.service.justice.gov.uk/'
+        ),
+        array(
+          'name' => 'legal-aid-agency',
+          'label' => 'Legal Aid Agency',
+          'url' => 'http://intranet.justice.gsi.gov.uk/laa/'
         ),
         array(
           'name' => 'opg',
