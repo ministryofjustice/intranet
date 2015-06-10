@@ -775,7 +775,7 @@
   var App = window.App;
 
   App.GuidanceAndSupportContent = function() {
-    this.$top = $('.guidance-and-support-content');
+    this.$top = $('.template-guidance-and-support-content .template-container');
     if(!this.$top.length) { return; }
     this.init();
   };
@@ -805,7 +805,7 @@
   var App = window.App;
 
   App.GuidanceAndSupport = function() {
-    this.$top = $('.guidance-and-support');
+    this.$top = $('.template-guidance-and-support-index .template-container');
     if(!this.$top.length) { return; }
     this.init();
   };
@@ -1269,7 +1269,7 @@
   "use strict";
 
   App.Navigation = function() {
-    this.$top = $('.guidance-and-support-content');
+    this.$top = $('.template-guidance-and-support-content .template-container');
     if(!this.$top.length) { return; }
     this.init();
   };
@@ -1396,7 +1396,7 @@
   var App = window.App;
 
   App.News = function() {
-    this.$top = $('.page-news');
+    this.$top = $('.template-news-landing .template-container');
     if(!this.$top.length) { return; }
     this.init();
   };
@@ -2039,7 +2039,7 @@
   var App = window.App;
 
   App.SearchResults = function() {
-    this.$top = $('.page-search-results');
+    this.$top = $('.template-search-results .template-container');
     if(!this.$top.length) { return; }
     this.init();
   };

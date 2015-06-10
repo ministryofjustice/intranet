@@ -1,6 +1,6 @@
 <?php if (!defined('ABSPATH')) die(); ?>
 
-<div class="page-home">
+<div class="template-container">
   <?php $this->view('pages/homepage/emergency_message', $emergency_message) ?>
 
   <div class="grid">

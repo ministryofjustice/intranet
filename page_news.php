@@ -21,6 +21,7 @@ class Page_news extends MVC_controller {
 
     return array(
       'page' => 'pages/news_landing/main',
+      'template_class' => 'news-landing',
       'breadcrumbs' => true,
       'page_data' => array(
         'top_slug' => htmlspecialchars($top_slug)

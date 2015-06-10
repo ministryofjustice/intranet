@@ -6,7 +6,7 @@
   var App = window.App;
 
   App.GuidanceAndSupport = function() {
-    this.$top = $('.guidance-and-support');
+    this.$top = $('.template-guidance-and-support-index .template-container');
     if(!this.$top.length) { return; }
     this.init();
   };

@@ -17,7 +17,8 @@ class Error extends MVC_controller {
 
   private function get_data() {
     return array(
-      'page' => 'pages/error/main'
+      'page' => 'pages/error/main',
+      'template_class' => 'error'
     );
   }
 }

@@ -6,7 +6,7 @@
   var App = window.App;
 
   App.News = function() {
-    this.$top = $('.page-news');
+    this.$top = $('.template-news-landing .template-container');
     if(!this.$top.length) { return; }
     this.init();
   };

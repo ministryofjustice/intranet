@@ -1,6 +1,6 @@
 <?php if (!defined('ABSPATH')) die(); ?>
 
-<div class="page-default">
+<div class="template-container">
   <div class="grid">
     <div class="col-lg-12">
       <h1><?=$title?></h1>

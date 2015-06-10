@@ -23,6 +23,7 @@ class Page_search_results extends MVC_controller {
 
     return array(
       'page' => 'pages/search_results/main',
+      'template_class' => 'search-results',
       'page_data' => array(
         'top_slug' => htmlspecialchars($top_slug)
       )
