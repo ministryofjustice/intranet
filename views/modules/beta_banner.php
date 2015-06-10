@@ -12,8 +12,10 @@ $feedback_url = 'https://www.surveymonkey.com/r/VDVMLB7';
         This is a trial service - your
         <a href="<?=$feedback_url?>" target="_blank" rel="external">feedback</a>
         will help us to improve it.
-        This site is not optimised for IE7,
-        please use <a href="/about-firefox">Firefox</a> instead.
+        <span class="ie7-warning">
+          This site is not optimised for IE7,
+          please use <a href="/about-firefox">Firefox</a> instead.
+        </span>
       </p>
     </div>
   </div>
