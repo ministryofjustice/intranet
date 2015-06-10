@@ -20,7 +20,6 @@
       <div class="">
         <h2 class="page-category"><?=$page_category ?></h2>
         <h1 class="page-title"><?=$title?></h1>
-        <span class="updated date">Updated <?=$human_date?></span>
         <div class="excerpt">
           <?=$excerpt?>
         </div>
@@ -35,6 +34,7 @@
       </ul>
 
       <div class="tab-content editable"></div>
+      <span class="date-updated">Last updated: <?=$human_date?></span>
     </div>
   </div>
 

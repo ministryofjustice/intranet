@@ -1720,51 +1720,55 @@ form .form-row {
   display: table;
   clear: both; }
 /* line 10, src/modules/_content_nav.scss */
-.content-nav li:hover {
-  background-color: #f8f8f8; }
-/* line 14, src/modules/_content_nav.scss */
 .content-nav li.disabled {
   visibility: hidden; }
-/* line 20, src/modules/_content_nav.scss */
+/* line 16, src/modules/_content_nav.scss */
 .content-nav li.previous a, .content-nav li.next a {
-  padding-left: 25px;
-  padding-right: 25px;
   background-repeat: no-repeat;
   background-size: 21px 38px; }
-/* line 28, src/modules/_content_nav.scss */
+  /* line 20, src/modules/_content_nav.scss */
+  .content-nav li.previous a:hover, .content-nav li.next a:hover {
+    background-color: #f8f8f8; }
+  /* line 24, src/modules/_content_nav.scss */
+  .content-nav li.previous a:focus, .content-nav li.next a:focus {
+    background-color: #ffbf47;
+    outline: none; }
+/* line 30, src/modules/_content_nav.scss */
+.content-nav li.previous .nav-label, .content-nav li.next .nav-label {
+  padding: 10px 25px; }
+/* line 35, src/modules/_content_nav.scss */
 .content-nav li.previous {
   float: left; }
-  /* line 31, src/modules/_content_nav.scss */
+  /* line 38, src/modules/_content_nav.scss */
   .content-nav li.previous a {
     background-image: url("../images/chevron_left_x2.png");
     background-position: left 6px; }
-  /* line 36, src/modules/_content_nav.scss */
+  /* line 43, src/modules/_content_nav.scss */
   .content-nav li.previous .nav-label {
     display: block;
     text-align: left; }
-  /* line 41, src/modules/_content_nav.scss */
+  /* line 48, src/modules/_content_nav.scss */
   .content-nav li.previous .page-info {
     text-align: left; }
-/* line 46, src/modules/_content_nav.scss */
+/* line 53, src/modules/_content_nav.scss */
 .content-nav li.next {
   float: right; }
-  /* line 49, src/modules/_content_nav.scss */
+  /* line 56, src/modules/_content_nav.scss */
   .content-nav li.next a {
     background-image: url("../images/chevron_right_x2.png");
     background-position: right 6px; }
-  /* line 54, src/modules/_content_nav.scss */
+  /* line 61, src/modules/_content_nav.scss */
   .content-nav li.next .nav-label {
     display: block;
     text-align: right; }
-  /* line 59, src/modules/_content_nav.scss */
+  /* line 66, src/modules/_content_nav.scss */
   .content-nav li.next .page-info {
     text-align: right; }
-/* line 64, src/modules/_content_nav.scss */
+/* line 71, src/modules/_content_nav.scss */
 .content-nav li a {
   display: block;
-  padding: 10px 12px;
   text-decoration: none; }
-/* line 70, src/modules/_content_nav.scss */
+/* line 76, src/modules/_content_nav.scss */
 .content-nav li .page-info {
   display: block;
   padding-top: 5px;
@@ -2315,8 +2319,14 @@ form .form-row {
     margin-bottom: 0px;
     font-weight: normal; }
   /* line 55, src/content/guidance_and_support_content/_main.scss */
+  .guidance-and-support-content .tab-content {
+    margin-bottom: 40px; }
+  /* line 59, src/content/guidance_and_support_content/_main.scss */
   .guidance-and-support-content .excerpt {
     margin-top: 30px; }
+  /* line 64, src/content/guidance_and_support_content/_main.scss */
+  .guidance-and-support-content .date-updated {
+    color: #6f777b; }
 
 /* line 2, src/content/news_landing/_main.scss */
 .page-news h1 {

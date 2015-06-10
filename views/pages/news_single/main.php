@@ -44,29 +44,33 @@
         <?=$content?>
       </div>
 
-      <ul class="content-nav">
-        <li class="previous">
-          <span>
-            <? if($prev_news_exists): ?>
-              <a href="<?=$prev_news_url?>">
+      <ul class="content-nav grid">
+        <li class="previous col-lg-6 col-md-6 col-sm-6">
+          <? if($prev_news_exists): ?>
+            <a href="<?=$prev_news_url?>" aria-labelledby="prev-page-label">
+              <span class="nav-label" id="prev-page-label">
                 Previous
-              </a>
-            <? else: ?>
+              </span>
+            </a>
+          <? else: ?>
+            <span class="nav-label">
               Previous
-            <? endif ?>
-          </span>
+            </span>
+          <? endif ?>
         </li>
 
-        <li class="next">
-          <span>
-            <? if($next_news_exists): ?>
-              <a href="<?=$next_news_url?>">
+        <li class="next col-lg-6 col-md-6 col-sm-6">
+          <? if($next_news_exists): ?>
+            <a href="<?=$next_news_url?>" aria-labelledby="next-page-label">
+              <span class="nav-label" id="next-page-label">
                 Next
-              </a>
-            <? else: ?>
+              </span>
+            </a>
+          <? else: ?>
+            <span class="nav-label">
               Next
-            <? endif ?>
-          </span>
+            </span>
+          <? endif ?>
         </li>
       </ul>
 

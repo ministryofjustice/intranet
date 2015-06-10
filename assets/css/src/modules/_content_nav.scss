@@ -7,10 +7,6 @@
     &:after {
     }
 
-    &:hover {
-      background-color: $grey-4;
-    }
-
     &.disabled {
       visibility: hidden;
     }
@@ -18,10 +14,21 @@
     &.previous,
     &.next {
       a {
-        padding-left: 25px;
-        padding-right: 25px;
         background-repeat: no-repeat;
         background-size: 21px 38px;
+
+        &:hover {
+          background-color: $grey-4;
+        }
+
+        &:focus {
+          background-color: $yellow;
+          outline: none;
+        }
+      }
+
+      .nav-label {
+        padding: 10px 25px;
       }
     }
 
@@ -63,7 +70,6 @@
 
     a {
       display: block;
-      padding: 10px 12px;
       text-decoration: none;
     }
 
