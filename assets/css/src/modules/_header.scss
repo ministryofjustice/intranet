@@ -53,6 +53,10 @@
   .my-moj {
     display: none;
   }
+
+  .template-search-results & .search-form {
+    display: none;
+  }
 }
 
 @include mobile-mq() {
@@ -146,6 +150,10 @@
     }
 
     .my-moj {
+      display: block;
+    }
+
+    .template-search-results & .search-form {
       display: block;
     }
   }
