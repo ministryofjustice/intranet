@@ -1229,6 +1229,9 @@ form .form-row {
     margin-top: 0;
     padding: 0;
     padding-left: 10px; }
+  /* line 28, src/modules/_beta_banner.scss */
+  .beta-banner .ie7-warning {
+    display: none; }
 
 /* line 1, src/modules/_imported_banner.scss */
 .imported-banner {

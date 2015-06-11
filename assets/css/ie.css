@@ -150,6 +150,9 @@
 .ie7 .beta-banner .message {
   display: inline;
   zoom: 1; }
+/* line 8, src/ie/_beta_banner.scss */
+.ie7 .beta-banner .ie7-warning {
+  display: inline; }
 
 /* line 2, src/ie/_my_moj.scss */
 .ie7 .my-moj .department {
