@@ -24,6 +24,10 @@
     padding: 0;
     padding-left: 10px;
   }
+
+  .ie7-warning {
+    display: none;
+  }
 }
 
 @include mobile-mq() {

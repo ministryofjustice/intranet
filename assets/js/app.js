@@ -1453,14 +1453,12 @@
       });
 
       this.$prevPage.click(function(e) {
-        e.preventDefault();
         _this.loadResults({
           'page': $(this).attr('data-page')
         });
       });
 
       this.$nextPage.click(function(e) {
-        e.preventDefault();
         _this.loadResults({
           'page': $(this).attr('data-page')
         });
@@ -2089,14 +2087,12 @@
       });
 
       this.$prevPage.click(function(e) {
-        e.preventDefault();
         _this.loadResults({
           'page': $(this).attr('data-page')
         });
       });
 
       this.$nextPage.click(function(e) {
-        e.preventDefault();
         _this.loadResults({
           'page': $(this).attr('data-page')
         });
