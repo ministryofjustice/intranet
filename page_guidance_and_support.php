@@ -38,6 +38,7 @@ class Page_guidance_and_support extends MVC_controller {
 
     return array(
       'page' => 'pages/guidance_and_support_content/main',
+      'template_class' => 'guidance-and-support-content',
       'page_data' => array(
         'id' => $this->post_ID,
         // 'author' => get_the_author(),

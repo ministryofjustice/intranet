@@ -2,7 +2,7 @@
 
 <?php if ( have_posts() ) while ( have_posts() ) : the_post() ?>
 
-<div class="page-news" data-top-level-slug="<?=$top_slug?>">
+<div class="template-container" data-top-level-slug="<?=$top_slug?>">
   <div class="grid">
     <div class="col-lg-12 col-md-12 col-sm-12">
       <h1 class="page-title"><?php the_title() ?></h1>

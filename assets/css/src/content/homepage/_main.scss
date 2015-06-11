@@ -1,8 +1,8 @@
-.page-home {
+.template-home .template-container {
 }
 
 @include mobile-mq() {
-  .page-home {
+  .template-home .template-container {
     .my-moj {
       display: none;
     }

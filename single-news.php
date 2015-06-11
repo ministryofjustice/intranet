@@ -22,6 +22,7 @@ class Single_news extends MVC_controller {
 
     return array(
       'page' => 'pages/news_single/main',
+      'template_class' => 'single-news',
       'page_data' => array(
         'id' => $this_id,
         'thumbnail' => wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), 'newshead'),

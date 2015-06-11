@@ -13,6 +13,7 @@ class Page_guidance_and_support_index extends MVC_controller {
   private function get_data() {
     return array(
       'page' => 'pages/guidance_and_support/main',
+      'template_class' => 'guidance-and-support-index',
       'page_data' => array(
         'title' => get_the_title()
       )

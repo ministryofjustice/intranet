@@ -6,7 +6,7 @@
   var App = window.App;
 
   App.SearchResults = function() {
-    this.$top = $('.page-search-results');
+    this.$top = $('.template-search-results .template-container');
     if(!this.$top.length) { return; }
     this.init();
   };
