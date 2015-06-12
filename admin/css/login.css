@@ -7,7 +7,7 @@ html body {
 }
 
 #login h1 a {
-  background-image:url('../images/loginbranding.png');
+  background-image:url('../../images/loginbranding.png');
   width: auto;
   background-size: 150px;
   height: 120px;
