@@ -50,7 +50,7 @@ add_action( 'load-themes.php', 'dw_customize_redirect' );
 
 // Apply site styling to post editor
 function dw_add_editor_style() {
-    add_editor_style( 'style.css' );
+    add_editor_style( 'assets/css/style.css' );
 }
 add_action( 'after_setup_theme', 'dw_add_editor_style' );
 
