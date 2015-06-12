@@ -26,6 +26,7 @@
         wp_enqueue_script('jquery-ui-autocomplete');
         wp_enqueue_script('customizer',get_template_directory_uri()."/admin/js/customizer.js",array('jquery-ui-datepicker'),null,true);
         wp_enqueue_style('jquery-admin-ui-css', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/themes/overcast/jquery-ui.css', false, 0.1, false);
+        wp_enqueue_style('intranet-customizer-css', get_template_directory_uri()."/admin/css/customizer.css", array('jquery-admin-ui-css'));
       }
 
       public function register($wp_customize) {
