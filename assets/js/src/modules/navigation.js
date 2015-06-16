@@ -61,7 +61,7 @@
       $menuItem.find('.dropdown-button')
         .click($.proxy(_this.toggle, _this));
 
-      $.each(data.items, function(index, data) {
+      $.each(data.results, function(index, data) {
         _this.buildChildItem(data).appendTo($childrenList);
       });
 

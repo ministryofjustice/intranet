@@ -1328,7 +1328,7 @@
       $menuItem.find('.dropdown-button')
         .click($.proxy(_this.toggle, _this));
 
-      $.each(data.items, function(index, data) {
+      $.each(data.results, function(index, data) {
         _this.buildChildItem(data).appendTo($childrenList);
       });
 
@@ -1582,8 +1582,8 @@
     setResultsHeading: function(data) {
       var $resultsTitle = $(this.resultsPageTitleTemplate);
       var $filteredResultsTitle = $(this.filteredResultsTitleTemplate);
-      var totalResults = parseInt(data.totalResults, 10);
-      var resultsPage = parseInt(data.urlParams.page, 10);
+      var totalResults = parseInt(data.total_results, 10);
+      var resultsPage = parseInt(data.url_params.page, 10);
       var date;
       var formattedDate;
 
@@ -1686,9 +1686,9 @@
     },
 
     updatePagination: function(data) {
-      this.currentPage = parseInt(data.urlParams.page, 10);
-      var perPage = parseInt(data.urlParams.per_page, 10) || 10;
-      var totalResults = parseInt(data.totalResults, 10);
+      this.currentPage = parseInt(data.url_params.page, 10);
+      var perPage = parseInt(data.url_params.per_page, 10) || 10;
+      var totalResults = parseInt(data.total_results, 10);
       var totalPages = perPage > 0 ? Math.ceil(totalResults/perPage) : 1;
       var prevPage = Math.max(this.currentPage-1, 1);
       var nextPage = Math.min(this.currentPage+1, totalPages);
@@ -2147,8 +2147,8 @@
 
         data = {
           results: [],
-          totalResults: 0,
-          urlParams: {
+          total_results: 0,
+          url_params: {
             category: null,
             keywords: "",
             page: "1",
@@ -2214,8 +2214,8 @@
     setResultsHeading: function(data) {
       var $resultsTitle = $(this.resultsPageTitleTemplate);
       var $filteredResultsTitle = $(this.filteredResultsTitleTemplate);
-      var totalResults = parseInt(data.totalResults, 10);
-      var resultsPage = parseInt(data.urlParams.page, 10);
+      var totalResults = parseInt(data.total_results, 10);
+      var resultsPage = parseInt(data.url_params.page, 10);
       var date;
       var formattedDate;
 
@@ -2313,9 +2313,9 @@
     },
 
     updatePagination: function(data) {
-      this.currentPage = parseInt(data.urlParams.page, 10);
-      var perPage = parseInt(data.urlParams.per_page, 10);
-      var totalResults = parseInt(data.totalResults, 10);
+      this.currentPage = parseInt(data.url_params.page, 10);
+      var perPage = parseInt(data.url_params.per_page, 10);
+      var totalResults = parseInt(data.total_results, 10);
       var totalPages = perPage > 0 ? Math.ceil(totalResults/perPage) : 1;
       var prevPage = Math.max(this.currentPage-1, 1);
       var nextPage = Math.min(this.currentPage+1, totalPages);
@@ -2550,7 +2550,7 @@ jQuery(function() {
   App.ins.azIndex = new App.AZIndex();
   App.ins.emergencyMessage = new App.EmergencyMessage();
   App.ins.tableOfContents = new App.TableOfContents();
-  App.ins.childrenPages = new App.ChildrenPages();
+  //App.ins.childrenPages = new App.ChildrenPages();
   App.ins.tabbedContent = new App.TabbedContent();
   App.ins.news = new App.News();
   App.ins.searchResults = new App.SearchResults();
