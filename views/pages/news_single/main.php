@@ -35,7 +35,7 @@
   <div class="grid">
     <div class="col-lg-4 col-md-4 col-sm-12">
       <div class="story-image">
-        <img src="<?=$thumbnail[0]?>" class="img img-responsive" alt="<?=$title?>" />
+        <img src="<?=$thumbnail?>" class="img img-responsive" alt="<?=$thumbnail_alt_text?>" />
       </div>
     </div>
 

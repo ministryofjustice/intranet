@@ -17,6 +17,10 @@ class Single_news extends MVC_controller {
 
     $this_id = $post->ID;
 
+    $thumbnail_id = get_post_thumbnail_id($this_id);
+    $thumbnail = wp_get_attachment_image_src($thumbnail_id, 'newshead');
+    $alt_text = get_post_meta($thumbnail_id, '_wp_attachment_image_alt', true);
+
     $prev_news = get_previous_post();
     $next_news = get_next_post();
 
@@ -25,7 +29,8 @@ class Single_news extends MVC_controller {
       'template_class' => 'single-news',
       'page_data' => array(
         'id' => $this_id,
-        'thumbnail' => wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), 'newshead'),
+        'thumbnail' => $thumbnail[0],
+        'thumbnail_alt_text' => $alt_text,
         'thumbnail_caption' => get_post_thumbnail_caption(),
         'author' => get_the_author(),
         'title' => get_the_title(),
