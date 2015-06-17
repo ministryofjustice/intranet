@@ -244,7 +244,9 @@
       var date = this.parseDate(data.timestamp);
 
       if(data.thumbnail_url) {
-        $child.find('.thumbnail').attr('src', data.thumbnail_url);
+        $child.find('.thumbnail')
+          .attr('src', data.thumbnail_url)
+          .attr('alt', data.thumbnail_alt_text);
       }
       else {
         $child.find('.thumbnail').remove(); //we don't want an img element with no src
