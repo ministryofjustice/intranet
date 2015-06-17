@@ -39,24 +39,26 @@
  */
 
 // Includes and requires
-require_once('inc/security.php');            // Security functions
-require_once('inc/searching.php');           // Functions to enhance searching (using Relevanssi)
-require_once('inc/utility.php');             // Utility functions
-require_once('inc/post-types.php');          // Controls post-types (custom and built-in)
-require_once('inc/news-customiser.php');     // Setup news customiser
-require_once('inc/customiser-controls.php'); // Extra customiser controls
-require_once('inc/redirects.php');           // Site redirects
-require_once('inc/images.php');              // Images sizes and functions
-require_once('inc/uploads.php');             // File uploads
-require_once('inc/dependencies.php');        // CSS/JS dependency enqueing
-require_once('inc/sidebars.php');            // Register sidebars
-require_once('inc/titles.php');              // Title filters
-require_once('inc/excerpts.php');            // Excerpt filters
-require_once('admin/templates/template-functions.php');  // Customises page editor based on template
-require_once('inc/tidy-up.php');             // Tidy up CMS
+require_once('inc/security.php');                         // Security functions
+require_once('inc/searching.php');                        // Functions to enhance searching (using Relevanssi)
+require_once('inc/utility.php');                          // Utility functions
+require_once('inc/post-types.php');                       // Controls post-types (custom and built-in)
+require_once('inc/news-customiser.php');                  // Setup news customiser
+require_once('inc/customiser-controls.php');              // Extra customiser controls
+require_once('inc/redirects.php');                        // Site redirects
+require_once('inc/images.php');                           // Images sizes and functions
+require_once('inc/uploads.php');                          // File uploads
+require_once('inc/dependencies.php');                     // CSS/JS dependency enqueing
+require_once('inc/sidebars.php');                         // Register sidebars
+require_once('inc/titles.php');                           // Title filters
+require_once('inc/excerpts.php');                         // Excerpt filters
+require_once('inc/tidy-up.php');                          // Tidy up CMS
 
-include     ('helpers/debug.php');           // Debug tool
-include     ('helpers/cachebuster.php');     // Ensures updated CSS and JS are served to client
+require_once('admin/templates/template-functions.php');   // Customises page editor based on template
+require_once('admin/editor-enhancements.php');            // Adds enhancements to post/page editor screen
+
+include     ('helpers/debug.php');                        // Debug tool
+include     ('helpers/cachebuster.php');                  // Ensures updated CSS and JS are served to client
 
 /** Tell WordPress to run twentyten_setup() when the 'after_setup_theme' hook is run. */
 add_action( 'after_setup_theme', 'twentyten_setup' );

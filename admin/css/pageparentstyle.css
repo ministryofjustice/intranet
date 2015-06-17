@@ -1,0 +1,32 @@
+#pageparent-filterbox {
+  width: 100%;
+}
+
+#pageparent-result img.loading {
+  margin: 10px auto;
+  display: block;
+}
+
+#pageparent-result ul,li {
+  list-style:none;
+}
+
+#pageparent-result li {
+  border-bottom: 1px solid lightgrey;
+  margin:0;
+  padding:2px;
+}
+
+#pageparent-result li a {
+    display: block;
+    padding: 3px;
+}
+
+#pageparent-result li a:hover {
+  background-color:#f2f2f2;
+}
+
+#pageparent-result li a small {
+  font-weight: bold;
+}
+
