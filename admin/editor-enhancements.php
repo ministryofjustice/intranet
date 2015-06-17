@@ -39,10 +39,10 @@ function pageparent_ajax_check_parent() {
           jQuery("#parent_id").val(parentid);
         });
     </script>';
-    die();
+    wp_die();
   } else {
     echo "<p>No matching pages found</p>";
-    die();
+    wp_die();
   }
 }
 
