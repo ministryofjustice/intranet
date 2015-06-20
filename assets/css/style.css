@@ -1711,26 +1711,28 @@ form .form-row {
     text-align: left; }
   /* line 48, src/modules/_content_nav.scss */
   .content-nav li.previous .page-info {
+    padding-left: 25px;
     text-align: left; }
-/* line 53, src/modules/_content_nav.scss */
+/* line 54, src/modules/_content_nav.scss */
 .content-nav li.next {
   float: right; }
-  /* line 56, src/modules/_content_nav.scss */
+  /* line 57, src/modules/_content_nav.scss */
   .content-nav li.next a {
     background-image: url("../images/chevron_right_x2.png");
     background-position: right 6px; }
-  /* line 61, src/modules/_content_nav.scss */
+  /* line 62, src/modules/_content_nav.scss */
   .content-nav li.next .nav-label {
     display: block;
     text-align: right; }
-  /* line 66, src/modules/_content_nav.scss */
+  /* line 67, src/modules/_content_nav.scss */
   .content-nav li.next .page-info {
+    padding-right: 25px;
     text-align: right; }
-/* line 71, src/modules/_content_nav.scss */
+/* line 73, src/modules/_content_nav.scss */
 .content-nav li a {
   display: block;
   text-decoration: none; }
-/* line 76, src/modules/_content_nav.scss */
+/* line 78, src/modules/_content_nav.scss */
 .content-nav li .page-info {
   display: block;
   padding-top: 5px;
@@ -2457,20 +2459,23 @@ form .form-row {
 .template-search-results .template-container .no-results-info.hidden {
   display: none; }
 /* line 38, src/content/search_results/_main.scss */
+.template-search-results .template-container .search-item.faded {
+  opacity: .3; }
+/* line 42, src/content/search_results/_main.scss */
 .template-search-results .template-container .search-item .title {
   margin-top: 30px; }
-/* line 42, src/content/search_results/_main.scss */
+/* line 46, src/content/search_results/_main.scss */
 .template-search-results .template-container .search-item .meta {
   color: #bfc1c3; }
-/* line 46, src/content/search_results/_main.scss */
+/* line 50, src/content/search_results/_main.scss */
 .template-search-results .template-container .search-item .title,
 .template-search-results .template-container .search-item .meta {
   margin-bottom: 5px; }
-/* line 55, src/content/search_results/_main.scss */
+/* line 59, src/content/search_results/_main.scss */
 .template-search-results .template-container .search-item .file {
   margin-top: 5px;
   color: #6f777b; }
-  /* line 59, src/content/search_results/_main.scss */
+  /* line 63, src/content/search_results/_main.scss */
   .template-search-results .template-container .search-item .file .file-link {
     text-decoration: underline; }
 

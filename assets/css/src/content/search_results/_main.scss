@@ -35,6 +35,10 @@
   }
 
   .search-item {
+    &.faded {
+      opacity: .3;
+    }
+
     .title {
       margin-top: 30px;
     }
