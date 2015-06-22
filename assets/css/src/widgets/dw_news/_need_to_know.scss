@@ -35,9 +35,11 @@
     .news-thumbnail-container {
       display: block;
       margin-left: 15px;
+      margin-bottom: 20px;
     }
 
     .news-thumbnail {
+      display: block;
       max-width: 100%;
       border: 1px solid $white;
     }
