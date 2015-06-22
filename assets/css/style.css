@@ -2560,24 +2560,26 @@ form .form-row {
     /* line 35, src/widgets/dw_news/_need_to_know.scss */
     .news-widget.need-to-know .news-item .news-thumbnail-container {
       display: block;
-      margin-left: 15px; }
-    /* line 40, src/widgets/dw_news/_need_to_know.scss */
+      margin-left: 15px;
+      margin-bottom: 20px; }
+    /* line 41, src/widgets/dw_news/_need_to_know.scss */
     .news-widget.need-to-know .news-item .news-thumbnail {
+      display: block;
       max-width: 100%;
       border: 1px solid #fff; }
-    /* line 45, src/widgets/dw_news/_need_to_know.scss */
+    /* line 47, src/widgets/dw_news/_need_to_know.scss */
     .news-widget.need-to-know .news-item .news-content {
       margin-bottom: 15px;
       padding-right: 15px; }
-    /* line 50, src/widgets/dw_news/_need_to_know.scss */
+    /* line 52, src/widgets/dw_news/_need_to_know.scss */
     .news-widget.need-to-know .news-item .news-date {
       margin-top: 3px;
       color: #fff; }
-    /* line 55, src/widgets/dw_news/_need_to_know.scss */
+    /* line 57, src/widgets/dw_news/_need_to_know.scss */
     .news-widget.need-to-know .news-item .news-excerpt {
       margin-top: 7px;
       color: #fff; }
-  /* line 61, src/widgets/dw_news/_need_to_know.scss */
+  /* line 63, src/widgets/dw_news/_need_to_know.scss */
   .news-widget.need-to-know .page-list {
     margin-bottom: 20px;
     margin-right: -1px;
@@ -2589,11 +2591,11 @@ form .form-row {
       content: "";
       display: table;
       clear: both; }
-    /* line 69, src/widgets/dw_news/_need_to_know.scss */
+    /* line 71, src/widgets/dw_news/_need_to_know.scss */
     .news-widget.need-to-know .page-list .page {
       width: 33.33333%;
       float: left; }
-      /* line 73, src/widgets/dw_news/_need_to_know.scss */
+      /* line 75, src/widgets/dw_news/_need_to_know.scss */
       .news-widget.need-to-know .page-list .page a {
         display: block;
         margin-bottom: 2px;
@@ -2609,7 +2611,7 @@ form .form-row {
         text-decoration: underline;
         text-overflow: ellipsis;
         white-space: nowrap; }
-      /* line 93, src/widgets/dw_news/_need_to_know.scss */
+      /* line 95, src/widgets/dw_news/_need_to_know.scss */
       .news-widget.need-to-know .page-list .page.selected a, .news-widget.need-to-know .page-list .page:hover a {
         margin-bottom: 0;
         padding-bottom: 2px;
@@ -2619,11 +2621,11 @@ form .form-row {
         text-decoration: none; }
 
 @media (min-width: 0) and (max-width: 1023px) {
-  /* line 108, src/widgets/dw_news/_need_to_know.scss */
+  /* line 110, src/widgets/dw_news/_need_to_know.scss */
   .news-widget.need-to-know .news-item .news-content {
     margin-top: 20px;
     padding-left: 15px; } }
 @media (min-width: 0) and (max-width: 767px) {
-  /* line 117, src/widgets/dw_news/_need_to_know.scss */
+  /* line 119, src/widgets/dw_news/_need_to_know.scss */
   .news-widget.need-to-know .page-list .page {
     width: 100%; } }
