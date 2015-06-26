@@ -17,6 +17,18 @@
         <input class="search-btn cta" type="submit" value="Search" />
       </div>
     </div>
+
+    <ul>
+      <li class="all">
+        <a href="">All</a>
+      </li>
+      <li class="pages">
+        <a href="">Pages</a>
+      </li>
+      <li class="documents">
+        <a href="">Forms &amp; Documents</a>
+      </li>
+    </ul>
   </div>
 
   <div class="grid">

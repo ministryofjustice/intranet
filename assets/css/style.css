@@ -793,7 +793,7 @@ h1 {
   line-height: 20px; }
 
 /* line 82, src/global/_typography.scss */
-body, a[href$=".pdf"]:after, a[href$=".doc"]:after, a[href$=".xls"]:after, a[href$=".xlsx"]:after, a[href$=".pps"]:after, a[href$=".ppt"]:after, .menu-list .menu-item .menu-item-link, .menu-list .child-item-link, .home.page #content .descriptive-menu-description, .message .timestamp, .content-nav li .page-info, .tabbed-filters .tabbed-filters-label, .tabbed-filters ul li .label, .my-moj .apps-list .app-link, .news-widget.need-to-know .page-list .page a {
+body, a[href$=".pdf"]:after, a[href$=".doc"]:after, a[href$=".xls"]:after, a[href$=".xlsx"]:after, a[href$=".pps"]:after, a[href$=".ppt"]:after, .menu-list .menu-item .menu-item-link, .menu-list .child-item-link, .home.page #content .descriptive-menu-description, .message .timestamp, .content-nav li .page-info, .tabbed-filters .tabbed-filters-label, .tabbed-filters ul li .label, .my-moj .apps-list .app-link, .template-search-results .template-container .search-link:before, .news-widget.need-to-know .page-list .page a {
   font-size: 14px;
   line-height: 20px; }
 
@@ -2466,7 +2466,7 @@ form .form-row {
   margin-top: 30px; }
 /* line 46, src/content/search_results/_main.scss */
 .template-search-results .template-container .search-item .meta {
-  color: #bfc1c3; }
+  color: #6f777b; }
 /* line 50, src/content/search_results/_main.scss */
 .template-search-results .template-container .search-item .title,
 .template-search-results .template-container .search-item .meta {
@@ -2478,6 +2478,37 @@ form .form-row {
   /* line 63, src/content/search_results/_main.scss */
   .template-search-results .template-container .search-item .file .file-link {
     text-decoration: underline; }
+/* line 69, src/content/search_results/_main.scss */
+.template-search-results .template-container .search-link {
+  display: block;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap; }
+  /* line 75, src/content/search_results/_main.scss */
+  .template-search-results .template-container .search-link:before {
+    display: inline-block;
+    padding-right: 5px;
+    vertical-align: middle;
+    color: #6f777b;
+    font-weight: normal; }
+  /* line 84, src/content/search_results/_main.scss */
+  .template-search-results .template-container .search-link:after {
+    content: ""; }
+  /* line 88, src/content/search_results/_main.scss */
+  .template-search-results .template-container .search-link[href$=".pdf"]:before {
+    content: "[PDF] "; }
+  /* line 92, src/content/search_results/_main.scss */
+  .template-search-results .template-container .search-link[href$=".doc"]:before {
+    content: "[DOC] "; }
+  /* line 98, src/content/search_results/_main.scss */
+  .template-search-results .template-container .search-link[href$=".xls"]:before, .template-search-results .template-container .search-link[href$=".xlsx"]:before {
+    content: "[XLS] "; }
+  /* line 103, src/content/search_results/_main.scss */
+  .template-search-results .template-container .search-link[href$=".pps"]:before {
+    content: "[PPS] "; }
+  /* line 107, src/content/search_results/_main.scss */
+  .template-search-results .template-container .search-link[href$=".ppt"]:before {
+    content: "[PPT] "; }
 
 /* line 2, src/widgets/dw_news/_list.scss */
 .news-widget.list .news-list {
