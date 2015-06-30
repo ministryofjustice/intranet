@@ -106,3 +106,5 @@ nbproject
 deploy_dev.cfg
 /node_modules/
 wp-content/plugins/relevanssi*/
+wp-content/plugins/
+.htaccess
