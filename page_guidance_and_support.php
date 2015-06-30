@@ -47,8 +47,6 @@ class Page_guidance_and_support extends MVC_controller {
         'author_email' => "newintranet@digital.justice.gov.uk",
         'title' => get_the_title(),
         'excerpt' => $post->post_excerpt, // Not using get_the_excerpt() to prevent auto-generated excerpts being displayed
-        'thumbnail' => wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), 'gandshead'),
-        'thumbnail_caption' => get_post_thumbnail_caption(),
         'content' => $content,
         'raw_date' => $article_date,
         'human_date' => date("j F Y", strtotime($article_date)),

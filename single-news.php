@@ -18,7 +18,7 @@ class Single_news extends MVC_controller {
     $this_id = $post->ID;
 
     $thumbnail_id = get_post_thumbnail_id($this_id);
-    $thumbnail = wp_get_attachment_image_src($thumbnail_id, 'newshead');
+    $thumbnail = wp_get_attachment_image_src($thumbnail_id, 'intranet-large');
     $alt_text = get_post_meta($thumbnail_id, '_wp_attachment_image_alt', true);
 
     $prev_news = get_previous_post();

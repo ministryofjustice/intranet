@@ -84,6 +84,7 @@
         </div>
         <p class="excerpt">desc</p>
       </div>
+      <span class="ie-clear"></span>
     </li>
   </div>
 

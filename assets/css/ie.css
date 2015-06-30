@@ -223,6 +223,9 @@
 /* line 2, src/ie/news_landing.scss */
 .ie7.template-news-landing .template-container .news-item {
   clear: both; }
+/* line 6, src/ie/news_landing.scss */
+.ie7.template-news-landing .template-container .ie-clear {
+  clear: both; }
 
 /* line 2, src/ie/_content_nav.scss */
 .ie7 .content-nav li.previous a {
