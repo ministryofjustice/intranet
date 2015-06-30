@@ -28,6 +28,7 @@
       this.serviceXHR = null;
       this.months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
       this.currentPage = null;
+      this.resultsLoaded = false;
 
       this.cacheEls();
       this.bindEvents();
@@ -162,6 +163,8 @@
         dataArray.push(value);
       });
 
+      this.resultsLoaded = false;
+
       /* use the timeout for dev/debugging purposes */
       //**/window.setTimeout(function() {
         _this.serviceXHR = $.getJSON(_this.serviceUrl+'/'+dataArray.join('/'), $.proxy(_this.displayResults, _this));
@@ -187,6 +190,8 @@
       this.updatePagination(data);
       this.updateUrl();
       this.stopLoadingResults();
+
+      this.resultsLoaded = true;
     },
 
     setResultsHeading: function(data) {
