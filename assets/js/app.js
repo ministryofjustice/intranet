@@ -2046,23 +2046,28 @@
 
   App.SearchResults.prototype = {
     init: function() {
+      this.settings = {
+        updateGATimeout: 2000, //timeout for google analytics for search refinements
+        minKeywordLength: 2, //not implemented yet
+        months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+      };
+
       this.applicationUrl = $('head').data('application-url');
       this.serviceUrl = this.applicationUrl+'/service/search';
       this.pageBase = this.applicationUrl+'/'+this.$top.data('top-level-slug');
-
       this.itemTemplate = this.$top.find('.template-partial[data-name="search-item"]').html();
       this.resultsPageTitleTemplate = this.$top.find('.template-partial[data-name="search-results-page-title"]').html();
       this.filteredResultsTitleTemplate = this.$top.find('.template-partial[data-name="search-filtered-results-title"]').html();
       this.serviceXHR = null;
-      this.months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+      this.updateGATimeoutHandle = null;
       this.currentPage = null;
-      this.minKeywordLength = 2;
+      this.finishedInitialLoad = false;
+      this.lastSearchUrl = "";
 
       this.cacheEls();
       this.bindEvents();
 
       this.$keywordsInput.focus();
-
       this.setFilters();
 
       this.loadResults();
@@ -2184,8 +2189,6 @@
         dataArray.push(value);
       });
 
-
-
       /* use the timeout for dev/debugging purposes */
       //**/window.setTimeout(function() {
         _this.serviceXHR = $.getJSON(_this.serviceUrl+'/'+dataArray.join('/'), $.proxy(_this.displayResults, _this));
@@ -2199,6 +2202,7 @@
     displayResults: function(data) {
       var _this = this;
       var $searchItem;
+      var newUrl;
 
       this.clearResults();
       this.setResultsHeading(data);
@@ -2211,6 +2215,25 @@
       this.updatePagination(data);
       this.updateUrl();
       this.stopLoadingResults();
+
+      newUrl = this.getNewUrl(true); //must be set after updateUrl
+
+      if(!this.finishedInitialLoad) {
+        this.finishedInitialLoad = true;
+        this.lastSearchUrl = newUrl;
+      }
+
+      if(this.lastSearchUrl !== newUrl) {
+        if(this.updateGATimeoutHandle) {
+          window.clearTimeout(this.updateGATimeoutHandle);
+        }
+
+        this.updateGATimeoutHandle = window.setTimeout($.proxy(this.updateGA, this), this.settings.updateGATimeout);
+      }
+      else {
+        window.clearTimeout(this.updateGATimeoutHandle);
+        this.updateGATimeoutHandle = null;
+      }
     },
 
     setResultsHeading: function(data) {
@@ -2237,7 +2260,6 @@
       var keywordsArray = keywords.split(' ');
 
       if(!keywords.length){ return false; }
-
 
       return true;
     },
@@ -2311,7 +2333,7 @@
     },
 
     formatDate: function(dateObject) {
-      return dateObject.getDate()+' '+this.months[dateObject.getMonth()]+' '+dateObject.getFullYear();
+      return dateObject.getDate()+' '+this.settings.months[dateObject.getMonth()]+' '+dateObject.getFullYear();
     },
 
     updatePagination: function(data) {
@@ -2346,6 +2368,23 @@
     /** Updates the url based on user selections
      */
     updateUrl: function() {
+      if(history.pushState) {
+        history.pushState({}, "", this.getNewUrl());
+      }
+    },
+
+    updateGA: function() {
+      this.updateGATimeoutHandle = null;
+      this.lastSearchUrl = this.getNewUrl(true);
+
+      window.ga('send', 'pageview', this.getNewUrl(true));
+    },
+
+    /** Creates and returns as a string a new urls based on current filters
+     * @param {Boolean} rootRelative Will only return a root-relative url (omitting the domain)
+     * @returns {String} The new url
+     */
+    getNewUrl: function(rootRelative) {
       var urlParts = [this.pageBase];
       var keywords = this.getSanitizedKeywords();
 
@@ -2360,9 +2399,13 @@
       //page number
       urlParts.push(this.currentPage);
 
-      if(history.pushState) {
-        history.pushState({}, "", urlParts.join('/')+'/');
+      if(rootRelative) {
+        urlParts.shift();
+        urlParts.unshift(this.$top.data('top-level-slug'));
+        urlParts.unshift(''); //will have a leading slash on the final string (from join)
       }
+
+      return urlParts.join('/')+'/';
     }
   };
 }(jQuery));
