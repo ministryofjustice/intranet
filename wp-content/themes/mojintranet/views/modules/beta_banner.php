@@ -9,8 +9,8 @@ $feedback_url = 'https://www.surveymonkey.com/r/VDVMLB7';
     <div class="beta-banner">
       <p class="message">
         <span class="beta-icon">Alpha</span>
-        This is a trial service - your
-        <a href="<?=$feedback_url?>" target="_blank" rel="external">feedback</a>
+        This is a trial service -
+        <a href="<?=$feedback_url?>" target="_blank" rel="external">your feedback</a>
         will help us to improve it.
         <span class="ie7-warning">
           This site is not optimised for IE7,
