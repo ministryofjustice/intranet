@@ -1489,29 +1489,45 @@ form .form-row {
       right: 0;
       top: 0;
       bottom: 0;
+      width: 23px;
       padding: 6px;
       background: none;
       border: none;
-      border-left: 1px solid #bfc1c3; }
-      /* line 26, src/modules/_navigation.scss */
+      border-left: 1px solid #bfc1c3;
+      text-indent: 23px;
+      overflow: hidden; }
+      /* line 29, src/modules/_navigation.scss */
       .menu-list .menu-item .dropdown-button:hover {
         text-decoration: none; }
-      /* line 30, src/modules/_navigation.scss */
+      /* line 33, src/modules/_navigation.scss */
       .menu-list .menu-item .dropdown-button .icon {
         display: block;
         transform: rotate(180deg);
         color: #0b0c0c;
         font-size: 16px; }
-      /* line 37, src/modules/_navigation.scss */
+      /* line 40, src/modules/_navigation.scss */
       .menu-list .menu-item .dropdown-button:hover {
         background-color: rgba(0, 0, 0, 0.1); }
-    /* line 42, src/modules/_navigation.scss */
-    .menu-list .menu-item.collapsed .dropdown-button .icon {
+      /* line 44, src/modules/_navigation.scss */
+      .menu-list .menu-item .dropdown-button:after {
+        content: "\25be";
+        position: absolute;
+        width: 21px;
+        top: 0;
+        left: 0;
+        transform: rotate(180deg);
+        color: #0b0c0c;
+        font-size: 16px;
+        line-height: 30px;
+        text-align: center;
+        text-indent: 0; }
+    /* line 59, src/modules/_navigation.scss */
+    .menu-list .menu-item.collapsed .dropdown-button:after {
       transform: rotate(0deg); }
-    /* line 46, src/modules/_navigation.scss */
+    /* line 63, src/modules/_navigation.scss */
     .menu-list .menu-item.no-children .dropdown-button {
       display: none; }
-    /* line 50, src/modules/_navigation.scss */
+    /* line 67, src/modules/_navigation.scss */
     .menu-list .menu-item .menu-item-link {
       display: block;
       margin-top: 5px;
@@ -1519,42 +1535,42 @@ form .form-row {
       border: 1px solid #bfc1c3;
       background-color: #f8f8f8;
       font-weight: bold; }
-    /* line 61, src/modules/_navigation.scss */
+    /* line 78, src/modules/_navigation.scss */
     .menu-list .menu-item.current:after {
       color: #fff; }
-    /* line 65, src/modules/_navigation.scss */
+    /* line 82, src/modules/_navigation.scss */
     .menu-list .menu-item.current .menu-item-link {
       border: 1px solid #2e8aca;
       background-color: #2e8aca;
       color: #fff;
       font-weight: bold; }
-    /* line 72, src/modules/_navigation.scss */
+    /* line 89, src/modules/_navigation.scss */
     .menu-list .menu-item.current .dropdown-button {
       border-left: 1px solid #fff; }
-      /* line 75, src/modules/_navigation.scss */
-      .menu-list .menu-item.current .dropdown-button .icon {
+      /* line 92, src/modules/_navigation.scss */
+      .menu-list .menu-item.current .dropdown-button:after {
         color: #fff; }
-  /* line 82, src/modules/_navigation.scss */
+  /* line 99, src/modules/_navigation.scss */
   .menu-list .children-list {
     margin-left: 0; }
-  /* line 86, src/modules/_navigation.scss */
+  /* line 103, src/modules/_navigation.scss */
   .menu-list .child-item {
     border-bottom: 1px solid #bfc1c3; }
-  /* line 90, src/modules/_navigation.scss */
+  /* line 107, src/modules/_navigation.scss */
   .menu-list .child-item:last-of-type {
     border-bottom: none; }
-  /* line 94, src/modules/_navigation.scss */
+  /* line 111, src/modules/_navigation.scss */
   .menu-list .menu-item:last-of-type .child-item:last-of-type {
     border-bottom: 1px solid #bfc1c3; }
-  /* line 98, src/modules/_navigation.scss */
+  /* line 115, src/modules/_navigation.scss */
   .menu-list .child-item-link {
     display: block;
     padding: 5px 10px 4px; }
-  /* line 104, src/modules/_navigation.scss */
+  /* line 121, src/modules/_navigation.scss */
   .menu-list .child-item.highlight .child-item-link {
     color: #6f777b;
     pointer-events: none; }
-  /* line 109, src/modules/_navigation.scss */
+  /* line 126, src/modules/_navigation.scss */
   .menu-list .collapsed .children-list {
     display: none; }
 
