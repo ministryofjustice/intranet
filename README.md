@@ -1,2 +1,3 @@
-# mojintranet_root
-The container for plugins and themes submodules
+# mojintranet
+
+MOJ HQ Information and Publishing intranet
