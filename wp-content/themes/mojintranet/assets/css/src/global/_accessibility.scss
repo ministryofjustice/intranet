@@ -12,3 +12,9 @@ textarea {
     outline: 3px solid $yellow;
   }
 }
+
+.sr-only {
+  display: inline-block;
+  width: 0;
+  overflow: hidden;
+}
