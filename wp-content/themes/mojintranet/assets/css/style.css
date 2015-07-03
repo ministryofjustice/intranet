@@ -1217,25 +1217,29 @@ form .form-row {
     left: -1px; } }
 /* line 1, src/modules/_beta_banner.scss */
 .beta-banner {
-  border-bottom: 1px solid #bfc1c3;
-  padding: 0 0 10px; }
-  /* line 10, src/modules/_beta_banner.scss */
+  margin-top: -4px;
+  padding: 0 0 10px;
+  border-bottom: 1px solid #bfc1c3; }
+  /* line 11, src/modules/_beta_banner.scss */
   .beta-banner .beta-icon {
-    display: inline-block;
+    display: block;
+    float: left;
     margin-right: 10px;
+    margin-top: 4px;
     padding: 2px 10px 0;
     /*background-color: $orange; <-- beta */
     background-color: #d53880;
     font-weight: bold;
     text-transform: uppercase;
     color: #fff; }
-  /* line 21, src/modules/_beta_banner.scss */
+  /* line 24, src/modules/_beta_banner.scss */
   .beta-banner .message {
-    display: inline-block;
+    display: block;
+    overflow: hidden;
     margin-top: 0;
     padding: 0;
     padding-left: 10px; }
-  /* line 28, src/modules/_beta_banner.scss */
+  /* line 32, src/modules/_beta_banner.scss */
   .beta-banner .ie7-warning {
     display: none; }
 
