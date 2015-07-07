@@ -6,8 +6,8 @@ abstract class MVC_loader {
   function __construct() {
     //determine views and models directories
     $info = new ReflectionClass($this);
-    $instance_dir = dirname($info->getFileName());
-    $this->is_plugin = strpos($instance_dir, WP_PLUGIN_DIR) === 0;
+    $instance_dir = realpath(dirname($info->getFileName()));
+    $this->is_plugin = strpos($instance_dir, realpath(WP_PLUGIN_DIR)) === 0;
     $this->views_dir = $this->is_plugin ? $instance_dir.'/'.MVC_VIEWS_DIR : MVC_VIEWS_PATH;
     $this->models_dir = $this->is_plugin ? $instance_dir.'/'.MVC_MODELS_DIR : MVC_MODELS_PATH;
   }
