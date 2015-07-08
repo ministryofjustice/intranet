@@ -3,6 +3,10 @@
   margin-top: 20px;
   background-color: #ececec;
 
+  .my-intranet-form {
+    @include clearfix;
+  }
+
   .category-name {
     border-bottom: 1px solid $grey-1;
     font-weight: normal;
@@ -41,7 +45,7 @@
   }
 
   .my-moj-top {
-    padding: 10px 30px;
+    padding: 12px 30px;
     background-color: $turquoise;
 
     .department-dropdown-box {
@@ -59,14 +63,17 @@
       @extend %medium-copy;
       max-width: 240px;
       width: auto;
-      height: 33px;
+      height: 30px;
+      padding-top: 3px;
+      padding-left: 5px;
       color: $black;
       border-radius: 5px;
       border: 1px solid #808080;
       box-shadow: none;
-      background-image: url('../images/dropdown-background-2.png');
+      background-image: url('../images/my_moj_dropdown_bg_x2.png');
       background-size: auto 100%;
       vertical-align: baseline;
+      line-height: 24px;
       text-overflow: ellipsis;
 
       option {
@@ -96,7 +103,7 @@
       @extend %medium-copy;
       float: right;
       padding: 0;
-      line-height: 35px;
+      line-height: 32px;
       background-color: transparent;
       color: $white;
       background-image: url('../images/go_icon_x2.png');

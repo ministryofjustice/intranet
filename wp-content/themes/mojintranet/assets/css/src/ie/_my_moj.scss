@@ -13,6 +13,13 @@
     padding-top: 10px;
   }
 
+  .visit-cta {
+    margin-top: 10px;
+    line-height: 18px;
+  }
+}
+
+.lte-ie8 .my-moj {
   .label,
   .department {
     vertical-align: middle;
@@ -21,11 +28,11 @@
   .department {
     width: 240px;
     height: auto;
+    background-image: url('../images/my_moj_dropdown_bg.png');
   }
 
   .visit-cta {
-    margin-top: 10px;
-    line-height: 18px;
+    background-image: url('../images/go_icon.png');
   }
 
   .apps-list {
@@ -33,10 +40,6 @@
       background-image: url('../images/app_icons.png');
       background-size: auto;
     }
-  }
-
-  .quick-links-container {
-    clear: both;
   }
 }
 

@@ -153,29 +153,31 @@
   margin-bottom: 10px;
   padding-top: 10px; }
 /* line 16, src/ie/_my_moj.scss */
-.lte-ie7 .my-moj .label,
-.lte-ie7 .my-moj .department {
-  vertical-align: middle; }
-/* line 21, src/ie/_my_moj.scss */
-.lte-ie7 .my-moj .department {
-  width: 240px;
-  height: auto; }
-/* line 26, src/ie/_my_moj.scss */
 .lte-ie7 .my-moj .visit-cta {
   margin-top: 10px;
   line-height: 18px; }
-/* line 32, src/ie/_my_moj.scss */
-.lte-ie7 .my-moj .apps-list .app-icon-inner {
+
+/* line 23, src/ie/_my_moj.scss */
+.lte-ie8 .my-moj .label,
+.lte-ie8 .my-moj .department {
+  vertical-align: middle; }
+/* line 28, src/ie/_my_moj.scss */
+.lte-ie8 .my-moj .department {
+  width: 240px;
+  height: auto;
+  background-image: url("../images/my_moj_dropdown_bg.png"); }
+/* line 34, src/ie/_my_moj.scss */
+.lte-ie8 .my-moj .visit-cta {
+  background-image: url("../images/go_icon.png"); }
+/* line 39, src/ie/_my_moj.scss */
+.lte-ie8 .my-moj .apps-list .app-icon-inner {
   background-image: url("../images/app_icons.png");
   background-size: auto; }
-/* line 38, src/ie/_my_moj.scss */
-.lte-ie7 .my-moj .quick-links-container {
-  clear: both; }
 
-/* line 44, src/ie/_my_moj.scss */
+/* line 47, src/ie/_my_moj.scss */
 .lte-ie9 .my-moj .department {
   padding-right: 5px; }
-  /* line 47, src/ie/_my_moj.scss */
+  /* line 50, src/ie/_my_moj.scss */
   .lte-ie9 .my-moj .department option {
     background-color: transparent; }
 
