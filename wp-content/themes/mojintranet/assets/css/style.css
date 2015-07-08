@@ -2124,22 +2124,28 @@ form .form-row {
     margin-top: 0; }
     /* line 237, src/content/homepage/_my_moj.scss */
     .my-moj .my-moj-top {
-      padding: 4px 20px 3px; }
+      padding: 10px 20px; }
       /* line 240, src/content/homepage/_my_moj.scss */
-      .my-moj .my-moj-top .department-dropdown-box:before {
-        text-align: left;
-        margin-right: 3px; }
-    /* line 246, src/content/homepage/_my_moj.scss */
+      .my-moj .my-moj-top .label {
+        margin-bottom: 5px; }
+      /* line 244, src/content/homepage/_my_moj.scss */
+      .my-moj .my-moj-top .department {
+        width: 100%;
+        max-width: 300px; }
+      /* line 249, src/content/homepage/_my_moj.scss */
+      .my-moj .my-moj-top .visit-cta {
+        float: none; }
+    /* line 254, src/content/homepage/_my_moj.scss */
     .my-moj .my-moj-body {
       padding: 0; }
-      /* line 249, src/content/homepage/_my_moj.scss */
+      /* line 257, src/content/homepage/_my_moj.scss */
       .my-moj .my-moj-body .category-name {
         font-size: 16px;
         line-height: 20px;
         margin: 0;
         padding: 4px 20px 3px;
         line-height: 33px; }
-        /* line 255, src/content/homepage/_my_moj.scss */
+        /* line 263, src/content/homepage/_my_moj.scss */
         .my-moj .my-moj-body .category-name:before {
           float: left;
           width: 26px;
@@ -2152,26 +2158,26 @@ form .form-row {
           vertical-align: text-bottom;
           color: #0b0c0c;
           content: "\25be"; }
-      /* line 270, src/content/homepage/_my_moj.scss */
+      /* line 278, src/content/homepage/_my_moj.scss */
       .my-moj .my-moj-body .quick-links-container .category-name {
         border-top: 1px solid #6f777b; }
-      /* line 274, src/content/homepage/_my_moj.scss */
+      /* line 282, src/content/homepage/_my_moj.scss */
       .my-moj .my-moj-body .menu-my-moj-quick-links-container .menu {
         margin: 0;
         padding: 5px 20px 15px; }
-    /* line 280, src/content/homepage/_my_moj.scss */
+    /* line 288, src/content/homepage/_my_moj.scss */
     .my-moj .apps-container {
       overflow: hidden; }
-    /* line 284, src/content/homepage/_my_moj.scss */
+    /* line 292, src/content/homepage/_my_moj.scss */
     .my-moj .apps-list {
       padding: 0 20px; }
-      /* line 287, src/content/homepage/_my_moj.scss */
+      /* line 295, src/content/homepage/_my_moj.scss */
       .my-moj .apps-list .app-item {
         margin-right: 8px; }
-    /* line 293, src/content/homepage/_my_moj.scss */
+    /* line 301, src/content/homepage/_my_moj.scss */
     .my-moj .mobile-collapsed .category-name {
       border-bottom: none; }
-    /* line 297, src/content/homepage/_my_moj.scss */
+    /* line 305, src/content/homepage/_my_moj.scss */
     .my-moj .mobile-collapsed .apps-list,
     .my-moj .mobile-collapsed .menu-my-moj-quick-links-container {
       display: none; } }

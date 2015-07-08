@@ -235,11 +235,19 @@
     margin-top: 0;
 
     .my-moj-top {
-      padding: 4px 20px 3px;
+      padding: 10px 20px;
 
-      .department-dropdown-box:before {
-        text-align: left;
-        margin-right: 3px;
+      .label {
+        margin-bottom: 5px;
+      }
+
+      .department {
+        width: 100%;
+        max-width: 300px;
+      }
+
+      .visit-cta {
+        float: none;
       }
     }
 
