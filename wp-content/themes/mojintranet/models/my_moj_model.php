@@ -17,7 +17,7 @@ class My_moj_model extends MVC_model {
         array(
           'name' => 'judicial-office',
           'label' => 'Judicial Office',
-          'url' => 'http://intranet.justice.gsi.gov.uk/joew/index.htm'
+          'url' => 'http://judicialoffice.intranet.service.justice.gov.uk/'
         ),
         array(
           'name' => 'law-commission',
