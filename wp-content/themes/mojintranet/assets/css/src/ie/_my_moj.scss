@@ -1,6 +1,31 @@
-.ie7 .my-moj {
+.lte-ie7 .my-moj {
+  .my-moj-top {
+    padding-top: 0;
+  }
+
+  .my-intranet-form {
+    display: inline-block;
+  }
+
+  .department-dropdown-box {
+    float: left;
+    margin-bottom: 10px;
+    padding-top: 10px;
+  }
+
+  .label,
   .department {
-    width: auto;
+    vertical-align: middle;
+  }
+
+  .department {
+    width: 240px;
+    height: auto;
+  }
+
+  .visit-cta {
+    margin-top: 10px;
+    line-height: 18px;
   }
 
   .apps-list {
@@ -12,5 +37,15 @@
 
   .quick-links-container {
     clear: both;
+  }
+}
+
+.lte-ie9 .my-moj {
+  .department {
+    padding-right: 5px;
+
+    option {
+      background-color: transparent;
+    }
   }
 }

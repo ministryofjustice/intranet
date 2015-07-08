@@ -4,36 +4,55 @@
   var App = window.App;
 
   App.DepartmentDropdown = function() {
-    this.$departmentDropdownBox = $('.department-dropdown-box');
-    if(!this.$departmentDropdownBox.length) { return; }
+    this.$myIntranetForm = $('.my-intranet-form');
+    if(!this.$myIntranetForm.length) { return; }
     this.init();
   };
 
   App.DepartmentDropdown.prototype = {
     init: function() {
+      this.settings = {
+        cookieName: 'department_dropdown'
+      };
+
       this.cacheEls();
       this.bindEvents();
+      this.setDropdown();
     },
 
     cacheEls: function() {
-      this.$departmentDropdown = this.$departmentDropdownBox.find('.department');
+      this.$departmentDropdown = this.$myIntranetForm.find('.department');
+      this.$visitCta = this.$myIntranetForm.find('.visit-cta');
     },
 
     bindEvents: function() {
-      this.$departmentDropdown.on('change keyup', $.proxy(this.changeDepartmentHandle, this));
-      //$(window).on('DOMContentLoaded load', $.proxy(this.changeDepartmentHandle, this));
+      this.$myIntranetForm.on('submit', $.proxy(this.visitDepartment, this));
+      this.$myIntranetForm.find('.department').on('change', $.proxy(this.saveState, this));
     },
 
-    changeDepartmentHandle: function(e) {
-      var selectedDropdown = $(e.currentTarget);
-      var url = selectedDropdown.find('option:selected').attr('data-url');
+    setDropdown: function() {
+      var department = this.readState();
+      this.$departmentDropdown.find('[data-department="' + department + '"]').attr('selected', true);
+    },
 
-      if(url) {
-        window.location.href = url;
+    visitDepartment: function(e) {
+      var $form = $(e.currentTarget);
+      var selectedDepartmentUrl = $form.closest('.my-intranet-form').find('.department :selected').attr('data-url');
+
+      e.preventDefault();
+
+      if(selectedDepartmentUrl) {
+        window.location.href = selectedDepartmentUrl;
       }
+    },
 
-      //var deptName = this.$departmentDropdown.find('option:selected').attr('data-department');
-      //this.$departmentDropdownBox.attr('data-department', deptName);
+    saveState: function(e) {
+      var department = $(e.currentTarget).find(':selected').attr('data-department');
+      App.tools.setCookie(this.settings.cookieName, department, 3650);
+    },
+
+    readState: function() {
+      return App.tools.getCookie(this.settings.cookieName);
     }
   };
 }(window.jQuery));

@@ -142,15 +142,42 @@
   display: inline; }
 
 /* line 2, src/ie/_my_moj.scss */
-.ie7 .my-moj .department {
-  width: auto; }
-/* line 7, src/ie/_my_moj.scss */
-.ie7 .my-moj .apps-list .app-icon-inner {
+.lte-ie7 .my-moj .my-moj-top {
+  padding-top: 0; }
+/* line 6, src/ie/_my_moj.scss */
+.lte-ie7 .my-moj .my-intranet-form {
+  display: inline-block; }
+/* line 10, src/ie/_my_moj.scss */
+.lte-ie7 .my-moj .department-dropdown-box {
+  float: left;
+  margin-bottom: 10px;
+  padding-top: 10px; }
+/* line 16, src/ie/_my_moj.scss */
+.lte-ie7 .my-moj .label,
+.lte-ie7 .my-moj .department {
+  vertical-align: middle; }
+/* line 21, src/ie/_my_moj.scss */
+.lte-ie7 .my-moj .department {
+  width: 240px;
+  height: auto; }
+/* line 26, src/ie/_my_moj.scss */
+.lte-ie7 .my-moj .visit-cta {
+  margin-top: 10px;
+  line-height: 18px; }
+/* line 32, src/ie/_my_moj.scss */
+.lte-ie7 .my-moj .apps-list .app-icon-inner {
   background-image: url("../images/app_icons.png");
   background-size: auto; }
-/* line 13, src/ie/_my_moj.scss */
-.ie7 .my-moj .quick-links-container {
+/* line 38, src/ie/_my_moj.scss */
+.lte-ie7 .my-moj .quick-links-container {
   clear: both; }
+
+/* line 44, src/ie/_my_moj.scss */
+.lte-ie9 .my-moj .department {
+  padding-right: 5px; }
+  /* line 47, src/ie/_my_moj.scss */
+  .lte-ie9 .my-moj .department option {
+    background-color: transparent; }
 
 /* line 4, src/ie/_feeds.scss */
 .ie7 .feeds .fallback,

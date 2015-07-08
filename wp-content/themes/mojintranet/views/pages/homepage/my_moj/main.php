@@ -2,14 +2,19 @@
 
 <div class="my-moj">
   <div class="my-moj-top">
-    <div data-department="select-department" class="department-dropdown-box">
-      <select class="department" title="Select your intranet">
-        <option data-department="select-department" value="">Choose your intranet</option>
-        <?php foreach($departments as $department): ?>
-          <option data-url="<?=$department['url']?>" data-department="<?=$department['name']?>"><?=$department['label']?></option>
-        <?php endforeach ?>
-      </select>
-    </div>
+    <form class="my-intranet-form">
+      <label class="department-dropdown-box">
+        <span class="label">My intranet</span>
+        <select class="department" title="Select your intranet">
+          <option>Please select</option>
+          <?php foreach($departments as $department): ?>
+            <option data-url="<?=$department['url']?>" data-department="<?=$department['name']?>"><?=$department['label']?></option>
+          <?php endforeach ?>
+        </select>
+      </label>
+
+      <input type="submit" class="visit-cta" value="Visit" />
+    </form>
   </div>
   <div class="my-moj-body">
     <div class="apps-container mobile-collapsed">
