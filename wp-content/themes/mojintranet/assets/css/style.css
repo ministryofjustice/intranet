@@ -860,6 +860,17 @@ textarea {
   textarea:focus {
     outline: 3px solid #ffbf47; }
 
+/* line 16, src/global/_accessibility.scss */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0; }
+
 /* line 1, src/global/_base.scss */
 a[href$=".pdf"]:after, a[href$=".doc"]:after, a[href$=".xls"]:after, a[href$=".xlsx"]:after, a[href$=".pps"]:after, a[href$=".ppt"]:after {
   display: inline-block !important;
