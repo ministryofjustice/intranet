@@ -18,6 +18,10 @@
     }
   }
 
+  [data-department]:before {
+    background-image: url('../images/department_crest_x2.png');
+  }
+
   [data-department="select-department"]:before {
     background-position: 100px 100px;
   }
@@ -60,11 +64,11 @@
     }
 
     .department {
-      @extend %medium-copy;
-      max-width: 240px;
+      font-size: 15px;
+      max-width: 260px;
       width: auto;
       height: 30px;
-      padding-top: 3px;
+      padding-top: 4px;
       padding-left: 5px;
       color: $black;
       border-radius: 5px;
@@ -77,7 +81,7 @@
       text-overflow: ellipsis;
 
       option {
-        padding: 10px 40px;
+        padding: 10px 20px;
         background-color: $white;
         color: $black;
 
@@ -87,7 +91,6 @@
           height: 25px;
           margin-right: 6px;
           background-repeat: no-repeat;
-          background-image: url('../images/department_crest_x2.png');
           background-size: 200px 50px;
           vertical-align: text-bottom;
           content: "";
