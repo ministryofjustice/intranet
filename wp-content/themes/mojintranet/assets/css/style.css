@@ -990,31 +990,32 @@ p {
   -webkit-appearance: none;
   appearance: none;
   -moz-user-select: none;
-  background: url("../images/dropdown-background.png") no-repeat scroll right center #fff;
+  background: url("../images/dropdown_background_x2.png") no-repeat scroll right center #fff;
+  background-size: auto 100%;
   border: 1px solid #bfc1c3;
   border-radius: 5px; }
-/* line 52, src/global/_common.scss */
+/* line 53, src/global/_common.scss */
 .main-content .content-info {
   margin-top: 20px;
   padding-top: 10px;
   border-top: 1px solid #bfc1c3; }
-  /* line 57, src/global/_common.scss */
+  /* line 58, src/global/_common.scss */
   .main-content .content-info p {
     margin: 10px 0; }
-  /* line 64, src/global/_common.scss */
+  /* line 65, src/global/_common.scss */
   .main-content .content-info .print:before,
   .main-content .content-info .share:before {
     display: inline-block;
     background-repeat: no-repeat;
     content: "";
     margin-right: 10px; }
-  /* line 73, src/global/_common.scss */
+  /* line 74, src/global/_common.scss */
   .main-content .content-info .print:before {
     width: 20px;
     height: 21px;
     background-image: url("../images/printer.png");
     vertical-align: text-bottom; }
-  /* line 82, src/global/_common.scss */
+  /* line 83, src/global/_common.scss */
   .main-content .content-info .share:before {
     width: 19px;
     height: 14px;
@@ -1022,7 +1023,7 @@ p {
     background-image: url("../images/email_x2.png");
     background-size: 100%;
     vertical-align: middle; }
-  /* line 92, src/global/_common.scss */
+  /* line 93, src/global/_common.scss */
   .main-content .content-info .last-updated {
     color: #6f777b; }
 
@@ -1661,14 +1662,13 @@ form .form-row {
   .content-filters input[type="text"] {
     width: 100%;
     padding: 8px;
-    border: 1px solid #bfc1c3;
-    background: #fff; }
-  /* line 13, src/modules/_content_filters.scss */
+    border: 1px solid #bfc1c3; }
+  /* line 12, src/modules/_content_filters.scss */
   .content-filters .description {
     margin-bottom: 0px;
     padding: 0;
     color: #333; }
-  /* line 20, src/modules/_content_filters.scss */
+  /* line 19, src/modules/_content_filters.scss */
   .content-filters label {
     display: inline-block;
     margin-top: 20px;
@@ -2306,27 +2306,31 @@ form .form-row {
 .template-news-landing .template-container h1 {
   border-bottom: none; }
 /* line 6, src/content/news_landing/_main.scss */
+.template-news-landing .template-container .filters-label {
+  margin-bottom: 10px; }
+/* line 10, src/content/news_landing/_main.scss */
 .template-news-landing .template-container .content-filters {
-  margin-top: 20px; }
-  /* line 9, src/content/news_landing/_main.scss */
+  margin-top: 0px;
+  margin-right: 40px; }
+  /* line 14, src/content/news_landing/_main.scss */
   .template-news-landing .template-container .content-filters select {
     border-radius: 0; }
-/* line 14, src/content/news_landing/_main.scss */
+/* line 19, src/content/news_landing/_main.scss */
 .template-news-landing .template-container .news-results-title {
   border-bottom: 1px solid #6f777b; }
-/* line 19, src/content/news_landing/_main.scss */
+/* line 24, src/content/news_landing/_main.scss */
 .template-news-landing .template-container .news-filtered-results-title .results-count {
   font-weight: bold; }
-/* line 24, src/content/news_landing/_main.scss */
+/* line 29, src/content/news_landing/_main.scss */
 .template-news-landing .template-container .news-filtered-results-title .containing,
 .template-news-landing .template-container .news-filtered-results-title .for-date {
   font-weight: normal; }
-/* line 30, src/content/news_landing/_main.scss */
+/* line 35, src/content/news_landing/_main.scss */
 .template-news-landing .template-container .news-filtered-results-title .results-count-description,
 .template-news-landing .template-container .news-filtered-results-title .keywords,
 .template-news-landing .template-container .news-filtered-results-title .date {
   font-weight: bold; }
-/* line 38, src/content/news_landing/_main.scss */
+/* line 43, src/content/news_landing/_main.scss */
 .template-news-landing .template-container .news-item {
   padding: 15px 0;
   border-bottom: 1px solid #bfc1c3;
@@ -2336,40 +2340,39 @@ form .form-row {
     content: "";
     display: table;
     clear: both; }
-  /* line 44, src/content/news_landing/_main.scss */
+  /* line 49, src/content/news_landing/_main.scss */
   .template-news-landing .template-container .news-item.faded {
     opacity: .3; }
-  /* line 48, src/content/news_landing/_main.scss */
+  /* line 53, src/content/news_landing/_main.scss */
   .template-news-landing .template-container .news-item .thumbnail-container {
     float: left;
     width: 150px;
     margin-right: 20px; }
-    /* line 53, src/content/news_landing/_main.scss */
+    /* line 58, src/content/news_landing/_main.scss */
     .template-news-landing .template-container .news-item .thumbnail-container .news-link {
       display: block; }
-    /* line 57, src/content/news_landing/_main.scss */
+    /* line 62, src/content/news_landing/_main.scss */
     .template-news-landing .template-container .news-item .thumbnail-container img {
       display: block;
       max-width: 100%; }
-  /* line 63, src/content/news_landing/_main.scss */
+  /* line 68, src/content/news_landing/_main.scss */
   .template-news-landing .template-container .news-item .content {
     overflow: hidden; }
-  /* line 68, src/content/news_landing/_main.scss */
+  /* line 73, src/content/news_landing/_main.scss */
   .template-news-landing .template-container .news-item .meta span {
     color: #6f777b; }
-  /* line 73, src/content/news_landing/_main.scss */
+  /* line 78, src/content/news_landing/_main.scss */
   .template-news-landing .template-container .news-item .title {
     margin-top: 0px;
     margin-bottom: 0px; }
-  /* line 79, src/content/news_landing/_main.scss */
+  /* line 84, src/content/news_landing/_main.scss */
   .template-news-landing .template-container .news-item .excerpt {
     margin-top: 10px; }
 
 @media (min-width: 0) and (max-width: 767px) {
-  /* line 88, src/content/news_landing/_main.scss */
-  .page-news .news-item .thumbnail-container {
-    float: none;
-    margin-bottom: 10px; } }
+  /* line 92, src/content/news_landing/_main.scss */
+  .template-news-landing .template-container .content-filters {
+    margin-bottom: 20px; } }
 /* line 2, src/content/news_single/_main.scss */
 .template-single-news .template-container h1 {
   margin-bottom: 25px;
