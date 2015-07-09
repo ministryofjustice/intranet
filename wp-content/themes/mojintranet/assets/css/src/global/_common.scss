@@ -44,7 +44,8 @@
     -webkit-appearance: none;
     appearance: none;
     -moz-user-select: none;
-    background: url("../images/dropdown-background.png") no-repeat scroll right center $white;
+    background: url("../images/dropdown_background_x2.png") no-repeat scroll right center $white;
+    background-size: auto 100%;
     border: 1px solid $grey-2;
     border-radius: 5px;
   }

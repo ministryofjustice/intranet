@@ -788,7 +788,7 @@ h1 {
 /* line 78, src/global/_typography.scss */
 .main-content .content-info p, .main-content .editable table th,
 .main-content .editable table td, .beta-banner .beta-icon,
-.beta-banner .message, .footerwrapper .footer li, .header .skip-to-content-container a, .primary-nav .category-item .category-link, .message .content, .content-filters .description, .content-filters label, .children-pages li a, .page-feedback-container .page-feedback-link, .my-moj .my-moj-top .department, .my-moj .menu-my-moj-quick-links-container ul a, .template-guidance-and-support-index .template-container .guidance-categories-list .children-list .child-item .child-title a, .template-guidance-and-support-content .template-container .right-hand-menu a, .template-search-results .template-container .search-item .excerpt {
+.beta-banner .message, .footerwrapper .footer li, .header .skip-to-content-container a, .primary-nav .category-item .category-link, .message .content, .content-filters .description, .content-filters label, .children-pages li a, .page-feedback-container .page-feedback-link, .my-moj .my-moj-top .department-dropdown-box, .my-moj .my-moj-top .visit-cta, .my-moj .menu-my-moj-quick-links-container ul a, .template-guidance-and-support-index .template-container .guidance-categories-list .children-list .child-item .child-title a, .template-guidance-and-support-content .template-container .right-hand-menu a, .template-search-results .template-container .search-item .excerpt {
   font-size: 16px;
   line-height: 20px; }
 
@@ -841,7 +841,7 @@ body, a[href$=".pdf"]:after, a[href$=".doc"]:after, a[href$=".xls"]:after, a[hre
   /* line 139, src/global/_typography.scss */
   .main-content .content-info p, .main-content .editable table th,
   .main-content .editable table td, .beta-banner .beta-icon,
-  .beta-banner .message, .footerwrapper .footer li, .header .skip-to-content-container a, .primary-nav .category-item .category-link, .message .content, .content-filters .description, .content-filters label, .children-pages li a, .page-feedback-container .page-feedback-link, .my-moj .my-moj-top .department, .my-moj .menu-my-moj-quick-links-container ul a, .template-guidance-and-support-index .template-container .guidance-categories-list .children-list .child-item .child-title a, .template-guidance-and-support-content .template-container .right-hand-menu a, .template-search-results .template-container .search-item .excerpt {
+  .beta-banner .message, .footerwrapper .footer li, .header .skip-to-content-container a, .primary-nav .category-item .category-link, .message .content, .content-filters .description, .content-filters label, .children-pages li a, .page-feedback-container .page-feedback-link, .my-moj .my-moj-top .department-dropdown-box, .my-moj .my-moj-top .visit-cta, .my-moj .menu-my-moj-quick-links-container ul a, .template-guidance-and-support-index .template-container .guidance-categories-list .children-list .child-item .child-title a, .template-guidance-and-support-content .template-container .right-hand-menu a, .template-search-results .template-container .search-item .excerpt {
     font-size: 16px;
     line-height: 20px; } }
 /* line 1, src/global/_accessibility.scss */
@@ -859,6 +859,17 @@ textarea {
   select:focus,
   textarea:focus {
     outline: 3px solid #ffbf47; }
+
+/* line 16, src/global/_accessibility.scss */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0; }
 
 /* line 1, src/global/_base.scss */
 a[href$=".pdf"]:after, a[href$=".doc"]:after, a[href$=".xls"]:after, a[href$=".xlsx"]:after, a[href$=".pps"]:after, a[href$=".ppt"]:after {
@@ -990,31 +1001,32 @@ p {
   -webkit-appearance: none;
   appearance: none;
   -moz-user-select: none;
-  background: url("../images/dropdown-background.png") no-repeat scroll right center #fff;
+  background: url("../images/dropdown_background_x2.png") no-repeat scroll right center #fff;
+  background-size: auto 100%;
   border: 1px solid #bfc1c3;
   border-radius: 5px; }
-/* line 52, src/global/_common.scss */
+/* line 53, src/global/_common.scss */
 .main-content .content-info {
   margin-top: 20px;
   padding-top: 10px;
   border-top: 1px solid #bfc1c3; }
-  /* line 57, src/global/_common.scss */
+  /* line 58, src/global/_common.scss */
   .main-content .content-info p {
     margin: 10px 0; }
-  /* line 64, src/global/_common.scss */
+  /* line 65, src/global/_common.scss */
   .main-content .content-info .print:before,
   .main-content .content-info .share:before {
     display: inline-block;
     background-repeat: no-repeat;
     content: "";
     margin-right: 10px; }
-  /* line 73, src/global/_common.scss */
+  /* line 74, src/global/_common.scss */
   .main-content .content-info .print:before {
     width: 20px;
     height: 21px;
     background-image: url("../images/printer.png");
     vertical-align: text-bottom; }
-  /* line 82, src/global/_common.scss */
+  /* line 83, src/global/_common.scss */
   .main-content .content-info .share:before {
     width: 19px;
     height: 14px;
@@ -1022,7 +1034,7 @@ p {
     background-image: url("../images/email_x2.png");
     background-size: 100%;
     vertical-align: middle; }
-  /* line 92, src/global/_common.scss */
+  /* line 93, src/global/_common.scss */
   .main-content .content-info .last-updated {
     color: #6f777b; }
 
@@ -1661,14 +1673,13 @@ form .form-row {
   .content-filters input[type="text"] {
     width: 100%;
     padding: 8px;
-    border: 1px solid #bfc1c3;
-    background: #fff; }
-  /* line 13, src/modules/_content_filters.scss */
+    border: 1px solid #bfc1c3; }
+  /* line 12, src/modules/_content_filters.scss */
   .content-filters .description {
     margin-bottom: 0px;
     padding: 0;
     color: #333; }
-  /* line 20, src/modules/_content_filters.scss */
+  /* line 19, src/modules/_content_filters.scss */
   .content-filters label {
     display: inline-block;
     margin-top: 20px;
@@ -1936,96 +1947,103 @@ form .form-row {
   position: relative;
   margin-top: 20px;
   background-color: #ececec; }
-  /* line 6, src/content/homepage/_my_moj.scss */
+  /* line 2, src/global/_mixins.scss */
+  .my-moj .my-intranet-form:after {
+    content: "";
+    display: table;
+    clear: both; }
+  /* line 10, src/content/homepage/_my_moj.scss */
   .my-moj .category-name {
     border-bottom: 1px solid #6f777b;
     font-weight: normal; }
-  /* line 12, src/content/homepage/_my_moj.scss */
+  /* line 16, src/content/homepage/_my_moj.scss */
   .my-moj .apps-container .category-name {
     margin-top: 0; }
-  /* line 17, src/content/homepage/_my_moj.scss */
+  /* line 21, src/content/homepage/_my_moj.scss */
+  .my-moj [data-department]:before {
+    background-image: url("../images/department_crest_x2.png"); }
+  /* line 25, src/content/homepage/_my_moj.scss */
   .my-moj [data-department="select-department"]:before {
     background-position: 100px 100px; }
-  /* line 26, src/content/homepage/_my_moj.scss */
+  /* line 34, src/content/homepage/_my_moj.scss */
   .my-moj [data-department="legal-aid-agency"]:before,
   .my-moj [data-department="hm-courts-and-tribunals-service"]:before,
   .my-moj [data-department="judicial-office"]:before,
   .my-moj [data-department="opg"]:before,
   .my-moj [data-department="ospt"]:before {
     background-position: -12px -12px; }
-  /* line 31, src/content/homepage/_my_moj.scss */
+  /* line 39, src/content/homepage/_my_moj.scss */
   .my-moj [data-department="judicial-appointments-commission"]:before {
     background-position: -62px -12px; }
-  /* line 35, src/content/homepage/_my_moj.scss */
+  /* line 43, src/content/homepage/_my_moj.scss */
   .my-moj [data-department="law-commission"]:before {
     background-position: -112px -12px; }
-  /* line 39, src/content/homepage/_my_moj.scss */
+  /* line 47, src/content/homepage/_my_moj.scss */
   .my-moj [data-department="probation"]:before {
     background-position: -162px -12px; }
-  /* line 43, src/content/homepage/_my_moj.scss */
+  /* line 51, src/content/homepage/_my_moj.scss */
   .my-moj .my-moj-top {
-    padding: 10px 30px;
+    padding: 12px 30px;
     background-color: #28a197; }
-    /* line 47, src/content/homepage/_my_moj.scss */
+    /* line 55, src/content/homepage/_my_moj.scss */
     .my-moj .my-moj-top .department-dropdown-box {
       display: inline-block;
-      width: 100%; }
-      /* line 51, src/content/homepage/_my_moj.scss */
-      .my-moj .my-moj-top .department-dropdown-box:before {
-        float: left;
-        width: 26px;
-        height: 25px;
-        margin-right: 6px;
-        background-repeat: no-repeat;
-        font-size: 20px;
-        line-height: 30px;
-        text-align: center;
-        vertical-align: text-bottom;
-        color: #fff; }
-      /* line 64, src/content/homepage/_my_moj.scss */
-      .my-moj .my-moj-top .department-dropdown-box[data-department]:before {
-        background-image: url("../images/department_crest_white_x2.png");
-        background-size: 200px 50px;
-        content: ""; }
-      /* line 70, src/content/homepage/_my_moj.scss */
-      .my-moj .my-moj-top .department-dropdown-box[data-department="select-department"]:before {
-        background-image: none;
-        content: "\25be"; }
-    /* line 76, src/content/homepage/_my_moj.scss */
+      color: #fff; }
+    /* line 61, src/content/homepage/_my_moj.scss */
+    .my-moj .my-moj-top .label {
+      display: inline-block;
+      margin-right: 10px; }
+    /* line 66, src/content/homepage/_my_moj.scss */
     .my-moj .my-moj-top .department {
-      max-width: 255px;
-      height: 33px;
-      padding: 0 0 0;
-      background: transparent;
-      color: #fff;
-      border-radius: 0;
-      border: none;
+      font-size: 15px;
+      max-width: 260px;
+      width: auto;
+      height: 30px;
+      padding-top: 4px;
+      padding-left: 5px;
+      color: #0b0c0c;
+      border-radius: 5px;
+      border: 1px solid #808080;
       box-shadow: none;
-      font-family: Helvetica;
+      background-image: url("../images/my_moj_dropdown_bg_x2.png");
+      background-size: auto 100%;
       vertical-align: baseline;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      appearance: none; }
-      /* line 92, src/content/homepage/_my_moj.scss */
+      line-height: 24px;
+      text-overflow: ellipsis; }
+      /* line 83, src/content/homepage/_my_moj.scss */
       .my-moj .my-moj-top .department option {
-        padding: 10px 40px;
+        padding: 10px 20px;
         background-color: #fff;
         color: #0b0c0c; }
-        /* line 97, src/content/homepage/_my_moj.scss */
+        /* line 88, src/content/homepage/_my_moj.scss */
         .my-moj .my-moj-top .department option:before {
           display: inline-block;
           width: 26px;
           height: 25px;
           margin-right: 6px;
           background-repeat: no-repeat;
-          background-image: url("../images/department_crest_x2.png");
           background-size: 200px 50px;
           vertical-align: text-bottom;
           content: ""; }
-  /* line 112, src/content/homepage/_my_moj.scss */
+      /* line 100, src/content/homepage/_my_moj.scss */
+      .my-moj .my-moj-top .department::-ms-expand {
+        display: none; }
+    /* line 105, src/content/homepage/_my_moj.scss */
+    .my-moj .my-moj-top .visit-cta {
+      float: right;
+      padding: 0;
+      line-height: 32px;
+      background-color: transparent;
+      color: #fff;
+      background-image: url("../images/go_icon_x2.png");
+      background-repeat: no-repeat;
+      background-position: center right;
+      background-size: 16px 16px;
+      padding-right: 22px; }
+  /* line 120, src/content/homepage/_my_moj.scss */
   .my-moj .my-moj-body {
     padding: 30px; }
-  /* line 116, src/content/homepage/_my_moj.scss */
+  /* line 124, src/content/homepage/_my_moj.scss */
   .my-moj .apps-list {
     margin-right: -10px; }
     /* line 2, src/global/_mixins.scss */
@@ -2033,27 +2051,27 @@ form .form-row {
       content: "";
       display: table;
       clear: both; }
-    /* line 120, src/content/homepage/_my_moj.scss */
+    /* line 128, src/content/homepage/_my_moj.scss */
     .my-moj .apps-list .app-item {
       float: left;
       width: 74px;
       height: 135px;
       margin-right: 12px;
       text-align: center; }
-      /* line 128, src/content/homepage/_my_moj.scss */
+      /* line 136, src/content/homepage/_my_moj.scss */
       .my-moj .apps-list .app-item:hover .app-icon {
         border: 1px solid #ffc10e; }
-    /* line 134, src/content/homepage/_my_moj.scss */
+    /* line 142, src/content/homepage/_my_moj.scss */
     .my-moj .apps-list .app-link {
       display: block; }
-      /* line 138, src/content/homepage/_my_moj.scss */
+      /* line 146, src/content/homepage/_my_moj.scss */
       .my-moj .apps-list .app-link:after {
         background-image: none; }
-    /* line 143, src/content/homepage/_my_moj.scss */
+    /* line 151, src/content/homepage/_my_moj.scss */
     .my-moj .apps-list .app-name {
       display: block;
       text-align: center; }
-    /* line 148, src/content/homepage/_my_moj.scss */
+    /* line 156, src/content/homepage/_my_moj.scss */
     .my-moj .apps-list .app-icon {
       display: inline-block;
       width: 74px;
@@ -2064,7 +2082,7 @@ form .form-row {
       background-color: #fff;
       border: 1px solid #bfc1c3;
       border-radius: 5px; }
-    /* line 160, src/content/homepage/_my_moj.scss */
+    /* line 168, src/content/homepage/_my_moj.scss */
     .my-moj .apps-list .app-icon-inner {
       display: inline-block;
       width: 64px;
@@ -2073,69 +2091,75 @@ form .form-row {
       background-repeat: no-repeat;
       background-image: url("../images/app_icons_x2.png");
       background-size: 640px 64px; }
-      /* line 169, src/content/homepage/_my_moj.scss */
+      /* line 177, src/content/homepage/_my_moj.scss */
       .my-moj .apps-list .app-icon-inner.people-finder-icon {
         background-position: 0 0; }
-      /* line 173, src/content/homepage/_my_moj.scss */
+      /* line 181, src/content/homepage/_my_moj.scss */
       .my-moj .apps-list .app-icon-inner.courtfinder-icon {
         background-position: -64px 0; }
-      /* line 177, src/content/homepage/_my_moj.scss */
+      /* line 185, src/content/homepage/_my_moj.scss */
       .my-moj .apps-list .app-icon-inner.travel-booking-icon {
         background-position: -128px 0; }
-      /* line 181, src/content/homepage/_my_moj.scss */
+      /* line 189, src/content/homepage/_my_moj.scss */
       .my-moj .apps-list .app-icon-inner.phoenix-icon {
         background-position: -192px 0; }
-      /* line 185, src/content/homepage/_my_moj.scss */
+      /* line 193, src/content/homepage/_my_moj.scss */
       .my-moj .apps-list .app-icon-inner.it-portal-icon {
         background-position: -256px 0; }
-      /* line 189, src/content/homepage/_my_moj.scss */
+      /* line 197, src/content/homepage/_my_moj.scss */
       .my-moj .apps-list .app-icon-inner.civil-service-learning-icon {
         background-position: -320px 0; }
-      /* line 193, src/content/homepage/_my_moj.scss */
+      /* line 201, src/content/homepage/_my_moj.scss */
       .my-moj .apps-list .app-icon-inner.jobs-icon {
         background-position: -384px 0; }
-      /* line 197, src/content/homepage/_my_moj.scss */
+      /* line 205, src/content/homepage/_my_moj.scss */
       .my-moj .apps-list .app-icon-inner.ministry-of-justice-icon {
         background-position: -448px 0; }
-      /* line 201, src/content/homepage/_my_moj.scss */
+      /* line 209, src/content/homepage/_my_moj.scss */
       .my-moj .apps-list .app-icon-inner.gov-uk-icon {
         background-position: -512px 0; }
-      /* line 205, src/content/homepage/_my_moj.scss */
+      /* line 213, src/content/homepage/_my_moj.scss */
       .my-moj .apps-list .app-icon-inner.pension-icon {
         background-position: -576px 0; }
-  /* line 212, src/content/homepage/_my_moj.scss */
+  /* line 220, src/content/homepage/_my_moj.scss */
   .my-moj .menu-my-moj-quick-links-container ul a {
     text-decoration: underline; }
-  /* line 217, src/content/homepage/_my_moj.scss */
+  /* line 225, src/content/homepage/_my_moj.scss */
   .my-moj .menu-my-moj-quick-links-container ul .menu-item {
     margin-top: 10px; }
-    /* line 220, src/content/homepage/_my_moj.scss */
+    /* line 228, src/content/homepage/_my_moj.scss */
     .my-moj .menu-my-moj-quick-links-container ul .menu-item:first-of-type a {
       margin-top: 0; }
 
 @media (min-width: 0) and (max-width: 767px) {
-  /* line 228, src/content/homepage/_my_moj.scss */
+  /* line 236, src/content/homepage/_my_moj.scss */
   .my-moj {
     display: block;
     margin-top: 0; }
-    /* line 232, src/content/homepage/_my_moj.scss */
+    /* line 240, src/content/homepage/_my_moj.scss */
     .my-moj .my-moj-top {
-      padding: 4px 20px 3px; }
-      /* line 235, src/content/homepage/_my_moj.scss */
-      .my-moj .my-moj-top .department-dropdown-box:before {
-        text-align: left;
-        margin-right: 3px; }
-    /* line 241, src/content/homepage/_my_moj.scss */
+      padding: 10px 20px; }
+      /* line 243, src/content/homepage/_my_moj.scss */
+      .my-moj .my-moj-top .label {
+        margin-bottom: 5px; }
+      /* line 247, src/content/homepage/_my_moj.scss */
+      .my-moj .my-moj-top .department {
+        width: 100%;
+        max-width: 300px; }
+      /* line 252, src/content/homepage/_my_moj.scss */
+      .my-moj .my-moj-top .visit-cta {
+        float: none; }
+    /* line 257, src/content/homepage/_my_moj.scss */
     .my-moj .my-moj-body {
       padding: 0; }
-      /* line 244, src/content/homepage/_my_moj.scss */
+      /* line 260, src/content/homepage/_my_moj.scss */
       .my-moj .my-moj-body .category-name {
         font-size: 16px;
         line-height: 20px;
         margin: 0;
         padding: 4px 20px 3px;
         line-height: 33px; }
-        /* line 250, src/content/homepage/_my_moj.scss */
+        /* line 266, src/content/homepage/_my_moj.scss */
         .my-moj .my-moj-body .category-name:before {
           float: left;
           width: 26px;
@@ -2148,26 +2172,26 @@ form .form-row {
           vertical-align: text-bottom;
           color: #0b0c0c;
           content: "\25be"; }
-      /* line 265, src/content/homepage/_my_moj.scss */
+      /* line 281, src/content/homepage/_my_moj.scss */
       .my-moj .my-moj-body .quick-links-container .category-name {
         border-top: 1px solid #6f777b; }
-      /* line 269, src/content/homepage/_my_moj.scss */
+      /* line 285, src/content/homepage/_my_moj.scss */
       .my-moj .my-moj-body .menu-my-moj-quick-links-container .menu {
         margin: 0;
         padding: 5px 20px 15px; }
-    /* line 275, src/content/homepage/_my_moj.scss */
+    /* line 291, src/content/homepage/_my_moj.scss */
     .my-moj .apps-container {
       overflow: hidden; }
-    /* line 279, src/content/homepage/_my_moj.scss */
+    /* line 295, src/content/homepage/_my_moj.scss */
     .my-moj .apps-list {
       padding: 0 20px; }
-      /* line 282, src/content/homepage/_my_moj.scss */
+      /* line 298, src/content/homepage/_my_moj.scss */
       .my-moj .apps-list .app-item {
         margin-right: 8px; }
-    /* line 288, src/content/homepage/_my_moj.scss */
+    /* line 304, src/content/homepage/_my_moj.scss */
     .my-moj .mobile-collapsed .category-name {
       border-bottom: none; }
-    /* line 292, src/content/homepage/_my_moj.scss */
+    /* line 308, src/content/homepage/_my_moj.scss */
     .my-moj .mobile-collapsed .apps-list,
     .my-moj .mobile-collapsed .menu-my-moj-quick-links-container {
       display: none; } }
@@ -2296,27 +2320,31 @@ form .form-row {
 .template-news-landing .template-container h1 {
   border-bottom: none; }
 /* line 6, src/content/news_landing/_main.scss */
+.template-news-landing .template-container .filters-label {
+  margin-bottom: 10px; }
+/* line 10, src/content/news_landing/_main.scss */
 .template-news-landing .template-container .content-filters {
-  margin-top: 20px; }
-  /* line 9, src/content/news_landing/_main.scss */
+  margin-top: 0px;
+  margin-right: 40px; }
+  /* line 14, src/content/news_landing/_main.scss */
   .template-news-landing .template-container .content-filters select {
     border-radius: 0; }
-/* line 14, src/content/news_landing/_main.scss */
+/* line 19, src/content/news_landing/_main.scss */
 .template-news-landing .template-container .news-results-title {
   border-bottom: 1px solid #6f777b; }
-/* line 19, src/content/news_landing/_main.scss */
+/* line 24, src/content/news_landing/_main.scss */
 .template-news-landing .template-container .news-filtered-results-title .results-count {
   font-weight: bold; }
-/* line 24, src/content/news_landing/_main.scss */
+/* line 29, src/content/news_landing/_main.scss */
 .template-news-landing .template-container .news-filtered-results-title .containing,
 .template-news-landing .template-container .news-filtered-results-title .for-date {
   font-weight: normal; }
-/* line 30, src/content/news_landing/_main.scss */
+/* line 35, src/content/news_landing/_main.scss */
 .template-news-landing .template-container .news-filtered-results-title .results-count-description,
 .template-news-landing .template-container .news-filtered-results-title .keywords,
 .template-news-landing .template-container .news-filtered-results-title .date {
   font-weight: bold; }
-/* line 38, src/content/news_landing/_main.scss */
+/* line 43, src/content/news_landing/_main.scss */
 .template-news-landing .template-container .news-item {
   padding: 15px 0;
   border-bottom: 1px solid #bfc1c3;
@@ -2326,40 +2354,39 @@ form .form-row {
     content: "";
     display: table;
     clear: both; }
-  /* line 44, src/content/news_landing/_main.scss */
+  /* line 49, src/content/news_landing/_main.scss */
   .template-news-landing .template-container .news-item.faded {
     opacity: .3; }
-  /* line 48, src/content/news_landing/_main.scss */
+  /* line 53, src/content/news_landing/_main.scss */
   .template-news-landing .template-container .news-item .thumbnail-container {
     float: left;
     width: 150px;
     margin-right: 20px; }
-    /* line 53, src/content/news_landing/_main.scss */
+    /* line 58, src/content/news_landing/_main.scss */
     .template-news-landing .template-container .news-item .thumbnail-container .news-link {
       display: block; }
-    /* line 57, src/content/news_landing/_main.scss */
+    /* line 62, src/content/news_landing/_main.scss */
     .template-news-landing .template-container .news-item .thumbnail-container img {
       display: block;
       max-width: 100%; }
-  /* line 63, src/content/news_landing/_main.scss */
+  /* line 68, src/content/news_landing/_main.scss */
   .template-news-landing .template-container .news-item .content {
     overflow: hidden; }
-  /* line 68, src/content/news_landing/_main.scss */
+  /* line 73, src/content/news_landing/_main.scss */
   .template-news-landing .template-container .news-item .meta span {
     color: #6f777b; }
-  /* line 73, src/content/news_landing/_main.scss */
+  /* line 78, src/content/news_landing/_main.scss */
   .template-news-landing .template-container .news-item .title {
     margin-top: 0px;
     margin-bottom: 0px; }
-  /* line 79, src/content/news_landing/_main.scss */
+  /* line 84, src/content/news_landing/_main.scss */
   .template-news-landing .template-container .news-item .excerpt {
     margin-top: 10px; }
 
 @media (min-width: 0) and (max-width: 767px) {
-  /* line 88, src/content/news_landing/_main.scss */
-  .page-news .news-item .thumbnail-container {
-    float: none;
-    margin-bottom: 10px; } }
+  /* line 92, src/content/news_landing/_main.scss */
+  .template-news-landing .template-container .content-filters {
+    margin-bottom: 20px; } }
 /* line 2, src/content/news_single/_main.scss */
 .template-single-news .template-container h1 {
   margin-bottom: 25px;

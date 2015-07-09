@@ -1,6 +1,38 @@
-.ie7 .my-moj {
+.lte-ie7 .my-moj {
+  .my-moj-top {
+    padding-top: 0;
+  }
+
+  .my-intranet-form {
+    display: inline-block;
+  }
+
+  .department-dropdown-box {
+    float: left;
+    margin-bottom: 10px;
+    padding-top: 10px;
+  }
+
+  .visit-cta {
+    margin-top: 10px;
+    line-height: 18px;
+  }
+}
+
+.lte-ie8 .my-moj {
+  .label,
   .department {
-    width: auto;
+    vertical-align: middle;
+  }
+
+  .department {
+    width: 240px;
+    height: auto;
+    background-image: url('../images/my_moj_dropdown_bg.png');
+  }
+
+  .visit-cta {
+    background-image: url('../images/go_icon.png');
   }
 
   .apps-list {
@@ -9,8 +41,14 @@
       background-size: auto;
     }
   }
+}
 
-  .quick-links-container {
-    clear: both;
+.lte-ie9 .my-moj {
+  .department {
+    padding-right: 5px;
+
+    option {
+      background-color: transparent;
+    }
   }
 }

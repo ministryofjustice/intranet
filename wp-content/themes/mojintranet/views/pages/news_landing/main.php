@@ -18,11 +18,12 @@
   <!--</div>-->
 
   <div class="grid">
-    <div class="col-lg-3 col-md-3 col-sm-12">
+    <div class="col-lg-4 col-md-4 col-sm-12">
+      <h4 class="filters-label">Filter results</h4>
       <form class="content-filters">
-        <p class="description">You can use the filters to show only results that match your interests</p>
+        <p class="description">The results will update automatically based on your selections.</p>
         <div class="form-row">
-          <label for="input-filter-date">Filter by</label>
+          <label for="input-filter-date">Date</label>
         </div>
         <div class="form-row">
           <select name="date" id="input-filter-date">
@@ -30,7 +31,7 @@
           </select>
         </div>
         <div class="form-row contains">
-          <label for="input-filter-contains">Contains</label>
+          <label for="input-filter-contains">Keywords</label>
         </div>
         <div class="form-row">
           <input type="text" placeholder="Keywords" name="keywords" id="input-filter-contains" />
@@ -38,7 +39,7 @@
       </form>
     </div>
 
-    <div class="col-lg-8 col-md-8 col-sm-12 push-lg-1 push-md-1">
+    <div class="col-lg-8 col-md-8 col-sm-12">
       <ul class="results"></ul>
 
       <ul class="content-nav grid">

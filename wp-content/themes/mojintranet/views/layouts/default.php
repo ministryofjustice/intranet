@@ -8,9 +8,10 @@ global $post;
 
 <!DOCTYPE html>
 
-<!--[if lt IE 7 ]> <html <?php language_attributes(); ?> class="ie6 template-<?=$template_class?>"> <![endif]-->
-<!--[if IE 7 ]>    <html <?php language_attributes(); ?> class="ie7 template-<?=$template_class?>"> <![endif]-->
-<!--[if IE 8 ]>    <html <?php language_attributes(); ?> class="ie8 template-<?=$template_class?>"> <![endif]-->
+<!--[if IE 6 ]> <html <?php language_attributes(); ?> class="ie6 lte-ie7 lte-ie8 lte-ie9 template-<?=$template_class?>"> <![endif]-->
+<!--[if IE 7 ]> <html <?php language_attributes(); ?> class="ie7 lte-ie7 lte-ie8 lte-ie9 template-<?=$template_class?>"> <![endif]-->
+<!--[if IE 8 ]> <html <?php language_attributes(); ?> class="ie8 lte-ie8 lte-ie9 template-<?=$template_class?>"> <![endif]-->
+<!--[if IE 9 ]> <html <?php language_attributes(); ?> class="ie9 lte-ie9 template-<?=$template_class?>"> <![endif]-->
 <!--[if (gte IE 9)|!(IE)]><!--><html class="template-<?=$template_class?>" <?php language_attributes(); ?>><!--<![endif]-->
 <head data-application-url="<?=site_url()?>">
   <?php $this->view('modules/head') ?>
