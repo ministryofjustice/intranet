@@ -21,7 +21,7 @@
     <div class="col-lg-4 col-md-4 col-sm-12">
       <h4 class="filters-label">Filter results</h4>
       <form class="content-filters">
-        <p class="description">The results will update automatically as you adjust the filters.</p>
+        <p class="description">The results will update automatically based on your selections.</p>
         <div class="form-row">
           <label for="input-filter-date">Date</label>
         </div>

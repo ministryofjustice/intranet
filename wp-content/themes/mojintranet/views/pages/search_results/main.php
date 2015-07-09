@@ -6,7 +6,7 @@
   <div class="grid">
     <div class="col-lg-12 col-md-12 col-sm-12">
       <h1 class="page-title">Search results</h1>
-      <p class="sr-only">The results will update automatically as you adjust the filters.</p>
+      <p class="sr-only">The results will update automatically based on your selections.</p>
       <?php the_content() ?>
     </div>
   </div>
