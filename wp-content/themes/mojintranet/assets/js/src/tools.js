@@ -102,6 +102,48 @@
       string = decodeURIComponent(string);
 
       return string;
+    },
+
+    setCookie: function(name, value, days) {
+      var parts = [];
+      var date;
+
+      //name=value
+      parts.push(encodeURIComponent(name) + "=" + encodeURIComponent(value));
+
+      //expires
+      if (days) {
+        date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        parts.push("expires=" + date.toGMTString());
+      }
+
+      //path
+      parts.push('path=/');
+
+      document.cookie = parts.join('; ');
+    },
+
+    getCookie: function(name) {
+      var cookieNameEq = encodeURIComponent(name) + "=";
+      var parts = document.cookie.split(';');
+      var part;
+      var a;
+      var length;
+
+      for (a = 0, length = parts.length; a < length; a++) {
+        part = parts[a].replace(/(^\s*|\s*$)/g, '');
+
+        if (part.indexOf(cookieNameEq) === 0) {
+          return decodeURIComponent(part.substring(cookieNameEq.length));
+        }
+      }
+
+      return null;
+    },
+
+    deleteCookie: function(name) {
+      this.setCookie(name, "", -1);
     }
   };
 }(jQuery));

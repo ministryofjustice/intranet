@@ -3,6 +3,10 @@
   margin-top: 20px;
   background-color: #ececec;
 
+  .my-intranet-form {
+    @include clearfix;
+  }
+
   .category-name {
     border-bottom: 1px solid $grey-1;
     font-weight: normal;
@@ -12,6 +16,10 @@
     .category-name {
       margin-top: 0;
     }
+  }
+
+  [data-department]:before {
+    background-image: url('../images/department_crest_x2.png');
   }
 
   [data-department="select-department"]:before {
@@ -41,56 +49,39 @@
   }
 
   .my-moj-top {
-    padding: 10px 30px;
+    padding: 12px 30px;
     background-color: $turquoise;
 
     .department-dropdown-box {
+      @extend %medium-copy;
       display: inline-block;
-      width: 100%;
+      color: $white;
+    }
 
-      &:before {
-        float: left;
-        width: 26px;
-        height: 25px;
-        margin-right: 6px;
-        background-repeat: no-repeat;
-        font-size: 20px;
-        line-height: 30px;
-        text-align: center;
-        vertical-align: text-bottom;
-        color: $white;
-      }
-
-      &[data-department]:before {
-        background-image: url('../images/department_crest_white_x2.png');
-        background-size: 200px 50px;
-        content: "";
-      }
-
-      &[data-department="select-department"]:before {
-        background-image: none;
-        content: "\25be";
-      }
+    .label {
+      display: inline-block;
+      margin-right: 10px;
     }
 
     .department {
-      @extend %medium-copy;
-      max-width: 255px;
-      height: 33px;
-      padding: 0 0 0;
-      background: transparent;
-      color: $white;
-      border-radius: 0;
-      border: none;
+      font-size: 15px;
+      max-width: 260px;
+      width: auto;
+      height: 30px;
+      padding-top: 4px;
+      padding-left: 5px;
+      color: $black;
+      border-radius: 5px;
+      border: 1px solid #808080;
       box-shadow: none;
-      font-family: Helvetica;
+      background-image: url('../images/my_moj_dropdown_bg_x2.png');
+      background-size: auto 100%;
       vertical-align: baseline;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      appearance: none;
+      line-height: 24px;
+      text-overflow: ellipsis;
 
       option {
-        padding: 10px 40px;
+        padding: 10px 20px;
         background-color: $white;
         color: $black;
 
@@ -100,12 +91,29 @@
           height: 25px;
           margin-right: 6px;
           background-repeat: no-repeat;
-          background-image: url('../images/department_crest_x2.png');
           background-size: 200px 50px;
           vertical-align: text-bottom;
           content: "";
         }
       }
+
+      &::-ms-expand {
+        display: none;
+      }
+    }
+
+    .visit-cta {
+      @extend %medium-copy;
+      float: right;
+      padding: 0;
+      line-height: 32px;
+      background-color: transparent;
+      color: $white;
+      background-image: url('../images/go_icon_x2.png');
+      background-repeat: no-repeat;
+      background-position: center right;
+      background-size: 16px 16px;
+      padding-right: 22px;
     }
   }
 
@@ -230,11 +238,19 @@
     margin-top: 0;
 
     .my-moj-top {
-      padding: 4px 20px 3px;
+      padding: 10px 20px;
 
-      .department-dropdown-box:before {
-        text-align: left;
-        margin-right: 3px;
+      .label {
+        margin-bottom: 5px;
+      }
+
+      .department {
+        width: 100%;
+        max-width: 300px;
+      }
+
+      .visit-cta {
+        float: none;
       }
     }
 

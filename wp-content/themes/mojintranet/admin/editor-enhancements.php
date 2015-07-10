@@ -128,3 +128,11 @@ function pageparent_box($post) {
 
 <?php
 }
+
+add_action('admin_menu', 'pageparent_remove_theme_box');
+function pageparent_remove_theme_box() {
+  // Remove default parent metabox
+  if ( ! is_admin() )
+    return;
+  remove_meta_box('pageparentdiv', 'page', 'side');
+}
