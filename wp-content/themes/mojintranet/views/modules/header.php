@@ -10,7 +10,7 @@
     <div class="col-lg-8 col-md-8 col-sm-10">
       <div class="site-logo">
         <a href="<?=WP_SITEURL?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home">
-          <img src="<?=get_template_directory_uri()?>/assets/images/moj_logo.png" alt="" />
+          <img src="<?=get_template_directory_uri()?>/assets/images/moj_logo.png" alt="Ministry of Justice logo" />
         </a>
       </div>
     </div>
