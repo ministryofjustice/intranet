@@ -34,3 +34,22 @@
     height: 102px;
   }
 }
+
+
+@include mobile-mq() {
+  .footer {
+    padding: 20px 0;
+    .footer-menu {
+      margin-top: 0;
+      margin-bottom: 20px;
+
+      .menu {
+        text-align: center;
+      }
+    }
+
+    .copyright-container {
+      float: none;
+    }
+  }
+}

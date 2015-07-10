@@ -1284,6 +1284,20 @@ form .form-row {
     width: 125px;
     height: 102px; }
 
+@media (min-width: 0) and (max-width: 767px) {
+  /* line 40, src/modules/_footer.scss */
+  .footer {
+    padding: 20px 0; }
+    /* line 42, src/modules/_footer.scss */
+    .footer .footer-menu {
+      margin-top: 0;
+      margin-bottom: 20px; }
+      /* line 46, src/modules/_footer.scss */
+      .footer .footer-menu .menu {
+        text-align: center; }
+    /* line 51, src/modules/_footer.scss */
+    .footer .copyright-container {
+      float: none; } }
 /* line 1, src/modules/_header.scss */
 .header {
   position: relative;
