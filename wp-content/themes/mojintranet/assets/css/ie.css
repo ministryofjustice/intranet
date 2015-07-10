@@ -137,13 +137,22 @@
   z-index: 1; }
 
 /* line 2, src/ie/_beta_banner.scss */
-.lte-ie7 .beta-banner .beta-icon,
-.lte-ie7 .beta-banner .message {
+.ie7 .beta-banner .beta-icon,
+.ie7 .beta-banner .message {
   display: inline;
   zoom: 1; }
 /* line 8, src/ie/_beta_banner.scss */
-.lte-ie7 .beta-banner .ie7-warning {
+.ie7 .beta-banner .ie7-warning {
   display: inline; }
+
+/* line 1, src/ie/_ie6_message.scss */
+.ie6 .ie6-message {
+  font-size: 36px;
+  padding: 20px;
+  background-color: #b10e1e;
+  color: #fff;
+  font-weight: bold;
+  text-align: center; }
 
 /* line 2, src/ie/_my_moj.scss */
 .lte-ie7 .my-moj .my-moj-top {
