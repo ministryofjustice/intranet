@@ -2378,7 +2378,7 @@
       var page = segments[2] || 1;
 
       var base = {
-        'type': '',
+        'type': 'all',
         'category': '',
         'keywords': keywords,
         'page': page,
@@ -2460,7 +2460,7 @@
       var keywords = this.getSanitizedKeywords();
 
       //type
-      urlParts.push(this.$typeInput.val() || 'All');
+      urlParts.push(this.$typeInput.val() || 'all');
 
       //keywords
       keywords = keywords.replace(/\s/g, '+');
