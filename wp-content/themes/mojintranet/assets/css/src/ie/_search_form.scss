@@ -1,4 +1,4 @@
-.ie7 {
+.lte-ie7 {
   .search-form {
     .keywords-field {
       width: expression((this.parentNode.clientWidth - parseInt(this.currentStyle['paddingLeft']) - parseInt(this.currentStyle['paddingRight']) - parseInt(this.currentStyle['borderLeftWidth']) - parseInt(this.currentStyle['borderRightWidth'])) + 'px');

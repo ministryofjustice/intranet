@@ -26,6 +26,7 @@ jQuery(function() {
   App.ins.skipToContent = new App.SkipToContent();
   App.ins.pageFeedback = new App.PageFeedback();
   App.ins.navigation = new App.Navigation();
+  App.ins.accessibility = new App.Accessibility();
 
   //Late
   App.ins.breakpoint.trigger();

@@ -788,7 +788,7 @@ h1 {
 /* line 78, src/global/_typography.scss */
 .main-content .content-info p, .main-content .editable table th,
 .main-content .editable table td, .beta-banner .beta-icon,
-.beta-banner .message, .footerwrapper .footer li, .header .skip-to-content-container a, .primary-nav .category-item .category-link, .message .content, .content-filters .description, .content-filters label, .children-pages li a, .page-feedback-container .page-feedback-link, .my-moj .my-moj-top .department-dropdown-box, .my-moj .my-moj-top .visit-cta, .my-moj .menu-my-moj-quick-links-container ul a, .template-guidance-and-support-index .template-container .guidance-categories-list .children-list .child-item .child-title a, .template-guidance-and-support-content .template-container .right-hand-menu a, .template-search-results .template-container .search-item .excerpt {
+.beta-banner .message, .footer .footer-menu li, .header .skip-to-content-container a, .primary-nav .category-item .category-link, .message .content, .content-filters .description, .content-filters label, .children-pages li a, .page-feedback-container .page-feedback-link, .my-moj .my-moj-top .department-dropdown-box, .my-moj .my-moj-top .visit-cta, .my-moj .menu-my-moj-quick-links-container ul a, .template-guidance-and-support-index .template-container .guidance-categories-list .children-list .child-item .child-title a, .template-guidance-and-support-content .template-container .right-hand-menu a, .template-search-results .template-container .search-item .excerpt {
   font-size: 16px;
   line-height: 20px; }
 
@@ -841,7 +841,7 @@ body, a[href$=".pdf"]:after, a[href$=".doc"]:after, a[href$=".xls"]:after, a[hre
   /* line 139, src/global/_typography.scss */
   .main-content .content-info p, .main-content .editable table th,
   .main-content .editable table td, .beta-banner .beta-icon,
-  .beta-banner .message, .footerwrapper .footer li, .header .skip-to-content-container a, .primary-nav .category-item .category-link, .message .content, .content-filters .description, .content-filters label, .children-pages li a, .page-feedback-container .page-feedback-link, .my-moj .my-moj-top .department-dropdown-box, .my-moj .my-moj-top .visit-cta, .my-moj .menu-my-moj-quick-links-container ul a, .template-guidance-and-support-index .template-container .guidance-categories-list .children-list .child-item .child-title a, .template-guidance-and-support-content .template-container .right-hand-menu a, .template-search-results .template-container .search-item .excerpt {
+  .beta-banner .message, .footer .footer-menu li, .header .skip-to-content-container a, .primary-nav .category-item .category-link, .message .content, .content-filters .description, .content-filters label, .children-pages li a, .page-feedback-container .page-feedback-link, .my-moj .my-moj-top .department-dropdown-box, .my-moj .my-moj-top .visit-cta, .my-moj .menu-my-moj-quick-links-container ul a, .template-guidance-and-support-index .template-container .guidance-categories-list .children-list .child-item .child-title a, .template-guidance-and-support-content .template-container .right-hand-menu a, .template-search-results .template-container .search-item .excerpt {
     font-size: 16px;
     line-height: 20px; } }
 /* line 1, src/global/_accessibility.scss */
@@ -1223,11 +1223,13 @@ form .form-row {
     left: -1px; } }
 /* line 1, src/modules/_beta_banner.scss */
 .beta-banner {
-  border-bottom: 1px solid #bfc1c3;
-  padding: 0 0 10px; }
-  /* line 10, src/modules/_beta_banner.scss */
+  margin-top: -4px;
+  padding: 0 0 10px;
+  border-bottom: 1px solid #bfc1c3; }
+  /* line 11, src/modules/_beta_banner.scss */
   .beta-banner .beta-icon {
-    display: inline-block;
+    display: block;
+    float: left;
     margin-right: 10px;
     padding: 2px 10px 0;
     /*background-color: $orange; <-- beta */
@@ -1235,13 +1237,14 @@ form .form-row {
     font-weight: bold;
     text-transform: uppercase;
     color: #fff; }
-  /* line 21, src/modules/_beta_banner.scss */
+  /* line 23, src/modules/_beta_banner.scss */
   .beta-banner .message {
-    display: inline-block;
+    display: block;
+    overflow: hidden;
     margin-top: 0;
     padding: 0;
     padding-left: 10px; }
-  /* line 28, src/modules/_beta_banner.scss */
+  /* line 31, src/modules/_beta_banner.scss */
   .beta-banner .ie7-warning {
     display: none; }
 
@@ -1254,36 +1257,50 @@ form .form-row {
     border: 5px solid #57da95;
     text-align: center; }
 
-/* Footer styles */
-/* line 3, src/modules/_footer.scss */
-.footerwrapper {
+/* line 1, src/modules/_footer.scss */
+.footer {
+  padding: 40px 0;
+  color: #454a4c;
   background: #dee0e2;
   border-top: 1px solid #6f777b; }
-  /* line 2, src/global/_mixins.scss */
-  .footerwrapper:after {
-    content: "";
-    display: table;
-    clear: both; }
-  /* line 8, src/modules/_footer.scss */
-  .footerwrapper .footer {
-    margin: 150px 0 50px;
-    color: #454a4c; }
-    /* line 12, src/modules/_footer.scss */
-    .footerwrapper .footer .widget-title {
-      display: none; }
-    /* line 16, src/modules/_footer.scss */
-    .footerwrapper .footer a {
+  /* line 7, src/modules/_footer.scss */
+  .footer .footer-menu {
+    margin-top: 108px; }
+    /* line 10, src/modules/_footer.scss */
+    .footer .footer-menu a {
       text-decoration: underline;
       color: #454a4c; }
-    /* line 21, src/modules/_footer.scss */
-    .footerwrapper .footer li {
+    /* line 15, src/modules/_footer.scss */
+    .footer .footer-menu li {
       display: inline-block;
       margin-right: 15px; }
-      /* line 26, src/modules/_footer.scss */
-      .footerwrapper .footer li.built-by:before {
+      /* line 20, src/modules/_footer.scss */
+      .footer .footer-menu li.built-by:before {
         content: "Built by ";
         display: inline; }
+  /* line 27, src/modules/_footer.scss */
+  .footer .copyright-container {
+    text-align: center;
+    float: right; }
+  /* line 32, src/modules/_footer.scss */
+  .footer .crown-copyright-logo {
+    width: 125px;
+    height: 102px; }
 
+@media (min-width: 0) and (max-width: 767px) {
+  /* line 40, src/modules/_footer.scss */
+  .footer {
+    padding: 20px 0; }
+    /* line 42, src/modules/_footer.scss */
+    .footer .footer-menu {
+      margin-top: 0;
+      margin-bottom: 20px; }
+      /* line 46, src/modules/_footer.scss */
+      .footer .footer-menu .menu {
+        text-align: center; }
+    /* line 51, src/modules/_footer.scss */
+    .footer .copyright-container {
+      float: none; } }
 /* line 1, src/modules/_header.scss */
 .header {
   position: relative;
@@ -1501,29 +1518,45 @@ form .form-row {
       right: 0;
       top: 0;
       bottom: 0;
+      width: 23px;
       padding: 6px;
       background: none;
       border: none;
-      border-left: 1px solid #bfc1c3; }
-      /* line 26, src/modules/_navigation.scss */
+      border-left: 1px solid #bfc1c3;
+      text-indent: 23px;
+      overflow: hidden; }
+      /* line 29, src/modules/_navigation.scss */
       .menu-list .menu-item .dropdown-button:hover {
         text-decoration: none; }
-      /* line 30, src/modules/_navigation.scss */
+      /* line 33, src/modules/_navigation.scss */
       .menu-list .menu-item .dropdown-button .icon {
         display: block;
         transform: rotate(180deg);
         color: #0b0c0c;
         font-size: 16px; }
-      /* line 37, src/modules/_navigation.scss */
+      /* line 40, src/modules/_navigation.scss */
       .menu-list .menu-item .dropdown-button:hover {
         background-color: rgba(0, 0, 0, 0.1); }
-    /* line 42, src/modules/_navigation.scss */
-    .menu-list .menu-item.collapsed .dropdown-button .icon {
+      /* line 44, src/modules/_navigation.scss */
+      .menu-list .menu-item .dropdown-button:after {
+        content: "\25be";
+        position: absolute;
+        width: 21px;
+        top: 0;
+        left: 0;
+        transform: rotate(180deg);
+        color: #0b0c0c;
+        font-size: 16px;
+        line-height: 30px;
+        text-align: center;
+        text-indent: 0; }
+    /* line 59, src/modules/_navigation.scss */
+    .menu-list .menu-item.collapsed .dropdown-button:after {
       transform: rotate(0deg); }
-    /* line 46, src/modules/_navigation.scss */
+    /* line 63, src/modules/_navigation.scss */
     .menu-list .menu-item.no-children .dropdown-button {
       display: none; }
-    /* line 50, src/modules/_navigation.scss */
+    /* line 67, src/modules/_navigation.scss */
     .menu-list .menu-item .menu-item-link {
       display: block;
       margin-top: 5px;
@@ -1531,42 +1564,42 @@ form .form-row {
       border: 1px solid #bfc1c3;
       background-color: #f8f8f8;
       font-weight: bold; }
-    /* line 61, src/modules/_navigation.scss */
+    /* line 78, src/modules/_navigation.scss */
     .menu-list .menu-item.current:after {
       color: #fff; }
-    /* line 65, src/modules/_navigation.scss */
+    /* line 82, src/modules/_navigation.scss */
     .menu-list .menu-item.current .menu-item-link {
       border: 1px solid #2e8aca;
       background-color: #2e8aca;
       color: #fff;
       font-weight: bold; }
-    /* line 72, src/modules/_navigation.scss */
+    /* line 89, src/modules/_navigation.scss */
     .menu-list .menu-item.current .dropdown-button {
       border-left: 1px solid #fff; }
-      /* line 75, src/modules/_navigation.scss */
-      .menu-list .menu-item.current .dropdown-button .icon {
+      /* line 92, src/modules/_navigation.scss */
+      .menu-list .menu-item.current .dropdown-button:after {
         color: #fff; }
-  /* line 82, src/modules/_navigation.scss */
+  /* line 99, src/modules/_navigation.scss */
   .menu-list .children-list {
     margin-left: 0; }
-  /* line 86, src/modules/_navigation.scss */
+  /* line 103, src/modules/_navigation.scss */
   .menu-list .child-item {
     border-bottom: 1px solid #bfc1c3; }
-  /* line 90, src/modules/_navigation.scss */
+  /* line 107, src/modules/_navigation.scss */
   .menu-list .child-item:last-of-type {
     border-bottom: none; }
-  /* line 94, src/modules/_navigation.scss */
+  /* line 111, src/modules/_navigation.scss */
   .menu-list .menu-item:last-of-type .child-item:last-of-type {
     border-bottom: 1px solid #bfc1c3; }
-  /* line 98, src/modules/_navigation.scss */
+  /* line 115, src/modules/_navigation.scss */
   .menu-list .child-item-link {
     display: block;
     padding: 5px 10px 4px; }
-  /* line 104, src/modules/_navigation.scss */
+  /* line 121, src/modules/_navigation.scss */
   .menu-list .child-item.highlight .child-item-link {
     color: #6f777b;
     pointer-events: none; }
-  /* line 109, src/modules/_navigation.scss */
+  /* line 126, src/modules/_navigation.scss */
   .menu-list .collapsed .children-list {
     display: none; }
 

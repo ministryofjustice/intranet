@@ -1,4 +1,4 @@
-.ie7 {
+.lte-ie7 {
   @for $i from 1 through 12 {
     .col-lg-#{$i} {
       width: expression((this.parentNode.clientWidth/12*#{$i} - parseInt(this.currentStyle['paddingLeft']) - parseInt(this.currentStyle['paddingRight'])) + 'px');
@@ -12,4 +12,8 @@
   .mobile-only {
     display: none;
   }
+}
+
+.ie6 .grid {
+  width: $grid-max-size;
 }

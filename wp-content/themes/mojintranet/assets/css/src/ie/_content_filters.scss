@@ -1,4 +1,4 @@
-.ie7 .content-filters {
+.lte-ie7 .content-filters {
   input {
     /*width: expression((this.parentNode.clientWidth - parseInt(this.currentStyle['paddingLeft']) - parseInt(this.currentStyle['paddingRight']) - parseInt(this.currentStyle['borderLeftWidth']) - parseInt(this.currentStyle['borderRightWidth'])) + 'px');*/
     width: auto;

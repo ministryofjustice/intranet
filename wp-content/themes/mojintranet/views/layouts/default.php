@@ -22,6 +22,9 @@ global $post;
   <div id="content" class="container main-content" role="main">
     <div class="content-wrapper">
       <?php $this->view('modules/beta_banner'); ?>
+      <!--[if IE 6 ]>
+        <?php $this->view('modules/ie6_message'); ?>
+      <![endif]-->
       <?php $this->view($page, $page_data) ?>
     </div>
   </div>
