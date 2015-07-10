@@ -73,7 +73,7 @@
     <li class="news-item">
       <div class="thumbnail-container">
         <a href="" class="news-link">
-          <img class="thumbnail" />
+          <img class="thumbnail" alt="" />
         </a>
       </div>
       <div class="content">
