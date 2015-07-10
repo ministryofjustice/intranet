@@ -115,6 +115,11 @@
 /*  src: url('../fonts/nta_bold.eot?#iefix') format('embedded-opentype');*/
 /*  font-weight: bold;*/
 /*}*/
+/* line 1, src/ie/_accessibility.scss */
+.ie7 .sr-only {
+  display: inline;
+  zoom: 1; }
+
 /* line 2, src/ie/_tabbed_filters.scss */
 .lte-ie7 .tabbed-filters ul,
 .lte-ie7 .tabbed-filters li,

@@ -1,17 +1,11 @@
-/* Footer styles */
-
-.footerwrapper {
-  @include clearfix;
+.footer {
+  padding: 40px 0;
+  color: #454a4c;
 	background: #dee0e2;
   border-top: 1px solid $grey-1;
 
-  .footer {
-    margin: 150px 0 50px;
-    color: #454a4c;
-
-    .widget-title {
-      display: none;
-    }
+  .footer-menu {
+    margin-top: 108px;
 
     a {
       text-decoration: underline;
@@ -27,6 +21,35 @@
         content: "Built by ";
         display: inline;
       }
+    }
+  }
+
+  .copyright-container {
+    text-align: center;
+    float: right;
+  }
+
+  .crown-copyright-logo {
+    width: 125px;
+    height: 102px;
+  }
+}
+
+
+@include mobile-mq() {
+  .footer {
+    padding: 20px 0;
+    .footer-menu {
+      margin-top: 0;
+      margin-bottom: 20px;
+
+      .menu {
+        text-align: center;
+      }
+    }
+
+    .copyright-container {
+      float: none;
     }
   }
 }

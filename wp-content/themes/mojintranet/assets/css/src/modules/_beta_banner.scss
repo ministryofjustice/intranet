@@ -1,6 +1,7 @@
 .beta-banner {
-  border-bottom: 1px solid $grey-2;
+  margin-top: -4px;
   padding: 0 0 10px;
+  border-bottom: 1px solid $grey-2;
 
   .beta-icon,
   .message {
@@ -8,7 +9,8 @@
   }
 
   .beta-icon {
-    display: inline-block;
+    display: block;
+    float: left;
     margin-right: 10px;
     padding: 2px 10px 0;
     /*background-color: $orange; <-- beta */
@@ -19,7 +21,8 @@
   }
 
   .message {
-    display: inline-block;
+    display: block;
+    overflow: hidden;
     margin-top: 0;
     padding: 0;
     padding-left: 10px;
