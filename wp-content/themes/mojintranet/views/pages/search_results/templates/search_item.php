@@ -7,7 +7,7 @@
     </h3>
     <div class="meta grid">
       <div class="col-lg-3">
-        <span class="date"></span>
+        Updated: <span class="date"></span>
       </div>
       <div class="col-lg-3">
         <span class="type">Guidance</span>

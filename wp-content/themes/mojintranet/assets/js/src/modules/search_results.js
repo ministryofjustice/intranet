@@ -37,18 +37,16 @@
 
       this.$keywordsInput.focus();
       this.setFilters();
-
-      this.loadResults();
     },
 
     cacheEls: function() {
       this.$searchForm = this.$top.find('#search-form');
-      this.$typeInput = this.$top.find('[name="type"]');
       this.$categoryInput = this.$top.find('[name="category"]');
       this.$keywordsInput = this.$top.find('.keywords-field');
       this.$results = this.$top.find('.results');
       this.$prevPage = this.$top.find('.previous');
       this.$nextPage = this.$top.find('.next');
+      this.$searchType = this.$top.find('.search-type');
     },
 
     bindEvents: function() {
@@ -76,16 +74,32 @@
       this.$searchForm.on('submit', function(e) {
         e.preventDefault();
       });
+
+      this.$searchType.on('click', 'a', $.proxy(this.changeSearchType, this));
+    },
+
+    changeSearchType: function(e) {
+      var $element = $(e.currentTarget).closest('[data-search-type]');
+
+      e.preventDefault();
+
+      if($element.hasClass('selected')) {
+        return;
+      }
+
+      this.$searchType.find('[data-search-type]').removeClass('selected');
+      $element.addClass('selected');
+
+      this.loadResults({
+        'type': $element.attr('data-search-type'),
+        'page': 1
+      });
     },
 
     setFilters: function() {
       var segments = this.getSegmentsFromUrl();
+      var type = segments[0] || 'all';
       var keywords;
-
-      //set type field based on url segment
-      if(segments[0]) {
-        this.$typeInput.val(segments[0]);
-      }
 
       if(segments[1]) {
         keywords = segments[1];
@@ -97,6 +111,8 @@
 
         this.$keywordsInput.val(keywords);
       }
+
+      this.$searchType.find('[data-search-type="' + type + '"] a').click();
     },
 
     loadResults: function(requestData) {
@@ -206,6 +222,8 @@
         window.clearTimeout(this.updateGATimeoutHandle);
         this.updateGATimeoutHandle = null;
       }
+
+      window.App.ins.accessibility.updateDocLinks(this.$results);
     },
 
     setResultsHeading: function(data) {
@@ -277,9 +295,10 @@
       var keywords = this.getSanitizedKeywords();
       var segments = this.getSegmentsFromUrl();
       var page = segments[2] || 1;
+      var type = segments[0] || 'all';
 
       var base = {
-        'type': 'all',
+        'type': type,
         'category': '',
         'keywords': keywords,
         'page': page,
@@ -359,9 +378,10 @@
     getNewUrl: function(rootRelative) {
       var urlParts = [this.pageBase];
       var keywords = this.getSanitizedKeywords();
+      var type = this.$searchType.find('.selected').attr('data-search-type');
 
       //type
-      urlParts.push(this.$typeInput.val() || 'all');
+      urlParts.push(type || 'all');
 
       //keywords
       keywords = keywords.replace(/\s/g, '+');

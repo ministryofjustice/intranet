@@ -18,18 +18,22 @@
         <input class="search-btn cta" type="submit" value="Search" />
       </div>
     </div>
+  </div>
 
-    <ul>
-      <li class="all">
-        <a href="">All</a>
-      </li>
-      <li class="pages">
-        <a href="">Pages</a>
-      </li>
-      <li class="documents">
-        <a href="">Forms &amp; Documents</a>
-      </li>
-    </ul>
+  <div class="grid">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+      <ul class="search-type content-tabs small-tabs">
+        <li data-search-type="all">
+          <a href="">All</a>
+        </li>
+        <li data-search-type="pages">
+          <a href="">Pages</a>
+        </li>
+        <li data-search-type="document">
+          <a href="">Forms &amp; Documents</a>
+        </li>
+      </ul>
+    </div>
   </div>
 
   <div class="grid">
