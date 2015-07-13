@@ -6,7 +6,7 @@
       <a href="" class="search-link"></a>
     </h3>
     <div class="meta grid">
-      <div class="col-lg-3">
+      <div class="col-lg-4">
         Updated: <span class="date"></span>
       </div>
       <div class="col-lg-3">
