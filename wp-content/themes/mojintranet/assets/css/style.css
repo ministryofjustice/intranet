@@ -1945,9 +1945,9 @@ form .form-row {
     width: 36px;
     padding: 0;
     overflow: hidden;
-    background-color: #428bca;
-    border-color: #357ebd;
-    background-image: url("../images/search_icon.png");
+    background-color: #005ea5;
+    border-width: 0;
+    background-image: url("../images/search_icon_x2.png");
     background-size: 16px 16px;
     background-repeat: no-repeat;
     background-position: 10px 10px;
