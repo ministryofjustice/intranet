@@ -17,7 +17,7 @@
 
     .news-heading {
       @extend %medium-heading;
-      margin: 0;
+      margin: 0 15px 15px;
       padding: 0;
       border-bottom: none;
 
@@ -59,14 +59,14 @@
     }
 
     .news-excerpt {
-      margin-top: 7px;
+      margin-top: -4px;
       color: $white;
     }
   }
 
   .page-list {
     @include clearfix;
-    margin-bottom: 20px;
+    margin-bottom: 0px;
     margin-right: -1px;
     margin-left: -1px;
     text-align: left;
