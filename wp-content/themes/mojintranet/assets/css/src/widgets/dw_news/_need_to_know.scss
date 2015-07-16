@@ -1,7 +1,14 @@
 .news-widget.need-to-know {
-  margin-top: 20px;
-  background-color: $sticky-news;
-  border-top-width: 0;
+  .widget-title {
+    @extend %large-heading;
+    margin-bottom: 10px;
+    border-bottom: 1px solid $grey-1;
+  }
+
+  .widget-body {
+    background-color: $sticky-news;
+    border-top-width: 0;
+  }
 
   .news-list {
     margin-top: 0;
@@ -45,7 +52,6 @@
     .news-thumbnail {
       display: block;
       max-width: 100%;
-      border: 1px solid $white;
     }
 
     .news-content {
