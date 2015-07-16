@@ -22,7 +22,11 @@
       border-bottom: none;
 
       a {
+        display: block;
+        overflow: hidden;
         color: $white;
+        text-overflow: ellipsis;
+        white-space: nowrap;
 
         &:visited,
         &:active,
