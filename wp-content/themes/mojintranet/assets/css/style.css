@@ -1937,6 +1937,21 @@ form .form-row {
     padding-right: 46px;
     border: 1px solid #bfc1c3; }
   /* line 15, src/modules/_search_form.scss */
+  .search-form .clear {
+    display: none;
+    position: absolute;
+    right: 40px;
+    top: 13px;
+    width: 15px;
+    height: 15px;
+    background-image: url("../images/clear_icon_x2.png");
+    background-size: 100% 100%;
+    content: "";
+    cursor: pointer; }
+  /* line 28, src/modules/_search_form.scss */
+  .search-form.filled .clear {
+    display: block; }
+  /* line 32, src/modules/_search_form.scss */
   .search-form .search-btn {
     position: absolute;
     right: 0px;
@@ -1954,10 +1969,10 @@ form .form-row {
     text-indent: -5000px; }
 
 @media (min-width: 0) and (max-width: 767px) {
-  /* line 34, src/modules/_search_form.scss */
+  /* line 51, src/modules/_search_form.scss */
   .search-form {
     width: 100%; }
-    /* line 37, src/modules/_search_form.scss */
+    /* line 54, src/modules/_search_form.scss */
     .search-form .keywords-field {
       padding-right: 10px; } }
 /* line 2, src/content/error/_main.scss */

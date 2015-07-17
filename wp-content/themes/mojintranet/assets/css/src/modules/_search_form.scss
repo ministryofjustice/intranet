@@ -12,6 +12,23 @@
     border: 1px solid $grey-2;
   }
 
+  .clear {
+    display: none;
+    position: absolute;
+    right: 40px;
+    top: 13px;
+    width: 15px;
+    height: 15px;
+    background-image: url('../images/clear_icon_x2.png');
+    background-size: 100% 100%;
+    content: "";
+    cursor: pointer;
+  }
+
+  &.filled .clear {
+    display: block;
+  }
+
   .search-btn {
     position: absolute;
     right: 0px;

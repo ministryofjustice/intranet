@@ -21,6 +21,7 @@
       this.createList();
       this.bindEvents();
       this.setUpTheForms();
+      this.toggleClearIcon();
 
       this.lastKeywordsLength = this.$searchField.val().length;
     },
@@ -33,6 +34,7 @@
       var _this = this;
       this.$searchField.on('keyup', $.proxy(this.autocompleteTypingHandle, this));
       this.$searchField.on('keydown', $.proxy(this.autocompleteNavigationHandle, this));
+      this.$top.find('.clear').on('click', $.proxy(this.clearField, this));
       $(document).on('click', $.proxy(this.outsideClickHandle, this));
     },
 
@@ -114,6 +116,8 @@
         return;
       }
 
+      this.toggleClearIcon();
+
       $target.attr('data-current-keywords', $target.val());
 
       this.requestResults($target);
@@ -125,6 +129,16 @@
       if(!$target.is(this.$list) && !$target.next().is(this.$list)) {
         this.hideList();
       }
+    },
+
+    toggleClearIcon: function() {
+      this.$top.toggleClass('filled', this.$searchField.val().length > 0);
+    },
+
+    clearField: function() {
+      this.$searchField.val('');
+      this.toggleClearIcon();
+      this.emptyList();
     },
 
     createList: function() {
