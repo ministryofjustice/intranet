@@ -2636,24 +2636,25 @@ form .form-row {
   .news-widget.need-to-know .news-item .news-thumbnail-container {
     display: block;
     margin-left: 15px;
+    margin-right: -10px;
     margin-bottom: 20px; }
-  /* line 52, src/widgets/dw_news/_need_to_know.scss */
+  /* line 53, src/widgets/dw_news/_need_to_know.scss */
   .news-widget.need-to-know .news-item .news-thumbnail {
     display: block;
     max-width: 100%; }
-  /* line 57, src/widgets/dw_news/_need_to_know.scss */
+  /* line 58, src/widgets/dw_news/_need_to_know.scss */
   .news-widget.need-to-know .news-item .news-content {
     margin-bottom: 15px;
     padding-right: 15px; }
-  /* line 62, src/widgets/dw_news/_need_to_know.scss */
+  /* line 63, src/widgets/dw_news/_need_to_know.scss */
   .news-widget.need-to-know .news-item .news-date {
     margin-top: 3px;
     color: #fff; }
-  /* line 67, src/widgets/dw_news/_need_to_know.scss */
+  /* line 68, src/widgets/dw_news/_need_to_know.scss */
   .news-widget.need-to-know .news-item .news-excerpt {
     margin-top: -4px;
     color: #fff; }
-/* line 73, src/widgets/dw_news/_need_to_know.scss */
+/* line 74, src/widgets/dw_news/_need_to_know.scss */
 .news-widget.need-to-know .page-list {
   margin-bottom: 0px;
   margin-right: -1px;
@@ -2665,11 +2666,11 @@ form .form-row {
     content: "";
     display: table;
     clear: both; }
-  /* line 81, src/widgets/dw_news/_need_to_know.scss */
+  /* line 82, src/widgets/dw_news/_need_to_know.scss */
   .news-widget.need-to-know .page-list .page {
     width: 33.33333%;
     float: left; }
-    /* line 85, src/widgets/dw_news/_need_to_know.scss */
+    /* line 86, src/widgets/dw_news/_need_to_know.scss */
     .news-widget.need-to-know .page-list .page a {
       display: block;
       margin-bottom: 2px;
@@ -2685,7 +2686,7 @@ form .form-row {
       text-decoration: underline;
       text-overflow: ellipsis;
       white-space: nowrap; }
-    /* line 105, src/widgets/dw_news/_need_to_know.scss */
+    /* line 106, src/widgets/dw_news/_need_to_know.scss */
     .news-widget.need-to-know .page-list .page.selected a, .news-widget.need-to-know .page-list .page:hover a {
       margin-bottom: 0;
       padding-bottom: 2px;
@@ -2695,11 +2696,11 @@ form .form-row {
       text-decoration: none; }
 
 @media (min-width: 0) and (max-width: 1023px) {
-  /* line 120, src/widgets/dw_news/_need_to_know.scss */
+  /* line 121, src/widgets/dw_news/_need_to_know.scss */
   .news-widget.need-to-know .news-item .news-content {
     margin-top: 20px;
     padding-left: 15px; } }
 @media (min-width: 0) and (max-width: 767px) {
-  /* line 129, src/widgets/dw_news/_need_to_know.scss */
+  /* line 130, src/widgets/dw_news/_need_to_know.scss */
   .news-widget.need-to-know .page-list .page {
     width: 100%; } }
