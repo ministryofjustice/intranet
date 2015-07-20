@@ -1937,7 +1937,6 @@
       this.createList();
       this.bindEvents();
       this.setUpTheForms();
-      this.toggleClearIcon();
 
       this.lastKeywordsLength = this.$searchField.val().length;
     },
@@ -1950,7 +1949,6 @@
       var _this = this;
       this.$searchField.on('keyup', $.proxy(this.autocompleteTypingHandle, this));
       this.$searchField.on('keydown', $.proxy(this.autocompleteNavigationHandle, this));
-      this.$top.find('.clear').on('click', $.proxy(this.clearField, this));
       $(document).on('click', $.proxy(this.outsideClickHandle, this));
     },
 
@@ -2032,8 +2030,6 @@
         return;
       }
 
-      this.toggleClearIcon();
-
       $target.attr('data-current-keywords', $target.val());
 
       this.requestResults($target);
@@ -2045,16 +2041,6 @@
       if(!$target.is(this.$list) && !$target.next().is(this.$list)) {
         this.hideList();
       }
-    },
-
-    toggleClearIcon: function() {
-      this.$top.toggleClass('filled', this.$searchField.val().length > 0);
-    },
-
-    clearField: function() {
-      this.$searchField.val('');
-      this.toggleClearIcon();
-      this.emptyList();
     },
 
     createList: function() {
@@ -2210,7 +2196,6 @@
 
       this.$keywordsInput.focus();
       this.setFilters();
-      this.toggleClearIcon();
     },
 
     cacheEls: function() {
@@ -2228,7 +2213,6 @@
       var inputFallbackEvent = (App.ie && App.ie < 9) ? 'keyup' : '';
 
       this.$keywordsInput.on('input ' + inputFallbackEvent, function(e) {
-        _this.toggleClearIcon();
         _this.toggleTabs();
         _this.loadResults({
           page: 1
@@ -2252,8 +2236,6 @@
       });
 
       this.$searchType.on('click', 'a', $.proxy(this.changeSearchType, this));
-
-      this.$top.find('.clear').on('click', $.proxy(this.clearField, this));
     },
 
     changeSearchType: function(e) {
@@ -2291,16 +2273,6 @@
       }
 
       this.$searchType.find('[data-search-type="' + type + '"] a').click();
-    },
-
-    toggleClearIcon: function() {
-      this.$searchForm.toggleClass('filled', this.$keywordsInput.val().length > 0);
-    },
-
-    clearField: function() {
-      this.$keywordsInput.val('');
-      this.toggleClearIcon();
-      this.loadResults();
     },
 
     loadResults: function(requestData) {

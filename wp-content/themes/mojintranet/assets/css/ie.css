@@ -248,9 +248,6 @@
 /* line 26, src/ie/_search_form.scss */
 .lte-ie8 .search-form .search-btn {
   background-image: url("../images/search_icon.png"); }
-/* line 30, src/ie/_search_form.scss */
-.lte-ie8 .search-form .clear {
-  background-image: url("../images/clear_icon.png"); }
 
 /* line 3, src/ie/_navigation.scss */
 .lte-ie7 .menu-list,

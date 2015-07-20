@@ -16,7 +16,6 @@
       <div role="search form" class="search-form search-string no-dw-autocomplete">
         <input class="keywords-field" autocomplete="off" type="text" placeholder="Search" name="s" value="<?=htmlspecialchars(urldecode(get_query_var('search-string')))?>">
         <input class="search-btn cta" type="submit" value="Search" />
-        <span class="clear"></span>
       </div>
     </div>
   </div>

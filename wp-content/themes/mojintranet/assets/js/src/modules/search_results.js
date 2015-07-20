@@ -37,7 +37,6 @@
 
       this.$keywordsInput.focus();
       this.setFilters();
-      this.toggleClearIcon();
     },
 
     cacheEls: function() {
@@ -55,7 +54,6 @@
       var inputFallbackEvent = (App.ie && App.ie < 9) ? 'keyup' : '';
 
       this.$keywordsInput.on('input ' + inputFallbackEvent, function(e) {
-        _this.toggleClearIcon();
         _this.toggleTabs();
         _this.loadResults({
           page: 1
@@ -79,8 +77,6 @@
       });
 
       this.$searchType.on('click', 'a', $.proxy(this.changeSearchType, this));
-
-      this.$top.find('.clear').on('click', $.proxy(this.clearField, this));
     },
 
     changeSearchType: function(e) {
@@ -118,16 +114,6 @@
       }
 
       this.$searchType.find('[data-search-type="' + type + '"] a').click();
-    },
-
-    toggleClearIcon: function() {
-      this.$searchForm.toggleClass('filled', this.$keywordsInput.val().length > 0);
-    },
-
-    clearField: function() {
-      this.$keywordsInput.val('');
-      this.toggleClearIcon();
-      this.loadResults();
     },
 
     loadResults: function(requestData) {
