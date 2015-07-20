@@ -56,6 +56,7 @@
 
       this.$keywordsInput.on('input ' + inputFallbackEvent, function(e) {
         _this.toggleClearIcon();
+        _this.toggleTabs();
         _this.loadResults({
           page: 1
         });
@@ -132,14 +133,14 @@
     loadResults: function(requestData) {
       var _this = this;
       var data;
+      var keywords = this.getSanitizedKeywords();
 
       requestData = this.getDataObject(requestData);
 
       this.stopLoadingResults();
       this.$top.find('.search-results-title').remove();
 
-
-      if(this.hasKeywords()) {
+      if(this.hasKeywords() && keywords.length >= 2) {
         this.$top.addClass('loading-results');
         this.$results.prepend($(this.resultsPageTitleTemplate).text('Loading results...'));
 
@@ -247,8 +248,14 @@
       var resultsPage = parseInt(data.url_params.page, 10);
       var date;
       var formattedDate;
+      var keywords = this.getSanitizedKeywords();
 
-      if(this.hasKeywords()) {
+      if(keywords.length < 2) {
+        this.$results.append($filteredResultsTitle);
+        $filteredResultsTitle.find('h3').hide();
+        $filteredResultsTitle.find('.no-keywords-info').removeClass('hidden');
+      }
+      else if(this.hasKeywords()) { //has keywords but there were no results
         this.$results.append($filteredResultsTitle);
         $filteredResultsTitle.find('.results-count').text(totalResults);
         $filteredResultsTitle.find('.results-count-description').text(totalResults === 1 ? 'result' : 'results');
@@ -257,6 +264,11 @@
           $filteredResultsTitle.find('.no-results-info').removeClass('hidden');
         }
       }
+    },
+
+    toggleTabs: function() {
+      var keywords = this.getSanitizedKeywords();
+      this.$searchType.toggleClass('visible', keywords.length >= 2);
     },
 
     hasKeywords: function() {

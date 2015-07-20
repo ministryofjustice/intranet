@@ -3,6 +3,14 @@
     border-bottom: none;
   }
 
+  .search-type {
+    display: none;
+
+    &.visible {
+      display: block;
+    }
+  }
+
   .content-filters {
     margin-top: 24px;
   }
@@ -25,6 +33,16 @@
   }
 
   .no-results-info {
+    h4 {
+      margin-bottom: 0;
+    }
+
+    &.hidden {
+      display: none;
+    }
+  }
+
+  .no-keywords-info {
     h4 {
       margin-bottom: 0;
     }

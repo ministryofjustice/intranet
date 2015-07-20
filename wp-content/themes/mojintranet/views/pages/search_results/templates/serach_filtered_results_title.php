@@ -8,8 +8,11 @@
     </h3>
     <div class="no-results-info hidden">
       <ul>
-        <li>try searching again using different keywords</li>
+        <li>Please try searching again using different keywords</li>
       </ul>
+    </div>
+    <div class="no-keywords-info hidden">
+      <p>Please enter a search term of at least 2 characters</p>
     </div>
   </div>
 </div>

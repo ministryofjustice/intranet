@@ -2518,73 +2518,85 @@ form .form-row {
 .template-search-results .template-container .page-title {
   border-bottom: none; }
 /* line 6, src/content/search_results/_main.scss */
+.template-search-results .template-container .search-type {
+  display: none; }
+  /* line 9, src/content/search_results/_main.scss */
+  .template-search-results .template-container .search-type.visible {
+    display: block; }
+/* line 14, src/content/search_results/_main.scss */
 .template-search-results .template-container .content-filters {
   margin-top: 24px; }
-/* line 10, src/content/search_results/_main.scss */
+/* line 18, src/content/search_results/_main.scss */
 .template-search-results .template-container .search-results-title {
   font-weight: normal;
   margin-bottom: 50px; }
-/* line 16, src/content/search_results/_main.scss */
+/* line 24, src/content/search_results/_main.scss */
 .template-search-results .template-container .search-filtered-results-title .results-count {
   font-weight: bold; }
-/* line 21, src/content/search_results/_main.scss */
+/* line 29, src/content/search_results/_main.scss */
 .template-search-results .template-container .search-filtered-results-title .results-count-description {
   font-weight: bold; }
-/* line 28, src/content/search_results/_main.scss */
+/* line 36, src/content/search_results/_main.scss */
 .template-search-results .template-container .no-results-info h4 {
   margin-bottom: 0; }
-/* line 32, src/content/search_results/_main.scss */
+/* line 40, src/content/search_results/_main.scss */
 .template-search-results .template-container .no-results-info.hidden {
   display: none; }
-/* line 38, src/content/search_results/_main.scss */
+/* line 46, src/content/search_results/_main.scss */
+.template-search-results .template-container .no-keywords-info h4 {
+  margin-bottom: 0; }
+/* line 50, src/content/search_results/_main.scss */
+.template-search-results .template-container .no-keywords-info.hidden {
+  display: none; }
+/* line 56, src/content/search_results/_main.scss */
 .template-search-results .template-container .search-item.faded {
   opacity: .3; }
-/* line 42, src/content/search_results/_main.scss */
+/* line 60, src/content/search_results/_main.scss */
 .template-search-results .template-container .search-item .title {
   margin-top: 30px; }
-/* line 46, src/content/search_results/_main.scss */
+/* line 64, src/content/search_results/_main.scss */
 .template-search-results .template-container .search-item .meta {
   color: #6f777b; }
-/* line 50, src/content/search_results/_main.scss */
+/* line 68, src/content/search_results/_main.scss */
 .template-search-results .template-container .search-item .title,
 .template-search-results .template-container .search-item .meta {
   margin-bottom: 5px; }
-/* line 59, src/content/search_results/_main.scss */
+/* line 77, src/content/search_results/_main.scss */
 .template-search-results .template-container .search-item .file {
   margin-top: 5px;
   color: #6f777b; }
-  /* line 63, src/content/search_results/_main.scss */
+  /* line 81, src/content/search_results/_main.scss */
   .template-search-results .template-container .search-item .file .file-link {
     text-decoration: underline; }
-/* line 69, src/content/search_results/_main.scss */
+/* line 87, src/content/search_results/_main.scss */
 .template-search-results .template-container .search-link {
   display: block;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap; }
-  /* line 75, src/content/search_results/_main.scss */
+  /* line 93, src/content/search_results/_main.scss */
   .template-search-results .template-container .search-link:before {
     display: inline-block;
     padding-right: 5px;
     vertical-align: middle;
     color: #6f777b;
     font-weight: normal; }
-  /* line 84, src/content/search_results/_main.scss */
+  /* line 102, src/content/search_results/_main.scss */
   .template-search-results .template-container .search-link:after {
     content: ""; }
-  /* line 88, src/content/search_results/_main.scss */
+  /* line 106, src/content/search_results/_main.scss */
   .template-search-results .template-container .search-link[href$=".pdf"]:before {
     content: "[PDF] "; }
-  /* line 92, src/content/search_results/_main.scss */
+  /* line 110, src/content/search_results/_main.scss */
   .template-search-results .template-container .search-link[href$=".doc"]:before {
     content: "[DOC] "; }
-  /* line 98, src/content/search_results/_main.scss */
+  /* line 116, src/content/search_results/_main.scss */
   .template-search-results .template-container .search-link[href$=".xls"]:before, .template-search-results .template-container .search-link[href$=".xlsx"]:before {
     content: "[XLS] "; }
-  /* line 103, src/content/search_results/_main.scss */
+  /* line 121, src/content/search_results/_main.scss */
   .template-search-results .template-container .search-link[href$=".pps"]:before {
     content: "[PPS] "; }
-  /* line 107, src/content/search_results/_main.scss */
+  /* line 125, src/content/search_results/_main.scss */
   .template-search-results .template-container .search-link[href$=".ppt"]:before {
     content: "[PPT] "; }
 
