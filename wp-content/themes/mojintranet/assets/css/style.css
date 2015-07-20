@@ -1232,19 +1232,18 @@ form .form-row {
     float: left;
     margin-right: 10px;
     padding: 2px 10px 0;
-    /*background-color: $orange; <-- beta */
-    background-color: #d53880;
+    background-color: #f47738;
     font-weight: bold;
     text-transform: uppercase;
     color: #fff; }
-  /* line 23, src/modules/_beta_banner.scss */
+  /* line 22, src/modules/_beta_banner.scss */
   .beta-banner .message {
     display: block;
     overflow: hidden;
     margin-top: 0;
     padding: 0;
     padding-left: 10px; }
-  /* line 31, src/modules/_beta_banner.scss */
+  /* line 30, src/modules/_beta_banner.scss */
   .beta-banner .ie7-warning {
     display: none; }
 
