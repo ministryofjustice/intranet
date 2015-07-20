@@ -26,11 +26,11 @@
         <li data-search-type="all">
           <a href="">All</a>
         </li>
-        <li data-search-type="pages">
+        <li data-search-type="page">
           <a href="">Pages</a>
         </li>
         <li data-search-type="document">
-          <a href="">Forms &amp; Documents</a>
+          <a href="">Forms and documents</a>
         </li>
       </ul>
     </div>

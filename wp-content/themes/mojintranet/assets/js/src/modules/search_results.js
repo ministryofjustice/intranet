@@ -308,7 +308,7 @@
       var keywords = this.getSanitizedKeywords();
       var segments = this.getSegmentsFromUrl();
       var page = segments[2] || 1;
-      var type = segments[0] || 'all';
+      var type = this.$searchType.find('.current-menu-item.selected').attr('data-search-type') || 'all';
 
       var base = {
         'type': type,
