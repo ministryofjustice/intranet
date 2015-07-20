@@ -2196,6 +2196,7 @@
 
       this.$keywordsInput.focus();
       this.setFilters();
+      this.toggleTabs();
     },
 
     cacheEls: function() {
