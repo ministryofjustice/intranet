@@ -1,7 +1,14 @@
 .news-widget.need-to-know {
-  margin-top: 20px;
-  background-color: $sticky-news;
-  border-top-width: 0;
+  .widget-title {
+    @extend %large-heading;
+    margin-bottom: 10px;
+    border-bottom: 1px solid $grey-1;
+  }
+
+  .widget-body {
+    background-color: $sticky-news;
+    border-top-width: 0;
+  }
 
   .news-list {
     margin-top: 0;
@@ -17,12 +24,16 @@
 
     .news-heading {
       @extend %medium-heading;
-      margin: 0;
+      margin: 0 15px 15px;
       padding: 0;
       border-bottom: none;
 
       a {
+        display: block;
+        overflow: hidden;
         color: $white;
+        text-overflow: ellipsis;
+        white-space: nowrap;
 
         &:visited,
         &:active,
@@ -35,13 +46,13 @@
     .news-thumbnail-container {
       display: block;
       margin-left: 15px;
+      margin-right: -10px;
       margin-bottom: 20px;
     }
 
     .news-thumbnail {
       display: block;
       max-width: 100%;
-      border: 1px solid $white;
     }
 
     .news-content {
@@ -55,14 +66,14 @@
     }
 
     .news-excerpt {
-      margin-top: 7px;
+      margin-top: -4px;
       color: $white;
     }
   }
 
   .page-list {
     @include clearfix;
-    margin-bottom: 20px;
+    margin-bottom: 0px;
     margin-right: -1px;
     margin-left: -1px;
     text-align: left;
