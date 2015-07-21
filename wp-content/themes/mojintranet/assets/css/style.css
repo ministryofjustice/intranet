@@ -750,7 +750,7 @@ h4, .template-guidance-and-support-index .template-container .guidance-categorie
   line-height: 25px; }
 
 /* line 31, src/global/_typography.scss */
-h3, .template-guidance-and-support-content .template-container .page-category, .template-news-landing .template-container .news-filtered-results-title .results-count, .template-search-results .template-container .search-filtered-results-title .results-count, .news-widget.need-to-know .widget-title {
+h3, .social h2, .template-guidance-and-support-content .template-container .page-category, .template-news-landing .template-container .news-filtered-results-title .results-count, .template-search-results .template-container .search-filtered-results-title .results-count, .news-widget.need-to-know .widget-title {
   font-size: 24px;
   line-height: 30px; }
 
@@ -778,7 +778,7 @@ h1 {
 
 /* line 73, src/global/_typography.scss */
 .main-content .editable p, .main-content .editable li, .main-content .editable .address, .main-content .editable .contact, .main-content .editable .help-notice, .main-content .editable .info-notice,
-.main-content .editable .example, .main-content .editable .summary, .imported-banner .message, .content-tabs li a, .collapsible-block-container .collapsible-block-toggle, .template-error .template-container .description, .template-error .template-container a, .template-news-landing .template-container .news-filtered-results-title .containing,
+.main-content .editable .example, .main-content .editable .summary, .imported-banner .message, .content-tabs li a, .collapsible-block-container .collapsible-block-toggle, .social .social-link, .template-error .template-container .description, .template-error .template-container a, .template-news-landing .template-container .news-filtered-results-title .containing,
 .template-news-landing .template-container .news-filtered-results-title .for-date, .template-news-landing .template-container .news-filtered-results-title .results-count-description,
 .template-news-landing .template-container .news-filtered-results-title .keywords,
 .template-news-landing .template-container .news-filtered-results-title .date, .template-search-results .template-container .search-filtered-results-title .results-count-description {
@@ -810,7 +810,7 @@ body, a[href$=".pdf"]:after, a[href$=".doc"]:after, a[href$=".xls"]:after, a[hre
     line-height: 20px; }
 
   /* line 113, src/global/_typography.scss */
-  h3, .template-guidance-and-support-content .template-container .page-category, .template-news-landing .template-container .news-filtered-results-title .results-count, .template-search-results .template-container .search-filtered-results-title .results-count, .news-widget.need-to-know .widget-title {
+  h3, .social h2, .template-guidance-and-support-content .template-container .page-category, .template-news-landing .template-container .news-filtered-results-title .results-count, .template-search-results .template-container .search-filtered-results-title .results-count, .news-widget.need-to-know .widget-title {
     font-size: 19px;
     line-height: 25px; }
 
@@ -831,7 +831,7 @@ body, a[href$=".pdf"]:after, a[href$=".doc"]:after, a[href$=".xls"]:after, a[hre
 
   /* line 134, src/global/_typography.scss */
   .main-content .editable p, .main-content .editable li, .main-content .editable .address, .main-content .editable .contact, .main-content .editable .help-notice, .main-content .editable .info-notice,
-  .main-content .editable .example, .main-content .editable .summary, .imported-banner .message, .content-tabs li a, .collapsible-block-container .collapsible-block-toggle, .template-error .template-container .description, .template-error .template-container a, .template-news-landing .template-container .news-filtered-results-title .containing,
+  .main-content .editable .example, .main-content .editable .summary, .imported-banner .message, .content-tabs li a, .collapsible-block-container .collapsible-block-toggle, .social .social-link, .template-error .template-container .description, .template-error .template-container a, .template-news-landing .template-container .news-filtered-results-title .containing,
   .template-news-landing .template-container .news-filtered-results-title .for-date, .template-news-landing .template-container .news-filtered-results-title .results-count-description,
   .template-news-landing .template-container .news-filtered-results-title .keywords,
   .template-news-landing .template-container .news-filtered-results-title .date, .template-search-results .template-container .search-filtered-results-title .results-count-description {
@@ -1889,30 +1889,29 @@ form .form-row {
       padding-top: 5px;
       padding-bottom: 5px; }
 
-/* line 2, src/modules/_feeds.scss */
-.feeds h3 {
-  font-weight: normal;
-  border-bottom: 1px solid #6f777b; }
-/* line 7, src/modules/_feeds.scss */
-.feeds .fallback {
-  display: none; }
-/* line 13, src/modules/_feeds.scss */
-.feeds .regular h3:before {
+/* line 2, src/modules/_social.scss */
+.social h2 {
+  border-bottom: 1px solid #6f777b;
+  font-weight: normal; }
+/* line 8, src/modules/_social.scss */
+.social .social-list {
+  margin-top: 0; }
+/* line 12, src/modules/_social.scss */
+.social .social-icon {
   display: inline-block;
   width: 30px;
   height: 30px;
   margin-right: 10px;
-  background-image: url("../images/feeds_x2.png");
-  background-size: cover;
-  background-repeat: none;
-  vertical-align: text-top;
-  content: ""; }
-/* line 27, src/modules/_feeds.scss */
-.feeds .regular .twitter h3:before {
-  background-position: -120px 0; }
-/* line 33, src/modules/_feeds.scss */
-.feeds .regular .yammer h3:before {
-  background-position: -180px 0; }
+  background-image: url("../images/social_x2.png");
+  background-size: auto 100%;
+  vertical-align: middle; }
+/* line 22, src/modules/_social.scss */
+.social .yammer .social-icon {
+  background-position: -60px 0; }
+/* line 26, src/modules/_social.scss */
+.social .social-link {
+  display: inline-block;
+  vertical-align: middle; }
 
 /* line 1, src/modules/_page_feedback.scss */
 .page-feedback-container {
