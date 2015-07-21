@@ -1252,7 +1252,7 @@ form .form-row {
   margin-bottom: 10px; }
   /* line 4, src/modules/_imported_banner.scss */
   .imported-banner .message {
-    padding: 20px 10%;
+    padding: 20px;
     border: 5px solid #57da95;
     text-align: center; }
 
