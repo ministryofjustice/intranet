@@ -19,6 +19,10 @@
     vertical-align: middle;
   }
 
+  .social-link:after {
+    display: none;
+  }
+
   .yammer .social-icon {
     background-position: -60px 0;
   }

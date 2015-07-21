@@ -1906,9 +1906,12 @@ form .form-row {
   background-size: auto 100%;
   vertical-align: middle; }
 /* line 22, src/modules/_social.scss */
+.social .social-link:after {
+  display: none; }
+/* line 26, src/modules/_social.scss */
 .social .yammer .social-icon {
   background-position: -60px 0; }
-/* line 26, src/modules/_social.scss */
+/* line 30, src/modules/_social.scss */
 .social .social-link {
   display: inline-block;
   vertical-align: middle; }
