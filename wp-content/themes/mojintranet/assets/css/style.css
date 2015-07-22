@@ -2418,7 +2418,13 @@ form .form-row {
 @media (min-width: 0) and (max-width: 767px) {
   /* line 92, src/content/news_landing/_main.scss */
   .template-news-landing .template-container .content-filters {
-    margin-bottom: 20px; } }
+    margin-bottom: 20px; }
+  /* line 97, src/content/news_landing/_main.scss */
+  .template-news-landing .template-container .news-item .thumbnail-container {
+    width: auto; }
+    /* line 100, src/content/news_landing/_main.scss */
+    .template-news-landing .template-container .news-item .thumbnail-container img {
+      max-width: 100px; } }
 /* line 2, src/content/news_single/_main.scss */
 .template-single-news .template-container h1 {
   margin-bottom: 25px;

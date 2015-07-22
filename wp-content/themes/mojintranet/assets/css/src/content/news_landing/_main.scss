@@ -88,9 +88,19 @@
 }
 
 @include mobile-mq() {
-  .template-news-landing .template-container  {
+  .template-news-landing .template-container {
     .content-filters {
       margin-bottom: 20px;
+    }
+
+    .news-item {
+      .thumbnail-container {
+        width: auto;
+
+        img {
+          max-width: 100px;
+        }
+      }
     }
   }
 }
