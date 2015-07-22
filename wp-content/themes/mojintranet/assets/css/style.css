@@ -1889,32 +1889,35 @@ form .form-row {
       padding-top: 5px;
       padding-bottom: 5px; }
 
-/* line 2, src/modules/_social.scss */
-.social h2 {
-  border-bottom: 1px solid #6f777b;
-  font-weight: normal; }
-/* line 8, src/modules/_social.scss */
-.social .social-list {
-  margin-top: 0; }
-/* line 12, src/modules/_social.scss */
-.social .social-icon {
-  display: inline-block;
-  width: 30px;
-  height: 30px;
-  margin-right: 10px;
-  background-image: url("../images/social_x2.png");
-  background-size: auto 100%;
-  vertical-align: middle; }
-/* line 22, src/modules/_social.scss */
-.social .social-link:after {
-  display: none; }
-/* line 26, src/modules/_social.scss */
-.social .yammer .social-icon {
-  background-position: -60px 0; }
-/* line 30, src/modules/_social.scss */
-.social .social-link {
-  display: inline-block;
-  vertical-align: middle; }
+/* line 1, src/modules/_social.scss */
+.social {
+  margin-top: 10px; }
+  /* line 4, src/modules/_social.scss */
+  .social h2 {
+    border-bottom: 1px solid #6f777b;
+    font-weight: normal; }
+  /* line 10, src/modules/_social.scss */
+  .social .social-list {
+    margin-top: 0; }
+  /* line 14, src/modules/_social.scss */
+  .social .social-icon {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+    background-image: url("../images/social_x2.png");
+    background-size: auto 100%;
+    vertical-align: middle; }
+  /* line 24, src/modules/_social.scss */
+  .social .social-link:after {
+    display: none; }
+  /* line 28, src/modules/_social.scss */
+  .social .yammer .social-icon {
+    background-position: -60px 0; }
+  /* line 32, src/modules/_social.scss */
+  .social .social-link {
+    display: inline-block;
+    vertical-align: middle; }
 
 /* line 1, src/modules/_page_feedback.scss */
 .page-feedback-container {
