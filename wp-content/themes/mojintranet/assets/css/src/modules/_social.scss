@@ -1,6 +1,7 @@
 .social {
   h2 {
     @extend %large-heading;
+    margin-bottom: 15px;
     border-bottom: 1px solid $grey-1;
     font-weight: normal;
   }
