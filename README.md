@@ -1,6 +1,4 @@
-# mojintranet
-
-MoJ Intranet
+# MoJ Intranet
 
 ## Getting started
 
