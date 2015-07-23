@@ -9,7 +9,7 @@ You'll need:
 * Enable mod_rewrite within the Apache config
 * Mysql 5.6 and above or MariaDB 5.5
 
-If you're on Windows or OS X you might find it easier to use a tool such as WAMP or MAMP. On OS X PHP, Apache come pre-installed. Mysql or Mariadb can be installed easily via brew if you're on a mac.
+If you're on Windows or OS X you might find it easier to use a tool such as WAMP or MAMP. On OS X PHP, Apache come pre-installed. Mysql or MariaDB can be installed easily via brew if you're on a mac.
 
 An example of a working vhost config for Apache would look similiar to this:
 
