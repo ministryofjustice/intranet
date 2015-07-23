@@ -70,3 +70,9 @@ There are others which need to be downloaded and installed seperately. These inc
 * Relevanssi for search https://wordpress.org/plugins/relevanssi/
 * Pods for custom content types and fields https://wordpress.org/plugins/pods/
 * WP Document Revisions which is version control for documents https://wordpress.org/plugins/wp-document-revisions/
+* Amazon S3 and Cloudfront https://wordpress.org/plugins/amazon-s3-and-cloudfront/
+* Amazon web services https://wordpress.org/plugins/amazon-web-services/
+* CMS tree page view https://wordpress.org/plugins/cms-tree-page-view/
+* Recently edited content widget https://wordpress.org/plugins/recently-edited-content-widget/
+* WP document revisions https://wordpress.org/plugins/wp-document-revisions/
+* Oasis workflow premium https://wordpress.org/plugins/oasis-workflow/
