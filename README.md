@@ -2,8 +2,6 @@
 
 ## Getting started
 
-### Prerequisites
-
 * A recent version of Wordpress
 * A working Apache setup with mod_php5
 
