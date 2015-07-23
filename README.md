@@ -1,4 +1,4 @@
-# MoJ Intranet
+# MoJ Intranet Theme
 
 ## Getting started
 
