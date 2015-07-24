@@ -140,6 +140,11 @@
 /* line 1, src/ie/_header.scss */
 .lte-ie7 .header {
   z-index: 1; }
+  /* line 4, src/ie/_header.scss */
+  .lte-ie7 .header .skip-to-content-container a {
+    display: inline;
+    zoom: 1;
+    background-color: #ffbf47; }
 
 /* line 2, src/ie/_beta_banner.scss */
 .ie7 .beta-banner .beta-icon,
@@ -286,3 +291,5 @@
 .lte-ie7 .news-widget.need-to-know .page-list {
   margin-left: 0;
   zoom: 1; }
+
+/*# sourceMappingURL=ie.css.map */
