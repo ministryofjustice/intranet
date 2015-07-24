@@ -1,3 +1,9 @@
 .lte-ie7 .header {
   z-index: 1;
+
+  .skip-to-content-container a {
+    display: inline;
+    zoom: 1;
+    background-color: $yellow;
+  }
 }

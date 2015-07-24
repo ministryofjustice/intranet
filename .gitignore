@@ -108,3 +108,4 @@ deploy_dev.cfg
 wp-content/plugins/relevanssi*/
 wp-content/plugins/
 .htaccess
+*.css.map
