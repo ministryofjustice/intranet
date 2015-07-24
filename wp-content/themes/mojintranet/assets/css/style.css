@@ -1569,8 +1569,8 @@ form .form-row {
       color: #fff; }
     /* line 82, src/modules/_navigation.scss */
     .menu-list .menu-item.current .menu-item-link {
-      border: 1px solid #2e8aca;
-      background-color: #2e8aca;
+      border: 1px solid #005ea5;
+      background-color: #005ea5;
       color: #fff;
       font-weight: bold; }
     /* line 89, src/modules/_navigation.scss */
