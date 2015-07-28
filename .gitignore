@@ -108,3 +108,12 @@ deploy_dev.cfg
 wp-content/plugins/relevanssi*/
 wp-content/plugins/
 .htaccess
+*.css.map
+
+# auto-generated files
+/wp-content/themes/mojintranet/ping.json
+/wp-content/themes/mojintranet/checksums.json
+/wp-content/themes/mojintranet/assets/css/ie.css
+/wp-content/themes/mojintranet/assets/css/style.css
+/wp-content/themes/mojintranet/assets/css/fonts.css
+/wp-content/themes/mojintranet/assets/js/app.js

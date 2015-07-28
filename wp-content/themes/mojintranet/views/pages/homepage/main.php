@@ -10,7 +10,7 @@
 
     <div class="col-lg-6 col-md-6 col-sm-12">
       <?php $this->view('pages/homepage/my_moj/main', $my_moj) ?>
-      <?php $this->view('pages/homepage/feeds') ?>
+      <?php $this->view('pages/homepage/social') ?>
     </div>
   </div>
 </div>

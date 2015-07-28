@@ -37,18 +37,17 @@
 
       this.$keywordsInput.focus();
       this.setFilters();
-
-      this.loadResults();
+      this.toggleTabs();
     },
 
     cacheEls: function() {
-      this.$searchForm = this.$top.find('#search-form');
-      this.$typeInput = this.$top.find('[name="type"]');
+      this.$searchForm = this.$top.find('.search-form.search-string');
       this.$categoryInput = this.$top.find('[name="category"]');
       this.$keywordsInput = this.$top.find('.keywords-field');
       this.$results = this.$top.find('.results');
       this.$prevPage = this.$top.find('.previous');
       this.$nextPage = this.$top.find('.next');
+      this.$searchType = this.$top.find('.search-type');
     },
 
     bindEvents: function() {
@@ -56,6 +55,7 @@
       var inputFallbackEvent = (App.ie && App.ie < 9) ? 'keyup' : '';
 
       this.$keywordsInput.on('input ' + inputFallbackEvent, function(e) {
+        _this.toggleTabs();
         _this.loadResults({
           page: 1
         });
@@ -76,16 +76,32 @@
       this.$searchForm.on('submit', function(e) {
         e.preventDefault();
       });
+
+      this.$searchType.on('click', 'a', $.proxy(this.changeSearchType, this));
+    },
+
+    changeSearchType: function(e) {
+      var $element = $(e.currentTarget).closest('[data-search-type]');
+
+      e.preventDefault();
+
+      if($element.hasClass('selected')) {
+        return;
+      }
+
+      this.$searchType.find('[data-search-type]').removeClass('selected');
+      $element.addClass('selected');
+
+      this.loadResults({
+        'type': $element.attr('data-search-type'),
+        'page': 1
+      });
     },
 
     setFilters: function() {
       var segments = this.getSegmentsFromUrl();
+      var type = segments[0] || 'all';
       var keywords;
-
-      //set type field based on url segment
-      if(segments[0]) {
-        this.$typeInput.val(segments[0]);
-      }
 
       if(segments[1]) {
         keywords = segments[1];
@@ -97,19 +113,21 @@
 
         this.$keywordsInput.val(keywords);
       }
+
+      this.$searchType.find('[data-search-type="' + type + '"] a').click();
     },
 
     loadResults: function(requestData) {
       var _this = this;
       var data;
+      var keywords = this.getSanitizedKeywords();
 
       requestData = this.getDataObject(requestData);
 
       this.stopLoadingResults();
       this.$top.find('.search-results-title').remove();
 
-
-      if(this.hasKeywords()) {
+      if(this.hasKeywords() && keywords.length >= 2) {
         this.$top.addClass('loading-results');
         this.$results.prepend($(this.resultsPageTitleTemplate).text('Loading results...'));
 
@@ -206,6 +224,8 @@
         window.clearTimeout(this.updateGATimeoutHandle);
         this.updateGATimeoutHandle = null;
       }
+
+      window.App.ins.accessibility.updateDocLinks(this.$results);
     },
 
     setResultsHeading: function(data) {
@@ -215,8 +235,14 @@
       var resultsPage = parseInt(data.url_params.page, 10);
       var date;
       var formattedDate;
+      var keywords = this.getSanitizedKeywords();
 
-      if(this.hasKeywords()) {
+      if(keywords.length < 2) {
+        this.$results.append($filteredResultsTitle);
+        $filteredResultsTitle.find('h3').hide();
+        $filteredResultsTitle.find('.no-keywords-info').removeClass('hidden');
+      }
+      else if(this.hasKeywords()) { //has keywords but there were no results
         this.$results.append($filteredResultsTitle);
         $filteredResultsTitle.find('.results-count').text(totalResults);
         $filteredResultsTitle.find('.results-count-description').text(totalResults === 1 ? 'result' : 'results');
@@ -225,6 +251,11 @@
           $filteredResultsTitle.find('.no-results-info').removeClass('hidden');
         }
       }
+    },
+
+    toggleTabs: function() {
+      var keywords = this.getSanitizedKeywords();
+      this.$searchType.toggleClass('visible', keywords.length >= 2);
     },
 
     hasKeywords: function() {
@@ -277,9 +308,10 @@
       var keywords = this.getSanitizedKeywords();
       var segments = this.getSegmentsFromUrl();
       var page = segments[2] || 1;
+      var type = this.$searchType.find('.current-menu-item.selected').attr('data-search-type') || 'all';
 
       var base = {
-        'type': '',
+        'type': type,
         'category': '',
         'keywords': keywords,
         'page': page,
@@ -359,9 +391,10 @@
     getNewUrl: function(rootRelative) {
       var urlParts = [this.pageBase];
       var keywords = this.getSanitizedKeywords();
+      var type = this.$searchType.find('.selected').attr('data-search-type');
 
       //type
-      urlParts.push(this.$typeInput.val() || 'All');
+      urlParts.push(type || 'all');
 
       //keywords
       keywords = keywords.replace(/\s/g, '+');

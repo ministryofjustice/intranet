@@ -6,7 +6,7 @@ function dw_redirects() {
     $keywords = rawurlencode(stripslashes($keywords));
     $keywords = str_replace('%2F', '%252F', $keywords);
     $keywords = str_replace('%5C', '%255C', $keywords);
-    $filter = $_POST['search-filter'] ?: 'All';
+    $filter = $_POST['search-filter'] ?: 'all';
 
     header('Location: ' . site_url() . '/search-results/' . $filter . '/' . $keywords);
     exit;

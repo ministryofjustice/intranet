@@ -3,6 +3,14 @@
     border-bottom: none;
   }
 
+  .search-type {
+    display: none;
+
+    &.visible {
+      display: block;
+    }
+  }
+
   .content-filters {
     margin-top: 24px;
   }
@@ -34,6 +42,16 @@
     }
   }
 
+  .no-keywords-info {
+    h4 {
+      margin-bottom: 0;
+    }
+
+    &.hidden {
+      display: none;
+    }
+  }
+
   .search-item {
     &.faded {
       opacity: .3;
@@ -44,7 +62,7 @@
     }
 
     .meta {
-      color: $grey-2;
+      color: $grey-1;
     }
 
     .title,
@@ -63,6 +81,49 @@
       .file-link {
         text-decoration: underline;
       }
+    }
+  }
+
+  .search-link {
+    display: block;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+
+    &:before {
+      @extend %small-copy;
+      display: inline-block;
+      padding-right: 5px;
+      vertical-align: middle;
+      color: $grey-1;
+      font-weight: normal;
+    }
+
+    &:after {
+      content: "";
+    }
+
+    &[href$=".pdf"]:before {
+      content: "[PDF] ";
+    }
+
+    &[href$=".doc"]:before {
+      content: "[DOC] ";
+    }
+
+    &[href$=".xls"],
+    &[href$=".xlsx"] {
+      &:before {
+        content: "[XLS] ";
+      }
+    }
+
+    &[href$=".pps"]:before {
+      content: "[PPS] ";
+    }
+
+    &[href$=".ppt"]:before {
+      content: "[PPT] ";
     }
   }
 }

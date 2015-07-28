@@ -20,3 +20,11 @@
     z-index: 1;
   }
 }
+
+.lte-ie8 {
+  .search-form {
+    .search-btn {
+      background-image: url('../images/search_icon.png');
+    }
+  }
+}
