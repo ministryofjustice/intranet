@@ -58,7 +58,7 @@
 
   .my-moj-top {
     padding: 12px 30px;
-    background-color: $turquoise;
+    background-color: $my-moj-top-bg;
 
     .department-dropdown-box {
       @extend %medium-copy;
