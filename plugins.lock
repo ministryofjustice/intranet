@@ -1,0 +1,37 @@
+{
+    "amazon-s3-and-cloudfront": {
+        "repository": "git@git.dxw.net:wordpress-plugins/amazon-s3-and-cloudfront",
+        "revision": "master",
+        "commit": "2af4ea82d629168704af80ccf35f7c0457c29837"
+    },
+    "amazon-web-services": {
+        "repository": "git@git.dxw.net:wordpress-plugins/amazon-web-services",
+        "revision": "master",
+        "commit": "3e50bf4ce449053d8e0b578a2da5ddb84374840f"
+    },
+    "cms-tree-page-view": {
+        "repository": "git@git.dxw.net:wordpress-plugins/cms-tree-page-view",
+        "revision": "master",
+        "commit": "ad22d785f6479ebf504505d465868566a82ad3c5"
+    },
+    "pods": {
+        "repository": "git@git.dxw.net:wordpress-plugins/pods",
+        "revision": "master",
+        "commit": "9be47992e6e10f34874f2eaa2cd33c1563a16c47"
+    },
+    "recently-edited-content-widget": {
+        "repository": "git@git.dxw.net:wordpress-plugins/recently-edited-content-widget",
+        "revision": "master",
+        "commit": "43d4e40e786e7a698b918eab91979e074c38c20c"
+    },
+    "relevanssi-premium": {
+        "repository": "git@git.dxw.net:wordpress-plugins/relevanssi-premium",
+        "revision": "master",
+        "commit": "7b521de0caa6bfd62c256fac3e86f44caa6a5c34"
+    },
+    "wp-document-revisions": {
+        "repository": "git@git.dxw.net:wordpress-plugins/wp-document-revisions",
+        "revision": "master",
+        "commit": "259858e8469ec35c33abbd949eb6266cf7e1993d"
+    }
+}

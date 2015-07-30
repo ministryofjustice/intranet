@@ -109,6 +109,7 @@ wp-content/plugins/relevanssi*/
 wp-content/plugins/
 .htaccess
 *.css.map
+/wp-content/whippet-wp-config.php
 
 # auto-generated files
 /wp-content/themes/mojintranet/ping.json
