@@ -19,10 +19,6 @@
     .dropdown-button {
       position: absolute;
       display: block;
-      background-image: url('../images/arrows.png');
-      background-position: -12px 12px;
-      background-repeat: no-repeat;
-      background-color: transparent;
       right: 0;
       top: 0;
       bottom: 0;
@@ -30,6 +26,10 @@
       padding: 6px;
       border: none;
       border-left: 1px solid $grey-2;
+      background-image: url('../images/arrows.png');
+      background-position: -12px 12px;
+      background-repeat: no-repeat;
+      background-color: transparent;
       text-indent: -2000px;
       overflow: hidden;
 
