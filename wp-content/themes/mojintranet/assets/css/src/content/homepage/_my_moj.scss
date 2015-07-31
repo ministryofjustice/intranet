@@ -22,7 +22,20 @@
 
   .quick-links-container {
     .category-name {
-      margin-bottom: 18px;
+      margin-bottom: 8px;
+    }
+
+    .nested-menu {
+      margin-top: 0;
+    }
+
+    .menu-item {
+      margin-top: 10px;
+    }
+
+    .menu-link {
+      @extend %medium-copy;
+      text-decoration: underline;
     }
   }
 
