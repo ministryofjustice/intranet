@@ -66,8 +66,8 @@
     &.current {
 
       .menu-item-link {
-        border: 1px solid $link-hover-colour;
-        background-color: $link-hover-colour;
+        border: 1px solid $menu-item-select-bg;
+        background-color: $menu-item-select-bg;
         color: $white;
         font-weight: bold;
       }
