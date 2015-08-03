@@ -205,7 +205,7 @@
       if(this.hasKeywords() || this.$dateInput.val()) {
         this.$results.append($filteredResultsTitle);
         $filteredResultsTitle.find('.results-count').text(totalResults);
-        $filteredResultsTitle.find('.results-count-description').text(totalResults === 1 ? 'result' : 'results');
+        $filteredResultsTitle.find('.results-count-description').text('search ' + (totalResults === 1 ? 'result' : 'results'));
 
         if(this.hasKeywords()) {
           $filteredResultsTitle.find('.keywords').text(this.getSanitizedKeywords());
