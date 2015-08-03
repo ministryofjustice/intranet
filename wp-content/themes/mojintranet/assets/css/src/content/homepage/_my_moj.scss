@@ -16,6 +16,26 @@
   .apps-container {
     .category-name {
       margin-top: 0;
+      margin-bottom: 20px;
+    }
+  }
+
+  .quick-links-container {
+    .category-name {
+      margin-bottom: 8px;
+    }
+
+    .nested-menu {
+      margin-top: 0;
+    }
+
+    .menu-item {
+      margin-top: 10px;
+    }
+
+    .menu-link {
+      @extend %medium-copy;
+      text-decoration: underline;
     }
   }
 
@@ -51,7 +71,7 @@
 
   .my-moj-top {
     padding: 12px 30px;
-    background-color: $turquoise;
+    background-color: $my-moj-top-bg;
 
     .department-dropdown-box {
       @extend %medium-copy;

@@ -245,7 +245,7 @@
       else if(this.hasKeywords()) { //has keywords but there were no results
         this.$results.append($filteredResultsTitle);
         $filteredResultsTitle.find('.results-count').text(totalResults);
-        $filteredResultsTitle.find('.results-count-description').text(totalResults === 1 ? 'result' : 'results');
+        $filteredResultsTitle.find('.results-count-description').text('search ' + (totalResults === 1 ? 'result' : 'results'));
 
         if(!totalResults) {
           $filteredResultsTitle.find('.no-results-info').removeClass('hidden');
