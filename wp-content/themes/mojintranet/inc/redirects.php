@@ -33,8 +33,8 @@ function dw_rewrite_rules() {
   add_rewrite_tag('%search-filter%', '([^&]+)');
   add_rewrite_tag('%search-string%', '([^&]+)');
 }
-add_action('init', 'dw_redirects');
-add_action('init', 'dw_rewrite_rules');
+add_action('init', 'dw_redirects', -1);
+add_action('init', 'dw_rewrite_rules', -1);
 
 function redirect_404($template) {
   $error_template = locate_template( 'error.php' );
