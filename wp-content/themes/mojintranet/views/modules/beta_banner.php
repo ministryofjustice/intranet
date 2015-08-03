@@ -1,6 +1,6 @@
 <?php if (!defined('ABSPATH')) die();
 
-$feedback_url = 'https://www.surveymonkey.com/r/VDVMLB7';
+$feedback_url = 'https://www.surveymonkey.com/r/P6WW8J5';
 
 ?>
 
