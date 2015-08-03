@@ -20,7 +20,7 @@ global $post;
 <body>
   <?php $this->view('modules/google_tag_manager'); ?>
   <?php $this->view('modules/header', $this->header_model->get_data()); ?>
-  <div id="content" class="container main-content" role="main">
+  <div id="content" class="container main-content" role="main" tabindex="-1">
     <div class="content-wrapper">
       <?php $this->view('modules/beta_banner'); ?>
       <!--[if IE 6 ]>

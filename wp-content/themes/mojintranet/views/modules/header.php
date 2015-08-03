@@ -3,7 +3,7 @@
 <div class="header" role="banner">
   <div class="grid skip-to-content-container">
     <div class="col-lg-12 col-md-12 col-sm-12">
-      <a href="#content" tabindex="1">Skip to main content</a>
+      <a href="#content">Skip to main content</a>
     </div>
   </div>
   <div class="grid header-top">
