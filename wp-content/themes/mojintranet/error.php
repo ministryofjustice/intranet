@@ -18,7 +18,8 @@ class Error extends MVC_controller {
   private function get_data() {
     return array(
       'page' => 'pages/error/main',
-      'template_class' => 'error'
+      'template_class' => 'error',
+      'cache_timeout' => 60 * 60 * 24 /* 1 day */
     );
   }
 }
