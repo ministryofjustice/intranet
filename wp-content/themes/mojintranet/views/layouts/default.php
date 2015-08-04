@@ -1,8 +1,9 @@
 <?php if (!defined('ABSPATH')) die();
 
 header('X-Frame-Options: SAMEORIGIN');
-
-global $post;
+if(!is_user_logged_in()) {
+  header('Cache-Control: public, max-age=' . ($cache_timeout?:60) . ', must-revalidate');
+}
 
 ?>
 
