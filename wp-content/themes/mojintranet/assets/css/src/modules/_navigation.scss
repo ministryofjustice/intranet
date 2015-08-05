@@ -13,7 +13,7 @@
     position: relative;
 
     &.collapsed .dropdown-button {
-      background-position: 5px 12px;
+      background-position: 6px 12px;
     }
 
     .dropdown-button {
@@ -26,8 +26,9 @@
       padding: 6px;
       border: none;
       border-left: 1px solid $grey-2;
-      background-image: url('../images/arrows.png');
-      background-position: -12px 12px;
+      background-image: url('../images/arrows_x2.png');
+      background-size: 60px;
+      background-position: -9px 12px;
       background-repeat: no-repeat;
       background-color: transparent;
       text-indent: -2000px;
@@ -74,11 +75,11 @@
 
       .dropdown-button {
         border-left: 1px solid $white;
-        background-position: -48px 12px;
+        background-position: -40px 12px;
       }
 
       &.collapsed .dropdown-button {
-        background-position: -30px 12px;
+        background-position: -25px 12px;
       }
     }
   }
