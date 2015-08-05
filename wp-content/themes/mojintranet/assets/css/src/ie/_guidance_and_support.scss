@@ -1,19 +1,32 @@
-.lte-ie7.template-guidance-and-support-index .template-container {
+.lte-ie8.template-guidance-and-support-index .template-container {
   .guidance-categories-list {
     .category-item {
-      padding-right: 0;
+      display: inline-block;
+      float: none;
+      width: 33%;
+      vertical-align: top;
     }
 
     &.small {
-      border-top: none;
+      /*border-top: none;*/
 
       .category-item {
-        padding-top: 0;
+        /*padding-top: 0;*/
       }
     }
   }
 
   .children-list {
-    margin-left: 5px;
+    /*margin-left: 5px;*/
+  }
+}
+
+.lte-ie7.template-guidance-and-support-index .template-container {
+  .guidance-categories-list {
+    .category-item {
+      display: inline;
+      zoom: 1;
+      padding-right: 0;
+    }
   }
 }
