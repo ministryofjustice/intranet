@@ -39,6 +39,7 @@ class Page_guidance_and_support extends MVC_controller {
     return array(
       'page' => 'pages/guidance_and_support_content/main',
       'template_class' => 'guidance-and-support-content',
+      'cache_timeout' => 60 * 60, /* 1 hour */
       'page_data' => array(
         'id' => $this->post_ID,
         // 'author' => get_the_author(),

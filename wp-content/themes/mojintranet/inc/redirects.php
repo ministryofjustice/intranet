@@ -32,6 +32,11 @@ function dw_rewrite_rules() {
   add_rewrite_rule($regex, $redirect, 'top');
   add_rewrite_tag('%search-filter%', '([^&]+)');
   add_rewrite_tag('%search-string%', '([^&]+)');
+
+  // ping.json
+  $regex = '^ping.json';
+  $redirect = 'wp-content/themes/mojintranet/ping.php';
+  add_rewrite_rule($regex, $redirect, 'top');
 }
 add_action('init', 'dw_redirects');
 add_action('init', 'dw_rewrite_rules');

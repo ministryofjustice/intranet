@@ -4,7 +4,7 @@
 
 You'll need:
 
-* The most recent public release of Wordpress
+* The most recent public release of WordPress
 * A working Apache setup with mod_php5
 * Enable mod_rewrite within the Apache config
 * Mysql 5.6 and above or MariaDB 5.5
@@ -27,7 +27,7 @@ An example of a working vhost config for Apache would look similiar to this:
 
 Change the lines pointing to where libphp5 is installed on your system and also the domain.
 
-Also you'll need to enable short tags. If you don't have access to you systems php.ini then the easiest way of doing this is by enabling this within a .htaccess within the Wordpress root directory.
+Also you'll need to enable short tags. If you don't have access to you systems php.ini then the easiest way of doing this is by enabling this within a .htaccess within the WordPress root directory.
 
 An example .htaccess example including this and containing the the rules for pretty routes would look like this:
 
@@ -46,7 +46,7 @@ RewriteRule . /index.php [L]
 </IfModule>
 ```
 
-After you've installed Wordpress you'll need overwrite the default wp-content directory with
+After you've installed WordPress you'll need overwrite the default wp-content directory with
 the one found in this repo.
 
 Finally you'll need to make sure that both WP_HOME and WP_SITEURL is defined within wp_config.php like so:
@@ -74,5 +74,4 @@ There are others which need to be downloaded and installed seperately. These inc
 * Amazon web services https://wordpress.org/plugins/amazon-web-services/
 * CMS tree page view https://wordpress.org/plugins/cms-tree-page-view/
 * Recently edited content widget https://wordpress.org/plugins/recently-edited-content-widget/
-* WP document revisions https://wordpress.org/plugins/wp-document-revisions/
 * Oasis workflow premium https://wordpress.org/plugins/oasis-workflow/
