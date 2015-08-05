@@ -3,8 +3,6 @@
     .keywords-field {
       width: expression((this.parentNode.clientWidth - parseInt(this.currentStyle['paddingLeft']) - parseInt(this.currentStyle['paddingRight']) - parseInt(this.currentStyle['borderLeftWidth']) - parseInt(this.currentStyle['borderRightWidth'])) + 'px');
       height: 16px;
-      padding-top: 10px;
-      padding-bottom: 10px;
     }
 
     .search-btn {
@@ -23,6 +21,11 @@
 
 .lte-ie8 {
   .search-form {
+    .keywords-field {
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
+
     .search-btn {
       background-image: url('../images/search_icon.png');
     }
