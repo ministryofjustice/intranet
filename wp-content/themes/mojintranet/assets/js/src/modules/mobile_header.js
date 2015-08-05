@@ -46,6 +46,7 @@
     },
 
     searchClick: function(e) {
+      if(!$('html').hasClass('breakpoint-mobile')) { return; }
       if(!this.$top.hasClass(this.config.searchToggleClass)) {
         e.preventDefault();
         this.toggleSearch(true);
