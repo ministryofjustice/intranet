@@ -14,6 +14,7 @@ class Page_guidance_and_support_index extends MVC_controller {
     return array(
       'page' => 'pages/guidance_and_support/main',
       'template_class' => 'guidance-and-support-index',
+      'cache_timeout' => 60 * 60, /* 1 hour */
       'page_data' => array(
         'title' => get_the_title()
       )
