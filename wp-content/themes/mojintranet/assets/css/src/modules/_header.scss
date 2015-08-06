@@ -131,11 +131,11 @@
       .search-form {
         width: calc(100% - 48px);
         transition: width .5s;
-        border-right: 1px solid $dw-link;
+        border-right: 1px solid $govuk-blue;
         border-left: none;
 
         .search-btn {
-          background-color: $dw-link;
+          background-color: $govuk-blue;
         }
       }
     }
