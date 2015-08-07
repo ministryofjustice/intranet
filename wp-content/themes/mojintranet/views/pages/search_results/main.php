@@ -15,7 +15,9 @@
     <div class="col-lg-8 col-md-8 col-sm-12">
       <div role="search form" class="search-form search-string no-dw-autocomplete">
         <input class="keywords-field" autocomplete="off" type="text" placeholder="Search" name="s" value="<?=htmlspecialchars(urldecode(get_query_var('search-string')))?>">
-        <input class="search-btn cta" type="submit" value="Search" />
+        <!--[if IE 6 ]><img class="search-btn cta" id="search-btn" src="<?=get_template_directory_uri()?>/assets/images/search_icon_ie.png" alt="Search"/><![endif]-->
+        <!--[if IE 7 ]><img class="search-btn cta" id="search-btn" src="<?=get_template_directory_uri()?>/assets/images/search_icon_ie.png" alt="Search"/><![endif]-->
+        <!--[if (gt IE 7)|!(IE)]><!--><img class="search-btn cta" id="search-btn" src="<?=get_template_directory_uri()?>/assets/images/search_icon_x2.png" alt="Search"/><!--<![endif]-->
       </div>
     </div>
   </div>

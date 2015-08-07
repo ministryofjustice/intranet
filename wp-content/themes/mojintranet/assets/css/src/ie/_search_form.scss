@@ -6,11 +6,8 @@
     }
 
     .search-btn {
-      right: -1px;
       top: 4px;
-      bottom: 4px;
-      border-bottom: none;
-      text-transform: capitalize; /* hide the text hack... Noone knows why this works in IE7 :) */
+      height: 38px;
     }
   }
 
