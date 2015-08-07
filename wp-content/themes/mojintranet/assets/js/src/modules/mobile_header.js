@@ -48,14 +48,18 @@
 
     searchClick: function(e) {
       if(!$('html').hasClass('breakpoint-mobile')) {
-        this.$searchForm.submit();
+        if(this.$searchInput.val()) {
+          this.$searchForm.submit();
+        }
       } else {
         if(!this.$top.hasClass(this.config.searchToggleClass)) {
           e.preventDefault();
           this.toggleSearch(true);
           this.$searchInput.focus();
         } else {
-          this.$searchForm.submit();
+          if (this.$searchInput.val()) {
+            this.$searchForm.submit();
+          }
         }
       }
     },
