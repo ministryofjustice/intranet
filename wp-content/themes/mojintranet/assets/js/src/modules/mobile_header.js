@@ -47,21 +47,16 @@
     },
 
     searchClick: function(e) {
-
-      // The behaviour of the search button depends on the window width
-      // as detected by the media query:
-      // if narrow window, pressing the button opens the search field
-      // if wide window, it submits the search
-
-      // check if we're on narrow or wide window through the icon's colour -- not great
-      if (window.getComputedStyle(this.$searchButton[0], null).getPropertyValue('background-color') === 'rgb(11, 12, 12)') {
+      if(!$('html').hasClass('breakpoint-mobile')) {
+        this.$searchForm.submit();
+      } else {
         if(!this.$top.hasClass(this.config.searchToggleClass)) {
           e.preventDefault();
           this.toggleSearch(true);
           this.$searchInput.focus();
+        } else {
+          this.$searchForm.submit();
         }
-      } else {
-       this.$searchForm.submit();
       }
     },
 
