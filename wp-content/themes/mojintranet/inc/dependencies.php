@@ -19,7 +19,7 @@ add_action('admin_enqueue_scripts', 'pageparent_register_head');
 // Enqueue style for pageparent dropdown
 function pageparent_register_head($hook) {
   wp_enqueue_style('pageparent-style', get_template_directory_uri() . '/admin/css/pageparentstyle.css');
-  if($hook == 'upload.php') {
+  if(in_array($hook,array('upload.php','post.php'))) {
     wp_enqueue_script('dw-crop-image',get_template_directory_uri() . '/admin/js/image-crop.js',array('image-edit'),99);
   }
 }
