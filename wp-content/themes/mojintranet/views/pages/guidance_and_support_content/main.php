@@ -34,7 +34,7 @@
       </ul>
 
       <div class="tab-content editable"></div>
-      <span class="date-updated">Last updated: <?=$human_date?></span>
+      <span class="date-updated">Last updated: <time><?=$human_date?></time></span>
     </div>
   </div>
 
