@@ -37,7 +37,7 @@
 
       this.$keywordsInput.focus();
       this.setFilters();
-      this.toggleTabs();
+      this.loadResults({'type': 'all', 'page': 1});
     },
 
     cacheEls: function() {
@@ -55,7 +55,6 @@
       var inputFallbackEvent = (App.ie && App.ie < 9) ? 'keyup' : '';
 
       this.$keywordsInput.on('input ' + inputFallbackEvent, function(e) {
-        _this.toggleTabs();
         _this.loadResults({
           page: 1
         });
@@ -77,23 +76,15 @@
         e.preventDefault();
       });
 
-      this.$searchType.on('click', 'a', $.proxy(this.changeSearchType, this));
+      this.$searchType.on('change', $.proxy(this.changeSearchType, this));
     },
 
     changeSearchType: function(e) {
-      var $element = $(e.currentTarget).closest('[data-search-type]');
-
+      var $element = $(e.currentTarget).find('option:selected');
       e.preventDefault();
 
-      if($element.hasClass('selected')) {
-        return;
-      }
-
-      this.$searchType.find('[data-search-type]').removeClass('selected');
-      $element.addClass('selected');
-
       this.loadResults({
-        'type': $element.attr('data-search-type'),
+        'type': $element.val(),
         'page': 1
       });
     },
@@ -113,11 +104,11 @@
 
         this.$keywordsInput.val(keywords);
       }
-
-      this.$searchType.find('[data-search-type="' + type + '"] a').click();
+      this.$searchType.find('option[value="' + type + '"]').prop('selected', true);
     },
 
     loadResults: function(requestData) {
+      console.log('loadResults', requestData);
       var _this = this;
       var data;
       var keywords = this.getSanitizedKeywords();
@@ -253,11 +244,6 @@
           $filteredResultsTitle.find('.no-results-info').removeClass('hidden');
         }
       }
-    },
-
-    toggleTabs: function() {
-      var keywords = this.getSanitizedKeywords();
-      this.$searchType.toggleClass('visible', keywords.length >= 2);
     },
 
     hasKeywords: function() {
@@ -414,7 +400,7 @@
     getNewUrl: function(rootRelative) {
       var urlParts = [this.pageBase];
       var keywords = this.getSanitizedKeywords();
-      var type = this.$searchType.find('.selected').attr('data-search-type');
+      var type = this.$searchType.find('option:selected').val();
 
       //type
       urlParts.push(type || 'all');

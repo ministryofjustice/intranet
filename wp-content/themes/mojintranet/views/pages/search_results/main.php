@@ -23,7 +23,21 @@
   </div>
 
   <div class="grid">
-    <div class="col-lg-12 col-md-12 col-sm-12">
+    <div class="col-lg-4 col-md-4 col-sm-12">
+      <p>You can use the filters to show only results that match your interests</p>
+      <form class="content-filters">
+        <div class="form-row">
+          <label for="input-filter-type">Filter by</label>
+        </div>
+        <div class="form-row">
+          <select id="input-filter-date" name="type" class="search-type">
+            <option value="all">All</option>
+            <option value="page">Pages</option>
+            <option value="document">Forms and documents</option>
+          </select>
+        </div>
+      </form>
+      <!--
       <ul class="search-type content-tabs small-tabs">
         <li data-search-type="all">
           <a href="">All</a>
@@ -35,10 +49,8 @@
           <a href="">Forms and documents</a>
         </li>
       </ul>
+    -->
     </div>
-  </div>
-
-  <div class="grid">
     <div class="col-lg-8 col-md-8 col-sm-12">
       <ul class="results"></ul>
 
