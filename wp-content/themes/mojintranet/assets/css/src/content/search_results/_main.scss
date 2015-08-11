@@ -5,6 +5,10 @@
 
   .content-filters {
     margin-top: 24px;
+
+    select {
+      border-radius: 0;
+    }
   }
 
   .search-results-title {

@@ -24,8 +24,8 @@
 
   <div class="grid">
     <div class="col-lg-4 col-md-4 col-sm-12">
-      <p>You can use the filters to show only results that match your interests</p>
       <form class="content-filters">
+        <p>You can use the filters to show only results that match your interests</p>
         <div class="form-row">
           <label for="input-filter-type">Filter by</label>
         </div>

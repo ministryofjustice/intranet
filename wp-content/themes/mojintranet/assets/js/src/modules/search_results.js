@@ -108,7 +108,6 @@
     },
 
     loadResults: function(requestData) {
-      console.log('loadResults', requestData);
       var _this = this;
       var data;
       var keywords = this.getSanitizedKeywords();
@@ -296,7 +295,7 @@
       var keywords = this.getSanitizedKeywords();
       var segments = this.getSegmentsFromUrl();
       var page = segments[2] || 1;
-      var type = this.$searchType.find('.current-menu-item.selected').attr('data-search-type') || 'all';
+      var type = this.$searchType.find('option:selected').val();
 
       var base = {
         'type': type,
@@ -368,7 +367,7 @@
     updateTitle: function() {
       var titleParts = [];
       var keywords = this.getSanitizedKeywords();
-      var type = this.$searchType.find('.selected').attr('data-search-type');
+      var type = this.$searchType.find('option:selected').val();
 
       //type
       titleParts.push((type || 'All') + ' search results');
