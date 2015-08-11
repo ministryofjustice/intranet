@@ -14,7 +14,7 @@
         </li>
         <li>
           <span>History:</span>
-          <span>Published <?=$human_date?></span>
+          <span>Published <time><?=$human_date?></time></span>
         </li>
         <li>
           <span>Department:</span>
