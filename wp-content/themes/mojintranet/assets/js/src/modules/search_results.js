@@ -152,6 +152,7 @@
 
         this.updatePagination(data);
         this.updateUrl();
+        this.updateTitle();
         this.setResultsHeading(data);
       }
     },
@@ -202,6 +203,7 @@
 
       this.updatePagination(data);
       this.updateUrl();
+      this.updateTitle();
       this.stopLoadingResults();
 
       this.resultsLoaded = true;
@@ -375,6 +377,27 @@
       if(history.pushState) {
         history.pushState({}, "", this.getNewUrl());
       }
+    },
+
+    updateTitle: function() {
+      var titleParts = [];
+      var keywords = this.getSanitizedKeywords();
+      var type = this.$searchType.find('.selected').attr('data-search-type');
+
+      //type
+      titleParts.push((type || 'All') + ' search results');
+
+      //keywords
+      if (keywords) {
+        keywords = keywords.replace(/\s/g, '+');
+        keywords = App.tools.urlencode(keywords);
+        titleParts.push('for "' + keywords + '"');
+      }
+
+      //page number
+      titleParts.push('(page ' + this.currentPage + ')');
+
+      document.title = titleParts.join(' ') + ' - MoJ Intranet';
     },
 
     updateGA: function() {
