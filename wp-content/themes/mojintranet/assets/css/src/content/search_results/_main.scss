@@ -1,19 +1,36 @@
 .template-search-results .template-container {
+
+  .search-form {
+    margin-bottom: 40px;
+  }
+
   .page-title {
     border-bottom: none;
   }
 
   .content-filters {
-    margin-top: 24px;
+    margin: 0px 40px 20px 0px;
 
     select {
       border-radius: 0;
     }
+
+    & + p {
+      font-size: 16px;
+    }
+  }
+
+  .results {
+    margin-top: 0;
   }
 
   .search-results-title {
     font-weight: normal;
     margin-bottom: 50px;
+
+    h3 {
+      margin-top: 0;
+    }
   }
 
   .search-filtered-results-title {

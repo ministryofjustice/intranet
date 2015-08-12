@@ -25,7 +25,7 @@
   <div class="grid">
     <div class="col-lg-4 col-md-4 col-sm-12">
       <form class="content-filters">
-        <p>You can use the filters to show only results that match your interests</p>
+        <p class="description">You can use the filters to show only results that match your interests</p>
         <div class="form-row">
           <label for="input-filter-type">Filter by</label>
         </div>
@@ -37,19 +37,7 @@
           </select>
         </div>
       </form>
-      <!--
-      <ul class="search-type content-tabs small-tabs">
-        <li data-search-type="all">
-          <a href="">All</a>
-        </li>
-        <li data-search-type="page">
-          <a href="">Pages</a>
-        </li>
-        <li data-search-type="document">
-          <a href="">Forms and documents</a>
-        </li>
-      </ul>
-    -->
+      <p class="description">To search news go to the <a href="<?=get_permalink(get_page_by_path('newspage'))?>">news</a> page</p>
     </div>
     <div class="col-lg-8 col-md-8 col-sm-12">
       <ul class="results"></ul>
