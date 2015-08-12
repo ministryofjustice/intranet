@@ -37,7 +37,7 @@
           </select>
         </div>
       </form>
-      <p class="description">To search news go to the <a href="<?=get_permalink(get_page_by_path('newspage'))?>">news</a> page</p>
+      <p class="description">To search news go to the <a href="<?=get_permalink(get_page_by_path('newspage'))?>">News</a> page</p>
     </div>
     <div class="col-lg-8 col-md-8 col-sm-12">
       <ul class="results"></ul>
