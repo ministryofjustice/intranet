@@ -23,22 +23,22 @@
   </div>
 
   <div class="grid">
-    <div class="col-lg-12 col-md-12 col-sm-12">
-      <ul class="search-type content-tabs small-tabs">
-        <li data-search-type="all">
-          <a href="">All</a>
-        </li>
-        <li data-search-type="page">
-          <a href="">Pages</a>
-        </li>
-        <li data-search-type="document">
-          <a href="">Forms and documents</a>
-        </li>
-      </ul>
+    <div class="col-lg-4 col-md-4 col-sm-12">
+      <form class="content-filters">
+        <p class="description">You can use the filters to show only results that match your interests</p>
+        <div class="form-row">
+          <label for="input-filter-type">Filter by</label>
+        </div>
+        <div class="form-row">
+          <select id="input-filter-date" name="type" class="search-type">
+            <option value="all">All</option>
+            <option value="page">Pages</option>
+            <option value="document">Forms and documents</option>
+          </select>
+        </div>
+      </form>
+      <p class="description">To search news go to the <a href="<?=get_permalink(get_page_by_path('newspage'))?>">News</a> page</p>
     </div>
-  </div>
-
-  <div class="grid">
     <div class="col-lg-8 col-md-8 col-sm-12">
       <ul class="results"></ul>
 
@@ -71,7 +71,7 @@
 
   <?php $this->view('pages/search_results/templates/search_item'); ?>
   <?php $this->view('pages/search_results/templates/search_results_page_title'); ?>
-  <?php $this->view('pages/search_results/templates/serach_filtered_results_title'); ?>
+  <?php $this->view('pages/search_results/templates/search_filtered_results_title'); ?>
 </div>
 
 <?php endwhile ?>
