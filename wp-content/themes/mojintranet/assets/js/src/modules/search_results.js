@@ -53,11 +53,16 @@
     bindEvents: function() {
       var _this = this;
       var inputFallbackEvent = (App.ie && App.ie < 9) ? 'keyup' : '';
+      var typingTimeout;
 
       this.$keywordsInput.on('input ' + inputFallbackEvent, function(e) {
-        _this.loadResults({
-          page: 1
-        });
+        clearTimeout(typingTimeout);
+        typingTimeout = setTimeout(function() {
+          _this.toggleTabs();
+          _this.loadResults({
+            page: 1
+          });
+        },500);
       });
 
       this.$prevPage.click(function(e) {
