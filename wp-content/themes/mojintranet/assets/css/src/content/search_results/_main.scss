@@ -118,23 +118,50 @@
       content: "[PDF] ";
     }
 
-    &[href$=".doc"]:before {
-      content: "[DOC] ";
+    &[href$=".doc"],
+    &[href$=".dot"],
+    &[href$=".docx"],
+    &[href$=".docm"],
+    &[href$=".dotx"],
+    &[href$=".dotm"],
+    &[href$=".docb"] {
+      &:before {
+        content: "[DOC] ";
+      }
     }
 
     &[href$=".xls"],
-    &[href$=".xlsx"] {
+    &[href$=".xlt"],
+    &[href$=".xlm"],
+    &[href$=".xlsx"],
+    &[href$=".xlsm"],
+    &[href$=".xltx"],
+    &[href$=".xltm"],
+    &[href$=".xlsb"],
+    &[href$=".xla"],
+    &[href$=".xlam"],
+    &[href$=".xll"],
+    &[href$=".xlw"] {
       &:before {
         content: "[XLS] ";
       }
     }
 
-    &[href$=".pps"]:before {
-      content: "[PPS] ";
-    }
-
-    &[href$=".ppt"]:before {
-      content: "[PPT] ";
+    &[href$=".ppt"],
+    &[href$=".pot"],
+    &[href$=".pps"],
+    &[href$=".pptx"],
+    &[href$=".pptm"],
+    &[href$=".potx"],
+    &[href$=".potm"],
+    &[href$=".ppam"],
+    &[href$=".ppsx"],
+    &[href$=".ppsm"],
+    &[href$=".sldx"],
+    &[href$=".sldm"] {
+      &:before {
+        content: "[PPT] ";
+      }
     }
   }
 }
