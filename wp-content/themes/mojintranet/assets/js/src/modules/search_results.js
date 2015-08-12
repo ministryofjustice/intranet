@@ -57,7 +57,7 @@
 
       this.$keywordsInput.on('input ' + inputFallbackEvent, function(e) {
         clearTimeout(typingTimeout);
-        typingTimeout=setTimeout(function() {
+        typingTimeout = setTimeout(function() {
           _this.toggleTabs();
           _this.loadResults({
             page: 1

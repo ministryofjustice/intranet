@@ -120,7 +120,7 @@
       $target.attr('data-current-keywords', $target.val());
 
       clearTimeout(typingTimeout);
-      typingTimeout=setTimeout(function() {
+      typingTimeout = setTimeout(function() {
         _this.requestResults($target);
       },500);
     },
