@@ -32,7 +32,7 @@
         <div class="form-row">
           <select id="input-filter-date" name="type" class="search-type">
             <option value="all">All</option>
-            <option value="page">Pages</option>
+            <option value="content">Pages</option>
             <option value="document">Forms and documents</option>
           </select>
         </div>
