@@ -107,9 +107,11 @@
     },
 
     autocompleteTypingHandle: function(e) {
+      var _this = this;
       var key = e.which || e.keyCode;
       var $highlighted;
       var $target = $(e.target);
+      var typingTimeout;
 
       if(key === 38 || key === 40 || key === 27) {
         return;
@@ -117,7 +119,10 @@
 
       $target.attr('data-current-keywords', $target.val());
 
-      this.requestResults($target);
+      clearTimeout(typingTimeout);
+      typingTimeout = setTimeout(function() {
+        _this.requestResults($target);
+      },500);
     },
 
     outsideClickHandle: function(e) {

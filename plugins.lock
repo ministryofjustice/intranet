@@ -17,12 +17,12 @@
     "oasis-workflow-premium": {
         "repository": "git@github.com:ministryofjustice/oasis-workflow-premium.git",
         "revision": "master",
-        "commit": "a63cb2724e9a08ecf3305dae04fec8381ec8e4f1"
+        "commit": "48c1be5c29e512f685b1d8c651e64fcb9ad73629"
     },
     "pods": {
         "repository": "git@git.dxw.net:wordpress-plugins/pods",
         "revision": "master",
-        "commit": "9be47992e6e10f34874f2eaa2cd33c1563a16c47"
+        "commit": "f1fa3a35a02824d50f93aa50d26f2fa9d41cd938"
     },
     "recently-edited-content-widget": {
         "repository": "git@git.dxw.net:wordpress-plugins/recently-edited-content-widget",
