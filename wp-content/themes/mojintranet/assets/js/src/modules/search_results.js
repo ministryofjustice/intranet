@@ -363,8 +363,8 @@
     /** Updates the url based on user selections
      */
     updateUrl: function() {
-      if(history.pushState) {
-        history.pushState({}, "", this.getNewUrl());
+      if(history.replaceState) {
+        history.replaceState({}, "", this.getNewUrl());
       }
     },
 

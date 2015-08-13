@@ -8,7 +8,7 @@ function dw_redirects() {
     $keywords = str_replace('%5C', '%255C', $keywords);
     $filter = $_POST['search-filter'] ?: 'all';
 
-    header('Location: ' . site_url() . '/search-results/' . $filter . '/' . $keywords . '/');
+    header('Location: ' . site_url() . '/search-results/' . $filter . '/' . $keywords . '/1/');
     exit;
   }
 
