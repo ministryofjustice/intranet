@@ -165,13 +165,14 @@
       display: block;
 
       &:after {
-        background-image: none;
+        display: none;
       }
     }
 
     .app-name {
       display: block;
       text-align: center;
+      line-height: 16px;
     }
 
     .app-icon {

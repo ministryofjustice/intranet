@@ -1,6 +1,7 @@
 .news-widget.need-to-know {
   .widget-title {
     @extend %large-heading;
+    margin-top: 20px;
     margin-bottom: 10px;
     border-bottom: 1px solid $grey-1;
   }
