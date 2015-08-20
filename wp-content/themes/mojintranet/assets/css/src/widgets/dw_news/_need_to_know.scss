@@ -17,7 +17,7 @@
 
   .news-item {
     display: none;
-    margin: 15px 0;
+    margin: 20px 0;
 
     &:selected {
       display: block;
@@ -25,7 +25,7 @@
 
     .news-heading {
       @extend %medium-heading;
-      margin: 0 15px 15px;
+      margin: 0 15px 15px 0px;
       padding: 0;
       border-bottom: none;
 
