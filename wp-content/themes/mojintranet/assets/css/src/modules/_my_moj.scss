@@ -1,6 +1,15 @@
+.my-moj-trigger {
+  color: white;
+  cursor: pointer;
+  text-align: right;
+  padding-top: 10px;
+}
+
 .my-moj {
-  position: relative;
-  margin-top: 20px;
+  position: absolute;
+  right: 0;
+  top: 30px;
+  width: 480px;
   margin-bottom: 10px;
   background-color: #ececec;
 
