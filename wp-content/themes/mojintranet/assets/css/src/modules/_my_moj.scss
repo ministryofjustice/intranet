@@ -3,15 +3,31 @@
   cursor: pointer;
   text-align: right;
   padding-top: 10px;
+  padding-right: 13px;
 }
 
 .my-moj {
   position: absolute;
-  right: 0;
-  top: 30px;
+  margin-top: 20px;
+  top: 21px;
+  right: 16px;
   width: 480px;
   margin-bottom: 10px;
   background-color: #ececec;
+
+  select {
+    width: 100%;
+    padding: 5px 7px 5px 10px;
+    box-shadow: 1px 1px 1px $white;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    -moz-user-select: none;
+    background: url("../images/dropdown_background_x2.png") no-repeat scroll right center $white;
+    background-size: auto 100%;
+    border: 1px solid $grey-2;
+    border-radius: 5px;
+  }
 
   .my-intranet-form {
     @include clearfix;
@@ -266,6 +282,7 @@
 @include mobile-mq() {
   .my-moj {
     display: block;
+    position: static;
     margin-top: 0;
 
     .my-moj-top {

@@ -7,6 +7,7 @@
     this.$top = $('.my-moj-trigger');
     if(!this.$top.length) { return; }
     this.init();
+    this.isOpen = false;
   };
 
   App.MyMoj.prototype = {
@@ -16,20 +17,34 @@
     },
 
     cacheEls: function() {
+      this.$container = $('.my-moj-container');
       this.$myMoj = $('.my-moj');
       this.$arrow = $('.my-moj-trigger .arrow');
     },
 
     bindEvents: function() {
-      this.$top.on('click', $.proxy(this.toggle, this, true));
+      this.$top.on('click', $.proxy(this.toggle, this, false));
+    },
+
+    close: function(e) {
+      this.$myMoj.hide();
+      this.$arrow.html('▼');
+      this.isOpen = false;
+      $('#content').off('click');
+    },
+
+    open: function() {
+      this.$myMoj.show();
+      this.$arrow.html('▲');
+      this.isOpen = true;
+      $('#content').on('click', $.proxy(this.close, this));
     },
 
     toggle: function() {
-      this.$myMoj.slideToggle();
-      if (this.$arrow.html() === '▼') {
-        this.$arrow.html('▲');
+      if (this.isOpen) {
+        this.close();
       } else {
-        this.$arrow.html('▼');
+        this.open();
       }
       return false;
     }
