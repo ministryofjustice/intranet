@@ -27,15 +27,17 @@
 
       <ul role="tablist" class="content-tabs <?=$tab_count >= 3 ? 'small-tabs' : ''?> <?=$tab_count <= 1 ? 'hidden' : ''?>">
         <?php foreach($tab_array as $tab_row): ?>
-          <li role="presentation">
+          <li role="presentation" data-content="<?=$tab_row['name']?>">
             <a id="tab-<?=$tab_row['name']?>" role="tab" aria-selected="false" aria-controls="panel-<?=$tab_row['name']?>" href=""><?=$tab_row['title']?></a>
           </li>
         <?php endforeach ?>
       </ul>
 
-      <?php $tab_no=1; ?>
+      <div class="tab-content editable"></div>
+      <span class="date-updated">Last updated: <time><?=$human_date?></time></span>
+
       <?php foreach($tab_array as $tab_number=>$tab_row): ?>
-        <div id="panel-<?=$tab_row['name']?>" class="template-partial editable" role="tabpanel" aria-labelled-by="tab-<?='tab-'.$tab_row['name']?>">
+        <div id="panel-<?=$tab_row['name']?>" data-template-type="tab-content" data-content-name="<?=$tab_row['name']?>" class="template-partial editable" role="tabpanel" aria-labelled-by="tab-<?='tab-'.$tab_row['name']?>">
           <?php foreach($tab_row['sections'] as $section): ?>
             <h2><?=$section['title']?></h2>
             <?=$section['content']?>
@@ -45,23 +47,22 @@
             <?php if($autoheadings): ?>
               <h2><?=$links_title?></h2>
             <?php endif ?>
+
             <ul>
-              <?php foreach($link_array->tabs[$tab_number] as $link_row): ?>
-                <?php if($link_row['heading']): ?>
-                  </ul>
-                  <h2><?=$link_row['linktext']?></h2>
-                  <ul>
-                <?php else: ?>
-                  <li>
-                    <a href="<?=$link_row['linkurl']?>"><?=$link_row['linktext']?></a>
-                  </li>
-                <?php endif ?>
-              <?php endforeach ?>
+            <?php foreach($link_array->tabs[$tab_number] as $link_row): ?>
+              <?php if($link_row['heading']): ?>
+                </ul>
+                <h2><?=$link_row['linktext']?></h2>
+                <ul>
+              <?php else: ?>
+                <li>
+                  <a href="<?=$link_row['linkurl']?>"><?=$link_row['linktext']?></a>
+                </li>
+              <?php endif ?>
+            <?php endforeach ?>
             </ul>
-            </div>
           <?php endif ?>
         </div>
-        <?php $tab_no++; ?>
       <?php endforeach ?>
 
       <div class="template-partial" data-name="menu-item">
@@ -80,8 +81,6 @@
           <a href="" class="child-item-link"></a>
         </li>
       </div>
-
-      <span class="date-updated">Last updated: <time><?=$human_date?></time></span>
     </div>
   </div>
 </div>

@@ -52,13 +52,13 @@
     font-weight: normal;
   }
 
-  .template-partial {
-    margin-bottom: 40px;
-  }
-
   .excerpt {
     @extend %larger-copy;
     margin-top: 30px;
+  }
+
+  .tab-content {
+    margin-bottom: 40px;
   }
 
   .date-updated {
