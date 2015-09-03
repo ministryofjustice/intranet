@@ -37,7 +37,7 @@
 
       this.$keywordsInput.focus();
       this.setFilters();
-      this.toggleTabs();
+      this.loadResults({'type': 'all', 'page': 1});
     },
 
     cacheEls: function() {
@@ -53,12 +53,15 @@
     bindEvents: function() {
       var _this = this;
       var inputFallbackEvent = (App.ie && App.ie < 9) ? 'keyup' : '';
+      var typingTimeout;
 
       this.$keywordsInput.on('input ' + inputFallbackEvent, function(e) {
-        _this.toggleTabs();
-        _this.loadResults({
-          page: 1
-        });
+        clearTimeout(typingTimeout);
+        typingTimeout = setTimeout(function() {
+          _this.loadResults({
+            page: 1
+          });
+        },500);
       });
 
       this.$prevPage.click(function(e) {
@@ -77,23 +80,15 @@
         e.preventDefault();
       });
 
-      this.$searchType.on('click', 'a', $.proxy(this.changeSearchType, this));
+      this.$searchType.on('change', $.proxy(this.changeSearchType, this));
     },
 
     changeSearchType: function(e) {
-      var $element = $(e.currentTarget).closest('[data-search-type]');
-
+      var $element = $(e.currentTarget).find('option:selected');
       e.preventDefault();
 
-      if($element.hasClass('selected')) {
-        return;
-      }
-
-      this.$searchType.find('[data-search-type]').removeClass('selected');
-      $element.addClass('selected');
-
       this.loadResults({
-        'type': $element.attr('data-search-type'),
+        'type': $element.val(),
         'page': 1
       });
     },
@@ -113,8 +108,7 @@
 
         this.$keywordsInput.val(keywords);
       }
-
-      this.$searchType.find('[data-search-type="' + type + '"] a').click();
+      this.$searchType.find('option[value="' + type + '"]').prop('selected', true);
     },
 
     loadResults: function(requestData) {
@@ -152,6 +146,7 @@
 
         this.updatePagination(data);
         this.updateUrl();
+        this.updateTitle();
         this.setResultsHeading(data);
       }
     },
@@ -202,6 +197,7 @@
 
       this.updatePagination(data);
       this.updateUrl();
+      this.updateTitle();
       this.stopLoadingResults();
 
       this.resultsLoaded = true;
@@ -245,17 +241,12 @@
       else if(this.hasKeywords()) { //has keywords but there were no results
         this.$results.append($filteredResultsTitle);
         $filteredResultsTitle.find('.results-count').text(totalResults);
-        $filteredResultsTitle.find('.results-count-description').text(totalResults === 1 ? 'result' : 'results');
+        $filteredResultsTitle.find('.results-count-description').text('search ' + (totalResults === 1 ? 'result' : 'results'));
 
         if(!totalResults) {
           $filteredResultsTitle.find('.no-results-info').removeClass('hidden');
         }
       }
-    },
-
-    toggleTabs: function() {
-      var keywords = this.getSanitizedKeywords();
-      this.$searchType.toggleClass('visible', keywords.length >= 2);
     },
 
     hasKeywords: function() {
@@ -308,7 +299,7 @@
       var keywords = this.getSanitizedKeywords();
       var segments = this.getSegmentsFromUrl();
       var page = segments[2] || 1;
-      var type = this.$searchType.find('.current-menu-item.selected').attr('data-search-type') || 'all';
+      var type = this.$searchType.find('option:selected').val();
 
       var base = {
         'type': type,
@@ -372,9 +363,30 @@
     /** Updates the url based on user selections
      */
     updateUrl: function() {
-      if(history.pushState) {
-        history.pushState({}, "", this.getNewUrl());
+      if(history.replaceState) {
+        history.replaceState({}, "", this.getNewUrl());
       }
+    },
+
+    updateTitle: function() {
+      var titleParts = [];
+      var keywords = this.getSanitizedKeywords();
+      var type = this.$searchType.find('option:selected').val();
+
+      //type
+      titleParts.push((type || 'All') + ' search results');
+
+      //keywords
+      if (keywords) {
+        keywords = keywords.replace(/\s/g, '+');
+        keywords = App.tools.urlencode(keywords);
+        titleParts.push('for "' + keywords + '"');
+      }
+
+      //page number
+      titleParts.push('(page ' + this.currentPage + ')');
+
+      document.title = titleParts.join(' ') + ' - MoJ Intranet';
     },
 
     updateGA: function() {
@@ -391,7 +403,7 @@
     getNewUrl: function(rootRelative) {
       var urlParts = [this.pageBase];
       var keywords = this.getSanitizedKeywords();
-      var type = this.$searchType.find('.selected').attr('data-search-type');
+      var type = this.$searchType.find('option:selected').val();
 
       //type
       urlParts.push(type || 'all');

@@ -14,7 +14,7 @@
         </li>
         <li>
           <span>History:</span>
-          <span>Published <?=$human_date?></span>
+          <span>Published <time><?=$human_date?></time></span>
         </li>
         <li>
           <span>Department:</span>
@@ -46,31 +46,31 @@
 
       <ul class="content-nav grid">
         <li class="previous col-lg-6 col-md-6 col-sm-6">
-          <? if($prev_news_exists): ?>
+          <?php if($prev_news_exists): ?>
             <a href="<?=$prev_news_url?>" aria-labelledby="prev-page-label">
               <span class="nav-label" id="prev-page-label">
                 Previous
               </span>
             </a>
-          <? else: ?>
+          <?php else: ?>
             <span class="nav-label">
               Previous
             </span>
-          <? endif ?>
+          <?php endif ?>
         </li>
 
         <li class="next col-lg-6 col-md-6 col-sm-6">
-          <? if($next_news_exists): ?>
+          <?php if($next_news_exists): ?>
             <a href="<?=$next_news_url?>" aria-labelledby="next-page-label">
               <span class="nav-label" id="next-page-label">
                 Next
               </span>
             </a>
-          <? else: ?>
+          <?php else: ?>
             <span class="nav-label">
               Next
             </span>
-          <? endif ?>
+          <?php endif ?>
         </li>
       </ul>
 

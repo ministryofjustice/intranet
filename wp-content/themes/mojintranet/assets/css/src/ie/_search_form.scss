@@ -3,16 +3,11 @@
     .keywords-field {
       width: expression((this.parentNode.clientWidth - parseInt(this.currentStyle['paddingLeft']) - parseInt(this.currentStyle['paddingRight']) - parseInt(this.currentStyle['borderLeftWidth']) - parseInt(this.currentStyle['borderRightWidth'])) + 'px');
       height: 16px;
-      padding-top: 10px;
-      padding-bottom: 10px;
     }
 
     .search-btn {
-      right: -1px;
       top: 4px;
-      bottom: 4px;
-      border-bottom: none;
-      text-transform: capitalize; /* hide the text hack... Noone knows why this works in IE7 :) */
+      height: 38px;
     }
   }
 
@@ -23,8 +18,9 @@
 
 .lte-ie8 {
   .search-form {
-    .search-btn {
-      background-image: url('../images/search_icon.png');
+    .keywords-field {
+      padding-top: 10px;
+      padding-bottom: 10px;
     }
   }
 }

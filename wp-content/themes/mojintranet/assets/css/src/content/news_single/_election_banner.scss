@@ -1,6 +1,6 @@
 .election-banner {
   border: 4px solid $purple;
-  .content {
+  &.message .content {
     margin-bottom: 0;
     h3 {
       color: $purple;
