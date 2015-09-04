@@ -1,8 +1,9 @@
 <?php if (!defined('ABSPATH')) die();
 
 header('X-Frame-Options: SAMEORIGIN');
-
-global $post;
+if(!is_user_logged_in()) {
+  header('Cache-Control: public, max-age=' . ($cache_timeout?:60) . ', must-revalidate');
+}
 
 ?>
 
@@ -20,7 +21,7 @@ global $post;
 <body>
   <?php $this->view('modules/google_tag_manager'); ?>
   <?php $this->view('modules/header', $this->header_model->get_data()); ?>
-  <div id="content" class="container main-content" role="main">
+  <div id="content" class="container main-content" role="main" tabindex="-1">
     <div class="content-wrapper">
       <?php $this->view('modules/beta_banner'); ?>
       <!--[if IE 6 ]>

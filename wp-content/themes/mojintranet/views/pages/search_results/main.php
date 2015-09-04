@@ -14,29 +14,31 @@
   <div class="grid">
     <div class="col-lg-8 col-md-8 col-sm-12">
       <div role="search form" class="search-form search-string no-dw-autocomplete">
-        <input class="keywords-field" autocomplete="off" type="text" placeholder="Search" name="s" value="<?=htmlspecialchars(urldecode(get_query_var('search-string')))?>">
-        <input class="search-btn cta" type="submit" value="Search" />
+        <input class="keywords-field" autocomplete="off" type="text" placeholder="Search MoJ Intranet" name="s" value="<?=htmlspecialchars(urldecode(get_query_var('search-string')))?>">
+        <!--[if IE 6 ]><img class="search-btn cta" id="search-btn" src="<?=get_template_directory_uri()?>/assets/images/search_icon_ie.png" alt="Search"/><![endif]-->
+        <!--[if IE 7 ]><img class="search-btn cta" id="search-btn" src="<?=get_template_directory_uri()?>/assets/images/search_icon_ie.png" alt="Search"/><![endif]-->
+        <!--[if (gt IE 7)|!(IE)]><!--><img class="search-btn cta" id="search-btn" src="<?=get_template_directory_uri()?>/assets/images/search_icon_x2.png" alt="Search"/><!--<![endif]-->
       </div>
     </div>
   </div>
 
   <div class="grid">
-    <div class="col-lg-12 col-md-12 col-sm-12">
-      <ul class="search-type content-tabs small-tabs">
-        <li data-search-type="all">
-          <a href="">All</a>
-        </li>
-        <li data-search-type="page">
-          <a href="">Pages</a>
-        </li>
-        <li data-search-type="document">
-          <a href="">Forms and documents</a>
-        </li>
-      </ul>
+    <div class="col-lg-4 col-md-4 col-sm-12">
+      <form class="content-filters">
+        <p class="description">You can use the filters to show only results that match your interests</p>
+        <div class="form-row">
+          <label for="input-filter-type">Filter by</label>
+        </div>
+        <div class="form-row">
+          <select id="input-filter-date" name="type" class="search-type">
+            <option value="all">All</option>
+            <option value="content">Pages</option>
+            <option value="document">Forms and documents</option>
+          </select>
+        </div>
+      </form>
+      <p class="description">To search news go to the <a href="<?=get_permalink(get_page_by_path('newspage'))?>">News</a> page</p>
     </div>
-  </div>
-
-  <div class="grid">
     <div class="col-lg-8 col-md-8 col-sm-12">
       <ul class="results"></ul>
 
@@ -69,7 +71,7 @@
 
   <?php $this->view('pages/search_results/templates/search_item'); ?>
   <?php $this->view('pages/search_results/templates/search_results_page_title'); ?>
-  <?php $this->view('pages/search_results/templates/serach_filtered_results_title'); ?>
+  <?php $this->view('pages/search_results/templates/search_filtered_results_title'); ?>
 </div>
 
 <?php endwhile ?>

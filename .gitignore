@@ -109,6 +109,7 @@ wp-content/plugins/relevanssi*/
 wp-content/plugins/
 .htaccess
 *.css.map
+/wp-content/whippet-wp-config.php
 
 # auto-generated files
 /wp-content/themes/mojintranet/ping.json
@@ -117,3 +118,11 @@ wp-content/plugins/
 /wp-content/themes/mojintranet/assets/css/style.css
 /wp-content/themes/mojintranet/assets/css/fonts.css
 /wp-content/themes/mojintranet/assets/js/app.js
+/wp-content/plugins/amazon-s3-and-cloudfront
+/wp-content/plugins/amazon-web-services
+/wp-content/plugins/cms-tree-page-view
+/wp-content/plugins/oasis-workflow-premium
+/wp-content/plugins/pods
+/wp-content/plugins/recently-edited-content-widget
+/wp-content/plugins/relevanssi-premium
+/wp-content/plugins/wp-document-revisions

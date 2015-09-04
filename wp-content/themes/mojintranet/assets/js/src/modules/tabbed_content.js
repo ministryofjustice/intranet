@@ -42,12 +42,18 @@
       var $el = $(e.currentTarget);
       var contentName = $el.attr('data-content');
       this.$tabContent.html(this.templates[contentName]);
-      this.$tabs.removeClass('current-menu-item');
-      $el.addClass('current-menu-item');
       e.preventDefault();
+      this.setActiveTab($el);
 
       //hopefully one day we can replace this manual call with Mutation Observer
       App.ins.tableOfContents.generate();
+    },
+
+    setActiveTab: function($el) {
+      this.$tabs.removeClass('current-menu-item');
+      this.$tabs.find('a').attr('aria-selected', false);
+      $el.addClass('current-menu-item');
+      $el.find('a').attr('aria-selected', true);
     }
   };
 }(jQuery));

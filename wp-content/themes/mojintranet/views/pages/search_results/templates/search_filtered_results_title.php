@@ -1,8 +1,8 @@
 <?php if (!defined('ABSPATH')) die(); ?>
 
 <div class="template-partial" data-name="search-filtered-results-title">
-  <div class="search-filtered-results-title search-results-title">
-    <h3>
+  <div class="search-filtered-results-title">
+    <h3 class="search-results-title">
       <span class="results-count"></span>
       <span class="results-count-description"></span>
     </h3>

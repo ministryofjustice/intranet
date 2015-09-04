@@ -22,7 +22,20 @@
 
   .quick-links-container {
     .category-name {
-      margin-bottom: 18px;
+      margin-bottom: 8px;
+    }
+
+    .nested-menu {
+      margin-top: 0;
+    }
+
+    .menu-item {
+      margin-top: 10px;
+    }
+
+    .menu-link {
+      @extend %medium-copy;
+      text-decoration: underline;
     }
   }
 
@@ -58,7 +71,7 @@
 
   .my-moj-top {
     padding: 12px 30px;
-    background-color: $turquoise;
+    background-color: $my-moj-top-bg;
 
     .department-dropdown-box {
       @extend %medium-copy;
@@ -152,13 +165,14 @@
       display: block;
 
       &:after {
-        background-image: none;
+        display: none;
       }
     }
 
     .app-name {
       display: block;
       text-align: center;
+      line-height: 16px;
     }
 
     .app-icon {

@@ -2,7 +2,7 @@
   "use strict";
 
   App.Navigation = function() {
-    this.$top = $('.template-guidance-and-support-content .template-container');
+    this.$top = $('.template-guidance-and-support-content, .template-generic-nav').find('.template-container');
     if(!this.$top.length) { return; }
     this.init();
   };

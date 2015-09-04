@@ -12,6 +12,10 @@
   .menu-item {
     position: relative;
 
+    &.collapsed .dropdown-button {
+      background-position: 6px 12px;
+    }
+
     .dropdown-button {
       position: absolute;
       display: block;
@@ -20,10 +24,14 @@
       bottom: 0;
       width: 23px;
       padding: 6px;
-      background: none;
       border: none;
       border-left: 1px solid $grey-2;
-      text-indent: 23px;
+      background-image: url('../images/arrows_x2.png');
+      background-size: 60px;
+      background-position: -9px 12px;
+      background-repeat: no-repeat;
+      background-color: transparent;
+      text-indent: -2000px;
       overflow: hidden;
 
       &:hover {
@@ -40,24 +48,6 @@
       &:hover {
         background-color: rgba(0, 0, 0, .1);
       }
-
-      &:after {
-        content: "\25be";
-        position: absolute;
-        width: 21px;
-        top: 0;
-        left: 0;
-        transform: rotate(180deg);
-        color: $black;
-        font-size: 16px;
-        line-height: 30px;
-        text-align: center;
-        text-indent: 0;
-      }
-    }
-
-    &.collapsed .dropdown-button:after {
-      transform: rotate(0deg);
     }
 
     &.no-children .dropdown-button {
@@ -75,23 +65,21 @@
     }
 
     &.current {
-      &:after {
-        color: $white;
-      }
 
       .menu-item-link {
-        border: 1px solid $link-hover-colour;
-        background-color: $link-hover-colour;
+        border: 1px solid $menu-item-select-bg;
+        background-color: $menu-item-select-bg;
         color: $white;
         font-weight: bold;
       }
 
       .dropdown-button {
         border-left: 1px solid $white;
+        background-position: -40px 12px;
+      }
 
-        &:after {
-          color: $white;
-        }
+      &.collapsed .dropdown-button {
+        background-position: -25px 12px;
       }
     }
   }

@@ -3,3 +3,13 @@
     -ms-interpolation-mode: bicubic;
   }
 }
+
+.lte-ie8 {
+  a {
+    &[rel="external"] {
+      &:after {
+        background-image: url('../images/external_link.png');
+      }
+    }
+  }
+}

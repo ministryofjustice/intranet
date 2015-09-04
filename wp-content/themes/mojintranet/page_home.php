@@ -18,6 +18,7 @@ class Page_home extends MVC_controller {
     return array(
       'page' => 'pages/homepage/main',
       'template_class' => 'home',
+      'cache_timeout' => 180,
       'page_data' => array(
         'emergency_message' => $this->get_emergency_message(),
         'my_moj' => $this->my_moj_model->get_data()

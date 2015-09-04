@@ -1,5 +1,6 @@
 .news-widget.featured {
   .title {
+    @extend %large-heading;
     margin-top: 0;
     margin-bottom: 0px;
     padding-top: 16px;
@@ -30,6 +31,7 @@
     }
 
     .news-content {
+      padding-top: 3px;
     }
 
     .news-excerpt {
