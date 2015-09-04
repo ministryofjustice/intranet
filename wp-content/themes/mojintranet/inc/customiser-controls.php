@@ -11,7 +11,7 @@ class News_Dropdown_Custom_Control extends WP_Customize_Control
 
     public function __construct($manager, $id, $args = array(), $options = array())
     {
-        $postargs = wp_parse_args($options, array('numberposts' => '10', 'post_type' => 'news'));
+        $postargs = wp_parse_args($options, array('numberposts' => '-1', 'post_type' => 'news'));
         $this->posts = get_posts($postargs);
 
         parent::__construct( $manager, $id, $args );
