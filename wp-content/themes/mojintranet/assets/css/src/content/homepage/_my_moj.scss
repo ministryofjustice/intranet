@@ -9,6 +9,7 @@
   }
 
   .category-name {
+    @extend %large-heading;
     border-bottom: 1px solid $grey-1;
     font-weight: normal;
   }
