@@ -19,7 +19,7 @@
 
   <div class="grid">
     <div class="col-lg-4 col-md-4 col-sm-12">
-      <h4 class="filters-label">Filter results</h4>
+      <h3 class="filters-label">Filter results</h3>
       <form class="content-filters">
         <p class="description">The results will update automatically based on your selections.</p>
         <div class="form-row">
@@ -90,18 +90,18 @@
   </div>
 
   <div class="template-partial" data-name="news-results-page-title">
-    <h3 class="news-results-page-title news-results-title">Latest</h3>
+    <h2 class="news-results-page-title news-results-title">Latest</h2>
   </div>
 
   <div class="template-partial" data-name="news-filtered-results-title">
-    <h3 class="news-filtered-results-title news-results-title">
+    <h2 class="news-filtered-results-title news-results-title">
       <span class="results-count"></span>
       <span class="results-count-description"></span>
       <span class="containing">containing</span>
       <span class="keywords"></span>
       <span class="for-date">for</span>
       <span class="date"></span>
-    </h3>
+    </h2>
   </div>
 </div>
 
