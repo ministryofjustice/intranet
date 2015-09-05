@@ -12,6 +12,7 @@
 
   .page-category {
     @extend %large-heading;
+    display: block;
     margin-top: 16px;
     margin-bottom: 0px;
     font-weight: normal;
