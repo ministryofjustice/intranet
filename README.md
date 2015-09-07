@@ -1,7 +1,6 @@
 # MoJ Intranet Theme
 
-![Build Status](https://circleci.com/gh/ministryofjustice/mojintranet-theme.png?circle-token=6c61611f625130b9eb9b85f9fa6e868bb87a6062)
-
+[![Circle CI](https://circleci.com/gh/ministryofjustice/mojintranet-theme.svg?style=svg&circle-token=6c61611f625130b9eb9b85f9fa6e868bb87a6062)](https://circleci.com/gh/ministryofjustice/mojintranet-theme)
 ## Getting started
 
 You'll need:
