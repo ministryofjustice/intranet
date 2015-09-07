@@ -17,9 +17,12 @@ function template_customise() {
     }
     $page_template = str_replace('_','-',get_post_meta($post_id, '_wp_page_template', TRUE));
     preg_match('/^page-(.+)\.php/',$page_template,$matches);
-    $template_file = $matches[1];
+    $template_file = $matches[1]?:("single-".get_post_type( $post_id ));
     if (isset($template_options[$template_file])) {
-        require(get_stylesheet_directory()."/admin/templates/template-specific/".$template_file.".php");
+        $template_include = get_stylesheet_directory()."/admin/templates/template-specific/".$template_file.".php";
+        if(file_exists($template_include)) {
+          require($template_include);
+        }
         // Add post type support for matching template
         if(isset($template_options[$template_file]['add'])) {
             add_post_type_support('page', $template_options[$template_file]['add'] );
@@ -66,8 +69,13 @@ function process_metaboxes() {
 
     $page_template = str_replace('_','-',get_post_meta($post_id, '_wp_page_template', TRUE));
     preg_match('/^page-(.+)\.php/',$page_template,$matches);
-    $template_file = $matches[1];
-
+    if($matches[1]) {
+      $template_file = $matches[1];
+      $post_type = 'page';
+    } else {
+      $post_type = get_post_type( $post_id );
+      $template_file = "single-".$post_type;
+    }
     // Add custom metaboxes for matching template
     if(isset($template_options[$template_file]['metaboxes'])) {
         foreach($template_options[$template_file]['metaboxes'] as $metabox) {
@@ -75,11 +83,11 @@ function process_metaboxes() {
                 $metabox['id'],
                 $metabox['title'],
                 $metabox['id']."_callback",
-                'page',
+                $post_type,
                 $metabox['context'],
                 $metabox['priority']
             );
         }
     }
 }
-add_action('add_meta_boxes_page','process_metaboxes');
+add_action('add_meta_boxes','process_metaboxes');
