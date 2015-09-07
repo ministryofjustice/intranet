@@ -48,9 +48,7 @@
 
     searchClick: function(e) {
       if(!$('html').hasClass('breakpoint-mobile')) {
-        if(this.$searchInput.val()) {
-          this.$searchForm.submit();
-        }
+        this.$searchForm.submit();
       } else {
         if(!this.$top.hasClass(this.config.searchToggleClass)) {
           e.preventDefault();
