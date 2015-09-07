@@ -1,6 +1,6 @@
 # MoJ Intranet Theme
 
-![Build Status](https://circleci.com/gh/ministryofjustice/mojintranet-theme.png?circle-token=6be4e0dc32149ded09a262b2837fa1f074d527ee)
+![Build Status](https://circleci.com/gh/ministryofjustice/mojintranet-theme.png?circle-token=6c61611f625130b9eb9b85f9fa6e868bb87a6062)
 
 ## Getting started
 
