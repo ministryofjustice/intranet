@@ -28,7 +28,9 @@
 
     <nav class="quick-links-container mobile-collapsed">
       <h3 class="category-name">Quick links</h3>
-      <?php dynamic_sidebar('my-moj-quick-links'); ?>
+      <div class="quick-links-list-container">
+        <?php dynamic_sidebar('my-moj-quick-links'); ?>
+      </div>
     </nav>
   </div>
 </div>

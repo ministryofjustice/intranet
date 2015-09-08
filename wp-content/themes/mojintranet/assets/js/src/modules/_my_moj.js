@@ -24,20 +24,25 @@
 
     bindEvents: function() {
       this.$top.on('click', $.proxy(this.toggle, this, false));
+      $(document).on('click', $.proxy(this.outsideClickHandle, this));
+    },
+
+    outsideClickHandle: function(e) {
+      if(!$(e.target).closest(this.$myMoj).length) {
+        this.close();
+      }
     },
 
     close: function(e) {
-      this.$myMoj.hide();
+      this.$myMoj.removeClass('visible');
       this.$arrow.html('▼');
       this.isOpen = false;
-      $('#content').off('click');
     },
 
     open: function() {
-      this.$myMoj.show();
+      this.$myMoj.addClass('visible');
       this.$arrow.html('▲');
       this.isOpen = true;
-      $('#content').on('click', $.proxy(this.close, this));
     },
 
     toggle: function() {

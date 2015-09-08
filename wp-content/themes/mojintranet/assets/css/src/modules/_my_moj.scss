@@ -10,7 +10,7 @@
   position: absolute;
   margin-top: 20px;
   top: 21px;
-  right: 16px;
+  right: 15px;
   width: 480px;
   margin-bottom: 10px;
   background-color: #ececec;
@@ -284,6 +284,8 @@
     display: block;
     position: static;
     margin-top: 0;
+    margin-bottom: 0;
+    width: 100%;
 
     .my-moj-top {
       padding: 10px 20px;
@@ -326,13 +328,19 @@
         }
       }
 
-      .quick-links-container .category-name {
-        border-top: 1px solid $grey-1;
+      .quick-links-container {
+        .category-name {
+          border-top: 1px solid $grey-1;
+        }
+
+        .quick-links-list-container {
+          margin: 0 20px;
+        }
       }
 
-      .menu-my-moj-quick-links-container .menu {
+      .quick-links-list-container {
         margin: 0;
-        padding: 5px 20px 15px;
+        padding-bottom: 10px;
       }
     }
 
@@ -354,7 +362,7 @@
       }
 
       .apps-list,
-      .menu-my-moj-quick-links-container {
+      .quick-links-list-container {
         display: none;
       }
     }
