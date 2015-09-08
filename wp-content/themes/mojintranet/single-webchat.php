@@ -28,7 +28,7 @@ class Single_webchat extends MVC_controller {
 
     return array(
       'page' => 'pages/webchat_single/main',
-      'template_class' => 'generic-nav',
+      'template_class' => 'webchat-single',
       'cache_timeout' => 60 * 60, /* 1 hour */
       'page_data' => array(
         'id' => $this->post_ID,
