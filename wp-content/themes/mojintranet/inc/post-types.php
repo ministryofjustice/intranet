@@ -26,7 +26,10 @@ function define_webchat_post_type() {
       'menu_position' => 20,
       'menu_icon'     => 'dashicons-phone',
       'supports'      => array('title','editor','thumbnail','excerpt'),
-      'has_archive'   => 'webchats'
+      'has_archive'   => false,
+      'rewrite'       => array(
+        'slug' => 'webchats'
+      )
     )
   );
 }
