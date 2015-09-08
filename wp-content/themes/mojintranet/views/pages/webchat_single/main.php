@@ -19,7 +19,9 @@
           <?=$content?>
         </div>
         <div class="coveritlive">
-          <?=$coveritlive_script?>
+          <?php if($coveritlive_id): ?>
+            <?php $this->view('pages/webchat_single/coveritlive_script', array('coveritlive_id' => $coveritlive_id)) ?>
+          <?php endif ?>
         </div>
       </div>
     </div>
