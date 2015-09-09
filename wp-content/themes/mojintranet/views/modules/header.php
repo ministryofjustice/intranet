@@ -37,5 +37,8 @@
         <?php $this->view('pages/homepage/my_moj/main', $my_moj) ?>
       </nav>
     </div>
+    <div class="col-lg-4 col-md-4 col-sm-12">
+      <div class="my-moj-trigger">My MoJ Menu <span class="arrow">▼</span></div>
+    </div>
   </div>
 </div>
