@@ -37,7 +37,7 @@
 
       this.$keywordsInput.focus();
       this.setFilters();
-      this.loadResults({'type': 'all', 'page': 1});
+      this.loadResults({'type': 'all'});
     },
 
     cacheEls: function() {
@@ -65,12 +65,14 @@
       });
 
       this.$prevPage.click(function(e) {
+        e.preventDefault();
         _this.loadResults({
           'page': $(this).attr('data-page')
         });
       });
 
       this.$nextPage.click(function(e) {
+        e.preventDefault();
         _this.loadResults({
           'page': $(this).attr('data-page')
         });

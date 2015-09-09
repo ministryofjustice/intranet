@@ -1,8 +1,32 @@
+.my-moj-trigger {
+  color: white;
+  cursor: pointer;
+  text-align: right;
+  padding-top: 10px;
+}
+
 .my-moj {
-  position: relative;
+  position: absolute;
   margin-top: 20px;
+  top: 21px;
+  right: 15px;
+  width: 480px;
   margin-bottom: 10px;
   background-color: #ececec;
+
+  select {
+    width: 100%;
+    padding: 5px 7px 5px 10px;
+    box-shadow: 1px 1px 1px $white;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    -moz-user-select: none;
+    background: url("../images/dropdown_background_x2.png") no-repeat scroll right center $white;
+    background-size: auto 100%;
+    border: 1px solid $grey-2;
+    border-radius: 5px;
+  }
 
   .my-intranet-form {
     @include clearfix;
@@ -258,7 +282,10 @@
 @include mobile-mq() {
   .my-moj {
     display: block;
+    position: static;
     margin-top: 0;
+    margin-bottom: 0;
+    width: 100%;
 
     .my-moj-top {
       padding: 10px 20px;
@@ -301,13 +328,19 @@
         }
       }
 
-      .quick-links-container .category-name {
-        border-top: 1px solid $grey-1;
+      .quick-links-container {
+        .category-name {
+          border-top: 1px solid $grey-1;
+        }
+
+        .quick-links-list-container {
+          margin: 0 20px;
+        }
       }
 
-      .menu-my-moj-quick-links-container .menu {
+      .quick-links-list-container {
         margin: 0;
-        padding: 5px 20px 15px;
+        padding-bottom: 10px;
       }
     }
 
@@ -329,7 +362,7 @@
       }
 
       .apps-list,
-      .menu-my-moj-quick-links-container {
+      .quick-links-list-container {
         display: none;
       }
     }
