@@ -55,9 +55,7 @@
           this.toggleSearch(true);
           this.$searchInput.focus();
         } else {
-          if (this.$searchInput.val()) {
-            this.$searchForm.submit();
-          }
+          this.$searchForm.submit();
         }
       }
     },
