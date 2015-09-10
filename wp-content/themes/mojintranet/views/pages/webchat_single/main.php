@@ -18,6 +18,9 @@
         <div class="editable">
           <?=$content?>
         </div>
+        <!--[if lte IE 8]>
+          <?php $this->view('pages/webchat_single/ie_message'); ?>
+        <![endif]-->
         <div class="coveritlive">
           <?php if($coveritlive_id): ?>
             <?php $this->view('pages/webchat_single/coveritlive_script', array('coveritlive_id' => $coveritlive_id)) ?>
