@@ -2,8 +2,8 @@
   "use strict";
 
   App.Navigation = function() {
-    this.$top = $('.template-guidance-and-support-content, .template-generic-nav').find('.template-container');
-    if(!this.$top.length) { return; }
+    if(!$('.menu-list-container').length) { return; }
+    this.$top = $('.template-container');
     this.init();
   };
 
