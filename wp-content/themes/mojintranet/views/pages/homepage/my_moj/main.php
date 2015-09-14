@@ -18,7 +18,7 @@
   </div>
   <div class="my-moj-body">
     <div class="apps-container mobile-collapsed">
-      <h3 class="category-name">My MoJ</h3>
+      <h2 class="category-name">My MoJ</h2>
       <ul class="apps-list">
         <?php foreach($apps as $app): ?>
           <?php $this->view('pages/homepage/my_moj/app_item', $app) ?>
@@ -27,8 +27,10 @@
     </div>
 
     <nav class="quick-links-container mobile-collapsed">
-      <h3 class="category-name">Quick links</h3>
-      <?php dynamic_sidebar('my-moj-quick-links'); ?>
+      <h2 class="category-name">Quick links</h2>
+      <div class="quick-links-list-container">
+        <?php dynamic_sidebar('my-moj-quick-links'); ?>
+      </div>
     </nav>
   </div>
 </div>

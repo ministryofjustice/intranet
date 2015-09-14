@@ -18,7 +18,6 @@
       <?php endif ?>
 
       <div class="">
-        <h2 class="page-category"><?=$page_category ?></h2>
         <h1 class="page-title"><?=$title?></h1>
         <div class="excerpt">
           <?=$excerpt?>

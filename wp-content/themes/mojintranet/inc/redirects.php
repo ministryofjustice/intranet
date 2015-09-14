@@ -14,9 +14,11 @@ function dw_redirects() {
 
   $path = $_SERVER['REQUEST_URI'];
   if(strpos($path, 'guidance-and-support') || strpos($path, 'guidance-support')) {
-    $new_path = str_replace(array('guidance-and-support','guidance-support'), 'guidance', $path);
-    header('Location: ' . site_url() . $new_path);
-    exit;
+    $new_path = preg_replace('/^([^?]*)(guidance-and-support|guidance-support)/', '${1}guidance', $path);
+    if($new_path != $path) {
+      header('Location: ' . site_url() . $new_path);
+      exit;
+    }
   }
 }
 
@@ -36,6 +38,11 @@ function dw_rewrite_rules() {
   // ping.json
   $regex = '^ping.json';
   $redirect = 'wp-content/themes/mojintranet/ping.php';
+  add_rewrite_rule($regex, $redirect, 'top');
+
+  //Webchat archive page
+  $regex = '^webchats/archive/?';
+  $redirect = 'index.php?page_id=' . get_page_by_path('webchats/archive')->ID;
   add_rewrite_rule($regex, $redirect, 'top');
 }
 add_action('init', 'dw_redirects');

@@ -16,7 +16,8 @@
       this.settings = {
         updateGATimeout: 2000, //timeout for google analytics for search refinements
         minKeywordLength: 2, //not implemented yet
-        months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+        months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+        contentTypeSeparator: '<span class="breadcrumb-separator"></span>'
       };
 
       this.applicationUrl = $('head').data('application-url');
@@ -37,7 +38,7 @@
 
       this.$keywordsInput.focus();
       this.setFilters();
-      this.loadResults({'type': 'all', 'page': 1});
+      this.loadResults({'type': 'all'});
     },
 
     cacheEls: function() {
@@ -65,12 +66,14 @@
       });
 
       this.$prevPage.click(function(e) {
+        e.preventDefault();
         _this.loadResults({
           'page': $(this).attr('data-page')
         });
       });
 
       this.$nextPage.click(function(e) {
+        e.preventDefault();
         _this.loadResults({
           'page': $(this).attr('data-page')
         });
@@ -282,6 +285,7 @@
       $child.find('.search-link').attr('href', data.url);
       $child.find('.date').html(this.formatDate(date));
       $child.find('.excerpt').html(data.excerpt);
+      $child.find('.type').html(data.content_type.join(this.settings.contentTypeSeparator));
 
       if(data.file_url) {
         $child.find('.file-link').html(data.file_name).attr('href', data.file_url);

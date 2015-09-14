@@ -71,7 +71,6 @@
         }
       }
       else if(key === 13) { //enter
-        if(!e.target.value) { return false; }
         if($highlighted.length) {
           e.preventDefault();
 

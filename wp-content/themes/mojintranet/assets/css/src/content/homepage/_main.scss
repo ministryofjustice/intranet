@@ -1,4 +1,15 @@
-.template-home .template-container {
+.template-home {
+  .my-moj {
+    position: static;
+    width: 100%;
+  }
+
+  .my-moj-trigger {
+    display: none;
+  }
+
+  .template-container {
+  }
 }
 
 @include mobile-mq() {
