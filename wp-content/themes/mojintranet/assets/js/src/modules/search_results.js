@@ -17,7 +17,7 @@
         updateGATimeout: 2000, //timeout for google analytics for search refinements
         minKeywordLength: 2, //not implemented yet
         months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-        contentTypeSeparator: ' &gt; '
+        contentTypeSeparator: '<span class="breadcrumb-separator"></span>'
       };
 
       this.applicationUrl = $('head').data('application-url');

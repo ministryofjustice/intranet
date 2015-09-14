@@ -7,3 +7,12 @@
     }
   }
 }
+
+.lte-ie8 {
+  .breadcrumb-separator {
+    width: 8px;
+    height: 13px;
+    background-image: url('../images/breadcrumb_separator.gif');
+    vertical-align: middle;
+  }
+}
