@@ -1,8 +1,13 @@
-.ie6 .ie6-message {
+.compatibility-message {
   font-size: 24px;
   padding: 20px;
   background-color: $mellow-red;
   color: $white;
   font-weight: bold;
   text-align: center;
+
+  a {
+    color: white;
+    text-decoration: underline;
+  }
 }
