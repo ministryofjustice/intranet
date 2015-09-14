@@ -22,7 +22,7 @@
     "pods": {
         "repository": "git@git.dxw.net:wordpress-plugins/pods",
         "revision": "master",
-        "commit": "908c07f9055b2bdd6383142f786a3bbfef6744e7"
+        "commit": "5fcecfd1aa03a28b39bcab1adf235bc9ac096280"
     },
     "recently-edited-content-widget": {
         "repository": "git@git.dxw.net:wordpress-plugins/recently-edited-content-widget",
