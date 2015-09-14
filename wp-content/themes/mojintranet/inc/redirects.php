@@ -39,6 +39,11 @@ function dw_rewrite_rules() {
   $regex = '^ping.json';
   $redirect = 'wp-content/themes/mojintranet/ping.php';
   add_rewrite_rule($regex, $redirect, 'top');
+
+  //Webchat archive page
+  $regex = '^webchats/archive/?';
+  $redirect = 'index.php?page_id=' . get_page_by_path('webchats/archive')->ID;
+  add_rewrite_rule($regex, $redirect, 'top');
 }
 add_action('init', 'dw_redirects');
 add_action('init', 'dw_rewrite_rules');

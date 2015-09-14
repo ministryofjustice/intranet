@@ -99,3 +99,12 @@
     }
   }
 }
+
+.breadcrumb-separator {
+  display: inline-block;
+  margin: 0 5px;
+  width: 6px;
+  height: 10px;
+  background-image: url('../images/breadcrumb_separator_x2.png');
+  background-size: 100% 100%;
+}

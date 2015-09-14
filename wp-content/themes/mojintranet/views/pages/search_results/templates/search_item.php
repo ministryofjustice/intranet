@@ -9,8 +9,8 @@
       <div class="col-lg-4">
         Updated: <span class="date"></span>
       </div>
-      <div class="col-lg-3">
-        <span class="type">Guidance</span>
+      <div class="col-lg-8">
+        <span class="type"></span>
       </div>
     </div>
     <p class="excerpt"></p>

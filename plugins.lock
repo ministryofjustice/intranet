@@ -2,12 +2,12 @@
     "amazon-s3-and-cloudfront": {
         "repository": "git@github.com:deliciousbrains/wp-amazon-s3-and-cloudfront.git",
         "revision": "master",
-        "commit": "870b19ebca47d8b0e3ffb7126de8a00af456b11b"
+        "commit": "1090fa2a63f24782bed09a43681cd2c6f7d4b213"
     },
     "amazon-web-services": {
         "repository": "git@github.com:deliciousbrains/wp-amazon-web-services.git",
         "revision": "master",
-        "commit": "1be5670a09fdddc6125b4b55bd18aa2e299db24f"
+        "commit": "f39b927b655f458a03767746459865ec77ad86c3"
     },
     "cms-tree-page-view": {
         "repository": "git@git.dxw.net:wordpress-plugins/cms-tree-page-view",
@@ -17,12 +17,12 @@
     "oasis-workflow-premium": {
         "repository": "git@github.com:ministryofjustice/oasis-workflow-premium.git",
         "revision": "master",
-        "commit": "48c1be5c29e512f685b1d8c651e64fcb9ad73629"
+        "commit": "a63cb2724e9a08ecf3305dae04fec8381ec8e4f1"
     },
     "pods": {
         "repository": "git@git.dxw.net:wordpress-plugins/pods",
         "revision": "master",
-        "commit": "f1fa3a35a02824d50f93aa50d26f2fa9d41cd938"
+        "commit": "5fcecfd1aa03a28b39bcab1adf235bc9ac096280"
     },
     "recently-edited-content-widget": {
         "repository": "git@git.dxw.net:wordpress-plugins/recently-edited-content-widget",
