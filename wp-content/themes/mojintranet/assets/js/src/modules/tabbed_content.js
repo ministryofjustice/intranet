@@ -6,7 +6,7 @@
   var App = window.App;
 
   App.TabbedContent = function() {
-    this.$tabs = $('.content-tabs li');
+    this.$tabs = $('.content-tabs:not(.static) li');
     if(!this.$tabs.length) { return; }
     this.init();
   };

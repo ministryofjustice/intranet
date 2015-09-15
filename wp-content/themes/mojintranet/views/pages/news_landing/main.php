@@ -10,12 +10,20 @@
     </div>
   </div>
 
-  <!--<div class="grid">-->
-  <!--  <div class="col-lg-3 col-md-3 mobile-hide">&nbsp;</div>-->
-  <!--  <div class="col-lg-8 col-md-8 col-sm-12 push-lg-1 push-md-1">-->
-  <!--    <?php dynamic_sidebar('newslanding-widget-area0'); ?>-->
-  <!--  </div>-->
-  <!--</div>-->
+  <div class="grid">
+    <div class="col-lg-4 col-md-4 mobile-hide">&nbsp;</div>
+    <div class="col-lg-8 col-md-8 col-sm-12">
+      <ul role="tablist" class="content-tabs static">
+        <?php foreach($tabs as $tab): ?>
+          <li class="<?= $tab['selected'] ? 'current-menu-item' : '' ?>">
+            <a href="<?=$tab['url']?>">
+              <?=$tab['label']?>
+            </a>
+          </li>
+        <?php endforeach ?>
+      </ul>
+    </div>
+  </div>
 
   <div class="grid">
     <div class="col-lg-4 col-md-4 col-sm-12">
