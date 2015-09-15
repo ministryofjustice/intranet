@@ -23,7 +23,7 @@ add_action( 'admin_menu', 'dw_remove_menu_items' );
 // Programatically remove custom post types (natively and PODS)
 function dw_remove_post_types() {
   global $wp_post_types;
-  foreach( array( 'task','projects','vacancies','blog','event','glossaryitem','posts' ) as $post_type ) {
+  foreach( array( 'task','projects','vacancies','blog','glossaryitem','posts' ) as $post_type ) {
     if ( isset( $wp_post_types[ $post_type ] ) ) {
       unset( $wp_post_types[ $post_type ] );
     }
