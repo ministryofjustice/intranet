@@ -1,0 +1,141 @@
+{
+  urlParams: {
+    '...' : ''
+  },
+  totalResults: 20,
+  results: [
+    {
+      title: 'Page title 1',
+      url: 'http://www.some.url/events/event-title-1',
+      slug: 'event-title-1',
+      location: 'The location of this event 1',
+      description: 'Some description 1',
+      start_date: '2015-09-15',
+      end_date: '2015-09-15',
+      start_time: '10:00',
+      end_time: '12:00'
+    },
+    {
+      title: 'Page title 2',
+      url: 'http://www.some.url/events/event-title-2',
+      slug: 'event-title-2',
+      location: 'The location of this event 2',
+      description: 'Some description 2',
+      start_date: '2015-09-15',
+      end_date: '2015-09-15',
+      start_time: '10:00',
+      end_time: '12:00'
+    },
+    {
+      title: 'Page title 3',
+      url: 'http://www.some.url/events/event-title-3',
+      slug: 'event-title-3',
+      location: 'The location of this event 3',
+      description: 'Some description 3',
+      start_date: '2015-09-15',
+      end_date: '2015-09-15',
+      start_time: '10:00',
+      end_time: '12:00'
+    },
+    {
+      title: 'Page title 4',
+      url: 'http://www.some.url/events/event-title-4',
+      slug: 'event-title-4',
+      location: 'The location of this event 4',
+      description: 'Some description 4',
+      start_date: '2015-09-15',
+      end_date: '2015-09-15',
+      start_time: '10:00',
+      end_time: '12:00'
+    },
+    {
+      title: 'Page title 5',
+      url: 'http://www.some.url/events/event-title-5',
+      slug: 'event-title-5',
+      location: 'The location of this event 5',
+      description: 'Some description 5',
+      start_date: '2015-09-15',
+      end_date: '2015-09-15',
+      start_time: '10:00',
+      end_time: '12:00'
+    },
+    {
+      title: 'Page title 6',
+      url: 'http://www.some.url/events/event-title-6',
+      slug: 'event-title-6',
+      location: 'The location of this event 6',
+      description: 'Some description 6',
+      start_date: '2015-09-15',
+      end_date: '2015-09-15',
+      start_time: '10:00',
+      end_time: '12:00'
+    },
+    {
+      title: 'Page title 7',
+      url: 'http://www.some.url/events/event-title-7',
+      slug: 'event-title-7',
+      location: 'The location of this event 7',
+      description: 'Some description 7',
+      start_date: '2015-09-15',
+      end_date: '2015-09-15',
+      start_time: '10:00',
+      end_time: '12:00'
+    },
+    {
+      title: 'Page title 8',
+      url: 'http://www.some.url/events/event-title-8',
+      slug: 'event-title-8',
+      location: 'The location of this event 8',
+      description: 'Some description 8',
+      start_date: '2015-09-15',
+      end_date: '2015-09-15',
+      start_time: '10:00',
+      end_time: '12:00'
+    },
+    {
+      title: 'Page title 9',
+      url: 'http://www.some.url/events/event-title-9',
+      slug: 'event-title-9',
+      location: 'The location of this event 9',
+      description: 'Some description 9',
+      start_date: '2015-09-15',
+      end_date: '2015-09-15',
+      start_time: '10:00',
+      end_time: '12:00'
+    },
+    {
+      title: 'Page title 10',
+      url: 'http://www.some.url/events/event-title-10',
+      slug: 'event-title-10',
+      location: 'The location of this event 10',
+      description: 'Some description 10',
+      start_date: '2015-09-15',
+      end_date: '2015-09-15',
+      start_time: '10:00',
+      end_time: '12:00'
+    },
+    {
+      title: 'Page title 11',
+      url: 'http://www.some.url/events/event-title-11',
+      slug: 'event-title-11',
+      location: 'The location of this event 11',
+      description: 'Some description 11',
+      start_date: '2015-09-15',
+      end_date: '2015-09-15',
+      start_time: '10:00',
+      end_time: '12:00'
+    },
+    {
+      title: 'Page title 12',
+      url: 'http://www.some.url/events/event-title-12',
+      slug: 'event-title-12',
+      location: 'The location of this event 12',
+      description: 'Some description 12',
+      start_date: '2015-09-15',
+      end_date: '2015-09-15',
+      start_time: '10:00',
+      end_time: '12:00'
+    },
+  ]
+}
+
