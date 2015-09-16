@@ -41,15 +41,15 @@ function template_customise() {
         }
     }
     // Add template specific javascript file
-    $template_js = get_stylesheet_directory().'/admin/templates/template-specific/page-admin-'.$template_file.'.js';
+    $template_js = get_stylesheet_directory().'/admin/templates/template-specific/'.$template_file.'.js';
     if(file_exists($template_js)) {
-        wp_register_script($template_file, get_stylesheet_directory_uri()."/admin/templates/template-specific/page-admin-".$template_file.".js",$template_options[$template_file]['js'],filemtime($template_js));
+        wp_register_script($template_file, get_stylesheet_directory_uri()."/admin/templates/template-specific/".$template_file.".js",$template_options[$template_file]['js'],filemtime($template_js));
         wp_enqueue_script($template_file );
     }
     // Add template specific stylesheet
-    $template_css = get_stylesheet_directory().'/admin/templates/template-specific/page-admin-'.$template_file.'.css';
+    $template_css = get_stylesheet_directory().'/admin/templates/template-specific/'.$template_file.'.css';
     if(file_exists($template_css)) {
-        wp_register_style($template_file, get_stylesheet_directory_uri()."/admin/templates/template-specific/page-admin-".$template_file.".css",$template_options[$template_file]['css'],filemtime($template_css));
+        wp_register_style($template_file, get_stylesheet_directory_uri()."/admin/templates/template-specific/".$template_file.".css",$template_options[$template_file]['css'],filemtime($template_css));
         wp_enqueue_style($template_file );
     }
     if(isset($template_options[$template_file]['metaboxes'])) {
