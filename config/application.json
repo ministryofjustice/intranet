@@ -1,6 +1,6 @@
 {
     "wordpress": {
         "repository": "https://github.com/WordPress/WordPress.git",
-        "revision": "4.3"
+        "revision": "4.3.1"
     }
 }
