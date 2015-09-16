@@ -28,6 +28,11 @@ function dw_rewrite_rules() {
   $redirect = 'index.php?page_id=' . get_page_by_path('newspage')->ID;
   add_rewrite_rule($regex, $redirect, 'top');
 
+  //Events page
+  $regex = '^events/([0-9]+)/(.*)';
+  $redirect = 'index.php?page_id=' . get_page_by_path('events')->ID;
+  add_rewrite_rule($regex, $redirect, 'top');
+
   //Search results page
   $regex = '^search-results/([^/]*)/([^/]*)/?';
   $redirect = 'index.php?page_id=' . get_page_by_path('search-results')->ID . '&search-filter=$matches[1]&search-string=$matches[2]';
