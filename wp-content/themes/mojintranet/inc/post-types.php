@@ -62,7 +62,7 @@ function webchat_attributes_meta_box($post) {
   $post_type_object = get_post_type_object($post->post_type);
   // if ( $post_type_object->hierarchical ) {
     $landing_page = get_page_by_title( "Webchats", $output = OBJECT, $post_type = 'page' );
-    $archive_page = get_page_by_title( "Webchats Archive", $output = OBJECT, $post_type = 'page' );
+    $archive_page = get_page_by_title( "Webchats Archive", $output = OBJECT, $post_type = 'page' )?:get_page_by_title( "Webchats: archive", $output = OBJECT, $post_type = 'page' );
 
     if($landing_page && $archive_page) {
       ?>
