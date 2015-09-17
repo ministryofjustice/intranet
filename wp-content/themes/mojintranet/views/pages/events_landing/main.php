@@ -98,10 +98,6 @@
             </li>
           </ul>
         </div>
-        <div class="description-box">
-          <div class="description"></div>
-          <a class="permalink" href="">Share this event</a>
-        </div>
       </div>
     </li>
   </div>
