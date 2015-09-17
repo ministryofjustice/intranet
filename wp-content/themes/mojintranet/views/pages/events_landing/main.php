@@ -107,11 +107,11 @@
   </div>
 
   <div class="template-partial" data-name="events-results-page-title">
-    <h2 class="events-results-page-title events-results-title">Latest</h2>
+    <h2 class="results-page-title results-title">Latest</h2>
   </div>
 
   <div class="template-partial" data-name="events-filtered-results-title">
-    <h2 class="events-filtered-results-title events-results-title">
+    <h2 class="filtered-results-title results-title">
       <span class="results-count"></span>
       <span class="results-count-description"></span>
       <span class="containing">containing</span>
