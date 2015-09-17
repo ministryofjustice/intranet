@@ -19,45 +19,142 @@
       };
 
       this.applicationUrl = $('head').data('application-url');
-      this.serviceUrl = this.applicationUrl+'/service/events';
+      //this.serviceUrl = this.applicationUrl+'/service/events';
+      this.serviceUrl = this.applicationUrl+'/wp-content/themes/mojintranet/assets/js/events.json'; //temporary
       this.pageBase = this.applicationUrl+'/'+this.$top.data('top-level-slug');
-      console.log(this.pageBase);
 
+      this.itemTemplate = this.$top.find('.template-partial[data-name="events-item"]').html();
+      this.resultsPageTitleTemplate = this.$top.find('.template-partial[data-name="events-results-page-title"]').html();
+      this.filteredResultsTitleTemplate = this.$top.find('.template-partial[data-name="events-filtered-results-title"]').html();
+      this.serviceXHR = null;
       this.months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+      this.weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
       this.cacheEls();
       this.bindEvents();
       this.filtersInit();
+      this.resultsRequest();
     },
 
     cacheEls: function() {
       this.$dateInput = this.$top.find('[name="date"]');
       this.$keywordsInput = this.$top.find('[name="keywords"]');
+      this.$results = this.$top.find('.results');
     },
 
     bindEvents: function() {
     },
 
     getDataObject: function(data) {
+      var keywords = this.getSanitizedKeywords().replace(/\s+/g, '+');
+      var segments = this.getUrlSegments();
+
+      var base = {
+        'date': this.$dateInput.val(),
+        'keywords': keywords,
+        'page': segments[1] || 1
+        //'resultsPerPage': 20 //commenting out - we want it to use the default setting from the API for now
+      };
+
+      if(data) {
+        $.each(data, function(key, value) {
+          base[key] = value;
+        });
+      }
+
+      return base;
+    },
+
+    getSanitizedKeywords: function() {
+      var keywords = this.$keywordsInput.val();
+      keywords = keywords.replace(/^\s+|\s+$/g, '');
+      keywords = keywords.replace(/\s+/g, ' ');
+      keywords = keywords.replace(/[^a-zA-Z0-9\s]+/g, '');
+      return keywords;
     },
 
     resultsRequest: function(requestData) {
+      var _this = this;
+      var dataArray = [];
+
+      this.resultsUpdateUI();
+      this.resultsAbort();
+
+      requestData = this.getDataObject(requestData);
+
+      $.each(requestData, function(key, value) {
+        dataArray.push(value);
+      });
+
+      this.resultsLoaded = false;
+
+      /* use the timeout for dev/debugging purposes */
+      //**/window.setTimeout(function() {
+        _this.serviceXHR = $.getJSON(_this.serviceUrl/*+'/'+dataArray.join('/')*/, $.proxy(_this.resultsDisplay, _this));
+      //**/}, 2000);
+    },
+
+    resultsUpdateUI: function() {
+      this.$top.find('.results-title').remove();
+      this.$top.addClass('loading-results');
+      this.$results.prepend($(this.resultsPageTitleTemplate).text('Loading results...'));
+      this.$results.find('.results-item').addClass('faded');
     },
 
     resultsAbort: function() {
+      this.$top.removeClass('loading-results');
+
+      if(this.serviceXHR) {
+        this.serviceXHR.abort();
+        this.serviceXHR = null;
+      }
     },
 
     resultsClear: function() {
     },
 
-    resultsDisplay: function() {
+    resultsDisplay: function(data) {
+      var _this = this;
+      var $eventItem;
+
+      this.resultsClear();
+      //this.setResultsHeading(data);
+
+      $.each(data.results, function(index, result) {
+        $eventItem = _this.resultsBuildRow(result);
+        _this.$results.append($eventItem);
+      });
+
+      //this.updatePagination(data);
+      //this.updateUrl();
+      //this.updateTitle();
+      //this.stopLoadingResults();
+
+      this.resultsLoaded = true;
     },
 
-    resultsBuildRow: function() {
+    resultsBuildRow: function(data) {
+      var $child = $(this.itemTemplate);
+      var date = this.dateParse(data.start_date);
+      var dayOfWeek = this.weekdays[date.getDay()];
+      var month = this.months[date.getMonth()].substr(0, 3);
+      var year = date.getFullYear();
+
+      $child.find('.date-box').attr('datetime', data.start_date + ' ' + data.start_time);
+      $child.find('.date-box .day-of-week').html(dayOfWeek);
+      $child.find('.date-box .day-of-month').html(date.getDate());
+      $child.find('.date-box .month-year').html(month + ' ' + year);
+      $child.find('.title .results-link').html(data.title);
+      $child.find('.meta-time .value').html(data.start_time + ' - ' + data.end_time);
+      $child.find('.meta-location .value').html(data.location);
+      $child.find('.permalink').attr('href', data.url);
+      $child.find('.description').html(data.description);
+
+      return $child;
     },
 
     filtersInit: function() {
-      var segments = this.urlGetSegments();
+      var segments = this.getUrlSegments();
       var keywords;
       var today = new Date();
       var startYear = today.getFullYear();
@@ -105,15 +202,20 @@
     urlUpdate: function() {
     },
 
-    urlGetSegments: function() {
+    getUrlSegments: function() {
       var url = window.location.href;
       var sub = url.substr(this.pageBase.length);
       sub = sub.replace(/^\/|\/$/g, ''); //remove leading and trailing slashes
-      console.log(sub.split('/'));
       return sub.split('/');
     },
 
-    dateParse: function() {
+    dateParse: function(dateString) {
+      var dateArray = dateString.split('-');
+      if(dateArray.length === 2){
+        dateArray.push('01');
+      }
+
+      return new Date(dateArray.join('/'));
     },
 
     dateFormat: function() {

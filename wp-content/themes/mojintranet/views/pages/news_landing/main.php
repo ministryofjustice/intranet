@@ -78,15 +78,15 @@
   </div>
 
   <div class="template-partial" data-name="news-item">
-    <li class="news-item">
+    <li class="results-item">
       <div class="thumbnail-container">
-        <a href="" class="news-link">
+        <a href="" class="results-link">
           <img class="thumbnail" alt="" />
         </a>
       </div>
       <div class="content">
         <h3 class="title">
-          <a href="" class="news-link"></a>
+          <a href="" class="results-link"></a>
         </h3>
         <div class="meta">
           <span class="date">date</span>
@@ -98,11 +98,11 @@
   </div>
 
   <div class="template-partial" data-name="news-results-page-title">
-    <h2 class="news-results-page-title news-results-title">Latest</h2>
+    <h2 class="results-page-title results-title">Latest</h2>
   </div>
 
   <div class="template-partial" data-name="news-filtered-results-title">
-    <h2 class="news-filtered-results-title news-results-title">
+    <h2 class="filtered-results-title results-title">
       <span class="results-count"></span>
       <span class="results-count-description"></span>
       <span class="containing">containing</span>
