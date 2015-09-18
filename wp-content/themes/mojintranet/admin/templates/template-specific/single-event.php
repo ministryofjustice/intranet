@@ -4,7 +4,6 @@ function event_details_callback($post) {
   $ns = 'event';
   wp_nonce_field( $ns.'_meta_box', $ns.'_meta_box_nonce' );
   $post_meta = get_post_meta($post->ID);
-  // Debug::full($post_meta);exit;
   ?>
   <table>
     <tr>

@@ -1,11 +1,12 @@
 jQuery(function($) {
   $("input.datepicker").datepicker({
-    dateFormat: "dd/mm/yy",
+    dateFormat: "yy-mm-dd",
     constrainInput: true
   }).keypress(function(event) {
     event.preventDefault();
   });
   $("input.timepicker").timepicker({
-    disableTextInput: true
+    disableTextInput: true,
+    timeFormat: 'H:i'
   });
 });
