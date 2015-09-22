@@ -19,8 +19,7 @@
       };
 
       this.applicationUrl = $('head').data('application-url');
-      //this.serviceUrl = this.applicationUrl+'/service/events';
-      this.serviceUrl = this.applicationUrl+'/wp-content/themes/mojintranet/assets/js/events.json'; //temporary
+      this.serviceUrl = this.applicationUrl+'/service/events';
       this.pageBase = this.applicationUrl+'/'+this.$top.data('top-level-slug');
 
       this.itemTemplate = this.$top.find('.template-partial[data-name="events-item"]').html();
@@ -29,6 +28,8 @@
       this.serviceXHR = null;
       this.months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
       this.weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+      this.currentPage = null;
+      this.resultsLoaded = false;
 
       this.cacheEls();
       this.bindEvents();
@@ -52,7 +53,7 @@
       var base = {
         'date': this.$dateInput.val(),
         'keywords': keywords,
-        'page': segments[1] || 1
+        'page': segments[0] || 1
         //'resultsPerPage': 20 //commenting out - we want it to use the default setting from the API for now
       };
 
@@ -77,8 +78,8 @@
       var _this = this;
       var dataArray = [];
 
-      this.resultsUpdateUI();
       this.resultsAbort();
+      this.resultsUpdateUI('loading');
 
       requestData = this.getDataObject(requestData);
 
@@ -90,15 +91,34 @@
 
       /* use the timeout for dev/debugging purposes */
       //**/window.setTimeout(function() {
-        _this.serviceXHR = $.getJSON(_this.serviceUrl/*+'/'+dataArray.join('/')*/, $.proxy(_this.resultsDisplay, _this));
+        _this.serviceXHR = $.getJSON(_this.serviceUrl+'/'+dataArray.join('/'), $.proxy(_this.resultsDisplay, _this));
       //**/}, 2000);
     },
 
-    resultsUpdateUI: function() {
-      this.$top.find('.results-title').remove();
-      this.$top.addClass('loading-results');
-      this.$results.prepend($(this.resultsPageTitleTemplate).text('Loading results...'));
-      this.$results.find('.results-item').addClass('faded');
+    resultsUpdateUI: function(status) {
+      if(status === 'loading') {
+        this.$top.find('.results-title').remove();
+        this.$top.addClass('loading-results');
+        this.$results.prepend($(this.resultsPageTitleTemplate).text('Loading results...'));
+        this.$results.find('.results-item').addClass('faded');
+      }
+      else if(1) {
+        var label;
+        var page;
+        var keywords;
+        var date;
+
+        this.$top.find('.results-title').remove();
+        this.$top.removeClass('loading-results');
+
+        if(page === 1) {
+          this.$results.prepend($(this.resultsPageTitleTemplate).text('Latest'));
+        }
+        //else {
+        //}
+      }
+      //else {
+      //}
     },
 
     resultsAbort: function() {
@@ -111,6 +131,7 @@
     },
 
     resultsClear: function() {
+      this.$results.empty();
     },
 
     resultsDisplay: function(data) {
@@ -126,9 +147,9 @@
       });
 
       //this.updatePagination(data);
-      //this.updateUrl();
-      //this.updateTitle();
       //this.stopLoadingResults();
+
+      this.resultsUpdateUI('loaded');
 
       this.resultsLoaded = true;
     },
@@ -199,7 +220,12 @@
       }
     },
 
-    urlUpdate: function() {
+    getDate: function() {
+      return this.$dateInput.val();
+    },
+
+    getKeywords: function() {
+      return this.$keywordsInput.val();
     },
 
     getUrlSegments: function() {
@@ -207,6 +233,12 @@
       var sub = url.substr(this.pageBase.length);
       sub = sub.replace(/^\/|\/$/g, ''); //remove leading and trailing slashes
       return sub.split('/');
+    },
+
+    getPage: function() {
+    },
+
+    urlUpdate: function() {
     },
 
     dateParse: function(dateString) {
