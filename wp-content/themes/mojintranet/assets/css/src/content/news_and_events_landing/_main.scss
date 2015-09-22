@@ -26,8 +26,6 @@
     }
 
     .filtered-results-title {
-      .results-count,
-      .results-description,
       .containing,
       .keywords,
       .date,
@@ -42,8 +40,11 @@
         }
       }
 
-      &.with-keywords .containing {
-        display: inline;
+      &.with-keywords {
+        .keywords,
+        .containing {
+          display: inline;
+        }
       }
 
       .results-count {

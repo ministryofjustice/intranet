@@ -41,9 +41,37 @@
       this.$dateInput = this.$top.find('[name="date"]');
       this.$keywordsInput = this.$top.find('[name="keywords"]');
       this.$results = this.$top.find('.results');
+      this.$prevPage = this.$top.find('.previous');
+      this.$nextPage = this.$top.find('.next');
     },
 
     bindEvents: function() {
+      var _this = this;
+      var inputFallbackEvent = (App.ie && App.ie < 9) ? 'keyup' : '';
+
+      this.$keywordsInput.on('input ' + inputFallbackEvent, function(e) {
+        _this.resultsRequest({
+          page: 1
+        });
+      });
+
+      this.$dateInput.on('change', function() {
+        _this.resultsRequest({
+          page: 1
+        });
+      });
+
+      this.$prevPage.click(function(e) {
+        _this.resultsRequest({
+          'page': $(this).attr('data-page')
+        });
+      });
+
+      this.$nextPage.click(function(e) {
+        _this.resultsRequest({
+          'page': $(this).attr('data-page')
+        });
+      });
     },
 
     getDataObject: function(data) {
@@ -85,6 +113,12 @@
     },
 
     resultsUpdateUI: function(status) {
+      var page = this.getPage();
+      var keywords = this.getKeywords();
+      var date = this.getDate();
+      var $resultsTitle = $(this.resultsPageTitleTemplate);
+      var $filteredResultsTitle = $(this.filteredResultsTitleTemplate);
+
       if(status === 'loading') {
         this.$top.find('.results-title').remove();
         this.$top.addClass('loading-results');
@@ -92,31 +126,26 @@
         this.$results.find('.results-item').addClass('faded');
       }
       else if(status === 'loaded') {
-        var page = this.getPage();
-        var keywords = this.getKeywords();
-        var date = this.getDate();
-        var $resultsTitle = $(this.resultsPageTitleTemplate);
-        var $filteredResultsTitle = $(this.filteredResultsTitleTemplate);
-
         this.$top.find('.results-title').remove();
         this.$top.removeClass('loading-results');
 
         if(keywords.length || date.length) {
           if(keywords.length) {
-            $filteredResultsTitle.addClass('has-keywords');
+            $filteredResultsTitle.addClass('with-keywords');
+            $filteredResultsTitle.find('.keywords').text(keywords);
           }
 
           if(date.length) {
-            $filteredResultsTitle.addClass('has-date');
+            $filteredResultsTitle.addClass('with-date');
           }
 
           this.$results.prepend($filteredResultsTitle);
         }
-        else if(page === 1) { //use 'archive' heading
-          this.$results.prepend($resultsTitle.text('Archive'));
-        }
-        else { //use 'latest' heading
+        else if(page === 1) { //use 'latest' heading
           this.$results.prepend($resultsTitle.text('Latest'));
+        }
+        else { //use 'archive' heading
+          this.$results.prepend($resultsTitle.text('Archive'));
         }
       }
     },
@@ -139,14 +168,13 @@
       var $eventItem;
 
       this.resultsClear();
-      //this.setResultsHeading(data);
 
       $.each(data.results, function(index, result) {
         $eventItem = _this.resultsBuildRow(result);
         _this.$results.append($eventItem);
       });
 
-      //this.updatePagination(data);
+      this.paginationUpdate(data);
       //this.stopLoadingResults();
 
       this.resultsUpdateUI('loaded');
@@ -172,6 +200,28 @@
       $child.find('.description').html(data.description);
 
       return $child;
+    },
+
+    paginationUpdate: function(data) {
+      this.currentPage = parseInt(data.url_params.page, 10);
+      var perPage = parseInt(data.url_params.per_page, 10) || 10;
+      var totalResults = parseInt(data.total_results, 10);
+      var totalPages = perPage > 0 ? Math.ceil(totalResults/perPage) : 1;
+      var prevPage = Math.max(this.currentPage-1, 1);
+      var nextPage = Math.min(this.currentPage+1, totalPages);
+
+      //visibility of the pagination buttons
+      this.$prevPage.toggleClass('disabled', this.currentPage <= 1);
+      this.$nextPage.toggleClass('disabled', this.currentPage >= totalPages);
+
+      //update data attr used for navigation
+      this.$prevPage.attr('data-page', prevPage);
+      this.$nextPage.attr('data-page', nextPage);
+
+      //update labels
+      this.$prevPage.find('.prev-page').text(prevPage);
+      this.$nextPage.find('.next-page').text(nextPage);
+      this.$top.find('.total-pages').text(totalPages);
     },
 
     filtersInit: function() {
@@ -221,7 +271,7 @@
     },
 
     getDate: function() {
-      return this.$dateInput.val();
+      return this.$dateInput.val() || "";
     },
 
     getKeywords: function() {
