@@ -26,6 +26,26 @@
     }
 
     .filtered-results-title {
+      .results-count,
+      .results-description,
+      .containing,
+      .keywords,
+      .date,
+      .for-date {
+        display: none;
+      }
+
+      &.with-date {
+        .for-date,
+        .date {
+          display: inline;
+        }
+      }
+
+      &.with-keywords .containing {
+        display: inline;
+      }
+
       .results-count {
         @extend %large-heading;
         font-weight: bold;

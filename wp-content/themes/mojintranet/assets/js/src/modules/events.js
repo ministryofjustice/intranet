@@ -47,14 +47,11 @@
     },
 
     getDataObject: function(data) {
-      var keywords = this.getSanitizedKeywords().replace(/\s+/g, '+');
-      var segments = this.getUrlSegments();
-
       var base = {
         'date': this.$dateInput.val(),
-        'keywords': keywords,
-        'page': segments[0] || 1
-        //'resultsPerPage': 20 //commenting out - we want it to use the default setting from the API for now
+        'keywords': this.getKeywords().replace(/\s+/g, '+'),
+        'page': this.getPage(),
+        'resultsPerPage': 2 //commenting out - we want it to use the default setting from the API for now
       };
 
       if(data) {
@@ -64,14 +61,6 @@
       }
 
       return base;
-    },
-
-    getSanitizedKeywords: function() {
-      var keywords = this.$keywordsInput.val();
-      keywords = keywords.replace(/^\s+|\s+$/g, '');
-      keywords = keywords.replace(/\s+/g, ' ');
-      keywords = keywords.replace(/[^a-zA-Z0-9\s]+/g, '');
-      return keywords;
     },
 
     resultsRequest: function(requestData) {
@@ -102,23 +91,34 @@
         this.$results.prepend($(this.resultsPageTitleTemplate).text('Loading results...'));
         this.$results.find('.results-item').addClass('faded');
       }
-      else if(1) {
-        var label;
-        var page;
-        var keywords;
-        var date;
+      else if(status === 'loaded') {
+        var page = this.getPage();
+        var keywords = this.getKeywords();
+        var date = this.getDate();
+        var $resultsTitle = $(this.resultsPageTitleTemplate);
+        var $filteredResultsTitle = $(this.filteredResultsTitleTemplate);
 
         this.$top.find('.results-title').remove();
         this.$top.removeClass('loading-results');
 
-        if(page === 1) {
-          this.$results.prepend($(this.resultsPageTitleTemplate).text('Latest'));
+        if(keywords.length || date.length) {
+          if(keywords.length) {
+            $filteredResultsTitle.addClass('has-keywords');
+          }
+
+          if(date.length) {
+            $filteredResultsTitle.addClass('has-date');
+          }
+
+          this.$results.prepend($filteredResultsTitle);
         }
-        //else {
-        //}
+        else if(page === 1) { //use 'archive' heading
+          this.$results.prepend($resultsTitle.text('Archive'));
+        }
+        else { //use 'latest' heading
+          this.$results.prepend($resultsTitle.text('Latest'));
+        }
       }
-      //else {
-      //}
     },
 
     resultsAbort: function() {
@@ -225,7 +225,11 @@
     },
 
     getKeywords: function() {
-      return this.$keywordsInput.val();
+      var keywords = this.$keywordsInput.val();
+      keywords = keywords.replace(/^\s+|\s+$/g, '');
+      keywords = keywords.replace(/\s+/g, ' ');
+      keywords = keywords.replace(/[^a-zA-Z0-9\s]+/g, '');
+      return keywords;
     },
 
     getUrlSegments: function() {
@@ -236,6 +240,7 @@
     },
 
     getPage: function() {
+      return parseInt(this.getUrlSegments()[0] || 1, 10);
     },
 
     urlUpdate: function() {
