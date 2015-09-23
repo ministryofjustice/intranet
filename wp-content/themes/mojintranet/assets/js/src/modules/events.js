@@ -95,10 +95,10 @@
       var _this = this;
       var dataArray = [];
 
+      requestData = this.getDataObject(requestData);
+
       this.resultsAbort();
       this.resultsUpdateUI('loading');
-
-      requestData = this.getDataObject(requestData);
 
       $.each(requestData, function(key, value) {
         dataArray.push(value);
@@ -112,12 +112,13 @@
       //**/}, 2000);
     },
 
-    resultsUpdateUI: function(status) {
+    resultsUpdateUI: function(status, data) {
       var page = this.getPage();
       var keywords = this.getKeywords();
-      var date = this.getDate();
       var $resultsTitle = $(this.resultsPageTitleTemplate);
       var $filteredResultsTitle = $(this.filteredResultsTitleTemplate);
+      var date = this.getDate();
+      var humanDate;
 
       if(status === 'loading') {
         this.$top.find('.results-title').remove();
@@ -130,13 +131,19 @@
         this.$top.removeClass('loading-results');
 
         if(keywords.length || date.length) {
+          $filteredResultsTitle.find('.results-count').text(data.total_results);
+          $filteredResultsTitle.find('.results-count-description').text(data.total_results === 1 ? 'result' : 'results');
+
           if(keywords.length) {
             $filteredResultsTitle.addClass('with-keywords');
             $filteredResultsTitle.find('.keywords').text(keywords);
           }
 
           if(date.length) {
+            date = this.dateParse(this.getDate());
+            humanDate = this.months[date.getMonth()] + ' ' + date.getFullYear();
             $filteredResultsTitle.addClass('with-date');
+            $filteredResultsTitle.find('.date').text(humanDate);
           }
 
           this.$results.prepend($filteredResultsTitle);
@@ -177,7 +184,7 @@
       this.paginationUpdate(data);
       //this.stopLoadingResults();
 
-      this.resultsUpdateUI('loaded');
+      this.resultsUpdateUI('loaded', data);
 
       this.resultsLoaded = true;
     },
@@ -305,7 +312,8 @@
       return new Date(dateArray.join('/'));
     },
 
-    dateFormat: function() {
+    dateFormat: function(dateObject) {
+      return dateObject.getDate()+' '+this.months[dateObject.getMonth()]+' '+dateObject.getFullYear();
     }
   };
 }(jQuery));
