@@ -29,7 +29,7 @@ function dw_rewrite_rules() {
   add_rewrite_rule($regex, $redirect, 'top');
 
   //Events page
-  $regex = '^events/([0-9]+)/(.*)';
+  $regex = '^events/([0-9]+)(/.*)?';
   $redirect = 'index.php?page_id=' . get_page_by_path('events')->ID;
   add_rewrite_rule($regex, $redirect, 'top');
 

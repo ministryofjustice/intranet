@@ -148,11 +148,8 @@
 
           this.$results.prepend($filteredResultsTitle);
         }
-        else if(page === 1) { //use 'latest' heading
+        else {
           this.$results.prepend($resultsTitle.text('Latest'));
-        }
-        else { //use 'archive' heading
-          this.$results.prepend($resultsTitle.text('Archive'));
         }
       }
     },
@@ -291,6 +288,12 @@
     getUrlSegments: function() {
       var url = window.location.href;
       var sub = url.substr(this.pageBase.length);
+      var hashPos = sub.indexOf('#');
+
+      if(hashPos >= 0) {
+        sub = sub.substr(0, hashPos);
+      }
+
       sub = sub.replace(/^\/|\/$/g, ''); //remove leading and trailing slashes
       return sub.split('/');
     },
