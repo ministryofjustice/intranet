@@ -174,6 +174,8 @@
       var _this = this;
       var $eventItem;
 
+      this.resultsLoaded = true;
+      this.resultsAbort();
       this.resultsClear();
 
       $.each(data.results, function(index, result) {
@@ -181,12 +183,10 @@
         _this.$results.append($eventItem);
       });
 
+      this.currentPage = parseInt(data.url_params.page, 10);
       this.paginationUpdate(data);
-      //this.stopLoadingResults();
-
       this.resultsUpdateUI('loaded', data);
-
-      this.resultsLoaded = true;
+      this.urlUpdate();
     },
 
     resultsBuildRow: function(data) {
@@ -210,7 +210,6 @@
     },
 
     paginationUpdate: function(data) {
-      this.currentPage = parseInt(data.url_params.page, 10);
       var perPage = parseInt(data.url_params.per_page, 10) || 10;
       var totalResults = parseInt(data.total_results, 10);
       var totalPages = perPage > 0 ? Math.ceil(totalResults/perPage) : 1;
@@ -301,6 +300,21 @@
     },
 
     urlUpdate: function() {
+      var urlParts = [this.pageBase];
+      var keywords = this.getKeywords().replace(/\s/g, '+');
+
+      //page number
+      urlParts.push(this.currentPage);
+
+      //keywords
+      urlParts.push(keywords || '-');
+
+      //date
+      urlParts.push(this.getDate() || '-');
+
+      if(history.pushState) {
+        history.pushState({}, "", urlParts.join('/')+'/');
+      }
     },
 
     dateParse: function(dateString) {
