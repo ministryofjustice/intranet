@@ -34,7 +34,9 @@ class Single_event extends MVC_controller {
         'human_date' => date("j F Y", $start_date_timestamp),
         'day_of_week' => date("l", $start_date_timestamp),
         'day_of_month' => date("j", $start_date_timestamp),
-        'month_year' => date("M Y", $start_date_timestamp)
+        'month_year' => date("M Y", $start_date_timestamp),
+        'time' => $start_time . ' - ' . $end_time,
+        'location' => get_post_meta($post->ID, '_event-location', true)
       )
     );
   }

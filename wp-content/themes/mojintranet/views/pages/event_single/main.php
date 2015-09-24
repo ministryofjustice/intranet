@@ -24,6 +24,15 @@
             </div>
           </div>
         </div>
+        <div class="item-row content">
+          <?=$content?>
+        </div>
+        <div class="item-row">
+          <a class="share-event"
+             href="mailto:"
+             data-title="<?=htmlspecialchars($title)?>"
+             data-date="<?=htmlspecialchars($human_date)?>">Share event by email</a>
+        </div>
       </div>
     </div>
   </div>
