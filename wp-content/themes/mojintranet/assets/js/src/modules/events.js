@@ -193,6 +193,7 @@
       var month = this.months[date.getMonth()].substr(0, 3);
       var year = date.getFullYear();
 
+      $child.find('.results-link').attr('href', data.url);
       $child.find('.date-box').attr('datetime', data.start_date + ' ' + data.start_time);
       $child.find('.date-box .day-of-week').html(dayOfWeek);
       $child.find('.date-box .day-of-month').html(date.getDate());
