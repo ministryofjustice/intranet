@@ -95,16 +95,16 @@ class My_moj_model extends MVC_model {
           'external' => true
         ),
         array(
-          'title' => 'Ministry of Justice',
-          'icon' => 'ministry-of-justice',
-          'url' => 'http://www.justice.gov.uk/',
-          'external' => true
+          'title' => 'The MoJ Story',
+          'icon' => 'moj-story',
+          'url' => site_url('/about-us/moj-story/'),
+          'external' => false
         ),
         array(
-          'title' => 'GOV.UK',
-          'icon' => 'gov-uk',
-          'url' => 'https://www.gov.uk/',
-          'external' => true
+          'title' => 'Webchat',
+          'icon' => 'webchat',
+          'url' => site_url('/webchats/'),
+          'external' => false
         )
       )
     );
