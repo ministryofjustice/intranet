@@ -64,7 +64,7 @@ function sortable_event_columns($sortable_columns) {
 add_filter('request','mojintranet_sort_events');
 function mojintranet_sort_events($vars) {
   if(!is_admin()) {
-    return;
+    return $vars;
   }
   if ( isset( $vars['orderby'] ) && 'event-start' == $vars['orderby'] ) {
     $vars = array_merge( $vars, array(
@@ -96,8 +96,6 @@ function mojintranet_sort_events($vars) {
       )
     ));
   }
-
-  // Debug::full($vars); exit;
 
   return $vars;
 }
