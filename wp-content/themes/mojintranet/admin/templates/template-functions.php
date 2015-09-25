@@ -103,3 +103,20 @@ function process_metaboxes() {
     }
 }
 add_action('add_meta_boxes','process_metaboxes');
+
+// Prevents false "is_published" message on validation error
+add_filter('redirect_post_location','my_redirect_location',10,2);
+function my_redirect_location($location,$post_id){
+    //If post was published...
+    if (isset($_POST['publish'])){
+      //obtain current post status
+      $status = get_post_status( $post_id );
+
+      //The post was 'published', but if it is still a draft, display draft message (10).
+      if($status=='draft') {
+        $location = add_query_arg('message', 10, $location);
+      }
+    }
+
+    return $location;
+}

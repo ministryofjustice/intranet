@@ -19,6 +19,7 @@ require_once('inc/languages.php');                        // Controls the site l
 
 require_once('admin/templates/template-functions.php');   // Customises page editor based on template
 require_once('admin/editor-enhancements.php');            // Adds enhancements to post/page editor screen
+require_once('admin/errors.php');                         // Displays errors in admin
 
 include     ('helpers/debug.php');                        // Debug tool
 include     ('helpers/cachebuster.php');                  // Ensures updated CSS and JS are served to client

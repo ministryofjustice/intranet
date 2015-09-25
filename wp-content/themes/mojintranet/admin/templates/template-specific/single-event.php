@@ -50,6 +50,23 @@ function event_details_save($post_id) {
       }
   }
   $field_array=array('location','start-date','start-time','end-date','end-time');
+
+  // Validation
+  $data_ok = true;
+  $mojintranet_errors = get_option( 'mojintranet_errors');
+  if(in_array(get_post_status( $post_id ),array('publish','future'))) { // Only validate on publish
+    // If no end date...
+    if(!$_POST[$ns."-end-date"]) {
+      $mojintranet_errors[]= "Please enter an end date to publish this event";
+      $data_ok = false;
+    }
+    // If event finishes after start
+    if(strtotime($_POST[$ns."-start-date"] . $_POST[$ns."-start-time"])>strtotime($_POST[$ns."-end-date"] . $_POST[$ns."-end-time"])) {
+      $mojintranet_errors[]= "The event cannot end later than it starts! Please correct to publish this event";
+      $data_ok = false;
+    }
+  }
+
   foreach ($field_array as $field) {
     if (isset($_POST[$ns . "-" . $field])) {
         $data = sanitize_text_field( $_POST[$ns . "-" . $field] );
@@ -58,5 +75,19 @@ function event_details_save($post_id) {
         delete_post_meta( $post_id, "_" . $ns . "-" . $field);
     }
   }
+  if(!$data_ok) {
+    // save error messages
+    update_option('mojintranet_errors',$mojintranet_errors);
+
+    // unhook this function to prevent indefinite loop
+    remove_action('save_post', 'event_details_save',5);
+
+    // update the post to change post status
+    wp_update_post(array('ID' => $post_id, 'post_status' => 'draft'));
+
+    // re-hook this function again
+    add_action('save_post', 'event_details_save',5);
+  }
 }
+
 ?>

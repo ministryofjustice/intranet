@@ -34,27 +34,68 @@ add_action( 'init', 'define_event_post_type');
 // Add extra columns to event list view in admin
 add_filter('manage_event_posts_columns','set_custom_event_columns');
 function set_custom_event_columns($columns) {
-  $columns['event-start-date'] = __('Start Date');
-  $columns['event-start-time'] = __('Start Time');
-  $columns['event-end-date'] = __('End Date');
-  $columns['event-end-time'] = __('End Time');
+  $columns['event-start'] = __('Start');
+  $columns['event-end'] = __('End');
   return $columns;
 }
 
 add_action('manage_event_posts_custom_column','custom_event_columns',10,2);
 function custom_event_columns($column, $post_id) {
   switch($column) {
-    case 'event-start-date':
-      echo get_post_meta( $post_id , '_event-start-date' , true )?:'-';
+    case 'event-start':
+      $start_date = get_post_meta( $post_id , '_event-start-date' , true );
+      $start_time = get_post_meta( $post_id , '_event-start-time' , true );
+      echo $start_date?$start_date . " " . ($start_time?:"--:--"):"-";
       break;
-    case 'event-start-time':
-      echo get_post_meta( $post_id , '_event-start-time' , true )?:'-';
-      break;
-    case 'event-end-date':
-      echo get_post_meta( $post_id , '_event-end-date' , true )?:'-';
-      break;
-    case 'event-end-time':
-      echo get_post_meta( $post_id , '_event-end-time' , true )?:'-';
+    case 'event-end':
+      $end_date = get_post_meta( $post_id , '_event-end-date' , true );
+      $end_time = get_post_meta( $post_id , '_event-end-time' , true );
+      echo $end_date?$end_date . " " . ($end_time?:"--:--"):"-";
       break;
   }
+}
+
+add_filter('manage_edit-event_sortable_columns','sortable_event_columns');
+function sortable_event_columns($sortable_columns) {
+  $sortable_columns['event-start'] = 'event-start';
+  $sortable_columns['event-end'] = 'event-end';
+  return $sortable_columns;
+}
+add_filter('request','mojintranet_sort_events');
+function mojintranet_sort_events($vars) {
+  if(!is_admin()) {
+    return $vars;
+  }
+  if ( isset( $vars['orderby'] ) && 'event-start' == $vars['orderby'] ) {
+    $vars = array_merge( $vars, array(
+      'orderby' => 'meta_value',
+      'meta_query' => array(
+        array(
+          'key' => '_event-start-date',
+          'compare' => 'exists'
+        ),
+        array(
+          'key' => '_event-start-time',
+          'compare' => 'exists'
+        )
+      )
+    ));
+  }
+  if ( isset( $vars['orderby'] ) && 'event-end' == $vars['orderby'] ) {
+    $vars = array_merge( $vars, array(
+      'orderby' => 'meta_value',
+      'meta_query' => array(
+        array(
+          'key' => '_event-end-date',
+          'compare' => 'exists'
+        ),
+        array(
+          'key' => '_event-end-time',
+          'compare' => 'exists'
+        )
+      )
+    ));
+  }
+
+  return $vars;
 }
