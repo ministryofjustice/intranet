@@ -33,13 +33,15 @@
   </div>
 
   <div class="grid">
-    <div class="col-lg-4 col-md-4 col-sm-12">
-      <div class="story-image">
-        <img src="<?=$thumbnail?>" class="img img-responsive" alt="<?=$thumbnail_alt_text?>" />
+    <?php if($thumbnail): ?>
+      <div class="col-lg-4 col-md-4 col-sm-12">
+        <div class="story-image">
+          <img src="<?=$thumbnail?>" class="img img-responsive" alt="<?=$thumbnail_alt_text?>" />
+        </div>
       </div>
-    </div>
+    <?php endif ?>
 
-    <div class="col-lg-8 col-md-4 col-sm-12">
+    <div class="col-lg-8 col-md-8 col-sm-12">
       <div class="content editable">
         <?=$content?>
       </div>
@@ -73,19 +75,6 @@
           <?php endif ?>
         </li>
       </ul>
-
-<!--      <div class="content-info">
-        <p>
-          <a href="#" class="print">Print news</a>
-          <a href="#" class="share">Share this page by email</a>
-        </p>
-
-        <p class="report-issue">
-          <a href="#">Is there anything wrong with this page?</a>
-        </p>
-
-        <p class="last-updated">Last updated: 14 October 2014</p>
-      </div>-->
     </div>
   </div>
 </div>
