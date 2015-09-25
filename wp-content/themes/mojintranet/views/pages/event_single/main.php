@@ -24,7 +24,7 @@
             </div>
           </div>
         </div>
-        <div class="item-row content">
+        <div class="item-row content editable">
           <?=$content?>
         </div>
         <div class="item-row">
