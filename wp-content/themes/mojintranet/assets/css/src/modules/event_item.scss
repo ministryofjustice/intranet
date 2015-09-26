@@ -1,67 +1,66 @@
-.template-events-landing,
-.template-single-event {
-  .template-container {
-    .results-item {
-      .title {
-        @extend %medium-heading;
-        margin-top: 0;
-        margin-bottom: 0;
+.template-events-landing .template-container,
+.template-single-event .template-container,
+.events-widget {
+  .results-item {
+    .title {
+      @extend %medium-heading;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    .item-row {
+      @include clearfix;
+      position: relative;
+    }
+
+    .date-box {
+      float: left;
+      width: 100px;
+      margin-right: 40px;
+      border: 1px solid $grey-2;
+
+      .day-of-week {
+        @extend %smaller-copy;
+        display: block;
+        background-color: $grey-3;
+        text-align: center;
+        line-height: 25px;
       }
 
-      .item-row {
-        @include clearfix;
-        position: relative;
+      .day-of-month {
+        display: block;
+        padding: 10px 0 0;
+        font-size: 30px;
+        font-weight: bold;
+        text-align: center;
+        line-height: 42px;
       }
 
-      .date-box {
-        float: left;
-        width: 100px;
-        margin-right: 40px;
-        border: 1px solid $grey-2;
+      .month-year {
+        @extend %smaller-copy;
+        display: block;
+        padding-bottom: 5px;
+        text-align: center;
+      }
+    }
 
-        .day-of-week {
-          @extend %smaller-copy;
-          display: block;
-          background-color: $grey-3;
-          text-align: center;
-          line-height: 25px;
-        }
+    .content {
+      overflow: hidden;
+    }
 
-        .day-of-month {
-          display: block;
-          padding: 10px 0 0;
-          font-size: 30px;
-          font-weight: bold;
-          text-align: center;
-          line-height: 42px;
-        }
+    .meta {
+      position: absolute;
+      bottom: 0px;
 
-        .month-year {
-          @extend %smaller-copy;
-          display: block;
-          padding-bottom: 5px;
-          text-align: center;
-        }
+      .label {
+        display: inline-block;
+        width: 70px;
+        font-weight: bold;
+        color: $black;
       }
 
-      .content {
-        overflow: hidden;
-      }
-
-      .meta {
-        position: absolute;
-        bottom: 0px;
-
-        .label {
-          display: inline-block;
-          width: 70px;
-          font-weight: bold;
-          color: $black;
-        }
-
-        .value {
-          color: $black;
-        }
+      .value {
+        color: $black;
       }
     }
   }

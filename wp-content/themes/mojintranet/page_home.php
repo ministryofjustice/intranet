@@ -21,7 +21,10 @@ class Page_home extends MVC_controller {
       'cache_timeout' => 180,
       'page_data' => array(
         'emergency_message' => $this->get_emergency_message(),
-        'my_moj' => $this->my_moj_model->get_data()
+        'my_moj' => $this->my_moj_model->get_data(),
+        'events' => array(
+          'results' => $this->get_events()
+        )
       )
     );
   }
@@ -41,5 +44,32 @@ class Page_home extends MVC_controller {
       'message'     => $message,
       'type'        => $type
     );
+  }
+
+  private function get_events() {
+    $events = $this->get_events_from_api();
+    $formatted_events = array();
+
+    foreach($events['results'] as $event) {
+      $start_date_timestamp = strtotime($event['start_date']);
+
+      $formatted_events[] = array(
+        'url' => $event['url'],
+        'title' => $event['title'],
+        'human_date' => date("j F Y", $start_date_timestamp),
+        'day_of_week' => date("l", $start_date_timestamp),
+        'day_of_month' => date("j", $start_date_timestamp),
+        'month_year' => date("M Y", $start_date_timestamp),
+        'time' => $event['start_time'] . ' - ' . $event['end_time'],
+        'location' => $event['location']
+      );
+    }
+
+    return $formatted_events;
+  }
+
+  private function get_events_from_api() {
+    $results = new events_request(array('', '', '', 4));
+    return $results->results_array;
   }
 }
