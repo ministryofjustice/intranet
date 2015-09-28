@@ -61,6 +61,7 @@ require_once('admin/editor-enhancements.php');            // Adds enhancements t
 
 include     ('helpers/debug.php');                        // Debug tool
 include     ('helpers/cachebuster.php');                  // Ensures updated CSS and JS are served to client
+include     ('helpers/taggr.php');                        // Tool for retrieving pages by their dw-tag
 
 /** Tell WordPress to run twentyten_setup() when the 'after_setup_theme' hook is run. */
 add_action( 'after_setup_theme', 'twentyten_setup' );
@@ -107,4 +108,3 @@ function twentyten_setup() {
 	) );
 }
 endif;
-

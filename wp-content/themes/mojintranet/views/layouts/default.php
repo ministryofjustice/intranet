@@ -27,6 +27,7 @@ if(!is_user_logged_in()) {
       <!--[if IE 6 ]>
         <?php $this->view('modules/ie6_message'); ?>
       <![endif]-->
+      <?php $this->view('modules/breadcrumbs', array('breadcrumbs' => $this->breadcrumbs_model->get_data())); ?>
       <?php $this->view($page, $page_data) ?>
     </div>
   </div>

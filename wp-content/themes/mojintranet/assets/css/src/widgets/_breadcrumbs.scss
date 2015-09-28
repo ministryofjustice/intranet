@@ -1,0 +1,16 @@
+.breadcrumbs {
+  .breadcrumb-item {
+    @extend %medium-copy;
+    float: left;
+  }
+
+  .separator {
+    display: inline-block;
+    width: 6px;
+    height: 11px;
+    margin-left: 10px;
+    margin-right: 10px;
+    background-image: url('../images/breadcrumb_separator_x2.png');
+    background-size: 100% 100%;
+  }
+}
