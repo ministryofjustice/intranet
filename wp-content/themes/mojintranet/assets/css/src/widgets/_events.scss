@@ -9,14 +9,15 @@
     -moz-column-gap: 20px;
     -webkit-column-gap: 20px;
     column-gap: 20px;
-    -moz-column-count: 2;
-    -webkit-column-count: 2;
-    column-count: 2;
+    -moz-column-count: 1;
+    -webkit-column-count: 1;
+    column-count: 1;
   }
 
   .results-item {
     margin-bottom: 15px;
     padding-bottom: 15px;
+    border-bottom: 1px solid $grey-2;
 
     .date-box {
       width: 70px;
