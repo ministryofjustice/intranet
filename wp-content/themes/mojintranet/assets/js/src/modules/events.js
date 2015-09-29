@@ -270,7 +270,7 @@
 
       //set the date field
       if(segments[2]) {
-        this.$dateInput.val(segments[2]);
+        this.$dateInput.val(segments[2] === '-' ? '' : segments[2]);
       }
     },
 
