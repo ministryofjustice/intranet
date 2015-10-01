@@ -131,7 +131,7 @@ jQuery(function($) {
 
       reorderLinks(namespace);
     }
-  }).disableSelection();
+  });
 
   // Tabs
   var gsTabs = $('#content_tabs .tabs').tabs();
