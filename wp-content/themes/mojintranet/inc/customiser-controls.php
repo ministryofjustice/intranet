@@ -40,7 +40,7 @@ class News_Dropdown_Custom_Control extends WP_Customize_Control
                       <?php
                         foreach ( $this->posts as $post ) {
                           printf('{');
-                          printf('postid: "%s", label: "%s"', $post->ID, $post->post_title);
+                          printf('postid: "%s", label: "%s"', $post->ID, addslashes($post->post_title));
                           printf('},');
                         }
                       ?>
