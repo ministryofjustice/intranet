@@ -231,32 +231,6 @@
     filtersInit: function() {
       var segments = this.getUrlSegments();
       var keywords;
-      var today = new Date();
-      var startYear = today.getFullYear();
-      var startMonth = today.getMonth();
-      var startDay = 1;
-      var thisDate, thisYear, thisMonth, thisDay;
-      var $option;
-      var paddedMonth;
-      var a;
-
-      for(a=0; a<this.settings.dateDropdownLength; a++) {
-        thisDate = new Date(startYear, startMonth + a, startDay);
-        thisDay = thisDate.getDate();
-        thisMonth = thisDate.getMonth();
-        thisYear = thisDate.getFullYear();
-        paddedMonth = thisMonth + 1;
-        paddedMonth = paddedMonth <= 9 ? '0' + paddedMonth : '' + paddedMonth;
-
-        if(new Date(thisYear, thisMonth, thisDay) < this.settings.dateDropdownStartDate) {
-          break;
-        }
-
-        $option = $('<option>');
-        $option.text(this.months[thisMonth] + ' ' + thisYear);
-        $option.val(thisYear + '-' + paddedMonth);
-        this.$dateInput.append($option);
-      }
 
       //set the keywords field
       if(segments[1]) {

@@ -37,8 +37,32 @@ class Page_events extends MVC_controller {
             'url' => site_url('/events'),
             'selected' => true
           )
-        )
+        ),
+        'event_months' => $this->get_months()
       )
     );
+  }
+
+  private function get_months() {
+    $months = $this->get_months_from_api();
+
+    $formatted_months = array();
+
+    foreach($months['results'] as $date=>$count) {
+      $time = strtotime($date);
+      $formatted_date = date("F Y", $time);
+      $formatted_count = $count . ' ' . ($count===1 ? 'event' : 'events');
+      $formatted_months[] = array(
+        'label' => $formatted_date . '&nbsp;&nbsp;(' . $formatted_count . ')',
+        'value' => date("Y-m", $time)
+      );
+    }
+
+    return $formatted_months;
+  }
+
+  private function get_months_from_api() {
+    $results = new months_request('event');
+    return $results->results_array;
   }
 }

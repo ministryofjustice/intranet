@@ -36,6 +36,9 @@
         <div class="form-row">
           <select name="date" id="input-filter-date">
             <option value="">All</option>
+            <?php foreach($event_months as $month): ?>
+              <option value="<?=$month['value']?>"><?=$month['label']?></option>
+            <?php endforeach ?>
           </select>
         </div>
         <div class="form-row contains">
