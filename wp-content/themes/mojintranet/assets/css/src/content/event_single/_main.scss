@@ -1,10 +1,51 @@
 .template-single-event .template-container {
+  .title {
+    @extend %largest-heading;
+    margin-top: 50px !important;
+  }
+
   .results-item {
-    margin-top: 34px;
+    margin-top: 10px;
+
+    .content {
+      margin-top: 0px;
+    }
+
+    .content.editable {
+      margin-top: 20px;
+    }
+
+    .meta {
+      position: static;
+
+      ul {
+        margin-top: 0;
+      }
+
+      .label,
+      .value {
+        @extend %medium-copy;
+      }
+
+      .label {
+        width: 85px;
+      }
+    }
   }
 
   .content {
     margin-top: 25px;
     margin-bottom: 25px;
+  }
+
+  .share-event-icon {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background-image: url('../images/link_icon_x2.png');
+  }
+
+  .share-event {
+    @extend %medium-copy;
   }
 }

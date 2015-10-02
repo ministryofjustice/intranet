@@ -2,6 +2,9 @@
 
 <div class="template-container">
   <div class="grid">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+      <h1 class="title"><?=$title?></h1>
+    </div>
     <div class="col-lg-8 col-md-10 col-sm-12">
       <div class="results-item">
         <div class="item-row">
@@ -11,7 +14,6 @@
             <span class="month-year"><?=$month_year?></span>
           </time>
           <div class="content">
-            <h1 class="title"><?=$title?></h1>
             <div class="meta">
               <ul>
                 <li class="meta-time">
@@ -28,6 +30,7 @@
           <?=$content?>
         </div>
         <div class="item-row">
+          <span class="share-event-icon"></span>
           <a class="share-event"
              href="mailto:"
              data-title="<?=htmlspecialchars($title)?>"
