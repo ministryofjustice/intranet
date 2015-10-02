@@ -13,7 +13,7 @@
       </nav>
     </div>
     <div class="col-lg-9 col-md-8 col-sm-12">
-      <?php if($is_imported): ?>
+      <?php if(!$disable_banner): ?>
         <?php $this->view('modules/imported_banner'); ?>
       <?php endif ?>
 
