@@ -18,9 +18,21 @@
             <span class="month-year"><?=$event['month_year']?></span>
           </time>
           <div class="content">
-            <a href="<?=$event['url']?>">
-              <h3 class="title"><?=$event['title']?></h3>
-            </a>
+            <h3 class="title">
+              <a href="<?=$event['url']?>">
+                <?=$event['title']?>
+              </a>
+            </h3>
+            <div class="meta">
+              <ul>
+                <li class="meta-time">
+                  <span class="label">Time:</span><span class="value"><?=$event['time']?></span>
+                </li>
+                <li class="meta-location">
+                  <span class="label">Location:</span><span class="value"><?=$event['location']?></span>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </li>
