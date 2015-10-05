@@ -53,7 +53,7 @@ class Page_guidance_and_support extends MVC_controller {
         'human_date' => date("j F Y", strtotime($article_date)),
         'redirect_url' => get_post_meta($this->post_ID, 'redirect_url', true),
         'redirect_enabled' => get_post_meta($this->post_ID, 'redirect_enabled', true),
-        'is_imported' => get_post_meta($this->post_ID, 'is_imported', true),
+        'disable_banner' => get_post_meta($this->post_ID, 'disable_banner', true),
         'link_array' => $this->get_link_array(),
         'tab_array' => $this->get_tab_array(),
         'tab_count' => $this->tab_count,
@@ -153,11 +153,6 @@ class Page_guidance_and_support extends MVC_controller {
     while($id = wp_get_post_parent_id($id));
 
     $children = array_reverse($children);
-
-    $top_level = $this->get_children_from_API();
-    $top_level['title'] = 'MoJ Intranet';
-
-    array_unshift($children, $top_level);
 
     return htmlspecialchars(json_encode($children));
   }
