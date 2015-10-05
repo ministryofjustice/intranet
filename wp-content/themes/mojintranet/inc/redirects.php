@@ -1,5 +1,7 @@
 <?php
 function dw_redirects() {
+  $path = $_SERVER['REQUEST_URI'];
+
   //Search form -> search results page
   if(isset($_POST['s']) || $_POST['search-filter'] ) {
     $keywords = $_POST['s'] ?: '-';
@@ -10,9 +12,11 @@ function dw_redirects() {
 
     header('Location: ' . site_url() . '/search-results/' . $filter . '/' . $keywords . '/1/');
     exit;
+  } elseif (preg_match('/\/search\/?$/',$path)) {
+    header('Location: ' . site_url());
+    exit;
   }
 
-  $path = $_SERVER['REQUEST_URI'];
   if(strpos($path, 'guidance-and-support') || strpos($path, 'guidance-support')) {
     $new_path = preg_replace('/^([^?]*)(guidance-and-support|guidance-support)/', '${1}guidance', $path);
     if($new_path != $path) {
