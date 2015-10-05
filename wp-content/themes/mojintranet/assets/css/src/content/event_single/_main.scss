@@ -42,7 +42,10 @@
     display: inline-block;
     width: 16px;
     height: 16px;
+    margin-right: 2px;
+    vertical-align: top;
     background-image: url('../images/link_icon_x2.png');
+    background-size: 100% 100%;
   }
 
   .share-event {
