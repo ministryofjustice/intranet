@@ -154,11 +154,6 @@ class Page_guidance_and_support extends MVC_controller {
 
     $children = array_reverse($children);
 
-    $top_level = $this->get_children_from_API();
-    $top_level['title'] = 'MoJ Intranet';
-
-    array_unshift($children, $top_level);
-
     return htmlspecialchars(json_encode($children));
   }
 
