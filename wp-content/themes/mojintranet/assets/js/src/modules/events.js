@@ -14,8 +14,6 @@
   App.Events.prototype = {
     init: function() {
       this.settings = {
-        dateDropdownLength: 12,
-        dateDropdownStartDate: new Date(2015, 0, 1)
       };
 
       this.applicationUrl = $('head').data('application-url');
@@ -79,7 +77,7 @@
         'date': this.$dateInput.val(),
         'keywords': this.getKeywords().replace(/\s+/g, '+'),
         'page': this.getPage(),
-        'resultsPerPage': 2 //commenting out - we want it to use the default setting from the API for now
+        //'resultsPerPage': 10 //commenting out - we want it to use the default setting from the API for now
       };
 
       if(data) {
