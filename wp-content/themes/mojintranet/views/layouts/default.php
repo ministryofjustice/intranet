@@ -3,6 +3,12 @@
 header('X-Frame-Options: SAMEORIGIN');
 if(!is_user_logged_in()) {
   header('Cache-Control: public, max-age=' . ($cache_timeout?:60) . ', must-revalidate');
+  header('Expires: '.gmdate('D, d M Y H:i:s \G\M\T', time() + ($cache_timeout?:60)));
+  header("Pragma:");
+} else {
+  header('Cache-Control: public, max-age=0, no-cache');
+  header("Pragma: no-cache");
+  header('Expires: '.gmdate('D, d M Y H:i:s \G\M\T', time() + 600000));
 }
 
 ?>
