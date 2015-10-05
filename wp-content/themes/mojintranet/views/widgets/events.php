@@ -9,7 +9,7 @@
 <div class="events-widget">
   <h2 class="events-heading">Events</h2>
   <ul class="events-list">
-    <?php foreach($results as $event): ?>
+    <?php foreach($events as $event): ?>
       <li class="results-item">
         <div class="item-row">
           <time class="date-box" datetime="">
@@ -42,6 +42,6 @@
   </ul>
 
   <p class="see-all-container">
-    <a href="<?=$see_all_url?>">See upcoming events</a>
+    <a href="<?=$see_all_events_url?>">See upcoming events</a>
   </p>
 </div>

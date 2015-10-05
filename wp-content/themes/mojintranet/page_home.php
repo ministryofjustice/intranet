@@ -23,9 +23,8 @@ class Page_home extends MVC_controller {
       'page_data' => array(
         'emergency_message' => $this->get_emergency_message(),
         'my_moj' => $this->my_moj_model->get_data(),
-        'events' => array(
-          'results' => $this->get_events()
-        )
+        'events' => $this->get_events(),
+        'see_all_events_url' => get_permalink(Taggr::get_id('events-landing'))
       )
     );
   }
