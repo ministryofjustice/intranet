@@ -28,9 +28,11 @@
                 <li class="meta-time">
                   <span class="label">Time:</span><span class="value"><?=$event['time']?></span>
                 </li>
-                <li class="meta-location">
-                  <span class="label">Location:</span><span class="value"><?=$event['location']?></span>
-                </li>
+                <?php if($event['location']): ?>
+                  <li class="meta-location">
+                    <span class="label">Location:</span><span class="value"><?=$event['location']?></span>
+                  </li>
+                <?php endif ?>
               </ul>
             </div>
           </div>

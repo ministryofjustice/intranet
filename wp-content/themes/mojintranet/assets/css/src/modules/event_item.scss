@@ -52,6 +52,10 @@
       position: absolute;
       bottom: 0px;
 
+      .hidden {
+        display: none;
+      }
+
       .label {
         display: inline-block;
         width: 70px;

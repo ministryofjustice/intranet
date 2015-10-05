@@ -202,6 +202,10 @@
       $child.find('.permalink').attr('href', data.url);
       $child.find('.description').html(data.description);
 
+      if(!data.location) {
+        $child.find('.meta-location').addClass('hidden');
+      }
+
       return $child;
     },
 

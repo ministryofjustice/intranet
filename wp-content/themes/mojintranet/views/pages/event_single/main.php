@@ -19,9 +19,11 @@
                 <li class="meta-time">
                   <span class="label">Time:</span><span class="value"><?=$time?></span>
                 </li>
-                <li class="meta-location">
-                  <span class="label">Location:</span><span class="value"><?=$location?></span>
-                </li>
+                <?php if($location): ?>
+                  <li class="meta-location">
+                    <span class="label">Location:</span><span class="value"><?=$location?></span>
+                  </li>
+                <?php endif ?>
               </ul>
             </div>
           </div>
