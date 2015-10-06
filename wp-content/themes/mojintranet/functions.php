@@ -23,6 +23,7 @@ require_once('admin/errors.php');                         // Displays errors in 
 
 include     ('helpers/debug.php');                        // Debug tool
 include     ('helpers/cachebuster.php');                  // Ensures updated CSS and JS are served to client
+include     ('helpers/taggr.php');                        // Tool for retrieving pages by their dw-tag
 
 add_action( 'after_setup_theme', 'mojintranet_setup' );
 
