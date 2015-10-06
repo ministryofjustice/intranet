@@ -25,9 +25,16 @@
             </h3>
             <div class="meta">
               <ul>
-                <li class="meta-time">
-                  <span class="label">Time:</span><span class="value"><?=$event['time']?></span>
-                </li>
+                <?php if($event['multiday']): ?>
+                  <li class="meta-date">
+                    <span class="label">Date:</span><span class="value"><?=$event['date']?></span>
+                  </li>
+                <?php else: ?>
+                  <li class="meta-time">
+                    <span class="label">Time:</span><span class="value"><?=$event['time']?></span>
+                  </li>
+                <?php endif ?>
+
                 <?php if($event['location']): ?>
                   <li class="meta-location">
                     <span class="label">Location:</span><span class="value"><?=$event['location']?></span>

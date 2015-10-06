@@ -16,9 +16,16 @@
           <div class="content">
             <div class="meta">
               <ul>
-                <li class="meta-time">
-                  <span class="label">Time:</span><span class="value"><?=$time?></span>
-                </li>
+                <?php if($multiday): ?>
+                  <li class="meta-date">
+                    <span class="label">Date:</span><span class="value"><?=$date?></span>
+                  </li>
+                <?php else: ?>
+                  <li class="meta-time">
+                    <span class="label">Time:</span><span class="value"><?=$time?></span>
+                  </li>
+                <?php endif ?>
+
                 <?php if($location): ?>
                   <li class="meta-location">
                     <span class="label">Location:</span><span class="value"><?=$location?></span>

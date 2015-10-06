@@ -190,24 +190,41 @@
 
     resultsBuildRow: function(data) {
       var $child = $(this.itemTemplate);
-      var date = this.dateParse(data.start_date);
-      var dayOfWeek = this.weekdays[date.getDay()];
-      var month = this.months[date.getMonth()].substr(0, 3);
-      var year = date.getFullYear();
+      var startDate = this.dateParse(data.start_date);
+      var startDayOfWeek = this.weekdays[startDate.getDay()];
+      var startDay = startDate.getDate();
+      var startMonth = this.months[startDate.getMonth()];
+      var startYear = startDate.getFullYear();
+      var endDate = this.dateParse(data.end_date);
+      var endDay = endDate.getDate();
+      var endDayOfWeek = this.weekdays[endDate.getDay()];
+      var endMonth = this.months[endDate.getMonth()];
+      var endYear = endDate.getFullYear();
+
+      var startDateFormatted = [startDay, startMonth, startYear].join(' ');
+      var endDateFormatted = [endDay, endMonth, endYear].join(' ');
 
       $child.find('.results-link').attr('href', data.url);
       $child.find('.date-box').attr('datetime', data.start_date + ' ' + data.start_time);
-      $child.find('.date-box .day-of-week').html(dayOfWeek);
-      $child.find('.date-box .day-of-month').html(date.getDate());
-      $child.find('.date-box .month-year').html(month + ' ' + year);
+      $child.find('.date-box .day-of-week').html(startDayOfWeek);
+      $child.find('.date-box .day-of-month').html(startDate.getDate());
+      $child.find('.date-box .month-year').html(startMonth.substr(0, 3) + ' ' + startYear);
       $child.find('.title .results-link').html(data.title);
-      $child.find('.meta-time .value').html(data.start_time + ' - ' + data.end_time);
+      $child.find('.meta-time .value').html(data.all_day ? 'All day' : data.start_time + ' - ' + data.end_time);
+      $child.find('.meta-date .value').html(startDateFormatted + ' - ' + endDateFormatted);
       $child.find('.meta-location .value').html(data.location);
       $child.find('.permalink').attr('href', data.url);
       $child.find('.description').html(data.description);
 
       if(!data.location) {
         $child.find('.meta-location').addClass('hidden');
+      }
+
+      if(!data.multiday) {
+        $child.find('.meta-time').addClass('hidden');
+      }
+      else {
+        $child.find('.meta-date').addClass('hidden');
       }
 
       return $child;

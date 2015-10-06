@@ -52,6 +52,7 @@ class Page_home extends MVC_controller {
 
     foreach($events['results'] as $event) {
       $start_date_timestamp = strtotime($event['start_date']);
+      $end_date_timestamp = strtotime($event['end_date']);
 
       $formatted_events[] = array(
         'url' => $event['url'],
@@ -60,7 +61,10 @@ class Page_home extends MVC_controller {
         'day_of_week' => date("l", $start_date_timestamp),
         'day_of_month' => date("j", $start_date_timestamp),
         'month_year' => date("M Y", $start_date_timestamp),
-        'time' => $event['start_time'] . ' - ' . $event['end_time'],
+        'date' => date("j F Y", $start_date_timestamp) . ' - ' . date("j F Y", $end_date_timestamp),
+        'time' => $event['all_day'] ? 'All day' : $event['start_time'] . ' - ' . $event['end_time'],
+        'multiday' => $event['multiday'],
+        'all_day' => $event['all_day'],
         'location' => $event['location']
       );
     }

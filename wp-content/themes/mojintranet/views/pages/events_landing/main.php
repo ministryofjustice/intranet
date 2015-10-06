@@ -94,6 +94,9 @@
           </h3>
           <div class="meta">
             <ul>
+              <li class="meta-date">
+                <span class="label">Date:</span><span class="value"></span>
+              </li>
               <li class="meta-time">
                 <span class="label">Time:</span><span class="value"></span>
               </li>
