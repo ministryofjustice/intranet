@@ -220,7 +220,7 @@
         $child.find('.meta-location').addClass('hidden');
       }
 
-      if(!data.multiday) {
+      if(data.multiday) {
         $child.find('.meta-time').addClass('hidden');
       }
       else {
