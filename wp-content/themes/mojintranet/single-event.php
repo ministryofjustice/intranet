@@ -20,9 +20,11 @@ class Single_event extends MVC_controller {
     $end_date = get_post_meta($post->ID, '_event-end-date', true);
     $start_time = get_post_meta($post->ID, '_event-start-time', true);
     $end_time = get_post_meta($post->ID, '_event-end-time', true);
+    $all_day = get_post_meta($post->ID, '_event-allday', true);
 
     $start_date_timestamp = strtotime($start_date);
     $end_date_timestamp = strtotime($end_date);
+    $multiday = $start_date_timestamp != $end_date_timestamp;
 
     return array(
       'page' => 'pages/event_single/main',
