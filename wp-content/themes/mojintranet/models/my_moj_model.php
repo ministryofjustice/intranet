@@ -101,7 +101,7 @@ class My_moj_model extends MVC_model {
           'external' => false
         ),
         array(
-          'title' => 'Webchat',
+          'title' => 'Webchats',
           'icon' => 'webchat',
           'url' => site_url('/webchats/'),
           'external' => false
