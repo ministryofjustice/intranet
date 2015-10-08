@@ -9,21 +9,27 @@ function event_details_callback($post) {
     <tr>
       <td>Location:</td>
       <td><input id='<?=$ns?>-location' name='<?=$ns?>-location' value='<?=$post_meta['_'.$ns.'-location'][0]?>'></td>
+      <td width='20'></td>
+      <td>
+        <input type='checkbox' id='<?=$ns?>-allday' name='<?=$ns?>-allday' value='allday' <?=$post_meta['_'.$ns.'-allday'][0]?'checked':''?>>
+        <label for='<?=$ns?>-allday'>All day event?</label>
+      </td>
     </tr>
     <tr><td>&nbsp;</td></tr>
     <tr>
       <td>Start Date:</td>
       <td><input id='<?=$ns?>-start-date' name='<?=$ns?>-start-date' value='<?=$post_meta['_'.$ns.'-start-date'][0]?>' class='datepicker'></td>
       <td width='20'></td>
-      <td>Start Time:</td>
-      <td><input id='<?=$ns?>-start-time' name='<?=$ns?>-start-time' value='<?=$post_meta['_'.$ns.'-start-time'][0]?>' class='timepicker'></td>
+      <td class='event-times'>Start Time:</td>
+      <td class='event-times'><input id='<?=$ns?>-start-time' name='<?=$ns?>-start-time' value='<?=$post_meta['_'.$ns.'-start-time'][0]?>' class='timepicker'></td>
     </tr>
     <tr>
       <td>End Date:</td>
       <td><input id='<?=$ns?>-end-date' name='<?=$ns?>-end-date' value='<?=$post_meta['_'.$ns.'-end-date'][0]?>' class='datepicker'></td>
       <td width='20'></td>
-      <td>End Time:</td>
-      <td><input id='<?=$ns?>-end-time' name='<?=$ns?>-end-time' value='<?=$post_meta['_'.$ns.'-end-time'][0]?>' class='timepicker'></td>
+      <td class='event-times'>End Time:</td>
+      <td class='event-times'><input id='<?=$ns?>-end-time' name='<?=$ns?>-end-time' value='<?=$post_meta['_'.$ns.'-end-time'][0]?>' class='timepicker'></td>
+
     </tr>
   </table>
   <?php
@@ -49,7 +55,7 @@ function event_details_save($post_id) {
           return;
       }
   }
-  $field_array=array('location','start-date','start-time','end-date','end-time');
+  $field_array=array('location','start-date','start-time','end-date','end-time','allday');
 
   // Validation
   $data_ok = true;
