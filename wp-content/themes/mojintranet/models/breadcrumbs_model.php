@@ -34,6 +34,6 @@ class Breadcrumbs_model extends MVC_model {
 
     $breadcrumbs[count($breadcrumbs) - 1]['last'] = true;
 
-    return $breadcrumbs;
+    return is_404() ? array() : $breadcrumbs;
   }
 }
