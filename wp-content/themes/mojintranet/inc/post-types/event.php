@@ -36,6 +36,7 @@ add_filter('manage_event_posts_columns','set_custom_event_columns');
 function set_custom_event_columns($columns) {
   $columns['event-start'] = __('Start');
   $columns['event-end'] = __('End');
+  $columns['event-allday'] = __('All day event?');
   return $columns;
 }
 
@@ -51,6 +52,9 @@ function custom_event_columns($column, $post_id) {
       $end_date = get_post_meta( $post_id , '_event-end-date' , true );
       $end_time = get_post_meta( $post_id , '_event-end-time' , true );
       echo $end_date?$end_date . " " . ($end_time?:"--:--"):"-";
+      break;
+    case 'event-allday':
+      echo get_post_meta( $post_id , '_event-allday' , true )=='allday'?'Yes':'No';
       break;
   }
 }
