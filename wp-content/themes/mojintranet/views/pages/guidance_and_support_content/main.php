@@ -1,7 +1,5 @@
 <?php if (!defined('ABSPATH')) die(); ?>
 <div class="template-container"
-     data-redirect-url="<?=$redirect_url?>"
-     data-redirect-enabled="<?=$redirect_enabled?>"
      data-is-imported="<?=$is_imported?>"
      data-page-id="<?=$id?>"
      data-children-data="<?=$children_data?>">
