@@ -126,7 +126,8 @@
 
     loadResults: function(requestData) {
       var _this = this;
-      var $title = this.$top.find('.news-results-page-title');
+      //appending the title below seems redundant as we remove all ".results-title" elements further down anyway...
+      var $title = this.$top.find('.results-page-title');
 
       if(!$title.length) {
         $title = $(this.resultsPageTitleTemplate);
@@ -138,17 +139,17 @@
       this.stopLoadingResults();
       this.$top.addClass('loading-results');
 
-      this.$top.find('.news-results-title').remove();
+      this.$top.find('.results-title').remove();
       this.$results.prepend($(this.resultsPageTitleTemplate).text('Loading results...'));
 
-      this.$results.find('.news-item').addClass('faded');
+      this.$results.find('.results-item').addClass('faded');
 
       this.requestResults(requestData);
     },
 
     stopLoadingResults: function() {
       this.$top.removeClass('loading-results');
-      this.$top.find('.news-group-separator.loading');
+      this.$top.find('.news-group-separator.loading'); // ??? redundant
       if(this.serviceXHR) {
         this.serviceXHR.abort();
         this.serviceXHR = null;
@@ -258,8 +259,8 @@
         $child.find('.thumbnail').remove(); //we don't want an img element with no src
       }
 
-      $child.find('.title .news-link').html(data.title);
-      $child.find('.news-link').attr('href', data.url);
+      $child.find('.title .results-link').html(data.title);
+      $child.find('.results-link').attr('href', data.url);
       $child.find('.date').html(this.formatDate(date));
       $child.find('.excerpt').html(data.excerpt);
 

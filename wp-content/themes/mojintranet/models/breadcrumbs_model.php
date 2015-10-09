@@ -17,7 +17,7 @@ class Breadcrumbs_model extends MVC_model {
     if($type == 'news') {
       $landing_page_id = Taggr::get_id('news-landing');
     }
-    else if($type == 'events') {
+    else if($type == 'event') {
       $landing_page_id = Taggr::get_id('events-landing');
     }
 
@@ -34,6 +34,6 @@ class Breadcrumbs_model extends MVC_model {
 
     $breadcrumbs[count($breadcrumbs) - 1]['last'] = true;
 
-    return $breadcrumbs;
+    return is_404() ? array() : $breadcrumbs;
   }
 }

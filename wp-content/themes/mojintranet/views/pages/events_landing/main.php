@@ -36,6 +36,9 @@
         <div class="form-row">
           <select name="date" id="input-filter-date">
             <option value="">All</option>
+            <?php foreach($event_months as $month): ?>
+              <option value="<?=$month['value']?>"><?=$month['label']?></option>
+            <?php endforeach ?>
           </select>
         </div>
         <div class="form-row contains">
@@ -77,31 +80,41 @@
     </div>
   </div>
 
-  <div class="template-partial" data-name="news-item">
+  <div class="template-partial" data-name="events-item">
     <li class="results-item">
-      <div class="thumbnail-container">
-        <a href="" class="results-link">
-          <img class="thumbnail" alt="" />
-        </a>
-      </div>
-      <div class="content">
-        <h3 class="title">
-          <a href="" class="results-link"></a>
-        </h3>
-        <div class="meta">
-          <span class="date">date</span>
+      <div class="item-row">
+        <time class="date-box" datetime="">
+          <span class="day-of-week"></span>
+          <span class="day-of-month"></span>
+          <span class="month-year"></span>
+        </time>
+        <div class="content">
+          <h3 class="title">
+            <a href="" class="results-link"></a>
+          </h3>
+          <div class="meta">
+            <ul>
+              <li class="meta-date">
+                <span class="label">Date:</span><span class="value"></span>
+              </li>
+              <li class="meta-time">
+                <span class="label">Time:</span><span class="value"></span>
+              </li>
+              <li class="meta-location">
+                <span class="label">Location:</span><span class="value"></span>
+              </li>
+            </ul>
+          </div>
         </div>
-        <p class="excerpt">desc</p>
       </div>
-      <span class="ie-clear"></span>
     </li>
   </div>
 
-  <div class="template-partial" data-name="news-results-page-title">
+  <div class="template-partial" data-name="events-results-page-title">
     <h2 class="results-page-title results-title">Latest</h2>
   </div>
 
-  <div class="template-partial" data-name="news-filtered-results-title">
+  <div class="template-partial" data-name="events-filtered-results-title">
     <h2 class="filtered-results-title results-title">
       <span class="results-count"></span>
       <span class="results-count-description"></span>

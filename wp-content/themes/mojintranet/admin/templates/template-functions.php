@@ -13,11 +13,15 @@ function template_customise() {
     } else if (isset($_POST['post_ID'])) {
         $post_id = $_POST['post_ID'];
     } else {
+      if(!isset($_GET['post_type']) || $_GET['post_type']=='page') {
         return;
+      } else {
+        $post_type = $_GET['post_type'];
+      }
     }
     $page_template = str_replace('_','-',get_post_meta($post_id, '_wp_page_template', TRUE));
     preg_match('/^page-(.+)\.php/',$page_template,$matches);
-    $template_file = $matches[1]?:("single-".get_post_type( $post_id ));
+    $template_file = $matches[1]?:("single-".(get_post_type( $post_id )?:$post_type));
     if (isset($template_options[$template_file])) {
         $template_include = get_stylesheet_directory()."/admin/templates/template-specific/".$template_file.".php";
         if(file_exists($template_include)) {
@@ -37,15 +41,15 @@ function template_customise() {
         }
     }
     // Add template specific javascript file
-    $template_js = get_stylesheet_directory().'/admin/templates/template-specific/page-admin-'.$template_file.'.js';
+    $template_js = get_stylesheet_directory().'/admin/templates/template-specific/'.$template_file.'.js';
     if(file_exists($template_js)) {
-        wp_register_script($template_file, get_stylesheet_directory_uri()."/admin/templates/template-specific/page-admin-".$template_file.".js",$template_options[$template_file]['js'],filemtime($template_js));
+        wp_register_script($template_file, get_stylesheet_directory_uri()."/admin/templates/template-specific/".$template_file.".js",$template_options[$template_file]['js'],filemtime($template_js));
         wp_enqueue_script($template_file );
     }
     // Add template specific stylesheet
-    $template_css = get_stylesheet_directory().'/admin/templates/template-specific/page-admin-'.$template_file.'.css';
+    $template_css = get_stylesheet_directory().'/admin/templates/template-specific/'.$template_file.'.css';
     if(file_exists($template_css)) {
-        wp_register_style($template_file, get_stylesheet_directory_uri()."/admin/templates/template-specific/page-admin-".$template_file.".css",$template_options[$template_file]['css'],filemtime($template_css));
+        wp_register_style($template_file, get_stylesheet_directory_uri()."/admin/templates/template-specific/".$template_file.".css",$template_options[$template_file]['css'],filemtime($template_css));
         wp_enqueue_style($template_file );
     }
     if(isset($template_options[$template_file]['metaboxes'])) {
@@ -59,12 +63,16 @@ add_action('init', 'template_customise',110);
 function process_metaboxes() {
     global $template_options;
 
+    // if post not set, just return
+    // fix when post not set, throws PHP's undefined index warning
     if (isset($_GET['post'])) {
         $post_id = $_GET['post'];
     } else if (isset($_POST['post_ID'])) {
         $post_id = $_POST['post_ID'];
     } else {
+      if(!isset($_GET['post_type']) || $_GET['post_type']=='page') {
         return;
+      }
     }
 
     $page_template = str_replace('_','-',get_post_meta($post_id, '_wp_page_template', TRUE));
@@ -73,7 +81,11 @@ function process_metaboxes() {
       $template_file = $matches[1];
       $post_type = 'page';
     } else {
-      $post_type = get_post_type( $post_id );
+      if(!isset($_GET['post_type']) || $_GET['post_type']=='page') {
+        $post_type = get_post_type( $post_id );
+      } else {
+        $post_type = $_GET['post_type'];
+      }
       $template_file = "single-".$post_type;
     }
     // Add custom metaboxes for matching template
@@ -91,3 +103,20 @@ function process_metaboxes() {
     }
 }
 add_action('add_meta_boxes','process_metaboxes');
+
+// Prevents false "is_published" message on validation error
+add_filter('redirect_post_location','my_redirect_location',10,2);
+function my_redirect_location($location,$post_id){
+    //If post was published...
+    if (isset($_POST['publish'])){
+      //obtain current post status
+      $status = get_post_status( $post_id );
+
+      //The post was 'published', but if it is still a draft, display draft message (10).
+      if($status=='draft') {
+        $location = add_query_arg('message', 10, $location);
+      }
+    }
+
+    return $location;
+}
