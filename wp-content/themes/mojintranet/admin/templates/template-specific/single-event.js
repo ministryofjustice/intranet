@@ -7,7 +7,8 @@ jQuery(function($) {
   });
   $("input.timepicker").timepicker({
     disableTextInput: true,
-    timeFormat: 'H:i'
+    timeFormat: 'H:i',
+    step: 15
   });
   $("#event-start-date, #event-end-date").on("change",dateValidation);
   $("#event-allday").on("change",toggleEventTimes);
@@ -32,7 +33,7 @@ jQuery(function($) {
     if($("#event-allday").prop('checked')) {
       $('.event-times').css('display','none');
       $("#event-start-time").val('00:00');
-      $("#event-end-time").val('23:30');
+      $("#event-end-time").val('23:45');
     } else {
       $('.event-times').css('display','table-cell');
       $("#event-start-time").val('');
