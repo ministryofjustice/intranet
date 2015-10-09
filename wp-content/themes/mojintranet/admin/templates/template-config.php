@@ -37,5 +37,19 @@ $template_options = array(
         'priority'    => 'core'
       )
     )
+  ),
+  'single-event' => array(
+    'add'       => array(),
+    'del'       => array(),
+    'js'        => array('jquery','jquery-ui-datepicker','jquery.timepicker'),
+    'css'       => array('wp-jquery-ui-dialog','jquery-admin-ui-css','jquery.timepicker'),
+    'metaboxes' => array(
+      array(
+        'id'       => 'event_details',
+        'title'    => 'Event Details',
+        'context'  => 'normal',
+        'priority' => 'core'
+      )
+    )
   )
 );

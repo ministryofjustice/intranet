@@ -10,12 +10,20 @@
     </div>
   </div>
 
-  <!--<div class="grid">-->
-  <!--  <div class="col-lg-3 col-md-3 mobile-hide">&nbsp;</div>-->
-  <!--  <div class="col-lg-8 col-md-8 col-sm-12 push-lg-1 push-md-1">-->
-  <!--    <?php dynamic_sidebar('newslanding-widget-area0'); ?>-->
-  <!--  </div>-->
-  <!--</div>-->
+  <div class="grid">
+    <div class="col-lg-4 col-md-4 mobile-hide">&nbsp;</div>
+    <div class="col-lg-8 col-md-8 col-sm-12">
+      <ul role="tablist" class="content-tabs static">
+        <?php foreach($tabs as $tab): ?>
+          <li class="<?= $tab['selected'] ? 'current-menu-item' : '' ?>">
+            <a href="<?=$tab['url']?>">
+              <?=$tab['label']?>
+            </a>
+          </li>
+        <?php endforeach ?>
+      </ul>
+    </div>
+  </div>
 
   <div class="grid">
     <div class="col-lg-4 col-md-4 col-sm-12">
@@ -70,15 +78,15 @@
   </div>
 
   <div class="template-partial" data-name="news-item">
-    <li class="news-item">
+    <li class="results-item">
       <div class="thumbnail-container">
-        <a href="" class="news-link">
+        <a href="" class="results-link">
           <img class="thumbnail" alt="" />
         </a>
       </div>
       <div class="content">
         <h3 class="title">
-          <a href="" class="news-link"></a>
+          <a href="" class="results-link"></a>
         </h3>
         <div class="meta">
           <span class="date">date</span>
@@ -90,11 +98,11 @@
   </div>
 
   <div class="template-partial" data-name="news-results-page-title">
-    <h2 class="news-results-page-title news-results-title">Latest</h2>
+    <h2 class="results-page-title results-title">Latest</h2>
   </div>
 
   <div class="template-partial" data-name="news-filtered-results-title">
-    <h2 class="news-filtered-results-title news-results-title">
+    <h2 class="filtered-results-title results-title">
       <span class="results-count"></span>
       <span class="results-count-description"></span>
       <span class="containing">containing</span>

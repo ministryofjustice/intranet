@@ -1,0 +1,61 @@
+.events-widget {
+  .events-heading {
+    border-bottom: 1px solid #6f777b;
+    font-weight: normal;
+    margin-bottom: 15px;
+  }
+
+  .events-list {
+    -moz-column-gap: 20px;
+    -webkit-column-gap: 20px;
+    column-gap: 20px;
+    -moz-column-count: 1;
+    -webkit-column-count: 1;
+    column-count: 1;
+  }
+
+  .results-item {
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid $grey-2;
+
+    .date-box {
+      width: 70px;
+      margin-right: 20px;
+
+      .day-of-week {
+        font-size: 11px;
+        line-height: 18px;
+      }
+
+      .day-of-month {
+        padding-top: 7px;
+        font-size: 20px;
+        line-height: 24px;
+      }
+
+      .month-year {
+        font-size: 11px;
+      }
+    }
+  }
+
+  .see-all-container {
+    font-weight: bold;
+    text-align: right;
+
+    a {
+      text-decoration: underline;
+    }
+  }
+}
+
+@include lte-tablet-mq() {
+  .events-widget {
+    .events-list {
+      -moz-column-count: 1;
+      -webkit-column-count: 1;
+      column-count: 1;
+    }
+  }
+}
