@@ -2,7 +2,7 @@
     "amazon-s3-and-cloudfront": {
         "repository": "git@github.com:deliciousbrains/wp-amazon-s3-and-cloudfront.git",
         "revision": "master",
-        "commit": "1090fa2a63f24782bed09a43681cd2c6f7d4b213"
+        "commit": "87bd0a03451f6d236d10b7ed7e7ccfc6f8282db4"
     },
     "amazon-web-services": {
         "repository": "git@github.com:deliciousbrains/wp-amazon-web-services.git",
@@ -14,15 +14,15 @@
         "revision": "master",
         "commit": "ad22d785f6479ebf504505d465868566a82ad3c5"
     },
-    "oasis-workflow-premium": {
-        "repository": "git@github.com:ministryofjustice/oasis-workflow-premium.git",
+    "live-drafts": {
+        "repository": "git@github.com:ministryofjustice/live-drafts.git",
         "revision": "master",
-        "commit": "a63cb2724e9a08ecf3305dae04fec8381ec8e4f1"
+        "commit": "8cb3dc6d40176623dd69f4a0c8fcd8723f76ffbe"
     },
     "pods": {
         "repository": "git@git.dxw.net:wordpress-plugins/pods",
         "revision": "master",
-        "commit": "5fcecfd1aa03a28b39bcab1adf235bc9ac096280"
+        "commit": "d2fab5f517d0411adf554d1ff379ff310730122e"
     },
     "recently-edited-content-widget": {
         "repository": "git@git.dxw.net:wordpress-plugins/recently-edited-content-widget",
