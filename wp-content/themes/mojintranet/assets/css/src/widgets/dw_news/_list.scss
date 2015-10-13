@@ -1,13 +1,14 @@
 .news-widget.list {
   .news-list {
     margin-top: 0;
+    border-top: 1px solid $grey-2;
   }
 
   .news-item {
     @include clearfix;
 
     padding: 10px 0;
-    border-top: 1px solid $grey-2;
+    border-bottom: 1px solid $grey-2;
 
     .news-heading {
       @extend %medium-heading;
