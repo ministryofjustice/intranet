@@ -9,8 +9,6 @@ jQuery(function() {
   //Mid
   App.ins.mobileHeader = new App.MobileHeader();
   App.ins.stickyNews = new App.StickyNews();
-  //App.ins.guidanceAndSupport = new App.GuidanceAndSupport();
-  App.ins.guidanceAndSupportContent = new App.GuidanceAndSupportContent();
   App.ins.azIndex = new App.AZIndex();
   App.ins.emergencyMessage = new App.EmergencyMessage();
   App.ins.tableOfContents = new App.TableOfContents();

@@ -80,7 +80,7 @@
       var base = {
         'date': this.$dateInput.val(),
         'keywords': this.getKeywords().replace(/\s+/g, '+'),
-        'page': this.getPage(),
+        'page': this.getPage()
         //'resultsPerPage': 10 //commenting out - we want it to use the default setting from the API for now
       };
 
