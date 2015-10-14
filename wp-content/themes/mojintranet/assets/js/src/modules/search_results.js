@@ -397,7 +397,8 @@
       this.updateGATimeoutHandle = null;
       this.lastSearchUrl = this.getNewUrl(true);
 
-      window.ga('send', 'pageview', this.getNewUrl(true));
+      //window.ga('send', 'pageview', this.getNewUrl(true));
+      window.dataLayer.push({event: 'update-dynamic-content'});
     },
 
     /** Creates and returns as a string a new urls based on current filters
