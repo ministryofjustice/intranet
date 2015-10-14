@@ -74,6 +74,10 @@
           'page': $(this).attr('data-page')
         });
       });
+
+      this.$top.find('.content-filters').submit(function(e) {
+        e.preventDefault();
+      });
     },
 
     populateDateFilter: function() {
