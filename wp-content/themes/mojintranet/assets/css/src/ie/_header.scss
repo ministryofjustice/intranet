@@ -7,3 +7,20 @@
     background-color: $yellow;
   }
 }
+
+@include mobile-mq() {
+  .header {
+    .mobile-menu-btn {
+      background-image: url('../images/mobile_header.svg');
+    }
+
+    &.search-opened {
+      .keywords-field-container {
+        margin-left: 48px;
+      }
+      .search-form {
+        width: 100%;
+      }
+    }
+  }
+}
