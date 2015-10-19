@@ -84,6 +84,11 @@
         e.preventDefault();
       });
 
+      $(window).on('popstate', function() {
+        _this.setFilters();
+        _this.loadResults();
+      });
+
       this.$searchType.on('change', $.proxy(this.changeSearchType, this));
     },
 
@@ -396,8 +401,6 @@
 
       //keywords
       if (keywords) {
-        keywords = keywords.replace(/\s/g, '+');
-        keywords = App.tools.urlencode(keywords);
         titleParts.push('for "' + keywords + '"');
       }
 
