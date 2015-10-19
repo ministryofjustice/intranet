@@ -28,6 +28,12 @@ class Taggr {
     return $posts[0];
   }
 
+  static function get_permalink($tag_name) {
+    $post = Taggr::get_post($tag_name);
+    
+    return get_permalink($post);
+  }
+
   /** Gets the current post's tag name
    * @return {String} Tag name
    */
