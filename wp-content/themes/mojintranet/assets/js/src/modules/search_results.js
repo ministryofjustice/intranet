@@ -38,6 +38,7 @@
 
       this.$keywordsInput.focus();
       this.setFilters();
+      this.updateUrl(true);
       this.loadResults({'type': 'all'});
     },
 
@@ -112,6 +113,8 @@
         this.$keywordsInput.val(keywords);
       }
       this.$searchType.find('option[value="' + type + '"]').prop('selected', true);
+
+      this.currentPage = parseInt(segments[2] || 1, 10);
     },
 
     loadResults: function(requestData) {
@@ -366,9 +369,20 @@
 
     /** Updates the url based on user selections
      */
-    updateUrl: function() {
-      if(history.replaceState) {
-        history.replaceState({}, "", this.getNewUrl());
+    updateUrl: function(replace) {
+      var newUrl = this.getNewUrl();
+      if(window.location.href === newUrl) {
+        return;
+      }
+
+      if(replace) {
+        if(history.replaceState) {
+          history.replaceState({}, "", this.getNewUrl());
+        }      }
+      else {
+        if(history.pushState) {
+          history.pushState({}, "", this.getNewUrl());
+        }
       }
     },
 
