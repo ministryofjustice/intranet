@@ -23,6 +23,7 @@
       this.applicationUrl = $('head').data('application-url');
       this.serviceUrl = this.applicationUrl+'/service/search';
       this.pageBase = this.applicationUrl+'/'+this.$top.data('top-level-slug');
+
       this.itemTemplate = this.$top.find('.template-partial[data-name="search-item"]').html();
       this.resultsPageTitleTemplate = this.$top.find('.template-partial[data-name="search-results-page-title"]').html();
       this.filteredResultsTitleTemplate = this.$top.find('.template-partial[data-name="search-filtered-results-title"]').html();
@@ -63,7 +64,7 @@
           _this.loadResults({
             page: 1
           });
-        },500);
+        }, 500);
       });
 
       this.$prevPage.click(function(e) {
@@ -71,6 +72,7 @@
         _this.loadResults({
           'page': $(this).attr('data-page')
         });
+        _this.$top.get(0).scrollIntoView({behavior: 'smooth'});
       });
 
       this.$nextPage.click(function(e) {
@@ -78,6 +80,7 @@
         _this.loadResults({
           'page': $(this).attr('data-page')
         });
+        _this.$top.get(0).scrollIntoView({behavior: 'smooth'});
       });
 
       this.$searchForm.on('submit', function(e) {
@@ -123,7 +126,6 @@
     },
 
     loadResults: function(requestData) {
-      var _this = this;
       var data;
       var keywords = this.getSanitizedKeywords();
 
@@ -278,7 +280,6 @@
     },
 
     buildResultRow: function(data) {
-      var _this = this;
       var $child = $(this.itemTemplate);
       var date = this.parseDate(data.timestamp);
 
@@ -376,17 +377,19 @@
      */
     updateUrl: function(replace) {
       var newUrl = this.getNewUrl();
+
       if(window.location.href === newUrl) {
         return;
       }
 
       if(replace) {
         if(history.replaceState) {
-          history.replaceState({}, "", this.getNewUrl());
-        }      }
+          history.replaceState({}, "", newUrl);
+        }
+      }
       else {
         if(history.pushState) {
-          history.pushState({}, "", this.getNewUrl());
+          history.pushState({}, "", newUrl);
         }
       }
     },
@@ -414,7 +417,6 @@
       this.updateGATimeoutHandle = null;
       this.lastSearchUrl = this.getNewUrl(true);
 
-      //window.ga('send', 'pageview', this.getNewUrl(true));
       window.dataLayer.push({event: 'update-dynamic-content'});
     },
 
