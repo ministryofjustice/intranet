@@ -4,6 +4,12 @@
     margin-top: 50px;
   }
 
+  .excerpt {
+    @extend %large-copy;
+    margin-top: 32px;
+    margin-bottom: 20px;
+  }
+
   .category {
     @extend %medium-heading;
     margin-bottom: 0;

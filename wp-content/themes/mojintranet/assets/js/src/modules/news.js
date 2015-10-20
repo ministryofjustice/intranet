@@ -29,6 +29,7 @@
       this.months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
       this.currentPage = null;
       this.resultsLoaded = false;
+      this.genericThumbnailPath = this.$top.data('template-uri') + '/assets/images/news-placeholder.jpg';
 
       this.cacheEls();
       this.bindEvents();
@@ -73,6 +74,10 @@
         _this.loadResults({
           'page': $(this).attr('data-page')
         });
+      });
+
+      this.$top.find('.content-filters').submit(function(e) {
+        e.preventDefault();
       });
     },
 
@@ -125,7 +130,6 @@
     },
 
     loadResults: function(requestData) {
-      var _this = this;
       //appending the title below seems redundant as we remove all ".results-title" elements further down anyway...
       var $title = this.$top.find('.results-page-title');
 
@@ -246,18 +250,17 @@
     },
 
     buildResultRow: function(data) {
-      var _this = this;
       var $child = $(this.itemTemplate);
       var date = this.parseDate(data.timestamp);
 
-      if(data.thumbnail_url) {
-        $child.find('.thumbnail')
-          .attr('src', data.thumbnail_url)
-          .attr('alt', data.thumbnail_alt_text);
+      if(!data.thumbnail_url) {
+        data.thumbnail_url = this.genericThumbnailPath;
+        data.thumbnail_alt_text = 'generic news thumbnail';
       }
-      else {
-        $child.find('.thumbnail').remove(); //we don't want an img element with no src
-      }
+
+      $child.find('.thumbnail')
+        .attr('src', data.thumbnail_url)
+        .attr('alt', data.thumbnail_alt_text);
 
       $child.find('.title .results-link').html(data.title);
       $child.find('.results-link').attr('href', data.url);
@@ -270,7 +273,6 @@
     getDataObject: function(data) {
       var keywords = this.getSanitizedKeywords();
       var segments = this.getSegmentsFromUrl();
-      var page = segments[1] || 1;
 
       keywords = keywords.replace(/\s+/g, '+');
 
