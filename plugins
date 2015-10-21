@@ -7,4 +7,4 @@ recently-edited-content-widget =
 wp-document-revisions          = 
 relevanssi-premium             = 
 pods                           =
-oasis-workflow-premium         = master,git@github.com:ministryofjustice/oasis-workflow-premium.git
+live-drafts                    = master,git@github.com:ministryofjustice/live-drafts.git

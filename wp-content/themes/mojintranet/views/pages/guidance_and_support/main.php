@@ -4,6 +4,9 @@
   <div class="grid">
     <div class="col-lg-12 col-md-12 col-sm-12">
       <h1><?=$title?></h1>
+      <div class="excerpt">
+        <?=$excerpt?>
+      </div>
     </div>
   </div>
 
