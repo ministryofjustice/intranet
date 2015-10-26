@@ -7,9 +7,7 @@
         <?php foreach($breadcrumbs as $breadcrumb): ?>
           <li class="breadcrumb-item <?=$breadcrumb['last'] ? 'current' : ''?>">
             <?php if(!$breadcrumb['last']): ?>
-              <a class="breadcrumb-link" href="<?=$breadcrumb['url']?>">
-                <?=$breadcrumb['title']?>
-              </a>
+              <a class="breadcrumb-link" href="<?=$breadcrumb['url']?>"><?=$breadcrumb['title']?></a>
               <span class="separator"></span>
             <?php else: ?>
               <?=$breadcrumb['title']?>
