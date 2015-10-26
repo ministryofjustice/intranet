@@ -24,14 +24,19 @@
       this.resultsPageTitleTemplate = this.$top.find('.template-partial[data-name="events-results-page-title"]').html();
       this.filteredResultsTitleTemplate = this.$top.find('.template-partial[data-name="events-filtered-results-title"]').html();
       this.serviceXHR = null;
+      this.typingTimeout = null;
       this.months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
       this.weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
       this.currentPage = null;
       this.resultsLoaded = false;
+      this.updateGATimeoutHandle = null;
+      this.finishedInitialLoad = false;
+      this.lastSearchUrl = "";
 
       this.cacheEls();
       this.bindEvents();
       this.filtersInit();
+      this.urlUpdate(true);
       this.resultsRequest();
     },
 
@@ -48,9 +53,12 @@
       var inputFallbackEvent = (App.ie && App.ie < 9) ? 'keyup' : '';
 
       this.$keywordsInput.on('input ' + inputFallbackEvent, function(e) {
-        _this.resultsRequest({
-          page: 1
-        });
+        clearTimeout(this.typingTimeout);
+        this.typingTimeout = setTimeout(function() {
+          _this.resultsRequest({
+            page: 1
+          });
+        }, 500);
       });
 
       this.$dateInput.on('change', function() {
@@ -60,19 +68,28 @@
       });
 
       this.$prevPage.click(function(e) {
+        e.preventDefault();
         _this.resultsRequest({
           'page': $(this).attr('data-page')
         });
+        _this.$top.get(0).scrollIntoView({behavior: 'smooth'});
       });
 
       this.$nextPage.click(function(e) {
+        e.preventDefault();
         _this.resultsRequest({
           'page': $(this).attr('data-page')
         });
+        _this.$top.get(0).scrollIntoView({behavior: 'smooth'});
       });
 
       this.$top.find('.content-filters').submit(function(e) {
         e.preventDefault();
+      });
+
+      $(window).on('popstate', function() {
+        _this.filtersInit();
+        _this.resultsRequest();
       });
     },
 
@@ -81,7 +98,7 @@
         'date': this.$dateInput.val(),
         'keywords': this.getKeywords().replace(/\s+/g, '+'),
         'page': this.getPage()
-        //'resultsPerPage': 10 //commenting out - we want it to use the default setting from the API for now
+        //'resultsPerPage': 5 //commenting out - we want it to use the default setting from the API for now
       };
 
       if(data) {
@@ -172,6 +189,7 @@
     resultsDisplay: function(data) {
       var _this = this;
       var $eventItem;
+      var newUrl;
 
       this.resultsLoaded = true;
       this.resultsAbort();
@@ -186,6 +204,26 @@
       this.paginationUpdate(data);
       this.resultsUpdateUI('loaded', data);
       this.urlUpdate();
+      this.titleUpdate();
+
+      newUrl = this.getNewUrl(true); //must be set after updateUrl
+
+      if(!this.finishedInitialLoad) {
+        this.finishedInitialLoad = true;
+        this.lastSearchUrl = newUrl;
+      }
+
+      if(this.lastSearchUrl !== newUrl) {
+        if(this.updateGATimeoutHandle) {
+          window.clearTimeout(this.updateGATimeoutHandle);
+        }
+
+        this.updateGATimeoutHandle = window.setTimeout($.proxy(this.updateGA, this), this.settings.updateGATimeout);
+      }
+      else {
+        window.clearTimeout(this.updateGATimeoutHandle);
+        this.updateGATimeoutHandle = null;
+      }
     },
 
     resultsBuildRow: function(data) {
@@ -197,7 +235,6 @@
       var startYear = startDate.getFullYear();
       var endDate = this.dateParse(data.end_date);
       var endDay = endDate.getDate();
-      var endDayOfWeek = this.weekdays[endDate.getDay()];
       var endMonth = this.months[endDate.getMonth()];
       var endYear = endDate.getFullYear();
 
@@ -269,6 +306,8 @@
       if(segments[2]) {
         this.$dateInput.val(segments[2] === '-' ? '' : segments[2]);
       }
+
+      this.currentPage = parseInt(segments[0] || 1, 10);
     },
 
     getDate: function() {
@@ -300,22 +339,41 @@
       return parseInt(this.getUrlSegments()[0] || 1, 10);
     },
 
-    urlUpdate: function() {
-      var urlParts = [this.pageBase];
-      var keywords = this.getKeywords().replace(/\s/g, '+');
+    urlUpdate: function(replace) {
+      var newUrl = this.getNewUrl(true);
 
-      //page number
-      urlParts.push(this.currentPage);
+      if(window.location.href === newUrl) {
+        return;
+      }
+
+      if(replace) {
+        if(history.replaceState) {
+          history.replaceState({}, "", newUrl);
+        }
+      }
+      else {
+        if(history.pushState) {
+          history.pushState({}, "", newUrl);
+        }
+      }
+    },
+
+    titleUpdate: function() {
+      var titleParts = ['Events'];
+      var keywords = this.getKeywords();
 
       //keywords
-      urlParts.push(keywords || '-');
+      if (keywords) {
+        titleParts.push('including "' + keywords + '"');
+      }
 
       //date
-      urlParts.push(this.getDate() || '-');
+      titleParts.push(this.$dateInput.val() || '');
 
-      if(history.pushState) {
-        history.pushState({}, "", urlParts.join('/')+'/');
-      }
+      //page number
+      titleParts.push('(page' + this.currentPage + ')');
+
+      document.title = titleParts.join(' ') + ' - MoJ Intranet';
     },
 
     dateParse: function(dateString) {
@@ -329,6 +387,35 @@
 
     dateFormat: function(dateObject) {
       return dateObject.getDate()+' '+this.months[dateObject.getMonth()]+' '+dateObject.getFullYear();
+    },
+
+    updateGA: function() {
+      this.updateGATimeoutHandle = null;
+      this.lastSearchUrl = this.getNewUrl(true);
+
+      window.dataLayer.push({event: 'update-dynamic-content'});
+    },
+
+    getNewUrl: function(rootRelative) {
+      var urlParts = [this.pageBase];
+      var keywords = this.getKeywords().replace(/\s/g, '+');
+
+      //page number
+      urlParts.push(this.currentPage);
+
+      //keywords
+      urlParts.push(keywords || '-');
+
+      //date
+      urlParts.push(this.getDate() || '-');
+
+      if(rootRelative) {
+        urlParts.shift();
+        urlParts.unshift(this.$top.data('top-level-slug'));
+        urlParts.unshift(''); //will have a leading slash on the final string (from join)
+      }
+
+      return urlParts.join('/')+'/';
     }
   };
 }(jQuery));
