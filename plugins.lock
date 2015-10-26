@@ -14,6 +14,11 @@
         "revision": "master",
         "commit": "ad22d785f6479ebf504505d465868566a82ad3c5"
     },
+    "heatmap-for-wp": {
+        "repository": "git@github.com:wp-plugins/heatmap-for-wp.git",
+        "revision": "master",
+        "commit": "cfa365e2416e5dd7ebe5d4d755218ab3f275ae3d"
+    },
     "live-drafts": {
         "repository": "git@github.com:ministryofjustice/live-drafts.git",
         "revision": "master",
