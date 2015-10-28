@@ -340,7 +340,7 @@
     },
 
     urlUpdate: function(replace) {
-      var newUrl = this.getNewUrl(true);
+      var newUrl = this.getNewUrl();
 
       if(window.location.href === newUrl) {
         return;
