@@ -84,3 +84,6 @@ function add_my_editor_style() {
   wp_register_style('jquery-admin-ui-css', '//ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/themes/overcast/jquery-ui.css', false, 0.1, false);
 }
 add_action( 'admin_init', 'add_my_editor_style' );
+
+// disable the visual editor globally
+add_filter( 'user_can_richedit', '__return_false' );
