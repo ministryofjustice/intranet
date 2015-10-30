@@ -25,7 +25,8 @@
     },
 
     prepareEmail: function(e) {
-      var email = this.$link.attr('href');
+      var dwTag = $('.template-container').data('dw-tag');
+      var email = dwTag === 'search-results' ? this.$link.data('alt-href') : this.$link.attr('href');
       var id = 'T' + new Date().getTime();
       var subject = 'Page feedback - ' + $('title').text() + ' [' + id + ']';
       var body = [];
