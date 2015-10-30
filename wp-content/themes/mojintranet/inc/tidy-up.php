@@ -55,7 +55,7 @@ function dw_add_editor_style() {
 add_action( 'after_setup_theme', 'dw_add_editor_style' );
 
 // Filters all buttons from TinyMCE editor to hide toolbar for non-admins
-function intranet_tinymce_settings($settings){
+function dw_tinymce_settings($settings){
   // print_r($settings);
   if ( !current_user_can( 'manage_options' ) ) {
     $settings['toolbar1'] = array();
@@ -65,7 +65,7 @@ function intranet_tinymce_settings($settings){
     return $settings;
   }
 }
-add_filter( 'tiny_mce_before_init', 'intranet_tinymce_settings' );
+add_filter( 'tiny_mce_before_init', 'dw_tinymce_settings' );
 
 // Customize the format dropdown items
 if( !function_exists('base_custom_mce_format') ){
