@@ -7,5 +7,5 @@ recently-edited-content-widget =
 wp-document-revisions          =
 relevanssi-premium             =
 pods                           =
-live-drafts                    = master,git@github.com:ministryofjustice/live-drafts.git
+dw-live-drafts                 = master,git@github.com:ministryofjustice/dw-live-drafts.git
 heatmap-for-wp                 = master,git@github.com:wp-plugins/heatmap-for-wp.git

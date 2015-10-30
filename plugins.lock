@@ -14,15 +14,15 @@
         "revision": "master",
         "commit": "ad22d785f6479ebf504505d465868566a82ad3c5"
     },
+    "dw-live-drafts": {
+        "repository": "git@github.com:ministryofjustice/dw-live-drafts.git",
+        "revision": "master",
+        "commit": "a32c8852b3e9d70146417449a42f37183527d342"
+    },
     "heatmap-for-wp": {
         "repository": "git@github.com:wp-plugins/heatmap-for-wp.git",
         "revision": "master",
         "commit": "cfa365e2416e5dd7ebe5d4d755218ab3f275ae3d"
-    },
-    "live-drafts": {
-        "repository": "git@github.com:ministryofjustice/live-drafts.git",
-        "revision": "master",
-        "commit": "8cb3dc6d40176623dd69f4a0c8fcd8723f76ffbe"
     },
     "pods": {
         "repository": "git@git.dxw.net:wordpress-plugins/pods",
