@@ -26,7 +26,8 @@
 
     prepareEmail: function(e) {
       var email = this.$link.attr('href');
-      var subject = 'Page feedback - ' + $('title').text();
+      var id = 'T' + new Date().getTime();
+      var subject = '[' + id + '] Page feedback - ' + $('title').text();
       var body = [];
       var nl = '\n';
 
