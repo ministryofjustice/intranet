@@ -40,7 +40,6 @@ if(!is_user_logged_in()) {
     </div>
   </div>
 
-  <?php $this->view('modules/feedback'); ?>
   <?php $this->view('modules/footer'); ?>
   <?php $this->view('modules/body_bottom'); ?>
 </body>

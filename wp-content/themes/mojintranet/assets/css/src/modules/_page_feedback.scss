@@ -7,3 +7,61 @@
     text-decoration: underline;
   }
 }
+
+
+.report-problem-container {
+  .report-problem-link {
+    @extend %medium-copy;
+    display: inline-block;
+    margin-bottom: 5px;
+
+    &:before {
+      padding-right: 3px;
+      content: "▼";
+    }
+  }
+
+  .form-row {
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  .label {
+    @extend %medium-copy;
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  .feedback-field {
+    width: 100%;
+    border: 1px solid #888;
+  }
+
+  .report-cta {
+    @extend %medium-copy;
+    position: relative;
+    display: inline-block;
+    padding: 8px 15px 5px;
+
+    background-color: $button-colour;
+    box-shadow: 0 2px 0 #003518;
+    color: #ffffff;
+    cursor: pointer;
+    text-decoration: none;
+    vertical-align: top;
+
+    &:focus {
+      outline: 3px solid #ffbf47;
+    }
+
+    &:hover,
+    &:focus {
+      background-color: #00692f;
+    }
+
+    &:active {
+      top: 2px;
+      box-shadow: none;
+    }
+  }
+}
