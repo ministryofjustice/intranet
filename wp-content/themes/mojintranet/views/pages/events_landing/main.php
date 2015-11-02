@@ -107,6 +107,7 @@
           </div>
         </div>
       </div>
+      <span class="ie-clear"></span>
     </li>
   </div>
 

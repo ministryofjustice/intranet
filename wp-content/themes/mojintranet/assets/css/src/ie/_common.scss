@@ -6,6 +6,12 @@
       display: block;
     }
   }
+
+  .main-content {
+    select {
+      background-image: none;
+    }
+  }
 }
 
 .lte-ie8 {
