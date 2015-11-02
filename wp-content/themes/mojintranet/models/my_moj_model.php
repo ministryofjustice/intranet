@@ -49,7 +49,7 @@ class My_moj_model extends MVC_model {
         array(
           'title' => 'People finder',
           'icon' => 'people-finder',
-          'url' => 'http://intranet.justice.gsi.gov.uk/global/peoplefinder/',
+          'url' => 'https://peoplefinder.service.gov.uk/',
           'external' => true
         ),
         array(
@@ -61,7 +61,7 @@ class My_moj_model extends MVC_model {
         array(
           'title' => 'Jobs',
           'icon' => 'jobs',
-          'url' => 'http://justice-intranet.dsd.io/jobs/',
+          'url' => site_url('/jobs/'),
           'external' => true
         ),
         array(
