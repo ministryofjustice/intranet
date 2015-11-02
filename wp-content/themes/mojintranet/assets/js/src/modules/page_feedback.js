@@ -83,14 +83,16 @@
     },
 
     getClientData: function() {
-      var email = '';
+      var dwTag = $('.template-container').data('dw-tag');
+      var email = dwTag === 'search-results' ? this.$top.data('alt-email') : this.$top.attr('email');
       var id = 'T' + new Date().getTime();
 
       return {
         url: window.location.href,
         userAgent: window.navigator.userAgent,
         resolution: window.screen.availWidth + 'x' + window.screen.availHeight,
-        subject: 'Page feedback - ' + $('title').text() + ' [' + id + ']'
+        subject: 'Page feedback - ' + $('title').text() + ' [' + id + ']',
+        email: email
       };
     },
 
