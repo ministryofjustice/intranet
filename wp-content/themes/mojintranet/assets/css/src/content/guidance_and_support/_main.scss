@@ -36,6 +36,8 @@
       margin-bottom: 20px;
       padding-top: 20px;
       padding-right: 20px;
+      page-break-inside: avoid;
+      -webkit-column-break-inside: avoid;
 
       .category-title {
         @extend %medium-heading;

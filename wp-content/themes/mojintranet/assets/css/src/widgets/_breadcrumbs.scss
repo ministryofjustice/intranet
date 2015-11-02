@@ -18,3 +18,9 @@
     text-decoration: underline;
   }
 }
+
+@include mobile-mq() {
+  .breadcrumbs {
+    display: none;
+  }
+}
