@@ -74,11 +74,27 @@
 
     bindEvents: function() {
       this.$formToggleLink.on('click', $.proxy(this.toggleForm, this));
+      this.$cta.on('click', $.proxy(this.sendForm, this));
     },
 
     toggleForm: function(e) {
       e.preventDefault();
       this.$top.toggleClass('expanded');
+    },
+
+    getClientData: function() {
+      var email = '';
+      var id = 'T' + new Date().getTime();
+
+      return {
+        url: window.location.href,
+        userAgent: window.navigator.userAgent,
+        resolution: window.screen.availWidth + 'x' + window.screen.availHeight,
+        subject: 'Page feedback - ' + $('title').text() + ' [' + id + ']'
+      };
+    },
+
+    sendForm: function() {
     }
   };
 }(jQuery));

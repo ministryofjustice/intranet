@@ -1,13 +1,3 @@
-/*.page-feedback-container {*/
-/*  margin-bottom: 20px;*/
-/**/
-/*  .page-feedback-link {*/
-/*    @extend %medium-copy;*/
-/*    color: $grey-1;*/
-/*    text-decoration: underline;*/
-/*  }*/
-/*}*/
-
 .page-feedback-container {
   &.expanded {
     .feedback-form {
