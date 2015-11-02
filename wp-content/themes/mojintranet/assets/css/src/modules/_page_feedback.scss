@@ -1,24 +1,38 @@
+/*.page-feedback-container {*/
+/*  margin-bottom: 20px;*/
+/**/
+/*  .page-feedback-link {*/
+/*    @extend %medium-copy;*/
+/*    color: $grey-1;*/
+/*    text-decoration: underline;*/
+/*  }*/
+/*}*/
+
 .page-feedback-container {
-  margin-bottom: 20px;
+  &.expanded {
+    .feedback-form {
+      display: block;
+    }
 
-  .page-feedback-link {
-    @extend %medium-copy;
-    color: $grey-1;
-    text-decoration: underline;
+    .report-problem-link:before {
+      transform: rotate(180deg);
+    }
   }
-}
 
-
-.report-problem-container {
   .report-problem-link {
     @extend %medium-copy;
     display: inline-block;
     margin-bottom: 5px;
 
     &:before {
-      padding-right: 3px;
+      display: inline-block;
+      margin-right: 3px;
       content: "▼";
     }
+  }
+
+  .feedback-form {
+    display: none;
   }
 
   .form-row {

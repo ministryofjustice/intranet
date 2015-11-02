@@ -6,10 +6,10 @@
   </div>
 </div>-->
 
-<div class="grid report-problem-container">
+<div class="grid page-feedback-container">
   <div class="col-lg-12 col-md-12 col-sm-12">
     <a class="report-problem-link" href="#">Report a problem</a>
-    <form class="">
+    <form class="feedback-form">
       <label class="form-row">
         <span class="label">What's wrong with this page?</span>
         <textarea class="feedback-field"></textarea>
