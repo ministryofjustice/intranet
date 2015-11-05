@@ -1,6 +1,6 @@
 .page-feedback-container {
   &.expanded {
-    .feedback-form {
+    .form-container {
       display: block;
     }
 
@@ -21,8 +21,27 @@
     }
   }
 
+  .form-container {
+    display: none;
+  }
+
   .feedback-form {
     display: none;
+    margin-top: 20px;
+
+    &.visible {
+      display: block;
+    }
+  }
+
+  .message {
+    display: none;
+    margin-top: 0;
+    padding: 5px 0;
+
+    &.visible {
+      display: block;
+    }
   }
 
   .form-row {
@@ -36,9 +55,27 @@
     margin-bottom: 5px;
   }
 
+  .required {
+    color: $red;
+  }
+
   .feedback-field {
     width: 100%;
+    min-height: 80px;
+    padding: 3px 6px;
     border: 1px solid #888;
+  }
+
+  .text {
+    padding: 3px 6px;
+    border: 1px solid #888;
+  }
+
+  .error {
+    .text,
+    .feedback-field {
+      background-color: $red-25;
+    }
   }
 
   .report-cta {
