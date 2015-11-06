@@ -8,15 +8,15 @@
       <form class="feedback-form visible">
         <label class="form-row">
           <span class="label">Your name: <span class="required">*</span></span>
-          <input type="text" class="name-field text" />
+          <input type="text" name="name" class="name-field text" />
         </label>
         <label class="form-row">
           <span class="label">Your email: <span class="required">*</span></span>
-          <input type="text" class="email-field text" />
+          <input type="text" name="email" class="email-field text" />
         </label>
         <label class="form-row">
           <span class="label">What's wrong with this page? <span class="required">*</span></span>
-          <textarea class="feedback-field"></textarea>
+          <textarea name="feedback" class="feedback-field"></textarea>
         </label>
         <input class="report-cta" type="submit" value="Report" />
       </form>
