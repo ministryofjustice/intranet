@@ -13,32 +13,43 @@ class Page_submit_feedback extends MVC_controller {
     $tag = $_POST['tag'];
     $subject = $_POST['subject'];
     $email = ($tag == 'search-results') ? $this->alt_email . ';' . $this->email : $this->email;
-    $message = $this->compose();
 
-    mail($email, $subject, implode(self::$nl, $message));
+    $this->username = $_POST['username'];
+    $this->email = $_POST['email'];
+    $this->url = $_POST['url'];
+    $this->user_agent = $_POST['user_agent'];
+    $this->description = $_POST['description'];
+    $this->resolution = $_POST['resolution'];
+    $this->referrer = $_POST['referrer'];
+
+    $message = $this->_compose();
+    mail($email, $subject, implode(self::$nl, $message), $this->_get_headers());
 
     $this->_output_json();
   }
 
-  private function compose() {
+  private function _get_headers() {
+    $headers = array();
+
+    $headers[] = 'From: Intranet <feedback@intranet.justice.gov.uk>';
+    $headers[] = 'Reply-to: ' . $this->username . ' <' . $this->email . '>';
+
+    return implode(self::$nl, $headers) . self::$nl;
+  }
+
+  private function _compose() {
     $message = array();
 
-    $url = $_POST['url'];
-    $user_agent = $_POST['user_agent'];
-    $description = $_POST['description'];
-    $resolution = $_POST['resolution'];
-    $username = $_POST['username'];
-    $email = $_POST['email'];
-
-    $message[] = 'User: ' . $username . ' (' . $email . ')';
+    $message[] = '' . $this->username . ' <' . $this->email . '> says:';
     $message[] = self::$nl;
-    $message[] = $description;
+    $message[] = $this->description;
     $message[] = self::$nl;
     $message[] = str_repeat('-', 71);
     $message[] = 'Client info:';
-    $message[] = 'Page URL: '.$url;
-    $message[] = 'User agent: '.$user_agent;
-    $message[] = 'Screen resolution: '.$resolution;
+    $message[] = 'Page URL: ' . $this->url;
+    $message[] = 'Referrer: ' . $this->referrer;
+    $message[] = 'User agent: ' . $this->user_agent;
+    $message[] = 'Screen resolution: ' . $this->resolution;
     $message[] = str_repeat('-', 71);
 
     return $message;

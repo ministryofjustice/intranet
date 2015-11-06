@@ -47,6 +47,7 @@
         username: this.$nameField.val(),
         email: this.$emailField.val(),
         url: window.location.href,
+        referrer: document.referrer,
         user_agent: window.navigator.userAgent,
         resolution: window.screen.availWidth + 'x' + window.screen.availHeight,
         subject: 'Page feedback - ' + $('title').text() + ' [' + id + ']',
