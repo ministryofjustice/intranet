@@ -6,7 +6,7 @@
 
 class Page_submit_feedback extends MVC_controller {
   private $email = 'newintranet@digital.justice.gov.uk';
-  private $alt_email = 'intranet@digital.justice.gov.uk';
+  private $alt_email = 'intranet@justice.gsi.gov.uk';
   private static $nl = "\r\n";
 
   function main() {
