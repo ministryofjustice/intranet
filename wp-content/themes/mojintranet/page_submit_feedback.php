@@ -5,16 +5,14 @@
 */
 
 class Page_submit_feedback extends MVC_controller {
-  //private $email = 'newintranet@digital.justice.gov.uk';
-  //private $alt_email = 'intranet@digital.justice.gov.uk';
-  private $email = 'marcin.cichon@digital.justice.gov.uk';
-  private $alt_email = 'marcin.cichon@digital.justice.gov.uk';
+  private $email = 'newintranet@digital.justice.gov.uk';
+  private $alt_email = 'intranet@digital.justice.gov.uk';
   private static $nl = "\r\n";
 
   function main() {
     $tag = $_POST['tag'];
     $subject = $_POST['subject'];
-    $email = ($tag == 'search-results') ? $this->alt_email : $this->email;
+    $email = ($tag == 'search-results') ? $this->alt_email . ';' . $this->email : $this->email;
     $message = $this->compose();
 
     mail($email, $subject, implode(self::$nl, $message));
