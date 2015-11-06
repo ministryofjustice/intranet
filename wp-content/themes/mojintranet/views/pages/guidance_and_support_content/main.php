@@ -11,10 +11,6 @@
       </nav>
     </div>
     <div class="col-lg-9 col-md-8 col-sm-12">
-      <?php if(!$disable_banner): ?>
-        <?php $this->view('modules/imported_banner'); ?>
-      <?php endif ?>
-
       <div class="">
         <h1 class="page-title"><?=$title?></h1>
         <div class="excerpt">

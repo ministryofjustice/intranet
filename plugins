@@ -1,10 +1,11 @@
-source = "git@git.dxw.net:wordpress-plugins/" 
+source = "git@git.dxw.net:wordpress-plugins/"
 
 amazon-s3-and-cloudfront       = master,git@github.com:deliciousbrains/wp-amazon-s3-and-cloudfront.git
 amazon-web-services            = master,git@github.com:deliciousbrains/wp-amazon-web-services.git
-cms-tree-page-view             = 
-recently-edited-content-widget = 
-wp-document-revisions          = 
-relevanssi-premium             = 
+cms-tree-page-view             =
+recently-edited-content-widget =
+wp-document-revisions          =
+relevanssi-premium             =
 pods                           =
-live-drafts                    = master,git@github.com:ministryofjustice/live-drafts.git
+dw-live-drafts                 = master,git@github.com:ministryofjustice/dw-live-drafts.git
+heatmap-for-wp                 = master,git@github.com:wp-plugins/heatmap-for-wp.git

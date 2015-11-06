@@ -23,6 +23,7 @@
       this.applicationUrl = $('head').data('application-url');
       this.serviceUrl = this.applicationUrl+'/service/search';
       this.pageBase = this.applicationUrl+'/'+this.$top.data('top-level-slug');
+
       this.itemTemplate = this.$top.find('.template-partial[data-name="search-item"]').html();
       this.resultsPageTitleTemplate = this.$top.find('.template-partial[data-name="search-results-page-title"]').html();
       this.filteredResultsTitleTemplate = this.$top.find('.template-partial[data-name="search-filtered-results-title"]').html();
@@ -38,6 +39,7 @@
 
       this.$keywordsInput.focus();
       this.setFilters();
+      this.updateUrl(true);
       this.loadResults({'type': 'all'});
     },
 
@@ -62,7 +64,7 @@
           _this.loadResults({
             page: 1
           });
-        },500);
+        }, 500);
       });
 
       this.$prevPage.click(function(e) {
@@ -70,6 +72,7 @@
         _this.loadResults({
           'page': $(this).attr('data-page')
         });
+        _this.$top.get(0).scrollIntoView({behavior: 'smooth'});
       });
 
       this.$nextPage.click(function(e) {
@@ -77,10 +80,16 @@
         _this.loadResults({
           'page': $(this).attr('data-page')
         });
+        _this.$top.get(0).scrollIntoView({behavior: 'smooth'});
       });
 
       this.$searchForm.on('submit', function(e) {
         e.preventDefault();
+      });
+
+      $(window).on('popstate', function() {
+        _this.setFilters();
+        _this.loadResults();
       });
 
       this.$searchType.on('change', $.proxy(this.changeSearchType, this));
@@ -112,10 +121,11 @@
         this.$keywordsInput.val(keywords);
       }
       this.$searchType.find('option[value="' + type + '"]').prop('selected', true);
+
+      this.currentPage = parseInt(segments[2] || 1, 10);
     },
 
     loadResults: function(requestData) {
-      var _this = this;
       var data;
       var keywords = this.getSanitizedKeywords();
 
@@ -270,7 +280,6 @@
     },
 
     buildResultRow: function(data) {
-      var _this = this;
       var $child = $(this.itemTemplate);
       var date = this.parseDate(data.timestamp);
 
@@ -366,9 +375,22 @@
 
     /** Updates the url based on user selections
      */
-    updateUrl: function() {
-      if(history.replaceState) {
-        history.replaceState({}, "", this.getNewUrl());
+    updateUrl: function(replace) {
+      var newUrl = this.getNewUrl();
+
+      if(window.location.href === newUrl) {
+        return;
+      }
+
+      if(replace) {
+        if(history.replaceState) {
+          history.replaceState({}, "", newUrl);
+        }
+      }
+      else {
+        if(history.pushState) {
+          history.pushState({}, "", newUrl);
+        }
       }
     },
 
@@ -382,8 +404,6 @@
 
       //keywords
       if (keywords) {
-        keywords = keywords.replace(/\s/g, '+');
-        keywords = App.tools.urlencode(keywords);
         titleParts.push('for "' + keywords + '"');
       }
 
@@ -397,7 +417,7 @@
       this.updateGATimeoutHandle = null;
       this.lastSearchUrl = this.getNewUrl(true);
 
-      window.ga('send', 'pageview', this.getNewUrl(true));
+      window.dataLayer.push({event: 'update-dynamic-content'});
     },
 
     /** Creates and returns as a string a new urls based on current filters

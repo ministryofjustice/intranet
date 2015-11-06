@@ -52,7 +52,6 @@ class Page_guidance_and_support extends MVC_controller {
         'raw_date' => $article_date,
         'human_date' => date("j F Y", strtotime($article_date)),
         'redirect_url' => get_post_meta($this->post_ID, 'redirect_url', true),
-        'disable_banner' => get_post_meta($this->post_ID, 'disable_banner', true),
         'link_array' => $this->get_link_array(),
         'tab_array' => $this->get_tab_array(),
         'tab_count' => $this->tab_count,

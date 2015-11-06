@@ -6,6 +6,10 @@
     zoom: 1;
     background-color: $yellow;
   }
+
+  .keywords-field-container {
+    width: 100%;
+  }
 }
 
 @include mobile-mq() {

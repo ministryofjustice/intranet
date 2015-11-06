@@ -15,7 +15,8 @@
     init: function() {
       this.settings = {
         dateDropdownLength: 12,
-        dateDropdownStartDate: new Date(2015, 0, 1)
+        dateDropdownStartDate: new Date(2015, 0, 1),
+        months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
       };
 
       this.applicationUrl = $('head').data('application-url');
@@ -25,17 +26,20 @@
       this.itemTemplate = this.$top.find('.template-partial[data-name="news-item"]').html();
       this.resultsPageTitleTemplate = this.$top.find('.template-partial[data-name="news-results-page-title"]').html();
       this.filteredResultsTitleTemplate = this.$top.find('.template-partial[data-name="news-filtered-results-title"]').html();
+      this.genericThumbnailPath = this.$top.data('template-uri') + '/assets/images/news-placeholder.jpg';
       this.serviceXHR = null;
-      this.months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+      this.updateGATimeoutHandle = null;
       this.currentPage = null;
       this.resultsLoaded = false;
-      this.genericThumbnailPath = this.$top.data('template-uri') + '/assets/images/news-placeholder.jpg';
+      this.finishedInitialLoad = false;
+      this.lastSearchUrl = "";
 
       this.cacheEls();
       this.bindEvents();
 
       this.populateDateFilter();
       this.setFilters();
+      this.updateUrl(true);
 
       this.loadResults();
     },
@@ -51,11 +55,15 @@
     bindEvents: function() {
       var _this = this;
       var inputFallbackEvent = (App.ie && App.ie < 9) ? 'keyup' : '';
+      var typingTimeout;
 
       this.$keywordsInput.on('input ' + inputFallbackEvent, function(e) {
-        _this.loadResults({
-          page: 1
-        });
+        clearTimeout(typingTimeout);
+        typingTimeout = setTimeout(function() {
+          _this.loadResults({
+            page: 1
+          });
+        }, 500);
       });
 
       this.$dateInput.on('change', function() {
@@ -65,19 +73,28 @@
       });
 
       this.$prevPage.click(function(e) {
+        e.preventDefault();
         _this.loadResults({
           'page': $(this).attr('data-page')
         });
+        _this.$top.get(0).scrollIntoView({behavior: 'smooth'});
       });
 
       this.$nextPage.click(function(e) {
+        e.preventDefault();
         _this.loadResults({
           'page': $(this).attr('data-page')
         });
+        _this.$top.get(0).scrollIntoView({behavior: 'smooth'});
       });
 
       this.$top.find('.content-filters').submit(function(e) {
         e.preventDefault();
+      });
+
+      $(window).on('popstate', function() {
+        _this.setFilters();
+        _this.loadResults();
       });
     },
 
@@ -104,7 +121,7 @@
         }
 
         $option = $('<option>');
-        $option.text(this.months[thisMonth] + ' ' + thisYear);
+        $option.text(this.settings.months[thisMonth] + ' ' + thisYear);
         $option.val(thisYear + '-' + (thisMonth+1));
         this.$dateInput.append($option);
       }
@@ -127,6 +144,8 @@
       if(segments[3]) {
         this.$dateInput.val(segments[3]);
       }
+
+      this.currentPage = parseInt(segments[1] || 1, 10);
     },
 
     loadResults: function(requestData) {
@@ -183,6 +202,7 @@
     displayResults: function(data) {
       var _this = this;
       var $newsItem;
+      var newUrl;
 
       this.clearResults();
       this.setResultsHeading(data);
@@ -198,6 +218,27 @@
       this.stopLoadingResults();
 
       this.resultsLoaded = true;
+
+      newUrl = this.getNewUrl(true); //must be set after updateUrl
+
+      if(!this.finishedInitialLoad) {
+        this.finishedInitialLoad = true;
+        this.lastSearchUrl = newUrl;
+      }
+
+      if(this.lastSearchUrl !== newUrl) {
+        if(this.updateGATimeoutHandle) {
+          window.clearTimeout(this.updateGATimeoutHandle);
+        }
+
+        this.updateGATimeoutHandle = window.setTimeout($.proxy(this.updateGA, this), this.settings.updateGATimeout);
+      }
+      else {
+        window.clearTimeout(this.updateGATimeoutHandle);
+        this.updateGATimeoutHandle = null;
+      }
+
+      window.App.ins.accessibility.updateDocLinks(this.$results);
     },
 
     setResultsHeading: function(data) {
@@ -223,7 +264,7 @@
 
         if(this.$dateInput.val()) {
           date = this.parseDate(this.$dateInput.val());
-          formattedDate = this.months[date.getMonth()] + ' ' + date.getFullYear();
+          formattedDate = this.settings.months[date.getMonth()] + ' ' + date.getFullYear();
           $filteredResultsTitle.find('.date').text(formattedDate);
         }
         else {
@@ -303,7 +344,7 @@
     },
 
     formatDate: function(dateObject) {
-      return dateObject.getDate()+' '+this.months[dateObject.getMonth()]+' '+dateObject.getFullYear();
+      return dateObject.getDate()+' '+this.settings.months[dateObject.getMonth()]+' '+dateObject.getFullYear();
     },
 
     updatePagination: function(data) {
@@ -337,23 +378,22 @@
 
     /** Updates the url based on user selections
      */
-    updateUrl: function() {
-      var urlParts = [this.pageBase];
-      var keywords = this.getSanitizedKeywords();
-      keywords = keywords.replace(/\s/g, '+');
+    updateUrl: function(replace) {
+      var newUrl = this.getNewUrl(true);
 
-      //page number
-      urlParts.push('page');
-      urlParts.push(this.currentPage);
+      if(window.location.pathname === newUrl) {
+        return;
+      }
 
-      //keywords
-      urlParts.push(keywords || '-');
-
-      //date
-      urlParts.push(this.$dateInput.val() || '-');
-
-      if(history.pushState) {
-        history.pushState({}, "", urlParts.join('/')+'/');
+      if(replace) {
+        if(history.replaceState) {
+          history.replaceState({}, "", newUrl);
+        }
+      }
+      else {
+        if(history.pushState) {
+          history.pushState({}, "", newUrl);
+        }
       }
     },
 
@@ -375,6 +415,37 @@
       titleParts.push('(page' + this.currentPage + ')');
 
       document.title = titleParts.join(' ') + ' - MoJ Intranet';
+    },
+
+    updateGA: function() {
+      this.updateGATimeoutHandle = null;
+      this.lastSearchUrl = this.getNewUrl(true);
+
+      window.dataLayer.push({event: 'update-dynamic-content'});
+    },
+
+    getNewUrl: function(rootRelative) {
+      var urlParts = [this.pageBase];
+      var keywords = this.getSanitizedKeywords();
+      keywords = keywords.replace(/\s/g, '+');
+
+      //page number
+      urlParts.push('page');
+      urlParts.push(this.currentPage);
+
+      //keywords
+      urlParts.push(keywords || '-');
+
+      //date
+      urlParts.push(this.$dateInput.val() || '-');
+
+      if(rootRelative) {
+        urlParts.shift();
+        urlParts.unshift(this.$top.data('top-level-slug'));
+        urlParts.unshift(''); //will have a leading slash on the final string (from join)
+      }
+
+      return urlParts.join('/')+'/';
     }
   };
 }(jQuery));
