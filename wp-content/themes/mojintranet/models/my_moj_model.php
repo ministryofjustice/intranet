@@ -12,7 +12,7 @@ class My_moj_model extends MVC_model {
         array(
           'name' => 'judicial-appointments-commission',
           'label' => 'Judicial Appointments Commission',
-          'url' => 'http://intranet.justice.gsi.gov.uk/jac/index.htm'
+          'url' => 'http://jac.intranet.service.justice.gov.uk/'
         ),
         array(
           'name' => 'judicial-office',
