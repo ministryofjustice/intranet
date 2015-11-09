@@ -12,18 +12,17 @@ class Page_submit_feedback extends MVC_controller {
   function main() {
     $tag = $_POST['tag'];
     $subject = $_POST['subject'];
-    $email = ($tag == 'search-results') ? $this->alt_email . ';' . $this->email : $this->email;
+    $dest_email = ($tag == 'search-results') ? $this->alt_email . ';' . $this->email : $this->email;
 
     $this->username = $_POST['username'];
-    $this->email = $_POST['email'];
+    $this->user_email = $_POST['email'];
     $this->url = $_POST['url'];
     $this->user_agent = $_POST['user_agent'];
     $this->description = $_POST['description'];
     $this->resolution = $_POST['resolution'];
     $this->referrer = $_POST['referrer'];
 
-    $message = $this->_compose();
-    mail($email, $subject, implode(self::$nl, $message), $this->_get_headers());
+    mail($dest_email, $subject, $this->_get_message(), $this->_get_headers());
 
     $this->_output_json();
   }
@@ -32,15 +31,15 @@ class Page_submit_feedback extends MVC_controller {
     $headers = array();
 
     $headers[] = 'From: Intranet <feedback@intranet.justice.gov.uk>';
-    $headers[] = 'Reply-to: ' . $this->username . ' <' . $this->email . '>';
+    $headers[] = 'Reply-to: ' . $this->username . ' <' . $this->user_email . '>';
 
     return implode(self::$nl, $headers) . self::$nl;
   }
 
-  private function _compose() {
+  private function _get_message() {
     $message = array();
 
-    $message[] = '' . $this->username . ' <' . $this->email . '> says:';
+    $message[] = '' . $this->username . ' <' . $this->user_email . '> says:';
     $message[] = self::$nl;
     $message[] = $this->description;
     $message[] = self::$nl;
@@ -52,7 +51,7 @@ class Page_submit_feedback extends MVC_controller {
     $message[] = 'Screen resolution: ' . $this->resolution;
     $message[] = str_repeat('-', 71);
 
-    return $message;
+    return implode(self::$nl, $message);
   }
 
   private function _output_json($data = array()) {
