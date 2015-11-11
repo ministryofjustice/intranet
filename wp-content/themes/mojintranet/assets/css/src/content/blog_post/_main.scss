@@ -1,0 +1,26 @@
+.template-blog-post .template-container {
+  h1 {
+    margin-bottom: 25px;
+    margin-top: 50px;
+    border-bottom: none;
+  }
+
+  .content {
+    margin-bottom: 45px;
+  }
+
+  .story-image {
+    margin-top: 17px;
+    margin-right: 30px;
+
+    img {
+      max-width: 100%;
+    }
+  }
+
+  .excerpt {
+    @extend %larger-copy;
+    margin-top: 45px;
+    margin-bottom: 20px;
+  }
+}
