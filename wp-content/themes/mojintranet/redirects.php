@@ -131,6 +131,7 @@ class Route_redirects {
 
     //strip domain from the url
     $url = preg_replace('#http(s)?://[^/]+#', '', $this->source_url);
+    $url = str_replace('index.htm', '', $url);
     $url = trim($url, '/');
 
     //strip extension, if any
