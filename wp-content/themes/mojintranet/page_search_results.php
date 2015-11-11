@@ -26,7 +26,8 @@ class Page_search_results extends MVC_controller {
       'template_class' => 'search-results',
       'cache_timeout' => 60 * 60 * 24, /* 1 day */
       'page_data' => array(
-        'top_slug' => htmlspecialchars($top_slug)
+        'top_slug' => htmlspecialchars($top_slug),
+        'dw_tag' => Taggr::get_current()
       )
     );
   }

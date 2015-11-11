@@ -1,9 +1,108 @@
 .page-feedback-container {
-  margin-bottom: 20px;
+  &.expanded {
+    .form-container {
+      display: block;
+    }
 
-  .page-feedback-link {
+    .report-problem-link:before {
+      transform: rotate(180deg);
+    }
+  }
+
+  .report-problem-link {
     @extend %medium-copy;
-    color: $grey-1;
-    text-decoration: underline;
+    display: inline-block;
+    margin-bottom: 5px;
+
+    &:before {
+      display: inline-block;
+      margin-right: 3px;
+      content: "▼";
+    }
+  }
+
+  .form-container {
+    display: none;
+  }
+
+  .feedback-form {
+    display: none;
+    margin-top: 20px;
+
+    &.visible {
+      display: block;
+    }
+  }
+
+  .message {
+    display: none;
+    margin-top: 0;
+    padding: 5px 0;
+
+    &.visible {
+      display: block;
+    }
+  }
+
+  .form-row {
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  .label {
+    @extend %medium-copy;
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  .required {
+    color: $red;
+  }
+
+  .feedback-field {
+    width: 100%;
+    min-height: 80px;
+    padding: 3px 6px;
+    border: 1px solid #888;
+  }
+
+  .text {
+    padding: 3px 6px;
+    border: 1px solid #888;
+  }
+
+  .error {
+    .text,
+    .feedback-field {
+      background-color: $red-25;
+    }
+  }
+
+  .report-cta {
+    @extend %medium-copy;
+    position: relative;
+    display: inline-block;
+    padding: 8px 15px 5px;
+
+    background-color: $button-colour;
+    box-shadow: 0 2px 0 #003518;
+    color: #ffffff;
+    cursor: pointer;
+    text-decoration: none;
+    vertical-align: top;
+
+    &:focus {
+      outline: 3px solid #ffbf47;
+    }
+
+    &:hover,
+    &:focus {
+      background-color: #00692f;
+    }
+
+    &:active {
+      top: 2px;
+      box-shadow: none;
+    }
   }
 }

@@ -1,6 +1,7 @@
 <?php if (!defined('ABSPATH')) die(); ?>
 
 <div class="footer">
+  <?php $this->view('modules/feedback'); ?>
   <div class="grid">
     <div class="col-lg-8 col-md-8 col-sm-12">
       <div class="footer-menu">
