@@ -124,6 +124,17 @@ a {
     @extend %doc-icon;
     content: " (ppt)";
   }
+
+  &[href^="mailto:"]:after {
+    display: inline-block;
+    width: 14px;
+    height: 10px;
+    background-image: url('../images/email_blue_x2.png');
+    background-size: 100%;
+    background-repeat: no-repeat;
+    margin-left: 6px;
+    content: "";
+  }
 }
 
 p {
