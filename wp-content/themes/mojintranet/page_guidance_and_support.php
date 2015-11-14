@@ -59,7 +59,8 @@ class Page_guidance_and_support extends MVC_controller {
         'has_q_links' => $this->has_q_links,
         'page_category' => $this->page_category,
         'autoheadings' => $this->autoheadings,
-        'children_data' => $this->get_children_data()
+        'children_data' => $this->get_children_data(),
+        'lhs_menu_on' => true
       )
     );
   }
