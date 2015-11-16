@@ -17,7 +17,7 @@
     "dw-live-drafts": {
         "repository": "git@github.com:ministryofjustice/dw-live-drafts.git",
         "revision": "master",
-        "commit": "a32c8852b3e9d70146417449a42f37183527d342"
+        "commit": "c941cda82bc95467abd401f7fbc3711e169203b5"
     },
     "heatmap-for-wp": {
         "repository": "git@github.com:wp-plugins/heatmap-for-wp.git",
