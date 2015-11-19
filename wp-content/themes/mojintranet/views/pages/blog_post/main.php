@@ -1,8 +1,6 @@
 <?php if (!defined('ABSPATH')) die(); ?>
 
 <div class="template-container">
-  <?php $this->view('pages/blog_single/election_banner', $election_banner) ?>
-
   <div class="grid">
     <div class="col-lg-12 col-md-12 col-sm-12">
       <h1 class="page-title"><?=$title?></h1>
@@ -48,8 +46,8 @@
 
       <ul class="content-nav grid">
         <li class="previous col-lg-6 col-md-6 col-sm-6">
-          <?php if($prev_blog_exists): ?>
-            <a href="<?=$prev_blog_url?>" aria-labelledby="prev-page-label">
+          <?php if($prev_post_exists): ?>
+            <a href="<?=$prev_post_url?>" aria-labelledby="prev-page-label">
               <span class="nav-label" id="prev-page-label">
                 Previous
               </span>
@@ -62,8 +60,8 @@
         </li>
 
         <li class="next col-lg-6 col-md-6 col-sm-6">
-          <?php if($next_blog_exists): ?>
-            <a href="<?=$next_blog_url?>" aria-labelledby="next-page-label">
+          <?php if($next_post_exists): ?>
+            <a href="<?=$next_post_url?>" aria-labelledby="next-page-label">
               <span class="nav-label" id="next-page-label">
                 Next
               </span>

@@ -20,7 +20,7 @@
       };
 
       this.applicationUrl = $('head').data('application-url');
-      this.serviceUrl = this.applicationUrl+'/service/blog';
+      this.serviceUrl = this.applicationUrl+'/service/post';
       this.pageBase = this.applicationUrl+'/'+this.$top.data('top-level-slug');
 
       this.itemTemplate = this.$top.find('.template-partial[data-name="blog-item"]').html();
@@ -321,7 +321,8 @@
         'category': '',
         'date': this.$dateInput.val(),
         'keywords': keywords,
-        'page': segments[1] || 1
+        'page': segments[1] || 1,
+        'resultsPerPage': 2
         //'resultsPerPage': 20 //commenting out - we want it to use the default setting from the API for now
       };
 
