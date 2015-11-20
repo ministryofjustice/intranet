@@ -32,11 +32,13 @@
 
   <div class="grid">
     <?php if($thumbnail): ?>
+      <!--
       <div class="col-lg-4 col-md-4 col-sm-12">
         <div class="story-image">
           <img src="<?=$thumbnail?>" class="img img-responsive" alt="<?=$thumbnail_alt_text?>" />
         </div>
       </div>
+      -->
     <?php endif ?>
 
     <div class="col-lg-8 col-md-8 col-sm-12">
