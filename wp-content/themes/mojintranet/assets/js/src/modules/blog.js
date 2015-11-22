@@ -306,6 +306,7 @@
       $child.find('.title .results-link').html(data.title);
       $child.find('.results-link').attr('href', data.url);
       $child.find('.date').html(this.formatDate(date));
+      $child.find('.author').html(data.author);
       $child.find('.excerpt').html(data.excerpt);
 
       return $child;

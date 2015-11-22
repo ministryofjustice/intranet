@@ -74,7 +74,7 @@
           <a href="" class="results-link"></a>
         </h3>
         <div class="meta">
-          <span class="date">date</span>
+          <time class="date">date</time> by <span class="author">author</span>
         </div>
         <p class="excerpt">desc</p>
       </div>
