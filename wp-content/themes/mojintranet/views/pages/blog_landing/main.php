@@ -75,10 +75,8 @@
         </h3>
         <div class="meta">
           <time class="date">date</time>
-          <a href="">
-            <img class="author-thumbnail" />
-            <span class="author">author</span>
-          </a>
+          <img class="author-thumbnail" />
+          <span class="author">author</span>
         </div>
         <p class="excerpt">desc</p>
       </div>
