@@ -5,19 +5,21 @@
     <div class="col-lg-12 col-md-12 col-sm-12">
       <h1 class="page-title"><?=$title?></h1>
 
+      <img class="author-thumbnail" src="<?=$author_thumbnail_url?>" alt="" />
+
       <ul class="info-list">
         <li>
-          <span>Content owner:</span>
+          <span>Author:</span>
           <span><?=$author?></span>
         </li>
         <li>
-          <span>History:</span>
-          <span>Published <time><?=$human_date?></time></span>
+          <span>Published on:</span>
+          <span><time><?=$human_date?></time></span>
         </li>
-        <li>
+        <!--<li>
           <span>Department:</span>
           <span>MoJ</span>
-        </li>
+        </li>-->
       </ul>
     </div>
   </div>
