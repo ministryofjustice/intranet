@@ -82,10 +82,8 @@ class Page_home extends MVC_controller {
     foreach($posts['results'] as $post) {
       $post['human_date'] = date("j F Y", strtotime($post['timestamp']));
 
-      if(!$post['thumbnail_url']) {
-        $post['thumbnail_url'] = get_template_directory_uri() . '/assets/images/news-placeholder.jpg';
-        $post['thumbnail_alt_text'] = 'generic blog thumbnail';
-      }
+      $post['avatar'] = $post['authors'][0]['thumbnail_url'];
+
       $formatted_posts[] = $post;
     }
 

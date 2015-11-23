@@ -13,7 +13,7 @@
       <li class="results-item">
         <div class="post-thumbnail-container">
           <a href="<?=$post['url']?>">
-            <img class="post-thumbnail" src="<?=$post['thumbnail_url']?>" alt="<?=$post['thumbnail_alt_text']?>" />
+            <img class="post-thumbnail" src="<?=$post['avatar']?>" alt="" />
           </a>
         </div>
         <div class="post-content">

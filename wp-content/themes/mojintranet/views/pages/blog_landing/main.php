@@ -74,9 +74,7 @@
           <a href="" class="results-link"></a>
         </h3>
         <div class="meta">
-          <time class="date">date</time>
-          <img class="author-thumbnail" />
-          <span class="author">author</span>
+          <time class="date">date</time> by <span class="author">author</span>
         </div>
         <p class="excerpt">desc</p>
       </div>

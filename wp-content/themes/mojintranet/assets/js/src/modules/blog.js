@@ -301,15 +301,11 @@
         data.thumbnail_alt_text = 'generic blog thumbnail';
       }
 
-      $child.find('.thumbnail')
-        .attr('src', data.thumbnail_url)
-        .attr('alt', data.thumbnail_alt_text);
-
+      $child.find('.thumbnail').attr('src', author.thumbnail_url);
       $child.find('.title .results-link').html(data.title);
       $child.find('.results-link').attr('href', data.url);
       $child.find('.date').html(this.formatDate(date));
       $child.find('.author').html(author.name);
-      $child.find('.author-thumbnail').attr('src', author.thumbnail_url);
       $child.find('.excerpt').html(data.excerpt);
 
       return $child;
