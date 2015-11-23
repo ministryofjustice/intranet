@@ -18,7 +18,7 @@
         </div>
         <div class="post-content">
           <p class="post-meta">
-            <time class="post-date"><?=$post['human_date']?></time> by <?=$post['author']?>
+            <time class="post-date"><?=$post['human_date']?></time> by <?=$post['authors'][0]['name']?>
           </p>
           <h3 class="post-title">
             <a href="<?=$post['url']?>"><?=$post['title']?></a>

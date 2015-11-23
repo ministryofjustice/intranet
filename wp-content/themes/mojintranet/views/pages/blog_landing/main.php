@@ -62,7 +62,7 @@
     </div>
   </div>
 
-  <div class="template-partial" data-name="blog-item">
+  <script data-name="blog-item" type="text/x-template-partial">
     <li class="results-item">
       <div class="thumbnail-container">
         <a href="" class="results-link">
@@ -74,19 +74,23 @@
           <a href="" class="results-link"></a>
         </h3>
         <div class="meta">
-          <time class="date">date</time> by <span class="author">author</span>
+          <time class="date">date</time>
+          <a href="">
+            <img class="author-thumbnail" />
+            <span class="author">author</span>
+          </a>
         </div>
         <p class="excerpt">desc</p>
       </div>
       <span class="ie-clear"></span>
     </li>
-  </div>
+  </script>
 
-  <div class="template-partial" data-name="blog-results-page-title">
+  <script data-name="blog-results-page-title" type="text/x-template-partial">
     <h2 class="results-page-title results-title">Latest</h2>
-  </div>
+  </script>
 
-  <div class="template-partial" data-name="blog-filtered-results-title">
+  <script data-name="blog-filtered-results-title" type="text/x-template-partial">
     <h2 class="filtered-results-title results-title">
       <span class="results-count"></span>
       <span class="results-count-description"></span>
@@ -95,7 +99,7 @@
       <span class="for-date">for</span>
       <span class="date"></span>
     </h2>
-  </div>
+  </script>
 </div>
 
 <?php endwhile ?>

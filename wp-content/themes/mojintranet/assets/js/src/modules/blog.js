@@ -23,10 +23,11 @@
       this.serviceUrl = this.applicationUrl+'/service/post';
       this.pageBase = this.applicationUrl+'/'+this.$top.data('top-level-slug');
 
-      this.itemTemplate = this.$top.find('.template-partial[data-name="blog-item"]').html();
-      this.resultsPageTitleTemplate = this.$top.find('.template-partial[data-name="blog-results-page-title"]').html();
-      this.filteredResultsTitleTemplate = this.$top.find('.template-partial[data-name="blog-filtered-results-title"]').html();
+      this.itemTemplate = this.$top.find('[data-name="blog-item"]').html();
+      this.resultsPageTitleTemplate = this.$top.find('[data-name="blog-results-page-title"]').html();
+      this.filteredResultsTitleTemplate = this.$top.find('[data-name="blog-filtered-results-title"]').html();
       this.genericThumbnailPath = this.$top.data('template-uri') + '/assets/images/blog-placeholder.jpg';
+
       this.serviceXHR = null;
       this.updateGATimeoutHandle = null;
       this.currentPage = null;
@@ -293,6 +294,7 @@
     buildResultRow: function(data) {
       var $child = $(this.itemTemplate);
       var date = this.parseDate(data.timestamp);
+      var author = data.authors[0];
 
       if(!data.thumbnail_url) {
         data.thumbnail_url = this.genericThumbnailPath;
@@ -306,7 +308,8 @@
       $child.find('.title .results-link').html(data.title);
       $child.find('.results-link').attr('href', data.url);
       $child.find('.date').html(this.formatDate(date));
-      $child.find('.author').html(data.author);
+      $child.find('.author').html(author.name);
+      $child.find('.author-thumbnail').attr('src', author.thumbnail_url);
       $child.find('.excerpt').html(data.excerpt);
 
       return $child;

@@ -95,6 +95,7 @@
       }
 
       .meta {
+        margin-top: 5px;
         color: $grey-1;
       }
 
@@ -106,6 +107,15 @@
 
       .excerpt {
         margin-top: 10px;
+      }
+
+      .author-thumbnail {
+        max-width: 30px;
+        max-height: 30px;
+        margin-left: 10px;
+        margin-right: 10px;
+        margin-top: -3px;
+        vertical-align: middle;
       }
     }
   }
