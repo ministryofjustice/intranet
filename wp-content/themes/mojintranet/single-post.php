@@ -42,7 +42,8 @@ class Single_post extends MVC_controller {
         'prev_post_exists' => is_object($prev_post),
         'next_post_exists' => is_object($next_post),
         'prev_post_url' => get_post_permalink($prev_post),
-        'next_post_url' => get_post_permalink($next_post)
+        'next_post_url' => get_post_permalink($next_post),
+        'share_email_body' => "Hi there,\n\nI thought you might be interested in this blog post I've found on the MoJ intranet:\n"
       )
     );
   }

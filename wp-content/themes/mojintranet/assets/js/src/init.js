@@ -17,7 +17,7 @@ jQuery(function() {
   App.ins.news = new App.News();
   App.ins.blog = new App.Blog();
   App.ins.events = new App.Events();
-  App.ins.shareEvent = new App.ShareEvent();
+  App.ins.shareViaEmail = new App.ShareViaEmail();
   App.ins.searchResults = new App.SearchResults();
   App.ins.searchAutocomplete = new App.SearchAutocomplete();
   App.ins.floaters = new App.Floaters();

@@ -46,6 +46,15 @@
         <?=$content?>
       </div>
 
+      <div class="item-row">
+        <span class="share-via-email-icon"></span>
+        <a class="share-via-email"
+           href="mailto:"
+           data-title="<?=htmlspecialchars($title)?>"
+           data-date="<?=htmlspecialchars($human_date)?>"
+           data-body="<?=htmlspecialchars($share_email_body)?>">Share event by email</a>
+      </div>
+
       <ul class="content-nav grid">
         <li class="previous col-lg-6 col-md-6 col-sm-6">
           <?php if($prev_post_exists): ?>

@@ -3,13 +3,13 @@
 
   var App = window.App;
 
-  App.ShareEvent = function() {
-    this.$link = $('.share-event');
+  App.ShareViaEmail = function() {
+    this.$link = $('.share-via-email');
     if(!this.$link.length) { return; }
     this.init();
   };
 
-  App.ShareEvent.prototype = {
+  App.ShareViaEmail.prototype = {
     init: function() {
       this.cacheEls();
       this.bindEvents();
@@ -29,7 +29,7 @@
 
       e.preventDefault();
 
-      body.push('Hi there,\n\nI thought you might be interested in this event I\'ve found on the MoJ intranet:\n');
+      body.push(this.$link.attr('data-body'));
       body.push(window.location.href);
 
       body = body.join(nl) + nl;
