@@ -21,6 +21,7 @@ class Single_post extends MVC_controller {
     $thumbnail = wp_get_attachment_image_src($thumbnail_id, 'intranet-large');
     $alt_text = get_post_meta($thumbnail_id, '_wp_attachment_image_alt', true);
     $author_id = get_the_author_meta('ID');
+    $authors = dw_get_author_info($post->ID);
 
     $prev_post = get_previous_post();
     $next_post = get_next_post();
@@ -34,8 +35,8 @@ class Single_post extends MVC_controller {
         'thumbnail' => $thumbnail[0],
         'thumbnail_alt_text' => $alt_text,
         'thumbnail_caption' => get_post_thumbnail_caption(),
-        'author' => get_the_author(),
-        'author_thumbnail_url' => get_avatar_url($author_id),
+        'author' => $authors[0]['name'],
+        'author_thumbnail_url' => $authors[0]['thumbnail_url'],
         'title' => get_the_title(),
         'excerpt' => get_the_excerpt(),
         'content' => $content,
