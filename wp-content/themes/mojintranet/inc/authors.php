@@ -17,10 +17,14 @@ function dw_get_author_info($post_id) {
       if($author->data) {
         $author_name = $author->data->display_name;
         $author_thumb = get_avatar_url($author_id);
+        $author_job_title = get_the_author_meta('job_title',$author_id);
+        $author_bio = get_the_author_meta('description',$author_id);
       } else {
         $author_name = $author->display_name;
         $author_thumb_id = get_post_thumbnail_id($author_id);
         $author_thumb = wp_get_attachment_image_src($author_thumb_id, 'user-thumb')[0];
+        $author_job_title = $author->job_title;
+        $author_bio = $author->description;
       }
 
       $authors[] = array(
@@ -28,8 +32,8 @@ function dw_get_author_info($post_id) {
         'id'            => $author_id,
         'name'          => $author_name,
         'thumbnail_url' => $author_thumb,
-        'job_title'     => '',
-        'bio'           => ''
+        'job_title'     => $author_job_title,
+        'bio'           => $author_bio
       );
     }
   } else {
