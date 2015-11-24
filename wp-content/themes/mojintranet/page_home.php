@@ -81,7 +81,6 @@ class Page_home extends MVC_controller {
 
     foreach($posts['results'] as $post) {
       $post['human_date'] = date("j F Y", strtotime($post['timestamp']));
-
       $post['avatar'] = $post['authors'][0]['thumbnail_url'];
 
       $formatted_posts[] = $post;
