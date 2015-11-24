@@ -37,6 +37,7 @@ class Single_post extends MVC_controller {
         'thumbnail_caption' => get_post_thumbnail_caption(),
         'author' => $authors[0]['name'],
         'author_thumbnail_url' => $authors[0]['thumbnail_url'],
+        'job_title' => $authors[0]['job_title'],
         'title' => get_the_title(),
         'excerpt' => get_the_excerpt(),
         'content' => $content,
