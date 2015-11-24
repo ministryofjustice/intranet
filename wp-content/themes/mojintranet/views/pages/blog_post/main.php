@@ -24,13 +24,13 @@
     </div>
   </div>
 
-  <div class="grid">
+<!--  <div class="grid">
     <div class="col-lg-11 col-md-11 col-sm-12">
       <div class="excerpt">
         <?=$excerpt?>
       </div>
     </div>
-  </div>
+  </div>-->
 
   <div class="grid">
     <?php if($thumbnail): ?>
@@ -54,7 +54,7 @@
            href="mailto:"
            data-title="<?=htmlspecialchars($title)?>"
            data-date="<?=htmlspecialchars($human_date)?>"
-           data-body="<?=htmlspecialchars($share_email_body)?>">Share event by email</a>
+           data-body="<?=htmlspecialchars($share_email_body)?>">Share this post by email</a>
       </div>
 
       <ul class="content-nav grid">
