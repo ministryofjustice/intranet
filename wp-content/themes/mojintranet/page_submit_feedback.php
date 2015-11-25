@@ -5,14 +5,12 @@
 */
 
 class Page_submit_feedback extends MVC_controller {
-  private $email = 'newintranet@digital.justice.gov.uk';
-  private $alt_email = 'intranet@justice.gsi.gov.uk';
+  private $email = 'intranet@justice.gsi.gov.uk';
   private static $nl = "\r\n";
 
   function main() {
     $tag = $_POST['tag'];
     $subject = $_POST['subject'];
-    $dest_email = ($tag == 'search-results') ? $this->alt_email . ';' . $this->email : $this->email;
 
     $this->username = $_POST['username'];
     $this->user_email = $_POST['email'];
@@ -22,7 +20,7 @@ class Page_submit_feedback extends MVC_controller {
     $this->resolution = $_POST['resolution'];
     $this->referrer = $_POST['referrer'];
 
-    mail($dest_email, $subject, $this->_get_message(), $this->_get_headers());
+    mail($this->email, $subject, $this->_get_message(), $this->_get_headers());
 
     $this->_output_json();
   }
