@@ -18,6 +18,7 @@ require_once('inc/tidy-up.php');                          // Tidy up CMS
 require_once('inc/languages.php');                        // Controls the site language(s)
 require_once('inc/cache.php');                            // Amend the cache headers
 require_once('inc/documents.php');                        // Control how documents are handled
+require_once('inc/authors.php');                          // Additional author information
 
 require_once('admin/templates/template-functions.php');   // Customises page editor based on template
 require_once('admin/editor-enhancements.php');            // Adds enhancements to post/page editor screen

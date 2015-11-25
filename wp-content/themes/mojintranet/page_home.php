@@ -24,7 +24,9 @@ class Page_home extends MVC_controller {
         'emergency_message' => $this->get_emergency_message(),
         'my_moj' => $this->my_moj_model->get_data(),
         'events' => $this->get_events(),
-        'see_all_events_url' => get_permalink(Taggr::get_id('events-landing'))
+        'posts' => $this->get_posts(),
+        'see_all_events_url' => get_permalink(Taggr::get_id('events-landing')),
+        'see_all_posts_url' => get_permalink(Taggr::get_id('blog-landing'))
       )
     );
   }
@@ -72,8 +74,28 @@ class Page_home extends MVC_controller {
     return $formatted_events;
   }
 
+  private function get_posts() {
+    $posts = $this->get_posts_from_api();
+
+    $formatted_posts = array();
+
+    foreach($posts['results'] as $post) {
+      $post['human_date'] = date("j F Y", strtotime($post['timestamp']));
+      $post['avatar'] = $post['authors'][0]['thumbnail_url'];
+
+      $formatted_posts[] = $post;
+    }
+
+    return $formatted_posts;
+  }
+
   private function get_events_from_api() {
     $results = new events_request(array('', '', '', 3));
+    return $results->results_array;
+  }
+
+  private function get_posts_from_api() {
+    $results = new post_request(array('', '', '', '', 2));
     return $results->results_array;
   }
 }

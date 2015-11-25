@@ -17,6 +17,9 @@ class Breadcrumbs_model extends MVC_model {
     if($type == 'news') {
       $landing_page_id = Taggr::get_id('news-landing');
     }
+    elseif($type == 'post') {
+      $landing_page_id = Taggr::get_id('blog-landing');
+    }
     else if($type == 'event') {
       $landing_page_id = Taggr::get_id('events-landing');
     }
