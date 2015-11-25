@@ -12,7 +12,7 @@ function dw_get_author_info($post_id) {
     $authors_array = get_coauthors($post_id);
     $authors = null;
     foreach($authors_array as $author) {
-      $author_id = (int) $author->ID;
+      $author_id = $author->ID;
 
       if($author->data) {
         $author_name = $author->data->display_name;
@@ -29,7 +29,7 @@ function dw_get_author_info($post_id) {
 
       $authors[] = array(
         // 'all_data' => $author,
-        'id'            => $author_id,
+        'id'            => (int) $author_id,
         'name'          => $author_name,
         'thumbnail_url' => $author_thumb,
         'job_title'     => $author_job_title,
@@ -37,10 +37,13 @@ function dw_get_author_info($post_id) {
       );
     }
   } else {
-    $authors = array(
-      'id'            => get_the_author_meta('ID',$post->ID),
-      'name'          => get_the_author_meta('display_name',$post->ID),
-      'thumbnail_url' => get_avatar_url(get_the_author_meta('ID',$post->ID))
+    $user_id = get_post_field( 'post_author', $post_id);
+    $authors[] = array(
+      'id'            => (int) $user_id,
+      'name'          => get_the_author_meta('display_name',$user_id),
+      'thumbnail_url' => get_avatar_url(get_the_author_meta('ID',$user_id)),
+      'job_title'     => '',
+      'bio'           => ''
     );
   }
 
