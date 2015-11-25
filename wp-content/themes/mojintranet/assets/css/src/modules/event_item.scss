@@ -2,10 +2,10 @@
 .template-single-event .template-container,
 .events-widget {
   .results-item {
-    .title {
+    .content .title {
       @extend %medium-heading;
       margin-top: 0;
-      margin-bottom: 40px;
+      margin-bottom: 10px;
     }
 
     .item-row {
@@ -49,9 +49,6 @@
     }
 
     .meta {
-      position: absolute;
-      bottom: 0px;
-
       .hidden {
         display: none;
       }
