@@ -9,3 +9,4 @@ relevanssi-premium             =
 pods                           =
 dw-live-drafts                 = master,git@github.com:ministryofjustice/dw-live-drafts.git
 heatmap-for-wp                 = master,git@github.com:wp-plugins/heatmap-for-wp.git
+co-authors-plug                = master,git@github.com:Automattic/Co-Authors-Plus.git
