@@ -10,4 +10,8 @@
 
 .share-via-email {
   @extend %medium-copy;
+
+  &[href]:after {
+    display: none;
+  }
 }

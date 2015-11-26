@@ -36,4 +36,58 @@
     float: left;
     margin-right: 20px;
   }
+
+  .like-container {
+    display: none;
+    margin-bottom: 20px;
+
+    &.loaded {
+      display: block;
+
+      .like-link {
+        display: inline-block;
+      }
+
+      .like-summary {
+        display: none;
+      }
+
+      &.voted {
+        .like-link {
+          display: none;
+        }
+
+        .like-summary {
+          display: inline-block;
+        }
+      }
+    }
+
+    a {
+      @extend %medium-copy;
+      display: inline-block;
+      text-decoration: none;
+
+      &:hover {
+        background-color: $white;
+      }
+    }
+
+    .like {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      margin-right: 5px;
+      background-image: url("../images/thumbs_up_x2.png");
+      background-size: 100% 100%;
+      vertical-align: top;
+    }
+
+    .like-link {
+    }
+
+    .like-summary {
+      @extend %medium-copy;
+    }
+  }
 }

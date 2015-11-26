@@ -20,39 +20,28 @@
           <span>Published on:</span>
           <span><time><?=$human_date?></time></span>
         </li>
-        <!--<li>
-          <span>Department:</span>
-          <span>MoJ</span>
-        </li>-->
+        <li>
+          <span>Likes:</span>
+          <span class="like-count">0</span>
+        </li>
       </ul>
     </div>
   </div>
 
-<!--  <div class="grid">
-    <div class="col-lg-11 col-md-11 col-sm-12">
-      <div class="excerpt">
-        <?=$excerpt?>
-      </div>
-    </div>
-  </div>-->
-
   <div class="grid">
-    <?php if($thumbnail): ?>
-      <!--
-      <div class="col-lg-4 col-md-4 col-sm-12">
-        <div class="story-image">
-          <img src="<?=$thumbnail?>" class="img img-responsive" alt="<?=$thumbnail_alt_text?>" />
-        </div>
-      </div>
-      -->
-    <?php endif ?>
-
     <div class="col-lg-8 col-md-8 col-sm-12">
       <div class="content editable">
         <?=$content?>
       </div>
 
       <div class="item-row">
+        <div class="like-container">
+          <a class="like-link" href="#">
+            <span class="like"></span>Like
+          </a>
+          <span class="like-summary"></span>
+        </div>
+
         <span class="share-via-email-icon"></span>
         <a class="share-via-email"
            href="mailto:"
