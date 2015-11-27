@@ -62,9 +62,9 @@
     initializeLikeButton: function() {
       if(App.tools.search(this.postId, this.likedPostIds)) {
         this.$likeContainer.addClass('voted');
-        this.updateLikes({count: this.likesCount});
       }
 
+      this.updateLikes({count: this.likesCount});
       this.$likeContainer.addClass('loaded');
     },
 
