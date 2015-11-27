@@ -20,7 +20,7 @@
 
       this.postId = this.$top.attr('data-post-id');
       this.nonce = this.$top.attr('data-nonce');
-      this.likesCount = this.$top.attr('data-likes-count');
+      this.likesCount = parseInt(this.$top.attr('data-likes-count'), 10);
       this.applicationUrl = $('head').data('application-url');
       this.serviceUrl = this.applicationUrl+'/service/likes/' + this.postId;
       this.likedPostIds = this.getLikesFromCookie();
@@ -104,7 +104,7 @@
 
       this.likesCount = count;
 
-      if(count > 0) {
+      if(count) {
         if(userVoted) {
           if(othersCount) {
             message = 'You and ' + othersCount + ' other ' + (othersCount === 1 ? 'person' : 'people') + ' like this post';
