@@ -87,4 +87,12 @@ function dw_edit_contactmethods( $contactmethods ) {
 }
 add_filter('user_contactmethods','dw_edit_contactmethods',10,1);
 
+/**
+ * Allow editors to manage guest author profiles
+ */
+function dw_filter_guest_author_manage_cap( $cap ) {
+  return 'edit_others_posts';
+}
+add_filter( 'coauthors_guest_author_manage_cap', 'dw_filter_guest_author_manage_cap' );
+
 ?>
