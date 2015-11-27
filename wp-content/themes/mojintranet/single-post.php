@@ -9,6 +9,8 @@ class Single_post extends MVC_controller {
   }
 
   function get_data(){
+    global $post;
+
     $article_date = get_the_date();
 
     ob_start();
@@ -21,6 +23,7 @@ class Single_post extends MVC_controller {
     $thumbnail = wp_get_attachment_image_src($thumbnail_id, 'intranet-large');
     $alt_text = get_post_meta($thumbnail_id, '_wp_attachment_image_alt', true);
     $authors = dw_get_author_info($post->ID);
+    $likes = $this->get_likes_from_api($this_id);
 
     $prev_post = get_previous_post();
     $next_post = get_next_post();
@@ -46,8 +49,15 @@ class Single_post extends MVC_controller {
         'next_post_exists' => is_object($next_post),
         'prev_post_url' => get_post_permalink($prev_post),
         'next_post_url' => get_post_permalink($next_post),
-        'share_email_body' => "Hi there,\n\nI thought you might be interested in this blog post I've found on the MoJ intranet:\n"
+        'share_email_body' => "Hi there,\n\nI thought you might be interested in this blog post I've found on the MoJ intranet:\n",
+        'likes_count' => $likes['count'],
+        'nonce' => wp_create_nonce('dw_inc_likes')
       )
     );
+  }
+
+  private function get_likes_from_api($post_id) {
+    $results = new likes_request(array($post_id));
+    return $results->results_array;
   }
 }

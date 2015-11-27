@@ -4,7 +4,8 @@
  * usage:
  * Debug::brief($var) - shows the structure of $variable, doesn't recurse objects
  * Debug::full($var) - shows the structure of $variable, recurses objects
- * Debug::raw($var) - does pre_print($var) wrapped in <pre></pre>
+ * Debug::raw($var) - does print_r($var)
+ * Debug::pre($var) - does print_r($var) wrapped in <pre></pre>
  */
 class Debug {
 	private static $styleAttached = false;
@@ -12,6 +13,10 @@ class Debug {
 	private static $maxlevel = false;
 
   public static function raw($var){
+    print_r($var);
+  }
+
+  public static function pre($var){
     echo'<pre>';
     print_r($var);
     echo'</pre>';

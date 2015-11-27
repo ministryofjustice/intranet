@@ -1,6 +1,6 @@
 <?php if (!defined('ABSPATH')) die(); ?>
 
-<div class="template-container">
+<div class="template-container" data-post-id="<?=$id?>" data-nonce="<?=$nonce?>" data-likes-count="<?=$likes_count?>">
   <div class="grid">
     <div class="col-lg-12 col-md-12 col-sm-12">
       <h1 class="page-title"><?=$title?></h1>
@@ -20,9 +20,9 @@
           <span>Published on:</span>
           <span><time><?=$human_date?></time></span>
         </li>
-        <li>
+        <li class="likes-row hidden">
           <span>Likes:</span>
-          <span class="like-count">0</span>
+          <span class="like-count"><?=$likes_count?></span>
         </li>
       </ul>
     </div>
@@ -37,9 +37,12 @@
       <div class="item-row">
         <div class="like-container">
           <a class="like-link" href="#">
-            <span class="like"></span>Like
+            <span class="like-icon"></span>Like
           </a>
-          <span class="like-summary"></span>
+          <span class="like-summary">
+            <span class="like-icon"></span>
+            <span class="like-description"></span>
+          </span>
         </div>
 
         <span class="share-via-email-icon"></span>

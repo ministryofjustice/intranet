@@ -144,6 +144,37 @@
 
     deleteCookie: function(name) {
       this.setCookie(name, "", -1);
+    },
+
+    /** Finds a first occurrence of value in an object or an array (strict on types)
+     * @param {Mixed} value Value to be found
+     * @param {Array|Object} obj Subject array or object
+     * @param {Boolean|String|Integer} returnKey=false
+     * @returns {String|Integer|Boolean}
+     *   returnKey=true: the {String} key will be returned (or {Integer} index if it's an array) if the value was found, otherwise returns {Boolean} false
+     *   returnKey=false: {Boolean} true when value was found, otherwise {Boolean} false
+     */
+    search: function(value, obj, returnKey) {
+      var type = $.type(obj);
+
+      if(type === 'array') {
+        for(var index = 0,length = obj.length; index<length; index++) {
+          if(obj[index] === value) {
+            return (returnKey) ? index : true;
+          }
+        }
+      }
+      else if(type === 'object') {
+        for (var key in obj) {
+          if(obj.hasOwnProperty(key)) {
+            if(obj[key] === value) {
+              return (returnKey) ? key : true;
+            }
+          }
+        }
+      }
+
+      return false;
     }
   };
 }(jQuery));

@@ -37,6 +37,10 @@
     margin-right: 20px;
   }
 
+  .likes-row.hidden {
+    display: none;
+  }
+
   .like-container {
     display: none;
     margin-bottom: 20px;
@@ -59,6 +63,10 @@
 
         .like-summary {
           display: inline-block;
+
+          .like-icon {
+            opacity: .2;
+          }
         }
       }
     }
@@ -73,7 +81,7 @@
       }
     }
 
-    .like {
+    .like-icon {
       display: inline-block;
       width: 16px;
       height: 16px;
@@ -86,7 +94,7 @@
     .like-link {
     }
 
-    .like-summary {
+    .like-description {
       @extend %medium-copy;
     }
   }
