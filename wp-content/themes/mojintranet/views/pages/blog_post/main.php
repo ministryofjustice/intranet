@@ -39,10 +39,8 @@
           <a class="like-link" href="#">
             <span class="like-icon"></span>Like
           </a>
-          <span class="like-summary">
-            <span class="like-icon"></span>
-            <span class="like-description"></span>
-          </span>
+          <span class="like-icon outside"></span>
+          <span class="like-description"></span>
         </div>
 
         <span class="share-via-email-icon"></span>

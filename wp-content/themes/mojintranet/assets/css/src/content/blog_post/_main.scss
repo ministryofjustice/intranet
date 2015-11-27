@@ -47,38 +47,27 @@
 
     &.loaded {
       display: block;
+    }
 
+    &.voted {
       .like-link {
-        display: inline-block;
-      }
-
-      .like-summary {
         display: none;
       }
 
-      &.voted {
-        .like-link {
-          display: none;
-        }
-
-        .like-summary {
-          display: inline-block;
-
-          .like-icon {
-            opacity: .2;
-          }
-        }
+      .like-icon.outside {
+        display: inline-block;
       }
     }
 
-    a {
+    .like-link {
       @extend %medium-copy;
       display: inline-block;
-      text-decoration: none;
+      margin-right: 10px;
+    }
 
-      &:hover {
-        background-color: $white;
-      }
+    .like-description {
+      @extend %medium-copy;
+      display: inline-block;
     }
 
     .like-icon {
@@ -89,13 +78,12 @@
       background-image: url("../images/thumbs_up_x2.png");
       background-size: 100% 100%;
       vertical-align: top;
-    }
 
-    .like-link {
-    }
-
-    .like-description {
-      @extend %medium-copy;
+      &.outside {
+        display: none;
+        margin-right: 2px;
+        opacity: .2;
+      }
     }
   }
 }

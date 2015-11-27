@@ -64,7 +64,8 @@
         this.$likeContainer.addClass('voted');
       }
 
-      this.updateLikes({count: this.likesCount});
+      this.updateLikes(this.likesCount);
+
       this.$likeContainer.addClass('loaded');
     },
 
@@ -83,34 +84,44 @@
         data: {
           nonce: this.nonce
         },
-        success: $.proxy(this.updateLikes, _this),
+        success: $.proxy(this.likeSuccess, _this),
         error: $.proxy(this.likeError, _this)
       });
     },
 
-    updateLikes: function(data) {
-      this.likesCount = data.count;
-      var othersCount = data.count - 1;
-      var message;
-
-      if(othersCount) {
-        message = 'You and ' + othersCount + ' ' + (othersCount === 1 ? 'person likes' : 'people like') + ' this post';
-      }
-      else {
-        message = 'You like this post';
-      }
-
-      this.$likeDescription.html(message);
-      this.$likeCount.html(data.count);
-
-      if(this.likesCount > 0) {
-        this.$likesRow.removeClass('hidden');
-      }
-
+    likeSuccess: function(data) {
       if(!App.tools.search(this.postId, this.likedPostIds)) {
         this.likedPostIds.push(this.postId);
         this.saveLikesToCookie();
+        this.updateLikes(data.count);
       }
+    },
+
+    updateLikes: function(count) {
+      var othersCount = count - 1;
+      var message = '';
+      var userVoted = App.tools.search(this.postId, this.likedPostIds);
+
+      this.likesCount = count;
+
+      if(count > 0) {
+        if(userVoted) {
+          if(othersCount) {
+            message = 'You and ' + othersCount + ' other ' + (othersCount === 1 ? 'person' : 'people') + ' like this post';
+          }
+          else {
+            message = 'You like this post';
+          }
+        }
+        else {
+          message = count + ' ' + (count === 1 ? 'person likes' : 'people like') + ' this post';
+        }
+
+        this.$likesRow.removeClass('hidden');
+      }
+
+      this.$likeDescription.html(message);
+      this.$likeCount.html(count);
     },
 
     likeError: function() {
