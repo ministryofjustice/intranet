@@ -12,7 +12,7 @@ add_action('wp_dashboard_setup', 'dw_remove_dashboard_widgets' );
 // Hide CPT menus
 function dw_remove_menu_items() {
     if( !current_user_can( 'administrator' ) ):
-      remove_menu_page( 'edit.php' );
+      // remove_menu_page( 'edit.php' );
       remove_menu_page( 'edit-comments.php' );
       remove_menu_page( 'tools.php' );
       remove_menu_page( 'themes.php' );
@@ -23,7 +23,7 @@ add_action( 'admin_menu', 'dw_remove_menu_items' );
 // Programatically remove custom post types (natively and PODS)
 function dw_remove_post_types() {
   global $wp_post_types;
-  foreach( array( 'task','projects','vacancies','blog','glossaryitem','posts' ) as $post_type ) {
+  foreach( array( 'task','projects','vacancies','blog','glossaryitem' ) as $post_type ) {
     if ( isset( $wp_post_types[ $post_type ] ) ) {
       unset( $wp_post_types[ $post_type ] );
     }
