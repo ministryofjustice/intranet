@@ -2,8 +2,7 @@
 
 abstract class MVC_model {
   function __construct() {
-		foreach (MVC_loader::$models as $model => $instance) {
-			$this->$model =& $instance;
-		}
+		global $MVC;
+		$this->model = $MVC->get_model_object();
   }
 }

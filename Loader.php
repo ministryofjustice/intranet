@@ -1,9 +1,11 @@
 <?php if (!defined('ABSPATH')) die();
 
 abstract class MVC_loader {
-  public static $models = array();
+  protected $model;
 
   function __construct() {
+    $this->model = new stdClass();
+
     //determine views and models directories
     $info = new ReflectionClass($this);
     $instance_dir = realpath(dirname($info->getFileName()));
@@ -13,15 +15,13 @@ abstract class MVC_loader {
   }
 
   function model($name) {
-    $name = $name . '_model';
-    $model_name = ucfirst($name);
+    $class_name = ucfirst($name . '_model');
 
-    if(!in_array($name, self::$models)) {
-      include_once($this->models_dir.$name.'.php');
+    if(!method_exists($this->model, $name)) {
+      include_once($this->models_dir . $name . '.php');
 
-      $instance = new $model_name;
-      $this->$name = $instance;
-      self::$models[$name] =& $instance;
+      $instance = new $class_name;
+      $this->model->$name =& $instance;
     }
   }
 
@@ -43,5 +43,9 @@ abstract class MVC_loader {
       echo $html;
       return null;
     }
+  }
+
+  function get_model_object() {
+    return $this->model;
   }
 }

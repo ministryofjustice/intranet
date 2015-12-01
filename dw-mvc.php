@@ -46,6 +46,8 @@ function mmvc_load_first() {
 }
 
 function mmvc_init($template) {
+  global $MVC;
+
   include($template);
 
   $post_type = get_post_type();
@@ -56,8 +58,9 @@ function mmvc_init($template) {
     $controller_name = str_replace('-', '_', $controller_name);
 
     if(class_exists($controller_name)) {
-      $obj  = new $controller_name();
-      $obj->main();
+      $MVC = new $controller_name();
+      $MVC->load_models();
+      $MVC->main();
     }
   }
 }
