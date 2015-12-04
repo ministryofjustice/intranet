@@ -1,0 +1,53 @@
+.posts-widget {
+  .posts-heading {
+    border-bottom: 1px solid #6f777b;
+    font-weight: normal;
+    margin-bottom: 15px;
+  }
+
+  .posts-list {
+    margin-top: 0;
+  }
+
+  .results-item {
+    @include clearfix;
+
+    padding: 10px 0;
+    border-bottom: 1px solid $grey-2;
+
+    .post-title {
+      @extend %medium-heading;
+      margin: 0;
+    }
+
+    .post-thumbnail-container {
+      float: left;
+      margin-right: 20px;
+    }
+
+    .post-thumbnail {
+      max-width: 60px;
+    }
+
+    .post-meta {
+      color: $grey-1;
+    }
+
+    .post-date {
+    }
+
+    .post-content {
+      overflow: hidden;
+    }
+  }
+
+  .see-all-container {
+    margin-top: 10px;
+    font-weight: bold;
+    text-align: right;
+
+    a {
+      text-decoration: underline;
+    }
+  }
+}

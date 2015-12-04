@@ -39,11 +39,12 @@
           <?=$content?>
         </div>
         <div class="item-row">
-          <span class="share-event-icon"></span>
-          <a class="share-event"
+          <span class="share-via-email-icon"></span>
+          <a class="share-via-email"
              href="mailto:"
              data-title="<?=htmlspecialchars($title)?>"
-             data-date="<?=htmlspecialchars($human_date)?>">Share event by email</a>
+             data-date="<?=htmlspecialchars($human_date)?>"
+             data-body="<?=htmlspecialchars($share_email_body)?>">Share event by email</a>
         </div>
       </div>
     </div>

@@ -43,7 +43,8 @@ class Single_event extends MVC_controller {
         'time' => $all_day ? 'All day' : $start_time . ' - ' . $end_time,
         'multiday' => $multiday,
         'all_day' => $all_day,
-        'location' => get_post_meta($post->ID, '_event-location', true)
+        'location' => get_post_meta($post->ID, '_event-location', true),
+        'share_email_body' => "Hi there,\n\nI thought you might be interested in this event I've found on the MoJ intranet:\n"
       )
     );
   }

@@ -15,8 +15,10 @@ jQuery(function() {
   //App.ins.childrenPages = new App.ChildrenPages();
   App.ins.tabbedContent = new App.TabbedContent();
   App.ins.news = new App.News();
+  App.ins.blog = new App.Blog();
   App.ins.events = new App.Events();
-  App.ins.shareEvent = new App.ShareEvent();
+  App.ins.shareViaEmail = new App.ShareViaEmail();
+  App.ins.like = new App.Like();
   App.ins.searchResults = new App.SearchResults();
   App.ins.searchAutocomplete = new App.SearchAutocomplete();
   App.ins.floaters = new App.Floaters();

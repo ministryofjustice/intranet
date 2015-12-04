@@ -1,0 +1,133 @@
+.template-blog-landing {
+  .template-container {
+    h1 {
+      border-bottom: none;
+      margin-top: 50px;
+    }
+
+    .filters-label {
+      @extend %medium-heading;
+      margin-bottom: 10px;
+    }
+
+    .content-filters {
+      margin-top: 0px;
+      margin-right: 40px;
+
+      select {
+        border-radius: 0;
+      }
+    }
+
+    .results-title {
+      @extend %large-heading;
+      border-bottom: 1px solid $grey-1;
+    }
+
+    .filtered-results-title {
+      .containing,
+      .keywords,
+      .date,
+      .for-date {
+        display: none;
+      }
+
+      &.with-date {
+        .for-date,
+        .date {
+          display: inline;
+        }
+      }
+
+      &.with-keywords {
+        .keywords,
+        .containing {
+          display: inline;
+        }
+      }
+
+      .results-count {
+        @extend %large-heading;
+        font-weight: bold;
+      }
+
+      .containing,
+      .for-date {
+        @extend %large-copy;
+        font-weight: normal;
+      }
+
+      .results-count-description,
+      .keywords,
+      .date {
+        @extend %large-copy;
+        font-weight: bold;
+      }
+    }
+
+    .results-item {
+      @include clearfix;
+      padding: 15px 0;
+      border-bottom: 1px solid $grey-2;
+      transition: opacity .3s;
+
+      &.faded {
+        opacity: .3;
+      }
+
+      .thumbnail-container {
+        float: left;
+        width: 100px;
+        margin-right: 20px;
+
+        .results-link {
+          display: block;
+        }
+
+        img {
+          display: block;
+          max-width: 100%;
+        }
+      }
+
+      .content {
+        overflow: hidden;
+      }
+
+      .meta {
+        margin-top: 5px;
+        color: $grey-1;
+      }
+
+      .title {
+        @extend %medium-heading;
+        margin-top: 0px;
+        margin-bottom: 0px;
+      }
+
+      .excerpt {
+        margin-top: 10px;
+      }
+    }
+  }
+}
+
+@include mobile-mq() {
+  .template-blog-landing {
+    .template-container {
+      .content-filters {
+        margin-bottom: 20px;
+      }
+
+      .results-item {
+        .thumbnail-container {
+          width: auto;
+
+          img {
+            max-width: 100px;
+          }
+        }
+      }
+    }
+  }
+}
