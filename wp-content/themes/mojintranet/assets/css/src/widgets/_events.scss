@@ -1,5 +1,6 @@
 .events-widget {
   .events-heading {
+    @extend %large-heading;
     border-bottom: 1px solid #6f777b;
     margin-bottom: 15px;
   }
