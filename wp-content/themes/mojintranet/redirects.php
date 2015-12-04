@@ -132,6 +132,8 @@ class Route_redirects {
     //strip domain from the url
     $url = preg_replace('#http(s)?://[^/]+#', '', $this->source_url);
     $url = str_replace('index.htm', '', $url);
+    $url = str_replace('my-services', '', $url);
+    $url = preg_replace('#//+#', '/', $url);
     $url = trim($url, '/');
 
     //strip extension, if any
@@ -142,6 +144,10 @@ class Route_redirects {
     while(count($url_segments) && $segment_counter < $limit) {
       $segment_counter++;
       $limited_segments[] = array_pop($url_segments);
+    }
+
+    if($this->debug) {
+      Debug::full($limited_segments);
     }
 
     //get segments
