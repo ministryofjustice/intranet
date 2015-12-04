@@ -24,6 +24,7 @@
             <a href="<?=$post['url']?>"><?=$post['title']?></a>
           </h3>
         </div>
+        <div class="ie-clear"></div>
       </li>
     <?php endforeach ?>
   </ul>
