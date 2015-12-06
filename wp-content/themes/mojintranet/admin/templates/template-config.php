@@ -21,6 +21,12 @@ $template_options = array(
 				'context' => 'normal',
 				'priority' => 'core',
 			),
+			array(
+				'id' => 'left_hand_nav',
+				'title' => 'Left Hand Navigation',
+				'context' => 'side',
+				'priority' => 'core',
+			),
 		),
 	),
 	'single-webchat' => array(
