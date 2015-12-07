@@ -32,6 +32,8 @@ class Page_guidance_and_support extends MVC_controller {
     $links_title = get_post_meta($this->post_ID, '_quick_links-title', true);
     $this->links_title = $links_title==null?"Links":$links_title;
 
+    $lhs_menu_on = get_post_meta($post->ID, 'lhs_menu_on', true) != "0" ? true : false;
+
     ob_start();
     the_content();
     $content = ob_get_clean();
@@ -60,7 +62,7 @@ class Page_guidance_and_support extends MVC_controller {
         'page_category' => $this->page_category,
         'autoheadings' => $this->autoheadings,
         'children_data' => $this->get_children_data(),
-        'lhs_menu_on' => true
+        'lhs_menu_on' => $lhs_menu_on
       )
     );
   }
