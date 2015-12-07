@@ -21,14 +21,14 @@ function event_details_callback($post) {
       <td><input id='<?=$ns?>-start-date' name='<?=$ns?>-start-date' value='<?=$post_meta['_'.$ns.'-start-date'][0]?>' class='datepicker'></td>
       <td width='20'></td>
       <td class='event-times'>Start Time:</td>
-      <td class='event-times'><input id='<?=$ns?>-start-time' name='<?=$ns?>-start-time' value='<?=$post_meta['_'.$ns.'-start-time'][0]?>' class='timepicker'></td>
+      <td class='event-times'><input type='time' id='<?=$ns?>-start-time' name='<?=$ns?>-start-time' value='<?=$post_meta['_'.$ns.'-start-time'][0]?>' class='timepicker'></td>
     </tr>
     <tr>
       <td>End Date:</td>
       <td><input id='<?=$ns?>-end-date' name='<?=$ns?>-end-date' value='<?=$post_meta['_'.$ns.'-end-date'][0]?>' class='datepicker'></td>
       <td width='20'></td>
       <td class='event-times'>End Time:</td>
-      <td class='event-times'><input id='<?=$ns?>-end-time' name='<?=$ns?>-end-time' value='<?=$post_meta['_'.$ns.'-end-time'][0]?>' class='timepicker'></td>
+      <td class='event-times'><input type='time' id='<?=$ns?>-end-time' name='<?=$ns?>-end-time' value='<?=$post_meta['_'.$ns.'-end-time'][0]?>' class='timepicker'></td>
 
     </tr>
   </table>

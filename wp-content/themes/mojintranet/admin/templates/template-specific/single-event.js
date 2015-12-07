@@ -6,7 +6,7 @@ jQuery(function($) {
     event.preventDefault();
   });
   $("input.timepicker").timepicker({
-    disableTextInput: true,
+    // disableTextInput: true,
     timeFormat: 'H:i',
     step: 15
   });
