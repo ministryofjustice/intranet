@@ -41,8 +41,8 @@ $template_options = array(
   'single-event' => array(
     'add'       => array(),
     'del'       => array(),
-    'js'        => array('jquery','jquery-ui-datepicker','jquery.timepicker'),
-    'css'       => array('wp-jquery-ui-dialog','jquery-admin-ui-css','jquery.timepicker'),
+    'js'        => array('jquery','jquery-ui-datepicker','jquery.plugin','jquery.timeentry'),
+    'css'       => array('wp-jquery-ui-dialog','jquery-admin-ui-css','jquery.timeentry'),
     'metaboxes' => array(
       array(
         'id'       => 'event_details',
