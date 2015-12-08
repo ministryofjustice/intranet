@@ -2,7 +2,7 @@
     "amazon-s3-and-cloudfront": {
         "repository": "git@github.com:deliciousbrains/wp-amazon-s3-and-cloudfront.git",
         "revision": "master",
-        "commit": "f54dae31d64291b3cf068d4e3a325a0c0279e4da"
+        "commit": "25c2eae654b057e451b65a0ef5a08f91b92e49d6"
     },
     "amazon-web-services": {
         "repository": "git@github.com:deliciousbrains/wp-amazon-web-services.git",
@@ -38,6 +38,11 @@
         "repository": "git@git.dxw.net:wordpress-plugins/recently-edited-content-widget",
         "revision": "master",
         "commit": "43d4e40e786e7a698b918eab91979e074c38c20c"
+    },
+    "regenerate-thumbnails": {
+        "repository": "git@git.dxw.net:wordpress-plugins/regenerate-thumbnails",
+        "revision": "master",
+        "commit": "ae33d713c6c650004ea04564ef121109ce0100f4"
     },
     "relevanssi-premium": {
         "repository": "git@git.dxw.net:wordpress-plugins/relevanssi-premium",
