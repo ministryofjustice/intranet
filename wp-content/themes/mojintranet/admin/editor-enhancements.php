@@ -6,7 +6,7 @@ add_action('wp_ajax_check_parent', 'pageparent_ajax_check_parent');
 function pageparent_ajax_check_parent() {
   global $wpdb;
   $query = $_POST['data'];
-  $parent_query = "SELECT ID,post_title,post_parent,post_type,post_status FROM $wpdb->posts WHERE post_title LIKE '%{$query}%' AND post_type = 'page' AND post_status = 'publish' ORDER BY post_title LIMIT 0,30";
+  $parent_query = "SELECT ID,post_title,post_parent,post_type,post_status FROM $wpdb->posts WHERE post_title LIKE '%{$query}%' AND post_type = 'page' AND post_status IN ('publish','draft') ORDER BY post_title LIMIT 0,30";
   $parentname = $wpdb->get_results($parent_query);
   if($parentname) {
     foreach ($parentname as $parent) {
