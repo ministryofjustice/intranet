@@ -1,8 +1,8 @@
 .posts-widget {
   .posts-heading {
+    @extend %large-heading;
     border-bottom: 1px solid #6f777b;
-    font-weight: normal;
-    margin-bottom: 15px;
+    margin-bottom: 5px;
   }
 
   .posts-list {
