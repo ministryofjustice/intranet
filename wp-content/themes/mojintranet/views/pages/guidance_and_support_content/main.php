@@ -5,11 +5,14 @@
      data-children-data="<?=$children_data?>">
 
   <div class="grid content-container">
-    <div class="col-lg-3 col-md-4 col-sm-12">
-      <nav class="menu-list-container">
-        <ul class="menu-list"></ul>
-      </nav>
-    </div>
+    <?php if($lhs_menu_on): ?>
+      <div class="col-lg-3 col-md-4 col-sm-12">
+        <nav class="menu-list-container">
+          <ul class="menu-list"></ul>
+        </nav>
+      </div>
+    <?php endif ?>
+
     <div class="col-lg-9 col-md-8 col-sm-12">
       <div class="">
         <h1 class="page-title"><?=$title?></h1>
