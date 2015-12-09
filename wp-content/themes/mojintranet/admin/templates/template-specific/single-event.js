@@ -5,10 +5,11 @@ jQuery(function($) {
   }).keypress(function(event) {
     event.preventDefault();
   });
-  $("input.timepicker").timepicker({
-    disableTextInput: true,
-    timeFormat: 'H:i',
-    step: 15
+  $("input.timepicker").timeEntry({
+    show24Hours: true,
+    timeSteps: [1,15,0],
+    initialField: 0,
+    spinnerImage: ''
   });
   $("#event-start-date, #event-end-date").on("change",dateValidation);
   $("#event-allday").on("change",toggleEventTimes);

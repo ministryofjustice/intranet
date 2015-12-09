@@ -18,7 +18,7 @@ function my_custom_login_style($hook) {
 add_action('admin_enqueue_scripts','mojintranet_enqueue_admin_scripts');
 function mojintranet_enqueue_admin_scripts($hook) {
   if(in_array($hook,array('post-new.php','post.php'))) {
-    wp_enqueue_style('jquery.timepicker', get_template_directory_uri() . '/admin/css/jquery.timepicker.css');
+    wp_enqueue_style('jquery.timeentry', get_template_directory_uri() . '/admin/css/jquery.timeentry.css');
     wp_enqueue_style('jqueryui', get_template_directory_uri() . '/admin/css/jquery-ui.css');
   }
 }
@@ -31,6 +31,7 @@ function pageparent_register_head($hook) {
     wp_enqueue_script('dw-crop-image',get_template_directory_uri() . '/admin/js/image-crop.js',array('image-edit'),99);
   }
   if(in_array($hook,array('post-new.php','post.php'))) {
-    wp_enqueue_script('jquery.timepicker',get_template_directory_uri() . '/admin/js/jquery.timepicker.min.js',array('jquery'),99);
+    wp_enqueue_script('jquery.plugin',get_template_directory_uri() . '/admin/js/jquery.plugin.min.js',array('jquery'),99);
+    wp_enqueue_script('jquery.timeentry',get_template_directory_uri() . '/admin/js/jquery.timeentry.min.js',array('jquery'),99);
   }
 }
