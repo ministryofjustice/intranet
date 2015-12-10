@@ -5,7 +5,7 @@
  * Template name: Home page
  */
 
-class Error extends MVC_controller {
+class Page_error extends MVC_controller {
   function __construct() {
     parent::__construct();
   }
