@@ -2,7 +2,7 @@
     "amazon-s3-and-cloudfront": {
         "repository": "git@github.com:deliciousbrains/wp-amazon-s3-and-cloudfront.git",
         "revision": "master",
-        "commit": "f54dae31d64291b3cf068d4e3a325a0c0279e4da"
+        "commit": "25c2eae654b057e451b65a0ef5a08f91b92e49d6"
     },
     "amazon-web-services": {
         "repository": "git@github.com:deliciousbrains/wp-amazon-web-services.git",
@@ -14,7 +14,7 @@
         "revision": "master",
         "commit": "e4280461953f540b5b62deef8be7063232e5bbb7"
     },
-    "co-authors-plug": {
+    "co-authors-plus": {
         "repository": "git@github.com:Automattic/Co-Authors-Plus.git",
         "revision": "master",
         "commit": "f4da16bb59ef692d02db315771b238af7f75d8a4"
@@ -27,7 +27,7 @@
     "heatmap-for-wp": {
         "repository": "git@github.com:wp-plugins/heatmap-for-wp.git",
         "revision": "master",
-        "commit": "cfa365e2416e5dd7ebe5d4d755218ab3f275ae3d"
+        "commit": "64795429f5b7c6b853c0d2d9fcf98d9dfc526f22"
     },
     "pods": {
         "repository": "git@git.dxw.net:wordpress-plugins/pods",
@@ -37,12 +37,17 @@
     "recently-edited-content-widget": {
         "repository": "git@git.dxw.net:wordpress-plugins/recently-edited-content-widget",
         "revision": "master",
-        "commit": "43d4e40e786e7a698b918eab91979e074c38c20c"
+        "commit": "64795429f5b7c6b853c0d2d9fcf98d9dfc526f22"
+    },
+    "regenerate-thumbnails": {
+        "repository": "git@git.dxw.net:wordpress-plugins/regenerate-thumbnails",
+        "revision": "master",
+        "commit": "64795429f5b7c6b853c0d2d9fcf98d9dfc526f22"
     },
     "relevanssi-premium": {
         "repository": "git@git.dxw.net:wordpress-plugins/relevanssi-premium",
         "revision": "master",
-        "commit": "7b521de0caa6bfd62c256fac3e86f44caa6a5c34"
+        "commit": "904b651d04465b9a84deb4e1ac66f74790a4bba2"
     },
     "wp-document-revisions": {
         "repository": "git@git.dxw.net:wordpress-plugins/wp-document-revisions",

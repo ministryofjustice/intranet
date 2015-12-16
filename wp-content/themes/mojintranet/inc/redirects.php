@@ -63,7 +63,7 @@ add_action('init', 'dw_redirects');
 add_action('init', 'dw_rewrite_rules');
 
 function redirect_404($template) {
-  $error_template = locate_template( 'error.php' );
+  $error_template = locate_template( 'page_error.php' );
   if($error_template!='') {
     return $error_template;
   }
