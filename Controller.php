@@ -15,7 +15,6 @@ abstract class MVC_controller extends MVC_loader {
 
   public function load_models() {
     //!!! TODO: loading the global models here. These should be auto-loaded based on config in the future
-    $this->model('mega_menu');
     $this->model('my_moj');
     $this->model('header');
     $this->model('breadcrumbs');
