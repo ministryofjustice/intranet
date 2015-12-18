@@ -45,7 +45,7 @@ function mmvc_load_first() {
   }
 }
 
-function mmvc_init($template) {
+function mmvc_init($template, $data = null) {
   global $MVC;
 
   include($template);
@@ -58,7 +58,7 @@ function mmvc_init($template) {
     $controller_name = str_replace('-', '_', $controller_name);
 
     if(class_exists($controller_name)) {
-      $MVC = new $controller_name();
+      $MVC = new $controller_name($data);
       $MVC->load_models();
       $MVC->main();
     }
