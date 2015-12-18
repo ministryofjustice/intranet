@@ -22,7 +22,7 @@ class Page_home extends MVC_controller {
       'no_breadcrumbs' => true,
       'page_data' => array(
         'emergency_message' => $this->get_emergency_message(),
-        'my_moj' => $this->my_moj_model->get_data(),
+        'my_moj' => $this->model->my_moj->get_data(),
         'events' => $this->get_events(),
         'posts' => $this->get_posts(),
         'see_all_events_url' => get_permalink(Taggr::get_id('events-landing')),
