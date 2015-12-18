@@ -6,6 +6,7 @@
 
 class Service extends MVC_controller {
   function __construct($param_string) {
+    parent::__construct();
     $this->params = explode('/', $param_string);
     $this->api = array_shift($this->params);
   }
