@@ -1,0 +1,31 @@
+form#loginform {
+  margin-top: 20px;
+  label {
+    @extend %medium-copy;
+    display: block;
+  }
+  input {
+    @extend %medium-copy;
+    &[type=text], &[type=password] {
+      display: block;
+      border: 1px solid $grey-2;
+      padding: 5px;
+      width: 100%;
+    }
+    &[type=submit] {
+      background-color: $grey-2;
+      padding: 5px;
+      width: 100%;
+    }
+  }
+}
+
+.login-message {
+  @extend %medium-copy;
+  background-color: $red;
+  color: $white;
+  width: 100%;
+  display: block;
+  padding: 5px;
+  margin-top: 20px;
+}

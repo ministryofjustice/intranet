@@ -19,6 +19,7 @@ require_once('inc/languages.php');                        // Controls the site l
 require_once('inc/cache.php');                            // Amend the cache headers
 require_once('inc/documents.php');                        // Control how documents are handled
 require_once('inc/authors.php');                          // Additional author information
+require_once('inc/user-management.php');                          // Additional author information
 
 require_once('admin/templates/template-functions.php');   // Customises page editor based on template
 require_once('admin/editor-enhancements.php');            // Adds enhancements to post/page editor screen
