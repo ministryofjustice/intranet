@@ -15,13 +15,16 @@ class Page_login extends MVC_controller {
 
   private function get_data() {
     // Set error message (if any)
-    $login_error  = (isset($_GET['login']) ) ? $_GET['login'] : 0;
-    if ( $login_error === "failed" ) {
-      $error_message = 'Invalid email address and/or password.';
-    } elseif ( $login_error === "empty" ) {
-      $error_message = 'Email address and/or password is empty.';
-    } elseif ( $login_error === "false" ) {
-      $error_message = 'You are logged out.';
+    $status  = (isset($_GET['status']) ) ? $_GET['status'] : 0;
+    if ( $status === "failed" ) {
+      $message = 'Invalid email address and/or password.';
+      $message_type = "error";
+    } elseif ( $status === "empty" ) {
+      $message = 'Email address and/or password is empty.';
+      $message_type = "error";
+    } elseif ( $status === "false" ) {
+      $message = 'You are logged out.';
+      $message_type = "info";
     }
 
     return array(
@@ -34,7 +37,8 @@ class Page_login extends MVC_controller {
           'remember' => false,
           'label_username' => "Email address"
         ),
-        'error_message' => $error_message
+        'message' => $message,
+        'message_type' => $message_type
       )
     );
   }

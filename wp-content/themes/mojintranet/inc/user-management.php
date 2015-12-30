@@ -49,9 +49,26 @@ add_action( 'wp_login_failed', 'dw_login_failed' );
 // Handle empty username (email) or password
 function dw_verify_username_password( $user, $username, $password ) {
     $login_page  = home_url( '/login/' );
+    $register_page  = home_url( '/register/' );
     if( $username == "" || $password == "" ) {
-        wp_redirect( $login_page . "?login=empty" );
+        wp_redirect( $login_page . "?status=empty" );
         exit;
     }
 }
 add_filter( 'authenticate', 'dw_verify_username_password', 1, 3);
+
+// Handles registration errors
+function dw_registration_errors($errors, $sanitized_user_login, $user_email) {
+  $register_page  = home_url( '/register/' );
+  $errors_array = $errors->errors;
+  if(isset($errors_array['empty_email'])) {
+    wp_redirect($register_page . "?status=empty");
+    exit;
+  }
+  if(isset($errors_array['email_exists'])) {
+    wp_redirect($register_page . "?status=exists");
+    exit;
+  }
+  return $errors;
+}
+add_filter('registration_errors','dw_registration_errors',10,3);
