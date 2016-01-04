@@ -1,7 +1,7 @@
 <?php if (!defined('ABSPATH')) die();
 
 abstract class MVC_loader {
-  protected $model;
+  public $model;
 
   function __construct() {
     $this->model = new stdClass();
