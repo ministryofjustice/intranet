@@ -18,6 +18,7 @@ class Children_API extends API {
   }
 
   protected function get_children($page_id) {
+    $children = $this->MVC->model->children->get_all();
     $this->response(['test'], 200);
   }
 }

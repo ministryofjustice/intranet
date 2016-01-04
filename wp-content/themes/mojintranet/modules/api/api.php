@@ -2,10 +2,13 @@
 
 abstract class API {
   protected $cache_timeout = 60; //cache timeout in seconds
+  protected $MVC;
   private $method;
   private $params = array();
 
   function __construct($params) {
+    global $MVC;
+    $this->MVC = $MVC;
     $this->debug = (boolean) $_GET['debug'];
     $this->params = $params;
     $this->method = $_SERVER['REQUEST_METHOD'];
