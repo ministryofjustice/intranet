@@ -66,4 +66,3 @@ function mmvc_init($template, $data = null) {
 }
 
 add_action( 'activated_plugin', 'mmvc_load_first', 1);
-add_action('template_include', 'mmvc_init');
