@@ -30,6 +30,16 @@ class My_moj_model extends MVC_model {
           'url' => 'http://intranet.justice.gsi.gov.uk/laa/'
         ),
         array(
+          'name' => 'noms',
+          'label' => 'National Offender Management Service',
+          'url' => 'https://intranet.noms.gsi.gov.uk/'
+        ),
+        array(
+          'name' => 'nps',
+          'label' => 'National Probation Service',
+          'url' => 'https://intranet.noms.gsi.gov.uk/'
+        ),
+        array(
           'name' => 'opg',
           'label' => 'OPG',
           'url' => 'http://intranet.justice.gsi.gov.uk/opg/index.htm'
@@ -38,11 +48,6 @@ class My_moj_model extends MVC_model {
           'name' => 'ospt',
           'label' => 'OSPT',
           'url' => 'http://intranet.justice.gsi.gov.uk/ospt/index.htm'
-        ),
-        array(
-          'name' => 'probation',
-          'label' => 'Probation',
-          'url' => 'http://npsintranet.probation.gsi.gov.uk/index.htm'
         )
       ),
       'apps' => array(
