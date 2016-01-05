@@ -93,11 +93,13 @@ class Page_home extends MVC_controller {
   }
 
   private function get_events_from_api() {
+    return array();
     $results = new events_request(array('', '', '', 3));
     return $results->results_array;
   }
 
   private function get_posts_from_api() {
+    return array();
     $results = new post_request(array('', '', '', '', 2));
     return $results->results_array;
   }

@@ -7,7 +7,6 @@ require_once('inc/post-types.php');                       // Controls post-types
 require_once('inc/news-customiser.php');                  // Setup news customiser
 require_once('inc/customiser-controls.php');              // Extra customiser controls
 require_once('inc/redirects.php');                        // Site redirects
-require_once('inc/non_wp_route.php');                     // Routing pageless templates
 require_once('inc/query-vars.php');                       // Register custom query variables
 require_once('inc/images.php');                           // Images sizes and functions
 require_once('inc/uploads.php');                          // File uploads

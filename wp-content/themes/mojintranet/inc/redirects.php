@@ -30,8 +30,6 @@ function dw_rewrite_rules() {
   //register url parameters
   add_rewrite_tag('%search-filter%', '([^&]+)');
   add_rewrite_tag('%search-string%', '([^&]+)');
-  add_rewrite_tag('%controller%', '([^&]+)');
-  add_rewrite_tag('%param_string%', '([^&]+)');
 
   //News page
   $regex = '^newspage/page/([0-9]+)/(.*)';
