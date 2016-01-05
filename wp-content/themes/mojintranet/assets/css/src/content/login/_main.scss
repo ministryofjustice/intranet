@@ -1,4 +1,4 @@
-form#loginform, form#registerform {
+form#loginform, .userform {
   margin-top: 20px;
   label {
     @extend %medium-copy;
@@ -33,5 +33,14 @@ form#loginform, form#registerform {
   }
   &.info {
     background-color: $govuk-blue;
+  }
+}
+
+.secondary-actions {
+  margin-top: 20px;
+  text-align: right;
+  a {
+    @extend %medium-copy;
+    margin-left: 20px;
   }
 }

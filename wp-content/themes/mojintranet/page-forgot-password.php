@@ -1,8 +1,8 @@
 <?php
 /**
- * Custom registration page
+ * Password reset request template
  */
-class Page_register extends MVC_controller {
+class Page_forgot_password extends MVC_controller {
   function __construct() {
     parent::__construct();
   }
@@ -22,23 +22,19 @@ class Page_register extends MVC_controller {
     } elseif ( $status === "empty" ) {
       $message = 'Email address must not be empty.';
       $message_type = "error";
-    } elseif ( $status === "exists" ) {
-      $message = 'Email address has already been registered. Please check your email or contact the Intranet team.';
-      $message_type = "error";
-    } elseif ( $status === "noname" ) {
-      $message = 'Please enter a first name and surname to register an account.';
+    } elseif ( $status === "invalid" ) {
+      $message = 'Email address has not been registered.';
       $message_type = "error";
     }
 
     return array(
-      'page' => 'pages/register/main',
+      'page' => 'pages/forgot_password/main',
       'cache_timeout' => 0 /* no cache */,
       'no_breadcrumbs' => true,
       'page_data' => array(
         'message' => $message,
         'message_type' => $message_type,
         'login_url' => site_url('/login/'),
-        'user_email' => $_GET['email']
       )
     );
   }

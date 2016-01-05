@@ -7,6 +7,10 @@
       <p class="login-message <?=$message_type?>"><?=$message?></p>
       <?php } ?>
       <?php wp_login_form($login_args); ?>
+      <div class="secondary-actions">
+        <a href="<?=$register_url?>">Register</a>
+        <a href="<?=$forgot_password_url?>">Forgot password?</a>
+      </div>
     </div>
   </div>
 </div>

@@ -22,6 +22,15 @@ class Page_login extends MVC_controller {
     } elseif ( $status === "empty" ) {
       $message = 'Email address and/or password is empty.';
       $message_type = "error";
+    } elseif ( $status==="password-changed" ) {
+      $message = "Password changed successfully. Please login to continue.";
+      $message_type = "info";
+    } elseif ( $status==="invalidkey" ) {
+      $message = "The password link was invalid. Please request a new password reset.";
+      $message_type = "error";
+    } elseif ( $status==="expiredkey" ) {
+      $message = "The password link has expired. Please request a new password reset.";
+      $message_type = "error";
     } elseif ( $status === "false" ) {
       $message = 'You are logged out.';
       $message_type = "info";
@@ -38,7 +47,9 @@ class Page_login extends MVC_controller {
           'label_username' => "Email address"
         ),
         'message' => $message,
-        'message_type' => $message_type
+        'message_type' => $message_type,
+        'register_url' => site_url('/register/'),
+        'forgot_password_url' => site_url('/forgot-password/')
       )
     );
   }
