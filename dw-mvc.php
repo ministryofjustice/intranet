@@ -15,26 +15,26 @@ if (!defined('ABSPATH')) {
   exit; // disable direct access
 }
 
+/** leaving this in for now as some of the dw plugins still check its existence
+ */
 if (!class_exists('mmvc')) {
-  class mmvc {
-    function __construct() {
-      define('MVC_PATH', get_template_directory().'/');
-      define('MVC_VIEWS_DIR', 'views/');
-      define('MVC_VIEWS_PATH', MVC_PATH.MVC_VIEWS_DIR);
-      define('MVC_MODELS_DIR', 'models/');
-      define('MVC_MODELS_PATH', MVC_PATH.MVC_MODELS_DIR);
-
-      include_once(plugin_dir_path( __FILE__ ).'Loader.php');
-      include_once(plugin_dir_path( __FILE__ ).'Controller.php');
-      include_once(plugin_dir_path( __FILE__ ).'Model.php');
-    }
-  }
-
-  new mmvc;
+  class mmvc {}
 }
 
+define('MVC_PATH', get_template_directory().'/');
+define('MVC_VIEWS_DIR', 'views/');
+define('MVC_VIEWS_PATH', MVC_PATH.MVC_VIEWS_DIR);
+define('MVC_MODELS_DIR', 'models/');
+define('MVC_MODELS_PATH', MVC_PATH.MVC_MODELS_DIR);
+
+$plugin_path = plugin_dir_path( __FILE__ );
+
+include_once($plugin_path.'Loader.php');
+include_once($plugin_path.'Controller.php');
+include_once($plugin_path.'Model.php');
+
 // Force mmvc plugin to loads before all others
-function mmvc_load_first() {
+function mvc_load_first() {
   $path = str_replace( WP_PLUGIN_DIR . '/', '', __FILE__ );
   if ( $plugins = get_option( 'active_plugins' ) ) {
     if ( $key = array_search( $path, $plugins ) ) {
@@ -45,24 +45,37 @@ function mmvc_load_first() {
   }
 }
 
-function mmvc_init($template, $data = null) {
+function mvc_route() {
   global $MVC;
 
-  include($template);
-
+  $controller = get_query_var('controller');
+  $path = get_query_var('param_string');
   $post_type = get_post_type();
 
-  if($post_type!="document") {
-    $controller_name = ucfirst(basename($template));
+  $controller_path = $controller ? get_template_directory() . '/' . $controller . '.php' : get_page_template();
+
+  include($controller_path);
+
+  if($post_type != "document") {
+    $controller_name = ucfirst(basename($controller_path));
     $controller_name = preg_replace('/\.[^.]+$/', '', $controller_name);
     $controller_name = str_replace('-', '_', $controller_name);
 
     if(class_exists($controller_name)) {
-      $MVC = new $controller_name($data);
+      $MVC = new $controller_name($path);
       $MVC->load_models();
       $MVC->main();
     }
   }
+
+  exit;
 }
 
-add_action( 'activated_plugin', 'mmvc_load_first', 1);
+function mvc_query_vars() {
+  add_rewrite_tag('%controller%', '([^&]+)');
+  add_rewrite_tag('%param_string%', '([^&]+)');
+}
+
+add_action('init', 'mvc_query_vars', 1);
+add_action('wp', 'mvc_route');
+add_action('activated_plugin', 'mvc_load_first', 1);
