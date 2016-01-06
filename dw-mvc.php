@@ -76,6 +76,8 @@ function mvc_query_vars() {
   add_rewrite_tag('%param_string%', '([^&]+)');
 }
 
-add_action('init', 'mvc_query_vars', 1);
-add_action('wp', 'mvc_route');
-add_action('activated_plugin', 'mvc_load_first', 1);
+if(!is_admin()) {
+  add_action('init', 'mvc_query_vars', 1);
+  add_action('wp', 'mvc_route');
+  add_action('activated_plugin', 'mvc_load_first', 1);
+}
