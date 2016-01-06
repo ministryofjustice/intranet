@@ -9,7 +9,7 @@ class Children_API extends API {
   protected function route() {
     switch ($this->get_method()) {
       case 'GET':
-        $this->get_children($this->get_param(0), $this->get_param(1), $this->get_param(2));
+        $this->get_children();
         break;
 
       default:
@@ -17,8 +17,8 @@ class Children_API extends API {
     }
   }
 
-  protected function get_children($page_id, $order_by, $order) {
-    $children = $this->MVC->model->children->get_all($page_id, $order_by, $order);
-    $this->response($children, 200);
+  protected function get_children() {
+    $data = $this->MVC->model->children->get_all($this->get_param(0), $this->get_param(1), $this->get_param(2));
+    $this->response($data, 200);
   }
 }
