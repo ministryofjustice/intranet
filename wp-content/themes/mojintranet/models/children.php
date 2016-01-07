@@ -1,15 +1,10 @@
 <?php if (!defined('ABSPATH')) die();
 
 class Children_model extends MVC_model {
-  private $post_types;
-
-  public function __construct() {
-    $this->post_types = array('page', 'webchat');
-  }
+  private $post_types = array('page', 'webchat');
 
   public function get_all($page_id = 0, $order = 'asc') {
     $this->page_id = $page_id;
-    $this->order_by = $order_by;
     $this->order = $order;
 
     $data = array(
@@ -48,9 +43,7 @@ class Children_model extends MVC_model {
     $children_args = array(
       'post_parent' => $this->page_id,
       'post_type' => $this->post_types,
-      'posts_per_page' => -1,
-      'orderby' => $this->order_by,
-      'order' => $this->order
+      'posts_per_page' => -1
     );
 
     if(!$this->page_id) {
