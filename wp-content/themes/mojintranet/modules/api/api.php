@@ -3,14 +3,13 @@
 abstract class API {
   protected $cache_timeout = 60; //cache timeout in seconds
   protected $MVC;
+  protected $params = array();
   private $method;
-  private $params = array();
 
-  function __construct($params) {
+  function __construct() {
     global $MVC;
     $this->MVC = $MVC;
     $this->debug = (boolean) $_GET['debug'];
-    $this->params = $params;
     $this->method = $_SERVER['REQUEST_METHOD'];
   }
 
@@ -54,8 +53,8 @@ abstract class API {
     return $this->method;
   }
 
-  protected function get_param($index) {
-    return $this->params[$index];
+  protected function get_param($name) {
+    return $this->params[$name];
   }
 
   abstract protected function route();

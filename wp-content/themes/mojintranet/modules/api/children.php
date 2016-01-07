@@ -2,7 +2,8 @@
 
 class Children_API extends API {
   public function __construct($params) {
-    parent::__construct($params);
+    parent::__construct();
+    $this->parse_params($params);
     $this->route();
   }
 
@@ -17,8 +18,16 @@ class Children_API extends API {
     }
   }
 
+  protected function parse_params($params) {
+    $this->params = array(
+      'page_id' => (int) $params[0],
+      'order' => $params[1]
+    );
+  }
+
   protected function get_children() {
-    $data = $this->MVC->model->children->get_all($this->get_param(0), $this->get_param(1), $this->get_param(2));
+    $data = call_user_func_array(array($this->MVC->model->children, 'get_all'), $this->params);
+    //$data['url_params'] = $this->params;
     $this->response($data, 200);
   }
 }

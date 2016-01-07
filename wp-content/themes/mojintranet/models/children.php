@@ -7,49 +7,32 @@ class Children_model extends MVC_model {
     $this->post_types = array('page', 'webchat');
   }
 
-  public function get_all($page_id = 0, $order_by = 'menu_order title', $order = 'asc') {
+  public function get_all($page_id = 0, $order = 'asc') {
     $this->page_id = $page_id;
     $this->order_by = $order_by;
     $this->order = $order;
 
     $data = array(
+      'title' => (string) get_the_title($page_id),
+      'id' => (int) $page_id,
+      'url' => (string) get_permalink($page_id),
+      'total_results' => 0,
       'results' => array()
     );
 
     $children = $this->get_children();
-    //Debug::full($children->posts);
-
-    //die();
 
     foreach($children->posts as $post) {
-      //Debug::full($post);
       $data['results'][] = $this->trim_child($post);
     }
 
     usort($data['results'], array($this,'sort_children'));
 
-    /*** ***/
+    if($order == 'desc') {
+      $data['results'] = array_reverse($data['results']);
+    }
 
-    //$x = array(
-    //  array('title' => 'bbb', 'menu_order' => 0),
-    //  array('title' => 'aaa', 'menu_order' => 0),
-    //  array('title' => '1', 'menu_order' => 0),
-    //  array('title' => '10', 'menu_order' => 0),
-    //  array('title' => '2', 'menu_order' => 0),
-    //  array('title' => 'ccc', 'menu_order' => 2),
-    //  array('title' => 'ddd', 'menu_order' => 1),
-    //  array('title' => '3', 'menu_order' => 5),
-    //  array('title' => '30', 'menu_order' => 4),
-    //  array('title' => '4', 'menu_order' => 3)
-    //);
-    //
-    //usort($x, array($this, 'sort_children'));
-    //
-    //Debug::full($x); die();
-
-    /*** ***/
-
-    Debug::full($data); die();
+    $data['total_results'] = count($data['results']);
 
     return $data;
   }
