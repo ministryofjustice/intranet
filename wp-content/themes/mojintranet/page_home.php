@@ -22,7 +22,7 @@ class Page_home extends MVC_controller {
       'no_breadcrumbs' => true,
       'page_data' => array(
         'emergency_message' => $this->get_emergency_message(),
-        'my_moj' => $this->my_moj_model->get_data(),
+        'my_moj' => $this->model->my_moj->get_data(),
         'events' => $this->get_events(),
         'posts' => $this->get_posts(),
         'see_all_events_url' => get_permalink(Taggr::get_id('events-landing')),
@@ -52,23 +52,25 @@ class Page_home extends MVC_controller {
     $events = $this->get_events_from_api();
     $formatted_events = array();
 
-    foreach($events['results'] as $event) {
-      $start_date_timestamp = strtotime($event['start_date']);
-      $end_date_timestamp = strtotime($event['end_date']);
+    if($events['results']) {
+      foreach($events['results'] as $event) {
+        $start_date_timestamp = strtotime($event['start_date']);
+        $end_date_timestamp = strtotime($event['end_date']);
 
-      $formatted_events[] = array(
-        'url' => $event['url'],
-        'title' => $event['title'],
-        'human_date' => date("j F Y", $start_date_timestamp),
-        'day_of_week' => date("l", $start_date_timestamp),
-        'day_of_month' => date("j", $start_date_timestamp),
-        'month_year' => date("M Y", $start_date_timestamp),
-        'date' => date("j F Y", $start_date_timestamp) . ' - ' . date("j F Y", $end_date_timestamp),
-        'time' => $event['all_day'] ? 'All day' : $event['start_time'] . ' - ' . $event['end_time'],
-        'multiday' => $event['multiday'],
-        'all_day' => $event['all_day'],
-        'location' => $event['location']
-      );
+        $formatted_events[] = array(
+          'url' => $event['url'],
+          'title' => $event['title'],
+          'human_date' => date("j F Y", $start_date_timestamp),
+          'day_of_week' => date("l", $start_date_timestamp),
+          'day_of_month' => date("j", $start_date_timestamp),
+          'month_year' => date("M Y", $start_date_timestamp),
+          'date' => date("j F Y", $start_date_timestamp) . ' - ' . date("j F Y", $end_date_timestamp),
+          'time' => $event['all_day'] ? 'All day' : $event['start_time'] . ' - ' . $event['end_time'],
+          'multiday' => $event['multiday'],
+          'all_day' => $event['all_day'],
+          'location' => $event['location']
+        );
+      }
     }
 
     return $formatted_events;

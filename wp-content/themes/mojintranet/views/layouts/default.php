@@ -26,7 +26,7 @@ if(!is_user_logged_in()) {
 </head>
 <body>
   <?php $this->view('modules/google_tag_manager'); ?>
-  <?php $this->view('modules/header', $this->header_model->get_data()); ?>
+  <?php $this->view('modules/header', $this->model->header->get_data()); ?>
   <div id="content" class="container main-content" role="main" tabindex="-1">
     <div class="content-wrapper">
       <?php $this->view('modules/beta_banner'); ?>
@@ -34,7 +34,7 @@ if(!is_user_logged_in()) {
         <?php $this->view('modules/ie6_message'); ?>
       <![endif]-->
       <?php if(!$no_breadcrumbs): ?>
-        <?php $this->view('modules/breadcrumbs', array('breadcrumbs' => $this->breadcrumbs_model->get_data())); ?>
+        <?php $this->view('modules/breadcrumbs', array('breadcrumbs' => $this->model->breadcrumbs->get_data())); ?>
       <?php endif ?>
       <?php $this->view($page, $page_data) ?>
     </div>
