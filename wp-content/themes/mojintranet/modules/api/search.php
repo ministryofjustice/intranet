@@ -20,7 +20,7 @@ class Search_API extends API {
 
   protected function parse_params($params) {
     $this->params = array(
-      'type' => $params[0],
+      'post_type' => $params[0],
       'category' => $params[1],
       'keywords' => $params[2],
       'page' => $params[3],
