@@ -25,7 +25,7 @@ class Search_model extends MVC_model {
     //process the query
     $this->build_meta_clause();
     $results = $this->get_raw_results();
-    $data = $this->get_formatted_data($results);
+    $data = $this->format_data($results);
 
     $data['total_results'] = $results->found_posts;
 
@@ -82,14 +82,16 @@ class Search_model extends MVC_model {
 			'date_query' => $this->date_query
 		);
 
-    return new WP_Query($args);
-  }
+    $results = new WP_Query($args);
 
-  private function get_formatted_data($results) {
     if (function_exists(relevanssi_do_query) && $this->options['keywords'] != null) {
       relevanssi_do_query($results);
     }
 
+    return $results;
+  }
+
+  private function format_data($results) {
     $data = array(
       'total_results' => 0,
       'results' => array()
