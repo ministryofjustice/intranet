@@ -22,8 +22,8 @@ class Events_API extends API {
     $this->params = array(
       'date' => $params[0],
       'keywords' => $params[1],
-      'page' => (int) $params[2],
-      'per_page' => (int) $params[3]
+      'page' => $params[2] ?: 1,
+      'per_page' => $params[3] ?: 10
     );
   }
 

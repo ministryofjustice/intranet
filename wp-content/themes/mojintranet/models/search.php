@@ -6,6 +6,10 @@ class Search_model extends MVC_model {
   private $date_query = array();
   private $posts_orderby = '';
 
+  public function __construct() {
+    $this->debug = (boolean) $_GET['debug'];
+  }
+
   /** get all posts that meet the criteria from the options
    * @param {Array} $options Search criteria
    *    search_orderby - array of key/value pairs representing fields and sort direction
@@ -18,18 +22,20 @@ class Search_model extends MVC_model {
    * @return Array all matching posts
    */
   public function get($options = array()) {
-    add_filter('posts_orderby', array($this, 'wp_filter_posts_orderby'));
+    $data = $this->get_raw($options);
+    $data = $this->format_data($data);
+    return $data;
+  }
+
+  public function get_raw($options = array()) {
+    $data = array();
 
     $this->options = $this->initialise_options($options);
 
     //process the query
-    $this->build_meta_clause();
-    $results = $this->get_raw_results();
-    $data = $this->format_data($results);
-
-    $data['total_results'] = $results->found_posts;
-
-    remove_filter('posts_orderby', array($this, 'wp_filter_posts_orderby'));
+    $data['raw'] = $this->get_raw_results();
+    $data['total_results'] = (int) $data['raw']->found_posts;
+    $data['retrieved_results'] = (int) $data['raw']->post_count;
 
     return $data;
   }
@@ -68,38 +74,55 @@ class Search_model extends MVC_model {
   }
 
   private function get_raw_results() {
+    if($this->options['date']) {
+      if(count($this->options['meta_fields'])) {
+        $this->build_meta_clause();
+        $this->build_date_query();
+        $date_query = array();
+      }
+      else {
+        $date_query = $this->parse_date();
+      }
+    }
+
 		$args = array(
 			// Paging
 			'nopaging' => false,
 			'paged' => $this->options['page'],
 			'posts_per_page' => $this->options['per_page'],
 			// Sorting
+      'order' => NULL,
 			'orderby' => $this->options['search_orderby'],
 			// Filters
 			'post_type' => $this->options['post_type'],
 			's' => $this->rawurldecode($this->options['keywords']),
 			'meta_query' => $this->meta_query,
-			'date_query' => $this->date_query
+			'date_query' => $date_query
 		);
 
+    add_filter('posts_orderby', array($this, 'wp_filter_posts_orderby'));
     $results = new WP_Query($args);
+    remove_filter('posts_orderby', array($this, 'wp_filter_posts_orderby'));
 
     if (function_exists(relevanssi_do_query) && $this->options['keywords'] != null) {
       relevanssi_do_query($results);
     }
 
+    if($this->debug) {
+      Debug::full($results, 8);
+    }
+
     return $results;
   }
 
-  private function format_data($results) {
-    $data = array(
-      'total_results' => 0,
-      'results' => array()
-    );
+  private function format_data($data) {
+    $data['results'] = array();
 
-    foreach($results->posts as $post) {
+    foreach($data['raw']->posts as $post) {
       $data['results'][] = $this->format_row($post);
     }
+
+    unset($data['raw']);
 
     return $data;
   }
@@ -142,16 +165,14 @@ class Search_model extends MVC_model {
   }
 
   private function build_meta_clause() {
-		// Build meta_query (and extend orderby)
 		if(count($this->options['meta_fields'])) {
-			foreach ($this->options['meta_fields'] as $meta_field) {
-        $this->meta_query[$meta_field] = array(
-          'key' => $meta_field,
-          'compare' => 'EXISTS'
-        );
-			}
+			//foreach ($this->options['meta_fields'] as $meta_field) {
+        //$this->meta_query[$meta_field] = array(
+          //'key' => $meta_field,
+          //'compare' => 'EXISTS'
+        //);
+			//}
 
-      //temporary fix for a bug in WP core
       $mt_count = 0;
       $posts_orderby_parts = array();
 
@@ -168,6 +189,52 @@ class Search_model extends MVC_model {
         $this->posts_orderby = implode(', ', $posts_orderby_parts);
       }
 		}
+  }
+
+  private function parse_date() {
+    if(!$this->options['date']) return;
+
+    $parts = explode('-', $this->options['date']);
+
+    $date['year'] = (int) $parts[0] ?: null;
+    $date['monthnum'] = (int) $parts[1] ?: null;
+    $date['day'] = (int) $parts[2] ?: null;
+
+    return $date;
+  }
+
+  private function build_date_query() {
+    $meta_query_or = array('relation' => 'OR');
+    $meta_query_and = array('relation' => 'AND');
+
+    $compare = $this->options['date'] ? 'LIKE' : '>=';
+    if (is_array($this->options['date'])) {
+      //to be checked when rewriting the months API
+      $compare = 'BETWEEN';
+      if ($this->options['date'][0] == 'today') {
+        $compare_value[] = date('Y-m-d');
+      } else {
+        $compare_value[] = $this->options['date'][0];
+      }
+      $compare_value[] = date('Y-m-t', strtotime("+" . $this->options['date'][1] . " month"));
+    }
+    else {
+      $compare_value = $this->options['date'] != 'today' ? $this->options['date'] : date('Y-m-d');
+    }
+
+    foreach ($this->options['meta_fields'] as $meta_field) {
+      $meta_query_or[] = array(
+        'key' => $meta_field,
+        'value' => $compare_value,
+        'type' => 'date',
+        'compare' => $compare,
+      );
+      $meta_query_and[] = array(
+        'key' => $meta_field,
+      );
+    }
+
+    $this->meta_query[] = array($meta_query_or, $meta_query_and);
   }
 
 	private function rawurldecode($string) {
