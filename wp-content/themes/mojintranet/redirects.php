@@ -44,7 +44,10 @@ class Route_redirects {
           $redirect_url = $this->get_forms_redirect_url();
         }
         elseif(strpos($this->source_url, '/Search.do?') !== false) {
-          $redirect_url = $this->get_search_redirect_url();
+          $redirect_url = $this->get_search_redirect_url('query');
+        }
+        elseif(strpos($this->source_url, '/SearchPEP.do?') !== false) {
+          $redirect_url = $this->get_search_redirect_url('q');
         }
         else {
           $redirect_url = $this->get_fallback_url();
@@ -79,12 +82,12 @@ class Route_redirects {
     return $posts[0] ?: null;
   }
 
-  private function get_search_redirect_url() {
+  private function get_search_redirect_url($param_name) {
     preg_match('#\?(.*)#', $this->source_url, $matches);
     $query_string = $matches[1] ?: '';
-    parse_str($query_string);
+    parse_str($query_string, $params);
 
-    $keywords = explode(' ', $query);
+    $keywords = explode(' ', $params[$param_name]);
 
     return site_url('/search-results/all/' . implode('+', $keywords) . '/1/');
   }
@@ -131,6 +134,9 @@ class Route_redirects {
 
     //strip domain from the url
     $url = preg_replace('#http(s)?://[^/]+#', '', $this->source_url);
+    $url = str_replace('index.htm', '', $url);
+    $url = str_replace('my-services', '', $url);
+    $url = preg_replace('#//+#', '/', $url);
     $url = trim($url, '/');
 
     //strip extension, if any
@@ -141,6 +147,10 @@ class Route_redirects {
     while(count($url_segments) && $segment_counter < $limit) {
       $segment_counter++;
       $limited_segments[] = array_pop($url_segments);
+    }
+
+    if($this->debug) {
+      Debug::full($limited_segments);
     }
 
     //get segments
