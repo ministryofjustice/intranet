@@ -28,13 +28,13 @@ class Likes_API extends API {
   }
 
   protected function read() {
-    $data = $this->MVC->model->news->read($this->params);
+    $data = $this->MVC->model->likes->read($this->params);
     $data['url_params'] = $this->params;
     $this->response($data, 200);
   }
 
   protected function update() {
-    $data = $this->MVC->model->news->update($this->params);
+    $data = $this->MVC->model->likes->update($this->params);
     $data['url_params'] = $this->params;
     $this->response($data, 200);
   }
