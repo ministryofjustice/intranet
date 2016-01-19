@@ -1,7 +1,5 @@
 <?php if (!defined('ABSPATH')) die();
 
-include_once(dirname(__FILE__) . '/search.php');
-
 class Events_model extends MVC_model {
   public function get_list($options = array()) {
     $options['search_orderby'] = array(
