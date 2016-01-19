@@ -23,8 +23,8 @@ class News_API extends API {
       'category' => $params[0],
       'date' => $params[1],
       'keywords' => $params[2],
-      'page' => (int) $params[3],
-      'per_page' => (int) $params[4]
+      'page' => $params[3] ?: 1,
+      'per_page' => $params[4] ?: 10
     );
   }
 
