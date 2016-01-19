@@ -22,5 +22,6 @@ abstract class MVC_controller extends MVC_loader {
     $this->model('children');
     $this->model('news');
     $this->model('events');
+    $this->model('likes');
   }
 }
