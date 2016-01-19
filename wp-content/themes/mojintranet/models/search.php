@@ -138,7 +138,7 @@ class Search_model extends MVC_model {
     $excerpt = $post->post_type == 'document' ? '' : $post->post_excerpt;
 
     if (count($page_ancestors)) {
-      $titles = array_slice($page_ancestors, -2);
+      $titles = array_slice($page_ancestors, 0, 2);
       foreach($titles as $index => $item) {
         $titles[$index] = get_post_meta($item, 'nav_label', true) ?: get_the_title($item);
       }
