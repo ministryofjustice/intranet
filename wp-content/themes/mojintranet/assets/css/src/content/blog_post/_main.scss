@@ -89,4 +89,24 @@
       margin-right: 20px;
     }
   }
+
+  .comments {
+    .leave-a-comment {
+      @extend %large-copy;
+      margin-top: 30px;
+      font-weight: bold;
+    }
+
+    textarea {
+      width: 100%;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      padding: 10px;
+      border: 1px solid $grey-2;
+    }
+
+    .cta {
+      margin-right: 10px;
+    }
+  }
 }

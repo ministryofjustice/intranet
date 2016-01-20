@@ -103,16 +103,17 @@
             <a href="<?=wp_login_url()?>">Sign in</a> to leave a comment
           <?php endif ?>
         </p>
+
         <?php if(is_user_logged_in()): ?>
-          <form>
-            <textarea></textarea>
-            <input class="cta cta-positive" type="submit" value="Submit"></button>
-            <input class="cta cta-plain" type="reset" value="Cancel"></button>
+          <form class="comment-form">
+            <textarea name="comment" placeholder="Enter your comment here..."></textarea>
+            <input class="cta cta-positive" type="submit" value="Submit" />
+            <input class="cta cta-plain" type="reset" value="Cancel" />
           </form>
         <?php endif ?>
 
-        <ul class="comments-list">
-        </ul>
+        <div class="comments-list-container">
+        </div>
       </div>
     </div>
   </div>
