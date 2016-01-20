@@ -94,7 +94,7 @@
     </div>
   </div>
   <div class="grid">
-    <div class="col-lg-12 col-md-12 col-sm-12">
+    <div class="col-lg-8 col-md-12 col-sm-12">
       <div class="comments">
         <p class="leave-a-comment">
           <?php if(is_user_logged_in()): ?>
@@ -106,8 +106,13 @@
         <?php if(is_user_logged_in()): ?>
           <form>
             <textarea></textarea>
+            <input class="cta cta-positive" type="submit" value="Submit"></button>
+            <input class="cta cta-plain" type="reset" value="Cancel"></button>
           </form>
         <?php endif ?>
+
+        <ul class="comments-list">
+        </ul>
       </div>
     </div>
   </div>
