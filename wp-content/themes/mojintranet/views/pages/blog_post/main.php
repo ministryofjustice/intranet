@@ -35,20 +35,7 @@
       </div>
 
       <div class="item-row">
-        <div class="like-container">
-          <a class="like-link" href="#">
-            <span class="like-icon"></span>Like
-          </a>
-          <span class="like-icon outside"></span>
-          <span class="like-description"></span>
-        </div>
 
-        <span class="share-via-email-icon"></span>
-        <a class="share-via-email"
-           href="mailto:"
-           data-title="<?=htmlspecialchars($title)?>"
-           data-date="<?=htmlspecialchars($human_date)?>"
-           data-body="<?=htmlspecialchars($share_email_body)?>">Share this post by email</a>
       </div>
 
       <ul class="content-nav grid">
@@ -80,6 +67,48 @@
           <?php endif ?>
         </li>
       </ul>
+    </div>
+  </div>
+  <div class="grid">
+    <div class="col-lg-8 col-md-12 col-sm-12">
+      <ul class="summary">
+        <li class="comments-count">
+          <span class="icon"></span>
+          <span class="content">CC</span>
+        </li>
+        <li class="like-container">
+          <a class="like-link" href="#">
+            <span class="like-icon"></span>
+            <span class="like-description"></span>
+          </a>
+        </li>
+        <li class="share-container">
+          <span class="share-via-email-icon"></span>
+          <a class="share-via-email"
+             href="mailto:"
+             data-title="<?=htmlspecialchars($title)?>"
+             data-date="<?=htmlspecialchars($human_date)?>"
+             data-body="<?=htmlspecialchars($share_email_body)?>">Share this post by email</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="grid">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+      <div class="comments">
+        <p class="leave-a-comment">
+          <?php if(is_user_logged_in()): ?>
+            Leave a comment
+          <?php else: ?>
+            <a href="<?=wp_login_url()?>">Sign in</a> to leave a comment
+          <?php endif ?>
+        </p>
+        <?php if(is_user_logged_in()): ?>
+          <form>
+            <textarea></textarea>
+          </form>
+        <?php endif ?>
+      </div>
     </div>
   </div>
 </div>

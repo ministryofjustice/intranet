@@ -44,7 +44,6 @@
 
   .like-container {
     display: none;
-    margin-bottom: 20px;
 
     &.loaded {
       display: block;
@@ -52,23 +51,19 @@
 
     &.voted {
       .like-link {
-        display: none;
-      }
-
-      .like-icon.outside {
-        display: inline-block;
+        text-decoration: none;
+        color: $grey-1;
+        cursor: default;
       }
     }
 
     .like-link {
       @extend %medium-copy;
       display: inline-block;
-      margin-right: 10px;
     }
 
     .like-description {
       @extend %medium-copy;
-      display: inline-block;
     }
 
     .like-icon {
@@ -79,12 +74,19 @@
       background-image: url("../images/thumbs_up_x2.png");
       background-size: 100% 100%;
       vertical-align: top;
+    }
+  }
 
-      &.outside {
-        display: none;
-        margin-right: 2px;
-        opacity: .2;
-      }
+  .summary {
+    @include clearfix;
+    padding: 10px 0;
+    border-style: solid;
+    border-color: $grey-2;
+    border-width: 1px 0;
+
+    li {
+      float: left;
+      margin-right: 20px;
     }
   }
 }

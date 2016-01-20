@@ -32,12 +32,11 @@
     },
 
     cacheEls: function() {
-      this.$likeContainer = this.$top.find('.like-container');
-      this.$likeCount = this.$top.find('.like-count');
-      this.$likeSummary = this.$top.find('.like-summary');
-      this.$likeDescription = this.$top.find('.like-description');
-      this.$likeLink = this.$top.find('.like-link');
       this.$likesRow = this.$top.find('.likes-row');
+      this.$likeCount = this.$top.find('.like-count');
+      this.$likeContainer = this.$top.find('.like-container');
+      this.$likeLink = this.$top.find('.like-link');
+      this.$likeDescription = this.$top.find('.like-description');
     },
 
     bindEvents: function() {
@@ -74,6 +73,10 @@
 
       e.preventDefault();
 
+      if(this.$likeContainer.hasClass('voted')) {
+        return;
+      }
+
       this.$likeContainer.addClass('voted');
       this.$likeDescription.html('Sending...');
 
@@ -98,25 +101,10 @@
     },
 
     updateLikes: function(count) {
-      var othersCount = count - 1;
       var message = '';
-      var userVoted = App.tools.search(this.postId, this.likedPostIds);
-
-      this.likesCount = count;
+      message += count + ' ' + (count === 1 ? 'like' : 'likes');
 
       if(count) {
-        if(userVoted) {
-          if(othersCount) {
-            message = 'You and ' + othersCount + ' other ' + (othersCount === 1 ? 'person' : 'people') + ' like this post';
-          }
-          else {
-            message = 'You like this post';
-          }
-        }
-        else {
-          message = count + ' ' + (count === 1 ? 'person likes' : 'people like') + ' this post';
-        }
-
         this.$likesRow.removeClass('hidden');
       }
 
