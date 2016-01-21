@@ -119,8 +119,8 @@
   </div>
 
   <script data-name="comments-item" type="text/x-partial-template">
-    <li class="">
-      <div class="header">
+    <li class="comment">
+      <div class="top">
         <span class="author"></span>
         <time class="datetime"></time>
       </div>

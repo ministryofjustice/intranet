@@ -14,6 +14,7 @@
       this.applicationUrl = $('head').data('application-url');
       this.serviceUrl = this.applicationUrl + '/wp-content/themes/mojintranet/assets/js/comments.json';
 
+      this.itemTemplate = this.$top.find('[data-name="comments-item"]').html();
       this.serviceXHR = null;
 
       this.cacheEls();
@@ -23,6 +24,7 @@
     },
 
     cacheEls: function() {
+      this.$commentsList = this.$top.find('.comments-list');
     },
 
     bindEvents: function() {
@@ -45,16 +47,30 @@
       var a, b;
       var totalComments, totalReplies;
       var comment, reply;
+      var $comment, $reply;
 
       for(a = 0, totalComments = data.comments.length; a < totalComments; a++) {
         comment = data.comments[a];
-        console.log(comment);
+        $comment = this.buildComment(comment);
+        this.$commentsList.append($comment);
 
         for(b = 0, totalReplies = comment.replies.length; b < totalReplies; b++) {
           reply = comment.replies[b];
-          console.log(reply);
+          $reply = this.buildComment(reply);
+          $comment.find('> .replies-list').append($reply);
         }
       }
+    },
+
+    buildComment: function(data) {
+      var $comment = $(this.itemTemplate);
+
+      $comment.find('.content').html(data.comment);
+      $comment.find('.datetime').html(data.date_posted);
+      $comment.find('.author').html(data.author);
+      $comment.find('.likes').html(data.likes);
+
+      return $comment;
     }
   };
 }(jQuery));
