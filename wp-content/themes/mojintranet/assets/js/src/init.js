@@ -19,6 +19,7 @@ jQuery(function() {
   App.ins.events = new App.Events();
   App.ins.shareViaEmail = new App.ShareViaEmail();
   App.ins.like = new App.Like();
+  App.ins.comments = new App.Comments();
   App.ins.searchResults = new App.SearchResults();
   App.ins.searchAutocomplete = new App.SearchAutocomplete();
   App.ins.floaters = new App.Floaters();

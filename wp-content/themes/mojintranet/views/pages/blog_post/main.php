@@ -112,9 +112,30 @@
           </form>
         <?php endif ?>
 
-        <div class="comments-list-container">
-        </div>
+        <ul class="comments-list">
+        </ul>
       </div>
     </div>
   </div>
+
+  <script data-name="comments-item" type="text/x-partial-template">
+    <li class="">
+      <div class="header">
+        <span class="author"></span>
+        <time class="datetime"></time>
+      </div>
+
+      <p class="content"></p>
+
+      <div class="action">
+        <span class="reply">
+          <a href="">Reply</a>
+        </span>
+        <span class="likes">
+        </span>
+      </div>
+
+      <ul class="replies-list"></ul>
+    </li>
+  </script>
 </div>
