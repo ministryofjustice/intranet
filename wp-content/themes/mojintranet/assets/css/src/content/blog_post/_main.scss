@@ -91,22 +91,39 @@
   }
 
   .comments {
+
     .leave-a-comment {
       @extend %large-copy;
       margin-top: 30px;
       font-weight: bold;
     }
 
-    textarea {
-      width: 100%;
-      margin-top: 10px;
-      margin-bottom: 10px;
-      padding: 10px;
-      border: 1px solid $grey-2;
+    .comment-form {
+      &.active {
+        .cta {
+          display: inline-block;
+        }
+
+        textarea {
+          height: 100px;
+          transition: height .15s;
+        }
+      }
+
+      textarea {
+        width: 100%;
+        height: 42px;
+        transition: height .15s;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        padding: 10px;
+        border: 1px solid $grey-2;
+      }
     }
 
     .cta {
       margin-right: 10px;
+      display: none;
     }
   }
 
@@ -131,13 +148,17 @@
     }
 
     .reply {
+      @extend %medium-copy;
+
       a {
         text-decoration: underline;
       }
     }
 
     .likes {
+      @extend %medium-copy;
       margin-left: 20px;
+
       .icon {
         display: inline-block;
         width: 16px;

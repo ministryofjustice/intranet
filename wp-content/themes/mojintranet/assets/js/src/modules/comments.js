@@ -24,10 +24,22 @@
     },
 
     cacheEls: function() {
+      this.$commentForm = this.$top.find('.comment-form');
+      this.$commentCancelBtn = this.$commentForm.find('.cta.cancel');
+      this.$commentField = this.$commentForm.find('[name="comment"]');
       this.$commentsList = this.$top.find('.comments-list');
     },
 
     bindEvents: function() {
+      var _this = this;
+
+      this.$commentField.focus(function() {
+        _this.$commentForm.addClass('active');
+      });
+
+      this.$commentCancelBtn.click(function() {
+        _this.$commentForm.removeClass('active');
+      });
     },
 
     loadComments: function() {
