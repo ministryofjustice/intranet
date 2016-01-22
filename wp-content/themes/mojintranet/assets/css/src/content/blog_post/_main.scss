@@ -114,17 +114,19 @@
     margin-top: 20px;
 
     .author {
-      @extend %medium-copy;
+      @extend %large-copy;
     }
 
     .dash,
     .datetime{
-      @extend %medium-copy;
+      @extend %large-copy;
       color: $grey-1;
 
     }
 
     .content {
+      @extend %medium-copy;
+      margin-top: 5px;
       margin-bottom: 10px;
     }
 
@@ -159,8 +161,6 @@
     }
 
     .content-box {
-      padding: 10px 15px;
-      background-color: $grey-4;
     }
   }
 }
