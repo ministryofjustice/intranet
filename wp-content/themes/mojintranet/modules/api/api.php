@@ -5,12 +5,21 @@ abstract class API {
   protected $MVC;
   protected $params = array();
   private $method;
+  private $args = array(
+    'post' => array(),
+    'put' => array()
+  );
 
   function __construct() {
     global $MVC;
     $this->MVC = $MVC;
     $this->debug = (boolean) $_GET['debug'];
     $this->method = $_SERVER['REQUEST_METHOD'];
+
+    if($this->method == 'PUT' || $this->method == 'POST') {
+      $parse_method = '_parse_' . strtolower($this->method);
+      $this->$parse_method();
+    }
   }
 
   protected function response($data = array(), $status_code = 200, $cache_timeout = 60) {
@@ -53,8 +62,24 @@ abstract class API {
     return $this->method;
   }
 
-  protected function get_param($name) {
-    return $this->params[$name];
+  protected function get_param($key) {
+    return $this->params[$key];
+  }
+
+  protected function post($key = null) {
+    return $key ? $this->args['post'][$key] : $this->args['post'];
+  }
+
+  protected function put() {
+    return $key ? $this->args['put'][$key] : $this->args['put'];
+  }
+
+  private function _parse_post() {
+    $this->args['post'] = $_POST;
+  }
+
+  private function _parse_put() {
+    parse_str(file_get_contents('php://input'), $this->args['put']);
   }
 
   abstract protected function route();

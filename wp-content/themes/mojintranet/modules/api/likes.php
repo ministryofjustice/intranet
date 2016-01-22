@@ -34,7 +34,7 @@ class Likes_API extends API {
   }
 
   protected function update() {
-    $data = $this->MVC->model->likes->update($this->params['id']);
+    $data = $this->MVC->model->likes->update($this->params['id'], $this->put('nonce'));
     $data['url_params'] = $this->params;
     $this->response($data, 200);
   }
