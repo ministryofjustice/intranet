@@ -69,6 +69,7 @@
       </ul>
     </div>
   </div>
+
   <div class="grid">
     <div class="col-lg-8 col-md-12 col-sm-12">
       <ul class="summary">
@@ -93,6 +94,7 @@
       </ul>
     </div>
   </div>
+
   <div class="grid">
     <div class="col-lg-8 col-md-12 col-sm-12">
       <div class="comments">
@@ -118,24 +120,6 @@
     </div>
   </div>
 
-  <script data-name="comments-item" type="text/x-partial-template">
-    <li class="comment">
-      <div class="top">
-        <span class="author"></span>
-        <time class="datetime"></time>
-      </div>
+  <?php $this->view('pages/blog_post/partials/comment') ?>
 
-      <p class="content"></p>
-
-      <div class="action">
-        <span class="reply">
-          <a href="">Reply</a>
-        </span>
-        <span class="likes">
-        </span>
-      </div>
-
-      <ul class="replies-list"></ul>
-    </li>
-  </script>
 </div>

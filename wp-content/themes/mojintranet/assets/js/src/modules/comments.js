@@ -14,7 +14,7 @@
       this.applicationUrl = $('head').data('application-url');
       this.serviceUrl = this.applicationUrl + '/wp-content/themes/mojintranet/assets/js/comments.json';
 
-      this.itemTemplate = this.$top.find('[data-name="comments-item"]').html();
+      this.itemTemplate = this.$top.find('[data-name="comment-item"]').html();
       this.serviceXHR = null;
 
       this.cacheEls();

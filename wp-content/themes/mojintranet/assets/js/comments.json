@@ -7,7 +7,7 @@
       "author_id": 12,
       "date_posted": "10/12/2015",
       "author": "John Doe",
-      "comment": "Hi everyone, I just really felt like writing this comment for no reason",
+      "comment": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi fringilla purus nec turpis tempus cursus. Cras quis malesuada enim. Integer euismod tincidunt tellus sit amet varius. Fusce et est vel est fringilla lobortis eget eget felis. Aliquam euismod dapibus orci, eu tempus felis egestas non.",
       "likes": 7,
       "replies": [
         {
@@ -15,7 +15,7 @@
           "author_id": 15,
           "date_posted": "10/12/2015",
           "author": "Jane Doe",
-          "comment": "Hi John, nice comment",
+          "comment": "Ut lobortis leo eget risus suscipit, ac euismod lacus tempor.",
           "likes": 2
         },
         {
@@ -23,7 +23,7 @@
           "author_id": 12,
           "date_posted": "10/12/2015",
           "author": "John Doe",
-          "comment": "Thanks, yours isn't bad either. Have you noticed that we have the same last name? What a coincidence!",
+          "comment": "Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nunc blandit velit et sem consectetur finibus. Sed ultrices tortor quis varius vehicula. Ut quis lobortis orci.",
           "likes": 3
         },
         {
@@ -31,16 +31,52 @@
           "author_id": 15,
           "date_posted": "10/12/2015",
           "author": "Jane Doe",
-          "comment": "I know, right? Crazy!",
+          "comment": "Donec bibendum fringilla elit auctor cursus. ",
+          "likes": 2
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "author_id": 12,
+      "date_posted": "10/12/2015",
+      "author": "John Doe",
+      "comment": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi fringilla purus nec turpis tempus cursus. Cras quis malesuada enim. Integer euismod tincidunt tellus sit amet varius. Fusce et est vel est fringilla lobortis eget eget felis. Aliquam euismod dapibus orci, eu tempus felis egestas non.",
+      "likes": 7,
+      "replies": [
+        {
+          "id": 8,
+          "author_id": 15,
+          "date_posted": "10/12/2015",
+          "author": "Jane Doe",
+          "comment": "Donec bibendum fringilla elit auctor cursus. ",
+          "likes": 2
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "author_id": 12,
+      "date_posted": "10/12/2015",
+      "author": "John Doe",
+      "comment": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi fringilla purus nec turpis tempus cursus. Cras quis malesuada enim. Integer euismod tincidunt tellus sit amet varius. Fusce et est vel est fringilla lobortis eget eget felis. Aliquam euismod dapibus orci, eu tempus felis egestas non.",
+      "likes": 7,
+      "replies": [
+        {
+          "id": 6,
+          "author_id": 15,
+          "date_posted": "10/12/2015",
+          "author": "Jane Doe",
+          "comment": "Ut lobortis leo eget risus suscipit, ac euismod lacus tempor.",
           "likes": 2
         },
         {
-          "id": 9,
-          "author_id": 19,
-          "date_posted": "11/12/2015",
-          "author": "Some Guy",
-          "comment": "What in the world are you guys talking about?! This is MoJ Intranet. Knock it off!",
-          "likes": 0
+          "id": 7,
+          "author_id": 12,
+          "date_posted": "10/12/2015",
+          "author": "John Doe",
+          "comment": "Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nunc blandit velit et sem consectetur finibus. Sed ultrices tortor quis varius vehicula. Ut quis lobortis orci.",
+          "likes": 3
         }
       ]
     }
