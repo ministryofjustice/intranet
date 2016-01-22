@@ -28,6 +28,7 @@
       this.$commentCancelBtn = this.$commentForm.find('.cta.cancel');
       this.$commentField = this.$commentForm.find('[name="comment"]');
       this.$commentsList = this.$top.find('.comments-list');
+      this.$commentsCount = this.$top.find('.comments-count');
     },
 
     bindEvents: function() {
@@ -72,6 +73,8 @@
           $comment.find('> .replies-list').append($reply);
         }
       }
+
+      this.$commentsCount.find('.count').html(data.total_comments);
     },
 
     buildComment: function(data) {
@@ -80,7 +83,7 @@
       $comment.find('.content').html(data.comment);
       $comment.find('.datetime').html(data.date_posted);
       $comment.find('.author').html(data.author);
-      $comment.find('.likes').html(data.likes);
+      $comment.find('.likes .count').html(data.likes);
 
       return $comment;
     }

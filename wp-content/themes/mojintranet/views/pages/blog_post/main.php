@@ -75,11 +75,11 @@
       <ul class="summary">
         <li class="comments-count">
           <span class="icon"></span>
-          <span class="content">CC</span>
+          <span class="count"></span>
         </li>
         <li class="like-container">
           <a class="like-link" href="#">
-            <span class="like-icon"></span>
+            <span class="like-icon icon"></span>
             <span class="like-description"></span>
           </a>
         </li>

@@ -13,9 +13,12 @@
 
       <div class="action">
         <span class="reply">
+          <span class="icon"></span>
           <a href="">Reply</a>
         </span>
         <span class="likes">
+          <span class="icon"></span>
+          <span class="count"></span>
         </span>
       </div>
     </div>

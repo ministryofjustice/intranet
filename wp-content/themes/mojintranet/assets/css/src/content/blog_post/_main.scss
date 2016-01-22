@@ -1,4 +1,14 @@
 .template-blog-post .template-container {
+  .icon {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin-right: 2px;
+    background-image: url("../images/blog_icons_x2.png");
+    background-size: auto 100%;
+    vertical-align: top;
+  }
+
   h1 {
     margin-bottom: 25px;
     margin-top: 50px;
@@ -67,13 +77,8 @@
     }
 
     .like-icon {
-      display: inline-block;
-      width: 16px;
-      height: 16px;
       margin-right: 5px;
-      background-image: url("../images/thumbs_up_x2.png");
-      background-size: 100% 100%;
-      vertical-align: top;
+      background-position: -32px 0;
     }
   }
 
@@ -87,6 +92,17 @@
     li {
       float: left;
       margin-right: 20px;
+    }
+
+    .comments-count {
+      .icon {
+        margin-top: 2px;
+      }
+
+      .count {
+        @extend %medium-copy;
+        color: $grey-1;
+      }
     }
   }
 
@@ -138,7 +154,6 @@
     .datetime{
       @extend %large-copy;
       color: $grey-1;
-
     }
 
     .content {
@@ -150,6 +165,10 @@
     .reply {
       @extend %medium-copy;
 
+      .icon {
+        margin-top: 2px;
+      }
+
       a {
         text-decoration: underline;
       }
@@ -160,16 +179,12 @@
       margin-left: 20px;
 
       .icon {
-        display: inline-block;
-        width: 16px;
-        height: 16px;
-        margin-right: 5px;
-        background-image: url("../images/thumbs_up_x2.png");
-        background-size: 100% 100%;
-        vertical-align: top;
+        background-position: -32px 0;
       }
 
       .count {
+        @extend %medium-copy;
+        color: $grey-1;
       }
     }
   }
