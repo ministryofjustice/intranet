@@ -52,7 +52,13 @@ function mvc_route() {
   $path = get_query_var('param_string');
   $post_type = get_post_type();
 
-  $controller_path = $controller ? get_template_directory() . '/' . $controller . '.php' : get_page_template();
+  //!!! To be refactored
+  if(is_single()) {
+    $controller_path = get_template_directory() . '/single-' . $post_type . '.php';
+  }
+  else {
+    $controller_path = $controller ? get_template_directory() . '/' . $controller . '.php' : get_page_template();
+  }
 
   include($controller_path);
 
