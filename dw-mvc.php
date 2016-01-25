@@ -48,19 +48,27 @@ function mvc_load_first() {
 function mvc_route() {
   global $MVC;
 
-  $controller = get_query_var('controller');
-  $path = get_query_var('param_string');
   $post_type = get_post_type();
+  $controller = get_query_var('controller');
+  $template = get_page_template();
+  $path = get_query_var('param_string');
 
-  //!!! To be refactored
-  if(is_single()) {
-    $controller_path = get_template_directory() . '/single-' . $post_type . '.php';
+  if($template) {
+    $controller_path = $template;
   }
   else {
-    $controller_path = $controller ? get_template_directory() . '/' . $controller . '.php' : get_page_template();
+    if(is_single()) {
+      $controller = 'single-' . $post_type;
+    }
+    $controller_path = get_template_directory() . '/' . $controller . '.php';
   }
 
-  include($controller_path);
+  if(file_exists($controller_path)) {
+    include($controller_path);
+  }
+  else {
+    trigger_error('Controller not found', E_USER_ERROR);
+  }
 
   if($post_type != "document") {
     $controller_name = ucfirst(basename($controller_path));
