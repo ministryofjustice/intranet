@@ -53,6 +53,7 @@ function mvc_route() {
   $template = get_page_template();
   $path = get_query_var('param_string');
 
+  //determine controller path
   if($template) {
     $controller_path = $template;
   }
@@ -63,6 +64,7 @@ function mvc_route() {
     $controller_path = get_template_directory() . '/' . $controller . '.php';
   }
 
+  //include controller
   if(file_exists($controller_path)) {
     include($controller_path);
   }
@@ -70,6 +72,7 @@ function mvc_route() {
     trigger_error('Controller not found', E_USER_ERROR);
   }
 
+  //instantiate controller
   if($post_type != "document") {
     $controller_name = ucfirst(basename($controller_path));
     $controller_name = preg_replace('/\.[^.]+$/', '', $controller_name);
