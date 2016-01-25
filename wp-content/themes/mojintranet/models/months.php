@@ -20,7 +20,7 @@ class Months_model extends MVC_model {
   private function count_events($data) {
     $data['results'] = array();
 
-    for ($x = 0; $x < 12; $x++) {
+    for($x = 0; $x < 12; $x++) {
       $data['results'][date('2015-m-01', strtotime("+$x month"))] = 0;
     }
 
