@@ -219,7 +219,7 @@ class Search_model extends MVC_model {
       $compare_value[] = date('Y-m-t', strtotime("+" . $this->options['date'][1] . " month"));
     }
     else {
-      $compare_value = $this->options['date'] != 'today' ? $this->options['date'] : date('Y-m-d');
+      $compare_value = $this->options['date'] == 'today' ? date('Y-m-d') : $this->options['date'];
     }
 
     foreach ($this->options['meta_fields'] as $meta_field) {
