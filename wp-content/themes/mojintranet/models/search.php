@@ -130,17 +130,17 @@ class Search_model extends MVC_model {
   private function format_row($post) {
     $id = $post->ID;
 
-    the_post($id);
-
     $titles = array();
     $thumbnail = wp_get_attachment_image_src(get_post_thumbnail_id($id), 'thumbnail');
     $page_ancestors = get_post_ancestors($id);
     $excerpt = $post->post_type == 'document' ? '' : $post->post_excerpt;
 
+
+
     if (count($page_ancestors)) {
       $titles = array_slice($page_ancestors, 0, 2);
-      foreach($titles as $index => $item) {
-        $titles[$index] = get_post_meta($item, 'nav_label', true) ?: get_the_title($item);
+      foreach($titles as $index => $ancestor_id) {
+        $titles[$index] = get_post_meta($ancestor_id, 'nav_label', true) ?: get_the_title($ancestor_id);
       }
       $titles = array_reverse($titles);
     }
@@ -155,7 +155,7 @@ class Search_model extends MVC_model {
       'slug' => (string) $post->post_name,
       'excerpt' => (string) $excerpt,
       'thumbnail_url' => (string) $thumbnail[0],
-      'timestamp' => (string) get_the_time('Y-m-d H:i:s'),
+      'timestamp' => (string) get_the_time('Y-m-d H:i:s', $id),
       'file_url' => (string) '',
       'file_name' => (string) '',
       'file_size' => (int) 0,

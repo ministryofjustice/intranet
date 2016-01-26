@@ -27,7 +27,8 @@ class News_model extends MVC_model {
 
   private function format_row($post) {
     $id = $post->ID;
-    the_post($id);
+
+    $post_object = get_post($id);
 
     $thumbnail_id = get_post_thumbnail_id($id);
     $thumbnail = wp_get_attachment_image_src($thumbnail_id, 'thumbnail');
@@ -41,7 +42,7 @@ class News_model extends MVC_model {
       'excerpt' => (string) $post->excerpt,
       'thumbnail_url' => (string) $thumbnail[0],
       'thumbnail_alt_text' => (string) $alt_text,
-      'timestamp' => (string) get_the_time('Y-m-d H:i:s')
+      'timestamp' => (string) get_the_time('Y-m-d H:i:s', $id)
     );
   }
 }

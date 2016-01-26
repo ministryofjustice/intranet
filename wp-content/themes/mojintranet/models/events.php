@@ -34,15 +34,13 @@ class Events_model extends MVC_model {
     $start_date = get_post_meta($id, '_event-start-date', true);
     $end_date = get_post_meta($id, '_event-end-date', true);
 
-    the_post($id);
-
     return array(
       'id' => $id,
       'title' => (string) get_the_title($id),
       'url' => (string) get_the_permalink($id),
       'slug' => (string) $post->post_name,
       'location' => (string) get_post_meta($id, '_event-location', true),
-      'description' => (string) get_the_content(),
+      'description' => (string) get_the_content_by_id($id),
       'start_date' => (string) $start_date,
       'start_time' => (string) get_post_meta($id, '_event-start-time', true),
       'end_date' => (string) $end_date,
