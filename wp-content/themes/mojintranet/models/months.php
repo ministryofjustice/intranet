@@ -9,7 +9,7 @@ class Months_model extends MVC_model {
     );
     $options['meta_fields'] = array('_event-start-date', '_event-end-date');
     $options['post_type'] = 'event';
-    $options['date'] = array(date('2015-m-01'), '11');
+    $options['date'] = array(date('Y-m-01'), '11');
 
     $data = $this->model->search->get_raw($options);
     $data = $this->count_events($data);
@@ -21,7 +21,7 @@ class Months_model extends MVC_model {
     $data['results'] = array();
 
     for($x = 0; $x < 12; $x++) {
-      $data['results'][date('2015-m-01', strtotime("+$x month"))] = 0;
+      $data['results'][date('Y-m-01', strtotime("+$x month"))] = 0;
     }
 
     foreach($data['raw']->posts as $post) {
