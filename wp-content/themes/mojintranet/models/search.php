@@ -91,7 +91,7 @@ class Search_model extends MVC_model {
 			'paged' => $this->options['page'],
 			'posts_per_page' => $this->options['per_page'],
 			// Sorting
-      'order' => NULL,
+      'order' => $this->options['search_order'],
 			'orderby' => $this->options['search_orderby'],
 			// Filters
 			'post_type' => $this->options['post_type'],

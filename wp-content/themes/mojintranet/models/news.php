@@ -2,9 +2,8 @@
 
 class News_model extends MVC_model {
   public function get_list($options = array()) {
-    $options['search_orderby'] = array(
-      'date' => 'DESC'
-    );
+    $options['order'] = 'DESC';
+    $options['search_orderby'] = 'date';
     $options['post_type'] = 'news';
 
     $data = $this->model->search->get_raw($options);
@@ -39,7 +38,7 @@ class News_model extends MVC_model {
       'title' => (string) get_the_title($id),
       'url' => (string) get_the_permalink($id),
       'slug' => (string) $post->post_name,
-      'excerpt' => (string) $post->excerpt,
+      'excerpt' => (string) $post->post_excerpt,
       'thumbnail_url' => (string) $thumbnail[0],
       'thumbnail_alt_text' => (string) $alt_text,
       'timestamp' => (string) get_the_time('Y-m-d H:i:s', $id)
