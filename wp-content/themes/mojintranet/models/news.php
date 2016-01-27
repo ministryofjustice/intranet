@@ -2,7 +2,7 @@
 
 class News_model extends MVC_model {
   public function get_list($options = array()) {
-    $options['order'] = 'DESC';
+    $options['search_order'] = 'DESC';
     $options['search_orderby'] = 'date';
     $options['post_type'] = 'news';
 

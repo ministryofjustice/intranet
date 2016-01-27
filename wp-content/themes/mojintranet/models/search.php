@@ -42,7 +42,8 @@ class Search_model extends MVC_model {
 
   private function initialise_options($options) {
     $default = array(
-      'search_orderby' => array('relevance' => 'ASC'),
+      'search_order' => 'ASC',
+      'search_orderby' => 'relevance',
       'meta_fields' => array(),
       'page' => 1,
       'per_page' => 10,
@@ -51,7 +52,9 @@ class Search_model extends MVC_model {
     );
 
     foreach($options as $key=>$value) {
-      $default[$key] = $value;
+      if($value) {
+        $default[$key] = $value;
+      }
     }
 
     $default['post_type'] = $this->convert_post_type($default['post_type']);
