@@ -20,12 +20,15 @@ abstract class API {
       $parse_method = '_parse_' . strtolower($this->method);
       $this->$parse_method();
     }
+
+    add_filter('posts_request', array($this, 'get_original_query'), 5);
   }
 
   protected function response($data = array(), $status_code = 200, $cache_timeout = 60) {
     $date_format = 'D, d M Y H:i:s \G\M\T';
 
     if($this->debug) {
+      Debug::full($this->original_query);
       Debug::full($data);
     }
     else {
@@ -83,4 +86,9 @@ abstract class API {
   }
 
   abstract protected function route();
+
+  public function get_original_query($request) {
+    $this->original_query = $request;
+    return $request;
+  }
 }

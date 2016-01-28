@@ -112,7 +112,7 @@ class Search_model extends MVC_model {
     }
 
     if($this->debug) {
-      Debug::full($results, 8);
+      Debug::full($results->query, 8);
     }
 
     return $results;
@@ -161,7 +161,8 @@ class Search_model extends MVC_model {
       'file_name' => (string) '',
       'file_size' => (int) 0,
       'file_pages' => (int) 0,
-      'content_type' => $titles
+      'content_type' => $titles,
+      'relevance' => $post->relevance_score
     );
   }
 
