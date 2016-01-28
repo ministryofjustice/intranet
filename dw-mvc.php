@@ -88,6 +88,14 @@ function mvc_route() {
   exit;
 }
 
+
+function mvc_unhook_document_revisions_auth() {
+  global $wpdr;
+  if(isset($wpdr)) {
+    remove_action('after_setup_theme', array(&$wpdr, 'auth_webdav_requests'));
+  }
+}
+
 function mvc_query_vars() {
   add_rewrite_tag('%controller%', '([^&]+)');
   add_rewrite_tag('%param_string%', '([^&]+)');
@@ -97,4 +105,5 @@ if(!is_admin()) {
   add_action('init', 'mvc_query_vars', 1);
   add_action('wp', 'mvc_route');
   add_action('activated_plugin', 'mvc_load_first', 1);
+  add_action('after_setup_theme', 'mvc_unhook_document_revisions_auth', 1);
 }
