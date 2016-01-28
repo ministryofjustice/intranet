@@ -73,7 +73,7 @@ abstract class API {
     return $key ? $this->args['post'][$key] : $this->args['post'];
   }
 
-  protected function put() {
+  protected function put($key = null) {
     return $key ? $this->args['put'][$key] : $this->args['put'];
   }
 
