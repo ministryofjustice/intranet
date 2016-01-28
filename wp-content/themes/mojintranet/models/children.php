@@ -56,7 +56,7 @@ class Children_model extends MVC_model {
 
   private function trim_child($post) {
     $id = $post->ID;
-    the_post($id);
+    setup_postdata(get_post($id));
 
     $grandchildren = new WP_Query(array(
       'post_type' => $this->post_types,
@@ -69,7 +69,7 @@ class Children_model extends MVC_model {
       'title' => $this->trim_title(get_the_title($id)),
       'url' => get_the_permalink($id),
       'slug' => $post->post_name,
-      'excerpt' => get_the_excerpt(),
+      'excerpt' => get_the_excerpt_by_id($id),
       'order' => $post->menu_order,
       'child_count' => $grandchildren->post_count,
       'is_external' => (boolean) get_post_meta($id, 'redirect_enabled', true),

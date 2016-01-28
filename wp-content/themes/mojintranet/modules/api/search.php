@@ -3,6 +3,7 @@
 class Search_API extends API {
   public function __construct($params) {
     parent::__construct();
+    add_filter('relevanssi_match', array($this, 'exact_title_matches_filter'));
     $this->parse_params($params);
     $this->route();
   }
@@ -32,5 +33,14 @@ class Search_API extends API {
     $data = $this->MVC->model->search->get($this->params);
     $data['url_params'] = $this->params;
     $this->response($data, 200);
+  }
+
+  public function exact_title_matches_filter($match) {
+    $search_query = urldecode(strtolower($this->get_param('keywords')));
+    if ($search_query == strtolower(get_the_title($match->doc))) {
+      $match->weight = $match->weight * 10;
+    }
+
+    return $match;
   }
 }

@@ -138,8 +138,6 @@ class Search_model extends MVC_model {
     $page_ancestors = get_post_ancestors($id);
     $excerpt = $post->post_type == 'document' ? '' : $post->post_excerpt;
 
-
-
     if (count($page_ancestors)) {
       $titles = array_slice($page_ancestors, 0, 2);
       foreach($titles as $index => $ancestor_id) {

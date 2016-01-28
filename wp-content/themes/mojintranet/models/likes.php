@@ -5,7 +5,7 @@ class Likes_model extends MVC_model {
 
   public function read($post_id) {
     return array(
-      'count' => $this->get_like_count($post_id)
+      'count' => (int) $this->get_like_count($post_id)
     );
   }
 
