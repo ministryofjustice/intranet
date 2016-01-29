@@ -1,5 +1,9 @@
 <?php if (!defined('ABSPATH')) die();
 
+/** Post API
+ * Features:
+ * - get a list of posts
+ */
 class Post_API extends API {
   public function __construct($params) {
     parent::__construct();

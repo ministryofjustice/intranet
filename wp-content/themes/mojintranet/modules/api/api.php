@@ -1,9 +1,9 @@
 <?php if (!defined('ABSPATH')) die();
 
 abstract class API {
-  protected $cache_timeout = 60; //cache timeout in seconds
   protected $MVC;
-  protected $params = array();
+  private $cache_timeout = 60; //cache timeout in seconds
+  private $params = array();
   private $method;
   private $args = array(
     'post' => array(),
@@ -24,6 +24,11 @@ abstract class API {
     add_filter('posts_request', array($this, 'get_original_query'), 5);
   }
 
+  /** Outputs the data as JSON
+   * @param {Array} $data An array of data to be outputted
+   * @param {Int} $status_code HTTP status code
+   * @param {Int} $cache_timeout Cache timeout in seconds
+   */
   protected function response($data = array(), $status_code = 200, $cache_timeout = 60) {
     $date_format = 'D, d M Y H:i:s \G\M\T';
 
@@ -48,6 +53,9 @@ abstract class API {
     }
   }
 
+  /** Outputs an error message using response() method
+   * @param {String} $message Error message
+   */
   protected function error($message = 'Unspecified error') {
     $status_code = 401;
 
@@ -61,32 +69,63 @@ abstract class API {
     exit();
   }
 
+  /** Get the HTTP method used
+   * @return {String} HTTP method, e.g. GET, POST, PUT, DELETE
+   */
   protected function get_method() {
     return $this->method;
   }
 
+  /** Get a url param (segment) by key, as defined in a given API
+   * Example of search API:
+   *   We're accessing the API using: http://mydomain.com/service/search/my+search+terms/1/10
+   *   The search API names the segments as such:
+   *      Segment[0] -> keywords (my+search+terms)
+   *      Segment[1] -> page (1)
+   *      Segment[2] -> results_per_page (10)
+   *   get_param('page') will return 1
+   *
+   * @param {String} $key Name of the key
+   * @return {String} The value of the param
+   */
   protected function get_param($key) {
     return $this->params[$key];
   }
 
+  /** Get POST value by key
+   * @param {String} $key Name of the post key
+   * @return {String} The value of the post key
+   */
   protected function post($key = null) {
     return $key ? $this->args['post'][$key] : $this->args['post'];
   }
 
+  /** Get PUT value by key
+   * @param {String} $key Name of the put key
+   * @return {String} The value of the put key
+   */
   protected function put($key = null) {
     return $key ? $this->args['put'][$key] : $this->args['put'];
   }
 
+  /** Retrieve and store the POST values
+   */
   private function _parse_post() {
     $this->args['post'] = $_POST;
   }
 
+  /** Retrieve and store the PUT values
+   */
   private function _parse_put() {
     parse_str(file_get_contents('php://input'), $this->args['put']);
   }
 
+  /** Route the traffic based on HTTP method (and params) used
+   */
   abstract protected function route();
 
+  /** Get the original WP SQL query before it gets processed by relevanssi
+   */
   public function get_original_query($request) {
     $this->original_query = $request;
     return $request;
