@@ -56,9 +56,7 @@ abstract class API {
   /** Outputs an error message using response() method
    * @param {String} $message Error message
    */
-  protected function error($message = 'Unspecified error') {
-    $status_code = 401;
-
+  protected function error($message = 'Unspecified error', $status_code = 401) {
     $data = array(
       'status' => $status_code,
       'message' => $message
