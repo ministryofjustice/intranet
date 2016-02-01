@@ -244,7 +244,6 @@ class Search_model extends MVC_model {
     $meta_query_or = array('relation' => 'OR');
     $meta_query_and = array('relation' => 'AND');
 
-    $compare = $this->options['date'] ? 'LIKE' : '>=';
     if (is_array($this->options['date'])) {
       //to be checked when rewriting the months API
       $compare = 'BETWEEN';
@@ -256,7 +255,15 @@ class Search_model extends MVC_model {
       $compare_value[] = date('Y-m-t', strtotime("+" . $this->options['date'][1] . " month"));
     }
     else {
-      $compare_value = $this->options['date'] == 'today' ? date('Y-m-d') : $this->options['date'];
+      $compare = $this->options['date'] ? 'LIKE' : '>=';
+      if($this->options['date'] == 'today') {
+        $compare = '>=';
+        $compare_value = date('Y-m-d');
+      }
+      else {
+        $compare = 'LIKE';
+        $compare_value = $this->options['date'];
+      }
     }
 
     foreach ($this->options['meta_fields'] as $meta_field) {
