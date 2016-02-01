@@ -2,8 +2,8 @@
 
 abstract class API {
   protected $MVC;
+  protected $params = array();
   private $cache_timeout = 60; //cache timeout in seconds
-  private $params = array();
   private $method;
   private $args = array(
     'post' => array(),
