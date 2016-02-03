@@ -15,9 +15,9 @@ class Comments_model extends MVC_model {
     }
   }
 
-  private function get_raw($post_id,$root_comment_id,$last_comment_id,$per_page) {
+  private function get_raw($post_id,$root_comment_id=0,$last_comment_id,$per_page) {
     // Get comments
-    if($root_comment_id!==0) {
+    if((int) $root_comment_id===0) {
       $returned_comments = $this->get_top_level_comments($post_id,$last_comment_id,$per_page);
     } else {
       $returned_comments = $this->get_replies($root_comment_id,$per_page);
