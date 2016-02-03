@@ -14,7 +14,7 @@
       <div class="action">
         <span class="reply">
           <span class="icon"></span>
-          <a href="">Reply</a>
+          <a class="reply-btn" href="">Reply</a>
         </span>
         <span class="likes">
           <span class="icon"></span>
@@ -22,6 +22,8 @@
         </span>
       </div>
     </div>
+
+    <div class="reply-form-container"></div>
 
     <ul class="replies-list"></ul>
   </li>

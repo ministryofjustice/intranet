@@ -97,7 +97,7 @@
 
   <div class="grid">
     <div class="col-lg-8 col-md-12 col-sm-12">
-      <div class="comments">
+      <div class="comments-container">
         <p class="leave-a-comment">
           <?php if(is_user_logged_in()): ?>
             Leave a comment
@@ -107,19 +107,15 @@
         </p>
 
         <?php if(is_user_logged_in()): ?>
-          <form class="comment-form">
-            <textarea name="comment" placeholder="Enter your comment here..."></textarea>
-            <input class="cta cta-positive submit" type="submit" value="Submit" />
-            <input class="cta cta-plain cancel" type="reset" value="Cancel" />
-          </form>
+        <div class="comment-form-container"></div>
         <?php endif ?>
 
-        <ul class="comments-list">
-        </ul>
+        <ul class="comments-list"></ul>
+
+        <?php $this->view('pages/blog_post/partials/comment') ?>
+        <?php $this->view('pages/blog_post/partials/comment_form') ?>
       </div>
     </div>
   </div>
-
-  <?php $this->view('pages/blog_post/partials/comment') ?>
 
 </div>

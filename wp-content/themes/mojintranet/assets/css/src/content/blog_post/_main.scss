@@ -106,7 +106,7 @@
     }
   }
 
-  .comments {
+  .comments-container {
 
     .leave-a-comment {
       @extend %large-copy;
@@ -127,6 +127,7 @@
       }
 
       textarea {
+        @extend %small-copy;
         width: 100%;
         height: 42px;
         transition: height .15s;

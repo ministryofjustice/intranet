@@ -4,7 +4,7 @@
   var App = window.App;
 
   App.Comments = function() {
-    this.$top = $('.template-container');
+    this.$top = $('.comments-container');
     if(!this.$top.length) { return; }
     this.init();
   };
@@ -15,39 +15,68 @@
       this.serviceUrl = this.applicationUrl + '/wp-content/themes/mojintranet/assets/js/comments.json';
 
       this.itemTemplate = this.$top.find('[data-name="comment-item"]').html();
+      this.formTemplate = this.$top.find('[data-name="comment-form"]').html();
       this.serviceXHR = null;
 
       this.cacheEls();
       this.bindEvents();
 
-      this.loadComments();
+      this.initialize();
     },
 
     cacheEls: function() {
-      this.$commentForm = this.$top.find('.comment-form');
-      this.$commentCancelBtn = this.$commentForm.find('.cta.cancel');
-      this.$commentField = this.$commentForm.find('[name="comment"]');
+      this.$commentsCount = $('.comments-count');
       this.$commentsList = this.$top.find('.comments-list');
-      this.$commentsCount = this.$top.find('.comments-count');
     },
 
     bindEvents: function() {
       var _this = this;
+    },
 
-      this.$commentField.focus(function() {
-        _this.$commentForm.addClass('active');
+    initialize: function() {
+      this.initializeCommentForm();
+      this.loadComments();
+    },
+
+    initializeCommentForm: function() {
+      var _this = this;
+      var $form = $(this.formTemplate);
+
+      $form.appendTo(this.$top.find('.comment-form-container'));
+      $form.find('[name="comment"]').focus(function() {
+        _this.$top.find('.comment-form.reply').remove();
+        $form.addClass('active');
+      });
+      $form.find('.cta.cancel').click(function() {
+        $form.removeClass('active');
+      });
+    },
+
+    initializeReplyForm: function(inReplyToId, $comment, e) {
+      var _this = this;
+      var $form = $(this.formTemplate);
+
+      //remove all existing reply forms
+      this.$top.find('form.reply').remove();
+
+      e.preventDefault();
+
+      $form.addClass('reply');
+      $form.appendTo($comment.find('> .reply-form-container'));
+
+      $form.find('[name="comment"]').focus(function() {
+        _this.$top.find('.comment-form').removeClass('active');
+        $form.addClass('active');
       });
 
-      this.$commentCancelBtn.click(function() {
-        _this.$commentForm.removeClass('active');
+      $form.find('.cta.cancel').click(function() {
+        $form.remove();
       });
+
+      $form.find('[name="comment"]').focus();
     },
 
     loadComments: function() {
-      this.requestComments();
-    },
-
-    requestComments: function() {
       var _this = this;
 
       /* use the timeout for dev/debugging purposes */
@@ -84,6 +113,8 @@
       $comment.find('.datetime').html(data.date_posted);
       $comment.find('.author').html(data.author);
       $comment.find('.likes .count').html(data.likes);
+
+      $comment.find('.reply-btn').click($.proxy(this.initializeReplyForm, this, data.id, $comment));
 
       return $comment;
     }

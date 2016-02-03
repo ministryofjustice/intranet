@@ -11,14 +11,6 @@
       "likes": 7,
       "replies": [
         {
-          "id": 6,
-          "author_id": 15,
-          "date_posted": "10/12/2015",
-          "author": "Jane Doe",
-          "comment": "Ut lobortis leo eget risus suscipit, ac euismod lacus tempor.",
-          "likes": 2
-        },
-        {
           "id": 7,
           "author_id": 12,
           "date_posted": "10/12/2015",
@@ -37,7 +29,7 @@
       ]
     },
     {
-      "id": 1,
+      "id": 2,
       "author_id": 12,
       "date_posted": "10/12/2015",
       "author": "John Doe",
@@ -55,7 +47,7 @@
       ]
     },
     {
-      "id": 1,
+      "id": 3,
       "author_id": 12,
       "date_posted": "10/12/2015",
       "author": "John Doe",
