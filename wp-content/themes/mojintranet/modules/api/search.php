@@ -1,10 +1,14 @@
 <?php if (!defined('ABSPATH')) die();
 
+/** Search API
+ * Features:
+ * - get a list of results matching given criteria
+ */
 class Search_API extends API {
   public function __construct($params) {
     parent::__construct();
-    add_filter('relevanssi_match', array($this, 'exact_title_matches_filter'));
     $this->parse_params($params);
+    add_filter('relevanssi_match', array(&$this, 'exact_title_matches_filter'));
     $this->route();
   }
 

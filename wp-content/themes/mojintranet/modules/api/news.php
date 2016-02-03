@@ -1,5 +1,9 @@
 <?php if (!defined('ABSPATH')) die();
 
+/** News API
+ * Features:
+ * - get a list of news
+ */
 class News_API extends API {
   public function __construct($params) {
     parent::__construct();

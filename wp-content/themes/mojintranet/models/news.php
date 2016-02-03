@@ -1,6 +1,10 @@
 <?php if (!defined('ABSPATH')) die();
 
 class News_model extends MVC_model {
+  /** Get a list of news
+   * @param {Array} $options Options and filters (see search model for details)
+   * @return {Array} Formatted and sanitized results
+   */
   public function get_list($options = array()) {
     $options['search_order'] = 'DESC';
     $options['search_orderby'] = 'date';
@@ -12,6 +16,10 @@ class News_model extends MVC_model {
     return $data;
   }
 
+  /** Format and trim the raw results
+   * @param {Object} $data Raw results object
+   * @return {Array} Formatted results
+   */
   private function format_data($data) {
     $data['results'] = array();
 
@@ -24,6 +32,10 @@ class News_model extends MVC_model {
     return $data;
   }
 
+  /** Format a single results row
+   * @param {Object} $post Post object
+   * @return {Array} Formatted and trimmed post
+   */
   private function format_row($post) {
     $id = $post->ID;
 

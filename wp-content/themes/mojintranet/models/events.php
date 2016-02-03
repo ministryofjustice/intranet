@@ -1,6 +1,10 @@
 <?php if (!defined('ABSPATH')) die();
 
 class Events_model extends MVC_model {
+  /** Get a list of events
+   * @param {Array} $options Options and filters (see search model for details)
+   * @return {Array} Formatted and sanitized results
+   */
   public function get_list($options = array()) {
     $options['search_orderby'] = array(
       '_event-start-date' => 'ASC',
@@ -9,7 +13,7 @@ class Events_model extends MVC_model {
     );
     $options['meta_fields'] = array('_event-start-date', '_event-end-date');
     $options['post_type'] = 'event';
-    $options['date'] = $options['date'] ?: array(date('Y-m-01'), '11');
+    $options['date'] = $options['date'] ?: 'today';
 
     $data = $this->model->search->get_raw($options);
     $data = $this->format_data($data);
@@ -17,6 +21,10 @@ class Events_model extends MVC_model {
     return $data;
   }
 
+  /** Format and trim the raw results
+   * @param {Object} $data Raw results object
+   * @return {Array} Formatted results
+   */
   private function format_data($data) {
     $data['results'] = array();
 
@@ -29,6 +37,10 @@ class Events_model extends MVC_model {
     return $data;
   }
 
+  /** Format a single results row
+   * @param {Object} $post Post object
+   * @return {Array} Formatted and trimmed post
+   */
   private function format_row($post) {
     $id = $post->ID;
 

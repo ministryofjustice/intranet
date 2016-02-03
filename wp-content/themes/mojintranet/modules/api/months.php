@@ -1,5 +1,9 @@
 <?php if (!defined('ABSPATH')) die();
 
+/** Months API
+ * Features:
+ * - get a list of 12 consecutive months (starting with current month) with a number of events taking place in each month
+ */
 class Months_API extends API {
   public function __construct($params) {
     parent::__construct();

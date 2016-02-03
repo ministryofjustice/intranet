@@ -1,6 +1,10 @@
 <?php if (!defined('ABSPATH')) die();
 
 class Months_model extends MVC_model {
+  /** Get a list of 12 months starting with current month and a number of events in each month
+   * @param {Array} $options Options and filters (see search model for details)
+   * @return {Array} Formatted and sanitized results
+   */
   public function get_list($options = array()) {
     $options['search_orderby'] = array(
       '_event-start-date' => 'ASC',
@@ -17,6 +21,10 @@ class Months_model extends MVC_model {
     return $data;
   }
 
+  /** Count how many events occur in each month
+   * @param {Object} $data Raw results object
+   * @return {Array} Formatted results with event count
+   */
   private function count_events($data) {
     $data['results'] = array();
 

@@ -1,5 +1,9 @@
 <?php if (!defined('ABSPATH')) die();
 
+/** Events API
+ * Features:
+ * - get a list of events
+ */
 class Events_API extends API {
   public function __construct($params) {
     parent::__construct();

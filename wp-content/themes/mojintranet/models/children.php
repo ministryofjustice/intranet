@@ -3,14 +3,18 @@
 class Children_model extends MVC_model {
   private $post_types = array('page', 'webchat');
 
-  public function get_all($page_id = 0, $order = 'asc') {
-    $this->page_id = $page_id;
+  /** Get a list of children
+   * @param {Array} $parent_id Parent ID
+   * @return {Array} Children data
+   */
+  public function get_all($parent_id = 0, $order = 'asc') {
+    $this->page_id = $parent_id;
     $this->order = $order;
 
     $data = array(
-      'title' => (string) get_the_title($page_id),
-      'id' => (int) $page_id,
-      'url' => (string) get_permalink($page_id),
+      'title' => (string) get_the_title($parent_id),
+      'id' => (int) $parent_id,
+      'url' => (string) get_permalink($parent_id),
       'total_results' => 0,
       'results' => array()
     );
@@ -18,7 +22,7 @@ class Children_model extends MVC_model {
     $children = $this->get_children();
 
     foreach($children->posts as $post) {
-      $data['results'][] = $this->trim_child($post);
+      $data['results'][] = $this->format_row($post);
     }
 
     usort($data['results'], array($this,'sort_children'));
@@ -32,6 +36,9 @@ class Children_model extends MVC_model {
     return $data;
   }
 
+  /** Get a raw list of children
+   * @return {Object} The raw WP Query results object
+   */
   private function get_children() {
     //get this page
     $top_page = new WP_Query(array(
@@ -54,7 +61,11 @@ class Children_model extends MVC_model {
     return new WP_Query($children_args);
   }
 
-  private function trim_child($post) {
+  /** Format a single results row
+   * @param {Object} $post Post object
+   * @return {Array} Formatted and trimmed post
+   */
+  private function format_row($post) {
     $id = $post->ID;
     setup_postdata(get_post($id));
 
@@ -77,10 +88,16 @@ class Children_model extends MVC_model {
     );
   }
 
+  /** Trim the title to only contain the parte after the first colon character
+   * @param {String} $title Subject title
+   * @retrun {String} Trimmed title
+   */
   private function trim_title($title) {
     return preg_replace('/(.*:\s*)/', "", $title);
   }
 
+  /** A comparator for sorting children by their menu order first, then by title (natural order)
+   */
   private function sort_children($a, $b) {
     if($a['menu_order'] > 0 && $b['menu_order'] > 0) {
       return $a['menu_order'] > $b['menu_order'] ? 1 : -1;

@@ -10,16 +10,11 @@ class Search_model extends MVC_model {
     $this->debug = (boolean) $_GET['debug'];
   }
 
-  /** get all posts that meet the criteria from the options
-   * @param {Array} $options Search criteria
-   *    search_orderby - array of key/value pairs representing fields and sort direction
-   *    meta_fields - lists of meta fields used in the sql query
-   *    post_type - post type or array of post types
-   *    keywords - keywords
-   *    page - page number
-   *    per_page - how many results per page to show
+  /** Get and format posts that meet the criteria from the options
+   * The processing involves taking the raw WP query results and converting them into a clean array of results
+   * See format_data() for details of processing each result
    *
-   * @return Array all matching posts
+   * @return Array of processed search results
    */
   public function get($options = array()) {
     $data = $this->get_raw($options);
@@ -27,10 +22,21 @@ class Search_model extends MVC_model {
     return $data;
   }
 
+  /** Get raw search results (as they come from WP query) that meet the criteria from $options
+   * @param {Array} $options Search criteria
+   *    search_order - sorting direction (ASC or DESC) - only used when search_orderby is a string
+   *    search_orderby - orderby field or array of key/value pairs representing fields and sort direction
+   *    meta_fields - lists of meta fields used in the sql query
+   *    post_type - post type or array of post types
+   *    keywords - keywords
+   *    page - page number
+   *    per_page - how many results per page to show
+   * @return {Array} an array containing raw results from WP query
+   */
   public function get_raw($options = array()) {
     $data = array();
 
-    $this->options = $this->initialise_options($options);
+    $this->options = $this->normalize_options($options);
 
     //process the query
     $data['raw'] = $this->get_raw_results();
@@ -40,7 +46,11 @@ class Search_model extends MVC_model {
     return $data;
   }
 
-  private function initialise_options($options) {
+  /** Normalize options by applying them on top of an array with default options
+   * @param {Array} $options Options
+   * @return {Array} Normalized options
+   */
+  private function normalize_options($options) {
     $default = array(
       'search_order' => 'ASC',
       'search_orderby' => 'relevance',
@@ -62,6 +72,10 @@ class Search_model extends MVC_model {
     return $default;
   }
 
+  /** Converts pseudo post types to real types
+   * @param {String} $post_type Subject post type
+   * @return {Array} Array of actual post types represented by the pseudo type
+   */
   private function convert_post_type($post_type) {
     switch ($post_type) {
       case 'all':
@@ -76,6 +90,9 @@ class Search_model extends MVC_model {
     return $post_type;
   }
 
+  /** Get the raw results straight from the WP query
+   * @return {Object} Results object returned by the WP query
+   */
   private function get_raw_results() {
     if($this->options['date']) {
       if(count($this->options['meta_fields'])) {
@@ -118,6 +135,10 @@ class Search_model extends MVC_model {
     return $results;
   }
 
+  /** Format and trim the raw results
+   * @param {Object} $data Raw results object
+   * @return {Array} Formatted results
+   */
   private function format_data($data) {
     $data['results'] = array();
 
@@ -130,6 +151,10 @@ class Search_model extends MVC_model {
     return $data;
   }
 
+  /** Format a single results row
+   * @param {Object} $post Post object
+   * @return {Array} Formatted and trimmed post
+   */
   private function format_row($post) {
     $id = $post->ID;
 
@@ -166,6 +191,8 @@ class Search_model extends MVC_model {
     );
   }
 
+  /** Build the meta clause for WP query
+   */
   private function build_meta_clause() {
 		if(count($this->options['meta_fields'])) {
 			//foreach ($this->options['meta_fields'] as $meta_field) {
@@ -193,6 +220,12 @@ class Search_model extends MVC_model {
 		}
   }
 
+  /** Parse the date from $options
+   * @return {Array} Date as an array of integer:
+   * ['year'] => {Int},
+   * ['monthnum'] => {Int},
+   * ['day'] => {Int}
+   */
   private function parse_date() {
     if(!$this->options['date']) return;
 
@@ -205,11 +238,12 @@ class Search_model extends MVC_model {
     return $date;
   }
 
+  /** Build the date query for metadata for WP query
+   */
   private function build_date_query() {
     $meta_query_or = array('relation' => 'OR');
     $meta_query_and = array('relation' => 'AND');
 
-    $compare = $this->options['date'] ? 'LIKE' : '>=';
     if (is_array($this->options['date'])) {
       //to be checked when rewriting the months API
       $compare = 'BETWEEN';
@@ -221,7 +255,15 @@ class Search_model extends MVC_model {
       $compare_value[] = date('Y-m-t', strtotime("+" . $this->options['date'][1] . " month"));
     }
     else {
-      $compare_value = $this->options['date'] == 'today' ? date('Y-m-d') : $this->options['date'];
+      $compare = $this->options['date'] ? 'LIKE' : '>=';
+      if($this->options['date'] == 'today') {
+        $compare = '>=';
+        $compare_value = date('Y-m-d');
+      }
+      else {
+        $compare = 'LIKE';
+        $compare_value = $this->options['date'];
+      }
     }
 
     foreach ($this->options['meta_fields'] as $meta_field) {
@@ -239,6 +281,8 @@ class Search_model extends MVC_model {
     $this->meta_query[] = array($meta_query_or, $meta_query_and);
   }
 
+  /** A wrapper for native rawurldecode
+   */
 	private function rawurldecode($string) {
 		$string = str_replace('%252F', '%2F', $string);
 		$string = str_replace('%255C', '%5C', $string);
