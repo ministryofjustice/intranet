@@ -83,9 +83,8 @@ function mvc_route() {
       $MVC->load_models();
       $MVC->main();
     }
+    exit;
   }
-
-  exit;
 }
 
 
