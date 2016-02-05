@@ -72,10 +72,8 @@
             'panel'           => 'need_to_know_customisation',
           ) );
 
-          $this->new_control_setting($wp_customize, 'need_to_know_tab'.$x, $section_name, 'Tab title', 'text');
           $this->new_control_setting($wp_customize, 'need_to_know_headline'.$x, $section_name, 'Headline', 'text');
           $this->new_control_setting($wp_customize, 'need_to_know_url'.$x, $section_name, 'URL', 'text');
-          $this->new_control_setting($wp_customize, 'need_to_know_body'.$x, $section_name, 'Body', 'textarea');
           $this->new_control_setting($wp_customize, 'need_to_know_image'.$x, $section_name, 'Image', 'image');
         }
       }
