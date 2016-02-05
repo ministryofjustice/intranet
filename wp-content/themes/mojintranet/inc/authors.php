@@ -8,9 +8,10 @@
  * @return array          Array of authors (and related information)
  */
 function dw_get_author_info($post_id) {
+  $authors = array();
+
   if(function_exists('get_coauthors')) {
     $authors_array = get_coauthors($post_id);
-    $authors = null;
     foreach($authors_array as $author) {
       $author_id = $author->ID;
 

@@ -1,5 +1,10 @@
 <?php if (!defined('ABSPATH')) die();
 
+/** Likes API
+ * Features:
+ * - get a number of likes for a post / comment
+ * - increment likes of a post / comment
+ */
 class Likes_API extends API {
   public function __construct($params) {
     parent::__construct();
@@ -28,13 +33,13 @@ class Likes_API extends API {
   }
 
   protected function read() {
-    $data = $this->MVC->model->likes->read($this->params);
+    $data = $this->MVC->model->likes->read($this->params['id']);
     $data['url_params'] = $this->params;
     $this->response($data, 200);
   }
 
   protected function update() {
-    $data = $this->MVC->model->likes->update($this->params);
+    $data = $this->MVC->model->likes->update($this->params['id'], $this->put('nonce'));
     $data['url_params'] = $this->params;
     $this->response($data, 200);
   }

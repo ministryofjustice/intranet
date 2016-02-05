@@ -1,10 +1,10 @@
 <?php if (!defined('ABSPATH')) die();
 
-/** Children API
+/** Post API
  * Features:
- * - Get a list of children posts belonging to a specific post parent
+ * - get a list of posts
  */
-class Children_API extends API {
+class Post_API extends API {
   public function __construct($params) {
     parent::__construct();
     $this->parse_params($params);
@@ -14,7 +14,7 @@ class Children_API extends API {
   protected function route() {
     switch ($this->get_method()) {
       case 'GET':
-        $this->get_children();
+        $this->get_posts();
         break;
 
       default:
@@ -24,14 +24,17 @@ class Children_API extends API {
 
   protected function parse_params($params) {
     $this->params = array(
-      'page_id' => (int) $params[0],
-      'order' => $params[1]
+      'category' => $params[0],
+      'date' => $params[1],
+      'keywords' => $params[2],
+      'page' => $params[3] ?: 1,
+      'per_page' => $params[4] ?: 10
     );
   }
 
-  protected function get_children() {
-    $data = call_user_func_array(array($this->MVC->model->children, 'get_all'), $this->params);
-    //$data['url_params'] = $this->params;
+  protected function get_posts() {
+    $data = $this->MVC->model->post->get_list($this->params);
+    $data['url_params'] = $this->params;
     $this->response($data, 200);
   }
 }
