@@ -38,11 +38,18 @@
       this.loadComments();
     },
 
-    initializeCommentForm: function() {
-      var _this = this;
+    initializeForm: function($appendTo) {
       var $form = $(this.formTemplate);
 
-      $form.appendTo(this.$top.find('.comment-form-container'));
+      $form.appendTo($appendTo);
+
+      return $form;
+    },
+
+    initializeCommentForm: function() {
+      var _this = this;
+      var $form = this.initializeForm(this.$top.find('.comment-form-container'));
+
       $form.find('[name="comment"]').focus(function() {
         _this.$top.find('.comment-form.reply').remove();
         $form.addClass('active');
@@ -54,16 +61,14 @@
 
     initializeReplyForm: function(inReplyToId, $comment, e) {
       var _this = this;
-      var $form = $(this.formTemplate);
+      var $form = this.initializeForm($comment.find('> .reply-form-container'));
+
+      e.preventDefault();
 
       //remove all existing reply forms
       this.$top.find('form.reply').remove();
 
-      e.preventDefault();
-
       $form.addClass('reply');
-      $form.appendTo($comment.find('> .reply-form-container'));
-
       $form.find('[name="comment"]').focus(function() {
         _this.$top.find('.comment-form').removeClass('active');
         $form.addClass('active');
@@ -99,6 +104,7 @@
         for(b = 0, totalReplies = comment.replies.length; b < totalReplies; b++) {
           reply = comment.replies[b];
           $reply = this.buildComment(reply);
+          $reply.addClass('reply');
           $comment.find('> .replies-list').append($reply);
         }
       }
@@ -113,6 +119,7 @@
       $comment.find('.datetime').html(data.date_posted);
       $comment.find('.author').html(data.author);
       $comment.find('.likes .count').html(data.likes);
+      $comment.attr('data-comment-id', data.id);
 
       $comment.find('.reply-btn').click($.proxy(this.initializeReplyForm, this, data.id, $comment));
 
