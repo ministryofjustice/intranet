@@ -5,7 +5,7 @@
     <a class="report-problem-link" href="#">Report a problem</a>
     <div class="form-container">
       <p class="message"></p>
-      <form class="feedback-form visible">
+      <form class="feedback-form visible standard">
         <label class="form-row">
           <span class="label">Your name: <span class="required">*</span></span>
           <input type="text" name="name" class="name-field text" />

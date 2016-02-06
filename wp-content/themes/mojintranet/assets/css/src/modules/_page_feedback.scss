@@ -44,31 +44,13 @@
     }
   }
 
-  .form-row {
-    display: block;
-    margin-bottom: 10px;
-  }
-
-  .label {
-    @extend %medium-copy;
-    display: block;
-    margin-bottom: 5px;
-  }
-
-  .required {
-    color: $red;
-  }
-
   .feedback-field {
     width: 100%;
     min-height: 80px;
-    padding: 3px 6px;
-    border: 1px solid #888;
   }
 
-  .text {
-    padding: 3px 6px;
-    border: 1px solid #888;
+  .report-cta {
+    margin-top: 10px;
   }
 
   .error {
