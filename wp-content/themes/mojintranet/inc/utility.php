@@ -77,3 +77,26 @@ function get_post_thumbnail_caption() {
   if ( $thumb = get_post_thumbnail_id() )
     return get_post( $thumb )->post_excerpt;
 }
+
+function get_field_by_id($id, $function) {
+  global $post;
+  $orig_post = $post;
+  $post = get_post($id);
+  $args = array_slice(func_get_args(), 2);
+  $value = call_user_func_array($function, $args);
+  $post = $orig_post;
+
+  return $value;
+}
+
+function get_the_excerpt_by_id($id) {
+  return get_field_by_id($id, 'get_the_excerpt');
+}
+
+function get_the_content_by_id($id) {
+  $post = get_post($id);
+  $content = $post->post_content;
+  $content = apply_filters('the_content', $content);
+  $content = str_replace(']]>', ']]&gt;', $content);
+  return $content;
+}
