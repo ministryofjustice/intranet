@@ -3,6 +3,37 @@
 <div class="template-container" data-post-id="<?=$id?>" data-nonce="<?=$nonce?>" data-likes-count="<?=$likes_count?>">
   <div class="grid">
     <div class="col-lg-12 col-md-12 col-sm-12">
+      <form class="standard test" style="margin-top: 20px">
+        <label class="form-row first-name">
+          <span class="label">
+            First name
+          </span>
+          <input type="text" name="first-name" />
+        </label>
+
+        <label class="form-row surname">
+          <span class="label">
+            Surname
+          </span>
+          <input type="text" name="surname" />
+        </label>
+
+        <label class="form-row email">
+          <span class="label">
+            Email
+          </span>
+          <input type="text" name="login-email" />
+        </label>
+
+        <input type="submit" class="cta cta-positive submit" name="Submit" style="margin-top: 15px" />
+
+        <?php $this->view('modules/validation/validation') ?>
+      </form>
+    </div>
+  </div>
+
+  <div class="grid">
+    <div class="col-lg-12 col-md-12 col-sm-12">
       <h1 class="page-title"><?=$title?></h1>
 
       <img class="author-thumbnail" src="<?=$author_thumbnail_url?>" alt="" />
