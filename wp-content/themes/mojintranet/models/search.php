@@ -1,13 +1,21 @@
 <?php if (!defined('ABSPATH')) die();
 
 class Search_model extends MVC_model {
-  private $options = array(); //all search options
-  private $meta_query = array(); //stores SQL query parts responsible for checking the existence of meta data
-  private $date_query = array();
-  private $posts_orderby = '';
+  private $options; //all search options
+  private $meta_query; //stores SQL query parts responsible for checking the existence of meta data
+  private $date_query;
+  private $posts_orderby;
 
   public function __construct() {
     $this->debug = (boolean) $_GET['debug'];
+    $this->_reset();
+  }
+
+  private function _reset() {
+    $this->options = array();
+    $this->meta_query = array();
+    $this->date_query = array();
+    $this->posts_orderby = '';
   }
 
   /** Get and format posts that meet the criteria from the options
@@ -19,6 +27,7 @@ class Search_model extends MVC_model {
   public function get($options = array()) {
     $data = $this->get_raw($options);
     $data = $this->format_data($data);
+
     return $data;
   }
 
@@ -42,6 +51,8 @@ class Search_model extends MVC_model {
     $data['raw'] = $this->get_raw_results();
     $data['total_results'] = (int) $data['raw']->found_posts;
     $data['retrieved_results'] = (int) $data['raw']->post_count;
+
+    $this->_reset();
 
     return $data;
   }
