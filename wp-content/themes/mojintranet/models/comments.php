@@ -4,23 +4,23 @@ class Comments_model extends MVC_model {
   private $author_cache;
 
   public function read($params) {
-    $data = $this->get_raw($params['post_id'],$params['root_comment_id'],$params['last_comment_id'],$params['per_page']);
+    $data = $this->get_raw($params['post_id'], $params['root_comment_id'], $params['last_comment_id'], $params['per_page']);
     $data = $this->format_data($data);
     return $data;
   }
 
-  public function update($post_id,$comment_content,$parent_id,$root_comment_id,$nonce) {
+  public function update($post_id, $comment_content, $parent_id, $root_comment_id, $nonce) {
     if(wp_verify_nonce( $nonce, 'dw_comment' )) {
-      $this->add_comment($post_id,$comment_content,$parent_id,$root_comment_id);
+      $this->add_comment($post_id, $comment_content, $parent_id, $root_comment_id);
     }
   }
 
-  private function get_raw($post_id,$root_comment_id=0,$last_comment_id,$per_page) {
+  private function get_raw($post_id, $root_comment_id = 0, $last_comment_id, $per_page) {
     // Get comments
-    if((int) $root_comment_id===0) {
-      $returned_comments = $this->get_top_level_comments($post_id,$last_comment_id,$per_page);
+    if((int) $root_comment_id === 0) {
+      $returned_comments = $this->get_top_level_comments($post_id, $last_comment_id, $per_page);
     } else {
-      $returned_comments = $this->get_replies($root_comment_id,$per_page);
+      $returned_comments = $this->get_replies($root_comment_id, $per_page);
     }
 
     // Get total comments and number of comments retrieved
@@ -33,20 +33,20 @@ class Comments_model extends MVC_model {
     return $data;
   }
 
-  private function get_top_level_comments($post_id,$last_comment_id,$per_page) {
+  private function get_top_level_comments($post_id, $last_comment_id, $per_page) {
     $this->last_comment_id = $last_comment_id;
     $options['post_id'] = $post_id;
     $options['parent'] = 0;
 
     $per_page?$options['number'] = $per_page:0;
 
-    $last_comment_id?add_filter('comments_clauses',array($this,'limit_comments_by_id')):0;
+    $last_comment_id?add_filter('comments_clauses', array($this, 'limit_comments_by_id')):0;
 
     $this->options = $this->initialise_options($options);
 
     $data = $this->get_raw_results();
 
-    $last_comment_id?remove_filter('comments_clauses',array($this,'limit_comments_by_id')):0;
+    $last_comment_id?remove_filter('comments_clauses', array($this, 'limit_comments_by_id')):0;
 
     return $data;
   }
@@ -81,16 +81,16 @@ class Comments_model extends MVC_model {
     $this->author_cache = array();
 
     foreach ($data['raw'] as $comment) {
-      $this->update_user_cache($comment->comment_ID,$comment->user_id);
+      $this->update_user_cache($comment->comment_ID, $comment->user_id);
 
       $root_comment_id = get_comment_meta( $comment->comment_ID, 'root_comment_id', true );
 
       $current_comment = $this->format_comment($comment);
 
-      $replies = $this->get_replies($comment->comment_ID,2);
+      $replies = $this->get_replies($comment->comment_ID, 2);
       $current_comment['total_replies'] = 0;
       foreach ($replies as $reply) {
-        $current_comment['total_replies'] =+ $this->get_replies($comment->comment_ID,0,true);
+        $current_comment['total_replies'] =+ $this->get_replies($comment->comment_ID, 0, true);
         $current_comment['replies'][] = $this->format_comment($reply);
       }
 
@@ -104,7 +104,7 @@ class Comments_model extends MVC_model {
     return $data;
   }
 
-  private function get_replies($top_level_comment_id,$per_page,$return_count = false) {
+  private function get_replies($top_level_comment_id, $per_page, $return_count = false) {
     $options['meta_query'] = array(
       array(
         'key'     => 'root_comment_id',
@@ -130,7 +130,7 @@ class Comments_model extends MVC_model {
     return $data;
   }
 
-  private function update_user_cache($comment_id,$author_id) {
+  private function update_user_cache($comment_id, $author_id) {
     $user = get_user_by( 'id', $author_id );
     $this->author_cache[$comment_id] = $user->display_name;
   }
@@ -146,13 +146,13 @@ class Comments_model extends MVC_model {
       'likes' => (int) 0,
       'in_reply_to_id' => (int) $comment->comment_parent,
       'in_reply_to_author' => $this->author_cache[$comment->comment_parent],
-      'hidden_comment' => (int) $hidden_comment?:0,
+      'hidden_comment' => (int) $hidden_comment ?: 0,
       'total_replies' => 0,
       'replies' => array()
     );
   }
 
-  private function add_comment($post_id,$comment_content,$parent_id = 0,$root_comment_id = 0) {
+  private function add_comment($post_id, $comment_content, $parent_id = 0, $root_comment_id = 0) {
     $data = array(
       'comment_content'  => $comment_content,
       'comment_post_ID'  => $post_id,
