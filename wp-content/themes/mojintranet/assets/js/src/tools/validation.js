@@ -94,7 +94,7 @@
 
       for(index = 0, count = this.errors.length; index < count; index++) {
         $summaryItem = $(this.summaryItemTemplate);
-        $summaryItem.find('a').html(App.tools.ucfirst(this.errors[index].fieldName));
+        $summaryItem.html(App.tools.ucfirst(this.errors[index].fieldName));
         $list.append($summaryItem);
       }
 

@@ -5,9 +5,7 @@
 </script>
 
 <script class="template-partial" data-name="validation-summary-item" type="text/x-partial-template">
-  <li class="field">
-    <a href="#"></a>
-  </li>
+  <li class="field"></li>
 </script>
 
 <script class="template-partial" data-name="validation-summary" type="text/x-partial-template">

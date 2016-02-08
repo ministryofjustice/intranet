@@ -10,9 +10,8 @@
   .errors {
     margin-top: 5px;
 
-    a {
+    .field {
       color: $red;
-      text-decoration: underline;
     }
   }
 }
