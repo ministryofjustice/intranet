@@ -14,6 +14,10 @@
 
   App.tools.Validation.prototype = {
     error: function($element, fieldName, message) {
+      if($.type($element) === 'string') {
+        $element = $($element);
+      }
+
       this.errors.push({
         element: $element,
         fieldName: fieldName,
@@ -22,17 +26,23 @@
     },
 
     isFilled: function($element, fieldName, message) {
+      var value;
+
       if($.type($element) === 'string') {
         $element = $($element);
       }
+
+      value = $element.val();
 
       if(!message) {
         message = 'Please enter ' + fieldName;
       }
 
-      if($element.val() === '') {
+      if(value === '') {
         this.error($element, fieldName, message);
       }
+
+      return value;
     },
 
     hasErrors: function() {

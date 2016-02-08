@@ -25,6 +25,13 @@
           <input type="text" name="login-email" />
         </label>
 
+        <label class="form-row email">
+          <span class="label">
+            Re-enter email
+          </span>
+          <input type="text" name="reenter-login-email" />
+        </label>
+
         <input type="submit" class="cta cta-positive submit" name="Submit" style="margin-top: 15px" />
 
         <?php $this->view('modules/validation/validation') ?>
