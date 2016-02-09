@@ -1,4 +1,5 @@
 <?php
+
 /**
  * The template for displaying Search Results pages.
  *
@@ -92,12 +93,14 @@ class Page_home extends MVC_controller {
   }
 
   private function get_events_from_api() {
-    $results = new events_request(array('', '', '', 3));
-    return $results->results_array;
+    return $this->model->events->get_list(array(
+      'per_page' => 3
+    ));
   }
 
   private function get_posts_from_api() {
-    $results = new post_request(array('', '', '', '', 2));
-    return $results->results_array;
+    return $this->model->post->get_list(array(
+      'per_page' => 2
+    ));
   }
 }
