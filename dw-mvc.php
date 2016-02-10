@@ -61,6 +61,9 @@ function mvc_route() {
     if(is_single()) {
       $controller = 'single-' . $post_type;
     }
+    if(is_404()) {
+      $controller = 'page_error';
+    }
     $controller_path = get_template_directory() . '/' . $controller . '.php';
   }
 
