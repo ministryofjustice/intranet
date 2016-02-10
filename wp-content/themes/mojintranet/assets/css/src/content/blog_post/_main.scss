@@ -116,7 +116,8 @@
 
     .comment-form {
       &.active {
-        .cta {
+        .submit,
+        .cancel {
           display: inline-block;
         }
 
@@ -138,7 +139,8 @@
       }
     }
 
-    .cta {
+    .submit,
+    .cancel {
       margin-right: 10px;
       display: none;
     }
@@ -239,6 +241,30 @@
       &.last-two {
         display: block;
       }
+    }
+  }
+
+  .load-more-container {
+    margin-top: 20px;
+
+    &.loading {
+      .load-more {
+        display: none;
+      }
+
+      .loading-msg {
+        display: inline-block;
+      }
+    }
+
+    .load-more {
+      display: inline-block;
+    }
+
+    .loading-msg {
+      @extend %medium-copy;
+      display: none;
+      color: $grey-1;
     }
   }
 }

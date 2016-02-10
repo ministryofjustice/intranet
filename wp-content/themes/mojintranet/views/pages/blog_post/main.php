@@ -112,10 +112,14 @@
 
         <ul class="comments-list"></ul>
 
+        <div class="load-more-container loading">
+          <input type="button" class="load-more cta cta-plain" value="Load more comments" />
+          <span class="loading-msg">Loading...</span>
+        </div>
+
         <?php $this->view('pages/blog_post/partials/comment') ?>
         <?php $this->view('pages/blog_post/partials/comment_form') ?>
       </div>
     </div>
   </div>
-
 </div>
