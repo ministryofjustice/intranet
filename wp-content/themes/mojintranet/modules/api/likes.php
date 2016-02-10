@@ -28,18 +28,19 @@ class Likes_API extends API {
 
   protected function parse_params($params) {
     $this->params = array(
-      'id' => $params[0]
+      'content_type' => $params[0],
+      'id' => $params[1]
     );
   }
 
   protected function read() {
-    $data = $this->MVC->model->likes->read($this->params['id']);
+    $data = $this->MVC->model->likes->read($this->params['content_type'],$this->params['id']);
     $data['url_params'] = $this->params;
     $this->response($data, 200);
   }
 
   protected function update() {
-    $data = $this->MVC->model->likes->update($this->params['id'], $this->put('nonce'));
+    $data = $this->MVC->model->likes->update($this->params['content_type'],$this->params['id'], $this->put('nonce'));
     $data['url_params'] = $this->params;
     $this->response($data, 200);
   }
