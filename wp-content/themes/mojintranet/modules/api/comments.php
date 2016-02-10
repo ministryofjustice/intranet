@@ -22,14 +22,14 @@ class Comments_API extends API {
   }
 
   protected function parse_params($params) {
-    $root_comment_id = $params[1]===null ? 0 : $params[1];
+    $root_comment_id = (int) $params[1] ?: 0;
 
     $this->params = array(
       'post_id' => $params[0],
       'root_comment_id' => $root_comment_id,
     );
 
-    if($root_comment_id === '0') {
+    if($root_comment_id === 0) {
       $this->params = array_merge($this->params, array(
         'last_comment_id' => $params[2],
         'per_page' => $params[3]

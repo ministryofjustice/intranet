@@ -38,15 +38,19 @@ class Comments_model extends MVC_model {
     $options['post_id'] = $post_id;
     $options['parent'] = 0;
 
-    $per_page?$options['number'] = $per_page:0;
+    $options['number'] = $per_page;
 
-    $last_comment_id?add_filter('comments_clauses', array($this, 'limit_comments_by_id')):0;
+    if ( $last_comment_id ) {
+      add_filter('comments_clauses', array($this, 'limit_comments_by_id'));
+    }
 
     $this->options = $this->initialise_options($options);
 
     $data = $this->get_raw_results();
 
-    $last_comment_id?remove_filter('comments_clauses', array($this, 'limit_comments_by_id')):0;
+    if( $last_comment_id ) {
+      remove_filter('comments_clauses', array($this, 'limit_comments_by_id'));
+    }
 
     return $data;
   }
@@ -60,7 +64,9 @@ class Comments_model extends MVC_model {
     );
 
     foreach($options as $key=>$value) {
-      $default[$key] = $value;
+      if ($value) {
+        $default[$key] = $value;
+      }
     }
 
     return $default;
@@ -153,17 +159,23 @@ class Comments_model extends MVC_model {
   }
 
   private function add_comment($post_id, $comment_content, $parent_id = 0, $root_comment_id = 0) {
-    $data = array(
-      'comment_content'  => $comment_content,
-      'comment_post_ID'  => $post_id,
-      'comment_parent'   => $parent_id,
-      'comment_approved' => 1,
-      'comment_meta'     => array(
-        'root_comment_id' => $root_comment_id
-      )
-    );
+    $user_id = get_current_user_id();
+    if($user_id) {
+      $data = array(
+        'comment_content'  => $comment_content,
+        'comment_post_ID'  => $post_id,
+        'comment_parent'   => $parent_id,
+        'comment_approved' => 1,
+        'user_id'          => get_current_user_id(),
+        'comment_meta'     => array(
+          'root_comment_id' => $root_comment_id
+        ),
+      );
 
-    wp_new_comment($data);
+      return wp_new_comment($data);
+    } else {
+      return false;
+    }
   }
 
   public function limit_comments_by_id($pieces) {
