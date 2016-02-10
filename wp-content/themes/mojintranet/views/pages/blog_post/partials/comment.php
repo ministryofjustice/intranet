@@ -12,11 +12,11 @@
       <p class="content"></p>
 
       <div class="action">
-        <span class="reply">
+        <span class="reply-info">
           <span class="icon"></span>
           <a class="reply-btn" href="">Reply</a>
         </span>
-        <span class="likes">
+        <span class="likes-info">
           <span class="icon"></span>
           <span class="count"></span>
         </span>
@@ -24,6 +24,9 @@
     </div>
 
     <div class="reply-form-container"></div>
+
+    <a href="" class="toggle-replies">View all replies</a>
+    <span class="loading-replies">Loading...</span>
 
     <ul class="replies-list"></ul>
   </li>

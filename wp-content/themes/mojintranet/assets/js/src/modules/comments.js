@@ -13,6 +13,7 @@
     init: function() {
       this.applicationUrl = $('head').data('application-url');
       this.serviceUrl = this.applicationUrl + '/wp-content/themes/mojintranet/assets/js/comments.json';
+      this.serviceUrl2 = this.applicationUrl + '/wp-content/themes/mojintranet/assets/js/comments-replies.json';
 
       this.itemTemplate = this.$top.find('[data-name="comment-item"]').html();
       this.formTemplate = this.$top.find('[data-name="comment-form"]').html();
@@ -51,7 +52,7 @@
       var $form = this.initializeForm(this.$top.find('.comment-form-container'));
 
       $form.find('[name="comment"]').focus(function() {
-        _this.$top.find('.comment-form.reply').remove();
+        _this.$top.find('.comment-form.reply-form').remove();
         $form.addClass('active');
       });
       $form.find('.cta.cancel').click(function() {
@@ -66,9 +67,9 @@
       e.preventDefault();
 
       //remove all existing reply forms
-      this.$top.find('form.reply').remove();
+      this.$top.find('form.reply-form').remove();
 
-      $form.addClass('reply');
+      $form.addClass('reply-form');
       $form.find('[name="comment"]').focus(function() {
         _this.$top.find('.comment-form').removeClass('active');
         $form.addClass('active');
@@ -103,8 +104,8 @@
 
         for(b = 0, totalReplies = comment.replies.length; b < totalReplies; b++) {
           reply = comment.replies[b];
-          $reply = this.buildComment(reply);
-          $reply.addClass('reply');
+          $reply = this.buildComment(reply, true);
+          $reply.addClass('last-two');
           $comment.find('> .replies-list').append($reply);
         }
       }
@@ -112,7 +113,26 @@
       this.$commentsCount.find('.count').html(data.total_comments);
     },
 
-    buildComment: function(data) {
+    displayReplies: function($comment, data) {
+      var a;
+      var totalReplies;
+      var reply;
+      var $reply;
+
+      this.setCommentState('loaded', $comment);
+      //remove existing replies
+      $comment.find('> .replies-list > .reply').remove();
+
+      for(a = 0, totalReplies = data.comments.length; a < totalReplies; a++) {
+        reply = data.comments[a];
+        $reply = this.buildComment(reply, true);
+        $comment.find('> .replies-list').append($reply);
+      }
+
+      $comment.find('> .replies-list > .reply').slice(-2).addClass('last-two');
+    },
+
+    buildComment: function(data, isReply) {
       var $comment = $(this.itemTemplate);
 
       $comment.find('.content').html(data.comment);
@@ -123,7 +143,58 @@
 
       $comment.find('.reply-btn').click($.proxy(this.initializeReplyForm, this, data.id, $comment));
 
+      if(isReply) {
+        $comment.addClass('reply');
+      }
+      else {
+        $comment.find('.toggle-replies').click($.proxy(this.toggleReplies, this, $comment));
+      }
+
       return $comment;
+    },
+
+    toggleReplies: function($comment, e) {
+      var _this = this;
+
+      e.preventDefault();
+
+      if($comment.hasClass('opened')) { //toggle close
+        this.setCommentState('closed', $comment);
+      }
+      else { //toggle open
+        if($comment.hasClass('loaded')) { //already fetched
+          this.setCommentState('opened', $comment);
+        }
+        else { //not fetched yet
+          this.setCommentState('loading', $comment);
+
+          /* use the timeout for dev/debugging purposes */
+          /**/window.setTimeout(function() {
+            $.getJSON(_this.serviceUrl2, $.proxy(_this.displayReplies, _this, $comment));
+          /**/}, 500);
+        }
+      }
+    },
+
+    setCommentState: function(state, $comment) {
+      var $toggleReplies = $comment.find('> .toggle-replies');
+
+      if(state === 'opened') {
+        $comment.addClass('opened');
+        $toggleReplies.html('Hide replies');
+      }
+      else if(state === 'closed') {
+        $comment.removeClass('opened');
+        $toggleReplies.html('View all replies');
+      }
+      else if(state === 'loaded') {
+        $comment.removeClass('loading');
+        $comment.addClass('loaded opened');
+        $toggleReplies.html('Hide replies');
+      }
+      else if(state === 'loading') {
+        $comment.addClass('loading');
+      }
     }
   };
 }(jQuery));

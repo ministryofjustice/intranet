@@ -147,6 +147,34 @@
   .comment {
     margin-top: 20px;
 
+    &.opened {
+      .replies-list .comment {
+        display: block;
+      }
+    }
+
+    &.loading {
+      .loading-replies {
+        display: inline-block;
+      }
+
+      .toggle-replies {
+        display: none;
+      }
+    }
+
+    &.reply {
+      .toggle-replies,
+      .loading-replies {
+        display: none;
+      }
+    }
+
+    .loading-replies {
+      display: none;
+      color: $grey-1;
+    }
+
     .author {
       @extend %large-copy;
     }
@@ -163,7 +191,18 @@
       margin-bottom: 10px;
     }
 
-    .reply {
+    .toggle-replies,
+    .loading-replies {
+      @extend %medium-copy;
+      margin-top: 10px;
+    }
+
+    .toggle-replies {
+      text-decoration: underline;
+      display: inline-block;
+    }
+
+    .reply-info {
       @extend %medium-copy;
 
       .icon {
@@ -175,7 +214,7 @@
       }
     }
 
-    .likes {
+    .likes-info {
       @extend %medium-copy;
       margin-left: 20px;
 
@@ -192,12 +231,14 @@
 
   .replies-list {
     .comment {
+      display: none;
       margin-left: 20px;
       padding-left: 20px;
       border-left: 4px solid #231f20;
-    }
 
-    .content-box {
+      &.last-two {
+        display: block;
+      }
     }
   }
 }
