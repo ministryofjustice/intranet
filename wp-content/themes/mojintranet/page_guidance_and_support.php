@@ -159,7 +159,6 @@ class Page_guidance_and_support extends MVC_controller {
   }
 
   private function get_children_from_API($id = null) {
-    $results = new children_request(array($id));
-    return $results->results_array;
+    return $this->model->children->get_all($id);
   }
 }
