@@ -72,7 +72,7 @@ function mvc_route() {
     include($controller_path);
   }
   else {
-    trigger_error('Controller not found: ' . $controller_path, E_USER_ERROR);
+    trigger_error('Controller not found: ' . $controller_path . '. Entry point: ' . $_SERVER['REQUEST_URI'], E_USER_ERROR);
   }
 
   //instantiate controller
