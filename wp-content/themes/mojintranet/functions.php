@@ -2,6 +2,7 @@
 // Includes and requires
 require_once('inc/authors.php');                          // Additional author information
 require_once('inc/cache.php');                            // Amend the cache headers
+require_once('inc/comments.php');                         // Add extra commenting functionality
 require_once('inc/customiser-controls.php');              // Extra customiser controls
 require_once('inc/dependencies.php');                     // CSS/JS dependency enqueing
 require_once('inc/documents.php');                        // Control how documents are handled
