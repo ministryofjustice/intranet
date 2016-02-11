@@ -9,17 +9,12 @@ class Likes_model extends MVC_model {
     );
   }
 
-  public function update($post_id, $nonce) {
-    if(wp_verify_nonce( $nonce, $this::$meta_key )) {
-      $count = $this->get_like_count($post_id)+1;
-      $update_status = update_post_meta( $post_id, $this::$meta_key, $count );
-      return array(
-        "count" => (int) $count,
-        "nonce" => $nonce
-      );
-    } else {
-      return false;
-    }
+  public function update($post_id) {
+    $count = $this->get_like_count($post_id) + 1;
+    $update_status = update_post_meta($post_id, $this::$meta_key, $count);
+    return array(
+      "count" => (int) $count
+    );
   }
 
   private function get_like_count($post_id) {

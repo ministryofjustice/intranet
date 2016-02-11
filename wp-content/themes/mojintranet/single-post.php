@@ -50,8 +50,7 @@ class Single_post extends MVC_controller {
         'prev_post_url' => get_post_permalink($prev_post),
         'next_post_url' => get_post_permalink($next_post),
         'share_email_body' => "Hi there,\n\nI thought you might be interested in this blog post I've found on the MoJ intranet:\n",
-        'likes_count' => $likes['count'],
-        'nonce' => wp_create_nonce('dw_inc_likes')
+        'likes_count' => $likes['count']
       )
     );
   }
