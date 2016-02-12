@@ -14,9 +14,7 @@
 
   App.tools.Validation.prototype = {
     error: function($element, fieldName, message) {
-      if($.type($element) === 'string') {
-        $element = $($element);
-      }
+      $element = this.getElement($element);
 
       this.errors.push({
         element: $element,
@@ -25,12 +23,11 @@
       });
     },
 
+
     isFilled: function($element, fieldName, message) {
       var value;
 
-      if($.type($element) === 'string') {
-        $element = $($element);
-      }
+      $element = this.getElement($element);
 
       value = $element.val();
 
@@ -40,13 +37,49 @@
 
       if(value === '') {
         this.error($element, fieldName, message);
+
+        return false;
       }
 
-      return value;
+      return true;
     },
 
-    hasErrors: function() {
-      return this.errors.length === 0;
+    isValidEmail: function($element, fieldName, message) {
+      var value;
+
+      $element = this.getElement($element);
+
+      value = $element.val();
+
+      if(!message) {
+        message = App.tools.ucfirst(fieldName) + ' must be a valid email address';
+      }
+
+      if(!/[^ ]+@[^ ]+/.test(value)) {
+        this.error($element, fieldName, message);
+
+        return false;
+      }
+
+      return true;
+    },
+
+    hasErrors: function($element) {
+      var a, count;
+
+      $element = this.getElement($element);
+
+      if($element) {
+        for(a = 0, count = this.errors.length; a < count; a++) {
+          if(this.errors[a].element.is($element)) {
+            return true;
+          }
+        }
+
+        return false;
+      }
+
+      return this.errors.length > 0;
     },
 
     getErrors: function() {
@@ -58,7 +91,6 @@
       var error;
       var index, count;
 
-      this.resetValidation();
       this.displaySummary();
 
       for(index = 0, count = this.errors.length; index < count; index++) {
@@ -68,14 +100,14 @@
         $element.closest('.form-row').addClass('validation-error');
         $element.before($message);
       }
-
-      this.errors = [];
     },
 
-    resetValidation: function() {
+    reset: function() {
       this.$form.find('.validation-summary').remove();
       this.$form.find('.validation-message').remove();
       this.$form.find('.form-row.validation-error').removeClass('validation-error');
+
+      this.errors = [];
     },
 
     createMessage: function(message) {
@@ -99,6 +131,14 @@
       }
 
       $summary.prependTo(this.$form);
+    },
+
+    getElement: function($element) {
+      if($.type($element) === 'string') {
+        return $($element);
+      }
+
+      return $element;
     }
   };
 }(jQuery));

@@ -29,7 +29,7 @@ jQuery(function() {
   App.ins.navigation = new App.Navigation();
   App.ins.accessibility = new App.Accessibility();
   App.ins.myMoj = new App.MyMoj();
-  App.ins.login = new App.Login();
+  App.ins.registerForm = new App.RegisterForm();
 
   //Late
   App.ins.breakpoint.trigger();

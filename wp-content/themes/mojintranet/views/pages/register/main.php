@@ -1,38 +1,38 @@
 <?php if (!defined('ABSPATH')) die(); ?>
+
 <div class="template-container">
   <div class="grid">
     <div class="col-lg-8 col-md-8 col-sm-12">
-      <h2>Register</h2>
-      <?php if($message) { ?>
-      <p class="register-message <?=$message_type?>"><?=$message?></p>
-      <?php } ?>
-      <form class="userform" name="registerform" id="registerform" action="<?=site_url('wp-login.php?action=register','login_post')?>" method="post">
-        <p>
-          <label for="user_firstname">First name</label>
-          <input type="text" name="user_firstname" id="user_firstname" value="" class="user_firstname">
-        </p>
-        <p>
-          <label for="user_surname">Surname</label>
-          <input type="text" name="user_surname" id="user_surname" value="" class="user_surname">
-        </p>
-        <p>
-          <label for="user_displayname">Display name</label>
-          <input type="text" name="user_displayname" id="user_displayname" value="" class="user_displayname">
-        </p>
-        <p>
-          <label for="user_email">E-mail</label>
-          <input type="text" name="user_email" id="user_email" value="<?=htmlspecialchars(urldecode($user_email))?>" class="user_email">
-          <input type="hidden" name="user_login" value="" class="user_login">
-          <input type="hidden" name="redirect_to" value="/register/?status=success">
-        </p>
+      <h1>Create an account</h1>
+      <form class="userform standard register-form">
+        <label class="form-row">
+          <span class="label">First name</span>
+          <input type="text" name="first_name" />
+        </label>
+        <label class="form-row">
+          <span class="label">Surname</span>
+          <input type="text" name="surname" />
+        </label>
+        <label class="form-row">
+          <span class="label">Email address</span>
+          <span class="small-label">Enter your MoJ email address. This will be your ID for your account.</span>
+          <input type="text" name="email" />
+        </label>
+        <label class="form-row">
+          <span class="small-label">Reenter your email address</span>
+          <input type="text" name="reenter_email" />
+        </label>
+        <label class="form-row">
+          <span class="label">Display name</span>
+          <span class="small-label">This is how people will see you on the Intranet</span>
+          <input type="text" name="display_name" />
+        </label>
+        <label class="form-row">
+          <input type="submit" class="cta cta-positive" value="Create">
+        </label>
 
-        <p class="register-submit">
-          <input type="submit" name="wp-submit" id="wp-submit" value="Register">
-        </p>
+        <?php $this->view('modules/validation/validation') ?>
       </form>
-      <div class="secondary-actions">
-        <a href="<?=$login_url?>">Login</a>
-      </div>
     </div>
   </div>
 </div>
