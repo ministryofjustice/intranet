@@ -29,4 +29,4 @@ These can be accessed using the form:
 ###Likes:
   * **[GET]** /likes/{post_id} - get the number of likes for that post
 
-  * **[PUT]** /likes/{post_id} [data: nonce={nonce}] - increment like counter for that post
+  * **[PUT]** /likes/{post_id} - increment like counter for that post
