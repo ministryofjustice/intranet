@@ -39,10 +39,15 @@
       this.validate();
 
       if(!this.validation.hasErrors()) {
-        alert('sbumit');
+        this.displayConfirmationMessage();
       }
+      else {
+        this.validation.displayErrors();
+      }
+    },
 
-      this.validation.displayErrors();
+    displayConfirmationMessage: function() {
+      $('.template-container').addClass('confirmation');
     },
 
     validate: function() {

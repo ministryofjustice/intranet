@@ -14,24 +14,9 @@ class Page_register extends MVC_controller {
   }
 
   private function get_data() {
-    // Set error message (if any)
-    $status  = (isset($_GET['status']) ) ? $_GET['status'] : 0;
-    if ( $status === "success" ) {
-      $message = 'Please check your mailbox for further instructions.';
-      $message_type = "info";
-    } elseif ( $status === "empty" ) {
-      $message = 'Email address must not be empty.';
-      $message_type = "error";
-    } elseif ( $status === "exists" ) {
-      $message = 'Email address has already been registered. Please check your email or contact the Intranet team.';
-      $message_type = "error";
-    } elseif ( $status === "noname" ) {
-      $message = 'Please enter a first name and surname to register an account.';
-      $message_type = "error";
-    }
-
     return array(
       'page' => 'pages/register/main',
+      'template_class' => 'user-register',
       'cache_timeout' => 0 /* no cache */,
       'no_breadcrumbs' => true,
       'page_data' => array(
