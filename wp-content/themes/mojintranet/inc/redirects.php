@@ -27,6 +27,12 @@ function dw_redirects() {
 }
 
 function dw_rewrite_rules() {
+  /**
+  Remember!
+  If you want "something/" to be accessible (i.e. with trailing slash), make sure to use "/?" in the rule.
+  The reason why it is required is unknown, must be colliding with some other rule being applied behind the scenes.
+   */
+
   //register url parameters
   add_rewrite_tag('%search-filter%', '([^&]+)');
   add_rewrite_tag('%search-string%', '([^&]+)');
@@ -61,9 +67,9 @@ function dw_rewrite_rules() {
   $redirect = 'wp-content/themes/mojintranet/ping.php';
   add_rewrite_rule($regex, $redirect, 'top');
 
-  //API service
-  $regex = '^service/(.*)';
-  $redirect = 'index.php?controller=service&param_string=$matches[1]';
+  //Custom controllers
+  $regex = '^(service|password)/?(.*)';
+  $redirect = 'index.php?controller=$matches[1]&param_string=$matches[2]';
   add_rewrite_rule($regex, $redirect, 'top');
 }
 add_action('init', 'dw_redirects');

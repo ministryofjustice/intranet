@@ -30,6 +30,7 @@ jQuery(function() {
   App.ins.accessibility = new App.Accessibility();
   App.ins.myMoj = new App.MyMoj();
   App.ins.registerForm = new App.RegisterForm();
+  App.ins.resetPasswordForm = new App.ResetPasswordForm();
 
   //Late
   App.ins.breakpoint.trigger();
