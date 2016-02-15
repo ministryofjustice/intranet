@@ -5,20 +5,11 @@ abstract class MVC_controller extends MVC_loader {
     parent::__construct();
 
     $this->_get_segments($param_string);
-
-    ob_start();
-    wp_head();
-    $this->wp_head = ob_get_clean();
+    $this->_get_wp_header();
 
     if($this->is_plugin) {
       $this->main();
     }
-  }
-
-  private function _get_segments($param_string) {
-    $segments = explode('/', $param_string);
-    $this->method = array_shift($segments) ?: 'main';
-    $this->segments = $segments;
   }
 
   public function run() {
@@ -37,5 +28,18 @@ abstract class MVC_controller extends MVC_loader {
     $this->model('likes');
     $this->model('months');
     $this->model('post');
+  }
+
+  private function _get_segments($param_string) {
+    $segments = explode('/', $param_string);
+    $this->method = array_shift($segments) ?: 'main';
+    $this->segments = $segments;
+  }
+
+  private function _get_wp_header() {
+    _wp_admin_bar_init();
+    ob_start();
+    wp_head();
+    $this->wp_head = ob_get_clean();
   }
 }
