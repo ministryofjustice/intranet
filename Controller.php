@@ -4,9 +4,7 @@ abstract class MVC_controller extends MVC_loader {
   function __construct(){
     parent::__construct();
 
-    ob_start();
-    wp_head();
-    $this->wp_head = ob_get_clean();
+    $this->_get_wp_header();
 
     if($this->is_plugin) {
       $this->main();
@@ -25,5 +23,12 @@ abstract class MVC_controller extends MVC_loader {
     $this->model('likes');
     $this->model('months');
     $this->model('post');
+  }
+
+  private function _get_wp_header() {
+    _wp_admin_bar_init();
+    ob_start();
+    wp_head();
+    $this->wp_head = ob_get_clean();
   }
 }
