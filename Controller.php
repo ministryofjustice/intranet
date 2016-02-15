@@ -2,7 +2,14 @@
 
 abstract class MVC_controller extends MVC_loader {
   function __construct($param_string = ''){
+    global $MVC;
+
     parent::__construct();
+
+    if(!$MVC) {
+      $MVC = $this;
+      $this->_load_default_models();
+    }
 
     $this->_get_segments($param_string);
     $this->_get_wp_header();
@@ -14,20 +21,6 @@ abstract class MVC_controller extends MVC_loader {
 
   public function run() {
     call_user_func_array(array($this, $this->method), $this->segments);
-  }
-
-  public function load_models() {
-    //!!! TODO: loading the global models here. These should be auto-loaded based on config in the future
-    $this->model('my_moj');
-    $this->model('header');
-    $this->model('breadcrumbs');
-    $this->model('search');
-    $this->model('children');
-    $this->model('news');
-    $this->model('events');
-    $this->model('likes');
-    $this->model('months');
-    $this->model('post');
   }
 
   private function _get_segments($param_string) {

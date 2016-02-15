@@ -14,7 +14,7 @@ abstract class MVC_loader {
     $this->models_dir = $this->is_plugin ? $instance_dir.'/'.MVC_MODELS_DIR : MVC_MODELS_PATH;
   }
 
-  function model($name) {
+  public function model($name) {
     $class_name = ucfirst($name . '_model');
 
     if(!method_exists($this->model, $name)) {
@@ -25,7 +25,7 @@ abstract class MVC_loader {
     }
   }
 
-  function view($path, $data = array(), $return_as_string = false) {
+  public function view($path, $data = array(), $return_as_string = false) {
     if(is_array($data)) {
       foreach($data as $key=>$value){
         $$key = $value;
@@ -45,7 +45,21 @@ abstract class MVC_loader {
     }
   }
 
-  function get_model_object() {
+  public function get_model_object() {
     return $this->model;
+  }
+
+  protected function _load_default_models() {
+    //!!! TODO: loading the global models here. These should be auto-loaded based on config in the future
+    $this->model('my_moj');
+    $this->model('header');
+    $this->model('breadcrumbs');
+    $this->model('search');
+    $this->model('children');
+    $this->model('news');
+    $this->model('events');
+    $this->model('likes');
+    $this->model('months');
+    $this->model('post');
   }
 }

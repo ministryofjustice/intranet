@@ -82,8 +82,7 @@ function mvc_route() {
     $controller_name = str_replace('-', '_', $controller_name);
 
     if(class_exists($controller_name)) {
-      $MVC = new $controller_name($path);
-      $MVC->load_models();
+      new $controller_name($path);
       $MVC->run();
     }
     exit;
