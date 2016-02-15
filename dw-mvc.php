@@ -84,7 +84,7 @@ function mvc_route() {
     if(class_exists($controller_name)) {
       $MVC = new $controller_name($path);
       $MVC->load_models();
-      $MVC->main();
+      $MVC->run();
     }
     exit;
   }

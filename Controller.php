@@ -1,8 +1,10 @@
 <?php if (!defined('ABSPATH')) die();
 
 abstract class MVC_controller extends MVC_loader {
-  function __construct(){
+  function __construct($param_string = ''){
     parent::__construct();
+
+    $this->_get_segments($param_string);
 
     ob_start();
     wp_head();
@@ -11,6 +13,16 @@ abstract class MVC_controller extends MVC_loader {
     if($this->is_plugin) {
       $this->main();
     }
+  }
+
+  private function _get_segments($param_string) {
+    $segments = explode('/', $param_string);
+    $this->method = array_shift($segments) ?: 'main';
+    $this->segments = $segments;
+  }
+
+  public function run() {
+    call_user_func_array(array($this, $this->method), $this->segments);
   }
 
   public function load_models() {
