@@ -13,7 +13,8 @@ class Likes_model extends MVC_model {
     $count = $this->get_like_count($post_id) + 1;
     $update_status = update_post_meta($post_id, $this::$meta_key, $count);
     return array(
-      "count" => (int) $count
+      "count" => (int) $count,
+      "update_status" => $update_status
     );
   }
 
