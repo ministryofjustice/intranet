@@ -26,6 +26,7 @@ class Password extends MVC_controller {
   private function _get_data($type) {
     return array(
       'page' => 'pages/change_password/main',
+      'template_class' => 'user-password',
       'cache_timeout' => 0 /* no cache */,
       'no_breadcrumbs' => true,
       'page_data' => array(

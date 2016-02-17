@@ -2,7 +2,7 @@
 /**
  * Custom registration page
  */
-class Page_register extends MVC_controller {
+class Register extends MVC_controller {
   function __construct() {
     parent::__construct();
   }
