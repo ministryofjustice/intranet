@@ -51,16 +51,3 @@ if ( !function_exists( 'mojintranet_setup' ) ) {
 		) );
 	}
 }
-
-function force_feed_headers($headers) {
-	$header_template = get_option('html_type') . '; charset=' . get_option('blog_charset');
-
-	$headers = 	array(
-		'rss'  => $header_template,
-		'rss2' => $header_template,
-		'rss-http'  => $header_template,
-		'atom' => $header_template,
-		'rdf'  => $header_template
-	);
-}
-add_action('feed_content_type','force_feed_headers');
