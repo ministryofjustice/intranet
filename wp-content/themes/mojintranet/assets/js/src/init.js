@@ -29,6 +29,8 @@ jQuery(function() {
   App.ins.navigation = new App.Navigation();
   App.ins.accessibility = new App.Accessibility();
   App.ins.myMoj = new App.MyMoj();
+  App.ins.postsWidget = new App.PostsWidget();
+
 
   //Late
   App.ins.breakpoint.trigger();

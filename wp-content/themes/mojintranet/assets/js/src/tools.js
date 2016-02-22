@@ -6,7 +6,8 @@
   var App = window.App;
 
   var settings = {
-    sizeUnits: ['B', 'KB', 'MB', 'GB', 'TB', 'PB']
+    sizeUnits: ['B', 'KB', 'MB', 'GB', 'TB', 'PB'],
+    months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
   };
 
   App.tools = {
@@ -175,6 +176,25 @@
       }
 
       return false;
+    },
+
+    parseDate: function(dateString) {
+      var dateArray = dateString.split('-');
+      if(dateArray.length === 2){
+        dateArray.push('01');
+      }
+
+      return new Date(dateArray.join('/'));
+    },
+
+    formatDate: function(dateObject, shortMonth) {
+      var month = settings.months[dateObject.getMonth()];
+
+      if(shortMonth) {
+        month = month.substr(0, 3);
+      }
+
+      return dateObject.getDate() + ' ' + month + ' ' + dateObject.getFullYear();
     }
   };
 }(jQuery));
