@@ -10,25 +10,6 @@
     }
   }
 
-  .quick-links-container {
-    .category-name {
-      margin-bottom: 8px;
-    }
-
-    .nested-menu {
-      margin-top: 0;
-    }
-
-    .menu-item {
-      margin-top: 10px;
-    }
-
-    .menu-link {
-      @extend %medium-copy;
-      text-decoration: underline;
-    }
-  }
-
   [data-department]:before {
     background-image: url('../images/department_crest_x2.png');
   }
@@ -67,6 +48,7 @@
     .app-item {
       float: left;
       width: 50%;
+      margin-bottom: 15px;
       text-align: left;
 
       &:hover {
@@ -79,16 +61,24 @@
     .app-link {
       @extend %small-copy;
       display: block;
-      line-height: 14px;
+      line-height: 16px;
+      text-decoration: none;
 
       &:after {
         display: none;
+      }
+
+      &:hover {
+        .app-name {
+          text-decoration: underline;
+        }
       }
     }
 
     .app-name {
       display: inline-block;
       width: 70%;
+      padding-left: 10px;
       vertical-align: middle;
     }
 
@@ -155,17 +145,36 @@
     }
   }
 
-  .menu-my-moj-quick-links-container ul {
-    a {
+  .quick-links-container {
+    .category-name {
+      margin-bottom: 8px;
+    }
+
+    .nested-menu {
+      margin-top: 0;
+    }
+
+    .category-item {
+      margin-bottom: 10px;
+    }
+
+    .menu-link {
       @extend %medium-copy;
       text-decoration: underline;
     }
 
-    .menu-item {
-      margin-top: 10px;
+    ul {
+      a {
+        @extend %medium-copy;
+        text-decoration: underline;
+      }
 
-      &:first-of-type a {
-        margin-top: 0;
+      .menu-item {
+        margin-top: 10px;
+
+        &:first-of-type a {
+          margin-top: 0;
+        }
       }
     }
   }

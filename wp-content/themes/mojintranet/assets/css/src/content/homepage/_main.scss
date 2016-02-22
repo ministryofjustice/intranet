@@ -2,5 +2,6 @@
   .category-name {
     @extend %large-heading;
     border-bottom: 2px solid $grey-1;
+    font-weight: normal;
   }
 }

@@ -58,9 +58,9 @@ class My_moj_model extends MVC_model {
           'external' => true
         ),
         array(
-          'title' => 'Courtfinder',
-          'icon' => 'courtfinder',
-          'url' => 'https://courttribunalfinder.service.gov.uk/search/',
+          'title' => 'Travel booking',
+          'icon' => 'travel-booking',
+          'url' => 'https://www.trips.uk.com/js/SABS/Corporate.html',
           'external' => true
         ),
         array(
@@ -70,21 +70,9 @@ class My_moj_model extends MVC_model {
           'external' => true
         ),
         array(
-          'title' => 'IT portal',
-          'icon' => 'it-portal',
-          'url' => 'http://itportal.dom1.infra.int:8080/Pages/default.aspx',
-          'external' => true
-        ),
-        array(
-          'title' => 'Civil Service Learning',
-          'icon' => 'civil-service-learning',
-          'url' => 'https://civilservicelearning.civilservice.gov.uk/',
-          'external' => true
-        ),
-        array(
-          'title' => 'Travel booking',
-          'icon' => 'travel-booking',
-          'url' => 'https://www.trips.uk.com/js/SABS/Corporate.html',
+          'title' => 'Pensions',
+          'icon' => 'pension',
+          'url' => 'http://www.civilservicepensionscheme.org.uk/',
           'external' => true
         ),
         array(
@@ -94,19 +82,19 @@ class My_moj_model extends MVC_model {
           'external' => false
         ),
         array(
-          'title' => 'Pensions',
-          'icon' => 'pension',
-          'url' => 'http://www.civilservicepensionscheme.org.uk/',
+          'title' => 'Civil Service Learning',
+          'icon' => 'civil-service-learning',
+          'url' => 'https://civilservicelearning.civilservice.gov.uk/',
           'external' => true
         ),
         array(
-          'title' => 'The MoJ Story',
-          'icon' => 'moj-story',
-          'url' => site_url('/about-us/moj-story/'),
-          'external' => false
+          'title' => 'IT portal',
+          'icon' => 'it-portal',
+          'url' => 'http://itportal.dom1.infra.int:8080/Pages/default.aspx',
+          'external' => true
         ),
         array(
-          'title' => 'Webchats',
+          'title' => 'MoJ Webchat',
           'icon' => 'webchat',
           'url' => site_url('/webchats/'),
           'external' => false
