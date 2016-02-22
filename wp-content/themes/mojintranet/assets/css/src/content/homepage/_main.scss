@@ -1,21 +1,6 @@
 .template-home {
-  .my-moj {
-    position: static;
-    width: 100%;
-  }
-
-  .my-moj-trigger {
-    display: none;
-  }
-
-  .template-container {
-  }
-}
-
-@include mobile-mq() {
-  .template-home .template-container {
-    .my-moj {
-      display: none;
-    }
+  .category-name {
+    @extend %large-heading;
+    border-bottom: 2px solid $grey-1;
   }
 }
