@@ -1,12 +1,6 @@
 .social {
   margin-top: 10px;
 
-  h2 {
-    @extend %large-heading;
-    margin-bottom: 15px;
-    border-bottom: 1px solid $grey-1;
-  }
-
   .social-list {
     margin-top: 0;
   }
@@ -33,5 +27,9 @@
     @extend %large-copy;
     display: inline-block;
     vertical-align: middle;
+  }
+
+  .social-item {
+    margin-bottom: 15px;
   }
 }
