@@ -114,4 +114,18 @@ class My_moj_model extends MVC_model {
       )
     );
   }
+
+  public function get_quick_links() {
+    $data = array();
+
+    $menu_items = wp_get_nav_menu_items('my-moj-quick-links');
+
+    foreach ($menu_items as $menu_item) {
+      $quick_link['title'] = $menu_item->title;
+      $quick_link['url'] = $menu_item->url;
+      $data['results'][] = $quick_link;
+    }
+
+    return $data;
+  }
 }

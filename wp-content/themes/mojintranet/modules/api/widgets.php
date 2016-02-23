@@ -46,4 +46,10 @@ class Widgets_API extends API {
     $this->response($data, 200);
   }
 
+  private function get_quick_links() {
+    $data = $this->MVC->model->my_moj->get_quick_links($this->params);
+    $data['url_params'] = $this->params;
+    $this->response($data, 200);
+  }
+
 }
