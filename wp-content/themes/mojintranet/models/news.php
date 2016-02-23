@@ -1,6 +1,12 @@
 <?php if (!defined('ABSPATH')) die();
 
 class News_model extends MVC_model {
+  public function __construct() {
+    parent::__construct();
+
+    $this->max_featured_news = 2;
+  }
+
   /** Get a list of news
    * @param {Array} $options Options and filters (see search model for details)
    * @return {Array} Formatted and sanitized results
@@ -14,6 +20,66 @@ class News_model extends MVC_model {
     $data = $this->format_data($data);
 
     return $data;
+  }
+
+  public function get_featured($options = array()) {
+    $options['post__in'] = $this->get_featured_news_ids();
+
+    $options = $this->normalize_featured_options($options);
+
+    $args = array (
+      // Paging
+      'nopaging' => false,
+      'offset' => $options['start']-1,
+      'posts_per_page' => $options['length'],
+      // Filters
+      'post_type' => $options['post_type'],
+      'post__in' => $options['post__in']
+    );
+
+    $data['raw'] = new WP_Query($args);
+    $data['total_results'] = (int) $data['raw']->found_posts;
+    $data['retrieved_results'] = (int) $data['raw']->post_count;
+
+    $data = $this->format_data($data);
+
+    return $data;
+  }
+
+  private function get_need_to_know_news_ids() {
+    $need_to_know_news_ids = array();
+
+    for($a = 1; $a <= $this->max_need_to_know_news; $a++) {
+      array_push($need_to_know_news_ids, get_option('need_to_know_story' . $a));
+    }
+
+    return $need_to_know_news_ids;
+  }
+
+  private function get_featured_news_ids() {
+    $need_to_know_news_ids = array();
+
+    for($a = 1; $a <= $this->max_featured_news; $a++) {
+      array_push($need_to_know_news_ids, get_option('featured_story' . $a));
+    }
+
+    return $need_to_know_news_ids;
+  }
+
+  private function normalize_featured_options($options) {
+    $default = array(
+      'start' => 1,
+      'length' => 10,
+      'post_type' => 'news'
+    );
+
+    foreach($options as $key=>$value) {
+      if($value) {
+        $default[$key] = $value;
+      }
+    }
+
+    return $default;
   }
 
   /** Format and trim the raw results
