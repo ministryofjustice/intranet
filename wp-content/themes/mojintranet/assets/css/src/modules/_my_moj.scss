@@ -72,6 +72,10 @@
         .app-name {
           text-decoration: underline;
         }
+
+        .app-icon-inner {
+          background-image: url('../images/app_icons_x2_hover.png');
+        }
       }
     }
 
@@ -84,10 +88,10 @@
 
     .app-icon {
       display: inline-block;
-      width: $icon-size + 5;
-      height: $icon-size + 5;
-      max-width: $icon-size + 5;
-      max-height: $icon-size + 5;
+      width: $icon-size + 2;
+      height: $icon-size + 2;
+      max-width: $icon-size + 2;
+      max-height: $icon-size + 2;
       margin: 0 auto;
       background-color: $white;
       border: 1px solid $grey-2;
@@ -98,10 +102,11 @@
       display: inline-block;
       width: $icon-size;
       height: $icon-size;
-      margin: 2px;
       background-repeat: no-repeat;
       background-image: url('../images/app_icons_x2.png');
       background-size: $icon-size*10 $icon-size;
+
+
 
       &.people-finder-icon {
         background-position: 0 0;
