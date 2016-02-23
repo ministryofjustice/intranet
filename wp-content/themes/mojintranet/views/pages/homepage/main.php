@@ -20,7 +20,7 @@
 
   <div class="grid">
     <div class="col-lg-8 col-md-6 col-sm-12">
-      &nbsp;
+      <?php $this->view('widgets/events/main') ?>
     </div>
     <div class="col-lg-4 col-md-6 col-sm-12">
       <?php $this->view('pages/homepage/social') ?>

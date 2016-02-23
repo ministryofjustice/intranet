@@ -30,7 +30,7 @@ jQuery(function() {
   App.ins.accessibility = new App.Accessibility();
   App.ins.myMoj = new App.MyMoj();
   App.ins.postsWidget = new App.PostsWidget();
-
+  App.ins.eventsWidget = new App.EventsWidget();
 
   //Late
   App.ins.breakpoint.trigger();
