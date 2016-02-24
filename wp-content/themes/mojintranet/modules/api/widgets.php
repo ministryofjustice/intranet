@@ -13,6 +13,10 @@ class Widgets_API extends API {
         $this->get_featured_news();
         break;
 
+      case 'non-featured-news':
+        $this->get_non_featured_news();
+        break;
+
       case 'need-to-know':
         $this->get_need_to_know();
         break;
@@ -36,6 +40,12 @@ class Widgets_API extends API {
 
   private function get_featured_news() {
     $data = $this->MVC->model->news->get_featured($this->params);
+    $data['url_params'] = $this->params;
+    $this->response($data, 200);
+  }
+
+  private function get_non_featured_news() {
+    $data = $this->MVC->model->news->get_featured($this->params,true);
     $data['url_params'] = $this->params;
     $this->response($data, 200);
   }
