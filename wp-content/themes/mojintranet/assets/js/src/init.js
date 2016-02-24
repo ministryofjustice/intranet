@@ -31,6 +31,8 @@ jQuery(function() {
   App.ins.myMoj = new App.MyMoj();
   App.ins.postsWidget = new App.PostsWidget();
   App.ins.eventsWidget = new App.EventsWidget();
+  App.ins.featuredNewsWidget = new App.FeaturedNewsWidget();
+  App.ins.newsListWidget = new App.NewsListWidget();
 
   //Late
   App.ins.breakpoint.trigger();

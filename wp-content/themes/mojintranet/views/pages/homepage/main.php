@@ -5,17 +5,14 @@
 
   <div class="grid">
     <div class="col-lg-8 col-md-6 col-sm-12">
-      News
+      <?php $this->view('widgets/featured_news/main') ?>
+      <?php $this->view('widgets/news_list/main') ?>
     </div>
 
     <div class="col-lg-4 col-md-6 col-sm-12">
       <?php $this->view('pages/homepage/my_moj/main', $my_moj) ?>
       <?php $this->view('widgets/posts/main') ?>
     </div>
-
-
-    <?php #dynamic_sidebar('home-widget-area0'); ?>
-    <?php #$this->view('widgets/events', array('events' => $events, 'see_all_events_url' => $see_all_events_url)) ?>
   </div>
 
   <div class="grid">
