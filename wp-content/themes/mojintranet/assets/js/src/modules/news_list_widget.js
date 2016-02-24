@@ -22,6 +22,8 @@
       this.resultsLoaded = true;
       this.serviceXHR = null;
 
+      this.news = [];
+
       this.cacheEls();
       this.bindEvents();
 
@@ -33,6 +35,7 @@
     },
 
     bindEvents: function() {
+      $(window).on('breakpoint-change', $.proxy(this.displayNews, this));
     },
 
     requestNews: function() {
@@ -40,18 +43,18 @@
 
       /* use the timeout for dev/debugging purposes */
       //**/window.setTimeout(function() {
-        _this.serviceXHR = $.getJSON(_this.serviceUrl, $.proxy(_this.displayNews, _this));
+        _this.serviceXHR = $.getJSON(_this.serviceUrl, $.proxy(_this.buildNewsRows, _this));
       //**/}, 2000);
     },
 
-    displayNews: function(data) {
+    buildNewsRows: function(data) {
       var _this = this;
-      var $newsItem;
 
       $.each(data.results, function(index, result) {
-        $newsItem = _this.buildResultRow(result);
-        _this.$newsList.append($newsItem);
+        _this.news.push(_this.buildResultRow(result));
       });
+
+      this.displayNews();
 
       this.resultsLoaded = true;
       this.$top.removeClass('loading');
@@ -73,6 +76,24 @@
       $child.find('.date').html(App.tools.formatDate(date, true));
 
       return $child;
+    },
+
+    displayNews: function() {
+      var _this = this;
+      var column = 1;
+      var maxColumns = ($('html').hasClass('breakpoint-desktop')) ? 2 : 1;
+
+      this.$newsList.find('.news-item').detach();
+
+      $.each(this.news, function(index, $newsItem) {
+        _this.$newsList.eq(column - 1).append($newsItem);
+
+        column++;
+
+        if(column > maxColumns) {
+          column = 1;
+        }
+      });
     }
   };
 }(jQuery));
