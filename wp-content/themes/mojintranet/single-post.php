@@ -50,14 +50,12 @@ class Single_post extends MVC_controller {
         'prev_post_url' => get_post_permalink($prev_post),
         'next_post_url' => get_post_permalink($next_post),
         'share_email_body' => "Hi there,\n\nI thought you might be interested in this blog post I've found on the MoJ intranet:\n",
-        'likes_count' => $likes['count'],
-        'nonce' => wp_create_nonce('dw_inc_likes')
+        'likes_count' => $likes['count']
       )
     );
   }
 
   private function get_likes_from_api($post_id) {
-    $results = new likes_request(array($post_id));
-    return $results->results_array;
+    return $this->model->likes->read($post_id);
   }
 }
