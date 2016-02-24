@@ -66,9 +66,9 @@
         data.thumbnail_alt_text = 'generic blog thumbnail';
       }
 
-      $child.find('.news-thumbnail').attr('href', data.url);
       $child.find('.news-thumbnail').attr('src', data.thumbnail_url);
       $child.find('.news-link').attr('alt', data.thumbnail_alt_text);
+      $child.find('.news-link').attr('href', data.url);
       $child.find('.title .news-link').html(data.title);
       $child.find('.date').html(App.tools.formatDate(date, true));
       $child.find('.news-excerpt').html(data.excerpt);

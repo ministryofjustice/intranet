@@ -2,7 +2,6 @@
   .category-name {
     @extend %large-heading;
     border-bottom: 2px solid $grey-1;
-    font-weight: normal;
   }
 
   .see-all-container {
@@ -14,5 +13,9 @@
       font-weight: bold;
       text-decoration: underline;
     }
+  }
+
+  .meta-separator {
+    padding: 0 5px;
   }
 }

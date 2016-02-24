@@ -5,7 +5,7 @@
   <ul class="posts-list"></ul>
 
   <p class="see-all-container">
-    <a href="<?=$see_all_posts_url?>">See all posts</a>
+    <a href="<?=get_permalink(Taggr::get_id('blog-landing'))?>">See all posts</a>
   </p>
 
   <?php $this->view('widgets/posts/post_item') ?>

@@ -5,7 +5,7 @@
   <ul class="events-list grid"></ul>
 
   <p class="see-all-container">
-    <a href="<?=$see_all_events_url?>">See all events</a>
+    <a href="<?=get_permalink(Taggr::get_id('events-landing'))?>">See all events</a>
   </p>
 
   <?php $this->view('widgets/events/event_item') ?>
