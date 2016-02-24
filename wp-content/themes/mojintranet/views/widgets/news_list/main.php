@@ -1,6 +1,6 @@
 <?php if (!defined('ABSPATH')) die(); ?>
 
-<div class="news-list-widget">
+<div class="news-list-widget news-widget">
   <ul class="news-list grid"></ul>
 
   <p class="see-all-container">

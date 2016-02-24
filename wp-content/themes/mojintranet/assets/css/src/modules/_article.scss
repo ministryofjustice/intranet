@@ -1,0 +1,10 @@
+article {
+  .date {
+    color: $grey-1;
+  }
+
+  .title {
+    @extend %medium-heading;
+    margin: 0;
+  }
+}

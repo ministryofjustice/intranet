@@ -15,7 +15,7 @@
       this.templateUri = $('head').data('template-uri');
       this.serviceUrl = this.applicationUrl + '/service/news////1/8';
       this.pageBase = this.applicationUrl + '/' + this.$top.data('top-level-slug');
-      this.genericThumbnailPath = this.templateUri + '/assets/images/blog-placeholder.jpg';
+      this.genericThumbnailPath = this.templateUri + '/assets/images/news-placeholder.jpg';
 
       this.itemTemplate = this.$top.find('[data-name="widget-news-list-item"]').html();
 
@@ -69,8 +69,8 @@
       $child.find('.news-thumbnail').attr('href', data.url);
       $child.find('.news-thumbnail').attr('src', data.thumbnail_url);
       $child.find('.news-link').attr('alt', data.thumbnail_alt_text);
-      $child.find('.news-heading .news-link').html(data.title);
-      $child.find('.news-date').html(App.tools.formatDate(date, true));
+      $child.find('.title .news-link').html(data.title);
+      $child.find('.date').html(App.tools.formatDate(date, true));
 
       return $child;
     }
