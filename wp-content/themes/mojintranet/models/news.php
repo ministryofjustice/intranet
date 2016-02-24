@@ -22,10 +22,12 @@ class News_model extends MVC_model {
     return $data;
   }
 
-  public function get_featured($options = array()) {
+  public function get_featured($options = array(),$exclude_featured = false) {
     $options['post__in'] = $this->get_featured_news_ids();
 
     $options = $this->normalize_featured_options($options);
+
+    $post_in_out = $exclude_featured?'post__not_in':'post__in';
 
     $args = array (
       // Paging
@@ -34,7 +36,7 @@ class News_model extends MVC_model {
       'posts_per_page' => $options['length'],
       // Filters
       'post_type' => $options['post_type'],
-      'post__in' => $options['post__in']
+      $post_in_out => $options['post__in']
     );
 
     $data['raw'] = new WP_Query($args);
