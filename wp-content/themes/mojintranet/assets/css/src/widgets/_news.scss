@@ -2,8 +2,8 @@
   &.news-list-widget {
     article {
       @include clearfix;
-      border-bottom: 1px solid $grey-2;
-      padding-bottom: 5px;
+      border-top: 1px solid $grey-2;
+      padding-top: 10px;
     }
 
     .news-item {
