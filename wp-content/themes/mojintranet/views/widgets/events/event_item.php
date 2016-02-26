@@ -1,7 +1,7 @@
 <?php if (!defined('ABSPATH')) die(); ?>
 
 <script data-name="widget-event-item" type="text/x-partial-template">
-  <li class="results-item col-lg-6 col-md-6 col-sm-12">
+  <li class="results-item col-lg-6 col-md-12 col-sm-12">
     <div class="item-row">
       <time class="date-box" datetime="">
         <span class="day-of-week"><?=$event['day_of_week']?></span>

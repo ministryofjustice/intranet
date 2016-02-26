@@ -1,98 +1,44 @@
-.primary-nav {
+.header-menu {
+  background-color: #ebedef;
+  border-style: solid;
+  border-color: #979797;
+  border-width: 0 0 1px;
+
   .categories-list {
+    @include clearfix;
+    display: flex;
     margin-top: 0;
+    margin-bottom: -1px;
   }
 
   .category-item {
-    float: left;
+    flex-grow: 1;
+    flex-basis: 0;
 
-    .category-link {
-      @extend %medium-copy;
-      display: block;
-      padding: 10px 20px;
-      background-color: $grey-3;
-      border-right: 1px solid $black;
-      border-bottom: 1px solid $black;
-      font-weight: bold;
-
-      &:hover {
-        text-decoration: none;
-      }
+    &:first-child .category-link {
+      border-left: 1px solid #979797;
     }
 
     &.current {
       .category-link {
-        background-color: $white;
-        border-bottom-color: $white;
-
-        &:hover {
-          color: $link-colour;
-        }
+        background-color: $white !important;
+        border-bottom: 1px solid $white;
       }
     }
 
-    &.not-current {
-      .category-link {
-        color: #555;
-
-        &:hover {
-          border-bottom: 4px solid #1d8feb;
-          padding-bottom: 6px;
-        }
-      }
-    }
-
-    &:last-of-type {
-      .category-link {
-        border-right: none;
-      }
-    }
-  }
-
-  .category-link:focus {
-    background-color: $yellow !important;
-    outline: none;
-  }
-}
-
-
-@include mobile-mq() {
-  .primary-nav {
-    .category-item:last-of-type .category-link {
-      border-bottom: none !important;
-    }
-
-    position: absolute;
-    display: none;
-    top: 48px;
-    left: 0;
-    right: 0;
-    max-height: 500px;
-    overflow-x: scroll;
-    border-bottom: 3px solid $black;
-
-    .category-item {
-      float: none;
-
-      .category-link {
-        &,
-        &:hover {
-          border: none;
-          padding-top: 11px !important;
-          padding-bottom: 9px !important;
-          border-bottom: 1px solid $black !important;
-        }
-      }
-
-      &:last-of-type .category-link:hover {
-        border-bottom: none !important;
-      }
-    }
-  }
-
-  .header.menu-opened {
-    .primary-nav {
+    .category-link {
+      @extend %medium-copy;
       display: block;
+      border-right: 1px solid #979797;
+      border-bottom: 1px solid #979797;
+      color: #3c3c3b;
+      line-height: 40px;
+      text-align: center;
+      font-weight: bold;
+
+      &:hover {
+        background-color: #c5c6c8;
+      }
     }
   }
 }

@@ -12,7 +12,7 @@
         <a class="post-link" href=""></a>
       </h3>
       <p class="post-meta">
-        <time class="post-date"></time> | <span class="post-author"></span>
+        <time class="post-date"></time> <span class="meta-separator">|</span> <span class="post-author"></span>
       </p>
     </div>
     <div class="ie-clear"></div>

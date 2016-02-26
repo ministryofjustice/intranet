@@ -13,7 +13,7 @@
     init: function() {
       this.applicationUrl = $('head').data('application-url');
       this.templateUri = $('head').data('template-uri');
-      this.serviceUrl = this.applicationUrl + '/service/news////1/8';
+      this.serviceUrl = this.applicationUrl + '/service/widgets/non-featured-news/0/8';
       this.pageBase = this.applicationUrl + '/' + this.$top.data('top-level-slug');
       this.genericThumbnailPath = this.templateUri + '/assets/images/news-placeholder.jpg';
 
@@ -69,9 +69,9 @@
         data.thumbnail_alt_text = 'generic blog thumbnail';
       }
 
-      $child.find('.news-thumbnail').attr('href', data.url);
       $child.find('.news-thumbnail').attr('src', data.thumbnail_url);
       $child.find('.news-link').attr('alt', data.thumbnail_alt_text);
+      $child.find('.news-link').attr('href', data.url);
       $child.find('.title .news-link').html(data.title);
       $child.find('.date').html(App.tools.formatDate(date, true));
 

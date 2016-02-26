@@ -1,7 +1,7 @@
 .my-moj {
   $icon-size: 32px;
 
-  margin-top: 30px;
+  margin-top: 20px;
 
   .apps-container {
     .category-name {
@@ -50,12 +50,6 @@
       width: 50%;
       margin-bottom: 15px;
       text-align: left;
-
-      &:hover {
-        .app-icon {
-          border: 1px solid $dw-warning;
-        }
-      }
     }
 
     .app-link {

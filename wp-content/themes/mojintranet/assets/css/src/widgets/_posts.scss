@@ -13,7 +13,12 @@
     @include clearfix;
 
     padding: 10px 0;
-    border-bottom: 1px solid $grey-2;
+    border-top: 1px solid $grey-2;
+
+    &:first-child {
+      padding-top: 0;
+      border-top: none;
+    }
 
     .post-title {
       @extend %medium-heading;
@@ -22,7 +27,7 @@
 
     .post-thumbnail-container {
       float: left;
-      margin-right: 20px;
+      margin-right: 10px;
     }
 
     .post-thumbnail {
@@ -38,16 +43,6 @@
 
     .post-content {
       overflow: hidden;
-    }
-  }
-
-  .see-all-container {
-    margin-top: 10px;
-    font-weight: bold;
-    text-align: right;
-
-    a {
-      text-decoration: underline;
     }
   }
 }
