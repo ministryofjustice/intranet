@@ -38,7 +38,6 @@
     },
 
     outsideClickHandle: function(e) {
-      console.log($(e.target), $(e.target).closest(this.$myMoj).length);
       if(!$(e.target).closest(this.$myMoj).length) {
         this.close();
       }
