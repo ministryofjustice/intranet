@@ -33,6 +33,7 @@ jQuery(function() {
   App.ins.eventsWidget = new App.EventsWidget();
   App.ins.featuredNewsWidget = new App.FeaturedNewsWidget();
   App.ins.newsListWidget = new App.NewsListWidget();
+  App.ins.needToKnowWidget = new App.NeedToKnowWidget();
 
   //Late
   App.ins.breakpoint.trigger();
