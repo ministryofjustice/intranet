@@ -31,6 +31,53 @@
     }
   }
 
+  .user-bar {
+    text-align: right;
+  }
+
+  .my-intranet-form {
+    position: relative;
+    display: inline-block;
+    z-index: 1;
+
+    .department-dropdown-trigger {
+      color: $white;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    .department-list {
+      position: absolute;
+      display: none;
+      right: 0;
+      width: 300px;
+      margin: 0;
+      padding: 5px 0;
+      border: 1px solid #333;
+      background-color: $white;
+
+      &.visible {
+        display: block;
+      }
+
+      a {
+        display: block;
+        padding: 5px 15px;
+        text-align: left;
+
+        &:hover {
+          background-color: $grey-3;
+          text-decoration: none;
+          color: $govuk-blue;
+        }
+
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+  }
+
   .header-search {
     background-color: $govuk-blue;
 

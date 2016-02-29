@@ -14,6 +14,20 @@
       </a>
     </div>
     <div class="user-bar col-lg-6 col-md-6 col-sm-12">
+      <form class="my-intranet-form">
+        <a href="#" class="department-dropdown-trigger">
+          <span class="label"></span>
+          <span class="dropdown-icon">▼</span>
+        </a>
+        <ul class="department-list">
+          <li><a href="#">My agency or body</a></li>
+          <?php foreach($departments as $department): ?>
+            <li data-url="<?=$department['url']?>" data-department="<?=$department['name']?>">
+              <a href="#"><?=$department['label']?></a>
+            </li>
+          <?php endforeach ?>
+        </ul>
+      </form>
     </div>
   </div>
 

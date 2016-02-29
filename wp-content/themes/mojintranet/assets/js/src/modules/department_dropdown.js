@@ -17,37 +17,64 @@
 
       this.cacheEls();
       this.bindEvents();
-      this.setDropdown();
+      this.initDropdown();
     },
 
     cacheEls: function() {
-      this.$departmentDropdown = this.$myIntranetForm.find('.department');
-      this.$visitCta = this.$myIntranetForm.find('.visit-cta');
+      this.$departmentList = this.$myIntranetForm.find('.department-list');
+      this.$departmentTrigger = this.$myIntranetForm.find('.department-dropdown-trigger');
+      this.$departmentLabel = this.$departmentTrigger.find('.label');
     },
 
     bindEvents: function() {
-      this.$myIntranetForm.on('submit', $.proxy(this.visitDepartment, this));
-      this.$myIntranetForm.find('.department').on('change', $.proxy(this.saveState, this));
+      $(document).on('click', $.proxy(this.outsideClickHandle, this));
+      this.$departmentTrigger.on('click', $.proxy(this.triggerClick, this));
+      this.$departmentList.find('a').on('click', $.proxy(this.itemClick, this));
     },
 
-    setDropdown: function() {
-      var department = this.readState();
-      this.$departmentDropdown.find('[data-department="' + department + '"]').attr('selected', true);
-    },
-
-    visitDepartment: function(e) {
-      var $form = $(e.currentTarget);
-      var selectedDepartmentUrl = $form.closest('.my-intranet-form').find('.department :selected').attr('data-url');
-
-      e.preventDefault();
-
-      if(selectedDepartmentUrl) {
-        window.location.href = selectedDepartmentUrl;
+    outsideClickHandle: function(e) {
+      if(!$(e.target).closest(this.$myIntranetForm).length) {
+        this.toggleList(false);
       }
     },
 
+    initDropdown: function() {
+      var department = this.readState();
+      var text;
+
+      if(!department) {
+        text = this.$departmentList.find('li:first').text();
+      }
+      else {
+        text = this.$departmentList.find('li[data-department="' + department + '"]').text();
+      }
+
+      this.$departmentList.attr('data-department', department);
+      this.$departmentLabel.html(text);
+    },
+
+    triggerClick: function(e) {
+      e.preventDefault();
+      this.toggleList();
+    },
+
+    toggleList: function(toggle) {
+      this.$departmentList.toggleClass('visible', toggle);
+    },
+
+    itemClick: function(e) {
+      var $item = $(e.target);
+
+      e.preventDefault();
+      this.$departmentLabel.html($item.text());
+      this.$departmentList.attr('data-department', $item.closest('li').data('department'));
+      this.$departmentList.removeClass('visible');
+
+      this.saveState();
+    },
+
     saveState: function(e) {
-      var department = $(e.currentTarget).find(':selected').attr('data-department');
+      var department = this.$departmentList.attr('data-department');
       App.tools.setCookie(this.settings.cookieName, department, 3650);
     },
 
