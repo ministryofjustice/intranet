@@ -75,6 +75,7 @@
           $this->new_control_setting($wp_customize, 'need_to_know_headline'.$x, $section_name, 'Headline', 'text');
           $this->new_control_setting($wp_customize, 'need_to_know_url'.$x, $section_name, 'URL', 'text');
           $this->new_control_setting($wp_customize, 'need_to_know_image'.$x, $section_name, 'Image', 'image');
+          $this->new_control_setting($wp_customize, 'need_to_know_alt'.$x, $section_name, 'Image alt text', 'text');
         }
       }
 
