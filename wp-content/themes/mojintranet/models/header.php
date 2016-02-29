@@ -3,7 +3,54 @@
 class Header_model extends MVC_model {
   function get_data() {
     return array(
-      'my_moj' => $this->model->my_moj->get_data()
+      'my_moj' => $this->model->my_moj->get_data(),
+      'departments' => array(
+        array(
+          'name' => 'hm-courts-and-tribunals-service',
+          'label' => 'HM Courts &amp; Tribunals Service',
+          'url' => 'http://libra.lcd.gsi.gov.uk/hmcts/index.htm'
+        ),
+        array(
+          'name' => 'judicial-appointments-commission',
+          'label' => 'Judicial Appointments Commission',
+          'url' => 'http://jac.intranet.service.justice.gov.uk/'
+        ),
+        array(
+          'name' => 'judicial-office',
+          'label' => 'Judicial Office',
+          'url' => 'http://judicialoffice.intranet.service.justice.gov.uk/'
+        ),
+        array(
+          'name' => 'law-commission',
+          'label' => 'Law Commission',
+          'url' => 'http://lawcommission.intranet.service.justice.gov.uk/'
+        ),
+        array(
+          'name' => 'legal-aid-agency',
+          'label' => 'Legal Aid Agency',
+          'url' => 'http://intranet.justice.gsi.gov.uk/laa/'
+        ),
+        array(
+          'name' => 'noms',
+          'label' => 'National Offender Management Service',
+          'url' => 'https://intranet.noms.gsi.gov.uk/'
+        ),
+        array(
+          'name' => 'nps',
+          'label' => 'National Probation Service',
+          'url' => 'https://intranet.noms.gsi.gov.uk/'
+        ),
+        array(
+          'name' => 'opg',
+          'label' => 'OPG',
+          'url' => 'http://intranet.justice.gsi.gov.uk/opg/index.htm'
+        ),
+        array(
+          'name' => 'ospt',
+          'label' => 'OSPT',
+          'url' => 'http://intranet.justice.gsi.gov.uk/ospt/index.htm'
+        )
+      ),
     );
   }
 }
