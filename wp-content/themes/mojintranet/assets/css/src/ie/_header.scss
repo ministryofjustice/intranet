@@ -1,1 +1,13 @@
+.lte-ie8 .header {
+  .my-intranet-form {
+    .department-list {
+      a:hover .department-icon {
+        background-image: url('../images/department_crest_white.png');
+      }
 
+      .department-icon {
+        background-image: url('../images/department_crest.png');
+      }
+    }
+  }
+}
