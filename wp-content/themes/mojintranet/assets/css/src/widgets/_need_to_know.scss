@@ -2,6 +2,10 @@
 
   position: relative;
 
+  h3 {
+    @extend %medium-heading;
+  }
+
   .slide-list {
     @include clearfix;
 
