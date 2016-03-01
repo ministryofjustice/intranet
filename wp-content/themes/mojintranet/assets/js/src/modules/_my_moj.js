@@ -4,7 +4,7 @@
   var App = window.App;
 
   App.MyMoj = function() {
-    if($('head').hasClass('template-home')) { return; }
+    if(1 || $('head').hasClass('template-home')) { return; }
     this.init();
     this.isOpen = false;
   };
