@@ -68,7 +68,7 @@
           $section_name = 'need_to_know' . $x;
           $wp_customize->add_section( $section_name, array(
             'capability'      => 'edit_theme_options',
-            'title'           => 'Tab ' . $x,
+            'title'           => 'Slide ' . $x,
             'panel'           => 'need_to_know_customisation',
           ) );
 
