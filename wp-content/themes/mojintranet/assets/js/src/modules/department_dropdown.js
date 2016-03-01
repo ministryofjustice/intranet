@@ -84,7 +84,6 @@
     updateLabels: function(text, department) {
       this.$departmentLabel.html(text);
       this.$agencyLinkLabel.html(text);
-      console.log(department);
       this.$departmentList.attr('data-department', department);
       this.$agencyLinkItem.attr('data-department', department);
     },
