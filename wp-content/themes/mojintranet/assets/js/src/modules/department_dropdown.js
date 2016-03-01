@@ -56,7 +56,6 @@
       }
 
       this.updateLabels(text, department);
-      this.$agencyLinkList.removeClass('hidden');
     },
 
     triggerClick: function(e) {
@@ -86,6 +85,9 @@
       this.$agencyLinkLabel.html(text);
       this.$departmentList.attr('data-department', department);
       this.$agencyLinkItem.attr('data-department', department);
+
+      //note: in the future this should be controlled with an extra property on the model
+      this.$agencyLinkList.toggleClass('hidden', department === 'hq');
     },
 
     saveState: function(e) {
