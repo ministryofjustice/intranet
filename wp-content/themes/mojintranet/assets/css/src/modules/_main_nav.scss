@@ -84,9 +84,12 @@
       width: 100%;
       border-left: 1px solid #979797;
 
-      .category-link {
-        border-left: none;
+      &.current .category-link {
         border-bottom: 1px solid #979797;
+      }
+
+      .category-link:first-child {
+        border-left: none;
       }
     }
   }
