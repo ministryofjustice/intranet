@@ -13,32 +13,12 @@
     padding-top: 10px;
   }
 
-  .visit-cta {
-    margin-top: 10px;
-    line-height: 18px;
-  }
-
   .app-name {
     padding-top: 4px;
   }
 }
 
 .lte-ie8 .my-moj {
-  .label,
-  .department {
-    vertical-align: middle;
-  }
-
-  .department {
-    width: 240px;
-    height: auto;
-    background-image: url('../images/my_moj_dropdown_bg.png');
-  }
-
-  .visit-cta {
-    background-image: url('../images/go_icon.png');
-  }
-
   .apps-list {
     .app-icon-inner {
       background-image: url('../images/app_icons.png');
@@ -58,16 +38,6 @@
 
     .app-icon-inner {
       background-image: url('../images/app_icons_hover.png');
-    }
-  }
-}
-
-.lte-ie9 .my-moj {
-  .department {
-    padding-right: 5px;
-
-    option {
-      background-color: transparent;
     }
   }
 }

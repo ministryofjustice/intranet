@@ -48,12 +48,12 @@ class Header_model extends MVC_model {
         ),
         array(
           'name' => 'opg',
-          'label' => 'OPG',
+          'label' => 'Office of the Public Guardian',
           'url' => 'http://intranet.justice.gsi.gov.uk/opg/index.htm'
         ),
         array(
           'name' => 'ospt',
-          'label' => 'OSPT',
+          'label' => 'Official Solicitor and Public Trustee',
           'url' => 'http://intranet.justice.gsi.gov.uk/ospt/index.htm'
         )
       ),

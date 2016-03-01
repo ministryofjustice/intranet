@@ -38,6 +38,7 @@
   .my-intranet-form {
     position: relative;
     display: inline-block;
+    padding: 6px 0;
     z-index: 1;
 
     .department-dropdown-trigger {
@@ -92,6 +93,19 @@
   .template-search-results & {
     .search-form {
       display: none;
+    }
+  }
+}
+
+@include mobile-mq() {
+  .header {
+    .user-bar {
+      text-align: left;
+    }
+
+    .department-list {
+      right: 0;
+      left: 0;
     }
   }
 }
