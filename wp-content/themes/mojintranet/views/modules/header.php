@@ -20,14 +20,8 @@
           <span class="dropdown-icon">▼</span>
         </a>
         <ul class="department-list">
-          <li data-department="select-department">
-            <a href="#">
-              <span class="department-icon"></span>
-              My agency or body
-            </a>
-          </li>
           <?php foreach($departments as $department): ?>
-            <li data-url="<?=$department['url']?>" data-department="<?=$department['name']?>">
+            <li class="agency" data-url="<?=$department['url']?>" data-department="<?=$department['name']?>" data-default="<?=$department['default']?>">
               <a href="#">
                 <span class="department-icon"></span>
                 <?=$department['label']?>
