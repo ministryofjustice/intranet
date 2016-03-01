@@ -18,7 +18,7 @@
           <span class="label">What's wrong with this page? <span class="required">*</span></span>
           <textarea name="feedback" class="feedback-field"></textarea>
         </label>
-        <input class="report-cta" type="submit" value="Report" />
+        <input class="cta cta-positive report-cta" type="submit" value="Report" />
       </form>
     </div>
   </div>
