@@ -30,9 +30,9 @@
 
     cacheEls: function() {
       this.$slidesList = this.$top.find('.slide-list');
+      this.$slideNav = this.$top.find('.need-to-know-pagination');
       this.$leftNav = this.$top.find('.left-arrow');
       this.$rightNav = this.$top.find('.right-arrow');
-      this.$pageIndicator = this.$top.find('.need-to-know-page-indicator');
     },
 
     bindEvents: function() {
@@ -62,7 +62,18 @@
       });
 
       this.$slides = this.$slidesList.find('.results-item');
-      this.markSlideAsActive(this.$slides.first());
+
+      var randomSlide = Math.floor(Math.random()*this.$slides.length);
+
+      this.markSlideAsActive(this.$slides.eq(randomSlide));
+
+      if(this.$slides.length===0) {
+        this.$top.addClass('hidden');
+      }
+
+      if(this.$slides.length===1) {
+        this.$slideNav.addClass('hidden');
+      }
 
       this.resultsLoaded = true;
       this.$top.removeClass('loading');
@@ -74,7 +85,7 @@
       $child.find('.need-to-know-link').attr('href', data.url);
       $child.find('.need-to-know-image').attr('src', data.image_url);
       $child.find('.need-to-know-image').attr('alt', data.image_alt);
-      $child.find('.need-to-know-title').html(data.title);
+      $child.find('.need-to-know-title .need-to-know-link').html(data.title);
 
       return $child;
     },
@@ -108,8 +119,6 @@
 
       this.$slides.removeClass('current-slide');
       $element.addClass('current-slide');
-
-      this.$pageIndicator.html((slideIndex + 1) + '/' + this.$slides.length);
     }
   };
 }(jQuery));
