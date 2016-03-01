@@ -73,6 +73,7 @@
 
       $child.find('.need-to-know-link').attr('href', data.url);
       $child.find('.need-to-know-image').attr('src', data.image_url);
+      $child.find('.need-to-know-image').attr('alt', data.image_alt);
       $child.find('.need-to-know-title').html(data.title);
 
       return $child;

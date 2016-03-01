@@ -13,6 +13,7 @@ class Need_to_know_model extends MVC_model {
       $slide['title'] = get_option('need_to_know_headline' . $a)?:'';
       $slide['url'] = get_option('need_to_know_url' . $a)?:'';
       $slide['image_url'] = get_option('need_to_know_image' . $a)?:'';
+      $slide['image_alt'] = get_option('need_to_know_alt' . $a)?:'';
       $data['results'][] = $slide;
     }
 
