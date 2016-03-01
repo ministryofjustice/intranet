@@ -1,6 +1,10 @@
 .header {
   background: $black;
 
+  .mobile-msg {
+    display: none;
+  }
+
   .skip-to-content-container {
     height: 0;
     padding-top: 10px;
@@ -99,6 +103,21 @@
 
 @include mobile-mq() {
   .header {
+    .mobile-msg {
+      display: block;
+      margin-bottom: 10px;
+      background-color: $orange-25;
+
+      p {
+        padding: 8px 15px;
+        text-align: center;
+      }
+    }
+
+    .skip-to-content-container {
+      display: none;
+    }
+
     .user-bar {
       text-align: left;
     }
@@ -107,5 +126,6 @@
       right: 0;
       left: 0;
     }
+
   }
 }

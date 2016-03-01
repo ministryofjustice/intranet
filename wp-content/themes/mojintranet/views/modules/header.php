@@ -7,6 +7,9 @@
     </div>
   </div>
 
+  <div class="mobile-msg mobile-only">
+    <p>&lt;Placeholder: mobile-only message explaining that we're working on the mobile design&gt;</p>
+  </div>
   <div class="grid header-top">
     <div class="site-logo col-lg-6 col-md-6 col-sm-12">
       <a href="<?=WP_SITEURL?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home">
