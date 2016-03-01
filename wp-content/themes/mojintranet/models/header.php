@@ -31,6 +31,12 @@ class Header_model extends MVC_model {
           'url' => 'http://intranet.justice.gsi.gov.uk/laa/'
         ),
         array(
+          'name' => 'hq',
+          'label' => 'Ministry of Justice HQ',
+          'url' => '',
+          'default' => true
+        ),
+        array(
           'name' => 'noms',
           'label' => 'National Offender Management Service',
           'url' => 'https://intranet.noms.gsi.gov.uk/'

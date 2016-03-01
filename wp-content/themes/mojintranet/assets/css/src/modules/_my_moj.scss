@@ -10,38 +10,6 @@
     }
   }
 
-  [data-department]:before {
-    background-image: url('../images/department_crest_x2.png');
-  }
-
-  [data-department="select-department"]:before {
-    background-position: 100px 100px;
-  }
-
-  [data-department="legal-aid-agency"],
-  [data-department="hm-courts-and-tribunals-service"],
-  [data-department="judicial-office"],
-  [data-department="nps"],
-  [data-department="noms"],
-  [data-department="opg"],
-  [data-department="ospt"] {
-    &:before {
-      background-position: -12px -12px;
-    }
-  }
-
-  [data-department="judicial-appointments-commission"]:before {
-    background-position: -62px -12px;
-  }
-
-  [data-department="law-commission"]:before {
-    background-position: -112px -12px;
-  }
-
-  [data-department="probation"]:before {
-    background-position: -162px -12px;
-  }
-
   .apps-list {
     @include clearfix;
 
@@ -174,6 +142,53 @@
         &:first-of-type a {
           margin-top: 0;
         }
+      }
+    }
+  }
+
+  .agency-link-list {
+    &.hidden {
+      display: none;
+    }
+
+    .agency {
+      a {
+        @include clearfix;
+        display: block;
+        padding: 0;
+
+        &:hover {
+          text-decoration: none;
+
+          .department-icon-box {
+            background-color: $govuk-blue;
+          }
+
+          .label {
+            text-decoration: underline;
+          }
+        }
+      }
+
+      .department-icon-box {
+        display: inline-block;
+        padding: 3px;
+        border: 1px solid $grey-2;
+        vertical-align: middle;
+
+        .department-icon {
+          float: none;
+          display: block;
+          margin: 0;
+        }
+      }
+
+      .label {
+        @extend %large-copy;
+        display: inline-block;
+        width: 85%;
+        padding-left: 10px;
+        vertical-align: middle;
       }
     }
   }

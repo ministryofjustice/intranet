@@ -50,7 +50,7 @@
       position: absolute;
       display: none;
       right: 0;
-      width: 300px;
+      width: 320px;
       margin: 0;
       padding: 5px 0;
       border: 1px solid #333;
@@ -59,21 +59,20 @@
       &.visible {
         display: block;
       }
+    }
 
-      a {
-        display: block;
-        padding: 5px 15px;
-        text-align: left;
+    .agency a {
+      text-align: left;
+      color: $black;
 
-        &:hover {
-          background-color: $grey-3;
-          text-decoration: none;
-          color: $govuk-blue;
-        }
+      &:hover {
+        background-color: $govuk-blue;
+        text-decoration: none;
+        color: $white;
+      }
 
-        &:focus {
-          outline: none;
-        }
+      &:focus {
+        outline: none;
       }
     }
   }

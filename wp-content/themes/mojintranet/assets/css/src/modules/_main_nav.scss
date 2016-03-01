@@ -75,6 +75,19 @@
 
 @include mobile-mq() {
   .header-menu {
-    display: none;
+    .categories-list {
+      display: block;
+    }
+
+    .category-item {
+      display: block;
+      width: 100%;
+      border-left: 1px solid #979797;
+
+      .category-link {
+        border-left: none;
+        border-bottom: 1px solid #979797;
+      }
+    }
   }
 }

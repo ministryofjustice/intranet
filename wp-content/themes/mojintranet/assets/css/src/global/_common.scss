@@ -1,3 +1,6 @@
+$icon-padding: 12px;
+$grid-size: 50px;
+
 .clearfix {
   &:after {
     content: "";
@@ -109,4 +112,57 @@
   height: 10px;
   background-image: url('../images/breadcrumb_separator_x2.png');
   background-size: 100% 100%;
+}
+
+.agency {
+  a {
+    display: block;
+    padding: 8px 15px;
+
+    &:hover {
+      .department-icon {
+        background-image: url('../images/department_crest_white_x2.png');
+      }
+    }
+  }
+
+  .department-icon {
+    float: left;
+    width: 26px;
+    height: 26px;
+    margin-top: -4px;
+    margin-right: 5px;
+    background-image: url('../images/department_crest_x2.png');
+    background-size: auto 50px;
+    vertical-align: middle;
+  }
+
+  &[data-department="select-department"] .department-icon {
+    background-image: none !important;
+  }
+
+  &[data-department="legal-aid-agency"],
+  &[data-department="hm-courts-and-tribunals-service"],
+  &[data-department="judicial-office"],
+  &[data-department="nps"],
+  &[data-department="noms"],
+  &[data-department="opg"],
+  &[data-department="ospt"],
+  &[data-department="hq"] {
+    .department-icon {
+      background-position: (-$icon-padding) (-$icon-padding);
+    }
+  }
+
+  &[data-department="judicial-appointments-commission"] .department-icon {
+    background-position: (-$grid-size * 1 - $icon-padding) (-$icon-padding);
+  }
+
+  &[data-department="law-commission"] .department-icon {
+    background-position: (-$grid-size * 2 - $icon-padding) (-$icon-padding);
+  }
+
+  &[data-department="probation"] .department-icon {
+    background-position: (-$grid-size * 3 - $icon-padding) (-$icon-padding);
+  }
 }
