@@ -12,7 +12,7 @@ class Need_to_know_model extends MVC_model {
     for($a = $options['start']; $a <= $options['length']; $a++) {
       $slide['title'] = get_option('need_to_know_headline' . $a)?:'';
       $slide['url'] = get_option('need_to_know_url' . $a)?:'';
-      $slide['image_url'] = get_option('need_to_know_image' . $a)?:'';
+      $slide['image_url'] = $this->get_correct_image(get_option('need_to_know_image' . $a))?:'';
       $slide['image_alt'] = get_option('need_to_know_alt' . $a)?:'';
       $data['results'][] = $slide;
     }
@@ -37,6 +37,12 @@ class Need_to_know_model extends MVC_model {
     }
 
     return $default;
+  }
+
+  private function get_correct_image($url) {
+    $attachment_id = get_attachment_id_from_url($url);
+    $thumbnail = wp_get_attachment_image_src($attachment_id, 'need-to-know');
+    return $thumbnail[0];
   }
 
 }

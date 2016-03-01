@@ -6,7 +6,7 @@ add_image_size( "intranet-small", 280, 182, true );
 add_image_size( "user-thumb", 128, 128, true );
 
 // This one is 4:2 (2:1)
-add_image_size( "need-to-know", 650, 325, true );
+add_image_size( "need-to-know", 768, 384, true );
 
 // Force minimum image dimensions (if not admin)
 add_action( 'admin_init', 'dw_force_image_dimensions' );
