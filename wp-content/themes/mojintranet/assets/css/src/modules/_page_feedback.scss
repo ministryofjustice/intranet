@@ -77,32 +77,4 @@
       background-color: $red-25;
     }
   }
-
-  .report-cta {
-    @extend %medium-copy;
-    position: relative;
-    display: inline-block;
-    padding: 8px 15px 5px;
-
-    background-color: $button-colour;
-    box-shadow: 0 2px 0 #003518;
-    color: #ffffff;
-    cursor: pointer;
-    text-decoration: none;
-    vertical-align: top;
-
-    &:focus {
-      outline: 3px solid #ffbf47;
-    }
-
-    &:hover,
-    &:focus {
-      background-color: #00692f;
-    }
-
-    &:active {
-      top: 2px;
-      box-shadow: none;
-    }
-  }
 }

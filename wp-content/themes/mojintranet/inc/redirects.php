@@ -27,6 +27,10 @@ function dw_redirects() {
 }
 
 function dw_rewrite_rules() {
+  //register url parameters
+  add_rewrite_tag('%search-filter%', '([^&]+)');
+  add_rewrite_tag('%search-string%', '([^&]+)');
+
   //News page
   $regex = '^newspage/page/([0-9]+)/(.*)';
   $redirect = 'index.php?page_id=' . get_page_by_path('newspage')->ID;
@@ -46,17 +50,20 @@ function dw_rewrite_rules() {
   $regex = '^search-results/([^/]*)/([^/]*)/?';
   $redirect = 'index.php?page_id=' . get_page_by_path('search-results')->ID . '&search-filter=$matches[1]&search-string=$matches[2]';
   add_rewrite_rule($regex, $redirect, 'top');
-  add_rewrite_tag('%search-filter%', '([^&]+)');
-  add_rewrite_tag('%search-string%', '([^&]+)');
+
+  //Webchat archive page
+  $regex = '^webchats/archive/?';
+  $redirect = 'index.php?page_id=' . get_page_by_path('webchats/archive')->ID;
+  add_rewrite_rule($regex, $redirect, 'top');
 
   // ping.json
   $regex = '^ping.json';
   $redirect = 'wp-content/themes/mojintranet/ping.php';
   add_rewrite_rule($regex, $redirect, 'top');
 
-  //Webchat archive page
-  $regex = '^webchats/archive/?';
-  $redirect = 'index.php?page_id=' . get_page_by_path('webchats/archive')->ID;
+  //API service
+  $regex = '^service/(.*)';
+  $redirect = 'index.php?controller=service&param_string=$matches[1]';
   add_rewrite_rule($regex, $redirect, 'top');
 }
 add_action('init', 'dw_redirects');

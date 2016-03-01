@@ -62,7 +62,6 @@ class Page_events extends MVC_controller {
   }
 
   private function get_months_from_api() {
-    $results = new months_request('event');
-    return $results->results_array;
+    return $this->model->months->get_list();
   }
 }
