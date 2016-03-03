@@ -14,11 +14,11 @@
     @include clearfix;
 
     li {
+      display: none;
+      position: relative;
       padding: 0;
       background-color: $govuk-blue;
-      display: none;
       color: white;
-      position: relative;
 
       &.current-slide {
         display: block;
@@ -35,6 +35,7 @@
   }
 
   .need-to-know-image-container {
+    display: block;
 
     .need-to-know-image {
       max-width: 100%;
@@ -56,14 +57,15 @@
       float: right;
 
       .nav-arrow {
+        float: left;
         display: block;
         width: 25px;
         height: 25px;
         background-size: 14px 21px;
         background-repeat: no-repeat;
         background-position: center;
-        float: left;
-        font-size: 0;
+        text-indent: -1000px;
+        overflow: hidden;
 
         &:hover {
           cursor: pointer;
