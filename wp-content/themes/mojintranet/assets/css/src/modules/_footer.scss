@@ -14,7 +14,7 @@
 
     li {
       @extend %medium-copy;
-      display: inline-block;
+      display: inline;
       margin-right: 15px;
 
       &.built-by:before {
