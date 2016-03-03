@@ -126,3 +126,5 @@ wp-content/plugins/
 /wp-content/plugins/recently-edited-content-widget
 /wp-content/plugins/relevanssi-premium
 /wp-content/plugins/wp-document-revisions
+
+debug.log

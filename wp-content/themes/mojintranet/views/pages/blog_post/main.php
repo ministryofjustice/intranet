@@ -1,6 +1,6 @@
 <?php if (!defined('ABSPATH')) die(); ?>
 
-<div class="template-container" data-post-id="<?=$id?>" data-nonce="<?=$nonce?>" data-likes-count="<?=$likes_count?>">
+<div class="template-container" data-post-id="<?=$id?>" data-likes-count="<?=$likes_count?>">
   <div class="grid">
     <div class="col-lg-12 col-md-12 col-sm-12">
       <form class="standard test" style="margin-top: 20px">
