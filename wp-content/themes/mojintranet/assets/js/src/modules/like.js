@@ -19,7 +19,6 @@
       };
 
       this.postId = this.$top.attr('data-post-id');
-      this.nonce = this.$top.attr('data-nonce');
       this.likesCount = parseInt(this.$top.attr('data-likes-count'), 10);
       this.applicationUrl = $('head').data('application-url');
       this.serviceUrl = this.applicationUrl+'/service/likes/post/' + this.postId;
@@ -81,9 +80,6 @@
         url: this.serviceUrl,
         method: 'put',
         dataType: 'json',
-        data: {
-          nonce: this.nonce
-        },
         contentType: 'text',
         success: $.proxy(this.likeSuccess, _this),
         error: $.proxy(this.likeError, _this)

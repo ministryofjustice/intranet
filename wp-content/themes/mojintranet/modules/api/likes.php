@@ -36,12 +36,16 @@ class Likes_API extends API {
   protected function read() {
     $data = $this->MVC->model->likes->read($this->params['content_type'],$this->params['id']);
     $data['url_params'] = $this->params;
-    $this->response($data, 200);
+    $data['timestamp'] = time();
+    $data['server'] = gethostname();
+    $this->response($data, 200, 0);
   }
 
   protected function update() {
-    $data = $this->MVC->model->likes->update($this->params['content_type'],$this->params['id'], $this->put('nonce'));
+    $data = $this->MVC->model->likes->update($this->params['content_type'],$this->params['id']);
     $data['url_params'] = $this->params;
-    $this->response($data, 200);
+    $data['timestamp'] = time();
+    $data['server'] = gethostname();
+    $this->response($data, 200, 0);
   }
 }
