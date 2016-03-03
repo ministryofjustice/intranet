@@ -13,5 +13,6 @@
         <time class="date"></time>
       </div>
     </article>
+    <span class="ie-clear"></span>
   </li>
 </script>

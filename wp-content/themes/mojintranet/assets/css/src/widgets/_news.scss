@@ -1,12 +1,12 @@
 .template-home .news-widget {
   &.news-list-widget {
     article {
-      @include clearfix;
       border-top: 1px solid $grey-2;
       padding-top: 10px;
     }
 
     .news-item {
+      @include clearfix;
       margin: 10px 0;
     }
 
@@ -21,9 +21,6 @@
 
     .news-content {
       overflow: hidden;
-    }
-
-    .news-list {
     }
   }
 
