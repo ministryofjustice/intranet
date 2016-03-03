@@ -23,11 +23,16 @@
     right: -36px;
     top: 0px;
     width: 36px;
+    height: 36px;
     padding: 0;
     overflow: hidden;
     background-color: $govuk-blue;
     border-width: 0;
     text-indent: -5000px;
+    background-image: url('../images/search_icon.png');
+    /*background-size: 18px 18px;*/
+    background-repeat: no-repeat;
+    background-position: center;
     cursor: pointer;
   }
 }

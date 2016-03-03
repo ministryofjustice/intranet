@@ -4,11 +4,6 @@
       width: expression((this.parentNode.clientWidth - parseInt(this.currentStyle['paddingLeft']) - parseInt(this.currentStyle['paddingRight']) - parseInt(this.currentStyle['borderLeftWidth']) - parseInt(this.currentStyle['borderRightWidth'])) + 'px');
       height: 16px;
     }
-
-    .search-btn {
-      top: 4px;
-      height: 38px;
-    }
   }
 
   .ui-autocomplete {
@@ -21,6 +16,12 @@
     .keywords-field {
       padding-top: 10px;
       padding-bottom: 10px;
+    }
+
+    .search-btn {
+      height: 39px;
+      width: 39px;
+      background-image: url('../images/search_icon.png');
     }
   }
 }
