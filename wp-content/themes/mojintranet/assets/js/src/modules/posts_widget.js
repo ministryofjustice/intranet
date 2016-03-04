@@ -63,13 +63,11 @@
       var $child = $(this.itemTemplate);
       var date = App.tools.parseDate(data.timestamp);
       var author = data.authors[0];
+      var author_thumbnail = author.thumbnail_url || this.genericThumbnailPath;
+      var author_thumbnail_alt_text = author.thumbnail_alt_text || '';
 
-      if(!data.thumbnail_url) {
-        data.thumbnail_url = this.genericThumbnailPath;
-        data.thumbnail_alt_text = 'generic blog thumbnail';
-      }
-
-      $child.find('.post-thumbnail').attr('src', author.thumbnail_url);
+      $child.find('.post-thumbnail').attr('src', author_thumbnail);
+      $child.find('.post-thumbnail').attr('alt', author_thumbnail_alt_text);
       $child.find('.post-title .post-link').attr('href', data.url);
       $child.find('.post-title .post-link').html(data.title);
       $child.find('.post-link, .post-link-thumbnail').attr('href', data.url);
