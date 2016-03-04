@@ -18,6 +18,7 @@
     </div>
     <div class="user-bar col-lg-6 col-md-6 col-sm-12">
       <form class="my-intranet-form">
+        <span class="department-dropdown-description">Intranet:</span>
         <a href="#" class="department-dropdown-trigger">
           <span class="label"></span>
           <span class="dropdown-icon">▼</span>
@@ -32,6 +33,11 @@
             </li>
           <?php endforeach ?>
         </ul>
+
+        <div class="tooltip my-agency-tooltip">
+          <span class="triangle"></span>
+          <p>Please select your agency or public body</p>
+        </div>
       </form>
     </div>
   </div>

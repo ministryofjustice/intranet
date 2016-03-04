@@ -37,6 +37,32 @@
 
   .user-bar {
     text-align: right;
+
+    .my-agency-tooltip {
+      position: absolute;
+      top: 40px;
+      right: 0;
+      z-index: 1;
+      background-color: $yellow-25;
+      border: 1px solid $yellow;
+
+      .triangle {
+        position: absolute;
+        top: -11px;
+        left: 50%;
+        width: 24px;
+        height: 11px;
+        margin-left: -12px;
+        background-image: url('../images/tooltip_triangle_x2.png');
+        background-size: 100%;
+      }
+
+      p {
+        padding: 5px 10px;
+        text-align: center;
+        white-space: nowrap;
+      }
+    }
   }
 
   .my-intranet-form {
@@ -44,6 +70,10 @@
     display: inline-block;
     padding: 6px 0;
     z-index: 1;
+
+    .department-dropdown-description {
+      color: $white;
+    }
 
     .department-dropdown-trigger {
       color: $white;
