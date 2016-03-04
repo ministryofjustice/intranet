@@ -40,10 +40,16 @@
 
     .my-agency-tooltip {
       position: absolute;
+      display: none;
       top: 40px;
       right: 0;
       background-color: $yellow-25;
       border: 1px solid $yellow;
+      cursor: pointer;
+
+      &.visible {
+        display: block;
+      }
 
       .triangle {
         position: absolute;
@@ -151,6 +157,10 @@
 
     .user-bar {
       text-align: left;
+
+      .my-agency-tooltip {
+        display: none;
+      }
     }
 
     .department-list {

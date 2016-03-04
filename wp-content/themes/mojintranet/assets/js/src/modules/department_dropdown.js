@@ -28,12 +28,15 @@
       this.$agencyLinkList = $('.my-moj .agency-link-list');
       this.$agencyLinkItem = this.$agencyLinkList.find('.agency');
       this.$agencyLinkLabel = this.$agencyLinkList.find('.label');
+
+      this.$tooltip = this.$myIntranetForm.find('.my-agency-tooltip');
     },
 
     bindEvents: function() {
       $(document).on('click', $.proxy(this.outsideClickHandle, this));
       this.$departmentTrigger.on('click', $.proxy(this.triggerClick, this));
       this.$departmentList.find('a').on('click', $.proxy(this.itemClick, this));
+      this.$tooltip.on('click', $.proxy(this.toggleTooltip, this, false));
     },
 
     outsideClickHandle: function(e) {
@@ -43,6 +46,7 @@
     },
 
     initDropdown: function() {
+      var _this = this;
       var department = this.readState();
       var text;
       var $defaultItem = this.$departmentList.find('li[data-default="1"]');
@@ -50,12 +54,22 @@
       if(!department) {
         department = $defaultItem.attr('data-department');
         text = $defaultItem.text();
+        this.toggleTooltip(true);
       }
       else {
         text = this.$departmentList.find('li[data-department="' + department + '"]').text();
       }
 
       this.updateLabels(text, department);
+      this.saveState();
+
+      window.setTimeout(function() {
+        _this.toggleTooltip(false);
+      }, 20000);
+    },
+
+    toggleTooltip: function(toggle) {
+      this.$tooltip.toggleClass('visible', toggle);
     },
 
     triggerClick: function(e) {
@@ -78,6 +92,7 @@
       this.updateLabels(text, department);
 
       this.saveState();
+      this.toggleTooltip(false);
     },
 
     updateLabels: function(text, department) {
