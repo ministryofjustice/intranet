@@ -2,6 +2,7 @@
   .category-name {
     @extend %large-heading;
     border-bottom: 2px solid $grey-1;
+    margin-top: 20px;
   }
 
   .see-all-container {
