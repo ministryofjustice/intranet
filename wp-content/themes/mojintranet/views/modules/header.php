@@ -8,7 +8,7 @@
   </div>
 
   <div class="mobile-msg mobile-only">
-    <p>&lt;Placeholder: mobile-only message explaining that we're working on the mobile design&gt;</p>
+    <p>We are working towards improving your mobile intranet experience - please bear with us.</p>
   </div>
   <div class="grid header-top">
     <div class="site-logo col-lg-6 col-md-6 col-sm-12">
