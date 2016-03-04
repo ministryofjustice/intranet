@@ -42,7 +42,6 @@
       position: absolute;
       top: 40px;
       right: 0;
-      z-index: 1;
       background-color: $yellow-25;
       border: 1px solid $yellow;
 
@@ -84,12 +83,14 @@
     .department-list {
       position: absolute;
       display: none;
+      top: 25px;
       right: 0;
       width: 320px;
       margin: 0;
       padding: 5px 0;
       border: 1px solid #333;
       background-color: $white;
+      z-index: 1;
 
       &.visible {
         display: block;
