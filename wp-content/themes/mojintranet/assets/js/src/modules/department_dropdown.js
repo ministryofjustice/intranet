@@ -28,6 +28,7 @@
       this.$agencyLinkList = $('.my-moj .agency-link-list');
       this.$agencyLinkItem = this.$agencyLinkList.find('.agency');
       this.$agencyLinkLabel = this.$agencyLinkList.find('.label');
+      this.$agencyLink = this.$agencyLinkList.find('.agency-link');
 
       this.$tooltip = this.$myIntranetForm.find('.my-agency-tooltip');
     },
@@ -96,13 +97,14 @@
     },
 
     updateLabels: function(text, department) {
+      var link = this.$departmentList.find('.agency[data-department="' + department + '"]').attr('data-url');
+
       this.$departmentLabel.html(text);
       this.$agencyLinkLabel.html(text);
       this.$departmentList.attr('data-department', department);
       this.$agencyLinkItem.attr('data-department', department);
-
-      //note: in the future this should be controlled with an extra property on the model
-      this.$agencyLinkList.toggleClass('hidden', department === 'hq');
+      this.$agencyLink.attr('href', link);
+      this.$agencyLinkList.toggleClass('hidden', !link.length);
     },
 
     saveState: function(e) {

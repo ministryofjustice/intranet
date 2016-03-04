@@ -9,11 +9,11 @@
     <h2 class="category-name">My MoJ</h2>
     <ul class="agency-link-list hidden">
       <li class="agency" data-department="opg">
-        <a href="">
+        <a class="agency-link" href="">
           <span class="department-icon-box">
             <span class="department-icon"></span>
           </span>
-          <span class="label">National Offender Management Service</span>
+          <span class="label"></span>
         </a>
       </li>
     </ul>
