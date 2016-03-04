@@ -195,6 +195,14 @@
       }
 
       return dateObject.getDate() + ' ' + month + ' ' + dateObject.getFullYear();
+    },
+
+    /** Changes the first character of the string to upper case
+     * @param {String} string Input string
+     * @returns {String} Converted string
+     */
+    ucfirst: function(string) {
+      return string.charAt(0).toUpperCase() + string.substr(1);
     }
   };
 }(jQuery));
