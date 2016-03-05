@@ -134,7 +134,13 @@
         // the callback functions that javascript provides to flash must be globally accessible
         SwfStore[config.namespace] = this;
 
-        var swfContainer = div(config.debug);
+        var swfContainer = div(true);
+        swfContainer.style.position = 'fixed';
+        swfContainer.style.bottom = '0px';
+        swfContainer.style.right = '0px';
+        swfContainer.style.height = '1px';
+        swfContainer.style.width = '1px';
+        swfContainer.style.overflow = 'hidden';
 
         var swfName = id();
 
@@ -253,7 +259,6 @@
          * @private
          */
         onload: function() {
-          alert('onload');
             // deal with scope the easy way
             var that = this;
             // wrapping everything in a timeout so that the JS can finish initializing first

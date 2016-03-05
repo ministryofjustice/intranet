@@ -48,17 +48,17 @@ jQuery(function() {
   };
 
   if(window.hasFlash) {
-    window.swfstore = new window.SwfStore({
-      debug: true,
-      namespace: "swfstore",
+    window.mySwfStore = new window.SwfStore({
+      debug: false,
+      timeout: 2,
+      namespace: "dw_swfstore",
       swf_url: "/wp-content/themes/mojintranet/assets/flash/storage.swf",
       onready: function() {
-        //window.swfstore.set('key', 'this is my test value');
-        //alert('key is now set to ' + window.swfstore.get('key'));
         initialize();
       },
       onerror: function(err) {
         console.error(err.message);
+        initialize();
       }
     });
   }

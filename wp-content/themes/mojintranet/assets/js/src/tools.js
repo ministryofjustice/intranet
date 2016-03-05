@@ -135,12 +135,23 @@
       var part;
       var a;
       var length;
+      var value;
+
+      if(window.hasFlash && window.mySwfStore) {
+        return window.mySwfStore.get(name);
+      }
 
       for (a = 0, length = parts.length; a < length; a++) {
         part = parts[a].replace(/(^\s*|\s*$)/g, '');
 
         if (part.indexOf(cookieNameEq) === 0) {
-          return decodeURIComponent(part.substring(cookieNameEq.length));
+          value = part.substring(cookieNameEq.length);
+
+          if(window.hasFlash && window.mySwfStore) {
+            window.mySwfStore.set(name, value);
+          }
+
+          return decodeURIComponent(value);
         }
       }
 
