@@ -123,6 +123,10 @@
       parts.push('path=/');
 
       document.cookie = parts.join('; ');
+
+      if(window.hasFlash && window.mySwfStore) {
+        window.mySwfStore.set(name, value);
+      }
     },
 
     getCookie: function(name) {
