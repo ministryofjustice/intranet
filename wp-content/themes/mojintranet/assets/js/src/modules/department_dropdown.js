@@ -51,14 +51,15 @@
       var department = this.readState();
       var text;
       var $defaultItem = this.$departmentList.find('li[data-default="1"]');
+      var $selectedDepartment = this.$departmentList.find('li[data-department="' + department + '"]');
 
-      if(!department) {
+      if(!department || !$selectedDepartment.length) {
         department = $defaultItem.attr('data-department');
         text = $defaultItem.text();
         this.toggleTooltip(true);
       }
       else {
-        text = this.$departmentList.find('li[data-department="' + department + '"]').text();
+        text = $selectedDepartment.text();
       }
 
       this.updateLabels(text, department);
