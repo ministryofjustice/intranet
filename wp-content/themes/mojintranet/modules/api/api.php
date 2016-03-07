@@ -39,7 +39,7 @@ abstract class API {
     else {
       if($cache_timeout) {
         header('Cache-Control: public, max-age=' . $cache_timeout);
-        header('Expires: '.gmdate($date_format, time() + ($cache_timeout?:60)));
+        header('Expires: '.gmdate($date_format, time() + $cache_timeout));
         header_remove("Pragma");
       } else {
         header('Cache-Control: private, max-age=0, no-cache');

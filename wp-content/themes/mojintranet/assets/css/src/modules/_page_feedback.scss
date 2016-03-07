@@ -44,65 +44,19 @@
     }
   }
 
-  .form-row {
-    display: block;
-    margin-bottom: 10px;
-  }
-
-  .label {
-    @extend %medium-copy;
-    display: block;
-    margin-bottom: 5px;
-  }
-
-  .required {
-    color: $red;
-  }
-
   .feedback-field {
     width: 100%;
     min-height: 80px;
-    padding: 3px 6px;
-    border: 1px solid #888;
   }
 
-  .text {
-    padding: 3px 6px;
-    border: 1px solid #888;
+  .report-cta {
+    margin-top: 10px;
   }
 
   .error {
     .text,
     .feedback-field {
       background-color: $red-25;
-    }
-  }
-
-  .report-cta {
-    @extend %medium-copy;
-    position: relative;
-    display: inline-block;
-    padding: 8px 15px 5px;
-
-    background-color: $button-colour;
-    box-shadow: 0 2px 0 #003518;
-    color: #ffffff;
-    cursor: pointer;
-    text-decoration: none;
-    vertical-align: top;
-
-    &:focus {
-      outline: 3px solid #ffbf47;
-    }
-
-    &:hover,
-    &:focus {
-      background-color: #00692f;
-    }
-
-    &:active {
-      top: 2px;
-      box-shadow: none;
     }
   }
 }
