@@ -5,10 +5,6 @@
     display: none;
   }
 
-  h3 {
-    @extend %medium-heading;
-  }
-
   .slide-list {
     @include clearfix;
     list-style-type: none;
@@ -31,7 +27,7 @@
       }
 
       .need-to-know-title {
-        margin: 15px 0 60px;
+        margin: 15px 30px 60px 0;
       }
     }
   }
