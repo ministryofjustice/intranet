@@ -36,7 +36,7 @@ class Search_API extends API {
   protected function get_results() {
     $data = $this->MVC->model->search->get($this->params);
     $data['url_params'] = $this->params;
-    $this->response($data, 200);
+    $this->response($data, 200, 300);
   }
 
   public function exact_title_matches_filter($match) {
