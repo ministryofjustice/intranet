@@ -97,7 +97,7 @@
     },
 
     updateLabels: function(text, department) {
-      var link = this.$departmentList.find('.agency[data-department="' + department + '"]').attr('data-url');
+      var link = this.$departmentList.find('.agency[data-department="' + department + '"]').attr('data-url') || "";
 
       this.$departmentLabel.html(text);
       this.$agencyLinkLabel.html(text);
