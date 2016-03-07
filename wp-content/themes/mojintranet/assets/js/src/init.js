@@ -1,12 +1,12 @@
 jQuery(function() {
   "use strict";
 
-  window.hasFlash = false;
-  try {
-      window.hasFlash = Boolean(new window.ActiveXObject('ShockwaveFlash.ShockwaveFlash'));
-  } catch(exception) {
-      window.hasFlash = typeof navigator.mimeTypes['application/x-shockwave-flash'] !== 'undefined';
-  }
+  //window.hasFlash = false;
+  //try {
+  //    window.hasFlash = Boolean(new window.ActiveXObject('ShockwaveFlash.ShockwaveFlash'));
+  //} catch(exception) {
+  //    window.hasFlash = typeof navigator.mimeTypes['application/x-shockwave-flash'] !== 'undefined';
+  //}
 
   var initialize = function() {
     var App = window.App;
@@ -47,22 +47,22 @@ jQuery(function() {
     App.ins.breakpoint.trigger();
   };
 
-  if(window.hasFlash) {
-    window.mySwfStore = new window.SwfStore({
-      debug: false,
-      timeout: 2,
-      namespace: "dw_swfstore",
-      swf_url: "/wp-content/themes/mojintranet/assets/flash/storage.swf",
-      onready: function() {
-        initialize();
-      },
-      onerror: function(err) {
-        window.console.error(err.message);
-        initialize();
-      }
-    });
-  }
-  else {
-    initialize();
-  }
+  //if(window.hasFlash) {
+  //  window.mySwfStore = new window.SwfStore({
+  //    debug: false,
+  //    timeout: 2,
+  //    namespace: "dw_swfstore",
+  //    swf_url: "/wp-content/themes/mojintranet/assets/flash/storage.swf",
+  //    onready: function() {
+  //      initialize();
+  //    },
+  //    onerror: function(err) {
+  //      window.console.error(err.message);
+  //      initialize();
+  //    }
+  //  });
+  //}
+  //else {
+  initialize();
+  //}
 });
