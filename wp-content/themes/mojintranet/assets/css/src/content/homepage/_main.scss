@@ -1,21 +1,22 @@
 .template-home {
-  .my-moj {
-    position: static;
-    width: 100%;
+  .category-name {
+    @extend %large-heading;
+    border-bottom: 2px solid $grey-1;
+    margin-top: 20px;
   }
 
-  .my-moj-trigger {
-    display: none;
-  }
+  .see-all-container {
+    padding-top: 15px;
+    border-top: 1px solid $grey-2;
+    text-align: left;
 
-  .template-container {
-  }
-}
-
-@include mobile-mq() {
-  .template-home .template-container {
-    .my-moj {
-      display: none;
+    a {
+      font-weight: bold;
+      text-decoration: underline;
     }
+  }
+
+  .meta-separator {
+    padding: 0 5px;
   }
 }

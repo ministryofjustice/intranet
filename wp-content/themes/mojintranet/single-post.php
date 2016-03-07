@@ -56,6 +56,6 @@ class Single_post extends MVC_controller {
   }
 
   private function get_likes_from_api($post_id) {
-    return $this->model->likes->read($post_id);
+    return $this->model->likes->read('post', $post_id);
   }
 }

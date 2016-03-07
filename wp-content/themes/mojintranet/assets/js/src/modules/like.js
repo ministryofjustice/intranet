@@ -21,7 +21,7 @@
       this.postId = this.$top.attr('data-post-id');
       this.likesCount = parseInt(this.$top.attr('data-likes-count'), 10);
       this.applicationUrl = $('head').data('application-url');
-      this.serviceUrl = this.applicationUrl+'/service/likes/' + this.postId;
+      this.serviceUrl = this.applicationUrl+'/service/likes/post/' + this.postId;
       this.likedPostIds = this.getLikesFromCookie();
 
       this.cacheEls();
