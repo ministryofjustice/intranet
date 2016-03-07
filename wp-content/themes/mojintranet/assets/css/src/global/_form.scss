@@ -1,9 +1,27 @@
-form {
+form.standard {
   .form-row {
-    padding-top: 10px;
+    display: block;
+    margin-bottom: 20px;
 
-    &:first-of-type {
-      padding-top: 0;
+    &:last-of-type {
+      margin-bottom: 0;
     }
+  }
+
+  .required {
+    color: $red;
+  }
+
+  .label {
+    @extend %medium-copy;
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+
+  input[type="text"],
+  textarea {
+    padding: 3px 6px;
+    border: 1px solid #888;
   }
 }
