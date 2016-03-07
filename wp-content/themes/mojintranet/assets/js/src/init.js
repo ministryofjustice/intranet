@@ -57,7 +57,7 @@ jQuery(function() {
         initialize();
       },
       onerror: function(err) {
-        console.error(err.message);
+        window.console.error(err.message);
         initialize();
       }
     });
