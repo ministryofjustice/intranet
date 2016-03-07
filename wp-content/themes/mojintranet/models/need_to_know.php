@@ -40,8 +40,7 @@ class Need_to_know_model extends MVC_model {
   }
 
   private function get_correct_image($url) {
-    $url = preg_replace('#https://s3-eu-west-1.amazonaws.com/moj-wp-prod/[^/]+#', site_url(), $url);
-    $url = preg_replace('#http://[^/]+#', site_url(), $url);
+    $url = preg_replace('#https?://([^/]+.amazonaws.com/[^/]+|[^/]+)#', site_url(), $url);
     $attachment_id = get_attachment_id_from_url($url);
     $thumbnail = wp_get_attachment_image_src($attachment_id, 'need-to-know');
     return $thumbnail[0];
