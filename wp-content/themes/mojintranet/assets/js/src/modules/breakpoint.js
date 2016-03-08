@@ -1,7 +1,8 @@
 /**
  * breakpoint.js
- * triggers events on window and changes a class on html element when certain breakpoints are reached
- * it also restricts the amount of resize events getting triggered during resizing which improves performance
+ * - triggers events on breakpoint change on window element
+ * - changes classes on the html element when certain breakpoints are reached
+ * - restricts the amount of resize events getting triggered during resizing which improves performance
  */
 (function($) {
   "use strict";
@@ -10,7 +11,7 @@
 
   App.Breakpoint = function() {
     this.settings = {
-      delay: 200,
+      delay: 125,
       breakpoints: {
         mobile: 0,
         tablet: 768,
@@ -71,8 +72,9 @@
         $html.removeClass(classNames.join(' '));
 
         eventName = 'breakpoint-' + breakpointName;
-        $(window).trigger(eventName);
         $html.addClass(eventName);
+        $(window).trigger(eventName);
+        $(window).trigger('breakpoint-change');
 
         if(breakpointName === 'tablet' || breakpointName === 'desktop') {
           eventName = 'breakpoint-gte-tablet';

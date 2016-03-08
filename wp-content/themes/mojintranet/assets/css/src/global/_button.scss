@@ -1,10 +1,44 @@
 input,
 button {
   &.cta {
-    background-color: #aeaeae;
-    border: none;
-    border-bottom: 2px solid #1d1d1b;
-    color: $white;
-    padding: 5px 30px;
+    @extend %medium-copy;
+    position: relative;
+    display: inline-block;
+    padding: 8px 15px 5px;
+
+    cursor: pointer;
+    text-decoration: none;
+    vertical-align: top;
+
+    &:active {
+      top: 2px;
+      box-shadow: none !important;
+    }
+
+    &:focus {
+      outline: 3px solid #ffbf47;
+    }
+
+    &.cta-positive {
+      background-color: $button-colour;
+      box-shadow: 0 2px 0 #003518;
+      color: #ffffff;
+
+      &:hover,
+      &:focus {
+        background-color: #00692f;
+      }
+    }
+
+    &.cta-plain {
+      background-color: $grey-3;
+      box-shadow: 0 2px 0 #b5babe;
+      color: $black;
+
+      &:hover,
+      &:focus {
+        background-color: #d0d3d6;
+      }
+    }
   }
 }

@@ -1,0 +1,30 @@
+.template-home .news-widget {
+  &.news-list-widget {
+    article {
+      border-top: 1px solid $grey-2;
+      padding-top: 10px;
+    }
+
+    .news-item {
+      @include clearfix;
+      margin: 10px 0;
+    }
+
+    .news-thumbnail {
+      max-width: 100px;
+    }
+
+    .news-thumbnail-container {
+      float: left;
+      margin-right: 10px;
+    }
+
+    .news-content {
+      overflow: hidden;
+    }
+  }
+
+  .news-thumbnail {
+    max-width: 100%;
+  }
+}

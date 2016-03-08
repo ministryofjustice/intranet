@@ -19,7 +19,7 @@ class Page_home extends MVC_controller {
     return array(
       'page' => 'pages/homepage/main',
       'template_class' => 'home',
-      'cache_timeout' => 90 /* 90 seconds */,
+      'cache_timeout' => 60 * 60 * 24 /* 1 day */,
       'no_breadcrumbs' => true,
       'page_data' => array(
         'emergency_message' => $this->get_emergency_message(),
@@ -93,14 +93,14 @@ class Page_home extends MVC_controller {
   }
 
   private function get_events_from_api() {
-    return array();
-    $results = new events_request(array('', '', '', 3));
-    return $results->results_array;
+    return $this->model->events->get_list(array(
+      'per_page' => 3
+    ));
   }
 
   private function get_posts_from_api() {
-    return array();
-    $results = new post_request(array('', '', '', '', 2));
-    return $results->results_array;
+    return $this->model->post->get_list(array(
+      'per_page' => 2
+    ));
   }
 }

@@ -1,9 +1,14 @@
 <?php if (!defined('ABSPATH')) die();
 
+/** Search API
+ * Features:
+ * - get a list of results matching given criteria
+ */
 class Search_API extends API {
   public function __construct($params) {
     parent::__construct();
     $this->parse_params($params);
+    add_filter('relevanssi_match', array(&$this, 'exact_title_matches_filter'));
     $this->route();
   }
 
@@ -31,6 +36,15 @@ class Search_API extends API {
   protected function get_results() {
     $data = $this->MVC->model->search->get($this->params);
     $data['url_params'] = $this->params;
-    $this->response($data, 200);
+    $this->response($data, 200, 300);
+  }
+
+  public function exact_title_matches_filter($match) {
+    $search_query = urldecode(strtolower($this->get_param('keywords')));
+    if ($search_query == strtolower(get_the_title($match->doc))) {
+      $match->weight = $match->weight * 10;
+    }
+
+    return $match;
   }
 }

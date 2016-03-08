@@ -1,5 +1,9 @@
 <?php if (!defined('ABSPATH')) die();
 
+/** News API
+ * Features:
+ * - get a list of news
+ */
 class News_API extends API {
   public function __construct($params) {
     parent::__construct();
@@ -31,6 +35,6 @@ class News_API extends API {
   protected function get_news() {
     $data = $this->MVC->model->news->get_list($this->params);
     $data['url_params'] = $this->params;
-    $this->response($data, 200);
+    $this->response($data, 200, 300);
   }
 }

@@ -29,7 +29,7 @@ class Single_webchat extends MVC_controller {
     return array(
       'page' => 'pages/webchat_single/main',
       'template_class' => 'webchat-single',
-      'cache_timeout' => 60 * 5, /* 5 minutes */
+      'cache_timeout' => 60 * 30, /* 30 minutes */
       'page_data' => array(
         'id' => $this->post_ID,
         'title' => get_the_title(),
@@ -61,7 +61,6 @@ class Single_webchat extends MVC_controller {
   }
 
   private function get_children_from_API($id = null) {
-    $results = new children_request(array($id));
-    return $results->results_array;
+    return $this->model->children->get_all($id);
   }
 }

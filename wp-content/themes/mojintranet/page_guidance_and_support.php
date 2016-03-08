@@ -41,7 +41,7 @@ class Page_guidance_and_support extends MVC_controller {
     return array(
       'page' => 'pages/guidance_and_support_content/main',
       'template_class' => 'guidance-and-support-content',
-      'cache_timeout' => 60 * 5, /* 5 minutes */
+      'cache_timeout' => 60 * 60, /* 60 minutes */
       'page_data' => array(
         'id' => $this->post_ID,
         // 'author' => get_the_author(),
@@ -159,7 +159,6 @@ class Page_guidance_and_support extends MVC_controller {
   }
 
   private function get_children_from_API($id = null) {
-    $results = new children_request(array($id));
-    return $results->results_array;
+    return $this->model->children->get_all($id);
   }
 }

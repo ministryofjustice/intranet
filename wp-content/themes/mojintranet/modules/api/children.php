@@ -1,5 +1,9 @@
 <?php if (!defined('ABSPATH')) die();
 
+/** Children API
+ * Features:
+ * - Get a list of children posts belonging to a specific post parent
+ */
 class Children_API extends API {
   public function __construct($params) {
     parent::__construct();
@@ -28,6 +32,6 @@ class Children_API extends API {
   protected function get_children() {
     $data = call_user_func_array(array($this->MVC->model->children, 'get_all'), $this->params);
     //$data['url_params'] = $this->params;
-    $this->response($data, 200);
+    $this->response($data, 200, 120);
   }
 }
