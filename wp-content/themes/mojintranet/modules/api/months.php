@@ -30,6 +30,6 @@ class Months_API extends API {
   protected function get_months() {
     $data = $this->MVC->model->months->get_list($this->params);
     $data['url_params'] = $this->params;
-    $this->response($data, 200);
+    $this->response($data, 200, 300);
   }
 }

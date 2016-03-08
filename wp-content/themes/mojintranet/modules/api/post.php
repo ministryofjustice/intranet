@@ -35,6 +35,6 @@ class Post_API extends API {
   protected function get_posts() {
     $data = $this->MVC->model->post->get_list($this->params);
     $data['url_params'] = $this->params;
-    $this->response($data, 200);
+    $this->response($data, 200, 300);
   }
 }
