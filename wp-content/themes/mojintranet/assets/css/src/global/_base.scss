@@ -144,10 +144,3 @@ p {
     margin-top: 25px;
   }
 }
-
-
-@include mobile-mq() {
-  body {
-    margin-top: 60px;
-  }
-}
