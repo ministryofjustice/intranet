@@ -1,7 +1,7 @@
 <?php if (!defined('ABSPATH')) die(); ?>
 
 <div class="template-container">
-  <?php $this->view('pages/homepage/emergency_message', $emergency_message) ?>
+  <?php $this->view('pages/homepage/emergency_message') ?>
 
   <div class="grid">
     <div class="col-lg-8 col-md-6 col-sm-12">
