@@ -26,6 +26,7 @@ class Widgets_API extends API {
         break;
 
       default:
+        $this->error('Invalid widget');
         break;
     }
   }
@@ -41,25 +42,25 @@ class Widgets_API extends API {
   private function get_featured_news() {
     $data = $this->MVC->model->news->get_featured($this->params);
     $data['url_params'] = $this->params;
-    $this->response($data, 200);
+    $this->response($data, 200, 60);
   }
 
   private function get_non_featured_news() {
     $data = $this->MVC->model->news->get_featured($this->params,true);
     $data['url_params'] = $this->params;
-    $this->response($data, 200);
+    $this->response($data, 200, 60);
   }
 
   private function get_need_to_know() {
     $data = $this->MVC->model->need_to_know->get_need_to_know($this->params);
     $data['url_params'] = $this->params;
-    $this->response($data, 200);
+    $this->response($data, 200, 60);
   }
 
   private function get_quick_links() {
     $data = $this->MVC->model->my_moj->get_quick_links($this->params);
     $data['url_params'] = $this->params;
-    $this->response($data, 200);
+    $this->response($data, 200, 60 * 60);
   }
 
 }
