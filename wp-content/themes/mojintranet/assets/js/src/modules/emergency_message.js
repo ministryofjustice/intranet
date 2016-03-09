@@ -48,8 +48,8 @@
     },
 
     displayResults: function(data) {
-      if(data.visible!==1) {
-        this.$top.addClass('hidden');
+      if(data.visible===1) {
+        this.$top.addClass('visible');
       }
       this.$top.addClass('message-' + data.type);
       this.$top.find('h3.title').html(data.title);
