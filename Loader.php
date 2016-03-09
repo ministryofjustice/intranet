@@ -63,5 +63,6 @@ abstract class MVC_loader {
     $this->model('post');
     $this->model('need_to_know');
     $this->model('comments');
+    $this->model('emergency_banner');
   }
 }
