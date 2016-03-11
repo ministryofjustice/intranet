@@ -23,7 +23,6 @@
       });
     },
 
-
     isFilled: function($element, fieldName, message) {
       var value;
 
@@ -86,20 +85,40 @@
       return this.errors;
     },
 
-    displayErrors: function() {
+    displayErrors: function(data) {
       var $element, $message, $container;
       var error;
       var index, count;
+      var errors = this.normalizeData(data) || this.errors;
 
-      this.displaySummary();
+      this.displaySummary(errors);
 
-      for(index = 0, count = this.errors.length; index < count; index++) {
-        error = this.errors[index];
+      for(index = 0, count = errors.length; index < count; index++) {
+        error = errors[index];
         $element = error.element;
         $message = this.createMessage(error.message);
         $element.closest('.form-row').addClass('validation-error');
         $element.before($message);
       }
+    },
+
+    normalizeData: function(data) {
+      var _this = this;
+      var newData = [];
+
+      if(!data) {
+        return null;
+      }
+
+      $.each(data.data, function(index, error) {
+        newData.push({
+          element: _this.$form.find('[name="' + error.name + '"]'),
+          fieldName: error.field_name,
+          message: error.message
+        });
+      });
+
+      return newData;
     },
 
     reset: function() {
@@ -118,15 +137,15 @@
       return $message;
     },
 
-    displaySummary: function() {
+    displaySummary: function(errors) {
       var $summary = $(this.summaryTemplate);
       var $summaryItem;
       var $list = $summary.find('.errors');
       var index, count;
 
-      for(index = 0, count = this.errors.length; index < count; index++) {
+      for(index = 0, count = errors.length; index < count; index++) {
         $summaryItem = $(this.summaryItemTemplate);
-        $summaryItem.html(App.tools.ucfirst(this.errors[index].fieldName));
+        $summaryItem.html(App.tools.ucfirst(errors[index].fieldName));
         $list.append($summaryItem);
       }
 

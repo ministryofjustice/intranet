@@ -26,9 +26,10 @@ require_once('admin/templates/template-functions.php');   // Customises page edi
 require_once('admin/editor-enhancements.php');            // Adds enhancements to post/page editor screen
 require_once('admin/errors.php');                         // Displays errors in admin
 
-include     ('helpers/cachebuster.php');                  // Ensures updated CSS and JS are served to client
 include     ('helpers/debug.php');                        // Debug tool
+include     ('helpers/cachebuster.php');                  // Ensures updated CSS and JS are served to client
 include     ('helpers/taggr.php');                        // Tool for retrieving pages by their dw-tag
+include     ('helpers/validation.php');                   // Server side validation
 
 add_action( 'after_setup_theme', 'mojintranet_setup' );
 
