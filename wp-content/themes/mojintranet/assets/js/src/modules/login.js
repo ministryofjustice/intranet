@@ -13,6 +13,7 @@
 
   App.LoginForm.prototype = {
     init: function() {
+      this.applicationUrl = $('head').data('application-url');
       this.validation = new App.tools.Validation(this.$top);
 
       this.cacheEls();
@@ -20,7 +21,7 @@
     },
 
     cacheEls: function() {
-      this.$firstNameField = this.$top.find('[name="first_name"]');
+      this.$emailField = this.$top.find('[name="email"]');
       this.$passwordField = this.$top.find('[name="password"]');
     },
 
@@ -31,16 +32,45 @@
     },
 
     submit: function(e) {
+      var _this = this;
+
       e.preventDefault();
 
       this.validate();
 
       if(!this.validation.hasErrors()) {
+        $.ajax({
+          url: window.location.href,
+          method: 'post',
+          //dataType: 'json',
+          data: this.getData(),
+          success: $.proxy(this.submitSuccess, _this),
+          error: $.proxy(this.submitError, _this)
+        });
         this.displayConfirmationMessage();
       }
       else {
         this.validation.displayErrors();
       }
+    },
+
+    getData: function() {
+      return {
+        email: this.$emailField.val(),
+        password: this.$passwordField.val()
+      };
+    },
+
+    submitSuccess: function(data) {
+      if(data.success) {
+        window.location.href = this.applicationUrl;
+      }
+      else {
+        this.validation.displayErrors(data);
+      }
+    },
+
+    submitError: function() {
     },
 
     displayConfirmationMessage: function() {
@@ -50,7 +80,7 @@
     validate: function() {
       this.validation.reset();
 
-      this.validation.isFilled(this.$firstNameField, 'email');
+      this.validation.isFilled(this.$emailField, 'email');
       this.validation.isFilled(this.$passwordField, 'password');
     }
   };

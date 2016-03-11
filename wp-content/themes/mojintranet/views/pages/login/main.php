@@ -6,7 +6,7 @@
       <form class="userform standard login-form">
         <label class="form-row">
           <span class="label">Email</span>
-          <input type="text" name="first_name" />
+          <input type="text" name="email" />
         </label>
         <label class="form-row">
           <span class="label">Password</span>
