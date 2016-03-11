@@ -23,6 +23,11 @@ abstract class MVC_controller extends MVC_loader {
     call_user_func_array(array($this, $this->method), $this->segments);
   }
 
+  public function output_json($data) {
+    header('Content-Type: application/json');
+    echo json_encode($data);
+  }
+
   private function _get_segments($param_string) {
     $segments = explode('/', $param_string);
     $this->method = array_shift($segments) ?: 'main';
