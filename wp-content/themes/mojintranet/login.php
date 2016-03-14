@@ -9,6 +9,8 @@ class Login extends MVC_controller {
   }
 
   function main() {
+    if(is_user_logged_in()) wp_redirect('/'); // Redirect to home if logged in
+
     if($_SERVER['REQUEST_METHOD'] == 'POST') {
       $val = new Validation();
 

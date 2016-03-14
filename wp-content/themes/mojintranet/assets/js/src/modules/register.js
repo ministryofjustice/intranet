@@ -13,6 +13,7 @@
 
   App.RegisterForm.prototype = {
     init: function() {
+      this.applicationUrl = $('head').data('application-url');
       this.validation = new App.tools.Validation(this.$top);
 
       this.cacheEls();
@@ -34,16 +35,45 @@
     },
 
     submit: function(e) {
+      var _this = this;
+
       e.preventDefault();
 
       this.validate();
 
       if(!this.validation.hasErrors()) {
-        this.displayConfirmationMessage();
+        $.ajax({
+          url: window.location.href,
+          method: 'post',
+          data: this.getData(),
+          success: $.proxy(this.submitSuccess, _this),
+          error: $.proxy(this.submitError, _this)
+        });
       }
       else {
         this.validation.displayErrors();
       }
+    },
+
+    getData: function() {
+      return {
+        first_name: this.$firstNameField.val(),
+        surname: this.$surnameField.val(),
+        email: this.$emailField.val(),
+        display_name: this.$displayNameField.val()
+      };
+    },
+
+    submitSuccess: function(data) {
+      if(data.success) {
+        this.displayConfirmationMessage();
+      }
+      else {
+        this.validation.displayErrors(data);
+      }
+    },
+
+    submitError: function() {
     },
 
     displayConfirmationMessage: function() {

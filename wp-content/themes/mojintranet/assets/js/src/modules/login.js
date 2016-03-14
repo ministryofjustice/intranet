@@ -42,12 +42,10 @@
         $.ajax({
           url: window.location.href,
           method: 'post',
-          //dataType: 'json',
           data: this.getData(),
           success: $.proxy(this.submitSuccess, _this),
           error: $.proxy(this.submitError, _this)
         });
-        this.displayConfirmationMessage();
       }
       else {
         this.validation.displayErrors();
@@ -71,10 +69,6 @@
     },
 
     submitError: function() {
-    },
-
-    displayConfirmationMessage: function() {
-      $('.template-container').addClass('confirmation');
     },
 
     validate: function() {
