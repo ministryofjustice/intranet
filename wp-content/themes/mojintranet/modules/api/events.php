@@ -34,6 +34,6 @@ class Events_API extends API {
   protected function get_events() {
     $data = $this->MVC->model->events->get_list($this->params);
     $data['url_params'] = $this->params;
-    $this->response($data, 200);
+    $this->response($data, 200, 300);
   }
 }

@@ -3,82 +3,11 @@
 class My_moj_model extends MVC_model {
   function get_data() {
     return array(
-      'departments' => array(
-        array(
-          'name' => 'hm-courts-and-tribunals-service',
-          'label' => 'HM Courts &amp; Tribunals Service',
-          'url' => 'http://libra.lcd.gsi.gov.uk/hmcts/index.htm'
-        ),
-        array(
-          'name' => 'judicial-appointments-commission',
-          'label' => 'Judicial Appointments Commission',
-          'url' => 'http://jac.intranet.service.justice.gov.uk/'
-        ),
-        array(
-          'name' => 'judicial-office',
-          'label' => 'Judicial Office',
-          'url' => 'http://judicialoffice.intranet.service.justice.gov.uk/'
-        ),
-        array(
-          'name' => 'law-commission',
-          'label' => 'Law Commission',
-          'url' => 'http://lawcommission.intranet.service.justice.gov.uk/'
-        ),
-        array(
-          'name' => 'legal-aid-agency',
-          'label' => 'Legal Aid Agency',
-          'url' => 'http://intranet.justice.gsi.gov.uk/laa/'
-        ),
-        array(
-          'name' => 'noms',
-          'label' => 'National Offender Management Service',
-          'url' => 'https://intranet.noms.gsi.gov.uk/'
-        ),
-        array(
-          'name' => 'nps',
-          'label' => 'National Probation Service',
-          'url' => 'https://intranet.noms.gsi.gov.uk/'
-        ),
-        array(
-          'name' => 'opg',
-          'label' => 'OPG',
-          'url' => 'http://intranet.justice.gsi.gov.uk/opg/index.htm'
-        ),
-        array(
-          'name' => 'ospt',
-          'label' => 'OSPT',
-          'url' => 'http://intranet.justice.gsi.gov.uk/ospt/index.htm'
-        )
-      ),
       'apps' => array(
         array(
           'title' => 'People finder',
           'icon' => 'people-finder',
           'url' => 'https://peoplefinder.service.gov.uk/',
-          'external' => true
-        ),
-        array(
-          'title' => 'Courtfinder',
-          'icon' => 'courtfinder',
-          'url' => 'https://courttribunalfinder.service.gov.uk/search/',
-          'external' => true
-        ),
-        array(
-          'title' => 'Jobs',
-          'icon' => 'jobs',
-          'url' => site_url('/jobs/'),
-          'external' => true
-        ),
-        array(
-          'title' => 'IT portal',
-          'icon' => 'it-portal',
-          'url' => 'http://itportal.dom1.infra.int:8080/Pages/default.aspx',
-          'external' => true
-        ),
-        array(
-          'title' => 'Civil Service Learning',
-          'icon' => 'civil-service-learning',
-          'url' => 'https://civilservicelearning.civilservice.gov.uk/',
           'external' => true
         ),
         array(
@@ -88,10 +17,10 @@ class My_moj_model extends MVC_model {
           'external' => true
         ),
         array(
-          'title' => 'Phoenix',
-          'icon' => 'phoenix',
-          'url' => site_url('/phoenix/'),
-          'external' => false
+          'title' => 'Jobs',
+          'icon' => 'jobs',
+          'url' => site_url('/jobs/'),
+          'external' => true
         ),
         array(
           'title' => 'Pensions',
@@ -100,18 +29,44 @@ class My_moj_model extends MVC_model {
           'external' => true
         ),
         array(
-          'title' => 'The MoJ Story',
-          'icon' => 'moj-story',
-          'url' => site_url('/about-us/moj-story/'),
+          'title' => 'Phoenix',
+          'icon' => 'phoenix',
+          'url' => site_url('/phoenix/'),
           'external' => false
         ),
         array(
-          'title' => 'Webchats',
+          'title' => 'Civil Service Learning',
+          'icon' => 'civil-service-learning',
+          'url' => 'https://civilservicelearning.civilservice.gov.uk/',
+          'external' => true
+        ),
+        array(
+          'title' => 'IT portal',
+          'icon' => 'it-portal',
+          'url' => 'http://itportal.dom1.infra.int:8080/Pages/default.aspx',
+          'external' => true
+        ),
+        array(
+          'title' => 'MoJ Webchat',
           'icon' => 'webchat',
           'url' => site_url('/webchats/'),
           'external' => false
         )
       )
     );
+  }
+
+  public function get_quick_links() {
+    $data = array();
+
+    $menu_items = wp_get_nav_menu_items('my-moj-quick-links');
+
+    foreach ($menu_items as $menu_item) {
+      $quick_link['title'] = $menu_item->title;
+      $quick_link['url'] = $menu_item->url;
+      $data['results'][] = $quick_link;
+    }
+
+    return $data;
   }
 }

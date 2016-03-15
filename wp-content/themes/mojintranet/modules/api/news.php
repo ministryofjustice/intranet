@@ -35,6 +35,6 @@ class News_API extends API {
   protected function get_news() {
     $data = $this->MVC->model->news->get_list($this->params);
     $data['url_params'] = $this->params;
-    $this->response($data, 200);
+    $this->response($data, 200, 300);
   }
 }

@@ -1,48 +1,114 @@
-.my-moj-trigger {
-  padding-top: 10px;
-  color: white;
-  cursor: pointer;
-  text-align: right;
-  font-size: 15px;
-}
-
 .my-moj {
-  position: absolute;
+  $icon-size: 32px;
+
   margin-top: 20px;
-  top: 21px;
-  right: 15px;
-  width: 480px;
-  margin-bottom: 10px;
-  background-color: #ececec;
-
-  select {
-    width: 100%;
-    padding: 5px 7px 5px 10px;
-    box-shadow: 1px 1px 1px $white;
-    -moz-appearance: none;
-    -webkit-appearance: none;
-    appearance: none;
-    -moz-user-select: none;
-    background: url("../images/dropdown_background_x2.png") no-repeat scroll right center $white;
-    background-size: auto 100%;
-    border: 1px solid $grey-2;
-    border-radius: 5px;
-  }
-
-  .my-intranet-form {
-    @include clearfix;
-  }
-
-  .category-name {
-    @extend %large-heading;
-    border-bottom: 1px solid $grey-1;
-    font-weight: normal;
-  }
 
   .apps-container {
     .category-name {
       margin-top: 0;
       margin-bottom: 20px;
+    }
+  }
+
+  .apps-list {
+    @include clearfix;
+
+    .app-item {
+      float: left;
+      width: 50%;
+      margin-bottom: 15px;
+      text-align: left;
+    }
+
+    .app-link {
+      @extend %small-copy;
+      display: block;
+      line-height: 16px;
+      text-decoration: none;
+
+      &:after {
+        display: none;
+      }
+
+      &:hover {
+        .app-name {
+          text-decoration: underline;
+        }
+
+        .app-icon-inner {
+          background-image: url('../images/app_icons_x2_hover.png');
+        }
+      }
+    }
+
+    .app-name {
+      display: inline-block;
+      width: 70%;
+      padding-left: 10px;
+      vertical-align: middle;
+    }
+
+    .app-icon {
+      display: inline-block;
+      width: $icon-size + 2;
+      height: $icon-size + 2;
+      max-width: $icon-size + 2;
+      max-height: $icon-size + 2;
+      margin: 0 auto;
+      background-color: $white;
+      border: 1px solid $grey-2;
+      vertical-align: middle;
+    }
+
+    .app-icon-inner {
+      display: inline-block;
+      width: $icon-size;
+      height: $icon-size;
+      background-repeat: no-repeat;
+      background-image: url('../images/app_icons_x2.png');
+      background-size: $icon-size*10 $icon-size;
+
+
+
+      &.people-finder-icon {
+        background-position: 0 0;
+      }
+
+      &.courtfinder-icon {
+        background-position: -$icon-size 0;
+      }
+
+      &.travel-booking-icon {
+        background-position: -$icon-size*2 0;
+      }
+
+      &.phoenix-icon {
+        background-position: -$icon-size*3 0;
+      }
+
+      &.it-portal-icon {
+        background-position: -$icon-size*4 0;
+      }
+
+      &.civil-service-learning-icon {
+        background-position: -$icon-size*5 0;
+      }
+
+      &.jobs-icon {
+        background-position: -$icon-size*6 0;
+      }
+
+      &.moj-story-icon {
+        background-position: -$icon-size*7 0;
+      }
+
+      &.webchat-icon {
+        background-position: -$icon-size*8 0;
+      }
+
+      &.pension-icon {
+        background-position: -$icon-size*9 0;
+      }
     }
   }
 
@@ -55,318 +121,134 @@
       margin-top: 0;
     }
 
-    .menu-item {
-      margin-top: 10px;
+    .category-item {
+      margin-bottom: 10px;
     }
 
     .menu-link {
       @extend %medium-copy;
       text-decoration: underline;
     }
-  }
 
-  [data-department]:before {
-    background-image: url('../images/department_crest_x2.png');
-  }
-
-  [data-department="select-department"]:before {
-    background-position: 100px 100px;
-  }
-
-  [data-department="legal-aid-agency"],
-  [data-department="hm-courts-and-tribunals-service"],
-  [data-department="judicial-office"],
-  [data-department="nps"],
-  [data-department="noms"],
-  [data-department="opg"],
-  [data-department="ospt"] {
-    &:before {
-      background-position: -12px -12px;
-    }
-  }
-
-  [data-department="judicial-appointments-commission"]:before {
-    background-position: -62px -12px;
-  }
-
-  [data-department="law-commission"]:before {
-    background-position: -112px -12px;
-  }
-
-  [data-department="probation"]:before {
-    background-position: -162px -12px;
-  }
-
-  .my-moj-top {
-    padding: 12px 30px;
-    background-color: $my-moj-top-bg;
-
-    .department-dropdown-box {
-      @extend %medium-copy;
-      display: inline-block;
-      color: $white;
-    }
-
-    .label {
-      display: inline-block;
-      margin-right: 10px;
-    }
-
-    .department {
-      font-size: 15px;
-      max-width: 260px;
-      width: auto;
-      height: 30px;
-      padding-top: 4px;
-      padding-left: 5px;
-      color: $black;
-      border-radius: 5px;
-      border: 1px solid #808080;
-      box-shadow: none;
-      background-image: url('../images/my_moj_dropdown_bg_x2.png');
-      background-size: auto 100%;
-      vertical-align: baseline;
-      line-height: 24px;
-      text-overflow: ellipsis;
-
-      option {
-        padding: 10px 20px;
-        background-color: $white;
-        color: $black;
-
-        &:before {
-          display: inline-block;
-          width: 26px;
-          height: 25px;
-          margin-right: 6px;
-          background-repeat: no-repeat;
-          background-size: 200px 50px;
-          vertical-align: text-bottom;
-          content: "";
-        }
+    ul {
+      a {
+        @extend %medium-copy;
+        text-decoration: underline;
       }
 
-      &::-ms-expand {
-        display: none;
-      }
-    }
+      .menu-item {
+        margin-top: 10px;
 
-    .visit-cta {
-      @extend %medium-copy;
-      float: right;
-      padding: 0;
-      line-height: 32px;
-      background-color: transparent;
-      color: $white;
-      background-image: url('../images/go_icon_x2.png');
-      background-repeat: no-repeat;
-      background-position: center right;
-      background-size: 16px 16px;
-      padding-right: 22px;
-    }
-  }
-
-  .my-moj-body {
-    padding: 30px;
-  }
-
-  .apps-list {
-    margin-right: -10px;
-    @include clearfix;
-
-    .app-item {
-      float: left;
-      width: 74px;
-      height: 135px;
-      margin-right: 12px;
-      text-align: center;
-
-      &:hover {
-        .app-icon {
-          border: 2px solid $dw-warning;
+        &:first-of-type a {
+          margin-top: 0;
         }
       }
     }
-
-    .app-link {
-      @extend %small-copy;
-      display: block;
-
-      &:after {
-        display: none;
-      }
-    }
-
-    .app-name {
-      display: block;
-      text-align: center;
-      line-height: 16px;
-    }
-
-    .app-icon {
-      display: inline-block;
-      width: 74px;
-      height: 74px;
-      max-width: 74px;
-      max-height: 74px;
-      margin: 0 auto;
-      background-color: $white;
-      border: 2px solid $grey-2;
-      border-radius: 5px;
-    }
-
-    .app-icon-inner {
-      display: inline-block;
-      width: 64px;
-      height: 64px;
-      margin: 4px;
-      background-repeat: no-repeat;
-      background-image: url('../images/app_icons_x2.png');
-      background-size: 640px 64px;
-
-      &.people-finder-icon {
-        background-position: 0 0;
-      }
-
-      &.courtfinder-icon {
-        background-position: -64px 0;
-      }
-
-      &.travel-booking-icon {
-        background-position: -128px 0;
-      }
-
-      &.phoenix-icon {
-        background-position: -192px 0;
-      }
-
-      &.it-portal-icon {
-        background-position: -256px 0;
-      }
-
-      &.civil-service-learning-icon {
-        background-position: -320px 0;
-      }
-
-      &.jobs-icon {
-        background-position: -384px 0;
-      }
-
-      &.moj-story-icon {
-        background-position: -448px 0;
-      }
-
-      &.webchat-icon {
-        background-position: -512px 0;
-      }
-
-      &.pension-icon {
-        background-position: -576px 0;
-      }
-    }
   }
 
-  .menu-my-moj-quick-links-container ul {
-    a {
-      @extend %medium-copy;
-      text-decoration: underline;
+  .agency-link-list {
+    &.hidden {
+      display: none;
     }
 
-    .menu-item {
-      margin-top: 10px;
+    .agency {
+      a {
+        @include clearfix;
+        display: block;
+        padding: 0;
 
-      &:first-of-type a {
-        margin-top: 0;
+        &:hover {
+          text-decoration: none;
+
+          .department-icon-box {
+            background-color: $govuk-blue;
+          }
+
+          .label {
+            text-decoration: underline;
+          }
+        }
+      }
+
+      .department-icon-box {
+        display: inline-block;
+        padding: 3px;
+        border: 1px solid $grey-2;
+        vertical-align: middle;
+
+        .department-icon {
+          float: none;
+          display: block;
+          margin: 0;
+        }
+      }
+
+      .label {
+        @extend %large-copy;
+        display: inline-block;
+        width: 85%;
+        padding-left: 10px;
+        vertical-align: middle;
       }
     }
   }
 }
 
-@include mobile-mq() {
+.header-my-moj {
+  position: relative;
+
+  .apps-container .category-name {
+    display: none;
+  }
+
+  &.visible {
+    .my-moj {
+      display: block;
+    }
+  }
+
+  .arrow {
+    @extend %small-copy;
+  }
+
   .my-moj {
-    display: block;
-    position: static;
+    position: absolute;
+    right: 0;
+    display: none;
+    width: 370px;
     margin-top: 0;
-    margin-bottom: 0;
-    width: 100%;
+    padding: 30px 30px 20px;
+    z-index: 1;
+    background-color: $white;
+    border-color: #979797;
+    border-style: solid;
+    border-width: 0 1px 1px;
 
-    .my-moj-top {
-      padding: 10px 20px;
-
-      .label {
-        margin-bottom: 5px;
-      }
-
-      .department {
-        width: 100%;
-        max-width: 300px;
-      }
-
-      .visit-cta {
-        float: none;
-      }
+    .category-name {
+      @extend %large-heading;
+      border-bottom: 2px solid $grey-1;
     }
 
-    .my-moj-body {
-      padding: 0;
+    //we need to apply quite a few overrides to counter the main menu style - to be fixed when we get rid of dw-menu plugin
+    .quick-links-container {
+      .categories-list {
+        display: block;
+      }
 
-      .category-name {
-        @include medium-copy;
-        margin: 0;
-        padding: 4px 20px 3px;
-        line-height: 33px;
-
-        &:before {
-          float: left;
-          width: 26px;
-          height: 25px;
-          margin-right: 6px;
-          font-size: 20px;
+      .category-item {
+        .category-link {
+          display: inline-block;
+          border: none;
+          color: $govuk-blue;
+          font-weight: normal;
           line-height: 20px;
-          padding-top: 4px;
           text-align: left;
-          vertical-align: text-bottom;
-          color: $black;
-          content: "\25be";
+
+          &:hover {
+            background-color: transparent;
+            color: $link-active-colour;
+          }
         }
-      }
-
-      .quick-links-container {
-        .category-name {
-          border-top: 1px solid $grey-1;
-        }
-
-        .quick-links-list-container {
-          margin: 0 20px;
-        }
-      }
-
-      .quick-links-list-container {
-        margin: 0;
-        padding-bottom: 10px;
-      }
-    }
-
-    .apps-container {
-      overflow: hidden;
-    }
-
-    .apps-list {
-      padding: 0 20px;
-
-      .app-item {
-        margin-right: 8px;
-      }
-    }
-
-    .mobile-collapsed {
-      .category-name {
-        border-bottom: none;
-      }
-
-      .apps-list,
-      .quick-links-list-container {
-        display: none;
       }
     }
   }

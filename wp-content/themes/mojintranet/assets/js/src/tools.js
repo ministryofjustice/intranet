@@ -6,7 +6,8 @@
   var App = window.App;
 
   var settings = {
-    sizeUnits: ['B', 'KB', 'MB', 'GB', 'TB', 'PB']
+    sizeUnits: ['B', 'KB', 'MB', 'GB', 'TB', 'PB'],
+    months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
   };
 
   App.tools = {
@@ -122,6 +123,10 @@
       parts.push('path=/');
 
       document.cookie = parts.join('; ');
+
+      if(window.hasFlash && window.mySwfStore) {
+        window.mySwfStore.set(name, value);
+      }
     },
 
     getCookie: function(name) {
@@ -130,12 +135,23 @@
       var part;
       var a;
       var length;
+      var value;
+
+      if(window.hasFlash && window.mySwfStore) {
+        return window.mySwfStore.get(name);
+      }
 
       for (a = 0, length = parts.length; a < length; a++) {
         part = parts[a].replace(/(^\s*|\s*$)/g, '');
 
         if (part.indexOf(cookieNameEq) === 0) {
-          return decodeURIComponent(part.substring(cookieNameEq.length));
+          value = part.substring(cookieNameEq.length);
+
+          if(window.hasFlash && window.mySwfStore) {
+            window.mySwfStore.set(name, value);
+          }
+
+          return decodeURIComponent(value);
         }
       }
 
@@ -175,6 +191,33 @@
       }
 
       return false;
+    },
+
+    parseDate: function(dateString) {
+      var dateArray = dateString.split('-');
+      if(dateArray.length === 2){
+        dateArray.push('01');
+      }
+
+      return new Date(dateArray.join('/'));
+    },
+
+    formatDate: function(dateObject, shortMonth) {
+      var month = settings.months[dateObject.getMonth()];
+
+      if(shortMonth) {
+        month = month.substr(0, 3);
+      }
+
+      return dateObject.getDate() + ' ' + month + ' ' + dateObject.getFullYear();
+    },
+
+    /** Changes the first character of the string to upper case
+     * @param {String} string Input string
+     * @returns {String} Converted string
+     */
+    ucfirst: function(string) {
+      return string.charAt(0).toUpperCase() + string.substr(1);
     }
   };
 }(jQuery));

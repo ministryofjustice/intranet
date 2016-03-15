@@ -19,7 +19,7 @@ class Page_home extends MVC_controller {
     return array(
       'page' => 'pages/homepage/main',
       'template_class' => 'home',
-      'cache_timeout' => 90 /* 90 seconds */,
+      'cache_timeout' => 60 * 60 * 24 /* 1 day */,
       'no_breadcrumbs' => true,
       'page_data' => array(
         'emergency_message' => $this->get_emergency_message(),

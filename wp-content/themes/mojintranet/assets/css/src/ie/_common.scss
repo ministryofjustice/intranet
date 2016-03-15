@@ -25,4 +25,18 @@
   .ie-clear {
     clear: both;
   }
+
+  .agency {
+    a {
+      &:hover {
+        .department-icon {
+          background-image: url('../images/department_crest_white.png');
+        }
+      }
+    }
+
+    .department-icon {
+      background-image: url('../images/department_crest.png');
+    }
+  }
 }

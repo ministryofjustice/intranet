@@ -20,7 +20,7 @@ if(!is_user_logged_in()) {
 <!--[if IE 8 ]> <html <?php language_attributes(); ?> class="ie8 lte-ie8 lte-ie9 template-<?=$template_class?>"> <![endif]-->
 <!--[if IE 9 ]> <html <?php language_attributes(); ?> class="ie9 lte-ie9 template-<?=$template_class?>"> <![endif]-->
 <!--[if (gte IE 9)|!(IE)]><!--><html class="template-<?=$template_class?>" <?php language_attributes(); ?>><!--<![endif]-->
-<head data-application-url="<?=site_url()?>">
+<head data-application-url="<?=site_url()?>" data-template-uri="<?=get_template_directory_uri()?>">
   <?php $this->view('modules/head') ?>
   <?=$this->wp_head?>
 </head>

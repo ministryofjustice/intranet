@@ -30,3 +30,8 @@
   font-weight: bold;
 }
 
+/* Styling for comment list */
+.manage-column.column-comment_hidden, .comment_hidden.column-comment_hidden {
+  width: 75px;
+  text-align: center;
+}
