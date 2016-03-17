@@ -1,71 +1,73 @@
 .template-user-password .template-container {
-  input[type="text"],
-  input[type="password"] {
-    width: 200px;
-  }
-
-  .password-strength {
-    &[data-points="1"] .segment {
-      background-color: #ff0000;
-
-      &.segment-1 {
-        visibility: visible;
-      }
-    }
-
-    &[data-points="2"] .segment {
-      background-color: #ff8800;
-
-      &.segment-1,
-      &.segment-2 {
-        visibility: visible;
-      }
-    }
-
-    &[data-points="3"] .segment {
-      background-color: #ffdd00;
-
-      &.segment-1,
-      &.segment-2,
-      &.segment-3 {
-        visibility: visible;
-      }
-    }
-
-    &[data-points="4"] .segment {
-      background-color: #88ff00;
-
-      &.segment-1,
-      &.segment-2,
-      &.segment-3,
-      &.segment-4 {
-        visibility: visible;
-      }
-    }
-
-    &[data-points="5"] .segment {
-      background-color: #00aa00;
-
-      &.segment-1,
-      &.segment-2,
-      &.segment-3,
-      &.segment-4,
-      &.segment-5 {
-        visibility: visible;
-      }
-    }
-
-    .strength-bar {
-      @include clearfix;
+  .reset-password-form {
+    input[type="text"],
+    input[type="password"] {
       width: 200px;
-      margin-top: 0;
-      background-color: $grey-2;
+    }
 
-      .segment {
-        visibility: hidden;
-        float: left;
-        width: 40px;
-        height: 8px;
+    .password-strength {
+      &[data-points="1"] .segment {
+        background-color: #ff0000;
+
+        &.segment-1 {
+          visibility: visible;
+        }
+      }
+
+      &[data-points="2"] .segment {
+        background-color: #ff8800;
+
+        &.segment-1,
+        &.segment-2 {
+          visibility: visible;
+        }
+      }
+
+      &[data-points="3"] .segment {
+        background-color: #ffdd00;
+
+        &.segment-1,
+        &.segment-2,
+        &.segment-3 {
+          visibility: visible;
+        }
+      }
+
+      &[data-points="4"] .segment {
+        background-color: #88ff00;
+
+        &.segment-1,
+        &.segment-2,
+        &.segment-3,
+        &.segment-4 {
+          visibility: visible;
+        }
+      }
+
+      &[data-points="5"] .segment {
+        background-color: #00aa00;
+
+        &.segment-1,
+        &.segment-2,
+        &.segment-3,
+        &.segment-4,
+        &.segment-5 {
+          visibility: visible;
+        }
+      }
+
+      .strength-bar {
+        @include clearfix;
+        width: 200px;
+        margin-top: 0;
+        background-color: $grey-2;
+
+        .segment {
+          visibility: hidden;
+          float: left;
+          width: 40px;
+          height: 8px;
+        }
       }
     }
   }

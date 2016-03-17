@@ -1,0 +1,26 @@
+.template-container {
+  &.confirmation {
+    .confirmation-screen {
+      display: block;
+    }
+
+    .form-screen {
+      display: none;
+    }
+  }
+
+  .confirmation-screen {
+    display: none;
+
+    .confirmation-message {
+      @extend %large-copy;
+      margin-top: 50px;
+      margin-bottom: 30px;
+    }
+
+    .redirect-link {
+      @extend %medium-copy;
+      text-decoration: underline;
+    }
+  }
+}

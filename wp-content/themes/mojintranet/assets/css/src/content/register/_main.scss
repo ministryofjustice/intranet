@@ -1,32 +1,7 @@
 .template-user-register .template-container {
-  &.confirmation {
-    .confirmation-screen {
-      display: block;
-    }
-
-    .create-account-screen {
-      display: none;
-    }
-  }
-
   .register-form {
     input[type="text"] {
       min-width: 300px;
-    }
-  }
-
-  .confirmation-screen {
-    display: none;
-
-    .confirmation-message {
-      @extend %large-copy;
-      margin-top: 50px;
-      margin-bottom: 30px;
-    }
-
-    .home-link {
-      @extend %medium-copy;
-      text-decoration: underline;
     }
   }
 }

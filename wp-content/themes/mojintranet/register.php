@@ -34,7 +34,7 @@ class Register extends MVC_controller {
       if(!$val->has_errors()) {
         $user_id = $this->model->user->create(array(
           'user_login' => $email,
-          'email' => $email,
+          'user_email' => $email,
           'first_name' => $first_name,
           'last_name' => $_POST['surname'],
           'display_name' => $_POST['display_name']
@@ -48,9 +48,9 @@ class Register extends MVC_controller {
           'activation_url' => network_site_url("/password/set/?key=".$key['value']."&login=" . rawurlencode($email), 'login')
         );
 
-        $message = $this->view('email/password', $data, true);
+        $message = $this->view('email/activate_account', $data, true);
 
-        html_mail($email, 'Subject', $message);
+        html_mail($email, 'MoJ Intranet - Activate account', $message);
       }
 
       $this->output_json(array(

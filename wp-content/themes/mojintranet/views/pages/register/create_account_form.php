@@ -1,5 +1,6 @@
 <?php if (!defined('ABSPATH')) die(); ?>
-<div class="create-account-screen">
+
+<div class="form-screen">
   <h1>Create an account</h1>
   <form class="userform standard register-form">
     <label class="form-row">

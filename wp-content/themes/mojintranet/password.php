@@ -54,21 +54,20 @@ class Password extends MVC_controller {
     }
 
     if(!$val->has_errors()) {
-      $this->model->user->update($user->ID, array(
+      $updated = $this->model->user->update($user->ID, array(
         'user_activation_key' => null,
         'user_pass' => wp_hash_password($password)
       ));
 
-      //Debug::full($user); die;
-      //
-      ////send email to user
-      //$data = array(
-      //  'name' => $login
-      //);
-      //
-      //$message = $this->view('email/password', $data, true);
-      //
-      //html_mail($email, 'Subject', $message);
+      //send email to user
+      $data = array(
+        'name' => $user->display_name,
+        'login_url' => site_url('/login')
+      );
+
+      $message = $this->view('email/account_activated', $data, true);
+
+      html_mail($login, 'MoJ Intranet - Account activated', $message);
     }
 
     $this->output_json(array(

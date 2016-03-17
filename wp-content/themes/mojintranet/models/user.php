@@ -2,11 +2,22 @@
 
 class User_model extends MVC_model {
   /** creates a new user
-   * @param {Array} data User data
+   * @param {Array} $data User data
    * @return {Integer} The ID of the newly created user
    */
   public function create($data) {
     return wp_insert_user($data);
+  }
+
+  /** updates a user
+   * @param {Integer} $user_id User ID
+   * @param {Array} $data User data
+   * @return {Boolean} True on successs, False on error
+   */
+  public function update($user_id, $data) {
+    unset($data['ID']);
+    $result = $this->wpdb->update($this->wpdb->users, $data, array('ID' => $user_id));
+    return $result !== false;
   }
 
   public function set_activation_key($user_id) {
@@ -53,7 +64,7 @@ class User_model extends MVC_model {
     );
   }
 
-  function get_user_id_by_display_name($display_name) {
+  public function get_user_id_by_display_name($display_name) {
     if(!$user = $this->wpdb->get_row($this->wpdb->prepare(
       "SELECT `ID` FROM $this->wpdb->users WHERE `display_name` = %s", $display_name
     )))
