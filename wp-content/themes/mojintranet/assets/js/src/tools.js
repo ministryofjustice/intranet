@@ -218,6 +218,28 @@
      */
     ucfirst: function(string) {
       return string.charAt(0).toUpperCase() + string.substr(1);
+    },
+
+    getUrlParam: function(param) {
+      var url = window.location.href;
+      var parts = url.split('?');
+      var a, length;
+      var params = {};
+      var pair;
+      var key, value;
+
+      parts.shift();
+      url = parts.join('?');
+      parts = url.split('&');
+
+      for(a = 0, length = parts.length; a < length; a++) {
+        pair = parts[a].split('=');
+        key = decodeURIComponent(pair.shift());
+        value = decodeURIComponent(pair.join('='));
+        params[key] = value;
+      }
+
+      return params[param];
     }
   };
 }(jQuery));
