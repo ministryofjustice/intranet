@@ -102,15 +102,15 @@
       }
     },
 
-    normalizeData: function(data) {
+    normalizeData: function(errors) {
       var _this = this;
       var newData = [];
 
-      if(!data) {
+      if(!errors) {
         return null;
       }
 
-      $.each(data.data, function(index, error) {
+      $.each(errors, function(index, error) {
         newData.push({
           element: _this.$form.find('[name="' + error.name + '"]'),
           fieldName: error.field_name,

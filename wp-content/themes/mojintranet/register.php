@@ -5,6 +5,8 @@
 class Register extends MVC_controller {
   function __construct() {
     parent::__construct();
+
+    $this->model('user');
   }
 
   function main() {
@@ -14,6 +16,7 @@ class Register extends MVC_controller {
       $val = new Validation();
 
       $email = $_POST['email'];
+      $first_name = $_POST['first_name'];
 
       $val->is_filled('first_name', 'first name', 'Please enter first name');
       $val->is_filled('surname', 'surname', 'Please enter surname');
@@ -22,7 +25,6 @@ class Register extends MVC_controller {
 
       if($is_email_filled) {
         if($val->is_valid_email('email', 'email', 'Please enter valid email')) {
-
           if(email_exists($email)) {
             $val->error('email', 'email', 'This email address is already in use');
           }
@@ -30,20 +32,30 @@ class Register extends MVC_controller {
       }
 
       if(!$val->has_errors()) {
-        $user_id = wp_insert_user(array(
+        $user_id = $this->model->user->create(array(
           'user_login' => $email,
-          'user_email' => $email,
-          'first_name' => $_POST['first_name'],
+          'email' => $email,
+          'first_name' => $first_name,
           'last_name' => $_POST['surname'],
           'display_name' => $_POST['display_name']
         ));
 
-        wp_new_user_notification($user_id, null, 'both');
+        $key = $this->model->user->set_activation_key($user_id);
+
+        //send email to user
+        $data = array(
+          'name' => $first_name,
+          'activation_url' => network_site_url("/password/set/?key=".$key['value']."&login=" . rawurlencode($email), 'login')
+        );
+
+        $message = $this->view('email/password', $data, true);
+
+        html_mail($email, 'Subject', $message);
       }
 
       $this->output_json(array(
         'success' => !$val->has_errors(),
-        'data' => $val->get_errors()
+        'validation' => $val->get_errors()
       ));
     }
     else {

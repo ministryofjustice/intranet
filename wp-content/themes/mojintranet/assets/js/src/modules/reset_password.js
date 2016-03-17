@@ -37,16 +37,50 @@
     },
 
     submit: function(e) {
+      var _this = this;
       e.preventDefault();
 
       this.validate();
 
       if(!this.validation.hasErrors()) {
-        this.displayConfirmationMessage();
+        $.ajax({
+          url: window.location.href,
+          method: 'post',
+          data: this.getData(),
+          success: $.proxy(this.submitSuccess, _this),
+          error: $.proxy(this.submitError, _this)
+        });
       }
       else {
         this.validation.displayErrors();
       }
+    },
+
+    getData: function() {
+      return {
+        key: App.tools.getUrlParam('key'),
+        login: App.tools.getUrlParam('login'),
+        password: this.$passwordField.val(),
+        reenter_password: this.$reenterPasswordField.val()
+      };
+    },
+
+    submitSuccess: function(data) {
+      if(data.success) {
+        this.displayConfirmationMessage();
+      }
+      else {
+        if(data.validation.errors.length) {
+          this.validation.displayErrors(data.validation.errors);
+        }
+        else {
+          //the link's expired, so reloading the page will show the server-generated error
+          window.location.href = window.location.href;
+        }
+      }
+    },
+
+    submitError: function() {
     },
 
     displayConfirmationMessage: function() {

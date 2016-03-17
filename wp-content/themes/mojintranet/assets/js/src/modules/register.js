@@ -69,7 +69,7 @@
         this.displayConfirmationMessage();
       }
       else {
-        this.validation.displayErrors(data);
+        this.validation.displayErrors(data.validation.errors);
       }
     },
 

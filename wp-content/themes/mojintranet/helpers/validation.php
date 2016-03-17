@@ -2,6 +2,7 @@
 
 class Validation {
   private $errors = array();
+  private $general_errors = array();
 
   public function __construct() {
   }
@@ -11,6 +12,12 @@ class Validation {
       'name' => $post_name,
       'field_name' => $field_name,
       'message' => $message
+    );
+  }
+
+  public function general_error($code, $message) {
+    $this->general_errors[] = array(
+      $code => $message
     );
   }
 
@@ -37,11 +44,14 @@ class Validation {
   }
 
   public function has_errors() {
-    return count($this->errors) > 0;
+    return count($this->errors) > 0 || count($this->general_errors) > 0;
   }
 
   public function get_errors() {
-    return $this->errors;
+    return array(
+      'errors' => $this->errors,
+      'general_errors' => $this->general_errors
+    );
   }
 
   private function _get_field($post_name) {
