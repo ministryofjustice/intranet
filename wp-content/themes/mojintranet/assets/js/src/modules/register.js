@@ -60,6 +60,7 @@
         first_name: this.$firstNameField.val(),
         surname: this.$surnameField.val(),
         email: this.$emailField.val(),
+        reenter_email: this.$reenterEmailField.val(),
         display_name: this.$displayNameField.val()
       };
     },

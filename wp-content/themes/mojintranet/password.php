@@ -28,10 +28,10 @@ class Password extends MVC_controller {
     else $this->_reset_form_view('reset');
   }
 
-  function forgot() {
+  function forgotten() {
     if(is_user_logged_in()) wp_redirect('/'); // Redirect to home if logged in
-    elseif($_SERVER['REQUEST_METHOD'] == 'POST') $this->_process_forgot_form();
-    else $this->_forgot_form_view();
+    elseif($_SERVER['REQUEST_METHOD'] == 'POST') $this->_process_forgotten_form();
+    else $this->_forgotten_form_view();
   }
 
   private function _process_reset_form($type) {
@@ -89,7 +89,7 @@ class Password extends MVC_controller {
     ));
   }
 
-  private function _process_forgot_form() {
+  private function _process_forgotten_form() {
     $val = new Validation();
 
     $email = $_POST['email'];
@@ -142,7 +142,7 @@ class Password extends MVC_controller {
     $this->view('layouts/default', $data);
   }
 
-  private function _forgot_form_view() {
+  private function _forgotten_form_view() {
     $data = array(
       'page' => 'pages/forgot_password/main',
       'template_class' => 'user-forgot-password',

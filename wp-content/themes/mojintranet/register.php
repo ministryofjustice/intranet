@@ -7,6 +7,7 @@ class Register extends MVC_controller {
     parent::__construct();
 
     $this->model('user');
+    $this->valid_domains = array('publicguardian.gsi.gov.uk', 'digital.justice.gov.uk', 'legalaid.gsi.gov.uk', 'justice.gsi.gov.uk', 'hmcts.gsi.gov.uk', 'noms.gsi.gov.uk');
   }
 
   function main() {
@@ -15,19 +16,25 @@ class Register extends MVC_controller {
     if($_SERVER['REQUEST_METHOD'] == 'POST') {
       $val = new Validation();
 
-      $email = $_POST['email'];
+      $email = trim($_POST['email']);
       $first_name = $_POST['first_name'];
+      $parts = explode('@', $email);
+      $domain = $parts[1];
 
       $val->is_filled('first_name', 'first name', 'Please enter first name');
       $val->is_filled('surname', 'surname', 'Please enter surname');
       $is_email_filled = $val->is_filled('email', 'email', 'Please enter email');
+      $is_reenter_email_filled = $val->is_filled('reenter_email', 're-enter email', 'Please re-enter email');
       $val->is_filled('display_name', 'display name', 'Please enter display name');
 
-      if($is_email_filled) {
+      if($is_email_filled && $is_reenter_email_filled) {
         if($val->is_valid_email('email', 'email', 'Please enter valid email')) {
           if(email_exists($email)) {
             $val->error('email', 'email', 'This email address is already in use');
           }
+        }
+        if(!in_array($domain, $this->valid_domains)) {
+          $val->error('email', 'email', 'You need to use an MoJ email address');
         }
       }
 
