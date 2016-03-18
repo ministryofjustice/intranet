@@ -66,7 +66,7 @@ class Register extends MVC_controller {
         //send email to user
         $data = array(
           'name' => $first_name,
-          'activation_url' => network_site_url("/password/set/?key=".$key['value']."&login=" . rawurlencode($email), 'login')
+          'activation_url' => network_site_url("/password/set/?key=".$key."&login=" . rawurlencode($email), 'login')
         );
 
         $message = $this->view('email/activate_account', $data, true);

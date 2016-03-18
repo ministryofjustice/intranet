@@ -105,7 +105,7 @@ class Password extends MVC_controller {
         //send email to user
         $data = array(
           'name' => $user->display_name,
-          'reset_password_url' => network_site_url("/password/reset/?key=".$key['value']."&login=" . rawurlencode($email), 'login')
+          'reset_password_url' => network_site_url("/password/reset/?key=".$key."&login=" . rawurlencode($email), 'login')
         );
 
         $message = $this->view('email/password_reset_requested', $data, true);

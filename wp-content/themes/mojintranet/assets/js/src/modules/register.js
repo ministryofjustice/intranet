@@ -89,7 +89,7 @@
       this.validation.isFilled(this.$firstNameField, 'first name');
       this.validation.isFilled(this.$surnameField, 'surname');
       this.validation.isFilled(this.$emailField, 'email');
-      this.validation.isFilled(this.$reenterEmailField, 're-enter email');
+      this.validation.isFilled(this.$reenterEmailField, 're-enter email', 'Please re-enter email');
       this.validation.isFilled(this.$displayNameField, 'display name');
 
       emailVal1 = this.$emailField.val();

@@ -20,6 +20,10 @@ class User_model extends MVC_model {
     return $result !== false;
   }
 
+  /** sets the activation key on user's account
+   * @param {Integer} $user_id User ID
+   * @return {String} The unhashed activation key
+   */
   public function set_activation_key($user_id) {
     $user = get_userdata($user_id);
 
@@ -34,9 +38,13 @@ class User_model extends MVC_model {
     );
     $this->wpdb->update($this->wpdb->users, $data, $where);
 
-    return $key;
+    return $key['value'];
   }
 
+  /** generate activation key
+   * @param {String} $user_login User login
+   * $return {Array} The key and the hashed version of the key
+   */
   public function generate_activation_key($user_login) {
     $key = wp_generate_password(20, false);
     do_action('retrieve_password_key', $user_login, $key);
@@ -53,7 +61,11 @@ class User_model extends MVC_model {
     );
   }
 
-  public function get_activation_email_content($user_id, $reset = false) {
+  /** gets the copy for the activation email
+   * @param {Integer} $user_id User ID
+   * @return {Array} (subject => Email Subject, message => Email Message)
+   */
+  public function get_activation_email_content($user_id) {
     $user = get_userdata($user_id);
 
     //send email to user
@@ -69,6 +81,10 @@ class User_model extends MVC_model {
     );
   }
 
+  /** gets user ID by display name
+   * @param {String} $display_name Display name
+   * @return {Boolean|Integer} False is user was not found, otherwise User ID
+   */
   public function get_user_id_by_display_name($display_name) {
     $sql = $this->wpdb->prepare("SELECT `ID` FROM " . $this->wpdb->users . " WHERE `display_name` = '%s'", $display_name);
     $user = $this->wpdb->get_row($sql);
