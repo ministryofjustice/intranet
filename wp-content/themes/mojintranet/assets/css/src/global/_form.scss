@@ -1,4 +1,6 @@
 form.standard {
+  max-width: 400px;
+
   .form-row {
     display: block;
     margin-bottom: 20px;
@@ -6,6 +8,11 @@ form.standard {
     &:last-of-type {
       margin-bottom: 0;
     }
+  }
+
+  .description {
+    @extend %medium-copy;
+    margin-bottom: 20px;
   }
 
   .required {
@@ -30,6 +37,7 @@ form.standard {
   textarea {
     padding: 3px 6px;
     border: 1px solid #888;
+    width: 400px;
   }
 
   select {

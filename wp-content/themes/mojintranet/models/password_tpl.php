@@ -6,7 +6,8 @@ class Password_tpl_model extends MVC_model {
       'page_title_text' => 'Create password',
       'cta_text' => 'Create',
       'enter_password_text' => 'Password',
-      'reenter_password_text' => 'Re-enter password'
+      'reenter_password_text' => 'Re-enter password',
+      'confirmation_message' => 'Your account has been activated.'
     );
   }
 
@@ -15,7 +16,8 @@ class Password_tpl_model extends MVC_model {
       'page_title_text' => 'Reset password',
       'cta_text' => 'Reset',
       'enter_password_text' => 'Enter your new password',
-      'reenter_password_text' => 'Re-enter your new password'
+      'reenter_password_text' => 'Re-enter your new password',
+      'confirmation_message' => 'You\'ve changed your password successfully.'
     );
   }
 }

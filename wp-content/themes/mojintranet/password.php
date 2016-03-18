@@ -16,19 +16,25 @@ class Password extends MVC_controller {
 
   function set() {
     if(is_user_logged_in()) wp_redirect('/');
-    elseif($_SERVER['REQUEST_METHOD'] == 'POST') $this->_process_form();
+    elseif($_SERVER['REQUEST_METHOD'] == 'POST') $this->_process_reset_form('set');
     elseif($this->_is_expired()) $this->_expired_view('set');
-    else $this->_form_view('set');
+    else $this->_reset_form_view('set');
   }
 
   function reset() {
     if(is_user_logged_in()) wp_redirect('/'); // Redirect to home if logged in
-    elseif($_SERVER['REQUEST_METHOD'] == 'POST') $this->_process_form();
+    elseif($_SERVER['REQUEST_METHOD'] == 'POST') $this->_process_reset_form('reset');
     elseif($this->_is_expired()) $this->_expired_view('reset');
-    else $this->_form_view('reset');
+    else $this->_reset_form_view('reset');
   }
 
-  private function _process_form() {
+  function forgot() {
+    if(is_user_logged_in()) wp_redirect('/'); // Redirect to home if logged in
+    elseif($_SERVER['REQUEST_METHOD'] == 'POST') $this->_process_forgot_form();
+    else $this->_forgot_form_view();
+  }
+
+  private function _process_reset_form($type) {
     $val = new Validation();
 
     $password = $_POST['password'];
@@ -65,9 +71,47 @@ class Password extends MVC_controller {
         'login_url' => site_url('/login')
       );
 
-      $message = $this->view('email/account_activated', $data, true);
+      if($type == 'set') {
+        $message = $this->view('email/account_activated', $data, true);
 
-      html_mail($login, 'MoJ Intranet - Account activated', $message);
+        html_mail($login, 'MoJ Intranet - Account activated', $message);
+      }
+      else {
+        $message = $this->view('email/password_reset', $data, true);
+
+        html_mail($login, 'MoJ Intranet - Password successfully reset', $message);
+      }
+    }
+
+    $this->output_json(array(
+      'success' => !$val->has_errors(),
+      'validation' => $val->get_errors()
+    ));
+  }
+
+  private function _process_forgot_form() {
+    $val = new Validation();
+
+    $email = $_POST['email'];
+
+    $val->is_filled('email', 'email', 'Please enter email');
+
+    if(!$val->has_errors()) {
+      $user = get_user_by('email', $email);
+
+      if($user) {
+        $key = $this->model->user->set_activation_key($user->ID);
+
+        //send email to user
+        $data = array(
+          'name' => $user->display_name,
+          'reset_password_url' => network_site_url("/password/reset/?key=".$key['value']."&login=" . rawurlencode($email), 'login')
+        );
+
+        $message = $this->view('email/password_reset_requested', $data, true);
+
+        html_mail($email, 'MoJ Intranet - Password reset request', $message);
+      }
     }
 
     $this->output_json(array(
@@ -84,7 +128,7 @@ class Password extends MVC_controller {
     return is_array($user->errors);
   }
 
-  private function _form_view($type) {
+  private function _reset_form_view($type) {
     $data = array(
       'page' => 'pages/change_password/main',
       'template_class' => 'user-password',
@@ -92,6 +136,19 @@ class Password extends MVC_controller {
       'no_breadcrumbs' => true,
       'page_data' => array(
         'tpl' => $this->model->password_tpl->$type()
+      )
+    );
+
+    $this->view('layouts/default', $data);
+  }
+
+  private function _forgot_form_view() {
+    $data = array(
+      'page' => 'pages/forgot_password/main',
+      'template_class' => 'user-forgot-password',
+      'cache_timeout' => 0 /* no cache */,
+      'no_breadcrumbs' => true,
+      'page_data' => array(
       )
     );
 

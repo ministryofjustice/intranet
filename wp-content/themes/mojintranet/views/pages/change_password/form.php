@@ -1,7 +1,7 @@
 <?php if (!defined('ABSPATH')) die(); ?>
 
 <div class="form-screen">
-  <h1><?=$tpl['page_title_text']?></h1>
+  <h1><?=$page_title_text?></h1>
   <form class="userform standard reset-password-form">
     <label class="form-row">
       <span class="label"><?=$enter_password_text?></span>

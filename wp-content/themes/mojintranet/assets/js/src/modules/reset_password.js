@@ -93,7 +93,7 @@
       this.validation.reset();
 
       this.validation.isFilled(this.$passwordField, 'password');
-      this.validation.isFilled(this.$reenterPasswordField, 're-enter password');
+      this.validation.isFilled(this.$reenterPasswordField, 're-enter password', 'Please re-enter password');
 
       passwordVal1 = this.$passwordField.val();
       passwordVal2 = this.$reenterPasswordField.val();

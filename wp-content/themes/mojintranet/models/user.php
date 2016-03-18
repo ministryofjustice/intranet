@@ -40,6 +40,11 @@ class User_model extends MVC_model {
   public function generate_activation_key($user_login) {
     $key = wp_generate_password(20, false);
     do_action('retrieve_password_key', $user_login, $key);
+
+    if(!class_exists('PasswordHash')) {
+      require_once ABSPATH . WPINC . '/class-phpass.php';
+    }
+
     $wp_hasher = new PasswordHash(8, true);
 
     return array(
