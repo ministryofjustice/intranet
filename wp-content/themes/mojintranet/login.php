@@ -38,7 +38,7 @@ class Login extends MVC_controller {
 
       $this->output_json(array(
         'success' => !$val->has_errors(),
-        'data' => $val->get_errors()
+        'validation' => $val->get_errors()
       ));
     }
     else {

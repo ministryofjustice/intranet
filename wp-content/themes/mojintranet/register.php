@@ -92,10 +92,6 @@ class Register extends MVC_controller {
       'cache_timeout' => 0 /* no cache */,
       'no_breadcrumbs' => true,
       'page_data' => array(
-        'message' => $message,
-        'message_type' => $message_type,
-        'login_url' => site_url('/login/'),
-        'user_email' => $_GET['email']
       )
     );
   }

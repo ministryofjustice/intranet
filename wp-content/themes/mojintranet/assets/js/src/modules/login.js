@@ -64,7 +64,7 @@
         window.location.href = this.applicationUrl;
       }
       else {
-        this.validation.displayErrors(data);
+        this.validation.displayErrors(data.validation.errors);
       }
     },
 
