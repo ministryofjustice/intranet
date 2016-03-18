@@ -7,6 +7,8 @@ class Register extends MVC_controller {
     parent::__construct();
 
     $this->model('user');
+    $this->model('bad_words');
+
     $this->valid_domains = array('publicguardian.gsi.gov.uk', 'digital.justice.gov.uk', 'legalaid.gsi.gov.uk', 'justice.gsi.gov.uk', 'hmcts.gsi.gov.uk', 'noms.gsi.gov.uk');
   }
 
@@ -18,6 +20,8 @@ class Register extends MVC_controller {
 
       $email = trim($_POST['email']);
       $first_name = $_POST['first_name'];
+      $display_name = $_POST['display_name'];
+
       $parts = explode('@', $email);
       $domain = $parts[1];
 
@@ -25,7 +29,7 @@ class Register extends MVC_controller {
       $val->is_filled('surname', 'surname', 'Please enter surname');
       $is_email_filled = $val->is_filled('email', 'email', 'Please enter email');
       $is_reenter_email_filled = $val->is_filled('reenter_email', 're-enter email', 'Please re-enter email');
-      $val->is_filled('display_name', 'display name', 'Please enter display name');
+      $is_display_name_filled = $val->is_filled('display_name', 'display name', 'Please enter display name');
 
       if($is_email_filled && $is_reenter_email_filled) {
         if($val->is_valid_email('email', 'email', 'Please enter valid email')) {
@@ -33,8 +37,18 @@ class Register extends MVC_controller {
             $val->error('email', 'email', 'This email address is already in use');
           }
         }
+
         if(!in_array($domain, $this->valid_domains)) {
           $val->error('email', 'email', 'You need to use an MoJ email address');
+        }
+      }
+
+      if($is_display_name_filled) {
+        if($this->model->user->get_user_id_by_display_name($display_name) !== false) {
+          $val->error('display_name', 'display name', 'This display name is already in use');
+        }
+        elseif($this->model->bad_words->has_bad_words($display_name)) {
+          $val->error('display_name', 'display name', 'This display name contains banned word(s)');
         }
       }
 
@@ -44,7 +58,7 @@ class Register extends MVC_controller {
           'user_email' => $email,
           'first_name' => $first_name,
           'last_name' => $_POST['surname'],
-          'display_name' => $_POST['display_name']
+          'display_name' => $display_name
         ));
 
         $key = $this->model->user->set_activation_key($user_id);

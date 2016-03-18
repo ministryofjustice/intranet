@@ -70,10 +70,9 @@ class User_model extends MVC_model {
   }
 
   public function get_user_id_by_display_name($display_name) {
-    if(!$user = $this->wpdb->get_row($this->wpdb->prepare(
-      "SELECT `ID` FROM $this->wpdb->users WHERE `display_name` = %s", $display_name
-    )))
-    return false;
+    $sql = $this->wpdb->prepare("SELECT `ID` FROM " . $this->wpdb->users . " WHERE `display_name` = '%s'", $display_name);
+    $user = $this->wpdb->get_row($sql);
+    return $user ? $user->ID : false;
 
     return $user->ID;
   }

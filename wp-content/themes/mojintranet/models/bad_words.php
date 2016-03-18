@@ -112,7 +112,7 @@ class Bad_words_model extends MVC_model {
       'whore',
       'wtf'
     );
-    
+
     return $bad_words;
   }
 }
