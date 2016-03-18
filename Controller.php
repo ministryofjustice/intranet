@@ -20,7 +20,12 @@ abstract class MVC_controller extends MVC_loader {
   }
 
   public function run() {
-    call_user_func_array(array($this, $this->method), $this->segments);
+    if(method_exists($this, $this->method)) {
+      call_user_func_array(array($this, $this->method), $this->segments);
+    }
+    else {
+      header("Location: " . site_url());
+    }
   }
 
   public function output_json($data) {
