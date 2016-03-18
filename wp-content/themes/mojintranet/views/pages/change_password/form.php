@@ -5,18 +5,8 @@
   <form class="userform standard reset-password-form">
     <label class="form-row">
       <span class="label"><?=$enter_password_text?></span>
-      <span class="small-label">Must contain letters, numbers, symbols and be at least 8 characters long.</span>
+      <span class="small-label">Must be at least 8 characters long.</span>
       <input type="password" name="password" size="20" value="" autocomplete="off" />
-      <div class="password-strength">
-        <ul class="strength-bar">
-          <?php for($a = 1; $a <= 5; $a++): ?>
-            <li class="segment segment-<?=$a?>"></li>
-          <?php endfor ?>
-        </ul>
-        <p>
-          Password strength: <span class="strength-label"></span>
-        </p>
-      </div>
     </label>
 
     <label class="form-row">

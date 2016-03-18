@@ -55,7 +55,7 @@ class Login extends MVC_controller {
       'no_breadcrumbs' => true,
       'page_data' => array(
         'register_url' => site_url('/register/'),
-        'forgot_password_url' => site_url('/forgot-password/')
+        'forgot_password_url' => site_url('/password/forgotten')
       )
     );
   }
