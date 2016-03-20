@@ -20,16 +20,30 @@ class Bad_words_model extends MVC_model {
     $bad_words = $this->get_bad_words();
 
     foreach($unique_words as $word) {
-      if(in_array($word, $bad_words)) {
-        $blocked[] = $word;
+      foreach ($bad_words as $bad_word) {
+        if(in_array($word, $this->add_word_variations($bad_word))) {
+          $blocked[] = $word;
+        }
       }
     }
 
     return $blocked;
   }
 
-  private function add_word_variations() {
+  private function add_word_variations($word) {
+    $prefixes = array();
+    $suffixes = array('s','ed','ing');
 
+    $results = array($word);
+
+    foreach ($prefixes as $prefix) {
+      $results[] = $prefix . $word;
+    }
+    foreach ($suffixes as $suffix) {
+      $results[] = $word . $suffix;
+    }
+
+    return $results;
   }
 
   private function get_bad_words() {
@@ -112,7 +126,7 @@ class Bad_words_model extends MVC_model {
       'whore',
       'wtf'
     );
-    
+
     return $bad_words;
   }
 }
