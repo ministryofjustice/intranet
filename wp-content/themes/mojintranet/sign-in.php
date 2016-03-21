@@ -3,7 +3,7 @@
 /**
  * Custom login page
  */
-class Login extends MVC_controller {
+class Sign_in extends MVC_controller {
   function __construct() {
     parent::__construct();
   }
