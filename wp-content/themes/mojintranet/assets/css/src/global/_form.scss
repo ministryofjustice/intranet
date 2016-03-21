@@ -1,6 +1,13 @@
 form.standard {
   max-width: 400px;
 
+  &.userform {
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+    }
+  }
+
   .form-row {
     display: block;
     margin-bottom: 20px;
