@@ -32,7 +32,7 @@ class Bad_words_model extends MVC_model {
 
   private function add_word_variations($word) {
     $prefixes = array();
-    $suffixes = array('s','ed','ing');
+    $suffixes = array('s','ed','ing','es');
 
     $results = array($word);
 
@@ -59,7 +59,6 @@ class Bad_words_model extends MVC_model {
       'biatch',
       'bloody',
       'blowjob',
-      'blow job',
       'bollock',
       'bollok',
       'boner',
@@ -83,18 +82,14 @@ class Bad_words_model extends MVC_model {
       'fellatio',
       'felching',
       'fuck',
-      'f u c k',
       'fudgepacker',
-      'fudge packer',
       'flange',
       'goddamn',
-      'god damn',
       'hell',
       'homo',
       'jerk',
       'jizz',
       'knobend',
-      'knob end',
       'labia',
       'lmao',
       'lmfao',
@@ -112,7 +107,6 @@ class Bad_words_model extends MVC_model {
       'scrotum',
       'sex',
       'shit',
-      's hit',
       'sh1t',
       'slut',
       'smegma',
