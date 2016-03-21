@@ -37,6 +37,7 @@ form.standard {
     @extend %small-copy;
     display: block;
     margin-bottom: 5px;
+    color: $grey-1;
   }
 
   input[type="text"],

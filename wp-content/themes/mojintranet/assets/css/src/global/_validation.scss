@@ -12,16 +12,18 @@
 
     .field {
       color: $red;
+      font-weight: bold;
     }
   }
 }
 
 .validation-error {
-  padding: 15px 0 15px 15px;
+  padding-left: 15px;
   border-left: 3px solid $red;
 
   .validation-message {
     margin-bottom: 10px;
     color: $red;
+    font-weight: bold;
   }
 }

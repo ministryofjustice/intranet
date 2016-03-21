@@ -26,7 +26,7 @@
       <input type="text" name="display_name" />
     </label>
     <label class="form-row">
-      <input type="submit" class="cta cta-positive" value="Create">
+      <input type="submit" class="cta cta-positive" value="Create account">
     </label>
 
     <?php $this->view('modules/validation/validation') ?>
