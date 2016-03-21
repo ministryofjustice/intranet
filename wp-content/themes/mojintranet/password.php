@@ -68,7 +68,7 @@ class Password extends MVC_controller {
       //send email to user
       $data = array(
         'name' => $user->display_name,
-        'login_url' => site_url('/login')
+        'login_url' => site_url('/sign-in')
       );
 
       if($type == 'set') {
@@ -95,6 +95,12 @@ class Password extends MVC_controller {
     $email = $_POST['email'];
 
     $val->is_filled('email', 'email', 'Please enter email');
+
+    if(!$val->has_errors()) {
+      if(!$this->model->user->is_gov_email($email)) {
+        $val->error('email', 'email', 'You need to use an MoJ email address');
+      }
+    }
 
     if(!$val->has_errors()) {
       $user = get_user_by('email', $email);

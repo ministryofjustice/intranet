@@ -1,5 +1,5 @@
 form.standard {
-  max-width: 400px;
+  max-width: 500px;
 
   &.userform {
     input[type="text"],
@@ -10,7 +10,7 @@ form.standard {
 
   .form-row {
     display: block;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 
     &:last-of-type {
       margin-bottom: 0;
@@ -18,8 +18,8 @@ form.standard {
   }
 
   .description {
-    @extend %medium-copy;
-    margin-bottom: 20px;
+    @extend %large-copy;
+    margin-bottom: 30px;
   }
 
   .required {
@@ -27,14 +27,14 @@ form.standard {
   }
 
   .label {
-    @extend %medium-copy;
+    @extend %large-copy;
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
   }
 
   .small-label {
-    @extend %small-copy;
+    @extend %large-copy;
     display: block;
     margin-bottom: 5px;
     color: $grey-1;
@@ -43,21 +43,29 @@ form.standard {
   input[type="text"],
   input[type="password"],
   textarea {
-    padding: 3px 6px;
-    border: 1px solid #888;
     width: 400px;
   }
 
+  input[type="text"],
+  input[type="password"],
+  textarea,
   select {
-    padding: 3px 6px;
-    border: 1px solid #888;
+    @extend %large-copy;
+    padding: 10px 6px;
+    border: 1px solid $grey-2;
+  }
+
+  .cta[type="submit"].loading {
+    opacity: .5;
   }
 
   .field-action {
+    @extend %medium-copy;
     margin-top: 10px;
   }
 
   .secondary-action {
-    margin-top: 20px;
+    @extend %medium-copy;
+    margin-top: 30px;
   }
 }

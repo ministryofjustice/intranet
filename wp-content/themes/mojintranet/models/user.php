@@ -1,6 +1,8 @@
 <?php if (!defined('ABSPATH')) die();
 
 class User_model extends MVC_model {
+  private $valid_domains = array('publicguardian.gsi.gov.uk', 'digital.justice.gov.uk', 'legalaid.gsi.gov.uk', 'justice.gsi.gov.uk', 'hmcts.gsi.gov.uk', 'noms.gsi.gov.uk');
+
   /** creates a new user
    * @param {Array} $data User data
    * @return {Integer} The ID of the newly created user
@@ -91,5 +93,12 @@ class User_model extends MVC_model {
     return $user ? $user->ID : false;
 
     return $user->ID;
+  }
+
+  public function is_gov_email($email) {
+    $parts = explode('@', $email);
+    $domain = $parts[1];
+
+    return in_array($domain, $this->valid_domains);
   }
 }

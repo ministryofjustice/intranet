@@ -4,6 +4,7 @@
   border: 3px solid $red;
 
   .please-fix {
+    @extend %large-copy;
     font-weight: bold;
   }
 
@@ -11,6 +12,7 @@
     margin-top: 5px;
 
     .field {
+      @extend %large-copy;
       color: $red;
       font-weight: bold;
     }
@@ -22,6 +24,7 @@
   border-left: 3px solid $red;
 
   .validation-message {
+    @extend %large-copy;
     margin-bottom: 10px;
     color: $red;
     font-weight: bold;

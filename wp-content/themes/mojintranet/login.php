@@ -54,7 +54,7 @@ class Login extends MVC_controller {
       'cache_timeout' => 0 /* no cache */,
       'no_breadcrumbs' => true,
       'page_data' => array(
-        'register_url' => site_url('/register/'),
+        'register_url' => site_url('/create-an-account/'),
         'forgot_password_url' => site_url('/password/forgotten')
       )
     );

@@ -18,11 +18,14 @@
 
       this.cacheEls();
       this.bindEvents();
+
+      this.$submitCta.attr('data-original-label', this.$submitCta.val());
     },
 
     cacheEls: function() {
       this.$emailField = this.$top.find('[name="email"]');
       this.$passwordField = this.$top.find('[name="password"]');
+      this.$submitCta = this.$top.find('.cta[type="submit"]');
     },
 
     bindEvents: function() {
@@ -39,13 +42,18 @@
       this.validate();
 
       if(!this.validation.hasErrors()) {
-        $.ajax({
-          url: window.location.href,
-          method: 'post',
-          data: this.getData(),
-          success: $.proxy(this.submitSuccess, _this),
-          error: $.proxy(this.submitError, _this)
-        });
+        this.toggleState('loading');
+
+        //**/ window.setTimeout(function() {
+          $.ajax({
+            url: window.location.href,
+            method: 'post',
+            data: _this.getData(),
+            success: $.proxy(_this.submitSuccess, _this),
+            error: $.proxy(_this.submitError, _this),
+            complete: $.proxy(_this.submitComplete, _this)
+          });
+        //**/}, 2000);
       }
       else {
         this.validation.displayErrors();
@@ -71,11 +79,28 @@
     submitError: function() {
     },
 
+    submitComplete: function() {
+      this.toggleState();
+    },
+
     validate: function() {
       this.validation.reset();
 
       this.validation.isFilled(this.$emailField, 'email');
       this.validation.isFilled(this.$passwordField, 'password');
+    },
+
+    toggleState: function(state) {
+      if(state === 'loading') {
+        this.$submitCta.val('Loading...');
+        this.$submitCta.addClass('loading');
+        this.$submitCta.attr('disabled', 'disabled');
+      }
+      else {
+        this.$submitCta.val(this.$submitCta.attr('data-original-label'));
+        this.$submitCta.removeClass('loading');
+        this.$submitCta.removeAttr('disabled');
+      }
     }
   };
 

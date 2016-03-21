@@ -8,8 +8,6 @@ class Register extends MVC_controller {
 
     $this->model('user');
     $this->model('bad_words');
-
-    $this->valid_domains = array('publicguardian.gsi.gov.uk', 'digital.justice.gov.uk', 'legalaid.gsi.gov.uk', 'justice.gsi.gov.uk', 'hmcts.gsi.gov.uk', 'noms.gsi.gov.uk');
   }
 
   function main() {
@@ -21,9 +19,6 @@ class Register extends MVC_controller {
       $email = trim($_POST['email']);
       $first_name = $_POST['first_name'];
       $display_name = $_POST['display_name'];
-
-      $parts = explode('@', $email);
-      $domain = $parts[1];
 
       $val->is_filled('first_name', 'first name', 'Please enter first name');
       $val->is_filled('surname', 'surname', 'Please enter surname');
@@ -38,7 +33,7 @@ class Register extends MVC_controller {
           }
         }
 
-        if(!in_array($domain, $this->valid_domains)) {
+        if(!$this->model->user->is_gov_email($email)) {
           $val->error('email', 'email', 'You need to use an MoJ email address');
         }
       }
