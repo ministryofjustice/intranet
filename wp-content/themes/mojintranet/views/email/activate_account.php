@@ -3,8 +3,12 @@
 <!DOCTYPE html>
 <html>
   <body>
-    <p>Hi <?=$name?>,</p>
-    <p>Welcome to the MoJ Intranet. To activate your account, follow this link:</p>
-    <a href="<?=$activation_url?>">Activate account</a>
+    <p>Hi there,</p>
+    <p>Thanks for registering for an MoJ Intranet account.</p>
+    <a href="<?=$activation_url?>">Activate your account</a>
+    <p>
+      Thanks,<br />
+      The MoJ Intranet Team
+    </p>
   </body>
 </html>

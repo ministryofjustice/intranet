@@ -3,8 +3,13 @@
 <!DOCTYPE html>
 <html>
   <body>
-    <p>Hi <?=$name?>,</p>
-    <p>It looks like you'd like to reset your password. If you didn't make this request, simply ignore this email.</p>
-    <a href="<?=$reset_password_url?>">Reset password</a>
+    <p>Hi there,</p>
+    <p>We've received a request to change your MoJ Intranet account password.</p>
+    <a href="<?=$reset_password_url?>">Change your password</a>
+    <p>Please ignore this email if you have received it in error.</p>
+    <p>
+      Thanks,<br />
+      The MoJ Intranet Team
+    </p>
   </body>
 </html>

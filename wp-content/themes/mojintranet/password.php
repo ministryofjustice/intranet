@@ -71,16 +71,17 @@ class Password extends MVC_controller {
         'login_url' => site_url('/sign-in')
       );
 
-      if($type == 'set') {
-        $message = $this->view('email/account_activated', $data, true);
-
-        html_mail($login, 'MoJ Intranet - Account activated', $message);
-      }
-      else {
-        $message = $this->view('email/password_reset', $data, true);
-
-        html_mail($login, 'MoJ Intranet - Password successfully reset', $message);
-      }
+      //Disabling confirmation emails for now
+      //if($type == 'set') {
+      //  $message = $this->view('email/account_activated', $data, true);
+      //
+      //  html_mail($login, 'MoJ Intranet - Account activated', $message);
+      //}
+      //else {
+      //  $message = $this->view('email/password_reset', $data, true);
+      //
+      //  html_mail($login, 'MoJ Intranet - Password successfully reset', $message);
+      //}
     }
 
     $this->output_json(array(
@@ -116,7 +117,7 @@ class Password extends MVC_controller {
 
         $message = $this->view('email/password_reset_requested', $data, true);
 
-        html_mail($email, 'MoJ Intranet - Password reset request', $message);
+        html_mail($email, 'MoJ Intranet - You\'ve requested a password change', $message);
       }
     }
 
