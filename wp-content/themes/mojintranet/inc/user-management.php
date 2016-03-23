@@ -1,54 +1,18 @@
 <?php
 
 // Tweak admin bar for non-admins
-function remove_admin_bar_links() {
-  if(!current_user_can( 'manage_options' )) {
-    global $wp_admin_bar;
-    $wp_admin_bar->remove_menu('wp-logo');
-    $wp_admin_bar->remove_menu('updates');
-    $wp_admin_bar->remove_menu('search');
-    $wp_admin_bar->remove_menu('site-name');
+function hide_admin_bar_for_regular_users() {
+  if(!current_user_can('editor') && !current_user_can('administrator')) {
+    show_admin_bar(false);
   }
 }
-add_action( 'wp_before_admin_bar_render', 'remove_admin_bar_links' );
-
-function register_user_management_pages() {
-  // Add &setup-pages=1 to any admin screen to add pages
-  if($_GET['setup-pages']==1 && current_user_can( 'manage_options' )) {
-    $pages_to_register = array(
-      'login' => 'Login',
-      'forgot-password' => 'Forgot Password',
-      'register' => 'Register',
-      'change-password' => 'Change Password',
-      'profile' => 'User Profile'
-    );
-
-    foreach ($pages_to_register as $slug=>$title) {
-      $query = new WP_Query( 'pagename=' . $slug );
-      if ( ! $query->have_posts() ) {
-        $post_array = array(
-            'post_name' => $slug,
-            'post_title' => $title,
-            'post_status' => 'publish',
-            'post_type' => 'page',
-            'ping_status' => 'closed',
-            'comment_status' => 'closed'
-          );
-        wp_insert_post($post_array);
-      }
-    }
-  }
-}
-add_action('init','register_user_management_pages');
+add_action( 'after_setup_theme', 'hide_admin_bar_for_regular_users' );
 
 // Prevent /login from redirecting to wp-login.php
 function dw_prevent_admin_redirect() {
   remove_action('template_redirect', 'wp_redirect_admin_locations', 1000);
 }
-add_action('init','dw_prevent_admin_redirect');
-
-// Redirect to homepage when logging out
-add_action('wp_logout',create_function('','wp_redirect(home_url());exit();'));
+// add_action('init','dw_prevent_admin_redirect');
 
 // Allow login with email address instead of username
 function dw_email_login_authenticate( $user, $username, $password ) {
@@ -64,14 +28,14 @@ function dw_email_login_authenticate( $user, $username, $password ) {
 
   return wp_authenticate_username_password( null, $username, $password );
 }
-remove_filter( 'authenticate', 'wp_authenticate_username_password', 20, 3 );
-add_filter( 'authenticate', 'dw_email_login_authenticate', 20, 3 );
+// remove_filter( 'authenticate', 'wp_authenticate_username_password', 20, 3 );
+// add_filter( 'authenticate', 'dw_email_login_authenticate', 20, 3 );
 
 // Redirect away from standard WordPress login page
 function dw_redirect_login_page() {
   $query = new WP_Query( 'pagename=login' );
   if ( $query->have_posts() ) {
-    $login_page  = home_url( '/login/' );
+    $login_page  = home_url( '/sign-in/' );
     $page_viewed = basename($_SERVER['REQUEST_URI']);
 
     if( $page_viewed == "wp-login.php" && $_SERVER['REQUEST_METHOD'] == 'GET') {
@@ -88,7 +52,7 @@ function dw_login_failed() {
     wp_redirect( $login_page . '?login=failed' );
     exit;
 }
-add_action( 'wp_login_failed', 'dw_login_failed' );
+// add_action( 'wp_login_failed', 'dw_login_failed' );
 
 // Handle empty username (email) or password
 function dw_verify_username_password( $user, $username, $password ) {
@@ -102,7 +66,7 @@ function dw_verify_username_password( $user, $username, $password ) {
     }
   }
 }
-add_filter( 'authenticate', 'dw_verify_username_password', 1, 3);
+// add_filter( 'authenticate', 'dw_verify_username_password', 1, 3);
 
 // Handles registration errors
 function dw_registration_errors($errors, $sanitized_user_login, $user_email) {
@@ -126,7 +90,7 @@ function dw_registration_errors($errors, $sanitized_user_login, $user_email) {
   }
   return $errors;
 }
-add_filter('registration_errors','dw_registration_errors',10,3);
+// add_filter('registration_errors','dw_registration_errors',10,3);
 
 function save_registration_metadata($user_id) {
   $user_firstname = $_POST['user_firstname'];
@@ -140,7 +104,7 @@ function save_registration_metadata($user_id) {
     'last_name' => $user_surname
   ));
 }
-add_action('register_new_user','save_registration_metadata');
+// add_action('register_new_user','save_registration_metadata');
 
 // Handles password reset errors
 function dw_lostpassword_errors($errors) {
@@ -156,7 +120,7 @@ function dw_lostpassword_errors($errors) {
   }
   return $errors;
 }
-add_filter('lostpassword_post','dw_lostpassword_errors',10);
+// add_filter('lostpassword_post','dw_lostpassword_errors',10);
 
 // Redirect to custom password reset page
 
@@ -181,8 +145,8 @@ function dw_password_reset_redirect() {
     exit;
   }
 }
-add_action( 'login_form_rp','dw_password_reset_redirect', 1 );
-add_action( 'login_form_resetpass','dw_password_reset_redirect', 1 );
+// add_action( 'login_form_rp','dw_password_reset_redirect', 1 );
+// add_action( 'login_form_resetpass','dw_password_reset_redirect', 1 );
 
 //Resets the user's password if the password reset form was submitted.
 function dw_password_reset() {
@@ -236,5 +200,5 @@ function dw_password_reset() {
     exit;
   }
 }
-add_action( 'login_form_rp','dw_password_reset');
-add_action( 'login_form_resetpass','dw_password_reset');
+// add_action( 'login_form_rp','dw_password_reset');
+// add_action( 'login_form_resetpass','dw_password_reset');
