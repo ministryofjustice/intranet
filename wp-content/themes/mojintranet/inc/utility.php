@@ -103,7 +103,7 @@ function get_the_content_by_id($id) {
 
 /**
  * Get an attachment ID given a URL.
- * 
+ *
  * @param string $url
  *
  * @return int Attachment ID on success, 0 on failure
@@ -139,4 +139,12 @@ function get_attachment_id_from_url( $url ) {
     }
   }
   return $attachment_id;
+}
+
+function html_mail($email, $subject, $message) {
+  add_filter('wp_mail_content_type', function($content_type) {
+    return 'text/html';
+  });
+
+  wp_mail($email, $subject, $message);
 }

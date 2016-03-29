@@ -1,7 +1,7 @@
 input,
 button {
   &.cta {
-    @extend %medium-copy;
+    @extend %large-copy;
     position: relative;
     display: inline-block;
     padding: 8px 15px 5px;

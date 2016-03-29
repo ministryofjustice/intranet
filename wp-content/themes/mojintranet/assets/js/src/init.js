@@ -43,6 +43,10 @@ jQuery(function() {
     App.ins.featuredNewsWidget = new App.FeaturedNewsWidget();
     App.ins.newsListWidget = new App.NewsListWidget();
     App.ins.needToKnowWidget = new App.NeedToKnowWidget();
+    App.ins.registerForm = new App.RegisterForm();
+    App.ins.resetPasswordForm = new App.ResetPasswordForm();
+    App.ins.forgotPasswordForm = new App.ForgotPasswordForm();
+    App.ins.loginForm = new App.LoginForm();
 
     //Late
     App.ins.breakpoint.trigger();

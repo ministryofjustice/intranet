@@ -9,6 +9,7 @@ require_once('inc/documents.php');                        // Control how documen
 require_once('inc/excerpts.php');                         // Excerpt filters
 require_once('inc/images.php');                           // Images sizes and functions
 require_once('inc/languages.php');                        // Controls the site language(s)
+require_once('inc/user-management.php');                  // Additional author information
 require_once('inc/news-customiser.php');                  // Setup news customiser
 require_once('inc/post-types.php');                       // Controls post-types (custom and built-in)
 require_once('inc/query-vars.php');                       // Register custom query variables
@@ -25,9 +26,10 @@ require_once('admin/templates/template-functions.php');   // Customises page edi
 require_once('admin/editor-enhancements.php');            // Adds enhancements to post/page editor screen
 require_once('admin/errors.php');                         // Displays errors in admin
 
-include     ('helpers/cachebuster.php');                  // Ensures updated CSS and JS are served to client
 include     ('helpers/debug.php');                        // Debug tool
+include     ('helpers/cachebuster.php');                  // Ensures updated CSS and JS are served to client
 include     ('helpers/taggr.php');                        // Tool for retrieving pages by their dw-tag
+include     ('helpers/validation.php');                   // Server side validation
 
 add_action( 'after_setup_theme', 'mojintranet_setup' );
 
