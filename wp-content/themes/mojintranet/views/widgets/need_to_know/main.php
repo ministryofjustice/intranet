@@ -2,14 +2,14 @@
 
 <div class="need-to-know-widget">
 
-  <h2 class="sr-only">Need To Know</h2>
+  <h2 class="sr-only">Highlights</h2>
 
   <ul class="slide-list"></ul>
 
   <div class="need-to-know-pagination">
     <span class="need-to-know-page-controls">
-      <a href="#" class="nav-arrow left-arrow">Previous Need To Know Item</a>
-      <a href="#" class="nav-arrow right-arrow">Next Need To Know Item</a>
+      <a href="#" class="nav-arrow left-arrow">Previous highlight</a>
+      <a href="#" class="nav-arrow right-arrow">Next highlight</a>
     </span>
   </div>
 
