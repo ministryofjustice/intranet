@@ -1,7 +1,15 @@
 <?php if (!defined('ABSPATH')) die();
 
 class User_model extends MVC_model {
-  private $valid_domains = array('publicguardian.gsi.gov.uk', 'digital.justice.gov.uk', 'legalaid.gsi.gov.uk', 'justice.gsi.gov.uk', 'hmcts.gsi.gov.uk', 'noms.gsi.gov.uk');
+  private $valid_domains = array(
+    'publicguardian.gsi.gov.uk',
+    'digital.justice.gov.uk',
+    'legalaid.gsi.gov.uk',
+    'justice.gsi.gov.uk',
+    'justice.gov.uk',
+    'hmcts.gsi.gov.uk',
+    'noms.gsi.gov.uk'
+  );
 
   /** creates a new user
    * @param {Array} $data User data
