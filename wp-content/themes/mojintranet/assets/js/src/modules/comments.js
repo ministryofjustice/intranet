@@ -144,6 +144,8 @@
       }
 
       $comment.find('> .replies-list > .reply').slice(-2).addClass('last-two');
+
+      App.ins.like.initializeLikes();
     },
 
     buildComment: function(data, isReply) {

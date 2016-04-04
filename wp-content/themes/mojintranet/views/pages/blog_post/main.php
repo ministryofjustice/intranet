@@ -72,7 +72,7 @@
 
   <div class="grid">
     <div class="col-lg-8 col-md-12 col-sm-12">
-      <ul class="summary">
+      <ul class="social-actions post-social-actions">
         <li class="comments-count">
           <span class="icon"></span>
           <span class="count"></span>

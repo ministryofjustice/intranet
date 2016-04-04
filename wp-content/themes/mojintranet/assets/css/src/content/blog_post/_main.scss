@@ -52,28 +52,12 @@
     display: none;
   }
 
-  .summary {
+  .post-social-actions {
     @include clearfix;
     padding: 10px 0;
     border-style: solid;
     border-color: $grey-2;
     border-width: 1px 0;
-
-    li {
-      float: left;
-      margin-right: 20px;
-    }
-
-    .comments-count {
-      .icon {
-        margin-top: 2px;
-      }
-
-      .count {
-        @extend %medium-copy;
-        color: $grey-1;
-      }
-    }
   }
 
   .comments-container {

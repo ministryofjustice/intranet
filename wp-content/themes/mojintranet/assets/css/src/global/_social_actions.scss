@@ -1,0 +1,19 @@
+.social-actions {
+  @include clearfix;
+
+  li {
+    float: left;
+    margin-right: 20px;
+  }
+
+  .comments-count {
+    .icon {
+      margin-top: 2px;
+    }
+
+    .count {
+      @extend %medium-copy;
+      color: $grey-1;
+    }
+  }
+}

@@ -11,19 +11,19 @@
     <div class="content-box">
       <p class="content"></p>
 
-      <div class="action">
-        <span class="reply-info">
+      <ul class="social-actions">
+        <li class="reply-info">
           <span class="icon"></span>
           <a class="reply-btn" href="">Reply</a>
-        </span>
-        <span class="like-container" data-likes-count="" data-post-type="comment" data-post-id="">
+        </li>
+        <li class="like-container" data-likes-count="" data-post-type="comment" data-post-id="">
           <a class="like-link" href="#">
             <span class="like-icon icon"></span>
             <span class="like-description"></span>
           </a>
-        </span>
+        </li>
       </div>
-    </div>
+    </ul>
 
     <div class="reply-form-container"></div>
 
