@@ -12,6 +12,7 @@ require_once('inc/languages.php');                        // Controls the site l
 require_once('inc/user-management.php');                  // Additional author information
 require_once('inc/news-customiser.php');                  // Setup news customiser
 require_once('inc/post-types.php');                       // Controls post-types (custom and built-in)
+require_once('inc/taxonomies.php');                       // Custom taxonomies
 require_once('inc/query-vars.php');                       // Register custom query variables
 require_once('inc/redirects.php');                        // Site redirects
 require_once('inc/searching.php');                        // Functions to enhance searching (using Relevanssi)

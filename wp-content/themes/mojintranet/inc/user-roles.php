@@ -31,6 +31,7 @@ class UserRoles {
         $this->wp_roles = $wp_roles;
 
         $this->initRoles();
+        $this->initCapabilities();
     }
 
     public function initRoles() {
@@ -43,6 +44,27 @@ class UserRoles {
         $editorName = 'Global Editor';
         if ($this->roleName('editor') !== $editorName) {
             $this->renameRole('editor', $editorName);
+        }
+    }
+
+    public function initCapabilities() {
+        $assignCaps = array(
+            'editor' => array(
+                'assign_agencies_to_posts',
+            ),
+            'administrator' => array(
+                'assign_agencies_to_posts',
+                'manage_agencies',
+            ),
+        );
+
+        foreach ($assignCaps as $role => $caps) {
+            $wpRole = $this->wp_roles->get_role($role);
+            foreach ($caps as $cap) {
+                if (!$wpRole->has_cap($cap)) {
+                    $wpRole->add_cap($cap);
+                }
+            }
         }
     }
 
