@@ -11,9 +11,9 @@
 
   App.Comments.prototype = {
     init: function() {
+      this.postId = $('.template-container').attr('data-post-id');
       this.applicationUrl = $('head').data('application-url');
-      this.serviceUrl = this.applicationUrl + '/wp-content/themes/mojintranet/assets/js/comments.json';
-      this.serviceUrl2 = this.applicationUrl + '/wp-content/themes/mojintranet/assets/js/comments-replies.json';
+      this.serviceUrl = this.applicationUrl + '/service/comments/' + this.postId;
 
       this.itemTemplate = this.$top.find('[data-name="comment-item"]').html();
       this.formTemplate = this.$top.find('[data-name="comment-form"]').html();
@@ -39,9 +39,9 @@
         _this.$loadMoreContainer.addClass('loading');
 
         /* use the timeout for dev/debugging purposes */
-        /**/window.setTimeout(function() {
+        //**/window.setTimeout(function() {
           $.getJSON(_this.serviceUrl, $.proxy(_this.displayComments, _this));
-        /**/}, 2000);
+        //**/}, 2000);
       });
     },
 
@@ -97,9 +97,9 @@
       var _this = this;
 
       /* use the timeout for dev/debugging purposes */
-      /**/window.setTimeout(function() {
+      //**/window.setTimeout(function() {
         _this.serviceXHR = $.getJSON(_this.serviceUrl, $.proxy(_this.displayComments, _this));
-      /**/}, 2000);
+      //**/}, 2000);
     },
 
     displayComments: function(data) {
@@ -123,6 +123,8 @@
 
       this.$commentsCount.find('.count').html(data.total_comments);
       this.$loadMoreContainer.removeClass('loading');
+
+      App.ins.like.initializeLikes();
     },
 
     displayReplies: function($comment, data) {
@@ -151,6 +153,8 @@
       $comment.find('.datetime').html(data.date_posted);
       $comment.find('.author').html(data.author);
       $comment.find('.likes .count').html(data.likes);
+      $comment.find('.like-container').attr('data-likes-count', data.likes);
+      $comment.find('.like-container').attr('data-post-id', data.id);
       $comment.attr('data-comment-id', data.id);
 
       $comment.find('.reply-btn').click($.proxy(this.initializeReplyForm, this, data.id, $comment));
@@ -167,6 +171,7 @@
 
     toggleReplies: function($comment, e) {
       var _this = this;
+      var id = $comment.attr('data-comment-id');
 
       e.preventDefault();
 
@@ -182,7 +187,7 @@
 
           /* use the timeout for dev/debugging purposes */
           //**/window.setTimeout(function() {
-            $.getJSON(_this.serviceUrl2, $.proxy(_this.displayReplies, _this, $comment));
+            $.getJSON(_this.serviceUrl + '/' + id, $.proxy(_this.displayReplies, _this, $comment));
           //**/}, 500);
         }
       }

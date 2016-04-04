@@ -52,36 +52,6 @@
     display: none;
   }
 
-  .like-container {
-    display: none;
-
-    &.loaded {
-      display: block;
-    }
-
-    &.voted {
-      .like-link {
-        text-decoration: none;
-        color: $grey-1;
-        cursor: default;
-      }
-    }
-
-    .like-link {
-      @extend %medium-copy;
-      display: inline-block;
-    }
-
-    .like-description {
-      @extend %medium-copy;
-    }
-
-    .like-icon {
-      margin-right: 5px;
-      background-position: -32px 0;
-    }
-  }
-
   .summary {
     @include clearfix;
     padding: 10px 0;
@@ -213,20 +183,6 @@
 
       a {
         text-decoration: underline;
-      }
-    }
-
-    .likes-info {
-      @extend %medium-copy;
-      margin-left: 20px;
-
-      .icon {
-        background-position: -32px 0;
-      }
-
-      .count {
-        @extend %medium-copy;
-        color: $grey-1;
       }
     }
   }

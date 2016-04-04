@@ -35,7 +35,6 @@ class Comments_API extends API {
         'per_page' => $params[3]
       ));
     }
-
   }
 
   protected function read() {

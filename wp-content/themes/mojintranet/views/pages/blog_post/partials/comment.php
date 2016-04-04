@@ -16,9 +16,11 @@
           <span class="icon"></span>
           <a class="reply-btn" href="">Reply</a>
         </span>
-        <span class="likes-info">
-          <span class="icon"></span>
-          <span class="count"></span>
+        <span class="like-container" data-likes-count="" data-post-type="comment" data-post-id="">
+          <a class="like-link" href="#">
+            <span class="like-icon icon"></span>
+            <span class="like-description"></span>
+          </a>
         </span>
       </div>
     </div>

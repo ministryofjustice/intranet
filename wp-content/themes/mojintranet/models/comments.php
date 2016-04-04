@@ -141,13 +141,14 @@ class Comments_model extends MVC_model {
 
   private function format_comment($comment) {
     $hidden_comment = get_comment_meta( $comment->comment_ID, 'hidden_comment', true );
+    $like_count = get_comment_meta( $comment->comment_ID, 'dw_inc_likes', true );
 
     return array(
       'id' => (int) $comment->comment_ID,
       'date_posted' => $comment->comment_date,
       'author_name' => $this->author_cache[$comment->comment_ID],
       'comment' => $comment->comment_content,
-      'likes' => (int) 0,
+      'likes' => (int) $like_count,
       'in_reply_to_id' => (int) $comment->comment_parent,
       'in_reply_to_author' => $this->author_cache[$comment->comment_parent],
       'hidden_comment' => (int) $hidden_comment ?: 0,
