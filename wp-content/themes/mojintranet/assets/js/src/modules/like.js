@@ -24,8 +24,6 @@
       this.serviceUrl = this.applicationUrl + '/service/likes/';
       this.likedPostIds = this.getLikesFromCookie();
 
-      console.log(this.likedPostIds);
-
       this.initializeLikes();
     },
 
