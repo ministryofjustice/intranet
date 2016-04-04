@@ -37,8 +37,8 @@
       var likesString = App.tools.getCookie(this.settings.cookieName);
       var parsedLikes;
       var likes = {
-        'comments' : [],
-        'posts': []
+        'comment' : [],
+        'post': []
       };
 
       if(likesString) {
@@ -68,10 +68,23 @@
 
         _this.bindEvents($el);
 
-        _this.getDescriptionEl($el).html($el.attr('data-likes-count'));
-
-        $el.addClass('loaded');
+        _this.initializeLikeButton($el);
       });
+    },
+
+    initializeLikeButton: function($element) {
+      var postId = this.getPostId($element);
+      var postType = this.getPostType($element);
+      var $container = this.getContainerEl($element);
+      var $description = this.getDescriptionEl($element);
+
+      if(App.tools.search(postId, this.likedPostIds[postType])) {
+        $container.addClass('voted');
+      }
+
+      $description.html($element.attr('data-likes-count'));
+
+      $container.addClass('loaded');
     },
 
     likeClick: function(e) {
@@ -103,9 +116,11 @@
 
     likeSuccess: function($element, data) {
       var postId = this.getPostId($element);
-      if(!App.tools.search(postId, this.likedPostIds)) {
-        //this.likedPostIds.push(this.postId);
-        //this.saveLikesToCookie();
+      var postType = this.getPostType($element);
+
+      if(!App.tools.search(postId, this.likedPostIds[postType])) {
+        this.likedPostIds[postType].push(postId);
+        this.saveLikesToCookie();
         this.updateLikes(data.count, $element);
       }
     },
