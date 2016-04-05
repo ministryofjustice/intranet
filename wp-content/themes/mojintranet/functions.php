@@ -13,6 +13,7 @@ require_once('inc/user-management.php');                  // Additional author i
 require_once('inc/news-customiser.php');                  // Setup news customiser
 require_once('inc/post-types.php');                       // Controls post-types (custom and built-in)
 require_once('inc/taxonomies.php');                       // Custom taxonomies
+require_once('inc/menu-locations.php');                   // Register menu locations
 require_once('inc/query-vars.php');                       // Register custom query variables
 require_once('inc/redirects.php');                        // Site redirects
 require_once('inc/searching.php');                        // Functions to enhance searching (using Relevanssi)
@@ -49,10 +50,5 @@ if ( !function_exists( 'mojintranet_setup' ) ) {
 		$locale_file = TEMPLATEPATH . "/languages/$locale.php";
 		if ( is_readable( $locale_file ) )
 			require_once( $locale_file );
-
-		// This theme uses wp_nav_menu() in one location.
-		register_nav_menus( array(
-			'primary' => __( 'Primary Navigation', 'mojintranet' ),
-		) );
 	}
 }
