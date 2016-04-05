@@ -2,43 +2,51 @@
 
 namespace MOJIntranet\Taxonomies;
 
-class Agency extends Taxonomy {
+class Agency extends Taxonomy
+{
     protected $name = 'agency';
 
     protected $objectType = array(
+        'user',
+        'news',
+        'post',
         'page',
+        'webchat',
+        'event',
+        'document',
+        'snippet',
     );
 
     protected $args = array(
-        'labels'                     => array(
-            'name'                       => 'Agencies',
-            'singular_name'              => 'Agency',
-            'menu_name'                  => 'Agencies',
-            'all_items'                  => 'All Agencies',
-            'parent_item'                => 'Parent Agency',
-            'parent_item_colon'          => 'Parent Agency:',
-            'new_item_name'              => 'New Agency Name',
-            'add_new_item'               => 'Add New Agency',
-            'edit_item'                  => 'Edit Agency',
-            'update_item'                => 'Update Agency',
+        'labels' => array(
+            'name' => 'Agencies',
+            'singular_name' => 'Agency',
+            'menu_name' => 'Agencies',
+            'all_items' => 'All Agencies',
+            'parent_item' => 'Parent Agency',
+            'parent_item_colon' => 'Parent Agency:',
+            'new_item_name' => 'New Agency Name',
+            'add_new_item' => 'Add New Agency',
+            'edit_item' => 'Edit Agency',
+            'update_item' => 'Update Agency',
             'separate_items_with_commas' => 'Separate Agencies with commas',
-            'search_items'               => 'Search Agencies',
-            'add_or_remove_items'        => 'Add or remove Agencies',
-            'choose_from_most_used'      => 'Choose from the most used Agencies',
-            'not_found'                  => 'Not Found',
+            'search_items' => 'Search Agencies',
+            'add_or_remove_items' => 'Add or remove Agencies',
+            'choose_from_most_used' => 'Choose from the most used Agencies',
+            'not_found' => 'Not Found',
         ),
-        'hierarchical'               => false,
-        'public'                     => false,
-        'show_ui'                    => true,
-        'show_admin_column'          => true,
-        'show_in_nav_menus'          => false,
-        'show_tagcloud'              => false,
-        'rewrite'                    => false,
-        'capabilities'               => array(
-            'manage_terms'               => 'manage_agencies',
-            'edit_terms'                 => 'manage_agencies',
-            'delete_terms'               => 'manage_agencies',
-            'assign_terms'               => 'assign_agencies_to_posts',
+        'hierarchical' => true,
+        'public' => false,
+        'show_ui' => true,
+        'show_admin_column' => true,
+        'show_in_nav_menus' => false,
+        'show_tagcloud' => false,
+        'rewrite' => false,
+        'capabilities' => array(
+            'manage_terms' => 'manage_agencies',
+            'edit_terms' => 'manage_agencies',
+            'delete_terms' => 'manage_agencies',
+            'assign_terms' => 'assign_agencies_to_posts',
         ),
     );
 
