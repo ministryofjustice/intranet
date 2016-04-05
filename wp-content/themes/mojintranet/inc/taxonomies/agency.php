@@ -59,10 +59,17 @@ class Agency extends Taxonomy
         }
 
         if (current_user_can('assign_agencies_to_posts')) {
-            // Using priority 9 to bump it above "More fields" section
+            // Show form fields to edit user agency
+            // Using priority 9 here to bump it above "More fields" section
             add_action('show_user_profile', array($this, 'editUserProfile'), 9);
             add_action('edit_user_profile', array($this, 'editUserProfile'), 9);
+
+            // Update the agency terms when the edit user page is updated
+            add_action('personal_options_update', array($this, 'editUserProfileSave'));
+            add_action('edit_user_profile_update', array($this, 'editUserProfileSave'));
         }
+        
+        
     }
 
     public function addAdminMenuItem()
@@ -79,7 +86,6 @@ class Agency extends Taxonomy
      */
     public function editUserProfile($user)
     {
-        $tax = get_taxonomy($this->name);
         $terms = get_terms($this->name, array(
             'hide_empty' => false,
         ));
@@ -99,10 +105,10 @@ class Agency extends Taxonomy
 
                     /* If there are any profession terms, loop through them and display checkboxes. */
                     if (!empty($terms)) {
-
+                        
                         foreach ($terms as $term) { ?>
                             <input type="checkbox" name="agency[]" id="agency-<?php echo esc_attr($term->slug); ?>"
-                                   value="<?php echo esc_attr($term->slug); ?>" <?php checked(true, is_object_in_term($user->ID, 'agency', $term)); ?> />
+                                   value="<?php echo esc_attr($term->slug); ?>" <?php checked(true, is_object_in_term($user->ID, 'agency', $term->slug)); ?> />
                             <label for="agency-<?php echo esc_attr($term->slug); ?>"><?php echo $term->name; ?></label>
                             <br/>
                         <?php }
@@ -118,5 +124,26 @@ class Agency extends Taxonomy
         </table>
 
         <?php
+    }
+
+    /**
+     * Saves the term selected on the edit user/profile page in the admin. This function is triggered when the page
+     * is updated.  We just grab the posted data and use wp_set_object_terms() to save it.
+     *
+     * @param int $user_id The ID of the user to save the terms for.
+     */
+    public function editUserProfileSave($user_id) {
+        $term = esc_attr( $_POST['agency'] );
+
+        $agencies = $_POST['agency'];
+        if (!is_array($agencies)) {
+            $agencies = array();
+        }
+        $agencies = array_map('sanitize_text_field', $agencies);
+
+        /* Sets the terms for the user. */
+        wp_set_object_terms($user_id, $agencies, 'agency', false);
+
+        clean_object_term_cache($user_id, 'agency');
     }
 }
