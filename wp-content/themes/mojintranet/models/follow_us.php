@@ -25,6 +25,8 @@ class Follow_us_model extends MVC_model {
       }
     }
 
-    return $filtered_links;
+    return array(
+      'results' => $filtered_links
+    );
   }
 }

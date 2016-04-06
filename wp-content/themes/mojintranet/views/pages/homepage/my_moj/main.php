@@ -17,17 +17,14 @@
         </a>
       </li>
     </ul>
-    <ul class="apps-list">
-      <?php foreach($apps as $app): ?>
-        <?php $this->view('pages/homepage/my_moj/app_item', $app) ?>
-      <?php endforeach ?>
-    </ul>
+    <ul class="apps-list"></ul>
   </div>
 
   <nav class="quick-links-container mobile-collapsed">
     <h2 class="category-name">Quick links</h2>
-    <div class="quick-links-list-container">
-      <?php Debug::full($quick_links); ?>
-    </div>
+    <ul class="quick-links-list"></ul>
   </nav>
+
+  <?php $this->view('pages/homepage/my_moj/app_item') ?>
+  <?php $this->view('pages/homepage/my_moj/quick_link_item') ?>
 </div>

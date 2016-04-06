@@ -17,7 +17,7 @@ class My_moj_model extends MVC_model {
     foreach ($menu_items as $menu_item) {
       $quick_link['title'] = $menu_item->title;
       $quick_link['url'] = $menu_item->url;
-      $data['results'][] = $quick_link;
+      $data[] = $quick_link;
     }
 
     return $data;
