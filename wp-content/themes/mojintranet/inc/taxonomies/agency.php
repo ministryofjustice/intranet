@@ -103,9 +103,9 @@ class Agency extends Taxonomy
                     <p class="description">Select agencies that this user is able to edit content for. Only applies to the Agency Editor role.</p>
                     <?php
 
-                    /* If there are any profession terms, loop through them and display checkboxes. */
+                    // If there are any agency terms, loop through them and display checkboxes.
                     if (!empty($terms)) {
-                        
+
                         foreach ($terms as $term) { ?>
                             <input type="checkbox" name="agency[]" id="agency-<?php echo esc_attr($term->slug); ?>"
                                    value="<?php echo esc_attr($term->slug); ?>" <?php checked(true, is_object_in_term($user->ID, 'agency', $term->slug)); ?> />
