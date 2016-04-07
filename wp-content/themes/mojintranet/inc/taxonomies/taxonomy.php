@@ -2,7 +2,7 @@
 
 namespace MOJIntranet\Taxonomies;
 
-class Taxonomy {
+abstract class Taxonomy {
     /**
      * The name of the taxonomy.
      * Name should only contain lowercase letters and the underscore character, and not be more than 32 characters long
