@@ -1,8 +1,7 @@
 <?php if (!defined('ABSPATH')) die(); ?>
 <div class="template-container"
      data-is-imported="<?=$is_imported?>"
-     data-page-id="<?=$id?>"
-     data-children-data="<?=$children_data?>">
+     data-page-id="<?=$id?>">
 
   <div class="grid content-container">
     <?php if($lhs_menu_on): ?>

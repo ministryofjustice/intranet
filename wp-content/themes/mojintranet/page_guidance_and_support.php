@@ -44,9 +44,7 @@ class Page_guidance_and_support extends MVC_controller {
       'cache_timeout' => 60 * 60, /* 60 minutes */
       'page_data' => array(
         'id' => $this->post_ID,
-        // 'author' => get_the_author(),
         'author' => "Intranet content team",
-        // 'author_email' => get_the_author_meta('user_email'),
         'author_email' => "newintranet@digital.justice.gov.uk",
         'title' => get_the_title(),
         'excerpt' => $post->post_excerpt, // Not using get_the_excerpt() to prevent auto-generated excerpts being displayed
@@ -61,7 +59,6 @@ class Page_guidance_and_support extends MVC_controller {
         'has_q_links' => $this->has_q_links,
         'page_category' => $this->page_category,
         'autoheadings' => $this->autoheadings,
-        //'children_data' => $this->get_children_data(),
         'lhs_menu_on' => $lhs_menu_on
       )
     );
