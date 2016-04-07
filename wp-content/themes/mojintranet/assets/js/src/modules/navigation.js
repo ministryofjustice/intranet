@@ -9,13 +9,16 @@
 
   App.Navigation.prototype = {
     init: function() {
-      this.data = JSON.parse(this.$top.attr('data-children-data'));
+      this.applicationUrl = $('head').data('application-url');
+      this.templateUri = $('head').data('template-uri');
+      this.postId = this.$top.attr('data-page-id');
+      this.serviceUrl = this.applicationUrl + '/service/children/' + this.postId + '/';
 
       this.cacheEls();
       this.cacheTemplates();
       this.bindEvents();
 
-      this.buildMenu();
+      this.requestChildren();
     },
 
     cacheTemplates: function() {
@@ -27,18 +30,27 @@
       this.$menu = $('.menu-list');
     },
 
+    requestChildren: function() {
+      var _this = this;
+
+      /* use the timeout for dev/debugging purposes */
+      //**/window.setTimeout(function() {
+        _this.serviceXHR = $.getJSON(_this.serviceUrl, $.proxy(_this.buildMenu, _this));
+      //**/}, 2000);
+    },
+
     bindEvents: function() {
     },
 
-    buildMenu: function() {
+    buildMenu: function(data) {
       var _this = this;
       var $menuItem;
       var current = false;
 
-      $.each(this.data, function(index, data) {
-        $menuItem = _this.buildMenuItem(data);
+      $.each(data, function(index, child) {
+        $menuItem = _this.buildMenuItem(child);
         $menuItem.appendTo(_this.$menu);
-        $menuItem.addClass(index === _this.data.length - 1 ? 'current' : 'collapsed');
+        $menuItem.addClass(index === data.length - 1 ? 'current' : 'collapsed');
 
         if(!$menuItem.find('.children-list .child-item').length) {
           $menuItem.addClass('no-children');
@@ -61,7 +73,7 @@
       $menuItem.find('.dropdown-button')
         .click($.proxy(_this.toggle, _this));
 
-      $.each(data.results, function(index, data) {
+      $.each(data.children, function(index, data) {
         _this.buildChildItem(data).appendTo($childrenList);
       });
 
