@@ -89,7 +89,7 @@ class ListTable
      */
     public function toCamelCase($string)
     {
-        $words = str_replace('_', ' ', $string);
+        $words = str_replace(array('_', '-'), ' ', $string);
         $words = ucwords($words);
         $camel = str_replace(' ', '', $words);
         return $camel;

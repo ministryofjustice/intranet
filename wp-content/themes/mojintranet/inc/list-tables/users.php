@@ -18,9 +18,6 @@ class Users extends ListTable
      */
     protected $objectTypes = array(
         'users',
-        'post_posts',
-        'page_posts',
-        'webchat_posts',
     );
 
     /**
