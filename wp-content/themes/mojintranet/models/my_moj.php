@@ -30,63 +30,63 @@ class My_moj_model extends MVC_model {
         'icon' => 'people-finder',
         'url' => 'https://peoplefinder.service.gov.uk/',
         'external' => true,
-        'agency' => ' hq hmcts opg laa '
+        'agency' => array('hq', 'hmcts', 'opg', 'laa')
       ),
       array(
         'title' => 'Travel booking',
         'icon' => 'travel-booking',
         'url' => 'https://www.trips.uk.com/js/SABS/Corporate.html',
         'external' => true,
-        'agency' => ' hq hmcts opg laa '
+        'agency' => array('hq', 'hmcts', 'opg', 'laa')
       ),
       array(
         'title' => 'Jobs',
         'icon' => 'jobs',
         'url' => site_url('/jobs/'),
         'external' => true,
-        'agency' => ' hq hmcts opg laa '
+        'agency' => array('hq', 'hmcts', 'opg', 'laa')
       ),
       array(
         'title' => 'Pensions',
         'icon' => 'pension',
         'url' => 'http://www.civilservicepensionscheme.org.uk/',
         'external' => true,
-        'agency' => ' hq hmcts opg laa '
+        'agency' => array('hq', 'hmcts', 'opg', 'laa')
       ),
       array(
         'title' => 'Phoenix',
         'icon' => 'phoenix',
         'url' => site_url('/phoenix/'),
         'external' => false,
-        'agency' => ' hq hmcts opg laa '
+        'agency' => array('hq', 'hmcts', 'opg', 'laa')
       ),
       array(
         'title' => 'Civil Service Learning',
         'icon' => 'civil-service-learning',
         'url' => 'https://civilservicelearning.civilservice.gov.uk/',
         'external' => true,
-        'agency' => ' hq hmcts opg laa '
+        'agency' => array('hq', 'hmcts', 'opg', 'laa')
       ),
       array(
         'title' => 'IT portal',
         'icon' => 'it-portal',
         'url' => 'http://itportal.dom1.infra.int:8080/Pages/default.aspx',
         'external' => true,
-        'agency' => ' hq hmcts opg laa '
+        'agency' => array('hq', 'hmcts', 'opg', 'laa')
       ),
       array(
         'title' => 'MoJ Webchat',
         'icon' => 'webchat',
         'url' => site_url('/webchats/'),
         'external' => false,
-        'agency' => ' hq hmcts opg laa '
+        'agency' => array('hq', 'hmcts', 'opg', 'laa')
       )
     );
 
     $filtered_apps = array();
 
     foreach($apps as $app) {
-      if(strpos($app['agency'], ' ' . $agency . ' ') !== false) {
+      if(in_array($agency, $app['agency'])) {
         $filtered_apps[] = $app;
       }
     }
