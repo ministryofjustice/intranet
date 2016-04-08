@@ -32,11 +32,17 @@ function agency_context_switcher_menu($wp_admin_bar) {
         ));
 
         foreach ($agencies as $agency) {
+            $url = admin_url('index.php');
+            $url = add_query_arg(array(
+                'set-agency-context' => $agency->slug,
+                '_wp_http_referer' => $_SERVER['REQUEST_URI'],
+            ), $url);
+
             $wp_admin_bar->add_menu(array(
                 'parent' => 'agency-list',
                 'id'     => 'agency-' . $agency->slug,
                 'title'  => $agency->name,
-                'href'   => add_query_arg('set-agency-context', $agency->slug),
+                'href'   => $url,
             ));
         }
     }
@@ -44,14 +50,16 @@ function agency_context_switcher_menu($wp_admin_bar) {
 add_action('admin_bar_menu', 'agency_context_switcher_menu');
 
 function set_agency_context() {
-    if (is_admin() && isset($_GET['set-agency-context'])) {
+    global $pagenow;
+
+    if (is_admin() && $pagenow == 'index.php' && isset($_GET['set-agency-context'])) {
         $set_agency = $_GET['set-agency-context'];
 
         if (Agency_Context::current_user_can_change_to($set_agency)) {
             Agency_Context::set_agency_context($set_agency);
         }
 
-        wp_redirect(remove_query_arg('set-agency-context'));
+        wp_redirect(wp_get_referer());
     }
 }
 add_action('admin_init', 'set_agency_context');
