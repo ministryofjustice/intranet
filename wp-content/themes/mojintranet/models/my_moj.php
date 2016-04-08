@@ -1,4 +1,4 @@
-<?php
+<?php if (!defined('ABSPATH')) die();
 
 class My_moj_model extends MVC_model {
   function get_data($agency = 'hq') {
