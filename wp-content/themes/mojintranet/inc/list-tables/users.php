@@ -1,13 +1,12 @@
 <?php
 
-namespace MOJIntranet\ListTables;
+namespace MOJ_Intranet\List_Tables;
 
 /**
  * Adjustments to users list table.
  */
 
-class Users extends ListTable
-{
+class Users extends List_Table {
     /**
      * Array of object types which this class applies to.
      *
@@ -16,7 +15,7 @@ class Users extends ListTable
      *
      * @var array
      */
-    protected $objectTypes = array(
+    protected $object_types = array(
         'users',
     );
 
@@ -36,9 +35,8 @@ class Users extends ListTable
      * @param array $columns
      * @return array
      */
-    public function filterColumns($columns)
-    {
-        $columns = parent::filterColumns($columns);
+    public function filter_columns($columns) {
+        $columns = parent::filter_columns($columns);
 
         // Shift the 'Posts' column to the right so that
         // 'Role' and 'Agency' are next to each other.
@@ -52,13 +50,12 @@ class Users extends ListTable
     /**
      * Return content for the Agencies column.
      *
-     * @param int $userId
+     * @param int $user_id
      * @return string
      */
-    public function columnAgencies($userId)
-    {
-        $terms = wp_get_object_terms($userId, 'agency');
-        $user = get_userdata($userId);
+    public function column_agencies($user_id) {
+        $terms = wp_get_object_terms($user_id, 'agency');
+        $user = get_userdata($user_id);
 
         if (!in_array('agency-editor', $user->roles)) {
             // User is not an Agency Editor, so this taxonomy does not apply.

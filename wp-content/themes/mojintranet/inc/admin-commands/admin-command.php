@@ -1,9 +1,8 @@
 <?php
 
-namespace MOJIntranet\AdminCommands;
+namespace MOJ_Intranet\Admin_Commands;
 
-class AdminCommand
-{
+abstract class Admin_Command {
     /**
      * Name of the command.
      *
@@ -23,8 +22,5 @@ class AdminCommand
      *
      * @return void
      */
-    public function execute()
-    {
-        // Execute the command
-    }
+    abstract public function execute();
 }

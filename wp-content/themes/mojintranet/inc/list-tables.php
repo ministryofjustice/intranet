@@ -4,16 +4,16 @@
  * Adjustments to list tables.
  */
 
-$listTables = array(
-    // filename => ClassName
+$list_tables = array(
+    // filename => Class_Name
     'users' => 'Users',
-    'agency-posts' => 'AgencyPosts',
+    'agency-posts' => 'Agency_Posts',
 );
 
 require_once 'list-tables/list-table.php';
 
-foreach ($listTables as $includeFile => $className) {
-    require_once 'list-tables/' . $includeFile . '.php';
-    $class = '\\MOJIntranet\\ListTables\\' . $className;
+foreach ($list_tables as $include_file => $class_name) {
+    require_once 'list-tables/' . $include_file . '.php';
+    $class = '\\MOJ_Intranet\\List_Tables\\' . $class_name;
     new $class();
 }

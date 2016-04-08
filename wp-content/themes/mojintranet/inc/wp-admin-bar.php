@@ -13,7 +13,7 @@ function agency_context_switcher_menu($wp_admin_bar) {
     }
 
     $context = Agency_Context::get_agency_context();
-    $agency = AgencyEditor::getAgencyBySlug($context);
+    $agency = Agency_Editor::get_agency_by_slug($context);
 
     $wp_admin_bar->add_node(array(
         'parent'    => 'top-secondary',

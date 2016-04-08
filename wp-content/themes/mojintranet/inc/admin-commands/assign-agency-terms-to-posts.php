@@ -1,18 +1,31 @@
 <?php
 
-namespace MOJIntranet\AdminCommands;
+namespace MOJ_Intranet\Admin_Commands;
 
-class AssignAgencyTermsToPosts extends AdminCommand
-{
+class Assign_Agency_Terms_To_Posts extends Admin_Command {
+    /**
+     * Name of the command.
+     *
+     * @var string
+     */
     public $name = 'Assign Agency Terms to Posts';
 
+    /**
+     * Description of what this command will do.
+     *
+     * @var string
+     */
     public $description = 'Assign the HQ agency term to all posts which don\'t have agency terms assigned.';
 
-    public function execute()
-    {
+    /**
+     * Method to execute the command.
+     *
+     * @return void
+     */
+    public function execute() {
         global $wpdb;
 
-        $postTypes = array(
+        $post_types = array(
             'news',
             'post',
             'page',
@@ -22,10 +35,10 @@ class AssignAgencyTermsToPosts extends AdminCommand
             'snippet',
         );
 
-        foreach ($postTypes as $postType) {
-            $posts = $wpdb->get_results('SELECT id, post_title FROM wp_posts WHERE post_type = "' . $postType . '"');
+        foreach ($post_types as $post_type) {
+            $posts = $wpdb->get_results('SELECT id, post_title FROM wp_posts WHERE post_type = "' . $post_type . '"');
 
-            echo '<h3>Post type: ' . $postType . '</h3>';
+            echo '<h3>Post type: ' . $post_type . '</h3>';
             echo '<ul>';
 
             foreach ($posts as $post) {

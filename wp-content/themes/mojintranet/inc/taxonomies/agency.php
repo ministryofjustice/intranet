@@ -1,12 +1,11 @@
 <?php
 
-namespace MOJIntranet\Taxonomies;
+namespace MOJ_Intranet\Taxonomies;
 
-class Agency extends Taxonomy
-{
+class Agency extends Taxonomy {
     protected $name = 'agency';
 
-    protected $objectType = array(
+    protected $object_types = array(
         'user',
         'news',
         'post',
@@ -50,8 +49,7 @@ class Agency extends Taxonomy
         ),
     );
 
-    public function __construct()
-    {
+    public function __construct() {
         parent::__construct();
 
         if (current_user_can('manage_agencies')) {
@@ -75,8 +73,7 @@ class Agency extends Taxonomy
         }
     }
 
-    public function add_admin_menu_item()
-    {
+    public function add_admin_menu_item() {
         add_submenu_page('users.php', 'Agencies', 'Agencies', 'administrator', 'edit-tags.php?taxonomy=agency&post_type=user');
     }
 
@@ -87,8 +84,7 @@ class Agency extends Taxonomy
      *
      * @param object $user The user object currently being edited.
      */
-    public function edit_user_profile($user)
-    {
+    public function edit_user_profile($user) {
         $terms = get_terms($this->name, array(
             'hide_empty' => false,
         ));
@@ -136,8 +132,7 @@ class Agency extends Taxonomy
      *
      * @param int $user_id The ID of the user to save the terms for.
      */
-    public function edit_user_profile_save($user_id)
-    {
+    public function edit_user_profile_save($user_id) {
         $agencies = $_POST['agency'];
         if (!is_array($agencies)) {
             $agencies = array();
@@ -153,10 +148,9 @@ class Agency extends Taxonomy
     /**
      * Add filters to post listing pages.
      */
-    public function add_agency_filter()
-    {
+    public function add_agency_filter() {
         global $typenow, $pagenow;
-        if (!in_array($typenow, $this->objectType) || $pagenow !== 'edit.php') {
+        if (!in_array($typenow, $this->object_types) || $pagenow !== 'edit.php') {
             return;
         }
 
@@ -184,10 +178,9 @@ class Agency extends Taxonomy
         }
     }
 
-    public function filter_posts_by_agency($query)
-    {
+    public function filter_posts_by_agency($query) {
         global $typenow, $pagenow;
-        if (!in_array($typenow, $this->objectType) || $pagenow !== 'edit.php') {
+        if (!in_array($typenow, $this->object_types) || $pagenow !== 'edit.php') {
             return $query;
         }
 

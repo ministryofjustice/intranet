@@ -11,7 +11,7 @@
  *
  */
 
-namespace MOJIntranet;
+namespace MOJ_Intranet;
 
 use WP_Roles;
 

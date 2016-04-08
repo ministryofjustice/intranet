@@ -1,15 +1,14 @@
 <?php
 
-namespace MOJIntranet\ListTables;
+namespace MOJ_Intranet\List_Tables;
 
-use AgencyEditor;
+use Agency_Editor;
 
 /**
  * Adjustments to list tables for all post types which have agency taxonomy.
  */
 
-class AgencyPosts extends ListTable
-{
+class Agency_Posts extends List_Table {
     /**
      * Array of object types which this class applies to.
      *
@@ -18,7 +17,7 @@ class AgencyPosts extends ListTable
      *
      * @var array
      */
-    protected $objectTypes = array(
+    protected $object_types = array(
         'news_posts',
         'post_posts',
         'page_posts',
@@ -40,22 +39,12 @@ class AgencyPosts extends ListTable
     );
 
     /**
-     * AgencyPosts constructor.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-
-    }
-
-    /**
      * Reorder columns.
      *
      * @param array $columns
      * @return array
      */
-    public function filterColumns($columns)
-    {
+    public function filter_columns($columns) {
         // Reorder columns to be: checkbox, title, $this->columns, then everything else.
         $columns = array_merge(
             array_intersect_key($columns, array_flip(array('cb', 'title'))),
@@ -77,34 +66,32 @@ class AgencyPosts extends ListTable
     }
 
     /**
-     * Content for the Agencies column.
+     * Content for the Agency column.
      *
-     * @param int $postId
+     * @param int $post_id
      * @return string
      */
-    public function columnAgency($postId)
-    {
-        $agency = AgencyEditor::getPostAgency($postId);
+    public function column_agency($post_id) {
+        $agency = Agency_Editor::get_post_agency($post_id);
         return $agency->name;
     }
 
     /**
      * Content for the Opted Out column.
      *
-     * @param $postId
+     * @param $post_id
      * @return string
      */
-    public function columnOptedOut($postId)
-    {
+    public function column_opted_out($post_id) {
         if (!current_user_can('agency-editor')) {
             return '–';
         }
 
-        $optOut = AgencyEditor::isPostOptedOut($postId);
+        $opt_out = Agency_Editor::is_post_opted_out($post_id);
 
-        if (is_null($optOut)) {
+        if (is_null($opt_out)) {
             $out = '';
-        } elseif ($optOut === true) {
+        } elseif ($opt_out === true) {
             $out = '<span class="dashicons dashicons-hidden"></span>';
         } else {
             $out = '<span class="dashicons dashicons-visibility"></span>';
