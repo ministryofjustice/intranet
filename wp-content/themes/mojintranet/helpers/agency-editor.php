@@ -6,16 +6,7 @@
  * Class AgencyEditor
  */
 
-class AgencyEditor
-{
-    /**
-     * Get the slug for the agency which the user
-     * is currently in the context of.
-     */
-    public static function getCurrentAgencyContext() {
-        return 'hmcts'; // @TODO: make this dynamic
-    }
-
+class AgencyEditor {
     /**
      * Get the agency / owner of a post.
      * Returns the WP_Term object of the agency.
@@ -59,7 +50,7 @@ class AgencyEditor
         $owner = self::getPostAgency($postID);
 
         if (is_null($agency)) {
-            $agency = self::getCurrentAgencyContext();
+            $agency = Agency_Context::get_agency_context();
         }
 
         if ($owner->slug !== 'hq') {
