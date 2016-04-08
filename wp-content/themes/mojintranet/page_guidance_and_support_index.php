@@ -2,7 +2,14 @@
 /* Template name: Guidance & Support Index */
 
 class Page_guidance_and_support_index extends MVC_controller {
+  function __construct() {
+    parent::__construct();
+    $this->model('menu');
+  }
+
   function main(){
+    $menu = $this->model->menu->get_menu_items('hq-guidance-index');
+
     while(have_posts()){
       the_post();
       $this->post_ID = get_the_ID();

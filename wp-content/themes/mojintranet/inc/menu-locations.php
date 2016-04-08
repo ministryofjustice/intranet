@@ -9,12 +9,19 @@ function register_taxonomy_menus() {
     $terms = get_terms('agency', array(
         'hide_empty' => false,
     ));
+
     $menus = array();
+
     foreach ($terms as $term) {
-        $menuSlug = $term->slug . '-quick-links';
-        $menuName = $term->name . ' Quick Links';
-        $menus[$menuSlug] = $menuName;
+        $menu_slug = $term->slug . '-quick-links';
+        $menu_name = $term->name . ' Quick Links';
+        $menus[$menu_slug] = $menu_name;
+
+        $menu_slug = $term->slug . '-guidance-index';
+        $menu_name = $term->name . ' Guidance Index';
+        $menus[$menu_slug] = $menu_name;
     }
+
     register_nav_menus($menus);
 }
 add_action('init', 'register_taxonomy_menus');
