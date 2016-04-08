@@ -19,6 +19,8 @@
       this.appTemplate = this.$top.find('[data-name="widget-app-item"]').html();
       this.quickLinkTemplate = this.$top.find('[data-name="widget-quick-link-item"]').html();
 
+      this.resultsLoaded = false;
+
       this.cacheEls();
       this.bindEvents();
 
@@ -53,6 +55,7 @@
         _this.$quickLinksList.append(_this.buildQuickLinkItem(quickLink));
       });
 
+      this.resultsLoaded = true;
       this.$top.removeClass('loading');
     },
 
