@@ -117,32 +117,13 @@
       margin-bottom: 8px;
     }
 
-    .nested-menu {
-      margin-top: 0;
-    }
-
-    .category-item {
+    .quick-link-item {
       margin-bottom: 10px;
     }
 
-    .menu-link {
+    .quick-link-link {
       @extend %medium-copy;
       text-decoration: underline;
-    }
-
-    ul {
-      a {
-        @extend %medium-copy;
-        text-decoration: underline;
-      }
-
-      .menu-item {
-        margin-top: 10px;
-
-        &:first-of-type a {
-          margin-top: 0;
-        }
-      }
     }
   }
 

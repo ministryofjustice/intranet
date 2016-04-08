@@ -42,6 +42,8 @@ jQuery(function() {
     App.ins.featuredNewsWidget = new App.FeaturedNewsWidget();
     App.ins.newsListWidget = new App.NewsListWidget();
     App.ins.needToKnowWidget = new App.NeedToKnowWidget();
+    App.ins.myMojWidget = new App.MyMojWidget();
+    App.ins.followUsWidget = new App.FollowUsWidget();
     App.ins.registerForm = new App.RegisterForm();
     App.ins.resetPasswordForm = new App.ResetPasswordForm();
     App.ins.forgotPasswordForm = new App.ForgotPasswordForm();

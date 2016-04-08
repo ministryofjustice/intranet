@@ -30,7 +30,7 @@ class Children_API extends API {
   }
 
   protected function get_children() {
-    $data = call_user_func_array(array($this->MVC->model->children, 'get_all'), $this->params);
+    $data = call_user_func_array(array($this->MVC->model->children, 'get_data_recursive'), $this->params);
     //$data['url_params'] = $this->params;
     $this->response($data, 200, 120);
   }

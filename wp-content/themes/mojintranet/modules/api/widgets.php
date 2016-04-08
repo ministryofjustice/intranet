@@ -21,8 +21,12 @@ class Widgets_API extends API {
         $this->get_need_to_know();
         break;
 
-      case 'quick-links':
-        $this->get_quick_links();
+      case 'my-moj':
+        $this->get_my_moj();
+        break;
+
+      case 'follow-us':
+        $this->get_follow_us_links();
         break;
 
       default:
@@ -32,11 +36,19 @@ class Widgets_API extends API {
   }
 
   protected function parse_params($params) {
+    $widget = $params[0];
+
     $this->params = array(
-      'widget' => $params[0],
-      'start' => (int) $params[1],
-      'length' => (int) $params[2]
+      'widget' => $widget
     );
+
+    if($widget == 'my-moj' || $widget == 'follow-us') {
+      $this->params['agency'] = $params[1];
+    }
+    else {
+      $this->params['start'] = (int) $params[1];
+      $this->params['length'] = (int) $params[2];
+    }
   }
 
   private function get_featured_news() {
@@ -57,10 +69,16 @@ class Widgets_API extends API {
     $this->response($data, 200, 60);
   }
 
-  private function get_quick_links() {
-    $data = $this->MVC->model->my_moj->get_quick_links($this->params);
+  private function get_my_moj() {
+    $data = $this->MVC->model->my_moj->get_data($this->params['agency']);
     $data['url_params'] = $this->params;
     $this->response($data, 200, 60 * 60);
   }
 
+  private function get_follow_us_links() {
+    $this->MVC->model('follow_us');
+    $data = $this->MVC->model->follow_us->get_data($this->params['agency']);
+    $data['url_params'] = $this->params;
+    $this->response($data, 200, 60 * 60);
+  }
 }
