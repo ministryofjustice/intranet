@@ -55,24 +55,27 @@ class Agency extends Taxonomy
         parent::__construct();
 
         if (current_user_can('manage_agencies')) {
-            add_action('admin_menu', array($this, 'addAdminMenuItem'));
+            add_action('admin_menu', array($this, 'add_admin_menu_item'));
         }
 
         if (current_user_can('assign_agencies_to_posts')) {
             // Show form fields to edit user agency
             // Using priority 9 here to bump it above "More fields" section
-            add_action('show_user_profile', array($this, 'editUserProfile'), 9);
-            add_action('edit_user_profile', array($this, 'editUserProfile'), 9);
+            add_action('show_user_profile', array($this, 'edit_user_profile'), 9);
+            add_action('edit_user_profile', array($this, 'edit_user_profile'), 9);
 
             // Update the agency terms when the edit user page is updated
-            add_action('personal_options_update', array($this, 'editUserProfileSave'));
-            add_action('edit_user_profile_update', array($this, 'editUserProfileSave'));
+            add_action('personal_options_update', array($this, 'edit_user_profile_save'));
+            add_action('edit_user_profile_update', array($this, 'edit_user_profile_save'));
         }
-        
-        
+
+        if (!current_user_can('manage_agencies')) {
+            add_filter('parse_query', array($this, 'filter_posts_by_agency'));
+            add_filter('restrict_manage_posts', array($this, 'add_agency_filter'));
+        }
     }
 
-    public function addAdminMenuItem()
+    public function add_admin_menu_item()
     {
         add_submenu_page('users.php', 'Agencies', 'Agencies', 'administrator', 'edit-tags.php?taxonomy=agency&post_type=user');
     }
@@ -84,7 +87,7 @@ class Agency extends Taxonomy
      *
      * @param object $user The user object currently being edited.
      */
-    public function editUserProfile($user)
+    public function edit_user_profile($user)
     {
         $terms = get_terms($this->name, array(
             'hide_empty' => false,
@@ -100,7 +103,8 @@ class Agency extends Taxonomy
                 <th><label for="agency"><?php _e('Agencies for Editor'); ?></label></th>
 
                 <td>
-                    <p class="description">Select agencies that this user is able to edit content for. Only applies to the Agency Editor role.</p>
+                    <p class="description">Select agencies that this user is able to edit content for. Only applies to
+                        the Agency Editor role.</p>
                     <?php
 
                     // If there are any agency terms, loop through them and display checkboxes.
@@ -132,9 +136,8 @@ class Agency extends Taxonomy
      *
      * @param int $user_id The ID of the user to save the terms for.
      */
-    public function editUserProfileSave($user_id) {
-        $term = esc_attr( $_POST['agency'] );
-
+    public function edit_user_profile_save($user_id)
+    {
         $agencies = $_POST['agency'];
         if (!is_array($agencies)) {
             $agencies = array();
@@ -145,5 +148,55 @@ class Agency extends Taxonomy
         wp_set_object_terms($user_id, $agencies, 'agency', false);
 
         clean_object_term_cache($user_id, 'agency');
+    }
+
+    /**
+     * Add filters to post listing pages.
+     */
+    public function add_agency_filter()
+    {
+        global $typenow, $pagenow;
+        if (!in_array($typenow, $this->objectType) || $pagenow !== 'edit.php') {
+            return;
+        }
+
+        $agencies = array(
+            'hq' => 'HQ',
+            'hmcts' => 'HMCTS (hardcoded)',
+        );
+
+        ?>
+        <label style="margin-left: 5px;" class="agency-filter-label">Agency:</label>
+        <?php
+
+        foreach ($agencies as $slug => $name) {
+            if (!empty($_GET['agency']) && is_array($_GET['agency']) && in_array($slug, $_GET['agency'])) {
+                $is_checked = true;
+            } else {
+                $is_checked = false;
+            }
+            ?>
+            <label class="agency-filter-filter">
+                <input type="checkbox" name="agency[]" value="<?php echo esc_attr($slug); ?>" <?php checked(true, $is_checked); ?> />
+                <?php echo $name; ?>
+            </label>
+            <?php
+        }
+    }
+
+    public function filter_posts_by_agency($query)
+    {
+        global $typenow, $pagenow;
+        if (!in_array($typenow, $this->objectType) || $pagenow !== 'edit.php') {
+            return $query;
+        }
+
+        if (!isset($_GET['agency']) || !is_array($_GET['agency'])) {
+            return $query;
+        }
+
+        $query->query_vars['agency'] = $_GET['agency'];
+
+        return $query;
     }
 }

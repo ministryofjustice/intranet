@@ -40,6 +40,15 @@ class AgencyPosts extends ListTable
     );
 
     /**
+     * AgencyPosts constructor.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+    }
+
+    /**
      * Reorder columns.
      *
      * @param array $columns
@@ -68,7 +77,7 @@ class AgencyPosts extends ListTable
     }
 
     /**
-     * Return content for the Agencies column.
+     * Content for the Agencies column.
      *
      * @param int $postId
      * @return string
@@ -78,7 +87,13 @@ class AgencyPosts extends ListTable
         $agency = AgencyEditor::getPostAgency($postId);
         return $agency->name;
     }
-    
+
+    /**
+     * Content for the Opted Out column.
+     *
+     * @param $postId
+     * @return string
+     */
     public function columnOptedOut($postId)
     {
         if (!current_user_can('agency-editor')) {

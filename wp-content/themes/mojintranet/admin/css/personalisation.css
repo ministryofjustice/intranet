@@ -1,0 +1,12 @@
+/**
+ * Admin CSS related to personalisation
+ */
+
+.agency-filter-label {
+    margin-left: 5px;
+}
+
+.agency-filter-filter {
+    margin-right: 5px;
+    padding: 5px;
+}
