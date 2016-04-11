@@ -1,11 +1,16 @@
 <?php if (!defined('ABSPATH')) die();
 
 class Menu_model extends MVC_model {
-  public function get_menu_items($menu_location, $with_children = false) {
-    $data = array();
+  public function get_menu_items($params = array()) {
+    $location = isset($params['location']) ? $params['location'] : 'hq-guidance-index';
+    $with_children = isset($params['with_children']) ? $params['with_children'] : false;
 
     $locations = get_nav_menu_locations();
-    $menu_items = wp_get_nav_menu_items($locations[$menu_location]);
+    $menu_items = wp_get_nav_menu_items($locations[$location]);
+
+    if(!$menu_items) {
+      $menu_items = array();
+    }
 
     $organised_menu = $this->_build_menu_tree($menu_items, $with_children);
 
@@ -29,7 +34,9 @@ class Menu_model extends MVC_model {
       );
 
       if($item['menu_item_parent']) {
-        $organised_menu[$item['menu_item_parent']]['children'][$item['ID']] = $item;
+        if($with_children) {
+          $organised_menu[$item['menu_item_parent']]['children'][$item['ID']] = $item;
+        }
       }
       else {
         $organised_menu[$item['ID']] = $item;
