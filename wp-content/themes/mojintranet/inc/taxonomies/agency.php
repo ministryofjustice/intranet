@@ -79,6 +79,7 @@ class Agency extends Taxonomy {
             add_filter('parse_query', array($this, 'filter_posts_by_agency'));
             add_filter('restrict_manage_posts', array($this, 'add_agency_filter'));
             add_action('save_post', array($this, 'set_agency_terms_on_save_post'));
+            add_action('map_meta_cap', array($this, 'filter_map_meta_cap'), 10, 4);
         }
     }
 
@@ -256,4 +257,39 @@ class Agency extends Taxonomy {
         }
     }
 
+    /**
+     * Stop users from editing posts that belong to agencies which are not
+     * the current agency context.
+     *
+     * @param $caps
+     * @param $cap
+     * @param $user_id
+     * @param $args
+     *
+     * @return array
+     */
+    public function filter_map_meta_cap($caps, $cap, $user_id, $args) {
+        if ($cap !== 'edit_post' && $cap !== 'delete_post') {
+            // Not relevant, return early.
+            return $caps;
+        }
+
+        $post_id = $args[0];
+        $post_type = get_post_type($post_id);
+
+        if (!in_array($post_type, $this->object_types)) {
+            // Not relevant, return early.
+            return $caps;
+        }
+
+        $owner = Agency_Editor::get_post_agency($post_id);
+        $context = Agency_Context::get_agency_context();
+
+        if ($owner !== $context) {
+            // User does not have permission to edit this post
+            $caps[] = 'do_not_allow';
+        }
+
+        return $caps;
+    }
 }
