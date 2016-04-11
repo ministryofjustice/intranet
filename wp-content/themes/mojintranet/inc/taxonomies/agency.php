@@ -2,6 +2,9 @@
 
 namespace MOJ_Intranet\Taxonomies;
 
+use Agency_Context;
+use Agency_Editor;
+
 class Agency extends Taxonomy {
     protected $name = 'agency';
 
@@ -67,7 +70,7 @@ class Agency extends Taxonomy {
             add_action('edit_user_profile_update', array($this, 'edit_user_profile_save'));
         }
 
-        if (!current_user_can('manage_agencies')) {
+        if (Agency_Context::current_user_can_have_context()) {
             add_filter('parse_query', array($this, 'filter_posts_by_agency'));
             add_filter('restrict_manage_posts', array($this, 'add_agency_filter'));
         }
@@ -154,17 +157,23 @@ class Agency extends Taxonomy {
             return;
         }
 
+        $context = Agency_Editor::get_agency_by_slug(Agency_Context::get_agency_context());
+
         $agencies = array(
             'hq' => 'HQ',
-            'hmcts' => 'HMCTS (hardcoded)',
+            $context->slug => $context->name,
         );
+
+        if (count($agencies) > 1):
 
         ?>
         <label style="margin-left: 5px;" class="agency-filter-label">Agency:</label>
         <?php
 
         foreach ($agencies as $slug => $name) {
-            if (!empty($_GET['agency']) && is_array($_GET['agency']) && in_array($slug, $_GET['agency'])) {
+            if (empty($_GET['agency'])) {
+                $is_checked = true;
+            } elseif (is_array($_GET['agency']) && in_array($slug, $_GET['agency'])) {
                 $is_checked = true;
             } else {
                 $is_checked = false;
@@ -176,19 +185,31 @@ class Agency extends Taxonomy {
             </label>
             <?php
         }
+
+        endif;
     }
 
     public function filter_posts_by_agency($query) {
         global $typenow, $pagenow;
-        if (!in_array($typenow, $this->object_types) || $pagenow !== 'edit.php') {
+
+        if (
+            !in_array($typenow, $this->object_types) ||
+            $pagenow !== 'edit.php' ||
+            !Agency_Context::current_user_can_have_context()
+        ) {
             return $query;
         }
 
-        if (!isset($_GET['agency']) || !is_array($_GET['agency'])) {
-            return $query;
+        if (isset($_GET['agency']) && is_array($_GET['agency'])) {
+            $agency = $_GET['agency'];
+        } else {
+            $agency = array(
+                'hq',
+                Agency_Context::get_agency_context()
+            );
         }
 
-        $query->query_vars['agency'] = $_GET['agency'];
+        $query->query_vars['agency'] = $agency;
 
         return $query;
     }

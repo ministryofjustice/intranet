@@ -73,6 +73,7 @@ class Agency_Context {
         $user_id = get_current_user_id();
         $agency = get_user_meta($user_id, 'agency_context', true);
 
+        // If context has not been set, default to the first available agency.
         if (empty($agency)) {
             $available = self::current_user_available_agencies();
             $agency = array_shift($available);
