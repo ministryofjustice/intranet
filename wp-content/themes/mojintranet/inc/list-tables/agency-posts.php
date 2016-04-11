@@ -73,6 +73,7 @@ class Agency_Posts extends List_Table {
      */
     public function column_agency($post_id) {
         $agency = Agency_Editor::get_post_agency($post_id);
+        $agency = Agency_Editor::get_agency_by_slug($agency);
         return $agency->name;
     }
 

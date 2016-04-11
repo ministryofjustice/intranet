@@ -12,7 +12,7 @@ class Agency_Editor {
      * Returns the WP_Term object of the agency.
      *
      * @param int $post_id
-     * @return WP_Term
+     * @return string Agency slug
      */
     public static function get_post_agency($post_id) {
         $terms = wp_get_object_terms($post_id, 'agency');
@@ -21,9 +21,9 @@ class Agency_Editor {
         }, $terms);
 
         if (count($agencies) === 1) {
-            $agency = self::get_agency_by_slug($agencies[0]);
+            $agency = $agencies[0];
         } else {
-            $agency = self::get_agency_by_slug('hq');
+            $agency = 'hq';
         }
 
         return $agency;
@@ -44,7 +44,9 @@ class Agency_Editor {
      *
      * @param int $post_id
      * @param string $agency The agency slug (optional)
-     * @return bool
+     * @return bool|null True/False for opted-in/out,
+     *                   Null for not applicable
+     *                     (i.e. the post cannot be opted-out of)
      */
     public static function is_post_opted_out($post_id, $agency = null) {
         $owner = self::get_post_agency($post_id);
@@ -53,7 +55,7 @@ class Agency_Editor {
             $agency = Agency_Context::get_agency_context();
         }
 
-        if ($owner->slug !== 'hq') {
+        if ($owner !== 'hq') {
             // The post is not owned by HQ, so 'opt-out' is not applicable here.
             return null;
         } else {
