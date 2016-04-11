@@ -70,9 +70,15 @@ class Agency extends Taxonomy {
             add_action('edit_user_profile_update', array($this, 'edit_user_profile_save'));
         }
 
+        if (!current_user_can('assign_agencies_to_posts')) {
+            // Remove agency meta box
+            add_action('admin_menu', array($this, 'remove_agency_meta_box'));
+        }
+
         if (Agency_Context::current_user_can_have_context()) {
             add_filter('parse_query', array($this, 'filter_posts_by_agency'));
             add_filter('restrict_manage_posts', array($this, 'add_agency_filter'));
+            add_action('save_post', array($this, 'set_agency_terms_on_save_post'));
         }
     }
 
@@ -149,7 +155,7 @@ class Agency extends Taxonomy {
     }
 
     /**
-     * Add filters to post listing pages.
+     * Add agency filters to post listing pages.
      */
     public function add_agency_filter() {
         global $typenow, $pagenow;
@@ -166,30 +172,37 @@ class Agency extends Taxonomy {
 
         if (count($agencies) > 1):
 
-        ?>
-        <label style="margin-left: 5px;" class="agency-filter-label">Agency:</label>
-        <?php
-
-        foreach ($agencies as $slug => $name) {
-            if (empty($_GET['agency'])) {
-                $is_checked = true;
-            } elseif (is_array($_GET['agency']) && in_array($slug, $_GET['agency'])) {
-                $is_checked = true;
-            } else {
-                $is_checked = false;
-            }
             ?>
-            <label class="agency-filter-filter">
-                <input type="checkbox" name="agency[]" value="<?php echo esc_attr($slug); ?>" <?php checked(true, $is_checked); ?> />
-                <?php echo $name; ?>
-            </label>
+            <label style="margin-left: 5px;" class="agency-filter-label">Agency:</label>
             <?php
-        }
+
+            foreach ($agencies as $slug => $name) {
+                if (empty($_GET['agency'])) {
+                    $is_checked = true;
+                } elseif (is_array($_GET['agency']) && in_array($slug, $_GET['agency'])) {
+                    $is_checked = true;
+                } else {
+                    $is_checked = false;
+                }
+                ?>
+                <label class="agency-filter-filter">
+                    <input type="checkbox" name="agency[]" value="<?php echo esc_attr($slug); ?>" <?php checked(true, $is_checked); ?> />
+                    <?php echo $name; ?>
+                </label>
+                <?php
+            }
 
         endif;
     }
 
-    public function filter_posts_by_agency($query) {
+    /**
+     * Add taxonomy filter to the WP_Query object used for displaying posts
+     * on the page.
+     *
+     * @param \WP_Query $query
+     * @return mixed
+     */
+    public function filter_posts_by_agency(\WP_Query $query) {
         global $typenow, $pagenow;
 
         if (
@@ -213,4 +226,34 @@ class Agency extends Taxonomy {
 
         return $query;
     }
+
+    /**
+     * @param int $post_id
+     */
+    public function set_agency_terms_on_save_post($post_id) {
+        $post_type = get_post_type($post_id);
+        if (
+            !in_array($post_type, $this->object_types) ||
+            !Agency_Context::current_user_can_have_context()
+        ) {
+            return;
+        }
+
+        $terms = wp_get_object_terms($post_id, 'agency');
+
+        if (empty($terms)) {
+            $agency_context = Agency_Context::get_agency_context();
+            wp_set_object_terms($post_id, $agency_context, 'agency');
+        }
+    }
+
+    /**
+     * Remove agency meta box from post edit pages.
+     */
+    public function remove_agency_meta_box() {
+        foreach ($this->object_types as $object) {
+            remove_meta_box('agencydiv', $object, 'normal');
+        }
+    }
+
 }
