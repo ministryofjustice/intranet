@@ -44,6 +44,7 @@ jQuery(function() {
     App.ins.needToKnowWidget = new App.NeedToKnowWidget();
     App.ins.myMojWidget = new App.MyMojWidget();
     App.ins.followUsWidget = new App.FollowUsWidget();
+    App.ins.guidanceIndexWidget = new App.GuidanceIndexWidget();
     App.ins.registerForm = new App.RegisterForm();
     App.ins.resetPasswordForm = new App.ResetPasswordForm();
     App.ins.forgotPasswordForm = new App.ForgotPasswordForm();

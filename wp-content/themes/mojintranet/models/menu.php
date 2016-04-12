@@ -12,37 +12,36 @@ class Menu_model extends MVC_model {
       $menu_items = array();
     }
 
-    $organised_menu = $this->_build_menu_tree($menu_items, $with_children);
+    $organised_menu_items = $this->_build_menu_tree_recursive($menu_items, 2);
 
-    return $organised_menu;
+    return array(
+      'results' => $organised_menu_items
+    );
   }
 
-  private function _build_menu_tree($data, $with_children) {
-    $organised_menu = array();
-    $count = 0;
+  private function _build_menu_tree_recursive($data, $depth_limit = 0, $parent_id = 0, $level = 1) {
+    $clean_data = array();
 
-    foreach($data as $item) {
-      $count++;
+    foreach($data as $key => $item) {
+      if($item->menu_item_parent == $parent_id) {
+        $clean_item = array(
+          'title' => $item->title,
+          'ID' => $item->ID,
+          'object_id' => (int) $item->object_id,
+          'url' => $item->url,
+          'children' => array()
+        );
 
-      $item = array(
-        'title' => $item->title,
-        'ID' => $item->ID,
-        'object_id' => (int) $item->object_id,
-        'menu_item_parent' => $item->menu_item_parent,
-        'url' => $item->url,
-        'children' => array()
-      );
-
-      if($item['menu_item_parent']) {
-        if($with_children) {
-          $organised_menu[$item['menu_item_parent']]['children'][$item['ID']] = $item;
+        if(!$depth_limit || $level < $depth_limit) {
+          $clean_item['children'] = $this->_build_menu_tree_recursive($data, $depth_limit, $item->ID, $level + 1);
         }
-      }
-      else {
-        $organised_menu[$item['ID']] = $item;
+
+        $clean_data[] = $clean_item;
+
+        unset($data[$key]);
       }
     }
 
-    return $organised_menu;
+    return $clean_data;
   }
 }
