@@ -2,22 +2,22 @@
     "amazon-s3-and-cloudfront": {
         "repository": "git@github.com:deliciousbrains/wp-amazon-s3-and-cloudfront.git",
         "revision": "master",
-        "commit": "25c2eae654b057e451b65a0ef5a08f91b92e49d6"
+        "commit": "1a08516aec4bf7e46bfbbc0a5ff62cfbe3b2af51"
     },
     "amazon-web-services": {
         "repository": "git@github.com:deliciousbrains/wp-amazon-web-services.git",
         "revision": "master",
-        "commit": "9aa1091a0fb3c1180307626418a6f6a1c5c861fe"
+        "commit": "3f6ae90cd93e17214fabbdeff840cc80c962a3b5"
     },
     "cms-tree-page-view": {
         "repository": "git@git.dxw.net:wordpress-plugins/cms-tree-page-view",
         "revision": "master",
-        "commit": "e4280461953f540b5b62deef8be7063232e5bbb7"
+        "commit": "905709eb7719256e60122eccef506ded7805a517"
     },
     "co-authors-plus": {
         "repository": "git@github.com:Automattic/Co-Authors-Plus.git",
         "revision": "master",
-        "commit": "f4da16bb59ef692d02db315771b238af7f75d8a4"
+        "commit": "1f33031e5277423a1df0e723674f020bd732e3ce"
     },
     "dw-live-drafts": {
         "repository": "git@github.com:ministryofjustice/dw-live-drafts.git",
@@ -32,7 +32,7 @@
     "pods": {
         "repository": "git@git.dxw.net:wordpress-plugins/pods",
         "revision": "master",
-        "commit": "d2fab5f517d0411adf554d1ff379ff310730122e"
+        "commit": "7b4c76ad8ef04372ef54b58d27d582ccacbeaa7b"
     },
     "recently-edited-content-widget": {
         "repository": "git@git.dxw.net:wordpress-plugins/recently-edited-content-widget",
@@ -52,7 +52,7 @@
     "shortcode-ui": {
         "repository": "git@github.com:wp-shortcake/shortcake.git",
         "revision": "master",
-        "commit": "890d5d9848a98f5eaf30b20ce1f0874349e263a7"
+        "commit": "e67608ff16a2fdb5d71b4454e3ba88e084e44200"
     },
     "wp-document-revisions": {
         "repository": "git@git.dxw.net:wordpress-plugins/wp-document-revisions",

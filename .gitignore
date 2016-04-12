@@ -5,6 +5,7 @@
 *.bak
 *.swp
 Thumbs.db
+.idea
 
 # wordpress specific
 wp-config.php
@@ -128,3 +129,8 @@ wp-content/plugins/
 /wp-content/plugins/wp-document-revisions
 
 debug.log
+/wp-content/plugins/co-authors-plus
+/wp-content/plugins/dw-live-drafts
+/wp-content/plugins/heatmap-for-wp
+/wp-content/plugins/regenerate-thumbnails
+/wp-content/plugins/shortcode-ui
