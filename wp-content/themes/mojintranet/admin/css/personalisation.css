@@ -10,3 +10,8 @@
     margin-right: 5px;
     padding: 5px;
 }
+
+.agency-checklist,
+.inline-edit-row fieldset span.inline-edit-categories-label:nth-child(4) {
+    display: none;
+}
