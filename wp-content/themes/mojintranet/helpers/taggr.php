@@ -30,7 +30,7 @@ class Taggr {
 
   static function get_permalink($tag_name) {
     $post = Taggr::get_post($tag_name);
-    
+
     return get_permalink($post);
   }
 

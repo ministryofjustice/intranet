@@ -8,6 +8,8 @@
 class Page_home extends MVC_controller {
   function __construct() {
     parent::__construct();
+
+    $this->model('follow_us');
   }
 
   function main() {

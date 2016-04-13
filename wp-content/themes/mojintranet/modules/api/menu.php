@@ -1,12 +1,13 @@
 <?php if (!defined('ABSPATH')) die();
 
-/** Children API
+/** Menu API
  * Features:
- * - Get a list of children posts belonging to a specific post parent
+ * - Get a list of menu items
  */
-class Children_API extends API {
+class Menu_API extends API {
   public function __construct($params) {
     parent::__construct();
+    $this->MVC->model('menu');
     $this->parse_params($params);
     $this->route();
   }
@@ -14,7 +15,7 @@ class Children_API extends API {
   protected function route() {
     switch ($this->get_method()) {
       case 'GET':
-        $this->get_children();
+        $this->get_menu_items();
         break;
 
       default:
@@ -24,14 +25,14 @@ class Children_API extends API {
 
   protected function parse_params($params) {
     $this->params = array(
-      'page_id' => (int) $params[0],
-      'order' => $params[1]
+      'location' => (string) $params[0],
+      'with_children' => (boolean) $params[1]
     );
   }
 
-  protected function get_children() {
-    $data = call_user_func_array(array($this->MVC->model->children, 'get_data_recursive'), $this->params);
-    //$data['url_params'] = $this->params;
+  protected function get_menu_items() {
+    $data = $this->MVC->model->menu->get_menu_items($this->params);
+    $data['url_params'] = $this->params;
     $this->response($data, 200, 120);
   }
 }

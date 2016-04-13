@@ -148,3 +148,12 @@ function html_mail($email, $subject, $message) {
 
   wp_mail($email, $subject, $message);
 }
+
+/** comparator function for sorting items in an array by value of a specific key
+ * @param {Mixed} $a First value
+ * @param {Mixed} $b Second value
+ * @param {String} $key Array key to use for comparison
+ */
+function alpha_sort_by_key($a, $b, $key) {
+  return strnatcmp($a[$key], $b[$key]);
+}

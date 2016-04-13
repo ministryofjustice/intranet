@@ -39,24 +39,6 @@ function twentyten_widgets_init() {
     'after_title' => '</h3>',
   ) );
   register_sidebar( array(
-    'name' => __( 'My MoJ - Quick Links', 'twentyten' ),
-    'id' => 'my-moj-quick-links',
-    'description' => __( 'My MoJ - Quick Links', 'twentyten' ),
-    'before_widget' => '',
-    'after_widget' => '',
-    'before_title' => '',
-    'after_title' => '',
-  ) );
-  register_sidebar( array(
-    'name' => __( 'Guidance - Index', 'twentyten' ),
-    'id' => 'guidance-index',
-    'description' => __( 'Guidance - Index', 'twentyten' ),
-    'before_widget' => '',
-    'after_widget' => '',
-    'before_title' => '',
-    'after_title' => '',
-  ) );
-  register_sidebar( array(
     'name' => __( 'Main menu', 'twentyten' ),
     'id' => 'main-menu',
     'description' => __( 'Main menu', 'twentyten' ),

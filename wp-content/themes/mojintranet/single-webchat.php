@@ -61,6 +61,6 @@ class Single_webchat extends MVC_controller {
   }
 
   private function get_children_from_API($id = null) {
-    return $this->model->children->get_all($id);
+    return $this->model->children->get_data($id);
   }
 }

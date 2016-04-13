@@ -7,7 +7,7 @@ class Children_model extends MVC_model {
    * @param {Array} $parent_id Parent ID
    * @return {Array} Children data
    */
-  public function get_all($parent_id = 0, $order = 'asc') {
+  public function get_data($parent_id = 0, $order = 'asc') {
     $this->page_id = $parent_id;
     $this->order = $order;
 
@@ -15,25 +15,35 @@ class Children_model extends MVC_model {
       'title' => (string) get_the_title($parent_id),
       'id' => (int) $parent_id,
       'url' => (string) get_permalink($parent_id),
-      'total_results' => 0,
-      'results' => array()
+      'children' => array()
     );
 
     $children = $this->get_children();
 
     foreach($children->posts as $post) {
-      $data['results'][] = $this->format_row($post);
+      $data['children'][] = $this->format_row($post);
     }
 
-    usort($data['results'], array($this,'sort_children'));
+    usort($data['children'], array($this,'sort_children'));
 
     if($order == 'desc') {
-      $data['results'] = array_reverse($data['results']);
+      $data['children'] = array_reverse($data['children']);
     }
 
-    $data['total_results'] = count($data['results']);
-
     return $data;
+  }
+
+  public function get_data_recursive($parent_id = 0, $order = 'asc') {
+    $id = $parent_id;
+
+    $data = array();
+
+    do {
+      array_push($data, $this->get_data($id));
+    }
+    while($id = wp_get_post_parent_id($id));
+
+    return array_reverse($data);
   }
 
   /** Get a raw list of children
