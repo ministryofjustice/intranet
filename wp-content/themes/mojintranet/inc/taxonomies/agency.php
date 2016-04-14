@@ -306,8 +306,10 @@ class Agency extends Taxonomy {
     public function add_opt_in_out_quick_actions($actions, $post) {
         $is_opted_in = Agency_Editor::is_post_opted_in($post->ID);
 
-        if (is_null($is_opted_in)) {
-            // User cannot opt-in/out of this post – do nothing.
+        if (
+            is_null($is_opted_in) || // User cannot opt-in to this post.
+            $post->post_status !== 'publish' // The post is not published.
+        ) {
             return $actions;
         }
 
