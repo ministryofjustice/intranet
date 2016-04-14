@@ -94,7 +94,7 @@ class Agency_Posts extends List_Table {
         if (is_null($opt_in)) {
             $out = '';
         } elseif ($opt_in === false) {
-            $out = '<span class="dashicons dashicons-hidden"></span>';
+            $out = '<span class="dashicons dashicons-hidden" style="opacity:0.5"></span>';
         } else {
             $out = '<span class="dashicons dashicons-visibility"></span>';
         }
