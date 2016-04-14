@@ -56,8 +56,12 @@
           'panel'           => 'news_customisation',
         ) );
 
+        $context = Agency_Context::get_agency_context();
+
         for($x=1;$x<=$total_stories;$x++) {
-          $this->new_control_setting($wp_customize, 'featured_story'.$x, $section_name, 'Featured story ' . $x, 'news');
+
+
+          $this->new_control_setting($wp_customize, $context.'_featured_story'.$x, $section_name, 'Featured story ' . $x, 'news');
         }
       }
 
