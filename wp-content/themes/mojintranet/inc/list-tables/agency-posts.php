@@ -58,9 +58,13 @@ class Agency_Posts extends List_Table {
             unset($columns['taxonomy-agency']);
         }
 
-        // Don't show the 'opted out' column if the user is not an Agency Editor
-        if (!Agency_Context::current_user_can_have_context()) {
-            unset($columns['opted-out']);
+        // Don't show the agency columns if the user is not an Agency Editor
+        // or is a HQ editor
+        if (
+            !Agency_Context::current_user_can_have_context() ||
+            Agency_Context::get_agency_context() == 'hq'
+        ) {
+            unset($columns['opted-in']);
         }
 
         return $columns;

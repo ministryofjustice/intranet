@@ -51,12 +51,17 @@ class Agency_Editor {
     public static function is_post_opted_in($post_id, $agency = null) {
         $owner = self::get_post_agency($post_id);
 
-        if (is_null($agency)) {
+        if (is_null($agency) && Agency_Context::current_user_can_have_context()) {
             $agency = Agency_Context::get_agency_context();
         }
 
+        // Return null if user has no context, or if the context is HQ.
+        if (is_null($agency) || $agency == 'hq') {
+            return null;
+        }
+
         if ($owner !== 'hq') {
-            // The post is not owned by HQ, so this post cannot be opted in/out.
+            // The post is not owned by HQ, so it cannot be opted in/out of.
             return null;
         } else {
             $opt_in = is_object_in_term($post_id, 'agency', $agency);
