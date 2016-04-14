@@ -34,7 +34,9 @@ class Search_API extends API {
   }
 
   protected function get_results() {
-    $data = $this->MVC->model->search->get($this->params);
+    $options = $this->params;
+    $options['tax_query'] = $this->get_taxonomies();
+    $data = $this->MVC->model->search->get($options);
     $data['url_params'] = $this->params;
     $this->response($data, 200, 300);
   }

@@ -32,7 +32,9 @@ class Events_API extends API {
   }
 
   protected function get_events() {
-    $data = $this->MVC->model->events->get_list($this->params);
+    $options = $this->params;
+    $options['tax_query'] = $this->get_taxonomies();
+    $data = $this->MVC->model->events->get_list($options);
     $data['url_params'] = $this->params;
     $this->response($data, 200, 300);
   }

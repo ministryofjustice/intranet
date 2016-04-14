@@ -33,7 +33,9 @@ class News_API extends API {
   }
 
   protected function get_news() {
-    $data = $this->MVC->model->news->get_list($this->params);
+    $options = $this->params;
+    $options['tax_query'] = $this->get_taxonomies();
+    $data = $this->MVC->model->news->get_list($options);
     $data['url_params'] = $this->params;
     $this->response($data, 200, 300);
   }

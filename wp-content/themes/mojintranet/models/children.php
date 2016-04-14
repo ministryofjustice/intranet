@@ -60,7 +60,14 @@ class Children_model extends MVC_model {
     $children_args = array(
       'post_parent' => $this->page_id,
       'post_type' => $this->post_types,
-      'posts_per_page' => -1
+      'posts_per_page' => -1,
+      'tax_query' => array(
+        array(
+          'taxonomy' => 'agency',
+          'field'    => 'slug',
+          'terms'    => 'hq' //!!! hard-coded for now
+        )
+      )
     );
 
     if(!$this->page_id) {

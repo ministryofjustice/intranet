@@ -90,6 +90,16 @@ abstract class API {
     return $this->params[$key];
   }
 
+  protected function get_taxonomies() {
+    return array(
+      array(
+        'taxonomy' => 'agency',
+        'field'    => 'slug',
+        'terms'    => 'hq' //!!! hard-coded for now
+      )
+    );
+  }
+
   /** Get POST value by key
    * @param {String} $key Name of the post key
    * @return {String} The value of the post key
