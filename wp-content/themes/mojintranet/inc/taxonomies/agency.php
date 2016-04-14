@@ -79,7 +79,8 @@ class Agency extends Taxonomy {
             add_filter('parse_query', array($this, 'filter_posts_by_agency'));
             add_filter('restrict_manage_posts', array($this, 'add_agency_filter'));
             add_action('save_post', array($this, 'set_agency_terms_on_save_post'));
-            add_action('map_meta_cap', array($this, 'filter_map_meta_cap'), 10, 4);
+            add_action('map_meta_cap', array($this, 'restrict_edit_post_to_current_agency'), 10, 4);
+            add_action('post_row_actions', array($this, 'add_opt_in_out_quick_actions'), 10, 2);
         }
     }
 
@@ -268,7 +269,7 @@ class Agency extends Taxonomy {
      *
      * @return array
      */
-    public function filter_map_meta_cap($caps, $cap, $user_id, $args) {
+    public function restrict_edit_post_to_current_agency($caps, $cap, $user_id, $args) {
         if ($cap !== 'edit_post' && $cap !== 'delete_post') {
             // Not relevant, return early.
             return $caps;
@@ -291,5 +292,37 @@ class Agency extends Taxonomy {
         }
 
         return $caps;
+    }
+
+    public function add_opt_in_out_quick_actions($actions, $post) {
+        $is_opted_in = Agency_Editor::is_post_opted_in($post->ID);
+
+        if (is_null($is_opted_in)) {
+            // User cannot opt-in/out of this post – do nothing.
+            return $actions;
+        }
+
+        if ($is_opted_in) {
+            $action = 'opt-out';
+        } else {
+            $action = 'opt-in';
+        }
+
+        // http://mojintranet.dev/wp-admin/post.php?post=15724&action=trash&_wpnonce=8e07bb74ed
+        $url = admin_url('post.php');
+        $url = add_query_arg(array(
+            'post' => $post->ID,
+            'action' => $action,
+        ), $url);
+
+        $url = wp_nonce_url($url, $action . '-post_' . $post->ID);
+
+        if ($is_opted_in) {
+            $actions['opt_out'] = '<a href="' . $url . '" title="' . esc_attr__( 'Opt-out of this post' ) . '">' . _x( 'Opt-out', 'verb' ) . '</a>';
+        } else {
+            $actions['opt_in'] = '<a href="' . $url . '" title="' . esc_attr__( 'Opt-in to this post' ) . '">' . _x( 'Opt-in', 'verb' ) . '</a>';
+        }
+
+        return $actions;
     }
 }
