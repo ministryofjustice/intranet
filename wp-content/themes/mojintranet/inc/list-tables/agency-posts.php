@@ -3,6 +3,7 @@
 namespace MOJ_Intranet\List_Tables;
 
 use Agency_Editor;
+use Agency_Context;
 
 /**
  * Adjustments to list tables for all post types which have agency taxonomy.
@@ -34,7 +35,7 @@ class Agency_Posts extends List_Table {
      * @var array
      */
     public $columns = array(
-        'opted-out' => 'Opt-Out Status',
+        'opted-in' => 'Opt-In Status',
         'agency' => 'Agency',
     );
 
@@ -58,7 +59,7 @@ class Agency_Posts extends List_Table {
         }
 
         // Don't show the 'opted out' column if the user is not an Agency Editor
-        if (!current_user_can('agency-editor')) {
+        if (!Agency_Context::current_user_can_have_context()) {
             unset($columns['opted-out']);
         }
 
@@ -83,16 +84,16 @@ class Agency_Posts extends List_Table {
      * @param $post_id
      * @return string
      */
-    public function column_opted_out($post_id) {
-        if (!current_user_can('agency-editor')) {
+    public function column_opted_in($post_id) {
+        if (!Agency_Context::current_user_can_have_context()) {
             return '–';
         }
 
-        $opt_out = Agency_Editor::is_post_opted_out($post_id);
+        $opt_in = Agency_Editor::is_post_opted_in($post_id);
 
-        if (is_null($opt_out)) {
+        if (is_null($opt_in)) {
             $out = '';
-        } elseif ($opt_out === true) {
+        } elseif ($opt_in === false) {
             $out = '<span class="dashicons dashicons-hidden"></span>';
         } else {
             $out = '<span class="dashicons dashicons-visibility"></span>';

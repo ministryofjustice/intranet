@@ -40,15 +40,15 @@ class Agency_Editor {
     }
 
     /**
-     * Get the opt-out status of a post, given the agency.
+     * Get the opt-in status of a post, given the agency.
      *
      * @param int $post_id
      * @param string $agency The agency slug (optional)
-     * @return bool|null True/False for opted-in/out,
+     * @return bool|null True/False for opted-in/out, respectively,
      *                   Null for not applicable
      *                     (i.e. the post cannot be opted-out of)
      */
-    public static function is_post_opted_out($post_id, $agency = null) {
+    public static function is_post_opted_in($post_id, $agency = null) {
         $owner = self::get_post_agency($post_id);
 
         if (is_null($agency)) {
@@ -56,11 +56,11 @@ class Agency_Editor {
         }
 
         if ($owner !== 'hq') {
-            // The post is not owned by HQ, so 'opt-out' is not applicable here.
+            // The post is not owned by HQ, so this post cannot be opted in/out.
             return null;
         } else {
             $opt_in = is_object_in_term($post_id, 'agency', $agency);
-            return !$opt_in;
+            return $opt_in;
         }
     }
 }
