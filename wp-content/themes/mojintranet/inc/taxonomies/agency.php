@@ -76,11 +76,20 @@ class Agency extends Taxonomy {
         }
 
         if (Agency_Context::current_user_can_have_context()) {
+            // Post filtering
             add_filter('parse_query', array($this, 'filter_posts_by_agency'));
             add_filter('restrict_manage_posts', array($this, 'add_agency_filter'));
+
+            // Auto-tag agency
             add_action('save_post', array($this, 'set_agency_terms_on_save_post'));
+
+            // Capabilities
             add_action('map_meta_cap', array($this, 'restrict_edit_post_to_current_agency'), 10, 4);
+
+            // Quick actions
+            add_action('page_row_actions', array($this, 'add_opt_in_out_quick_actions'), 10, 2);
             add_action('post_row_actions', array($this, 'add_opt_in_out_quick_actions'), 10, 2);
+            add_action('load-post.php', array($this, 'quick_action_opt_in_out'));
         }
     }
 
@@ -308,14 +317,12 @@ class Agency extends Taxonomy {
             $action = 'opt-in';
         }
 
-        // http://mojintranet.dev/wp-admin/post.php?post=15724&action=trash&_wpnonce=8e07bb74ed
         $url = admin_url('post.php');
         $url = add_query_arg(array(
             'post' => $post->ID,
             'action' => $action,
         ), $url);
-
-        $url = wp_nonce_url($url, $action . '-post_' . $post->ID);
+        $url = wp_nonce_url($url, 'opt_in_out-post_' . $post->ID);
 
         if ($is_opted_in) {
             $actions['opt_out'] = '<a href="' . $url . '" title="' . esc_attr__( 'Opt-out of this post' ) . '">' . _x( 'Opt-out', 'verb' ) . '</a>';
@@ -324,5 +331,41 @@ class Agency extends Taxonomy {
         }
 
         return $actions;
+    }
+
+    public function quick_action_opt_in_out() {
+        if (
+            !isset($_GET['action']) ||
+            !in_array($_GET['action'], array('opt-in', 'opt-out')) ||
+            !isset($_GET['post'])
+        ) {
+            return false;
+        }
+
+        $post_id = $_GET['post'];
+
+        if (
+            !isset($_GET['_wpnonce']) ||
+            !wp_verify_nonce($_GET['_wpnonce'], 'opt_in_out-post_' . $post_id)
+        ) {
+            wp_die('Missing or invalid nonce.');
+        }
+
+        $post_type = get_post_type($post_id);
+        if (in_array($post_type, $this->object_types)) {
+            $action = $_GET['action'];
+            $agency = Agency_Context::get_agency_context();
+
+            $terms = array('hq');
+
+            if ($action == 'opt-in') {
+                $terms[] = $agency;
+            }
+
+            wp_set_object_terms($post_id, $terms, 'agency');
+
+            wp_redirect(wp_get_referer());
+            exit;
+        }
     }
 }
