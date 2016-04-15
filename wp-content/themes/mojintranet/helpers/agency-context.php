@@ -76,8 +76,18 @@ class Agency_Context {
         // If context has not been set, default to the first available agency.
         if (empty($agency)) {
             $available = self::current_user_available_agencies();
-            $agency = array_shift($available);
-            $agency = $agency->slug;
+
+            $available_slugs = array_map(function($term) {
+                return $term->slug;
+            }, $available);
+
+            if (in_array('hq', $available_slugs)) {
+                $agency = 'hq';
+            } else {
+                $agency = array_shift($available);
+                $agency = $agency->slug;
+            }
+
             self::set_agency_context($agency);
         }
 
