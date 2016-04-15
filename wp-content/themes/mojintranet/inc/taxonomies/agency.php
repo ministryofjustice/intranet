@@ -64,10 +64,12 @@ class Agency extends Taxonomy {
             // Using priority 9 here to bump it above "More fields" section
             add_action('show_user_profile', array($this, 'edit_user_profile'), 9);
             add_action('edit_user_profile', array($this, 'edit_user_profile'), 9);
+            add_action('user_new_form', array($this, 'edit_user_profile'), 9);
 
             // Update the agency terms when the edit user page is updated
             add_action('personal_options_update', array($this, 'edit_user_profile_save'));
             add_action('edit_user_profile_update', array($this, 'edit_user_profile_save'));
+            add_action('user_register', array($this, 'edit_user_profile_save'));
         }
 
         if (!current_user_can('assign_agencies_to_posts')) {
@@ -109,6 +111,13 @@ class Agency extends Taxonomy {
             'hide_empty' => false,
         ));
 
+        if (
+            is_string($user) &&
+            in_array($user, array('add-existing-user', 'add-new-user'))
+        ) {
+            $user = false;
+        }
+
         ?>
 
         <h3><?php _e('Agencies'); ?></h3>
@@ -128,7 +137,7 @@ class Agency extends Taxonomy {
 
                         foreach ($terms as $term) { ?>
                             <input type="checkbox" name="agency[]" id="agency-<?php echo esc_attr($term->slug); ?>"
-                                   value="<?php echo esc_attr($term->slug); ?>" <?php checked(true, is_object_in_term($user->ID, 'agency', $term->slug)); ?> />
+                                   value="<?php echo esc_attr($term->slug); ?>" <?php $user && checked(true, is_object_in_term($user->ID, 'agency', $term->slug)); ?> />
                             <label for="agency-<?php echo esc_attr($term->slug); ?>"><?php echo $term->name; ?></label>
                             <br/>
                         <?php }

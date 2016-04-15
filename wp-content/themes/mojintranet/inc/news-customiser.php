@@ -25,10 +25,13 @@
       }
 
       public function register($wp_customize) {
+
+        $context = Agency_Context::get_agency_context();
+
         $wp_customize->add_panel( 'need_to_know_customisation', array(
           'priority'        => 1,
           'capability'      => 'edit_theme_options',
-          'title'           => 'Need To Know',
+          'title'           => 'Need To Know for ' . strtoupper($context),
           'description'     => 'Allows admins and editors to customise the Need To Know panel',
         ) );
 
@@ -47,16 +50,19 @@
 
       // Featured news functions
       public function featured_news($wp_customize,$total_stories = 2) {
+
+        $context = Agency_Context::get_agency_context();
+
         $section_name = 'featured_news';
         $wp_customize->add_section( 'featured_news', array(
           'priority'        => 10,
           'capability'      => 'edit_theme_options',
-          'title'           => 'Featured news',
-          'description'     => 'Controls the featured news items',
+          'title'           => 'Featured news for ' . strtoupper($context),
+          'description'     => 'Controls the featured news items for ' . strtoupper($context),
           'panel'           => 'news_customisation',
         ) );
 
-        $context = Agency_Context::get_agency_context();
+
 
         for($x=1;$x<=$total_stories;$x++) {
 
