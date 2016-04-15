@@ -1,41 +1,47 @@
 <?php if (!defined('ABSPATH')) die();
 
 class Menu_model extends MVC_model {
-  public function get_menu_items($menu_location, $with_children = false) {
-    $data = array();
+  public function get_menu_items($params = array()) {
+    $location = isset($params['location']) ? $params['location'] : 'hq-guidance-index';
+    $with_children = isset($params['with_children']) ? $params['with_children'] : false;
 
     $locations = get_nav_menu_locations();
-    $menu_items = wp_get_nav_menu_items($locations[$menu_location]);
+    $menu_items = wp_get_nav_menu_items($locations[$location]);
 
-    $organised_menu = $this->_build_menu_tree($menu_items, $with_children);
+    if(!$menu_items) {
+      $menu_items = array();
+    }
 
-    return $organised_menu;
+    $organised_menu_items = $this->_build_menu_tree_recursive($menu_items, 2);
+
+    return array(
+      'results' => $organised_menu_items
+    );
   }
 
-  private function _build_menu_tree($data, $with_children) {
-    $organised_menu = array();
-    $count = 0;
+  private function _build_menu_tree_recursive($data, $depth_limit = 0, $parent_id = 0, $level = 1) {
+    $clean_data = array();
 
-    foreach($data as $item) {
-      $count++;
+    foreach($data as $key => $item) {
+      if($item->menu_item_parent == $parent_id) {
+        $clean_item = array(
+          'title' => $item->title,
+          'ID' => $item->ID,
+          'object_id' => (int) $item->object_id,
+          'url' => $item->url,
+          'children' => array()
+        );
 
-      $item = array(
-        'title' => $item->title,
-        'ID' => $item->ID,
-        'object_id' => (int) $item->object_id,
-        'menu_item_parent' => $item->menu_item_parent,
-        'url' => $item->url,
-        'children' => array()
-      );
+        if(!$depth_limit || $level < $depth_limit) {
+          $clean_item['children'] = $this->_build_menu_tree_recursive($data, $depth_limit, $item->ID, $level + 1);
+        }
 
-      if($item['menu_item_parent']) {
-        $organised_menu[$item['menu_item_parent']]['children'][$item['ID']] = $item;
-      }
-      else {
-        $organised_menu[$item['ID']] = $item;
+        $clean_data[] = $clean_item;
+
+        unset($data[$key]);
       }
     }
 
-    return $organised_menu;
+    return $clean_data;
   }
 }

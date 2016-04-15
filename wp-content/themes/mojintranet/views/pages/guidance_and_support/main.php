@@ -13,7 +13,16 @@
   <div class="grid">
     <div class="col-lg-12 col-md-12 col-sm-12">
       <div class="guidance-categories">
-        <?php dynamic_sidebar('guidance-index'); ?>
+        <div class="guidance-index-widget">
+          <h2 class="category">Most visited</h2>
+          <ul class="guidance-categories-list large"></ul>
+
+          <h2 class="category all-items">All</h2>
+          <ul class="guidance-categories-list small"></ul>
+        </div>
+
+        <?php $this->view('pages/guidance_and_support/category_item') ?>
+        <?php $this->view('pages/guidance_and_support/child_item') ?>
       </div>
     </div>
   </div>
