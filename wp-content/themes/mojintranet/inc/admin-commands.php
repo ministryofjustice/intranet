@@ -13,6 +13,7 @@ $load_commands = array(
     // filename => Class_Name
     'assign-agency-terms-to-posts' => 'Assign_Agency_Terms_To_Posts',
     'assign-agency-home-page-options' => 'Assign_Agency_Home_Page_Options',
+    'make-all-global-editors-in-hq-context' => 'Make_All_Global_Editors_In_HQ_Context',
 );
 
 $admin_commands = array();
