@@ -22,12 +22,12 @@ class News_model extends MVC_model {
     return $data;
   }
 
-  public function get_featured($options = array(),$exclude_featured = false) {
+  public function get_widget_news($options = array(), $featured = false) {
     $options['post__in'] = $this->get_featured_news_ids();
 
     $options = $this->normalize_featured_options($options);
 
-    $post_in_out = $exclude_featured?'post__not_in':'post__in';
+    $post_in_out = $featured ? 'post__in' : 'post__not_in';
 
     $args = array (
       // Paging
@@ -36,7 +36,8 @@ class News_model extends MVC_model {
       'posts_per_page' => $options['length'],
       // Filters
       'post_type' => $options['post_type'],
-      $post_in_out => $options['post__in']
+      $post_in_out => $options['post__in'],
+      'tax_query' => $options['tax_query']
     );
 
     $data['raw'] = new WP_Query($args);
@@ -48,6 +49,8 @@ class News_model extends MVC_model {
     return $data;
   }
 
+  /** is that being used anywhere?
+   */
   private function get_need_to_know_news_ids() {
     $need_to_know_news_ids = array();
 
@@ -62,7 +65,7 @@ class News_model extends MVC_model {
     $need_to_know_news_ids = array();
 
     for($a = 1; $a <= $this->max_featured_news; $a++) {
-      array_push($need_to_know_news_ids, get_option('featured_story' . $a));
+      array_push($need_to_know_news_ids, get_option('hq_featured_story' . $a));
     }
 
     return $need_to_know_news_ids;

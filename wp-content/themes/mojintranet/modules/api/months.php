@@ -28,7 +28,9 @@ class Months_API extends API {
   }
 
   protected function get_months() {
-    $data = $this->MVC->model->months->get_list($this->params);
+    $options = $this->params;
+    $options['tax_query'] = $this->get_taxonomies();
+    $data = $this->MVC->model->months->get_list($options);
     $data['url_params'] = $this->params;
     $this->response($data, 200, 300);
   }
