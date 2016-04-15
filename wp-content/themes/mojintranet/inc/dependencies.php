@@ -21,6 +21,7 @@ function mojintranet_enqueue_admin_scripts($hook) {
     wp_enqueue_style('jquery.timeentry', get_template_directory_uri() . '/admin/css/jquery.timeentry.css');
     wp_enqueue_style('jqueryui', get_template_directory_uri() . '/admin/css/jquery-ui.css');
   }
+  wp_enqueue_style('personalisation', get_template_directory_uri() . '/admin/css/personalisation.css');
 }
 
 add_action('admin_enqueue_scripts', 'pageparent_register_head');

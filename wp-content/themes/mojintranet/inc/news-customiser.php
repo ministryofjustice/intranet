@@ -56,13 +56,19 @@
           'panel'           => 'news_customisation',
         ) );
 
+        $context = Agency_Context::get_agency_context();
+
         for($x=1;$x<=$total_stories;$x++) {
-          $this->new_control_setting($wp_customize, 'featured_story'.$x, $section_name, 'Featured story ' . $x, 'news');
+
+
+          $this->new_control_setting($wp_customize, $context.'_featured_story'.$x, $section_name, 'Featured story ' . $x, 'news');
         }
       }
 
       // Need to know functions
       public function need_to_know($wp_customize,$total_stories = 3) {
+
+        $context = Agency_Context::get_agency_context();
 
         for($x=1;$x<=$total_stories;$x++) {
           $section_name = 'need_to_know' . $x;
@@ -72,10 +78,10 @@
             'panel'           => 'need_to_know_customisation',
           ) );
 
-          $this->new_control_setting($wp_customize, 'need_to_know_headline'.$x, $section_name, 'Headline', 'text');
-          $this->new_control_setting($wp_customize, 'need_to_know_url'.$x, $section_name, 'URL', 'text');
-          $this->new_control_setting($wp_customize, 'need_to_know_image'.$x, $section_name, 'Image', 'image');
-          $this->new_control_setting($wp_customize, 'need_to_know_alt'.$x, $section_name, 'Image alt text', 'text');
+          $this->new_control_setting($wp_customize, $context.'_need_to_know_headline'.$x, $section_name, 'Headline', 'text');
+          $this->new_control_setting($wp_customize, $context.'_need_to_know_url'.$x, $section_name, 'URL', 'text');
+          $this->new_control_setting($wp_customize, $context.'_need_to_know_image'.$x, $section_name, 'Image', 'image');
+          $this->new_control_setting($wp_customize, $context.'_need_to_know_alt'.$x, $section_name, 'Image alt text', 'text');
         }
       }
 
