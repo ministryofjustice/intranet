@@ -4,6 +4,11 @@
  * Load admin commands and create an admin page to display them.
  */
 
+// Only give access to administrators
+if (!current_user_can('administrator')) {
+    return;
+}
+
 $load_commands = array(
     // filename => Class_Name
     'assign-agency-terms-to-posts' => 'Assign_Agency_Terms_To_Posts',
