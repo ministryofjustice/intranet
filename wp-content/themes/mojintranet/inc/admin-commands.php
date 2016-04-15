@@ -7,6 +7,7 @@
 $load_commands = array(
     // filename => Class_Name
     'assign-agency-terms-to-posts' => 'Assign_Agency_Terms_To_Posts',
+    'assign-agency-home-page-options' => 'Assign_Agency_Home_Page_Options',
 );
 
 $admin_commands = array();
