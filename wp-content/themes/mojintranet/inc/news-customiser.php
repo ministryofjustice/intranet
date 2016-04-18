@@ -27,11 +27,12 @@
       public function register($wp_customize) {
 
         $context = Agency_Context::get_agency_context();
+        $agency = Agency_Editor::get_agency_by_slug($context);
 
         $wp_customize->add_panel( 'need_to_know_customisation', array(
           'priority'        => 1,
           'capability'      => 'edit_theme_options',
-          'title'           => 'Need To Know for ' . strtoupper($context),
+          'title'           => 'Need To Know for ' . $agency->name,
           'description'     => 'Allows admins and editors to customise the Need To Know panel',
         ) );
 
@@ -52,13 +53,14 @@
       public function featured_news($wp_customize,$total_stories = 2) {
 
         $context = Agency_Context::get_agency_context();
+        $agency = Agency_Editor::get_agency_by_slug($context);
 
         $section_name = 'featured_news';
         $wp_customize->add_section( 'featured_news', array(
           'priority'        => 10,
           'capability'      => 'edit_theme_options',
-          'title'           => 'Featured news for ' . strtoupper($context),
-          'description'     => 'Controls the featured news items for ' . strtoupper($context),
+          'title'           => 'Featured news for ' . $agency->name,
+          'description'     => 'Controls the featured news items for ' . $agency->name,
           'panel'           => 'news_customisation',
         ) );
 
