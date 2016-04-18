@@ -179,40 +179,22 @@ class Agency extends Taxonomy {
      */
     public function add_agency_filter() {
         global $typenow, $pagenow;
-        if (!in_array($typenow, $this->object_types) || $pagenow !== 'edit.php') {
+
+        $is_correct_post_type = in_array($typenow, $this->object_types);
+        $is_correct_page = ( $pagenow == 'edit.php' );
+        $is_hq_user = ( Agency_Context::get_agency_context() == 'hq' );
+
+        if (!$is_correct_post_type || !$is_correct_page || $is_hq_user) {
             return;
         }
 
-        $context = Agency_Editor::get_agency_by_slug(Agency_Context::get_agency_context());
-
-        $agencies = array(
-            'hq' => 'HQ',
-            $context->slug => $context->name,
-        );
-
-        if (count($agencies) > 1):
-
-            ?>
-            <label style="margin-left: 5px;" class="agency-filter-label">Agency:</label>
-            <?php
-
-            foreach ($agencies as $slug => $name) {
-                if (empty($_GET['agency'])) {
-                    $is_checked = true;
-                } elseif (is_array($_GET['agency']) && in_array($slug, $_GET['agency'])) {
-                    $is_checked = true;
-                } else {
-                    $is_checked = false;
-                }
-                ?>
-                <label class="agency-filter-filter">
-                    <input type="checkbox" name="agency[]" value="<?php echo esc_attr($slug); ?>" <?php checked(true, $is_checked); ?> />
-                    <?php echo $name; ?>
-                </label>
-                <?php
-            }
-
-        endif;
+        $is_checked = ( isset($_GET['show-hq-posts']) && $_GET['show-hq-posts'] == '1' );
+        ?>
+        <label class="agency-filter-filter">
+            <input type="checkbox" name="show-hq-posts" value="1" <?php checked(true, $is_checked); ?> />
+            Show HQ content
+        </label>
+        <?php
     }
 
     /**
@@ -225,21 +207,22 @@ class Agency extends Taxonomy {
     public function filter_posts_by_agency(\WP_Query $query) {
         global $typenow, $pagenow;
 
-        if (
-            !in_array($typenow, $this->object_types) ||
-            $pagenow !== 'edit.php' ||
-            !Agency_Context::current_user_can_have_context()
-        ) {
+        $is_correct_post_type = in_array($typenow, $this->object_types);
+        $is_correct_page = ( $pagenow == 'edit.php' );
+        $user_can_have_context = Agency_Context::current_user_can_have_context();
+
+        if (!$is_correct_post_type || !$is_correct_page || !$user_can_have_context) {
             return $query;
         }
 
-        if (isset($_GET['agency']) && is_array($_GET['agency'])) {
-            $agency = $_GET['agency'];
-        } else {
-            $agency = array(
-                'hq',
-                Agency_Context::get_agency_context()
-            );
+        // Define the agency taxonomy filter
+        $agency = array(
+            Agency_Context::get_agency_context()
+        );
+
+        // Show HQ posts?
+        if (isset($_GET['show-hq-posts']) && $_GET['show-hq-posts'] == '1') {
+            $agency[] = 'hq';
         }
 
         $query->query_vars['agency'] = $agency;
