@@ -3,7 +3,7 @@
 /*
  * Function creates post duplicate as a draft and redirects then to the edit post screen
  */
-function rd_duplicate_post_as_draft(){
+function dw_fork_post_as_draft(){
   global $wpdb;
   if (! ( isset( $_GET['post']) || isset( $_POST['post'])  || ( isset($_REQUEST['action']) && 'rd_duplicate_post_as_draft' == $_REQUEST['action'] ) ) ) {
     wp_die('No post to duplicate has been supplied!');
@@ -91,6 +91,8 @@ function rd_duplicate_post_as_draft(){
     }
 
 
+    add_post_meta($new_post_id, 'fork_from_post_id', $post_id);
+
     /*
      * finally, redirect to the edit post screen for the new draft
      */
@@ -100,17 +102,20 @@ function rd_duplicate_post_as_draft(){
     wp_die('Post creation failed, could not find original post: ' . $post_id);
   }
 }
-add_action( 'admin_action_rd_duplicate_post_as_draft', 'rd_duplicate_post_as_draft' );
+add_action( 'admin_action_dw_fork_post_as_draft', 'dw_fork_post_as_draft' );
 
 /*
  * Add the duplicate link to action list for post_row_actions
  */
-function rd_duplicate_post_link( $actions, $post ) {
-  if (current_user_can('edit_posts') && $post->post_status == 'publish') {
-    $actions['duplicate'] = '<a href="admin.php?action=rd_duplicate_post_as_draft&amp;post=' . $post->ID . '" title="Duplicate this item" rel="permalink">Duplicate</a>';
+function dw_fork_post_link( $actions, $post ) {
+
+  $context = Agency_Context::get_agency_context();
+
+  if (current_user_can('edit_posts') && $post->post_status == 'publish' && $context != 'hq') {
+    $actions['duplicate'] = '<a href="admin.php?action=dw_fork_post_as_draft&amp;post=' . $post->ID . '" title="Fork this item" rel="permalink">Fork</a>';
   }
   return $actions;
 }
 
-add_filter( 'post_row_actions', 'rd_duplicate_post_link', 10, 2 );
-add_filter('page_row_actions', 'rd_duplicate_post_link', 10, 2);
+add_filter( 'post_row_actions', 'dw_fork_post_link', 10, 2 );
+add_filter('page_row_actions', 'dw_fork_post_link', 10, 2);
