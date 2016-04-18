@@ -6,7 +6,7 @@
 function dw_fork_post_as_draft(){
   global $wpdb;
   if (! ( isset( $_GET['post']) || isset( $_POST['post'])  || ( isset($_REQUEST['action']) && 'rd_duplicate_post_as_draft' == $_REQUEST['action'] ) ) ) {
-    wp_die('No post to duplicate has been supplied!');
+    wp_die('No post to fork has been supplied!');
   }
 
   /*
@@ -67,11 +67,21 @@ function dw_fork_post_as_draft(){
       }
     }
 
+    $context = Agency_Context::get_agency_context();
+
+    /*
+     * Opt out Agency on original post
+     */
+    $post_agencies = wp_get_object_terms($post_id, 'agency', array('fields' => 'slugs'));
+
+    if(in_array($context,$post_agencies)){
+      $post_agencies = array_diff($post_agencies, array($context));
+      wp_set_object_terms($post_id, $post_agencies, 'agency', false);
+    }
+
     /*
      * Set Agency
      */
-    $context = Agency_Context::get_agency_context();
-
     wp_set_object_terms($new_post_id, $context, 'agency', false);
 
     /*
@@ -90,6 +100,9 @@ function dw_fork_post_as_draft(){
       $wpdb->query($sql_query);
     }
 
+    /*
+     * Add post id of original post
+     */
 
     add_post_meta($new_post_id, 'fork_from_post_id', $post_id);
 
