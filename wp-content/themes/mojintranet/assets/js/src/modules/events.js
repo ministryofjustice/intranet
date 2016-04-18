@@ -95,6 +95,8 @@
 
     getDataObject: function(data) {
       var base = {
+        'agency': 'hq',
+        'additional_filters': '',
         'date': this.$dateInput.val(),
         'keywords': this.getKeywords().replace(/\s+/g, '+'),
         'page': this.getPage()

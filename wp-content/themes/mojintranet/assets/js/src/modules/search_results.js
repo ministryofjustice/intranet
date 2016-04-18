@@ -316,7 +316,7 @@
 
       var base = {
         'agency': 'hq',
-        'additional_params': '',
+        'additional_filters': '',
         'type': type,
         'keywords': keywords,
         'page': page,
