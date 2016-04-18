@@ -19,6 +19,7 @@ require_once('inc/languages.php');                        // Controls the site l
 require_once('inc/user-management.php');                  // Additional author information
 require_once('inc/news-customiser.php');                  // Setup news customiser
 require_once('inc/post-types.php');                       // Controls post-types (custom and built-in)
+require_once('inc/post-duplicate.php');                   // Add option to duplicate posts and pages
 require_once('inc/taxonomies.php');                       // Custom taxonomies
 require_once('inc/list-tables.php');                      // Adjustments to list tables
 require_once('inc/admin-commands.php');                   // Admin commands
@@ -40,6 +41,8 @@ require_once('admin/editor-enhancements.php');            // Adds enhancements t
 require_once('admin/errors.php');                         // Displays errors in admin
 
 add_action( 'after_setup_theme', 'mojintranet_setup' );
+
+
 
 if ( !function_exists( 'mojintranet_setup' ) ) {
 	function mojintranet_setup() {
