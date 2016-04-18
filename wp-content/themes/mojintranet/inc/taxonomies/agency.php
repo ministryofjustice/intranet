@@ -93,6 +93,58 @@ class Agency extends Taxonomy {
             add_action('post_row_actions', array($this, 'add_opt_in_out_quick_actions'), 10, 2);
             add_action('load-post.php', array($this, 'quick_action_opt_in_out'));
         }
+
+        add_filter('wp_count_posts', array($this, 'wp_count_posts'), 10, 3);
+    }
+
+    /**
+     * Filter results from wp_count_posts to only show counts for posts which
+     *
+     * @param $counts
+     * @param $type
+     * @param $perm
+     *
+     * @return mixed
+     */
+    public function wp_count_posts($counts, $type, $perm) {
+        global $pagenow;
+
+        $wrong_post_type = !in_array($type, $this->object_types);
+        $wrong_page = !is_admin() || $pagenow !== 'edit.php';
+
+        if ($wrong_post_type || $wrong_page) {
+            return $counts;
+        }
+
+        global $wpdb;
+
+        $agencies = array(
+            Agency_Context::get_agency_context()
+        );
+
+        if (isset($_GET['show-hq-posts']) && $_GET['show-hq-posts'] == '1') {
+            $agencies[] = 'hq';
+        }
+
+        foreach ($counts as $status => $count) {
+            $sql = "SELECT COUNT(*) AS num_posts
+                FROM wp_posts
+                LEFT JOIN wp_term_relationships ON ( wp_posts.ID = wp_term_relationships.object_id )
+                LEFT JOIN wp_term_taxonomy ON ( wp_term_relationships.term_taxonomy_id = wp_term_taxonomy.term_taxonomy_id )
+                LEFT JOIN wp_terms ON ( wp_term_taxonomy.term_id = wp_terms.term_id )
+                WHERE post_type = %s
+                AND post_status = %s
+                AND wp_term_taxonomy.taxonomy = 'agency'
+                AND wp_terms.slug = %s";
+
+            // @TODO Add wp_terms.slug IN () for agencies
+
+            $sql = $wpdb->prepare($sql, $type, $status, $agencies);
+            $results = $wpdb->get_row($sql);
+            $counts->{$status} = $results->num_posts;
+        }
+
+        return $counts;
     }
 
     public function add_admin_menu_item() {
