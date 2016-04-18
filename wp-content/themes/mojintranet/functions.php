@@ -42,8 +42,6 @@ require_once('admin/errors.php');                         // Displays errors in 
 
 add_action( 'after_setup_theme', 'mojintranet_setup' );
 
-
-
 if ( !function_exists( 'mojintranet_setup' ) ) {
 	function mojintranet_setup() {
 
