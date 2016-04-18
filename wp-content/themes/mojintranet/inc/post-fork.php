@@ -5,7 +5,7 @@
  */
 function dw_fork_post_as_draft(){
   global $wpdb;
-  if (! ( isset( $_GET['post']) || isset( $_POST['post'])  || ( isset($_REQUEST['action']) && 'rd_duplicate_post_as_draft' == $_REQUEST['action'] ) ) ) {
+  if (! ( isset( $_GET['post']) || isset( $_POST['post'])  || ( isset($_REQUEST['action']) && 'dw_fork_post_as_draft' == $_REQUEST['action'] ) ) ) {
     wp_die('No post to fork has been supplied!');
   }
 
