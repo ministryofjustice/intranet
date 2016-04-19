@@ -18,12 +18,7 @@ function dw_fork_post_as_draft(){
    */
   $post = get_post( $post_id );
 
-  /*
-   * if you don't want current user to be the new post author,
-   * then change next couple of lines to this: $new_post_author = $post->post_author;
-   */
-  $current_user = wp_get_current_user();
-  $new_post_author = $current_user->ID;
+  $new_post_author = get_current_user_id();
 
   /*
    * if post data exists, create the post duplicate
