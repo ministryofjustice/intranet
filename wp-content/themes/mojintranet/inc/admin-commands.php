@@ -12,7 +12,6 @@ if (!current_user_can('administrator')) {
 $load_commands = array(
     // filename => Class_Name
     'assign-agency-terms-to-posts' => 'Assign_Agency_Terms_To_Posts',
-    'make-all-global-editors-in-hq-context' => 'Make_All_Global_Editors_In_HQ_Context',
     'remove-old-home-page-options' => 'Remove_Old_Home_Page_Options'
 );
 
