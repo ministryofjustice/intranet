@@ -126,6 +126,8 @@ class Agency extends Taxonomy {
             $agencies[] = 'hq';
         }
 
+        $agency_placeholders = implode(', ', array_fill(0, count($agencies, '%s'));
+
         foreach ($counts as $status => $count) {
             $sql = "SELECT COUNT(*) AS num_posts
                 FROM wp_posts
@@ -135,11 +137,10 @@ class Agency extends Taxonomy {
                 WHERE post_type = %s
                 AND post_status = %s
                 AND wp_term_taxonomy.taxonomy = 'agency'
-                AND wp_terms.slug = %s";
+                AND wp_terms.slug IN ( $agency_placeholders )";
 
-            // @TODO Add wp_terms.slug IN () for agencies
-
-            $sql = $wpdb->prepare($sql, $type, $status, $agencies);
+            $query_params = array_merge(array($type, $status), $agencies);
+            $sql = $wpdb->prepare($sql, $query_params);
             $results = $wpdb->get_row($sql);
             $counts->{$status} = $results->num_posts;
         }
