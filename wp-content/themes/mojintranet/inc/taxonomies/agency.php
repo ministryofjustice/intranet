@@ -126,7 +126,7 @@ class Agency extends Taxonomy {
             $agencies[] = 'hq';
         }
 
-        $agency_placeholders = implode(', ', array_fill(0, count($agencies, '%s'));
+        $agency_placeholders = implode(', ', array_fill(0, count($agencies), '%s'));
 
         foreach ($counts as $status => $count) {
             $sql = "SELECT COUNT(*) AS num_posts
