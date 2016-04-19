@@ -3,30 +3,25 @@
 /*
  * Function creates post duplicate as a draft and redirects then to the edit post screen
  */
-function dw_fork_post_as_draft(){
-  global $wpdb;
-  if (! ( isset( $_GET['post']) || isset( $_POST['post'])  || ( isset($_REQUEST['action']) && 'dw_fork_post_as_draft' == $_REQUEST['action'] ) ) ) {
+function dw_fork_post_as_draft() {
+  $post_was_set = isset( $_REQUEST['post']);
+  $correct_action_was_set = isset($_REQUEST['action']) && 'dw_fork_post_as_draft' == $_REQUEST['action'];
+
+  if (!$post_was_set || !$correct_action_was_set) {
     wp_die('No post to fork has been supplied!');
   }
 
-  /*
-   * get the original post id
-   */
-  $post_id = (isset($_GET['post']) ? $_GET['post'] : $_POST['post']);
-  /*
-   * and all the original post data then
-   */
-  $post = get_post( $post_id );
-
+  $post_id = $_REQUEST['post'];
+  $post = get_post($post_id);
   $new_post_author = get_current_user_id();
 
   /*
-   * if post data exists, create the post duplicate
+   * If post data exists, create the post duplicate
    */
-  if (isset( $post ) && $post != null) {
+  if (isset($post) && $post != null) {
 
     /*
-     * new post data array
+     * New post data array
      */
     $args = array(
         'comment_status' => $post->comment_status,
@@ -45,12 +40,12 @@ function dw_fork_post_as_draft(){
     );
 
     /*
-     * insert the post by wp_insert_post() function
+     * Insert the post by wp_insert_post() function
      */
     $new_post_id = wp_insert_post($args);
 
     /*
-     * get all current post terms ad set them to the new post draft
+     * Get all current post terms and set them to the new post draft
      */
     $taxonomies = get_object_taxonomies($post->post_type); // returns array of taxonomy names for post type, ex array("category", "post_tag");
     foreach ($taxonomies as $taxonomy) {
@@ -64,22 +59,22 @@ function dw_fork_post_as_draft(){
     $context = Agency_Context::get_agency_context();
 
     /*
-     * Opt out Agency on original post
+     * Opt out Agency from original post - excluded on HQ context
      */
     $post_agencies = wp_get_object_terms($post_id, 'agency', array('fields' => 'slugs'));
 
-    if (in_array($context,$post_agencies) && in_array('hq',$post_agencies)) {
+    if ($context != 'hq' && in_array($context, $post_agencies) && in_array('hq', $post_agencies)) {
       $post_agencies = array_diff($post_agencies, array($context));
       wp_set_object_terms($post_id, $post_agencies, 'agency', false);
     }
 
     /*
-     * Set Agency
+     * Set Agency for new post
      */
     wp_set_object_terms($new_post_id, $context, 'agency', false);
 
     /*
-     * duplicate all post meta just in two SQL queries
+     * Duplicate post meta
      */
     $post_meta_ary = get_post_meta($post_id);
 
@@ -102,7 +97,7 @@ function dw_fork_post_as_draft(){
     add_post_meta($new_post_id, 'fork_from_post_id', $post_id);
 
     /*
-     * finally, redirect to the edit post screen for the new draft
+     * Redirect to the edit post screen for the new draft
      */
     wp_redirect(admin_url( 'post.php?action=edit&post=' . $new_post_id ));
     exit;
@@ -113,13 +108,13 @@ function dw_fork_post_as_draft(){
 add_action('admin_action_dw_fork_post_as_draft', 'dw_fork_post_as_draft');
 
 /*
- * Add the duplicate link to action list for post_row_actions
+ * Add the fork link to action list for post_row_actions
  */
 function dw_fork_post_link( $actions, $post ) {
 
   $context = Agency_Context::get_agency_context();
 
-  if (current_user_can('edit_posts') && $post->post_status == 'publish' && $context != 'hq') {
+  if (current_user_can('edit_posts') && $post->post_status == 'publish' ) {
     $actions['duplicate'] = '<a href="admin.php?action=dw_fork_post_as_draft&amp;post=' . $post->ID . '" title="Fork this item" rel="permalink">Fork</a>';
   }
   return $actions;
