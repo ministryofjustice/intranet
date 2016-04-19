@@ -7,10 +7,11 @@ class Need_to_know_model extends MVC_model {
     $this->max_need_to_know_news = 3;
   }
 
-  public function get_need_to_know($options = array()) {
-    $agency = 'hq'; //!!! hard-coded for now
+  public function get_data($options = array()) {
+    $agency = $options['agency'] ?: 'hq';
     $prefix = $agency . '_';
     $options = $this->normalize_need_to_know_options($options);
+
     for($a = $options['start']; $a <= $options['length']; $a++) {
       $slide['title'] = get_option($prefix . 'need_to_know_headline' . $a) ?: '';
       $slide['url'] = get_option($prefix . 'need_to_know_url' . $a) ?: '';

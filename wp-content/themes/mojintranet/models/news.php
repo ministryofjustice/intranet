@@ -23,7 +23,7 @@ class News_model extends MVC_model {
   }
 
   public function get_widget_news($options = array(), $featured = false) {
-    $options['post__in'] = $this->get_featured_news_ids();
+    $options['post__in'] = $this->get_featured_news_ids($options['agency']);
 
     $options = $this->normalize_featured_options($options);
 
@@ -61,11 +61,11 @@ class News_model extends MVC_model {
     return $need_to_know_news_ids;
   }
 
-  private function get_featured_news_ids() {
+  private function get_featured_news_ids($agency) {
     $need_to_know_news_ids = array();
 
     for($a = 1; $a <= $this->max_featured_news; $a++) {
-      array_push($need_to_know_news_ids, get_option('hq_featured_story' . $a));
+      array_push($need_to_know_news_ids, get_option($agency . '_featured_story' . $a));
     }
 
     return $need_to_know_news_ids;
