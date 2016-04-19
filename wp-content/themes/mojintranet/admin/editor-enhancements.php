@@ -2,12 +2,32 @@
 
 /* Dynamic filtering of Parent pages */
 
+
 add_action('wp_ajax_check_parent', 'pageparent_ajax_check_parent');
 function pageparent_ajax_check_parent() {
   global $wpdb;
-  $query = $_POST['data'];
-  $parent_query = "SELECT ID,post_title,post_parent,post_type,post_status FROM $wpdb->posts WHERE post_title LIKE '%{$query}%' AND post_type = 'page' AND post_status IN ('publish','draft') ORDER BY post_title LIMIT 0,30";
-  $parentname = $wpdb->get_results($parent_query);
+
+  $context = Agency_Context::get_agency_context();
+
+  $filter_data = $_POST['data'];
+  $filter_text = sanitize_text_field($filter_data["filtertext"]);
+  $current_page = intval($filter_data["pageID"]);
+
+
+  $parent_query = "SELECT ID,post_title,post_parent,post_type,post_status FROM $wpdb->posts 
+                   LEFT JOIN $wpdb->term_relationships ON ( $wpdb->posts.ID = $wpdb->term_relationships.object_id )
+                   LEFT JOIN $wpdb->term_taxonomy ON ( $wpdb->term_relationships.term_taxonomy_id = $wpdb->term_taxonomy.term_taxonomy_id )
+                   LEFT JOIN $wpdb->terms ON ( $wpdb->term_taxonomy.term_id = $wpdb->terms.term_id ) 
+                   WHERE post_title LIKE '%%%s%%'
+                   AND $wpdb->posts.ID != %s 
+                   AND post_type = 'page' 
+                   AND post_status IN ('publish','draft') 
+                   AND $wpdb->term_taxonomy.taxonomy = 'agency' 
+                   AND $wpdb->terms.slug IN ( 'hq', '%s' ) 
+                   GROUP BY $wpdb->posts.ID
+                   ORDER BY post_title LIMIT 0,30";
+
+  $parentname = $wpdb->get_results( $wpdb->prepare($parent_query, array($filter_text, $current_page, $context)));
   if($parentname) {
     foreach ($parentname as $parent) {
       $parent_title = get_the_title($parent->post_parent);
@@ -94,7 +114,7 @@ function pageparent_box($post) {
           ajaxurl,
           {
              'action': 'check_parent',
-             'data'  : jQuery("#pageparent-filterbox").val()
+             'data'  : { filtertext: jQuery("#pageparent-filterbox").val() , pageID: <?php echo $post->ID; ?> }
           }
         ).done( function(response) {
           if(response.length) {
