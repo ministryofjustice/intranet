@@ -19,12 +19,16 @@ function pageparent_ajax_check_parent() {
       if ($parent_state!='') {
         $parent_state = $parent_state."&nbsp;> ";
       }
+      $page_status = '';
+      if($parent->post_status == 'draft'){
+        $page_status = ' (Draft)';
+      }
       echo "<li class='pageparentoption'>
         <a class=\"parentlink\" style=\"cursor:pointer;\" parentname='".$parent->post_title . "' parentid='" . $parent->ID . "'>
           <small>".
             $parent_state." ".$parent_title."
           </small> ".
-          $parent->post_title . "
+          $parent->post_title . $page_status . "
         </a>
       </li>\n";
     }
