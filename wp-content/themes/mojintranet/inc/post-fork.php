@@ -46,7 +46,7 @@ function dw_fork_post_as_draft() {
      */
     $new_post_id = wp_insert_post($args);
 
-    /* Set filtered cotnent */
+    /* Set filtered content */
     global $wpdb;
     $wpdb->query( $wpdb->prepare(
         "UPDATE $wpdb->posts SET `post_content_filtered` = '%s' WHERE `ID` = %d", array($post->post_content_filtered, $new_post_id)
