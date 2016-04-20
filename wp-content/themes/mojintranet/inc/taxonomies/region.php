@@ -77,18 +77,18 @@ class Region extends Taxonomy {
         $agencies = get_terms( 'agency', array('hide_empty' => false));
         $context = Agency_Context::get_agency_context();
 
-        if ($context != 'hq') {
-            foreach ($this->object_types as $object) {
 
-                foreach ($agencies as $agency) {
+        foreach ($this->object_types as $object) {
 
-                    if($agency->slug != $context) {
-                        remove_meta_box($agency->slug . '_regiondiv', $object, 'normal');
-                    }
+            foreach ($agencies as $agency) {
+
+                if($agency->slug != $context) {
+                    remove_meta_box($agency->slug . '_regiondiv', $object, 'normal');
                 }
-
             }
+
         }
+
     }
 
 
@@ -100,15 +100,14 @@ class Region extends Taxonomy {
         $agencies = get_terms( 'agency', array('hide_empty' => false));
         $context = Agency_Context::get_agency_context();
 
-
         remove_submenu_page( 'edit.php', 'edit-tags.php?taxonomy=hq_region&post_type=event' );
 
         foreach ($agencies as $agency) {
 
-                    if($agency->slug != $context) {
+            if ($agency->slug != $context) {
 
-                        remove_submenu_page( 'edit.php?post_type=news', 'edit-tags.php?taxonomy='.$agency->slug.'_region' );
-                    }
+                remove_submenu_page('edit.php?post_type=news', 'edit-tags.php?taxonomy='.$agency->slug.'_region');
+            }
         }
 
 
