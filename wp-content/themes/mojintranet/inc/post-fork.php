@@ -15,6 +15,8 @@ function dw_fork_post_as_draft() {
   $post = get_post($post_id);
   $new_post_author = get_current_user_id();
 
+  $context = Agency_Context::get_agency_context();
+
   /*
    * If post data exists, create the post duplicate
    */
@@ -29,7 +31,7 @@ function dw_fork_post_as_draft() {
         'post_author'    => $new_post_author,
         'post_content'   => $post->post_content,
         'post_excerpt'   => $post->post_excerpt,
-        'post_name'      => $post->post_name,
+        'post_name'      => $context .'-'. $post->post_name,
         'post_parent'    => $post->post_parent,
         'post_password'  => $post->post_password,
         'post_status'    => 'draft',
@@ -56,7 +58,7 @@ function dw_fork_post_as_draft() {
       }
     }
 
-    $context = Agency_Context::get_agency_context();
+
 
     /*
      * Opt out Agency from original post - excluded on HQ context
