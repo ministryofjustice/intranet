@@ -7,10 +7,12 @@
 $taxonomies = array(
     // filename => Class_Name
     'agency' => 'Agency',
-    'region' => 'Region',
+    'laa-region' => 'LAA_Region',
+    'hmcts-region' => 'HMCTS_Region',
 );
 
 require_once 'taxonomies/taxonomy.php';
+require_once 'taxonomies/agency-taxonomy.php';
 
 foreach ($taxonomies as $include_file => $class_name) {
     require_once 'taxonomies/' . $include_file . '.php';
