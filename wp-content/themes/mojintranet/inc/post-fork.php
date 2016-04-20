@@ -116,7 +116,7 @@ function dw_fork_post_link( $actions, $post ) {
 
   $context = Agency_Context::get_agency_context();
 
-  if (current_user_can('edit_posts') && $post->post_status == 'publish' ) {
+  if (current_user_can('edit_posts') && $post->post_status == 'publish' && has_term( 'hq', 'agency', $post->ID ) && $context != 'hq'  ) {
     $actions['duplicate'] = '<a href="admin.php?action=dw_fork_post_as_draft&amp;post=' . $post->ID . '" title="Fork this item" rel="permalink">Fork</a>';
   }
   return $actions;
