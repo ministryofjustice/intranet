@@ -181,8 +181,8 @@ class Agency extends Taxonomy {
         global $typenow, $pagenow;
 
         $is_correct_post_type = in_array($typenow, $this->object_types);
-        $is_correct_page = ( $pagenow == 'edit.php' );
-        $is_hq_user = ( Agency_Context::get_agency_context() == 'hq' );
+        $is_correct_page = ($pagenow == 'edit.php');
+        $is_hq_user = (Agency_Context::get_agency_context() == 'hq');
 
         if (!$is_correct_post_type || !$is_correct_page || $is_hq_user) {
             return;
@@ -216,9 +216,7 @@ class Agency extends Taxonomy {
         }
 
         // Define the agency taxonomy filter
-        $agency = array(
-            Agency_Context::get_agency_context()
-        );
+        $agency = array(Agency_Context::get_agency_context());
 
         // Show HQ posts?
         if (isset($_GET['show-hq-posts']) && $_GET['show-hq-posts'] == '1') {
