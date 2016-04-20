@@ -10,7 +10,8 @@ class Region extends Taxonomy {
     protected $object_types = array(
         'news',
         'post',
-        'event'
+        'event',
+        'page'
     );
 
     protected $args = array(
@@ -93,7 +94,7 @@ class Region extends Taxonomy {
 
 
     /**
-     * Remove region meta box from post edit pages depending on current context
+     * Remove region submenus depending on current context
      */
     public function remove_region_submenus() {
 
@@ -106,7 +107,12 @@ class Region extends Taxonomy {
 
             if ($agency->slug != $context) {
 
-                remove_submenu_page('edit.php?post_type=news', 'edit-tags.php?taxonomy='.$agency->slug.'_region');
+                remove_submenu_page('edit.php', 'edit-tags.php?taxonomy='.$agency->slug.'_region');
+
+                foreach($this->object_types as $object_type){
+                    remove_submenu_page('edit.php?post_type=' . $object_type, 'edit-tags.php?taxonomy='.$agency->slug.'_region&amp;post_type=' . $object_type);
+                }
+
             }
         }
 
