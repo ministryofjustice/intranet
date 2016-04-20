@@ -7,6 +7,7 @@
 $taxonomies = array(
     // filename => Class_Name
     'agency' => 'Agency',
+    'region' => 'Region',
 );
 
 require_once 'taxonomies/taxonomy.php';
