@@ -7,24 +7,26 @@ class Children_model extends MVC_model {
    * @param {Array} $parent_id Parent ID
    * @return {Array} Children data
    */
-  public function get_data($parent_id = 0, $order = 'asc') {
-    $this->page_id = $parent_id;
-    $this->order = $order;
+  public function get_data($options = array()) {
+    $options['agency'] = $options['agency'] ?: 'hq';
+    $options['additional_filters'] = $options['additional_filters'] ?: '';
+    $options['page_id'] = $options['page_id'] ?: 0;
+    $options['order'] = $options['order'] ?: 'asc';
 
     $data = array(
-      'title' => (string) get_the_title($parent_id),
-      'id' => (int) $parent_id,
-      'url' => (string) get_permalink($parent_id),
+      'title' => (string) get_the_title($options['page_id']),
+      'id' => (int) $options['page_id'],
+      'url' => (string) get_permalink($options['page_id']),
       'children' => array()
     );
 
-    $children = $this->get_children();
+    $children = $this->get_children($options);
 
     foreach($children->posts as $post) {
       $data['children'][] = $this->format_row($post);
     }
 
-    usort($data['children'], array($this,'sort_children'));
+    usort($data['children'], array($this, 'sort_children'));
 
     if($order == 'desc') {
       $data['children'] = array_reverse($data['children']);
@@ -33,15 +35,18 @@ class Children_model extends MVC_model {
     return $data;
   }
 
-  public function get_data_recursive($parent_id = 0, $order = 'asc') {
-    $id = $parent_id;
+  public function get_data_recursive($options) {
+    $options['agency'] = $options['agency'] ?: 'hq';
+    $options['additional_filters'] = $options['additional_filters'] ?: '';
+    $options['page_id'] = $options['page_id'] ?: 0;
+    $options['order'] = $options['order'] ?: 'asc';
 
     $data = array();
 
     do {
-      array_push($data, $this->get_data($id));
+      array_push($data, $this->get_data($options));
     }
-    while($id = wp_get_post_parent_id($id));
+    while($options['page_id'] = wp_get_post_parent_id($options['page_id']));
 
     return array_reverse($data);
   }
@@ -49,28 +54,22 @@ class Children_model extends MVC_model {
   /** Get a raw list of children
    * @return {Object} The raw WP Query results object
    */
-  private function get_children() {
+  private function get_children($options) {
     //get this page
     $top_page = new WP_Query(array(
-      'p' => $this->page_id,
+      'p' => $options['page_id'],
       'post_type' => $this->post_types
     ));
     $top_page->the_post();
 
     $children_args = array(
-      'post_parent' => $this->page_id,
+      'post_parent' => $options['page_id'],
       'post_type' => $this->post_types,
       'posts_per_page' => -1,
-      'tax_query' => array(
-        array(
-          'taxonomy' => 'agency',
-          'field'    => 'slug',
-          'terms'    => 'hq' //!!! hard-coded for now
-        )
-      )
+      'tax_query' => $options['tax_query']
     );
 
-    if(!$this->page_id) {
+    if(!$options['page_id']) {
       $children_args['meta_key'] = 'is_top_level';
       $children_args['meta_value'] = 1;
     }
@@ -105,7 +104,7 @@ class Children_model extends MVC_model {
     );
   }
 
-  /** Trim the title to only contain the parte after the first colon character
+  /** Trim the title to only contain the part after the first colon character
    * @param {String} $title Subject title
    * @retrun {String} Trimmed title
    */
