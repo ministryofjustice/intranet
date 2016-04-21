@@ -13,11 +13,8 @@
 
   App.Events.prototype = {
     init: function() {
-      this.settings = {
-      };
-
       this.applicationUrl = $('head').data('application-url');
-      this.serviceUrl = this.applicationUrl+'/service/events';
+      this.serviceUrl = this.applicationUrl+'/service/events/hq/';
       this.pageBase = this.applicationUrl+'/'+this.$top.data('top-level-slug');
 
       this.itemTemplate = this.$top.find('.template-partial[data-name="events-item"]').html();
@@ -29,15 +26,15 @@
       this.weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
       this.currentPage = null;
       this.resultsLoaded = false;
+      this.dateFilterPopulated = false;
       this.updateGATimeoutHandle = null;
-      this.finishedInitialLoad = false;
       this.lastSearchUrl = "";
 
       this.cacheEls();
       this.bindEvents();
       this.filtersInit();
       this.urlUpdate(true);
-      this.resultsRequest();
+      this.initialRequest();
     },
 
     cacheEls: function() {
@@ -95,8 +92,6 @@
 
     getDataObject: function(data) {
       var base = {
-        'agency': 'hq',
-        'additional_filters': '',
         'date': this.$dateInput.val(),
         'keywords': this.getKeywords().replace(/\s+/g, '+'),
         'page': this.getPage()
@@ -192,6 +187,8 @@
       var _this = this;
       var $eventItem;
       var newUrl;
+
+      this.populateDateFilter(data.months);
 
       this.resultsLoaded = true;
       this.resultsAbort();
@@ -310,6 +307,41 @@
       }
 
       this.currentPage = parseInt(segments[0] || 1, 10);
+    },
+
+    initialRequest: function() {
+      var segments = this.getUrlSegments();
+      this.resultsRequest({
+        date: segments[2] === '-' ? '' : segments[2]
+      });
+    },
+
+    populateDateFilter: function(months) {
+      var _this = this;
+      var $item;
+      var content;
+      var dateParts;
+
+      if(this.dateFilterPopulated) {
+        return;
+      }
+
+      $.each(months, function(dateStr, count) {
+        $item = $('<option></option>');
+        count = parseInt(count, 10);
+        dateParts = dateStr.split('-');
+        content = _this.months[parseInt(dateParts[1], 10) - 1] + ' ' + dateParts[0] + '&nbsp;&nbsp;(' + count + ' ';
+        content += count === 1 ? 'event' : 'events';
+        content += ')';
+
+        $item
+          .html(content)
+          .attr('value', dateParts[0] + '-' + dateParts[1]);
+
+        _this.$dateInput.append($item);
+      });
+
+      this.dateFilterPopulated = true;
     },
 
     getDate: function() {

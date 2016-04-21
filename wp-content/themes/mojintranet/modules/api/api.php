@@ -95,7 +95,7 @@ abstract class API {
    * @param {Array} $options Options for WP Query
    * @return {Array} $options with added taxonomies
    */
-  protected function add_taxonomies($options) {
+  protected function add_taxonomies($options = array()) {
     $agency = $this->get_param('agency') ?: 'hq';
     $additional_filters = $this->get_param('additional_filters') ?: '';
     $taxonomies = array('relation' => 'AND');

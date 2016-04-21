@@ -37,6 +37,8 @@ class Events_API extends API {
     $options = $this->params;
     $options = $this->add_taxonomies($options);
     $data = $this->MVC->model->events->get_list($options);
+    $months = $this->MVC->model->months->get_list($this->add_taxonomies());
+    $data['months'] = $months['results'];
     $data['url_params'] = $this->params;
     $this->response($data, 200, 300);
   }
