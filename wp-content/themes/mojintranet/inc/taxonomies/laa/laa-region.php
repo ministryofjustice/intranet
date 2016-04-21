@@ -10,10 +10,7 @@ class LAA_Region extends Agency_Taxonomy {
     protected $agency = 'laa';
 
     protected $object_types = array(
-        'news',
-        'post',
         'event',
-        'page'
     );
 
     protected $args = array(

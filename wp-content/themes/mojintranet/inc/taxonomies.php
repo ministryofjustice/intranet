@@ -5,17 +5,19 @@
  */
 
 $taxonomies = array(
-    // filename => Class_Name
-    'agency' => 'Agency',
-    'laa-region' => 'LAA_Region',
-    'hmcts-region' => 'HMCTS_Region',
+    // filename => array("dir" => 'directory', "class-name" => 'Class_Name')
+    'agency' => array("dir" => '', "class-name" => 'Agency'),
+    'laa-region' => array("dir" => 'laa', "class-name" => 'LAA_Region'),
+    'hmcts-region' => array("dir" => 'hmcts', "class-name" => 'HMCTS_Region'),
 );
 
 require_once 'taxonomies/taxonomy.php';
 require_once 'taxonomies/agency-taxonomy.php';
 
-foreach ($taxonomies as $include_file => $class_name) {
-    require_once 'taxonomies/' . $include_file . '.php';
-    $class = '\\MOJ_Intranet\\Taxonomies\\' . $class_name;
+foreach ($taxonomies as $include_file => $tax) {
+    require_once 'taxonomies/' . $tax['dir'] . '/' . $include_file . '.php';
+    $class = '\\MOJ_Intranet\\Taxonomies\\' . $tax['class-name'];
     new $class();
 }
+
+
