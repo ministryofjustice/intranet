@@ -4,8 +4,9 @@ include     ('helpers/debug.php');                        // Debug tool
 include     ('helpers/cachebuster.php');                  // Ensures updated CSS and JS are served to client
 include     ('helpers/taggr.php');                        // Tool for retrieving pages by their dw-tag
 include     ('helpers/validation.php');                   // Server side validation
-include     ('helpers/agency-editor.php');                // AgencyEditor helper
-include     ('helpers/agency-context.php');               // Editor agency context helper
+
+include     ('inc/utilities/agency-editor.php');          // Agency Editor utility
+include     ('inc/utilities/agency-context.php');         // Agency Context utility
 
 require_once('inc/authors.php');                          // Additional author information
 require_once('inc/cache.php');                            // Amend the cache headers

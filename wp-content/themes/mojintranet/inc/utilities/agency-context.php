@@ -21,24 +21,18 @@ class Agency_Context {
      * Is the current user allowed to change context to the specified agency?
      *
      * @param string $agency Slug of the agency
-     * @return array
+     * @return bool
      */
     public static function current_user_can_change_to($agency) {
         $available = self::current_user_available_agencies();
-
-        // Extract slugs from array of WP_Term objects
-        $available = array_map(function($term) {
-            return $term->slug;
-        }, $available);
-
         return in_array($agency, $available);
     }
 
     /**
      * Which agencies can the current user change context to?
-     * Returns an array of WP_Term objects.
+     * Returns an array of agency slugs.
      *
-     * @return WP_Term[]
+     * @return array
      */
     public static function current_user_available_agencies() {
         if (current_user_can('agency-editor')) {
@@ -51,41 +45,48 @@ class Agency_Context {
             $agencies = array();
         }
 
-        return $agencies;
+        // Create an array of slugs from the agency objects
+        $slugs = array_map(function($term) {
+            return $term->slug;
+        }, $agencies);
+
+        return $slugs;
     }
 
     /**
      * Set the user's editor context
      *
      * @param $agency
+     * @return bool|WP_Error
      */
     public static function set_agency_context($agency) {
-        $user_id = get_current_user_id();
-        update_user_meta($user_id, 'agency_context', $agency);
+        if (self::current_user_can_change_to($agency)) {
+            $user_id = get_current_user_id();
+            update_user_meta($user_id, 'agency_context', $agency);
+        } else {
+            return new \WP_Error('unauthorised_context', "You cannot change context to the agency '$agency'.");
+        }
     }
 
     /**
-     * Get the user's current editor context
+     * Get the user's current editor context.
+     * If the user doesn't have a context, default to one of the users'
+     * available agencies, with a preference for HQ.
      *
      * @return string
      */
     public static function get_agency_context() {
         $user_id = get_current_user_id();
         $agency = get_user_meta($user_id, 'agency_context', true);
+        $available = self::current_user_available_agencies();
 
-        // If context has not been set, default to the first available agency.
-        if (empty($agency)) {
-            $available = self::current_user_available_agencies();
-
-            $available_slugs = array_map(function($term) {
-                return $term->slug;
-            }, $available);
-
-            if (in_array('hq', $available_slugs)) {
+        // If current context is empty or invalid, set one.
+        if (empty($agency) || !self::current_user_can_change_to($agency)) {
+            // Prefer HQ agency, else pick the first available agency.
+            if (in_array('hq', $available)) {
                 $agency = 'hq';
             } else {
                 $agency = array_shift($available);
-                $agency = $agency->slug;
             }
 
             self::set_agency_context($agency);
