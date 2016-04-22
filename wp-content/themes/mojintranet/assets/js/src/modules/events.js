@@ -13,6 +13,9 @@
 
   App.Events.prototype = {
     init: function() {
+      this.settings = {
+      };
+
       this.applicationUrl = $('head').data('application-url');
       this.serviceUrl = this.applicationUrl+'/service/events/hq/';
       this.pageBase = this.applicationUrl+'/'+this.$top.data('top-level-slug');
@@ -28,13 +31,17 @@
       this.resultsLoaded = false;
       this.dateFilterPopulated = false;
       this.updateGATimeoutHandle = null;
-      this.lastSearchUrl = "";
+      this.lastSearchUrl = '';
+      this.initialDate = '';
 
       this.cacheEls();
       this.bindEvents();
       this.filtersInit();
       this.urlUpdate(true);
-      this.initialRequest();
+
+      this.resultsRequest({
+        date: this.initialDate
+      });
     },
 
     cacheEls: function() {
@@ -291,6 +298,8 @@
       var segments = this.getUrlSegments();
       var keywords;
 
+      this.initialDate = segments[2] === '-' ? '' : segments[2];
+
       //set the keywords field
       if(segments[1]) {
         keywords = segments[1].replace('+', ' ');
@@ -301,23 +310,12 @@
         }
       }
 
-      //set the date field
-      if(segments[2]) {
-        this.$dateInput.val(segments[2] === '-' ? '' : segments[2]);
-      }
-
       this.currentPage = parseInt(segments[0] || 1, 10);
-    },
-
-    initialRequest: function() {
-      var segments = this.getUrlSegments();
-      this.resultsRequest({
-        date: segments[2] === '-' ? '' : segments[2]
-      });
     },
 
     populateDateFilter: function(months) {
       var _this = this;
+      var segments = this.getUrlSegments();
       var $item;
       var content;
       var dateParts;
@@ -330,7 +328,10 @@
         $item = $('<option></option>');
         count = parseInt(count, 10);
         dateParts = dateStr.split('-');
-        content = _this.months[parseInt(dateParts[1], 10) - 1] + ' ' + dateParts[0] + '&nbsp;&nbsp;(' + count + ' ';
+
+        content = _this.months[parseInt(dateParts[1], 10) - 1] + ' ' + dateParts[0];
+        content += '&nbsp;&nbsp;';
+        content += '(' + count + ' ';
         content += count === 1 ? 'event' : 'events';
         content += ')';
 
@@ -340,6 +341,10 @@
 
         _this.$dateInput.append($item);
       });
+
+      if(this.initialDate) {
+        this.$dateInput.val(this.initialDate === '-' ? '' : this.initialDate);
+      }
 
       this.dateFilterPopulated = true;
     },
