@@ -8,10 +8,7 @@ class Children_model extends MVC_model {
    * @return {Array} Children data
    */
   public function get_data($options = array()) {
-    $options['agency'] = $options['agency'] ?: 'hq';
-    $options['additional_filters'] = $options['additional_filters'] ?: '';
-    $options['page_id'] = $options['page_id'] ?: 0;
-    $options['order'] = $options['order'] ?: 'asc';
+    $options = $this->_normalise_options($options);
 
     $data = array(
       'title' => (string) get_the_title($options['page_id']),
@@ -36,10 +33,7 @@ class Children_model extends MVC_model {
   }
 
   public function get_data_recursive($options) {
-    $options['agency'] = $options['agency'] ?: 'hq';
-    $options['additional_filters'] = $options['additional_filters'] ?: '';
-    $options['page_id'] = $options['page_id'] ?: 0;
-    $options['order'] = $options['order'] ?: 'asc';
+    $options = $this->_normalise_options($options);
 
     $data = array();
 
@@ -49,6 +43,15 @@ class Children_model extends MVC_model {
     while($options['page_id'] = wp_get_post_parent_id($options['page_id']));
 
     return array_reverse($data);
+  }
+
+  private function _normalise_options($options) {
+    $options['agency'] = $options['agency'] ?: 'hq';
+    $options['additional_filters'] = $options['additional_filters'] ?: '';
+    $options['page_id'] = $options['page_id'] ?: 0;
+    $options['order'] = $options['order'] ?: 'asc';
+
+    return $options;
   }
 
   /** Get a raw list of children
