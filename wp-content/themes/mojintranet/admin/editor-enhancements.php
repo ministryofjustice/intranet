@@ -104,7 +104,8 @@ function pageparent_box($post) {
 
     <div>
       <?php
-      if (is_numeric($parent_page) && $parent_page > 0) {
+
+      if ($parent_page) {
         echo get_the_title($parent_page);
       }
       else {
