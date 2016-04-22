@@ -83,7 +83,7 @@ function pageparent_box($post) {
   //get current parent
   global $post;
   $load_image_url =  get_template_directory_uri() . '/admin/images/pageparent.gif';
-  $parent_page = get_the_title(wp_get_post_parent_id($post->ID));
+  $parent_page = wp_get_post_parent_id($post->ID);
 
   //populate template list
   $current_template = get_post_meta($post->ID,'_wp_page_template',true);
@@ -101,9 +101,18 @@ function pageparent_box($post) {
   <p><strong>Current Template:</strong></p>
   <?php echo $themeselect;?>
   <p><strong>Current Parent:</strong></p>
-  <div>
-    <?php echo $parent_page; ?>
-  </div>
+
+    <div>
+      <?php
+      if (is_numeric($parent_page) && $parent_page > 0) {
+        echo get_the_title($parent_page);
+      }
+      else {
+        echo 'None';
+      }
+      ?>
+    </div>
+
   <p><strong>New Parent Page:</strong></p>
   <input type="text" name="pageparent-filterbox" id="pageparent-filterbox" autocomplete="off" placeholder="Start typing...">
   <input type="hidden" name="parent_id" id="parent_id" readonly="readonly" value="<?php echo $post->post_parent; ?>">
