@@ -31,7 +31,9 @@ function agency_context_switcher_menu($wp_admin_bar) {
             'id'     => 'agency-list',
         ));
 
-        foreach ($agencies as $agency) {
+        foreach ($agencies as $agency_slug) {
+            $agency = Agency_Editor::get_agency_by_slug($agency_slug);
+
             $url = admin_url('index.php');
             $url = add_query_arg(array(
                 'set-agency-context' => $agency->slug,
@@ -55,8 +57,11 @@ function set_agency_context() {
     if (is_admin() && $pagenow == 'index.php' && isset($_GET['set-agency-context'])) {
         $set_agency = $_GET['set-agency-context'];
 
-        if (Agency_Context::current_user_can_change_to($set_agency)) {
-            Agency_Context::set_agency_context($set_agency);
+        $return = Agency_Context::set_agency_context($set_agency);
+
+        if (is_wp_error($return)) {
+            wp_die($return->get_error_message());
+            exit;
         }
 
         wp_redirect(wp_get_referer());
