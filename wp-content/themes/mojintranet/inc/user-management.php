@@ -2,7 +2,7 @@
 
 // Tweak admin bar for non-admins
 function hide_admin_bar_for_regular_users() {
-  if(!current_user_can('editor') && !current_user_can('administrator')) {
+  if (!current_user_can('agency-editor') && !current_user_can('editor') && !current_user_can('administrator')) {
     show_admin_bar(false);
   }
 }
