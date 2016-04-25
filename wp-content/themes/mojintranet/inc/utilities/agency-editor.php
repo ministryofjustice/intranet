@@ -8,6 +8,25 @@
 
 class Agency_Editor {
     /**
+     * Restricted Templates
+     * Templates restricted to top level admins
+     * @var string[]
+     */
+    public  $restricted_templates = array(
+        'page_about_us.php',
+        'page_blog.php',
+        'page_events.php',
+        'page_guidance_and_support_index.php',
+        'page_home.php',
+        'page_news.php',
+        'page_search_results.php',
+        'page_submit_feedback.php',
+        'redirects.php',
+        'service.php',
+        'single-webchat.php',
+    );
+
+    /**
      * Get the agency / owner of a post.
      * Returns the WP_Term object of the agency.
      *
