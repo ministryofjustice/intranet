@@ -84,14 +84,26 @@ function pageparent_box($post) {
   global $post;
   $load_image_url =  get_template_directory_uri() . '/admin/images/pageparent.gif';
   $parent_page = wp_get_post_parent_id($post->ID);
-  $restricted_templates = array('page_about_us.php', 'page_blog.php','page_events.php', 'page_home.php' );
+  $restricted_templates = array(
+      'page_about_us.php',
+      'page_blog.php',
+      'page_events.php',
+      'page_guidance_and_support_index.php',
+      'page_home.php',
+      'page_news.php',
+      'page_search_results.php',
+      'page_submit_feedback.php',
+      'redirects.php',
+      'service.php',
+      'single-webchat.php'
+  );
 
   //populate template list
   $current_template = get_post_meta($post->ID,'_wp_page_template',true);
   $template_file = str_replace('.php','',$current_template);
 
   $disabled = '';
-  if(in_array($current_template, $restricted_templates) && !current_user_can('administrator')){
+  if (in_array($current_template, $restricted_templates) && !current_user_can('administrator')) {
     $disabled = 'disabled="disabled"';
   }
 
@@ -99,7 +111,7 @@ function pageparent_box($post) {
           <option value="default">Default Template</option>';
   $templates = get_page_templates();
   foreach ( $templates as $template_name => $template_filename ) {
-    if(!in_array($template_filename, $restricted_templates) || $current_template == $template_filename || current_user_can('administrator')) {
+    if (!in_array($template_filename, $restricted_templates) || $current_template == $template_filename || current_user_can('administrator')) {
       $select = $current_template == $template_filename ? 'selected="selected"' : "";
       $themeselect .= '<option value="' . $template_filename . '" ' . $select . '>' . $template_name . '</option>';
     }
