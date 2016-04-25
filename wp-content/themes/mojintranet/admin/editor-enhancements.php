@@ -95,7 +95,7 @@ function pageparent_box($post) {
       'page_submit_feedback.php',
       'redirects.php',
       'service.php',
-      'single-webchat.php'
+      'single-webchat.php',
   );
 
   //populate template list
@@ -107,8 +107,7 @@ function pageparent_box($post) {
     $disabled = 'disabled="disabled"';
   }
 
-  $themeselect = '<select id="page_template" name="page_template" ' . $disabled . '>
-          <option value="default">Default Template</option>';
+  $themeselect = '<select id="page_template" name="page_template" ' . $disabled . '>';
   $templates = get_page_templates();
   foreach ( $templates as $template_name => $template_filename ) {
     if (!in_array($template_filename, $restricted_templates) || $current_template == $template_filename || current_user_can('administrator')) {
