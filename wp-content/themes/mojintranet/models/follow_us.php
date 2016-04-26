@@ -3,7 +3,6 @@
 class Follow_us_model extends MVC_model {
   function get_data($options) {
     $agency = $options['agency'] ?: 'hq';
-    $additional_filters = $options['additional_filters'] ?: '';
 
     $links = array(
       array(

@@ -3,7 +3,6 @@
 class My_moj_model extends MVC_model {
   function get_data($options) {
     $agency = $options['agency'] ?: 'hq';
-    $additional_filters = $options['additional_filters'] ?: '';
 
     return array(
       'quick_links' => $this->get_quick_links($agency),

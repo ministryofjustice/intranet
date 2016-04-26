@@ -60,7 +60,6 @@ class Widgets_API extends API {
 
   private function get_need_to_know() {
     $options = $this->params;
-    $options = $this->add_taxonomies($options);
     $data = $this->MVC->model->need_to_know->get_data($options);
     $data['url_params'] = $this->params;
     $this->response($data, 200, 60);
@@ -68,7 +67,6 @@ class Widgets_API extends API {
 
   private function get_my_moj() {
     $options = $this->params;
-    $options = $this->add_taxonomies($options);
     $data = $this->MVC->model->my_moj->get_data($options);
     $data['url_params'] = $this->params;
     $this->response($data, 200, 60 * 60);
@@ -77,7 +75,6 @@ class Widgets_API extends API {
   private function get_follow_us_links() {
     $this->MVC->model('follow_us');
     $options = $this->params;
-    $options = $this->add_taxonomies($options);
     $data = $this->MVC->model->follow_us->get_data($options);
     $data['url_params'] = $this->params;
     $this->response($data, 200, 60 * 60);
