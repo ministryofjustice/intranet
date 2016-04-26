@@ -39,9 +39,5 @@ class LAA_Region extends Agency_Taxonomy {
         'show_tagcloud' => false,
         'rewrite' => false,
     );
-
-    public function __construct() {
-        parent::__construct();
-    }
 }
 

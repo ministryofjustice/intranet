@@ -40,8 +40,4 @@ class HMCTS_Region extends Agency_Taxonomy {
         'rewrite' => false,
 
     );
-
-    public function __construct() {
-        parent::__construct();
-    }
 }
