@@ -111,6 +111,7 @@
     saveState: function(e) {
       var department = this.$departmentList.attr('data-department');
       App.tools.setCookie(this.settings.cookieName, department, 3650);
+      App.ins.personalisation.update();
     },
 
     readState: function() {

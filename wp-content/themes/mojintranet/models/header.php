@@ -5,7 +5,7 @@ class Header_model extends MVC_model {
     return array(
       'departments' => array(
         array(
-          'name' => 'hm-courts-and-tribunals-service',
+          'name' => 'hmcts',
           'label' => 'HM Courts &amp; Tribunals Service',
           'url' => 'http://libra.lcd.gsi.gov.uk/hmcts/index.htm'
         ),
@@ -25,7 +25,7 @@ class Header_model extends MVC_model {
           'url' => 'http://lawcommission.intranet.service.justice.gov.uk/'
         ),
         array(
-          'name' => 'legal-aid-agency',
+          'name' => 'laa',
           'label' => 'Legal Aid Agency',
           'url' => 'http://intranet.justice.gsi.gov.uk/laa/'
         ),

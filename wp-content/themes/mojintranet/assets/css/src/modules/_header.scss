@@ -122,6 +122,19 @@
   .header-search {
     background-color: $govuk-blue;
 
+    /*TODO: the colours need to be reviewed and updated */
+    [data-agency="hmcts"] & {
+      background-color: $govuk-blue;
+    }
+
+    [data-agency="laa"] & {
+      background-color: #156C60;
+    }
+
+    [data-agency="opg"] & {
+      background-color: #76B700;
+    }
+
     .search-form {
       margin: 20px 0;
     }
