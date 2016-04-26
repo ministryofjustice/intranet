@@ -24,17 +24,18 @@ class News_API extends API {
 
   protected function parse_params($params) {
     $this->params = array(
-      'category' => $params[0],
-      'date' => $params[1],
-      'keywords' => $params[2],
-      'page' => $params[3] ?: 1,
-      'per_page' => $params[4] ?: 10
+      'agency' => $params[0],
+      'additional_params' => $params[1],
+      'date' => $params[2],
+      'keywords' => $params[3],
+      'page' => $params[4] ?: 1,
+      'per_page' => $params[5] ?: 10
     );
   }
 
   protected function get_news() {
     $options = $this->params;
-    $options['tax_query'] = $this->get_taxonomies();
+    $options = $this->add_taxonomies($options);
     $data = $this->MVC->model->news->get_list($options);
     $data['url_params'] = $this->params;
     $this->response($data, 200, 300);

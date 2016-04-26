@@ -39,6 +39,8 @@ class Page_about_us extends MVC_controller {
   }
 
   private function get_children_from_API($id = null) {
-    return $this->model->children->get_data($id);
+    return $this->model->children->get_data(array(
+      'page_id' => $id
+    ));
   }
 }
