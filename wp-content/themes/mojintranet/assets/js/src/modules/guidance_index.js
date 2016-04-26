@@ -12,7 +12,7 @@
   App.GuidanceIndexWidget.prototype = {
     init: function() {
       this.applicationUrl = $('head').data('application-url');
-      this.serviceUrl = this.applicationUrl + '/service/menu/hq-guidance-index/1';
+      this.serviceUrl = this.applicationUrl + '/service/menu/hq-guidance-index/2';
 
       this.categoryItemTemplate = this.$top.find('[data-name="widget-guidance-item"]').html();
       this.childItemTemplate = this.$top.find('[data-name="widget-guidance-child-item"]').html();

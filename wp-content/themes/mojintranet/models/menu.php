@@ -3,7 +3,7 @@
 class Menu_model extends MVC_model {
   public function get_menu_items($params = array()) {
     $location = isset($params['location']) ? $params['location'] : 'hq-guidance-index';
-    $with_children = isset($params['with_children']) ? $params['with_children'] : false;
+    $depth_limit = isset($params['depth_limit']) ? $params['depth_limit'] : 0;
 
     $locations = get_nav_menu_locations();
     $menu_items = wp_get_nav_menu_items($locations[$location]);
@@ -12,7 +12,7 @@ class Menu_model extends MVC_model {
       $menu_items = array();
     }
 
-    $organised_menu_items = $this->_build_menu_tree_recursive($menu_items, 2);
+    $organised_menu_items = $this->_build_menu_tree_recursive($menu_items, $depth_limit);
 
     return array(
       'results' => $organised_menu_items
