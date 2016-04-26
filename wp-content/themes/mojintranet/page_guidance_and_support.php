@@ -126,7 +126,7 @@ class Page_guidance_and_support extends MVC_controller {
         $section_content = get_post_meta($this->post_ID,'_' . $ns . '-tab-' . $i . '-section-' . $j . '-content-html',true);
         $section_array[$j] = array(
           'title' => $section_title,
-          'content' => wpautop($section_content)
+          'content' => apply_filters('the_content', $section_content)
         );
       }
       $tab_title = get_post_meta($this->post_ID,'_'.$ns.'-tab-' . $i . '-title', true);
