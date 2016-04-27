@@ -9,10 +9,7 @@
     <h2 class="category-name">My MoJ</h2>
     <ul class="agency-link-list hidden">
       <li class="agency" data-department="opg">
-        <a class="agency-link" href="">
-          <span class="department-icon-box">
-            <span class="department-icon"></span>
-          </span>
+        <a class="agency-link" href="" rel="external">
           <span class="label"></span>
         </a>
       </li>
