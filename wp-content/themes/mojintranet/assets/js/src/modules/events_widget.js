@@ -12,7 +12,7 @@
   App.EventsWidget.prototype = {
     init: function() {
       this.applicationUrl = $('head').data('application-url');
-      this.serviceUrl = this.applicationUrl + '/service/events/hq////1/2';
+      this.serviceUrl = this.applicationUrl + '/service/events/' + App.tools.helpers.agency.get() + '////1/2';
       this.pageBase = this.applicationUrl + '/' + this.$top.data('top-level-slug');
 
       this.itemTemplate = this.$top.find('[data-name="widget-event-item"]').html();
