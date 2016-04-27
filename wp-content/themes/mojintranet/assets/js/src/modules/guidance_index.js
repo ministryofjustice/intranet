@@ -11,8 +11,13 @@
 
   App.GuidanceIndexWidget.prototype = {
     init: function() {
+      var agency = 'hq';
+      if (App.tools.helpers.agency.isIntegrated()) {
+        agency = App.tools.helpers.agency.get();
+      }
+
       this.applicationUrl = $('head').data('application-url');
-      this.serviceUrl = this.applicationUrl + '/service/menu/hq-guidance-index/2';
+      this.serviceUrl = this.applicationUrl + '/service/menu/' + agency + '-guidance-index/2';
 
       this.categoryItemTemplate = this.$top.find('[data-name="widget-guidance-item"]').html();
       this.childItemTemplate = this.$top.find('[data-name="widget-guidance-child-item"]').html();
