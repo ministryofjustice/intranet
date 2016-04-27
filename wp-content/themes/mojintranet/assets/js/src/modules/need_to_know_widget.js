@@ -12,7 +12,7 @@
   App.NeedToKnowWidget.prototype = {
     init: function() {
       this.applicationUrl = $('head').data('application-url');
-      this.serviceUrl = this.applicationUrl + '/service/widgets/need-to-know/'  + App.tools.helpers.agency.get() + '/';
+      this.serviceUrl = this.applicationUrl + '/service/widgets/need-to-know/'  + App.tools.helpers.agency.getForContent() + '/';
       this.pageBase = this.applicationUrl + '/' + this.$top.data('top-level-slug');
 
       this.itemTemplate = this.$top.find('[data-name="widget-need-to-know-item"]').html();

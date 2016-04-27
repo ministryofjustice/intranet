@@ -13,7 +13,7 @@
     init: function() {
       this.applicationUrl = $('head').data('application-url');
       this.templateUri = $('head').data('template-uri');
-      this.serviceUrl = this.applicationUrl + '/service/widgets/my-moj/' + App.tools.helpers.agency.get() + '/';
+      this.serviceUrl = this.applicationUrl + '/service/widgets/my-moj/' + App.tools.helpers.agency.getForContent() + '/';
       this.pageBase = this.applicationUrl + '/' + this.$top.data('top-level-slug');
 
       this.appTemplate = this.$top.find('[data-name="widget-app-item"]').html();

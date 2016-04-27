@@ -318,7 +318,7 @@
       keywords = keywords.replace(/\s+/g, '+');
 
       var base = {
-        'agency': App.tools.helpers.agency.get(),
+        'agency': App.tools.helpers.agency.getForContent(),
         'additional_filters': '',
         'date': this.$dateInput.val(),
         'keywords': keywords,

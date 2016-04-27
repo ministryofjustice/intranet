@@ -99,7 +99,7 @@
 
     getDataObject: function(data) {
       var base = {
-        'agency': App.tools.helpers.agency.get(),
+        'agency': App.tools.helpers.agency.getForContent(),
         'additional_filters': '',
         'date': this.$dateInput.val(),
         'keywords': this.getKeywords().replace(/\s+/g, '+'),
