@@ -8,9 +8,11 @@
       integratedAgencies: ['hmcts', 'laa', 'opg'],
 
       get: function() {
-        var agency = App.tools.getCookie('department_dropdown');
+        return App.tools.getCookie('department_dropdown');
+      },
 
-        return agency;
+      set: function(agency) {
+        App.tools.setCookie('department_dropdown', agency, 3650);
       },
 
       getForContent: function() {
