@@ -17,7 +17,7 @@
       };
 
       this.applicationUrl = $('head').data('application-url');
-      this.serviceUrl = this.applicationUrl+'/service/events/hq/';
+      this.serviceUrl = this.applicationUrl+'/service/events';
       this.pageBase = this.applicationUrl+'/'+this.$top.data('top-level-slug');
 
       this.itemTemplate = this.$top.find('.template-partial[data-name="events-item"]').html();
@@ -99,6 +99,8 @@
 
     getDataObject: function(data) {
       var base = {
+        'agency': App.tools.helpers.agency.get(),
+        'additional_filters': '',
         'date': this.$dateInput.val(),
         'keywords': this.getKeywords().replace(/\s+/g, '+'),
         'page': this.getPage()
