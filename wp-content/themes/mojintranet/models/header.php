@@ -3,7 +3,7 @@
 class Header_model extends MVC_model {
   function get_data() {
     return array(
-      'departments' => array(
+      'agencies' => array(
         array(
           'name' => 'hmcts',
           'label' => 'HM Courts &amp; Tribunals Service',

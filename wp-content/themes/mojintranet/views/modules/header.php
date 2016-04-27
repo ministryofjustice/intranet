@@ -18,27 +18,21 @@
     </div>
     <div class="user-bar col-lg-6 col-md-6 col-sm-12">
       <form class="my-intranet-form">
-        <span class="department-dropdown-description">Your agency or body:</span>
-        <a href="#" class="department-dropdown-trigger">
-          <span class="label"></span>
-          <span class="dropdown-icon">▼</span>
-        </a>
-        <ul class="department-list">
-          <?php foreach($departments as $department): ?>
-            <li class="agency" data-url="<?=$department['url']?>" data-department="<?=$department['name']?>" data-default="<?=$department['default']?>">
-              <a href="#">
-                <span class="department-icon"></span>
-                <?=$department['label']?>
-              </a>
-            </li>
-          <?php endforeach ?>
-        </ul>
+        <a href="#" class="select-agency-trigger">Link</a>
 
         <div class="tooltip my-agency-tooltip">
           <span class="triangle"></span>
           <p>Please select your agency or public body</p>
         </div>
       </form>
+    </div>
+  </div>
+
+  <div class="agency-overlay">
+    <div class="grid">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <?php $this->view('modules/select_agency', array('agencies' => $agencies)) ?>
+      </div>
     </div>
   </div>
 

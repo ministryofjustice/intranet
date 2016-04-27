@@ -32,7 +32,7 @@ jQuery(function() {
     App.ins.floaters = new App.Floaters();
     App.ins.collapsibleBlock = new App.CollapsibleBlock();
     App.ins.personalisation = new App.Personalisation();
-    App.ins.departmentDropdown = new App.DepartmentDropdown();
+    App.ins.selectAgency = new App.SelectAgency();
     App.ins.skipToContent = new App.SkipToContent();
     App.ins.pageFeedback = new App.PageFeedback();
     App.ins.navigation = new App.Navigation();

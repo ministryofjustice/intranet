@@ -1,0 +1,90 @@
+.header .choose-agency {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 53px;
+  z-index: 1;
+  background-color: $white;
+  border-bottom: 1px solid $black;
+  text-align: left;
+
+  h2 {
+    @extend %largest-heading;
+  }
+
+  .agency-list {
+    -moz-column-gap: 150px;
+    -webkit-column-gap: 150px;
+    column-gap: 150px;
+    -moz-column-count: 2;
+    -webkit-column-count: 2;
+    column-count: 2;
+  }
+
+  .agency-item {
+    margin-bottom: 10px;
+    page-break-inside: avoid;
+
+    a {
+      display: block;
+      padding: 15px;
+      background-color: $grey-3;
+      border: 2px solid $grey-3;
+      color: $black;
+      text-decoration: none;
+
+      &:hover,
+      &:active {
+        background-color: $white;
+      }
+
+      &.selected {
+        background-color: $white;
+      }
+    }
+
+    .icon {
+      float: left;
+      width: 26px;
+      height: 26px;
+      margin-top: -4px;
+      margin-right: 5px;
+      background-image: url('../images/department_crest_x2.png');
+      background-position: -12px -12px;
+      background-size: auto 50px;
+      vertical-align: middle;
+    }
+
+    .label {
+      @extend %large-copy;
+    }
+  }
+
+  .submit {
+    margin-top: 30px;
+  }
+}
+
+@include tablet-mq() {
+  .header .choose-agency {
+    .agency-list {
+      -moz-column-gap: 20px;
+      -webkit-column-gap: 20px;
+      column-gap: 20px;
+      -moz-column-count: 2;
+      -webkit-column-count: 2;
+      column-count: 2;
+    }
+  }
+}
+
+@include mobile-mq() {
+  .header .choose-agency {
+    .agency-list {
+      -moz-column-count: 1;
+      -webkit-column-count: 1;
+      column-count: 1;
+    }
+  }
+}
