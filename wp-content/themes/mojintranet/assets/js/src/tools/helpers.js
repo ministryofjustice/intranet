@@ -13,6 +13,10 @@
         return agency;
       },
 
+      getForContent: function() {
+        return this.isIntegrated() ? this.get() : 'hq';
+      },
+
       isIntegrated: function() {
         var agency = this.get();
 
