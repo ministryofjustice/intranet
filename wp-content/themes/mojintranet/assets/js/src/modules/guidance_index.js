@@ -11,11 +11,7 @@
 
   App.GuidanceIndexWidget.prototype = {
     init: function() {
-      var agency = 'hq';
-      if (App.tools.helpers.agency.isIntegrated()) {
-        agency = App.tools.helpers.agency.get();
-      }
-
+      var agency = App.tools.helpers.agency.getForContent();
       this.applicationUrl = $('head').data('application-url');
       this.serviceUrl = this.applicationUrl + '/service/menu/' + agency + '-guidance-index/2';
 
