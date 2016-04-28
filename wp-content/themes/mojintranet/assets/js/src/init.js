@@ -13,6 +13,7 @@ jQuery(function() {
 
     //Early
     App.ins.breakpoint = new App.Breakpoint();
+    App.ins.setAgencyFromUrl = new App.SetAgencyFromUrl();
 
     //Mid
     App.ins.mobileHeader = new App.MobileHeader();
