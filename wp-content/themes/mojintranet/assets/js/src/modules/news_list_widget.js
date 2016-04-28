@@ -85,15 +85,20 @@
 
       this.$newsList.find('.news-item').detach();
 
-      $.each(this.news, function(index, $newsItem) {
-        _this.$newsList.eq(column - 1).append($newsItem);
+      if(this.news.length > 0) {
+        $.each(this.news, function (index, $newsItem) {
+          _this.$newsList.eq(column - 1).append($newsItem);
 
-        column++;
+          column++;
 
-        if(column > maxColumns) {
-          column = 1;
-        }
-      });
+          if (column > maxColumns) {
+            column = 1;
+          }
+        });
+      }
+      else {
+        _this.$newsList.eq(0).append('<li class="news-item">No news found</li>');
+      }
     }
   };
 }(jQuery));
