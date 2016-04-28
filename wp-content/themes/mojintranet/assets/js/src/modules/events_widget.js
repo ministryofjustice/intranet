@@ -57,7 +57,8 @@
         });
       }
       else {
-        _this.$postsList.append('<li class="results-item col-lg-12 col-md-12 col-sm-12">No events found</li>');
+        this.$top.find('.no-events-message').addClass('visible');
+        this.$top.addClass('no-events');
       }
 
       this.resultsLoaded = true;

@@ -57,7 +57,8 @@
         });
       }
       else {
-        _this.$postsList.append('<li class="results-item">No blog posts found</li>');
+        this.$top.find('.no-posts-message').addClass('visible');
+        this.$top.addClass('no-posts');
       }
 
       this.resultsLoaded = true;
