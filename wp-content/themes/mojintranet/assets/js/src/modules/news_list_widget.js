@@ -85,7 +85,7 @@
 
       this.$newsList.find('.news-item').detach();
 
-      if(this.news.length > 0) {
+      if (this.news.length > 0) {
         $.each(this.news, function (index, $newsItem) {
           _this.$newsList.eq(column - 1).append($newsItem);
 

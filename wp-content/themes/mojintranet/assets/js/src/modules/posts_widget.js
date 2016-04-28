@@ -50,10 +50,15 @@
       var _this = this;
       var $post;
 
-      $.each(data.results, function(index, result) {
-        $post = _this.buildResultRow(result);
-        _this.$postsList.append($post);
-      });
+      if (data.results.length > 0) {
+        $.each(data.results, function (index, result) {
+          $post = _this.buildResultRow(result);
+          _this.$postsList.append($post);
+        });
+      }
+      else {
+        _this.$postsList.append('<li class="results-item">No blog posts found</li>');
+      }
 
       this.resultsLoaded = true;
       this.$top.removeClass('loading');

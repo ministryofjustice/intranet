@@ -50,7 +50,7 @@
       var _this = this;
       var $post;
 
-      if(data.results.length > 0) {
+      if (data.results.length > 0) {
         $.each(data.results, function (index, result) {
           $post = _this.buildResultRow(result);
           _this.$postsList.append($post);
