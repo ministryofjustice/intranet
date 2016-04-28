@@ -123,7 +123,7 @@
       requestData = this.getDataObject(requestData);
 
       this.resultsAbort();
-      this.resultsUpdateUI('loading');
+      this.resultsUpdateUI('loading', requestData);
 
       $.each(requestData, function(key, value) {
         dataArray.push(value);
@@ -142,6 +142,7 @@
       var keywords = this.getKeywords();
       var $resultsTitle = $(this.resultsPageTitleTemplate);
       var $filteredResultsTitle = $(this.filteredResultsTitleTemplate);
+      var totalResults = parseInt(data.total_results, 10);
       var date = this.getDate();
       var humanDate;
 
@@ -172,6 +173,10 @@
           }
 
           this.$results.prepend($filteredResultsTitle);
+        }
+        else if(!totalResults) {
+          $resultsTitle.text('No events found');
+          this.$results.append($resultsTitle);
         }
         else {
           this.$results.prepend($resultsTitle.text('Latest'));

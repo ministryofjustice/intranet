@@ -273,6 +273,10 @@
           $filteredResultsTitle.find('.date').hide();
         }
       }
+      else if(!totalResults) {
+        $resultsTitle.text('No blog posts found');
+        this.$results.append($resultsTitle);
+      }
       else {
         $resultsTitle.text(resultsPage === 1 ? 'Latest' : 'Archive');
         this.$results.append($resultsTitle);

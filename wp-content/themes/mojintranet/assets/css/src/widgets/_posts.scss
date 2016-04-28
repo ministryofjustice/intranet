@@ -1,4 +1,8 @@
 .posts-widget {
+  &.no-posts .posts-list {
+    display: none;
+  }
+
   .posts-heading {
     @extend %large-heading;
     border-bottom: 1px solid #6f777b;
@@ -43,6 +47,14 @@
 
     .post-content {
       overflow: hidden;
+    }
+  }
+
+  .no-posts-message {
+    display: none;
+
+    &.visible {
+      display: block;
     }
   }
 }

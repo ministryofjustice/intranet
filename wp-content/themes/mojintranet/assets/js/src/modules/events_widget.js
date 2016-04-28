@@ -50,10 +50,16 @@
       var _this = this;
       var $post;
 
-      $.each(data.results, function(index, result) {
-        $post = _this.buildResultRow(result);
-        _this.$postsList.append($post);
-      });
+      if (data.results.length > 0) {
+        $.each(data.results, function (index, result) {
+          $post = _this.buildResultRow(result);
+          _this.$postsList.append($post);
+        });
+      }
+      else {
+        this.$top.find('.no-events-message').addClass('visible');
+        this.$top.addClass('no-events');
+      }
 
       this.resultsLoaded = true;
       this.$top.removeClass('loading');

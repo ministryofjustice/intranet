@@ -54,7 +54,13 @@
         _this.news.push(_this.buildResultRow(result));
       });
 
-      this.displayNews();
+      if (this.news.length > 0) {
+        this.displayNews();
+      }
+      else {
+        this.$top.find('.no-news-message').addClass('visible');
+        this.$top.addClass('no-news');
+      }
 
       this.resultsLoaded = true;
       this.$top.removeClass('loading');
@@ -85,15 +91,16 @@
 
       this.$newsList.find('.news-item').detach();
 
-      $.each(this.news, function(index, $newsItem) {
+      $.each(this.news, function (index, $newsItem) {
         _this.$newsList.eq(column - 1).append($newsItem);
 
         column++;
 
-        if(column > maxColumns) {
+        if (column > maxColumns) {
           column = 1;
         }
       });
+
     }
   };
 }(jQuery));
