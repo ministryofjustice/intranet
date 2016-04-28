@@ -5,14 +5,19 @@
 
   App.tools.helpers = {
     agency: {
+      cookieName: 'dw_agency',
       integratedAgencies: ['hmcts', 'laa', 'opg'],
 
       get: function() {
-        return App.tools.getCookie('department_dropdown');
+        return this.getCookie() || 'hq';
       },
 
       set: function(agency) {
-        App.tools.setCookie('department_dropdown', agency, 3650);
+        App.tools.setCookie(this.cookieName, agency, 3650);
+      },
+
+      getCookie: function() {
+        return App.tools.getCookie(this.cookieName);
       },
 
       getForContent: function() {

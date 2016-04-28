@@ -17,14 +17,14 @@
       </a>
     </div>
     <div class="user-bar col-lg-6 col-md-6 col-sm-12">
-      <form class="my-intranet-form">
+      <div class="select-agency-trigger-container">
         <a href="#" class="select-agency-trigger">Link</a>
 
         <div class="tooltip my-agency-tooltip">
           <span class="triangle"></span>
           <p>Please select your agency or public body</p>
         </div>
-      </form>
+      </div>
     </div>
   </div>
 

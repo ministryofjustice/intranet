@@ -70,37 +70,16 @@
     }
   }
 
-  .my-intranet-form {
+  .select-agency-trigger-container {
     position: relative;
     display: inline-block;
     padding: 6px 0;
     z-index: 2;
 
-    .department-dropdown-description {
-      color: $white;
-    }
-
     .select-agency-trigger {
       color: $white;
       text-decoration: underline;
       cursor: pointer;
-    }
-
-    .department-list {
-      position: absolute;
-      display: none;
-      top: 25px;
-      right: 0;
-      width: 320px;
-      margin: 0;
-      padding: 5px 0;
-      border: 1px solid #333;
-      background-color: $white;
-      z-index: 1;
-
-      &.visible {
-        display: block;
-      }
     }
 
     .agency a {
@@ -122,17 +101,16 @@
   .header-search {
     background-color: $govuk-blue;
 
-    /*TODO: the colours need to be reviewed and updated */
     [data-agency="hmcts"] & {
-      background-color: $govuk-blue;
+      background-color: $hmcts;
     }
 
     [data-agency="laa"] & {
-      background-color: #156C60;
+      background-color: $laa;
     }
 
     [data-agency="opg"] & {
-      background-color: #76B700;
+      background-color: $opg;
     }
 
     .search-form {
