@@ -134,24 +134,9 @@
 
     .agency {
       a {
+        @extend %large-copy;
         display: block;
         padding: 0;
-
-        &:hover {
-          text-decoration: none;
-
-          .label {
-            text-decoration: underline;
-          }
-        }
-      }
-
-      .label {
-        @extend %large-copy;
-        display: inline-block;
-        width: 85%;
-        padding-left: 10px;
-        vertical-align: middle;
       }
     }
   }

@@ -17,7 +17,6 @@
 
       this.agency = window.App.tools.helpers.agency.get();
 
-
       this.cacheEls();
       this.bindEvents();
 
@@ -26,7 +25,6 @@
     },
 
     cacheEls: function() {
-      this.$siteHeader = $('body > .header');
     },
 
     bindEvents: function() {
@@ -34,12 +32,27 @@
 
     update: function() {
       var $homepage = $('.template-home');
-      var name;
+      var agency = window.App.tools.helpers.agency.getData(this.agency);
 
       $('html').attr('data-agency', this.agency);
 
       if($homepage.length) {
-        $('.template-home h1').text(name);
+        $('.template-home h1').html(agency.label);
+
+        if (agency.url === '') {
+          $('.agency-link-list').addClass('hidden');
+
+          $('.agency-link-list a')
+            .attr('href', '')
+            .find('.label').html('');
+        }
+        else {
+          $('.agency-link-list').removeClass('hidden');
+
+          $('.agency-link-list a')
+            .attr('href', agency.url)
+            .find('.label').html(agency.label);
+        }
       }
     },
 
