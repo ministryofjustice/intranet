@@ -249,8 +249,6 @@
       var date;
       var formattedDate;
 
-      console.log(data);
-
       if(this.hasKeywords() || this.$dateInput.val()) {
         this.$results.append($filteredResultsTitle);
         $filteredResultsTitle.find('.results-count').text(totalResults);
