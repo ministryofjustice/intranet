@@ -16,6 +16,7 @@ jQuery(function() {
     App.ins.setAgencyFromUrl = new App.SetAgencyFromUrl();
 
     //Mid
+    App.ins.personalisation = new App.Personalisation();
     App.ins.mobileHeader = new App.MobileHeader();
     App.ins.stickyNews = new App.StickyNews();
     App.ins.azIndex = new App.AZIndex();
@@ -32,7 +33,6 @@ jQuery(function() {
     App.ins.searchAutocomplete = new App.SearchAutocomplete();
     App.ins.floaters = new App.Floaters();
     App.ins.collapsibleBlock = new App.CollapsibleBlock();
-    App.ins.personalisation = new App.Personalisation();
     App.ins.selectAgency = new App.SelectAgency();
     App.ins.skipToContent = new App.SkipToContent();
     App.ins.pageFeedback = new App.PageFeedback();

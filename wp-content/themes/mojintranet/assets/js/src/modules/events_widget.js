@@ -5,7 +5,7 @@
 
   App.EventsWidget = function() {
     this.$top = $('.template-home .events-widget');
-    if(!this.$top.length) { return; }
+    if(!this.$top.length || this.$top.hasClass('agency-hidden')) { return; }
     this.init();
   };
 
@@ -33,7 +33,6 @@
     },
 
     bindEvents: function() {
-      var _this = this;
     },
 
     requestResults: function() {

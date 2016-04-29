@@ -34,15 +34,7 @@
 
     update: function() {
       var $homepage = $('.template-home');
-      var $departmentDropdown = $('.department-list');
       var name;
-
-      if(App.tools.helpers.agency.isIntegrated(this.agency)) {
-        name = $departmentDropdown.find('[data-department="' + this.agency + '"]').text();
-      }
-      else {
-        name = $departmentDropdown.find('[data-department="hq"]').text();
-      }
 
       $('html').attr('data-agency', this.agency);
 
