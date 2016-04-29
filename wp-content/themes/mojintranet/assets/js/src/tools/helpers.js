@@ -14,6 +14,7 @@
 
       set: function(agency) {
         App.tools.setCookie(this.cookieName, agency, 3650);
+        $(window).trigger('agency-changed');
       },
 
       getCookie: function() {
