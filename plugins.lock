@@ -27,12 +27,12 @@
     "heatmap-for-wp": {
         "repository": "git@github.com:wp-plugins/heatmap-for-wp.git",
         "revision": "master",
-        "commit": "edf3376d2a5fcb1ee5965fc8520b4f3397881e91"
+        "commit": "cfa365e2416e5dd7ebe5d4d755218ab3f275ae3d"
     },
     "pods": {
         "repository": "git@git.dxw.net:wordpress-plugins/pods",
         "revision": "master",
-        "commit": "edf3376d2a5fcb1ee5965fc8520b4f3397881e91"
+        "commit": "ae7bd28d29451e5235bd051be6efe4bbf7eb91af"
     },
     "recently-edited-content-widget": {
         "repository": "git@git.dxw.net:wordpress-plugins/recently-edited-content-widget",
