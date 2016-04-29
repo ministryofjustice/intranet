@@ -13,10 +13,9 @@ jQuery(function() {
 
     //Early
     App.ins.breakpoint = new App.Breakpoint();
-    App.ins.setAgencyFromUrl = new App.SetAgencyFromUrl();
+    App.ins.personalisation = new App.Personalisation();
 
     //Mid
-    App.ins.personalisation = new App.Personalisation();
     App.ins.mobileHeader = new App.MobileHeader();
     App.ins.stickyNews = new App.StickyNews();
     App.ins.azIndex = new App.AZIndex();

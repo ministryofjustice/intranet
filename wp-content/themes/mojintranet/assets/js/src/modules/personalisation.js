@@ -19,9 +19,10 @@
 
 
       this.cacheEls();
-      this.bindEvents();
 
-      this.update();
+      this.updateAgencyFromUrl();
+      this.addAgencyAttribute();
+      this.updateHomepageHeading();
       this.hideContent();
     },
 
@@ -29,17 +30,16 @@
       this.$siteHeader = $('body > .header');
     },
 
-    bindEvents: function() {
+    addAgencyAttribute: function() {
+      $('html').attr('data-agency', this.agency);
     },
 
-    update: function() {
+    updateHomepageHeading: function() {
       var $homepage = $('.template-home');
-      var name;
-
-      $('html').attr('data-agency', this.agency);
+      var agencyData = App.tools.helpers.agency.getData(this.agency);
 
       if($homepage.length) {
-        $('.template-home h1').text(name);
+        $('.template-home h1').html(agencyData.label);
       }
     },
 
@@ -49,6 +49,39 @@
       $.each(selectorsToHide, function(index, selector) {
         $(selector).addClass('agency-hidden');
       });
+    },
+
+    updateAgencyFromUrl: function() {
+      var agency = App.tools.getUrlParam('agency');
+
+      if (typeof agency === 'string') {
+        App.tools.helpers.agency.set(agency);
+        this.removeAgencyFromUrl();
+        this.agency = window.App.tools.helpers.agency.get();
+      }
+    },
+
+    removeAgencyFromUrl: function() {
+      var urlParts = window.location.href.split('?');
+      var url = urlParts[0];
+      var params = App.tools.getUrlParam();
+      var newQuery = [];
+
+      if(!window.history.replaceState) {
+        return;
+      }
+
+      delete params.agency;
+
+      $.each(params, function(key, value) {
+        newQuery.push(key + '=' + value);
+      });
+
+      if (newQuery.length > 0) {
+        url += '?' + newQuery.join('&');
+      }
+
+      window.history.replaceState(null, null, url);
     }
   };
 }(window.jQuery));
