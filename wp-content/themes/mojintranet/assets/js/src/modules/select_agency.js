@@ -11,24 +11,26 @@
 
   App.SelectAgency.prototype = {
     init: function() {
+      this.itemTemplate = $('.template-partial[data-name="select-agency-item"]').html();
+
       this.cacheEls();
       this.bindEvents();
 
-      this.preselect();
+      this.initAgencyList();
       this.initTooltip();
     },
 
     cacheEls: function() {
       this.$selectAgencyTrigger = this.$top.find('.select-agency-trigger');
-      this.$agencyOverlay = $('.agency-overlay');
-      this.$agencyItems = this.$agencyOverlay.find('.agency-item');
-      this.$form = this.$agencyOverlay.find('.select-agency-form');
       this.$tooltip = this.$top.find('.my-agency-tooltip');
+      this.$agencyOverlay = $('.agency-overlay');
+      this.$form = this.$agencyOverlay.find('.select-agency-form');
+      this.$agencyList = this.$agencyOverlay.find('.agency-list');
+      this.$agencyItems = $([]);
     },
 
     bindEvents: function() {
       this.$selectAgencyTrigger.click($.proxy(this.triggerClick, this));
-      this.$agencyItems.click($.proxy(this.agencyItemClick, this));
       this.$form.submit($.proxy(this.formSubmit, this));
       this.$tooltip.on('click', $.proxy(this.toggleTooltip, this, false));
     },
@@ -45,17 +47,33 @@
       }, 20000);
     },
 
-    preselect: function() {
+    initAgencyList: function() {
+      var _this = this;
+      var $item;
+      var agencies = App.tools.helpers.agency.agencies;
       var agency = App.tools.helpers.agency.get();
 
+      //populate agency list
+      $.each(agencies, function(name, item) {
+        $item = _this.buildItem(name, item);
+        _this.$agencyList.append($item);
+      });
+
+      this.$agencyItems = this.$agencyList.find('.agency-item');
+
+      //select agency
       this.$agencyItems.filter('[data-agency="' + agency + '"]').addClass('selected');
-      this.$selectAgencyTrigger.text(this.getCurrentAgencyName());
+      this.$selectAgencyTrigger.html(agencies[agency].label);
     },
 
-    getCurrentAgencyName: function() {
-      var $selectedAgency = this.$agencyItems.filter('.selected');
+    buildItem: function(name, item) {
+      var $item = $(this.itemTemplate);
 
-      return $selectedAgency.find('.label').text();
+      $item.find('.label').html(item.label);
+      $item.attr('data-agency', name);
+      $item.click($.proxy(this.agencyItemClick, this));
+
+      return $item;
     },
 
     toggleTooltip: function(toggle) {
@@ -79,8 +97,10 @@
 
       e.preventDefault();
 
-      App.tools.helpers.agency.set($selectedItem.attr('data-agency'));
-      window.location.href = window.location.href;
+      if($selectedItem.length) {
+        App.tools.helpers.agency.set($selectedItem.attr('data-agency'));
+        window.location.href = window.location.href;
+      }
     },
 
     toggleOverlay: function() {

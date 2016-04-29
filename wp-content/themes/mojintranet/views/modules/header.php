@@ -1,6 +1,6 @@
 <?php if (!defined('ABSPATH')) die(); ?>
 
-<div class="header" role="banner">
+<div class="header" role="banner" data-agencies="<?=$stringified_agencies?>">
   <div class="grid skip-to-content-container">
     <div class="col-lg-12 col-md-12 col-sm-12">
       <a href="#content">Skip to main content</a>
@@ -18,7 +18,7 @@
     </div>
     <div class="user-bar col-lg-6 col-md-6 col-sm-12">
       <div class="select-agency-trigger-container">
-        <a href="#" class="select-agency-trigger">Link</a>
+        <a href="#" class="select-agency-trigger"></a>
 
         <div class="tooltip my-agency-tooltip">
           <span class="triangle"></span>
@@ -31,7 +31,7 @@
   <div class="agency-overlay">
     <div class="grid">
       <div class="col-lg-12 col-md-12 col-sm-12">
-        <?php $this->view('modules/select_agency', array('agencies' => $agencies)) ?>
+        <?php $this->view('modules/select_agency', array('stringified_agencies' => $stringified_agencies)) ?>
       </div>
     </div>
   </div>

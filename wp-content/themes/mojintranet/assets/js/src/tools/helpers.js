@@ -6,7 +6,14 @@
   App.tools.helpers = {
     agency: {
       cookieName: 'dw_agency',
-      integratedAgencies: ['hmcts', 'laa', 'opg'],
+      agencies: (function() {
+        var $header = $('body > .header');
+        var data = JSON.parse($header.attr('data-agencies'));
+
+        $header.removeAttr('data-agencies');
+
+        return data;
+      }()),
 
       get: function() {
         return this.getCookie() || 'hq';
@@ -15,6 +22,10 @@
       set: function(agency) {
         App.tools.setCookie(this.cookieName, agency, 3650);
         $(window).trigger('agency-changed');
+      },
+
+      getData: function(agency) {
+        return this.agencies[agency];
       },
 
       getCookie: function() {
@@ -28,7 +39,7 @@
       isIntegrated: function() {
         var agency = this.get();
 
-        return this.integratedAgencies.indexOf(agency) >= 0;
+        return !!this.agencies[agency].is_integrated;
       }
     }
   };

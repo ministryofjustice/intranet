@@ -3,16 +3,16 @@
 <h2>Choose your agency or body</h2>
 
 <form class="select-agency-form">
-  <ul class="agency-list">
-    <?php foreach($agencies as $agency): ?>
-      <li class="agency-item" data-agency="<?=$agency['name']?>">
-        <a href="#">
-          <span class="icon"></span>
-          <span class="label"><?=$agency['label']?></span>
-        </a>
-      </li>
-    <?php endforeach ?>
-  </ul>
+  <ul class="agency-list"></ul>
 
   <input type="submit" class="cta cta-positive submit" value="Done" />
+
+  <script class="template-partial" data-name="select-agency-item" type="text/x-partial-template">
+    <li class="agency-item">
+      <a href="#">
+        <span class="icon"></span>
+        <span class="label"></span>
+      </a>
+    </li>
+  </script>
 </form>
