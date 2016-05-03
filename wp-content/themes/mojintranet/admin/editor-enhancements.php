@@ -1,7 +1,32 @@
 <?php
 
-/* Dynamic filtering of Parent pages */
+/* Converts Guidance Tab Sections from Markdown to HTML and then saves in additional Meta Field */
+add_action('acf/save_post', 'dw_save_guidance_tabs', 20);
+function dw_save_guidance_tabs( $post_id ) {
+  if ( have_rows('guidance_tabs', $post_id) ) {
+    $tab_i = 0;
 
+    while ( have_rows('guidance_tabs', $post_id) ) {
+      the_row();
+
+      $tab_i++;
+
+      if ( have_rows('sections') ) {
+        $section_i = 0;
+
+        while (have_rows('sections')) {
+          the_row();
+
+          $section_i++;
+          $section_content = get_sub_field('section_content', false);
+          update_sub_field( array('guidance_tabs', $tab_i, 'sections', $section_i, 'section_html_content'), WPCom_Markdown::get_instance()->transform($section_content) );
+        }
+      }
+    }
+  }
+}
+
+/* Dynamic filtering of Parent pages */
 
 add_action('wp_ajax_check_parent', 'pageparent_ajax_check_parent');
 function pageparent_ajax_check_parent() {
