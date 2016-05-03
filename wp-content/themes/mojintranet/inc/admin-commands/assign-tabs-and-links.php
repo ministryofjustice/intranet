@@ -27,7 +27,6 @@ class Assign_Tabs_And_Links extends Admin_Command {
         $args = array(
             'post_type' => 'page',
             'posts_per_page' => -1,
-            'p' => 1842
         );
        $pages = get_posts($args);
 

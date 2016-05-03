@@ -14,6 +14,7 @@ $load_commands = array(
     'assign-agency-terms-to-posts' => 'Assign_Agency_Terms_To_Posts',
     'remove-old-home-page-options' => 'Remove_Old_Home_Page_Options',
     'assign-tabs-and-links' => 'Assign_Tabs_And_Links',
+    'remove-old-tabs-and-links' => 'Remove_Old_Tabs_And_Links',
 );
 
 $admin_commands = array();
