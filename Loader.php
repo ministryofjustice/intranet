@@ -55,7 +55,7 @@ abstract class MVC_loader {
     $this->model('header');
     $this->model('breadcrumbs');
     $this->model('search');
-    $this->model('children');
+    $this->model('page_tree');
     $this->model('news');
     $this->model('events');
     $this->model('likes');
