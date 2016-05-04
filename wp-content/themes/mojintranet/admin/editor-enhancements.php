@@ -87,13 +87,19 @@ function pageparent_box($post) {
 
   //populate template list
   $current_template = get_post_meta($post->ID,'_wp_page_template',true);
-  $template_file = str_replace('.php','',$current_template);
-  $themeselect = '<select id="page_template" name="page_template">
-          <option value="default">Default Template</option>';
+
+  $disabled = '';
+  if (in_array($current_template, Agency_Editor::$restricted_templates) && !current_user_can('administrator')) {
+    $disabled = 'disabled="disabled"';
+  }
+
+  $themeselect = '<select id="page_template" name="page_template" ' . $disabled . '>';
   $templates = get_page_templates();
   foreach ( $templates as $template_name => $template_filename ) {
-    $select = $current_template==$template_filename?'selected="selected"':"";
-    $themeselect.= '<option value="'.$template_filename.'" '.$select.'>'.$template_name.'</option>';
+    if (!in_array($template_filename, Agency_Editor::$restricted_templates) || $current_template == $template_filename || current_user_can('administrator')) {
+      $select = $current_template == $template_filename ? 'selected="selected"' : "";
+      $themeselect .= '<option value="' . $template_filename . '" ' . $select . '>' . $template_name . '</option>';
+    }
   }
   $themeselect.= '</select>';
 
