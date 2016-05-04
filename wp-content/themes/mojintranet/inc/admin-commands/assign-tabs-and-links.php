@@ -28,7 +28,7 @@ class Assign_Tabs_And_Links extends Admin_Command {
             'post_type' => 'page',
             'posts_per_page' => -1,
         );
-       $pages = get_posts($args);
+        $pages = get_posts($args);
 
         echo '<ul>';
         foreach ($pages as $page){
@@ -80,6 +80,7 @@ class Assign_Tabs_And_Links extends Admin_Command {
                         }
                         $count++;
                     }
+
                     if (count($tab_links) > 0) {
                         foreach ($tab_links as $key => $tab) {
                             echo '<li>' . count($tab) . ' Links (Tab:' . ($key + 1) . ') found for page: "' . $page->post_title . '" (' . $page->ID . ')</li>';
@@ -116,10 +117,9 @@ class Assign_Tabs_And_Links extends Admin_Command {
                             $guidance_tabs[] = $new_tab;
                         }
 
-
                         update_field('field_572320a8bc14c', $guidance_tabs, $page->ID);
-
                         echo '<li>Assigned tabs for page: "' . $page->post_title . '" (' . $page->ID . ')</li>';
+
                     } else {
                         echo '<li>Skipped Page (No Tabs Found): "' . $page->post_title . '" (' . $page->ID . ')</li>';
                     }

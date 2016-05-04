@@ -27,7 +27,6 @@ function dw_save_guidance_tabs( $post_id ) {
 }
 
 /* Dynamic filtering of Parent pages */
-
 add_action('wp_ajax_check_parent', 'pageparent_ajax_check_parent');
 function pageparent_ajax_check_parent() {
   global $wpdb;
