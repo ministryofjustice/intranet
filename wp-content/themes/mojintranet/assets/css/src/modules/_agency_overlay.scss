@@ -73,7 +73,7 @@
 }
 
 @include tablet-mq() {
-  .choose-agency {
+  .agency-overlay {
     .agency-list {
       -moz-column-gap: 20px;
       -webkit-column-gap: 20px;
@@ -86,7 +86,7 @@
 }
 
 @include mobile-mq() {
-  .choose-agency {
+  .agency-overlay {
     .agency-list {
       -moz-column-count: 1;
       -webkit-column-count: 1;
