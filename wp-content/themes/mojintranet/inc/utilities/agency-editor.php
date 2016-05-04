@@ -12,7 +12,7 @@ class Agency_Editor {
      * Templates restricted to top level admins
      * @var string[]
      */
-    public  $restricted_templates = array(
+    public static $restricted_templates = array(
         'page_about_us.php',
         'page_blog.php',
         'page_events.php',
