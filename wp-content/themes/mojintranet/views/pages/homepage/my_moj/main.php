@@ -10,7 +10,7 @@
     <ul class="agency-link-list hidden">
       <li class="agency" data-department="opg">
         <a class="agency-link" href="" rel="external">
-          <span class="label"></span>
+          <span class="label"></span> intranet
         </a>
       </li>
     </ul>

@@ -17,7 +17,6 @@
 
       this.agency = window.App.tools.helpers.agency.get();
 
-
       this.cacheEls();
 
       this.updateAgencyFromUrl();
@@ -27,7 +26,6 @@
     },
 
     cacheEls: function() {
-      this.$siteHeader = $('body > .header');
     },
 
     addAgencyAttribute: function() {
@@ -35,11 +33,18 @@
     },
 
     updateHomepageHeading: function() {
-      var $homepage = $('.template-home');
       var agencyData = App.tools.helpers.agency.getData(this.agency);
+      var $homepage = $('.template-home');
+      var $homeHeading = $('.template-home h1');
+      var $agencyLinkList = $('.agency-link-list');
 
       if($homepage.length) {
-        $('.template-home h1').html(agencyData.label);
+        $homeHeading.html(agencyData.label);
+
+        $agencyLinkList.toggleClass('hidden', agencyData.url === '');
+        $agencyLinkList.find('.agency').attr('data-department', this.agency);
+        $agencyLinkList.find('a').attr('href', agencyData.url);
+        $agencyLinkList.find('.label').html(agencyData.label);
       }
     },
 
