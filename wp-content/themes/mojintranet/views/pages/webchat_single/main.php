@@ -1,7 +1,6 @@
 <?php if (!defined('ABSPATH')) die(); ?>
 <div class="template-container"
-     data-page-id="<?=$id?>"
-     data-children-data="<?=$children_data?>">
+     data-page-id="<?=$id?>">
 
   <div class="grid content-container">
     <div class="col-lg-3 col-md-4 col-sm-12">

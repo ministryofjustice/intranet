@@ -30,14 +30,29 @@ class Page_tree_model extends MVC_model {
     $options = $this->_normalise_options($options);
     $options['depth'] = 1;
 
+    $this->type = get_post_type($options['page_id']);
+
     $ancestors = [];
 
     do {
       array_push($ancestors, $this->get_children($options));
     }
-    while($options['page_id'] = wp_get_post_parent_id($options['page_id']));
+    while($options['page_id'] = $this->_get_parent_id($options['page_id']));
 
     return array_reverse($ancestors);
+  }
+
+  private function _get_parent_id($id) {
+    if($this->type == 'webchat') {
+      $parent_id = Taggr::get_id('webchats-landing');
+    }
+    else {
+      $parent_id = wp_get_post_parent_id($id);
+    }
+
+    $this->type = get_post_type($parent_id);
+
+    return $parent_id;
   }
 
   private function _normalise_options($options) {
