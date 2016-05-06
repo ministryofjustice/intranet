@@ -31,9 +31,8 @@ class Assign_Tabs_And_Links extends Admin_Command {
         $pages = get_posts($args);
 
         echo '<ul>';
-        foreach ($pages as $page){
+        foreach ($pages as $page) {
             if (get_post_meta($page->ID,'_wp_page_template',true) == 'page_guidance_and_support.php') {
-
                 if (!metadata_exists('post', $page->ID, "guidance_tabs") ||  get_post_meta($page->ID, "guidance_tabs", true) == '0') { //check if tabs have been defined
                     //Find Links
                     $found_links_check = true;
@@ -104,7 +103,7 @@ class Assign_Tabs_And_Links extends Admin_Command {
                                 $new_tab['sections'][] = array(
                                     'section_title' => $section_title,
                                     'section_content' => $section_content,
-                                    'section_html_content' => ''
+                                    'section_html_content' => \WPCom_Markdown::get_instance()->transform($section_content),
                                 );
                             }
 
