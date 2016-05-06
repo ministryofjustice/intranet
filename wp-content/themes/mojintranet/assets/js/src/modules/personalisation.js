@@ -11,7 +11,8 @@
     init: function() {
       this.settings = {
         hideForAgency: {
-          'hmcts': ['.events-widget', '.events-menu-item']
+          'hmcts': ['.events-widget', '.main-nav-events', '.main-nav-guidance', '.main-nav-about-us'],
+          'laa': ['.events-widget', '.main-nav-events']
         }
       };
 
