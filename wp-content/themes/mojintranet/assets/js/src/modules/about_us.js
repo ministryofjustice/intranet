@@ -11,24 +11,40 @@
 
   App.AboutUsIndex.prototype = {
     init: function() {
-      var agency = App.tools.helpers.agency.getForContent();
+      this.agency = App.tools.helpers.agency.getForContent();
+      this.agencyData = App.tools.helpers.agency.getData(this.agency);
       this.applicationUrl = $('head').data('application-url');
-      this.serviceUrl = this.applicationUrl + '/service/children/' + agency + '//116';
-      //http://mojintranet/service/children/hq//1942/
+      this.serviceUrl = this.applicationUrl + '/service/page_tree/children/hq' + /*agency +*/ '//116/2';
 
-      this.categoryItemTemplate = this.$top.find('[data-name="widget-guidance-item"]').html();
-      this.childItemTemplate = this.$top.find('[data-name="widget-guidance-child-item"]').html();
+      this.categoryItemTemplate = this.$top.find('[data-name="widget-about-us-item"]').html();
+      this.childItemTemplate = this.$top.find('[data-name="widget-about-us-child-item"]').html();
 
       this.resultsLoaded = false;
 
       this.cacheEls();
+      this.bindEvents();
 
-      this.requestData();
+      if(App.tools.helpers.agency.isIntegrated() && this.agency !== 'hq') {
+        this.$top.addClass('agency-view');
+        this.$top.find('.agency-name-heading').html(this.agencyData.label);
+        this.requestData();
+      }
     },
 
     cacheEls: function() {
-      this.$largeCategoriesList = this.$top.find('.guidance-categories-list.large');
-      this.$smallCategoriesList = this.$top.find('.guidance-categories-list.small');
+      this.$globalCategoriesList = this.$top.find('.global-categories-list');
+      this.$agencyCategoriesList = this.$top.find('.agency-categories-list');
+      this.$toggleGlobalCategoriesBox = this.$top.find('.toggle-global-categories-box');
+      this.$globalCategoriesBox = this.$top.find('.global-categories-box');
+    },
+
+    bindEvents: function() {
+      this.$toggleGlobalCategoriesBox.click($.proxy(this.toggleGlobalCategoriesBox, this));
+    },
+
+    toggleGlobalCategoriesBox: function(e) {
+      e.preventDefault();
+      this.$top.toggleClass('global-list-visible');
     },
 
     requestData: function() {
@@ -42,28 +58,20 @@
 
     displayData: function(data) {
       var _this = this;
-      var children;
       var $category;
-      var mostVisitedList = data.results.slice(0, 6);
-      var allList = data.results;
-      var childrenList;
+      var categoryList = App.tools.sortByKey(data.children, 'title');
+      var childrenList = [];
 
-      mostVisitedList = App.tools.sortByKey(mostVisitedList, 'title');
-      allList = App.tools.sortByKey(allList, 'title');
-
-      $.each(mostVisitedList, function(index, category) {
+      $.each(categoryList, function(index, category) {
+        console.log(category);
         $category = _this.buildCategoryItem(category);
-        _this.$largeCategoriesList.append($category);
+        console.log($category);
+        _this.$agencyCategoriesList.append($category);
         childrenList = App.tools.sortByKey(category.children, 'title');
 
         $.each(childrenList, function(index, child) {
-
           $category.find('> .children-list').append(_this.buildChildItem(child));
         });
-      });
-
-      $.each(data.results, function(index, category) {
-        _this.$smallCategoriesList.append(_this.buildCategoryItem(category));
       });
 
       this.resultsLoaded = true;

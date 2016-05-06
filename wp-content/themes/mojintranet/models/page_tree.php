@@ -10,12 +10,7 @@ class Page_tree_model extends MVC_model {
   public function get_children($options = []) {
     $options = $this->_normalise_options($options);
 
-    $data = [
-      'title' => (string) get_the_title($options['page_id']),
-      'id' => (int) $options['page_id'],
-      'url' => (string) get_permalink($options['page_id']),
-      'children' => []
-    ];
+    $data = $this->_format_row(get_post($options['page_id']));
 
     $data['children'] = $this->_get_children_recursive($options);
 
@@ -30,12 +25,10 @@ class Page_tree_model extends MVC_model {
     $options = $this->_normalise_options($options);
     $options['depth'] = 1;
 
-    $this->type = get_post_type($options['page_id']);
-
     $ancestors = [];
 
     do {
-      array_push($ancestors, $this->get_children($options));
+      $ancestors[] = $this->get_children($options);
     }
     while($options['page_id'] = $this->_get_parent_id($options['page_id']));
 
@@ -43,14 +36,14 @@ class Page_tree_model extends MVC_model {
   }
 
   private function _get_parent_id($id) {
-    if($this->type == 'webchat') {
+    $type = get_post_type($id);
+
+    if($type == 'webchat') {
       $parent_id = Taggr::get_id('webchats-landing');
     }
     else {
       $parent_id = wp_get_post_parent_id($id);
     }
-
-    $this->type = get_post_type($parent_id);
 
     return $parent_id;
   }
@@ -131,7 +124,8 @@ class Page_tree_model extends MVC_model {
       'order' => $post->menu_order,
       'child_count' => $grandchildren->post_count,
       'is_external' => (boolean) get_post_meta($id, 'redirect_enabled', true),
-      'status' => $post->post_status
+      'status' => $post->post_status,
+      'children' => []
     );
   }
 
