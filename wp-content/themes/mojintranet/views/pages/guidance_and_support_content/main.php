@@ -38,26 +38,30 @@
             <?=$section['section_html_content']?>
           <?php endforeach ?>
 
-
-          <ul>
-          <?php foreach($tab_row['links'] as $link): ?>
-            <?php if($link['link_type'] == 'heading'): ?>
-              </ul>
-              <h2><?=$link['link_title']?></h2>
-              <ul>
-            <?php else: ?>
-              <li>
-                <a href="<?=$link['link_url']?>"><?=$link['link_title']?></a>
-              </li>
+          <?php if(count($tab_row['links'])): ?>
+              
+            <?php if($tab_row['default_heading']): ?>
+              <h2>Links</h2>
             <?php endif ?>
+              
+            <ul>
+            <?php foreach($tab_row['links'] as $link): ?>
+              <?php if($link['link_type'] == 'heading'): ?>
+                </ul>
+                <h2><?=$link['link_title']?></h2>
+                <ul>
+              <?php else: ?>
+                <li>
+                  <a href="<?=$link['link_url']?>"><?=$link['link_title']?></a>
+                </li>
+              <?php endif ?>
 
-          <?php endforeach ?>
-          </ul>
+            <?php endforeach ?>
+            </ul>
+          <?php endif ?>
 
           <?php /*if(count($link_array->tabs[$tab_number])): ?>
-            <?php if($autoheadings): ?>
-              <h2><?=$links_title?></h2>
-            <?php endif ?>
+            
 
           <?php endif */?>
         </div>
