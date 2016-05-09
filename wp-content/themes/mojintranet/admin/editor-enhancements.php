@@ -2,16 +2,16 @@
 
 /* Converts Guidance Tab Sections from Markdown to HTML and then saves in additional Meta Field */
 add_action('acf/save_post', 'dw_save_guidance_tabs', 20);
-function dw_save_guidance_tabs( $post_id ) {
-  if ( have_rows('guidance_tabs', $post_id) ) {
+function dw_save_guidance_tabs($post_id) {
+  if (have_rows('guidance_tabs', $post_id)) {
     $tab_i = 0;
 
-    while ( have_rows('guidance_tabs', $post_id) ) {
+    while (have_rows('guidance_tabs', $post_id)) {
       the_row();
 
       $tab_i++;
 
-      if ( have_rows('sections') ) {
+      if (have_rows('sections')) {
         $section_i = 0;
 
         while (have_rows('sections')) {
