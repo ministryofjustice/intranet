@@ -82,6 +82,13 @@ class My_moj_model extends MVC_model {
         'url' => site_url('/webchats/'),
         'external' => false,
         'agency' => array('hq', 'hmcts', 'opg', 'laa')
+      ),
+      array(
+        'title' => 'Room Booking',
+        'icon' => 'room-booking',
+        'url' => 'https://app.matrixbooking.com/',
+        'external' => true,
+        'agency' => array('hq', 'hmcts', 'opg', 'laa')
       )
     );
 
