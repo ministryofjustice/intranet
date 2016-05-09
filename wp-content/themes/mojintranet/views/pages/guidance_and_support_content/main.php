@@ -38,7 +38,7 @@
             <?=$section['section_html_content']?>
           <?php endforeach ?>
 
-          <?php if(count($tab_row['links'])): ?>
+          <?php if(is_array($tab_row['links']) && count($tab_row['links'])):;?>
               
             <?php if($tab_row['default_heading']): ?>
               <h2>Links</h2>
@@ -59,11 +59,6 @@
             <?php endforeach ?>
             </ul>
           <?php endif ?>
-
-          <?php /*if(count($link_array->tabs[$tab_number])): ?>
-            
-
-          <?php endif */?>
         </div>
       <?php endforeach ?>
 

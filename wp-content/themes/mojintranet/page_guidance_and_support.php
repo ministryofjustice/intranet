@@ -63,12 +63,21 @@ class Page_guidance_and_support extends MVC_controller {
     if (is_array($guidance_tabs) && count($guidance_tabs) > 0) {
       $this->tab_count = count($guidance_tabs);
       $i = 0;
-      foreach ($guidance_tabs as $tab){
+      foreach ($guidance_tabs as $tab) {
         $guidance_tabs[$i]['name'] = str_replace(' ','_',preg_replace('/[^\da-z ]/i', '',strtolower($tab['tab_title'])));
 
+        $s = 0;
+        foreach ($tab['sections'] as $section) { //apply content filters
+          if (array_key_exists('section_html_content', $section)) {
+            $guidance_tabs[$i]['sections'][$s]['section_html_content'] = apply_filters('the_content', $section['section_html_content']);
+          }
+
+          $s++;
+        }
+
         $guidance_tabs[$i]['default_heading'] = true; //if heading is not first link show default heading
-        if (count($tab['links']) > 0) {
-            if($tab['links'][0]['link_type'] == 'heading'){
+        if (is_array($tab['links']) && count($tab['links']) > 0) {
+            if ($tab['links'][0]['link_type'] == 'heading') {
               $guidance_tabs[$i]['default_heading'] = false;
             }
         }
