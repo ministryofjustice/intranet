@@ -23,7 +23,7 @@
             "sub_fields": [
                 {
                     "key": "field_572359e0e259c",
-                    "label": "Tab Title",
+                    "label": "Tab Title1",
                     "name": "tab_title",
                     "type": "text",
                     "instructions": "",
@@ -59,6 +59,7 @@
                     "max": "",
                     "layout": "block",
                     "button_label": "Add Section",
+                    "collapsed": "",
                     "sub_fields": [
                         {
                             "key": "field_572320c9bc14e",
@@ -120,8 +121,7 @@
                             "readonly": 0,
                             "disabled": 0
                         }
-                    ],
-                    "collapsed": ""
+                    ]
                 },
                 {
                     "key": "field_57235729f3320",
@@ -245,5 +245,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1462788198
+    "modified": 1462790061
 }
