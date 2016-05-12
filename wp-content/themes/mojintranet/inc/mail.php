@@ -15,7 +15,8 @@ function dw_mail_from_name($old) {
 add_filter('wp_mail', 'email_subject_remove_sitename');
 function email_subject_remove_sitename($email) {
   $blogname = wp_specialchars_decode(get_option('blogname'), ENT_QUOTES);
-  $email['subject'] = str_replace("[".$blogname."] - ", "", $email['subject']);
+  $email['subject'] = str_replace("[".$blogname."] -", "", $email['subject']);
   $email['subject'] = str_replace("[".$blogname."]", "", $email['subject']);
+  $email['subject'] = trim($email['subject']);
   return $email;
 }
