@@ -55,6 +55,19 @@
       $.each(selectorsToHide, function(index, selector) {
         $(selector).addClass('agency-hidden');
       });
+
+      this.fixMenuForIE();
+    },
+
+    fixMenuForIE: function() {
+      var $menuItems = $('.header-menu .category-item:visible');
+      var count = $menuItems.length;
+
+      if(count > 0 && App.ie && App.ie <= 9) {
+        $menuItems.css({
+          width: '' + 100/count + '%'
+        });
+      }
     },
 
     updateAgencyFromUrl: function() {

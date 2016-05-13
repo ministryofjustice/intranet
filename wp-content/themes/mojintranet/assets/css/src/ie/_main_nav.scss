@@ -11,4 +11,10 @@
       margin-bottom: -1px;
     }
   }
+
+  .ie7 & {
+    .categories-list {
+      margin-bottom: 0;
+    }
+  }
 }
