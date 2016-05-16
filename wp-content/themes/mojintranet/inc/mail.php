@@ -20,3 +20,4 @@ function email_subject_remove_sitename($email) {
   $email['subject'] = trim($email['subject']);
   return $email;
 }
+
