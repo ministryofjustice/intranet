@@ -63,9 +63,7 @@
       var childrenList = [];
 
       $.each(categoryList, function(index, category) {
-        console.log(category);
         $category = _this.buildCategoryItem(category);
-        console.log($category);
         _this.$agencyCategoriesList.append($category);
         childrenList = App.tools.sortByKey(category.children, 'title');
 
