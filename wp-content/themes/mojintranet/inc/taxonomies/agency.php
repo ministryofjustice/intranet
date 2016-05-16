@@ -350,7 +350,7 @@ class Agency extends Taxonomy {
             $terms = array();
             $current_terms = wp_get_post_terms($post_id, 'agency');
 
-            //wp_get_post_terms doesn't have options to return just term slugs
+            //wp_get_post_terms doesn't have the option to return just term slugs
             foreach ($current_terms as $term) {
                 $terms[] = $term->slug;
             }
