@@ -16,3 +16,6 @@
 [submodule "wp-content/plugins/dw-snippets"]
 	path = wp-content/plugins/dw-snippets
 	url = git@github.com:ministryofjustice/dw-snippets.git
+[submodule "wp-content/plugins/dw-document-revisions"]
+	path = wp-content/plugins/dw-document-revisions
+	url = https://github.com/ministryofjustice/dw-document-revisions
