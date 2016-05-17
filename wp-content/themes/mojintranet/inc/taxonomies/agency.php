@@ -347,7 +347,7 @@ class Agency extends Taxonomy {
         if (in_array($post_type, $this->object_types)) {
             $action = $_GET['action'];
             $agency = Agency_Context::get_agency_context();
-            $terms = array();
+            $terms = [];
             $current_terms = wp_get_post_terms($post_id, 'agency');
 
             //wp_get_post_terms doesn't have the option to return just term slugs
