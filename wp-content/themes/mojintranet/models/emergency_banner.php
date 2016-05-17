@@ -15,5 +15,4 @@ class Emergency_banner_model extends MVC_model {
 
     return $data;
   }
-
 }

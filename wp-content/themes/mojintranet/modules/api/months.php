@@ -24,11 +24,14 @@ class Months_API extends API {
 
   protected function parse_params($params) {
     $this->params = array(
+      'agency' => $params[0]
     );
   }
 
   protected function get_months() {
-    $data = $this->MVC->model->months->get_list($this->params);
+    $options = $this->params;
+    $options = $this->add_taxonomies($options);
+    $data = $this->MVC->model->months->get_list($options);
     $data['url_params'] = $this->params;
     $this->response($data, 200, 300);
   }

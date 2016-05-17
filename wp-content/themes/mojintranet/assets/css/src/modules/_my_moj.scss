@@ -37,6 +37,7 @@
 
         .app-icon-inner {
           background-image: url('../images/app_icons_x2_hover.png');
+          background-color: $govuk-blue;
         }
       }
     }
@@ -66,7 +67,7 @@
       height: $icon-size;
       background-repeat: no-repeat;
       background-image: url('../images/app_icons_x2.png');
-      background-size: $icon-size*10 $icon-size;
+      background-size: auto $icon-size;
 
 
 
@@ -109,40 +110,26 @@
       &.pension-icon {
         background-position: -$icon-size*9 0;
       }
+
+      &.room-booking-icon {
+        background-position: -$icon-size*11 0;
+      }
     }
   }
 
   .quick-links-container {
     .category-name {
       margin-bottom: 8px;
+      clear: both;
     }
 
-    .nested-menu {
-      margin-top: 0;
-    }
-
-    .category-item {
+    .quick-link-item {
       margin-bottom: 10px;
     }
 
-    .menu-link {
+    .quick-link-link {
       @extend %medium-copy;
       text-decoration: underline;
-    }
-
-    ul {
-      a {
-        @extend %medium-copy;
-        text-decoration: underline;
-      }
-
-      .menu-item {
-        margin-top: 10px;
-
-        &:first-of-type a {
-          margin-top: 0;
-        }
-      }
     }
   }
 

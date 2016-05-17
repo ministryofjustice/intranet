@@ -318,7 +318,8 @@
       keywords = keywords.replace(/\s+/g, '+');
 
       var base = {
-        'category': '',
+        'agency': 'hq',
+        'additional_filters': '',
         'date': this.$dateInput.val(),
         'keywords': keywords,
         'page': segments[1] || 1

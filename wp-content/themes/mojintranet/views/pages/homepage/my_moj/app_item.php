@@ -1,10 +1,12 @@
 <?php if (!defined('ABSPATH')) die(); ?>
 
-<li class="app-item">
-  <a href="<?=$url?>" <?=$external ? 'rel="external"' : ''?> class="app-link">
-    <span class="app-icon">
-      <span class="app-icon-inner <?=$icon?>-icon"></span>
-    </span>
-    <span class="app-name"><?=$title?></span>
-  </a>
-</li>
+<script data-name="widget-app-item" type="text/x-partial-template">
+  <li class="app-item">
+    <a class="app-link" href="">
+      <span class="app-icon">
+        <span class="app-icon-inner"></span>
+      </span>
+      <span class="app-name"></span>
+    </a>
+  </li>
+</script>

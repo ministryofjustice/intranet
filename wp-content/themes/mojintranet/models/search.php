@@ -69,7 +69,8 @@ class Search_model extends MVC_model {
       'page' => 1,
       'per_page' => 10,
       'post_type' => 'all',
-      'keywords' => ''
+      'keywords' => '',
+      'tax_query' => array()
     );
 
     foreach($options as $key=>$value) {
@@ -128,7 +129,8 @@ class Search_model extends MVC_model {
 			'post_type' => $this->options['post_type'],
 			's' => $this->rawurldecode($this->options['keywords']),
 			'meta_query' => $this->meta_query,
-			'date_query' => $date_query
+			'date_query' => $date_query,
+      'tax_query' => $this->options['tax_query']
 		);
 
     add_filter('posts_orderby', array($this, 'wp_filter_posts_orderby'));

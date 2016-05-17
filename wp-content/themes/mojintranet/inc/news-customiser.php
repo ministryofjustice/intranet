@@ -25,10 +25,14 @@
       }
 
       public function register($wp_customize) {
+
+        $context = Agency_Context::get_agency_context();
+        $agency = Agency_Editor::get_agency_by_slug($context);
+
         $wp_customize->add_panel( 'need_to_know_customisation', array(
           'priority'        => 1,
           'capability'      => 'edit_theme_options',
-          'title'           => 'Need To Know',
+          'title'           => 'Need To Know for ' . $agency->name,
           'description'     => 'Allows admins and editors to customise the Need To Know panel',
         ) );
 
@@ -47,22 +51,32 @@
 
       // Featured news functions
       public function featured_news($wp_customize,$total_stories = 2) {
+
+        $context = Agency_Context::get_agency_context();
+        $agency = Agency_Editor::get_agency_by_slug($context);
+
         $section_name = 'featured_news';
         $wp_customize->add_section( 'featured_news', array(
           'priority'        => 10,
           'capability'      => 'edit_theme_options',
-          'title'           => 'Featured news',
-          'description'     => 'Controls the featured news items',
+          'title'           => 'Featured news for ' . $agency->name,
+          'description'     => 'Controls the featured news items for ' . $agency->name,
           'panel'           => 'news_customisation',
         ) );
 
+
+
         for($x=1;$x<=$total_stories;$x++) {
-          $this->new_control_setting($wp_customize, 'featured_story'.$x, $section_name, 'Featured story ' . $x, 'news');
+
+
+          $this->new_control_setting($wp_customize, $context.'_featured_story'.$x, $section_name, 'Featured story ' . $x, 'news');
         }
       }
 
       // Need to know functions
       public function need_to_know($wp_customize,$total_stories = 3) {
+
+        $context = Agency_Context::get_agency_context();
 
         for($x=1;$x<=$total_stories;$x++) {
           $section_name = 'need_to_know' . $x;
@@ -72,10 +86,10 @@
             'panel'           => 'need_to_know_customisation',
           ) );
 
-          $this->new_control_setting($wp_customize, 'need_to_know_headline'.$x, $section_name, 'Headline', 'text');
-          $this->new_control_setting($wp_customize, 'need_to_know_url'.$x, $section_name, 'URL', 'text');
-          $this->new_control_setting($wp_customize, 'need_to_know_image'.$x, $section_name, 'Image', 'image');
-          $this->new_control_setting($wp_customize, 'need_to_know_alt'.$x, $section_name, 'Image alt text', 'text');
+          $this->new_control_setting($wp_customize, $context.'_need_to_know_headline'.$x, $section_name, 'Headline', 'text');
+          $this->new_control_setting($wp_customize, $context.'_need_to_know_url'.$x, $section_name, 'URL', 'text');
+          $this->new_control_setting($wp_customize, $context.'_need_to_know_image'.$x, $section_name, 'Image', 'image');
+          $this->new_control_setting($wp_customize, $context.'_need_to_know_alt'.$x, $section_name, 'Image alt text', 'text');
         }
       }
 

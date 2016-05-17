@@ -62,6 +62,14 @@ class Page_events extends MVC_controller {
   }
 
   private function get_months_from_api() {
-    return $this->model->months->get_list();
+    return $this->model->months->get_list(array(
+      'tax_query' => array(
+        array(
+          'taxonomy' => 'agency',
+          'field'    => 'slug',
+          'terms'    => 'hq' //!!! hard-coded for now
+        )
+      )
+    ));
   }
 }

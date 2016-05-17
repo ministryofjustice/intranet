@@ -1,0 +1,13 @@
+/**
+ * Admin CSS related to personalisation
+ */
+
+.agency-filter-filter {
+    margin: 0 5px;
+    padding: 5px;
+}
+
+.agency-checklist,
+.inline-edit-row fieldset span.inline-edit-categories-label:nth-child(4) {
+    display: none;
+}

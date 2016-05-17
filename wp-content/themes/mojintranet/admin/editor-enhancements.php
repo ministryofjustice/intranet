@@ -2,12 +2,32 @@
 
 /* Dynamic filtering of Parent pages */
 
+
 add_action('wp_ajax_check_parent', 'pageparent_ajax_check_parent');
 function pageparent_ajax_check_parent() {
   global $wpdb;
-  $query = $_POST['data'];
-  $parent_query = "SELECT ID,post_title,post_parent,post_type,post_status FROM $wpdb->posts WHERE post_title LIKE '%{$query}%' AND post_type = 'page' AND post_status IN ('publish','draft') ORDER BY post_title LIMIT 0,30";
-  $parentname = $wpdb->get_results($parent_query);
+
+  $context = Agency_Context::get_agency_context();
+
+  $filter_data = $_POST['data'];
+  $filter_text = sanitize_text_field($filter_data["filtertext"]);
+  $current_page = intval($filter_data["pageID"]);
+
+
+  $parent_query = "SELECT ID,post_title,post_parent,post_type,post_status FROM $wpdb->posts 
+                   LEFT JOIN $wpdb->term_relationships ON ( $wpdb->posts.ID = $wpdb->term_relationships.object_id )
+                   LEFT JOIN $wpdb->term_taxonomy ON ( $wpdb->term_relationships.term_taxonomy_id = $wpdb->term_taxonomy.term_taxonomy_id )
+                   LEFT JOIN $wpdb->terms ON ( $wpdb->term_taxonomy.term_id = $wpdb->terms.term_id ) 
+                   WHERE post_title LIKE '%%%s%%'
+                   AND $wpdb->posts.ID != %s 
+                   AND post_type = 'page' 
+                   AND post_status IN ('publish','draft') 
+                   AND $wpdb->term_taxonomy.taxonomy = 'agency' 
+                   AND $wpdb->terms.slug IN ( 'hq', '%s' ) 
+                   GROUP BY $wpdb->posts.ID
+                   ORDER BY post_title LIMIT 0,30";
+
+  $parentname = $wpdb->get_results( $wpdb->prepare($parent_query, array($filter_text, $current_page, $context)));
   if($parentname) {
     foreach ($parentname as $parent) {
       $parent_title = get_the_title($parent->post_parent);
@@ -19,12 +39,16 @@ function pageparent_ajax_check_parent() {
       if ($parent_state!='') {
         $parent_state = $parent_state."&nbsp;> ";
       }
+      $page_status = '';
+      if($parent->post_status == 'draft'){
+        $page_status = ' (Draft)';
+      }
       echo "<li class='pageparentoption'>
         <a class=\"parentlink\" style=\"cursor:pointer;\" parentname='".$parent->post_title . "' parentid='" . $parent->ID . "'>
           <small>".
             $parent_state." ".$parent_title."
           </small> ".
-          $parent->post_title . "
+          $parent->post_title . $page_status . "
         </a>
       </li>\n";
     }
@@ -59,17 +83,23 @@ function pageparent_box($post) {
   //get current parent
   global $post;
   $load_image_url =  get_template_directory_uri() . '/admin/images/pageparent.gif';
-  $parent_page = get_the_title(wp_get_post_parent_id($post->ID));
+  $parent_page = wp_get_post_parent_id($post->ID);
 
   //populate template list
   $current_template = get_post_meta($post->ID,'_wp_page_template',true);
-  $template_file = str_replace('.php','',$current_template);
-  $themeselect = '<select id="page_template" name="page_template">
-          <option value="default">Default Template</option>';
+
+  $disabled = '';
+  if (in_array($current_template, Agency_Editor::$restricted_templates) && !current_user_can('administrator')) {
+    $disabled = 'disabled="disabled"';
+  }
+
+  $themeselect = '<select id="page_template" name="page_template" ' . $disabled . '>';
   $templates = get_page_templates();
   foreach ( $templates as $template_name => $template_filename ) {
-    $select = $current_template==$template_filename?'selected="selected"':"";
-    $themeselect.= '<option value="'.$template_filename.'" '.$select.'>'.$template_name.'</option>';
+    if (!in_array($template_filename, Agency_Editor::$restricted_templates) || $current_template == $template_filename || current_user_can('administrator')) {
+      $select = $current_template == $template_filename ? 'selected="selected"' : "";
+      $themeselect .= '<option value="' . $template_filename . '" ' . $select . '>' . $template_name . '</option>';
+    }
   }
   $themeselect.= '</select>';
 
@@ -77,9 +107,19 @@ function pageparent_box($post) {
   <p><strong>Current Template:</strong></p>
   <?php echo $themeselect;?>
   <p><strong>Current Parent:</strong></p>
-  <div>
-    <?php echo $parent_page; ?>
-  </div>
+
+    <div>
+      <?php
+
+      if ($parent_page) {
+        echo get_the_title($parent_page);
+      }
+      else {
+        echo 'None';
+      }
+      ?>
+    </div>
+
   <p><strong>New Parent Page:</strong></p>
   <input type="text" name="pageparent-filterbox" id="pageparent-filterbox" autocomplete="off" placeholder="Start typing...">
   <input type="hidden" name="parent_id" id="parent_id" readonly="readonly" value="<?php echo $post->post_parent; ?>">
@@ -94,7 +134,7 @@ function pageparent_box($post) {
           ajaxurl,
           {
              'action': 'check_parent',
-             'data'  : jQuery("#pageparent-filterbox").val()
+             'data'  : { filtertext: jQuery("#pageparent-filterbox").val() , pageID: <?php echo $post->ID; ?> }
           }
         ).done( function(response) {
           if(response.length) {

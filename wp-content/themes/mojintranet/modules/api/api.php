@@ -1,6 +1,7 @@
 <?php if (!defined('ABSPATH')) die();
 
 abstract class API {
+  //!!! TODO: make params private and the getter/setter protected
   protected $MVC;
   protected $params = array();
   private $cache_timeout = 60; //cache timeout in seconds
@@ -88,6 +89,36 @@ abstract class API {
    */
   protected function get_param($key) {
     return $this->params[$key];
+  }
+
+  /** gets taxonomies based on url segments
+   * @param {Array} $options Options for WP Query
+   * @return {Array} $options with added taxonomies
+   */
+  protected function add_taxonomies($options = array()) {
+    $agency = $this->get_param('agency') ?: 'hq';
+    $additional_filters = $this->get_param('additional_filters') ?: '';
+    $taxonomies = array('relation' => 'AND');
+    $filters = array('agency=' . $agency);
+
+    if(strlen($additional_filters)) {
+      $filters = array_merge($filters, explode('|', $additional_filters));
+    }
+
+    foreach($filters as $filter) {
+      $pair = explode('=', $filter);
+      if(taxonomy_exists($pair[0])) {
+        $taxonomies[] = array(
+          'taxonomy' => $pair[0],
+          'field' => 'slug',
+          'terms' => $pair[1]
+        );
+      }
+    }
+
+    $options['tax_query'] = $taxonomies;
+
+    return $options;
   }
 
   /** Get POST value by key

@@ -25,16 +25,19 @@ class Search_API extends API {
 
   protected function parse_params($params) {
     $this->params = array(
-      'post_type' => $params[0],
-      'category' => $params[1],
-      'keywords' => $params[2],
-      'page' => $params[3],
-      'per_page' => $params[4]
+      'agency' => $params[0],
+      'additional_filters' => $params[1],
+      'post_type' => $params[2],
+      'keywords' => $params[3],
+      'page' => $params[4],
+      'per_page' => $params[5]
     );
   }
 
   protected function get_results() {
-    $data = $this->MVC->model->search->get($this->params);
+    $options = $this->params;
+    $options = $this->add_taxonomies($options);
+    $data = $this->MVC->model->search->get($options);
     $data['url_params'] = $this->params;
     $this->response($data, 200, 300);
   }

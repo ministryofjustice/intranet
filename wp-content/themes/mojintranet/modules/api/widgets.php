@@ -10,19 +10,23 @@ class Widgets_API extends API {
   protected function route() {
     switch ($this->params['widget']) {
       case 'featured-news':
-        $this->get_featured_news();
+        $this->get_news(true);
         break;
 
       case 'non-featured-news':
-        $this->get_non_featured_news();
+        $this->get_news();
         break;
 
       case 'need-to-know':
         $this->get_need_to_know();
         break;
 
-      case 'quick-links':
-        $this->get_quick_links();
+      case 'my-moj':
+        $this->get_my_moj();
+        break;
+
+      case 'follow-us':
+        $this->get_follow_us_links();
         break;
 
       default:
@@ -32,35 +36,47 @@ class Widgets_API extends API {
   }
 
   protected function parse_params($params) {
+    $widget = $params[0];
+
     $this->params = array(
-      'widget' => $params[0],
-      'start' => (int) $params[1],
-      'length' => (int) $params[2]
+      'widget' => $widget,
+      'agency' => $params[1],
+      'additional_filters' => $params[2]
     );
+
+    if($widget == 'my-moj' || $widget == 'follow-us') {
+      $this->params['start'] = (int) $params[3];
+      $this->params['length'] = (int) $params[4];
+    }
   }
 
-  private function get_featured_news() {
-    $data = $this->MVC->model->news->get_featured($this->params);
-    $data['url_params'] = $this->params;
-    $this->response($data, 200, 60);
-  }
-
-  private function get_non_featured_news() {
-    $data = $this->MVC->model->news->get_featured($this->params,true);
+  private function get_news($featured = false) {
+    $options = $this->params;
+    $options = $this->add_taxonomies($options);
+    $data = $this->MVC->model->news->get_widget_news($options, $featured);
     $data['url_params'] = $this->params;
     $this->response($data, 200, 60);
   }
 
   private function get_need_to_know() {
-    $data = $this->MVC->model->need_to_know->get_need_to_know($this->params);
+    $options = $this->params;
+    $data = $this->MVC->model->need_to_know->get_data($options);
     $data['url_params'] = $this->params;
     $this->response($data, 200, 60);
   }
 
-  private function get_quick_links() {
-    $data = $this->MVC->model->my_moj->get_quick_links($this->params);
+  private function get_my_moj() {
+    $options = $this->params;
+    $data = $this->MVC->model->my_moj->get_data($options);
     $data['url_params'] = $this->params;
     $this->response($data, 200, 60 * 60);
   }
 
+  private function get_follow_us_links() {
+    $this->MVC->model('follow_us');
+    $options = $this->params;
+    $data = $this->MVC->model->follow_us->get_data($options);
+    $data['url_params'] = $this->params;
+    $this->response($data, 200, 60 * 60);
+  }
 }
