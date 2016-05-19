@@ -68,8 +68,14 @@
     },
 
     submitSuccess: function(data) {
+      var returnUrl = App.tools.getUrlParam('return_url');
+
+      if(returnUrl) {
+        returnUrl = App.tools.urldecode(returnUrl);
+      }
+
       if(data.success) {
-        window.location.href = this.applicationUrl;
+        window.location.href = returnUrl || this.applicationUrl;
       }
       else {
         this.validation.displayErrors(data.validation.errors);
