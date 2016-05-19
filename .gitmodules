@@ -16,4 +16,3 @@
 [submodule "wp-content/plugins/dw-snippets"]
 	path = wp-content/plugins/dw-snippets
 	url = git@github.com:ministryofjustice/dw-snippets.git
-
