@@ -5,6 +5,8 @@
 
   var App = window.App;
 
+  var userLoggedIn = !!$('head').attr('data-user-logged-in');
+
   var settings = {
     sizeUnits: ['B', 'KB', 'MB', 'GB', 'TB', 'PB'],
     months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
@@ -249,6 +251,10 @@
 
         return ((x < y) ? -1 : ((x > y) ? 1 : 0));
       });
+    },
+
+    isUserLoggedIn: function() {
+      return userLoggedIn;
     }
   };
 }(jQuery));

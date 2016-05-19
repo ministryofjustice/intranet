@@ -30,19 +30,23 @@
       this.$commentsList = this.$top.find('.comments-list');
       this.$loadMoreContainer = this.$top.find('.load-more-container');
       this.$loadMoreBtn = this.$top.find('.load-more');
+      this.$topCommentForm = this.$top.find('.comment-form-container .comment-form');
     },
 
     bindEvents: function() {
+      this.$loadMoreBtn.click($.proxy(this.loadMore, this));
+      this.$topCommentForm.submit($.proxy(this.submitForm, this));
+    },
+
+    loadMore: function() {
       var _this = this;
 
-      this.$loadMoreBtn.click(function(e) {
-        _this.$loadMoreContainer.addClass('loading');
+      _this.$loadMoreContainer.addClass('loading');
 
-        /* use the timeout for dev/debugging purposes */
-        //**/window.setTimeout(function() {
-          $.getJSON(_this.serviceUrl, $.proxy(_this.displayComments, _this));
-        //**/}, 2000);
-      });
+      /* use the timeout for dev/debugging purposes */
+      //**/window.setTimeout(function() {
+        $.getJSON(_this.serviceUrl, $.proxy(_this.displayComments, _this));
+      //**/}, 2000);
     },
 
     initialize: function() {
@@ -91,6 +95,43 @@
       });
 
       $form.find('[name="comment"]').focus();
+
+      $form.submit($.proxy(this.submitForm, this));
+    },
+
+    submitForm: function(e) {
+      var $form = $(e.target);
+      var inReplyToId = $form.closest('.comment').attr('data-comment-id');
+      var $parentComment = $form.closest('.comment:not(.reply)');
+      var rootCommentId = $parentComment.attr('data-comment-id');
+
+      e.preventDefault();
+
+      $.ajax({
+        url: this.serviceUrl,
+        method: 'put',
+        data: {
+          comment: $form.find('[name="comment"]').val(),
+          in_reply_to_id: inReplyToId,
+          root_comment_id: rootCommentId
+        },
+        complete: function() {
+          console.log('complete');
+        },
+        success: function(data) {
+          console.log(data);
+          if(data.success === true) {
+            console.log('success');
+            //window.location.href = window.location.href;
+          }
+          else {
+            console.log('failure');
+          }
+        },
+        error: function() {
+          console.log('error');
+        }
+      });
     },
 
     loadComments: function() {
@@ -150,6 +191,7 @@
 
     buildComment: function(data, isReply) {
       var $comment = $(this.itemTemplate);
+      var signInUrl = this.applicationUrl + '/sign-in/?return_url=' + App.tools.urlencode(window.location.href);
 
       $comment.find('.content').html(data.comment);
       $comment.find('.datetime').html(data.date_posted);
@@ -159,7 +201,12 @@
       $comment.find('.like-container').attr('data-post-id', data.id);
       $comment.attr('data-comment-id', data.id);
 
-      $comment.find('.reply-btn').click($.proxy(this.initializeReplyForm, this, data.id, $comment));
+      if(App.tools.isUserLoggedIn()) {
+        $comment.find('.reply-btn').click($.proxy(this.initializeReplyForm, this, data.id, $comment));
+      }
+      else {
+        $comment.find('.reply-btn').attr('href', signInUrl);
+      }
 
       if(isReply) {
         $comment.addClass('reply');

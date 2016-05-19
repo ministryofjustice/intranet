@@ -11,7 +11,11 @@ class Comments_model extends MVC_model {
 
   public function update($post_id, $comment_content, $parent_id, $root_comment_id, $nonce) {
     //if(wp_verify_nonce( $nonce, 'dw_comment' )) {
-      $this->add_comment($post_id, $comment_content, $parent_id, $root_comment_id);
+      $id = $this->add_comment($post_id, $comment_content, $parent_id, $root_comment_id);
+
+      return [
+        'success' => $id > 0
+      ];
     //}
   }
 
