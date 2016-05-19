@@ -30,12 +30,10 @@
       this.$commentsList = this.$top.find('.comments-list');
       this.$loadMoreContainer = this.$top.find('.load-more-container');
       this.$loadMoreBtn = this.$top.find('.load-more');
-      this.$topCommentForm = this.$top.find('.comment-form-container .comment-form');
     },
 
     bindEvents: function() {
       this.$loadMoreBtn.click($.proxy(this.loadMore, this));
-      this.$topCommentForm.submit($.proxy(this.submitForm, this));
     },
 
     loadMore: function() {
@@ -73,6 +71,7 @@
       $form.find('.cta.cancel').click(function() {
         $form.removeClass('active');
       });
+      $form.submit($.proxy(this.submitForm, this));
     },
 
     initializeReplyForm: function(inReplyToId, $comment, e) {
