@@ -19,6 +19,11 @@
         "revision": "master",
         "commit": "4aa861698506e10bc714db658e538e58ac9d3cad"
     },
+    "dw-document-revisions": {
+        "repository": "git@github.com:ministryofjustice/dw-document-revisions.git",
+        "revision": "master",
+        "commit": "60046ffb4ea78b852c0043ddc31a5c265b476ac7"
+    },
     "dw-live-drafts": {
         "repository": "git@github.com:ministryofjustice/dw-live-drafts.git",
         "revision": "master",
@@ -53,10 +58,5 @@
         "repository": "git@github.com:wp-shortcake/shortcake.git",
         "revision": "master",
         "commit": "a087f7ba45f935823411b07fa65ccb13c307adcf"
-    },
-    "wp-document-revisions": {
-        "repository": "git@git.dxw.net:wordpress-plugins/wp-document-revisions",
-        "revision": "master",
-        "commit": "259858e8469ec35c33abbd949eb6266cf7e1993d"
     }
 }

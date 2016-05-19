@@ -126,7 +126,6 @@ wp-content/plugins/
 /wp-content/plugins/pods
 /wp-content/plugins/recently-edited-content-widget
 /wp-content/plugins/relevanssi-premium
-/wp-content/plugins/wp-document-revisions
 
 debug.log
 /wp-content/plugins/co-authors-plus
@@ -134,3 +133,4 @@ debug.log
 /wp-content/plugins/heatmap-for-wp
 /wp-content/plugins/regenerate-thumbnails
 /wp-content/plugins/shortcode-ui
+/wp-content/plugins/dw-document-revisions
