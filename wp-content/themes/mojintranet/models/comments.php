@@ -11,11 +11,7 @@ class Comments_model extends MVC_model {
 
   public function update($post_id, $comment_content, $parent_id, $root_comment_id, $nonce) {
     //if(wp_verify_nonce( $nonce, 'dw_comment' )) {
-      $id = $this->add_comment($post_id, $comment_content, $parent_id, $root_comment_id);
-
-      return [
-        'success' => $id > 0
-      ];
+      return $this->add_comment($post_id, $comment_content, $parent_id, $root_comment_id);
     //}
   }
 
@@ -150,11 +146,11 @@ class Comments_model extends MVC_model {
     return array(
       'id' => (int) $comment->comment_ID,
       'date_posted' => $comment->comment_date,
-      'author_name' => $this->author_cache[$comment->comment_ID],
+      'author_name' => $comment->comment_author,
       'comment' => $comment->comment_content,
       'likes' => (int) $like_count,
       'in_reply_to_id' => (int) $comment->comment_parent,
-      'in_reply_to_author' => $this->author_cache[$comment->comment_parent],
+      'in_reply_to_author' => get_comment_author($comment->comment_parent),
       'hidden_comment' => (int) $hidden_comment ?: 0,
       'total_replies' => 0,
       'replies' => array()
@@ -162,20 +158,24 @@ class Comments_model extends MVC_model {
   }
 
   private function add_comment($post_id, $comment_content, $parent_id = 0, $root_comment_id = 0) {
-    $user_id = get_current_user_id();
-    if($user_id) {
+    $current_user = wp_get_current_user();
+
+    if ($current_user) {
       $data = array(
         'comment_content'  => $comment_content,
         'comment_post_ID'  => $post_id,
         'comment_parent'   => $parent_id,
         'comment_approved' => 1,
-        'user_id'          => get_current_user_id(),
+        'comment_author' => $current_user->display_name,
+        'comment_author_email' => $current_user->user_email, //fixed value - can be dynamic
+        'user_id'          => $current_user->ID,
         'comment_meta'     => array(
           'root_comment_id' => $root_comment_id
         ),
       );
 
-      return wp_new_comment($data);
+      $new_comment_id = wp_new_comment($data);
+      return $this->format_comment(get_comment($new_comment_id));
     } else {
       return false;
     }
