@@ -3,8 +3,9 @@
 
   var App = window.App;
 
-  App.tools.Validation = function($form) {
+  App.tools.Validation = function($form, $summaryContainer) {
     this.$form = $form;
+    this.$summaryContainer = $summaryContainer || $form;
     this.errors = [];
 
     this.messageTemplate = $('.template-partial[data-name="validation-message"]').html();
@@ -122,7 +123,7 @@
     },
 
     reset: function() {
-      this.$form.find('.validation-summary').remove();
+      this.$summaryContainer.find('.validation-summary').remove();
       this.$form.find('.validation-message').remove();
       this.$form.find('.form-row.validation-error').removeClass('validation-error');
 
@@ -149,7 +150,7 @@
         $list.append($summaryItem);
       }
 
-      $summary.prependTo(this.$form);
+      $summary.prependTo(this.$summaryContainer);
     },
 
     getElement: function($element) {

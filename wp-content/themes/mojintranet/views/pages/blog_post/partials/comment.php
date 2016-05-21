@@ -27,7 +27,7 @@
 
     <div class="reply-form-container"></div>
 
-    <a href="" class="toggle-replies">View all replies</a>
+    <a href="" class="toggle-replies">View all <span class="count"></span> replies</a>
     <span class="loading-replies">Loading...</span>
 
     <ul class="replies-list"></ul>

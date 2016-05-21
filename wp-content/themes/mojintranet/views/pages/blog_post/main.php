@@ -5,6 +5,8 @@
     <div class="col-lg-12 col-md-12 col-sm-12">
       <h1 class="page-title"><?=$title?></h1>
 
+      <div class="validation-summary-container"></div>
+
       <img class="author-thumbnail" src="<?=$author_thumbnail_url?>" alt="" />
 
       <ul class="info-list">
@@ -119,6 +121,7 @@
 
         <?php $this->view('pages/blog_post/partials/comment') ?>
         <?php $this->view('pages/blog_post/partials/comment_form') ?>
+        <?php $this->view('modules/validation/validation') ?>
       </div>
     </div>
   </div>

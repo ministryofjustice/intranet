@@ -103,6 +103,10 @@
   .comment {
     margin-top: 20px;
 
+    &.has-more-replies .toggle-replies {
+      display: inline-block;
+    }
+
     &.opened {
       .replies-list .comment {
         display: block;
@@ -154,8 +158,8 @@
     }
 
     .toggle-replies {
+      display: none;
       text-decoration: underline;
-      display: inline-block;
     }
 
     .reply-info {

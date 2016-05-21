@@ -15,6 +15,11 @@
       this.applicationUrl = $('head').data('application-url');
       this.serviceUrl = this.applicationUrl + '/service/comments/' + this.postId;
 
+      /*Note: Since we have multiple comment forms on this page, $form will be
+        set dynamically when validating a particular form, so using just a
+        placeholder here */
+      this.validation = new App.tools.Validation($([]), $('.validation-summary-container'));
+
       this.itemTemplate = this.$top.find('[data-name="comment-item"]').html();
       this.formTemplate = this.$top.find('[data-name="comment-form"]').html();
       this.serviceXHR = null;
@@ -65,10 +70,12 @@
       var $form = this.initializeForm(this.$top.find('.comment-form-container'));
 
       $form.find('[name="comment"]').focus(function() {
+        _this.validation.reset();
         _this.$top.find('.comment-form.reply-form').remove();
         $form.addClass('active');
       });
       $form.find('.cta.cancel').click(function() {
+        _this.validation.reset();
         $form.removeClass('active');
       });
       $form.submit($.proxy(this.submitForm, this));
@@ -85,11 +92,13 @@
 
       $form.addClass('reply-form');
       $form.find('[name="comment"]').focus(function() {
+        _this.validation.reset();
         _this.$top.find('.comment-form').removeClass('active');
         $form.addClass('active');
       });
 
       $form.find('.cta.cancel').click(function() {
+        _this.validation.reset();
         $form.remove();
       });
 
@@ -99,6 +108,7 @@
     },
 
     submitForm: function(e) {
+      var _this = this;
       var $form = $(e.target);
       var inReplyToId = $form.closest('.comment').attr('data-comment-id');
       var $parentComment = $form.closest('.comment:not(.reply)');
@@ -106,31 +116,42 @@
 
       e.preventDefault();
 
-      $.ajax({
-        url: this.serviceUrl,
-        method: 'put',
-        data: {
-          comment: $form.find('[name="comment"]').val(),
-          in_reply_to_id: inReplyToId,
-          root_comment_id: rootCommentId
-        },
-        complete: function() {
-          console.log('complete');
-        },
-        success: function(data) {
-          console.log(data);
-          if(data.success === true) {
-            console.log('success');
-            //window.location.href = window.location.href;
+      //we have multiple forms so need to swap them at this point
+      this.validation.$form = $form;
+
+      this.validate($form);
+
+      if(!this.validation.hasErrors()) {
+        $.ajax({
+          url: this.serviceUrl,
+          method: 'put',
+          data: {
+            comment: $form.find('[name="comment"]').val(),
+            in_reply_to_id: inReplyToId,
+            root_comment_id: rootCommentId
+          },
+          complete: function() {
+            console.log('complete');
+          },
+          success: function(data) {
+            if(data.success) {
+              console.log('ok!');
+              //window.location.href = window.location.href;
+            }
+            else {
+              //!!! the element isn't found
+              console.log(data);
+              _this.validation.displayErrors(data.validation.errors);
+            }
+          },
+          error: function() {
+            console.log('error');
           }
-          else {
-            console.log('failure');
-          }
-        },
-        error: function() {
-          console.log('error');
-        }
-      });
+        });
+      }
+      else {
+        this.validation.displayErrors();
+      }
     },
 
     loadComments: function() {
@@ -158,6 +179,11 @@
           $reply = this.buildComment(reply, true);
           $reply.addClass('last-two');
           $comment.find('> .replies-list').append($reply);
+        }
+
+        if(comment.total_replies > 2) {
+          $comment.addClass('has-more-replies');
+          $comment.find('.toggle-replies .count').html(comment.total_replies);
         }
       }
 
@@ -194,7 +220,7 @@
 
       $comment.find('.content').html(data.comment);
       $comment.find('.datetime').html(data.date_posted);
-      $comment.find('.author').html(data.author);
+      $comment.find('.author').html(data.author_name);
       $comment.find('.likes .count').html(data.likes);
       $comment.find('.like-container').attr('data-likes-count', data.likes);
       $comment.find('.like-container').attr('data-post-id', data.id);
@@ -215,6 +241,12 @@
       }
 
       return $comment;
+    },
+
+    validate: function($form) {
+      this.validation.reset();
+
+      this.validation.isFilled($form.find('[name="comment"]'), 'comment');
     },
 
     toggleReplies: function($comment, e) {
