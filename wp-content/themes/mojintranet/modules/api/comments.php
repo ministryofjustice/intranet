@@ -49,7 +49,7 @@ class Comments_API extends API {
     $val = new Validation();
 
     if($this->MVC->model->bad_words->has_bad_words($this->put('comment'))) {
-      $val->error('comment', 'comment', 'The comment contains bad words');
+      $val->error('comment', 'comment', '', 'bad_words');
     }
 
     if(!$val->has_errors()) {

@@ -119,6 +119,7 @@
           <span class="loading-msg">Loading...</span>
         </div>
 
+        <?php $this->view('pages/blog_post/partials/bad_words_error') ?>
         <?php $this->view('pages/blog_post/partials/comment') ?>
         <?php $this->view('pages/blog_post/partials/comment_form') ?>
         <?php $this->view('modules/validation/validation') ?>

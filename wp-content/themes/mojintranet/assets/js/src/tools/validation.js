@@ -122,6 +122,14 @@
       return newData;
     },
 
+    setErrorMessage: function(errors, errorCode, value) {
+      $.each(errors, function(index, error) {
+        if(errors[index].error_code === errorCode) {
+          errors[index].message = value;
+        }
+      });
+    },
+
     reset: function() {
       this.$summaryContainer.find('.validation-summary').remove();
       this.$form.find('.validation-message').remove();

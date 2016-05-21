@@ -22,6 +22,7 @@
 
       this.itemTemplate = this.$top.find('[data-name="comment-item"]').html();
       this.formTemplate = this.$top.find('[data-name="comment-form"]').html();
+      this.badWordsErrorTemplate = this.$top.find('[data-name="bad-words-error"]').html();
       this.serviceXHR = null;
 
       this.cacheEls();
@@ -130,22 +131,14 @@
             in_reply_to_id: inReplyToId,
             root_comment_id: rootCommentId
           },
-          complete: function() {
-            console.log('complete');
-          },
           success: function(data) {
             if(data.success) {
-              console.log('ok!');
-              //window.location.href = window.location.href;
+              window.location.href = window.location.href;
             }
             else {
-              //!!! the element isn't found
-              console.log(data);
+              _this.validation.setErrorMessage(data.validation.errors, 'bad_words', _this.badWordsErrorTemplate);
               _this.validation.displayErrors(data.validation.errors);
             }
-          },
-          error: function() {
-            console.log('error');
           }
         });
       }
