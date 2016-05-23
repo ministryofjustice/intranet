@@ -12,7 +12,8 @@
   App.Comments.prototype = {
     init: function() {
       this.settings = {
-        characterLimit: 500
+        characterLimit: 500,
+        commentsPerPage: 10
       };
 
       this.postId = $('.template-container').attr('data-post-id');
@@ -49,7 +50,7 @@
     loadMore: function() {
       var _this = this;
       var lastId = this.getLastId() || 0;
-      var url = this.serviceUrl + '/' + [0, lastId].join('/');
+      var url = this.serviceUrl + '/' + [0, lastId, this.settings.commentsPerPage].join('/');
       _this.$loadMoreContainer.addClass('loading');
 
       /* use the timeout for dev/debugging purposes */
@@ -164,7 +165,7 @@
 
     loadComments: function() {
       var _this = this;
-      var url = this.serviceUrl + '/' + [0, 0].join('/');
+      var url = this.serviceUrl + '/' + [0, 0, this.settings.commentsPerPage].join('/');
 
       /* use the timeout for dev/debugging purposes */
       //**/window.setTimeout(function() {
@@ -177,6 +178,7 @@
       var totalComments, totalReplies;
       var comment, reply;
       var $comment, $reply;
+      var loadedCommentsCount = 0;
 
       for(a = 0, totalComments = data.comments.length; a < totalComments; a++) {
         comment = data.comments[a];
@@ -199,7 +201,9 @@
       this.$commentsCount.find('.count').html(data.total_comments);
       this.$loadMoreContainer.removeClass('loading');
 
-      if(data.retrieved_comments === 0) {
+      loadedCommentsCount = this.$commentsList.find('.comment:not(.reply)').length;
+
+      if(loadedCommentsCount >= data.total_comments || data.retrieved_comments === 0) {
         this.$loadMoreContainer.addClass('hidden');
       }
 
