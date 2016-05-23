@@ -67,8 +67,12 @@ function dw_rewrite_rules() {
   $redirect = 'wp-content/themes/mojintranet/ping.php';
   add_rewrite_rule($regex, $redirect, 'top');
 
+  $regex = '^service/(.*)';
+  $redirect = 'index.php?controller=service&param_string=$matches[1]';
+  add_rewrite_rule($regex, $redirect, 'top');
+
   //Custom controllers
-  $regex = '^(service|password|create-an-account|sign-in)/?(.*)';
+  $regex = '^(password|create-an-account|sign-in)/?(.*)';
   $redirect = 'index.php?controller=$matches[1]&param_string=$matches[2]';
   add_rewrite_rule($regex, $redirect, 'top');
 }
