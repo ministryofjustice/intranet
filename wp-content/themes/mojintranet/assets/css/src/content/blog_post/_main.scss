@@ -70,14 +70,13 @@
 
     .comment-form {
       &.active {
-        .submit,
-        .cancel {
-          display: inline-block;
-        }
-
         textarea {
           height: 100px;
           transition: height .15s;
+        }
+
+        .misc {
+          display: block;
         }
       }
 
@@ -91,12 +90,34 @@
         padding: 10px;
         border: 1px solid $grey-2;
       }
+
+      .limit-reached-msg {
+        display: none;
+        color: $red;
+        font-weight: bold;
+        vertical-align: middle;
+      }
+
+      &.character-limit-reached {
+        .limit-reached-msg {
+          display: inline-block;
+        }
+
+        .submit {
+          opacity: 0.5;
+        }
+      }
+
+      .misc {
+        display: none;
+      }
     }
 
     .submit,
     .cancel {
+      display: inline-block;
       margin-right: 10px;
-      display: none;
+      vertical-align: middle;
     }
   }
 

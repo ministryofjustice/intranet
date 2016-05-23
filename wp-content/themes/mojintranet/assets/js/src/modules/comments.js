@@ -11,6 +11,10 @@
 
   App.Comments.prototype = {
     init: function() {
+      this.settings = {
+        characterLimit: 10
+      };
+
       this.postId = $('.template-container').attr('data-post-id');
       this.applicationUrl = $('head').data('application-url');
       this.serviceUrl = this.applicationUrl + '/service/comments/' + this.postId;
@@ -70,16 +74,26 @@
     initializeCommentForm: function() {
       var _this = this;
       var $form = this.initializeForm(this.$top.find('.comment-form-container'));
+      var $textarea = $form.find('[name="comment"]');
+      var commentTooLong = false;
 
-      $form.find('[name="comment"]').focus(function() {
-        _this.validation.reset();
-        _this.$top.find('.comment-form.reply-form').remove();
-        $form.addClass('active');
-      });
+      $textarea
+        .focus(function() {
+          _this.validation.reset();
+          _this.$top.find('.comment-form.reply-form').remove();
+          $form.addClass('active');
+        })
+        .keyup(function() {
+          commentTooLong = $textarea.val().length > _this.settings.characterLimit;
+          $form.toggleClass('character-limit-reached', commentTooLong);
+          $form.find('.cta.submit').prop('disabled', commentTooLong);
+        });
+
       $form.find('.cta.cancel').click(function() {
         _this.validation.reset();
-        $form.removeClass('active');
+        $form.removeClass('active character-limit-reached');
       });
+
       $form.submit($.proxy(this.submitForm, this));
     },
 
