@@ -170,6 +170,8 @@
       @extend %medium-copy;
       margin-top: 5px;
       margin-bottom: 10px;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .toggle-replies,
