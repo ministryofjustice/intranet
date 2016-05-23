@@ -12,7 +12,7 @@
   App.Comments.prototype = {
     init: function() {
       this.settings = {
-        characterLimit: 10
+        characterLimit: 500
       };
 
       this.postId = $('.template-container').attr('data-post-id');

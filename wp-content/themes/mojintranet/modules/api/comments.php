@@ -46,12 +46,18 @@ class Comments_API extends API {
   protected function update() {
     $this->MVC->model('bad_words');
 
+    //validate the form
     $val = new Validation();
 
     if($this->MVC->model->bad_words->has_bad_words($this->put('comment'))) {
       $val->error('comment', 'comment', '', 'bad_words');
     }
 
+    if(strlen($this->put('comment')) > 500) {
+      $val->error('comment', 'comment', 'The comment is too long');
+    }
+
+    //add comment
     if(!$val->has_errors()) {
       $data = $this->MVC->model->comments->update(
         $this->params['post_id'],
