@@ -44,12 +44,13 @@
 
     loadMore: function() {
       var _this = this;
-
+      var lastId = this.getLastId() || 0;
+      var url = this.serviceUrl + '/' + [0, lastId].join('/');
       _this.$loadMoreContainer.addClass('loading');
 
       /* use the timeout for dev/debugging purposes */
       //**/window.setTimeout(function() {
-        $.getJSON(_this.serviceUrl, $.proxy(_this.displayComments, _this));
+        $.getJSON(url, $.proxy(_this.displayComments, _this));
       //**/}, 2000);
     },
 
@@ -149,10 +150,11 @@
 
     loadComments: function() {
       var _this = this;
+      var url = this.serviceUrl + '/' + [0, 0].join('/');
 
       /* use the timeout for dev/debugging purposes */
       //**/window.setTimeout(function() {
-        _this.serviceXHR = $.getJSON(_this.serviceUrl, $.proxy(_this.displayComments, _this));
+        _this.serviceXHR = $.getJSON(url, $.proxy(_this.displayComments, _this));
       //**/}, 2000);
     },
 
@@ -182,6 +184,10 @@
 
       this.$commentsCount.find('.count').html(data.total_comments);
       this.$loadMoreContainer.removeClass('loading');
+
+      if(data.retrieved_comments === 0) {
+        this.$loadMoreContainer.addClass('hidden');
+      }
 
       App.ins.like.initializeLikes();
     },
@@ -285,6 +291,11 @@
       else if(state === 'loading') {
         $comment.addClass('loading');
       }
+    },
+
+    getLastId: function() {
+      var $lastComment = this.$top.find('.comment:not(.reply)').last();
+      return $lastComment.attr('data-comment-id');
     }
   };
 }(jQuery));

@@ -201,6 +201,10 @@
       }
     }
 
+    &.hidden {
+      display: none;
+    }
+
     .load-more {
       display: inline-block;
     }
