@@ -32,7 +32,7 @@ class Header_model extends MVC_model {
       'laa' => array(
         'label' => 'Legal Aid Agency',
         'url' => 'http://intranet.justice.gsi.gov.uk/laa/',
-        'is_integrated' => true
+        'is_integrated' => false
       ),
       'hq' => array(
         'label' => 'Ministry of Justice HQ',
@@ -53,7 +53,7 @@ class Header_model extends MVC_model {
       'opg' => array(
         'label' => 'Office of the Public Guardian',
         'url' => 'http://intranet.justice.gsi.gov.uk/opg/index.htm',
-        'is_integrated' => true
+        'is_integrated' => false
       ),
       'ospt' => array(
         'label' => 'Official Solicitor and Public Trustee',
