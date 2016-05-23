@@ -12,7 +12,7 @@
   App.Comments.prototype = {
     init: function() {
       this.settings = {
-        characterLimit: 500,
+        characterLimit: 2000,
         commentsPerPage: 10
       };
 

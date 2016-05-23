@@ -53,7 +53,7 @@ class Comments_API extends API {
       $val->error('comment', 'comment', '', 'bad_words');
     }
 
-    if(strlen($this->put('comment')) > 500) {
+    if(strlen($this->put('comment')) > 2000) {
       $val->error('comment', 'comment', 'The comment is too long');
     }
 
