@@ -24,6 +24,11 @@
 
   .site-logo {
     display: block;
+    visibility: hidden;
+
+    &.visible {
+      visibility: visible;
+    }
 
     a {
       display: inline-block;
@@ -32,6 +37,24 @@
     img {
       width: 254px;
       height: 36px;
+    }
+  }
+
+  .site-logo-hq {
+    visibility: hidden;
+    text-align: right;
+
+    &.visible {
+      visibility: visible;
+    }
+
+    a {
+      display: inline-block;
+    }
+
+    img {
+      width: 127px;
+      height: 18px;
     }
   }
 
@@ -115,6 +138,10 @@
 
     .search-form {
       margin: 20px 0;
+    }
+
+    .keywords-field {
+      border: none;
     }
 
     .search-btn {

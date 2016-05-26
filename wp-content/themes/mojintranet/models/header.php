@@ -8,10 +8,18 @@ class Header_model extends MVC_model {
   }
 
   private function _get_agencies() {
+    /** Key names and their meaning:
+     * label - the full name of the agency
+     * short_label - short name, such as HMCTS
+     * url - url of the external site that goes into the My MoJ section
+     * url_label - alternative label on the external link; label is used as fallback
+     * is_integrated - whether the agency is already integrated into the intranet or not
+     */
     return array(
       'hmcts' => array(
         'label' => 'HM Courts &amp; Tribunals Service',
         'url' => 'http://libra.lcd.gsi.gov.uk/hmcts/index.htm',
+        'url_label' => 'HMCTS Archive',
         'is_integrated' => true
       ),
       'judicial-appointments-commission' => array(

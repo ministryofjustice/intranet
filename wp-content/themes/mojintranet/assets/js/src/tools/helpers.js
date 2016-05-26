@@ -25,7 +25,7 @@
       },
 
       getData: function(agency) {
-        return this.agencies[agency];
+        return this.agencies[agency || this.get()];
       },
 
       getCookie: function() {

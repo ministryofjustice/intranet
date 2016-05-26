@@ -22,15 +22,36 @@
 
       this.updateAgencyFromUrl();
       this.addAgencyAttribute();
+      this.updateLogo();
       this.updateHomepageHeading();
       this.hideContent();
     },
 
     cacheEls: function() {
+      this.$mainLogoBox = $('.site-logo');
+      this.$smallLogoBox = $('.site-logo-hq');
     },
 
     addAgencyAttribute: function() {
       $('html').attr('data-agency', this.agency);
+    },
+
+    updateLogo: function() {
+      var agency = window.App.tools.helpers.agency.get();
+      var $logo = this.$mainLogoBox.find('img');
+      var agencyData = window.App.tools.helpers.agency.getData();
+      var agencyImgSrc = $logo.attr('src').replace('moj_logo', 'moj_logo_' + agency);
+
+      if(agency !== 'hq') {
+        $logo
+          .attr('src', agencyImgSrc)
+          .attr('alt', agencyData.label + ' logo');
+
+        this.$smallLogoBox.addClass('visible');
+      }
+
+      this.$mainLogoBox.addClass('visible');
+
     },
 
     updateHomepageHeading: function() {
@@ -45,7 +66,7 @@
         $agencyLinkList.toggleClass('hidden', agencyData.url === '');
         $agencyLinkList.find('.agency').attr('data-department', this.agency);
         $agencyLinkList.find('a').attr('href', agencyData.url);
-        $agencyLinkList.find('.label').html(agencyData.label);
+        $agencyLinkList.find('.label').html(agencyData.url_label || agencyData.label);
       }
     },
 

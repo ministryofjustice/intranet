@@ -11,9 +11,14 @@
     <p>We are working towards improving your mobile intranet experience - please bear with us.</p>
   </div>
   <div class="grid header-top">
+    <div class="site-logo-hq col-lg-12 col-md-12 col-sm-12">
+      <a href="<?=WP_SITEURL?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home">
+        <img src="<?=get_template_directory_uri()?>/assets/images/logos/moj_logo.png" alt="Ministry of Justice logo" />
+      </a>
+    </div>
     <div class="site-logo col-lg-6 col-md-6 col-sm-12">
       <a href="<?=WP_SITEURL?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home">
-        <img src="<?=get_template_directory_uri()?>/assets/images/moj_logo.png" alt="Ministry of Justice logo" />
+        <img src="<?=get_template_directory_uri()?>/assets/images/logos/moj_logo.png" alt="Ministry of Justice logo" />
       </a>
     </div>
     <div class="user-bar col-lg-6 col-md-6 col-sm-12">
