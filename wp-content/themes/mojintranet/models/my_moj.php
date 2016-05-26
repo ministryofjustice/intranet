@@ -110,7 +110,7 @@ class My_moj_model extends MVC_model {
         ],
         [
           'title' => 'Court and Tribunal Finder',
-          'icon' => 'court-and-tribunal-finder',
+          'icon' => 'court-finder',
           'url' => 'https://courttribunalfinder.service.gov.uk/search/',
           'external' => true,
         ],

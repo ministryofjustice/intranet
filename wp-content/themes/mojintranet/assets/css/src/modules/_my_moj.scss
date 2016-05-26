@@ -79,6 +79,10 @@
         background-position: -$icon-size 0;
       }
 
+      &.court-finder-icon {
+        background-position: -$icon-size*1 0;
+      }
+
       &.travel-booking-icon {
         background-position: -$icon-size*2 0;
       }
@@ -109,6 +113,10 @@
 
       &.pension-icon {
         background-position: -$icon-size*9 0;
+      }
+
+      &.form-finder-icon {
+        background-position: -$icon-size*10 0;
       }
 
       &.room-booking-icon {
