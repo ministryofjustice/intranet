@@ -35,7 +35,6 @@
     }
 
     img {
-      width: 254px;
       height: 36px;
     }
   }
@@ -167,6 +166,10 @@
         padding: 8px 15px;
         text-align: center;
       }
+    }
+
+    .site-logo img {
+      height: 27px;
     }
 
     .skip-to-content-container {

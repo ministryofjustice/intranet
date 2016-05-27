@@ -40,9 +40,10 @@
       var agency = window.App.tools.helpers.agency.get();
       var $logo = this.$mainLogoBox.find('img');
       var agencyData = window.App.tools.helpers.agency.getData();
+      var isIntegrated = window.App.tools.helpers.agency.isIntegrated();
       var agencyImgSrc = $logo.attr('src').replace('moj_logo', 'moj_logo_' + agency);
 
-      if(agency !== 'hq') {
+      if(agency !== 'hq' && isIntegrated) {
         $logo
           .attr('src', agencyImgSrc)
           .attr('alt', agencyData.label + ' logo');
