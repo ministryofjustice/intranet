@@ -60,6 +60,7 @@
       var $homepage = $('.template-home');
       var $homeHeading = $('.template-home h1');
       var $agencyLinkList = $('.agency-link-list');
+      var $agencyAbbreviation = $('.agency-abbreviation');
 
       if($homepage.length) {
         $homeHeading.html(agencyData.label);
@@ -68,6 +69,7 @@
         $agencyLinkList.find('.agency').attr('data-department', this.agency);
         $agencyLinkList.find('a').attr('href', agencyData.url);
         $agencyLinkList.find('.label').html(agencyData.url_label || agencyData.label);
+        $agencyAbbreviation.text(agencyData.abbreviation);
       }
     },
 

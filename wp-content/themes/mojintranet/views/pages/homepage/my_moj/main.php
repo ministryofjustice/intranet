@@ -6,7 +6,7 @@
   </p>
 
   <div class="apps-container mobile-collapsed">
-    <h2 class="category-name">My MoJ</h2>
+    <h2 class="category-name">My <span class="agency-abbreviation"></span></h2>
     <ul class="agency-link-list hidden">
       <li class="agency" data-department="opg">
         <a class="agency-link" href="" rel="external">
