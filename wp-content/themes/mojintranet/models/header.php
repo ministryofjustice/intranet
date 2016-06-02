@@ -21,6 +21,7 @@ class Header_model extends MVC_model {
         'abbreviation' => 'HMCTS',
         'url' => 'http://libra.lcd.gsi.gov.uk/hmcts/index.htm',
         'url_label' => 'HMCTS Archive',
+        'blog_url' => 'http://hmcts.blogs.justice.gov.uk',
         'is_integrated' => true
       ),
       'judicial-appointments-commission' => array(
