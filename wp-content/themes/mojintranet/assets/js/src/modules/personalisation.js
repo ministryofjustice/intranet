@@ -17,11 +17,13 @@
       };
 
       this.agency = window.App.tools.helpers.agency.get();
+      this.agencyData = window.App.tools.helpers.agency.getData();
 
       this.cacheEls();
 
       this.updateAgencyFromUrl();
       this.addAgencyAttribute();
+      this.initializeMenu();
       this.updateLogo();
       this.updateHomepageHeading();
       this.hideContent();
@@ -34,6 +36,16 @@
 
     addAgencyAttribute: function() {
       $('html').attr('data-agency', this.agency);
+    },
+
+    initializeMenu: function() {
+      var $menu = $('.header-menu');
+
+      if(this.agencyData.blog_url) {
+        $menu.find('.main-nav-blog a').attr('href', this.agencyData.blog_url);
+      }
+
+      $menu.addClass('loaded');
     },
 
     updateLogo: function() {

@@ -13,6 +13,7 @@ class Header_model extends MVC_model {
      * short_label - short name, such as HMCTS
      * url - url of the external site that goes into the My MoJ section
      * url_label - alternative label on the external link; label is used as fallback
+     * blog url - custom url for main menu blog
      * is_integrated - whether the agency is already integrated into the intranet or not
      */
     return array(
