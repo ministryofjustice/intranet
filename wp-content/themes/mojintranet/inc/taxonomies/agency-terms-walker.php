@@ -113,6 +113,14 @@ class Walker_Agency_Terms extends Walker {
      * @param array  $args     An array of arguments. @see wp_terms_checklist()
      */
     public function end_el( &$output, $category, $depth = 0, $args = array() ) {
-        $output .= "</li>\n";
+
+        $context = Agency_Context::get_agency_context();
+        $context_term = get_term_by('slug', $context, 'agency');
+
+        $term_agencies = get_field('term_used_by', $category->taxonomy.'_'.$category->term_id);
+
+        if(in_array($context_term->term_id, $term_agencies)) {
+            $output .= "</li>\n";
+        }
     }
 }
