@@ -30,14 +30,13 @@ class Content_Category extends Taxonomy {
 
     public function context_has_terms() {
         $terms = get_terms($this->name,array('hide_empty' => 0));
-        $context = Agency_Context::get_agency_context();
-        $context_term = get_term_by('slug', $context, 'agency');
+        $context = Agency_Context::get_agency_context('term_id');
         $has_terms = false;
 
         foreach ($terms as $term){
             $term_agencies = get_field('term_used_by', $this->name.'_'.$term->term_id);
 
-            if(in_array($context_term->term_id, $term_agencies)) {
+            if(in_array($context, $term_agencies)) {
                 $has_terms = true;
             }
         }

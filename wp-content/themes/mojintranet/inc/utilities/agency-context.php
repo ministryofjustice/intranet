@@ -75,7 +75,7 @@ class Agency_Context {
      *
      * @return string
      */
-    public static function get_agency_context() {
+    public static function get_agency_context($return_val = 'slug') {
         $user_id = get_current_user_id();
         $agency = get_user_meta($user_id, 'agency_context', true);
         $available = self::current_user_available_agencies();
@@ -90,6 +90,11 @@ class Agency_Context {
             }
 
             self::set_agency_context($agency);
+        }
+
+        if($return_val == 'term_id') {
+            $context_term = get_term_by('slug', $agency, 'agency');
+            $agency = $context_term->term_id;
         }
 
         return $agency;

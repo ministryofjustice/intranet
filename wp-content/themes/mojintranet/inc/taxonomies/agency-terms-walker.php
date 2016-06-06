@@ -51,12 +51,11 @@ class Walker_Agency_Terms extends Walker {
      */
     public function start_el( &$output, $category, $depth = 0, $args = array(), $id = 0 ) {
 
-        $context = Agency_Context::get_agency_context();
-        $context_term = get_term_by('slug', $context, 'agency');
-
+        $context = Agency_Context::get_agency_context('term_id');
+        
         $term_agencies = get_field('term_used_by', $category->taxonomy.'_'.$category->term_id);
 
-        if(in_array($context_term->term_id, $term_agencies)) {
+        if(in_array($context, $term_agencies)) {
             
             if (empty($args['taxonomy'])) {
                 $taxonomy = 'category';
@@ -114,12 +113,11 @@ class Walker_Agency_Terms extends Walker {
      */
     public function end_el( &$output, $category, $depth = 0, $args = array() ) {
 
-        $context = Agency_Context::get_agency_context();
-        $context_term = get_term_by('slug', $context, 'agency');
+        $context = Agency_Context::get_agency_context('term_id');
 
         $term_agencies = get_field('term_used_by', $category->taxonomy.'_'.$category->term_id);
 
-        if(in_array($context_term->term_id, $term_agencies)) {
+        if(in_array($context, $term_agencies)) {
             $output .= "</li>\n";
         }
     }
