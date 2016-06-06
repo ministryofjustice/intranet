@@ -1,3 +1,5 @@
+$grid-size: 40px;
+
 .agency-overlay-visible #content {
   display: none;
 }
@@ -52,14 +54,38 @@
 
     .icon {
       float: left;
-      width: 26px;
-      height: 26px;
-      margin-top: -4px;
-      margin-right: 5px;
-      background-image: url('../images/department_crest_x2.png');
-      background-position: -12px -12px;
-      background-size: auto 50px;
+      width: 40px;
+      height: 40px;
+      margin-top: -10px;
+      margin-right: 10px;
+      background-image: url('../images/agency_logos_x2.png');
+      background-position: 0 0;
+      background-size: auto 40px;
       vertical-align: middle;
+    }
+
+    &[data-agency="laa"],
+    &[data-agency="hmcts"],
+    &[data-agency="judicial-office"],
+    &[data-agency="noms"],
+    &[data-agency="opg"],
+    &[data-agency="ospt"],
+    &[data-agency="hq"] {
+      .icon {
+        background-position: 0 0;
+      }
+    }
+
+    &[data-agency="judicial-appointments-commission"] .icon {
+      background-position: (-$grid-size * 1);
+    }
+
+    &[data-agency="law-commission"] .icon {
+      background-position: (-$grid-size * 2);
+    }
+
+    &[data-agency="nps"] .icon {
+      background-position: (-$grid-size * 3);
     }
 
     .label {
