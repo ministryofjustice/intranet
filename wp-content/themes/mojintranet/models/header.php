@@ -10,7 +10,7 @@ class Header_model extends MVC_model {
   private function _get_agencies() {
     /** Key names and their meaning:
      * label - the full name of the agency
-     * short_label - short name, such as HMCTS
+     * abbreviation - short name, such as HMCTS
      * url - url of the external site that goes into the My MoJ section
      * url_label - alternative label on the external link; label is used as fallback
      * blog url - custom url for main menu blog
