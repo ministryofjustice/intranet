@@ -3,14 +3,19 @@
 abstract class MVC_loader {
   public $model;
 
+  const DS = '/';
+
   function __construct() {
     $this->model = new stdClass();
 
-    $this->template_path = get_template_directory().'/';
-    $this->views_dir = 'views/';
-    $this->views_path = $this->template_path.$this->views_dir;
-    $this->models_dir = 'models/';
-    $this->models_path = $this->template_path.$this->models_dir;
+    $this->settings = [
+      'views_dir' => 'views',
+      'models_dir' => 'models'
+    ];
+
+    $this->template_path = get_template_directory() . $this::DS;
+    $this->views_path = $this->template_path . $this->settings['views_dir'] . $this::DS;
+    $this->models_path = $this->template_path . $this->settings['models_dir'] . $this::DS;
   }
 
   public function model($name) {
@@ -24,9 +29,9 @@ abstract class MVC_loader {
     }
   }
 
-  public function view($path, $data = array(), $return_as_string = false) {
+  public function view($path, $data = [], $return_as_string = false) {
     if(is_array($data)) {
-      foreach($data as $key=>$value){
+      foreach($data as $key=>$value) {
         $$key = $value;
       }
     }

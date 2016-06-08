@@ -28,10 +28,10 @@ class DW_MVC {
     include_once($this->plugin_path.'Model.php');
 
     if(!is_admin()) {
-      add_action('init', array(&$this, 'action_query_vars'), 1);
-      add_action('wp', array(&$this, 'action_route'));
-      add_action('activated_plugin', array(&$this, 'action_load_first'), 1);
-      add_action('after_setup_theme', array(&$this, 'action_unhook_document_revisions_auth'), 1);
+      add_action('init', [&$this, 'action_query_vars'], 1);
+      add_action('wp', [&$this, 'action_route']);
+      add_action('activated_plugin', [&$this, 'action_load_first'], 1);
+      add_action('after_setup_theme', [&$this, 'action_unhook_document_revisions_auth'], 1);
     }
   }
 
@@ -83,7 +83,7 @@ class DW_MVC {
   function action_load_first() {
     $path = str_replace(WP_PLUGIN_DIR . '/', '', __FILE__);
     if($plugins = get_option('active_plugins')) {
-      if($key = array_search($path, $plugins )) {
+      if($key = array_search($path, $plugins)) {
         array_splice($plugins, $key, 1);
         array_unshift($plugins, $path);
         update_option('active_plugins', $plugins);
@@ -101,7 +101,7 @@ class DW_MVC {
   function action_unhook_document_revisions_auth() {
     global $wpdr;
     if(isset($wpdr)) {
-      remove_action('after_setup_theme', array(&$wpdr, 'auth_webdav_requests'));
+      remove_action('after_setup_theme', [&$wpdr, 'auth_webdav_requests']);
     }
   }
 }
