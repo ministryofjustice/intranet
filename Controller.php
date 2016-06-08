@@ -12,7 +12,7 @@ abstract class MVC_controller extends MVC_loader {
     }
 
     $this->_get_segments($param_string);
-    $this->_get_wp_header();
+    $this->wp_head = $this->_get_wp_header();
 
     if($this->is_plugin) {
       $this->main();
@@ -43,6 +43,6 @@ abstract class MVC_controller extends MVC_loader {
     _wp_admin_bar_init();
     ob_start();
     wp_head();
-    $this->wp_head = ob_get_clean();
+    return ob_get_clean();
   }
 }

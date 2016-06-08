@@ -6,19 +6,18 @@ abstract class MVC_loader {
   function __construct() {
     $this->model = new stdClass();
 
-    //determine views and models directories
-    $info = new ReflectionClass($this);
-    $instance_dir = realpath(dirname($info->getFileName()));
-    $this->is_plugin = strpos($instance_dir, realpath(WP_PLUGIN_DIR)) === 0;
-    $this->views_dir = $this->is_plugin ? $instance_dir.'/'.MVC_VIEWS_DIR : MVC_VIEWS_PATH;
-    $this->models_dir = $this->is_plugin ? $instance_dir.'/'.MVC_MODELS_DIR : MVC_MODELS_PATH;
+    $this->template_path = get_template_directory().'/';
+    $this->views_dir = 'views/';
+    $this->views_path = $this->template_path.$this->views_dir;
+    $this->models_dir = 'models/';
+    $this->models_path = $this->template_path.$this->models_dir;
   }
 
   public function model($name) {
     $class_name = ucfirst($name . '_model');
 
     if(!method_exists($this->model, $name)) {
-      include_once($this->models_dir . $name . '.php');
+      include_once($this->models_path . $name . '.php');
 
       $instance = new $class_name;
       $this->model->$name =& $instance;
@@ -33,7 +32,7 @@ abstract class MVC_loader {
     }
 
     ob_start();
-    include($this->views_dir.$path.'.php');
+    include($this->views_path.$path.'.php');
     $html = ob_get_clean();
 
     if($return_as_string) {
