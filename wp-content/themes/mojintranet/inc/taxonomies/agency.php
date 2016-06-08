@@ -347,11 +347,21 @@ class Agency extends Taxonomy {
         if (in_array($post_type, $this->object_types)) {
             $action = $_GET['action'];
             $agency = Agency_Context::get_agency_context();
+            $terms = [];
+            $current_terms = wp_get_post_terms($post_id, 'agency');
 
-            $terms = array('hq');
+            //wp_get_post_terms doesn't have the option to return just term slugs
+            foreach ($current_terms as $term) {
+                $terms[] = $term->slug;
+            }
 
             if ($action == 'opt-in') {
                 $terms[] = $agency;
+            }
+            else {
+                if (($key = array_search($agency, $terms)) !== false) {
+                    unset($terms[$key]);
+                }
             }
 
             wp_set_object_terms($post_id, $terms, 'agency');
