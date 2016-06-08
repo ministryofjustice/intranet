@@ -7,8 +7,8 @@
 $taxonomies = array(
     // filename => array("dir" => 'directory', "class-name" => 'Class_Name')
     'agency' => array("dir" => false, "class-name" => 'Agency'),
-    'laa-region' => array("dir" => 'laa', "class-name" => 'LAA_Region'),
-    'hmcts-region' => array("dir" => 'hmcts', "class-name" => 'HMCTS_Region'),
+    //'laa-region' => array("dir" => 'laa', "class-name" => 'LAA_Region'),
+    //'hmcts-region' => array("dir" => 'hmcts', "class-name" => 'HMCTS_Region'),
 );
 
 require_once 'taxonomies/taxonomy.php';
