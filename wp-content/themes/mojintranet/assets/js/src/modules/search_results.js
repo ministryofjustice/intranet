@@ -315,8 +315,9 @@
       var type = this.$searchType.find('option:selected').val();
 
       var base = {
+        'agency': 'hq',
+        'additional_filters': '',
         'type': type,
-        'category': '',
         'keywords': keywords,
         'page': page,
         'resultsPerPage': 10

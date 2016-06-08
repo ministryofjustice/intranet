@@ -24,13 +24,16 @@ class Children_API extends API {
 
   protected function parse_params($params) {
     $this->params = array(
-      'page_id' => (int) $params[0],
-      'order' => $params[1]
+      'agency' => $params[0],
+      'additional_params' => $params[1],
+      'page_id' => (int) $params[2],
+      'order' => $params[3]
     );
   }
 
   protected function get_children() {
-    $data = call_user_func_array(array($this->MVC->model->children, 'get_data_recursive'), $this->params);
+    $options = $this->add_taxonomies($this->params);
+    $data = $this->MVC->model->children->get_data_recursive($options);
     //$data['url_params'] = $this->params;
     $this->response($data, 200, 120);
   }

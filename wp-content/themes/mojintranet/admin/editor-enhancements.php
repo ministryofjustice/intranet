@@ -83,17 +83,23 @@ function pageparent_box($post) {
   //get current parent
   global $post;
   $load_image_url =  get_template_directory_uri() . '/admin/images/pageparent.gif';
-  $parent_page = get_the_title(wp_get_post_parent_id($post->ID));
+  $parent_page = wp_get_post_parent_id($post->ID);
 
   //populate template list
   $current_template = get_post_meta($post->ID,'_wp_page_template',true);
-  $template_file = str_replace('.php','',$current_template);
-  $themeselect = '<select id="page_template" name="page_template">
-          <option value="default">Default Template</option>';
+
+  $disabled = '';
+  if (in_array($current_template, Agency_Editor::$restricted_templates) && !current_user_can('administrator')) {
+    $disabled = 'disabled="disabled"';
+  }
+
+  $themeselect = '<select id="page_template" name="page_template" ' . $disabled . '>';
   $templates = get_page_templates();
   foreach ( $templates as $template_name => $template_filename ) {
-    $select = $current_template==$template_filename?'selected="selected"':"";
-    $themeselect.= '<option value="'.$template_filename.'" '.$select.'>'.$template_name.'</option>';
+    if (!in_array($template_filename, Agency_Editor::$restricted_templates) || $current_template == $template_filename || current_user_can('administrator')) {
+      $select = $current_template == $template_filename ? 'selected="selected"' : "";
+      $themeselect .= '<option value="' . $template_filename . '" ' . $select . '>' . $template_name . '</option>';
+    }
   }
   $themeselect.= '</select>';
 
@@ -101,9 +107,19 @@ function pageparent_box($post) {
   <p><strong>Current Template:</strong></p>
   <?php echo $themeselect;?>
   <p><strong>Current Parent:</strong></p>
-  <div>
-    <?php echo $parent_page; ?>
-  </div>
+
+    <div>
+      <?php
+
+      if ($parent_page) {
+        echo get_the_title($parent_page);
+      }
+      else {
+        echo 'None';
+      }
+      ?>
+    </div>
+
   <p><strong>New Parent Page:</strong></p>
   <input type="text" name="pageparent-filterbox" id="pageparent-filterbox" autocomplete="off" placeholder="Start typing...">
   <input type="hidden" name="parent_id" id="parent_id" readonly="readonly" value="<?php echo $post->post_parent; ?>">

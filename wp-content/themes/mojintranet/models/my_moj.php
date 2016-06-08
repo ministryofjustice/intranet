@@ -1,7 +1,9 @@
 <?php if (!defined('ABSPATH')) die();
 
 class My_moj_model extends MVC_model {
-  function get_data($agency = 'hq') {
+  function get_data($options) {
+    $agency = $options['agency'] ?: 'hq';
+
     return array(
       'quick_links' => $this->get_quick_links($agency),
       'apps' => $this->get_apps($agency)
@@ -79,6 +81,13 @@ class My_moj_model extends MVC_model {
         'icon' => 'webchat',
         'url' => site_url('/webchats/'),
         'external' => false,
+        'agency' => array('hq', 'hmcts', 'opg', 'laa')
+      ),
+      array(
+        'title' => 'Room Booking',
+        'icon' => 'room-booking',
+        'url' => 'https://app.matrixbooking.com/',
+        'external' => true,
         'agency' => array('hq', 'hmcts', 'opg', 'laa')
       )
     );

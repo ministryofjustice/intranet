@@ -1,7 +1,9 @@
 <?php
 
 class Follow_us_model extends MVC_model {
-  function get_data($agency = 'hq') {
+  function get_data($options) {
+    $agency = $options['agency'] ?: 'hq';
+
     $links = array(
       array(
         'url' => 'https://twitter.com/MoJGovUK',

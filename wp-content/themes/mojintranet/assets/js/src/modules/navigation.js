@@ -12,7 +12,7 @@
       this.applicationUrl = $('head').data('application-url');
       this.templateUri = $('head').data('template-uri');
       this.postId = this.$top.attr('data-page-id');
-      this.serviceUrl = this.applicationUrl + '/service/children/' + this.postId + '/';
+      this.serviceUrl = this.applicationUrl + '/service/children/hq//' + this.postId + '/';
 
       this.cacheEls();
       this.cacheTemplates();
