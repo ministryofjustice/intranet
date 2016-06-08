@@ -26,6 +26,7 @@
       this.initializeMenu();
       this.updateLogo();
       this.updateHomepageHeading();
+      this.updateSearchPlaceholder();
       this.hideContent();
     },
 
@@ -83,6 +84,12 @@
         $agencyLinkList.find('.label').html(agencyData.url_label || agencyData.label);
         $agencyAbbreviation.text(agencyData.abbreviation);
       }
+    },
+
+    updateSearchPlaceholder: function() {
+      var $keywordsField = $('.search-form .keywords-field');
+
+      $keywordsField.attr('placeholder', 'Search ' + this.agencyData.abbreviation + ' intranet');
     },
 
     hideContent: function() {
