@@ -73,9 +73,10 @@ class Agency_Context {
      * If the user doesn't have a context, default to one of the users'
      * available agencies, with a preference for HQ.
      *
-     * @return string
+     * @param string $return_field The field that you want returned for the current agency. Default: slug
+     * @return string The requested field value for the current agency
      */
-    public static function get_agency_context($return_val = 'slug') {
+    public static function get_agency_context($return_field = 'slug') {
         $user_id = get_current_user_id();
         $agency = get_user_meta($user_id, 'agency_context', true);
         $available = self::current_user_available_agencies();
@@ -92,11 +93,11 @@ class Agency_Context {
             self::set_agency_context($agency);
         }
 
-        if($return_val == 'term_id') {
-            $context_term = get_term_by('slug', $agency, 'agency');
-            $agency = $context_term->term_id;
+        if ($return_field == 'slug') {
+          return $agency;
+        } else {
+          $context_term = get_term_by('slug', $agency, 'agency');
+          return $context_term->{$return_field};
         }
-
-        return $agency;
     }
 }
