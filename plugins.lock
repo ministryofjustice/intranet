@@ -37,7 +37,7 @@
     "pods": {
         "repository": "git@git.dxw.net:wordpress-plugins/pods",
         "revision": "master",
-        "commit": "44c196faf8ffd2d3d085e358721308e6cbe57390"
+        "commit": "ae7bd28d29451e5235bd051be6efe4bbf7eb91af"
     },
     "recently-edited-content-widget": {
         "repository": "git@git.dxw.net:wordpress-plugins/recently-edited-content-widget",
@@ -52,7 +52,7 @@
     "relevanssi-premium": {
         "repository": "git@git.dxw.net:wordpress-plugins/relevanssi-premium",
         "revision": "master",
-        "commit": "904b651d04465b9a84deb4e1ac66f74790a4bba2"
+        "commit": "e633b63c58cbaac8596a180e28c6f689679601e7"
     },
     "shortcode-ui": {
         "repository": "git@github.com:wp-shortcake/shortcake.git",
