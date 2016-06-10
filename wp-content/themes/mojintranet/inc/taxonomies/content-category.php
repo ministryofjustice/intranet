@@ -9,9 +9,16 @@ class Content_Category extends Taxonomy {
     public function __construct() {
         parent::__construct();
 
+        $this->set_role_permissions();
+
+        add_action('admin_menu', array($this, 'remove_default_meta_box'));
+        add_action('add_meta_boxes', array($this, 'add_custom_category_meta_box'));
+    }
+
+    public function set_role_permissions() {
         $administrator = get_role('administrator');
 
-        if(array_key_exists($this->args['capabilities']['assign_terms'],$administrator->capabilities) == false) {
+        if (array_key_exists($this->args['capabilities']['assign_terms'], $administrator->capabilities) == false) {
             $administrator->add_cap($this->args['capabilities']['manage_terms']);
             $administrator->add_cap($this->args['capabilities']['edit_terms']);
             $administrator->add_cap($this->args['capabilities']['delete_terms']);
@@ -23,20 +30,16 @@ class Content_Category extends Taxonomy {
             $agency_editor = get_role('agency-editor');
             $agency_editor->add_cap($this->args['capabilities']['assign_terms']);
         }
-
-        add_action('admin_menu', array($this, 'remove_default_meta_box'));
-        add_action('add_meta_boxes', array($this, 'add_custom_category_meta_box'));
     }
-
     public function context_has_terms() {
-        $terms = get_terms($this->name,array('hide_empty' => 0));
+        $terms = get_terms($this->name, array('hide_empty' => 0));
         $context = Agency_Context::get_agency_context('term_id');
         $has_terms = false;
 
         foreach ($terms as $term){
-            $term_agencies = get_field('term_used_by', $this->name.'_'.$term->term_id);
+            $term_agencies = get_field('term_used_by', $this->name . '_' . $term->term_id);
 
-            if(in_array($context, $term_agencies)) {
+            if (in_array($context, $term_agencies)) {
                 $has_terms = true;
             }
         }
@@ -59,15 +62,15 @@ class Content_Category extends Taxonomy {
     }
 
     public function show_custom_category_meta_box($post) {
-        echo '<div id="'.$this->name.'-all" class="tabs-panel categorydiv">';
-            echo '<ul id="'.$this->name.'checklist" class="list:'.$this->name.' categorychecklist form-no-clear">';
+        echo '<div id="' . $this->name . '-all" class="tabs-panel categorydiv">';
+            echo '<ul id="' . $this->name . 'checklist" class="list:' . $this->name . ' categorychecklist form-no-clear">';
 
                 $args = array (
-                    'taxonomy'              => $this->name,
-                    'walker'                => new \Walker_Agency_Terms,
+                    'taxonomy' => $this->name,
+                    'walker'   => new \Walker_Agency_Terms,
                 );
 
-                wp_terms_checklist( $post->ID, $args );
+                wp_terms_checklist($post->ID, $args);
 
             echo '</ul>';
         echo '</div>';
