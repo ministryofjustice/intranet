@@ -8,28 +8,22 @@
   </div>
 
   <div class="grid">
-    <div class="col-lg-12 col-md-12 col-sm-12">
-      <div class="agency-categories-box agency-only">
-        <h2 class="agency-name-heading"></h2>
-        <ul class="index-list agency-categories-list grid"></ul>
+    <div class="col-lg-6 col-md-6 col-sm-12">
+      <h2 class="the-moj-heading">The MoJ</h2>
+      <div class="agency-categories-box">
+        <ul class="index-list agency-categories-list"></ul>
       </div>
     </div>
 
-    <div class="col-lg-12 col-md-12 col-sm-12">
-      <h2 class="the-moj-heading agency-only">The MoJ</h2>
-      <div class="excerpt hq-only">
+    <div class="col-lg-6 col-md-6 col-sm-12">
+      <h2 class="agency-name-heading"></h2>
+      <!--<div class="excerpt hq-only">
         <?=$excerpt?>
-      </div>
-      <p class="agency-only">
-        <a class="toggle-global-categories-box" href="#">
-          <span class="expand-icon icon"></span>
-          Learn more about the MoJ
-        </a>
-      </p>
+      </div>-->
       <div class="global-categories-box">
         <ul class="index-list global-categories-list grid">
           <?php foreach($children_data as $category): ?>
-            <li class="category-item col-lg-4 col-md-4 col-sm-12">
+            <li class="category-item col-lg-12 col-md-12 col-sm-12">
               <h3 class="category-title">
                 <a href="<?=$category['url']?>"><?=$category['title']?></a>
               </h3>
@@ -45,10 +39,10 @@
             </li>
           <?php endforeach ?>
         </ul>
-
-        <?php $this->view('pages/about_us/category_item') ?>
-        <?php $this->view('pages/about_us/child_item') ?>
       </div>
     </div>
+
+    <?php $this->view('pages/about_us/category_item') ?>
+    <?php $this->view('pages/about_us/child_item') ?>
   </div>
 </div>

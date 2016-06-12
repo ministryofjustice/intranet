@@ -10,6 +10,13 @@ class Page_tree_model extends MVC_model {
   public function get_children($options = []) {
     $options = $this->_normalise_options($options);
 
+    if($options['tag']) {
+      $options['page_id'] = Taggr::get_id($options['tag']);
+      unset($options['tax_query']);
+      unset($options['agency']);
+      unset($options['additional_filters']);
+    }
+
     $data = $this->_format_row(get_post($options['page_id']));
 
     $data['children'] = $this->_get_children_recursive($options);
