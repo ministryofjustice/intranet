@@ -21,10 +21,11 @@
 
       this.cacheEls();
 
-      this.updateAgencyFromUrl();
+      this.setAgency();
       this.addAgencyAttribute();
       this.initializeMenu();
       this.updateLogo();
+
       this.updateHomepageHeading();
       this.updateSearchPlaceholder();
       this.hideContent();
@@ -113,14 +114,22 @@
       }
     },
 
-    updateAgencyFromUrl: function() {
+    setAgency: function() {
       var agency = App.tools.getUrlParam('agency');
+      var agencyTools = App.tools.helpers.agency;
 
+      //set agency from url
       if (typeof agency === 'string') {
-        App.tools.helpers.agency.set(agency);
+        agencyTools.set(agency);
         this.removeAgencyFromUrl();
-        this.agency = window.App.tools.helpers.agency.get();
       }
+
+      //set default agency in cookie if missing
+      if(!agencyTools.getCookie()) {
+        agencyTools.set(agencyTools.getForContent());
+      }
+
+      this.agency = window.App.tools.helpers.agency.get();
     },
 
     removeAgencyFromUrl: function() {
