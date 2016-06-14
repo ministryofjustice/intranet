@@ -129,7 +129,7 @@
         agencyTools.set(agencyTools.getForContent());
       }
 
-      this.agency = window.App.tools.helpers.agency.get();
+      this.agency = agencyTools.get();
     },
 
     removeAgencyFromUrl: function() {
