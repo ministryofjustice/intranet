@@ -148,9 +148,16 @@
 
     .agency {
       a {
-        @extend %large-copy;
+        @extend %medium-copy;
         display: block;
         padding: 0;
+      }
+
+      &.transformation {
+        a {
+          border: 1px solid #f71;
+          padding: 5px;
+        }
       }
     }
   }

@@ -81,7 +81,16 @@
         $agencyLinkList.toggleClass('hidden', agencyData.url === '');
         $agencyLinkList.find('.agency').attr('data-department', this.agency);
         $agencyLinkList.find('a').attr('href', agencyData.url);
-        $agencyLinkList.find('.label').html(agencyData.url_label || agencyData.label);
+        $agencyLinkList.find('.label').html(agencyData.url_label || agencyData.label + ' intranet');
+
+        if(agencyData.is_external) {
+          $agencyLinkList.find('.agency').attr('rel', 'external');
+        }
+
+        if(agencyData.classes) {
+          $agencyLinkList.find('.agency').addClass(agencyData.classes);
+        }
+
         $agencyAbbreviation.text(agencyData.abbreviation);
       }
     },
