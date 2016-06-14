@@ -315,7 +315,7 @@
       var type = this.$searchType.find('option:selected').val();
 
       var base = {
-        'agency': 'hq',
+        'agency': App.tools.helpers.agency.getForContent(),
         'additional_filters': '',
         'type': type,
         'keywords': keywords,

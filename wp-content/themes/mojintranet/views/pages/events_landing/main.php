@@ -11,21 +11,6 @@
   </div>
 
   <div class="grid">
-    <div class="col-lg-4 col-md-4 mobile-hide">&nbsp;</div>
-    <div class="col-lg-8 col-md-8 col-sm-12">
-      <ul role="tablist" class="content-tabs static">
-        <?php foreach($tabs as $tab): ?>
-          <li class="<?= $tab['selected'] ? 'current-menu-item' : '' ?>">
-            <a href="<?=$tab['url']?>">
-              <?=$tab['label']?>
-            </a>
-          </li>
-        <?php endforeach ?>
-      </ul>
-    </div>
-  </div>
-
-  <div class="grid">
     <div class="col-lg-4 col-md-4 col-sm-12">
       <h3 class="filters-label">Filter results</h3>
       <form class="content-filters">

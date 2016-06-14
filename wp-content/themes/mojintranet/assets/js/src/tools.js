@@ -220,6 +220,10 @@
       return string.charAt(0).toUpperCase() + string.substr(1);
     },
 
+    /** gets a param from the URL
+     * @param {String} param [optional] Param to get
+     * @returns {String|Object} The value of the param or an Object containing all params if param wasn't specified
+     */
     getUrlParam: function(param) {
       var url = window.location.href;
       var parts = url.split('?');
@@ -239,7 +243,7 @@
         params[key] = value;
       }
 
-      return params[param];
+      return param ? params[param] : params;
     },
 
     sortByKey: function(array, key) {

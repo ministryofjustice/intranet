@@ -8,7 +8,6 @@
   <script type="text/javascript" src="<?=get_template_directory_uri()?>/assets/js/respond.min.js"></script>
 <![endif]-->
 
-<!--<script type="text/javascript" src="<?=get_template_directory_uri()?>/assets/js/swfstore.js"></script>-->
 <script type="text/javascript" src="<?=get_template_directory_uri()?>/assets/js/app.js?<?=add_checksum_param('js/app.js')?>"></script>
 
 <?php wp_footer(); ?>

@@ -13,7 +13,7 @@
     init: function() {
       this.applicationUrl = $('head').data('application-url');
       this.templateUri = $('head').data('template-uri');
-      this.serviceUrl = this.applicationUrl + '/service/widgets/featured-news/hq//0/2';
+      this.serviceUrl = this.applicationUrl + '/service/widgets/featured-news/' + App.tools.helpers.agency.getForContent() + '//0/2';
       this.pageBase = this.applicationUrl + '/' + this.$top.data('top-level-slug');
       this.genericThumbnailPath = this.templateUri + '/assets/images/news-placeholder.jpg';
 

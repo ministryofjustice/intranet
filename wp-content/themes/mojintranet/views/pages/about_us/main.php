@@ -3,17 +3,31 @@
 <div class="template-container" data-top-level-slug="<?=$top_slug?>">
   <div class="grid">
     <div class="col-lg-12 col-md-12 col-sm-12">
-      <h1><?=$title?></h1>
-      <div class="excerpt">
-        <?=$excerpt?>
-      </div>
+      <h1 class="main-heading"><?=$title?></h1>
     </div>
   </div>
 
   <div class="grid">
     <div class="col-lg-12 col-md-12 col-sm-12">
-      <div class="guidance-categories">
-        <ul class="categories-list grid">
+      <div class="agency-categories-box agency-only">
+        <h2 class="agency-name-heading"></h2>
+        <ul class="index-list agency-categories-list grid"></ul>
+      </div>
+    </div>
+
+    <div class="col-lg-12 col-md-12 col-sm-12">
+      <h2 class="the-moj-heading agency-only">The MoJ</h2>
+      <div class="excerpt hq-only">
+        <?=$excerpt?>
+      </div>
+      <p class="agency-only">
+        <a class="toggle-global-categories-box" href="#">
+          <span class="expand-icon icon"></span>
+          Learn more about the MoJ
+        </a>
+      </p>
+      <div class="global-categories-box">
+        <ul class="index-list global-categories-list grid">
           <?php foreach($children_data as $category): ?>
             <li class="category-item col-lg-4 col-md-4 col-sm-12">
               <h3 class="category-title">
@@ -31,6 +45,9 @@
             </li>
           <?php endforeach ?>
         </ul>
+
+        <?php $this->view('pages/about_us/category_item') ?>
+        <?php $this->view('pages/about_us/child_item') ?>
       </div>
     </div>
   </div>

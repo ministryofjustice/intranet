@@ -5,14 +5,14 @@
 
   App.EventsWidget = function() {
     this.$top = $('.template-home .events-widget');
-    if(!this.$top.length) { return; }
+    if(!this.$top.length || this.$top.hasClass('agency-hidden')) { return; }
     this.init();
   };
 
   App.EventsWidget.prototype = {
     init: function() {
       this.applicationUrl = $('head').data('application-url');
-      this.serviceUrl = this.applicationUrl + '/service/events/hq////1/2';
+      this.serviceUrl = this.applicationUrl + '/service/events/' + App.tools.helpers.agency.getForContent() + '////1/2';
       this.pageBase = this.applicationUrl + '/' + this.$top.data('top-level-slug');
 
       this.itemTemplate = this.$top.find('[data-name="widget-event-item"]').html();
@@ -33,7 +33,6 @@
     },
 
     bindEvents: function() {
-      var _this = this;
     },
 
     requestResults: function() {
@@ -50,10 +49,16 @@
       var _this = this;
       var $post;
 
-      $.each(data.results, function(index, result) {
-        $post = _this.buildResultRow(result);
-        _this.$postsList.append($post);
-      });
+      if (data.results.length > 0) {
+        $.each(data.results, function (index, result) {
+          $post = _this.buildResultRow(result);
+          _this.$postsList.append($post);
+        });
+      }
+      else {
+        this.$top.find('.no-events-message').addClass('visible');
+        this.$top.addClass('no-events');
+      }
 
       this.resultsLoaded = true;
       this.$top.removeClass('loading');
