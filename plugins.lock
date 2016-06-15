@@ -1,4 +1,9 @@
 {
+    "advanced-custom-fields-pro": {
+        "repository": "git@git.dxw.net:wordpress-plugins/advanced-custom-fields-pro",
+        "revision": "master",
+        "commit": "56433b22194ef57b8c260c62ccacafff9c356f1c"
+    },
     "amazon-s3-and-cloudfront": {
         "repository": "git@github.com:deliciousbrains/wp-amazon-s3-and-cloudfront.git",
         "revision": "master",
