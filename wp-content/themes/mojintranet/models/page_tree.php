@@ -140,11 +140,11 @@ class Page_tree_model extends MVC_model {
   /** A comparator for sorting children by their menu order first, then by title (natural order)
    */
   private function sort_children($a, $b) {
-    if($a['menu_order'] > 0 && $b['menu_order'] > 0) {
-      return $a['menu_order'] > $b['menu_order'] ? 1 : -1;
+    if($a['order'] > 0 && $b['order'] > 0) {
+      return $a['order'] > $b['order'] ? 1 : -1;
     }
-    elseif($a['menu_order'] != $b['menu_order']) {
-      return $a['menu_order'] > $b['menu_order'] ? -1 : 1;
+    elseif($a['order'] != $b['order']) {
+      return $a['order'] > $b['order'] ? -1 : 1;
     }
 
     return strnatcmp(strtolower($a['title']), strtolower($b['title']));
