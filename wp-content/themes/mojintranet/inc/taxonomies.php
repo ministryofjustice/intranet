@@ -7,12 +7,16 @@
 $taxonomies = array(
     // filename => array("dir" => 'directory', "class-name" => 'Class_Name')
     'agency' => array("dir" => false, "class-name" => 'Agency'),
+    'news-category' => array("dir" => false, "class-name" => 'News_Category'),
+    'resource-category' => array("dir" => false, "class-name" => 'Resource_Category'),
     //'laa-region' => array("dir" => 'laa', "class-name" => 'LAA_Region'),
     //'hmcts-region' => array("dir" => 'hmcts', "class-name" => 'HMCTS_Region'),
 );
 
 require_once 'taxonomies/taxonomy.php';
 require_once 'taxonomies/agency-taxonomy.php';
+require_once 'taxonomies/content-category.php';
+require_once 'taxonomies/agency-terms-walker.php';
 
 foreach ($taxonomies as $include_file => $tax) {
     $include_path = $include_file . '.php' ;
