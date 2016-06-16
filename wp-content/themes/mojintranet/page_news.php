@@ -26,18 +26,6 @@ class Page_news extends MVC_controller {
       'cache_timeout' => 60 * 60 * 24, /* 1 day */
       'page_data' => array(
         'top_slug' => htmlspecialchars($top_slug),
-        'tabs' => array(
-          array(
-            'label' => 'News',
-            'url' => site_url('/newspage'),
-            'selected' => true
-          ),
-          array(
-            'label' => 'Events',
-            'url' => site_url('/events'),
-            'selected' => false
-          )
-        )
       )
     );
   }

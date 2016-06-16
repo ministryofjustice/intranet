@@ -21,71 +21,58 @@
     }
   }
 
-  .categories-list {
-    @include clearfix;
-    margin-top: 0;
-    /*-moz-column-gap: 20px;*/
-    /*-webkit-column-gap: 20px;*/
-    /*column-gap: 20px;*/
-    /*-moz-column-count: 3;*/
-    /*-webkit-column-count: 3;*/
-    /*column-count: 3;*/
+  .main-heading {
+    margin-bottom: 10px;
+  }
 
-    .category-item {
-      margin-bottom: 20px;
-      padding-top: 20px;
-      padding-right: 20px;
-      /*page-break-inside: avoid;*/
-      /*-webkit-column-break-inside: avoid;*/
+  &.agency-view .global-categories-box {
+    display: none;
+    margin-top: 20px;
+    padding-left: 20px;
+    border-left: 5px solid $grey-3;
 
-      .category-title {
-        @extend %medium-heading;
-        margin: 0;
-
-        a {
-          text-decoration: underline;
-        }
-      }
-
-      &:nth-of-type(-n + 3) {
-        border-top: none;
-      }
-
-      &:nth-of-type(3n + 1) {
-        clear: both;
-      }
+    &.visible {
+      display: block;
     }
 
-    .children-list {
-      padding-left: 10px;
+    .category-item {
+      padding-top: 10px;
+    }
+  }
 
-      .child-item {
-        margin-top: 5px;
-        list-style-type: disc;
+  .toggle-global-categories-box {
+    @extend %large-copy;
+    font-weight: bold;
+    text-decoration: underline;
 
-        &.see-all {
-          margin-top: 15px;
+    &:before {
+      display: inline-block;
+      margin-right: 3px;
+      content: "▼";
+    }
+  }
 
-          .child-title a {
-            font-weight: bold;
+  &.global-list-visible {
+    .global-categories-box {
+      display: block;
+    }
 
-            &:after {
-              content: " \00bb";
-            }
-          }
-        }
+    .toggle-global-categories-box:before {
+      transform: rotate(180deg);
+    }
+  }
 
-        .child-title {
-          margin: 0;
-          line-height: 20px;
-          font-size: 19px;
+  .agency-only {
+    display: none;
+  }
 
-          a {
-            @extend %medium-copy;
-            font-weight: normal;
-          }
-        }
-      }
+  &.agency-view {
+    .hq-only {
+      display: none;
+    }
+
+    .agency-only {
+      display: block;
     }
   }
 }

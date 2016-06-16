@@ -4,6 +4,9 @@
   <?php $this->view('pages/homepage/emergency_message') ?>
 
   <div class="grid">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+      <h1 class="page-title">Ministry of Justice HQ</h1>
+    </div>
     <div class="col-lg-8 col-md-6 col-sm-12">
       <?php $this->view('widgets/featured_news/main') ?>
       <?php $this->view('widgets/news_list/main') ?>

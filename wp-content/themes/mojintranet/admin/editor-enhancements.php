@@ -176,3 +176,13 @@ function pageparent_remove_theme_box() {
     return;
   remove_meta_box('pageparentdiv', 'page', 'side');
 }
+
+function remove_post_custom_fields() {
+  if (!current_user_can('administrator')) {
+    foreach (get_post_types( array('public' => true), 'names' ) as $post_type) {
+      remove_meta_box('postcustom', $post_type, 'normal');
+    }
+  }
+}
+add_action('admin_menu' , 'remove_post_custom_fields');
+
