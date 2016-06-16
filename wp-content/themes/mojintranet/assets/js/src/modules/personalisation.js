@@ -43,7 +43,7 @@
     initializeMenu: function() {
       var $menu = $('.header-menu');
 
-      if(this.agencyData.blog_url) {
+      if (this.agencyData.blog_url) {
         $menu.find('.main-nav-blog a').attr('href', this.agencyData.blog_url);
       }
 
@@ -57,7 +57,7 @@
       var isIntegrated = window.App.tools.helpers.agency.isIntegrated();
       var agencyImgSrc = $logo.attr('src').replace('moj_logo', 'moj_logo_' + agency);
 
-      if(agency !== 'hq' && isIntegrated) {
+      if (agency !== 'hq' && isIntegrated) {
         $logo
           .attr('src', agencyImgSrc)
           .attr('alt', agencyData.label + ' logo');
@@ -76,7 +76,7 @@
       var $agencyLinkList = $('.agency-link-list');
       var $agencyAbbreviation = $('.agency-abbreviation');
 
-      if($homepage.length) {
+      if ($homepage.length) {
         $homeHeading.html(agencyData.label);
 
         $agencyLinkList.toggleClass('hidden', agencyData.url === '');
@@ -84,11 +84,11 @@
         $agencyLinkList.find('a').attr('href', agencyData.url);
         $agencyLinkList.find('.label').html(agencyData.url_label || agencyData.label + ' intranet');
 
-        if(agencyData.is_external) {
+        if (agencyData.is_external) {
           $agencyLinkList.find('.agency').attr('rel', 'external');
         }
 
-        if(agencyData.classes) {
+        if (agencyData.classes) {
           $agencyLinkList.find('.agency').addClass(agencyData.classes);
         }
 
@@ -116,7 +116,7 @@
       var $menuItems = $('.header-menu .category-item:visible');
       var count = $menuItems.length;
 
-      if(count > 0 && App.ie && App.ie <= 9) {
+      if (count > 0 && App.ie && App.ie <= 9) {
         $menuItems.css({
           width: '' + 100/count + '%'
         });
@@ -134,7 +134,7 @@
       }
 
       //set default agency in cookie if missing
-      if(!agencyTools.getCookie()) {
+      if (!agencyTools.getCookie()) {
         agencyTools.set(agencyTools.getForContent());
       }
 
@@ -147,7 +147,7 @@
       var params = App.tools.getUrlParam();
       var newQuery = [];
 
-      if(!window.history.replaceState) {
+      if (!window.history.replaceState) {
         return;
       }
 
