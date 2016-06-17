@@ -111,13 +111,19 @@ function pageparent_box($post) {
 
   //populate template list
   $current_template = get_post_meta($post->ID,'_wp_page_template',true);
-  $template_file = str_replace('.php','',$current_template);
-  $themeselect = '<select id="page_template" name="page_template">
-          <option value="default">Default Template</option>';
+
+  $disabled = '';
+  if (in_array($current_template, Agency_Editor::$restricted_templates) && !current_user_can('administrator')) {
+    $disabled = 'disabled="disabled"';
+  }
+
+  $themeselect = '<select id="page_template" name="page_template" ' . $disabled . '>';
   $templates = get_page_templates();
   foreach ( $templates as $template_name => $template_filename ) {
-    $select = $current_template==$template_filename?'selected="selected"':"";
-    $themeselect.= '<option value="'.$template_filename.'" '.$select.'>'.$template_name.'</option>';
+    if (!in_array($template_filename, Agency_Editor::$restricted_templates) || $current_template == $template_filename || current_user_can('administrator')) {
+      $select = $current_template == $template_filename ? 'selected="selected"' : "";
+      $themeselect .= '<option value="' . $template_filename . '" ' . $select . '>' . $template_name . '</option>';
+    }
   }
   $themeselect.= '</select>';
 
@@ -194,3 +200,13 @@ function pageparent_remove_theme_box() {
     return;
   remove_meta_box('pageparentdiv', 'page', 'side');
 }
+
+function remove_post_custom_fields() {
+  if (!current_user_can('administrator')) {
+    foreach (get_post_types( array('public' => true), 'names' ) as $post_type) {
+      remove_meta_box('postcustom', $post_type, 'normal');
+    }
+  }
+}
+add_action('admin_menu' , 'remove_post_custom_fields');
+

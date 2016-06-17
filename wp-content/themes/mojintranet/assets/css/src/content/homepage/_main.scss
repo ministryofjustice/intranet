@@ -1,4 +1,8 @@
 .template-home {
+  .page-title {
+    margin-bottom: 0;
+  }
+
   .category-name {
     @extend %large-heading;
     border-bottom: 2px solid $grey-1;

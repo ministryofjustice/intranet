@@ -10,6 +10,9 @@
     </div>
 
     <div class="col-lg-12 col-md-12 col-sm-12">
+      <p class="no-news-message">
+        No news found
+      </p>
       <p class="see-all-container">
         <a href="<?=get_permalink(Taggr::get_id('news-landing'))?>">See all news</a>
       </p>

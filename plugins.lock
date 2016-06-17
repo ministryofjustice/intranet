@@ -22,7 +22,7 @@
     "co-authors-plus": {
         "repository": "git@github.com:Automattic/Co-Authors-Plus.git",
         "revision": "master",
-        "commit": "1f33031e5277423a1df0e723674f020bd732e3ce"
+        "commit": "4aa861698506e10bc714db658e538e58ac9d3cad"
     },
     "dw-live-drafts": {
         "repository": "git@github.com:ministryofjustice/dw-live-drafts.git",
@@ -37,7 +37,7 @@
     "pods": {
         "repository": "git@git.dxw.net:wordpress-plugins/pods",
         "revision": "master",
-        "commit": "7b4c76ad8ef04372ef54b58d27d582ccacbeaa7b"
+        "commit": "ae7bd28d29451e5235bd051be6efe4bbf7eb91af"
     },
     "recently-edited-content-widget": {
         "repository": "git@git.dxw.net:wordpress-plugins/recently-edited-content-widget",
@@ -52,12 +52,12 @@
     "relevanssi-premium": {
         "repository": "git@git.dxw.net:wordpress-plugins/relevanssi-premium",
         "revision": "master",
-        "commit": "904b651d04465b9a84deb4e1ac66f74790a4bba2"
+        "commit": "e633b63c58cbaac8596a180e28c6f689679601e7"
     },
     "shortcode-ui": {
         "repository": "git@github.com:wp-shortcake/shortcake.git",
         "revision": "master",
-        "commit": "e67608ff16a2fdb5d71b4454e3ba88e084e44200"
+        "commit": "a087f7ba45f935823411b07fa65ccb13c307adcf"
     },
     "wp-document-revisions": {
         "repository": "git@git.dxw.net:wordpress-plugins/wp-document-revisions",

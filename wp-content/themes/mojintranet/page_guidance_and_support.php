@@ -89,22 +89,4 @@ class Page_guidance_and_support extends MVC_controller {
 
     return $guidance_tabs;
   }
-
-  private function get_children_data() {
-    $id = $this->post_ID;
-    $children = array();
-
-    do {
-      array_push($children, $this->get_children_from_API($id));
-    }
-    while($id = wp_get_post_parent_id($id));
-
-    $children = array_reverse($children);
-
-    return htmlspecialchars(json_encode($children));
-  }
-
-  private function get_children_from_API($id = null) {
-    return $this->model->children->get_all($id);
-  }
 }

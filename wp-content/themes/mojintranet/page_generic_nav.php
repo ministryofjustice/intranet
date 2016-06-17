@@ -41,25 +41,13 @@ class Page_generic_nav extends MVC_controller {
   }
 
   private function get_children_data() {
-    $id = $this->post_ID;
-    $children = array();
+    $options = [
+      'page_id' => $this->post_ID,
+      'depth' => 2
+    ];
+    $response = $this->model->page_tree->get_children($options);
+    $children = $response['children'];
 
-    do {
-      array_push($children, $this->get_children_from_API($id));
-    }
-    while($id = wp_get_post_parent_id($id));
-
-    $children = array_reverse($children);
-
-    $top_level = $this->get_children_from_API();
-    $top_level['title'] = 'MoJ Intranet';
-
-    array_unshift($children, $top_level);
-
-    return htmlspecialchars(json_encode($children));
-  }
-
-  private function get_children_from_API($id = null) {
-    return $this->model->children->get_data($id);
+    return $children;
   }
 }

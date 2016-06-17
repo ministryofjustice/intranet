@@ -26,7 +26,7 @@ class Menu_API extends API {
   protected function parse_params($params) {
     $this->params = array(
       'location' => (string) $params[0],
-      'with_children' => (boolean) $params[1]
+      'depth_limit' => isset($params[1]) ? (int) $params[1] : 0
     );
   }
 

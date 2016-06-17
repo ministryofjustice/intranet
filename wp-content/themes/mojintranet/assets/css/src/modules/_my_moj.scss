@@ -37,6 +37,7 @@
 
         .app-icon-inner {
           background-image: url('../images/app_icons_x2_hover.png');
+          background-color: $govuk-blue;
         }
       }
     }
@@ -66,7 +67,7 @@
       height: $icon-size;
       background-repeat: no-repeat;
       background-image: url('../images/app_icons_x2.png');
-      background-size: $icon-size*10 $icon-size;
+      background-size: auto $icon-size;
 
 
 
@@ -76,6 +77,10 @@
 
       &.courtfinder-icon {
         background-position: -$icon-size 0;
+      }
+
+      &.court-finder-icon {
+        background-position: -$icon-size*1 0;
       }
 
       &.travel-booking-icon {
@@ -109,12 +114,21 @@
       &.pension-icon {
         background-position: -$icon-size*9 0;
       }
+
+      &.form-finder-icon {
+        background-position: -$icon-size*10 0;
+      }
+
+      &.room-booking-icon {
+        background-position: -$icon-size*11 0;
+      }
     }
   }
 
   .quick-links-container {
     .category-name {
       margin-bottom: 8px;
+      clear: both;
     }
 
     .quick-link-item {
@@ -134,42 +148,9 @@
 
     .agency {
       a {
-        @include clearfix;
+        @extend %large-copy;
         display: block;
         padding: 0;
-
-        &:hover {
-          text-decoration: none;
-
-          .department-icon-box {
-            background-color: $govuk-blue;
-          }
-
-          .label {
-            text-decoration: underline;
-          }
-        }
-      }
-
-      .department-icon-box {
-        display: inline-block;
-        padding: 3px;
-        border: 1px solid $grey-2;
-        vertical-align: middle;
-
-        .department-icon {
-          float: none;
-          display: block;
-          margin: 0;
-        }
-      }
-
-      .label {
-        @extend %large-copy;
-        display: inline-block;
-        width: 85%;
-        padding-left: 10px;
-        vertical-align: middle;
       }
     }
   }
