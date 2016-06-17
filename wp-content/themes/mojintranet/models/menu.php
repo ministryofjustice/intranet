@@ -29,6 +29,7 @@ class Menu_model extends MVC_model {
           'ID' => $item->ID,
           'object_id' => (int) $item->object_id,
           'url' => $item->url,
+          'classes' => implode($item->classes, ' '),
           'children' => array()
         );
 
