@@ -199,12 +199,24 @@
      */
     count: function(obj) {
       var type = $.type(obj);
+      var count, i;
 
       if (type === 'array') {
         return obj.length;
       }
       else if (type === 'object') {
-        return Object.keys(obj).length;
+        if (Object.keys) {
+          return Object.keys(obj).length;
+        }
+        else {
+          count = 0;
+
+          for (i in obj) {
+            if (obj.hasOwnProperty(i)) {
+              count++;
+            }
+          }
+        }
       }
 
       return false;
