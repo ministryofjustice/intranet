@@ -4,7 +4,9 @@
   var App = window.App;
 
   App.Personalisation = function() {
-    this.init();
+    if (App.tools.helpers.agency.agencies) {
+      this.init();
+    }
   };
 
   App.Personalisation.prototype = {

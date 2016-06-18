@@ -395,7 +395,7 @@
         if (arg1Type === 'string') { //setter
           this.urlParts.segments[arg0] = arg1;
         }
-        else if (!arg1Type) { //getter
+        else if (arg1Type === 'undefined') { //getter
           offset = arg0<0 ? this.urlParts.segments.length + arg0 : arg0;
           return this.urlParts.segments[offset];
         }
