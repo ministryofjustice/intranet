@@ -94,12 +94,15 @@
 
     formSubmit: function(e) {
       var $selectedItem = this.$agencyItems.filter('.selected');
+      var url = App.tools.url(true);
+
+      url.unsetParam('agency');
 
       e.preventDefault();
 
       if($selectedItem.length) {
         App.tools.helpers.agency.set($selectedItem.attr('data-agency'));
-        window.location.href = window.location.href;
+        url.go();
       }
     },
 
