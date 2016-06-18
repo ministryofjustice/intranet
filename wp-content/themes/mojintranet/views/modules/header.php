@@ -21,7 +21,7 @@
     </div>
     <div class="user-bar col-lg-6 col-md-6 col-sm-12">
       <div class="select-agency-trigger-container">
-        <a href="#" class="select-agency-trigger"></a>
+        <a href="#" class="select-agency-trigger">Switch to other intranet</a>
 
         <div class="tooltip my-agency-tooltip">
           <span class="triangle"></span>

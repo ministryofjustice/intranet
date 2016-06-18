@@ -62,7 +62,6 @@
 
       //select agency
       this.$agencyItems.filter('[data-agency="' + agency + '"]').addClass('selected');
-      this.$selectAgencyTrigger.html('Change');
     },
 
     buildItem: function(name, item) {
