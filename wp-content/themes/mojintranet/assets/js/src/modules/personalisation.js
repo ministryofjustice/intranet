@@ -115,7 +115,7 @@
     },
 
     setAgency: function() {
-      var agency = App.tools.getUrlParam('agency');
+      var agency = App.tools.url(true).param('agency');
       var agencyTools = App.tools.helpers.agency;
 
       //set agency from url
@@ -125,7 +125,7 @@
       }
 
       //set default agency in cookie if missing
-      if(!agencyTools.getCookie()) {
+      if (!agencyTools.getCookie()) {
         agencyTools.set(agencyTools.getForContent());
       }
 
@@ -133,26 +133,15 @@
     },
 
     removeAgencyFromUrl: function() {
-      var urlParts = window.location.href.split('?');
-      var url = urlParts[0];
-      var params = App.tools.getUrlParam();
-      var newQuery = [];
+      var url = App.tools.url(true);
 
       if(!window.history.replaceState) {
         return;
       }
 
-      delete params.agency;
+      url.unsetParam('agency');
 
-      $.each(params, function(key, value) {
-        newQuery.push(key + '=' + value);
-      });
-
-      if (newQuery.length > 0) {
-        url += '?' + newQuery.join('&');
-      }
-
-      window.history.replaceState(null, null, url);
+      window.history.replaceState(null, null, url.get());
     }
   };
 }(window.jQuery));
