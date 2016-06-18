@@ -31,7 +31,6 @@
 
     bindEvents: function() {
       this.$selectAgencyTrigger.click($.proxy(this.triggerClick, this));
-      this.$form.submit($.proxy(this.formSubmit, this));
       this.$tooltip.on('click', $.proxy(this.toggleTooltip, this, false));
     },
 
@@ -90,15 +89,16 @@
       e.preventDefault();
 
       this.selectItem($(e.currentTarget));
+      this.$agencyItems.find('a').click($.proxy(this.formSubmit, this));
+
+      this.redirect();
     },
 
-    formSubmit: function(e) {
+    redirect: function() {
       var $selectedItem = this.$agencyItems.filter('.selected');
       var url = App.tools.url(true);
 
       url.unsetParam('agency');
-
-      e.preventDefault();
 
       if($selectedItem.length) {
         App.tools.helpers.agency.set($selectedItem.attr('data-agency'));
