@@ -20,11 +20,11 @@
     /** gets the url as a string
      */
     Url.prototype.get = function() {
-      var str = this.domain() || '';
+      var str = this.authority() || '';
       var i;
       var joined;
 
-      if (str.length) { //append slash if domain is not empty
+      if (str.length) { //append slash if authority is not empty
         str += '/';
         }
 
@@ -319,61 +319,61 @@
       return this;
     };
 
-    /** sets, unsets or gets the domain
-     * () - gets the domain
-     * (domain {string}) - sets the domain
-     * (true {boolean}) - sets domain to current domain
-     * (false {boolean}) - unsets the domain
+    /** sets, unsets or gets the authority
+     * () - gets the authority
+     * (authority {string}) - sets the authority
+     * (true {boolean}) - sets authority to current authority
+     * (false {boolean}) - unsets the authority
      */
-    Url.prototype.domain = function(domain) {
+    Url.prototype.authority = function(authority) {
       var _this = this;
-      var overwriteDomainParts = function(domainParts) {
-        _this.urlParts.scheme = domainParts.scheme;
-        _this.urlParts.username = domainParts.username;
-        _this.urlParts.password = domainParts.password;
-        _this.urlParts.host = domainParts.host;
-        _this.urlParts.port = domainParts.port;
+      var overwriteAuthorityParts = function(authorityParts) {
+        _this.urlParts.scheme = authorityParts.scheme;
+        _this.urlParts.username = authorityParts.username;
+        _this.urlParts.password = authorityParts.password;
+        _this.urlParts.host = authorityParts.host;
+        _this.urlParts.port = authorityParts.port;
       };
-      var type = $.type(domain);
-      var domainStr;
+      var type = $.type(authority);
+      var authorityStr;
 
       if (type === 'string') { //string? set it then
-        overwriteDomainParts(App.tools.url(domain).urlParts);
+        overwriteAuthorityParts(App.tools.url(authority).urlParts);
       }
-      else if (domain === true) { //bool:true? then the current domain will be used
-        overwriteDomainParts(this.currentUrl.urlParts);
+      else if (authority === true) { //bool:true? then the current authority will be used
+        overwriteAuthorityParts(this.currentUrl.urlParts);
       }
-      else if (domain === false) { //bool:false? then remove domain completely
-        overwriteDomainParts(this._getBlankUrlPartsObject());
+      else if (authority === false) { //bool:false? then remove authority completely
+        overwriteAuthorityParts(this._getBlankUrlPartsObject());
       }
       else if (type === 'undefined') { //undefined? then it's a getter
         if (this.urlParts.scheme !== null) {
-          domainStr = this.urlParts.scheme + '://';
+          authorityStr = this.urlParts.scheme + '://';
 
           if (this.urlParts.host) {
             if (this.urlParts.username) {
-              domainStr += this.urlParts.username;
+              authorityStr += this.urlParts.username;
               if (this.urlParts.password) {
-                domainStr += ':'+this.urlParts.password;
+                authorityStr += ':'+this.urlParts.password;
               }
-              domainStr += '@';
+              authorityStr += '@';
             }
 
-            domainStr += this.urlParts.host;
+            authorityStr += this.urlParts.host;
 
             if (this.urlParts.port) {
-              domainStr += ':'+this.urlParts.port;
+              authorityStr += ':'+this.urlParts.port;
             }
           }
 
-          return domainStr;
+          return authorityStr;
         }
         else {
           return null;
         }
       }
       else {
-        throw new Error('Url.domain: domain must be a string, boolean or undefined');
+        throw new Error('Url.authority: authority must be a string, boolean or undefined');
       }
       return this;
     };
