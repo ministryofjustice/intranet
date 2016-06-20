@@ -87,7 +87,7 @@
         $agencyLinkList.find('.label').html(agencyData.url_label || agencyData.label + ' intranet');
 
         if (agencyData.is_external) {
-          $agencyLinkList.find('.agency').attr('rel', 'external');
+          $agencyLinkList.find('.agency a').attr('rel', 'external');
         }
 
         if (agencyData.classes) {
