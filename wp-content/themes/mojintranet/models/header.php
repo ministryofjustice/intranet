@@ -61,7 +61,7 @@ class Header_model extends MVC_model {
         'url_label' => 'MoJ TRANSFORMATION &#8594;',
         'is_integrated' => true,
         'default' => true,
-        'is_external' => true,
+        'is_external' => false,
         'classes' => 'transformation'
       ),
       'noms' => array(
