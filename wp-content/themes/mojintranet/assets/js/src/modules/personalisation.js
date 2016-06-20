@@ -4,14 +4,16 @@
   var App = window.App;
 
   App.Personalisation = function() {
-    this.init();
+    if (App.tools.helpers.agency.agencies) {
+      this.init();
+    }
   };
 
   App.Personalisation.prototype = {
     init: function() {
       this.settings = {
         hideForAgency: {
-          'hmcts': ['.events-widget', '.main-nav-events', '.main-nav-guidance', '.main-nav-about-us', '.posts-widget'],
+          'hmcts': ['.events-widget', '.main-nav-events', /*'.main-nav-guidance', */'.main-nav-about-us', '.posts-widget'],
           'laa': [/*'.events-widget', '.main-nav-events'*/]
         }
       };
@@ -124,7 +126,7 @@
     },
 
     setAgency: function() {
-      var agency = App.tools.getUrlParam('agency');
+      var agency = App.tools.url(true).param('agency');
       var agencyTools = App.tools.helpers.agency;
 
       //set agency from url
@@ -142,26 +144,15 @@
     },
 
     removeAgencyFromUrl: function() {
-      var urlParts = window.location.href.split('?');
-      var url = urlParts[0];
-      var params = App.tools.getUrlParam();
-      var newQuery = [];
+      var url = App.tools.url(true);
 
       if (!window.history.replaceState) {
         return;
       }
 
-      delete params.agency;
+      url.unsetParam('agency');
 
-      $.each(params, function(key, value) {
-        newQuery.push(key + '=' + value);
-      });
-
-      if (newQuery.length > 0) {
-        url += '?' + newQuery.join('&');
-      }
-
-      window.history.replaceState(null, null, url);
+      window.history.replaceState(null, null, url.get());
     }
   };
 }(window.jQuery));
