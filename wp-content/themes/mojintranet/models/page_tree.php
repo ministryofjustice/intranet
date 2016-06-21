@@ -1,5 +1,9 @@
 <?php if (!defined('ABSPATH')) die();
 
+/** TODO: this model should be updated to make use of hierarchy model.
+ * Ideally, this model should also be renamed to Tree_navigation model
+ * or something to indicate that it's specifically used for that purpose only.
+ */
 class Page_tree_model extends MVC_model {
   private $post_types = array('page', 'webchat');
 
