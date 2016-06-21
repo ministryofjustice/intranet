@@ -21,6 +21,10 @@ class Page_tree_API extends API {
             $this->get_children();
             break;
 
+          case 'children-by-tag':
+            $this->get_children();
+            break;
+
           case 'ancestors':
             $this->get_ancestors();
             break;
@@ -33,14 +37,24 @@ class Page_tree_API extends API {
   }
 
   protected function parse_params($params) {
+    $method = $params[0];
+
     $this->params = array(
-      'method' => $params[0],
-      'agency' => $params[1],
-      'additional_params' => $params[2],
-      'page_id' => (int) $params[3],
-      'depth' => (int) $params[4],
-      'order' => $params[5]
+      'method' => $method,
     );
+
+    if($method === 'children-by-tag') {
+      $this->params['tag'] = $params[1];
+      $this->params['depth'] = (int) $params[2];
+      $this->params['order'] = $params[3];
+    }
+    else {
+      $this->params['agency'] = $params[1];
+      $this->params['additional_params'] = $params[2];
+      $this->params['page_id'] = (int) $params[3];
+      $this->params['depth'] = (int) $params[4];
+      $this->params['order'] = $params[5];
+    }
   }
 
   protected function get_children() {

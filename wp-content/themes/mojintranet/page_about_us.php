@@ -13,13 +13,15 @@ class Page_about_us extends MVC_controller {
 
   private function get_data() {
     $post = get_post($this->post_ID);
+    $title = get_the_title();
+    $title = preg_replace('/ – /', '', $title);
 
     return array(
       'page' => 'pages/about_us/main',
       'template_class' => 'about-us',
       'cache_timeout' => 60 * 15, /* 15 minutes */
       'page_data' => array(
-        'title' => get_the_title(),
+        'title' => $title,
         'excerpt' => $post->post_excerpt, // Not using get_the_excerpt() to prevent auto-generated excerpts being displayed
         'children_data' => $this->get_children_data()
       )
