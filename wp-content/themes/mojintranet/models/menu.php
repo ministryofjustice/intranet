@@ -6,7 +6,7 @@ class Menu_model extends MVC_model {
    * @param {Array} $params Params
    *    {String} 'location' - menu location name
    *    {Integer} 'depth_limit' = 0 - depth limit
-   *    {Integer|Boolean} 'post_id' - subject post ID; use boolean:true to auto-detect based on current page
+   *    {Integer|Boolean} 'post_id' - subject post ID; use boolean:true to auto-detect based on current post
    *
    * @return {Array} array of menu items
    */
