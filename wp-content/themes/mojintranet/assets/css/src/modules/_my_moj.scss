@@ -148,9 +148,19 @@
 
     .agency {
       a {
-        @extend %large-copy;
+        @extend %medium-copy;
         display: block;
-        padding: 0;
+        margin-bottom: 18px;
+        padding: 15px 10px;
+        background-color: $grey-3;
+      }
+
+      &.transformation {
+        a {
+          padding: 5px;
+          border: 2px solid #f71;
+          background-color: transparent;
+        }
       }
     }
   }

@@ -92,10 +92,6 @@ $grid-size: 40px;
       @extend %large-copy;
     }
   }
-
-  .submit {
-    margin-top: 30px;
-  }
 }
 
 @include tablet-mq() {

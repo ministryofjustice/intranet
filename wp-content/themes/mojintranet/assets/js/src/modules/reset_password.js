@@ -59,9 +59,10 @@
     },
 
     getData: function() {
+      var url = App.tools.url(true);
       return {
-        key: App.tools.getUrlParam('key'),
-        login: App.tools.getUrlParam('login'),
+        key: url.param('key'),
+        login: url.param('login'),
         password: this.$passwordField.val(),
         reenter_password: this.$reenterPasswordField.val()
       };
