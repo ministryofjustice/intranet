@@ -39,9 +39,10 @@ class Password extends MVC_controller {
 
     $password = $_POST['password'];
     $reenter_password = $_POST['reenter_password'];
-    $login = $_POST['login'];
+    $email = urldecode($_POST['login']);
+    $user = get_user_by('email', $email);
     $key = $_POST['key'];
-    $user = check_password_reset_key($key, $login);
+    $user = check_password_reset_key($key, $user->data->user_login);
 
     //check if the account has the key set
     if(is_array($user->errors)) {
