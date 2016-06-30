@@ -12,7 +12,8 @@ if (!current_user_can('administrator')) {
 $load_commands = array(
     // filename => Class_Name
     'assign-agency-terms-to-posts' => 'Assign_Agency_Terms_To_Posts',
-    'remove-old-home-page-options' => 'Remove_Old_Home_Page_Options'
+    'remove-old-home-page-options' => 'Remove_Old_Home_Page_Options',
+    'remove-old-pods-data' => 'Remove_Old_Pods_Data'
 );
 
 $admin_commands = array();
