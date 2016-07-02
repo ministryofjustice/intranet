@@ -17,7 +17,7 @@
       };
 
       this.applicationUrl = $('head').data('application-url');
-      this.serviceUrl = this.applicationUrl+'/service/events/hq/';
+      this.serviceUrl = this.applicationUrl+'/service/events';
       this.pageBase = this.applicationUrl+'/'+this.$top.data('top-level-slug');
 
       this.itemTemplate = this.$top.find('.template-partial[data-name="events-item"]').html();
@@ -99,6 +99,8 @@
 
     getDataObject: function(data) {
       var base = {
+        'agency': App.tools.helpers.agency.getForContent(),
+        'additional_filters': '',
         'date': this.$dateInput.val(),
         'keywords': this.getKeywords().replace(/\s+/g, '+'),
         'page': this.getPage()
@@ -121,7 +123,7 @@
       requestData = this.getDataObject(requestData);
 
       this.resultsAbort();
-      this.resultsUpdateUI('loading');
+      this.resultsUpdateUI('loading', requestData);
 
       $.each(requestData, function(key, value) {
         dataArray.push(value);
@@ -140,6 +142,7 @@
       var keywords = this.getKeywords();
       var $resultsTitle = $(this.resultsPageTitleTemplate);
       var $filteredResultsTitle = $(this.filteredResultsTitleTemplate);
+      var totalResults = parseInt(data.total_results, 10);
       var date = this.getDate();
       var humanDate;
 
@@ -170,6 +173,10 @@
           }
 
           this.$results.prepend($filteredResultsTitle);
+        }
+        else if(!totalResults) {
+          $resultsTitle.text('No events found');
+          this.$results.append($resultsTitle);
         }
         else {
           this.$results.prepend($resultsTitle.text('Latest'));

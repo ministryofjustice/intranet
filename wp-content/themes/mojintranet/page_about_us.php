@@ -27,20 +27,13 @@ class Page_about_us extends MVC_controller {
   }
 
   private function get_children_data() {
-    $response = $this->get_children_from_API($this->post_ID);
+    $options = [
+      'page_id' => $this->post_ID,
+      'depth' => 2
+    ];
+    $response = $this->model->page_tree->get_children($options);
     $children = $response['children'];
 
-    for($a = 0, $count = count($children); $a < $count; $a++) {
-      $response = $this->get_children_from_API($children[$a]['id']);
-      $children[$a]['children'] = $response['children'];
-    }
-
     return $children;
-  }
-
-  private function get_children_from_API($id = null) {
-    return $this->model->children->get_data(array(
-      'page_id' => $id
-    ));
   }
 }

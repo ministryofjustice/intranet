@@ -89,8 +89,7 @@ a {
       content: "";
     }
 
-    &[href*="://moj-wp-prod.s3.amazonaws.com/"],
-    &[href*="://intranet.justice.gsi.gov.uk/"] {
+    &[href*="://moj-wp-prod.s3.amazonaws.com/"] {
       &:after {
         display: none;
       }

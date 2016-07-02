@@ -13,7 +13,7 @@
     init: function() {
       this.applicationUrl = $('head').data('application-url');
       this.templateUri = $('head').data('template-uri');
-      this.serviceUrl = this.applicationUrl + '/service/post/hq////1/5';
+      this.serviceUrl = this.applicationUrl + '/service/post/' + App.tools.helpers.agency.getForContent() + '////1/5';
       this.pageBase = this.applicationUrl + '/' + this.$top.data('top-level-slug');
       this.genericThumbnailPath = this.templateUri + '/assets/images/blog-placeholder.jpg';
 
@@ -50,10 +50,16 @@
       var _this = this;
       var $post;
 
-      $.each(data.results, function(index, result) {
-        $post = _this.buildResultRow(result);
-        _this.$postsList.append($post);
-      });
+      if (data.results.length > 0) {
+        $.each(data.results, function (index, result) {
+          $post = _this.buildResultRow(result);
+          _this.$postsList.append($post);
+        });
+      }
+      else {
+        this.$top.find('.no-posts-message').addClass('visible');
+        this.$top.addClass('no-posts');
+      }
 
       this.resultsLoaded = true;
       this.$top.removeClass('loading');

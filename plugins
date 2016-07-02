@@ -1,5 +1,6 @@
 source = "git@git.dxw.net:wordpress-plugins/"
 
+advanced-custom-fields-pro	   =
 amazon-s3-and-cloudfront       = master,git@github.com:deliciousbrains/wp-amazon-s3-and-cloudfront.git
 amazon-web-services            = master,git@github.com:deliciousbrains/wp-amazon-web-services.git
 cms-tree-page-view             =

@@ -15,10 +15,10 @@
       <div class="guidance-categories">
         <div class="guidance-index-widget">
           <h2 class="category">Most visited</h2>
-          <ul class="guidance-categories-list large"></ul>
+          <ul class="index-list guidance-categories-list large"></ul>
 
           <h2 class="category all-items">All</h2>
-          <ul class="guidance-categories-list small"></ul>
+          <ul class="index-list guidance-categories-list small"></ul>
         </div>
 
         <?php $this->view('pages/guidance_and_support/category_item') ?>
