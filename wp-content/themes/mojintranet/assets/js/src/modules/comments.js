@@ -60,6 +60,17 @@
     },
 
     initialize: function() {
+      //set the url for the sign in link
+      var currentUrl = App.tools.url(true);
+      var signInUrl = App.tools.url(false);
+
+      signInUrl
+        .authority(currentUrl.authority())
+        .segment('sign-in')
+        .param('return_url', App.tools.urlencode(currentUrl.get()));
+
+      this.$top.find('.sign-in-link').attr('href', signInUrl.get());
+
       this.initializeCommentForm();
       this.loadComments();
     },

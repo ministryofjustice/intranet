@@ -104,12 +104,12 @@
           <?php if(is_user_logged_in()): ?>
             Leave a comment
           <?php else: ?>
-            <a href="<?=site_url('/sign-in/')?>">Sign in</a> to leave a comment
+            <a class="sign-in-link" href="">Sign in</a> to leave a comment
           <?php endif ?>
         </p>
 
         <?php if(is_user_logged_in()): ?>
-        <div class="comment-form-container"></div>
+          <div class="comment-form-container"></div>
         <?php endif ?>
 
         <ul class="comments-list"></ul>
