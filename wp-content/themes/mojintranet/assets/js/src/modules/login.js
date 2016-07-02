@@ -29,8 +29,6 @@
     },
 
     bindEvents: function() {
-      var _this = this;
-
       this.$top.on('submit', $.proxy(this.submit, this));
     },
 
@@ -68,7 +66,7 @@
     },
 
     submitSuccess: function(data) {
-      var returnUrl = App.tools.getUrlParam('return_url');
+      var returnUrl = App.tools.url(true).param('return_url');
 
       if(returnUrl) {
         returnUrl = App.tools.urldecode(returnUrl);
