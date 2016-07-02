@@ -245,8 +245,17 @@
     buildComment: function(data, isReply) {
       var $comment = $(this.itemTemplate);
       var signInUrl = this.applicationUrl + '/sign-in/?return_url=' + App.tools.urlencode(window.location.href);
+      var comment = data.comment;
 
-      $comment.find('.content').html(data.comment);
+      //convert urls to links
+      comment = comment.replace(/https?:\/\/[^\s]+/g, function(match) {
+        return '<a href="' + match + '">' + match + '</a>';
+      });
+
+      //add line breaks
+      comment = comment.replace(/\n+/g, '<br>');
+
+      $comment.find('.content').html(comment);
       $comment.find('.datetime').html(data.date_posted);
       $comment.find('.author').html(data.author_name);
       $comment.find('.likes .count').html(data.likes);
