@@ -60,6 +60,8 @@ abstract class MVC_loader {
     $this->model('breadcrumbs');
     $this->model('search');
     $this->model('page_tree');
+    $this->model('hierarchy');
+    $this->model('menu');
     $this->model('news');
     $this->model('events');
     $this->model('likes');
