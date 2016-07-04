@@ -13,12 +13,6 @@
 
 if (!defined('ABSPATH')) die();
 
-/** leaving this in for now as some of the dw plugins still check its existence
- */
-if (!class_exists('mmvc')) {
-  class mmvc {}
-}
-
 class DW_MVC {
   public function __construct() {
     $this->plugin_path = plugin_dir_path( __FILE__ );
