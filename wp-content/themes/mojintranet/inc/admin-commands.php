@@ -13,7 +13,7 @@ $load_commands = array(
     // filename => Class_Name
     'assign-agency-terms-to-posts' => 'Assign_Agency_Terms_To_Posts',
     'remove-old-home-page-options' => 'Remove_Old_Home_Page_Options',
-     'reset-all-pages-menu-order' => 'Reset_All_Pages_Menu_Order'
+    'reset-all-pages-menu-order' => 'Reset_All_Pages_Menu_Order',
 );
 
 $admin_commands = array();
