@@ -1,5 +1,9 @@
 .template-home .news-widget {
   &.news-list-widget {
+    &.no-news .news-list {
+      display: none;
+    }
+
     article {
       border-top: 1px solid $grey-2;
       padding-top: 10px;
@@ -21,6 +25,14 @@
 
     .news-content {
       overflow: hidden;
+    }
+
+    .no-news-message {
+      display: none;
+
+      &.visible {
+        display: block;
+      }
     }
   }
 

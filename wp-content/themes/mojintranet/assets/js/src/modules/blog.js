@@ -273,6 +273,10 @@
           $filteredResultsTitle.find('.date').hide();
         }
       }
+      else if(!totalResults) {
+        $resultsTitle.text('No blog posts found');
+        this.$results.append($resultsTitle);
+      }
       else {
         $resultsTitle.text(resultsPage === 1 ? 'Latest' : 'Archive');
         this.$results.append($resultsTitle);
@@ -318,7 +322,7 @@
       keywords = keywords.replace(/\s+/g, '+');
 
       var base = {
-        'agency': 'hq',
+        'agency': App.tools.helpers.agency.getForContent(),
         'additional_filters': '',
         'date': this.$dateInput.val(),
         'keywords': keywords,

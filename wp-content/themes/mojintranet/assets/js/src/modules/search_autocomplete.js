@@ -195,8 +195,9 @@
       this.hideList();
 
       data = {
+        'agency': App.tools.helpers.agency.getForContent(),
+        'additional_filters': '',
         'type': '',
-        'category': '',
         'keywords': App.tools.urlencode(keywords),
         'page': 1,
         'resultsPerPage': 10

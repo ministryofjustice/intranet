@@ -1,6 +1,8 @@
 (function($) {
   "use strict";
 
+  var App = window.App;
+
   App.Navigation = function() {
     if(!$('.menu-list-container').length) { return; }
     this.$top = $('.template-container');
@@ -12,7 +14,7 @@
       this.applicationUrl = $('head').data('application-url');
       this.templateUri = $('head').data('template-uri');
       this.postId = this.$top.attr('data-page-id');
-      this.serviceUrl = this.applicationUrl + '/service/children/hq//' + this.postId + '/';
+      this.serviceUrl = this.applicationUrl + '/service/page_tree/ancestors/' + App.tools.helpers.agency.getForContent()+ '//' + this.postId + '/';
 
       this.cacheEls();
       this.cacheTemplates();
@@ -45,7 +47,6 @@
     buildMenu: function(data) {
       var _this = this;
       var $menuItem;
-      var current = false;
 
       $.each(data, function(index, child) {
         $menuItem = _this.buildMenuItem(child);

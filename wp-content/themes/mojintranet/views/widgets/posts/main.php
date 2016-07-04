@@ -4,6 +4,9 @@
   <h2 class="category-name">Blog</h2>
   <ul class="posts-list"></ul>
 
+  <p class="no-posts-message">
+    No blog posts found
+  </p>
   <p class="see-all-container">
     <a href="<?=get_permalink(Taggr::get_id('blog-landing'))?>">See all posts</a>
   </p>

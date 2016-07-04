@@ -24,14 +24,36 @@
 
   .site-logo {
     display: block;
+    visibility: hidden;
+
+    &.visible {
+      visibility: visible;
+    }
 
     a {
       display: inline-block;
     }
 
     img {
-      width: 254px;
       height: 36px;
+    }
+  }
+
+  .site-logo-hq {
+    visibility: hidden;
+    text-align: right;
+
+    &.visible {
+      visibility: visible;
+    }
+
+    a {
+      display: inline-block;
+    }
+
+    img {
+      width: 127px;
+      height: 18px;
     }
   }
 
@@ -70,37 +92,17 @@
     }
   }
 
-  .my-intranet-form {
+  .select-agency-trigger-container {
+    @extend %medium-copy;
     position: relative;
     display: inline-block;
     padding: 6px 0;
-    z-index: 1;
+    z-index: 2;
 
-    .department-dropdown-description {
-      color: $white;
-    }
-
-    .department-dropdown-trigger {
+    .select-agency-trigger {
       color: $white;
       text-decoration: underline;
       cursor: pointer;
-    }
-
-    .department-list {
-      position: absolute;
-      display: none;
-      top: 25px;
-      right: 0;
-      width: 320px;
-      margin: 0;
-      padding: 5px 0;
-      border: 1px solid #333;
-      background-color: $white;
-      z-index: 1;
-
-      &.visible {
-        display: block;
-      }
     }
 
     .agency a {
@@ -122,8 +124,24 @@
   .header-search {
     background-color: $govuk-blue;
 
+    [data-agency="hmcts"] & {
+      background-color: $hmcts;
+    }
+
+    [data-agency="laa"] & {
+      background-color: $laa;
+    }
+
+    [data-agency="opg"] & {
+      background-color: $opg;
+    }
+
     .search-form {
       margin: 20px 0;
+    }
+
+    .keywords-field {
+      border: none;
     }
 
     .search-btn {
@@ -149,6 +167,10 @@
         padding: 8px 15px;
         text-align: center;
       }
+    }
+
+    .site-logo img {
+      height: 27px;
     }
 
     .skip-to-content-container {

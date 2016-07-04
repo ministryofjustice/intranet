@@ -2,13 +2,18 @@
   .lte-ie9 & {
     .category-item {
       float: left;
-      width: 20%;
     }
 
     .category-link {
       position: relative;
       height: 40px;
       margin-bottom: -1px;
+    }
+  }
+
+  .ie7 & {
+    .categories-list {
+      margin-bottom: 0;
     }
   }
 }

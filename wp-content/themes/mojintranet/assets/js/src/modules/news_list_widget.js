@@ -13,7 +13,7 @@
     init: function() {
       this.applicationUrl = $('head').data('application-url');
       this.templateUri = $('head').data('template-uri');
-      this.serviceUrl = this.applicationUrl + '/service/widgets/non-featured-news/hq//0/8';
+      this.serviceUrl = this.applicationUrl + '/service/widgets/non-featured-news/' + App.tools.helpers.agency.getForContent() + '//0/8';
       this.pageBase = this.applicationUrl + '/' + this.$top.data('top-level-slug');
       this.genericThumbnailPath = this.templateUri + '/assets/images/news-placeholder.jpg';
 
@@ -54,7 +54,13 @@
         _this.news.push(_this.buildResultRow(result));
       });
 
-      this.displayNews();
+      if (this.news.length > 0) {
+        this.displayNews();
+      }
+      else {
+        this.$top.find('.no-news-message').addClass('visible');
+        this.$top.addClass('no-news');
+      }
 
       this.resultsLoaded = true;
       this.$top.removeClass('loading');
@@ -85,15 +91,16 @@
 
       this.$newsList.find('.news-item').detach();
 
-      $.each(this.news, function(index, $newsItem) {
+      $.each(this.news, function (index, $newsItem) {
         _this.$newsList.eq(column - 1).append($newsItem);
 
         column++;
 
-        if(column > maxColumns) {
+        if (column > maxColumns) {
           column = 1;
         }
       });
+
     }
   };
 }(jQuery));

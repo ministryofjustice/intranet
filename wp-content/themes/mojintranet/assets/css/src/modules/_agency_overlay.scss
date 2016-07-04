@@ -1,0 +1,118 @@
+$grid-size: 40px;
+
+.agency-overlay-visible #content {
+  display: none;
+}
+
+.agency-overlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  display: none;
+  z-index: 1;
+  background-color: $white;
+  text-align: left;
+
+  .agency-overlay-visible & {
+    display: block;
+  }
+
+  h2 {
+    @extend %largest-heading;
+  }
+
+  .agency-list {
+    -moz-column-gap: 150px;
+    -webkit-column-gap: 150px;
+    column-gap: 150px;
+    -moz-column-count: 2;
+    -webkit-column-count: 2;
+    column-count: 2;
+  }
+
+  .agency-item {
+    margin-bottom: 10px;
+    page-break-inside: avoid;
+
+    &.selected a {
+      background-color: $white;
+    }
+
+    a {
+      display: block;
+      padding: 15px;
+      background-color: $grey-3;
+      border: 2px solid $grey-3;
+      color: $black;
+      text-decoration: none;
+
+      &:hover,
+      &:active {
+        background-color: $white;
+      }
+    }
+
+    .icon {
+      float: left;
+      width: 40px;
+      height: 40px;
+      margin-top: -10px;
+      margin-right: 10px;
+      background-image: url('../images/agency_logos_x2.png');
+      background-position: 0 0;
+      background-size: auto 40px;
+      vertical-align: middle;
+    }
+
+    &[data-agency="laa"],
+    &[data-agency="hmcts"],
+    &[data-agency="judicial-office"],
+    &[data-agency="noms"],
+    &[data-agency="opg"],
+    &[data-agency="ospt"],
+    &[data-agency="hq"] {
+      .icon {
+        background-position: 0 0;
+      }
+    }
+
+    &[data-agency="judicial-appointments-commission"] .icon {
+      background-position: (-$grid-size * 1);
+    }
+
+    &[data-agency="law-commission"] .icon {
+      background-position: (-$grid-size * 2);
+    }
+
+    &[data-agency="nps"] .icon {
+      background-position: (-$grid-size * 3);
+    }
+
+    .label {
+      @extend %large-copy;
+    }
+  }
+}
+
+@include tablet-mq() {
+  .agency-overlay {
+    .agency-list {
+      -moz-column-gap: 20px;
+      -webkit-column-gap: 20px;
+      column-gap: 20px;
+      -moz-column-count: 2;
+      -webkit-column-count: 2;
+      column-count: 2;
+    }
+  }
+}
+
+@include mobile-mq() {
+  .agency-overlay {
+    .agency-list {
+      -moz-column-count: 1;
+      -webkit-column-count: 1;
+      column-count: 1;
+    }
+  }
+}
