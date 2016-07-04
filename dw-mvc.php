@@ -27,11 +27,10 @@ class DW_MVC {
     include_once($this->plugin_path.'Controller.php');
     include_once($this->plugin_path.'Model.php');
 
-    if(!is_admin()) {
+    if (!is_admin()) {
       add_action('init', [&$this, 'action_query_vars'], 1);
       add_action('wp', [&$this, 'action_route']);
       add_action('activated_plugin', [&$this, 'action_load_first'], 1);
-      add_action('after_setup_theme', [&$this, 'action_unhook_document_revisions_auth'], 1);
     }
   }
 
@@ -44,21 +43,21 @@ class DW_MVC {
     $path = get_query_var('param_string');
 
     //determine controller path
-    if($template) {
+    if ($template) {
       $controller_path = $template;
     }
     else {
-      if(is_single()) {
+      if (is_single()) {
         $controller = 'single-' . $post_type;
       }
-      if(is_404()) {
+      if (is_404()) {
         $controller = 'page_error';
       }
       $controller_path = get_template_directory() . '/' . $controller . '.php';
     }
 
     //include controller
-    if(file_exists($controller_path)) {
+    if (file_exists($controller_path)) {
       include($controller_path);
     }
     else {
@@ -66,12 +65,12 @@ class DW_MVC {
     }
 
     //instantiate controller
-    if($post_type != "document") {
+    if ($post_type != "document") {
       $controller_name = ucfirst(basename($controller_path));
       $controller_name = preg_replace('/\.[^.]+$/', '', $controller_name);
       $controller_name = str_replace('-', '_', $controller_name);
 
-      if(class_exists($controller_name)) {
+      if (class_exists($controller_name)) {
         new $controller_name($path);
         $MVC->run();
       }
@@ -82,8 +81,8 @@ class DW_MVC {
   // Force mvc plugin to load before other plugins
   function action_load_first() {
     $path = str_replace(WP_PLUGIN_DIR . '/', '', __FILE__);
-    if($plugins = get_option('active_plugins')) {
-      if($key = array_search($path, $plugins)) {
+    if ($plugins = get_option('active_plugins')) {
+      if ($key = array_search($path, $plugins)) {
         array_splice($plugins, $key, 1);
         array_unshift($plugins, $path);
         update_option('active_plugins', $plugins);
@@ -94,15 +93,6 @@ class DW_MVC {
   function action_query_vars() {
     add_rewrite_tag('%controller%', '([^&]+)');
     add_rewrite_tag('%param_string%', '([^&]+)');
-  }
-
-  /** !!! TODO: to be removed as soon as we remove the issues in the doc revs plugin (coming soon)
-   */
-  function action_unhook_document_revisions_auth() {
-    global $wpdr;
-    if(isset($wpdr)) {
-      remove_action('after_setup_theme', [&$wpdr, 'auth_webdav_requests']);
-    }
   }
 }
 

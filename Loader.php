@@ -21,7 +21,7 @@ abstract class MVC_loader {
   public function model($name) {
     $class_name = ucfirst($name . '_model');
 
-    if(!method_exists($this->model, $name)) {
+    if (!method_exists($this->model, $name)) {
       include_once($this->models_path . $name . '.php');
 
       $instance = new $class_name;
@@ -30,8 +30,8 @@ abstract class MVC_loader {
   }
 
   public function view($path, $data = [], $return_as_string = false) {
-    if(is_array($data)) {
-      foreach($data as $key=>$value) {
+    if (is_array($data)) {
+      foreach ($data as $key=>$value) {
         $$key = $value;
       }
     }
@@ -40,7 +40,7 @@ abstract class MVC_loader {
     include($this->views_path.$path.'.php');
     $html = ob_get_clean();
 
-    if($return_as_string) {
+    if ($return_as_string) {
       return $html;
     }
     else {
