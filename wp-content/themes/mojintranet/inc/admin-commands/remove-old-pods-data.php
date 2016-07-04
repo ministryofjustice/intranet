@@ -28,7 +28,6 @@ class Remove_Old_Pods_Data extends Admin_Command {
         $wpdb->query(
             "DELETE FROM $wpdb->usermeta
 		     WHERE meta_key LIKE 'user_telephone' 
-		     OR meta_key LIKE 'user_job_title' 
 		     OR meta_key LIKE 'user_grade' 
 		     OR meta_key LIKE 'user_team'  
 		     OR meta_key LIKE 'user_line_manager'  
