@@ -25,6 +25,7 @@
 
       this.setAgency();
       this.addAgencyAttribute();
+      this.initializeUserMenu();
       this.initializeMenu();
       this.updateLogo();
 
@@ -40,6 +41,19 @@
 
     addAgencyAttribute: function() {
       $('html').attr('data-agency', this.agency);
+    },
+
+    initializeUserMenu: function() {
+      var $userMenu = $('.header .user-menu');
+
+      //show relevant menu items
+      if (this.userLoggedIn) {
+        $userMenu.find('.sign-out').removeClass('hidden');
+      }
+      else {
+        $userMenu.find('.sign-in').removeClass('hidden');
+        $userMenu.find('.register').removeClass('hidden');
+      }
     },
 
     initializeMenu: function() {

@@ -20,14 +20,30 @@
       </a>
     </div>
     <div class="user-bar col-lg-6 col-md-6 col-sm-12">
-      <div class="select-agency-trigger-container">
-        <a href="#" class="select-agency-trigger">Switch to other intranet</a>
+      <ul class="user-menu">
+        <li>
+          <div class="select-agency-trigger-container">
+            <a href="#" class="select-agency-trigger">Switch to other intranet</a>
 
-        <div class="tooltip my-agency-tooltip">
-          <span class="triangle"></span>
-          <p>Please select your agency or public body</p>
-        </div>
-      </div>
+            <div class="tooltip my-agency-tooltip">
+              <span class="triangle"></span>
+              <p>Please select your agency or public body</p>
+            </div>
+          </div>
+        </li>
+        <li class="hidden sign-in">
+          <span class="separator">|</span>
+          <a href="<?=site_url('/sign-in/')?>">Sign in</a>
+        </li>
+        <li class="hidden sign-out">
+          <span class="separator">|</span>
+          <a href="<?=wp_logout_url(get_permalink())?>">Sign out</a>
+        </li>
+        <li class="hidden register">
+          <span class="separator">|</span>
+          <a href="<?=site_url('/create-an-account/')?>">Register</a>
+        </li>
+      </ul>
     </div>
   </div>
 
