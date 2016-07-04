@@ -12,9 +12,7 @@
   </div>
   <div class="grid header-top">
     <div class="site-logo-hq col-lg-12 col-md-12 col-sm-12">
-      <a href="<?=WP_SITEURL?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home">
-        <img src="<?=get_template_directory_uri()?>/assets/images/logos/moj_logo.png" alt="Ministry of Justice logo" />
-      </a>
+      <img src="<?=get_template_directory_uri()?>/assets/images/logos/moj_logo.png" alt="Ministry of Justice logo" />
     </div>
     <div class="site-logo col-lg-6 col-md-6 col-sm-12">
       <a href="<?=WP_SITEURL?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home">
@@ -23,7 +21,7 @@
     </div>
     <div class="user-bar col-lg-6 col-md-6 col-sm-12">
       <div class="select-agency-trigger-container">
-        <a href="#" class="select-agency-trigger"></a>
+        <a href="#" class="select-agency-trigger">Switch to other intranet</a>
 
         <div class="tooltip my-agency-tooltip">
           <span class="triangle"></span>
