@@ -52,6 +52,19 @@
       var categoryList = App.tools.sortByKey(data.children, 'title');
       var childrenList = [];
 
+      //temporary measure to display the old layout for agencies that have no content of their own
+      if (categoryList.length) {
+        this.$top.addClass('has-own-categories');
+      }
+      else {
+        this.$top.find('.category-item')
+          .removeClass('col-lg-12 col-md-12')
+          .addClass('col-lg-4 col-md-4');
+        this.$top.find('.about-column')
+          .removeClass('col-lg-6 col-md-6')
+          .addClass('col-lg-12 col-md-12');
+      }
+
       $.each(categoryList, function(index, category) {
         $category = _this.buildCategoryItem(category);
         _this.$agencyCategoriesList.append($category);

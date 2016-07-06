@@ -8,7 +8,7 @@
   </div>
 
   <div class="grid">
-    <div class="col-lg-6 col-md-6 col-sm-12">
+    <div class="about-column col-lg-6 col-md-6 col-sm-12">
       <h2 class="the-moj-heading">The MoJ</h2>
       <!--<div class="excerpt hq-only">
         <?=$excerpt?>
@@ -35,7 +35,7 @@
       </div>
     </div>
 
-    <div class="col-lg-6 col-md-6 col-sm-12">
+    <div class="about-column col-lg-6 col-md-6 col-sm-12">
       <h2 class="agency-name-heading"></h2>
       <div class="agency-categories-box">
         <ul class="index-list agency-categories-list"></ul>

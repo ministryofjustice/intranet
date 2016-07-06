@@ -14,11 +14,18 @@ class Page_tree_model extends MVC_model {
   public function get_children($options = []) {
     $options = $this->_normalise_options($options);
 
-    if($options['tag']) {
+    if ($options['tag']) {
       $options['page_id'] = Taggr::get_id($options['tag']);
+
       unset($options['tax_query']);
       unset($options['agency']);
       unset($options['additional_filters']);
+    }
+
+    if (!$options['page_id']) {
+      return [
+        'children' => []
+      ];
     }
 
     $data = $this->_format_row(get_post($options['page_id']));
@@ -81,11 +88,6 @@ class Page_tree_model extends MVC_model {
       'posts_per_page' => -1,
       'tax_query' => $options['tax_query']
     ];
-
-    if(!$options['page_id']) {
-      $children_args['meta_key'] = 'is_top_level';
-      $children_args['meta_value'] = 1;
-    }
 
     $children = new WP_Query($children_args);
 
