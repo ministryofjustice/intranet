@@ -17,15 +17,15 @@ class Page_tree_model extends MVC_model {
     if ($options['tag']) {
       $options['page_id'] = Taggr::get_id($options['tag']);
 
+      if (!$options['page_id']) {
+        return [
+          'children' => []
+        ];
+      }
+
       unset($options['tax_query']);
       unset($options['agency']);
       unset($options['additional_filters']);
-    }
-
-    if (!$options['page_id']) {
-      return [
-        'children' => []
-      ];
     }
 
     $data = $this->_format_row(get_post($options['page_id']));
