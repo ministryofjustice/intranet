@@ -61,7 +61,6 @@ class Page_tree_API extends API {
     $options = $this->add_taxonomies($this->params);
     $data = $this->MVC->model->page_tree->get_children($options);
     //$data['url_params'] = $this->params;
-    $data['success'] = (!$data['id']) ? false : true;
     $this->response($data, 200, 120);
   }
 
@@ -69,7 +68,6 @@ class Page_tree_API extends API {
     $options = $this->add_taxonomies($this->params);
     $data = $this->MVC->model->page_tree->get_ancestors($options);
     //$data['url_params'] = $this->params;
-    $data['success'] = (!$data['id']) ? false : true;
     $this->response($data, 200, 120);
   }
 }
