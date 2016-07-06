@@ -8,9 +8,17 @@ if(!is_user_logged_in() && $cache_timeout > 0) {
   header('Expires: '.gmdate('D, d M Y H:i:s \G\M\T', time() + $cache_timeout));
   header_remove("Pragma");
 } else {
-  header('Cache-Control: private, max-age=0, no-cache');
-  header("Pragma: no-cache");
-  header('Expires: '.gmdate('D, d M Y H:i:s \G\M\T', time() - 60));
+
+  if(current_user_can( 'subscriber' )) {
+    header('Cache-Control: public, max-age=' . $cache_timeout);
+    header('Expires: ' . gmdate('D, d M Y H:i:s \G\M\T', time() + $cache_timeout));
+    header_remove("Pragma");
+  }
+  else {
+    header('Cache-Control: private, max-age=0, no-cache');
+    header("Pragma: no-cache");
+    header('Expires: ' . gmdate('D, d M Y H:i:s \G\M\T', time() - 60));
+  }
 }
 
 ?>
