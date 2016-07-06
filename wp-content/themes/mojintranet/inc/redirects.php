@@ -71,11 +71,6 @@ function dw_rewrite_rules() {
   $regex = '^(service|password|create-an-account|sign-in)(/(.*)|$)';
   $redirect = 'index.php?controller=$matches[1]&param_string=$matches[3]';
   add_rewrite_rule($regex, $redirect, 'top');
-
-  //about-us to custom controller
-  $regex = '^about-us/?$'; //redirect "about-us" and "about-us/" but NOT "about-us/.+"
-  $redirect = 'index.php?controller=$matches[1]&param_string=$matches[3]';
-  add_rewrite_rule($regex, $redirect, 'top');
 }
 add_action('init', 'dw_redirects');
 add_action('init', 'dw_rewrite_rules');

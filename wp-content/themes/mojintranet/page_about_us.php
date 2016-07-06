@@ -2,17 +2,24 @@
 /* Template name: About us */
 
 class Page_about_us extends MVC_controller {
-  function main(){
-    while(have_posts()){
+  function main() {
+    while (have_posts()) {
       the_post();
+
       $this->post_ID = get_the_ID();
+      $this->post = get_post($this->post_ID);
+      $about_us_tag = Taggr::get_current();
+
+      //make sure that landing on an agency-specific about us page redirects you back to about-us
+      if ($about_us_tag != 'about-us') {
+        header("Location: " . Taggr::get_permalink('about-us'));
+      }
 
       $this->view('layouts/default', $this->get_data());
     }
   }
 
   private function get_data() {
-    $post = get_post($this->post_ID);
     $title = get_the_title();
     $title = preg_replace('/ – /', '', $title);
 
@@ -22,7 +29,7 @@ class Page_about_us extends MVC_controller {
       'cache_timeout' => 60 * 15, /* 15 minutes */
       'page_data' => array(
         'title' => $title,
-        'excerpt' => $post->post_excerpt, // Not using get_the_excerpt() to prevent auto-generated excerpts being displayed
+        'excerpt' => $this->post->post_excerpt, // Not using get_the_excerpt() to prevent auto-generated excerpts being displayed
         'children_data' => $this->get_children_data()
       )
     );
