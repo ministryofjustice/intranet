@@ -8,10 +8,9 @@ class Page_about_us extends MVC_controller {
 
       $this->post_ID = get_the_ID();
       $this->post = get_post($this->post_ID);
-      $about_us_tag = Taggr::get_current();
 
       //make sure that landing on an agency-specific about us page redirects you back to about-us
-      if ($about_us_tag != 'about-us') {
+      if (Taggr::get_current() != 'about-us') {
         header("Location: " . Taggr::get_permalink('about-us'));
       }
 
