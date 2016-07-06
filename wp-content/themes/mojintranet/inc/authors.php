@@ -18,7 +18,7 @@ function dw_get_author_info($post_id) {
       if($author->data) {
         $author_name = $author->data->display_name;
         $author_thumb = get_avatar_url($author_id);
-        $author_job_title = get_the_author_meta('job_title',$author_id);
+        $author_job_title = get_the_author_meta('user_job_title',$author_id);
         $author_bio = get_the_author_meta('description',$author_id);
       } else {
         $author_name = $author->display_name;
