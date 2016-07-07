@@ -115,7 +115,7 @@
     },
 
     fixMenuForIE: function() {
-      var $menuItems = $('.header-menu .category-item:visible');
+      var $menuItems = $('.header-menu .main-menu-item:visible');
       var count = $menuItems.length;
 
       if (count > 0 && App.ie && App.ie <= 9) {
