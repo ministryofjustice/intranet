@@ -2,7 +2,7 @@
   @include clearfix;
 
   li {
-    float: left;
+    display: inline-block;
     margin-right: 20px;
   }
 

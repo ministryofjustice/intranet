@@ -254,7 +254,7 @@
       });
 
       //add line breaks
-      comment = comment.replace(/\n+/g, '<br>');
+      comment = comment.replace(/\n+/g, '<p></p>');
 
       $comment.find('.content').html(comment);
       $comment.find('.datetime').html(relativeTime);
