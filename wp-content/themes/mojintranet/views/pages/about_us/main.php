@@ -10,9 +10,6 @@
   <div class="grid">
     <div class="about-column col-lg-6 col-md-6 col-sm-12">
       <h2 class="the-moj-heading">The MoJ</h2>
-      <!--<div class="excerpt hq-only">
-        <?=$excerpt?>
-      </div>-->
       <div class="global-categories-box">
         <ul class="index-list global-categories-list grid">
           <?php foreach($children_data as $category): ?>
