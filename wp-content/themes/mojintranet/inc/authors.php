@@ -10,17 +10,18 @@
 function dw_get_author_info($post_id) {
   $authors = array();
 
-  if(function_exists('get_coauthors')) {
+  if (function_exists('get_coauthors')) {
     $authors_array = get_coauthors($post_id);
-    foreach($authors_array as $author) {
+    foreach ($authors_array as $author) {
       $author_id = $author->ID;
 
-      if($author->data) {
+      if ($author->data) {
         $author_name = $author->data->display_name;
         $author_thumb = get_avatar_url($author_id);
-        $author_job_title = get_the_author_meta('user_job_title',$author_id);
-        $author_bio = get_the_author_meta('description',$author_id);
-      } else {
+        $author_job_title = get_the_author_meta('user_job_title', $author_id);
+        $author_bio = get_the_author_meta('description', $author_id);
+      }
+      else {
         $author_name = $author->display_name;
         $author_thumb_id = get_post_thumbnail_id($author_id);
         $author_thumb = wp_get_attachment_image_src($author_thumb_id, 'user-thumb')[0];
@@ -39,7 +40,8 @@ function dw_get_author_info($post_id) {
         'bio'           => $author_bio
       );
     }
-  } else {
+  }
+  else {
     $user_id = get_post_field( 'post_author', $post_id);
     $avatar_url = get_avatar_url(get_the_author_meta('ID', $user_id));
     $author_thumb_id = get_attachment_id_from_url($avatar_url);
@@ -87,7 +89,7 @@ add_filter( 'coauthors_guest_author_fields', 'dw_add_author_fields', 10, 2 );
  */
 function dw_edit_contactmethods( $contactmethods ) {
   $fields_to_delete=array('yim','aim','jabber','yahooim','website');
-  foreach($fields_to_delete as $field) {
+  foreach ($fields_to_delete as $field) {
     unset($contactmethods[$field]);
   }
   return $contactmethods;
@@ -102,4 +104,4 @@ function dw_filter_guest_author_manage_cap( $cap ) {
 }
 add_filter( 'coauthors_guest_author_manage_cap', 'dw_filter_guest_author_manage_cap' );
 
-?>
+
