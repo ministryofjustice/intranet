@@ -32,7 +32,7 @@ class Menu_model extends MVC_model {
 
     return [
       'results' => $organised_menu_items,
-      'top_level_id' => $top_level_id
+      'top_level_id' => $this->top_level_id
     ];
   }
 
