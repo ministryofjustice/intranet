@@ -22,10 +22,6 @@ class Page_tree_model extends MVC_model {
           'children' => []
         ];
       }
-
-      unset($options['tax_query']);
-      unset($options['agency']);
-      unset($options['additional_filters']);
     }
 
     $data = $this->_format_row(get_post($options['page_id']));

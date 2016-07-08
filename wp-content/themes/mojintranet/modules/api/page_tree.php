@@ -43,17 +43,16 @@ class Page_tree_API extends API {
       'method' => $method,
     );
 
+    $this->params['agency'] = $params[1];
+    $this->params['additional_params'] = $params[2];
+    $this->params['depth'] = (int) $params[4];
+    $this->params['order'] = $params[5];
+
     if($method === 'children-by-tag') {
-      $this->params['tag'] = $params[1];
-      $this->params['depth'] = (int) $params[2];
-      $this->params['order'] = $params[3];
+      $this->params['tag'] = $params[3];
     }
     else {
-      $this->params['agency'] = $params[1];
-      $this->params['additional_params'] = $params[2];
       $this->params['page_id'] = (int) $params[3];
-      $this->params['depth'] = (int) $params[4];
-      $this->params['order'] = $params[5];
     }
   }
 

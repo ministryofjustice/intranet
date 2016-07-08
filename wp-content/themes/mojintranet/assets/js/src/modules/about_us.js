@@ -14,7 +14,7 @@
       this.agency = App.tools.helpers.agency.getForContent();
       this.agencyData = App.tools.helpers.agency.getData(this.agency);
       this.applicationUrl = $('head').data('application-url');
-      this.serviceUrl = this.applicationUrl + '/service/page_tree/children-by-tag/about-' + this.agency + '/2';
+      this.serviceUrl = this.applicationUrl + '/service/page_tree/children-by-tag/' + this.agency + '//about-' + this.agency + '/2';
 
       this.categoryItemTemplate = this.$top.find('[data-name="widget-about-us-item"]').html();
       this.childItemTemplate = this.$top.find('[data-name="widget-about-us-child-item"]').html();
