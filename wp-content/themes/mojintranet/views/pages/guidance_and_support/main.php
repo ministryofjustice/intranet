@@ -13,12 +13,20 @@
   <div class="grid">
     <div class="col-lg-12 col-md-12 col-sm-12">
       <div class="guidance-categories">
-        <div class="guidance-index-widget">
-          <h2 class="category">Most visited</h2>
-          <ul class="index-list guidance-categories-list large"></ul>
+        <div class="categories-box">
+          <div class="most-visited">
+            <h2 class="category">Most visited</h2>
+            <ul class="index-list guidance-categories-list large"></ul>
+          </div>
 
-          <h2 class="category all-items">All</h2>
-          <ul class="index-list guidance-categories-list small"></ul>
+          <div class="a-to-z">
+            <h2 class="category">All</h2>
+            <ul class="index-list guidance-categories-list small"></ul>
+          </div>
+
+          <div class="embedded">
+            <ul class="index-list guidance-categories-list"></ul>
+          </div>
         </div>
 
         <?php $this->view('pages/guidance_and_support/category_item') ?>

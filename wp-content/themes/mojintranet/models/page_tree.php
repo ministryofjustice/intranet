@@ -133,6 +133,8 @@ class Page_tree_model extends MVC_model {
       'order' => $post->menu_order,
       'child_count' => $grandchildren->post_count,
       'is_external' => (boolean) get_post_meta($id, 'redirect_enabled', true),
+      'is_guidance_most_visited' => (boolean) get_post_meta($id, 'dw_hq_guidance_most_visited', true),
+      'guidance_most_visited_position' => (int) get_post_meta($id, 'dw_hq_guidance_most_visited_position', true),
       'status' => $post->post_status,
       'children' => []
     );

@@ -13,12 +13,12 @@
   .category {
     @extend %medium-heading;
     margin-bottom: 0;
+  }
 
-    &.all-items {
-      margin-top: 40px;
-      padding-top: 40px;
-      border-top: 3px solid $black;
-    }
+  .a-to-z .category {
+    margin-top: 40px;
+    padding-top: 40px;
+    border-top: 3px solid $black;
   }
 
   .index-list {
