@@ -55,7 +55,7 @@ class Header_model extends MVC_model {
         'label' => 'Legal Aid Agency',
         'abbreviation' => 'LAA',
         'url' => 'http://intranet.justice.gsi.gov.uk/laa/',
-        'is_integrated' => false,
+        'is_integrated' => true,
         'is_external' => true
       ),
       'hq' => array(
