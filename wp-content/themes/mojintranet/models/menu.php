@@ -6,7 +6,8 @@ class Menu_model extends MVC_model {
    * @param {Array} $params Params
    *    {String} 'location' - menu location name
    *    {Integer} 'depth_limit' = 0 - depth limit
-   *    {Integer|Boolean} 'post_id' - subject post ID; use boolean:true to auto-detect based on current post
+   *    {Integer|Boolean} 'post_id' - subject post ID
+   *      use boolean:true to auto-detect based on current post
    *
    * @return {Array} array of menu items
    */
@@ -49,7 +50,7 @@ class Menu_model extends MVC_model {
 
         $clean_item = [
           'title' => $item->title,
-          'ID' => $item->ID,
+          'id' => $item->ID,
           'object_id' => (int) $item->object_id,
           'url' => $item->url,
           'classes' => implode($classes, ' '),

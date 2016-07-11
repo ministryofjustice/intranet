@@ -13,7 +13,7 @@
     init: function() {
       this.agency = App.tools.helpers.agency.getForContent();
       this.applicationUrl = $('head').data('application-url');
-      this.serviceUrl = this.applicationUrl + '/service/page_tree/children-by-tag/' + this.agency + '//guidance-index/2';
+      this.serviceUrl = this.applicationUrl + '/service/page_tree/guidance-index/' + this.agency + '//';
 
       this.categoryItemTemplate = this.$top.find('[data-name="widget-guidance-item"]').html();
       this.childItemTemplate = this.$top.find('[data-name="widget-guidance-child-item"]').html();
@@ -41,23 +41,13 @@
 
     displayData: function(data) {
       var _this = this;
-      var allList = data.children;
-      var mostVisitedList = [];
       var childrenList;
       var $category;
       //var childrenList;
 
       //get most visited
       if (this.agency === 'hq') {
-        $.each(allList, function(index, category) {
-          if (category.is_guidance_most_visited) {
-            mostVisitedList.push(category);
-          }
-        });
-
-        mostVisitedList = App.tools.sortByKey(mostVisitedList, 'dw_hq_guidance_most_visited_position');
-
-        $.each(mostVisitedList, function(index, category) {
+        $.each(data.most_visited, function(index, category) {
           $category = _this.buildCategoryItem(category);
           _this.$topCategoriesList.append($category);
 
@@ -69,14 +59,13 @@
         });
       }
 
-      $.each(allList, function(index, category) {
+      $.each(data.categories, function(index, category) {
         _this.$allCategoriesList.append(_this.buildCategoryItem(category));
       });
 
       this.resultsLoaded = true;
       this.$top.removeClass('loading');
     },
-
 
     buildCategoryItem: function(data) {
       var $category = $(this.categoryItemTemplate);
