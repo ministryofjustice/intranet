@@ -189,7 +189,6 @@
       //**/window.setTimeout(function() {
         _this.serviceXHR = $.getJSON(_this.serviceUrl+'/'+dataArray.join('/'), $.proxy(_this.displayResults, _this));
       //**/}, 5000);
-      
     },
 
     clearResults: function() {
