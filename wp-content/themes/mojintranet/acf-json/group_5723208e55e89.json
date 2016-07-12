@@ -23,7 +23,7 @@
             "sub_fields": [
                 {
                     "key": "field_572359e0e259c",
-                    "label": "Tab Title1",
+                    "label": "Tab Title",
                     "name": "tab_title",
                     "type": "text",
                     "instructions": "",
@@ -121,7 +121,9 @@
                             "readonly": 0,
                             "disabled": 0
                         }
+
                     ]
+
                 },
                 {
                     "key": "field_57235729f3320",
@@ -245,5 +247,6 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1462790061
+    "modified": 1468330131
+
 }
