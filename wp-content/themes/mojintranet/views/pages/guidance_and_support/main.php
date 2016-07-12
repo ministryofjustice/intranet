@@ -24,13 +24,13 @@
             <ul class="index-list guidance-categories-list small"></ul>
           </div>
 
-          <div class="embedded">
-            <ul class="index-list guidance-categories-list"></ul>
+          <div class="featured">
           </div>
         </div>
 
         <?php $this->view('pages/guidance_and_support/category_item') ?>
         <?php $this->view('pages/guidance_and_support/child_item') ?>
+        <?php $this->view('pages/guidance_and_support/featured_item') ?>
       </div>
     </div>
   </div>
