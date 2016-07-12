@@ -31,7 +31,6 @@
 
     bindEvents: function() {
       this.$selectAgencyTrigger.click($.proxy(this.triggerClick, this));
-      this.$form.submit($.proxy(this.formSubmit, this));
       this.$tooltip.on('click', $.proxy(this.toggleTooltip, this, false));
     },
 
@@ -63,7 +62,6 @@
 
       //select agency
       this.$agencyItems.filter('[data-agency="' + agency + '"]').addClass('selected');
-      this.$selectAgencyTrigger.html('Change');
     },
 
     buildItem: function(name, item) {
@@ -90,16 +88,20 @@
       e.preventDefault();
 
       this.selectItem($(e.currentTarget));
+      this.$agencyItems.find('a').click($.proxy(this.formSubmit, this));
+
+      this.redirect();
     },
 
-    formSubmit: function(e) {
+    redirect: function() {
       var $selectedItem = this.$agencyItems.filter('.selected');
+      var url = App.tools.url(true);
 
-      e.preventDefault();
+      url.unsetParam('agency');
 
       if($selectedItem.length) {
         App.tools.helpers.agency.set($selectedItem.attr('data-agency'));
-        window.location.href = window.location.href;
+        url.go();
       }
     },
 

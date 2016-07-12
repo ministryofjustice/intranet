@@ -4,6 +4,10 @@ class Header_model extends MVC_model {
   function get_data() {
     return array(
       'stringified_agencies' => htmlspecialchars(json_encode($this->_get_agencies())),
+      'main_menu' => $this->model->menu->get_menu_items([
+        'location' => 'main-menu',
+        'post_id' => true
+      ])
     );
   }
 
@@ -21,64 +25,76 @@ class Header_model extends MVC_model {
         'label' => 'HM Courts &amp; Tribunals Service',
         'abbreviation' => 'HMCTS',
         'url' => 'http://hmcts.intranet.service.justice.gov.uk/hmcts/',
-        'url_label' => 'HMCTS Archive',
+        'url_label' => 'HMCTS Archive intranet',
         'blog_url' => 'http://hmcts.blogs.justice.gov.uk',
-        'is_integrated' => true
+        'is_integrated' => true,
+        'is_external' => true
       ),
       'judicial-appointments-commission' => array(
         'label' => 'Judicial Appointments Commission',
         'abbreviation' => 'JAC',
         'url' => 'http://jac.intranet.service.justice.gov.uk/',
-        'is_integrated' => false
+        'is_integrated' => false,
+        'is_external' => true
       ),
       'judicial-office' => array(
         'label' => 'Judicial Office',
         'abbreviation' => 'JO',
         'url' => 'http://judicialoffice.intranet.service.justice.gov.uk/',
-        'is_integrated' => false
+        'is_integrated' => false,
+        'is_external' => true
       ),
       'law-commission' => array(
         'label' => 'Law Commission',
         'abbreviation' => 'LawCom',
         'url' => 'http://lawcommission.intranet.service.justice.gov.uk/',
-        'is_integrated' => false
+        'is_integrated' => false,
+        'is_external' => true
       ),
       'laa' => array(
         'label' => 'Legal Aid Agency',
         'abbreviation' => 'LAA',
         'url' => 'http://intranet.justice.gsi.gov.uk/laa/',
-        'is_integrated' => false
+        'is_integrated' => true,
+        'is_external' => true
       ),
       'hq' => array(
         'label' => 'Ministry of Justice HQ',
         'abbreviation' => 'MoJ',
-        'url' => '',
+        'url' => site_url('/about-us/moj-transformation/'),
+        'url_label' => 'MoJ TRANSFORMATION &#8594;',
         'is_integrated' => true,
-        'default' => true
+        'default' => true,
+        'is_external' => false,
+        'classes' => 'transformation'
       ),
       'noms' => array(
         'label' => 'National Offender Management Service',
         'abbreviation' => 'NOMS',
         'url' => 'https://intranet.noms.gsi.gov.uk/',
-        'is_integrated' => false
+        'is_integrated' => false,
+        'is_external' => true
       ),
       'nps' => array(
         'label' => 'National Probation Service',
         'abbreviation' => 'NPS',
         'url' => 'https://intranet.noms.gsi.gov.uk/',
-        'is_integrated' => false
+        'is_integrated' => false,
+        'is_external' => true
       ),
       'opg' => array(
         'label' => 'Office of the Public Guardian',
         'abbreviation' => 'OPG',
         'url' => 'http://intranet.justice.gsi.gov.uk/opg/index.htm',
-        'is_integrated' => false
+        'is_integrated' => false,
+        'is_external' => true
       ),
       'ospt' => array(
         'label' => 'Official Solicitor and Public Trustee',
         'abbreviation' => 'OSPT',
         'url' => 'http://intranet.justice.gsi.gov.uk/ospt/index.htm',
-        'is_integrated' => false
+        'is_integrated' => false,
+        'is_external' => true
       )
     );
   }

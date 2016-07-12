@@ -9,8 +9,8 @@
     <h2 class="category-name">My <span class="agency-abbreviation"></span></h2>
     <ul class="agency-link-list hidden">
       <li class="agency" data-department="opg">
-        <a class="agency-link" href="" rel="external">
-          <span class="label"></span> intranet
+        <a class="agency-link" href="">
+          <span class="label"></span>
         </a>
       </li>
     </ul>

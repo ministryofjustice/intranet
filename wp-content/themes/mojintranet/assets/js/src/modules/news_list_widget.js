@@ -19,7 +19,7 @@
 
       this.itemTemplate = this.$top.find('[data-name="widget-news-list-item"]').html();
 
-      this.resultsLoaded = true;
+      this.resultsLoaded = false;
       this.serviceXHR = null;
 
       this.news = [];

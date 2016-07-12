@@ -89,6 +89,14 @@
       };
     }()),
 
+    injectCss: function(url) {
+      var link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = url;
+      document.getElementsByTagName('head')[0].appendChild(link);
+    },
+
     urlencode: function(string) {
       string = encodeURIComponent(string);
       string = string.replace(/%2F/g, '%252F');
@@ -193,6 +201,116 @@
       return false;
     },
 
+    /** Counts number of elements in an array/object
+     * @param {Array|Object} obj Subject array or object
+     * @returns {Integer} array length or object size
+     */
+    count: function(obj) {
+      var type = $.type(obj);
+      var count, i;
+
+      if (type === 'array') {
+        return obj.length;
+      }
+      else if (type === 'object') {
+        if (Object.keys) {
+          return Object.keys(obj).length;
+        }
+        else {
+          count = 0;
+
+          for (i in obj) {
+            if (obj.hasOwnProperty(i)) {
+              count++;
+            }
+          }
+        }
+      }
+
+      return false;
+    },
+
+    /** Merges two or more arrays/objects into one array/object. Every next object overwrites properties of the object to be returned
+     *All arguments must be of the same type (either arrays or objects)
+     *@param {Array|Object} ... Array/Object
+     *@returns {Array|Object} Merged Array/Object
+     */
+    merge: function(base){
+      var baseType = $.type(base);
+      var a,b;
+      var newObj;
+
+      if (baseType === 'array') {
+        newObj = [];
+      }
+      else if (baseType === 'object') {
+        newObj = {};
+      }
+      else {
+        throw new Error("expected base argument to be of type: array or object");
+      }
+
+      for (a = 0; a < arguments.length; a++) {
+        var thisObj = arguments[a];
+
+        if ($.type(thisObj) !== baseType) {
+          throw new Error("argument types don't match");
+        }
+
+        if (baseType === 'array') {
+          newObj = newObj.concat(thisObj);
+        }
+        else { //object
+          for (b in thisObj) {
+            if (thisObj.hasOwnProperty(b)) {
+              newObj[b] = thisObj[b];
+            }
+          }
+        }
+      }
+
+      return newObj;
+    },
+
+    /** Strips whitespace from beginning and end of a string
+     * @param {String} string Input string
+     * @param {String} character Custom Regex-compatible character to be stripped; defaults to whitespace (\\s)
+     * @returns {String} Trimmed string
+     */
+    trim: function(string, character){
+      if (!$.type(character)) {
+        character = '\\s';
+      }
+
+      return string.replace(new RegExp('^'+character+'+|'+character+'+$', 'g'), '');
+    },
+
+    /** Strips whitespace from the beginning of a string
+     * @param {String} string Input string
+     * @param {String} character Custom Regex-compatible character to be stripped; defaults to whitespace
+     * @returns {String} Trimmed string
+     */
+    trimLeft: function(string, character){
+      if (!character) {
+        character = '\\s';
+      }
+
+      return string.replace(new RegExp('^'+character+'+', 'g'), '');
+    },
+
+    /** Strips whitespace from the end of a string
+     * @param {String} string Input string
+     * @param {String} character Custom Regex-compatible character to be stripped; defaults to whitespace
+     * @returns {String} Trimmed string
+     */
+    trimRight: function(string, character){
+      if (!character) {
+        character = '\\s';
+      }
+
+      return string.replace(new RegExp(''+character+'+$', 'g'), '');
+    },
+
     parseDate: function(dateString) {
       var dateArray = dateString.split('-');
       if(dateArray.length === 2){
@@ -218,32 +336,6 @@
      */
     ucfirst: function(string) {
       return string.charAt(0).toUpperCase() + string.substr(1);
-    },
-
-    /** gets a param from the URL
-     * @param {String} param [optional] Param to get
-     * @returns {String|Object} The value of the param or an Object containing all params if param wasn't specified
-     */
-    getUrlParam: function(param) {
-      var url = window.location.href;
-      var parts = url.split('?');
-      var a, length;
-      var params = {};
-      var pair;
-      var key, value;
-
-      parts.shift();
-      url = parts.join('?');
-      parts = url.split('&');
-
-      for(a = 0, length = parts.length; a < length; a++) {
-        pair = parts[a].split('=');
-        key = decodeURIComponent(pair.shift());
-        value = decodeURIComponent(pair.join('='));
-        params[key] = value;
-      }
-
-      return param ? params[param] : params;
     },
 
     sortByKey: function(array, key) {

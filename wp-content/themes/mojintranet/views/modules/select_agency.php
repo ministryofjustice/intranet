@@ -5,8 +5,6 @@
 <form class="select-agency-form">
   <ul class="agency-list"></ul>
 
-  <input type="submit" class="cta cta-positive submit" value="Done" />
-
   <script class="template-partial" data-name="select-agency-item" type="text/x-partial-template">
     <li class="agency-item">
       <a href="#">

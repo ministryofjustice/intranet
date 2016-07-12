@@ -8,7 +8,12 @@
       cookieName: 'dw_agency',
       agencies: (function() {
         var $header = $('body > .header');
-        var data = JSON.parse($header.attr('data-agencies'));
+        var data;
+        var agenciesStr = $header.attr('data-agencies');
+
+        if (agenciesStr) {
+          data = JSON.parse(agenciesStr);
+        }
 
         $header.removeAttr('data-agencies');
 

@@ -4,15 +4,17 @@
   var App = window.App;
 
   App.Personalisation = function() {
-    this.init();
+    if (App.tools.helpers.agency.agencies) {
+      this.init();
+    }
   };
 
   App.Personalisation.prototype = {
     init: function() {
       this.settings = {
         hideForAgency: {
-          'hmcts': ['.events-widget', '.main-nav-events', '.main-nav-guidance', '.main-nav-about-us', '.posts-widget'],
-          'laa': [/*'.events-widget', '.main-nav-events'*/]
+          'hmcts': ['.events-widget', '.main-nav-events', /*'.main-nav-guidance', */'.main-nav-about-us', '.posts-widget'],
+          'laa': ['.events-widget', '.main-nav-events']
         }
       };
 
@@ -43,7 +45,7 @@
     initializeMenu: function() {
       var $menu = $('.header-menu');
 
-      if(this.agencyData.blog_url) {
+      if (this.agencyData.blog_url) {
         $menu.find('.main-nav-blog a').attr('href', this.agencyData.blog_url);
       }
 
@@ -57,7 +59,7 @@
       var isIntegrated = window.App.tools.helpers.agency.isIntegrated();
       var agencyImgSrc = $logo.attr('src').replace('moj_logo', 'moj_logo_' + agency);
 
-      if(agency !== 'hq' && isIntegrated) {
+      if (agency !== 'hq' && isIntegrated) {
         $logo
           .attr('src', agencyImgSrc)
           .attr('alt', agencyData.label + ' logo');
@@ -76,13 +78,22 @@
       var $agencyLinkList = $('.agency-link-list');
       var $agencyAbbreviation = $('.agency-abbreviation');
 
-      if($homepage.length) {
+      if ($homepage.length) {
         $homeHeading.html(agencyData.label);
 
         $agencyLinkList.toggleClass('hidden', agencyData.url === '');
         $agencyLinkList.find('.agency').attr('data-department', this.agency);
         $agencyLinkList.find('a').attr('href', agencyData.url);
-        $agencyLinkList.find('.label').html(agencyData.url_label || agencyData.label);
+        $agencyLinkList.find('.label').html(agencyData.url_label || agencyData.label + ' intranet');
+
+        if (agencyData.is_external) {
+          $agencyLinkList.find('.agency a').attr('rel', 'external');
+        }
+
+        if (agencyData.classes) {
+          $agencyLinkList.find('.agency').addClass(agencyData.classes);
+        }
+
         $agencyAbbreviation.text(agencyData.abbreviation);
       }
     },
@@ -104,10 +115,10 @@
     },
 
     fixMenuForIE: function() {
-      var $menuItems = $('.header-menu .category-item:visible');
+      var $menuItems = $('.header-menu .main-menu-item:visible');
       var count = $menuItems.length;
 
-      if(count > 0 && App.ie && App.ie <= 9) {
+      if (count > 0 && App.ie && App.ie <= 9) {
         $menuItems.css({
           width: '' + 100/count + '%'
         });
@@ -115,7 +126,7 @@
     },
 
     setAgency: function() {
-      var agency = App.tools.getUrlParam('agency');
+      var agency = App.tools.url(true).param('agency');
       var agencyTools = App.tools.helpers.agency;
 
       //set agency from url
@@ -125,7 +136,7 @@
       }
 
       //set default agency in cookie if missing
-      if(!agencyTools.getCookie()) {
+      if (!agencyTools.getCookie()) {
         agencyTools.set(agencyTools.getForContent());
       }
 
@@ -133,26 +144,15 @@
     },
 
     removeAgencyFromUrl: function() {
-      var urlParts = window.location.href.split('?');
-      var url = urlParts[0];
-      var params = App.tools.getUrlParam();
-      var newQuery = [];
+      var url = App.tools.url(true);
 
-      if(!window.history.replaceState) {
+      if (!window.history.replaceState) {
         return;
       }
 
-      delete params.agency;
+      url.unsetParam('agency');
 
-      $.each(params, function(key, value) {
-        newQuery.push(key + '=' + value);
-      });
-
-      if (newQuery.length > 0) {
-        url += '?' + newQuery.join('&');
-      }
-
-      window.history.replaceState(null, null, url);
+      window.history.replaceState(null, null, url.get());
     }
   };
 }(window.jQuery));
