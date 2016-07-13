@@ -19,7 +19,7 @@
 
       this.itemTemplate = this.$top.find('[data-name="widget-featured-news-item"]').html();
 
-      this.resultsLoaded = true;
+      this.resultsLoaded = false;
       this.serviceXHR = null;
 
       this.cacheEls();

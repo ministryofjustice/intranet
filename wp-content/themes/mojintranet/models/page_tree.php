@@ -1,5 +1,9 @@
 <?php if (!defined('ABSPATH')) die();
 
+/** TODO: this model should be updated to make use of hierarchy model.
+ * Ideally, this model should also be renamed to Tree_navigation model
+ * or something to indicate that it's specifically used for that purpose only.
+ */
 class Page_tree_model extends MVC_model {
   private $post_types = array('page', 'webchat');
 
@@ -9,6 +13,16 @@ class Page_tree_model extends MVC_model {
    */
   public function get_children($options = []) {
     $options = $this->_normalise_options($options);
+
+    if ($options['tag']) {
+      $options['page_id'] = Taggr::get_id($options['tag']);
+
+      if (!$options['page_id']) {
+        return [
+          'children' => []
+        ];
+      }
+    }
 
     $data = $this->_format_row(get_post($options['page_id']));
 
@@ -70,11 +84,6 @@ class Page_tree_model extends MVC_model {
       'posts_per_page' => -1,
       'tax_query' => $options['tax_query']
     ];
-
-    if(!$options['page_id']) {
-      $children_args['meta_key'] = 'is_top_level';
-      $children_args['meta_value'] = 1;
-    }
 
     $children = new WP_Query($children_args);
 

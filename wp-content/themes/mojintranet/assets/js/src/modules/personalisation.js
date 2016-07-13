@@ -14,7 +14,7 @@
       this.settings = {
         hideForAgency: {
           'hmcts': ['.events-widget', '.main-nav-events', /*'.main-nav-guidance', */'.main-nav-about-us', '.posts-widget'],
-          'laa': [/*'.events-widget', '.main-nav-events'*/]
+          'laa': ['.events-widget', '.main-nav-events']
         }
       };
 
@@ -115,7 +115,7 @@
     },
 
     fixMenuForIE: function() {
-      var $menuItems = $('.header-menu .category-item:visible');
+      var $menuItems = $('.header-menu .main-menu-item:visible');
       var count = $menuItems.length;
 
       if (count > 0 && App.ie && App.ie <= 9) {
