@@ -15,6 +15,30 @@
     <div class="col-lg-9 col-md-8 col-sm-12">
       <div class="">
         <h1 class="page-title"><?=$title?></h1>
+
+        <?php if (!$hide_page_details): ?>
+          <ul class="info-list">
+            <?php if ($agencies): ?>
+              <li>
+                <span>Audience:</span>
+                <span><?=$agencies?></span>
+              </li>
+            <?php endif ?>
+            <?php if ($author): ?>
+              <li>
+                <span>Content owner:</span>
+                <span><?=$author?></span>
+              </li>
+            <?php endif ?>
+            <?php if ($last_updated): ?>
+              <li>
+                <span>Last updated:</span>
+                <span><?=$last_updated?></span>
+              </li>
+            <?php endif ?>
+          </ul>
+        <?php endif ?>
+
         <div class="excerpt">
           <?=$excerpt?>
         </div>
@@ -29,7 +53,6 @@
       </ul>
 
       <div class="tab-content editable"></div>
-      <span class="date-updated">Last updated: <time><?=$human_date?></time></span>
 
       <?php foreach($tab_array as $tab_number=>$tab_row): ?>
         <div id="panel-<?=$tab_row['name']?>" data-template-type="tab-content" data-content-name="<?=$tab_row['name']?>" class="template-partial editable" role="tabpanel" aria-labelled-by="tab-<?='tab-'.$tab_row['name']?>">
