@@ -38,15 +38,6 @@ function twentyten_widgets_init() {
     'before_title' => '<h3 class="widget-title">',
     'after_title' => '</h3>',
   ) );
-  register_sidebar( array(
-    'name' => __( 'Main menu', 'twentyten' ),
-    'id' => 'main-menu',
-    'description' => __( 'Main menu', 'twentyten' ),
-    'before_widget' => '',
-    'after_widget' => '',
-    'before_title' => '',
-    'after_title' => '',
-  ) );
 }
 
 /** Register sidebars by running twentyten_widgets_init() on the widgets_init hook. */

@@ -19,7 +19,7 @@
       this.weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
       this.months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
-      this.resultsLoaded = true;
+      this.resultsLoaded = false;
       this.serviceXHR = null;
 
       this.cacheEls();

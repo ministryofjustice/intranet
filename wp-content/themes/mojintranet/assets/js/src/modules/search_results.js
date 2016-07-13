@@ -281,7 +281,7 @@
 
     buildResultRow: function(data) {
       var $child = $(this.itemTemplate);
-      var date = this.parseDate(data.timestamp);
+      var date = this.parseDate(data.modified_timestamp);
 
       if(data.thumbnail_url) {
         $child.find('.thumbnail').attr('src', data.thumbnail_url);

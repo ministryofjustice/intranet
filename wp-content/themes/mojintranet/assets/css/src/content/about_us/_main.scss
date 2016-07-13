@@ -1,4 +1,14 @@
 .template-about-us .template-container {
+  &.has-own-categories {
+    .agency-name-heading {
+      display: block;
+    }
+
+    .the-moj-heading {
+      display: block;
+    }
+  }
+
   h1 {
     border-bottom: none;
     margin-top: 50px;
@@ -23,6 +33,14 @@
 
   .main-heading {
     margin-bottom: 10px;
+  }
+
+  .agency-name-heading {
+    display: none;
+  }
+
+  .the-moj-heading {
+    display: none;
   }
 
   &.agency-view .global-categories-box {
