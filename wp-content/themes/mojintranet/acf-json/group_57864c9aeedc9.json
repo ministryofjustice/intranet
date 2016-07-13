@@ -4,8 +4,8 @@
     "fields": [
         {
             "key": "field_57864ca37b11e",
-            "label": "Show Page Details",
-            "name": "dw_show_page_details",
+            "label": "Hide Page Details",
+            "name": "dw_hide_page_details",
             "type": "true_false",
             "instructions": "",
             "required": 0,
@@ -36,5 +36,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1468419304
+    "modified": 1468425368
 }

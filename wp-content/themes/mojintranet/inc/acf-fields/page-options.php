@@ -8,8 +8,8 @@ if( function_exists('acf_add_local_field_group') ):
         'fields' => array (
             array (
                 'key' => 'field_57864ca37b11e',
-                'label' => 'Show Page Details',
-                'name' => 'dw_show_page_details',
+                'label' => 'Hide Page Details',
+                'name' => 'dw_hide_page_details',
                 'type' => 'true_false',
                 'instructions' => '',
                 'required' => 0,
