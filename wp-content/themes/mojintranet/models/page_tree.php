@@ -62,7 +62,7 @@ class Page_tree_model extends MVC_model {
 
     //2. get most visited
     $menu_items = $this->model->menu->get_menu_items([
-      'location' => $global_options['agency'] . '-guidance-index',
+      'location' => $global_options['agency'] . '-guidance-most-visited',
       'depth_limit' => 2
     ]);
 

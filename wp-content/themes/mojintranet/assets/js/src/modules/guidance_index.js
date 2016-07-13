@@ -45,7 +45,8 @@
       var _this = this;
 
       //add most visited
-      if (this.agency === 'hq') {
+      if (data.most_visited.length) {
+        this.$top.find('.most-visited').removeClass('hidden');
         $.each(data.most_visited, function(index, category) {
           _this.$topCategoriesList.append(_this.buildCategoryItem(category));
         });

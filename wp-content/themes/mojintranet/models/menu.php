@@ -14,12 +14,16 @@ class Menu_model extends MVC_model {
   public function get_menu_items($params = []) {
     wp_reset_query();
     $this->top_level_id = false;
-    $location = isset($params['location']) ? $params['location'] : 'hq-guidance-index';
+    $location = isset($params['location']) ? $params['location'] : 'hq-guidance-most-visited';
     $depth_limit = isset($params['depth_limit']) ? $params['depth_limit'] : 0;
     $post_id = $params['post_id'];
 
     $locations = get_nav_menu_locations();
     $menu_items = wp_get_nav_menu_items($locations[$location]);
+
+    if (!$menu_items) {
+      $menu_items = [];
+    }
 
     if ($post_id === true) {
       $post_id = get_the_ID();

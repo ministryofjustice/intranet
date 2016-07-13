@@ -2,9 +2,9 @@
 
 <script data-name="widget-guidance-featured-item" type="text/x-partial-template">
   <li class="featured-item">
-    <h3 class="featured-title">
+    <h2 class="featured-title category">
       <?=$title?>
-    </h3>
+    </h2>
 
     <p class="featured-excerpt"></p>
 

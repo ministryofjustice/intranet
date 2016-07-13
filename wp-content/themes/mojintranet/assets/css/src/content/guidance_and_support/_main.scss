@@ -15,10 +15,24 @@
     margin-bottom: 0;
   }
 
-  .a-to-z .category {
-    margin-top: 40px;
-    padding-top: 40px;
-    border-top: 3px solid $black;
+  .most-visited {
+    &.hidden {
+      display: none;
+    }
+  }
+
+  .featured-excerpt {
+    @extend %medium-copy;
+    margin-top: 15px;
+  }
+
+  .a-to-z,
+  .featured {
+    .category {
+      margin-top: 40px;
+      padding-top: 40px;
+      border-top: 3px solid $black;
+    }
   }
 
   .index-list {
