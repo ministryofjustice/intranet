@@ -12,7 +12,6 @@
           <span>Author:</span>
           <span><?=$author?></span>
         </li>
-
         <?php if ($job_title): ?>
           <li>
             <span>Job title:</span>
