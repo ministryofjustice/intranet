@@ -26,13 +26,10 @@
     margin-top: 15px;
   }
 
-  .a-to-z,
-  .featured {
-    .category {
-      margin-top: 40px;
-      padding-top: 40px;
-      border-top: 3px solid $black;
-    }
+  .section {
+    margin-bottom: 40px;
+    padding-bottom: 40px;
+    border-bottom: 3px solid $black;
   }
 
   .index-list {

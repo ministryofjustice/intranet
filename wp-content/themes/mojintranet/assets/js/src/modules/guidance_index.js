@@ -58,9 +58,12 @@
       });
 
       //add featured
-      $.each(data.bottom_pages, function(index, featured) {
-        _this.$featuredBox.append(_this.buildFeaturedItem(featured));
-      });
+      if (data.bottom_pages.length) {
+        this.$top.find('.featured').removeClass('hidden');
+        $.each(data.bottom_pages, function(index, featured) {
+          _this.$featuredBox.append(_this.buildFeaturedItem(featured));
+        });
+      }
 
       this.resultsLoaded = true;
       this.$top.removeClass('loading');
