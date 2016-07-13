@@ -15,7 +15,8 @@
     margin-bottom: 0;
   }
 
-  .most-visited {
+  .most-visited,
+  .featured {
     &.hidden {
       display: none;
     }
