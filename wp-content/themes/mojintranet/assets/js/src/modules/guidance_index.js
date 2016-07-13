@@ -43,15 +43,11 @@
 
     displayData: function(data) {
       var _this = this;
-      var childrenList;
-      var $category;
-      var $featured;
 
       //add most visited
       if (this.agency === 'hq') {
         $.each(data.most_visited, function(index, category) {
-          $category = _this.buildCategoryItem(category);
-          _this.$topCategoriesList.append($category);
+          _this.$topCategoriesList.append(_this.buildCategoryItem(category));
         });
       }
 
@@ -62,8 +58,7 @@
 
       //add featured
       $.each(data.bottom_pages, function(index, featured) {
-        $featured = _this.buildFeaturedItem(featured);
-        _this.$featuredBox.append($featured);
+        _this.$featuredBox.append(_this.buildFeaturedItem(featured));
       });
 
       this.resultsLoaded = true;
