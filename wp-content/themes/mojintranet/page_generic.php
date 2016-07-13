@@ -45,7 +45,8 @@ class Page_generic extends MVC_controller {
         'author' => $authors[0]['name'],
         'last_updated' => date("j F Y", strtotime(get_the_modified_date())),
         'excerpt' => $post->post_excerpt, // Not using get_the_excerpt() to prevent auto-generated excerpts being displayed
-        'content' => $content
+        'content' => $content,
+        'hide_page_details' => (boolean) get_post_meta($this->post_ID, 'dw_hide_page_details', true)
       )
     );
   }

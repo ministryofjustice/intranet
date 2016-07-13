@@ -69,7 +69,8 @@ class Page_guidance_and_support extends MVC_controller {
         'has_q_links' => $this->has_q_links,
         'page_category' => $this->page_category,
         'autoheadings' => $this->autoheadings,
-        'lhs_menu_on' => $lhs_menu_on
+        'lhs_menu_on' => $lhs_menu_on,
+        'hide_page_details' => (boolean) get_post_meta($this->post_ID, 'dw_hide_page_details', true)
       )
     );
   }
