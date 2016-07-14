@@ -195,6 +195,7 @@ class Search_model extends MVC_model {
       'excerpt' => (string) $excerpt,
       'thumbnail_url' => (string) $thumbnail[0],
       'timestamp' => (string) get_the_time('Y-m-d H:i:s', $id),
+      'modified_timestamp' => (string) get_post_modified_time('Y-m-d H:i:s', false, $id),
       'file_url' => (string) '',
       'file_name' => (string) '',
       'file_size' => (int) 0,
