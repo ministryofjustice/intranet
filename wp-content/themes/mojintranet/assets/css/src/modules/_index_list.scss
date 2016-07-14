@@ -3,7 +3,7 @@
   margin-top: 0;
 
   .category-item {
-    margin-bottom: 20px;
+    padding-bottom: 20px;
     padding-top: 20px;
     padding-right: 20px;
   }
@@ -20,7 +20,7 @@
   &.small {
     .category-item {
       float: none;
-      margin-bottom: 0;
+      padding-bottom: 0;
     }
 
     .children-list {
