@@ -18,7 +18,7 @@ function define_news_post_type() {
       'description'   => __('Contains details of News stories'),
       'public'        => true,
       'menu_position' => 3,
-      'supports'      => array('title','editor','thumbnail'),
+      'supports'      => array('title','editor','thumbnail','excerpt'),
       'has_archive'   => false,
       'hierarchical'  => false
     )
