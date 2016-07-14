@@ -11,4 +11,4 @@ dw-live-drafts                 = master,git@github.com:ministryofjustice/dw-live
 heatmap-for-wp                 = master,git@github.com:wp-plugins/heatmap-for-wp.git
 co-authors-plus                = master,git@github.com:Automattic/Co-Authors-Plus.git
 regenerate-thumbnails          =
-shortcode-ui                   = master,git@github.com:wp-shortcake/shortcake.git 
+shortcode-ui                   = master,git@github.com:wp-shortcake/shortcake.git

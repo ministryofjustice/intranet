@@ -2,27 +2,27 @@
     "advanced-custom-fields-pro": {
         "repository": "git@git.dxw.net:wordpress-plugins/advanced-custom-fields-pro",
         "revision": "master",
-        "commit": "56433b22194ef57b8c260c62ccacafff9c356f1c"
+        "commit": "3d253ccd12a2e95c1b2398c4951891b094ad5c04"
     },
     "amazon-s3-and-cloudfront": {
         "repository": "git@github.com:deliciousbrains/wp-amazon-s3-and-cloudfront.git",
         "revision": "master",
-        "commit": "1a08516aec4bf7e46bfbbc0a5ff62cfbe3b2af51"
+        "commit": "d9f0054be0745b5002d3235193cfd8f83d29d66a"
     },
     "amazon-web-services": {
         "repository": "git@github.com:deliciousbrains/wp-amazon-web-services.git",
         "revision": "master",
-        "commit": "3f6ae90cd93e17214fabbdeff840cc80c962a3b5"
+        "commit": "14500c7b15294b8b4cba34b87b6c01e6c88a2d4c"
     },
     "cms-tree-page-view": {
         "repository": "git@git.dxw.net:wordpress-plugins/cms-tree-page-view",
         "revision": "master",
-        "commit": "905709eb7719256e60122eccef506ded7805a517"
+        "commit": "6d5a1c26d4001296f6c06623888d554d76d3d3f4"
     },
     "co-authors-plus": {
         "repository": "git@github.com:Automattic/Co-Authors-Plus.git",
         "revision": "master",
-        "commit": "4aa861698506e10bc714db658e538e58ac9d3cad"
+        "commit": "5db7d5f9dc36e6fd52c5737f7069016c9d5f071a"
     },
     "dw-document-revisions": {
         "repository": "git@github.com:ministryofjustice/dw-document-revisions.git",
@@ -57,6 +57,6 @@
     "shortcode-ui": {
         "repository": "git@github.com:wp-shortcake/shortcake.git",
         "revision": "master",
-        "commit": "a087f7ba45f935823411b07fa65ccb13c307adcf"
+        "commit": "d95b72e9cd0b1543f6150852afa68c485e083293"
     }
 }
