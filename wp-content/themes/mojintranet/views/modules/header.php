@@ -21,14 +21,12 @@
     </div>
     <div class="user-bar col-lg-6 col-md-6 col-sm-12">
       <ul class="user-menu">
-        <li>
-          <div class="select-agency-trigger-container">
-            <a href="#" class="select-agency-trigger">Switch to other intranet</a>
+        <li class="select-agency-trigger-container">
+          <a href="#" class="select-agency-trigger">Switch to other intranet</a>
 
-            <div class="tooltip my-agency-tooltip">
-              <span class="triangle"></span>
-              <p>Please select your agency or public body</p>
-            </div>
+          <div class="tooltip my-agency-tooltip">
+            <span class="triangle"></span>
+            <p>Please select your agency or public body</p>
           </div>
         </li>
         <li class="hidden sign-in">
