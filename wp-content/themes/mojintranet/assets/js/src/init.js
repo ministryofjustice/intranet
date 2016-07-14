@@ -8,6 +8,7 @@ jQuery(function() {
   App.ins.personalisation = new App.Personalisation();
 
   //Mid
+  App.ins.user = new App.User();
   App.ins.initMediaPlayer = new App.InitMediaPlayer();
   App.ins.mobileHeader = new App.MobileHeader();
   App.ins.stickyNews = new App.StickyNews();
