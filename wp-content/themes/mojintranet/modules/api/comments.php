@@ -40,7 +40,7 @@ class Comments_API extends API {
   protected function read() {
     $data = $this->MVC->model->comments->read($this->params);
     $data['url_params'] = $this->params;
-    $this->response($data, 200);
+    $this->response($data, 200, 0);
   }
 
   protected function update() {
@@ -73,6 +73,6 @@ class Comments_API extends API {
 
     $data['success'] = !$val->has_errors();
     $data['url_params'] = $this->params;
-    $this->response($data, 200);
+    $this->response($data, 200, 0);
   }
 }
