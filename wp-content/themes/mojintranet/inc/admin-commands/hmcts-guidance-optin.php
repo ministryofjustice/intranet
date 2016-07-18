@@ -33,7 +33,7 @@ class HMCTS_Guidance_Optin extends Admin_Command {
 
             foreach ($pages as $page) {
                 $this->find_child_pages($page->id);
-                if(has_term( 'hq', 'agency', $page->id)) {
+                if(has_term('hq', 'agency', $page->id)) {
                     $this->opt_in_page($page->id);
                 }
             }
