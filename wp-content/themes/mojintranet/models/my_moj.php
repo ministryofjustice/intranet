@@ -173,7 +173,7 @@ class My_moj_model extends MVC_model {
         [
           'title' => 'Means Assessment Administration Tool',
           'icon' => 'maat',
-          'url' => 'Means Assessment Administration Tool',
+          'url' => 'https://meansassessment.legalservices.gov.uk/',
           'external' => true,
         ],
         [
