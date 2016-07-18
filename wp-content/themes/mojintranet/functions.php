@@ -10,6 +10,7 @@ include     ('inc/utilities/agency-context.php');         // Agency Context util
 
 require_once('inc/acf-fields/agency-terms.php');          // ACF Fields - Agency terms
 require_once('inc/acf-fields/page-options.php');          // ACF Fields - Page Options
+require_once('inc/acf-fields/user-details.php');          // ACF Fields - User Details
 
 require_once('inc/authors.php');                          // Additional author information
 require_once('inc/cache.php');                            // Amend the cache headers
