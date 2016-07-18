@@ -58,7 +58,7 @@ class OPG_Guidance_Optin extends Admin_Command {
         if (count($child_pages) > 0) {
             foreach ($child_pages as $child_page) {
                 $this->find_child_pages($child_page->id);
-                if(has_term( 'hq', 'agency', $child_page->id)) {
+                if(has_term('hq', 'agency', $child_page->id)) {
                     $this->opt_in_page($child_page->id);
                 }
             }
