@@ -15,12 +15,12 @@
                 <span><?=$agencies?></span>
               </li>
             <?php endif ?>
-            <?php if ($author): ?>
+            <?php /* if ($author): ?>
               <li>
                 <span>Content owner:</span>
                 <span><?=$author?></span>
               </li>
-            <?php endif ?>
+            <?php endif */ ?>
             <?php if ($last_updated): ?>
               <li>
                 <span>Last updated:</span>
