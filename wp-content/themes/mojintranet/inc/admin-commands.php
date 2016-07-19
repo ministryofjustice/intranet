@@ -13,7 +13,9 @@ $load_commands = array(
     // filename => Class_Name
     'assign-agency-terms-to-posts' => 'Assign_Agency_Terms_To_Posts',
     'remove-old-home-page-options' => 'Remove_Old_Home_Page_Options',
+    'remove-old-pods-data' => 'Remove_Old_Pods_Data',
     'hmcts-guidance-optin' => 'HMCTS_Guidance_Optin',
+    'opg-guidance-optin' => 'OPG_Guidance_Optin',
     'reset-all-pages-menu-order' => 'Reset_All_Pages_Menu_Order',
     'documents-permissions-reset' => 'Document_Permissions_Reset',
 );
