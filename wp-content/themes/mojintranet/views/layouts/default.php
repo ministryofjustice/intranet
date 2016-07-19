@@ -3,7 +3,7 @@
 if (!isset($cache_timeout)) $cache_timeout = 60;
 
 header('X-Frame-Options: SAMEORIGIN');
-if ((!is_user_logged_in() && $cache_timeout > 0) || !current_user_can('edit_posts')) {
+if (!current_user_can('edit_posts') && $cache_timeout > 0) {
   header('Cache-Control: public, max-age=' . $cache_timeout);
   header('Expires: '.gmdate('D, d M Y H:i:s \G\M\T', time() + $cache_timeout));
   header_remove("Pragma");
