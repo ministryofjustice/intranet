@@ -14,6 +14,7 @@ require_once('inc/acf-fields/user-details.php');          // ACF Fields - User D
 
 require_once('inc/authors.php');                          // Additional author information
 require_once('inc/cache.php');                            // Amend the cache headers
+require_once('inc/cookies.php');                            // Amend the cache headers
 require_once('inc/comments.php');                         // Add extra commenting functionality
 require_once('inc/customiser-controls.php');              // Extra customiser controls
 require_once('inc/dependencies.php');                     // CSS/JS dependency enqueing
