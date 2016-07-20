@@ -248,7 +248,7 @@ class Route_redirects {
 }
 
 
-function my_page_template_redirect()
+function dw_redirect_page()
 {
   global $wp;
   $current_url = home_url(add_query_arg(array(),$wp->request));
@@ -257,4 +257,4 @@ function my_page_template_redirect()
     new Route_redirects();
   }
 }
-add_action( 'wp', 'my_page_template_redirect', 1);
+add_action( 'wp', 'dw_redirect_page', 1);
