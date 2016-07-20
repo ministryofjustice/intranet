@@ -5,18 +5,19 @@
 
   App.GuidanceIndexWidget = function() {
     this.$top = $('.template-guidance-and-support-index .template-container');
-    if(!this.$top.length) { return; }
+    if (!this.$top.length) { return; }
     this.init();
   };
 
   App.GuidanceIndexWidget.prototype = {
     init: function() {
-      var agency = App.tools.helpers.agency.getForContent();
+      this.agency = App.tools.helpers.agency.getForContent();
       this.applicationUrl = $('head').data('application-url');
-      this.serviceUrl = this.applicationUrl + '/service/menu/' + agency + '-guidance-index/2';
+      this.serviceUrl = this.applicationUrl + '/service/page_tree/guidance-index/' + this.agency + '//';
 
       this.categoryItemTemplate = this.$top.find('[data-name="widget-guidance-item"]').html();
       this.childItemTemplate = this.$top.find('[data-name="widget-guidance-child-item"]').html();
+      this.featuredItemTemplate = this.$top.find('[data-name="widget-guidance-featured-item"]').html();
 
       this.resultsLoaded = false;
 
@@ -26,8 +27,9 @@
     },
 
     cacheEls: function() {
-      this.$largeCategoriesList = this.$top.find('.guidance-categories-list.large');
-      this.$smallCategoriesList = this.$top.find('.guidance-categories-list.small');
+      this.$topCategoriesList = this.$top.find('.most-visited .guidance-categories-list');
+      this.$allCategoriesList = this.$top.find('.a-to-z .guidance-categories-list');
+      this.$featuredBox = this.$top.find('.featured');
     },
 
     requestData: function() {
@@ -41,40 +43,61 @@
 
     displayData: function(data) {
       var _this = this;
-      var children;
-      var $category;
-      var mostVisitedList = data.results.slice(0, 6);
-      var allList = data.results;
-      var childrenList;
 
-      mostVisitedList = App.tools.sortByKey(mostVisitedList, 'title');
-      allList = App.tools.sortByKey(allList, 'title');
-
-      $.each(mostVisitedList, function(index, category) {
-        $category = _this.buildCategoryItem(category);
-        _this.$largeCategoriesList.append($category);
-        childrenList = App.tools.sortByKey(category.children, 'title');
-
-        $.each(childrenList, function(index, child) {
-
-          $category.find('> .children-list').append(_this.buildChildItem(child));
+      //add most visited
+      if (data.most_visited.length) {
+        this.$top.find('.most-visited').removeClass('hidden');
+        $.each(data.most_visited, function(index, category) {
+          _this.$topCategoriesList.append(_this.buildCategoryItem(category));
         });
+      }
+
+      //add the full list
+      $.each(data.categories, function(index, category) {
+        _this.$allCategoriesList.append(_this.buildCategoryItem(category));
       });
 
-      $.each(data.results, function(index, category) {
-        _this.$smallCategoriesList.append(_this.buildCategoryItem(category));
-      });
+      //add featured
+      if (data.bottom_pages.length) {
+        this.$top.find('.featured').removeClass('hidden');
+        $.each(data.bottom_pages, function(index, featured) {
+          _this.$featuredBox.append(_this.buildFeaturedItem(featured));
+        });
+      }
 
       this.resultsLoaded = true;
       this.$top.removeClass('loading');
     },
 
+    buildFeaturedItem: function(data) {
+      var _this = this;
+      var $featured = $(this.featuredItemTemplate);
+      var $category;
+
+      $featured.find('.featured-title').html(data.title);
+      $featured.find('.featured-excerpt').html(data.excerpt);
+
+      $.each(data.children, function(index, category) {
+        $category = _this.buildCategoryItem(category);
+        $featured.find('.index-list').append($category);
+      });
+
+      return $featured;
+    },
+
     buildCategoryItem: function(data) {
+      var _this = this;
       var $category = $(this.categoryItemTemplate);
+      var $child;
 
       $category.find('a')
         .attr('href', data.url)
         .html(data.title);
+
+      $.each(data.children, function(index, child) {
+        $child = _this.buildChildItem(child);
+        $category.find('> .children-list').append($child);
+      });
 
       return $category;
     },
