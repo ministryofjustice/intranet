@@ -13,12 +13,24 @@
   .category {
     @extend %medium-heading;
     margin-bottom: 0;
+  }
 
-    &.all-items {
-      margin-top: 40px;
-      padding-top: 40px;
-      border-top: 3px solid $black;
+  .most-visited,
+  .featured {
+    &.hidden {
+      display: none;
     }
+  }
+
+  .featured-excerpt {
+    @extend %medium-copy;
+    margin-top: 15px;
+  }
+
+  .section {
+    margin-bottom: 40px;
+    padding-bottom: 40px;
+    border-bottom: 3px solid $black;
   }
 
   .index-list {
@@ -30,8 +42,9 @@
     column-count: 3;
 
     .category-item {
-      page-break-inside: avoid;
       -webkit-column-break-inside: avoid;
+      page-break-inside: avoid;
+      break-inside: avoid;
     }
   }
 }
