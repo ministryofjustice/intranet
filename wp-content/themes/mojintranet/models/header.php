@@ -54,7 +54,7 @@ class Header_model extends MVC_model {
       'laa' => array(
         'label' => 'Legal Aid Agency',
         'abbreviation' => 'LAA',
-        'url' => 'http://intranet.justice.gsi.gov.uk/laa/',
+        'url' => '',
         'is_integrated' => true,
         'is_external' => true
       ),
@@ -85,7 +85,7 @@ class Header_model extends MVC_model {
       'opg' => array(
         'label' => 'Office of the Public Guardian',
         'abbreviation' => 'OPG',
-        'url' => 'http://intranet.justice.gsi.gov.uk/opg/index.htm',
+        'url' => '',
         'is_integrated' => true,
         'is_external' => true
       ),
