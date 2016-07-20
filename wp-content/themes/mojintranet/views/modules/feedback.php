@@ -2,7 +2,7 @@
 
 <div class="grid page-feedback-container" data-email="newintranet@digital.justice.gov.uk" data-alt-email="intranet@digital.justice.gov.uk">
   <div class="col-lg-12 col-md-12 col-sm-12">
-    <a class="report-problem-link" href="#">Report a problem</a>
+    <a class="report-problem-link" href="#">Is there anything wrong with this page?</a>
     <div class="form-container">
       <p class="message"></p>
       <form class="feedback-form visible standard">

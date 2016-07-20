@@ -52,7 +52,8 @@
         resolution: window.screen.availWidth + 'x' + window.screen.availHeight,
         subject: 'Page feedback - ' + $('title').text() + ' [' + id + ']',
         tag: dwTag,
-        description: this.$feedbackField.val()
+        description: this.$feedbackField.val(),
+        agency: App.tools.helpers.agency.get()
       };
     },
 
