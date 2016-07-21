@@ -48,6 +48,8 @@
       var _this = this;
       var $newsItem;
 
+      App.ins.skeletonScreens.remove(this.$newsList);
+
       $.each(data.results, function(index, result) {
         $newsItem = _this.buildResultRow(result);
         _this.$newsList.append($newsItem);

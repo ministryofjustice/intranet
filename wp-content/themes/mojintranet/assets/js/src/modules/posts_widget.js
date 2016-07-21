@@ -33,7 +33,6 @@
     },
 
     bindEvents: function() {
-      var _this = this;
     },
 
     requestPosts: function() {
@@ -49,6 +48,8 @@
     displayPosts: function(data) {
       var _this = this;
       var $post;
+
+      App.ins.skeletonScreens.remove(this.$postsList);
 
       if (data.results.length > 0) {
         $.each(data.results, function (index, result) {

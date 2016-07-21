@@ -47,6 +47,8 @@
     displayData: function(data) {
       var _this = this;
 
+      App.ins.skeletonScreens.remove(this.$quickLinksList);
+
       $.each(data.apps, function(index, app) {
         _this.$appsList.append(_this.buildAppItem(app));
       });

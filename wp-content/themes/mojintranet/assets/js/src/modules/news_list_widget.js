@@ -50,6 +50,8 @@
     buildNewsRows: function(data) {
       var _this = this;
 
+      App.ins.skeletonScreens.remove(this.$newsList);
+
       $.each(data.results, function(index, result) {
         _this.news.push(_this.buildResultRow(result));
       });
@@ -100,7 +102,6 @@
           column = 1;
         }
       });
-
     }
   };
 }(jQuery));

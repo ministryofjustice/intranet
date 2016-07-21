@@ -2,7 +2,10 @@
 
 <div class="posts-widget">
   <h2 class="category-name">Blog</h2>
-  <ul class="posts-list"></ul>
+  <ul class="posts-list"
+      data-use-skeleton-screens="true"
+      data-skeleton-screen-count="5"
+      data-skeleton-screen-type="standard"></ul>
 
   <p class="no-posts-message">
     No blog posts found

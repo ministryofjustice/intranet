@@ -19,7 +19,10 @@
 
   <nav class="quick-links-container mobile-collapsed">
     <h2 class="category-name">Quick links</h2>
-    <ul class="quick-links-list"></ul>
+    <ul class="quick-links-list"
+        data-use-skeleton-screens="true"
+        data-skeleton-screen-count="10"
+        data-skeleton-screen-type="one-liner"></ul>
   </nav>
 
   <?php $this->view('pages/homepage/my_moj/app_item') ?>
