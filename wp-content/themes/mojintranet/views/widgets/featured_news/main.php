@@ -3,7 +3,6 @@
 <div class="featured-news-widget news-widget">
   <h2 class="category-name">News</h2>
   <ul class="news-list grid"
-      data-use-skeleton-screens="true"
       data-skeleton-screen-count="2"
       data-skeleton-screen-classes="col-lg-6 col-md-6 col-sm-12"
       data-skeleton-screen-type="featured"

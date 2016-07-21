@@ -48,6 +48,7 @@
       var _this = this;
 
       App.ins.skeletonScreens.remove(this.$quickLinksList);
+      App.ins.skeletonScreens.remove(this.$appsList);
 
       $.each(data.apps, function(index, app) {
         _this.$appsList.append(_this.buildAppItem(app));

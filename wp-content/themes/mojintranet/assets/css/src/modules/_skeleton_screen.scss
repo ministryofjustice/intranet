@@ -29,18 +29,6 @@
     height: 20px;
   }
 
-  .skeleton-copy-long {
-    width: 100%;
-  }
-
-  .skeleton-copy-medium {
-    width: 60%;
-  }
-
-  .skeleton-copy-short {
-    width: 30%;
-  }
-
   .shimmer {
     background-color: #eee;
     background: linear-gradient(to right, #eee 0px, #f8f8f8 40px, #eee 80px);
@@ -51,6 +39,16 @@
     animation-name: skeletonShimmer;
     animation-timing-function: linear;
     position: relative;
+  }
+
+  &.app {
+    float: left;
+    width: 50%;
+
+    .skeleton-img {
+      width: 32px;
+      height: 32px;
+    }
   }
 }
 

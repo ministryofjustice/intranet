@@ -4,14 +4,12 @@
   <div class="grid">
     <div class="col-lg-6 col-md-12 col-sm-12">
       <ul class="news-list"
-          data-use-skeleton-screens="true"
           data-skeleton-screen-count="4"
           data-skeleton-screen-type="standard"
           ></ul>
     </div>
     <div class="col-lg-6 col-md-12 col-sm-12">
       <ul class="news-list"
-          data-use-skeleton-screens="true"
           data-skeleton-screen-count="4"
           data-skeleton-screen-type="standard"></ul>
     </div>

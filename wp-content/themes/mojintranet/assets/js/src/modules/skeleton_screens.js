@@ -4,7 +4,7 @@
   var App = window.App;
 
   App.SkeletonScreens = function() {
-    this.$top = $('[data-use-skeleton-screens="true"]');
+    this.$top = $('[data-skeleton-screen-count]');
     if(!this.$top.length) { return; }
     this.init();
   };
@@ -39,7 +39,7 @@
         $list.removeAttr('data-skeleton-screen-classes');
 
         for (a = 0; a < count; a++) {
-          template = $('script[data-name="skeleton-screen-' + type + '"]').html();
+          template = $('script[data-name="skeleton-screen"][data-type="' + type + '"]').html();
           $skeletonScreen = $(template);
           $skeletonScreen.find('[data-size]').each(_this.setElementWidth);
 
