@@ -42,6 +42,8 @@ if(!is_user_logged_in() && $cache_timeout > 0) {
     </div>
   </div>
 
+  <?php $this->view('modules/skeleton_item') ?>
+
   <?php $this->view('modules/footer'); ?>
   <?php $this->view('modules/body_bottom'); ?>
 </body>

@@ -74,6 +74,12 @@
       $child.find('.news-excerpt').html(data.excerpt);
 
       return $child;
+    },
+
+    buildSkeleton: function() {
+      var $child = $(this.itemSkeletonTemplate);
+
+      return $child;
     }
   };
 }(jQuery));
