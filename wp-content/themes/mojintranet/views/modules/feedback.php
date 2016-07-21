@@ -1,6 +1,6 @@
 <?php if (!defined('ABSPATH')) die(); ?>
 
-<div class="grid page-feedback-container" data-email="newintranet@digital.justice.gov.uk" data-alt-email="intranet@digital.justice.gov.uk">
+<div id="feedback-section" class="grid page-feedback-container" data-email="newintranet@digital.justice.gov.uk" data-alt-email="intranet@digital.justice.gov.uk">
   <div class="col-lg-12 col-md-12 col-sm-12">
     <a class="report-problem-link" href="#">Is there anything wrong with this page?</a>
     <div class="form-container">
