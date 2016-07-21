@@ -88,17 +88,6 @@ add_action( 'admin_init', 'add_my_editor_style' );
 // disable the visual editor globally
 add_filter( 'user_can_richedit', '__return_false' );
 
-// Remove feeds
-function kill_feed_rewrites($rules){
-  foreach ($rules as $rule => $rewrite) {
-    if ( preg_match('/.*feed/',$rule) ) {
-      unset($rules[$rule]);
-    }
-  }
-  return $rules;
-}
-add_filter('rewrite_rules_array', 'kill_feed_rewrites');
-
 // Remove unecessary <link rel> tags
 remove_action('wp_head', 'rsd_link'); //removes EditURI/RSD (Really Simple Discovery) link.
 remove_action('wp_head', 'wlwmanifest_link'); //removes wlwmanifest (Windows Live Writer) link.
