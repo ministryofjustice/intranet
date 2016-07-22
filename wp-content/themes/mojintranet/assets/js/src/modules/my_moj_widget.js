@@ -3,7 +3,8 @@
 
   var App = window.App;
 
-  App.MyMojWidget = function() {
+  App.MyMojWidget = function(data) {
+    this.data = data;
     this.$top = $('.template-home .my-moj');
     if(!this.$top.length) { return; }
     this.init();
@@ -13,7 +14,6 @@
     init: function() {
       this.applicationUrl = $('head').data('application-url');
       this.templateUri = $('head').data('template-uri');
-      this.serviceUrl = this.applicationUrl + '/service/widgets/my-moj/' + App.tools.helpers.agency.getForContent() + '/';
       this.pageBase = this.applicationUrl + '/' + this.$top.data('top-level-slug');
 
       this.appTemplate = this.$top.find('[data-name="widget-app-item"]').html();
@@ -22,26 +22,13 @@
       this.resultsLoaded = false;
 
       this.cacheEls();
-      this.bindEvents();
 
-      this.requestData();
+      this.displayData(this.data);
     },
 
     cacheEls: function() {
       this.$quickLinksList = this.$top.find('.quick-links-list');
       this.$appsList = this.$top.find('.apps-list');
-    },
-
-    bindEvents: function() {
-    },
-
-    requestData: function() {
-      var _this = this;
-
-      /* use the timeout for dev/debugging purposes */
-      //**/window.setTimeout(function() {
-        _this.serviceXHR = $.getJSON(_this.serviceUrl, $.proxy(_this.displayData, _this));
-      //**/}, 2000);
     },
 
     displayData: function(data) {

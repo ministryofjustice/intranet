@@ -3,7 +3,8 @@
 
   var App = window.App;
 
-  App.FollowUsWidget = function() {
+  App.FollowUsWidget = function(data) {
+    this.data = data;
     this.$top = $('.template-home .social');
     if(!this.$top.length) { return; }
     this.init();
@@ -13,31 +14,17 @@
     init: function() {
       this.applicationUrl = $('head').data('application-url');
       this.templateUri = $('head').data('template-uri');
-      this.serviceUrl = this.applicationUrl + '/service/widgets/follow-us/' + App.tools.helpers.agency.getForContent() + '/';
       this.pageBase = this.applicationUrl + '/' + this.$top.data('top-level-slug');
 
       this.followUsItemTemplate = this.$top.find('[data-name="widget-follow-us-item"]').html();
 
       this.cacheEls();
-      this.bindEvents();
 
-      this.requestData();
+      this.displayData(this.data);
     },
 
     cacheEls: function() {
       this.$followUsList = this.$top.find('.social-list');
-    },
-
-    bindEvents: function() {
-    },
-
-    requestData: function() {
-      var _this = this;
-
-      /* use the timeout for dev/debugging purposes */
-      //**/window.setTimeout(function() {
-        _this.serviceXHR = $.getJSON(_this.serviceUrl, $.proxy(_this.displayData, _this));
-      //**/}, 2000);
     },
 
     displayData: function(data) {

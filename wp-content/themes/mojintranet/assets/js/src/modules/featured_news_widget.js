@@ -3,7 +3,8 @@
 
   var App = window.App;
 
-  App.FeaturedNewsWidget = function() {
+  App.FeaturedNewsWidget = function(data) {
+    this.data = data;
     this.$top = $('.template-home .featured-news-widget');
     if(!this.$top.length) { return; }
     this.init();
@@ -13,7 +14,6 @@
     init: function() {
       this.applicationUrl = $('head').data('application-url');
       this.templateUri = $('head').data('template-uri');
-      this.serviceUrl = this.applicationUrl + '/service/widgets/featured-news/' + App.tools.helpers.agency.getForContent() + '//0/2';
       this.pageBase = this.applicationUrl + '/' + this.$top.data('top-level-slug');
       this.genericThumbnailPath = this.templateUri + '/assets/images/news-placeholder.jpg';
 
@@ -23,25 +23,12 @@
       this.serviceXHR = null;
 
       this.cacheEls();
-      this.bindEvents();
 
-      this.requestNews();
+      this.displayNews(this.data);
     },
 
     cacheEls: function() {
       this.$newsList = this.$top.find('.news-list');
-    },
-
-    bindEvents: function() {
-    },
-
-    requestNews: function() {
-      var _this = this;
-
-      /* use the timeout for dev/debugging purposes */
-      //**/window.setTimeout(function() {
-        _this.serviceXHR = $.getJSON(_this.serviceUrl, $.proxy(_this.displayNews, _this));
-      //**/}, 2000);
     },
 
     displayNews: function(data) {
