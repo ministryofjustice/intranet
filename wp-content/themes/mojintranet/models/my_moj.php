@@ -193,14 +193,14 @@ class My_moj_model extends MVC_model {
         [
           'title' => 'Etarmis',
           'icon' => 'etarmis',
-          'url' => 'https://opg-flexi.org.uk/FCDLogin.html',
+          'url' => 'https://opg-flexi.org.uk/FCDWeb/',
           'external' => true,
         ],
         [
           'title' => 'Jobs',
           'icon' => 'jobs',
-          'url' => site_url('/jobs/'),
-          'external' => false,
+          'url' => 'https://www.civilservicejobs.service.gov.uk/',
+          'external' => true,
         ],
         [
           'title' => 'IT portal',

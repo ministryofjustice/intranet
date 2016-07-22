@@ -139,12 +139,16 @@
         background-position: -$icon-size*15 0;
       }
 
-      &.govuk-icon {
+      &.govuk-icon, &.opg-govuk-icon {
         background-position: -$icon-size*16 0;
       }
 
       &.maat-icon {
         background-position: -$icon-size*17 0;
+      }
+
+      &.etarmis-icon {
+        background-position: -$icon-size*18 0;
       }
     }
   }
