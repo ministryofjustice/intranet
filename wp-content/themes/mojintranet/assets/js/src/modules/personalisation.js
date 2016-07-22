@@ -31,11 +31,14 @@
       this.updateHomepageHeading();
       this.updateSearchPlaceholder();
       this.hideContent();
+
+      this.$header.addClass('loaded');
     },
 
     cacheEls: function() {
       this.$mainLogoBox = $('.site-logo');
       this.$smallLogoBox = $('.site-logo-hq');
+      this.$header = $('.header');
     },
 
     addAgencyAttribute: function() {
@@ -48,8 +51,6 @@
       if (this.agencyData.blog_url) {
         $menu.find('.main-nav-blog a').attr('href', this.agencyData.blog_url);
       }
-
-      $menu.addClass('loaded');
     },
 
     updateLogo: function() {
