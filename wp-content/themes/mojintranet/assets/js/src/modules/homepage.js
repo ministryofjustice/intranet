@@ -4,7 +4,6 @@
   var App = window.App;
 
   App.Homepage = function() {
-    console.log('a');
     this.$top = $('.template-home');
     if(!this.$top.length) { return; }
     this.init();
