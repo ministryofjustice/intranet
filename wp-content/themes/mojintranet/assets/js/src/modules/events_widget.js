@@ -49,6 +49,8 @@
       var _this = this;
       var $post;
 
+      App.ins.skeletonScreens.remove(this.$postsList);
+
       if (data.results.length > 0) {
         $.each(data.results, function (index, result) {
           $post = _this.buildResultRow(result);
