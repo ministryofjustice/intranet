@@ -222,7 +222,7 @@ class My_moj_model extends MVC_model {
         ],
         [
           'title' => 'OPG GOV.UK site',
-          'icon' => 'opg-govuk',
+          'icon' => 'govuk',
           'url' => 'https://www.gov.uk/government/organisations/office-of-the-public-guardian',
           'external' => true,
         ],
