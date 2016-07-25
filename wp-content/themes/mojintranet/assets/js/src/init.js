@@ -6,6 +6,7 @@ jQuery(function() {
   //Early
   App.ins.breakpoint = new App.Breakpoint();
   App.ins.personalisation = new App.Personalisation();
+  App.ins.multiSelect = new App.MultiSelect();
 
   //Mid
   App.ins.initMediaPlayer = new App.InitMediaPlayer();
