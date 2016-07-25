@@ -1,6 +1,3 @@
-[submodule "wp-content/plugins/dw-pageapi"]
-	path = wp-content/plugins/dw-api
-	url = git@github.com:ministryofjustice/dw-pageapi.git
 [submodule "wp-content/plugins/dw-markdown"]
 	path = wp-content/plugins/dw-markdown
 	url = git@github.com:ministryofjustice/dw-markdown.git
