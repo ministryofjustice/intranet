@@ -1,5 +1,4 @@
 <?php
-
 // Hide dashboard widgets
 function dw_remove_dashboard_widgets() {
   remove_meta_box( 'dashboard_right_now', 'dashboard', 'normal' );
