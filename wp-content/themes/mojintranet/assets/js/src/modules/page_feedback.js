@@ -30,13 +30,17 @@
     },
 
     bindEvents: function() {
-      this.$formToggleLink.on('click', $.proxy(this.toggleForm, this));
+      this.$formToggleLink.on('click', $.proxy(this.toggleForm, this, true, undefined));
       this.$cta.on('click', $.proxy(this.sendForm, this));
+      $('.jump-to-problem-form').on('click', $.proxy(this.toggleForm, this, false, true));
     },
 
-    toggleForm: function(e) {
-      e.preventDefault();
-      this.$top.toggleClass('expanded');
+    toggleForm: function(prevent, toggle, e) {
+      if (prevent) {
+        e.preventDefault();
+      }
+      
+      this.$top.toggleClass('expanded', toggle);
     },
 
     getClientData: function() {
@@ -52,7 +56,8 @@
         resolution: window.screen.availWidth + 'x' + window.screen.availHeight,
         subject: 'Page feedback - ' + $('title').text() + ' [' + id + ']',
         tag: dwTag,
-        description: this.$feedbackField.val()
+        description: this.$feedbackField.val(),
+        agency: App.tools.helpers.agency.get()
       };
     },
 
