@@ -30,9 +30,10 @@
 
       this.updateHomepageHeading();
       this.updateSearchPlaceholder();
-      this.hideContent();
 
       this.$header.addClass('loaded');
+
+      this.hideContent();
     },
 
     cacheEls: function() {
