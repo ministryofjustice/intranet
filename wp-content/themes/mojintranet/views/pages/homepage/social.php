@@ -5,7 +5,9 @@
     <div class="col-lg-12 col-md-12 col-sm-12">
       <h2 class="category-name">Follow us</h2>
 
-      <ul class="social-list"></ul>
+      <ul class="social-list"
+          data-skeleton-screen-count="2"
+          data-skeleton-screen-type="app"></ul>
     </div>
   </div>
 

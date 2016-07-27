@@ -30,6 +30,8 @@
     displayData: function(data) {
       var _this = this;
 
+      App.ins.skeletonScreens.remove(this.$followUsList);
+
       $.each(data.results, function(index, followUsItem) {
         _this.$followUsList.append(_this.buildFollowUsItem(followUsItem));
       });
