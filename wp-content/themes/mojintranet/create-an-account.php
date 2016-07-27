@@ -66,7 +66,7 @@ class Create_an_account extends MVC_controller {
 
         $message = $this->view('email/activate_account', $data, true);
 
-        html_mail($email, 'Please activate your account', $message);
+        html_mail($email, 'Activate your MoJ Intranet account', $message);
       }
 
       $this->output_json(array(
