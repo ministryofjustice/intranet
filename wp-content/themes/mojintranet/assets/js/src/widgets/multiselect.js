@@ -1,5 +1,12 @@
 /** multiselect.js
- * Converts the native multi-select box into a more user-friendly variant which uses checkboxes
+ *
+ * Converts all native <select[multiple> elements on the page into a more user-friendly
+ * element which uses checkboxes. It also keeps the fake select and the original one (hidden)
+ * in sync (two-way binding).
+ *
+ * You can also convert selects manually at any time by using:
+ *    App.ins.multiSelect.replace({DOM Node|JQuery Object}).
+ *
  */
 (function($) {
   "use strict";
@@ -14,24 +21,18 @@
 
   App.MultiSelect.prototype = {
     init: function() {
-      this.upgradeAll();
+      this.replaceAll();
     },
 
-    cacheEls: function() {
-    },
-
-    bindEvents: function() {
-    },
-
-    upgradeAll: function() {
+    replaceAll: function() {
       var _this = this;
 
       this.$top.each(function(index, element) {
-        _this.upgrade(element);
+        _this.replace(element);
       });
     },
 
-    upgrade: function(select) {
+    replace: function(select) {
       var _this = this;
       var $select = $(select);
       var $customSelect = $('<ul></ul>');
@@ -61,12 +62,10 @@
 
       $select
         .addClass('invisible')
-        .on('change', $.proxy(this.selectChange, this))
         .data('custom-element', $customSelect)
+        .off('change', $.proxy(this.selectChange, this))
+        .on('change', $.proxy(this.selectChange, this))
         .after($customSelect);
-
-      $select.off('change', $.proxy(this.selectChange, this));
-      $select.on('change', $.proxy(this.selectChange, this));
     },
 
     getOptions: function($select) {
@@ -97,7 +96,7 @@
 
     selectChange: function(e) {
       $(e.target).data('custom-element').remove();
-      this.upgrade(e.target);
+      this.replace(e.target);
     }
   };
 }(jQuery));

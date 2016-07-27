@@ -16,7 +16,7 @@
       <form class="content-filters">
         <p class="description">The results will update automatically based on your selections.</p>
         <div class="form-row">
-          <label for="input-filter-date">Date</label>
+          <label class="filter-label" for="input-filter-date">Date</label>
         </div>
         <div class="form-row">
           <select name="date" id="input-filter-date">
@@ -24,7 +24,7 @@
           </select>
         </div>
         <div class="form-row contains">
-          <label for="input-filter-contains">Keywords</label>
+          <label class="filter-label" for="input-filter-contains">Keywords</label>
         </div>
         <div class="form-row">
           <input type="text" placeholder="Keywords" name="keywords" id="input-filter-contains" />

@@ -1,0 +1,28 @@
+select[multiple] {
+  &.invisible {
+    display: none;
+  }
+}
+
+[data-type="multi-select"] {
+  display: inline-block;
+  width: 100%;
+  padding: 6px 0;
+  border: 1px solid $grey-2;
+
+  label {
+    display: block;
+    margin: 0;
+    padding: 6px 12px;
+    font-weight: normal;
+
+    &:hover {
+      background-color: highlight !important;
+      color: highlighttext;
+    }
+  }
+
+  input[type="checkbox"] {
+    margin-right: 10px;
+  }
+}
