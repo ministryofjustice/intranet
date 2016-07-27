@@ -183,9 +183,9 @@ class My_moj_model extends MVC_model {
           'external' => true,
         ],
         [
-          'title' => 'Management Information',
+          'title' => 'Provider Information',
           'icon' => 'mi-hub',
-          'url' => site_url('/guidance/management-information/'),
+          'url' => site_url('/guidance/management-information-2/provider-information/'),
           'external' => false,
         ],
       ],
