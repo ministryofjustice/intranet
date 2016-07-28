@@ -45,6 +45,9 @@
       }
 
       $(window).trigger('user-initialised');
+      $('html').removeClass('user-not-initialised');
+      $('html').toggleClass('user-logged-in', this.isLoggedIn === true);
+      $('html').toggleClass('user-not-logged-in', this.isLoggedIn === false);
     }
   };
 }(window.jQuery));

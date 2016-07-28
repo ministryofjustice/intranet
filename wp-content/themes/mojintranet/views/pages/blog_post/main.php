@@ -103,16 +103,13 @@
     <div class="col-lg-8 col-md-12 col-sm-12">
       <div class="comments-container">
         <p class="leave-a-comment">
-          <?php if(is_user_logged_in()): ?>
-            Leave a comment
-          <?php else: ?>
+          <span class="logged-in-only">Leave a comment</span>
+          <span class="not-logged-in-only">
             <a class="sign-in-link" href="">Sign in</a> to leave a comment
-          <?php endif ?>
+          </span>
         </p>
 
-        <?php if(is_user_logged_in()): ?>
-          <div class="comment-form-container"></div>
-        <?php endif ?>
+        <div class="comment-form-container logged-in-only"></div>
 
         <ul class="comments-list"></ul>
 
