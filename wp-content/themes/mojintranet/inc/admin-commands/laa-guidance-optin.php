@@ -2,20 +2,20 @@
 
 namespace MOJ_Intranet\Admin_Commands;
 
-class HMCTS_Guidance_Optin extends Admin_Command {
+class LAA_Guidance_Optin extends Admin_Command {
     /**
      * Name of the command.
      *
      * @var string
      */
-    public $name = 'HMCTS Guidance Opt-in';
+    public $name = 'LAA Guidance Opt-in';
 
     /**
      * Description of what this command will do.
      *
      * @var string
      */
-    public $description = 'Opt-in HMCTS to all HQ Guidance pages below the HQ main Guidance page';
+    public $description = 'Opt-in LAA to all HQ Guidance pages below the HQ main Guidance page';
 
     /**
      * Method to execute the command.
@@ -74,7 +74,7 @@ class HMCTS_Guidance_Optin extends Admin_Command {
      * @return void
      */
     public function opt_in_page($page_id) {
-        wp_set_object_terms($page_id, 'hmcts', 'agency', true);
+        wp_set_object_terms($page_id, 'laa', 'agency', true);
         echo 'Opted in Page - ' . get_the_title($page_id) . ' ['.$page_id.'] <br/>';
     }
 }

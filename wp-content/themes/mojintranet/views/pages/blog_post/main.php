@@ -14,10 +14,12 @@
           <span>Author:</span>
           <span><?=$author?></span>
         </li>
-        <li>
-          <span>Job title:</span>
-          <span><time><?=$job_title?></time></span>
-        </li>
+        <?php if ($job_title): ?>
+          <li>
+            <span>Job title:</span>
+            <span><time><?=$job_title?></time></span>
+          </li>
+        <?php endif ?>
         <li>
           <span>Published on:</span>
           <span><time><?=$human_date?></time></span>
