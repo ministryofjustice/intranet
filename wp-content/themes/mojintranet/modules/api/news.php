@@ -25,7 +25,7 @@ class News_API extends API {
   protected function parse_params($params) {
     $this->params = array(
       'agency' => $params[0],
-      'additional_params' => $params[1],
+      'additional_filters' => $params[1],
       'date' => $params[2],
       'keywords' => $params[3],
       'page' => $params[4] ?: 1,

@@ -102,16 +102,19 @@ abstract class API {
     $filters = array('agency=' . $agency);
 
     if(strlen($additional_filters)) {
-      $filters = array_merge($filters, explode('|', $additional_filters));
+      $filters = array_merge($filters, explode('&', $additional_filters));
     }
 
     foreach($filters as $filter) {
       $pair = explode('=', $filter);
-      if(taxonomy_exists($pair[0])) {
+      $taxonomy = $pair[0];
+      $terms = explode('|', $pair[1]);
+
+      if(taxonomy_exists($taxonomy)) {
         $taxonomies[] = array(
           'taxonomy' => $pair[0],
           'field' => 'slug',
-          'terms' => $pair[1]
+          'terms' => $terms
         );
       }
     }
