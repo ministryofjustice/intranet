@@ -17,7 +17,7 @@ abstract class API {
     $this->debug = (boolean) $_GET['debug'];
     $this->method = $_SERVER['REQUEST_METHOD'];
 
-    if($this->method == 'PUT' || $this->method == 'POST') {
+    if ($this->method == 'PUT' || $this->method == 'POST') {
       $parse_method = '_parse_' . strtolower($this->method);
       $this->$parse_method();
     }
@@ -33,12 +33,12 @@ abstract class API {
   protected function response($data = array(), $status_code = 200, $cache_timeout = 60) {
     $date_format = 'D, d M Y H:i:s \G\M\T';
 
-    if($this->debug) {
+    if ($this->debug) {
       Debug::full($this->original_query);
       Debug::full($data);
     }
     else {
-      if($cache_timeout) {
+      if ($cache_timeout) {
         header('Cache-Control: public, max-age=' . $cache_timeout);
         header('Expires: '.gmdate($date_format, time() + $cache_timeout));
         header_remove("Pragma");
@@ -101,16 +101,16 @@ abstract class API {
     $taxonomies = array('relation' => 'AND');
     $filters = array('agency=' . $agency);
 
-    if(strlen($additional_filters)) {
+    if (strlen($additional_filters)) {
       $filters = array_merge($filters, explode('&', $additional_filters));
     }
 
-    foreach($filters as $filter) {
+    foreach ($filters as $filter) {
       $pair = explode('=', $filter);
       $taxonomy = $pair[0];
       $terms = explode('|', $pair[1]);
 
-      if(taxonomy_exists($taxonomy)) {
+      if (taxonomy_exists($taxonomy)) {
         $taxonomies[] = array(
           'taxonomy' => $pair[0],
           'field' => 'slug',
