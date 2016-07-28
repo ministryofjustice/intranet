@@ -32,8 +32,6 @@
 
       this.cacheEls();
       this.bindEvents();
-
-      this.initialize();
     },
 
     cacheEls: function() {
@@ -45,6 +43,7 @@
 
     bindEvents: function() {
       this.$loadMoreBtn.click($.proxy(this.loadMore, this));
+      $(window).on('user-initialised', $.proxy(this.initialize, this));
     },
 
     loadMore: function() {
@@ -61,15 +60,9 @@
 
     initialize: function() {
       //set the url for the sign in link
-      var currentUrl = App.tools.url(true);
-      var signInUrl = App.tools.url(false);
+      var signInUrl = this.getSignInUrl();
 
-      signInUrl
-        .authority(currentUrl.authority())
-        .segment('sign-in')
-        .param('return_url', App.tools.urlencode(currentUrl.get()));
-
-      this.$top.find('.sign-in-link').attr('href', signInUrl.get());
+      this.$top.find('.sign-in-link').attr('href', signInUrl);
 
       this.initializeCommentForm();
       this.loadComments();
@@ -244,7 +237,6 @@
 
     buildComment: function(data, isReply) {
       var $comment = $(this.itemTemplate);
-      var signInUrl = this.applicationUrl + '/sign-in/?return_url=' + App.tools.urlencode(window.location.href);
       var comment = data.comment;
       var relativeTime = window.moment(data.date_posted).fromNow();
 
@@ -264,11 +256,11 @@
       $comment.find('.like-container').attr('data-post-id', data.id);
       $comment.attr('data-comment-id', data.id);
 
-      if(App.tools.isUserLoggedIn()) {
+      if(App.ins.user.isLoggedIn) {
         $comment.find('.reply-btn').click($.proxy(this.initializeReplyForm, this, data.id, $comment));
       }
       else {
-        $comment.find('.reply-btn').attr('href', signInUrl);
+        $comment.find('.reply-btn').attr('href', this.getSignInUrl());
       }
 
       if(isReply) {
@@ -335,6 +327,19 @@
     getLastId: function() {
       var $lastComment = this.$top.find('.comment:not(.reply)').last();
       return $lastComment.attr('data-comment-id');
+    },
+
+    getSignInUrl: function() {
+      //set the url for the sign in link
+      var currentUrl = App.tools.url(true);
+      var signInUrl = App.tools.url(false);
+
+      signInUrl
+        .authority(currentUrl.authority())
+        .segment('sign-in')
+        .param('return_url', App.tools.urlencode(currentUrl.get()));
+
+      return signInUrl.get();
     }
   };
 }(jQuery));

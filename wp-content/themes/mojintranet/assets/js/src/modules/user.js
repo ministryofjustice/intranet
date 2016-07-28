@@ -43,6 +43,8 @@
         this.$userMenu.find('.sign-in').removeClass('hidden');
         this.$userMenu.find('.register').removeClass('hidden');
       }
+
+      $(window).trigger('user-initialised');
     }
   };
 }(window.jQuery));
