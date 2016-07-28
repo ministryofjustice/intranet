@@ -60,6 +60,32 @@
   .user-bar {
     text-align: right;
 
+    .user-menu {
+      margin-top: 0;
+      float: right;
+
+      li {
+        display: inline-block;
+        color: $white;
+
+        &.hidden {
+          display: none;
+        }
+      }
+
+      a {
+        @extend %medium-copy;
+        color: $white;
+        text-decoration: underline;
+        cursor: pointer;
+      }
+
+      .separator {
+        display: inline-block;
+        padding: 0 5px;
+      }
+    }
+
     .my-agency-tooltip {
       position: absolute;
       display: none;
@@ -93,17 +119,9 @@
   }
 
   .select-agency-trigger-container {
-    @extend %medium-copy;
     position: relative;
-    display: inline-block;
-    padding: 6px 0;
+    padding: 0;
     z-index: 2;
-
-    .select-agency-trigger {
-      color: $white;
-      text-decoration: underline;
-      cursor: pointer;
-    }
 
     .agency a {
       text-align: left;

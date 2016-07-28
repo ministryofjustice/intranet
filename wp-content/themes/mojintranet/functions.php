@@ -46,6 +46,7 @@ require_once('inc/wp-admin-bar.php');                     // Control the WP Admi
 require_once('admin/templates/template-functions.php');   // Customises page editor based on template
 require_once('admin/editor-enhancements.php');            // Adds enhancements to post/page editor screen
 require_once('admin/errors.php');                         // Displays errors in admin
+require_once('admin/dashboard.php');                      // Dashboard functions
 
 add_action( 'after_setup_theme', 'mojintranet_setup' );
 

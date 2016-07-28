@@ -109,4 +109,18 @@ class User_model extends MVC_model {
 
     return in_array($domain, $this->valid_domains);
   }
+
+  public function get_status() {
+    $data = [
+      'is_logged_in' => is_user_logged_in()
+    ];
+
+    if ($data['is_logged_in']) {
+      $user_data = wp_get_current_user();
+
+      $data['name'] = $user_data->data->display_name;
+    }
+
+    return $data;
+  }
 }
