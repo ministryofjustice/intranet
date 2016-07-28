@@ -156,3 +156,22 @@ $grid-size: 50px;
     background-position: (-$grid-size * 3 - $icon-padding) (-$icon-padding);
   }
 }
+
+.user-not-logged-in {
+  .logged-in-only {
+    display: none;
+  }
+}
+
+.user-logged-in {
+  .not-logged-in-only {
+    display: none;
+  }
+}
+
+.user-not-initialised {
+  .logged-in-only,
+  .not-logged-in-only {
+    display: none;
+  }
+}

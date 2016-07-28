@@ -8,6 +8,7 @@ jQuery(function() {
   App.ins.personalisation = new App.Personalisation();
 
   //Mid
+  App.ins.user = new App.User();
   App.ins.initMediaPlayer = new App.InitMediaPlayer();
   App.ins.mobileHeader = new App.MobileHeader();
   App.ins.stickyNews = new App.StickyNews();
@@ -19,6 +20,7 @@ jQuery(function() {
   App.ins.news = new App.News();
   App.ins.blog = new App.Blog();
   App.ins.events = new App.Events();
+  App.ins.comments = new App.Comments();
   App.ins.shareViaEmail = new App.ShareViaEmail();
   App.ins.like = new App.Like();
   App.ins.searchResults = new App.SearchResults();
