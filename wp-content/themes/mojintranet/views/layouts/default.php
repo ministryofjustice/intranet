@@ -4,6 +4,9 @@ include(get_template_directory() . '/inc/headers.php');
 
 <!DOCTYPE html>
 
+<!--[if IE 6]>
+  <html <?php language_attributes() ?> class="user-not-initialised ie6 lte-ie7 lte-ie8 lte-ie9 template-<?=$template_class?>">
+<![endif]-->
 <!--[if lte IE 7]>
   <html <?php language_attributes() ?> class="user-not-initialised ie7 lte-ie7 lte-ie8 lte-ie9 template-<?=$template_class?>">
 <![endif]-->
