@@ -3,6 +3,7 @@
 class Taxonomy_model extends MVC_model {
   function get($options = []) {
     $options = $this->_normalise_options($options);
+    $clean_terms = [];
 
     $terms = get_terms($options['taxonomy'], [
       'hide_empty' => $options['hide_empty']
@@ -20,7 +21,11 @@ class Taxonomy_model extends MVC_model {
       }
     }
 
-    return $terms;
+    foreach ($terms as $term) {
+      $clean_terms[] = $this->_format_row($term);
+    }
+
+    return $clean_terms;
   }
 
   private function _normalise_options($options) {
@@ -28,5 +33,14 @@ class Taxonomy_model extends MVC_model {
     $options['hide_empty'] = (boolean) isset($options['hide_empty']) ? $options['hide_empty']: true;
 
     return $options;
+  }
+
+  private function _format_row($term) {
+    return [
+      'id' => $term->term_id,
+      'name' => $term->name,
+      'slug' => $term->slug,
+      'count' => $term->count
+    ];
   }
 }

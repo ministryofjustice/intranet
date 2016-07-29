@@ -8,8 +8,10 @@ class Page_news extends MVC_controller {
   private $post;
 
   function __construct() {
-    $this->post = get_post($id);
     parent::__construct();
+
+    $this->model('taxonomy');
+    $this->post = get_post($id);
   }
 
   function main() {
@@ -26,6 +28,9 @@ class Page_news extends MVC_controller {
       'cache_timeout' => 60 * 60 * 24, /* 1 day */
       'page_data' => array(
         'top_slug' => htmlspecialchars($top_slug),
+        'news_categories' => htmlspecialchars(json_encode($this->model->taxonomy->get([
+          'taxonomy' => 'news_category'
+        ])))
       )
     );
   }

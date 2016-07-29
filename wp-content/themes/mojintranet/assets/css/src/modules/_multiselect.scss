@@ -1,12 +1,13 @@
 select[multiple] {
   &.invisible {
-    display: none;
+    display: none !important;
   }
 }
 
 [data-type="multi-select"] {
   display: inline-block;
   width: 100%;
+  margin-top: 0;
   padding: 6px 0;
   border: 1px solid $grey-2;
 

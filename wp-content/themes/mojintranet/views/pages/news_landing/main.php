@@ -2,7 +2,10 @@
 
 <?php if ( have_posts() ) while ( have_posts() ) : the_post() ?>
 
-<div class="template-container" data-top-level-slug="<?=$top_slug?>" data-template-uri="<?=get_template_directory_uri()?>">
+<div class="template-container"
+  data-top-level-slug="<?=$top_slug?>"
+  data-template-uri="<?=get_template_directory_uri()?>"
+  data-news-categories="<?=$news_categories?>">
   <div class="grid">
     <div class="col-lg-12 col-md-12 col-sm-12">
       <h1 class="page-title"><?php the_title() ?></h1>
@@ -23,11 +26,19 @@
             <option value="">All</option>
           </select>
         </div>
+
         <div class="form-row contains">
           <label class="filter-label" for="input-filter-contains">Keywords</label>
         </div>
         <div class="form-row">
           <input type="text" placeholder="Keywords" name="keywords" id="input-filter-contains" />
+        </div>
+
+        <div class="form-row">
+          <label class="filter-label" for="input-filter-categories">Categories</label>
+        </div>
+        <div class="form-row">
+          <select name="categories[]" multiple></select>
         </div>
       </form>
     </div>

@@ -92,6 +92,7 @@
 
       //synchronise with the original select
       $originalSelect.find('[value="' + $element.val() + '"]').prop('selected', isChecked);
+      $originalSelect.trigger('change');
     },
 
     selectChange: function(e) {
