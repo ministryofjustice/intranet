@@ -28,6 +28,9 @@ class Page_tree_API extends API {
           case 'ancestors':
             $this->get_ancestors();
             break;
+          case 'guidance-index':
+            $this->get_guidance_index();
+            break;
         }
         break;
 
@@ -45,14 +48,17 @@ class Page_tree_API extends API {
 
     $this->params['agency'] = $params[1];
     $this->params['additional_params'] = $params[2];
-    $this->params['depth'] = (int) $params[4];
-    $this->params['order'] = $params[5];
 
-    if($method === 'children-by-tag') {
-      $this->params['tag'] = $params[3];
-    }
-    else {
-      $this->params['page_id'] = (int) $params[3];
+    if ($method !== 'guidance-index') {
+      $this->params['depth'] = (int) $params[4];
+      $this->params['order'] = $params[5];
+
+      if ($method === 'children-by-tag') {
+        $this->params['tag'] = $params[3];
+      }
+      else {
+        $this->params['page_id'] = (int) $params[3];
+      }
     }
   }
 
@@ -66,6 +72,13 @@ class Page_tree_API extends API {
   protected function get_ancestors() {
     $options = $this->add_taxonomies($this->params);
     $data = $this->MVC->model->page_tree->get_ancestors($options);
+    //$data['url_params'] = $this->params;
+    $this->response($data, 200, 120);
+  }
+
+  protected function get_guidance_index() {
+    $options = $this->add_taxonomies($this->params);
+    $data = $this->MVC->model->page_tree->get_guidance_index($options);
     //$data['url_params'] = $this->params;
     $this->response($data, 200, 120);
   }

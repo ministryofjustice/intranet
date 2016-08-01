@@ -118,7 +118,7 @@ class Password extends MVC_controller {
 
         $message = $this->view('email/password_reset_requested', $data, true);
 
-        html_mail($email, 'You\'ve requested a password change', $message);
+        html_mail($email, 'Request to change your password', $message);
       }
     }
 

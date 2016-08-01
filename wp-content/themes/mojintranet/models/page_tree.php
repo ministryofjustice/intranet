@@ -49,6 +49,53 @@ class Page_tree_model extends MVC_model {
     return array_reverse($ancestors);
   }
 
+  public function get_guidance_index($global_options = []) {
+    $global_options = $this->_normalise_options($global_options);
+    $data = [];
+
+    //1. get top level categories
+    $options = $global_options;
+    $options['depth'] = 1;
+    $options['page_id'] = Taggr::get_id('guidance-index');
+
+    $data['categories'] = $this->_get_children_recursive($options);
+
+    //2. get most visited
+    $menu_items = $this->model->menu->get_menu_items([
+      'location' => $global_options['agency'] . '-guidance-most-visited',
+      'depth_limit' => 2
+    ]);
+
+    $data['most_visited'] = $menu_items['results'];
+
+    //3. get guidance bottom
+    $data['bottom_pages'] = [];
+
+    $bottom_pages = new WP_Query([
+      'post_type' => $this->post_types,
+      'posts_per_page' => -1,
+      'tax_query' => $global_options['tax_query'],
+      'meta_query' => [
+        [
+          'key' => 'dw_' . $global_options['agency'] .'_guidance_bottom',
+          'value' => 1
+        ]
+      ]
+    ]);
+
+    foreach ($bottom_pages->posts as $page) {
+      $page = $this->_format_row($page);
+      $page['children'] = $this->_get_children_recursive([
+        'page_id' => $page['id'],
+        'depth' => 2
+      ]);
+
+      $data['bottom_pages'][] = $page;
+    }
+
+    return $data;
+  }
+
   private function _get_parent_id($id) {
     $type = get_post_type($id);
 
@@ -82,7 +129,8 @@ class Page_tree_model extends MVC_model {
       'post_parent' => $options['page_id'],
       'post_type' => $this->post_types,
       'posts_per_page' => -1,
-      'tax_query' => $options['tax_query']
+      'tax_query' => $options['tax_query'],
+      'meta_query' => $options['meta_query']
     ];
 
     $children = new WP_Query($children_args);

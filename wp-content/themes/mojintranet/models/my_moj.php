@@ -129,16 +129,10 @@ class My_moj_model extends MVC_model {
           'external' => true,
         ],
         [
-          'title' => 'MI hub',
-          'icon' => 'mi-hub',
-          'url' => 'http://intranet.justice.gsi.gov.uk/laa/management-information/mi-hub.htm',
-          'external' => true,
-        ],
-        [
           'title' => 'Jobs',
           'icon' => 'jobs',
-          'url' => 'http://intranet.justice.gsi.gov.uk/laa/services-and-guidance/expressions-of-interest.htm',
-          'external' => true,
+          'url' => site_url('/guidance/human-resources/internal-job-vacancies-2/'),
+          'external' => false,
         ],
         [
           'title' => 'IT portal',
@@ -177,15 +171,21 @@ class My_moj_model extends MVC_model {
           'external' => true,
         ],
         [
-          'title' => 'M.A.A.T.',
+          'title' => 'Means Assessment Administration Tool',
           'icon' => 'maat',
-          'url' => '',
+          'url' => 'https://meansassessment.legalservices.gov.uk/',
           'external' => true,
         ],
         [
-          'title' => 'MoJ Webchat',
-          'icon' => 'webchat',
-          'url' => site_url('/webchats/'),
+          'title' => 'Public LAA site',
+          'icon' => 'govuk',
+          'url' => 'https://www.gov.uk/government/organisations/legal-aid-agency',
+          'external' => true,
+        ],
+        [
+          'title' => 'Provider Information',
+          'icon' => 'mi-hub',
+          'url' => site_url('/guidance/management-information-2/provider-information/'),
           'external' => false,
         ],
       ],
@@ -193,14 +193,14 @@ class My_moj_model extends MVC_model {
         [
           'title' => 'Etarmis',
           'icon' => 'etarmis',
-          'url' => 'https://opg-flexi.org.uk/FCDLogin.html',
+          'url' => 'https://opg-flexi.org.uk/FCDWeb/',
           'external' => true,
         ],
         [
           'title' => 'Jobs',
           'icon' => 'jobs',
-          'url' => site_url('/jobs/'),
-          'external' => false,
+          'url' => 'https://www.civilservicejobs.service.gov.uk/',
+          'external' => true,
         ],
         [
           'title' => 'IT portal',
@@ -222,7 +222,7 @@ class My_moj_model extends MVC_model {
         ],
         [
           'title' => 'OPG GOV.UK site',
-          'icon' => 'opg-govuk',
+          'icon' => 'govuk',
           'url' => 'https://www.gov.uk/government/organisations/office-of-the-public-guardian',
           'external' => true,
         ],

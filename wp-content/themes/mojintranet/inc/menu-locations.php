@@ -17,8 +17,8 @@ function register_taxonomy_menus() {
         $menu_name = $term->name . ' Quick Links';
         $menus[$menu_slug] = $menu_name;
 
-        $menu_slug = $term->slug . '-guidance-index';
-        $menu_name = $term->name . ' Guidance Index';
+        $menu_slug = $term->slug . '-guidance-most-visited';
+        $menu_name = $term->name . ' Guidance Most Visited';
         $menus[$menu_slug] = $menu_name;
     }
 

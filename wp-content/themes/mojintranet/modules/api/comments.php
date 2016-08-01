@@ -35,24 +35,44 @@ class Comments_API extends API {
         'per_page' => $params[3]
       ));
     }
-
   }
 
   protected function read() {
     $data = $this->MVC->model->comments->read($this->params);
     $data['url_params'] = $this->params;
-    $this->response($data, 200);
+    $this->response($data, 200, 0);
   }
 
   protected function update() {
-    $data = $this->MVC->model->comments->update(
-      $this->params['post_id'],
-      $this->put('comment'),
-      $this->put('in_reply_to_id'),
-      $this->put('root_comment_id'),
-      $this->put('nonce')
-    );
+    $this->MVC->model('bad_words');
+
+    //validate the form
+    $val = new Validation();
+
+    if($this->MVC->model->bad_words->has_bad_words($this->put('comment'))) {
+      $val->error('comment', 'comment', '', 'bad_words');
+    }
+
+    if(strlen($this->put('comment')) > 2000) {
+      $val->error('comment', 'comment', 'The comment is too long');
+    }
+
+    //add comment
+    if(!$val->has_errors()) {
+      $data = $this->MVC->model->comments->update(
+        $this->params['post_id'],
+        $this->put('comment'),
+        $this->put('in_reply_to_id'),
+        $this->put('root_comment_id'),
+        $this->put('nonce')
+      );
+    }
+    else {
+      $data['validation'] = $val->get_errors();
+    }
+
+    $data['success'] = !$val->has_errors();
     $data['url_params'] = $this->params;
-    $this->response($data, 200);
+    $this->response($data, 200, 0);
   }
 }

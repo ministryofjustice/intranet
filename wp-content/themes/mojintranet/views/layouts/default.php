@@ -1,27 +1,28 @@
 <?php if (!defined('ABSPATH')) die();
 
-if(!isset($cache_timeout)) $cache_timeout = 60;
+if (!isset($cache_timeout)) $cache_timeout = 60;
 
 header('X-Frame-Options: SAMEORIGIN');
-if(!is_user_logged_in() && $cache_timeout > 0) {
+if (!current_user_can('edit_posts') && $cache_timeout > 0) {
   header('Cache-Control: public, max-age=' . $cache_timeout);
   header('Expires: '.gmdate('D, d M Y H:i:s \G\M\T', time() + $cache_timeout));
   header_remove("Pragma");
-} else {
+}
+else {
   header('Cache-Control: private, max-age=0, no-cache');
   header("Pragma: no-cache");
-  header('Expires: '.gmdate('D, d M Y H:i:s \G\M\T', time() - 60));
+  header('Expires: ' . gmdate('D, d M Y H:i:s \G\M\T', time() - 60));
 }
 
 ?>
 
 <!DOCTYPE html>
 
-<!--[if IE 6 ]> <html <?php language_attributes(); ?> class="ie6 lte-ie7 lte-ie8 lte-ie9 template-<?=$template_class?>"> <![endif]-->
-<!--[if IE 7 ]> <html <?php language_attributes(); ?> class="ie7 lte-ie7 lte-ie8 lte-ie9 template-<?=$template_class?>"> <![endif]-->
-<!--[if IE 8 ]> <html <?php language_attributes(); ?> class="ie8 lte-ie8 lte-ie9 template-<?=$template_class?>"> <![endif]-->
-<!--[if IE 9 ]> <html <?php language_attributes(); ?> class="ie9 lte-ie9 template-<?=$template_class?>"> <![endif]-->
-<!--[if (gte IE 9)|!(IE)]><!--><html class="template-<?=$template_class?>" <?php language_attributes(); ?>><!--<![endif]-->
+<!--[if IE 6 ]> <html <?php language_attributes(); ?> class="user-not-initialised ie6 lte-ie7 lte-ie8 lte-ie9 template-<?=$template_class?>"> <![endif]-->
+<!--[if IE 7 ]> <html <?php language_attributes(); ?> class="user-not-initialised ie7 lte-ie7 lte-ie8 lte-ie9 template-<?=$template_class?>"> <![endif]-->
+<!--[if IE 8 ]> <html <?php language_attributes(); ?> class="user-not-initialised ie8 lte-ie8 lte-ie9 template-<?=$template_class?>"> <![endif]-->
+<!--[if IE 9 ]> <html <?php language_attributes(); ?> class="user-not-initialised ie9 lte-ie9 template-<?=$template_class?>"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html class="user-not-initialised template-<?=$template_class?>" <?php language_attributes(); ?>><!--<![endif]-->
 <head data-application-url="<?=site_url()?>" data-template-uri="<?=get_template_directory_uri()?>">
   <?php $this->view('modules/head') ?>
   <?=$this->wp_head?>

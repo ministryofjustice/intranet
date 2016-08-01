@@ -17,3 +17,16 @@
     }
   }
 }
+
+.lte-ie7 .header {
+  .user-bar .user-menu {
+    li {
+      display: inline;
+      zoom: 1;
+
+      &.hidden {
+        display: none;
+      }
+    }
+  }
+}
