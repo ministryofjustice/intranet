@@ -47,6 +47,41 @@ if ('post.php' == $pagenow || 'post-new.php' == $pagenow) {
 	}
 }
 
+function guidance_landing_options_callback($post) {
+
+	$context = Agency_Context::get_agency_context();
+	$field_name = 'dw_'. $context .'_guidance_bottom';
+
+	$guidance_bottom = get_post_meta($post->ID, $field_name, true) == 1 ? true : false;
+
+	if ($guidance_bottom) {
+		$guidance_bottom_checked = "checked=\"checked\"";
+	} else {
+		$guidance_bottom_checked = "";
+	}
+	?>
+
+	<table class="form-table">
+		<tr>
+			<td>
+				<input type="checkbox" name="<?php echo $field_name; ?>" id="<?php echo $field_name; ?>" <?=$guidance_bottom_checked?>>
+				<label for="<?php echo $field_name; ?>">Show on Guidance Bottom Section</label>
+			</td>
+		</tr>
+	</table>
+
+	<?php
+}
+
+function guidance_landing_options_save($post_id) {
+
+	$context = Agency_Context::get_agency_context();
+	$field_name = 'dw_'. $context .'_guidance_bottom';
+
+	$guidance_bottom = $_POST[$field_name] == 'on' ? 1 : 0;
+	update_post_meta($post_id, $field_name, $guidance_bottom);
+}
+
 // Force preview to work with custom meta - to be continued (TODO)!
 /*
 add_filter('_wp_post_revision_fields', 'dw_add_field_debug_preview');

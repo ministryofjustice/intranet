@@ -29,8 +29,6 @@
     },
 
     bindEvents: function() {
-      var _this = this;
-
       this.$top.on('submit', $.proxy(this.submit, this));
     },
 
@@ -68,8 +66,14 @@
     },
 
     submitSuccess: function(data) {
+      var returnUrl = App.tools.url(true).param('return_url');
+
+      if(returnUrl) {
+        returnUrl = App.tools.urldecode(returnUrl);
+      }
+
       if(data.success) {
-        window.location.href = this.applicationUrl;
+        window.location.href = returnUrl || this.applicationUrl;
       }
       else {
         this.validation.displayErrors(data.validation.errors);

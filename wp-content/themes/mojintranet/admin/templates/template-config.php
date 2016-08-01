@@ -15,6 +15,14 @@ $template_options = array(
         'context' => 'side',
         'priority' => 'core',
       ),
+      array(
+         'id' => 'guidance_landing_options',
+         'title' => 'Guidance Landing Page Options',
+         'context' => 'side',
+         'priority' => 'core',
+      ),
+
+
     )
   ),
   'single-webchat' => array(
