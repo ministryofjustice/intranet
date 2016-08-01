@@ -28,5 +28,10 @@
     margin-bottom: 10px;
     color: $red;
     font-weight: bold;
+
+    a {
+      color: $red;
+      text-decoration: underline;
+    }
   }
 }
