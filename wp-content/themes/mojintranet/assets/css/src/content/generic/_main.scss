@@ -1,9 +1,16 @@
 .template-generic,
 .template-generic-nav {
   .template-container {
+
+    .info-list {
+      display: none;
+    }
+
     .excerpt {
       @extend %larger-copy;
       margin-top: 30px;
     }
   }
 }
+
+
