@@ -44,31 +44,15 @@
 
       <ul class="content-nav grid">
         <li class="previous col-lg-6 col-md-6 col-sm-6">
-          <?php if($prev_post_exists): ?>
-            <a href="<?=$prev_post_url?>" aria-labelledby="prev-page-label">
-              <span class="nav-label" id="prev-page-label">
-                Previous
-              </span>
-            </a>
-          <?php else: ?>
-            <span class="nav-label">
+            <span class="nav-label"  id="prev-page-label">
               Previous
             </span>
-          <?php endif ?>
         </li>
 
         <li class="next col-lg-6 col-md-6 col-sm-6">
-          <?php if($next_post_exists): ?>
-            <a href="<?=$next_post_url?>" aria-labelledby="next-page-label">
-              <span class="nav-label" id="next-page-label">
-                Next
-              </span>
-            </a>
-          <?php else: ?>
-            <span class="nav-label">
+            <span class="nav-label" id="next-page-label">
               Next
             </span>
-          <?php endif ?>
         </li>
       </ul>
     </div>

@@ -1,20 +1,20 @@
-/** Single News
+/** Blog Post
  */
 (function($) {
   "use strict";
 
   var App = window.App;
 
-  App.SingleNews = function() {
-    this.$top = $('.template-single-news .template-container');
+  App.BlogPost = function() {
+    this.$top = $('.template-blog-post .template-container');
     if(!this.$top.length) { return; }
     this.init();
   };
 
-  App.SingleNews.prototype = {
+  App.BlogPost.prototype = {
     init: function() {
       this.applicationUrl = $('head').data('application-url');
-      this.serviceUrl = this.applicationUrl+'/service/news/siblings';
+      this.serviceUrl = this.applicationUrl+'/service/post/siblings';
 
       this.loadNavLinks();
     },
