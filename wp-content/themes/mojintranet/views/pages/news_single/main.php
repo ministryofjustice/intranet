@@ -1,6 +1,6 @@
 <?php if (!defined('ABSPATH')) die(); ?>
 
-<div class="template-container">
+<div class="template-container" data-post-id="<?=$id?>">
   <?php $this->view('pages/news_single/election_banner', $election_banner) ?>
 
   <div class="grid">
@@ -48,31 +48,15 @@
 
       <ul class="content-nav grid">
         <li class="previous col-lg-6 col-md-6 col-sm-6">
-          <?php if($prev_news_exists): ?>
-            <a href="<?=$prev_news_url?>" aria-labelledby="prev-page-label">
-              <span class="nav-label" id="prev-page-label">
-                Previous
-              </span>
-            </a>
-          <?php else: ?>
-            <span class="nav-label">
-              Previous
-            </span>
-          <?php endif ?>
+          <span class="nav-label" id="prev-page-label">
+            Previous
+          </span>
         </li>
 
         <li class="next col-lg-6 col-md-6 col-sm-6">
-          <?php if($next_news_exists): ?>
-            <a href="<?=$next_news_url?>" aria-labelledby="next-page-label">
-              <span class="nav-label" id="next-page-label">
-                Next
-              </span>
-            </a>
-          <?php else: ?>
-            <span class="nav-label">
-              Next
-            </span>
-          <?php endif ?>
+          <span class="nav-label" id="next-page-label">
+            Next
+          </span>
         </li>
       </ul>
     </div>
