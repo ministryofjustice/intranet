@@ -40,16 +40,21 @@
     },
 
     displayNavLinks: function(data) {
-        if(data.prev_link.length > 0) {
-          $( ".previous .nav-label" ).wrap(function() {
-            return $('<a/>').attr("href", data.prev_link).attr("aria-labelledby", 'prev-page-label');
-          });
-        }
-        if(data.next_link.length > 0) {
-          $( ".next .nav-label" ).wrap(function() {
-            return $('<a/>').attr("href", data.next_link).attr("aria-labelledby", 'next-page-label');
-          });
-        }
+      if(data.prev_link.length > 0) {
+        $(".previous a").attr("href", data.prev_link);
+      }
+      else {
+        $(".previous").html($(".previous a").html());
+      }
+
+      if(data.next_link.length > 0) {
+        $( ".next a" ).attr("href", data.next_link);
+      }
+      else {
+        $(".next").html($(".next a").html());
+      }
+
+      $(".content-nav").removeClass('nav-hidden');
     },
 
     getDataObject: function() {

@@ -73,12 +73,3 @@ class Post_siblings_model extends MVC_model {
   }
 
 }
-
-
-
-
-
-
-
-
-
