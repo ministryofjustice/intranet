@@ -42,33 +42,21 @@
 
       </div>
 
-      <ul class="content-nav grid">
+      <ul class="content-nav nav-hidden grid">
         <li class="previous col-lg-6 col-md-6 col-sm-6">
-          <?php if($prev_post_exists): ?>
-            <a href="<?=$prev_post_url?>" aria-labelledby="prev-page-label">
-              <span class="nav-label" id="prev-page-label">
-                Previous
-              </span>
-            </a>
-          <?php else: ?>
-            <span class="nav-label">
+          <a href="" aria-labelledby="prev-page-label">
+            <span class="nav-label"  id="prev-page-label">
               Previous
             </span>
-          <?php endif ?>
+          </a>
         </li>
 
         <li class="next col-lg-6 col-md-6 col-sm-6">
-          <?php if($next_post_exists): ?>
-            <a href="<?=$next_post_url?>" aria-labelledby="next-page-label">
-              <span class="nav-label" id="next-page-label">
-                Next
-              </span>
-            </a>
-          <?php else: ?>
-            <span class="nav-label">
+          <a href="" aria-labelledby="next-page-label">
+            <span class="nav-label" id="next-page-label">
               Next
             </span>
-          <?php endif ?>
+          </a>
         </li>
       </ul>
     </div>

@@ -20,7 +20,7 @@
       };
 
       this.applicationUrl = $('head').data('application-url');
-      this.serviceUrl = this.applicationUrl+'/service/post';
+      this.serviceUrl = this.applicationUrl+'/service/post/get';
       this.pageBase = this.applicationUrl+'/'+this.$top.data('top-level-slug');
 
       this.itemTemplate = this.$top.find('[data-name="blog-item"]').html();
