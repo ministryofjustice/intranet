@@ -64,6 +64,16 @@
       margin-top: 0;
       float: right;
 
+      .register {
+
+        display: none;
+
+      }
+
+      .sign-in {
+        display: none;
+      }
+
       li {
         display: inline-block;
         color: $white;

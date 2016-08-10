@@ -18,7 +18,9 @@ jQuery(function() {
   //App.ins.childrenPages = new App.ChildrenPages();
   App.ins.tabbedContent = new App.TabbedContent();
   App.ins.news = new App.News();
+  App.ins.singleNews = new App.SingleNews();
   App.ins.blog = new App.Blog();
+  App.ins.blogPost = new App.BlogPost();
   App.ins.events = new App.Events();
   App.ins.comments = new App.Comments();
   App.ins.shareViaEmail = new App.ShareViaEmail();

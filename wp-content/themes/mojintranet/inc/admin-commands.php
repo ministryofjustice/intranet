@@ -19,6 +19,8 @@ $load_commands = array(
     'laa-guidance-optin' => 'LAA_Guidance_Optin',
     'reset-all-pages-menu-order' => 'Reset_All_Pages_Menu_Order',
     'documents-permissions-reset' => 'Document_Permissions_Reset',
+    'assign-tabs-and-links' => 'Assign_Tabs_And_Links',
+    //'remove-old-tabs-and-links' => 'Remove_Old_Tabs_And_Links',
 );
 
 $admin_commands = array();
