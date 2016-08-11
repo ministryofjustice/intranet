@@ -3,6 +3,14 @@
      data-page-id="<?=$id?>">
 
   <div class="grid content-container skin-<?=$skin?>">
+    <?php if($thumbnail): ?>
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="campaign-banner">
+          <img src="<?=$thumbnail?>" class="img img-responsive" alt="<?=$thumbnail_alt_text?>" />
+        </div>
+      </div>
+    <?php endif ?>
+
     <?php if($lhs_menu_on): ?>
       <div class="col-lg-3 col-md-4 col-sm-12">
         <nav class="menu-list-container">
@@ -13,11 +21,7 @@
 
     <div class="<?=$content_classes?>">
       <div class="">
-        <?php if($thumbnail): ?>
-            <div class="campaign-banner">
-              <img src="<?=$thumbnail?>" class="img img-responsive" alt="<?=$thumbnail_alt_text?>" />
-            </div>
-        <?php endif ?>
+
         <h1 class="page-title"><?=$title?></h1>
 
         <div class="editable">
@@ -43,5 +47,5 @@
       <a href="" class="child-item-link"></a>
     </li>
   </div>
-  
+
 </div>
