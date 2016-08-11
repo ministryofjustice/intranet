@@ -26,7 +26,7 @@ function dw_block_small_images_upload( $file ) {
   }
 
   $img = getimagesize( $file['tmp_name'] );
-  $minimum = array( 'width' => 960, 'height' => 640 );
+  $minimum = array( 'width' => 960, 'height' => 250 );
 
   if ( $img[0] < $minimum['width'] ) {
     $file['error'] = 'Image too small. Minimum width is ' . $minimum['width'] . 'px. Uploaded image width is ' . $img[0] . 'px';
