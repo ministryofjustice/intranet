@@ -27,3 +27,13 @@ foreach ($taxonomies as $include_file => $tax) {
     $class = '\\MOJ_Intranet\\Taxonomies\\' . $tax['class-name'];
     new $class();
 }
+
+/**
+ * Remove Default Tags and Categories Taxonomies.
+ * Filter: init
+ */
+function dw_unregister_default_taxonomies(){
+    register_taxonomy('post_tag', array());
+    register_taxonomy('category', array());
+}
+add_action('init', 'dw_unregister_default_taxonomies');
