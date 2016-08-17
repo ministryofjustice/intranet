@@ -35,7 +35,7 @@ class Agency_Context {
      * @return array
      */
     public static function current_user_available_agencies() {
-        if (current_user_can('agency-editor')) {
+        if (current_user_can('agency-editor') || current_user_can('regional-editor')) {
             $agencies = wp_get_object_terms(get_current_user_id(), 'agency');
         } elseif (current_user_can('assign_agencies_to_posts')) {
             $agencies = get_terms('agency', array(

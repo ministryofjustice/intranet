@@ -18,6 +18,7 @@ $load_commands = array(
     'opg-guidance-optin' => 'OPG_Guidance_Optin',
     'laa-guidance-optin' => 'LAA_Guidance_Optin',
     'reset-all-pages-menu-order' => 'Reset_All_Pages_Menu_Order',
+    'news-permissions-reset' => 'News_Permissions_Reset',
     'documents-permissions-reset' => 'Document_Permissions_Reset',
     'assign-tabs-and-links' => 'Assign_Tabs_And_Links',
     //'remove-old-tabs-and-links' => 'Remove_Old_Tabs_And_Links',
