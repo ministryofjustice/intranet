@@ -17,8 +17,7 @@
             },
             "choices": {
                 "basic": "Basic",
-                "transformation": "Transformation",
-                "Other": "Other"
+                "transformation": "Transformation"
             },
             "default_value": [],
             "allow_null": 0,
@@ -63,5 +62,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1470903302
+    "modified": 1471432764
 }
