@@ -22,12 +22,11 @@ class Page_campaign extends MVC_controller {
   function get_data(){
     $post = get_post($this->post_ID);
 
-
     ob_start();
     the_content();
     $content = ob_get_clean();
 
-    $thumbnail_id = get_post_thumbnail_id($this_id);
+    $thumbnail_id = get_post_thumbnail_id($this->post_ID);
     $thumbnail = wp_get_attachment_image_src($thumbnail_id, 'full');
     $alt_text = get_post_meta($thumbnail_id, '_wp_attachment_image_alt', true);
 
