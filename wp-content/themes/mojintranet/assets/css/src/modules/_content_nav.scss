@@ -2,6 +2,10 @@
   @extend %larger-copy;
   @include clearfix;
 
+  &.nav-hidden {
+    display: none;
+  }
+
   li {
     &:before,
     &:after {
