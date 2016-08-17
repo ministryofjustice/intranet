@@ -1,4 +1,51 @@
 <?php
+require_once(ABSPATH . 'wp-admin/includes/screen.php');
+if( function_exists('acf_add_options_page') ) {
+
+  acf_add_options_page(array(
+  'page_title' 	=> 'Quick Links Settings',
+		'menu_title'	=> 'Quick Links',
+		'menu_slug' 	=> 'quick-links-settings',
+		'capability'	=> 'edit_posts',
+		'redirect'		=> false
+  ));
+}
+
+add_action( 'init', 'dw_add_most_visited_options' );
+
+function dw_add_most_visited_options() {
+
+  $context = Agency_Context::get_agency_context();
+
+  if($context == 'hq' && function_exists('acf_add_options_page')) {
+    acf_add_options_page(array(
+        'page_title' => 'Guidance Most Visited Settings',
+        'menu_title' => 'Guidance Most Visited',
+        'menu_slug' => 'guidance-most-visted-settings',
+        'capability' => 'edit_posts',
+        'redirect' => false
+    ));
+  }
+
+}
+
+function my_acf_load_field( $field ) {
+
+  $screen = get_current_screen();
+
+  if($screen->id == 'toplevel_page_quick-links-settings' || $screen->id == 'toplevel_page_guidance-most-visted-settings') {
+    $context = Agency_Context::get_agency_context();
+
+    $field['name'] = $context . '_' . $field['name'];
+  }
+
+  return $field;
+
+}
+
+add_filter('acf/load_field/key=field_57b1bd28c275f', 'my_acf_load_field');
+add_filter('acf/load_field/key=field_57b1cb89000f5', 'my_acf_load_field');
+
 // Hide CPT menus
 function dw_remove_menu_items() {
     if( !current_user_can( 'administrator' ) ):
