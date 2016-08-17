@@ -12,9 +12,9 @@ add_image_size( "need-to-know", 768, 384, true );
 add_action( 'admin_init', 'dw_force_image_dimensions' );
 
 function dw_force_image_dimensions() {
-  // if( !current_user_can( 'administrator') ) {
+  if(!current_user_can( 'administrator')) {
     add_filter( 'wp_handle_upload_prefilter', 'dw_block_small_images_upload' );
-  // }
+  }
 }
 
 function dw_block_small_images_upload( $file ) {
@@ -26,7 +26,7 @@ function dw_block_small_images_upload( $file ) {
   }
 
   $img = getimagesize( $file['tmp_name'] );
-  $minimum = array( 'width' => 960, 'height' => 250 );
+  $minimum = array( 'width' => 960, 'height' => 640 );
 
   if ( $img[0] < $minimum['width'] ) {
     $file['error'] = 'Image too small. Minimum width is ' . $minimum['width'] . 'px. Uploaded image width is ' . $img[0] . 'px';
