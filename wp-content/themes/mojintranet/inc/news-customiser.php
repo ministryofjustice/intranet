@@ -113,7 +113,6 @@
         $this->new_control_setting($wp_customize, $context.'_emergency_title', $section_name, 'Notification Title', 'text');
         $this->new_control_setting($wp_customize, $context.'_homepage_control_emergency_message', $section_name, 'Notification Message', 'textarea');
         $this->new_control_setting($wp_customize, $context.'_emergency_date', $section_name, 'Notification Date', 'text');
-        $this->new_control_setting($wp_customize, $context.'_emergency_date2', $section_name, 'Notification Date', 'text', array('default' => 'emergency'));
         $this->new_control_setting($wp_customize, $context.'_emergency_type', $section_name, 'Notification Type', 'radio', array(
           'default' => 'emergency'
         ),array(
