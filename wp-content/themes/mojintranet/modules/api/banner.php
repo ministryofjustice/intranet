@@ -20,6 +20,7 @@ class Banner_API extends API {
 
   protected function parse_params($params) {
     $this->params = array();
+    $this->params['agency'] = $params[0];
   }
 
   private function get_emergency_banner() {

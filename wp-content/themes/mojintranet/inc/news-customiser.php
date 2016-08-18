@@ -39,7 +39,7 @@
         $wp_customize->add_panel( 'news_customisation', array(
           'priority'        => 1,
           'capability'      => 'edit_theme_options',
-          'title'           => 'Homepage News',
+          'title'           => 'Homepage News for ' . $agency->name,
           'description'     => 'Allows admins and editors to customise which news is displayed on the homepage',
         ) );
 
@@ -96,20 +96,25 @@
       // Emergency message functions
 
       public function emergency_message($wp_customize) {
+
+        $context = Agency_Context::get_agency_context();
+        $agency = Agency_Editor::get_agency_by_slug($context);
+
         $section_name = 'emergency_message_section';
         $wp_customize->add_section( 'emergency_message_section', array(
           'priority'        => 1,
           'capability'      => 'edit_theme_options',
-          'title'           => 'Notification message',
+          'title'           => 'Notification message for ' . $agency->name,
           'description'     => 'Controls the emergency message banner',
           'panel'           => 'news_customisation',
         ) );
 
-        $this->new_control_setting($wp_customize, 'emergency_toggle', $section_name, 'Enable Notification', 'checkbox');
-        $this->new_control_setting($wp_customize, 'emergency_title', $section_name, 'Notification Title', 'text');
-        $this->new_control_setting($wp_customize, 'homepage_control_emergency_message', $section_name, 'Notification Message', 'textarea');
-        $this->new_control_setting($wp_customize, 'emergency_date', $section_name, 'Notification Date', 'text');
-        $this->new_control_setting($wp_customize, 'emergency_type', $section_name, 'Notification Type', 'radio', array(
+        $this->new_control_setting($wp_customize, $context.'_emergency_toggle', $section_name, 'Enable Notification', 'checkbox');
+        $this->new_control_setting($wp_customize, $context.'_emergency_title', $section_name, 'Notification Title', 'text');
+        $this->new_control_setting($wp_customize, $context.'_homepage_control_emergency_message', $section_name, 'Notification Message', 'textarea');
+        $this->new_control_setting($wp_customize, $context.'_emergency_date', $section_name, 'Notification Date', 'text');
+        $this->new_control_setting($wp_customize, $context.'_emergency_date2', $section_name, 'Notification Date', 'text', array('default' => 'emergency'));
+        $this->new_control_setting($wp_customize, $context.'_emergency_type', $section_name, 'Notification Type', 'radio', array(
           'default' => 'emergency'
         ),array(
           'choices'   =>  array(
