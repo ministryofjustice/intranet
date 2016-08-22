@@ -8,7 +8,7 @@ class Emergency_banner_model extends MVC_model {
   public function get_emergency_banner($options = array()) {
     $agency = 'hq';
 
-    if (array_key_exists('agency', $options) && strlen($options['agency']) > 0) {
+    if (!empty($options['agency'])) {
       $agency = $options['agency'];
     }
 
