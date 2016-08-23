@@ -8,8 +8,6 @@
 
 class Page_campaign extends MVC_controller {
   function main(){
-    $this->model('my_moj');
-
     while(have_posts()){
       the_post();
 
