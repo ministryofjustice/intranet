@@ -7,20 +7,22 @@
     <div class="col-lg-12 col-md-12 col-sm-12">
       <h1 class="page-title"><?=$title?></h1>
 
-      <?php if (!empty($author_thumbnail_url)): ?>
-        <img class="author-thumbnail" src="<?=$author_thumbnail_url?>" alt="" />
-      <?php endif ?>
-      <ul class="info-list">
-        <li>
-          <span><?=$author?></span>
-          <?php if ($job_title): ?>
-            <span>, <?=$job_title?></span>
-          <?php endif ?>
-        </li>
-        <li>
-          <span><time><?=$human_date?></time></span>
-        </li>
-      </ul>
+      <div class="byline">
+        <?php if (!empty($author_thumbnail_url)): ?>
+          <img class="author-thumbnail" src="<?=$author_thumbnail_url?>" alt="" />
+        <?php endif ?>
+        <ul class="info-list">
+          <li>
+            <span><?=$author?></span>
+            <?php if ($job_title): ?>
+              <span>, <?=$job_title?></span>
+            <?php endif ?>
+          </li>
+          <li>
+            <span><time><?=$human_date?></time></span>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 
