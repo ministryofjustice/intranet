@@ -8,8 +8,6 @@ include     ('helpers/validation.php');                   // Server side validat
 include     ('inc/utilities/agency-editor.php');          // Agency Editor utility
 include     ('inc/utilities/agency-context.php');         // Agency Context utility
 
-require_once('inc/acf-fields/agency-terms.php');          // ACF Fields - Agency terms
-
 require_once('inc/authors.php');                          // Additional author information
 require_once('inc/cache.php');                            // Amend the cache headers
 require_once('inc/cookies.php');                            // Amend the cache headers
