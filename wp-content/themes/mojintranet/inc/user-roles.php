@@ -79,6 +79,8 @@ class UserRoles {
      */
     public function addAgencyEditorRole() {
         $editor = $this->wp_roles->get_role('editor');
+        
+        $editor->capabilities["assign_agencies_to_posts"] = false;
 
         // Add a new role with editor caps
         $agencyEditor = $this->wp_roles->add_role('agency-editor', 'Agency Editor', $editor->capabilities);
@@ -89,9 +91,6 @@ class UserRoles {
      * Inherit capabilities from Editor role.
      */
     public function addRegionalEditorRole() {
-
-        $this->wp_roles->remove_role('regional-editor');
-
         $editor = $this->wp_roles->get_role('editor');
 
         $editor->capabilities["edit_posts"] = false;
@@ -99,6 +98,7 @@ class UserRoles {
         $editor->capabilities["edit_published_posts"] = false;
         $editor->capabilities["manage_categories"] = false;
         $editor->capabilities["edit_theme_options"] = false;
+        $editor->capabilities["assign_agencies_to_posts"] = false;
 
         // Add a new role with editor caps
         $regionalEditor = $this->wp_roles->add_role('regional-editor', 'Regional Editor', $editor->capabilities);
