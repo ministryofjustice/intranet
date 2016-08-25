@@ -7,14 +7,25 @@
 class Post_API extends API {
   public function __construct($params) {
     parent::__construct();
+    $this->MVC->model('post_siblings');
     $this->parse_params($params);
     $this->route();
   }
 
   protected function route() {
+    $method = $this->get_param('method');
+
     switch ($this->get_method()) {
       case 'GET':
-        $this->get_posts();
+        switch ($method) {
+          case 'get':
+            $this->get_posts();
+            break;
+
+          case 'siblings':
+            $this->get_sibling_links();
+            break;
+        }
         break;
 
       default:
@@ -23,14 +34,25 @@ class Post_API extends API {
   }
 
   protected function parse_params($params) {
+    $method = $params[0];
+
     $this->params = array(
-      'agency' => $params[0],
-      'additional_filters' => $params[1],
-      'date' => $params[2],
-      'keywords' => $params[3],
-      'page' => $params[4] ?: 1,
-      'per_page' => $params[5] ?: 10
+        'method' => $method,
     );
+
+    $this->params['agency'] = $params[1];
+    $this->params['additional_params'] = $params[2];
+
+    if ($method == 'get') {
+      $this->params['date'] = $params[3];
+      $this->params['keywords'] = $params[4];
+      $this->params['page'] = $params[5];
+      $this->params['per_page'] = $params[6] ?: 10;
+    }
+    else if ($method == 'siblings'){
+      $this->params['post_id'] = $params[3];
+    }
+
   }
 
   protected function get_posts() {
@@ -40,4 +62,11 @@ class Post_API extends API {
     $data['url_params'] = $this->params;
     $this->response($data, 200, 300);
   }
+
+  protected function get_sibling_links() {
+    $options = $this->params;
+    $data = $this->MVC->model->post_siblings->get_post_sibling_links($options);
+    $this->response($data, 200, 300);
+  }
+
 }

@@ -112,7 +112,8 @@ class User_model extends MVC_model {
 
   public function get_status() {
     $data = [
-      'is_logged_in' => is_user_logged_in()
+      'is_logged_in' => is_user_logged_in(),
+      'timestamp' => time()
     ];
 
     if ($data['is_logged_in']) {

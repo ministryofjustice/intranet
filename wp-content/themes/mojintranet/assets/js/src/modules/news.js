@@ -20,7 +20,7 @@
       };
 
       this.applicationUrl = $('head').data('application-url');
-      this.serviceUrl = this.applicationUrl+'/service/news';
+      this.serviceUrl = this.applicationUrl+'/service/news/get';
       this.pageBase = this.applicationUrl+'/'+this.$top.data('top-level-slug');
 
       this.itemTemplate = this.$top.find('.template-partial[data-name="news-item"]').html();
