@@ -61,7 +61,7 @@
       var base = {
         'agency': App.tools.helpers.agency.getForContent(),
         'additional_filters': '',
-        'post_id': this.postID,
+        'post_id': this.postID
       };
 
       return base;
