@@ -269,7 +269,14 @@ class Agency extends Taxonomy {
      * @return array
      */
     public function restrict_edit_post_to_current_agency($caps, $cap, $user_id, $args) {
-        if ($cap !== 'edit_post' && $cap !== 'delete_post') {
+        $filter_caps = [
+            'edit_post',
+            'delete_post',
+            'edit_news',
+            'delete_news',
+        ];
+
+        if (!in_array($cap, $filter_caps)) {
             // Not relevant, return early.
             return $caps;
         }
