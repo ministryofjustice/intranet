@@ -140,6 +140,7 @@
       var categories = JSON.parse(this.$top.attr('data-news-categories'));
       var $option;
       var agency = App.tools.helpers.agency.getForContent();
+      var categoryCount = 0;
 
       $.each(categories, function(index, term) {
         if (App.tools.search(agency, term.agencies)) {
@@ -147,8 +148,13 @@
             .val(term.slug)
             .html(term.name)
             .appendTo(_this.$categoryInput);
+          categoryCount++;
         }
       });
+
+      if (!categoryCount) {
+        this.$top.find('.news-categories-box').addClass('hidden');
+      }
 
       App.ins.multiSelect.replace(this.$categoryInput);
     },

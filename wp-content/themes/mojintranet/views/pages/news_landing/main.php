@@ -34,11 +34,13 @@
           <input type="text" placeholder="Keywords" name="keywords" id="input-filter-contains" />
         </div>
 
-        <div class="form-row">
-          <label class="filter-label" for="input-filter-categories">Categories</label>
-        </div>
-        <div class="form-row">
-          <select name="categories[]" multiple></select>
+        <div class="news-categories-box">
+          <div class="form-row">
+            <label class="filter-label" for="input-filter-categories">Categories</label>
+          </div>
+          <div class="form-row">
+            <select name="categories[]" multiple></select>
+          </div>
         </div>
       </form>
     </div>

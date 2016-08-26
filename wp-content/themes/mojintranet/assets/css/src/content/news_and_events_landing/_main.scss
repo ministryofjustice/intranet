@@ -20,6 +20,10 @@
       }
     }
 
+    .news-categories-box.hidden {
+      display: none;
+    }
+
     .results-title {
       @extend %large-heading;
       border-bottom: 1px solid $grey-1;
