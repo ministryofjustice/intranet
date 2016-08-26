@@ -20,6 +20,17 @@ class Taxonomy_model extends MVC_model {
         }
       }
     }
+    else {
+      foreach ($terms as $index => $term) {
+        $term_agencies = get_field('term_used_by', $options['taxonomy'] . '_' . $term->term_id);
+        $terms[$index]->agencies = [];
+
+        foreach ($term_agencies as $agency_id) {
+          $agency_term = get_term($agency_id, 'agency');
+          $terms[$index]->agencies[] = $agency_term->slug;
+        }
+      }
+    }
 
     foreach ($terms as $term) {
       $clean_terms[] = $this->_format_row($term);
@@ -40,7 +51,8 @@ class Taxonomy_model extends MVC_model {
       'id' => $term->term_id,
       'name' => $term->name,
       'slug' => $term->slug,
-      'count' => $term->count
+      'count' => $term->count,
+      'agencies' => $term->agencies
     ];
   }
 }

@@ -139,12 +139,15 @@
       var _this = this;
       var categories = JSON.parse(this.$top.attr('data-news-categories'));
       var $option;
+      var agency = App.tools.helpers.agency.getForContent();
 
       $.each(categories, function(index, term) {
-        $option = $('<option></option>')
-          .val(term.slug)
-          .html(term.name)
-          .appendTo(_this.$categoryInput);
+        if (App.tools.search(agency, term.agencies)) {
+          $option = $('<option></option>')
+            .val(term.slug)
+            .html(term.name)
+            .appendTo(_this.$categoryInput);
+        }
       });
 
       App.ins.multiSelect.replace(this.$categoryInput);
