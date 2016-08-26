@@ -37,6 +37,7 @@ class DW_MVC {
     $controller = get_query_var('controller');
     $template = get_page_template();
     $path = get_query_var('param_string');
+    $error_path = get_template_directory() . '/page_error.php';
 
     //determine controller path
     if ($template) {
@@ -48,6 +49,7 @@ class DW_MVC {
       }
       if (is_404()) {
         $controller = 'page_error';
+        $method = 'error404';
       }
       $controller_path = get_template_directory() . '/' . $controller . '.php';
     }
@@ -57,7 +59,13 @@ class DW_MVC {
       include($controller_path);
     }
     else {
-      trigger_error('Controller not found: ' . $controller_path . '. Entry point: ' . $_SERVER['REQUEST_URI'], E_USER_ERROR);
+
+      $message = "Controller not found: " . $controller_path . ".\nEntry point: " . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+      wp_mail('staging.intranet@digital.justice.gov.uk', 'Intranet: 500 error', $message);
+      $controller = 'page_error';
+      $controller_path = get_template_directory() . '/' . $controller . '.php';
+      $method = 'error500';
+      include($controller_path);
     }
 
     //instantiate controller
@@ -68,6 +76,9 @@ class DW_MVC {
 
       if (class_exists($controller_name)) {
         new $controller_name($path);
+        if (isset($method)) {
+          $MVC->method = $method;
+        }
         $MVC->run();
       }
       exit;
