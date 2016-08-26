@@ -37,7 +37,6 @@ class DW_MVC {
     $controller = get_query_var('controller');
     $template = get_page_template();
     $path = get_query_var('param_string');
-    $error_path = get_template_directory() . '/page_error.php';
 
     //determine controller path
     if ($template) {
