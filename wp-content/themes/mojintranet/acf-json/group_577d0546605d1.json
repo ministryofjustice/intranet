@@ -3,7 +3,7 @@
     "title": "User Details",
     "fields": [
         {
-            "key": "field_577d054e54b07__trashed",
+            "key": "field_577d054e54b07",
             "label": "Job Title",
             "name": "user_job_title",
             "type": "text",
@@ -41,5 +41,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1467987257
+    "modified": 1472049065
 }

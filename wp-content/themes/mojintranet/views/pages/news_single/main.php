@@ -1,26 +1,28 @@
 <?php if (!defined('ABSPATH')) die(); ?>
 
-<div class="template-container">
+<div class="template-container" data-post-id="<?=$id?>">
   <?php $this->view('pages/news_single/election_banner', $election_banner) ?>
 
   <div class="grid">
     <div class="col-lg-12 col-md-12 col-sm-12">
       <h1 class="page-title"><?=$title?></h1>
 
-      <ul class="info-list">
-        <li>
-          <span>Content owner:</span>
-          <span><?=$author?></span>
-        </li>
-        <li>
-          <span>History:</span>
-          <span>Published <time><?=$human_date?></time></span>
-        </li>
-        <li>
-          <span>Department:</span>
-          <span>MoJ</span>
-        </li>
-      </ul>
+      <div class="byline">
+        <?php if (!empty($author_thumbnail_url)): ?>
+          <img class="author-thumbnail" src="<?=$author_thumbnail_url?>" alt="" />
+        <?php endif ?>
+        <ul class="info-list">
+          <li>
+            <span><?=$author?></span>
+            <?php if ($job_title): ?>
+              <span>, <?=$job_title?></span>
+            <?php endif ?>
+          </li>
+          <li>
+            <span><time><?=$human_date?></time></span>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 
@@ -46,33 +48,21 @@
         <?=$content?>
       </div>
 
-      <ul class="content-nav grid">
+      <ul class="content-nav nav-hidden grid">
         <li class="previous col-lg-6 col-md-6 col-sm-6">
-          <?php if($prev_news_exists): ?>
-            <a href="<?=$prev_news_url?>" aria-labelledby="prev-page-label">
-              <span class="nav-label" id="prev-page-label">
-                Previous
-              </span>
-            </a>
-          <?php else: ?>
-            <span class="nav-label">
+          <a href="" aria-labelledby="prev-page-label">
+            <span class="nav-label" id="prev-page-label">
               Previous
             </span>
-          <?php endif ?>
+          </a>
         </li>
 
         <li class="next col-lg-6 col-md-6 col-sm-6">
-          <?php if($next_news_exists): ?>
-            <a href="<?=$next_news_url?>" aria-labelledby="next-page-label">
-              <span class="nav-label" id="next-page-label">
-                Next
-              </span>
-            </a>
-          <?php else: ?>
-            <span class="nav-label">
+          <a href="" aria-labelledby="next-page-label">
+            <span class="nav-label" id="next-page-label">
               Next
             </span>
-          <?php endif ?>
+          </a>
         </li>
       </ul>
     </div>

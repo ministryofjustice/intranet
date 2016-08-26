@@ -7,28 +7,22 @@
 
       <div class="validation-summary-container"></div>
 
-      <img class="author-thumbnail" src="<?=$author_thumbnail_url?>" alt="" />
-
-      <ul class="info-list">
-        <li>
-          <span>Author:</span>
-          <span><?=$author?></span>
-        </li>
-        <?php if ($job_title): ?>
-          <li>
-            <span>Job title:</span>
-            <span><time><?=$job_title?></time></span>
-          </li>
+      <div class="byline">
+        <?php if (!empty($author_thumbnail_url)): ?>
+          <img class="author-thumbnail" src="<?=$author_thumbnail_url?>" alt="" />
         <?php endif ?>
-        <li>
-          <span>Published on:</span>
-          <span><time><?=$human_date?></time></span>
-        </li>
-        <li class="likes-row hidden">
-          <span>Likes:</span>
-          <span class="like-count"><?=$likes_count?></span>
-        </li>
-      </ul>
+        <ul class="info-list">
+          <li>
+            <span><?=$author?></span>
+            <?php if ($job_title): ?>
+              <span>, <?=$job_title?></span>
+            <?php endif ?>
+          </li>
+          <li>
+            <span><time><?=$human_date?></time></span>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 
@@ -42,33 +36,21 @@
 
       </div>
 
-      <ul class="content-nav grid">
+      <ul class="content-nav nav-hidden grid">
         <li class="previous col-lg-6 col-md-6 col-sm-6">
-          <?php if($prev_post_exists): ?>
-            <a href="<?=$prev_post_url?>" aria-labelledby="prev-page-label">
-              <span class="nav-label" id="prev-page-label">
-                Previous
-              </span>
-            </a>
-          <?php else: ?>
-            <span class="nav-label">
+          <a href="" aria-labelledby="prev-page-label">
+            <span class="nav-label"  id="prev-page-label">
               Previous
             </span>
-          <?php endif ?>
+          </a>
         </li>
 
         <li class="next col-lg-6 col-md-6 col-sm-6">
-          <?php if($next_post_exists): ?>
-            <a href="<?=$next_post_url?>" aria-labelledby="next-page-label">
-              <span class="nav-label" id="next-page-label">
-                Next
-              </span>
-            </a>
-          <?php else: ?>
-            <span class="nav-label">
+          <a href="" aria-labelledby="next-page-label">
+            <span class="nav-label" id="next-page-label">
               Next
             </span>
-          <?php endif ?>
+          </a>
         </li>
       </ul>
     </div>

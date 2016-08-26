@@ -35,14 +35,13 @@ class Agency_Context {
      * @return array
      */
     public static function current_user_available_agencies() {
-        if (current_user_can('agency-editor')) {
-            $agencies = wp_get_object_terms(get_current_user_id(), 'agency');
-        } elseif (current_user_can('assign_agencies_to_posts')) {
+        if (current_user_can('assign_agencies_to_posts')) {
             $agencies = get_terms('agency', array(
                 'hide_empty' => false,
             ));
-        } else {
-            $agencies = array();
+        }
+        else {
+            $agencies = wp_get_object_terms(get_current_user_id(), 'agency');
         }
 
         // Create an array of slugs from the agency objects
