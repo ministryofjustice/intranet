@@ -58,9 +58,6 @@ class DW_MVC {
       include($controller_path);
     }
     else {
-
-      $message = "Controller not found: " . $controller_path . ".\nEntry point: " . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
-      wp_mail('staging.intranet@digital.justice.gov.uk', 'Intranet: 500 error', $message);
       $controller = 'page_error';
       $controller_path = get_template_directory() . '/' . $controller . '.php';
       $method = 'error500';
