@@ -5,7 +5,6 @@ jQuery(function() {
 
   //Early
   App.ins.breakpoint = new App.Breakpoint();
-  App.ins.skeletonScreens = new App.SkeletonScreens();
   App.ins.personalisation = new App.Personalisation();
 
   //Mid

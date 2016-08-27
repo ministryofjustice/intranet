@@ -76,4 +76,7 @@
       $container.find('.skeleton-screen').remove();
     }
   };
+
+  App.ins.skeletonScreens = new App.SkeletonScreens();
 }(jQuery));
+
