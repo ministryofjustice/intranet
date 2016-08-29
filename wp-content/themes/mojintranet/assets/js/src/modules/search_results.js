@@ -39,13 +39,14 @@
 
       this.$keywordsInput.focus();
       this.setFilters();
+      this.populateCategoryFilter();
       this.updateUrl(true);
       this.loadResults({'type': 'all'});
     },
 
     cacheEls: function() {
       this.$searchForm = this.$top.find('.search-form.search-string');
-      this.$categoryInput = this.$top.find('[name="category"]');
+      this.$categoryInput = this.$top.find('[name="categories[]"]');
       this.$keywordsInput = this.$top.find('.keywords-field');
       this.$results = this.$top.find('.results');
       this.$prevPage = this.$top.find('.previous');
@@ -65,6 +66,12 @@
             page: 1
           });
         }, 500);
+      });
+
+      this.$categoryInput.on('change', function() {
+        _this.loadResults({
+          page: 1
+        });
       });
 
       this.$prevPage.click(function(e) {
@@ -123,6 +130,30 @@
       this.$searchType.find('option[value="' + type + '"]').prop('selected', true);
 
       this.currentPage = parseInt(segments[2] || 1, 10);
+    },
+
+    populateCategoryFilter: function() {
+      var _this = this;
+      var categories = JSON.parse(this.$top.attr('data-resource-categories'));
+      var $option;
+      var agency = App.tools.helpers.agency.getForContent();
+      var categoryCount = 0;
+
+      $.each(categories, function(index, term) {
+        if (App.tools.search(agency, term.agencies)) {
+          $option = $('<option></option>')
+            .val(term.slug)
+            .html(term.name)
+            .appendTo(_this.$categoryInput);
+          categoryCount++;
+        }
+      });
+
+      if (!categoryCount) {
+        this.$top.find('.resource-categories-box').addClass('hidden');
+      }
+
+      App.ins.multiSelect.replace(this.$categoryInput);
     },
 
     loadResults: function(requestData) {
@@ -313,10 +344,12 @@
       var segments = this.getSegmentsFromUrl();
       var page = segments[2] || 1;
       var type = this.$searchType.find('option:selected').val();
+      var categories = this.$categoryInput.val();
+      var additionalFilters = $.type(categories) === 'array' ? 'news_category=' + categories.join('|') : '';
 
       var base = {
         'agency': App.tools.helpers.agency.getForContent(),
-        'additional_filters': '',
+        'additional_filters': additionalFilters,
         'type': type,
         'keywords': keywords,
         'page': page,

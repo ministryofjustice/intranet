@@ -2,7 +2,10 @@
 
 <?php if ( have_posts() ) while ( have_posts() ) : the_post() ?>
 
-<div class="template-container" data-top-level-slug="<?=$top_slug?>" data-dw-tag="<?=$dw_tag?>">
+<div class="template-container"
+  data-top-level-slug="<?=$top_slug?>"
+  data-dw-tag="<?=$dw_tag?>"
+  data-resource-categories="<?=$resource_categories?>">
   <div class="grid">
     <div class="col-lg-12 col-md-12 col-sm-12">
       <h1 class="page-title">Search results</h1>
@@ -36,6 +39,15 @@
             <option value="content">Pages</option>
             <option value="document">Forms and documents</option>
           </select>
+        </div>
+
+        <div class="resource-categories-box">
+          <div class="form-row">
+            <label class="filter-label" for="input-filter-categories">Categories</label>
+          </div>
+          <div class="form-row">
+            <select name="categories[]" multiple></select>
+          </div>
         </div>
       </form>
       <p class="description">To search news go to the <a href="<?=get_permalink(get_page_by_path('newspage'))?>">News</a> page</p>
