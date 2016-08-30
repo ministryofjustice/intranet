@@ -59,8 +59,9 @@ class DW_MVC {
     }
     else {
       $controller = 'page_error';
-      $controller_path = get_template_directory() . '/' . $controller . '.php';
       $method = 'error500';
+      $original_controller_path = $controller_path;
+      $controller_path = get_template_directory() . '/'. $controller . '.php';
       include($controller_path);
     }
 
@@ -72,9 +73,15 @@ class DW_MVC {
 
       if (class_exists($controller_name)) {
         new $controller_name($path);
+
         if (isset($method)) {
           $MVC->method = $method;
         }
+
+        if (isset($original_controller_path)) {
+          $MVC->original_controller_path = $original_controller_path;
+        }
+
         $MVC->run();
       }
       exit;
