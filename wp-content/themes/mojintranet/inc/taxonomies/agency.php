@@ -276,7 +276,7 @@ class Agency extends Taxonomy {
             'delete_news',
         ];
 
-        if (!in_array($cap, $filter_caps)) {
+        if (!in_array($cap, $filter_caps) || !isset($args[0])) {
             // Not relevant, return early.
             return $caps;
         }
