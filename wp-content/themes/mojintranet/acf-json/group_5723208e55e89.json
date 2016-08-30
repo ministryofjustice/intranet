@@ -1,0 +1,249 @@
+{
+    "key": "group_5723208e55e89",
+    "title": "Guidance Tabs",
+    "fields": [
+        {
+            "key": "field_572320a8bc14c",
+            "label": "Tabs",
+            "name": "guidance_tabs",
+            "type": "repeater",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "collapsed": "field_572359e0e259c",
+            "min": "",
+            "max": "",
+            "layout": "block",
+            "button_label": "Add Tab",
+            "sub_fields": [
+                {
+                    "key": "field_572359e0e259c",
+                    "label": "Tab Title",
+                    "name": "tab_title",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": "",
+                    "readonly": 0,
+                    "disabled": 0
+                },
+                {
+                    "key": "field_572320b6bc14d",
+                    "label": "Sections",
+                    "name": "sections",
+                    "type": "repeater",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "min": "",
+                    "max": "",
+                    "layout": "block",
+                    "button_label": "Add Section",
+                    "collapsed": "",
+                    "sub_fields": [
+                        {
+                            "key": "field_572320c9bc14e",
+                            "label": "Section Title",
+                            "name": "section_title",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": "",
+                            "maxlength": "",
+                            "readonly": 0,
+                            "disabled": 0
+                        },
+                        {
+                            "key": "field_572321bd5a548",
+                            "label": "Section Content",
+                            "name": "section_content",
+                            "type": "wysiwyg",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "tabs": "text",
+                            "toolbar": "full",
+                            "media_upload": 1
+                        },
+                        {
+                            "key": "field_5723386ca6161",
+                            "label": "Section HTML Content",
+                            "name": "section_html_content",
+                            "type": "textarea",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "hidden-field",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "placeholder": "",
+                            "maxlength": "",
+                            "rows": "",
+                            "new_lines": "wpautop",
+                            "readonly": 0,
+                            "disabled": 0
+                        }
+                    ]
+                },
+                {
+                    "key": "field_57235729f3320",
+                    "label": "Links",
+                    "name": "links",
+                    "type": "repeater",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "collapsed": "",
+                    "min": "",
+                    "max": "",
+                    "layout": "table",
+                    "button_label": "Add Link",
+                    "sub_fields": [
+                        {
+                            "key": "field_57235753f3321",
+                            "label": "Link Title",
+                            "name": "link_title",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": "",
+                            "maxlength": "",
+                            "readonly": 0,
+                            "disabled": 0
+                        },
+                        {
+                            "key": "field_57235798f3322",
+                            "label": "Link Type",
+                            "name": "link_type",
+                            "type": "select",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "choices": {
+                                "link": "Link",
+                                "heading": "Heading"
+                            },
+                            "default_value": [],
+                            "allow_null": 0,
+                            "multiple": 0,
+                            "ui": 0,
+                            "ajax": 0,
+                            "placeholder": "",
+                            "disabled": 0,
+                            "readonly": 0
+                        },
+                        {
+                            "key": "field_572357c5f3323",
+                            "label": "Link URL",
+                            "name": "link_url",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_57235798f3322",
+                                        "operator": "==",
+                                        "value": "link"
+                                    }
+                                ]
+                            ],
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": "",
+                            "maxlength": "",
+                            "readonly": 0,
+                            "disabled": 0
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "page"
+            },
+            {
+                "param": "page_template",
+                "operator": "==",
+                "value": "page_guidance_and_support.php"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": 1,
+    "description": "",
+    "modified": 1472049780
+}

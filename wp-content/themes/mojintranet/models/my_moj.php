@@ -149,7 +149,7 @@ class My_moj_model extends MVC_model {
         [
           'title' => 'LAA online portal',
           'icon' => 'laa-online-portal',
-          'url' => 'https://lsconlinesso.legalservices.gov.uk/sso/pages/login.jsp',
+          'url' => 'https://lsconline.lab.gov',
           'external' => true,
         ],
         [
