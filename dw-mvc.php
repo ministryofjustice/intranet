@@ -47,6 +47,18 @@ class DW_MVC {
         $controller = 'single-' . $post_type;
       }
       if (is_404()) {
+        //check for blog redirect
+        $post_slug = explode('/', ltrim($_SERVER["REQUEST_URI"], '/'));
+
+        if (isset($post_slug[0])) {
+          $post = get_page_by_path($post_slug[0], OBJECT, 'post');
+
+          if (isset($post)) {
+            wp_redirect(get_permalink($post->ID), 301);
+            die();
+          }
+        }
+
         $controller = 'page_error';
       }
       $controller_path = get_template_directory() . '/' . $controller . '.php';
