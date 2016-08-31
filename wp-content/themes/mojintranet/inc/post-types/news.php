@@ -20,6 +20,10 @@ function define_news_post_type() {
       'menu_position' => 3,
       'supports'      => array('title','editor','thumbnail','excerpt'),
       'has_archive'   => false,
+      'rewrite'       => array(
+        'slug'       => 'news',
+        'with_front' => false
+      ),
       'hierarchical'  => false,
       'capability_type' => array('news', 'news')
     )
