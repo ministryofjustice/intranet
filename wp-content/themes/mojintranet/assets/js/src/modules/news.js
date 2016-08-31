@@ -155,27 +155,33 @@
       if (!categoryCount) {
         this.$top.find('.news-categories-box').addClass('hidden');
       }
-
-      App.ins.multiSelect.replace(this.$categoryInput);
     },
 
     setFilters: function() {
       var segments = this.getSegmentsFromUrl();
       var keywords;
+      var categories;
 
-      if(segments[2]) {
+      if (segments[2]) {
         keywords = segments[2].replace('+', ' ');
 
         //update keywords field with keywords from url
-        if(keywords) {
+        if (keywords) {
           this.$keywordsInput.val(keywords === '-' ? '' : keywords);
         }
       }
 
       //update date field with date from url
-      if(segments[3]) {
+      if (segments[3]) {
         this.$dateInput.val(segments[3]);
       }
+
+      if (segments[4]) {
+        categories = segments[4].split('|') || [];
+        this.$categoryInput.val(categories);
+      }
+
+      App.ins.multiSelect.replace(this.$categoryInput);
 
       this.currentPage = parseInt(segments[1] || 1, 10);
     },
@@ -466,6 +472,7 @@
     getNewUrl: function(rootRelative) {
       var urlParts = [this.pageBase];
       var keywords = this.getSanitizedKeywords();
+      var categories = this.$categoryInput.val() || [];
       keywords = keywords.replace(/\s/g, '+');
 
       //page number
@@ -477,6 +484,9 @@
 
       //date
       urlParts.push(this.$dateInput.val() || '-');
+
+      //categories
+      urlParts.push(categories.join('|') || '-');
 
       if(rootRelative) {
         urlParts.shift();
