@@ -13,10 +13,6 @@ abstract class MVC_controller extends MVC_loader {
 
     $this->_get_segments($param_string);
     $this->wp_head = $this->_get_wp_header();
-
-    if ($this->is_plugin) {
-      $this->main();
-    }
   }
 
   public function run() {
