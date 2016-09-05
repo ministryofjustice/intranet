@@ -82,3 +82,20 @@ function redirect_404($template) {
   }
 }
 add_action('404_template','redirect_404',99);
+
+function dw_old_blog_redirect() {
+  if (is_404()) {
+    //check for blog redirect
+    $post_slug = explode('/', ltrim($_SERVER["REQUEST_URI"], '/'));
+
+    if (isset($post_slug[0])) {
+      $post = get_page_by_path($post_slug[0], OBJECT, 'post');
+
+      if (isset($post)) {
+        wp_redirect(get_permalink($post->ID), 301);
+        die();
+      }
+    }
+  }
+}
+add_action('dw_redirect','dw_old_blog_redirect');
