@@ -33,6 +33,8 @@ class DW_MVC {
   function action_route() {
     global $MVC;
 
+    do_action( 'dw_redirect' );
+
     $post_type = get_post_type();
     $controller = get_query_var('controller');
     $template = get_page_template();
@@ -47,18 +49,6 @@ class DW_MVC {
         $controller = 'single-' . $post_type;
       }
       if (is_404()) {
-        //check for blog redirect
-        $post_slug = explode('/', ltrim($_SERVER["REQUEST_URI"], '/'));
-
-        if (isset($post_slug[0])) {
-          $post = get_page_by_path($post_slug[0], OBJECT, 'post');
-
-          if (isset($post)) {
-            wp_redirect(get_permalink($post->ID), 301);
-            die();
-          }
-        }
-
         $controller = 'page_error';
       }
       $controller_path = get_template_directory() . '/' . $controller . '.php';
