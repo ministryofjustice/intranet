@@ -35,7 +35,7 @@ class Service extends MVC_controller {
       );
 
       header('Content-Type: application/json');
-      http_response_code($status_code);
+      http_response_code($response['status']);
       echo json_encode($response);
     }
   }
