@@ -35,19 +35,13 @@ jQuery(function() {
   App.ins.navigation = new App.Navigation();
   App.ins.accessibility = new App.Accessibility();
   App.ins.myMoj = new App.MyMoj();
-  App.ins.postsWidget = new App.PostsWidget();
-  App.ins.eventsWidget = new App.EventsWidget();
-  App.ins.featuredNewsWidget = new App.FeaturedNewsWidget();
-  App.ins.newsListWidget = new App.NewsListWidget();
-  App.ins.needToKnowWidget = new App.NeedToKnowWidget();
-  App.ins.myMojWidget = new App.MyMojWidget();
-  App.ins.followUsWidget = new App.FollowUsWidget();
   App.ins.guidanceIndexWidget = new App.GuidanceIndexWidget();
   App.ins.aboutUsIndex = new App.AboutUsIndex();
   App.ins.registerForm = new App.RegisterForm();
   App.ins.resetPasswordForm = new App.ResetPasswordForm();
   App.ins.forgotPasswordForm = new App.ForgotPasswordForm();
   App.ins.loginForm = new App.LoginForm();
+  App.ins.homePage = new App.Homepage();
 
   //Late
   App.ins.breakpoint.trigger();
