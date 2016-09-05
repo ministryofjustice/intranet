@@ -1,5 +1,10 @@
 .header {
+  display: none;
   background: $black;
+
+  &.loaded {
+    display: block;
+  }
 
   .mobile-msg {
     display: none;

@@ -1,0 +1,65 @@
+.template-campaign {
+  .template-container {
+    .skin-transformation {
+      .editable {
+        hr {
+          background: #FAC960;
+          border-color: #FAC960;
+        }
+
+        blockquote {
+          background: #FAC960;
+        }
+      }
+    }
+
+    .campaign-banner {
+      margin-top: 15px;
+
+      img {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+      }
+    }
+
+   .editable {
+      h2 {
+        margin-top: 25px;
+        margin-bottom: 10px;
+      }
+
+      p {
+        margin-top: 0;
+      }
+
+      hr {
+        background: #CCCCCC;
+        border: 1px solid #CCCCCC;
+        margin: 10px 0 0 0;
+        display: inline-block;
+        width: 100%;
+      }
+
+      blockquote {
+        padding: 25px 25px 5px 25px;
+        background: #CCCCCC;
+        font-size: 27px;
+        line-height: 30px;
+        margin-right: 0;
+
+        p {
+          font-size: 27px;
+          line-height: 30px;
+          padding-left: 0;
+        }
+
+        p::before {
+          content: '';
+        }
+      }
+    }
+  }
+}
+
+

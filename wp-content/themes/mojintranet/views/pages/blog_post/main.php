@@ -7,28 +7,22 @@
 
       <div class="validation-summary-container"></div>
 
-      <img class="author-thumbnail" src="<?=$author_thumbnail_url?>" alt="" />
-
-      <ul class="info-list">
-        <li>
-          <span>Author:</span>
-          <span><?=$author?></span>
-        </li>
-        <?php if ($job_title): ?>
-          <li>
-            <span>Job title:</span>
-            <span><time><?=$job_title?></time></span>
-          </li>
+      <div class="byline">
+        <?php if (!empty($author_thumbnail_url)): ?>
+          <img class="author-thumbnail" src="<?=$author_thumbnail_url?>" alt="" />
         <?php endif ?>
-        <li>
-          <span>Published on:</span>
-          <span><time><?=$human_date?></time></span>
-        </li>
-        <li class="likes-row hidden">
-          <span>Likes:</span>
-          <span class="like-count"><?=$likes_count?></span>
-        </li>
-      </ul>
+        <ul class="info-list">
+          <li>
+            <span><?=$author?></span>
+            <?php if ($job_title): ?>
+              <span>, <?=$job_title?></span>
+            <?php endif ?>
+          </li>
+          <li>
+            <span><time><?=$human_date?></time></span>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 

@@ -3,7 +3,8 @@
 
   var App = window.App;
 
-  App.NewsListWidget = function() {
+  App.NewsListWidget = function(data) {
+    this.data = data;
     this.$top = $('.template-home .news-list-widget');
     if(!this.$top.length) { return; }
     this.init();
@@ -27,7 +28,7 @@
       this.cacheEls();
       this.bindEvents();
 
-      this.requestNews();
+      this.buildNewsRows(this.data);
     },
 
     cacheEls: function() {
@@ -38,17 +39,10 @@
       $(window).on('breakpoint-change', $.proxy(this.displayNews, this));
     },
 
-    requestNews: function() {
-      var _this = this;
-
-      /* use the timeout for dev/debugging purposes */
-      //**/window.setTimeout(function() {
-        _this.serviceXHR = $.getJSON(_this.serviceUrl, $.proxy(_this.buildNewsRows, _this));
-      //**/}, 2000);
-    },
-
     buildNewsRows: function(data) {
       var _this = this;
+
+      App.ins.skeletonScreens.remove(this.$newsList);
 
       $.each(data.results, function(index, result) {
         _this.news.push(_this.buildResultRow(result));
@@ -100,7 +94,6 @@
           column = 1;
         }
       });
-
     }
   };
 }(jQuery));

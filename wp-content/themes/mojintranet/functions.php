@@ -8,10 +8,6 @@ include     ('helpers/validation.php');                   // Server side validat
 include     ('inc/utilities/agency-editor.php');          // Agency Editor utility
 include     ('inc/utilities/agency-context.php');         // Agency Context utility
 
-require_once('inc/acf-fields/agency-terms.php');          // ACF Fields - Agency terms
-require_once('inc/acf-fields/page-options.php');          // ACF Fields - Page Options
-require_once('inc/acf-fields/user-details.php');          // ACF Fields - User Details
-
 require_once('inc/authors.php');                          // Additional author information
 require_once('inc/cache.php');                            // Amend the cache headers
 require_once('inc/cookies.php');                            // Amend the cache headers
@@ -42,8 +38,6 @@ require_once('inc/uploads.php');                          // File uploads
 require_once('inc/user-roles.php');                       // User roles
 require_once('inc/utility.php');                          // Utility functions
 require_once('inc/wp-admin-bar.php');                     // Control the WP Admin Bar
-
-require_once('inc/acf-fields/guidance-tabs.php');         // ACF Fields - Guidance Tabs
 
 require_once('admin/templates/template-functions.php');   // Customises page editor based on template
 require_once('admin/editor-enhancements.php');            // Adds enhancements to post/page editor screen

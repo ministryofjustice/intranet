@@ -40,6 +40,11 @@ class UserRoles {
             $this->addAgencyEditorRole();
         }
 
+        // Add regional-editor role if required
+        if (!$this->roleExists('regional-editor')) {
+            $this->addRegionalEditorRole();
+        }
+
         // Rename editor role if required
         $editorName = 'Global Editor';
         if ($this->roleName('editor') !== $editorName) {
@@ -74,9 +79,29 @@ class UserRoles {
      */
     public function addAgencyEditorRole() {
         $editor = $this->wp_roles->get_role('editor');
+        
+        $editor->capabilities["assign_agencies_to_posts"] = false;
 
         // Add a new role with editor caps
         $agencyEditor = $this->wp_roles->add_role('agency-editor', 'Agency Editor', $editor->capabilities);
+    }
+
+    /**
+     * Add new role Regional Editor.
+     * Inherit capabilities from Editor role.
+     */
+    public function addRegionalEditorRole() {
+        $editor = $this->wp_roles->get_role('editor');
+
+        $editor->capabilities["edit_posts"] = false;
+        $editor->capabilities["edit_others_posts"] = false;
+        $editor->capabilities["edit_published_posts"] = false;
+        $editor->capabilities["manage_categories"] = false;
+        $editor->capabilities["edit_theme_options"] = false;
+        $editor->capabilities["assign_agencies_to_posts"] = false;
+
+        // Add a new role with editor caps
+        $regionalEditor = $this->wp_roles->add_role('regional-editor', 'Regional Editor', $editor->capabilities);
     }
 
     /**
