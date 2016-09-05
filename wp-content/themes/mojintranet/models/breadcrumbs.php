@@ -17,7 +17,8 @@ class Breadcrumbs_model extends MVC_model {
     foreach ($ancestor_ids as $post_id) {
       $breadcrumbs[] = [
         'title' => get_the_title($post_id),
-        'url' => get_permalink($post_id)
+        'url' => get_permalink($post_id),
+        'last' => false
       ];
     }
 
