@@ -33,7 +33,7 @@ class DW_MVC {
   function action_route() {
     global $MVC;
 
-    do_action( 'dw_redirect' );
+    do_action('dw_redirect');
 
     $post_type = get_post_type();
     $controller = get_query_var('controller');
