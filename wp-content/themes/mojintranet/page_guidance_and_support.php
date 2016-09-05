@@ -31,7 +31,7 @@ class Page_guidance_and_support extends MVC_controller {
 
     $lhs_menu_on = get_post_meta($post->ID, 'lhs_menu_on', true) != "0" ? true : false;
 
-    $authors = dw_get_author_info($this->post_ID);
+    //$authors = dw_get_author_info($this->post_ID);
     $agencies = get_the_terms($this->post_ID, 'agency');
     $list_of_agencies = [];
 
@@ -50,7 +50,7 @@ class Page_guidance_and_support extends MVC_controller {
       'page_data' => array(
         'id' => $this->post_ID,
         'agencies' => implode(', ', $list_of_agencies),
-        'author' => $authors[0]['name'],
+        //'author' => $authors[0]['name'],
         'author_email' => "newintranet@digital.justice.gov.uk",
         'last_updated' => date("j F Y", strtotime(get_the_modified_date())),
         'title' => get_the_title(),
@@ -62,7 +62,6 @@ class Page_guidance_and_support extends MVC_controller {
         'tab_array' => $this->get_tab_array(),
         'tab_count' => $this->tab_count,
         'page_category' => $this->page_category,
-        'autoheadings' => $this->autoheadings,
         'lhs_menu_on' => $lhs_menu_on,
         'hide_page_details' => (boolean) get_post_meta($this->post_ID, 'dw_hide_page_details', true)
       )
