@@ -40,7 +40,9 @@ include(get_template_directory() . '/inc/headers.php');
     </div>
   </div>
 
-  <?php $this->view('modules/footer') ?>
-  <?php $this->view('modules/body_bottom') ?>
+  <?php $this->view('modules/skeleton_screens') ?>
+
+  <?php $this->view('modules/footer'); ?>
+  <?php $this->view('modules/body_bottom'); ?>
 </body>
 </html>
