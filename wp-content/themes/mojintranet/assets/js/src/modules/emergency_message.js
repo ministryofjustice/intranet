@@ -36,6 +36,7 @@
     requestResults: function() {
       var _this = this;
       var dataArray = [];
+      dataArray.push(App.tools.helpers.agency.getForContent());
 
       /* use the timeout for dev/debugging purposes */
       //**/window.setTimeout(function() {

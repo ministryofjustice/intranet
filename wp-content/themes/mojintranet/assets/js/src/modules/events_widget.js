@@ -3,7 +3,8 @@
 
   var App = window.App;
 
-  App.EventsWidget = function() {
+  App.EventsWidget = function(data) {
+    this.data = data;
     this.$top = $('.template-home .events-widget');
     if(!this.$top.length || this.$top.hasClass('agency-hidden')) { return; }
     this.init();
@@ -12,7 +13,6 @@
   App.EventsWidget.prototype = {
     init: function() {
       this.applicationUrl = $('head').data('application-url');
-      this.serviceUrl = this.applicationUrl + '/service/events/' + App.tools.helpers.agency.getForContent() + '////1/2';
       this.pageBase = this.applicationUrl + '/' + this.$top.data('top-level-slug');
 
       this.itemTemplate = this.$top.find('[data-name="widget-event-item"]').html();
@@ -23,31 +23,19 @@
       this.serviceXHR = null;
 
       this.cacheEls();
-      this.bindEvents();
 
-      this.requestResults();
+      this.displayResults(this.data);
     },
 
     cacheEls: function() {
       this.$postsList = this.$top.find('.events-list');
     },
 
-    bindEvents: function() {
-    },
-
-    requestResults: function() {
-      var _this = this;
-      var dataArray = [];
-
-      /* use the timeout for dev/debugging purposes */
-      //**/window.setTimeout(function() {
-        _this.serviceXHR = $.getJSON(_this.serviceUrl+'/'+dataArray.join('/'), $.proxy(_this.displayResults, _this));
-      //**/}, 2000);
-    },
-
     displayResults: function(data) {
       var _this = this;
       var $post;
+
+      App.ins.skeletonScreens.remove(this.$postsList);
 
       if (data.results.length > 0) {
         $.each(data.results, function (index, result) {
