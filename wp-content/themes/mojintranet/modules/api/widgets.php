@@ -29,6 +29,10 @@ class Widgets_API extends API {
         $this->get_follow_us_links();
         break;
 
+      case 'all':
+        $this->get_all();
+        break;
+
       default:
         $this->error('Invalid widget');
         break;
@@ -76,6 +80,56 @@ class Widgets_API extends API {
     $this->MVC->model('follow_us');
     $options = $this->params;
     $data = $this->MVC->model->follow_us->get_data($options);
+    $data['url_params'] = $this->params;
+    $this->response($data, 200, 60 * 60);
+  }
+
+  private function get_all() {
+    $data = [];
+
+    //news list
+    $options = $this->params;
+    $options = $this->add_taxonomies($options);
+    $options['start'] = 0;
+    $options['length'] = 8;
+    $data['news_list'] = $this->MVC->model->news->get_widget_news($options, false);
+
+    //featured news
+    $options = $this->params;
+    $options = $this->add_taxonomies($options);
+    $options['start'] = 0;
+    $options['length'] = 2;
+    $data['featured_news'] = $this->MVC->model->news->get_widget_news($options, true);
+
+    //events
+    $options = $this->params;
+    $options = $this->add_taxonomies($options);
+    $options['page'] = 1;
+    $options['per_page'] = 2;
+    $data['events'] = $this->MVC->model->events->get_list($options);
+    $months = $this->MVC->model->months->get_list($this->add_taxonomies());
+    $data['events']['months'] = $months['results'];
+
+    //posts
+    $options = $this->params;
+    $options = $this->add_taxonomies($options);
+    $options['page'] = 1;
+    $options['per_page'] = 5;
+    $data['posts'] = $this->MVC->model->post->get_list($options);
+
+    //need to know
+    $options = $this->params;
+    $data['need_to_know'] = $this->MVC->model->need_to_know->get_data($options);
+
+    //my moj
+    $options = $this->params;
+    $data['my_moj'] = $this->MVC->model->my_moj->get_data($options);
+
+    //folow us
+    $options = $this->params;
+    $this->MVC->model('follow_us');
+    $data['follow_us'] = $this->MVC->model->follow_us->get_data($options);
+
     $data['url_params'] = $this->params;
     $this->response($data, 200, 60 * 60);
   }

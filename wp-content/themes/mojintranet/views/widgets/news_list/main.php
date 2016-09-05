@@ -3,10 +3,15 @@
 <div class="news-list-widget news-widget">
   <div class="grid">
     <div class="col-lg-6 col-md-12 col-sm-12">
-      <ul class="news-list "></ul>
+      <ul class="news-list"
+          data-skeleton-screen-count="4"
+          data-skeleton-screen-type="standard"
+          ></ul>
     </div>
     <div class="col-lg-6 col-md-12 col-sm-12">
-      <ul class="news-list "></ul>
+      <ul class="news-list"
+          data-skeleton-screen-count="4"
+          data-skeleton-screen-type="standard"></ul>
     </div>
 
     <div class="col-lg-12 col-md-12 col-sm-12">

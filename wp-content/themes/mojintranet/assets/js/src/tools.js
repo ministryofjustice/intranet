@@ -27,6 +27,16 @@
       return Math.round(num*p)/p;
     },
 
+    /** Generates a random integer within a given range
+     * @param {Integer) min Minimum
+     * @param {Integer) max Maximum
+     * @returns {Number} Random integer in a given range
+     */
+    rand: function(min, max){
+      if(min > max){ return NaN; }
+      return Math.floor(Math.random()*(max-min+1)+min);
+    },
+
     /** Formats data size
      * @param {Number} size Input size in bytes
      * @returns {String} Formatted size (e.g. 103.4KB)

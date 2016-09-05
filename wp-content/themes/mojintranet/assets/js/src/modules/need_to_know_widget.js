@@ -3,7 +3,8 @@
 
   var App = window.App;
 
-  App.NeedToKnowWidget = function() {
+  App.NeedToKnowWidget = function(data) {
+    this.data = data;
     this.$top = $('.template-home .need-to-know-widget');
     if(!this.$top.length) { return; }
     this.init();
@@ -12,7 +13,6 @@
   App.NeedToKnowWidget.prototype = {
     init: function() {
       this.applicationUrl = $('head').data('application-url');
-      this.serviceUrl = this.applicationUrl + '/service/widgets/need-to-know/'  + App.tools.helpers.agency.getForContent() + '/';
       this.pageBase = this.applicationUrl + '/' + this.$top.data('top-level-slug');
 
       this.itemTemplate = this.$top.find('[data-name="widget-need-to-know-item"]').html();
@@ -25,7 +25,7 @@
       this.cacheEls();
       this.bindEvents();
 
-      this.requestResults();
+      this.displayResults(this.data);
     },
 
     cacheEls: function() {
@@ -38,16 +38,6 @@
     bindEvents: function() {
       this.$leftNav.on('click', $.proxy(this.changeSlide, this, true));
       this.$rightNav.on('click', $.proxy(this.changeSlide, this, false));
-    },
-
-    requestResults: function() {
-      var _this = this;
-      var dataArray = [];
-
-      /* use the timeout for dev/debugging purposes */
-      //**/window.setTimeout(function() {
-        _this.serviceXHR = $.getJSON(_this.serviceUrl+'/'+dataArray.join('/'), $.proxy(_this.displayResults, _this));
-      //**/}, 2000);
     },
 
     displayResults: function(data) {
