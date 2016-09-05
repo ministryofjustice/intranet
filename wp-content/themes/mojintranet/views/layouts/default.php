@@ -1,5 +1,9 @@
 <?php if (!defined('ABSPATH')) die();
 include(get_template_directory() . '/inc/headers.php');
+
+if (!isset($no_breadcrumbs)) $no_breadcrumbs = false;
+if (!isset($page_data)) $page_data = [];
+
 ?>
 
 <!DOCTYPE html>
@@ -33,7 +37,7 @@ include(get_template_directory() . '/inc/headers.php');
       <!--[if IE 6]>
         <?php $this->view('modules/ie6_message') ?>
       <![endif]-->
-      <?php if (isset($no_breadcrumbs) && !$no_breadcrumbs): ?>
+      <?php if (!$no_breadcrumbs): ?>
         <?php $this->view('modules/breadcrumbs', array('breadcrumbs' => $this->model->breadcrumbs->get_data())) ?>
       <?php endif ?>
       <?php $this->view($page, $page_data) ?>
