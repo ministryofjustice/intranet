@@ -68,9 +68,15 @@ function dw_rewrite_rules() {
   add_rewrite_rule($regex, $redirect, 'top');
 
   //Custom controllers
-  $regex = '^(service|password|create-an-account|sign-in|flush-rewrites)(/(.*)|$)';
+  $regex = '^feed($|/)';
+  $redirect = 'index.php?controller=page_error';
+  add_rewrite_rule($regex, $redirect, 'top');
+
+  //Custom controllers
+  $regex = '^(service|password|create-an-account|sign-in|flush-rewrites|redirect|submit-feedback)(/(.*)|$)';
   $redirect = 'index.php?controller=$matches[1]&param_string=$matches[3]';
   add_rewrite_rule($regex, $redirect, 'top');
+
 }
 add_action('init', 'dw_redirects');
 add_action('init', 'dw_rewrite_rules');
