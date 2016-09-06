@@ -44,7 +44,6 @@ require_once('admin/editor-enhancements.php');            // Adds enhancements t
 require_once('admin/errors.php');                         // Displays errors in admin
 require_once('admin/dashboard.php');                      // Dashboard functions
 require_once('admin/listing.php');                        // Listing functions
-require_once('admin/search-index.php');                   // Functions extending the search index
 
 add_action( 'after_setup_theme', 'mojintranet_setup' );
 
