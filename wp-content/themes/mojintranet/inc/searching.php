@@ -39,6 +39,19 @@ function dw_index_tab_fields($cf) {
 }
 add_filter('relevanssi_index_custom_fields', 'dw_index_tab_fields');
 
+function custom_relevanssi_excerpts($content, $post, $query) {
+
+    $tab_content = get_post_meta($post->ID, 'guidance_tabs_0_sections_0_section_html_content', true);
+
+    if ($tab_content != false) {
+        $content = $tab_content;
+    }
+
+    return $content;
+  }
+
+add_filter('relevanssi_excerpt_content', 'custom_relevanssi_excerpts', 10, 3);
+
 // Enable the Relevanssi premium search stemmer
 $gis = "general_intranet_enable_search_stemmer";
 $stemmer = get_option($gis);
