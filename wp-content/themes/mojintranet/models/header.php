@@ -25,7 +25,7 @@ class Header_model extends MVC_model {
         'label' => 'Criminal Injuries Compensation Authority',
         'abbreviation' => 'CICA',
         'url' => '',
-        'is_integrated' => false,
+        'is_integrated' => true,
         'is_external' => false
       ),
       'hmcts' => array(
