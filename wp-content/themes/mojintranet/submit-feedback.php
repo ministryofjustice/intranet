@@ -1,6 +1,6 @@
 <?php if (!defined('ABSPATH')) die();
 
-class Page_submit_feedback extends MVC_controller {
+class Submit_feedback extends MVC_controller {
   private $email = 'intranet@justice.gsi.gov.uk, newintranet@digital.justice.gov.uk';
   private static $nl = "\r\n";
 
