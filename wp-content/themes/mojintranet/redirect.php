@@ -2,8 +2,6 @@
 
 /**
  * This page routes the redirects from old intranet
- *
- * Template name: Redirect
  */
 class Route_redirects {
   private static $excluded_keywords = array();

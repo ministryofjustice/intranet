@@ -1,10 +1,6 @@
 <?php if (!defined('ABSPATH')) die();
 
-/**
- * Template name: Submit feedback
-*/
-
-class Page_submit_feedback extends MVC_controller {
+class Submit_feedback extends MVC_controller {
   private $email = 'intranet@justice.gsi.gov.uk, newintranet@digital.justice.gov.uk';
   private static $nl = "\r\n";
 
@@ -20,7 +16,7 @@ class Page_submit_feedback extends MVC_controller {
     $this->description = $_POST['description'];
     $this->resolution = $_POST['resolution'];
     $this->referrer = $_POST['referrer'];
-
+ 
     mail($this->email, $subject, $this->_get_message(), $this->_get_headers());
 
     $this->_output_json();
