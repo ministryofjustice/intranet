@@ -8,6 +8,7 @@ jQuery(function() {
   App.ins.personalisation = new App.Personalisation();
 
   //Mid
+  App.ins.user = new App.User();
   App.ins.initMediaPlayer = new App.InitMediaPlayer();
   App.ins.mobileHeader = new App.MobileHeader();
   App.ins.stickyNews = new App.StickyNews();
@@ -17,8 +18,11 @@ jQuery(function() {
   //App.ins.childrenPages = new App.ChildrenPages();
   App.ins.tabbedContent = new App.TabbedContent();
   App.ins.news = new App.News();
+  App.ins.singleNews = new App.SingleNews();
   App.ins.blog = new App.Blog();
+  App.ins.blogPost = new App.BlogPost();
   App.ins.events = new App.Events();
+  App.ins.comments = new App.Comments();
   App.ins.shareViaEmail = new App.ShareViaEmail();
   App.ins.like = new App.Like();
   App.ins.searchResults = new App.SearchResults();
@@ -31,19 +35,13 @@ jQuery(function() {
   App.ins.navigation = new App.Navigation();
   App.ins.accessibility = new App.Accessibility();
   App.ins.myMoj = new App.MyMoj();
-  App.ins.postsWidget = new App.PostsWidget();
-  App.ins.eventsWidget = new App.EventsWidget();
-  App.ins.featuredNewsWidget = new App.FeaturedNewsWidget();
-  App.ins.newsListWidget = new App.NewsListWidget();
-  App.ins.needToKnowWidget = new App.NeedToKnowWidget();
-  App.ins.myMojWidget = new App.MyMojWidget();
-  App.ins.followUsWidget = new App.FollowUsWidget();
   App.ins.guidanceIndexWidget = new App.GuidanceIndexWidget();
   App.ins.aboutUsIndex = new App.AboutUsIndex();
   App.ins.registerForm = new App.RegisterForm();
   App.ins.resetPasswordForm = new App.ResetPasswordForm();
   App.ins.forgotPasswordForm = new App.ForgotPasswordForm();
   App.ins.loginForm = new App.LoginForm();
+  App.ins.homePage = new App.Homepage();
 
   //Late
   App.ins.breakpoint.trigger();

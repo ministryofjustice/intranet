@@ -57,7 +57,7 @@ class Users extends List_Table {
         $terms = wp_get_object_terms($user_id, 'agency');
         $user = get_userdata($user_id);
 
-        if (!in_array('agency-editor', $user->roles)) {
+        if (array_key_exists('assign_agencies_to_posts', $user->allcaps) && $user->allcaps['assign_agencies_to_posts'] == true) {
             // User is not an Agency Editor, so this taxonomy does not apply.
             return '–';
         }

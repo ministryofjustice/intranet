@@ -2,46 +2,54 @@
 // -------------------------------------------------
 // Functions to enhance searching (using Relevanssi)
 // -------------------------------------------------
-
 /**
- * Combines custom fields to create one field for Relevanssi to index/search
- * @param string $meta_key The name the new field should be given
- * @param  array $content The combined content
- * @param int $post_id ID of the post the meta data is to be attached to
- * @return [type]         [description]
+ * Adds the Guidance Tabs custom fields to the search index
+ * Filter: relevanssi_index_custom_fields
+ *
+ * @param array $cf -  custom fields to index in search
+ * @return array
  */
-function create_search_content($meta_key,$content,$post_id) {
-  // Ensures that '_' (underscore) is present at beginning of $field_name
-  if(substr($meta_key, 0, 1)!="_") {
-    $meta_key = "_$meta_key";
+function dw_index_tab_fields($cf) {
+    global $post;
+    $tab_num = get_post_meta($post->ID, 'guidance_tabs', true);
+    if (is_numeric($tab_num)) {
+        for ($t = 0; $t < $tab_num; $t++) {
+            $cf[] = 'guidance_tabs_' . $t . '_tab_title';
+
+            $section_num = get_post_meta($post->ID, 'guidance_tabs_'.$t.'_sections', true);
+
+            if (is_numeric($section_num)) {
+                for ($s = 0; $s < $section_num; $s++) {
+                    $cf[] = 'guidance_tabs_' . $t . '_sections_' . $s . '_section_title';
+                    $cf[] = 'guidance_tabs_' . $t . '_sections_' . $s . '_section_html_content';
+                }
+            }
+
+            $links_num = get_post_meta($post->ID, 'guidance_tabs_'.$t.'_links', true);
+
+            if (is_numeric($links_num)) {
+                for ($l = 0; $l < $links_num; $l++) {
+                    $cf[] = 'guidance_tabs_' . $t . '_links_' . $l . '_link_title';
+                }
+            }
+        }
+    }
+
+    return $cf;
+}
+add_filter('relevanssi_index_custom_fields', 'dw_index_tab_fields');
+
+function custom_relevanssi_excerpts($content, $post, $query) {
+
+    $tab_content = get_post_meta($post->ID, 'guidance_tabs_0_sections_0_section_html_content', true);
+
+    if ($tab_content != false) {
+        $content = $tab_content;
+    }
+
+    return $content;
   }
 
-  $meta_id = update_post_meta( $post_id, $meta_key, $content );
-
-  return $meta_id;
-}
-
-/**
- * Filters Relevanssi excerpts
- */
-function custom_relevanssi_excerpts($content, $post, $query) {
-  // Adds custom fields to Relevanssi
-  $custom_field = get_post_meta($post->ID, '_tabs_search', true);
-  $content .= " " . $custom_field;
-  $custom_field = get_post_meta($post->ID, '_quicklinks_search', true);
-  $content .= " " . $custom_field;
-  // Remove phrases from excerpt
-  $unwanted_phrases = array(
-    "Tab 1",
-    "Tab 2",
-    "Tab 3",
-    "Tab 4",
-    "Tab 5",
-    "Tab 6"
-    );
-  $content = str_replace($unwanted_phrases, "", $content);
-  return $content;
-}
 add_filter('relevanssi_excerpt_content', 'custom_relevanssi_excerpts', 10, 3);
 
 // Enable the Relevanssi premium search stemmer

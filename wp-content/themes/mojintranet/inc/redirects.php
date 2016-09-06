@@ -73,7 +73,7 @@ function dw_rewrite_rules() {
   add_rewrite_rule($regex, $redirect, 'top');
 
   //Custom controllers
-  $regex = '^(service|password|create-an-account|sign-in|redirect|submit-feedback)(/(.*)|$)';
+  $regex = '^(service|password|create-an-account|sign-in|flush-rewrites|redirect|submit-feedback)(/(.*)|$)';
   $redirect = 'index.php?controller=$matches[1]&param_string=$matches[3]';
   add_rewrite_rule($regex, $redirect, 'top');
 
@@ -88,3 +88,20 @@ function redirect_404($template) {
   }
 }
 add_action('404_template','redirect_404',99);
+
+function dw_old_blog_redirect() {
+  if (is_404()) {
+    //check for blog redirect
+    $post_slug = explode('/', ltrim($_SERVER["REQUEST_URI"], '/'));
+
+    if (isset($post_slug[0])) {
+      $post = get_page_by_path($post_slug[0], OBJECT, 'post');
+
+      if (isset($post)) {
+        wp_redirect(get_permalink($post->ID), 301);
+        die();
+      }
+    }
+  }
+}
+add_action('dw_redirect','dw_old_blog_redirect');

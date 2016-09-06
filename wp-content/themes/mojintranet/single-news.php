@@ -15,14 +15,12 @@ class Single_news extends MVC_controller {
     the_content();
     $content = ob_get_clean();
 
-    $this_id = $post->ID;
+    $this_id = get_the_ID();
 
     $thumbnail_id = get_post_thumbnail_id($this_id);
     $thumbnail = wp_get_attachment_image_src($thumbnail_id, 'intranet-large');
     $alt_text = get_post_meta($thumbnail_id, '_wp_attachment_image_alt', true);
-
-    $prev_news = get_previous_post();
-    $next_news = get_next_post();
+    $authors = dw_get_author_info($post->ID);
 
     return array(
       'page' => 'pages/news_single/main',
@@ -33,16 +31,14 @@ class Single_news extends MVC_controller {
         'thumbnail' => $thumbnail[0],
         'thumbnail_alt_text' => $alt_text,
         'thumbnail_caption' => get_post_thumbnail_caption(),
-        'author' => get_the_author(),
+        'author' => $authors[0]['name'],
+        'author_thumbnail_url' => $authors[0]['thumbnail_url'],
+        'job_title' => $authors[0]['job_title'],
         'title' => get_the_title(),
         'excerpt' => get_the_excerpt(),
         'content' => $content,
         'raw_date' => $article_date,
         'human_date' => date("j F Y", strtotime($article_date)),
-        'prev_news_exists' => is_object($prev_news),
-        'next_news_exists' => is_object($next_news),
-        'prev_news_url' => get_post_permalink($prev_news),
-        'next_news_url' => get_post_permalink($next_news),
         'election_banner' => array(
           'visible' => strtotime($article_date) < strtotime('9 May 2015')?1:0
         )

@@ -47,7 +47,7 @@
       <ul role="tablist" class="content-tabs <?=$tab_count >= 3 ? 'small-tabs' : ''?> <?=$tab_count <= 1 ? 'hidden' : ''?>">
         <?php foreach($tab_array as $tab_row): ?>
           <li role="presentation" data-content="<?=$tab_row['name']?>">
-            <a id="tab-<?=$tab_row['name']?>" role="tab" aria-selected="false" aria-controls="panel-<?=$tab_row['name']?>" href=""><?=$tab_row['title']?></a>
+            <a id="tab-<?=$tab_row['name']?>" role="tab" aria-selected="false" aria-controls="panel-<?=$tab_row['name']?>" href=""><?=$tab_row['tab_title']?></a>
           </li>
         <?php endforeach ?>
       </ul>
@@ -57,26 +57,28 @@
       <?php foreach($tab_array as $tab_number=>$tab_row): ?>
         <div id="panel-<?=$tab_row['name']?>" data-template-type="tab-content" data-content-name="<?=$tab_row['name']?>" class="template-partial editable" role="tabpanel" aria-labelled-by="tab-<?='tab-'.$tab_row['name']?>">
           <?php foreach($tab_row['sections'] as $section): ?>
-            <h2><?=$section['title']?></h2>
-            <?=$section['content']?>
+            <h2><?=$section['section_title']?></h2>
+            <?=$section['section_html_content']?>
           <?php endforeach ?>
 
-          <?php if(count($link_array->tabs[$tab_number])): ?>
-            <?php if($autoheadings): ?>
-              <h2><?=$links_title?></h2>
+          <?php if(is_array($tab_row['links']) && count($tab_row['links'])):;?>
+              
+            <?php if($tab_row['default_heading']): ?>
+              <h2>Links</h2>
             <?php endif ?>
-
+              
             <ul>
-            <?php foreach($link_array->tabs[$tab_number] as $link_row): ?>
-              <?php if($link_row['heading']): ?>
+            <?php foreach($tab_row['links'] as $link): ?>
+              <?php if($link['link_type'] == 'heading'): ?>
                 </ul>
-                <h2><?=$link_row['linktext']?></h2>
+                <h2><?=$link['link_title']?></h2>
                 <ul>
               <?php else: ?>
                 <li>
-                  <a href="<?=$link_row['linkurl']?>"><?=$link_row['linktext']?></a>
+                  <a href="<?=$link['link_url']?>"><?=$link['link_title']?></a>
                 </li>
               <?php endif ?>
+
             <?php endforeach ?>
             </ul>
           <?php endif ?>

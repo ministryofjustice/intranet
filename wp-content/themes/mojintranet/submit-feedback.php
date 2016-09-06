@@ -1,7 +1,7 @@
 <?php if (!defined('ABSPATH')) die();
 
-class Submit_feedback extends MVC_controller {
-  private $email = 'intranet@justice.gsi.gov.uk';
+class Page_submit_feedback extends MVC_controller {
+  private $email = 'intranet@justice.gsi.gov.uk, newintranet@digital.justice.gov.uk';
   private static $nl = "\r\n";
 
   function main() {
@@ -11,6 +11,7 @@ class Submit_feedback extends MVC_controller {
     $this->username = $_POST['username'];
     $this->user_email = $_POST['email'];
     $this->url = $_POST['url'];
+    $this->agency = $_POST['agency'];
     $this->user_agent = $_POST['user_agent'];
     $this->description = $_POST['description'];
     $this->resolution = $_POST['resolution'];
@@ -40,6 +41,7 @@ class Submit_feedback extends MVC_controller {
     $message[] = str_repeat('-', 71);
     $message[] = 'Client info:';
     $message[] = 'Page URL: ' . $this->url;
+    $message[] = 'Agency: ' . $this->agency;
     $message[] = 'Referrer: ' . $this->referrer;
     $message[] = 'User agent: ' . $this->user_agent;
     $message[] = 'Screen resolution: ' . $this->resolution;

@@ -1,13 +1,8 @@
 .header-menu {
-  display: none;
   background-color: #ebedef;
   border-style: solid;
   border-color: #979797;
   border-width: 0 0 1px;
-
-  &.loaded {
-    display: block;
-  }
 
   .main-menu-list {
     @include clearfix;

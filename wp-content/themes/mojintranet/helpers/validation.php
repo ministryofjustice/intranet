@@ -7,11 +7,12 @@ class Validation {
   public function __construct() {
   }
 
-  public function error($post_name, $field_name, $message) {
+  public function error($post_name, $field_name, $message, $error_code = '') {
     $this->errors[] = array(
       'name' => $post_name,
       'field_name' => $field_name,
-      'message' => $message
+      'message' => $message,
+      'error_code' => $error_code
     );
   }
 

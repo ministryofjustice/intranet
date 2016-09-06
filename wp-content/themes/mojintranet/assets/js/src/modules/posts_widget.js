@@ -3,7 +3,8 @@
 
   var App = window.App;
 
-  App.PostsWidget = function() {
+  App.PostsWidget = function(data) {
+    this.data = data;
     this.$top = $('.template-home .posts-widget');
     if(!this.$top.length) { return; }
     this.init();
@@ -13,7 +14,6 @@
     init: function() {
       this.applicationUrl = $('head').data('application-url');
       this.templateUri = $('head').data('template-uri');
-      this.serviceUrl = this.applicationUrl + '/service/post/' + App.tools.helpers.agency.getForContent() + '////1/5';
       this.pageBase = this.applicationUrl + '/' + this.$top.data('top-level-slug');
       this.genericThumbnailPath = this.templateUri + '/assets/images/blog-placeholder.jpg';
 
@@ -23,32 +23,19 @@
       this.serviceXHR = null;
 
       this.cacheEls();
-      this.bindEvents();
 
-      this.requestPosts();
+      this.displayPosts(this.data);
     },
 
     cacheEls: function() {
       this.$postsList = this.$top.find('.posts-list');
     },
 
-    bindEvents: function() {
-      var _this = this;
-    },
-
-    requestPosts: function() {
-      var _this = this;
-      var dataArray = [];
-
-      /* use the timeout for dev/debugging purposes */
-      //**/window.setTimeout(function() {
-        _this.serviceXHR = $.getJSON(_this.serviceUrl+'/'+dataArray.join('/'), $.proxy(_this.displayPosts, _this));
-      //**/}, 2000);
-    },
-
     displayPosts: function(data) {
       var _this = this;
       var $post;
+
+      App.ins.skeletonScreens.remove(this.$postsList);
 
       if (data.results.length > 0) {
         $.each(data.results, function (index, result) {
