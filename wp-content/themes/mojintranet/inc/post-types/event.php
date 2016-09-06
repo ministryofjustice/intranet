@@ -22,7 +22,8 @@ function define_event_post_type() {
       'supports'      => array('title','editor','thumbnail','page-attributes'),
       'has_archive'   => false,
       'rewrite'       => array(
-        'slug'       => 'events'
+        'slug'       => 'events',
+        'with_front' => false
       ),
       'hierarchical'  => false
     )
