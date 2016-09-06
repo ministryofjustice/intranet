@@ -14,12 +14,16 @@
         </a>
       </li>
     </ul>
-    <ul class="apps-list"></ul>
+    <ul class="apps-list"
+        data-skeleton-screen-count="10"
+        data-skeleton-screen-type="app"></ul>
   </div>
 
   <nav class="quick-links-container mobile-collapsed">
     <h2 class="category-name">Quick links</h2>
-    <ul class="quick-links-list"></ul>
+    <ul class="quick-links-list"
+        data-skeleton-screen-count="10"
+        data-skeleton-screen-type="one-liner"></ul>
   </nav>
 
   <?php $this->view('pages/homepage/my_moj/app_item') ?>
