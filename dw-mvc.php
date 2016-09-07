@@ -31,6 +31,8 @@ class DW_MVC {
   function action_route() {
     global $MVC;
 
+    do_action('dw_redirect');
+
     $post_type = get_post_type();
     $controller = get_query_var('controller');
     $template = get_page_template();
@@ -46,6 +48,7 @@ class DW_MVC {
       }
       if (is_404()) {
         $controller = 'page_error';
+        $method = 'error404';
       }
       $controller_path = get_template_directory() . '/' . $controller . '.php';
     }
@@ -55,7 +58,11 @@ class DW_MVC {
       include($controller_path);
     }
     else {
-      trigger_error('Controller not found: ' . $controller_path . '. Entry point: ' . $_SERVER['REQUEST_URI'], E_USER_ERROR);
+      $controller = 'page_error';
+      $method = 'error500';
+      $original_controller_path = $controller_path;
+      $controller_path = get_template_directory() . '/'. $controller . '.php';
+      include($controller_path);
     }
 
     //instantiate controller
@@ -66,6 +73,15 @@ class DW_MVC {
 
       if (class_exists($controller_name)) {
         new $controller_name($path);
+
+        if (isset($method)) {
+          $MVC->method = $method;
+        }
+
+        if (isset($original_controller_path)) {
+          $MVC->original_controller_path = $original_controller_path;
+        }
+
         $MVC->run();
       }
       exit;
