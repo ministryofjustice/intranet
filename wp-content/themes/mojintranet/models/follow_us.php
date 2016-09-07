@@ -5,6 +5,8 @@ class Follow_us_model extends MVC_model {
     $agency = $options['agency'] ?: 'hq';
 
     $links = [
+        'cica' => [
+        ],
         'hq' => [
             [
                 'url' => 'https://twitter.com/MoJGovUK',
