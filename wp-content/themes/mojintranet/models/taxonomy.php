@@ -51,7 +51,6 @@ class Taxonomy_model extends MVC_model {
       'id' => $term->term_id,
       'name' => $term->name,
       'slug' => $term->slug,
-      'count' => $term->count,
       'agencies' => $term->agencies
     ];
   }
