@@ -27,6 +27,8 @@ class My_moj_model extends MVC_model {
 
   private function get_apps($agency = 'hq') {
     $apps = [
+      'cica' => [
+      ],
       'hq' => [
         [
           'title' => 'People finder',

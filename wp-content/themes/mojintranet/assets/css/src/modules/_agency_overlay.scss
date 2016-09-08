@@ -88,6 +88,10 @@ $grid-size: 40px;
       background-position: (-$grid-size * 3);
     }
 
+    &[data-agency="cica"] {
+      display: none;
+    }
+
     .label {
       @extend %large-copy;
     }
