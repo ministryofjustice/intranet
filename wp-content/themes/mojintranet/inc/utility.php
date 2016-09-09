@@ -165,5 +165,5 @@ function alpha_sort_by_key($a, $b, $key) {
  * @return {Mixed} Element value or default value
  */
 function get_array_value($array, $element, $default) {
-  return isset($array) && isset($array[$element]) ? $array[$element] : $default;
+  return isset($array) && isset($array[$element]) && $array[$element] ? $array[$element] : $default;
 }
