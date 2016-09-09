@@ -1,9 +1,5 @@
 <?php if (!defined('ABSPATH')) die();
 
-/*
- * Template name: Service
- */
-
 class Service extends MVC_controller {
   function __construct($param_string) {
     parent::__construct();

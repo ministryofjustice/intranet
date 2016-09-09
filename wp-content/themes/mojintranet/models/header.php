@@ -21,6 +21,13 @@ class Header_model extends MVC_model {
      * is_integrated - whether the agency is already integrated into the intranet or not
      */
     return array(
+      'cica' => array(
+        'label' => 'Criminal Injuries Compensation Authority',
+        'abbreviation' => 'CICA',
+        'url' => '',
+        'is_integrated' => true,
+        'is_external' => false
+      ),
       'hmcts' => array(
         'label' => 'HM Courts &amp; Tribunals Service',
         'abbreviation' => 'HMCTS',

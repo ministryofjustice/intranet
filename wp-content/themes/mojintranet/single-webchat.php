@@ -3,7 +3,6 @@
 /**
  * The generic template with LHS navigation
  *
- * Template name: Webchat template
  */
 
 class Single_webchat extends MVC_controller {

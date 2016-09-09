@@ -121,9 +121,7 @@
                             "readonly": 0,
                             "disabled": 0
                         }
-
                     ]
-
                 },
                 {
                     "key": "field_57235729f3320",
@@ -247,6 +245,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1468330131
-
+    "modified": 1472049780
 }
