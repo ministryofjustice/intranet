@@ -25,39 +25,8 @@ class Page_events extends MVC_controller {
       'breadcrumbs' => true,
       'cache_timeout' => 60 * 60 * 24, /* 1 day */
       'page_data' => array(
-        'top_slug' => htmlspecialchars($top_slug),
-        'event_months' => $this->get_months()
+        'top_slug' => htmlspecialchars($top_slug)
       )
     );
-  }
-
-  private function get_months() {
-    $months = $this->get_months_from_api();
-
-    $formatted_months = array();
-
-    foreach($months['results'] as $date=>$count) {
-      $time = strtotime($date);
-      $formatted_date = date("F Y", $time);
-      $formatted_count = $count . ' ' . ($count===1 ? 'event' : 'events');
-      $formatted_months[] = array(
-        'label' => $formatted_date . '&nbsp;&nbsp;(' . $formatted_count . ')',
-        'value' => date("Y-m", $time)
-      );
-    }
-
-    return $formatted_months;
-  }
-
-  private function get_months_from_api() {
-    return $this->model->months->get_list(array(
-      'tax_query' => array(
-        array(
-          'taxonomy' => 'agency',
-          'field'    => 'slug',
-          'terms'    => 'hq' //!!! hard-coded for now
-        )
-      )
-    ));
   }
 }
