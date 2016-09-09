@@ -46,22 +46,17 @@
                     "key": "field_57b1cc027e6f1",
                     "label": "URL",
                     "name": "link_url",
-                    "type": "text",
+                    "type": "url",
                     "instructions": "",
-                    "required": "",
-                    "conditional_logic": "",
+                    "required": 0,
+                    "conditional_logic": 0,
                     "wrapper": {
                         "width": "",
                         "class": "",
                         "id": ""
                     },
                     "default_value": "",
-                    "placeholder": "",
-                    "prepend": "",
-                    "append": "",
-                    "maxlength": "",
-                    "readonly": 0,
-                    "disabled": 0
+                    "placeholder": ""
                 },
                 {
                     "key": "field_57b1cc4f99189",
@@ -107,7 +102,7 @@
                             "key": "field_57b1cc739918b",
                             "label": "URL",
                             "name": "sublink_url",
-                            "type": "text",
+                            "type": "url",
                             "instructions": "",
                             "required": 0,
                             "conditional_logic": 0,
@@ -117,12 +112,7 @@
                                 "id": ""
                             },
                             "default_value": "",
-                            "placeholder": "",
-                            "prepend": "",
-                            "append": "",
-                            "maxlength": "",
-                            "readonly": 0,
-                            "disabled": 0
+                            "placeholder": ""
                         }
                     ]
                 }
@@ -146,5 +136,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1471351818
+    "modified": 1473410733
 }

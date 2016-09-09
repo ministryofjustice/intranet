@@ -8,7 +8,6 @@ require_once(ABSPATH . 'wp-admin/includes/screen.php');
  */
 function dw_add_option_pages() {
   if (function_exists('acf_add_options_page')) {
-
     acf_add_options_page([
         'page_title' 	=> 'Quick Links Settings',
         'menu_title'	=> 'Quick Links',
@@ -30,7 +29,7 @@ function dw_add_option_pages() {
     }
   }
 }
-add_action( 'init', 'dw_add_option_pages' );
+add_action('init', 'dw_add_option_pages');
 
 /**
  * Prefixes an Option Field name with the current Agency Context
