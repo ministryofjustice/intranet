@@ -36,8 +36,9 @@ add_action( 'init', 'dw_add_option_pages' );
  * Prefixes an Option Field name with the current Agency Context
  * Filter: acf/load_field
  *
+ * @param array $field - the acf field that is being loaded
  */
-function dw_agency_option_fields( $field ) {
+function dw_agency_option_fields($field) {
   $screen = get_current_screen();
 
   if($screen->id == 'toplevel_page_quick-links-settings' || $screen->id == 'toplevel_page_guidance-most-visted-settings') {
@@ -47,7 +48,6 @@ function dw_agency_option_fields( $field ) {
   }
 
   return $field;
-
 }
 add_filter('acf/load_field/key=field_57b1bd28c275f', 'dw_agency_option_fields');
 add_filter('acf/load_field/key=field_57b1cb89000f5', 'dw_agency_option_fields');
