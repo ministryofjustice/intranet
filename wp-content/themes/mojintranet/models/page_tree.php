@@ -60,8 +60,6 @@ class Page_tree_model extends MVC_model {
 
     $data['categories'] = $this->_get_children_recursive($options);
 
-
-
     //2. get most visited
     $most_visited = [];
 
@@ -72,8 +70,7 @@ class Page_tree_model extends MVC_model {
       $mv_link['url'] =  $menu_item['link_url'];
       $mv_link['children'] =  [];
 
-      if(is_array($menu_item['sub_links']) && count($menu_item['sub_links']) > 0) {
-
+      if (is_array($menu_item['sub_links']) && count($menu_item['sub_links']) > 0) {
 
           foreach ($menu_item['sub_links']  as $sublink) {
             $sub_link['title'] = $sublink['sublink_title'];
@@ -87,7 +84,6 @@ class Page_tree_model extends MVC_model {
     }
 
     $data['most_visited'] = $most_visited;
-   // $data['most_visited'] = $menu_items['results'];
 
     //3. get guidance bottom
     $data['bottom_pages'] = [];
