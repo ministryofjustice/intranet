@@ -15,10 +15,12 @@ class My_moj_model extends MVC_model {
 
     $menu_items = get_field($agency . '_quick_links', 'option');
 
-    foreach ($menu_items as $menu_item) {
-      $quick_link['title'] = $menu_item['quick_link_title'];
-      $quick_link['url'] =  $menu_item['quick_link_url'];
-      $data[] = $quick_link;
+    if (isset($menu_items)) {
+      foreach ($menu_items as $menu_item) {
+        $quick_link['title'] = $menu_item['quick_link_title'];
+        $quick_link['url'] = $menu_item['quick_link_url'];
+        $data[] = $quick_link;
+      }
     }
 
     return $data;
