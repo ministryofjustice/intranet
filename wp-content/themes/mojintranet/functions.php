@@ -27,7 +27,7 @@ require_once('inc/taxonomies.php');                       // Custom taxonomies
 require_once('inc/list-tables.php');                      // Adjustments to list tables
 require_once('inc/admin-commands.php');                   // Admin commands
 require_once('inc/menu-locations.php');                   // Register menu locations
-require_once('inc/option-pages.php');                     // Option Pages - Quick Links and Most Visited
+require_once('inc/option-pages.php');                     // Option Pages
 require_once('inc/query-vars.php');                       // Register custom query variables
 require_once('inc/redirects.php');                        // Site redirects
 require_once('inc/searching.php');                        // Functions to enhance searching (using Relevanssi)
