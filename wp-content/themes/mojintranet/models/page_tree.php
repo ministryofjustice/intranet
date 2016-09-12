@@ -60,40 +60,13 @@ class Page_tree_model extends MVC_model {
 
     $data['categories'] = $this->_get_children_recursive($options);
 
-
-
     //2. get most visited
     $menu_items = $this->model->menu->get_menu_items([
       'location' => $global_options['agency'] . '-guidance-most-visited',
       'depth_limit' => 2
     ]);
 
-    $most_visited = [];
-
-    $menu_items = get_field($global_options['agency'].'_visited_links', 'option');
-
-
-    foreach ($menu_items as $menu_item) {
-      $mv_link['title'] = $menu_item['link_title'];
-      $mv_link['url'] =  $menu_item['link_url'];
-      $mv_link['children'] =  [];
-
-      if(is_array($menu_item['sub_links']) && count($menu_item['sub_links']) > 0) {
-
-
-          foreach ($menu_item['sub_links']  as $sublink) {
-            $sub_link['title'] = $sublink['sublink_title'];
-            $sub_link['url'] =  $sublink['sublink_url'];
-            $mv_link['children'][] = $sub_link;
-          }
-
-      }
-
-      $most_visited[] = $mv_link;
-    }
-
-    $data['most_visited'] = $most_visited;
-   // $data['most_visited'] = $menu_items['results'];
+    $data['most_visited'] = $menu_items['results'];
 
     //3. get guidance bottom
     $data['bottom_pages'] = [];
