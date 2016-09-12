@@ -97,7 +97,7 @@ abstract class API {
    */
   protected function add_taxonomies($options = array()) {
     $agency = $this->get_param('agency') ?: 'hq';
-    $additional_filters = $this->get_param('additional_filters') ?: '';
+    $additional_filters = urldecode($this->get_param('additional_filters')) ?: '';
     $taxonomies = array('relation' => 'AND');
     $filters = array('agency=' . $agency);
 
