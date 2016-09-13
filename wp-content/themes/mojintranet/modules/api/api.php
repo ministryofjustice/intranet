@@ -3,18 +3,18 @@
 abstract class API {
   //!!! TODO: make params private and the getter/setter protected
   protected $MVC;
-  protected $params = array();
+  protected $params = [];
   private $cache_timeout = 60; //cache timeout in seconds
   private $method;
-  private $args = array(
-    'post' => array(),
-    'put' => array()
-  );
+  private $args = [
+    'post' => [],
+    'put' => []
+  ];
 
   function __construct() {
     global $MVC;
     $this->MVC = $MVC;
-    $this->debug = (boolean) $_GET['debug'];
+    $this->debug = get_array_value($_GET, 'debug', false);
     $this->method = $_SERVER['REQUEST_METHOD'];
 
     if ($this->method == 'PUT' || $this->method == 'POST') {
@@ -88,7 +88,7 @@ abstract class API {
    * @return {String} The value of the param
    */
   protected function get_param($key) {
-    return $this->params[$key];
+    return get_array_value($this->params, $key, '');
   }
 
   /** gets taxonomies based on url segments

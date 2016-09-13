@@ -14,9 +14,9 @@ class Menu_model extends MVC_model {
   public function get_menu_items($params = []) {
     wp_reset_query();
     $this->top_level_id = false;
-    $location = isset($params['location']) ? $params['location'] : 'hq-guidance-most-visited';
-    $depth_limit = isset($params['depth_limit']) ? $params['depth_limit'] : 0;
-    $post_id = $params['post_id'];
+    $location = get_array_value($params, 'location', 'hq-guidance-most-visited');
+    $depth_limit = get_array_value($params, 'depth_limit', 0);
+    $post_id = get_array_value($params, 'post_id', 0);
 
     $locations = get_nav_menu_locations();
     $menu_items = wp_get_nav_menu_items($locations[$location]);

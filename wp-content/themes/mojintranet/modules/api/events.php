@@ -24,12 +24,12 @@ class Events_API extends API {
 
   protected function parse_params($params) {
     $this->params = array(
-      'agency' => $params[0],
-      'additional_filters' => $params[1],
-      'date' => $params[2],
-      'keywords' => $params[3],
-      'page' => $params[4] ?: 1,
-      'per_page' => $params[5] ?: 10
+      'agency' => get_array_value($params, 0, 'hq'),
+      'additional_filters' => get_array_value($params, 1, ''),
+      'date' => get_array_value($params, 2, ''),
+      'keywords' => get_array_value($params, 3, ''),
+      'page' => get_array_value($params, 4, 1),
+      'per_page' => get_array_value($params, 5, 10)
     );
   }
 

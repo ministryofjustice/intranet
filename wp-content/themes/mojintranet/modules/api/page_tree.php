@@ -40,24 +40,24 @@ class Page_tree_API extends API {
   }
 
   protected function parse_params($params) {
-    $method = $params[0];
+    $method = get_array_value($params, 0, 'children');
 
-    $this->params = array(
+    $this->params = [
       'method' => $method,
-    );
+    ];
 
-    $this->params['agency'] = $params[1];
-    $this->params['additional_params'] = $params[2];
+    $this->params['agency'] = get_array_value($params, 1, 'hq');
+    $this->params['additional_params'] = get_array_value($params, 2, '');
 
     if ($method !== 'guidance-index') {
-      $this->params['depth'] = (int) $params[4];
-      $this->params['order'] = $params[5];
+      $this->params['depth'] = (int) get_array_value($params, 4, 1);
+      $this->params['order'] = get_array_value($params, 5, 'asc');
 
       if ($method === 'children-by-tag') {
-        $this->params['tag'] = $params[3];
+        $this->params['tag'] = get_array_value($params, 3, '');
       }
       else {
-        $this->params['page_id'] = (int) $params[3];
+        $this->params['page_id'] = (int) get_array_value($params, 3, 0);
       }
     }
   }

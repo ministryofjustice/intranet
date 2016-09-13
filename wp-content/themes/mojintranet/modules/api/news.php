@@ -34,23 +34,23 @@ class News_API extends API {
   }
 
   protected function parse_params($params) {
-    $method = $params[0];
+    $method = get_array_value($params, 0, 'get');
 
     $this->params = array(
       'method' => $method,
     );
 
-    $this->params['agency'] = $params[1];
-    $this->params['additional_filters'] = $params[2];
+    $this->params['agency'] = get_array_value($params, 1, 'hq');
+    $this->params['additional_params'] = get_array_value($params, 2, '');
 
     if ($method == 'get') {
-      $this->params['date'] = $params[3];
-      $this->params['keywords'] = $params[4];
-      $this->params['page'] = $params[5];
-      $this->params['per_page'] = $params[6] ?: 10;
+      $this->params['date'] = get_array_value($params, 3, '');
+      $this->params['keywords'] = get_array_value($params, 4, '');
+      $this->params['page'] = get_array_value($params, 5, 1);
+      $this->params['per_page'] = get_array_value($params, 6, 10);
     }
     else if ($method == 'siblings'){
-      $this->params['post_id'] = $params[3];
+      $this->params['post_id'] = get_array_value($params, 3, null);
     }
   }
 
