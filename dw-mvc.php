@@ -13,6 +13,10 @@
 
 if (!defined('ABSPATH')) die();
 
+if (is_admin()) {
+  error_reporting(E_ALL ^ E_NOTICE);
+}
+
 class DW_MVC {
   public function __construct() {
     $this->plugin_path = plugin_dir_path( __FILE__ );
