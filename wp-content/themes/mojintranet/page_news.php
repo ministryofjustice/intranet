@@ -11,7 +11,7 @@ class Page_news extends MVC_controller {
     parent::__construct();
 
     $this->model('taxonomy');
-    $this->post = get_post($id);
+    $this->post = get_post();
   }
 
   function main() {
