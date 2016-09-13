@@ -60,6 +60,7 @@ function pageparent_ajax_check_parent() {
       }
 
       $statecheck = get_post($parent->post_parent);
+      $parent_state = '';
       if (isset($statecheck)) {
         $parent_state = get_the_title($statecheck->post_parent);
         if ($parent_state != '') {
