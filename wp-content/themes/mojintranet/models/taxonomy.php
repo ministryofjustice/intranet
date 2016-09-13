@@ -9,7 +9,7 @@ class Taxonomy_model extends MVC_model {
       'hide_empty' => $options['hide_empty']
     ]);
 
-    if ($options['agency']) {
+    if (isset($options['agency'])) {
       $agency = get_term_by('slug', $options['agency'], 'agency');
       $agency_id = $agency->term_id;
 
