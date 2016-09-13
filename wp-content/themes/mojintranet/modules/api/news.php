@@ -41,7 +41,7 @@ class News_API extends API {
     );
 
     $this->params['agency'] = get_array_value($params, 1, 'hq');
-    $this->params['additional_params'] = get_array_value($params, 2, '');
+    $this->params['additional_filters'] = get_array_value($params, 2, '');
 
     if ($method == 'get') {
       $this->params['date'] = get_array_value($params, 3, '');
@@ -57,6 +57,7 @@ class News_API extends API {
   protected function get_news() {
     $options = $this->params;
     $options = $this->add_taxonomies($options);
+
     $data = $this->MVC->model->news->get_list($options);
     $data['url_params'] = $this->params;
     $this->response($data, 200, 300);

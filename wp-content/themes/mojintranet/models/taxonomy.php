@@ -40,8 +40,8 @@ class Taxonomy_model extends MVC_model {
   }
 
   private function _normalise_options($options) {
-    $options['taxonomy'] = (string) $options['taxonomy'] ?: '';
-    $options['hide_empty'] = (boolean) isset($options['hide_empty']) ? $options['hide_empty']: true;
+    $options['taxonomy'] = (string) get_array_value($options, 'taxonomy', '');
+    $options['hide_empty'] = (boolean) get_array_value($options, 'hide_empty', true);
 
     return $options;
   }

@@ -25,10 +25,10 @@ class Taxonomy_API extends API {
 
   protected function parse_params($params) {
     $this->params = array(
-      'agency' => $params[0],
-      'additional_filters' => $params[1],
-      'taxonomy' => $params[2],
-      'hide_empty' => $params[3],
+      'agency' => get_array_value($params, 0, 'hq'),
+      'additional_filters' => get_array_value($params, 1, ''),
+      'taxonomy' => get_array_value($params, 2, ''),
+      'hide_empty' => get_array_value($params, 3, false),
     );
   }
 
