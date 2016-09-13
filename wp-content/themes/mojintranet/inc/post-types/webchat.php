@@ -52,7 +52,7 @@ function webchat_attributes_meta_box($post) {
 // Append archive to webchat permalink if archive selected
 function append_query_string($post_link,$post) {
   $archive_page = get_page_by_title( "Webchats Archive", $output = OBJECT, $post_type = 'page' );
-  if($post->post_type=='webchat' && $post->post_parent==$archive_page->ID) {
+  if (isset($archive_page) && $post->post_type == 'webchat' && $post->post_parent == $archive_page->ID) {
     return str_replace('/webchats/', '/webchats/archive', $post_link);
   } else {
     return $post_link;
