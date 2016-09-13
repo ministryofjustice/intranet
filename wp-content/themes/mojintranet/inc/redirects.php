@@ -3,7 +3,7 @@ function dw_redirects() {
   $path = $_SERVER['REQUEST_URI'];
 
   //Search form -> search results page
-  if(isset($_POST['s']) || $_POST['search-filter'] ) {
+  if(isset($_POST['s']) || isset($_POST['search-filter'])) {
     $keywords = $_POST['s'] ?: '-';
     $keywords = rawurlencode(stripslashes($keywords));
     $keywords = str_replace('%2F', '%252F', $keywords);

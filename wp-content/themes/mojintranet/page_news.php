@@ -8,7 +8,7 @@ class Page_news extends MVC_controller {
   private $post;
 
   function __construct() {
-    $this->post = get_post($id);
+    $this->post = get_post();
     parent::__construct();
   }
 

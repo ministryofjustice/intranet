@@ -20,7 +20,7 @@ class Single_news extends MVC_controller {
     $thumbnail_id = get_post_thumbnail_id($this_id);
     $thumbnail = wp_get_attachment_image_src($thumbnail_id, 'intranet-large');
     $alt_text = get_post_meta($thumbnail_id, '_wp_attachment_image_alt', true);
-    $authors = dw_get_author_info($post->ID);
+    $authors = dw_get_author_info($this_id);
 
     return array(
       'page' => 'pages/news_single/main',

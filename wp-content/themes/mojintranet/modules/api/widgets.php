@@ -40,17 +40,17 @@ class Widgets_API extends API {
   }
 
   protected function parse_params($params) {
-    $widget = $params[0];
+    $widget = get_array_value($params, 0, '');
 
     $this->params = array(
       'widget' => $widget,
-      'agency' => $params[1],
-      'additional_filters' => $params[2]
+      'agency' => get_array_value($params, 1, 'hq'),
+      'additional_filters' => get_array_value($params, 2, '')
     );
 
     if($widget == 'my-moj' || $widget == 'follow-us') {
-      $this->params['start'] = (int) $params[3];
-      $this->params['length'] = (int) $params[4];
+      $this->params['start'] = (int) get_array_value($params, 3, 0);
+      $this->params['length'] = (int) get_array_value($params, 4, 10);
     }
   }
 

@@ -127,11 +127,14 @@ class Page_tree_model extends MVC_model {
   }
 
   private function _normalise_options($options) {
-    $options['agency'] = $options['agency'] ?: 'hq';
-    $options['additional_filters'] = $options['additional_filters'] ?: '';
-    $options['page_id'] = $options['page_id'] ?: 0;
-    $options['depth'] = $options['depth'] ?: 1;
-    $options['order'] = $options['order'] ?: 'asc';
+    $options['agency'] = get_array_value($options, 'agency', 'hq');
+    $options['additional_filters'] = get_array_value($options, 'additional_filters', '');
+    $options['page_id'] = get_array_value($options, 'page_id', 0);
+    $options['depth'] = get_array_value($options, 'depth', 1);
+    $options['order'] = get_array_value($options, 'order', 'asc');
+    $options['tax_query'] = get_array_value($options, 'tax_query', []);
+    $options['meta_query'] = get_array_value($options, 'meta_query', []);
+    $options['tag'] = get_array_value($options, 'tag', '');
 
     return $options;
   }
@@ -168,7 +171,7 @@ class Page_tree_model extends MVC_model {
 
     usort($data, [$this, 'sort_children']);
 
-    if($order == 'desc') {
+    if($options['order'] == 'desc') {
       $data = array_reverse($data);
     }
 
