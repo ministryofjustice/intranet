@@ -1,7 +1,5 @@
 <?php if (!defined('ABSPATH')) die(); ?>
-<div class="template-container"
-     data-is-imported="<?=$is_imported?>"
-     data-page-id="<?=$id?>">
+<div class="template-container" data-page-id="<?=$id?>">
 
   <div class="grid content-container">
     <?php if($lhs_menu_on): ?>
@@ -44,46 +42,17 @@
         </div>
       </div>
 
-      <ul role="tablist" class="content-tabs <?=$tab_count >= 3 ? 'small-tabs' : ''?> <?=$tab_count <= 1 ? 'hidden' : ''?>">
-        <?php foreach($tab_array as $tab_row): ?>
-          <li role="presentation" data-content="<?=$tab_row['name']?>">
-            <a id="tab-<?=$tab_row['name']?>" role="tab" aria-selected="false" aria-controls="panel-<?=$tab_row['name']?>" href=""><?=$tab_row['tab_title']?></a>
+      <ul role="tablist" class="content-tabs <?php $tablist_classes?>">
+        <?php foreach($tabs as $tab): ?>
+          <li role="presentation" class="tab-title" data-tab-name="<?=$tab['name']?>">
+            <a id="tab-<?=$tab['name']?>" role="tab" aria-selected="false" aria-controls="panel-<?=$tab['name']?>" href="">
+              <?=$tab['tab_title']?>
+            </a>
           </li>
         <?php endforeach ?>
       </ul>
 
-      <div class="tab-content editable"></div>
-
-      <?php foreach($tab_array as $tab_number=>$tab_row): ?>
-        <div id="panel-<?=$tab_row['name']?>" data-template-type="tab-content" data-content-name="<?=$tab_row['name']?>" class="template-partial editable" role="tabpanel" aria-labelled-by="tab-<?='tab-'.$tab_row['name']?>">
-          <?php foreach($tab_row['sections'] as $section): ?>
-            <h2><?=$section['section_title']?></h2>
-            <?=$section['section_html_content']?>
-          <?php endforeach ?>
-
-          <?php if(is_array($tab_row['links']) && count($tab_row['links'])):;?>
-              
-            <?php if($tab_row['default_heading']): ?>
-              <h2>Links</h2>
-            <?php endif ?>
-              
-            <ul>
-            <?php foreach($tab_row['links'] as $link): ?>
-              <?php if($link['link_type'] == 'heading'): ?>
-                </ul>
-                <h2><?=$link['link_title']?></h2>
-                <ul>
-              <?php else: ?>
-                <li>
-                  <a href="<?=$link['link_url']?>"><?=$link['link_title']?></a>
-                </li>
-              <?php endif ?>
-
-            <?php endforeach ?>
-            </ul>
-          <?php endif ?>
-        </div>
-      <?php endforeach ?>
+      <?php $this->view('pages/guidance_and_support_content/tabs', ['tabs' => $tabs]) ?>
 
       <div class="template-partial" data-name="menu-item">
         <li class="menu-item">
