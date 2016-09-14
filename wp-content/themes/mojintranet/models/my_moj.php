@@ -30,6 +30,8 @@ class My_moj_model extends MVC_model {
     $apps = [
       'cica' => [
       ],
+      'pb' => [
+      ],
       'hq' => [
         [
           'title' => 'People finder',
