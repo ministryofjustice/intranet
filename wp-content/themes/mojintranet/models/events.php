@@ -13,7 +13,7 @@ class Events_model extends MVC_model {
     );
     $options['meta_fields'] = array('_event-start-date', '_event-end-date');
     $options['post_type'] = 'event';
-    $options['date'] = $options['date'] ?: 'today';
+    $options['date'] = get_array_value($options, 'date', 'today');
 
     $data = $this->model->search->get_raw($options);
     $data = $this->format_data($data);

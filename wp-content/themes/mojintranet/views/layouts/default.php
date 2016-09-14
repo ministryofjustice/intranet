@@ -1,5 +1,9 @@
 <?php if (!defined('ABSPATH')) die();
 include(get_template_directory() . '/inc/headers.php');
+
+if (!isset($no_breadcrumbs)) $no_breadcrumbs = false;
+if (!isset($page_data)) $page_data = [];
+
 ?>
 
 <!DOCTYPE html>

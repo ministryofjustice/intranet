@@ -9,7 +9,7 @@ class Taxonomy_model extends MVC_model {
       'hide_empty' => $options['hide_empty']
     ]);
 
-    if ($options['agency']) {
+    if (isset($options['agency'])) {
       $agency = get_term_by('slug', $options['agency'], 'agency');
       $agency_id = $agency->term_id;
 
@@ -40,8 +40,8 @@ class Taxonomy_model extends MVC_model {
   }
 
   private function _normalise_options($options) {
-    $options['taxonomy'] = (string) $options['taxonomy'] ?: '';
-    $options['hide_empty'] = (boolean) isset($options['hide_empty']) ? $options['hide_empty']: true;
+    $options['taxonomy'] = (string) get_array_value($options, 'taxonomy', '');
+    $options['hide_empty'] = (boolean) get_array_value($options, 'hide_empty', true);
 
     return $options;
   }
@@ -51,7 +51,6 @@ class Taxonomy_model extends MVC_model {
       'id' => $term->term_id,
       'name' => $term->name,
       'slug' => $term->slug,
-      'count' => $term->count,
       'agencies' => $term->agencies
     ];
   }

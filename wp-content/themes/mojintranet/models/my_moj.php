@@ -13,13 +13,14 @@ class My_moj_model extends MVC_model {
   private function get_quick_links($agency = 'hq') {
     $data = [];
 
-    $locations = get_nav_menu_locations();
-    $menu_items = wp_get_nav_menu_items($locations[$agency . '-quick-links']);
+    $menu_items = get_field($agency . '_quick_links', 'option');
 
-    foreach ($menu_items as $menu_item) {
-      $quick_link['title'] = $menu_item->title;
-      $quick_link['url'] = $menu_item->url;
-      $data[] = $quick_link;
+    if (isset($menu_items)) {
+      foreach ($menu_items as $menu_item) {
+        $quick_link['title'] = $menu_item['quick_link_title'];
+        $quick_link['url'] = $menu_item['quick_link_url'];
+        $data[] = $quick_link;
+      }
     }
 
     return $data;
