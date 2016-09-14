@@ -21,7 +21,7 @@ class Page_generic_nav extends MVC_controller {
 
   function get_data(){
     $post = get_post($this->post_ID);
-    $authors = dw_get_author_info($this->post_ID);
+    //$authors = dw_get_author_info($this->post_ID);
     $agencies = get_the_terms($this->post_ID, 'agency');
     $list_of_agencies = [];
 
@@ -41,7 +41,7 @@ class Page_generic_nav extends MVC_controller {
         'id' => $this->post_ID,
         'title' => get_the_title(),
         'agencies' => implode(', ', $list_of_agencies),
-        'author' => $authors[0]['name'],
+        //'author' => $authors[0]['name'],
         'last_updated' => date("j F Y", strtotime(get_the_modified_date())),
         'excerpt' => $post->post_excerpt, // Not using get_the_excerpt() to prevent auto-generated excerpts being displayed
         'content' => $content,

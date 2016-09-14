@@ -38,6 +38,7 @@
       this.bindEvents();
 
       this.populateDateFilter();
+      this.populateCategoryFilter();
       this.setFilters();
       this.updateUrl(true);
 
@@ -46,6 +47,7 @@
 
     cacheEls: function() {
       this.$dateInput = this.$top.find('[name="date"]');
+      this.$categoryInput = this.$top.find('[name="categories[]"]');
       this.$keywordsInput = this.$top.find('[name="keywords"]');
       this.$results = this.$top.find('.results');
       this.$prevPage = this.$top.find('.previous');
@@ -67,6 +69,12 @@
       });
 
       this.$dateInput.on('change', function() {
+        _this.loadResults({
+          page: 1
+        });
+      });
+
+      this.$categoryInput.on('change', function() {
         _this.loadResults({
           page: 1
         });
@@ -127,23 +135,53 @@
       }
     },
 
+    populateCategoryFilter: function() {
+      var _this = this;
+      var categories = JSON.parse(this.$top.attr('data-news-categories'));
+      var $option;
+      var agency = App.tools.helpers.agency.getForContent();
+      var categoryCount = 0;
+
+      $.each(categories, function(index, term) {
+        if (App.tools.search(agency, term.agencies)) {
+          $option = $('<option></option>')
+            .val(term.slug)
+            .html(term.name)
+            .appendTo(_this.$categoryInput);
+          categoryCount++;
+        }
+      });
+
+      if (!categoryCount) {
+        this.$top.find('.news-categories-box').addClass('hidden');
+      }
+    },
+
     setFilters: function() {
       var segments = this.getSegmentsFromUrl();
       var keywords;
+      var categories;
 
-      if(segments[2]) {
+      if (segments[2]) {
         keywords = segments[2].replace('+', ' ');
 
         //update keywords field with keywords from url
-        if(keywords) {
+        if (keywords) {
           this.$keywordsInput.val(keywords === '-' ? '' : keywords);
         }
       }
 
       //update date field with date from url
-      if(segments[3]) {
+      if (segments[3]) {
         this.$dateInput.val(segments[3]);
       }
+
+      if (segments[4]) {
+        categories = segments[4].split('|') || [];
+        this.$categoryInput.val(categories);
+      }
+
+      App.ins.multiSelect.replace(this.$categoryInput);
 
       this.currentPage = parseInt(segments[1] || 1, 10);
     },
@@ -318,12 +356,14 @@
     getDataObject: function(data) {
       var keywords = this.getSanitizedKeywords();
       var segments = this.getSegmentsFromUrl();
+      var categories = this.$categoryInput.val();
+      var additionalFilters = $.type(categories) === 'array' ? 'news_category=' + categories.join('|') : '';
 
       keywords = keywords.replace(/\s+/g, '+');
 
       var base = {
         'agency': App.tools.helpers.agency.getForContent(),
-        'additional_filters': '',
+        'additional_filters': additionalFilters,
         'date': this.$dateInput.val(),
         'keywords': keywords,
         'page': segments[1] || 1
@@ -432,6 +472,7 @@
     getNewUrl: function(rootRelative) {
       var urlParts = [this.pageBase];
       var keywords = this.getSanitizedKeywords();
+      var categories = this.$categoryInput.val() || [];
       keywords = keywords.replace(/\s/g, '+');
 
       //page number
@@ -443,6 +484,9 @@
 
       //date
       urlParts.push(this.$dateInput.val() || '-');
+
+      //categories
+      urlParts.push(categories.join('|') || '-');
 
       if(rootRelative) {
         urlParts.shift();

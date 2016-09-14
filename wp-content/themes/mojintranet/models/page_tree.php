@@ -61,12 +61,29 @@ class Page_tree_model extends MVC_model {
     $data['categories'] = $this->_get_children_recursive($options);
 
     //2. get most visited
-    $menu_items = $this->model->menu->get_menu_items([
-      'location' => $global_options['agency'] . '-guidance-most-visited',
-      'depth_limit' => 2
-    ]);
+    $most_visited = [];
 
-    $data['most_visited'] = $menu_items['results'];
+    $menu_items = get_field($global_options['agency'].'_visited_links', 'option');
+
+    if (isset($menu_items)) {
+      foreach ($menu_items as $menu_item) {
+        $mv_link['title'] = $menu_item['link_title'];
+        $mv_link['url'] = $menu_item['link_url'];
+        $mv_link['children'] = [];
+
+        if (is_array($menu_item['sub_links']) && count($menu_item['sub_links']) > 0) {
+          foreach ($menu_item['sub_links'] as $sublink) {
+            $sub_link['title'] = $sublink['sublink_title'];
+            $sub_link['url'] = $sublink['sublink_url'];
+            $mv_link['children'][] = $sub_link;
+          }
+
+        }
+        $most_visited[] = $mv_link;
+      }
+    }
+
+    $data['most_visited'] = $most_visited;
 
     //3. get guidance bottom
     $data['bottom_pages'] = [];
@@ -110,11 +127,14 @@ class Page_tree_model extends MVC_model {
   }
 
   private function _normalise_options($options) {
-    $options['agency'] = $options['agency'] ?: 'hq';
-    $options['additional_filters'] = $options['additional_filters'] ?: '';
-    $options['page_id'] = $options['page_id'] ?: 0;
-    $options['depth'] = $options['depth'] ?: 1;
-    $options['order'] = $options['order'] ?: 'asc';
+    $options['agency'] = get_array_value($options, 'agency', 'hq');
+    $options['additional_filters'] = get_array_value($options, 'additional_filters', '');
+    $options['page_id'] = get_array_value($options, 'page_id', 0);
+    $options['depth'] = get_array_value($options, 'depth', 1);
+    $options['order'] = get_array_value($options, 'order', 'asc');
+    $options['tax_query'] = get_array_value($options, 'tax_query', []);
+    $options['meta_query'] = get_array_value($options, 'meta_query', []);
+    $options['tag'] = get_array_value($options, 'tag', '');
 
     return $options;
   }
@@ -151,7 +171,7 @@ class Page_tree_model extends MVC_model {
 
     usort($data, [$this, 'sort_children']);
 
-    if($order == 'desc') {
+    if($options['order'] == 'desc') {
       $data = array_reverse($data);
     }
 

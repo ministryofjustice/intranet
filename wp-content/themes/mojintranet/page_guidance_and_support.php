@@ -26,7 +26,7 @@ class Page_guidance_and_support extends MVC_controller {
 
     $lhs_menu_on = get_post_meta($post->ID, 'lhs_menu_on', true) != "0" ? true : false;
 
-    $authors = dw_get_author_info($this->post_ID);
+    //$authors = dw_get_author_info($this->post_ID);
     $agencies = get_the_terms($this->post_ID, 'agency');
     $list_of_agencies = [];
 
