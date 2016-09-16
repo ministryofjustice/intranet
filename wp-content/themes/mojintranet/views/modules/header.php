@@ -72,7 +72,7 @@
       <script data-name="header-my-moj" type="text/x-partial-template">
         <li class="category-item header-my-moj">
           <a class="category-link" href="">My MoJ <span class="arrow">▼</span></a>
-          <?php $this->view('pages/homepage/my_moj/main', $my_moj) ?>
+          <?php $this->view('pages/homepage/my_moj/main') ?>
         </li>
       </script>
     <?php endif ?>

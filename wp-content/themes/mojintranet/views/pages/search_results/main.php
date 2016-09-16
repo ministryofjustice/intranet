@@ -31,7 +31,7 @@
       <form class="content-filters">
         <p class="description">You can use the filters to show only results that match your interests</p>
         <div class="form-row">
-          <label class="filter-label" for="input-filter-type">Filter by</label>
+          <label class="filter-label" for="input-filter-type">Content type</label>
         </div>
         <div class="form-row">
           <select id="input-filter-date" name="type" class="search-type">

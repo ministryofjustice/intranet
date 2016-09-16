@@ -31,7 +31,7 @@ class Page_search_results extends MVC_controller {
         'top_slug' => htmlspecialchars($top_slug),
         'dw_tag' => Taggr::get_current(),
         'resource_categories' => htmlspecialchars(json_encode($this->model->taxonomy->get([
-          'taxonomy' => 'news_category'
+          'taxonomy' => 'resource_category'
         ])))
       )
     );

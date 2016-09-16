@@ -37,9 +37,9 @@
       this.cacheEls();
       this.bindEvents();
 
-      this.$keywordsInput.focus();
-      this.setFilters();
       this.populateCategoryFilter();
+      this.setFilters();
+      this.$keywordsInput.focus();
       this.updateUrl(true);
       this.loadResults({'type': 'all'});
     },
@@ -116,6 +116,7 @@
       var segments = this.getSegmentsFromUrl();
       var type = segments[0] || 'all';
       var keywords;
+      var categories;
 
       if(segments[1]) {
         keywords = segments[1];
@@ -129,7 +130,15 @@
       }
       this.$searchType.find('option[value="' + type + '"]').prop('selected', true);
 
-      this.currentPage = parseInt(segments[2] || 1, 10);
+      if (segments[2]) {
+        categories = segments[2].split('|') || [];
+
+        this.$categoryInput.val(categories);
+      }
+
+      App.ins.multiSelect.replace(this.$categoryInput);
+
+      this.currentPage = parseInt(segments[3] || 1, 10);
     },
 
     populateCategoryFilter: function() {
@@ -152,8 +161,6 @@
       if (!categoryCount) {
         this.$top.find('.resource-categories-box').addClass('hidden');
       }
-
-      App.ins.multiSelect.replace(this.$categoryInput);
     },
 
     loadResults: function(requestData) {
@@ -342,10 +349,10 @@
     getDataObject: function(data) {
       var keywords = this.getSanitizedKeywords();
       var segments = this.getSegmentsFromUrl();
-      var page = segments[2] || 1;
+      var page = segments[3] || 1;
       var type = this.$searchType.find('option:selected').val();
       var categories = this.$categoryInput.val();
-      var additionalFilters = $.type(categories) === 'array' ? 'news_category=' + categories.join('|') : '';
+      var additionalFilters = $.type(categories) === 'array' ? 'resource_category=' + categories.join('|') : '';
 
       var base = {
         'agency': App.tools.helpers.agency.getForContent(),
@@ -461,6 +468,7 @@
     getNewUrl: function(rootRelative) {
       var urlParts = [this.pageBase];
       var keywords = this.getSanitizedKeywords();
+      var categories = this.$categoryInput.val() || [];
       var type = this.$searchType.find('option:selected').val();
 
       //type
@@ -470,6 +478,9 @@
       keywords = keywords.replace(/\s/g, '+');
       keywords = App.tools.urlencode(keywords);
       urlParts.push(keywords || '-');
+
+      //categories
+      urlParts.push(categories.join('|') || '-');
 
       //page number
       urlParts.push(this.currentPage);
