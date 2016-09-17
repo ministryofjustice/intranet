@@ -66,51 +66,51 @@ class Page_guidance_and_support extends MVC_controller {
   private function get_tab_array() {
     $guidance_tabs = get_field('guidance_tabs', $this->post_ID);
 
-    if (is_array($guidance_tabs) && count($guidance_tabs) > 0) {
-      $this->tab_count = count($guidance_tabs);
+    if (!is_array($guidance_tabs)) $guidance_tabs = [];
 
-      foreach ($guidance_tabs as $tab_index => $tab) {
-        $guidance_tabs[$tab_index]['name'] = str_replace(' ','_',preg_replace('/[^\da-z ]/i', '',strtolower($tab['tab_title'])));
-        $guidance_tabs[$tab_index]['hidden_class'] = $tab_index > 0 ? 'hidden' : '';
+    $this->tab_count = count($guidance_tabs);
 
-        foreach ($tab['sections'] as $section_index => $section) { //apply content filters
-          if (array_key_exists('section_html_content', $section)) {
-            $guidance_tabs[$tab_index]['sections'][$section_index]['section_html_content'] = apply_filters('the_content', $section['section_html_content']);
-          }
+    foreach ($guidance_tabs as $tab_index => $tab) {
+      $guidance_tabs[$tab_index]['name'] = str_replace(' ','_',preg_replace('/[^\da-z ]/i', '',strtolower($tab['tab_title'])));
+      $guidance_tabs[$tab_index]['hidden_class'] = $tab_index > 0 ? 'hidden' : '';
+
+      foreach ($tab['sections'] as $section_index => $section) { //apply content filters
+        if (array_key_exists('section_html_content', $section)) {
+          $guidance_tabs[$tab_index]['sections'][$section_index]['section_html_content'] = apply_filters('the_content', $section['section_html_content']);
         }
-
-        //organise links
-        $link_groups = [];
-        $link_group = [
-          'heading' => null,
-          'links' => []
-        ];
-
-        foreach ($tab['links'] as $link_index => $link) {
-          if ($link['link_type'] === 'heading') {
-            if (count($link_group['links'])) {
-              array_push($link_groups, $link_group);
-            }
-
-            $link_group = [
-              'heading' => $link['link_title'],
-              'links' => []
-            ];
-          }
-          else {
-            $link_group['links'][] = [
-              'title' => $link['link_title'],
-              'url' => $link['link_url']
-            ];
-          }
-        }
-
-        if (count($link_group['links'])) {
-          array_push($link_groups, $link_group);
-        }
-
-        $guidance_tabs[$tab_index]['link_groups'] = $link_groups;
       }
+
+      //organise links
+      $link_groups = [];
+      $link_group = [
+        'heading' => null,
+        'links' => []
+      ];
+
+      foreach ($tab['links'] as $link_index => $link) {
+        if ($link['link_type'] === 'heading') {
+          if (count($link_group['links'])) {
+            array_push($link_groups, $link_group);
+          }
+
+          $link_group = [
+            'heading' => $link['link_title'],
+            'links' => []
+          ];
+        }
+        else {
+          $link_group['links'][] = [
+            'title' => $link['link_title'],
+            'url' => $link['link_url']
+          ];
+        }
+      }
+
+      if (count($link_group['links'])) {
+        array_push($link_groups, $link_group);
+      }
+
+      $guidance_tabs[$tab_index]['link_groups'] = $link_groups;
     }
 
     return $guidance_tabs;
