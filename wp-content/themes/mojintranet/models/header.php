@@ -39,7 +39,7 @@ class Header_model extends MVC_model {
             'is_external' => true
           ],
           [
-            'url' => 'http://',
+            'url' => site_url('/about-hmcts/strategic-narrative/'),
             'label' => 'HMCTS Transformation',
             'classes' => 'transformation'
 
