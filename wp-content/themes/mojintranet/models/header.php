@@ -39,8 +39,8 @@ class Header_model extends MVC_model {
             'is_external' => true
           ],
           [
-            'url' => site_url('/about-hmcts/strategic-narrative/'),
-            'label' => 'HMCTS Transformation',
+            'url' => site_url('/about-hmcts/justice-matters/'),
+            'label' => 'Justice Matters',
             'classes' => 'transformation'
 
           ]
