@@ -7,6 +7,8 @@ class Follow_us_model extends MVC_model {
     $links = [
         'cica' => [
         ],
+        'pb' => [
+        ],
         'hq' => [
             [
                 'url' => 'https://twitter.com/MoJGovUK',

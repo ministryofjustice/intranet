@@ -28,6 +28,13 @@ class Header_model extends MVC_model {
         'is_integrated' => true,
         'is_external' => false
       ),
+      'pb' => array(
+        'label' => 'Parole Board',
+        'abbreviation' => 'PB',
+        'url' => '',
+        'is_integrated' => true,
+        'is_external' => false
+      ),
       'hmcts' => array(
         'label' => 'HM Courts &amp; Tribunals Service',
         'abbreviation' => 'HMCTS',
