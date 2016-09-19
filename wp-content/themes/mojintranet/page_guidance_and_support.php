@@ -87,22 +87,24 @@ class Page_guidance_and_support extends MVC_controller {
         'links' => []
       ];
 
-      foreach ($tab['links'] as $link_index => $link) {
-        if ($link['link_type'] === 'heading') {
-          if (count($link_group['links'])) {
-            array_push($link_groups, $link_group);
-          }
+      if (is_array($tab['links'])) {
+        foreach ($tab['links'] as $link_index => $link) {
+          if ($link['link_type'] === 'heading') {
+            if (count($link_group['links'])) {
+              array_push($link_groups, $link_group);
+            }
 
-          $link_group = [
-            'heading' => $link['link_title'],
-            'links' => []
-          ];
-        }
-        else {
-          $link_group['links'][] = [
-            'title' => $link['link_title'],
-            'url' => $link['link_url']
-          ];
+            $link_group = [
+              'heading' => $link['link_title'],
+              'links' => []
+            ];
+          }
+          else {
+            $link_group['links'][] = [
+              'title' => $link['link_title'],
+              'url' => $link['link_url']
+            ];
+          }
         }
       }
 

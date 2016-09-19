@@ -42,15 +42,17 @@
         </div>
       </div>
 
-      <ul role="tablist" class="content-tabs <?php $tablist_classes?>">
-        <?php foreach($tabs as $tab): ?>
-          <li role="presentation" class="tab-title" data-tab-name="<?=$tab['name']?>">
-            <a id="tab-<?=$tab['name']?>" role="tab" aria-selected="false" aria-controls="panel-<?=$tab['name']?>" href="">
-              <?=$tab['tab_title']?>
-            </a>
-          </li>
-        <?php endforeach ?>
-      </ul>
+      <?php if (count($tabs) > 1): ?>
+        <ul role="tablist" class="content-tabs <?php $tablist_classes?>">
+          <?php foreach($tabs as $tab): ?>
+            <li role="presentation" class="tab-title" data-tab-name="<?=$tab['name']?>">
+              <a id="tab-<?=$tab['name']?>" role="tab" aria-selected="false" aria-controls="panel-<?=$tab['name']?>" href="">
+                <?=$tab['tab_title']?>
+              </a>
+            </li>
+          <?php endforeach ?>
+        </ul>
+      <?php endif ?>
 
       <?php $this->view('pages/guidance_and_support_content/tabs', ['tabs' => $tabs]) ?>
 
