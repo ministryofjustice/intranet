@@ -64,12 +64,10 @@
     addFeaturedLinks: function() {
       var _this = this;
       var links = this.agencyData.links || [];
-      var length = links.length;
       var $agencyLinkList = $('.agency-link-list');
       var $agencyLinkItem;
-      var a;
 
-      $agencyLinkList.toggleClass('hidden', length);
+      $agencyLinkList.toggleClass('hidden', links.length);
 
       $.each(links, function(index, link) {
         $agencyLinkItem = $(_this.agencyLinkTemplate);
