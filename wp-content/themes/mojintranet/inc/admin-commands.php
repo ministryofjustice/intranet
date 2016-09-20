@@ -17,6 +17,7 @@ $load_commands = array(
     'hmcts-guidance-optin' => 'HMCTS_Guidance_Optin',
     'opg-guidance-optin' => 'OPG_Guidance_Optin',
     'laa-guidance-optin' => 'LAA_Guidance_Optin',
+    'cica-guidance-optin' => 'CICA_Guidance_Optin',
     'reset-all-pages-menu-order' => 'Reset_All_Pages_Menu_Order',
     'news-permissions-reset' => 'News_Permissions_Reset',
     'agency-permissions-fix' => 'Agency_Permissions_Fix',

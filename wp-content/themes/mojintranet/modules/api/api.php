@@ -3,21 +3,21 @@
 abstract class API {
   //!!! TODO: make params private and the getter/setter protected
   protected $MVC;
-  protected $params = array();
+  protected $params = [];
   private $cache_timeout = 60; //cache timeout in seconds
   private $method;
-  private $args = array(
-    'post' => array(),
-    'put' => array()
-  );
+  private $args = [
+    'post' => [],
+    'put' => []
+  ];
 
   function __construct() {
     global $MVC;
     $this->MVC = $MVC;
-    $this->debug = (boolean) $_GET['debug'];
+    $this->debug = get_array_value($_GET, 'debug', false);
     $this->method = $_SERVER['REQUEST_METHOD'];
 
-    if($this->method == 'PUT' || $this->method == 'POST') {
+    if ($this->method == 'PUT' || $this->method == 'POST') {
       $parse_method = '_parse_' . strtolower($this->method);
       $this->$parse_method();
     }
@@ -33,12 +33,12 @@ abstract class API {
   protected function response($data = array(), $status_code = 200, $cache_timeout = 60) {
     $date_format = 'D, d M Y H:i:s \G\M\T';
 
-    if($this->debug) {
+    if ($this->debug) {
       Debug::full($this->original_query);
       Debug::full($data);
     }
     else {
-      if($cache_timeout) {
+      if ($cache_timeout) {
         header('Cache-Control: public, max-age=' . $cache_timeout);
         header('Expires: '.gmdate($date_format, time() + $cache_timeout));
         header_remove("Pragma");
@@ -88,7 +88,7 @@ abstract class API {
    * @return {String} The value of the param
    */
   protected function get_param($key) {
-    return $this->params[$key];
+    return get_array_value($this->params, $key, '');
   }
 
   /** gets taxonomies based on url segments
@@ -97,21 +97,24 @@ abstract class API {
    */
   protected function add_taxonomies($options = array()) {
     $agency = $this->get_param('agency') ?: 'hq';
-    $additional_filters = $this->get_param('additional_filters') ?: '';
+    $additional_filters = urldecode($this->get_param('additional_filters')) ?: '';
     $taxonomies = array('relation' => 'AND');
     $filters = array('agency=' . $agency);
 
-    if(strlen($additional_filters)) {
-      $filters = array_merge($filters, explode('|', $additional_filters));
+    if (strlen($additional_filters)) {
+      $filters = array_merge($filters, explode('&', $additional_filters));
     }
 
-    foreach($filters as $filter) {
+    foreach ($filters as $filter) {
       $pair = explode('=', $filter);
-      if(taxonomy_exists($pair[0])) {
+      $taxonomy = $pair[0];
+      $terms = explode('|', $pair[1]);
+
+      if (taxonomy_exists($taxonomy)) {
         $taxonomies[] = array(
           'taxonomy' => $pair[0],
           'field' => 'slug',
-          'terms' => $pair[1]
+          'terms' => $terms
         );
       }
     }

@@ -2,7 +2,7 @@
 
   // Display errors
   function mojintranet_display_errors(){
-    $mojintranet_errors = get_option(mojintranet_errors);
+    $mojintranet_errors = get_option('mojintranet_errors');
 
 
     $output='';

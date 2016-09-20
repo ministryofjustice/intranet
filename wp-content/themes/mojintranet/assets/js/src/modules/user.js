@@ -39,10 +39,10 @@
       if (this.isLoggedIn) {
         this.$userMenu.find('.sign-out').removeClass('hidden');
       }
-      else {
-        this.$userMenu.find('.sign-in').removeClass('hidden');
-        this.$userMenu.find('.register').removeClass('hidden');
-      }
+      //else {
+      //  this.$userMenu.find('.sign-in').removeClass('hidden');
+      //  this.$userMenu.find('.register').removeClass('hidden');
+      //}
 
       $(window).trigger('user-initialised');
       $('html').removeClass('user-not-initialised');

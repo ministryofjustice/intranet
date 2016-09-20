@@ -1,12 +1,13 @@
 <?php if (!defined('ABSPATH')) die();
 
-/** Events API
+/** Taxonomy API
  * Features:
- * - get a list of events
+ * - get a list of terms
  */
-class Events_API extends API {
+class Taxonomy_API extends API {
   public function __construct($params) {
     parent::__construct();
+    $this->MVC->model('taxonomy');
     $this->parse_params($params);
     $this->route();
   }
@@ -14,7 +15,7 @@ class Events_API extends API {
   protected function route() {
     switch ($this->get_method()) {
       case 'GET':
-        $this->get_events();
+        $this->get_terms();
         break;
 
       default:
@@ -26,19 +27,15 @@ class Events_API extends API {
     $this->params = array(
       'agency' => get_array_value($params, 0, 'hq'),
       'additional_filters' => get_array_value($params, 1, ''),
-      'date' => get_array_value($params, 2, ''),
-      'keywords' => get_array_value($params, 3, ''),
-      'page' => get_array_value($params, 4, 1),
-      'per_page' => get_array_value($params, 5, 10)
+      'taxonomy' => get_array_value($params, 2, ''),
+      'hide_empty' => get_array_value($params, 3, false),
     );
   }
 
-  protected function get_events() {
+  protected function get_terms() {
     $options = $this->params;
     $options = $this->add_taxonomies($options);
-    $data = $this->MVC->model->events->get_list($options);
-    $months = $this->MVC->model->months->get_list($this->add_taxonomies());
-    $data['months'] = $months['results'];
+    $data['terms'] = $this->MVC->model->taxonomy->get($options);
     $data['url_params'] = $this->params;
     $this->response($data, 200, 300);
   }

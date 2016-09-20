@@ -58,15 +58,21 @@ function pageparent_ajax_check_parent() {
       if ($parent_title!='') {
         $parent_title = $parent_title."&nbsp;>><br>";
       }
-      $statecheck=get_post($parent->post_parent);
-      $parent_state = get_the_title($statecheck->post_parent);
-      if ($parent_state!='') {
-        $parent_state = $parent_state."&nbsp;> ";
+
+      $statecheck = get_post($parent->post_parent);
+      $parent_state = '';
+      if (isset($statecheck)) {
+        $parent_state = get_the_title($statecheck->post_parent);
+        if ($parent_state != '') {
+          $parent_state = $parent_state . "&nbsp;> ";
+        }
       }
+
       $page_status = '';
       if($parent->post_status == 'draft'){
         $page_status = ' (Draft)';
       }
+
       echo "<li class='pageparentoption'>
         <a class=\"parentlink\" style=\"cursor:pointer;\" parentname='".$parent->post_title . "' parentid='" . $parent->ID . "'>
           <small>".

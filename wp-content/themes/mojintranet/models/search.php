@@ -7,7 +7,7 @@ class Search_model extends MVC_model {
   private $posts_orderby;
 
   public function __construct() {
-    $this->debug = (boolean) $_GET['debug'];
+    $this->debug = (boolean) get_array_value($_GET, 'debug', false);
     $this->_reset();
   }
 
@@ -106,11 +106,12 @@ class Search_model extends MVC_model {
    * @return {Object} Results object returned by the WP query
    */
   private function get_raw_results() {
-    if($this->options['date']) {
-      if(count($this->options['meta_fields'])) {
+    $date_query = [];
+
+    if (get_array_value($this->options, 'date', '')) {
+      if (count($this->options['meta_fields'])) {
         $this->build_meta_clause();
         $this->build_date_query();
-        $date_query = array();
       }
       else {
         $date_query = $this->parse_date();
@@ -137,7 +138,7 @@ class Search_model extends MVC_model {
     $results = new WP_Query($args);
     remove_filter('posts_orderby', array($this, 'wp_filter_posts_orderby'));
 
-    if (function_exists(relevanssi_do_query) && $this->options['keywords'] != null) {
+    if (function_exists('relevanssi_do_query') && $this->options['keywords'] != null) {
       relevanssi_do_query($results);
     }
 
@@ -245,9 +246,9 @@ class Search_model extends MVC_model {
 
     $parts = explode('-', $this->options['date']);
 
-    $date['year'] = (int) $parts[0] ?: null;
-    $date['monthnum'] = (int) $parts[1] ?: null;
-    $date['day'] = (int) $parts[2] ?: null;
+    if (isset($parts[0])) $date['year'] = $parts[0];
+    if (isset($parts[1])) $date['monthnum'] = $parts[1];
+    if (isset($parts[2])) $date['day'] = $parts[2];
 
     return $date;
   }

@@ -15,7 +15,7 @@
     </div>
 
     <div class="col-lg-4 col-md-6 col-sm-12">
-      <?php $this->view('pages/homepage/my_moj/main', $my_moj) ?>
+      <?php $this->view('pages/homepage/my_moj/main') ?>
       <?php $this->view('widgets/posts/main') ?>
       <?php $this->view('pages/homepage/social') ?>
     </div>
