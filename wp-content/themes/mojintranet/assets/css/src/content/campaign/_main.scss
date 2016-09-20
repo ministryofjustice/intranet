@@ -1,5 +1,17 @@
 .template-campaign {
   .template-container {
+    .skin-light-blue {
+      .editable {
+        hr {
+          background: #0098DB;
+          border-color: #0098DB;
+        }
+
+        blockquote {
+          background: #0098DB;
+        }
+      }
+    }
     .skin-transformation {
       .editable {
         hr {
