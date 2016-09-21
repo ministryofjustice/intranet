@@ -10,7 +10,31 @@ class Header_model extends MVC_model {
       ])
     );
   }
+  function get_content_agency() {
+    $content_agency = 'shared';
 
+    if(!is_page(['blog','guidance','newspage','events','search-results','about-us']) && !is_front_page()) {
+      global $post;
+
+      $agency_terms = get_the_terms($post->ID, 'agency');
+
+      if (count($agency_terms) > 0) {
+        $agency_slugs = [];
+        
+        foreach ($agency_terms as $agency) {
+          $agency_slugs[] = $agency->slug;
+        }
+
+        if (in_array('hq',$agency_slugs)) {
+          $content_agency = 'hq';
+        }
+        else {
+          $content_agency = $agency_slugs[0];
+        }
+      }
+    }
+    return $content_agency;
+  }
   private function _get_agencies() {
     /** Key names and their meaning:
      * label - the full name of the agency
