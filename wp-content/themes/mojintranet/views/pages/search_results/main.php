@@ -30,16 +30,6 @@
     <div class="col-lg-4 col-md-4 col-sm-12">
       <form class="content-filters">
         <p class="description">You can use the filters to show only results that match your interests</p>
-        <div class="form-row">
-          <label class="filter-label" for="input-filter-type">Content type</label>
-        </div>
-        <div class="form-row">
-          <select id="input-filter-date" name="type" class="search-type">
-            <option value="all">All</option>
-            <option value="content">Pages</option>
-            <option value="document">Forms and documents</option>
-          </select>
-        </div>
 
         <div class="resource-categories-box">
           <div class="form-row">

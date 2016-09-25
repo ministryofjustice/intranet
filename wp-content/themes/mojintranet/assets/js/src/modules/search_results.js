@@ -128,7 +128,6 @@
 
         this.$keywordsInput.val(keywords);
       }
-      this.$searchType.find('option[value="' + type + '"]').prop('selected', true);
 
       if (segments[2]) {
         categories = segments[2].split('|') || [];
@@ -357,7 +356,7 @@
       var base = {
         'agency': App.tools.helpers.agency.getForContent(),
         'additional_filters': additionalFilters,
-        'type': type,
+        'type': 'all',
         'keywords': keywords,
         'page': page,
         'resultsPerPage': 10
@@ -472,7 +471,7 @@
       var type = this.$searchType.find('option:selected').val();
 
       //type
-      urlParts.push(type || 'all');
+      urlParts.push('all');
 
       //keywords
       keywords = keywords.replace(/\s/g, '+');
