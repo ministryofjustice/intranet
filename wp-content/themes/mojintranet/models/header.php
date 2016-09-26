@@ -13,25 +13,9 @@ class Header_model extends MVC_model {
   function get_content_agency() {
     $content_agency = 'shared';
 
-    if(!is_page(['blog','guidance','newspage','events','search-results','about-us']) && !is_front_page()) {
+    if(!is_page(['blog','guidance','newspage','events','search-results','about-us']) && !is_front_page() && !is_404()) {
       global $post;
-
-      $agency_terms = get_the_terms($post->ID, 'agency');
-
-      if (count($agency_terms) > 0) {
-        $agency_slugs = [];
-        
-        foreach ($agency_terms as $agency) {
-          $agency_slugs[] = $agency->slug;
-        }
-
-        if (in_array('hq',$agency_slugs)) {
-          $content_agency = 'hq';
-        }
-        else {
-          $content_agency = $agency_slugs[0];
-        }
-      }
+      $content_agency = Agency_Editor::get_post_agency($post->ID);
     }
     return $content_agency;
   }
