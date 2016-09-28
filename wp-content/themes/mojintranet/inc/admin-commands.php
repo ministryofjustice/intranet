@@ -12,17 +12,7 @@ if (!current_user_can('administrator')) {
 $load_commands = array(
     // filename => Class_Name
     'assign-agency-terms-to-posts' => 'Assign_Agency_Terms_To_Posts',
-    'remove-old-home-page-options' => 'Remove_Old_Home_Page_Options',
-    'remove-old-pods-data' => 'Remove_Old_Pods_Data',
-    'hmcts-guidance-optin' => 'HMCTS_Guidance_Optin',
-    'opg-guidance-optin' => 'OPG_Guidance_Optin',
-    'laa-guidance-optin' => 'LAA_Guidance_Optin',
-    'cica-guidance-optin' => 'CICA_Guidance_Optin',
-    'reset-all-pages-menu-order' => 'Reset_All_Pages_Menu_Order',
-    'news-permissions-reset' => 'News_Permissions_Reset',
-    'agency-permissions-fix' => 'Agency_Permissions_Fix',
-    'documents-permissions-reset' => 'Document_Permissions_Reset',
-    'assign-tabs-and-links' => 'Assign_Tabs_And_Links',
+    'pb-guidance-optin' => 'PB_Guidance_Optin',
     //'remove-old-tabs-and-links' => 'Remove_Old_Tabs_And_Links',
 );
 
