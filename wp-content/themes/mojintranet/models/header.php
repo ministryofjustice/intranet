@@ -10,7 +10,15 @@ class Header_model extends MVC_model {
       ])
     );
   }
+  function get_content_agency() {
+    $content_agency = 'shared';
 
+    if(!is_page(['blog','guidance','newspage','events','search-results','about-us']) && !is_front_page() && !is_404()) {
+      global $post;
+      $content_agency = Agency_Editor::get_post_agency($post->ID);
+    }
+    return $content_agency;
+  }
   private function _get_agencies() {
     /** Key names and their meaning:
      * label - the full name of the agency
