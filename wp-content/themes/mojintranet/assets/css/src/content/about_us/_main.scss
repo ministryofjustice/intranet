@@ -9,6 +9,10 @@
     }
   }
 
+  &[data-agency-view="1"] .about-column-hq {
+    display: none;
+  }
+
   h1 {
     border-bottom: none;
     margin-top: 50px;
