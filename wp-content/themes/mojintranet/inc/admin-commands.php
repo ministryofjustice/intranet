@@ -13,7 +13,7 @@ $load_commands = array(
     // filename => Class_Name
     'assign-agency-terms-to-posts' => 'Assign_Agency_Terms_To_Posts',
     'pb-guidance-optin' => 'PB_Guidance_Optin',
-    //'remove-old-tabs-and-links' => 'Remove_Old_Tabs_And_Links',
+    'remove-old-tabs-and-links' => 'Remove_Old_Tabs_And_Links',
 );
 
 $admin_commands = array();
