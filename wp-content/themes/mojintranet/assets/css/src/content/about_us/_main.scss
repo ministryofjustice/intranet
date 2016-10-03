@@ -9,11 +9,6 @@
     }
   }
 
-  h1 {
-    border-bottom: none;
-    margin-top: 50px;
-  }
-
   .excerpt {
     @extend %large-copy;
     margin-top: 32px;

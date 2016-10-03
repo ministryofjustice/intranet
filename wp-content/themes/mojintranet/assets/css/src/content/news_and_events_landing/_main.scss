@@ -1,11 +1,6 @@
 .template-news-landing,
 .template-events-landing {
   .template-container {
-    h1 {
-      border-bottom: none;
-      margin-top: 50px;
-    }
-
     .filters-label {
       @extend %medium-heading;
       margin-bottom: 10px;
