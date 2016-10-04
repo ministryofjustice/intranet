@@ -1,12 +1,5 @@
 <?php
-
-/**
- * Register menus for the theme.
- */
-
-function dw_rename_primary_menu() {
-    $menus['main-menu'] = 'Main Menu';
-
-    register_nav_menus($menus);
+function dw_register_main_menu() {
+    register_nav_menu('main-menu', 'Main Menu');
 }
-add_action('init', 'dw_rename_primary_menu');
+add_action('init', 'dw_register_main_menu');
