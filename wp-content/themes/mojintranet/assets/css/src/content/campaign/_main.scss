@@ -46,24 +46,24 @@
       }
 
       hr {
-        background: #cccccc;
-        border: 1px solid #cccccc;
-        margin: 10px 0 0 0;
         display: inline-block;
         width: 100%;
+        margin: 10px 0 0 0;
+        background: #ccc;
+        border: 1px solid #ccc;
       }
 
       blockquote {
+        margin-right: 0;
         padding: 25px 25px 5px 25px;
-        background: #CCCCCC;
+        background: #ccc;
         font-size: 27px;
         line-height: 30px;
-        margin-right: 0;
 
         p {
+          padding-left: 0;
           font-size: 27px;
           line-height: 30px;
-          padding-left: 0;
         }
 
         p::before {
