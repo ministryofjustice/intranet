@@ -2,20 +2,20 @@
 
 namespace MOJ_Intranet\Admin_Commands;
 
-class LAA_Guidance_Optin extends Admin_Command {
+class PB_Guidance_Optin extends Admin_Command {
     /**
      * Name of the command.
      *
      * @var string
      */
-    public $name = 'LAA Guidance Opt-in';
+    public $name = 'PB Guidance Opt-in';
 
     /**
      * Description of what this command will do.
      *
      * @var string
      */
-    public $description = 'Opt-in LAA to all HQ Guidance pages below the HQ main Guidance page';
+    public $description = 'Opt-in Parole Board to all HQ Guidance pages below the HQ main Guidance page';
 
     /**
      * Method to execute the command.
@@ -67,14 +67,14 @@ class LAA_Guidance_Optin extends Admin_Command {
     }
 
     /**
-     * Opts in page for HMCTS
+     * Opts in page for CICA
      *
      * @param int $page_id the id of the page to opt-in
      *
      * @return void
      */
     public function opt_in_page($page_id) {
-        wp_set_object_terms($page_id, 'laa', 'agency', true);
+        wp_set_object_terms($page_id, 'pb', 'agency', true);
         echo 'Opted in Page - ' . get_the_title($page_id) . ' ['.$page_id.'] <br/>';
     }
 }
