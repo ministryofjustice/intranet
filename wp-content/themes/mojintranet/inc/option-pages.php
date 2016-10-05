@@ -40,7 +40,7 @@ add_action('init', 'dw_add_option_pages');
 function dw_agency_option_fields($field) {
   $screen = get_current_screen();
 
-  if($screen->id == 'toplevel_page_quick-links-settings' || $screen->id == 'toplevel_page_guidance-most-visted-settings') {
+  if(isset($screen) && ($screen->id == 'toplevel_page_quick-links-settings' || $screen->id == 'toplevel_page_guidance-most-visted-settings')) {
     $context = Agency_Context::get_agency_context();
 
     $field['name'] = $context . '_' . $field['name'];
