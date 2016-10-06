@@ -29,7 +29,6 @@ foreach ($load_commands as $include_file => $class_name) {
 /**
  * Create the admin page.
  */
-
 function add_admin_commands_page() {
     add_management_page('Admin Commands', 'Admin Commands', 'administrator', 'admin-commands', 'admin_commands_page');
 }
