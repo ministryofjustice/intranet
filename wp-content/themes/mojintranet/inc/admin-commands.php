@@ -13,7 +13,6 @@ $load_commands = array(
     // filename => Class_Name
     'assign-agency-terms-to-posts' => 'Assign_Agency_Terms_To_Posts',
     'hide-page-bylines' => 'Hide_Page_Bylines',
-    'pb-guidance-optin' => 'PB_Guidance_Optin',
     'remove-old-tabs-and-links' => 'Remove_Old_Tabs_And_Links',
 );
 
@@ -30,7 +29,6 @@ foreach ($load_commands as $include_file => $class_name) {
 /**
  * Create the admin page.
  */
-
 function add_admin_commands_page() {
     add_management_page('Admin Commands', 'Admin Commands', 'administrator', 'admin-commands', 'admin_commands_page');
 }

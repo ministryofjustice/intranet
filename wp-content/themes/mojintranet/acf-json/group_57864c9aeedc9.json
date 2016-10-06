@@ -4,10 +4,10 @@
     "fields": [
         {
             "key": "field_57864ca37b11e",
-            "label": "Hide Page Details",
+            "label": "Hide byline",
             "name": "dw_hide_page_details",
             "type": "true_false",
-            "instructions": "",
+            "instructions": "Hides the author\u2019s name, job title and last updated date",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -25,6 +25,11 @@
                 "param": "post_type",
                 "operator": "==",
                 "value": "page"
+            },
+            {
+                "param": "page_template",
+                "operator": "!=",
+                "value": "page_guidance_and_support.php"
             }
         ]
     ],
@@ -36,5 +41,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1472049307
+    "modified": 1474898961
 }
