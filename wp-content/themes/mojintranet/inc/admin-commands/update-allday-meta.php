@@ -27,8 +27,9 @@ class Update_Allday_Meta extends Admin_Command {
 
         $wpdb->query(
             "UPDATE $wpdb->postmeta
+             SET   meta_value = '1'
 		     WHERE meta_key = '_event-allday' 
-		     SET   meta_value = '1'
+		     AND meta_value = 'allday'
 		   "
         );
 
