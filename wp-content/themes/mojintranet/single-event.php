@@ -40,7 +40,7 @@ class Single_event extends MVC_controller {
         'day_of_month' => date("j", $start_date_timestamp),
         'month_year' => date("M Y", $start_date_timestamp),
         'date' => date("j F Y", $start_date_timestamp) . ' - ' . date("j F Y", $end_date_timestamp),
-        'time' => $all_day ? 'All day' : $start_time . ' - ' . $end_time,
+        'time' => $all_day == true ? 'All day' : $start_time . ' - ' . $end_time,
         'multiday' => $multiday,
         'all_day' => $all_day,
         'location' => get_post_meta($post->ID, '_event-location', true),

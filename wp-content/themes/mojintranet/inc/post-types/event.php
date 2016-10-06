@@ -45,17 +45,17 @@ add_action('manage_event_posts_custom_column','custom_event_columns',10,2);
 function custom_event_columns($column, $post_id) {
   switch($column) {
     case 'event-start':
-      $start_date = get_post_meta( $post_id , '_event-start-date' , true );
-      $start_time = get_post_meta( $post_id , '_event-start-time' , true );
+      $start_date = get_post_meta($post_id , '_event-start-date' , true);
+      $start_time = get_post_meta($post_id , '_event-start-time' , true);
       echo $start_date?$start_date . " " . ($start_time?:"--:--"):"-";
       break;
     case 'event-end':
-      $end_date = get_post_meta( $post_id , '_event-end-date' , true );
-      $end_time = get_post_meta( $post_id , '_event-end-time' , true );
+      $end_date = get_post_meta($post_id, '_event-end-date' , true);
+      $end_time = get_post_meta($post_id, '_event-end-time' , true);
       echo $end_date?$end_date . " " . ($end_time?:"--:--"):"-";
       break;
     case 'event-allday':
-      echo get_post_meta( $post_id , '_event-allday' , true )=='allday'?'Yes':'No';
+      echo get_post_meta($post_id, '_event-allday' , true) == true ? 'Yes':'No';
       break;
   }
 }
