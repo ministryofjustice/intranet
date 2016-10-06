@@ -1,5 +1,4 @@
 <?php
-
 namespace MOJ_Intranet\Admin_Commands;
 
 class Update_Allday_Meta extends Admin_Command {
