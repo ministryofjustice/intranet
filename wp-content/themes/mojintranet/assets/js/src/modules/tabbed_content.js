@@ -15,23 +15,12 @@
     init: function() {
       this.cacheEls();
       this.bindEvents();
-      this.cacheTemplates();
+
       this.$tabs.eq(0).click();
     },
 
     cacheEls: function() {
-      this.$tabContent = $('.tab-content');
-    },
-
-    cacheTemplates: function() {
-      var _this = this;
-
-      this.templates = [];
-
-      $('.template-partial[data-template-type]').each(function() {
-        var $el = $(this);
-        _this.templates[$el.attr('data-content-name')] = $el.html();
-      });
+      this.$contentPanels = $('.content-panels').find('.tab-content');
     },
 
     bindEvents: function() {
@@ -39,21 +28,24 @@
     },
 
     switchTab: function(e) {
-      var $el = $(e.currentTarget);
-      var contentName = $el.attr('data-content');
-      this.$tabContent.html(this.templates[contentName]);
       e.preventDefault();
-      this.setActiveTab($el);
+
+      this.setActiveTab($(e.currentTarget));
 
       //hopefully one day we can replace this manual call with Mutation Observer
+      //TODO: Do we still use the table of contents? To be investigated
       App.ins.tableOfContents.generate();
     },
 
     setActiveTab: function($el) {
+      var tabName = $el.attr('data-tab-name');
+
       this.$tabs.removeClass('current-menu-item');
       this.$tabs.find('a').attr('aria-selected', false);
+      this.$contentPanels.addClass('hidden');
       $el.addClass('current-menu-item');
       $el.find('a').attr('aria-selected', true);
+      this.$contentPanels.filter('[data-content-name="' + tabName + '"]').removeClass('hidden');
     }
   };
 }(jQuery));

@@ -1,14 +1,26 @@
 .template-campaign {
   .template-container {
-    .skin-transformation {
+    .skin-light-blue {
       .editable {
         hr {
-          background: #FAC960;
-          border-color: #FAC960;
+          background: #0098db;
+          border-color: #0098db;
         }
 
         blockquote {
-          background: #FAC960;
+          background: #0098db;
+        }
+      }
+    }
+    .skin-transformation {
+      .editable {
+        hr {
+          background: #fac960;
+          border-color: #fac960;
+        }
+
+        blockquote {
+          background: #fac960;
         }
       }
     }
@@ -34,24 +46,24 @@
       }
 
       hr {
-        background: #CCCCCC;
-        border: 1px solid #CCCCCC;
-        margin: 10px 0 0 0;
         display: inline-block;
         width: 100%;
+        margin: 10px 0 0 0;
+        background: #ccc;
+        border: 1px solid #ccc;
       }
 
       blockquote {
+        margin-right: 0;
         padding: 25px 25px 5px 25px;
-        background: #CCCCCC;
+        background: #ccc;
         font-size: 27px;
         line-height: 30px;
-        margin-right: 0;
 
         p {
+          padding-left: 0;
           font-size: 27px;
           line-height: 30px;
-          padding-left: 0;
         }
 
         p::before {
