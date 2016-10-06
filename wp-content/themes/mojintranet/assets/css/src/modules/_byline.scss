@@ -11,10 +11,10 @@
   }
 
   .info-list {
+    padding-top: 15px;
     font-size:  19px;
     line-height: 25px;
-    color: #6F777B;
-    padding-top: 15px;
+    color: $grey-1;
 
     span {
       display: inline;

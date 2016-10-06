@@ -48,5 +48,6 @@ if (!isset($page_data)) $page_data = [];
 
   <?php $this->view('modules/footer'); ?>
   <?php $this->view('modules/body_bottom'); ?>
+  <?=$this->wp_footer?>
 </body>
 </html>
