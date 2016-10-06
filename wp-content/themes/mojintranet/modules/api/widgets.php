@@ -131,6 +131,6 @@ class Widgets_API extends API {
     $data['follow_us'] = $this->MVC->model->follow_us->get_data($options);
 
     $data['url_params'] = $this->params;
-    $this->response($data, 200, 60 * 60);
+    $this->response($data, 200, 60);
   }
 }
