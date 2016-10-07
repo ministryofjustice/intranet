@@ -6,6 +6,8 @@ abstract class MVC_controller extends MVC_loader {
 
     parent::__construct();
 
+    _wp_admin_bar_init(); //needed for wp_head() and possibly for wp_footer()
+
     if (!$MVC) {
       $MVC = $this;
       $this->_load_default_models();
@@ -13,6 +15,7 @@ abstract class MVC_controller extends MVC_loader {
 
     $this->_get_segments($param_string);
     $this->wp_head = $this->_get_wp_header();
+    $this->wp_footer = $this->_get_wp_footer();
   }
 
   public function run() {
@@ -36,9 +39,14 @@ abstract class MVC_controller extends MVC_loader {
   }
 
   private function _get_wp_header() {
-    _wp_admin_bar_init();
     ob_start();
     wp_head();
+    return ob_get_clean();
+  }
+
+  private function _get_wp_footer() {
+    ob_start();
+    wp_footer();
     return ob_get_clean();
   }
 }
