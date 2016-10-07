@@ -57,6 +57,8 @@ abstract class MVC_loader {
     //!!! TODO: loading the global models here. These should be auto-loaded based on config in the future
     $this->model('user');
     $this->model('my_moj');
+    $this->model('agency');
+    $this->model('content');
     $this->model('header');
     $this->model('breadcrumbs');
     $this->model('search');
