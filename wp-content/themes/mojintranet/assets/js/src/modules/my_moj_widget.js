@@ -12,10 +12,14 @@
 
   App.MyMojWidget.prototype = {
     init: function() {
+      this.agency = App.tools.helpers.agency.getForContent();
+      this.agencyData = App.tools.helpers.agency.getData(this.agency);
+
       this.applicationUrl = $('head').data('application-url');
       this.templateUri = $('head').data('template-uri');
       this.pageBase = this.applicationUrl + '/' + this.$top.data('top-level-slug');
 
+      this.agencyLinkTemplate = this.$top.find('[data-name="widget-agency-link"]').html();
       this.appTemplate = this.$top.find('[data-name="widget-app-item"]').html();
       this.quickLinkTemplate = this.$top.find('[data-name="widget-quick-link-item"]').html();
 
@@ -24,6 +28,8 @@
       this.cacheEls();
 
       this.displayData(this.data);
+      this.setHeading();
+      this.addFeaturedLinks();
     },
 
     cacheEls: function() {
@@ -47,6 +53,38 @@
 
       this.resultsLoaded = true;
       this.$top.removeClass('loading');
+    },
+
+    setHeading: function() {
+      var $agencyAbbreviation = $('.agency-abbreviation');
+
+      $agencyAbbreviation.text(this.agencyData.abbreviation);
+    },
+
+    addFeaturedLinks: function() {
+      var _this = this;
+      var links = this.agencyData.links || [];
+      var $agencyLinkList = $('.agency-link-list');
+      var $agencyLinkItem;
+
+      $agencyLinkList.toggleClass('hidden', links.length);
+
+      $.each(links, function(index, link) {
+        $agencyLinkItem = $(_this.agencyLinkTemplate);
+
+        $agencyLinkItem.find('a').attr('href', link.url);
+        $agencyLinkItem.find('.label').html(link.label);
+
+        if (link.is_external) {
+          $agencyLinkItem.find('.agency-link').attr('rel', 'external');
+        }
+
+        if (link.classes) {
+          $agencyLinkItem.addClass(link.classes);
+        }
+
+        $agencyLinkItem.appendTo($agencyLinkList);
+      });
     },
 
     buildAppItem: function(data) {

@@ -4,7 +4,7 @@
 function enqueueThemeScripts() {
   global $wp_scripts;
 
-  wp_enqueue_script( 'jquery' );
+  wp_deregister_script('jquery');
 }
 
 add_action('wp_enqueue_scripts','enqueueThemeScripts');
