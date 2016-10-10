@@ -28,6 +28,7 @@ require_once('inc/list-tables.php');                      // Adjustments to list
 require_once('inc/admin-commands.php');                   // Admin commands
 require_once('inc/menu-locations.php');                   // Register menu locations
 require_once('inc/option-pages.php');                     // Option Pages
+require_once('inc/event-details.php');                    // Event Detail Fields
 require_once('inc/page-options.php');                     // Page Options
 require_once('inc/query-vars.php');                       // Register custom query variables
 require_once('inc/redirects.php');                        // Site redirects
