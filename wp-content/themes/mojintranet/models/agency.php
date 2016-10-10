@@ -26,6 +26,7 @@ class Agency_model extends MVC_model {
             'label' => 'Criminal Injuries Compensation Authority',
             'abbreviation' => 'CICA',
             'is_integrated' => true,
+            'contact_email_address' => 'intranet-cica@digital.justice.gov.uk',
             'links' => []
         ),
         'pb' => array(
@@ -33,7 +34,8 @@ class Agency_model extends MVC_model {
             'abbreviation' => 'PB',
             'url' => '',
             'is_integrated' => true,
-            'is_external' => false
+            'is_external' => false,
+            'contact_email_address' => 'intranet-pb@digital.justice.gov.uk',
         ),
         'hmcts' => array(
             'label' => 'HM Courts &amp; Tribunals Service',
@@ -71,6 +73,7 @@ class Agency_model extends MVC_model {
             'label' => 'Judicial Office',
             'abbreviation' => 'JO',
             'is_integrated' => false,
+            'contact_email_address' => 'intranet-jo@digital.justice.gov.uk',
             'links' => [
                 [
                     'url' => 'http://judicialoffice.intranet.service.justice.gov.uk/',
