@@ -12,7 +12,8 @@
 
   App.MyMojWidget.prototype = {
     init: function() {
-      this.agency = App.tools.helpers.agency.getForContent();
+      this.agency = App.tools.helpers.agency.get();
+
       this.agencyData = App.tools.helpers.agency.getData(this.agency);
 
       this.applicationUrl = $('head').data('application-url');
