@@ -4,6 +4,3 @@
 [submodule "wp-content/plugins/dw-mvc"]
 	path = wp-content/plugins/dw-mvc
 	url = git@github.com:ministryofjustice/dw-mvc.git
-[submodule "wp-content/plugins/dw-snippets"]
-	path = wp-content/plugins/dw-snippets
-	url = git@github.com:ministryofjustice/dw-snippets.git
