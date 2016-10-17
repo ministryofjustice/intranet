@@ -4,7 +4,7 @@ class Agency_model extends MVC_model {
   function get_contact_email_address($agency = 'hq') {
     $agencies = $this->get_list();
 
-    if (!empty($agencies[$agency]) && $agencies[$agency]['is_integrated'] == true && strlen($agencies[$agency]['contact_email_address']) > 0) {
+    if (isset($agencies[$agency]) && $agencies[$agency]['is_integrated'] == true && !empty($agencies[$agency]['contact_email_address'])) {
       return $agencies[$agency]['contact_email_address'];
     }
     else {
