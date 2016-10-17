@@ -4,7 +4,7 @@ class Agency_model extends MVC_model {
   function get_contact_email_address($agency = 'hq') {
     $agencies = $this->get_list();
 
-    if (isset($agencies[$agency]) && $agencies[$agency]['is_integrated'] == true && strlen($agencies[$agency]['contact_email_address']) > 0) {
+    if (!empty($agencies[$agency]) && $agencies[$agency]['is_integrated'] == true && strlen($agencies[$agency]['contact_email_address']) > 0) {
       return $agencies[$agency]['contact_email_address'];
     }
     else {
@@ -15,11 +15,10 @@ class Agency_model extends MVC_model {
     /** Key names and their meaning:
      * label - the full name of the agency
      * abbreviation - short name, such as HMCTS
-     * url - url of the external site that goes into the My MoJ section
-     * url_label - alternative label on the external link; label is used as fallback
      * blog url - custom url for main menu blog
-     * is_integrated - whether the agency is already integrated into the intranet or not
-     * contact_email_address - the email address used for the feedback form
+     * is_integrated (boolean) - whether the agency is already integrated into the intranet or not
+     * contact_email_address (string) - the email address used for the feedback form
+     * links (array) - links that display into the My MoJ section which have the following fields (url,label,classes)
      */
     return array(
         'cica' => array(
@@ -32,10 +31,9 @@ class Agency_model extends MVC_model {
         'pb' => array(
             'label' => 'Parole Board',
             'abbreviation' => 'PB',
-            'url' => '',
             'is_integrated' => true,
-            'is_external' => false,
             'contact_email_address' => 'intranet-pb@digital.justice.gov.uk',
+            'links' => []
         ),
         'hmcts' => array(
             'label' => 'HM Courts &amp; Tribunals Service',
@@ -99,7 +97,7 @@ class Agency_model extends MVC_model {
             'abbreviation' => 'LAA',
             'is_integrated' => true,
             'contact_email_address' => 'intranet-laa@digital.justice.gov.uk',
-            'url' => []
+            'links' => []
         ),
         'hq' => array(
             'label' => 'Ministry of Justice HQ',
@@ -145,8 +143,7 @@ class Agency_model extends MVC_model {
             'abbreviation' => 'OPG',
             'is_integrated' => true,
             'contact_email_address' => 'intranet-opg@digital.justice.gov.uk',
-            'links' => [
-            ]
+            'links' => []
         ),
         'ospt' => array(
             'label' => 'Official Solicitor and Public Trustee',

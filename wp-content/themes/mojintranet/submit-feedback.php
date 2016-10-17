@@ -17,13 +17,12 @@ class Submit_feedback extends MVC_controller {
     $this->resolution = $_POST['resolution'];
     $this->referrer = $_POST['referrer'];
 
-    $agency_email = $this->model->agency->get_contact_email_address($this->agency);
+    $to = implode(', ', [
+        $this->email,
+        $this->model->agency->get_contact_email_address($this->agency),
+    ]);
 
-    if(strlen($agency_email) > 0) {
-      $this->email .= ', ' . $agency_email;
-    }
-
-   mail($this->email, $subject, $this->_get_message(), $this->_get_headers());
+    mail($to, $subject, $this->_get_message(), $this->_get_headers());
 
     $this->_output_json();
   }
