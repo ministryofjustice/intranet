@@ -113,6 +113,43 @@ class Page_tree_model extends MVC_model {
     return $data;
   }
 
+  public function get_guidance_children_list() {
+    $flat_data = [];
+    $hierarchical_data = [
+      'children' => [
+        $this->get_children([
+          'tag' => 'guidance-index',
+          'depth' => 10
+        ])
+      ]
+    ];
+
+    //Debug::full($hierarchical_data, 10); exit;
+
+    $format_row = function($row_data, $parent_id) {
+      return [
+        'id' => $row_data['id'],
+        'parent_id' => $parent_id,
+        'title' => $row_data['title'],
+        'url' => $row_data['url']
+      ];
+    };
+
+    $get_recursive = function($data) use (&$format_row, &$flat_data, &$get_recursive) {
+      if (key_exists('children', $data)) {
+        foreach ($data['children'] as $row) {
+          $flat_data[] = $format_row($row, key_exists('id', $data) ? $data['id'] : 0);
+
+          $get_recursive($row);
+        }
+      }
+    };
+
+    $get_recursive($hierarchical_data);
+
+    return $flat_data;
+  }
+
   private function _get_parent_id($id) {
     $type = get_post_type($id);
 

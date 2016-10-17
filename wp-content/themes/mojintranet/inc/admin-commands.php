@@ -12,7 +12,7 @@ if (!current_user_can('administrator')) {
 $load_commands = array(
     // filename => Class_Name
     'assign-agency-terms-to-posts' => 'Assign_Agency_Terms_To_Posts',
-    'update-allday-meta' => 'Update_Allday_Meta',
+    'hide-page-bylines' => 'Hide_Page_Bylines',
     'remove-old-tabs-and-links' => 'Remove_Old_Tabs_And_Links',
 );
 

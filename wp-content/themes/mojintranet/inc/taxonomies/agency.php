@@ -16,7 +16,6 @@ class Agency extends Taxonomy {
         'webchat',
         'event',
         'document',
-        'snippet',
     );
 
     protected $args = array(
