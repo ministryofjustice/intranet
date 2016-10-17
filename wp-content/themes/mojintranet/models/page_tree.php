@@ -126,26 +126,39 @@ class Page_tree_model extends MVC_model {
 
     //Debug::full($hierarchical_data, 10); exit;
 
-    $format_row = function($row_data, $parent_id) {
-      return [
+    $format_row = function($row_data, $parent_id, $breadcrumbs) {
+      $data = [
         'id' => $row_data['id'],
         'parent_id' => $parent_id,
-        'title' => $row_data['title'],
+        'title' => html_entity_decode($row_data['title']),
         'url' => $row_data['url']
       ];
+
+      $breadcrumbs[] = html_entity_decode($row_data['title']);
+
+      foreach ($breadcrumbs as $level => $level_title) {
+        $data['level_' . ($level + 1)] = $level_title;
+      }
+
+      return $data;
     };
 
-    $get_recursive = function($data) use (&$format_row, &$flat_data, &$get_recursive) {
+    $get_recursive = function($data, $breadcrumbs = []) use (&$format_row, &$flat_data, &$get_recursive) {
+      if (key_exists('title', $data)) {
+        $breadcrumbs[] = html_entity_decode($data['title']);
+      }
       if (key_exists('children', $data)) {
         foreach ($data['children'] as $row) {
-          $flat_data[] = $format_row($row, key_exists('id', $data) ? $data['id'] : 0);
+          $flat_data[] = $format_row($row, key_exists('id', $data) ? $data['id'] : 0, $breadcrumbs);
 
-          $get_recursive($row);
+          $get_recursive($row, $breadcrumbs);
         }
       }
     };
 
     $get_recursive($hierarchical_data);
+
+    //Debug::full($flat_data); exit;
 
     return $flat_data;
   }

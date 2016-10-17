@@ -8,7 +8,7 @@ class Export_guidance_children extends MVC_controller {
     header("Content-Type:application/csv");
     header("Content-Disposition:attachment;filename=export.csv");
 
-    fputcsv($output, array('ID', 'Parent ID', 'Title', 'URL'));
+    fputcsv($output, array('ID', 'Parent ID', 'Title', 'URL', 'Level 1', 'Level 2', 'Level 3', 'Level 4', 'Level 5', 'Level 6', 'Level 7'));
 
     foreach($data as $row) {
       fputcsv($output, $row);
