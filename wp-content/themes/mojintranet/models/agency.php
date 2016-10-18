@@ -76,7 +76,7 @@ class Agency_model extends MVC_model {
       'judicial-office' => array(
         'label' => 'Judicial Office',
         'abbreviation' => 'JO',
-        'is_integrated' => false,
+        'is_integrated' => true,
         'contact_email_address' => 'intranet-jo@digital.justice.gov.uk',
         'links' => [
           [

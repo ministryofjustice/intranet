@@ -67,6 +67,7 @@ $grid-size: 40px;
     &[data-agency="laa"],
     &[data-agency="hmcts"],
     &[data-agency="judicial-office"],
+    &[data-agency="ppo"],
     &[data-agency="noms"],
     &[data-agency="opg"],
     &[data-agency="ospt"],
@@ -88,11 +89,10 @@ $grid-size: 40px;
       background-position: (-$grid-size * 3);
     }
 
-    &[data-agency="cica"] {
-      display: none;
-    }
-
-    &[data-agency="pb"] {
+    &[data-agency="cica"],
+    &[data-agency="pb"],
+    &[data-agency="judicial-office"],
+    &[deta-agency="ppo"] {
       display: none;
     }
 
