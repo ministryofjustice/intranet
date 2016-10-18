@@ -41,6 +41,13 @@ class Agency_model extends MVC_model {
         'contact_email_address' => 'intranet-pb@digital.justice.gov.uk',
         'links' => []
       ),
+      'ppo' => array(
+        'label' => 'Prisons and Probations Ombudsman',
+        'abbreviation' => 'PPO',
+        'is_integrated' => true,
+        'contact_email_address' => 'intranet-ppo@digital.justice.gov.uk',
+        'links' => []
+      ),
       'hmcts' => array(
         'label' => 'HM Courts &amp; Tribunals Service',
         'abbreviation' => 'HMCTS',
