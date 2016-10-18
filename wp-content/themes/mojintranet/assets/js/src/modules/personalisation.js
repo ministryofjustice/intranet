@@ -114,12 +114,12 @@
       var agency = App.tools.url(true).param('agency');
       var agencyTools = App.tools.helpers.agency;
 
-      if (!agencyTools.agencies[agency]) {
-        agency = 'hq';
-      }
-
       //set agency from url
       if (typeof agency === 'string') {
+        if (!agencyTools.agencies[agency]) {
+          agency = 'hq';
+        }
+
         agencyTools.set(agency);
         this.removeAgencyFromUrl();
       }
