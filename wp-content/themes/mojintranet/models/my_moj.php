@@ -28,6 +28,10 @@ class My_moj_model extends MVC_model {
 
   private function get_apps($agency = 'hq') {
     $apps = [
+      'ppo' => [
+      ],
+      'judicial-office' => [
+      ],
       'cica' => [
       ],
       'pb' => [
