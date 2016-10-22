@@ -32,8 +32,8 @@ class Follow_us_model extends MVC_model {
           'name' => 'twitter',
         ],
         [
-          'url' => 'https://www.yammer.com/justice.gsi.gov.uk/dialog/authenticate',
-          'label' => 'MoJ on Yammer',
+          'url' => 'https://www.yammer.com/hmcts.gsi.gov.uk',
+          'label' => 'HMCTS on Yammer',
           'name' => 'yammer',
         ]
       ],
