@@ -35,6 +35,36 @@ class My_moj_model extends MVC_model {
       'cica' => [
       ],
       'pb' => [
+        [
+          'title' => 'People finder',
+          'icon' => 'people-finder',
+          'url' => 'https://peoplefinder.service.gov.uk/',
+          'external' => true,
+        ],
+        [
+          'title' => 'Phoenix',
+          'icon' => 'phoenix',
+          'url' => 'http://phoenix.ps.gov.uk:8000/OA_HTML/AppsLocalLogin.jsp?requestUrl=APPSHOMEPAGE&cancelUrl=http%3A%2F%2Fphoenix.ps.gov.uk%3A8000%2Foa_servlets%2Foracle.apps.fnd.sso.AppsLogin&s2=D9E6D249A1E2875B06EA4A1B544B7ECDF9FA139755032BAAD5A6B9E1096BD6DF',
+          'external' => true,
+        ],
+        [
+          'title' => 'Civil Service Learning',
+          'icon' => 'civil-service-learning',
+          'url' => 'https://civilservicelearning.civilservice.gov.uk/',
+          'external' => true,
+        ],
+        [
+          'title' => 'Jobs',
+          'icon' => 'jobs',
+          'url' => site_url('/jobs/'),
+          'external' => false,
+        ],
+        [
+          'title' => 'Parole Board public site',
+          'icon' => 'govuk',
+          'url' => 'https://www.gov.uk/government/organisations/legal-aid-agency',
+          'external' => true,
+        ],
       ],
       'hq' => [
         [
