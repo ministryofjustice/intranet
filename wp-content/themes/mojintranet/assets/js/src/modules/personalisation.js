@@ -52,6 +52,10 @@
       if (this.agencyData.blog_url) {
         $menu.find('.main-nav-blog a').attr('href', this.agencyData.blog_url);
       }
+
+      if (this.agencyData.about_us_url) {
+        $menu.find('.main-nav-about-us a').attr('href', this.agencyData.about_us_url);
+      }
     },
 
     updateLogo: function() {
