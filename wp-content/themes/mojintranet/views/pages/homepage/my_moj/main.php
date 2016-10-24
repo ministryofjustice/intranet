@@ -7,13 +7,7 @@
 
   <div class="apps-container mobile-collapsed">
     <h2 class="category-name">My <span class="agency-abbreviation"></span></h2>
-    <ul class="agency-link-list hidden">
-      <li class="agency" data-department="opg">
-        <a class="agency-link" href="">
-          <span class="label"></span>
-        </a>
-      </li>
-    </ul>
+    <ul class="agency-link-list hidden"></ul>
     <ul class="apps-list"
         data-skeleton-screen-count="10"
         data-skeleton-screen-type="app"></ul>
@@ -28,4 +22,12 @@
 
   <?php $this->view('pages/homepage/my_moj/app_item') ?>
   <?php $this->view('pages/homepage/my_moj/quick_link_item') ?>
+
+  <script type="text/x-template-partial" data-name="widget-agency-link">
+    <li class="agency-link-item">
+      <a class="agency-link" href="">
+        <span class="label"></span>
+      </a>
+    </li>
+  </script>
 </div>

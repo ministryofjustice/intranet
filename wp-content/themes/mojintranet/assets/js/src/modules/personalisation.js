@@ -13,7 +13,7 @@
     init: function() {
       this.settings = {
         hideForAgency: {
-          'hmcts': ['.events-widget', '.main-nav-events', /*'.main-nav-guidance', */'.main-nav-about-us', '.posts-widget'],
+          'hmcts': ['.events-widget', '.main-nav-events', '.posts-widget'],
           'laa': ['.events-widget', '.main-nav-events']
         }
       };
@@ -81,26 +81,9 @@
       var agencyData = App.tools.helpers.agency.getData(this.agency);
       var $homepage = $('.template-home');
       var $homeHeading = $('.template-home h1');
-      var $agencyLinkList = $('.agency-link-list');
-      var $agencyAbbreviation = $('.agency-abbreviation');
 
       if ($homepage.length) {
         $homeHeading.html(agencyData.label);
-
-        $agencyLinkList.toggleClass('hidden', agencyData.url === '');
-        $agencyLinkList.find('.agency').attr('data-department', this.agency);
-        $agencyLinkList.find('a').attr('href', agencyData.url);
-        $agencyLinkList.find('.label').html(agencyData.url_label || agencyData.label + ' intranet');
-
-        if (agencyData.is_external) {
-          $agencyLinkList.find('.agency a').attr('rel', 'external');
-        }
-
-        if (agencyData.classes) {
-          $agencyLinkList.find('.agency').addClass(agencyData.classes);
-        }
-
-        $agencyAbbreviation.text(agencyData.abbreviation);
       }
     },
 
@@ -137,6 +120,10 @@
 
       //set agency from url
       if (typeof agency === 'string') {
+        if (!agencyTools.agencies[agency]) {
+          agency = 'hq';
+        }
+
         agencyTools.set(agency);
         this.removeAgencyFromUrl();
       }
