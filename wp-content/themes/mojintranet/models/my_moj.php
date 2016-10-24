@@ -44,7 +44,7 @@ class My_moj_model extends MVC_model {
         [
           'title' => 'Phoenix',
           'icon' => 'phoenix',
-          'url' => 'http://phoenix.ps.gov.uk:8000/OA_HTML/AppsLocalLogin.jsp?requestUrl=APPSHOMEPAGE&cancelUrl=http%3A%2F%2Fphoenix.ps.gov.uk%3A8000%2Foa_servlets%2Foracle.apps.fnd.sso.AppsLogin&s2=D9E6D249A1E2875B06EA4A1B544B7ECDF9FA139755032BAAD5A6B9E1096BD6DF',
+          'url' => site_url('/phoenix/'),
           'external' => true,
         ],
         [
