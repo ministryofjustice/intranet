@@ -62,7 +62,7 @@ class My_moj_model extends MVC_model {
         [
           'title' => 'Parole Board public site',
           'icon' => 'govuk',
-          'url' => 'https://www.gov.uk/government/organisations/legal-aid-agency',
+          'url' => 'https://www.gov.uk/government/organisations/parole-board',
           'external' => true,
         ],
       ],
