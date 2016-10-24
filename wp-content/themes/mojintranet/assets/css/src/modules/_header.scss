@@ -6,10 +6,6 @@
     display: block;
   }
 
-  .mobile-msg {
-    display: none;
-  }
-
   .skip-to-content-container {
     height: 0;
     padding-top: 10px;
@@ -181,17 +177,6 @@
 
 @include mobile-mq() {
   .header {
-    .mobile-msg {
-      display: block;
-      margin-bottom: 10px;
-      background-color: $orange-25;
-
-      p {
-        padding: 8px 15px;
-        text-align: center;
-      }
-    }
-
     .site-logo img {
       height: 27px;
     }
