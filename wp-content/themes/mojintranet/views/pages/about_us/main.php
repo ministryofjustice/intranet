@@ -1,6 +1,6 @@
 <?php if (!defined('ABSPATH')) die(); ?>
 
-<div class="template-container" data-top-level-slug="<?=$top_slug?>">
+<div class="template-container" data-agency-view="<?=$enable_agency_about_us?>">
   <div class="grid">
     <div class="col-lg-12 col-md-12 col-sm-12">
       <h1 class="main-heading"><?=$title?></h1>
@@ -8,7 +8,7 @@
   </div>
 
   <div class="grid">
-    <div class="about-column col-lg-6 col-md-6 col-sm-12">
+    <div class="about-column about-column-hq col-lg-6 col-md-6 col-sm-12">
       <h2 class="the-moj-heading">The MoJ</h2>
       <div class="global-categories-box">
         <ul class="index-list global-categories-list grid">
