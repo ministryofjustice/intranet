@@ -157,7 +157,7 @@ class Agency_model extends MVC_model {
         ]
       ),
       'pb' => array(
-        'label' => 'Parole Board',
+        'label' => 'The Parole Board',
         'abbreviation' => 'PB',
         'is_integrated' => true,
         'contact_email_address' => 'intranet-pb@digital.justice.gov.uk',
