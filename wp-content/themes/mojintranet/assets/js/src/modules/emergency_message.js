@@ -5,9 +5,10 @@
 
   var App = window.App;
 
-  App.EmergencyMessage = function() {
+  App.EmergencyMessage = function(data) {
+    this.data = data;
     this.$top = $('.emergency-banner .message');
-    if(!this.$top.length) { return; }
+    if (!this.$top.length) { return; }
     this.init();
   };
 
@@ -22,7 +23,7 @@
       this.cacheEls();
       this.bindEvents();
 
-      this.requestResults();
+      this.displayResults(this.data);
     },
 
     cacheEls: function() {
@@ -33,30 +34,19 @@
       this.$closeButton.on('click', $.proxy(this.close, this));
     },
 
-    requestResults: function() {
-      var _this = this;
-      var dataArray = [];
-      dataArray.push(App.tools.helpers.agency.getForContent());
-
-      /* use the timeout for dev/debugging purposes */
-      //**/window.setTimeout(function() {
-        _this.serviceXHR = $.getJSON(_this.serviceUrl+'/'+dataArray.join('/'), $.proxy(_this.displayResults, _this));
-      //**/}, 2000);
-    },
-
     close: function() {
       this.$top.slideUp(200);
     },
 
     displayResults: function(data) {
-      if(data.visible===1) {
+      if(data.visible) {
         this.$top.addClass('visible');
       }
+
       this.$top.addClass('message-' + data.type);
       this.$top.find('h3.title').html(data.title);
       this.$top.find('.timestamp').html(data.date);
       this.$top.find('.content').html(data.message);
     }
-
   };
 }(window.jQuery));

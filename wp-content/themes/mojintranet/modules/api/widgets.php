@@ -130,6 +130,10 @@ class Widgets_API extends API {
     $this->MVC->model('follow_us');
     $data['follow_us'] = $this->MVC->model->follow_us->get_data($options);
 
+    //emergency message
+    $options = $this->params;
+    $data['emergency_message'] = $this->MVC->model->emergency_banner->get($options);
+
     $data['url_params'] = $this->params;
     $this->response($data, 200, 60);
   }
