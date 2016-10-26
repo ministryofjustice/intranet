@@ -13,6 +13,8 @@ $load_commands = array(
     // filename => Class_Name
     'assign-agency-terms-to-posts' => 'Assign_Agency_Terms_To_Posts',
     'hide-page-bylines' => 'Hide_Page_Bylines',
+    'set-admin-regional-permissions' => 'Set_Admin_Regional_Permissions',
+    'set-regional-editor-permissions' => 'Set_Regional_Editor_Permissions',
     'remove-old-tabs-and-links' => 'Remove_Old_Tabs_And_Links',
 );
 
