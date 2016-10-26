@@ -10,6 +10,7 @@ class Region extends Taxonomy {
     protected $object_types = array(
         'regional_page',
         'regional_news',
+        'document',
     );
 
     protected $args = array(
@@ -55,6 +56,10 @@ class Region extends Taxonomy {
         add_action('user_register', array($this, 'edit_user_profile_save'));
 
         if (Region_Context::current_user_can_have_context()) {
+
+            // Remove Region Meta Box
+            add_action('admin_menu', array($this, 'remove_region_meta_box'));
+
             // Post filtering
             add_filter('parse_query', array($this, 'filter_posts_by_region'));
 
@@ -144,6 +149,15 @@ class Region extends Taxonomy {
         wp_set_object_terms($user_id, $regions, 'region', false);
 
         clean_object_term_cache($user_id, 'region');
+    }
+
+    /**
+     * Remove agency meta box from post edit pages.
+     */
+    public function remove_region_meta_box() {
+        foreach ($this->object_types as $object) {
+            remove_meta_box('regiondiv', $object, 'side');
+        }
     }
 
     /**
