@@ -99,6 +99,23 @@ class UserRoles {
         $editor->capabilities["manage_categories"] = false;
         $editor->capabilities["edit_theme_options"] = false;
         $editor->capabilities["assign_agencies_to_posts"] = false;
+        $editor->capabilities["edit_pages"] = false;
+        $editor->capabilities["edit_others_pages"] = false;
+        $editor->capabilities["edit_published_pages"] = false;
+
+        $editor->capabilities["edit_regional_page"] = true;
+        $editor->capabilities["edit_others_regional_pages"] = true;
+        $editor->capabilities["edit_published_regional_pages"] = true;
+        $editor->capabilities["publish_regional_pages"] = true;
+        $editor->capabilities["delete_regional_page"] = true;
+        $editor->capabilities["delete_others_regional_pages"] = true;
+
+        $editor->capabilities["edit_regional_news"] = true;
+        $editor->capabilities["edit_others_regional_news"] = true;
+        $editor->capabilities["edit_published_regional_news"] = true;
+        $editor->capabilities["publish_regional_news"] = true;
+        $editor->capabilities["delete_regional_news"] = true;
+        $editor->capabilities["delete_others_regional_news"] = true;
 
         // Add a new role with editor caps
         $regionalEditor = $this->wp_roles->add_role('regional-editor', 'Regional Editor', $editor->capabilities);
