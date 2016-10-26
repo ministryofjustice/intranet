@@ -36,7 +36,7 @@ function pageparent_ajax_check_parent() {
   $filter_data = $_POST['data'];
   $filter_text = sanitize_text_field($filter_data["filtertext"]);
   $current_page = intval($filter_data["pageID"]);
-
+  $post_type = get_post_type(intval($filter_data["pageID"]));
 
   $parent_query = "SELECT ID,post_title,post_parent,post_type,post_status FROM $wpdb->posts 
                    LEFT JOIN $wpdb->term_relationships ON ( $wpdb->posts.ID = $wpdb->term_relationships.object_id )
@@ -44,14 +44,25 @@ function pageparent_ajax_check_parent() {
                    LEFT JOIN $wpdb->terms ON ( $wpdb->term_taxonomy.term_id = $wpdb->terms.term_id ) 
                    WHERE post_title LIKE '%%%s%%'
                    AND $wpdb->posts.ID != %s 
-                   AND post_type = 'page' 
+                   AND post_type = '%s' 
                    AND post_status IN ('publish','draft') 
                    AND $wpdb->term_taxonomy.taxonomy = 'agency' 
-                   AND $wpdb->terms.slug IN ( 'hq', '%s' ) 
-                   GROUP BY $wpdb->posts.ID
-                   ORDER BY post_title LIMIT 0,30";
+                   AND $wpdb->terms.slug IN ( 'hq', '%s' ) ";
 
-  $parentname = $wpdb->get_results( $wpdb->prepare($parent_query, array($filter_text, $current_page, $context)));
+  if($post_type == 'regional_page' && Region_Context::current_user_can_have_context()) {
+    $term_id = Region_Context::get_region_context('term_id');
+    $parent_query .= "AND $wpdb->posts.ID IN 
+                        (SELECT object_id FROM  $wpdb->term_relationships 
+                         LEFT JOIN $wpdb->term_taxonomy ON ( $wpdb->term_relationships.term_taxonomy_id = $wpdb->term_taxonomy.term_taxonomy_id )
+                         WHERE $wpdb->term_taxonomy.term_id = $term_id
+                        ) 
+                      ";
+  }
+
+  $parent_query .= "GROUP BY $wpdb->posts.ID
+                    ORDER BY post_title LIMIT 0,30";
+
+  $parentname = $wpdb->get_results( $wpdb->prepare($parent_query, array($filter_text, $current_page, $post_type, $context)));
   if($parentname) {
     foreach ($parentname as $parent) {
       $parent_title = get_the_title($parent->post_parent);
@@ -104,7 +115,7 @@ add_action('admin_menu', 'pageparent_add_theme_box');
 function pageparent_add_theme_box() {
   if ( ! is_admin() )
     return;
-  add_meta_box('pageparent-metabox', __('Parent Page'), 'pageparent_box', 'page', 'side', 'core');
+  add_meta_box('pageparent-metabox', __('Parent Page'), 'pageparent_box', ['page', 'regional_page'], 'side', 'core');
 }
 
 function pageparent_box($post) {
@@ -115,27 +126,30 @@ function pageparent_box($post) {
   $load_image_url =  get_template_directory_uri() . '/admin/images/pageparent.gif';
   $parent_page = wp_get_post_parent_id($post->ID);
 
-  //populate template list
-  $current_template = get_post_meta($post->ID,'_wp_page_template',true);
+  if (get_post_type($post->ID) == 'page') {
+    //populate template list
+    $current_template = get_post_meta($post->ID, '_wp_page_template', true);
 
-  $disabled = '';
-  if (in_array($current_template, Agency_Editor::$restricted_templates) && !current_user_can('administrator')) {
-    $disabled = 'disabled="disabled"';
-  }
-
-  $themeselect = '<select id="page_template" name="page_template" ' . $disabled . '>';
-  $templates = get_page_templates();
-  foreach ( $templates as $template_name => $template_filename ) {
-    if (!in_array($template_filename, Agency_Editor::$restricted_templates) || $current_template == $template_filename || current_user_can('administrator')) {
-      $select = $current_template == $template_filename ? 'selected="selected"' : "";
-      $themeselect .= '<option value="' . $template_filename . '" ' . $select . '>' . $template_name . '</option>';
+    $disabled = '';
+    if (in_array($current_template, Agency_Editor::$restricted_templates) && !current_user_can('administrator')) {
+      $disabled = 'disabled="disabled"';
     }
-  }
-  $themeselect.= '</select>';
 
+    $themeselect = '<select id="page_template" name="page_template" ' . $disabled . '>';
+    $templates = get_page_templates();
+    foreach ($templates as $template_name => $template_filename) {
+      if (!in_array($template_filename, Agency_Editor::$restricted_templates) || $current_template == $template_filename || current_user_can('administrator')) {
+        $select = $current_template == $template_filename ? 'selected="selected"' : "";
+        $themeselect .= '<option value="' . $template_filename . '" ' . $select . '>' . $template_name . '</option>';
+      }
+    }
+    $themeselect .= '</select>';
+    ?>
+    <p><strong>Current Template:</strong></p>
+    <?php
+    echo $themeselect;
+  }
   ?>
-  <p><strong>Current Template:</strong></p>
-  <?php echo $themeselect;?>
   <p><strong>Current Parent:</strong></p>
 
     <div>
