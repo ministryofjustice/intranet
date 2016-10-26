@@ -16,6 +16,8 @@ class Agency extends Taxonomy {
         'webchat',
         'event',
         'document',
+        'regional_news',
+        'regional_page',
     );
 
     protected $args = array(
@@ -377,3 +379,5 @@ class Agency extends Taxonomy {
         }
     }
 }
+
+
