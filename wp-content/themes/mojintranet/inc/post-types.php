@@ -6,7 +6,7 @@
 // CPT DEFINITIONS
 // ---------------
 $post_types_folder = 'post-types';
-$post_types_array = array('webchat','event', 'news');
+$post_types_array = array('webchat','event', 'news', 'regional-page', 'regional-news');
 foreach($post_types_array as $post_type) {
   include_once($post_types_folder . '/' . $post_type . '.php');
 }
@@ -22,7 +22,7 @@ add_action('init','add_page_excerpts');
 
 // Adds markdown support (wpcom-markdown) to Pods CPTs
 function add_markdown_to_cpts() {
-  $post_types = array('event','news','webchat');
+  $post_types = array('event','news','webchat', 'regional-page', 'regional-news');
   foreach ($post_types as $post_type) {
     add_post_type_support( $post_type, 'wpcom-markdown' );
   }
