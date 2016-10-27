@@ -39,7 +39,7 @@
     },
 
     displayResults: function(data) {
-      if(data.visible) {
+      if (data.visible) {
         this.$top.addClass('visible');
       }
 
