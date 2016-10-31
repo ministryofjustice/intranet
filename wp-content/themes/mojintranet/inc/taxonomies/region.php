@@ -44,22 +44,24 @@ class Region extends Taxonomy {
     public function __construct() {
         parent::__construct();
 
-        add_action('admin_menu', array($this, 'add_admin_menu_item'));
+        if(current_user_can('create_users')) {
+            add_action('admin_menu', array($this, 'add_admin_menu_item'));
 
-        add_action('show_user_profile', array($this, 'edit_user_profile'), 9);
-        add_action('edit_user_profile', array($this, 'edit_user_profile'), 9);
-        add_action('user_new_form', array($this, 'edit_user_profile'), 9);
+            add_action('show_user_profile', array($this, 'edit_user_profile'), 9);
+            add_action('edit_user_profile', array($this, 'edit_user_profile'), 9);
+            add_action('user_new_form', array($this, 'edit_user_profile'), 9);
 
-        // Update the agency terms when the edit user page is updated
-        add_action('personal_options_update', array($this, 'edit_user_profile_save'));
-        add_action('edit_user_profile_update', array($this, 'edit_user_profile_save'));
-        add_action('user_register', array($this, 'edit_user_profile_save'));
-
-        if (Region_Context::current_user_can_have_context()) {
-
+            // Update the agency terms when the edit user page is updated
+            add_action('personal_options_update', array($this, 'edit_user_profile_save'));
+            add_action('edit_user_profile_update', array($this, 'edit_user_profile_save'));
+            add_action('user_register', array($this, 'edit_user_profile_save'));
+        }
+        else {
             // Remove Region Meta Box
             add_action('admin_menu', array($this, 'remove_region_meta_box'));
+        }
 
+        if (Region_Context::current_user_can_have_context()) {
             // Post filtering
             add_filter('parse_query', array($this, 'filter_posts_by_region'));
 
@@ -70,6 +72,7 @@ class Region extends Taxonomy {
             add_action('map_meta_cap', array($this, 'restrict_edit_post_to_current_region'), 10, 4);
 
         }
+
 
     }
 
