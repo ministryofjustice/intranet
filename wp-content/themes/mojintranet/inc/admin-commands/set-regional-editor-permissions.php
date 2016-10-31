@@ -35,12 +35,14 @@ class Set_Regional_Editor_Permissions extends Admin_Command {
         }
 
         $add_capabilities = [
+            'read_regional_page',
             'edit_regional_page',
             'edit_others_regional_pages',
             'edit_published_regional_pages',
             'publish_regional_pages',
             'delete_regional_page',
             'delete_others_regional_pages',
+            'read_regional_news',
             'edit_regional_news',
             'edit_others_regional_news',
             'edit_published_regional_news',

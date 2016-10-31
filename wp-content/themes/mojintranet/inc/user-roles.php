@@ -103,6 +103,7 @@ class UserRoles {
         $editor->capabilities["edit_others_pages"] = false;
         $editor->capabilities["edit_published_pages"] = false;
 
+        $editor->capabilities["read_regional_page"] = true;
         $editor->capabilities["edit_regional_page"] = true;
         $editor->capabilities["edit_others_regional_pages"] = true;
         $editor->capabilities["edit_published_regional_pages"] = true;
@@ -110,6 +111,7 @@ class UserRoles {
         $editor->capabilities["delete_regional_page"] = true;
         $editor->capabilities["delete_others_regional_pages"] = true;
 
+        $editor->capabilities["read_regional_news"] = true;
         $editor->capabilities["edit_regional_news"] = true;
         $editor->capabilities["edit_others_regional_news"] = true;
         $editor->capabilities["edit_published_regional_news"] = true;
