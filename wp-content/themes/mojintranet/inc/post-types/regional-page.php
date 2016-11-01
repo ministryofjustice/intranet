@@ -21,7 +21,7 @@ function define_regional_page_post_type() {
       'supports'      => array('title','editor','thumbnail','excerpt','author'),
       'has_archive'   => false,
       'rewrite'       => array(
-        'slug'       => 'pages',
+        'slug'       => 'regional-pages',
         'with_front' => false
       ),
       'capability_type' => array('regional_page', 'regional_pages')
