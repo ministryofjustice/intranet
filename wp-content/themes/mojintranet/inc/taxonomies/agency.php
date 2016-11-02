@@ -4,6 +4,7 @@ namespace MOJ_Intranet\Taxonomies;
 
 use Agency_Context;
 use Agency_Editor;
+use Region_Context;
 
 class Agency extends Taxonomy {
     protected $name = 'agency';
@@ -81,18 +82,20 @@ class Agency extends Taxonomy {
         if (Agency_Context::current_user_can_have_context()) {
             // Post filtering
             add_filter('parse_query', array($this, 'filter_posts_by_agency'));
-            add_filter('restrict_manage_posts', array($this, 'add_agency_filter'));
 
             // Auto-tag agency
             add_action('save_post', array($this, 'set_agency_terms_on_save_post'));
 
             // Capabilities
             add_action('map_meta_cap', array($this, 'restrict_edit_post_to_current_agency'), 10, 4);
-
-            // Quick actions
-            add_action('page_row_actions', array($this, 'add_opt_in_out_quick_actions'), 10, 2);
-            add_action('post_row_actions', array($this, 'add_opt_in_out_quick_actions'), 10, 2);
-            add_action('load-post.php', array($this, 'quick_action_opt_in_out'));
+            
+            if (current_user_can('opt_in_content')) {
+                add_filter('restrict_manage_posts', array($this, 'add_agency_filter'));
+                // Quick actions
+                add_action('page_row_actions', array($this, 'add_opt_in_out_quick_actions'), 10, 2);
+                add_action('post_row_actions', array($this, 'add_opt_in_out_quick_actions'), 10, 2);
+                add_action('load-post.php', array($this, 'quick_action_opt_in_out'));
+            }
         }
     }
 
