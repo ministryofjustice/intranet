@@ -1,6 +1,10 @@
 $icon-padding: 12px;
 $grid-size: 50px;
 
+.clear {
+  clear: both;
+}
+
 .clearfix {
   &:after {
     content: "";
