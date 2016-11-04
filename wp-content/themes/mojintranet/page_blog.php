@@ -7,9 +7,9 @@
 class Page_blog extends MVC_controller {
   private $post;
 
-  function __construct() {
+  function __construct($param_string, $post_id) {
     $this->post = get_post();
-    parent::__construct();
+    parent::__construct($param_string, $post_id);
   }
 
   function main() {

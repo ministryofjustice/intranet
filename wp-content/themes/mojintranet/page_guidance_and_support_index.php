@@ -2,11 +2,6 @@
 /* Template name: Guidance & Support Index */
 
 class Page_guidance_and_support_index extends MVC_controller {
-  function __construct() {
-    parent::__construct();
-    $this->model('menu');
-  }
-
   function main(){
     while(have_posts()){
       the_post();

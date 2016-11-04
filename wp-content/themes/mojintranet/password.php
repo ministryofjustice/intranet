@@ -3,8 +3,8 @@
  * Password change template
  */
 class Password extends MVC_controller {
-  function __construct($param_string) {
-    parent::__construct($param_string);
+  function __construct($param_string, $post_id) {
+    parent::__construct($param_string, $post_id);
 
     $this->model('user');
     $this->model('password_tpl');

@@ -12,6 +12,8 @@ class Menu_model extends MVC_model {
    * @return {Array} array of menu items
    */
   public function get_menu_items($params = []) {
+    global $MVC;
+
     wp_reset_query();
     $this->top_level_id = false;
     $location = get_array_value($params, 'location', 'hq-guidance-most-visited');
@@ -26,7 +28,7 @@ class Menu_model extends MVC_model {
     }
 
     if ($post_id === true) {
-      $post_id = get_the_ID();
+      $post_id = $MVC->post_id;
     }
 
     if ($post_id) {
