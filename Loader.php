@@ -68,7 +68,6 @@ abstract class MVC_loader {
     $this->model('news');
     $this->model('events');
     $this->model('likes');
-    $this->model('months');
     $this->model('post');
     $this->model('need_to_know');
     $this->model('comments');
