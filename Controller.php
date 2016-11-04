@@ -1,7 +1,7 @@
 <?php if (!defined('ABSPATH')) die();
 
 abstract class MVC_controller extends MVC_loader {
-  function __construct($param_string = ''){
+  function __construct($param_string = '', $post_id) {
     global $MVC;
 
     parent::__construct();
@@ -13,6 +13,7 @@ abstract class MVC_controller extends MVC_loader {
       $this->_load_default_models();
     }
 
+    $this->post_id = $post_id;
     $this->_get_segments($param_string);
     $this->wp_head = $this->_get_wp_header();
     $this->wp_footer = $this->_get_wp_footer();

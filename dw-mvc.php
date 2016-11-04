@@ -41,6 +41,7 @@ class DW_MVC {
     $controller = get_query_var('controller');
     $template = get_page_template();
     $path = get_query_var('param_string');
+    $has_post = (boolean) !$controller;
 
     //determine controller path
     if ($template) {
@@ -53,6 +54,7 @@ class DW_MVC {
       if (is_404()) {
         $controller = 'page_error';
         $method = 'error404';
+        $has_post = false;
       }
       $controller_path = get_template_directory() . '/' . $controller . '.php';
     }
@@ -64,6 +66,7 @@ class DW_MVC {
     else {
       $controller = 'page_error';
       $method = 'error500';
+      $has_post = false;
       $original_controller_path = $controller_path;
       $controller_path = get_template_directory() . '/'. $controller . '.php';
       include($controller_path);
@@ -76,7 +79,13 @@ class DW_MVC {
       $controller_name = str_replace('-', '_', $controller_name);
 
       if (class_exists($controller_name)) {
-        new $controller_name($path);
+        $post_id = 0;
+
+        if ($has_post) {
+          $post_id = get_the_ID();
+        }
+
+        new $controller_name($path, $post_id);
 
         if (isset($method)) {
           $MVC->method = $method;
