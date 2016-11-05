@@ -35,6 +35,7 @@
       App.ins.featuredNewsWidget = new App.FeaturedNewsWidget(data.featured_news);
       App.ins.newsListWidget = new App.NewsListWidget(data.news_list);
       App.ins.needToKnowWidget = new App.NeedToKnowWidget(data.need_to_know);
+      App.ins.emergencyMessage = new App.EmergencyMessage(data.emergency_message);
     }
   };
 }(jQuery));
