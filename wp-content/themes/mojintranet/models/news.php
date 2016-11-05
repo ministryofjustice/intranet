@@ -37,7 +37,8 @@ class News_model extends MVC_model {
       // Filters
       'post_type' => $options['post_type'],
       $post_in_out => $options['post__in'],
-      'tax_query' => $options['tax_query']
+      'tax_query' => $options['tax_query'],
+      'orderby' => 'post__in'
     );
 
     $data['raw'] = new WP_Query($args);
