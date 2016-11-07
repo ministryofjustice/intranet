@@ -20,7 +20,7 @@ function add_page_excerpts() {
 }
 add_action('init','add_page_excerpts');
 
-// Adds markdown support (wpcom-markdown) to Pods CPTs
+// Adds markdown support (wpcom-markdown)
 function add_markdown_to_cpts() {
   $post_types = array('event','news','webchat', 'regional-page', 'regional-news');
   foreach ($post_types as $post_type) {

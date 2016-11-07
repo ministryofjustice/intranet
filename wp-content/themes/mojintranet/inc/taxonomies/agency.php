@@ -233,6 +233,7 @@ class Agency extends Taxonomy {
     }
 
     /**
+     * On save of post set the agency of the content to the current agency context
      * @param int $post_id
      */
     public function set_agency_terms_on_save_post($post_id) {

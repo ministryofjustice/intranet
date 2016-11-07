@@ -190,6 +190,7 @@ class Region extends Taxonomy {
     }
 
     /**
+     * On save of post set the region of the content to the current region context
      * @param int $post_id
      */
     public function set_region_terms_on_save_post($post_id) {
