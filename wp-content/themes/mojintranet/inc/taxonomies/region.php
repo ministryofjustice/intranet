@@ -155,7 +155,7 @@ class Region extends Taxonomy {
     }
 
     /**
-     * Remove agency meta box from post edit pages.
+     * Remove region meta box from post edit pages.
      */
     public function remove_region_meta_box() {
         foreach ($this->object_types as $object) {
