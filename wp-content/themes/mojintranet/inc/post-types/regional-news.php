@@ -28,5 +28,5 @@ function define_regional_news_post_type() {
     )
   );
 }
-add_action( 'init', 'define_regional_news_post_type');
+add_action('init', 'define_regional_news_post_type');
 
