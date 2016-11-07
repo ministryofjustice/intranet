@@ -181,7 +181,7 @@ class Region extends Taxonomy {
             return $query;
         }
 
-        // Define the agency taxonomy filter
+        // Define the region taxonomy filter
         $region = array(Region_Context::get_region_context());
 
         $query->query_vars['region'] = $region;

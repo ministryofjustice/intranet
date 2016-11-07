@@ -382,5 +382,3 @@ class Agency extends Taxonomy {
         }
     }
 }
-
-
