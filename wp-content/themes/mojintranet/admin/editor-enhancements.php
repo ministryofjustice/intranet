@@ -36,7 +36,7 @@ function pageparent_ajax_check_parent() {
   $filter_data = $_POST['data'];
   $filter_text = sanitize_text_field($filter_data["filtertext"]);
   $current_page = intval($filter_data["pageID"]);
-  $post_type = get_post_type(intval($filter_data["pageID"]));
+  $post_type = get_post_type($current_page);
 
   $parent_query = "SELECT ID,post_title,post_parent,post_type,post_status FROM $wpdb->posts 
                    LEFT JOIN $wpdb->term_relationships ON ( $wpdb->posts.ID = $wpdb->term_relationships.object_id )
