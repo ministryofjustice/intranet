@@ -104,6 +104,7 @@ class UserRoles {
         $editor->capabilities["edit_published_pages"] = false;
 
         $editor->capabilities["read_regional_page"] = true;
+        $editor->capabilities["edit_regional_pages"] = true;
         $editor->capabilities["edit_regional_page"] = true;
         $editor->capabilities["edit_others_regional_pages"] = true;
         $editor->capabilities["edit_published_regional_pages"] = true;
