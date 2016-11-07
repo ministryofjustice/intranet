@@ -28,7 +28,8 @@ class Set_Regional_Editor_Permissions extends Admin_Command {
             'edit_published_pages',
             'edit_news',
             'edit_others_news',
-            'edit_published_news'
+            'edit_published_news',
+            'assign_agencies_to_posts'
         ];
         foreach ($remove_capabilities as $cap) {
             $wpRole->remove_cap($cap);
@@ -36,6 +37,7 @@ class Set_Regional_Editor_Permissions extends Admin_Command {
 
         $add_capabilities = [
             'read_regional_page',
+            'edit_regional_pages',
             'edit_regional_page',
             'edit_others_regional_pages',
             'edit_published_regional_pages',

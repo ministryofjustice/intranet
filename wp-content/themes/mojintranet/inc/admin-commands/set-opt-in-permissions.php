@@ -27,7 +27,6 @@ class Set_Opt_In_Permissions extends Admin_Command {
         ];
 
         foreach ($roles as $role) {
-
             $wpRole = get_role($role);
             $wpRole->add_cap('opt_in_content');
         }

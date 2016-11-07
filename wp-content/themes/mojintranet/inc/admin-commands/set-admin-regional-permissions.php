@@ -24,6 +24,7 @@ class Set_Admin_Regional_Permissions extends Admin_Command {
 
         $add_capabilities = [
             'read_regional_page',
+            'edit_regional_pages',
             'edit_regional_page',
             'edit_others_regional_pages',
             'edit_published_regional_pages',
