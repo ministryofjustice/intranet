@@ -1,6 +1,19 @@
 <?php if (!defined('ABSPATH')) die();
 
 abstract class MVC_controller extends MVC_loader {
+
+  /**
+   *  @param {String} $param_string The url segments - see below (only used for true controllers)
+   *  @param {Integer} $post_id Post ID (only used for post-based controllers)
+   *
+   *  Examples of url segments:
+   *
+   *  /controller_name/segment1/segment2/
+   *    segments: segment1/segment2/
+   *
+   *  /service/hq//news/
+   *    segments: hq//news/
+   */
   function __construct($param_string = '', $post_id) {
     global $MVC;
 
