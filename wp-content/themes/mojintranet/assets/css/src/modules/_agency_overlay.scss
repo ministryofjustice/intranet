@@ -91,9 +91,13 @@ $grid-size: 40px;
       background-position: (-$grid-size * 3);
     }
 
+    &[data-agency="pb"] .icon {
+      background-position: (-$grid-size * 4);
+    }
+
     &[data-agency="cica"],
-    &[data-agency="pb"],
     &[data-agency="judicial-office"],
+    &[data-agency="pb"],
     &[data-agency="ppo"] {
       display: none;
     }
