@@ -14,6 +14,8 @@
   App.Events.prototype = {
     init: function() {
       this.settings = {
+        dateDropdownLength: 12,
+        months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
       };
 
       this.applicationUrl = $('head').data('application-url');
@@ -29,13 +31,14 @@
       this.weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
       this.currentPage = null;
       this.resultsLoaded = false;
-      this.dateFilterPopulated = false;
       this.updateGATimeoutHandle = null;
       this.lastSearchUrl = '';
       this.initialDate = '';
 
       this.cacheEls();
       this.bindEvents();
+
+      this.populateDateFilter();
       this.filtersInit();
       this.urlUpdate(true);
 
@@ -202,8 +205,6 @@
       var $eventItem;
       var newUrl;
 
-      this.populateDateFilter(data.months);
-
       this.resultsLoaded = true;
       this.resultsAbort();
       this.resultsClear();
@@ -320,40 +321,33 @@
       this.currentPage = parseInt(segments[0] || 1, 10);
     },
 
-    populateDateFilter: function(months) {
-      var _this = this;
-      var segments = this.getUrlSegments();
-      var $item;
-      var content;
-      var dateParts;
+    populateDateFilter: function() {
+      var today = new Date();
+      var startYear = today.getFullYear();
+      var startMonth = today.getMonth();
+      var startDay = 1;
+      var paddedMonth;
+      var thisDate;
+      var thisYear;
+      var thisMonth;
+      var thisDay;
+      var $option;
+      var a;
 
-      if(this.dateFilterPopulated) {
-        return;
+      for(a = 0; a < this.settings.dateDropdownLength; a++) {
+        thisDate = new Date(startYear, startMonth + a, startDay);
+        thisDay = thisDate.getDate();
+        thisMonth = thisDate.getMonth();
+        thisYear = thisDate.getFullYear();
+
+        paddedMonth = "" + (thisMonth + 1);
+        paddedMonth = paddedMonth.length < 2 ? "0" + paddedMonth : paddedMonth;
+
+        $option = $('<option>');
+        $option.text(this.settings.months[thisMonth] + ' ' + thisYear);
+        $option.val(thisYear + '-' + paddedMonth);
+        this.$dateInput.append($option);
       }
-
-      $.each(months, function(dateStr, count) {
-        $item = $('<option></option>');
-        count = parseInt(count, 10);
-        dateParts = dateStr.split('-');
-
-        content = _this.months[parseInt(dateParts[1], 10) - 1] + ' ' + dateParts[0];
-        content += '&nbsp;&nbsp;';
-        content += '(' + count + ' ';
-        content += count === 1 ? 'event' : 'events';
-        content += ')';
-
-        $item
-          .html(content)
-          .attr('value', dateParts[0] + '-' + dateParts[1]);
-
-        _this.$dateInput.append($item);
-      });
-
-      if(this.initialDate) {
-        this.$dateInput.val(this.initialDate === '-' ? '' : this.initialDate);
-      }
-
-      this.dateFilterPopulated = true;
     },
 
     getDate: function() {

@@ -107,8 +107,6 @@ class Widgets_API extends API {
     $options['page'] = 1;
     $options['per_page'] = 2;
     $data['events'] = $this->MVC->model->events->get_list($options);
-    $months = $this->MVC->model->months->get_list($this->add_taxonomies());
-    $data['events']['months'] = $months['results'];
 
     //posts
     $options = $this->params;
