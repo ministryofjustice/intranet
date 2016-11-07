@@ -34,20 +34,6 @@ class Agency_model extends MVC_model {
         'contact_email_address' => 'intranet-cica@digital.justice.gov.uk',
         'links' => []
       ),
-      'pb' => array(
-        'label' => 'Parole Board',
-        'abbreviation' => 'PB',
-        'is_integrated' => true,
-        'contact_email_address' => 'intranet-pb@digital.justice.gov.uk',
-        'links' => []
-      ),
-      'ppo' => array(
-        'label' => 'Prisons and Probations Ombudsman',
-        'abbreviation' => 'PPO',
-        'is_integrated' => true,
-        'contact_email_address' => 'intranet-ppo@digital.justice.gov.uk',
-        'links' => []
-      ),
       'hmcts' => array(
         'label' => 'HM Courts &amp; Tribunals Service',
         'abbreviation' => 'HMCTS',
@@ -169,6 +155,20 @@ class Agency_model extends MVC_model {
             'is_external' => true
           ]
         ]
+      ),
+      'pb' => array(
+        'label' => 'The Parole Board',
+        'abbreviation' => 'PB',
+        'is_integrated' => true,
+        'contact_email_address' => 'intranet-pb@digital.justice.gov.uk',
+        'links' => []
+      ),
+      'ppo' => array(
+        'label' => 'Prisons and Probations Ombudsman',
+        'abbreviation' => 'PPO',
+        'is_integrated' => true,
+        'contact_email_address' => 'intranet-ppo@digital.justice.gov.uk',
+        'links' => []
       )
     );
   }
