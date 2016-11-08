@@ -185,10 +185,11 @@ class Agency extends Taxonomy {
         global $typenow, $pagenow;
 
         $is_correct_post_type = in_array($typenow, $this->object_types);
+        $is_regional_post_type = in_array($typenow, array('regional_news','regional_page')); //change to custom support?
         $is_correct_page = ($pagenow == 'edit.php');
         $is_hq_user = (Agency_Context::get_agency_context() == 'hq');
 
-        if (!$is_correct_post_type || !$is_correct_page || $is_hq_user) {
+        if (!$is_correct_post_type || !$is_correct_page || $is_hq_user || $is_regional_post_type) {
             return;
         }
 
