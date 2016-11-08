@@ -6,10 +6,6 @@
  */
 
 class Page_error extends MVC_controller {
-  function __construct() {
-    parent::__construct();
-  }
-
   function main() {
     $this->view('layouts/default', $this->get_data('main'));
   }

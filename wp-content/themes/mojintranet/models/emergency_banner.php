@@ -5,20 +5,18 @@ class Emergency_banner_model extends MVC_model {
     parent::__construct();
   }
 
-  public function get_emergency_banner($options = array()) {
-    $agency = 'hq';
+  public function get($options = []) {
+    $data = [];
+    $agency = get_array_value($options, 'agency', 'hq');
+    $message = get_option($agency . '_homepage_control_emergency_message');
+    $type = get_option($agency . '_emergency_type');
 
-    if (!empty($options['agency'])) {
-      $agency = $options['agency'];
-    }
-
-    $data['visible'] = (int) get_option($agency . "_emergency_toggle");
-    $data['title'] = get_option($agency . "_emergency_title");
-    $data['date'] = get_option($agency . "_emergency_date");
-    $message = get_option($agency . "_homepage_control_emergency_message");
+    $data['visible'] = (int) get_option($agency . '_emergency_toggle');
+    $data['title'] = get_option($agency . '_emergency_title');
+    $data['date'] = get_option($agency . '_emergency_date');
     $data['message'] = apply_filters('the_content', $message, true);
-    $type = get_option($agency . "_emergency_type");
     $data['type'] = !$type ? 'emergency' : $type;
+
     return $data;
   }
 }

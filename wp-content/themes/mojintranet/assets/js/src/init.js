@@ -14,7 +14,6 @@ jQuery(function() {
   App.ins.mobileHeader = new App.MobileHeader();
   App.ins.stickyNews = new App.StickyNews();
   App.ins.azIndex = new App.AZIndex();
-  App.ins.emergencyMessage = new App.EmergencyMessage();
   App.ins.tableOfContents = new App.TableOfContents();
   //App.ins.childrenPages = new App.ChildrenPages();
   App.ins.tabbedContent = new App.TabbedContent();
