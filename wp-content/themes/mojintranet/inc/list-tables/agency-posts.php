@@ -4,6 +4,7 @@ namespace MOJ_Intranet\List_Tables;
 
 use Agency_Editor;
 use Agency_Context;
+use Region_Context;
 
 /**
  * Adjustments to list tables for all post types which have agency taxonomy.
@@ -34,11 +35,19 @@ class Agency_Posts extends List_Table {
      *
      * @var array
      */
-    public $columns = array(
-        'opted-in' => 'Opt-In Status',
-        'agency' => 'Agency',
-    );
+    public $columns = [];
 
+    public function __construct() {
+        parent::__construct();
+
+        if (current_user_can('opt_in_content')) {
+            $this->columns['opted-in'] = 'Opt-In Status';
+        }
+        $this->columns['agency'] = 'Agency';
+
+
+
+    }
     /**
      * Reorder columns.
      *

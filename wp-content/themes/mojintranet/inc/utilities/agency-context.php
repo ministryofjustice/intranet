@@ -14,7 +14,7 @@ class Agency_Context {
      * @return bool
      */
     public static function current_user_can_have_context() {
-        return current_user_can('edit_pages');
+        return current_user_can('edit_pages') || current_user_can('edit_regional_pages');
     }
 
     /**
