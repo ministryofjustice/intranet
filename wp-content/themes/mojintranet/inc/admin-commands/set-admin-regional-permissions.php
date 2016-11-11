@@ -23,6 +23,8 @@ class Set_Admin_Regional_Permissions extends Admin_Command {
         $wpRole = get_role('administrator');
 
         $add_capabilities = [
+            'manage_regions',
+            'assign_regions_to_posts',
             'read_regional_page',
             'edit_regional_pages',
             'edit_regional_page',

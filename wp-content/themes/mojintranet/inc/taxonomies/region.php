@@ -39,6 +39,12 @@ class Region extends Taxonomy {
         'show_in_nav_menus' => false,
         'show_tagcloud' => false,
         'rewrite' => false,
+        'capabilities' => array(
+            'manage_terms' => 'manage_regions',
+            'edit_terms' => 'manage_regions',
+            'delete_terms' => 'manage_regions',
+            'assign_terms' => 'assign_regions_to_posts',
+        ),
 
     );
 
