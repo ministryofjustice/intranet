@@ -14,7 +14,7 @@ class News_model extends MVC_model {
   public function get_list($options = array()) {
     $options['search_order'] = 'DESC';
     $options['search_orderby'] = 'date';
-    $options['post_type'] = 'news';
+    $options['post_type'] = $this->_has_regional_taxonomy($options) ? 'regional_news' : 'news';
 
     $data = $this->model->search->get_raw($options);
     $data = $this->format_data($data);
@@ -128,5 +128,17 @@ class News_model extends MVC_model {
       'thumbnail_alt_text' => (string) $alt_text,
       'timestamp' => (string) get_the_time('Y-m-d H:i:s', $id)
     );
+  }
+
+  /** Check if the supplied options array uses the 'region' taxonomy
+   * @param {Array} $options Options array
+   * @return {Boolean} true if it uses regional taxonomy, otherwise false
+   */
+  private function _has_regional_taxonomy($options) {
+    foreach ($options['tax_query'] as $row) {
+      if (is_array($row) && $row['taxonomy'] == 'region') return true;
+    }
+
+    return false;
   }
 }
