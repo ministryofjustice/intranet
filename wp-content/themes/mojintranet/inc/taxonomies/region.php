@@ -11,6 +11,7 @@ class Region extends Taxonomy {
         'regional_page',
         'regional_news',
         'document',
+        'event'
     );
 
     protected $args = array(
