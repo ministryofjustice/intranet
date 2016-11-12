@@ -168,13 +168,13 @@ function get_array_value($array, $element, $default) {
   return isset($array) && isset($array[$element]) && $array[$element] ? $array[$element] : $default;
 }
 
-/** Check if the supplied options array uses the specified taxonomy
- * @param {Array} $options Options array
+/** Check if the supplied tax_query array uses the specified taxonomy
+ * @param {Array} $tax_query Tax query array
  * @param {Array} $taxonomy Taxonomy name
  * @return {Boolean} true if it uses regional taxonomy, otherwise false
  */
-function has_taxonomy($options, $taxonomy) {
-  foreach ($options['tax_query'] as $row) {
+function has_taxonomy($tax_query, $taxonomy) {
+  foreach ($tax_query as $row) {
     if (is_array($row) && $row['taxonomy'] == $taxonomy) return true;
   }
 

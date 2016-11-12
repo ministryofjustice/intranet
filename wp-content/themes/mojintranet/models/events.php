@@ -15,7 +15,7 @@ class Events_model extends MVC_model {
     $options['post_type'] = 'event';
     $options['date'] = get_array_value($options, 'date', 'today');
 
-    if (!has_taxonomy($options, 'region')) {
+    if (!has_taxonomy($options['tax_query'], 'region')) {
       $term_slugs = get_term_slugs('region');
 
       $options['tax_query'][] = [
