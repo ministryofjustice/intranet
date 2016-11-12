@@ -15,6 +15,17 @@ class Events_model extends MVC_model {
     $options['post_type'] = 'event';
     $options['date'] = get_array_value($options, 'date', 'today');
 
+    if (!has_taxonomy($options, 'region')) {
+      $term_slugs = get_term_slugs('region');
+
+      $options['tax_query'][] = [
+        'taxonomy' => 'region',
+        'field' => 'slug',
+        'terms' => $term_slugs,
+        'operator' => 'NOT IN'
+      ];
+    }
+
     $data = $this->model->search->get_raw($options);
     $data = $this->format_data($data);
 

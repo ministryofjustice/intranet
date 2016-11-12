@@ -14,7 +14,7 @@ class News_model extends MVC_model {
   public function get_list($options = array()) {
     $options['search_order'] = 'DESC';
     $options['search_orderby'] = 'date';
-    $options['post_type'] = $this->_has_regional_taxonomy($options) ? 'regional_news' : 'news';
+    $options['post_type'] = has_taxonomy($options, 'region') ? 'regional_news' : 'news';
 
     $data = $this->model->search->get_raw($options);
     $data = $this->format_data($data);
