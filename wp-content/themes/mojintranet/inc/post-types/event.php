@@ -25,7 +25,8 @@ function define_event_post_type() {
         'slug'       => 'events',
         'with_front' => false
       ),
-      'hierarchical'  => false
+      'hierarchical'  => false,
+      'capability_type' => array('event', 'events')
     )
   );
 
