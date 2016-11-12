@@ -129,16 +129,4 @@ class News_model extends MVC_model {
       'timestamp' => (string) get_the_time('Y-m-d H:i:s', $id)
     );
   }
-
-  /** Check if the supplied options array uses the 'region' taxonomy
-   * @param {Array} $options Options array
-   * @return {Boolean} true if it uses regional taxonomy, otherwise false
-   */
-  private function _has_regional_taxonomy($options) {
-    foreach ($options['tax_query'] as $row) {
-      if (is_array($row) && $row['taxonomy'] == 'region') return true;
-    }
-
-    return false;
-  }
 }
