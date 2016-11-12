@@ -183,7 +183,7 @@ function has_taxonomy($tax_query, $taxonomy) {
 
 /** Gets a list of term slugs within a taxonomy
  * @param {String} $taxonomy Taxonomy name
- * @returns {Array} List of all term slugs
+ * @return {Array} List of all term slugs
  */
 function get_term_slugs($taxonomy) {
   $term_slugs = [];
