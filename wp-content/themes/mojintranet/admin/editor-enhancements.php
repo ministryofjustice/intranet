@@ -252,10 +252,11 @@ add_action('admin_menu' , 'remove_post_custom_fields');
 function dw_save_regional_template($post_id, $post, $update) {
   if (get_post_type($post_id) != 'regional_page') return;
 
+  $current_template = get_post_meta($post_id, 'dw_regional_template', true);
   if (isset($_POST['page_template'])) {
     update_post_meta($post_id, 'dw_regional_template', $_POST['page_template']);
   }
-  else if (empty(get_post_meta($post_id, 'dw_regional_template', true))) {
+  else if (empty($current_template)) {
     update_post_meta($post_id, 'dw_regional_template', 'generic');
   }
 
