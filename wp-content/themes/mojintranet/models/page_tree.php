@@ -26,7 +26,23 @@ class Page_tree_model extends MVC_model {
 
     $data = $this->_format_row(get_post($options['page_id']));
 
-    $data['children'] = $this->_get_children_recursive($options);
+    if (Taggr::get_tag($options['page_id']) == 'regions-landing') {
+      $args = array(
+        'meta_key' => 'dw_regional_template',
+        'meta_value' => 'landing',
+        'post_type' => 'any'
+      );
+      $posts = get_posts($args);
+
+      Debug::full($posts); exit;
+
+      return get_array_value($posts, 0, []);
+    }
+    else {
+      $data['children'] = $this->_get_children_recursive($options);
+    }
+
+    Debug::full($data['children']); exit;
 
     return $data;
   }
