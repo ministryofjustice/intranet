@@ -32,17 +32,17 @@ class Page_tree_model extends MVC_model {
         'meta_value' => 'landing',
         'post_type' => 'any'
       );
-      $posts = get_posts($args);
 
-      Debug::full($posts); exit;
+      $children = get_posts($args);
+      $data['children'] = [];
 
-      return get_array_value($posts, 0, []);
+      foreach ($children as $child) {
+        $data['children'][] = $this->_format_row($child);
+      }
     }
     else {
       $data['children'] = $this->_get_children_recursive($options);
     }
-
-    Debug::full($data['children']); exit;
 
     return $data;
   }
