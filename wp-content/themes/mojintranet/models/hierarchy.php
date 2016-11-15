@@ -7,7 +7,7 @@ class Hierarchy_model extends MVC_model {
     wp_reset_query();
 
     $id = $post_id;
-    $type = get_post_type();
+    $type = get_post_type($id);
     $ancestor_ids = get_post_ancestors($id);
     $landing_page_id = null;
 
