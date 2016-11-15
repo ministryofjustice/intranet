@@ -2,6 +2,8 @@
 
 class Hierarchy_model extends MVC_model {
   /** retrieves IDs of all ancestors
+   * @param {Integer} $post_id Post ID
+   * @return {Array} a list of ancestor IDs sorted hierarchically. The last element is the post ID itself.
    */
   function get_ancestor_ids($post_id) {
     wp_reset_query();

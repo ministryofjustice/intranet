@@ -32,8 +32,13 @@ class Page_tree_model extends MVC_model {
   }
 
   /** Get a list of children
-   * @param {Array} $options Options //TODO: document the options
+   * @param {Array} $options Options (see below)
    * @return {Array} Children data
+   *
+   * Options array:
+   *  {String} agency - agency name
+   *  {String} additional_params - list of terms to be used in the following format: taxonomy1=termx|taxonomy2=termy
+   *  {String} page_id - the ID of the subject post
    */
   public function get_ancestors($options = []) {
     $options = $this->_normalise_options($options);
