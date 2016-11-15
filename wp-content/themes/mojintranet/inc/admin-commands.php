@@ -13,6 +13,7 @@ $load_commands = array(
     // filename => Class_Name
     'assign-agency-terms-to-posts' => 'Assign_Agency_Terms_To_Posts',
     'hide-page-bylines' => 'Hide_Page_Bylines',
+    'fix-templates' => 'Fix_Templates',
     'set-opt-in-permissions' => 'Set_Opt_In_Permissions',
     'set-events-permissions' => 'Set_Events_Permissions',
     'set-admin-regional-permissions' => 'Set_Admin_Regional_Permissions',
