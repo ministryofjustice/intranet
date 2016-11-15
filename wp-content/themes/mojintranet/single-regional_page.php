@@ -1,9 +1,8 @@
 <?php if (!defined('ABSPATH')) die();
 
 /**
- * The generic template with LHS navigation
+ * Controller for regional pages.
  *
- * Template name: Generic nav
  */
 
 class Single_regional_page extends MVC_controller {
