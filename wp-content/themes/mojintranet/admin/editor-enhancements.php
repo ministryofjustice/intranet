@@ -249,9 +249,8 @@ add_action('admin_menu' , 'remove_post_custom_fields');
  * @param post $post The post object.
  * @param bool $update Whether this is an existing post being updated or not.
  */
-function dw_save_regional_template( $post_id, $post, $update ) {
-
-  if ("regional_page" != get_post_type($post_id)) return;
+function dw_save_regional_template($post_id, $post, $update) {
+  if (get_post_type($post_id) != "regional_page") return;
 
   if (isset($_POST['page_template'])) {
     update_post_meta($post_id, 'dw_regional_template', $_POST['page_template']);
