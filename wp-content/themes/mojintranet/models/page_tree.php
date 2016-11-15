@@ -5,7 +5,7 @@
  * or something to indicate that it's specifically used for that purpose only.
  */
 class Page_tree_model extends MVC_model {
-  private $post_types = array('page', 'webchat');
+  private $post_types = array('page', 'regional_page', 'webchat');
 
   /** Get a list of children
    * @param {Array} $options Options //TODO: document the options
@@ -39,14 +39,16 @@ class Page_tree_model extends MVC_model {
     $options = $this->_normalise_options($options);
     $options['depth'] = 1;
 
+    $ancestor_ids = $this->model->hierarchy->get_ancestor_ids($options['page_id']);
     $ancestors = [];
 
-    do {
+    foreach ($ancestor_ids as $ancestor_id) {
+      $options['page_id'] = $ancestor_id;
+
       $ancestors[] = $this->get_children($options);
     }
-    while($options['page_id'] = $this->_get_parent_id($options['page_id']));
 
-    return array_reverse($ancestors);
+    return $ancestors;
   }
 
   public function get_guidance_index($global_options = []) {
@@ -111,20 +113,6 @@ class Page_tree_model extends MVC_model {
     }
 
     return $data;
-  }
-
-
-  private function _get_parent_id($id) {
-    $type = get_post_type($id);
-
-    if($type == 'webchat') {
-      $parent_id = Taggr::get_id('webchats-landing');
-    }
-    else {
-      $parent_id = wp_get_post_parent_id($id);
-    }
-
-    return $parent_id;
   }
 
   private function _normalise_options($options) {

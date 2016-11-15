@@ -26,6 +26,9 @@ class Hierarchy_model extends MVC_model {
     elseif ($type == 'webchat') {
       $landing_page_id = Taggr::get_id('webchats-landing');
     }
+    elseif ($type == 'regional_page') {
+      $landing_page_id = Taggr::get_id('regions-landing');
+    }
 
     if ($landing_page_id) {
       array_unshift($ancestor_ids, $landing_page_id);
