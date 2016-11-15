@@ -125,18 +125,30 @@ function pageparent_box($post) {
   global $post;
   $load_image_url =  get_template_directory_uri() . '/admin/images/pageparent.gif';
   $parent_page = wp_get_post_parent_id($post->ID);
+  $disabled = '';
 
-  if (get_post_type($post->ID) == 'page') {
+  if (get_post_type($post->ID) == 'page' || current_user_can('administrator')) {
     //populate template list
-    $current_template = get_post_meta($post->ID, '_wp_page_template', true);
+    if (get_post_type($post->ID) == 'page') {
+      $current_template = get_post_meta($post->ID, '_wp_page_template', true);
 
-    $disabled = '';
-    if (in_array($current_template, Agency_Editor::$restricted_templates) && !current_user_can('administrator')) {
-      $disabled = 'disabled="disabled"';
+      if (in_array($current_template, Agency_Editor::$restricted_templates) && !current_user_can('administrator')) {
+        $disabled = 'disabled="disabled"';
+      }
+
+      $templates = get_page_templates();
+    } else if (get_post_type($post->ID) == 'regional_page') {
+      $current_template = get_post_meta($post->ID, 'dw_regional_template', true);
+
+      $templates = [
+          'Generic' => 'generic',
+          'Landing' => 'landing',
+          'Events Listing' => 'events-listing',
+          'Updates Listing' => 'updates-listing',
+      ];
     }
 
     $themeselect = '<select id="page_template" name="page_template" ' . $disabled . '>';
-    $templates = get_page_templates();
     foreach ($templates as $template_name => $template_filename) {
       if (!in_array($template_filename, Agency_Editor::$restricted_templates) || $current_template == $template_filename || current_user_can('administrator')) {
         $select = $current_template == $template_filename ? 'selected="selected"' : "";
@@ -230,3 +242,23 @@ function remove_post_custom_fields() {
 }
 add_action('admin_menu' , 'remove_post_custom_fields');
 
+/**
+ * Save regional template meta value
+ *
+ * @param int $post_id The post ID.
+ * @param post $post The post object.
+ * @param bool $update Whether this is an existing post being updated or not.
+ */
+function dw_save_regional_template( $post_id, $post, $update ) {
+
+  if ("regional_page" != get_post_type($post_id)) return;
+
+  if (isset($_POST['page_template'])) {
+    update_post_meta($post_id, 'dw_regional_template', $_POST['page_template']);
+  }
+  else if (empty(get_post_meta($post_id, 'dw_regional_template', true))) {
+    update_post_meta($post_id, 'dw_regional_template', 'generic');
+  }
+
+}
+add_action('save_post', 'dw_save_regional_template', 10, 3);

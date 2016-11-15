@@ -1,7 +1,7 @@
 <?php if (!defined('ABSPATH')) die();
 
 /**
- * Controller for regional pages. 
+ * Controller for regional pages.
  *
  */
 
