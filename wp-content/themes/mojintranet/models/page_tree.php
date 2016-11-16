@@ -8,8 +8,16 @@ class Page_tree_model extends MVC_model {
   private $post_types = array('page', 'regional_page', 'webchat');
 
   /** Get a list of children
-   * @param {Array} $options Options //TODO: document the options
+   * @param {Array} $options Options (see below)
    * @return {Array} Children data
+   *
+   * Options array:
+   *  {String} agency - agency name
+   *  {String} additional_params - list of terms to be used in the following format: taxonomy1=termx|taxonomy2=termy
+   *  {String} tag - tag name of the subject post
+   *  {String} page_id - the ID of the subject post
+   *
+   *  Note: Either tag or page_id has to be provided. If both are provided then the tag is used.
    */
   public function get_children($options = []) {
     $options = $this->_normalise_options($options);
