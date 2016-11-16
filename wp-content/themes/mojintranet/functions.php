@@ -7,6 +7,7 @@ include     ('helpers/validation.php');                   // Server side validat
 
 include     ('inc/utilities/agency-editor.php');          // Agency Editor utility
 include     ('inc/utilities/agency-context.php');         // Agency Context utility
+include     ('inc/utilities/region-context.php');         // Region Context utility
 
 require_once('inc/authors.php');                          // Additional author information
 require_once('inc/cache.php');                            // Amend the cache headers
@@ -28,6 +29,8 @@ require_once('inc/list-tables.php');                      // Adjustments to list
 require_once('inc/admin-commands.php');                   // Admin commands
 require_once('inc/menu-locations.php');                   // Register menu locations
 require_once('inc/option-pages.php');                     // Option Pages
+require_once('inc/event-details.php');                    // Event Detail Fields
+require_once('inc/page-options.php');                     // Page Options
 require_once('inc/query-vars.php');                       // Register custom query variables
 require_once('inc/redirects.php');                        // Site redirects
 require_once('inc/searching.php');                        // Functions to enhance searching (using Relevanssi)
@@ -40,7 +43,6 @@ require_once('inc/user-roles.php');                       // User roles
 require_once('inc/utility.php');                          // Utility functions
 require_once('inc/wp-admin-bar.php');                     // Control the WP Admin Bar
 
-require_once('admin/templates/template-functions.php');   // Customises page editor based on template
 require_once('admin/editor-enhancements.php');            // Adds enhancements to post/page editor screen
 require_once('admin/errors.php');                         // Displays errors in admin
 require_once('admin/dashboard.php');                      // Dashboard functions

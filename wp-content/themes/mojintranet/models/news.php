@@ -14,7 +14,7 @@ class News_model extends MVC_model {
   public function get_list($options = array()) {
     $options['search_order'] = 'DESC';
     $options['search_orderby'] = 'date';
-    $options['post_type'] = 'news';
+    $options['post_type'] = has_taxonomy($options['tax_query'], 'region') ? 'regional_news' : 'news';
 
     $data = $this->model->search->get_raw($options);
     $data = $this->format_data($data);
@@ -37,7 +37,8 @@ class News_model extends MVC_model {
       // Filters
       'post_type' => $options['post_type'],
       $post_in_out => $options['post__in'],
-      'tax_query' => $options['tax_query']
+      'tax_query' => $options['tax_query'],
+      'orderby' => 'post__in'
     );
 
     $data['raw'] = new WP_Query($args);

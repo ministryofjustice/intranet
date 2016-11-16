@@ -15,6 +15,17 @@ class Events_model extends MVC_model {
     $options['post_type'] = 'event';
     $options['date'] = get_array_value($options, 'date', 'today');
 
+    if (!has_taxonomy($options['tax_query'], 'region')) {
+      $term_slugs = get_term_slugs('region');
+
+      $options['tax_query'][] = [
+        'taxonomy' => 'region',
+        'field' => 'slug',
+        'terms' => $term_slugs,
+        'operator' => 'NOT IN'
+      ];
+    }
+
     $data = $this->model->search->get_raw($options);
     $data = $this->format_data($data);
 
@@ -58,7 +69,7 @@ class Events_model extends MVC_model {
       'start_time' => (string) get_post_meta($id, '_event-start-time', true),
       'end_date' => (string) $end_date,
       'end_time' => (string) get_post_meta($id, '_event-end-time', true),
-      'all_day' => (string) get_post_meta($id, '_event-allday', true) == 'allday',
+      'all_day' =>  get_post_meta($id, '_event-allday', true) == true,
       'multiday' => (string) $start_date !== $end_date
     );
   }

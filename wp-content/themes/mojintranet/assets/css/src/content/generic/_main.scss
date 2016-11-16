@@ -1,5 +1,9 @@
 .template-generic,
 .template-generic-nav {
+  h1 {
+    margin-top: 25px;
+  }
+
   .template-container {
     .info-list {
       display: none;
@@ -11,5 +15,3 @@
     }
   }
 }
-
-

@@ -28,7 +28,43 @@ class My_moj_model extends MVC_model {
 
   private function get_apps($agency = 'hq') {
     $apps = [
+      'ppo' => [
+      ],
+      'judicial-office' => [
+      ],
       'cica' => [
+      ],
+      'pb' => [
+        [
+          'title' => 'People finder',
+          'icon' => 'people-finder',
+          'url' => 'https://peoplefinder.service.gov.uk/',
+          'external' => true,
+        ],
+        [
+          'title' => 'Phoenix',
+          'icon' => 'phoenix',
+          'url' => site_url('/phoenix/'),
+          'external' => true,
+        ],
+        [
+          'title' => 'Civil Service Learning',
+          'icon' => 'civil-service-learning',
+          'url' => 'https://civilservicelearning.civilservice.gov.uk/',
+          'external' => true,
+        ],
+        [
+          'title' => 'Jobs',
+          'icon' => 'jobs',
+          'url' => site_url('/jobs/'),
+          'external' => false,
+        ],
+        [
+          'title' => 'Parole Board public site',
+          'icon' => 'govuk',
+          'url' => 'https://www.gov.uk/government/organisations/parole-board',
+          'external' => true,
+        ],
       ],
       'hq' => [
         [

@@ -24,7 +24,7 @@ if (!isset($page_data)) $page_data = [];
   <html class="user-not-initialised template-<?=$template_class?>" <?php language_attributes() ?>>
 <!--<![endif]-->
 
-<head data-application-url="<?=site_url()?>" data-template-uri="<?=get_template_directory_uri()?>">
+<head data-application-url="<?=site_url()?>" data-template-uri="<?=get_template_directory_uri()?>" data-content-agency="<?=$this->model->content->get_agency()?>">
   <?php $this->view('modules/head') ?>
   <?=$this->wp_head?>
 </head>
@@ -48,5 +48,6 @@ if (!isset($page_data)) $page_data = [];
 
   <?php $this->view('modules/footer'); ?>
   <?php $this->view('modules/body_bottom'); ?>
+  <?=$this->wp_footer?>
 </body>
 </html>

@@ -7,9 +7,6 @@
     </div>
   </div>
 
-  <div class="mobile-msg mobile-only">
-    <p>We are working towards improving your mobile intranet experience - please bear with us.</p>
-  </div>
   <div class="grid header-top">
     <div class="site-logo-hq col-lg-12 col-md-12 col-sm-12">
       <img src="<?=get_template_directory_uri()?>/assets/images/logos/moj_logo.png" alt="Ministry of Justice logo" />

@@ -31,8 +31,10 @@ $grid-size: 40px;
   }
 
   .agency-item {
-    margin-bottom: 10px;
+    padding-bottom: 10px;
+    -webkit-column-break-inside: avoid;
     page-break-inside: avoid;
+    break-inside: avoid;
 
     &.selected a {
       background-color: $white;
@@ -67,6 +69,7 @@ $grid-size: 40px;
     &[data-agency="laa"],
     &[data-agency="hmcts"],
     &[data-agency="judicial-office"],
+    &[data-agency="ppo"],
     &[data-agency="noms"],
     &[data-agency="opg"],
     &[data-agency="ospt"],
@@ -88,7 +91,14 @@ $grid-size: 40px;
       background-position: (-$grid-size * 3);
     }
 
-    &[data-agency="cica"] {
+    &[data-agency="pb"] .icon {
+      background-position: (-$grid-size * 4);
+    }
+
+    &[data-agency="cica"],
+    &[data-agency="judicial-office"],
+    &[data-agency="pb"],
+    &[data-agency="ppo"] {
       display: none;
     }
 

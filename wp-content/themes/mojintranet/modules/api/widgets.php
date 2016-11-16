@@ -107,8 +107,6 @@ class Widgets_API extends API {
     $options['page'] = 1;
     $options['per_page'] = 2;
     $data['events'] = $this->MVC->model->events->get_list($options);
-    $months = $this->MVC->model->months->get_list($this->add_taxonomies());
-    $data['events']['months'] = $months['results'];
 
     //posts
     $options = $this->params;
@@ -130,7 +128,11 @@ class Widgets_API extends API {
     $this->MVC->model('follow_us');
     $data['follow_us'] = $this->MVC->model->follow_us->get_data($options);
 
+    //emergency message
+    $options = $this->params;
+    $data['emergency_message'] = $this->MVC->model->emergency_banner->get($options);
+
     $data['url_params'] = $this->params;
-    $this->response($data, 200, 60 * 60);
+    $this->response($data, 200, 60);
   }
 }

@@ -3,8 +3,8 @@
  * Custom registration page
  */
 class Create_an_account extends MVC_controller {
-  function __construct() {
-    parent::__construct();
+  function __construct($param_string, $post_id) {
+    parent::__construct($param_string, $post_id);
 
     $this->model('user');
     $this->model('bad_words');

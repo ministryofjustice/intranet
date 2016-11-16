@@ -9,9 +9,8 @@
     }
   }
 
-  h1 {
-    border-bottom: none;
-    margin-top: 50px;
+  &[data-agency-view="1"] .about-column-hq {
+    display: none;
   }
 
   .excerpt {

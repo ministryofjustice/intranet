@@ -4,10 +4,6 @@
  * Custom login page
  */
 class Sign_in extends MVC_controller {
-  function __construct() {
-    parent::__construct();
-  }
-
   function main() {
     if(is_user_logged_in()) wp_redirect('/'); // Redirect to home if logged in
 

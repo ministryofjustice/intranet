@@ -10,7 +10,7 @@ class Taggr {
   static function get_id($tag_name) {
     $post = Taggr::get_post($tag_name);
 
-    return $post->ID;
+    return is_object($post) ? $post->ID : null;
   }
 
   /** Gets the post with the given tag name
@@ -25,7 +25,7 @@ class Taggr {
     );
     $posts = get_posts($args);
 
-    return $posts[0];
+    return get_array_value($posts, 0, []);
   }
 
   static function get_permalink($tag_name) {

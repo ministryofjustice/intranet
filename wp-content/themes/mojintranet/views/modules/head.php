@@ -22,3 +22,5 @@
 <!--[if gt IE 8]>
   <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
 <![endif]-->
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

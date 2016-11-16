@@ -113,6 +113,7 @@ class Page_tree_model extends MVC_model {
     return $data;
   }
 
+
   private function _get_parent_id($id) {
     $type = get_post_type($id);
 
@@ -217,10 +218,11 @@ class Page_tree_model extends MVC_model {
   /** A comparator for sorting children by their menu order first, then by title (natural order)
    */
   private function sort_children($a, $b) {
-    if ($a['order'] > 0 && $b['order'] > 0) {
-      return $a['order'] > $b['order'] ? 1 : -1;
-    }
-    elseif ($a['order'] != $b['order']) {
+    if ($a['order'] != $b['order']) {
+      if ($a['order'] > 0 && $b['order'] > 0) {
+        return $a['order'] > $b['order'] ? 1 : -1;
+      }
+
       return $a['order'] > $b['order'] ? -1 : 1;
     }
 

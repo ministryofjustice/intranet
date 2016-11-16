@@ -12,18 +12,13 @@ if (!current_user_can('administrator')) {
 $load_commands = array(
     // filename => Class_Name
     'assign-agency-terms-to-posts' => 'Assign_Agency_Terms_To_Posts',
-    'remove-old-home-page-options' => 'Remove_Old_Home_Page_Options',
-    'remove-old-pods-data' => 'Remove_Old_Pods_Data',
-    'hmcts-guidance-optin' => 'HMCTS_Guidance_Optin',
-    'opg-guidance-optin' => 'OPG_Guidance_Optin',
-    'laa-guidance-optin' => 'LAA_Guidance_Optin',
-    'cica-guidance-optin' => 'CICA_Guidance_Optin',
-    'reset-all-pages-menu-order' => 'Reset_All_Pages_Menu_Order',
-    'news-permissions-reset' => 'News_Permissions_Reset',
-    'agency-permissions-fix' => 'Agency_Permissions_Fix',
-    'documents-permissions-reset' => 'Document_Permissions_Reset',
-    'assign-tabs-and-links' => 'Assign_Tabs_And_Links',
-    //'remove-old-tabs-and-links' => 'Remove_Old_Tabs_And_Links',
+    'hide-page-bylines' => 'Hide_Page_Bylines',
+    'fix-templates' => 'Fix_Templates',
+    'set-opt-in-permissions' => 'Set_Opt_In_Permissions',
+    'set-events-permissions' => 'Set_Events_Permissions',
+    'set-admin-regional-permissions' => 'Set_Admin_Regional_Permissions',
+    'set-regional-editor-permissions' => 'Set_Regional_Editor_Permissions',
+    'remove-old-tabs-and-links' => 'Remove_Old_Tabs_And_Links',
 );
 
 $admin_commands = array();
@@ -39,7 +34,6 @@ foreach ($load_commands as $include_file => $class_name) {
 /**
  * Create the admin page.
  */
-
 function add_admin_commands_page() {
     add_management_page('Admin Commands', 'Admin Commands', 'administrator', 'admin-commands', 'admin_commands_page');
 }

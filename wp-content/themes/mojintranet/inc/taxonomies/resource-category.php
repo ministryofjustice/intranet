@@ -7,7 +7,8 @@ class Resource_Category extends Content_Category {
 
     protected $object_types = array(
         'page',
-        'document'
+        'document',
+        'regional_page'
     );
 
     protected $args = array(

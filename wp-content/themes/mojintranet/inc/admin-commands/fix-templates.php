@@ -2,20 +2,20 @@
 
 namespace MOJ_Intranet\Admin_Commands;
 
-class Reset_All_Pages_Menu_Order extends Admin_Command {
+class Fix_Templates extends Admin_Command {
     /**
      * Name of the command.
      *
      * @var string
      */
-    public $name = 'Reset All Pages Menu Order';
+    public $name = 'Fix Templates';
 
     /**
      * Description of what this command will do.
      *
      * @var string
      */
-    public $description = 'Resets all pages menu order';
+    public $description = 'Fix Pages that may have been set to the regional template';
 
     /**
      * Method to execute the command.
@@ -23,17 +23,15 @@ class Reset_All_Pages_Menu_Order extends Admin_Command {
      * @return void
      */
     public function execute() {
-
         global $wpdb;
 
         $wpdb->query(
-            "UPDATE $wpdb->posts
-             SET menu_order = 0
-             WHERE post_type ='page'
- 		    "
+            "UPDATE $wpdb->postmeta
+             SET meta_value = 'page_generic_nav.php'
+		     WHERE meta_key LIKE '_wp_page_template' 
+		     AND meta_value LIKE 'single-regional_page.php'  
+		   "
         );
-
-        echo '<p>All pages menu order has now been reset</p>';
 
     }
 }

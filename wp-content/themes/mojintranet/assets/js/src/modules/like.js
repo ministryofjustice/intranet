@@ -102,6 +102,8 @@
       $container.addClass('voted');
       $description.html('Sending...');
 
+      window.dataLayer.push({'event': 'postLike'});
+
       $.ajax({
         url: this.serviceUrl + postType + '/' + postId,
         method: 'put',

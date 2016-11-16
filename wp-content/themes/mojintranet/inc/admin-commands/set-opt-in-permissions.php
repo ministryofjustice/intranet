@@ -1,34 +1,36 @@
 <?php
-
 namespace MOJ_Intranet\Admin_Commands;
-
-class Agency_Permissions_Fix extends Admin_Command {
+class Set_Opt_In_Permissions extends Admin_Command {
     /**
      * Name of the command.
      *
      * @var string
      */
-    public $name = 'Agency Permissions Fix';
-
+    public $name = 'Set Opt in Permissions';
     /**
      * Description of what this command will do.
      *
      * @var string
      */
-    public $description = 'Fix Agency Assign permission so Agency and Regional Editors can not assign agencies';
-
+    public $description = 'Set HQ Opt in permissions for specific roles';
     /**
      * Method to execute the command.
      *
      * @return void
      */
     public function execute() {
-        $roles = ['agency-editor', 'regional-editor'];
+
+        $roles = [
+            'administrator',
+            'editor',
+            'agency-editor'
+        ];
 
         foreach ($roles as $role) {
             $wpRole = get_role($role);
-            $wpRole->remove_cap('assign_agencies_to_posts');
+            $wpRole->add_cap('opt_in_content');
         }
-        echo '<p>Agency Permissions Fixed</p>';
+
+        echo '<p>Opt In Permissions Set</p>';
     }
 }

@@ -17,16 +17,16 @@
             },
             "choices": {
                 "basic": "Basic",
-                "transformation": "Transformation"
+                "transformation": "Transformation",
+                "light-blue": "Light Blue"
             },
             "default_value": [],
             "allow_null": 0,
             "multiple": 0,
             "ui": 0,
             "ajax": 0,
-            "placeholder": "",
-            "disabled": 0,
-            "readonly": 0
+            "return_format": "value",
+            "placeholder": ""
         },
         {
             "key": "field_57ac33881d869",
@@ -62,5 +62,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1471432764
+    "modified": 1474304638
 }
