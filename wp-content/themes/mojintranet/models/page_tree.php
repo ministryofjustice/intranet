@@ -35,13 +35,12 @@ class Page_tree_model extends MVC_model {
     $data = $this->_format_row(get_post($options['page_id']));
 
     if (Taggr::get_tag($options['page_id']) == 'regions-landing') {
-      $args = array(
+      $children = get_posts([
         'meta_key' => 'dw_regional_template',
         'meta_value' => 'landing',
         'post_type' => 'any'
-      );
+      ]);
 
-      $children = get_posts($args);
       $data['children'] = [];
 
       foreach ($children as $child) {
