@@ -56,6 +56,12 @@ class Taggr {
    * @return {String|Null} Posts's tag name or null if it doesn't have a tag
    */
   static function get_tag($post_id) {
-    return get_post_meta($post_id, 'dw_tag', true) ;
+    $tag = get_post_meta($post_id, 'dw_tag', true);
+
+    if (!strlen($tag)) {
+      $tag = null;
+    }
+
+    return $tag;
   }
 }
