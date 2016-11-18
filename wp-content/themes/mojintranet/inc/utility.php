@@ -167,3 +167,35 @@ function alpha_sort_by_key($a, $b, $key) {
 function get_array_value($array, $element, $default) {
   return isset($array) && isset($array[$element]) && $array[$element] ? $array[$element] : $default;
 }
+
+/** Check if the supplied tax_query array uses the specified taxonomy
+ * @param {Array} $tax_query Tax query array
+ * @param {Array} $taxonomy Taxonomy name
+ * @return {Boolean} true if it uses regional taxonomy, otherwise false
+ */
+function has_taxonomy($tax_query, $taxonomy) {
+  foreach ($tax_query as $row) {
+    if (is_array($row) && $row['taxonomy'] == $taxonomy) return true;
+  }
+
+  return false;
+}
+
+/** Gets a list of term slugs within a taxonomy
+ * @param {String} $taxonomy Taxonomy name
+ * @return {Array} List of all term slugs
+ */
+function get_term_slugs($taxonomy) {
+  $term_slugs = [];
+
+  $terms = get_terms([
+    'taxonomy' => $taxonomy,
+    'hide_empty' => false
+  ]);
+
+  foreach ($terms as $term) {
+    $term_slugs[] = $term->slug;
+  }
+
+  return $term_slugs;
+}
