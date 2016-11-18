@@ -142,6 +142,7 @@ function pageparent_box($post) {
 
       $templates = [
           'Generic' => 'page_generic.php',
+          'Generic nav' => 'page_generic_nav.php',
           'Landing' => 'page_regional_landing.php',
           'Events Listing' => 'page_regional_events.php',
           'Updates Listing' => 'page_regional_news.php',
