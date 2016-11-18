@@ -33,6 +33,36 @@ class My_moj_model extends MVC_model {
       'judicial-office' => [
       ],
       'cica' => [
+        [
+          'title' => 'Civil Service Learning',
+          'icon' => 'civil-service-learning',
+          'url' => 'https://civilservicelearning.civilservice.gov.uk/',
+          'external' => true,
+        ],
+        [
+          'title' => 'Jobs',
+          'icon' => 'jobs',
+          'url' => site_url('/jobs/'),
+          'external' => false,
+        ],
+        [
+          'title' => 'Mitrefinch',
+          'icon' => 'mitrefinch',
+          'url' => 'http://cica-mitrefinch/tms/silverlight.aspx',
+          'external' => true,
+        ],
+        [
+          'title' => 'IT Self Service Portal',
+          'icon' => 'it-portal',
+          'url' => 'http://cicald-web/ServiceDesk.WebAccess/ss/Dashboard/OpenHomeDashboard.rails?id=c2492b87-2b72-4068-8983-0e1e2a2e6a15',
+          'external' => true,
+        ],
+        [
+          'title' => 'Bright Ideas',
+          'icon' => 'bright-ideas',
+          'url' => 'http://cica-mitrefinch/tms/silverlight.aspx',
+          'external' => true,
+        ],
       ],
       'pb' => [
         [
