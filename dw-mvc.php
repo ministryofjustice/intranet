@@ -39,7 +39,9 @@ class DW_MVC {
 
     $post_type = get_post_type();
     $controller = get_query_var('controller');
-    $template = get_page_template();
+    $page_template = get_page_template();
+    $regional_template = get_post_meta(get_the_ID(), 'dw_regional_template', true);
+    $template = $regional_template ? get_template_directory() . '/' . $regional_template : $page_template;
     $path = get_query_var('param_string');
     $has_post = (boolean) !$controller;
 
