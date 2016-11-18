@@ -5,7 +5,7 @@
  *
  */
 
-class Single_regional_page extends MVC_controller {
+class Page_regional_landing extends MVC_controller {
   function main(){
     $this->model('my_moj');
 
