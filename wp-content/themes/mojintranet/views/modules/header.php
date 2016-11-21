@@ -11,12 +11,12 @@
     <div class="site-logo-hq col-lg-12 col-md-12 col-sm-12">
       <img src="<?=get_template_directory_uri()?>/assets/images/logos/moj_logo.png" alt="Ministry of Justice logo" />
     </div>
-    <div class="site-logo col-lg-6 col-md-6 col-sm-12">
+    <div class="site-logo col-lg-8 col-md-8 col-sm-12">
       <a href="<?=WP_SITEURL?>" title="Intranet" rel="home">
         <img src="<?=get_template_directory_uri()?>/assets/images/logos/moj_logo.png" alt="Ministry of Justice logo" />
       </a>
     </div>
-    <div class="user-bar col-lg-6 col-md-6 col-sm-12">
+    <div class="user-bar col-lg-4 col-md-4 col-sm-12">
       <ul class="user-menu">
         <li class="select-agency-trigger-container">
           <a href="#" class="select-agency-trigger">Switch to other intranet</a>
