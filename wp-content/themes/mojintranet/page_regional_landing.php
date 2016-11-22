@@ -32,13 +32,14 @@ class Page_regional_landing extends MVC_controller {
     $content = ob_get_clean();
 
     return array(
-      'page' => 'pages/generic_nav/main',
-      'template_class' => 'generic-nav',
+      'page' => 'pages/regional_landing/main',
+      'template_class' => 'regional-landing',
       'cache_timeout' => 60 * 60, /* 1 hour */
       'page_data' => array(
         'id' => $this->post_ID,
         'title' => get_the_title(),
         'agencies' => implode(', ', $list_of_agencies),
+        'region' => 'scotland',
         'last_updated' => date("j F Y", strtotime(get_the_modified_date())),
         'excerpt' => $post->post_excerpt, // Not using get_the_excerpt() to prevent auto-generated excerpts being displayed
         'content' => $content,

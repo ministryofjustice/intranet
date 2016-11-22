@@ -182,3 +182,21 @@ $grid-size: 50px;
     display: none;
   }
 }
+
+.see-all-container {
+  padding-top: 15px;
+  border-top: 1px solid $grey-2;
+  text-align: left;
+
+  a {
+    font-weight: bold;
+    text-decoration: underline;
+  }
+}
+
+.category-name {
+  @extend %large-heading;
+  border-bottom: 2px solid $grey-1;
+  margin-top: 20px;
+}
+
