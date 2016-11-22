@@ -141,8 +141,7 @@ function pageparent_box($post) {
       $current_template = get_post_meta($post->ID, 'dw_regional_template', true);
 
       $templates = [
-          'Generic' => 'page_generic.php',
-          'Generic nav' => 'page_generic_nav.php',
+          'Generic' => 'page_generic_nav.php',
           'Landing' => 'page_regional_landing.php',
           'Events Listing' => 'page_regional_events.php',
           'Updates Listing' => 'page_regional_news.php',
@@ -258,7 +257,7 @@ function dw_save_regional_template($post_id, $post, $update) {
     update_post_meta($post_id, 'dw_regional_template', $_POST['page_template']);
   }
   else if (empty($current_template)) {
-    update_post_meta($post_id, 'dw_regional_template', 'generic');
+    update_post_meta($post_id, 'dw_regional_template', 'page_generic_nav.php');
   }
 
 }
