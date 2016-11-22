@@ -80,7 +80,6 @@
       $child.find('.title .news-link').html(data.title);
       $child.find('.date').html(App.tools.formatDate(date, true));
 
-      console.log(this.newsType, $child.find('.excerpt'), data.excerpt);
       if (this.newsType === 'regional') {
         $child.find('.excerpt').html(data.excerpt);
       }
