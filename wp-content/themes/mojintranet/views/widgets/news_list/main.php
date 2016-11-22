@@ -1,25 +1,22 @@
 <?php if (!defined('ABSPATH')) die(); ?>
 
-<div class="news-list-widget news-widget">
+<div class="news-list-widget news-widget" data-news-type="<?=$type?>">
   <div class="grid">
-    <div class="col-lg-6 col-md-12 col-sm-12">
-      <ul class="news-list"
-          data-skeleton-screen-count="4"
-          data-skeleton-screen-type="standard"
-          ></ul>
-    </div>
-    <div class="col-lg-6 col-md-12 col-sm-12">
-      <ul class="news-list"
-          data-skeleton-screen-count="4"
-          data-skeleton-screen-type="standard"></ul>
-    </div>
+    <?php for($a = 1; $a <= $number_of_lists; $a++): ?>
+      <div class="<?=$list_container_classes?>">
+        <ul class="news-list"
+            data-skeleton-screen-count="<?=$skeleton_screen_count?>"
+            data-skeleton-screen-type="standard"
+            ></ul>
+      </div>
+    <?php endfor ?>
 
     <div class="col-lg-12 col-md-12 col-sm-12">
       <p class="no-news-message">
-        No news found
+        <?=$no_items_found?>
       </p>
       <p class="see-all-container">
-        <a href="<?=get_permalink(Taggr::get_id('news-landing'))?>">See all news</a>
+        <a href="<?=$see_all_url?>"><?=$see_all_label?></a>
       </p>
     </div>
   </div>

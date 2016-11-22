@@ -12,48 +12,10 @@
     </div>
     <div class="col-lg-9 col-md-8 col-sm-12">
       <h1 class="page-title"><?=$title?></h1>
-
       <h2 class="category-name">Latest</h2>
 
-      <div class="news-list-widget news-widget" data-news-type="regional">
-        <div class="grid">
-          <div class="col-lg-12 col-md-12 col-sm-12">
-            <ul class="news-list"
-                data-skeleton-screen-count="2"
-                data-skeleton-screen-type="standard"
-                ></ul>
-          </div>
-
-          <div class="col-lg-12 col-md-12 col-sm-12">
-            <p class="no-news-message">
-              No news found
-            </p>
-            <p class="see-all-container">
-              <a href="">See all updates</a>
-            </p>
-          </div>
-        </div>
-
-        <?php $this->view('widgets/news_list/news_item') ?>
-      </div>
-
-      <div class="events-widget" data-events-type="regional">
-        <h2 class="category-name">Events</h2>
-
-        <ul class="events-list grid"
-            data-skeleton-screen-count="2"
-            data-skeleton-screen-type="standard"
-            data-skeleton-screen-classes="col-lg-6 col-md-12 col-sm-12"></ul>
-
-        <p class="no-events-message">
-          No events found
-        </p>
-        <p class="see-all-container">
-          <a href="">See all events</a>
-        </p>
-
-        <?php $this->view('widgets/events/event_item') ?>
-      </div>
+      <?php $this->view('widgets/news_list/main', $news_widget) ?>
+      <?php $this->view('widgets/events/main', $events_widget) ?>
     </div>
   </div>
 
