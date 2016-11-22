@@ -147,7 +147,7 @@ class Widgets_API extends API {
     $options = $this->params;
     $options = $this->add_taxonomies($options);
     $options['start'] = 0;
-    $options['length'] = 8;
+    $options['length'] = 2;
     $data['news_list'] = $this->MVC->model->news->get_widget_news($options, false);
 
     //events
