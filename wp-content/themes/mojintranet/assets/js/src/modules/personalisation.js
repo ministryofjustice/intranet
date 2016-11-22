@@ -13,7 +13,7 @@
     init: function() {
       this.settings = {
         hideForAgency: {
-          'hmcts': ['.events-widget', '.main-nav-events', '.posts-widget'],
+          'hmcts': ['.template-home .events-widget', '.main-nav-events', '.posts-widget'],
           'laa': ['.events-widget', '.main-nav-events']
         }
       };

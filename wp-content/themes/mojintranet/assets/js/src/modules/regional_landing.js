@@ -29,7 +29,7 @@
     },
 
     initialiseWidgets: function(data) {
-      //App.ins.eventsWidget = new App.EventsWidget(data.events);
+      App.ins.eventsWidget = new App.EventsWidget(data.events);
       App.ins.newsListWidget = new App.NewsListWidget(data.news_list);
     }
   };
