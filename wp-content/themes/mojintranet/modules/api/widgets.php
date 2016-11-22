@@ -33,6 +33,10 @@ class Widgets_API extends API {
         $this->get_all();
         break;
 
+      case 'regional':
+        $this->get_regional();
+        break;
+
       default:
         $this->error('Invalid widget');
         break;
@@ -131,6 +135,27 @@ class Widgets_API extends API {
     //emergency message
     $options = $this->params;
     $data['emergency_message'] = $this->MVC->model->emergency_banner->get($options);
+
+    $data['url_params'] = $this->params;
+    $this->response($data, 200, 60);
+  }
+
+  private function get_regional() {
+    $data = [];
+
+    //news list
+    $options = $this->params;
+    $options = $this->add_taxonomies($options);
+    $options['start'] = 0;
+    $options['length'] = 8;
+    $data['news_list'] = $this->MVC->model->news->get_widget_news($options, false);
+
+    //events
+    $options = $this->params;
+    $options = $this->add_taxonomies($options);
+    $options['page'] = 1;
+    $options['per_page'] = 2;
+    $data['events'] = $this->MVC->model->events->get_list($options);
 
     $data['url_params'] = $this->params;
     $this->response($data, 200, 60);
