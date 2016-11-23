@@ -13,7 +13,7 @@
 
     <div class="col-lg-12 col-md-12 col-sm-12">
       <p class="no-news-message">
-        <?=$no_items_found?>
+        <?=$no_items_found_message?>
       </p>
       <p class="see-all-container">
         <a href="<?=$see_all_url?>"><?=$see_all_label?></a>
