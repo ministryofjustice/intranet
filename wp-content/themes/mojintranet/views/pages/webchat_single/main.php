@@ -18,7 +18,7 @@
           <?=$content?>
         </div>
         <!--[if lte IE 8]>
-          <?php $this->view('pages/webchat_single/ie_message'); ?>
+          <?php $this->view('pages/webchat_single/ie_message') ?>
         <![endif]-->
         <div class="coveritlive">
           <?php if($coveritlive_id): ?>
@@ -29,20 +29,5 @@
     </div>
   </div>
 
-  <div class="template-partial" data-name="menu-item">
-    <li class="menu-item">
-      <div class="menu-item-container">
-        <a href="" class="menu-item-link"></a>
-        <button href="#" class="dropdown-button">Expand</button>
-      </div>
-      <ul class="children-list">
-      </ul>
-    </li>
-  </div>
-
-  <div class="template-partial" data-name="child-item">
-    <li class="child-item">
-      <a href="" class="child-item-link"></a>
-    </li>
-  </div>
+  <?php $this->view('modules/side_navigation') ?>
 </div>
