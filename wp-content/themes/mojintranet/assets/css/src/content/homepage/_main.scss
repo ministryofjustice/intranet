@@ -7,23 +7,6 @@
     margin-bottom: 0;
   }
 
-  .category-name {
-    @extend %large-heading;
-    border-bottom: 2px solid $grey-1;
-    margin-top: 20px;
-  }
-
-  .see-all-container {
-    padding-top: 15px;
-    border-top: 1px solid $grey-2;
-    text-align: left;
-
-    a {
-      font-weight: bold;
-      text-decoration: underline;
-    }
-  }
-
   .meta-separator {
     padding: 0 5px;
   }

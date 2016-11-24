@@ -35,7 +35,7 @@ class News_model extends MVC_model {
       'offset' => $options['start']-1,
       'posts_per_page' => $options['length'],
       // Filters
-      'post_type' => $options['post_type'],
+      'post_type' => has_taxonomy($options['tax_query'], 'region') ? 'regional_news' : 'news',
       $post_in_out => $options['post__in'],
       'tax_query' => $options['tax_query'],
       'orderby' => 'post__in'

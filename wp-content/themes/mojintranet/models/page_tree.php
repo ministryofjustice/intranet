@@ -37,7 +37,7 @@ class Page_tree_model extends MVC_model {
     if (Taggr::get_tag($options['page_id']) == 'regions-landing') {
       $children = get_posts([
         'meta_key' => 'dw_regional_template',
-        'meta_value' => 'landing',
+        'meta_value' => 'page_regional_landing.php',
         'post_type' => 'any'
       ]);
 

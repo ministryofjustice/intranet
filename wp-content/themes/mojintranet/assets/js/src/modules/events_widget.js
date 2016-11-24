@@ -5,7 +5,7 @@
 
   App.EventsWidget = function(data) {
     this.data = data;
-    this.$top = $('.template-home .events-widget');
+    this.$top = $('.events-widget');
     if(!this.$top.length || this.$top.hasClass('agency-hidden')) { return; }
     this.init();
   };
@@ -14,7 +14,7 @@
     init: function() {
       this.applicationUrl = $('head').data('application-url');
       this.pageBase = this.applicationUrl + '/' + this.$top.data('top-level-slug');
-
+      this.eventsType = this.$top.attr('data-events-type') || 'global';
       this.itemTemplate = this.$top.find('[data-name="widget-event-item"]').html();
       this.weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
       this.months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];

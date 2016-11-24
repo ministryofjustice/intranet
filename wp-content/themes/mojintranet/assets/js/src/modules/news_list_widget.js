@@ -5,7 +5,7 @@
 
   App.NewsListWidget = function(data) {
     this.data = data;
-    this.$top = $('.template-home .news-list-widget');
+    this.$top = $('.news-list-widget');
     if(!this.$top.length) { return; }
     this.init();
   };
@@ -14,6 +14,7 @@
     init: function() {
       this.applicationUrl = $('head').data('application-url');
       this.templateUri = $('head').data('template-uri');
+      this.newsType = this.$top.attr('data-news-type') || 'global';
       this.serviceUrl = this.applicationUrl + '/service/widgets/non-featured-news/' + App.tools.helpers.agency.getForContent() + '//0/8';
       this.pageBase = this.applicationUrl + '/' + this.$top.data('top-level-slug');
       this.genericThumbnailPath = this.templateUri + '/assets/images/news-placeholder.jpg';
@@ -45,7 +46,7 @@
       App.ins.skeletonScreens.remove(this.$newsList);
 
       $.each(data.results, function(index, result) {
-        _this.news.push(_this.buildResultRow(result));
+        _this.news.push(_this.buildResultRow(index, result));
       });
 
       if (this.news.length > 0) {
@@ -60,7 +61,7 @@
       this.$top.removeClass('loading');
     },
 
-    buildResultRow: function(data) {
+    buildResultRow: function(index, data) {
       var $child = $(this.itemTemplate);
       var date = App.tools.parseDate(data.timestamp);
 
@@ -69,11 +70,19 @@
         data.thumbnail_alt_text = 'generic blog thumbnail';
       }
 
+      if (index === 0) {
+        $child.addClass('first');
+      }
+
       $child.find('.news-thumbnail').attr('src', data.thumbnail_url);
       $child.find('.news-thumbnail').attr('alt', data.thumbnail_alt_text);
       $child.find('.news-link').attr('href', data.url);
       $child.find('.title .news-link').html(data.title);
       $child.find('.date').html(App.tools.formatDate(date, true));
+
+      if (this.newsType === 'regional') {
+        $child.find('.excerpt').html(data.excerpt);
+      }
 
       return $child;
     },
@@ -81,7 +90,7 @@
     displayNews: function() {
       var _this = this;
       var column = 1;
-      var maxColumns = ($('html').hasClass('breakpoint-desktop')) ? 2 : 1;
+      var maxColumns = ($('html').hasClass('breakpoint-desktop') && this.newsType !== 'regional') ? 2 : 1;
 
       this.$newsList.find('.news-item').detach();
 
