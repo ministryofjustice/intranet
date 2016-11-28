@@ -3,7 +3,8 @@
 <div class="template-container"
   data-page-id="<?=$id?>"
   data-template-uri="<?=$template_uri?>"
-  data-page-base-url="<?=$page_base_url?>">
+  data-page-base-url="<?=$page_base_url?>"
+  data-region="<?=$region?>">
   <div class="grid">
     <div class="col-lg-12 col-md-12 col-sm-12">
       <h1 class="page-title"><?=$title?></h1>

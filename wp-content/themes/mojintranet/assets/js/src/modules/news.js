@@ -33,6 +33,7 @@
       this.applicationUrl = $('head').data('application-url');
       this.serviceUrl = this.applicationUrl+'/service/news/get';
       this.pageBase = this.$top.data('page-base-url');
+      this.region = this.$top.data('region');
 
       this.itemTemplate = this.$top.find('.template-partial[data-name="news-item"]').html();
       this.resultsPageTitleTemplate = this.$top.find('.template-partial[data-name="news-results-page-title"]').html();
@@ -378,7 +379,17 @@
       var keywords = this.getSanitizedKeywords();
       var segments = this.getSegmentsFromUrl();
       var categories = this.$categoryInput.val();
-      var additionalFilters = $.type(categories) === 'array' ? 'news_category=' + categories.join('|') : '';
+      var additionalFilters = [];
+
+      if ($.type(categories) === 'array') {
+        additionalFilters.push('news_category=' + categories.join('|'));
+      }
+
+      if (this.region) {
+        additionalFilters.push('region=' + this.region);
+      }
+
+      additionalFilters = additionalFilters.join('&');
 
       keywords = keywords.replace(/\s+/g, '+');
 
