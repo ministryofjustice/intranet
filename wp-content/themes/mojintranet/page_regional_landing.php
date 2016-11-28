@@ -45,7 +45,7 @@ class Page_regional_landing extends MVC_controller {
         'content' => $content,
         'hide_page_details' => (boolean) get_post_meta($this->post_ID, 'dw_hide_page_details', true),
         'news_widget' => [
-          'see_all_url' => '',
+          'see_all_url' => get_permalink() . 'updates/',
           'see_all_label' => 'See all updates',
           'type' => 'regional',
           'number_of_lists' => 1,
@@ -54,7 +54,7 @@ class Page_regional_landing extends MVC_controller {
           'skeleton_screen_count' => 2
         ],
         'events_widget' => [
-          'see_all_url' => '',
+          'see_all_url' => get_permalink() . 'events/',
           'see_all_label' => 'See all events',
           'no_items_found_message' => 'No events found',
           'type' => 'regional',
