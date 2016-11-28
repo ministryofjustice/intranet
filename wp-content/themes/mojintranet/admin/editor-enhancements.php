@@ -85,7 +85,7 @@ function pageparent_ajax_check_parent() {
       }
 
       echo "<li class='pageparentoption'>
-        <a class=\"parentlink\" style=\"cursor:pointer;\" parentname='".$parent->post_title . "' parentid='" . $parent->ID . "'>
+        <a class=\"parentlink\" style=\"cursor:pointer;\" parentname='". esc_html($parent->post_title) . "' parentid='" . $parent->ID . "'>
           <small>".
             $parent_state." ".$parent_title."
           </small> ".
@@ -262,3 +262,5 @@ function dw_save_regional_template($post_id, $post, $update) {
 
 }
 add_action('save_post', 'dw_save_regional_template', 10, 3);
+
+
