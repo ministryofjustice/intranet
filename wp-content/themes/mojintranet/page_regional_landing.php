@@ -39,8 +39,10 @@ class Page_regional_landing extends MVC_controller {
         'id' => $this->post_ID,
         'title' => get_the_title(),
         'agencies' => implode(', ', $list_of_agencies),
+        'region' => get_the_terms($this->post_ID, 'region')[0]->slug,
         'last_updated' => date("j F Y", strtotime(get_the_modified_date())),
         'excerpt' => $post->post_excerpt, // Not using get_the_excerpt() to prevent auto-generated excerpts being displayed
+        'content' => $content,
         'hide_page_details' => (boolean) get_post_meta($this->post_ID, 'dw_hide_page_details', true),
         'news_widget' => [
           'see_all_url' => '',
@@ -55,10 +57,10 @@ class Page_regional_landing extends MVC_controller {
           'see_all_url' => '',
           'see_all_label' => 'See all events',
           'no_items_found_message' => 'No events found',
-          'type' => 'regional'
+          'type' => 'regional',
+          'skeleton_screen_count' => 2
         ],
       ]
     ];
   }
-
 }
