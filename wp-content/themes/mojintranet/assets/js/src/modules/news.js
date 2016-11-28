@@ -48,9 +48,14 @@
       this.cacheEls();
       this.bindEvents();
 
-      this.populateDateFilter();
-      this.populateCategoryFilter();
-      this.setFilters();
+      this.initialiseCurrentPage();
+
+      if (this.newsType === 'global') {
+        this.populateDateFilter();
+        this.populateCategoryFilter();
+        this.setFilters();
+      }
+
       this.updateUrl(true);
 
       this.loadResults();
@@ -194,6 +199,10 @@
       }
 
       App.ins.multiSelect.replace(this.$categoryInput);
+    },
+
+    initialiseCurrentPage: function() {
+      var segments = this.getSegmentsFromUrl();
 
       this.currentPage = parseInt(segments[1] || 1, 10);
     },
@@ -337,7 +346,7 @@
     },
 
     getSanitizedKeywords: function() {
-      var keywords = this.$keywordsInput.val();
+      var keywords = this.$keywordsInput.val() || '';
       keywords = keywords.replace(/^\s+|\s+$/g, '');
       keywords = keywords.replace(/\s+/g, ' ');
       keywords = keywords.replace(/[^a-zA-Z0-9\s]+/g, '');
@@ -492,14 +501,16 @@
       urlParts.push('page');
       urlParts.push(this.currentPage);
 
-      //keywords
-      urlParts.push(keywords || '-');
+      if (this.newsType === 'global') {
+        //keywords
+        urlParts.push(keywords || '-');
 
-      //date
-      urlParts.push(this.$dateInput.val() || '-');
+        //date
+        urlParts.push(this.$dateInput.val() || '-');
 
-      //categories
-      urlParts.push(categories.join('|') || '-');
+        //categories
+        urlParts.push(categories.join('|') || '-');
+      }
 
       if(rootRelative) {
         urlParts.unshift(''); //a small trick to add a leading slash
