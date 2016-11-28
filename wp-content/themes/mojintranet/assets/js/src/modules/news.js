@@ -6,8 +6,19 @@
   var App = window.App;
 
   App.News = function() {
-    this.$top = $('.template-news-landing .template-container');
-    if(!this.$top.length) { return; }
+    var $html = $('html');
+
+    if ($html.hasClass('template-news-landing')) {
+      this.newsType = 'global';
+    }
+    else if($html.hasClass('template-regional-updates-landing')) {
+      this.newsType = 'regional';
+    }
+    else {
+      return;
+    }
+
+    this.$top = $('.template-container');
     this.init();
   };
 
@@ -21,7 +32,7 @@
 
       this.applicationUrl = $('head').data('application-url');
       this.serviceUrl = this.applicationUrl+'/service/news/get';
-      this.pageBase = this.applicationUrl+'/'+this.$top.data('top-level-slug');
+      this.pageBase = this.$top.data('page-base-url');
 
       this.itemTemplate = this.$top.find('.template-partial[data-name="news-item"]').html();
       this.resultsPageTitleTemplate = this.$top.find('.template-partial[data-name="news-results-page-title"]').html();
@@ -137,7 +148,8 @@
 
     populateCategoryFilter: function() {
       var _this = this;
-      var categories = JSON.parse(this.$top.attr('data-news-categories'));
+      var categoriesStr = this.$top.attr('data-news-categories');
+      var categories = categoriesStr ? JSON.parse(this.$top.attr('data-news-categories')) : {};
       var $option;
       var agency = App.tools.helpers.agency.getForContent();
       var categoryCount = 0;
@@ -415,9 +427,8 @@
     },
 
     getSegmentsFromUrl: function() {
-      var url = window.location.href;
-      var sub = url.substr(this.pageBase.length);
-      sub = sub.replace(/^\/|\/$/g, ''); //remove leading and trailing slashes
+      var sub = window.location.href.substr(this.pageBase.length);
+      sub = App.tools.trim(sub, '/');
       return sub.split('/');
     },
 
@@ -470,9 +481,11 @@
     },
 
     getNewUrl: function(rootRelative) {
-      var urlParts = [this.pageBase];
       var keywords = this.getSanitizedKeywords();
       var categories = this.$categoryInput.val() || [];
+      var rootRelativeBaseUrl = App.tools.trim(this.pageBase.substr(this.applicationUrl.length), '/');
+      var urlParts = rootRelativeBaseUrl.split('/');
+
       keywords = keywords.replace(/\s/g, '+');
 
       //page number
@@ -489,12 +502,13 @@
       urlParts.push(categories.join('|') || '-');
 
       if(rootRelative) {
-        urlParts.shift();
-        urlParts.unshift(this.$top.data('top-level-slug'));
-        urlParts.unshift(''); //will have a leading slash on the final string (from join)
+        urlParts.unshift(''); //a small trick to add a leading slash
+      }
+      else {
+        urlParts.unshift(this.applicationUrl);
       }
 
-      return urlParts.join('/')+'/';
+      return urlParts.join('/') + '/';
     }
   };
 }(jQuery));

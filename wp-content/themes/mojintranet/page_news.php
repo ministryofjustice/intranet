@@ -27,7 +27,7 @@ class Page_news extends MVC_controller {
       'breadcrumbs' => true,
       'cache_timeout' => 60 * 60 * 24, /* 1 day */
       'page_data' => array(
-        'top_slug' => htmlspecialchars($top_slug),
+        'page_base_url' => rtrim(get_permalink($this->post_id), '/'),
         'news_categories' => htmlspecialchars(json_encode($this->model->taxonomy->get([
           'taxonomy' => 'news_category'
         ])))

@@ -1,20 +1,24 @@
 <?php if (!defined('ABSPATH')) die(); ?>
 
-<?php if ( have_posts() ) while ( have_posts() ) : the_post() ?>
-
 <div class="template-container"
-  data-template-uri="<?=get_template_directory_uri()?>"
-  data-page-base-url="<?=$page_base_url?>"
-  data-news-categories="<?=$news_categories?>">
+  data-page-id="<?=$id?>"
+  data-template-uri="<?=$template_uri?>"
+  data-page-base-url="<?=$page_base_url?>">
   <div class="grid">
     <div class="col-lg-12 col-md-12 col-sm-12">
-      <h1 class="page-title"><?php the_title() ?></h1>
-      <?php the_content() ?>
+      <h1 class="page-title"><?=$title?></h1>
+      <?=$content?>
     </div>
   </div>
 
   <div class="grid">
-    <div class="col-lg-4 col-md-4 col-sm-12">
+    <div class="col-lg-3 col-md-4 col-sm-12">
+      <nav class="menu-list-container">
+        <ul class="menu-list"></ul>
+      </nav>
+    </div>
+
+    <div class="col-lg-4 col-md-4 col-sm-12" style="display: none">
       <h3 class="filters-label">Filter results</h3>
       <form class="content-filters">
         <p class="description">The results will update automatically based on your selections.</p>
@@ -45,7 +49,7 @@
       </form>
     </div>
 
-    <div class="col-lg-8 col-md-8 col-sm-12">
+    <div class="col-lg-9 col-md-8 col-sm-12">
       <ul class="results"></ul>
 
       <ul class="content-nav grid">
@@ -75,6 +79,7 @@
     </div>
   </div>
 
+  <!-- TODO: move to partials -->
   <div class="template-partial" data-name="news-item">
     <li class="results-item">
       <div class="thumbnail-container">
@@ -109,6 +114,6 @@
       <span class="date"></span>
     </h2>
   </div>
-</div>
 
-<?php endwhile ?>
+  <?php $this->view('modules/side_navigation') ?>
+</div>
