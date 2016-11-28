@@ -18,37 +18,6 @@
       </nav>
     </div>
 
-    <div class="col-lg-4 col-md-4 col-sm-12" style="display: none">
-      <h3 class="filters-label">Filter results</h3>
-      <form class="content-filters">
-        <p class="description">The results will update automatically based on your selections.</p>
-        <div class="form-row">
-          <label class="filter-label" for="input-filter-date">Date</label>
-        </div>
-        <div class="form-row">
-          <select name="date" id="input-filter-date">
-            <option value="">All</option>
-          </select>
-        </div>
-
-        <div class="form-row contains">
-          <label class="filter-label" for="input-filter-contains">Keywords</label>
-        </div>
-        <div class="form-row">
-          <input type="text" placeholder="Keywords" name="keywords" id="input-filter-contains" />
-        </div>
-
-        <div class="news-categories-box">
-          <div class="form-row">
-            <label class="filter-label" for="input-filter-categories">Categories</label>
-          </div>
-          <div class="form-row">
-            <select name="categories[]" multiple></select>
-          </div>
-        </div>
-      </form>
-    </div>
-
     <div class="col-lg-9 col-md-8 col-sm-12">
       <ul class="results"></ul>
 
