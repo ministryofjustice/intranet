@@ -22,7 +22,7 @@ class LAA_Doc_Opt_In extends Admin_Command {
      */
     public function execute() {
         global $wpdb;
-        $count = 0;;
+        $total_docs = 0;;
 
         $page_query = "SELECT id,post_title,post_content FROM $wpdb->posts
                    LEFT JOIN $wpdb->term_relationships ON ( $wpdb->posts.ID = $wpdb->term_relationships.object_id )
@@ -49,37 +49,31 @@ class LAA_Doc_Opt_In extends Admin_Command {
         foreach ($pages as $page) {
             $page_docs = [];
 
-           // if (has_term('hq', 'agency', $page->id)) {
+            $content = $page->post_content;
+            $content .= $this->get_tab_content($page->id);
 
-                $related_docs = get_post_meta($page->id, 'related_docs_scanned', true);
+            $dom = new \DOMDocument;
+            $dom->loadHTML($content);
 
-                if (empty($related_docs)) {
-                    $content = $page->post_content;
-                    $content .= $this->get_tab_content($page->id);
-
-                    $dom = new \DOMDocument;
-                    $dom->loadHTML($content);
-                    foreach ($dom->getElementsByTagName('a') as $node) {
-                        if (strpos($node->getAttribute("href"), '/documents') === 0) {
-                            $doc_id = url_to_postid($node->getAttribute("href"));
-                            if (in_array($doc_id, $page_docs) == false) {
-                                $page_docs[] = $doc_id;
-                            }
-                        }
-                    }
-
-                    if (count($page_docs) > 0) {
-                        update_post_meta($page->id, 'related_docs', implode(",", $page_docs));
-                    }
-                    update_post_meta($page->id, 'related_docs_scanned', 1);
-
-                    echo 'Scanning page: ' . $page->post_title . ' [ID: ' . $page->id . '] - Document Links found [' . count($page_docs) . ']<br/>';
+            foreach ($dom->getElementsByTagName('a') as $node) {
+               if (strpos($node->getAttribute("href"), '/documents') === 0) {
+                  $doc_id = url_to_postid($node->getAttribute("href"));
+                  if (in_array($doc_id, $page_docs) == false) {
+                      $page_docs[] = $doc_id;
+                  }
                 }
-                else {
-                    echo 'Skipped page: ' . $page->post_title . ' [ID: ' . $page->id . ']<br/>';
-                }
-           // }
+            }
+
+            if (count($page_docs) > 0) {
+                 update_post_meta($page->id, 'related_docs', implode(",", $page_docs));
+            }
+            update_post_meta($page->id, 'related_docs_scanned', 1);
+
+            $total_docs += count($page_docs);
+            echo 'Scanning page: ' . $page->post_title . ' [ID: ' . $page->id . '] - Document Links found [' . count($page_docs) . ']<br/>';
         }
+
+        echo 'Total Docs Found: ' . $total_docs . '<br/>';
     }
 
     function get_tab_content($post_id) {
