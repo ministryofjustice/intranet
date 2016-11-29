@@ -107,3 +107,15 @@ function dw_filter_guest_author_manage_cap($cap) {
   return 'edit_others_posts';
 }
 add_filter('coauthors_guest_author_manage_cap', 'dw_filter_guest_author_manage_cap');
+
+function check_local_avatar($url, $id_or_email, $args) {
+  if(is_numeric($id_or_email)) {
+    $local_avatar = get_user_meta($id_or_email, 'wp_user_avatar', true);
+
+    if (is_numeric($local_avatar)) {
+      $url = wp_get_attachment_image_src($local_avatar, 'user-thumb')[0];
+    }
+  }
+  return $url;
+}
+add_filter('get_avatar_url', 'check_local_avatar', 99, 3);

@@ -11,3 +11,7 @@
 .inline-edit-row fieldset span.inline-edit-categories-label:nth-child(4) {
     display: none;
 }
+
+.user-profile-picture {
+    display: none;
+}
