@@ -38,7 +38,8 @@ class Page_tree_model extends MVC_model {
       $children = get_posts([
         'meta_key' => 'dw_regional_template',
         'meta_value' => 'page_regional_landing.php',
-        'post_type' => 'any'
+        'post_type' => 'any',
+        'posts_per_page' => -1
       ]);
 
       $data['children'] = [];
