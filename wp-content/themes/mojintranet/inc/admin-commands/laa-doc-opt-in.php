@@ -60,6 +60,7 @@ class LAA_Doc_Opt_In extends Admin_Command {
                   $doc_id = url_to_postid($node->getAttribute("href"));
                   if (in_array($doc_id, $page_docs) == false) {
                       $page_docs[] = $doc_id;
+                      wp_set_object_terms($doc_id, 'laa', 'agency', true);
                   }
                 }
             }
