@@ -262,5 +262,3 @@ function dw_save_regional_template($post_id, $post, $update) {
 
 }
 add_action('save_post', 'dw_save_regional_template', 10, 3);
-
-
