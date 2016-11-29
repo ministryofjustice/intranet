@@ -2,20 +2,20 @@
 
 namespace MOJ_Intranet\Admin_Commands;
 
-class Fix_Templates extends Admin_Command {
+class Reset_Doc_Scan extends Admin_Command {
     /**
      * Name of the command.
      *
      * @var string
      */
-    public $name = 'Fix Templates';
+    public $name = 'Reset Doc Scan';
 
     /**
      * Description of what this command will do.
      *
      * @var string
      */
-    public $description = 'Fix Pages that may have been set to the regional template';
+    public $description = 'Reset the flags so pages can be rescanned for documents';
 
     /**
      * Method to execute the command.
@@ -26,10 +26,8 @@ class Fix_Templates extends Admin_Command {
         global $wpdb;
 
         $wpdb->query(
-            "UPDATE $wpdb->postmeta
-             SET meta_value = 'page_generic_nav.php'
-		     WHERE meta_key LIKE '_wp_page_template' 
-		     AND meta_value LIKE 'single-regional_page.php'  
+            "DELETE FROM $wpdb->postmeta
+		     WHERE meta_key = 'related_docs_scanned' 
 		   "
         );
 
