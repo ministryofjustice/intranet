@@ -6,8 +6,19 @@
   var App = window.App;
 
   App.Events = function() {
-    this.$top = $('.template-events-landing .template-container');
-    if(!this.$top.length) { return; }
+    var $html = $('html');
+
+    if ($html.hasClass('template-events-landing')) {
+      this.eventsType = 'global';
+    }
+    else if($html.hasClass('template-regional-events-landing')) {
+      this.eventsType = 'regional';
+    }
+    else {
+      return;
+    }
+
+    this.$top = $('.template-container');
     this.init();
   };
 
@@ -20,7 +31,8 @@
 
       this.applicationUrl = $('head').data('application-url');
       this.serviceUrl = this.applicationUrl+'/service/events';
-      this.pageBase = this.applicationUrl+'/'+this.$top.data('top-level-slug');
+      this.pageBase = this.$top.data('page-base-url');
+      this.region = this.$top.data('region');
 
       this.itemTemplate = this.$top.find('.template-partial[data-name="events-item"]').html();
       this.resultsPageTitleTemplate = this.$top.find('.template-partial[data-name="events-results-page-title"]').html();
@@ -38,8 +50,13 @@
       this.cacheEls();
       this.bindEvents();
 
-      this.populateDateFilter();
-      this.filtersInit();
+      this.initialiseCurrentPage();
+
+      if (this.eventsType === 'global') {
+        this.populateDateFilter();
+        this.filtersInit();
+      }
+
       this.urlUpdate(true);
 
       this.resultsRequest({
@@ -103,12 +120,18 @@
     getDataObject: function(data) {
       var base = {
         'agency': App.tools.helpers.agency.getForContent(),
-        'additional_filters': '',
-        'date': this.$dateInput.val(),
+        'additional_filters': [],
+        'date': this.getDate(),
         'keywords': this.getKeywords().replace(/\s+/g, '+'),
         'page': this.getPage()
         //'resultsPerPage': 5 //commenting out - we want it to use the default setting from the API for now
       };
+
+      if (this.region) {
+        base.additional_filters.push('region=' + this.region);
+      }
+
+      base.additional_filters = base.additional_filters.join('&');
 
       if(data) {
         $.each(data, function(key, value) {
@@ -317,9 +340,14 @@
           this.$keywordsInput.val(keywords === '-' ? '' : keywords);
         }
       }
+    },
+
+    initialiseCurrentPage: function() {
+      var segments = this.getUrlSegments();
 
       this.currentPage = parseInt(segments[0] || 1, 10);
     },
+
 
     populateDateFilter: function() {
       var today = new Date();
@@ -355,7 +383,7 @@
     },
 
     getKeywords: function() {
-      var keywords = this.$keywordsInput.val();
+      var keywords = this.$keywordsInput.val() || '';
       keywords = keywords.replace(/^\s+|\s+$/g, '');
       keywords = keywords.replace(/\s+/g, ' ');
       keywords = keywords.replace(/[^a-zA-Z0-9\s]+/g, '');
@@ -363,15 +391,8 @@
     },
 
     getUrlSegments: function() {
-      var url = window.location.href;
-      var sub = url.substr(this.pageBase.length);
-      var hashPos = sub.indexOf('#');
-
-      if(hashPos >= 0) {
-        sub = sub.substr(0, hashPos);
-      }
-
-      sub = sub.replace(/^\/|\/$/g, ''); //remove leading and trailing slashes
+      var sub = window.location.href.substr(this.pageBase.length);
+      sub = App.tools.trim(sub, '/');
       return sub.split('/');
     },
 
@@ -437,25 +458,29 @@
     },
 
     getNewUrl: function(rootRelative) {
-      var urlParts = [this.pageBase];
       var keywords = this.getKeywords().replace(/\s/g, '+');
+      var rootRelativeBaseUrl = App.tools.trim(this.pageBase.substr(this.applicationUrl.length), '/');
+      var urlParts = rootRelativeBaseUrl.split('/');
 
       //page number
       urlParts.push(this.currentPage);
 
-      //keywords
-      urlParts.push(keywords || '-');
+      if (this.eventsType === 'global') {
+        //keywords
+        urlParts.push(keywords || '-');
 
-      //date
-      urlParts.push(this.getDate() || '-');
-
-      if(rootRelative) {
-        urlParts.shift();
-        urlParts.unshift(this.$top.data('top-level-slug'));
-        urlParts.unshift(''); //will have a leading slash on the final string (from join)
+        //date
+        urlParts.push(this.getDate() || '-');
       }
 
-      return urlParts.join('/')+'/';
+      if(rootRelative) {
+        urlParts.unshift(''); //a small trick to add a leading slash
+      }
+      else {
+        urlParts.unshift(this.applicationUrl);
+      }
+
+      return urlParts.join('/') + '/';
     }
   };
 }(jQuery));

@@ -1,38 +1,25 @@
 <?php if (!defined('ABSPATH')) die(); ?>
 
-<?php if ( have_posts() ) while ( have_posts() ) : the_post() ?>
-
-<div class="template-container" data-page-base-url="<?=$page_base_url?>">
+<div class="template-container"
+  data-page-id="<?=$id?>"
+  data-template-uri="<?=$template_uri?>"
+  data-page-base-url="<?=$page_base_url?>"
+  data-region="<?=$region?>">
   <div class="grid">
     <div class="col-lg-12 col-md-12 col-sm-12">
-      <h1 class="page-title"><?php the_title() ?></h1>
-      <?php the_content() ?>
+      <h1 class="page-title"><?=$title?></h1>
+      <?=$content?>
     </div>
   </div>
 
   <div class="grid">
-    <div class="col-lg-4 col-md-4 col-sm-12">
-      <h3 class="filters-label">Filter results</h3>
-      <form class="content-filters">
-        <p class="description">The results will update automatically based on your selections.</p>
-        <div class="form-row">
-          <label class="filter-label" for="input-filter-date">Date</label>
-        </div>
-        <div class="form-row">
-          <select name="date" id="input-filter-date">
-            <option value="">All</option>
-          </select>
-        </div>
-        <div class="form-row contains">
-          <label class="filter-label" for="input-filter-contains">Keywords</label>
-        </div>
-        <div class="form-row">
-          <input type="text" placeholder="Keywords" name="keywords" id="input-filter-contains" />
-        </div>
-      </form>
+    <div class="col-lg-3 col-md-4 col-sm-12">
+      <nav class="menu-list-container">
+        <ul class="menu-list"></ul>
+      </nav>
     </div>
 
-    <div class="col-lg-8 col-md-8 col-sm-12">
+    <div class="col-lg-9 col-md-8 col-sm-12">
       <ul class="results"></ul>
 
       <ul class="content-nav grid">
@@ -107,6 +94,6 @@
       <span class="date"></span>
     </h2>
   </div>
-</div>
 
-<?php endwhile ?>
+  <?php $this->view('modules/side_navigation') ?>
+</div>
