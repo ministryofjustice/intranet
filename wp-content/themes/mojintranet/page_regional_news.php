@@ -16,8 +16,6 @@ class Page_regional_news extends MVC_controller {
     the_content();
     $content = ob_get_clean();
 
-    $top_slug = $this->post->post_name;
-
     return [
       'page' => 'pages/regional_updates_landing/main',
       'template_class' => 'regional-updates-landing',
