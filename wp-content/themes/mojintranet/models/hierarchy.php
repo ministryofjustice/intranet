@@ -6,6 +6,8 @@ class Hierarchy_model extends MVC_model {
    * @return {Array} a list of ancestor IDs sorted hierarchically. The last element is the post ID itself.
    */
   function get_ancestor_ids($post_id) {
+    global $MVC;
+
     wp_reset_query();
 
     $id = $post_id;
@@ -22,7 +24,14 @@ class Hierarchy_model extends MVC_model {
       array_unshift($ancestor_ids, Taggr::get_id('blog-landing'));
     }
     elseif ($type == 'event') {
-      array_unshift($ancestor_ids, Taggr::get_id('events-landing'));
+      $regions = get_the_terms($MVC->post_id, 'region');
+
+      if (is_array($regions)) {
+        $ancestor_ids = $this->_add_regional_ancestor_ids('page_regional_events', $ancestor_ids);
+      }
+      else {
+        array_unshift($ancestor_ids, Taggr::get_id('events-landing'));
+      }
     }
     elseif ($type == 'webchat') {
       array_unshift($ancestor_ids, Taggr::get_id('webchats-landing'));
@@ -31,12 +40,7 @@ class Hierarchy_model extends MVC_model {
       array_unshift($ancestor_ids, Taggr::get_id('regions-landing'));
     }
     elseif ($type == 'regional_news') {
-      $regional_updates_landing_id = $this->_get_posts_by_regional_template('page_regional_news.php')[0]->ID;
-      $regional_landing_id = wp_get_post_parent_id($regional_updates_landing_id);
-
-      array_unshift($ancestor_ids, $regional_updates_landing_id);
-      array_unshift($ancestor_ids, $regional_landing_id);
-      array_unshift($ancestor_ids, Taggr::get_id('regions-landing'));
+      $ancestor_ids = $this->_add_regional_ancestor_ids('page_regional_news', $ancestor_ids);
     }
 
     return $ancestor_ids;
@@ -45,6 +49,17 @@ class Hierarchy_model extends MVC_model {
   function get_top_ancestor_id($post_id) {
     $ancestor_ids = $this->get_ancestor_ids($post_id);
     return $ancestor_ids[0];
+  }
+
+  private function _add_regional_ancestor_ids($template, $ancestor_ids) {
+    $regional_updates_landing_id = $this->_get_posts_by_regional_template($template . '.php')[0]->ID;
+    $regional_landing_id = wp_get_post_parent_id($regional_updates_landing_id);
+
+    array_unshift($ancestor_ids, $regional_updates_landing_id);
+    array_unshift($ancestor_ids, $regional_landing_id);
+    array_unshift($ancestor_ids, Taggr::get_id('regions-landing'));
+
+    return $ancestor_ids;
   }
 
   private function _get_posts_by_regional_template($regional_template) {
