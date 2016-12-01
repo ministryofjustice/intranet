@@ -108,6 +108,13 @@ function dw_filter_guest_author_manage_cap($cap) {
 }
 add_filter('coauthors_guest_author_manage_cap', 'dw_filter_guest_author_manage_cap');
 
+/**
+ * Checks if a local avatar has been selected by a user
+ * @param  string $url Current url of avatar
+ * @param  string $url ID or Email of user
+ * @param  array $args Attributes of the avatar
+ * @return string Url of avatar
+ */
 function check_local_avatar($url, $id_or_email, $args) {
   if(is_numeric($id_or_email)) {
     $local_avatar = get_user_meta($id_or_email, 'wp_user_avatar', true);
