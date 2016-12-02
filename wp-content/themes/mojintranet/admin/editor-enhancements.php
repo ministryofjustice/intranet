@@ -231,6 +231,7 @@ function pageparent_remove_theme_box() {
   if ( ! is_admin() )
     return;
   remove_meta_box('pageparentdiv', 'page', 'side');
+  remove_meta_box('pageparentdiv', 'regional_page', 'side');
 }
 
 function remove_post_custom_fields() {
