@@ -38,6 +38,6 @@ class Events_API extends API {
     $options = $this->add_taxonomies($options);
     $data = $this->MVC->model->events->get_list($options);
     $data['url_params'] = $this->params;
-    $this->response($data, 200, 300);
+    $this->response($data, 200, 60);
   }
 }

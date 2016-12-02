@@ -59,13 +59,13 @@ class Post_API extends API {
     $options = $this->add_taxonomies($options);
     $data = $this->MVC->model->post->get_list($options);
     $data['url_params'] = $this->params;
-    $this->response($data, 200, 300);
+    $this->response($data, 200, 60);
   }
 
   protected function get_sibling_links() {
     $options = $this->params;
     $data = $this->MVC->model->post_siblings->get_post_sibling_links($options);
-    $this->response($data, 200, 300);
+    $this->response($data, 200, 60);
   }
 
 }
