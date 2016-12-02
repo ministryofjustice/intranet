@@ -11,29 +11,32 @@ class Hierarchy_model extends MVC_model {
     $id = $post_id;
     $type = get_post_type($id);
     $ancestor_ids = get_post_ancestors($id);
-    $landing_page_id = null;
 
     $ancestor_ids = array_reverse($ancestor_ids);
     array_push($ancestor_ids, $id);
 
     if ($type == 'news') {
-      $landing_page_id = Taggr::get_id('news-landing');
+      array_unshift($ancestor_ids, Taggr::get_id('news-landing'));
     }
     elseif ($type == 'post') {
-      $landing_page_id = Taggr::get_id('blog-landing');
+      array_unshift($ancestor_ids, Taggr::get_id('blog-landing'));
     }
     elseif ($type == 'event') {
-      $landing_page_id = Taggr::get_id('events-landing');
+      array_unshift($ancestor_ids, Taggr::get_id('events-landing'));
     }
     elseif ($type == 'webchat') {
-      $landing_page_id = Taggr::get_id('webchats-landing');
+      array_unshift($ancestor_ids, Taggr::get_id('webchats-landing'));
     }
     elseif ($type == 'regional_page') {
-      $landing_page_id = Taggr::get_id('regions-landing');
+      array_unshift($ancestor_ids, Taggr::get_id('regions-landing'));
     }
+    elseif ($type == 'regional_news') {
+      $regional_updates_landing_id = $this->_get_posts_by_regional_template('page_regional_news.php')[0]->ID;
+      $regional_landing_id = wp_get_post_parent_id($regional_updates_landing_id);
 
-    if ($landing_page_id) {
-      array_unshift($ancestor_ids, $landing_page_id);
+      array_unshift($ancestor_ids, $regional_updates_landing_id);
+      array_unshift($ancestor_ids, $regional_landing_id);
+      array_unshift($ancestor_ids, Taggr::get_id('regions-landing'));
     }
 
     return $ancestor_ids;
@@ -42,5 +45,32 @@ class Hierarchy_model extends MVC_model {
   function get_top_ancestor_id($post_id) {
     $ancestor_ids = $this->get_ancestor_ids($post_id);
     return $ancestor_ids[0];
+  }
+
+  private function _get_posts_by_regional_template($regional_template) {
+    $region = get_the_terms(get_the_ID(), 'region')[0]->slug;
+
+    //find regional updates page ID
+    $args = [
+      'post_type' => 'regional_page',
+      'meta_query' => [
+        [
+          'key' => 'dw_regional_template',
+          'value' => $regional_template
+        ]
+      ],
+      'tax_query' => [
+        'relation' => 'AND',
+        [
+          'taxonomy' => 'region',
+          'field'    => 'slug',
+          'terms'    => [$region],
+        ]
+      ]
+    ];
+
+    $query = new WP_Query($args);
+
+    return $query->posts;
   }
 }

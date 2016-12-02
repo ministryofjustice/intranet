@@ -46,7 +46,7 @@
         <?=$content?>
       </div>
 
-     
+      <?php $this->view('modules/single_page_pagination') ?>
     </div>
   </div>
 </div>

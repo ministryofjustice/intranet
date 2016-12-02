@@ -64,14 +64,5 @@
         <?php $this->view('modules/main_menu', ['main_menu' => $main_menu]) ?>
       </div>
     </div>
-
-    <?php if(Taggr::get_current() != 'homepage'): ?>
-      <script data-name="header-my-moj" type="text/x-partial-template">
-        <li class="category-item header-my-moj">
-          <a class="category-link" href="">My MoJ <span class="arrow">▼</span></a>
-          <?php $this->view('pages/homepage/my_moj/main', $my_moj) ?>
-        </li>
-      </script>
-    <?php endif ?>
   </div>
 </div>
