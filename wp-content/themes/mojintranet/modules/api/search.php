@@ -39,7 +39,7 @@ class Search_API extends API {
     $options = $this->add_taxonomies($options);
     $data = $this->MVC->model->search->get($options);
     $data['url_params'] = $this->params;
-    $this->response($data, 200, 300);
+    $this->response($data, 200, 60);
   }
 
   public function exact_title_matches_filter($match) {

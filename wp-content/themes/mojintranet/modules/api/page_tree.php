@@ -66,20 +66,20 @@ class Page_tree_API extends API {
     $options = $this->add_taxonomies($this->params);
     $data = $this->MVC->model->page_tree->get_children($options);
     //$data['url_params'] = $this->params;
-    $this->response($data, 200, 120);
+    $this->response($data, 200, 60);
   }
 
   protected function get_ancestors() {
     $options = $this->add_taxonomies($this->params);
     $data = $this->MVC->model->page_tree->get_ancestors($options);
     //$data['url_params'] = $this->params;
-    $this->response($data, 200, 120);
+    $this->response($data, 200, 60);
   }
 
   protected function get_guidance_index() {
     $options = $this->add_taxonomies($this->params);
     $data = $this->MVC->model->page_tree->get_guidance_index($options);
     //$data['url_params'] = $this->params;
-    $this->response($data, 200, 120);
+    $this->response($data, 200, 60);
   }
 }
