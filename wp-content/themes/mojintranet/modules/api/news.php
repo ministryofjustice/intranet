@@ -65,6 +65,7 @@ class News_API extends API {
 
   protected function get_sibling_links() {
     $options = $this->params;
+    $options = $this->add_taxonomies($options);
     $data = $this->MVC->model->post_siblings->get_post_sibling_links($options);
     $this->response($data, 200, 60);
   }
