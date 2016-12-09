@@ -16,15 +16,29 @@ class Page_home extends MVC_controller {
   }
 
   private function get_data() {
-    return array(
+    return [
       'page' => 'pages/homepage/main',
       'template_class' => 'home',
       'cache_timeout' => 60 * 60 * 24 /* 1 day */,
       'no_breadcrumbs' => true,
-      'page_data' => array(
-        'see_all_events_url' => get_permalink(Taggr::get_id('events-landing')),
+      'page_data' => [
+        'news_widget' => [
+          'see_all_url' => get_permalink(Taggr::get_id('news-landing')),
+          'see_all_label' => 'See all news',
+          'type' => 'global',
+          'number_of_lists' => 2,
+          'no_items_found_message' => 'No news found',
+          'list_container_classes' => 'col-lg-6 col-md-12 col-sm-12',
+          'skeleton_screen_count' => 4
+        ],
+        'events_widget' => [
+          'see_all_url' => get_permalink(Taggr::get_id('events-landing')),
+          'see_all_label' => 'See all events',
+          'no_items_found_message' => 'No events found',
+          'type' => 'global'
+        ],
         'see_all_posts_url' => get_permalink(Taggr::get_id('blog-landing'))
-      )
-    );
+      ]
+    ];
   }
 }

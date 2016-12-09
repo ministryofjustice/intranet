@@ -1,5 +1,7 @@
 .template-news-landing,
-.template-events-landing {
+.template-events-landing,
+.template-regional-updates-landing,
+.template-regional-events-landing {
   .template-container {
     .filters-label {
       @extend %medium-heading;

@@ -18,7 +18,7 @@ function define_regional_page_post_type() {
       'public'        => true,
       'hierarchical' => true,
       'menu_position' => 3,
-      'supports'      => array('title','editor','thumbnail','excerpt','author'),
+      'supports'      => array('title','editor','thumbnail','excerpt','author','page-attributes'),
       'has_archive'   => false,
       'rewrite'       => array(
         'slug'       => 'regional-pages',
@@ -29,4 +29,3 @@ function define_regional_page_post_type() {
   );
 }
 add_action('init', 'define_regional_page_post_type');
-

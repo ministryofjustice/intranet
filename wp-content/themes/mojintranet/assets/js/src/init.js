@@ -42,6 +42,7 @@ jQuery(function() {
   App.ins.forgotPasswordForm = new App.ForgotPasswordForm();
   App.ins.loginForm = new App.LoginForm();
   App.ins.homePage = new App.Homepage();
+  App.ins.regionalLanding = new App.RegionalLanding();
 
   //Late
   App.ins.breakpoint.trigger();

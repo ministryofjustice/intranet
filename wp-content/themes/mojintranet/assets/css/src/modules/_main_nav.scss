@@ -4,6 +4,14 @@
   border-color: #979797;
   border-width: 0 0 1px;
 
+  .main-nav-regions {
+    display: none;
+
+    html[data-agency="hmcts"] & {
+      display: block;
+    }
+  }
+
   .main-menu-list {
     @include clearfix;
     display: -webkit-box;

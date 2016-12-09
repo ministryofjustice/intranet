@@ -38,24 +38,24 @@ function pageparent_ajax_check_parent() {
   $current_page = intval($filter_data["pageID"]);
   $post_type = get_post_type($current_page);
 
-  $parent_query = "SELECT ID,post_title,post_parent,post_type,post_status FROM $wpdb->posts 
+  $parent_query = "SELECT ID,post_title,post_parent,post_type,post_status FROM $wpdb->posts
                    LEFT JOIN $wpdb->term_relationships ON ( $wpdb->posts.ID = $wpdb->term_relationships.object_id )
                    LEFT JOIN $wpdb->term_taxonomy ON ( $wpdb->term_relationships.term_taxonomy_id = $wpdb->term_taxonomy.term_taxonomy_id )
-                   LEFT JOIN $wpdb->terms ON ( $wpdb->term_taxonomy.term_id = $wpdb->terms.term_id ) 
+                   LEFT JOIN $wpdb->terms ON ( $wpdb->term_taxonomy.term_id = $wpdb->terms.term_id )
                    WHERE post_title LIKE '%%%s%%'
-                   AND $wpdb->posts.ID != %s 
-                   AND post_type = '%s' 
-                   AND post_status IN ('publish','draft') 
-                   AND $wpdb->term_taxonomy.taxonomy = 'agency' 
+                   AND $wpdb->posts.ID != %s
+                   AND post_type = '%s'
+                   AND post_status IN ('publish','draft')
+                   AND $wpdb->term_taxonomy.taxonomy = 'agency'
                    AND $wpdb->terms.slug IN ( 'hq', '%s' ) ";
 
   if($post_type == 'regional_page' && Region_Context::current_user_can_have_context()) {
     $term_id = Region_Context::get_region_context('term_id');
-    $parent_query .= "AND $wpdb->posts.ID IN 
-                        (SELECT object_id FROM  $wpdb->term_relationships 
+    $parent_query .= "AND $wpdb->posts.ID IN
+                        (SELECT object_id FROM  $wpdb->term_relationships
                          LEFT JOIN $wpdb->term_taxonomy ON ( $wpdb->term_relationships.term_taxonomy_id = $wpdb->term_taxonomy.term_taxonomy_id )
                          WHERE $wpdb->term_taxonomy.term_id = $term_id
-                        ) 
+                        )
                       ";
   }
 
@@ -85,7 +85,7 @@ function pageparent_ajax_check_parent() {
       }
 
       echo "<li class='pageparentoption'>
-        <a class=\"parentlink\" style=\"cursor:pointer;\" parentname='".$parent->post_title . "' parentid='" . $parent->ID . "'>
+        <a class=\"parentlink\" style=\"cursor:pointer;\" parentname='". esc_html($parent->post_title) . "' parentid='" . $parent->ID . "'>
           <small>".
             $parent_state." ".$parent_title."
           </small> ".
@@ -141,10 +141,10 @@ function pageparent_box($post) {
       $current_template = get_post_meta($post->ID, 'dw_regional_template', true);
 
       $templates = [
-          'Generic' => 'generic',
-          'Landing' => 'landing',
-          'Events Listing' => 'events-listing',
-          'Updates Listing' => 'updates-listing',
+          'Generic' => 'page_generic_nav.php',
+          'Landing' => 'page_regional_landing.php',
+          'Events Listing' => 'page_regional_events.php',
+          'Updates Listing' => 'page_regional_news.php',
       ];
     }
 
@@ -231,6 +231,7 @@ function pageparent_remove_theme_box() {
   if ( ! is_admin() )
     return;
   remove_meta_box('pageparentdiv', 'page', 'side');
+  remove_meta_box('pageparentdiv', 'regional_page', 'side');
 }
 
 function remove_post_custom_fields() {
@@ -257,7 +258,7 @@ function dw_save_regional_template($post_id, $post, $update) {
     update_post_meta($post_id, 'dw_regional_template', $_POST['page_template']);
   }
   else if (empty($current_template)) {
-    update_post_meta($post_id, 'dw_regional_template', 'generic');
+    update_post_meta($post_id, 'dw_regional_template', 'page_generic_nav.php');
   }
 
 }

@@ -50,4 +50,18 @@ class Taggr {
   static function is_current($tag_name) {
     return Taggr::get_current() === $tag_name;
   }
+
+  /** Gets the tag of the supplied post ID
+   * @param {Integer} $post_id Post ID
+   * @return {String|Null} Posts's tag name or null if it doesn't have a tag
+   */
+  static function get_tag($post_id) {
+    $tag = get_post_meta($post_id, 'dw_tag', true);
+
+    if (!strlen($tag)) {
+      $tag = null;
+    }
+
+    return $tag;
+  }
 }
