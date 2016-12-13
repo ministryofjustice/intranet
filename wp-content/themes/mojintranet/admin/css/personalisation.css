@@ -15,3 +15,7 @@
 .user-profile-picture {
     display: none;
 }
+
+.post-type-attachment #edit-slug-box {
+    display: none;
+}
