@@ -17,7 +17,17 @@
         updateGATimeout: 2000, //timeout for google analytics for search refinements
         minKeywordLength: 2, //not implemented yet
         months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-        contentTypeSeparator: '<span class="breadcrumb-separator"></span>'
+        contentTypeSeparator: '<span class="breadcrumb-separator"></span>',
+        postTypes: [ //post types to be added to the page categories dropdown
+          {
+            'name': 'Blog post',
+            'slug': 'post'
+          },
+          {
+            'name': 'News',
+            'slug': 'news'
+          }
+        ]
       };
 
       this.applicationUrl = $('head').data('application-url');
@@ -41,7 +51,7 @@
       this.setFilters();
       this.$keywordsInput.focus();
       this.updateUrl(true);
-      this.loadResults({'type': 'all'});
+      this.loadResults();
     },
 
     cacheEls: function() {
@@ -147,12 +157,24 @@
       var agency = App.tools.helpers.agency.getForContent();
       var categoryCount = 0;
 
+      //prepare the post type array to be compatible with the categories array
+      $.each(this.settings.postTypes, function(index, postType) {
+        postType.isPostType = true;
+      });
+
+      //combine and sort the two arrays
+      categories = categories.concat(this.settings.postTypes);
+      App.tools.sortByKey(categories, 'name');
+
+      //add all categories (and posts) to the
       $.each(categories, function(index, term) {
-        if (App.tools.search(agency, term.agencies)) {
+        if (App.tools.search(agency, term.agencies) || term.isPostType) {
           $option = $('<option></option>')
             .val(term.slug)
             .html(term.name)
-            .appendTo(_this.$categoryInput);
+            .attr('data-is-post-type', term.isPostType ? 1 : 0);
+
+          $option.appendTo(_this.$categoryInput);
           categoryCount++;
         }
       });
@@ -346,17 +368,43 @@
     },
 
     getDataObject: function(data) {
+      var _this = this;
       var keywords = this.getSanitizedKeywords();
       var segments = this.getSegmentsFromUrl();
       var page = segments[3] || 1;
-      var type = this.$searchType.find('option:selected').val();
-      var categories = this.$categoryInput.val();
-      var additionalFilters = $.type(categories) === 'array' ? 'resource_category=' + categories.join('|') : '';
+      var allCategories = this.$categoryInput.val() || [];
+      var resourceCategories = [];
+      var postTypes = [];
+      var additionalFilters = [];
+      var base = {};
+      var type = '';
 
-      var base = {
+      if (allCategories.length) {
+        //separate post types from resource categories
+        $.each(allCategories, function(index, category) {
+          if (_this.$categoryInput.find('option[value="' + category + '"][data-is-post-type="1"]').length) {
+            postTypes.push(category);
+          }
+          else {
+            resourceCategories.push(category);
+          }
+        });
+
+        if (resourceCategories.length) {
+          additionalFilters.push('resource_category=' + resourceCategories.join('|'));
+
+          // if any resource categories are selected then we must add 'page' and 'document' post types
+          postTypes.push('page', 'document');
+        }
+      }
+      else { //if nothing is selected then include everything
+        postTypes = ['all'];
+      }
+
+      base = {
         'agency': App.tools.helpers.agency.getForContent(),
-        'additional_filters': additionalFilters,
-        'type': 'all',
+        'additional_filters': additionalFilters.join('&'),
+        'type': postTypes.join('|'),
         'keywords': keywords,
         'page': page,
         'resultsPerPage': 10
