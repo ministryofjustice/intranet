@@ -75,7 +75,7 @@
       $clearLink
         .html('Clear')
         .addClass('clear-link')
-        .click($.proxy(this.clear, this));
+        .click($.proxy(this.clearClick, this));
 
       $selectBox.append($list);
       $clearLinkBox.append($clearLink);
@@ -130,11 +130,16 @@
 
     selectChange: function(e) {
       this.replace(e.target);
+      $(e.target).trigger('multi-select-change');
     },
 
-    clear: function(e) {
-      var $customSelect = $(e.target).closest('.multi-select-box').find('[data-type="multi-select"]');
-      var $originalSelect = $customSelect.data('original-element');
+    clearClick: function(e) {
+      this.clear($(e.target).closest('.multi-select-box').find('[data-type="multi-select"]').data('original-element'));
+    },
+
+    clear: function(select) {
+      var $originalSelect = $(select);
+      var $customSelect = $originalSelect.data('custom-element');
 
       $originalSelect.find('option:selected').prop('selected', false);
       $originalSelect.trigger('change');

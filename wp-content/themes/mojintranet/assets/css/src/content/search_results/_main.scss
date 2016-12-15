@@ -167,4 +167,10 @@
       }
     }
   }
+
+  [data-type="multi-select"] {
+    li.disabled label {
+      color: $grey-2;
+    }
+  }
 }

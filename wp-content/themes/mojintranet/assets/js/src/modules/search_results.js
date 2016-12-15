@@ -33,6 +33,7 @@
       this.applicationUrl = $('head').data('application-url');
       this.serviceUrl = this.applicationUrl+'/service/search';
       this.pageBase = this.applicationUrl+'/'+this.$top.data('top-level-slug');
+      this.categories = JSON.parse(this.$top.attr('data-resource-categories'));
 
       this.itemTemplate = this.$top.find('.template-partial[data-name="search-item"]').html();
       this.resultsPageTitleTemplate = this.$top.find('.template-partial[data-name="search-results-page-title"]').html();
@@ -82,6 +83,10 @@
         _this.loadResults({
           page: 1
         });
+      });
+
+      this.$categoryInput.on('multi-select-change', function() {
+        _this.updateAvailableCategories();
       });
 
       this.$prevPage.click(function(e) {
@@ -146,13 +151,13 @@
       }
 
       App.ins.multiSelect.replace(this.$categoryInput);
+      this.updateAvailableCategories();
 
       this.currentPage = parseInt(segments[3] || 1, 10);
     },
 
     populateCategoryFilter: function() {
       var _this = this;
-      var categories = JSON.parse(this.$top.attr('data-resource-categories'));
       var $option;
       var agency = App.tools.helpers.agency.getForContent();
       var categoryCount = 0;
@@ -163,11 +168,11 @@
       });
 
       //combine and sort the two arrays
-      categories = categories.concat(this.settings.postTypes);
-      App.tools.sortByKey(categories, 'name');
+      this.categories = this.categories.concat(this.settings.postTypes);
+      App.tools.sortByKey(this.categories, 'name');
 
       //add all categories (and posts) to the
-      $.each(categories, function(index, term) {
+      $.each(this.categories, function(index, term) {
         if (App.tools.search(agency, term.agencies) || term.isPostType) {
           $option = $('<option></option>')
             .val(term.slug)
@@ -181,6 +186,42 @@
 
       if (!categoryCount) {
         this.$top.find('.resource-categories-box').addClass('hidden');
+      }
+    },
+
+    updateAvailableCategories: function() {
+      var _this = this;
+      var $item;
+      var $customElement = this.$categoryInput.data('custom-element');
+      var selectedItems = this.$categoryInput.val() || [];
+      var postTypesCount = 0;
+      var categoriesCount = 0;
+      var index;
+      var isPostType;
+
+      $.each(selectedItems, function(index, item) {
+        if (_this.isPostType(item)) {
+          postTypesCount++;
+        }
+        else {
+          categoriesCount++;
+        }
+      });
+
+      if (postTypesCount > 0 && categoriesCount > 0) {
+        //can't have both, so we clear the selection completely
+        App.ins.multiSelect.clear(this.$categoryInput);
+      }
+      else {
+        $customElement.find('li').each(function(index, $item) {
+          $item = $($item);
+          isPostType = _this.isPostType($item.find('input').val());
+
+          if (postTypesCount && !isPostType || categoriesCount && isPostType) {
+            $item.addClass('disabled');
+            $item.find('input').attr('disabled', 'disabled');
+          }
+        });
       }
     },
 
@@ -539,6 +580,19 @@
       }
 
       return urlParts.join('/')+'/';
-    }
+    },
+
+    //checks whether the supplied post type exists on the list of post types
+    isPostType: function(postType) {
+      var a, length;
+
+      for (a = 0, length = this.settings.postTypes.length; a < length; a++) {
+        if (this.settings.postTypes[a].slug === postType) {
+          return true;
+        }
+      }
+
+      return false;
+    },
   };
 }(jQuery));
