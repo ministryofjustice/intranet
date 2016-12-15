@@ -63,13 +63,11 @@
 
     buildCustomSelect: function() {
       var $customSelect = $('<div></div>');
-      var $selectBox = $('<div></div>');
       var $list = $('<ul></ul>');
       var $clearLink = $('<a></a>');
       var $clearLinkBox = $('<p></p>');
 
       $customSelect.addClass('multi-select-box');
-      $selectBox.addClass('multi-select-box-inner');
       $clearLinkBox.addClass('clear-link-box');
 
       $clearLink
@@ -77,10 +75,9 @@
         .addClass('clear-link')
         .click($.proxy(this.clearClick, this));
 
-      $selectBox.append($list);
       $clearLinkBox.append($clearLink);
       $customSelect.append($clearLinkBox);
-      $customSelect.append($selectBox);
+      $customSelect.append($list);
 
       return $customSelect;
     },
