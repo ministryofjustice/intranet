@@ -41,10 +41,13 @@
   <div class="grid">
     <div class="col-lg-8 col-md-12 col-sm-12">
       <ul class="social-actions post-social-actions">
+
+       <!-- Turned off until comments are enabled - AB
         <li class="comments-count">
           <span class="icon"></span>
           <span class="count"></span>
-        </li>
+        </li> -->
+        
         <li class="like-container" data-likes-count="<?=$likes_count?>" data-post-type="post" data-post-id="<?=$id?>">
           <a class="like-link" href="#">
             <span class="like-icon icon"></span>
