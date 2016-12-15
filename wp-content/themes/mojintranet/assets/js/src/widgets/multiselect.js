@@ -77,9 +77,9 @@
         .addClass('clear-link')
         .click($.proxy(this.clear, this));
 
+      $selectBox.append($list);
       $clearLinkBox.append($clearLink);
       $customSelect.append($clearLinkBox);
-      $selectBox.append($list);
       $customSelect.append($selectBox);
 
       return $customSelect;
