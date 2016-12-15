@@ -133,9 +133,12 @@
     },
 
     clear: function(e) {
-      var $originalSelect = $(e.target).closest('.multi-select-box').find('[data-type="multi-select"]').data('original-element');
+      var $customSelect = $(e.target).closest('.multi-select-box').find('[data-type="multi-select"]');
+      var $originalSelect = $customSelect.data('original-element');
+
       $originalSelect.find('option:selected').prop('selected', false);
       $originalSelect.trigger('change');
+
       this.replace($originalSelect);
     }
   };
