@@ -4,7 +4,7 @@ select[multiple] {
   }
 }
 
-.multi-select-container {
+.multi-select-box {
   background-color: $grey-3;
   text-align: right;
 
@@ -14,7 +14,7 @@ select[multiple] {
     cursor: pointer;
   }
 
-  .multi-select-container-inner {
+  .multi-select-box-inner {
     margin: 0 10px;
     text-align: left;
   }

@@ -68,9 +68,9 @@
       var $clearLink = $('<a></a>');
       var $clearLinkBox = $('<p></p>');
 
-      $customSelect.addClass('multi-select-container');
-      $selectBox.addClass('multi-select-container-inner');
-      $clearLinkBox.addClass('clear-link-container');
+      $customSelect.addClass('multi-select-box');
+      $selectBox.addClass('multi-select-box-inner');
+      $clearLinkBox.addClass('clear-link-box');
 
       $clearLink
         .html('Clear')
@@ -133,7 +133,7 @@
     },
 
     clear: function(e) {
-      var $originalSelect = $(e.target).closest('.multi-select-container').find('[data-type="multi-select"]').data('original-element');
+      var $originalSelect = $(e.target).closest('.multi-select-box').find('[data-type="multi-select"]').data('original-element');
       $originalSelect.find('option:selected').prop('selected', false);
       $originalSelect.trigger('change');
       this.replace($originalSelect);
