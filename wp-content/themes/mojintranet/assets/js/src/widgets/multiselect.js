@@ -58,7 +58,8 @@
         .data('custom-element', $customSelect)
         .off('change', $.proxy(this.selectChange, this))
         .on('change', $.proxy(this.selectChange, this))
-        .after($customSelect);
+        .after($customSelect)
+        .trigger('multi-select-replace');
     },
 
     buildCustomSelect: function() {
@@ -127,7 +128,6 @@
 
     selectChange: function(e) {
       this.replace(e.target);
-      $(e.target).trigger('multi-select-change');
     },
 
     clearClick: function(e) {

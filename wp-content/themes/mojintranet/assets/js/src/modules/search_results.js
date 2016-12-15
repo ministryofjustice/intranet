@@ -85,7 +85,7 @@
         });
       });
 
-      this.$categoryInput.on('multi-select-change', function() {
+      this.$categoryInput.on('multi-select-replace', function() {
         _this.updateAvailableCategories();
       });
 
