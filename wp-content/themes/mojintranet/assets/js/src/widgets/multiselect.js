@@ -35,26 +35,19 @@
     replace: function(select) {
       var _this = this;
       var $select = $(select);
-      var $customSelect = $('<ul></ul>');
-      var options = this.getOptions($select);
+      var $customSelect = this.buildCustomSelect();
+      var $list = $customSelect.find('ul');
       var $item;
-      var $checkbox;
-      var $label;
+      var $oldCustomSelect = $select.data('custom-element') || $([]);
+      var options = this.getOptions($select);
+
+      //remove the old custom select (if exists)
+      $oldCustomSelect.remove();
 
       $.each(options, function(index, option) {
-        $item = $('<li></li>');
+        $item = _this.buildItem(option);
 
-        $label = $('<label></label>')
-          .html(option.label)
-          .appendTo($item);
-
-        $checkbox = $('<input type="checkbox">')
-          .prop('checked', option.selected)
-          .val(option.value)
-          .prependTo($label)
-          .on('change', $.proxy(_this.checkboxChange, this));
-
-        $customSelect
+        $list
           .attr('data-type', 'multi-select')
           .data('original-element', $select)
           .append($item);
@@ -66,6 +59,46 @@
         .off('change', $.proxy(this.selectChange, this))
         .on('change', $.proxy(this.selectChange, this))
         .after($customSelect);
+    },
+
+    buildCustomSelect: function() {
+      var $customSelect = $('<div></div>');
+      var $selectBox = $('<div></div>');
+      var $list = $('<ul></ul>');
+      var $clearLink = $('<a></a>');
+      var $clearLinkBox = $('<p></p>');
+
+      $customSelect.addClass('multi-select-container');
+      $selectBox.addClass('multi-select-container-inner');
+      $clearLinkBox.addClass('clear-link-container');
+
+      $clearLink
+        .html('Clear')
+        .addClass('clear-link')
+        .click($.proxy(this.clear, this));
+
+      $clearLinkBox.append($clearLink);
+      $customSelect.append($clearLinkBox);
+      $selectBox.append($list);
+      $customSelect.append($selectBox);
+
+      return $customSelect;
+    },
+
+    buildItem: function(data) {
+      var $item = $('<li></li>');
+
+      var $label = $('<label></label>')
+        .html(data.label)
+        .appendTo($item);
+
+      var $checkbox = $('<input type="checkbox">')
+        .prop('checked', data.selected)
+        .val(data.value)
+        .prependTo($label)
+        .on('change', $.proxy(this.checkboxChange, this));
+
+      return $item;
     },
 
     getOptions: function($select) {
@@ -96,8 +129,14 @@
     },
 
     selectChange: function(e) {
-      $(e.target).data('custom-element').remove();
       this.replace(e.target);
+    },
+
+    clear: function(e) {
+      var $originalSelect = $(e.target).closest('.multi-select-container').find('[data-type="multi-select"]').data('original-element');
+      $originalSelect.find('option:selected').prop('selected', false);
+      $originalSelect.trigger('change');
+      this.replace($originalSelect);
     }
   };
 }(jQuery));

@@ -4,12 +4,30 @@ select[multiple] {
   }
 }
 
+.multi-select-container {
+  background-color: $grey-3;
+  text-align: right;
+
+  .clear-link {
+    display: inline-block;
+    padding: 5px 10px 5px 0;
+    cursor: pointer;
+  }
+
+  .multi-select-container-inner {
+    margin: 0 10px;
+    text-align: left;
+  }
+}
+
 [data-type="multi-select"] {
   display: inline-block;
   width: 100%;
   margin-top: 0;
+  margin-bottom: 10px;
   padding: 6px 0;
   border: 1px solid $grey-2;
+  background-color: $white;
 
   label {
     display: block;
