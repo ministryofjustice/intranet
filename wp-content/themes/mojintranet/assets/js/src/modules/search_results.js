@@ -20,12 +20,20 @@
         contentTypeSeparator: '<span class="breadcrumb-separator"></span>',
         postTypes: [ //post types to be added to the page categories dropdown
           {
-            'name': 'Blog post',
+            'name': 'Blog posts',
             'slug': 'post'
+          },
+          {
+            'name': 'Events',
+            'slug': 'event'
           },
           {
             'name': 'News',
             'slug': 'news'
+          },
+          {
+            'name': 'Webchats',
+            'slug': 'webchat'
           }
         ]
       };
