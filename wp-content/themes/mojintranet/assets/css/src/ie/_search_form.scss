@@ -5,10 +5,12 @@
       height: 16px;
     }
   }
+
   .header-search {
-   z-index: 999;
    position: relative;
+   z-index: 1;
   }
+
   .ui-autocomplete {
     z-index: 1;
   }
