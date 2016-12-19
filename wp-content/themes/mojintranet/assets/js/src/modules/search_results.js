@@ -179,7 +179,7 @@
       this.categories = this.categories.concat(this.settings.postTypes);
       App.tools.sortByKey(this.categories, 'name');
 
-      //add all categories (and posts) to the
+      //add all categories (and posts) to the select element
       $.each(this.categories, function(index, term) {
         if (App.tools.search(agency, term.agencies) || term.isPostType) {
           $option = $('<option></option>')
@@ -200,6 +200,7 @@
     updateAvailableCategories: function() {
       var _this = this;
       var $item;
+      var $input;
       var $customElement = this.$categoryInput.data('custom-element');
       var selectedItems = this.$categoryInput.val() || [];
       var postTypesCount = 0;
@@ -221,13 +222,15 @@
         App.ins.multiSelect.clear(this.$categoryInput);
       }
       else {
+        //disable items incompatible with current selection
         $customElement.find('li').each(function(index, $item) {
           $item = $($item);
-          isPostType = _this.isPostType($item.find('input').val());
+          $input = $item.find('input');
+          isPostType = _this.isPostType($input.val());
 
           if (postTypesCount && !isPostType || categoriesCount && isPostType) {
             $item.addClass('disabled');
-            $item.find('input').attr('disabled', 'disabled');
+            $input.attr('disabled', 'disabled');
           }
         });
       }
