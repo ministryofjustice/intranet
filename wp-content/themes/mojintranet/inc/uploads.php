@@ -15,3 +15,9 @@ add_filter( 'document_to_private', 'dont_make_private', 10, 2);
 function dont_make_private($post, $post_pre ){
 	return $post_pre;
 }
+
+add_filter('media_row_actions','hide_media_view_link', 10, 2);
+function hide_media_view_link($actions, $post){
+    unset($actions['view']);
+    return $actions;
+}
