@@ -5,7 +5,7 @@ class Purge_cache extends MVC_Controller {
     parent::__construct($param_string, $post_id);
     $this->debug = isset($_GET['debug']) && $_GET['debug'] ? true : false;
     $this->settings = [
-      'node_count' => 5,
+      'node_count' => defined('DW_LOAD_BALANCER_NODES') ? (int) DW_LOAD_BALANCER_NODES : 1,
       'max_tries' => 50, //maximum number of attempts to hit all the nodes
     ];
   }
