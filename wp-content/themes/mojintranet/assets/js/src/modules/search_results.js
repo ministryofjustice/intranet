@@ -93,10 +93,6 @@
         });
       });
 
-      this.$categoryInput.on('multi-select-replace', function() {
-        _this.updateAvailableCategories();
-      });
-
       this.$prevPage.click(function(e) {
         e.preventDefault();
         _this.loadResults({
@@ -159,7 +155,6 @@
       }
 
       App.ins.multiSelect.replace(this.$categoryInput);
-      this.updateAvailableCategories();
 
       this.currentPage = parseInt(segments[3] || 1, 10);
     },
@@ -194,45 +189,6 @@
 
       if (!categoryCount) {
         this.$top.find('.resource-categories-box').addClass('hidden');
-      }
-    },
-
-    updateAvailableCategories: function() {
-      var _this = this;
-      var $item;
-      var $input;
-      var $customElement = this.$categoryInput.data('custom-element');
-      var selectedItems = this.$categoryInput.val() || [];
-      var postTypesCount = 0;
-      var categoriesCount = 0;
-      var index;
-      var isPostType;
-
-      $.each(selectedItems, function(index, item) {
-        if (_this.isPostType(item)) {
-          postTypesCount++;
-        }
-        else {
-          categoriesCount++;
-        }
-      });
-
-      if (postTypesCount > 0 && categoriesCount > 0) {
-        //can't have both, so we clear the selection completely
-        App.ins.multiSelect.clear(this.$categoryInput);
-      }
-      else {
-        //disable items incompatible with current selection
-        $customElement.find('li').each(function(index, $item) {
-          $item = $($item);
-          $input = $item.find('input');
-          isPostType = _this.isPostType($input.val());
-
-          if (postTypesCount && !isPostType || categoriesCount && isPostType) {
-            $item.addClass('disabled');
-            $input.attr('disabled', 'disabled');
-          }
-        });
       }
     },
 
