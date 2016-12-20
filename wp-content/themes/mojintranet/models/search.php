@@ -89,6 +89,8 @@ class Search_model extends MVC_model {
    * @return {Array} Array of actual post types represented by the pseudo type
    */
   private function convert_post_type($post_type) {
+    $post_type = urldecode($post_type);
+    
     if (strpos($post_type, '|') !== false) {
       $post_type = explode('|', $post_type);
     }
