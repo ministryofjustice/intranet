@@ -69,3 +69,23 @@ form.standard {
     margin-top: 30px;
   }
 }
+
+fieldset {
+  padding: 0;
+  border: none;
+}
+
+input[type="radio"] {
+  margin-right: 10px;
+}
+
+.block-label {
+  display: block;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+.fields {
+  padding: 6px 0;
+  border: 1px solid $grey-2;
+}
