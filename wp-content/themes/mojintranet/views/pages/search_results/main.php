@@ -32,12 +32,11 @@
         <p class="description">You can use the filters to show only results that match your interests</p>
 
         <div class="resource-categories-box">
-          <div class="form-row">
-            <label class="filter-label" for="input-filter-categories">Categories</label>
-          </div>
-          <div class="form-row">
-            <select name="categories[]" multiple></select>
-          </div>
+          <fieldset class="form-row input-box">
+            <legend class="filter-label">Type of content</legend>
+            <div class="fields">
+            </div>
+          </fieldset>
         </div>
       </form>
       <p class="description">To search news go to the <a href="<?=get_permalink(get_page_by_path('newspage'))?>">News</a> page</p>

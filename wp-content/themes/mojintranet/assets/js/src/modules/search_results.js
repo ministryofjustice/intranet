@@ -65,7 +65,7 @@
 
     cacheEls: function() {
       this.$searchForm = this.$top.find('.search-form.search-string');
-      this.$categoryInput = this.$top.find('[name="categories[]"]');
+      this.$categoryInputBox = this.$top.find('.resource-categories-box .input-box');
       this.$keywordsInput = this.$top.find('.keywords-field');
       this.$results = this.$top.find('.results');
       this.$prevPage = this.$top.find('.previous');
@@ -85,12 +85,6 @@
             page: 1
           });
         }, 500);
-      });
-
-      this.$categoryInput.on('change', function() {
-        _this.loadResults({
-          page: 1
-        });
       });
 
       this.$prevPage.click(function(e) {
@@ -135,7 +129,7 @@
       var segments = this.getSegmentsFromUrl();
       var type = segments[0] || 'all';
       var keywords;
-      var categories;
+      var category;
 
       if(segments[1]) {
         keywords = segments[1];
@@ -149,19 +143,18 @@
       }
 
       if (segments[2]) {
-        categories = segments[2].split('|') || [];
+        category = segments[2] || '';
 
-        this.$categoryInput.val(categories);
+        this.setCategory(category);
       }
-
-      App.ins.multiSelect.replace(this.$categoryInput);
 
       this.currentPage = parseInt(segments[3] || 1, 10);
     },
 
     populateCategoryFilter: function() {
       var _this = this;
-      var $option;
+      var $input;
+      var $label;
       var agency = App.tools.helpers.agency.getForContent();
       var categoryCount = 0;
 
@@ -177,12 +170,23 @@
       //add all categories (and posts) to the select element
       $.each(this.categories, function(index, term) {
         if (App.tools.search(agency, term.agencies) || term.isPostType) {
-          $option = $('<option></option>')
+          $input = $('<input>')
+            .attr('type', 'radio')
+            .attr('name', 'resource-category')
+            .attr('data-is-post-type', term.isPostType ? 1 : 0)
             .val(term.slug)
-            .html(term.name)
-            .attr('data-is-post-type', term.isPostType ? 1 : 0);
+            .on('change', function() {
+              _this.loadResults({
+                page: 1
+              });
+            });
 
-          $option.appendTo(_this.$categoryInput);
+          $label = $('<label>')
+            .attr('class', 'block-label')
+            .html(term.name);
+
+          $input.prependTo($label);
+          $label.appendTo(_this.$categoryInputBox.find('.fields'));
           categoryCount++;
         }
       });
@@ -375,34 +379,34 @@
       return $child;
     },
 
+    getCategory: function() {
+      return this.$top.find('[name="resource-category"]:checked').val();
+    },
+
+    setCategory: function(category) {
+      this.$top.find('[name="resource-category"][value="' + category + '"]').prop('checked', true);
+    },
+
     getDataObject: function(data) {
       var _this = this;
       var keywords = this.getSanitizedKeywords();
       var segments = this.getSegmentsFromUrl();
       var page = segments[3] || 1;
-      var allCategories = this.$categoryInput.val() || [];
-      var resourceCategories = [];
+      var category = this.getCategory() || '';
       var postTypes = [];
       var additionalFilters = [];
       var base = {};
-      var type = '';
+      var isPostType;
 
-      if (allCategories.length) {
-        //separate post types from resource categories
-        $.each(allCategories, function(index, category) {
-          if (_this.$categoryInput.find('option[value="' + category + '"][data-is-post-type="1"]').length) {
-            postTypes.push(category);
-          }
-          else {
-            resourceCategories.push(category);
-          }
-        });
+      if (category) {
+        isPostType = this.$top.find('[name="resource-category"][value="' + category + '"][data-is-post-type="1"]').length;
 
-        if (resourceCategories.length) {
-          additionalFilters.push('resource_category=' + resourceCategories.join('|'));
-
-          // if any resource categories are selected then we must add 'page' and 'document' post types
-          postTypes.push('page', 'document');
+        if (isPostType) {
+          postTypes = [category];
+        }
+        else {
+          postTypes = ['page', 'document'];
+          additionalFilters.push('resource_category=' + category);
         }
       }
       else { //if nothing is selected then include everything
@@ -523,7 +527,7 @@
     getNewUrl: function(rootRelative) {
       var urlParts = [this.pageBase];
       var keywords = this.getSanitizedKeywords();
-      var categories = this.$categoryInput.val() || [];
+      var category = this.getCategory() || '';
       var type = this.$searchType.find('option:selected').val();
 
       //type
@@ -535,7 +539,7 @@
       urlParts.push(keywords || '-');
 
       //categories
-      urlParts.push(categories.join('|') || '-');
+      urlParts.push(category || '-');
 
       //page number
       urlParts.push(this.currentPage);
