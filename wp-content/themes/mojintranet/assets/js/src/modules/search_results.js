@@ -170,9 +170,8 @@
       //add all categories (and posts) to the select element
       $.each(this.categories, function(index, term) {
         if (App.tools.search(agency, term.agencies) || term.isPostType) {
-          $input = $('<input>')
-            .attr('type', 'radio')
-            .attr('name', 'resource-category')
+          //type and name must be defined inline, not with attr() cos IE7...
+          $input = $('<input type="radio" name="resource-category">')
             .attr('data-is-post-type', term.isPostType ? 1 : 0)
             .val(term.slug)
             .on('change', function() {
