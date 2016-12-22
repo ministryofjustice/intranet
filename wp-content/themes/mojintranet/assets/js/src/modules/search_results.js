@@ -127,12 +127,11 @@
 
     setFilters: function() {
       var segments = this.getSegmentsFromUrl();
-      var type = segments[0] || 'all';
       var keywords;
       var category;
 
-      if(segments[1]) {
-        keywords = segments[1];
+      if(segments[0]) {
+        keywords = segments[0];
         if(keywords === '-') {
           keywords = '';
         }
@@ -142,13 +141,10 @@
         this.$keywordsInput.val(keywords);
       }
 
-      if (segments[2]) {
-        category = segments[2] || '';
+      category = segments[1] || 'all';
+      this.setCategory(category);
 
-        this.setCategory(category);
-      }
-
-      this.currentPage = parseInt(segments[3] || 1, 10);
+      this.currentPage = parseInt(segments[2] || 1, 10);
     },
 
     populateCategoryFilter: function() {
@@ -167,6 +163,14 @@
       this.categories = this.categories.concat(this.settings.postTypes);
       App.tools.sortByKey(this.categories, 'name');
 
+      //add "All content" to the beginning of the list
+      this.categories.unshift({
+        isPostType: true,
+        name: 'All content',
+        slug: 'all',
+        classes: 'all-content'
+      });
+
       //add all categories (and posts) to the select element
       $.each(this.categories, function(index, term) {
         if (App.tools.search(agency, term.agencies) || term.isPostType) {
@@ -182,6 +186,7 @@
 
           $label = $('<label>')
             .attr('class', 'block-label')
+            .addClass(term.classes)
             .html(term.name);
 
           $input.prependTo($label);
@@ -390,7 +395,7 @@
       var _this = this;
       var keywords = this.getSanitizedKeywords();
       var segments = this.getSegmentsFromUrl();
-      var page = segments[3] || 1;
+      var page = segments[2] || 1;
       var category = this.getCategory() || '';
       var postTypes = [];
       var additionalFilters = [];
@@ -529,16 +534,13 @@
       var category = this.getCategory() || '';
       var type = this.$searchType.find('option:selected').val();
 
-      //type
-      urlParts.push('all');
-
       //keywords
       keywords = keywords.replace(/\s/g, '+');
       keywords = App.tools.urlencode(keywords);
       urlParts.push(keywords || '-');
 
       //categories
-      urlParts.push(category || '-');
+      urlParts.push(category || 'all');
 
       //page number
       urlParts.push(this.currentPage);

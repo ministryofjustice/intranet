@@ -34,8 +34,7 @@
         <div class="resource-categories-box">
           <fieldset class="form-row input-box">
             <legend class="filter-label">Type of content</legend>
-            <div class="fields">
-            </div>
+            <div class="fields"></div>
           </fieldset>
         </div>
       </form>
