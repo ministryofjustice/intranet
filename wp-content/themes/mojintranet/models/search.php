@@ -89,16 +89,14 @@ class Search_model extends MVC_model {
    * @return {Array} Array of actual post types represented by the pseudo type
    */
   private function convert_post_type($post_type) {
-    $post_type = urldecode($post_type);
-    
-    if (strpos($post_type, '|') !== false) {
-      $post_type = explode('|', $post_type);
-    }
-    elseif ($post_type === 'all') {
-      $post_type = array('page', 'news', 'document', 'webchat', 'event', 'post');
-    }
-    elseif ($post_type === 'content') {
-      $post_type = array('page', 'news', 'webchat', 'event', 'post');
+    switch ($post_type) {
+      case 'all':
+        $post_type = array('page', 'news', 'document', 'webchat', 'event', 'post');
+        break;
+
+      case 'content':
+        $post_type = array('page', 'news', 'webchat', 'event', 'post');
+        break;
     }
 
     return $post_type;
@@ -138,7 +136,6 @@ class Search_model extends MVC_model {
 
     add_filter('posts_orderby', array($this, 'wp_filter_posts_orderby'));
     $results = new WP_Query($args);
-
     remove_filter('posts_orderby', array($this, 'wp_filter_posts_orderby'));
 
     if (function_exists('relevanssi_do_query') && $this->options['keywords'] != null) {

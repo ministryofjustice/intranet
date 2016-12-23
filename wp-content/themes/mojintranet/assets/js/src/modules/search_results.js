@@ -17,31 +17,12 @@
         updateGATimeout: 2000, //timeout for google analytics for search refinements
         minKeywordLength: 2, //not implemented yet
         months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-        contentTypeSeparator: '<span class="breadcrumb-separator"></span>',
-        postTypes: [ //post types to be added to the page categories dropdown
-          {
-            'name': 'Blog posts',
-            'slug': 'post'
-          },
-          {
-            'name': 'Events',
-            'slug': 'event'
-          },
-          {
-            'name': 'News',
-            'slug': 'news'
-          },
-          {
-            'name': 'Webchats',
-            'slug': 'webchat'
-          }
-        ]
+        contentTypeSeparator: '<span class="breadcrumb-separator"></span>'
       };
 
       this.applicationUrl = $('head').data('application-url');
       this.serviceUrl = this.applicationUrl+'/service/search';
       this.pageBase = this.applicationUrl+'/'+this.$top.data('top-level-slug');
-      this.categories = JSON.parse(this.$top.attr('data-resource-categories'));
 
       this.itemTemplate = this.$top.find('.template-partial[data-name="search-item"]').html();
       this.resultsPageTitleTemplate = this.$top.find('.template-partial[data-name="search-results-page-title"]').html();
@@ -56,16 +37,15 @@
       this.cacheEls();
       this.bindEvents();
 
-      this.populateCategoryFilter();
-      this.setFilters();
       this.$keywordsInput.focus();
+      this.setFilters();
       this.updateUrl(true);
-      this.loadResults();
+      this.loadResults({'type': 'all'});
     },
 
     cacheEls: function() {
       this.$searchForm = this.$top.find('.search-form.search-string');
-      this.$categoryInputBox = this.$top.find('.resource-categories-box .input-box');
+      this.$categoryInput = this.$top.find('[name="category"]');
       this.$keywordsInput = this.$top.find('.keywords-field');
       this.$results = this.$top.find('.results');
       this.$prevPage = this.$top.find('.previous');
@@ -127,11 +107,11 @@
 
     setFilters: function() {
       var segments = this.getSegmentsFromUrl();
+      var type = segments[0] || 'all';
       var keywords;
-      var category;
 
-      if(segments[0]) {
-        keywords = segments[0];
+      if(segments[1]) {
+        keywords = segments[1];
         if(keywords === '-') {
           keywords = '';
         }
@@ -140,64 +120,9 @@
 
         this.$keywordsInput.val(keywords);
       }
-
-      category = segments[1] || 'all';
-      this.setCategory(category);
+      this.$searchType.find('option[value="' + type + '"]').prop('selected', true);
 
       this.currentPage = parseInt(segments[2] || 1, 10);
-    },
-
-    populateCategoryFilter: function() {
-      var _this = this;
-      var $input;
-      var $label;
-      var agency = App.tools.helpers.agency.getForContent();
-      var categoryCount = 0;
-
-      //prepare the post type array to be compatible with the categories array
-      $.each(this.settings.postTypes, function(index, postType) {
-        postType.isPostType = true;
-      });
-
-      //combine and sort the two arrays
-      this.categories = this.categories.concat(this.settings.postTypes);
-      App.tools.sortByKey(this.categories, 'name');
-
-      //add "All content" to the beginning of the list
-      this.categories.unshift({
-        isPostType: true,
-        name: 'All content',
-        slug: 'all',
-        classes: 'all-content'
-      });
-
-      //add all categories (and posts) to the select element
-      $.each(this.categories, function(index, term) {
-        if (App.tools.search(agency, term.agencies) || term.isPostType) {
-          //type and name must be defined inline, not with attr() cos IE7...
-          $input = $('<input type="radio" name="resource-category">')
-            .attr('data-is-post-type', term.isPostType ? 1 : 0)
-            .val(term.slug)
-            .on('change', function() {
-              _this.loadResults({
-                page: 1
-              });
-            });
-
-          $label = $('<label>')
-            .attr('class', 'block-label')
-            .addClass(term.classes)
-            .html(term.name);
-
-          $input.prependTo($label);
-          $label.appendTo(_this.$categoryInputBox.find('.fields'));
-          categoryCount++;
-        }
-      });
-
-      if (!categoryCount) {
-        this.$top.find('.resource-categories-box').addClass('hidden');
-      }
     },
 
     loadResults: function(requestData) {
@@ -383,44 +308,16 @@
       return $child;
     },
 
-    getCategory: function() {
-      return this.$top.find('[name="resource-category"]:checked').val();
-    },
-
-    setCategory: function(category) {
-      this.$top.find('[name="resource-category"][value="' + category + '"]').prop('checked', true);
-    },
-
     getDataObject: function(data) {
-      var _this = this;
       var keywords = this.getSanitizedKeywords();
       var segments = this.getSegmentsFromUrl();
       var page = segments[2] || 1;
-      var category = this.getCategory() || '';
-      var postTypes = [];
-      var additionalFilters = [];
-      var base = {};
-      var isPostType;
+      var type = this.$searchType.find('option:selected').val();
 
-      if (category) {
-        isPostType = this.$top.find('[name="resource-category"][value="' + category + '"][data-is-post-type="1"]').length;
-
-        if (isPostType) {
-          postTypes = [category];
-        }
-        else {
-          postTypes = ['page', 'document'];
-          additionalFilters.push('resource_category=' + category);
-        }
-      }
-      else { //if nothing is selected then include everything
-        postTypes = ['all'];
-      }
-
-      base = {
+      var base = {
         'agency': App.tools.helpers.agency.getForContent(),
-        'additional_filters': additionalFilters.join('&'),
-        'type': postTypes.join('|'),
+        'additional_filters': '',
+        'type': type,
         'keywords': keywords,
         'page': page,
         'resultsPerPage': 10
@@ -531,16 +428,15 @@
     getNewUrl: function(rootRelative) {
       var urlParts = [this.pageBase];
       var keywords = this.getSanitizedKeywords();
-      var category = this.getCategory() || '';
       var type = this.$searchType.find('option:selected').val();
+
+      //type
+      urlParts.push(type || 'all');
 
       //keywords
       keywords = keywords.replace(/\s/g, '+');
       keywords = App.tools.urlencode(keywords);
       urlParts.push(keywords || '-');
-
-      //categories
-      urlParts.push(category || 'all');
 
       //page number
       urlParts.push(this.currentPage);
@@ -552,19 +448,6 @@
       }
 
       return urlParts.join('/')+'/';
-    },
-
-    //checks whether the supplied post type exists on the list of post types
-    isPostType: function(postType) {
-      var a, length;
-
-      for (a = 0, length = this.settings.postTypes.length; a < length; a++) {
-        if (this.settings.postTypes[a].slug === postType) {
-          return true;
-        }
-      }
-
-      return false;
-    },
+    }
   };
 }(jQuery));

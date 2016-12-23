@@ -2,10 +2,7 @@
 
 <?php if ( have_posts() ) while ( have_posts() ) : the_post() ?>
 
-<div class="template-container"
-  data-top-level-slug="<?=$top_slug?>"
-  data-dw-tag="<?=$dw_tag?>"
-  data-resource-categories="<?=$resource_categories?>">
+<div class="template-container" data-top-level-slug="<?=$top_slug?>" data-dw-tag="<?=$dw_tag?>">
   <div class="grid">
     <div class="col-lg-12 col-md-12 col-sm-12">
       <h1 class="page-title">Search results</h1>
@@ -30,12 +27,15 @@
     <div class="col-lg-4 col-md-4 col-sm-12">
       <form class="content-filters">
         <p class="description">You can use the filters to show only results that match your interests</p>
-
-        <div class="resource-categories-box">
-          <fieldset class="form-row input-box">
-            <legend class="filter-label">Type of content</legend>
-            <div class="fields"></div>
-          </fieldset>
+        <div class="form-row">
+          <label class="filter-label" for="input-filter-type">Filter by</label>
+        </div>
+        <div class="form-row">
+          <select id="input-filter-date" name="type" class="search-type">
+            <option value="all">All</option>
+            <option value="content">Pages</option>
+            <option value="document">Forms and documents</option>
+          </select>
         </div>
       </form>
       <p class="description">To search news go to the <a href="<?=get_permalink(get_page_by_path('newspage'))?>">News</a> page</p>

@@ -4,23 +4,6 @@ select[multiple] {
   }
 }
 
-.multi-select-box {
-  .clear-link-box {
-    margin-top: -20px;
-    text-align: right;
-  }
-
-  .clear-link {
-    display: inline-block;
-    padding: 0px;
-    cursor: pointer;
-  }
-
-  .multi-select-box-inner {
-    text-align: left;
-  }
-}
-
 [data-type="multi-select"] {
   display: inline-block;
   width: 100%;

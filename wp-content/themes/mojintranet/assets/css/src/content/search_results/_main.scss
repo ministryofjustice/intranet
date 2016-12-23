@@ -22,12 +22,6 @@
       font-size: 16px;
       margin-bottom: 30px;
     }
-
-    .all-content {
-      margin-bottom: 6px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid $grey-2;
-    }
   }
 
   .results {
@@ -171,12 +165,6 @@
       &:before {
         content: "[PPT] ";
       }
-    }
-  }
-
-  [data-type="multi-select"] {
-    li.disabled label {
-      color: $grey-2;
     }
   }
 }
