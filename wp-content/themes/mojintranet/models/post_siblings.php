@@ -2,74 +2,54 @@
 
 class Post_siblings_model extends MVC_model {
 
-  /** Get a previous and next links for a post object
+  /** Get a previous and next urls for a post object
    * @param {Array} $options Options and filters (see search model for details)
-   * @return {Array} Formatted and sanitized results
+   * @return {Array} [
+   *  prev_link - {String} previous post URL
+   *  next_link - {String} next post URL
+   * ]
    */
-  public function get_post_sibling_links($options = array()) {
-    $this->current_agency = $options['agency'] ?: 'hq';
+  public function get_post_sibling_links($options = []) {
+    global $post;
 
-    if (is_numeric($options['post_id'])) {
-      global $post;
-      $data = [
-          'prev_link' => '',
-          'next_link' => '',
-      ];
+    $post = get_post($options['post_id']);
 
-      $post = get_post($options['post_id']);
+    $args = [
+      // Paging
+      'nopaging' => false,
+      'offset' => 0,
+      'posts_per_page' => 1,
+      // Filters
+      'post_type' => $post->post_type,
+      'tax_query' => $options['tax_query'],
+      'orderby' => 'date',
+      'post__not_in' => [$post->ID]
+    ];
 
-      if (is_null($post) == false) {
-        setup_postdata($post);
+    $before_args = $args;
+    $before_args['order'] = 'DESC';
+    $before_args['date_query'] = [
+      [
+        'before' => $post->post_date,
+        'inclusive' => true
+      ]
+    ];
 
-        add_filter('get_next_post_join', array($this, 'navigate_in_same_agency_join'), 20);
-        add_filter('get_previous_post_join', array($this, 'navigate_in_same_agency_join'), 20);
+    $after_args = $args;
+    $after_args['order'] = 'ASC';
+    $after_args['date_query'] = [
+      [
+        'after' => $post->post_date,
+        'inclusive' => true
+      ]
+    ];
 
-        add_filter('get_next_post_where' , array($this, 'navigate_in_same_agency_where'));
-        add_filter('get_previous_post_where' , array($this, 'navigate_in_same_agency_where'));
+    $before_post = get_array_value(get_posts($before_args), 0, []);
+    $after_post = get_array_value(get_posts($after_args), 0, []);
 
-        $prev_post = get_previous_post();
-
-        if (is_object($prev_post)) {
-          $data['prev_link'] = get_permalink($prev_post->ID);
-        }
-
-        $next_post = get_next_post();
-
-        if (is_object($next_post)) {
-          $data['next_link'] = get_permalink($next_post->ID);
-        }
-
-        wp_reset_postdata();
-      }
-    }
-
-    return $data;
-
+    return [
+      'prev_link' => is_object($before_post) ? get_permalink($before_post->ID) : '',
+      'next_link' => is_object($after_post) ? get_permalink($after_post->ID) : '',
+    ];
   }
-
-  public function navigate_in_same_agency_join() {
-    global $wpdb;
-    return " INNER JOIN $wpdb->term_relationships AS tr ON p.ID = tr.object_id INNER JOIN $wpdb->term_taxonomy tt ON tr.term_taxonomy_id = tt.term_taxonomy_id";
-  }
-
-  public function navigate_in_same_agency_where($original) {
-    global $wpdb, $post;
-
-    $agency_term = get_term_by('slug', $this->current_agency, 'agency');
-
-    if ( ! $agency_term )
-      return $original ;
-
-    $where 	= '';
-    $taxonomy = 'agency';
-    $op = ('get_previous_post_where' == current_filter()) ? '<' : '>';
-    $where = $wpdb->prepare( "AND tt.taxonomy = %s", $taxonomy );
-
-    if ( ! is_object_in_taxonomy( $post->post_type, $taxonomy ) )
-      return $original ;
-
-    $where 	= " AND tt.term_id = " . $agency_term->term_id;
-    return $wpdb->prepare("WHERE p.post_date $op %s AND p.post_type = %s AND p.post_status = 'publish' $where", $post->post_date, $post->post_type);
-  }
-
 }

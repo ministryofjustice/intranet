@@ -15,6 +15,7 @@
     init: function() {
       this.applicationUrl = $('head').data('application-url');
       this.serviceUrl = this.applicationUrl+'/service/news/siblings';
+      this.region = this.$top.data('region');
 
       this.loadNavLinks();
     },
@@ -60,9 +61,15 @@
     getDataObject: function() {
       var base = {
         'agency': App.tools.helpers.agency.getForContent(),
-        'additional_filters': '',
+        'additional_filters': [],
         'post_id': this.postID
       };
+
+      if (this.region) {
+        base.additional_filters.push('region=' + this.region);
+      }
+
+      base.additional_filters = base.additional_filters.join('&');
 
       return base;
     }

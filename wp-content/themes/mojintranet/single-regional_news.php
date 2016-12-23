@@ -38,7 +38,8 @@ class Single_regional_news extends MVC_controller {
         'excerpt' => get_the_excerpt(),
         'content' => $content,
         'raw_date' => $article_date,
-        'human_date' => date("j F Y", strtotime($article_date))
+        'human_date' => date("j F Y", strtotime($article_date)),
+        'region' => get_the_terms($this->post_id, 'region')[0]->slug
       )
     );
   }

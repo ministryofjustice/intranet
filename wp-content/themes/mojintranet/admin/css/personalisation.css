@@ -15,3 +15,11 @@
 .user-profile-picture {
     display: none;
 }
+
+.post-type-attachment #edit-slug-box {
+    display: none;
+}
+
+.attachment-info  .actions .view-attachment {
+    display: none;
+}

@@ -41,7 +41,7 @@ class Post_API extends API {
     );
 
     $this->params['agency'] = get_array_value($params, 1, 'hq');
-    $this->params['additional_params'] = get_array_value($params, 2, '');
+    $this->params['additional_filters'] = get_array_value($params, 2, '');
 
     if ($method == 'get') {
       $this->params['date'] = get_array_value($params, 3, '');
@@ -64,6 +64,7 @@ class Post_API extends API {
 
   protected function get_sibling_links() {
     $options = $this->params;
+    $options = $this->add_taxonomies($options);
     $data = $this->MVC->model->post_siblings->get_post_sibling_links($options);
     $this->response($data, 200, 60);
   }
