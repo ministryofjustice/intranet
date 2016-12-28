@@ -32,7 +32,7 @@ class Agency_Doc_Opt_In extends Admin_Command {
                    LEFT JOIN $wpdb->terms ON ( $wpdb->term_taxonomy.term_id = $wpdb->terms.term_id )
                    WHERE post_type = 'page'
                    AND $wpdb->term_taxonomy.taxonomy = 'agency'
-                   AND $wpdb->terms.slug = 'laa'
+                   AND $wpdb->terms.slug = '%s'
                    AND $wpdb->posts.ID IN
                         (SELECT object_id FROM  $wpdb->term_relationships
                          LEFT JOIN $wpdb->term_taxonomy ON ( $wpdb->term_relationships.term_taxonomy_id = $wpdb->term_taxonomy.term_taxonomy_id )
