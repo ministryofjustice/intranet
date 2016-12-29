@@ -43,6 +43,7 @@ jQuery(function() {
   App.ins.loginForm = new App.LoginForm();
   App.ins.homePage = new App.Homepage();
   App.ins.regionalLanding = new App.RegionalLanding();
+  App.ins.campaignLanding = new App.CampaignLanding();
 
   //Late
   App.ins.breakpoint.trigger();
