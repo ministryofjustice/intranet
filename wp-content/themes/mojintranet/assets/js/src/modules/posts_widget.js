@@ -5,7 +5,7 @@
 
   App.PostsWidget = function(data) {
     this.data = data;
-    this.$top = $('.template-home .posts-widget');
+    this.$top = $('.posts-widget');
     if(!this.$top.length) { return; }
     this.init();
   };
@@ -15,20 +15,23 @@
       this.applicationUrl = $('head').data('application-url');
       this.templateUri = $('head').data('template-uri');
       this.pageBase = this.applicationUrl + '/' + this.$top.data('top-level-slug');
+      this.postsType = this.$top.attr('data-posts-type') || 'global';
       this.genericThumbnailPath = this.templateUri + '/assets/images/blog-placeholder.jpg';
-
       this.itemTemplate = this.$top.find('[data-name="widget-post-item"]').html();
-
       this.resultsLoaded = true;
-      this.serviceXHR = null;
+      this.posts = [];
 
       this.cacheEls();
-
+      this.bindEvents();
       this.displayPosts(this.data);
     },
 
     cacheEls: function() {
       this.$postsList = this.$top.find('.posts-list');
+    },
+
+    bindEvents: function() {
+      $(window).on('breakpoint-change', $.proxy(this.arrangePosts, this));
     },
 
     displayPosts: function(data) {
@@ -37,11 +40,12 @@
 
       App.ins.skeletonScreens.remove(this.$postsList);
 
-      if (data.results.length > 0) {
-        $.each(data.results, function (index, result) {
-          $post = _this.buildResultRow(result);
-          _this.$postsList.append($post);
-        });
+      $.each(data.results, function (index, result) {
+        _this.posts.push(_this.buildResultRow(index, result));
+      });
+
+      if (this.posts.length > 0) {
+        this.arrangePosts();
       }
       else {
         this.$top.find('.no-posts-message').addClass('visible');
@@ -52,7 +56,7 @@
       this.$top.removeClass('loading');
     },
 
-    buildResultRow: function(data) {
+    buildResultRow: function(index, data) {
       var $child = $(this.itemTemplate);
       var date = App.tools.parseDate(data.timestamp);
       var author = data.authors[0];
@@ -68,6 +72,27 @@
       $child.find('.post-author').html(author.name);
 
       return $child;
+    },
+
+    /**
+     * Arranges posts into one or two columns
+     */
+    arrangePosts: function() {
+      var _this = this;
+      var column = 1;
+      var maxColumns = ($('html').hasClass('breakpoint-desktop') && this.postsType === 'campaign') ? 2 : 1;
+
+      this.$postsList.find('.results-item').detach();
+
+      $.each(this.posts, function (index, $postItem) {
+        _this.$postsList.eq(column - 1).append($postItem);
+
+        column++;
+
+        if (column > maxColumns) {
+          column = 1;
+        }
+      });
     }
   };
 }(jQuery));

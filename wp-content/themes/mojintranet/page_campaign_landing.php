@@ -35,6 +35,15 @@ class Page_campaign_landing extends MVC_controller {
           'type' => 'campaign',
           'no_items_found_message' => 'No events found',
           'skeleton_screen_count' => 2
+        ],
+        'posts_widget' => [
+          'see_all_url' => '',
+          'see_all_label' => '',
+          'no_items_found_message' => 'No posts found',
+          'type' => 'campaign',
+          'skeleton_screen_count' => 2,
+          'number_of_lists' => 2,
+          'list_container_classes' => 'col-lg-6 col-md-12 col-sm-12'
         ]
       ]
     ];

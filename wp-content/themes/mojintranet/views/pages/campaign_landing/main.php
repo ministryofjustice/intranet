@@ -1,7 +1,5 @@
 <?php if (!defined('ABSPATH')) die(); ?>
-<div class="template-container"
-     data-page-id="<?=$id?>">
-
+<div class="template-container" data-page-id="<?=$id?>">
   <div class="grid content-container">
     <div class="col-lg-3 col-md-4 col-sm-12">
       <nav class="menu-list-container">
@@ -14,6 +12,7 @@
 
       <?php $this->view('widgets/news_list/main', $news_widget) ?>
       <?php $this->view('widgets/events/main', $events_widget) ?>
+      <?php $this->view('widgets/posts/main', $posts_widget) ?>
     </div>
   </div>
 
