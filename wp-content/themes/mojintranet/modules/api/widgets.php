@@ -164,9 +164,10 @@ class Widgets_API extends API {
     $data['url_params'] = $this->params;
     $this->response($data, 200, 60);
   }
+
   private function get_campaign_landing() {
     $data = [];
-    
+
     $options = $this->params;
     $options = $this->add_taxonomies($options);
     $options['per_page'] = -1;
