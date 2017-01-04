@@ -3,7 +3,7 @@
   <div class="grid content-container">
     <div class="col-lg-12 col-md-12 col-sm-12">
       <a href="<?=$banner_url?>">
-        <img src="<?=$banner_image_url?>" />
+        <img src="<?=$banner_image_url?>" class="campaign-banner" />
       </a>
     </div>
 
