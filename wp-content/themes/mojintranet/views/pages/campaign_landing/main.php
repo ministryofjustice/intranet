@@ -1,8 +1,10 @@
 <?php if (!defined('ABSPATH')) die(); ?>
 <div class="template-container" data-page-id="<?=$id?>">
   <div class="grid content-container">
-    <div clas="campaign-banner">
-      <img src="<?=$banner_url?>" />
+    <div class="col-lg-12 col-md-12 col-sm-12">
+      <a href="<?=$banner_url?>">
+        <img src="<?=$banner_image_url?>" />
+      </a>
     </div>
 
     <?php if($lhs_menu_on): ?>
@@ -15,7 +17,7 @@
 
     <div class="col-lg-9 col-md-8 col-sm-12">
       <h1 class="page-title"><?=$title?></h1>
-      <div class="excerpt">
+      <div class="post-excerpt">
         <?=$excerpt?>
       </div>
 
