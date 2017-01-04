@@ -51,7 +51,8 @@ class Page_regional_landing extends MVC_controller {
           'number_of_lists' => 1,
           'no_items_found_message' => 'No updates found',
           'list_container_classes' => 'col-lg-12 col-md-12 col-sm-12',
-          'skeleton_screen_count' => 2
+          'skeleton_screen_count' => 2,
+          'heading_text' => 'Latest'
         ],
         'events_widget' => [
           'see_all_url' => get_permalink() . 'events/',
