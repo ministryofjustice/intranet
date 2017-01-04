@@ -11,6 +11,10 @@
 
     <div class="col-lg-9 col-md-8 col-sm-12">
       <h1 class="page-title"><?=$title?></h1>
+      <div class="excerpt">
+        <?=$excerpt?>
+      </div>
+
       <h2 class="category-name">News</h2>
 
       <?php $this->view('widgets/news_list/main', $news_widget) ?>

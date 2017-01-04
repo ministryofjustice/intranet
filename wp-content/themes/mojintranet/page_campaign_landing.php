@@ -13,6 +13,7 @@ class Page_campaign_landing extends MVC_controller {
   }
 
   private function get_data() {
+    $post = get_post($this->post_id);
     $lhs_menu_on = get_post_meta($this->post_id, 'lhs_menu_on', true) != "0";
 
     return [
@@ -22,6 +23,7 @@ class Page_campaign_landing extends MVC_controller {
       'page_data' => [
         'id' => $this->post_id,
         'title' => get_the_title(),
+        'excerpt' => $post->post_excerpt,
         'lhs_menu_on' => $lhs_menu_on,
         'news_widget' => [
           'see_all_url' => '',
