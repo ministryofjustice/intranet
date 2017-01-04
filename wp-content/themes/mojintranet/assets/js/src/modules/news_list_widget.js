@@ -80,7 +80,7 @@
       $child.find('.title .news-link').html(data.title);
       $child.find('.date').html(App.tools.formatDate(date, true));
 
-      if (this.newsType === 'regional') {
+      if (this.newsType !== 'global') {
         $child.find('.excerpt').html(data.excerpt);
       }
 
