@@ -1,6 +1,6 @@
 {
     "key": "group_58663f70f081d",
-    "title": "Page Settings",
+    "title": "Page Options",
     "fields": [
         {
             "key": "field_58663f7101ee3",
@@ -41,6 +41,25 @@
             "max_height": "",
             "max_size": "",
             "mime_types": ""
+        },
+        {
+            "key": "field_586d01d4ebaf4",
+            "label": "Banner Link",
+            "name": "dw_banner_link",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
         }
     ],
     "location": [
@@ -53,12 +72,12 @@
         ]
     ],
     "menu_order": 0,
-    "position": "side",
+    "position": "normal",
     "style": "default",
     "label_placement": "top",
     "instruction_placement": "label",
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1483096173
+    "modified": 1483538929
 }
