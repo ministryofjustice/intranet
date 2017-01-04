@@ -1,5 +1,7 @@
 <?php if (!defined('ABSPATH')) die(); ?>
-<div class="template-container" data-page-id="<?=$id?>">
+<div class="template-container"
+  data-page-id="<?=$id?>"
+  data-campaign-category="<?=$campaign_category?>">
   <div class="grid content-container">
     <div class="col-lg-12 col-md-12 col-sm-12">
       <a href="<?=$banner_url?>">

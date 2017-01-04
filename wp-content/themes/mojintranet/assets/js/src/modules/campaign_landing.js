@@ -14,7 +14,8 @@
       this.applicationUrl = $('head').data('application-url');
       this.templateUri = $('head').data('template-uri');
       this.region = this.$top.attr('data-region');
-      this.serviceUrl = this.applicationUrl + '/service/widgets/campaign-landing/' + App.tools.helpers.agency.getForContent() + '//';
+      this.campaignCategory = this.$top.attr('data-campaign-category');
+      this.serviceUrl = this.getServiceUrl();
 
       this.requestData();
     },
@@ -26,6 +27,16 @@
       //**/window.setTimeout(function() {
         _this.serviceXHR = $.getJSON(_this.serviceUrl, $.proxy(_this.initialiseWidgets, _this));
       //**/}, 2000);
+    },
+
+    getServiceUrl: function() {
+      var base = this.applicationUrl + '/service/widgets/campaign-landing/' + App.tools.helpers.agency.getForContent() + '/';
+
+      if (this.campaignCategory) {
+        return base + 'campaign_category=' + this.campaignCategory + '/';
+      }
+
+      return base;
     },
 
     initialiseWidgets: function(data) {

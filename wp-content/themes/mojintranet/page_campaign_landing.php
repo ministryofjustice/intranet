@@ -20,6 +20,13 @@ class Page_campaign_landing extends MVC_controller {
     $banner_url = get_post_meta($this->post_id, 'dw_banner_url', true);
     $banner_image = wp_get_attachment_image_src($banner_id, 'full');
 
+    $campaign_category_terms = get_the_terms(get_the_ID(), 'campaign_category') ?: [];
+    $campaign_category = '';
+
+    if (key_exists(0, $campaign_category_terms)) {
+      $campaign_category = $campaign_category_terms[0]->slug;
+    }
+
     return [
       'page' => 'pages/campaign_landing/main',
       'template_class' => 'campaign-landing',
@@ -31,6 +38,7 @@ class Page_campaign_landing extends MVC_controller {
         'lhs_menu_on' => $lhs_menu_on,
         'banner_image_url' => $banner_image[0],
         'banner_url' => $banner_url,
+        'campaign_category' => $campaign_category,
         'news_widget' => [
           'see_all_url' => '',
           'see_all_label' => '',
