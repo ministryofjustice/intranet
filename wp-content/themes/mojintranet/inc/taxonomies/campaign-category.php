@@ -7,6 +7,7 @@ class Campaign_Category extends Content_Category {
 
     protected $object_types = array(
         'news',
+        'page',
         'post',
         'event'
     );
