@@ -46,7 +46,8 @@ class Page_campaign_landing extends MVC_controller {
           'number_of_lists' => 1,
           'no_items_found_message' => 'No news found',
           'list_container_classes' => 'col-lg-12 col-md-12 col-sm-12',
-          'skeleton_screen_count' => 4
+          'skeleton_screen_count' => 4,
+          'heading_text' => 'News'
         ],
         'events_widget' => [
           'see_all_url' => '',

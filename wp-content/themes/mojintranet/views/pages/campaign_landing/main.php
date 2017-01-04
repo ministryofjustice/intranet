@@ -23,8 +23,6 @@
         <?=$excerpt?>
       </div>
 
-      <h2 class="category-name">News</h2>
-
       <?php $this->view('widgets/news_list/main', $news_widget) ?>
       <?php $this->view('widgets/events/main', $events_widget) ?>
       <?php $this->view('widgets/posts/main', $posts_widget) ?>
