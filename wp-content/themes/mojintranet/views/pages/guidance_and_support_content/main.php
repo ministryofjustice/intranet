@@ -1,6 +1,5 @@
 <?php if (!defined('ABSPATH')) die(); ?>
 <div class="template-container" data-page-id="<?=$id?>">
-
   <div class="grid content-container">
     <?php if($lhs_menu_on): ?>
       <div class="col-lg-3 col-md-4 col-sm-12">

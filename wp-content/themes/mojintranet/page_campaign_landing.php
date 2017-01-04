@@ -13,6 +13,8 @@ class Page_campaign_landing extends MVC_controller {
   }
 
   private function get_data() {
+    $lhs_menu_on = get_post_meta($this->post_id, 'lhs_menu_on', true) != "0";
+
     return [
       'page' => 'pages/campaign_landing/main',
       'template_class' => 'campaign-landing',
@@ -20,6 +22,7 @@ class Page_campaign_landing extends MVC_controller {
       'page_data' => [
         'id' => $this->post_id,
         'title' => get_the_title(),
+        'lhs_menu_on' => $lhs_menu_on,
         'news_widget' => [
           'see_all_url' => '',
           'see_all_label' => '',

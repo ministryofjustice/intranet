@@ -90,7 +90,7 @@
     displayNews: function() {
       var _this = this;
       var column = 1;
-      var maxColumns = ($('html').hasClass('breakpoint-desktop') && this.newsType !== 'regional') ? 2 : 1;
+      var maxColumns = ($('html').hasClass('breakpoint-desktop') && this.newsType === 'global') ? 2 : 1;
 
       this.$newsList.find('.news-item').detach();
 
