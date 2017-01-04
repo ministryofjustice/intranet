@@ -17,6 +17,7 @@ class Page_campaign_landing extends MVC_controller {
     $lhs_menu_on = get_post_meta($this->post_id, 'lhs_menu_on', true) != "0";
 
     $banner_id = get_post_meta($this->post_id, 'dw_page_banner', true);
+    $banner_url = get_post_meta($this->post_id, 'dw_banner_url', true);
     $banner_image = wp_get_attachment_image_src($banner_id, 'full');
 
     return [
@@ -28,7 +29,8 @@ class Page_campaign_landing extends MVC_controller {
         'title' => get_the_title(),
         'excerpt' => $post->post_excerpt,
         'lhs_menu_on' => $lhs_menu_on,
-        'banner_url' => $banner_image[0],
+        'banner_image_url' => $banner_image[0],
+        'banner_url' => $banner_url,
         'news_widget' => [
           'see_all_url' => '',
           'see_all_label' => '',

@@ -2,7 +2,9 @@
 <div class="template-container" data-page-id="<?=$id?>">
   <div class="grid content-container">
     <div class="col-lg-12 col-md-12 col-sm-12">
-      <img src="<?=$banner_url?>" />
+      <a href="<?=$banner_url?>">
+        <img src="<?=$banner_image_url?>" />
+      </a>
     </div>
 
     <?php if($lhs_menu_on): ?>
