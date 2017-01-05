@@ -14,7 +14,7 @@ class Page_campaign_landing extends MVC_controller {
 
   private function get_data() {
     $post = get_post($this->post_id);
-    $lhs_menu_on = get_post_meta($this->post_id, 'lhs_menu_on', true) != "0";
+    $lhs_menu_on = get_post_meta($this->post_id, 'dw_lhs_menu_on', true) != "0";
 
     $banner_id = get_post_meta($this->post_id, 'dw_page_banner', true);
     $banner_url = get_post_meta($this->post_id, 'dw_banner_url', true);
