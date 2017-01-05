@@ -30,6 +30,16 @@ class User_model extends MVC_model {
     return $result !== false;
   }
 
+  /** updates a user meta
+   * @param {Integer} $user_id User ID
+   * @param {String} $meta_key the meta key to update
+   * @param {String} $meta_value meta value
+   * @return {Boolean} True on successs, False on error
+   */
+  public function update_meta($user_id, $meta_key, $meta_value) {
+    return (bool) update_user_meta($user_id, $meta_key, $meta_value);
+  }
+
   /** sets the activation key on user's account
    * @param {Integer} $user_id User ID
    * @return {String} The unhashed activation key
