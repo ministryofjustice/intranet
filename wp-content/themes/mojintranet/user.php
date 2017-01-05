@@ -17,6 +17,8 @@ class User extends MVC_controller {
       $val = new Validation();
 
       $email = trim($_POST['email']);
+      $redirect_url = $_POST['redirect_url'];
+
       $display_name = $_POST['display_name'];
 
       $is_email_filled = $val->is_filled('email', 'email', 'Please enter email');
@@ -39,19 +41,11 @@ class User extends MVC_controller {
       if(!$val->has_errors()) {
 
         if(!email_exists($email)) {
-          //TO DO set password here
           $user_id = $this->model->user->create(array(
               'user_login' => $email,
               'user_email' => $email,
               'display_name' => $display_name
           ));
-        }
-        else {
-          //temp user displayname
-          $user = get_user_by('email', $email);
-          $user_id = $user->ID;
-          $this->model->user->update_meta($user_id, 'dw_temp_display_name', $display_name);
-          
         }
 
         $key = $this->model->user->set_activation_key($user_id);
@@ -59,7 +53,7 @@ class User extends MVC_controller {
         //send email to user
         $data = array(
           'name' => $display_name,
-          'activation_url' => network_site_url("/user/auth/?key=".$key."&login=" . rawurlencode($email), 'login')
+          'activation_url' => network_site_url("/user/auth/?key=".$key."&login=" . rawurlencode($email) . "&screen_name=" . $display_name . "&redirect_url=" . $redirect_url, 'login')
         );
 
         $message = $this->view('email/activate_account', $data, true);
@@ -75,21 +69,35 @@ class User extends MVC_controller {
   }
 
   function auth() {
+    if(!empty($_GET['login'])  && !empty($_GET['key']) && !empty($_GET['screen_name']) && !empty($_GET['redirect_url'])) {
+      $email = $_GET['login'];
+      $key = $_GET['key'];
+      $display_name = $_GET['screen_name'];
+      $user = get_user_by('email', $email);
 
-    if(!$this->_is_expired()) {
+      if ($user != false) {
+        if (!$this->_is_expired($user, $key)) {
 
-      //TO DO Check key
-      wp_signon(array(
-          'user_login' => $user->data->user_login,
-          'user_password' => $password
-      ));
+          $redirect_url = $_GET['redirect_url'];
+
+          wp_clear_auth_cookie();
+          wp_set_current_user($user->ID);
+          wp_set_auth_cookie($user->ID);
+
+          $this->model->user->update($user->ID, array(
+                'display_name' => $display_name
+          ));
+
+          wp_safe_redirect($redirect_url);
+          exit();
+        }
+
+
+      }
     }
   }
 
-  private function _is_expired() {
-    $email = $_GET['login'];
-    $user = get_user_by('email', $email);
-    $key = $_GET['key'];
+  private function _is_expired($user, $key) {
     $user = check_password_reset_key($key, $user->data->user_login);
 
     return is_array($user->errors);
