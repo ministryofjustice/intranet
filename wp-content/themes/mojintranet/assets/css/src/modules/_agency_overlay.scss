@@ -73,7 +73,8 @@ $grid-size: 40px;
     &[data-agency="noms"],
     &[data-agency="opg"],
     &[data-agency="ospt"],
-    &[data-agency="hq"] {
+    &[data-agency="hq"],
+    &[data-agency="pb"] {
       .icon {
         background-position: 0 0;
       }
@@ -97,7 +98,6 @@ $grid-size: 40px;
 
     &[data-agency="cica"],
     &[data-agency="judicial-office"],
-    &[data-agency="pb"],
     &[data-agency="ppo"] {
       display: none;
     }
