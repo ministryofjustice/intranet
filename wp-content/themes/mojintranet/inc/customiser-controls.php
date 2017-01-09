@@ -1,56 +1,30 @@
 <?php
-add_action('wp_ajax_get_autocomplete_items', 'ajax_get_autocomplete_items' );
-add_action('wp_ajax_nopriv_get_autocomplete_items', 'ajax_get_autocomplete_items' );
 
-function ajax_get_autocomplete_items(){
-    $items = [];
-
-    $post_type = $_POST['post_type'];
-    $context = $_POST['context'];
-    if(!empty($post_type) && !empty($context)) {
-        $args = [ 'post_type' => $post_type, 'posts_per_page' => -1];
-
-        $args['tax_query'] =  array(
-            array(
-                'taxonomy' => 'agency',
-                'field'    => 'slug',
-                'terms'    => $context,
-            )
-        );
-
-        $posts = get_posts($args);
-
-        foreach ($posts as $post) {
-            $items[] = ['postid' => $post->ID, 'label' => $post->post_title];
-        }
-
-        echo json_encode($items);
-    }
-
-    die();
-}
+// Taken from http://www.paulund.co.uk/custom-wordpress-controls
 
 if ( ! class_exists( 'WP_Customize_Control' ) )
     return NULL;
 
 class Content_Dropdown_Custom_Control extends WP_Customize_Control
 {
+    private $posts = false;
+
     public function __construct($manager, $id, $args = array(), $options = array())
     {
         parent::__construct( $manager, $id, $args );
     }
 
     /**
-    * Render the content on the theme customizer page
-    */
+     * Render the content on the theme customizer page
+     */
     public function render_content()
     {
         $context = Agency_Context::get_agency_context();
 
         $available_types = [
-          'news' => "News",
-          'post' => "Blog Post",
-          'page' => "Page"
+            'news' => "News",
+            'post' => "Blog Post",
+            'page' => "Page"
         ];
 
         if (!empty($this->value())) {
@@ -93,31 +67,6 @@ class Content_Dropdown_Custom_Control extends WP_Customize_Control
                     activateAutoComplete($(this).val());
                 });
 
-
-                /* AJAX Direct
-                 $("#<?=$this->id ?>-autocomplete").autocomplete({
-                 source:
-                 function( request, response ) {
-                 $.ajax({
-                 url : "<?php echo admin_url('admin-ajax.php'); ?>",
-                 type : 'post',
-                 dataType: "json",
-                 data : {
-                 action : 'get_autocomplete_items',
-                 post_type : "news"
-                 },
-                 success : function(data) {
-                 response(data);
-                 }
-                 });
-                 }
-                 ,
-                 select: function(event,ui) {
-                 $("#<?=$this->id ?>").val(ui.item.postid).trigger('change');
-                 }
-                 });*/
-
-
                 function activateAutoComplete(postType) {
                     $.ajax({
                         url: "<?php echo admin_url('admin-ajax.php'); ?>",
@@ -133,7 +82,7 @@ class Content_Dropdown_Custom_Control extends WP_Customize_Control
                             $("#<?=$this->id ?>-autocomplete").autocomplete({
                                 source: data
                                 ,
-                                change: function (event, ui) {
+                                select: function (event, ui) {
                                     $("#<?=$this->id ?>").val(ui.item.postid).trigger('change');
                                 }
                             });
@@ -150,9 +99,7 @@ class Content_Dropdown_Custom_Control extends WP_Customize_Control
                 });
             }
         </script>
-        <?php
+            <?php
+
     }
-
 }
-?>
-
