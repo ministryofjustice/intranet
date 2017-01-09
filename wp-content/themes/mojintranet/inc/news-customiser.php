@@ -44,7 +44,7 @@
         ) );
 
         $this->homepage_banner($wp_customize);
-        $this->featured_news($wp_customize,2);
+        $this->featured_items($wp_customize,2);
         $this->need_to_know($wp_customize,3);
         $this->emergency_message($wp_customize);
         $this->clean_up_customizer($wp_customize);
@@ -69,7 +69,7 @@
       }
 
       // Featured items functions
-      public function featured_news($wp_customize,$total_stories = 2) {
+      public function featured_items($wp_customize,$total_stories = 2) {
 
         $context = Agency_Context::get_agency_context();
         $agency = Agency_Editor::get_agency_by_slug($context);
@@ -88,7 +88,7 @@
         for($x=1;$x<=$total_stories;$x++) {
 
 
-          $this->new_control_setting($wp_customize, $context.'_featured_story'.$x, $section_name, 'Featured item ' . $x, 'news');
+          $this->new_control_setting($wp_customize, $context.'_featured_story'.$x, $section_name, 'Featured item ' . $x, 'content_dd');
         }
       }
 
@@ -145,7 +145,7 @@
       private function new_control_setting($wp_customize,$name,$section,$label,$type,$setting_params = array(),$control_params = array()) {
         // Set control class
         $control_classes = array(
-          'news'  => 'News_Dropdown_Custom_Control',
+          'content_dd'  => 'Content_Dropdown_Custom_Control',
           'image' => 'WP_Customize_Image_Control'
         );
         $control_class = $control_classes[$type]?:'WP_Customize_Control';
