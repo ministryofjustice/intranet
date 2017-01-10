@@ -44,7 +44,8 @@ class User extends MVC_controller {
           $user_id = $this->model->user->create(array(
               'user_login' => $email,
               'user_email' => $email,
-              'display_name' => $display_name
+              'display_name' => $display_name,
+              'user_pass'   =>  NULL
           ));
         }
 
