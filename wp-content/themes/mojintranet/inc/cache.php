@@ -42,7 +42,7 @@ function purge_on_save($post_id, $post, $update) {
 
   wp_remote_post($purge_url,  ['blocking' => false, timeout => 1]);
 }
-//add_action('save_post', 'purge_on_save', 10, 3);
+add_action('save_post', 'purge_on_save', 10, 3);
 
 function ignore_user_abort_on_purge() {
   if(get_query_var('controller') == 'purge-cache') {
