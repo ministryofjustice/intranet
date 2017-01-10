@@ -12,6 +12,16 @@ class Follow_us_model extends MVC_model {
       'cica' => [
       ],
       'pb' => [
+        [
+          'url' => 'https://twitter.com/Parole_Board',
+          'label' => 'Parole Board on Twitter',
+          'name' => 'twitter',
+        ],
+        [
+          'url' => 'https://www.yammer.com/paroleboard.gsi.gov.uk',
+          'label' => 'Parole Board on Yammer',
+          'name' => 'yammer',
+        ]
       ],
       'hq' => [
         [
