@@ -1,6 +1,10 @@
 <?php if (!defined('ABSPATH')) die(); ?>
 
 <div class="news-list-widget news-widget" data-news-type="<?=$type?>">
+  <?php if (isset($heading_text)): ?>
+    <h2 class="category-name"><?=$heading_text?></h2>
+  <?php endif ?>
+
   <div class="grid">
     <?php for($a = 1; $a <= $number_of_lists; $a++): ?>
       <div class="<?=$list_container_classes?>">

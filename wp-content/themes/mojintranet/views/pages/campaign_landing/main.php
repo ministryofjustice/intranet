@@ -1,9 +1,11 @@
 <?php if (!defined('ABSPATH')) die(); ?>
-<div class="template-container" data-page-id="<?=$id?>">
+<div class="template-container"
+  data-page-id="<?=$id?>"
+  data-campaign-category="<?=$campaign_category?>">
   <div class="grid content-container">
     <div class="col-lg-12 col-md-12 col-sm-12">
       <a href="<?=$banner_url?>">
-        <img src="<?=$banner_image_url?>" />
+        <img src="<?=$banner_image_url?>" class="campaign-banner" />
       </a>
     </div>
 
@@ -20,8 +22,6 @@
       <div class="post-excerpt">
         <?=$excerpt?>
       </div>
-
-      <h2 class="category-name">News</h2>
 
       <?php $this->view('widgets/news_list/main', $news_widget) ?>
       <?php $this->view('widgets/events/main', $events_widget) ?>
