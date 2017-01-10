@@ -17,7 +17,7 @@ class User extends MVC_controller {
       $val = new Validation();
 
       $email = trim($_POST['email']);
-      $redirect_url = $_POST['redirect_url'];
+      $redirect_url = get_array_value($_POST, 'redirect_url', '');
 
       $display_name = $_POST['display_name'];
 
@@ -39,14 +39,17 @@ class User extends MVC_controller {
       }
 
       if(!$val->has_errors()) {
-
         if(!email_exists($email)) {
           $user_id = $this->model->user->create(array(
               'user_login' => $email,
               'user_email' => $email,
               'display_name' => $display_name,
-              'user_pass'   =>  NULL
+              'user_pass'   =>  wp_generate_password()
           ));
+        }
+        else {
+          $user = get_user_by('email', $email);
+          $user_id = $user->ID;
         }
 
         $key = $this->model->user->set_activation_key($user_id);
@@ -92,8 +95,6 @@ class User extends MVC_controller {
           wp_safe_redirect($redirect_url);
           exit();
         }
-
-
       }
     }
   }

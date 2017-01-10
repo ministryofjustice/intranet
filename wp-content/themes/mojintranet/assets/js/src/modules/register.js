@@ -14,6 +14,7 @@
   App.RegisterForm.prototype = {
     init: function() {
       this.applicationUrl = $('head').data('application-url');
+      this.serviceUrl = this.applicationUrl + '/user/request/';
       this.validation = new App.tools.Validation(this.$top);
 
       this.cacheEls();
@@ -23,18 +24,17 @@
     },
 
     cacheEls: function() {
-      this.$firstNameField = this.$top.find('[name="first_name"]');
-      this.$surnameField = this.$top.find('[name="surname"]');
-      this.$emailField = this.$top.find('[name="email"]');
-      this.$reenterEmailField = this.$top.find('[name="reenter_email"]');
       this.$displayNameField = this.$top.find('[name="display_name"]');
+      this.$emailField = this.$top.find('[name="email"]');
       this.$submitCta = this.$top.find('.cta[type="submit"]');
+      this.$confirmationScreen = $('.confirmation-screen');
     },
 
     bindEvents: function() {
       var _this = this;
 
       this.$top.on('submit', $.proxy(this.submit, this));
+      this.$confirmationScreen.find('.back-link').on('click', $.proxy(this.confirmationBackLinkClick, this));
     },
 
     submit: function(e) {
@@ -49,7 +49,7 @@
 
         //**/ window.setTimeout(function() {
           $.ajax({
-            url: window.location.href,
+            url: _this.serviceUrl,
             method: 'post',
             data: _this.getData(),
             success: $.proxy(_this.submitSuccess, _this),
@@ -65,17 +65,14 @@
 
     getData: function() {
       return {
-        first_name: this.$firstNameField.val(),
-        surname: this.$surnameField.val(),
         email: this.$emailField.val(),
-        reenter_email: this.$reenterEmailField.val(),
         display_name: this.$displayNameField.val()
       };
     },
 
     submitSuccess: function(data) {
       if(data.success) {
-        this.displayConfirmationMessage();
+        this.toggleConfirmationMessage(true);
       }
       else {
         this.validation.displayErrors(data.validation.errors);
@@ -89,8 +86,14 @@
       this.toggleState();
     },
 
-    displayConfirmationMessage: function() {
-      $('.template-container').addClass('confirmation');
+    confirmationBackLinkClick: function(e) {
+      e.preventDefault();
+
+      this.toggleConfirmationMessage(false);
+    },
+
+    toggleConfirmationMessage: function(toggle) {
+      $('.template-container').toggleClass('confirmation', toggle);
     },
 
     validate: function() {
@@ -98,22 +101,8 @@
 
       this.validation.reset();
 
-      this.validation.isFilled(this.$firstNameField, 'first name');
-      this.validation.isFilled(this.$surnameField, 'surname');
       this.validation.isFilled(this.$emailField, 'email');
-      this.validation.isFilled(this.$reenterEmailField, 're-enter email', 'Please re-enter email');
-      this.validation.isFilled(this.$displayNameField, 'display name');
-
-      emailVal1 = this.$emailField.val();
-      emailVal2 = this.$reenterEmailField.val();
-
-      if(emailVal1) {
-        this.validation.isValidEmail(this.$emailField, 'email');
-      }
-
-      if(emailVal1 && emailVal2 && emailVal1 !== emailVal2) {
-        this.validation.error(this.$reenterEmailField, 're-enter email address', 'Email addresses don\'t match');
-      }
+      this.validation.isFilled(this.$displayNameField, 'screen name');
     },
 
     toggleState: function(state) {
