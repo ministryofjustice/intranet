@@ -1,13 +1,32 @@
 {
     "key": "group_58663f70f081d",
-    "title": "Page Options",
+    "title": "Page Details",
     "fields": [
+        {
+            "key": "field_5874e98f4f16a",
+            "label": "Excerpt",
+            "name": "dw_excerpt",
+            "type": "textarea",
+            "instructions": "Displays at the top of the hub page underneath the page title",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "maxlength": "",
+            "rows": "",
+            "new_lines": ""
+        },
         {
             "key": "field_58663f7101ee3",
             "label": "Left Hand Menu",
             "name": "dw_lhs_menu_on",
             "type": "true_false",
-            "instructions": "",
+            "instructions": "Turns the left hand menu on or off",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -23,7 +42,7 @@
             "label": "Page Banner",
             "name": "dw_page_banner",
             "type": "image",
-            "instructions": "",
+            "instructions": "Please contact newintranet@digital.justice.gov.uk if you need to upload a banner image that is less than 640px high",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -52,7 +71,7 @@
             "conditional_logic": 0,
             "wrapper": {
                 "width": "",
-                "class": "",
+                "class": "no-border",
                 "id": ""
             },
             "default_value": "",
@@ -71,13 +90,16 @@
             }
         ]
     ],
-    "menu_order": 0,
+    "menu_order": 10,
     "position": "normal",
     "style": "default",
     "label_placement": "top",
     "instruction_placement": "label",
-    "hide_on_screen": "",
+    "hide_on_screen": [
+        "the_content",
+        "excerpt"
+    ],
     "active": 1,
     "description": "",
-    "modified": 1483538929
+    "modified": 1484060742
 }

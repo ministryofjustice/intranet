@@ -23,3 +23,7 @@
 .attachment-info  .actions .view-attachment {
     display: none;
 }
+
+.acf-fields > .acf-field.no-border {
+    border-top: none;
+}
