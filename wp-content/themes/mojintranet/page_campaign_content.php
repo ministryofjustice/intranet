@@ -3,7 +3,7 @@
 /**
  * The generic template without LHS navigation
  *
- * Template name: Campaign Content
+ * Template name: Campaign content
  */
 
 class Page_campaign_content extends MVC_controller {
@@ -48,7 +48,6 @@ class Page_campaign_content extends MVC_controller {
         'thumbnail_alt_text' => $alt_text,
         'content' => $content,
         'content_classes' => $content_classes,
-        'skin' => get_post_meta($this->post_ID, 'dw_campaign_skin', true),
         'lhs_menu_on' => $lhs_menu_on,
       )
     );

@@ -2,7 +2,7 @@
 <div class="template-container"
      data-page-id="<?=$id?>">
 
-  <div class="grid content-container skin-<?=$skin?>">
+  <div class="grid content-container">
     <?php if($thumbnail): ?>
       <div class="col-lg-12 col-md-12 col-sm-12">
         <div class="campaign-banner">
