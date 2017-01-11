@@ -7,7 +7,6 @@ if ( ! class_exists( 'WP_Customize_Control' ) )
 
 class Content_Dropdown_Custom_Control extends WP_Customize_Control
 {
-    private $posts = false;
 
     public function __construct($manager, $id, $args = array(), $options = array())
     {
@@ -68,24 +67,27 @@ class Content_Dropdown_Custom_Control extends WP_Customize_Control
                 });
 
                 function activateAutoComplete(postType) {
-                    $.ajax({
-                        url: "<?php echo admin_url('admin-ajax.php'); ?>",
-                        type: 'post',
-                        dataType: "json",
-                        data: {
-                            action: 'get_autocomplete_items',
-                            post_type: postType,
-                            context: '<?php echo $context; ?>'
-                        },
-                        success: function (data) {
 
-                            $("#<?=$this->id ?>-autocomplete").autocomplete({
-                                source: data
-                                ,
-                                select: function (event, ui) {
-                                    $("#<?=$this->id ?>").val(ui.item.postid).trigger('change');
-                                }
-                            });
+                    $("#<?=$this->id ?>-autocomplete").autocomplete({
+                        source:
+                            function( request, response ) {
+                                $.ajax({
+                                    url : "<?php echo admin_url('admin-ajax.php'); ?>",
+                                    dataType: "json",
+                                    data : {
+                                        action : 'get_autocomplete_items',
+                                        post_type : postType,
+                                        context: '<?php echo $context; ?>',
+                                        search_term: request.term
+                                    },
+                                    success : function(data) {
+                                        response(data);
+                                    }
+                                });
+                            }
+                        ,
+                        select: function(event,ui) {
+                            $("#<?=$this->id ?>").val(ui.item.postid).trigger('change');
                         }
                     });
                 }
