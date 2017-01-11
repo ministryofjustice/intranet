@@ -30,6 +30,16 @@
                 "param": "page_template",
                 "operator": "!=",
                 "value": "page_guidance_and_support.php"
+            },
+            {
+                "param": "page_template",
+                "operator": "!=",
+                "value": "default"
+            },
+            {
+                "param": "page_template",
+                "operator": "!=",
+                "value": "page_campaign_content.php"
             }
         ]
     ],
@@ -41,5 +51,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1474898961
+    "modified": 1484147068
 }
