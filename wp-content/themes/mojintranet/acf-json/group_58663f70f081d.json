@@ -7,7 +7,7 @@
             "label": "Excerpt",
             "name": "dw_excerpt",
             "type": "textarea",
-            "instructions": "Displays at the top of the hub page underneath the page title",
+            "instructions": "Displays at the top of the page underneath the page title and as the text of a Featured item on the homepage",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -101,5 +101,5 @@
     ],
     "active": 1,
     "description": "",
-    "modified": 1484060742
+    "modified": 1484229487
 }

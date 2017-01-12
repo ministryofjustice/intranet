@@ -4,9 +4,13 @@
   data-campaign-category="<?=$campaign_category?>">
   <div class="grid content-container">
     <div class="col-lg-12 col-md-12 col-sm-12">
-      <a href="<?=$banner_url?>">
-        <img src="<?=$banner_image_url?>" class="campaign-banner" />
-      </a>
+      <?php if(!empty($banner_url)): ?>
+        <a href="<?=$banner_url?>">
+      <?php endif ?>
+          <img src="<?=$banner_image_url?>" class="campaign-banner" />
+      <?php if(!empty($banner_url)): ?>
+        </a>
+      <?php endif ?>
     </div>
 
     <?php if($lhs_menu_on): ?>
