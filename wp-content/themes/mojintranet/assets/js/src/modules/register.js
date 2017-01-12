@@ -34,7 +34,6 @@
       var _this = this;
 
       this.$top.on('submit', $.proxy(this.submit, this));
-      this.$confirmationScreen.find('.back-link').on('click', $.proxy(this.confirmationBackLinkClick, this));
     },
 
     submit: function(e) {
@@ -84,12 +83,6 @@
 
     submitComplete: function() {
       this.toggleState();
-    },
-
-    confirmationBackLinkClick: function(e) {
-      e.preventDefault();
-
-      this.toggleConfirmationMessage(false);
     },
 
     toggleConfirmationMessage: function(toggle) {
