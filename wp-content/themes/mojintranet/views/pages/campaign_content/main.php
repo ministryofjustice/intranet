@@ -3,6 +3,11 @@
      data-page-id="<?=$id?>">
 
   <div class="grid content-container">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+      <a href="<?=$banner_url?>">
+        <img src="<?=$banner_image_url?>" class="campaign-banner" />
+      </a>
+    </div>
     <?php if($thumbnail): ?>
       <div class="col-lg-12 col-md-12 col-sm-12">
         <div class="campaign-banner">
@@ -25,7 +30,9 @@
         <h1 class="page-title"><?=$title?></h1>
 
         <div class="editable">
+          <?=var_dump($colour_hex)?>
           <?=$content?>
+
         </div>
       </div>
     </div>

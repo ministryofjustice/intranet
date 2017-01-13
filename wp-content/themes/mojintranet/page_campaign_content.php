@@ -28,6 +28,12 @@ class Page_campaign_content extends MVC_controller {
     $thumbnail = wp_get_attachment_image_src($thumbnail_id, 'full');
     $alt_text = get_post_meta($thumbnail_id, '_wp_attachment_image_alt', true);
 
+    $banner_id = get_post_meta($this->post_id, 'dw_page_banner', true);
+    $banner_url = get_post_meta($this->post_id, 'dw_banner_url', true);
+    $banner_image = wp_get_attachment_image_src($banner_id, 'full');
+
+    $colour_hex = get_post_meta($this->post_id, 'dw_campaign_colour', true);
+
     $lhs_menu_on = get_post_meta($post->ID, 'dw_lhs_menu_on', true) != "0" ? true : false;
 
     if ($lhs_menu_on) {
@@ -49,6 +55,9 @@ class Page_campaign_content extends MVC_controller {
         'content' => $content,
         'content_classes' => $content_classes,
         'lhs_menu_on' => $lhs_menu_on,
+        'banner_image_url' => $banner_image[0],
+        'banner_url' => $banner_url,
+        'campaign_colour' => $colour_hex,
       )
     );
   }
