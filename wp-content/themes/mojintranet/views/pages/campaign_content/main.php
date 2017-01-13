@@ -1,4 +1,5 @@
 <?php if (!defined('ABSPATH')) die(); ?>
+<link rel="stylesheet" type="text/css" href="<?php bloginfo('template_directory'); ?>/views/pages/campaign_content/style.php"/>
 <div class="template-container"
      data-page-id="<?=$id?>">
 
