@@ -57,7 +57,9 @@ class Page_campaign_content extends MVC_controller {
         'lhs_menu_on' => $lhs_menu_on,
         'banner_image_url' => $banner_image[0],
         'banner_url' => $banner_url,
-        'campaign_colour' => $colour_hex,
+        'style_data' => [
+          'campaign_colour' => $colour_hex
+        ]
       )
     );
   }

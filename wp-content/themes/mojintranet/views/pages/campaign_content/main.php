@@ -1,5 +1,7 @@
 <?php if (!defined('ABSPATH')) die(); ?>
-<link rel="stylesheet" type="text/css" href="<?php bloginfo('template_directory'); ?>/views/pages/campaign_content/style.php"/>
+
+<?php $this->view('pages/campaign_content/dynamic_style', $style_data) ?>
+
 <div class="template-container"
      data-page-id="<?=$id?>">
 
@@ -31,9 +33,7 @@
         <h1 class="page-title"><?=$title?></h1>
 
         <div class="editable">
-          <?=var_dump($colour_hex)?>
           <?=$content?>
-
         </div>
       </div>
     </div>
