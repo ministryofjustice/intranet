@@ -17,7 +17,7 @@ class User extends MVC_controller {
       $val = new Validation();
 
       $email = trim($_POST['email']);
-      $redirect_url = get_array_value($_POST, 'redirect_url', '');
+      $redirect_url = get_array_value($_POST, 'redirect_url', site_url());
 
       $display_name = $_POST['display_name'];
 
@@ -82,7 +82,7 @@ class User extends MVC_controller {
       if ($user != false) {
         if (!$this->_is_expired($user, $key)) {
 
-          $redirect_url = $_GET['redirect_url'];
+          $redirect_url = get_array_value($_GET, 'redirect_url', site_url());
 
           wp_clear_auth_cookie();
           wp_set_current_user($user->ID);

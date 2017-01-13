@@ -65,7 +65,8 @@
     getData: function() {
       return {
         email: this.$emailField.val(),
-        display_name: this.$displayNameField.val()
+        display_name: this.$displayNameField.val(),
+        redirect_url: window.location.href
       };
     },
 
