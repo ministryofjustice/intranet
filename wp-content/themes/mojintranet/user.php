@@ -57,6 +57,7 @@ class User extends MVC_controller {
         //send email to user
         $data = array(
           'name' => $display_name,
+          'site_url' => site_url(),
           'activation_url' => network_site_url("/user/auth/?key=".$key."&login=" . rawurlencode($email) . "&screen_name=" . $display_name . "&redirect_url=" . $redirect_url, 'login')
         );
 
