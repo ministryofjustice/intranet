@@ -95,7 +95,7 @@
           <?php $this->view('modules/validation/validation') ?>
 
           <p class="secondary-action">
-            <a href="">MoJ commenting policy</a>
+            <a href="<?=$commenting_policy_url?>">MoJ commenting policy</a>
           </p>
         </form>
       </div>
