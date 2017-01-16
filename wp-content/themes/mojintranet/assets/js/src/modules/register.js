@@ -71,11 +71,16 @@
     },
 
     submitSuccess: function(data) {
-      if(data.success) {
-        this.toggleConfirmationMessage(true);
+      if (data.status === false) {
+        window.location.href = window.location.href;
       }
       else {
-        this.validation.displayErrors(data.validation.errors);
+        if(data.success) {
+          this.toggleConfirmationMessage(true);
+        }
+        else {
+          this.validation.displayErrors(data.validation.errors);
+        }
       }
     },
 
