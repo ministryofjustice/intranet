@@ -1,11 +1,11 @@
 <?php
 function dw_columns_shortcode($atts, $content = "" ) {
-  return '<div class="grid">' . apply_filters('the_content', WPCom_Markdown::get_instance()->transform($content)) . '</div>';
+  return '<div class="grid">' . apply_filters('the_content', $content) . '</div>';
 }
 add_shortcode('dw_columns', 'dw_columns_shortcode');
 
 function dw_col_shortcode($atts, $content = "" ) {
-  return '<div class="col-lg-6 col-md-6 col-sm-12">' . apply_filters('the_content', WPCom_Markdown::get_instance()->transform($content)) . '</div>';
+  return '<div class="col-lg-6 col-md-6 col-sm-12">' . apply_filters('the_content', WPCom_Markdown::get_instance()->transform($content, ['unslash' => false])) . '</div>';
 }
 add_shortcode('dw_col', 'dw_col_shortcode');
 
