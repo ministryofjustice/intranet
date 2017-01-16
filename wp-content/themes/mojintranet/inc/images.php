@@ -4,6 +4,8 @@
 add_image_size( "intranet-large", 650, 433, true );
 add_image_size( "intranet-small", 280, 182, true );
 add_image_size( "user-thumb", 128, 128, true );
+add_image_size("banner-xlarge", 990); //to be deleted when site is resized to 960
+add_image_size("banner-large", 960);
 
 // This one is 4:2 (2:1)
 add_image_size( "need-to-know", 768, 384, true );

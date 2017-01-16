@@ -18,7 +18,7 @@ class Page_campaign_landing extends MVC_controller {
 
     $banner_id = get_post_meta($this->post_id, 'dw_page_banner', true);
     $banner_url = get_post_meta($this->post_id, 'dw_banner_url', true);
-    $banner_image = wp_get_attachment_image_src($banner_id, 'full');
+    $banner_image = wp_get_attachment_image_src($banner_id, 'banner-xlarge');
 
     $campaign_category_terms = get_the_terms(get_the_ID(), 'campaign_category') ?: [];
     $campaign_category = '';
