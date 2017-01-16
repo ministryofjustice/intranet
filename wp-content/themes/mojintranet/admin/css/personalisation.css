@@ -23,3 +23,17 @@
 .attachment-info  .actions .view-attachment {
     display: none;
 }
+
+.acf-field .acf-error-message.contrast_invalid_message,
+.acf-field .acf-error-message.contrast_valid_message
+{
+    display: none;
+}
+
+.acf-field .acf-error-message.contrast_valid_message {
+    background: #65b576;
+}
+
+.acf-field .acf-error-message.contrast_valid_message:after {
+    border-top-color: #65b576;
+}

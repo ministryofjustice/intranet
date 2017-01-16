@@ -42,12 +42,12 @@
             "label": "Campaign Colour",
             "name": "dw_campaign_colour",
             "type": "text",
-            "instructions": "",
+            "instructions": "Enter your colour as a 6 character hex code. This colour will be used for horizontal rules, headers and callouts. The colour will be checked for accessibility.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
                 "width": "",
-                "class": "",
+                "class": "colour_check",
                 "id": ""
             },
             "default_value": "",
@@ -119,5 +119,5 @@
     ],
     "active": 1,
     "description": "",
-    "modified": 1484147242
+    "modified": 1484323144
 }
