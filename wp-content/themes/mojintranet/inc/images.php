@@ -36,3 +36,9 @@ function dw_block_small_images_upload( $file ) {
 
   return $file;
 }
+
+function dw_remove_size_attributes($html) {
+  $html = preg_replace('/(width|height)="\d*"\s/', "", $html);
+  return $html;
+}
+add_filter('image_send_to_editor', 'dw_remove_size_attributes', 10);
