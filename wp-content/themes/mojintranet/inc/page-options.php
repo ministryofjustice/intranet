@@ -33,8 +33,8 @@ add_action( 'admin_enqueue_scripts', 'add_colour_contrast_script', 10, 1 );
 
 function dw_add_contrast_message($field) {
   if (!empty($field['wrapper']) && !empty($field['wrapper']['class']) && strpos($field['wrapper']['class'], 'colour_check') !== false) {
-    echo '<div class="acf-error-message contrast_invalid_message"><p>The colour you have entered does not meet the accessibility requirements</p></div>';
-    echo '<div class="acf-error-message contrast_valid_message"><p>The colour you have entered meets the accessibility requirements</p></div>';
+    echo '<div class="acf-error-message contrast_invalid_message"><p>The colour you have entered does not meet the AA accessibility requirements :( Go to http://colorsafe.co for help picking an accessible colour.</p></div>';
+    echo '<div class="acf-error-message contrast_valid_message"><p>The colour you have entered meets our AA accessibility requirements :)</p></div>';
   }
 }
 add_action( 'acf/render_field', 'dw_add_contrast_message', 10, 1);
