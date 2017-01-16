@@ -81,8 +81,7 @@ class User extends MVC_controller {
       $user = get_user_by('email', $email);
 
       if ($user != false) {
-        if (!$this->_is_expired($user, $key)) {
-
+        if (!$this->model->user->is_expired($user, $key)) {
           $redirect_url = get_array_value($_GET, 'redirect_url', site_url());
 
           wp_clear_auth_cookie();
@@ -98,11 +97,5 @@ class User extends MVC_controller {
         }
       }
     }
-  }
-
-  private function _is_expired($user, $key) {
-    $user = check_password_reset_key($key, $user->data->user_login);
-
-    return is_array($user->errors);
   }
 }

@@ -134,4 +134,10 @@ class User_model extends MVC_model {
 
     return $data;
   }
+
+  public function is_expired($user, $key) {
+    $user = check_password_reset_key($key, $user->data->user_login);
+
+    return is_array($user->errors);
+  }
 }
