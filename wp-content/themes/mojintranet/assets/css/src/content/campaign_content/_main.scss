@@ -1,8 +1,26 @@
 .template-campaign-content {
   .template-container {
+
     h1 {
       @extend %largest-heading;
       margin-top: 20px;
     }
- }
+
+    h2 {
+      margin-top: 30px;
+    }
+
+    .editable {
+
+      .grid {
+      margin-bottom: 20px;
+      }
+
+    }
+
+    .example {
+    padding: 10px 15px 10px 15px;
+    }
+
+  }
 }

@@ -40,7 +40,7 @@ class Page_campaign_content extends MVC_controller {
       $content_classes = 'col-lg-9 col-md-8 col-sm-12';
     }
     else {
-      $content_classes =  'col-lg-12 col-md-12 col-sm-12';
+      $content_classes =  'col-lg-9 col-md-12 col-sm-12';
     }
 
     return array(
