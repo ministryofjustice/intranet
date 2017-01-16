@@ -80,7 +80,7 @@ function dw_colour_diff($colour1, $colour2){
 }
 
 function dw_check_colour_field($value, $post_id, $field) {
-  if (substr($value, 0) != "#") {
+  if (substr($value, 0, 1) != "#") {
     $value = '#' . $value;
   }
   return $value;
