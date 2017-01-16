@@ -79,3 +79,10 @@ function dw_colour_diff($colour1, $colour2){
   max($colour1['b'], $colour2['b']) - min($colour1['b'], $colour2['b']);
 }
 
+function dw_check_colour_field($value, $post_id, $field) {
+  if (substr($value, 0) != "#") {
+    $value = '#' . $value;
+  }
+  return $value;
+}
+add_filter('acf/update_value/key=field_587649cf122f3', 'dw_check_colour_field', 10, 3);
