@@ -7,6 +7,7 @@
       <tr>
         <td>
           <div style="background-color: black">
+            <!-- Yes, we hotlink to People Finder as our own prod server isn't available from the outside -->
             <img src="https://peoplefinder.service.gov.uk/assets/moj_logo_horizontal_36x246-90c698afdefe7275f7580065062aebc6.png" alt="Ministry of Justice" height="36px"
               style="padding: 20px 40px" />
           </div>
