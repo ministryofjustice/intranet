@@ -192,6 +192,10 @@ $grid-size: 50px;
   border-top: 1px solid $grey-2;
   text-align: left;
 
+  .template-campaign-landing & {
+    display: none;
+  }
+
   a {
     font-weight: bold;
     text-decoration: underline;

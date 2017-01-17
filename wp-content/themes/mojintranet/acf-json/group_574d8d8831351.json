@@ -46,6 +46,13 @@
                 "operator": "==",
                 "value": "region"
             }
+        ],
+        [
+            {
+                "param": "taxonomy",
+                "operator": "==",
+                "value": "campaign_category"
+            }
         ]
     ],
     "menu_order": 0,
@@ -56,5 +63,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1477307571
+    "modified": 1482920545
 }

@@ -34,7 +34,7 @@
             {
                 "param": "page_template",
                 "operator": "!=",
-                "value": "default"
+                "value": "page_campaign_landing.php"
             },
             {
                 "param": "page_template",
@@ -51,5 +51,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1484147068
+    "modified": 1484663186
 }

@@ -86,3 +86,19 @@ function dw_check_colour_field($value, $post_id, $field) {
   return $value;
 }
 add_filter('acf/update_value/key=field_587649cf122f3', 'dw_check_colour_field', 10, 3);
+
+function dw_update_excerpt_field($value, $post_id, $field) {
+  wp_update_post( ['ID' => $post_id, 'post_excerpt' => $value] );
+
+  return $value;
+}
+add_filter('acf/update_value/name=dw_excerpt', 'dw_update_excerpt_field', 10, 3);
+
+function dw_featured_image_msg($content, $post_ID, $thumbnail_id) {
+
+  if(get_post_type($post_ID) == 'page') {
+    $content = 'This image is displayed in the Featured section of the homepage' . $content;
+  }
+  return $content;
+}
+add_filter('admin_post_thumbnail_html', 'dw_featured_image_msg', 10, 3);

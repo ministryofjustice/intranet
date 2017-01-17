@@ -68,6 +68,7 @@ class Search_model extends MVC_model {
       'meta_fields' => array(),
       'page' => 1,
       'per_page' => 10,
+      'nopaging' => false,
       'post_type' => 'all',
       'keywords' => '',
       'tax_query' => array()
@@ -120,7 +121,7 @@ class Search_model extends MVC_model {
 
 		$args = array(
 			// Paging
-			'nopaging' => false,
+			'nopaging' => $this->options['nopaging'],
 			'paged' => $this->options['page'],
 			'posts_per_page' => $this->options['per_page'],
 			// Sorting
@@ -141,7 +142,7 @@ class Search_model extends MVC_model {
     if (function_exists('relevanssi_do_query') && $this->options['keywords'] != null) {
       relevanssi_do_query($results);
     }
-
+    
     if($this->debug) {
       Debug::full($results->query, 8);
     }

@@ -37,7 +37,15 @@ class Page_home extends MVC_controller {
           'no_items_found_message' => 'No events found',
           'type' => 'global'
         ],
-        'see_all_posts_url' => get_permalink(Taggr::get_id('blog-landing'))
+        'posts_widget' => [
+          'see_all_url' => get_permalink(Taggr::get_id('blog-landing')),
+          'see_all_label' => 'See all posts',
+          'no_items_found_message' => 'No posts found',
+          'type' => 'global',
+          'number_of_lists' => 1,
+          'list_container_classes' => 'col-lg-12 col-md-12 col-sm-12',
+          'skeleton_screen_count' => 5
+        ]
       ]
     ];
   }
