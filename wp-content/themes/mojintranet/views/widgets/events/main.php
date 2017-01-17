@@ -2,6 +2,7 @@
 
 <div class="events-widget" data-events-type="<?=$type?>">
   <h2 class="category-name">Events</h2>
+  
   <ul class="events-list grid"
       data-skeleton-screen-count="<?=$skeleton_screen_count?>"
       data-skeleton-screen-type="standard"

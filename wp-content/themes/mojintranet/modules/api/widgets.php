@@ -37,6 +37,10 @@ class Widgets_API extends API {
         $this->get_regional();
         break;
 
+      case 'campaign-landing':
+        $this->get_campaign_landing();
+        break;
+
       default:
         $this->error('Invalid widget');
         break;
@@ -156,6 +160,27 @@ class Widgets_API extends API {
     $options['page'] = 1;
     $options['per_page'] = 2;
     $data['events'] = $this->MVC->model->events->get_list($options);
+
+    $data['url_params'] = $this->params;
+    $this->response($data, 200, 60);
+  }
+
+  private function get_campaign_landing() {
+    $data = [];
+
+    $options = $this->params;
+    $options = $this->add_taxonomies($options);
+    $options['per_page'] = -1;
+    $options['nopaging'] = true;
+
+    //news list
+    $data['news_list'] = $this->MVC->model->news->get_widget_news($options, false);
+
+    //events
+    $data['events'] = $this->MVC->model->events->get_list($options);
+
+    //posts
+    $data['posts'] = $this->MVC->model->post->get_list($options);
 
     $data['url_params'] = $this->params;
     $this->response($data, 200, 60);

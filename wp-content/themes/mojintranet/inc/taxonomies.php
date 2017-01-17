@@ -9,6 +9,7 @@ $taxonomies = array(
     'agency' => array("dir" => false, "class-name" => 'Agency'),
     'news-category' => array("dir" => false, "class-name" => 'News_Category'),
     'resource-category' => array("dir" => false, "class-name" => 'Resource_Category'),
+    'campaign-category' => array("dir" => false, "class-name" => 'Campaign_Category'),
     'region' => array("dir" => false, "class-name" => 'Region'),
     //'laa-region' => array("dir" => 'laa', "class-name" => 'LAA_Region'),
 );

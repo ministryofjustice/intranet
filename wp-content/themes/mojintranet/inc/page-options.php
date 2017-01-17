@@ -17,3 +17,22 @@ function dw_agency_page_option_fields($field) {
   return $field;
 }
 add_filter('acf/load_field/key=field_57e92cb88452d', 'dw_agency_page_option_fields');
+
+function dw_update_excerpt_field($value, $post_id, $field) {
+  wp_update_post( ['ID' => $post_id, 'post_excerpt' => $value] );
+
+  return $value;
+}
+add_filter('acf/update_value/name=dw_excerpt', 'dw_update_excerpt_field', 10, 3);
+
+function dw_featured_image_msg($content, $post_ID, $thumbnail_id) {
+
+  if(get_post_type($post_ID) == 'page') {
+    $content = 'This image is displayed in the Featured section of the homepage' . $content;
+  }
+  return $content;
+}
+add_filter('admin_post_thumbnail_html', 'dw_featured_image_msg', 10, 3);
+
+
+
