@@ -51,7 +51,7 @@
                 "id": ""
             },
             "return_format": "id",
-            "preview_size": "thumbnail",
+            "preview_size": "medium_large",
             "library": "all",
             "min_width": "",
             "min_height": "",
@@ -101,5 +101,5 @@
     ],
     "active": 1,
     "description": "",
-    "modified": 1484311927
+    "modified": 1484654151
 }
