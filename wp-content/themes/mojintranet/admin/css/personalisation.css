@@ -37,3 +37,7 @@
 .acf-field .acf-error-message.contrast_valid_message:after {
     border-top-color: #65b576;
 }
+
+.acf-fields > .acf-field.no-border {
+    border-top: none;
+}
