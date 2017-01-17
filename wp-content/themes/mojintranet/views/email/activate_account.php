@@ -35,15 +35,15 @@
           </p>
           <p style="padding: 5px 0; font-size: 19px; font-family: Arial, sans-serif;">For security reasons this email will be active for 3 hours only.</p>
           <p style="padding: 5px 0; font-size: 19px; font-family: Arial, sans-serif;">If you did not sign up to comment on the MoJ intranet, please ignore this email.</p>
-          <p style="padding: 5px 0; font-size: 19px; font-family: Arial, sans-serif;">The Intranet Team.</p>
-          <p style="padding: 5px 0; font-size: 19px; font-family: Arial, sans-serif;">This email is generated automatically. Do not reply.</p>
+          <p style="padding: 5px 0; font-size: 19px; font-family: Arial, sans-serif;">The Intranet Team</p>
+          <p style="padding: 25px 0 5px; font-size: 16px; font-family: Arial, sans-serif; color: #6f777b;">This email is generated automatically. Do not reply.</p>
         </td>
       </tr>
       <tr>
         <td>
           <div style="background-color: #dee0e2">
             <p style="padding: 20px; font-size: 19px; font-family: Arial, sans-serif;">
-              If you're unsure an email is from MoJ, forward it to <a href="mailto:phishing@digital.justice.gov.uk">phishing@digital.justice.gov.uk</a>.
+              If you're unsure an email is from the MoJ, forward it to <a href="mailto:phishing@digital.justice.gov.uk">phishing@digital.justice.gov.uk</a>.
             </p>
           </div>
         </td>
