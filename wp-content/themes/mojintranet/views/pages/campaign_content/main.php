@@ -36,9 +36,14 @@
 
         <h1 class="page-title"><?=$title?></h1>
 
+        <div class="excerpt">
+          <?=$excerpt?>
+        </div>
+
         <div class="editable">
           <?=$content?>
         </div>
+
       </div>
     </div>
   </div>

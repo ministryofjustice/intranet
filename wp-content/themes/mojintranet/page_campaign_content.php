@@ -1,7 +1,7 @@
 <?php if (!defined('ABSPATH')) die();
 
 /**
- * The generic template without LHS navigation
+ * The generic template with on/off LHS navigation
  *
  * Template name: Campaign content
  */
@@ -52,6 +52,7 @@ class Page_campaign_content extends MVC_controller {
         'title' => get_the_title(),
         'thumbnail' => $thumbnail[0],
         'thumbnail_alt_text' => $alt_text,
+        'excerpt' => $post->post_excerpt, // Not using get_the_excerpt() to prevent auto-generated excerpts being displayed
         'content' => $content,
         'content_classes' => $content_classes,
         'lhs_menu_on' => $lhs_menu_on,
