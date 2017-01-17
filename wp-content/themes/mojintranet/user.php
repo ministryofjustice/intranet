@@ -39,7 +39,7 @@ class User extends MVC_controller {
 
         if($is_display_name_filled) {
           if($this->model->bad_words->has_bad_words($display_name)) {
-            $val->error('display_name', 'display name', 'This display name contains banned word(s)');
+            $val->error('display_name', 'display name', 'This screen name contains banned word(s)');
           }
         }
 
