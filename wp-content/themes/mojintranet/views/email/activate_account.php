@@ -8,8 +8,10 @@
         <td>
           <div style="background-color: black">
             <!-- Yes, we hotlink to People Finder as our own prod server isn't available from the outside -->
-            <img src="https://peoplefinder.service.gov.uk/assets/moj_logo_horizontal_36x246-90c698afdefe7275f7580065062aebc6.png" alt="Ministry of Justice" height="36px"
-              style="padding: 20px 40px" />
+            <p style="color: #fff;">
+              <img src="https://peoplefinder.service.gov.uk/assets/moj_logo_horizontal_36x246-90c698afdefe7275f7580065062aebc6.png" alt="Ministry of Justice" height="36px"
+                style="padding: 20px 40px" />
+            </p>
           </div>
         </td>
       </tr>
@@ -27,6 +29,7 @@
               color: #ffffff;
               cursor: pointer;
               font-size: 19px;
+              font-family: Arial, sans-serif;
               line-height: 25px;
               text-decoration: none;
               vertical-align: top;
@@ -42,7 +45,7 @@
       <tr>
         <td>
           <div style="background-color: #dee0e2">
-            <p style="padding: 20px; font-size: 19px; font-family: Arial, sans-serif;">
+            <p style="padding: 20px; font-size: 16px; font-family: Arial, sans-serif;">
               If you're unsure an email is from the MoJ, forward it to <a href="mailto:phishing@digital.justice.gov.uk">phishing@digital.justice.gov.uk</a>.
             </p>
           </div>
