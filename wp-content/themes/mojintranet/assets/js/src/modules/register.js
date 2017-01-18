@@ -77,6 +77,7 @@
       else {
         if(data.success) {
           this.toggleConfirmationMessage(true);
+          window.scrollTo(0, 0);
         }
         else {
           this.validation.displayErrors(data.validation.errors);
