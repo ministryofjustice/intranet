@@ -50,6 +50,7 @@ function dw_check_colour_contrast() {
     $success = true;
   }
 
+
   echo json_encode(['success'  => $success, 'contrast' => $contrast]);
   die();
 }
@@ -87,13 +88,6 @@ function dw_check_colour_field($value, $post_id, $field) {
 }
 add_filter('acf/update_value/key=field_587649cf122f3', 'dw_check_colour_field', 10, 3);
 
-function dw_update_excerpt_field($value, $post_id, $field) {
-  wp_update_post( ['ID' => $post_id, 'post_excerpt' => $value] );
-
-  return $value;
-}
-add_filter('acf/update_value/name=dw_excerpt', 'dw_update_excerpt_field', 10, 3);
-
 function dw_featured_image_msg($content, $post_ID, $thumbnail_id) {
 
   if(get_post_type($post_ID) == 'page') {
@@ -102,3 +96,34 @@ function dw_featured_image_msg($content, $post_ID, $thumbnail_id) {
   return $content;
 }
 add_filter('admin_post_thumbnail_html', 'dw_featured_image_msg', 10, 3);
+
+function dw_save_excerpt($data , $postarr) {
+  global  $post;
+
+  if(!empty($_POST["acf"])) {
+
+    foreach ($_POST["acf"] as $acf_key => $value) {
+          $acf_field = get_field_object($acf_key);
+
+          if($acf_field["name"] == "dw_excerpt") {
+            if ((empty($post) && !empty($value)) || !empty($post)) {
+              $data["post_excerpt"] = $value;
+            }
+
+          }
+    }
+  }
+  return $data;
+}
+add_filter('wp_insert_post_data', 'dw_save_excerpt', '99', 2);
+
+
+function dw_load_excerpt( $value, $post_id, $field )
+{
+  $content_post = get_post($post_id);
+  $value = $content_post->post_excerpt;
+
+  return $value;
+}
+
+add_filter('acf/load_value/name=dw_excerpt', 'dw_load_excerpt', 10, 3);

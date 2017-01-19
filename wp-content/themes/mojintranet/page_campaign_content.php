@@ -18,6 +18,16 @@ class Page_campaign_content extends MVC_controller {
   }
 
   function get_data(){
+
+    if($_GET['preview'] == 'true') {
+      $revisions = wp_get_post_revisions($this->post_ID);
+
+      if (count($revisions) > 0) {
+        $latest_revision = array_shift($revisions);
+        $this->post_ID = $latest_revision->ID;
+      }
+    }
+
     $post = get_post($this->post_ID);
 
     ob_start();
@@ -28,13 +38,13 @@ class Page_campaign_content extends MVC_controller {
     $thumbnail = wp_get_attachment_image_src($thumbnail_id, 'full');
     $alt_text = get_post_meta($thumbnail_id, '_wp_attachment_image_alt', true);
 
-    $banner_id = get_post_meta($this->post_id, 'dw_page_banner', true);
-    $banner_url = get_post_meta($this->post_id, 'dw_banner_url', true);
+    $banner_id = get_post_meta($this->post_ID, 'dw_page_banner', true);
+    $banner_url = get_post_meta($this->post_ID, 'dw_banner_url', true);
     $banner_image = wp_get_attachment_image_src($banner_id, 'full');
 
-    $colour_hex = get_post_meta($this->post_id, 'dw_campaign_colour', true);
+    $colour_hex = get_post_meta($this->post_ID, 'dw_campaign_colour', true);
 
-    $lhs_menu_on = get_post_meta($post->ID, 'dw_lhs_menu_on', true) != "0" ? true : false;
+    $lhs_menu_on = get_post_meta($this->post_ID, 'dw_lhs_menu_on', true) != "0" ? true : false;
 
     if ($lhs_menu_on) {
       $content_classes = 'col-lg-9 col-md-8 col-sm-12';
