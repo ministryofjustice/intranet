@@ -68,7 +68,7 @@
       </div>
     </div>
 
-    <div class="grid">
+    <div class="grid register-form-box">
       <div class="col-lg-8 col-md-12 col-sm-12">
         <h3>Request a link to start commenting</h3>
         <form class="userform standard register-form">
