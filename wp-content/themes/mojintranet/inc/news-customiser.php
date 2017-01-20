@@ -148,7 +148,8 @@
           'content_dd'  => 'Content_Dropdown_Custom_Control',
           'image' => 'WP_Customize_Image_Control'
         );
-        $control_class = $control_classes[$type]?:'WP_Customize_Control';
+
+        $control_class = (key_exists($type, $control_classes)) ? $control_classes[$type] : 'WP_Customize_Control';
 
         $wp_customize->add_setting($name, array_merge(array(
           'type'     => 'option',
