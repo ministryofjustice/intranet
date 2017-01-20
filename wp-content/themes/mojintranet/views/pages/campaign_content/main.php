@@ -15,13 +15,6 @@
         </a>
       <?php endif ?>
     </div>
-    <?php if($thumbnail): ?>
-      <div class="col-lg-12 col-md-12 col-sm-12">
-        <div class="campaign-banner">
-          <img src="<?=$thumbnail?>" class="img img-responsive" alt="<?=$thumbnail_alt_text?>" />
-        </div>
-      </div>
-    <?php endif ?>
 
     <?php if($lhs_menu_on): ?>
       <div class="col-lg-3 col-md-4 col-sm-12">
@@ -32,37 +25,17 @@
     <?php endif ?>
 
     <div class="<?=$content_classes?>">
-      <div class="">
+      <h1 class="page-title"><?=$title?></h1>
 
-        <h1 class="page-title"><?=$title?></h1>
+      <div class="excerpt">
+        <?=$excerpt?>
+      </div>
 
-        <div class="excerpt">
-          <?=$excerpt?>
-        </div>
-
-        <div class="editable">
-          <?=$content?>
-        </div>
-
+      <div class="editable">
+        <?=$content?>
       </div>
     </div>
   </div>
 
-  <div class="template-partial" data-name="menu-item">
-    <li class="menu-item">
-      <div class="menu-item-container">
-        <a href="" class="menu-item-link"></a>
-        <button href="#" class="dropdown-button">Expand</button>
-      </div>
-      <ul class="children-list">
-      </ul>
-    </li>
-  </div>
-
-  <div class="template-partial" data-name="child-item">
-    <li class="child-item">
-      <a href="" class="child-item-link"></a>
-    </li>
-  </div>
-
+  <?php $this->view('modules/side_navigation') ?>
 </div>

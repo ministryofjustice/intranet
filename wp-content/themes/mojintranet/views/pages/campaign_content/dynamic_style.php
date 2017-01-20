@@ -2,7 +2,10 @@
 
 <style>
 .template-campaign-content .template-container .editable h2 strong,
-.template-campaign-content .template-container .editable h3 strong {
+.template-campaign-content .template-container .editable h3 strong,
+.template-campaign-content .template-container .editable h4 strong,
+.template-campaign-content .template-container .editable h5 strong,
+.template-campaign-content .template-container .editable h6 strong {
   color: <?=$campaign_colour?>;
 }
 

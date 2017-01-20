@@ -33,10 +33,6 @@ class Page_campaign_content extends MVC_controller {
     the_content();
     $content = ob_get_clean();
 
-    $thumbnail_id = get_post_thumbnail_id($this->post_ID);
-    $thumbnail = wp_get_attachment_image_src($thumbnail_id, 'full');
-    $alt_text = get_post_meta($thumbnail_id, '_wp_attachment_image_alt', true);
-
     $banner_id = get_post_meta($this->post_ID, 'dw_page_banner', true);
     $banner_url = get_post_meta($this->post_ID, 'dw_banner_url', true);
     $banner_image = wp_get_attachment_image_src($banner_id, 'full');
@@ -59,8 +55,6 @@ class Page_campaign_content extends MVC_controller {
       'page_data' => array(
         'id' => $this->post_ID,
         'title' => get_the_title(),
-        'thumbnail' => $thumbnail[0],
-        'thumbnail_alt_text' => $alt_text,
         'excerpt' => $post->post_excerpt, // Not using get_the_excerpt() to prevent auto-generated excerpts being displayed
         'content' => $content,
         'content_classes' => $content_classes,
