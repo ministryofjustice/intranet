@@ -132,6 +132,10 @@ function pageparent_box($post) {
     if (get_post_type($post->ID) == 'page') {
       $current_template = get_post_meta($post->ID, '_wp_page_template', true);
 
+      if(empty($current_template)) {
+        $current_template = 'page_generic.php';
+      }
+
       if (in_array($current_template, Agency_Editor::$restricted_templates) && !current_user_can('administrator')) {
         $disabled = 'disabled="disabled"';
       }

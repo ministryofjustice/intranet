@@ -11,7 +11,7 @@ include     ('inc/utilities/region-context.php');         // Region Context util
 
 require_once('inc/authors.php');                          // Additional author information
 require_once('inc/cache.php');                            // Amend the cache headers
-require_once('inc/cookies.php');                            // Amend the cache headers
+require_once('inc/cookies.php');                          // Amend the cache headers
 require_once('inc/comments.php');                         // Add extra commenting functionality
 require_once('inc/customiser-controls.php');              // Extra customiser controls
 require_once('inc/dependencies.php');                     // CSS/JS dependency enqueing
@@ -35,6 +35,7 @@ require_once('inc/query-vars.php');                       // Register custom que
 require_once('inc/redirects.php');                        // Site redirects
 require_once('inc/searching.php');                        // Functions to enhance searching (using Relevanssi)
 require_once('inc/security.php');                         // Security functions
+require_once('inc/shortcodes.php');                       // Shortcode functions
 require_once('inc/sidebars.php');                         // Register sidebars
 require_once('inc/tidy-up.php');                          // Tidy up CMS
 require_once('inc/titles.php');                           // Title filters
