@@ -3,6 +3,7 @@
 class Widgets_API extends API {
   public function __construct($params) {
     parent::__construct();
+    $this->MVC->model('featured');
     $this->parse_params($params);
     $this->route();
   }
@@ -103,7 +104,7 @@ class Widgets_API extends API {
     $options = $this->add_taxonomies($options);
     $options['start'] = 0;
     $options['length'] = 2;
-    $data['featured_news'] = $this->MVC->model->news->get_widget_news($options, true);
+    $data['featured_news'] = $this->MVC->model->featured->get_list($options);
 
     //events
     $options = $this->params;
