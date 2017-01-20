@@ -82,8 +82,8 @@
         },
         {
             "key": "field_5876479a292d1",
-            "label": "Banner Link",
-            "name": "dw_banner_link",
+            "label": "Banner URL",
+            "name": "dw_banner_url",
             "type": "text",
             "instructions": "",
             "required": 0,
