@@ -1,6 +1,6 @@
 <?php
 function dw_columns_shortcode($atts, $content = "" ) {
-  return '<div class="grid">' . apply_filters('the_content', $content) . '</div>';
+  return '<div class="grid gap-after">' . apply_filters('the_content', $content) . '</div>';
 }
 add_shortcode('columns', 'dw_columns_shortcode');
 

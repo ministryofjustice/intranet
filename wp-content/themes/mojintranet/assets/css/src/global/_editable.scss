@@ -156,12 +156,16 @@
   }
 
   .example {
+    @extend %large-copy;
+    padding: 10px 15px;
     border-left: 10px solid $grey-3;
   }
 
+  .gap-after {
+    margin-bottom: 20px;
+  }
 
-  .info-notice,
-  .example {
+  .info-notice {
     @extend %large-copy;
     padding-left: 15px;
   }
