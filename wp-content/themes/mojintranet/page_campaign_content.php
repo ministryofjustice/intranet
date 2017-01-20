@@ -18,8 +18,7 @@ class Page_campaign_content extends MVC_controller {
   }
 
   function get_data(){
-
-    if($_GET['preview'] == 'true') {
+    if (get_array_value($_GET, 'preview', 'false') == 'true') {
       $revisions = wp_get_post_revisions($this->post_ID);
 
       if (count($revisions) > 0) {
