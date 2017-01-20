@@ -70,10 +70,6 @@
         data.thumbnail_alt_text = 'generic blog thumbnail';
       }
 
-      if (index === 0) {
-        $child.addClass('first');
-      }
-
       $child.find('.news-thumbnail').attr('src', data.thumbnail_url);
       $child.find('.news-thumbnail').attr('alt', data.thumbnail_alt_text);
       $child.find('.news-link').attr('href', data.url);
@@ -90,6 +86,7 @@
     displayNews: function() {
       var _this = this;
       var column = 1;
+      var row = 0;
       var maxColumns = ($('html').hasClass('breakpoint-desktop') && this.newsType === 'global') ? 2 : 1;
 
       this.$newsList.find('.news-item').detach();
@@ -97,10 +94,15 @@
       $.each(this.news, function (index, $newsItem) {
         _this.$newsList.eq(column - 1).append($newsItem);
 
+        if (row === 0) {
+          $newsItem.addClass('first');
+        }
+
         column++;
 
         if (column > maxColumns) {
           column = 1;
+          row++;
         }
       });
     }
