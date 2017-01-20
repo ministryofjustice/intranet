@@ -78,7 +78,8 @@ class Content_Category extends Taxonomy {
      * Show the custom category metabox. Which uses the Agency Terms Walker.
      */
     public function show_custom_category_meta_box($post) {
-        echo '<div id="' . $this->name . '-all" class="tabs-panel categorydiv">';
+        echo '<div id="' . $this->name . '-all" class="tabs-panel categorydiv">
+        <input type="hidden" name="tax_input['.$this->name.'][]" value="0">';
             echo '<ul id="' . $this->name . 'checklist" class="list:' . $this->name . ' categorychecklist form-no-clear">';
 
                 $args = array (

@@ -111,6 +111,10 @@ $grid-size: 50px;
   background-size: 100% 100%;
 }
 
+.campaign-banner {
+  margin-top: 20px;
+}
+
 .agency {
   a {
     display: block;
@@ -188,6 +192,10 @@ $grid-size: 50px;
   border-top: 1px solid $grey-2;
   text-align: left;
 
+  .template-campaign-landing & {
+    display: none;
+  }
+
   a {
     font-weight: bold;
     text-decoration: underline;
@@ -200,3 +208,6 @@ $grid-size: 50px;
   margin-top: 20px;
 }
 
+.campaign-banner {
+  max-width: 100%;
+}

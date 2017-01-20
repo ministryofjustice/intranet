@@ -1,8 +1,13 @@
 <?php
 
+$cache_timeout = 0;
+
+include(get_template_directory() . '/inc/headers.php');
+
 class Purge_cache extends MVC_Controller {
   function __construct($param_string, $post_id) {
     parent::__construct($param_string, $post_id);
+
     $this->debug = isset($_GET['debug']) && $_GET['debug'] ? true : false;
     $this->settings = [
       'node_count' => defined('DW_LOAD_BALANCER_NODES') ? (int) DW_LOAD_BALANCER_NODES : 1,

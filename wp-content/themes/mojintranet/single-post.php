@@ -46,7 +46,8 @@ class Single_post extends MVC_controller {
         'raw_date' => $article_date,
         'human_date' => date("j F Y", strtotime($article_date)),
         'share_email_body' => "Hi there,\n\nI thought you might be interested in this blog post I've found on the MoJ intranet:\n",
-        'likes_count' => $likes['count']
+        'likes_count' => $likes['count'],
+        'commenting_policy_url' => site_url('/commenting-policy/')
       )
     );
   }
