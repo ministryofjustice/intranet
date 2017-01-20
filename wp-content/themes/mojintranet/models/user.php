@@ -2,13 +2,36 @@
 
 class User_model extends MVC_model {
   private $valid_domains = array(
-    'publicguardian.gsi.gov.uk',
+    'cafcass.gsi.gov.uk',
+    'ccrc.x.gsi.gov.uk',
+    'cica.gsi.gov.uk',
+    'cjs.gsi.gov.uk',
+    'crowncommercial.gov.uk',
     'digital.justice.gov.uk',
-    'legalaid.gsi.gov.uk',
-    'justice.gsi.gov.uk',
-    'justice.gov.uk',
+    'hmcourts-service.gsi.gov.uk',
     'hmcts.gsi.gov.uk',
-    'noms.gsi.gov.uk'
+    'hmiprisons.gsi.gov.uk',
+    'hmiprobation.gsi.gov.uk',
+    'hmps.gsi.gov.uk',
+    'homeoffice.gsi.gov.uk',
+    'ips.gsi.gov.uk',
+    'jac.gsi.gov.uk',
+    'jaco.gsi.gov.uk',
+    'judiciary.gsi.gov.uk',
+    'justice.gov.uk',
+    'justice.gsi.gov.uk',
+    'lawcommission.gsi.gov.uk',
+    'legalaid.gsi.gov.uk',
+    'legalombudsman.org.uk',
+    'legalservicesboard.org.uk',
+    'noms.gsi.gov.uk',
+    'offsol.gsi.gov.uk',
+    'paroleboard.gsi.gov.uk',
+    'ppo.gsi.gov.uk',
+    'probation.gsi.gov.uk',
+    'publicguardian.gsi.gov.uk',
+    'sentencingcouncil.gsi.gov.uk',
+    'yjb.gsi.gov.uk'
   );
 
   /** creates a new user
@@ -28,6 +51,16 @@ class User_model extends MVC_model {
     unset($data['ID']);
     $result = $this->wpdb->update($this->wpdb->users, $data, array('ID' => $user_id));
     return $result !== false;
+  }
+
+  /** updates a user meta
+   * @param {Integer} $user_id User ID
+   * @param {String} $meta_key the meta key to update
+   * @param {String} $meta_value meta value
+   * @return {Boolean} True on successs, False on error
+   */
+  public function update_meta($user_id, $meta_key, $meta_value) {
+    return (bool) update_user_meta($user_id, $meta_key, $meta_value);
   }
 
   /** sets the activation key on user's account
@@ -123,5 +156,11 @@ class User_model extends MVC_model {
     }
 
     return $data;
+  }
+
+  public function is_expired($user, $key) {
+    $user = check_password_reset_key($key, $user->data->user_login);
+
+    return is_array($user->errors);
   }
 }

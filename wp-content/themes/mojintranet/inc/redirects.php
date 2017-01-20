@@ -73,7 +73,7 @@ function dw_rewrite_rules() {
   add_rewrite_rule($regex, $redirect, 'top');
 
   //Custom controllers
-  $regex = '^(service|password|create-an-account|sign-in|flush-rewrites|purge-cache|redirect|submit-feedback)(/(.*)|$)';
+  $regex = '^(service|password|create-an-account|sign-in|flush-rewrites|purge-cache|redirect|submit-feedback|user)(/(.*)|$)';
   $redirect = 'index.php?controller=$matches[1]&param_string=$matches[3]';
   add_rewrite_rule($regex, $redirect, 'top');
 
