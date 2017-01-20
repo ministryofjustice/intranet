@@ -26,18 +26,6 @@
             <p>Please select your agency or public body</p>
           </div>
         </li>
-        <li class="hidden sign-in">
-          <span class="separator">|</span>
-          <a href="<?=site_url('/sign-in/')?>">Sign in</a>
-        </li>
-        <li class="hidden sign-out">
-          <span class="separator">|</span>
-          <a href="<?=wp_logout_url(get_permalink())?>">Sign out</a>
-        </li>
-        <li class="hidden register">
-          <span class="separator">|</span>
-          <a href="<?=site_url('/create-an-account/')?>">Register</a>
-        </li>
       </ul>
     </div>
   </div>
