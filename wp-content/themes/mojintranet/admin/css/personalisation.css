@@ -25,8 +25,7 @@
 }
 
 .acf-field .acf-error-message.contrast_invalid_message,
-.acf-field .acf-error-message.contrast_valid_message
-{
+.acf-field .acf-error-message.contrast_valid_message {
     display: none;
 }
 
