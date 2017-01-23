@@ -7,7 +7,7 @@
     padding: 5px;
 }
 
-.agency-checklist, 
+.agency-checklist,
 .inline-edit-row fieldset span.inline-edit-categories-label:nth-child(4) {
     display: none;
 }
@@ -22,6 +22,19 @@
 
 .attachment-info  .actions .view-attachment {
     display: none;
+}
+
+.acf-field .acf-error-message.contrast_invalid_message,
+.acf-field .acf-error-message.contrast_valid_message {
+    display: none;
+}
+
+.acf-field .acf-error-message.contrast_valid_message {
+    background: #65b576;
+}
+
+.acf-field .acf-error-message.contrast_valid_message:after {
+    border-top-color: #65b576;
 }
 
 .acf-fields > .acf-field.no-border {

@@ -1,9 +1,9 @@
 {
-    "key": "group_58663f70f081d",
+    "key": "group_5876479a23cba",
     "title": "Page Details",
     "fields": [
         {
-            "key": "field_5874e98f4f16a",
+            "key": "field_5876479a292ad",
             "label": "Excerpt",
             "name": "dw_excerpt",
             "type": "textarea",
@@ -22,7 +22,7 @@
             "new_lines": ""
         },
         {
-            "key": "field_58663f7101ee3",
+            "key": "field_5876479a292bd",
             "label": "Left Hand Menu",
             "name": "dw_lhs_menu_on",
             "type": "true_false",
@@ -38,7 +38,26 @@
             "default_value": 0
         },
         {
-            "key": "field_5866404b03b66",
+            "key": "field_587649cf122f3",
+            "label": "Campaign Colour",
+            "name": "dw_campaign_colour",
+            "type": "text",
+            "instructions": "Enter your colour as a 6 character hex code. This colour will be used for horizontal rules, headers and callouts. The colour will be checked for accessibility.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "colour_check",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_5876479a292c7",
             "label": "Page Banner",
             "name": "dw_page_banner",
             "type": "image",
@@ -62,7 +81,7 @@
             "mime_types": ""
         },
         {
-            "key": "field_586d01d4ebaf4",
+            "key": "field_5876479a292d1",
             "label": "Banner URL",
             "name": "dw_banner_url",
             "type": "text",
@@ -86,20 +105,19 @@
             {
                 "param": "page_template",
                 "operator": "==",
-                "value": "page_campaign_landing.php"
+                "value": "page_campaign_content.php"
             }
         ]
     ],
     "menu_order": 10,
-    "position": "acf_after_title",
+    "position": "normal",
     "style": "default",
     "label_placement": "top",
     "instruction_placement": "label",
     "hide_on_screen": [
-        "the_content",
         "excerpt"
     ],
     "active": 1,
     "description": "",
-    "modified": 1484654151
+    "modified": 1484652083
 }
