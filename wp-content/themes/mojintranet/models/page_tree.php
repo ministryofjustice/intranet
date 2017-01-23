@@ -39,6 +39,8 @@ class Page_tree_model extends MVC_model {
         'meta_key' => 'dw_regional_template',
         'meta_value' => 'page_regional_landing.php',
         'post_type' => 'any',
+        'orderby' => 'title',
+        'order' => 'asc',
         'posts_per_page' => -1
       ]);
 
