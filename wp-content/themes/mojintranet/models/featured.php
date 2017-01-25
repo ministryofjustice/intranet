@@ -88,8 +88,9 @@ class Featured_model extends MVC_model {
     $thumbnail_id = get_post_thumbnail_id($id);
     $thumbnail = wp_get_attachment_image_src($thumbnail_id, $thumbnail_type);
     $alt_text = get_post_meta($thumbnail_id, '_wp_attachment_image_alt', true);
+    $authors = dw_get_author_info($id);
 
-    return array(
+    return [
       'id' => $id,
       'post_type' => get_post_type($id),
       'title' => (string) get_the_title($id),
@@ -98,7 +99,8 @@ class Featured_model extends MVC_model {
       'excerpt' => (string) $post->post_excerpt,
       'thumbnail_url' => (string) $thumbnail[0],
       'thumbnail_alt_text' => (string) $alt_text,
-      'timestamp' => (string) get_the_time('Y-m-d H:i:s', $id)
-    );
+      'timestamp' => (string) get_the_time('Y-m-d H:i:s', $id),
+      'authors' => $authors
+    ];
   }
 }

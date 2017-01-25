@@ -11,7 +11,12 @@
           <a class="news-link" href=""></a>
         </h3>
         <p class="news-excerpt"></p>
-        <time class="date"></time>
+
+        <div class="meta">
+          <time class="date"></time>
+          <span class="meta-separator">|</span>
+          <span class="author"></span>
+        </div>
       </div>
     </article>
   </li>

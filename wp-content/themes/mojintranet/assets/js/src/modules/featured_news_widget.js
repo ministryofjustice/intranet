@@ -49,6 +49,7 @@
     buildResultRow: function(data) {
       var $child = $(this.itemTemplate);
       var date = App.tools.parseDate(data.timestamp);
+      var author = data.authors[0];
 
       if(!data.thumbnail_url) {
         data.thumbnail_url = this.genericThumbnailPath;
@@ -60,8 +61,18 @@
       $child.find('.news-thumbnail').attr('alt', data.thumbnail_alt_text);
       $child.find('.news-link').attr('href', data.url);
       $child.find('.title .news-link').html(data.title);
-      $child.find('.date').html(App.tools.formatDate(date, true));
       $child.find('.news-excerpt').html(data.excerpt);
+      $child.find('.date').html(App.tools.formatDate(date, true));
+      $child.find('.author').html(author.name);
+
+      if (data.post_type !== 'post') {
+        $child.find('.meta-separator').addClass('hidden');
+        $child.find('.author').addClass('hidden');
+
+        if (data.post_type !== 'news') {
+          $child.find('.date').addClass('hidden');
+        }
+      }
 
       return $child;
     },
