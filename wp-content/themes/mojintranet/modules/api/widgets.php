@@ -10,12 +10,8 @@ class Widgets_API extends API {
 
   protected function route() {
     switch ($this->params['widget']) {
-      case 'featured-news':
-        $this->get_news(true);
-        break;
-
-      case 'non-featured-news':
-        $this->get_news();
+      case 'featured':
+        $this->get_featured();
         break;
 
       case 'need-to-know':
@@ -63,10 +59,12 @@ class Widgets_API extends API {
     }
   }
 
-  private function get_news($featured = false) {
+  private function get_featured() {
     $options = $this->params;
     $options = $this->add_taxonomies($options);
-    $data = $this->MVC->model->news->get_widget_news($options, $featured);
+    $options['start'] = 0;
+    $options['length'] = 2;
+    $data = $this->MVC->model->featured->get_list($options);
     $data['url_params'] = $this->params;
     $this->response($data, 200, 60);
   }
@@ -96,7 +94,7 @@ class Widgets_API extends API {
   private function get_all() {
     $data = [];
 
-    //featured news
+    //featured items
     $options = $this->params;
     $options = $this->add_taxonomies($options);
     $options['start'] = 0;
