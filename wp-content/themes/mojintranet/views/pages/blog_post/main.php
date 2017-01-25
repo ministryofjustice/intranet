@@ -43,12 +43,12 @@
       <div class="col-lg-8 col-md-12 col-sm-12">
         <ul class="social-actions post-social-actions">
 
-        <!-- Hidden until comment feature launched (Adam)
-          <li class="comments-count">
-            <span class="icon"></span>
-            <span class="count"></span>
-          </li>
-        -->
+          <?php if($comments_on == 1) { ?>
+              <li class="comments-count">
+                <span class="icon"></span>
+                <span class="count"></span>
+              </li>
+          <?php } ?>
 
           <li class="like-container" data-likes-count="<?=$likes_count?>" data-post-type="post" data-post-id="<?=$id?>">
             <a class="like-link" href="#">
@@ -68,66 +68,69 @@
       </div>
     </div>
 
-    <div class="grid register-form-box">
-      <div class="col-lg-8 col-md-12 col-sm-12">
-        <h3>Request a link to start commenting</h3>
-        <form class="userform standard register-form">
-          <div class="form-row">
-            <label>
-              <span class="small-label">Screen name</span>
-              <input type="text" name="display_name" />
-            </label>
-          </div>
+    <?php if($comments_on == 1) { ?>
+      <div class="grid register-form-box not-logged-in-only">
+        <div class="col-lg-8 col-md-12 col-sm-12">
+          <h3>Request a link to start commenting</h3>
+          <form class="userform standard register-form">
+            <div class="form-row">
+              <label>
+                <span class="small-label">Screen name</span>
+                <input type="text" name="display_name" />
+              </label>
+            </div>
 
-          <div class="form-row">
-            <label>
-              <span class="small-label">Email (will not be displayed with your comment)</span>
-              <input type="text" name="email" />
-            </label>
-          </div>
+            <div class="form-row">
+              <label>
+                <span class="small-label">Email (will not be displayed with your comment)</span>
+                <input type="text" name="email" />
+              </label>
+            </div>
 
-          <div class="form-row">
-            <label>
-              <input type="submit" class="cta cta-positive" value="Request link">
-            </label>
-          </div>
+            <div class="form-row">
+              <label>
+                <input type="submit" class="cta cta-positive" value="Request link">
+              </label>
+            </div>
 
-          <?php $this->view('modules/validation/validation') ?>
+            <?php $this->view('modules/validation/validation') ?>
 
-          <p class="secondary-action">
-            <a href="<?=$commenting_policy_url?>">MoJ commenting policy</a>
-          </p>
-        </form>
-      </div>
-    </div>
-
-    <div class="grid">
-      <div class="col-lg-8 col-md-12 col-sm-12">
-        <div class="comments-container">
-          <p class="leave-a-comment">
-            <span class="logged-in-only">Leave a comment</span>
-            <span class="not-logged-in-only">
-              <a class="sign-in-link" href="">Sign in</a> to leave a comment
-            </span>
-          </p>
-
-          <div class="comment-form-container logged-in-only"></div>
-
-          <ul class="comments-list"></ul>
-
-          <div class="load-more-container loading">
-            <input type="button" class="load-more cta cta-plain" value="Load more comments" />
-            <span class="loading-msg">Loading...</span>
-          </div>
-
-          <?php $this->view('pages/blog_post/partials/bad_words_error') ?>
-          <?php $this->view('pages/blog_post/partials/comment') ?>
-          <?php $this->view('pages/blog_post/partials/comment_form') ?>
-          <?php $this->view('modules/validation/validation') ?>
+            <p class="secondary-action">
+              <a href="<?=$commenting_policy_url?>">MoJ commenting policy</a>
+            </p>
+          </form>
         </div>
       </div>
-    </div>
-  </div>
 
+      <div class="grid">
+        <div class="col-lg-8 col-md-12 col-sm-12">
+          <div class="comments-container">
+            <p class="leave-a-comment">
+              <span class="logged-in-only">Leave a comment</span>
+              <span class="not-logged-in-only">
+                <a class="sign-in-link" href="">Sign in</a> to leave a comment
+              </span>
+            </p>
+
+            <div class="comment-form-container logged-in-only"></div>
+
+            <ul class="comments-list"></ul>
+
+            <div class="load-more-container loading">
+              <input type="button" class="load-more cta cta-plain" value="Load more comments" />
+              <span class="loading-msg">Loading...</span>
+            </div>
+
+            <?php $this->view('pages/blog_post/partials/bad_words_error') ?>
+            <?php $this->view('pages/blog_post/partials/comment', array('comments_open' => $comments_open)) ?>
+            <?php if($comments_open) {
+              $this->view('pages/blog_post/partials/comment_form');
+            } ?>
+            <?php $this->view('modules/validation/validation') ?>
+          </div>
+        </div>
+      </div>
+    <?php } ?>
+  </div>
   <?php $this->view('pages/blog_post/partials/confirmation') ?>
 </div>

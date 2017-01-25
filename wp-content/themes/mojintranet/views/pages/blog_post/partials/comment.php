@@ -12,10 +12,12 @@
       <p class="content"></p>
 
       <ul class="social-actions">
+        <?php if($comments_open) { ?>
         <li class="reply-info">
           <span class="icon"></span>
           <a class="reply-btn" href="">Reply</a>
         </li>
+        <?php } ?>
         <li class="like-container" data-likes-count="" data-post-type="comment" data-post-id="">
           <a class="like-link" href="#">
             <span class="like-icon icon"></span>

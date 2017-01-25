@@ -40,3 +40,11 @@
 .acf-fields > .acf-field.no-border {
     border-top: none;
 }
+
+.ping_status {
+    display: none;
+}
+
+.comment_status_option.status_hidden {
+    display: none;
+}

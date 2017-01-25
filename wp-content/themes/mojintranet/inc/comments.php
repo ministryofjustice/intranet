@@ -90,4 +90,66 @@
 
   new EnhanceComments;
 
-?>
+function dw_add_new_discussion_meta_box() {
+  remove_meta_box('commentstatusdiv', 'post', 'normal');
+  add_meta_box('commentstatusdiv', __('Discussion'), 'dw_comment_status_meta_box', 'post', 'normal', 'high');
+}
+add_action('add_meta_boxes_post',  'dw_add_new_discussion_meta_box');
+
+function dw_comment_status_meta_box($post) {
+  global $pagenow;
+  if(in_array($pagenow, array('post-new.php'))) {
+    $comments_on = 1;
+  }
+  else {
+    $comments_on = get_post_meta($post->ID, 'dw_comments_on', true);
+  }
+  ?>
+  <input name="advanced_view" type="hidden" value="1" />
+  <p class="meta-options">
+    <label for="comments_on" class="selectit"><input name="comments_on" type="checkbox" id="comments_on" value="1"  <?php checked($comments_on, 1); ?> /> <?php _e('Comments on') ?></label>
+    <label for="comment_status" class="selectit comment_status_option <?php if($comments_on != 1) { echo "status_hidden"; }?>"><br/><input name="comment_status" type="checkbox" id="comment_status" value="open"  <?php checked($post->comment_status, 'open'); ?> /> <?php _e('Comments open') ?></label><br />
+    <label for="ping_status" class="selectit ping_status"><input name="ping_status" type="checkbox" id="ping_status" value="open" <?php checked($post->ping_status, 'open'); ?> /> <?php
+      printf(
+      /* translators: %s: Codex URL */
+          __( 'Allow <a href="%s">trackbacks and pingbacks</a> on this page.' ),
+          __( 'https://codex.wordpress.org/Introduction_to_Blogging#Managing_Comments' ) );
+      ?></label>
+    <?php
+    /**
+     * Fires at the end of the Discussion meta box on the post editing screen.
+     *
+     * @since 3.1.0
+     *
+     * @param WP_Post $post WP_Post object of the current post.
+     */
+    do_action( 'post_comment_status_meta_box-options', $post );
+    ?>
+  </p>
+  <?php
+}
+
+function dw_set_comments_on_meta($post_id) {
+  $post_type = get_post_type($post_id);
+
+  if ("post" != $post_type) return;
+
+  if (isset($_POST['comments_on'])) {
+    update_post_meta($post_id, 'dw_comments_on', 1);
+  }
+  else {
+    update_post_meta($post_id, 'dw_comments_on', 0);
+  }
+}
+add_action('save_post', 'dw_set_comments_on_meta', 10, 1);
+
+function dw_discussion_options_script($hook) {
+  global $post;
+
+  if ($hook == 'post-new.php' || $hook == 'post.php') {
+    if ('post' === $post->post_type) {
+      wp_enqueue_script('discussion-options', get_stylesheet_directory_uri().'/admin/js/discussion-options.js');
+    }
+  }
+}
+add_action('admin_enqueue_scripts', 'dw_discussion_options_script', 10, 1);

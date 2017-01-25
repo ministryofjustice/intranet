@@ -24,6 +24,7 @@ class Single_post extends MVC_controller {
     $alt_text = get_post_meta($thumbnail_id, '_wp_attachment_image_alt', true);
     $authors = dw_get_author_info($post->ID);
     $likes = $this->get_likes_from_api($this_id);
+    $comments_open = comments_open($post->ID);
 
     $prev_post = get_previous_post();
     $next_post = get_next_post();
@@ -47,7 +48,12 @@ class Single_post extends MVC_controller {
         'human_date' => date("j F Y", strtotime($article_date)),
         'share_email_body' => "Hi there,\n\nI thought you might be interested in this blog post I've found on the MoJ intranet:\n",
         'likes_count' => $likes['count'],
-        'commenting_policy_url' => site_url('/commenting-policy/')
+        'comments_on' => get_post_meta($post->ID, 'dw_comments_on', true),
+        'comments_open' => $comments_open,
+        'commenting_policy_url' => site_url('/commenting-policy/'),
+        'comment_data' => [
+          'comments_open' => $comments_open
+        ]
       )
     );
   }
