@@ -43,12 +43,12 @@
       <div class="col-lg-8 col-md-12 col-sm-12">
         <ul class="social-actions post-social-actions">
 
-          <?php if($comments_on == 1) { ?>
+          <?php if ($comments_on): ?>
               <li class="comments-count">
                 <span class="icon"></span>
                 <span class="count"></span>
               </li>
-          <?php } ?>
+          <?php endif ?>
 
           <li class="like-container" data-likes-count="<?=$likes_count?>" data-post-type="post" data-post-id="<?=$id?>">
             <a class="like-link" href="#">
@@ -68,7 +68,7 @@
       </div>
     </div>
 
-    <?php if($comments_on == 1) { ?>
+    <?php if ($comments_on): ?>
       <div class="grid register-form-box not-logged-in-only">
         <div class="col-lg-8 col-md-12 col-sm-12">
           <h3>Request a link to start commenting</h3>
@@ -122,15 +122,16 @@
             </div>
 
             <?php $this->view('pages/blog_post/partials/bad_words_error') ?>
-            <?php $this->view('pages/blog_post/partials/comment', array('comments_open' => $comments_open)) ?>
-            <?php if($comments_open) {
-              $this->view('pages/blog_post/partials/comment_form');
-            } ?>
+            <?php $this->view('pages/blog_post/partials/comment', $comment_data) ?>
+            <?php if ($comments_open):
+                    $this->view('pages/blog_post/partials/comment_form');
+                  endif
+            ?>
             <?php $this->view('modules/validation/validation') ?>
           </div>
         </div>
       </div>
-    <?php } ?>
+    <?php endif ?>
   </div>
   <?php $this->view('pages/blog_post/partials/confirmation') ?>
 </div>
