@@ -26,7 +26,9 @@ class Content_Dropdown_Custom_Control extends WP_Customize_Control
             'page' => "Page"
         ];
 
-        if (!empty($this->value())) {
+        $value = $this->value();
+
+        if (!empty($value)) {
             $current_type = get_post_type($this->value());
         } else {
             $current_type = 'news';
