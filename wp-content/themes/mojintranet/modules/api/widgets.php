@@ -96,19 +96,21 @@ class Widgets_API extends API {
   private function get_all() {
     $data = [];
 
-    //news list
-    $options = $this->params;
-    $options = $this->add_taxonomies($options);
-    $options['start'] = 0;
-    $options['length'] = 8;
-    $data['news_list'] = $this->MVC->model->news->get_widget_news($options, false);
-
     //featured news
     $options = $this->params;
     $options = $this->add_taxonomies($options);
     $options['start'] = 0;
     $options['length'] = 2;
     $data['featured_news'] = $this->MVC->model->featured->get_list($options);
+
+    //news list
+    $options = $this->params;
+    $options = $this->add_taxonomies($options);
+    $options['page'] = 1;
+    $options['per_page'] = 8;
+    $options['post__not_in'] = $this->MVC->model->featured->get_featured_ids($options['agency']);
+    $options['search_orderby'] = 'post__in';
+    $data['news_list'] = $this->MVC->model->news->get_list($options, false);
 
     //events
     $options = $this->params;
@@ -122,6 +124,8 @@ class Widgets_API extends API {
     $options = $this->add_taxonomies($options);
     $options['page'] = 1;
     $options['per_page'] = 5;
+    $options['post__not_in'] = $this->MVC->model->featured->get_featured_ids($options['agency']);
+    $options['search_orderby'] = 'post__in';
     $data['posts'] = $this->MVC->model->post->get_list($options);
 
     //need to know
