@@ -7,22 +7,20 @@ class Featured_model extends MVC_model {
     $this->max_featured_items = 2;
   }
 
-  public function get_list($options = array()) {
-    $options['post__in'] = $this->get_featured_ids($options['agency']);
+  public function get_list($options = []) {
+    $options = $this->normalize_options($options);
 
-    $options = $this->normalize_featured_options($options);
-
-    $args = array (
+    $args = [
       // Paging
       'nopaging' => false,
       'offset' => 0,
       'posts_per_page' => $this->max_featured_items,
       // Filters
       'post_type' => ['news', 'post', 'page'],
-      'post__in' => $options['post__in'],
+      'post__in' => $this->get_featured_ids($options['agency']),
       'tax_query' => $options['tax_query'],
       'orderby' => 'post__in'
-    );
+    ];
 
     $data['raw'] = new WP_Query($args);
     $data['total_results'] = (int) $data['raw']->found_posts;
@@ -33,7 +31,7 @@ class Featured_model extends MVC_model {
     return $data;
   }
 
-  private function get_featured_ids($agency) {
+  public function get_featured_ids($agency) {
     $need_to_know_news_ids = array();
 
     for($a = 1; $a <= $this->max_featured_items; $a++) {
@@ -43,7 +41,7 @@ class Featured_model extends MVC_model {
     return $need_to_know_news_ids;
   }
 
-  private function normalize_featured_options($options) {
+  private function normalize_options($options) {
     $default = array(
       'start' => 1,
       'length' => 10,
