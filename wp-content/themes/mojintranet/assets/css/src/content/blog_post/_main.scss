@@ -41,7 +41,7 @@
   }
 
   .register-form-box {
-    
+    display: none;
   }
 
   .likes-row.hidden {
@@ -57,8 +57,7 @@
   }
 
   .comments-container {
-
-
+    display: none;
 
     .leave-a-comment {
       @extend %large-copy;
