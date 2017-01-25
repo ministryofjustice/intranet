@@ -69,38 +69,50 @@
     </div>
 
     <?php if ($comments_on): ?>
-      <div class="grid register-form-box not-logged-in-only">
-        <div class="col-lg-8 col-md-12 col-sm-12">
-          <h3>Request a link to start commenting</h3>
-          <form class="userform standard register-form">
-            <div class="form-row">
-              <label>
-                <span class="small-label">Screen name</span>
-                <input type="text" name="display_name" />
-              </label>
-            </div>
+      <?php if ($comments_open): ?>
+        <div class="grid register-form-box not-logged-in-only">
+          <div class="col-lg-8 col-md-12 col-sm-12">
+            <h3>Request a link to start commenting</h3>
+            <form class="userform standard register-form">
+              <div class="form-row">
+                <label>
+                  <span class="small-label">Screen name</span>
+                  <input type="text" name="display_name" />
+                </label>
+              </div>
 
-            <div class="form-row">
-              <label>
-                <span class="small-label">Email (will not be displayed with your comment)</span>
-                <input type="text" name="email" />
-              </label>
-            </div>
+              <div class="form-row">
+                <label>
+                  <span class="small-label">Email (will not be displayed with your comment)</span>
+                  <input type="text" name="email" />
+                </label>
+              </div>
 
-            <div class="form-row">
-              <label>
-                <input type="submit" class="cta cta-positive" value="Request link">
-              </label>
-            </div>
+              <div class="form-row">
+                <label>
+                  <input type="submit" class="cta cta-positive" value="Request link">
+                </label>
+              </div>
 
-            <?php $this->view('modules/validation/validation') ?>
+              <?php $this->view('modules/validation/validation') ?>
 
+              <p class="secondary-action">
+                <a href="<?=$commenting_policy_url?>">MoJ commenting policy</a>
+              </p>
+            </form>
+          </div>
+        </div>
+      <?php else: ?>
+        <div class="grid">
+          <div class="col-lg-8 col-md-12 col-sm-12">
+            <h3>Comments are now closed</h3>
             <p class="secondary-action">
               <a href="<?=$commenting_policy_url?>">MoJ commenting policy</a>
             </p>
-          </form>
+          </div>
         </div>
-      </div>
+
+      <?php endif; ?>
 
       <div class="grid">
         <div class="col-lg-8 col-md-12 col-sm-12">
