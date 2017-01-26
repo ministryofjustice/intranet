@@ -145,11 +145,10 @@ p {
 }
 
 pre {
+    width: 600px;
     padding: 16px;
-    overflow: auto;
-    font-size: 85%;
-    line-height: 1.45;
     word-wrap: break-word;
+    white-space: pre-wrap;
     background-color: #f7f7f7;
     border-radius: 3px;
 }
