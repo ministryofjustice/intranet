@@ -40,3 +40,7 @@
 .acf-fields > .acf-field.no-border {
     border-top: none;
 }
+
+#customize-controls #customize-info .customize-panel-description {
+    display: block;
+}
