@@ -35,14 +35,7 @@
           'title'           => 'Need To Know for ' . $agency->name,
           'description'     => 'Allows admins and editors to customise the Need To Know panel',
         ) );
-
-        $wp_customize->add_panel( 'news_customisation', array(
-          'priority'        => 1,
-          'capability'      => 'edit_theme_options',
-          'title'           => 'Homepage for ' . $agency->name,
-          'description'     => 'Allows admins and editors to customise which news is displayed on the homepage',
-        ) );
-
+        
         //$this->homepage_banner($wp_customize);
         $this->featured_items($wp_customize,2);
         $this->need_to_know($wp_customize,3);
@@ -59,8 +52,7 @@
             'priority'        => 10,
             'capability'      => 'edit_theme_options',
             'title'           => 'Homepage Banner for ' . $agency->name,
-            'description'     => 'Controls the Homepage Banner for ' . $agency->name,
-            'panel'           => 'news_customisation',
+            'description'     => 'Controls the Homepage Banner for ' . $agency->name
         ) );
 
         $this->new_control_setting($wp_customize, $context.'_banner_image', $section_name, 'Image', 'image');
@@ -79,8 +71,7 @@
           'priority'        => 10,
           'capability'      => 'edit_theme_options',
           'title'           => 'Featured items for ' . $agency->name,
-          'description'     => 'Controls the featured items for ' . $agency->name,
-          'panel'           => 'news_customisation',
+          'description'     => 'Controls the featured items for ' . $agency->name
         ) );
 
 
@@ -124,8 +115,7 @@
           'priority'        => 1,
           'capability'      => 'edit_theme_options',
           'title'           => 'Notification message for ' . $agency->name,
-          'description'     => 'Controls the emergency message banner',
-          'panel'           => 'news_customisation',
+          'description'     => 'Controls the emergency message banner'
         ) );
 
         $this->new_control_setting($wp_customize, $context.'_emergency_toggle', $section_name, 'Enable Notification', 'checkbox');
