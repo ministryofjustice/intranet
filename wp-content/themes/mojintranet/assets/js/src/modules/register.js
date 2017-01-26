@@ -63,10 +63,17 @@
     },
 
     getData: function() {
+      var url = App.tools.url(true);
+      var redirectUrl = url.param('redirect_url');
+
+      if (!redirectUrl) {
+        redirectUrl = $('.template-user-activate-expired').length ? this.applicationUrl : url.get();
+      }
+
       return {
         email: this.$emailField.val(),
         display_name: this.$displayNameField.val(),
-        redirect_url: window.location.href
+        redirect_url: redirectUrl
       };
     },
 

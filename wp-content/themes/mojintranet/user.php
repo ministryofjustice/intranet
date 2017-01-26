@@ -80,7 +80,7 @@ class User extends MVC_controller {
   }
 
   function auth() {
-    if(!empty($_GET['login'])  && !empty($_GET['key']) && !empty($_GET['screen_name']) && !empty($_GET['redirect_url'])) {
+    if(!empty($_GET['login'])  && !empty($_GET['key']) && !empty($_GET['screen_name'])) {
       $email = $_GET['login'];
       $key = $_GET['key'];
       $display_name = $_GET['screen_name'];
@@ -101,7 +101,20 @@ class User extends MVC_controller {
           wp_safe_redirect($redirect_url);
           exit();
         }
+        else {
+          $this->view('layouts/default', [
+            'page' => 'pages/user/activate/expired/main',
+            'template_class' => 'user-activate-expired',
+            'cache_timeout' => 60 * 30, /* 30 minutes */
+            'no_breadcrumbs' => true,
+            'page_data' => [
+            ]
+          ]);
+        }
       }
+    }
+    else {
+      //???
     }
   }
 }
