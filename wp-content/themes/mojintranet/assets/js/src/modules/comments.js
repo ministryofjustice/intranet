@@ -183,6 +183,7 @@
       var comment, reply;
       var $comment, $reply;
       var loadedCommentsCount = 0;
+      var url = App.tools.url(true);
 
       for(a = 0, totalComments = data.comments.length; a < totalComments; a++) {
         comment = data.comments[a];
@@ -212,6 +213,12 @@
       }
 
       App.ins.like.initializeLikes();
+
+      if (url.partial()) {
+        $('html, body').animate({
+          scrollTop: $('#' + url.partial()).offset().top
+        });
+      }
     },
 
     displayReplies: function($comment, data) {

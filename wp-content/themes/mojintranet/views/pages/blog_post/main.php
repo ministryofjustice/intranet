@@ -68,82 +68,83 @@
       </div>
     </div>
 
-    <?php if ($comments_on): ?>
-      <?php if ($comments_open): ?>
-        <div class="grid register-form-box not-logged-in-only">
-          <div class="col-lg-8 col-md-12 col-sm-12">
-            <h3>Request a link to start commenting</h3>
-            <form class="userform standard register-form">
-              <div class="form-row">
-                <label>
-                  <span class="small-label">Screen name</span>
-                  <input type="text" name="display_name" />
-                </label>
-              </div>
+    <div id="comments-box">
+      <?php if ($comments_on): ?>
+        <?php if ($comments_open): ?>
+          <div class="grid register-form-box not-logged-in-only">
+            <div class="col-lg-8 col-md-12 col-sm-12">
+              <h3>Request a link to start commenting</h3>
+              <form class="userform standard register-form">
+                <div class="form-row">
+                  <label>
+                    <span class="small-label">Screen name</span>
+                    <input type="text" name="display_name" />
+                  </label>
+                </div>
 
-              <div class="form-row">
-                <label>
-                  <span class="small-label">Email (will not be displayed with your comment)</span>
-                  <input type="text" name="email" />
-                </label>
-              </div>
+                <div class="form-row">
+                  <label>
+                    <span class="small-label">Email (will not be displayed with your comment)</span>
+                    <input type="text" name="email" />
+                  </label>
+                </div>
 
-              <div class="form-row">
-                <label>
-                  <input type="submit" class="cta cta-positive" value="Request link">
-                </label>
-              </div>
+                <div class="form-row">
+                  <label>
+                    <input type="submit" class="cta cta-positive" value="Request link">
+                  </label>
+                </div>
 
-              <?php $this->view('modules/validation/validation') ?>
+                <?php $this->view('modules/validation/validation') ?>
 
+                <p class="secondary-action">
+                  <a href="<?=$commenting_policy_url?>">MoJ commenting policy</a>
+                </p>
+              </form>
+            </div>
+          </div>
+        <?php else: ?>
+          <div class="grid">
+            <div class="col-lg-8 col-md-12 col-sm-12">
+              <h3>Comments are now closed</h3>
               <p class="secondary-action">
                 <a href="<?=$commenting_policy_url?>">MoJ commenting policy</a>
               </p>
-            </form>
+            </div>
           </div>
-        </div>
-      <?php else: ?>
+        <?php endif ?>
+
         <div class="grid">
           <div class="col-lg-8 col-md-12 col-sm-12">
-            <h3>Comments are now closed</h3>
-            <p class="secondary-action">
-              <a href="<?=$commenting_policy_url?>">MoJ commenting policy</a>
-            </p>
-          </div>
-        </div>
+            <div class="comments-container">
+              <p class="leave-a-comment">
+                <span class="logged-in-only">Leave a comment</span>
+                <span class="not-logged-in-only">
+                  <a class="sign-in-link" href="">Sign in</a> to leave a comment
+                </span>
+              </p>
 
-      <?php endif; ?>
+              <div class="comment-form-container logged-in-only"></div>
 
-      <div class="grid">
-        <div class="col-lg-8 col-md-12 col-sm-12">
-          <div class="comments-container">
-            <p class="leave-a-comment">
-              <span class="logged-in-only">Leave a comment</span>
-              <span class="not-logged-in-only">
-                <a class="sign-in-link" href="">Sign in</a> to leave a comment
-              </span>
-            </p>
+              <ul class="comments-list"></ul>
 
-            <div class="comment-form-container logged-in-only"></div>
+              <div class="load-more-container loading">
+                <input type="button" class="load-more cta cta-plain" value="Load more comments" />
+                <span class="loading-msg">Loading...</span>
+              </div>
 
-            <ul class="comments-list"></ul>
-
-            <div class="load-more-container loading">
-              <input type="button" class="load-more cta cta-plain" value="Load more comments" />
-              <span class="loading-msg">Loading...</span>
+              <?php $this->view('pages/blog_post/partials/bad_words_error') ?>
+              <?php $this->view('pages/blog_post/partials/comment', $comment_data) ?>
+              <?php if ($comments_open):
+                      $this->view('pages/blog_post/partials/comment_form');
+                    endif
+              ?>
+              <?php $this->view('modules/validation/validation') ?>
             </div>
-
-            <?php $this->view('pages/blog_post/partials/bad_words_error') ?>
-            <?php $this->view('pages/blog_post/partials/comment', $comment_data) ?>
-            <?php if ($comments_open):
-                    $this->view('pages/blog_post/partials/comment_form');
-                  endif
-            ?>
-            <?php $this->view('modules/validation/validation') ?>
           </div>
         </div>
-      </div>
-    <?php endif ?>
+      <?php endif ?>
+    </div>
   </div>
   <?php $this->view('pages/blog_post/partials/confirmation') ?>
 </div>
