@@ -30,7 +30,7 @@
         $agency = Agency_Editor::get_agency_by_slug($context);
 
         $wp_customize->add_panel( 'need_to_know_customisation', array(
-          'priority'        => 1,
+          'priority'        => 11,
           'capability'      => 'edit_theme_options',
           'title'           => 'Need To Know for ' . $agency->name,
           'description'     => 'Allows admins and editors to customise the Need To Know panel',
@@ -51,8 +51,7 @@
         $wp_customize->add_section( 'homepage_banner', array(
             'priority'        => 10,
             'capability'      => 'edit_theme_options',
-            'title'           => 'Homepage Banner for ' . $agency->name,
-            'description'     => 'Controls the Homepage Banner for ' . $agency->name
+            'title'           => 'Homepage Banner for ' . $agency->name
         ) );
 
         $this->new_control_setting($wp_customize, $context.'_banner_image', $section_name, 'Image', 'image');
@@ -70,8 +69,7 @@
         $wp_customize->add_section( 'featured_news', array(
           'priority'        => 10,
           'capability'      => 'edit_theme_options',
-          'title'           => 'Featured items for ' . $agency->name,
-          'description'     => 'Controls the featured items for ' . $agency->name
+          'title'           => 'Featured items for ' . $agency->name
         ) );
 
 
@@ -114,8 +112,7 @@
         $wp_customize->add_section( 'emergency_message_section', array(
           'priority'        => 1,
           'capability'      => 'edit_theme_options',
-          'title'           => 'Notification message for ' . $agency->name,
-          'description'     => 'Controls the emergency message banner'
+          'title'           => 'Notification message for ' . $agency->name
         ) );
 
         $this->new_control_setting($wp_customize, $context.'_emergency_toggle', $section_name, 'Enable Notification', 'checkbox');
