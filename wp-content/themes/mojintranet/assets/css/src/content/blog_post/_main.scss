@@ -53,8 +53,7 @@
   }
 
   .comments-container {
-
-
+    display: none;
 
     .leave-a-comment {
       @extend %large-copy;
