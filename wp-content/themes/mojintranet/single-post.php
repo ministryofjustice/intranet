@@ -2,6 +2,8 @@
 
 class Single_post extends MVC_controller {
   function main(){
+    $this->add_global_view_var('commenting_policy_url', site_url('/commenting-policy/'));
+
     while(have_posts()){
       the_post();
       $this->view('layouts/default', $this->get_data());
