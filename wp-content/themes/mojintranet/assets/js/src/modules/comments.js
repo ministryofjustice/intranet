@@ -64,6 +64,10 @@
 
       this.$top.find('.sign-in-link').attr('href', signInUrl);
 
+      if (App.ins.user.isLoggedIn) {
+        $('.posting-as .display-name').html(App.ins.user.displayName);
+      }
+
       this.initializeCommentForm();
       this.loadComments();
     },

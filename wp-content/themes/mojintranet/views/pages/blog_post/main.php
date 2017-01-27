@@ -86,15 +86,22 @@
         <div class="grid">
           <div class="col-lg-8 col-md-12 col-sm-12">
             <div class="comments-container">
-              <p class="leave-a-comment">
-                <span class="logged-in-only">Leave a comment</span>
+              <h3 class="leave-a-comment">
+                <span class="logged-in-only">Comment on this article</span>
                 <span class="not-logged-in-only">
                   <a class="sign-in-link" href="">Sign in</a> to leave a comment
                 </span>
+              </h3>
+
+              <p class="posting-as logged-in-only">
+                Posting as
+                <span class="display-name"></span> |
+                <a href="<?=wp_logout_url($_SERVER['REQUEST_URI'])?>#comments-box">Not you?</a>
               </p>
 
               <div class="comment-form-container logged-in-only"></div>
 
+              <h3>Comments</h3>
               <ul class="comments-list"></ul>
 
               <div class="load-more-container loading">

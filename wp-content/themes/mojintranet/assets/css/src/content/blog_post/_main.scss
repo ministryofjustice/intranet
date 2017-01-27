@@ -53,11 +53,11 @@
   }
 
   .comments-container {
-    .leave-a-comment {
+    h3 {
       @extend %large-copy;
       margin-top: 30px;
+      margin-bottom: 15px;
       font-weight: bold;
-      display: none;
     }
 
     .comment-form {

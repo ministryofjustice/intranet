@@ -30,24 +30,12 @@
 
     saveData: function(data) {
       this.isLoggedIn = data.is_logged_in;
-      this.displayName = data.displayName;
-
-      this.updateUserMenu();
-    },
-
-    updateUserMenu: function() {
-      if (this.isLoggedIn) {
-        this.$userMenu.find('.sign-out').removeClass('hidden');
-      }
-      //else {
-      //  this.$userMenu.find('.sign-in').removeClass('hidden');
-      //  this.$userMenu.find('.register').removeClass('hidden');
-      //}
+      this.displayName = data.name;
 
       $(window).trigger('user-initialised');
       $('html').removeClass('user-not-initialised');
       $('html').toggleClass('user-logged-in', this.isLoggedIn === true);
       $('html').toggleClass('user-not-logged-in', this.isLoggedIn === false);
-    }
+    },
   };
 }(window.jQuery));
