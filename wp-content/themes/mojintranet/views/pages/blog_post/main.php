@@ -111,10 +111,9 @@
 
               <?php $this->view('pages/blog_post/partials/bad_words_error') ?>
               <?php $this->view('pages/blog_post/partials/comment', $comment_data) ?>
-              <?php if ($comments_open):
-                      $this->view('pages/blog_post/partials/comment_form');
-                    endif
-              ?>
+              <?php if ($comments_open): ?>
+                <?php $this->view('pages/blog_post/partials/comment_form'); ?>
+              <?php endif ?>
               <?php $this->view('modules/validation/validation') ?>
             </div>
           </div>
@@ -122,6 +121,6 @@
       <?php endif ?>
     </div>
   </div>
-  
+
   <?php $this->view('pages/user/activate/request_activation_link_confirmation') ?>
 </div>
