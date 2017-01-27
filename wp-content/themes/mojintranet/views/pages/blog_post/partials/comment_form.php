@@ -7,7 +7,10 @@
       <input class="cta cta-positive submit" type="submit" value="Submit" />
       <input class="cta cta-plain cancel" type="reset" value="Cancel" />
       <p class="limit-reached-msg">Character limit reached</p>
-    </div>
+
+      <p class="secondary-action">
+        <a href="<?=$commenting_policy_url?>">MoJ commenting policy</a>
+      </p>
     </div>
   </form>
 </script>
