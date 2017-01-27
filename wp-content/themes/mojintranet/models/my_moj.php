@@ -72,9 +72,9 @@ class My_moj_model extends MVC_model {
           'external' => true,
         ],
         [
-          'title' => 'Phoenix',
-          'icon' => 'phoenix',
-          'url' => site_url('/phoenix/'),
+          'title' => 'SOP',
+          'icon' => 'sop',
+          'url' => site_url('/sop/'),
           'external' => true,
         ],
         [
@@ -122,9 +122,9 @@ class My_moj_model extends MVC_model {
           'external' => true,
         ],
         [
-          'title' => 'Phoenix',
-          'icon' => 'phoenix',
-          'url' => site_url('/phoenix/'),
+          'title' => 'SOP',
+          'icon' => 'sop',
+          'url' => site_url('/sop/'),
           'external' => false,
         ],
         [
@@ -154,9 +154,9 @@ class My_moj_model extends MVC_model {
       ],
       'hmcts' => [
         [
-          'title' => 'Phoenix',
-          'icon' => 'phoenix',
-          'url' => site_url('/phoenix/'),
+          'title' => 'SOP',
+          'icon' => 'sop',
+          'url' => site_url('/sop/'),
           'external' => false,
         ],
         [
@@ -222,9 +222,9 @@ class My_moj_model extends MVC_model {
           'external' => true,
         ],
         [
-          'title' => 'Phoenix',
-          'icon' => 'phoenix',
-          'url' => 'http://phoenix.ps.gov.uk:8000/OA_HTML/AppsLocalLogin.jsp?requestUrl=APPSHOMEPAGE',
+          'title' => 'SOP',
+          'icon' => 'sop',
+          'url' => 'http://SOP.ps.gov.uk:8000/OA_HTML/AppsLocalLogin.jsp?requestUrl=APPSHOMEPAGE',
           'external' => true,
         ],
         [
@@ -284,9 +284,9 @@ class My_moj_model extends MVC_model {
           'external' => true,
         ],
         [
-          'title' => 'Phoenix',
-          'icon' => 'phoenix',
-          'url' => 'http://phoenix.ps.gov.uk:8000/OA_HTML/AppsLocalLogin.jsp?requestUrl=APPSHOMEPAGE',
+          'title' => 'SOP',
+          'icon' => 'sop',
+          'url' => 'http://SOP.ps.gov.uk:8000/OA_HTML/AppsLocalLogin.jsp?requestUrl=APPSHOMEPAGE',
           'external' => true,
         ],
         [
