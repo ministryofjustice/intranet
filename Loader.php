@@ -2,6 +2,9 @@
 
 abstract class MVC_loader {
   public $model;
+  //stores global view variables assigned by add_global_view_var()
+  //and add_global_view_data() (see controller)
+  protected $global_view_data = [];
 
   const DS = '/';
 
@@ -30,8 +33,14 @@ abstract class MVC_loader {
   }
 
   public function view($path, $data = [], $return_as_string = false) {
+    //assign global view data first
+    foreach ($this->global_view_data as $key => $value) {
+      $$key = $value;
+    }
+
+    //then assign the specified data
     if (is_array($data)) {
-      foreach ($data as $key=>$value) {
+      foreach ($data as $key => $value) {
         $$key = $value;
       }
     }

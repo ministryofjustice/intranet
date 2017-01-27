@@ -32,6 +32,26 @@ abstract class MVC_controller extends MVC_loader {
     $this->wp_footer = $this->_get_wp_footer();
   }
 
+  /** Adds multiple global view vars
+   * @param {Array} $data Array of data to be added as global view data
+   *
+   */
+  public function add_global_view_data($data) {
+    foreach ($data as $key => $value) {
+      $this->add_global_view_var($key, $value);
+    }
+  }
+
+  /** Adds a global view variable
+   * This variable will be available in all views called from this controller
+   * and in all subviews called from these views.
+   * @param {String} $name Name
+   * @param {Mixed} $value Value
+   */
+  public function add_global_view_var($name, $value) {
+    $this->global_view_data[$name] = $value;
+  }
+
   public function run() {
     if (method_exists($this, $this->method)) {
       call_user_func_array([$this, $this->method], $this->segments);
