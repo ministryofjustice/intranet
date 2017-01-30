@@ -115,6 +115,8 @@
 
   .comment {
     margin-top: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid $grey-2;
 
     &.has-more-replies .toggle-replies {
       display: inline-block;
@@ -137,6 +139,8 @@
     }
 
     &.reply {
+      border-bottom: none;
+
       .toggle-replies,
       .loading-replies {
         display: none;
@@ -174,10 +178,12 @@
     .loading-replies {
       @extend %medium-copy;
       margin-top: 10px;
+      margin-left: 40px;
     }
 
     .toggle-replies {
       display: none;
+      margin-top: 20px;
       text-decoration: underline;
     }
 
@@ -197,7 +203,7 @@
   .replies-list {
     .comment {
       display: none;
-      margin-left: 20px;
+      margin-left: 40px;
       padding-left: 20px;
       border-left: 4px solid $grey-2;
 
