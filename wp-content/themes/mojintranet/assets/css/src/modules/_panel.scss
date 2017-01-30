@@ -36,6 +36,10 @@
 
     .back-link-box {
       margin-top: 30px;
+
+      .template-user-activate-expired & {
+        display: none;
+      }
     }
 
     .back-link {
