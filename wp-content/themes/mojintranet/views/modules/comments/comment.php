@@ -13,7 +13,7 @@
 
       <ul class="social-actions">
         <?php if ($comments_open): ?>
-        <li class="reply-info">
+        <li class="reply-info logged-in-only">
           <span class="icon"></span>
           <a class="reply-btn" href="">Reply</a>
         </li>
