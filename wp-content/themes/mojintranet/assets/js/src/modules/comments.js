@@ -260,7 +260,7 @@
       //add line breaks
       comment = comment.replace(/\n+/g, '<p></p>');
 
-      $comment.find('.content').html(comment);
+      $comment.find('.comment-content').html(comment);
       $comment.find('.datetime').html(relativeTime);
       $comment.find('.author').html(data.author_name);
       $comment.find('.likes .count').html(data.likes);

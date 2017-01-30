@@ -9,7 +9,7 @@
     </div>
 
     <div class="content-box">
-      <p class="content"></p>
+      <p class="comment-content"></p>
 
       <ul class="social-actions">
         <?php if ($comments_open): ?>
