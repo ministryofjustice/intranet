@@ -39,9 +39,7 @@ class Page_tree_model extends MVC_model {
         'meta_key' => 'dw_regional_template',
         'meta_value' => 'page_regional_landing.php',
         'post_type' => 'any',
-        'posts_per_page' => -1,
-        'orderby' => 'title',
-        'order' => 'asc'
+        'posts_per_page' => -1
       ]);
 
       $data['children'] = [];
@@ -52,6 +50,12 @@ class Page_tree_model extends MVC_model {
     }
     else {
       $data['children'] = $this->_get_children_recursive($options);
+    }
+
+    usort($data['children'], [$this, 'sort_children']);
+
+    if($options['order'] == 'desc') {
+      $data = array_reverse($data);
     }
 
     return $data;
