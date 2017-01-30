@@ -31,6 +31,10 @@
       // Hide Trash action for non-admins
       if ( !current_user_can( 'manage_options' ) ) {
         unset($actions['trash']);
+        unset($actions['spam']);
+        unset($actions['approve']);
+        unset($actions['unapprove']);
+
       }
 
       if(!$hidden_comment) {
@@ -69,7 +73,7 @@
       $offset = array_search('response', array_keys($columns));
       return array_merge(
         array_slice($columns, 0, $offset),
-        array('comment_hidden' => __( 'Hidden?' )),
+        array('comment_hidden' => __( 'Hidden' )),
         array_slice($columns, $offset, null)
       );
     }
@@ -78,9 +82,9 @@
       switch ( $column ) {
         case 'comment_hidden':
           if (get_comment_meta($comment_id, 'hidden_comment')) {
-            echo "<span class='dashicons dashicons-yes'></span>";
+            echo "Hidden";
           } else {
-            echo "<span class='dashicons dashicons-no'></span>";
+            echo "-";
           }
           break;
       }
@@ -90,15 +94,20 @@
 
   new EnhanceComments;
 
+
 function dw_add_new_discussion_meta_box() {
   remove_meta_box('commentstatusdiv', 'post', 'normal');
-  add_meta_box('commentstatusdiv', __('Discussion'), 'dw_comment_status_meta_box', 'post', 'normal', 'high');
+  remove_meta_box('commentstatusdiv', 'page', 'normal');
+  add_meta_box('commentstatusdiv', __('Discussion'), 'dw_comment_status_meta_box', ['post', 'page'], 'normal', 'high');
 }
 add_action('add_meta_boxes_post',  'dw_add_new_discussion_meta_box');
+add_action('add_meta_boxes_page',  'dw_add_new_discussion_meta_box');
 
 function dw_comment_status_meta_box($post) {
   global $pagenow;
-  if(in_array($pagenow, array('post-new.php'))) {
+  global $post_type;
+
+  if(in_array($pagenow, array('post-new.php')) && $post_type == 'post' ) {
     $comments_on = 1;
   }
   else {
@@ -132,7 +141,7 @@ function dw_comment_status_meta_box($post) {
 function dw_set_comments_on_meta($post_id) {
   $post_type = get_post_type($post_id);
 
-  if ("post" != $post_type) return;
+  if (!in_array($post_type, ['post', 'page'])) return;
 
   if (isset($_POST['comments_on'])) {
     update_post_meta($post_id, 'dw_comments_on', 1);
@@ -147,7 +156,7 @@ function dw_discussion_options_script($hook) {
   global $post;
 
   if ($hook == 'post-new.php' || $hook == 'post.php') {
-    if ('post' === $post->post_type) {
+    if (in_array($post->post_type, ['post', 'page'])) {
       wp_enqueue_script('discussion-options', get_stylesheet_directory_uri().'/admin/js/discussion-options.js');
     }
   }
@@ -159,3 +168,42 @@ function remove_duplicate_check($dupe_id, $commentdata) {
 }
 
 add_filter('duplicate_comment_id', 'remove_duplicate_check', 10, 2);
+
+function dw_add_hidden_comment_marker($comment_text, $comment, $args) {
+  if( doing_action( 'wp_ajax_get-comments' ) ) {
+    $hidden_comment = get_comment_meta( $comment->comment_ID, 'hidden_comment', true );
+
+    if($hidden_comment) {
+      echo '<div class="hidden-comment">Hidden</div>';
+    }
+  }
+
+  return $comment_text;
+}
+add_filter( 'comment_text', 'dw_add_hidden_comment_marker', 10, 3 );
+
+function dw_add_root_comment($comment_data) {
+  if (is_numeric($comment_data['comment_parent']) &&  $comment_data['comment_parent'] > 0) {
+      if (empty($comment_data['comment_meta']) || empty($comment_data['comment_meta']['root_comment_id'])) {
+          $root_comment_id = $comment_data['comment_parent'];
+          $top_parent = false;
+          while ($top_parent == false) {
+            $parent_comment = get_comment($root_comment_id);
+
+            if($parent_comment->comment_parent == 0) {
+              $top_parent = true;
+            }
+            else {
+              $root_comment_id = $parent_comment->comment_parent;
+            }
+          }
+
+          $comment_data['comment_meta']['root_comment_id'] = $root_comment_id;
+      }
+  }
+
+  return $comment_data;
+}
+add_filter('preprocess_comment','dw_add_root_comment',10,1);
+
+

@@ -48,3 +48,16 @@
 .comment_status_option.status_hidden {
     display: none;
 }
+
+#comment-status-radio {
+   display: none;
+}
+
+.hidden-comment {
+    float: right;
+    font-weight: bold;
+}
+
+.post-php #the-comment-list .comment > p {
+    max-width: 80%;
+}
