@@ -134,12 +134,13 @@
 
     submitForm: function(e) {
       var _this = this;
+      var url = App.tools.url(true);
       var $form = $(e.target);
       var inReplyToId = $form.closest('.comment').attr('data-comment-id');
       var $parentComment = $form.closest('.comment:not(.reply)');
       var rootCommentId = $parentComment.attr('data-comment-id');
 
-      e.preventDefault();
+      e.preventDefault(e);
 
       //we have multiple forms so need to swap them at this point
       this.validation.$form = $form;
@@ -157,7 +158,9 @@
           },
           success: function(data) {
             if(data.success) {
-              window.location.reload();
+              url.partial('comments-box');
+              url.go(); //go to that url first (it won't reload as it has a partial)
+              window.location.reload(); //force reload of the final url
             }
             else {
               _this.validation.displayErrors(data.validation.errors);
