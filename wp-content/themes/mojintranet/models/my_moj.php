@@ -72,10 +72,10 @@ class My_moj_model extends MVC_model {
           'external' => true,
         ],
         [
-          'title' => 'Phoenix',
-          'icon' => 'phoenix',
-          'url' => site_url('/phoenix/'),
-          'external' => true,
+          'title' => 'SOP',
+          'icon' => 'sop',
+          'url' => site_url('/sop/'),
+          'external' => false,
         ],
         [
           'title' => 'Civil Service Learning',
@@ -122,9 +122,9 @@ class My_moj_model extends MVC_model {
           'external' => true,
         ],
         [
-          'title' => 'Phoenix',
-          'icon' => 'phoenix',
-          'url' => site_url('/phoenix/'),
+          'title' => 'SOP',
+          'icon' => 'sop',
+          'url' => site_url('/sop/'),
           'external' => false,
         ],
         [
@@ -154,9 +154,9 @@ class My_moj_model extends MVC_model {
       ],
       'hmcts' => [
         [
-          'title' => 'Phoenix',
-          'icon' => 'phoenix',
-          'url' => site_url('/phoenix/'),
+          'title' => 'SOP',
+          'icon' => 'sop',
+          'url' => site_url('/sop/'),
           'external' => false,
         ],
         [
@@ -222,10 +222,10 @@ class My_moj_model extends MVC_model {
           'external' => true,
         ],
         [
-          'title' => 'Phoenix',
-          'icon' => 'phoenix',
-          'url' => 'http://phoenix.ps.gov.uk:8000/OA_HTML/AppsLocalLogin.jsp?requestUrl=APPSHOMEPAGE',
-          'external' => true,
+          'title' => 'SOP',
+          'icon' => 'sop',
+          'url' => site_url('/sop/'),
+          'external' => false,
         ],
         [
           'title' => 'LAA manual (civil)',
@@ -284,10 +284,10 @@ class My_moj_model extends MVC_model {
           'external' => true,
         ],
         [
-          'title' => 'Phoenix',
-          'icon' => 'phoenix',
-          'url' => 'http://phoenix.ps.gov.uk:8000/OA_HTML/AppsLocalLogin.jsp?requestUrl=APPSHOMEPAGE',
-          'external' => true,
+          'title' => 'SOP',
+          'icon' => 'sop',
+          'url' => site_url('/sop/'),
+          'external' => false,
         ],
         [
           'title' => 'OPG GOV.UK site',
