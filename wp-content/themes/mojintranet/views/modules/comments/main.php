@@ -38,7 +38,6 @@
             <span class="loading-msg">Loading...</span>
           </div>
 
-          <?php $this->view('modules/comments/bad_words_error') ?>
           <?php $this->view('modules/comments/comment') ?>
           <?php if ($comments_open): ?>
             <?php $this->view('modules/comments/comment_form'); ?>

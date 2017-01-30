@@ -27,7 +27,6 @@
 
       this.itemTemplate = this.$top.find('[data-name="comment-item"]').html();
       this.formTemplate = this.$top.find('[data-name="comment-form"]').html();
-      this.badWordsErrorTemplate = this.$top.find('[data-name="bad-words-error"]').html();
       this.serviceXHR = null;
 
       this.cacheEls();
@@ -161,7 +160,6 @@
               window.location.reload();
             }
             else {
-              _this.validation.setErrorMessage(data.validation.errors, 'bad_words', _this.badWordsErrorTemplate);
               _this.validation.displayErrors(data.validation.errors);
             }
           }

@@ -52,7 +52,7 @@ class Comments_API extends API {
     $val = new Validation();
 
     if($this->MVC->model->bad_words->has_bad_words($this->put('comment'))) {
-      $val->error('comment', 'comment', '', 'bad_words');
+      $val->error('comment', 'comment', 'This screen name contains banned word(s)');
     }
 
     if(strlen($this->put('comment')) > 2000) {
