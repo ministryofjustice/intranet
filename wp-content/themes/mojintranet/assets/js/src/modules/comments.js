@@ -50,11 +50,12 @@
       var _this = this;
       var lastId = this.getLastId() || 0;
       var url = this.serviceUrl + '/' + [0, lastId, this.settings.commentsPerPage].join('/');
+
       _this.$loadMoreContainer.addClass('loading');
 
       /* use the timeout for dev/debugging purposes */
       //**/window.setTimeout(function() {
-        $.getJSON(url, $.proxy(_this.displayComments, _this));
+        $.getJSON(url, $.proxy(_this.displayComments, _this, false));
       //**/}, 2000);
     },
 
@@ -69,7 +70,7 @@
       }
 
       this.initializeCommentForm();
-      this.loadComments();
+      this.loadComments(true);
     },
 
     initializeForm: function($appendTo) {
@@ -171,17 +172,17 @@
       }
     },
 
-    loadComments: function() {
+    loadComments: function(initial) {
       var _this = this;
       var url = this.serviceUrl + '/' + [0, 0, this.settings.commentsPerPage].join('/');
 
       /* use the timeout for dev/debugging purposes */
       //**/window.setTimeout(function() {
-        _this.serviceXHR = $.getJSON(url, $.proxy(_this.displayComments, _this));
+        _this.serviceXHR = $.getJSON(url, $.proxy(_this.displayComments, _this, initial));
       //**/}, 2000);
     },
 
-    displayComments: function(data) {
+    displayComments: function(initial, data) {
       var a, b;
       var totalComments, totalReplies;
       var comment, reply;
@@ -218,7 +219,7 @@
 
       App.ins.like.initializeLikes();
 
-      if (url.partial()) {
+      if (initial && url.partial()) {
         $('html, body').animate({
           scrollTop: $('#' + url.partial()).offset().top
         });
