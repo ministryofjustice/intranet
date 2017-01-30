@@ -137,7 +137,7 @@ abstract class API {
    * @return {String} The value of the put key
    */
   protected function put($key = null) {
-    return $key ? $this->args['put'][$key] : $this->args['put'];
+    return $key ? get_array_value($this->args['put'], $key, null) : $this->args['put'];
   }
 
   /** Retrieve and store the POST values

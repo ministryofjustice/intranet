@@ -4,6 +4,8 @@ class Comments_model extends MVC_model {
   private $author_cache;
 
   public function read($params) {
+    $params['last_comment_id'] = get_array_value($params, 'last_comment_id', null);
+    $params['per_page'] = get_array_value($params, 'per_page', 0);
     $data = $this->get_raw($params['post_id'], $params['root_comment_id'], $params['last_comment_id'], $params['per_page']);
     $data = $this->format_data($data);
     return $data;
@@ -163,14 +165,15 @@ class Comments_model extends MVC_model {
 
     if ($current_user) {
       $data = array(
-        'comment_content'  => $comment_content,
-        'comment_post_ID'  => $post_id,
-        'comment_parent'   => $parent_id,
+        'comment_content' => $comment_content,
+        'comment_post_ID' => $post_id,
+        'comment_parent' => $parent_id,
         'comment_approved' => 1,
         'comment_author' => $current_user->display_name,
-        'comment_author_email' => $current_user->user_email, //fixed value - can be dynamic
-        'user_id'          => $current_user->ID,
-        'comment_meta'     => array(
+        'comment_author_email' => $current_user->user_email, //fixed value - can be dynamic,
+        'comment_author_url' => null,
+        'user_id' => $current_user->ID,
+        'comment_meta' => array(
           'root_comment_id' => $root_comment_id
         ),
       );

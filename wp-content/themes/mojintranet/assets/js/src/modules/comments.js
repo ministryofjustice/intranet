@@ -158,7 +158,7 @@
           },
           success: function(data) {
             if(data.success) {
-              window.location.href = window.location.href;
+              window.location.reload();
             }
             else {
               _this.validation.setErrorMessage(data.validation.errors, 'bad_words', _this.badWordsErrorTemplate);
