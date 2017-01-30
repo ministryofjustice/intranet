@@ -19,7 +19,7 @@
 
     public function add_comment_hide_link($actions, $comment) {
 
-      $url = "admin.php?c=$comment->comment_ID"; 
+      $url = "admin.php?c=$comment->comment_ID";
 
       $hide_nonce = esc_html( '_wpnonce=' . wp_create_nonce( "hide-comment_$comment->comment_ID" ) );
 
@@ -153,3 +153,9 @@ function dw_discussion_options_script($hook) {
   }
 }
 add_action('admin_enqueue_scripts', 'dw_discussion_options_script', 10, 1);
+
+function remove_duplicate_check($dupe_id, $commentdata) {
+  return false;
+}
+
+add_filter('duplicate_comment_id', 'remove_duplicate_check', 10, 2);
