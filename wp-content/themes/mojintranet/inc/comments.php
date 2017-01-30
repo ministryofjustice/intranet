@@ -92,13 +92,17 @@
 
 function dw_add_new_discussion_meta_box() {
   remove_meta_box('commentstatusdiv', 'post', 'normal');
-  add_meta_box('commentstatusdiv', __('Discussion'), 'dw_comment_status_meta_box', 'post', 'normal', 'high');
+  remove_meta_box('commentstatusdiv', 'page', 'normal');
+  add_meta_box('commentstatusdiv', __('Discussion'), 'dw_comment_status_meta_box', ['post', 'page'], 'normal', 'high');
 }
 add_action('add_meta_boxes_post',  'dw_add_new_discussion_meta_box');
+add_action('add_meta_boxes_page',  'dw_add_new_discussion_meta_box');
 
 function dw_comment_status_meta_box($post) {
   global $pagenow;
-  if(in_array($pagenow, array('post-new.php'))) {
+  global $post_type;
+
+  if(in_array($pagenow, array('post-new.php')) && $post_type == 'post' ) {
     $comments_on = 1;
   }
   else {
@@ -132,7 +136,7 @@ function dw_comment_status_meta_box($post) {
 function dw_set_comments_on_meta($post_id) {
   $post_type = get_post_type($post_id);
 
-  if ("post" != $post_type) return;
+  if (!in_array($post_type, ['post', 'page'])) return;
 
   if (isset($_POST['comments_on'])) {
     update_post_meta($post_id, 'dw_comments_on', 1);
@@ -147,7 +151,7 @@ function dw_discussion_options_script($hook) {
   global $post;
 
   if ($hook == 'post-new.php' || $hook == 'post.php') {
-    if ('post' === $post->post_type) {
+    if (in_array($post->post_type, ['post', 'page'])) {
       wp_enqueue_script('discussion-options', get_stylesheet_directory_uri().'/admin/js/discussion-options.js');
     }
   }
