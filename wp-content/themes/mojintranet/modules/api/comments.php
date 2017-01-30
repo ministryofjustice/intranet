@@ -55,7 +55,7 @@ class Comments_API extends API {
       $val->error('comment', 'comment', 'This screen name contains banned word(s)');
     }
 
-    if(strlen($this->put('comment')) > 2000) {
+    if(strlen($this->put('comment')) > 3000) {
       $val->error('comment', 'comment', 'The comment is too long');
     }
 
