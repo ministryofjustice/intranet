@@ -75,7 +75,7 @@ class My_moj_model extends MVC_model {
           'title' => 'SOP',
           'icon' => 'sop',
           'url' => site_url('/sop/'),
-          'external' => true,
+          'external' => false,
         ],
         [
           'title' => 'Civil Service Learning',
@@ -224,8 +224,8 @@ class My_moj_model extends MVC_model {
         [
           'title' => 'SOP',
           'icon' => 'sop',
-          'url' => 'http://SOP.ps.gov.uk:8000/OA_HTML/AppsLocalLogin.jsp?requestUrl=APPSHOMEPAGE',
-          'external' => true,
+          'url' => '/sop/',
+          'external' => false,
         ],
         [
           'title' => 'LAA manual (civil)',
@@ -286,8 +286,8 @@ class My_moj_model extends MVC_model {
         [
           'title' => 'SOP',
           'icon' => 'sop',
-          'url' => 'http://SOP.ps.gov.uk:8000/OA_HTML/AppsLocalLogin.jsp?requestUrl=APPSHOMEPAGE',
-          'external' => true,
+          'url' => '/sop/',
+          'external' => false,
         ],
         [
           'title' => 'OPG GOV.UK site',
