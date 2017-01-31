@@ -136,6 +136,8 @@
       var _this = this;
       var url = App.tools.url(true);
       var $form = $(e.target);
+      var $submit = $form.find('.cta.submit');
+      var $cancel = $form.find('.cta.cancel');
       var inReplyToId = $form.closest('.comment').attr('data-comment-id');
       var $parentComment = $form.closest('.comment:not(.reply)');
       var rootCommentId = $parentComment.attr('data-comment-id');
@@ -148,6 +150,8 @@
       this.validate($form);
 
       if(!this.validation.hasErrors()) {
+        this.toggleState($submit, $cancel, 'loading');
+
         $.ajax({
           url: this.serviceUrl,
           method: 'put',
@@ -163,6 +167,7 @@
               window.location.reload(); //force reload of the final url
             }
             else {
+              _this.toggleState($submit, $cancel, 'default');
               _this.validation.displayErrors(data.validation.errors);
             }
           }
@@ -353,6 +358,25 @@
         .param('return_url', App.tools.urlencode(currentUrl.get()));
 
       return signInUrl.get();
+    },
+
+    toggleState: function($submitCta, $cancelCta, state) {
+      if (!$submitCta.attr('data-original-label')) {
+        $submitCta.attr('data-original-label', $submitCta.val());
+      }
+
+      if(state === 'loading') {
+        $submitCta.val('Loading...');
+        $submitCta.addClass('loading');
+        $submitCta.attr('disabled', 'disabled');
+        $cancelCta.addClass('hidden');
+      }
+      else {
+        $submitCta.val($submitCta.attr('data-original-label'));
+        $submitCta.removeClass('loading');
+        $submitCta.removeAttr('disabled');
+        $cancelCta.removeClass('hidden');
+      }
     }
   };
 }(jQuery));

@@ -54,8 +54,12 @@ form.standard {
     border: 1px solid $grey-2;
   }
 
-  .cta[type="submit"].loading {
+  .cta.loading {
     opacity: .5;
+  }
+
+  .cta.hidden {
+    display: none;
   }
 
   .field-action {

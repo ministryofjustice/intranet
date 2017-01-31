@@ -1,5 +1,5 @@
 <script data-name="comment-form" type="text/x-partial-template">
-  <form class="comment-form">
+  <form class="comment-form standard">
     <div class="form-row">
       <textarea name="comment" placeholder="Enter your comment here..."></textarea>
     </div>
