@@ -116,12 +116,28 @@
     color: $grey-1;
   }
 
-  .comment-content {
+  .comment-content,
+  .comment-content-deleted {
     @extend %medium-copy;
     margin-top: 5px;
     margin-bottom: 10px;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+
+  .comment-content-deleted {
+    display: none;
+    margin-bottom: 0px;
+  }
+
+  &.is-deleted {
+    .comment-content,
+    .social-actions {
+      display: none;
+    }
+    .comment-content-deleted {
+      display: block;
+    }
   }
 
   .toggle-replies,
