@@ -80,41 +80,46 @@ class User extends MVC_controller {
   }
 
   function auth() {
-    if(!empty($_GET['login'])  && !empty($_GET['key']) && !empty($_GET['screen_name'])) {
-      $email = $_GET['login'];
-      $key = $_GET['key'];
-      $display_name = $_GET['screen_name'];
-      $user = get_user_by('email', $email);
-
-      if ($user != false) {
-        if (!$this->model->user->is_expired($user, $key)) {
-          $redirect_url = get_array_value($_GET, 'redirect_url', site_url());
-
-          wp_clear_auth_cookie();
-          wp_set_current_user($user->ID);
-          wp_set_auth_cookie($user->ID);
-
-          $this->model->user->update($user->ID, array(
-                'display_name' => $display_name
-          ));
-
-          wp_safe_redirect($redirect_url);
-          exit();
-        }
-        else {
-          $this->view('layouts/default', [
-            'page' => 'pages/user/activate/expired/main',
-            'template_class' => 'user-activate-expired',
-            'cache_timeout' => 60 * 30, /* 30 minutes */
-            'no_breadcrumbs' => true,
-            'page_data' => [
-            ]
-          ]);
-        }
-      }
+    if(is_user_logged_in()) {
+      wp_redirect('/');
     }
     else {
-      //???
+      if(!empty($_GET['login'])  && !empty($_GET['key']) && !empty($_GET['screen_name'])) {
+        $email = $_GET['login'];
+        $key = $_GET['key'];
+        $display_name = $_GET['screen_name'];
+        $user = get_user_by('email', $email);
+
+        if ($user != false) {
+          if (!$this->model->user->is_expired($user, $key)) {
+            $redirect_url = get_array_value($_GET, 'redirect_url', site_url());
+
+            wp_clear_auth_cookie();
+            wp_set_current_user($user->ID);
+            wp_set_auth_cookie($user->ID);
+
+            $this->model->user->update($user->ID, array(
+                  'display_name' => $display_name
+            ));
+
+            wp_safe_redirect($redirect_url);
+            exit();
+          }
+          else {
+            $this->view('layouts/default', [
+              'page' => 'pages/user/activate/expired/main',
+              'template_class' => 'user-activate-expired',
+              'cache_timeout' => 60 * 30, /* 30 minutes */
+              'no_breadcrumbs' => true,
+              'page_data' => [
+              ]
+            ]);
+          }
+        }
+      }
+      else {
+        //???
+      }
     }
   }
 }
