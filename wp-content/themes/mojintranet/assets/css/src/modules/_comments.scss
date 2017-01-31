@@ -7,7 +7,7 @@
 
   .comment-form {
     margin-top: 20px;
-    
+
     &.active {
       textarea {
         height: 100px;
@@ -29,23 +29,6 @@
       border: 1px solid $grey-2;
     }
 
-    .limit-reached-msg {
-      display: none;
-      color: $red;
-      font-weight: bold;
-      vertical-align: middle;
-    }
-
-    &.character-limit-reached {
-      .limit-reached-msg {
-        display: inline-block;
-      }
-
-      .submit {
-        opacity: 0.5;
-      }
-    }
-
     .misc {
       display: none;
     }
@@ -61,149 +44,160 @@
   .posting-as {
     @extend %medium-copy;
   }
-}
 
-.comment {
-  margin-top: 20px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid $grey-2;
+  .comment {
+    margin-top: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid $grey-2;
 
-  &.has-more-replies .toggle-replies {
-    display: inline-block;
-  }
-
-  &.opened {
-    .replies-list .comment {
-      display: block;
-    }
-  }
-
-  &.loading {
-    .loading-replies {
+    &.has-more-replies .toggle-replies {
       display: inline-block;
+    }
+
+    &.opened {
+      .replies-list .comment {
+        display: block;
+      }
+    }
+
+    &.loading {
+      .loading-replies {
+        display: inline-block;
+      }
+
+      .toggle-replies {
+        display: none;
+      }
+    }
+
+    &.reply {
+      padding-bottom: 0;
+      border-bottom: none;
+
+      .toggle-replies,
+      .loading-replies {
+        display: none;
+      }
+    }
+
+    p {
+      margin-bottom: 10px;
+    }
+
+    .loading-replies {
+      display: none;
+      color: $grey-1;
+    }
+
+    .author {
+      @extend %large-copy;
+    }
+
+    .dash,
+    .datetime{
+      @extend %large-copy;
+      color: $grey-1;
+    }
+
+    .comment-content,
+    .comment-content-deleted {
+      @extend %medium-copy;
+      margin-top: 5px;
+      margin-bottom: 10px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .comment-content-deleted {
+      display: none;
+      margin-bottom: 0px;
+    }
+
+    &.is-deleted {
+      .comment-content,
+      .social-actions {
+        display: none;
+      }
+      .comment-content-deleted {
+        display: block;
+      }
+    }
+
+    .toggle-replies,
+    .loading-replies {
+      @extend %medium-copy;
+      margin-top: 10px;
+      margin-left: 40px;
     }
 
     .toggle-replies {
       display: none;
-    }
-  }
-
-  &.reply {
-    padding-bottom: 0;
-    border-bottom: none;
-
-    .toggle-replies,
-    .loading-replies {
-      display: none;
-    }
-  }
-
-  p {
-    margin-bottom: 10px;
-  }
-
-  .loading-replies {
-    display: none;
-    color: $grey-1;
-  }
-
-  .author {
-    @extend %large-copy;
-  }
-
-  .dash,
-  .datetime{
-    @extend %large-copy;
-    color: $grey-1;
-  }
-
-  .comment-content,
-  .comment-content-deleted {
-    @extend %medium-copy;
-    margin-top: 5px;
-    margin-bottom: 10px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .comment-content-deleted {
-    display: none;
-    margin-bottom: 0px;
-  }
-
-  &.is-deleted {
-    .comment-content,
-    .social-actions {
-      display: none;
-    }
-    .comment-content-deleted {
-      display: block;
-    }
-  }
-
-  .toggle-replies,
-  .loading-replies {
-    @extend %medium-copy;
-    margin-top: 10px;
-    margin-left: 40px;
-  }
-
-  .toggle-replies {
-    display: none;
-    margin-top: 20px;
-    text-decoration: underline;
-  }
-
-  .reply-info {
-    @extend %medium-copy;
-
-    .icon {
-      margin-top: 2px;
-    }
-
-    a {
+      margin-top: 20px;
       text-decoration: underline;
     }
-  }
-}
 
-.replies-list {
-  .comment {
-    display: none;
-    margin-left: 40px;
-    padding-left: 20px;
-    border-left: 4px solid $grey-2;
+    .reply-info {
+      @extend %medium-copy;
 
-    &.last-two {
-      display: block;
+      .icon {
+        margin-top: 2px;
+      }
+
+      a {
+        text-decoration: underline;
+      }
     }
   }
-}
 
-.load-more-container {
-  margin-top: 20px;
-
-  &.loading {
-    .load-more {
+  .replies-list {
+    .comment {
       display: none;
+      margin-left: 40px;
+      padding-left: 20px;
+      border-left: 4px solid $grey-2;
+
+      &.last-two {
+        display: block;
+      }
+    }
+  }
+
+  .load-more-container {
+    margin-top: 20px;
+
+    &.loading {
+      .load-more {
+        display: none;
+      }
+
+      .loading-msg {
+        display: inline-block;
+      }
+    }
+
+    &.hidden {
+      display: none;
+    }
+
+    .load-more {
+      display: inline-block;
     }
 
     .loading-msg {
-      display: inline-block;
+      @extend %medium-copy;
+      display: none;
+      color: $grey-1;
     }
   }
 
-  &.hidden {
-    display: none;
-  }
-
-  .load-more {
-    display: inline-block;
-  }
-
-  .loading-msg {
+  .no-comments-msg {
     @extend %medium-copy;
     display: none;
-    color: $grey-1;
+  }
+
+  &.no-comments {
+    .no-comments-msg {
+      display: block;
+    }
   }
 }

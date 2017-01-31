@@ -38,6 +38,8 @@
             <span class="loading-msg">Loading...</span>
           </div>
 
+          <p class="no-comments-msg">There are no comments yet.</p>
+
           <?php $this->view('modules/comments/comment') ?>
           <?php if ($comments_open): ?>
             <?php $this->view('modules/comments/comment_form'); ?>

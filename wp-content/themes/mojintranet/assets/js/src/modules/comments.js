@@ -225,6 +225,10 @@
           scrollTop: $('#' + url.partial()).offset().top
         });
       }
+
+      if (initial && !data.comments.length) {
+        this.$top.addClass('no-comments');
+      }
     },
 
     displayReplies: function($comment, data) {
