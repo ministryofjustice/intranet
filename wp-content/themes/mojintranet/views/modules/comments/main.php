@@ -24,7 +24,7 @@
             <p class="posting-as logged-in-only">
               Posting as
               <span class="display-name"></span> |
-              <a href="<?=wp_logout_url($_SERVER['REQUEST_URI'])?>#comments-box">Not you?</a>
+              <a href="<?=$logout_url?>#comments-box">Not you?</a>
             </p>
 
             <div class="comment-form-container logged-in-only"></div>
