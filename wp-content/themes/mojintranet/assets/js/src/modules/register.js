@@ -70,16 +70,19 @@
         redirectUrl = $('.template-user-activate-expired').length ? this.applicationUrl : url.get();
       }
 
+      redirectUrl = App.tools.url(redirectUrl);
+      redirectUrl.partial(false);
+
       return {
         email: this.$emailField.val(),
         display_name: this.$displayNameField.val(),
-        redirect_url: redirectUrl
+        redirect_url: redirectUrl.get()
       };
     },
 
     submitSuccess: function(data) {
       if (data.status === false) {
-        window.location.href = window.location.href;
+        window.location.reload();
       }
       else {
         if(data.success) {
