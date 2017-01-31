@@ -81,7 +81,7 @@ class User extends MVC_controller {
 
   function auth() {
     if(is_user_logged_in()) {
-      wp_redirect('/');
+      wp_redirect('/#');
     }
     else {
       if(!empty($_GET['login'])  && !empty($_GET['key']) && !empty($_GET['screen_name'])) {
