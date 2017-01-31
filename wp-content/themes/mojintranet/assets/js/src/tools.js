@@ -288,7 +288,7 @@
      * @returns {String} Trimmed string
      */
     trim: function(string, character){
-      if (!$.type(character)) {
+      if (!character) {
         character = '\\s';
       }
 

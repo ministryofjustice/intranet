@@ -84,19 +84,12 @@
       var _this = this;
       var $form = this.initializeForm(this.$top.find('.comment-form-container'));
       var $textarea = $form.find('[name="comment"]');
-      var commentTooLong = false;
 
-      $textarea
-        .focus(function() {
-          _this.validation.reset();
-          _this.$top.find('.comment-form.reply-form').remove();
-          $form.addClass('active');
-        })
-        .keyup(function() {
-          commentTooLong = $textarea.val().length > _this.settings.characterLimit;
-          $form.toggleClass('character-limit-reached', commentTooLong);
-          $form.find('.cta.submit').prop('disabled', commentTooLong);
-        });
+      $textarea.focus(function() {
+        _this.validation.reset();
+        _this.$top.find('.comment-form.reply-form').remove();
+        $form.addClass('active');
+      });
 
       $form.find('.cta.cancel').click(function() {
         _this.validation.reset();
@@ -292,9 +285,15 @@
     },
 
     validate: function($form) {
+      var $commentField = $form.find('[name="comment"]');
+      var comment = $commentField.val();
       this.validation.reset();
 
       this.validation.isFilled($form.find('[name="comment"]'), 'comment');
+
+      if(comment.length > this.settings.characterLimit) {
+        this.validation.error($commentField, 'comment', 'Your comment is longer than ' + this.settings.characterLimit + ' characters');
+      }
     },
 
     toggleReplies: function($comment, e) {

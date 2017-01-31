@@ -52,11 +52,11 @@ class Comments_API extends API {
     $val = new Validation();
 
     if($this->MVC->model->bad_words->has_bad_words($this->put('comment'))) {
-      $val->error('comment', 'comment', 'This screen name contains banned word(s)');
+      $val->error('comment', 'comment', 'This comment contains banned word(s)');
     }
 
     if(strlen($this->put('comment')) > 3000) {
-      $val->error('comment', 'comment', 'The comment is too long');
+      $val->error('comment', 'comment', 'The comment is longer than 3000 characters');
     }
 
     //add comment
