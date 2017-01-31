@@ -142,7 +142,7 @@ class Comments_model extends MVC_model {
   }
 
   private function format_comment($comment) {
-    $hidden_comment = get_comment_meta( $comment->comment_ID, 'hidden_comment', true );
+    $is_hidden = get_comment_meta( $comment->comment_ID, 'is_hidden', true );
     $like_count = get_comment_meta( $comment->comment_ID, 'dw_inc_likes', true );
     $parent_author = $comment->comment_parent ? get_comment_author($comment->comment_parent) : '';
 
@@ -154,7 +154,7 @@ class Comments_model extends MVC_model {
       'likes' => (int) $like_count,
       'in_reply_to_id' => (int) $comment->comment_parent,
       'in_reply_to_author' => $parent_author,
-      'hidden_comment' => (int) $hidden_comment ?: 0,
+      'is_hidden' => (bool) $is_hidden ?: false,
       'total_replies' => 0,
       'replies' => array()
     );

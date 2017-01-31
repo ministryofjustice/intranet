@@ -194,7 +194,7 @@
         $comment = this.buildComment(comment);
         this.$commentsList.append($comment);
 
-        if (comment.hidden_comment === 0) {
+        if (comment.is_hidden === false) {
           for (b = 0, totalReplies = comment.replies.length; b < totalReplies; b++) {
             reply = comment.replies[b];
             $reply = this.buildComment(reply, true);
@@ -253,7 +253,7 @@
       var comment = data.comment;
       var relativeTime = window.moment(data.date_posted).fromNow();
 
-      if (data.hidden_comment) {
+      if (data.is_hidden) {
         $comment.addClass('is-deleted');
       }
       else {
