@@ -6,6 +6,8 @@
   }
 
   .comment-form {
+    margin-top: 20px;
+    
     &.active {
       textarea {
         height: 100px;
@@ -58,7 +60,6 @@
 
   .posting-as {
     @extend %medium-copy;
-    margin-bottom: 20px;
   }
 }
 
