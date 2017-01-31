@@ -26,7 +26,7 @@
       $hide_url = esc_url( $url . "&action=hidecomment&$hide_nonce" );
       $unhide_url = esc_url( $url . "&action=unhidecomment&$hide_nonce" );
 
-      $hidden_comment = get_comment_meta( $comment->comment_ID, 'hidden_comment', true );
+      $is_hidden = get_comment_meta( $comment->comment_ID, 'is_hidden', true );
 
       // Hide Trash action for non-admins
       if ( !current_user_can( 'manage_options' ) ) {
@@ -37,7 +37,7 @@
 
       }
 
-      if(!$hidden_comment) {
+      if(!$is_hidden) {
         $actions['hide'] = "<a href='$hide_url' data-wp-lists='hide:the-comment-list:comment-$comment->comment_ID::hide=1' class='hide vim-d vim-destructive' title='" . esc_attr__( 'Hide this comment on the site' ) . "'>" . _x( 'Hide', 'verb' ) . '</a>';
       } else {
         $actions['unhide'] = "<a href='$unhide_url' data-wp-lists='hide:the-comment-list:comment-$comment->comment_ID::hide=1' class='hide vim-d vim-destructive' title='" . esc_attr__( 'Unhide this comment on the site' ) . "'>" . _x( 'Unhide', 'verb' ) . '</a>';
@@ -48,8 +48,8 @@
 
     public function hide_comment($post_id) {
       $comment_id = $_GET['c'];
-      
-      update_comment_meta( $comment_id, 'hidden_comment', 1);
+
+      update_comment_meta( $comment_id, 'is_hidden', true);
 
       // Return to referring page
       wp_redirect( $_SERVER['HTTP_REFERER'] );
@@ -60,7 +60,7 @@
       $comment_id = $_GET['c'];
 
       // Delete 'hidden_comment' flag
-      delete_comment_meta( $comment_id, 'hidden_comment' );
+      delete_comment_meta( $comment_id, 'is_hidden' );
 
       // Return to referring page
       wp_redirect( $_SERVER['HTTP_REFERER'] );
@@ -79,7 +79,7 @@
     public function display_comment_hidden_column($column, $comment_id) {
       switch ( $column ) {
         case 'comment_hidden':
-          if (get_comment_meta($comment_id, 'hidden_comment')) {
+          if (get_comment_meta($comment_id, 'is_hidden')) {
             echo "Hidden";
           } else {
             echo "-";
@@ -169,9 +169,9 @@ add_filter('duplicate_comment_id', 'remove_duplicate_check', 10, 2);
 
 function dw_add_hidden_comment_marker($comment_text, $comment, $args) {
   if( doing_action( 'wp_ajax_get-comments' ) ) {
-    $hidden_comment = get_comment_meta( $comment->comment_ID, 'hidden_comment', true );
+    $is_hidden = get_comment_meta( $comment->comment_ID, 'is_hidden', true );
 
-    if($hidden_comment) {
+    if($is_hidden) {
       echo '<div class="hidden-comment">Hidden</div>';
     }
   }
