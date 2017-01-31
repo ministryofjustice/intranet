@@ -201,16 +201,18 @@
         $comment = this.buildComment(comment);
         this.$commentsList.append($comment);
 
-        for(b = 0, totalReplies = comment.replies.length; b < totalReplies; b++) {
-          reply = comment.replies[b];
-          $reply = this.buildComment(reply, true);
-          $reply.addClass('last-two');
-          $comment.find('> .replies-list').append($reply);
-        }
+        if (comment.hidden_comment === 0) {
+          for (b = 0, totalReplies = comment.replies.length; b < totalReplies; b++) {
+            reply = comment.replies[b];
+            $reply = this.buildComment(reply, true);
+            $reply.addClass('last-two');
+            $comment.find('> .replies-list').append($reply);
+          }
 
-        if(comment.total_replies > 2) {
-          $comment.addClass('has-more-replies');
-          $comment.find('.toggle-replies .count').html(comment.total_replies);
+          if (comment.total_replies > 2) {
+            $comment.addClass('has-more-replies');
+            $comment.find('.toggle-replies .count').html(comment.total_replies);
+          }
         }
       }
 
@@ -258,15 +260,21 @@
       var comment = data.comment;
       var relativeTime = window.moment(data.date_posted).fromNow();
 
-      //convert urls to links
-      comment = comment.replace(/https?:\/\/[^\s]+/g, function(match) {
-        return '<a href="' + match + '">' + match + '</a>';
-      });
+      if (data.hidden_comment) {
+        $comment.addClass('is-deleted');
+      }
+      else {
+        //convert urls to links
+        comment = comment.replace(/https?:\/\/[^\s]+/g, function (match) {
+          return '<a href="' + match + '">' + match + '</a>';
+        });
 
-      //add line breaks
-      comment = comment.replace(/\n+/g, '<p></p>');
+        //add line breaks
+        comment = comment.replace(/\n+/g, '<p></p>');
 
-      $comment.find('.comment-content').html(comment);
+        $comment.find('.comment-content').html(comment);
+      }
+
       $comment.find('.datetime').html(relativeTime);
       $comment.find('.author').html(data.author_name);
       $comment.find('.likes .count').html(data.likes);

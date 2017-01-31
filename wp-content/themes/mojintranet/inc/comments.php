@@ -48,10 +48,8 @@
 
     public function hide_comment($post_id) {
       $comment_id = $_GET['c'];
-      $user_id = get_current_user_id();
-
-      // Set hidden_comment meta to current user ID
-      update_comment_meta( $comment_id, 'hidden_comment', $user_id );
+      
+      update_comment_meta( $comment_id, 'hidden_comment', 1);
 
       // Return to referring page
       wp_redirect( $_SERVER['HTTP_REFERER'] );

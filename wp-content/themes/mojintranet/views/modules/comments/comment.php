@@ -10,7 +10,7 @@
 
     <div class="content-box">
       <p class="comment-content"></p>
-
+      <p class="comment-content-deleted">This comment has been deleted because it did not abide by our <a href="<?=$commenting_policy_url?>">commenting policy</a>. Replies have also been deleted.</p>
       <ul class="social-actions">
         <?php if ($comments_open): ?>
         <li class="reply-info logged-in-only">
