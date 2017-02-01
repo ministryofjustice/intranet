@@ -156,8 +156,10 @@
           success: function(data) {
             if(data.success) {
               url.partial('comments-box');
-              url.go(); //go to that url first (it won't reload as it has a partial)
-              window.location.reload(); //force reload of the final url
+              window.location.href = url.get();
+              window.setTimeout(function() {
+                window.location.reload();
+              }, 500);
             }
             else {
               _this.toggleState($submit, $cancel, 'default');
