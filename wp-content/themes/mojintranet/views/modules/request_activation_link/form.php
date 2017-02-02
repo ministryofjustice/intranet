@@ -9,14 +9,14 @@
 
       <div class="form-row">
         <label>
-          <span class="small-label">Screen name (will appear on screen)</span>
+          <span class="label">Screen name (will appear on screen)</span>
           <input type="text" name="display_name" />
         </label>
       </div>
 
       <div class="form-row">
         <label>
-          <span class="small-label">Email address (will not be shown with your comment)</span>
+          <span class="label">Email address (will not be shown with your comment)</span>
           <input type="text" name="email" />
         </label>
       </div>
