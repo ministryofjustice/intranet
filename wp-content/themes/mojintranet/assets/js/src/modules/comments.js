@@ -155,7 +155,7 @@
           },
           success: function(data) {
             if(data.success) {
-              url.partial('comments-box');
+              url.partial('comments');
               window.location.href = url.get();
               window.setTimeout(function() {
                 window.location.reload();

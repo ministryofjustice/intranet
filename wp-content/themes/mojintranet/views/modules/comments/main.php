@@ -1,4 +1,4 @@
-<div id="comments-box">
+<div id="comments">
   <?php if ($comments_on): ?>
     <?php if ($comments_open): ?>
       <?php $this->view('modules/request_activation_link/form') ?>
@@ -24,7 +24,7 @@
             <p class="posting-as logged-in-only">
               You're posting as
               <span class="display-name"></span> |
-              <a href="<?=$logout_url?>#comments-box">Not you?</a>
+              <a href="<?=$logout_url?>#comments">Not you?</a>
             </p>
 
             <div class="comment-form-container logged-in-only"></div>
