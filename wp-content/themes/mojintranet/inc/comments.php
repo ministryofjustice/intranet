@@ -139,16 +139,32 @@ function dw_comment_status_meta_box($post) {
 function dw_set_comments_on_meta($post_id) {
   $post_type = get_post_type($post_id);
 
-  if (!in_array($post_type, ['post', 'page'])) return;
+
+  if (!in_array($post_type, ['post', 'page', 'revision'])) return;
 
   if (isset($_POST['comments_on'])) {
-    update_post_meta($post_id, 'dw_comments_on', 1);
+    update_metadata('post', $post_id, 'dw_comments_on', 1);
   }
   else {
-    update_post_meta($post_id, 'dw_comments_on', 0);
+    update_metadata('post', $post_id, 'dw_comments_on', 0);
   }
 }
 add_action('save_post', 'dw_set_comments_on_meta', 10, 1);
+
+function dw_save_comment_status($data , $postarr) {
+  global  $post;
+
+  if(!empty($_POST["comment_status"])) {
+
+    $data["comment_status"] = $_POST["comment_status"];
+
+  }
+  else {
+    $data["comment_status"] = 'closed';
+  }
+  return $data;
+}
+add_filter('wp_insert_post_data', 'dw_save_comment_status', '99', 2);
 
 function dw_discussion_options_script($hook) {
   global $post;
