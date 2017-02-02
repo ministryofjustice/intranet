@@ -18,11 +18,11 @@
         <div class="comments-container">
           <?php if ($comments_open): ?>
             <h3 class="leave-a-comment">
-              <span class="logged-in-only">Comment on this article</span>
+              <span class="logged-in-only">Comment on this page</span>
             </h3>
 
             <p class="posting-as logged-in-only">
-              Posting as
+              You're posting as
               <span class="display-name"></span> |
               <a href="<?=$logout_url?>#comments-box">Not you?</a>
             </p>

@@ -104,6 +104,10 @@
 
     toggleConfirmationMessage: function(toggle) {
       $('.template-container').toggleClass('confirmation', toggle);
+
+      if ($('.template-container').hasClass('confirmation')) {
+        $('.confirmation-screen .recipient-email').html(this.$emailField.val());
+      }
     },
 
     validate: function() {
