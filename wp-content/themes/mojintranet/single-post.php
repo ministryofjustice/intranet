@@ -43,7 +43,8 @@ class Single_post extends MVC_controller {
     $this->add_global_view_var('commenting_policy_url', site_url('/commenting-policy/'));
     $this->add_global_view_var('comments_open', (boolean) comments_open($this_id));
     $this->add_global_view_var('comments_on', (boolean) get_post_meta($this_id, 'dw_comments_on', true));
-
+    $this->add_global_view_var('logout_url', wp_logout_url($_SERVER['REQUEST_URI']));
+    
     return [
       'page' => 'pages/blog_post/main',
       'template_class' => 'blog-post',

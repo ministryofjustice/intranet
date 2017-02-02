@@ -68,7 +68,7 @@ class User extends MVC_controller {
 
           $message = $this->view('email/activate_account', $data, true);
 
-          html_mail($email, 'Your link to comment on the MoJ intranet', $message);
+          html_mail($email, 'Add comments to the intranet', $message);
         }
 
         $this->output_json(array(

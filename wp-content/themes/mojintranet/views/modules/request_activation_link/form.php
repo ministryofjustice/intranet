@@ -2,25 +2,28 @@
 
 <div class="grid register-form-box not-logged-in-only">
   <div class="col-lg-8 col-md-12 col-sm-12">
-    <h3>Request a link to start commenting</h3>
+    <h3>Comment on this page</h3>
+
     <form class="userform standard register-form">
+      <p class="description">Fill in your details below. We’ll then send you a link back to this page so you can start commenting.</p>
+
       <div class="form-row">
         <label>
-          <span class="small-label">Screen name</span>
+          <span class="label">Screen name (will appear on screen)</span>
           <input type="text" name="display_name" />
         </label>
       </div>
 
       <div class="form-row">
         <label>
-          <span class="small-label">Email (will not be displayed with your comment)</span>
+          <span class="label">Email address (will not be shown with your comment)</span>
           <input type="text" name="email" />
         </label>
       </div>
 
       <div class="form-row">
         <label>
-          <input type="submit" class="cta cta-positive" value="Request link">
+          <input type="submit" class="cta cta-positive" value="Get link">
         </label>
       </div>
 

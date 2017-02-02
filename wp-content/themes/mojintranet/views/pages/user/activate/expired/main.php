@@ -5,9 +5,9 @@
     <div class="grid">
       <div class="col-lg-8 col-md-12 col-sm-12">
         <div class="panel error-panel">
-          <h1>Your email link has expired</h1>
+          <h1>Your link has expired</h1>
 
-          <p>Request a new link to begin commenting.</p>
+          <p>The link we emailed was only valid for 3 hours. Fill in your details to try again.</p>
         </div>
       </div>
     </div>
