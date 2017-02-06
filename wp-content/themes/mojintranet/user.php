@@ -84,7 +84,7 @@ class User extends MVC_controller {
       wp_redirect('/#');
     }
     else {
-      if(!empty($_GET['login'])  && !empty($_GET['key']) && !empty($_GET['screen_name'])) {
+      if (!empty($_GET['login']) && !empty($_GET['key']) && !empty($_GET['screen_name'])) {
         $email = $_GET['login'];
         $key = $_GET['key'];
         $display_name = $_GET['screen_name'];

@@ -26,11 +26,8 @@ class Single_post extends MVC_controller {
         $latest_revision = array_shift($revisions);
         $this_id = $latest_revision->ID;
       }
-
     }
-
-
-
+    
     $thumbnail_id = get_post_thumbnail_id($this_id);
     $thumbnail = wp_get_attachment_image_src($thumbnail_id, 'intranet-large');
     $alt_text = get_post_meta($thumbnail_id, '_wp_attachment_image_alt', true);
