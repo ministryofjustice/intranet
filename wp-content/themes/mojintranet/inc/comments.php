@@ -1,6 +1,6 @@
 <?php
 
-  class EnhanceComments {
+  class HideComments {
 
     public function __construct() {
       $this->add_hooks();
@@ -90,18 +90,26 @@
 
   }
 
-  new EnhanceComments;
+  new HideComments;
 
 
+/**
+ * Removes the default discussion meta box and replaces it with a custom meta box
+ *
+ */
 function dw_add_new_discussion_meta_box() {
   remove_meta_box('commentstatusdiv', 'post', 'normal');
   remove_meta_box('commentstatusdiv', 'page', 'normal');
-  add_meta_box('commentstatusdiv', __('Discussion'), 'dw_comment_status_meta_box', ['post', 'page'], 'normal', 'high');
+  add_meta_box('commentstatusdiv', __('Discussion'), 'dw_discussion_meta_box', ['post', 'page'], 'normal', 'high');
 }
 add_action('add_meta_boxes_post',  'dw_add_new_discussion_meta_box');
 add_action('add_meta_boxes_page',  'dw_add_new_discussion_meta_box');
 
-function dw_comment_status_meta_box($post) {
+/**
+ * Custom Discussion Meta box
+ * @param  object $post Post
+ */
+function dw_discussion_meta_box($post) {
   global $pagenow;
   global $post_type;
 
@@ -136,9 +144,13 @@ function dw_comment_status_meta_box($post) {
   <?php
 }
 
+/**
+ * Updates the 'Comments on' Meta data
+ * @param  int $post_id Post ID
+ *
+ */
 function dw_set_comments_on_meta($post_id) {
   $post_type = get_post_type($post_id);
-
 
   if (!in_array($post_type, ['post', 'page', 'revision'])) return;
 
@@ -151,10 +163,16 @@ function dw_set_comments_on_meta($post_id) {
 }
 add_action('save_post', 'dw_set_comments_on_meta', 10, 1);
 
+/**
+ * Sets Comment Status even if it has not be sent in the $_POST
+ * @param  array $data Post data to be inserted
+ * @param  array $postarr Post Data
+ * @return array Altered data to be inserted
+ */
 function dw_save_comment_status($data , $postarr) {
   global  $post;
 
-  if(!empty($_POST["comment_status"])) {
+  if (!empty($_POST["comment_status"])) {
 
     $data["comment_status"] = $_POST["comment_status"];
 
@@ -166,6 +184,11 @@ function dw_save_comment_status($data , $postarr) {
 }
 add_filter('wp_insert_post_data', 'dw_save_comment_status', '99', 2);
 
+/**
+ * Adds script used by the Custom Discussion Meta Box
+ * @param  string $hook The page that is being viewed
+ *
+ */
 function dw_discussion_options_script($hook) {
   global $post;
 
@@ -177,12 +200,19 @@ function dw_discussion_options_script($hook) {
 }
 add_action('admin_enqueue_scripts', 'dw_discussion_options_script', 10, 1);
 
-function remove_duplicate_check($dupe_id, $commentdata) {
-  return false;
-}
+/**
+ * Remove duplicate comment check
+ *
+ */
+add_filter('duplicate_comment_id', '__return_false');
 
-add_filter('duplicate_comment_id', 'remove_duplicate_check', 10, 2);
-
+/**
+ * Add Hidden Marker to the comments listing shown on the edit post page
+ * @param  string $comment_text Comment text
+ * @param  object $comment Comment Object
+ * @param  array $args Additional Comment Arguments
+ * @return string Comment Text
+ */
 function dw_add_hidden_comment_marker($comment_text, $comment, $args) {
   if( doing_action( 'wp_ajax_get-comments' ) ) {
     $is_hidden = get_comment_meta( $comment->comment_ID, 'is_hidden', true );
@@ -196,6 +226,11 @@ function dw_add_hidden_comment_marker($comment_text, $comment, $args) {
 }
 add_filter( 'comment_text', 'dw_add_hidden_comment_marker', 10, 3 );
 
+/**
+ * Adds the root comment id meta if it is not already set.
+ * @param  array $comment_data Comment data to be inserted
+ * @return array Comment data
+ */
 function dw_add_root_comment($comment_data) {
   if (is_numeric($comment_data['comment_parent']) &&  $comment_data['comment_parent'] > 0) {
       if (empty($comment_data['comment_meta']) || empty($comment_data['comment_meta']['root_comment_id'])) {
