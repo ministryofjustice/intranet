@@ -27,7 +27,7 @@
     "dw-document-revisions": {
         "repository": "git@github.com:ministryofjustice/dw-document-revisions.git",
         "revision": "master",
-        "commit": "0e3bf8416fd5225920e068223455dade32017f8a"
+        "commit": "99e1737e337e1ed8bab0e52dc1c120a2bbb7b492"
     },
     "dw-live-drafts": {
         "repository": "git@github.com:ministryofjustice/dw-live-drafts.git",
