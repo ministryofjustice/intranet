@@ -6,7 +6,17 @@
   <div class="grid">
     <div class="col-lg-12 col-md-12 col-sm-12">
       <h1 class="page-title">Ministry of Justice HQ</h1>
+
+      <?php if(!empty($banner_url)): ?>
+        <a href="<?=$banner_url?>">
+      <?php endif ?>
+          <img src="<?=$banner_image_url?>" class="campaign-banner" />
+      <?php if(!empty($banner_url)): ?>
+        </a>
+      <?php endif ?>
+
     </div>
+    
     <div class="col-lg-8 col-md-6 col-sm-12">
       <?php $this->view('widgets/featured_news/main') ?>
       <?php $this->view('widgets/news_list/main', $news_widget) ?>
