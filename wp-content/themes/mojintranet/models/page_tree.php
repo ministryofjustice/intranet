@@ -52,6 +52,12 @@ class Page_tree_model extends MVC_model {
       $data['children'] = $this->_get_children_recursive($options);
     }
 
+    usort($data['children'], [$this, 'sort_children']);
+
+    if($options['order'] == 'desc') {
+      $data = array_reverse($data);
+    }
+
     return $data;
   }
 
