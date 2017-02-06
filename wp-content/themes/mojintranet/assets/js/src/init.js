@@ -38,9 +38,6 @@ jQuery(function() {
   App.ins.guidanceIndexWidget = new App.GuidanceIndexWidget();
   App.ins.aboutUsIndex = new App.AboutUsIndex();
   App.ins.registerForm = new App.RegisterForm();
-  App.ins.resetPasswordForm = new App.ResetPasswordForm();
-  App.ins.forgotPasswordForm = new App.ForgotPasswordForm();
-  App.ins.loginForm = new App.LoginForm();
   App.ins.homePage = new App.Homepage();
   App.ins.regionalLanding = new App.RegionalLanding();
   App.ins.campaignLanding = new App.CampaignLanding();
