@@ -11,7 +11,6 @@
     </div>
     <div class="col-lg-9 col-md-8 col-sm-12">
       <h1 class="page-title"><?=$title?></h1>
-      <h2 class="category-name">Latest</h2>
 
       <?php $this->view('widgets/news_list/main', $news_widget) ?>
       <?php $this->view('widgets/events/main', $events_widget) ?>

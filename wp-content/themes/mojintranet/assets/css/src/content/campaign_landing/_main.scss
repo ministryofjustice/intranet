@@ -1,0 +1,18 @@
+.template-campaign-landing .template-container {
+  padding-top: 15px;
+
+  .page-title {
+    margin-top: 20px;
+  }
+
+  .post-excerpt {
+    @extend %larger-copy;
+    margin-top: 30px;
+  }
+
+  .no-news,
+  .no-events,
+  .no-posts {
+    display: none;
+  }
+}
