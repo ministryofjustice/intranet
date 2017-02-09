@@ -12,6 +12,7 @@ if (!current_user_can('administrator')) {
 $load_commands = array(
     // filename => Class_Name
     'assign-agency-terms-to-posts' => 'Assign_Agency_Terms_To_Posts',
+    'close-commenting' => 'Close_Commenting',
     'hide-page-bylines' => 'Hide_Page_Bylines',
     'agency-doc-opt-in' => 'Agency_Doc_Opt_In',
     'reset-doc-scan' => 'Reset_Doc_Scan',

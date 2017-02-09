@@ -63,12 +63,12 @@ class User extends MVC_controller {
           $data = array(
             'name' => $display_name,
             'site_url' => site_url(),
-            'activation_url' => network_site_url("/user/auth/?key=".$key."&login=" . rawurlencode($email) . "&screen_name=" . $display_name . "&redirect_url=" . $redirect_url, 'login')
+            'activation_url' => network_site_url("/user/auth/?key=".$key."&login=" . rawurlencode($email) . "&screen_name=" . $display_name . "&redirect_url=" . $redirect_url . "#comments", 'login')
           );
 
           $message = $this->view('email/activate_account', $data, true);
 
-          html_mail($email, 'Your link to comment on the MoJ intranet', $message);
+          html_mail($email, 'Add comments to the intranet', $message);
         }
 
         $this->output_json(array(
@@ -80,27 +80,45 @@ class User extends MVC_controller {
   }
 
   function auth() {
-    if(!empty($_GET['login'])  && !empty($_GET['key']) && !empty($_GET['screen_name']) && !empty($_GET['redirect_url'])) {
-      $email = $_GET['login'];
-      $key = $_GET['key'];
-      $display_name = $_GET['screen_name'];
-      $user = get_user_by('email', $email);
+    if(is_user_logged_in()) {
+      wp_redirect('/#');
+    }
+    else {
+      if (!empty($_GET['login']) && !empty($_GET['key']) && !empty($_GET['screen_name'])) {
+        $email = $_GET['login'];
+        $key = $_GET['key'];
+        $display_name = $_GET['screen_name'];
+        $user = get_user_by('email', $email);
 
-      if ($user != false) {
-        if (!$this->model->user->is_expired($user, $key)) {
-          $redirect_url = get_array_value($_GET, 'redirect_url', site_url());
+        if ($user != false) {
+          if (!$this->model->user->is_expired($user, $key)) {
+            $redirect_url = get_array_value($_GET, 'redirect_url', site_url());
 
-          wp_clear_auth_cookie();
-          wp_set_current_user($user->ID);
-          wp_set_auth_cookie($user->ID);
+            wp_clear_auth_cookie();
+            wp_set_current_user($user->ID);
+            wp_set_auth_cookie($user->ID);
 
-          $this->model->user->update($user->ID, array(
-                'display_name' => $display_name
-          ));
+            $this->model->user->update($user->ID, array(
+                  'display_name' => $display_name
+            ));
 
-          wp_safe_redirect($redirect_url);
-          exit();
+            wp_safe_redirect($redirect_url);
+            exit();
+          }
+          else {
+            $this->view('layouts/default', [
+              'page' => 'pages/user/activate/expired/main',
+              'template_class' => 'user-activate-expired',
+              'cache_timeout' => 60 * 30, /* 30 minutes */
+              'no_breadcrumbs' => true,
+              'page_data' => [
+              ]
+            ]);
+          }
         }
+      }
+      else {
+        //???
       }
     }
   }

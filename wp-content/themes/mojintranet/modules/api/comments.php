@@ -22,7 +22,9 @@ class Comments_API extends API {
   }
 
   protected function parse_params($params) {
-    $root_comment_id = (int) $params[1] ?: 0;
+    $root_comment_id = (int) get_array_value($params, 1, 0);
+    $last_comment_id = (int) get_array_value($params, 2, 0);
+    $per_page = (int) get_array_value($params, 3, 0);
 
     $this->params = array(
       'post_id' => $params[0],
@@ -31,8 +33,8 @@ class Comments_API extends API {
 
     if($root_comment_id === 0) {
       $this->params = array_merge($this->params, array(
-        'last_comment_id' => $params[2],
-        'per_page' => $params[3]
+        'last_comment_id' => $last_comment_id,
+        'per_page' => $per_page
       ));
     }
   }
@@ -50,11 +52,11 @@ class Comments_API extends API {
     $val = new Validation();
 
     if($this->MVC->model->bad_words->has_bad_words($this->put('comment'))) {
-      $val->error('comment', 'comment', '', 'bad_words');
+      $val->error('comment', 'comment', 'This comment contains banned word(s)');
     }
 
-    if(strlen($this->put('comment')) > 2000) {
-      $val->error('comment', 'comment', 'The comment is too long');
+    if(strlen($this->put('comment')) > 3000) {
+      $val->error('comment', 'comment', 'The comment is longer than 3000 characters');
     }
 
     //add comment

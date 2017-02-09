@@ -170,20 +170,20 @@ $grid-size: 50px;
 
 .user-not-logged-in {
   .logged-in-only {
-    display: none;
+    display: none !important;
   }
 }
 
 .user-logged-in {
   .not-logged-in-only {
-    display: none;
+    display: none !important;
   }
 }
 
 .user-not-initialised {
   .logged-in-only,
   .not-logged-in-only {
-    display: none;
+    display: none !important;
   }
 }
 
