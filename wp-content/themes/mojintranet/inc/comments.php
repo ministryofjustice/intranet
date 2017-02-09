@@ -122,8 +122,8 @@ function dw_discussion_meta_box($post) {
   ?>
   <input name="advanced_view" type="hidden" value="1" />
   <p class="meta-options">
-    <label for="comments_on" class="selectit"><input name="comments_on" type="checkbox" id="comments_on" value="1"  <?php checked($comments_on, 1); ?> /> <?php _e('Comments on') ?></label>
-    <label for="comment_status" class="selectit comment_status_option <?php if($comments_on != 1) { echo "status_hidden"; }?>"><br/><input name="comment_status" type="checkbox" id="comment_status" value="open"  <?php checked($post->comment_status, 'open'); ?> /> <?php _e('Comments open') ?></label><br />
+    <label for="comments_on" class="selectit"><input name="comments_on" type="checkbox" id="comments_on" value="1"  <?php checked($comments_on, 1); ?> /> <?php _e('Show the comments section') ?></label>
+    <label for="comment_status" class="selectit comment_status_option <?php if($comments_on != 1) { echo "status_hidden"; }?>"><br/><input name="comment_status" type="checkbox" id="comment_status" value="open"  <?php checked($post->comment_status, 'open'); ?> /> <?php _e('Allow people to add new comments') ?></label><br />
     <label for="ping_status" class="selectit ping_status"><input name="ping_status" type="checkbox" id="ping_status" value="open" <?php checked($post->ping_status, 'open'); ?> /> <?php
       printf(
       /* translators: %s: Codex URL */
