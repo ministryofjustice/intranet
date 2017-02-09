@@ -135,7 +135,7 @@
       var $parentComment = $form.closest('.comment:not(.reply)');
       var rootCommentId = $parentComment.attr('data-comment-id');
 
-      e.preventDefault(e);
+      e.preventDefault();
 
       //we have multiple forms so need to swap them at this point
       this.validation.$form = $form;
@@ -173,6 +173,9 @@
       }
     },
 
+    /** Gets comments from the API
+     * @param {Boolean} initial See displayComments() for details
+     */
     loadComments: function(initial) {
       var _this = this;
       var url = this.serviceUrl + '/' + [0, 0, this.settings.commentsPerPage].join('/');
@@ -183,6 +186,9 @@
       //**/}, 2000);
     },
 
+    /** Displays comments
+     * @param {Boolean} initial Whether this is the initial call of this method (on page load) or not
+     */
     displayComments: function(initial, data) {
       var a, b;
       var totalComments, totalReplies;
@@ -233,6 +239,10 @@
       }
     },
 
+    /** displays replies under a specified comment
+     * @param {jQuery Object} $comment Comment element to which the replies will be appeneded
+     * @param {Array} data Data model for the reply
+     */
     displayReplies: function($comment, data) {
       var a;
       var totalReplies;
@@ -254,6 +264,11 @@
       App.ins.like.initializeLikes();
     },
 
+    /** Builds a single comment DOM element and populates it with specified data
+     * @param {Array} data Data model for the comment/reply
+     * @param {Boolean} isReply Whether this is a reply or not
+     * @returns {jQuery Object} Constructed comment
+     */
     buildComment: function(data, isReply) {
       var $comment = $(this.itemTemplate);
       var comment = data.comment;
@@ -298,6 +313,9 @@
       return $comment;
     },
 
+    /** Validates the form
+     * @param {jQuery object} $form Subject form
+     */
     validate: function($form) {
       var $commentField = $form.find('[name="comment"]');
       var comment = $commentField.val();
@@ -310,6 +328,9 @@
       }
     },
 
+    /** Toggles open/close replies for a specific comment
+     * @param {jQuery object} $comment Comment element
+     */
     toggleReplies: function($comment, e) {
       var _this = this;
       var id = $comment.attr('data-comment-id');
@@ -334,6 +355,13 @@
       }
     },
 
+    /** Handles all different states of a comment's replies list
+     * @param {String} state Comment state
+     *    opened - replies list is opened
+     *    closed - replies list is closed
+     *    loaded - replies are loaded
+     *    loading - replies are being loaded
+     */
     setCommentState: function(state, $comment) {
       var $toggleReplies = $comment.find('> .toggle-replies');
 

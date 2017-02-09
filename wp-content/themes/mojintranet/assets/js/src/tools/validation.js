@@ -31,7 +31,7 @@
 
       value = $element.val();
       value = App.tools.trim(value);
-      fieldName = fieldName.charAt(0).toUpperCase() + fieldName.slice(1);
+      fieldName = App.tools.ucfirst(fieldName);
 
       if(!message) {
         message = fieldName + ' cannot be empty';
