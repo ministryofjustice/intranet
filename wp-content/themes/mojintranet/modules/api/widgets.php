@@ -139,11 +139,9 @@ class Widgets_API extends API {
     $options = $this->params;
     $data['emergency_message'] = $this->MVC->model->emergency_banner->get($options);
 
-    $data['url_params'] = $this->params;
-    $this->response($data, 200, 60);
-
     //campaign banner
     $options = $this->params;
+    $this->MVC->model('homepage_banner');
     $data['homepage_banner'] = $this->MVC->model->homepage_banner->get($options);
 
     $data['url_params'] = $this->params;
