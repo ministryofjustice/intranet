@@ -30,9 +30,11 @@
       $element = this.getElement($element);
 
       value = $element.val();
+      value = App.tools.trim(value);
+      fieldName = App.tools.ucfirst(fieldName);
 
       if(!message) {
-        message = 'Please enter ' + fieldName;
+        message = fieldName + ' cannot be empty';
       }
 
       if(value === '') {

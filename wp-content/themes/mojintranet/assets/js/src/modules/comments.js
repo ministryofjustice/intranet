@@ -12,7 +12,7 @@
   App.Comments.prototype = {
     init: function() {
       this.settings = {
-        characterLimit: 2000,
+        characterLimit: 3000,
         commentsPerPage: 10
       };
 
@@ -27,7 +27,6 @@
 
       this.itemTemplate = this.$top.find('[data-name="comment-item"]').html();
       this.formTemplate = this.$top.find('[data-name="comment-form"]').html();
-      this.badWordsErrorTemplate = this.$top.find('[data-name="bad-words-error"]').html();
       this.serviceXHR = null;
 
       this.cacheEls();
@@ -50,11 +49,12 @@
       var _this = this;
       var lastId = this.getLastId() || 0;
       var url = this.serviceUrl + '/' + [0, lastId, this.settings.commentsPerPage].join('/');
+
       _this.$loadMoreContainer.addClass('loading');
 
       /* use the timeout for dev/debugging purposes */
       //**/window.setTimeout(function() {
-        $.getJSON(url, $.proxy(_this.displayComments, _this));
+        $.getJSON(url, $.proxy(_this.displayComments, _this, false));
       //**/}, 2000);
     },
 
@@ -64,8 +64,12 @@
 
       this.$top.find('.sign-in-link').attr('href', signInUrl);
 
+      if (App.ins.user.isLoggedIn) {
+        $('.posting-as .display-name').html(App.ins.user.displayName);
+      }
+
       this.initializeCommentForm();
-      this.loadComments();
+      this.loadComments(true);
     },
 
     initializeForm: function($appendTo) {
@@ -80,19 +84,12 @@
       var _this = this;
       var $form = this.initializeForm(this.$top.find('.comment-form-container'));
       var $textarea = $form.find('[name="comment"]');
-      var commentTooLong = false;
 
-      $textarea
-        .focus(function() {
-          _this.validation.reset();
-          _this.$top.find('.comment-form.reply-form').remove();
-          $form.addClass('active');
-        })
-        .keyup(function() {
-          commentTooLong = $textarea.val().length > _this.settings.characterLimit;
-          $form.toggleClass('character-limit-reached', commentTooLong);
-          $form.find('.cta.submit').prop('disabled', commentTooLong);
-        });
+      $textarea.focus(function() {
+        _this.validation.reset();
+        _this.$top.find('.comment-form.reply-form').remove();
+        $form.addClass('active');
+      });
 
       $form.find('.cta.cancel').click(function() {
         _this.validation.reset();
@@ -130,7 +127,10 @@
 
     submitForm: function(e) {
       var _this = this;
+      var url = App.tools.url(true);
       var $form = $(e.target);
+      var $submit = $form.find('.cta.submit');
+      var $cancel = $form.find('.cta.cancel');
       var inReplyToId = $form.closest('.comment').attr('data-comment-id');
       var $parentComment = $form.closest('.comment:not(.reply)');
       var rootCommentId = $parentComment.attr('data-comment-id');
@@ -143,6 +143,8 @@
       this.validate($form);
 
       if(!this.validation.hasErrors()) {
+        this.toggleState($submit, $cancel, 'loading');
+
         $.ajax({
           url: this.serviceUrl,
           method: 'put',
@@ -153,10 +155,14 @@
           },
           success: function(data) {
             if(data.success) {
-              window.location.href = window.location.href;
+              url.partial('comments');
+              window.location.href = url.get();
+              window.setTimeout(function() {
+                window.location.reload();
+              }, 500);
             }
             else {
-              _this.validation.setErrorMessage(data.validation.errors, 'bad_words', _this.badWordsErrorTemplate);
+              _this.toggleState($submit, $cancel, 'default');
               _this.validation.displayErrors(data.validation.errors);
             }
           }
@@ -167,38 +173,47 @@
       }
     },
 
-    loadComments: function() {
+    /** Gets comments from the API
+     * @param {Boolean} initial See displayComments() for details
+     */
+    loadComments: function(initial) {
       var _this = this;
       var url = this.serviceUrl + '/' + [0, 0, this.settings.commentsPerPage].join('/');
 
       /* use the timeout for dev/debugging purposes */
       //**/window.setTimeout(function() {
-        _this.serviceXHR = $.getJSON(url, $.proxy(_this.displayComments, _this));
+        _this.serviceXHR = $.getJSON(url, $.proxy(_this.displayComments, _this, initial));
       //**/}, 2000);
     },
 
-    displayComments: function(data) {
+    /** Displays comments
+     * @param {Boolean} initial Whether this is the initial call of this method (on page load) or not
+     */
+    displayComments: function(initial, data) {
       var a, b;
       var totalComments, totalReplies;
       var comment, reply;
       var $comment, $reply;
       var loadedCommentsCount = 0;
+      var url = App.tools.url(true);
 
       for(a = 0, totalComments = data.comments.length; a < totalComments; a++) {
         comment = data.comments[a];
         $comment = this.buildComment(comment);
         this.$commentsList.append($comment);
 
-        for(b = 0, totalReplies = comment.replies.length; b < totalReplies; b++) {
-          reply = comment.replies[b];
-          $reply = this.buildComment(reply, true);
-          $reply.addClass('last-two');
-          $comment.find('> .replies-list').append($reply);
-        }
+        if (comment.is_hidden === false) {
+          for (b = 0, totalReplies = comment.replies.length; b < totalReplies; b++) {
+            reply = comment.replies[b];
+            $reply = this.buildComment(reply, true);
+            $reply.addClass('last-two');
+            $comment.find('> .replies-list').append($reply);
+          }
 
-        if(comment.total_replies > 2) {
-          $comment.addClass('has-more-replies');
-          $comment.find('.toggle-replies .count').html(comment.total_replies);
+          if (comment.total_replies > 2) {
+            $comment.addClass('has-more-replies');
+            $comment.find('.toggle-replies .count').html(comment.total_replies);
+          }
         }
       }
 
@@ -212,8 +227,22 @@
       }
 
       App.ins.like.initializeLikes();
+
+      if (initial && url.partial()) {
+        $('html, body').animate({
+          scrollTop: $('#' + url.partial()).offset().top
+        });
+      }
+
+      if (initial && !data.comments.length) {
+        this.$top.addClass('no-comments');
+      }
     },
 
+    /** displays replies under a specified comment
+     * @param {jQuery Object} $comment Comment element to which the replies will be appeneded
+     * @param {Array} data Data model for the reply
+     */
     displayReplies: function($comment, data) {
       var a;
       var totalReplies;
@@ -235,20 +264,31 @@
       App.ins.like.initializeLikes();
     },
 
+    /** Builds a single comment DOM element and populates it with specified data
+     * @param {Array} data Data model for the comment/reply
+     * @param {Boolean} isReply Whether this is a reply or not
+     * @returns {jQuery Object} Constructed comment
+     */
     buildComment: function(data, isReply) {
       var $comment = $(this.itemTemplate);
       var comment = data.comment;
       var relativeTime = window.moment(data.date_posted).fromNow();
 
-      //convert urls to links
-      comment = comment.replace(/https?:\/\/[^\s]+/g, function(match) {
-        return '<a href="' + match + '">' + match + '</a>';
-      });
+      if (data.is_hidden) {
+        $comment.addClass('is-deleted');
+      }
+      else {
+        //convert urls to links
+        comment = comment.replace(/https?:\/\/[^\s]+/g, function (match) {
+          return '<a href="' + match + '">' + match + '</a>';
+        });
 
-      //add line breaks
-      comment = comment.replace(/\n+/g, '<p></p>');
+        //add line breaks
+        comment = comment.replace(/\n+/g, '<p></p>');
 
-      $comment.find('.content').html(comment);
+        $comment.find('.comment-content').html(comment);
+      }
+
       $comment.find('.datetime').html(relativeTime);
       $comment.find('.author').html(data.author_name);
       $comment.find('.likes .count').html(data.likes);
@@ -273,12 +313,24 @@
       return $comment;
     },
 
+    /** Validates the form
+     * @param {jQuery object} $form Subject form
+     */
     validate: function($form) {
+      var $commentField = $form.find('[name="comment"]');
+      var comment = $commentField.val();
       this.validation.reset();
 
       this.validation.isFilled($form.find('[name="comment"]'), 'comment');
+
+      if(comment.length > this.settings.characterLimit) {
+        this.validation.error($commentField, 'comment', 'Your comment is longer than ' + this.settings.characterLimit + ' characters');
+      }
     },
 
+    /** Toggles open/close replies for a specific comment
+     * @param {jQuery object} $comment Comment element
+     */
     toggleReplies: function($comment, e) {
       var _this = this;
       var id = $comment.attr('data-comment-id');
@@ -303,6 +355,13 @@
       }
     },
 
+    /** Handles all different states of a comment's replies list
+     * @param {String} state Comment state
+     *    opened - replies list is opened
+     *    closed - replies list is closed
+     *    loaded - replies are loaded
+     *    loading - replies are being loaded
+     */
     setCommentState: function(state, $comment) {
       var $toggleReplies = $comment.find('> .toggle-replies');
 
@@ -340,6 +399,25 @@
         .param('return_url', App.tools.urlencode(currentUrl.get()));
 
       return signInUrl.get();
+    },
+
+    toggleState: function($submitCta, $cancelCta, state) {
+      if (!$submitCta.attr('data-original-label')) {
+        $submitCta.attr('data-original-label', $submitCta.val());
+      }
+
+      if(state === 'loading') {
+        $submitCta.val('Loading...');
+        $submitCta.addClass('loading');
+        $submitCta.attr('disabled', 'disabled');
+        $cancelCta.addClass('hidden');
+      }
+      else {
+        $submitCta.val($submitCta.attr('data-original-label'));
+        $submitCta.removeClass('loading');
+        $submitCta.removeAttr('disabled');
+        $cancelCta.removeClass('hidden');
+      }
     }
   };
 }(jQuery));

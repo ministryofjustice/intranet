@@ -18,7 +18,7 @@
       <tr>
         <td>
           <p style="padding: 5px 0; font-size: 19px; font-family: Arial, sans-serif;">Hello,</p>
-          <p style="padding: 5px 0; font-size: 19px; font-family: Arial, sans-serif;">Thank you for signing up to comment on the MoJ intranet. To begin commenting, click the button below.</p>
+          <p style="padding: 5px 0; font-size: 19px; font-family: Arial, sans-serif;">To add your comments to the intranet, just click the button below:</p>
           <p>
              <a style="
               position: relative;
@@ -36,8 +36,10 @@
               "
               href="<?=$activation_url?>">Begin commenting</a>
           </p>
-          <p style="padding: 5px 0; font-size: 19px; font-family: Arial, sans-serif;">For security reasons this email will be active for 3 hours only.</p>
-          <p style="padding: 5px 0; font-size: 19px; font-family: Arial, sans-serif;">If you did not sign up to comment on the MoJ intranet, please ignore this email.</p>
+          <p style="padding: 5px 0; font-size: 19px; font-family: Arial, sans-serif;">This will take you back to the intranet page you were on where you can begin commenting.</p>
+          <p style="padding: 5px 0; font-size: 19px; font-family: Arial, sans-serif;">For security reasons, this link will be active for 3 hours only. </p>
+          <h2>Any problems?</h2>
+          <p style="padding: 5px 0; font-size: 19px; font-family: Arial, sans-serif;">If this link has expired, you’ll need to fill in your details again to get another link. If you don’t want to comment on the intranet, ignore this email.</p>
           <p style="padding: 5px 0; font-size: 19px; font-family: Arial, sans-serif;">The Intranet Team</p>
           <p style="padding: 25px 0 5px; font-size: 16px; font-family: Arial, sans-serif; color: #6f777b;">This email is generated automatically. Do not reply.</p>
         </td>

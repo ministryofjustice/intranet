@@ -95,6 +95,8 @@
 
       e.preventDefault();
 
+      $element.closest('.like-link').blur();
+
       if($container.hasClass('voted')) {
         return;
       }

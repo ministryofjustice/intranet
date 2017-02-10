@@ -63,16 +63,26 @@
     },
 
     getData: function() {
+      var url = App.tools.url(true);
+      var redirectUrl = url.param('redirect_url');
+
+      if (!redirectUrl) {
+        redirectUrl = $('.template-user-activate-expired').length ? this.applicationUrl : url.get();
+      }
+
+      redirectUrl = App.tools.url(redirectUrl);
+      redirectUrl.partial(false);
+
       return {
         email: this.$emailField.val(),
         display_name: this.$displayNameField.val(),
-        redirect_url: window.location.href
+        redirect_url: redirectUrl.get()
       };
     },
 
     submitSuccess: function(data) {
       if (data.status === false) {
-        window.location.href = window.location.href;
+        window.location.reload();
       }
       else {
         if(data.success) {
@@ -94,6 +104,10 @@
 
     toggleConfirmationMessage: function(toggle) {
       $('.template-container').toggleClass('confirmation', toggle);
+
+      if ($('.template-container').hasClass('confirmation')) {
+        $('.confirmation-screen .recipient-email').html(this.$emailField.val());
+      }
     },
 
     validate: function() {

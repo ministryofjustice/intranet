@@ -9,13 +9,15 @@
     </div>
 
     <div class="content-box">
-      <p class="content"></p>
-
+      <p class="comment-content"></p>
+      <p class="comment-content-deleted">This comment has been deleted because it did not abide by our <a href="<?=$commenting_policy_url?>">commenting policy</a>. Replies have also been deleted.</p>
       <ul class="social-actions">
-        <li class="reply-info">
+        <?php if ($comments_open): ?>
+        <li class="reply-info logged-in-only">
           <span class="icon"></span>
           <a class="reply-btn" href="">Reply</a>
         </li>
+        <?php endif ?>
         <li class="like-container" data-likes-count="" data-post-type="comment" data-post-id="">
           <a class="like-link" href="#">
             <span class="like-icon icon"></span>
