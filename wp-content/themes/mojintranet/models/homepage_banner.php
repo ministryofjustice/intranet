@@ -1,6 +1,6 @@
 <?php if (!defined('ABSPATH')) die();
 
-class Campaign_banner_model extends MVC_model {
+class Homepage_banner_model extends MVC_model {
   public function __construct() {
     parent::__construct();
   }

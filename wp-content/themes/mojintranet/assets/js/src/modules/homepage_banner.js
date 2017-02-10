@@ -3,13 +3,13 @@
 (function($) {
   "use strict";
   var App = window.App;
-  App.campaignBanner = function(data) {
+  App.homepageBanner = function(data) {
     this.data = data;
     this.$top = $('.template-home');
     if (!this.$top.length) { return; }
     this.init();
   };
-  App.campaignBanner.prototype = {
+  App.homepageBanner.prototype = {
     init: function() {
       this.cacheEls();
       this.displayResults(this.data);
