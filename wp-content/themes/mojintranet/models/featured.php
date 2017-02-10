@@ -32,13 +32,13 @@ class Featured_model extends MVC_model {
   }
 
   public function get_featured_ids($agency) {
-    $need_to_know_news_ids = array();
+    $featured_ids = array();
 
     for($a = 1; $a <= $this->max_featured_items; $a++) {
-      array_push($need_to_know_news_ids, get_option($agency . '_featured_story' . $a));
+      array_push($featured_ids, get_option($agency . '_featured_story' . $a));
     }
 
-    return $need_to_know_news_ids;
+    return $featured_ids;
   }
 
   private function normalize_options($options) {
