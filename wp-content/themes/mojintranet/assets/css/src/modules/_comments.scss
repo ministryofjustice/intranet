@@ -1,0 +1,203 @@
+#comments {
+  h3 {
+    @extend %large-heading;
+    margin-top: 30px;
+    margin-bottom: 15px;
+  }
+
+  .comment-form {
+    margin-top: 20px;
+
+    &.active {
+      textarea {
+        height: 100px;
+        transition: height .15s;
+      }
+
+      .misc {
+        display: block;
+        margin-top: 10px;
+      }
+    }
+
+    textarea {
+      @extend %medium-copy;
+      width: 100%;
+      height: 42px;
+      padding: 10px;
+      transition: height .15s;
+      border: 1px solid $grey-2;
+    }
+
+    .misc {
+      display: none;
+    }
+  }
+
+  .submit,
+  .cancel {
+    display: inline-block;
+    margin-right: 10px;
+    vertical-align: middle;
+  }
+
+  .posting-as {
+    @extend %medium-copy;
+  }
+
+  .comment {
+    margin-top: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid $grey-2;
+
+    &.has-more-replies .toggle-replies {
+      display: inline-block;
+    }
+
+    &.opened {
+      .replies-list .comment {
+        display: block;
+      }
+    }
+
+    &.loading {
+      .loading-replies {
+        display: inline-block;
+      }
+
+      .toggle-replies {
+        display: none;
+      }
+    }
+
+    &.reply {
+      padding-bottom: 0;
+      border-bottom: none;
+
+      .toggle-replies,
+      .loading-replies {
+        display: none;
+      }
+    }
+
+    p {
+      margin-bottom: 10px;
+    }
+
+    .loading-replies {
+      display: none;
+      color: $grey-1;
+    }
+
+    .author {
+      @extend %large-copy;
+    }
+
+    .dash,
+    .datetime{
+      @extend %large-copy;
+      color: $grey-1;
+    }
+
+    .comment-content,
+    .comment-content-deleted {
+      @extend %medium-copy;
+      margin-top: 5px;
+      margin-bottom: 10px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .comment-content-deleted {
+      display: none;
+      margin-bottom: 0px;
+    }
+
+    &.is-deleted {
+      .comment-content,
+      .social-actions {
+        display: none;
+      }
+      .comment-content-deleted {
+        display: block;
+      }
+    }
+
+    .toggle-replies,
+    .loading-replies {
+      @extend %medium-copy;
+      margin-top: 10px;
+      margin-left: 40px;
+    }
+
+    .toggle-replies {
+      display: none;
+      margin-top: 20px;
+      text-decoration: underline;
+    }
+
+    .reply-info {
+      @extend %medium-copy;
+
+      .icon {
+        margin-top: 2px;
+      }
+
+      a {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .replies-list {
+    .comment {
+      display: none;
+      margin-left: 40px;
+      padding-left: 20px;
+      border-left: 4px solid $grey-2;
+
+      &.last-two {
+        display: block;
+      }
+    }
+  }
+
+  .load-more-container {
+    margin-top: 20px;
+
+    &.loading {
+      .load-more {
+        display: none;
+      }
+
+      .loading-msg {
+        display: inline-block;
+      }
+    }
+
+    &.hidden {
+      display: none;
+    }
+
+    .load-more {
+      display: inline-block;
+    }
+
+    .loading-msg {
+      @extend %medium-copy;
+      display: none;
+      color: $grey-1;
+    }
+  }
+
+  .no-comments-msg {
+    @extend %medium-copy;
+    display: none;
+  }
+
+  &.no-comments {
+    .no-comments-msg {
+      display: block;
+    }
+  }
+}
