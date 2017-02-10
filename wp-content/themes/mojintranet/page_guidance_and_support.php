@@ -2,9 +2,9 @@
 
 
 /**
- * The Template for guidance and support pages
+ * The Tabs Template
  *
- * Template name: Guidance & Support
+ * Template name: Tabs
  */
 class Page_guidance_and_support extends MVC_controller {
   function main(){

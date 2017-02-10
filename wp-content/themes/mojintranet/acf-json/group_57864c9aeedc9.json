@@ -3,6 +3,11 @@
     "title": "Page Options",
     "fields": [
         {
+            "default_value": 0,
+            "message": "",
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": "",
             "key": "field_57864ca37b11e",
             "label": "Hide byline",
             "name": "dw_hide_page_details",
@@ -14,9 +19,26 @@
                 "width": "",
                 "class": "",
                 "id": ""
-            },
+            }
+        },
+        {
+            "default_value": 1,
             "message": "",
-            "default_value": 0
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": "",
+            "key": "field_5899d2f78d7a9",
+            "label": "Left Hand Menu",
+            "name": "dw_lhs_menu_on",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            }
         }
     ],
     "location": [
@@ -51,5 +73,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1484663186
+    "modified": 1486726216
 }
