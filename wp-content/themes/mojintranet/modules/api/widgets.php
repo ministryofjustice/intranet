@@ -142,6 +142,13 @@ class Widgets_API extends API {
 
     $data['url_params'] = $this->params;
     $this->response($data, 200, 60);
+
+    //campaign banner
+    $options = $this->params;
+    $data['campaign_banner'] = $this->MVC->model->campaign_banner->get($options);
+
+    $data['url_params'] = $this->params;
+    $this->response($data, 200, 60);
   }
 
   private function get_regional() {
