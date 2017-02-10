@@ -7,22 +7,20 @@ class Featured_model extends MVC_model {
     $this->max_featured_items = 2;
   }
 
-  public function get_list($options = array()) {
-    $options['post__in'] = $this->get_featured_ids($options['agency']);
+  public function get_list($options = []) {
+    $options = $this->normalize_options($options);
 
-    $options = $this->normalize_featured_options($options);
-
-    $args = array (
+    $args = [
       // Paging
       'nopaging' => false,
       'offset' => 0,
       'posts_per_page' => $this->max_featured_items,
       // Filters
       'post_type' => ['news', 'post', 'page'],
-      'post__in' => $options['post__in'],
+      'post__in' => $this->get_featured_ids($options['agency']),
       'tax_query' => $options['tax_query'],
       'orderby' => 'post__in'
-    );
+    ];
 
     $data['raw'] = new WP_Query($args);
     $data['total_results'] = (int) $data['raw']->found_posts;
@@ -33,17 +31,17 @@ class Featured_model extends MVC_model {
     return $data;
   }
 
-  private function get_featured_ids($agency) {
-    $need_to_know_news_ids = array();
+  public function get_featured_ids($agency) {
+    $featured_ids = array();
 
     for($a = 1; $a <= $this->max_featured_items; $a++) {
-      array_push($need_to_know_news_ids, get_option($agency . '_featured_story' . $a));
+      array_push($featured_ids, get_option($agency . '_featured_story' . $a));
     }
 
-    return $need_to_know_news_ids;
+    return $featured_ids;
   }
 
-  private function normalize_featured_options($options) {
+  private function normalize_options($options) {
     $default = array(
       'start' => 1,
       'length' => 10,
@@ -88,8 +86,9 @@ class Featured_model extends MVC_model {
     $thumbnail_id = get_post_thumbnail_id($id);
     $thumbnail = wp_get_attachment_image_src($thumbnail_id, $thumbnail_type);
     $alt_text = get_post_meta($thumbnail_id, '_wp_attachment_image_alt', true);
+    $authors = dw_get_author_info($id);
 
-    return array(
+    return [
       'id' => $id,
       'post_type' => get_post_type($id),
       'title' => (string) get_the_title($id),
@@ -98,7 +97,8 @@ class Featured_model extends MVC_model {
       'excerpt' => (string) $post->post_excerpt,
       'thumbnail_url' => (string) $thumbnail[0],
       'thumbnail_alt_text' => (string) $alt_text,
-      'timestamp' => (string) get_the_time('Y-m-d H:i:s', $id)
-    );
+      'timestamp' => (string) get_the_time('Y-m-d H:i:s', $id),
+      'authors' => $authors
+    ];
   }
 }

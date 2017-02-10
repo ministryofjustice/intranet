@@ -1,6 +1,12 @@
 article {
-  .date {
+  .date,
+  .meta-separator,
+  .author {
     color: $grey-1;
+
+    &.hidden {
+      display: none;
+    }
   }
 
   .title {

@@ -62,17 +62,18 @@ class Search_model extends MVC_model {
    * @return {Array} Normalized options
    */
   private function normalize_options($options) {
-    $default = array(
+    $default = [
       'search_order' => 'ASC',
       'search_orderby' => 'relevance',
-      'meta_fields' => array(),
+      'meta_fields' => [],
       'page' => 1,
       'per_page' => 10,
       'nopaging' => false,
       'post_type' => 'all',
       'keywords' => '',
-      'tax_query' => array()
-    );
+      'tax_query' => [],
+      'post__not_in' => []
+    ];
 
     foreach($options as $key=>$value) {
       if($value) {
@@ -130,6 +131,7 @@ class Search_model extends MVC_model {
 			// Filters
 			'post_type' => $this->options['post_type'],
 			's' => $this->rawurldecode($this->options['keywords']),
+      'post__not_in' => $this->options['post__not_in'],
 			'meta_query' => $this->meta_query,
 			'date_query' => $date_query,
       'tax_query' => $this->options['tax_query']
@@ -142,7 +144,7 @@ class Search_model extends MVC_model {
     if (function_exists('relevanssi_do_query') && $this->options['keywords'] != null) {
       relevanssi_do_query($results);
     }
-    
+
     if($this->debug) {
       Debug::full($results->query, 8);
     }

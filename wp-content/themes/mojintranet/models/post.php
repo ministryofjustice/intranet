@@ -5,10 +5,15 @@ class Post_model extends MVC_model {
    * @param {Array} $options Options and filters (see search model for details)
    * @return {Array} Formatted and sanitized results
    */
-  public function get_list($options = array()) {
+  public function get_list($options = array(), $exclude_featured = false) {
     $options['search_order'] = 'DESC';
     $options['search_orderby'] = 'date';
     $options['post_type'] = 'post';
+
+    if ($exclude_featured) {
+      $options['post__not_in'] = $this->model->featured->get_featured_ids($options['agency']);
+      $options['search_orderby'] = 'post__in';
+    }
 
     $data = $this->model->search->get_raw($options);
     $data = $this->format_data($data);

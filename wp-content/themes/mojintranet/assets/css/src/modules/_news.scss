@@ -4,20 +4,20 @@
       display: none;
     }
 
-    .news-item {
-      border-top: 1px solid $grey-2;
-      padding-top: 10px;
-
-      .template-regional-landing &.first,
-      .template-campaign-landing &.first {
-        border-top: none;
-        padding-top: 0;
-      }
+    .news-list {
+      margin-top: 0;
     }
 
     .news-item {
       @include clearfix;
-      margin: 10px 0;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      border-top: 1px solid $grey-2;
+
+      &.first {
+        padding-top: 0;
+        border-top: none;
+      }
     }
 
     .news-thumbnail {

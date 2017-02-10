@@ -36,7 +36,8 @@ class Page_home extends MVC_controller {
           'list_container_classes' => 'col-lg-6 col-md-12 col-sm-12',
           'skeleton_screen_count' => 4,
           'banner_image_url' => $banner_image[0],
-          'banner_url' => $banner_url
+          'banner_url' => $banner_url,
+          'heading_text' => 'News'
         ],
         'events_widget' => [
           'see_all_url' => get_permalink(Taggr::get_id('events-landing')),

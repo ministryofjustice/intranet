@@ -61,3 +61,7 @@
 .post-php #the-comment-list .comment > p {
     max-width: 80%;
 }
+
+#customize-controls #customize-info .customize-panel-description {
+    display: block;
+}
