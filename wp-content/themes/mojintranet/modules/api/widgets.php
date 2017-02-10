@@ -156,9 +156,9 @@ class Widgets_API extends API {
     //news list
     $options = $this->params;
     $options = $this->add_taxonomies($options);
-    $options['start'] = 0;
-    $options['length'] = 2;
-    $data['news_list'] = $this->MVC->model->news->get_widget_news($options, false);
+    $options['page'] = 1;
+    $options['per_page'] = 2;
+    $data['news_list'] = $this->MVC->model->news->get_list($options, true);
 
     //events
     $options = $this->params;
@@ -174,13 +174,12 @@ class Widgets_API extends API {
   private function get_campaign_landing() {
     $data = [];
 
+    //news list
     $options = $this->params;
     $options = $this->add_taxonomies($options);
     $options['per_page'] = -1;
     $options['nopaging'] = true;
-
-    //news list
-    $data['news_list'] = $this->MVC->model->news->get_widget_news($options, false);
+    $data['news_list'] = $this->MVC->model->news->get_list($options, true);
 
     //events
     $data['events'] = $this->MVC->model->events->get_list($options);
