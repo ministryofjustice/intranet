@@ -10,6 +10,7 @@ include     ('inc/utilities/agency-editor.php');          // Agency Editor utili
 include     ('inc/utilities/agency-context.php');         // Agency Context utility
 include     ('inc/utilities/region-context.php');         // Region Context utility
 
+require_once('inc/ajax.php');                             // Ajax Functions
 require_once('inc/authors.php');                          // Additional author information
 require_once('inc/cache.php');                            // Amend the cache headers
 require_once('inc/cookies.php');                          // Amend the cache headers

@@ -39,18 +39,37 @@
         $wp_customize->add_panel( 'news_customisation', array(
           'priority'        => 1,
           'capability'      => 'edit_theme_options',
-          'title'           => 'Homepage News for ' . $agency->name,
+          'title'           => 'Homepage for ' . $agency->name,
           'description'     => 'Allows admins and editors to customise which news is displayed on the homepage',
         ) );
 
-        $this->featured_news($wp_customize,2);
+        $this->homepage_banner($wp_customize);
+        $this->featured_items($wp_customize,2);
         $this->need_to_know($wp_customize,3);
         $this->emergency_message($wp_customize);
         $this->clean_up_customizer($wp_customize);
       }
 
-      // Featured news functions
-      public function featured_news($wp_customize,$total_stories = 2) {
+      public function homepage_banner($wp_customize) {
+        $context = Agency_Context::get_agency_context();
+        $agency = Agency_Editor::get_agency_by_slug($context);
+
+        $section_name = 'homepage_banner';
+        $wp_customize->add_section( 'homepage_banner', array(
+            'priority'        => 10,
+            'capability'      => 'edit_theme_options',
+            'title'           => 'Homepage Banner for ' . $agency->name,
+            'description'     => 'Controls the Homepage Banner for ' . $agency->name,
+            'panel'           => 'news_customisation',
+        ) );
+
+        $this->new_control_setting($wp_customize, $context.'_banner_image', $section_name, 'Image', 'image');
+        $this->new_control_setting($wp_customize, $context.'_banner_link', $section_name, 'Link', 'text');
+
+      }
+
+      // Featured items functions
+      public function featured_items($wp_customize,$total_stories = 2) {
 
         $context = Agency_Context::get_agency_context();
         $agency = Agency_Editor::get_agency_by_slug($context);
@@ -59,8 +78,8 @@
         $wp_customize->add_section( 'featured_news', array(
           'priority'        => 10,
           'capability'      => 'edit_theme_options',
-          'title'           => 'Featured news for ' . $agency->name,
-          'description'     => 'Controls the featured news items for ' . $agency->name,
+          'title'           => 'Featured items for ' . $agency->name,
+          'description'     => 'Controls the featured items for ' . $agency->name,
           'panel'           => 'news_customisation',
         ) );
 
@@ -69,7 +88,7 @@
         for($x=1;$x<=$total_stories;$x++) {
 
 
-          $this->new_control_setting($wp_customize, $context.'_featured_story'.$x, $section_name, 'Featured story ' . $x, 'news');
+          $this->new_control_setting($wp_customize, $context.'_featured_story'.$x, $section_name, 'Featured item ' . $x, 'content_dd');
         }
       }
 
@@ -126,10 +145,11 @@
       private function new_control_setting($wp_customize,$name,$section,$label,$type,$setting_params = array(),$control_params = array()) {
         // Set control class
         $control_classes = array(
-          'news'  => 'News_Dropdown_Custom_Control',
+          'content_dd'  => 'Content_Dropdown_Custom_Control',
           'image' => 'WP_Customize_Image_Control'
         );
-        $control_class = $control_classes[$type]?:'WP_Customize_Control';
+
+        $control_class = (key_exists($type, $control_classes)) ? $control_classes[$type] : 'WP_Customize_Control';
 
         $wp_customize->add_setting($name, array_merge(array(
           'type'     => 'option',

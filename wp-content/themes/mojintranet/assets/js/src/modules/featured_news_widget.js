@@ -55,6 +55,7 @@
         data.thumbnail_alt_text = 'generic blog thumbnail';
       }
 
+      $child.attr('data-type', data.post_type);
       $child.find('.news-thumbnail').attr('src', data.thumbnail_url);
       $child.find('.news-thumbnail').attr('alt', data.thumbnail_alt_text);
       $child.find('.news-link').attr('href', data.url);
