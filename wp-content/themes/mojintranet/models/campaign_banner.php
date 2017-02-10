@@ -8,8 +8,8 @@ class Campaign_banner_model extends MVC_model {
   public function get($options = []) {
     $data = [];
     $agency = get_array_value($options, 'agency', 'hq');
-    $message = get_option($agency . '_homepage_control_emergency_message');
-    $type = get_option($agency . '_emergency_type');
+    $message = get_option($agency . '_banner_image');
+    $type = get_option($agency . '_banner_link');
 
     return $data;
   }
