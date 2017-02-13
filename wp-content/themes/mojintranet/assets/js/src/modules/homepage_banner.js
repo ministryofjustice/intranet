@@ -3,13 +3,13 @@
 (function($) {
   "use strict";
   var App = window.App;
-  App.homepageBanner = function(data) {
+  App.HomepageBanner = function(data) {
     this.data = data;
-    this.$top = $('.template-home');
+    this.$top = $('.homepage-banner');
     if (!this.$top.length) { return; }
     this.init();
-  };
-  App.homepageBanner.prototype = {
+
+  App.HomepageBanner.prototype = {
     init: function() {
       this.cacheEls();
       this.displayResults(this.data);
@@ -21,11 +21,9 @@
       if (data.visible) {
         this.$top.addClass('visible');
       }
-
-      if (no url) {
+      if (HomepageBanner.visible) {
         this.$topBanner.find('img').after();
       }
-
       this.$topBanner.find('a').attr('href', data.url);
       this.$topBanner.find('img').attr('src', data.image_src);
     }

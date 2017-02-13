@@ -35,8 +35,8 @@
           'title'           => 'Need To Know for ' . $agency->name,
           'description'     => 'Allows admins and editors to customise the Need To Know panel',
         ) );
-        
-        //$this->homepage_banner($wp_customize);
+
+        $this->homepage_banner($wp_customize);
         $this->featured_items($wp_customize,2);
         $this->need_to_know($wp_customize,3);
         $this->emergency_message($wp_customize);

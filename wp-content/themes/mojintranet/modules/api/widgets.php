@@ -144,6 +144,7 @@ class Widgets_API extends API {
     $this->MVC->model('homepage_banner');
     $data['homepage_banner'] = $this->MVC->model->homepage_banner->get($options);
 
+    // Applies to all above
     $data['url_params'] = $this->params;
     $this->response($data, 200, 60);
   }

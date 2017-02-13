@@ -13,11 +13,6 @@ class Page_home extends MVC_controller {
   function main() {
     if(have_posts()) the_post();
     $this->view('layouts/default', $this->get_data());
-
-    $banner_id = get_post_meta($this->post_ID, 'dw_page_banner', true);
-    $banner_url = get_post_meta($this->post_ID, 'dw_banner_url', true);
-    $banner_image = wp_get_attachment_image_src($banner_id, 'full');
-
   }
 
   private function get_data() {
@@ -35,8 +30,6 @@ class Page_home extends MVC_controller {
           'no_items_found_message' => 'No news found',
           'list_container_classes' => 'col-lg-6 col-md-12 col-sm-12',
           'skeleton_screen_count' => 4,
-          'banner_image_url' => $banner_image[0],
-          'banner_url' => $banner_url,
           'heading_text' => 'News'
         ],
         'events_widget' => [
