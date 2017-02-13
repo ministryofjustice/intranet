@@ -8,11 +8,8 @@ class Homepage_banner_model extends MVC_model {
   public function get($options = []) {
     $data = [];
     $agency = get_array_value($options, 'agency', 'hq');
-    $banner_image = get_option($agency . '_banner_image');
-    $banner_link = get_option($agency . '_banner_link');
-
-    $data['banner_image'] = get_option($agency . '_banner_image');
-    $data['banner_link'] = get_option($agency . '_banner_link');
+    $data['image_url'] = get_option($agency . '_banner_image');
+    $data['url'] = get_option($agency . '_banner_link');
 
     return $data;
   }
