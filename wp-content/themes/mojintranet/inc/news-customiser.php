@@ -56,6 +56,7 @@
 
         $this->new_control_setting($wp_customize, $context.'_banner_image', $section_name, 'Image', 'image');
         $this->new_control_setting($wp_customize, $context.'_banner_link', $section_name, 'Link', 'text');
+        $this->new_control_setting($wp_customize, $context.'_banner_alt'.$x, $section_name, 'Image alt text', 'text');
 
       }
 

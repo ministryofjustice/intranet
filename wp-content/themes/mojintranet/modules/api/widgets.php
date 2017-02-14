@@ -18,6 +18,10 @@ class Widgets_API extends API {
         $this->get_need_to_know();
         break;
 
+      case 'homepage-banner':
+        $this->get_need_to_know();
+        break;
+
       case 'my-moj':
         $this->get_my_moj();
         break;
@@ -72,6 +76,13 @@ class Widgets_API extends API {
   private function get_need_to_know() {
     $options = $this->params;
     $data = $this->MVC->model->need_to_know->get_data($options);
+    $data['url_params'] = $this->params;
+    $this->response($data, 200, 60);
+  }
+
+  private function homepage_banner() {
+    $options = $this->params;
+    $data = $this->MVC->model->homepage_banner->get_data($options);
     $data['url_params'] = $this->params;
     $this->response($data, 200, 60);
   }
