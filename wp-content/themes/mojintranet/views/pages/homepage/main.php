@@ -1,8 +1,10 @@
 <?php if (!defined('ABSPATH')) die(); ?>
 
 <div class="template-container">
+
   <?php $this->view('pages/homepage/emergency_message') ?>
   <?php $this->view('pages/homepage/homepage_banner') ?>
+
   <div class="grid">
     <div class="col-lg-12 col-md-12 col-sm-12">
       <h1 class="page-title">Ministry of Justice HQ</h1>

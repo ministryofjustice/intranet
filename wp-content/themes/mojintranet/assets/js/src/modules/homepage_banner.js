@@ -2,49 +2,34 @@
  */
 (function($) {
   "use strict";
-
   var App = window.App;
-
   App.HomepageBanner = function(data) {
     this.data = data;
-    this.$top = $('.homepage-banner');
+    this.$top = $('.content-container');
     if (!this.$top.length) { return; }
     this.init();
   };
-
   App.HomepageBanner.prototype = {
     init: function() {
-      this.applicationUrl = $('head').data('application-url');
-      this.serviceUrl = this.applicationUrl + '/service/banner';
-
-      this.resultsLoaded = true;
-      this.serviceXHR = null;
-
       this.cacheEls();
-      this.bindEvents();
-
-      this.displayResults(this.data);
+      this.displayResults(this.data.results);
     },
-
     cacheEls: function() {
-      this.$closeButton = this.$top.find('.close');
+      this.$image = this.$top.find('img');
+      this.$link = this.$top.find('a');
     },
-
-    bindEvents: function() {
-      this.$closeButton.on('click', $.proxy(this.close, this));
-    },
-
-    close: function() {
-      this.$top.slideUp(200);
-    },
-
     displayResults: function(data) {
-      if (data.visible) {
+
+      if (data.image_url !== '') {
         this.$top.addClass('visible');
+        this.$image.addClass('campaign-banner');
+        this.$image.attr('src', data.image_url);
+        this.$link.attr('href', data.url);
       }
 
-      this.$top.find('a').attr('href', data.url);
-      this.$top.find('img').attr('src', data.image_url);
+      if (data.url) {
+        this.$image.wrap("<a href='" + data.url + "' </a>");
+      }
     }
   };
 }(window.jQuery));
