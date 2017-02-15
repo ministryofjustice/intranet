@@ -1,20 +1,19 @@
 <?php if (!defined('ABSPATH')) die();
 
 class News_model extends MVC_model {
-  public function __construct() {
-    parent::__construct();
-
-    $this->max_featured_news = 2;
-  }
-
   /** Get a list of news
    * @param {Array} $options Options and filters (see search model for details)
    * @return {Array} Formatted and sanitized results
    */
-  public function get_list($options = array()) {
+  public function get_list($options = array(), $exclude_featured = false) {
     $options['search_order'] = 'DESC';
     $options['search_orderby'] = 'date';
     $options['post_type'] = has_taxonomy($options['tax_query'], 'region') ? 'regional_news' : 'news';
+
+    if ($exclude_featured) {
+      $options['post__not_in'] = $this->model->featured->get_featured_ids($options['agency']);
+      $options['search_orderby'] = 'post__in';
+    }
 
     $data = $this->model->search->get_raw($options);
     $data = $this->format_data($data);
@@ -22,57 +21,7 @@ class News_model extends MVC_model {
     return $data;
   }
 
-  public function get_widget_news($options = array(), $featured = false) {
-    $options['post__in'] = $this->get_featured_news_ids($options['agency']);
-
-    $options = $this->normalize_featured_options($options);
-
-    $post_in_out = $featured ? 'post__in' : 'post__not_in';
-
-    $args = array (
-      // Paging
-      'nopaging' => false,
-      'offset' => $options['start']-1,
-      'posts_per_page' => $options['length'],
-      // Filters
-      'post_type' => has_taxonomy($options['tax_query'], 'region') ? 'regional_news' : 'news',
-      $post_in_out => $options['post__in'],
-      'tax_query' => $options['tax_query'],
-      'orderby' => 'post__in'
-    );
-
-    $data['raw'] = new WP_Query($args);
-    $data['total_results'] = (int) $data['raw']->found_posts;
-    $data['retrieved_results'] = (int) $data['raw']->post_count;
-
-    $data = $this->format_data($data, true);
-
-    return $data;
-  }
-
-  /** is that being used anywhere?
-   */
-  private function get_need_to_know_news_ids() {
-    $need_to_know_news_ids = array();
-
-    for($a = 1; $a <= $this->max_need_to_know_news; $a++) {
-      array_push($need_to_know_news_ids, get_option('need_to_know_story' . $a));
-    }
-
-    return $need_to_know_news_ids;
-  }
-
-  private function get_featured_news_ids($agency) {
-    $need_to_know_news_ids = array();
-
-    for($a = 1; $a <= $this->max_featured_news; $a++) {
-      array_push($need_to_know_news_ids, get_option($agency . '_featured_story' . $a));
-    }
-
-    return $need_to_know_news_ids;
-  }
-
-  private function normalize_featured_options($options) {
+  private function normalize_options($options) {
     $default = array(
       'start' => 1,
       'length' => 10,
@@ -92,11 +41,11 @@ class News_model extends MVC_model {
    * @param {Object} $data Raw results object
    * @return {Array} Formatted results
    */
-  private function format_data($data, $featured = false) {
+  private function format_data($data) {
     $data['results'] = array();
 
     foreach($data['raw']->posts as $post) {
-      $data['results'][] = $this->format_row($post, $featured);
+      $data['results'][] = $this->format_row($post);
     }
 
     unset($data['raw']);
@@ -108,12 +57,12 @@ class News_model extends MVC_model {
    * @param {Object} $post Post object
    * @return {Array} Formatted and trimmed post
    */
-  private function format_row($post, $featured = false) {
+  private function format_row($post) {
     $id = $post->ID;
 
     $post_object = get_post($id);
 
-    $thumbnail_type = $featured ? 'intranet-large' : 'thumbnail';
+    $thumbnail_type = 'thumbnail';
     $thumbnail_id = get_post_thumbnail_id($id);
     $thumbnail = wp_get_attachment_image_src($thumbnail_id, $thumbnail_type);
     $alt_text = get_post_meta($thumbnail_id, '_wp_attachment_image_alt', true);

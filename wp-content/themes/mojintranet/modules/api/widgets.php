@@ -3,18 +3,15 @@
 class Widgets_API extends API {
   public function __construct($params) {
     parent::__construct();
+    $this->MVC->model('featured');
     $this->parse_params($params);
     $this->route();
   }
 
   protected function route() {
     switch ($this->params['widget']) {
-      case 'featured-news':
-        $this->get_news(true);
-        break;
-
-      case 'non-featured-news':
-        $this->get_news();
+      case 'featured':
+        $this->get_featured();
         break;
 
       case 'need-to-know':
@@ -62,10 +59,12 @@ class Widgets_API extends API {
     }
   }
 
-  private function get_news($featured = false) {
+  private function get_featured() {
     $options = $this->params;
     $options = $this->add_taxonomies($options);
-    $data = $this->MVC->model->news->get_widget_news($options, $featured);
+    $options['start'] = 0;
+    $options['length'] = 2;
+    $data = $this->MVC->model->featured->get_list($options);
     $data['url_params'] = $this->params;
     $this->response($data, 200, 60);
   }
@@ -95,19 +94,19 @@ class Widgets_API extends API {
   private function get_all() {
     $data = [];
 
-    //news list
-    $options = $this->params;
-    $options = $this->add_taxonomies($options);
-    $options['start'] = 0;
-    $options['length'] = 8;
-    $data['news_list'] = $this->MVC->model->news->get_widget_news($options, false);
-
-    //featured news
+    //featured items
     $options = $this->params;
     $options = $this->add_taxonomies($options);
     $options['start'] = 0;
     $options['length'] = 2;
-    $data['featured_news'] = $this->MVC->model->news->get_widget_news($options, true);
+    $data['featured_news'] = $this->MVC->model->featured->get_list($options);
+
+    //news list
+    $options = $this->params;
+    $options = $this->add_taxonomies($options);
+    $options['page'] = 1;
+    $options['per_page'] = 8;
+    $data['news_list'] = $this->MVC->model->news->get_list($options, true);
 
     //events
     $options = $this->params;
@@ -121,7 +120,7 @@ class Widgets_API extends API {
     $options = $this->add_taxonomies($options);
     $options['page'] = 1;
     $options['per_page'] = 5;
-    $data['posts'] = $this->MVC->model->post->get_list($options);
+    $data['posts'] = $this->MVC->model->post->get_list($options, true);
 
     //need to know
     $options = $this->params;
@@ -150,9 +149,9 @@ class Widgets_API extends API {
     //news list
     $options = $this->params;
     $options = $this->add_taxonomies($options);
-    $options['start'] = 0;
-    $options['length'] = 2;
-    $data['news_list'] = $this->MVC->model->news->get_widget_news($options, false);
+    $options['page'] = 1;
+    $options['per_page'] = 2;
+    $data['news_list'] = $this->MVC->model->news->get_list($options, true);
 
     //events
     $options = $this->params;
@@ -168,13 +167,12 @@ class Widgets_API extends API {
   private function get_campaign_landing() {
     $data = [];
 
+    //news list
     $options = $this->params;
     $options = $this->add_taxonomies($options);
     $options['per_page'] = -1;
     $options['nopaging'] = true;
-
-    //news list
-    $data['news_list'] = $this->MVC->model->news->get_widget_news($options, false);
+    $data['news_list'] = $this->MVC->model->news->get_list($options, true);
 
     //events
     $data['events'] = $this->MVC->model->events->get_list($options);
