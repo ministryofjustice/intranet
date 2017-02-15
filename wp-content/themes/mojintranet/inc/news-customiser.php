@@ -51,7 +51,8 @@
         $wp_customize->add_section( 'homepage_banner', array(
             'priority'        => 10,
             'capability'      => 'edit_theme_options',
-            'title'           => 'Homepage Banner for ' . $agency->name
+            'title'           => 'Homepage Banner for ' . $agency->name,
+            'description'     =>  'Banners should be at least 990px wide and approximately a 7:1 ratio. Please contact   intranet-support@digital.justice.gov.uk if you need to upload a banner image that is less than 640px high.'
         ) );
 
         $this->new_control_setting($wp_customize, $context.'_banner_image', $section_name, 'Image', 'image');
