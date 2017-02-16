@@ -76,7 +76,7 @@
         ) );
 
         $this->new_control_setting($wp_customize, $context.'_banner_image_side_enable', $section_name, 'Check box to turn side banner on', 'checkbox');
-        $this->new_control_setting($wp_customize, $context.'_banner_image_side_title', $section_name, 'Header title above banner (optional but won\'t display without image)', 'text');
+        $this->new_control_setting($wp_customize, $context.'_banner_image_side_title', $section_name, 'Banner header (optional but won\'t display without image)', 'text');
         $this->new_control_setting($wp_customize, $context.'_banner_image_side', $section_name, 'Image', 'image');
         $this->new_control_setting($wp_customize, $context.'_banner_link_side', $section_name, 'Link', 'text');
         $this->new_control_setting($wp_customize, $context.'_banner_alt_side'.$x, $section_name, 'Image alt text', 'text');
