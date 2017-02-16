@@ -26,6 +26,8 @@
         this.$image.attr('src', data.image_url);
         this.$link.attr('href', data.url);
         this.$image.attr('alt', data.alt);
+      } else {
+        this.$top.addClass('template-partial');
       }
 
       if (data.url) {
