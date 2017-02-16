@@ -37,6 +37,7 @@
         ) );
 
         $this->homepage_banner($wp_customize);
+        $this->homepage_banner_side($wp_customize);
         $this->featured_items($wp_customize,2);
         $this->need_to_know($wp_customize,3);
         $this->emergency_message($wp_customize);
@@ -51,13 +52,33 @@
         $wp_customize->add_section( 'homepage_banner', array(
             'priority'        => 10,
             'capability'      => 'edit_theme_options',
-            'title'           => 'Homepage Banner for ' . $agency->name,
+            'title'           => 'Banner (top) for ' . $agency->name,
             'description'     =>  'Banners should be at least 990px wide and approximately a 7:1 ratio. Please contact   intranet-support@digital.justice.gov.uk if you need to upload a banner image that is less than 640px high.'
         ) );
 
         $this->new_control_setting($wp_customize, $context.'_banner_image', $section_name, 'Image', 'image');
         $this->new_control_setting($wp_customize, $context.'_banner_link', $section_name, 'Link', 'text');
         $this->new_control_setting($wp_customize, $context.'_banner_alt'.$x, $section_name, 'Image alt text', 'text');
+
+      }
+
+      public function homepage_banner_side($wp_customize) {
+        $context = Agency_Context::get_agency_context();
+        $agency = Agency_Editor::get_agency_by_slug($context);
+
+        $section_name = 'homepage_banner_side';
+        $wp_customize->add_section( 'homepage_banner_side', array(
+            'priority'        => 10,
+            'capability'      => 'edit_theme_options',
+            'title'           => 'Banner (right side) for ' . $agency->name,
+            'description'     =>  'Recommended that side banners should be in a 3:2 ratio. Please contact   intranet-support@digital.justice.gov.uk if you need to upload a banner image that is less than 640px high.'
+        ) );
+
+        //$this->new_control_setting($wp_customize, $context.'_banner_image_side_title_enable', $section_name, 'Enable banner title (optional)', 'checkbox');
+        $this->new_control_setting($wp_customize, $context.'_banner_image_side_title', $section_name, 'Banner header title', 'text');
+        $this->new_control_setting($wp_customize, $context.'_banner_image_side', $section_name, 'Image', 'image');
+        $this->new_control_setting($wp_customize, $context.'_banner_link_side', $section_name, 'Link', 'text');
+        $this->new_control_setting($wp_customize, $context.'_banner_alt_side'.$x, $section_name, 'Image alt text', 'text');
 
       }
 

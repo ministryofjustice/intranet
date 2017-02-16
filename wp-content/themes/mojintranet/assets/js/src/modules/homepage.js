@@ -37,6 +37,7 @@
       App.ins.needToKnowWidget = new App.NeedToKnowWidget(data.need_to_know);
       App.ins.emergencyMessage = new App.EmergencyMessage(data.emergency_message);
       App.ins.homepageBanner = new App.HomepageBanner(data.homepage_banner);
+      App.ins.homepageBannerSide = new App.HomepageBannerSide(data.homepage_banner_side);
     }
   };
 }(jQuery));

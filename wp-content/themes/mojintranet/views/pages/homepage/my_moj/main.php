@@ -13,6 +13,11 @@
         data-skeleton-screen-type="app"></ul>
   </div>
 
+  <nav class="quick-links-container mobile-collapsed side-banner">
+    <h2 class="category-name title"></h2>
+    <img>
+  </nav>
+
   <nav class="quick-links-container mobile-collapsed">
     <h2 class="category-name">Quick links</h2>
     <ul class="quick-links-list"
