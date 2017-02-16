@@ -111,10 +111,6 @@ $grid-size: 50px;
   background-size: 100% 100%;
 }
 
-.campaign-banner {
-  margin-top: 20px;
-}
-
 .agency {
   a {
     display: block;
@@ -210,4 +206,10 @@ $grid-size: 50px;
 
 .campaign-banner {
   max-width: 100%;
+  margin-top: 20px;
+}
+
+.campaign-banner-side {
+  max-width: 100%;
+  margin-top: 10px;
 }
