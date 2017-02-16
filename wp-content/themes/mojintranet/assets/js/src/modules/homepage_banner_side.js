@@ -34,6 +34,10 @@
         this.$image.wrap("<a href='" + data.url + "' </a>");
       }
 
+      if (data.visible === 0) {
+        this.$top.addClass('template-partial');
+      }
+
       if (data.text) {
         this.$top.find('h2.title').html(data.text);
       } else {

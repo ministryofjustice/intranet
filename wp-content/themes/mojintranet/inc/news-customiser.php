@@ -56,6 +56,7 @@
             'description'     =>  'Banners should be at least 990px wide and approximately a 7:1 ratio. Please contact   intranet-support@digital.justice.gov.uk if you need to upload a banner image that is less than 640px high.'
         ) );
 
+        $this->new_control_setting($wp_customize, $context.'_banner_image_enable', $section_name, 'Check box to turn banner on', 'checkbox');
         $this->new_control_setting($wp_customize, $context.'_banner_image', $section_name, 'Image', 'image');
         $this->new_control_setting($wp_customize, $context.'_banner_link', $section_name, 'Link', 'text');
         $this->new_control_setting($wp_customize, $context.'_banner_alt'.$x, $section_name, 'Image alt text', 'text');
@@ -74,8 +75,8 @@
             'description'     =>  'Recommended that side banners should be in a 3:2 ratio. Please contact   intranet-support@digital.justice.gov.uk if you need to upload a banner image that is less than 640px high.'
         ) );
 
-
-        $this->new_control_setting($wp_customize, $context.'_banner_image_side_title', $section_name, 'Banner header title (optional but won\'t display without image)', 'text');
+        $this->new_control_setting($wp_customize, $context.'_banner_image_side_enable', $section_name, 'Check box to turn side banner on', 'checkbox');
+        $this->new_control_setting($wp_customize, $context.'_banner_image_side_title', $section_name, 'Header title above banner (optional but won\'t display without image)', 'text');
         $this->new_control_setting($wp_customize, $context.'_banner_image_side', $section_name, 'Image', 'image');
         $this->new_control_setting($wp_customize, $context.'_banner_link_side', $section_name, 'Link', 'text');
         $this->new_control_setting($wp_customize, $context.'_banner_alt_side'.$x, $section_name, 'Image alt text', 'text');
