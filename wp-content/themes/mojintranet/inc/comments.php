@@ -256,3 +256,13 @@ function dw_add_root_comment($comment_data) {
 add_filter('preprocess_comment','dw_add_root_comment',10,1);
 
 
+/***
+ * Override the notify post author function so no emails are sent
+ * @see #679
+ */
+if ( ! function_exists('wp_notify_postauthor') ) {
+    function wp_notify_postauthor($comment_id, $comment_type = '')
+    {
+        return;
+    }
+}
