@@ -3,6 +3,11 @@
     "title": "Page Options",
     "fields": [
         {
+            "default_value": 0,
+            "message": "",
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": "",
             "key": "field_57864ca37b11e",
             "label": "Hide byline",
             "name": "dw_hide_page_details",
@@ -14,9 +19,7 @@
                 "width": "",
                 "class": "",
                 "id": ""
-            },
-            "message": "",
-            "default_value": 0
+            }
         }
     ],
     "location": [
@@ -49,7 +52,7 @@
     "label_placement": "top",
     "instruction_placement": "label",
     "hide_on_screen": "",
-    "active": 1,
+    "active": 0,
     "description": "",
-    "modified": 1484663186
+    "modified": 1487326963
 }
