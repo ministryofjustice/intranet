@@ -22,7 +22,7 @@ class Widgets_API extends API {
         $this->homepage_banner();
         break;
 
-      case 'homepage-banner_side':
+      case 'homepage-banner-side':
         $this->homepage_banner_side();
         break;
 
@@ -86,14 +86,16 @@ class Widgets_API extends API {
 
   private function homepage_banner() {
     $options = $this->params;
-    $data = $this->MVC->model->homepage_banner->get_data($options);
+    $this->MVC->model('homepage_banner');
+    $data = $this->MVC->model->homepage_banner->get($options);
     $data['url_params'] = $this->params;
     $this->response($data, 200, 60);
   }
 
   private function homepage_banner_side() {
     $options = $this->params;
-    $data = $this->MVC->model->homepage_banner_side->get_data($options);
+    $this->MVC->model('homepage_banner_side');
+    $data = $this->MVC->model->homepage_banner_side->get($options);
     $data['url_params'] = $this->params;
     $this->response($data, 200, 60);
   }

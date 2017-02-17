@@ -41,7 +41,6 @@
     displayResults: function(data) {
       if (data.visible) {
         this.$top.addClass('visible');
-        console.log(data.visible);
       }
 
       this.$top.addClass('message-' + data.type);
