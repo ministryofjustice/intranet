@@ -141,7 +141,7 @@
   }
 
   .header-search {
-    background-color: $govuk-blue;
+    background-color: #1d619d; // temporarily replaced $govuk-blue for comms campaign
 
     [data-agency="hmcts"] & {
       background-color: $hmcts;
