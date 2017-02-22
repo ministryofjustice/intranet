@@ -3,22 +3,11 @@
     "title": "Page Options",
     "fields": [
         {
-            "key": "field_57e92c1db68bf",
-            "label": "Hide byline",
-            "name": "dw_hide_page_details",
-            "type": "true_false",
-            "instructions": "Hides the author\u2019s name, job title and last updated date",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
+            "default_value": 1,
             "message": "",
-            "default_value": 0
-        },
-        {
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": "",
             "key": "field_57e92c30f7810",
             "label": "Show Left Hand Navigation",
             "name": "lhs_menu_on",
@@ -30,11 +19,14 @@
                 "width": "",
                 "class": "",
                 "id": ""
-            },
-            "message": "",
-            "default_value": 1
+            }
         },
         {
+            "default_value": 0,
+            "message": "",
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": "",
             "key": "field_57e92cb88452d",
             "label": "Show on Guidance Bottom Section",
             "name": "dw_guidance_bottom",
@@ -46,9 +38,7 @@
                 "width": "",
                 "class": "",
                 "id": ""
-            },
-            "message": "",
-            "default_value": 0
+            }
         }
     ],
     "location": [
@@ -75,5 +65,5 @@
     ],
     "active": 1,
     "description": "",
-    "modified": 1475244479
+    "modified": 1487338390
 }
