@@ -267,3 +267,33 @@ function dw_save_regional_template($post_id, $post, $update) {
 
 }
 add_action('save_post', 'dw_save_regional_template', 10, 3);
+
+/**
+ * Add a widget to the dashboard.
+ *
+ * This function is hooked into the 'wp_dashboard_setup' action below.
+ */
+function help_editors_add_dashboard_widgets() {
+
+	wp_add_dashboard_widget(
+                 'help_editors_dashboard_widget',   // Widget slug.
+                 'Editing on the intranet',                // Title.
+                 'help_editors_dashboard_widget_function'                     // Display function.
+        );
+}
+add_action( 'wp_dashboard_setup', 'help_editors_add_dashboard_widgets' );
+
+/**
+ * Create the function to output the contents of our Dashboard Widget.
+ */
+function help_editors_dashboard_widget_function() {
+
+	// Display whatever it is you want to show.
+  echo "
+  Guidance for editing the MoJ Intranet.
+  <br><br>We've setup a new area on the intranet to help support you in using some of the new features we build. Let us know if anything is unclear or if there are any other features we're missing that you'd like to see included.<br><br> <a href=\"https://intranet.justice.gov.uk/guidance/it-services/editing-the-intranet\">https://intranet.justice.gov.uk/guidance/it-services/editing-the-intranet</a>
+  <br><br>
+  Accounts for new editors<br><br>
+  If you have a colleague who needs to be setup as an editor, have them email us at
+  intranet-support@digital.justice.gov.uk";
+}
