@@ -3,7 +3,7 @@
 /**
  * The generic template without LHS navigation
  *
- * Template name: Default
+ * Template name: Default Template
  */
 
 class Page_generic extends MVC_controller {
