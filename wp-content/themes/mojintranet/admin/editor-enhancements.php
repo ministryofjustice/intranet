@@ -290,10 +290,6 @@ function help_editors_dashboard_widget_function() {
 
 	// Display whatever it is you want to show.
   echo "
-  Guidance for editing the MoJ Intranet.
-  <br><br>We've setup a new area on the intranet to help support you in using some of the new features we build. Let us know if anything is unclear or if there are any other features we're missing that you'd like to see included.<br><br> <a href=\"https://intranet.justice.gov.uk/guidance/it-services/editing-the-intranet\">https://intranet.justice.gov.uk/guidance/it-services/editing-the-intranet</a>
-  <br><br>
-  Accounts for new editors<br><br>
-  If you have a colleague who needs to be setup as an editor, have them email us at
-  intranet-support@digital.justice.gov.uk";
+  Guidance for editing the MoJ Intranet is at <br><a href=\"https://intranet.justice.gov.uk/guidance/it-services/editing-the-intranet\">https://intranet.justice.gov.uk/guidance/it-services/editing-the-intranet</a>. <br><br>Let us know if anything is unclear or if there are any other features we're missing that you'd like to see included. <br><br>Accounts for new editors<br><br> If you have a colleague who needs to be setup as an editor, email us at <br><a href=\"mailto:intranet-support@digital.justice.gov.uk\">intranet-support@digital.justice.gov.uk</a>.
+  ";
 }
