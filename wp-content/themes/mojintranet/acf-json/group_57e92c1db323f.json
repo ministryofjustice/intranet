@@ -10,26 +10,7 @@
             "ui_off_text": "",
             "key": "field_57e92c30f7810",
             "label": "Show Left Hand Navigation",
-            "name": "lhs_menu_on",
-            "type": "true_false",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            }
-        },
-        {
-            "default_value": 0,
-            "message": "",
-            "ui": 0,
-            "ui_on_text": "",
-            "ui_off_text": "",
-            "key": "field_57e92cb88452d",
-            "label": "Show on Guidance Bottom Section",
-            "name": "dw_guidance_bottom",
+            "name": "dw_lhs_menu_on",
             "type": "true_false",
             "instructions": "",
             "required": 0,
@@ -49,9 +30,21 @@
                 "value": "page"
             },
             {
-                "param": "page_template",
+                "param": "post_template",
                 "operator": "==",
                 "value": "page_guidance_and_support.php"
+            }
+        ],
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "page"
+            },
+            {
+                "param": "post_template",
+                "operator": "==",
+                "value": "page_generic.php"
             }
         ]
     ],
@@ -65,5 +58,5 @@
     ],
     "active": 1,
     "description": "",
-    "modified": 1487338390
+    "modified": 1487858919
 }

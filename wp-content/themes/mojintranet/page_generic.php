@@ -3,7 +3,7 @@
 /**
  * The generic template without LHS navigation
  *
- * Template name: Generic
+ * Template name: Default
  */
 
 class Page_generic extends MVC_controller {
@@ -34,6 +34,15 @@ class Page_generic extends MVC_controller {
     the_content();
     $content = ob_get_clean();
 
+    $lhs_menu_on = get_post_meta($this->post_ID, 'dw_lhs_menu_on', true) == "1" ? true : false;
+
+    if ($lhs_menu_on) {
+      $content_classes = 'col-lg-9 col-md-8 col-sm-12';
+    }
+    else {
+      $content_classes =  'col-lg-9 col-md-12 col-sm-12';
+    }
+
     return array(
       'page' => 'pages/generic/main',
       'template_class' => 'generic',
@@ -46,6 +55,8 @@ class Page_generic extends MVC_controller {
         'last_updated' => date("j F Y", strtotime(get_the_modified_date())),
         'excerpt' => $post->post_excerpt, // Not using get_the_excerpt() to prevent auto-generated excerpts being displayed
         'content' => $content,
+        'content_classes' => $content_classes,
+        'lhs_menu_on' => $lhs_menu_on,
         'hide_page_details' => (boolean) get_post_meta($this->post_ID, 'dw_hide_page_details', true)
       )
     );
