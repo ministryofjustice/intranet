@@ -190,14 +190,14 @@
     }
   }
 
-  .no-comments-msg {
-    @extend %medium-copy;
-    display: none;
-  }
-
-  &.no-comments {
+  .no-comments {
     .no-comments-msg {
+      @extend %medium-copy;
       display: block;
     }
+  }
+
+  .no-comments-msg {
+    display: none;
   }
 }

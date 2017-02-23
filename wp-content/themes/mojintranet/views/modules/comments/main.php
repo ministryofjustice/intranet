@@ -38,7 +38,7 @@
             <span class="loading-msg">Loading...</span>
           </div>
 
-          <p class="no-comments-msg">There are no comments yet</p>
+          <p class="no-comments-msg">There are no comments yet. Be the first to leave a comment.</p>
 
           <?php $this->view('modules/comments/comment') ?>
           <?php if ($comments_open): ?>
