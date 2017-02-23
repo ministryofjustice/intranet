@@ -17,6 +17,9 @@ $load_commands = array(
     'agency-doc-opt-in' => 'Agency_Doc_Opt_In',
     'reset-doc-scan' => 'Reset_Doc_Scan',
     'set-admin-regional-permissions' => 'Set_Admin_Regional_Permissions',
+    'campaign-page-fix' => 'Campaign_Page_Fix',
+    'generic-template-move-part1' => 'Generic_Template_Move_Part1',
+    'generic-template-move-part2' => 'Generic_Template_Move_Part2',
     'set-regional-editor-permissions' => 'Set_Regional_Editor_Permissions',
     'remove-old-tabs-and-links' => 'Remove_Old_Tabs_And_Links',
 );
