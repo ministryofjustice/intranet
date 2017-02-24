@@ -134,6 +134,8 @@ function pageparent_box($post) {
 
       if(empty($current_template)) {
         $current_template = 'page_generic.php';
+        update_post_meta($post->ID, '_wp_page_template', $current_template );
+        do_action( 'acf/input/admin_head');
       }
 
       if (in_array($current_template, Agency_Editor::$restricted_templates) && !current_user_can('administrator')) {

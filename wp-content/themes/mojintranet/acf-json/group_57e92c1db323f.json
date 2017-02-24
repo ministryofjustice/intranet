@@ -34,18 +34,6 @@
                 "operator": "==",
                 "value": "page_guidance_and_support.php"
             }
-        ],
-        [
-            {
-                "param": "post_type",
-                "operator": "==",
-                "value": "page"
-            },
-            {
-                "param": "post_template",
-                "operator": "==",
-                "value": "page_generic.php"
-            }
         ]
     ],
     "menu_order": 0,
@@ -58,5 +46,5 @@
     ],
     "active": 1,
     "description": "",
-    "modified": 1487858919
+    "modified": 1487942916
 }
