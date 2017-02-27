@@ -134,6 +134,8 @@ function pageparent_box($post) {
 
       if(empty($current_template)) {
         $current_template = 'page_generic.php';
+        update_post_meta($post->ID, '_wp_page_template', $current_template );
+        do_action( 'acf/input/admin_head');
       }
 
       if (in_array($current_template, Agency_Editor::$restricted_templates) && !current_user_can('administrator')) {
@@ -267,3 +269,29 @@ function dw_save_regional_template($post_id, $post, $update) {
 
 }
 add_action('save_post', 'dw_save_regional_template', 10, 3);
+
+/**
+ * Add a widget to the dashboard.
+ *
+ * This function is hooked into the 'wp_dashboard_setup' action below.
+ */
+function help_editors_add_dashboard_widgets() {
+
+	wp_add_dashboard_widget(
+                 'help_editors_dashboard_widget',   // Widget slug.
+                 'Editing on the intranet',                // Title.
+                 'help_editors_dashboard_widget_function'                     // Display function.
+        );
+}
+add_action( 'wp_dashboard_setup', 'help_editors_add_dashboard_widgets' );
+
+/**
+ * Create the function to output the contents of our Dashboard Widget.
+ */
+function help_editors_dashboard_widget_function() {
+
+	// Display whatever it is you want to show.
+  echo "
+  Guidance for editing the MoJ Intranet is at <br><a href=\"https://intranet.justice.gov.uk/guidance/it-services/editing-the-intranet\">https://intranet.justice.gov.uk/guidance/it-services/editing-the-intranet</a>. <br><br>Let us know if anything is unclear or if there are any other features we're missing that you'd like to see included. <br><br>Accounts for new editors<br><br> If you have a colleague who needs to be setup as an editor, email us at <br><a href=\"mailto:intranet-support@digital.justice.gov.uk\">intranet-support@digital.justice.gov.uk</a>.
+  ";
+}

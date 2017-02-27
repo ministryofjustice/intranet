@@ -3,7 +3,16 @@
      data-page-id="<?=$id?>">
 
   <div class="grid content-container">
-    <div class="col-lg-12 col-md-12 col-sm-12">
+
+    <?php if($lhs_menu_on): ?>
+      <div class="col-lg-3 col-md-4 col-sm-12">
+        <nav class="menu-list-container">
+          <ul class="menu-list"></ul>
+        </nav>
+      </div>
+    <?php endif ?>
+
+    <div class="<?=$content_classes?>">
       <div class="">
         <h1 class="page-title"><?=$title?></h1>
 
@@ -39,4 +48,7 @@
       </div>
     </div>
   </div>
+
+  <?php $this->view('modules/side_navigation') ?>
+  
 </div>
