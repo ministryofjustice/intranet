@@ -14,7 +14,7 @@ class Campaign_Page_Fix extends Admin_Command {
      *
      * @var string
      */
-    public $description = 'Fix Templates that are on old campaigjn template';
+    public $description = 'Fix Templates that are on old campaign template';
     /**
      * Method to execute the command.
      *
