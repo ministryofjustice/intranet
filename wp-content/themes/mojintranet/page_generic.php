@@ -1,7 +1,7 @@
 <?php if (!defined('ABSPATH')) die();
 
 /**
- * The generic template without LHS navigation
+ * The default template with/without LHS navigation
  *
  * Template name: Default
  */
