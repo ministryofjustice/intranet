@@ -20,6 +20,7 @@ $load_commands = array(
     'campaign-page-fix' => 'Campaign_Page_Fix',
     'generic-template-move-part1' => 'Generic_Template_Move_Part1',
     'generic-template-move-part2' => 'Generic_Template_Move_Part2',
+    'generic-template-move-part3' => 'Generic_Template_Move_Part3',
     'set-regional-editor-permissions' => 'Set_Regional_Editor_Permissions',
     'remove-old-tabs-and-links' => 'Remove_Old_Tabs_And_Links',
 );
