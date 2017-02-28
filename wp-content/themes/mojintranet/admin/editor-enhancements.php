@@ -264,7 +264,7 @@ function dw_save_regional_template($post_id, $post, $update) {
     update_post_meta($post_id, 'dw_regional_template', $_POST['page_template']);
   }
   else if (empty($current_template)) {
-    update_post_meta($post_id, 'dw_regional_template', 'page_generic_nav.php');
+    update_post_meta($post_id, 'dw_regional_template', 'page_generic.php');
   }
 
 }
