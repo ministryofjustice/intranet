@@ -134,6 +134,8 @@ function pageparent_box($post) {
 
       if(empty($current_template)) {
         $current_template = 'page_generic.php';
+        update_post_meta($post->ID, '_wp_page_template', $current_template );
+        do_action( 'acf/input/admin_head');
       }
 
       if (in_array($current_template, Agency_Editor::$restricted_templates) && !current_user_can('administrator')) {
@@ -262,7 +264,7 @@ function dw_save_regional_template($post_id, $post, $update) {
     update_post_meta($post_id, 'dw_regional_template', $_POST['page_template']);
   }
   else if (empty($current_template)) {
-    update_post_meta($post_id, 'dw_regional_template', 'page_generic_nav.php');
+    update_post_meta($post_id, 'dw_regional_template', 'page_generic.php');
   }
 
 }

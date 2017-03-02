@@ -47,6 +47,11 @@ function dw_rewrite_rules() {
   $redirect = 'index.php?page_id=' . get_page_by_path('blog')->ID;
   add_rewrite_rule($regex, $redirect, 'top');
 
+  //Blog page
+  $regex = '^blog/author/';
+  $redirect = 'index.php?page_id=' . get_page_by_path('blog')->ID;
+  add_rewrite_rule($regex, $redirect, 'top');
+
   //Events page
   $regex = '^events/([0-9]+)(/.*)?';
   $redirect = 'index.php?page_id=' . get_page_by_path('events')->ID;
