@@ -34,6 +34,7 @@
 
   <?php $this->view('pages/homepage/my_moj/app_item') ?>
   <?php $this->view('pages/homepage/my_moj/quick_link_item') ?>
+  <?php $this->view('pages/homepage/my_moj/my_work_link_item') ?>
 
   <script type="text/x-template-partial" data-name="widget-agency-link">
     <li class="agency-link-item">

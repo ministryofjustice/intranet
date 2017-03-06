@@ -55,7 +55,7 @@
       });
 
       $.each(data.my_work_links, function(index, myworkLink) {
-        _this.$myworkLinkTemplate.append(_this.buildMyWorkLinkItem(myworkLink));
+        _this.$myworkLinkList.append(_this.buildMyWorkLinkItem(myworkLink));
       });
 
       this.resultsLoaded = true;

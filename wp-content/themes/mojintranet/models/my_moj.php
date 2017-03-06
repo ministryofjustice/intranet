@@ -34,9 +34,9 @@ class My_moj_model extends MVC_model {
 
     if (isset($menu_items)) {
       foreach ($menu_items as $menu_item) {
-        $quick_link['title'] = $menu_item['my_work_link_title'];
-        $quick_link['url'] = $menu_item['my_work_link_url'];
-        $data[] = $quick_link;
+        $my_work_link['title'] = $menu_item['my_work_link_title'];
+        $my_work_link['url'] = $menu_item['my_work_link_url'];
+        $data[] = $my_work_link;
       }
     }
 
