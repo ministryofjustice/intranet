@@ -6,6 +6,7 @@ class My_moj_model extends MVC_model {
 
     return [
       'quick_links' => $this->get_quick_links($agency),
+      'my_work_links' => $this->get_my_work_links($agency),
       'apps' => $this->get_apps($agency)
     ];
   }
@@ -19,6 +20,22 @@ class My_moj_model extends MVC_model {
       foreach ($menu_items as $menu_item) {
         $quick_link['title'] = $menu_item['quick_link_title'];
         $quick_link['url'] = $menu_item['quick_link_url'];
+        $data[] = $quick_link;
+      }
+    }
+
+    return $data;
+  }
+
+  private function get_my_work_links($agency = 'hq') {
+    $data = [];
+
+    $menu_items = get_field($agency . '_my_work_links', 'option');
+
+    if (isset($menu_items)) {
+      foreach ($menu_items as $menu_item) {
+        $quick_link['title'] = $menu_item['my_work_link_title'];
+        $quick_link['url'] = $menu_item['my_work_link_url'];
         $data[] = $quick_link;
       }
     }

@@ -15,6 +15,13 @@ function dw_add_option_pages() {
         'capability'	=> 'edit_posts',
         'redirect'		=> false
     ]);
+    acf_add_options_page([
+        'page_title' 	=> 'My Work Links Settings',
+        'menu_title'	=> 'My Work Links',
+        'menu_slug' 	=> 'my-work-links-settings',
+        'capability'	=> 'edit_posts',
+        'redirect'		=> false
+    ]);
 
     $context = Agency_Context::get_agency_context();
 
@@ -41,12 +48,25 @@ function dw_agency_option_fields($field) {
   $screen = get_current_screen();
 
   if(isset($screen) && ($screen->id == 'toplevel_page_quick-links-settings' || $screen->id == 'toplevel_page_guidance-most-visted-settings')) {
+
     $context = Agency_Context::get_agency_context();
-
     $field['name'] = $context . '_' . $field['name'];
-  }
-
+}
   return $field;
 }
 add_filter('acf/load_field/key=field_57b1bd28c275f', 'dw_agency_option_fields');
 add_filter('acf/load_field/key=field_57b1cb89000f5', 'dw_agency_option_fields');
+
+/**
+ * Needs to be refactored into above..
+ */
+function dw_mw_agency_option_fields($field) {
+  $screen = get_current_screen();
+
+  if(isset($screen) && ($screen->id == 'toplevel_page_my-work-links-settings')) {
+    $context = Agency_Context::get_agency_context();
+    $field['name'] = $context . '_' . $field['name'];
+}
+  return $field;
+}
+add_filter('acf/load_field/key=field_58bd431b4f6ac', 'dw_mw_agency_option_fields');
