@@ -147,7 +147,7 @@ function pageparent_box($post) {
       $current_template = get_post_meta($post->ID, 'dw_regional_template', true);
 
       $templates = [
-          'Generic' => 'page_generic_nav.php',
+          'Generic' => 'page_generic.php',
           'Landing' => 'page_regional_landing.php',
           'Events Listing' => 'page_regional_events.php',
           'Updates Listing' => 'page_regional_news.php',
