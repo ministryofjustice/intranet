@@ -4,10 +4,10 @@ require_once(ABSPATH . 'wp-admin/includes/screen.php');
 /**
  * Adds Quick Links and Most Visited Option Pages
  * Filter: init
- *
  */
 function dw_add_option_pages() {
   if (function_exists('acf_add_options_page')) {
+
     acf_add_options_page([
         'page_title' 	=> 'Quick Links Settings',
         'menu_title'	=> 'Quick Links',
@@ -15,14 +15,8 @@ function dw_add_option_pages() {
         'capability'	=> 'edit_posts',
         'redirect'		=> false
     ]);
-    acf_add_options_page([
-        'page_title' 	=> 'My Work Links Settings',
-        'menu_title'	=> 'My Work Links',
-        'menu_slug' 	=> 'my-work-links-settings',
-        'capability'	=> 'edit_posts',
-        'redirect'		=> false
-    ]);
 
+    // Getting editor's agency and passing this to $context and options appearing accordingly.
     $context = Agency_Context::get_agency_context();
 
     if ($context == 'hq') {
@@ -34,6 +28,17 @@ function dw_add_option_pages() {
           'redirect' => false
       ]);
     }
+
+    if ($context == 'hmcts') {
+      acf_add_options_page([
+        'page_title' 	=> 'My Work Links Settings',
+        'menu_title'	=> 'My Work Links',
+        'menu_slug' 	=> 'my-work-links-settings',
+        'capability'	=> 'edit_posts',
+        'redirect'		=> false
+      ]);
+    }
+
   }
 }
 add_action('init', 'dw_add_option_pages');
@@ -58,7 +63,7 @@ add_filter('acf/load_field/key=field_57b1bd28c275f', 'dw_agency_option_fields');
 add_filter('acf/load_field/key=field_57b1cb89000f5', 'dw_agency_option_fields');
 
 /**
- * Needs to be refactored into above..
+ * Should really be refactored into above..
  */
 function dw_mw_agency_option_fields($field) {
   $screen = get_current_screen();
