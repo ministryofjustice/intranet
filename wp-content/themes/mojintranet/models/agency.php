@@ -106,8 +106,8 @@ class Agency_model extends MVC_model {
         'contact_email_address' => 'intranet@justice.gsi.gov.uk',
         'links' => [
           [
-            'url' => site_url('/about-us/moj-transformation/'),
-            'label' => 'MoJ TRANSFORMATION &#8594;',
+            'url' => site_url('/about-us/moj-transformation'),
+            'label' => 'MoJ TRANSFORMATION',
             'is_external' => false,
             'classes' => 'transformation'
           ]
