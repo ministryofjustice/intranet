@@ -17,6 +17,13 @@
     display: inline-block;
     margin-right: 5px;
   }
+
+  .agency-link-item {
+    &.transformation {
+      a {
+        padding: 8px 10px 6px;
+      }
+    }
 }
 
 .lte-ie8 .my-moj {
