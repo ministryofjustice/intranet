@@ -18,6 +18,13 @@
     <img>
   </nav>
 
+  <nav class="my-work-links-container mobile-collapsed">
+    <h2 class="category-name">My Work</h2>
+    <ul class="my-work-links-list"
+        data-skeleton-screen-count="10"
+        data-skeleton-screen-type="one-liner"></ul>
+  </nav>
+
   <nav class="quick-links-container mobile-collapsed">
     <h2 class="category-name">Quick links</h2>
     <ul class="quick-links-list"
@@ -27,6 +34,7 @@
 
   <?php $this->view('pages/homepage/my_moj/app_item') ?>
   <?php $this->view('pages/homepage/my_moj/quick_link_item') ?>
+  <?php $this->view('pages/homepage/my_moj/my_work_link_item') ?>
 
   <script type="text/x-template-partial" data-name="widget-agency-link">
     <li class="agency-link-item">
