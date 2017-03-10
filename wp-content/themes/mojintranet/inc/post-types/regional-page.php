@@ -18,7 +18,7 @@ function define_regional_page_post_type() {
       'public'        => true,
       'hierarchical' => true,
       'menu_position' => 3,
-      'supports'      => array('title','editor','thumbnail','excerpt','author','page-attributes'),
+      'supports'      => array('title','editor','thumbnail','excerpt','author','page-attributes', 'wpcom-markdown'),
       'has_archive'   => false,
       'rewrite'       => array(
         'slug'       => 'regional-pages',
