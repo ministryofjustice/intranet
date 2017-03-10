@@ -17,7 +17,7 @@ function define_regional_news_post_type() {
       'description'   => __('Contains details of News stories'),
       'public'        => true,
       'menu_position' => 3,
-      'supports'      => array('title','editor','thumbnail','excerpt','author'),
+      'supports'      => array('title','editor','thumbnail','excerpt','author', 'wpcom-markdown'),
       'has_archive'   => false,
       'rewrite'       => array(
         'slug'       => 'regional-news',
