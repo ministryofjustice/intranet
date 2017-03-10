@@ -22,6 +22,7 @@
       this.agencyLinkTemplate = this.$top.find('[data-name="widget-agency-link"]').html();
       this.appTemplate = this.$top.find('[data-name="widget-app-item"]').html();
       this.quickLinkTemplate = this.$top.find('[data-name="widget-quick-link-item"]').html();
+      this.myworkLinkTemplate = this.$top.find('[data-name="widget-my-work-link-item"]').html();
 
       this.resultsLoaded = false;
 
@@ -34,6 +35,7 @@
 
     cacheEls: function() {
       this.$quickLinksList = this.$top.find('.quick-links-list');
+      this.$myworkLinkList = this.$top.find('.my-work-links-list');
       this.$appsList = this.$top.find('.apps-list');
     },
 
@@ -41,6 +43,7 @@
       var _this = this;
 
       App.ins.skeletonScreens.remove(this.$quickLinksList);
+      App.ins.skeletonScreens.remove(this.$myworkLinkList);
       App.ins.skeletonScreens.remove(this.$appsList);
 
       $.each(data.apps, function(index, app) {
@@ -49,6 +52,10 @@
 
       $.each(data.quick_links, function(index, quickLink) {
         _this.$quickLinksList.append(_this.buildQuickLinkItem(quickLink));
+      });
+
+      $.each(data.my_work_links, function(index, myworkLink) {
+        _this.$myworkLinkList.append(_this.buildMyWorkLinkItem(myworkLink));
       });
 
       this.resultsLoaded = true;
@@ -106,6 +113,16 @@
       var $child = $(this.quickLinkTemplate);
 
       $child.find('.quick-link-link')
+        .attr('href', data.url)
+        .html(data.title);
+
+      return $child;
+    },
+
+    buildMyWorkLinkItem: function(data) {
+      var $child = $(this.myworkLinkTemplate);
+
+      $child.find('.my-work-link-link')
         .attr('href', data.url)
         .html(data.title);
 

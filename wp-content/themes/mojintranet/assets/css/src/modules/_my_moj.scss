@@ -177,6 +177,30 @@
     }
   }
 
+  .my-work-links-container {
+    .category-name {
+      display: none;
+
+      html[data-agency="hmcts"] & {
+        display: block;
+      }
+    }
+
+    .category-name {
+      margin-bottom: 8px;
+      clear: both;
+    }
+
+    .my-work-link-item {
+      margin-bottom: 10px;
+    }
+
+    .my-work-link-link {
+      @extend %medium-copy;
+      text-decoration: underline;
+    }
+  }
+
   .agency-link-list {
     &.hidden {
       display: none;
