@@ -23,6 +23,7 @@ $load_commands = array(
     'generic-template-move-part3' => 'Generic_Template_Move_Part3',
     'set-regional-editor-permissions' => 'Set_Regional_Editor_Permissions',
     'remove-old-tabs-and-links' => 'Remove_Old_Tabs_And_Links',
+    'add-meta-comments-root' => 'Add_Comments_Root',
 );
 
 $admin_commands = array();
