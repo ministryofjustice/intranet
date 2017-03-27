@@ -51,10 +51,22 @@ class My_moj_model extends MVC_model {
       ],
       'cica' => [
         [
+          'title' => 'People finder',
+          'icon' => 'people-finder',
+          'url' => 'https://peoplefinder.service.gov.uk/',
+          'external' => true,
+        ],
+        [
           'title' => 'Civil Service Learning',
           'icon' => 'civil-service-learning',
           'url' => 'https://civilservicelearning.civilservice.gov.uk/',
           'external' => true,
+        ],
+        [
+          'title' => 'SOP',
+          'icon' => 'sop',
+          'url' => site_url('/sop/'),
+          'external' => false,
         ],
         [
           'title' => 'Jobs',
