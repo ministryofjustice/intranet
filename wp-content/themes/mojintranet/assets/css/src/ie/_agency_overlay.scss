@@ -4,6 +4,12 @@ $grid-size: 40px;
   h2 {
     margin-top: 20px;
   }
+
+  .agency-item {
+    a {
+      padding: 15px 10px;
+    }
+  }
 }
 
 .lte-ie8 .agency-overlay {

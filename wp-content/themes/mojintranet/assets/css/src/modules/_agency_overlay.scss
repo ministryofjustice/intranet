@@ -42,7 +42,7 @@ $grid-size: 40px;
 
     a {
       display: block;
-      padding: 15px;
+      padding: 15px 10px 10px;
       background-color: $grey-3;
       border: 2px solid $grey-3;
       color: $black;
@@ -73,6 +73,7 @@ $grid-size: 40px;
     &[data-agency="noms"],
     &[data-agency="opg"],
     &[data-agency="ospt"],
+    &[data-agency="cica"],
     &[data-agency="hq"] {
       .icon {
         background-position: 0 0;
@@ -95,7 +96,6 @@ $grid-size: 40px;
       background-position: (-$grid-size * 4);
     }
 
-    &[data-agency="cica"],
     &[data-agency="judicial-office"],
     &[data-agency="ppo"] {
       display: none;
