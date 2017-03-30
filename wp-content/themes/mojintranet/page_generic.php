@@ -32,17 +32,25 @@ class Page_generic extends MVC_controller {
 
     ob_start();
     the_content();
-    $content = ob_get_clean();
-
-    $lhs_menu_on = get_post_meta($this->post_ID, 'dw_lhs_menu_on', true) == "1" ? true : false;
-
-    if ($lhs_menu_on) {
-      $content_classes = 'col-lg-9 col-md-8 col-sm-12';
+$content = ob_get_clean();
+    
+$post_type = get_post_type( get_the_ID() );
+      
+    if ($post_type == "regional_page") {
+    $lhs_menu_on = "1";
     }
     else {
-      $content_classes =  'col-lg-9 col-md-12 col-sm-12';
+    $lhs_menu_on = get_post_meta($this->post_ID, 'dw_lhs_menu_on', true) == "1" ? true : false;
     }
-
+      
+      
+    if ($lhs_menu_on) {
+    $content_classes = 'col-lg-9 col-md-8 col-sm-12';
+    }
+    else {
+    $content_classes =  'col-lg-9 col-md-12 col-sm-12';
+    }
+      
     return array(
       'page' => 'pages/generic/main',
       'template_class' => 'generic',
