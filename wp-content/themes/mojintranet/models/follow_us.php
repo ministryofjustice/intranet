@@ -42,6 +42,11 @@ class Follow_us_model extends MVC_model {
           'name' => 'twitter',
         ],
         [
+          'url' => 'https://twitter.com/hmctsgovuk',
+          'label' => 'HMCTS on Twitter',
+          'name' => 'twitter',
+        ],
+        [
           'url' => 'https://www.yammer.com/hmcts.gsi.gov.uk',
           'label' => 'HMCTS on Yammer',
           'name' => 'yammer',
