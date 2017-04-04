@@ -93,11 +93,11 @@ class Search_model extends MVC_model {
   private function convert_post_type($post_type) {
     switch ($post_type) {
       case 'all':
-        $post_type = array('page', 'news', 'document', 'webchat', 'event', 'post');
+        $post_type = array('page', 'regional_page', 'regional_news', 'news', 'document', 'webchat', 'event', 'post');
         break;
 
       case 'content':
-        $post_type = array('page', 'news', 'webchat', 'event', 'post');
+        $post_type = array('page', 'regional_page', 'regional_news', 'news', 'webchat', 'event', 'post');
         break;
     }
 
