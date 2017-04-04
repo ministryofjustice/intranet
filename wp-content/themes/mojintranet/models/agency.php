@@ -114,13 +114,13 @@ class Agency_model extends MVC_model {
         ]
       ),
       'hmpps' => array(
-        'label' => 'HM Prison and Probation Service',
+        'label' => 'HM Prison & Probation Service',
         'abbreviation' => 'HMPPS',
         'is_integrated' => false,
         'links' => [
           [
             'url' => 'https://intranet.noms.gsi.gov.uk/',
-            'label' => 'HM Prison and Probation Service intranet',
+            'label' => 'HM Prison & Probation Service intranet',
             'is_external' => true
           ]
         ]
