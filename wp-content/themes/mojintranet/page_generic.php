@@ -35,15 +35,12 @@ class Page_generic extends MVC_controller {
 $content = ob_get_clean();
     
 $post_type = get_post_type( get_the_ID() );
-      
     if ($post_type == "regional_page") {
     $lhs_menu_on = "1";
     }
     else {
     $lhs_menu_on = get_post_meta($this->post_ID, 'dw_lhs_menu_on', true) == "1" ? true : false;
     }
-      
-      
     if ($lhs_menu_on) {
     $content_classes = 'col-lg-9 col-md-8 col-sm-12';
     }
