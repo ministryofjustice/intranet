@@ -4,11 +4,12 @@
 add_filter('upload_mimes', 'custom_upload_mimes');
 function custom_upload_mimes ( $existing_mimes=array() ) {
   // Add *.RDP files to Media upload
-  $existing_mimes['rdp'] = 'application/rdp';
-  $existing_mimes['dot'] = 'application/msword';
-  $existing_mimes['pot'] = 'application/pot';
-  $existing_mimes['xlsb'] = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
-  return $existing_mimes;
+    $existing_mimes['rdp'] = 'application/rdp';
+    $existing_mimes['dot'] = 'application/msword';
+    $existing_mimes['pot'] = 'application/pot';
+    $existing_mimes['xlsb'] = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+    $existing_mimes['xltx'] = 'application/vnd.openxmlformats-officedocument.spreadsheetml.template';
+    return $existing_mimes;
 }
 
 // Set documents uploaded via WP Document Revisions to be public by default
@@ -22,3 +23,4 @@ function hide_media_view_link($actions, $post){
     unset($actions['view']);
     return $actions;
 }
+?>
