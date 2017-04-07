@@ -54,6 +54,18 @@ class Agency_model extends MVC_model {
           ]
         ]
       ),
+      'hmpps' => array(
+        'label' => 'HM Prison & Probation Service',
+        'abbreviation' => 'HMPPS',
+        'is_integrated' => false,
+        'links' => [
+          [
+            'url' => 'https://intranet.noms.gsi.gov.uk/',
+            'label' => 'National Offender Management Service intranet',
+            'is_external' => true
+          ]
+        ]
+      ),
       'judicial-appointments-commission' => array(
         'label' => 'Judicial Appointments Commission',
         'abbreviation' => 'JAC',
@@ -110,30 +122,6 @@ class Agency_model extends MVC_model {
             'label' => 'MoJ TRANSFORMATION',
             'is_external' => false,
             'classes' => 'transformation'
-          ]
-        ]
-      ),
-      'noms' => array(
-        'label' => 'National Offender Management Service',
-        'abbreviation' => 'NOMS',
-        'is_integrated' => false,
-        'links' => [
-          [
-            'url' => 'https://intranet.noms.gsi.gov.uk/',
-            'label' => 'National Offender Management Service intranet',
-            'is_external' => true
-          ]
-        ]
-      ),
-      'nps' => array(
-        'label' => 'National Probation Service',
-        'abbreviation' => 'NPS',
-        'is_integrated' => false,
-        'links' => [
-          [
-            'url' => 'https://intranet.noms.gsi.gov.uk/',
-            'label' => 'National Probation Service intranet',
-            'is_external' => true
           ]
         ]
       ),
