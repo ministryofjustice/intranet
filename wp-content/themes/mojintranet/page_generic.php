@@ -19,7 +19,7 @@ class Page_generic extends MVC_controller {
     }
   }
 
-  function get_data(){
+function get_data(){
     $post = get_post($this->post_ID);
 
     $authors = dw_get_author_info($this->post_ID);
@@ -34,15 +34,20 @@ class Page_generic extends MVC_controller {
     the_content();
     $content = ob_get_clean();
 
-    $lhs_menu_on = get_post_meta($this->post_ID, 'dw_lhs_menu_on', true) == "1" ? true : false;
-
+    $post_type = get_post_type( get_the_ID() );
+      
+    if ($post_type == 'regional_page') {
+        $lhs_menu_on = true;
+    } else {
+        $lhs_menu_on = get_post_meta($this->post_ID, 'dw_lhs_menu_on', true) == 1 ? true : false;
+    }
+      
     if ($lhs_menu_on) {
-      $content_classes = 'col-lg-9 col-md-8 col-sm-12';
+        $content_classes = 'col-lg-9 col-md-8 col-sm-12';
+    } else {
+        $content_classes = 'col-lg-9 col-md-12 col-sm-12';
     }
-    else {
-      $content_classes =  'col-lg-9 col-md-12 col-sm-12';
-    }
-
+      
     return array(
       'page' => 'pages/generic/main',
       'template_class' => 'generic',
