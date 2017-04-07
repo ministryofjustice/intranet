@@ -61,7 +61,7 @@ class Agency_model extends MVC_model {
         'links' => [
           [
             'url' => 'https://intranet.noms.gsi.gov.uk/',
-            'label' => 'National Offender Management Service intranet',
+            'label' => 'HM Prison & Probation Service intranet',
             'is_external' => true
           ]
         ]
