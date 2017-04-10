@@ -142,8 +142,7 @@ $grid-size: 50px;
   &[data-department="hmcts"],
   &[data-department="judicial-office"],
   &[data-department="nps"],
-  &[data-department="hmpps"],
-  &[data-department="noms"],
+  &[data-department="noms"], // As of 10.04.17 this is HMPPS
   &[data-department="opg"],
   &[data-department="ospt"],
   &[data-department="hq"] {
