@@ -71,6 +71,7 @@ $grid-size: 40px;
     &[data-agency="judicial-office"],
     &[data-agency="ppo"],
     &[data-agency="hmpps"],
+    &[data-agency="noms"], //NOMS agency turned into HMPPS. Removing completely caused caching issues for users. Instead see below display:none
     &[data-agency="opg"],
     &[data-agency="ospt"],
     &[data-agency="cica"],
@@ -97,6 +98,7 @@ $grid-size: 40px;
     }
 
     &[data-agency="judicial-office"],
+    &[data-agency="noms"],
     &[data-agency="ppo"] {
       display: none;
     }

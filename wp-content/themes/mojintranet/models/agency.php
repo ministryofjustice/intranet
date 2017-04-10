@@ -54,6 +54,18 @@ class Agency_model extends MVC_model {
           ]
         ]
       ),
+      'noms' => array(
+        'label' => 'National Offender Management Service',
+        'abbreviation' => 'NOMS',
+        'is_integrated' => false,
+        'links' => [
+          [
+            'url' => 'https://intranet.noms.gsi.gov.uk/',
+            'label' => 'National Offender Management Service intranet',
+            'is_external' => true
+          ]
+        ]
+      ),
       'hmpps' => array(
         'label' => 'HM Prison & Probation Service',
         'abbreviation' => 'HMPPS',
