@@ -86,4 +86,6 @@ function fix_intranet_noms_renaming() {
         $_COOKIE['dw_agency'] = 'noms';
     }
 
+    echo $_COOKIE['dw_agency'];
+    print_r($_COOKIE);
 }
