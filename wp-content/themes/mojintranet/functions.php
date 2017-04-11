@@ -70,3 +70,20 @@ if ( !function_exists( 'mojintranet_setup' ) ) {
 			require_once( $locale_file );
 	}
 }
+
+/***
+ * Fix users which got the wrong agency name on the cookie and get grey screen of death
+ *
+ * 11/04/2016
+ *
+ */
+
+add_action( 'init', 'fix_intranet_noms_renaming' );
+
+function fix_intranet_noms_renaming() {
+
+    if(isset($_COOKIE['dw_agency']) && $_COOKIE['dw_agency'] == 'hmpps') {
+        $_COOKIE['dw_agency'] = 'noms';
+    }
+
+}
