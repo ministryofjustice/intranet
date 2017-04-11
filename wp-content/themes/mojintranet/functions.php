@@ -85,7 +85,4 @@ function fix_intranet_noms_renaming() {
     if(isset($_COOKIE['dw_agency']) && $_COOKIE['dw_agency'] == 'hmpps') {
         $_COOKIE['dw_agency'] = 'noms';
     }
-
-    echo $_COOKIE['dw_agency'];
-    print_r($_COOKIE);
 }
