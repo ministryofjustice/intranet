@@ -1,0 +1,46 @@
+{
+    "src": {
+        "plugins": "git@git.dxw.net:wordpress-plugins/"
+    },
+    "plugins": [
+        {
+            "name": "advanced-custom-fields-pro"
+        },
+        {
+            "name": "amazon-s3-and-cloudfront",
+            "src": "git@github.com:deliciousbrains/wp-amazon-s3-and-cloudfront.git"
+        },
+        {
+            "name": "amazon-web-services",
+            "src": "git@github.com:deliciousbrains/wp-amazon-web-services.git"
+        },
+        {
+            "name": "cms-tree-page-view"
+        },
+        {
+            "name": "recently-edited-content-widget"
+        },
+        {
+            "name": "dw-document-revisions",
+            "src": "git@github.com:ministryofjustice/dw-document-revisions.git"
+        },
+        {
+            "name": "relevanssi-premium"
+        },
+        {
+            "name": "dw-live-drafts",
+            "src": "git@github.com:ministryofjustice/dw-live-drafts.git"
+        },
+        {
+            "name": "heatmap-for-wp",
+            "src": "git@github.com:heatmap/heatmap-for-wp.git"
+        },
+        {
+            "name": "co-authors-plus",
+            "src": "git@github.com:Automattic/Co-Authors-Plus.git"
+        },
+        {
+            "name": "regenerate-thumbnails"
+        }
+    ]
+}

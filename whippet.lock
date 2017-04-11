@@ -1,0 +1,60 @@
+{
+    "hash": "c2c433b5b79d64f168a00eda7fc64a6d8125abb9",
+    "plugins": [
+        {
+            "name": "advanced-custom-fields-pro",
+            "src": "git@git.dxw.net:wordpress-plugins/advanced-custom-fields-pro",
+            "revision": "d1e3720ada4d4e697a99e0107bfd623deb0ef261"
+        },
+        {
+            "name": "amazon-s3-and-cloudfront",
+            "src": "git@github.com:deliciousbrains/wp-amazon-s3-and-cloudfront.git",
+            "revision": "3a597a6f90ca68f25a773a53c016e96cb10e0610"
+        },
+        {
+            "name": "amazon-web-services",
+            "src": "git@github.com:deliciousbrains/wp-amazon-web-services.git",
+            "revision": "87953d61ce15f635eadfcf23b1f9dd864fa1f152"
+        },
+        {
+            "name": "cms-tree-page-view",
+            "src": "git@git.dxw.net:wordpress-plugins/cms-tree-page-view",
+            "revision": "6d5a1c26d4001296f6c06623888d554d76d3d3f4"
+        },
+        {
+            "name": "recently-edited-content-widget",
+            "src": "git@git.dxw.net:wordpress-plugins/recently-edited-content-widget",
+            "revision": "34205e17ea16e4bbf6dcfcc195541fc5b6e54fd5"
+        },
+        {
+            "name": "dw-document-revisions",
+            "src": "git@github.com:ministryofjustice/dw-document-revisions.git",
+            "revision": "99e1737e337e1ed8bab0e52dc1c120a2bbb7b492"
+        },
+        {
+            "name": "relevanssi-premium",
+            "src": "git@git.dxw.net:wordpress-plugins/relevanssi-premium",
+            "revision": "e633b63c58cbaac8596a180e28c6f689679601e7"
+        },
+        {
+            "name": "dw-live-drafts",
+            "src": "git@github.com:ministryofjustice/dw-live-drafts.git",
+            "revision": "c941cda82bc95467abd401f7fbc3711e169203b5"
+        },
+        {
+            "name": "heatmap-for-wp",
+            "src": "git@github.com:heatmap/heatmap-for-wp.git",
+            "revision": "e56e85ae7c6d8a1e01f8cac4bcb11b04d06c696f"
+        },
+        {
+            "name": "co-authors-plus",
+            "src": "git@github.com:Automattic/Co-Authors-Plus.git",
+            "revision": "c8d7893b35c45aa078dc7b121ecede600b4a4c2d"
+        },
+        {
+            "name": "regenerate-thumbnails",
+            "src": "git@git.dxw.net:wordpress-plugins/regenerate-thumbnails",
+            "revision": "d42fdbfc52eafb2d2a8f059d5b488dfa4b4c76fe"
+        }
+    ]
+}
