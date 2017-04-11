@@ -83,6 +83,8 @@ add_action( 'init', 'fix_intranet_noms_renaming' );
 function fix_intranet_noms_renaming() {
 
     if(isset($_COOKIE['dw_agency']) && $_COOKIE['dw_agency'] == 'hmpps') {
-        $_COOKIE['dw_agency'] = 'noms';
+        //echo "Trying to unset cookie";
+        setcookie('dw_agency', 'blah blah', 1);
+        //unset($_COOKIE['dw_agency']);
     }
 }
