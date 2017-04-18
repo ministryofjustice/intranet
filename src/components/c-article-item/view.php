@@ -1,4 +1,5 @@
 <?php
+use MOJ\Intranet\Authors;
 $post = $data['post'];
 $id = $post->ID;
 
@@ -8,7 +9,8 @@ $thumbnail_type = 'intranet-large';
 $thumbnail_id = get_post_thumbnail_id($id);
 $thumbnail = wp_get_attachment_image_src($thumbnail_id, $thumbnail_type);
 $alt_text = get_post_meta($thumbnail_id, '_wp_attachment_image_alt', true);
-$authors = dw_get_author_info($id);
+$oAuthor = new Authors();
+$authors = $oAuthor->getAuthorInfo($id);
 
 ?>
 <article class="c-article-item">

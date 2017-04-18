@@ -1,5 +1,7 @@
 <?php
-$featuredNews = \MOJ\Intranet\News::getFeaturedNews(get_intranet_code());
+use MOJ\Intranet\News;
+
+$featuredNews = News::getFeaturedNews(get_intranet_code());
 
 if ($featuredNews->have_posts() )
 {

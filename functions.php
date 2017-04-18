@@ -1,7 +1,13 @@
 <?php
-
+use MOJ\Intranet\Agency;
 
 define('MAX_FEATURED_NEWS', 2);
+define('MAX_HOMEPAGE_NEWS', 8);
+if (get_template_directory() === get_stylesheet_directory()) {
+    //Include Filters and actions Filters
+    require_once('inc/hooks/author.php');
+    require_once('inc/post-types/news.php');
+}
 
 /** Autoloader for inc */
 spl_autoload_register('moj_autoload');
@@ -63,19 +69,37 @@ function get_assets_folder() {
 
 function get_intranet_code()
 {
-    $agency = isset($_COOKIE['dw_agency']) ? trim ($_COOKIE['dw_agency']) : '';
-
-    //ToDo: Add all thr other agencies
-    switch ($agency)
-    {
-        case 'opg':
-            return 'opg';
-            break;
-
-        default:
-            return 'hq';
-    }
+    $oAgency = new Agency();
+    $activeAgency = $oAgency->getCurrentAgency();
+    return $activeAgency['shortcode'];
 }
+
+
+/***
+ *
+ * Set the intranet cookie if GET variables are passed
+ *
+ ***/
+function set_intranet_cookie()
+{
+
+    $agency_value =  isset($_GET['dw_agency']) ? trim($_GET['dw_agency']) : 'hq';
+
+    if (!isset($_COOKIE['dw_agency']))
+    {
+
+        setcookie( 'dw_agency', $agency_value, 300 * DAYS_IN_SECONDS, COOKIEPATH, COOKIE_DOMAIN );
+
+    } else {
+        if (isset($_GET['dw_agency']))
+        {
+            $_COOKIE['dw_agency'] = $agency_value;
+        }
+    }
+
+}
+add_action( 'init', 'set_intranet_cookie' );
+
 
 /**
  * Return the view for the component

@@ -35,7 +35,26 @@ class News
         ];
 
         return new \WP_Query($args);
+    }
 
+    /**
+     * Get latest news by agency
+     *
+     * @param string $agency
+     */
+    static function getLatestNews($agency = 'hq')
+    {
+
+        $args = [
+            // Paging
+            'nopaging' => false,
+            'offset' => 0,
+            'posts_per_page' => MAX_HOMEPAGE_NEWS,
+            // Filters
+            'post_type' => ['news']
+        ];
+
+        return new \WP_Query($args);
     }
 
 }

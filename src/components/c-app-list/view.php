@@ -1,11 +1,12 @@
 <?php
-    // Mock data, the proper version will come from WP and contain a link for each item as well
-    $app_array = ['People finder', 'Travel booking', 'Jobs', 'Pensions', 'SOP', 'Civil Service Learning', 'IT Portal', 'MoJ Webchat', 'Room Booking'];
+use MOJ\Intranet\Agency;
+
+$app_array = Agency::getApps(get_intranet_code());
 ?>
 <ul class="c-app-list">
     <?php
-        foreach ($app_array as $key => $value) {
-            echo '<li><a class="u-icon u-icon--'.slugify($value).'" href=""><span>'.$value.'</span></a></li>';
+        foreach ($app_array as $app ) {
+            echo '<li><a class="u-icon u-icon--'.$app['icon'].'" href="'.$app['url'].'" title="'.$app['title'].'"><span>'.$app['title'].'</span></a></li>';
         }
     ?>
 </ul>
