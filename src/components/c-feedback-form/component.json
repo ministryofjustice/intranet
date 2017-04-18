@@ -1,0 +1,24 @@
+{
+  "name" : "Feedback form",
+  "version" : "1.0.0",
+  "creator" : {
+    "name" : "Alex Foxleigh",
+    "github_username" : "foxleigh81"
+  },
+  "description" : "Displays the feedback form",
+  "standard_or_universal" : "standard",
+  "parents" : "c-feedback-container",
+  "children" : "c-input-container",
+  "notes" : {
+    "backend" : "uses the form_builder() function to build the form from inputs",
+    "frontend" : ""
+  },
+  "backend_classes" : {},
+  "changelog" : [
+    {
+      "date" : "02/02/17",
+      "author" : "Alex Foxleigh",
+      "description" : "Created component"
+    }
+  ]
+}

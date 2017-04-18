@@ -1,0 +1,23 @@
+{
+  "name" : "Article Item",
+  "version" : "1.0.0",
+  "creator" : {
+    "name" : "Alex Foxleigh",
+    "github_username" : "foxleigh81"
+  },
+  "description" : "A single article item",
+  "standard_or_universal" : "universal",
+  "parents" : "",
+  "children" : "No Child components",
+  "notes" : {
+    "backend" : "",
+    "frontend" : ""
+  },
+  "changelog" : [
+    {
+      "date" : "07/02/17",
+      "author" : "Alex Foxleigh",
+      "description" : "Quick fix of coding error ('missing quotation mark)"
+    }
+  ]
+}

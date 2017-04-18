@@ -1,0 +1,24 @@
+{
+  "name" : "Search bar",
+  "version" : "1.0.0",
+  "creator" : {
+    "name" : "Alex Foxleigh",
+    "github_username" : "foxleigh81"
+  },
+  "description" : "The main site Search bar",
+  "standard_or_universal" : "standard",
+  "parents" : "c-header-container",
+  "children" : "",
+  "notes" : {
+    "backend" : "",
+    "frontend" : "Needs an input container component"
+  },
+  "backend_classes" : {},
+  "changelog" : [
+    {
+      "date" : "02/02/17",
+      "author" : "Alex Foxleigh",
+      "description" : "Created component"
+    }
+  ]
+}

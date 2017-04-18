@@ -1,0 +1,24 @@
+{
+  "name" : "Intranet Switcher",
+  "version" : "1.0.0",
+  "creator" : {
+    "name" : "Alex Foxleigh",
+    "github_username" : "foxleigh81"
+  },
+  "description" : "A set of links that allow users to switch to different intranets",
+  "standard_or_universal" : "standard",
+  "parents" : "",
+  "children" : "",
+  "notes" : {
+    "backend" : "",
+    "frontend" : ""
+  },
+  "backend_classes" : {},
+  "changelog" : [
+    {
+      "date" : "22/03/17",
+      "author" : "Alex Foxleigh",
+      "description" : "Created component"
+    }
+  ]
+}

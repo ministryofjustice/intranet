@@ -1,0 +1,39 @@
+// include the toolkit (a suite of variables, classes and mixins)
+@require "../../globals/css/_toolkit"
+
+.c-notify {
+	position: relative;
+	padding: $spacing*3;
+	text-align: center;
+	margin-bottom: $spacing;
+	font-size: $mantle;
+	&--error {
+		background: #f00;
+		color: lighten(#f00, 80%);
+		&:before {
+			use-icon("\6b", $crust);
+			margin-bottom: $spacing*2;
+			vertical-align: middle;
+		}
+	}
+
+	&--alert {
+		background: orange;
+		color: lighten(orange, 80%);
+		&:before {
+			use-icon("\6c", $crust);
+			margin-bottom: $spacing*2;
+			vertical-align: middle;
+		}
+	}
+
+	&--info {
+		background: skyblue;
+		color: lighten(skyblue, 80%);
+		&:before {
+			use-icon("\6d", $crust);
+			margin-bottom: $spacing*2;
+			vertical-align: middle;
+		}
+	}
+}

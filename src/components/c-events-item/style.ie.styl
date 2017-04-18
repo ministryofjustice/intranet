@@ -1,0 +1,26 @@
+// include the toolkit (a suite of variables, classes and mixins)
+@require "../../globals/css/_ietoolkit"
+
+
+.c-events-item {
+  oldiecf();
+  &__time, &__location {
+    h2 {
+      width: auto;
+      margin-right: 5px;
+    }
+    time {
+      width: auto;
+    }
+    address {
+      width: auto;
+    }
+  }
+  /* PARENT OVVERIDES */
+
+  .c-events-list & {
+    width: 50%;
+    float:left;
+
+  }
+}

@@ -1,0 +1,24 @@
+/*
+  @Component: Logo bar
+  @Creator: Alex Foxleigh
+  @Description: Lives in the header-container component and contains the main page logo and the 'switch to other intranet' link
+*/
+
+// include the toolkit (a suite of variables, classes and mixins)
+@require "../../globals/css/_toolkit"
+
+
+.c-logo-bar {
+  position: relative;
+  background-color: $dark;
+  padding: $spacing*3 $spacing $spacing;
+   img {
+     height: $spacing*3.6;
+   }
+   &__switch {
+     position: absolute;
+     top: 40%;
+     right: $spacing;
+     color: $light;
+   }
+}

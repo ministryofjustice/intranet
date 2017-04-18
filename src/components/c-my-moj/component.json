@@ -1,0 +1,24 @@
+{
+  "name" : "My MoJ",
+  "version" : "1.0.0",
+  "creator" : {
+    "name" : "Alex Foxleigh",
+    "github_username" : "foxleigh81"
+  },
+  "description" : "The My MoJ section, contains the agency and app links",
+  "standard_or_universal" : "standard",
+  "parents" : "",
+  "children" : "c-agency-link-list, c-app-list",
+  "notes" : {
+    "backend" : "",
+    "frontend" : ""
+  },
+  "backend_classes" : {},
+  "changelog" : [
+    {
+      "date" : "02/02/17",
+      "author" : "Alex Foxleigh",
+      "description" : "Created component"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+// include the toolkit (a suite of variables, classes and mixins)
+@require "../../globals/css/_toolkit"
+
+.c-agency-link-list {
+  margin-bottom: $spacing;
+  li {
+    padding: $spacing;
+    background: $boxBg;
+    margin-bottom: $spacing;
+    a {
+      display: block;
+    }
+    &.highlight {
+      background-color: $light;
+      border: 2px solid #f71;
+    }
+  }
+
+}

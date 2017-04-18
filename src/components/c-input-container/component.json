@@ -1,0 +1,24 @@
+{
+  "name" : "Input container",
+  "version" : "1.0.0",
+  "creator" : {
+    "name" : "Alex Foxleigh",
+    "github_username" : "foxleigh81"
+  },
+  "description" : "The input creator component. This creates any input type for any form",
+  "standard_or_universal" : "standard",
+  "parents" : "Must be inside a form component",
+  "children" : "",
+  "notes" : {
+    "backend" : "requires the form_builder() method",
+    "frontend" : ""
+  },
+  "backend_classes" : {},
+  "changelog" : [
+    {
+      "date" : "02/02/17",
+      "author" : "Alex Foxleigh",
+      "description" : "Created component"
+    }
+  ]
+}

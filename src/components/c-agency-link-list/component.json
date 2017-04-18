@@ -1,0 +1,23 @@
+{
+  "name" : "Agency Link List",
+  "version" : "1.0.0",
+  "creator" : {
+    "name" : "Alex Foxleigh",
+    "github_username" : "foxleigh81"
+  },
+  "description" : "A list of links which an agecny can specify",
+  "standard_or_universal" : "universal",
+  "parents" : "",
+  "children" : "No Child components",
+  "notes" : {
+    "backend" : "",
+    "frontend" : ""
+  },
+  "changelog" : [
+    {
+      "date" : "02/02/17",
+      "author" : "Alex Foxleigh",
+      "description" : "Created component"
+    }
+  ]
+}

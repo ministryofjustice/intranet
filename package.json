@@ -1,0 +1,72 @@
+{
+  "name": "moji-theme-clarity",
+  "version": "0.2.4",
+  "engines": {
+    "node": "4.4.5",
+    "npm": "2.15.5"
+  },
+  "description": "A new theme for the Ministry of Justice Intranet",
+  "main": "index.js",
+  "scripts": {
+    "start": "gulp",
+    "watch": "gulp watch",
+    "test": "standard",
+    "postinstall": "gulp build",
+    "prerelease": "node childtheme && npm version prerelease && git pull && git push",
+    "release-patch": "node childtheme && node genreg && npm version patch && git pull && git push",
+    "release-minor": "node childtheme && node genreg && npm version minor && git pull && git push",
+    "release-major": "node childtheme && node genreg && npm version major && git pull && git push"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ministryofjustice/mojintranet-theme.git"
+  },
+  "contributors": [
+    {
+      "name": "Alex Foxleigh",
+      "url": "http://www.alexfoxleigh.com"
+    },
+    {
+      "name": "Irune Itolz"
+    }
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ministryofjustice/mojintranet-theme/issues"
+  },
+  "homepage": "https://github.com/ministryofjustice/mojintranet-theme#readme",
+  "dependencies": {
+    "jquery": "^1.12.4",
+    "run-sequence": "^1.2.2"
+  },
+  "devDependencies": {
+    "babel-preset-es2015": "^6.24.1",
+    "browser-sync": "^2.18.7",
+    "chalk": "^1.1.1",
+    "ctgen": "^1.1.1",
+    "del": "latest",
+    "glob-fs": "^0.1.6",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^6.1.2",
+    "gulp-concat": "^2.6.1",
+    "gulp-cssnano": "latest",
+    "gulp-csso": "latest",
+    "gulp-eslint": "latest",
+    "gulp-imagemin": "latest",
+    "gulp-merge-media-queries": "^0.2.1",
+    "gulp-plumber": "^1.1.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-standard": "^9.0.0",
+    "gulp-strip-debug": "^1.0.2",
+    "gulp-stylus": "^2.6.0",
+    "gulp-uglify": "^2.1.2",
+    "gulp-util": "^3.0.8",
+    "ie8-js": "^0.1.2",
+    "inquirer": "^3.0.6",
+    "jeet": "^7.1.0",
+    "node-notifier": "^5.1.2",
+    "rupture": "^0.6.2",
+    "standard": "^9.0.2",
+    "yargs": "^7.0.2"
+  }
+}

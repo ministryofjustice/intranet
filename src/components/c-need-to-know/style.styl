@@ -1,0 +1,41 @@
+// include the toolkit (a suite of variables, classes and mixins)
+@require "../../globals/css/_toolkit"
+
+.c-need-to-know {
+  clearfix();
+  clear:both;
+  &__slide {
+    clearfix();
+    clear:both;
+    background-color: $primary;
+    display: none;
+    /.no-js & {
+      // If JS is disabled, display all items as a stack
+      margin-bottom: $spacing;
+      display: block;
+    }
+    a {
+      text-decoration: none;
+    }
+    img, div {
+      +above(m) {
+        span(1/2);
+      }
+    }
+    img {
+      max-width: 100%;
+    }
+    div {
+      padding: $spacing*3;
+      p, a, span, li {
+        color: $light;
+        font-size: $mantle;
+        font-weight: bold;
+        line-height: $lineHeight*1.2;
+      }
+    }
+    &.current-slide {
+      display: block;
+    }
+  }
+}

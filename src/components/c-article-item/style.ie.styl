@@ -1,0 +1,39 @@
+// include the toolkit (a suite of variables, classes and mixins)
+@require "../../globals/css/_ietoolkit";
+
+.c-article-item {
+
+/*
+  PARENT OVERRIDES
+*/
+
+  // Featured news
+  .c-featured-news-list & {
+    width: 47%;
+    float:left;
+  }
+
+  // Regular news
+  .c-news-list & {
+    ieoldcf();
+    width: 47%;
+    float:left;
+    img {
+      width: 30%;
+      float:left;
+    }
+    &:nth-child(even) {
+     margin-right: 0;
+     background: #6699cc !important;
+    }
+  }
+
+  // Blog summary
+  .c-blog-summary & {
+    ieoldcf();
+    img {
+      width: 20%;
+      float:left;
+    }
+  }
+}

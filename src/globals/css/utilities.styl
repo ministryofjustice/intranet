@@ -1,0 +1,105 @@
+@require 'jeet';
+@require '_variables';
+@require '_mixins';
+
+.u-visually-hidden {
+  // Hides elements from the page but not from a screen reader
+  position: absolute;
+  left: -9999px;
+  top: -9999px;
+  color: transparent;
+}
+
+.u-skip-link {
+    position: absolute;
+    top:-80px;
+    display: block;
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.6rem;
+    text-align: center;
+    background: $primary;
+    color: #fff;
+    z-index: 999999;
+    -webkit-transition: top 1s; /* For Safari 3.1 to 6.0 */
+    transition: top 1s;
+
+    &:focus {
+      top: 0;
+    }
+}
+
+.u-wrapper {
+  +above(l) {
+    center(1020px);
+  }
+  position: relative;
+}
+
+.u-message {
+  @extend .u-wrapper;
+  text-align: center;
+  padding: $spacing;
+  font-weight: bold;
+  a {
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  &--warning {
+    color: #9F6000;
+    background-color: #FEEFB3;
+    a {
+      color: $dark;
+    }
+  }
+  &--success {
+    color: #4F8A10;
+    background-color: #DFF2BF;
+    a {
+      color: $dark;
+    }
+  }
+  &--error {
+    color: #D8000C;
+    background-color: #FFBABA;
+    a {
+      color: $dark;
+    }
+  }
+}
+
+// Uses the 'add icon' mixin to add an icon to the page
+
+// Never use this, it's for an @extend only
+._icon_ {
+  content: "i";
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+  width: $spacing*3.2;
+  height: $spacing*3.2;
+  line-height: $lineHeight*2;
+  margin-right: $spacing;
+  border: 1px solid $border;
+}
+
+// By default the icon will appear in :before unless you add .u-icon__after to the class list
+
+.u-icon {
+  clearfix();
+  &:before {
+    @extend ._icon_;
+  }
+
+  &--after {
+    &:before {
+      display: none;
+    }
+    &:after {
+      @extend ._icon_;
+    }
+  }
+
+}

@@ -1,0 +1,34 @@
+@require 'reset';
+@require 'fonts';
+@require '_toolkit';
+@require 'layouts';
+
+body {
+  font-family: 'nta', arial, helvetica, sans-serif;
+  color: $text;
+  font-size: $bodyCopy;
+}
+
+a {
+  color: $links;
+  text-decoration: underline;
+  &:hover {
+    color: $linkHover;
+  }
+  &:focus {
+    outline: 3px solid $linkFocus;
+    background-color: $linkFocus;
+  }
+}
+
+p {
+  ff-body();
+}
+
+input, textarea, button {
+  padding: $spacing;
+  font-size: $bodyCopy;
+  &:focus {
+    outline: 3px solid $linkFocus;
+  }
+}

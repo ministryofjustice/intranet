@@ -1,0 +1,23 @@
+{
+  "name" : "Blog summary",
+  "version" : "1.0.0",
+  "creator" : {
+    "name" : "Alex Foxleigh",
+    "github_username" : "foxleigh81"
+  },
+  "description" : "A list of blog posts",
+  "standard_or_universal" : "standard",
+  "parents" : "l-secondary",
+  "children" : "c-article-item",
+  "notes" : {
+    "backend" : "",
+    "frontend" : ""
+  },
+  "changelog" : [
+    {
+      "date" : "02/02/17",
+      "author" : "Alex Foxleigh",
+      "description" : "Created component"
+    }
+  ]
+}
