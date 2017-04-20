@@ -1,4 +1,8 @@
-<?php //ToDo: Change name to home.php when database changed ?>
+<?php
+// Turned off error reporting for now.
+error_reporting(0);
+
+//ToDo: Change name to home.php when database changed ?>
 <?php get_component('c-global-header'); ?>
   <div id="maincontent" class="u-wrapper l-main">
     <h1 class="o-title o-title--page">Ministry of Justice HQ</h1>

@@ -184,7 +184,7 @@ gulp.task('bs-reload', function () {
 gulp.task('browser-sync', function () {
   /* Initialise BrowserSync */
   browserSync.init(['assets/css/*.css', 'assets/js/*.js'], {
-    proxy: 'mojintranet',
+    proxy: 'mojintranet.test',
     port: 3000
   })
 })

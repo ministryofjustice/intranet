@@ -16,6 +16,6 @@ if ($latestNews->have_posts() )
         ?>
     </div>
 
-    <?
+    <?php
 }
 

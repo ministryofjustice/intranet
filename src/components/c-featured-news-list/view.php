@@ -16,5 +16,5 @@ if ($featuredNews->have_posts() )
         ?>
     </section>
 
-    <?
+    <?php
 }
