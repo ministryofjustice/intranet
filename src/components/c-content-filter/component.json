@@ -1,0 +1,26 @@
+{
+  "name" : "Content Filter",
+  "class" : "c-content-filter",
+  "version" : "1.0.0",
+  "creator" : {
+    "name" : "Alex Foxleigh",
+    "github_username" : "foxleigh81"
+  },
+  "description" : "A date and keyword filter for content on the intranet",
+  "standard_or_universal" : "standard",
+  "parents" : "",
+  "children" : "",
+  "notes" : {
+    "backend" : "",
+    "frontend" : ""
+  },
+  "backend_classes" : {},
+  "creation_ticket" : "",
+  "changelog" : [
+    {
+      "date" : "21/3/2017",
+      "author" : "Alex Foxleigh",
+      "description" : "Created component"
+    }
+  ]
+}

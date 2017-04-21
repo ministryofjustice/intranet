@@ -1,5 +1,5 @@
 <?php $prefix = 'fbf' ?>
-<form class="c-feedback-form js-reveal-target" id="fbf">
+<form class="c-feedback-form js-reveal-target" id="<?php echo $prefix ?>">
   <?php
 
   form_builder('text', $prefix, 'Your name', 'your_name', null, null, 'Enter your name', null, true, null, null);
