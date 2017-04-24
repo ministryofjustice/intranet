@@ -22,5 +22,6 @@ Nice to have: [NTH]
 18. AF: Style Intranetswitcher (branch exists)
 20: AF: Create clarity toolkit package
 21: AF: Add release tagging to the publishing tool
+22: AF: Revisit Travis now the repos have split
 
 ## Hacks:
