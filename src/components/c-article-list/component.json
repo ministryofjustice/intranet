@@ -1,22 +1,24 @@
 {
-  "name" : "Intranet Switcher",
+  "name" : "Article List",
+  "class" : "c-article-list",
   "version" : "1.0.0",
   "creator" : {
     "name" : "Alex Foxleigh",
     "github_username" : "foxleigh81"
   },
-  "description" : "A set of links that allow users to switch to different intranets",
+  "description" : "A list of articles, it could be a blog list or a news list.",
   "standard_or_universal" : "standard",
   "parents" : "",
   "children" : "",
   "notes" : {
     "backend" : "",
-    "frontend" : "The links go nowhere right now. Irune will have to add them when she builds it. It should work without javascript"
+    "frontend" : ""
   },
   "backend_classes" : {},
+  "creation_ticket" : "",
   "changelog" : [
     {
-      "date" : "22/03/17",
+      "date" : "24/3/2017",
       "author" : "Alex Foxleigh",
       "description" : "Created component"
     }

@@ -17,8 +17,8 @@ $authors = $oAuthor->getAuthorInfo($id);
   <img src="<?php echo $thumbnail[0];?>" alt="<?php echo $alt_text;?>">
   <h1><a href="<?php echo get_the_permalink($id);?>"><?php echo get_the_title($id);?></a></h1>
   <?php
-  // If the 'featured_news' value has been passed to $params: Display the excerpt.
-  if ($params === 'featured_news') { ?>
+  // If the 'featured_news' value has been passed to $config: Display the excerpt.
+  if ($config === 'featured_news') { ?>
     <div class="c-article-item__excerpt">
       <p><?php echo $post->post_excerpt;?></p>
     </div>
@@ -26,8 +26,8 @@ $authors = $oAuthor->getAuthorInfo($id);
   <span class="c-article-item__dateline"><?php echo get_the_time('j M Y', $id);?></span>
 
   <?php
-  // If the 'blog' value has been passed to $params: Display the byline.
-  if ($params === 'blog') { ?>
+  // If the 'blog' value has been passed to $config: Display the byline.
+  if ($config === 'blog') { ?>
     <span class="c-article-item__byline"><?php echo $authors;?></span>
   <?php } ?>
 </article>
