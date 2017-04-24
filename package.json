@@ -1,6 +1,6 @@
 {
   "name": "moji-theme-clarity",
-  "version": "0.2.4",
+  "version": "0.2.5-0",
   "engines": {
     "node": "4.4.5",
     "npm": "2.15.5"
