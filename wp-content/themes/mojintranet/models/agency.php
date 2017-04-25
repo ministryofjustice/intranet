@@ -37,7 +37,7 @@ class Agency_model extends MVC_model {
       'hmcts' => array(
         'label' => 'HM Courts &amp; Tribunals Service',
         'abbreviation' => 'HMCTS',
-        'blog_url' => 'http://hmcts.blogs.justice.gov.uk',
+        'blog_url' => '/blog/',
         'is_integrated' => true,
         'contact_email_address' => 'intranet-hmcts@digital.justice.gov.uk',
         'links' => [
