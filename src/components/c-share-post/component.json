@@ -12,7 +12,7 @@
   "children" : "",
   "notes" : {
     "backend" : "",
-    "frontend" : ""
+    "frontend" : "With the complexity of some of these share things. I want to split them into either components in their own right or at least jQuery plugins"
   },
   "backend_classes" : {},
   "creation_ticket" : "",
