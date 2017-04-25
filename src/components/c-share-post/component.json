@@ -1,12 +1,12 @@
 {
-  "name" : "Comments",
-  "class" : "c-comments",
+  "name" : "Share Post",
+  "class" : "c-share-post",
   "version" : "1.0.0",
   "creator" : {
     "name" : "Alex Foxleigh",
     "github_username" : "foxleigh81"
   },
-  "description" : "The main article commenting component - this only shows the components c-comment form is where they are added.",
+  "description" : "The bar at the bottom of an article which allows you to like and share the article and also shows the number of comments.",
   "standard_or_universal" : "standard",
   "parents" : "",
   "children" : "",
