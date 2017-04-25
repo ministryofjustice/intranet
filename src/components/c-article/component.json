@@ -1,18 +1,18 @@
 {
-  "name" : "Rich Text Block",
-  "class" : "c-rich-text-block",
+  "name" : "Article",
+  "class" : "c-article",
   "version" : "1.0.0",
   "creator" : {
     "name" : "Alex Foxleigh",
     "github_username" : "foxleigh81"
   },
-  "description" : "A component which is designed to be a CMS editable block of rich text, it can accomodate anything. It will mainly be used for body copy in articles.",
+  "description" : "The full article component",
   "standard_or_universal" : "standard",
   "parents" : "",
   "children" : "",
   "notes" : {
     "backend" : "",
-    "frontend" : "This is an empty component as it's content is 100% CMS editable. Provided that content is wrapped with this component it will be styled correctly"
+    "frontend" : "This and c-article-item may prove to be the same component from a WP perspective. Feel free to merge them together"
   },
   "backend_classes" : {},
   "creation_ticket" : "",

@@ -11,7 +11,7 @@
   "children" : "No Child components",
   "notes" : {
     "backend" : "",
-    "frontend" : ""
+        "frontend" : "This and c-article may prove to be the same component from a WP perspective. Feel free to merge them together"
   },
   "changelog" : [
     {
