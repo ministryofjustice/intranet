@@ -30,10 +30,14 @@
             "name": "dw-document-revisions",
             "src": "git@github.com:ministryofjustice/dw-document-revisions.git",
 <<<<<<< HEAD
+<<<<<<< HEAD
             "revision": "99e1737e337e1ed8bab0e52dc1c120a2bbb7b492"
 =======
             "revision": "b880f9cdea88a2afa4717992861e20f6a87e9626"
 >>>>>>> 5f0c405... Updated correct whipped lock file
+=======
+            "revision": "e313590aa17b76067ba4c02f012dd8bc64517620"
+>>>>>>> 5b2f0a4... Added new revision for plugin dw-document-revision with changed name in menu
         },
         {
             "name": "relevanssi-premium",
