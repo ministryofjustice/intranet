@@ -29,7 +29,11 @@
         {
             "name": "dw-document-revisions",
             "src": "git@github.com:ministryofjustice/dw-document-revisions.git",
+<<<<<<< HEAD
             "revision": "99e1737e337e1ed8bab0e52dc1c120a2bbb7b492"
+=======
+            "revision": "b880f9cdea88a2afa4717992861e20f6a87e9626"
+>>>>>>> 5f0c405... Updated correct whipped lock file
         },
         {
             "name": "relevanssi-premium",
