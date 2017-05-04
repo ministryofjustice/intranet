@@ -47,7 +47,7 @@ RewriteRule . /index.php [L]
 </IfModule>
 ```
 
-After you've installed WordPress you'll need overwrite the default wp-content directory with
+After you've installed WordPress you'll need to overwrite the default wp-content directory with
 the one found in this repo.
 
 Finally you'll need to make sure that both WP_HOME and WP_SITEURL is defined within wp_config.php like so:
