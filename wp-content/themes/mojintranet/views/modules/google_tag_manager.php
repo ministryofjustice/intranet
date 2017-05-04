@@ -1,10 +1,10 @@
 <?php
 if (!defined('GT_CODE')) {
   if ($_SERVER['HTTP_HOST'] == 'moj-intranet.staging.dxw.net') {
-    define(GT_CODE, 'GTM-W5VKJK');
+    define('GT_CODE', 'GTM-W5VKJK');
   }
   else {
-    define(GT_CODE, 'GTM-P545JM');
+    define('GT_CODE', 'GTM-P545JM');
   }
 }
 ?>
