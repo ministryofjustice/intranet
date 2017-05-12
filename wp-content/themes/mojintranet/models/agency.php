@@ -42,11 +42,6 @@ class Agency_model extends MVC_model {
         'contact_email_address' => 'intranet-hmcts@digital.justice.gov.uk',
         'links' => [
           [
-            'url' => 'http://hmcts.intranet.service.justice.gov.uk/hmcts/',
-            'label' => 'HMCTS Archive intranet',
-            'is_external' => true
-          ],
-          [
             'url' => site_url('/about-hmcts/justice-matters/'),
             'label' => 'Justice Matters',
             'classes' => 'transformation'
