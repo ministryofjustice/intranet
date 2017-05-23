@@ -1,5 +1,5 @@
 (function ($) {
-  $.fn.moji_comments = () => {
+  $.fn.moji_leftHandMenu = () => {
     // Code goes here
   }
 })(jQuery)

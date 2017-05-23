@@ -1,7 +1,7 @@
 /* global jQuery */
 
 (function ($) {
-  $.fn.clarityToolbar = () => {
+  $.fn.moji_clarityToolbar = () => {
     // Don't do anything unless document.location.search exists
     if (document.location.search.indexOf('devtools=') >= 0) {
       // Append the new information to the url and refresh the page

@@ -553,7 +553,7 @@ CSS
 Ideally the design will be created from a content-first approach anyway but even if it isn't there is a still a benefit to building the HTML this way. In fact it's a good idea to write out the HTML before even considering the styles. That way the content is informing the structure and not the appearance.
 
 ### Components should use self-contained elements
-A component is supposed to be reusable and could (in theory) exist anywhere on the site (or even other sites!) so it's important that they are always written in a self-contained way. This means that the tag you use to create them must be a `section` tag. (You can also use `header`, `footer`, `aside` and `article` but please ensure that this usage is appropriate for that component first).
+A component is supposed to be reusable and could (in theory) exist anywhere on the site (or even other sites!) so it's important that they are always written in a self-contained way. This means that the tag you use to create them must be a `section` tag. (You can also use `header`, `footer`, nav, `aside` and `article` but please ensure that this usage is appropriate for that component first).
 
 **Note:** Some components need to be within another component as a parent, these child-components can use any tag that is appropriate but please put in the component.json which parent they belong to.
 
