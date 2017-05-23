@@ -14,7 +14,7 @@
  var argv = require('yargs').argv
  var pjson = require('./package.json')
 
- var contents = '/*\n  Theme Name: Clarity Theme\n  Theme URI: http://example.com/\n  Description: Th   e new theme for MOJ Intranet\n  Author: Alex Foxleigh & Irune Itoiz\n  Author URI: http://www.alexward.me.uk & http://irune.io\n'
+ var contents = '/*\n  Theme Name: Clarity Theme\n  Theme URI: http://example.com/\n  Description: The new theme for MOJ Intranet\n  Author: Alex Foxleigh & Irune Itoiz\n  Author URI: http://www.alexfoxleigh.com & http://irune.io\n'
  var templateOn = '  Template: mojintranet\n'
  var versionString = '  Version: ' + pjson.version + '\n*/'
 
