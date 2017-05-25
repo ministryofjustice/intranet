@@ -9,6 +9,9 @@ if (get_template_directory() === get_stylesheet_directory()) {
     require_once('inc/post-types/news.php');
 }
 
+require_once('inc/theme-setup.php');
+
+
 /** Autoloader for inc */
 spl_autoload_register('moj_autoload');
 
