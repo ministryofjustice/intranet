@@ -20,13 +20,15 @@
       border-bottom: 0;
     }
 
+    // Transitions disbaled until they can be tested properly on an integrated template.
+
     &.page_item_has_children {
       > a {
         @extend .o-arrow-toggle-link-after;
         &:after {
           // Flip the arrow to point up
           transform: rotate(180deg);
-          transition transform .3s ease-in-out;
+          //transition transform .3s ease-in-out;
         }
         ul {
           // Negative margin applied to line up arrows for children with children.
@@ -43,7 +45,7 @@
 
     .children {
       max-height: 9999px // set a max-height this will never reach to ensure no cut-off
-      transition: padding .2s ease-in-out, max-height .8s ease-in-out;
+      //transition: padding .2s ease-in-out, max-height .8s ease-in-out;
     }
   }
 }
