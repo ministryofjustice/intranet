@@ -105,6 +105,12 @@ e.g.
 **Utility:** `.u-highlight`
 **Layout:** `.l-primary`
 
+In fact...
+
+### Avoid 'raw' classes
+
+A raw class is any class that doesn't have a prefix and/or namespace on it and should be avoided at all costs. As this is a wordpress site and wordpress generates it's own classes occasionally, there will be times where it is unavoidable but you should never add a raw class yourself.
+
 ### A Mobile-first approach must be used unless absolutely impossible
 
 Stylus has a plugin called ['Rupture'](http://jescalan.github.io/rupture/), this makes media queries incredibly simple by slicing the page up into named breakpoints and then referencing that breakpoint by using a mixin:

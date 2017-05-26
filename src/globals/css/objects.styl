@@ -43,18 +43,41 @@
   }
 }
 
+// Don't use this in code, it's only to extend .o-arrow-toggle-link
+.extend-arrow {
+  position: absolute;
+  top: $spacing*.7;
+  use-icon('a', inherit);
+  vertical-align: middle;
+}
+
 .o-arrow-toggle-link {
+  position: relative;
   display: block;
   text-align: center;
   margin-bottom: $spacing;
+  padding-left: $spacing*3
+
   +above(m) {
     text-align: left;
     margin-bottom: 0;
   }
+
   &:before {
-    display: inline-block;
-    margin-right: $spacing*.3;
-    use-icon('a', inherit);
-    vertical-align: middle;
+    left: 0;
+    @extend .extend-arrow;
   }
 }
+
+.o-arrow-toggle-link-after {
+    @extend .o-arrow-toggle-link
+    padding-left: 0
+    padding-right: $spacing*2
+    &:before {
+      display: none;
+    }
+    &:after {
+      right:0;
+      @extend .extend-arrow;
+    }
+  }

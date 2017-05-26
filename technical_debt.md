@@ -14,6 +14,7 @@ Nice to have: [NTH]
 1. AF: Minor bug in the gulp build as it requires a manual refresh to show the css.
 2. AF: Bug in clarity-toolbar.js on line 34
 3. AF: The file concatenation pulls in required files multiple times instead of once (e.g. the toolkit files)
+4. AF: Ctgen uses c- as a js hook instead of js-
 
 ## Tasks:
 
