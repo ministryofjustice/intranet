@@ -1,12 +1,12 @@
 {
-  "name" : "Comments",
-  "class" : "c-comments",
+  "name" : "left hand menu",
+  "class" : "c-left-hand-menu",
   "version" : "1.0.0",
   "creator" : {
     "name" : "Alex Foxleigh",
     "github_username" : "foxleigh81"
   },
-  "description" : "The main article commenting component - this only shows the components c-comment form is where they are added.",
+  "description" : "The collapsible left hand navigation element",
   "standard_or_universal" : "standard",
   "parents" : "",
   "children" : "",
@@ -15,11 +15,11 @@
     "frontend" : ""
   },
   "backend_classes" : {},
-  "creation_ticket" : "",
+  "creation_ticket" : "MI-167",
   "has_js" : true,
   "changelog" : [
     {
-      "date" : "25/3/2017",
+      "date" : "22/4/2017",
       "author" : "Alex Foxleigh",
       "description" : "Created component"
     }

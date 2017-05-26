@@ -103,3 +103,19 @@
   }
 
 }
+
+// u-closed collapses all descendence with a '.u-child, .u-children or the WP .children class'
+.u-closed {
+  .children,
+  .u-child,
+  .u-children {
+    // Collapsing is used instead of hiding in order to allow for transitions
+    // (note: max-height must be set along with the transition)
+    // !important is allowed as this is a global override
+    overflow: hidden !important;
+    max-height:0 !important;
+    padding:0 !important;
+    margin:0 !important;
+    border:0 !important;
+  }
+}
