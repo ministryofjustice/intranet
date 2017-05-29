@@ -88,14 +88,17 @@ function set_intranet_cookie()
 
     $agency_value =  isset($_GET['dw_agency']) ? trim($_GET['dw_agency']) : 'hq';
 
+
     if (!isset($_COOKIE['dw_agency']))
     {
 
-        setcookie( 'dw_agency', $agency_value, 300 * DAYS_IN_SECONDS, COOKIEPATH, COOKIE_DOMAIN );
+        setcookie( 'dw_agency', $agency_value, time()+ (3650 * DAY_IN_SECONDS), COOKIEPATH, COOKIE_DOMAIN );
+        $_COOKIE['dw_agency'] = $agency_value;
 
     } else {
         if (isset($_GET['dw_agency']))
         {
+            setcookie( 'dw_agency', $agency_value, time()+ (3650 * DAY_IN_SECONDS), COOKIEPATH, COOKIE_DOMAIN );
             $_COOKIE['dw_agency'] = $agency_value;
         }
     }
