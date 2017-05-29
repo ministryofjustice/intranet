@@ -1,7 +1,7 @@
 <?php
-use MOJ\Intranet\Agency;
+use MOJ\Intranet\MyMOJ;
 
-$app_array = Agency::getApps(get_intranet_code());
+$app_array = MyMOJ::get_apps(get_intranet_code());
 ?>
 <ul class="c-app-list">
     <?php
