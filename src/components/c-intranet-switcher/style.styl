@@ -3,5 +3,45 @@
 
 
 .c-intranet-switcher {
+  clearfix();
+  &__switch {
+    margin-bottom: $spacing;
+    +above(m) {
+      column(1/2, $cycle: 2)
+    }
+
+
+    a {
+      display: block;
+      background-color: $boxBg;
+      padding: $spacing*.5;
+      color: $mid;
+      border: 2px solid $boxBg;
+      font-size: $outerCore;
+      &:before {
+        use-icon('o', $baseFont*5); // Crest icon is the default
+        width: $spacing*8;
+        margin-right: $spacing;
+        vertical-align: middle;
+      }
+      &:hover {
+        background-color: $light;
+        border: 2px solid $boxBg;
+      }
+    }
+
+    // Icon overrides
+    &--judicial-appointments-commission a:before {
+      use-icon('p', $baseFont*5);
+    }
+    &--law-commission a:before {
+      use-icon('r', $baseFont*5);
+    }
+    &--pb a:before {
+      use-icon('q', $baseFont*5);
+    }
+  }
+
+
 
 }
