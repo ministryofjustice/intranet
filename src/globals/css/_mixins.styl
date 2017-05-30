@@ -26,6 +26,25 @@ real-list() {
   }
 }
 
+// A set of fixes intended to limit the visibility of mistakes the editor can make in the CMS
+cms-fixes() {
+  // If certain empty elements are added in the CMS. Simply don't show them.
+  p:empty,
+  a:empty,
+  ul:empty,
+  ol:empty,
+  table:empty,
+  h1:empty,
+  h2:empty,
+  h3:empty,
+  h4:empty,
+  h5:empty,
+  h6:empty,
+  li:empty {
+    display:none;
+  }
+}
+
 // For buttons!
 button(bgc) {
   display: inline-block;
