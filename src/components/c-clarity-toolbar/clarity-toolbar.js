@@ -1,26 +1,26 @@
 /* global jQuery */
 
-(function ($) {
-  $.fn.clarityToolbar = () => {
+;(function ($) {
+  $.fn.moji_clarityToolbar = function () {
     // Don't do anything unless document.location.search exists
     if (document.location.search.indexOf('devtools=') >= 0) {
       // Append the new information to the url and refresh the page
-      const updateUrl = (param) => {
+      var updateUrl = function (param) {
         document.location.search = '?devtools=true&show=' + param
       }
 
         // If a user clicks on an item, perform the appropriate actions
-      const triggerAction = (event) => {
+      var triggerAction = function (event) {
         updateUrl($(event.currentTarget).data('show'))
       }
 
       // Decide which (if any) tool should appear depending on the query string
-      const showItem = (item) => {
+      var showItem = function (item) {
         if (document.location.search.indexOf('show=') === -1) return
         // Trim the '?' from the querystring
         item = item.substring(1)
-        let toolStatus = item.split('&')[0].split('=')[1]
-        let show = item.split('&')[1].split('=')[1]
+        var toolStatus = item.split('&')[0].split('=')[1]
+        var show = item.split('&')[1].split('=')[1]
         if (toolStatus === 'true') {
           $('body').addClass('show_' + show)
           getClassType(show)
@@ -28,9 +28,9 @@
       }
 
       // Loops through each item and displays the relevant class
-      const showClass = (type) => {
+      var showClass = function (type) {
         // BUG: AF: Some elements are not showing the class for some reason. I don't have time to investigate at the moment.
-        let elementList
+        var elementList
         if (type === 'c') {
           elementList = $(
           "section[class*='c-']" || "section[class^=' c-'-']" ||
@@ -41,16 +41,16 @@
         } else {
           elementList = $("[class*='" + type + "-']" || "[class^='" + type + "-']")
         }
-        elementList.each(() => {
-          let classList = $(this).attr('class').split(' ')
-          for (let i = classList.length - 1; i >= 0; i--) {
+        elementList.each(function () {
+          var classList = $(this).attr('class').split(' ')
+          for (var i = classList.length - 1; i >= 0; i--) {
             if (classList[i].indexOf(type) === 0) $('<div class="item_name">' + classList[i] + '</div>').prependTo($(this))
           }
         })
       }
 
       // Converts a query into a class for the 'showClass()' function
-      const getClassType = (query) => {
+      var getClassType = function (query) {
         switch (query) {
           case 'components' :
             showClass('c')
