@@ -48,18 +48,12 @@ class Agency {
         'is_integrated' => true,
         'contact_email_address' => 'intranet-hmcts@digital.justice.gov.uk',
         'links' => [
-          [
-            'url' => 'http://hmcts.intranet.service.justice.gov.uk/hmcts/',
-            'label' => 'HMCTS Archive intranet',
-            'is_external' => true
-          ],
-          [
-            'url' => site_url('/about-hmcts/justice-matters/'),
-            'label' => 'Justice Matters',
-            'classes' => 'transformation'
-
+              [
+                  'url' => site_url('/about-hmcts/justice-matters/'),
+                  'label' => 'Justice Matters',
+                  'classes' => 'transformation'
+              ]
           ]
-        ]
       ),
       'judicial-appointments-commission' => array(
         'shortcode' => 'judicial-appointments-commission',
@@ -197,7 +191,7 @@ class Agency {
    *
    */
 
-  function getCurrentAgency()
+  public function getCurrentAgency()
   {
       $agency = isset($_COOKIE['dw_agency']) ? trim ($_COOKIE['dw_agency']) : '';
 
