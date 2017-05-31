@@ -2,7 +2,12 @@
 @require "../../globals/css/_toolkit"
 
 .c-input-container {
-	margin-bottom: $spacing*3;
+	margin-bottom: $spacing*2;
+
+	&:last-of-type {
+		// The last field container probably doesn't need a bottom margin.
+		margin-bottom: 0;
+	}
 
 	label {
 		display: block;
@@ -23,5 +28,21 @@
 		border: 1px solid lighten($border, 30%);
 		font-size: $outerCore;
 		line-height: $lineHeight*1.2;
+	}
+
+	&--checkbox {
+		position: relative;
+		overflow: hidden; //simple clearfix
+		padding-left: $spacing*4;
+		margin-bottom: $spacing;
+		input {
+			position: absolute;
+			top:0;
+			left:0;
+		}
+		label {
+			font-size: $bodyCopy;
+			font-weight: normal;
+		}
 	}
 }
