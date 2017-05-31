@@ -11,7 +11,6 @@ $activeAgency = $oAgency->getCurrentAgency();
 $emergencyBanner = HomepageBanners::getEmergencyBanner(get_intranet_code());
 $fullWidthTopBanner = HomepageBanners::getTopBanner(get_intranet_code());
 
-print_r($fullWidthTopBanner);
 //ToDo: Change name to home.php when database changed ?>
 <?php get_component('c-global-header'); ?>
   <div id="maincontent" class="u-wrapper l-main">
