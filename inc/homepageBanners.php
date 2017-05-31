@@ -56,7 +56,7 @@ class HomepageBanners
      * @return array
      *
      */
-    public static function get($agency = 'hq') {
+    public static function getTopBanner($agency = 'hq') {
 
         $data['image_url'] = get_option($agency . '_banner_image');
         $data['url'] = get_option($agency . '_banner_link');
