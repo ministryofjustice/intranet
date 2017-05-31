@@ -1,7 +1,7 @@
 <?php
-use MOJ\Intranet\EmergencyBanner;
+use MOJ\Intranet\HomepageBanners;
 
-$emergencyBanner = EmergencyBanner::getEmergencyBanner(get_intranet_code());
+$emergencyBanner = HomepageBanners::getEmergencyBanner(get_intranet_code());
 
 if ($emergencyBanner && $emergencyBanner['visible']) {
 
