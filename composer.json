@@ -1,14 +1,13 @@
 {
   "name": "ministryofjustice/mojintranet-theme",
-  "type": "wordpress-theme",
+  "type": "library",
   "license": "",
   "description": "The Wordpress theme of the MoJ Intranet",
   "homepage": "https://github.com/ministryofjustice/mojintranet-theme",
   "authors": [
     {
       "name": "Intranet team",
-      "email": "intranet-support@digital.service.go.uk",
-      "homepage": ""
+      "email": "intranet-support@digital.service.go.uk"
     }
   ],
   "keywords": [
@@ -22,6 +21,6 @@
     "composer/installers": "~1.2.0"
   },
   "extra" : {
-    "installer-name": "mojintranet-theme"
+    "installer-name": "mojintranet"
   }
 }
