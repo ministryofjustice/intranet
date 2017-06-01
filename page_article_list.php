@@ -13,6 +13,7 @@ Template Name: Clarity - Article List
     <div class="l-primary" role="main">
       <h2 class="o-title o-title--section">Latest</h2>
       <?php get_component('c-article-list'); ?>
+      <?php get_component('c-pagination'); ?>
     </div>
   </div>
 <?php get_component('c-global-footer'); ?>

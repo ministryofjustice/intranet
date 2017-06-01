@@ -12,7 +12,7 @@ Nice to have: [NTH]
 
 ## Issues:
 1. AF: Minor bug in the gulp build as it requires a manual refresh to show the css.
-3. AF: The file concatenation pulls in required files multiple times instead of once (e.g. the toolkit files)
+4: AF: Bug in CT Gen which puts the previous month in the creation date.
 
 ## Tasks:
 
