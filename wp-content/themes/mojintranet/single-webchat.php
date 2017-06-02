@@ -45,9 +45,8 @@ class Single_webchat extends MVC_controller {
       'page_id' => $this->post_ID,
       'depth' => 2
     ];
-
     $response = $this->model->page_tree->get_ancestors($options);
-
+    $children = $response;
     return $children;
   }
 }
