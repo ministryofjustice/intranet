@@ -51,7 +51,14 @@ class News
             'offset' => 0,
             'posts_per_page' => MAX_HOMEPAGE_NEWS,
             // Filters
-            'post_type' => ['news']
+            'post_type' => ['news'],
+            'tax_query' => array(
+                array(
+                    'taxonomy' => 'agency', //or tag or custom taxonomy
+                    'field' => 'slug',
+                    'terms' => array($agency)
+                )
+            )
         ];
 
         return new \WP_Query($args);
