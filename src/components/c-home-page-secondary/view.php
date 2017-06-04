@@ -8,6 +8,7 @@ $sidebarBanner = HomepageBanners::getSidebarBanner(get_intranet_code());
   <?php if ($sidebarBanner && $sidebarBanner['visible']) { ?>
       <?php get_component('c-full-width-banner', $sidebarBanner); ?>
   <?php } ?>
+  <?php get_component('c-my-work'); ?>
   <?php get_component('c-quick-links'); ?>
   <?php get_component('c-blog-summary'); ?>
   <?php get_component('c-social-links'); ?>
