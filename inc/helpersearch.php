@@ -84,9 +84,8 @@ class HelperSearch {
      */
     public function get_raw($options = array()) {
         $data = array();
-
-        $this->options = $this->normalize_options($options);
-
+        $this->options = $this->add_taxonomies($options);
+        $this->options = $this->normalize_options($this->options);
         //process the query
         $data['raw'] = $this->get_raw_results();
         $data['total_results'] = (int) $data['raw']->found_posts;
@@ -112,7 +111,8 @@ class HelperSearch {
             'post_type' => 'all',
             'keywords' => '',
             'tax_query' => [],
-            'post__not_in' => []
+            'post__not_in' => [],
+            'post__in' => []
         ];
 
         foreach($options as $key=>$value) {
@@ -172,6 +172,7 @@ class HelperSearch {
             'post_type' => $this->options['post_type'],
             's' => $this->rawurldecode($this->options['keywords']),
             'post__not_in' => $this->options['post__not_in'],
+            'post__in' => $this->options['post__in'],
             'meta_query' => $this->meta_query,
             'date_query' => $date_query,
             'tax_query' => $this->options['tax_query']
