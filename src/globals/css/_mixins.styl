@@ -43,6 +43,11 @@ cms-fixes() {
   li:empty {
     display:none;
   }
+
+  //for some reason, an editor added an iFrame. This should not be allowed and so this will hide any future iframes they add
+  iframe {
+    display: none !important;
+  }
 }
 
 // For buttons!
@@ -66,15 +71,7 @@ button(bgc) {
   }
 }
 
-// IEOLD Clearfix (undoes the jeet clearfix() and applies an IEOLD safe version (may cause design issues))
 
-ieoldcf() {
-  &:after {
-    display:none;
-  }
-  zoom: 1;
-  min-height: 1%;
-}
 
 // Icons!
 //Note: If you want the icon to appear on a class instead of via css-only

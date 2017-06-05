@@ -75,7 +75,8 @@
 
       return this
     } else {
-      console.info('Did you know you can add a developer toolbar to the top of this page? just add ?devtools=true to the url!')
+      // Put this back when support for IE7 is dropped
+      // console.info('Did you know you can add a developer toolbar to the top of this page? just add ?devtools=true to the url!')
     }
   }
 }(jQuery))

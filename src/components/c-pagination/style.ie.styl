@@ -1,0 +1,33 @@
+// include the toolkit (a suite of variables, classes and mixins)
+@require "../../globals/css/_ietoolkit"
+
+.c-pagination {
+  ieoldcf();
+
+  // before & after selectors (requires additional styling)
+  &__main {
+    // The following cannot be compiled by stylus and is therefoe a css literal
+    @css {
+      zoom: expression(
+        this.runtimeStyle.zoom="1",
+        this.appendChild(document.createElement("small")).className="after",
+        this.insertBefore(document.createElement("small"), this.firstChild).className="before"
+      )
+    }
+  }
+
+
+ .before,
+ .after {
+  width: 4rem;
+  height: 4rem;
+  background-color: red;
+ }
+ .before {
+    padding-right: $spacing*.5;
+ }
+
+  .after {
+    padding-left: $spacing*.5;
+  }
+}
