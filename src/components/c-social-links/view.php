@@ -9,7 +9,7 @@ if (!empty($socialLinks)) {
         <h1 class="o-title o-title--section">Follow us</h1>
         <ul>
 <?php foreach ($socialLinks as $link) { ?>
-            <li class="u-icon u-icon--<?php echo $link['name'];?>"><a href="<?php echo $link['url'];?>"><?php echo $link['label'];?></a></li>
+            <li><a href="<?php echo $link['url'];?>"><span class="u-icon u-icon--<?php echo $link['name'];?>"></span><?php echo $link['label'];?></a></li>
 <?php } ?>
         </ul>
     </section>
