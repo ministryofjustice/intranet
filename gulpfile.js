@@ -131,6 +131,8 @@ gulp.task('postcss', function () {
   .pipe(plumber())
   // Group all media queries together
   .pipe(cmq())
+  // Use CSSO to remove redundant code and group the same code together
+  .pipe(csso())
   // Use CCSNano to minify the code and add browser prefixes
   .pipe(
     cssnano({
