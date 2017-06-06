@@ -3,7 +3,7 @@
 /**
  * The campaign hub template
  *
- * Template name: Campaign Hub
+ * Template name: Campaign hub
  */
 
 class Page_campaign_landing extends MVC_controller {

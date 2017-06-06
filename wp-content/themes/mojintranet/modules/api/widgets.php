@@ -42,6 +42,10 @@ class Widgets_API extends API {
         $this->get_regional();
         break;
 
+      case 'media-grid':
+        $this->media_grid();
+        break;
+
       case 'campaign-landing':
         $this->get_campaign_landing();
         break;
@@ -96,6 +100,14 @@ class Widgets_API extends API {
     $options = $this->params;
     $this->MVC->model('homepage_banner_side');
     $data = $this->MVC->model->homepage_banner_side->get($options);
+    $data['url_params'] = $this->params;
+    $this->response($data, 200, 60);
+  }
+
+  private function media_grid() {
+    $options = $this->params;
+    $this->MVC->model('media_grid');
+    $data = $this->MVC->model->media_grid->get($options);
     $data['url_params'] = $this->params;
     $this->response($data, 200, 60);
   }
@@ -172,6 +184,11 @@ class Widgets_API extends API {
     $options = $this->params;
     $this->MVC->model('homepage_banner_side');
     $data['homepage_banner_side'] = $this->MVC->model->homepage_banner_side->get($options);
+
+    //media grid
+    $options = $this->params;
+    $this->MVC->model('media_grid');
+    $data['media_grid'] = $this->MVC->model->media_grid->get($options);
 
     // Applies to all above
     $data['url_params'] = $this->params;
