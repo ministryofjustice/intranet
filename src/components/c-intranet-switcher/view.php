@@ -27,14 +27,14 @@ if (isset($referrer['query']))
 ?>
 
 <div class="c-intranet-switcher">
-  <ul class="c-intranet-switcher__agency">
+  <ul class="c-intranet-switcher">
 <?php foreach ($activeAgencies as $agency_id => $agency) {
 
     if ($current_intranet == $agency_id) $extra_class = ' u-active';
     else  $extra_class = '';
 
 
-    echo '<li class="c-intranet-switcher__agency--'.$agency_id.$extra_class.' "><a href="/?dw_agency='.$agency_id.$referrer['query'].'">'.$agency['label'].'</a></li>';
+    echo '<li class="c-intranet-switcher__switch c-intranet-switcher__switch--'.$agency_id.$extra_class.' "><a href="/?dw_agency='.$agency_id.$referrer['query'].'">'.$agency['label'].'</a></li>';
 }
   ?>
   </ul>

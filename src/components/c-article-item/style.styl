@@ -57,7 +57,8 @@
     }
   }
 
-  // Blog summary
+  // Blog summary & article list
+  .c-article-list &,
   .c-blog-summary & {
     clearfix();
     h1 {
@@ -66,15 +67,19 @@
     img {
       column(1/4);
     }
-    &__excerpt {
-      display: none;
-    }
     &__byline {
       @extend .c-article-item__dateline;
       &:before {
         content: "|";
         padding: 0 $spacing;
       }
+    }
+  }
+
+  // If the excerpt has been output, hide it on the blog summary component
+  .c-blog-summary & {
+    &__excerpt {
+      display: none;
     }
   }
 

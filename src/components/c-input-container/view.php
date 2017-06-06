@@ -13,16 +13,17 @@
     $options = $config['options'];
   ?>
 
-  <div class="c-input-container c-input-container__<?php echo $type ?>">
-    <label for="<?php echo $config['name']; ?>"><?php echo $label ?>:
+  <div class="c-input-container c-input-container--<?php echo $type ?>">
+    <label for="<?php echo $name; ?>"><?php echo $label ?>
     <?php
       if ($required) { ?>
         <span class="c-input-container--required">*</span>
       <?php
       }
-      if ($type !== 'checkbox' || $type !== 'radio') {
+      if ($type !== 'checkbox' && $type !== 'radio') {
         // stop label here if it's a normal input type
-        ?></label><?php
+        ?>:</label>
+      <?php
       }
       // Outputs different elements depending on input type
       if ($type !== 'select') {
@@ -45,7 +46,7 @@
           ?>
         </select>
     <?php }
-    if ($type === 'checkbox' || $type === 'radio') {
+    if ($type === 'checkbox' && $type === 'radio') {
         // stop label here if it's a checkbox or radio input type
         ?></label><?php
       } ?>

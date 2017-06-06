@@ -10,7 +10,7 @@ if (!empty ($featuredNews) )
     <section class="c-featured-news-list">
         <?php
         foreach ($featuredNews['results'] as $post) {
-            get_component('c-article-item', $post, 'featured_news');
+            get_component('c-article-item', $post, 'show_excerpt');
         }
         ?>
     </section>

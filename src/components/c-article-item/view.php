@@ -22,8 +22,8 @@ if ($config === 'blog') {
   <img src="<?php echo $thumbnail_url;?>" alt="<?php echo $alt_text;?>">
   <h1><a href="<?php echo get_the_permalink($id);?>"><?php echo get_the_title($id);?></a></h1>
   <?php
-  // If the 'featured_news' value has been passed to $config: Display the excerpt.
-  if ($config === 'featured_news') { ?>
+  // If the 'show_excerpt' value has been passed to $config: Display the excerpt.
+  if ($config === 'show_excerpt') { ?>
     <div class="c-article-item__excerpt">
       <p><?php echo $post->post_excerpt;?></p>
     </div>
