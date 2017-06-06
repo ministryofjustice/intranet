@@ -1,33 +1,47 @@
 // include the toolkit (a suite of variables, classes and mixins)
 @require "../../globals/css/_ietoolkit"
 
+  // before & after selectors (requires additional styling)
+  // The following cannot be compiled by stylus and is therefoe a css literal
+  // Do not put this inside the stylus hierarchy
+ @css {
+  .c-pagination__link--prev .c-pagination__main {
+    *zoom: expression(
+        this.runtimeStyle.zoom="1",
+        this.insertBefore(
+            document.createElement("span"),
+            this.childNodes[0]
+        ).className="before"
+    );
+  }
+
+  .c-pagination__link--next .c-pagination__main {
+    *zoom: expression(
+        this.runtimeStyle.zoom="1",
+        this.appendChild(
+            document.createElement("span")
+        ).className="after"
+    );
+  }
+}
+
 .c-pagination {
   ieoldcf();
 
-  // before & after selectors (requires additional styling)
   &__main {
-    // The following cannot be compiled by stylus and is therefoe a css literal
-    @css {
-      zoom: expression(
-        this.runtimeStyle.zoom="1",
-        this.appendChild(document.createElement("small")).className="after",
-        this.insertBefore(document.createElement("small"), this.firstChild).className="before"
-      )
+    .before,
+    .after {
+      width: 4rem;
+      height: 4rem;
+      background-color: #6699cc;
     }
-  }
-
-
- .before,
- .after {
-  width: 4rem;
-  height: 4rem;
-  background-color: red;
- }
- .before {
-    padding-right: $spacing*.5;
- }
-
-  .after {
-    padding-left: $spacing*.5;
+    .before {
+      float:left;
+      padding-right: $spacing*.5;
+    }
+    .after {
+      float: right;
+      padding-left: $spacing*.5;
+    }
   }
 }
