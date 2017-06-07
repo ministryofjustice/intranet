@@ -4,15 +4,19 @@
 .c-need-to-know {
   clearfix();
   clear:both;
+
   &__slide {
     clearfix();
     clear:both;
     background-color: $primary;
-    display: block; // This should be display:none when the js is added
     /.no-js & {
       // If JS is disabled, display all items as a stack
       margin-bottom: $spacing;
       display: block;
+    }
+    /.js & {
+      // If JS is enabled. Set each slide to hide it's overflow.
+      overflow: hidden;
     }
     a {
       text-decoration: none;

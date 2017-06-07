@@ -15,4 +15,5 @@ $(document).ready(function () {
 
   $('.js-clarity-toolbar').moji_clarityToolbar()
   $('.js-left-hand-menu').moji_leftHandMenu()
+  $('.js-need-to-know').moji_slider(true)
 })
