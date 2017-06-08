@@ -37,7 +37,7 @@
 
   // Featured news
   .c-featured-news-list & {
-    +above(m) {
+    +above('s') {
       column(1/2, $cycle: 2);
     }
     border-bottom: 0;
@@ -46,7 +46,7 @@
   // Regular news
   .c-news-list & {
     clearfix();
-    +above(m) {
+    +above('s') {
       column(1/2, $cycle: 2);
     }
     img {
@@ -73,6 +73,15 @@
         content: "|";
         padding: 0 $spacing;
       }
+    }
+  }
+
+  .c-blog-summary & {
+    +above('s') {
+      column(1/2, $cycle: 2)
+    }
+    +above(m) {
+      column(1, $cycle: 1)
     }
   }
 

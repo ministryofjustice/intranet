@@ -15,9 +15,11 @@ if (!empty($postsList)) {
 ?>
     <section class="c-blog-summary">
         <h1 class="o-title o-title--section">Blog</h1>
-        <?php foreach ($postsList['results'] as $result) {
+        <div>
+          <?php foreach ($postsList['results'] as $result) {
             get_component('c-article-item', $result, 'blog');
-        } ?>
+          } ?>
+        </div>
     </section>
 <?php
 }
