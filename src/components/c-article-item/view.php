@@ -18,7 +18,7 @@ if ($config === 'blog') {
     $thumbnail_url = $thumbnail[0];
 }
 ?>
-<article class="c-article-item">
+<article class="c-article-item js-article-item">
   <img src="<?php echo $thumbnail_url;?>" alt="<?php echo $alt_text;?>">
   <h1><a href="<?php echo get_the_permalink($id);?>"><?php echo get_the_title($id);?></a></h1>
   <?php
