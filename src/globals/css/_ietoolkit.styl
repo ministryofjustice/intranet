@@ -18,7 +18,7 @@ ieoldcf() {
 // IE fixes for icon font
 @css {
   .u-icon--yammer {
-  *zoom: expression(this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe91c;');
+    *zoom: expression(this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe91c;');
   }
   .u-icon--twitter {
     *zoom: expression(this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe91d;');
@@ -133,5 +133,14 @@ ieoldcf() {
   }
   .u-icon--circle-down {
     *zoom: expression(this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xea43;');
+  }
+  .u-icon--circle-up {
+    *zoom: expression(this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xea41;');
+  }
+  .u-icon--circle-right {
+    *zoom: expression(this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xea42;');
+  }
+  .u-icon--circle-left {
+    *zoom: expression(this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xea44;');
   }
 }

@@ -19,8 +19,8 @@
     var slider = function () {
       // TODO: This is a bit rudementary at the moment.
       // It might be nice in the future to add some animations to this
-      slide.hide()
-      slide.eq(current - 1).show()
+      slide.hide().attr('aria-hidden', 'hidden').attr('hidden', 'hidden')
+      slide.eq(current - 1).show().attr('aria-hidden', 'visible').removeAttr('hidden')
     }
 
     // Switch between current slides, it will move forward unless specified otherwise
@@ -37,8 +37,8 @@
     var useNav = function () {
       slider() // activate the slider once
       var navContainer = $('<div class="js-nav-container" />')
-      var backLink = $('<span class="js-nav-back">Back</span>')
-      var nextLink = $('<span class="js-nav-next">Next</span>')
+      var backLink = $('<button aria-label="back" class="js-nav-back u-icon u-icon--circle-left"></button>')
+      var nextLink = $('<button aria-label="next" class="js-nav-next u-icon u-icon--circle-right"></button>')
       navContainer.appendTo(container).append(backLink).append(nextLink)
       navContainer.on('click', '.js-nav-back', function () { switchSlide('back') })
       navContainer.on('click', '.js-nav-next', function () { switchSlide('next') })
