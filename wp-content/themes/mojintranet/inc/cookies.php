@@ -43,7 +43,7 @@ add_action('wp_login', 'dw_set_login_cookie', 10, 2);
  * @param bool $active To set the cookie, or not to set the cookie. That is the question.
  */
 function dw_set_edit_posts_cookie($active) {
-  $cookie_url = preg_replace('#^https?://#', '', get_site_url());
+  $cookie_url = preg_replace('#^https?://#', '', get_home_url());
 
   if ($active) {
     setcookie('dw_can_edit_posts', 1, strtotime('+7 days'), COOKIEPATH, $cookie_url);
