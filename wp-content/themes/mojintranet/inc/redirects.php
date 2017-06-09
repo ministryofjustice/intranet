@@ -10,17 +10,17 @@ function dw_redirects() {
     $keywords = str_replace('%5C', '%255C', $keywords);
     $filter = $_POST['search-filter'] ?: 'all';
 
-    header('Location: ' . site_url() . '/search-results/' . $filter . '/' . $keywords . '/1/');
+    header('Location: ' . home_url() . '/search-results/' . $filter . '/' . $keywords . '/1/');
     exit;
   } elseif (preg_match('/\/search\/?$/',$path)) {
-    header('Location: ' . site_url());
+    header('Location: ' . home_url());
     exit;
   }
 
   if(strpos($path, 'guidance-and-support') || strpos($path, 'guidance-support')) {
     $new_path = preg_replace('/^([^?]*)(guidance-and-support|guidance-support)/', '${1}guidance', $path);
     if($new_path != $path) {
-      header('Location: ' . site_url() . $new_path);
+      header('Location: ' . home_url() . $new_path);
       exit;
     }
   }
