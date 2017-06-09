@@ -24,9 +24,7 @@ if ($config === 'blog') {
   <?php
   // If the 'show_excerpt' value has been passed to $config: Display the excerpt.
   if ($config === 'show_excerpt') { ?>
-    <div class="c-article-item__excerpt">
-      <p><?php echo $post->post_excerpt;?></p>
-    </div>
+    <?php get_component('c-article-excerpt'); ?>
   <?php } ?>
   <span class="c-article-item__dateline"><?php echo get_the_time('j M Y', $id);?></span>
 

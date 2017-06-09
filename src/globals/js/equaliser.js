@@ -7,7 +7,6 @@
  * Usage: Simply add your container element to script-loader.js and add .moji_equaliser() on to it.
  * Make sure you reference the container and child elements. e.g. $('.c-news-list > .js-article-item').moji_equaliser()
  *
- *
  */
   $.fn.moji_equaliser = function () {
     var container = this
