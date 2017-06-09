@@ -12,7 +12,7 @@
       <img src="<?=get_template_directory_uri()?>/assets/images/logos/moj_logo.png" alt="Ministry of Justice logo" />
     </div>
     <div class="site-logo col-lg-8 col-md-8 col-sm-12">
-      <a href="<?=WP_SITEURL?>" title="Intranet" rel="home">
+      <a href="<?php echo get_home_url()?>" title="Intranet" rel="home">
         <img src="<?=get_template_directory_uri()?>/assets/images/logos/moj_logo.png" alt="Ministry of Justice logo" />
       </a>
     </div>
