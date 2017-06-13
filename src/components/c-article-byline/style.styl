@@ -3,4 +3,21 @@
 
 .c-article-byline {
 
+
+  // Parent overrides
+
+  .c-news-article & {
+    &__photo {
+      display:none;
+    }
+    &__intro,
+    &__date {
+      display: block;
+    }
+  }
+
+  .c-news-article & {
+    font-size: $outerCore;
+    margin-bottom: $spacing*3
+  }
 }

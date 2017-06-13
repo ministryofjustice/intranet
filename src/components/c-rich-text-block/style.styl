@@ -2,5 +2,89 @@
 @require "../../globals/css/_toolkit"
 
 .c-rich-text-block {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    ff-title();
+    margin-bottom: $spacing;
+  }
 
+  h1 {
+    font-size: $crust;
+  }
+
+  h2 {
+    font-size: $mantle;
+  }
+
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-size: $outerCore;
+  }
+
+  p, code, pre {
+    ff-body()
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-size: $outerCore;
+  }
+
+  blockquote {
+    margin-bottom: $spacing;
+  }
+
+  a {
+    &[href^="mailto:"]:after {
+      // Add icons here
+    }
+    &:[rel^="external"]:after {
+      // Add icons here
+    }
+  }
+
+  ul, ol {
+    real-list()
+    margin-bottom: $spacing;
+    font-size: $outerCore;
+  }
+
+  ol {
+    li {
+      list-style: decimal;
+    }
+  }
+
+  dl {
+    font-size: $outerCore;
+    margin-bottom: $spacing;
+  }
+
+  dd, dt {
+    margin-bottom: $spacing;
+  }
+
+  dt {
+    ff-title()
+  }
+
+  table {
+    font-size: $outerCore;
+    margin-bottom: $spacing*2;
+    width: 100%;
+
+    th {
+      ff-title()
+    }
+
+    th, td {
+      padding: $spacing;
+      border-bottom: 1px solid $border;
+    }
+
+  }
 }
