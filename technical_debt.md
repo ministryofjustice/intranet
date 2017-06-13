@@ -23,5 +23,6 @@ Nice to have: [NTH]
 22: AF: Revisit Travis now the repos have split
 24: AF: [NTH] Replace cssnano with proper postcss implementation
 25: AF: [HP] Add component-level CasperJS tests
+26: AF: [HP] Look into replacing Iconfonts with SVGs
 
 ## Hacks:

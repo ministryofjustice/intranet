@@ -2,7 +2,6 @@
 @require "../../globals/css/_toolkit"
 
 .c-rich-text-block {
-  h1,
   h2,
   h3,
   h4,
@@ -13,7 +12,35 @@
   }
 
   h1 {
-    font-size: $crust;
+      ff-title()
+      font-size: $crust;
+    // Style guide error messages. On hold for now.
+    // font-weight: bold;
+    // background-color: rgba(red, 3%);
+    // border: 1px dotted darken(red, 20%)
+    // margin-bottom: $spacing;
+    // padding: $spacing
+    // &:before {
+    //   content: "Style guide error:"
+    //   text-transform: uppercase;
+    //   margin-bottom: $spacing;
+    //   border-bottom: 1px dashed darken(red, 20%)
+    // }
+    // &:after {
+    //   margin-top: $spacing;
+    //   font-weight: normal;
+    //   border-top: 1px dashed darken(red, 20%)
+    //   content:"Please do not use a H1 element inside an article as this is the title. Please use H2 instead"
+    // }
+    // &:before,
+    // &:after {
+    //   text-align: center;
+    //   font-size: $outerCore;
+    //   padding: $spacing;
+    //   color: red;
+    //   display: block;
+    //   background-color: rgba(red, 10%);
+    // }
   }
 
   h2 {
