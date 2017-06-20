@@ -65,7 +65,7 @@ class My_moj_model extends MVC_model {
         [
           'title' => 'SOP',
           'icon' => 'sop',
-          'url' => site_url('/sop/'),
+          'url' => site_url('/guidance/hr/sop/'),
           'external' => false,
         ],
         [
@@ -103,7 +103,7 @@ class My_moj_model extends MVC_model {
         [
           'title' => 'SOP',
           'icon' => 'sop',
-          'url' => site_url('/sop/'),
+          'url' => site_url('/guidance/hr/sop/'),
           'external' => false,
         ],
         [
@@ -153,7 +153,7 @@ class My_moj_model extends MVC_model {
         [
           'title' => 'SOP',
           'icon' => 'sop',
-          'url' => site_url('/sop/'),
+          'url' => site_url('/guidance/hr/sop/'),
           'external' => false,
         ],
         [
@@ -185,7 +185,7 @@ class My_moj_model extends MVC_model {
         [
           'title' => 'SOP',
           'icon' => 'sop',
-          'url' => site_url('/sop/'),
+          'url' => site_url('/guidance/hr/sop/'),
           'external' => false,
         ],
         [
@@ -253,7 +253,7 @@ class My_moj_model extends MVC_model {
         [
           'title' => 'SOP',
           'icon' => 'sop',
-          'url' => site_url('/sop/'),
+          'url' => site_url('/guidance/hr/sop/'),
           'external' => false,
         ],
         [
@@ -315,7 +315,7 @@ class My_moj_model extends MVC_model {
         [
           'title' => 'SOP',
           'icon' => 'sop',
-          'url' => site_url('/sop/'),
+          'url' => site_url('/guidance/hr/sop/'),
           'external' => false,
         ],
         [
