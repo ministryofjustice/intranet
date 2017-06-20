@@ -15,9 +15,30 @@
       display: block;
     }
   }
-
-  .c-news-article & {
+  .c-news-article &
+  .c-blog-article & {
     font-size: $outerCore;
     margin-bottom: $spacing*3
+  }
+
+  .c-blog-article & {
+    &__photo {
+      display:block;
+      float:left;
+      border-radius: 100%;
+      width: 80px; //fixed width
+      height: auto;
+      margin-right: $spacing*2;
+    }
+
+    &__intro {
+      padding-top: $spacing*1.5;
+    }
+
+    &__intro,
+    &__date {
+      color: $border;
+      display: block;
+    }
   }
 }
