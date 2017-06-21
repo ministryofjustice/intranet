@@ -5,5 +5,6 @@
   <?php get_component('c-article-excerpt'); ?>
   <?php get_component('c-rich-text-block'); ?>
   <?php get_component('c-share-post'); ?>
+  <?php get_component('c-comment-form'); ?>
 </article>
 <!-- c-blog-article ends here -->

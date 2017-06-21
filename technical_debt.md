@@ -23,6 +23,7 @@ Nice to have: [NTH]
 22: AF: Revisit Travis now the repos have split
 24: AF: [NTH] Replace cssnano with proper postcss implementation
 25: AF: [HP] Add component-level CasperJS tests
-26: AF: [HP] Look into replacing Iconfonts with SVGs
+27: AF: Replace component level header styling with default header mixin (to be more DRY)
+28: AF: Audit components and possibly create a new 'layout' component type.
 
 ## Hacks:
