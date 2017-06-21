@@ -69,8 +69,6 @@
       background-image: url('../images/app_icons_x2.png');
       background-size: auto $icon-size;
 
-
-
       &.people-finder-icon {
         background-position: 0 0;
       }
@@ -157,6 +155,10 @@
 
       &.mitrefinch-icon {
         background-position: -$icon-size*20 0;
+      }
+
+      &.house-icon {
+        background-position: -$icon-size*21 0;
       }
     }
   }

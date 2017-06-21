@@ -175,11 +175,18 @@ class My_moj_model extends MVC_model {
           'external' => false,
         ],
         [
-          'title' => 'Room Booking',
+          'title' => 'Room booking',
           'icon' => 'room-booking',
           'url' => 'https://app.matrixbooking.com/',
           'external' => true,
         ],
+        [
+          'title' => 'Team relocation',
+          'icon' => 'house',
+          'url' => site_url('/team-relocation/'),
+          'external' => false,
+        ],
+
       ],
       'hmcts' => [
         [
