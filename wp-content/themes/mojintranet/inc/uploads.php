@@ -9,7 +9,7 @@ function custom_upload_mimes ( $existing_mimes=array() ) {
     $existing_mimes['pot'] = 'application/pot';
     $existing_mimes['xlsb'] = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
     $existing_mimes['xltx'] = 'application/vnd.openxmlformats-officedocument.spreadsheetml.template';
-    $existing_mimes['xls'] = 'application/vnd.ms-excel';
+    $existing_mimes['xla|xls|xlt|xlw'] = 'application/vnd.ms-office';
     return $existing_mimes;
 }
 
