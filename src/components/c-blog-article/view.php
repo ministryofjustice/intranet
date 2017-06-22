@@ -6,5 +6,6 @@
   <?php get_component('c-rich-text-block'); ?>
   <?php get_component('c-share-post'); ?>
   <?php get_component('c-comment-form'); ?>
+  <?php get_component('c-comments'); ?>
 </article>
 <!-- c-blog-article ends here -->
