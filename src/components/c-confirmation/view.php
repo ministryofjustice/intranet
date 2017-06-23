@@ -1,6 +1,6 @@
 <!-- c-confirmation starts here -->
 <section class="c-confirmation">
-  <h1>Now check your email</h1>
+  <h1 class="o-title">Now check your email</h1>
 
   <p>We're sending an email to alex.foxleigh@digital.justice.gov.uk. This can take up to 5 minutes.</p>
   <p>Open the email and click on the link. This will take you back to the intranet where you can start commenting.</p>
