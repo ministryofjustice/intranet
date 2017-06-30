@@ -1,24 +1,23 @@
 {
-  "name" : "Blog article",
-  "class" : "c-blog-article",
+  "name" : "Events widget",
+  "class" : "c-events-widget",
   "version" : "1.0.0",
   "creator" : {
     "name" : "Alex Foxleigh",
     "github_username" : "foxleigh81"
   },
-  "description" : "The container component for a blog article",
-  "standard_or_universal" : "standard",
+  "description" : "Contains the events component, a header and a 'read more' link",
+  "standard_or_universal" : "universal",
   "parents" : "",
-  "children" : "",
+  "children" : "c-events-list",
   "notes" : {
     "backend" : "",
     "frontend" : ""
   },
   "backend_classes" : {},
-  "creation_ticket" : "",
   "changelog" : [
     {
-      "date" : "20/5/2017",
+      "date" : "02/02/17",
       "author" : "Alex Foxleigh",
       "description" : "Created component"
     }

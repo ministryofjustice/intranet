@@ -13,8 +13,9 @@ $(document).ready(function () {
   // Tell the css that JavaScript has loaded successfully
   $('html').removeClass('no-js').addClass('js')
 
+  // Load scripts
   $('.js-clarity-toolbar').moji_clarityToolbar()
   $('.js-left-hand-menu').moji_leftHandMenu()
-  $('.js-need-to-know').moji_slider(true)
+  $('.js-need-to-know-widget').moji_slider(true)
   $('.c-news-list > .js-article-item').moji_equaliser()
 })

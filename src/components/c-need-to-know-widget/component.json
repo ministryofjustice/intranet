@@ -1,19 +1,21 @@
 {
-  "name" : "News container",
+  "name" : "Need to know widget",
   "version" : "1.0.0",
   "creator" : {
     "name" : "Alex Foxleigh",
     "github_username" : "foxleigh81"
   },
-  "description" : "A container for all news items",
+  "description" : "The need to know slidshow",
   "standard_or_universal" : "standard",
   "parents" : "",
-  "children" : "c-news-list, c-featured-news-list",
+  "children" : "c-agency-link-list, c-app-list",
   "notes" : {
     "backend" : "",
-    "frontend" : ""
+    "frontend" : "uses the global slider plugin"
   },
   "backend_classes" : {},
+  "creation_ticket" : "MI-418",
+  "has_js" : true,
   "changelog" : [
     {
       "date" : "02/02/17",
