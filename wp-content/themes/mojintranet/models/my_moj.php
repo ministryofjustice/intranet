@@ -89,7 +89,7 @@ class My_moj_model extends MVC_model {
         [
           'title' => 'Bright Ideas',
           'icon' => 'bright-ideas',
-          'url' => 'http://cica-mitrefinch/tms/silverlight.aspx',
+          'url' => 'http://cicald-web/ServiceDesk.WebAccess/ss/object/createInCart.rails?class_name=RequestManagement.Request&lifecycle_name=NewProcess118&object_template_name=&attributes=_ConfigItemRequested-5aed3043-14a6-4091-874b-b6dbe1489fcd&RaiseUser-',
           'external' => true,
         ],
       ],
