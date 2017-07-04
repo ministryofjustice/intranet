@@ -15,8 +15,22 @@ ieoldcf() {
   min-height: 1%;
 }
 
+// replace the standard cf with the ie version
+.u-wrapper {
+  ieoldcf();
+}
+
 // IE fixes for icon font
 @css {
+  .u-icon--chat_bubble {
+    *zoom: expression(this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe0ca;');
+  }
+  .u-icon--thumbs-o-up {
+    *zoom: expression(this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf087;');
+  }
+  .u-icon--user-circle-o {
+    *zoom: expression(this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf2be;');
+  }
   .u-icon--yammer {
     *zoom: expression(this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe91c;');
   }
@@ -98,6 +112,12 @@ ieoldcf() {
   .u-icon--tpb {
     *zoom: expression(this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe91b;');
   }
+  .u-icon--home {
+    *zoom: expression(this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe901;');
+  }
+  .u-icon--redo2 {
+    *zoom: expression(this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe968;');
+  }
   .u-icon--menu-down {
     *zoom: expression(this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe9bf;');
   }
@@ -143,4 +163,5 @@ ieoldcf() {
   .u-icon--circle-left {
     *zoom: expression(this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xea44;');
   }
+
 }

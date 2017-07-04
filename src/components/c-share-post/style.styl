@@ -2,5 +2,37 @@
 @require "../../globals/css/_toolkit"
 
 .c-share-post {
+  &__link {
+    border-top: 1px solid $border;
+    border-bottom: 1px solid $border;
+    padding: $spacing 0 ;
+    &--comment {
+      &:before {
+        use-icon("\e0ca");
+      }
+    }
+    &--like {
+      &:before {
+        use-icon("\f087");
+      }
+    }
+    &--share {
+      &:before {
+        use-icon("\e968");
+      }
+    }
+  }
+  li {
+    &:not(:first-of-type) {
+      margin-left: $spacing;
+    }
+    display: inline-block;
 
+    &:before {
+      font-size: $outerCore;
+      color: $mid;
+      margin-right: $spacing*.2;
+      vertical-align: middle;
+    }
+  }
 }

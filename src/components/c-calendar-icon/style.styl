@@ -26,6 +26,18 @@
   }
 
   /* PARENT OVERRIDES */
+  .c-events & {
+    float: left;
+    width: 100px; // fixed width
+    &--dow {
+      padding: $spacing*.5;
+    }
+    &--dom {
+      font-size: $crust
+      padding: $spacing 0 0;
+    }
+  }
+
   .c-events-item & {
     position: absolute;
     width: 25%;

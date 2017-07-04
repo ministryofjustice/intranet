@@ -1,0 +1,26 @@
+{
+  "name" : "About Us",
+  "class" : "c-about-us",
+  "version" : "1.0.0",
+  "creator" : {
+    "name" : "Alex Foxleigh",
+    "github_username" : "foxleigh81"
+  },
+  "description" : "A container component which is used on the about us page",
+  "standard_or_universal" : "standard",
+  "parents" : "",
+  "children" : "",
+  "notes" : {
+    "backend" : "",
+    "frontend" : ""
+  },
+  "backend_classes" : {},
+  "creation_ticket" : "",
+  "changelog" : [
+    {
+      "date" : "16/5/2017",
+      "author" : "Alex Foxleigh",
+      "description" : "Created component"
+    }
+  ]
+}
