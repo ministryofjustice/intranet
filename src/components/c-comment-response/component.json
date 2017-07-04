@@ -1,22 +1,24 @@
 {
-  "name" : "Events container",
+  "name" : "Comment response",
+  "class" : "c-comment-response",
   "version" : "1.0.0",
   "creator" : {
     "name" : "Alex Foxleigh",
     "github_username" : "foxleigh81"
   },
-  "description" : "Contains the events component, a header and a 'read more' link",
-  "standard_or_universal" : "universal",
+  "description" : "Reply and like buttons for comments",
+  "standard_or_universal" : "standard",
   "parents" : "",
-  "children" : "c-events-list",
+  "children" : "",
   "notes" : {
     "backend" : "",
     "frontend" : ""
   },
   "backend_classes" : {},
+  "creation_ticket" : "",
   "changelog" : [
     {
-      "date" : "02/02/17",
+      "date" : "23/5/2017",
       "author" : "Alex Foxleigh",
       "description" : "Created component"
     }

@@ -1,22 +1,24 @@
 {
-  "name" : "News container",
+  "name" : "Confirmation",
+  "class" : "c-confirmation",
   "version" : "1.0.0",
   "creator" : {
     "name" : "Alex Foxleigh",
     "github_username" : "foxleigh81"
   },
-  "description" : "A container for all news items",
+  "description" : "A component to display a confirmation message",
   "standard_or_universal" : "standard",
   "parents" : "",
-  "children" : "c-news-list, c-featured-news-list",
+  "children" : "",
   "notes" : {
     "backend" : "",
     "frontend" : ""
   },
   "backend_classes" : {},
+  "creation_ticket" : "",
   "changelog" : [
     {
-      "date" : "02/02/17",
+      "date" : "22/5/2017",
       "author" : "Alex Foxleigh",
       "description" : "Created component"
     }

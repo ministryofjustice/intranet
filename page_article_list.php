@@ -4,7 +4,7 @@ Template Name: Clarity - Article List
 */
 //ToDo: Change name to switcher.php when database changed ?>
 <?php get_component('c-global-header'); ?>
-  <div id="maincontent" class="u-wrapper l-main">
+  <div id="maincontent" class="u-wrapper l-main t-article-list">
     <h1 class="o-title o-title--page">News</h1>
     <div class="l-secondary">
       <?php // get_component('c-left-hand-menu'); ?>

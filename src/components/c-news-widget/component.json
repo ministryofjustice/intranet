@@ -1,24 +1,24 @@
 {
-  "name" : "About Us",
-  "class" : "c-about-us",
+  "name" : "News Widget",
   "version" : "1.0.0",
   "creator" : {
     "name" : "Alex Foxleigh",
     "github_username" : "foxleigh81"
   },
-  "description" : "A container component which is used on the about us page",
+  "description" : "A widget for all news items",
   "standard_or_universal" : "standard",
   "parents" : "",
-  "children" : "",
+  "children" : "c-news-list, c-featured-news-list",
   "notes" : {
     "backend" : "",
     "frontend" : ""
   },
   "backend_classes" : {},
   "creation_ticket" : "",
+  "has_js" : false,
   "changelog" : [
     {
-      "date" : "16/5/2017",
+      "date" : "02/02/17",
       "author" : "Alex Foxleigh",
       "description" : "Created component"
     }

@@ -16,6 +16,10 @@
   	font-size: $mantle;
   	border-bottom: 2px solid $border;
 	}
+  // Subtitle. Same as section title but without border
+  &--subtitle {
+    font-size: $mantle;
+  }
 
   &--headline {
     font-size: $crust
@@ -43,6 +47,26 @@
   line-height: $lineHeight*1.2;
   &:hover {
     background-color: darken($button, 20%);
+  }
+}
+
+// A box which clears anything before or after it and has some padding and margin applied
+// Useful as a container
+.o-clear-space {
+  clear:both;
+  padding: $spacing 0;
+  margin-bottom: $spacing;
+}
+
+// A button that is disguised as a regular text link
+.o-text-button {
+  border: 0;
+  background-color: transparent;
+  text-decoration: underline;
+  color: $links;
+  cursor: pointer;
+  &:hover {
+    text-decoration: none;
   }
 }
 

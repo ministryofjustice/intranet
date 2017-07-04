@@ -13,7 +13,7 @@ $fullWidthTopBanner = HomepageBanners::getTopBanner(get_intranet_code());
 
 //ToDo: Change name to home.php when database changed ?>
 <?php get_component('c-global-header'); ?>
-  <div id="maincontent" class="u-wrapper l-main">
+  <div id="maincontent" class="u-wrapper l-main t-home">
 <?php
 if ($emergencyBanner && $emergencyBanner['visible']) { ?>
     <?php get_component('c-emergency-banner', $emergencyBanner); ?>
