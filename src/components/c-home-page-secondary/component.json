@@ -1,0 +1,26 @@
+{
+  "name" : "Home Page Secondary",
+  "class" : "c-home-page-secondary",
+  "version" : "1.0.0",
+  "creator" : {
+    "name" : "Alex Foxleigh",
+    "github_username" : "foxleigh81"
+  },
+  "description" : "The secondary layout for the home page",
+  "standard_or_universal" : "standard",
+  "parents" : "",
+  "children" : "",
+  "notes" : {
+    "backend" : "",
+    "backend" : "In order to allow for different agency styles. There are hyphenated alternatives to the view, e.g. 'view-opg.php"
+  },
+  "backend_classes" : {},
+  "creation_ticket" : "",
+  "changelog" : [
+    {
+      "date" : "23/4/2017",
+      "author" : "Alex Foxleigh",
+      "description" : "Created component"
+    }
+  ]
+}

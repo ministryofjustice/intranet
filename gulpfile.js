@@ -47,8 +47,8 @@ var supportedBrowsers = [
 gulp.task('scripts', function () {
   return gulp.src([
     /* Add your JS files here, they will be combined in this order */
-    'src/globals/**/*.js',
-    'src/components/**/*.js'
+    'src/components/**/*.js',
+    'src/globals/js/*.js'
   ])
   // Plumber is there to catch errors in the pipes
   .pipe(plumber())
@@ -62,11 +62,11 @@ gulp.task('scripts', function () {
   .pipe(concat('core.js'))
   // Add .min to the end
   .pipe(rename({ suffix: '.min' }))
-  .pipe(babel({
-    presets: ['es2015']
-  }))
   // Compress the file
-  .pipe(uglify())
+  .pipe(uglify({
+    ie8: true,
+    mangle: { reserved: ['$', 'jQuery'] }
+  }))
   // Move the file to the assets folder
   .pipe(gulp.dest('assets/js'))
   // Reload the browser JS after every change
