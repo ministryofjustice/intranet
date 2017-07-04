@@ -82,3 +82,11 @@ contrast(color) {
   }
 }
 
+// The 'icon' value should be the code for the icon you wish you use.
+// You can find it in icons.styl by looking at the 'content' value of the appropriate icons class
+// Note: This must be used in a 'before' or 'after' pseudoselector
+use-icon(icon) {
+  content: icon;
+  font-family: 'moji-clarity';
+  speak: none;
+}
