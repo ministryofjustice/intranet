@@ -21,11 +21,21 @@
     position: relative;
     span(1);
     height: $spacing*3.6;
+    padding-right: $spacing*5;
   }
 
   button {
     position: absolute;
     right:0;
+    background-color: $dark;
+    color: $light;
+    span {
+      display: none;
+    }
+    &:hover {
+      cursor: pointer;
+      color: $linkFocus;
+    }
   }
 
   .agency-opg & {
