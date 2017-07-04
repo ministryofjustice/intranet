@@ -23,6 +23,12 @@
       form_builder('select', $prefix, 'Date', 'date_filter', null, null, 'Choose a date', null, true, null, $select_options);
       form_builder('text', $prefix, 'Keywords', 'keywords_filter', null, null, 'Keywords', null, true, null, null);
     ?>
+    <fieldset>
+      <legend>Categories</legend>
+      <?php form_builder('checkbox', $prefix, 'Change news', 'change-news', null, null, null, null, false, null, null); ?>
+      <?php form_builder('checkbox', $prefix, 'e-News', 'e-news', null, null, null, null, false, null, null); ?>
+      <?php form_builder('checkbox', $prefix, 'TIB-its', 'tib-its', null, null, null, null, false, null, null); ?>
+    </fieldset>
   </form>
 </section>
 <!-- c-content-filter ends here -->

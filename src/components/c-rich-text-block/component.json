@@ -12,7 +12,7 @@
   "children" : "",
   "notes" : {
     "backend" : "",
-    "frontend" : "This is an empty component as it's content is 100% CMS editable. Provided that content is wrapped with this component it will be styled correctly"
+    "frontend" : "This is an empty component front-end wise as it's content is 100% CMS editable. Provided that content is wrapped with this component it will be styled correctly"
   },
   "backend_classes" : {},
   "creation_ticket" : "",

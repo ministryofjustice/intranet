@@ -5,17 +5,18 @@ if (!defined('ABSPATH')) die();
 
 class Agency {
 
-  function getContactEmailAdress($agency = 'hq') {
-    $agencies = $this->getList();
+    public function getContactEmailAdress($agency = 'hq') {
+        $agencies = $this->getList();
 
-    if (isset($agencies[$agency]) && $agencies[$agency]['is_integrated'] == true && !empty($agencies[$agency]['contact_email_address'])) {
-      return $agencies[$agency]['contact_email_address'];
+        if (isset($agencies[$agency]) && $agencies[$agency]['is_integrated'] == true && !empty($agencies[$agency]['contact_email_address'])) {
+          return $agencies[$agency]['contact_email_address'];
+        }
+        else {
+          return $agencies['hq']['contact_email_address'];
+        }
     }
-    else {
-      return $agencies['hq']['contact_email_address'];
-    }
-  }
-  function getList() {
+
+    public function getList() {
     /**
      * Agency array structure:
      *
@@ -48,18 +49,12 @@ class Agency {
         'is_integrated' => true,
         'contact_email_address' => 'intranet-hmcts@digital.justice.gov.uk',
         'links' => [
-          [
-            'url' => 'http://hmcts.intranet.service.justice.gov.uk/hmcts/',
-            'label' => 'HMCTS Archive intranet',
-            'is_external' => true
-          ],
-          [
-            'url' => site_url('/about-hmcts/justice-matters/'),
-            'label' => 'Justice Matters',
-            'classes' => 'transformation'
-
+              [
+                  'url' => site_url('/about-hmcts/justice-matters/'),
+                  'label' => 'Justice Matters',
+                  'classes' => 'transformation'
+              ]
           ]
-        ]
       ),
       'judicial-appointments-commission' => array(
         'shortcode' => 'judicial-appointments-commission',
@@ -190,20 +185,106 @@ class Agency {
         'links' => []
       )
     );
-  }
+    }
 
-  /***
-   * Gets the intranet code, if present
-   *
-   */
+    /***
+    * Gets the intranet code, if present
+    *
+    */
 
-  function getCurrentAgency()
-  {
+    public function getCurrentAgency()
+    {
       $agency = isset($_COOKIE['dw_agency']) ? trim ($_COOKIE['dw_agency']) : '';
 
       $liveAgencies = $this->getList();
 
       return isset($liveAgencies[$agency]) ? $liveAgencies[$agency] : $liveAgencies['hq'];
-  }
+    }
+
+    /**
+     * @param string $agency
+     * @return mixed
+     *
+     * Returns all the social links per agency. Used to live at models/follow_us.php
+     */
+    public static function getSocialLinks($agency = 'hq') {
+
+        $links = [
+            'ppo' => [
+            ],
+            'judicial-office' => [
+            ],
+            'cica' => [
+            ],
+            'pb' => [
+                [
+                    'url' => 'https://twitter.com/Parole_Board',
+                    'label' => 'Parole Board on Twitter',
+                    'name' => 'twitter',
+                ],
+                [
+                    'url' => 'https://www.yammer.com/paroleboard.gsi.gov.uk',
+                    'label' => 'Parole Board on Yammer',
+                    'name' => 'yammer',
+                ]
+            ],
+            'hq' => [
+                [
+                    'url' => 'https://twitter.com/MoJGovUK',
+                    'label' => 'MoJ on Twitter',
+                    'name' => 'twitter',
+                ],
+                [
+                    'url' => 'https://www.yammer.com/justice.gsi.gov.uk/dialog/authenticate',
+                    'label' => 'MoJ on Yammer',
+                    'name' => 'yammer',
+                ]
+            ],
+            'hmcts' => [
+                [
+                    'url' => 'https://twitter.com/CEOofHMCTS',
+                    'label' => 'HMCTS CEO on Twitter',
+                    'name' => 'twitter',
+                ],
+                [
+                    'url' => 'https://twitter.com/hmctsgovuk',
+                    'label' => 'HMCTS on Twitter',
+                    'name' => 'twitter',
+                ],
+                [
+                    'url' => 'https://www.yammer.com/hmcts.gsi.gov.uk',
+                    'label' => 'HMCTS on Yammer',
+                    'name' => 'yammer',
+                ],
+                [
+                    'url' => 'https://www.linkedin.com/company/11011994',
+                    'label' => 'HMCTS on LinkedIn',
+                    'name' => 'linkedin',
+                ]
+            ],
+            'laa' => [
+                [
+                    'url' => 'https://twitter.com/legalaidagency',
+                    'label' => 'LAA on Twitter',
+                    'name' => 'twitter',
+                ],
+                [
+                    'url' => 'https://www.yammer.com/legalaid.gsi.gov.uk/',
+                    'label' => 'LAA on Yammer',
+                    'name' => 'yammer',
+                ]
+            ],
+            'opg' => [
+                [
+                    'url' => 'https://twitter.com/opggovuk',
+                    'label' => 'OPG on Twitter',
+                    'name' => 'twitter',
+                ]
+            ]
+        ];
+
+
+        return $links[$agency];
+    }
 
 }

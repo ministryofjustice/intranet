@@ -10,7 +10,7 @@ if ($featuredNews->have_posts()) {
     <section class="c-article-list">
         <?php
         foreach ($posts as $post) {
-            get_component('c-article-item', array ('post' => $post), 'featured_news');
+            get_component('c-article-item', array ('post' => $post), 'show_excerpt');
         } ?>
     </section>
 

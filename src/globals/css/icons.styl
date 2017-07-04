@@ -1,79 +1,154 @@
-@charset "UTF-8";
-
-// Please note, there is a nifty little mixin that uses these icons in mixin.styl
-// which means you don't need to add a class.
+// If you are updating this file, pleae don't forget to also update the IE fixes in _/ietoolkit.styl
 
 @font-face {
-  font-family: "moji-clarity";
-  src:url("../fonts/moji-clarity.eot");
-  src:url("../fonts/moji-clarity.eot?#iefix") format("embedded-opentype"),
-    url("../fonts/moji-clarity.woff") format("woff"),
-    url("../fonts/moji-clarity.ttf") format("truetype"),
-    url("../fonts/moji-clarity.svg#moji-clarity") format("svg");
+  font-family: 'moji-clarity';
+  src:  url('../fonts/moji-clarity.eot?109l8c');
+  src:  url('../fonts/moji-clarity.eot?109l8c#iefix') format('embedded-opentype'),
+    url('../fonts/moji-clarity.ttf?109l8c') format('truetype'),
+    url('../fonts/moji-clarity.woff?109l8c') format('woff'),
+    url('../fonts/moji-clarity.svg?109l8c#moji-clarity') format('svg');
   font-weight: normal;
   font-style: normal;
-
 }
 
-[data-icon]:before {
-  font-family: "moji-clarity" !important;
-  content: attr(data-icon);
-  font-style: normal !important;
-  font-weight: normal !important;
-  font-variant: normal !important;
-  text-transform: none !important;
+.u-icon {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'moji-clarity' !important;
   speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
   line-height: 1;
 
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-[class^="icon-"]:before,
-[class*=" icon-"]:before {
-  font-family: "moji-clarity" !important;
-  font-style: normal !important;
-  font-weight: normal !important;
-  font-variant: normal !important;
-  text-transform: none !important;
-  speak: none;
-  line-height: 1;
+.u-icon--yammer:before {
+  content: "\e91c";
 }
-
-.icon-caret-down:before {
-  content: "\61";
+.u-icon--twitter:before {
+  content: "\e91d";
 }
-.icon-twitter:before {
-  content: "\62";
+.u-icon--people-finder:before {
+  content: "\e900";
 }
-.icon-caret-up-down:before {
-  content: "\64";
+.u-icon--court-and-tribunal-finder:before {
+  content: "\e904";
 }
-.icon-quote-left:before {
-  content: "\65";
+.u-icon--travel-booking:before {
+  content: "\e905";
 }
-.icon-quote-right:before {
-  content: "\66";
+.u-icon--sop:before {
+  content: "\e906";
 }
-.icon-search-find:before {
-  content: "\67";
+.u-icon--it-portal:before {
+  content: "\e907";
 }
-.icon-calendar:before {
-  content: "\63";
+.u-icon--jobs:before {
+  content: "\e908";
 }
-.icon-check:before {
-  content: "\68";
+.u-icon--civil-service-learning:before {
+  content: "\e909";
 }
-.icon-question-circle:before {
-  content: "\69";
+.u-icon--moj-logo:before {
+  content: "\e90a";
 }
-.icon-times:before {
-  content: "\6a";
+.u-icon--webchat:before {
+  content: "\e90b";
 }
-.icon-times-circle:before {
-  content: "\6b";
+.u-icon--pension:before {
+  content: "\e90c";
 }
-.icon-exclamation-triangle:before {
-  content: "\6c";
+.u-icon--form-finder:before {
+  content: "\e90d";
 }
-.icon-exclamation-circle:before {
-  content: "\6d";
+.u-icon--room-booking:before {
+  content: "\e90e";
+}
+.u-icon--provider-information:before {
+  content: "\e90f";
+}
+.u-icon--laa-online-portal:before {
+  content: "\e910";
+}
+.u-icon--laa-manual-civil:before {
+  content: "\e911";
+}
+.u-icon--laa-manual-crime:before {
+  content: "\e912";
+}
+.u-icon--public-site:before {
+  content: "\e913";
+}
+.u-icon--means-assessment-administration-tool:before {
+  content: "\e914";
+}
+.u-icon--etarmis:before {
+  content: "\e915";
+}
+.u-icon--bright-ideas:before {
+  content: "\e916";
+}
+.u-icon--mitrefinch:before {
+  content: "\e917";
+}
+.u-icon--shield:before {
+  content: "\e918";
+}
+.u-icon--jac:before {
+  content: "\e919";
+}
+.u-icon--crown:before {
+  content: "\e91a";
+}
+.u-icon--tpb:before {
+  content: "\e91b";
+}
+.u-icon--menu-down:before {
+  content: "\e9bf";
+}
+.u-icon--spinner9:before {
+  content: "\e982";
+}
+.u-icon--menu-up:before {
+  content: "\e9c0";
+}
+.u-icon--share2:before {
+  content: "\ea82";
+}
+.u-icon--plus:before {
+  content: "\ea0a";
+}
+.u-icon--minus:before {
+  content: "\ea0b";
+}
+.u-icon--info:before {
+  content: "\ea0c";
+}
+.u-icon--cancel-circle:before {
+  content: "\ea0d";
+}
+.u-icon--link:before {
+  content: "\e9cb";
+}
+.u-icon--cross:before {
+  content: "\ea0f";
+}
+.u-icon--checkmark:before {
+  content: "\ea10";
+}
+.u-icon--circle-down:before {
+  content: "\ea43";
+}
+.u-icon--circle-up:before {
+  content: "\ea41";
+}
+.u-icon--circle-right:before {
+  content: "\ea42";
+}
+.u-icon--circle-left:before {
+  content: "\ea44";
 }

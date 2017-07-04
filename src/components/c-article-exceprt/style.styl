@@ -1,0 +1,24 @@
+// include the toolkit (a suite of variables, classes and mixins)
+@require "../../globals/css/_toolkit"
+
+.c-article-exceprt {
+
+  p {
+    color: $text;
+    font-size: $outerCore;
+    line-height: $lineHeight*1.4;
+  }
+
+// Parent overrides
+
+  .c-article-item & {
+    p {
+      font-size: $smallCopy;
+      margin-bottom: 0;
+    }
+  }
+
+  .c-news-article & {
+    margin-bottom: $spacing
+  }
+}

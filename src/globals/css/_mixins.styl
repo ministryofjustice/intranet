@@ -43,6 +43,11 @@ cms-fixes() {
   li:empty {
     display:none;
   }
+
+  //for some reason, an editor added an iFrame. This should not be allowed and so this will hide any future iframes they add
+  iframe {
+    display: none !important;
+  }
 }
 
 // For buttons!
@@ -65,34 +70,6 @@ button(bgc) {
     opacity: .6;
   }
 }
-
-// IEOLD Clearfix (undoes the jeet clearfix() and applies an IEOLD safe version (may cause design issues))
-
-ieoldcf() {
-  &:after {
-    display:none;
-  }
-  zoom: 1;
-  min-height: 1%;
-}
-
-// Icons!
-//Note: If you want the icon to appear on a class instead of via css-only
-// then take a look at icons.styl, this is also where you can find reference codes for the icons.
-/*Fontastic mixin */
-
-use-icon(c, f) {
-  content: c;
-  font-size: f;
-  font-family: "moji-clarity" !important;
-  font-style: normal !important;
-  font-weight: normal !important;
-  font-variant: normal !important;
-  text-transform: none !important;
-  speak: none;
-  line-height: 1;
-}
-
 
 // Contrast. Use this to make sure your colours are always contrasting aganst your bg colour!
 contrast(color) {

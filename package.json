@@ -39,6 +39,7 @@
     "casperjs": "^1.1.4",
     "gulp-autoprefixer": "^4.0.0",
     "gulp-css-purge": "^1.0.27",
+    "ie-love": "0.0.3",
     "jquery": "^1.12.4",
     "phantomjs": "^2.1.7",
     "run-sequence": "^1.2.2"
