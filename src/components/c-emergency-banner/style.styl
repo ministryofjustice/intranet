@@ -12,18 +12,25 @@
 
   &__meta {
     padding: $spacing*2;
+
     +above(m) {
       span(1/3)
       height: 100%;
     }
   }
   &__content {
+    cms-fixes();
     padding: $spacing*2;
+    a {
+      color: $light;
+      text-decoration: underline;
+    }
+
     +above(m) {
       column(2/3)
     }
   }
-  &--alert {
+  &--service-update {
     color: $dark;
     background: #ffbf47;
     & ^[-1]__meta {

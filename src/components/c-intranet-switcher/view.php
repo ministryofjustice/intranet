@@ -1,14 +1,41 @@
+<?php
+use MOJ\Intranet\Agency;
+$oAgency = new Agency();
+$activeAgencies = $oAgency->getList();
+$current_intranet = get_intranet_code();
+
+$referrer = (isset($_SERVER['HTTP_REFERER']) ? parse_url($_SERVER['HTTP_REFERER']) : parse_url(get_home_url()));
+
+
+if (isset($referrer['query']))
+{
+    parse_str($referrer['query'], $output);
+    if (isset($output['dw_agency'])) unset($output['dw_agency']);
+    $previous_parameters = array();
+    foreach ($output as $key=>$value )
+    {
+        $previous_parameters[] = $key.'='.$value;
+    }
+    $referrer['query'] = implode('&', $previous_parameters);
+    if (trim($referrer['query']) != '') $referrer['query'] = '&'.$referrer['query'];
+} else
+{
+    $referrer['query'] = '';
+}
+
+
+?>
+
 <div class="c-intranet-switcher">
-  <ul class="c-intranet-switcher__agency">
-    <li class="c-intranet-switcher__agency--hmcts"><a href="">HM Courts &amp; Tribunals Service</a></li>
-    <li class="c-intranet-switcher__agency--jac"><a href="">Judicial Appointments Commission</a></li>
-    <li class="c-intranet-switcher__agency--lc"><a href="">Law Commission</a></li>
-    <li class="c-intranet-switcher__agency--laa"><a href="">Legal Aid Agency</a></li>
-    <li class="c-intranet-switcher__agency--hq"><a href="">Ministry of Justice HQ</a></li>
-    <li class="c-intranet-switcher__agency--noms"><a href="">National Offender Management Service</a></li>
-    <li class="c-intranet-switcher__agency--nps"><a href="">National Probation Service</a></li>
-    <li class="c-intranet-switcher__agency--opg"><a href="">Office of the Public Guardian</a></li>
-    <li class="c-intranet-switcher__agency--ospt"><a href="">Official Solicitor and Public Trustee</a></li>
-    <li class="c-intranet-switcher__agency--tpb"><a href="">The Parole Board</a></li>
+  <ul class="c-intranet-switcher">
+<?php foreach ($activeAgencies as $agency_id => $agency) {
+
+    if ($current_intranet == $agency_id) $extra_class = ' u-active';
+    else  $extra_class = '';
+
+
+    echo '<li class="c-intranet-switcher__switch c-intranet-switcher__switch--'.$agency_id.$extra_class.' "><a href="/?dw_agency='.$agency_id.$referrer['query'].'">'.$agency['label'].'</a></li>';
+}
+  ?>
   </ul>
 </div>

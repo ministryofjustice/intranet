@@ -1,11 +1,19 @@
+<?php
+use MOJ\Intranet\EmergencyBanner;
+
+$emergencyBanner = EmergencyBanner::getEmergencyBanner(get_intranet_code());
+
+if ($emergencyBanner && $emergencyBanner['visible']) { ?>
+
 <!-- c-emergency-banner starts here -->
-<section class="c-emergency-banner c-emergency-banner--emergency">
+<section class="c-emergency-banner c-emergency-banner--<?php echo $emergencyBanner['type']; ?>">
   <div class="c-emergency-banner__meta">
-    <h1>Example headline</h1>
-    <time datetime="2016-12-22">22nd December 2016</time>
+    <h1><?php echo $emergencyBanner['title'];?></h1>
+    <time datetime="2016-12-22"><?php echo $emergencyBanner['date'];?></time>
   </div>
   <div class="c-emergency-banner__content">
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptates beatae impedit, commodi laboriosam, tempora similique cupiditate facilis, reiciendis saepe dolor sint? Iste dolore soluta autem dolor. Eum, velit magni nostrum.</p>
+    <p><?php echo $emergencyBanner['message'];?></p>
   </div>
 </section>
 <!-- c-emergency-banner ends here -->
+<?php }
