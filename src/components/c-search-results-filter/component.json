@@ -1,0 +1,26 @@
+{
+  "name" : "Search results Filter",
+  "class" : "c-search-results-filter",
+  "version" : "1.0.0",
+  "creator" : {
+    "name" : "Alex Foxleigh",
+    "github_username" : "foxleigh81"
+  },
+  "description" : "A filter for search results on the intranet",
+  "standard_or_universal" : "standard",
+  "parents" : "",
+  "children" : "",
+  "notes" : {
+    "backend" : "",
+    "frontend" : "This component depends on c-content-filter as it inherits some styles"
+  },
+  "backend_classes" : {},
+  "creation_ticket" : "MI-8",
+  "changelog" : [
+    {
+      "date" : "4/7/2017",
+      "author" : "Alex Foxleigh",
+      "description" : "Created component"
+    }
+  ]
+}
