@@ -10,18 +10,35 @@
     column(1/2, $cycle: 2);
     margin-bottom: $spacing;
   }
+
   a {
     display: block;
     text-decoration: none;
-    font-size: $smallCopy;
-    line-height: $lineHeight;
-    span {
-      display: inline-block;
-      vertical-align: middle;
-      width: 70%;
-    }
+
     &:hover {
       text-decoration: underline;
+      .u-icon {
+        color: $light;
+        background-color: $primary;
+      }
     }
+
+  }
+
+  &__app-name {
+    display: inline-block;
+    font-size: $smallCopy;
+    width: 70%;
+    vertical-align: middle;
+  }
+
+  .u-icon {
+    display: inline-block;
+    vertical-align: middle;
+    border: 1px solid $border;
+    padding: $spacing*.5;
+    margin-right: $spacing;
+    font-size: $mantle;
+    color: $border;
   }
 }

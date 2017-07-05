@@ -1,21 +1,25 @@
 <?php
 use MOJ\Intranet\News;
 
-$latestNews = News::getLatestNews(get_intranet_code());
+$oNews = new News();
+//Todo: Pass it as part of $data from the container
+$options = array (
+    'page' => 1,
+    'per_page' => MAX_HOMEPAGE_NEWS,
+);
 
-if ($latestNews->have_posts() )
+$latestNews = $oNews->getNews($options, true);
+
+if (!empty($latestNews) )
 {
-    $posts = $latestNews->get_posts();
     ?>
     <div class="c-news-list">
         <?php
-        foreach ($posts as $post) {
-
-            get_component('c-article-item', array ('post' => $post));
+        foreach ($latestNews['results'] as $postItem) {
+            get_component('c-article-item', $postItem);
         }
         ?>
     </div>
-
     <?php
 }
 

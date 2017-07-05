@@ -12,20 +12,18 @@ Nice to have: [NTH]
 
 ## Issues:
 1. AF: Minor bug in the gulp build as it requires a manual refresh to show the css.
-2. AF: Bug in clarity-toolbar.js on line 34
-3. AF: The file concatenation pulls in required files multiple times instead of once (e.g. the toolkit files)
-4. AF: Ctgen uses c- as a js hook instead of js-
+4: AF: Bug in CT Gen which puts the previous month in the creation date.
 
 ## Tasks:
 
 9. AF: [NTH] Make codepen examples
-16 AF: [LP] Make javascript modular
 17. AF: [NTH] Add android colour tabs
-18. AF: Style Intranetswitcher (branch exists)
 20: AF: Create clarity toolkit package
 21: AF: Add release tagging to the publishing tool
 22: AF: Revisit Travis now the repos have split
 24: AF: [NTH] Replace cssnano with proper postcss implementation
 25: AF: [HP] Add component-level CasperJS tests
+27: AF: Replace component level header styling with default header mixin (to be more DRY)
+28: AF: Audit components and possibly create a new 'layout' component type.
 
 ## Hacks:

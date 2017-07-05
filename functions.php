@@ -144,8 +144,8 @@ function slugify($string) {
 	return $newstring;
 }
 
-/**
- * Use get_component method to build a form input (I realise this is probably awfully done so feel free to refactor/replace/burn. PHP isn't my area)
+/*
+ * Use get_component method to build a form input (I realise this is probably awfully done so feel free to refactor/replace/burn. PHP isn't my area - AF)
  * @component [string] the name of the component to build
  * @type [string] the type of input to place (eg, checkbox, text, radio, textarea etc...)
  * @prefix [string] the prefix of the form it belongs to (e.g. feedback form would be 'fbf')
@@ -157,10 +157,10 @@ function slugify($string) {
  * @class [string] (optional) add a custom class here
  * @required [boolean] is this required, true or false
  * @validation [string] (optional) add a regex based validation string here
- * @options [array] a list of options to use if using a checkbox, radio or select input type
+ * @options [array] a list of options to use if using a select input type
  */
-function form_builder($type, $prefix, $label, $name, $id = '', $value = '', $placeholder = '', $class = '', $required = false, $validation = '', $options = '')
-{
+
+function form_builder($type, $prefix, $label, $name, $id = '', $value = '', $placeholder = '', $class = '', $required = false, $validation = '', $options = '') {
   $config = array (
       'type' => $type,
       'prefix' => $prefix,

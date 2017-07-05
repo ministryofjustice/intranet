@@ -1,6 +1,5 @@
 @require 'jeet';
 @require '_variables';
-@require 'icons';
 @require '_mixins';
 
 // Title formatting
@@ -17,6 +16,14 @@
   	font-size: $mantle;
   	border-bottom: 2px solid $border;
 	}
+  // Subtitle. Same as section title but without border
+  &--subtitle {
+    font-size: $mantle;
+  }
+
+  &--headline {
+    font-size: $crust
+  }
 }
 
 // See all/Read more links
@@ -43,11 +50,31 @@
   }
 }
 
+// A box which clears anything before or after it and has some padding and margin applied
+// Useful as a container
+.o-clear-space {
+  clear:both;
+  padding: $spacing 0;
+  margin-bottom: $spacing;
+}
+
+// A button that is disguised as a regular text link
+.o-text-button {
+  border: 0;
+  background-color: transparent;
+  text-decoration: underline;
+  color: $links;
+  cursor: pointer;
+  &:hover {
+    text-decoration: none;
+  }
+}
+
 // Don't use this in code, it's only to extend .o-arrow-toggle-link
 .extend-arrow {
   position: absolute;
   top: $spacing*.7;
-  use-icon('n', inherit);
+  use-icon('\ea43')
   vertical-align: middle;
 }
 

@@ -22,6 +22,22 @@ class MyMOJ {
     return $data;
   }
 
+    public static function get_my_work_links($agency = 'hq') {
+        $data = [];
+
+        $menu_items = get_field($agency .'_my_work_links', 'option');
+
+        if (isset($menu_items)) {
+            foreach ($menu_items as $menu_item) {
+                $my_work_link['title'] = $menu_item['my_work_link_title'];
+                $my_work_link['url'] = $menu_item['my_work_link_url'];
+                $data[] = $my_work_link;
+            }
+        }
+
+        return $data;
+    }
+
     public static function get_apps($agency = 'hq') {
     $apps = [
       'ppo' => [

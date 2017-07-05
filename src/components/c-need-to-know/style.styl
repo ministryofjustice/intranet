@@ -4,15 +4,20 @@
 .c-need-to-know {
   clearfix();
   clear:both;
+  position: relative;
+
   &__slide {
     clearfix();
     clear:both;
     background-color: $primary;
-    display: none;
     /.no-js & {
       // If JS is disabled, display all items as a stack
       margin-bottom: $spacing;
       display: block;
+    }
+    /.js & {
+      // If JS is enabled. Set each slide to hide it's overflow.
+      overflow: hidden;
     }
     a {
       text-decoration: none;
@@ -34,8 +39,19 @@
         line-height: $lineHeight*1.2;
       }
     }
-    &.current-slide {
-      display: block;
+  }
+  .js-nav-container {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    button {
+      font-size: $mantle;
+      display: inline-block;
+      padding: $spacing;
+      color: $light;
+      cursor: pointer;
+      background: transparent;
+      border:0;
     }
   }
 }

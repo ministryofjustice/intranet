@@ -12,7 +12,7 @@
   "children" : "",
   "notes" : {
     "backend" : "",
-    "frontend" : "With the complexity of some of these share things. I want to split them into either components in their own right or at least jQuery plugins"
+    "frontend" : "This component shares it's styles with c-comment-response do not delete it without migrating the styles over"
   },
   "backend_classes" : {},
   "creation_ticket" : "",

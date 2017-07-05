@@ -1,17 +1,16 @@
 <?php
 use MOJ\Intranet\News;
 
-$featuredNews = News::getFeaturedNews(get_intranet_code());
+$oNews = new News();
+$featuredNews = $oNews->getFeaturedNews(get_intranet_code());
 
-if ($featuredNews->have_posts() )
+if (!empty ($featuredNews) )
 {
-    $posts = $featuredNews->get_posts();
     ?>
     <section class="c-featured-news-list">
         <?php
-        foreach ($posts as $post) {
-
-            get_component('c-article-item', array ('post' => $post), 'featured_news');
+        foreach ($featuredNews['results'] as $post) {
+            get_component('c-article-item', $post, 'show_excerpt');
         }
         ?>
     </section>

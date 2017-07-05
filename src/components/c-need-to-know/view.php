@@ -1,23 +1,29 @@
-<section class="c-need-to-know js-need-to-know">
-  <div class="c-need-to-know__slide js-slide">
-    <a href="">
-      <img src="https://placeimg.com/768/384/tech" alt="description of image goes here">
-      <div>
-        <p>
-          WCN now live for all vacancy campaings across MoJ estate
-        </p>
-      </div>
-    </a>
-  </div>
-  <div class="c-need-to-know__slide">
-    <a href="">
-      <img src="https://placeimg.com/768/384/tech" alt="description of image goes here">
-      <div>
-        <p>
-          WCN now live for all vacancy campaings across MoJ estate
-        </p>
-      </div>
-    </a>
-  </div>
+<?php
 
-</section>
+use MOJ\Intranet\NeedToKnow;
+
+$config = array (
+        'agency' => get_intranet_code(),
+);
+$oNeedToKnow = new NeedToKnow();
+$needToKnowSlides = $oNeedToKnow->getNeedToKnow($config);
+
+if (!empty($needToKnowSlides)) {
+?>
+    <section class="c-need-to-know js-need-to-know" role="marquee">
+<?php foreach ($needToKnowSlides as $slide) { ?>
+        <div class="c-need-to-know__slide js-slide">
+            <a href="<?php echo $slide['url'];?>">
+                <img src="<?php echo $slide['image_url'];?>" alt="<?php echo $slide['image_alt'];?>">
+                <div>
+                    <p>
+                        <?php echo $slide['title'];?>
+                    </p>
+                </div>
+            </a>
+        </div>
+<?php } ?>
+    </section>
+<?php
+}
+

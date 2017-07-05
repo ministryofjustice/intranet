@@ -30,6 +30,7 @@
 }
 
 .u-wrapper {
+  clearfix()
   +above(l) {
     center(1020px);
   }
@@ -68,40 +69,6 @@
       color: $dark;
     }
   }
-}
-
-// Uses the 'add icon' mixin to add an icon to the page
-
-// Never use this, it's for an @extend only
-._icon_ {
-  content: "i";
-  display: inline-block;
-  text-align: center;
-  vertical-align: middle;
-  width: $spacing*3.2;
-  height: $spacing*3.2;
-  line-height: $lineHeight*2;
-  margin-right: $spacing;
-  border: 1px solid $border;
-}
-
-// By default the icon will appear in :before unless you add .u-icon__after to the class list
-
-.u-icon {
-  clearfix();
-  &:before {
-    @extend ._icon_;
-  }
-
-  &--after {
-    &:before {
-      display: none;
-    }
-    &:after {
-      @extend ._icon_;
-    }
-  }
-
 }
 
 // u-closed collapses all descendence with a '.u-child, .u-children or the WP .children class'

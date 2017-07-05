@@ -1,7 +1,7 @@
 <?php
 use MOJ\Intranet\Authors;
-$post = $data['post'];
-$id = $post->ID;
+
+$id = $data['id'];
 
 $post_object = get_post($id);
 
@@ -12,22 +12,26 @@ $alt_text = get_post_meta($thumbnail_id, '_wp_attachment_image_alt', true);
 $oAuthor = new Authors();
 $authors = $oAuthor->getAuthorInfo($id);
 
+if ($config === 'blog') {
+    $thumbnail_url = $authors[0]['thumbnail_url'];
+} else {
+    $thumbnail_url = $thumbnail[0];
+}
 ?>
-<article class="c-article-item">
-  <img src="<?php echo $thumbnail[0];?>" alt="<?php echo $alt_text;?>">
+<article class="c-article-item js-article-item">
+  <img src="<?php echo $thumbnail_url;?>" alt="<?php echo $alt_text;?>">
   <h1><a href="<?php echo get_the_permalink($id);?>"><?php echo get_the_title($id);?></a></h1>
   <?php
-  // If the 'featured_news' value has been passed to $config: Display the excerpt.
-  if ($config === 'featured_news') { ?>
-    <div class="c-article-item__excerpt">
-      <p><?php echo $post->post_excerpt;?></p>
-    </div>
+  // If the 'show_excerpt' value has been passed to $config: Display the excerpt.
+  if ($config === 'show_excerpt') { ?>
+    <?php get_component('c-article-excerpt'); ?>
   <?php } ?>
   <span class="c-article-item__dateline"><?php echo get_the_time('j M Y', $id);?></span>
 
   <?php
   // If the 'blog' value has been passed to $config: Display the byline.
-  if ($config === 'blog') { ?>
-    <span class="c-article-item__byline"><?php echo $authors;?></span>
+  if ($config === 'blog') {
+  ?>
+        <span class="c-article-item__byline"><?php echo $authors[0]['name'];?></span>
   <?php } ?>
 </article>

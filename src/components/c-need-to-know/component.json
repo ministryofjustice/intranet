@@ -11,7 +11,7 @@
   "children" : "c-agency-link-list, c-app-list",
   "notes" : {
     "backend" : "",
-    "frontend" : ""
+    "frontend" : "uses the global slider plugin"
   },
   "backend_classes" : {},
   "changelog" : [

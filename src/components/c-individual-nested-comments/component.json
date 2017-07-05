@@ -1,0 +1,26 @@
+{
+  "name" : "Individual Nested Comments",
+  "class" : "c-individual-nested-comments",
+  "version" : "1.0.0",
+  "creator" : {
+    "name" : "Alex Foxleigh",
+    "github_username" : "foxleigh81"
+  },
+  "description" : "Each individual comment is a component in it's own right. This component can be nested to allow for a threaded conversation.",
+  "standard_or_universal" : "standard",
+  "parents" : "c-comments",
+  "children" : "",
+  "notes" : {
+    "backend" : "",
+    "frontend" : "This item needs to be nested in a ul tag in a c-comments component"
+  },
+  "backend_classes" : {},
+  "creation_ticket" : "",
+  "changelog" : [
+    {
+      "date" : "23/5/2017",
+      "author" : "Alex Foxleigh",
+      "description" : "Created component"
+    }
+  ]
+}
