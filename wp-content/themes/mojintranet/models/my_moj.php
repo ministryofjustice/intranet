@@ -298,7 +298,7 @@ class My_moj_model extends MVC_model {
         [
           'title' => 'Etarmis',
           'icon' => 'etarmis',
-          'url' => 'https://opg-flexi.org.uk/FCDWeb/',
+          'url' => 'https://opg.hfxonline.co.uk/',
           'external' => true,
         ],
         [
