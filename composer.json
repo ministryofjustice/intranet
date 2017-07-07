@@ -1,0 +1,26 @@
+{
+  "name": "ministryofjustice/intranet-theme-clarity",
+  "type": "wordpress-theme",
+  "license": "",
+  "description": "The Clarity WordPress theme of the MoJ Intranet",
+  "homepage": "https://github.com/ministryofjustice/mojintranet-theme",
+  "authors": [
+    {
+      "name": "Intranet team",
+      "email": "intranet-support@digital.service.go.uk"
+    }
+  ],
+  "keywords": [
+    "wordpress", "theme"
+  ],
+  "support": {
+    "issues": "https://github.com/ministryofjustice/intranet-theme-clarity/issues"
+  },
+  "require": {
+    "php": ">=5.7",
+    "composer/installers": "~1.2.0"
+  },
+  "extra" : {
+    "installer-name": "intranet-theme-clarity"
+  }
+}
