@@ -10,7 +10,7 @@ Template Name: Clarity - Tabbed content
     <div class="l-secondary">
       <?php get_component('c-left-hand-menu'); ?>
     </div>
-    <div class="l-primary" role="main">
+    <div class="l-primary js-tabbed-content-container" role="main">
       <?php get_component('c-tabbed-content', 'Management'); ?>
       <?php get_component('c-tabbed-content', 'Staff'); ?>
     </div>

@@ -2,5 +2,50 @@
 @require "../../globals/css/_toolkit"
 
 .c-tabbed-content {
+  &__nav {
+    width: 100%;
+    border-bottom: 1px solid $border;
+    margin-bottom: $spacing;
+    li {
+      padding: $spacing;
+      background: $boxBg;
+      border: 1px solid $border;
+      cursor: pointer;
+      text-transform: capitalize;
+      font-size: $outerCore;
+      color: $links;
+      margin-bottom -1px;
+      +above(m) {
+        display: inline-block
+        width: 33.3%;
+        border: 3px solid $light;
+        border-bottom: 0;
+      }
+
+      &:not(.u-current):hover {
+        background-color: darken($boxBg, 2%)
+      }
+      &.u-current {
+        color: $dark;
+        +above(m) {
+          border: 1px solid $border;
+          border-bottom: 1px solid $light;
+
+        }
+
+        background-color: $light;
+      }
+    }
+  }
+  &.u-current {
+    display:block
+  }
+  /.js & {
+    display:none;
+
+    > h1 {
+      display: none;
+    }
+  }
 
 }
