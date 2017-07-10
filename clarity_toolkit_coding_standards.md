@@ -96,7 +96,7 @@ e.g.
 If the first 'o-title' is omitted the margin-bottom property will not be applied
 
 ### Stick to the following naming convention prefixes
-All components should be prefixed with a 'c'. All reusable single items (like a button for example) is an object and should be prefixed with 'o' Any class which modifies the behaviour of another item is a utility class and should be prefixed with'u'. Layout Items (which set the general layout of a template) should begin with 'l'.
+All components should be prefixed with a 'c'. All reusable single items (like a button for example) is an object and should be prefixed with 'o' Any class which modifies the behaviour of another item is a utility class and should be prefixed with'u'. Layout Items (which set the general layout of a template) should begin with 'l'. Template items will allow you to define overrides on components for specific templates and will begin with 't'.
 
 e.g.
 
@@ -104,6 +104,7 @@ e.g.
 **Object:** `.o-button`
 **Utility:** `.u-highlight`
 **Layout:** `.l-primary`
+**Template:** `.t-primary`
 
 In fact...
 

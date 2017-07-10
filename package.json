@@ -45,7 +45,7 @@
     "run-sequence": "^1.2.2"
   },
   "devDependencies": {
-    "browser-sync": "^2.18.7",
+    "browser-sync": "^2.18.12",
     "chalk": "^1.1.1",
     "ctgen": "latest",
     "del": "latest",

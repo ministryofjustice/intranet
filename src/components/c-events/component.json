@@ -15,7 +15,8 @@
     "frontend" : ""
   },
   "backend_classes" : {},
-  "creation_ticket" : "",
+  "creation_ticket" : "MI-262",
+  "has_js" : false,
   "changelog" : [
     {
       "date" : "19/5/2017",

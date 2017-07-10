@@ -30,8 +30,7 @@ var plumber = require('gulp-plumber')
 var argv = require('yargs').argv
 var exec = require('child_process').exec
 var runSequence = require('run-sequence')
-var browserSync = require('browser-sync')
-var reload = browserSync.reload
+var browserSync = require('browser-sync').create()
 
 // required for the autoprefixer function in the 'styles' task
 var supportedBrowsers = [
@@ -70,7 +69,7 @@ gulp.task('scripts', function () {
   // Move the file to the assets folder
   .pipe(gulp.dest('assets/js'))
   // Reload the browser JS after every change
-  .pipe(reload({ stream: true }))
+  .pipe(browserSync.stream())
 })
 
 /* styles task */
@@ -94,7 +93,7 @@ gulp.task('stylus', function () {
     // move the file to the assets folder
     .pipe(gulp.dest('assets/css'))
     // Reload the browser CSS after every change
-    .pipe(reload({ stream: true }))
+    .pipe(browserSync.stream())
 })
 
 gulp.task('print', function () {
@@ -108,7 +107,7 @@ gulp.task('print', function () {
     // move the file to the assets folder
     .pipe(gulp.dest('assets/css'))
     // Reload the browser CSS after every change
-    .pipe(reload({ stream: true }))
+    .pipe(browserSync.stream())
 })
 
 gulp.task('ie', function () {
@@ -123,7 +122,7 @@ gulp.task('ie', function () {
     // move the file to the assets folder
     .pipe(gulp.dest('assets/css'))
     // Reload the browser CSS after every change
-    .pipe(reload({ stream: true }))
+    .pipe(browserSync.stream())
 })
 
 gulp.task('postcss', function () {
@@ -143,6 +142,7 @@ gulp.task('postcss', function () {
   .pipe(rename({ suffix: '.min' }))
   // move the file to the assets folder
   .pipe(gulp.dest('assets/css'))
+  .pipe(browserSync.stream())
 })
 
 gulp.task('styles', function (done) {
@@ -170,10 +170,14 @@ gulp.task('vendors', function () {
 })
 
 // Move static content to assets folder
-gulp.task('static', function () {
+gulp.task('static', function (done) {
   // Move fonts
-  return gulp.src('src/globals/fonts/**/*')
+  gulp.src('src/globals/fonts/**/*')
     .pipe(gulp.dest('assets/fonts'))
+  // Move Favicons
+  gulp.src('src/globals/images/icons/*')
+    .pipe(gulp.dest('assets/icons'))
+  done()
 })
 
 /* Reload task */
@@ -182,11 +186,10 @@ gulp.task('bs-reload', function () {
 })
 
 /* Prepare Browser-sync for localhost */
-gulp.task('browser-sync', function () {
+gulp.task('browser-sync', ['styles', 'scripts'], function () {
   /* Initialise BrowserSync */
-  browserSync.init(['assets/css/*.css', 'assets/js/*.js'], {
-    proxy: 'mojintranet.test',
-    port: 3000
+  browserSync.init({
+    proxy: 'mojintranet.test'
   })
 })
 

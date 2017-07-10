@@ -9,9 +9,7 @@
 
 .c-search-bar {
   clearfix();
-  background-color: $primary;
-  padding: $spacing*2 0;
-
+  padding: 0 0 $spacing*2 0;
   &__container {
     column(1/2);
     position: relative;
@@ -21,10 +19,37 @@
     position: relative;
     span(1);
     height: $spacing*3.6;
+    padding-right: $spacing*5;
+    border: 1px solid $border;
   }
 
   button {
     position: absolute;
     right:0;
+    background-color: $primary;
+    color: $light;
+    span {
+      display: none;
+    }
+    &:hover {
+      cursor: pointer;
+      color: $linkFocus;
+    }
   }
+
+  // PARENT OVERRIDES
+  .c-header-container & {
+    background-color: $primary;
+    padding: $spacing*2 0;
+    input {
+      border: 0;
+    }
+    button {
+      background-color: $dark;
+    }
+    .agency-opg & {
+     background-color: $opg_primary;
+    }
+  }
+
 }
