@@ -10,7 +10,7 @@ $sidebarBanner = HomepageBanners::getSidebarBanner(get_intranet_code());
   <?php } ?>
   <?php get_component('c-my-work'); ?>
   <?php get_component('c-quick-links'); ?>
-  <?php get_component('c-blog-summary'); ?>
+  <?php get_component('c-blog-feed'); ?>
   <?php get_component('c-social-links'); ?>
 </section>
 <!-- c-home-page-secondary ends here -->
