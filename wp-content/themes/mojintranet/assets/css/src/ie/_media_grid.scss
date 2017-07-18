@@ -29,6 +29,7 @@
 
   .section {
     width: 47.1%;
+    padding:0px 10px;
     display: inline-block;
     *display: inline;
     float: left;
@@ -67,5 +68,14 @@
     bottom: 5%;
     zoom: 100%;
     z-index: 10;
+  }
+
+  .section {
+    width: 47.1%;
+    padding:0px 10px;
+    display: inline-block;
+    *display: inline;
+    float: left;
+    zoom: 1;
   }
 }
