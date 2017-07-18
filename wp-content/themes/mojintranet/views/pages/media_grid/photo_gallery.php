@@ -10,11 +10,12 @@
   $photo_gallery = get_sub_field('photo_gallery');
   if ($photo_gallery):
     foreach ($photo_gallery as $gallery): ?>
-    <div class="col-lg-2 col-md-3 col-sm-12 thumbnail">
+    <div class="col-lg-2 col-md-3 col-sm-12 thumbnail" data-state="">
       <a href="<?php echo $gallery['sizes']['large']; ?>">
-        <img src="<?php echo $gallery['sizes']['thumbnail']; ?>" alt="<?php echo $gallery['alt']; ?>" />
+        <img src="<?php echo $gallery['sizes']['thumbnail']; ?>" alt="" title="<?php echo $gallery['caption']; ?>"/>
       </a>
     </div>
+
   <?php endforeach; ?>
 <?php endif; ?>
 </div>

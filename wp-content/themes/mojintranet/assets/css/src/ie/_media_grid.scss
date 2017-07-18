@@ -29,6 +29,7 @@
 
   .section {
     width: 47.1%;
+    padding:0 10px;
     display: inline-block;
     *display: inline;
     float: left;
@@ -37,6 +38,10 @@
 
   .lightbox-img {
     filter: alpha(opacity=100);
+    -ms-interpolation-mode: bicubic;
+    width: inherit;
+    max-width: 100%;
+    height: auto;
   }
 }
 
@@ -67,5 +72,14 @@
     bottom: 5%;
     zoom: 100%;
     z-index: 10;
+  }
+
+  .section {
+    width: 47.1%;
+    padding:0 10px;
+    display: inline-block;
+    *display: inline;
+    float: left;
+    zoom: 1;
   }
 }
