@@ -28,12 +28,22 @@
   }
 
   .section {
-    width: 47.1%;
-    padding:0 10px;
+    width: 46%;
+    padding:10px;
+    margin: 10px 0 0 10px;
     display: inline-block;
     *display: inline;
     float: left;
     zoom: 1;
+  }
+
+  .authorTitle {
+    width: 96%;
+    padding: 15px;
+  }
+
+  .blockquote p {
+    width: 98%;
   }
 
   .lightbox-img {
@@ -75,11 +85,21 @@
   }
 
   .section {
-    width: 47.1%;
-    padding:0 10px;
+    width: 46.1%;
+    padding:10px;
+    margin: 10px 0 0 10px;
     display: inline-block;
     *display: inline;
     float: left;
     zoom: 1;
+  }
+
+  .authorTitle {
+    width: 96%;
+    padding: 15px;
+  }
+
+  .blockquote p {
+    width: 98%;
   }
 }

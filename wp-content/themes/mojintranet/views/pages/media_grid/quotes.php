@@ -12,8 +12,8 @@
   <?php if ($quotes):
     foreach ($quotes as $quote): ?>
     <div class="section">
-      <div class="blockquote"><p><?php echo $quote['quote_text'].'<br>'; ?></p>
-      <div class="authorTitle"><p><?php echo $quote['quote_author'].'<br>'; ?></p></div></div>
+      <div class="blockquote"><p><?php echo $quote['quote_text'].'<br>'; ?></p></div>
+      <div class="authorTitle"><p><?php echo $quote['quote_author'].'<br>'; ?></p></div>
     </div>
   <?php endforeach; ?>
 <?php endif; ?>
