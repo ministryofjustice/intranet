@@ -17,6 +17,7 @@ class Page_media_grid extends MVC_controller {
     }
   }
 
+  /** Code to deal with wp previewing revisions? ***/
   function get_data(){
     if (get_array_value($_GET, 'preview', 'false') == 'true') {
       $revisions = wp_get_post_revisions($this->post_ID);
