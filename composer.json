@@ -1,6 +1,6 @@
 {
   "name": "ministryofjustice/mojintranet-theme",
-  "type": "wordpress-theme",
+  "type": "library",
   "license": "",
   "description": "The Wordpress theme of the MoJ Intranet",
   "homepage": "https://github.com/ministryofjustice/mojintranet-theme",
