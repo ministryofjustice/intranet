@@ -39,12 +39,14 @@
 
   .lightbox-img {
     max-width: 100%;
+    height: auto;
     z-index: 10;
   }
 
   .lightbox-video {
     max-width: 100%;
     height: auto;
+    margin-top:40px;
     z-index: 10;
   }
 
