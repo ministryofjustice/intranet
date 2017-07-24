@@ -12,7 +12,7 @@
     foreach ($photo_gallery as $gallery): ?>
     <div class="col-lg-2 col-md-3 col-sm-12 popup-gallery">
       <a href="<?php echo $gallery['sizes']['large']; ?>" title="<?php echo $gallery['caption']; ?>">
-      <img src="<?php echo $gallery['sizes']['thumbnail']; ?>" alt="" title="<?php echo $gallery['caption']; ?>"/>
+      <img src="<?php echo $gallery['sizes']['thumbnail']; ?>" alt="<?php echo $gallery['caption']; ?>" title="<?php echo $gallery['caption']; ?>"/>
       </a>
     </div>
   <?php endforeach; ?>
