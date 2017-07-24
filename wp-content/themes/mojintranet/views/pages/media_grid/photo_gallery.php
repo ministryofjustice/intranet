@@ -10,8 +10,8 @@
   $photo_gallery = get_sub_field('photo_gallery');
   if ($photo_gallery):
     foreach ($photo_gallery as $gallery): ?>
-    <div class="col-lg-2 col-md-3 col-sm-12">
-      <a class="image-popup-no-margins" href="<?php echo $gallery['sizes']['large']; ?>" title="<?php echo $gallery['caption']; ?>">
+    <div class="col-lg-2 col-md-3 col-sm-12 popup-gallery">
+      <a href="<?php echo $gallery['sizes']['large']; ?>" title="<?php echo $gallery['caption']; ?>">
       <img src="<?php echo $gallery['sizes']['thumbnail']; ?>" alt="" title="<?php echo $gallery['caption']; ?>"/>
       </a>
     </div>
@@ -22,18 +22,21 @@
 // This will eventually need to be refactored into the appropreate js area. Best to do when incorporating the video popup.
 $(document).ready(function() {
 
-	$('.image-popup-no-margins').magnificPopup({
+  $('.popup-gallery').magnificPopup({
+		delegate: 'a',
 		type: 'image',
-		closeOnContentClick: true,
-		closeBtnInside: true,
-		fixedContentPos: true,
-		mainClass: 'mfp-no-margins mfp-with-zoom', // class to remove default margin from left and right side
-		image: {
-			verticalFit: true
-		},
-		zoom: {
+		tLoading: 'Loading image #%curr%...',
+		mainClass: 'mfp-img-mobile',
+		gallery: {
 			enabled: true,
-			duration: 300 // don't foget to change the duration also in CSS
+			navigateByImgClick: true,
+			preload: [0,1] // Will preload 0 - before current, and 1 after the current image
+		},
+		image: {
+			tError: '<a href="%url%">The image #%curr%</a> could not be loaded.',
+			titleSrc: function(item) {
+				return item.el.attr('title') + '<small>by Marsel Van Oosten</small>';
+			}
 		}
 	});
 
