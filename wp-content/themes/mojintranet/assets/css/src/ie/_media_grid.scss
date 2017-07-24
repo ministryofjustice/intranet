@@ -106,3 +106,46 @@
     width: 98%;
   }
 }
+
+/* Targeting all IE browsers above 8 */
+
+.lightbox-image-container {
+  position: fixed;
+  background: transparent;
+  height: 100%;
+  width: 100%;
+  opacity: 0.5;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#4C000000,endColorstr=#4C000000);
+  /* IE 6 & 7 */
+  top: 0;
+  bottom: 5%;
+  zoom: 100%;
+  z-index: 10;
+}
+
+.section {
+  width: 46.1%;
+  padding:10px;
+  margin: 10px 0 0 10px;
+  display: inline-block;
+  *display: inline;
+  float: left;
+  zoom: 1;
+}
+
+.blockquote p {
+  width: 98%;
+}
+
+/* Magnific Popup CSS Override */
+.mfp-bg {
+  background: #000000;
+  opacity: 0.5;
+  -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+    filter: alpha(opacity=50);
+}
+
+.mfp-image-holder .mfp-close,
+.mfp-iframe-holder .mfp-close {
+  padding-right: 56px;
+}
