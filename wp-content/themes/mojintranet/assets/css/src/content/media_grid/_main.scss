@@ -129,7 +129,15 @@
   .section {
     display: inline-block;
     width:  100%;
+    padding:15px 15px 0;
     background-color: #e1e8e8;
+  }
+
+  .featureVideo {
+    z-index: -100;
+  }
+  .ytp-cued-thumbnail-overlay-image {
+      z-index: -999;
   }
 
 }
