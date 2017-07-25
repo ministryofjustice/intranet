@@ -27,17 +27,34 @@
     z-index: 10;
   }
 
+  .lightbox-attr {
+    margin-top: 0;
+  }
+
   .section {
-    width: 47.1%;
-    padding:0 10px;
+    width: 25%;
+    padding:10px 35px 0;
+    margin: 10px 0 0 10px;
     display: inline-block;
     *display: inline;
     float: left;
     zoom: 1;
   }
 
+  .authorTitle {
+    width: 96%;
+    padding: 15px;
+  }
+
+  .blockquote p {
+    width: 98%;
+  }
+
   .lightbox-img {
     filter: alpha(opacity=100);
+    width: inherit;
+    max-width: 100%;
+    height: auto;
   }
 }
 
@@ -71,11 +88,40 @@
   }
 
   .section {
-    width: 47.1%;
-    padding:0 10px;
+    width: 25%;
+    padding:10px 35px 0;
+    margin: 10px 0 0 10px;
     display: inline-block;
     *display: inline;
     float: left;
     zoom: 1;
   }
+
+  .authorTitle {
+    width: 96%;
+    padding: 15px;
+  }
+
+  .blockquote p {
+    width: 98%;
+  }
+}
+
+/* Targeting all IE browsers above 8 */
+
+.blockquote p {
+  width: 98%;
+}
+
+/* Magnific Popup CSS Override */
+.mfp-bg {
+  background: #000000;
+  opacity: 0.5;
+  -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+    filter: alpha(opacity=50);
+}
+
+.mfp-image-holder .mfp-close,
+.mfp-iframe-holder .mfp-close {
+  padding-right: 56px;
 }

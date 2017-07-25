@@ -17,13 +17,14 @@
 
     <!--[if !IE]><!-->
       <?php if ($feature_video): ?>
-          <?php echo '<iframe width="600" height="338" src="https://www.youtube.com/embed/'. $feature_video . '?wmode=transparent' .'" frameborder="0"></iframe>' ?>
+          <?php echo '<iframe width="600" height="338" src="https://www.youtube.com/embed/'. $feature_video . '?wmode=transparent' .'" data-state="" frameborder="0"></iframe>' ?>
       <?php endif; ?>
       <!--<![endif]-->
 
     <!--[if lte IE 9]>
       <?php if ($feature_video): ?>
-          <?php echo '<iframe width="600" height="338" src="https://www.youtube.com/v/'. $feature_video . '?wmode=transparent' .'" frameborder="0"></iframe>' ?>
+          <?php echo '<iframe width="600" height="338" src="https://www.youtube.com/v/'.
+          $feature_video . '?wmode=transparent' .'" data-state="" frameborder="0"></iframe>' ?>
       <?php endif; ?>
     <![endif]-->
 
