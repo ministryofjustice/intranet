@@ -43,8 +43,7 @@ add_action('login_form', 'acme_autocomplete_login_form');
 
 // Force logout after x hours
 function control_login_period( $expirein ) {
-    $hour = 3600; // 1 hour in seconds
-  return $hour*24*7; // Set to 1 week
+  return 180 * DAY_IN_SECONDS; // Cookies set to expire in 180 days.
 }
 add_filter( 'auth_cookie_expiration', 'control_login_period' );
 
