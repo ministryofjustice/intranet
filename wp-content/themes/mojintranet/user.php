@@ -96,7 +96,7 @@ class User extends MVC_controller {
 
             wp_clear_auth_cookie();
             wp_set_current_user($user->ID);
-            wp_set_auth_cookie($user->ID);
+            wp_set_auth_cookie($user->ID, true); // Boolean when true, as it relates to commenting, sets wp cookie expiration to whatever the wordpress login defaults are set to (as of this comment 180 days - see security.php).
 
             $this->model->user->update($user->ID, array(
                   'display_name' => $display_name
