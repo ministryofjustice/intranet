@@ -52,6 +52,8 @@ require_once('admin/errors.php');                         // Displays errors in 
 require_once('admin/dashboard.php');                      // Dashboard functions
 require_once('admin/listing.php');                        // Listing functions
 
+require_once('inc/api.php');                              // API Support for custom post types & taxonomies
+
 add_action( 'after_setup_theme', 'mojintranet_setup' );
 
 if ( !function_exists( 'mojintranet_setup' ) ) {
