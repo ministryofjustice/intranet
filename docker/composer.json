@@ -1,0 +1,20 @@
+{
+    "require": {
+        "wikimedia/composer-merge-plugin": "dev-master"
+    },
+    "extra": {
+        "merge-plugin": {
+            "require": [
+                "bedrock.json",
+                "moj.json"
+            ],
+            "recurse": true,
+            "replace": false,
+            "ignore-duplicates": false,
+            "merge-dev": false,
+            "merge-extra": true,
+            "merge-extra-deep": true,
+            "merge-scripts": true
+        }
+    }
+}
