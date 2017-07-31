@@ -1,7 +1,7 @@
 <?php
 
 /**
-* Add REST API support to an already registered post type.
+* Add REST API support to existing custom taxonomies.
 */
 add_action( 'init', 'add_custom_post_type_rest_support', 25 );
 function add_custom_post_type_rest_support() {
@@ -30,7 +30,7 @@ function add_custom_post_type_rest_support() {
 }
 
 /**
- * Add REST API support to an already registered taxonomy.
+ * Add REST API support to existing custom taxonomies.
  */
 add_action( 'init', 'add_custom_taxonomy_rest_support', 25 );
 function add_custom_taxonomy_rest_support() {
@@ -56,3 +56,49 @@ function add_custom_taxonomy_rest_support() {
     }
 
 }
+
+/**
+ * Add REST API endpoint
+ */
+function get_featured_news_endpoint(WP_REST_Request $request )
+{
+    $featured_ids = array ();
+
+    $agency = $request->get_param( 'agency' );
+
+    $agency = sanitize_text_field($agency);
+    
+    $max_featured =  $request->get_param( 'max_featured' );
+
+    for($a = 1; $a <= $max_featured; $a++) {
+        array_push($featured_ids, get_option($agency . '_featured_story' . $a));
+    }
+
+
+    $args = array (
+        // Paging
+        'nopaging' => false,
+        'offset' => 0,
+        'posts_per_page' => $max_featured,
+        // Filters
+        'post_type' => ['news', 'post', 'page'],
+        'post__in' => $featured_ids,
+        'orderby' => 'post__in'
+    );
+
+    $featured = get_posts($args);
+
+    if ( empty( $featured ) ) {
+        return null;
+    }
+
+    return $featured;
+
+}
+
+add_action( 'rest_api_init', function () {
+    register_rest_route( 'intranet/v1', '/featurednews/(?P<agency>[a-zA-Z0-9-]+)/(?P<max_featured>\d+)', array(
+        'methods' => 'GET',
+        'callback' => 'get_featured_news_endpoint',
+    ) );
+} );
