@@ -34,6 +34,7 @@ services:
       MYSQL_PASSWORD: wordpress
     volumes:
       - database:/var/lib/mysql
+      - ./db-dump:/db-dump
   mailcatcher:
     image: schickling/mailcatcher
     environment:
