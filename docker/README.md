@@ -32,3 +32,19 @@ From a separate terminal window, run this command;
 
     http://intranet.docker
 
+## ENV Variables
+
+### COMPOSER_USER (optional - required at build time)
+The httpbasic user for accessing https://composer.wp.dsd.io
+
+### COMPOSER_PASS (optional - required at build time)
+The httpbasic password for accessing https://composer.wp.dsd.io
+
+## Access Requirements
+
+Because our WP installations use commercial plugins, the
+containers must have access to our private repo
+(https://composer.wp.dsd.io). This means that they must be run from the
+using the VPN, or using an `auth.json` cofiguration, which provides
+httpbasic username/password access to the repo (most commonly used for
+CI).
