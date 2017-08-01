@@ -6,6 +6,7 @@
 *.swp
 Thumbs.db
 .idea
+*.sql
 
 # wordpress specific
 wp-content/uploads/
