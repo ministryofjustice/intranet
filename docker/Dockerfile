@@ -3,6 +3,7 @@ FROM mojdigital/wordpress-base:latest
 # Stop the ubuntu phatomjs package breaking on install (qt wants an X window
 # server connection).
 ENV QT_QPA_PLATFORM=offscreen
+ENV COMPOSER_ALLOW_SUPERUSER 1
 
 ADD . /bedrock
 
