@@ -1,14 +1,8 @@
 #!/bin/sh
 set -e
 
-###
-# Build Script
-# Use this script to build theme assets,
-# and perform any other build-time tasks.
-##
-
 # Clean up the working directory (useful when building from local dev files)
-if [ -d ".git" ]
+if [ -d ".git" ] || [ -d "../.git" ]
 then
 	git clean -xdf
 fi
