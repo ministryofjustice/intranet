@@ -1,2 +1,5 @@
 Dockerfile
 docker-compose.yml
+web
+vendor
+bedrock_local
