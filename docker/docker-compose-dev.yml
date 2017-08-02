@@ -1,12 +1,13 @@
 version: '3.3'
 services:
   wordpress:
-    build:
-      context: .
-      args:
-        production: 1
+    container_name: wp_local_dev
+    build: .
     env_file: .env
+    volumes:
+      - ./bedrock_volume:/bedrock
     environment:
+      development: 1
       WP_ENV: development
       VIRTUAL_HOST: intranet.docker
       SMTP_HOST: mailcatcher
@@ -15,6 +16,7 @@ services:
       DB_USER: wordpress
       DB_PASSWORD: wordpress
       DB_HOST: mysql
+    command: ["/build.sh"]
     links:
       - mailcatcher
       - mysql
@@ -28,6 +30,7 @@ services:
     ports:
       - "80:80"
   mysql:
+    container_name: wp_local_db
     image: mariadb
     environment:
       MYSQL_ROOT_PASSWORD: root
@@ -38,6 +41,7 @@ services:
       - database:/var/lib/mysql
       - ./db-dump:/db-dump
   mailcatcher:
+    container_name: wp_local_smtp
     image: schickling/mailcatcher
     environment:
       VIRTUAL_HOST: mail.intranet.docker

@@ -8,6 +8,12 @@ Thumbs.db
 .idea
 *.sql
 
+docker/bedrock_volume/web
+docker/bedrock_volume/vendor
+docker/bedrock_volume/config
+docker/bedrock_volume/*.json
+docker/bedrock_volume/*.js
+
 # wordpress specific
 wp-content/uploads/
 wp-content/blogs.dir/
