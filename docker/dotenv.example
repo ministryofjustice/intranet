@@ -1,7 +1,7 @@
 # This should match the VIRTUAL_HOST environment variable for the wordpress service in docker-compose.yml
-WP_HOME=http://appname.docker
-WP_SITEURL=http://appname.docker/wp
-SERVER_NAME=appname.docker
+WP_HOME=http://intranet.docker
+WP_SITEURL=http://intranet.docker/wp
+SERVER_NAME=intranet.docker
 
 # Generate your keys here: https://roots.io/salts.html
 AUTH_KEY=saltykey
