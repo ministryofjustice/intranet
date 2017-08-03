@@ -1,5 +1,15 @@
 # Running a local instance of MoJ Intranet
 
+## Pre-requisites
+
+* [Docker](https://www.docker.com/)
+* An account on [Docker Hub](https://hub.docker.com/)
+* A fast internet connection (for the initial download of docker images etc.)
+* Port 80 of your local machine must be available (i.e. no other webserver running)
+* MoJ network access (via a VPN is fine). See [Access Requirements](#access-requirements)
+
+## Steps
+
 1. Create your `.env` file (see `dotenv.example`)
 
   For all the dummy keys (those with the value `saltykey`), you can
@@ -74,12 +84,12 @@ The httpbasic user for accessing https://composer.wp.dsd.io
 ### COMPOSER_PASS (optional - required at build time)
 The httpbasic password for accessing https://composer.wp.dsd.io
 
-## Access Requirements
+## <a name="access-requirements"></a> Access Requirements
 
 Because our WP installations use commercial plugins, the
 containers must have access to our private repo
 (https://composer.wp.dsd.io). This means that they must be run from the
-using the VPN, or using an `auth.json` cofiguration, which provides
+using the VPN, or using an `auth.json` configuration, which provides
 httpbasic username/password access to the repo (most commonly used for
 CI).
 
