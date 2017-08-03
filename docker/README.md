@@ -20,7 +20,9 @@ visit the following URL to get fresh values to paste into the file;
 a Mac). If you have a VM as your docker host, use its IP number, in
 place of `127.0.0.1`
 
-4. Run `docker-compose -f docker-compose-dev.yml up`
+4. Run `make launch`
+
+See the `Makefile` for other useful commands.
 
 5. Load the initial data into the database container
 
@@ -30,7 +32,7 @@ again. The data is written to its own docker volume, so it should still
 be there when the mysql container mounts it.  From a separate terminal
 window, run this command;
 
-  `docker-compose exec mysql bash -c 'cat /db-dump/*.sql | mysql -u${MYSQL_USER} -p${MYSQL_PASSWORD} ${MYSQL_DATABASE}'`
+  `make load-db-dump`
 
 6. You should now be able to access your instance of the intranet at
    this URL;
