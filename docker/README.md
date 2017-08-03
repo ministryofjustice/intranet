@@ -20,11 +20,28 @@ visit the following URL to get fresh values to paste into the file;
 a Mac). If you have a VM as your docker host, use its IP number, in
 place of `127.0.0.1`
 
-4. Run `make launch`
+4. Login to docker hub
+
+This project uses some public docker images, which require a login
+to the docker hub.
+
+  `docker login`
+
+Then enter your docker ID and password.
+
+You can check whether or not you are logged in by running this;
+
+  `docker pull schickling/mailcatcher`
+
+If that works, you will get a few lines of output ending in;
+
+  `Status: Image is up to date for schickling/mailcatcher:latest`
+
+5. Run `make launch`
 
 See the `Makefile` for other useful commands.
 
-5. Load the initial data into the database container
+6. Load the initial data into the database container
 
   NB: If you have done this step before, even if you rebuilt your
 database container since then, you should not have to do this step
@@ -34,12 +51,12 @@ window, run this command;
 
   `make load-db-dump`
 
-6. You should now be able to access your instance of the intranet at
+7. You should now be able to access your instance of the intranet at
    this URL;
 
   http://intranet.docker
 
-7. You can now edit files in the `./bedrock_volume` and see changes in
+8. You can now edit files in the `./bedrock_volume` and see changes in
    `intranet.docker`
 
   NB: The files in this directory are automatically installed by `grunt`
