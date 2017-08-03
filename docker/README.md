@@ -2,9 +2,10 @@
 
 1. Create your `.env` file (see `dotenv.example`)
 
-For all the dummy keys (those with the value `saltykey`), you can visit the following URL to get fresh values to paste into the file;
+  For all the dummy keys (those with the value `saltykey`), you can
+visit the following URL to get fresh values to paste into the file;
 
-    https://roots.io/salts.html
+  https://roots.io/salts.html
 
 2. Prepare your data to load into the Wordpress database
 
@@ -13,24 +14,38 @@ For all the dummy keys (those with the value `saltykey`), you can visit the foll
 
 3. Edit your `/etc/hosts` file and add the following entries;
 
-    127.0.0.1	intranet.docker
+  `127.0.0.1	intranet.docker`
 
-This works for environments where docker is running natively (e.g. on a Mac). If you have a VM
-as your docker host, use its IP number, in place of `127.0.0.1`
+  This works for environments where docker is running natively (e.g. on
+a Mac). If you have a VM as your docker host, use its IP number, in
+place of `127.0.0.1`
 
-4. Run `docker-compose up`
+4. Run `docker-compose -f docker-compose-dev.yml up`
 
 5. Load the initial data into the database container
 
-NB: If you have done this step before, even if you rebuilt your database container since then, you should not have to do this step again. The data is written to its own docker volume, so it should still be there when the mysql container mounts it.
+  NB: If you have done this step before, even if you rebuilt your
+database container since then, you should not have to do this step
+again. The data is written to its own docker volume, so it should still
+be there when the mysql container mounts it.  From a separate terminal
+window, run this command;
 
-From a separate terminal window, run this command;
+  `docker-compose exec mysql bash -c 'cat /db-dump/*.sql | mysql -u${MYSQL_USER} -p${MYSQL_PASSWORD} ${MYSQL_DATABASE}'`
 
-    docker-compose exec mysql bash -c 'cat /db-dump/*.sql | mysql -u${MYSQL_USER} -p${MYSQL_PASSWORD} ${MYSQL_DATABASE}'
+6. You should now be able to access your instance of the intranet at
+   this URL;
 
-6. You should now be able to access your instance of the intranet at this URL;
+  http://intranet.docker
 
-    http://intranet.docker
+7. You can now edit files in the `./bedrock_volume` and see changes in
+   `intranet.docker`
+
+  NB: The files in this directory are automatically installed by `grunt`
+and `composer`, so it is *NOT* a `git` controlled directory. In fact,
+the bedrock and config files are explicitly listed in the project
+`.gitignore` to prevent accidental checkins. This is necessary until the
+structure of the directories is rationalised, which should happen around
+the time of the AWS move (written on 2017-08-03).
 
 ## ENV Variables
 
@@ -48,3 +63,9 @@ containers must have access to our private repo
 using the VPN, or using an `auth.json` cofiguration, which provides
 httpbasic username/password access to the repo (most commonly used for
 CI).
+
+## Production container
+
+The WP production container can be built by copying `dotenv.example` to
+`.env.production` and editing its values and by editing
+`docker-compose.yml` and adding suitable values where noted.
