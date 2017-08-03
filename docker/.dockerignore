@@ -1,5 +1,3 @@
 Dockerfile
 docker-compose.yml
-web
-vendor
-bedrock_local
+bedrock_volume
