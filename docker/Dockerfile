@@ -1,6 +1,8 @@
 FROM mojdigital/wordpress-base:latest
 
 ARG production
+ARG COMPOSER_USER
+ARG COMPOSER_PASS
 
 # Stop the ubuntu phatomjs package breaking on install (qt wants an X window
 # server connection).
@@ -23,4 +25,4 @@ RUN gem install sass
 
 # Run ./build.sh as part of the build process IFF we are running in production
 # mode (set in `docker-compose.yml`), otherwise defer until runtime
-RUN ./production_build.sh
+RUN chmod +x production_build.sh build.sh && ./production_build.sh

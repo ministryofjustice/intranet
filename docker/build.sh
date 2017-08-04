@@ -11,6 +11,21 @@ EOF
   exec /sbin/my_init
 fi
 
+# Add composer auth file
+if [ ! -z "${COMPOSER_USER}" ] && [ ! -z "${COMPOSER_PASS}" ]
+then
+    cat <<- EOF >> auth.json
+        {
+            "http-basic": {
+                "composer.wp.dsd.io": {
+                    "username": "${COMPOSER_USER}",
+                    "password": "${COMPOSER_PASS}"
+                }
+            }
+        }
+EOF
+fi
+
 # Even if the main theme were moved into the path of the host volume
 # (./bedrock_volume in this case), the build would still fail when ./bedrock is
 # a mounted volume.  This is because a number of dependencies must be installed
