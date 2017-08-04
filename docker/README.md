@@ -76,14 +76,6 @@ the bedrock and config files are explicitly listed in the project
 structure of the directories is rationalised, which should happen around
 the time of the AWS move (written on 2017-08-03).
 
-## ENV Variables
-
-### COMPOSER_USER (optional - required at build time)
-The httpbasic user for accessing https://composer.wp.dsd.io
-
-### COMPOSER_PASS (optional - required at build time)
-The httpbasic password for accessing https://composer.wp.dsd.io
-
 ## <a name="access-requirements"></a> Access Requirements
 
 Because our WP installations use commercial plugins, the
