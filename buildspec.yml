@@ -1,0 +1,27 @@
+version: 0.1
+environment_variables:
+  plaintext:
+    APPNAME: "mojintranet"
+phases:
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR...
+      - $(aws ecr get-login --region "${DOCKER_REGISTRY_REGION}")
+  build:
+    commands:
+      - aws codepipeline get-pipeline-execution --pipeline-name `echo $CODEBUILD_INITIATOR | cut -f 2 -d '/'` --pipeline-execution-id `aws codepipeline get-pipeline-state --name $(echo $CODEBUILD_INITIATOR | cut -f 2 -d '/') --query "stageStates[?actionStates[0].actionName=='DockerBuild'].latestExecution.pipelineExecutionId" --output text` --query "pipelineExecution.artifactRevisions[?name=='Application'].revisionId" --output text | cut -c 1-7 | xargs echo -n > BUILD_TAG.txt
+      - echo -n -`date "+%Y%m%d%H%M"` >> BUILD_TAG.txt
+      - echo Created build tag `cat BUILD_TAG.txt`
+      - echo Build started on `date`
+      - echo Building the Docker image...
+      - docker build --build-arg COMPOSER_USER="$COMPOSER_USER" --build-arg COMPOSER_PASS="$COMPOSER_PASS" --build-arg production="1" -t $APPNAME:`cat BUILD_TAG.txt` -f docker/Dockerfile docker
+      - docker tag $APPNAME:`cat BUILD_TAG.txt` $DOCKER_REGISTRY_REPO:`cat BUILD_TAG.txt`
+  post_build:
+    commands:
+      - echo Using build tag `cat BUILD_TAG.txt`
+      - echo Build completed on `date`
+      - echo Pushing the Docker image...
+      - docker push $DOCKER_REGISTRY_REPO:`cat BUILD_TAG.txt`
+artifacts:
+  files:
+    - BUILD_TAG.txt
