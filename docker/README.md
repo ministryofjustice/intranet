@@ -85,6 +85,20 @@ using the VPN, or using an `auth.json` configuration, which provides
 httpbasic username/password access to the repo (most commonly used for
 CI).
 
+## Mailcatcher
+
+The local versions of the container use
+[mailcatcher](https://mailcatcher.me), in its own
+container, to handled mail server interaction.  You can access it on
+`http://127.0.0.1:1080`.  You can also add the following line to your
+`/etc/hosts` to make it accessible on
+`http://mail.intranet.docker:1080`, which is probably more useful for
+scripitng tests:
+
+```
+127.0.0.1 mail.intranet.docker
+```
+
 ## Production container
 
 The WP production container can be built by copying `dotenv.example` to
