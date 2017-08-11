@@ -6,9 +6,16 @@
 *.swp
 Thumbs.db
 .idea
+*.sql
+
+docker/bedrock_volume/web
+docker/bedrock_volume/vendor
+docker/bedrock_volume/config
+docker/bedrock_volume/*.json
+docker/bedrock_volume/*.js
+docker/bedrock_volume/*.lock
 
 # wordpress specific
-wp-config.php
 wp-content/uploads/
 wp-content/blogs.dir/
 wp-content/upgrade/*
@@ -135,3 +142,4 @@ debug.log
 /wp-content/plugins/regenerate-thumbnails
 /wp-content/plugins/dw-document-revisions
 /wp-content/plugins/advanced-custom-fields-pro
+docker/.env

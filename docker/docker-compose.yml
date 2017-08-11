@@ -1,0 +1,23 @@
+version: '3.3'
+services:
+  wordpress:
+    build:
+      context: .
+      args:
+        production: 1
+    env_file: .env.production
+    environment:
+      WP_ENV: production
+      VIRTUAL_HOST: change_to_production_value
+      SMTP_HOST:  change_to_production_value
+      SMTP_PORT: change_to_production_value
+      DB_NAME: change_to_production_value
+      DB_USER: change_to_production_value
+      DB_PASSWORD: change_to_production_value
+      DB_HOST: change_to_production_value
+    cap_add:
+      - SYS_ADMIN
+    devices:
+      - /dev/fuse
+    ports:
+      - "80:80"

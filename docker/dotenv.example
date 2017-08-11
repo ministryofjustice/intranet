@@ -1,0 +1,38 @@
+# This should match the VIRTUAL_HOST environment variable for the wordpress service in docker-compose.yml
+WP_HOME=http://intranet.docker
+WP_SITEURL=http://intranet.docker/wp
+SERVER_NAME=intranet.docker
+
+# Generate your keys here: https://roots.io/salts.html
+AUTH_KEY=saltykey
+SECURE_AUTH_KEY=saltykey
+LOGGED_IN_KEY=saltykey
+NONCE_KEY=saltykey
+AUTH_SALT=saltykey
+SECURE_AUTH_SALT=saltykey
+LOGGED_IN_SALT=saltykey
+NONCE_SALT=saltykey
+
+# Config for yas3fs
+# See https://rattic.service.dsd.io/cred/detail/744/ for more information
+AWS_DEFAULT_REGION=eu-west-1
+S3_ENDPOINT=s3-eu-west-1.amazonaws.com
+# NB: This S3 bucket should *not* be configured to post events to the SNS topic.
+# yas3fs will not be able to process such events. Instead, yas3fs posts its own
+# messages to the topic, and updates that happen to the S3 bucket outside of
+# the Wordpress container will not have any effect on the yas3fs local caches.
+AWS_S3_BUCKET=CHANGE_TO_PRODUCTION_VALUE
+S3_UPLOADS_BASE_URL=https://s3-eu-west-1.amazonaws.com/[AWS_S3_BUCKET]/wp-content/uploads
+SNS_TOPIC=[ARN of the SNS topic for yas3fs]
+# The IAM user for these credentials must be able to read from and write to the
+# S3 bucket, and also needs permissions on the SNS topic.
+AWS_ACCESS_KEY_ID=[IAM user access key]
+AWS_SECRET_ACCESS_KEY=[IAM user secret key]
+
+# These env vars are only required if you want to run the smoke
+# tests against a local instance of the intranet. Get these values
+# from the secrets.env file in the intranet-smoke-tests repo.
+# NB: In secrets.env, these values are wrapped in single-quotes.
+# DO NOT INCLUDE THE SINGLE QUOTES HERE.
+pass_regional=[get from intranet-smoke-tests/secrets.env]
+pass_agency_editor=[get from intranet-smoke-tests/secrets.env]
