@@ -12,3 +12,19 @@ AUTH_SALT=saltykey
 SECURE_AUTH_SALT=saltykey
 LOGGED_IN_SALT=saltykey
 NONCE_SALT=saltykey
+
+# Config for yas3fs
+# See https://rattic.service.dsd.io/cred/detail/744/ for more information
+AWS_DEFAULT_REGION=eu-west-1
+S3_ENDPOINT=s3-eu-west-1.amazonaws.com
+# NB: This S3 bucket should *not* be configured to post events to the SNS topic.
+# yas3fs will not be able to process such events. Instead, yas3fs posts its own
+# messages to the topic, and updates that happen to the S3 bucket outside of
+# the Wordpress container will not have any effect on the yas3fs local caches.
+AWS_S3_BUCKET=CHANGE_TO_PRODUCTION_VALUE
+S3_UPLOADS_BASE_URL=https://s3-eu-west-1.amazonaws.com/[AWS_S3_BUCKET]/wp-content/uploads
+SNS_TOPIC=[ARN of the SNS topic for yas3fs]
+# The IAM user for these credentials must be able to read from and write to the
+# S3 bucket, and also needs permissions on the SNS topic.
+AWS_ACCESS_KEY_ID=[IAM user access key]
+AWS_SECRET_ACCESS_KEY=[IAM user secret key]
