@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/ministryofjustice/mojintranet-theme.git"
+    "url": "https://github.com/ministryofjustice/intranet.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ministryofjustice/mojintranet-theme/issues"
+    "url": "https://github.com/ministryofjustice/intranet/issues"
   },
-  "homepage": "https://github.com/ministryofjustice/mojintranet-theme",
+  "homepage": "https://github.com/ministryofjustice/intranet",
   "devDependencies": {
     "cucumber": "latest",
     "grunt": "^0.4.5",
