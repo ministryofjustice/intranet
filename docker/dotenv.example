@@ -28,3 +28,11 @@ SNS_TOPIC=[ARN of the SNS topic for yas3fs]
 # S3 bucket, and also needs permissions on the SNS topic.
 AWS_ACCESS_KEY_ID=[IAM user access key]
 AWS_SECRET_ACCESS_KEY=[IAM user secret key]
+
+# These env vars are only required if you want to run the smoke
+# tests against a local instance of the intranet. Get these values
+# from the secrets.env file in the intranet-smoke-tests repo.
+# NB: In secrets.env, these values are wrapped in single-quotes.
+# DO NOT INCLUDE THE SINGLE QUOTES HERE.
+pass_regional=[get from intranet-smoke-tests/secrets.env]
+pass_agency_editor=[get from intranet-smoke-tests/secrets.env]
