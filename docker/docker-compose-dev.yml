@@ -6,6 +6,7 @@ services:
     env_file: .env
     volumes:
       - ./bedrock_volume:/bedrock
+      - ./utils:/utils
     environment:
       development: 1
       WP_ENV: development
