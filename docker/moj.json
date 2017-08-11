@@ -7,7 +7,7 @@
     {"type":"vcs", "no-api": true, "url":"https://github.com/ministryofjustice/dw-live-drafts.git"},
     {"type":"vcs", "no-api": true, "url":"https://github.com/ministryofjustice/dw-markdown.git"},
     {"type":"vcs", "no-api": true, "url":"https://github.com/ministryofjustice/intranet-theme-clarity.git"},
-    {"type":"vcs", "no-api": true, "url":"https://github.com/ministryofjustice/mojintranet-theme.git"}
+    {"type":"vcs", "no-api": true, "url":"https://github.com/ministryofjustice/intranet.git"}
   ],
   "require": {
     "wpackagist-plugin/cms-tree-page-view":"1.3.4",
@@ -23,7 +23,7 @@
     "ministryofjustice/dw-live-drafts":"dev-composer",
     "ministryofjustice/dw-markdown":"dev-composer",
     "ministryofjustice/intranet-theme-clarity":"dev-composer",
-    "ministryofjustice/mojintranet-theme":"dev-bedrock",
+    "ministryofjustice/intranet":"master",
     "wpackagist-theme/twentyseventeen":"1.3"
   }
 }
