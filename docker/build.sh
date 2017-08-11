@@ -52,7 +52,7 @@ cp -a config ./bedrock
 cd ./bedrock
 
 # This is required for the s3 filesystem
-mkdir web/app/uploads
+mkdir -p web/app/uploads
 
 # Install PHP dependencies (WordPress, plugins, etc.)
 composer install --verbose
