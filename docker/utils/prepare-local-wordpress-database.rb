@@ -1,18 +1,11 @@
 #!/usr/bin/env ruby
 
-# TODO: this is tightly coupled to the smoke tests, and the test data
-# they're expecting to be present. This needs to be managed, somehow.
 def main
-
-  # TODO: BEFORE COMMITING
-  # replace the passwords with ENV.fetch('something')
-  # in the docker-compose-dev.yml, set the env vars
-
   ensure_user_exists(
     login: 'agency_editor',
     email: 'agency_editor@example.com',
     role: 'agency-editor',
-    password: 'dummy-value',
+    password: ENV.fetch('pass_agency_editor'),
     display_name: 'Agency Editor Test'
   )
 
@@ -20,7 +13,7 @@ def main
     login: 'regional',
     email: 'regional@example.com',
     role: 'regional-editor',
-    password: 'dummy-value',
+    password: ENV.fetch('pass_regional'),
     display_name: 'regional'
   )
 
