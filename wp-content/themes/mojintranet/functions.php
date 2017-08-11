@@ -52,6 +52,8 @@ require_once('admin/errors.php');                         // Displays errors in 
 require_once('admin/dashboard.php');                      // Dashboard functions
 require_once('admin/listing.php');                        // Listing functions
 
+require_once('inc/api.php');                              // API Support for custom post types & taxonomies
+
 add_action( 'after_setup_theme', 'mojintranet_setup' );
 
 if ( !function_exists( 'mojintranet_setup' ) ) {
@@ -88,3 +90,13 @@ function fix_intranet_noms_renaming() {
         //unset($_COOKIE['dw_agency']);
     }
 }
+
+function clean_site_url($url) {
+    // Only strip in the case that we are not dealing with a core wordpress link
+    if ( strpos($url, 'wp-') === false )
+        return str_replace('/wp/', '/', $url);
+    return $url;
+
+}
+
+add_filter('site_url', 'clean_site_url');

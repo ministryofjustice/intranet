@@ -53,7 +53,7 @@ class Route_redirects {
       }
     }
     else {
-      $redirect_url = site_url();
+      $redirect_url = home_url();
     }
 
     if($this->debug) {
@@ -116,7 +116,7 @@ class Route_redirects {
     }
 
     if(!count($keywords)) {
-      return site_url();
+      return home_url();
     }
 
     return site_url('/search-results/all/' . implode('+', $flat_keywords) . '/1/');

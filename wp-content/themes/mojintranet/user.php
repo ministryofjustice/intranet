@@ -22,7 +22,7 @@ class User extends MVC_controller {
         $val = new Validation();
 
         $email = trim($_POST['email']);
-        $redirect_url = get_array_value($_POST, 'redirect_url', site_url());
+        $redirect_url = get_array_value($_POST, 'redirect_url', home_url());
 
         $display_name = $_POST['display_name'];
 
@@ -62,7 +62,7 @@ class User extends MVC_controller {
           //send email to user
           $data = array(
             'name' => $display_name,
-            'site_url' => site_url(),
+            'site_url' => home_url(),
             'activation_url' => network_site_url("/user/auth/?key=".$key."&login=" . rawurlencode($email) . "&screen_name=" . $display_name . "&redirect_url=" . $redirect_url . "#comments", 'login')
           );
 
@@ -92,7 +92,7 @@ class User extends MVC_controller {
 
         if ($user != false) {
           if (!$this->model->user->is_expired($user, $key)) {
-            $redirect_url = get_array_value($_GET, 'redirect_url', site_url());
+            $redirect_url = get_array_value($_GET, 'redirect_url', home_url());
 
             wp_clear_auth_cookie();
             wp_set_current_user($user->ID);
