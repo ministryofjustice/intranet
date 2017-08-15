@@ -13,6 +13,10 @@ nuke-images:
 nuke-assets:
 	rm -rf bedrock_volume/*
 
+nuke-all:
+	make nuke-assets
+	make nuke-images
+
 load-db-dump:
 	docker-compose -f docker-compose-dev.yml exec mysql bash -c 'cat /db-dump/*.sql | mysql -u$${MYSQL_USER} -p$${MYSQL_PASSWORD} $${MYSQL_DATABASE}'
 
