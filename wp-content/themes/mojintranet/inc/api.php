@@ -135,12 +135,12 @@ function rest_api_filter_add_filter_param( $args, $request ) {
     global $wp;
 
     $vars = apply_filters( 'query_vars', $wp->public_query_vars );
-    print_r($vars);
+
     foreach ( $vars as $var ) {
         if ( isset( $filter[ $var ] ) ) {
             $args[ $var ] = $filter[ $var ];
         }
     }
-    print_r($args);
+
     return $args;
 }
