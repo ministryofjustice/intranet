@@ -33,7 +33,7 @@ class Region extends Taxonomy {
             'not_found' => 'Not Found',
         ),
         'hierarchical' => true,
-        'public' => false,
+        'public' => true,
         'show_ui' => true,
         'show_admin_column' => false,
         'show_in_nav_menus' => false,
