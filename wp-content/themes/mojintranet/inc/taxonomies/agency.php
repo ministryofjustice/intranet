@@ -52,6 +52,7 @@ class Agency extends Taxonomy {
             'delete_terms' => 'manage_agencies',
             'assign_terms' => 'assign_agencies_to_posts',
         ),
+        'query_var' => 'agency_filter'
     );
 
     public function __construct() {
