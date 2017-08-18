@@ -33,4 +33,4 @@ restart-yas3fs:
 # seed data and user accounts
 prepare-wordpress-database:
 	docker-compose -f docker-compose-dev.yml exec wordpress /utils/prepare-local-wordpress-database.rb
-
+	make restart yas3fs

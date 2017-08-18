@@ -58,6 +58,27 @@ the bedrock and config files are explicitly listed in the project
 structure of the directories is rationalised, which should happen around
 the time of the AWS move (written on 2017-08-03).
 
+## Committing changes to the `intranet` repo
+
+The way composer works, `mojintranet`–the main theme–does not yet get
+installed in the correct place to allow `git` to manage the repo.  Until
+this gets sorted, which involves a re-work of the layout of the project,
+the workaround is to copy changes from the docker volume to the
+top-level theme and commit them from there.  Briefly the workflow is:
+
+```
+cd intranet/docker/bedrock_volume/web/app/themes/mojintranet
+Make your changes
+cp -a . ../../../../../../wp-content/themes/mojintranet/
+```
+
+To copy changes from `intranet/docker/wp-content` into the container,
+use the same workflow, but reverse the copy command:
+
+```
+cp -a ../../../../../../wp-content/themes/mojintranet/ .
+```
+
 ## <a name="access-requirements"></a> Access Requirements
 
 Because our WP installations use commercial plugins, the

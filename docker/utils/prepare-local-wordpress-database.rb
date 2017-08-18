@@ -24,6 +24,21 @@ def main
     password: ENV.fetch('pass_admin'),
     display_name: 'Administrator'
   ) if ENV['pass_admin']
+
+  run_sql_to_fix_images()
+end
+
+def run_sql_to_fix_images
+  domain = 'http://intranet.docker'
+
+  sql = <<~SQL
+  UPDATE wp_options SET option_value = replace(option_value, "https://s3-eu-west-1.amazonaws.com/moj-wp-prod/wp-content/", "#{domain}/app/") WHERE option_name LIKE "%need_to_know_image%";
+  UPDATE wp_posts SET guid = replace(guid, "https://intranet.justice.gov.uk/wp-content/", "#{domain}/app/");
+  UPDATE wp_posts SET post_content = replace(post_content, "https://intranet.justice.gov.uk/", "/");
+  UPDATE wp_postmeta SET meta_value = replace(meta_value,"https://intranet.justice.gov.uk/","/");
+  SQL
+
+  `mysql -h${DB_HOST} -u${DB_USER} -p${DB_PASSWORD} ${DB_NAME} -e '#{sql.gsub("\n", " ")}'`
 end
 
 # The smoke tests expect certain users, some of which have been created
