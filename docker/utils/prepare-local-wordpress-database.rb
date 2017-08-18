@@ -11,22 +11,29 @@ def main
 
   ensure_user_exists(
     login: 'regional',
-    email: 'regional@example.com',
+    email: 'mojintranettest+regional@gmail.com',
     role: 'regional-editor',
     password: ENV.fetch('pass_regional'),
     display_name: 'regional'
   )
 
+  ensure_user_exists(
+    login: 'admin',
+    email: 'admin@example.com',
+    role: 'administrator',
+    password: ENV.fetch('pass_admin'),
+    display_name: 'Administrator'
+  ) if ENV['pass_admin']
 end
 
 # The smoke tests expect certain users, some of which have been created
 # in production, but with passwords that differ from those configured in
-# the smoke tests. So, delete and recreate any user accounts we depend on.
+# the smoke tests. So, update the passwords of users we depend on.
 def ensure_user_exists(params)
   login = params.fetch(:login)
   if user_exists?(login)
-    log("User #{login} exists. Recreating")
-    delete_user(login)
+    log("User #{login} exists. Updating password.")
+    update_user_password(params)
   end
   create_user(params) unless user_exists?(login)
 end
@@ -35,8 +42,10 @@ def user_exists?(login)
   system "cd /bedrock/web; wp --allow-root user get #{login} > /dev/null 2>&1"
 end
 
-def delete_user(login)
-  system "cd /bedrock/web; wp --allow-root user delete --yes #{login} > /dev/null 2>&1"
+def update_user_password(params)
+  login = params.fetch(:login)
+  password = params.fetch(:password)
+  system "cd /bedrock/web; wp --allow-root user update #{login} --user_pass='#{password}' > /dev/null 2>&1"
 end
 
 # Create a user.
