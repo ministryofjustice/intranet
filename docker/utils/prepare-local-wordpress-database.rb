@@ -65,8 +65,8 @@ def create_user(params)
   id = `cd /bedrock/web; wp --allow-root user create #{login} #{email} --role=#{role} --user_pass='#{password}' --display_name='#{display_name}' --porcelain 2>/dev/null`
   puts "ID is #{id}"
   id.strip!
-  system "cd /bedrock/web; wp --allow-root user term add #{id} agency hq"
-  system "cd /bedrock/web; wp --allow-root user term add #{id} region wales"
+  system "cd /bedrock/web; wp --allow-root user term add #{id} agency hq 2>/dev/null"
+  system "cd /bedrock/web; wp --allow-root user term add #{id} region wales 2>/dev/null"
 
 end
 
