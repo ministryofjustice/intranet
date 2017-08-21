@@ -8,6 +8,7 @@ class Region extends Taxonomy {
     protected $name = 'region';
 
     protected $object_types = array(
+        'user',
         'regional_page',
         'regional_news',
         'document',
