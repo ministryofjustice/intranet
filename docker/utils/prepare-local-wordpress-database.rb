@@ -62,7 +62,12 @@ def create_user(params)
   role = params.fetch(:role)
   password = params.fetch(:password)
   display_name = params.fetch(:display_name)
-  system "cd /bedrock/web; wp --allow-root user create #{login} #{email} --role=#{role} --user_pass='#{password}' --display_name='#{display_name}' 2>/dev/null"
+  id = `cd /bedrock/web; wp --allow-root user create #{login} #{email} --role=#{role} --user_pass='#{password}' --display_name='#{display_name}' --porcelain 2>/dev/null`
+  puts "ID is #{id}"
+  id.strip!
+  system "cd /bedrock/web; wp --allow-root user term add #{id} agency hq"
+  system "cd /bedrock/web; wp --allow-root user term add #{id} region wales"
+
 end
 
 def log(message)
