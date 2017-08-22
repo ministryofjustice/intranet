@@ -1,6 +1,9 @@
 launch:
 	docker-compose -f docker-compose-dev.yml up
 
+rebuild:
+	docker-compose -f docker-compose-dev.yml up --build
+
 shutdown:
 	docker-compose -f docker-compose-dev.yml down
 
