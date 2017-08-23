@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 
+DOMAIN = ENV.fetch('INTRANET_DOMAIN', 'http://intranet.docker')
+
 def main
   ensure_user_exists(
     login: 'agency_editor',
@@ -17,20 +19,40 @@ def main
     display_name: 'regional'
   )
 
-  run_sql_to_fix_images()
+  display_substitution_counts("Starting count of required changes:")
+  run_sql_to_fix_images_and_links()
+  display_substitution_counts("Ending count of required changes (all should be 0):")
 end
 
-def run_sql_to_fix_images
-  domain = 'http://intranet.docker'
-
+def display_substitution_counts(message)
+  puts "#################################################"
+  puts message
   sql = <<~SQL
-  UPDATE wp_options SET option_value = replace(option_value, "https://s3-eu-west-1.amazonaws.com/moj-wp-prod/wp-content/", "#{domain}/app/") WHERE option_name LIKE "%need_to_know_image%";
-  UPDATE wp_posts SET guid = replace(guid, "https://intranet.justice.gov.uk/wp-content/", "#{domain}/app/");
+  SELECT COUNT(*) AS wp_options_changes FROM wp_options WHERE option_value LIKE "%https://s3-eu-west-1.amazonaws.com/moj-wp-prod/wp-content/%" AND option_name LIKE "%need_to_know_image%";
+  SELECT COUNT(*) AS wp_posts_guid_changes FROM wp_posts WHERE guid LIKE "%https://intranet.justice.gov.uk/wp-content/%";
+  SELECT COUNT(*) AS wp_posts_post_content_relative_link_changes FROM wp_posts WHERE post_content LIKE "%https://intranet.justice.gov.uk/%";
+  SELECT COUNT(*) AS wp_posts_post_content_remove_s3_uri FROM wp_posts WHERE post_content LIKE "%https://s3-eu-west-1.amazonaws.com/moj-wp-prod/wp-content%";
+  SELECT COUNT(*) AS wp_postmeta_meta_value_relative_link_changes FROM wp_postmeta WHERE meta_value LIKE "%https://intranet.justice.gov.uk%";
+  SQL
+
+  puts `mysql -h${DB_HOST} -u${DB_USER} -p${DB_PASSWORD} ${DB_NAME} -e '#{sql.gsub("\n", " ")}'`
+  puts "Count finished"
+  puts "#################################################"
+end
+
+def run_sql_to_fix_images_and_links
+  puts "Start SQL fixup"
+  puts "Using domain: #{DOMAIN}"
+  sql = <<~SQL
+  UPDATE wp_options SET option_value = replace(option_value, "https://s3-eu-west-1.amazonaws.com/moj-wp-prod/wp-content/", "#{DOMAIN}/app/") WHERE option_name LIKE "%need_to_know_image%";
+  UPDATE wp_posts SET guid = replace(guid, "https://intranet.justice.gov.uk/wp-content/", "#{DOMAIN}/app/");
   UPDATE wp_posts SET post_content = replace(post_content, "https://intranet.justice.gov.uk/", "/");
+  UPDATE wp_posts SET post_content = replace(post_content, "https://s3-eu-west-1.amazonaws.com/moj-wp-prod/wp-content", "/app");
   UPDATE wp_postmeta SET meta_value = replace(meta_value,"https://intranet.justice.gov.uk/","/");
   SQL
 
   `mysql -h${DB_HOST} -u${DB_USER} -p${DB_PASSWORD} ${DB_NAME} -e '#{sql.gsub("\n", " ")}'`
+  puts "End SQL fixup"
 end
 
 # The smoke tests expect certain users, some of which have been created
