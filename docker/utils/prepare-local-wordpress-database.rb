@@ -35,7 +35,7 @@ def display_substitution_counts(message)
   SELECT COUNT(*) AS wp_postmeta_meta_value_relative_link_changes FROM wp_postmeta WHERE meta_value LIKE "%https://intranet.justice.gov.uk%";
   SQL
 
-  puts `mysql -h${DB_HOST} -u${DB_USER} -p${DB_PASSWORD} ${DB_NAME} -e '#{sql.gsub("\n", " ")}'`
+  puts `mysql -h${DB_HOST} -u${DB_USER} -p${DB_PASSWORD} ${DB_NAME} --table -e '#{sql.gsub("\n", " ")}'`
   puts "Count finished"
   puts "#################################################"
 end
