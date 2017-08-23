@@ -41,6 +41,8 @@ services:
     volumes:
       - database:/var/lib/mysql
       - ./db-dump:/db-dump
+    ports:
+      - "3306:3306"
   mailcatcher:
     container_name: wp_local_smtp
     image: ministryofjustice/mailcatcher
