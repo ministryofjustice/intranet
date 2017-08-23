@@ -58,7 +58,8 @@ function add_custom_taxonomy_rest_support() {
 }
 
 /**
- * Add REST API endpoint
+ * Add REST API endpoint for featured news
+ *
  */
 function get_featured_news_endpoint(WP_REST_Request $request )
 {
@@ -97,16 +98,31 @@ function get_featured_news_endpoint(WP_REST_Request $request )
 }
 
 add_action( 'rest_api_init', function () {
+    //Featured News
     register_rest_route( 'intranet/v1', '/featurednews/(?P<agency>[a-zA-Z0-9-]+)/(?P<max_featured>\d+)', array(
         'methods' => 'GET',
         'callback' => 'get_featured_news_endpoint',
     ) );
+
+    //Events by Region
+    register_rest_route( 'intranet/v1', '/events/(?P<agency>[a-zA-Z0-9-]+)/(?P<region>[a-zA-Z0-9-]+)/(?P<max_events>\d+)', array(
+        'methods' => 'GET',
+        'callback' => 'get_events_endpoint',
+    ) );
+
+    //Events
+    register_rest_route( 'intranet/v1', '/events/(?P<agency>[a-zA-Z0-9-]+)/(?P<max_events>\d+)', array(
+        'methods' => 'GET',
+        'callback' => 'get_events_endpoint',
+    ) );
+    
 } );
 
 
 /*** ADD FILTER PARAMTER BACK INTO THE API **/
-
 add_action( 'rest_api_init', 'rest_api_filter_add_filters' );
+
+
 /**
  * Add the necessary filter to each post type
  **/
@@ -134,7 +150,8 @@ function rest_api_filter_add_filter_param( $args, $request ) {
     }
     global $wp;
 
-    $vars = apply_filters( 'query_vars', $wp->public_query_vars );
+
+    $vars = apply_filters( 'rest_query_vars', $wp->public_query_vars );
 
     foreach ( $vars as $var ) {
         if ( isset( $filter[ $var ] ) ) {
@@ -143,4 +160,161 @@ function rest_api_filter_add_filter_param( $args, $request ) {
     }
 
     return $args;
+}
+
+//Add Meta variables to be visible
+function intranet_allow_meta_query( $valid_vars ) {
+
+    $valid_vars = array_merge( $valid_vars, array( 'meta_key', 'meta_value' ) );
+    return $valid_vars;
+}
+add_filter( 'rest_query_vars', 'intranet_allow_meta_query' );
+
+//Show meta fields on EVENT
+add_action( 'rest_api_init', 'api_register_custom_meta' );
+
+function api_register_custom_meta()
+{
+
+    $allowed_meta_fields = array(
+        'event' => array (
+            '_event-start-date',
+            '_event-end-date'
+        )
+    );
+
+    foreach ($allowed_meta_fields as $posttype => $metas)
+    {
+        foreach ($metas as $meta_field)
+        {
+            register_rest_field( $posttype,
+                $meta_field,
+                array(
+                    'get_callback'    => 'api_get_meta_value',
+                    'update_callback' => null,
+                    'schema'          => null,
+                )
+            );
+        }
+    }
+
+}
+
+/**
+ * Get the value of the meta field to the API
+ *
+ * @param array $object Details of current post.
+ * @param string $field_name Name of field.
+ * @param WP_REST_Request $request Current request
+ *
+ * @return mixed
+ */
+function api_get_meta_value( $object, $field_name, $request ) {
+    return get_post_meta( $object[ 'id' ], $field_name, true );
+}
+
+
+/**
+ * Add Events endpoint to show future events by agency
+ *
+ */
+function get_events_endpoint(WP_REST_Request $request )
+{
+
+    //Taxonomy queries: Agency and Regions
+    $agency = sanitize_text_field($request->get_param( 'agency' ));
+
+    $options['tax_query'] = array (
+        'relation' => 'AND'
+    );
+    $options['tax_query'][0] = [
+        'taxonomy' => 'agency',
+        'field' => 'slug',
+        'terms' => $agency,
+    ];
+
+    $region = $request->get_param( 'region' );
+
+    if (!is_null($region))
+    {
+        $region = sanitize_text_field($region);
+        $options['tax_query'][1] = [
+            'taxonomy' => 'region',
+            'field' => 'slug',
+            'terms' => array ( $region ),
+        ];
+    }
+    else {
+        $term_slugs = get_term_slugs('region');
+        $options['tax_query'][1] = [
+            'taxonomy' => 'region',
+            'field' => 'slug',
+            'terms' => $term_slugs,
+            'operator' => 'NOT IN'
+        ];
+    }
+
+    //Pagination
+    $options['page'] = 1;
+    $options['per_page'] = $request->get_param( 'max_events' );
+
+    //Order By
+    $options['search_orderby'] = array(
+        '_event-start-date' => 'ASC',
+        '_event-end-date' => 'ASC',
+        'title' => 'ASC'
+    );
+
+    //Get events that are for today onwards
+    $options ['meta_query'] = array(
+            array
+            (
+                'relation' => 'OR',
+                 array (
+                    'key' => '_event-start-date',
+                    'value' => date('Y-m-d'),
+                    'type' => 'date',
+                    'compare' => '>='
+                 ),
+                 array (
+                    'key' => '_event-end-date',
+                    'value' => date('Y-m-d'),
+                    'type' => 'date',
+                    'compare' => '>='
+                 ),
+            )
+        );
+
+    $args = array (
+        // Paging
+        'nopaging' => false,
+        'paged' =>  $options['page'] = 1,
+        'offset' => 0,
+        'posts_per_page' => $options['per_page'],
+        // Filters
+        'post_type' => ['event'],
+        'orderby' => $options['search_orderby'],
+        'meta_query' => $options['meta_query'],
+        'tax_query' => $options['tax_query']
+    );
+
+
+    $events = get_posts($args);
+
+    $i = 0;
+
+    //print_r($events);
+    foreach ($events as $event) {
+
+        $events[$i]->event_start_date = get_post_meta($event->ID, '_event-start-date', true);
+        $events[$i]->event_end_date = get_post_meta($event->ID, '_event-end-date', true);
+        $i ++;
+    }
+
+    if ( empty( $events ) ) {
+        return null;
+    }
+
+    return $events;
+
 }
