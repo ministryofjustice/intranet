@@ -11,11 +11,7 @@
     "start": "gulp",
     "watch": "gulp watch",
     "test": "standard",
-    "postinstall": "gulp build",
-    "prerelease": "node childtheme && npm version prerelease && git pull && git push",
-    "release-patch": "node childtheme && node genreg && npm version patch && git pull && git push",
-    "release-minor": "node childtheme && node genreg && npm version minor && git pull && git push",
-    "release-major": "node childtheme && node genreg && npm version major && git pull && git push"
+    "postinstall": "gulp build"
   },
   "repository": {
     "type": "git",
@@ -42,12 +38,10 @@
     "ie-love": "0.0.3",
     "jquery": "^1.12.4",
     "phantomjs": "^2.1.7",
-    "run-sequence": "^1.2.2"
-  },
-  "devDependencies": {
+    "run-sequence": "^1.2.2",
     "browser-sync": "^2.18.12",
     "chalk": "^1.1.1",
-    "ctgen": "latest",
+    "ctgen": "^1.3.2",
     "del": "latest",
     "glob-fs": "^0.1.6",
     "gulp": "^3.9.1",
@@ -55,6 +49,7 @@
     "gulp-cssnano": "latest",
     "gulp-csso": "latest",
     "gulp-eslint": "latest",
+    "gulp-babel": "latest",
     "gulp-imagemin": "latest",
     "gulp-merge-media-queries": "^0.2.1",
     "gulp-plumber": "^1.1.0",
@@ -71,5 +66,8 @@
     "rupture": "^0.6.2",
     "standard": "^9.0.2",
     "yargs": "^7.0.2"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0"
   }
 }

@@ -8,9 +8,9 @@ A WP theme for the Ministry of Justice Intranet
 **Clone into the themes folder**
 This theme was designed for active development and therefore must be cloned directly within the wordpress environment as **it will not work without wordpress**. For most common installs, the theme should be cloned into the root of the themes directory, which can usually be found at `/wp-content/themes`, once cloned it will create a new directory called 'moj-clarity' which can then be installed using the wordpress interface. **note:** The wordpress instance must be located at a local url called '//mojintranet'.
 
-**For development:** Once the theme has been cloned, CD into the root of the theme and type 'npm install'. When everything is installed type 'npm start' and you're good to go. This will set up a development environment for you at localhost:3000. **note**: The lamp stack site located at '//mojintranet' should be running before you begin this step. You can also use `gulp watch` if you don't want the livereload functionality of browsersync.
+**For development:** Once the theme has been cloned, CD into the root of the theme and type `npm install`. When everything is installed type `npm start` and you're good to go. This will set up a development environment for you at localhost:3000. **note**: The lamp stack site located at '//mojintranet' should be running before you begin this step. You can also use `gulp watch` if you don't want the livereload functionality of browsersync.
 
-**For use as theme:** Once the theme has been cloned, CD into the root of the theme and type 'npm install', this will get everything ready and the theme should just work (assuming it's been cloned into the right place and installed via the wordpress interface)
+**For use as theme:** Once the theme has been cloned, CD into the root of the theme and type `npm install`, this will get everything ready and the theme should just work (assuming it's been cloned into the right place and installed via the wordpress interface)
 
 ## Coding guidelines
 
