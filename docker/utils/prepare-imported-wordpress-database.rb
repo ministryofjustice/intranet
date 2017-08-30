@@ -12,10 +12,10 @@
 
 
 # Replace these values, as necessary
-DOMAIN      = 'intranet.dev.wp.dsd.io'
 DB_HOST     = '127.0.0.1'
 DB_NAME     = 'intranet'
 DB_USER     = 'intranet'
+DOMAIN      = 'https://intranet.justice.gov.uk'
 DB_PASSWORD = 'DUMMY_VALUE'
 
 def main
@@ -35,7 +35,7 @@ def display_substitution_counts(message)
   SELECT COUNT(*) AS wp_postmeta_meta_value_relative_link_changes FROM wp_postmeta WHERE meta_value LIKE "%https://intranet.justice.gov.uk%";
   SQL
 
-  puts `mysql -h#{DB_HOST} -u#{DB_USER} -p#{DB_PASSWORD} #{DB_NAME} --table -e '#{sql.gsub("\n", " ")}'`
+  puts `mysql -h#{DB_HOST} -u#{DB_USER} -p'#{DB_PASSWORD}' #{DB_NAME} --table -e '#{sql.gsub("\n", " ")}'`
   puts "Count finished"
   puts "#################################################"
 end
@@ -51,7 +51,7 @@ def run_sql_to_fix_images_and_links
   UPDATE wp_postmeta SET meta_value = replace(meta_value,"https://intranet.justice.gov.uk/","/");
   SQL
 
-  `mysql -h#{DB_HOST} -u#{DB_USER} -p#{DB_PASSWORD} #{DB_NAME} -e '#{sql.gsub("\n", " ")}'`
+  `mysql -h#{DB_HOST} -u#{DB_USER} -p'#{DB_PASSWORD}' #{DB_NAME} -e '#{sql.gsub("\n", " ")}'`
   puts "End SQL fixup"
 end
 
