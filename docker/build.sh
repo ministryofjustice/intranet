@@ -43,7 +43,7 @@ fi
 cp Gruntfile.js ./bedrock
 cp *.json ./bedrock
 mkdir ./bedrock/web
-cp web/*.php ./bedrock/web
+cp web/* ./bedrock/web
 cp -a config ./bedrock
 
 # Composer can build out-of-context, but the grunt cli switch to change the
