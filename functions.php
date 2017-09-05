@@ -86,7 +86,7 @@ function get_intranet_code()
 function set_intranet_cookie()
 {
 
-    $agency_value =  isset($_GET['dw_agency']) ? trim($_GET['dw_agency']) : 'hq';
+    $agency_value =  isset($_GET['agency']) ? trim($_GET['agency']) : 'hq';
 
 
     if (!isset($_COOKIE['dw_agency']))
@@ -96,7 +96,7 @@ function set_intranet_cookie()
         $_COOKIE['dw_agency'] = $agency_value;
 
     } else {
-        if (isset($_GET['dw_agency']))
+        if (isset($_GET['agency']))
         {
             setcookie( 'dw_agency', $agency_value, time()+ (3650 * DAY_IN_SECONDS), COOKIEPATH, COOKIE_DOMAIN );
             $_COOKIE['dw_agency'] = $agency_value;
