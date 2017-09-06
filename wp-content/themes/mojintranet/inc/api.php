@@ -58,6 +58,60 @@ function add_custom_taxonomy_rest_support() {
 }
 
 /**
+ * Add REST API endpoint for homepage news excluding featured
+ *
+ */
+function get_homepage_news_endpoint(WP_REST_Request $request )
+{
+    $featured_ids = array ();
+
+    $agency = $request->get_param( 'agency' );
+
+    $agency = sanitize_text_field($agency);
+    
+    $max_news =  $request->get_param( 'max_news' );
+
+    $a = 1;
+    $featured = get_option($agency . '_featured_story' . $a );
+
+    while ($featured)
+    {
+       array_push($featured_ids, $featured);
+       $a++;
+       $featured = get_option($agency . '_featured_story' . $a);
+    }
+
+    $options['tax_query'][0] = [
+        'taxonomy' => 'agency',
+        'field' => 'slug',
+        'terms' => $agency,
+    ];
+
+
+    $args = array (
+        // Paging
+        'nopaging' => false,
+        'offset' => 0,
+        'posts_per_page' => $max_news,
+        // Filters
+        'post_type' => ['news'],
+        'post__not_in' => $featured_ids,
+        'tax_query' => $options['tax_query']
+    );
+
+    $news = get_posts($args);
+
+    if ( empty( $news ) ) {
+        return null;
+    }
+
+    return $news;
+
+}
+
+
+/**
+ *
  * Add REST API endpoint for featured news
  *
  */
@@ -68,7 +122,7 @@ function get_featured_news_endpoint(WP_REST_Request $request )
     $agency = $request->get_param( 'agency' );
 
     $agency = sanitize_text_field($agency);
-    
+
     $max_featured =  $request->get_param( 'max_featured' );
 
     for($a = 1; $a <= $max_featured; $a++) {
@@ -82,7 +136,7 @@ function get_featured_news_endpoint(WP_REST_Request $request )
         'offset' => 0,
         'posts_per_page' => $max_featured,
         // Filters
-        'post_type' => ['news', 'post', 'page'],
+        'post_type' =>  ['news', 'post', 'page'],
         'post__in' => $featured_ids,
         'orderby' => 'post__in'
     );
@@ -103,6 +157,13 @@ add_action( 'rest_api_init', function () {
         'methods' => 'GET',
         'callback' => 'get_featured_news_endpoint',
     ) );
+
+    //Homepage News
+    register_rest_route( 'intranet/v1', '/homenews/(?P<agency>[a-zA-Z0-9-]+)/(?P<max_news>\d+)', array(
+        'methods' => 'GET',
+        'callback' => 'get_homepage_news_endpoint',
+    ) );
+
 
     //Events by Region
     register_rest_route( 'intranet/v1', '/events/(?P<agency>[a-zA-Z0-9-]+)/(?P<region>[a-zA-Z0-9-]+)/(?P<max_events>\d+)', array(
