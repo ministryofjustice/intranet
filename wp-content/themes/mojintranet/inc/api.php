@@ -87,7 +87,6 @@ function get_homepage_news_endpoint(WP_REST_Request $request )
         'terms' => $agency,
     ];
 
-
     $args = array (
         // Paging
         'nopaging' => false,
@@ -106,7 +105,6 @@ function get_homepage_news_endpoint(WP_REST_Request $request )
     }
 
     return $news;
-
 }
 
 
@@ -129,7 +127,6 @@ function get_featured_news_endpoint(WP_REST_Request $request )
         array_push($featured_ids, get_option($agency . '_featured_story' . $a));
     }
 
-
     $args = array (
         // Paging
         'nopaging' => false,
@@ -148,7 +145,6 @@ function get_featured_news_endpoint(WP_REST_Request $request )
     }
 
     return $featured;
-
 }
 
 add_action( 'rest_api_init', function () {
@@ -258,7 +254,6 @@ function api_register_custom_meta()
             );
         }
     }
-
 }
 
 /**
@@ -359,7 +354,6 @@ function get_events_endpoint(WP_REST_Request $request )
         'tax_query' => $options['tax_query']
     );
 
-
     $events = get_posts($args);
 
     $i = 0;
@@ -377,5 +371,4 @@ function get_events_endpoint(WP_REST_Request $request )
     }
 
     return $events;
-
 }
