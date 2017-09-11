@@ -229,7 +229,7 @@ class Agency extends Taxonomy {
             $agency[] = 'hq';
         }
 
-        $query->query_vars['agency'] = $agency;
+        $query->query_vars['agency_filter'] = $agency;
 
         return $query;
     }
