@@ -22,6 +22,7 @@ WORKDIR /
 # 2.1.x version of phantom.
 RUN apt-get update && apt-get install -y ruby ruby-dev phantomjs
 RUN gem install sass
+RUN ln -sf /dev/stdout /var/log/fpm.slow.log
 
 # Run ./build.sh as part of the build process IFF we are running in production
 # mode (set in `docker-compose.yml`), otherwise defer until runtime
