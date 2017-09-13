@@ -198,7 +198,7 @@ class My_moj_model extends MVC_model {
         [
           'title' => 'Travel bookings (Redfern)',
           'icon' => 'travel-booking',
-          'url' => site_url('/guidance/commercial-contract-management/how-to-obtain-goods-and-services/travel/'),
+          'url' => site_url('/guidance/procurement/common-goods-services/travel/'),
           'external' => false,
         ],
         [
