@@ -1,7 +1,7 @@
 module.exports = function(grunt) {
   "use strict";
 
-  var srcDir = grunt.option('source-path') || 'web/app/themes';
+  var srcDir = grunt.option('source-path') || 'bedrock/web/app/themes';
   var themePath = '/mojintranet/';
 
   var jsSrcListBase = [
