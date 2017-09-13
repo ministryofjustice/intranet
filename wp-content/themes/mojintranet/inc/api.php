@@ -107,6 +107,56 @@ function get_homepage_news_endpoint(WP_REST_Request $request )
     return $news;
 }
 
+/**
+ * Add REST API endpoint for homepage blogs excluding featured
+ *
+ */
+function get_homepage_blogs_endpoint(WP_REST_Request $request )
+{
+    $featured_ids = array ();
+
+    $agency = $request->get_param( 'agency' );
+
+    $agency = sanitize_text_field($agency);
+
+    $max_items =  $request->get_param( 'max_items' );
+
+    $a = 1;
+    $featured = get_option($agency . '_featured_story' . $a );
+
+    while ($featured)
+    {
+        array_push($featured_ids, $featured);
+        $a++;
+        $featured = get_option($agency . '_featured_story' . $a);
+    }
+
+    $options['tax_query'][0] = [
+        'taxonomy' => 'agency',
+        'field' => 'slug',
+        'terms' => $agency,
+    ];
+
+    $args = array (
+        // Paging
+        'nopaging' => false,
+        'offset' => 0,
+        'posts_per_page' => $max_items,
+        // Filters
+        'post_type' => ['post'],
+        'post__not_in' => $featured_ids,
+        'tax_query' => $options['tax_query']
+    );
+
+    $news = get_posts($args);
+
+    if ( empty( $news ) ) {
+        return null;
+    }
+
+    return $news;
+}
+
 
 /**
  *
@@ -160,6 +210,11 @@ add_action( 'rest_api_init', function () {
         'callback' => 'get_homepage_news_endpoint',
     ) );
 
+    //Homepage Blog
+    register_rest_route( 'intranet/v1', '/homebloglist/(?P<agency>[a-zA-Z0-9-]+)/(?P<max_items>\d+)', array(
+        'methods' => 'GET',
+        'callback' => 'get_homepage_blogs_endpoint',
+    ) );
 
     //Events by Region
     register_rest_route( 'intranet/v1', '/events/(?P<agency>[a-zA-Z0-9-]+)/(?P<region>[a-zA-Z0-9-]+)/(?P<max_events>\d+)', array(
