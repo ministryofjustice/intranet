@@ -12,7 +12,7 @@
     </div>
     <div class="col-lg-4 col-md-4 col-sm-12">
       <div class="copyright-container">
-        <img class="crown-copyright-logo" src="<?=get_template_directory_uri()?>/assets/images/crown_copyright_logo.png" alt="crown copyright logo" />
+        <img class="crown-copyright-logo" src="<?php echo get_stylesheet_directory_uri();?>/assets/images/crown_copyright_logo.png" alt="crown copyright logo" />
         <br />
         <span>&copy; Crown copyright</span>
       </div>
