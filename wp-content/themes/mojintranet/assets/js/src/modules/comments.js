@@ -16,7 +16,7 @@
         commentsPerPage: 10
       };
 
-      this.postId = $('.template-container').attr('data-post-id');
+      this.postId = $('.template-container').attr('data-post-id') || $('.template-container').attr('data-page-id');
       this.applicationUrl = $('head').data('application-url');
       this.serviceUrl = this.applicationUrl + '/service/comments/' + this.postId;
 

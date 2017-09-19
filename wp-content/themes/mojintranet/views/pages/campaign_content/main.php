@@ -2,8 +2,7 @@
 
 <?php $this->view('pages/campaign_content/dynamic_style', $style_data) ?>
 
-<div class="template-container"
-     data-page-id="<?=$id?>">
+<div class="template-container" data-page-id="<?=$id?>">
 
   <div class="grid content-container">
     <div class="col-lg-12 col-md-12 col-sm-12">
@@ -34,8 +33,12 @@
       <div class="editable">
         <?=$content?>
       </div>
-    </div>
-  </div>
 
+     <?php $this->view('modules/social_media_bar', $media_bar) ?>
+    </div>
+
+    <?php $this->view('modules/comments/main') ?>
+  </div>
+  </div>
   <?php $this->view('modules/side_navigation') ?>
 </div>

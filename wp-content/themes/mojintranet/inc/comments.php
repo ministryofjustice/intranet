@@ -115,7 +115,7 @@ function dw_discussion_meta_box($post) {
   global $pagenow;
   global $post_type;
 
-  if(in_array($pagenow, array('post-new.php')) && $post_type == 'post,news') {
+  if(in_array($pagenow, array('post-new.php')) && $post_type == 'post') {
     $comments_on = 1;
     $comments_open = 'open';
   }

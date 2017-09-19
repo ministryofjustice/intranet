@@ -66,14 +66,6 @@
             </a>
           </li>
 
-          <?php if ($comments_on): ?>
-            <li class="comments-count">
-              <span class="icon"></span>
-              <span class="count"></span>
-            </li>
-          <?php endif ?>
-
-
           <li class="share-container">
             <span class="share-via-email-icon"></span>
             <a class="share-via-email"
