@@ -22,7 +22,7 @@ class Page_error extends MVC_controller {
     return array(
       'page' => 'pages/error/' . $view,
       'template_class' => 'error',
-      'cache_timeout' => 60 * 60 * 24 /* 1 day */
+      //'cache_timeout' => 60 * 60 * 24 /* 1 day */
     );
   }
 }
