@@ -1,4 +1,5 @@
 <?php if (!defined('ABSPATH')) die();
+
 /* Template name: Guidance & support index */
 
 class Page_guidance_and_support_index extends MVC_controller {

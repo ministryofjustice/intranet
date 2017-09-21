@@ -1,9 +1,11 @@
 <?php if (!defined('ABSPATH')) die();
+
 /**
  * The Tabs Template
  *
  * Template name: Tabs
  */
+ 
 class Page_guidance_and_support extends MVC_controller {
   function main(){
     $this->model('my_moj');

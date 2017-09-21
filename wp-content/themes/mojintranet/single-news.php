@@ -1,9 +1,7 @@
 <?php if (!defined('ABSPATH')) die();
 
-class Single_news extends MVC_controller
-{
-    public function main()
-    {
+class Single_news extends MVC_controller {
+    public function main() {
         while (have_posts()) {
             the_post();
             $this->view('layouts/default', $this->get_data());

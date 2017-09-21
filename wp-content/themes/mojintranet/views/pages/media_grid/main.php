@@ -1,6 +1,4 @@
-<?php if (!defined('ABSPATH')) {
-    die();
-} ?>
+<?php if (!defined('ABSPATH')) die(); ?>
 
 <div class="template-container"
      data-page-id="<?=$id?>">

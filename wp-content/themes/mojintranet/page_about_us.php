@@ -1,4 +1,5 @@
 <?php if (!defined('ABSPATH')) die();
+
 /* Template name: About us */
 
 class Page_about_us extends MVC_controller {
