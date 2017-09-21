@@ -1,7 +1,9 @@
-<?php if (!defined('ABSPATH')) die(); ?>
+<?php if (!defined('ABSPATH')) {
+    die();
+} ?>
 <div class="template-container" data-page-id="<?=$id?>">
   <div class="grid content-container">
-    <?php if($lhs_menu_on): ?>
+    <?php if ($lhs_menu_on): ?>
       <div class="col-lg-3 col-md-4 col-sm-12">
         <nav class="menu-list-container">
           <ul class="menu-list"></ul>
@@ -43,7 +45,7 @@
 
       <?php if (count($tabs) > 1): ?>
         <ul role="tablist" class="content-tabs <?php $tablist_classes?>">
-          <?php foreach($tabs as $tab): ?>
+          <?php foreach ($tabs as $tab): ?>
             <li role="presentation" class="tab-title" data-tab-name="<?=$tab['name']?>">
               <a id="tab-<?=$tab['name']?>" role="tab" aria-selected="false" aria-controls="panel-<?=$tab['name']?>" href="">
                 <?=$tab['tab_title']?>
@@ -54,6 +56,13 @@
       <?php endif ?>
 
       <?php $this->view('pages/guidance_and_support_content/tabs', ['tabs' => $tabs]) ?>
+    </div>
+
+      <?php $this->view('modules/social_media_bar', $media_bar) ?>
+    </div>
+
+    <?php $this->view('modules/comments/main') ?>
+  </div>
 
       <?php $this->view('modules/side_navigation') ?>
     </div>

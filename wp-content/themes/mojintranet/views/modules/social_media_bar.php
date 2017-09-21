@@ -1,7 +1,7 @@
 <?php if (!defined('ABSPATH')) die(); ?>
 
 <div class="grid">
-  <div class="col-lg-8 col-md-12 col-sm-12">
+  <div class="col-lg-12 col-md-12 col-sm-12">
     <ul class="social-actions post-social-actions">
       <?php if ($comments_on): ?>
         <li class="comments-count">

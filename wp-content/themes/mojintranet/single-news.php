@@ -1,33 +1,40 @@
-<?php if (!defined('ABSPATH')) die();
+<?php if (!defined('ABSPATH')) {
+    die();
+}
 
-class Single_news extends MVC_controller {
-  function main(){
-    while(have_posts()){
-      the_post();
-      $this->view('layouts/default', $this->get_data());
+class Single_news extends MVC_controller
+{
+    public function main()
+    {
+        while (have_posts()) {
+            the_post();
+            $this->view('layouts/default', $this->get_data());
+        }
     }
-  }
 
-  function get_data(){
-    global $post;
-    $article_date = get_the_date();
+    public function get_data()  {
+        global $post;
+        $article_date = get_the_date();
 
-    ob_start();
-    the_content();
-    $content = ob_get_clean();
-    $this_id = get_the_ID();
+        ob_start();
+        the_content();
+        $content = ob_get_clean();
+        $this_id = get_the_ID();
 
-    $thumbnail_id = get_post_thumbnail_id($this_id);
-    $thumbnail = wp_get_attachment_image_src($thumbnail_id, 'intranet-large');
-    $alt_text = get_post_meta($thumbnail_id, '_wp_attachment_image_alt', true);
-    $authors = dw_get_author_info($this_id);
+        $thumbnail_id = get_post_thumbnail_id($this_id);
+        $thumbnail = wp_get_attachment_image_src($thumbnail_id, 'intranet-large');
+        $alt_text = get_post_meta($thumbnail_id, '_wp_attachment_image_alt', true);
+        $authors = dw_get_author_info($this_id);
 
-    $this->add_global_view_var('commenting_policy_url', site_url('/commenting-policy/'));
-    $this->add_global_view_var('comments_open', (boolean) comments_open($this_id));
-    $this->add_global_view_var('comments_on', (boolean) get_post_meta($this_id, 'dw_comments_on', true));
-    $this->add_global_view_var('logout_url', wp_logout_url($_SERVER['REQUEST_URI']));
+        $this_id = $post->ID;
 
-    return array(
+        $this->add_global_view_var('commenting_policy_url', site_url('/commenting-policy/'));
+        $this->add_global_view_var('comments_open', (boolean) comments_open($this_id));
+        $this->add_global_view_var('comments_on', (boolean) get_post_meta($this_id, 'dw_comments_on', true));
+        $this->add_global_view_var('logout_url', wp_logout_url($_SERVER['REQUEST_URI']));
+        $likes = $this->get_likes_from_api($this_id);
+
+      return array(
       'page' => 'pages/news_single/main',
       'template_class' => 'single-news',
       'cache_timeout' => 60 * 30, /* 30 minutes */
@@ -44,15 +51,18 @@ class Single_news extends MVC_controller {
         'content' => $content,
         'raw_date' => $article_date,
         'human_date' => date("j F Y", strtotime($article_date)),
-        'share_email_body' => "Hi there,\n\nI thought you might be interested in this news post I've found on the MoJ intranet:\n",
-        'likes_count' => $likes['count'],
+        'media_bar' => [
+          'share_email_body' => "Hi there,\n\nI thought you might be interested in this page I've found on the MoJ intranet:\n",
+          'likes_count' => $likes['count']
+        ],
         'election_banner' => array(
           'visible' => strtotime($article_date) < strtotime('9 May 2015')?1:0
         )
       )
     );
-  }
-  private function get_likes_from_api($post_id) {
-    return $this->model->likes->read('post', $post_id);
-  }
+    }
+
+    private function get_likes_from_api($post_id) {
+      return $this->model->likes->read('post', $post_id);
+    }
 }

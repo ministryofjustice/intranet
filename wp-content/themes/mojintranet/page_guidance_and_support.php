@@ -1,6 +1,4 @@
 <?php if (!defined('ABSPATH')) die();
-
-
 /**
  * The Tabs Template
  *
@@ -43,6 +41,14 @@ class Page_guidance_and_support extends MVC_controller {
       'hidden' => $this->tab_count <= 1 ? 'hidden' : ''
     ];
 
+    $this_id = $post->ID;
+
+    $this->add_global_view_var('commenting_policy_url', site_url('/commenting-policy/'));
+    $this->add_global_view_var('comments_open', (boolean) comments_open($this_id));
+    $this->add_global_view_var('comments_on', (boolean) get_post_meta($this_id, 'dw_comments_on', true));
+    $this->add_global_view_var('logout_url', wp_logout_url($_SERVER['REQUEST_URI']));
+    $likes = $this->get_likes_from_api($this_id);
+
     return array(
       'page' => 'pages/guidance_and_support_content/main',
       'template_class' => 'guidance-and-support-content',
@@ -58,9 +64,17 @@ class Page_guidance_and_support extends MVC_controller {
         'title' => get_the_title(),
         'excerpt' => $post->post_excerpt, // Not using get_the_excerpt() to prevent auto-generated excerpts being displayed
         'lhs_menu_on' => $lhs_menu_on,
-        'hide_page_details' => (boolean) get_post_meta($this->post_ID, 'dw_hide_page_details', true)
+        'hide_page_details' => (boolean) get_post_meta($this->post_ID, 'dw_hide_page_details', true),
+        'media_bar' => [
+          'share_email_body' => "Hi there,\n\nI thought you might be interested in this page I've found on the MoJ intranet:\n",
+          'likes_count' => $likes['count'],
+          ]
       )
     );
+  }
+
+  private function get_likes_from_api($post_id) {
+    return $this->model->likes->read('post', $post_id);
   }
 
   private function get_tab_array() {

@@ -50,11 +50,12 @@ class Page_campaign_content extends MVC_controller {
       $content_classes =  'col-lg-9 col-md-12 col-sm-12';
     }
 
+    $this_id = $post->ID;
+
     $this->add_global_view_var('commenting_policy_url', site_url('/commenting-policy/'));
     $this->add_global_view_var('comments_open', (boolean) comments_open($this_id));
     $this->add_global_view_var('comments_on', (boolean) get_post_meta($this_id, 'dw_comments_on', true));
     $this->add_global_view_var('logout_url', wp_logout_url($_SERVER['REQUEST_URI']));
-
     $likes = $this->get_likes_from_api($this_id);
 
     return array(
