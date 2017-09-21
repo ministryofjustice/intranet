@@ -56,6 +56,7 @@ class Page_campaign_content extends MVC_controller {
     $this->add_global_view_var('comments_open', (boolean) comments_open($this_id));
     $this->add_global_view_var('comments_on', (boolean) get_post_meta($this_id, 'dw_comments_on', true));
     $this->add_global_view_var('logout_url', wp_logout_url($_SERVER['REQUEST_URI']));
+
     $likes = $this->get_likes_from_api($this_id);
 
     return array(
@@ -71,7 +72,7 @@ class Page_campaign_content extends MVC_controller {
         'lhs_menu_on' => $lhs_menu_on,
         'banner_image_url' => $banner_image[0],
         'banner_url' => $banner_url,
-        'media_bar' => [
+        'share_bar' => [
           'share_email_body' => "Hi there,\n\nI thought you might be interested in this page I've found on the MoJ intranet:\n",
           'likes_count' => $likes['count']
           ],

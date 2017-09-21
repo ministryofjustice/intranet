@@ -1,14 +1,4 @@
 .template-media-grid .template-container {
-  .icon {
-    display: inline-block;
-    width: 16px;
-    height: 16px;
-    margin-right: 2px;
-    background-image: url("../images/blog_icons_x2.png");
-    background-size: auto 100%;
-    vertical-align: top;
-  }
-
   .lightbox-image-container {
     position: fixed;
     background: rgba(0, 0, 0, 0.6);
@@ -149,15 +139,6 @@
   .ytp-cued-thumbnail-overlay-image {
       z-index: -999;
   }
-  
-  .post-social-actions {
-    @include clearfix;
-    padding: 10px 0;
-    border-style: solid;
-    border-color: $grey-2;
-    border-width: 1px 0;
-  }
-
 }
 
 /* Magnific Popup CSS */

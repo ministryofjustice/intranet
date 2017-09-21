@@ -56,7 +56,7 @@
             <?php endwhile; ?>
           <?php endif; ?>
 
-        <?php $this->view('modules/social_media_bar', $media_bar) ?>
+        <?php $this->view('modules/share_bar', $share_bar) ?>
       </div>
       <?php $this->view('modules/comments/main') ?>
   </div>

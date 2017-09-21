@@ -1,14 +1,4 @@
 .template-single-news .template-container {
-  .icon {
-    display: inline-block;
-    width: 16px;
-    height: 16px;
-    margin-right: 2px;
-    background-image: url("../images/blog_icons_x2.png");
-    background-size: auto 100%;
-    vertical-align: top;
-  }
-
   h1 {
     margin-bottom: 25px;
     margin-top: 50px;
@@ -32,13 +22,5 @@
     @extend %larger-copy;
     margin-top: 45px;
     margin-bottom: 20px;
-  }
-
-  .post-social-actions {
-    @include clearfix;
-    padding: 10px 0;
-    border-style: solid;
-    border-color: $grey-2;
-    border-width: 1px 0;
   }
 }

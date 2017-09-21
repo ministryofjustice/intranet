@@ -1,14 +1,4 @@
 .template-campaign-content .template-container {
-  .icon {
-    display: inline-block;
-    width: 16px;
-    height: 16px;
-    margin-right: 2px;
-    background-image: url("../images/blog_icons_x2.png");
-    background-size: auto 100%;
-    vertical-align: top;
-  }
-
   h1 {
     margin-top: 26px;
   }
@@ -21,13 +11,5 @@
     @extend %large-heading;
     margin-top: 32px;
     margin-bottom: 20px;
-  }
-
-  .post-social-actions {
-    @include clearfix;
-    padding: 10px 0;
-    border-style: solid;
-    border-color: $grey-2;
-    border-width: 1px 0;
   }
 }

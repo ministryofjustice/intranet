@@ -47,6 +47,7 @@ class Page_guidance_and_support extends MVC_controller {
     $this->add_global_view_var('comments_open', (boolean) comments_open($this_id));
     $this->add_global_view_var('comments_on', (boolean) get_post_meta($this_id, 'dw_comments_on', true));
     $this->add_global_view_var('logout_url', wp_logout_url($_SERVER['REQUEST_URI']));
+
     $likes = $this->get_likes_from_api($this_id);
 
     return array(

@@ -32,7 +32,6 @@ class Single_post extends MVC_controller {
     $thumbnail = wp_get_attachment_image_src($thumbnail_id, 'intranet-large');
     $alt_text = get_post_meta($thumbnail_id, '_wp_attachment_image_alt', true);
     $authors = dw_get_author_info($this_id);
-    $likes = $this->get_likes_from_api($this_id);
 
     $prev_post = get_previous_post();
     $next_post = get_next_post();
@@ -41,6 +40,8 @@ class Single_post extends MVC_controller {
     $this->add_global_view_var('comments_open', (boolean) comments_open($this_id));
     $this->add_global_view_var('comments_on', (boolean) get_post_meta($this_id, 'dw_comments_on', true));
     $this->add_global_view_var('logout_url', wp_logout_url($_SERVER['REQUEST_URI']));
+
+    $likes = $this->get_likes_from_api($this_id);
 
     return [
       'page' => 'pages/blog_post/main',
@@ -59,7 +60,7 @@ class Single_post extends MVC_controller {
         'content' => $content,
         'raw_date' => $article_date,
         'human_date' => date("j F Y", strtotime($article_date)),
-        'media_bar' => [
+        'share_bar' => [
           'share_email_body' => "Hi there,\n\nI thought you might be interested in this page I've found on the MoJ intranet:\n",
           'likes_count' => $likes['count'],
           ]

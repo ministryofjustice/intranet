@@ -1,4 +1,5 @@
 <?php if (!defined('ABSPATH')) die();
+
 /**
  * The default template with/without LHS navigation
  *
@@ -70,7 +71,7 @@ function get_data(){
         'content_classes' => $content_classes,
         'lhs_menu_on' => $lhs_menu_on,
         'hide_page_details' => (boolean) get_post_meta($this->post_ID, 'dw_hide_page_details', true),
-        'media_bar' => [
+        'share_bar' => [
           'share_email_body' => "Hi there,\n\nI thought you might be interested in this page I've found on the MoJ intranet:\n",
           'likes_count' => $likes['count'],
           ]

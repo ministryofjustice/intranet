@@ -1,6 +1,4 @@
-<?php if (!defined('ABSPATH')) {
-    die();
-}
+<?php if (!defined('ABSPATH')) die();
 
 class Single_news extends MVC_controller
 {
@@ -51,7 +49,7 @@ class Single_news extends MVC_controller
         'content' => $content,
         'raw_date' => $article_date,
         'human_date' => date("j F Y", strtotime($article_date)),
-        'media_bar' => [
+        'share_bar' => [
           'share_email_body' => "Hi there,\n\nI thought you might be interested in this page I've found on the MoJ intranet:\n",
           'likes_count' => $likes['count']
         ],
