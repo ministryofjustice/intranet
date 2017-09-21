@@ -1,4 +1,4 @@
-<?php
+<?php if (!defined('ABSPATH')) die();
 
 /**
  * The template for displaying 404 pages (Not Found).
