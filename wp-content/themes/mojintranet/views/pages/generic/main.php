@@ -47,8 +47,14 @@
         </div>
       </div>
     </div>
+</div>
+    <?php $this->view('modules/share_bar', $share_bar) ?>
+  </div>
+  <?php $this->view('modules/comments/main') ?>
+</div>
+
   </div>
 
   <?php $this->view('modules/side_navigation') ?>
-  
+
 </div>

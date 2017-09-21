@@ -3,6 +3,7 @@
 /**
  * Template name: Home page
  */
+ 
 class Page_home extends MVC_controller {
   function __construct($param_string, $post_id) {
     parent::__construct($param_string, $post_id);

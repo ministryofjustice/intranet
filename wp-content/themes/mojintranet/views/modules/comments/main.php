@@ -4,7 +4,7 @@
       <?php $this->view('modules/request_activation_link/form') ?>
     <?php else: ?>
       <div class="grid">
-        <div class="col-lg-8 col-md-12 col-sm-12">
+        <div class="col-lg-12 col-md-12 col-sm-12">
           <h3>Comments are now closed</h3>
           <p class="secondary-action">
             <a href="<?=$commenting_policy_url?>">MoJ commenting policy</a>
@@ -14,7 +14,7 @@
     <?php endif ?>
 
     <div class="grid">
-      <div class="col-lg-8 col-md-12 col-sm-12">
+      <div class="col-lg-12 col-md-12 col-sm-12">
         <div class="comments-container">
           <?php if ($comments_open): ?>
             <h3 class="leave-a-comment">

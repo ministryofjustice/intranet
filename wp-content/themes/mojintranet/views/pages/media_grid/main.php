@@ -1,6 +1,4 @@
-<?php if (!defined('ABSPATH')) {
-    die();
-} ?>
+<?php if (!defined('ABSPATH')) die(); ?>
 
 <div class="template-container"
      data-page-id="<?=$id?>">
@@ -36,8 +34,7 @@
     </div>
   </div>
 
-
-      <div class="grid content-container">
+  <div class="grid content-container">
         <div class="col-lg-12 col-md-12 col-sm-12">
 
           <?php if (have_rows('media_grid')): ?>
@@ -57,13 +54,14 @@
             <?php endwhile; ?>
           <?php endif; ?>
 
-        </div>
+        <?php $this->view('modules/share_bar', $share_bar) ?>
       </div>
-
+      <?php $this->view('modules/comments/main') ?>
+  </div>
   <?php $this->view('modules/side_navigation') ?>
   <?php $this->view('pages/media_grid/lightbox') ?>
-
 </div>
+
 <script>
 // From jQuery object
 $(document).ready(function() {

@@ -1,4 +1,6 @@
-<?php if (!defined('ABSPATH')) die(); ?>
+<?php if (!defined('ABSPATH')) {
+    die();
+} ?>
 
 <div class="template-container" data-post-id="<?=$id?>">
   <?php $this->view('pages/news_single/election_banner', $election_banner) ?>
@@ -35,7 +37,7 @@
   </div>
 
   <div class="grid">
-    <?php if($thumbnail): ?>
+    <?php if ($thumbnail): ?>
       <div class="col-lg-4 col-md-4 col-sm-12">
         <div class="story-image">
           <img src="<?=$thumbnail?>" class="img img-responsive" alt="<?=$thumbnail_alt_text?>" />
@@ -48,5 +50,8 @@
         <?=$content?>
       </div>
     </div>
+    <?php $this->view('modules/share_bar', $share_bar) ?>
+    </div>
+    <?php $this->view('modules/comments/main') ?>
   </div>
 </div>
