@@ -3,7 +3,6 @@
     get_component('c-logo-bar');
     get_component('c-search-bar');
     get_component('c-main-nav-bar');
-    get_component('c-phase-banner');
   ?>
   <!--[if lte IE 9]>
   <div class="u-message u-message--warning">

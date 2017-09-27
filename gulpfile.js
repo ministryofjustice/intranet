@@ -180,6 +180,9 @@ gulp.task('static', function (done) {
   // Move Favicons
   gulp.src('src/globals/images/icons/*')
     .pipe(gulp.dest('assets/icons'))
+  // Move Images (TODO: Add compression plugin)
+  gulp.src(['src/globals/images/*.png', 'src/globals/images/*.jpg', 'src/globals/images/*.gif'])
+  .pipe(gulp.dest('assets/images'))
   done()
 })
 
@@ -192,7 +195,7 @@ gulp.task('bs-reload', function () {
 gulp.task('browser-sync', ['styles', 'scripts'], function () {
   /* Initialise BrowserSync */
   browserSync.init({
-    proxy: 'mojintranet.test'
+    proxy: 'intranet.docker'
   })
 })
 
@@ -255,9 +258,9 @@ gulp.task('deploy-prep', function (done) {
   done()
 })
 
-/* Sync repo directory and docker bedrock directory - this should be made to use an env variable at some point */
+/* Sync two directories - useful for working in one folder whilst syncing with a docker folder */
 gulp.task('resync', function (done) {
-  exec('rsync -a ' + process.env.sourcePath + ' ' + process.env.destinationPath + ' -vh')
+  if (process.env.doResync === true) exec('rsync -a ' + process.env.sourcePath + ' ' + process.env.destinationPath)
   done()
 })
 
@@ -274,7 +277,7 @@ gulp.task('watch', ['build'], function () {
 })
 
 /* Watch styles, js and php files, doing different things with each. - with browsersync */
-gulp.task('default', ['watch', 'browser-sync'], function () {
+gulp.task('default', ['rsync', 'watch', 'browser-sync'], function () {
   /* Watch .php files, run the bs-reload task on change. */
   gulp.watch(['*.php', '*.css', '*.js'], ['bs-reload'])
 })
