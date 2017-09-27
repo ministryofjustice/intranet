@@ -3,3 +3,4 @@ assets/
 node_modules/
 .DS_Store
 /.style.css
+.idea

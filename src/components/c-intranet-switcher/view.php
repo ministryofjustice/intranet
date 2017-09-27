@@ -6,11 +6,14 @@ $current_intranet = get_intranet_code();
 
 $referrer = (isset($_SERVER['HTTP_REFERER']) ? parse_url($_SERVER['HTTP_REFERER']) : parse_url(get_home_url()));
 
-
+/**
+ * Remove the query parameter so it isn't sent twice/several times on repeated access to this page
+ *
+ */
 if (isset($referrer['query']))
 {
     parse_str($referrer['query'], $output);
-    if (isset($output['dw_agency'])) unset($output['dw_agency']);
+    if (isset($output['agency'])) unset($output['agency']);
     $previous_parameters = array();
     foreach ($output as $key=>$value )
     {
@@ -34,7 +37,7 @@ if (isset($referrer['query']))
     else  $extra_class = '';
 
 
-    echo '<li class="c-intranet-switcher__switch c-intranet-switcher__switch--'.$agency_id.$extra_class.' "><a href="/?dw_agency='.$agency_id.$referrer['query'].'">'.$agency['label'].'</a></li>';
+    echo '<li class="c-intranet-switcher__switch c-intranet-switcher__switch--'.$agency_id.$extra_class.' "><a href="/?agency='.$agency_id.$referrer['query'].'">'.$agency['label'].'</a></li>';
 }
   ?>
   </ul>
