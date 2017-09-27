@@ -11,7 +11,11 @@ npm install --global gulp
 
 */
 
+// Set up the .env file to create local variables
+require('dotenv').config()
+
 /* Needed gulp config */
+
 var gulp = require('gulp')
 var stylus = require('gulp-stylus')
 var uglify = require('gulp-uglify')
@@ -24,7 +28,6 @@ var jeet = require('jeet')
 var rupture = require('rupture')
 var csso = require('gulp-csso')
 var concat = require('gulp-concat')
-var babel = require('gulp-babel')
 var del = require('del')
 var plumber = require('gulp-plumber')
 var argv = require('yargs').argv
@@ -252,14 +255,20 @@ gulp.task('deploy-prep', function (done) {
   done()
 })
 
+/* Sync repo directory and docker bedrock directory - this should be made to use an env variable at some point */
+gulp.task('resync', function (done) {
+  exec('rsync -a ' + process.env.sourcePath + ' ' + process.env.destinationPath + ' -vh')
+  done()
+})
+
 /* Watch styles, js and php files, doing different things with each. - no browsersync */
 gulp.task('watch', ['build'], function () {
   /* Watch styl files, run the styles task on change. */
-  gulp.watch(['src/**/*.styl'], ['styles'])
+  gulp.watch(['src/**/*.styl'], ['styles', 'resync'])
   /* Watch js file, run the scripts task on change. */
-  gulp.watch(['src/**/*.js'], ['scripts'])
+  gulp.watch(['src/**/*.js'], ['scripts', 'resync'])
   /* Watch php file, run the php task on change. */
-  gulp.watch(['src/**/*.php'], ['php'])
+  gulp.watch(['src/**/*.php', './*.php'], ['php', 'resync'])
   // Announce that the build is complete and that gulp is watching for changes
   notifier.notify({ title: 'Watching for changes...', message: 'You may dismiss this message.' })
 })
