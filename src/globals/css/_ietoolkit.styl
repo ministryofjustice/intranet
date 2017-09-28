@@ -4,9 +4,11 @@
 
 // The following are global CSS hacks to make IE styles work
 
+html {
+  overflow-x: hidden;
+}
 
 // IEOLD Clearfix (undoes the jeet clearfix() and applies an IEOLD safe version (may cause design issues))
-
 ieoldcf() {
   &:after {
     display:none;
