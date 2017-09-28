@@ -260,7 +260,12 @@ gulp.task('deploy-prep', function (done) {
 
 /* Sync two directories - useful for working in one folder whilst syncing with a docker folder */
 gulp.task('resync', function (done) {
-  if (process.env.doResync === true) exec('rsync -a ' + process.env.sourcePath + ' ' + process.env.destinationPath)
+  if (process.env.doResync) {
+    console.log('Syncing with Docker')
+    exec('rsync -a ' + process.env.sourcePath + ' ' + process.env.destinationPath)
+  } else {
+    console.log('Bypassing docker sync')
+  }
   done()
 })
 
@@ -268,6 +273,8 @@ gulp.task('resync', function (done) {
 gulp.task('watch', ['build'], function () {
   /* Watch styl files, run the styles task on change. */
   gulp.watch(['src/**/*.styl'], ['styles', 'resync'])
+  gulp.watch(['src/**/*.print.styl'], ['print', 'resync'])
+  gulp.watch(['src/**/*.ie.styl'], ['ie', 'resync'])
   /* Watch js file, run the scripts task on change. */
   gulp.watch(['src/**/*.js'], ['scripts', 'resync'])
   /* Watch php file, run the php task on change. */
@@ -277,7 +284,7 @@ gulp.task('watch', ['build'], function () {
 })
 
 /* Watch styles, js and php files, doing different things with each. - with browsersync */
-gulp.task('default', ['rsync', 'watch', 'browser-sync'], function () {
+gulp.task('default', ['resync', 'watch', 'browser-sync'], function () {
   /* Watch .php files, run the bs-reload task on change. */
   gulp.watch(['*.php', '*.css', '*.js'], ['bs-reload'])
 })
