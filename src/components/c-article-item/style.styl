@@ -49,9 +49,9 @@
     }
   }
 
-  // Blog summary & article list
+  // Blog feed & article list
   .c-article-list &,
-  .c-blog-summary & {
+  .c-blog-feed & {
     clearfix();
     h1 {
       font-size: $outerCore;
@@ -68,7 +68,7 @@
     }
   }
 
-  .c-blog-summary & {
+  .c-blog-feed & {
     +above('s') {
       column(1/2, $cycle: 2)
     }
@@ -78,7 +78,7 @@
   }
 
   // If the excerpt has been output, hide it on the blog summary component
-  .c-blog-summary & {
+  .c-blog-feed & {
     &__excerpt {
       display: none;
     }
