@@ -4,7 +4,7 @@ Template Name: Clarity - Author page
 */
 //ToDo: Change name to switcher.php when database changed ?>
 <?php get_component('c-global-header'); ?>
-  <div id="maincontent" class="u-wrapper l-main t-author-page">
+  <div id="maincontent" class="u-wrapper l-main l-reverse-order t-author-page">
     <h1 class="o-title o-title--page">Blog</h1>
     <?php get_component('c-breadcrumbs'); ?>
     <div class="l-secondary">

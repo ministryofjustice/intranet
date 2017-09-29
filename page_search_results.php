@@ -4,7 +4,7 @@ Template Name: Clarity - Search results
 */
 //ToDo: Change name to switcher.php when database changed ?>
 <?php get_component('c-global-header'); ?>
-  <div id="maincontent" class="u-wrapper l-main t-search-results">
+  <div id="maincontent" class="u-wrapper l-main l-reverse-order t-search-results">
     <h1 class="o-title o-title--page">Search Results</h1>
     <?php get_component('c-search-bar'); ?>
     <div class="l-secondary">

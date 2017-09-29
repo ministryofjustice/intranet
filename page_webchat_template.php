@@ -4,7 +4,7 @@ Template Name: Clarity - Webchat template
 */
 ?>
 <?php get_component('c-global-header'); ?>
-  <div id="maincontent" class="u-wrapper l-main t-webchat">
+  <div id="maincontent" class="u-wrapper l-main l-reverse-order t-webchat">
     <h1 class="o-title o-title--page">Generic page</h1>
     <div class="l-secondary">
       <?php get_component('c-left-hand-menu'); ?>

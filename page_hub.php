@@ -4,7 +4,7 @@ Template Name: Clarity - Hub Page
 */
 //ToDo: Change name to switcher.php when database changed ?>
 <?php get_component('c-global-header'); ?>
-  <div id="maincontent" class="u-wrapper l-main t-hub">
+  <div id="maincontent" class="u-wrapper l-main l-reverse-order t-hub">
     <h1 class="o-title o-title--page">Hub Page</h1>
     <div class="l-secondary">
       <?php get_component('c-left-hand-menu'); ?>

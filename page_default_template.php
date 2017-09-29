@@ -4,7 +4,7 @@ Template Name: Clarity - Default template
 */
 ?>
 <?php get_component('c-global-header'); ?>
-  <div id="maincontent" class="u-wrapper l-main t-default">
+  <div id="maincontent" class="u-wrapper l-main l-reverse-order t-default">
     <h1 class="o-title o-title--page">Generic page</h1>
     <div class="l-secondary">
       <?php get_component('c-left-hand-menu'); ?>
