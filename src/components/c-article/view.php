@@ -15,7 +15,7 @@ $authors = $oAuthor->getAuthorInfo($id);
 ?>
 <!-- c-article starts here -->
 <article class="c-article">
-    <h1><a href="<?php echo get_the_permalink($id);?>"><?php echo get_the_title($id);?></a></h1>
+    <h1 class="o-title o-title--page"><a href="<?php echo get_the_permalink($id);?>"><?php echo get_the_title($id);?></a></h1>
     <?php get_component('c-article-byline'); ?>
     <?php get_component('c-rich-text-block'); ?>
     <?php get_component('c-share-post'); ?>
