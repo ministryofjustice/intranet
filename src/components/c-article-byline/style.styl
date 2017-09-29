@@ -2,9 +2,7 @@
 @require "../../globals/css/_toolkit"
 
 .c-article-byline {
-
-
-  // Parent overrides
+   // Parent overrides
 
   .c-news-article & {
     &__photo {
@@ -15,12 +13,16 @@
       display: block;
     }
   }
+  
+  .c-article &
   .c-news-article &
   .c-blog-article & {
     font-size: $outerCore;
     margin-bottom: $spacing*3
+    overflow: hidden; //quick clearfix
   }
 
+  .c-article &
   .c-blog-article & {
     &__photo {
       display:block;
@@ -42,10 +44,6 @@
     }
   }
 
-  // PARENT OVERRIDES
 
-  .t-author-page & {
-    margin-bottom: $spacing*3;
-  }
 }
 
