@@ -4,9 +4,10 @@
 .c-feedback-form {
 	clear:both;
   margin-top: $spacing*2;
-  column(1/2);
-
-	// this button requires 1rem of spacing above it.
+  +above(m) {
+    column(1/2);
+  }
+  	// this button requires 1rem of spacing above it.
   .o-button {
   	margin-top: $spacing;
   }
