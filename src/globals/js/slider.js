@@ -19,8 +19,8 @@
     var slider = function () {
       // TODO: This is a bit rudementary at the moment.
       // It might be nice in the future to add some animations to this
-      slide.hide().attr('aria-hidden', 'hidden').attr('hidden', 'hidden')
-      slide.eq(current - 1).show().attr('aria-hidden', 'visible').removeAttr('hidden')
+      slide.hide().attr('aria-hidden', true).attr('hidden', 'hidden')
+      slide.eq(current - 1).show().attr('aria-hidden', false).removeAttr('hidden')
     }
 
     // Switch between current slides, it will move forward unless specified otherwise
