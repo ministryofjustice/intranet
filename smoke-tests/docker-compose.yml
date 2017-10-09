@@ -1,0 +1,6 @@
+version: '3'
+services:
+  smoketests:
+    build: .
+    environment:
+      - TARGET_URI=http://52.demo.intranet.dsd.io/

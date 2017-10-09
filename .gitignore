@@ -28,7 +28,6 @@ wp-content/themes/intranet-theme-clarity/
 
 # wpengine specific
 .smushit-status
-.gitattributes
 _wpeprivate
 wp-content/object-cache.php
 wp-content/mu-plugins/mu-plugin.php

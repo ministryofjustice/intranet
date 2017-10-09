@@ -1,0 +1,19 @@
+source 'https://rubygems.org'
+
+ruby '2.4.1'
+
+group :development, :test do
+  gem 'dotenv'
+end
+
+group :test do
+  gem 'capybara'
+  gem 'cucumber'
+  gem 'hashie'
+  gem 'launchy'
+  gem 'poltergeist'
+  gem 'phantomjs'
+  gem 'pry'
+  gem 'rest-client'
+  gem 'rspec'
+end
