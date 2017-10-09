@@ -62,7 +62,6 @@ class Page_campaign_content extends MVC_controller {
     return array(
       'page' => 'pages/campaign_content/main',
       'template_class' => 'campaign-content',
-      'cache_timeout' => 60 * 60, /* 1 hour */
       'page_data' => array(
         'id' => $this->post_ID,
         'title' => get_the_title(),

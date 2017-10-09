@@ -109,7 +109,6 @@ class User extends MVC_controller {
             $this->view('layouts/default', [
               'page' => 'pages/user/activate/expired/main',
               'template_class' => 'user-activate-expired',
-              'cache_timeout' => 60 * 30, /* 30 minutes */
               'no_breadcrumbs' => true,
               'page_data' => [
               ]

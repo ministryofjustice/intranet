@@ -27,7 +27,6 @@ class Page_about_us extends MVC_controller {
     return array(
       'page' => 'pages/about_us/main',
       'template_class' => 'about-us',
-      'cache_timeout' => 60 * 15, /* 15 minutes */
       'page_data' => array(
         'enable_agency_about_us' => $this->enable_agency_about_us ? 1 : 0,
         'title' => $title,

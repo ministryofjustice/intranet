@@ -5,7 +5,7 @@
  *
  * Template name: Tabs
  */
- 
+
 class Page_guidance_and_support extends MVC_controller {
   function main(){
     $this->model('my_moj');
@@ -55,7 +55,6 @@ class Page_guidance_and_support extends MVC_controller {
     return array(
       'page' => 'pages/guidance_and_support_content/main',
       'template_class' => 'guidance-and-support-content',
-      'cache_timeout' => 60 * 60, /* 60 minutes */
       'page_data' => array(
         'id' => $this->post_ID,
         'tablist_classes' => implode(' ', $tablist_classes),

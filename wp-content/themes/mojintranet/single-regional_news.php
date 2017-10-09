@@ -25,7 +25,6 @@ class Single_regional_news extends MVC_controller {
     return array(
       'page' => 'pages/regional_news_single/main',
       'template_class' => 'single-news',
-      'cache_timeout' => 60 * 30, /* 30 minutes */
       'page_data' => array(
         'id' => $this_id,
         'thumbnail' => $thumbnail[0],

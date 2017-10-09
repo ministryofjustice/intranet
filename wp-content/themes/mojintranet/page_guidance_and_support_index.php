@@ -18,7 +18,6 @@ class Page_guidance_and_support_index extends MVC_controller {
     return array(
       'page' => 'pages/guidance_and_support/main',
       'template_class' => 'guidance-and-support-index',
-      'cache_timeout' => 60 * 30, /* 30 minutes */
       'page_data' => array(
         'title' => get_the_title(),
         'excerpt' => $post->post_excerpt // Not using get_the_excerpt() to prevent auto-generated excerpts being displayed

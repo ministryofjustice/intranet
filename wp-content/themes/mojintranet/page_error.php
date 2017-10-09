@@ -21,9 +21,9 @@ class Page_error extends MVC_controller {
   }
   private function get_data($view) {
     return array(
+      'cache_timeout' => 0, /* Never cache error pages */
       'page' => 'pages/error/' . $view,
-      'template_class' => 'error',
-      //'cache_timeout' => 60 * 60 * 24 /* 1 day */
+      'template_class' => 'error'
     );
   }
 }
