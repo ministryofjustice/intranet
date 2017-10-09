@@ -46,7 +46,6 @@ class Single_post extends MVC_controller {
     return [
       'page' => 'pages/blog_post/main',
       'template_class' => 'blog-post',
-      'cache_timeout' => 60 * 30, /* 30 minutes */
       'page_data' => [
         'id' => $this_id,
         'thumbnail' => $thumbnail[0],

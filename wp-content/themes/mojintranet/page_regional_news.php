@@ -19,7 +19,6 @@ class Page_regional_news extends MVC_controller {
     return [
       'page' => 'pages/regional_updates_landing/main',
       'template_class' => 'regional-updates-landing',
-      'cache_timeout' => 60 * 60, /* 1 hour */
       'page_data' => [
         'id' => $this->post_id,
         'title' => get_the_title(),

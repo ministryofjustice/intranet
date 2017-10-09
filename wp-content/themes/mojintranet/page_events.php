@@ -17,7 +17,6 @@ class Page_events extends MVC_controller {
       'page' => 'pages/events_landing/main',
       'template_class' => 'events-landing',
       'breadcrumbs' => true,
-      'cache_timeout' => 60 * 60 * 24, /* 1 day */
       'page_data' => [
         'page_base_url' => rtrim(get_permalink($this->post_id), '/'),
       ]

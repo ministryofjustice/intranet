@@ -34,7 +34,6 @@ class Page_regional_landing extends MVC_controller {
     return [
       'page' => 'pages/regional_landing/main',
       'template_class' => 'regional-landing',
-      'cache_timeout' => 60 * 60, /* 1 hour */
       'page_data' => [
         'id' => $this->post_ID,
         'title' => get_the_title(),

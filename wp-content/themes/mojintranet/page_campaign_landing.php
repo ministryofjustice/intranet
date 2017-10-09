@@ -30,7 +30,6 @@ class Page_campaign_landing extends MVC_controller {
     return [
       'page' => 'pages/campaign_landing/main',
       'template_class' => 'campaign-landing',
-      'cache_timeout' => 60 * 60 * 24 /* 1 day */,
       'page_data' => [
         'id' => $this->post_id,
         'title' => get_the_title(),

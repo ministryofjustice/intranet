@@ -29,7 +29,6 @@ class Single_event extends MVC_controller {
     return array(
       'page' => 'pages/event_single/main',
       'template_class' => 'single-event',
-      'cache_timeout' => 60 * 30, /* 30 minutes */
       'page_data' => array(
         'id' => $this_id,
         'author' => get_the_author(),

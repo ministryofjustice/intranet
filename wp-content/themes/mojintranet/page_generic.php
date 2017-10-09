@@ -59,7 +59,6 @@ function get_data(){
     return array(
       'page' => 'pages/generic/main',
       'template_class' => 'generic',
-      'cache_timeout' => 60 * 60, /* 1 hour */
       'page_data' => array(
         'id' => $this->post_ID,
         'title' => get_the_title(),

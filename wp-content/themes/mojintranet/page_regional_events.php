@@ -18,7 +18,6 @@ class Page_regional_events extends MVC_controller {
       'page' => 'pages/regional_events_landing/main',
       'template_class' => 'regional-events-landing',
       'breadcrumbs' => true,
-      'cache_timeout' => 60 * 60 * 24, /* 1 day */
       'page_data' => [
         'id' => $this->post_id,
         'title' => get_the_title(),
