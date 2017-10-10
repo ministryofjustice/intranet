@@ -67,7 +67,7 @@ class Page_guidance_and_support extends MVC_controller {
         'excerpt' => $post->post_excerpt, // Not using get_the_excerpt() to prevent auto-generated excerpts being displayed
         'lhs_menu_on' => $lhs_menu_on,
         'hide_page_details' => (boolean) get_post_meta($this->post_ID, 'dw_hide_page_details', true),
-        'media_bar' => [
+        'share_bar' => [
           'share_email_body' => "Hi there,\n\nI thought you might be interested in this page I've found on the MoJ intranet:\n",
           'likes_count' => $likes['count'],
           ]
