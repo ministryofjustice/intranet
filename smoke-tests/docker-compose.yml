@@ -3,4 +3,4 @@ services:
   smoketests:
     build: .
     environment:
-      - TARGET_URI=http://52.demo.intranet.dsd.io/
+      - TARGET_URI=http://intranet.docker/

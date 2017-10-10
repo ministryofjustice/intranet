@@ -75,7 +75,7 @@ docker build -f Dockerfile.smoketests -t smoketests .
 docker run smoketests
 ```
 
-The default target environment is `http://52.demo.intranet.dsd.io/`. You
+The default target environment is `http://intranet.docker/`. You
 can change this at run time by overriding the TARGET_URI
 environment variable:
 

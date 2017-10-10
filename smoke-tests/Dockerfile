@@ -1,6 +1,6 @@
 FROM ruby:2.4.1-onbuild
 
-ENV TARGET_URI http://52.demo.intranet.dsd.io/
+ENV TARGET_URI http://intranet.docker/
 ENV PHANTOM_VERSION 2.1.1
 
 WORKDIR /
