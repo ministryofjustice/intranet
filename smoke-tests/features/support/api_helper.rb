@@ -21,7 +21,7 @@ module ApiHelper
   private
 
   def build_endpoint(resource, namespace)
-    File.join(ENV.fetch('TARGET_URI'), API_PATHS.fetch(namespace), resource)
+    File.join(Capybara.app_host, API_PATHS.fetch(namespace), resource)
   end
 
   def parse_body(body)

@@ -26,4 +26,5 @@ RUN ln -sf /dev/stdout /var/log/fpm.slow.log
 
 # Run ./build.sh as part of the build process IFF we are running in production
 # mode (set in `docker-compose.yml`), otherwise defer until runtime
-RUN chmod +x production_build.sh build.sh && ./production_build.sh
+RUN chmod +x production_build.sh build.sh
+RUN ./production_build.sh

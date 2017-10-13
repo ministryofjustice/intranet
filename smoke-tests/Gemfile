@@ -1,14 +1,11 @@
 source 'https://rubygems.org'
 
-ruby '2.4.1'
-
-group :development, :test do
-  gem 'dotenv'
-end
+ruby '2.4.2'
 
 group :test do
   gem 'capybara'
   gem 'cucumber'
+  gem 'docker-api'
   gem 'hashie'
   gem 'launchy'
   gem 'poltergeist'

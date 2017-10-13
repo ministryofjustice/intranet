@@ -4,7 +4,7 @@ require 'rest-client'
 include SelectHelper
 
 Given(/^I show my environment$/) do
-  puts "Running against: #{ENV.fetch('TARGET_URI')}"
+  puts "Running against: #{Capybara.app_host}"
 end
 
 When(/^I visit "(.*?)"$/) do |path|

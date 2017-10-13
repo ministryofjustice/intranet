@@ -1,3 +1,4 @@
+@skip
 Feature: Test change news post to guest author
 
   # Once we are able to properly create users with the right permissions,

@@ -1,3 +1,4 @@
+@skip
 Feature: Test homepage blog component
 
 Scenario: Test Blog feed for HQ
