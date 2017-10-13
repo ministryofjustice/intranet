@@ -1,3 +1,4 @@
+@skip
 Feature: Test homepage featured news component
 
 Scenario: Test homepage featured news for HQ

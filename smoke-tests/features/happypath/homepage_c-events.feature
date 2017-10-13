@@ -1,3 +1,4 @@
+@skip
 Feature: Test HQ homepage 'Events' component
 
 Scenario: Test HQ homepage 'Events' component Acceptance Criteria

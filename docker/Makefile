@@ -37,3 +37,13 @@ restart-yas3fs:
 prepare-wordpress-database:
 	docker-compose -f docker-compose-dev.yml exec wordpress /utils/prepare-local-wordpress-database.rb
 	make restart-yas3fs
+
+smoketest:
+	docker-compose -f docker-compose-smoketest.yml up
+
+rebuild-smoketest:
+	docker-compose -f docker-compose-smoketest.yml up --build
+
+smoketest-nuke-all:
+	make nuke-assets
+	docker-compose -f docker-compose-smoketest.yml down --rmi all

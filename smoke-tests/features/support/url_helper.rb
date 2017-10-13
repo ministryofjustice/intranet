@@ -11,13 +11,9 @@ module UrlHelper
 
   def substitutions
     @_substitutions ||= {
-      WP_DIR: wp_install_directory,
-      WP_ADMIN: [wp_install_directory, 'wp-admin'].join('/')
+      WP_DIR: WP_INSTALL_DIRECTORY,
+      WP_ADMIN: [WP_INSTALL_DIRECTORY, 'wp-admin'].join('/')
     }
-  end
-
-  def wp_install_directory
-    ENV.fetch('WP_INSTALL_DIRECTORY')
   end
 end
 
