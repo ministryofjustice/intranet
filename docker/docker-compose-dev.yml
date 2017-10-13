@@ -51,6 +51,15 @@ services:
       VIRTUAL_PORT: 1080
     ports:
       - "1080:1080"
+  smoketests:
+    container_name: wp_local_smoketests
+    build: ../smoke-tests
+    links:
+      - wordpress:intranet.docker
+    depends_on:
+      - wordpress
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
 volumes:
   database:
     driver: local

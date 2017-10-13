@@ -1,4 +1,2 @@
-.env
-
 # These files are produced by `save_and_open_page`
 capybara-*.html

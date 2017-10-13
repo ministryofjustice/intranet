@@ -1,20 +1,12 @@
 Then(/^I log into the intranet as "([^"]*)"$/) do |username|
-  password = ENV.fetch("pass_#{username}")
-
-  # If the number of users were to grow too much, probably better to
-  # extract to some other place, or even env variables. For now until we
-  # know, this is a middle ground solution.
-  greeting = {
-    'agency_editor' => 'Howdy, Agency Editor Test',
-    'regional' => 'Howdy, regional'
-  }.fetch(username)
+  user_details = get_user(username)
 
   step %Q[I visit "%{WP_ADMIN}"]
-  step %Q[I fill in "user_login" with "#{username}"]
-  step %Q[I fill in "user_pass" with "#{password}"]
+  step %Q[I fill in "user_login" with "#{user_details[:login]}"]
+  step %Q[I fill in "user_pass" with "#{user_details[:password]}"]
   step %Q[I click the "Log In" button]
 
-  expect(page).to have_text(greeting)
+  expect(page).to have_text("Howdy, #{user_details[:display_name]}")
 end
 
 When(/^I open the new page editor$/) do
