@@ -1,12 +1,9 @@
 version: '3.3'
 services:
   wordpress:
-    container_name: wp_local_dev
+    container_name: smoketest_wp_local_dev
     build: .
     env_file: .env
-    volumes:
-      - ./bedrock_volume:/bedrock
-      - ./utils:/utils
     environment:
       development: 1
       WP_ENV: development
@@ -31,7 +28,7 @@ services:
     ports:
       - "80:80"
   mysql:
-    container_name: wp_local_db
+    container_name: smoketest_wp_local_db
     image: mariadb
     environment:
       MYSQL_ROOT_PASSWORD: root
@@ -44,13 +41,24 @@ services:
     ports:
       - "3306:3306"
   mailcatcher:
-    container_name: wp_local_smtp
+    container_name: smoketest_wp_local_smtp
     image: ministryofjustice/mailcatcher
     environment:
       VIRTUAL_HOST: mail.intranet.docker
       VIRTUAL_PORT: 1080
     ports:
       - "1080:1080"
+  smoketest:
+    build: ../smoke-tests
+    links:
+      - wordpress:intranet.docker
+    depends_on:
+      - wordpress
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      DOCKER_CONTAINER: smoketest_wp_local_dev
+    #command: ["cucumber -c"]
 volumes:
   database:
     driver: local
