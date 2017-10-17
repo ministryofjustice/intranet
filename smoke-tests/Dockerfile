@@ -1,6 +1,7 @@
 FROM ruby:2.4.1-onbuild
 
 ENV PHANTOM_VERSION 2.1.1
+ENV TARGET_URI http://intranet.docker
 
 WORKDIR /
 
@@ -16,9 +17,8 @@ WORKDIR /
 #  rm -rf phantomjs*
 
 ADD Gemfile /
+ADD wait-for-wordpress.sh /
 ADD config config
 ADD features features
 
-# TODO: commented out so smoke tests doesn't run automatically. Run manually with:
-# docker-compose -f docker-compose-dev.yml run smoketests cucumber -c
-#CMD cucumber -c
+CMD ./wait-for-wordpress.sh ${TARGET_URI} cucumber
