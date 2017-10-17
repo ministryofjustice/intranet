@@ -1,3 +1,4 @@
+@skip
 Feature: Test revisions on tabs template
 
 Scenario: Test revisions on tabs template Acceptance Criteria

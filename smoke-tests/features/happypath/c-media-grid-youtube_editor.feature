@@ -1,3 +1,4 @@
+@skip
 Feature: Media grid template Youtube videos
 
   Scenario: Test an editor can embed Youtube videos with media grid

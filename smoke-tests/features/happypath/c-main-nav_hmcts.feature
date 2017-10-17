@@ -1,3 +1,4 @@
+@skip
 Feature: Test My Work component (HMCTS)
 
 Scenario: Test My Work [HMCTS] Acceptance Criteria

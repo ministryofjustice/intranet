@@ -1,3 +1,4 @@
+@skip
 Feature: Pages left hand navigation order
   # This test is very coupled to the specific hierarchy of the page
   # used in the test. If it ever changes, the test will break.

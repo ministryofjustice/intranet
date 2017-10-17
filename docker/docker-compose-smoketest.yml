@@ -10,36 +10,21 @@ services:
       VIRTUAL_HOST: intranet.docker
       SMTP_HOST: mailcatcher
       SMTP_PORT: 1025
-      DB_NAME: wordpress
-      DB_USER: wordpress
-      DB_PASSWORD: wordpress
-      DB_HOST: mysql
+      DB_NAME: ${DB_NAME:-wordpress}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_HOST: ${DB_HOST}
     command: ["/build.sh"]
     links:
       - mailcatcher
-      - mysql
     depends_on:
       - mailcatcher
-      - mysql
     cap_add:
       - SYS_ADMIN
     devices:
       - /dev/fuse
     ports:
       - "80:80"
-  mysql:
-    container_name: smoketest_wp_local_db
-    image: mariadb
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: wordpress
-      MYSQL_USER: wordpress
-      MYSQL_PASSWORD: wordpress
-    volumes:
-      - database:/var/lib/mysql
-      - ./db-dump:/db-dump
-    ports:
-      - "3306:3306"
   mailcatcher:
     container_name: smoketest_wp_local_smtp
     image: ministryofjustice/mailcatcher

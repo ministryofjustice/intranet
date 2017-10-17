@@ -1,3 +1,4 @@
+@skip
 Feature: Login via email for commenting
 
 Background:

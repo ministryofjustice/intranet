@@ -1,3 +1,4 @@
+@skip
 Feature: Test HMTCS Regional 'latest' component
 
 Scenario: Test HMTCS Regional 'latest' component Acceptance Criteria

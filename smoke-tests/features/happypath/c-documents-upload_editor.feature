@@ -1,3 +1,4 @@
+@skip
 Feature: Add document through the documents plugin
 
   Scenario: An agency editor is able to add a document through the documents plugin

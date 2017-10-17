@@ -16,6 +16,7 @@ WORKDIR /
 #  rm -rf phantomjs*
 
 ADD Gemfile /
+ADD config config
 ADD features features
 
 # TODO: commented out so smoke tests doesn't run automatically. Run manually with:
