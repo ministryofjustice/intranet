@@ -3,10 +3,9 @@ services:
   wordpress:
     container_name: smoketest_wp_local_dev
     build: .
-    env_file: .env
+    env_file: smoketests.env
     environment:
       development: 1
-      WP_ENV: development
       VIRTUAL_HOST: intranet.docker
       SMTP_HOST: mailcatcher
       SMTP_PORT: 1025
@@ -16,6 +15,8 @@ services:
       DB_HOST: ${DB_HOST}
       COMPOSER_USER: ${COMPOSER_USER}
       COMPOSER_PASS: ${COMPOSER_PASS}
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
     command: ["/build.sh"]
     links:
       - mailcatcher
