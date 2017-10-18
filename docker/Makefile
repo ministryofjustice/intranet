@@ -43,3 +43,7 @@ smoketest:
 
 rebuild-smoketest:
 	docker-compose -f docker-compose-smoketest.yml up --build
+
+smoketest-nuke-all:
+	make nuke-assets
+	docker-compose -f docker-compose-smoketest.yml down --rmi all
