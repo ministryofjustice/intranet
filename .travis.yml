@@ -7,5 +7,4 @@ before_install:
   - cd docker
 
 script:
-  - make smoketest
-  - make smoketest-nuke-all
+  - make smoketest-with-exit-code

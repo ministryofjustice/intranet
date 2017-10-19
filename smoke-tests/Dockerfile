@@ -21,4 +21,4 @@ ADD wait-for-wordpress.sh /
 ADD config config
 ADD features features
 
-CMD ./wait-for-wordpress.sh ${TARGET_URI} cucumber
+CMD ./wait-for-wordpress.sh ${TARGET_URI} 'cucumber --profile quick_run'

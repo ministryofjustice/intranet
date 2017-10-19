@@ -1,2 +1,3 @@
 ---
 default: --tags ~@skip
+quick_run: --tags @quick_run

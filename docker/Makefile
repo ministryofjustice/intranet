@@ -47,3 +47,8 @@ rebuild-smoketest:
 smoketest-nuke-all:
 	make nuke-assets
 	docker-compose -f docker-compose-smoketest.yml down --rmi all
+
+smoketest-with-exit-code:
+	$(eval EXIT_CODE=$(shell make smoketest 1>&2; echo $$?))
+	make smoketest-nuke-all
+	@exit ${EXIT_CODE}
