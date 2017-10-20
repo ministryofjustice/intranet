@@ -1,4 +1,5 @@
 # Technical debt
+
 Use this file to track the tech debt that is too small to go into a ticket. Please prefix each task/issue with your initials. Delete any tasks/issues that have been completed, don't feel the need to re-order the numbers.
 
 e.g.
@@ -11,10 +12,10 @@ High priority: [HP]
 Low priority [LP]
 Nice to have: [NTH]
 
-## Issues:
+## Issues
 
-## Tasks:
+## Tasks
 
-20: AF: Create clarity toolkit package
+1. It would be good to bring ctgen into this project
 
-## Hacks:
+## Hacks

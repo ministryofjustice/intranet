@@ -4,7 +4,7 @@
     $prefix = $config['prefix']; //required
     $label = $config['label']; //required
     $name = $prefix . "_" . $config['name']; //required
-    $id = $config['id'] ? $config['id']: $prefix . "_" . $name;
+    $id = $config['id'] ? $config['id'] : $name;
     $value = $config['value'];
     $placeholder = $config['placeholder'] ? 'placeholder = "' . $config['placeholder'] . '"' : null;
     $class = $config['class'] ? 'class = "'.$config['class'].'"' : null;

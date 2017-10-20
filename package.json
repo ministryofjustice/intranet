@@ -1,6 +1,6 @@
 {
-  "name": "moji-theme-clarity",
-  "version": "0.2.5-0",
+  "name": "intranet-theme-clarity",
+  "version": "1.0.3",
   "engines": {
     "node": "4.4.5",
     "npm": "2.15.5"
@@ -15,7 +15,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ministryofjustice/mojintranet-theme.git"
+    "url": "git+https://github.com/ministryofjustice/intranet-theme-clarity/.git"
   },
   "contributors": [
     {
@@ -28,28 +28,26 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ministryofjustice/mojintranet-theme/issues"
+    "url": "https://github.com/ministryofjustice/intranet-theme-clarity//issues"
   },
-  "homepage": "https://github.com/ministryofjustice/mojintranet-theme#readme",
+  "homepage": "https://github.com/ministryofjustice/intranet-theme-clarity/#readme",
   "dependencies": {
-    "casperjs": "^1.1.4",
-    "gulp-autoprefixer": "^4.0.0",
-    "gulp-css-purge": "^1.0.27",
-    "ie-love": "0.0.3",
-    "jquery": "^1.12.4",
-    "phantomjs": "^2.1.7",
-    "run-sequence": "^1.2.2",
+    "babel-core": "^6.26.0",
     "browser-sync": "^2.18.12",
+    "casperjs": "^1.1.4",
     "chalk": "^1.1.1",
     "ctgen": "^1.3.2",
     "del": "latest",
+    "dotenv": "^4.0.0",
     "glob-fs": "^0.1.6",
     "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^4.0.0",
+    "gulp-babel": "latest",
     "gulp-concat": "^2.6.1",
+    "gulp-css-purge": "^1.0.27",
     "gulp-cssnano": "latest",
     "gulp-csso": "latest",
     "gulp-eslint": "latest",
-    "gulp-babel": "latest",
     "gulp-imagemin": "latest",
     "gulp-merge-media-queries": "^0.2.1",
     "gulp-plumber": "^1.1.0",
@@ -58,14 +56,16 @@
     "gulp-strip-debug": "^1.0.2",
     "gulp-stylus": "^2.6.0",
     "gulp-uglify": "^2.1.2",
-    "gulp-util": "^3.0.8",
+    "ie-love": "0.0.3",
     "ie8-js": "^0.1.2",
     "inquirer": "^3.0.6",
     "jeet": "^7.1.0",
+    "jquery": "^1.12.4",
     "node-notifier": "^5.1.2",
+    "phantomjs": "^2.1.7",
+    "run-sequence": "^1.2.2",
     "rupture": "^0.6.2",
     "standard": "^9.0.2",
-    "yargs": "^7.0.2",
-    "babel-core": "^6.26.0"
+    "yargs": "^7.0.2"
   }
 }

@@ -28,17 +28,17 @@ Note: CSS is very self-explanatory so more basic comments are acceptable here un
 ### Code comments should be helpful
 In relation to the above. Whenever you add code comments, make sure they are useful, try to follow Docblokr conventions where possible. Don't worry about comment lengths in front end code (CSS/JS) as these comments will be stripped out when they are minfied. Where it's relevent also try to tag your comments like so:
 
-//TODO: This is something that needs to be done in the future (note: This should also be added to either tech debt or JIRA)
+`//TODO:` This is something that needs to be done in the future (note: This should also be added to either tech debt or JIRA)
 
-//BUG: This is a bug that has been spotted but has not yet been fixed (note: This should also be added to either tech debt or JIRA)
+`//BUG:` This is a bug that has been spotted but has not yet been fixed (note: This should also be added to either tech debt or JIRA)
 
-//HACK: If you have had to do something janky because you didn't have the time or ability to do it properly. Add this comment so it can be easily found in future refactors (Note: This should also be added to the tech debt)
+`//HACK:` If you have had to do something janky because you didn't have the time or ability to do it properly. Add this comment so it can be easily found in future refactors (Note: This should also be added to the tech debt)
 
-//FIXME: This is broken code (not just a bug), it is primarily used if you are going to come back to it soon or if you want to flag it for another developer to take a look at.
+`//FIXME:` This is broken code (not just a bug), it is primarily used if you are going to come back to it soon or if you want to flag it for another developer to take a look at.
 
-//XXX: This is where other developers can highlight questionable code. It is useful in code reviews.
+`//XXX:` This is where other developers can highlight questionable code. It is useful in code reviews.
 
-Note: All tags should be in capitals. Depending in your dev environment, your editor should pick up the above tags and highlight them. Some (Webstorm for example) can even find all the specific tags in a project so you can see a list of everything that needs to be done.
+Note: All tags should be in capitals. Depending in your dev environment, your editor should pick up the above tags and highlight them. Some (Webstorm for example) can even find all the specific tags in a project so you can see a list of everything that needs to be done. Most IDE's and text editors which have a plugin architecture also have extensible support for these tags.
 
 ##CSS
 
@@ -50,6 +50,7 @@ Stylus can concatenate anything using the & operator, make sure that you use it 
 
 CSS
 
+```css
 	.c-product-tags {
 	    text-align: center;
 	    padding-left: 20px;
@@ -60,13 +61,14 @@ CSS
 	    margin-top: 0;
 	    margin-bottom: 35px;
 	}
-
+```
 
 
 **This is acceptable**
 
 CSS
 
+```stylus
 	.c-product-tags {
 	    text-align: center;
 	    padding-left: 20px;
@@ -77,19 +79,23 @@ CSS
 	        margin-bottom: 35px;
 	    }
 	}
-
+```
 __NOTE:__ Utilities and objects may occasionally require two classes to work.
 
 e.g.
 
+```stylus
 	.o-title {
 		margin-bottom: 2rem;
 		&--page {
 			font-weight: bold;
 		}
 	}
+```
 
+```html
 	<h1 class="o-title o-title--page">Welcome</h1>
+```
 
 [View on codepen](http://codepen.io/foxleigh81/pen/MpWddK)
 
@@ -118,9 +124,11 @@ Stylus has a plugin called ['Rupture'](http://jescalan.github.io/rupture/), this
 
 e.g.
 
+```stylus
 	+above(m) {
 		margin: 0;
 	}
+```
 
 The Clarity toolkit has 7 breakpoints which are as follows:
 
@@ -136,9 +144,11 @@ Additional breakpoints can be explicity specified if needed but please do this a
 
 e.g.
 
+```stylus
 	+above('990px') {
 		display: none;
 	}
+```
 
 Just like with normal media queries, a mobile-first approach should be used, use of `+below()' or '+between()' is possible but discouraged. Only use these if it's absolutely needed and be prepared to justify it in a code review.
 
@@ -146,6 +156,7 @@ e.g.
 
 **This is not acceptable**
 
+```stylus
 	&__tags {
 	     li {
 	        margin-right: 6px;
@@ -156,9 +167,11 @@ e.g.
 	        }
 	    }
     }
+```
 
 **This is acceptable**
 
+```stylus
 	&__tags {
 	     li {
 	        margin-bottom: 10px;
@@ -168,6 +181,7 @@ e.g.
 	        }
 	    }
     }
+```
 
 ### Don't neglect print stylesheets
 
@@ -193,10 +207,13 @@ e.g.
 
 HTML
 
+```html
 	<a class="o-tag-btn"></a>
+```
 
 CSS
 
+```stylus
 	.o-tag-btn {
 		background-color: $light;
 		border: 1px solid $border;
@@ -226,15 +243,19 @@ CSS
 			color: currentColor;
 		}
 	}
+```
 
 **This is acceptable**
 
 HTML
 
+```html
 	<a href="o-btn o-tag-btn"></a>
+```
 
 CSS
 
+```stylus
 	.o-tag-btn {
 		background-color: $light;
 	}
@@ -253,15 +274,19 @@ CSS
 			color: currentColor;
 		}
 	}
+```
 
 **This is also acceptable**
 
 HTML
 
+```html
 	<a href="o-tag-btn"></a>
+```
 
 CSS
 
+```stylus
 	.o-tag-btn {
 		@extend .o-btn;
 		background-color: $light;
@@ -281,6 +306,7 @@ CSS
 			color: currentColor;
 		}
 	}
+```
 
 If this sort of thing was common, it may be appropriate to create a mixin instead.
 
@@ -292,17 +318,21 @@ The build tool will have auto prefixing enabled via the 'autoprefixer' plugin fo
 
 CSS
 
+```css
 	-o-transition: background-color .6s ease-out;
 	-ms-transition: background-color .6s ease-out;
 	-moz-transition: background-color .6s ease-out;
 	-webkit-transition: background-color .6s ease-out;
 	transition: background-color .6s ease-out;
+```
 
 **This is acceptable**
 
 CSS
 
+```css
 	transition: background-color .6s ease-out
+```
 
 ### Ensure all links have a :focus property and that it is appropriate
 Screen readers and people who have to use a keyboard, pad to navigate a site can't rely on hover states. However they still need visual feedback.
@@ -317,21 +347,25 @@ Occasionally, using a custom value is necessary but by default you should use th
 
 CSS
 
+```stylus
 	+above(1024px) {
 		 .c-main-nav {
 		     margin: 10px;
 		 }
 	 }
+```
 
 **This is acceptable**
 
 CSS
 
+```stylus
 	+above(l) {
 		 .c-main-nav {
 		     margin: $spacing;
 		 }
  	}
+```
 
 ### Abstract often-used variables
 
@@ -341,13 +375,17 @@ e.g.
 
 **These are not acceptable**
 
+```stylus
     $16px = 1.6rem
     $large = 1.6rem
     $header2 = 1.6rem
+```
 
 **This is acceptable**
 
+```stylus
 	$outerCore = 1.9rem
+```
 
 This way, if another level needs to be added or if the font-size changes in the future. We don't have a ton of variables which need to be found and replaced as they no longer make sense.
 
@@ -358,19 +396,22 @@ Unless something *has* to be a fixed width then don't use Pixel values. Use eith
 
 CSS
 
-	.box {
-		width: 400px;
-		margin: 20px;
-	}
-
+```stylus
+.box {
+	width: 400px;
+	margin: 20px;
+}
+```
 **This is acceptable**
 
 CSS
 
-	.box {
-		width: 20%;
-		margin: $spacing*2
-	}
+```stylus
+.box {
+	width: 20%;
+	margin: $spacing*2
+}
+```
 
 ### Consider the grid
 
@@ -380,18 +421,22 @@ Whilst we are on the subject of widths, wherever possible, widths should be eith
 
 CSS
 
-	.box-aligned-to-grid {
-		width: 400px;
-		margin: 20px;
-	}
+```stylus
+.box-aligned-to-grid {
+	width: 400px;
+	margin: 20px;
+}
+```
 
 **This is acceptable**
 
 CSS
 
-	.box-aligned-to-grid {
-		column(1/4);
-	}
+```stylus
+.box-aligned-to-grid {
+	column(1/4);
+}
+```
 
 ### Be aware of existing resets
 
@@ -400,22 +445,24 @@ Don't automatically add `box-sizing:border-box` or `margin:0` to elements. The r
 **This is not acceptable**
 
 CSS
-
-	.list {
-		box-sizing: border-box;
-		margin: 0;
-		padding: 0;
-		list-style-type: none;
-		color: $primary;
-	}
-
+```stylus
+.list {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+	color: $primary;
+}
+```
 **This is acceptable**
 
 CSS
 
-	.list {
-		color: $primary;
-	}
+```stylus
+.list {
+	color: $primary;
+}
+```
 
 ### Avoid the use of the !important flag
 
@@ -450,25 +497,33 @@ ID's may be in the HTML, but these ID's should never be used to attach styles to
 
 HTML
 
-	<div id="container"></div>
+```html
+<div id="container"></div>
+```
 
 CSS
 
-	#container {
-		color: $primary;
-	}
+```css
+#container {
+	color: $primary;
+}
+```
 
 **This is acceptable**
 
 HTML
 
-	<div id="container" class="c-container"></div>
+```html
+<div id="container" class="c-container"></div>
+```
 
 CSS
 
-	.c-container {
-		color: $primary;
-	}
+```stylus
+.c-container {
+	color: $primary;
+}
+```
 
 ### Don't use 'js-' prefixed classes for styling
 
@@ -482,25 +537,32 @@ The reverse of this rule is also true, don't use styling classes for JS hooks.
 
 HTML
 
-	<div class="js-header"></div>
+```html 
+<div class="js-header"></div>
+```
 
 CSS
 
-	.js-header {
-		font-weight:bold;
-	}
-
+```css
+.js-header {
+	font-weight:bold;
+}
+```
 **This is acceptable**
 
 HTML
 
-	<div class="js-header c-header"></div>
+```html
+<div class="js-header c-header"></div>
+```
 
 CSS
 
-	.c-header {
-		font-weight:bold;
-	}
+```css
+.c-header {
+	font-weight:bold;
+}
+```
 
 ### Avoid universal selectors
 
@@ -520,18 +582,23 @@ In the example above, I targeted a link in a list like this `.list > li a`, whil
 
 This one ties to the one above. Don't write css like this:
 
-	div.container {
-		padding: $padding
-	}
+```stylus
+div.container {
+	padding: $padding
+}
+```
 
 Whilst this will work fine if the HTML looks like this:
 
-	<div class="container"></div>
+```html
+<div class="container"></div>
+```
 
 Specifying things at a tag level will add to performance, also what happens to the styling if the HTML changes to this:
 
-	<article class="container"></article>
-
+```html
+<article class="container"></article>
+```
 Suddenly that CSS which specified that only `div` tags can have a class of 'container' fails as there was nothing to accommodate an `article` tag with a container class on it.
 
 ### Consider future-proofing when using location specific selectors
@@ -546,13 +613,17 @@ The performance impact here is minor but as there is no valid reason to specify 
 
 CSS
 
-	margin: 0px;
+```css
+margin: 0px;
+```
 
 **This is acceptable**
 
 CSS
 
-	margin: 0;
+```css
+margin: 0;
+```
 
 ## HTML/PHP
 
@@ -570,15 +641,19 @@ Again, as you have no idea where the component will be used on the page, it's im
 
 **This is not acceptable**
 
+```html
 <section class="c-product-item">
 	<h3>Header</h3>
 </section>
+```
 
 **This is acceptable**
 
+```html
 <section class="c-product-item">
 	<h1>Header</h1>
 </section>
+```
 
 ### Name classes in accordance to content, not appearance
 Similar to the rule above, write your class names based on what is going in the container and not based on how it looks:
@@ -587,27 +662,33 @@ Similar to the rule above, write your class names based on what is going in the 
 
 HTML
 
-	<section class="c-product-item">
-		<h1 class="border-bottom blue bold">Header</h1>
-	</section>
+```html
+<section class="c-product-item">
+	<h1 class="border-bottom blue bold">Header</h1>
+</section>
+```
 
 **This is acceptable**
 
 HTML
 
-	<section class="c-product-item">
-		<h1 class="c-product-item__title">Header</h1>
-	</section>
+```html
+<section class="c-product-item">
+	<h1 class="c-product-item__title">Header</h1>
+</section>
+```
 
 CSS
 
-	.c-product-item {
-		 &__title {
-		 	border-bottom: 1px solid $blue;
-		 	color: $blue;
-		 	font-weight: bold;
-	 	}
-	}
+```stylus
+.c-product-item {
+	 &__title {
+	 	border-bottom: 1px solid $blue;
+	 	color: $blue;
+	 	font-weight: bold;
+ 	}
+}
+```
 
 ### Don't overly nest elements
 
@@ -615,26 +696,32 @@ Wrapping elements in a `div` tag isn't usually needed and should only be added w
 
 **This is not acceptable**
 
-	<div class="c-product-item">
-		<div>
-			<h1> Header </h1>
-		</div>
+```html
+<div class="c-product-item">
+	<div>
+		<h1> Header </h1>
 	</div>
+</div>
+```
 
 **This is acceptable**
 
-	<div class="c-product-item">
-		<h1> Header </h1>
-	</div>
+```html
+<div class="c-product-item">
+	<h1> Header </h1>
+</div>
+```
 
 **This is also acceptable**
 
-	<div class="c-product-item">
-		<div class="c-grouped-items">
-			<h1> Header </h1>
-			<span> Sub-header </span>
-		</div>
+```html
+<div class="c-product-item">
+	<div class="c-grouped-items">
+		<h1> Header </h1>
+		<span> Sub-header </span>
 	</div>
+</div>
+```
 
 ### Don't use images for ui elements if it can be done in CSS
 
@@ -642,25 +729,30 @@ Wrapping elements in a `div` tag isn't usually needed and should only be added w
 
 HTML
 
-	<a href="">Read more <img src="/images/arrow-right.svg"></a>
+```html
+<a href="">Read more <img src="/images/arrow-right.svg"></a>
+```
 
 **This is acceptable**
 
 HTML
-
-	<a class="read-more-link" href="">Read more</a>
+```html
+<a class="read-more-link" href="">Read more</a>
+```
 
 CSS
 
-	.read-more-link {
-		&:after {
-			content: '';
-			width: 1rem;
-			height: 2rem;
-			margin-left: .5rem;
-			background-image: url(/images/arrow-right.svg);
-		}
+```stylus
+.read-more-link {
+	&:after {
+		content: '';
+		width: 1rem;
+		height: 2rem;
+		margin-left: .5rem;
+		background-image: url(/images/arrow-right.svg);
 	}
+}
+```
 
 In fact if possible, don't use an image at all. If the item can be an icon font or even a text character. Use that instead (keep browser compatibility in mind though).
 
@@ -671,18 +763,21 @@ Again a good rule of thumb here is that if the page is still 100% understandable
 The `article` and `section` tags all contain their own internal document flow. This allows these tags to be transplanted to other places on the site (or even other sites) and still maintain the correct document order. In order to utilise this correctly always restart the header levels when using these tags. e.g. Start with a `h1` instead of a `h2`.
 
 **This is not acceptable**
-
-	<h1> Page title</h1>
-	<section class="c-product-item">
-		<h2>Product Item Title</h2>
-	</component>
+```html
+<h1> Page title</h1>
+<section class="c-product-item">
+	<h2>Product Item Title</h2>
+</section>
+```
 
 **This is acceptable**
 
-	<h1> Page title</h1>
-	<section class="c-product-item">
-		<h1>Product Item Title</h1>
-	</section>
+```html
+<h1> Page title</h1>
+<section class="c-product-item">
+	<h1>Product Item Title</h1>
+</section>
+```
 
 ### It's probably a component
 Almost everything on the site is a component, the exceptions to this are utilities and objects and non-transferrable elements within a component.
@@ -699,31 +794,35 @@ e.g.
 
 Featured news list component
 
-	<div class="c-featured-news-list">
-	  <?php get_component('c-article-item', 'featured_news'); ?>
-	  <?php get_component('c-article-item', 'featured_news'); ?>
-	</div>
+```php
+<div class="c-featured-news-list">
+  <?php get_component('c-article-item', 'featured_news'); ?>
+  <?php get_component('c-article-item', 'featured_news'); ?>
+</div>
+```
 
 Article item component
 
-	<article class="c-article-item">
-	  <img src="https://placeimg.com/650/433/tech" alt="description of image goes here">
-	  <h1><a href="#">This is an example title</a></h1>
-	  <?php
-	  // If the 'featured_news' value has been passed to $params: Display the excerpt.
-	  if ($params === 'featured_news') { ?>
-	    <div class="c-article-item__excerpt">
-	      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero rem cumque aliquam, voluptatibus recusandae velit eos maiores molestiae illum eveniet deleniti magni delectus neque, distinctio sit error laudantium quos porro.</p>
-	    </div>
-	  <?php } ?>
-	  <span class="c-article-item__dateline">11 Jan 2017</span>
+```php
+<article class="c-article-item">
+  <img src="https://placeimg.com/650/433/tech" alt="description of image goes here">
+  <h1><a href="#">This is an example title</a></h1>
+  <?php
+  // If the 'featured_news' value has been passed to $params: Display the excerpt.
+  if ($params === 'featured_news') { ?>
+    <div class="c-article-item__excerpt">
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero rem cumque aliquam, voluptatibus recusandae velit eos maiores molestiae illum eveniet deleniti magni delectus neque, distinctio sit error laudantium quos porro.</p>
+    </div>
+  <?php } ?>
+  <span class="c-article-item__dateline">11 Jan 2017</span>
 
-	  <?php
-	  // If the 'blog' value has been passed to $params: Display the byline.
-	  if ($params === 'blog') { ?>
-	    <span class="c-article-item__byline">Simon Quinn</span>
-	  <?php } ?>
-	</article>
+  <?php
+  // If the 'blog' value has been passed to $params: Display the byline.
+  if ($params === 'blog') { ?>
+    <span class="c-article-item__byline">Simon Quinn</span>
+  <?php } ?>
+</article>
+```
 
 As you can see the component above, The items inside the c-article-item component are all unique to that component and so use BEM notation to denote they are a part of it.
 
@@ -735,6 +834,7 @@ Hopefully this doesn't need to be said anymore but just in case, tables should o
 
 **This is not acceptable**
 
+```html
 	<table>
 		<tr>
 			<td>
@@ -756,9 +856,10 @@ Hopefully this doesn't need to be said anymore but just in case, tables should o
 			</td>
 		</tr>
 	</table>
-
+```
 **This is acceptable**
 
+```html
 	<div class="col primary">
 		<h1>Header</h1>
 		<p>This is some text</p>
@@ -776,9 +877,10 @@ Hopefully this doesn't need to be said anymore but just in case, tables should o
 			<li>Item 3</li>
 		</ul>
 	</div>
+```
 
 **This is an acceptable use of tables**
-
+```html
 	<table>
 		<tbody>
 			<tr>
@@ -798,6 +900,7 @@ Hopefully this doesn't need to be said anymore but just in case, tables should o
 			</tr>
 		</tbody>
 	</table>
+```
 
 ### Always consider accessibility
 
@@ -807,10 +910,12 @@ Screen-readers and other assistive devices use page semantics to make sense of a
 
 e.g.
 
-	<form action="" class="search" aria-role="search">
-		<input type="text" value="Search">
-		<button type="submit">Search</button>
-	</form>
+```html
+<form action="" class="search" aria-role="search">
+	<input type="text" value="Search">
+	<button type="submit">Search</button>
+</form>
+```
 
 #### Always use a descriptive ALT attribute on an image.
 
@@ -820,11 +925,15 @@ If you are not sure what to write in an ALT tag, imagine how you would briefly d
 
 **This is not acceptable**
 
-	<a href=""><img src="/images/office-building.jpg" alt="Click to view a bigger version of this image"></a>
+```html
+<a href=""><img src="/images/office-building.jpg" alt="Click to view a bigger version of this image"></a>
+```
 
 **This is acceptable**
 
-	<a href=""><img src="/images/office-building.jpg" alt="An external view of our head office."></a>
+```html
+<a href=""><img src="/images/office-building.jpg" alt="An external view of our head office."></a>
+```
 
 #### Structure a document in order of reading
 
@@ -832,51 +941,55 @@ In CSS content positioning can be altered, however without CSS content follows a
 
 **This is not acceptable**
 
-	<div class="right">
-		<p>
-		   Pursued by the Empire's sinister agents, Princess
-	       Leia races home aboard her starship, custodian of
-	       the stolen plans that can save her people and
-	       restore freedom to the galaxy...
-	     </p>
-	</div>
-	<div class="left">
-		<p>
-			It is a period of civil war. Rebel spaceships,
-			striking from a hidden base, have won their first
-			victory against the evil Galactic Empire.
-		</p>
-		<p>
-			During the battle, Rebel spies managed to steal
-			secret plans to the Empire's ultimate weapon, the
-			Death Star, an armored space station with enough
-			power to destroy an entire planet.
-		</p>
-	</div>
+```html
+<div class="right">
+	<p>
+	   Pursued by the Empire's sinister agents, Princess
+       Leia races home aboard her starship, custodian of
+       the stolen plans that can save her people and
+       restore freedom to the galaxy...
+     </p>
+</div>
+<div class="left">
+	<p>
+		It is a period of civil war. Rebel spaceships,
+		striking from a hidden base, have won their first
+		victory against the evil Galactic Empire.
+	</p>
+	<p>
+		During the battle, Rebel spies managed to steal
+		secret plans to the Empire's ultimate weapon, the
+		Death Star, an armored space station with enough
+		power to destroy an entire planet.
+	</p>
+</div>
+```
 
 **This is acceptable**
 
-	<div class="l-left">
-		<p>
-			It is a period of civil war. Rebel spaceships,
-			striking from a hidden base, have won their first
-			victory against the evil Galactic Empire.
-		</p>
-		<p>
-			During the battle, Rebel spies managed to steal
-			secret plans to the Empire's ultimate weapon, the
-			Death Star, an armored space station with enough
-			power to destroy an entire planet.
-		</p>
-	</div>
-	<div class="l-right">
-		<p>
-		   Pursued by the Empire's sinister agents, Princess
-	       Leia races home aboard her starship, custodian of
-	       the stolen plans that can save her people and
-	       restore freedom to the galaxy...
-	     </p>
-	</div>
+```html
+<div class="l-left">
+	<p>
+		It is a period of civil war. Rebel spaceships,
+		striking from a hidden base, have won their first
+		victory against the evil Galactic Empire.
+	</p>
+	<p>
+		During the battle, Rebel spies managed to steal
+		secret plans to the Empire's ultimate weapon, the
+		Death Star, an armored space station with enough
+		power to destroy an entire planet.
+	</p>
+</div>
+<div class="l-right">
+	<p>
+	   Pursued by the Empire's sinister agents, Princess
+       Leia races home aboard her starship, custodian of
+       the stolen plans that can save her people and
+       restore freedom to the galaxy...
+     </p>
+</div>
+```
 
 ## Javascript
 ### Event based methods must be bound to the component
@@ -887,25 +1000,29 @@ e.g.
 
 **This is not acceptable**
 
-	toggleMenu: function() {
-	     var menu = $('.js-menu-toggle');
-	     if(menu.length) {
-	         menu.on('click', function() {
-	             //do something
-	         })
-	     }
-	 }
+```js
+toggleMenu: function() {
+     var menu = $('.js-menu-toggle');
+     if(menu.length) {
+         menu.on('click', function() {
+             //do something
+         })
+     }
+ }
 
-	 toggleMenu();
+ toggleMenu();
+```
 
 **This is acceptable**
 
-	this.$el = $('.js-menu'),
-	this.$el.on('click', '.js-menu__toggle',  ['params', 'go', 'here'], this.toggleMenu.bind(this)); // toggleMenu()
+```js
+this.$el = $('.js-menu'),
+this.$el.on('click', '.js-menu__toggle',  ['params', 'go', 'here'], this.toggleMenu.bind(this)); // toggleMenu()
 
-	this.toggleMenu: function() {
-        // do something
-    }
+this.toggleMenu: function() {
+    // do something
+}
+```
 
 Using `bind(this)` isn't always required but it allows you to pass the 'this' context into the method and thereby provides access to the parent scope.
 
@@ -913,7 +1030,7 @@ Using `bind(this)` isn't always required but it allows you to pass the 'this' co
 
 A function should be written to do one thing and one thing only. This improves modularity and readability.
 
-### Always use strongly typed comparators
+### Always use type comparison
 When writing `if` statements, avoid using `==` if using `===` is possible, ensuring that code is strongly typed helps to maintain code parity, also no type conversion is carried out when using `===` which helps to increase performance.
 
 See this article for more information: [Comparison Operators tutorial](http://www.c-point.com/javascript_tutorial/jsgrpComparison.htm)
@@ -927,13 +1044,16 @@ In large projects such as this one, it's vital that everyone understands what th
 
 **This is not acceptable**
 
-	// Menu toggle
-	toggleMenu: function(el, speed) {
-	   [...]
-	}
+```js
+// Menu toggle
+toggleMenu: function(el, speed) {
+   [...]
+}
+``
 
 **This is acceptable**
 
+```js
 	/**
 	* Menu toggle - opens and closes the mobile nav menu
 	* @method toggleMenu
@@ -945,44 +1065,75 @@ In large projects such as this one, it's vital that everyone understands what th
 	toggleMenu: function() {
 	   [...]
 	}
+```
 
 ### Keep local variables in one place
 
-When instantiating a local function, ensure that you keep all the local variables at the top of the function. This will improve readability.
+When instantiating a local function, ensure that you keep all the local variables at the top of the function. This will improve readability and will eliminate the need for hoisting.
 
 ** This is not acceptable **
 
-	var function = bigDamnHeroes() {
-		var mal = 'in the nick of time';
-		if(mal === 'in the nick of time') {
-			var river = 'our witch';
-			var zoe = 'big damn heroes, sir';
-			console.log(zoe);
-		}
+```js
+var function = bigDamnHeroes() {
+	var mal = 'in the nick of time';
+	if(mal === 'in the nick of time') {
+		var river = 'our witch';
+		var zoe = 'big damn heroes, sir';
+		console.log(zoe);
 	}
+}
+```
 
 **This is acceptable**
 
-	var function = bigDamnHeroes() {
-		var mal = 'in the nick of time',
-			zoe = 'big damn heroes, sir',
-			river = 'burning at the stake';
+```js
+var function = bigDamnHeroes() {
+	var mal = 'in the nick of time',
+		zoe = 'big damn heroes, sir',
+		river = 'burning at the stake';
 
-		if(mal === 'in the nick of time') {
-			river = 'our witch';
-			console.info(zoe);
-		}
+	if(mal === 'in the nick of time') {
+		river = 'our witch';
+		console.info(zoe);
 	}
-
-### Use ES6 where possible.
-
-Babel is installed and ES6 has a lot of benefits over ES5. I won't give examples of these as the docs on ES6 are thorough and clear. A great resource for this is http://es6-features.org/
-
-Note: Some things cannot be used in an ES6 manner, module loading (import/export) is a prime example of this as it cannot be transpiled in a way that will work in older versions of IE.
-
+}
+```
 ### Try to write encapsulated code. Use jQuery plugin architecture where possible.
 
-The example is too long to paste in here but take a look at clarity-toolbar.js and script.js in /src/components/c-clarity-toolbar to see how to do this.
+Example:
+
+```js
+/* global jQuery */
+
+;(function ($) {
+ /**
+ * Ensures that in a set of elements, they all have an equal height (equal to the height of the largest elemement)
+ *
+ * Usage: Simply add your container element to script-loader.js and add .moji_equaliser() on to it.
+ * Make sure you reference the container and child elements. e.g. $('.c-news-list > .js-article-item').moji_equaliser()
+ *
+ */
+  $.fn.moji_equaliser = function () {
+    var container = this
+    var tallestHeight = 0
+    var heightCheck = 1
+    for (var i = 0; i < container.length; i++) {
+      var height = $(container[i]).outerHeight(true)
+      if (height > tallestHeight) tallestHeight = height
+      if (heightCheck === container.length) {
+        // All items accounted for, now make all items the same height
+        $(container).css('height', tallestHeight + 'px')
+      } else {
+        heightCheck++
+      }
+    }
+
+    return container
+  }
+})(jQuery)
+```
+
+More information on jQuery plugins can be found [here](https://learn.jquery.com/plugins/basic-plugin-creation/)
 
 ### If it can be global, make it global
 

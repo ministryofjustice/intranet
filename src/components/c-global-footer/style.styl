@@ -2,8 +2,12 @@
 @require "../../globals/css/_toolkit"
 
 .c-footer {
-  clearfix();
-  margin-top: $spacing*4;
+  padding: $spacing;
   border-top: 1px solid $border;
   background: $boxBg;
+  +above(m) {
+    clearfix();
+    padding: 0;
+    margin-top: $spacing*4;
+  }
 }
