@@ -1,6 +1,6 @@
 <?php
 /*
-    Template Name: Clarity - Agency Switcher
+    Template Name: Agency Switcher
 */
 //ToDo: Change name to switcher.php when database changed ?>
 <?php get_component('c-global-header'); ?>
