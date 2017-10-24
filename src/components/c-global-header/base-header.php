@@ -27,6 +27,12 @@
     <script type="text/javascript" src="<?php echo get_assets_folder(); ?>/vendors/ie8-js-html5shiv.js"></script>
     <link rel="stylesheet" href="<?php echo get_assets_folder(); ?>/css/ie.min.css" media="screen">
   <![endif]-->
+  <?php
+  /**
+   * wp_head() required WP function do not remove. Used by plugins to hook into and for theme development.
+   */
+   ?>
+   <?php wp_head(); ?>
 </head>
 <body class="agency-<?php echo $agency_shortcode; ?>">
   <?php if($_GET['devtools'] === 'true') get_component('c-clarity-toolbar'); ?>
