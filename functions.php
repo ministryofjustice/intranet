@@ -19,7 +19,6 @@ function moj_autoload($cls)
 {
     $cls = ltrim($cls, '\\');
 
-
     if(strpos($cls, 'MOJ\Intranet') !== 0)
         return;
 
@@ -161,7 +160,7 @@ function slugify($string) {
  */
 
 function form_builder($type, $prefix, $label, $name, $id = '', $value = '', $placeholder = '', $class = '', $required = false, $validation = '', $options = '') {
-  $config = array (
+  $config = [
       'type' => $type,
       'prefix' => $prefix,
       'label' => $label,
@@ -172,14 +171,17 @@ function form_builder($type, $prefix, $label, $name, $id = '', $value = '', $pla
       'class' => $class,
       'required' => $required,
       'validation' => $validation,
-      'options' => $options);
+      'options' => $options
+    ];
 
   return get_component('c-input-container', null, $config);
 }
 
 /*
- * Register new Clarity menu. We are using this menu as a replacement main menu on all new templates.
+ * Register new Clarity main menu.
+ * We are using this menu as a replacement main menu on all new templates.
  * Assigning menus are found by loging into wp-admin and setting the menu to display.
+ * LEGACY: Other menus are registered in the old template in menu-locations.php.
  */
 
 add_action( 'init', 'register_my_menu' );
@@ -192,8 +194,8 @@ add_action( 'init', 'register_my_menus' );
 
 function register_my_menus() {
   register_nav_menus(
-    array(
+    [
       'header-menu' => __( 'Header Menu' )
-    )
+    ]
   );
 }
