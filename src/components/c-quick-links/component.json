@@ -14,7 +14,8 @@
     "frontend" : ""
   },
   "backend_classes" : {},
-  "creation_ticket" : "MI-400",
+  "has_js" : false,
+  "integrated" : false,
   "changelog" : [
     {
       "date" : "02/02/17",

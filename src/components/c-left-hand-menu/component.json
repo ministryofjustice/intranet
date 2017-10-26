@@ -15,7 +15,7 @@
     "frontend" : ""
   },
   "backend_classes" : {},
-  "creation_ticket" : "MI-167",
+  "integrated" : false,
   "has_js" : true,
   "changelog" : [
     {

@@ -12,10 +12,11 @@
   "children" : "",
   "notes" : {
     "backend" : "",
-    "backend" : "In order to allow for different agency styles. There are hyphenated alternatives to the view, e.g. 'view-opg.php"
+    "frontend" : ""
   },
   "backend_classes" : {},
-  "creation_ticket" : "",
+  "has_js" : false,
+  "integrated" : false,
   "changelog" : [
     {
       "date" : "23/4/2017",

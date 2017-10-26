@@ -15,7 +15,8 @@
     "frontend" : "This and c-article-item may prove to be the same component from a WP perspective. Feel free to merge them together"
   },
   "backend_classes" : {},
-  "creation_ticket" : "",
+  "has_js" : false,
+  "integrated" : false,
   "changelog" : [
     {
       "date" : "25/3/2017",

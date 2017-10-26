@@ -1,12 +1,12 @@
 {
-  "name" : "Search result item",
-  "class" : "c-search-result-item",
+  "name" : "%cfname%",
+  "class" : "%cname%",
   "version" : "1.0.0",
   "creator" : {
-    "name" : "Alex Foxleigh",
-    "github_username" : "foxleigh81"
+    "name" : "%cauthor%",
+    "github_username" : "%cagithub%"
   },
-  "description" : "an individual search result",
+  "description" : "%cdesc%",
   "standard_or_universal" : "standard",
   "parents" : "",
   "children" : "",
@@ -15,12 +15,12 @@
     "frontend" : ""
   },
   "backend_classes" : {},
-  "has_js" : false,
+  "has_js" : %has_js%,
   "integrated" : false,
   "changelog" : [
     {
-      "date" : "4/7/2017",
-      "author" : "Alex Foxleigh",
+      "date" : "%creationdate%",
+      "author" : "%cauthor%",
       "description" : "Created component"
     }
   ]

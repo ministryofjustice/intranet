@@ -15,7 +15,8 @@
     "frontend" : "This component depends on c-content-filter as it inherits some styles"
   },
   "backend_classes" : {},
-  "creation_ticket" : "MI-8",
+  "has_js" : false,
+  "integrated" : false,
   "changelog" : [
     {
       "date" : "4/7/2017",
