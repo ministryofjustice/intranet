@@ -1,6 +1,6 @@
 <?php
 /*
-Template Name: Clarity - Tabbed content
+* Clarity template Tabbed content
 */
 ?>
 <?php get_component('c-global-header'); ?>

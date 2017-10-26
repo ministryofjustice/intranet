@@ -1,6 +1,6 @@
 <?php
 /*
-Template Name: Clarity - event_set(event, fd, events, callback) Page
+* Clarity template event_set(event, fd, events, callback) Page
 */
 //ToDo: Change name to switcher.php when database changed ?>
 <?php get_component('c-global-header'); ?>

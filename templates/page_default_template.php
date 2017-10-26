@@ -1,6 +1,6 @@
 <?php
 /*
-Template Name: Clarity - Default template
+* Clarity template Default template
 */
 ?>
 <?php get_component('c-global-header'); ?>
