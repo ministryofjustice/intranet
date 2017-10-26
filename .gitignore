@@ -5,3 +5,4 @@ node_modules/
 /.style.css
 .idea
 .env
+clarity.yml
