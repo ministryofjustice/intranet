@@ -10,9 +10,12 @@
      height: $spacing*3.6;
    }
    &__switch {
-     position: absolute;
-     top: 40%;
-     right: $spacing;
      color: $light;
+     display block
+     +above(m) {
+      position: absolute;
+      top: 40%;
+      right: $spacing;
+     }
    }
 }

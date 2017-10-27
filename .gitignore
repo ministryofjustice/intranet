@@ -4,3 +4,5 @@ node_modules/
 .DS_Store
 /.style.css
 .idea
+.env
+clarity.yml

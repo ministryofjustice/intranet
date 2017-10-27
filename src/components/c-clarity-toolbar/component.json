@@ -12,11 +12,12 @@
   "children" : "",
   "notes" : {
     "backend" : "",
-    "frontend" : ""
+    "frontend" : "This seems to be broken at the moment."
   },
   "backend_classes" : {},
   "creation_ticket" : "",
   "has_js" : true,
+  "integrated" : false,
   "changelog" : [
     {
       "date" : "3/4/2017",

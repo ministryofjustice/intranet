@@ -15,7 +15,8 @@
     "frontend" : "This is an empty component front-end wise as it's content is 100% CMS editable. Provided that content is wrapped with this component it will be styled correctly"
   },
   "backend_classes" : {},
-  "creation_ticket" : "",
+  "has_js" : false,
+  "integrated" : false,
   "changelog" : [
     {
       "date" : "25/3/2017",

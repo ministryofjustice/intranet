@@ -11,7 +11,11 @@ npm install --global gulp
 
 */
 
+// Set up the .env file to create local variables
+require('dotenv').config()
+
 /* Needed gulp config */
+
 var gulp = require('gulp')
 var stylus = require('gulp-stylus')
 var uglify = require('gulp-uglify')
@@ -24,7 +28,6 @@ var jeet = require('jeet')
 var rupture = require('rupture')
 var csso = require('gulp-csso')
 var concat = require('gulp-concat')
-var babel = require('gulp-babel')
 var del = require('del')
 var plumber = require('gulp-plumber')
 var argv = require('yargs').argv
@@ -177,6 +180,9 @@ gulp.task('static', function (done) {
   // Move Favicons
   gulp.src('src/globals/images/icons/*')
     .pipe(gulp.dest('assets/icons'))
+  // Move Images (TODO: Add compression plugin)
+  gulp.src(['src/globals/images/*.png', 'src/globals/images/*.jpg', 'src/globals/images/*.gif'])
+  .pipe(gulp.dest('assets/images'))
   done()
 })
 
@@ -189,7 +195,7 @@ gulp.task('bs-reload', function () {
 gulp.task('browser-sync', ['styles', 'scripts'], function () {
   /* Initialise BrowserSync */
   browserSync.init({
-    proxy: 'mojintranet.test'
+    proxy: 'intranet.docker'
   })
 })
 
@@ -252,20 +258,33 @@ gulp.task('deploy-prep', function (done) {
   done()
 })
 
+/* Sync two directories - useful for working in one folder whilst syncing with a docker folder */
+gulp.task('resync', function (done) {
+  if (process.env.doResync) {
+    console.log('Syncing with Docker')
+    exec('rsync -a ' + process.env.sourcePath + ' ' + process.env.destinationPath)
+  } else {
+    console.log('Bypassing docker sync')
+  }
+  done()
+})
+
 /* Watch styles, js and php files, doing different things with each. - no browsersync */
 gulp.task('watch', ['build'], function () {
   /* Watch styl files, run the styles task on change. */
-  gulp.watch(['src/**/*.styl'], ['styles'])
+  gulp.watch(['src/**/*.styl'], ['styles', 'resync'])
+  gulp.watch(['src/**/*.print.styl'], ['print', 'resync'])
+  gulp.watch(['src/**/*.ie.styl'], ['ie', 'resync'])
   /* Watch js file, run the scripts task on change. */
-  gulp.watch(['src/**/*.js'], ['scripts'])
+  gulp.watch(['src/**/*.js'], ['scripts', 'resync'])
   /* Watch php file, run the php task on change. */
-  gulp.watch(['src/**/*.php'], ['php'])
+  gulp.watch(['src/**/*.php', './*.php'], ['php', 'resync'])
   // Announce that the build is complete and that gulp is watching for changes
   notifier.notify({ title: 'Watching for changes...', message: 'You may dismiss this message.' })
 })
 
 /* Watch styles, js and php files, doing different things with each. - with browsersync */
-gulp.task('default', ['watch', 'browser-sync'], function () {
+gulp.task('default', ['resync', 'watch', 'browser-sync'], function () {
   /* Watch .php files, run the bs-reload task on change. */
   gulp.watch(['*.php', '*.css', '*.js'], ['bs-reload'])
 })

@@ -15,8 +15,8 @@
     "frontend" : "This component shares it's styles with c-comment-response do not delete it without migrating the styles over"
   },
   "backend_classes" : {},
-  "creation_ticket" : "MI-373",
-  "has_js" : true,
+  "has_js" : false,
+  "integrated" : false,
   "changelog" : [
     {
       "date" : "25/3/2017",

@@ -1,30 +1,37 @@
 [![Build Status](https://travis-ci.org/ministryofjustice/mojintranet-theme.svg?branch=rebuildmaster)](https://travis-ci.org/ministryofjustice/mojintranet-theme)
 
 # moji-theme-clarity
+
 A WP theme for the Ministry of Justice Intranet
 
 ## Installation
 
-**Clone into the themes folder**
-This theme was designed for active development and therefore must be cloned directly within the wordpress environment as **it will not work without wordpress**. For most common installs, the theme should be cloned into the root of the themes directory, which can usually be found at `/wp-content/themes`, once cloned it will create a new directory called 'moj-clarity' which can then be installed using the wordpress interface. **note:** The wordpress instance must be located at a local url called '//mojintranet'.
+### Prerequesites
 
-**For development:** Once the theme has been cloned, CD into the root of the theme and type `npm install`. When everything is installed type `npm start` and you're good to go. This will set up a development environment for you at localhost:3000. **note**: The lamp stack site located at '//mojintranet' should be running before you begin this step. You can also use `gulp watch` if you don't want the livereload functionality of browsersync.
+**Completed Docker install** his theme is designed to work with a preconfigured docker instance, please speak to someone on the intranet team if you need guidance on how to set that up. These instructions are for installing this theme only.
+**Wordpress configured to use the theme** This theme needs to be set to 'active' in the wordpress admin in order for you to be able to see it.
 
-**For use as theme:** Once the theme has been cloned, CD into the root of the theme and type `npm install`, this will get everything ready and the theme should just work (assuming it's been cloned into the right place and installed via the wordpress interface)
+- Steps
+  - Once the theme has been cloned, CD into the root of the theme.
+  - Copy .envexample and rename it to .env, edit the file as per the comments.
+  - type `npm install`.
+  - `npm start` and you're good to go. This will set up a development environment for you and will automatically sync files to the docker instance.
 
 ## Coding guidelines
 
 See [Coding Standards](clarity_toolkit_coding_standards.md).
 
 ### Stylus
+
 The CSS is created using the stylus preprocessor and uses standard SASS syntax (the official docs show python syntax but it's not used here to reduce the learning curve for those used to SASS), there are a few minor differences between SASS and Stylus, they are available to read in the [official stylus documentation](http://stylus-lang.com/).
 
 ### Jeet
+
 Jeet is used for the grid, it is a classless semantic grid and avoids the horrible bootstrap-like practice of putting classes like `.col-lg-12 .col-md-12 .col-sm-12` all over the page. Instead it appears in the css as a fractional width.
 
 e.g.
 
-```
+```stylus
 .l-primary-column {
   column(1/2)
 }
@@ -33,11 +40,12 @@ e.g.
 This specifies that the primary column should span 1/2 the page. [The official documentation is available to read here.](http://jeet.gs)
 
 ### Rupture
+
 Rupture is a great way to write media queries, it uses a simplified syntax to make responsive layouts fast and easy to code.
 
 e.g.
 
-```
+```stylus
 .l-primary-column {
   column(1)
   +above(m) {
@@ -59,6 +67,7 @@ The JavaScript is written using ES6 but it compiles to standard ES5 using the Ba
 All source files (other than templates) exist in the /src directory. There will be very few reasons you will need to edit anything outside of this directory.
 
 ### Templates
+
 Page templates themselves are php files located in the root of the project are are usually prefixed with 'page_'.
 
 ### Globals
@@ -75,6 +84,7 @@ script.js - The component-specific javascript for the component
 
 Each component, even if it is just a container for another component should also contain a component.json file formatting like so:
 
+```json
     {
       "name" : "Article Item",
       "version" : "1.0.0",
@@ -98,6 +108,7 @@ Each component, even if it is just a container for another component should also
         }
       ]
     }
+```
 
 There are two types of components, a standard component and a universal component. A universal component has the ability to be placed anywhere on the site and it will reconfigure itself to fit the parent container. A standard component should still be reusable but these are components which are designed for a limited number of specific places. Standard components should have their available parent components or layouts specified in the components.json file
 

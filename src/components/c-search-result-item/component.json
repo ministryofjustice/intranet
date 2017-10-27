@@ -16,7 +16,7 @@
   },
   "backend_classes" : {},
   "has_js" : false,
-  "creation_ticket" : "",
+  "integrated" : false,
   "changelog" : [
     {
       "date" : "4/7/2017",

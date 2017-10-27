@@ -13,7 +13,8 @@
     "backend" : "",
     "frontend" : "Currently uses placeholder text as icons, this needs to be addressed"
   },
-  "creation_ticket" : "MI-401",
+  "has_js" : false,
+  "integrated" : false,
   "changelog" : [
     {
       "date" : "02/02/17",

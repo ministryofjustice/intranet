@@ -1,0 +1,7 @@
+# These paths should point to your local repo location for
+# intranet-theme-clarity and the location of your docker 
+# installations theme folder respectively. (see examples below)
+# if you set doResync to false, syncronisation will not occur
+doResync=true
+sourcePath = ~/Dev/intranet-theme-clarity
+destinationPath = ~/Dev/intranet/docker/bedrock_volume/web/app/themes
