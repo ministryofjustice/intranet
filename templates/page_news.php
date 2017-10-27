@@ -1,6 +1,6 @@
 <?php
 /*
-Template Name: Clarity - News
+* Clarity tenplate News
 */
 ?>
 <?php get_component('c-global-header'); ?>

@@ -14,7 +14,8 @@
     "frontend" : "The links go nowhere right now. Irune will have to add them when she builds it. It should work without javascript"
   },
   "backend_classes" : {},
-  "creation_ticket" : "MI-416",
+  "has_js" : false,
+  "integrated" : false,
   "changelog" : [
     {
       "date" : "22/03/17",

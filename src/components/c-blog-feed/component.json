@@ -13,6 +13,8 @@
     "backend" : "",
     "frontend" : ""
   },
+  "has_js" : false,
+  "integrated" : false,
   "changelog" : [
     {
       "date" : "02/02/17",

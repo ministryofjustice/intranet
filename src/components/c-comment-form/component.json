@@ -15,7 +15,8 @@
     "frontend" : ""
   },
   "backend_classes" : {},
-  "creation_ticket" : "",
+  "has_js" : false,
+  "integrated" : false,
   "changelog" : [
     {
       "date" : "25/3/2017",

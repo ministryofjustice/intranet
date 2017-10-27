@@ -1,6 +1,6 @@
 <?php
 /*
-Template Name: Clarity - Author page
+* Clarity template Author page
 */
 //ToDo: Change name to switcher.php when database changed ?>
 <?php get_component('c-global-header'); ?>

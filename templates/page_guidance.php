@@ -1,6 +1,6 @@
 <?php
 /*
-Template Name: Clarity - Guidance and forms
+* Clarity template Guidance and forms
 */
 ?>
 <?php get_component('c-global-header'); ?>

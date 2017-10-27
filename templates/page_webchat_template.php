@@ -1,6 +1,6 @@
 <?php
 /*
-Template Name: Clarity - Webchat template
+* Clarity template Webchat template
 */
 ?>
 <?php get_component('c-global-header'); ?>

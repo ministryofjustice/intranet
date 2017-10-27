@@ -1,6 +1,6 @@
 <?php
 /*
-Template Name: Clarity - Search results
+* Clarity template Search results
 */
 //ToDo: Change name to switcher.php when database changed ?>
 <?php get_component('c-global-header'); ?>

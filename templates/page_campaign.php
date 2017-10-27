@@ -1,6 +1,6 @@
 <?php
 /*
-Template Name: Clarity - Campaign Page
+* Clarity template Campaign Page
 */
 //ToDo: Change name to switcher.php when database changed ?>
 <?php get_component('c-global-header'); ?>

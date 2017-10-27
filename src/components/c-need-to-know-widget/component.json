@@ -14,8 +14,8 @@
     "frontend" : "uses the global slider plugin"
   },
   "backend_classes" : {},
-  "creation_ticket" : "MI-418",
-  "has_js" : true,
+  "has_js" : false,
+  "integrated" : false,
   "changelog" : [
     {
       "date" : "02/02/17",

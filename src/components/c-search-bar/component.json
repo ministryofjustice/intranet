@@ -14,6 +14,8 @@
     "frontend" : "Needs an input container component"
   },
   "backend_classes" : {},
+  "has_js" : false,
+  "integrated" : false,
   "changelog" : [
     {
       "date" : "02/02/17",
