@@ -1,25 +1,24 @@
 {
-  "name" : "Events item",
-  "version" : "1.0.0",
-  "creator" : {
-    "name" : "Alex Foxleigh",
-    "github_username" : "foxleigh81"
-  },
-  "description" : "Displays a single event",
-  "standard_or_universal" : "standard",
-  "parents" : "c-events-list",
-  "children" : "c-calender-icon",
-  "notes" : {
-    "backend" : "",
-    "frontend" : ""
-  },
-  "has_js" : false,
-  "integrated" : false,
-  "changelog" : [
-    {
-      "date" : "02/02/17",
-      "author" : "Alex Foxleigh",
-      "description" : "Created component"
-    }
-  ]
+    "name": "Events item",
+    "version": "1.0.0",
+    "creator": {
+        "name": "Alex Foxleigh",
+        "github_username": "foxleigh81"
+    },
+    "description": "Displays a single event",
+    "standard_or_universal": "standard",
+    "parents": "c-events-list",
+    "children": "c-calender-icon",
+    "notes": {
+        "backend": "",
+        "frontend": ""
+    },
+    "has_js": false,
+    "integrated": false,
+    "is_working": false,
+    "changelog": [{
+        "date": "02/02/17",
+        "author": "Alex Foxleigh",
+        "description": "Created component"
+    }]
 }
