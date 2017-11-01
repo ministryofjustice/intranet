@@ -11,6 +11,15 @@ if (get_template_directory() === get_stylesheet_directory()) {
 
 require_once('inc/theme-setup.php');
 
+/**
+* Initialise WP admin Toolbar
+* https://codex.wordpress.org/Toolbar
+* This is initialised here rather than on the parent theme because,
+* on the parent theme this is initialised within the MVC plugin.
+* //LEGACY This function is not intended for plugin or theme use, so once the
+* old theme and MVC is deprecated we can look at the necessity of this function.
+*/
+_wp_admin_bar_init();
 
 /** Autoloader for inc */
 spl_autoload_register('moj_autoload');
@@ -199,4 +208,3 @@ function register_my_menus() {
     ]
   );
 }
-_wp_admin_bar_init();
