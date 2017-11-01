@@ -34,7 +34,10 @@
    ?>
    <?php wp_head(); ?>
 </head>
-<body class="agency-<?php echo $agency_shortcode; ?>">
+<?php
+  $agency_class = 'agency-'.$agency_shortcode;
+?>
+<body <?php body_class($class = $agency_class); ?>>
   <?php if($_GET['devtools'] === 'true') get_component('c-clarity-toolbar'); ?>
   <a class="u-skip-link" href="#maincontent">Skip to main content</a>
   <?php get_component('c-header-container'); ?>
