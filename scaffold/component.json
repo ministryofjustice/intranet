@@ -18,6 +18,8 @@
     "has_js": % has_js % ,
     "integrated": false,
     "is_working": false,
+    "screenshot": "",
+    "example_link": "",
     "changelog": [{
         "date": "%creationdate%",
         "author": "%cauthor%",
