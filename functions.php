@@ -199,3 +199,4 @@ function register_my_menus() {
     ]
   );
 }
+_wp_admin_bar_init();
