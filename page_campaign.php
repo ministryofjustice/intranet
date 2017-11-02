@@ -8,11 +8,11 @@
     $lhs_menu_on = get_field('dw_lhs_menu_on') == true;
 ?>
 <style>
-.page-template-page_campaign .l-main .c-rich-text-block h2,
-.page-template-page_campaign .l-main .c-rich-text-block h3,
-.page-template-page_campaign .l-main .c-rich-text-block h4,
-.page-template-page_campaign .l-main .c-rich-text-block h5,
-.page-template-page_campaign .l-main .c-rich-text-block h6 {
+.page-template-page_campaign .l-main .c-rich-text-block h2 strong,
+.page-template-page_campaign .l-main .c-rich-text-block h3 strong,
+.page-template-page_campaign .l-main .c-rich-text-block h4 strong,
+.page-template-page_campaign .l-main .c-rich-text-block h5 strong,
+.page-template-page_campaign .l-main .c-rich-text-block h6 strong {
   color: <?=$campaign_colour?>;
 }
 
