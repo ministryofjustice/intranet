@@ -1,27 +1,26 @@
 {
-  "name" : "Home Page Primary",
-  "class" : "c-home-page-primary",
-  "version" : "1.0.0",
-  "creator" : {
-    "name" : "Alex Foxleigh",
-    "github_username" : "foxleigh81"
-  },
-  "description" : "The primary layout component for the home page",
-  "standard_or_universal" : "standard",
-  "parents" : "",
-  "children" : "",
-  "notes" : {
-    "backend" : "In order to allow for different agency styles. There are hyphenated alternatives to the view, e.g. 'view-opg.php",
-    "frontend" : ""
-  },
-  "backend_classes" : {},
-  "has_js" : false,
-  "integrated" : false,
-  "changelog" : [
-    {
-      "date" : "23/4/2017",
-      "author" : "Alex Foxleigh",
-      "description" : "Created component"
-    }
-  ]
+    "name": "Home Page Primary",
+    "class": "c-home-page-primary",
+    "version": "1.0.0",
+    "creator": {
+        "name": "Alex Foxleigh",
+        "github_username": "foxleigh81"
+    },
+    "description": "The primary layout component for the home page",
+    "standard_or_universal": "standard",
+    "parents": "",
+    "children": "",
+    "notes": {
+        "backend": "In order to allow for different agency styles. There are hyphenated alternatives to the view, e.g. 'view-opg.php",
+        "frontend": ""
+    },
+    "backend_classes": {},
+    "has_js": false,
+    "integrated": false,
+    "is_working": false,
+    "changelog": [{
+        "date": "23/4/2017",
+        "author": "Alex Foxleigh",
+        "description": "Created component"
+    }]
 }
