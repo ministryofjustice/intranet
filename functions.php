@@ -190,7 +190,7 @@ function form_builder($type, $prefix, $label, $name, $id = '', $value = '', $pla
  * Register new Clarity main menu.
  * We are using this menu as a replacement main menu on all new templates.
  * Assigning menus are found by loging into wp-admin and setting the menu to display.
- * LEGACY: Other menus are registered in the old template in menu-locations.php.
+ * //LEGACY: Other menus are registered in the old template in menu-locations.php.
  */
 
 add_action( 'init', 'register_my_menu' );
