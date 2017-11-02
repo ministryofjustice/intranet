@@ -1,25 +1,24 @@
 {
-  "name" : "Article Item",
-  "version" : "1.0.0",
-  "creator" : {
-    "name" : "Alex Foxleigh",
-    "github_username" : "foxleigh81"
-  },
-  "description" : "A single article item",
-  "standard_or_universal" : "universal",
-  "parents" : "",
-  "children" : "No Child components",
-  "notes" : {
-    "backend" : "",
-        "frontend" : "This and c-article may prove to be the same component from a WP perspective. Feel free to merge them together"
-  },
-  "has_js" : false,
-  "integrated" : false,
-  "changelog" : [
-    {
-      "date" : "07/02/17",
-      "author" : "Alex Foxleigh",
-      "description" : "Quick fix of coding error ('missing quotation mark)"
-    }
-  ]
+    "name": "Article Item",
+    "version": "1.0.0",
+    "creator": {
+        "name": "Alex Foxleigh",
+        "github_username": "foxleigh81"
+    },
+    "description": "A single article item",
+    "standard_or_universal": "universal",
+    "parents": "",
+    "children": "No Child components",
+    "notes": {
+        "backend": "",
+        "frontend": "This and c-article may prove to be the same component from a WP perspective. Feel free to merge them together"
+    },
+    "has_js": false,
+    "integrated": false,
+    "is_working": false,
+    "changelog": [{
+        "date": "07/02/17",
+        "author": "Alex Foxleigh",
+        "description": "Quick fix of coding error ('missing quotation mark)"
+    }]
 }

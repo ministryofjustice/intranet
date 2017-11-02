@@ -1,28 +1,27 @@
 {
-  "name" : "Full width banner",
-  "class" : "c-full-width-banner",
-  "version" : "1.0.0",
-  "creator" : {
-    "name" : "Alex Foxleigh",
-    "github_username" : "foxleigh81"
-  },
-  "description" : "A banner which expands to fill the container. can be up to the full width of the page.",
-  "standard_or_universal" : "standard",
-  "parents" : "",
-  "children" : "",
-  "notes" : {
-    "backend" : "",
-    "frontend" : ""
-  },
-  "backend_classes" : {},
-  "has_js" : false,
-  "integrated" : false,
-  "creation_ticket" : "",
-  "changelog" : [
-    {
-      "date" : "23/4/2017",
-      "author" : "Alex Foxleigh",
-      "description" : "Created component"
-    }
-  ]
+    "name": "Full width banner",
+    "class": "c-full-width-banner",
+    "version": "1.0.0",
+    "creator": {
+        "name": "Alex Foxleigh",
+        "github_username": "foxleigh81"
+    },
+    "description": "A banner which expands to fill the container. can be up to the full width of the page.",
+    "standard_or_universal": "standard",
+    "parents": "",
+    "children": "",
+    "notes": {
+        "backend": "",
+        "frontend": ""
+    },
+    "backend_classes": {},
+    "has_js": false,
+    "integrated": false,
+    "is_working": false,
+    "creation_ticket": "",
+    "changelog": [{
+        "date": "23/4/2017",
+        "author": "Alex Foxleigh",
+        "description": "Created component"
+    }]
 }

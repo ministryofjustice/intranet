@@ -1,26 +1,25 @@
 {
-  "name" : "Global footer",
-  "version" : "1.0.0",
-  "creator" : {
-    "name" : "Alex Foxleigh",
-    "github_username" : "foxleigh81"
-  },
-  "description" : "The global footer for the site - also contains the closing tags for body and html",
-  "standard_or_universal" : "standard",
-  "parents" : "",
-  "children" : "c-footer, c-feedback-container, c-footer-nav, c-copyright-notice",
-  "notes" : {
-    "backend" : "",
-    "frontend" : ""
-  },
-  "backend_classes" : {},
-  "has_js" : false,
-  "integrated" : false,
-  "changelog" : [
-    {
-      "date" : "02/02/17",
-      "author" : "Alex Foxleigh",
-      "description" : "Created component"
-    }
-  ]
+    "name": "Global footer",
+    "version": "1.0.0",
+    "creator": {
+        "name": "Alex Foxleigh",
+        "github_username": "foxleigh81"
+    },
+    "description": "The global footer for the site - also contains the closing tags for body and html",
+    "standard_or_universal": "standard",
+    "parents": "",
+    "children": "c-footer, c-feedback-container, c-footer-nav, c-copyright-notice",
+    "notes": {
+        "backend": "",
+        "frontend": ""
+    },
+    "backend_classes": {},
+    "has_js": false,
+    "integrated": false,
+    "is_working": false,
+    "changelog": [{
+        "date": "02/02/17",
+        "author": "Alex Foxleigh",
+        "description": "Created component"
+    }]
 }

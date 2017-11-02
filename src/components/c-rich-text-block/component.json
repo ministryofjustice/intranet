@@ -1,27 +1,26 @@
 {
-  "name" : "Rich Text Block",
-  "class" : "c-rich-text-block",
-  "version" : "1.0.0",
-  "creator" : {
-    "name" : "Alex Foxleigh",
-    "github_username" : "foxleigh81"
-  },
-  "description" : "A component which is designed to be a CMS editable block of rich text, it can accomodate anything. It will mainly be used for body copy in articles.",
-  "standard_or_universal" : "standard",
-  "parents" : "",
-  "children" : "",
-  "notes" : {
-    "backend" : "",
-    "frontend" : "This is an empty component front-end wise as it's content is 100% CMS editable. Provided that content is wrapped with this component it will be styled correctly"
-  },
-  "backend_classes" : {},
-  "has_js" : false,
-  "integrated" : false,
-  "changelog" : [
-    {
-      "date" : "25/3/2017",
-      "author" : "Alex Foxleigh",
-      "description" : "Created component"
-    }
-  ]
+    "name": "Rich Text Block",
+    "class": "c-rich-text-block",
+    "version": "1.0.0",
+    "creator": {
+        "name": "Alex Foxleigh",
+        "github_username": "foxleigh81"
+    },
+    "description": "A component which is designed to be a CMS editable block of rich text, it can accomodate anything. It will mainly be used for body copy in articles.",
+    "standard_or_universal": "standard",
+    "parents": "",
+    "children": "",
+    "notes": {
+        "backend": "",
+        "frontend": "This is an empty component front-end wise as it's content is 100% CMS editable. Provided that content is wrapped with this component it will be styled correctly"
+    },
+    "backend_classes": {},
+    "has_js": false,
+    "integrated": false,
+    "is_working": false,
+    "changelog": [{
+        "date": "25/3/2017",
+        "author": "Alex Foxleigh",
+        "description": "Created component"
+    }]
 }

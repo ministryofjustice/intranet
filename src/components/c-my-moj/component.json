@@ -1,26 +1,28 @@
 {
-  "name" : "My MoJ",
-  "version" : "1.0.0",
-  "creator" : {
-    "name" : "Alex Foxleigh",
-    "github_username" : "foxleigh81"
-  },
-  "description" : "The My MoJ section, contains the agency and app links",
-  "standard_or_universal" : "standard",
-  "parents" : "",
-  "children" : "c-agency-link-list, c-app-list",
-  "notes" : {
-    "backend" : "",
-    "frontend" : ""
-  },
-  "backend_classes" : {},
-  "has_js" : false,
-  "integrated" : false,
-  "changelog" : [
-    {
-      "date" : "02/02/17",
-      "author" : "Alex Foxleigh",
-      "description" : "Created component"
-    }
-  ]
+    "name": "My MoJ",
+    "class" : "c-my-moj",
+    "version": "1.0.0",
+    "creator": {
+        "name": "Alex Foxleigh",
+        "github_username": "foxleigh81"
+    },
+    "description": "The My MoJ section, contains the agency and app links",
+    "standard_or_universal": "standard",
+    "parents": "",
+    "children": "c-agency-link-list, c-app-list",
+    "notes": {
+        "backend": "",
+        "frontend": ""
+    },
+    "backend_classes": {},
+    "has_js": false,
+    "integrated": false,
+    "is_working": false,
+    "screenshot": "https://lh4.googleusercontent.com/mG8jazlF882pr18CSpwUhS0ysIuM4No_usveVvS5cGEQLavyoQfnL5D8LvvZWh4fy8NDrX1uruF-VB8=w1225-h880",
+    "example_link": "https://intranet.dev.wp.dsd.io/",
+    "changelog": [{
+        "date": "02/02/17",
+        "author": "Alex Foxleigh",
+        "description": "Created component"
+    }]
 }
