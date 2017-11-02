@@ -176,3 +176,24 @@ function form_builder($type, $prefix, $label, $name, $id = '', $value = '', $pla
 
   return get_component('c-input-container', null, $config);
 }
+
+/*
+ * Register new Clarity menu. We are using this menu as a replacement main menu on all new templates.
+ * Assigning menus are found by loging into wp-admin and setting the menu to display.
+ */
+
+add_action( 'init', 'register_my_menu' );
+
+function register_my_menu() {
+  register_nav_menu('header-menu',__( 'Header Menu' ));
+}
+
+add_action( 'init', 'register_my_menus' );
+
+function register_my_menus() {
+  register_nav_menus(
+    array(
+      'header-menu' => __( 'Header Menu' )
+    )
+  );
+}
