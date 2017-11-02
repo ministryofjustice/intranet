@@ -12,12 +12,14 @@
     "children": "",
     "notes": {
         "backend": "",
-        "frontend": "This component shares it's styles with c-comment-response do not delete it without migrating the styles over"
+        "frontend": "This component shares its styles with c-comment-response do not delete it without migrating the styles over"
     },
     "backend_classes": {},
     "has_js": false,
     "integrated": false,
     "is_working": false,
+    "screenshot": "",
+    "example_link": "",
     "changelog": [{
         "date": "25/3/2017",
         "author": "Alex Foxleigh",

@@ -1,11 +1,12 @@
 {
-    "name": "Basic Link List",
+    "name": "Agency Link List",
+    "class": "c-agency-link-list",
     "version": "1.0.0",
     "creator": {
         "name": "Alex Foxleigh",
         "github_username": "foxleigh81"
     },
-    "description": "A list of links",
+    "description": "A list of links that an agency can specify",
     "standard_or_universal": "universal",
     "parents": "",
     "children": "No Child components",
@@ -15,6 +16,8 @@
     },
     "has_js": false,
     "integrated": false,
+    "screenshot": "https://lh6.googleusercontent.com/_2uD9nTwdXM9kff3E6je6e6YXDrT8rR_geG6P3TfOx-AY5rhIrVrlUo6ZyPTO2QJbVPGDi8--92IXSo=w2572-h1428",
+    "example_link": "https://intranet.dev.wp.dsd.io/",
     "changelog": [{
         "date": "02/02/17",
         "author": "Alex Foxleigh",

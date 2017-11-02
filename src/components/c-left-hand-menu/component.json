@@ -18,6 +18,8 @@
     "integrated": false,
     "is_working": false,
     "has_js": true,
+    "screenshot": "",
+    "example_link": "",
     "changelog": [{
         "date": "22/4/2017",
         "author": "Alex Foxleigh",
