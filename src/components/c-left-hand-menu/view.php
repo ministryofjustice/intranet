@@ -3,7 +3,6 @@
   <a href="" class="c-left-hand-menu__step_back">Change Directorate <<</a><br />
   <ul>
   <?php
-
     $parentID = wp_get_post_parent_id( $post_ID );
     $args = array(
       'parent'  => $parentID,
@@ -15,12 +14,12 @@
     $children  = get_pages( $args );
 
     foreach ($children as $child) {
-      echo '<a href="' . get_permalink($child->ID) . '">';
-        echo '<h3>' . $child->post_title . '</h3>';
-      echo '</a>';
+      echo '<li><a href="' . get_permalink($child->ID) . '">';
+        echo $child->post_title;
+      echo '</a></li>';
     }
  
    ?>
-
+  </ul>
 </nav>
 <!-- c-left-hand-menu ends here -->
