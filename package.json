@@ -63,6 +63,7 @@
     "jquery": "^1.12.4",
     "node-notifier": "^5.1.2",
     "phantomjs": "^2.1.7",
+    "pretty": "^2.0.0",
     "run-sequence": "^1.2.2",
     "rupture": "^0.6.2",
     "standard": "^9.0.2",
