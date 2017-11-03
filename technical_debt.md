@@ -16,6 +16,8 @@ Nice to have: [NTH]
 
 ## Tasks
 
-1. It would be good to bring ctgen into this project
+1. Unminify the component register
+2. Add automatic screenshot detection (looks for thumbnail.png)
+3. Add 'used on templates' field
 
 ## Hacks

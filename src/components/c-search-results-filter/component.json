@@ -12,7 +12,7 @@
     "children": "",
     "notes": {
         "backend": "",
-        "frontend": "This component depends on c-content-filter as it inherits some styles"
+        "frontend": "This component depends on c-content-filter as it inherits some styles it may be prudent to merge them into one"
     },
     "backend_classes": {},
     "has_js": false,

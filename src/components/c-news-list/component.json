@@ -12,7 +12,7 @@
     "children": "c-article-item",
     "notes": {
         "backend": "",
-        "frontend": ""
+        "frontend": "This, c-blog-list and c-events list can all probably be consolidated with c-article-list"
     },
     "backend_classes": {},
     "has_js": false,
