@@ -1,5 +1,6 @@
 {
     "name": "Copyright notice",
+    "class": "c-copyright-notice",
     "version": "1.0.0",
     "creator": {
         "name": "Alex Foxleigh",
@@ -16,6 +17,8 @@
     "has_js": false,
     "integrated": false,
     "is_working": false,
+    "screenshot": "https://lh5.googleusercontent.com/HcD6SgMjkMscM0a99qfZQifVXoojpd4LISsQdetzsHQ4KHEND7RrOdCEjnOBh7d8_QGH18YKWPXGMx4=w2572-h1428",
+    "example_link": "http://intranet.justice.gov.uk",
     "changelog": [{
         "date": "02/02/17",
         "author": "Alex Foxleigh",

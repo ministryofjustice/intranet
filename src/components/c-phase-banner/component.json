@@ -1,5 +1,6 @@
 {
     "name": "Phase banner",
+    "class": "c-phase-banner",
     "version": "1.0.0",
     "creator": {
         "name": "Alex Foxleigh",
@@ -17,6 +18,8 @@
     "has_js": false,
     "integrated": false,
     "is_working": false,
+    "screenshot": "https://lh4.googleusercontent.com/ZfBp5b1ZSXswueoRD9GxdeAHMIS0QXEcpu5yDPXUrGuS-9wBxKCaoL23lrsfZeULJIGxIbrEhzj7VxI=w2572-h1428-rw",
+    "example_link": "http://intranet.justice.gov.uk",
     "changelog": [{
         "date": "02/02/17",
         "author": "Alex Foxleigh",

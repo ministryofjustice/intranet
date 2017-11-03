@@ -1,5 +1,6 @@
 {
     "name": "Intranet Switcher",
+    "class": "c-intranet-switcher",
     "version": "1.0.0",
     "creator": {
         "name": "Alex Foxleigh",
@@ -17,6 +18,8 @@
     "has_js": false,
     "integrated": false,
     "is_working": false,
+    "screenshot": "",
+    "example_link": "",
     "changelog": [{
         "date": "22/03/17",
         "author": "Alex Foxleigh",
