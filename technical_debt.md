@@ -16,8 +16,7 @@ Nice to have: [NTH]
 
 ## Tasks
 
-1. Unminify the component register
-2. Add automatic screenshot detection (looks for thumbnail.png)
-3. Add 'used on templates' field
+1. Add 'used on templates' field
+2. Update wiki to include new thumbnail process
 
 ## Hacks
