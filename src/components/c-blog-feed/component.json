@@ -1,5 +1,6 @@
 {
     "name": "Blog feed",
+    "class": "c-blog-feed",
     "version": "1.0.0",
     "creator": {
         "name": "Alex Foxleigh",
@@ -16,6 +17,8 @@
     "has_js": false,
     "integrated": false,
     "is_working": false,
+    "screenshot": "https://lh3.googleusercontent.com/KegoLgULEpMYlUN5qeT8m_7Dtqk48_qQAL-N5MMXcQkBnDPhkxYbPn3am0LNJzYGScZxWFHRvG3DiwI=w2572-h1428-rw",
+    "example_link": "https://intranet.justice.gov.uk/",
     "changelog": [{
         "date": "02/02/17",
         "author": "Alex Foxleigh",

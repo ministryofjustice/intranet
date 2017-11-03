@@ -1,5 +1,6 @@
 {
     "name": "Input container",
+    "class": "c-input-container",
     "version": "1.0.0",
     "creator": {
         "name": "Alex Foxleigh",
@@ -17,6 +18,8 @@
     "has_js": false,
     "integrated": false,
     "is_working": false,
+    "screenshot": "",
+    "example_link": "",
     "changelog": [{
         "date": "02/02/17",
         "author": "Alex Foxleigh",
