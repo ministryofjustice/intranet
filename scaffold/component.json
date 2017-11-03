@@ -15,7 +15,7 @@
         "frontend": ""
     },
     "backend_classes": {},
-    "has_js": % has_js % ,
+    "has_js": %has_js% ,
     "integrated": false,
     "is_working": false,
     "screenshot": "",
