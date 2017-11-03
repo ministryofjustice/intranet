@@ -18,8 +18,8 @@
     "has_js": false,
     "integrated": false,
     "is_working": false,
-    "screenshot": "",
     "example_link": "https://intranet.justice.gov.uk/events",
+    "used_on_templates": [],
     "changelog": [{
         "date": "19/5/2017",
         "author": "Alex Foxleigh",
