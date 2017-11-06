@@ -107,6 +107,13 @@
                 "operator": "==",
                 "value": "page_campaign_content.php"
             }
+        ],
+        [
+            {
+                "param": "page_template",
+                "operator": "==",
+                "value": "page_campaign.php"
+            }
         ]
     ],
     "menu_order": 10,
@@ -119,5 +126,5 @@
     ],
     "active": 1,
     "description": "",
-    "modified": 1484652083
+    "modified": 1509545808
 }

@@ -1,0 +1,27 @@
+{
+  "name" : "Dynamic Style",
+  "class" : "c-dynamic-style",
+  "version" : "1.0.0",
+  "creator" : {
+    "name" : "Vinh Nguyen",
+    "github_username" : "https://github.com/vinhnguyen0429"
+  },
+  "description" : "Dynamically adds the colour selected by user",
+  "standard_or_universal" : "standard",
+  "parents" : "",
+  "children" : "",
+  "notes" : {
+    "backend" : "",
+    "frontend" : ""
+  },
+  "backend_classes" : {},
+  "has_js" : false,
+  "integrated" : false,
+  "changelog" : [
+    {
+      "date" : "3/11/2017",
+      "author" : "Vinh Nguyen",
+      "description" : "Created component"
+    }
+  ]
+}

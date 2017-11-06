@@ -1,6 +1,7 @@
 <!-- c-breadcrumbs starts here -->
 <?php // obviously this is currently hard coded and will need to be made dynamic ?>
 <section class="c-breadcrumbs">
+  
   <?php
   /**
    * bcn_display() requires a third party WP plugin Breadcrumb NavXT.

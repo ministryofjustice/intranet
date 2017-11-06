@@ -3,16 +3,23 @@
   <a href="" class="c-left-hand-menu__step_back">Change Directorate <<</a><br />
   <ul>
   <?php
-    wp_list_pages(
-      [
-      'depth'       => 1,
-      'title_li'    => "",
-      'child_of'    => 0,
-      'post_type'    => 'page',
-      'post_status'  => 'publish'
-      ]
+    $parentID = wp_get_post_parent_id( $post_ID );
+    $args = array(
+      'parent'  => $parentID,
+      'depth'     => 1,
+      'post_type' => 'page',
+      'post_status'=> 'publish'
+  
     );
-  ?>
+    $children  = get_pages( $args );
+
+    foreach ($children as $child) {
+      echo '<li><a href="' . get_permalink($child->ID) . '">';
+        echo $child->post_title;
+      echo '</a></li>';
+    }
+ 
+   ?>
   </ul>
 </nav>
 <!-- c-left-hand-menu ends here -->
