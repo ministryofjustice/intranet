@@ -1,28 +1,29 @@
 {
-  "name" : "Clarity Toolbar",
-  "class" : "c-clarity-toolbar",
-  "version" : "1.0.0",
-  "creator" : {
-    "name" : "Alex Foxleigh",
-    "github_username" : "foxleigh81"
-  },
-  "description" : "A suite of developer tools to make life easier",
-  "standard_or_universal" : "standard",
-  "parents" : "",
-  "children" : "",
-  "notes" : {
-    "backend" : "",
-    "frontend" : "This seems to be broken at the moment."
-  },
-  "backend_classes" : {},
-  "creation_ticket" : "",
-  "has_js" : true,
-  "integrated" : false,
-  "changelog" : [
-    {
-      "date" : "3/4/2017",
-      "author" : "Alex Foxleigh",
-      "description" : "Created component"
-    }
-  ]
+    "name": "Clarity Toolbar",
+    "class": "c-clarity-toolbar",
+    "version": "1.0.0",
+    "creator": {
+        "name": "Alex Foxleigh",
+        "github_username": "foxleigh81"
+    },
+    "description": "A suite of developer tools to make life easier",
+    "standard_or_universal": "standard",
+    "parents": "",
+    "children": "",
+    "notes": {
+        "backend": "",
+        "frontend": "This seems to be broken at the moment."
+    },
+    "backend_classes": {},
+    "creation_ticket": "",
+    "has_js": true,
+    "integrated": false,
+    "is_working": false,
+    "screenshot": "",
+    "example_link": "",
+    "changelog": [{
+        "date": "3/4/2017",
+        "author": "Alex Foxleigh",
+        "description": "Created component"
+    }]
 }

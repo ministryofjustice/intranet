@@ -16,6 +16,7 @@ Nice to have: [NTH]
 
 ## Tasks
 
-1. It would be good to bring ctgen into this project
+1. Add 'used on templates' field
+2. Update wiki to include new thumbnail process
 
 ## Hacks

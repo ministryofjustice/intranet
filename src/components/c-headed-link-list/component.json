@@ -1,27 +1,28 @@
 {
-  "name" : "headed link list",
-  "class" : "c-headed-link-list",
-  "version" : "1.0.0",
-  "creator" : {
-    "name" : "Alex Foxleigh",
-    "github_username" : "foxleigh81"
-  },
-  "description" : "A list of links which can also have child links - used on about us and guidance and forms",
-  "standard_or_universal" : "standard",
-  "parents" : "",
-  "children" : "",
-  "notes" : {
-    "backend" : "",
-    "frontend" : ""
-  },
-  "backend_classes" : {},
-  "has_js" : false,
-  "integrated" : false,
-  "changelog" : [
-    {
-      "date" : "16/5/2017",
-      "author" : "Alex Foxleigh",
-      "description" : "Created component"
-    }
-  ]
+    "name": "headed link list",
+    "class": "c-headed-link-list",
+    "version": "1.0.0",
+    "creator": {
+        "name": "Alex Foxleigh",
+        "github_username": "foxleigh81"
+    },
+    "description": "A list of links which can also have child links - used on about us and guidance and forms",
+    "standard_or_universal": "standard",
+    "parents": "",
+    "children": "",
+    "notes": {
+        "backend": "",
+        "frontend": ""
+    },
+    "backend_classes": {},
+    "has_js": false,
+    "integrated": false,
+    "is_working": false,
+    "screenshot": "https://lh3.googleusercontent.com/l4h4bSqJSJm-9XQigcb7ofbRsaecADehExljIHVLQG8fSZ0hNvM30lOFqZnZZ7NZU8Z0mw4JaHUro5M=w2572-h1428-rw",
+    "example_link": "https://intranet.justice.gov.uk/guidance/",
+    "changelog": [{
+        "date": "16/5/2017",
+        "author": "Alex Foxleigh",
+        "description": "Created component"
+    }]
 }

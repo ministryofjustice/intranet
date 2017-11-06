@@ -1,26 +1,28 @@
 {
-  "name" : "Feedback form",
-  "version" : "1.0.0",
-  "creator" : {
-    "name" : "Alex Foxleigh",
-    "github_username" : "foxleigh81"
-  },
-  "description" : "Displays the feedback form",
-  "standard_or_universal" : "standard",
-  "parents" : "c-feedback-container",
-  "children" : "c-input-container",
-  "notes" : {
-    "backend" : "uses the form_builder() function to build the form from inputs",
-    "frontend" : ""
-  },
-  "backend_classes" : {},
-  "has_js" : false,
-  "integrated" : false,
-  "changelog" : [
-    {
-      "date" : "02/02/17",
-      "author" : "Alex Foxleigh",
-      "description" : "Created component"
-    }
-  ]
+    "name": "Feedback form",
+    "class": "c-feedback-form",
+    "version": "1.0.0",
+    "creator": {
+        "name": "Alex Foxleigh",
+        "github_username": "foxleigh81"
+    },
+    "description": "Displays the feedback form",
+    "standard_or_universal": "standard",
+    "parents": "c-feedback-container",
+    "children": "c-input-container",
+    "notes": {
+        "backend": "uses the form_builder() function to build the form from inputs",
+        "frontend": ""
+    },
+    "backend_classes": {},
+    "has_js": false,
+    "integrated": false,
+    "is_working": false,
+    "screenshot": "https://lh5.googleusercontent.com/mP4_2yg1mEiNkDLk30DBnPkuV-EjgkKppLVUsA_Zl9vJK63z9_jt8Q6OyR9XXMYlPiyPYM9LAt47sLQ=w2572-h1428-rw",
+    "example_link": "http://intranet.justice.gov.uk",
+    "changelog": [{
+        "date": "02/02/17",
+        "author": "Alex Foxleigh",
+        "description": "Created component"
+    }]
 }

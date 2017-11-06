@@ -8,7 +8,7 @@ $featuredLinkList = $activeAgency['links'];
 
 if (!empty($featuredLinkList )) {
 ?>
-    <ul class="c-agency-link-list">
+    <ul class="c-basic-link-list">
     <?php foreach ($featuredLinkList as $link) {
     ?>
         <li class="highlight <?php if (isset($link['classes'])) echo $link['classes'];?>">

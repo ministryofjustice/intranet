@@ -1,27 +1,28 @@
 {
-  "name" : "Rich Text Block",
-  "class" : "c-rich-text-block",
-  "version" : "1.0.0",
-  "creator" : {
-    "name" : "Alex Foxleigh",
-    "github_username" : "foxleigh81"
-  },
-  "description" : "A component which is designed to be a CMS editable block of rich text, it can accomodate anything. It will mainly be used for body copy in articles.",
-  "standard_or_universal" : "standard",
-  "parents" : "",
-  "children" : "",
-  "notes" : {
-    "backend" : "",
-    "frontend" : "This is an empty component front-end wise as it's content is 100% CMS editable. Provided that content is wrapped with this component it will be styled correctly"
-  },
-  "backend_classes" : {},
-  "has_js" : false,
-  "integrated" : false,
-  "changelog" : [
-    {
-      "date" : "25/3/2017",
-      "author" : "Alex Foxleigh",
-      "description" : "Created component"
-    }
-  ]
+    "name": "Rich Text Block",
+    "class": "c-rich-text-block",
+    "version": "1.0.0",
+    "creator": {
+        "name": "Alex Foxleigh",
+        "github_username": "foxleigh81"
+    },
+    "description": "A component which is designed to be a CMS editable block of rich text, it can accomodate anything. It will mainly be used for body copy in articles.",
+    "standard_or_universal": "standard",
+    "parents": "",
+    "children": "",
+    "notes": {
+        "backend": "",
+        "frontend": "This is an empty component front-end wise as it's content is 100% CMS editable. Provided that content is wrapped with this component it will be styled correctly"
+    },
+    "backend_classes": {},
+    "has_js": false,
+    "integrated": false,
+    "is_working": false,
+    "screenshot": "https://lh4.googleusercontent.com/tYKS6pZZH3eKKYjXNPl-XxBG3nAjuuE9hpYeqL9QJm38hvbLafAwZJDD4SI9lXZ8K3ZoIdoWwBTvA2iDhZ4e=w2546-h1428-rw",
+    "example_link": "https://intranet.justice.gov.uk/blog/a-journey-into-skype/",
+    "changelog": [{
+        "date": "25/3/2017",
+        "author": "Alex Foxleigh",
+        "description": "Created component"
+    }]
 }
