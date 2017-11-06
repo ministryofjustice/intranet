@@ -11,6 +11,15 @@ if (get_template_directory() === get_stylesheet_directory()) {
 
 require_once('inc/theme-setup.php');
 
+/**
+* Initialise WP admin Toolbar
+* https://codex.wordpress.org/Toolbar
+* This is initialised here rather than on the parent theme because,
+* on the parent theme this is initialised within the MVC plugin.
+* //LEGACY This function is not intended for plugin or theme use, so once the
+* old theme and MVC is deprecated we can look at the necessity of this function.
+*/
+_wp_admin_bar_init();
 
 /** Autoloader for inc */
 spl_autoload_register('moj_autoload');
@@ -18,7 +27,6 @@ spl_autoload_register('moj_autoload');
 function moj_autoload($cls)
 {
     $cls = ltrim($cls, '\\');
-
 
     if(strpos($cls, 'MOJ\Intranet') !== 0)
         return;
@@ -161,7 +169,7 @@ function slugify($string) {
  */
 
 function form_builder($type, $prefix, $label, $name, $id = '', $value = '', $placeholder = '', $class = '', $required = false, $validation = '', $options = '') {
-  $config = array (
+  $config = [
       'type' => $type,
       'prefix' => $prefix,
       'label' => $label,
@@ -172,7 +180,31 @@ function form_builder($type, $prefix, $label, $name, $id = '', $value = '', $pla
       'class' => $class,
       'required' => $required,
       'validation' => $validation,
-      'options' => $options);
+      'options' => $options
+    ];
 
   return get_component('c-input-container', null, $config);
+}
+
+/*
+ * Register new Clarity main menu.
+ * We are using this menu as a replacement main menu on all new templates.
+ * Assigning menus are found by loging into wp-admin and setting the menu to display.
+ * //LEGACY: Other menus are registered in the old template in menu-locations.php.
+ */
+
+add_action( 'init', 'register_my_menu' );
+
+function register_my_menu() {
+  register_nav_menu('header-menu',__( 'Header Menu' ));
+}
+
+add_action( 'init', 'register_my_menus' );
+
+function register_my_menus() {
+  register_nav_menus(
+    [
+      'header-menu' => __( 'Header Menu' )
+    ]
+  );
 }
