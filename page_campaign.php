@@ -1,6 +1,6 @@
 <?php
 /**
- * Template name: CC Campaign Page
+ * Template name: Campaign content
  */
 ?>
 <?php
