@@ -1,27 +1,28 @@
 {
-  "name" : "Content Filter",
-  "class" : "c-content-filter",
-  "version" : "1.0.0",
-  "creator" : {
-    "name" : "Alex Foxleigh",
-    "github_username" : "foxleigh81"
-  },
-  "description" : "A date and keyword filter for content on the intranet",
-  "standard_or_universal" : "standard",
-  "parents" : "",
-  "children" : "",
-  "notes" : {
-    "backend" : "",
-    "frontend" : ""
-  },
-  "backend_classes" : {},
-  "has_js" : false,
-  "integrated" : false,
-  "changelog" : [
-    {
-      "date" : "21/3/2017",
-      "author" : "Alex Foxleigh",
-      "description" : "Created component"
-    }
-  ]
+    "name": "Content Filter",
+    "class": "c-content-filter",
+    "version": "1.0.0",
+    "creator": {
+        "name": "Alex Foxleigh",
+        "github_username": "foxleigh81"
+    },
+    "description": "A date and keyword filter for content on the intranet",
+    "standard_or_universal": "standard",
+    "parents": "",
+    "children": "",
+    "notes": {
+        "backend": "",
+        "frontend": ""
+    },
+    "backend_classes": {},
+    "has_js": false,
+    "integrated": false,
+    "is_working": false,
+    "screenshot": "https://lh6.googleusercontent.com/M3NZfCCBzlaP7WqoT8evzffsXBh59raQ40bctZKCU1PQzlecQXOj87OzuYT_EKDp0P0wEy96fXXJsWg=w2572-h1428",
+    "example_link": "https://intranet.justice.gov.uk/newspage",
+    "changelog": [{
+        "date": "21/3/2017",
+        "author": "Alex Foxleigh",
+        "description": "Created component"
+    }]
 }

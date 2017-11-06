@@ -1,26 +1,28 @@
 {
-  "name" : "Global footer",
-  "version" : "1.0.0",
-  "creator" : {
-    "name" : "Alex Foxleigh",
-    "github_username" : "foxleigh81"
-  },
-  "description" : "The global footer for the site - also contains the closing tags for body and html",
-  "standard_or_universal" : "standard",
-  "parents" : "",
-  "children" : "c-footer, c-feedback-container, c-footer-nav, c-copyright-notice",
-  "notes" : {
-    "backend" : "",
-    "frontend" : ""
-  },
-  "backend_classes" : {},
-  "has_js" : false,
-  "integrated" : false,
-  "changelog" : [
-    {
-      "date" : "02/02/17",
-      "author" : "Alex Foxleigh",
-      "description" : "Created component"
-    }
-  ]
+    "name": "Global footer",
+    "class": "c-global-footer",
+    "version": "1.0.0",
+    "creator": {
+        "name": "Alex Foxleigh",
+        "github_username": "foxleigh81"
+    },
+    "description": "The global footer for the site - also contains the closing tags for body and html",
+    "standard_or_universal": "standard",
+    "parents": "",
+    "children": "c-footer, c-feedback-container, c-footer-nav, c-copyright-notice",
+    "notes": {
+        "backend": "",
+        "frontend": ""
+    },
+    "backend_classes": {},
+    "has_js": false,
+    "integrated": false,
+    "is_working": false,
+    "screenshot": "https://lh6.googleusercontent.com/biRqQwNfbJXjdCQdHhE5rOChsMKD7llaXroyz95rTssZzBjRi0TbG6N7SRYrUV1GfjWMPT4gDrx_9AQ=w2572-h1428-rw",
+    "example_link": "http://intranet.justice.gov.uk",
+    "changelog": [{
+        "date": "02/02/17",
+        "author": "Alex Foxleigh",
+        "description": "Created component"
+    }]
 }

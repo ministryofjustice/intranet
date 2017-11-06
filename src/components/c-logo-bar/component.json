@@ -1,26 +1,28 @@
 {
-  "name" : "Logo bar",
-  "version" : "1.0.0",
-  "creator" : {
-    "name" : "Alex Foxleigh",
-    "github_username" : "foxleigh81"
-  },
-  "description" : "The logo bar - also contains the intranet switcher link",
-  "standard_or_universal" : "standard",
-  "parents" : "c-header-container",
-  "children" : "",
-  "notes" : {
-    "backend" : "",
-    "frontend" : ""
-  },
-  "backend_classes" : {},
-  "has_js" : false,
-  "integrated" : false,
-  "changelog" : [
-    {
-      "date" : "02/02/17",
-      "author" : "Alex Foxleigh",
-      "description" : "Created component"
-    }
-  ]
+    "name": "Logo bar",
+    "class": "c-logo-bar",
+    "version": "1.0.0",
+    "creator": {
+        "name": "Alex Foxleigh",
+        "github_username": "foxleigh81"
+    },
+    "description": "The logo bar - also contains the intranet switcher link",
+    "standard_or_universal": "standard",
+    "parents": "c-header-container",
+    "children": "",
+    "notes": {
+        "backend": "",
+        "frontend": ""
+    },
+    "backend_classes": {},
+    "has_js": false,
+    "integrated": false,
+    "is_working": false,
+    "screenshot": "https://lh4.googleusercontent.com/Z1LYiMxL3jQsPUlF37-qp0z09ZE78QzW-Mi6OwkHu-pT_z07I_wbd1FHXP6AZO2dZViwSpcUal_LvTs=w2572-h1428",
+    "example_link": "http://intranet.justice.gov.uk",
+    "changelog": [{
+        "date": "02/02/17",
+        "author": "Alex Foxleigh",
+        "description": "Created component"
+    }]
 }

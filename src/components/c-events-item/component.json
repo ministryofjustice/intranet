@@ -1,25 +1,27 @@
 {
-  "name" : "Events item",
-  "version" : "1.0.0",
-  "creator" : {
-    "name" : "Alex Foxleigh",
-    "github_username" : "foxleigh81"
-  },
-  "description" : "Displays a single event",
-  "standard_or_universal" : "standard",
-  "parents" : "c-events-list",
-  "children" : "c-calender-icon",
-  "notes" : {
-    "backend" : "",
-    "frontend" : ""
-  },
-  "has_js" : false,
-  "integrated" : false,
-  "changelog" : [
-    {
-      "date" : "02/02/17",
-      "author" : "Alex Foxleigh",
-      "description" : "Created component"
-    }
-  ]
+    "name": "Events item",
+    "class": "c-events-item",
+    "version": "1.0.0",
+    "creator": {
+        "name": "Alex Foxleigh",
+        "github_username": "foxleigh81"
+    },
+    "description": "Displays a single event",
+    "standard_or_universal": "standard",
+    "parents": "c-events-list",
+    "children": "c-calender-icon",
+    "notes": {
+        "backend": "",
+        "frontend": ""
+    },
+    "has_js": false,
+    "integrated": false,
+    "is_working": false,
+    "screenshot": "https://lh3.googleusercontent.com/FsxjnoBYwkh1qRuqkb6fJmbTB-fRebH5BhzUJqd9Yoo5-ZOtfTiXL35qZv14AhYAwX8Eh-m9VV0Nh5M=w2572-h1428",
+    "example_link": "https://intranet.justice.gov.uk/events",
+    "changelog": [{
+        "date": "02/02/17",
+        "author": "Alex Foxleigh",
+        "description": "Created component"
+    }]
 }

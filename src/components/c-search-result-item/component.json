@@ -1,27 +1,28 @@
 {
-  "name" : "Search result item",
-  "class" : "c-search-result-item",
-  "version" : "1.0.0",
-  "creator" : {
-    "name" : "Alex Foxleigh",
-    "github_username" : "foxleigh81"
-  },
-  "description" : "an individual search result",
-  "standard_or_universal" : "standard",
-  "parents" : "",
-  "children" : "",
-  "notes" : {
-    "backend" : "",
-    "frontend" : ""
-  },
-  "backend_classes" : {},
-  "has_js" : false,
-  "integrated" : false,
-  "changelog" : [
-    {
-      "date" : "4/7/2017",
-      "author" : "Alex Foxleigh",
-      "description" : "Created component"
-    }
-  ]
+    "name": "Search result item",
+    "class": "c-search-result-item",
+    "version": "1.0.0",
+    "creator": {
+        "name": "Alex Foxleigh",
+        "github_username": "foxleigh81"
+    },
+    "description": "an individual search result",
+    "standard_or_universal": "standard",
+    "parents": "",
+    "children": "",
+    "notes": {
+        "backend": "",
+        "frontend": ""
+    },
+    "backend_classes": {},
+    "has_js": false,
+    "integrated": false,
+    "is_working": false,
+    "screenshot": "https://lh4.googleusercontent.com/kZQPgHSnlNSfWplQ0s6ZRvTcWj0eFQSNadHiypugW1ixdw-Nazkb0nxVQZwIPADkX248W47klQw5yRJ4-Bzn=w2546-h1428-rw",
+    "example_link": "https://intranet.justice.gov.uk/search-results/all/test",
+    "changelog": [{
+        "date": "4/7/2017",
+        "author": "Alex Foxleigh",
+        "description": "Created component"
+    }]
 }

@@ -1,26 +1,28 @@
 {
-  "name" : "Feedback container",
-  "version" : "1.0.0",
-  "creator" : {
-    "name" : "Alex Foxleigh",
-    "github_username" : "foxleigh81"
-  },
-  "description" : "Contains the feedback link and the feedback form component",
-  "standard_or_universal" : "standard",
-  "parents" : "c-footer",
-  "children" : "",
-  "notes" : {
-    "backend" : "",
-    "frontend" : ""
-  },
-  "backend_classes" : {},
-  "has_js" : false,
-  "integrated" : false,
-  "changelog" : [
-    {
-      "date" : "02/02/17",
-      "author" : "Alex Foxleigh",
-      "description" : "Created component"
-    }
-  ]
+    "name": "Feedback container",
+    "class": "c-feedback-container",
+    "version": "1.0.0",
+    "creator": {
+        "name": "Alex Foxleigh",
+        "github_username": "foxleigh81"
+    },
+    "description": "Contains the feedback link and the feedback form component",
+    "standard_or_universal": "standard",
+    "parents": "c-footer",
+    "children": "",
+    "notes": {
+        "backend": "",
+        "frontend": ""
+    },
+    "backend_classes": {},
+    "has_js": false,
+    "integrated": false,
+    "is_working": false,
+    "screenshot": "",
+    "example_link": "",
+    "changelog": [{
+        "date": "02/02/17",
+        "author": "Alex Foxleigh",
+        "description": "Created component"
+    }]
 }

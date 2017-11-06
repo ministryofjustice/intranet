@@ -1,26 +1,28 @@
 {
-  "name" : "Search bar",
-  "version" : "1.0.0",
-  "creator" : {
-    "name" : "Alex Foxleigh",
-    "github_username" : "foxleigh81"
-  },
-  "description" : "The main site Search bar",
-  "standard_or_universal" : "standard",
-  "parents" : "c-header-container",
-  "children" : "",
-  "notes" : {
-    "backend" : "",
-    "frontend" : "Needs an input container component"
-  },
-  "backend_classes" : {},
-  "has_js" : false,
-  "integrated" : false,
-  "changelog" : [
-    {
-      "date" : "02/02/17",
-      "author" : "Alex Foxleigh",
-      "description" : "Created component"
-    }
-  ]
+    "name": "Search bar",
+    "class": "c-search-bar",
+    "version": "1.0.0",
+    "creator": {
+        "name": "Alex Foxleigh",
+        "github_username": "foxleigh81"
+    },
+    "description": "The main site Search bar",
+    "standard_or_universal": "standard",
+    "parents": "c-header-container",
+    "children": "",
+    "notes": {
+        "backend": "",
+        "frontend": "Needs an input container component"
+    },
+    "backend_classes": {},
+    "has_js": false,
+    "integrated": false,
+    "is_working": false,
+    "screenshot": "https://lh6.googleusercontent.com/yGapq1jl9QxsH0y1w-P8dSTavorTGnatl5q-wAVmuJFFZki0-B2DCB-dpgYjt3Dy5EfVztIryOO_SP4=w2572-h1428-rw",
+    "example_link": "http://intranet.justice.gov.uk",
+    "changelog": [{
+        "date": "02/02/17",
+        "author": "Alex Foxleigh",
+        "description": "Created component"
+    }]
 }

@@ -1,26 +1,28 @@
 {
-  "name" : "Global header",
-  "version" : "1.0.0",
-  "creator" : {
-    "name" : "Alex Foxleigh",
-    "github_username" : "foxleigh81"
-  },
-  "description" : "The global header for the site. Mainly contains the 'head' tag and the opening tag for the body.",
-  "standard_or_universal" : "standard",
-  "parents" : "",
-  "children" : "c-header-container",
-  "notes" : {
-    "backend" : "In order to allow for different agency styles. There are hyphenated alternatives to the view, e.g. 'view-opg.php",
-    "frontend" : ""
-  },
-  "backend_classes" : {},
-  "has_js" : false,
-  "integrated" : false,
-  "changelog" : [
-    {
-      "date" : "02/02/17",
-      "author" : "Alex Foxleigh",
-      "description" : "Created component"
-    }
-  ]
+    "name": "Global header",
+    "class": "c-global-header",
+    "version": "1.0.0",
+    "creator": {
+        "name": "Alex Foxleigh",
+        "github_username": "foxleigh81"
+    },
+    "description": "The global header for the site. Mainly contains the 'head' tag and the opening tag for the body.",
+    "standard_or_universal": "standard",
+    "parents": "",
+    "children": "c-header-container",
+    "notes": {
+        "backend": "In order to allow for different agency styles. There are hyphenated alternatives to the view, e.g. 'view-opg.php",
+        "frontend": ""
+    },
+    "backend_classes": {},
+    "has_js": false,
+    "integrated": false,
+    "is_working": false,
+    "screenshot": "https://lh4.googleusercontent.com/a6_pe0C338400XP02Zl4n2w3NhmJka_7aCxz2taOG-9ibBZgsIXk26Ht7r5kNPu3qiYPYdHjX0ggHgI=w2572-h1428-rw",
+    "example_link": "http://intranet.justice.gov.uk",
+    "changelog": [{
+        "date": "02/02/17",
+        "author": "Alex Foxleigh",
+        "description": "Created component"
+    }]
 }

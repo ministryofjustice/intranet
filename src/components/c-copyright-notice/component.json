@@ -1,25 +1,27 @@
 {
-  "name" : "Copyright notice",
-  "version" : "1.0.0",
-  "creator" : {
-    "name" : "Alex Foxleigh",
-    "github_username" : "foxleigh81"
-  },
-  "description" : "Displays the Copyright information on the site",
-  "standard_or_universal" : "standard",
-  "parents" : "c-footer",
-  "children" : "",
-  "notes" : {
-    "backend" : "",
-    "frontend" : ""
-  },
-  "has_js" : false,
-  "integrated" : false,
-  "changelog" : [
-    {
-      "date" : "02/02/17",
-      "author" : "Alex Foxleigh",
-      "description" : "Created component"
-    }
-  ]
+    "name": "Copyright notice",
+    "class": "c-copyright-notice",
+    "version": "1.0.0",
+    "creator": {
+        "name": "Alex Foxleigh",
+        "github_username": "foxleigh81"
+    },
+    "description": "Displays the Copyright information on the site",
+    "standard_or_universal": "standard",
+    "parents": "c-footer",
+    "children": "",
+    "notes": {
+        "backend": "",
+        "frontend": ""
+    },
+    "has_js": false,
+    "integrated": false,
+    "is_working": false,
+    "screenshot": "https://lh5.googleusercontent.com/HcD6SgMjkMscM0a99qfZQifVXoojpd4LISsQdetzsHQ4KHEND7RrOdCEjnOBh7d8_QGH18YKWPXGMx4=w2572-h1428",
+    "example_link": "http://intranet.justice.gov.uk",
+    "changelog": [{
+        "date": "02/02/17",
+        "author": "Alex Foxleigh",
+        "description": "Created component"
+    }]
 }

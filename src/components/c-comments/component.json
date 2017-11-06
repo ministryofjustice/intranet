@@ -1,27 +1,28 @@
 {
-  "name" : "Comments",
-  "class" : "c-comments",
-  "version" : "1.0.0",
-  "creator" : {
-    "name" : "Alex Foxleigh",
-    "github_username" : "foxleigh81"
-  },
-  "description" : "The main article commenting component - this only shows the comments themselves c-comment-form is where they are added.",
-  "standard_or_universal" : "standard",
-  "parents" : "",
-  "children" : "c-individual-nested-comments",
-  "notes" : {
-    "backend" : "",
-    "frontend" : ""
-  },
-  "backend_classes" : {},
-  "integrated" : false,
-  "has_js" : true,
-  "changelog" : [
-    {
-      "date" : "25/3/2017",
-      "author" : "Alex Foxleigh",
-      "description" : "Created component"
-    }
-  ]
+    "name": "Comments",
+    "class": "c-comments",
+    "version": "1.0.0",
+    "creator": {
+        "name": "Alex Foxleigh",
+        "github_username": "foxleigh81"
+    },
+    "description": "The main article commenting component - this only shows the comments themselves c-comment-form is where they are added.",
+    "standard_or_universal": "standard",
+    "parents": "",
+    "children": "c-individual-nested-comments",
+    "notes": {
+        "backend": "",
+        "frontend": ""
+    },
+    "backend_classes": {},
+    "integrated": false,
+    "is_working": false,
+    "has_js": true,
+    "screenshot": "https://lh5.googleusercontent.com/o0JUkhdNx53TwvVUafsW9M-e-FxfLxgfHEwByD2SLVWfgKuKbWxZ2F9ENIOxOavlwy3kiGrv5Z4w-pU=w2572-h1428-rw",
+    "example_link": "https://intranet.justice.gov.uk/blog/a-journey-into-skype/",
+    "changelog": [{
+        "date": "25/3/2017",
+        "author": "Alex Foxleigh",
+        "description": "Created component"
+    }]
 }

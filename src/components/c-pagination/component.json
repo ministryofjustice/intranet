@@ -1,27 +1,28 @@
 {
-  "name" : "Pagination",
-  "class" : "c-pagination",
-  "version" : "1.0.0",
-  "creator" : {
-    "name" : "Alex Foxleigh",
-    "github_username" : "foxleigh81"
-  },
-  "description" : "The 'back' and 'next' pagination component",
-  "standard_or_universal" : "standard",
-  "parents" : "",
-  "children" : "",
-  "notes" : {
-    "backend" : "",
-    "frontend" : ""
-  },
-  "backend_classes" : {},
-  "has_js" : false,
-  "integrated" : false,
-  "changelog" : [
-    {
-      "date" : "1/6/2017",
-      "author" : "Alex Foxleigh",
-      "description" : "Created component"
-    }
-  ]
+    "name": "Pagination",
+    "class": "c-pagination",
+    "version": "1.0.0",
+    "creator": {
+        "name": "Alex Foxleigh",
+        "github_username": "foxleigh81"
+    },
+    "description": "The 'back' and 'next' pagination component",
+    "standard_or_universal": "standard",
+    "parents": "",
+    "children": "",
+    "notes": {
+        "backend": "",
+        "frontend": ""
+    },
+    "backend_classes": {},
+    "has_js": false,
+    "integrated": false,
+    "is_working": false,
+    "screenshot": "https://lh6.googleusercontent.com/IxdiNTisj_wN7Dgph_jy3jeaIwjMUhj4csB1-jGq3HzftVwJMPltSvRDtVGz_bQElwYW-HbQKioOXjo=w2572-h1428",
+    "example_link": "https://intranet.justice.gov.uk/newspage",
+    "changelog": [{
+        "date": "1/6/2017",
+        "author": "Alex Foxleigh",
+        "description": "Created component"
+    }]
 }

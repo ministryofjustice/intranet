@@ -1,27 +1,28 @@
 {
-  "name" : "Webchat",
-  "class" : "c-webchat",
-  "version" : "1.0.0",
-  "creator" : {
-    "name" : "Alex Foxleigh",
-    "github_username" : "foxleigh81"
-  },
-  "description" : "A component that a webchat can be inserted into",
-  "standard_or_universal" : "standard",
-  "parents" : "",
-  "children" : "",
-  "notes" : {
-    "backend" : "",
-    "frontend" : "This is currently an empty component as it just needs to allow an editor to put a webchat iframe into it"
-  },
-  "backend_classes" : {},
-  "has_js" : false,
-  "integrated" : false,
-  "changelog" : [
-    {
-      "date" : "10/7/2017",
-      "author" : "Alex Foxleigh",
-      "description" : "Created component"
-    }
-  ]
+    "name": "Webchat",
+    "class": "c-webchat",
+    "version": "1.0.0",
+    "creator": {
+        "name": "Alex Foxleigh",
+        "github_username": "foxleigh81"
+    },
+    "description": "A component that a webchat can be inserted into",
+    "standard_or_universal": "standard",
+    "parents": "",
+    "children": "",
+    "notes": {
+        "backend": "",
+        "frontend": "This is currently an empty component as it just needs to allow an editor to put a webchat iframe into it"
+    },
+    "backend_classes": {},
+    "has_js": false,
+    "integrated": false,
+    "is_working": false,
+    "screenshot": "",
+    "example_link": "https://intranet.justice.gov.uk/webchats/moj-age-champions-tell-us-about-what-matters-most-to-you/",
+    "changelog": [{
+        "date": "10/7/2017",
+        "author": "Alex Foxleigh",
+        "description": "Created component"
+    }]
 }

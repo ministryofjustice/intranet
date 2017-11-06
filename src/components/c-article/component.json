@@ -1,27 +1,28 @@
 {
-  "name" : "Article",
-  "class" : "c-article",
-  "version" : "1.0.0",
-  "creator" : {
-    "name" : "Alex Foxleigh",
-    "github_username" : "foxleigh81"
-  },
-  "description" : "The full article component",
-  "standard_or_universal" : "standard",
-  "parents" : "",
-  "children" : "",
-  "notes" : {
-    "backend" : "",
-    "frontend" : "This and c-article-item may prove to be the same component from a WP perspective. Feel free to merge them together"
-  },
-  "backend_classes" : {},
-  "has_js" : false,
-  "integrated" : false,
-  "changelog" : [
-    {
-      "date" : "25/3/2017",
-      "author" : "Alex Foxleigh",
-      "description" : "Created component"
-    }
-  ]
+    "name": "Article",
+    "class": "c-article",
+    "version": "1.0.0",
+    "creator": {
+        "name": "Alex Foxleigh",
+        "github_username": "foxleigh81"
+    },
+    "description": "The full article component",
+    "standard_or_universal": "standard",
+    "parents": "",
+    "children": "",
+    "notes": {
+        "backend": "",
+        "frontend": "This and c-article-item may prove to be the same component from a WP perspective. Feel free to merge them together"
+    },
+    "backend_classes": {},
+    "has_js": false,
+    "integrated": false,
+    "is_working": false,
+    "screenshot": "https://lh5.googleusercontent.com/OXNrcw_-JvjvxbvV-CSvGnHOptJOtveNAwaSFCvF4WVA-UmF_f9Gpb5G_hzk9Ar_N7RKU3dRiJAN3Jk=w2572-h1428-rw",
+    "example_link": "https://intranet.justice.gov.uk/blog/a-journey-into-skype/",
+    "changelog": [{
+        "date": "25/3/2017",
+        "author": "Alex Foxleigh",
+        "description": "Created component"
+    }]
 }

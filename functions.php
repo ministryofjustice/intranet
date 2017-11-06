@@ -11,6 +11,15 @@ if (get_template_directory() === get_stylesheet_directory()) {
 
 require_once('inc/theme-setup.php');
 
+/**
+* Initialise WP admin Toolbar
+* https://codex.wordpress.org/Toolbar
+* This is initialised here rather than on the parent theme because,
+* on the parent theme this is initialised within the MVC plugin.
+* //LEGACY This function is not intended for plugin or theme use, so once the
+* old theme and MVC is deprecated we can look at the necessity of this function.
+*/
+_wp_admin_bar_init();
 
 /** Autoloader for inc */
 spl_autoload_register('moj_autoload');
@@ -181,7 +190,7 @@ function form_builder($type, $prefix, $label, $name, $id = '', $value = '', $pla
  * Register new Clarity main menu.
  * We are using this menu as a replacement main menu on all new templates.
  * Assigning menus are found by loging into wp-admin and setting the menu to display.
- * LEGACY: Other menus are registered in the old template in menu-locations.php.
+ * //LEGACY: Other menus are registered in the old template in menu-locations.php.
  */
 
 add_action( 'init', 'register_my_menu' );
