@@ -221,3 +221,22 @@ if( function_exists('acf_add_options_page') ) {
 	acf_add_options_page('Header Banner');
 
 }
+
+/***
+ * 
+ * Feedback Form
+ * 
+ ***/
+function feedback_form(){
+    if (!isset($_POST['submit'])) { return; }
+
+    $to = 'sendto@example.com';
+    $subject = 'The subject';
+    $body = 'The email body content';
+    $headers = array('Content-Type: text/html; charset=UTF-8');
+        
+    wp_mail( $to, $subject, $body, $headers );
+    
+}
+
+add_action('wp_head', 'feedback_form');
