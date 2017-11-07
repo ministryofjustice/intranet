@@ -228,15 +228,35 @@ if( function_exists('acf_add_options_page') ) {
  * 
  ***/
 function feedback_form(){
+
+    // on submit action function
     if (!isset($_POST['submit'])) { return; }
 
-    $to = 'sendto@example.com';
-    $subject = 'The subject';
-    $body = 'The email body content';
+    // get the info from the from the form
+    $form = array();
+    $form['name']       = $_POST['name'];
+    $form['email']      = $_POST['email'];
+    $form['message']    = $_POST['message'];
+
+    // Who are we going to send this form too
+    $to = 'newintranet@digital.justice.gov.uk';
+
+    // The email subject
+    $subject = 'Feedback Form';
+
+    // Build the message
+    $message  = "Name :" . $form['name'] ."\n";
+    $message .= "Email :" . $form['email'] ."\n";
+
+    //set the form headers
+    $headers = "Content-Type: text/html; charset=UTF-8\n";
+    $headers .= "From: Feedback form Intranet\n";
+
     $headers = array('Content-Type: text/html; charset=UTF-8');
-        
-    wp_mail( $to, $subject, $body, $headers );
+    
+    // builtin WP functions to send emails - https://developer.wordpress.org/reference/functions/wp_mail/
+    wp_mail( $to, $subject, $message, $headers );
     
 }
-
+// load this in the header
 add_action('wp_head', 'feedback_form');
