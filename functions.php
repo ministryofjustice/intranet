@@ -263,6 +263,8 @@ function feedback_form(){
         $headers = array('Content-Type: text/html; charset=UTF-8');
         
         // builtin WP functions to send emails - https://developer.wordpress.org/reference/functions/wp_mail/
+    
+}
         wp_mail( $to, $subject, $message, $headers );
 
         // now build the confirmation email to the user
