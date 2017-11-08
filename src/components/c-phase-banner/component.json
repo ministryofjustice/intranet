@@ -16,8 +16,8 @@
     },
     "backend_classes": {},
     "has_js": false,
-    "integrated": false,
-    "is_working": false,
+    "integrated": true,
+    "is_working": true,
     "screenshot": "https://lh4.googleusercontent.com/ZfBp5b1ZSXswueoRD9GxdeAHMIS0QXEcpu5yDPXUrGuS-9wBxKCaoL23lrsfZeULJIGxIbrEhzj7VxI=w2572-h1428-rw",
     "example_link": "http://intranet.justice.gov.uk",
     "changelog": [{
