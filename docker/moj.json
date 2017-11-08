@@ -10,6 +10,7 @@
     {"type":"vcs", "no-api": true, "url":"https://github.com/ministryofjustice/intranet.git"}
   ],
   "require": {
+    "wpackagist-plugin/breadcrumb-navxt":"5.7.1",
     "wpackagist-plugin/cms-tree-page-view":"1.3.4",
     "wpackagist-plugin/co-authors-plus":"3.2.2",
     "wpackagist-plugin/recently-edited-content-widget":"0.3.2",
