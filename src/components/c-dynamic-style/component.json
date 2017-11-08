@@ -16,7 +16,8 @@
   },
   "backend_classes" : {},
   "has_js" : false,
-  "integrated" : false,
+  "integrated" : true,
+  "is_working" : true,
   "changelog" : [
     {
       "date" : "3/11/2017",
