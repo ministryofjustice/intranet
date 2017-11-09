@@ -225,27 +225,22 @@ if( function_exists('acf_add_options_page') ) {
 /***
  * 
  * Feedback Form
+ * Two action occurs here.
+ * This is the feedback form used everywhere. footer.php
+ * - Mail to intranet@justice.gsi.gov.uk which captures the name,email,message,agency & client info
+ * - Confirmation mail to the user
  * 
  ***/
 function feedback_form(){
-
-    // if the submit button is clicked, send the email
     if ( isset( $_POST['submit'] ) ) {
-        // get the info from the from the form
-        $form = array();
-        $form['name']       = $_POST['fbf_name'];
-        $form['email']      = $_POST['fbf_email'];
-        $form['message']    = $_POST['fbf_message'];
-        $form['agency']     = $_POST['agency'];
-
-        // Who are we going to send this form too
+        $form = [
+            'name'      => $_POST['fbf_name'],
+            'email'     => $_POST['fbf_email'],
+            'message'   => $_POST['fbf_message'],
+            'agency'    => $_POST['agency'],
+        ];
         $to = 'intranet@justice.gsi.gov.uk';
-        //$to = 'vinh.nguyen@digital.justice.gov.uk';
-
-        // The email subject
         $subject = 'Feedback Form'; 
-
-        // Build the message
         $message  = "Name: " . $form['name'] ."\n";
         $message .= "Email: " . $form['email'] ."\n";
         $message .= "Message: " . $form['message'] ."\n";
@@ -254,32 +249,16 @@ function feedback_form(){
         $message .= "Agency: " . $form['agency'] . "\n";
         $message .= "Referrer: " . $_SERVER['HTTP_REFERER'] ."\n";
         $message .= "User agent: " . $_SERVER['HTTP_USER_AGENT'] . "\n";
-        //$message .= 'Screen resolution: ' . $this->resolution;
-
-        //set the form headers
         $headers = "Content-Type: text/html; charset=UTF-8\n";
         $headers .= "From: Feedback form Intranet\n";
-
-        $headers = array('Content-Type: text/html; charset=UTF-8');
         
-        // builtin WP functions to send emails - https://developer.wordpress.org/reference/functions/wp_mail/
-    wp_mail( $to, $subject, $message, $headers );
-    
-}
         wp_mail( $to, $subject, $message, $headers );
-
-        // now build the confirmation email to the user
         $feedback_email = $form['email'];
         $feedback_subject = 'Page feedback - MoJ Intranet [T'. get_the_date('Ymdgi').']';
         $feedback = "Thank you for contacting us. \n";
         $feedback .= "Your feedback matters – it helps us find out what we need to improve so that we can offer you a better intranet experience. \n";
         $feedback .= "Your query has been logged and we will deal with it as soon as possible.";
-
-        // trigger second mail to user as confirmation
         wp_mail( $feedback_email, $feedback_subject, $feedback );
-
     }
-
 }
-// this hook will load the function in the header - https://codex.wordpress.org/Function_Reference/wp_head
 add_action( 'wp_head', 'feedback_form' );
