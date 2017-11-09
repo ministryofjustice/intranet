@@ -8,7 +8,7 @@
     $lhs_menu_on = get_field('dw_lhs_menu_on') == true;
 ?>
 
-<?php get_component('c-global-header'); ?>
+<?php get_header(); ?>
 <?php get_component('c-dynamic-style'); ?>
 <div class="l-main u-wrapper">
 <?php //LEGACY ?>

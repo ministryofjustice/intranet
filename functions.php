@@ -259,4 +259,4 @@ function feedback_form(){
     
 }
 // load this in the header
-add_action('wp_head', 'feedback_form');
+add_action( 'wp_head', 'feedback_form' );
