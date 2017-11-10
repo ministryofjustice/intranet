@@ -259,6 +259,8 @@ function feedback_form(){
         $feedback .= "Your feedback matters – it helps us find out what we need to improve so that we can offer you a better intranet experience. \n";
         $feedback .= "Your query has been logged and we will deal with it as soon as possible.";
         wp_mail( $feedback_email, $feedback_subject, $feedback );
+
     }
+
 }
 add_action( 'wp_head', 'feedback_form' );
