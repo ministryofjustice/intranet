@@ -1,3 +1,12 @@
+<?php 
+//LEGACY
+use MOJ\Intranet\Agency;
+
+$oAgency = new Agency();
+$activeAgency = $oAgency->getCurrentAgency();
+//LEGACY END
+?>
+
 <?php $prefix = 'fbf' ?>
 <form class="c-feedback-form js-reveal-target" id="<?php echo $prefix ?>" action="<?php the_permalink(); ?>" method="POST">
   <?php
@@ -14,5 +23,6 @@
 
   //form_builder('select', $prefix, 'Your options', 'your_select', null, null, 'Enter your options', null, true, null, $select_options) ;
   ?>
+  <input type="hidden" value="<?php echo $activeAgency['shortcode'] ?>" name="agency" id="agency">
   <input type="submit" class="o-button" name="submit" type="submit" value="Report">
 </form>
