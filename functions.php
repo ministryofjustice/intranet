@@ -229,24 +229,31 @@ if( function_exists('acf_add_options_page') ) {
  ***/
 function feedback_form(){
 
-    // on submit action function
-    if (!isset($_POST['submit'])) { return; }
-
+  // if the submit button is clicked, send the email
+  if ( isset( $_POST['submit'] ) ) {
     // get the info from the from the form
     $form = array();
-    $form['name']       = $_POST['name'];
-    $form['email']      = $_POST['email'];
-    $form['message']    = $_POST['message'];
+    $form['name']       = $_POST['fbf_name'];
+    $form['email']      = $_POST['fbf_email'];
+    $form['message']    = $_POST['fbf_message'];
 
     // Who are we going to send this form too
-    $to = 'newintranet@digital.justice.gov.uk';
+    $to = 'intranet@justice.gsi.gov.uk';
+    //$to = 'vinh.nguyen@digital.justice.gov.uk';
 
     // The email subject
     $subject = 'Feedback Form';
 
     // Build the message
-    $message  = "Name :" . $form['name'] ."\n";
-    $message .= "Email :" . $form['email'] ."\n";
+    $message  = "Name: " . $form['name'] ."\n";
+    $message .= "Email: " . $form['email'] ."\n";
+    $message .= "Message: " . $form['message'] ."\n";
+    $message .= "Client info:\n";
+    $message .= "Page URL: " . get_permalink() . "\n";
+    $message .= "Agency: " . $agency_title . "\n";
+    $message .= "Referrer: " . wp_get_referer() ."\n";
+    $message .= "User agent: " . $_SERVER['HTTP_USER_AGENT'] . "\n";
+    //$message .= 'Screen resolution: ' . $this->resolution;
 
     //set the form headers
     $headers = "Content-Type: text/html; charset=UTF-8\n";
@@ -256,7 +263,19 @@ function feedback_form(){
     
     // builtin WP functions to send emails - https://developer.wordpress.org/reference/functions/wp_mail/
     wp_mail( $to, $subject, $message, $headers );
-    
+
+    // now build the confirmation email to the user
+    $feedback_email = $form['email'];
+    $feedback_subject = 'Page feedback - MoJ Intranet T'. get_the_date('l, F j, Y');
+    $feedback = "Thank you for contacting us. \n";
+    $feedback .= "Your feedback matters – it helps us find out what we need to improve so that we can offer you a better intranet experience. \n";
+    $feedback .= "Your query has been logged and we will deal with it as soon as possible.";
+
+    // trigger second mail to 
+    wp_mail( $feedback_email, $feedback_subject, $feedback );
+
+  }
+
 }
-// load this in the header
+// this hook will load the function in the header - https://codex.wordpress.org/Function_Reference/wp_head
 add_action( 'wp_head', 'feedback_form' );
