@@ -48,6 +48,42 @@ class My_moj_model extends MVC_model {
       'ppo' => [
       ],
       'judicial-office' => [
+        [
+          'title' => 'Contacts',
+          'icon' => 'people-finder',
+          'url' => 'https://intranet.justice.gov.uk/about-us-judicial-office/contacts/',
+          'external' => false,
+        ],
+        [
+          'title' => 'Jobs',
+          'icon' => 'jobs',
+          'url' => 'https://intranet.justice.gov.uk/jobs/',
+          'external' => false,
+        ],
+        [
+        'title' => 'Finance',
+        'icon' => 'pension',
+        'url' => 'https://intranet.justice.gov.uk/guidance/finance/',
+        'external' => false,
+        ],
+        [
+          'title' => 'IT Self Service Portal',
+          'icon' => 'it-portal',
+          'url' => 'http://cicald-web/ServiceDesk.WebAccess/ss/Dashboard/OpenHomeDashboard.rails?id=c2492b87-2b72-4068-8983-0e1e2a2e6a15',
+          'external' => true,
+        ],
+        [
+          'title' => 'JO blog',
+          'icon' => 'webchat',
+          'url' => 'http://judicialoffice.blogs.justice.gov.uk/',
+          'external' => true,
+        ],
+        [
+          'title' => 'My Services',
+          'icon' => 'civil-service-learning',
+          'url' => 'https://myservices.justice.gov.uk/moj',
+          'external' => true,
+        ]
       ],
       'cica' => [
         [
