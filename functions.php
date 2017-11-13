@@ -233,8 +233,8 @@ if( function_exists('acf_add_options_page') ) {
  ***/
 function feedback_form(){
 
-    // if the submit button is clicked, send the email
     if ( isset( $_POST['submit'] ) ) {
+
         $form = [
             'name'      => $_POST['fbf_name'],
             'email'     => $_POST['fbf_email'],
