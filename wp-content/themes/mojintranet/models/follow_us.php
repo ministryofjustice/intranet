@@ -8,6 +8,11 @@ class Follow_us_model extends MVC_model {
       'ppo' => [
       ],
       'judicial-office' => [
+        [
+          'url' => 'https://twitter.com/JudiciaryUK',
+          'label' => 'Judicial Office',
+          'name' => 'twitter',
+        ]
       ],
       'cica' => [
       ],
