@@ -71,6 +71,8 @@ class Posts {
             'thumbnail_url' => (string) $thumbnail[0],
             'thumbnail_alt_text' => (string) $alt_text,
             'timestamp' => (string) get_the_time('Y-m-d H:i:s', $id),
+            'year' => (string) get_the_time('Y', $id),
+            'month' => (string) get_the_time('m', $id),
             'authors' => $authors
         );
     }
