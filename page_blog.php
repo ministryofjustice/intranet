@@ -6,11 +6,16 @@
  **/
 get_header();
 
+$archives_args = array( 
+    'type' => 'monthly', 
+    'format' => 'option', 
+    'show_post_count' => false 
+);
+
 $year = 2017;
 $month = 04;
 
 $args = array(
-    'max_num_pages' => 5,
     'posts_per_page' => 5,
     'post_type' => 'post',
     'date_query' => array(
@@ -28,7 +33,10 @@ $query = new WP_Query( $args );
         <h1 class="o-title o-title--page"><?php the_title(); ?></h1>
     </div>
     <div class="l-secondary">
-        
+        <select name="archive-dropdown">
+            <option value=""><?php echo esc_attr( __( 'Select Month' ) ); ?></option> 
+            <?php wp_get_archives( $archives_args ); ?>
+        </select>
     </div>  
     <div class="l-primary">
         <div id="maincontent" class="u-wrapper l-main t-campaign">
@@ -45,7 +53,8 @@ $query = new WP_Query( $args );
                             get_component('c-article-item');
                         }
                     }
-                wp_reset_postdata();
+                    
+                    wp_reset_postdata();
                 ?>
                 </div>
             </section>
