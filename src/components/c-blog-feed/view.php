@@ -14,7 +14,7 @@ $postsList = $oPosts->getPosts($options, true);
 if (!empty($postsList)) {
 ?>
     <section class="c-blog-feed">
-        <h1 class="o-title o-title--section">Blog</h1>
+        <h1 class="o-title o-title--section">Latest</h1>
         <div>
           <?php foreach ($postsList['results'] as $result) {
             get_component('c-article-item', $result, 'blog');
