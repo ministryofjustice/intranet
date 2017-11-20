@@ -266,3 +266,18 @@ function feedback_form(){
 
 }
 add_action( 'wp_head', 'feedback_form' );
+
+/**
+ * 
+ * inject class attributes to the Wordpress function 
+ * 
+ **/
+
+function posts_link_attributes_prev() {
+    return 'class="c-pagination__link c-pagination__link--prev"';
+}
+function posts_link_attributes_next() {
+    return 'class="c-pagination__link c-pagination__link--next"';
+}
+add_filter('next_posts_link_attributes', 'posts_link_attributes_prev');
+add_filter('previous_posts_link_attributes', 'posts_link_attributes_next');
