@@ -13,7 +13,8 @@ $archives_args = array(
 );
 
 $year = 2017;
-$month = 04;
+$month = 06;
+$keyword = 'test';
 
 $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
 
@@ -21,12 +22,10 @@ $args = array(
     'paged' => $paged,
     'posts_per_page' => 5,
     'post_type' => 'post',
-    'date_query' => array(
-        array(
-            'year'  => $year,
-            'month' => $month,
-        ),
-    ),
+    'post_status' => 'publish',
+    's' => $keyword,
+    'year'  => $year,
+    'monthnum' => $month,
 );
 $query = new WP_Query( $args );
 
@@ -53,16 +52,18 @@ $total_page_number = $query->max_num_pages;
                 <h1 class="o-title o-title--section">Latest</h1>
                 <div>
                 <?php
+
+                    
                     
                     if ( $query->have_posts() ) {
                         while ( $query->have_posts() ) {
                     
                             $query->the_post();
-                            
                             get_component('c-article-item');
                         }
                         
                     }
+
                     
                     wp_reset_postdata();
                 ?>
