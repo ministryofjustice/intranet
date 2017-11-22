@@ -281,3 +281,12 @@ function posts_link_attributes_next() {
 }
 add_filter('next_posts_link_attributes', 'posts_link_attributes_prev');
 add_filter('previous_posts_link_attributes', 'posts_link_attributes_next');
+
+
+function custom_monthly_archive($link_html, $url, $text, $format){
+    if( 'custom' === $format )
+        $strip_url = str_replace('http://intranet.docker/blog/', '', $url);
+        $link_html = '<option value='.$strip_url.'>'.$text.'</option>';
+    return $link_html;
+}
+add_filter( 'get_archives_link', 'custom_monthly_archive', 10, 6 );

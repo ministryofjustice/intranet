@@ -8,13 +8,14 @@ get_header();
 
 $archives_args = array( 
     'type' => 'monthly', 
-    'format' => 'option', 
+    'format' => 'custom',
     'show_post_count' => false 
 );
 
-$year = 2017;
-$month = 06;
-$keyword = 'test';
+$year = '';
+$month = '';
+$keyword = 'swim';
+$agency_name = 'laa';
 
 $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
 
@@ -23,6 +24,13 @@ $args = array(
     'posts_per_page' => 5,
     'post_type' => 'post',
     'post_status' => 'publish',
+    'tax_query' => array(
+		array(
+			'taxonomy' => 'agency',
+			'field'    => 'slug',
+			'terms'    => $agency_name,
+		),
+	),
     's' => $keyword,
     'year'  => $year,
     'monthnum' => $month,
@@ -41,10 +49,25 @@ $total_page_number = $query->max_num_pages;
         <h1 class="o-title o-title--page"><?php the_title(); ?></h1>
     </div>
     <div class="l-secondary">
-        <select name="archive-dropdown" onchange="document.location.href=this.options[this.selectedIndex].value;">
-            <option value=""><?php echo esc_attr( __( 'Select Month' ) ); ?></option> 
-            <?php wp_get_archives( $archives_args ); ?>
-        </select>
+        
+        <?php $prefix = 'ff'; ?>
+        <section class="c-content-filter">
+            <p>The results will update automatically based on your selections.</p>
+            <form action="" id="<?php echo $prefix; ?>">
+                <div class="c-input-container c-input-container--select">
+                <label for="ff_date_filter">Date<span class="c-input-container--required">*</span>
+                :</label>
+                    <select name="ff_date_filter" id="ff_date_filter" required="required">
+                        <?php
+                            wp_get_archives( $archives_args );
+                        ?>
+                    </select>
+                </div>
+                <?php
+                form_builder('text', $prefix, 'Keywords', 'keywords_filter', null, null, 'Keywords', null, true, null, null);
+                ?>
+            </form>
+        </section>
     </div>  
     <div class="l-primary">
         <div id="maincontent" class="u-wrapper l-main t-campaign">
@@ -52,19 +75,13 @@ $total_page_number = $query->max_num_pages;
                 <h1 class="o-title o-title--section">Latest</h1>
                 <div>
                 <?php
-
-                    
-                    
                     if ( $query->have_posts() ) {
-                        while ( $query->have_posts() ) {
-                    
+                        while ( $query->have_posts() ) {    
                             $query->the_post();
                             get_component('c-article-item');
                         }
                         
                     }
-
-                    
                     wp_reset_postdata();
                 ?>
                 </div>
