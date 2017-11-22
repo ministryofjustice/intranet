@@ -4,6 +4,10 @@
  * Template Name: Blog Landing Page
  * 
  **/
+use MOJ\Intranet\Agency;
+$oAgency = new Agency();
+$activeAgency = $oAgency->getCurrentAgency();
+
 get_header();
 
 $archives_args = array( 
@@ -15,7 +19,7 @@ $archives_args = array(
 $year = '';
 $month = '';
 $keyword = 'swim';
-$agency_name = 'laa';
+$agency_name = $activeAgency['shortcode'];
 
 $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
 
