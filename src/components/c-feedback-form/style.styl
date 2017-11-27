@@ -1,14 +1,27 @@
 // include the toolkit (a suite of variables, classes and mixins)
 @require "../../globals/css/_toolkit"
 
-.c-feedback-form {
-	clear:both;
-  margin-top: $spacing*2;
-  +above(m) {
-    column(1/2);
+.c-feedback-container{
+  
+  .o-arrow-toggle-link{
+    &::before{
+      top: .2rem;
+      left: 1px;
+    }
   }
-  	// this button requires 1rem of spacing above it.
-  .o-button {
-  	margin-top: $spacing;
+
+  .c-feedback-form {
+    clear:both;
+    display:none;
+    margin: $spacing*2;
+    +above(m) {
+      column(1/2);
+    }
+      // this button requires 1rem of spacing above it.
+    .o-button {
+      margin: $spacing 0;
+    }
   }
+
 }
+

@@ -22,4 +22,5 @@ $(document).ready(function () {
   $('.c-news-list > .js-article-item').moji_equaliser()
   // This script is attached to a template and not a component
   $('.js-tabbed-content-container').moji_tabbedContent()
+  $('.js-reveal').moji_feedbackForm()
 })
