@@ -3,6 +3,10 @@
     display: none;
   }
 
+  html[data-agency="judicial-office"] & {
+    display: none;
+  }
+
   .posts-heading {
     @extend %large-heading;
     border-bottom: 1px solid #6f777b;
