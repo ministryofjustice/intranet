@@ -5,7 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
   <meta name="theme-color" content="<?php echo $agency_colour; ?>">
   <title><?php echo $agency_title; ?> | Ministry of Justice intranet</title>
-  <link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri(); ?>/assets/css/core.min.css" media="screen">
+  <?php $time = current_time( 'Y-m-d-H-i-s' ); ?>
+  <link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri(); ?>/assets/css/core.min.css?<?php echo $time; ?>" media="screen">
   <link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri(); ?>/assets/css/print.min.css" media="print">
   <script src="<?php echo get_stylesheet_directory_uri(); ?>/assets/vendors/jquery.min.js" charset="utf-8"></script>
   <link rel="icon" sizes="180x180" href="<?php echo get_stylesheet_directory_uri(); ?>/assets/icons/apple-touch-icon-180x180.png">

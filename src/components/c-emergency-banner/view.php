@@ -4,8 +4,8 @@
     <h1><?php echo $data['title'];?></h1>
     <time datetime="2016-12-22"><?php echo $data['date'];?></time>
   </div>
-  <div class="c-emergency-banner__content">
-    <p><?php echo $data['message'];?></p>
+  <div class="c-emergency-banner__content ie_content">
+    <?php echo $data['message'];?>
   </div>
 </section>
 <!-- c-emergency-banner ends here -->
