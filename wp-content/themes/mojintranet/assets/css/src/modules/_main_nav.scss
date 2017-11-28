@@ -12,6 +12,20 @@
     }
   }
 
+  .jo-nav-blog {
+    display: none;
+
+    html[data-agency="judicial-office"] & {
+      display: block;
+    }
+  }
+
+  .main-nav-blog {
+    html[data-agency="judicial-office"] & {
+      display: none;
+    }
+  }
+
   .main-menu-list {
     @include clearfix;
     display: -webkit-box;
