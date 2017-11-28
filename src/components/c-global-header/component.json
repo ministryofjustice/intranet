@@ -6,9 +6,9 @@
         "name": "Alex Foxleigh",
         "github_username": "foxleigh81"
     },
-    "description": "The global header for the site. Mainly contains the 'head' tag and the opening tag for the body.",
+    "description": "The global header for the site. Contains the 'head' tag, required WP functions and the opening tag for the body.",
     "standard_or_universal": "standard",
-    "parents": "",
+    "parents": "no",
     "children": "c-header-container",
     "notes": {
         "backend": "In order to allow for different agency styles. There are hyphenated alternatives to the view, e.g. 'view-opg.php",

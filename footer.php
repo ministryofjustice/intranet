@@ -1,3 +1,12 @@
+<?php
+/**
+ * The template for displaying the footer
+ * @link https://developer.wordpress.org/themes/basics/template-files/#template-partials
+ *
+ */
+
+?>
+
 <footer class="c-footer">
   <div class="u-wrapper">
     <div class="l-primary">
@@ -19,3 +28,4 @@
 
 </body>
 </html>
+

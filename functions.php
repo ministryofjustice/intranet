@@ -11,6 +11,15 @@ if (get_template_directory() === get_stylesheet_directory()) {
 
 require_once('inc/theme-setup.php');
 
+/**
+* Initialise WP admin Toolbar
+* https://codex.wordpress.org/Toolbar
+* This is initialised here rather than on the parent theme because,
+* on the parent theme this is initialised within the MVC plugin.
+* //LEGACY This function is not intended for plugin or theme use, so once the
+* old theme and MVC is deprecated we can look at the necessity of this function.
+*/
+_wp_admin_bar_init();
 
 /** Autoloader for inc */
 spl_autoload_register('moj_autoload');
@@ -18,7 +27,6 @@ spl_autoload_register('moj_autoload');
 function moj_autoload($cls)
 {
     $cls = ltrim($cls, '\\');
-
 
     if(strpos($cls, 'MOJ\Intranet') !== 0)
         return;
@@ -161,7 +169,7 @@ function slugify($string) {
  */
 
 function form_builder($type, $prefix, $label, $name, $id = '', $value = '', $placeholder = '', $class = '', $required = false, $validation = '', $options = '') {
-  $config = array (
+  $config = [
       'type' => $type,
       'prefix' => $prefix,
       'label' => $label,
@@ -172,7 +180,89 @@ function form_builder($type, $prefix, $label, $name, $id = '', $value = '', $pla
       'class' => $class,
       'required' => $required,
       'validation' => $validation,
-      'options' => $options);
+      'options' => $options
+    ];
 
   return get_component('c-input-container', null, $config);
 }
+
+/*
+ * Register new Clarity main menu.
+ * We are using this menu as a replacement main menu on all new templates.
+ * Assigning menus are found by loging into wp-admin and setting the menu to display.
+ * //LEGACY: Other menus are registered in the old template in menu-locations.php.
+ */
+
+add_action( 'init', 'register_my_menu' );
+
+function register_my_menu() {
+  register_nav_menu('header-menu',__( 'Header Menu' ));
+}
+
+add_action( 'init', 'register_my_menus' );
+
+function register_my_menus() {
+  register_nav_menus(
+    [
+      'header-menu' => __( 'Header Menu' )
+    ]
+  );
+}
+
+/***
+ *
+ * New option page for header banner - ACF options 
+ * https://www.advancedcustomfields.com/resources/acf_add_options_page/
+ *
+ ***/
+
+if( function_exists('acf_add_options_page') ) {
+
+	acf_add_options_page('Header Banner');
+
+}
+
+/***
+ * 
+ * Feedback Form
+ * Two action occurs here.
+ * This is the feedback form used everywhere. footer.php
+ * - Mail to intranet@justice.gsi.gov.uk which captures the name,email,message,agency & client info
+ * - Confirmation mail to the user
+ * 
+ ***/
+function feedback_form(){
+
+    if ( isset( $_POST['submit'] ) ) {
+
+        $form = [
+            'name'      => $_POST['fbf_name'],
+            'email'     => $_POST['fbf_email'],
+            'message'   => $_POST['fbf_message'],
+            'agency'    => $_POST['agency'],
+        ];
+        $to = 'intranet@justice.gsi.gov.uk';
+        $subject = 'Feedback Form'; 
+        $message  = "Name: " . $form['name'] ."\n";
+        $message .= "Email: " . $form['email'] ."\n";
+        $message .= "Message: " . $form['message'] ."\n";
+        $message .= "Client info:\n";
+        $message .= "Page URL: " . get_permalink() . "\n";
+        $message .= "Agency: " . $form['agency'] . "\n";
+        $message .= "Referrer: " . $_SERVER['HTTP_REFERER'] ."\n";
+        $message .= "User agent: " . $_SERVER['HTTP_USER_AGENT'] . "\n";
+        $headers = "Content-Type: text/html; charset=UTF-8\n";
+        $headers .= "From: Feedback form Intranet\n";
+        
+        wp_mail( $to, $subject, $message, $headers );
+        $feedback_email = $form['email'];
+        $feedback_subject = 'Page feedback - MoJ Intranet [T'. get_the_date('Ymdgi').']';
+        $feedback = "Thank you for contacting us. \n";
+        $feedback .= "Your feedback matters – it helps us find out what we need to improve so that we can offer you a better intranet experience. \n";
+        $feedback .= "Your query has been logged and we will deal with it as soon as possible.";
+        wp_mail( $feedback_email, $feedback_subject, $feedback );
+
+    }
+
+}
+add_action( 'wp_head', 'feedback_form' );

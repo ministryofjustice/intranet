@@ -1,7 +1,7 @@
 {
     "name": "Header container",
     "class": "c-header-container",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "creator": {
         "name": "Alex Foxleigh",
         "github_username": "foxleigh81"
@@ -16,13 +16,20 @@
     },
     "backend_classes": {},
     "has_js": false,
-    "integrated": false,
-    "is_working": false,
+    "integrated": true,
+    "is_working": true,
+    "screenshot": "",
     "example_link": "",
-    "used_on_templates": [],
-    "changelog": [{
-        "date": "02/02/17",
-        "author": "Alex Foxleigh",
-        "description": "Created component"
-    }]
+    "changelog": [
+        {
+            "date": "09/11/17",
+            "author": "Adam Brown",
+            "description": "Browser tested and improved warning text."
+        },
+        {
+            "date": "02/02/17",
+            "author": "Alex Foxleigh",
+            "description": "Created component"
+        }
+    ]
 }
