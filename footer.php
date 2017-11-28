@@ -17,8 +17,7 @@
       <?php get_component('c-copyright-notice'); ?>
   </div>
 </footer>
-<?php $time = current_time( 'Y-m-d-H-i-s' ); ?>
-<script src="<?php echo get_assets_folder(); ?>/js/core.min.js?<?php echo $time ?>" charset="utf-8"></script>
+<script src="<?php echo get_assets_folder(); ?>/js/core.min.js" charset="utf-8"></script>
 
 <?php
   /**
