@@ -141,7 +141,7 @@
   }
 
   .header-search {
-    background-color: #1d619d; // temporarily replaced $govuk-blue for comms campaign
+    background-color: $govuk-blue;
 
     [data-agency="hmcts"] & {
       background-color: $hmcts;
@@ -157,6 +157,10 @@
 
     [data-agency="pb"] & {
       background-color: $pb;
+    }
+
+    [data-agency="judicial-office"] & {
+      background-color: $jo;
     }
 
     .search-form {
