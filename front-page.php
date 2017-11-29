@@ -1,8 +1,8 @@
 <?php
 /***
- * 
+ *
  * Template Name: Front Page
- * 
+ *
  */
 get_header();
 
@@ -14,9 +14,7 @@ $activeAgency = $oAgency->getCurrentAgency();
 
 $emergencyBanner = HomepageBanners::getEmergencyBanner(get_intranet_code());
 $fullWidthTopBanner = HomepageBanners::getTopBanner(get_intranet_code());
-
-//ToDo: Change name to home.php when database changed ?>
-<?php get_header(); ?>
+?>
     <div id="maincontent" class="u-wrapper l-main t-home">
 <?php if ($emergencyBanner && $emergencyBanner['visible']) { ?>
     <?php get_component('c-emergency-banner', $emergencyBanner); ?>
