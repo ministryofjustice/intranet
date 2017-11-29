@@ -12,6 +12,18 @@
     }
   }
 
+  .main-nav-blog {
+    html[data-agency="judicial-office"] & {
+      display: none;
+    }
+  }
+
+  .main-nav-about-us {
+    html[data-agency="judicial-office"] & {
+      display: none;
+    }
+  }
+
   .jo-nav-blog {
     display: none;
 
@@ -20,11 +32,15 @@
     }
   }
 
-  .main-nav-blog {
+  .jo-nav-about {
+    display: none;
+
     html[data-agency="judicial-office"] & {
-      display: none;
+      display: block;
     }
   }
+
+
 
   .main-menu-list {
     @include clearfix;
