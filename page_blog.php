@@ -18,7 +18,7 @@ $archives_args = array(
 
 $year = '';
 $month = '';
-$keyword = 'swim';
+$keyword = '';
 $agency_name = $activeAgency['shortcode'];
 
 $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
@@ -82,7 +82,7 @@ $total_page_number = $query->max_num_pages;
                     if ( $query->have_posts() ) {
                         while ( $query->have_posts() ) {    
                             $query->the_post();
-                            get_component('c-article-item');
+                            get_component('c-article-item', '', 'show_excerpt');
                         }
                         
                     }
