@@ -3,10 +3,8 @@
 /**
  * Clarity Media grid template
  */
-
+get_header();
 ?>
-
- <?php get_component('c-global-header'); ?>
 
    <div id="maincontent" class="u-wrapper l-main t-media-grid">
 
@@ -33,4 +31,4 @@
    </div>
 
  <!-- This footer will be the new footer not finished -->
- <?php get_component('c-global-footer'); ?>
+<?php get_footer(); ?>
