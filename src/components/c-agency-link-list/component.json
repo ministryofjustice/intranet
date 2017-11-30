@@ -15,12 +15,18 @@
         "frontend": ""
     },
     "has_js": false,
-    "integrated": false,
+    "integrated": true,
     "example_link": "https://intranet.dev.wp.dsd.io/",
     "used_on_templates": [],
-    "changelog": [{
+        {
+            "date": "30/11/17",
+            "author": "Adam",
+            "description": "Changed highlight colour of link box"
+        },
+        {
         "date": "02/02/17",
         "author": "Alex Foxleigh",
         "description": "Created component"
-    }]
+        }
+    ]
 }
