@@ -5,9 +5,7 @@
   padding: $spacing 0 10px;
   border-bottom: 1px solid $border;
   margin-bottom: 1rem;
-  a {
-    text-decoration: none;
-  }
+
   &__icon {
     float:left;
     margin-right: $spacing*2;
@@ -15,10 +13,15 @@
     font-weight: bold;
     text-transform: uppercase;
     color: #fff;
+
     &--beta {
-      background-color: #f47738;
+      background-color: #005ea5;
+    }
+    &:hover {
+      color:#fff;
     }
   }
+
   &__message {
     font-size: $innerCore;
     margin-bottom: 0;
