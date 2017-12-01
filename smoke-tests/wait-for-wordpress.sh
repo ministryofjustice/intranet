@@ -38,8 +38,8 @@ run_smoke_tests() {
 stop_all_containers() {
   echo "Stopping WordPress container"
   docker stop smoketest_wp
-  #echo "Stopping MariaDB container"
-  #docker stop smoketest_db
+  echo "Stopping MariaDB container"
+  docker stop smoketest_db
   echo "Stopping MailCatcher container"
   docker stop smoketest_smtp
 }
