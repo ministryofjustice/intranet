@@ -3,13 +3,12 @@ use MOJ\Intranet\Agency;
 
 define('MAX_FEATURED_NEWS', 2);
 define('MAX_HOMEPAGE_NEWS', 8);
+
 if (get_template_directory() === get_stylesheet_directory()) {
     //Include Filters and actions Filters
     require_once('inc/hooks/author.php');
     require_once('inc/post-types/news.php');
 }
-
-require_once('inc/theme-setup.php');
 
 /**
 * Initialise WP admin Toolbar
