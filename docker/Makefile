@@ -39,9 +39,12 @@ prepare-wordpress-database:
 	make restart-yas3fs
 
 smoketest:
+	aws s3 cp s3://moj-intranet-smoketest-sql/smoketests.sql.gz ./db-dump/
 	docker-compose -f docker-compose-smoketest.yml up
 
-rebuild-smoketest:
+smoketest-rebuild:
+	docker-compose -f docker-compose-smoketest.yml down
+	aws s3 cp s3://moj-intranet-smoketest-sql/smoketests.sql.gz ./db-dump/
 	docker-compose -f docker-compose-smoketest.yml up --build
 
 smoketest-nuke-all:

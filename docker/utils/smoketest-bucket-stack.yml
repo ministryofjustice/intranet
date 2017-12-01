@@ -1,0 +1,13 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Resources:
+  Storage:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: intranet-smoketest
+      VersioningConfiguration:
+        Status: Enabled
+      LifecycleConfiguration:
+        Rules:
+          - Id: "Delete old backup versions after 30 days"
+            NoncurrentVersionExpirationInDays: 30
+            Status: Enabled
