@@ -141,7 +141,7 @@
   }
 
   .header-search {
-    background-color: $govuk-blue;
+    background-color: #82368C; // $govuk-blue replaced. Temp change for International Day of Disabled Persons. Dec 3rd-4th. Change back when done.
 
     [data-agency="hmcts"] & {
       background-color: $hmcts;
