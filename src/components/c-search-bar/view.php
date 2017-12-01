@@ -1,6 +1,6 @@
 <?php
 /*
- * LEGACY: Post information being sent here is dependant on the old MoJ theme= id= name.
+ * //LEGACY: Post information being sent here is dependant on the old MoJ theme= id= name.
  * This needs to be looked at in the future.
  */
  ?>
