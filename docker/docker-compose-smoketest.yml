@@ -5,23 +5,26 @@ services:
     build: .
     env_file: smoketests.env
     environment:
-      development: 1
-      VIRTUAL_HOST: intranet.docker
-      SMTP_HOST: mailcatcher
-      SMTP_PORT: 1025
-      DB_NAME: ${DB_NAME:-wordpress}
-      DB_USER: ${DB_USER}
-      DB_PASSWORD: ${DB_PASSWORD}
-      DB_HOST: ${DB_HOST}
-      COMPOSER_USER: ${COMPOSER_USER}
-      COMPOSER_PASS: ${COMPOSER_PASS}
       AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
       AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+      COMPOSER_USER: ${COMPOSER_USER}
+      COMPOSER_PASS: ${COMPOSER_PASS}
+      DB_HOST: smoketest_db
+      DB_NAME: wordpress
+      DB_PASSWORD: wordpress
+      DB_USER: wordpress
+      development: 1
+      SMTP_HOST: mailcatcher
+      SMTP_PORT: 1025
+      VIRTUAL_HOST: intranet.docker
+      WP_ENV: development
     command: ["/build.sh"]
     links:
       - mailcatcher
+      - mariadb
     depends_on:
       - mailcatcher
+      - mariadb
     cap_add:
       - SYS_ADMIN
     devices:
@@ -36,6 +39,18 @@ services:
       VIRTUAL_PORT: 1080
     ports:
       - "1080:1080"
+  mariadb:
+    container_name: smoketest_db
+    image: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+    volumes:
+      - ./db-dump:/docker-entrypoint-initdb.d
+    ports:
+      - "3306:3306"
   smoketest:
     container_name: smoketest_tests
     build: ../smoke-tests
@@ -47,6 +62,3 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
       DOCKER_CONTAINER: smoketest_wp
-volumes:
-  database:
-    driver: local
