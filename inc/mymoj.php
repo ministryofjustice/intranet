@@ -44,8 +44,6 @@ class MyMOJ
     public static function get_apps($agency = 'hq')
     {
         $apps = [
-        'ppo' => [
-        ],
         'judicial-office' => [
           [
             'title' => 'Contacts',
@@ -221,7 +219,68 @@ class MyMOJ
             'url' => site_url('/team-relocation/'),
             'external' => false,
           ],
-
+        ],
+        'judicial-appointments-commission' => [
+          [
+            'title' => 'People finder',
+            'icon' => 'people-finder',
+            'url' => 'https://peoplefinder.service.gov.uk/',
+            'external' => true,
+          ],
+          [
+            'title' => 'Travel booking',
+            'icon' => 'travel-booking',
+            'url' => 'https://www.trips.uk.com/js/SABS/Corporate.html',
+            'external' => true,
+          ],
+          [
+            'title' => 'Jobs',
+            'icon' => 'jobs',
+            'url' => site_url('/jobs/'),
+            'external' => false,
+          ],
+          [
+            'title' => 'Pensions',
+            'icon' => 'pension',
+            'url' => 'http://www.civilservicepensionscheme.org.uk/',
+            'external' => true,
+          ],
+          [
+            'title' => 'SOP',
+            'icon' => 'sop',
+            'url' => site_url('/guidance/hr/sop/'),
+            'external' => false,
+          ],
+          [
+            'title' => 'Civil Service Learning',
+            'icon' => 'civil-service-learning',
+            'url' => 'https://civilservicelearning.civilservice.gov.uk/',
+            'external' => true,
+          ],
+          [
+            'title' => 'IT portal',
+            'icon' => 'it-portal',
+            'url' => 'http://itportal.dom1.infra.int:8080/Pages/default.aspx',
+            'external' => true,
+          ],
+          [
+            'title' => 'MoJ Webchat',
+            'icon' => 'webchat',
+            'url' => site_url('/webchats/'),
+            'external' => false,
+          ],
+          [
+            'title' => 'Room booking',
+            'icon' => 'room-booking',
+            'url' => 'https://app.matrixbooking.com/',
+            'external' => true,
+          ],
+          [
+            'title' => 'Team relocation',
+            'icon' => 'house',
+            'url' => site_url('/team-relocation/'),
+            'external' => false,
+          ],
         ],
         'hmcts' => [
           [

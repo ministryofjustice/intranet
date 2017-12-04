@@ -130,19 +130,6 @@ class Agency
           ]
         ]
       ],
-      'nps' => [
-        'shortcode' => 'nps',
-        'label' => 'National Probation Service',
-        'abbreviation' => 'NPS',
-        'is_integrated' => false,
-        'links' => [
-          [
-            'url' => 'https://intranet.noms.gsi.gov.uk/',
-            'label' => 'National Probation Service intranet',
-            'is_external' => true
-          ]
-        ]
-      ],
       'opg' => [
         'shortcode' => 'opg',
         'label' => 'Office of the Public Guardian',
@@ -172,14 +159,6 @@ class Agency
         'about_us_url' => '/about-parole-board/',
         'contact_email_address' => 'intranet-pb@digital.justice.gov.uk',
         'links' => []
-      ],
-      'ppo' => [
-        'shortcode' => 'ppo',
-        'label' => 'Prisons and Probations Ombudsman',
-        'abbreviation' => 'PPO',
-        'is_integrated' => true,
-        'contact_email_address' => 'intranet-ppo@digital.justice.gov.uk',
-        'links' => []
       ]
     ];
     }
@@ -207,6 +186,11 @@ class Agency
             'ppo' => [
             ],
             'judicial-office' => [
+              [
+                  'url' => 'https://twitter.com/JudiciaryUK',
+                  'label' => 'Judicial Office on Twitter',
+                  'name' => 'twitter',
+              ]
             ],
             'cica' => [
             ],

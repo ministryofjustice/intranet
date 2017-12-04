@@ -8,10 +8,9 @@ namespace MOJ\Intranet;
 
 class News
 {
+    public $searchHelper;
 
-    var $searchHelper;
-
-    function __construct()
+    public function __construct()
     {
         $this->searchHelper = new HelperSearch();
     }
@@ -23,11 +22,10 @@ class News
      */
     public function getFeaturedNews($agency = 'hq')
     {
-
         //Get the featured IDs for the agency
         $featured_ids = News::getFeaturedIds(get_intranet_code());
 
-        $options = array (
+        $options = [
             // Paging
             'nopaging' => false,
             'offset' => 0,
@@ -36,8 +34,7 @@ class News
             'post_type' => ['news', 'post', 'page'],
             'post__in' => $featured_ids,
             'orderby' => 'post__in'
-        );
-
+        ];
 
         $data = $this->searchHelper->get_raw($options);
         $data = $this->format_data($data);
@@ -45,13 +42,12 @@ class News
         return $data;
     }
 
-
-    static function getFeaturedIds($agency = 'hq')
+    public static function getFeaturedIds($agency = 'hq')
     {
         //Get the featured IDs for the agency
-        $featured_ids = array();
+        $featured_ids = [];
 
-        for($a = 1; $a <= MAX_FEATURED_NEWS; $a++) {
+        for ($a = 1; $a <= MAX_FEATURED_NEWS; $a++) {
             array_push($featured_ids, get_option($agency . '_featured_story' . $a));
         }
         return $featured_ids;
@@ -60,8 +56,8 @@ class News
      * @param {Array} $options Options and filters (see search model for details)
      * @return {Array} Formatted and sanitized results
      */
-    public function getNews($options = array(), $exclude_featured = false) {
-
+    public function getNews($options = [], $exclude_featured = false)
+    {
         $options['search_order'] = 'DESC';
         $options['search_orderby'] = 'date';
 
@@ -78,19 +74,19 @@ class News
         return $data;
     }
 
-    private function normalize_options($options) {
-        $default = array(
+    private function normalize_options($options)
+    {
+        $default = [
             'start' => 1,
             'length' => 10,
             'post_type' => 'news'
-        );
+        ];
 
-        foreach($options as $key=>$value) {
-            if($value) {
+        foreach ($options as $key=>$value) {
+            if ($value) {
                 $default[$key] = $value;
             }
         }
-
         return $default;
     }
 
@@ -98,10 +94,11 @@ class News
      * @param {Object} $data Raw results object
      * @return {Array} Formatted results
      */
-    private function format_data($data) {
+    private function format_data($data)
+    {
         $data['results'] = array();
 
-        foreach($data['raw']->posts as $post) {
+        foreach ($data['raw']->posts as $post) {
             $data['results'][] = $this->format_row($post);
         }
 
@@ -114,7 +111,8 @@ class News
      * @param {Object} $post Post object
      * @return {Array} Formatted and trimmed post
      */
-    private function format_row($post) {
+    private function format_row($post)
+    {
         $id = $post->ID;
 
         $post_object = get_post($id);
@@ -124,7 +122,7 @@ class News
         $thumbnail = wp_get_attachment_image_src($thumbnail_id, $thumbnail_type);
         $alt_text = get_post_meta($thumbnail_id, '_wp_attachment_image_alt', true);
 
-        return array(
+        return [
             'id' => $id,
             'title' => (string) get_the_title($id),
             'url' => (string) get_the_permalink($id),
@@ -133,8 +131,6 @@ class News
             'thumbnail_url' => (string) $thumbnail[0],
             'thumbnail_alt_text' => (string) $alt_text,
             'timestamp' => (string) get_the_time('Y-m-d H:i:s', $id)
-        );
+        ];
     }
 }
-
-
