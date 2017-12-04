@@ -95,8 +95,7 @@ $grid-size: 40px;
     &[data-agency="pb"] .icon {
       background-position: (-$grid-size * 4);
     }
-
-    &[data-agency="judicial-office"],
+    
     &[data-agency="ppo"] {
       display: none;
     }
