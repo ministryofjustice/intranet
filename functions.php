@@ -58,7 +58,7 @@ function my_acf_json_load_point($paths)
 {
     // append path
     $paths[] = get_template_directory() . '/acf-json';
-    
+
     // return
     return $paths;
 }
@@ -87,7 +87,7 @@ function get_intranet_code()
     $activeAgency = $oAgency->getCurrentAgency();
     $agency = $activeAgency['shortcode'];
 
-    if ($agency === 'law-commission' || $agency === 'noms' || $agency === 'ospt' ) {
+    if ($agency === 'law-commission' || $agency === 'noms' || $agency === 'ospt' || $agency === 'judicial-appointments-commission') {
       $agency = 'hq';
       return $agency;
     } else {

@@ -21,7 +21,7 @@ $agency       = $activeAgency['shortcode'];
 
   <?php
   // removes sliding Need to Know gallery from agency homepage.
-   if ($agency !== 'opg' && $agency !== 'pb') {
+   if ($agency !== 'opg' && $agency !== 'pb' && $agency !== 'cica' && $agency !== 'judicial-office') {
        get_component('c-need-to-know-widget');
    }
    ?>
