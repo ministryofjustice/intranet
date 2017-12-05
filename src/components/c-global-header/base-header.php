@@ -19,10 +19,15 @@
   <link rel="apple-touch-icon" sizes="144x144" href="<?php echo get_stylesheet_directory_uri(); ?>/assets/icons/apple-touch-icon-144x144.png" />
   <link rel="apple-touch-icon" sizes="152x152" href="<?php echo get_stylesheet_directory_uri(); ?>/assets/icons/apple-touch-icon-152x152.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="<?php echo get_stylesheet_directory_uri(); ?>/assets/icons/apple-touch-icon-180x180.png" />
+  <!--[if lt IE 8]>
+	<script type="text/javascript" src="<?php echo get_stylesheet_directory_uri(); ?>/assets/vendors/respond.min.js"></script>
+  <script type="text/javascript" src="<?php echo get_stylesheet_directory_uri(); ?>/assets/vendors/ie8-js-html5shiv.js"></script>
+  <link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri(); ?>/assets/css/ie.min.css" media="screen">
+  <![endif]-->
   <!--[if lt IE 9]>
     <script type="text/javascript" src="<?php echo get_stylesheet_directory_uri(); ?>/assets/vendors/respond.min.js"></script>
     <script type="text/javascript" src="<?php echo get_stylesheet_directory_uri(); ?>/assets/vendors/ie8-js-html5shiv.js"></script>
-    <link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri(); ?>/assets/css/ie.min.css" media="screen">
+    <link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri(); ?>/assets/css/ie8.min.css" media="screen">
   <![endif]-->
   <?php
   /**
