@@ -8,9 +8,10 @@
 */
 use MOJ\Intranet\Agency;
 
-$oAgency = new Agency();
-// $activeAgency returns an array of agency properties. This array can be found in /inc/agency.php
+$oAgency      = new Agency();
+// $activeAgency returns an array of agency properties. This array can be found in /inc/
 $activeAgency = $oAgency->getCurrentAgency();
+$agency       = $activeAgency['shortcode'];
 
 ?>
 <!-- c-home-page-primary starts here -->
@@ -19,14 +20,14 @@ $activeAgency = $oAgency->getCurrentAgency();
   <?php get_component('c-news-widget'); ?>
 
   <?php
-  // Removes sliding need to know gallery from agency homepage.
-   if ($activeAgency['shortcode'] !== 'opg' && $activeAgency['shortcode'] !== 'pb') {
+  // removes sliding Need to Know gallery from agency homepage.
+   if ($agency !== 'opg' && $agency !== 'pb') {
        get_component('c-need-to-know-widget');
    }
    ?>
   <?php
-  // Removes event listing from agency homepage.
-   if ($activeAgency['shortcode'] !== 'laa' && $activeAgency['shortcode'] !== 'hmcts') {
+  // removes event listing from agency homepage.
+   if ($agency !== 'laa' && $agency !== 'hmcts') {
        get_component('c-events-widget');
    }
    ?>

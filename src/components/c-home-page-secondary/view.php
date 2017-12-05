@@ -12,8 +12,8 @@ use MOJ\Intranet\HomepageBanners;
 $oAgency = new Agency();
 
 // $activeAgency returns an array of agency properties. This array can be found in /inc/agency.php
-$activeAgency = $oAgency->getCurrentAgency();
-
+$activeAgency  = $oAgency->getCurrentAgency();
+$agency        = $activeAgency['shortcode'];
 $sidebarBanner = HomepageBanners::getSidebarBanner(get_intranet_code());
 
 ?>
@@ -26,21 +26,21 @@ $sidebarBanner = HomepageBanners::getSidebarBanner(get_intranet_code());
     }
     ?>
   <?php
-  // Removes my work feed listing from agency homepage.
-   if ($activeAgency['shortcode'] !== 'opg' && $activeAgency['shortcode'] !== 'pb' && $activeAgency['shortcode'] !== 'judicial-appointments-commission') {
+  // Adds my work feed listing from agency homepage.
+   if ($agency == 'hmcts') {
        get_component('c-my-work');
    }
    ?>
   <?php get_component('c-quick-links'); ?>
   <?php
   // Removes blog feed listing from agency homepage.
-   if ($activeAgency['shortcode'] !== 'judicial-office') {
+   if ($agency !== 'judicial-office') {
        get_component('c-blog-feed');
    }
   ?>
   <?php
   // Removes social media listing from agency homepage.
-   if ($activeAgency['shortcode'] !== 'cica') {
+   if ($agency !== 'cica') {
        get_component('c-social-links');
    }
   ?>
