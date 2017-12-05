@@ -1,17 +1,22 @@
 // include the toolkit (a suite of variables, classes and mixins)
 @require "../../globals/css/_ietoolkit"
 
-.c-need-to-know-widget {
-  ieoldcf();
-  &__slide {
+.c-need-to-know-widget{
+  .c-need-to-know-widget {
     ieoldcf();
-    img, div {
-      width: 46%;
-      float:left;
-    }
-    div {
-      width: 46%;
-      padding: 2%;
+    &__slide {
+      img, div {
+        width: 45%;
+        float:left;
+      }
+      div {
+        width: 45%;
+        padding: 2%;
+        p {
+          font-size: 22px;
+        }
+      }
     }
   }
 }
+
