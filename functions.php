@@ -49,12 +49,12 @@ function moj_autoload($cls)
 //     wp_enqueue_style('parent-style', get_template_directory_uri().'/assets/css/core.css');
 // }
 
-function enquene_core_script(){
+function enqueue_core_script(){
     
     wp_enqueue_script( 'core-js', get_stylesheet_directory_uri().'/assets/js/core.min.js' );
     
 }
-add_action( 'wp_enqueue_scripts','enquene_core_script'  );
+add_action( 'wp_enqueue_scripts','enqueue_core_script'  );
 
 
 
