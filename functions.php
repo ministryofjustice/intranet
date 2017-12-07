@@ -18,7 +18,8 @@ if (get_template_directory() === get_stylesheet_directory()) {
 * //LEGACY This function is not intended for plugin or theme use, so once the
 * old theme and MVC is deprecated we can look at the necessity of this function.
 */
-_wp_admin_bar_init();
+// temp commenting as this is giving Notice: wp_enqueue_script. 
+//_wp_admin_bar_init();
 
 /** Autoloader for inc */
 spl_autoload_register('moj_autoload');
@@ -43,10 +44,18 @@ function moj_autoload($cls)
 /** Not necessary because the styles are hardcoded on parent theme... */
 //add_action( 'wp_enqueue_scripts', 'enqueue_parent_styles' );
 
-function enqueue_parent_styles()
-{
-    wp_enqueue_style('parent-style', get_template_directory_uri().'/assets/css/core.css');
+// function enqueue_parent_styles()
+// {
+//     wp_enqueue_style('parent-style', get_template_directory_uri().'/assets/css/core.css');
+// }
+
+function enquene_core_script(){
+    
+    wp_enqueue_script( 'core-js', get_stylesheet_directory_uri().'/assets/js/core.min.js' );
+    
 }
+add_action( 'wp_enqueue_scripts','enquene_core_script'  );
+
 
 
 /**
