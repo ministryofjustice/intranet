@@ -67,6 +67,10 @@ if (!defined('GT_CODE')) {
    * Activate by adding ?devtools=true to the end of the page url.
    */
    ?>
-  <?php if($_GET['devtools'] === 'true') get_component('c-clarity-toolbar'); ?>
+  <?php 
+    if ($_SERVER['HTTP_HOST'] == 'intranet.dev.wp.dsd.io') {
+      if($_GET['devtools'] === 'true') get_component('c-clarity-toolbar');
+    }
+  ?>
   <a class="u-skip-link" href="#maincontent">Skip to main content</a>
   <?php get_component('c-header-container'); ?>
