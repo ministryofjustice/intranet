@@ -18,7 +18,7 @@ if (get_template_directory() === get_stylesheet_directory()) {
 * //LEGACY This function is not intended for plugin or theme use, so once the
 * old theme and MVC is deprecated we can look at the necessity of this function.
 */
-// temp commenting as this is giving Notice: wp_enqueue_script. 
+// temp commenting as this is giving Notice: wp_enqueue_script.
 //_wp_admin_bar_init();
 
 /** Autoloader for inc */
@@ -50,9 +50,9 @@ function moj_autoload($cls)
 // }
 
 function enqueue_core_script(){
-    
+
     wp_enqueue_script( 'core-js', get_stylesheet_directory_uri().'/assets/js/core.min.js' );
-    
+
 }
 add_action( 'wp_enqueue_scripts','enqueue_core_script'  );
 
@@ -96,7 +96,7 @@ function get_intranet_code()
     $activeAgency = $oAgency->getCurrentAgency();
     $agency = $activeAgency['shortcode'];
 
-    if ($agency === 'law-commission' || $agency === 'noms' || $agency === 'ospt' || $agency === 'judicial-appointments-commission') {
+    if ($agency === 'noms' || $agency === 'ospt' || $agency === 'judicial-appointments-commission') {
       $agency = 'hq';
       return $agency;
     } else {
