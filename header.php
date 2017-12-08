@@ -3,7 +3,9 @@
 
     $oAgency = new Agency();
     $activeAgency = $oAgency->getCurrentAgency();
+
     $component_path = 'src/components/';
+
 ?>
 
 <!DOCTYPE html>
@@ -82,3 +84,4 @@ if (!defined('GT_CODE')) {
   ?>
   <a class="u-skip-link" href="#maincontent">Skip to main content</a>
   <?php get_template_part($component_path.'c-header-container/view'); ?>
+
