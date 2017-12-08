@@ -3,6 +3,7 @@
 
     $oAgency = new Agency();
     $activeAgency = $oAgency->getCurrentAgency();
+    $component_path = 'src/components/';
 ?>
 
 <!DOCTYPE html>
@@ -10,8 +11,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-  <meta name="theme-color" content="<?php echo $agency_colour; ?>">
-  <title><?php echo $agency_title; ?> | Ministry of Justice intranet</title>
+  <meta name="theme-color" content="<?php //echo $agency_colour; ?>">
+  <title><?php echo $activeAgency['label']; ?> | Ministry of Justice intranet</title>
   <link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri(); ?>/assets/css/core.min.css" media="screen">
   <link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri(); ?>/assets/css/print.min.css" media="print">
   <script src="<?php echo get_stylesheet_directory_uri(); ?>/assets/vendors/jquery.min.js" charset="utf-8"></script>
@@ -76,8 +77,8 @@ if (!defined('GT_CODE')) {
    ?>
   <?php 
     if ($_SERVER['HTTP_HOST'] == 'intranet.dev.wp.dsd.io') {
-      if($_GET['devtools'] === 'true') get_component('c-clarity-toolbar');
+      if($_GET['devtools'] === 'true') get_template_part($component_path.'c-clarity-toolbar/view');
     }
   ?>
   <a class="u-skip-link" href="#maincontent">Skip to main content</a>
-  <?php get_component('c-header-container'); ?>
+  <?php get_template_part($component_path.'c-header-container/view'); ?>
