@@ -15,6 +15,7 @@ docker/bedrock_volume/config
 docker/bedrock_volume/*.json
 docker/bedrock_volume/*.js
 docker/bedrock_volume/*.lock
+docker/bedrock_volume/node_modules
 
 # wordpress specific
 wp-content/uploads/
