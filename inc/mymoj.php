@@ -13,14 +13,13 @@ class MyMOJ
 
         $menu_items = get_field($agency . '_quick_links', 'option');
 
-        if (isset($menu_items)) {
+        if ($menu_items) {
             foreach ($menu_items as $menu_item) {
                 $quick_link['title'] = $menu_item['quick_link_title'];
                 $quick_link['url'] = $menu_item['quick_link_url'];
                 $data[] = $quick_link;
             }
         }
-
         return $data;
     }
 
@@ -30,7 +29,7 @@ class MyMOJ
 
         $menu_items = get_field($agency .'_my_work_links', 'option');
 
-        if (isset($menu_items)) {
+        if ($menu_items) {
             foreach ($menu_items as $menu_item) {
                 $my_work_link['title'] = $menu_item['my_work_link_title'];
                 $my_work_link['url'] = $menu_item['my_work_link_url'];

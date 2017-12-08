@@ -55,7 +55,8 @@ class Agency
           [
             'url' => site_url('/about-hmcts/justice-matters/'),
             'label' => 'Justice Matters',
-            'classes' => 'transformation'
+            'classes' => 'transformation',
+            'is_external' => true
           ]
         ]
       ],
