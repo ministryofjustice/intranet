@@ -18,8 +18,7 @@ if (get_template_directory() === get_stylesheet_directory()) {
 * //LEGACY This function is not intended for plugin or theme use, so once the
 * old theme and MVC is deprecated we can look at the necessity of this function.
 */
-// temp commenting as this is giving Notice: wp_enqueue_script. 
-//_wp_admin_bar_init();
+add_action('init', '_wp_admin_bar_init');
 
 /** Autoloader for inc */
 spl_autoload_register('moj_autoload');

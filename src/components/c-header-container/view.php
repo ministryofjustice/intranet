@@ -1,9 +1,8 @@
-<?php $component_path = 'src/components/'; ?>
 <header class="c-header-container" role="banner">
   <?php
-    get_template_part($component_path.'c-logo-bar/view');
-    get_template_part($component_path.'c-search-bar/view');
-    get_template_part($component_path.'c-main-nav-bar/view');
+    get_component('c-logo-bar');
+    get_component('c-search-bar');
+    get_component('c-main-nav-bar');
   ?>
   <!--[if lte IE 9]>
   <div class="u-message u-message--warning">
