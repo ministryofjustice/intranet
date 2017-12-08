@@ -69,7 +69,11 @@ if (!defined('GT_CODE')) {
    ?>
   <?php 
     if ($_SERVER['HTTP_HOST'] == 'intranet.dev.wp.dsd.io') {
-      if($_GET['devtools'] === 'true') get_component('c-clarity-toolbar');
+      if(isset($_GET['devtools'])){
+        if($_GET['devtools'] === 'true') {
+          get_component('c-clarity-toolbar');
+        }
+      }
     }
   ?>
   <a class="u-skip-link" href="#maincontent">Skip to main content</a>
