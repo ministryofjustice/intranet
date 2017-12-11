@@ -1,6 +1,6 @@
 <header class="c-header-container" role="banner">
   <?php
-    get_component('c-logo-bar/');
+    get_component('c-logo-bar');
     get_component('c-search-bar');
     get_component('c-main-nav-bar');
   ?>

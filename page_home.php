@@ -20,7 +20,7 @@ $fullWidthTopBanner = HomepageBanners::getTopBanner(get_intranet_code());
     <?php get_template_part( 'src/components/c-phase-banner/view' ) ?>
     <?php //get_component('c-phase-banner'); ?>
 <?php if ($emergencyBanner && $emergencyBanner['visible']) { ?>
-    <?php get_component('c-emergency-banner'); ?>
+    <?php get_component('c-emergency-banner', $emergencyBanner); ?>
 <?php } ?>
 <?php if ($fullWidthTopBanner && $fullWidthTopBanner['visible']) { ?>
     <?php get_component('c-full-width-banner', $fullWidthTopBanner); ?>
