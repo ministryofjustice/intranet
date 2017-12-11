@@ -1,6 +1,6 @@
 <?php
 /*
-*  Agency switcher
+*  Template name: Agency switcher
 */
 ?>
 <?php get_header(); ?>
