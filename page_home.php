@@ -16,9 +16,7 @@ $emergencyBanner = HomepageBanners::getEmergencyBanner(get_intranet_code());
 $fullWidthTopBanner = HomepageBanners::getTopBanner(get_intranet_code());
 ?>
     <div id="maincontent" class="u-wrapper l-main t-home">
-
     <?php get_template_part( 'src/components/c-phase-banner/view' ) ?>
-    <?php //get_component('c-phase-banner'); ?>
 <?php if ($emergencyBanner && $emergencyBanner['visible']) { ?>
     <?php get_component('c-emergency-banner', $emergencyBanner); ?>
 <?php } ?>
