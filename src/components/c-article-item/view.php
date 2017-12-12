@@ -15,7 +15,23 @@ $thumbnail_url = $thumbnail[0];
 
 ?>
 <article class="c-article-item js-article-item">
-  <img src="<?php echo $thumbnail_url;?>" alt="<?php echo $alt_text;?>">
+  <?php
+  // If the 'blog' value has been passed to $config: Display the byline.
+  if ($config === 'blog') {
+  ?>
+    <?php 
+      if (isset($thumbnail_url)){
+        ?>
+          <img src="<?php echo $thumbnail_url;?>" alt="<?php echo $alt_text;?>">
+        <?php 
+      } else {
+        ?>
+          <img src="<?php echo $authors[0]['thumbnail_url'];;?>" alt="<?php echo $alt_text;?>">
+        <?php
+      }
+  } else { ?>
+    <img src="<?php echo $thumbnail_url;?>" alt="<?php echo $alt_text;?>">
+  <?php } ?>
   <h1><a href="<?php echo get_the_permalink($id);?>"><?php echo get_the_title($id);?></a></h1>
   <?php
   // If the 'show_excerpt' value has been passed to $config: Display the excerpt.
