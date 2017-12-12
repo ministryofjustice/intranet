@@ -20,7 +20,9 @@ $thumbnail_url = $thumbnail[0];
   <?php
   // If the 'show_excerpt' value has been passed to $config: Display the excerpt.
   if ($config === 'show_excerpt') { ?>
-    <?php get_component('c-article-excerpt'); ?>
+    <div class="c-article-exceprt">
+      <p><?php echo get_the_excerpt( $id ) ?></p>
+    </div> 
   <?php } ?>
   <span class="c-article-item__dateline"><?php echo get_the_time('j M Y', $id);?></span>
 
