@@ -82,6 +82,7 @@ gulp.task('stylus', function () {
     'src/globals/css/*.styl',
     '!src/**/*.print.styl',
     '!src/**/*.ie.styl',
+    '!src/**/*.ie8.styl',
     'src/components/**/*.styl'
   ])
     // Plumber is there to catch errors in the pipes
@@ -128,6 +129,21 @@ gulp.task('ie', function () {
     .pipe(browserSync.stream())
 })
 
+gulp.task('ie8', function () {
+  // Process ie8 styles as seperate stylesheets
+  return gulp.src('src/**/*.ie8.styl')
+    .pipe(plumber())
+    .pipe(stylus({
+      'include css': true,
+      use: [jeet(), rupture()]
+    }))
+    .pipe(concat('ie8.css'))
+    // move the file to the assets folder
+    .pipe(gulp.dest('assets/css'))
+    // Reload the browser CSS after every change
+    .pipe(browserSync.stream())
+})
+
 gulp.task('postcss', function () {
   return gulp.src('assets/css/*.css')
   .pipe(plumber())
@@ -149,7 +165,7 @@ gulp.task('postcss', function () {
 })
 
 gulp.task('styles', function (done) {
-  runSequence('clean-styles', 'stylus', 'print', 'ie', 'postcss', function () {
+  runSequence('clean-styles', 'stylus', 'print', 'ie', 'ie8', 'postcss', function () {
     done()
   })
 })
@@ -275,6 +291,7 @@ gulp.task('watch', ['build'], function () {
   gulp.watch(['src/**/*.styl'], ['styles', 'resync'])
   gulp.watch(['src/**/*.print.styl'], ['print', 'resync'])
   gulp.watch(['src/**/*.ie.styl'], ['ie', 'resync'])
+  gulp.watch(['src/**/*.ie8.styl'], ['ie8', 'resync'])
   /* Watch js file, run the scripts task on change. */
   gulp.watch(['src/**/*.js'], ['scripts', 'resync'])
   /* Watch php file, run the php task on change. */

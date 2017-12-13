@@ -16,13 +16,19 @@
     },
     "backend_classes": {},
     "has_js": false,
-    "integrated": false,
-    "is_working": false,
-    "screenshot": "",
+    "integrated": true,
+    "is_working": true,
     "example_link": "",
-    "changelog": [{
-        "date": "23/4/2017",
-        "author": "Alex Foxleigh",
-        "description": "Created component"
-    }]
+    "changelog": [
+        {
+            "date": "04/12/2017",
+            "author": "Adam",
+            "description": "Added component switching to make custom agency homepages."
+        },
+        {
+            "date": "23/4/2017",
+            "author": "Alex Foxleigh",
+            "description": "Created component"
+        }
+    ]
 }

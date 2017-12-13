@@ -6,7 +6,7 @@
             "key": "field_5a019a8305e87",
             "label": "Beta Banner Text",
             "name": "beta_banner_text",
-            "type": "wysiwyg",
+            "type": "textarea",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -16,9 +16,10 @@
                 "id": ""
             },
             "default_value": "",
-            "tabs": "all",
-            "toolbar": "full",
-            "media_upload": 1
+            "placeholder": "",
+            "maxlength": "",
+            "rows": "",
+            "new_lines": ""
         }
     ],
     "location": [
@@ -26,7 +27,7 @@
             {
                 "param": "options_page",
                 "operator": "==",
-                "value": "acf-options-header-banner"
+                "value": "acf-options-phase-banner"
             }
         ]
     ],
@@ -38,5 +39,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1510057057
+    "modified": 1512052715
 }

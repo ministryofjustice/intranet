@@ -16,7 +16,6 @@ Nice to have: [NTH]
 
 ## Tasks
 
-1. Add 'used on templates' field
 2. Update wiki to include new thumbnail process
 
 ## Hacks

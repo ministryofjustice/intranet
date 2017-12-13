@@ -30,6 +30,7 @@
   button {
     position: absolute;
     right:0;
+    border-radius: 0;
     background-color: $primary;
     color: $light;
     span {
@@ -41,18 +42,69 @@
     }
   }
 
-  // PARENT OVERRIDES
+  // PARENT OVERRIDES such as the styling of agencies for this component.
   .c-header-container & {
     background-color: $primary;
     padding: $spacing*2 0;
+
     input {
       border: 0;
     }
+
     button {
       background-color: $dark;
     }
+
+    .agency-cica & {
+     background-color: $cica_primary;
+    }
+
+    .agency-hmcts & {
+     background-color: $hmcts_primary;
+    }
+
+    .agency-noms & {
+     background-color: $hmpps_primary;
+    }
+
+    .agency-jac & {
+     background-color: $jac_primary;
+    }
+
+    .agency-judicial-office & {
+     background-color: $jo_primary;
+    }
+
+    .agency-lc & {
+     background-color: $lc_primary;
+    }
+
+    .agency-laa & {
+     background-color: $laa_primary;
+    }
+
+    .agency-hq & {
+     background-color: $hq_primary;
+    }
+
+    .agency-nps & {
+     background-color: $nps_primary;
+    }
+
     .agency-opg & {
      background-color: $opg_primary;
+    }
+
+    .agency-ospt & {
+     background-color: $ospt_primary;
+    }
+
+    .agency-pb & {
+     background-color: $pb_primary;
+    }
+
+    .agency-ppo & {
+     background-color: $ppo_primary;
     }
   }
 

@@ -15,12 +15,18 @@
         "frontend": ""
     },
     "has_js": false,
-    "integrated": false,
-    "screenshot": "https://lh6.googleusercontent.com/_2uD9nTwdXM9kff3E6je6e6YXDrT8rR_geG6P3TfOx-AY5rhIrVrlUo6ZyPTO2QJbVPGDi8--92IXSo=w2572-h1428",
+    "integrated": true,
     "example_link": "https://intranet.dev.wp.dsd.io/",
-    "changelog": [{
+    "used_on_templates": [],
+        {
+            "date": "30/11/17",
+            "author": "Adam",
+            "description": "Changed highlight colour of link box"
+        },
+        {
         "date": "02/02/17",
         "author": "Alex Foxleigh",
         "description": "Created component"
-    }]
+        }
+    ]
 }

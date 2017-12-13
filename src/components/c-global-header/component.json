@@ -16,18 +16,13 @@
     },
     "backend_classes": {},
     "has_js": false,
-    "integrated": true,
-    "is_working": true,
-    "screenshot": "https://lh4.googleusercontent.com/a6_pe0C338400XP02Zl4n2w3NhmJka_7aCxz2taOG-9ibBZgsIXk26Ht7r5kNPu3qiYPYdHjX0ggHgI=w2572-h1428-rw",
+    "integrated": false,
+    "is_working": false,
     "example_link": "http://intranet.justice.gov.uk",
+    "used_on_templates": [],
     "changelog": [{
         "date": "02/02/17",
         "author": "Alex Foxleigh",
         "description": "Created component"
-    },
-    {
-      "date": "08/11/17",
-      "author": "Adam Brown",
-      "description": "Improved integration into WP."
     }]
 }

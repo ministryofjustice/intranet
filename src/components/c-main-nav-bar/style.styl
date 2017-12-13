@@ -3,7 +3,10 @@
 
 .c-main-nav-bar {
   background-color: $boxBg;
-  border-bottom: 1px solid $border;
+
+  .current-menu-item {
+    background: #fff;
+  }
 
   ul {
     display: table;
@@ -11,7 +14,6 @@
   }
 
   li {
-    border-bottom: 1px solid $border;
     &:last-of-type {
       border-bottom: 0;
     }
@@ -31,9 +33,6 @@
       a:hover, a:focus {
         background-color: $light;
         text-decoration: none;
-        +above(m) {
-          border-bottom: 1px solid transparent;
-        }
       }
     }
   }
@@ -45,10 +44,6 @@
     color: $text;
     text-decoration: none;
     font-weight: bold;
-
-    +above(m) {
-      border-bottom: 1px solid transparent;
-    }
 
     &:hover {
       background-color: darken($boxBg, 15%);

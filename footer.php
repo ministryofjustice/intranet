@@ -17,7 +17,7 @@
       <?php get_component('c-copyright-notice'); ?>
   </div>
 </footer>
-<script src="<?php echo get_assets_folder(); ?>/js/core.min.js" charset="utf-8"></script>
+
 
 <?php
   /**
