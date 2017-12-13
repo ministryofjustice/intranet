@@ -23,7 +23,6 @@ $fullWidthTopBanner = HomepageBanners::getTopBanner(get_intranet_code());
 <?php if ($fullWidthTopBanner && $fullWidthTopBanner['visible']) { ?>
     <?php get_component('c-full-width-banner', $fullWidthTopBanner); ?>
 <?php } ?>
-        <h1 class="o-title o-title--page"><?php echo $activeAgency['label'];?></h1>
         <?php get_component('c-home-page-primary'); ?>
         <?php get_component('c-home-page-secondary'); ?>
     </div>
