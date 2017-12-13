@@ -1,7 +1,7 @@
 <?php if (!defined('ABSPATH')) { die(); }
 
 /**
- * Template name: Media grid test
+ * Media grid test
  */
 get_header();
 ?>
