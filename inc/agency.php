@@ -219,6 +219,18 @@ class Agency
                     'name' => 'yammer',
                 ]
             ],
+            'law-commission' => [
+                [
+                    'url' => 'https://twitter.com/Law_Commission',
+                    'label' => 'Law Commission on Twitter',
+                    'name' => 'twitter',
+                ],
+                [
+                    'url' => 'https://www.linkedin.com/company/law-commission-england-and-wales-',
+                    'label' => 'Law Commission on LinkedIn',
+                    'name' => 'linkedin',
+                ]
+            ],
             'hmcts' => [
                 [
                     'url' => 'https://twitter.com/CEOofHMCTS',
