@@ -18,7 +18,7 @@ $archives_args = array(
 
 $year = '';
 $month = '';
-$keyword = '';
+$keyword = sanitize_text_field( $_POST[ 'ff_keywords_filter' ] );;
 $agency_name = $activeAgency['shortcode'];
 
 $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
@@ -57,7 +57,7 @@ $total_page_number = $query->max_num_pages;
         <?php $prefix = 'ff'; ?>
         <section class="c-content-filter">
             <p>The results will update automatically based on your selections.</p>
-            <form action="" id="<?php echo $prefix; ?>">
+            <form action="" id="<?php echo $prefix; ?>" action="post">
                 <div class="c-input-container c-input-container--select">
                 <label for="ff_date_filter">Date<span class="c-input-container--required">*</span>
                 :</label>
@@ -77,7 +77,7 @@ $total_page_number = $query->max_num_pages;
         <div id="maincontent" class="u-wrapper l-main t-campaign">
             <section class="c-blog-feed">
                 <h1 class="o-title o-title--section">Latest</h1>
-                <div>
+                <div id="content">
                 <?php
                     if ( $query->have_posts() ) {
                         while ( $query->have_posts() ) {    
