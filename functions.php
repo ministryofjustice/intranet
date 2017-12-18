@@ -50,11 +50,7 @@ function moj_autoload($cls)
 
 function enqueue_core_script(){
 
-    wp_enqueue_script( 'core-js', get_stylesheet_directory_uri().'/assets/js/core.min.js', array(), 'v1.7.5' );
-    wp_enqueue_style( 'core-style', get_stylesheet_directory_uri().'/assets/css/core.min.css', array(), 'v.1.1');
-    wp_enqueue_style( 'print-style', get_stylesheet_directory_uri().'/assets/css/print.min.css', array(), 'v1.0', 'print' );
-    
-
+    wp_enqueue_script( 'core-js', get_stylesheet_directory_uri().'/assets/js/core.min.js' );
 }
 add_action( 'wp_enqueue_scripts','enqueue_core_script'  );
 
@@ -126,7 +122,7 @@ function set_intranet_cookie()
         setcookie('dw_agency', $default_agency, time()+ (3650 * DAY_IN_SECONDS), COOKIEPATH, COOKIE_DOMAIN);
         $_COOKIE['dw_agency'] = $default_agency;
     }
-    
+
 }
 
 /**
@@ -315,13 +311,13 @@ add_action( 'wp_enqueue_scripts', 'ajax_search_enqueues' );
 
 function load_search_results() {
     $query = $_POST['query'];
-    
+
     $args = array(
         'paged' => $paged,
         'posts_per_page' => 5,
         'post_type' => 'post',
         'post_status' => 'publish',
-        
+
         's' => $query
     );
     $search = new WP_Query( $args );
@@ -330,11 +326,11 @@ function load_search_results() {
     $next_page_number = $paged+1;
 
     $total_page_number = $query->max_num_pages;
-    
+
     ob_start();
-    
-    if ( $search->have_posts() ) : 
-    
+
+    if ( $search->have_posts() ) :
+
     ?>
 
 		<?php
@@ -343,22 +339,21 @@ function load_search_results() {
             endwhile;
             ?>
             <nav class="c-pagination" role="navigation" aria-label="Pagination Navigation">
-                <?php 
+                <?php
                     echo previous_posts_link( '<span class="c-pagination__main">Previous page</span><span class="c-pagination__count">'.$prev_page_number.' of '.$total_page_number.'</span>' );
-                    echo next_posts_link( '<span class="c-pagination__main">Next page</span><span class="c-pagination__count">'.$next_page_number.' of '.$total_page_number.'</span>', $total_page_number );          
+                    echo next_posts_link( '<span class="c-pagination__main">Next page</span><span class="c-pagination__count">'.$next_page_number.' of '.$total_page_number.'</span>', $total_page_number );
                 ?>
-            </nav> 
+            </nav>
             <?php
 	else :
 		echo 'nothing';
 	endif;
-	
+
 	$content = ob_get_clean();
-	
+
 	echo $content;
 	die();
-			
+
 }
 add_action( 'wp_ajax_load_search_results', 'load_search_results' );
 add_action( 'wp_ajax_nopriv_load_search_results', 'load_search_results' );
-

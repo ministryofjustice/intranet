@@ -157,6 +157,44 @@ class MyMOJ
             'external' => true,
           ],
         ],
+        'law-commission' => [
+          [
+            'title' => 'People finder',
+            'icon' => 'people-finder',
+            'url' => 'https://peoplefinder.service.gov.uk/',
+            'external' => true,
+          ],
+          [
+            'title' => 'SOP',
+            'icon' => 'sop',
+            'url' => site_url('/guidance/hr/sop/'),
+            'external' => false,
+          ],
+          [
+            'title' => 'Room booking',
+            'icon' => 'room-booking',
+            'url' => 'https://app.matrixbooking.com/',
+            'external' => true,
+          ],
+          [
+            'title' => 'Travel booking',
+            'icon' => 'travel-booking',
+            'url' => 'https://www.trips.uk.com/js/SABS/Corporate.html',
+            'external' => true,
+          ],
+          [
+            'title' => 'IT portal',
+            'icon' => 'it-portal',
+            'url' => 'http://itportal.dom1.infra.int:8080/Pages/default.aspx',
+            'external' => true,
+          ],
+          [
+            'title' => 'Civil Service Learning',
+            'icon' => 'civil-service-learning',
+            'url' => 'https://civilservicelearning.civilservice.gov.uk/',
+            'external' => true,
+          ]
+        ],
         'hq' => [
           [
             'title' => 'People finder',
