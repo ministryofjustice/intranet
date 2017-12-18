@@ -1,10 +1,13 @@
 <?php
 use MOJ\Intranet\Authors;
 
-$id = $data['id'];
+if ($config === 'archive'){
+  $id = get_the_ID();
+}else{
+  $id = $data['id'];
+}
 
 $post_object = get_post($id);
-
 $thumbnail_type = 'intranet-large';
 $thumbnail_id = get_post_thumbnail_id($id);
 $thumbnail = wp_get_attachment_image_src($thumbnail_id, $thumbnail_type);
@@ -15,7 +18,9 @@ $thumbnail_url = $thumbnail[0];
 
 ?>
 <article class="c-article-item js-article-item">
+  
   <?php
+
   // If the 'blog' value has been passed to $config: Display the byline.
   if ($config === 'blog') {
   ?>

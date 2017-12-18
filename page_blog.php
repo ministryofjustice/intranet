@@ -18,7 +18,6 @@ $archives_args = array(
 
 $year = '';
 $month = '';
-$keyword = sanitize_text_field( $_POST[ 'ff_keywords_filter' ] );;
 $agency_name = $activeAgency['shortcode'];
 
 $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
@@ -35,7 +34,6 @@ $args = array(
 			'terms'    => $agency_name,
 		),
 	),
-    's' => $keyword,
     'year'  => $year,
     'monthnum' => $month,
 );
@@ -82,11 +80,12 @@ $total_page_number = $query->max_num_pages;
                     if ( $query->have_posts() ) {
                         while ( $query->have_posts() ) {    
                             $query->the_post();
-                            get_component('c-article-item', '', 'show_excerpt');
+                            get_component('c-article-item', '', 'archive');
                         }
                         
                     }
                     wp_reset_postdata();
+                    
                 ?>
                 </div>
             </section>
