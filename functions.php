@@ -51,10 +51,6 @@ function moj_autoload($cls)
 function enqueue_core_script(){
 
     wp_enqueue_script( 'core-js', get_stylesheet_directory_uri().'/assets/js/core.min.js' );
-    wp_enqueue_style( 'core-style', get_stylesheet_directory_uri().'/assets/css/core.min.css', array(), 'v1.1');
-    wp_enqueue_style( 'print-style', get_stylesheet_directory_uri().'/assets/css/print.min.css', array(), 'v1.0', 'print' );
-    
-
 }
 add_action( 'wp_enqueue_scripts','enqueue_core_script'  );
 
@@ -126,7 +122,7 @@ function set_intranet_cookie()
         setcookie('dw_agency', $default_agency, time()+ (3650 * DAY_IN_SECONDS), COOKIEPATH, COOKIE_DOMAIN);
         $_COOKIE['dw_agency'] = $default_agency;
     }
-    
+
 }
 
 /**
