@@ -1,8 +1,8 @@
-<?php 
+<?php
 /**
  *
- * Template Name: Blog Landing Page
- * 
+ * Template Name: Blog archive page
+ *
  **/
 use MOJ\Intranet\Agency;
 $oAgency = new Agency();
@@ -10,30 +10,31 @@ $activeAgency = $oAgency->getCurrentAgency();
 
 get_header();
 
-$archives_args = array( 
-    'type' => 'monthly', 
+$archives_args = [
+    'type' => 'monthly',
     'format' => 'custom',
-    'show_post_count' => false 
-);
+    'show_post_count' => false
+];
 
 $year = '';
 $month = '';
+
 $agency_name = $activeAgency['shortcode'];
 
 $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
 
-$args = array(
+$args = [
     'paged' => $paged,
     'posts_per_page' => 5,
     'post_type' => 'post',
     'post_status' => 'publish',
-    'tax_query' => array(
-		array(
+    'tax_query' => [
+		[
 			'taxonomy' => 'agency',
 			'field'    => 'slug',
 			'terms'    => $agency_name,
-		),
-	),
+		],
+	],
     'year'  => $year,
     'monthnum' => $month,
 );
@@ -51,7 +52,7 @@ $total_page_number = $query->max_num_pages;
         <h1 class="o-title o-title--page"><?php the_title(); ?></h1>
     </div>
     <div class="l-secondary">
-        
+
         <?php $prefix = 'ff'; ?>
         <section class="c-content-filter">
             <p>The results will update automatically based on your selections.</p>
@@ -70,7 +71,7 @@ $total_page_number = $query->max_num_pages;
                 ?>
             </form>
         </section>
-    </div>  
+    </div>
     <div class="l-primary">
         <div id="maincontent" class="u-wrapper l-main t-campaign">
             <section class="c-blog-feed">
@@ -78,23 +79,23 @@ $total_page_number = $query->max_num_pages;
                 <div id="content">
                 <?php
                     if ( $query->have_posts() ) {
-                        while ( $query->have_posts() ) {    
+                        while ( $query->have_posts() ) {
                             $query->the_post();
                             get_component('c-article-item', '', 'archive');
                         }
-                        
+
                     }
                     wp_reset_postdata();
-                    
+
                 ?>
                 </div>
             </section>
             <nav class="c-pagination" role="navigation" aria-label="Pagination Navigation">
-                <?php 
+                <?php
                     echo previous_posts_link( '<span class="c-pagination__main">Previous page</span><span class="c-pagination__count">'.$prev_page_number.' of '.$total_page_number.'</span>' );
-                    echo next_posts_link( '<span class="c-pagination__main">Next page</span><span class="c-pagination__count">'.$next_page_number.' of '.$total_page_number.'</span>', $total_page_number );          
+                    echo next_posts_link( '<span class="c-pagination__main">Next page</span><span class="c-pagination__count">'.$next_page_number.' of '.$total_page_number.'</span>', $total_page_number );
                 ?>
-            </nav> 
+            </nav>
         </div>
     </div>
 </div>

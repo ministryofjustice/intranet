@@ -23,7 +23,7 @@ add_action('init', '_wp_admin_bar_init');
 /** Autoloader for inc */
 spl_autoload_register('moj_autoload');
 
-function moj_autoload($cls)
+public function moj_autoload($cls)
 {
     $cls = ltrim($cls, '\\');
 
@@ -40,28 +40,18 @@ function moj_autoload($cls)
     require_once($path);
 }
 
-/** Not necessary because the styles are hardcoded on parent theme... */
-//add_action( 'wp_enqueue_scripts', 'enqueue_parent_styles' );
-
-// function enqueue_parent_styles()
-// {
-//     wp_enqueue_style('parent-style', get_template_directory_uri().'/assets/css/core.css');
-// }
-
-function enqueue_core_script(){
+public function enqueue_core_script(){
 
     wp_enqueue_script( 'core-js', get_stylesheet_directory_uri().'/assets/js/core.min.js' );
 }
 add_action( 'wp_enqueue_scripts','enqueue_core_script'  );
-
-
 
 /**
  * Pick up ACF fields from parent theme
  */
 add_filter('acf/settings/load_json', 'my_acf_json_load_point');
 
-function my_acf_json_load_point($paths)
+public function my_acf_json_load_point($paths)
 {
     // append path
     $paths[] = get_template_directory() . '/acf-json';
@@ -74,7 +64,7 @@ function my_acf_json_load_point($paths)
  * Return the assets folder in the child theme
  */
 
-function get_assets_folder()
+public function get_assets_folder()
 {
     return get_stylesheet_directory_uri().'/assets';
 }
@@ -88,7 +78,7 @@ function get_assets_folder()
  * As the dummy agencies get onboarded, they can be removed from here.
  *
  */
-function get_intranet_code()
+public function get_intranet_code()
 {
     $oAgency = new Agency();
     $activeAgency = $oAgency->getCurrentAgency();
@@ -110,7 +100,7 @@ function get_intranet_code()
  ***/
 add_action('init', 'set_intranet_cookie');
 
-function set_intranet_cookie()
+public function set_intranet_cookie()
 {
     $default_agency = 'hq';
 
@@ -133,7 +123,7 @@ function set_intranet_cookie()
  * @return true on success false on failure
  */
 
-function get_component($component, $data = null, $config = null)
+public function get_component($component, $data = null, $config = null)
 {
     $agency = get_intranet_code();
 
@@ -157,7 +147,7 @@ function get_component($component, $data = null, $config = null)
  * @return slugified string
  */
 
-function slugify($string)
+public function slugify($string)
 {
     $newstring = str_replace(' ', '-', $string);
     $newstring = strtolower($newstring);
@@ -180,7 +170,7 @@ function slugify($string)
  * @options [array] a list of options to use if using a select input type
  */
 
-function form_builder($type, $prefix, $label, $name, $id = '', $value = '', $placeholder = '', $class = '', $required = false, $validation = '', $options = '')
+public function form_builder($type, $prefix, $label, $name, $id = '', $value = '', $placeholder = '', $class = '', $required = false, $validation = '', $options = '')
 {
     $config = [
       'type' => $type,
@@ -208,7 +198,7 @@ function form_builder($type, $prefix, $label, $name, $id = '', $value = '', $pla
 
 add_action('init', 'register_my_menu');
 
-function register_my_menu()
+public function register_my_menu()
 {
     register_nav_menu('header-menu', __('Header Menu'));
 
@@ -249,7 +239,7 @@ if (function_exists('acf_add_options_page')) {
  ***/
 add_action('wp_head', 'feedback_form');
 
-function feedback_form()
+public function feedback_form()
 {
     if (isset($_POST['submit'])) {
         $form = [
@@ -280,46 +270,59 @@ function feedback_form()
         wp_mail($feedback_email, $feedback_subject, $feedback);
     }
 }
-add_action( 'wp_head', 'feedback_form' );
 
-function posts_link_attributes_prev() {
-    return 'class="c-pagination__link c-pagination__link--prev"';
-}
-function posts_link_attributes_next() {
-    return 'class="c-pagination__link c-pagination__link--next"';
-}
+
+/***
+ *
+ * Next and previous function used on all list/archive pages, ie, blogs, news.
+ *
+ ***/
+add_action( 'wp_head', 'feedback_form' );
 add_filter('next_posts_link_attributes', 'posts_link_attributes_prev');
 add_filter('previous_posts_link_attributes', 'posts_link_attributes_next');
 
+public function posts_link_attributes_prev() {
+    return 'class="c-pagination__link c-pagination__link--prev"';
+}
+public function posts_link_attributes_next() {
+    return 'class="c-pagination__link c-pagination__link--next"';
+}
 
-function custom_monthly_archive($link_html, $url, $text, $format){
+add_filter( 'get_archives_link', 'custom_monthly_archive', 10, 6 );
+
+public function custom_monthly_archive($link_html, $url, $text, $format){
     if( 'custom' === $format )
         $strip_url = str_replace('http://intranet.docker/blog/', '', $url);
         $link_html = '<option value='.$strip_url.'>'.$text.'</option>';
     return $link_html;
 }
-add_filter( 'get_archives_link', 'custom_monthly_archive', 10, 6 );
 
+/***
+ *
+ * Search engine related functions
+ *
+ ***/
+add_action( 'wp_enqueue_scripts', 'ajax_search_enqueues' );
 
-function ajax_search_enqueues() {
+public function ajax_search_enqueues() {
     	wp_enqueue_script( 'ajax-search', get_stylesheet_directory_uri() . '/tests/js-test/blog-content_filter.js', array( ), '1.0.2', true );
         wp_localize_script( 'ajax-search', 'myAjax', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ) );
 }
 
-add_action( 'wp_enqueue_scripts', 'ajax_search_enqueues' );
+add_action( 'wp_ajax_load_search_results', 'load_search_results' );
+add_action( 'wp_ajax_nopriv_load_search_results', 'load_search_results' );
 
-
-function load_search_results() {
+public function load_search_results() {
     $query = $_POST['query'];
 
-    $args = array(
+    $args = [
         'paged' => $paged,
         'posts_per_page' => 5,
         'post_type' => 'post',
         'post_status' => 'publish',
 
         's' => $query
-    );
+    ];
     $search = new WP_Query( $args );
 
     $prev_page_number = $paged-1;
@@ -355,5 +358,3 @@ function load_search_results() {
 	die();
 
 }
-add_action( 'wp_ajax_load_search_results', 'load_search_results' );
-add_action( 'wp_ajax_nopriv_load_search_results', 'load_search_results' );
