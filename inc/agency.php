@@ -9,12 +9,12 @@ class Agency
 {
     public function getContactEmailAdress($agency = 'hq')
     {
-        $agencies = $this->getList();
+        $agency_array = $this->getList();
 
-        if (isset($agencies[$agency]) && $agencies[$agency]['is_integrated'] == true && !empty($agencies[$agency]['contact_email_address'])) {
-            return $agencies[$agency]['contact_email_address'];
+        if (isset($agency_array[$agency]) && $agency_array[$agency]['is_integrated'] == true && !empty($agency_array[$agency]['contact_email_address'])) {
+            return $agency_array[$agency]['contact_email_address'];
         } else {
-            return $agencies['hq']['contact_email_address'];
+            return $agency_array['hq']['contact_email_address'];
         }
     }
 

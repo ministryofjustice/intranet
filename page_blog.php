@@ -37,7 +37,7 @@ $args = [
 	],
     'year'  => $year,
     'monthnum' => $month,
-);
+];
 $query = new WP_Query( $args );
 
 $prev_page_number = $paged-1;
@@ -48,11 +48,20 @@ $total_page_number = $query->max_num_pages;
 ?>
 
 <div class="l-main u-wrapper">
+
     <div class="l-full-page">
         <h1 class="o-title o-title--page"><?php the_title(); ?></h1>
     </div>
-    <div class="l-secondary">
 
+  <?php
+  /**
+  *
+  * Search component
+  *
+  **/
+  ?>
+
+    <div class="l-secondary">
         <?php $prefix = 'ff'; ?>
         <section class="c-content-filter">
             <p>The results will update automatically based on your selections.</p>
@@ -72,6 +81,15 @@ $total_page_number = $query->max_num_pages;
             </form>
         </section>
     </div>
+
+    <?php
+    /**
+    *
+    * Return list of posts
+    *
+    **/
+    ?>
+
     <div class="l-primary">
         <div id="maincontent" class="u-wrapper l-main t-campaign">
             <section class="c-blog-feed">
