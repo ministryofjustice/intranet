@@ -1,4 +1,7 @@
 <?php
+use MOJ\Intranet\Agency;
+use MOJ\Intranet\HomepageBanners;
+
 /**
 *
 * This pulls in the components needed for the homepage sidebar.
@@ -6,14 +9,9 @@
 * This ensures we can have a custom homepage sidebar for each agency.
 *
 */
-use MOJ\Intranet\Agency;
-use MOJ\Intranet\HomepageBanners;
-
 $oAgency = new Agency();
-
-// $activeAgency returns an array of agency properties. This array can be found in /inc/agency.php
-$activeAgency  = $oAgency->getCurrentAgency();
-$agency        = $activeAgency['shortcode'];
+$activeAgency = $oAgency->getCurrentAgency();
+$agency = $activeAgency['shortcode'];
 $sidebarBanner = HomepageBanners::getSidebarBanner(get_intranet_code());
 
 ?>

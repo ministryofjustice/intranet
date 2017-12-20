@@ -1,4 +1,6 @@
 <?php
+use MOJ\Intranet\Agency;
+
 /**
 *
 * This pulls in the components needed for the homepage primary area.
@@ -6,29 +8,26 @@
 * This ensures we can have a custom homepage.
 *
 */
-use MOJ\Intranet\Agency;
-
-$oAgency      = new Agency();
-// $activeAgency returns an array of agency properties. This array can be found in /inc/
+$oAgency = new Agency();
 $activeAgency = $oAgency->getCurrentAgency();
-$agency       = $activeAgency['shortcode'];
+$agency = $activeAgency['shortcode'];
 
 ?>
 <!-- c-home-page-primary starts here -->
 <section class="c-home-page-primary l-primary" role="main">
 
-  <?php get_component('c-news-widget'); ?>
+  <?php get_template_part('src/components/c-news-widget/view'); ?>
 
   <?php
   // removes sliding Need to Know gallery from agency homepage.
    if ($agency !== 'opg' && $agency !== 'pb' && $agency !== 'cica' && $agency !== 'judicial-office') {
-       get_component('c-need-to-know-widget');
+       get_template_part('src/components/c-need-to-know-widget/view');
    }
    ?>
   <?php
   // removes event listing from agency homepage.
    if ($agency !== 'laa' && $agency !== 'hmcts') {
-       get_component('c-events-widget');
+       get_template_part('src/components/c-events-widget/view');
    }
    ?>
 </section>
