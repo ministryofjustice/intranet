@@ -1,5 +1,5 @@
 <?php 
-
+// this is a plugin 'co authors plus', as standard it's not included into the core WP api, this function includes it
 if ( function_exists('get_coauthors') ) {
     add_action( 'rest_api_init', 'custom_register_coauthors' );
     function custom_register_coauthors() {
