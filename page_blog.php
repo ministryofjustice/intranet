@@ -12,6 +12,7 @@ get_header();
 $oAgency = new Agency();
 $activeAgency = $oAgency->getCurrentAgency();
 
+get_post_api();
 ?>
   <div id="maincontent" class="u-wrapper l-main l-reverse-order t-article-list">
     <h1 class="o-title o-title--page"><?php the_title(); ?></h1>
