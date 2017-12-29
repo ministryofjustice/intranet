@@ -5,13 +5,12 @@ if (!defined('ABSPATH')) die();
 
 class Posts {
 
-    var $searchHelper;
+    public $searchHelper;
 
     function __construct()
     {
         $this->searchHelper = new HelperSearch();
     }
-
 
     /** Get a list of posts
      * @param {Array} $options Options and filters (see search model for details)
