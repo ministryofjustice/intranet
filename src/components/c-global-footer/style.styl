@@ -3,11 +3,13 @@
 
 .c-footer {
   padding: $spacing;
-  border-top: 1px solid $border;
   background: $boxBg;
   +above(m) {
     clearfix();
     padding: 0;
     margin-top: $spacing*4;
+  }
+  .c-copyright {
+    color: #3c3c3b;
   }
 }

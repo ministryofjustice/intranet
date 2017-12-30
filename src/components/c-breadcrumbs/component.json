@@ -16,13 +16,20 @@
     },
     "backend_classes": {},
     "has_js": false,
-    "integrated": false,
-    "is_working": false,
+    "integrated": true,
+    "is_working": true,
     "example_link": "https://intranet.justice.gov.uk/blog/a-journey-into-skype/",
     "used_on_templates": [],
-    "changelog": [{
-        "date": "25/3/2017",
-        "author": "Alex Foxleigh",
-        "description": "Created component"
-    }]
+    "changelog": [
+        {
+            "date": "29/12/2017",
+            "author": "Adam",
+            "description": "Prepared component for production."
+        },
+        {
+            "date": "25/3/2017",
+            "author": "Alex Foxleigh",
+            "description": "Created component"
+        }
+    ]
 }

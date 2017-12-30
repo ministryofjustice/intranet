@@ -4,7 +4,7 @@
       <?php get_component('c-feedback-container'); ?>
       <?php get_component('c-footer-nav'); ?>
     </div>
-    <div class="l-secondary">
+    <div class="l-secondary c-copyright">
       <?php get_component('c-copyright-notice'); ?>
   </div>
 </footer>
