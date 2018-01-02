@@ -8,7 +8,6 @@
 
         <p>We're sending an email to <span class="recipient-email"></span>. This can take up to 5 minutes.</p>
         <p>Open the email and click on the link. This will take you back to the intranet where you can start commenting.</p>
-        <p>The link is active for 3 hours so you must click on it within that time.</p>
 
         <h2>Any problems?</h2>
 
