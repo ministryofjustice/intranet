@@ -4,6 +4,11 @@
  * Template name: MOJ Home page
  *
  */
+ // Exit if accessed directly
+ if (! defined('ABSPATH')) {
+     die();
+ }
+
 get_header();
 
 use MOJ\Intranet\Agency;
