@@ -17,10 +17,9 @@
     "issues": "https://github.com/ministryofjustice/intranet/issues"
   },
   "require": {
-    "php": ">=5.7",
-    "composer/installers": "~1.2.0"
+    "php": ">=5.7"
   },
   "extra" : {
     "installer-name": "intranet"
   }
-}
+
