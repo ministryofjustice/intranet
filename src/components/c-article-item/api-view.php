@@ -1,7 +1,3 @@
-<?php 
-
-?>
-
 <article class="c-article-item js-article-item">
     <h1>
         <a href="<?php echo $post->link ?>"><?php echo $post->title->rendered?></a>

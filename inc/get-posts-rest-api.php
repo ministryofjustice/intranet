@@ -17,7 +17,6 @@ if ( function_exists('get_coauthors') ) {
         $coauthors = get_coauthors($object['id']);
  
         $authors = array();
-        //print_r($coauthors);
         foreach ($coauthors as $author) {
             $authors[] = array(
                 'display_name' => $author->display_name,
@@ -42,32 +41,38 @@ function get_post_api() {
     
     $pagetotal = wp_remote_retrieve_header( $response, 'x-wp-totalpages' );
     
-    $posts = json_decode( wp_remote_retrieve_body( $response ) );
+    $posts = json_decode( wp_remote_retrieve_body( $response ), true );
 
-    echo '<pre>';
+    //echo '<pre>';
     //print_r($posts);
-    echo '</pre>';
+    //echo '</pre>';
 
 	if( empty( $posts ) ) {
 		return;
     }
     
     if( !empty( $posts ) ) {
-		foreach( $posts as $post ) {
+		foreach( $posts as $key => $post ) {
+
             ?>
                 <article class="c-article-item js-article-item">
-                    <h1>
-                        <a href="<?php echo $post->link ?>"><?php echo $post->title->rendered?></a>
-                    </h1>
-                    <div class="c-article-exceprt">
-                        <p><?php echo $post->excerpt->rendered ?></p>
-                    </div>
-                    
+                    <a href="<?php echo $post['link'] ?>" class="thumbnail">
+                        <img src="<?php echo $post['coauthors'][0]['thumbnail_avatar'] ;?>" alt="<?php echo $post['coauthors'][0]['display_name'] ;?>">
+                    </a>
+                    <div class="content">
+                        <h1>
+                            <a href="<?php echo $post['link'] ?>"><?php echo $post['title']['rendered']?></a>
+                        </h1>
+                        <div class="meta">
+                            <span class="c-article-item__dateline"><?php echo get_gmt_from_date($post['date'], 'j M Y');;?> by <?php echo $post["coauthors"][0]["display_name"] ?></span>
+                        </div>    
+                        <div class="c-article-exceprt">
+                            <p><?php echo $post['excerpt']['rendered'] ?></p>
+                        </div>
+                    </div>        
                 </article>
             <?php
 		}
 	}
     
-
-
 }
