@@ -19,11 +19,11 @@
     "relevanssi/relevanssi-premium":"1.14.2",
     "acf/advanced-custom-fields-pro":"5.4.4",
 
-    "ministryofjustice/dw-mvc":"dev-composer",
-    "ministryofjustice/dw-document-revisions":"dev-master",
-    "ministryofjustice/dw-live-drafts":"dev-composer",
-    "ministryofjustice/dw-markdown":"dev-composer",
-    "ministryofjustice/intranet-theme-clarity":"dev-master",
+    "ministryofjustice/dw-mvc":"dev-update-composer-json",
+    "ministryofjustice/dw-document-revisions":"dev-update-composer-json",
+    "ministryofjustice/dw-live-drafts":"dev-update-composer-json",
+    "ministryofjustice/dw-markdown":"dev-update-composer-json",
+    "ministryofjustice/intranet-theme-clarity":"dev-update-composer-json",
     "ministryofjustice/intranet":"dev-update-wp-and-bedrock",
     "wpackagist-theme/twentyseventeen":"1.3"
   }
