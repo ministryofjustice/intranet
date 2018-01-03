@@ -24,7 +24,7 @@
     "ministryofjustice/dw-live-drafts":"dev-composer",
     "ministryofjustice/dw-markdown":"dev-composer",
     "ministryofjustice/intranet-theme-clarity":"dev-master",
-    "ministryofjustice/intranet":"dev-master",
+    "ministryofjustice/intranet":"dev-update-wp-and-bedrock",
     "wpackagist-theme/twentyseventeen":"1.3"
   }
 }
