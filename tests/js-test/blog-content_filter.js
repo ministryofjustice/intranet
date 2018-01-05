@@ -27,20 +27,17 @@ jQuery(function ($) {
         e.preventDefault();
         nextPageToRetrieve++;
 
-        var post_id = jQuery(this).data('id');
-        $.ajax({
-              
-            url: '/wp-json/wp/v2/posts/?per_page=5&page=' + nextPageToRetrieve,
-            success: function (data) {
-                //console.log(data);
-                $.each(data, function (key, value) {
-                    $('#load_more').append('<article class="c-article-item js-article-item">');
-                    $('#load_more').append('<h1>' + value.title.rendered + '</h1>');
-                    $('#load_more').append('<div class="c-article-exceprt"><p>' + value.excerpt.rendered + '</p></div>');
-                    $('#load_more').append('</article>');
-                });
+        jQuery.ajax({
+            type: 'post',
+            url: myAjax.ajaxurl,
+            dataType: 'html',
+            data: {
+                action: 'load_search_results',
+                nextPageToRetrieve: nextPageToRetrieve
+            },
+            success: function( response ) {
+                $('#load_more').html(response);
             }
-            
         });
 
         return false;
