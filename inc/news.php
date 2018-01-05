@@ -33,7 +33,7 @@ class News
             // Filters
             'post_type' => ['news', 'post', 'page'],
             'post__in' => $featured_ids,
-            'orderby' => 'post__in'
+            'search_orderby' => 'post__in'
         ];
 
         $data = $this->searchHelper->get_raw($options);
