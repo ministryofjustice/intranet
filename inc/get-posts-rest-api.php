@@ -43,10 +43,6 @@ function get_post_api() {
     
     $posts = json_decode( wp_remote_retrieve_body( $response ), true );
 
-    //echo '<pre>';
-    //print_r($posts);
-    //echo '</pre>';
-
 	if( empty( $posts ) ) {
 		return;
     }
@@ -72,7 +68,11 @@ function get_post_api() {
                     </div>        
                 </article>
             <?php
-		}
+        }
+        echo '<div id="load_more"></div>';
+        echo '<nav class="c-pagination" role="navigation" aria-label="Pagination Navigation">';
+        echo '<a href="#" class="more-btn"><span class="c-pagination__main">Next page</span><span class="c-pagination__count"> 1 of '.$pagetotal.'</span></a>';
+        echo '</nav>';
 	}
     
 }

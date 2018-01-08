@@ -19,14 +19,15 @@ $activeAgency = $oAgency->getCurrentAgency();
       <?php get_template_part('src/components/c-content-filter/view'); ?>
     </div>
     <div class="l-primary" role="main">
-      <h2 class="o-title o-title--section">Latest</h2>
-      <?php get_post_api(); ?>
-      <div id="load_more">
-       
+      <h2 class="o-title o-title--section" id="title-section">Latest</h2>
+      <div id="content">
+        <?php get_post_api(); ?>
       </div>
-      <a href="#" class="more-btn" data-page="1">More button</a>
+      <!-- <div id="load_more">
+      </div> -->
+      <!-- <a href="#" class="more-btn">More button</a> -->
       
-      <?php //get_template_part('src/components/c-pagination/view'); ?>
+      
     </div>
   </div>
 
