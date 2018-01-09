@@ -25,6 +25,7 @@
     "ministryofjustice/dw-markdown":"dev-update-composer-json",
     "ministryofjustice/intranet-theme-clarity":"dev-master",
     "ministryofjustice/intranet":"dev-master",
+    "ministryofjustice/wp-rewrite-media-to-s3": "*",
     "wpackagist-theme/twentyseventeen":"1.3"
   }
 }
