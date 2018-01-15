@@ -69,7 +69,7 @@ $total_page_number = $query->max_num_pages;
                 <div class="c-input-container c-input-container--select">
                 <label for="ff_date_filter">Date<span class="c-input-container--required">*</span>
                 :</label>
-                    <select name="ff_date_filter" id="ff_date_filter" required="required">
+                    <select name="ff_date_filter" id="ff_date_filter">
                         <?php
                             wp_get_archives( $archives_args );
                         ?>
@@ -108,12 +108,12 @@ $total_page_number = $query->max_num_pages;
                 ?>
                 </div>
             </section>
-            <nav class="c-pagination" role="navigation" aria-label="Pagination Navigation">
+            <!-- <nav class="c-pagination" role="navigation" aria-label="Pagination Navigation">
                 <?php
-                    echo previous_posts_link( '<span class="c-pagination__main">Previous page</span><span class="c-pagination__count">'.$prev_page_number.' of '.$total_page_number.'</span>' );
-                    echo next_posts_link( '<span class="c-pagination__main">Next page</span><span class="c-pagination__count">'.$next_page_number.' of '.$total_page_number.'</span>', $total_page_number );
+                    // echo previous_posts_link( '<span class="c-pagination__main">Previous page</span><span class="c-pagination__count">'.$prev_page_number.' of '.$total_page_number.'</span>' );
+                    // echo next_posts_link( '<span class="c-pagination__main">Next page</span><span class="c-pagination__count">'.$next_page_number.' of '.$total_page_number.'</span>', $total_page_number );
                 ?>
-            </nav>
+            </nav> -->
         </div>
     </div>
 </div>

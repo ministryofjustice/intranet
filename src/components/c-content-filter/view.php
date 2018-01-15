@@ -1,19 +1,27 @@
+<?php 
+  $archives_args = [
+    'type' => 'monthly',
+    'format' => 'custom',
+    'show_post_count' => false
+  ];
+?>
+
 <!-- c-content-filter starts here -->
 <?php $prefix = 'ff'; ?>
 <section class="c-content-filter">
   <p>The results will update automatically based on your selections.</p>
-  <form action="" id="<?php echo $prefix; ?>" action="post">
+  <form action="" id="<?php echo $prefix; ?>" action="post" data-page="0">
     <div class="c-input-container c-input-container--select">
-    <label for="ff_date_filter">Date<span class="c-input-container--required">*</span>
-    :</label>
-        <select name="ff_date_filter" id="ff_date_filter" required="required">
-            <?php
-              wp_get_archives( $archives_args );
-            ?>
+    <label for="ff_date_filter">Date:</label>
+        <select name="ff_date_filter" id="ff_date_filter" >
+          <option value=""><?php echo esc_attr( __( 'Select Month' ) ); ?></option>
+          <?php
+            wp_get_archives( $archives_args );
+          ?>
         </select>
     </div>
     <?php
-    form_builder('text', $prefix, 'Keywords', 'keywords_filter', null, null, 'Keywords', null, true, null, null);
+    form_builder('text', $prefix, 'Keywords', 'keywords_filter', null, null, 'Keywords', null, false, null, null);
     ?>
   </form>
 </section>

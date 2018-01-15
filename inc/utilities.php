@@ -22,8 +22,8 @@ function slugify($string)
  *
  ***/
 add_action('wp_head', 'feedback_form');
-add_filter('next_posts_link_attributes', 'posts_link_attributes_prev');
-add_filter('previous_posts_link_attributes', 'posts_link_attributes_next');
+//add_filter('next_posts_link_attributes', 'posts_link_attributes_prev');
+//add_filter('previous_posts_link_attributes', 'posts_link_attributes_next');
 
 function posts_link_attributes_prev()
 {
@@ -34,13 +34,35 @@ function posts_link_attributes_next()
     return 'class="c-pagination__link c-pagination__link--next"';
 }
 
-add_filter('get_archives_link', 'custom_monthly_archive', 10, 6);
+
 
 function custom_monthly_archive($link_html, $url, $text, $format)
 {
     if ('custom' === $format) {
+
         $strip_url = str_replace('http://intranet.docker/blog/', '', $url);
+        $replace_with_slash = str_replace('/', '-', $strip_url);
+        $valueSelected = $replace_with_slash . '01T00:00:00';
+
+        $get_year = substr($valueSelected, 0, 4);
+
+        $get_month = substr($valueSelected, 5, 2);
+        
+        if ($get_month == 12){
+            $year = $get_year + 1; 
+            $month = '01';
+            $date_range = '&after='.$valueSelected.'&before='.$year.'-'.$month.'-01T00:00:00';
+            $link_html = '<option value='.$date_range.'>'.$text.'</option>';
+        }else{
+            $year = $get_year;
+            $month = $get_month + 1;
+            $add_leading_zero = str_pad($month, 2, '0', STR_PAD_LEFT);
+            
+            $date_range = '&after='.$valueSelected.'&before='.$year.'-'.$add_leading_zero.'-01T00:00:00';
+            $link_html = '<option value='.$date_range.'>'.$text.'</option>';
+        }
     }
-    $link_html = '<option value='.$strip_url.'>'.$text.'</option>';
+
     return $link_html;
 }
+add_filter('get_archives_link', 'custom_monthly_archive', 10, 6);

@@ -23,10 +23,8 @@ $activeAgency = $oAgency->getCurrentAgency();
       <div id="content">
         <?php get_post_api(); ?>
       </div>
-      <!-- <div id="load_more">
-      </div> -->
-      <!-- <a href="#" class="more-btn">More button</a> -->
       
+      <?php get_pagination(); ?>
       
     </div>
   </div>

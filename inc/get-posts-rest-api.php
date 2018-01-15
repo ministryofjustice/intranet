@@ -69,10 +69,6 @@ function get_post_api() {
                 </article>
             <?php
         }
-        echo '<div id="load_more"></div>';
-        echo '<nav class="c-pagination" role="navigation" aria-label="Pagination Navigation">';
-        echo '<a href="#" class="more-btn"><span class="c-pagination__main">Next page</span><span class="c-pagination__count"> 1 of '.$pagetotal.'</span></a>';
-        echo '</nav>';
 	}
     
 }
