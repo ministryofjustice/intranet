@@ -83,6 +83,12 @@ class MyMOJ
         ],
         'cica' => [
           [
+            'title' => 'PLADS',
+            'icon' => 'court-finder',
+            'url' => 'https://intranet.justice.gov.uk/guidance/legal-and-policy/legal-policy/',
+            'external' => true,
+          ],
+          [
             'title' => 'People finder',
             'icon' => 'people-finder',
             'url' => 'https://peoplefinder.service.gov.uk/',
@@ -124,6 +130,7 @@ class MyMOJ
             'url' => 'http://cicald-web/ServiceDesk.WebAccess/ss/object/createInCart.rails?class_name=RequestManagement.Request&lifecycle_name=NewProcess118&object_template_name=&attributes=_ConfigItemRequested-5aed3043-14a6-4091-874b-b6dbe1489fcd&RaiseUser-',
             'external' => true,
           ],
+
         ],
         'pb' => [
           [
