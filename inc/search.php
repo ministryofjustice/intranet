@@ -4,25 +4,16 @@ if (!defined('ABSPATH')) {
     die();
 }
 
-//add_action('wp_enqueue_scripts', 'ajax_search_enqueues');
-// function ajax_search_enqueues(){
-//     wp_enqueue_script('ajax-search', get_stylesheet_directory_uri() . 
-//     '/assets/js/core.min.js', array( ), '1.2.94', true);
-//     wp_localize_script('ajax-search', 'myAjax', 
-//         array( 'ajaxurl' => admin_url('admin-ajax.php') )
-//     );
-// }
+$query = $_POST['query'];
 
+$valueSelected = $_POST['valueSelected'];
 
+$siteurl = get_home_url();
+$post_per_page = 'per_page=10';
+$search = '&search=' . $query;
 
 function load_search_results(){
-    $query = $_POST['query'];
 
-    $valueSelected = $_POST['valueSelected'];
-
-    $siteurl = get_home_url();
-    $post_per_page = 'per_page=5';
-    $search = '&search=' . $query;
     $response = wp_remote_get( $siteurl.'/wp-json/wp/v2/posts/?' . $post_per_page . $valueSelected . $search );
 
     $post_total = wp_remote_retrieve_header( $response, 'x-wp-total' );
@@ -60,48 +51,21 @@ function load_search_results(){
 add_action('wp_ajax_load_search_results', 'load_search_results');
 add_action('wp_ajax_nopriv_load_search_results', 'load_search_results');
 
-
-
-function load_search_results_total ()
-{
-    $query = $_POST['query'];
-    $valueSelected = $_POST['valueSelected'];
-    $siteurl = get_home_url();
-    $post_per_page = 'per_page=5';
-    $search = '&search=' . $query;
-    $response = wp_remote_get( $siteurl.'/wp-json/wp/v2/posts/?' . $post_per_page . $valueSelected . $search );
-
-    $post_total = wp_remote_retrieve_header( $response, 'x-wp-total' );
-
-    echo $post_total . ' search results';
-
-    die();
-    
-}
-add_action('wp_ajax_load_search_results_total', 'load_search_results_total');
-add_action('wp_ajax_nopriv_load_search_results_total', 'load_search_results_total');
-
-
-
 function load_next_results(){
     $nextPageToRetrieve = $_POST['nextPageToRetrieve'];
     $query = $_POST['query'];
     $valueSelected = $_POST['valueSelected'];
 
 	$siteurl = get_home_url();
-    $post_per_page = 'per_page=5';
+    $post_per_page = 'per_page=10';
     $current_page = '&page='. $nextPageToRetrieve;
     $search = '&search=' . $query;
     $response = wp_remote_get( $siteurl.'/wp-json/wp/v2/posts/?' . $post_per_page . $current_page . $valueSelected . $search );
-
-    if( is_wp_error( $response ) ) {
-		return;
-    }
     
     $pagetotal = wp_remote_retrieve_header( $response, 'x-wp-totalpages' );
-    //$badrequest = wp_remote_retrieve_body( $response, 'response' );
+
     $posts = json_decode( wp_remote_retrieve_body( $response ), true );
-    // Check the response code
+
 	$response_code       = wp_remote_retrieve_response_code( $response );
 	$response_message = wp_remote_retrieve_response_message( $response );
 
@@ -136,6 +100,24 @@ function load_next_results(){
 add_action('wp_ajax_load_next_results', 'load_next_results');
 add_action('wp_ajax_nopriv_load_next_results', 'load_next_results');
 
+function load_search_results_total ()
+{
+    $query = $_POST['query'];
+    $valueSelected = $_POST['valueSelected'];
+    $siteurl = get_home_url();
+    $post_per_page = 'per_page=10';
+    $search = '&search=' . $query;
+    $response = wp_remote_get( $siteurl.'/wp-json/wp/v2/posts/?' . $post_per_page . $valueSelected . $search );
+
+    $post_total = wp_remote_retrieve_header( $response, 'x-wp-total' );
+
+    echo $post_total . ' search results';
+
+    die();
+    
+}
+add_action('wp_ajax_load_search_results_total', 'load_search_results_total');
+add_action('wp_ajax_nopriv_load_search_results_total', 'load_search_results_total');
 
 function load_page_total()
 {
@@ -144,29 +126,31 @@ function load_page_total()
     $valueSelected = $_POST['valueSelected'];
 
 	$siteurl = get_home_url();
-    $post_per_page = 'per_page=5';
+    $post_per_page = 'per_page=10';
     $current_page = '&page='. $nextPageToRetrieve;
     $search = '&search=' . $query;
     $response = wp_remote_get( $siteurl.'/wp-json/wp/v2/posts/?' . $post_per_page . $current_page . $valueSelected.  $search );
 
     $pagetotal = wp_remote_retrieve_header( $response, 'x-wp-totalpages' );
 
-    $response_code       = wp_remote_retrieve_response_code( $response );
-	$response_message = wp_remote_retrieve_response_message( $response );
+    $response_code          = wp_remote_retrieve_response_code( $response );
+	$response_message       = wp_remote_retrieve_response_message( $response );
 
     if ( 200 != $response_code && ! empty( $response_message ) ) {
         
-            //echo '<a href="" class="more-btn" disabled="disabled">';
-            echo '<span class="c-pagination__main">No more posts</span>';
-            //echo '</a>';
+        echo '<span class="c-pagination__main">No more posts</span>';
+    
     } else {
         if ($nextPageToRetrieve ==  $pagetotal){
-            //echo '<a href="" class="more-btn" disabled="disabled">';
             echo '<span class="c-pagination__main">No more posts</span>';
-            //echo '</a>';
+        }elseif($pagetotal <= 1){
+            echo '<button class="more-btn" data-page="'.$nextPageToRetrieve.'" data-date="'.$valueSelected.'">';
+            echo '<span class="c-pagination__main">No more posts</span>';
+            echo '<span class="c-pagination__count"> '.$nextPageToRetrieve . ' of 1</span>';
+            echo '</button>'; 
         }else{
-            echo '<button class="more-btn" data-page="'.$nextPageToRetrieve.'">';
-            echo '<span class="c-pagination__main">Next page</span>';
+            echo '<button class="more-btn" data-page="'.$nextPageToRetrieve.'" data-date="'.$valueSelected.'">';
+            echo '<span class="c-pagination__main">Load More</span>';
             echo '<span class="c-pagination__count"> '.$nextPageToRetrieve . ' of ' . $pagetotal.'</span>';
             echo '</button>';
         }

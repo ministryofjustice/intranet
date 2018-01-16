@@ -58,7 +58,7 @@ jQuery(function ($) {
                 valueSelected: valueSelected
             },
             success: function (response) {
-                $('.more-btn').html(response);
+                $('.c-pagination').html(response);
             }
         });
         return false;
@@ -72,8 +72,7 @@ jQuery(function ($) {
 
         var query = jQuery('#ff_keywords_filter').val();
 
-        var optionSelected = jQuery(this).find("#ff_date_filter option:selected");
-        var valueSelected = optionSelected.val();
+        var valueSelected = jQuery('.more-btn').data('date');
 
         jQuery.ajax({
             type: 'post',

@@ -3,7 +3,7 @@
     function get_pagination() {
 
         $siteurl = get_home_url();
-        $post_per_page = 'per_page=5';
+        $post_per_page = 'per_page=10';
         $current_page = '&page=1';
         $response = wp_remote_get( $siteurl.'/wp-json/wp/v2/posts/?' . $post_per_page . $current_page );
         if( is_wp_error( $response ) ) {
@@ -17,9 +17,8 @@
         <!-- c-pagination starts here -->
         <div id="load_more"></div>
         <nav class="c-pagination" role="navigation" aria-label="Pagination Navigation">
-        <!-- <span class="c-pagination__main">Previous page</span><span class="c-pagination__count">'.$prev_page_number.' of '.$total_page_number.'</span> -->
-        <button class="more-btn" data-page="1">
-            <span class="c-pagination__main">Next page</span><span class="c-pagination__count"> 1 of <?php echo $pagetotal; ?></span>
+        <button class="more-btn" data-page="1" data-date="">
+            <span class="c-pagination__main">Load More</span><span class="c-pagination__count"> 1 of <?php echo $pagetotal; ?></span>
             </button>    
         </nav>
         <!-- c-pagination ends here -->

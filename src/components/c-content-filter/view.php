@@ -14,7 +14,7 @@
     <div class="c-input-container c-input-container--select">
     <label for="ff_date_filter">Date:</label>
         <select name="ff_date_filter" id="ff_date_filter" >
-          <option value=""><?php echo esc_attr( __( 'Select Month' ) ); ?></option>
+          <option value=""><?php echo esc_attr( __( 'All' ) ); ?></option>
           <?php
             wp_get_archives( $archives_args );
           ?>
