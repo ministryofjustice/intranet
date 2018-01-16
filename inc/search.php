@@ -4,15 +4,15 @@ if (!defined('ABSPATH')) {
     die();
 }
 
-$query = $_POST['query'];
-
-$valueSelected = $_POST['valueSelected'];
-
-$siteurl = get_home_url();
-$post_per_page = 'per_page=10';
-$search = '&search=' . $query;
-
 function load_search_results(){
+
+    $query = $_POST['query'];
+
+    $valueSelected = $_POST['valueSelected'];
+
+    $siteurl = get_home_url();
+    $post_per_page = 'per_page=10';
+    $search = '&search=' . $query;
 
     $response = wp_remote_get( $siteurl.'/wp-json/wp/v2/posts/?' . $post_per_page . $valueSelected . $search );
 
