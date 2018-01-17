@@ -138,19 +138,23 @@ function load_page_total()
 
     if ( 200 != $response_code && ! empty( $response_message ) ) {
         
-        echo '<span class="c-pagination__main">No more posts</span>';
+        echo '<span class="nomore-btn">';
+        echo '<span class="c-pagination__main">No More Results</span>';
+        echo '</span>';
     
     } else {
         if ($nextPageToRetrieve ==  $pagetotal){
-            echo '<span class="c-pagination__main">No more posts</span>';
+            echo '<span class="nomore-btn">';
+            echo '<span class="c-pagination__main">No More Results</span>';
+            echo '</span>';
         }elseif($pagetotal <= 1){
             echo '<button class="more-btn" data-page="'.$nextPageToRetrieve.'" data-date="'.$valueSelected.'">';
-            echo '<span class="c-pagination__main">No more posts</span>';
+            echo '<span class="c-pagination__main">No More Results</span>';
             echo '<span class="c-pagination__count"> '.$nextPageToRetrieve . ' of 1</span>';
             echo '</button>'; 
         }else{
             echo '<button class="more-btn" data-page="'.$nextPageToRetrieve.'" data-date="'.$valueSelected.'">';
-            echo '<span class="c-pagination__main">Load More</span>';
+            echo '<span class="c-pagination__main"><span class="u-icon u-icon--circle-down"></span> Load Next 10 Results</span>';
             echo '<span class="c-pagination__count"> '.$nextPageToRetrieve . ' of ' . $pagetotal.'</span>';
             echo '</button>';
         }

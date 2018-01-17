@@ -17,8 +17,8 @@
         <!-- c-pagination starts here -->
         <div id="load_more"></div>
         <nav class="c-pagination" role="navigation" aria-label="Pagination Navigation">
-        <button class="more-btn" data-page="1" data-date="">
-            <span class="c-pagination__main">Load More</span><span class="c-pagination__count"> 1 of <?php echo $pagetotal; ?></span>
+        <button class="more-btn" data-page="1" data-date="">            
+            <span class="c-pagination__main "><span class="u-icon u-icon--circle-down"></span> Load Next 10 Results</span><span class="c-pagination__count"> 1 of <?php echo $pagetotal; ?></span>
             </button>    
         </nav>
         <!-- c-pagination ends here -->
