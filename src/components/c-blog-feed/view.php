@@ -7,6 +7,8 @@ $options = [
     'per_page' => 5,
 ];
 
+$blogpage_link = 14013;
+
 $postsList = $oPosts->getPosts($options, true);
 if (!empty($postsList)) {
     ?>
@@ -17,6 +19,8 @@ if (!empty($postsList)) {
         get_component('c-article-item', $result, 'blog');
     } ?>
         </div>
+        <a href="<?php the_permalink( $blogpage_link ) ?>" class="o-see-all-link">See all blogs</a>
+        <br/>
     </section>
 <?php
 }
