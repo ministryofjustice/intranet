@@ -1,4 +1,6 @@
 <?php
+$blogpage_link = 14013;
+
 use MOJ\Intranet\Posts;
 
 $oPosts = new Posts();
@@ -6,8 +8,6 @@ $options = [
     'page' => 1,
     'per_page' => 5,
 ];
-
-$blogpage_link = 14013;
 
 $postsList = $oPosts->getPosts($options, true);
 if (!empty($postsList)) {
