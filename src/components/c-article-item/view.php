@@ -22,15 +22,21 @@ $thumbnail_url = $thumbnail[0];
     <?php 
       if (isset($thumbnail_url)){
         ?>
-          <img src="<?php echo $thumbnail_url;?>" alt="<?php echo $alt_text;?>">
+          <a href="<?php echo get_the_permalink($id);?>">
+            <img src="<?php echo $thumbnail_url;?>" alt="<?php echo $alt_text;?>">
+          </a>
         <?php 
       } else {
         ?>
-          <img src="<?php echo $authors[0]['thumbnail_url'];;?>" alt="<?php echo $alt_text;?>">
+          <a href="<?php echo get_the_permalink($id);?>">
+            <img src="<?php echo $authors[0]['thumbnail_url'];;?>" alt="<?php echo $alt_text;?>">
+          </a>
         <?php
       }
   } else { ?>
+  <a href="<?php echo get_the_permalink($id);?>">
     <img src="<?php echo $thumbnail_url;?>" alt="<?php echo $alt_text;?>">
+  </a>  
   <?php } ?>
   <h1><a href="<?php echo get_the_permalink($id);?>"><?php echo get_the_title($id);?></a></h1>
   <?php
