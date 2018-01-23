@@ -1,7 +1,7 @@
 /* global jQuery */
 
 jQuery(function ($) {   
-        
+
     jQuery(document).on('submit', '#ff', function (e) {
         e.preventDefault();
 
@@ -42,8 +42,6 @@ jQuery(function ($) {
             },
             success: function (response) {
                 jQuery('#title-section').html(response);
-
-                //console.log('outside submit = ' + valueSelected);
             }
         });
 
@@ -69,9 +67,7 @@ jQuery(function ($) {
         
         var nextPageToRetrieve = jQuery('.more-btn').data('page') + 1;
         jQuery('.more-btn').attr('data-page', nextPageToRetrieve);
-
         var query = jQuery('#ff_keywords_filter').val();
-
         var valueSelected = jQuery('.more-btn').data('date');
 
         jQuery.ajax({

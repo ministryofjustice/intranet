@@ -23,6 +23,7 @@
     <?php
     form_builder('text', $prefix, 'Keywords', 'keywords_filter', null, null, 'Keywords', null, false, null, null);
     ?>
+    <input type="submit" value="Filter" id="ff_button_submit" />
   </form>
 </section>
 <!-- c-content-filter ends here -->
