@@ -43,11 +43,12 @@ function get_post_api() {
     
     $posts = json_decode( wp_remote_retrieve_body( $response ), true );
 
-	if( empty( $posts ) ) {
-		return;
-    }
-    
-    if( !empty( $posts ) ) {
+    $response_code       = wp_remote_retrieve_response_code( $response );
+	$response_message = wp_remote_retrieve_response_message( $response );
+
+    if ( 200 != $response_code && ! empty( $response_message ) ) {
+        
+    } else {
 		foreach( $posts as $key => $post ) {
 
             ?>

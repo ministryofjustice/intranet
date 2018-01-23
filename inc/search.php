@@ -7,7 +7,6 @@ if (!defined('ABSPATH')) {
 function load_search_results(){
 
     $query = $_POST['query'];
-
     $valueSelected = $_POST['valueSelected'];
 
     $siteurl = get_home_url();
@@ -18,6 +17,9 @@ function load_search_results(){
 
     $post_total = wp_remote_retrieve_header( $response, 'x-wp-total' );
     $posts = json_decode( wp_remote_retrieve_body( $response ), true );
+
+    $response_code       = wp_remote_retrieve_response_code( $response );
+	$response_message = wp_remote_retrieve_response_message( $response );
 
     if ( 200 != $response_code && ! empty( $response_message ) ) {
         
@@ -139,7 +141,7 @@ function load_page_total()
     if ( 200 != $response_code && ! empty( $response_message ) ) {
         
         echo '<span class="nomore-btn">';
-        echo '<span class="c-pagination__main">No More Results</span>';
+        echo '<span class="c-pagination__main">No Results</span>';
         echo '</span>';
     
     } else {
