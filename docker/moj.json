@@ -16,7 +16,7 @@
     "wpackagist-plugin/recently-edited-content-widget":"0.3.2",
     "wpackagist-plugin/regenerate-thumbnails":"2.2.6",
     "wpackagist-plugin/upload-url-path-enabler":"1.0.4",
-    "wpackagist-plugin/relevanssi": "4.0.3",
+    "relevanssi/relevanssi-premium":"2.0.3.1",
     "acf/advanced-custom-fields-pro":"5.4.4",
 
     "ministryofjustice/dw-mvc":"dev-update-composer-json",
