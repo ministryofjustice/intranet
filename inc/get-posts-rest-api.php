@@ -35,6 +35,11 @@ function get_post_api() {
     $post_per_page = 'per_page=10';
     $current_page = '&page=1';
     $response = wp_remote_get( $siteurl.'/wp-json/wp/v2/posts/?' . $post_per_page . $current_page );
+    
+    echo '<pre>';
+    print_r($response);
+    echo '</pre>';
+    
     if( is_wp_error( $response ) ) {
 		return;
     }
