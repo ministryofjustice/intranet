@@ -1,9 +1,47 @@
 // include the toolkit (a suite of variables, classes and mixins)
 @require "../../globals/css/_toolkit"
 
+.nomore-btn{
+  display: block;
+  height: 80px;
+  margin: 0 auto;
+  overflow: hidden;
+  width: 200px;
+  text-align: center;
+}
+
 .c-pagination {
   position: relative;
   clearfix();
+
+  .more-btn{
+    background-image: url(../images/chevron_right_x2.png);
+    background-position: right 6px;
+    position: relative;
+    background-repeat: no-repeat;
+    background-size: 21px 38px;
+    display: block;
+    text-decoration: none;
+    color: #005ea5;
+    cursor: pointer;
+    margin: 0 auto;
+    overflow: hidden;
+    height: 80px;
+    .c-pagination__main{
+      width: 100%;
+      display: block;
+      float: left;
+    }
+    .c-pagination__count{
+      width: 100%;
+      display: block;
+      float: left;
+    }
+  }
+  .more-btn:hoover{
+    background-color: #f8f8f8;
+    
+  }
   &__link {
     span(1/2)
     &--prev {

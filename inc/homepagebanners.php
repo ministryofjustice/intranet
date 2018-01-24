@@ -3,12 +3,10 @@ namespace MOJ\Intranet;
 
 /**
  * Retrieves Homepage banners
- * Author: Irune Itoiz
  */
 
 class HomepageBanners
 {
-
     /**
      *
      * Return the data for the emergency alert on a per agency basis
@@ -37,15 +35,15 @@ class HomepageBanners
      * @return array
      */
 
-   public static function getSidebarBanner($agency = 'hq') {
+   public static function getSidebarBanner($agency = 'hq')
+   {
+       $data['image_url'] = get_option($agency . '_banner_image_side');
+       $data['url'] = get_option($agency . '_banner_link_side');
+       $data['alt'] = get_option($agency . '_banner_alt_side');
+       $data['text'] = get_option($agency . '_banner_image_side_title');
+       $data['visible'] = (int) get_option($agency . '_banner_image_side_enable');
 
-        $data['image_url'] = get_option($agency . '_banner_image_side');
-        $data['url'] = get_option($agency . '_banner_link_side');
-        $data['alt'] = get_option($agency . '_banner_alt_side');
-        $data['text'] = get_option($agency . '_banner_image_side_title');
-        $data['visible'] = (int) get_option($agency . '_banner_image_side_enable');
-
-        return $data;
+       return $data;
    }
 
 
@@ -56,8 +54,8 @@ class HomepageBanners
      * @return array
      *
      */
-    public static function getTopBanner($agency = 'hq') {
-
+    public static function getTopBanner($agency = 'hq')
+    {
         $data['image_url'] = get_option($agency . '_banner_image');
         $data['url'] = get_option($agency . '_banner_link');
         $data['alt'] = get_option($agency . '_banner_alt');

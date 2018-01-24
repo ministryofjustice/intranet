@@ -2,8 +2,8 @@
 namespace MOJ\Intranet;
 
 /**
- * Retrieves News related data
- * Author: Irune Itoiz
+ * Retrieves news related data
+ *
  */
 
 class News
