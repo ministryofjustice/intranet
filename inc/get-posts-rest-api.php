@@ -41,6 +41,7 @@ function get_post_api() {
     $agency_name = '&agency=' . $activeAgency['wp_tag_id'];
     
     $response = wp_remote_get( $siteurl.'/wp-json/wp/v2/posts/?' . $post_per_page . $current_page . $agency_name );
+
     
     if( is_wp_error( $response ) ) {
 		return;
