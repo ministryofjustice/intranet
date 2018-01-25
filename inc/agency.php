@@ -42,7 +42,8 @@ class Agency
         'abbreviation' => 'CICA',
         'is_integrated' => true,
         'contact_email_address' => 'intranet-cica@digital.justice.gov.uk',
-        'links' => []
+        'links' => [],
+        'wp_tag_id' => 1049,
       ],
       'hmcts' => [
         'shortcode' => 'hmcts',
@@ -51,6 +52,7 @@ class Agency
         'blog_url' => '/blog/',
         'is_integrated' => true,
         'contact_email_address' => 'intranet-hmcts@digital.justice.gov.uk',
+        'wp_tag_id' => 100,
         'links' => [
           [
             'url' => site_url('/about-hmcts/justice-matters/'),
@@ -65,6 +67,7 @@ class Agency
         'label' => 'HM Prison & Probation Service',
         'abbreviation' => 'HMPPS',
         'is_integrated' => false,
+        'wp_tag_id' => 99,
         'links' => [
           [
             'url' => 'https://intranet.noms.gsi.gov.uk/',
@@ -78,6 +81,7 @@ class Agency
         'label' => 'Judicial Appointments Commission',
         'abbreviation' => 'JAC',
         'is_integrated' => false,
+        'wp_tag_id' => 99,
         'links' => [
           [
             'url' => 'http://jac.intranet.service.justice.gov.uk/',
@@ -92,6 +96,7 @@ class Agency
         'abbreviation' => 'JO',
         'is_integrated' => true,
         'contact_email_address' => 'intranet-jo@digital.justice.gov.uk',
+        'wp_tag_id' => 1165,
         'links' => []
       ],
       'law-commission' => [
@@ -99,6 +104,7 @@ class Agency
         'label' => 'Law Commission',
         'abbreviation' => 'LawCom',
         'is_integrated' => false,
+        'wp_tag_id' => 99,
         'links' => [
           [
             'url' => 'http://lawcommission.intranet.service.justice.gov.uk/',
@@ -113,6 +119,7 @@ class Agency
         'abbreviation' => 'LAA',
         'is_integrated' => true,
         'contact_email_address' => 'intranet-laa@digital.justice.gov.uk',
+        'wp_tag_id' => 101,
         'links' => []
       ],
       'hq' => [
@@ -122,6 +129,7 @@ class Agency
         'is_integrated' => true,
         'default' => true,
         'contact_email_address' => 'intranet@justice.gsi.gov.uk',
+        'wp_tag_id' => 99,
         'links' => [
           [
             'url' => site_url('/about-us/moj-transformation'),
@@ -137,6 +145,7 @@ class Agency
         'abbreviation' => 'OPG',
         'is_integrated' => true,
         'contact_email_address' => 'intranet-opg@digital.justice.gov.uk',
+        'wp_tag_id' => 102,
         'links' => []
       ],
       'ospt' => [
@@ -144,6 +153,7 @@ class Agency
         'label' => 'Official Solicitor and Public Trustee',
         'abbreviation' => 'OSPT',
         'is_integrated' => false,
+        'wp_tag_id' => 99,
         'links' => [
           [
             'url' => 'http://intranet.justice.gsi.gov.uk/ospt/index.htm',
@@ -159,6 +169,7 @@ class Agency
         'is_integrated' => true,
         'about_us_url' => '/about-parole-board/',
         'contact_email_address' => 'intranet-pb@digital.justice.gov.uk',
+        'wp_tag_id' => 1098,
         'links' => []
       ]
     ];

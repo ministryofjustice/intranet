@@ -1,4 +1,5 @@
-<?php 
+<?php
+use MOJ\Intranet\Agency;
 // this is a plugin 'co authors plus', as standard it's not included into the core WP api, this function includes it
 if ( function_exists('get_coauthors') ) {
     add_action( 'rest_api_init', 'custom_register_coauthors' );
@@ -30,15 +31,16 @@ if ( function_exists('get_coauthors') ) {
 }
 
 function get_post_api() {
+    
+    $oAgency = new Agency();
+    $activeAgency = $oAgency->getCurrentAgency();
 
     $siteurl = get_home_url();
     $post_per_page = 'per_page=10';
     $current_page = '&page=1';
-    $response = wp_remote_get( $siteurl.'/wp-json/wp/v2/posts/?' . $post_per_page . $current_page );
+    $agency_name = '&agency=' . $activeAgency['wp_tag_id'];
     
-    echo '<pre>';
-    print_r($response);
-    echo '</pre>';
+    $response = wp_remote_get( $siteurl.'/wp-json/wp/v2/posts/?' . $post_per_page . $current_page . $agency_name );
     
     if( is_wp_error( $response ) ) {
 		return;
