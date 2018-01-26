@@ -43,7 +43,7 @@ class Agency
         'is_integrated' => true,
         'contact_email_address' => 'intranet-cica@digital.justice.gov.uk',
         'links' => [],
-        'wp_tag_id' => 1049,
+        'wp_tag_id' => 1049, //ID number from Taxonomy 'Agency' Term 'CICA'
       ],
       'hmcts' => [
         'shortcode' => 'hmcts',
@@ -52,7 +52,7 @@ class Agency
         'blog_url' => '/blog/',
         'is_integrated' => true,
         'contact_email_address' => 'intranet-hmcts@digital.justice.gov.uk',
-        'wp_tag_id' => 100,
+        'wp_tag_id' => 100, //ID number from Taxonomy 'Agency' Term 'HMCTS'
         'links' => [
           [
             'url' => site_url('/about-hmcts/justice-matters/'),
@@ -67,7 +67,7 @@ class Agency
         'label' => 'HM Prison & Probation Service',
         'abbreviation' => 'HMPPS',
         'is_integrated' => false,
-        'wp_tag_id' => 99,
+        'wp_tag_id' => 99, //ID number from Taxonomy 'Agency' Term 'HQ' as there isn;t a HMPPS
         'links' => [
           [
             'url' => 'https://intranet.noms.gsi.gov.uk/',
@@ -81,7 +81,7 @@ class Agency
         'label' => 'Judicial Appointments Commission',
         'abbreviation' => 'JAC',
         'is_integrated' => false,
-        'wp_tag_id' => 99,
+        'wp_tag_id' => 99, //ID number from Taxonomy 'Agency' Term 'HMCTS'
         'links' => [
           [
             'url' => 'http://jac.intranet.service.justice.gov.uk/',
@@ -96,7 +96,7 @@ class Agency
         'abbreviation' => 'JO',
         'is_integrated' => true,
         'contact_email_address' => 'intranet-jo@digital.justice.gov.uk',
-        'wp_tag_id' => 1165,
+        'wp_tag_id' => 1165, //ID number from Taxonomy 'Agency' Term 'JO'
         'links' => []
       ],
       'law-commission' => [
@@ -104,7 +104,7 @@ class Agency
         'label' => 'Law Commission',
         'abbreviation' => 'LawCom',
         'is_integrated' => false,
-        'wp_tag_id' => 99,
+        'wp_tag_id' => 99, //ID number from Taxonomy 'Agency' Term 'HQ' as there isn;t a LA
         'links' => [
           [
             'url' => 'http://lawcommission.intranet.service.justice.gov.uk/',
@@ -119,7 +119,7 @@ class Agency
         'abbreviation' => 'LAA',
         'is_integrated' => true,
         'contact_email_address' => 'intranet-laa@digital.justice.gov.uk',
-        'wp_tag_id' => 101,
+        'wp_tag_id' => 101, //ID number from Taxonomy 'Agency' Term 'LAA'
         'links' => []
       ],
       'hq' => [
@@ -129,7 +129,7 @@ class Agency
         'is_integrated' => true,
         'default' => true,
         'contact_email_address' => 'intranet@justice.gsi.gov.uk',
-        'wp_tag_id' => 99,
+        'wp_tag_id' => 99, //ID number from Taxonomy 'Agency' Term 'HQ'
         'links' => [
           [
             'url' => site_url('/about-us/moj-transformation'),
@@ -145,7 +145,7 @@ class Agency
         'abbreviation' => 'OPG',
         'is_integrated' => true,
         'contact_email_address' => 'intranet-opg@digital.justice.gov.uk',
-        'wp_tag_id' => 102,
+        'wp_tag_id' => 102, //ID number from Taxonomy 'Agency' Term 'OPG'
         'links' => []
       ],
       'ospt' => [
@@ -153,7 +153,7 @@ class Agency
         'label' => 'Official Solicitor and Public Trustee',
         'abbreviation' => 'OSPT',
         'is_integrated' => false,
-        'wp_tag_id' => 99,
+        'wp_tag_id' => 99, //ID number from Taxonomy 'Agency' Term 'HQ' as there isn;t a OSPT
         'links' => [
           [
             'url' => 'http://intranet.justice.gsi.gov.uk/ospt/index.htm',
@@ -169,7 +169,7 @@ class Agency
         'is_integrated' => true,
         'about_us_url' => '/about-parole-board/',
         'contact_email_address' => 'intranet-pb@digital.justice.gov.uk',
-        'wp_tag_id' => 1098,
+        'wp_tag_id' => 1098, //ID number from Taxonomy 'Agency' Term 'PB'
         'links' => []
       ]
     ];
