@@ -1,4 +1,5 @@
 <?php
+use MOJ\Intranet\Agency;
 
 if (!defined('ABSPATH')) {
     die();
@@ -9,11 +10,15 @@ function load_search_results(){
     $query = $_POST['query'];
     $valueSelected = $_POST['valueSelected'];
 
+    $oAgency = new Agency();
+    $activeAgency = $oAgency->getCurrentAgency();
+
     $siteurl = get_home_url();
     $post_per_page = 'per_page=10';
     $search = '&search=' . $query;
+    $agency_name = '&agency=' . $activeAgency['wp_tag_id'];
 
-    $response = wp_remote_get( $siteurl.'/wp-json/wp/v2/posts/?' . $post_per_page . $valueSelected . $search );
+    $response = wp_remote_get( $siteurl.'/wp-json/wp/v2/posts/?' . $post_per_page . $agency_name . $valueSelected . $search );
 
     $post_total = wp_remote_retrieve_header( $response, 'x-wp-total' );
     $posts = json_decode( wp_remote_retrieve_body( $response ), true );
@@ -58,11 +63,16 @@ function load_next_results(){
     $query = $_POST['query'];
     $valueSelected = $_POST['valueSelected'];
 
+    $oAgency = new Agency();
+    $activeAgency = $oAgency->getCurrentAgency();
+
 	$siteurl = get_home_url();
     $post_per_page = 'per_page=10';
     $current_page = '&page='. $nextPageToRetrieve;
     $search = '&search=' . $query;
-    $response = wp_remote_get( $siteurl.'/wp-json/wp/v2/posts/?' . $post_per_page . $current_page . $valueSelected . $search );
+    $agency_name = '&agency=' . $activeAgency['wp_tag_id'];
+
+    $response = wp_remote_get( $siteurl.'/wp-json/wp/v2/posts/?' . $post_per_page . $current_page . $agency_name . $valueSelected . $search );
     
     $pagetotal = wp_remote_retrieve_header( $response, 'x-wp-totalpages' );
 
@@ -106,10 +116,16 @@ function load_search_results_total ()
 {
     $query = $_POST['query'];
     $valueSelected = $_POST['valueSelected'];
+
+    $oAgency = new Agency();
+    $activeAgency = $oAgency->getCurrentAgency();
+
     $siteurl = get_home_url();
     $post_per_page = 'per_page=10';
     $search = '&search=' . $query;
-    $response = wp_remote_get( $siteurl.'/wp-json/wp/v2/posts/?' . $post_per_page . $valueSelected . $search );
+    $agency_name = '&agency=' . $activeAgency['wp_tag_id'];
+
+    $response = wp_remote_get( $siteurl.'/wp-json/wp/v2/posts/?' . $post_per_page . $agency_name . $valueSelected . $search );
 
     $post_total = wp_remote_retrieve_header( $response, 'x-wp-total' );
 
@@ -127,11 +143,16 @@ function load_page_total()
     $query = $_POST['query'];
     $valueSelected = $_POST['valueSelected'];
 
+    $oAgency = new Agency();
+    $activeAgency = $oAgency->getCurrentAgency();
+
 	$siteurl = get_home_url();
     $post_per_page = 'per_page=10';
     $current_page = '&page='. $nextPageToRetrieve;
     $search = '&search=' . $query;
-    $response = wp_remote_get( $siteurl.'/wp-json/wp/v2/posts/?' . $post_per_page . $current_page . $valueSelected.  $search );
+    $agency_name = '&agency=' . $activeAgency['wp_tag_id'];
+
+    $response = wp_remote_get( $siteurl.'/wp-json/wp/v2/posts/?' . $post_per_page . $current_page . $agency_name . $valueSelected.  $search );
 
     $pagetotal = wp_remote_retrieve_header( $response, 'x-wp-totalpages' );
 
