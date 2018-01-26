@@ -9,6 +9,7 @@ function load_search_results(){
 
     $query = $_POST['query'];
     $valueSelected = $_POST['valueSelected'];
+    $postType = $_POST['postType'];
 
     $oAgency = new Agency();
     $activeAgency = $oAgency->getCurrentAgency();
@@ -18,7 +19,7 @@ function load_search_results(){
     $search = '&search=' . $query;
     $agency_name = '&agency=' . $activeAgency['wp_tag_id'];
 
-    $response = wp_remote_get( $siteurl.'/wp-json/wp/v2/posts/?' . $post_per_page . $agency_name . $valueSelected . $search );
+    $response = wp_remote_get( $siteurl.'/wp-json/wp/v2/'.$postType.'/?' . $post_per_page . $agency_name . $valueSelected . $search );
 
     $post_total = wp_remote_retrieve_header( $response, 'x-wp-total' );
     $posts = json_decode( wp_remote_retrieve_body( $response ), true );
@@ -29,7 +30,7 @@ function load_search_results(){
     if ( 200 != $response_code && ! empty( $response_message ) ) {
         
     } else {
-    
+        echo '<div class="data-type" data-type="'.$postType.'"></div>';
         foreach( $posts as $key => $post ) {
 
             ?>
@@ -62,6 +63,7 @@ function load_next_results(){
     $nextPageToRetrieve = $_POST['nextPageToRetrieve'];
     $query = $_POST['query'];
     $valueSelected = $_POST['valueSelected'];
+    $postType = $_POST['postType'];
 
     $oAgency = new Agency();
     $activeAgency = $oAgency->getCurrentAgency();
@@ -72,8 +74,8 @@ function load_next_results(){
     $search = '&search=' . $query;
     $agency_name = '&agency=' . $activeAgency['wp_tag_id'];
 
-    $response = wp_remote_get( $siteurl.'/wp-json/wp/v2/posts/?' . $post_per_page . $current_page . $agency_name . $valueSelected . $search );
-    
+    $response = wp_remote_get( $siteurl.'/wp-json/wp/v2/'.$postType.'/?' . $post_per_page . $current_page . $agency_name . $valueSelected . $search );
+
     $pagetotal = wp_remote_retrieve_header( $response, 'x-wp-totalpages' );
 
     $posts = json_decode( wp_remote_retrieve_body( $response ), true );
@@ -84,6 +86,7 @@ function load_next_results(){
     if ( 200 != $response_code && ! empty( $response_message ) ) {
         
     } else {
+        echo '<div class="data-type" data-type="'.$postType.'"></div>';
         foreach( $posts as $key => $post ) {
 
             ?>
@@ -116,6 +119,7 @@ function load_search_results_total ()
 {
     $query = $_POST['query'];
     $valueSelected = $_POST['valueSelected'];
+    $postType = $_POST['postType'];
 
     $oAgency = new Agency();
     $activeAgency = $oAgency->getCurrentAgency();
@@ -125,7 +129,7 @@ function load_search_results_total ()
     $search = '&search=' . $query;
     $agency_name = '&agency=' . $activeAgency['wp_tag_id'];
 
-    $response = wp_remote_get( $siteurl.'/wp-json/wp/v2/posts/?' . $post_per_page . $agency_name . $valueSelected . $search );
+    $response = wp_remote_get( $siteurl.'/wp-json/wp/v2/'.$postType.'/?' . $post_per_page . $agency_name . $valueSelected . $search );
 
     $post_total = wp_remote_retrieve_header( $response, 'x-wp-total' );
 
@@ -142,6 +146,7 @@ function load_page_total()
     $nextPageToRetrieve = $_POST['nextPageToRetrieve'];
     $query = $_POST['query'];
     $valueSelected = $_POST['valueSelected'];
+    $postType = $_POST['postType'];
 
     $oAgency = new Agency();
     $activeAgency = $oAgency->getCurrentAgency();
@@ -152,7 +157,7 @@ function load_page_total()
     $search = '&search=' . $query;
     $agency_name = '&agency=' . $activeAgency['wp_tag_id'];
 
-    $response = wp_remote_get( $siteurl.'/wp-json/wp/v2/posts/?' . $post_per_page . $current_page . $agency_name . $valueSelected.  $search );
+    $response = wp_remote_get( $siteurl.'/wp-json/wp/v2/'.$postType.'/?' . $post_per_page . $current_page . $agency_name . $valueSelected.  $search );
 
     $pagetotal = wp_remote_retrieve_header( $response, 'x-wp-totalpages' );
 
@@ -161,13 +166,13 @@ function load_page_total()
 
     if ( 200 != $response_code && ! empty( $response_message ) ) {
         
-        echo '<span class="nomore-btn">';
+        echo '<span class="nomore-btn" data-date="'.$valueSelected.'">';
         echo '<span class="c-pagination__main">No Results</span>';
         echo '</span>';
     
     } else {
         if ($nextPageToRetrieve ==  $pagetotal){
-            echo '<span class="nomore-btn">';
+            echo '<span class="nomore-btn" data-date="'.$valueSelected.'">';
             echo '<span class="c-pagination__main">No More Results</span>';
             echo '</span>';
         }elseif($pagetotal <= 1){

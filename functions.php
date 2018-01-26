@@ -18,4 +18,5 @@ require_once('inc/search.php');             // All search related functions
 require_once('inc/utilities.php');          // Utility functions
 require_once('inc/wp-admin-bar.php');       // Relates to WP admin bar at the top of the intranet when logged in.
 require_once('inc/get-posts-rest-api.php'); // Pulls posts through the REST API
+require_once('inc/get-news-rest-api.php'); // Pulls posts through the REST API
 require_once('inc/pagination.php');         // Pagination function  

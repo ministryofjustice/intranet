@@ -16,6 +16,8 @@ jQuery(function ($) {
         var optionSelected = jQuery(this).find("#ff_date_filter option:selected");
         var valueSelected = optionSelected.val();
 
+        var postType = jQuery('.data-type').data('type');
+
         jQuery.ajax({
             type: 'post',
             url: myAjax.ajaxurl,
@@ -23,7 +25,8 @@ jQuery(function ($) {
             data: {
                 action: 'load_search_results',
                 query : query,
-                valueSelected: valueSelected
+                valueSelected: valueSelected,
+                postType: postType
             },
             success: function( response ) {
                 $('.c-article-item').remove();
@@ -38,7 +41,8 @@ jQuery(function ($) {
             data: {
                 action: 'load_search_results_total',
                 query: query,
-                valueSelected: valueSelected
+                valueSelected: valueSelected,
+                postType: postType
             },
             success: function (response) {
                 jQuery('#title-section').html(response);
@@ -53,7 +57,8 @@ jQuery(function ($) {
                 action: 'load_page_total',
                 query: query,
                 nextPageToRetrieve: nextPageToRetrieve,
-                valueSelected: valueSelected
+                valueSelected: valueSelected,
+                postType: postType
             },
             success: function (response) {
                 $('.c-pagination').html(response);
@@ -68,7 +73,8 @@ jQuery(function ($) {
         var nextPageToRetrieve = jQuery('.more-btn').data('page') + 1;
         jQuery('.more-btn').attr('data-page', nextPageToRetrieve);
         var query = jQuery('#ff_keywords_filter').val();
-        var valueSelected = jQuery('.more-btn').data('date');
+        var valueSelected = jQuery('.more-btn, .nomore-btn').data('date');
+        var postType = jQuery('.data-type').data('type');
 
         jQuery.ajax({
             type: 'post',
@@ -78,7 +84,8 @@ jQuery(function ($) {
                 action: 'load_next_results',
                 query: query,
                 nextPageToRetrieve: nextPageToRetrieve,
-                valueSelected: valueSelected
+                valueSelected: valueSelected,
+                postType: postType
             },
 
             success: function( response ) {
@@ -94,7 +101,8 @@ jQuery(function ($) {
                 action: 'load_page_total',
                 query: query,
                 nextPageToRetrieve: nextPageToRetrieve,
-                valueSelected: valueSelected
+                valueSelected: valueSelected,
+                postType: postType
             },
             success: function (response) {
                 $('.c-pagination').html(response);

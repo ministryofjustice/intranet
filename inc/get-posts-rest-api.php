@@ -57,10 +57,11 @@ function get_post_api() {
     if ( 200 != $response_code && ! empty( $response_message ) ) {
         
     } else {
+        echo '<div class="data-type" data-type="posts"></div>';
 		foreach( $posts as $key => $post ) {
 
             ?>
-                <article class="c-article-item js-article-item">
+                <article class="c-article-item js-article-item" >
                     <a href="<?php echo $post['link'] ?>" class="thumbnail">
                         <img src="<?php echo $post['coauthors'][0]['thumbnail_avatar'] ;?>" alt="<?php echo $post['coauthors'][0]['display_name'] ;?>">
                     </a>

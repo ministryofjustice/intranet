@@ -21,9 +21,9 @@ $activeAgency = $oAgency->getCurrentAgency();
     <div class="l-primary" role="main">
       <h2 class="o-title o-title--section" id="title-section">Latest</h2>
       <div id="content">
-        <?php get_post_api(); ?>
+        <?php get_news_api(); ?>
       </div>
-      <?php get_pagination('posts'); ?>
+      <?php get_pagination('news'); ?>
     </div>
   </div>
 
