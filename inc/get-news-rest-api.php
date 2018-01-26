@@ -13,7 +13,6 @@ function get_news_api() {
     
     $response = wp_remote_get( $siteurl.'/wp-json/wp/v2/news/?' . $post_per_page . $current_page . $agency_name );
 
-    
     if( is_wp_error( $response ) ) {
 		return;
     }
@@ -28,7 +27,9 @@ function get_news_api() {
     if ( 200 != $response_code && ! empty( $response_message ) ) {
         
     } else {
+
         echo '<div class="data-type" data-type="news"></div>';
+        
 		foreach( $posts as $key => $post ) {
             ?>
                 <article class="c-article-item js-article-item" data-type="news">              

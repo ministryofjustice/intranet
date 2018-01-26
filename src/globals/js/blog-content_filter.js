@@ -67,7 +67,6 @@ jQuery(function ($) {
         return false;
     });
 
-
     jQuery('.c-pagination').on('click', function () {
         
         var nextPageToRetrieve = jQuery('.more-btn').data('page') + 1;

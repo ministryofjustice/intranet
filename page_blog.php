@@ -23,7 +23,7 @@ $activeAgency = $oAgency->getCurrentAgency();
       <div id="content">
         <?php get_post_api(); ?>
       </div>
-      <?php get_pagination('posts'); ?>
+      <?php get_pagination( 'posts' ); ?>
     </div>
   </div>
 

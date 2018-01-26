@@ -136,7 +136,6 @@ function load_search_results_total ()
     echo $post_total . ' search results';
 
     die();
-    
 }
 add_action('wp_ajax_load_search_results_total', 'load_search_results_total');
 add_action('wp_ajax_nopriv_load_search_results_total', 'load_search_results_total');

@@ -57,7 +57,9 @@ function get_post_api() {
     if ( 200 != $response_code && ! empty( $response_message ) ) {
         
     } else {
+
         echo '<div class="data-type" data-type="posts"></div>';
+        
 		foreach( $posts as $key => $post ) {
 
             ?>
