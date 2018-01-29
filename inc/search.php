@@ -35,9 +35,16 @@ function load_search_results(){
 
             ?>
                 <article class="c-article-item js-article-item">
-                    <a href="<?php echo $post['link'] ?>" class="thumbnail">
-                        <img src="<?php echo $post['coauthors'][0]['thumbnail_avatar'] ;?>" alt="<?php echo $post['coauthors'][0]['display_name'] ;?>">
-                    </a>
+                    <?php $featured_img_url = wp_get_attachment_url( get_post_thumbnail_id($post['id']) ); ?>
+                    <?php if( $featured_img_url ) {?>
+                        <a href="<?php echo $post['link'] ?>" class="thumbnail">
+                            <img src="<?php echo $featured_img_url?>" alt="">
+                        </a>    
+                    <?php }else{ ?>
+                        <a href="<?php echo $post['link'] ?>" class="thumbnail">
+                            <img src="<?php echo $post['coauthors'][0]['thumbnail_avatar'] ;?>" alt="<?php echo $post['coauthors'][0]['display_name'] ;?>">
+                        </a>
+                    <?php } ?>  
                     <div class="content">
                         <h1>
                             <a href="<?php echo $post['link'] ?>"><?php echo $post['title']['rendered']?></a>
@@ -91,9 +98,16 @@ function load_next_results(){
 
             ?>
                 <article class="c-article-item js-article-item">
-                    <a href="<?php echo $post['link'] ?>" class="thumbnail">
-                        <img src="<?php echo $post['coauthors'][0]['thumbnail_avatar'] ;?>" alt="<?php echo $post['coauthors'][0]['display_name'] ;?>">
-                    </a>
+                    <?php $featured_img_url = wp_get_attachment_url( get_post_thumbnail_id($post['id']) ); ?>
+                    <?php if( $featured_img_url ) {?>
+                        <a href="<?php echo $post['link'] ?>" class="thumbnail">
+                            <img src="<?php echo $featured_img_url?>" alt="">
+                        </a>    
+                    <?php }else{ ?>
+                        <a href="<?php echo $post['link'] ?>" class="thumbnail">
+                            <img src="<?php echo $post['coauthors'][0]['thumbnail_avatar'] ;?>" alt="<?php echo $post['coauthors'][0]['display_name'] ;?>">
+                        </a>
+                    <?php } ?>
                     <div class="content">
                         <h1>
                             <a href="<?php echo $post['link'] ?>"><?php echo $post['title']['rendered']?></a>
