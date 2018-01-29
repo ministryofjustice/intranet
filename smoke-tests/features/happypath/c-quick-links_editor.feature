@@ -1,5 +1,6 @@
 Feature: Test Quick links editor admin
 
+  @pending
   # NOTE: this test relies on the `agency_editor` belonging to HQ,
   # but not belonging to HMCTS. If this ever changes, this test will break.
   #

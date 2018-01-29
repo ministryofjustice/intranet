@@ -31,6 +31,8 @@ services:
       - /dev/fuse
     ports:
       - "80:80"
+    logging:
+      driver: none
   mailcatcher:
     container_name: smoketest_smtp
     image: ministryofjustice/mailcatcher
@@ -39,6 +41,8 @@ services:
       VIRTUAL_PORT: 1080
     ports:
       - "1080:1080"
+    logging:
+      driver: none
   mariadb:
     container_name: smoketest_db
     image: mariadb
@@ -51,6 +55,8 @@ services:
       - ./db-dump:/docker-entrypoint-initdb.d
     ports:
       - "3306:3306"
+    logging:
+      driver: none
   smoketest:
     container_name: smoketest_tests
     build: ../smoke-tests

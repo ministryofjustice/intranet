@@ -1,5 +1,6 @@
 Feature: Test Login as agency editor
 
+  @pending
   Scenario: Test Login as agency editor
     Given I log into the intranet as "agency_editor"
     # I check that I can access all the relevant menu items
