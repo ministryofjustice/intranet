@@ -27,9 +27,7 @@ function load_search_results(){
     $response_code       = wp_remote_retrieve_response_code( $response );
 	$response_message = wp_remote_retrieve_response_message( $response );
 
-    if ( 200 != $response_code && ! empty( $response_message ) ) {
-        
-    } else {
+    if ( 200 == $response_code && $response_message == 'OK' ) {
         echo '<div class="data-type" data-type="'.$postType.'"></div>';
         foreach( $posts as $key => $post ) {
 
@@ -58,9 +56,8 @@ function load_search_results(){
                     </div>        
                 </article>
             <?php
-        }
-            
-    }    
+        }  
+    }     
     die();
 }
 add_action('wp_ajax_load_search_results', 'load_search_results');
@@ -90,9 +87,7 @@ function load_next_results(){
 	$response_code       = wp_remote_retrieve_response_code( $response );
 	$response_message = wp_remote_retrieve_response_message( $response );
 
-    if ( 200 != $response_code && ! empty( $response_message ) ) {
-        
-    } else {
+    if ( 200 == $response_code && $response_message == 'OK' ) {
         echo '<div class="data-type" data-type="'.$postType.'"></div>';
         foreach( $posts as $key => $post ) {
 
@@ -125,7 +120,7 @@ function load_next_results(){
 
             <?php
         }
-    }
+    } 
     die();
 }
 add_action('wp_ajax_load_next_results', 'load_next_results');

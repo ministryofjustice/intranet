@@ -54,10 +54,7 @@ function get_post_api() {
     $response_code       = wp_remote_retrieve_response_code( $response );
 	$response_message = wp_remote_retrieve_response_message( $response );
 
-    if ( 200 != $response_code && ! empty( $response_message ) ) {
-        
-    } else {
-
+    if ( 200 == $response_code && $response_message == 'OK' ) {
         echo '<div class="data-type" data-type="posts"></div>';
         
 		foreach( $posts as $key => $post ) {
@@ -81,7 +78,7 @@ function get_post_api() {
                 </article>
             <?php
         }
-	}
+    } 
     
 }
 add_action('wp_ajax_get_post_api', 'get_post_api');

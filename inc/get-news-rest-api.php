@@ -12,7 +12,7 @@ function get_news_api() {
     $agency_name = '&agency=' . $activeAgency['wp_tag_id'];
     
     $response = wp_remote_get( $siteurl.'/wp-json/wp/v2/news/?' . $post_per_page . $current_page . $agency_name );
-
+    
     if( is_wp_error( $response ) ) {
 		return;
     }
@@ -24,12 +24,8 @@ function get_news_api() {
     $response_code       = wp_remote_retrieve_response_code( $response );
 	$response_message = wp_remote_retrieve_response_message( $response );
 
-    if ( 200 != $response_code && ! empty( $response_message ) ) {
-        
-    } else {
-
+    if ( 200 == $response_code && $response_message == 'OK' ) {
         echo '<div class="data-type" data-type="news"></div>';
-        
 		foreach( $posts as $key => $post ) {
             ?>
                 <article class="c-article-item js-article-item" data-type="news">              
@@ -58,7 +54,7 @@ function get_news_api() {
             <?php
         }
     }
-    
+     
 }
 add_action('wp_ajax_get_news_api', 'get_news_api');
 add_action('wp_ajax_nopriv_get_news_api', 'get_news_api');
