@@ -8,7 +8,6 @@ main() {
   run_smoke_tests
 }
 
-
 # The docker-compose `depends_on` key reports as soon as the container starts responding. The smoke tests require the
 # app to be fully started and will fail if they are triggered as soon as `depends_on` responds. Because the wp container
 # installed everything fresh for every test, the setup can take a long time.
@@ -22,7 +21,7 @@ wait_for_wordpress_container() {
 }
 
 run_smoke_tests() {
-  if ! bundle exec cucumber --profile quick_run; then
+  if ! bundle exec cucumber; then
     printf '%s\n' 'Smoke tests failed.\n' >&2
     stop_all_containers
     exit 1
