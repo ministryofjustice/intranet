@@ -1,7 +1,7 @@
 <?php
 use MOJ\Intranet\Agency;
 /*
-* Template Name: Blog archive page
+* Template Name: News archive page
 */
 if (!defined('ABSPATH')) {
     die();
