@@ -34,11 +34,15 @@ function get_news_api() {
             ?>
                 <article class="c-article-item js-article-item" data-type="news">              
                     <?php $featured_img_url = wp_get_attachment_url( get_post_thumbnail_id($post['id']) ); ?>
-                    <?php if( $featured_img_url ) : ?>
+                    <?php if( $featured_img_url ) {?>
                         <a href="<?php echo $post['link'] ?>" class="thumbnail">
                             <img src="<?php echo $featured_img_url?>" alt="">
                         </a>    
-                    <?php endif; ?>
+                    <?php }elseif (!empty($post['coauthors'][0]['thumbnail_avatar'])) { ?>
+                        <a href="<?php echo $post['link'] ?>" class="thumbnail">
+                            <img src="<?php echo $post['coauthors'][0]['thumbnail_avatar'] ;?>" alt="<?php echo $post['coauthors'][0]['display_name'] ;?>">
+                        </a>
+                    <?php }else{} ?>
                     <div class="content">
                         <h1>
                             <a href="<?php echo $post['link'] ?>"><?php echo $post['title']['rendered']?></a>

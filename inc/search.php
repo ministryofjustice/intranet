@@ -40,11 +40,11 @@ function load_search_results(){
                         <a href="<?php echo $post['link'] ?>" class="thumbnail">
                             <img src="<?php echo $featured_img_url?>" alt="">
                         </a>    
-                    <?php }else{ ?>
+                    <?php }elseif (!empty($post['coauthors'][0]['thumbnail_avatar'])) { ?>
                         <a href="<?php echo $post['link'] ?>" class="thumbnail">
                             <img src="<?php echo $post['coauthors'][0]['thumbnail_avatar'] ;?>" alt="<?php echo $post['coauthors'][0]['display_name'] ;?>">
                         </a>
-                    <?php } ?>  
+                    <?php }else{} ?> 
                     <div class="content">
                         <h1>
                             <a href="<?php echo $post['link'] ?>"><?php echo $post['title']['rendered']?></a>
@@ -103,11 +103,13 @@ function load_next_results(){
                         <a href="<?php echo $post['link'] ?>" class="thumbnail">
                             <img src="<?php echo $featured_img_url?>" alt="">
                         </a>    
-                    <?php }else{ ?>
+                    <?php }elseif (!empty($post['coauthors'][0]['thumbnail_avatar'])) { ?>
                         <a href="<?php echo $post['link'] ?>" class="thumbnail">
                             <img src="<?php echo $post['coauthors'][0]['thumbnail_avatar'] ;?>" alt="<?php echo $post['coauthors'][0]['display_name'] ;?>">
                         </a>
-                    <?php } ?>
+                    <?php }else{} ?>
+                        
+
                     <div class="content">
                         <h1>
                             <a href="<?php echo $post['link'] ?>"><?php echo $post['title']['rendered']?></a>
