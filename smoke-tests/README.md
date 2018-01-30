@@ -3,8 +3,8 @@
 ## Installing Locally
 
 These are standard cucumber features written in Ruby. They will run on
-version of ruby back to `2.2.2`.  Optimally, however, they should be
-configured to run under `2.4.1` or higher.
+any version of ruby back to `2.2.2`.  Optimally, however, they should be
+configured to run under `2.5.0` or higher.
 
 To install current Rubies and set up tests to run locally on OSX:
 
@@ -17,9 +17,9 @@ brew update
 brew install rbenv
 rbenv init
 
-# Now, install ruby-build and Ruby 2.4.1:
+# Now, install ruby-build and Ruby:
 brew install ruby-build
-rbenv install 2.4.1
+rbenv install 2.5.0
 
 # If you don't have git-crypt:
 brew install git-crypt
@@ -40,15 +40,15 @@ cp .env.example .env
 # When bundle finishes, you are ready to run smoke tests.
 ```
 
-If you do not want to install Ruby, the docker container will handle all
-the dependencies for you.  You can skip the 'Running Locally' section.
+If you do not want to install Ruby, the dockerized version will handle
+everyting for you.  If you want to build this way, you can skip the
+following section.
 
 ## Running Locally
 
 ```
 cd intranet/smoke-tests
-bundle exec cucumber
-```
+bundle exec cucumber ```
 
 Alternately, you can run these using either `docker` or
 `docker-compose`.
@@ -56,50 +56,35 @@ Alternately, you can run these using either `docker` or
 See 'Running with Docker on MoJ Jenkins' for instructions on how to run
 with the basic docker commands.
 
-To run with `docker-compose`:
+## Run _just_ the tests in docker
 
-Edit `docker-compose.yml` to point at your desired TARGET_URL, then run
-`docker-compose up --build`.
+Edit `smoke-tests/docker-compose.yml` to point at your desired TARGET_URL, then run
+`cd smoke-tests; docker-compose up --build`.
 
-### Running with Docker on MoJ Jenkins:
+## Run the complete stack in docker
 
-The script for running the tests in the Docker container on Jenkins are
-as follows:
+This is the simplest way to run the smoketests and is the method that is
+being used to run them on travis.
 
-```bash
-#!/bin/bash
+First, ensure you have appropriate AWS keys set in your environment or
+your `~/.aws/credentials`. You will need read-only access to
+`s3://moj-intranet-smoketest-sql/`, which is where the example SQL dump
+is fetched from. If you already have TP AWS credentials set in your
+environment, then you should not need to do anything else to make the
+fetch work.
 
-set -euo pipefail
-
-docker build -f Dockerfile.smoketests -t smoketests .
-docker run smoketests
-```
-
-The default target environment is `http://intranet.docker/`. You
-can change this at run time by overriding the TARGET_URI
-environment variable:
+Now run the following commands:
 
 ```bash
-#!/bin/bash
+cd docker
 
-set -euo pipefail
-
-docker build -f Dockerfile.smoketests -t smoketests .
-docker run -e "TARGET_URI=https://tax-tribunals-datacapture-dev.dsd.io" smoketests
+make smoketest-nuke-all smoketest
 ```
+Please note that it does take around 10 to 15 minutes for the run
+to complete. I have turned off as much of the logging as possible, but
+it still generates several thousand lines of output during a typical
+run.
 
-### Container Rationale
-
-This is being run from a container because there were difficulties
-getting PhantomJS installed (and kept up-to-date) on the MoJ Jenkins
-instances.  Building the dependencies in-container was the most efficient
-maintenance strategy.
-
-## Caution
-
-The smoke tests **can** be configured to create new resources on their
-target environment(s). This can skew live analytics and confuse users when
-run against a production environment.
-
-In short: do not run smoke test against the production environment
-without consulting all the stakeholders, first.
+You **can** run the tests using `make smoketest`. `smoketest-nuke-all`
+is not required.  It is shown in the example to ensure that the test
+start in a pristine state, which is always the starting point on travis.
