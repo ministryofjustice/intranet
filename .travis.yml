@@ -4,6 +4,7 @@ services:
   - docker
 
 before_install:
+  - pip install awscli
   - cd docker
 
 script:
