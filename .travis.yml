@@ -8,8 +8,8 @@ before_install:
   - cd docker
 
 before_script:
-  - sudo /etc/init.d/mysql stop
-  - sudo /etc/init.d/postgresql stop
+  - sudo service mysql stop
+  - sudo service postgresql stop
 
 script:
   - make smoketest
