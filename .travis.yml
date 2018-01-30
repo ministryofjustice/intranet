@@ -7,5 +7,9 @@ before_install:
   - sudo pip install awscli
   - cd docker
 
+before_script:
+  - sudo /etc/init.d/mysql stop
+  - sudo /etc/init.d/postgresql stop
+
 script:
   - make smoketest
