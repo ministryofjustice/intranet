@@ -34,20 +34,37 @@ $thumbnail_url = $thumbnail[0];
     }
   ?>  
   <h1><a href="<?php echo get_the_permalink($id);?>"><?php echo get_the_title($id);?></a></h1>
+  <?php 
+    if ($config === 'show_date') {?>
+      <div class="meta">
+        <span class="c-article-item__dateline"><?php echo get_the_time('j M Y', $id);?></span>
+      </div>
+  <?php } ?>
+
+  <?php 
+    if ($config === 'show_date_and_excerpt') {?>
+      <div class="c-article-exceprt">
+        <p><?php echo get_the_excerpt($id);?></p>
+      </div>
+      <div class="meta">
+        <span class="c-article-item__dateline"><?php echo get_the_time('j M Y', $id);?></span>
+      </div>
+  <?php } ?>
+
   <?php
   // If the 'show_excerpt' value has been passed to $config: Display the excerpt.
-  if ($config === 'show_excerpt') { ?>
-  <div class="meta">
-    <span class="c-article-item__dateline"><?php echo get_the_time('j M Y', $id);?> by <?php echo $authors[0]['name'];?></span>
-  </div>
-    <div class="c-article-exceprt">
-      <p><?php the_excerpt();?></p>
-    </div>
+    if ($config === 'show_excerpt') { ?>
+      <div class="c-article-exceprt">
+        <p><?php echo get_the_excerpt($id);?></p>
+      </div>
+      <div class="meta">
+        <span class="c-article-item__dateline"><?php echo get_the_time('j M Y', $id);?> by <?php echo $authors[0]['name'];?></span>
+      </div>
   <?php } ?>
   <?php
   // If the 'blog' value has been passed to $config: Display the byline.
   if ($config === 'blog') {
   ?>
-        <span class="c-article-item__byline"><?php echo $authors[0]['name'];?></span>
+    <span class="c-article-item__dateline"><?php echo get_the_time('j M Y', $id);?></span>
   <?php } ?>
 </article>
