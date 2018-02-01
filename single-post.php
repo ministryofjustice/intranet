@@ -1,5 +1,5 @@
 <?php
-
+use MOJ\Intranet\Agency;
 /*
 * Single blog post
 */
@@ -9,6 +9,9 @@ if (!defined('ABSPATH')) {
 }
 
 get_header();
+
+$oAgency = new Agency();
+$activeAgency = $oAgency->getCurrentAgency();
 
 ?>
   <div id="maincontent" class="u-wrapper l-main t-blog-article" role="main">

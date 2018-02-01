@@ -2,7 +2,7 @@
 <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
 <section class="c-share-post">
   <ul class="c-share-post__link">
-
+    <li class="u-icon u-icon--chat_bubble"><?php echo get_comments_number() ?></li>
     <li><?php echo do_shortcode('[likebutton]'); ?><li>
 
       <!--AF: I feel like this should be a form rather than a mailto link -->
