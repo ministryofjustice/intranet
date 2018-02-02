@@ -17,6 +17,7 @@
     </li>
   </ul>
 </section>
+
 <?php endwhile; else : ?>
 	<p><?php esc_html_e('Sorry, nothing was found.'); ?></p>
 <?php endif; ?>
