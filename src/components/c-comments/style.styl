@@ -2,5 +2,62 @@
 @require "../../globals/css/_toolkit"
 
 .c-comments {
+    font-family: "nta", Helvetica, arial, sans-serif;
+    .o-title--subtitle {
+        font-size: 25px;
+        line-height: 30px;
+        margin: 24px 0;
+    }
+    .comment-body {
+        margin-top: 20px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid #bfc1c3;
+        .reply{
+            @extend .u-icon;
+            display: inline-block;
+            position: relative;
+            &:before{
+                content: "\e0ca";
+            }
+            .comment-reply-link {
+                font-family: nta,sans-serif;
+                text-decoration: underline;
+                position: absolute;
+                left: 20px;
+                top: 0;
+                font-size: 16px;
+                line-height: 20px;
 
+            }
+        }
+        .comment-author {
+            font-size: 19px;
+            line-height: 25px;
+            .says{
+                display: none;
+            }
+            .date,.dash{
+                color: #6f777b;
+            } 
+        }
+
+    }
+    .commentlist{
+        .children{
+            margin-left: 40px;
+            padding-left: 20px;
+            border-left: 4px solid #bfc1c3;
+            .comment-body{
+                border: 0px;
+                padding: 0px;
+                .comment-author {
+                    font-size: 19px;
+                    line-height: 25px;
+                    .says{
+                        display: none;
+                    }
+                }
+            }
+        }    
+    }
 }
