@@ -12,7 +12,6 @@ if (!current_user_can('administrator')) {
 $load_commands = array(
     // filename => Class_Name
     'assign-agency-terms-to-posts' => 'Assign_Agency_Terms_To_Posts',
-    'close-commenting' => 'Close_Commenting',
     'hide-page-bylines' => 'Hide_Page_Bylines',
     'agency-doc-opt-in' => 'Agency_Doc_Opt_In',
     'reset-doc-scan' => 'Reset_Doc_Scan',
@@ -23,7 +22,6 @@ $load_commands = array(
     'generic-template-move-part3' => 'Generic_Template_Move_Part3',
     'set-regional-editor-permissions' => 'Set_Regional_Editor_Permissions',
     'remove-old-tabs-and-links' => 'Remove_Old_Tabs_And_Links',
-    'add-meta-comments-root' => 'Add_Comments_Root',
 );
 
 $admin_commands = array();
