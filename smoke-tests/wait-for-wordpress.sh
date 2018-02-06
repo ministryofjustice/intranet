@@ -2,10 +2,24 @@
 set -e
 
 WP_CONTAINER=$1
+# At the time of writing there are THREE supporting containers required to run the smoketests.
+# These are defined in the grep statement, below.
+NUMBER_OF_SUPPORTING_CONTAINERS=3
 
 main() {
   wait_for_wordpress_container
   run_smoke_tests
+}
+
+fail_if_supporting_containers_fail() {
+  # The regex is not in a variable because grep refuses to pick it.
+  support_container_count=$(docker ps | grep -cE smoketest_'(wp|db|smtp)')
+
+  if [ "$support_container_count" -ne "$NUMBER_OF_SUPPORTING_CONTAINERS" ]; then
+    >&2 echo "***** One of the required supporting containers has failed. Exiting tests."
+    stop_all_containers
+    exit 1
+  fi
 }
 
 # The docker-compose `depends_on` key reports as soon as the container starts responding. The smoke tests require the
@@ -15,6 +29,9 @@ wait_for_wordpress_container() {
   while ! curl -I -s ${WP_CONTAINER} | grep -q 'HTTP/1.1'; do
     >&2 echo "Wordpress is unavailable - sleeping..."
     sleep 10
+    # By the time the test container starts, all the other containers should be started. They may not be ready to
+    # respond, but they should show up in the output of `docker ps` at least.
+    fail_if_supporting_containers_fail
   done
 
   >&2 echo "Wordpress is up - executing command..."
