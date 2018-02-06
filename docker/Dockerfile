@@ -20,7 +20,7 @@ WORKDIR /
 ## ## ## ## ## ##
 # TODO: review these dependencies so everything uses the ubuntu packaged
 # 2.1.x version of phantom.
-RUN apt-get update && apt-get install -y ruby ruby-dev phantomjs
+RUN apt-get update && apt-get install -y ruby ruby-dev phantomjs libffi-dev
 RUN gem install sass
 RUN ln -sf /dev/stdout /var/log/fpm.slow.log
 
