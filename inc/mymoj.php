@@ -258,10 +258,10 @@ class MyMOJ
             'external' => true,
           ],
           [
-            'title' => 'Team relocation',
+            'title' => 'Estates portal',
             'icon' => 'house',
-            'url' => site_url('/team-relocation/'),
-            'external' => false,
+            'url' => 'https://moj-portal.meandmyworkplace.com/?auth_token=9Q5Q42ybcao-KheuE31A4A',
+            'external' => true,
           ],
         ],
         'judicial-appointments-commission' => [
