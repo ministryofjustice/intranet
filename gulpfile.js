@@ -79,6 +79,7 @@ gulp.task('scripts', function () {
 gulp.task('stylus', function () {
   return gulp.src([
     // add your Stylus files here, they will be combined in this order (exclude print and ie styles)
+    '!src/globals/css/admin/*.css',
     'src/globals/css/*.styl',
     '!src/**/*.print.styl',
     '!src/**/*.ie.styl',
