@@ -1,0 +1,14 @@
+/* Extra styling for backend admin features */
+
+/*
+* Discussion meta box (found any where comment display needs to be managed.)
+*/
+.discussion_meta_box p {
+  margin: 20px;
+}
+
+.discussion_meta_box label {
+  display:block;
+  margin-bottom: 10px;
+  margin-left: 14px;
+}

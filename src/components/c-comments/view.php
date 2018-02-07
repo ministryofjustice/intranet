@@ -102,9 +102,9 @@ $comment_title = 'Comments';
 <?php break; ?>
 
 <?php
-  // Final case. In case there is some error, we have a fallback message.
+  // Final case. In case there is some error or a new post has been created with no option set we have a fallback message.
   default:
-    echo 'There are no comments available.';
+    echo 'We have no comments available.';
 
   } // End of switch statement.
 ?>
