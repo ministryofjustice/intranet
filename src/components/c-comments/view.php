@@ -18,7 +18,7 @@ $comments = get_comments(
 // Getting the post meta assosiated with what the admin has set the comments on this page to. See admin->comments.php
 // Meta values are 'comments_on', 'comments_off' and 'comments_closed'.
 $post_meta = get_post_meta(get_the_ID());
-$comment_status = $post_meta["discussion_meta_box_value"][0];
+$comments_disabled = $post_meta["comment_disabled_status"][0];
 $comment_title = 'Comments';
 ?>
 
@@ -32,10 +32,7 @@ $comment_title = 'Comments';
  *
  */
 ?>
-<?php switch ($comment_status) {
-
-  // First case. Comments on. Comments appear on page.
-  case 'comments_on': ?>
+<?php if (comments_open($post_id) === true && $comments_disabled === '0') : ?>
 
   <?php if (!get_comments_number()) : // Check in case comments gets switched on without any comments added.?>
 
@@ -60,21 +57,7 @@ $comment_title = 'Comments';
 
   <?php endif; ?>
 
-<?php break; ?>
-
-<?php
-
-  // Next case. Comments off. No comments to appear on page.
-  case 'comments_off':
-  return;
-?>
-
-<?php break; ?>
-
-<?php
-
-  // Third case. Comments closed. Comments appear on page but users cannot add further comments.
-  case 'comments_closed': ?>
+<?php elseif (comments_open($post_id) === true && $comments_disabled === 'comments_disabled') : ?>
 
   <?php if (!get_comments_number()) : //Check in case comments gets switched on without any comments added.?>
 
@@ -85,6 +68,7 @@ $comment_title = 'Comments';
 
     <h1 class="o-title o-title--subtitle"><?php echo $comment_title; ?></h1>
     <ul class="commentlist">
+    <p><span class="u-message u-message--warning">Comments are now closed</span></p>
     <?php
       wp_list_comments(
         [
@@ -96,18 +80,18 @@ $comment_title = 'Comments';
         ], $comments);
     ?>
     </ul>
-
   <?php endif; ?>
 
-<?php break; ?>
+<?php elseif (comments_open($post_id) === false) : ?>
 
-<?php
-  // Final case. In case there is some error or a new post has been created with no option set we have a fallback message.
-  default:
-    echo 'We have no comments available.';
+  <?php echo ''; ?>
 
-  } // End of switch statement.
-?>
+<?php else: ?>
+
+  <?php
+    echo 'Comments are not currently available.';
+    endif; // End of if statement.
+  ?>
 
 </section>
 <!-- c-comments ends here -->

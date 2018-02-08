@@ -101,7 +101,6 @@ function format_comment_closed($comment, $args, $depth)
             <span class="date"><?php printf(__('%1$s'), get_comment_date(), get_comment_time()) ?></span>
         </cite>
         <?php comment_text(); ?>
-        <p>Comments are now closed</p>
 	  </div>
     <?php
 }
