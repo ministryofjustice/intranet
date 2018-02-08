@@ -15,10 +15,15 @@ $comments = get_comments(
   'status' => 'approve'
   ]);
 
-// Getting the post meta assosiated with what the admin has set the comments on this page to. See admin->comments.php
-// Meta values are 'comments_on', 'comments_off' and 'comments_closed'.
+
+// Get core WP meta
+$post_id = get_the_ID();
 $post_meta = get_post_meta(get_the_ID());
+
+// Getting the post meta assosiated with what the admin has set the comments on this page to. See admin->comments.php
 $comments_disabled = $post_meta["comment_disabled_status"][0];
+
+// Don't want to repeat ourselves - DRY
 $comment_title = 'Comments';
 ?>
 
@@ -28,7 +33,7 @@ $comment_title = 'Comments';
 <?php
 /***
  *
- * Switch statement displays code based on three scenarios, comments on, off and closed.
+ * If statement displays code based on three scenarios, comments on, off and closed.
  *
  */
 ?>
@@ -84,11 +89,13 @@ $comment_title = 'Comments';
 
 <?php elseif (comments_open($post_id) === false) : ?>
 
+  <?php // If comments are switched off display nothing. ?>
   <?php echo ''; ?>
 
 <?php else: ?>
 
   <?php
+    // A fallback in case comment meta isn't set for some reason.
     echo 'Comments are not currently available.';
     endif; // End of if statement.
   ?>
