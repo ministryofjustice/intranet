@@ -46,7 +46,7 @@ function custom_discussion_meta_box()
     // Messages we want to display to the editor about the managing comment options
     $comments_open_text = 'Comments on: comments are displayed on the page.';
     $comments_closed_text = 'Comments off: comments are not displayed on the page.';
-    $comments_disabled_text = 'Close comments: close current comments so that users cannot leave a new comment.';
+    $comments_disabled_text = 'Comments closed: close current comments so that users cannot leave a new comment.';
 
     // Create a nonce to check later.
     wp_nonce_field('post_comment_status_check', 'post_comment_status_nonce');
