@@ -83,7 +83,7 @@ class Agency_model extends MVC_model {
       'law-commission' => array(
         'label' => 'Law Commission',
         'abbreviation' => 'LawCom',
-        'is_integrated' => false,
+        'is_integrated' => true,
         'links' => [
           [
             'url' => 'http://lawcommission.intranet.service.justice.gov.uk/',
