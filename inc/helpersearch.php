@@ -83,17 +83,21 @@ class HelperSearch {
      * @return {Array} an array containing raw results from WP query
      */
     public function get_raw($options = array()) {
-        $data = array();
-        $this->options = $this->add_taxonomies($options);
-        $this->options = $this->normalize_options($this->options);
+      static $_data = array();
+      $this->options = $this->add_taxonomies($options);
+      $this->options = $this->normalize_options($this->options);
+
+      // Try to reduce the number of times the database gets queried for the same information in a single call.
+      if(!array_key_exists($options, $_data)) {
         //process the query
-        $data['raw'] = $this->get_raw_results();
-        $data['total_results'] = (int) $data['raw']->found_posts;
-        $data['retrieved_results'] = (int) $data['raw']->post_count;
+        $_data[$options]['raw'] = $this->get_raw_results();
+        $_data[$options]['total_results'] = (int) $_data[$options]['raw']->found_posts;
+        $_data[$options]['retrieved_results'] = (int) $_data[$options]['raw']->post_count;
 
         $this->_reset();
+      }
 
-        return $data;
+      return $_data[$options];
     }
 
     /** Normalize options by applying them on top of an array with default options
