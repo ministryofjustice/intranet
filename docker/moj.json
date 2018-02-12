@@ -23,7 +23,7 @@
     "ministryofjustice/dw-document-revisions":"dev-update-composer-json",
     "ministryofjustice/dw-live-drafts":"dev-update-composer-json",
     "ministryofjustice/dw-markdown":"dev-update-composer-json",
-    "ministryofjustice/intranet-theme-clarity":"dev-master",
+    "ministryofjustice/intranet-theme-clarity":"dev-memoize-expensive-db-call",
     "ministryofjustice/intranet":"dev-master",
     "ministryofjustice/wp-rewrite-media-to-s3": "*",
     "wpackagist-theme/twentyseventeen":"1.3"
