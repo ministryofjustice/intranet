@@ -83,6 +83,7 @@ function format_comment($comment, $args, $depth) {
                     <div class="reply">
                         <?php comment_reply_link(array_merge( $args, array('depth' => $depth, 'max_depth' => $args['max_depth']))) ?>
                     </div>
+                    <?php echo do_shortcode('[likebutton]'); ?>
 			</div>
 
         <?php
@@ -102,5 +103,6 @@ function format_comment_closed($comment, $args, $depth)
         </cite>
         <?php comment_text(); ?>
 	  </div>
+    <?php echo do_shortcode('[likebutton]'); ?>
     <?php
 }
