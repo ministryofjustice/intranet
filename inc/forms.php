@@ -19,10 +19,10 @@ function feedback_form()
 {
     if (isset($_POST['submit'])) {
         $form = [
-            'name'      => $_POST['fbf_name'],
-            'email'     => $_POST['fbf_email'],
-            'message'   => $_POST['fbf_message'],
-            'agency'    => $_POST['agency'],
+            'name'      => isset($_POST['fbf_name']),
+            'email'     => isset($_POST['fbf_email']),
+            'message'   => isset($_POST['fbf_message']),
+            'agency'    => isset($_POST['agency']),
         ];
         $to = 'intranet@justice.gsi.gov.uk';
         $subject = 'Feedback Form';

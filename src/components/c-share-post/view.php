@@ -1,5 +1,10 @@
 <!-- c-share-post starts here -->
+
 <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
+<?php $post_meta = get_post_meta(get_the_ID()); ?>
+<?php //$comment_status = $post_meta["discussion_meta_box_value"][0];?>
+
+<?php //print_r($post_meta); ?>
 <section class="c-share-post">
   <ul class="c-share-post__link">
     <?php
