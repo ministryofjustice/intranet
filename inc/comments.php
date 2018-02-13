@@ -1,45 +1,5 @@
 <?php
 
-$valid_domains = array(
-    'cafcass.gsi.gov.uk',
-    'ccrc.x.gsi.gov.uk',
-    'cica.gsi.gov.uk',
-    'cjs.gsi.gov.uk',
-    'crowncommercial.gov.uk',
-    'digital.justice.gov.uk',
-    'hmcourts-service.gsi.gov.uk',
-    'hmcts.gsi.gov.uk',
-    'hmiprisons.gsi.gov.uk',
-    'hmiprobation.gsi.gov.uk',
-    'hmps.gsi.gov.uk',
-    'homeoffice.gsi.gov.uk',
-    'ips.gsi.gov.uk',
-    'jac.gsi.gov.uk',
-    'jaco.gsi.gov.uk',
-    'judiciary.gsi.gov.uk',
-    'justice.gov.uk',
-    'justice.gsi.gov.uk',
-    'lawcommission.gsi.gov.uk',
-    'legalaid.gsi.gov.uk',
-    'legalombudsman.org.uk',
-    'legalservicesboard.org.uk',
-    'noms.gsi.gov.uk',
-    'offsol.gsi.gov.uk',
-    'paroleboard.gsi.gov.uk',
-    'ppo.gsi.gov.uk',
-    'probation.gsi.gov.uk',
-    'publicguardian.gsi.gov.uk',
-    'sentencingcouncil.gsi.gov.uk',
-    'yjb.gsi.gov.uk',
-);
-
-function is_gov_email($email) {
-    $parts = explode('@', $email);
-    $domain = $parts[1];
-
-    return in_array($domain, $valid_domains);
-}
-
 function convert_to_time_ago( $date, $d, $comment ) {
 
     return human_time_diff( get_comment_time( 'U' ), current_time('timestamp') ) . ' ago';
@@ -66,7 +26,7 @@ function remove_must_be_logged_in($fields){
 }
 add_filter('comment_form_defaults', 'remove_must_be_logged_in');
 
-// Allow Registration Only from gov email addresses
+// Allow Login Only from gov email addresses
 function is_valid_email_domain($login, $email, $errors ){
     $valid_domains = array(
         'cafcass.gsi.gov.uk',
@@ -99,7 +59,6 @@ function is_valid_email_domain($login, $email, $errors ){
         'publicguardian.gsi.gov.uk',
         'sentencingcouncil.gsi.gov.uk',
         'yjb.gsi.gov.uk',
-        'gmail.com',
     );
     $valid = false; // sets default validation to false
     foreach( $valid_domains as $d ){
@@ -112,7 +71,7 @@ function is_valid_email_domain($login, $email, $errors ){
     }
     // Return error message for invalid domains
     if( $valid === false ){
-        $errors->add('domain_whitelist_error',__( '<strong>ERROR</strong>: Registration is only allowed from gov emails. If you think you are seeing this in error, please contact the system administrator.' ));
+        $errors->add('domain_whitelist_error',__( '<strong>ERROR</strong>: Login is only allowed from .gov emails. If you think you are seeing this in error, please contact the Intranet Team.' ));
     }
 }
 add_action('register_post', 'is_valid_email_domain',10,3 );

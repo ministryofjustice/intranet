@@ -16,6 +16,47 @@ get_header();?>
 	$err = '';
 	$success = '';
 
+	function is_gov_email($email) {
+
+		$valid_domains = array(
+			'cafcass.gsi.gov.uk',
+			'ccrc.x.gsi.gov.uk',
+			'cica.gsi.gov.uk',
+			'cjs.gsi.gov.uk',
+			'crowncommercial.gov.uk',
+			'digital.justice.gov.uk',
+			'hmcourts-service.gsi.gov.uk',
+			'hmcts.gsi.gov.uk',
+			'hmiprisons.gsi.gov.uk',
+			'hmiprobation.gsi.gov.uk',
+			'hmps.gsi.gov.uk',
+			'homeoffice.gsi.gov.uk',
+			'ips.gsi.gov.uk',
+			'jac.gsi.gov.uk',
+			'jaco.gsi.gov.uk',
+			'judiciary.gsi.gov.uk',
+			'justice.gov.uk',
+			'justice.gsi.gov.uk',
+			'lawcommission.gsi.gov.uk',
+			'legalaid.gsi.gov.uk',
+			'legalombudsman.org.uk',
+			'legalservicesboard.org.uk',
+			'noms.gsi.gov.uk',
+			'offsol.gsi.gov.uk',
+			'paroleboard.gsi.gov.uk',
+			'ppo.gsi.gov.uk',
+			'probation.gsi.gov.uk',
+			'publicguardian.gsi.gov.uk',
+			'sentencingcouncil.gsi.gov.uk',
+			'yjb.gsi.gov.uk',
+		);
+
+		$parts = explode('@', $email);
+		$domain = $parts[1];
+
+		return in_array($domain, $valid_domains);
+	}
+
 	global $wpdb, $PasswordHash, $current_user, $user_ID;
 
 	if(isset($_POST['task']) && $_POST['task'] == 'register' ) {
@@ -29,11 +70,13 @@ get_header();?>
 
 		if( $email == "" || $pwd1 == "" || $pwd2 == "" || $username == "" || $first_name == "" ) {
 			$err = 'Please don\'t leave the required fields.';
-		} else if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+		} elseif(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 			$err = 'Invalid email address.';
-		} else if(email_exists($email) ) {
+		} elseif(email_exists($email) ) {
 			$err = 'Email already exist.';
-		} else if($pwd1 <> $pwd2 ){
+		} elseif(!is_gov_email($email)){
+			$err = 'Needs to be .gov email';
+		} elseif($pwd1 <> $pwd2 ){
 			$err = 'Password do not match.';
 		} else {
 
@@ -97,7 +140,6 @@ get_header();?>
 		<p><input type="password" value="" name="pwd1" id="pwd1" /></p>
 		<p><label>Password again</label></p>
 		<p><input type="password" value="" name="pwd2" id="pwd2" /></p>
-		<div class="alignleft"><p><?php if($success != "") { echo $success; } ?> <?php if($err != "") { echo $err; } ?></p></div>
 		<button type="submit" name="btnregister" class="button" >Submit</button>
 		<input type="hidden" name="task" value="register" />
 	</form>
