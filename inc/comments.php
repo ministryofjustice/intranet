@@ -13,6 +13,17 @@ function remove_comment_website_field($fields) {
 }
 add_filter('comment_form_default_fields','remove_comment_website_field');
 
+function my_update_comment_field( $comment_field ) {
+
+  $comment_field =
+    '<p class="comment-form-comment">
+        <textarea required id="comment" name="comment" placeholder="' . esc_attr__( "Enter your comment here...", "text-domain" ) . '" cols="45" rows="8" aria-required="true"></textarea>
+    </p>';
+
+  return $comment_field;
+}
+add_filter( 'comment_form_field_comment', 'my_update_comment_field' );
+
 function remove_must_be_logged_in($fields){
     $fields['must_log_in'] = sprintf( 
         __( '<p class="must-log-in">
@@ -93,9 +104,7 @@ function format_comment($comment, $args, $depth) {
                     <div class="reply">
                         <?php
                             $replyorlogin = '<p class="must-log-in"><a href="'.wp_login_url().'">Login</a> or 
-                <a href="'.wp_registration_url().'">Register</a>
-             to post a comment.</p>'
-                            
+                                <a href="'.wp_registration_url().'">Register</a> to post a comment.</p>'
                         ?>
                         <?php comment_reply_link( array_merge( $args, 
                             array(
@@ -109,7 +118,48 @@ function format_comment($comment, $args, $depth) {
 			</div>
 
         <?php
+} 
+
+function after_password_reset_redirect() {
+    wp_redirect( home_url() ); 
+    exit; // always exit after wp_redirect
 }
+add_action('after_password_reset', 'after_password_reset_redirect');
+
+function is_gov_email($email) {
+
+    $valid_domains = array(
+        'cafcass.gsi.gov.uk',
+        'ccrc.x.gsi.gov.uk',
+        'cica.gsi.gov.uk',
+        'cjs.gsi.gov.uk',
+        'crowncommercial.gov.uk',
+        'digital.justice.gov.uk',
+        'hmcourts-service.gsi.gov.uk',
+        'hmcts.gsi.gov.uk',
+        'hmiprisons.gsi.gov.uk',
+        'hmiprobation.gsi.gov.uk',
+        'hmps.gsi.gov.uk',
+        'homeoffice.gsi.gov.uk',
+        'ips.gsi.gov.uk',
+        'jac.gsi.gov.uk',
+        'jaco.gsi.gov.uk',
+        'judiciary.gsi.gov.uk',
+        'justice.gov.uk',
+        'justice.gsi.gov.uk',
+        'lawcommission.gsi.gov.uk',
+        'legalaid.gsi.gov.uk',
+        'legalombudsman.org.uk',
+        'legalservicesboard.org.uk',
+        'noms.gsi.gov.uk',
+        'offsol.gsi.gov.uk',
+        'paroleboard.gsi.gov.uk',
+        'ppo.gsi.gov.uk',
+        'probation.gsi.gov.uk',
+        'publicguardian.gsi.gov.uk',
+        'sentencingcouncil.gsi.gov.uk',
+        'yjb.gsi.gov.uk',
+    );
 
 function format_comment_closed($comment, $args, $depth)
 {

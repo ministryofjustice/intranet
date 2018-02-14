@@ -16,47 +16,6 @@ get_header();?>
 	$err = '';
 	$success = '';
 
-	function is_gov_email($email) {
-
-		$valid_domains = array(
-			'cafcass.gsi.gov.uk',
-			'ccrc.x.gsi.gov.uk',
-			'cica.gsi.gov.uk',
-			'cjs.gsi.gov.uk',
-			'crowncommercial.gov.uk',
-			'digital.justice.gov.uk',
-			'hmcourts-service.gsi.gov.uk',
-			'hmcts.gsi.gov.uk',
-			'hmiprisons.gsi.gov.uk',
-			'hmiprobation.gsi.gov.uk',
-			'hmps.gsi.gov.uk',
-			'homeoffice.gsi.gov.uk',
-			'ips.gsi.gov.uk',
-			'jac.gsi.gov.uk',
-			'jaco.gsi.gov.uk',
-			'judiciary.gsi.gov.uk',
-			'justice.gov.uk',
-			'justice.gsi.gov.uk',
-			'lawcommission.gsi.gov.uk',
-			'legalaid.gsi.gov.uk',
-			'legalombudsman.org.uk',
-			'legalservicesboard.org.uk',
-			'noms.gsi.gov.uk',
-			'offsol.gsi.gov.uk',
-			'paroleboard.gsi.gov.uk',
-			'ppo.gsi.gov.uk',
-			'probation.gsi.gov.uk',
-			'publicguardian.gsi.gov.uk',
-			'sentencingcouncil.gsi.gov.uk',
-			'yjb.gsi.gov.uk',
-		);
-
-		$parts = explode('@', $email);
-		$domain = $parts[1];
-
-		return in_array($domain, $valid_domains);
-	}
-
 	global $wpdb, $PasswordHash, $current_user, $user_ID;
 
 	if(isset($_POST['task']) && $_POST['task'] == 'register' ) {
@@ -96,11 +55,29 @@ get_header();?>
 				echo 'user id is = ' . $user_id_number;
                 $rp_key = get_password_reset_key( $user );
                 $user_login = $user->user_login;
-				$rp_link = '<a href="' . network_site_url("wp-login.php?action=rp&key=$rp_key&login=" . rawurlencode($user_login), 'login') . '&redirect_to='.get_bloginfo('url').'">' . network_site_url("wp-login.php?action=rp&key=$rp_key&login=" . rawurlencode($user_login), 'login') . '</a>';
+				$rp_link = '<a style="display:inline-block;padding:8px 15px 5px;background-color:#00823b;color:#ffffff;font-size:19px;font-family:Arial,sans-serif;line-height:25px;text-decoration:none;vertical-align:top" href="' . network_site_url("wp-login.php?action=rp&key=$rp_key&login=" . rawurlencode($user_login), 'login') . '&redirect_to='.get_bloginfo('url').'"> Reset Password </a>';
 
                 $subject = 'You are now registrated on our site MoJ Intranet:';
-                $body = 'Click here '. $rp_link;
-                $headers = array('Content-Type: text/html; charset=UTF-8');
+				$body = 
+					'<div style="background-color:black">
+						<p style="color:#fff">
+						<img src="https://peoplefinder.service.gov.uk/assets/moj_logo_horizontal_36x246-90c698afdefe7275f7580065062aebc6.png" alt="Ministry of Justice" height="36px" style="padding:20px 40px" class="CToWUd">
+						</p>
+					</div>
+					<p style="padding:5px 0;font-size:19px;font-family:Arial,sans-serif">Hello,</p>
+					<p style="padding:5px 0;font-size:19px;font-family:Arial,sans-serif">To add your comments to the intranet, just click on the button below and finish the registration</p>'.
+					$rp_link. 
+					'<br/>
+					<p style="padding:5px 0;font-size:19px;font-family:Arial,sans-serif">This will take you to the intranet reset password page where you need to set your password.</p>
+					<p style="padding:5px 0;font-size:19px;font-family:Arial,sans-serif"><strong>Any problems?</strong></p>
+					<p style="padding:5px 0;font-size:19px;font-family:Arial,sans-serif">If this link has expired, you’ll need to fill in your details again to get another link. If you don’t want to comment on the intranet, ignore this email.</p>
+					<p style="padding:25px 0 5px;font-size:16px;font-family:Arial,sans-serif;color:#6f777b">This email is generated automatically. Do not reply.</p>
+					<div style="background-color:#dee0e2">
+						<p style="padding:20px;font-size:16px;font-family:Arial,sans-serif">
+							If you\'re unsure an email is from the MoJ, forward it to <a href="mailto:phishing@digital.justice.gov.uk" target="_blank">phishing@digital.justice.gov.<wbr>uk</a>.
+						</p>
+          			</div>';
+				$headers = array('Content-Type: text/html; charset=UTF-8');
                 
                 wp_mail( $to, $subject, $body, $headers );
 
@@ -113,7 +90,7 @@ get_header();?>
 	}
 	?>
 
-        <!--display error/success message-->
+    <!--display error/success message-->
 	<div id="message">
 		<?php
 			if(! empty($err) ) :
