@@ -90,9 +90,9 @@ add_action('register_post', 'is_valid_email_domain',10,3 );
 function format_comment($comment, $args, $depth) {
 
        $GLOBALS['comment'] = $comment; ?>
-
-        <li <?php comment_class(); ?> id="li-comment-<?php comment_ID() ?>">
-            <div class="comment-body">
+       
+        <li <?php comment_class(); ?> id="comment-<?php comment_ID() ?>">
+            <div class="comment-body" id="comment-<?php comment_ID() ?>">
 				<div class="comment-author vcard">
                     <cite class="fn">
                         <span class="author"><?php printf(__('%s'), get_comment_author_link()) ?></span>
@@ -103,14 +103,12 @@ function format_comment($comment, $args, $depth) {
 
                     <div class="reply">
                         <?php
-                            $replyorlogin = '<p class="must-log-in"><a href="'.wp_login_url().'">Login</a> or 
-                                <a href="'.wp_registration_url().'">Register</a> to post a comment.</p>'
+                            $replyorlogin = '<p class="must-log-in"><a href="'.wp_login_url().'">Login</a> or <a href="'.wp_registration_url().'">Register</a> to post a comment.</p>'
                         ?>
                         <?php comment_reply_link( array_merge( $args, 
                             array(
                                 'depth' => $depth, 
                                 'max_depth' => $args['max_depth'],
-                                'login_text' =>  $replyorlogin,
                             ))
                         ) ?>
                     </div>
@@ -120,11 +118,25 @@ function format_comment($comment, $args, $depth) {
         <?php
 } 
 
-function after_password_reset_redirect() {
-    wp_redirect( home_url() ); 
-    exit; // always exit after wp_redirect
+function my_login_redirect( $redirect_to, $request, $user ) {
+    if(!isset($_COOKIE['referral_url'])) {
+        return $redirect_to;
+    } else {
+        return $_COOKIE['referral_url'];
+    }
 }
-add_action('after_password_reset', 'after_password_reset_redirect');
+
+add_filter( 'login_redirect', 'my_login_redirect', 10, 3 );
+
+function unset_cookies_after_login(){
+    if(!isset($_COOKIE['referral_url'])){
+
+    }else{
+        setcookie('referral_url', '', time()-60*60*24*90, '/', '', 0, 0);
+        unset( $_COOKIE['referral_url'] );
+    }
+}
+add_filter( 'wp_login', 'unset_cookies_after_login', 10, 3 );
 
 function is_gov_email($email) {
 

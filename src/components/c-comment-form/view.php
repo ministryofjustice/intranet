@@ -28,7 +28,8 @@
       </p>
       <?php
     }else{
-      echo '<p>Fill in your details below. We’ll then send you a link back to this page so you can start commenting.</p>';
+      echo '<p class="must-log-in" id="respond"><a href="'.wp_login_url(get_permalink()).'">Login</a> or Register below to post a comment.</p>';
+      get_template_part('src/components/c-register/view'); 
     }
   ?>
 </section>
