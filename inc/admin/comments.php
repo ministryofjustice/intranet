@@ -38,7 +38,7 @@ function update_discussion_meta_box()
 
     remove_meta_box('commentstatusdiv', $post_type, 'normal');
     // Replace here with custom discussion meta box.
-    add_meta_box('commentstatusdiv', __('Discussion'), 'custom_discussion_meta_box', $post_type, 'normal', 'low');
+    add_meta_box('commentstatusdiv', __('Discussion'), 'custom_discussion_meta_box', 'post', 'normal', 'low');
 }
 
 /**
