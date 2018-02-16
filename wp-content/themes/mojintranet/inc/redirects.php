@@ -37,21 +37,6 @@ function dw_rewrite_rules() {
   add_rewrite_tag('%search-filter%', '([^&]+)');
   add_rewrite_tag('%search-string%', '([^&]+)');
 
-  //News page
-  $regex = '^newspage/page/([0-9]+)/(.*)';
-  $redirect = 'index.php?page_id=' . get_page_by_path('newspage')->ID;
-  add_rewrite_rule($regex, $redirect, 'top');
-
-  //Blog page
-  $regex = '^blog/page/([0-9]+)/(.*)';
-  $redirect = 'index.php?page_id=' . get_page_by_path('blog')->ID;
-  add_rewrite_rule($regex, $redirect, 'top');
-
-  //Blog page
-  $regex = '^blog/author/';
-  $redirect = 'index.php?page_id=' . get_page_by_path('blog')->ID;
-  add_rewrite_rule($regex, $redirect, 'top');
-
   //Events page
   $regex = '^events/([0-9]+)(/.*)?';
   $redirect = 'index.php?page_id=' . get_page_by_path('events')->ID;
