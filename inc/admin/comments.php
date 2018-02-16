@@ -10,20 +10,34 @@ if (! defined('ABSPATH')) {
 }
 
 /**
- * WP does not enable you to modify meta boxes, rather you need to remove
- * the default discussion meta box and replace it with a custom meta box with the new title or features you require.
+ * Determine what pages the comment meta box is displayed on/or not displayed on.
  *
  */
-add_action('add_meta_boxes_post', 'update_discussion_meta_box');
-add_action('add_meta_boxes_news', 'update_discussion_meta_box');
-add_action('add_meta_boxes_page', 'update_discussion_meta_box');
+add_action('add_meta_boxes', 'remove_comments_meta_box');
 
+function remove_comments_meta_box()
+{
+    // Currently removing from news as we don't use comments on news.
+  remove_meta_box('commentsdiv', 'news', 'normal');
+}
+
+/**
+* WP does not enable you to modify meta boxes, rather you need to remove
+* the default discussion meta box and replace it with a custom meta box with the new title or features you require.
+*
+*/
+add_action('add_meta_boxes_post', 'update_discussion_meta_box');
+
+ // Add at a future date if we want commenting on these other sections of the site.
+ // add_action('add_meta_boxes_news', 'update_discussion_meta_box');
+ // add_action('add_meta_boxes_page', 'update_discussion_meta_box');
 function update_discussion_meta_box()
 {
     // Applies to all post types being used on the site
     global $post_type;
 
     remove_meta_box('commentstatusdiv', $post_type, 'normal');
+    // Replace here with custom discussion meta box.
     add_meta_box('commentstatusdiv', __('Discussion'), 'custom_discussion_meta_box', $post_type, 'normal', 'low');
 }
 
@@ -49,8 +63,7 @@ function custom_discussion_meta_box()
     $comments_disabled_text = 'Comments closed: close current comments so that users cannot leave a new comment.';
 
     // Create a nonce to check later.
-    wp_nonce_field('post_comment_status_check', 'post_comment_status_nonce');
-    ?>
+    wp_nonce_field('post_comment_status_check', 'post_comment_status_nonce'); ?>
 
   	<div class="discussion_meta_box">
   		<p>
@@ -73,6 +86,7 @@ function custom_discussion_meta_box()
   		</p>
     </div>
   	<?php
+
 }
 
 /**
