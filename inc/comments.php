@@ -112,7 +112,10 @@ function format_comment($comment, $args, $depth) {
                             ))
                         ) ?>
                     </div>
+                    <div class="comment-block">
                     <?php echo do_shortcode('[likebutton]'); ?>
+                  </div>
+
 			</div>
 
         <?php
@@ -187,7 +190,9 @@ function format_comment_closed($comment, $args, $depth)
         </cite>
         <?php comment_text(); ?>
 	  </div>
+    <div class="comment-block">
     <?php echo do_shortcode('[likebutton]'); ?>
+    </div>
     <?php
 }
 add_action('after_password_reset', 'after_password_reset_redirect');
