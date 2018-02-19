@@ -63,6 +63,8 @@ composer install --verbose
 mv vendor/ministryofjustice/intranet/wp-content/themes/mojintranet web/app/themes/
 rm -rf vendor/ministryofjustice
 
+mv clarity /bedrock/web/app/themes/intranet-theme-clarity
+
 # Build theme assets
 npm install --global grunt-cli
 npm install
