@@ -1,0 +1,87 @@
+// include the toolkit (a suite of variables, classes and mixins)
+@require "../../globals/css/_toolkit"
+
+.nomore-btn{
+  display: block;
+  height: 80px;
+  margin: 0 auto;
+  overflow: hidden;
+  width: 200px;
+  text-align: center;
+}
+
+.c-pagination {
+  position: relative;
+  background-color: white;
+  clearfix();
+
+  .more-btn{
+    background-image: url(../images/chevron_right_x2.png);
+    background-position: right 6px;
+    background-color: white;
+    position: relative;
+    background-repeat: no-repeat;
+    background-size: 21px 38px;
+    display: block;
+    text-decoration: none;
+    color: #005ea5;
+    cursor: pointer;
+    margin: 0 auto;
+    overflow: hidden;
+    height: 80px;
+    .c-pagination__main{
+      width: 100%;
+      display: block;
+      float: left;
+    }
+    .c-pagination__count{
+      width: 100%;
+      display: block;
+      float: left;
+    }
+  }
+  .more-btn:hoover{
+    background-color: #f8f8f8;
+    
+  }
+  &__link {
+    span(1/2)
+    &--prev {
+      & ^[-2]__main {
+        &:before {
+          use-icon('n', inherit);
+          transform: rotate(90deg);
+          padding-right: $spacing*.5;
+        }
+      }
+
+    }
+    &--next {
+      text-align: right;
+      & ^[-2]__main {
+        &:after {
+          use-icon('n', inherit);
+          transform: rotate(-90deg);
+          padding-left: $spacing*.5;
+        }
+      }
+    }
+    span {
+      display: block;
+    }
+  }
+  &__main {
+    &:before,
+    &:after {
+      padding-bottom: 0;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    font-size: $mantle;
+    padding: $spacing 0;
+  }
+  &__count {
+    color: $mid;
+    padding: 0 $spacing*3;
+  }
+}

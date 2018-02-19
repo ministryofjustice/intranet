@@ -1,0 +1,28 @@
+{
+    "name": "Need to know widget",
+    "class": "c-need-to-know-widget",
+    "version": "1.0.0",
+    "creator": {
+        "name": "Alex Foxleigh",
+        "github_username": "foxleigh81"
+    },
+    "description": "The need to know slidshow",
+    "standard_or_universal": "standard",
+    "parents": "",
+    "children": "c-agency-link-list, c-app-list",
+    "notes": {
+        "backend": "",
+        "frontend": "uses the global slider plugin"
+    },
+    "backend_classes": {},
+    "has_js": false,
+    "integrated": false,
+    "is_working": false,
+    "example_link": "http://intranet.justice.gov.uk",
+    "used_on_templates": [],
+    "changelog": [{
+        "date": "02/02/17",
+        "author": "Alex Foxleigh",
+        "description": "Created component"
+    }]
+}

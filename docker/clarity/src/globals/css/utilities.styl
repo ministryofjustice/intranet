@@ -1,0 +1,88 @@
+@require 'jeet';
+@require '_variables';
+@require '_mixins';
+
+.u-visually-hidden {
+  // Hides elements from the page but not from a screen reader
+  position: absolute;
+  left: -9999px;
+  top: -9999px;
+  color: transparent;
+}
+
+.u-skip-link {
+    position: absolute;
+    top:-80px;
+    display: block;
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.6rem;
+    text-align: center;
+    background: $primary;
+    color: #fff;
+    z-index: 999999;
+    -webkit-transition: top 1s; /* For Safari 3.1 to 6.0 */
+    transition: top 1s;
+
+    &:focus {
+      top: 0;
+    }
+}
+
+.u-wrapper {
+  clearfix()
+  +above(l) {
+    center(1020px);
+  }
+  position: relative;
+}
+
+.u-message {
+  @extend .u-wrapper;
+  text-align: center;
+  padding: $spacing;
+  font-weight: bold;
+  a {
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  &--warning {
+    color: #9F6000;
+    background-color: #FEEFB3;
+    a {
+      color: $dark;
+    }
+  }
+  &--success {
+    color: #4F8A10;
+    background-color: #DFF2BF;
+    a {
+      color: $dark;
+    }
+  }
+  &--error {
+    color: #D8000C;
+    background-color: #FFBABA;
+    a {
+      color: $dark;
+    }
+  }
+}
+
+// u-closed collapses all descendence with a '.u-child, .u-children or the WP .children class'
+.u-closed {
+  .children,
+  .u-child,
+  .u-children {
+    // Collapsing is used instead of hiding in order to allow for transitions
+    // (note: max-height must be set along with the transition)
+    // !important is allowed as this is a global override
+    overflow: hidden !important;
+    max-height:0 !important;
+    padding:0 !important;
+    margin:0 !important;
+    border:0 !important;
+  }
+}

@@ -1,0 +1,111 @@
+/*
+  @Component: Search bar
+  @Creator: Alex Foxleigh
+  @Description: Lives in the header-container component and contains the main search bar for the site
+*/
+
+// include the toolkit (a suite of variables, classes and mixins)
+@require "../../globals/css/_toolkit"
+
+.c-search-bar {
+  clearfix();
+  padding: 0 0 $spacing*2 0;
+  &__container {
+    margin: 0 $spacing;
+    +above(m) {
+      column(1/2);
+      margin:0;
+    }
+    position: relative;
+  }
+
+  input {
+    position: relative;
+    span(1);
+    height: $spacing*3.6;
+    padding-right: $spacing*5;
+    border: 1px solid $border;
+  }
+
+  button {
+    position: absolute;
+    right:0;
+    border-radius: 0;
+    background-color: $primary;
+    color: $light;
+    span {
+      display: none;
+    }
+    &:hover {
+      cursor: pointer;
+      color: $linkFocus;
+    }
+  }
+
+  // PARENT OVERRIDES such as the styling of agencies for this component.
+  .c-header-container & {
+    background-color: $primary;
+    padding: $spacing*2 0;
+
+    input {
+      border: 0;
+    }
+
+    button {
+      background-color: $dark;
+    }
+
+    .agency-cica & {
+     background-color: $cica_primary;
+    }
+
+    .agency-hmcts & {
+     background-color: $hmcts_primary;
+    }
+
+    .agency-noms & {
+     background-color: $hmpps_primary;
+    }
+
+    .agency-jac & {
+     background-color: $jac_primary;
+    }
+
+    .agency-judicial-office & {
+     background-color: $jo_primary;
+    }
+
+    .agency-lc & {
+     background-color: $lc_primary;
+    }
+
+    .agency-laa & {
+     background-color: $laa_primary;
+    }
+
+    .agency-hq & {
+     background-color: $hq_primary;
+    }
+
+    .agency-nps & {
+     background-color: $nps_primary;
+    }
+
+    .agency-opg & {
+     background-color: $opg_primary;
+    }
+
+    .agency-ospt & {
+     background-color: $ospt_primary;
+    }
+
+    .agency-pb & {
+     background-color: $pb_primary;
+    }
+
+    .agency-ppo & {
+     background-color: $ppo_primary;
+    }
+  }
+
+}

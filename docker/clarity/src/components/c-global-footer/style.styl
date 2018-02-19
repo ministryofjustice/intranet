@@ -1,0 +1,13 @@
+// include the toolkit (a suite of variables, classes and mixins)
+@require "../../globals/css/_toolkit"
+
+.c-footer {
+  padding: $spacing;
+  border-top: 1px solid $border;
+  background: $boxBg;
+  +above(m) {
+    clearfix();
+    padding: 0;
+    margin-top: $spacing*4;
+  }
+}

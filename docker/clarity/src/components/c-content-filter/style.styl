@@ -1,0 +1,43 @@
+// include the toolkit (a suite of variables, classes and mixins)
+@require "../../globals/css/_toolkit"
+
+.c-content-filter {
+  margin-bottom: $spacing;
+  +above(m) {
+    margin-bottom: 0;
+  }
+  fieldset {
+    position: relative;
+    border: 1px solid $border;
+    padding: $spacing;
+    margin-top: $spacing*4;
+  }
+
+  legend {
+    position: absolute;
+    left:0;
+    top: -($spacing)*3;
+    display: block;
+    font-weight: bold;
+    font-size: $outerCore;
+    &:after {
+      content: ":"
+    }
+  }
+  #ff_button_submit{
+    display: inline-block;
+    color: $light;
+    background-color: $primary;
+    padding: $spacing $spacing*3;
+    border: 0;
+    font-size: $outerCore;
+    cursor: pointer;
+    text-decoration:none;     
+    &:hover {
+      cursor: pointer;
+      color: $linkFocus;
+    }
+  }
+
+
+}
