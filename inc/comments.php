@@ -187,6 +187,12 @@ function is_gov_email($email) {
         'yjb.gsi.gov.uk',
     );
 
+    $parts = explode('@', $email);
+    $domain = $parts[1];
+
+    return in_array($domain, $valid_domains);
+}
+
 function format_comment_closed($comment, $args, $depth)
 {
    $GLOBALS['comment'] = $comment; ?>
