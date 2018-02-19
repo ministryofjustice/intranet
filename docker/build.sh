@@ -42,9 +42,11 @@ fi
 # Both composer and grunt fail unless these assest are in the ./bedrock directory
 cp Gruntfile.js ./bedrock
 cp *.json ./bedrock
-mkdir ./bedrock/web
+mkdir -p ./bedrock/web/app/themes/intranet-theme-clarity
 cp web/* ./bedrock/web
 cp -a config ./bedrock
+mv clarity/* /bedrock/web/app/themes/intranet-theme-clarity
+mv dw-mvc/ /bedrock/web/app/plugins/
 
 # Composer can build out-of-context, but the grunt cli switch to change the
 # build context does not work as expected. Easiest to just switch to the
@@ -62,8 +64,6 @@ composer install --verbose
 # theme is only a part of the overall project.
 mv vendor/ministryofjustice/intranet/wp-content/themes/mojintranet web/app/themes/
 rm -rf vendor/ministryofjustice
-
-mv clarity /bedrock/web/app/themes/intranet-theme-clarity
 
 # Build theme assets
 npm install --global grunt-cli

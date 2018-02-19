@@ -2,7 +2,6 @@
   "repositories": [
     {"type":"composer", "url":"https://wpackagist.org"},
     {"type":"composer", "url":"https://composer.wp.dsd.io"},
-    {"type":"vcs", "no-api": true, "url":"https://github.com/ministryofjustice/dw-mvc.git"},
     {"type":"vcs", "no-api": true, "url":"https://github.com/ministryofjustice/dw-document-revisions.git"},
     {"type":"vcs", "no-api": true, "url":"https://github.com/ministryofjustice/dw-live-drafts.git"},
     {"type":"vcs", "no-api": true, "url":"https://github.com/ministryofjustice/dw-markdown.git"},
@@ -18,7 +17,6 @@
     "relevanssi/relevanssi-premium":"2.0.3.1",
     "acf/advanced-custom-fields-pro":"5.4.4",
 
-    "ministryofjustice/dw-mvc":"dev-update-composer-json",
     "ministryofjustice/dw-document-revisions":"dev-update-composer-json",
     "ministryofjustice/dw-live-drafts":"dev-update-composer-json",
     "ministryofjustice/dw-markdown":"dev-update-composer-json",
