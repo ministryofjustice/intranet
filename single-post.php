@@ -8,7 +8,7 @@ if (!defined('ABSPATH')) {
     die();
 }
 
-get_header('single');
+get_header();
 
 $oAgency = new Agency();
 $activeAgency = $oAgency->getCurrentAgency();

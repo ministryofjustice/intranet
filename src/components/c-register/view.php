@@ -12,7 +12,6 @@ if (!defined('ABSPATH')) {
 
 	if(isset($_POST['task']) && $_POST['task'] == 'register' ) {
 
-
 		$pwd1 = wp_generate_password();;
 		$first_name = esc_sql(trim($_POST['first_name']));
 		$email = esc_sql(trim($_POST['email']));

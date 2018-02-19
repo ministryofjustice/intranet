@@ -121,6 +121,17 @@ function format_comment($comment, $args, $depth) {
         <?php
 } 
 
+function inject_url_cookies_into_header(){
+    if(isset($_POST['task']) && $_POST['task'] == 'register' ) {
+
+        global $wp;
+        $current_url = esc_url(home_url( $wp->request ));
+        setcookie( 'referral_url', $current_url, time()+(86400 * 30), "/" );
+				
+	}
+}
+add_action( 'init', 'inject_url_cookies_into_header' );
+
 function my_login_redirect( $redirect_to, $request, $user ) {
     if(!isset($_COOKIE['referral_url'])) {
         return $redirect_to;
