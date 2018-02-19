@@ -66,6 +66,20 @@ function custom_discussion_meta_box()
     wp_nonce_field('post_comment_status_check', 'post_comment_status_nonce'); ?>
 
   	<div class="discussion_meta_box">
+      <style>
+        /*
+        * This will need to be refactored into a dedicated admin stylesheet.
+        */
+        .discussion_meta_box p {
+          margin: 20px;
+        }
+
+        .discussion_meta_box label {
+          display:block;
+          margin-bottom: 10px;
+          margin-left: 14px;
+        }
+      </style>
   		<p>
       <h2><strong>Manage the display of comments on the page. Choose an option and update the page.</strong></h2>
       <br>
