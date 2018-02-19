@@ -19,7 +19,7 @@
     "relevanssi/relevanssi-premium":"2.0.3.1",
     "acf/advanced-custom-fields-pro":"5.4.4",
 
-    "ministryofjustice/dw-mvc":"dev-update-composer-json",
+    "ministryofjustice/dw-mvc":"dev-master",
     "ministryofjustice/dw-document-revisions":"dev-update-composer-json",
     "ministryofjustice/dw-live-drafts":"dev-update-composer-json",
     "ministryofjustice/dw-markdown":"dev-update-composer-json",
