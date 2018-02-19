@@ -38,7 +38,7 @@
     <?php $this->view('modules/share_bar', $share_bar) ?>
     </div>
 
-    <?php $this->view('modules/comments/main') ?>
+    
   </div>
 
   <?php $this->view('pages/user/activate/request_activation_link_confirmation') ?>
