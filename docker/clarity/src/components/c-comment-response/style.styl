@@ -1,0 +1,11 @@
+// include the toolkit (a suite of variables, classes and mixins)
+@require "../../globals/css/_toolkit"
+// This component is very similar to share post so import it's styles
+@require "../c-share-post/style"
+.c-comment-response {
+  @extend .c-share-post;
+  margin-bottom: $spacing;
+  &__link {
+    border-top: 0;
+  }
+}

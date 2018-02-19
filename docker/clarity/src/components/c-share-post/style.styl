@@ -1,0 +1,24 @@
+// include the toolkit (a suite of variables, classes and mixins)
+@require "../../globals/css/_toolkit"
+
+.c-share-post {
+  margin-bottom: $spacing*3;
+  &__link {
+    border-top: 1px solid $border;
+    border-bottom: 1px solid $border;
+    padding: $spacing 0 ;
+  }
+  li {
+    &:not(:first-of-type) {
+      margin-left: $spacing;
+    }
+    display: inline-block;
+
+    &:before {
+      font-size: $outerCore;
+      color: $mid;
+      margin-right: $spacing*.2;
+      vertical-align: middle;
+    }
+  }
+}

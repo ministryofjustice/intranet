@@ -1,0 +1,44 @@
+// include the toolkit (a suite of variables, classes and mixins)
+@require "../../globals/css/_toolkit"
+
+.c-input-container {
+	margin-bottom: $spacing*2;
+
+	label {
+		display: block;
+		font-weight: bold;
+		font-size: $outerCore;
+	}
+
+	input[type="text"],
+	input[type="password"],
+	input[type="email"],
+	input[type="tel"],
+	textarea,
+	select {
+		display: block;
+		width: 100%;
+		max-width: 100%;
+		margin-top: $spacing*.5;
+		padding: $spacing $spacing*.6;
+		border: 1px solid lighten($border, 30%);
+		font-size: $outerCore;
+		line-height: $lineHeight*1.2;
+	}
+
+	&--checkbox {
+		position: relative;
+		overflow: hidden; //simple clearfix
+		padding-left: $spacing*4;
+		margin-bottom: $spacing;
+		input {
+			position: absolute;
+			top:0;
+			left:0;
+		}
+		label {
+			font-size: $bodyCopy;
+			font-weight: normal;
+		}
+	}
+}

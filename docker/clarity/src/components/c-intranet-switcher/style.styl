@@ -1,0 +1,36 @@
+// include the toolkit (a suite of variables, classes and mixins)
+@require "../../globals/css/_toolkit"
+
+
+.c-intranet-switcher {
+  clearfix();
+  &__switch {
+    margin-bottom: $spacing;
+    +above(m) {
+      column(1/2, $cycle: 2)
+    }
+
+    a {
+      display: block;
+      background-color: $boxBg;
+      padding: $spacing*.5;
+      color: $mid;
+      border: 2px solid $boxBg;
+      font-size: $outerCore;
+      &:before {
+        width: $spacing*8;
+        margin-right: $spacing;
+        vertical-align: middle;
+      }
+      &:hover {
+        background-color: $light;
+        border: 2px solid $boxBg;
+      }
+    }
+
+
+  }
+
+
+
+}

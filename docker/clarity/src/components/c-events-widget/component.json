@@ -1,0 +1,28 @@
+{
+    "name": "Events widget",
+    "class": "c-events-widget",
+    "version": "1.0.0",
+    "creator": {
+        "name": "Alex Foxleigh",
+        "github_username": "foxleigh81"
+    },
+    "description": "Contains the events component, a header and a 'read more' link",
+    "standard_or_universal": "universal",
+    "parents": "",
+    "children": "c-events-list",
+    "notes": {
+        "backend": "",
+        "frontend": ""
+    },
+    "backend_classes": {},
+    "has_js": false,
+    "integrated": false,
+    "is_working": false,
+    "example_link": "https://intranet.justice.gov.uk",
+    "used_on_templates": [],
+    "changelog": [{
+        "date": "02/02/17",
+        "author": "Alex Foxleigh",
+        "description": "Created component"
+    }]
+}
