@@ -19,6 +19,7 @@ function remove_comments_meta_box()
 {
     // Currently removing from news as we don't use comments on news.
   remove_meta_box('commentsdiv', 'news', 'normal');
+  remove_meta_box('commentstatusdiv', 'news', 'normal');
 }
 
 /**
