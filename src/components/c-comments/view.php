@@ -21,8 +21,7 @@ $post_id = get_the_ID();
 $post_meta = get_post_meta(get_the_ID());
 
 // Getting the post meta assosiated with what the admin has set the comments on this page to. See admin->comments.php
-$comments_disabled = isset($post_meta["comment_disabled_status"][0]) ?? '';
-
+$comments_disabled = isset($post_meta["comment_disabled_status"][0]) ? isset($post_meta["comment_disabled_status"][0]) : '' ;
 // Don't want to repeat ourselves - DRY
 $comment_title = 'Comments';
 ?>
