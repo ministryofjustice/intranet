@@ -1,8 +1,11 @@
 <?php 
   $commenter = wp_get_current_commenter();
+  $post_id = get_the_ID();
+  $post_meta = get_post_meta(get_the_ID());
   $req = get_option( 'require_name_email' );
   $aria_req = ( $req ? " aria-required='true'" : '' );
-  $comments_disabled = isset($post_meta["comment_disabled_status"][0]) ? isset($post_meta["comment_disabled_status"][0]) : '' ;
+  $comments_disabled = $post_meta["comment_disabled_status"][0] ;
+
   $fields =  array(
       'author' => '<p class="comment-form-author">' . '<label for="author">' . __( 'Name' ) . '</label> ' . ( $req ? '<span class="required">*</span>' : '' ) .
           '<input id="author" name="author" type="text" value="' . esc_attr( $commenter['comment_author'] ) . '" size="30"' . $aria_req . ' /></p>',
@@ -15,11 +18,15 @@
       'title_reply'=>'',
       'label_submit' => 'Add comment'
   );
+  echo '<pre>';
+  //print_r($comments_disabled);
+  print_r(comments_open($post_id));
+  echo '</pre>';
 ?>
-<?php if (comments_open($post_id) === true && $comments_disabled === '0') {
 
-}else 
-  ?>
+<?php if ($comments_disabled === '0') {
+
+}else {?>
   <!-- c-comment-form starts here -->
   <section class="c-comment-form">
     <h1 class="o-title o-title--subtitle">Comment on this page</h1>

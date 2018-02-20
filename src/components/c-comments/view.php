@@ -95,7 +95,6 @@ $comment_title = 'Comments';
 
   <?php
     // A fallback in case comment meta isn't set for some reason.
-    echo 'Comments are not currently available.';
     endif; // End of if statement.
   ?>
 
