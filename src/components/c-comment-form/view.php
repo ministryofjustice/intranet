@@ -1,9 +1,9 @@
 <?php 
   $commenter = wp_get_current_commenter();
-  $post_id = get_the_ID();
-  $post_meta = get_post_meta(get_the_ID());
   $req = get_option( 'require_name_email' );
   $aria_req = ( $req ? " aria-required='true'" : '' );
+
+  $post_meta = get_post_meta(get_the_ID());
   $comments_disabled = $post_meta["comment_disabled_status"][0] ;
 
   $fields =  array(
@@ -18,10 +18,6 @@
       'title_reply'=>'',
       'label_submit' => 'Add comment'
   );
-  echo '<pre>';
-  //print_r($comments_disabled);
-  print_r(comments_open($post_id));
-  echo '</pre>';
 ?>
 
 <?php if ($comments_disabled === '0') {
