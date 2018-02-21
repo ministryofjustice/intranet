@@ -126,7 +126,7 @@ function inject_url_cookies_into_header(){
   if(isset($_POST['task']) && $_POST['task'] == 'register' ) {
 
     global $wp;
-    $current_url = esc_url(home_url( $wp->request ));
+    $current_url = "//".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'].'#respond';
     setcookie( 'referral_url', $current_url, time()+(86400 * 30), "/" );
 
   }
@@ -179,4 +179,3 @@ function format_comment_closed($comment, $args, $depth)
     </div>
 <?php
 }
-add_action('after_password_reset', 'after_password_reset_redirect');

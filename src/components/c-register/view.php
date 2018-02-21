@@ -110,7 +110,7 @@ if (!defined('ABSPATH')) {
 
 	<p>Fill in your details. We’ll then send you a link back to this page so you can start commenting.</p>
 
-	<form method="post">
+	<form method="post" action="?#respond">
 		<p><label>Screen name (will appear on screen)</label></p>
 		<p><input type="text" value="" name="first_name" id="first_name" /></p>
 		<p><label>Email address (will not be shown with your comment)</label></p>
