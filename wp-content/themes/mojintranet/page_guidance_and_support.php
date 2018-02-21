@@ -67,7 +67,6 @@ class Page_guidance_and_support extends MVC_controller {
         'hide_page_details' => (boolean) get_post_meta($this->post_ID, 'dw_hide_page_details', true),
         'share_bar' => [
           'share_email_body' => "Hi there,\n\nI thought you might be interested in this page I've found on the MoJ intranet:\n",
-
           ]
       )
     );
