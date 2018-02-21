@@ -50,8 +50,6 @@ class Page_guidance_and_support extends MVC_controller {
     $this->add_global_view_var('comments_on', (boolean) get_post_meta($this_id, 'dw_comments_on', true));
     $this->add_global_view_var('logout_url', wp_logout_url($_SERVER['REQUEST_URI']));
 
-    $likes = $this->get_likes_from_api($this_id);
-
     return array(
       'page' => 'pages/guidance_and_support_content/main',
       'template_class' => 'guidance-and-support-content',
@@ -73,10 +71,6 @@ class Page_guidance_and_support extends MVC_controller {
           ]
       )
     );
-  }
-
-  private function get_likes_from_api($post_id) {
-    return $this->model->likes->read('post', $post_id);
   }
 
   private function get_tab_array() {
