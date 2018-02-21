@@ -14,12 +14,19 @@ $oAuthor = new Authors();
 $authors = $oAuthor->getAuthorInfo($id);
 $thumbnail_url = $thumbnail[0];
 
+if (isset($authors[0]['name'])){
+  $author_name = $authors[0]['name'];
+}else{
+  $author_name = the_author();
+}
+
+
 ?>
 <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
 <!-- c-article-byline starts here -->
 <section class="c-article-byline">
-  <img class="c-article-byline__photo" src="<?php echo $authors[0]['thumbnail_url']; ?>" alt="Photo of author, <?php $authors[0]['name']; ?>">
-  <span class="c-article-byline__intro"><?php $authors[0]['name']; ?></span>
+  <img class="c-article-byline__photo" src="<?php echo $authors[0]['thumbnail_url']; ?>" alt="Photo of author, <?php echo $author_name ?>">
+  <span class="c-article-byline__intro"><?php echo $author_name; ?></span>
   <span class="c-article-byline__date"><?php the_date('d F Y'); ?></span>
 </section>
 <!-- c-article-byline ends here -->
