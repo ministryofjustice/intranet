@@ -137,13 +137,6 @@ class Widgets_API extends API {
     $options['length'] = 2;
     $data['featured_news'] = $this->MVC->model->featured->get_list($options);
 
-    //news list
-    $options = $this->params;
-    $options = $this->add_taxonomies($options);
-    $options['page'] = 1;
-    $options['per_page'] = 8;
-    $data['news_list'] = $this->MVC->model->news->get_list($options, true);
-
     //events
     $options = $this->params;
     $options = $this->add_taxonomies($options);
@@ -198,33 +191,18 @@ class Widgets_API extends API {
   private function get_regional() {
     $data = [];
 
-    //news list
-    $options = $this->params;
-    $options = $this->add_taxonomies($options);
-    $options['page'] = 1;
-    $options['per_page'] = 2;
-    $data['news_list'] = $this->MVC->model->news->get_list($options, true);
-
     //events
     $options = $this->params;
     $options = $this->add_taxonomies($options);
     $options['page'] = 1;
     $options['per_page'] = 2;
     $data['events'] = $this->MVC->model->events->get_list($options);
-
     $data['url_params'] = $this->params;
     $this->response($data, 200, 60);
   }
 
   private function get_campaign_landing() {
     $data = [];
-
-    //news list
-    $options = $this->params;
-    $options = $this->add_taxonomies($options);
-    $options['per_page'] = -1;
-    $options['nopaging'] = true;
-    $data['news_list'] = $this->MVC->model->news->get_list($options, true);
 
     //events
     $data['events'] = $this->MVC->model->events->get_list($options);
