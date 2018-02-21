@@ -49,8 +49,6 @@ class Page_media_grid extends MVC_controller
 
       $this->add_global_view_var('logout_url', wp_logout_url($_SERVER['REQUEST_URI']));
 
-      $likes = $this->get_likes_from_api($this_id);
-
       return array(
       'page' => 'pages/media_grid/main',
       'template_class' => 'media-grid',
@@ -63,13 +61,8 @@ class Page_media_grid extends MVC_controller
         'lhs_menu_on' => $lhs_menu_on,
         'share_bar' => [
           'share_email_body' => "Hi there,\n\nI thought you might be interested in this page I've found on the MoJ intranet:\n",
-          'likes_count' => $likes['count'],
           ]
       )
     );
   }
-    private function get_likes_from_api($post_id)
-    {
-        return $this->model->likes->read('post', $post_id);
-    }
 }
