@@ -11,13 +11,7 @@
       <?php endif ?>
 
       <?php $id = get_the_ID(); ?>
-      
-      <li class="like-container" data-likes-count="<?=$likes_count?>" data-post-type="post" data-post-id="<?=$id?>">
-        <a class="like-link" href="#">
-          <span class="like-icon icon"></span>
-          <span class="like-description"></span>
-        </a>
-      </li>
+  
 
       <li class="share-container">
         <span class="share-via-email-icon"></span>
