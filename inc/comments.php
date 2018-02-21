@@ -1,6 +1,6 @@
 <?php
 
-$valid_domains = array(
+$GLOBALS['valid_domains'] = array(
   'cafcass.gsi.gov.uk',
   'ccrc.x.gsi.gov.uk',
   'cica.gsi.gov.uk',
@@ -73,7 +73,7 @@ add_filter('comment_form_defaults', 'remove_must_be_logged_in');
 // Allow Login Only from gov email addresses
 function is_valid_email_domain($login, $email, $errors){
   $valid = false; // sets default validation to false
-  foreach( $valid_domains as $d ){
+  foreach( $GLOBALS['valid_domains'] as $d ){
     $d_length = strlen( $d );
     $current_email_domain = strtolower( substr( $email, -($d_length), $d_length));
     if( $current_email_domain == strtolower($d) ){
@@ -157,7 +157,7 @@ function is_gov_email($email) {
   $parts = explode('@', $email);
   $domain = $parts[1];
 
-  return in_array($domain, $valid_domains);
+  return in_array($domain, $GLOBALS['valid_domains']);
 }
 
 function format_comment_closed($comment, $args, $depth)

@@ -6,7 +6,7 @@
   <meta name="theme-color" content="<?php echo $agency_colour; ?>">
   <title><?php echo $agency_title; ?> | Ministry of Justice intranet</title>
   <script src="<?php echo get_stylesheet_directory_uri(); ?>/assets/vendors/jquery.min.js" charset="utf-8"></script>
-  <link rel="stylesheet" type="text/css" href="<?php echo get_stylesheet_directory_uri(); ?>/assets/css/core.min.css?mojcache=1.2.0">
+  <link rel="stylesheet" type="text/css" href="<?php echo get_stylesheet_directory_uri(); ?>/assets/css/core.min.css?mojcache=1.2.3">
   <link rel="stylesheet" type="text/css"  media="print" href="<?php echo get_stylesheet_directory_uri(); ?>/assets/css/print.min.css">
   <link rel="icon" sizes="180x180" href="<?php echo get_stylesheet_directory_uri(); ?>/assets/icons/apple-touch-icon-180x180.png">
   <link rel="shortcut icon" href="<?php echo get_stylesheet_directory_uri(); ?>/assets/icons/favicon.ico" type="image/x-icon" />
