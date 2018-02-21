@@ -18,8 +18,8 @@ $thumbnail_url = $thumbnail[0];
 <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
 <!-- c-article-byline starts here -->
 <section class="c-article-byline">
-  <img class="c-article-byline__photo" src="<?php echo $authors[0]['thumbnail_url']; ?>" alt="Photo of author, <?php the_author(); ?>">
-  <span class="c-article-byline__intro"><?php the_author(); ?></span>
+  <img class="c-article-byline__photo" src="<?php echo $authors[0]['thumbnail_url']; ?>" alt="Photo of author, <?php $authors[0]['name']; ?>">
+  <span class="c-article-byline__intro"><?php $authors[0]['name']; ?></span>
   <span class="c-article-byline__date"><?php the_date('d F Y'); ?></span>
 </section>
 <!-- c-article-byline ends here -->
