@@ -41,8 +41,6 @@ class Single_post extends MVC_controller {
     $this->add_global_view_var('comments_on', (boolean) get_post_meta($this_id, 'dw_comments_on', true));
     $this->add_global_view_var('logout_url', wp_logout_url($_SERVER['REQUEST_URI']));
 
-    $likes = $this->get_likes_from_api($this_id);
-
     return [
       'page' => 'pages/blog_post/main',
       'template_class' => 'blog-post',
@@ -61,13 +59,9 @@ class Single_post extends MVC_controller {
         'human_date' => date("j F Y", strtotime($article_date)),
         'share_bar' => [
           'share_email_body' => "Hi there,\n\nI thought you might be interested in this page I've found on the MoJ intranet:\n",
-          'likes_count' => $likes['count'],
           ]
       ]
     ];
   }
 
-  private function get_likes_from_api($post_id) {
-    return $this->model->likes->read('post', $post_id);
-  }
 }
