@@ -4,7 +4,7 @@
   $aria_req = ( $req ? " aria-required='true'" : '' );
 
   $post_meta = get_post_meta(get_the_ID());
-  $comments_disabled = $post_meta["comment_disabled_status"][0] ;
+  $comments_disabled = isset($post_meta["comment_disabled_status"][0]);
 
   $fields =  array(
       'author' => '<p class="comment-form-author">' . '<label for="author">' . __( 'Name' ) . '</label> ' . ( $req ? '<span class="required">*</span>' : '' ) .
