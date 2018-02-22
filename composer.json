@@ -1,25 +1,20 @@
 {
-  "name": "ministryofjustice/intranet",
-  "type": "library",
-  "license": "",
-  "description": "The Wordpress theme of the MoJ Intranet",
-  "homepage": "https://github.com/ministryofjustice/intranet",
-  "authors": [
-    {
-      "name": "Intranet team",
-      "email": "intranet-support@digital.service.go.uk"
+    "require": {
+        "wikimedia/composer-merge-plugin": "dev-master"
+    },
+    "extra": {
+        "merge-plugin": {
+            "require": [
+                "bedrock.json",
+                "moj.json"
+            ],
+            "recurse": true,
+            "replace": false,
+            "ignore-duplicates": false,
+            "merge-dev": false,
+            "merge-extra": true,
+            "merge-extra-deep": true,
+            "merge-scripts": true
+        }
     }
-  ],
-  "keywords": [
-    "wordpress", "theme"
-  ],
-  "support": {
-    "issues": "https://github.com/ministryofjustice/intranet/issues"
-  },
-  "require": {
-    "php": ">=5.7"
-  },
-  "extra" : {
-    "installer-name": "intranet"
-  }
 }

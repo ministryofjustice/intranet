@@ -40,10 +40,10 @@ module.exports = function(grunt) {
     "nonew" : true, // true: Prohibit use of constructors for side-effects (without assignment)
     "plusplus" : false, // true: Prohibit use of `++` & `--`
     "quotmark" : false, // Quotation mark consistency:
-      // false : do nothing (default)
-      // true : ensure whatever is used is consistent
-      // "single" : require single quotes
-      // "double" : require double quotes
+    // false : do nothing (default)
+    // true : ensure whatever is used is consistent
+    // "single" : require single quotes
+    // "double" : require double quotes
     "undef" : true, // true: Require all non-global variables to be declared (prevents global leaks)
     "unused" : false, // true: Require all defined variables be used
     "strict" : true, // true: Requires all functions run in ES5 Strict Mode
@@ -54,7 +54,7 @@ module.exports = function(grunt) {
     "maxlen" : false, // {int} Max number of characters per line
     // Relaxing
     "asi" : false, // true: Tolerate Automatic Semicolon Insertion (no semicolons)
-		"reporterOutput": "",
+    "reporterOutput": "",
     "boss" : false, // true: Tolerate assignments where comparisons would be expected
     "debug" : false, // true: Allow debugger statements e.g. browser breakpoints.
     "eqnull" : false, // true: Tolerate use of `== null`
@@ -86,7 +86,6 @@ module.exports = function(grunt) {
     "couch" : false, // CouchDB
     "devel" : true, // Development/debugging (alert, confirm, etc)
     "dojo" : false, // Dojo Toolkit
-    "jasmine" : false, // Jasmine
     "jquery" : false, // jQuery
     "mocha" : true, // Mocha
     "mootools" : false, // MooTools
@@ -110,22 +109,9 @@ module.exports = function(grunt) {
       TEST_DOMAIN: process.env.TEST_DOMAIN || 'http://mojintranet'
     },
     pkg: grunt.file.readJSON('package.json'),
-   connect: {
-       test : {
-           port : 8000
-       }
-   },
-    casperjs: {
-      all: {
-        files: {
-          'test/casper-results-deploy-only.xml': 'test/journeys/deploy_only/*.js',
-          'test/casper-results-shared.xml': 'test/journeys/*.js'
-        }
-      },
-      prod: {
-        files: {
-          'test/casper-results-shared.xml': 'test/journeys/*.js'
-        }
+    connect: {
+      test : {
+        port : 8000
       }
     },
     uglify: {
@@ -184,7 +170,7 @@ module.exports = function(grunt) {
     sass: {
       dev: {
         options: {
-//          sourcemap: 'none',
+          //          sourcemap: 'none',
           lineNumbers: true,
           unixNewlines: true
         },
@@ -193,7 +179,7 @@ module.exports = function(grunt) {
       dist: {
         options: {
           style: 'compressed',
-//          sourcemap: 'none',
+          //          sourcemap: 'none',
           unixNewlines: true
         },
         files: cssSrcList
@@ -213,38 +199,6 @@ module.exports = function(grunt) {
         src: [
           srcDir + themePath + 'assets/css/style.css'
         ]
-      }
-    },
-    jasmine: {
-      app: {
-        src: [
-          srcDir + themePath + 'assets/js/base.js',
-          srcDir + themePath + 'assets/js/main.js'
-        ],
-        options: {
-          display: 'full',
-          host: 'http://127.0.0.1:8000/',
-          specs: ['test/specs/*_spec.js'],
-          vendor: [srcDir + 'wp-includes/js/jquery/jquery.js'],
-          outfile: 'test/specs/spec_runner.html',
-          '--web-security': false,
-          keepRunner: true
-        }
-      }
-    },
-    hipchat_notifier: {
-      options: {
-        authToken: "3cc43bcc5fea3e06b36eaee1eb07bf", // Create an authToken at https://hipchat.com/admin/api
-        roomId: "818640" // Numeric Hipchat roomId or room name
-      },
-
-      deploy_success: {
-        options: {
-          message: "Successfully deployed to " + (grunt.option('env') || "???") + " - " + (grunt.option('branch') || "commit unknown") + " by " + (grunt.option('user')+"." || "magic!"), // A message to send
-          from: "Grunt", // Name for the sender
-          color: "green", // Color of the message
-          message_format: "html" // Can either be 'text' or 'html' format
-        }
       }
     },
     cachebuster: {
@@ -272,18 +226,12 @@ module.exports = function(grunt) {
     }
   });
 
-  grunt.loadNpmTasks('grunt-casperjs');
-  grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-sass');
-  grunt.loadNpmTasks('grunt-hipchat-notifier');
-  grunt.loadNpmTasks('grunt-contrib-jasmine');
   grunt.loadNpmTasks('grunt-contrib-csslint');
-  grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-cachebuster');
-  grunt.loadNpmTasks('grunt-notify');
   grunt.loadNpmTasks('grunt-env');
   grunt.loadNpmTasks('grunt-git-describe');
 
@@ -308,7 +256,6 @@ module.exports = function(grunt) {
   // Default task(s).
 
   grunt.registerTask('default', [
-    'jshint:dev',
     'concat',
     'sass:dev',
     'uglify',
@@ -317,12 +264,9 @@ module.exports = function(grunt) {
   ]);
 
   grunt.registerTask('pre_deploy', [
-    'jshint:dist',
     'concat',
     'sass:dev',
-    //'uglify',
     'cachebuster',
-    //'save-git-revision',
     'generate-build-json'
   ]);
 
@@ -333,30 +277,9 @@ module.exports = function(grunt) {
 
   grunt.registerTask('prod_build', [
     'env',
-    'jshint:dist',
     'concat',
     'sass:dist',
     'uglify',
-    'cachebuster',
-    'connect:test',
-    'jasmine',
-    'casperjs:all'
-    /*,
-    'hipchat_notifier:deploy_status'*/
-  ]);
-
-  grunt.registerTask('ci', [
-    'env',
-    'jshint',
-    'concat',
-    'uglify',
-    'connect:test',
-    'jasmine',
-    'casperjs:all'
-  ]);
-
-  grunt.registerTask('smoke_tests', [
-    'env',
-    'casperjs:prod'
+    'cachebuster'
   ]);
 };
