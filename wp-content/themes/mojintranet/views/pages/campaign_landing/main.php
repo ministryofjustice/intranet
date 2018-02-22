@@ -1,19 +1,21 @@
-<?php if (!defined('ABSPATH')) die(); ?>
+<?php if (!defined('ABSPATH')) {
+    die();
+} ?>
 <div class="template-container"
   data-page-id="<?=$id?>"
   data-campaign-category="<?=$campaign_category?>">
   <div class="grid content-container">
     <div class="col-lg-12 col-md-12 col-sm-12">
-      <?php if(!empty($banner_url)): ?>
+      <?php if (!empty($banner_url)): ?>
         <a href="<?=$banner_url?>">
       <?php endif ?>
           <img src="<?=$banner_image_url?>" class="campaign-banner" />
-      <?php if(!empty($banner_url)): ?>
+      <?php if (!empty($banner_url)): ?>
         </a>
       <?php endif ?>
     </div>
 
-    <?php if($lhs_menu_on): ?>
+    <?php if ($lhs_menu_on): ?>
       <div class="col-lg-3 col-md-4 col-sm-12">
         <nav class="menu-list-container">
           <ul class="menu-list"></ul>
@@ -69,16 +71,12 @@ p + p {
 }
 
 .c-article-item {
-    padding-bottom: 1rem;
+    padding: 0.5rem 0;
+    margin-bottom: 1.4rem;
     border-bottom: 1px solid hsla(0,0%,59%,.561);
     position: relative;
     display: inline-block;
     width: 100%;
-}
-
-.c-article-item {
-  padding:2px 0;
-  margin-bottom: 1.4rem;
 }
 
 .c-article-exceprt p {
@@ -105,6 +103,4 @@ p + p {
     max-width: 100%;
     height: auto;
 }
-
-
 </style>

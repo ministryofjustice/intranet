@@ -1,11 +1,19 @@
-<?php if (!defined('ABSPATH')) die(); ?>
+<?php if (!defined('ABSPATH')) {
+    die();
+} ?>
+<?php
 
+  global $post;
+
+  $terms = get_the_terms($post->ID, 'campaign_category');
+
+  foreach ($terms as $term) {
+      $campaign_id = $term->term_id;
+  }
+?>
 <div class="posts-widget">
   <h2 class="category-name">News</h2>
   <div id="content">
-    <article class="c-article-item js-article-item">
-
-      <?php get_news_api(); ?>
-    </article>
+    <?php get_campaign_news_api($campaign_id); ?>
   </div>
 </div>
