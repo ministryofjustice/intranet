@@ -44,7 +44,7 @@ function get_news_api() {
                             <a href="<?php echo $post['link'] ?>"><?php echo $post['title']['rendered']?></a>
                         </h1>
                         <div class="meta">
-                            <span class="c-article-item__dateline"><?php echo get_gmt_from_date($post['date'], 'j M Y');;?></span>
+                            <span class="c-article-item__dateline"><?php echo get_gmt_from_date($post['date'], 'j M Y');?></span>
                         </div>    
                         <div class="c-article-exceprt">
                             <p><?php echo $post['excerpt']['rendered'] ?></p>

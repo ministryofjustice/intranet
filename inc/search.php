@@ -48,7 +48,11 @@ function load_search_results(){
                             <a href="<?php echo $post['link'] ?>"><?php echo $post['title']['rendered']?></a>
                         </h1>
                         <div class="meta">
-                            <span class="c-article-item__dateline"><?php echo get_gmt_from_date($post['date'], 'j M Y');;?> by <?php echo $post["coauthors"][0]["display_name"] ?></span>
+                            <span class="c-article-item__dateline"><?php echo get_gmt_from_date($post['date'], 'j M Y');?>
+                            <?php if( $postType == 'posts' ){
+                                echo 'by '. $post["coauthors"][0]["display_name"];
+                            } ?>
+                            </span>
                         </div>    
                         <div class="c-article-exceprt">
                             <p><?php echo $post['excerpt']['rendered'] ?></p>
@@ -110,7 +114,10 @@ function load_next_results(){
                             <a href="<?php echo $post['link'] ?>"><?php echo $post['title']['rendered']?></a>
                         </h1>
                         <div class="meta">
-                            <span class="c-article-item__dateline"><?php echo get_gmt_from_date($post['date'], 'j M Y');;?> by <?php echo $post["coauthors"][0]["display_name"] ?></span>
+                            <span class="c-article-item__dateline"><?php echo get_gmt_from_date($post['date'], 'j M Y');?> 
+                            <?php if( $postType == 'posts' ){
+                                echo 'by '. $post["coauthors"][0]["display_name"];
+                            } ?>
                         </div>    
                         <div class="c-article-exceprt">
                             <p><?php echo $post['excerpt']['rendered'] ?></p>
