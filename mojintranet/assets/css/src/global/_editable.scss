@@ -1,3 +1,5 @@
+@charset 'utf-8';
+
 .main-content .editable {
   h2 {
     margin-top: 50px;
@@ -86,7 +88,7 @@
 
       &::before {
         clear: both;
-        content: "“";
+        content: "_";
         float: left;
         margin-left: -15px;
       }

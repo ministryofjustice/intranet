@@ -1,5 +1,10 @@
 FROM php:7.2-fpm
 
+# Set system locale
+ENV LC_ALL="en_GB.UTF-8" \
+ LANG="en_GB.UTF-8" \
+ LANGUAGE="en_GB.UTF-8"
+
 # Phantom crashes frequently without this
 ENV QT_QPA_PLATFORM=offscreen
 # Keep composer happy
@@ -36,6 +41,10 @@ WORKDIR /bedrock
 ADD composer.json .
 ADD bedrock.json .
 ADD moj.json .
+
+ADD Gruntfile.js .
+ADD package.json .
+
 ADD mojintranet web/app/themes/mojintranet/
 
 RUN mkdir -p web/app/uploads \
@@ -43,15 +52,17 @@ RUN mkdir -p web/app/uploads \
   && rm bedrock.json \
   && rm composer.json \
   && rm moj.json \
-  && rm composer.lock \
-  && npm install --global grunt-cli
-#npm install
-#grunt pre_deploy
-#cd /bedrock/web/app/themes/intranet-theme-clarity
-#npm install --global gulp-cli
-#npm install
-#gulp build
-#cd /bedrock
+  && rm composer.lock
+
+RUN npm install --global grunt-cli \
+  && npm install \
+  && grunt pre_deploy
+
+RUN cd /bedrock/web/app/themes/intranet-theme-clarity \
+  && npm install --global gulp-cli \
+  && npm install \
+  && gulp build \
+&& cd /bedrock
 
 WORKDIR /
 RUN rm /etc/nginx/sites-enabled/default

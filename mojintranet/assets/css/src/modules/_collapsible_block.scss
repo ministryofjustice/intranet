@@ -12,7 +12,7 @@
       margin-bottom: -2px;
       margin-right: 5px;
       margin-left: 0;
-      content: "►";
+      content: "_";
     }
   }
 
@@ -23,11 +23,11 @@
   &.opened {
     .collapsible-block-toggle {
       &:before {
-        content: "▼";
+        content: "_";
       }
 
       &.reversed:before {
-        content: "▲";
+        content: "_";
       }
     }
 
