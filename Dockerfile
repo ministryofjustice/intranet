@@ -7,18 +7,19 @@ ENV COMPOSER_ALLOW_SUPERUSER 1
 
 WORKDIR /
 
-# echo 'deb http://apt.newrelic.com/debian/ newrelic non-free' > /etc/apt/sources.list.d/newrelic.list \
-# && curl -fsSL https://download.newrelic.com/548C16BF.gpg | apt-key add - \
-# apt-get install -y newrelic-php5
 RUN apt-get update \
   && apt-get install -y gnupg \
   && curl -sL https://deb.nodesource.com/setup_9.x | bash - \
+  && echo 'deb http://apt.newrelic.com/debian/ newrelic non-free' > /etc/apt/sources.list.d/newrelic.list \
+  && curl -fsSL https://download.newrelic.com/548C16BF.gpg | apt-key add - \
+  && apt-get update \
   && apt-get install -y \
   fuse \
   git \
   gnupg \
   libffi-dev \
   mariadb-client \
+  newrelic-php5 \
   nginx \
   nodejs \
   python-pip \
