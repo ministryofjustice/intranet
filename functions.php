@@ -26,5 +26,6 @@ require_once('inc/get-posts-rest-api.php');     // Pulls posts through the REST 
 require_once('inc/get-campaign-posts-api.php'); // Pulls campaign posts through the REST API
 require_once('inc/get-news-rest-api.php');      // Pulls news through the REST API
 require_once('inc/get-campaign-news-api.php');  // Pulls campaign news through the REST API
+require_once('inc/get-region-news-api.php');    // Pulls region news through the REST API
 require_once('inc/pagination.php');             // Pagination function
 require_once('inc/comments.php');

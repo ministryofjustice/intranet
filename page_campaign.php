@@ -16,6 +16,10 @@ get_header();?>
         $terms = get_the_terms($post->ID, 'campaign_category');
         foreach ($terms as $term) {
             $campaign_id = $term->term_id;
+        } 
+        $terms = get_the_terms($post->ID, 'region');
+        foreach ($terms as $term) {
+            $region_id = $term->term_id;
         }    
         
     ?>
@@ -24,9 +28,9 @@ get_header();?>
         <?php //get_component('c-content-filter'); ?>
     </div>
     <div class="l-primary" role="main">
-        <h2 class="o-title o-title--section" id="title-section">Latest News</h2>
+        <h2 class="o-title o-title--section" id="title-section">Latest Region News</h2>
         <div id="content">
-            <?php get_campaign_news_api($campaign_id); ?>
+            <?php get_region_news_api($region_id); ?>
         </div>
         
         <h2 class="o-title o-title--section">Posts</h2>
