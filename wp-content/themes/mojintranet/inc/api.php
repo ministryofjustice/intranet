@@ -68,7 +68,7 @@ function get_homepage_news_endpoint(WP_REST_Request $request )
     $agency = $request->get_param( 'agency' );
 
     $agency = sanitize_text_field($agency);
-    
+
     $max_news =  $request->get_param( 'max_news' );
 
     $a = 1;
@@ -227,7 +227,7 @@ add_action( 'rest_api_init', function () {
         'methods' => 'GET',
         'callback' => 'get_events_endpoint',
     ) );
-    
+
 } );
 
 
@@ -281,19 +281,6 @@ function intranet_allow_meta_query( $valid_vars ) {
     return $valid_vars;
 }
 add_filter( 'rest_query_vars', 'intranet_allow_meta_query' );
-
-//Show meta fields on EVENT
-add_action( 'rest_api_init', 'api_register_custom_meta' );
-
-function api_register_custom_meta()
-{
-
-    $allowed_meta_fields = array(
-        'event' => array (
-            '_event-start-date',
-            '_event-end-date'
-        )
-    );
 
     foreach ($allowed_meta_fields as $posttype => $metas)
     {
