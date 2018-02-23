@@ -7,7 +7,7 @@ function get_region_news_api($region_id) {
     $activeAgency = $oAgency->getCurrentAgency();
 
     $siteurl            = get_home_url();
-    $post_per_page      = 'per_page=10';
+    $post_per_page      = 'per_page=4';
     $current_page       = '&page=1';
     $agency_name        = '&agency=' . $activeAgency['wp_tag_id'];
     $region_name        = '&region=' .$region_id; 
