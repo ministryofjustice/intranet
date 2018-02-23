@@ -1,38 +1,40 @@
 <?php
-/**
- * Template name: Campaign content
- */
-?>
-<?php
-    //LEGACY
-    $lhs_menu_on = get_field('dw_lhs_menu_on') == true;
-?>
+use MOJ\Intranet\Agency;
+/*
+* Template Name: Campaign Hub Clarity page
+*/
+if (!defined('ABSPATH')) {
+    die();
+}
 
-<?php get_header(); ?>
-<?php get_component('c-dynamic-style'); ?>
-<div class="l-main u-wrapper">
-<?php //LEGACY ?>
-    <?php if($lhs_menu_on == true): ?>
-        <div class="l-secondary">
-            <?php get_component('c-left-hand-menu'); ?>
-        </div>
-    <?php endif ?>     
-    <div class="<?php
-            echo ($lhs_menu_on == true ? 'l-primary' : 'l-full-page')
-        ?>">
-        <?php //LEGACY END ?>
-        <div id="maincontent" class="u-wrapper l-main t-campaign">
-            <h1 class="o-title o-title--page"><?php the_title(); ?></h1>
-            <div class="l-full-page" role="main">
-                <?php get_component('c-full-width-banner'); ?>
-                <?php
-                    while ( have_posts() ) : the_post();
-                        get_template_part( 'src/components/c-rich-text-block/view' );
-                    endwhile; // End of the loop.
-                ?>
-            </div>
-        </div>
+
+get_header();?>
+<div id="maincontent" class="u-wrapper l-main l-reverse-order t-hub" data-id="<?php echo $post->ID; ?>">
+    <h1 class="o-title o-title--page">Hub Page</h1>
+    <?php 
+        global $post;
+        $terms = get_the_terms($post->ID, 'campaign_category');
+        foreach ($terms as $term) {
+            $campaign_id = $term->term_id;
+        } 
+        $terms = get_the_terms($post->ID, 'region');
+        foreach ($terms as $term) {
+            $region_id = $term->term_id;
+        }    
+        
+    ?>
+    <div class="l-secondary">
+        <?php //get_template_part('src/components/c-left-hand-menu/view'); ?>
+        <?php //get_component('c-content-filter'); ?>
     </div>
-
+    <div class="l-primary" role="main">
+        <h2 class="o-title o-title--section" id="title-section">Latest Region News</h2>
+        <div id="content">
+            <?php get_region_news_api($region_id); ?>
+        </div>
+        
+        <h2 class="o-title o-title--section">Posts</h2>
+        <?php get_campaign_post_api($campaign_id); ?>
+    </div>
 </div>
-<?php get_component('c-global-footer'); ?>
+<?php get_footer(); ?>
