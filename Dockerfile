@@ -11,12 +11,16 @@ WORKDIR /
 # && curl -fsSL https://download.newrelic.com/548C16BF.gpg | apt-key add - \
 # apt-get install -y newrelic-php5
 RUN apt-get update \
+  && apt-get install -y gnupg \
+  && curl -sL https://deb.nodesource.com/setup_9.x | bash - \
   && apt-get install -y \
   fuse \
   git \
+  gnupg \
   libffi-dev \
   mariadb-client \
   nginx \
+  nodejs \
   python-pip \
   ruby-dev \
   sass \
@@ -31,12 +35,22 @@ WORKDIR /bedrock
 ADD composer.json .
 ADD bedrock.json .
 ADD moj.json .
+ADD mojintranet web/app/themes/mojintranet/
 
-RUN composer install --verbose \
+RUN mkdir -p web/app/uploads \
+  && composer install --verbose \
   && rm bedrock.json \
   && rm composer.json \
   && rm moj.json \
-  && rm composer.lock
+  && rm composer.lock \
+  && npm install --global grunt-cli
+#npm install
+#grunt pre_deploy
+#cd /bedrock/web/app/themes/intranet-theme-clarity
+#npm install --global gulp-cli
+#npm install
+#gulp build
+#cd /bedrock
 
 WORKDIR /
 RUN rm /etc/nginx/sites-enabled/default
