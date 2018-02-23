@@ -13,11 +13,13 @@ function get_region_news_api($region_id) {
 
     $url = 'http://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
 
+    // LEGACY. This supports the legacy site updates page. Once it is rebuilt this can probably go or be refactored.
     if (preg_match("/updates/", $url) == true) {
       $post_per_page = 'per_page=50';
     } else {
       $post_per_page = 'per_page=4';
     }
+    // LEGACY END
 
     $response = wp_remote_get( $siteurl.'/wp-json/wp/v2/regional_news/?' . $post_per_page . $current_page . $agency_name . $region_name );
 
