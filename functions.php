@@ -27,5 +27,8 @@ require_once('inc/get-campaign-posts-api.php'); // Pulls campaign posts through 
 require_once('inc/get-news-rest-api.php');      // Pulls news through the REST API
 require_once('inc/get-campaign-news-api.php');  // Pulls campaign news through the REST API
 require_once('inc/get-region-news-api.php');    // Pulls region news through the REST API
+require_once('inc/get-events-api.php');         // Pulls events api
 require_once('inc/pagination.php');             // Pagination function
 require_once('inc/comments.php');
+
+require_once('inc/add-eventsdates-rest-api.php');

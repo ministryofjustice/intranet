@@ -20,7 +20,7 @@ class Events  {
         $options['search_orderby'] = array(
           '_event-start-date' => 'ASC',
           '_event-end-date' => 'ASC',
-          'title' => 'ASC'
+          'title' => 'ASC',
         );
         $options['meta_fields'] = array('_event-start-date', '_event-end-date');
         $options['post_type'] = 'event';
