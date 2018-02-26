@@ -21,7 +21,7 @@ get_header();
       <div id="content">
         <?php get_events_api(); ?>
       </div>
-      <?php get_pagination( 'news' ); ?>
+      <?php get_pagination( 'event' ); ?>
     </div>
   </div>
 

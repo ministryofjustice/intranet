@@ -11,8 +11,10 @@ function get_events_api() {
     $current_page = '&page=1';
     $agency_name = '&agency=' . $activeAgency['wp_tag_id'];
     
-    $response = wp_remote_get( $siteurl.'/wp-json/wp/v2/event/?' . $post_per_page . $current_page . $agency_name );
     
+    
+    $response = wp_remote_get( $siteurl.'/wp-json/wp/v2/event/?' . $post_per_page . $current_page . $agency_name . '&filter[orderby]=_event-start-date&order=desc'  );
+
     if( is_wp_error( $response ) ) {
 		return;
     }
@@ -42,33 +44,29 @@ function get_events_api() {
             $end_time = $post['_event-end-time'];
 
             $location = $post['_event-location'];
-
             ?>
-
-
                 <article class="c-events-item" data-type="event">  
-                    
-                        <time class="c-calendar-icon" datetime="<?php echo $start_date . ' ' . $start_time; ?>">
-                            <span class="c-calendar-icon--dow"><?php echo $get_day; ?></span>
-                            <span class="c-calendar-icon--dom"><?php echo $get_day_num; ?></span>
-                            <span class="c-calendar-icon--my"><?php echo $get_month . ' ' . $get_year; ?></span>
-                        </time>
-                        <div class="c-events-item__time">
-                            <?php if($multiday): ?>
-                                    <h2>Date: </h2>
-                                    <time class="value"><?php echo $start_date . ' - ' . $end_date?></time>
-                                <?php else: ?>
-                                    <h2>Time: </h2>
-                                    <time class="value"><?php echo $start_time . ' - ' . $end_time; ?></time>
-                            <?php endif ?>
-                            <?php if (isset($location)) {?>
-                                <div class="c-events-item__location">
-                                <h2>Location:</h2>
-                                <address><?php echo $location;?></address>
-                                </div>
-                            <?php } ?>
+                    <time class="c-calendar-icon" datetime="<?php echo $start_date . ' ' . $start_time; ?>">
+                        <span class="c-calendar-icon--dow"><?php echo $get_day; ?></span>
+                        <span class="c-calendar-icon--dom"><?php echo $get_day_num; ?></span>
+                        <span class="c-calendar-icon--my"><?php echo $get_month . ' ' . $get_year; ?></span>
+                    </time>
+                    <h1><a href="<?php echo $post['link'];?>"><?php echo $post['title']['rendered'];?></a></h1>
+                    <div class="c-events-item__time">
+                        <?php if($multiday): ?>
+                                <h2>Date: </h2>
+                                <time class="value"><?php echo $start_date . ' - ' . $end_date?></time>
+                            <?php else: ?>
+                                <h2>Time: </h2>
+                                <time class="value"><?php echo $start_time . ' - ' . $end_time; ?></time>
+                        <?php endif ?>
+                    </div>    
+                    <?php if (isset($location)) {?>
+                        <div class="c-events-item__location">
+                        <h2>Location:</h2>
+                        <address><?php echo $location;?></address>
                         </div>
-                        
+                    <?php } ?>
                     <span class="ie-clear"></span>
                 </article>
             <?php
