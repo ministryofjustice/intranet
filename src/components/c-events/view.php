@@ -20,25 +20,18 @@ $times = 'All day'
 ?>
 <article class="c-events">
   <header>
-    <h1>Fake title<?php //echo $data['title'];?></h1>
     <?php get_component('c-calendar-icon', $data['start_date']); ?>
       <div class="c-events__time">
         <h2><?php echo $time_header;?></h2>
         <time><?php echo $times;?></time>
       </div>
-      <?php //if (isset($data['location'])) {?>
+      <?php if (isset($data['location'])) {?>
       <div class="c-events__location">
         <h2>Location:</h2>
-        <address>Sage Gateshead<?php //echo $data['location'];?></address>
+        <address><?php echo $data['location'];?></address>
       </div>
-      <?php //} ?>
+      <?php } ?>
   </header>
-
-  <div class="c-events__details">
-    <p>Civil Service Live is the government’s annual, cross-department learning event, attracting thousands of civil servants to regional events to learn, network and share best practice. The conferences offer engaging, interactive and thought provoking sessions, led by dynamic, expert and inspirational speakers. Senior leaders from the Civil Service, Parliament, the public and private sector will be talking about their experiences, sharing their knowledge, and taking questions.</p>
-    <p>You can book your place when registration opens in late April.</p>
-  </div>
-  <a href="#" class="o-share-link">Share event by email</a>
 </article>
 
 <!-- c-events ends here -->
