@@ -11,7 +11,6 @@ if (!defined('ABSPATH')) {
     <?php get_template_part('src/components/c-article-byline/view'); ?>
     <?php get_template_part('src/components/c-rich-text-block/view'); ?>
     <?php get_template_part('src/components/c-share-post/view'); ?>
-    <?php get_template_part('src/components/c-comment-form/view'); ?>
     <?php get_template_part('src/components/c-comments/view'); ?>
 </article>
 <!-- c-article ends here -->
