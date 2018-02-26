@@ -47,7 +47,7 @@ $comment_title = 'Comments';
 ?>
 
 
-<?php if (comments_open($post_id) === true || $post_comment_status === 'open'  && $comments_disabled === '0'  ) : ?>
+<?php if (comments_open($post_id) === true || $post_comment_status === 'open'  && $comments_disabled === '0'  ) { ?>
   
   <?php if (!get_comments_number()) : // Check in case comments gets switched on without any comments added.?>
     <?php get_template_part('src/components/c-comment-form/view'); ?>
