@@ -14,9 +14,7 @@ function get_events_api() {
     $onlyshow_todays_onwards = '&order=asc&after='. current_time('Y-m-d h:i:s');
     
     $response = wp_remote_get( $siteurl.'/wp-json/wp/v2/event/?' . $post_per_page . $current_page . $agency_name . $onlyshow_todays_onwards  );
-    echo '<pre>';
-    print_r($siteurl.'/wp-json/wp/v2/event/?' . $post_per_page . $current_page . $agency_name . $onlyshow_todays_onwards);
-    echo '</pre>';
+    
     if( is_wp_error( $response ) ) {
 		return;
     }

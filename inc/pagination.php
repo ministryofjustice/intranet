@@ -24,8 +24,17 @@ use MOJ\Intranet\Agency;
 
         <div id="load_more"></div>
         <nav class="c-pagination" role="navigation" aria-label="Pagination Navigation">
-        <button class="more-btn" data-page="1" data-date="">            
+        <?php if($pagetotal > 0){
+            ?>
+            <button class="more-btn" data-page="1" data-date="">            
             <span class="c-pagination__main "><span class="u-icon u-icon--circle-down"></span> Load Next 10 Results</span><span class="c-pagination__count"> 1 of <?php echo $pagetotal; ?></span>
+            </button>    
+            
+            <?php 
+        } ?>
+        <button class="more-btn" data-page="1" data-date="">            
+            <span class="c-pagination__main ">No Results Found</span>
+            <span class="c-pagination__count"> 0 of <?php echo $pagetotal; ?></span>
             </button>    
         </nav>
   
