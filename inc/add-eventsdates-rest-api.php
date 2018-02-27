@@ -14,7 +14,6 @@ function api_register_events_meta()
             '_event-end-time',
             '_event-location',
             '_event-allday',
-            '_iso_start_date',
         )
     );
 
@@ -38,21 +37,69 @@ function api_get_event_meta_value( $object, $field_name, $request ) {
     return get_post_meta( $object[ 'id' ], $field_name, true );
 }
 
-function my_awesome_func( $data ) {
-  $posts = get_posts( array(
-    'author' => $data['id'],
-  ) );
- 
-  if ( empty( $posts ) ) {
-    return null;
-  }
- 
-  return $posts[0]->post_title;
-}
+add_action('rest_api_init', function () {
 
-add_action( 'rest_api_init', function () {
-  register_rest_route( 'myplugin/v1', '/events/', array(
-    'methods' => 'GET',
-    'callback' => 'get_homepage_news_endpoint',
-  ) );
-} );
+    register_rest_route('vinh/v2', '/future-events', array (
+        'methods'             => 'GET',
+        'callback'            => 'get_test_endpoint',
+        'permission_callback' => function (WP_REST_Request $request) {
+            return true;
+        }
+    ));
+});
+
+function get_test_endpoint(){
+    //Order By
+    $options['search_orderby'] = array(
+        '_event-start-date' => 'ASC',
+        '_event-end-date' => 'ASC',
+        'title' => 'ASC'
+    );
+
+    //Get events that are for today onwards
+    $options ['meta_query'] = array(
+        array
+        (
+            'relation' => 'OR',
+                array (
+                'key' => '_event-start-date',
+                'value' => date('Y-m-d'),
+                'type' => 'date',
+                'compare' => '>='
+                ),
+                array (
+                'key' => '_event-end-date',
+                'value' => date('Y-m-d'),
+                'type' => 'date',
+                'compare' => '>='
+                ),
+        )
+    );
+
+    $args = array (
+        'orderby' => $options['search_orderby'],
+        'meta_query' => $options['meta_query'],
+        'post_type' => ['event'],
+    );
+    $events = get_posts($args);
+
+    $i = 0;
+
+    //print_r($events);
+    foreach ($events as $event) {
+
+        $events[$i]->event_start_date = get_post_meta($event->ID, '_event-start-date', true);
+        $events[$i]->event_end_date = get_post_meta($event->ID, '_event-end-date', true);
+        $events[$i]->event_start_time = get_post_meta($event->ID, '_event-start-time', true);
+        $events[$i]->event_end_time = get_post_meta($event->ID, '_event-end-time', true);
+        $events[$i]->event_location = get_post_meta($event->ID, '_event-location', true);
+
+        $i ++;
+    }
+
+    if ( empty( $events ) ) {
+        return null;
+    }
+
+    return $events;
+}
