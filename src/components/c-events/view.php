@@ -2,22 +2,18 @@
 <?php
 
 $time_header = "Time:";
-if (empty($data['all_day']))
-{
-    if ($data['multiday'] == 1)
-    {
+if (empty($data['all_day'])) {
+    if ($data['multiday'] == 1) {
         $times = date("j F Y", strtotime($data['start_date'])) ." - ".date("j F Y", strtotime($data['end_date']));
         $time_header = 'Date:';
-    }
-    else
+    } else {
         $times = $data['start_time']." - ".$data['end_time'];
-} else
+    }
+} else {
     $times = 'All day';
-
-// FAKE DATA
-$times = 'All day'
-
+}
 ?>
+
 <article class="c-events">
   <header>
     <?php get_component('c-calendar-icon', $data['start_date']); ?>

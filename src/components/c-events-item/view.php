@@ -1,19 +1,16 @@
-<?php
+ <?php
 
 $time_header = "Time:";
-if (empty($data['all_day']))
-{
-    if ($data['multiday'] == 1)
-    {
+if (empty($data['all_day'])) {
+    if ($data['multiday'] == 1) {
         $times = date("j F Y", strtotime($data['start_date'])) ." - ".date("j F Y", strtotime($data['end_date']));
         $time_header = 'Date:';
-    }
-    else
+    } else {
         $times = $data['start_time']." - ".$data['end_time'];
-} else
+    }
+} else {
     $times = 'All day';
-
-
+}
 ?>
 <article class="c-events-item">
     <?php get_component('c-calendar-icon', $data['start_date']); ?>
@@ -22,10 +19,12 @@ if (empty($data['all_day']))
       <h2><?php echo $time_header;?></h2>
       <time><?php echo $times;?></time>
     </div>
-    <?php if (isset($data['location'])) {?>
+    <?php if (isset($data['location'])) {
+    ?>
     <div class="c-events-item__location">
       <h2>Location:</h2>
-      <address><?php echo $data['location'];?></address>
+      <address><?php echo $data['location']; ?></address>
     </div>
-    <?php } ?>
+    <?php
+} ?>
 </article>

@@ -1,3 +1,10 @@
+<?php
+
+/*
+* $data is from class Events(). This page gets called on both the homepage, events listing and single events page.
+*
+*/
+?>
 <time class="c-calendar-icon" datetime="<?php echo $data;?>">
   <h2 class="u-visually-hidden">Date:</h2>
   <span class="c-calendar-icon--dow"><?php echo date("l", strtotime($data));?></span>
