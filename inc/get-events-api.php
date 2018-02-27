@@ -11,10 +11,12 @@ function get_events_api() {
     $current_page = '&page=1';
     $agency_name = '&agency=' . $activeAgency['wp_tag_id'];
     
+    $onlyshow_todays_onwards = '&order=asc&after='. current_time('Y-m-d h:i:s');
     
-    
-    $response = wp_remote_get( $siteurl.'/wp-json/wp/v2/event/?' . $post_per_page . $current_page . $agency_name . '&filter[orderby]=_event-start-date&order=desc'  );
-
+    $response = wp_remote_get( $siteurl.'/wp-json/wp/v2/event/?' . $post_per_page . $current_page . $agency_name . $onlyshow_todays_onwards  );
+    echo '<pre>';
+    print_r($siteurl.'/wp-json/wp/v2/event/?' . $post_per_page . $current_page . $agency_name . $onlyshow_todays_onwards);
+    echo '</pre>';
     if( is_wp_error( $response ) ) {
 		return;
     }
