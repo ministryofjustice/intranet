@@ -2,13 +2,20 @@
 @require "../../globals/css/_toolkit"
 
 .c-events {
-  +above(m) {
-    column(2/3);
+  .c-calendar-icon {
+    float: left;
+    width: (100%/1);
+    margin: $spacing*3 0;
   }
 
   header {
     overflow: hidden;
     margin-bottom: $spacing*2
+  }
+
+  time {
+    display: block;
+    border: 0;
   }
 
   h1 {
@@ -17,15 +24,20 @@
     margin-bottom: $spacing*3;
   }
 
-  &__time, &__location {
+  &__time, &__location, &__date {
+    +above(m) {
+      column(1);
+    }
+    float:left;
     display: block;
+    margin-bottom: $spacing*1;
   }
 
-  &__time, &__location {
+  &__time, &__location, &__date {
     h2 {
       float:left;
       font-weight: bold;
-      padding: 0 $spacing 0 $spacing*3;
+      padding-right: $spacing*1;
     }
     time,
     address {
