@@ -1,0 +1,56 @@
+version: '3.5'
+services:
+  wordpress:
+    container_name: wp_dev
+    build: .
+    env_file: .env
+    environment:
+      development: 1
+      WP_ENV: development
+      VIRTUAL_HOST: intranet.docker
+      SMTP_HOST: mailcatcher
+      SMTP_PORT: 1025
+      DB_NAME: wordpress
+      DB_USER: wordpress
+      DB_PASSWORD: wordpress
+      DB_HOST: mysql
+    links:
+      - mailcatcher
+      - mysql
+    depends_on:
+      - mailcatcher
+      - mysql
+    cap_add:
+      - SYS_ADMIN
+    devices:
+      - /dev/fuse
+    ports:
+      - "80:80"
+  mysql:
+    container_name: wp_db
+    image: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+    volumes:
+      - database:/var/lib/mysql
+      - ./db-dump:/db-dump
+    ports:
+      - "3306:3306"
+    logging:
+      driver: none
+  mailcatcher:
+    container_name: wp_smtp
+    image: ministryofjustice/mailcatcher
+    environment:
+      VIRTUAL_HOST: mail.intranet.docker
+      VIRTUAL_PORT: 1080
+    ports:
+      - "1080:1080"
+    logging:
+      driver: none
+volumes:
+  database:
+    driver: local
