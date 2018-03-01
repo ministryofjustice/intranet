@@ -58,13 +58,17 @@ RUN mkdir -p web/app/uploads \
 
 RUN npm install --global grunt-cli \
   && npm install \
-  && grunt pre_deploy
+  && grunt pre_deploy \
+  && rm Gruntfile.js
 
 RUN cd /bedrock/web/app/themes/intranet-theme-clarity \
   && npm install --global gulp-cli \
   && npm install \
   && gulp build \
-  && cd /bedrock
+  && cd /bedrock \
+  && rm -rf node_modules \
+  && rm package.json \
+  && rm package-lock.json
 
 WORKDIR /
 
@@ -76,5 +80,8 @@ COPY etc/supervisor/supervisord.conf /etc/supervisor/
 COPY etc/php /etc/php
 
 COPY runonce runonce/
+
+COPY config/application.php /bedrock/config/
+COPY config/environments/ /bedrock/config/
 
 CMD ["/usr/bin/supervisord"]
