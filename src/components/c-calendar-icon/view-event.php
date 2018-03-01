@@ -10,14 +10,15 @@ if (!defined('ABSPATH')) {
 */
 $oEvents = new Events();
 
-$options = [
-    'page' => 1,
-    'per_page' => 2
-    ];
+$eventsList = $oEvents->getEvents();
+$post_id = get_the_ID();
 
-$eventsList = $oEvents->getEvents($options);
-$data = $eventsList[1];
-$data = $data['start_date'];
+foreach ($eventsList as $event) {
+  if ($post_id == $event['id']) {
+    $data = $event['start_date'];
+  }
+}
+
 ?>
 <time class="c-calendar-icon" datetime="<?php echo $data;?>">
   <h2 class="u-visually-hidden">Date:</h2>

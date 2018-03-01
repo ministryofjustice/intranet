@@ -8,24 +8,28 @@ if (!defined('ABSPATH')) {
 
 $oEvents = new Events();
 
-$options = [
-    'page' => 1,
-    'per_page' => 2
-    ];
+$eventsList = $oEvents->getEvents();
+$post_id = get_the_ID();
 
-$eventsList = $oEvents->getEvents($options);
-$data = $eventsList[1];
+foreach ($eventsList as $event) {
+    if ($post_id == $event['id']) {
+        $start_time = $event['start_time'];
+        $end_time = $event['end_time'];
+        $all_day = $event['all_day'];
+        $location = $event['location'];
+    }
+}
 ?>
 <article class="c-events">
   <header>
-    
+
     <?php get_template_part('src/components/c-calendar-icon/view', 'event'); ?>
 
     <?php
     // Set time to either 'all day' or display the time selected.
-    if (empty($data['all_day'])) {
-        if (isset($data['start_time']) || isset($data['end_time'])) {
-            $time = $data['start_time']." - ".$data['end_time'];
+    if (empty($all_day)) {
+        if (isset($start_time) || isset($end_time)) {
+            $time = $start_time . " - " . $end_time;
         } else {
             $time = '';
         }
@@ -38,10 +42,10 @@ $data = $eventsList[1];
       <h2>Time:</h2>
       <?php echo $time; ?>
     </div>
-    <?php if (isset($data['location'])): ?>
+    <?php if (isset($location)): ?>
       <div class="c-events__location">
         <h2>Location:</h2>
-        <address><?php echo $data['location']; ?></address>
+        <address><?php echo $location; ?></address>
       </div>
     <?php endif; ?>
 
