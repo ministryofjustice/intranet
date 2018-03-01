@@ -6,16 +6,16 @@ if (!defined('ABSPATH')) {
 
 ?>
 <!-- c-article events starts here -->
-<article class="c-article l-main">
+<article class="c-article l-main l-reverse-order">
 
-    <div class="l-primary" role="main">
+    <section class="l-primary" role="main">
       <h1 class="o-title o-title--page"><?php echo get_the_title();?></h1>
       <?php get_template_part('src/components/c-rich-text-block/view'); ?>
-    </div>
+    </section>
 
-    <div class="l-secondary">
+    <aside class="l-secondary">
       <?php get_template_part('src/components/c-events/view'); ?>
-    </div>
+    </aside>
 
 </article>
 <!-- c-article events ends here -->
