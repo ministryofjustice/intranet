@@ -8,6 +8,7 @@ if (!defined('ABSPATH')) {
 <!-- c-article events starts here -->
 <article class="c-article l-main l-reverse-order">
 
+  <?php // .l-reverse class with l-primary and l-secondary swapped allows for secondary to appear first on mobile ?>
   <aside class="l-secondary">
     <?php get_template_part('src/components/c-events/view'); ?>
   </aside>
