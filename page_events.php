@@ -9,7 +9,6 @@ if (!defined('ABSPATH')) {
 
 get_header();
 
-
 ?>
   <div id="maincontent" class="u-wrapper l-main l-reverse-order t-article-list">
     <h1 class="o-title o-title--page"><?php the_title(); ?></h1>
@@ -17,7 +16,7 @@ get_header();
       <?php get_template_part('src/components/c-content-filter/view'); ?>
     </div>
     <div class="l-primary" role="main">
-      <h2 class="o-title o-title--section" id="title-section">Latest Events</h2>
+      <h2 class="o-title o-title--section" id="title-section">Upcoming Events</h2>
       <div id="content">
         <?php get_events_api(); ?>
       </div>
