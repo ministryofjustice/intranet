@@ -2,5 +2,11 @@
 @require "../../globals/css/_toolkit"
 
 .c-news-article {
+  margin-top: 30px;
 
+  .c-news-list .c-article-item {
+    +above('m') {
+      column(1);
+    }
+  }
 }
