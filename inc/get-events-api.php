@@ -9,8 +9,6 @@ function get_events_api() {
     $siteurl = get_home_url();
     $agency_name = $activeAgency['wp_tag_id'];
     
-    //$onlyshow_todays_onwards = '&order=asc&after='. current_time('Y-m-d h:i:s');
-    
     $response = wp_remote_get( $siteurl.'/wp-json/intranet/v2/future-events/?');
 
     if( is_wp_error( $response ) ) {
@@ -23,9 +21,7 @@ function get_events_api() {
 
     $response_code       = wp_remote_retrieve_response_code( $response );
     $response_message = wp_remote_retrieve_response_message( $response );
-    echo '<pre>';
-    print_r(wp_remote_retrieve_headers($response));
-    echo '</pre>';
+    
     if ( 200 == $response_code && $response_message == 'OK' ) {
         echo '<div class="data-type" data-type="event"></div>';
         
@@ -47,8 +43,7 @@ function get_events_api() {
             $end_time = $post['event_end_time'];
 
             $location = $post['event_location'];
-            echo 'cookie = '.$agency_name;
-            echo 'json = ' . $get_agency;
+            
             if ($agency_name === $get_agency){
                 ?>
                 <article class="c-events-item" data-type="event">  
@@ -57,7 +52,7 @@ function get_events_api() {
                         <span class="c-calendar-icon--dom"><?php echo $get_day_num; ?></span>
                         <span class="c-calendar-icon--my"><?php echo $get_month . ' ' . $get_year; ?></span>
                     </time>
-                    <h1><a href="<?php echo $post['guid'];?>"><?php echo $post['post_title'];?></a></h1>
+                    <h1><a href="<?php echo $post['url'];?>"><?php echo $post['post_title'];?></a></h1>
                     <div class="c-events-item__time">
                         <?php if($multiday): ?>
                                 <h2>Date: </h2>
@@ -76,8 +71,6 @@ function get_events_api() {
                     <span class="ie-clear"></span>
                 </article>
             <?php
-            }else{
-                //echo 'not same';
             }
             
 
