@@ -31,11 +31,13 @@ use MOJ\Intranet\Agency;
             </button>    
             
             <?php 
-        } ?>
+        }else{
+        ?>
         <button class="more-btn" data-page="1" data-date="">            
             <span class="c-pagination__main ">No Results Found</span>
             <span class="c-pagination__count"> 0 of <?php echo $pagetotal; ?></span>
             </button>    
         </nav>
+        <?php } 
   
-<?php }
+}
