@@ -38,7 +38,8 @@ function api_get_event_meta_value( $object, $field_name, $request ) {
 }
 
 add_action('rest_api_init', function () {
-    register_rest_route('intranet/v2/', 'future-events/', 
+    // Events by agency
+    register_rest_route('intranet/v2/', 'future-events/(?P<agency>[a-zA-Z0-9-]+)/', 
         array (
             'methods'             => 'GET',
             'callback'            => 'add_custom_events_endpoint',
@@ -46,12 +47,16 @@ add_action('rest_api_init', function () {
             {return true;}
         )
     );
-    register_rest_route('intranet/v2/', 'future-events/(?P<slug>[a-z0-9]+(?:-[a-z0-9]+)*)/', 
+    // Events by search (keywords)
+    register_rest_route('intranet/v2/', 'future-events/(?P<agency>[a-zA-Z0-9-]+)/(?P<search>[a-z0-9]+(?:-[a-z0-9]+)*)/', 
         array (
             'methods'             => 'GET',
             'callback'            => 'add_custom_events_endpoint',
             'args' => array(
-                'slug' => array (
+                'search' => array (
+                    'required' => true
+                ),
+                'agency' => array (
                     'required' => true
                 ),
             ),
@@ -90,15 +95,23 @@ function add_custom_events_endpoint(WP_REST_Request $request){
     );
 
     // request the query given in the url
-    $slug = $request['slug'];
+    $search = $request['search'];
+    $agency = $request['agency'];
 
     $args = array (
         'orderby' => $options['search_orderby'],
         'meta_query' => $options['meta_query'],
         'post_type' => 'event',
-        "s" => $slug,
+        's' => $search,
         'posts_per_page' => -1,
         'nopaging' => true,
+        'tax_query' => array(
+            array(
+                'taxonomy' => 'agency',
+                'field' => 'slug',
+                'terms' => $agency,
+            )
+        )
     );
 
     //print_r(new WP_Query());
@@ -130,5 +143,6 @@ function add_custom_events_endpoint(WP_REST_Request $request){
     }
 
     return $events;
+
 
 }
