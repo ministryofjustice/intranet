@@ -6,10 +6,12 @@ if (!defined('ABSPATH')) {
 }
 
 // WP admin area related functions and methods
-require_once('inc/admin/comments.php');          // Editor/admin comment management. Turn comments on/off etc
-require_once('inc/admin/wp-admin-bar.php');      // Relates to WP admin bar at the top of the intranet when logged in.
+require_once('inc/admin/comments.php');               // Editor/admin comment management. Turn comments on/off etc
+require_once('inc/admin/wp-admin-bar.php');           // Relates to WP admin bar at the top of the intranet when logged in.
+require_once('inc/admin/suppress-wp-update-msg.php'); // Disables WP notice to editors to update version.
 
 // WP site functions and methods
+
 require_once('inc/acf.php');                    // Advanced Custom Fields plugin related functions
 require_once('inc/autoloader.php');             // Custom theme autoloader (should replace with PSR4!).
 require_once('inc/cookies.php');                // Where all cookies are managed (Child theme specific)
@@ -30,5 +32,4 @@ require_once('inc/get-region-news-api.php');    // Pulls region news through the
 require_once('inc/get-events-api.php');         // Pulls events api
 require_once('inc/pagination.php');             // Pagination function
 require_once('inc/comments.php');
-
 require_once('inc/add-eventsdates-rest-api.php');

@@ -13,7 +13,7 @@ $oAgency = new Agency();
 $activeAgency = $oAgency->getCurrentAgency();
 
 ?>
-  <div id="maincontent" class="u-wrapper l-main l-reverse-order t-article-list">
+  <div id="maincontent" class="u-wrapper l-main t-article-list">
     <h1 class="o-title o-title--page"><?php the_title(); ?></h1>
     <div class="l-secondary">
       <?php get_template_part('src/components/c-content-filter/view'); ?>
