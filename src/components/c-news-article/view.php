@@ -19,7 +19,7 @@ if (!defined('ABSPATH')) {
   <aside class="l-secondary">
     <h1 class="o-title">Recent news</h1>
     <?php get_template_part('src/components/c-news-list/view', 'aside'); ?>
-    <a href="/news">News archive</a>
+    <a href="/newspage">News archive</a>
   </aside>
 
 </article>
