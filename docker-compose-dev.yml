@@ -1,7 +1,7 @@
 version: '3.5'
 services:
   wordpress:
-    container_name: wp_dev
+    container_name: wordpress
     build: .
     env_file: .env
     environment:
@@ -27,7 +27,7 @@ services:
     ports:
       - "80:80"
   mysql:
-    container_name: wp_db
+    container_name: mysql
     image: mariadb
     environment:
       MYSQL_ROOT_PASSWORD: root
@@ -42,7 +42,7 @@ services:
     logging:
       driver: none
   mailcatcher:
-    container_name: wp_smtp
+    container_name: mailcatcher
     image: ministryofjustice/mailcatcher
     environment:
       VIRTUAL_HOST: mail.intranet.docker
