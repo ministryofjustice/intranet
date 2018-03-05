@@ -40,7 +40,7 @@ function custom_monthly_archive($link_html, $url, $text, $format)
 {
     if ('custom' === $format) {
 
-        $strip_url = str_replace('https://intranet.justice.gov.uk/blog/', '', $url);
+        $strip_url = ($url === 'https://intranet.justice.gov.uk/blog/') ? str_replace('https://intranet.justice.gov.uk/blog/', '', $url) : $strip_url = str_replace('http://intranet.docker/blog/', '', $url);
         
         $replace_with_slash = str_replace('/', '-', $strip_url);
         $valueSelected = $replace_with_slash . '01T00:00:00';
