@@ -9,7 +9,7 @@ function get_events_api() {
     $siteurl = get_home_url();
     $agency_name = $activeAgency['wp_tag_id'];
     
-    $response = wp_remote_get( $siteurl.'/wp-json/intranet/v2/future-events/?');
+    $response = wp_remote_get( $siteurl.'/wp-json/intranet/v2/future-events/'.$agency_name);
 
     if( is_wp_error( $response ) ) {
 		return;
@@ -25,7 +25,7 @@ function get_events_api() {
     if ( 200 == $response_code && $response_message == 'OK' ) {
         echo '<div class="data-type" data-type="event"></div>';
         
-		foreach( $posts as $key => $post ) {
+		foreach( $posts['events'] as $key => $post ) {
             
             $event_start_date   = $post['event_start_date'];
             $event_end_date     = $post['event_end_date'];
@@ -44,8 +44,7 @@ function get_events_api() {
 
             $location = $post['event_location'];
             
-            if ($agency_name === $get_agency){
-                ?>
+            ?>
                 <article class="c-events-item" data-type="event">  
                     <time class="c-calendar-icon" datetime="<?php echo $start_date . ' ' . $start_time; ?>">
                         <span class="c-calendar-icon--dow"><?php echo $get_day; ?></span>
@@ -71,7 +70,7 @@ function get_events_api() {
                     <span class="ie-clear"></span>
                 </article>
             <?php
-            }
+            
             
 
             

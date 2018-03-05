@@ -15,7 +15,7 @@ function load_events_filter_results(){
     $datevalueselected = $_POST['valueSelected'];
     $query = $_POST['query'];
     
-    $response = wp_remote_get( $siteurl.'/wp-json/intranet/v2/future-events/' . $query);
+    $response = wp_remote_get( $siteurl.'/wp-json/intranet/v2/future-events/' . $agency_name . '/' . $query . '/');
 
     if( is_wp_error( $response ) ) {
 		return;
@@ -31,7 +31,7 @@ function load_events_filter_results(){
     if ( 200 == $response_code && $response_message == 'OK' ) {
         echo '<div class="data-type" data-type="event"></div>';
         
-		foreach( $posts as $key => $post ) {
+		foreach( $posts['events'] as $key => $post ) {
             
             $event_start_date   = $post['event_start_date'];
             $event_end_date     = $post['event_end_date'];
@@ -55,7 +55,7 @@ function load_events_filter_results(){
 
             $location = $post['event_location'];
             
-                if ($datevalueselected === $strip_start_date && $agency_name === $get_agency){
+                if ($datevalueselected === $strip_start_date){
                     
                     ?>
                     <article class="c-events-item" data-type="event">  
@@ -83,7 +83,7 @@ function load_events_filter_results(){
                         <span class="ie-clear"></span>
                     </article>
                     <?php
-                }elseif($datevalueselected === 'all' && $agency_name === $get_agency ){
+                }elseif($datevalueselected === 'all'){
                     ?>
                     <article class="c-events-item" data-type="event">  
                         <time class="c-calendar-icon" datetime="<?php echo $start_date . ' ' . $start_time; ?>">

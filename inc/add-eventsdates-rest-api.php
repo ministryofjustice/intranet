@@ -108,7 +108,7 @@ function add_custom_events_endpoint(WP_REST_Request $request){
         'tax_query' => array(
             array(
                 'taxonomy' => 'agency',
-                'field' => 'slug',
+                'field' => 'term_id',
                 'terms' => $agency,
             )
         )
