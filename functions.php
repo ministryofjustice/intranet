@@ -32,4 +32,4 @@ require_once('inc/get-region-news-api.php');    // Pulls region news through the
 require_once('inc/get-events-api.php');         // Pulls events api
 require_once('inc/pagination.php');             // Pagination function
 require_once('inc/comments.php');
-require_once('inc/add-eventsdates-rest-api.php');
+require_once('inc/add-eventsdates-rest-api.php'); // Created custom events endpoint using WP REST API

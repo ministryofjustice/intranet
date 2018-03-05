@@ -114,8 +114,6 @@ function add_custom_events_endpoint(WP_REST_Request $request){
         )
     );
 
-    //print_r(new WP_Query());
-
     $events = get_posts($args);
 
     $i = 0;
