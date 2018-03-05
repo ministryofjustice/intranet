@@ -142,7 +142,21 @@ function add_custom_events_endpoint(WP_REST_Request $request){
         return null;
     }
 
-    return $events;
+    // count number of posts
+    $total_post_count = count( $events );
+
+    // display url parameters on json api.
+    $url_query = array( 
+        'agency' => $agency,
+        'search' => $search,
+        'post_count' => $total_post_count,
+    );
+
+    return $arrayName = array(
+        'url' => $url_query,
+        'events' => $events,
+    );
+    //return $events;
 
 
 }
