@@ -35,7 +35,6 @@ function get_events_api() {
             $get_month = date('M', strtotime($event_start_date));
             $get_day = date('F', strtotime($event_start_date));
             $get_day_num = date('d', strtotime($event_start_date));
-            $get_agency = $post['agency'][0]['term_id'];
 
             $multiday = $event_start_date != $event_end_date;
 
@@ -46,11 +45,7 @@ function get_events_api() {
             
             ?>
                 <article class="c-events-item" data-type="event">  
-                    <time class="c-calendar-icon" datetime="<?php echo $start_date . ' ' . $start_time; ?>">
-                        <span class="c-calendar-icon--dow"><?php echo $get_day; ?></span>
-                        <span class="c-calendar-icon--dom"><?php echo $get_day_num; ?></span>
-                        <span class="c-calendar-icon--my"><?php echo $get_month . ' ' . $get_year; ?></span>
-                    </time>
+                    <?php include(locate_template('src/components/c-calendar-icon/view-eventsapi.php')); ?>
                     <h1><a href="<?php echo $post['url'];?>"><?php echo $post['post_title'];?></a></h1>
                     <div class="c-events-item__time">
                         <?php if($multiday): ?>
