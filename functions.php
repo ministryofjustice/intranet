@@ -24,12 +24,14 @@ require_once('inc/get-intranet-code.php');      // Being used as a filter to fil
 require_once('inc/menu.php');                   // Additional functionality relating to theme menus
 require_once('inc/search.php');                 // All search related functions
 require_once('inc/utilities.php');              // Utility functions
-require_once('inc/get-posts-rest-api.php');     // Pulls posts through the REST API
-require_once('inc/get-campaign-posts-api.php'); // Pulls campaign posts through the REST API
-require_once('inc/get-news-rest-api.php');      // Pulls news through the REST API
-require_once('inc/get-campaign-news-api.php');  // Pulls campaign news through the REST API
-require_once('inc/get-region-news-api.php');    // Pulls region news through the REST API
-require_once('inc/get-events-api.php');         // Pulls events api
-require_once('inc/pagination.php');             // Pagination function
 require_once('inc/comments.php');
-require_once('inc/add-eventsdates-rest-api.php'); // Created custom events endpoint using WP REST API
+require_once('inc/pagination.php');             // Pagination function
+
+// All custom API's
+require_once('inc/api/get-posts-rest-api.php');     // Pulls posts through the REST API
+require_once('inc/api/get-campaign-posts-api.php'); // Pulls campaign posts through the REST API
+require_once('inc/api/get-news-rest-api.php');      // Pulls news through the REST API
+require_once('inc/api/get-campaign-news-api.php');  // Pulls campaign news through the REST API
+require_once('inc/api/get-region-news-api.php');    // Pulls region news through the REST API
+require_once('inc/api/get-events-api.php');         // Pulls events api
+require_once('inc/api/add-eventsdates-rest-api.php'); // Created custom events endpoint using WP REST API

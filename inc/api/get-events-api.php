@@ -1,7 +1,7 @@
 <?php
 use MOJ\Intranet\Agency;
 
-function get_events_api() {
+function get_events_api($taxonomy, $tax_id = false) {
     
     $oAgency = new Agency();
     $activeAgency = $oAgency->getCurrentAgency();
@@ -9,7 +9,14 @@ function get_events_api() {
     $siteurl = get_home_url();
     $agency_name = $activeAgency['wp_tag_id'];
     
-    $response = wp_remote_get( $siteurl.'/wp-json/intranet/v2/future-events/'.$agency_name);
+    
+    if ($taxonomy === 'search'){
+        $response = wp_remote_get( $siteurl.'/wp-json/intranet/v2/future-events/'.$agency_name);
+    }elseif($taxonomy === 'region'){
+        $response = wp_remote_get( $siteurl.'/wp-json/intranet/v2/region-events/'.$agency_name.'/'.$tax_id.'/');
+    }elseif($taxonomy === 'campaign'){
+        $response = wp_remote_get( $siteurl.'/wp-json/intranet/v2/campaign-events/'.$agency_name.'/'.$tax_id.'/');
+    }
 
     if( is_wp_error( $response ) ) {
 		return;

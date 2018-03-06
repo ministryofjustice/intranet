@@ -18,7 +18,7 @@ get_header();
     <div class="l-primary" role="main">
       <h2 class="o-title o-title--section" id="title-section">Upcoming Events</h2>
       <div id="content">
-        <?php get_events_api(); ?>
+        <?php get_events_api('search'); ?>
       </div>
       <?php //get_pagination( 'event' ); ?>
     </div>
