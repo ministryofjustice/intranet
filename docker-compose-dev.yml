@@ -1,8 +1,18 @@
 version: '3.5'
 services:
+  nginx:
+    container_name: nginx
+    image: nginx:alpine
   wordpress:
-    container_name: wordpress
     build: .
+    cap_add:
+      - SYS_ADMIN
+    container_name: wordpress
+    depends_on:
+      - mailcatcher
+      - mysql
+    devices:
+      - /dev/fuse
     env_file: .env
     environment:
       development: 1
@@ -17,40 +27,33 @@ services:
     links:
       - mailcatcher
       - mysql
-    depends_on:
-      - mailcatcher
-      - mysql
-    cap_add:
-      - SYS_ADMIN
-    devices:
-      - /dev/fuse
     ports:
       - "80:80"
   mysql:
     container_name: mysql
-    image: mariadb
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: wordpress
       MYSQL_USER: wordpress
       MYSQL_PASSWORD: wordpress
-    volumes:
-      - database:/var/lib/mysql
-      - ./db-dump:/db-dump
-    ports:
-      - "3306:3306"
+    image: mariadb
     logging:
       driver: none
+    ports:
+      - "3306:3306"
+    volumes:
+      - database:/var/lib/mysql
+      - ./db-dump:/docker-entrypoint-initdb.d
   mailcatcher:
     container_name: mailcatcher
-    image: ministryofjustice/mailcatcher
     environment:
       VIRTUAL_HOST: mail.intranet.docker
       VIRTUAL_PORT: 1080
-    ports:
-      - "1080:1080"
+    image: ministryofjustice/mailcatcher
     logging:
       driver: none
+    ports:
+      - "1080:1080"
 volumes:
   database:
     driver: local

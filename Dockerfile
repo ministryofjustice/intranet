@@ -76,7 +76,6 @@ RUN cd /bedrock/web/app/themes/intranet-theme-clarity \
 WORKDIR /
 
 COPY etc/nginx/nginx.conf /etc/nginx/
-COPY etc/nginx/php-fpm.conf /etc/nginx/
 COPY etc/nginx/sites-available/default /etc/nginx/sites-available/
 COPY etc/nginx/whitelists/pingdom.conf /etc/nginx/whitelists/
 COPY etc/supervisor/supervisord.conf /etc/supervisor/

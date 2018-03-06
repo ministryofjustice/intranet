@@ -96,14 +96,37 @@ server {
   }
 
   location ~ \.php$ {
-    include /etc/nginx/php-fpm.conf;
+    fastcgi_cache pub01;
+    fastcgi_cache_valid 200 10m;
+    fastcgi_cache_methods GET HEAD;
+    add_header X-Fastcgi-Cache $upstream_cache_status;
+    fastcgi_cache_bypass $skip_cache;
+    fastcgi_no_cache $skip_cache;
+
+    fastcgi_split_path_info ^(.+\.php)(/.+)$;
+    # NOTE: You should have "cgi.fix_pathinfo = 0;" in php.ini
+
+    try_files $uri /index.php?$args;
+
+    include fastcgi.conf;
+    fastcgi_intercept_errors off;
+    fastcgi_pass unix:/run/fpm.sock;
+    fastcgi_index index.php;
+
+    # server_name.conf is generated at runtime via a script in /etc/my_init.d/
+    include server_name.conf;
+
+    # set the correct value for REMOTE_ADDR
+    # make sure you trust the originating server!
+    # fastcgi_param REMOTE_ADDR $http_x_forwarded_for;
+
+    fastcgi_param HTTPS $use_ssl;
   }
 
   location = /wp/wp-login.php {
     limit_req zone=flood burst=5 nodelay;
 
     include /etc/nginx/whitelists/wp-login.conf;
-    include /etc/nginx/php-fpm.conf;
   }
 
   location ~ /purge-cache(/.*) {
