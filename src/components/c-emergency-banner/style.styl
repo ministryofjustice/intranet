@@ -24,8 +24,12 @@
     cms-fixes();
     padding: $spacing*2;
     a {
-      color: $light;
+      color: $link-colour;
+      font-weight: 700;
       text-decoration: underline;
+      &:hover{
+        color: $link-hover-colour;
+      }
     }
 
     +above(m) {
