@@ -5,32 +5,35 @@
 
   global $post;
 
-  $terms = get_the_terms($post->ID, 'campaign_category');
+  $terms = get_the_terms($post->ID, 'region');
 
   foreach ($terms as $term) {
-      $campaign_id = $term->term_id;
+      $region_id = $term->term_id;
   }
 ?>
-<div class="widget-event-item">
+<div class="events-widget">
   <h2 class="category-name">Events</h2>
   <div id="content">
-    <?php get_events_api('campaign', $campaign_id); ?>
+    <?php get_events_api('region', $region_id); ?>
   </div>
 </div>
 <style>
 /* Using Clarity CSS so that we can use the Clarity API. */
 
   .c-events-item {
-      position: relative;
-      padding-bottom: 1.5rem;
-      display: inline-block;
-      width: 100%;
-      margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 2rem;
   }
 
-  .c-events-item .c-calendar-icon {
+  .c-events-item {
+    width: 88%;
+  }
+
+  .c-calendar-icon {
     position: absolute;
-    width: 25%;
+    width: 12%;
   }
 
   .c-events-item h1 {

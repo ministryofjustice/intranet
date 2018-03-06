@@ -9,11 +9,11 @@
         <ul class="menu-list"></ul>
       </nav>
     </div>
+
     <div class="col-lg-9 col-md-8 col-sm-12">
       <h1 class="page-title"><?=$title?></h1>
-
-      <?php $this->view('widgets/news_list/main-news', $news_widget) ?>
-      <?php $this->view('widgets/events/main', $events_widget) ?>
+      <?php $this->view('widgets/news_list/main-news') ?>
+      <?php $this->view('widgets/events/main-regions') ?>
     </div>
   </div>
 
