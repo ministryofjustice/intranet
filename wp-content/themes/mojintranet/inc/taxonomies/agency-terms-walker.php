@@ -1,9 +1,10 @@
 <?php
 
 // Include Walker_Category_Checklist class
-require_once( ABSPATH . 'wp-admin/includes/class-walker-category-checklist.php' );
+require_once(ABSPATH . 'wp-admin/includes/class-walker-category-checklist.php');
 
-class Walker_Agency_Terms extends Walker_Category_Checklist {
+class Walker_Agency_Terms extends Walker_Category_Checklist
+{
     /**
      * Start the element output.
      *
@@ -17,12 +18,17 @@ class Walker_Agency_Terms extends Walker_Category_Checklist {
      * @param array  $args     An array of arguments. @see wp_terms_checklist()
      * @param int    $id       ID of the current term.
      */
-    public function start_el( &$output, $category, $depth = 0, $args = array(), $id = 0 ) {
+    public function start_el(&$output, $category, $depth = 0, $args = array(), $id = 0)
+    {
         $context = Agency_Context::get_agency_context('term_id');
         $term_agencies = get_field('term_used_by', $category->taxonomy . '_' . $category->term_id);
 
-        if(in_array($context, $term_agencies)) {
-            parent::start_el($output, $category, $depth, $args, $id);
+        if ($term_agencies === null) {
+            return;
+        } else {
+            if (in_array($context, $term_agencies)) {
+                parent::start_el($output, $category, $depth, $args, $id);
+            }
         }
     }
 
@@ -38,19 +44,17 @@ class Walker_Agency_Terms extends Walker_Category_Checklist {
      * @param int    $depth    Depth of the term in reference to parents. Default 0.
      * @param array  $args     An array of arguments. @see wp_terms_checklist()
      */
-    public function end_el( &$output, $category, $depth = 0, $args = array() ) {
+    public function end_el(&$output, $category, $depth = 0, $args = array())
+    {
         $context = Agency_Context::get_agency_context('term_id');
         $term_agencies = get_field('term_used_by', $category->taxonomy . '_' . $category->term_id);
 
-        try {
-          if(in_array($context, $term_agencies)) {
-              parent::end_el($output, $category, $depth, $args);
-          }
-        } catch(Exception $e) {
-          /** Noop
-          * This happens occationally for reasons that are not clear.
-          * TODO; Investigate further when we have more time. Doesn't seem to have consequences.
-          */
+        if ($term_agencies === null) {
+            return;
+        } else {
+            if (in_array($context, $term_agencies)) {
+                parent::end_el($output, $category, $depth, $args);
+            }
         }
     }
 }
