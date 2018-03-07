@@ -14,6 +14,8 @@ RUN apt-get update \
   && curl -sL https://deb.nodesource.com/setup_9.x | bash - \
   && echo 'deb http://apt.newrelic.com/debian/ newrelic non-free' > /etc/apt/sources.list.d/newrelic.list \
   && curl -fsSL https://download.newrelic.com/548C16BF.gpg | apt-key add - \
+  && echo 'deb http://nginx.org/packages/mainline/debian/ stretch nginx deb-src http://nginx.org/packages/mainline/debian/ stretch nginx' > /etc/apt/sources.list.d/nginx.list \
+  && curl -fsSL http://nginx.org/keys/nginx_signing.key | apt-key add - \
   && apt-get update \
   && apt-get -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" -y install \
   fuse \
@@ -23,7 +25,6 @@ RUN apt-get update \
   mariadb-client \
   newrelic-php5 \
   nginx \
-  nginx-extras \
   nullmailer \
   nodejs \
   python-pip \
@@ -76,7 +77,6 @@ RUN cd /bedrock/web/app/themes/intranet-theme-clarity \
 WORKDIR /
 
 COPY etc/nginx/nginx.conf /etc/nginx/
-COPY etc/nginx/sites-available/default /etc/nginx/sites-available/
 COPY etc/nginx/whitelists/pingdom.conf /etc/nginx/whitelists/
 COPY etc/supervisor/supervisord.conf /etc/supervisor/
 COPY etc/php /etc/php

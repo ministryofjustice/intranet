@@ -1,8 +1,5 @@
 version: '3.5'
 services:
-  nginx:
-    container_name: nginx
-    image: nginx:alpine
   wordpress:
     build: .
     cap_add:
