@@ -10,9 +10,18 @@ if (!defined('ABSPATH')) {
 
   <section class="l-primary" role="main">
     <h1 class="o-title o-title--headline"><?php echo get_the_title();?></h1>
-    <?php get_template_part('src/components/c-article-byline/view','news'); ?>
-    <?php get_template_part('src/components/c-article-featured-image/view'); ?>
-    <?php get_template_part('src/components/c-article-excerpt/view'); ?>
+    <?php get_template_part('src/components/c-article-byline/view', 'news'); ?>
+
+  <section class="l-full-page">
+    <?php get_template_part('src/components/c-article-featured-image/view', 'news'); ?>
+
+    <?php
+    if (has_excerpt()) {
+        get_template_part('src/components/c-article-excerpt/view');
+    }
+    ?>
+  </section>
+
     <?php get_template_part('src/components/c-rich-text-block/view'); ?>
   </section>
 
