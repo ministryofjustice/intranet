@@ -282,21 +282,6 @@ function intranet_allow_meta_query( $valid_vars ) {
 }
 add_filter( 'rest_query_vars', 'intranet_allow_meta_query' );
 
-    foreach ($allowed_meta_fields as $posttype => $metas)
-    {
-        foreach ($metas as $meta_field)
-        {
-            register_rest_field( $posttype,
-                $meta_field,
-                array(
-                    'get_callback'    => 'api_get_meta_value',
-                    'update_callback' => null,
-                    'schema'          => null,
-                )
-            );
-        }
-    }
-}
 
 /**
  * Get the value of the meta field to the API
