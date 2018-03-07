@@ -27,7 +27,6 @@
     "ministryofjustice/intranet-theme-clarity":"dev-master",
     "ministryofjustice/intranet":"dev-master",
     "ministryofjustice/wp-rewrite-media-to-s3": "*",
-    "ministryofjustice/like-button-for-wordpress":"dev-master",
-    "wpackagist-theme/twentyseventeen":"1.3"
+    "ministryofjustice/like-button-for-wordpress":"dev-master"
   }
 }
