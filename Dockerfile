@@ -51,7 +51,7 @@ COPY package.json .
 
 COPY mojintranet web/app/themes/mojintranet/
 
-COPY docker/web web/
+COPY web web/
 
 RUN mkdir -p web/app/uploads \
   && composer install --verbose \
