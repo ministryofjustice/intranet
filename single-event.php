@@ -1,5 +1,4 @@
 <?php
-use MOJ\Intranet\Agency;
 
 /*
 * Single event page
@@ -10,14 +9,10 @@ if (!defined('ABSPATH')) {
 }
 
 get_header();
-
-$oAgency = new Agency();
-$activeAgency = $oAgency->getCurrentAgency();
-
 ?>
   <div id="maincontent" class="u-wrapper l-main t-events">
     <?php get_template_part('src/components/c-breadcrumbs/view'); ?>
-    <?php get_template_part('src/components/c-article/view', 'events'); ?>
+    <?php get_template_part('src/components/c-event-article/view'); ?>
 
     <section class="l-full-page">
     <?php get_template_part('src/components/c-share-post/view'); ?>

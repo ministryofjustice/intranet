@@ -5,13 +5,16 @@ if (!defined('ABSPATH')) {
     die();
 }
 /*
-* Displays event calendar icon that sits on the event single page.
+* Displays event calendar icon that sits on the event archive page.
 *
 */
 $oEvents = new Events();
 
 $eventsList = $oEvents->getEvents();
-$post_id = get_the_ID();
+
+if (isset($post["ID"])) {
+  $post_id =  $post["ID"];
+}
 
 foreach ($eventsList as $event) {
     if ($post_id == $event['id']) {
@@ -31,7 +34,6 @@ foreach ($eventsList as $event) {
         }
     }
 }
-
 ?>
 <time class="c-calendar-icon" datetime="<?php echo $date;?>">
   <h2 class="u-visually-hidden">Date:</h2>

@@ -1,21 +1,24 @@
-<?php 
+<?php
 
-//$link_html = '<option value='.$date_range.'>'.$text.'</option>';
+if (!defined('ABSPATH')) {
+    die();
+}
+
+$prefix = 'ff';
 ?>
 
 <!-- c-content-filter starts here -->
-<?php $prefix = 'ff'; ?>
 <section class="c-content-filter">
   <p>The results will update automatically based on your selections.</p>
   <form action="" id="<?php echo $prefix . '_events'; ?>" action="post" data-page="0">
     <div class="c-input-container c-input-container--select">
     <label for="ff_date_filter">Date:</label>
         <select name="ff_date_filter" id="ff_date_filter" >
-          <option value="all"><?php echo esc_attr( __( 'All' ) ); ?></option>
-          <?php 
+          <option value="all"><?php echo esc_attr(__('All')); ?></option>
+          <?php
             $m = 0;
-            
-            while ($m <= 12 ){
+
+            while ($m <= 12) {
                 $next_month = date('Y-m', strtotime('+'.$m. 'months'));
                 $human_date = date('F Y', strtotime('+'.$m. 'months'));
                 echo '<option value='.$next_month.'>'.$human_date.'</option>';

@@ -12,6 +12,7 @@ class Events  {
         $this->searchHelper = new HelperSearch();
     }
 
+
     /** Get a list of events
     * @param {Array} $options Options and filters (see search model for details)
     * @return {Array} Formatted and sanitized results

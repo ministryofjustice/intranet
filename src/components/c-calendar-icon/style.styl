@@ -2,7 +2,6 @@
 @require "../../globals/css/_toolkit"
 
 .c-calendar-icon {
-  border: 1px solid $border;
   text-decoration: none;
   a {
     text-decoration: none;
@@ -26,9 +25,14 @@
   }
 
   /* PARENT OVERRIDES */
-  .c-events & {
-    float: left;
-    width: 100px; // fixed width
+
+  .c-events-item & {
+    position: absolute;
+    width: 25%;
+  }
+
+  .c-events-item-aside & {
+    border: 0px solid $border;
     &--dow {
       padding: $spacing*.5;
     }
@@ -36,10 +40,5 @@
       font-size: $crust
       padding: $spacing 0 0;
     }
-  }
-
-  .c-events-item & {
-    position: absolute;
-    width: 25%;
   }
 }

@@ -8,9 +8,9 @@ if (!defined('ABSPATH')) {
 <!-- c-article events starts here -->
 <article class="c-article l-main l-reverse-order">
 
-  <?php // .l-reverse class with l-primary and l-secondary swapped allows for secondary to appear first on mobile ?>
-  <aside class="l-secondary">
-    <?php get_template_part('src/components/c-events/view'); ?>
+  <?php // Using .l-reverse-order, l-primary and l-secondary classes in this way allows columns to swap on mobile ?>
+  <aside class="l-secondary" role="complementary">
+    <?php get_template_part('src/components/c-events-item/view','aside'); ?>
   </aside>
 
   <section class="l-primary" role="main">
