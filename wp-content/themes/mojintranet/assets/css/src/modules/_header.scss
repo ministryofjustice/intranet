@@ -163,6 +163,10 @@
       background-color: $jo;
     }
 
+    [data-agency="law-commission"] & {
+      background-color: $law-commission;
+    }
+
     .search-form {
       margin: 20px 0;
     }
