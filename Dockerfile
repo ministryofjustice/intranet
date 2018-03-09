@@ -86,6 +86,7 @@ COPY etc/nginx/whitelists/pingdom.conf /etc/nginx/whitelists/
 COPY etc/supervisor/supervisord.conf /etc/supervisor/
 COPY etc/php /etc/php
 
+COPY services services/
 COPY runonce runonce/
 
 COPY config/application.php /bedrock/config/
