@@ -80,6 +80,7 @@ RUN cd /bedrock/web/app/themes/intranet-theme-clarity \
 
 WORKDIR /
 
+COPY etc/cron.d /etc/cron.d
 COPY etc/nginx/nginx.conf /etc/nginx/
 COPY etc/nginx/whitelists/pingdom.conf /etc/nginx/whitelists/
 COPY etc/supervisor/supervisord.conf /etc/supervisor/

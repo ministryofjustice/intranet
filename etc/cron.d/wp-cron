@@ -1,0 +1,9 @@
+# This fires off wp-cron to enable WordPress to perform
+# any pending scheduled tasks.
+#
+# wp-cron is executed once every minute, with a random
+# delay of up to 15 seconds to reduce the chance of
+# race conditions and excess 'top of the minute' load.
+
+# m h dom mon dow user	command
+* * * * * root sleep `shuf -i0-15 -n1` && curl http://localhost/wp/wp-cron.php >/dev/null 2>&1
