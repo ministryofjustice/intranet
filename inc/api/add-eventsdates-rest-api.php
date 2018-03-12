@@ -3,16 +3,16 @@
 // Registering custom endpoints
 add_action('rest_api_init', function () {
     // Events by agency
-    register_rest_route('intranet/v2/', 'future-events/(?P<agency>[a-zA-Z0-9-]+)/', 
+    register_rest_route('intranet/v2/', 'future-events/(?P<agency>[a-zA-Z0-9-]+)/',
         array (
             'methods'             => 'GET',
             'callback'            => 'add_custom_events_endpoint',
-            'permission_callback' => function (WP_REST_Request $request) 
+            'permission_callback' => function (WP_REST_Request $request)
             {return true;}
         )
     );
     // Events by search (keywords)
-    register_rest_route('intranet/v2/', 'future-events/(?P<agency>[a-zA-Z0-9-]+)/(?P<search>[a-z0-9]+(?:-[a-z0-9]+)*)/', 
+    register_rest_route('intranet/v2/', 'future-events/(?P<agency>[a-zA-Z0-9-]+)/(?P<search>[a-z0-9]+(?:-[a-z0-9]+)*)/',
         array (
             'methods'             => 'GET',
             'callback'            => 'add_custom_events_endpoint',
@@ -24,12 +24,12 @@ add_action('rest_api_init', function () {
                     'required' => true
                 ),
             ),
-            'permission_callback' => function (WP_REST_Request $request) 
+            'permission_callback' => function (WP_REST_Request $request)
             {return true;}
         )
     );
     // Events by regions
-    register_rest_route('intranet/v2/', 'region-events/(?P<agency>[a-zA-Z0-9-]+)/(?P<region>[a-z0-9]+(?:-[a-z0-9]+)*)/', 
+    register_rest_route('intranet/v2/', 'region-events/(?P<agency>[a-zA-Z0-9-]+)/(?P<region>[a-z0-9]+(?:-[a-z0-9]+)*)/',
         array (
             'methods'             => 'GET',
             'callback'            => 'add_region_events_endpoint',
@@ -41,12 +41,12 @@ add_action('rest_api_init', function () {
                     'required' => true
                 ),
             ),
-            'permission_callback' => function (WP_REST_Request $request) 
+            'permission_callback' => function (WP_REST_Request $request)
             {return true;}
         )
     );
-    // Events by campaigns 
-    register_rest_route('intranet/v2/', 'campaign-events/(?P<agency>[a-zA-Z0-9-]+)/(?P<campaign>[a-z0-9]+(?:-[a-z0-9]+)*)/', 
+    // Events by campaigns
+    register_rest_route('intranet/v2/', 'campaign-events/(?P<agency>[a-zA-Z0-9-]+)/(?P<campaign>[a-z0-9]+(?:-[a-z0-9]+)*)/',
         array (
             'methods'             => 'GET',
             'callback'            => 'add_campaign_events_endpoint',
@@ -58,7 +58,7 @@ add_action('rest_api_init', function () {
                     'required' => true
                 ),
             ),
-            'permission_callback' => function (WP_REST_Request $request) 
+            'permission_callback' => function (WP_REST_Request $request)
             {return true;}
         )
     );
@@ -116,19 +116,20 @@ function add_campaign_events_endpoint(WP_REST_Request $request){
         )
     );
 
-    
+
     $events = get_posts($args);
-    
+
     $i = 0;
 
     foreach ($events as $event) {
-        
+
         $events[$i]->event_start_date = get_post_meta($event->ID, '_event-start-date', true);
         $events[$i]->event_end_date = get_post_meta($event->ID, '_event-end-date', true);
         $events[$i]->event_start_time = get_post_meta($event->ID, '_event-start-time', true);
         $events[$i]->event_end_time = get_post_meta($event->ID, '_event-end-time', true);
         $events[$i]->event_location = get_post_meta($event->ID, '_event-location', true);
-        
+        $events[$i]->event_allday = get_post_meta($event->ID, '_event-allday', true);
+
         $events[$i]->agency = wp_get_post_terms($event->ID, 'agency');
         $events[$i]->region = wp_get_post_terms($event->ID, 'region', true);
         $events[$i]->campaign = wp_get_post_terms($event->ID, 'campaign_category', true);
@@ -146,7 +147,7 @@ function add_campaign_events_endpoint(WP_REST_Request $request){
     $total_post_count = count( $events );
 
     // display url parameters on json api.
-    $url_query = array( 
+    $url_query = array(
         'agency' => $agency,
         'campaign' => $campaign,
         'post_count' => $total_post_count,
@@ -214,15 +215,16 @@ function add_region_events_endpoint(WP_REST_Request $request){
 
     $i = 0;
 
-    
+
     foreach ($events as $event) {
-        
+
         $events[$i]->event_start_date = get_post_meta($event->ID, '_event-start-date', true);
         $events[$i]->event_end_date = get_post_meta($event->ID, '_event-end-date', true);
         $events[$i]->event_start_time = get_post_meta($event->ID, '_event-start-time', true);
         $events[$i]->event_end_time = get_post_meta($event->ID, '_event-end-time', true);
         $events[$i]->event_location = get_post_meta($event->ID, '_event-location', true);
-        
+        $events[$i]->event_allday = get_post_meta($event->ID, '_event-allday', true);
+
         $events[$i]->agency = wp_get_post_terms($event->ID, 'agency');
         $events[$i]->region = wp_get_post_terms($event->ID, 'region', true);
         $events[$i]->campaign = wp_get_post_terms($event->ID, 'campaign_category', true);
@@ -240,7 +242,7 @@ function add_region_events_endpoint(WP_REST_Request $request){
     $total_post_count = count( $events );
 
     // display url parameters on json api.
-    $url_query = array( 
+    $url_query = array(
         'agency' => $agency,
         'region' => $region,
         'post_count' => $total_post_count,
@@ -304,15 +306,16 @@ function add_custom_events_endpoint(WP_REST_Request $request){
 
     $i = 0;
 
-    
+
     foreach ($events as $event) {
-        
+
         $events[$i]->event_start_date = get_post_meta($event->ID, '_event-start-date', true);
         $events[$i]->event_end_date = get_post_meta($event->ID, '_event-end-date', true);
         $events[$i]->event_start_time = get_post_meta($event->ID, '_event-start-time', true);
         $events[$i]->event_end_time = get_post_meta($event->ID, '_event-end-time', true);
         $events[$i]->event_location = get_post_meta($event->ID, '_event-location', true);
-        
+        $events[$i]->event_allday = get_post_meta($event->ID, '_event-allday', true);
+
         $events[$i]->agency = wp_get_post_terms($event->ID, 'agency');
         $events[$i]->region = wp_get_post_terms($event->ID, 'region', true);
         $events[$i]->campaign = wp_get_post_terms($event->ID, 'campaign_category', true);
@@ -330,7 +333,7 @@ function add_custom_events_endpoint(WP_REST_Request $request){
     $total_post_count = count( $events );
 
     // display url parameters on json api.
-    $url_query = array( 
+    $url_query = array(
         'agency' => $agency,
         'search' => $search,
         'post_count' => $total_post_count,
