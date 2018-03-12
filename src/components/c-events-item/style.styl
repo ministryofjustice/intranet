@@ -3,9 +3,9 @@
 
 
 .c-events-item {
+  margin-top: $spacing*3;
   position: relative;
   clearfix();
-  padding-bottom $spacing*1.5;
   display inline-block;
   width: 100%;
   h1 {
@@ -15,7 +15,7 @@
       text-decoration: none;
     }
   }
-  margin-bottom: $spacing*2;
+
   h1, &__time, &__location {
     display: block;
     padding-left: 30%;
@@ -30,20 +30,28 @@
     }
     time,
     address {
-      span(2/3)
     }
   }
 
   &-aside {
     margin-top: $spacing*3;
   }
+}
+  /* PARENT OVERIDES */
 
-  /* PARENT OVVERIDES */
+.c-events-item-list {
+  column(1);
+  float:left;
+  display:block;
+  margin:$spacing*2 0;
+}
 
-  .c-events-list & {
-    +above(m) {
-      margin-bottom: 0;
-      column(1/2, $cycle: 2);
-    }
+.c-events-item-homepage {
+  +above('m') {
+    column(1/2);
   }
+  column(1);
+  float:left;
+  display:block;
+  margin-bottom:$spacing*2;
 }

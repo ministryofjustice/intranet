@@ -5,33 +5,78 @@ if (!defined('ABSPATH')) {
     die();
 }
 
+
 /*
 *
-* This class generates an event item in an array for use on all calendar and event components.
+* This class generates event posts via the WP API
 *
 */
 class Event
 {
-    public function getEventItem($post)
-    {
-        $id = $post->ID;
 
-        $start_date = get_post_meta($id, '_event-start-date', true);
-        $end_date = get_post_meta($id, '_event-end-date', true);
-
-        return [
-            'id' => $id,
-            'title' => (string) get_the_title($id),
-            'url' => (string) get_the_permalink($id),
-            'slug' => (string) $post->post_name,
-            'location' => (string) get_post_meta($id, '_event-location', true),
-            'description' => (string) get_the_content_by_id($id),
-            'start_date' => (string) $start_date,
-            'start_time' => (string) get_post_meta($id, '_event-start-time', true),
-            'end_date' => (string) $end_date,
-            'end_time' => (string) get_post_meta($id, '_event-end-time', true),
-            'all_day' =>  get_post_meta($id, '_event-allday', true) == true,
-            'multiday' => (string) $start_date !== $end_date
-      ];
+    public function __construct() {
+      // add_action('wp_ajax_load_events_filter_results', array($this, 'load_events_filter_results'));
+      // add_action('wp_ajax_nopriv_load_events_filter_results', array($this, 'load_events_filter_results'));
     }
+
+    public function get_event_list($taxonomy, $tax_id = false)
+    {
+        $oAgency = new Agency();
+        $activeAgency = $oAgency->getCurrentAgency();
+        $siteurl = get_home_url();
+        $agency_name = $activeAgency['wp_tag_id'];
+
+        if ($taxonomy === 'search') {
+            $response = wp_remote_get($siteurl.'/wp-json/intranet/v2/future-events/'.$agency_name);
+        } elseif ($taxonomy === 'region') {
+            $response = wp_remote_get($siteurl.'/wp-json/intranet/v2/region-events/'.$agency_name.'/'.$tax_id.'/');
+        } elseif ($taxonomy === 'campaign') {
+            $response = wp_remote_get($siteurl.'/wp-json/intranet/v2/campaign-events/'.$agency_name.'/'.$tax_id.'/');
+        }
+
+        if (is_wp_error($response)) {
+            return;
+        }
+
+        $pagetotal = wp_remote_retrieve_header($response, 'x-wp-totalpages');
+        $posts = json_decode(wp_remote_retrieve_body($response), true);
+        $response_code = wp_remote_retrieve_response_code($response);
+        $response_message = wp_remote_retrieve_response_message($response);
+
+        if (200 == $response_code && $response_message == 'OK') {
+            $event_list = $posts["events"];
+            return $event_list;
+        }
+    }
+
+    // public function load_events_filter_results()
+    // {
+    //     $oAgency = new Agency();
+    //     $activeAgency = $oAgency->getCurrentAgency();
+    //     $siteurl = get_home_url();
+    //     $agency_name = $activeAgency['wp_tag_id'];
+    //
+    //     if ($taxonomy === 'search') {
+    //         $response = wp_remote_get($siteurl.'/wp-json/intranet/v2/future-events/'.$agency_name);
+    //     } elseif ($taxonomy === 'region') {
+    //         $response = wp_remote_get($siteurl.'/wp-json/intranet/v2/region-events/'.$agency_name.'/'.$tax_id.'/');
+    //     } elseif ($taxonomy === 'campaign') {
+    //         $response = wp_remote_get($siteurl.'/wp-json/intranet/v2/campaign-events/'.$agency_name.'/'.$tax_id.'/');
+    //     }
+    //
+    //     if (is_wp_error($response)) {
+    //         return;
+    //     }
+    //
+    //     $pagetotal = wp_remote_retrieve_header($response, 'x-wp-totalpages');
+    //     $posts = json_decode(wp_remote_retrieve_body($response), true);
+    //     $response_code = wp_remote_retrieve_response_code($response);
+    //     $response_message = wp_remote_retrieve_response_message($response);
+    //
+    //     if (200 == $response_code && $response_message == 'OK') {
+    //         $event_list = $posts["events"];
+    //         return $event_list;
+    //     }
+    //     die();
+    // }
 }

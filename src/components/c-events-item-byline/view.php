@@ -1,14 +1,19 @@
 <?php
+use MOJ\Intranet\Event;
 
 if (!defined('ABSPATH')) {
     die();
 }
+
 ?>
 <!-- c-events-item-byline starts here -->
 <article class="c-events-item-byline">
   <header>
+    <?php if (!is_single()): ?>
+      <h1><a href="<?php echo $post_url; ?>"><?php echo $event_title; ?></a></h1>
+    <?php endif; ?>
+
     <?php
-    // Set time to either 'all day' or display the time selected.
     if (empty($all_day)) {
         if (isset($start_time) || isset($end_time)) {
             $time = $start_time . " - " . $end_time;

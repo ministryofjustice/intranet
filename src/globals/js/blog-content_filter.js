@@ -1,13 +1,13 @@
 /* global jQuery */
 
-jQuery(function ($) {   
+jQuery(function ($) {
 
     jQuery(document).on('submit', '#ff', function (e) {
         e.preventDefault();
 
         var nextPageToRetrieve = jQuery('#ff').data('page') + 1;
         jQuery('.more-btn').attr('data-page', nextPageToRetrieve);
-        
+
         var $input = jQuery(this).find('input[name="ff_keywords_filter"]');
         var query = $input.val();
         var $content = jQuery('#content');
@@ -68,7 +68,7 @@ jQuery(function ($) {
     });
 
     jQuery('.c-pagination').on('click', function () {
-        
+
         var nextPageToRetrieve = jQuery('.more-btn').data('page') + 1;
         jQuery('.more-btn').attr('data-page', nextPageToRetrieve);
         var query = jQuery('#ff_keywords_filter').val();
@@ -109,7 +109,7 @@ jQuery(function ($) {
         });
 
         return false;
-        
+
     });
 
     jQuery(document).on('submit', '#ff_events', function (e) {
@@ -143,22 +143,6 @@ jQuery(function ($) {
                 $content.html(response);
             }
         });
-
-        // jQuery.ajax({
-        //     type: 'post',
-        //     url: myAjax.ajaxurl,
-        //     dataType: 'html',
-        //     data: {
-        //         action: 'load_page_total',
-        //         query: query,
-        //         nextPageToRetrieve: nextPageToRetrieve,
-        //         valueSelected: valueSelected,
-        //         postType: postType
-        //     },
-        //     success: function (response) {
-        //         $('.c-pagination').html(response);
-        //     }
-        // });
         return false;
     });
 });

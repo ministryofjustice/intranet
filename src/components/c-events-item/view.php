@@ -1,30 +1,44 @@
- <?php
+<?php
+use MOJ\Intranet\Event;
 
-$time_header = "Time:";
-if (empty($data['all_day'])) {
-    if ($data['multiday'] == 1) {
-        $times = date("j F Y", strtotime($data['start_date'])) ." - ".date("j F Y", strtotime($data['end_date']));
-        $time_header = 'Date:';
-    } else {
-        $times = $data['start_time']." - ".$data['end_time'];
-    }
-} else {
-    $times = 'All day';
+if (!defined('ABSPATH')) {
+    die();
 }
+
+/*
+*
+* This page is for displaying the event item, both the calendar and event byline that appear in the sidebar.
+*
+*/
+$oEvent = new Event();
+$event = $oEvent->get_event_list('search');
+$post_id = get_the_id();
 ?>
-<article class="c-events-item">
-    <?php get_component('c-calendar-icon', $data['start_date']); ?>
-    <h1><a href="<?php echo $data['url'];?>"><?php echo $data['title'];?></a></h1>
-    <div class="c-events-item__time">
-      <h2><?php echo $time_header;?></h2>
-      <time><?php echo $times;?></time>
-    </div>
-    <?php if (isset($data['location'])) {
-    ?>
-    <div class="c-events-item__location">
-      <h2>Location:</h2>
-      <address><?php echo $data['location']; ?></address>
-    </div>
+<!-- c-events-item starts here -->
+<section class="c-events-item">
     <?php
-} ?>
-</article>
+
+      foreach ($event as $key => $post) {
+          $event_id = $post['ID'];
+          if ($post_id == $event_id) {
+              $start_time = $post['event_start_time'];
+              $end_time = $post['event_end_time'];
+              $start_date = $post['event_start_date'];
+              $end_date = $post['event_end_date'];
+              $location = $post['event_location'];
+              $date = $post['event_start_date'];
+              $day = date("l", strtotime($start_date));
+              $year = date("Y", strtotime($start_date));
+              $all_day = get_post_meta($post_id, '_event-allday', true);
+
+              if ($all_day == true) {
+                  $all_day = 'all_day';
+              }
+          }
+      }
+
+      include(locate_template('src/components/c-calendar-icon/view.php'));
+      include(locate_template('src/components/c-events-item-byline/view.php'));
+    ?>
+</section>
+<!-- c-events-item ends here -->

@@ -1,23 +1,19 @@
 <?php
-use MOJ\Intranet\Events;
+use MOJ\Intranet\Event;
 
-$oEvents = new Events();
-
-$options = array (
-    'page' => 1,
-    'per_page' => 2,
-);
-
-$eventsList = $oEvents->getEvents($options);
-
-if (!empty($eventsList)) {
-?>
-    <div class="c-events-list">
-        <?php foreach($eventsList as $data) {
-             get_component('c-events-item', $data);
-        }
-        ?>
-    </div>
-<?php
+if (!defined('ABSPATH')) {
+    die();
 }
+
 ?>
+<!-- c-events-list starts here -->
+<div class="c-events-list">
+    <?php
+      if (is_front_page()) {
+          get_template_part('src/components/c-events-item/view', 'homepage');
+      } else {
+          get_template_part('src/components/c-events-item/view', 'list');
+      }
+    ?>
+</div>
+<!-- c-events-list ends here -->
