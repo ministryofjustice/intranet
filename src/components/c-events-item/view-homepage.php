@@ -14,7 +14,6 @@ $oEvent = new Event();
 $event = $oEvent->get_event_list('search');
 
 $event = array_splice($event, 0, 2);
-$post_id = get_the_id();
 ?>
 <!-- c-events-item starts here -->
 <?php
@@ -31,7 +30,7 @@ $post_id = get_the_id();
       $year = date('Y', strtotime($start_date));
       $month = date('M', strtotime($start_date));
       $day = date('l', strtotime($start_date));
-      $all_day = get_post_meta($post_id, '_event-allday', true);
+      $all_day = get_post_meta($event_id, '_event-allday', true);
 
       if ($all_day == true) {
           $all_day = 'all_day';
