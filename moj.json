@@ -3,7 +3,6 @@
     {"type":"composer", "url":"https://wpackagist.org"},
     {"type":"composer", "url":"https://composer.wp.dsd.io"},
     {"type":"vcs", "no-api": true, "url":"https://github.com/ministryofjustice/dw-mvc.git"},
-    {"type":"vcs", "no-api": true, "url":"https://github.com/ministryofjustice/dw-document-revisions.git"},
     {"type":"vcs", "no-api": true, "url":"https://github.com/ministryofjustice/dw-markdown.git"},
     {"type":"vcs", "no-api": true, "url":"https://github.com/ministryofjustice/intranet-theme-clarity.git"},
     {"type":"vcs", "no-api": true, "url":"https://github.com/ministryofjustice/intranet.git"},
@@ -20,7 +19,6 @@
     "acf/advanced-custom-fields-pro":"5.4.4",
 
     "ministryofjustice/dw-mvc":"dev-master",
-    "ministryofjustice/dw-document-revisions":"dev-update-composer-json",
     "ministryofjustice/dw-markdown":"dev-update-composer-json",
     "ministryofjustice/intranet-theme-clarity":"dev-master",
     "ministryofjustice/intranet":"dev-master",
