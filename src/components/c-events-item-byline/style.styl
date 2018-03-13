@@ -2,11 +2,12 @@
 @require "../../globals/css/_toolkit"
 
 .c-events-item-byline {
-  column(1);
-
   +above('m') {
   float:left;
+  column(2/3);
+  }
 
+  column(1);
   header {
     overflow: hidden;
   }
@@ -33,46 +34,22 @@
       float:left;
       font-weight: bold;
       padding-right: $spacing*1;
+      margin-bottom: $spacing*.5;
     }
     time,
     address {
     }
   }
 
-  &__details {
-    clear: both;
+    &__details {
+      clear: both;
+    }
   }
-}
 
+  .c-events-item-homepage & {
+      column(1);
+      h1 {
+        font-size: $innerCore;
+      }
+    }
 /* PARENT OVERIDES */
-
-.c-events-item-list & {
-  column(1/2);
-  }
-
-  h2 {
-    font-size: $innerCore;
-  }
-
-  header {
-    margin-top: 0;
-  }
-
-  &__time, &__location, &__date {
-    h2 {
-      float:left;
-      font-weight: bold;
-      padding-right: $spacing*1;
-    }
-    time,
-    address {
-    }
-  }
-}
-
-.c-events-item-homepage & {
-  column(1);
-  h1 {
-    font-size: $innerCore;
-  }
-}

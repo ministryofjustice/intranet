@@ -12,7 +12,7 @@ get_header();
   <div id="maincontent" class="u-wrapper l-main t-article-list">
     <h1 class="o-title o-title--page"><?php the_title(); ?></h1>
 
-    <div class="l-secondary">
+    <div class="l-secondary" role="complementary">
       <?php get_template_part('src/components/c-content-filter/view', 'events'); ?>
     </div>
 
