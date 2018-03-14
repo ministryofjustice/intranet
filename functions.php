@@ -35,3 +35,4 @@ require_once('inc/api/get-campaign-news-api.php');  // Pulls campaign news throu
 require_once('inc/api/get-region-news-api.php');    // Pulls region news through the REST API
 require_once('inc/api/get-events-api.php');         // Pulls events api
 require_once('inc/api/add-eventsdates-rest-api.php'); // Created custom events endpoint using WP REST API
+require_once('inc/api/get-category-news-api.php');      // Pulls news through the REST API
