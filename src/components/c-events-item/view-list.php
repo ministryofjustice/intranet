@@ -21,6 +21,7 @@ if (is_front_page()) {
 ?>
 <!-- c-events-item starts here -->
 <?php
+if (is_array($event)) {
   foreach ($event as $key => $post) {
       $event_id = $post['ID'];
       $post_url = $post["url"];
@@ -51,5 +52,6 @@ if (is_front_page()) {
       include(locate_template('src/components/c-events-item-byline/view.php'));
       echo '</div>';
   }
+}
 ?>
 <!-- c-events-item ends here -->
