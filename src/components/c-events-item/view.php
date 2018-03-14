@@ -7,7 +7,8 @@ if (!defined('ABSPATH')) {
 
 /*
 *
-* This page is for displaying the event item, both the calendar and event byline that appear in the sidebar.
+* This page is for displaying single event item make up of the calendar and event byline.
+* Normally used on the single event page.
 *
 */
 $oEvent = new Event();
@@ -37,6 +38,7 @@ $post_id = get_the_id();
           }
       }
 
+      // using include() instead of get_template_part to pass variables to components
       include(locate_template('src/components/c-calendar-icon/view.php'));
       include(locate_template('src/components/c-events-item-byline/view.php'));
     ?>

@@ -7,11 +7,17 @@ if (!defined('ABSPATH')) {
 
 /*
 *
-* This page is for displaying the event item, both the calendar and event byline that appear in the sidebar.
+* This page is for displaying the event item when it appears in a list format.
+* Currently on homepage and event archive.
 *
 */
 $oEvent = new Event();
 $event = $oEvent->get_event_list('search');
+
+// Limit events listed on page to two for homepage display
+if (is_front_page()) {
+    $event = array_splice($event, 0, 2);
+}
 ?>
 <!-- c-events-item starts here -->
 <?php
@@ -34,7 +40,13 @@ $event = $oEvent->get_event_list('search');
           $all_day = 'all_day';
       }
 
-      echo '<div class="c-events-item-list">';
+      // Adds class for homepage display
+      if (is_front_page()) {
+          echo '<div class="c-events-item-homepage">';
+      } else {
+          echo '<div class="c-events-item-list">';
+      }
+
       include(locate_template('src/components/c-calendar-icon/view.php'));
       include(locate_template('src/components/c-events-item-byline/view.php'));
       echo '</div>';

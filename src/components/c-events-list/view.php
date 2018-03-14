@@ -7,13 +7,7 @@ if (!defined('ABSPATH')) {
 
 ?>
 <!-- c-events-list starts here -->
-<div class="c-events-list">
-    <?php
-      if (is_front_page()) {
-          get_template_part('src/components/c-events-item/view', 'homepage');
-      } else {
-          get_template_part('src/components/c-events-item/view', 'list');
-      }
-    ?>
-</div>
+<section class="c-events-list">
+    <?php get_template_part('src/components/c-events-item/view', 'list'); ?>
+</section>
 <!-- c-events-list ends here -->
