@@ -28,8 +28,6 @@ class Event
             $response = wp_remote_get($siteurl.'/wp-json/intranet/v2/campaign-events/'.$agency_name.'/'.$tax_id.'/');
         }
 
-        var_dump(wp_remote_retrieve_headers($response));
-
         if (is_wp_error($response)) {
             echo 'Cannot get API';
             return;
