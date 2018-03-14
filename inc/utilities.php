@@ -39,18 +39,21 @@ function posts_link_attributes_next()
 function custom_monthly_archive($link_html, $url, $text, $format)
 {
     if ('custom' === $format) {
+        if ( strpos($url, 'http://intranet.docker/blog/') !== false ){
+          $strip_url = str_replace('http://intranet.docker/blog/', '', $url);
+        }else {
+          $strip_url = str_replace('https://intranet.justice.gov.uk/blog/', '', $url);
+        }
 
-        $strip_url = ($url === 'https://intranet.justice.gov.uk/blog/') ? str_replace('https://intranet.justice.gov.uk/blog/', '', $url) : $strip_url = str_replace('http://intranet.docker/blog/', '', $url);
-        
         $replace_with_slash = str_replace('/', '-', $strip_url);
         $valueSelected = $replace_with_slash . '01T00:00:00';
 
         $get_year = substr($valueSelected, 0, 4);
 
         $get_month = substr($valueSelected, 5, 2);
-        
+
         if ($get_month == 12){
-            $year = $get_year + 1; 
+            $year = $get_year + 1;
             $month = '01';
             $date_range = '&after='.$valueSelected.'&before='.$year.'-'.$month.'-01T00:00:00';
             $link_html = '<option value='.$date_range.'>'.$text.'</option>';
@@ -58,7 +61,7 @@ function custom_monthly_archive($link_html, $url, $text, $format)
             $year = $get_year;
             $month = $get_month + 1;
             $add_leading_zero = str_pad($month, 2, '0', STR_PAD_LEFT);
-            
+
             $date_range = '&after='.$valueSelected.'&before='.$year.'-'.$add_leading_zero.'-01T00:00:00';
             $link_html = '<option value='.$date_range.'>'.$text.'</option>';
         }
