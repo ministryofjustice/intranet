@@ -39,11 +39,9 @@ function posts_link_attributes_next()
 function custom_monthly_archive($link_html, $url, $text, $format)
 {
     if ('custom' === $format) {
-        if ( strpos($url, 'http://intranet.docker/blog/') !== false ){
-          $strip_url = str_replace('http://intranet.docker/blog/', '', $url);
-        }else {
-          $strip_url = str_replace('https://intranet.justice.gov.uk/blog/', '', $url);
-        }
+
+        $siteurl = get_home_url() . '/blog/';
+        $strip_url = str_replace($siteurl, '', $url);
 
         $replace_with_slash = str_replace('/', '-', $strip_url);
         $valueSelected = $replace_with_slash . '01T00:00:00';
