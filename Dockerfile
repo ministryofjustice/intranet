@@ -56,8 +56,10 @@ COPY package.json .
 COPY mojintranet web/app/themes/mojintranet/
 
 COPY web web/
+COPY setup_composer_auth.sh /usr/local/bin
 
 RUN mkdir -p web/app/uploads \
+  && setup_composer_auth.sh \
   && composer install --verbose \
   && rm bedrock.json \
   && rm composer.json \
@@ -91,5 +93,6 @@ COPY runonce runonce/
 
 COPY config/application.php /bedrock/config/
 COPY config/environments/ /bedrock/config/
+COPY wait-for-wordpress.sh /usr/local/bin
 
-CMD ["/usr/bin/supervisord"]
+CMD ["wait-for-wordpress.sh"]

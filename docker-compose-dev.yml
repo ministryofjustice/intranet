@@ -12,15 +12,17 @@ services:
       - /dev/fuse
     env_file: .env
     environment:
-      development: 1
-      WP_ENV: development
-      VIRTUAL_HOST: intranet.docker
-      SMTP_HOST: mailcatcher
-      SMTP_PORT: 1025
+      COMPOSER_USER: ${COMPOSER_USER}
+      COMPOSER_PASS: ${COMPOSER_PASS}
       DB_NAME: wordpress
       DB_USER: wordpress
       DB_PASSWORD: wordpress
       DB_HOST: mysql
+      development: 1
+      SMTP_HOST: mailcatcher
+      SMTP_PORT: 1025
+      WP_ENV: development
+      VIRTUAL_HOST: intranet.docker
     links:
       - mailcatcher
       - mysql
