@@ -16,7 +16,9 @@ $event = $oEvent->get_event_list('search');
 
 // Limit events listed on page to two for homepage display
 if (is_front_page()) {
+  if (is_array($event)) {
     $event = array_splice($event, 0, 2);
+  }
 }
 ?>
 <!-- c-events-item starts here -->
