@@ -4,11 +4,13 @@
 
 .c-events-item {
   clearfix();
+  column(1);
   margin-top: $spacing*3;
+  margin-bottom: $spacing*2;
   position: relative;
   display inline-block;
-  width: 100%;
-  
+  }
+
   h1 {
     ff-title();
     margin-bottom: $spacing;
@@ -19,7 +21,6 @@
 
   h1, &__time, &__location {
     display: block;
-    padding-left: 30%;
   }
 
   &__time, &__location {
@@ -37,22 +38,8 @@
   &-aside {
     margin-top: $spacing*3;
   }
-}
-  /* PARENT OVERIDES */
 
 .c-events-item-list {
   column(1);
-  float:left;
-  display:block;
   margin:$spacing*2 0;
-}
-
-.c-events-item-homepage {
-  +above('m') {
-    column(1/2);
-  }
-  column(1);
-  float:left;
-  display:block;
-  margin-bottom:$spacing*2;
 }
