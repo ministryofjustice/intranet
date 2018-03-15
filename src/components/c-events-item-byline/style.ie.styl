@@ -5,6 +5,44 @@
 .c-events-item-byline {
   oldiecf();
   float:left;
-  width:60% !important;
+  width:100% !important;
+
+  &__location {
+    h2 {
+      margin-bottom: 0;
+    }
+  }
 }
   /* PARENT OVVERIDES */
+
+.c-events-item-list & {
+    +above('m') {
+    width:100%
+    float:left;
+
+    &__location {
+      h2 {
+        margin-bottom: 0;
+      }
+    }
+
+    .c-events-item-byline {
+        +above('m') {
+        width:60%;
+        margin-right: 0;
+        }
+      }
+    }
+  }
+
+.c-events-item-homepage & {
+  &__location {
+    h2 {
+      margin-bottom: 0;
+    }
+  }
+
+  .c-events-item-byline {
+      width:100%;
+    }
+}
