@@ -5,6 +5,9 @@ ENV COMPOSER_ALLOW_SUPERUSER 1
 # Keep nullmailer from pestering for a name
 ENV DEBIAN_FRONTEND noninteractive
 
+ARG COMPOSER_USER
+ARG COMPOSER_PASS
+
 EXPOSE 80
 
 WORKDIR /

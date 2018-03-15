@@ -1,7 +1,11 @@
 version: '3.3'
 services:
   wordpress:
-    build: .
+    build:
+      context: .
+      args:
+        - COMPOSER_USER
+        - COMPOSER_PASS
     cap_add:
       - SYS_ADMIN
     container_name: smoketest_wp
@@ -12,8 +16,6 @@ services:
       - /dev/fuse
     env_file: smoketests.env
     environment:
-      COMPOSER_USER: ${COMPOSER_USER}
-      COMPOSER_PASS: ${COMPOSER_PASS}
       DB_NAME: wordpress
       DB_USER: wordpress
       DB_PASSWORD: wordpress
