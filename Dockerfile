@@ -84,19 +84,19 @@ RUN apt-get update \
   && rm moj.json \
   && rm composer.lock
 
-# The following two RUN commands are specific to the setup of the MoJ intranet.
-# This one is for the legacy theme
+# The following is specific to the setup of the MoJ intranet.
 RUN npm install --global grunt-cli \
   && npm install \
   && grunt pre_deploy \
-  && rm Gruntfile.js
-
-# This one is for the clarity theme
-RUN cd /bedrock/web/app/themes/intranet-theme-clarity \
+  && rm Gruntfile.js \
+  && rm -rf node_modules \
+  && rm package.json \
+  && rm package-lock.json \
+  # This one is for the clarity theme
+  && cd /bedrock/web/app/themes/intranet-theme-clarity \
   && npm install --global gulp-cli \
   && npm install \
   && gulp build \
-  && cd /bedrock \
   && rm -rf node_modules \
   && rm package.json \
   && rm package-lock.json
