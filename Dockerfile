@@ -52,8 +52,6 @@ WORKDIR /bedrock
 
 COPY bedrock ./
 
-COPY mojintranet web/app/themes/mojintranet/
-
 COPY setup_composer_auth.sh /usr/local/bin
 
 RUN mkdir -p web/app/uploads \
