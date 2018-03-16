@@ -31,10 +31,12 @@ services:
     ports:
       - "80:80"
     volumes:
-      - ./web/app/plugins/dw-document-revisions:/bedrock/web/app/plugins/dw-document-revisions
-      - ./web/app/plugins/dw-live-drafts:/bedrock/web/app/plugins/dw-live-drafts
-      - ./web/app/plugins/dw-markdown:/bedrock/web/app/plugins/dw-markdown
-      - ./web/app/plugins/dw-mvc:/bedrock/web/app/plugins/dw-mvc
+      # Once inranet-theme-clairty is imported, these can all be replaced with:
+      # - ./bedrock:/bedrock
+      - ./bedrock/web/app/plugins/dw-document-revisions:/bedrock/web/app/plugins/dw-document-revisions
+      - ./bedrock/web/app/plugins/dw-live-drafts:/bedrock/web/app/plugins/dw-live-drafts
+      - ./bedrock/web/app/plugins/dw-markdown:/bedrock/web/app/plugins/dw-markdown
+      - ./bedrock/web/app/plugins/dw-mvc:/bedrock/web/app/plugins/dw-mvc
   mysql:
     container_name: mysql
     environment:
