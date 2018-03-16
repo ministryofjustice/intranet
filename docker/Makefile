@@ -58,5 +58,5 @@ smoketest-nuke-all:
 	rm -rf ../smoketest-db-dump
 
 update_bedrock:
-	curl https://raw.githubusercontent.com/roots/bedrock/master/composer.json -o ../bedrock.json
+	curl https://raw.githubusercontent.com/roots/bedrock/master/composer.json -o ../bedrock/bedrock.json
 	echo "\n\n### Check any bedrock changes into git after you are sure everything runs correctly.\n\n"

@@ -49,12 +49,8 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
 RUN pip install yas3fs
 
 WORKDIR /bedrock
-COPY composer.json .
-COPY bedrock.json .
-COPY moj.json .
 
-COPY Gruntfile.js .
-COPY package.json .
+COPY bedrock ./
 
 COPY mojintranet web/app/themes/mojintranet/
 
