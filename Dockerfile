@@ -87,8 +87,6 @@ COPY etc/php /etc/php
 COPY services services/
 COPY runonce runonce/
 
-COPY config/application.php /bedrock/config/
-COPY config/environments/ /bedrock/config/
 COPY wait-for-wordpress.sh /usr/local/bin
 
 CMD ["wait-for-wordpress.sh"]
