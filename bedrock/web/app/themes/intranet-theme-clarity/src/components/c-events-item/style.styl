@@ -1,0 +1,45 @@
+// include the toolkit (a suite of variables, classes and mixins)
+@require "../../globals/css/_toolkit"
+
+
+.c-events-item {
+  clearfix();
+  column(1);
+  margin-top: $spacing*3;
+  margin-bottom: $spacing*2;
+  position: relative;
+  display inline-block;
+  }
+
+  h1 {
+    ff-title();
+    margin-bottom: $spacing;
+    a {
+      text-decoration: none;
+    }
+  }
+
+  h1, &__time, &__location {
+    display: block;
+  }
+
+  &__time, &__location {
+    clear:both;
+    font-size: $smallCopy;
+    h2 {
+      span(1/3);
+      font-weight: bold;
+    }
+    time,
+    address {
+    }
+  }
+
+  &-aside {
+    margin-top: $spacing*3;
+  }
+
+.c-events-item-list {
+  column(1);
+  margin:$spacing*2 0;
+}

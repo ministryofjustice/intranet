@@ -1,0 +1,63 @@
+// include the toolkit (a suite of variables, classes and mixins)
+@require "../../globals/css/_toolkit"
+
+.c-emergency-banner {
+  clearfix()
+  position: relative;
+  margin-bottom: $spacing;
+  width: 100%;
+  +above(m) {
+    min-height: 12rem;
+    height: auto;
+    overflow: hidden;
+  }
+
+  &__meta {
+    padding: $spacing*2;
+
+    +above(m) {
+      span(1/3)
+      height: 100%;
+    }
+  }
+  &__content {
+    cms-fixes();
+    padding: $spacing*2;
+    a {
+      color: $link-colour;
+      font-weight: 700;
+      text-decoration: underline;
+      &:hover{
+        color: $link-hover-colour;
+      }
+    }
+
+    +above(m) {
+      column(2/3)
+    }
+  }
+  &--service-update {
+    color: $dark;
+    background: #ffbf47;
+    & ^[-1]__meta {
+      background: darken(#ffbf47, 10%);
+    }
+  }
+  &--emergency {
+    color: $light;
+    background: #df3034;
+    & ^[-1]__meta {
+      background: darken(#df3034, 10%);
+    }
+  }
+  h1 {
+    ff-title();
+    font-size: $mantle;
+  }
+  // Just in case an image is used.
+  img {
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+  }
+}

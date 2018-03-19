@@ -1,0 +1,111 @@
+@require 'jeet';
+@require '_variables';
+@require '_mixins';
+
+// Title formatting
+.o-title {
+  font-weight: bold;
+  margin-bottom: $spacing*2;
+  // Main page title
+  &--page {
+  	font-size: $crust;
+  	margin-top: $spacing*2;
+  }
+  // Section title
+  &--section {
+  	font-size: $mantle;
+  	border-bottom: 2px solid $border;
+	}
+  // Subtitle. Same as section title but without border
+  &--subtitle {
+    font-size: $mantle;
+  }
+
+  &--headline {
+    font-size: $crust
+  }
+}
+
+// See all/Read more links
+.o-see-all-link,
+.o-read-more-link {
+  clear:both;
+  display: block;
+}
+
+.o-button {
+  display: inline-block;
+  padding: $spacing*.6 $spacing*1.5 $spacing*.5;
+  cursor: pointer;
+  text-decoration: none;
+  vertical-align: top;
+  background-color: $button;
+  box-shadow: 0 2px 0 darken($button, 80%);
+  color: $light;
+  font-size: $outerCore;
+  border: none;
+  line-height: $lineHeight*1.2;
+  &:hover {
+    background-color: darken($button, 20%);
+  }
+}
+
+// A box which clears anything before or after it and has some padding and margin applied
+// Useful as a container
+.o-clear-space {
+  clear:both;
+  padding: $spacing 0;
+  margin-bottom: $spacing;
+}
+
+// A button that is disguised as a regular text link
+.o-text-button {
+  border: 0;
+  background-color: transparent;
+  text-decoration: underline;
+  color: $links;
+  cursor: pointer;
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+// Don't use this in code, it's only to extend .o-arrow-toggle-link
+.extend-arrow {
+  position: absolute;
+  top: $spacing*.7;
+  use-icon('\ea43')
+  vertical-align: middle;
+}
+
+.o-arrow-toggle-link {
+  position: relative;
+  display: block;
+  text-align: center;
+  margin-bottom: $spacing;
+  padding-left: $spacing*3
+
+  +above(m) {
+    text-align: left;
+    margin-bottom: 0;
+  }
+
+  &:before {
+    left: 0;
+    display: none;
+    @extend .extend-arrow;
+  }
+}
+
+.o-arrow-toggle-link-after {
+    @extend .o-arrow-toggle-link
+    padding-left: 0
+    padding-right: $spacing*2
+    &:before {
+      display: none;
+    }
+    &:after {
+      right:0;
+      @extend .extend-arrow;
+    }
+  }

@@ -1,0 +1,66 @@
+// include the toolkit (a suite of variables, classes and mixins)
+@require "../../globals/css/_toolkit"
+
+.c-calendar-icon {
+  +above('m') {
+  float:left;
+  column(1);
+  font-size: $crust;
+  }
+
+  text-decoration: none;
+  margin-bottom: $spacing*1;
+
+  a {
+    text-decoration: none;
+  }
+
+  span {
+    display: block;
+    text-align: center;
+  }
+  &--dow {
+    background-color: $boxBg;
+    font-size: $smallCopy;
+    padding: $spacing*1 0;
+  }
+  &--dom {
+    font-size: $crust;
+    font-weight: bold;
+    padding:$spacing*3 0;
+  }
+  &--my {
+    font-size: $smallCopy;
+    padding-bottom: $spacing*1;
+  }
+
+  /* PARENT OVERRIDES */
+
+  .c-events-item-list & {
+    column(1);
+    float:left;
+    +above('m') {
+      column(1/3);
+      float:left;
+    }
+  }
+
+  .c-events-item-list & {
+    border: 1px solid $boxBg;
+    &--dow {
+      padding: $spacing*.5;
+    }
+    &--dom {
+      font-size: $mantle;
+      padding:$spacing*2 0;
+    }
+  }
+
+  .c-events-item-homepage & {
+    border: 1px solid $boxBg;
+    &--dom {
+      font-size: $mantle;
+      padding: $spacing*3;
+    }
+  }
+}

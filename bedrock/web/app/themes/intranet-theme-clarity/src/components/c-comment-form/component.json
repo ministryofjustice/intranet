@@ -1,0 +1,28 @@
+{
+    "name": "Comment form",
+    "class": "c-comment-form",
+    "version": "1.0.0",
+    "creator": {
+        "name": "Alex Foxleigh",
+        "github_username": "foxleigh81"
+    },
+    "description": "The component which lets a user post a comment on an article",
+    "standard_or_universal": "standard",
+    "parents": "",
+    "children": "",
+    "notes": {
+        "backend": "",
+        "frontend": "This component is too big and should be split into smaller components, 'comment-login', and 'comment-form' at least"
+    },
+    "backend_classes": {},
+    "has_js": false,
+    "integrated": false,
+    "is_working": false,
+    "example_link": "https://intranet.justice.gov.uk/blog/a-journey-into-skype/",
+    "used_on_templates": [],
+    "changelog": [{
+        "date": "25/3/2017",
+        "author": "Alex Foxleigh",
+        "description": "Created component"
+    }]
+}

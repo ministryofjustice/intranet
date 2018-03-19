@@ -1,0 +1,28 @@
+/*
+  @Component: Search bar
+  @Creator: Alex Foxleigh
+  @Description: Lives in the header-container component and contains the main search bar for the site
+*/
+
+// include the toolkit (a suite of variables, classes and mixins)
+@require "../../globals/css/_ietoolkit"
+
+.c-search-bar {
+  ieoldcf();
+  height: 70px;
+  padding-right: 0;
+  &__container {
+    width: 50%;
+    overflow: hidden;
+  }
+  input {
+    height: 20px;
+    padding-right:0;
+    overflow: hidden !important;
+  }
+
+  button {
+    width: 40px;
+    height: 40px;
+  }
+}
