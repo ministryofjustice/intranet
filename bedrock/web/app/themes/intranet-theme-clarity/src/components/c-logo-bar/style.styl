@@ -1,0 +1,31 @@
+// include the toolkit (a suite of variables, classes and mixins)
+@require "../../globals/css/_toolkit"
+
+
+.c-logo-bar {
+  
+  position: relative;
+  background-color: $dark;
+  padding: $spacing*3 $spacing $spacing;
+  img {
+    height: $spacing*3.6;
+  }
+  .agency-title{
+    position: absolute;
+    top: 4px;
+    left: 64px;
+    color: white;
+    font-size: 24px;
+    font-weight: 400;
+  }
+  &__switch {
+    color: $light;
+    display block
+    +above(m) {
+      position: absolute;
+      top: 40%;
+      right: $spacing;
+    }
+  }
+
+}

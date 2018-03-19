@@ -1,0 +1,44 @@
+// include the toolkit (a suite of variables, classes and mixins)
+@require "../../globals/css/_toolkit"
+
+
+.c-app-list {
+  clearfix();
+  margin-bottom: $spacing;
+
+  li {
+    column(1/2, $cycle: 2);
+    margin-bottom: $spacing;
+  }
+
+  a {
+    display: block;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+      .u-icon {
+        color: $light;
+        background-color: $primary;
+      }
+    }
+
+  }
+
+  &__app-name {
+    display: inline-block;
+    font-size: $smallCopy;
+    width: 70%;
+    vertical-align: middle;
+  }
+
+  .u-icon {
+    display: inline-block;
+    vertical-align: middle;
+    border: 1px solid $border;
+    padding: $spacing*.5;
+    margin-right: $spacing;
+    font-size: $mantle;
+    color: $border;
+  }
+}

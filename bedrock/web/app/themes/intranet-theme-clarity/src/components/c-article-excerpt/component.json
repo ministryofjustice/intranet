@@ -1,0 +1,28 @@
+{
+    "name": "Article Exceprt",
+    "class": "c-article-exceprt",
+    "version": "1.0.0",
+    "creator": {
+        "name": "Alex Foxleigh",
+        "github_username": "foxleigh81"
+    },
+    "description": "The excerpt for an article",
+    "standard_or_universal": "standard",
+    "parents": "",
+    "children": "",
+    "notes": {
+        "backend": "",
+        "frontend": ""
+    },
+    "backend_classes": {},
+    "has_js": false,
+    "integrated": false,
+    "is_working": false,
+    "example_link": "https://intranet.justice.gov.uk/",
+    "used_on_templates": [],
+    "changelog": [{
+        "date": "9/5/2017",
+        "author": "Alex Foxleigh",
+        "description": "Created component"
+    }]
+}

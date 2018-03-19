@@ -1,0 +1,28 @@
+{
+  "name": "mojintranet",
+  "version": "1.0.0",
+  "description": "Digital Workplace Intranet",
+  "main": "Gruntfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ministryofjustice/intranet.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ministryofjustice/intranet/issues"
+  },
+  "homepage": "https://github.com/ministryofjustice/intranet",
+  "devDependencies": {
+    "grunt": "latest",
+    "grunt-cachebuster": "latest",
+    "grunt-contrib-concat": "latest",
+    "grunt-contrib-cssmin": "latest",
+    "grunt-git-describe": "latest",
+    "grunt-contrib-sass": "latest",
+    "grunt-scss-lint": "latest"
+  }
+}

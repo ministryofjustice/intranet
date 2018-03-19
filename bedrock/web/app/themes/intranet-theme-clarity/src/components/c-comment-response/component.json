@@ -1,0 +1,28 @@
+{
+    "name": "Comment response",
+    "class": "c-comment-response",
+    "version": "1.0.0",
+    "creator": {
+        "name": "Alex Foxleigh",
+        "github_username": "foxleigh81"
+    },
+    "description": "Reply and like buttons for comments",
+    "standard_or_universal": "standard",
+    "parents": "",
+    "children": "",
+    "notes": {
+        "backend": "",
+        "frontend": ""
+    },
+    "backend_classes": {},
+    "has_js": false,
+    "integrated": false,
+    "is_working": false,
+    "example_link": "https://intranet.justice.gov.uk/blog/a-journey-into-skype/",
+    "used_on_templates": [],
+    "changelog": [{
+        "date": "23/5/2017",
+        "author": "Alex Foxleigh",
+        "description": "Created component"
+    }]
+}

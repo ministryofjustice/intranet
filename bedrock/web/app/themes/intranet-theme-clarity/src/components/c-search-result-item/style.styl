@@ -1,0 +1,24 @@
+// include the toolkit (a suite of variables, classes and mixins)
+@require "../../globals/css/_toolkit"
+
+.c-search-result-item {
+  h1 {
+    ff-title()
+  }
+  &__meta {
+    color: lighten($mid, 40%);
+    margin-bottom: $spacing;
+    > span {
+      display: block;
+    }
+    +above(m) {
+      span {
+        display: inline-block;
+      }
+      &__breadcrumbs {
+        float: right;
+      }
+    }
+
+  }
+}

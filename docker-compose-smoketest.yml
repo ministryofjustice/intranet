@@ -1,0 +1,70 @@
+version: '3.3'
+services:
+  wordpress:
+    build:
+      context: .
+      args:
+        - COMPOSER_USER
+        - COMPOSER_PASS
+    cap_add:
+      - SYS_ADMIN
+    container_name: smoketest_wp
+    depends_on:
+      - mailcatcher
+      - mysql
+    devices:
+      - /dev/fuse
+    env_file: smoketests.env
+    environment:
+      DB_NAME: wordpress
+      DB_USER: wordpress
+      DB_PASSWORD: wordpress
+      DB_HOST: smoketest_db
+      development: 1
+      SMTP_HOST: mailcatcher
+      SMTP_PORT: 1025
+      WP_ENV: development
+      VIRTUAL_HOST: intranet.docker
+    links:
+      - mailcatcher
+      - mysql
+    logging:
+      driver: none
+    ports:
+      - "80:80"
+    container_name: smoketest_wp
+  mailcatcher:
+    container_name: smoketest_smtp
+    image: ministryofjustice/mailcatcher
+    environment:
+      VIRTUAL_HOST: mail.intranet.docker
+      VIRTUAL_PORT: 1080
+    ports:
+      - "1080:1080"
+    logging:
+      driver: none
+  mysql:
+    container_name: smoketest_db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+    image: mariadb
+    logging:
+      driver: none
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./smoketest-db-dump:/docker-entrypoint-initdb.d
+  smoketest:
+    container_name: smoketest_tests
+    build: smoke-tests
+    links:
+      - wordpress:intranet.docker
+    depends_on:
+      - wordpress
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      DOCKER_CONTAINER: smoketest_wp

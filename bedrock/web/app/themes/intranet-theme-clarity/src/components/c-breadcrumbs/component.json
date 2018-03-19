@@ -1,0 +1,35 @@
+{
+    "name": "Breadcrumbs",
+    "class": "c-breadcrumbs",
+    "version": "1.0.0",
+    "creator": {
+        "name": "Alex Foxleigh",
+        "github_username": "foxleigh81"
+    },
+    "description": "The main breadcrumb component",
+    "standard_or_universal": "standard",
+    "parents": "",
+    "children": "",
+    "notes": {
+        "backend": "",
+        "frontend": ""
+    },
+    "backend_classes": {},
+    "has_js": false,
+    "integrated": true,
+    "is_working": true,
+    "example_link": "https://intranet.justice.gov.uk/blog/a-journey-into-skype/",
+    "used_on_templates": [],
+    "changelog": [
+        {
+            "date": "29/12/2017",
+            "author": "Adam",
+            "description": "Prepared component for production."
+        },
+        {
+            "date": "25/3/2017",
+            "author": "Alex Foxleigh",
+            "description": "Created component"
+        }
+    ]
+}

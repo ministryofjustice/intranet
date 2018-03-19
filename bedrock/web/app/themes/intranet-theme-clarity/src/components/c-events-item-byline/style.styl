@@ -1,0 +1,76 @@
+// include the toolkit (a suite of variables, classes and mixins)
+@require "../../globals/css/_toolkit"
+
+.c-events-item-byline {
+  +above('m') {
+  float:left;
+  column(1);
+  }
+
+  column(1);
+  header {
+    overflow: hidden;
+  }
+
+  time {
+    display: block;
+    border: 0;
+  }
+
+  h1 {
+    font-size: $outerCore;
+    ff-title();
+    margin-bottom: $spacing*1;
+  }
+
+  &__time, &__location, &__date {
+    column(1);
+    float:left;
+    display: block;
+  }
+
+  &__time, &__location, &__date {
+    h2 {
+      float:left;
+      font-weight: bold;
+      padding-right: $spacing*1;
+      margin-bottom: $spacing*.5;
+    }
+    time,
+    address {
+    }
+  }
+  &__location {
+    h2 {
+      margin-bottom: 0;
+    }
+  }
+    &__details {
+      clear: both;
+    }
+  }
+
+  .c-events-item-homepage & {
+      +above('m') {
+      column(1/2);
+      }
+      h1 {
+        font-size: $innerCore;
+      }
+    }
+
+  .c-events-item-list & {
+      +above('m') {
+      column(1);
+      float:left;
+
+      .c-events-item-byline {
+        +above('m') {
+        column(2/3);
+        margin-right: 0;
+        }
+        }
+      }
+
+    }
+/* PARENT OVERIDES */

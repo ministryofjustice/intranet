@@ -1,0 +1,22 @@
+// include the toolkit (a suite of variables, classes and mixins)
+@require "../../globals/css/_toolkit"
+
+.c-basic-link-list {
+  margin-bottom: $spacing;
+  li {
+    background: $boxBg;
+    margin-bottom: $spacing;
+    a {
+      display: block;
+      padding: $spacing;
+      .u-icon {
+        margin: 0 $spacing*.5;
+      }
+    }
+    &.highlight {
+      background-color: $light;
+      border: 2px solid #59BAAD;
+    }
+  }
+
+}

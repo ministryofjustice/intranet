@@ -1,0 +1,67 @@
+version: '3.3'
+services:
+  wordpress:
+    build:
+      context: .
+      args:
+        - COMPOSER_USER
+        - COMPOSER_PASS
+    cap_add:
+      - SYS_ADMIN
+    container_name: wordpress
+    depends_on:
+      - mailcatcher
+      - mysql
+    devices:
+      - /dev/fuse
+    env_file: .env
+    environment:
+      DB_NAME: wordpress
+      DB_USER: wordpress
+      DB_PASSWORD: wordpress
+      DB_HOST: mysql
+      development: 1
+      SMTP_HOST: mailcatcher
+      SMTP_PORT: 1025
+      WP_ENV: development
+      VIRTUAL_HOST: intranet.docker
+    links:
+      - mailcatcher
+      - mysql
+    ports:
+      - "80:80"
+    volumes:
+      # Once inranet-theme-clairty is imported, these can all be replaced with:
+      # - ./bedrock:/bedrock
+      - ./bedrock/web/app/plugins/dw-document-revisions:/bedrock/web/app/plugins/dw-document-revisions
+      - ./bedrock/web/app/plugins/dw-live-drafts:/bedrock/web/app/plugins/dw-live-drafts
+      - ./bedrock/web/app/plugins/dw-markdown:/bedrock/web/app/plugins/dw-markdown
+      - ./bedrock/web/app/plugins/dw-mvc:/bedrock/web/app/plugins/dw-mvc
+  mysql:
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+    image: mariadb
+    logging:
+      driver: none
+    ports:
+      - "3306:3306"
+    volumes:
+      - database:/var/lib/mysql
+      - ./db-dump:/docker-entrypoint-initdb.d
+  mailcatcher:
+    container_name: mailcatcher
+    environment:
+      VIRTUAL_HOST: mail.intranet.docker
+      VIRTUAL_PORT: 1080
+    image: ministryofjustice/mailcatcher
+    logging:
+      driver: none
+    ports:
+      - "1080:1080"
+volumes:
+  database:
+    driver: local

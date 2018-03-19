@@ -1,0 +1,48 @@
+// include the toolkit (a suite of variables, classes and mixins)
+@require "../../globals/css/_toolkit"
+
+.c-article-byline {
+   // Parent overrides
+
+  .c-news-article & {
+    &__photo {
+      display:none;
+    }
+    &__intro,
+    &__date {
+      display: block;
+    }
+  }
+
+  .c-article &
+  .c-news-article &
+  .c-blog-article & {
+    font-size: $outerCore;
+    margin-bottom: $spacing*2
+    overflow: hidden; //quick clearfix
+  }
+
+  .c-article &
+  .c-blog-article & {
+    &__photo {
+      display:block;
+      float:left;
+      border-radius: 100%;
+      width: 80px; //fixed width
+      height: auto;
+      margin-right: $spacing*2;
+    }
+
+    &__intro {
+      padding-top: $spacing*1.5;
+    }
+
+    &__intro,
+    &__date {
+      color: $text-colour;
+      display: block;
+    }
+  }
+
+
+}

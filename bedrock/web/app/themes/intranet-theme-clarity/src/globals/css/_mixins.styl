@@ -1,0 +1,92 @@
+@require 'jeet';
+@require '_variables';
+@require 'icons';
+
+// For headings and titles
+ff-title() {
+  font-family: 'nta', sans-serif;
+  font-weight: bold;
+}
+
+// For anything using the standard body text style
+ff-body() {
+  font-family: 'nta', sans-serif;
+  font-weight: normal;
+  font-size: $bodyCopy;
+  line-height: $lineHeight*1.6;
+  margin-bottom: $bodyCopy;
+}
+
+// For a real content list with bullet points
+real-list() {
+  ff-body();
+  margin-left: $spacing*2;
+  li {
+    list-style: disc;
+  }
+}
+
+// A set of fixes intended to limit the visibility of mistakes the editor can make in the CMS
+cms-fixes() {
+  // If certain empty elements are added in the CMS. Simply don't show them.
+  p:empty,
+  a:empty,
+  ul:empty,
+  ol:empty,
+  table:empty,
+  h1:empty,
+  h2:empty,
+  h3:empty,
+  h4:empty,
+  h5:empty,
+  h6:empty,
+  li:empty {
+    display:none;
+  }
+
+  //for some reason, an editor added an iFrame. This should not be allowed and so this will hide any future iframes they add
+  iframe {
+    display: none !important;
+  }
+}
+
+// For buttons!
+button(bgc) {
+  display: inline-block;
+  color: $light;
+  background-color: bgc;
+  padding: $spacing $spacing*3;
+  border: 0;
+  font-size: $outerCore;
+  cursor: pointer;
+  text-decoration:none;
+  &:hover {
+    color: $light;
+    background-color: lighten(bgc, 20%);
+  }
+  &.disabled {
+    cursor: auto;
+    background: desaturate(bgc, 60%);
+    opacity: .6;
+  }
+}
+
+// Contrast. Use this to make sure your colours are always contrasting aganst your bg colour!
+contrast(color) {
+  background-color: color;
+  if (dark(color)) {
+    color: lighten(color, 40%)
+  }
+  if (light(color)) {
+    color: darken(color, 40%)
+  }
+}
+
+// The 'icon' value should be the code for the icon you wish you use.
+// You can find it in icons.styl by looking at the 'content' value of the appropriate icons class
+// Note: This must be used in a 'before' or 'after' pseudoselector
+use-icon(icon) {
+  content: icon;
+  font-family: 'moji-clarity';
+  speak: none;
+}

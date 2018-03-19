@@ -1,0 +1,62 @@
+.page-feedback-container {
+  &.expanded {
+    .form-container {
+      display: block;
+    }
+
+    .report-problem-link:before {
+      transform: rotate(180deg);
+    }
+  }
+
+  .report-problem-link {
+    @extend %medium-copy;
+    display: inline-block;
+    margin-bottom: 5px;
+
+    &:before {
+      display: inline-block;
+      margin-right: 3px;
+      content: "_";
+    }
+  }
+
+  .form-container {
+    display: none;
+  }
+
+  .feedback-form {
+    display: none;
+    margin-top: 20px;
+
+    &.visible {
+      display: block;
+    }
+  }
+
+  .message {
+    display: none;
+    margin-top: 0;
+    padding: 5px 0;
+
+    &.visible {
+      display: block;
+    }
+  }
+
+  .feedback-field {
+    width: 100%;
+    min-height: 80px;
+  }
+
+  .report-cta {
+    margin-top: 10px;
+  }
+
+  .error {
+    .text,
+    .feedback-field {
+      background-color: $red-25;
+    }
+  }
+}

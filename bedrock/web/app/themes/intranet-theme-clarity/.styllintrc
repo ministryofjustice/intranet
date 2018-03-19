@@ -1,0 +1,19 @@
+
+{
+	"brackets": "always",
+	"colons": "always",
+  "efficient" : "always",
+  "globalDupe" : true,
+  "leadingZero" : "never",
+  "namingConvention" : "camelCase",
+  "none" : "never",
+  "noImportant" : true,
+  "prefixVarsWithDollar" : "always",
+  "semicolons" : "always",
+  "sortOrder" : "false",
+  "stackedProperties" : "never",
+  "trailingWhitespace" : "never",
+  "universal" : "never",
+  "valid" : true,
+  "zeroUnits" : "never"
+}
