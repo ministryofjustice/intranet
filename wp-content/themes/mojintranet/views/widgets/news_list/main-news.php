@@ -2,10 +2,15 @@
     die();
 } ?>
 <?php
-$terms = get_the_terms($post->ID, 'region');
-        foreach ($terms as $term) {
-            $region_id = $term->term_id;
-        }
+$id = get_the_ID();
+$terms = get_the_terms($id, 'region');
+
+if (is_array($terms)){
+  foreach ($terms as $term) {
+      $region_id = $term->term_id;
+  }
+}
+
 ?>
 <div class="posts-widget">
   <h2 class="category-name">News</h2>
