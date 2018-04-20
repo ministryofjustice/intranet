@@ -68,7 +68,9 @@ function dw_rewrite_rules() {
   add_rewrite_rule($regex, $redirect, 'top');
 
 }
-add_action('init', 'dw_redirects');
+if (!is_admin()){
+  add_action('init', 'dw_redirects');
+}
 add_action('init', 'dw_rewrite_rules');
 
 function redirect_404($template) {
