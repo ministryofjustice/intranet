@@ -20,6 +20,7 @@
     "relevanssi/relevanssi-premium":"2.0.3.1",
     "acf/advanced-custom-fields-pro":"5.6.10",
     "wpackagist-plugin/wordpress-importer": "0.6.4",
+    "wpackagist-plugin/user-role-editor": "4.40.3",
 
     "ministryofjustice/dw-mvc":"dev-master",
     "ministryofjustice/dw-document-revisions":"dev-update-composer-json",
