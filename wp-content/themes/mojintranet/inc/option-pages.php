@@ -12,7 +12,7 @@ function dw_add_option_pages() {
         'page_title' 	=> 'Quick Links Settings',
         'menu_title'	=> 'Quick Links',
         'menu_slug' 	=> 'quick-links-settings',
-        'capability'	=> 'edit_posts',
+        'capability'	=> 'manage_options',
         'redirect'		=> false
     ]);
 
