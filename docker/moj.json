@@ -21,6 +21,7 @@
     "acf/advanced-custom-fields-pro":"5.5.0",
     "wpackagist-plugin/wordpress-importer": "0.6.4",
     "wpackagist-plugin/user-role-editor": "4.40.3",
+    "wpackagist-plugin/query-monitor": "3.0.0",
 
     "ministryofjustice/dw-mvc":"dev-master",
     "ministryofjustice/dw-document-revisions":"dev-update-composer-json",
