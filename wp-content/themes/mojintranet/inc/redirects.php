@@ -42,6 +42,11 @@ function dw_rewrite_rules() {
   $redirect = 'index.php?page_id=' . get_page_by_path('events')->ID;
   add_rewrite_rule($regex, $redirect, 'top');
 
+  //Blogs page - Adding this back in as a temp fix.
+  $regex = '^blog/([0-9]+)(/.*)?';
+  $redirect = 'index.php?page_id=' . get_page_by_path('blog')->ID;
+  add_rewrite_rule($regex, $redirect, 'top');
+
   //Search results page
   $regex = '^search-results/([^/]*)/([^/]*)/?';
   $redirect = 'index.php?page_id=' . get_page_by_path('search-results')->ID . '&search-filter=$matches[1]&search-string=$matches[2]';
