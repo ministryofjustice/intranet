@@ -1,14 +1,14 @@
 <?php
 
 // Includes and requires
-include     ('helpers/debug.php');                        // Debug tool
-include     ('helpers/cachebuster.php');                  // Ensures updated CSS and JS are served to client
-include     ('helpers/taggr.php');                        // Tool for retrieving pages by their dw-tag
-include     ('helpers/validation.php');                   // Server side validation
+include('helpers/debug.php');                        // Debug tool
+include('helpers/cachebuster.php');                  // Ensures updated CSS and JS are served to client
+include('helpers/taggr.php');                        // Tool for retrieving pages by their dw-tag
+include('helpers/validation.php');                   // Server side validation
 
-include     ('inc/utilities/agency-editor.php');          // Agency Editor utility
-include     ('inc/utilities/agency-context.php');         // Agency Context utility
-include     ('inc/utilities/region-context.php');         // Region Context utility
+include('inc/utilities/agency-editor.php');          // Agency Editor utility
+include('inc/utilities/agency-context.php');         // Agency Context utility
+include('inc/utilities/region-context.php');         // Region Context utility
 
 require_once('inc/ajax.php');                             // Ajax Functions
 require_once('inc/authors.php');                          // Additional author information
@@ -37,7 +37,6 @@ require_once('inc/query-vars.php');                       // Register custom que
 require_once('inc/redirects.php');                        // Site redirects
 require_once('inc/searching.php');                        // Functions to enhance searching (using Relevanssi)
 require_once('inc/security.php');                         // Security functions
-require_once('inc/shortcodes.php');                       // Shortcode functions
 require_once('inc/sidebars.php');                         // Register sidebars
 require_once('inc/tidy-up.php');                          // Tidy up CMS
 require_once('inc/titles.php');                           // Title filters
@@ -53,23 +52,25 @@ require_once('admin/listing.php');                        // Listing functions
 
 require_once('inc/api.php');                              // API Support for custom post types & taxonomies
 
-add_action( 'after_setup_theme', 'mojintranet_setup' );
+add_action('after_setup_theme', 'mojintranet_setup');
 
-if ( !function_exists( 'mojintranet_setup' ) ) {
-	function mojintranet_setup() {
+if (!function_exists('mojintranet_setup')) {
+    function mojintranet_setup()
+    {
 
-		// This theme uses post thumbnails
-		add_theme_support( 'post-thumbnails' );
+        // This theme uses post thumbnails
+        add_theme_support('post-thumbnails');
 
-		// Make theme available for translation
-		// Translations can be filed in the /languages/ directory
-		load_theme_textdomain( 'mojintranet', TEMPLATEPATH . '/languages' );
+        // Make theme available for translation
+        // Translations can be filed in the /languages/ directory
+        load_theme_textdomain('mojintranet', TEMPLATEPATH . '/languages');
 
-		$locale = get_locale();
-		$locale_file = TEMPLATEPATH . "/languages/$locale.php";
-		if ( is_readable( $locale_file ) )
-			require_once( $locale_file );
-	}
+        $locale = get_locale();
+        $locale_file = TEMPLATEPATH . "/languages/$locale.php";
+        if (is_readable($locale_file)) {
+            require_once($locale_file);
+        }
+    }
 }
 
 /***
@@ -79,23 +80,24 @@ if ( !function_exists( 'mojintranet_setup' ) ) {
  *
  */
 
-add_action( 'init', 'fix_intranet_noms_renaming' );
+add_action('init', 'fix_intranet_noms_renaming');
 
-function fix_intranet_noms_renaming() {
-
-    if(isset($_COOKIE['dw_agency']) && $_COOKIE['dw_agency'] == 'hmpps') {
+function fix_intranet_noms_renaming()
+{
+    if (isset($_COOKIE['dw_agency']) && $_COOKIE['dw_agency'] == 'hmpps') {
         //echo "Trying to unset cookie";
         setcookie('dw_agency', 'blah blah', 1);
         //unset($_COOKIE['dw_agency']);
     }
 }
 
-function clean_site_url($url) {
+function clean_site_url($url)
+{
     // Only strip in the case that we are not dealing with a core wordpress link
-    if ( strpos($url, 'wp-') === false )
+    if (strpos($url, 'wp-') === false) {
         return str_replace('/wp/', '/', $url);
+    }
     return $url;
-
 }
 
 add_filter('site_url', 'clean_site_url');
