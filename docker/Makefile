@@ -19,6 +19,7 @@ nuke-assets:
 nuke-all:
 	make nuke-assets
 	make nuke-images
+	docker rm $(docker ps -a -f status=exited -q)
 
 load-db-dump:
 	docker-compose -f docker-compose-dev.yml exec mysql bash -c 'cat /db-dump/*.sql | mysql -u$${MYSQL_USER} -p$${MYSQL_PASSWORD} $${MYSQL_DATABASE}'
