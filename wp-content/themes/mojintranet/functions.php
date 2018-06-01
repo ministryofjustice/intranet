@@ -24,7 +24,6 @@ require_once('inc/languages.php');                        // Controls the site l
 require_once('inc/mail.php');                        	  // Mail Functions
 require_once('inc/user-management.php');                  // Additional author information
 require_once('inc/news-customiser.php');                  // Setup news customiser
-require_once('inc/post-types.php');                       // Controls post-types (custom and built-in)
 require_once('inc/post-fork.php');                   	  // Add option to fork posts and pages
 require_once('inc/taxonomies.php');                       // Custom taxonomies
 require_once('inc/list-tables.php');                      // Adjustments to list tables
