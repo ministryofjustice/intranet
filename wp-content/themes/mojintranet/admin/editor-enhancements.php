@@ -86,7 +86,7 @@ function pageparent_ajax_check_parent()
     }
 }
 
-add_action('admin_menu', 'pageparent_add_theme_box');
+//add_action('admin_menu', 'pageparent_add_theme_box');
 function pageparent_add_theme_box()
 {
     if (! is_admin()) {
@@ -205,7 +205,7 @@ function pageparent_box($post)
 <?php
 }
 
-add_action('admin_menu', 'pageparent_remove_theme_box');
+//add_action('admin_menu', 'pageparent_remove_theme_box');
 function pageparent_remove_theme_box()
 {
     // Remove default parent metabox
