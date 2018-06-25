@@ -86,13 +86,13 @@ function pageparent_ajax_check_parent()
     }
 }
 
-//add_action('admin_menu', 'pageparent_add_theme_box');
+add_action('admin_menu', 'pageparent_add_theme_box');
 function pageparent_add_theme_box()
 {
     if (! is_admin()) {
         return;
     }
-    add_meta_box('pageparent-metabox', __('Parent Page'), 'pageparent_box', ['page', 'regional_page'], 'side', 'core');
+    add_meta_box('pageparent-metabox', __('Page Attributes'), 'pageparent_box', ['page', 'regional_page'], 'side', 'high');
 }
 
 function pageparent_box($post)
@@ -124,12 +124,13 @@ function pageparent_box($post)
         } elseif (get_post_type($post->ID) == 'regional_page') {
             $current_template = get_post_meta($post->ID, 'dw_regional_template', true);
 
+
             $templates = [
-          'Generic' => 'page_generic.php',
-          'Landing' => 'page_regional_landing.php',
-          'Events Listing' => 'page_regional_events.php',
-          'Updates Listing' => 'page_regional_news.php',
-      ];
+            'Default' => 'page_generic.php',
+            'Region landing' => 'page_regional_landing.php',
+            'Region archive events' => 'page_regional_events.php',
+            'Region archive news' => 'page_regional_news.php',
+              ];
         }
 
         $themeselect = '<select id="page_template" name="page_template" ' . $disabled . '>';
@@ -140,11 +141,11 @@ function pageparent_box($post)
             }
         }
         $themeselect .= '</select>'; ?>
-    <p><strong>Current Template:</strong></p>
-    <?php
-    echo $themeselect;
+        <p><strong>Current Template:</strong></p>
+      <?php
+        echo $themeselect;
     } ?>
-  <p><strong>Current Parent:</strong></p>
+      <p><strong>Current Parent:</strong></p>
 
     <div>
       <?php
@@ -205,7 +206,7 @@ function pageparent_box($post)
 <?php
 }
 
-//add_action('admin_menu', 'pageparent_remove_theme_box');
+add_action('admin_menu', 'pageparent_remove_theme_box');
 function pageparent_remove_theme_box()
 {
     // Remove default parent metabox
