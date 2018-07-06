@@ -2,7 +2,6 @@
   "repositories": [
     {"type":"composer", "url":"https://wpackagist.org"},
     {"type":"composer", "url":"https://composer.wp.dsd.io"},
-    {"type":"vcs", "no-api": true, "url":"https://github.com/ministryofjustice/dw-mvc.git"},
     {"type":"vcs", "no-api": true, "url":"https://github.com/ministryofjustice/dw-document-revisions.git"},
     {"type":"vcs", "no-api": true, "url":"https://github.com/ministryofjustice/dw-live-drafts.git"},
     {"type":"vcs", "no-api": true, "url":"https://github.com/ministryofjustice/dw-markdown.git"},
@@ -24,7 +23,6 @@
     "wpackagist-plugin/user-role-editor": "4.42",
     "wpackagist-plugin/query-monitor": "3.0.1",
 
-    "ministryofjustice/dw-mvc":"dev-master",
     "ministryofjustice/dw-document-revisions":"dev-update-composer-json",
     "ministryofjustice/intranet-theme-clarity":"dev-master",
     "ministryofjustice/intranet":"dev-master",
