@@ -68,10 +68,10 @@ function dw_rewrite_rules()
     $redirect = 'index.php?controller=$matches[1]&param_string=$matches[3]';
     add_rewrite_rule($regex, $redirect, 'top');
 }
-if (!is_admin()) {
-    add_action('init', 'dw_redirects');
-}
-add_action('init', 'dw_rewrite_rules');
+// if (!is_admin()) {
+//     add_action('init', 'dw_redirects');
+// }
+// add_action('init', 'dw_rewrite_rules');
 
 
 function dw_old_blog_redirect()
@@ -90,4 +90,4 @@ function dw_old_blog_redirect()
         }
     }
 }
-add_action('dw_redirect', 'dw_old_blog_redirect');
+//add_action('dw_redirect', 'dw_old_blog_redirect');

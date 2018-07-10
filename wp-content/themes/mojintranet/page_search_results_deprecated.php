@@ -3,7 +3,6 @@
 /**
  * The template for displaying Search Results pages.
  *
- * Template name: Search results
  */
 
 class Page_search_results extends MVC_controller
