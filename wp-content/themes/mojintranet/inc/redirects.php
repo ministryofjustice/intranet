@@ -90,4 +90,4 @@ function dw_old_blog_redirect()
         }
     }
 }
-//add_action('dw_redirect', 'dw_old_blog_redirect');
+add_action('dw_redirect', 'dw_old_blog_redirect');
