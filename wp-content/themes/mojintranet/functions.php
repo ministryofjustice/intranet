@@ -1,5 +1,5 @@
 <?php
-
+ flush_rewrite_rules();
 // Includes and requires
 include('helpers/debug.php');                        // Debug tool
 include('helpers/cachebuster.php');                  // Ensures updated CSS and JS are served to client

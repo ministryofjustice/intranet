@@ -68,19 +68,11 @@ function dw_rewrite_rules()
     $redirect = 'index.php?controller=$matches[1]&param_string=$matches[3]';
     add_rewrite_rule($regex, $redirect, 'top');
 }
-if (!is_admin()) {
-    add_action('init', 'dw_redirects');
-}
-add_action('init', 'dw_rewrite_rules');
+// if (!is_admin()) {
+//     add_action('init', 'dw_redirects');
+// }
+// add_action('init', 'dw_rewrite_rules');
 
-function redirect_404($template)
-{
-    $error_template = locate_template('page_error.php');
-    if ($error_template!='') {
-        return $error_template;
-    }
-}
-add_action('404_template', 'redirect_404', 99);
 
 function dw_old_blog_redirect()
 {
