@@ -20,7 +20,7 @@
       font-size: 1.6em;
     }
     .wrapper {
-      width: 1024px;
+      max-width: 1024px;
       margin: 0 auto;
     }
     .header {
@@ -38,9 +38,18 @@
       border-left: 2px solid #ffffff;
       margin-right: 10px;
     }
-    h1 {
-      font-size: 2.6em;
+
+    .main {
+      padding: 16px;
     }
+
+    h1 {
+    }
+
+    .notice {
+      font-size: 2em;
+    }
+
     a {
       color: #005ea5;
       text-decoration: none;
@@ -50,6 +59,7 @@
       color: #2e8aca;
       text-decoration: underline;
     }
+
   </style>
 </head>
 <body>
@@ -59,9 +69,16 @@
       <img src="https://alphagov.github.io/govuk_template/assets/stylesheets/images/gov.uk_logotype_crown.png?0.22.3" alt="Ministry of Justice Logo">Ministry of Justice
     </div>
   </div>
-  <div class="wrapper">
+  <div class="wrapper main">
 
-      <h1>You are not authorised to view this page.</h1>
+      <h1 class="notice">You are accessing the intranet from outside the MoJ network.</h1>
+      <p>Please access from:
+        <ul>
+          <li>within the network, at an office or commuter hub,</li>
+          <li>or from home, using VPN access.</li>
+        </ul>
+      </p>
+      <p>For further information about VPN access, contact your department service desk for more info.</p>
       <p>If you feel that you have reached this page in error, please email
         <a href="mailto:intranet-support@digital.justice.gov.uk">intranet-support@digital.justice.gov.uk</a></li>.
       </p>
