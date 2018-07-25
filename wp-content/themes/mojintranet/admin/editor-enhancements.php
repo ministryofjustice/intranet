@@ -126,7 +126,7 @@ function pageparent_box($post)
 
 
             $templates = [
-            'Default' => 'page_generic.php',
+            'Default' => 'single.php',
             'Region landing' => 'page_regional_landing.php',
             'Region archive events' => 'page_regional_events.php',
             'Region archive news' => 'page_regional_news.php',
