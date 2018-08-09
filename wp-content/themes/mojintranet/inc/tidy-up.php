@@ -25,7 +25,7 @@ add_action( 'init', 'dw_remove_post_types', 20 );
 function dw_add_customise() {
   add_menu_page( 'Customise', 'Customise', 'edit_theme_options', 'customize.php');
 }
-add_action( 'admin_menu', 'dw_add_customise');
+//add_action( 'admin_menu', 'dw_add_customise');
 
 // Prevent customiser redirecting back to themes page
 function dw_customize_redirect() {
@@ -42,7 +42,7 @@ add_action( 'load-themes.php', 'dw_customize_redirect' );
 function dw_add_editor_style() {
     add_editor_style( 'assets/css/style.css' );
 }
-//add_action( 'after_setup_theme', 'dw_add_editor_style' );
+add_action( 'after_setup_theme', 'dw_add_editor_style' );
 
 // Filters all buttons from TinyMCE editor to hide toolbar for non-admins
 function dw_tinymce_settings($settings){
