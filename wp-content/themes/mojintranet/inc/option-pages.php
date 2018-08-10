@@ -8,13 +8,15 @@ require_once(ABSPATH . 'wp-admin/includes/screen.php');
 function dw_add_option_pages() {
   if (function_exists('acf_add_options_page')) {
 
-    acf_add_options_page([
-        'page_title' 	=> 'Quick Links Settings',
-        'menu_title'	=> 'Quick Links',
-        'menu_slug' 	=> 'quick-links-settings',
-        'capability'	=> 'edit_posts',
-        'redirect'		=> false
-    ]);
+    // acf_add_options_page([
+    //     'page_title' 	=> 'Quick Links Settings',
+    //     'menu_title'	=> 'Quick Links',
+    //     'menu_slug' 	=> 'quick-links-settings',
+    //     'capability'	=> 'edit_posts',
+    //     'redirect'		=> false
+    // ]);
+    // remove quick links, as this is now moved to clarity theme
+
 
     // Getting editor's agency and passing this to $context and options appearing accordingly.
     $context = Agency_Context::get_agency_context();
