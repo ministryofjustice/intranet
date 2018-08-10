@@ -11,7 +11,7 @@
     {"type":"vcs", "no-api": true, "url":"https://github.com/ministryofjustice/php-markdown-extra.git"}
   ],
   "require": {
-    "wpackagist-plugin/breadcrumb-navxt":"6.0.4",
+    "wpackagist-plugin/breadcrumb-navxt":"6.1.0",
     "wpackagist-plugin/cms-tree-page-view":"1.5",
     "wpackagist-plugin/co-authors-plus":"3.3.0",
     "wpackagist-plugin/recently-edited-content-widget":"0.3.2",
@@ -20,8 +20,8 @@
     "relevanssi/relevanssi-premium":"2.0.3.1",
     "acf/advanced-custom-fields-pro":"5.6.10",
     "wpackagist-plugin/wordpress-importer": "0.6.4",
-    "wpackagist-plugin/user-role-editor": "4.42",
-    "wpackagist-plugin/query-monitor": "3.0.1",
+    "wpackagist-plugin/user-role-editor": "4.44",
+    "wpackagist-plugin/query-monitor": "3.1.0",
 
     "ministryofjustice/dw-document-revisions":"dev-update-composer-json",
     "ministryofjustice/intranet-theme-clarity":"dev-master",
