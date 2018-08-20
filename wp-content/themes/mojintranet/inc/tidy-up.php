@@ -25,7 +25,8 @@ add_action( 'init', 'dw_remove_post_types', 20 );
 function dw_add_customise() {
   add_menu_page( 'Customise', 'Customise', 'edit_theme_options', 'customize.php');
 }
-add_action( 'admin_menu', 'dw_add_customise');
+//add_action( 'admin_menu', 'dw_add_customise');
+// remove customizer from here, as this has now been moved to clarity theme.
 
 // Prevent customiser redirecting back to themes page
 function dw_customize_redirect() {
