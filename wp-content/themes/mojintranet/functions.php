@@ -46,7 +46,6 @@ require_once('inc/wp-admin-bar.php');                     // Control the WP Admi
 
 require_once('admin/editor-enhancements.php');            // Adds enhancements to post/page editor screen
 require_once('admin/errors.php');                         // Displays errors in admin
-require_once('admin/dashboard.php');                      // Dashboard functions
 require_once('admin/listing.php');                        // Listing functions
 
 require_once('inc/api.php');                              // API Support for custom post types & taxonomies
