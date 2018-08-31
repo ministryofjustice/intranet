@@ -19,7 +19,6 @@ require_once('inc/customiser-functions.php');             // Extra customiser fu
 require_once('inc/dependencies.php');                     // CSS/JS dependency enqueing
 require_once('inc/documents.php');                        // Control how documents are handled
 require_once('inc/excerpts.php');                         // Excerpt filters
-require_once('inc/images.php');                           // Images sizes and functions
 require_once('inc/languages.php');                        // Controls the site language(s)
 require_once('inc/mail.php');                        	  // Mail Functions
 require_once('inc/user-management.php');                  // Additional author information
