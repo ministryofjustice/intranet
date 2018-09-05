@@ -11,7 +11,6 @@ include('inc/utilities/agency-context.php');         // Agency Context utility
 include('inc/utilities/region-context.php');         // Region Context utility
 
 require_once('inc/ajax.php');                             // Ajax Functions
-require_once('inc/authors.php');                          // Additional author information
 require_once('inc/cache.php');                            // Amend the cache headers
 require_once('inc/cookies.php');                          // Amend the cache headers
 require_once('inc/customiser-controls.php');              // Extra customiser controls
@@ -19,7 +18,6 @@ require_once('inc/customiser-functions.php');             // Extra customiser fu
 require_once('inc/dependencies.php');                     // CSS/JS dependency enqueing
 require_once('inc/documents.php');                        // Control how documents are handled
 require_once('inc/excerpts.php');                         // Excerpt filters
-require_once('inc/images.php');                           // Images sizes and functions
 require_once('inc/languages.php');                        // Controls the site language(s)
 require_once('inc/mail.php');                        	  // Mail Functions
 require_once('inc/user-management.php');                  // Additional author information

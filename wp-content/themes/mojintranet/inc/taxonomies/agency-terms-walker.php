@@ -25,6 +25,8 @@ class Walker_Agency_Terms extends Walker_Category_Checklist
 
         if ($term_agencies === null) {
             return;
+        } elseif (is_bool($term_agencies)) {
+          return;
         } else {
             if (in_array($context, $term_agencies)) {
                 parent::start_el($output, $category, $depth, $args, $id);
@@ -48,9 +50,11 @@ class Walker_Agency_Terms extends Walker_Category_Checklist
     {
         $context = Agency_Context::get_agency_context('term_id');
         $term_agencies = get_field('term_used_by', $category->taxonomy . '_' . $category->term_id);
-
+        
         if ($term_agencies === null) {
             return;
+        } elseif (is_bool($term_agencies)) {
+          return;
         } else {
             if (in_array($context, $term_agencies)) {
                 parent::end_el($output, $category, $depth, $args);
