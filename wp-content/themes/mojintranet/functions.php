@@ -38,7 +38,7 @@ require_once('inc/sidebars.php');                         // Register sidebars
 require_once('inc/tidy-up.php');                          // Tidy up CMS
 require_once('inc/titles.php');                           // Title filters
 require_once('inc/uploads.php');                          // File uploads
-require_once('inc/user-roles.php');                       // User roles
+
 require_once('inc/utility.php');                          // Utility functions
 require_once('inc/wp-admin-bar.php');                     // Control the WP Admin Bar
 
