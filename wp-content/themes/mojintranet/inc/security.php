@@ -47,9 +47,3 @@ function control_login_period( $expirein ) {
 }
 add_filter( 'auth_cookie_expiration', 'control_login_period' );
 
-// Allow editors to access theme options
-function editor_theme_options() {
-    $role_object = get_role( 'editor' );
-    $role_object->add_cap( 'edit_theme_options' );
-}
-add_action('init','editor_theme_options');
