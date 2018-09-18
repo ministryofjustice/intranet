@@ -40,7 +40,6 @@ require_once('inc/titles.php');                           // Title filters
 require_once('inc/uploads.php');                          // File uploads
 
 require_once('inc/utility.php');                          // Utility functions
-require_once('inc/wp-admin-bar.php');                     // Control the WP Admin Bar
 
 require_once('admin/editor-enhancements.php');            // Adds enhancements to post/page editor screen
 require_once('admin/errors.php');                         // Displays errors in admin
