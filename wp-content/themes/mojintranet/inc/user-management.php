@@ -1,13 +1,5 @@
 <?php
 
-// Tweak admin bar for non-admins
-function hide_admin_bar_for_regular_users() {
-  if (!current_user_can('edit_pages')) {
-    show_admin_bar(false);
-  }
-}
-add_action( 'after_setup_theme', 'hide_admin_bar_for_regular_users' );
-
 // Allow login with email address instead of username
 function dw_email_login_authenticate( $user, $username, $password ) {
   if ( is_a( $user, 'WP_User' ) )
