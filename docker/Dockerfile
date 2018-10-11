@@ -21,8 +21,7 @@ RUN echo 'deb http://apt.newrelic.com/debian/ newrelic non-free' > /etc/apt/sour
       # Grunt requires ruby and sass.  Two packages installed by grunt require
       # phantomjs (not sure which ones yet).  The phantomjs here satsifies *one* of those dependencies (for phantom ~=
       # 2.1.x). The older one (1.9.x) is still installed by grunt on startup.
-      && apt-get install -y ruby ruby-dev phantomjs libffi-dev newrelic-php5 \
-      && gem install sass --no-doc --no-ri \
+      #&& apt-get install -y libffi-dev newrelic-php5 \
       && ln -sf /dev/stdout /var/log/fpm.slow.log \
       # Run ./build.sh as part of the build process IFF we are running in production
       # mode (set in `docker-compose.yml`), otherwise defer until runtime

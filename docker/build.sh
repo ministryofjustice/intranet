@@ -64,11 +64,12 @@ mv vendor/ministryofjustice/intranet/wp-content/themes/mojintranet web/app/theme
 rm -rf vendor/ministryofjustice
 
 # Build theme assets
-npm install --global grunt-cli
-npm install
-grunt pre_deploy
+# npm install --global grunt-cli
+# npm install
+#grunt pre_deploy
 cd /bedrock/web/app/themes/intranet-theme-clarity
-npm install --global gulp-cli
+#npm install --global gulp-cli
+rm *.lock
 npm install
 gulp build
 cd /bedrock
