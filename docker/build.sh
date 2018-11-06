@@ -40,6 +40,7 @@ fi
 
 # This needs to be left in place, or runs that reuse the container will fail.
 # Composer fails unless these assest are in the ./bedrock directory
+cp Gruntfile.js ./bedrock
 cp *.json ./bedrock
 mkdir ./bedrock/web
 cp web/* ./bedrock/web
@@ -72,7 +73,6 @@ cd /bedrock
 # Keep the container size down
 rm *.json
 rm *.lock
-rm *.js
 rm -rf node_modules
 
 # IFF we are running in development mode, set as a standard envrionment
