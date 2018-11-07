@@ -38,8 +38,8 @@ fi
 # below, means that this script can be used to install a container-only version
 # as well as a development version that mounts ./bedrock from a host volume.
 
-# These need to be left in place, or runs that reuse the container will fail.
-# Both composer and grunt fail unless these assest are in the ./bedrock directory
+# This needs to be left in place, or runs that reuse the container will fail.
+# Composer fails unless these assest are in the ./bedrock directory
 cp Gruntfile.js ./bedrock
 cp *.json ./bedrock
 mkdir ./bedrock/web
@@ -64,19 +64,15 @@ mv vendor/ministryofjustice/intranet/wp-content/themes/mojintranet web/app/theme
 rm -rf vendor/ministryofjustice
 
 # Build theme assets
-npm install --global grunt-cli
-npm install
-grunt pre_deploy
 cd /bedrock/web/app/themes/intranet-theme-clarity
 npm install --global gulp-cli
-npm install
+npm install --no-optional
 gulp build
 cd /bedrock
 
 # Keep the container size down
 rm *.json
 rm *.lock
-rm *.js
 rm -rf node_modules
 
 # IFF we are running in development mode, set as a standard envrionment

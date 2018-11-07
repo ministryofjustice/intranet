@@ -115,6 +115,8 @@ nbproject
 /wp-content/languages/
 deploy_dev.cfg
 /node_modules/
+/docker/node_modules/
+/docker/package-lock.json
 wp-content/plugins/relevanssi*/
 wp-content/plugins/
 .htaccess
