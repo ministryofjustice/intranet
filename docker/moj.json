@@ -25,8 +25,8 @@
     "wpackagist-plugin/query-monitor": "3.1.1",
 
     "ministryofjustice/dw-document-revisions":"dev-update-composer-json",
-    "ministryofjustice/intranet-theme-clarity":"dev-phantom",
-    "ministryofjustice/intranet":"dev-phantom",
+    "ministryofjustice/intranet-theme-clarity":"dev-master",
+    "ministryofjustice/intranet":"dev-master",
     "ministryofjustice/wp-rewrite-media-to-s3": "*",
     "ministryofjustice/like-button-for-wordpress":"dev-master",
     "ministryofjustice/notify-for-wordpress":"dev-master",
