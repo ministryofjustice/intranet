@@ -64,16 +64,16 @@ mv vendor/ministryofjustice/intranet/wp-content/themes/mojintranet web/app/theme
 rm -rf vendor/ministryofjustice
 
 # Build theme assets
-cd /bedrock/web/app/themes/intranet-theme-clarity
-npm install --global gulp-cli
-npm install --no-optional
-gulp build
-cd /bedrock
+# cd /bedrock/web/app/themes/intranet-theme-clarity
+# npm install --global gulp-cli
+# npm install --no-optional
+# gulp build
+# cd /bedrock
 
 # Keep the container size down
-rm *.json
-rm *.lock
-rm -rf node_modules
+# rm *.json
+# rm *.lock
+# rm -rf node_modules
 
 # IFF we are running in development mode, set as a standard envrionment
 # variable in docker-compose-dev.yml, then this script serves as the CMD
