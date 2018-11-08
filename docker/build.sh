@@ -60,8 +60,8 @@ composer install --verbose
 # Because composer cannot install this in the correct location and does not
 # seem to be able to easily move it, itself. This is most likely because the
 # theme is only a part of the overall project.
-mkdir web/app/themes/mojintranet
-mkdir web/app/themes/intranet-theme-clarity
+mkdir -p web/app/themes/mojintranet
+mkdir -p web/app/themes/intranet-theme-clarity
 mv vendor/ministryofjustice/intranet/wp-content/themes/mojintranet web/app/themes/mojintranet
 mv vendor/ministryofjustice/intranet/wp-content/themes/clarity web/app/themes/intranet-theme-clarity
 
