@@ -63,7 +63,7 @@ composer install --verbose
 mkdir -p web/app/themes/mojintranet
 mkdir -p web/app/themes/intranet-theme-clarity
 mv vendor/ministryofjustice/intranet/wp-content/themes/mojintranet web/app/themes
-mv vendor/ministryofjustice/intranet/wp-content/themes/clarity web/app/themes
+mv vendor/ministryofjustice/intranet/wp-content/themes/clarity/* web/app/themes/intranet-theme-clarity
 
 
 # Build theme assets
