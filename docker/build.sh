@@ -65,6 +65,9 @@ mkdir -p web/app/themes/intranet-theme-clarity
 mv vendor/ministryofjustice/intranet/wp-content/themes/mojintranet web/app/themes
 mv vendor/ministryofjustice/intranet/wp-content/themes/clarity/* web/app/themes/intranet-theme-clarity
 
+# Remove downloaded theme folders now moved
+rm -rf vendor/ministryofjustice
+
 # IFF we are running in development mode, set as a standard envrionment
 # variable in docker-compose-dev.yml, then this script serves as the CMD
 # override and should start the WP container main process when the install is
