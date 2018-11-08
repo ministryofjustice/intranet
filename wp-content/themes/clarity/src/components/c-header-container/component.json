@@ -1,0 +1,35 @@
+{
+    "name": "Header container",
+    "class": "c-header-container",
+    "version": "1.1.0",
+    "creator": {
+        "name": "Alex Foxleigh",
+        "github_username": "foxleigh81"
+    },
+    "description": "The container for the main header components. Also contains the ie warnings",
+    "standard_or_universal": "standard",
+    "parents": "",
+    "children": "c-logo-bar, c-search-bar, c-main-nav-bar, c-phase-banner",
+    "notes": {
+        "backend": "",
+        "frontend": ""
+    },
+    "backend_classes": {},
+    "has_js": false,
+    "integrated": true,
+    "is_working": true,
+    "screenshot": "",
+    "example_link": "",
+    "changelog": [
+        {
+            "date": "09/11/17",
+            "author": "Adam Brown",
+            "description": "Browser tested and improved warning text."
+        },
+        {
+            "date": "02/02/17",
+            "author": "Alex Foxleigh",
+            "description": "Created component"
+        }
+    ]
+}

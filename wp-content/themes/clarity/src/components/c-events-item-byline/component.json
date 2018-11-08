@@ -1,0 +1,27 @@
+{
+    "name": "Events item body",
+    "class": "c-events-item-body",
+    "version": "1.0.0",
+    "creator": {
+        "name": "Adam",
+        "github_username": ""
+    },
+    "description": "Displays date and time under the calendar icon",
+    "standard_or_universal": "standard",
+    "parents": "c-events-list",
+    "children": "",
+    "notes": {
+        "backend": "",
+        "frontend": ""
+    },
+    "has_js": false,
+    "integrated": true,
+    "is_working": true,
+    "example_link": "https://intranet.justice.gov.uk/events",
+    "used_on_templates": [],
+    "changelog": [{
+        "date": "08/03/18",
+        "author": "Adam",
+        "description": "Created component"
+    }]
+}
