@@ -1,0 +1,34 @@
+{
+    "name": "Phase banner",
+    "class": "c-phase-banner",
+    "version": "1.0.1",
+    "creator": {
+        "name": "Alex Foxleigh",
+        "github_username": "foxleigh81"
+    },
+    "description": "The banner containing the site phase (alpha/beta etc...)",
+    "standard_or_universal": "standard",
+    "parents": "",
+    "children": "",
+    "notes": {
+        "backend": "",
+        "frontend": ""
+    },
+    "backend_classes": {},
+    "has_js": false,
+    "integrated": false,
+    "is_working": false,
+    "example_link": "http://intranet.justice.gov.uk",
+    "changelog": [
+        {
+            "date": "30/11/17",
+            "author": "Adam",
+            "description": "Updated BETA banner styling, added blue."
+        },
+        {
+            "date": "02/02/17",
+            "author": "Alex Foxleigh",
+            "description": "Created component"
+        }
+    ]
+}

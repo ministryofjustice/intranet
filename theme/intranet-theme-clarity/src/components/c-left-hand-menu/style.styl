@@ -1,0 +1,73 @@
+// include the toolkit (a suite of variables, classes and mixins)
+@require "../../globals/css/_toolkit"
+
+.c-left-hand-menu {
+  margin-top: $spacing*2;
+
+  ul {
+    padding-left: $spacing*1;
+    border-top: 1px solid $border;
+    & ul {
+      padding-left: $spacing*2;
+    }
+  }
+
+  li {
+    border-bottom: 1px solid $border;
+    a {
+      display: block;
+      padding: $spacing*.5 20px $spacing*.5 0;
+      z-index: 1;
+      position: relative;
+    }
+
+    &:last-of-type {
+      border-bottom: 0;
+    }
+
+    &.page_item_has_children {
+      > a {
+        span{
+          width: 16px;
+          height: 16px;
+          float: right;
+          position: absolute;
+          z-index: 9;
+          @extend .o-arrow-toggle-link-after;
+          top: 5px;
+          right: 0;
+
+          &:after{
+            top: 0px;
+            transform: rotate(180deg);
+          }
+        }
+
+        ul {
+          // Negative margin applied to line up arrows for children with children.
+          margin-right: -($spacing*2);
+        }
+      }
+
+      &.u-closed {
+        // flip the arrow back when the item is closed
+        > a {
+          span:after {
+            transform: rotate(0deg);
+          }
+        }
+
+      }
+    }
+
+
+  }
+
+  &__step_back {
+    margin-bottom: $spacing*1;
+  }
+
+  .current_page_item {
+    font-weight: bold;
+  }
+}

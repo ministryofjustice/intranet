@@ -1,0 +1,28 @@
+{
+    "name": "register",
+    "class": "c-register",
+    "version": "1.0.0",
+    "creator": {
+        "name": "Vinh Nguyen",
+        "github_username": "https://github.com/vinhnguyen0429"
+    },
+    "description": "sign up new users to comment",
+    "standard_or_universal": "standard",
+    "parents": "",
+    "children": "",
+    "notes": {
+        "backend": "",
+        "frontend": ""
+    },
+    "backend_classes": {},
+    "has_js": false ,
+    "integrated": false,
+    "is_working": false,
+    "example_link": "",
+    "used_on_templates" : [],
+    "changelog": [{
+        "date": "14/2/2018",
+        "author": "Vinh Nguyen",
+        "description": "Created component"
+    }]
+}

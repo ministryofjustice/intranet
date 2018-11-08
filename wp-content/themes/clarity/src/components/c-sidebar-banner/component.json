@@ -1,0 +1,30 @@
+{
+  "name": "Sidebar banner",
+  "class": "c-sidebar-banner",
+  "version": "1.0.0",
+  "creator": {
+    "name": "Adam",
+    "github_username": "brown-a2"
+  },
+  "description": "A banner which expands to fill the sidebar on the homepage.",
+  "standard_or_universal": "standard",
+  "parents": "",
+  "children": "",
+  "notes": {
+    "backend": "",
+    "frontend": ""
+  },
+  "backend_classes": {},
+  "has_js": false,
+  "integrated": true,
+  "is_working": true,
+  "example_link": "https://intranet.justice.gov.uk/about-us/moj-transformation/",
+  "used_on_templates": [],
+  "changelog": [
+    {
+      "date": "12/4/2018",
+      "author": "Adam",
+      "description": "Created component"
+    }
+  ]
+}

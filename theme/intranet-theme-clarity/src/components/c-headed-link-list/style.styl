@@ -1,0 +1,51 @@
+// include the toolkit (a suite of variables, classes and mixins)
+@require "../../globals/css/_toolkit"
+
+.page-template-page_about_us{
+  .dividers{
+    margin-bottom: 40px;
+    padding-bottom: 40px;
+    border-bottom: 3px solid #0b0c0c;
+    position: relative;
+    display: block;
+    width: 100%;
+    overflow: hidden;
+  }
+}
+.c-aboutus-container{
+  width: 100%;
+  display:block;
+  float:left;
+  margin: 0 0 20px 0;
+}
+.c-headed-link-list {
+  +above(m) {
+    column(1/3, $cycle: 3)
+  }
+  h1 > a {
+    display: block;
+    text-decoration: underline;
+    margin-bottom: $spacing;
+  }
+  ul {
+    real-list()
+  }
+
+  &--guidance {
+    +below('s') {
+      h1 {
+        font-size: $mantle*1;
+        padding: $spacing*1;
+      }
+    }
+  }
+
+  &--region-directory {
+    +below('s') {
+      h1 {
+        font-size: $mantle*1;
+        padding: $spacing*1;
+      }
+    }
+  }
+}

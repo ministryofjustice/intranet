@@ -1,0 +1,18 @@
+// include the toolkit (a suite of variables, classes and mixins)
+@require "../../globals/css/_toolkit"
+
+.c-individual-nested-comments {
+  &__author {
+    font-size: $outerCore;
+    margin-bottom: $spacing;
+  }
+
+  &__timestamp {
+    color: lighten($mid, 40%);
+  }
+  // If the comment is nested, style accordingly
+  ul ul .c-individual-nested-comments {
+    margin-left: $spacing*3;
+    border-left: 3px solid $border;
+  }
+}

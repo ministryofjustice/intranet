@@ -1,0 +1,28 @@
+{
+    "name": "Share Post",
+    "class": "c-share-post",
+    "version": "1.0.0",
+    "creator": {
+        "name": "Alex Foxleigh",
+        "github_username": "foxleigh81"
+    },
+    "description": "The bar at the bottom of an article which allows you to like and share the article and also shows the number of comments.",
+    "standard_or_universal": "standard",
+    "parents": "",
+    "children": "",
+    "notes": {
+        "backend": "",
+        "frontend": "This component shares its styles with c-comment-response do not delete it without migrating the styles over"
+    },
+    "backend_classes": {},
+    "has_js": false,
+    "integrated": false,
+    "is_working": false,
+    "example_link": "https://intranet.justice.gov.uk/blog/a-journey-into-skype/",
+    "used_on_templates": [],
+    "changelog": [{
+        "date": "25/3/2017",
+        "author": "Alex Foxleigh",
+        "description": "Created component"
+    }]
+}

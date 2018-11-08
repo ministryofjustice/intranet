@@ -1,0 +1,58 @@
+// include the toolkit (a suite of variables, classes and mixins)
+@require "../../globals/css/_toolkit"
+
+.c-main-nav-bar {
+  background-color: $boxBg;
+
+  .current-menu-item {
+    background: #fff;
+  }
+
+  ul {
+    display: table;
+    width: 100%;
+  }
+
+  li {
+    &:last-of-type {
+      border-bottom: 0;
+    }
+
+    +above(m) {
+      border-bottom: 0;
+      display: table-cell;
+      margin-bottom: -1px;
+      border-left: 1px solid white;
+      &:last-of-type {
+        border-right: 1px solid white;
+      }
+    }
+
+    &.current {
+      background-color: $light;
+      a:hover, a:focus {
+        background-color: $light;
+        text-decoration: none;
+      }
+    }
+  }
+
+  a {
+    display: block;
+    text-align: center;
+    padding: $spacing $spacing*2;
+    color: $text;
+    text-decoration: none;
+    font-weight: bold;
+
+    &:hover {
+      background-color: darken($boxBg, 15%);
+      border-color: $border;
+      text-decoration: underline;
+    }
+    &:focus {
+      outline: 0;
+      border-color: $border;
+    }
+  }
+}
