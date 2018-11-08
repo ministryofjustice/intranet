@@ -5,7 +5,7 @@
     {"type":"vcs", "no-api": true, "url":"https://github.com/ministryofjustice/dw-document-revisions.git"},
     {"type":"vcs", "no-api": true, "url":"https://github.com/ministryofjustice/dw-live-drafts.git"},
     {"type":"vcs", "no-api": true, "url":"https://github.com/ministryofjustice/dw-markdown.git"},
-    {"type":"vcs", "no-api": true, "url":"https://github.com/ministryofjustice/intranet-theme-clarity.git"},
+    
     {"type":"vcs", "no-api": true, "url":"https://github.com/ministryofjustice/intranet.git"},
     {"type":"vcs", "no-api": true, "url":"https://github.com/ministryofjustice/like-button-for-wordpress.git"},
     {"type":"vcs", "no-api": true, "url":"https://github.com/ministryofjustice/notify-for-wordpress.git"},

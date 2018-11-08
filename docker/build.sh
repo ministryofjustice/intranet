@@ -60,9 +60,9 @@ composer install --verbose
 # Because composer cannot install this in the correct location and does not
 # seem to be able to easily move it, itself. This is most likely because the
 # theme is only a part of the overall project.
-mv vendor/ministryofjustice/intranet/wp-content/themes/mojintranet/ web/app/themes/mojintranet/
-mv vendor/ministryofjustice/intranet/wp-content/themes/clarity/ web/app/themes/intranet-theme-clarity/
-rm -rf vendor/ministryofjustice
+mv ../wp-content/themes/mojintranet web/app/themes/mojintranet/
+mv ../wp-content/themes/clarity web/app/themes/intranet-theme-clarity
+# rm -rf vendor/ministryofjustice
 
 # Build theme assets
 # cd /bedrock/web/app/themes/intranet-theme-clarity
