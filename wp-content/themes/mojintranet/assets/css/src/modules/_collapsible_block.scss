@@ -1,0 +1,38 @@
+.collapsible-block-container {
+  .collapsible-block-toggle {
+    @extend %large-copy;
+    display: block;
+    margin-left: 18px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-weight: bold;
+
+    &:before {
+      display: inline-block;
+      margin-bottom: -2px;
+      margin-right: 5px;
+      margin-left: 0;
+      content: "►";
+    }
+  }
+
+  .collapsible-block {
+    display: none;
+  }
+
+  &.opened {
+    .collapsible-block-toggle {
+      &:before {
+        content: "▼";
+      }
+
+      &.reversed:before {
+        content: "▲";
+      }
+    }
+
+    .collapsible-block {
+      display: block;
+    }
+  }
+}

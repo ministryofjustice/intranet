@@ -1,0 +1,28 @@
+{
+    "name": "Photo Gallery",
+    "class": "c-photo-gallery",
+    "version": "1.0.0",
+    "creator": {
+        "name": "Adam",
+        "github_username": "https://github.com/brown-a2"
+    },
+    "description": "Display photos in a gallery format",
+    "standard_or_universal": "standard",
+    "parents": "",
+    "children": "",
+    "notes": {
+        "backend": "",
+        "frontend": ""
+    },
+    "backend_classes": {},
+    "has_js": true,
+    "integrated": false,
+    "is_working": false,
+    "example_link": "",
+    "used_on_templates": [],
+    "changelog": [{
+        "date": "3/11/2017",
+        "author": "Adam",
+        "description": "Created component"
+    }]
+}

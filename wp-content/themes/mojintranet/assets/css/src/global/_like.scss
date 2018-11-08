@@ -1,0 +1,29 @@
+.like-container {
+  display: none;
+
+  &.loaded {
+    display: inline-block;
+  }
+
+  &.voted {
+    .like-link {
+      text-decoration: none;
+      color: $grey-1;
+      cursor: default;
+    }
+  }
+
+  .like-link {
+    @extend %medium-copy;
+    display: inline-block;
+  }
+
+  .like-description {
+    @extend %medium-copy;
+  }
+
+  .like-icon {
+    margin-right: 5px;
+    background-position: -32px 0;
+  }
+}

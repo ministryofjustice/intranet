@@ -1,0 +1,238 @@
+$icon-padding: 12px;
+$grid-size: 50px;
+
+.clear {
+  clear: both;
+}
+
+.clearfix {
+  &:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0;
+  }
+}
+
+.news_date {
+  color: #6f777b;
+}
+
+.template-partial {
+  display: none;
+}
+
+.agency-hidden {
+  display: none;
+}
+
+.template-container h1 {
+  border-bottom: none;
+}
+
+.content-wrapper {
+  margin: 15px 0 60px 0;
+}
+
+.main-content {
+  outline: none;
+
+  ul li {
+    line-height: 1.4;
+  }
+
+  .info-list {
+    display: table;
+
+    li {
+      display: table-row;
+    }
+
+    span {
+      display: table-cell;
+      padding-right: 15px;
+    }
+  }
+
+  .content-info {
+    margin-top: 20px;
+    padding-top: 10px;
+    border-top: 1px solid $grey-2;
+
+    p {
+      @extend %medium-copy;
+      margin: 10px 0;
+    }
+
+    .print,
+    .share {
+      &:before {
+        display: inline-block;
+        background-repeat: no-repeat;
+        content: "";
+        margin-right: 10px;
+      }
+    }
+
+    .print {
+      &:before {
+        width: 20px;
+        height: 21px;
+        background-image: url("../images/printer.png");
+        vertical-align: text-bottom;
+      }
+    }
+
+    .share {
+      &:before {
+        width: 19px;
+        height: 14px;
+        margin-left: 20px;
+        background-image: url("../images/email_x2.png");
+        background-size: 100%;
+        vertical-align: middle;
+      }
+    }
+
+    .last-updated {
+      color: $grey-1;
+    }
+  }
+}
+
+.breadcrumb-separator {
+  display: inline-block;
+  margin: 0 5px;
+  width: 6px;
+  height: 10px;
+  background-image: url('../images/breadcrumb_separator_x2.png');
+  background-size: 100% 100%;
+}
+
+.agency {
+  a {
+    display: block;
+    padding: 8px 15px;
+
+    &:hover {
+      .department-icon {
+        background-image: url('../images/department_crest_white_x2.png');
+      }
+    }
+  }
+
+  .department-icon {
+    float: left;
+    width: 26px;
+    height: 26px;
+    margin-top: -4px;
+    margin-right: 5px;
+    background-image: url('../images/department_crest_x2.png');
+    background-size: auto 50px;
+    vertical-align: middle;
+  }
+
+  &[data-department="select-department"] .department-icon {
+    background-image: none !important;
+  }
+
+  &[data-department="laa"],
+  &[data-department="hmcts"],
+  &[data-department="judicial-office"],
+  &[data-department="nps"],
+  &[data-department="noms"], // As of 10.04.17 this is HMPPS
+  &[data-department="opg"],
+  &[data-department="ospt"],
+  &[data-department="hq"] {
+    .department-icon {
+      background-position: (-$icon-padding) (-$icon-padding);
+    }
+  }
+
+  &[data-department="judicial-appointments-commission"] .department-icon {
+    background-position: (-$grid-size * 1 - $icon-padding) (-$icon-padding);
+  }
+
+  &[data-department="law-commission"] .department-icon {
+    background-position: (-$grid-size * 2 - $icon-padding) (-$icon-padding);
+  }
+
+  &[data-department="probation"] .department-icon {
+    background-position: (-$grid-size * 3 - $icon-padding) (-$icon-padding);
+  }
+}
+
+.user-not-logged-in {
+  .logged-in-only {
+    display: none !important;
+  }
+}
+
+.user-logged-in {
+  .not-logged-in-only {
+    display: none !important;
+  }
+}
+
+.user-not-initialised {
+  .logged-in-only,
+  .not-logged-in-only {
+    display: none !important;
+  }
+}
+
+.see-all-container {
+  padding-top: 15px;
+  border-top: 1px solid $grey-2;
+  text-align: left;
+
+  .template-campaign-landing & {
+    display: none;
+  }
+
+  a {
+    font-weight: bold;
+    text-decoration: underline;
+  }
+}
+
+.category-name {
+  @extend %large-heading;
+  border-bottom: 2px solid $grey-1;
+  margin-top: 20px;
+}
+
+.campaign-banner {
+  max-width: 100%;
+  margin-top: 20px;
+}
+
+.campaign-banner-side {
+  max-width: 100%;
+  margin-top: 10px;
+}
+
+.banner-hide {
+  display: none;
+}
+
+// Share bar styling
+.icon {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  margin-right: 2px;
+  background-image: url("../images/blog_icons_x2.png");
+  background-size: auto 100%;
+  vertical-align: top;
+}
+
+.post-social-actions {
+  @include clearfix;
+  padding: 10px 0;
+  border-style: solid;
+  border-color: $grey-2;
+  border-width: 1px 0;
+}

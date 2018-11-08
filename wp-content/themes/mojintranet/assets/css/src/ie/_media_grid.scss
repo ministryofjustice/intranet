@@ -1,0 +1,127 @@
+.lte-ie7.template-media-grid .template-container {
+  .lightbox-image-container {
+    position: fixed;
+    background: transparent;
+    height: 100%;
+    width: 100%;
+    opacity: 0.5;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#4C000000,endColorstr=#4C000000);
+    /* IE 6 & 7 */
+    top: 0;
+    bottom: 5%;
+    zoom: 100%;
+    z-index: 10;
+  }
+
+  .lightbox-video-container {
+    position: fixed;
+    background: transparent;
+    height: 100%;
+    width: 100%;
+    opacity: 0.5;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#4C000000,endColorstr=#4C000000);
+    /* IE 6 & 7 */
+    top: 0;
+    bottom: 5%;
+    zoom: 100%;
+    z-index: 10;
+  }
+
+  .lightbox-attr {
+    margin-top: 0;
+  }
+
+  .section {
+    width: 25%;
+    padding:10px 35px 0;
+    margin: 10px 0 0 10px;
+    display: inline-block;
+    *display: inline;
+    float: left;
+    zoom: 1;
+  }
+
+  .authorTitle {
+    width: 96%;
+    padding: 15px;
+  }
+
+  .blockquote p {
+    width: 98%;
+  }
+
+  .lightbox-img {
+    filter: alpha(opacity=100);
+    width: inherit;
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+.lte-ie8.template-media-grid .template-container {
+  .lightbox-image-container {
+    position: fixed;
+    background: transparent;
+    height: 100%;
+    width: 100%;
+    opacity: 0.5;
+    -ms-filter:  "progid:DXImageTransform.Microsoft.gradient(startColorstr=#4C000000,endColorstr=#4C000000)";
+    /* IE8 */
+    top: 0;
+    bottom: 5%;
+    zoom: 100%;
+    z-index: 10;
+  }
+
+  .lightbox-video-container {
+    position: fixed;
+    background: transparent;
+    height: 100%;
+    width: 100%;
+    opacity: 0.5;
+    -ms-filter:  "progid:DXImageTransform.Microsoft.gradient(startColorstr=#4C000000,endColorstr=#4C000000)";
+    /* IE8 */
+    top: 0;
+    bottom: 5%;
+    zoom: 100%;
+    z-index: 10;
+  }
+
+  .section {
+    width: 25%;
+    padding:10px 35px 0;
+    margin: 10px 0 0 10px;
+    display: inline-block;
+    *display: inline;
+    float: left;
+    zoom: 1;
+  }
+
+  .authorTitle {
+    width: 96%;
+    padding: 15px;
+  }
+
+  .blockquote p {
+    width: 98%;
+  }
+}
+
+/* Targeting all IE browsers above 8 */
+
+.blockquote p {
+  width: 98%;
+}
+
+/* Magnific Popup CSS Override */
+.mfp-bg {
+  background: #000000;
+  opacity: 0.5;
+  -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+    filter: alpha(opacity=50);
+}
+
+.mfp-image-holder .mfp-close,
+.mfp-iframe-holder .mfp-close {
+  padding-right: 56px;
+}

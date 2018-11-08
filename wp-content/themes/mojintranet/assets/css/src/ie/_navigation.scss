@@ -1,0 +1,23 @@
+.lte-ie7,
+.ie8 {
+  .menu-list {
+    margin-right: 10px;
+
+    .menu-item {
+      padding-top: 1px;
+
+      &.current .dropdown-button {
+        background-position: -42px 12px;
+      }
+
+      .dropdown-button {
+        background-image: url('../images/arrows.png');
+      }
+
+      .menu-item-link {
+        padding-right: 20px;
+        zoom: 1;
+      }
+    }
+  }
+}

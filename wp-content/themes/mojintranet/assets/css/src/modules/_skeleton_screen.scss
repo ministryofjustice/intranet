@@ -1,0 +1,62 @@
+.skeleton-screen {
+  margin-bottom: 10px;
+
+  .skeleton-img-box {
+    float: left;
+    margin-right: 10px;
+  }
+
+  .skeleton-content-box {
+    overflow: hidden;
+  }
+
+  .skeleton-img {
+    display: inline-block;
+    width: 100px;
+  }
+
+  .skeleton-img-full {
+    display: inline-block;
+    width: 100%;
+  }
+
+  p + p {
+    margin-top: 10px;
+  }
+
+  .skeleton-copy {
+    display: block;
+    height: 20px;
+  }
+
+  .shimmer {
+    background-color: #eee;
+    background: linear-gradient(to right, #eee 0px, #f8f8f8 40px, #eee 80px);
+    background-size: 1000px 100px;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-name: skeletonShimmer;
+    animation-timing-function: linear;
+    position: relative;
+  }
+
+  &.app {
+    float: left;
+    width: 50%;
+
+    .skeleton-img {
+      width: 32px;
+      height: 32px;
+    }
+  }
+}
+
+@keyframes skeletonShimmer {
+  0%{
+    background-position: 0px 0;
+  }
+  100%{
+    background-position: 2000px 0;
+  }
+}

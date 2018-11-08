@@ -1,0 +1,214 @@
+.header {
+  display: none;
+  background: $black;
+
+  &.loaded {
+    display: block;
+  }
+
+  .skip-to-content-container {
+    height: 0;
+    padding-top: 10px;
+    overflow: hidden;
+
+    &.focused {
+      height: auto;
+    }
+
+    a {
+      @extend %medium-copy;
+      line-height: 30px;
+      color: $govuk-blue;
+      text-decoration: underline;
+    }
+  }
+
+  .site-logo {
+    display: block;
+    visibility: hidden;
+
+    &.visible {
+      visibility: visible;
+    }
+
+    a {
+      display: inline-block;
+    }
+
+    img {
+      height: 36px;
+    }
+  }
+
+  .site-logo-hq {
+    visibility: hidden;
+    text-align: right;
+
+    &.visible {
+      visibility: visible;
+    }
+
+    a {
+      display: inline-block;
+    }
+
+    img {
+      width: 127px;
+      height: 18px;
+    }
+  }
+
+  .user-bar {
+    text-align: right;
+
+    .user-menu {
+      margin-top: 0;
+      float: right;
+
+      li {
+        display: inline-block;
+        color: $white;
+
+        &.hidden {
+          display: none;
+        }
+      }
+
+      a {
+        @extend %medium-copy;
+        color: $white;
+        text-decoration: underline;
+        cursor: pointer;
+      }
+
+      .separator {
+        display: inline-block;
+        padding: 0 5px;
+      }
+    }
+
+    .my-agency-tooltip {
+      position: absolute;
+      display: none;
+      top: 40px;
+      right: 0;
+      background-color: $yellow-25;
+      border: 1px solid $yellow;
+      cursor: pointer;
+
+      &.visible {
+        display: block;
+      }
+
+      .triangle {
+        position: absolute;
+        top: -11px;
+        left: 50%;
+        width: 24px;
+        height: 11px;
+        margin-left: -12px;
+        background-image: url('../images/tooltip_triangle_x2.png');
+        background-size: 100%;
+      }
+
+      p {
+        padding: 5px 10px;
+        text-align: center;
+        white-space: nowrap;
+      }
+    }
+  }
+
+  .select-agency-trigger-container {
+    position: relative;
+    padding: 0;
+    z-index: 2;
+
+    .agency a {
+      text-align: left;
+      color: $black;
+
+      &:hover {
+        background-color: $govuk-blue;
+        text-decoration: none;
+        color: $white;
+      }
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+
+  .header-search {
+    background-color: $govuk-blue;
+
+    [data-agency="hmcts"] & {
+      background-color: $hmcts;
+    }
+
+    [data-agency="laa"] & {
+      background-color: $laa;
+    }
+
+    [data-agency="opg"] & {
+      background-color: $opg;
+    }
+
+    [data-agency="pb"] & {
+      background-color: $pb;
+    }
+
+    [data-agency="judicial-office"] & {
+      background-color: $jo;
+    }
+
+    [data-agency="law-commission"] & {
+      background-color: $law-commission;
+    }
+
+    .search-form {
+      margin: 20px 0;
+    }
+
+    .keywords-field {
+      border: none;
+    }
+
+    .search-btn {
+      background-color: $black;
+    }
+  }
+
+  .template-search-results & {
+    .search-form {
+      display: none;
+    }
+  }
+}
+
+@include mobile-mq() {
+  .header {
+    .site-logo img {
+      height: 27px;
+    }
+
+    .skip-to-content-container {
+      display: none;
+    }
+
+    .user-bar {
+      text-align: left;
+
+      .my-agency-tooltip {
+        display: none !important;
+      }
+    }
+
+    .department-list {
+      right: 0;
+      left: 0;
+    }
+
+  }
+}

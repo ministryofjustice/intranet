@@ -1,0 +1,2 @@
+# Templates
+The files in this folder have been moved into here so that they do not overwrite the parent theme while the Clarity theme gets migrated. When and as needed, the files in this folder can be used and moved into the main root directory. This folder and move was done so that we wouldn't loose Irune's work that has gone into these files while still being able to incorporate all the changes to date on the theme. 

@@ -1,0 +1,7 @@
+/**
+ * Custom CSS for the customizer
+ */
+
+.ui-autocomplete {
+  z-index: 600000;
+}

@@ -1,0 +1,16 @@
+.lte-ie8 .breadcrumbs {
+  .separator {
+    display: inline-block;
+    width: 8px;
+    height: 13px;
+    background-image: url('../images/breadcrumb_separator.gif');
+  }
+}
+
+.ie7 .breadcrumbs {
+  margin-top: 15px;
+
+  .separator {
+    vertical-align: middle;
+  }
+}

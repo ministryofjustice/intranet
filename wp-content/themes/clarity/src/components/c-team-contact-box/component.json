@@ -1,0 +1,28 @@
+{
+    "name": "team-contact-box",
+    "class": "c-team-contact-box",
+    "version": "1.0.0",
+    "creator": {
+        "name": "Adam",
+        "github_username": ""
+    },
+    "description": "Component that displays all team contact information. For example email or location.",
+    "standard_or_universal": "standard",
+    "parents": "",
+    "children": "",
+    "notes": {
+        "backend": "",
+        "frontend": ""
+    },
+    "backend_classes": {},
+    "has_js": false ,
+    "integrated": false,
+    "is_working": false,
+    "example_link": "",
+    "used_on_templates" : [],
+    "changelog": [{
+        "date": "12/4/2018",
+        "author": "Adam",
+        "description": "Created component"
+    }]
+}

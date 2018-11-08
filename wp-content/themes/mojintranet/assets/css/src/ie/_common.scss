@@ -1,0 +1,50 @@
+.lte-ie7 {
+  .content-info {
+    clear: both;
+
+    a {
+      display: block;
+    }
+  }
+
+  .banner-hide {
+    display: none;
+  }
+
+  .main-content {
+    select {
+      background-image: none;
+    }
+  }
+}
+
+.lte-ie8 {
+  .breadcrumb-separator {
+    width: 8px;
+    height: 13px;
+    background-image: url('../images/breadcrumb_separator.gif');
+    vertical-align: middle;
+  }
+
+  .ie-clear {
+    clear: both;
+  }
+
+  .agency {
+    a {
+      &:hover {
+        .department-icon {
+          background-image: url('../images/department_crest_white.png');
+        }
+      }
+    }
+
+    .department-icon {
+      background-image: url('../images/department_crest.png');
+    }
+  }
+}
+
+.banner-hide {
+  display: none;
+}

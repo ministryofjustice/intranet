@@ -1,0 +1,67 @@
+/**
+ * Admin CSS related to personalisation
+ */
+
+.agency-filter-filter {
+    margin: 0 5px;
+    padding: 5px;
+}
+
+.agency-checklist,
+.inline-edit-row fieldset span.inline-edit-categories-label:nth-child(4) {
+    display: none;
+}
+
+.user-profile-picture {
+    display: none;
+}
+
+.post-type-attachment #edit-slug-box {
+    display: none;
+}
+
+.attachment-info  .actions .view-attachment {
+    display: none;
+}
+
+.acf-field .acf-error-message.contrast_invalid_message,
+.acf-field .acf-error-message.contrast_valid_message {
+    display: none;
+}
+
+.acf-field .acf-error-message.contrast_valid_message {
+    background: #65b576;
+}
+
+.acf-field .acf-error-message.contrast_valid_message:after {
+    border-top-color: #65b576;
+}
+
+.acf-fields > .acf-field.no-border {
+    border-top: none;
+}
+
+.ping_status {
+    display: none;
+}
+
+.comment_status_option.status_hidden {
+    display: none;
+}
+
+#comment-status-radio {
+   display: none;
+}
+
+.hidden-comment {
+    float: right;
+    font-weight: bold;
+}
+
+.post-php #the-comment-list .comment > p {
+    max-width: 80%;
+}
+
+#customize-controls #customize-info .customize-panel-description {
+    display: block;
+}

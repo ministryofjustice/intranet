@@ -1,0 +1,136 @@
+.header-menu {
+  background-color: #ebedef;
+  border-style: solid;
+  border-color: #979797;
+  border-width: 0 0 1px;
+
+  .main-nav-regions {
+    display: none;
+
+    html[data-agency="hmcts"] & {
+      display: block;
+    }
+  }
+
+  .main-nav-blog {
+    html[data-agency="judicial-office"] & {
+      display: none;
+    }
+  }
+
+  .main-nav-about-us {
+    html[data-agency="judicial-office"] & {
+      display: none;
+    }
+  }
+
+  .jo-nav-blog {
+    display: none;
+
+    html[data-agency="judicial-office"] & {
+      display: block;
+    }
+  }
+
+  .jo-nav-about {
+    display: none;
+
+    html[data-agency="judicial-office"] & {
+      display: block;
+    }
+  }
+
+
+
+  .main-menu-list {
+    @include clearfix;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    width: 100%;
+    margin-top: 0;
+    margin-bottom: -1px;
+  }
+
+  .main-menu-item {
+    -ms-flex-positive: 1;
+    -ms-flex-preferred-size: 0;
+    -moz-box-flex: 1;
+    -webkit-flex-grow: 1;
+    -webkit-flex-basis: 0;
+    flex-grow: 1;
+    flex-basis: 0;
+
+    &:first-child .main-menu-link {
+      border-left: 1px solid #979797;
+    }
+
+    &.current {
+      .main-menu-link {
+        background-color: $white !important;
+        border-bottom: 1px solid $white;
+      }
+    }
+
+    .main-menu-link {
+      @extend %medium-copy;
+      display: block;
+      border-right: 1px solid #979797;
+      border-bottom: 1px solid #979797;
+      color: #3c3c3b;
+      line-height: 40px;
+      text-align: center;
+      font-weight: bold;
+      outline: none;
+
+      &:hover {
+        background-color: #c5c6c8;
+      }
+
+      &:focus {
+        background-color: $dw-warning !important;
+      }
+    }
+  }
+
+  .header-my-moj {
+    -webkit-box-flex: 0 0 90px !important;
+    -webkit-flex: 0 0 90px !important;
+    -ms-flex: 0 0 90px !important;
+    flex: 0 0 90px !important;
+  }
+}
+
+@include tablet-mq() {
+  .header-menu {
+    .main-menu-item {
+      -ms-flex-preferred-size: auto;
+      -webkit-flex-basis: auto;
+      flex-basis: auto;
+    }
+  }
+}
+
+@include mobile-mq() {
+  .header-menu {
+    .main-menu-list {
+      display: block;
+    }
+
+    .main-menu-item {
+      display: block;
+      width: 100%;
+      border-left: 1px solid #979797;
+
+      &.current .main-menu-link {
+        border-bottom: 1px solid #979797;
+      }
+
+      .main-menu-link:first-child {
+        border-left: none;
+      }
+    }
+  }
+}

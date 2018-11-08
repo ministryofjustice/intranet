@@ -1,0 +1,13 @@
+.home.page #content { /* add id selector to outweigh some irresponsible rules declared elsewhere */
+  .descriptive-menu,
+  .menu {
+    li {
+      padding: 0;
+      border-width: 0;
+    }
+  }
+
+  .descriptive-menu-description {
+    @extend %small-copy;
+  }
+}

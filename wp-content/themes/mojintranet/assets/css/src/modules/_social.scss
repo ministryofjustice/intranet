@@ -1,0 +1,37 @@
+.social {
+  .social-list {
+    margin-top: 0;
+  }
+
+  .social-icon {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+    background-image: url('../images/social_x2.png');
+    background-size: auto 100%;
+    vertical-align: middle;
+  }
+
+  .social-link:after {
+    display: none;
+  }
+
+  .yammer .social-icon {
+    background-position: -60px 0;
+  }
+
+  .linkedin .social-icon {
+    background-position: -120px 0;
+  }
+
+  .social-link {
+    @extend %large-copy;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .social-item {
+    margin-bottom: 15px;
+  }
+}

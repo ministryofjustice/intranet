@@ -1,0 +1,289 @@
+.my-moj {
+  $icon-size: 32px;
+
+  margin-top: 20px;
+
+  .apps-container {
+    .category-name {
+      margin-top: 0;
+      margin-bottom: 20px;
+    }
+  }
+
+  .apps-list {
+    @include clearfix;
+
+    .app-item {
+      float: left;
+      width: 50%;
+      margin-bottom: 15px;
+      text-align: left;
+    }
+
+    .app-link {
+      @extend %small-copy;
+      display: block;
+      line-height: 16px;
+      text-decoration: none;
+
+      &:after {
+        display: none;
+      }
+
+      &:hover {
+        .app-name {
+          text-decoration: underline;
+        }
+
+        .app-icon-inner {
+          background-image: url('../images/app_icons_x2_hover.png');
+          background-color: $govuk-blue;
+        }
+      }
+    }
+
+    .app-name {
+      display: inline-block;
+      width: 70%;
+      padding-left: 10px;
+      vertical-align: middle;
+    }
+
+    .app-icon {
+      display: inline-block;
+      width: $icon-size + 2;
+      height: $icon-size + 2;
+      max-width: $icon-size + 2;
+      max-height: $icon-size + 2;
+      margin: 0 auto;
+      background-color: $white;
+      border: 1px solid $grey-2;
+      vertical-align: middle;
+    }
+
+    .app-icon-inner {
+      display: inline-block;
+      width: $icon-size;
+      height: $icon-size;
+      background-repeat: no-repeat;
+      background-image: url('../images/app_icons_x2.png');
+      background-size: auto $icon-size;
+
+      &.people-finder-icon {
+        background-position: 0 0;
+      }
+
+      &.courtfinder-icon {
+        background-position: -$icon-size 0;
+      }
+
+      &.court-finder-icon {
+        background-position: -$icon-size*1 0;
+      }
+
+      &.travel-booking-icon {
+        background-position: -$icon-size*2 0;
+      }
+
+      &.sop-icon {
+        background-position: -$icon-size*3 0;
+      }
+
+      &.it-portal-icon {
+        background-position: -$icon-size*4 0;
+      }
+
+      &.civil-service-learning-icon {
+        background-position: -$icon-size*5 0;
+      }
+
+      &.jobs-icon {
+        background-position: -$icon-size*6 0;
+      }
+
+      &.moj-story-icon {
+        background-position: -$icon-size*7 0;
+      }
+
+      &.webchat-icon {
+        background-position: -$icon-size*8 0;
+      }
+
+      &.pension-icon {
+        background-position: -$icon-size*9 0;
+      }
+
+      &.form-finder-icon {
+        background-position: -$icon-size*10 0;
+      }
+
+      &.room-booking-icon {
+        background-position: -$icon-size*11 0;
+      }
+
+      &.mi-hub-icon {
+        background-position: -$icon-size*12 0;
+      }
+
+      &.laa-online-portal-icon {
+        background-position: -$icon-size*13 0;
+      }
+
+      &.laa-manual-civil-icon {
+        background-position: -$icon-size*14 0;
+      }
+
+      &.laa-manual-crime-icon {
+        background-position: -$icon-size*15 0;
+      }
+
+      &.govuk-icon {
+        background-position: -$icon-size*16 0;
+      }
+
+      &.maat-icon {
+        background-position: -$icon-size*17 0;
+      }
+
+      &.etarmis-icon {
+        background-position: -$icon-size*18 0;
+      }
+
+      &.bright-ideas-icon {
+        background-position: -$icon-size*19 0;
+      }
+
+      &.mitrefinch-icon {
+        background-position: -$icon-size*20 0;
+      }
+
+      &.house-icon {
+        background-position: -$icon-size*21 0;
+      }
+    }
+  }
+
+  .quick-links-container {
+    .category-name {
+      margin-bottom: 8px;
+      clear: both;
+    }
+
+    .quick-link-item {
+      margin-bottom: 10px;
+    }
+
+    .quick-link-link {
+      @extend %medium-copy;
+      text-decoration: underline;
+    }
+  }
+
+  .my-work-links-container {
+    .category-name {
+      display: none;
+
+      html[data-agency="hmcts"] & {
+        display: block;
+      }
+    }
+
+    .category-name {
+      margin-bottom: 8px;
+      clear: both;
+    }
+
+    .my-work-link-item {
+      margin-bottom: 10px;
+    }
+
+    .my-work-link-link {
+      @extend %medium-copy;
+      text-decoration: underline;
+    }
+  }
+
+  .agency-link-list {
+    &.hidden {
+      display: none;
+    }
+  }
+
+  .agency-link-item {
+    &.transformation {
+      a {
+        padding: 8px 10px 4px;
+        border: 2px solid #59BAAD;
+        background-color: transparent;
+      }
+    }
+
+    a {
+      @extend %medium-copy;
+      display: block;
+      margin-bottom: 18px;
+      padding: 15px 10px;
+      background-color: $grey-3;
+    }
+  }
+}
+
+.header-my-moj {
+  position: relative;
+
+  .apps-container .category-name {
+    display: none;
+  }
+
+  &.visible {
+    .my-moj {
+      display: block;
+    }
+  }
+
+  .arrow {
+    @extend %small-copy;
+  }
+
+  .my-moj {
+    position: absolute;
+    right: 0;
+    display: none;
+    width: 370px;
+    margin-top: 0;
+    padding: 30px 30px 20px;
+    z-index: 1;
+    background-color: $white;
+    border-color: #979797;
+    border-style: solid;
+    border-width: 0 1px 1px;
+
+    .category-name {
+      @extend %large-heading;
+      border-bottom: 2px solid $grey-1;
+    }
+
+    //we need to apply quite a few overrides to counter the main menu style - to be fixed when we get rid of dw-menu plugin
+    .quick-links-container {
+      .categories-list {
+        display: block;
+      }
+
+      .category-item {
+        .category-link {
+          display: inline-block;
+          border: none;
+          color: $govuk-blue;
+          font-weight: normal;
+          line-height: 20px;
+          text-align: left;
+
+          &:hover {
+            background-color: transparent;
+            color: $link-active-colour;
+          }
+        }
+      }
+    }
+  }
+}

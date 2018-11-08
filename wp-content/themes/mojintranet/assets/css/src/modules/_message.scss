@@ -1,0 +1,55 @@
+.message {
+  margin-top: 20px;
+  padding: 15px;
+  border: 1px solid transparent;
+  border-radius: 0;
+  position: relative;
+  display: none;
+
+  &.visible {
+    display: block;
+  }
+
+  h3 {
+    margin: 0;
+    padding-bottom: 0;
+  }
+
+  .meta {
+    margin-left: 20px;
+  }
+
+  .timestamp {
+    @extend %small-copy;
+  }
+
+  .content {
+    @extend %medium-copy;
+    margin-right: 20px;
+  }
+
+  #content & .content p:last-of-type { /* again, using the id selector only to overpower another irresponsible rule defined elsewhere */
+    margin-bottom: 0;
+  }
+
+  &.message-emergency {
+    background-color: $mellow-red;
+
+    * {
+      color: $white;
+    }
+  }
+
+  &.message-service-update {
+    background-color: $yellow;
+  }
+}
+
+@media only screen and (max-width: 992px) {
+  .message {
+    .content {
+      margin-left: 20px;
+      margin-top: 10px;
+    }
+  }
+}

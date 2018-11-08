@@ -1,0 +1,28 @@
+{
+    "name": "Calendar icon",
+    "class": "c-calendar-icon",
+    "version": "1.0.0",
+    "creator": {
+        "name": "Alex Foxleigh",
+        "github_username": "foxleigh81"
+    },
+    "description": "An icon which shows the day of the week, the date, the month and the year",
+    "standard_or_universal": "standard",
+    "parents": "c-events-container",
+    "children": "",
+    "notes": {
+        "backend": "",
+        "frontend": ""
+    },
+    "backend_classes": {},
+    "has_js": false,
+    "integrated": false,
+    "is_working": false,
+    "example_link": "https://intranet.justice.gov.uk/events/",
+    "used_on_templates": [],
+    "changelog": [{
+        "date": "02/02/17",
+        "author": "Alex Foxleigh",
+        "description": "Created component"
+    }]
+}

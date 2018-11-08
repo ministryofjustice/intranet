@@ -1,0 +1,117 @@
+// include the toolkit (a suite of variables, classes and mixins)
+@require "../../globals/css/_toolkit"
+
+$component = orange;
+$object = pink;
+$layout = green;
+$utility = purple;
+$none = skyblue;
+
+.c-clarity-toolbar {
+  position: relative;
+  z-index: 999999;
+  h1 {
+    margin: $spacing;
+    float: left;
+    img {
+      margin: $spacing*.5
+      width: $spacing*3;
+      height: auto;
+      vertical-align: middle;
+    }
+    span {
+      font-weight: bold;
+    }
+  }
+  ul {
+    margin-left: $spacing*2;
+    display: inline-block;
+  }
+  li {
+    display: inline-block;
+    margin: $spacing;
+    padding: $spacing;
+    cursor:pointer;
+  }
+  &__component-link {
+    contrast($component)
+    &:hover {
+      contrast(lighten($component, 10%))
+    }
+  }
+  &__object-link {
+    contrast($object)
+    &:hover {
+      contrast(lighten($object, 10%))
+    }
+  }
+  &__layout-link {
+    contrast($layout)
+    &:hover {
+      contrast(lighten($layout, 10%))
+    }
+  }
+  &__utility-link {
+    contrast($utility)
+    &:hover {
+      contrast(lighten($utility, 10%))
+    }
+  }
+  &__none-link {
+    contrast($none)
+    &:hover {
+      contrast(lighten($none, 10%))
+    }
+  }
+}
+
+// Bodytag overrides
+// As this is a slightly unusual component, it does some extra things, such as modifying the body tag
+// and using that class to update the style on multiple components, objects and layouts. Use of !important is acceptable here as well.
+
+show_item(tag, seg, var) {
+  {tag}[class^=\"{seg}-\"] {
+    position: relative;
+    outline: 3px solid var !important;
+    .item_name {
+      position: absolute;
+      top:0;
+      left:0;
+      padding: $spacing*.5 $spacing;
+      font-size: $bodyCopy;
+      font-weight: normal;
+      contrast(var)
+      display:none;
+    }
+    &:hover {
+      background-color: rgba(var, 15%) !important;
+      .item_name {
+        display: block;
+      }
+    }
+  }
+}
+
+body {
+  &.show_components {
+    show_item(section, c, $component);
+    show_item(header, c, $component);
+    show_item(article, c, $component);
+    show_item(nav, c, $component);
+    show_item(aside, c, $component);
+  }
+
+  &.show_objects {
+    show_item('', o, $object);
+  }
+
+  &.show_layouts {
+    show_item('', l, $layout);
+  }
+
+  &.show_utilities {
+    show_item('', u, $utility);
+  }
+
+
+}

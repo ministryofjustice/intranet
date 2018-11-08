@@ -1,0 +1,42 @@
+@mixin breakpoint($min, $max) {
+  @if $max == null {
+    @media (min-width: $min) {
+      @content;
+    }
+  }
+  @else {
+    @media (min-width: $min) and (max-width: ($max - 1)) {
+      @content;
+    }
+  }
+}
+
+@mixin desktop-mq(){
+  @include breakpoint($size-desktop, null) {
+    @content;
+  }
+}
+
+@mixin tablet-mq(){
+  @include breakpoint($size-tablet, $size-desktop) {
+    @content;
+  }
+}
+
+@mixin mobile-mq(){
+  @include breakpoint(0, $size-tablet) {
+    @content;
+  }
+}
+
+@mixin lte-tablet-mq(){
+  @include breakpoint(0, $size-desktop) {
+    @content;
+  }
+}
+
+@mixin gte-tablet-mq(){
+  @include breakpoint($size-tablet, null) {
+    @content;
+  }
+}

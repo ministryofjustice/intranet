@@ -1,0 +1,35 @@
+.autocomplete-list {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin-top: 0;
+  z-index: 1;
+  background-color: $white;
+  border: 1px solid $black;
+
+  &.hidden {
+    display: none;
+  }
+
+  .item {
+    padding: 5px 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+
+    &:hover,
+    &.highlighted {
+      background-color: $govuk-blue;
+      color: $white;
+    }
+  }
+}
+
+@include mobile-mq() {
+  .autocomplete-list {
+    top: 47px;
+    right: -2px;
+    left: -1px;
+  }
+}

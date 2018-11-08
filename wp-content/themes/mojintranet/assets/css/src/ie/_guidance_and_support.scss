@@ -1,0 +1,24 @@
+.lte-ie9.template-guidance-and-support-index .template-container {
+  .guidance-categories-list {
+    .category-item {
+      display: inline-block;
+      float: none;
+      width: 33%;
+      vertical-align: top;
+    }
+  }
+}
+
+.lte-ie7.template-guidance-and-support-index .template-container {
+  .guidance-categories-list {
+    .category-item {
+      display: inline;
+      width: 30%;
+      zoom: 1;
+    }
+
+    .children-list {
+      margin-left: 10px;
+    }
+  }
+}

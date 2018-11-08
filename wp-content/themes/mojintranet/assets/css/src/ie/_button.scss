@@ -1,0 +1,9 @@
+.lte-ie8 {
+  input,
+  button {
+    &.cta {
+      border-bottom: 2px solid #003518;
+      overflow: visible;
+    }
+  }
+}

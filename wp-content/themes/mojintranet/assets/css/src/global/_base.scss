@@ -1,0 +1,153 @@
+%doc-icon {
+  @extend %small-copy;
+  display: inline-block !important;
+  background: none !important;
+  width: auto !important;
+  height: auto !important;
+  margin-left: 4px !important;
+  color: $grey-1;
+}
+
+body {
+  background-color: $white;
+}
+
+template {
+  display: none;
+}
+
+h1 {
+  @extend %largest-heading;
+  margin-top: 50px;
+}
+
+h2 {
+  @extend %larger-heading;
+}
+
+h3 {
+  @extend %large-heading;
+  margin: 24px 0;
+}
+
+h4 {
+  @extend %medium-heading;
+}
+
+h5 {
+  @extend %small-heading;
+}
+
+h6 {
+  @extend %smaller-heading;
+}
+
+ul {
+  padding-left: 0;
+  margin-bottom: 0;
+  margin-left: 0;
+}
+
+li {
+  list-style-type: none;
+}
+
+a {
+  color: $link-colour;
+
+  &:active {
+    color: $link-active-colour;
+  }
+
+  &:visited {
+    color: $link-colour;
+  }
+
+  &:hover {
+    color: $link-hover-colour;
+  }
+
+  & {
+    text-decoration: none;
+  }
+
+  &:hover,
+  &:active {
+    text-decoration: underline;
+  }
+
+  &[rel="external"] {
+    &:after {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      background-image: url('../images/external_link_x2.png');
+      background-position: -12px 0;
+      background-size: 200%;
+      background-repeat: no-repeat;
+      margin-left: 6px;
+      content: "";
+    }
+
+    &[href*="://moj-wp-prod.s3.amazonaws.com/"] {
+      &:after {
+        display: none;
+      }
+    }
+  }
+
+  &[href$=".pdf"]:after {
+    @extend %doc-icon;
+    content: " (pdf)";
+  }
+
+  &[href$=".doc"]:after {
+    @extend %doc-icon;
+    content: " (doc)";
+  }
+
+  &[href$=".xls"],
+  &[href$=".xlsx"] {
+    &:after {
+      @extend %doc-icon;
+      content: " (xls)";
+    }
+  }
+
+  &[href$=".pps"]:after {
+    @extend %doc-icon;
+    content: " (pps)";
+  }
+
+  &[href$=".ppt"]:after {
+    @extend %doc-icon;
+    content: " (ppt)";
+  }
+
+  &[href^="mailto:"]:after {
+    display: inline-block;
+    width: 14px;
+    height: 10px;
+    background-image: url('../images/email_blue_x2.png');
+    background-size: 100%;
+    background-repeat: no-repeat;
+    margin-left: 6px;
+    content: "";
+  }
+}
+
+p {
+  margin: 0;
+
+  + p {
+    margin-top: 25px;
+  }
+}
+
+pre {
+    padding: 16px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    background-color: #f7f7f7;
+    border-radius: 3px;
+}

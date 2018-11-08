@@ -1,0 +1,18 @@
+.share-via-email-icon {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  margin-right: 2px;
+  vertical-align: top;
+  background-image: url('../images/blog_icons_x2.png');
+  background-size: auto 100%;
+  background-position: -96px;
+}
+
+.share-via-email {
+  @extend %medium-copy;
+
+  &[href]:after {
+    display: none;
+  }
+}

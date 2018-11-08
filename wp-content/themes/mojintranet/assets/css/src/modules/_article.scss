@@ -1,0 +1,16 @@
+article {
+  .date,
+  .meta-separator,
+  .author {
+    color: $grey-1;
+
+    &.hidden {
+      display: none;
+    }
+  }
+
+  .title {
+    @extend %medium-heading;
+    margin: 0;
+  }
+}

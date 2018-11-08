@@ -1,0 +1,28 @@
+{
+    "name": "Events",
+    "class": "c-events",
+    "version": "1.0.0",
+    "creator": {
+        "name": "Alex Foxleigh",
+        "github_username": "foxleigh81"
+    },
+    "description": "The container component for the events page",
+    "standard_or_universal": "standard",
+    "parents": "",
+    "children": "",
+    "notes": {
+        "backend": "",
+        "frontend": "This is one of several 'page' components. And is a container for an entire page. These were made at Irunes request"
+    },
+    "backend_classes": {},
+    "has_js": false,
+    "integrated": false,
+    "is_working": false,
+    "example_link": "https://intranet.justice.gov.uk/events",
+    "used_on_templates": [],
+    "changelog": [{
+        "date": "19/5/2017",
+        "author": "Alex Foxleigh",
+        "description": "Created component"
+    }]
+}
