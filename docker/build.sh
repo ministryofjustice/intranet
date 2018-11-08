@@ -57,26 +57,13 @@ mkdir -p web/app/uploads
 # Install PHP dependencies (WordPress, plugins, etc.)
 composer install --verbose
 
-# Because composer cannot install this in the correct location and does not
-# seem to be able to easily move it, itself. This is most likely because the
-# theme is only a part of the overall project.
+# Make two theme folders ready for the next step moving the themes
 mkdir -p web/app/themes/mojintranet
 mkdir -p web/app/themes/intranet-theme-clarity
+
+# Move downloaded theme folders from Composer to their correct location in the Roots structure
 mv vendor/ministryofjustice/intranet/wp-content/themes/mojintranet web/app/themes
 mv vendor/ministryofjustice/intranet/wp-content/themes/clarity/* web/app/themes/intranet-theme-clarity
-
-
-# Build theme assets
-# cd /bedrock/web/app/themes/intranet-theme-clarity
-# npm install --global gulp-cli
-# npm install --no-optional
-# gulp build
-# cd /bedrock
-
-# Keep the container size down
-# rm *.json
-# rm *.lock
-# rm -rf node_modules
 
 # IFF we are running in development mode, set as a standard envrionment
 # variable in docker-compose-dev.yml, then this script serves as the CMD
