@@ -230,13 +230,13 @@ class Agency
             ],
             'hmcts' => [
                 [
-                    'url' => 'https://twitter.com/HMCTSCareers',
-                    'label' => 'HMCTS Careers Twitter',
+                    'url' => 'https://twitter.com/CEOofHMCTS',
+                    'label' => 'HMCTS CEO on Twitter',
                     'name' => 'twitter',
                 ],
                 [
-                    'url' => 'https://twitter.com/GLlTEMgovuk',
-                    'label' => 'Welsh Language Twitter',
+                    'url' => 'https://twitter.com/hmctsgovuk',
+                    'label' => 'HMCTS on Twitter',
                     'name' => 'twitter',
                 ],
                 [
@@ -253,7 +253,17 @@ class Agency
                     'url' => 'https://www.youtube.com/channel/UC5Altka7XMeXog5ZFzBT9dA',
                     'label' => 'HMCTS on YouTube',
                     'name' => 'youtube',
-                ]
+                ],
+                [
+                    'url' => 'https://twitter.com/HMCTSCareers',
+                    'label' => 'HMCTS Careers Twitter',
+                    'name' => 'twitter',
+                ],
+                [
+                    'url' => 'https://twitter.com/GLlTEMgovuk',
+                    'label' => 'Welsh Language Twitter',
+                    'name' => 'twitter',
+                ],
             ],
             'laa' => [
                 [
