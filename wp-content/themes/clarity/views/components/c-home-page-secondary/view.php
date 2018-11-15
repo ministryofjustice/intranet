@@ -39,10 +39,10 @@ $agency = $activeAgency['shortcode'];
     get_template_part( 'src/components/c-blog-feed/view', 'home' );
   }
 
-  // Social links
+  // Social links --
   if ( $agency !== 'cica' ) {
     get_template_part( 'src/components/c-social-links/view' );
-  }
+  } 
 ?>
 
 </section>
