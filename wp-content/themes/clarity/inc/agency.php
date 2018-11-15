@@ -230,13 +230,13 @@ class Agency
             ],
             'hmcts' => [
                 [
-                    'url' => 'https://twitter.com/CEOofHMCTS',
-                    'label' => 'HMCTS CEO on Twitter',
+                    'url' => 'https://twitter.com/HMCTSCareers',
+                    'label' => 'HMCTS Careers Twitter',
                     'name' => 'twitter',
                 ],
                 [
-                    'url' => 'https://twitter.com/hmctsgovuk',
-                    'label' => 'HMCTS on Twitter',
+                    'url' => 'https://twitter.com/GLlTEMgovuk',
+                    'label' => 'Welsh Language Twitter',
                     'name' => 'twitter',
                 ],
                 [
