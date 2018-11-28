@@ -42,7 +42,10 @@ $agency = $activeAgency['shortcode'];
   // Social links --
   if ( $agency !== 'cica' ) {
     get_template_part( 'src/components/c-social-links/view' );
-  } 
+  }
+
+  // Most Popular
+  get_template_part( 'src/components/c-most-popular/view');
 ?>
 
 </section>
