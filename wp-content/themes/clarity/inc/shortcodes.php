@@ -20,3 +20,9 @@ function dw_fix_shortcode_gaps($content)
     return $rep;
 }
 add_filter("the_content", "dw_fix_shortcode_gaps");
+
+function hr_most_popular_shortcode()
+{
+  get_template_part( 'src/components/c-most-popular/view' );
+}
+add_shortcode( 'hr_mostpopular', 'hr_most_popular_shortcode' );
