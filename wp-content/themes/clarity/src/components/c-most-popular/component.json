@@ -1,0 +1,28 @@
+{
+    "name": "Most Popular",
+    "class": "c-most-popular",
+    "version": "1.0.0",
+    "creator": {
+        "name": "Vinh Nguyen",
+        "github_username": "https://github.com/vinhnguyen0429"
+    },
+    "description": "Displays the 5 most popular links",
+    "standard_or_universal": "standard",
+    "parents": "",
+    "children": "",
+    "notes": {
+        "backend": "",
+        "frontend": ""
+    },
+    "backend_classes": {},
+    "has_js": false ,
+    "integrated": false,
+    "is_working": false,
+    "example_link": "",
+    "used_on_templates" : [],
+    "changelog": [{
+        "date": "27/11/2018",
+        "author": "Vinh Nguyen",
+        "description": "Created component"
+    }]
+}
