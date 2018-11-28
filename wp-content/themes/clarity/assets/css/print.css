@@ -9,19 +9,16 @@ body {
 
 
 
+
 .c-feedback-container {
   display: none;
 }
 
 
-<<<<<<< Updated upstream
-
 .c-left-hand-menu {
   display: none;
 }
 
-=======
->>>>>>> Stashed changes
 .c-logo-bar__switch {
   display: none;
 }
@@ -29,16 +26,10 @@ body {
   display: none;
 }
 
-<<<<<<< Updated upstream
-=======
-.c-left-hand-menu {
-  display: none;
-}
->>>>>>> Stashed changes
-
 .c-main-nav-bar {
   display: none;
 }
+
 
 
 .c-pagination {
