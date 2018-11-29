@@ -23,6 +23,10 @@ add_filter("the_content", "dw_fix_shortcode_gaps");
 
 function hr_most_popular_shortcode()
 {
+
+  ob_start();
   get_template_part( 'src/components/c-most-popular/view' );
+  return ob_get_clean();
+
 }
-add_shortcode( 'hr_mostpopular', 'hr_most_popular_shortcode' );
+add_shortcode( 'mostpopular', 'hr_most_popular_shortcode' );
