@@ -27,7 +27,7 @@ $args = array(
   'post_type' => 'news',
   'order'     => 'DESC',
   'orderby'   => 'date',
-  'posts_per_page'=> 10,
+  'posts_per_page'=> 3,
   // only show posts from active agency
   'tax_query' => array(
 		array(
@@ -44,12 +44,12 @@ $args = array(
 $the_query = new WP_Query( $args );
 
 if ( $the_query->have_posts() ) {
-	echo '<div class="c-news-list">';
+	echo '<section class="c-news-list">';
 	while ( $the_query->have_posts() ) {
 		$the_query->the_post();
-    get_template_part('src/components/c-article-item/view', 'date');
+    get_template_part('src/components/c-article-item/view', 'excerpt');
 	}
-	echo '</div>';
+	echo '</section>';
 	/* Restore original Post Data */
 	wp_reset_postdata();
 } else {

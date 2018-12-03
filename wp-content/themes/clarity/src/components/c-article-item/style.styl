@@ -2,7 +2,7 @@
 @require "../../globals/css/_toolkit";
 
 .t-home {
-  .c-news-list, .c-blog-feed{
+  .c-blog-feed{
     .c-article-item{
       .thumb_image{
         float: left;
@@ -26,7 +26,14 @@
   }
 }
 
+.c-news-list {
+  .c-article-item{
+    border-bottom: none;
+  }
+}
+
 .c-article-item {
+  clearfix();
   padding-bottom: $spacing*2;
   border-bottom: 1px solid $border;
   margin-bottom: $spacing;
@@ -89,14 +96,11 @@
     padding-bottom: $spacing;
     clearfix();
     +above('s') {
-      column(1/2, $cycle: 2);
-    }
-    img {
-      column(1/3);
+      column(1/3, $cycle: 3);
     }
 
     &__excerpt {
-      display: none;
+      display: block;
     }
   }
 
