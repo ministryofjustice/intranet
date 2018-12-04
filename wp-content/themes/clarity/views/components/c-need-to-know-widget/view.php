@@ -19,7 +19,7 @@ if(!empty( $slideArray[0]['headline']) || !empty( $slideArray[1]['headline']) ||
     foreach ($slideArray as $slides => $values) {
       ?>
       <div class="c-need-to-know-widget__slide js-slide">
-        <a href="<?php echo $values['url'];?>">
+        <a href="<?php echo $values['url'];?>" class="news-slider">
           <img src="<?php echo $values['image'];?>" alt="<?php echo $slides['alt_text'];?>">
           <div>
               <p>

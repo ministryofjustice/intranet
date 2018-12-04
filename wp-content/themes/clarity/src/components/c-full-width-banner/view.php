@@ -11,7 +11,7 @@ $homepage_banner_alt_text = get_field($agency.'_homepage_banner_alt_text', 'opti
 <?php if ($check_box_to_turn_banner_on == true): ?>
   <!-- c-full-width-banner starts here -->
   <section class="c-full-width-banner">
-    <a href="<?php echo $homepage_banner_link;?>">
+    <a href="<?php echo $homepage_banner_link;?>" class="full-width-banner">
         <img src="<?php echo $homepage_banner_image;?>" alt="<?php echo $homepage_banner_alt_text;?>">
     </a>
   </section>
