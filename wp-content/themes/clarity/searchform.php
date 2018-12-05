@@ -12,8 +12,9 @@ use MOJ\Intranet\Agency;
  $oAgency = new Agency();
  $activeAgency = $oAgency->getCurrentAgency();
  ?>
- <section class="c-search-bar">
-  <div class="split">
+<section class="c-search-bar">
+  <div class="u-wrapper">
+    <div class="l-half-section">
       <form role="search" method="GET" action="/" id="searchform" class="u-wrapper newclass">
        <div class="c-search-bar__container">
          <label for="s" class="u-visually-hidden">Search Intranet</label>
@@ -21,10 +22,10 @@ use MOJ\Intranet\Agency;
          <button type="submit" class="u-icon u-icon--search" aria-label="Go"><span>Go</span></button>
        </div>
       </form>
+    </div>
+    <div class="l-half-section">
+      <?php get_template_part( 'src/components/c-external-services/view' ) ?>
+    </div>
   </div>
-  <div class="split">
-    <h1>hello marker</h1>
-  </div>
-
 
 </section>
