@@ -1390,8 +1390,8 @@ html {
 .u-icon--user-circle-o {
   *zoom: expression(this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf2be;');
 }
-.c-aboutus-container .c-headed-link-list {
-  width: 30%;
+.c-home-page-primary.l-primary {
+  width: 62% !important;
 }
 
 * {
@@ -1552,8 +1552,8 @@ html {
 .u-icon--user-circle-o {
   *zoom: expression(this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf2be;');
 }
-.c-home-page-primary.l-primary {
-  width: 62% !important;
+.c-aboutus-container .c-headed-link-list {
+  width: 30%;
 }
 
 * {
