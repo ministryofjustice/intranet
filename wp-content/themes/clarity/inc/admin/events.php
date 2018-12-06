@@ -2,11 +2,10 @@
 
 /**
  * Classes and their methods responsible for managing events in WP admin
- *
  */
 // Exit if accessed directly
-if (! defined('ABSPATH')) {
-    die();
+if ( ! defined( 'ABSPATH' ) ) {
+	die();
 }
 
 /**
