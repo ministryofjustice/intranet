@@ -27,6 +27,9 @@ $agency = $activeAgency['shortcode'];
    if ($agency !== 'laa' && $agency !== 'hmcts') {
        get_template_part('src/components/c-events-widget/view');
    }
-   ?>
+  ?>
+
+ <?php get_template_part('src/components/c-popular-content/view'); ?>
+
 </section>
 <!-- c-home-page-primary ends here -->

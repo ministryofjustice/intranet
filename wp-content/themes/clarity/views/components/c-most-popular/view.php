@@ -8,7 +8,7 @@ $agency = get_intranet_code();
 <section class="c-most-popular">
   <?php
     if (get_field($agency.'_most_popular_text_1', 'option')){
-      echo '<h1 class="o-title o-title--section">Popular in HR</h1>';
+      echo '<h1 class="o-title o-title--subtitle">Popular in HR</h1>';
     }
   ?>
   <ul>

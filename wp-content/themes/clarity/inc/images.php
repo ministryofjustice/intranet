@@ -24,3 +24,6 @@ add_image_size( 'need-to-know', 768, 384, true );
 
 // Right hand list images on single.php pages such as news (3:2 aspect ratio).
 add_image_size( 'list-thumbnail', 100, 67, true );
+
+// Large square feature image
+add_image_size( 'square-feature', 320, 320, true );
