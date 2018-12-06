@@ -26,22 +26,18 @@ body {
   display: none;
 }
 
-
 .c-main-nav-bar {
   display: none;
 }
 
 
-.c-pagination {
-  display: none;
-}
+
 
 
 
 .c-search-bar {
   display: none;
 }
-
 
 .c-share-post {
   display: none;
@@ -50,3 +46,7 @@ body {
 
 
 
+
+.c-pagination {
+  display: none;
+}
