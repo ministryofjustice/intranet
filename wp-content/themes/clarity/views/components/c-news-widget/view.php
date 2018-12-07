@@ -12,8 +12,6 @@ $newspage_link = 129;
 
   <?php get_template_part('src/components/c-featured-news-list/view'); ?>
 
-  <?php get_template_part( 'src/components/c-homepage-video/view' ); ?>
-
   <h1 class="o-title o-title--section">News</h1>
 
   <?php get_template_part('src/components/c-news-list/view','home'); ?>
