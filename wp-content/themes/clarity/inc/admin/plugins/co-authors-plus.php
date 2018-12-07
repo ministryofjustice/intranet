@@ -15,7 +15,8 @@ if ( function_exists( 'get_coauthors' ) ) {
 
 	function custom_register_coauthors() {
 		register_rest_field(
-			'post', 'coauthors',
+			'post',
+			'coauthors',
 			array(
 				'get_callback'    => 'custom_get_coauthors',
 				'update_callback' => null,

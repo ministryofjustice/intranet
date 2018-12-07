@@ -4,19 +4,24 @@
 .c-logo-bar {
   position: relative;
   background-color: $dark;
-  padding: $spacing*3 $spacing $spacing;
+  padding: $spacing $spacing $spacing;
+  height: 47px;
 
   a {
     text-decoration: none;
   }
 
   img {
-    height: $spacing*3.6;
+    height: $spacing*2.6;
+    position: relative;
+    display: block;
+    float: left;
   }
   .agency-title {
     color: white;
-    font-size: 24px;
+    font-size: 26px;
     font-weight: 400;
+    line-height: 29px;
   }
 
   &__switch {
@@ -26,7 +31,7 @@
 
     +above(m) {
       position: absolute;
-      top: 40%;
+      top: 10%;
       right: $spacing;
     }
   }

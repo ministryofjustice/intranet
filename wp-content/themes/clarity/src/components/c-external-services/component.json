@@ -1,12 +1,12 @@
 {
-    "name": "Homepage Video",
-    "class": "c-homepage-video",
+    "name": "External Services",
+    "class": "c-external-services",
     "version": "1.0.0",
     "creator": {
         "name": "Vinh Nguyen",
         "github_username": "https://github.com/vinhnguyen0429"
     },
-    "description": "Displays Youtube Embed on Homepage works with ACF",
+    "description": "Links to external services",
     "standard_or_universal": "standard",
     "parents": "",
     "children": "",
@@ -21,7 +21,7 @@
     "example_link": "",
     "used_on_templates" : [],
     "changelog": [{
-        "date": "31/8/2018",
+        "date": "5/12/2018",
         "author": "Vinh Nguyen",
         "description": "Created component"
     }]

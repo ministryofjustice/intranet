@@ -18,7 +18,7 @@ if (is_array($event)) {
 
     // Limit events listed on page to two for homepage display
     if (is_front_page()) {
-        $event = array_splice($event, 0, 2);
+        $event = array_splice($event, 0, 3);
     }
 
     // Limit events listed on page team homepage template

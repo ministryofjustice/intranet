@@ -1,7 +1,6 @@
 <?php
 
 // Adding custom capabilities
-
 function add_theme_caps() {
 	// gets the author role
 	$role = get_role( 'administrator' );

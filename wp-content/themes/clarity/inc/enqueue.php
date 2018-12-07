@@ -10,7 +10,7 @@ add_action( 'wp_enqueue_scripts', 'enqueue_clarity_scripts', 99 );
 
 function enqueue_clarity_scripts() {
 	// CSS
-	wp_register_style( 'core-css', get_stylesheet_directory_uri() . '/assets/css/core.min.css', array(), '1.1.5', 'all' );
+	wp_register_style( 'core-css', get_stylesheet_directory_uri() . '/assets/css/core.min.css', array(), '1.1.7.04444', 'all' );
 	wp_enqueue_style( 'core-css' );
 
 	wp_register_style( 'ie-css', get_stylesheet_directory_uri() . '/assets/css/ie.min.css', array(), null, 'screen' );
