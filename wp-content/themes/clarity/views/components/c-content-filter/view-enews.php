@@ -29,7 +29,7 @@ $oAgency        = new Agency();
 	<?php
 	  $nonce = wp_create_nonce( 'search_filter_nonce' );
 
-	  form_builder( 'text', $prefix, 'Keywords', 'keywords_filter', null, null, 'Keywords', null, false, null, null );
+	  form_builder( 'text', $prefix, 'Contains', 'keywords_filter', null, null, 'Keywords', null, false, null, null );
 
 	  // Hidden field to pass nonce for improved security
 	  form_builder( 'hidden', '', false, '_nonce', '_search_filter_wpnonce', $nonce, null, null, false, null, null );

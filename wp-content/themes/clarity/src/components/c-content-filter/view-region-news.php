@@ -11,12 +11,6 @@ $oAgency         = new Agency();
 	  'show_post_count' => false,
   ];
 
-  // $terms = get_terms( 'region' );
-  // if ( ! empty( $terms ) && ! is_wp_error( $terms ) ){
-  //
-  // foreach ( $terms as $term ) {
-  // echo '<label>'. $term->name .'<input type="radio" name="ff_categories_filter_news-category" id="ff_categories_filter_'. $term->name .'" value="'. $term->term_id .'"></label>';
-  // get current taxonomy name & id
   $term_list = wp_get_post_terms( $post->ID, 'region' );
 
   $term_id   = $term_list[0]->term_id;
@@ -40,7 +34,7 @@ $oAgency         = new Agency();
 	<?php
 	$nonce = wp_create_nonce( 'search_filter_nonce' );
 
-	form_builder( 'text', $prefix, 'Keywords', 'keywords_filter', null, null, 'Keywords', null, false, null, null );
+	form_builder( 'text', $prefix, 'Contains', 'keywords_filter', null, null, 'Keywords', null, false, null, null );
 	// Hidden field to pass nonce for improved security
 	form_builder( 'hidden', '', false, '_nonce', '_search_filter_wpnonce', $nonce, null, null, false, null, null );
 
