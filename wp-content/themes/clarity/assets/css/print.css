@@ -9,20 +9,20 @@ body {
 
 
 
+
 .c-feedback-container {
   display: none;
 }
 
 
+.c-left-hand-menu {
+  display: none;
+}
 
 .c-logo-bar__switch {
   display: none;
 }
 .c-logo-bar img {
-  display: none;
-}
-
-.c-left-hand-menu {
   display: none;
 }
 
