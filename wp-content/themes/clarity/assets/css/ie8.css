@@ -891,11 +891,10 @@ html {
 .u-icon--user-circle-o {
   *zoom: expression(this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf2be;');
 }
-.c-events-item-byline {
-  float: left;
-  width: 60% !important;
-}
+.c-event-list {
 /* PARENT OVVERIDES */
+  width: 60%;
+}
 
 * {
   zoom: 1;
@@ -1055,10 +1054,11 @@ html {
 .u-icon--user-circle-o {
   *zoom: expression(this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf2be;');
 }
-.c-event-list {
-/* PARENT OVVERIDES */
-  width: 60%;
+.c-events-item-byline {
+  float: left;
+  width: 60% !important;
 }
+/* PARENT OVVERIDES */
 
 * {
   zoom: 1;
@@ -1390,8 +1390,8 @@ html {
 .u-icon--user-circle-o {
   *zoom: expression(this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf2be;');
 }
-.c-aboutus-container .c-headed-link-list {
-  width: 30%;
+.c-home-page-secondary {
+  float: right !important;
 }
 
 * {
@@ -1714,8 +1714,8 @@ html {
 .u-icon--user-circle-o {
   *zoom: expression(this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf2be;');
 }
-.c-home-page-secondary {
-  float: right !important;
+.c-aboutus-container .c-headed-link-list {
+  width: 30%;
 }
 
 
