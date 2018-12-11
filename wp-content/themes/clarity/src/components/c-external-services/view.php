@@ -7,15 +7,24 @@ $agency = get_intranet_code();
 <section class="c-external-services">
   <ul>
     <?php
+
     for ($i = 0; $i <= 10; $i++) {
-      $external_services[] = array(
-        'title'  => get_field($agency.'_external_services_title_'.$i, 'option'),
-        'url'    => get_field($agency.'_external_services_link_'.$i, 'option'),
-      );
-      if(!empty($external_services[$i]['title'])){
-        echo '<li><a href="'.$external_services[$i]['url'].'">'.$external_services[$i]['title'].'</a></li>';
-      }
+
+      if( have_rows($agency.'_external_services', 'option') ):
+
+        while( have_rows($agency.'_external_services', 'option') ) : the_row();
+
+          $title = get_sub_field('external_services_title_'.$i, 'option');
+    			$url = get_sub_field('external_services_url_'.$i, 'option');
+
+          echo '<li><a href="'.$url.'">'.$title.'</a></li>';
+
+        endwhile;
+
+      endif;
+
     }
+
     ?>
   </ul>
 </section>

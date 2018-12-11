@@ -20,4 +20,6 @@ get_header();
 	  get_template_part( 'src/components/c-home-page-primary/view' );
 	?>
 	</div>
-<?php get_footer(); ?>
+<?php 
+get_footer();
+

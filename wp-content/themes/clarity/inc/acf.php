@@ -22,7 +22,7 @@ function my_acf_json_load_point( $paths ) {
 
 /***
 *
-* New option page for header banner - ACF options
+* Create homepage section in lefthand menu - ACF options
 * https://www.advancedcustomfields.com/resources/acf_add_options_page/
 */
 add_action( 'init', 'homesettings_option_pages' );
@@ -36,21 +36,15 @@ function homesettings_option_pages() {
 				'icon_url'   => 'dashicons-admin-home',
 				'menu_title' => 'Homepage',
 				'menu_slug'  => 'homepage-settings',
-				'position'   => '2.1',
+				'position' 	=> '2',
 				'redirect'   => false,
 			)
 		);
 	}
 }
 
+add_filter( 'acf/load_field', 'home_option_fields' );
 
-/**
- * Legacy Code adapted to work for homepage settings, used on quick links.
- * Prefixes an Option Field name with the current Agency Context
- * Filter: acf/load_field
- *
- * @param array $field - the acf field that is being loaded
- */
 function home_option_fields( $field ) {
 	$screen = get_current_screen();
 
@@ -61,8 +55,41 @@ function home_option_fields( $field ) {
 	return $field;
 }
 
-add_filter( 'acf/load_field', 'home_option_fields' );
 
+/***
+*
+* Create header section in lefthand menu - ACF options
+* https://www.advancedcustomfields.com/resources/acf_add_options_page/
+*/
+add_action( 'init', 'headersettings_option_pages' );
+
+function headersettings_option_pages() {
+	if ( function_exists( 'acf_add_options_page' ) ) {
+		acf_add_options_page(
+			array(
+				'page_title' => 'Header settings',
+				'capability' => 'homepage_all_access',
+				'icon_url'   => 'dashicons-editor-table',
+				'menu_title' => 'Header',
+				'menu_slug'  => 'header-settings',
+				'position' 	=> '1',
+				'redirect'   => false,
+			)
+		);
+	}
+}
+
+add_filter( 'acf/load_field', 'header_option_fields' );
+
+function header_option_fields( $field ) {
+	$screen = get_current_screen();
+
+	if ( isset( $screen ) && ( $screen->id == 'toplevel_page_header-settings' ) ) {
+		$context       = Agency_Context::get_agency_context();
+		$field['name'] = $context . '_' . $field['name'];
+	}
+	return $field;
+}
 
 // ‘Admin Only’ - ‘Yes/No’ setting to all fields allowing them to be hidden from non admin users - https://www.advancedcustomfields.com/resources/adding-custom-settings-fields/
 function my_admin_only_render_field_settings( $field ) {

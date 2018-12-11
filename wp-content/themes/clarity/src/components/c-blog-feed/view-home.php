@@ -1,6 +1,4 @@
 <?php
-$blogpage_link = 14013;
-
 use MOJ\Intranet\Agency;
 $oAgency = new Agency();
 $activeAgency = $oAgency->getCurrentAgency();
@@ -29,7 +27,7 @@ $args = array(
   'post_type' => 'post',
   'order'     => 'DESC',
   'orderby'   => 'date',
-  'posts_per_page'=> 5,
+  'posts_per_page'=> 3,
   // only show posts from active agency
   'tax_query' => array(
 		array(
@@ -43,26 +41,25 @@ $args = array(
 
 );
 // Standard Query Loop  - https://codex.wordpress.org/Class_Reference/WP_Query
-$the_query = new WP_Query( $args );
+$the_query = new WP_Query( $args ); ?>
+
+  <h1 class="o-title o-title--section">Blog</h1>
+
+<?php
 
 if ( $the_query->have_posts() ) {
-  ?>
-  <section class="c-blog-feed">
-    <h1 class="o-title o-title--section">Blog</h1>
-    <div>
-    <?php
-    	while ( $the_query->have_posts() ) {
-    		$the_query->the_post();
-        get_template_part('src/components/c-article-item/view', 'blog');
-    	}
-    ?>
-    </div>
-    <a href="<?php the_permalink( $blogpage_link ) ?>" class="o-see-all-link">See all blogs</a>
-    <br/>
-  </section>
-  <?php
+	echo '<section class="c-news-list">';
+	while ( $the_query->have_posts() ) {
+		$the_query->the_post();
+    get_template_part('src/components/c-article-item/view', 'excerpt');
+	}
+	echo '</section>';
 	/* Restore original Post Data */
 	wp_reset_postdata();
 } else {
 	// no posts found
 }
+?>
+
+<a href="blog" class="o-see-all-link">See all blogs</a>
+<br>

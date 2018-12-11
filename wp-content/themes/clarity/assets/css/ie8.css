@@ -891,15 +891,9 @@ html {
 .u-icon--user-circle-o {
   *zoom: expression(this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf2be;');
 }
-<<<<<<< HEAD
 .c-events-item-byline {
   float: left;
   width: 60% !important;
-=======
-.c-event-list {
-/* PARENT OVVERIDES */
-  width: 60%;
->>>>>>> homepage_redesign
 }
 /* PARENT OVVERIDES */
 
@@ -1061,11 +1055,10 @@ html {
 .u-icon--user-circle-o {
   *zoom: expression(this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf2be;');
 }
-.c-events-item-byline {
-  float: left;
-  width: 60% !important;
-}
+.c-event-list {
 /* PARENT OVVERIDES */
+  width: 60%;
+}
 
 * {
   zoom: 1;
