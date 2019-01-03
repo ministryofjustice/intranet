@@ -21,9 +21,6 @@
 	<div class="c-article-excerpt">
 	  <p><?php echo get_the_excerpt( $id ); ?></p>
 	</div>
-	<div class="meta">
-	  <span class="c-article-item__dateline"><?php echo get_the_time( 'j M Y', $id ); ?></span>
-	</div>
   </div>
 
 </article>

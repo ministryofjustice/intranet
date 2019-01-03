@@ -11,9 +11,10 @@ $homepage_sidebar_banner_alt_text = get_field( $agency . '_homepage_sidebar_bann
 
 <?php if ( $enable_banner_right_side == true ) : ?>
 
-<h1 class="o-title o-title--section"><?php echo $banner_header; ?></h1>
 <!-- c-sidebar-banner starts here -->
 <section class="c-sidebar-banner">
+  <h1 class="o-title o-title--subtitle"><?php echo $banner_header; ?></h1>
+  
   <a href="<?php echo $homepage_sidebar_banner_link; ?>" class="sidebar-banner">
 	  <img src="<?php echo $homepage_sidebar_banner_image; ?>" alt="<?php echo $homepage_sidebar_banner_alt_text; ?>">
   </a>

@@ -10,14 +10,23 @@ $agency = $activeAgency['shortcode'];
 <!-- c-popular-content starts here -->
 <section class="c-popular-content">
 
-  <div class="l-secondary"><h1 class="o-title o-title--page">More on the intranet</h1></div>
-  <div class="l-secondary"><?php get_template_part( 'src/components/c-most-popular/view' ); ?></div>
+  <div class="l-secondary"><h1 class="o-title o-title--section">More on the intranet</h1></div>
+  <div class="l-secondary">
+
+  <?php
+
+  get_template_part( 'src/components/c-most-popular/view' );
+  get_template_part( 'src/components/c-sidebar-banner/view' );
+
+  ?>
+</div>
 
   <div class="l-secondary">
   <?php
   // removes event listing from agency homepage.
    if ($agency !== 'laa' && $agency !== 'hmcts') {
-       get_template_part('src/components/c-events-item/view', 'home');
+       get_template_part('src/components/c-event-listing/view');
+       echo '<a href="/events/" class="o-see-all-link">See all upcoming events</a>';
    }
   ?>
   </div>

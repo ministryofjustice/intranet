@@ -38,8 +38,10 @@ $event = array_splice($event, 0, 1);
 
       echo '<section class="c-most-popular">';
       echo '<h1 class="o-title o-title--subtitle">Next event: </h1>';
+
       include(locate_template('src/components/c-calendar-icon/view.php'));
       include(locate_template('src/components/c-events-item-byline/view.php'));
+
       echo '</section>';
   }
 ?>

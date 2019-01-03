@@ -44,7 +44,7 @@ $args = array(
 // Standard Query Loop  - https://codex.wordpress.org/Class_Reference/WP_Query
 $the_query = new WP_Query( $args ); ?>
 
-  <h1 class="o-title o-title--section">News</h1>
+  <h1 class="o-title o-title--section">Latest news</h1>
 
 <?php
 

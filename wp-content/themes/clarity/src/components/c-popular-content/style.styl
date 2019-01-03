@@ -2,10 +2,25 @@
 @require "../../globals/css/_toolkit"
 
 .c-popular-content {
-  border-top: 3px solid $border;
+  border-top: 2px solid $border;
   margin: $spacing 0;
 
   .l-secondary {
     margin-top:$spacing*2;
+  }
+
+  .o-title {
+    margin-bottom: 0;
+
+    &--section {
+        border-top: 0;
+        font-size: $crust;
+        line-height: inherit;
+    }
+
+    &--subtitle {
+      margin-bottom: 2rem;
+      line-height: inherit;
+    }
   }
 }

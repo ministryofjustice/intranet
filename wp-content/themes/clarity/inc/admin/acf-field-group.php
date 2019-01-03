@@ -1,6 +1,4 @@
-<?php
-
-if( function_exists('acf_add_local_field_group') ):
+<?php if( function_exists('acf_add_local_field_group') ):
 
 acf_add_local_field_group(array(
 	'key' => 'group_57f51de8aeb4e',
@@ -1404,7 +1402,7 @@ acf_add_local_field_group(array(
 ));
 
 acf_add_local_field_group(array(
-	'key' => 'group_5b698ce77fdd7',
+	'key' => 'group_5c10285516106',
 	'title' => 'Homepage settings',
 	'fields' => array(
 		array(
@@ -1740,7 +1738,7 @@ acf_add_local_field_group(array(
 		),
 		array(
 			'key' => 'field_5b696b045a618',
-			'label' => 'Feature Item Left',
+			'label' => 'Feature item (left side)',
 			'name' => '',
 			'type' => 'accordion',
 			'instructions' => '',
@@ -1758,10 +1756,10 @@ acf_add_local_field_group(array(
 		),
 		array(
 			'key' => 'field_5b6966b5ddfb7',
-			'label' => 'Post Types',
+			'label' => 'Type:',
 			'name' => 'post_type_list',
 			'type' => 'radio',
-			'instructions' => 'Filter Item based on Post Type below.',
+			'instructions' => 'Filter Item based on post type.',
 			'required' => 0,
 			'conditional_logic' => 0,
 			'wrapper' => array(
@@ -1777,17 +1775,17 @@ acf_add_local_field_group(array(
 			),
 			'allow_null' => 0,
 			'other_choice' => 0,
-			'save_other_choice' => 0,
 			'default_value' => '',
 			'layout' => 'vertical',
 			'return_format' => 'value',
+			'save_other_choice' => 0,
 		),
 		array(
 			'key' => 'field_5b696b695a61a',
-			'label' => 'Agencies',
+			'label' => 'Agency:',
 			'name' => 'agency_list',
 			'type' => 'radio',
-			'instructions' => 'Select Agency below',
+			'instructions' => 'Filter by agency.',
 			'required' => 0,
 			'conditional_logic' => 0,
 			'wrapper' => array(
@@ -1804,20 +1802,19 @@ acf_add_local_field_group(array(
 				'laa' => 'LAA',
 				'lawcom' => 'LawCom',
 				'opg' => 'OPG',
-				'ospt' => 'OSPT',
 				'pb' => 'PB',
 				'ppo' => 'PPO',
 			),
 			'allow_null' => 0,
 			'other_choice' => 0,
-			'save_other_choice' => 0,
 			'default_value' => '',
 			'layout' => 'vertical',
 			'return_format' => 'value',
+			'save_other_choice' => 0,
 		),
 		array(
 			'key' => 'field_5b56f9374427b',
-			'label' => 'Feature Item Left - Post | HQ',
+			'label' => 'Select blog in HQ:',
 			'name' => 'feature_item_left_post__hq',
 			'type' => 'post_object',
 			'instructions' => '',
@@ -1842,10 +1839,8 @@ acf_add_local_field_group(array(
 				'id' => '',
 			),
 			'admin_only' => 0,
-			'post_type' => array(
-			),
-			'taxonomy' => array(
-			),
+			'post_type' => '',
+			'taxonomy' => '',
 			'allow_null' => 0,
 			'multiple' => 0,
 			'return_format' => 'object',
@@ -1853,7 +1848,7 @@ acf_add_local_field_group(array(
 		),
 		array(
 			'key' => 'field_5b696cd15a61e',
-			'label' => 'Feature Item Left - News | HQ',
+			'label' => 'Select news article in HQ:',
 			'name' => 'feature_item_left_news__hq',
 			'type' => 'post_object',
 			'instructions' => '',
@@ -1891,7 +1886,7 @@ acf_add_local_field_group(array(
 		),
 		array(
 			'key' => 'field_5b696d675a621',
-			'label' => 'Feature Item Left - Pages | HQ',
+			'label' => 'Select page in HQ:',
 			'name' => 'feature_item_left_pages__hq',
 			'type' => 'post_object',
 			'instructions' => '',
@@ -1929,7 +1924,7 @@ acf_add_local_field_group(array(
 		),
 		array(
 			'key' => 'field_5b69834090f43',
-			'label' => 'Feature Item Left - Post | JO',
+			'label' => 'Select blog in JO',
 			'name' => 'feature_item_left_post__jo',
 			'type' => 'post_object',
 			'instructions' => '',
@@ -1967,7 +1962,7 @@ acf_add_local_field_group(array(
 		),
 		array(
 			'key' => 'field_5b6983d290f44',
-			'label' => 'Feature Item Left - News | JO',
+			'label' => 'Select news article in JO:',
 			'name' => 'feature_item_left_news__jo',
 			'type' => 'post_object',
 			'instructions' => '',
@@ -2005,7 +2000,7 @@ acf_add_local_field_group(array(
 		),
 		array(
 			'key' => 'field_5b6983fd90f45',
-			'label' => 'Feature Item Left - Pages | JO',
+			'label' => 'Select page in JO:',
 			'name' => 'feature_item_left_pag_jo',
 			'type' => 'post_object',
 			'instructions' => '',
@@ -2043,7 +2038,7 @@ acf_add_local_field_group(array(
 		),
 		array(
 			'key' => 'field_5b69842e90f46',
-			'label' => 'Feature Item Left - Post | LAA',
+			'label' => 'Select blog in LAA:',
 			'name' => 'feature_item_left_post__laa',
 			'type' => 'post_object',
 			'instructions' => '',
@@ -2081,7 +2076,7 @@ acf_add_local_field_group(array(
 		),
 		array(
 			'key' => 'field_5b69845b90f47',
-			'label' => 'Feature Item Left - News | LAA',
+			'label' => 'Select news article in LAA:',
 			'name' => 'feature_item_left_news__laa',
 			'type' => 'post_object',
 			'instructions' => '',
@@ -2119,7 +2114,7 @@ acf_add_local_field_group(array(
 		),
 		array(
 			'key' => 'field_5b69848b90f48',
-			'label' => 'Feature Item Left - Pages | LAA',
+			'label' => 'Select page in LAA:',
 			'name' => 'feature_item_left_pages__laa',
 			'type' => 'post_object',
 			'instructions' => '',
@@ -2157,7 +2152,7 @@ acf_add_local_field_group(array(
 		),
 		array(
 			'key' => 'field_5b69853a90f49',
-			'label' => 'Feature Item Left - Post | LawCom',
+			'label' => 'Select blog in Law Commission:',
 			'name' => 'feature_item_left_post__lawcom',
 			'type' => 'post_object',
 			'instructions' => '',
@@ -2185,9 +2180,7 @@ acf_add_local_field_group(array(
 			'post_type' => array(
 				0 => 'post',
 			),
-			'taxonomy' => array(
-				0 => 'agency:lawcom',
-			),
+			'taxonomy' => '',
 			'allow_null' => 0,
 			'multiple' => 0,
 			'return_format' => 'object',
@@ -2195,7 +2188,7 @@ acf_add_local_field_group(array(
 		),
 		array(
 			'key' => 'field_5b69856c90f4a',
-			'label' => 'Feature Item Left - News | LawCom',
+			'label' => 'Select news article in Law Commission:',
 			'name' => 'feature_item_left_news__lawcom',
 			'type' => 'post_object',
 			'instructions' => '',
@@ -2223,9 +2216,7 @@ acf_add_local_field_group(array(
 			'post_type' => array(
 				0 => 'news',
 			),
-			'taxonomy' => array(
-				0 => 'agency:lawcom',
-			),
+			'taxonomy' => '',
 			'allow_null' => 0,
 			'multiple' => 0,
 			'return_format' => 'object',
@@ -2233,7 +2224,7 @@ acf_add_local_field_group(array(
 		),
 		array(
 			'key' => 'field_5b69859190f4b',
-			'label' => 'Feature Item Left - Pages | LawCom',
+			'label' => 'Select page in Law Commission:',
 			'name' => 'feature_item_left_pages__lawcom',
 			'type' => 'post_object',
 			'instructions' => '',
@@ -2261,9 +2252,7 @@ acf_add_local_field_group(array(
 			'post_type' => array(
 				0 => 'page',
 			),
-			'taxonomy' => array(
-				0 => 'agency:lawcom',
-			),
+			'taxonomy' => '',
 			'allow_null' => 0,
 			'multiple' => 0,
 			'return_format' => 'object',
@@ -2271,7 +2260,7 @@ acf_add_local_field_group(array(
 		),
 		array(
 			'key' => 'field_5b69869d90f4d',
-			'label' => 'Feature Item Left - Post | OPG',
+			'label' => 'Select blog in OPG:',
 			'name' => 'feature_item_left_post__opg',
 			'type' => 'post_object',
 			'instructions' => '',
@@ -2309,7 +2298,7 @@ acf_add_local_field_group(array(
 		),
 		array(
 			'key' => 'field_5b6986c490f4e',
-			'label' => 'Feature Item Left - News | OPG',
+			'label' => 'Select news article in OPG:',
 			'name' => 'feature_item_left_news__opg',
 			'type' => 'post_object',
 			'instructions' => '',
@@ -2347,7 +2336,7 @@ acf_add_local_field_group(array(
 		),
 		array(
 			'key' => 'field_5b69862190f4c',
-			'label' => 'Feature Item Left - Pages | OPG',
+			'label' => 'Select page in OPG:',
 			'name' => 'feature_item_left_pages__opg',
 			'type' => 'post_object',
 			'instructions' => '',
@@ -2384,122 +2373,8 @@ acf_add_local_field_group(array(
 			'ui' => 1,
 		),
 		array(
-			'key' => 'field_5b69893c90f4f',
-			'label' => 'Feature Item Left - Post | OSPT',
-			'name' => 'feature_item_left_post__ospt',
-			'type' => 'post_object',
-			'instructions' => '',
-			'required' => 0,
-			'conditional_logic' => array(
-				array(
-					array(
-						'field' => 'field_5b6966b5ddfb7',
-						'operator' => '==',
-						'value' => 'post',
-					),
-					array(
-						'field' => 'field_5b696b695a61a',
-						'operator' => '==',
-						'value' => 'ospt',
-					),
-				),
-			),
-			'wrapper' => array(
-				'width' => '',
-				'class' => '',
-				'id' => '',
-			),
-			'admin_only' => 0,
-			'post_type' => array(
-				0 => 'post',
-			),
-			'taxonomy' => array(
-				0 => 'agency:ospt',
-			),
-			'allow_null' => 0,
-			'multiple' => 0,
-			'return_format' => 'object',
-			'ui' => 1,
-		),
-		array(
-			'key' => 'field_5b69897e90f50',
-			'label' => 'Feature Item Left - News | OSPT',
-			'name' => 'feature_item_left_news__ospt',
-			'type' => 'post_object',
-			'instructions' => '',
-			'required' => 0,
-			'conditional_logic' => array(
-				array(
-					array(
-						'field' => 'field_5b6966b5ddfb7',
-						'operator' => '==',
-						'value' => 'news',
-					),
-					array(
-						'field' => 'field_5b696b695a61a',
-						'operator' => '==',
-						'value' => 'ospt',
-					),
-				),
-			),
-			'wrapper' => array(
-				'width' => '',
-				'class' => '',
-				'id' => '',
-			),
-			'admin_only' => 0,
-			'post_type' => array(
-				0 => 'news',
-			),
-			'taxonomy' => array(
-				0 => 'agency:ospt',
-			),
-			'allow_null' => 0,
-			'multiple' => 0,
-			'return_format' => 'object',
-			'ui' => 1,
-		),
-		array(
-			'key' => 'field_5b6989a790f51',
-			'label' => 'Feature Item Left - Pages | OSPT',
-			'name' => 'feature_item_left_pages__ospt',
-			'type' => 'post_object',
-			'instructions' => '',
-			'required' => 0,
-			'conditional_logic' => array(
-				array(
-					array(
-						'field' => 'field_5b6966b5ddfb7',
-						'operator' => '==',
-						'value' => 'pages',
-					),
-					array(
-						'field' => 'field_5b696b695a61a',
-						'operator' => '==',
-						'value' => 'ospt',
-					),
-				),
-			),
-			'wrapper' => array(
-				'width' => '',
-				'class' => '',
-				'id' => '',
-			),
-			'admin_only' => 0,
-			'post_type' => array(
-				0 => 'page',
-			),
-			'taxonomy' => array(
-				0 => 'agency:ospt',
-			),
-			'allow_null' => 0,
-			'multiple' => 0,
-			'return_format' => 'object',
-			'ui' => 1,
-		),
-		array(
 			'key' => 'field_5b6989e590f52',
-			'label' => 'Feature Item Left - Pages | PB',
+			'label' => 'Select page in PB:',
 			'name' => 'feature_item_left_pages__pb',
 			'type' => 'post_object',
 			'instructions' => '',
@@ -2537,7 +2412,7 @@ acf_add_local_field_group(array(
 		),
 		array(
 			'key' => 'field_5b698a0e90f53',
-			'label' => 'Feature Item Left - News | PB',
+			'label' => 'Select news article in PB:',
 			'name' => 'feature_item_left_news__pb',
 			'type' => 'post_object',
 			'instructions' => '',
@@ -2575,7 +2450,7 @@ acf_add_local_field_group(array(
 		),
 		array(
 			'key' => 'field_5b698afe90f54',
-			'label' => 'Feature Item Left - Posts | PB',
+			'label' => 'Select blog in PB:',
 			'name' => 'feature_item_left_posts__pb',
 			'type' => 'post_object',
 			'instructions' => '',
@@ -2613,7 +2488,7 @@ acf_add_local_field_group(array(
 		),
 		array(
 			'key' => 'field_5b698b9190f55',
-			'label' => 'Feature Item Left - Posts | PPO',
+			'label' => 'Select blog in PPO:',
 			'name' => 'feature_item_left_posts__ppo',
 			'type' => 'post_object',
 			'instructions' => '',
@@ -2651,7 +2526,7 @@ acf_add_local_field_group(array(
 		),
 		array(
 			'key' => 'field_5b698c4d90f56',
-			'label' => 'Feature Item Left - News | PPO',
+			'label' => 'Select news article in PPO',
 			'name' => 'feature_item_left_news__ppo',
 			'type' => 'post_object',
 			'instructions' => '',
@@ -2689,7 +2564,7 @@ acf_add_local_field_group(array(
 		),
 		array(
 			'key' => 'field_5b698ca790f57',
-			'label' => 'Feature Item Left - Pages | PPO',
+			'label' => 'Select page in PPO:',
 			'name' => 'feature_item_left_pages__ppo',
 			'type' => 'post_object',
 			'instructions' => '',
@@ -2727,7 +2602,7 @@ acf_add_local_field_group(array(
 		),
 		array(
 			'key' => 'field_5b696c725a61c',
-			'label' => 'Feature Item Left - Post | CICA',
+			'label' => 'Select blog in CICA:',
 			'name' => 'feature_item_left_post__cica',
 			'type' => 'post_object',
 			'instructions' => '',
@@ -2765,7 +2640,7 @@ acf_add_local_field_group(array(
 		),
 		array(
 			'key' => 'field_5b696cf35a61f',
-			'label' => 'Feature Item Left - News | CICA',
+			'label' => 'Select news article in CICA:',
 			'name' => 'feature_item_left_news__cica',
 			'type' => 'post_object',
 			'instructions' => '',
@@ -2803,7 +2678,7 @@ acf_add_local_field_group(array(
 		),
 		array(
 			'key' => 'field_5b696d985a622',
-			'label' => 'Feature Item Left - Pages | CICA',
+			'label' => 'Select page in CICA:',
 			'name' => 'feature_item_left_pages__cica',
 			'type' => 'post_object',
 			'instructions' => '',
@@ -2841,7 +2716,7 @@ acf_add_local_field_group(array(
 		),
 		array(
 			'key' => 'field_5b696c895a61d',
-			'label' => 'Feature Item Left - Post | HMCTS',
+			'label' => 'Select blog in HMCTS:',
 			'name' => 'feature_item_left_post__hmcts',
 			'type' => 'post_object',
 			'instructions' => '',
@@ -2879,7 +2754,7 @@ acf_add_local_field_group(array(
 		),
 		array(
 			'key' => 'field_5b696dcd5a623',
-			'label' => 'Feature Item Left - News | HMCTS',
+			'label' => 'Select news article in HMCTS:',
 			'name' => 'feature_item_left_news__hmcts',
 			'type' => 'post_object',
 			'instructions' => '',
@@ -2917,7 +2792,7 @@ acf_add_local_field_group(array(
 		),
 		array(
 			'key' => 'field_5b696d225a620',
-			'label' => 'Feature Item Left - Pages | HMCTS',
+			'label' => 'Select page in HMCTS:',
 			'name' => 'feature_item_left_pages__hmcts',
 			'type' => 'post_object',
 			'instructions' => '',
@@ -2980,8 +2855,1136 @@ acf_add_local_field_group(array(
 			'endpoint' => 1,
 		),
 		array(
+			'key' => 'field_5c0fdc1e38e45',
+			'label' => 'Feature item (center)',
+			'name' => '',
+			'type' => 'accordion',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'admin_only' => 0,
+			'open' => 0,
+			'multi_expand' => 0,
+			'endpoint' => 0,
+		),
+		array(
+			'key' => 'field_5c0fdc2a38e46',
+			'label' => 'Types:',
+			'name' => 'post_type_list_center',
+			'type' => 'radio',
+			'instructions' => 'Filter Item based on Post Type below.',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'admin_only' => 0,
+			'choices' => array(
+				'news' => 'News',
+				'post' => 'Blogs',
+				'pages' => 'Pages',
+			),
+			'allow_null' => 0,
+			'other_choice' => 0,
+			'default_value' => '',
+			'layout' => 'vertical',
+			'return_format' => 'value',
+			'save_other_choice' => 0,
+		),
+		array(
+			'key' => 'field_5c0fdc3f38e47',
+			'label' => 'Agency:',
+			'name' => 'agency_list_center',
+			'type' => 'radio',
+			'instructions' => 'Select Agency below',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'admin_only' => 0,
+			'choices' => array(
+				'hq' => 'HQ',
+				'cica' => 'CICA',
+				'hmcts' => 'HMCTS',
+				'jo' => 'JO',
+				'laa' => 'LAA',
+				'lawcom' => 'LawCom',
+				'opg' => 'OPG',
+				'pb' => 'PB',
+				'ppo' => 'PPO',
+			),
+			'allow_null' => 0,
+			'other_choice' => 0,
+			'default_value' => '',
+			'layout' => 'vertical',
+			'return_format' => 'value',
+			'save_other_choice' => 0,
+		),
+		array(
+			'key' => 'field_5c0fd9921d669',
+			'label' => 'Select blog in HQ:',
+			'name' => 'feature_item_center_post__hq',
+			'type' => 'post_object',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => array(
+				array(
+					array(
+						'field' => 'field_5c0fdc2a38e46',
+						'operator' => '==',
+						'value' => 'post',
+					),
+					array(
+						'field' => 'field_5c0fdc3f38e47',
+						'operator' => '==',
+						'value' => 'hq',
+					),
+				),
+			),
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'admin_only' => 0,
+			'post_type' => array(
+				0 => 'post',
+			),
+			'taxonomy' => array(
+				0 => 'agency:hq',
+			),
+			'allow_null' => 0,
+			'multiple' => 0,
+			'return_format' => 'object',
+			'ui' => 1,
+		),
+		array(
+			'key' => 'field_5c0fd9cb1d66b',
+			'label' => 'Select page in HQ:',
+			'name' => 'feature_item_center_pages__hq',
+			'type' => 'post_object',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => array(
+				array(
+					array(
+						'field' => 'field_5c0fdc2a38e46',
+						'operator' => '==',
+						'value' => 'pages',
+					),
+					array(
+						'field' => 'field_5c0fdc3f38e47',
+						'operator' => '==',
+						'value' => 'hq',
+					),
+				),
+			),
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'admin_only' => 0,
+			'post_type' => array(
+				0 => 'page',
+			),
+			'taxonomy' => array(
+				0 => 'agency:hq',
+			),
+			'allow_null' => 0,
+			'multiple' => 0,
+			'return_format' => 'object',
+			'ui' => 1,
+		),
+		array(
+			'key' => 'field_5c0fd9b11d66a',
+			'label' => 'Select news article in HQ:',
+			'name' => 'feature_item_center_news__hq',
+			'type' => 'post_object',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => array(
+				array(
+					array(
+						'field' => 'field_5c0fdc2a38e46',
+						'operator' => '==',
+						'value' => 'news',
+					),
+					array(
+						'field' => 'field_5c0fdc3f38e47',
+						'operator' => '==',
+						'value' => 'hq',
+					),
+				),
+			),
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'admin_only' => 0,
+			'post_type' => array(
+				0 => 'news',
+			),
+			'taxonomy' => array(
+				0 => 'agency:hq',
+			),
+			'allow_null' => 0,
+			'multiple' => 0,
+			'return_format' => 'object',
+			'ui' => 1,
+		),
+		array(
+			'key' => 'field_5c2cce0129aa2',
+			'label' => 'Select news article in JO:',
+			'name' => 'feature_item_center_news__jo',
+			'type' => 'post_object',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => array(
+				array(
+					array(
+						'field' => 'field_5c0fdc2a38e46',
+						'operator' => '==',
+						'value' => 'news',
+					),
+					array(
+						'field' => 'field_5c0fdc3f38e47',
+						'operator' => '==',
+						'value' => 'jo',
+					),
+				),
+			),
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'admin_only' => 0,
+			'post_type' => array(
+				0 => 'news',
+			),
+			'taxonomy' => array(
+				0 => 'agency:judicial-office',
+			),
+			'allow_null' => 0,
+			'multiple' => 0,
+			'return_format' => 'object',
+			'ui' => 1,
+		),
+		array(
+			'key' => 'field_5c2ccdb629aa1',
+			'label' => 'Select blog in JO:',
+			'name' => 'feature_item_center_post__jo',
+			'type' => 'post_object',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => array(
+				array(
+					array(
+						'field' => 'field_5c0fdc2a38e46',
+						'operator' => '==',
+						'value' => 'post',
+					),
+					array(
+						'field' => 'field_5c0fdc3f38e47',
+						'operator' => '==',
+						'value' => 'jo',
+					),
+				),
+			),
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'admin_only' => 0,
+			'post_type' => array(
+				0 => 'post',
+			),
+			'taxonomy' => array(
+				0 => 'agency:judicial-office',
+			),
+			'allow_null' => 0,
+			'multiple' => 0,
+			'return_format' => 'object',
+			'ui' => 1,
+		),
+		array(
+			'key' => 'field_5c2cce2529aa3',
+			'label' => 'Select page in JO:',
+			'name' => 'feature_item_center_pages__jo',
+			'type' => 'post_object',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => array(
+				array(
+					array(
+						'field' => 'field_5c0fdc2a38e46',
+						'operator' => '==',
+						'value' => 'pages',
+					),
+					array(
+						'field' => 'field_5c0fdc3f38e47',
+						'operator' => '==',
+						'value' => 'jo',
+					),
+				),
+			),
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'admin_only' => 0,
+			'post_type' => array(
+				0 => 'page',
+			),
+			'taxonomy' => array(
+				0 => 'agency:judicial-office',
+			),
+			'allow_null' => 0,
+			'multiple' => 0,
+			'return_format' => 'object',
+			'ui' => 1,
+		),
+		array(
+			'key' => 'field_5c2ccccb29a9f',
+			'label' => 'Select news article in PB:',
+			'name' => 'feature_item_center_news__pb',
+			'type' => 'post_object',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => array(
+				array(
+					array(
+						'field' => 'field_5c0fdc2a38e46',
+						'operator' => '==',
+						'value' => 'news',
+					),
+					array(
+						'field' => 'field_5c0fdc3f38e47',
+						'operator' => '==',
+						'value' => 'pb',
+					),
+				),
+			),
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'admin_only' => 0,
+			'post_type' => array(
+				0 => 'news',
+			),
+			'taxonomy' => array(
+				0 => 'agency:pb',
+			),
+			'allow_null' => 0,
+			'multiple' => 0,
+			'return_format' => 'object',
+			'ui' => 1,
+		),
+		array(
+			'key' => 'field_5c2cccab29a9e',
+			'label' => 'Select blog in PB:',
+			'name' => 'feature_item_center_post__pb',
+			'type' => 'post_object',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => array(
+				array(
+					array(
+						'field' => 'field_5c0fdc2a38e46',
+						'operator' => '==',
+						'value' => 'post',
+					),
+					array(
+						'field' => 'field_5c0fdc3f38e47',
+						'operator' => '==',
+						'value' => 'pb',
+					),
+				),
+			),
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'admin_only' => 0,
+			'post_type' => array(
+				0 => 'post',
+			),
+			'taxonomy' => array(
+				0 => 'agency:pb',
+			),
+			'allow_null' => 0,
+			'multiple' => 0,
+			'return_format' => 'object',
+			'ui' => 1,
+		),
+		array(
+			'key' => 'field_5c2ccd1f29aa0',
+			'label' => 'Select page in PB:',
+			'name' => 'feature_item_center_pages__pb:',
+			'type' => 'post_object',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => array(
+				array(
+					array(
+						'field' => 'field_5c0fdc2a38e46',
+						'operator' => '==',
+						'value' => 'pages',
+					),
+					array(
+						'field' => 'field_5c0fdc3f38e47',
+						'operator' => '==',
+						'value' => 'pb',
+					),
+				),
+			),
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'admin_only' => 0,
+			'post_type' => array(
+				0 => 'page',
+			),
+			'taxonomy' => array(
+				0 => 'agency:pb',
+			),
+			'allow_null' => 0,
+			'multiple' => 0,
+			'return_format' => 'object',
+			'ui' => 1,
+		),
+		array(
+			'key' => 'field_5c2c9041462fe',
+			'label' => 'Select news article in CICA:',
+			'name' => 'feature_item_center_news__cica',
+			'type' => 'post_object',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => array(
+				array(
+					array(
+						'field' => 'field_5c0fdc2a38e46',
+						'operator' => '==',
+						'value' => 'news',
+					),
+					array(
+						'field' => 'field_5c0fdc3f38e47',
+						'operator' => '==',
+						'value' => 'cica',
+					),
+				),
+			),
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'admin_only' => 0,
+			'post_type' => array(
+				0 => 'news',
+			),
+			'taxonomy' => array(
+				0 => 'agency:cica',
+			),
+			'allow_null' => 0,
+			'multiple' => 0,
+			'return_format' => 'object',
+			'ui' => 1,
+		),
+		array(
+			'key' => 'field_5c2c901a462fd',
+			'label' => 'Select page in CICA:',
+			'name' => 'feature_item_center_pages__cica',
+			'type' => 'post_object',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => array(
+				array(
+					array(
+						'field' => 'field_5c0fdc2a38e46',
+						'operator' => '==',
+						'value' => 'pages',
+					),
+					array(
+						'field' => 'field_5c0fdc3f38e47',
+						'operator' => '==',
+						'value' => 'cica',
+					),
+				),
+			),
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'admin_only' => 0,
+			'post_type' => array(
+				0 => 'page',
+			),
+			'taxonomy' => array(
+				0 => 'agency:cica',
+			),
+			'allow_null' => 0,
+			'multiple' => 0,
+			'return_format' => 'object',
+			'ui' => 1,
+		),
+		array(
+			'key' => 'field_5c10217a155a0',
+			'label' => 'Select blog in CICA:',
+			'name' => 'feature_item_center_post__cica',
+			'type' => 'post_object',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => array(
+				array(
+					array(
+						'field' => 'field_5c0fdc2a38e46',
+						'operator' => '==',
+						'value' => 'post',
+					),
+					array(
+						'field' => 'field_5c0fdc3f38e47',
+						'operator' => '==',
+						'value' => 'cica',
+					),
+				),
+			),
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'admin_only' => 0,
+			'post_type' => array(
+				0 => 'post',
+			),
+			'taxonomy' => array(
+				0 => 'agency:cica',
+			),
+			'allow_null' => 0,
+			'multiple' => 0,
+			'return_format' => 'object',
+			'ui' => 1,
+		),
+		array(
+			'key' => 'field_5c2ccab47facd',
+			'label' => 'Select news article in OPG:',
+			'name' => 'feature_item_center_news__opg',
+			'type' => 'post_object',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => array(
+				array(
+					array(
+						'field' => 'field_5c0fdc2a38e46',
+						'operator' => '==',
+						'value' => 'news',
+					),
+					array(
+						'field' => 'field_5c0fdc3f38e47',
+						'operator' => '==',
+						'value' => 'opg',
+					),
+				),
+			),
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'admin_only' => 0,
+			'post_type' => array(
+				0 => 'news',
+			),
+			'taxonomy' => array(
+				0 => 'agency:opg',
+			),
+			'allow_null' => 0,
+			'multiple' => 0,
+			'return_format' => 'object',
+			'ui' => 1,
+		),
+		array(
+			'key' => 'field_5c2ccad57face',
+			'label' => 'Select page in OPG:',
+			'name' => 'feature_item_center_pages__opg',
+			'type' => 'post_object',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => array(
+				array(
+					array(
+						'field' => 'field_5c0fdc2a38e46',
+						'operator' => '==',
+						'value' => 'pages',
+					),
+					array(
+						'field' => 'field_5c0fdc3f38e47',
+						'operator' => '==',
+						'value' => 'opg',
+					),
+				),
+			),
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'admin_only' => 0,
+			'post_type' => array(
+				0 => 'page',
+			),
+			'taxonomy' => array(
+				0 => 'agency:opg',
+			),
+			'allow_null' => 0,
+			'multiple' => 0,
+			'return_format' => 'object',
+			'ui' => 1,
+		),
+		array(
+			'key' => 'field_5c2cca897facc',
+			'label' => 'Select blog in OPG:',
+			'name' => 'feature_item_center_post__opg',
+			'type' => 'post_object',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => array(
+				array(
+					array(
+						'field' => 'field_5c0fdc2a38e46',
+						'operator' => '==',
+						'value' => 'post',
+					),
+					array(
+						'field' => 'field_5c0fdc3f38e47',
+						'operator' => '==',
+						'value' => 'opg',
+					),
+				),
+			),
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'admin_only' => 0,
+			'post_type' => array(
+				0 => 'post',
+			),
+			'taxonomy' => array(
+				0 => 'agency:opg',
+			),
+			'allow_null' => 0,
+			'multiple' => 0,
+			'return_format' => 'object',
+			'ui' => 1,
+		),
+		array(
+			'key' => 'field_5c2cc69a7fac9',
+			'label' => 'Select news article in LC:',
+			'name' => 'feature_item_center_news__lc',
+			'type' => 'post_object',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => array(
+				array(
+					array(
+						'field' => 'field_5c0fdc2a38e46',
+						'operator' => '==',
+						'value' => 'news',
+					),
+					array(
+						'field' => 'field_5c0fdc3f38e47',
+						'operator' => '==',
+						'value' => 'lawcom',
+					),
+				),
+			),
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'admin_only' => 0,
+			'post_type' => array(
+				0 => 'news',
+			),
+			'taxonomy' => array(
+				0 => 'agency:law-commission',
+			),
+			'allow_null' => 0,
+			'multiple' => 0,
+			'return_format' => 'object',
+			'ui' => 1,
+		),
+		array(
+			'key' => 'field_5c2cca467faca',
+			'label' => 'Select blog in LC:',
+			'name' => 'feature_item_center_post__lawcom',
+			'type' => 'post_object',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => array(
+				array(
+					array(
+						'field' => 'field_5c0fdc2a38e46',
+						'operator' => '==',
+						'value' => 'post',
+					),
+					array(
+						'field' => 'field_5c0fdc3f38e47',
+						'operator' => '==',
+						'value' => 'lawcom',
+					),
+				),
+			),
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'admin_only' => 0,
+			'post_type' => array(
+				0 => 'post',
+			),
+			'taxonomy' => array(
+				0 => 'agency:law-commission',
+			),
+			'allow_null' => 0,
+			'multiple' => 0,
+			'return_format' => 'object',
+			'ui' => 1,
+		),
+		array(
+			'key' => 'field_5c2cca687facb',
+			'label' => 'Select page in LC:',
+			'name' => 'feature_item_center_pages__lc',
+			'type' => 'post_object',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => array(
+				array(
+					array(
+						'field' => 'field_5c0fdc2a38e46',
+						'operator' => '==',
+						'value' => 'pages',
+					),
+					array(
+						'field' => 'field_5c0fdc3f38e47',
+						'operator' => '==',
+						'value' => 'lawcom',
+					),
+				),
+			),
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'admin_only' => 0,
+			'post_type' => array(
+				0 => 'page',
+			),
+			'taxonomy' => array(
+				0 => 'agency:law-commission',
+			),
+			'allow_null' => 0,
+			'multiple' => 0,
+			'return_format' => 'object',
+			'ui' => 1,
+		),
+		array(
+			'key' => 'field_5c2cd7eee1544',
+			'label' => 'Select news article in PPO:',
+			'name' => 'feature_item_center_news__ppo',
+			'type' => 'post_object',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => array(
+				array(
+					array(
+						'field' => 'field_5c0fdc2a38e46',
+						'operator' => '==',
+						'value' => 'news',
+					),
+					array(
+						'field' => 'field_5c0fdc3f38e47',
+						'operator' => '==',
+						'value' => 'ppo',
+					),
+				),
+			),
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'admin_only' => 0,
+			'post_type' => array(
+				0 => 'news',
+			),
+			'taxonomy' => array(
+				0 => 'agency:ppo',
+			),
+			'allow_null' => 0,
+			'multiple' => 0,
+			'return_format' => 'object',
+			'ui' => 1,
+		),
+		array(
+			'key' => 'field_5c2cd7c5e1543',
+			'label' => 'Select blog in PPO:',
+			'name' => 'feature_item_center_post__ppo',
+			'type' => 'post_object',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => array(
+				array(
+					array(
+						'field' => 'field_5c0fdc2a38e46',
+						'operator' => '==',
+						'value' => 'post',
+					),
+					array(
+						'field' => 'field_5c0fdc3f38e47',
+						'operator' => '==',
+						'value' => 'ppo',
+					),
+				),
+			),
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'admin_only' => 0,
+			'post_type' => array(
+				0 => 'post',
+			),
+			'taxonomy' => array(
+				0 => 'agency:ppo',
+			),
+			'allow_null' => 0,
+			'multiple' => 0,
+			'return_format' => 'object',
+			'ui' => 1,
+		),
+		array(
+			'key' => 'field_5c2cd79be1542',
+			'label' => 'Select page in PPO:',
+			'name' => 'feature_item_center_pages__ppo',
+			'type' => 'post_object',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => array(
+				array(
+					array(
+						'field' => 'field_5c0fdc2a38e46',
+						'operator' => '==',
+						'value' => 'pages',
+					),
+					array(
+						'field' => 'field_5c0fdc3f38e47',
+						'operator' => '==',
+						'value' => 'ppo',
+					),
+				),
+			),
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'admin_only' => 0,
+			'post_type' => array(
+				0 => 'page',
+			),
+			'taxonomy' => array(
+				0 => 'agency:ppo',
+			),
+			'allow_null' => 0,
+			'multiple' => 0,
+			'return_format' => 'object',
+			'ui' => 1,
+		),
+		array(
+			'key' => 'field_5c2ddd2e3a6e5',
+			'label' => 'Select news article in HMCTS:',
+			'name' => 'feature_item_center_news__hmcts',
+			'type' => 'post_object',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => array(
+				array(
+					array(
+						'field' => 'field_5c0fdc2a38e46',
+						'operator' => '==',
+						'value' => 'news',
+					),
+					array(
+						'field' => 'field_5c0fdc3f38e47',
+						'operator' => '==',
+						'value' => 'hmcts',
+					),
+				),
+			),
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'admin_only' => 0,
+			'post_type' => array(
+				0 => 'news',
+			),
+			'taxonomy' => array(
+				0 => 'agency:hmcts',
+			),
+			'allow_null' => 0,
+			'multiple' => 0,
+			'return_format' => 'object',
+			'ui' => 1,
+		),
+		array(
+			'key' => 'field_5c2ddd6e3a6e6',
+			'label' => 'Select page in HMCTS:',
+			'name' => 'feature_item_center_pages__hmcts',
+			'type' => 'post_object',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => array(
+				array(
+					array(
+						'field' => 'field_5c0fdc2a38e46',
+						'operator' => '==',
+						'value' => 'pages',
+					),
+					array(
+						'field' => 'field_5c0fdc3f38e47',
+						'operator' => '==',
+						'value' => 'hmcts',
+					),
+				),
+			),
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'admin_only' => 0,
+			'post_type' => array(
+				0 => 'page',
+			),
+			'taxonomy' => array(
+				0 => 'agency:hmcts',
+			),
+			'allow_null' => 0,
+			'multiple' => 0,
+			'return_format' => 'object',
+			'ui' => 1,
+		),
+		array(
+			'key' => 'field_5c2dddbf3a6e7',
+			'label' => 'Select blog in HMCTS:',
+			'name' => 'feature_item_center_post__hmcts',
+			'type' => 'post_object',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => array(
+				array(
+					array(
+						'field' => 'field_5c0fdc2a38e46',
+						'operator' => '==',
+						'value' => 'post',
+					),
+					array(
+						'field' => 'field_5c0fdc3f38e47',
+						'operator' => '==',
+						'value' => 'hmcts',
+					),
+				),
+			),
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'admin_only' => 0,
+			'post_type' => array(
+				0 => 'post',
+			),
+			'taxonomy' => array(
+				0 => 'agency:hmcts',
+			),
+			'allow_null' => 0,
+			'multiple' => 0,
+			'return_format' => 'object',
+			'ui' => 1,
+		),
+		array(
+			'key' => 'field_5c2dea61dd067',
+			'label' => 'Select page in LAA:',
+			'name' => 'feature_item_center_pages__laa',
+			'type' => 'post_object',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => array(
+				array(
+					array(
+						'field' => 'field_5c0fdc2a38e46',
+						'operator' => '==',
+						'value' => 'pages',
+					),
+					array(
+						'field' => 'field_5c0fdc3f38e47',
+						'operator' => '==',
+						'value' => 'laa',
+					),
+				),
+			),
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'admin_only' => 0,
+			'post_type' => array(
+				0 => 'page',
+			),
+			'taxonomy' => array(
+				0 => 'post_tag:laa',
+			),
+			'allow_null' => 0,
+			'multiple' => 0,
+			'return_format' => 'object',
+			'ui' => 1,
+		),
+		array(
+			'key' => 'field_5c2df71413e68',
+			'label' => 'Select blog in LAA:',
+			'name' => 'feature_item_center_post__laa',
+			'type' => 'post_object',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => array(
+				array(
+					array(
+						'field' => 'field_5c0fdc2a38e46',
+						'operator' => '==',
+						'value' => 'post',
+					),
+					array(
+						'field' => 'field_5c0fdc3f38e47',
+						'operator' => '==',
+						'value' => 'laa',
+					),
+				),
+			),
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'admin_only' => 0,
+			'post_type' => array(
+				0 => 'post',
+			),
+			'taxonomy' => array(
+				0 => 'agency:laa',
+			),
+			'allow_null' => 0,
+			'multiple' => 0,
+			'return_format' => 'object',
+			'ui' => 1,
+		),
+		array(
+			'key' => 'field_5c2de9d6dd065',
+			'label' => 'Select news article in LAA:',
+			'name' => 'feature_item_center_news__laa',
+			'type' => 'post_object',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => array(
+				array(
+					array(
+						'field' => 'field_5c0fdc2a38e46',
+						'operator' => '==',
+						'value' => 'news',
+					),
+					array(
+						'field' => 'field_5c0fdc3f38e47',
+						'operator' => '==',
+						'value' => 'laa',
+					),
+				),
+			),
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'admin_only' => 0,
+			'post_type' => array(
+				0 => 'news',
+			),
+			'taxonomy' => array(
+				0 => 'post_tag:laa',
+			),
+			'allow_null' => 0,
+			'multiple' => 0,
+			'return_format' => 'object',
+			'ui' => 1,
+		),
+		array(
+			'key' => 'field_5c0fdbf638e44',
+			'label' => 'Feature Center Endpoint',
+			'name' => '',
+			'type' => 'accordion',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => array(
+				array(
+					array(
+						'field' => 'field_5c0fdc2a38e46',
+						'operator' => '==',
+						'value' => 'post',
+					),
+				),
+			),
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'admin_only' => 0,
+			'open' => 0,
+			'multi_expand' => 0,
+			'endpoint' => 1,
+		),
+		array(
 			'key' => 'field_5b698cf376085',
-			'label' => 'Feature Item Right',
+			'label' => 'Feature item (right side)',
 			'name' => '',
 			'type' => 'accordion',
 			'instructions' => '',
@@ -2999,7 +4002,7 @@ acf_add_local_field_group(array(
 		),
 		array(
 			'key' => 'field_5b698d5376087',
-			'label' => 'Post Types -',
+			'label' => 'Post Types:',
 			'name' => 'post_type_list_right',
 			'type' => 'radio',
 			'instructions' => 'Filter Item based on Post Type below.',
@@ -3018,14 +4021,14 @@ acf_add_local_field_group(array(
 			),
 			'allow_null' => 0,
 			'other_choice' => 0,
-			'save_other_choice' => 0,
 			'default_value' => '',
 			'layout' => 'vertical',
 			'return_format' => 'value',
+			'save_other_choice' => 0,
 		),
 		array(
 			'key' => 'field_5b698d9976088',
-			'label' => 'Agencies -',
+			'label' => 'Agencies:',
 			'name' => 'agency_list_right',
 			'type' => 'radio',
 			'instructions' => 'Select Agency below',
@@ -3045,20 +4048,19 @@ acf_add_local_field_group(array(
 				'laa' => 'LAA',
 				'lawcom' => 'LawCom',
 				'opg' => 'OPG',
-				'ospt' => 'OSPT',
 				'pb' => 'PB',
 				'ppo' => 'PPO',
 			),
 			'allow_null' => 0,
 			'other_choice' => 0,
-			'save_other_choice' => 0,
 			'default_value' => '',
 			'layout' => 'vertical',
 			'return_format' => 'value',
+			'save_other_choice' => 0,
 		),
 		array(
 			'key' => 'field_5b698e0a76089',
-			'label' => 'Feature Item Right - Post | HQ',
+			'label' => 'Select blog in HQ',
 			'name' => 'feature_item_right_post__hq',
 			'type' => 'post_object',
 			'instructions' => '',
@@ -3083,10 +4085,8 @@ acf_add_local_field_group(array(
 				'id' => '',
 			),
 			'admin_only' => 0,
-			'post_type' => array(
-			),
-			'taxonomy' => array(
-			),
+			'post_type' => '',
+			'taxonomy' => '',
 			'allow_null' => 0,
 			'multiple' => 0,
 			'return_format' => 'object',
@@ -3094,7 +4094,7 @@ acf_add_local_field_group(array(
 		),
 		array(
 			'key' => 'field_5b69b1d45e74d',
-			'label' => 'Feature Item Right - News | HQ',
+			'label' => 'Select news article in HQ',
 			'name' => 'feature_item_right_news__hq',
 			'type' => 'post_object',
 			'instructions' => '',
@@ -3131,8 +4131,46 @@ acf_add_local_field_group(array(
 			'ui' => 1,
 		),
 		array(
+			'key' => 'field_5b69b1dd5e74e',
+			'label' => 'Select page in HQ',
+			'name' => 'feature_item_right_pages__hq',
+			'type' => 'post_object',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => array(
+				array(
+					array(
+						'field' => 'field_5b698d5376087',
+						'operator' => '==',
+						'value' => 'pages',
+					),
+					array(
+						'field' => 'field_5b698d9976088',
+						'operator' => '==',
+						'value' => 'hq',
+					),
+				),
+			),
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'admin_only' => 0,
+			'post_type' => array(
+				0 => 'page',
+			),
+			'taxonomy' => array(
+				0 => 'agency:hq',
+			),
+			'allow_null' => 0,
+			'multiple' => 0,
+			'return_format' => 'object',
+			'ui' => 1,
+		),
+		array(
 			'key' => 'field_5b69bbb14bc2c',
-			'label' => 'Feature Item Right - Post | CICA',
+			'label' => 'Select blog in CICA',
 			'name' => 'feature_item_right_post__cica',
 			'type' => 'post_object',
 			'instructions' => '',
@@ -3170,7 +4208,7 @@ acf_add_local_field_group(array(
 		),
 		array(
 			'key' => 'field_5b69bbbb4bc2d',
-			'label' => 'Feature Item Right - News | CICA',
+			'label' => 'Select news article in CICA',
 			'name' => 'feature_item_right_news__cica',
 			'type' => 'post_object',
 			'instructions' => '',
@@ -3208,7 +4246,7 @@ acf_add_local_field_group(array(
 		),
 		array(
 			'key' => 'field_5b69bbc54bc2e',
-			'label' => 'Feature Item Right - Pages | CICA',
+			'label' => 'Select page in CICA',
 			'name' => 'feature_item_right_pages__cica',
 			'type' => 'post_object',
 			'instructions' => '',
@@ -3246,7 +4284,7 @@ acf_add_local_field_group(array(
 		),
 		array(
 			'key' => 'field_5b69bbd74bc30',
-			'label' => 'Feature Item Right - News | HMCTS',
+			'label' => 'Select news article in HMCTS',
 			'name' => 'feature_item_right_news__hmcts',
 			'type' => 'post_object',
 			'instructions' => '',
@@ -3284,7 +4322,7 @@ acf_add_local_field_group(array(
 		),
 		array(
 			'key' => 'field_5b69bbe14bc31',
-			'label' => 'Feature Item Right - Pages | HMCTS',
+			'label' => 'Select page in HMCTS',
 			'name' => 'feature_item_right_pages__hmcts',
 			'type' => 'post_object',
 			'instructions' => '',
@@ -3322,7 +4360,7 @@ acf_add_local_field_group(array(
 		),
 		array(
 			'key' => 'field_5b69bbcf4bc2f',
-			'label' => 'Feature Item Right - Post | HMCTS',
+			'label' => 'Select blog in HMCTS',
 			'name' => 'feature_item_right_post__hmcts',
 			'type' => 'post_object',
 			'instructions' => '',
@@ -3359,160 +4397,8 @@ acf_add_local_field_group(array(
 			'ui' => 1,
 		),
 		array(
-			'key' => 'field_5b69b1dd5e74e',
-			'label' => 'Feature Item Right - Pages | HQ',
-			'name' => 'feature_item_right_pages__hq',
-			'type' => 'post_object',
-			'instructions' => '',
-			'required' => 0,
-			'conditional_logic' => array(
-				array(
-					array(
-						'field' => 'field_5b698d5376087',
-						'operator' => '==',
-						'value' => 'pages',
-					),
-					array(
-						'field' => 'field_5b698d9976088',
-						'operator' => '==',
-						'value' => 'hq',
-					),
-				),
-			),
-			'wrapper' => array(
-				'width' => '',
-				'class' => '',
-				'id' => '',
-			),
-			'admin_only' => 0,
-			'post_type' => array(
-				0 => 'page',
-			),
-			'taxonomy' => array(
-				0 => 'agency:hq',
-			),
-			'allow_null' => 0,
-			'multiple' => 0,
-			'return_format' => 'object',
-			'ui' => 1,
-		),
-		array(
-			'key' => 'field_5b69b81b9c638',
-			'label' => 'Feature Item Right - Post | OSPT',
-			'name' => 'feature_item_right_post__ospt',
-			'type' => 'post_object',
-			'instructions' => '',
-			'required' => 0,
-			'conditional_logic' => array(
-				array(
-					array(
-						'field' => 'field_5b698d5376087',
-						'operator' => '==',
-						'value' => 'post',
-					),
-					array(
-						'field' => 'field_5b698d9976088',
-						'operator' => '==',
-						'value' => 'ospt',
-					),
-				),
-			),
-			'wrapper' => array(
-				'width' => '',
-				'class' => '',
-				'id' => '',
-			),
-			'admin_only' => 0,
-			'post_type' => array(
-				0 => 'post',
-			),
-			'taxonomy' => array(
-				0 => 'agency:ospt',
-			),
-			'allow_null' => 0,
-			'multiple' => 0,
-			'return_format' => 'object',
-			'ui' => 1,
-		),
-		array(
-			'key' => 'field_5b69b82e9c639',
-			'label' => 'Feature Item Right - News | OSPT',
-			'name' => 'feature_item_right_news__ospt',
-			'type' => 'post_object',
-			'instructions' => '',
-			'required' => 0,
-			'conditional_logic' => array(
-				array(
-					array(
-						'field' => 'field_5b698d5376087',
-						'operator' => '==',
-						'value' => 'news',
-					),
-					array(
-						'field' => 'field_5b698d9976088',
-						'operator' => '==',
-						'value' => 'ospt',
-					),
-				),
-			),
-			'wrapper' => array(
-				'width' => '',
-				'class' => '',
-				'id' => '',
-			),
-			'admin_only' => 0,
-			'post_type' => array(
-				0 => 'news',
-			),
-			'taxonomy' => array(
-				0 => 'agency:ospt',
-			),
-			'allow_null' => 0,
-			'multiple' => 0,
-			'return_format' => 'object',
-			'ui' => 1,
-		),
-		array(
-			'key' => 'field_5b69b8379c63a',
-			'label' => 'Feature Item Right - Pages | OSPT',
-			'name' => 'feature_item_right_pages__ospt',
-			'type' => 'post_object',
-			'instructions' => '',
-			'required' => 0,
-			'conditional_logic' => array(
-				array(
-					array(
-						'field' => 'field_5b698d5376087',
-						'operator' => '==',
-						'value' => 'pages',
-					),
-					array(
-						'field' => 'field_5b698d9976088',
-						'operator' => '==',
-						'value' => 'ospt',
-					),
-				),
-			),
-			'wrapper' => array(
-				'width' => '',
-				'class' => '',
-				'id' => '',
-			),
-			'admin_only' => 0,
-			'post_type' => array(
-				0 => 'page',
-			),
-			'taxonomy' => array(
-				0 => 'agency:ospt',
-			),
-			'allow_null' => 0,
-			'multiple' => 0,
-			'return_format' => 'object',
-			'ui' => 1,
-		),
-		array(
 			'key' => 'field_5b69b6134b2c4',
-			'label' => 'Feature Item Right - Post | OPG',
+			'label' => 'Select blog in OPG',
 			'name' => 'feature_item_right_post__opg',
 			'type' => 'post_object',
 			'instructions' => '',
@@ -3550,7 +4436,7 @@ acf_add_local_field_group(array(
 		),
 		array(
 			'key' => 'field_5b69b61d4b2c5',
-			'label' => 'Feature Item Right - News | OPG',
+			'label' => 'Select news article in OPG',
 			'name' => 'feature_item_right_news__opg',
 			'type' => 'post_object',
 			'instructions' => '',
@@ -3588,7 +4474,7 @@ acf_add_local_field_group(array(
 		),
 		array(
 			'key' => 'field_5b69b6264b2c6',
-			'label' => 'Feature Item Right - Pages | OPG',
+			'label' => 'Select page in OPG',
 			'name' => 'feature_item_right_pages__opg',
 			'type' => 'post_object',
 			'instructions' => '',
@@ -3626,7 +4512,7 @@ acf_add_local_field_group(array(
 		),
 		array(
 			'key' => 'field_5b69b929fa785',
-			'label' => 'Feature Item Right - Pages | PB',
+			'label' => 'Select page in PB',
 			'name' => 'feature_item_right_pages__pb',
 			'type' => 'post_object',
 			'instructions' => '',
@@ -3664,7 +4550,7 @@ acf_add_local_field_group(array(
 		),
 		array(
 			'key' => 'field_5b69b946fa787',
-			'label' => 'Feature Item Right - Posts | PB',
+			'label' => 'Select blog in PB',
 			'name' => 'feature_item_right_posts__pb',
 			'type' => 'post_object',
 			'instructions' => '',
@@ -3702,7 +4588,7 @@ acf_add_local_field_group(array(
 		),
 		array(
 			'key' => 'field_5b69b934fa786',
-			'label' => 'Feature Item Right - News | PB',
+			'label' => 'Select news article in PB',
 			'name' => 'feature_item_right_news__pb',
 			'type' => 'post_object',
 			'instructions' => '',
@@ -3740,7 +4626,7 @@ acf_add_local_field_group(array(
 		),
 		array(
 			'key' => 'field_5b69b95efa788',
-			'label' => 'Feature Item Right - Posts | PPO',
+			'label' => 'Select blog in PPO',
 			'name' => 'feature_item_right_posts__ppo',
 			'type' => 'post_object',
 			'instructions' => '',
@@ -3778,7 +4664,7 @@ acf_add_local_field_group(array(
 		),
 		array(
 			'key' => 'field_5b69b995fa789',
-			'label' => 'Feature Item Right - News | PPO',
+			'label' => 'Select news article in PPO',
 			'name' => 'feature_item_right_news__ppo',
 			'type' => 'post_object',
 			'instructions' => '',
@@ -3816,7 +4702,7 @@ acf_add_local_field_group(array(
 		),
 		array(
 			'key' => 'field_5b69ba1efa78a',
-			'label' => 'Feature Item Right - Pages | PPO',
+			'label' => 'Select page in PPO',
 			'name' => 'feature_item_right_pages__ppo',
 			'type' => 'post_object',
 			'instructions' => '',
@@ -3853,9 +4739,9 @@ acf_add_local_field_group(array(
 			'ui' => 1,
 		),
 		array(
-			'key' => 'field_5b69b26896281',
-			'label' => 'Feature Item Right - Post | JO',
-			'name' => 'feature_item_right_post__JO',
+			'key' => 'field_5c2dc032d9613',
+			'label' => 'Select blog in JO:',
+			'name' => 'feature_item_right_post__jo',
 			'type' => 'post_object',
 			'instructions' => '',
 			'required' => 0,
@@ -3892,8 +4778,8 @@ acf_add_local_field_group(array(
 		),
 		array(
 			'key' => 'field_5b69b28096283',
-			'label' => 'Feature Item Right - Pages | JO',
-			'name' => 'feature_item_right_pages__JO',
+			'label' => 'Select page in JO:',
+			'name' => 'feature_item_right_pages__jo',
 			'type' => 'post_object',
 			'instructions' => '',
 			'required' => 0,
@@ -3930,8 +4816,8 @@ acf_add_local_field_group(array(
 		),
 		array(
 			'key' => 'field_5b69b27596282',
-			'label' => 'Feature Item Right - News | JO',
-			'name' => 'feature_item_right_news__JO',
+			'label' => 'Select news article in JO',
+			'name' => 'feature_item_right_news__jo',
 			'type' => 'post_object',
 			'instructions' => '',
 			'required' => 0,
@@ -3968,7 +4854,7 @@ acf_add_local_field_group(array(
 		),
 		array(
 			'key' => 'field_5b69b38f5fa0d',
-			'label' => 'Feature Item Right - Post | LAA',
+			'label' => 'Select blog in LAA',
 			'name' => 'feature_item_right_post__laa',
 			'type' => 'post_object',
 			'instructions' => '',
@@ -4006,7 +4892,7 @@ acf_add_local_field_group(array(
 		),
 		array(
 			'key' => 'field_5b69b3b65fa0f',
-			'label' => 'Feature Item Right - Pages | LAA',
+			'label' => 'Select page in LAA',
 			'name' => 'feature_item_right_pages__laa',
 			'type' => 'post_object',
 			'instructions' => '',
@@ -4044,7 +4930,7 @@ acf_add_local_field_group(array(
 		),
 		array(
 			'key' => 'field_5b69b3a85fa0e',
-			'label' => 'Feature Item Right - News | LAA',
+			'label' => 'Select news article in LAA',
 			'name' => 'feature_item_right_news__laa',
 			'type' => 'post_object',
 			'instructions' => '',
@@ -4082,7 +4968,7 @@ acf_add_local_field_group(array(
 		),
 		array(
 			'key' => 'field_5b69b4e44a50d',
-			'label' => 'Feature Item Right - Post | LawCom',
+			'label' => 'Select blog in LawCom',
 			'name' => 'feature_item_right_post__lawcom',
 			'type' => 'post_object',
 			'instructions' => '',
@@ -4110,9 +4996,7 @@ acf_add_local_field_group(array(
 			'post_type' => array(
 				0 => 'post',
 			),
-			'taxonomy' => array(
-				0 => 'agency:lawcom',
-			),
+			'taxonomy' => '',
 			'allow_null' => 0,
 			'multiple' => 0,
 			'return_format' => 'object',
@@ -4120,7 +5004,7 @@ acf_add_local_field_group(array(
 		),
 		array(
 			'key' => 'field_5b69b4f24a50e',
-			'label' => 'Feature Item Right - News | LawCom',
+			'label' => 'Select news article in LawCom',
 			'name' => 'feature_item_right_news__lawcom',
 			'type' => 'post_object',
 			'instructions' => '',
@@ -4148,9 +5032,7 @@ acf_add_local_field_group(array(
 			'post_type' => array(
 				0 => 'news',
 			),
-			'taxonomy' => array(
-				0 => 'agency:lawcom',
-			),
+			'taxonomy' => '',
 			'allow_null' => 0,
 			'multiple' => 0,
 			'return_format' => 'object',
@@ -4158,7 +5040,7 @@ acf_add_local_field_group(array(
 		),
 		array(
 			'key' => 'field_5b69b4fa4a50f',
-			'label' => 'Feature Item Right - Pages | LawCom',
+			'label' => 'Select page in LawCom',
 			'name' => 'feature_item_right_pages__lawcom',
 			'type' => 'post_object',
 			'instructions' => '',
@@ -4186,9 +5068,7 @@ acf_add_local_field_group(array(
 			'post_type' => array(
 				0 => 'page',
 			),
-			'taxonomy' => array(
-				0 => 'agency:lawcom',
-			),
+			'taxonomy' => '',
 			'allow_null' => 0,
 			'multiple' => 0,
 			'return_format' => 'object',
