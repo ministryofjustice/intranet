@@ -1724,8 +1724,8 @@ html {
 .u-icon--user-circle-o {
   *zoom: expression(this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf2be;');
 }
-.c-home-page-secondary {
-  float: right !important;
+.c-home-page-primary.l-primary {
+  width: 62% !important;
 }
 
 * {
@@ -1886,8 +1886,8 @@ html {
 .u-icon--user-circle-o {
   *zoom: expression(this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf2be;');
 }
-.c-home-page-primary.l-primary {
-  width: 62% !important;
+.c-home-page-secondary {
+  float: right !important;
 }
 
 
