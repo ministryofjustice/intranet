@@ -43,7 +43,7 @@ $args = array(
 // Standard Query Loop  - https://codex.wordpress.org/Class_Reference/WP_Query
 $the_query = new WP_Query( $args ); ?>
 
-  <h1 class="o-title o-title--section">Latest from our blog</h1>
+  <h1 class="o-title o-title--section">Latest blogs</h1>
 
 <?php
 
@@ -61,5 +61,5 @@ if ( $the_query->have_posts() ) {
 }
 ?>
 
-<a href="blog" class="o-see-all-link">See all blog articles</a>
+<a href="blog" class="o-see-all-link">See all blogs</a>
 <br>

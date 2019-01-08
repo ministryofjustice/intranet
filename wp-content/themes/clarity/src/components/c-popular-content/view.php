@@ -16,18 +16,18 @@ $agency = $activeAgency['shortcode'];
   <?php
 
   get_template_part( 'src/components/c-most-popular/view' );
-  get_template_part( 'src/components/c-sidebar-banner/view' );
+  // removes event listing from agency homepage.
+   if ($agency !== 'laa' && $agency !== 'hmcts') {
+       get_template_part('src/components/c-event-listing/view');
+       echo '<a href="/events/" class="o-see-all-link">See all events</a>';
+   }
 
   ?>
 </div>
 
   <div class="l-secondary">
   <?php
-  // removes event listing from agency homepage.
-   if ($agency !== 'laa' && $agency !== 'hmcts') {
-       get_template_part('src/components/c-event-listing/view');
-       echo '<a href="/events/" class="o-see-all-link">See all upcoming events</a>';
-   }
+    get_template_part( 'src/components/c-sidebar-banner/view' );
   ?>
   </div>
 

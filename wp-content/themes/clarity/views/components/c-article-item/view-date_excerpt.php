@@ -10,7 +10,7 @@
 <article class="c-article-item js-article-item">
 
   <a href="<?php echo esc_url( get_permalink( $id ) ); ?>">
-	<?php the_post_thumbnail( 'feature-thumbnail', 'alt=' . $thumbnail_alt ); ?>
+	<?php the_post_thumbnail( 'intranet-large', 'alt=' . $thumbnail_alt ); ?>
   </a>
 
   <div class="text-align">

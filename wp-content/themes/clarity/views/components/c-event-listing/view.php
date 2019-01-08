@@ -18,8 +18,6 @@ if ( isset( $event ) ) :
 			$event = array_splice($event, 0, 1);
 	}
 
-	echo '<h1 class="o-title o-title--subtitle">Next event</h1>';
-
 	foreach ($event as $key => $post) :
 			$event_id = $post['ID'];
 			$post_url = $post["url"];
@@ -40,7 +38,10 @@ if ( isset( $event ) ) :
 			}
 
 		?>
+
 <!-- c-event-listing starts here -->
+
+<h1 class="o-title o-title--subtitle">Next event</h1>
 
 <section class="c-team-event-listing">
 
