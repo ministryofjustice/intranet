@@ -78,7 +78,8 @@ function agency_context_switcher_menu( $wp_admin_bar ) {
 				array(
 					'set-agency-context' => $agency->slug,
 					'_wp_http_referer'   => $_SERVER['REQUEST_URI'],
-				), $url
+				),
+				$url
 			);
 
 			$wp_admin_bar->add_menu(
@@ -150,7 +151,8 @@ function region_context_switcher_menu( $wp_admin_bar ) {
 				array(
 					'set-region-context' => $region->slug,
 					'_wp_http_referer'   => $_SERVER['REQUEST_URI'],
-				), $url
+				),
+				$url
 			);
 
 			$wp_admin_bar->add_menu(

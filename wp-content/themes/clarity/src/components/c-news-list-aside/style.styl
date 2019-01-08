@@ -1,0 +1,26 @@
+// include the toolkit (a suite of variables, classes and mixins)
+@require "../../globals/css/_ietoolkit"
+
+.c-news-list-aside {
+
+  &__wrapper {
+    column(1);
+    border-top: 2px dotted $border;
+    padding:$spacing 0;
+  }
+
+  &__img {
+    +above('m') {
+      column(1/2);
+    }
+  }
+
+  &__text {
+    padding-bottom:$spacing;
+  }
+
+  &__related {
+    column(1);
+  }
+
+}

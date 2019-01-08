@@ -36,6 +36,12 @@
 
   /* PARENT OVERRIDES */
 
+  .c-most-popular & {
+    .c-calendar-icon {
+      border: 1px solid $boxBg;
+    }
+  }
+
   .c-events-item-list & {
     column(1);
     float:left;
@@ -57,7 +63,7 @@
   }
 
   .c-events-item-homepage & {
-    border: 1px solid $boxBg;
+    border: 2px solid $boxBg;
     &--dom {
       font-size: $mantle;
       padding: $spacing*3;

@@ -10,7 +10,7 @@
 <article class="c-article-item js-article-item">
 
   <a href="<?php echo esc_url( get_permalink( $id ) ); ?>">
-	<?php the_post_thumbnail( 'feature-thumbnail', 'alt=' . $thumbnail_alt ); ?>
+	<?php the_post_thumbnail( 'intranet-large', 'alt=' . $thumbnail_alt ); ?>
   </a>
 
   <div class="text-align">
@@ -20,9 +20,6 @@
 
 	<div class="c-article-excerpt">
 	  <p><?php echo get_the_excerpt( $id ); ?></p>
-	</div>
-	<div class="meta">
-	  <span class="c-article-item__dateline"><?php echo get_the_time( 'j M Y', $id ); ?></span>
 	</div>
   </div>
 

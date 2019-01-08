@@ -4,8 +4,9 @@
  *
  * Single list item
  **/
+global $post;
 
-$id            = $data['id'];
+$id            = $post->ID;
 $thumbnail     = wp_get_attachment_image_src( get_post_thumbnail_id( $id ), 'list-thumbnail' );
 $thumbnail_alt = get_post_meta( get_post_thumbnail_id( $id ), '_wp_attachment_image_alt', true );
 $thumbnail_url = $thumbnail[0];

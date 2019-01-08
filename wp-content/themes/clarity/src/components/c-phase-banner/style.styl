@@ -2,7 +2,7 @@
 @require "../../globals/css/_toolkit"
 
 .c-phase-banner {
-  padding: $spacing 0 10px;
+  padding: $spacing 0 0 0;
 
   &__icon {
     float:left;
@@ -23,5 +23,13 @@
   &__message {
     font-size: $innerCore;
     margin-bottom: 0;
+  }
+}
+
+.home {
+  .c-phase-banner {
+    p {
+      margin-bottom: 0;
+    }
   }
 }
