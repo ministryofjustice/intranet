@@ -22,4 +22,24 @@
       margin-bottom: $spacing;
     }
   }
+
+  .c-rich-text-block & {
+    margin-top: $spacing*3;
+
+    .o-title {
+      &--subtitle {
+        font-size: $mantle;
+        margin-top: $spacing*5;
+      }
+    }
+
+    ul {
+      list-style: none;
+      margin-left: 0;
+      li {
+        line-height: 1;
+        list-style-type: none;
+      }
+    }
+  }
 }
