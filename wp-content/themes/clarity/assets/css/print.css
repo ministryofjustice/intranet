@@ -3,19 +3,11 @@ body {
 }
 
 
-.c-breadcrumbs {
-  display: none;
-}
 
 
 
 
 .c-feedback-container {
-  display: none;
-}
-
-
-.c-left-hand-menu {
   display: none;
 }
 
@@ -26,10 +18,14 @@ body {
   display: none;
 }
 
-.c-main-nav-bar {
+.c-left-hand-menu {
   display: none;
 }
 
+
+.c-main-nav-bar {
+  display: none;
+}
 
 
 .c-pagination {

@@ -1,0 +1,28 @@
+// include the toolkit (a suite of variables, classes and mixins)
+@require "../../globals/css/_toolkit"
+
+.c-home-page-primary {
+
+  h1 {
+    font-size: $mantle;
+    margin: $spacing 0;
+  }
+
+  .o-title {
+    margin-top: 1rem;
+    margin-bottom: 0;
+
+
+    &--section {
+        border-top: 2px solid hsla(0,0%,71%,.3);
+        border-bottom: 0;
+        line-height: 2.8;
+    }
+  }
+
+  .o-see-all-link,
+  .o-read-more-link {
+    font-size: $outerCore;
+    margin-bottom: $spacing*3;
+  }
+}

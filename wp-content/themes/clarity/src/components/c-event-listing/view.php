@@ -43,7 +43,7 @@ if ( isset( $event ) ) :
 
 <h1 class="o-title o-title--subtitle">Next event</h1>
 
-<section class="c-team-event-listing">
+<section class="c-event-listing">
 
 		<?php
 		// If start date and end date seleced are the same, just display first date.
@@ -54,7 +54,7 @@ if ( isset( $event ) ) :
 		}
 		?>
 
-  <h1><a href="<?php echo $post_url; ?>"><?php echo $event_title; ?></a></h1>
+  <h1><a class="c-event-listing--title" href="<?php echo $post_url; ?>"><?php echo $event_title; ?></a></h1>
 
   <div class="c-event-listing--date" datetime="<?php echo $start_date; ?>">
 	<h2>Date:</h2><?php echo $day . ' ' . $multidate . ' ' . $year; ?>

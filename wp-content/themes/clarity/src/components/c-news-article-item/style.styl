@@ -1,0 +1,34 @@
+// include the toolkit (a suite of variables, classes and mixins)
+@require "../../globals/css/_toolkit";
+
+.c-news-article-item {
+
+  &__excerpt {
+    display: block;
+  }
+
+  &__excerpt p {
+    line-height: 1.4;
+    font-size: $innerCore;
+    font-weight: 400;
+  }
+
+  img {
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+  }
+
+  .c-homepage-news-widget & {
+    padding-bottom: $spacing;
+    clearfix();
+    +above('s') {
+      column(1/3, $cycle: 3);
+    }
+
+    h1 {
+      font-size: $outerCore;
+      text-decoration: underline;
+    }
+  }
+}

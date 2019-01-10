@@ -1,0 +1,24 @@
+// include the toolkit (a suite of variables, classes and mixins)
+@require "../../globals/css/_toolkit";
+
+.c-homepage-blog-widget {
+  clearfix();
+
+  .c-article-item img:last-child {
+    margin-right: $spacing;
+  }
+}
+
+
+.page-template {
+
+  .c-homepage-blog-widget {
+  }
+
+  &.home {
+    .c-blog-feature {
+      margin-top:$spacing*2;
+    }
+  }
+
+}

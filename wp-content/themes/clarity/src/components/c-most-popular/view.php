@@ -5,7 +5,7 @@ $agency = get_intranet_code();
 ?>
 
 <!-- c-most-popular starts here -->
-<section>
+<section class="c-most-popular">
   <?php
     if (get_field($agency.'_most_popular_text_1', 'option')){
       echo '<h1 class="o-title o-title--subtitle">'. get_field($agency.'_most_popular_title', 'option') .'</h1>';
@@ -20,7 +20,7 @@ $agency = get_intranet_code();
       ];
       if(!empty($quickLinks[$i]['title'])){
         echo '<li>
-          <a href="'.$quickLinks[$i]['url'].'">'.$quickLinks[$i]['title'].'</a>
+          <a class="c-most-popular--link" href="'.$quickLinks[$i]['url'].'">'.$quickLinks[$i]['title'].'</a>
         </li>';
       }
     }

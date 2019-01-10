@@ -10,12 +10,10 @@ $posttype_list_right = get_field($agency . '_post_type_list_right', 'option');
 $agencies_list_right = get_field($agency . '_agency_list_right', 'option');
 
 $buildfeatleft = $agency . '_feature_item_left_'.$posttype_list_left.'__'. $agencies_list_left;
-
 $buildfeatright = $agency . '_feature_item_right_'.$posttype_list_right.'__'. $agencies_list_right;
 
 $feature_left = get_field($buildfeatleft, 'option');
 $feature_right = get_field($buildfeatright, 'option');
-
 
 $feature_array =  array($feature_left, $feature_right);
 

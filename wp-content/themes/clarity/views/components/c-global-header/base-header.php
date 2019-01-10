@@ -75,7 +75,7 @@ if ( ! defined( 'GT_CODE' ) ) {
 		'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 	})(window,document,'script','dataLayer','<?php echo GT_CODE; ?>');</script>
 <!-- End Google Tag Manager -->
-<body 
+<body
 <?php
 /**
  * Adds agency specific classes to the page.
@@ -102,9 +102,5 @@ if ( ! defined( 'GT_CODE' ) ) {
   <a class="u-skip-link" href="#maincontent">Skip to main content</a>
 
 	<?php
-	get_template_part( 'src/components/c-header-container/view' );
-	?>
-
-  <div id="maincontent" class="u-wrapper l-main">
-	<?php get_template_part( 'src/components/c-phase-banner/view' ); ?>
-  </div>
+   get_template_part( 'src/components/c-header-container/view' );
+   get_template_part( 'src/components/c-phase-banner/view' );

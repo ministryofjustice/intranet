@@ -1,0 +1,34 @@
+// include the toolkit (a suite of variables, classes and mixins)
+@require "../../globals/css/_toolkit"
+
+.c-homepage-secondary-widget {
+  clear:both;
+  display:block;
+  border-top: 2px solid $border;
+  margin: $spacing 0;
+
+  .l-secondary {
+    margin-top:$spacing*2;
+  }
+
+  .o-title {
+    margin-bottom: 0;
+
+    &--section {
+        border-top: 0;
+        font-size: $crust;
+        line-height: 1.4;
+        margin-top: 0;
+    }
+
+    &--subtitle {
+      margin-bottom: $spacing;
+      line-height: inherit;
+    }
+
+    &--subtitle:nth-child(2) {
+      margin-top: $spacing*3;
+    }
+
+  }
+}
