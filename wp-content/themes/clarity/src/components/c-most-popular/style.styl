@@ -2,9 +2,14 @@
 @require "../../globals/css/_toolkit"
 
 .c-most-popular {
+  margin-bottom: $spacing;
+  line-height: 1;
+
+  a {
+    font-size: $outerCore;
+  }
 
   .o-title {
-
     &--subtitle {
       font-size: 2.4rem;
       margin-bottom: 2rem;
@@ -17,22 +22,4 @@
       margin-bottom: $spacing;
     }
   }
-
-  margin-bottom: $spacing;
-
-}
-
-.page-template {
-
-  .c-most-popular {
-
-  }
-
-  &.home {
-    .c-most-popular {
-      margin-top:$spacing*2;
-    }
-
-  }
-
 }
