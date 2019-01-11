@@ -95,4 +95,7 @@ if ( isset( $event ) ) :
 
 		<?php
 endforeach; // ($event as $key => $post):
-endif; // is_array($event)
+echo '<a href="/events/" class="o-see-all-link">See all events</a>';
+else:
+	return ''; // there is no event to display.
+endif;
