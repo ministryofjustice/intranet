@@ -13,7 +13,6 @@
   ],
   "require": {
     "wpackagist-plugin/totalpoll-lite":"3.0.0",
-    "wpackagist-plugin/breadcrumb-navxt":"6.1.0",
     "wpackagist-plugin/cms-tree-page-view":"1.5",
     "wpackagist-plugin/co-authors-plus":"3.3.0",
     "wpackagist-plugin/recently-edited-content-widget":"0.3.2",
@@ -23,7 +22,6 @@
     "acf/advanced-custom-fields-pro":"5.7.4",
     "wpackagist-plugin/wordpress-importer": "0.6.4",
     "wpackagist-plugin/query-monitor": "3.1.1",
-
     "ministryofjustice/dw-document-revisions":"dev-update-composer-json",
     "ministryofjustice/intranet":"dev-master",
     "ministryofjustice/wp-rewrite-media-to-s3": "*",
