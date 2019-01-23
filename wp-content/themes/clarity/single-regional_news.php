@@ -13,7 +13,7 @@ $activeAgency = $oAgency->getCurrentAgency();
 <div id="maincontent" class="u-wrapper l-main t-news-article" role="main">
 
 	<?php
-	get_template_part( 'src/components/c-breadcrumbs/region', 'landing' );
+	get_template_part( 'src/components/c-breadcrumbs/view', 'region-single' );
 	get_template_part( 'src/components/c-news-article/view', 'regional_news' );
 	?>
 

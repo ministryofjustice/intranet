@@ -40,7 +40,10 @@
   	<span>Home</span>
     </a>
     <span class="separator"> &gt; </span>
-
+    <a href="/regional-pages/">
+  	  <span>Regions</span>
+  	</a>
+    <span class="separator"> &gt; </span>
   	<?php echo get_breadcrumb(); ?>
   </section>
   <!-- c-breadcrumbs ends here -->
