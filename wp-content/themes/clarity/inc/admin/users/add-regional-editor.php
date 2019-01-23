@@ -38,6 +38,7 @@ $capabilities = array(
 	'publish_documents'             => true,
 
 	'edit_events'                   => true,
+	'edit_event'										=> true,
 	'edit_others_events'            => true,
 	'publish_events'                => true,
 
