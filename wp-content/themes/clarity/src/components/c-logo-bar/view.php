@@ -10,7 +10,7 @@
       $logo = get_stylesheet_directory_uri() . '/assets/images/moj_logo.png';
   }
 
-  $on_switcher_page = get_query_var( 'name' );
+  $page_name = get_query_var( 'name' );
 ?>
 
 <section class="c-logo-bar">
@@ -19,7 +19,7 @@
       <img src="<?php echo $logo; ?>" alt="<?php echo $activeAgency['label']; ?> Logo">
       <span class="agency-title"><?php echo $activeAgency['label']; ?></span>
     </a></div>
-    <?php if ( ! $on_switcher_page ) : ?>
+    <?php if ( $page_name !== 'agency-switcher' ) : ?>
     <div class="u-wrapper__stack--right"><a href="/agency-switcher" class="c-logo-bar__switch">Switch to other intranet</a></div>
   <?php endif; ?>
   </div>
