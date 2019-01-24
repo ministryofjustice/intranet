@@ -1,17 +1,13 @@
 <header class="c-header-container" role="banner">
 
   <?php
-    get_template_part('src/components/c-logo-bar/view');
-
-    if (!is_search()):
-      get_template_part('src/components/c-search-bar/view');
-    endif;
-
-    get_template_part('src/components/c-main-nav-bar/view');
+    get_template_part( 'src/components/c-logo-bar/view' );
+    get_template_part('src/components/c-search-bar/view');
+    get_template_part( 'src/components/c-main-nav-bar/view' );
   ?>
   <!--[if lte IE 9]>
   <div class="u-message u-message--warning">
-    You are using a very old browser that may impact your web browsing experience. It is recommended you switch to use Firefox or upgrade to a modern version of Internet Explorer.
+    You are using an old browser that may impact your web browsing experience. It is recommended you switch to use Firefox or a modern version of Internet Explorer if possible.
   </div>
   <![endif]-->
 
