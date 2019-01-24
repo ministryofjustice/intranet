@@ -54,5 +54,8 @@ foreach ( $activeAgencies as $agency_id => $agency ) {
 	<li class="c-intranet-switcher__switch c-intranet-switcher__switch--ospt">
 	  <a href="http://officialsolicitorandpublictrustee.intranet.service.justice.gov.uk/">Official Solicitor and Public Trustee</a>
 	</li>
+	<li class="c-intranet-switcher__switch c-intranet-switcher__switch--yjbrh">
+		<a href="https://yjresourcehub.uk/">Youth Justice Board Resource Hub</a>
+	</li>
   </ul>
 </div>
