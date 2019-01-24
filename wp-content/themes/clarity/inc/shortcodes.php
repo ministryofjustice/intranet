@@ -17,3 +17,16 @@ function hr_most_popular_shortcode() {
 	return ob_get_clean();
 
 }
+
+// Allows editors to create two columns in pages
+add_shortcode( 'columns', 'clarity_columns_shortcode' );
+
+function clarity_columns_shortcode( $atts, $content = '' ) {
+	return '<div class="l-column-wrapper">' . apply_filters( 'the_content', $content ) . '</div>';
+}
+
+add_shortcode( 'col', 'clarity_col_shortcode' );
+
+function clarity_col_shortcode( $atts, $content = '' ) {
+	return '<div class="l-column-half-section">' . apply_filters( 'the_content', $content ) . '</div>';
+}

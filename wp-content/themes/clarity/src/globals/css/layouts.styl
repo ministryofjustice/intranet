@@ -60,8 +60,6 @@
   }
 }
 
-
-
 // The 'footer' layout
 .c-footer {
   .l-primary {
@@ -77,5 +75,21 @@
       column(1/5);
       padding: $spacing*3 0;
     }
+  }
+}
+
+// Column shortcode CSS - bc this widget doesn't have it's own component.
+.l-column-wrapper {
+  column(1);
+  
+  .l-column-half-section {
+    +above('m') {
+      padding-right: $spacing*2;
+      span(1/2, $gutter: 2);
+    }
+  }
+
+  .l-column-half-section:last-of-type {
+    padding-right: 0;
   }
 }
