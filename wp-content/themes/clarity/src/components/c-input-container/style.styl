@@ -16,17 +16,19 @@
 	input[type="tel"],
 	textarea,
 	select {
+		color: $text-colour;
 		display: block;
 		width: 100%;
 		max-width: 100%;
 		margin-top: $spacing*.5;
 		padding: $spacing $spacing*.6;
-		border: 1px solid lighten($border, 30%);
+		border: 2px solid $text-colour;
 		font-size: $outerCore;
 		line-height: $lineHeight*1.2;
 	}
 
 	&--checkbox {
+		border: 2px solid $text-colour;
 		position: relative;
 		overflow: hidden; //simple clearfix
 		padding-left: $spacing*4;
