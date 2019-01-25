@@ -5,12 +5,12 @@ $terms = get_the_terms($post_id, 'agency');
 ?>
 <!-- c-last-updated starts here -->
 <section class="c-last-updated">
-  <p><span class="c-share-post__meta__date"><strong>Last reviewed:</strong> <?php echo the_modified_date('j F Y'); ?></span></p>
-  <p><span class="c-share-post__meta__date"><strong>Content tagged as:</strong>
+  <p><span class="c-share-post__meta__date">Last reviewed: <?php echo the_modified_date('j F Y'); ?></span></p>
+  <p><span class="c-share-post__meta__date">Content tagged as:
   <?php
     if(is_array($terms)){
       foreach ($terms as $term) {
-        echo '['. $term->name . ']';
+        echo ' '. $term->name . ', ';
       }
     }
   ?>
