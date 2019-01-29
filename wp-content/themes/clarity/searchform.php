@@ -18,7 +18,7 @@ use MOJ\Intranet\Agency;
       <form role="search" method="GET" action="/" id="searchform" class="u-wrapper newclass">
        <div class="c-search-bar__container">
          <label for="s" class="u-visually-hidden">Search intranet</label>
-         <input type="search" name="s" placeholder="Search INTRANET.JUSTICE.GOV.UK (<?php echo $activeAgency["abbreviation"]; ?>)" id="s" value="<?php echo get_search_query(); ?>" />
+         <input type="search" name="s" placeholder="Search <?php echo $activeAgency["abbreviation"]; ?>" id="s" value="<?php echo get_search_query(); ?>" />
          <button type="submit" class="u-icon u-icon--search" aria-label="Go"><span>Go</span></button>
        </div>
       </form>
