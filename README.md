@@ -1,21 +1,36 @@
-# MoJ Intranet
+# Ministry of Justice intranet
 
-[![Build
-Status](https://travis-ci.org/ministryofjustice/intranet.svg?branch=master)](https://travis-ci.org/ministryofjustice/intranet)
+This is a WordPress project used by Ministry of Justice and agencies.
+https://intranet.justice.gov.uk/
 
 ## Getting started
 
-To run the system locally, follow the instructions in
-[docker/README.md](docker/README.md).
+Instructions to run the website on your local machine [build instructions](https://github.com/ministryofjustice/intranet/tree/master/docker).
 
-## Smoke Tests
+## Tech stack
 
-For instructions on how to run the smoke testssee
-[smoke-tests/README.md](smoke-tests/README.md).
+Built using Wordpress (PHP), mariadb and NGINX. These are containerized via using Docker. The structure is setup based on [Bedrock](https://roots.io/bedrock/), which itself is based off of [12factor](https://12factor.net/) principles.
 
-## Pingdom
+## Code style
 
-<a href="http://www.pingdom.com"><img
-src="https://share.pingdom.com/banners/47a63455" alt="Uptime Report for
-Intranet - Ping: Last 30 days" title="Uptime Report for Intranet - Ping:
-Last 30 days" width="300" height="165" /></a>
+This app follows the following coding standards and guidelines:
+* [PHP Coding Standards Draft Proposal](https://make.wordpress.org/core/handbook/php-coding-standards-draft-proposal/)
+* [WordPress Coding Standards](https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards)
+
+And if something cannot be formatted via the official Wordpress formatting standards to fall back to the [PSR-2: Coding Style Guide](https://www.php-fig.org/psr/psr-2/) at a minimum.
+
+* Frontend coding standards, see our WP theme page [Clarity](https://github.com/ministryofjustice/intranet/tree/master/wp-content/themes/clarity)
+
+## Tests
+
+We use a smoke test suite. See [Intranet Smoke Tests](https://github.com/ministryofjustice/intranet/tree/master/smoke-tests).
+TODO: Run BEHAT test suite and integrate CI test, ie Travis.
+
+## Contribute/contact
+
+We encourage others to contribute via forking the repo and committing your proposed changes in a pull request for review.
+
+## License
+* License:           The MIT License (MIT)
+* License URI:       https://opensource.org/licenses/MIT
+* Copyright:         Crown Copyright (c) 2018 Ministry of Justice
