@@ -12,6 +12,7 @@
     {"type":"vcs", "no-api": true, "url":"https://github.com/ministryofjustice/php-markdown-extra.git"}
   ],
   "require": {
+    "wpackagist-plugin/classic-editor":"1.3",
     "wpackagist-plugin/totalpoll-lite":"3.0.0",
     "wpackagist-plugin/cms-tree-page-view":"1.5",
     "wpackagist-plugin/co-authors-plus":"3.3.0",
