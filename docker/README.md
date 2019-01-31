@@ -35,7 +35,7 @@ Via CMD line in your terminal (Mac OS):
 
 ### Troubleshooting
 
-For frontend issues check out this repo's wiki.
+For further frontend issues or information visit this repo's [wiki](https://github.com/ministryofjustice/intranet/wiki).
 
 ### Shutdown website
 To spin the docker containers down, `cd` into `docker` folder and run `Make shutdown` cmd.
