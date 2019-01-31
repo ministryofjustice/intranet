@@ -4,7 +4,7 @@ Instructions to run the website on your local machine.
 ## Requirements
 
 * [Docker](https://www.docker.com/)
-* Node.js, NPM and Git
+* Local version of Node.js, NPM and Git
 * Port 80 of your local machine must be available.
 * MoJ network access (via wifi or VPN). Required when building image as it pulls in protected repos.
 * Github account and be added to [Ministry of Justice GitHub account](https://github.com/ministryofjustice)
@@ -13,18 +13,16 @@ Instructions to run the website on your local machine.
 
 ## Getting Started
 
-Via CMD line in your terminal (Mac OS):
+### Download the repo and setup the environment
 
-1. `cd` into the chosen directory on your local machine you want to build the site in.
-2. Create the project root directory. `mkdir intranet && cd intranet` .
-3. Inside the root directory run `git clone git@github.com:ministryofjustice/intranet.git` (You may need to setup a deploy key in your github account, if you get an error).
-4. Request an `.env` file from team member and copy to the root directory. Or create your `.env` file yourself (see `dotenv.example`) and populate variables (these can be get from the team password manager). Dummy keys can be generated at [Roots salts](https://roots.io/salts.html)
-5. Set up new local hostfile address (Run `sudo nano /private/etc/hosts`. Add `intrant.docker` to your host file (`127.0.0.1	intranet.docker`) and save).
+* Clone repo into your chosen directory `git clone git@github.com:ministryofjustice/intranet.git` (You may need to setup a deploy key in your github account, if you get an error).
+* Set up new local host file address (Run `sudo nano /private/etc/hosts`. Add `intrant.docker` to your host file (`127.0.0.1	intranet.docker`) and save).
 
 ### Build and run the website
 
 1. Make sure you are on an MoJ network or VPN whitelisted connection.
 2. `cd` into the `docker` folder.
+4. Request an `.env` file from team member and copy into `docker` folder. Dummy keys, if needed can be generated at [Roots salts](https://roots.io/salts.html)
 3. `Make launch`. Running this command in the docker folder both builds and spins up docker containers. Composer also pulls in the various repositories and plugins the site uses. This build process takes several minutes when you first run it. It executes out of daemon mode, so when the site is running you will see the stream of log files in your terminal.
 4. Open a new terminal window and run `docker ps`. Check that everything is running: `docker_wordpress`, `mariadb` amd `mailcatcher`.
 5. Get database copy from team, unpack (if zipped) and use raw SQL file (named `[something].sql`) and put in the `db-dump` directory in the `docker` folder.
