@@ -4,6 +4,7 @@ Instructions to run the website on your local machine.
 ## Requirements
 
 * [Docker](https://www.docker.com/)
+* Node.js, NPM and Git
 * Port 80 of your local machine must be available.
 * MoJ network access (via wifi or VPN). Required when building image as it pulls in protected repos.
 * Github account and be added to [Ministry of Justice GitHub account](https://github.com/ministryofjustice)
@@ -18,20 +19,27 @@ Via CMD line in your terminal (Mac OS):
 2. Create the project root directory. `mkdir intranet && cd intranet` .
 3. Inside the root directory run `git clone git@github.com:ministryofjustice/intranet.git` (You may need to setup a deploy key in your github account, if you get an error).
 4. Request an `.env` file from team member and copy to the root directory. Or create your `.env` file yourself (see `dotenv.example`) and populate variables (these can be get from the team password manager). Dummy keys can be generated at [Roots salts](https://roots.io/salts.html)
-5. Get database copy from team, unpack (if zipped) and use raw SQL file (named `[something].sql`) and put in the `db-dump` directory.
-6. Set up new local hostfile address (Run `sudo nano /private/etc/hosts`. Add `intrant.docker` to your host file (`127.0.0.1	intranet.docker`) and save).
+5. Set up new local hostfile address (Run `sudo nano /private/etc/hosts`. Add `intrant.docker` to your host file (`127.0.0.1	intranet.docker`) and save).
 
 ### Build and run the website
 
-1. Make sure you are on an MoJ network or VPN (required for docker build stage).
-2. `cd` into `~/docker` folder where you should see a `Makefile`.
-3. In the docker folder, with command line run `Make launch` . This executes the Docker commands that build the site image and then spin-up the required containers. It is at this point the build uses Composer to pull in the various repositories and plugins the site uses. This build process takes several minutes.
-4. Once finished, check Docker containers are running using `docker ps`. You should see three containers running, `docker_wordpress`, `mariadb` amd `mailcatcher`.
-5. Load database, run `make load-db-dump` at this stage.
-6. You should now be able to see the intranet running on your local machine, at `http://intranet.docker`.
-7. You may need to compile the site assets at this stage (CSS and JS). `cd` into WP child theme `Clarity` at `~/intranet/wp-content/themes/clarity
-`. Run `npm install` (if packages are not installed) and then run `gulp` , our compiling tool. LEGACY ISSUE: Files should now be complied in this folder but now they need to be moved to the folder Docker reads from at `~/intranet/docker/bedrock_volume/web/app/themes/intranet-theme-clarity`. You can do this manually or setup an automated process.
-8.) To spin the containers down, you can use the command `Make shutdown`. See `Makefile` in the docker directory for other useful commands.
+1. Make sure you are on an MoJ network or VPN whitelisted connection.
+2. `cd` into the `docker` folder.
+3. `Make launch`. Running this command in the docker folder both builds and spins up docker containers. Composer also pulls in the various repositories and plugins the site uses. This build process takes several minutes when you first run it. It executes out of daemon mode, so when the site is running you will see the stream of log files in your terminal.
+4. Open a new terminal window and run `docker ps`. Check that everything is running: `docker_wordpress`, `mariadb` amd `mailcatcher`.
+5. Get database copy from team, unpack (if zipped) and use raw SQL file (named `[something].sql`) and put in the `db-dump` directory in the `docker` folder.
+5. `cd` into `docker` folder and run `Make load-db-dump`. This populates the database for WP.
+6. You should now be able to see the intranet running on your local machine, at `http://intranet.docker` but CSS and JS will not be complied.
+7. Compile CSS and JS. `cd` into `~/intranet/wp-content/themes/clarity`. Run `npm install && gulp`. Then copy compiled files to `~/intranet/docker/bedrock_volume/web/app/themes/intranet-theme-clarity`. You may want to create your own automated process for copying these files. TODO// fix this legacy copying issue.
+8. Visit `http://intranet.docker` you should have a fully working intranet on your local machine.
+
+### Troubleshooting
+
+For frontend issues check out this repo's wiki.
+
+### Shutdown website
+To spin the docker containers down, `cd` into `docker` folder and run `Make shutdown` cmd.
+* See `Makefile` in the docker directory for other useful commands.
 
 ## Email delivery
 
@@ -48,19 +56,7 @@ We use [SendGrid](https://www.sendgrid.com/) . Details are in team password mana
 ## Committing changes to this repository and deployment
 
 1. Branch off master, make code changes to this repository and push to Github. If it is ready for production, create a pull request for another developer in the team to check.
-2. Once approved, merge your changes into the master branch. This then moves to the AWS pipeline, which will require manual approve at both the dev and production stages. For AWS access see service service desk.
-
-### TROUBLESHOOTING: I can't see my changes I've made to the theme?
-To make code edits to the themes, edit in `~/intranet/wp-content/themes/mojintranet` and `~/intranet/wp-content/themes/clarity`.
-Because of legacy architectural decisions, code changes made to either theme (`Clairty` of `mojintranet`) have to be manually move one you've made changes in them to the volume mounted by Docker at `~/intranet/docker/bedrock_volume/web/app/themes/` and `~/intranet/docker/bedrock_volume/web/app/themes/intranet-theme-clarity`
-
-Example `Make` command you could setup to move the files after each code change.
-
-```
-move:
-  rsync -a --delete ~/intranet/wp-content/themes/mojintranet ~/Dev/moj/intranet/docker/bedrock_volume/web/app/themes/
-  rsync -a --delete ~/intranet/wp-content/themes/clarity/* ~/Dev/moj/intranet/docker/bedrock_volume/web/app/themes/intranet-theme-clarity
-```
+2. Once approved, merge your changes into the master branch. Merge into master branch triggers the code to be pulled into the AWS pipeline, which will require manual approve at both the dev and production stages. For AWS access see service service desk.
 
 ## Updating Wordpress, plugins and supporting repository versions
 
