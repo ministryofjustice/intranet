@@ -13,35 +13,35 @@ $post_id = get_the_ID();
 $event_count = 100;
 
 $oTeam = new Teams();
-$event = $oTeam->team_events_api($event_count);
+$event = $oTeam->team_events_api( $event_count );
 
-if (is_array($event)) :
+if ( is_array( $event ) ) :
 
-  foreach ($event as $key => $post) :
+	foreach ( $event as $key => $post ) :
 
-    if ($post['id'] === $post_id) :
-      $event_id = $post['id'];
-      $post_url = $post["link"];
-      $event_title = $post["title"];
-      $start_time = (string) get_post_meta($event_id, '_event-start-time', true);
-      $end_time = (string) get_post_meta($event_id, '_event-end-time', true);
-      $start_date = get_post_meta($event_id, '_event-start-date', true);
-      $end_date = get_post_meta($event_id, '_event-end-date', true);
-      $location = (string) get_post_meta($event_id, '_event-location', true);
-      $date = get_post_meta($event_id, '_event-start-date', true);
-      $year = date('Y', strtotime($start_date));
-      $month = date('M', strtotime($start_date));
-      $day = date('l', strtotime($start_date));
-      $all_day = get_post_meta($event_id, '_event-allday', true);
+		if ( $post['id'] === $post_id ) :
+			$event_id    = $post['id'];
+			$post_url    = $post['link'];
+			$event_title = $post['title'];
+			$start_time  = (string) get_post_meta( $event_id, '_event-start-time', true );
+			$end_time    = (string) get_post_meta( $event_id, '_event-end-time', true );
+			$start_date  = get_post_meta( $event_id, '_event-start-date', true );
+			$end_date    = get_post_meta( $event_id, '_event-end-date', true );
+			$location    = (string) get_post_meta( $event_id, '_event-location', true );
+			$date        = get_post_meta( $event_id, '_event-start-date', true );
+			$year        = date( 'Y', strtotime( $start_date ) );
+			$month       = date( 'M', strtotime( $start_date ) );
+			$day         = date( 'l', strtotime( $start_date ) );
+			$all_day     = get_post_meta( $event_id, '_event-allday', true );
 
-      if ($all_day === true) :
-          $all_day = 'all_day';
-      endif;
+			if ( $all_day === true ) :
+				$all_day = 'all_day';
+		  endif;
 
-      echo '<div class="c-events-item-team-homepage">';
-      include(locate_template('src/components/c-calendar-icon/view.php'));
-      include(locate_template('src/components/c-events-item-byline/view.php'));
-      echo '</div>';
-    endif;
+			echo '<div class="c-events-item-team-homepage">';
+			include locate_template( 'src/components/c-calendar-icon/view.php' );
+			include locate_template( 'src/components/c-events-item-byline/view.php' );
+			echo '</div>';
+	  endif;
   endforeach;
 endif;

@@ -23,27 +23,27 @@ if ( ! empty( $latestNews ) ) : ?>
 
 				if ( ! empty( $postItem['thumbnail_url'] ) ) :
 
-				echo '<div class="c-news-list-aside__wrapper">';
-				echo '<div class="c-news-list-aside__img">';
+					echo '<div class="c-news-list-aside__wrapper">';
+					echo '<div class="c-news-list-aside__img">';
 
-				echo '<a href="';
-				echo esc_url($postItem['url']);
-				echo '">';
-				echo '<img src="';
-				echo esc_url($postItem['thumbnail_url']);
-				echo '" alt="';
-				echo esc_attr($postItem['thumbnail_alt_text']);
-				echo '">';
-				echo '</a>';
-				echo '</div>';
+					echo '<a href="';
+					echo esc_url( $postItem['url'] );
+					echo '">';
+					echo '<img src="';
+					echo esc_url( $postItem['thumbnail_url'] );
+					echo '" alt="';
+					echo esc_attr( $postItem['thumbnail_alt_text'] );
+					echo '">';
+					echo '</a>';
+					echo '</div>';
 
 				endif;
 
 				echo '<div class="c-news-list-aside__text">';
 				echo '<h1><a href="';
-				echo esc_url($postItem['url']);
+				echo esc_url( $postItem['url'] );
 				echo '">';
-				echo esc_attr($postItem['title']);
+				echo esc_attr( $postItem['title'] );
 				echo '</a></h1>';
 
 				echo '<div class="">';

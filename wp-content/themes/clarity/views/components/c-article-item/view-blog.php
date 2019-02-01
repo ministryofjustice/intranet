@@ -5,8 +5,8 @@
 use MOJ\Intranet\Authors;
 $oAuthor = new Authors();
 
-$id            = get_the_ID();
-$authors       = $oAuthor->getAuthorInfo( $id );
+$id      = get_the_ID();
+$authors = $oAuthor->getAuthorInfo( $id );
 ?>
 
 <article class="c-article-item js-article-item">
@@ -15,7 +15,7 @@ $authors       = $oAuthor->getAuthorInfo( $id );
 
 	<a href="<?php echo esc_url( get_permalink( $id ) ); ?>">
 	  <img src="
-	  <?php
+		<?php
 		// Display guest author image
 		echo $authors[0]['thumbnail_url'];
 		?>

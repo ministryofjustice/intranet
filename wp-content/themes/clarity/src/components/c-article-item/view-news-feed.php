@@ -10,9 +10,9 @@
  $thumbnail_alt = get_post_meta( get_post_thumbnail_id( $id ), '_wp_attachment_image_alt', true );
 
 // This component sometimes requires `$set_cpt` depending where this component gets called.
- if ( ! isset($set_cpt) ) {
-   $set_cpt = '';
- }
+if ( ! isset( $set_cpt ) ) {
+	$set_cpt = '';
+}
 ?>
 
 <article class="c-article-item js-article-item" data-type="<?php echo $set_cpt; ?>">
@@ -21,14 +21,14 @@
 
 		if ( $thumbnail ) :
 
-		echo '<a href="' . esc_url( get_permalink( $id ) ) . '" class="thumbnail">';
-		echo '<img src="' . esc_url( $thumbnail ) . '" alt="' . esc_attr( $thumbnail_alt ). '">';
-		echo '</a>'; else :
-		echo '<!-- No news author or image supplied-->';
+			echo '<a href="' . esc_url( get_permalink( $id ) ) . '" class="thumbnail">';
+			echo '<img src="' . esc_url( $thumbnail ) . '" alt="' . esc_attr( $thumbnail_alt ) . '">';
+			echo '</a>'; else :
+				echo '<!-- No news author or image supplied-->';
 
 		endif;
 
-		?>
+			?>
 
 	<div class="content">
 

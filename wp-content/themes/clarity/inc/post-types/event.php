@@ -80,7 +80,8 @@ function mojintranet_sort_events( $vars ) {
 	}
 	if ( isset( $vars['orderby'] ) && 'event-start' == $vars['orderby'] ) {
 		$vars = array_merge(
-			$vars, array(
+			$vars,
+			array(
 				'orderby'    => 'meta_value',
 				'meta_query' => array(
 					array(
@@ -97,7 +98,8 @@ function mojintranet_sort_events( $vars ) {
 	}
 	if ( isset( $vars['orderby'] ) && 'event-end' == $vars['orderby'] ) {
 		$vars = array_merge(
-			$vars, array(
+			$vars,
+			array(
 				'orderby'    => 'meta_value',
 				'meta_query' => array(
 					array(
