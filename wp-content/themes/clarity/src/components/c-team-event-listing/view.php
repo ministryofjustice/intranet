@@ -37,7 +37,6 @@ if ( isset( $event ) ) :
 		if ( $all_day === true ) {
 			$all_day = 'all_day';
 		}
-
 		?>
 <!-- c-team-event-listing starts here -->
 <section class="c-team-event-listing">
@@ -93,3 +92,5 @@ if ( isset( $event ) ) :
 		<?php
 endforeach; // ($event as $key => $post):
 endif; // is_array($event)
+
+wp_reset_query();

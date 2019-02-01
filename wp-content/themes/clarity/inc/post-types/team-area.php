@@ -87,7 +87,7 @@ function custom_post_type()
       'taxonomies'            => array( 'agency', 'campaign_category', 'team' ),
       'hierarchical'          => true,
       'query_var'             => true,
-      'rewrite'               => array( 'slug' => 'team-'.$value ),
+      'rewrite'               => array( 'slug' => 'team-' . $value, 'with_front' => false ),
       'show_ui'               => true,
       'show_admin_column'     => true,
       'show_in_menu'          => 'team-area',
