@@ -10,7 +10,6 @@
 
 	get_template_part( 'src/components/c-specialist-content/view' );
 
-	echo '<h1 class="o-title o-title--section">News</h1>';
 	get_template_part( 'src/components/c-news-list/view', 'team' );
 	?>
 
