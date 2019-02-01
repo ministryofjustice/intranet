@@ -9,33 +9,33 @@ use MOJ\Intranet\Event;
 */
 
 $oEvent = new Event();
-$event = $oEvent->get_event_list('search');
+$event  = $oEvent->get_event_list( 'search' );
 
 if ( isset( $event ) ) :
 
 	// Limit events listed on page to one for homepage display
-	if (is_front_page()) {
-			$event = array_splice($event, 0, 1);
+	if ( is_front_page() ) {
+			$event = array_splice( $event, 0, 1 );
 	}
 
-	foreach ($event as $key => $post) :
-			$event_id = $post['ID'];
-			$post_url = $post["url"];
-			$event_title = $post["post_title"];
-			$start_time = $post['event_start_time'];
-			$end_time = $post['event_end_time'];
-			$start_date = $post['event_start_date'];
-			$end_date = $post['event_end_date'];
-			$location = $post['event_location'];
-			$date = $post['event_start_date'];
-			$year = date('Y', strtotime($start_date));
-			$month = date('M', strtotime($start_date));
-			$day = date('l', strtotime($start_date));
-			$all_day = get_post_meta($event_id, '_event-allday', true);
+	foreach ( $event as $key => $post ) :
+			$event_id    = $post['ID'];
+			$post_url    = $post['url'];
+			$event_title = $post['post_title'];
+			$start_time  = $post['event_start_time'];
+			$end_time    = $post['event_end_time'];
+			$start_date  = $post['event_start_date'];
+			$end_date    = $post['event_end_date'];
+			$location    = $post['event_location'];
+			$date        = $post['event_start_date'];
+			$year        = date( 'Y', strtotime( $start_date ) );
+			$month       = date( 'M', strtotime( $start_date ) );
+			$day         = date( 'l', strtotime( $start_date ) );
+			$all_day     = get_post_meta( $event_id, '_event-allday', true );
 
-			if ($all_day === true) {
-					$all_day = 'all_day';
-			}
+		if ( $all_day === true ) {
+				$all_day = 'all_day';
+		}
 
 		?>
 
@@ -95,7 +95,7 @@ if ( isset( $event ) ) :
 
 		<?php
 endforeach; // ($event as $key => $post):
-echo '<a href="/events/" class="o-see-all-link">See all events</a>';
-else:
+	echo '<a href="/events/" class="o-see-all-link">See all events</a>';
+else :
 	return ''; // there is no event to display.
 endif;

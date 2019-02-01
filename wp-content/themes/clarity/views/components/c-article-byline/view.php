@@ -18,11 +18,11 @@ if ( have_posts() ) :
 <!-- c-article-byline starts here -->
 <section class="c-article-byline">
 
-  <?php if ( $authors[0]['thumbnail_url'] ) : ?>
+		<?php if ( $authors[0]['thumbnail_url'] ) : ?>
 
   <img class="c-article-byline__photo" src="<?php echo esc_url( $authors[0]['thumbnail_url'] ); ?>" alt="Photo of author, <?php echo esc_attr( $authors[0]['name'] ); ?>">
 
-  <?php endif; ?>
+	<?php endif; ?>
 
   <span class="c-article-byline__intro"><?php echo esc_attr( $authors[0]['name'] ); ?></span>
   <span class="c-article-byline__job"><?php echo esc_attr( $authors[0]['job_title'] ); ?></span>

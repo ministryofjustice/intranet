@@ -4,7 +4,7 @@ use MOJ\Intranet\Agency;
 $socialLinks = Agency::getSocialLinks( get_intranet_code() );
 
 if ( ! empty( $socialLinks ) ) {
-?>
+	?>
 	<section class="c-social-links">
 		<h1 class="o-title o-title--section">Follow us</h1>
 		<ul>
@@ -17,6 +17,6 @@ if ( ! empty( $socialLinks ) ) {
 			<?php } ?>
 		</ul>
 	</section>
-<?php
+	<?php
 }
 ?>

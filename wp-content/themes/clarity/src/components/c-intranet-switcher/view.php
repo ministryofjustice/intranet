@@ -19,7 +19,7 @@ if ( isset( $referrer['query'] ) ) {
 	}
 
 	$previous_parameters = [];
-	
+
 	foreach ( $output as $key => $value ) {
 		$previous_parameters[] = $key . '=' . $value;
 	}
@@ -29,7 +29,6 @@ if ( isset( $referrer['query'] ) ) {
 	if ( trim( $referrer['query'] ) != '' ) {
 		$referrer['query'] = '&' . $referrer['query'];
 	}
-
 } else {
 	$referrer['query'] = '';
 }
@@ -56,7 +55,7 @@ if ( isset( $referrer['query'] ) ) {
 				echo '<li class="c-intranet-switcher__switch c-intranet-switcher__switch--' . $agency_id . $extra_class . ' "><a href="https://intranet.noms.gsi.gov.uk/">' . $agency['label'] . '</a></li>';
 			}
 		}
-	?>
+		?>
 
 	<li class="c-intranet-switcher__switch c-intranet-switcher__switch--ospt">
 	  <a href="http://officialsolicitorandpublictrustee.intranet.service.justice.gov.uk/">Official Solicitor and Public Trustee</a>

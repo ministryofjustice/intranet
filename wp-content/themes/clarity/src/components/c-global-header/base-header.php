@@ -82,7 +82,7 @@ if ( ! defined( 'GT_CODE' ) ) {
  */
   $agency_class      = 'agency-' . $agency_shortcode;
   body_class( $class = $agency_class );
-	?>
+?>
   >
 	<?php
 	/**
@@ -102,5 +102,5 @@ if ( ! defined( 'GT_CODE' ) ) {
   <a class="u-skip-link" href="#maincontent">Skip to main content</a>
 
 	<?php
-   get_template_part( 'src/components/c-header-container/view' );
-   get_template_part( 'src/components/c-phase-banner/view' );
+	get_template_part( 'src/components/c-header-container/view' );
+	get_template_part( 'src/components/c-phase-banner/view' );
