@@ -5,7 +5,7 @@ add_action( 'wp_dashboard_setup', 'dw_remove_dashboard_widgets' );
 // Hide dashboard widgets
 function dw_remove_dashboard_widgets() {
 	remove_meta_box( 'dashboard_right_now', 'dashboard', 'normal' );
-	remove_meta_box( 'dashboard_activity', 'dashboard', 'normal' );
+	//remove_meta_box( 'dashboard_activity', 'dashboard', 'normal' );
 	remove_meta_box( 'recently-edited-content', 'dashboard', 'normal' );
 	remove_meta_box( 'dashboard_quick_press', 'dashboard', 'side' );
 	remove_meta_box( 'dashboard_primary', 'dashboard', 'side' );
@@ -21,10 +21,12 @@ if ( ! current_user_can( 'subscriber' ) ) :
 	add_action( 'wp_dashboard_setup', 'help_editors_add_dashboard_widgets' );
 
 	function help_editors_add_dashboard_widgets() {
-		wp_add_dashboard_widget(
+		add_meta_box(
 			'help_editors_dashboard_widget',   // Widget slug.
 			'Editing on the intranet',                // Title.
-			'help_editors_dashboard_widget_function'  // Display function.
+			'help_editors_dashboard_widget_function',  // Display function.
+			'dashboard',
+			'side'
 		);
 	}
 endif;
