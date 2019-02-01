@@ -1,0 +1,28 @@
+{
+    "name": "News list",
+    "class": "c-news-list",
+    "version": "1.0.0",
+    "creator": {
+        "name": "Alex Foxleigh",
+        "github_username": "foxleigh81"
+    },
+    "description": "A list of regular news items",
+    "standard_or_universal": "standard",
+    "parents": "",
+    "children": "c-article-item",
+    "notes": {
+        "backend": "",
+        "frontend": "This, c-blog-list and c-events list can all probably be consolidated with c-article-list"
+    },
+    "backend_classes": {},
+    "has_js": false,
+    "integrated": false,
+    "is_working": false,
+    "example_link": "",
+    "used_on_templates": [],
+    "changelog": [{
+        "date": "02/02/17",
+        "author": "Alex Foxleigh",
+        "description": "Created component"
+    }]
+}
