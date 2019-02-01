@@ -9,13 +9,11 @@ $id            = $team_blog_post['id'] ?? '';
 $authors       = $oAuthor->getAuthorInfo( $id );
 $thumbnail     = get_the_post_thumbnail_url( $id, 'user-thumb' );
 $thumbnail_alt = get_post_meta( get_post_thumbnail_id( $id ), '_wp_attachment_image_alt', true );
-
 ?>
 
 <article class="c-article-item js-article-item">
 
 	<?php if ( $thumbnail ) : ?>
-
 	<a href="<?php echo esc_url( get_permalink( $id ) ); ?>">
 		<img src="
 		<?php echo esc_url( $thumbnail ); ?> " alt="<?php echo $thumbnail_alt; ?>">
