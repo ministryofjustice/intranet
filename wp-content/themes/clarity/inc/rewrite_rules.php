@@ -28,4 +28,3 @@ if ( strpos( $path, 'blog/team-specialists' ) ) {
 	$new_path = preg_replace( $pattern, $replacement, $string );
 	header( 'Location: ' . home_url() . $new_path );
 }
-}
