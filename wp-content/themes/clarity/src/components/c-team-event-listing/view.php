@@ -14,7 +14,7 @@ $event_count = 4;
 $oTeam = new Teams();
 $event = $oTeam->team_events_api( $event_count );
 
-if ( isset( $event ) ) :
+if ( $event ) :
 
 	echo '<h1 class="o-title o-title--section">Events</h1>';
 
