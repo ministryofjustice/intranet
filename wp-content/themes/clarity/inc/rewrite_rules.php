@@ -1,5 +1,17 @@
 <?php
 
+/**
+ *
+ * 06.02.19 Team page structure has been changed.
+ *
+ * Paths changed:
+ * /blog/team-pages/digital-technology/data-driven-department-home/
+ * /blog/team-specialists/*
+ * to
+ * /team-pages/data-driven-department-home/
+ * /team-specialists/
+ **/
+
 $path = $_SERVER['REQUEST_URI'];
 
 if ( strpos( $path, 'blog/team-pages/digital-technology' ) ) {
