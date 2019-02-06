@@ -42,8 +42,8 @@ class Content_Category extends Taxonomy {
 
         foreach ($terms as $term){
             $term_agencies = get_field('term_used_by', $this->name . '_' . $term->term_id);
-
-            if (in_array($context, $term_agencies)) {
+            
+            if (is_array($term_agencies) && in_array($context, $term_agencies)) {
                 return true;
             }
         }
