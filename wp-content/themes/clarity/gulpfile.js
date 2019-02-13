@@ -22,7 +22,6 @@ var gulp = require('gulp')
     rename = require('gulp-rename')
     notifier = require('node-notifier')
     standard = require('gulp-standard')
-    cmq = require('gulp-merge-media-queries')
     csso = require('gulp-csso')
     cssnano = require('gulp-cssnano')
     jeet = require('jeet')
@@ -133,7 +132,6 @@ function ie() {
 function formatCSS() {
   return gulp.src(cssASSETS)
   .pipe(plumber())
-  .pipe(cmq())
   .pipe(csso())
   .pipe(cssnano({
     autoprefixer: { browsers: supportedBrowsers, add: true }
@@ -143,7 +141,7 @@ function formatCSS() {
 }
 
 function clean() {
-  return del(['assets/css']);
+  return del(['assets/css/*']);
 }
 
 // move files to required locations
@@ -191,35 +189,24 @@ function watch() {
   notifier.notify({ title: 'Watching :|', message: '...for the file changes' })
 }
 
-function build(done) {
-  clean()
-  css()
-  ie()
-  print()
-  formatCSS()
-  jsVendor()
-  js()
-  icons()
-  fonts()
-  images()
-  done()
-}
+// Consolidate two main functions into vars, watching and building
+var watcher = gulp.parallel(watch)
+var build = gulp.series([clean, css, ie, print, formatCSS, js, jsVendor, fonts, icons, images])
 
+// Expose functions
 exports.js = js
 exports.css = css
 exports.print = print
 exports.ie = ie
 exports.clean = clean
 exports.formatCSS = formatCSS
-//exports.files = files
 exports.jsVendor = jsVendor
 exports.fonts = fonts
 exports.icons = icons
 exports.images = images
 exports.build = build
 
-var watcher = gulp.parallel(watch)
-
+// Run Gulp tasks i.e `gulp build and gulp watch`
 gulp.task('default', watcher)
 gulp.task('watch', watcher)
 gulp.task('build', build)
