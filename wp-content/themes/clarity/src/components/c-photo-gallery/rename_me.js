@@ -1,5 +1,5 @@
 ;/* photoGallery function */(function ($) {
 	$.fn.moji_photoGallery = function () {
-		console.log( '"photoGallery" is ready to code' )
+		console.log( '"photoGallery" iss ready to code' )
 	}
 })( jQuery )

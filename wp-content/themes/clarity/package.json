@@ -1,75 +1,79 @@
 {
-  "name": "intranet-theme-clarity",
-  "version": "1.1.1",
+  "name": "clarity",
+  "version": "2.0.0",
   "engines": {
     "node": "4.4.5",
     "npm": "2.15.5"
   },
-  "description": "A new theme for the Ministry of Justice Intranet",
+  "description": "Gulp compilier for Clarity theme",
   "main": "index.js",
   "scripts": {
     "start": "gulp",
     "watch": "gulp watch",
-    "test": "standard",
-    "postinstall": "gulp build"
+    "test": "standard"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ministryofjustice/intranet-theme-clarity/.git"
+    "url": "git+https://github.com/ministryofjustice/intranet.git"
   },
   "contributors": [
     "MoJ Digital team"
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ministryofjustice/intranet-theme-clarity//issues"
+    "url": "https://github.com/ministryofjustice/intranet/issues"
   },
-  "homepage": "https://github.com/ministryofjustice/intranet-theme-clarity/#readme",
+  "homepage": "https://github.com/ministryofjustice/intranet/#readme",
   "dependencies": {
-    "babel-core": "latest",
-    "browser-sync": "^2.18.12",
-    "casperjs": "^1.1.4",
-    "chalk": "^1.1.1",
+    "chalk": "^2.4.2",
     "ctgen": "^1.3.2",
-    "del": "latest",
-    "dotenv": "^4.0.0",
-    "glob-fs": "^0.1.6",
-    "gulp": "latest",
-    "gulp-autoprefixer": "^4.0.0",
-    "gulp-babel": "latest",
+    "glob-fs": "^0.1.7",
+    "gulp": "^4.0.0",
+    "gulp-autoprefixer": "^6.0.0",
+    "gulp-babel": "^8.0.0",
     "gulp-concat": "^2.6.1",
-    "gulp-css-purge": "^1.0.27",
-    "gulp-cssnano": "latest",
-    "gulp-csso": "latest",
-    "gulp-eslint": "latest",
-    "gulp-imagemin": "latest",
-    "gulp-merge-media-queries": "^0.2.1",
-    "gulp-plumber": "^1.1.0",
-    "gulp-rename": "^1.2.2",
-    "gulp-standard": "^9.0.0",
-    "gulp-strip-debug": "^1.0.2",
-    "gulp-stylus": "^2.6.0",
-    "gulp-uglify": "^2.1.2",
-    "ie-love": "0.0.3",
-    "ie8-js": "^0.1.2",
-    "inquirer": "^3.0.6",
-    "jeet": "^7.1.0",
-    "jquery": "^1.12.4",
-    "node-notifier": "^5.1.2",
-    "npm": "^5.8.0",
-    "phantomjs": "latest",
+    "gulp-cssnano": "^2.1.3",
+    "gulp-eslint": "^5.0.0",
+    "gulp-imagemin": "^5.0.3",
+    "gulp-plumber": "^1.2.1",
+    "gulp-rename": "^1.4.0",
+    "gulp-standard": "^12.0.0",
+    "gulp-stylus": "2.7.0",
+    "gulp-uglify": "^3.0.1",
+    "jeet": "^7.2.0",
+    "jquery": "^3.3.1",
+    "node-notifier": "^5.4.0",
+    "npm": "^6.7.0",
     "pretty": "^2.0.0",
-    "run-sequence": "^1.2.2",
-    "rupture": "^0.6.2",
-    "standard": "^9.0.2",
-    "yargs": "latest"
+    "rupture": "^0.7.1",
+    "standard": "^12.0.1",
+    "autoprefixer": "^9.4.7",
+    "vinyl": "^2.2.0",
+    "replace-ext": "^1.0.0",
+    "ansi-colors": "^3.2.3",
+    "date-format": "^2.0.0",
+    "fancy-log": "^1.3.3",
+    "lodash.template": "^4.4.0",
+    "minimist": "^1.2.0",
+    "beeper": "^1.1.1",
+    "through2": "^3.0.0",
+    "multipipe": "^3.0.1",
+    "list-stream": "^1.0.1",
+    "plugin-error": "^1.0.1",
+    "del": "^3.0.0",
+    "gulp-csso": "latest",
+    "gulp-merge-media-queries": "latest"
   },
   "author": "",
-  "devDependencies": {},
   "standard": {
     "globals": [
       "jQuery",
       "myAjax"
     ]
+  },
+  "devDependencies": {
+    "@babel/core": "^7.2.2",
+    "@babel/preset-env": "^7.3.1",
+    "gulp-postcss": "^8.0.0"
   }
 }
