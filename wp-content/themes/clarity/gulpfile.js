@@ -1,8 +1,17 @@
 /*
-GULP assets (CSS, JS) compilier
+GULP 4 asset (CSS, JS) compilier
+https://gulpjs.com/
+
+Instructions:
 Run `npm install`
-If issues try run `sudo npm i --unsafe-perm` first
-then run `gulp` cmd in gulpfile.js dir
+
+If everything installs correctly, you have three Gulp commands available
+`Gulp` = Runs default task of watching files for changes and then compiling
+`Gulp watch` = Same as default task above, watches files
+`Gulp build` = Compiles the assest on command then stops
+
+If issues installing try run `sudo npm i --unsafe-perm`
+The --unsafe-perm flag ignores some issues caused by running in root (locally)
 */
 
 // vars
@@ -32,6 +41,11 @@ var supportedBrowsers = [
   'android 4'
 ]
 
+/* Source Gulp glob vars
+* Be careful on source order, make sure to follow
+* https://gulpjs.com/docs/en/getting-started/explaining-globs
+*/
+
 var styleWatchFiles = 'src/**/*.styl'
 
 var jsSRC = [
@@ -46,17 +60,17 @@ var jsVendorSRC = [
 
 var cssSRC = [
   'src/globals/css/*.styl',
+  'src/**/*.styl',
   '!src/**/*.print.styl',
   '!src/**/*.ie.styl',
-  '!src/**/*.ie8.styl',
-  'src/components/**/*.styl'
+  '!src/**/*.ie8.styl'
 ]
 
 var printSRC = 'src/**/*.print.styl'
-var ieSRC = 'src/**/*.ie8.styl'
-var cssASSETS = 'assets/css/*.css'
-var fontSRC = 'src/globals/fonts/**/*'
-var iconSRC = 'src/globals/images/icons/*'
+    ieSRC = 'src/**/*.ie8.styl'
+    cssASSETS = 'assets/css/*.css'
+    fontSRC = 'src/globals/fonts/**/*'
+    iconSRC = 'src/globals/images/icons/*'
 
 var imgSRC = [
   'src/globals/images/*.png', 
@@ -64,7 +78,7 @@ var imgSRC = [
   'src/globals/images/*.gif'
 ]
 
-// build
+// tasks
 
 function js() {
   return gulp.src(jsSRC)
@@ -165,7 +179,6 @@ function images() {
 }
 
 function watch() {
-  // watching
   gulp.watch(styleWatchFiles, gulp.series([clean, css, ie, print, formatCSS])) // watch and process files in order
   gulp.watch(jsSRC, js) // (source,function)
 
@@ -176,6 +189,20 @@ function watch() {
   gulp.watch(imgSRC, images)
 
   notifier.notify({ title: 'Watching :|', message: '...for the file changes' })
+}
+
+function build(done) {
+  clean()
+  css()
+  ie()
+  print()
+  formatCSS()
+  jsVendor()
+  js()
+  icons()
+  fonts()
+  images()
+  done()
 }
 
 exports.js = js
@@ -189,6 +216,10 @@ exports.jsVendor = jsVendor
 exports.fonts = fonts
 exports.icons = icons
 exports.images = images
+exports.build = build
 
-var build = gulp.parallel(watch)
-gulp.task('default', build)
+var watcher = gulp.parallel(watch)
+
+gulp.task('default', watcher)
+gulp.task('watch', watcher)
+gulp.task('build', build)
