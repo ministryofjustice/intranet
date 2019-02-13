@@ -1552,7 +1552,17 @@ html {
 .u-icon--user-circle-o {
   *zoom: expression(this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf2be;');
 }
-.c-news-list .c-article-item.js-article-item {
+.c-homepage-feature-widget {
+  zoom: 1;
+  min-height: 1%;
+  width: 100%;
+  float: left;
+  display: block;
+}
+.c-homepage-feature-widget:after {
+  display: none;
+}
+.c-homepage-feature-widget .c-article-item {
   width: 45% !important;
 }
 
@@ -1714,17 +1724,7 @@ html {
 .u-icon--user-circle-o {
   *zoom: expression(this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf2be;');
 }
-.c-homepage-feature-widget {
-  zoom: 1;
-  min-height: 1%;
-  width: 100%;
-  float: left;
-  display: block;
-}
-.c-homepage-feature-widget:after {
-  display: none;
-}
-.c-homepage-feature-widget .c-article-item {
+.c-news-list .c-article-item.js-article-item {
   width: 45% !important;
 }
 
@@ -2049,7 +2049,7 @@ html {
 .u-icon--user-circle-o {
   *zoom: expression(this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf2be;');
 }
-.c-news-list .c-article-item.js-article-item {
+.c-news-list-aside .c-article-item.js-article-item {
   width: 45% !important;
 }
 
@@ -2211,7 +2211,7 @@ html {
 .u-icon--user-circle-o {
   *zoom: expression(this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf2be;');
 }
-.c-news-list-aside .c-article-item.js-article-item {
+.c-news-list .c-article-item.js-article-item {
   width: 45% !important;
 }
 
