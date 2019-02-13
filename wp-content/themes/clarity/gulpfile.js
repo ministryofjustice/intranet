@@ -1,43 +1,44 @@
 /*
-GULP 4 asset (CSS, JS) compilier
+GULP 4.0 asset (CSS, JS) compilier
 https://gulpjs.com/
 
 Instructions:
 Run `npm install`
 
 If everything installs correctly, you have three Gulp commands available
-`Gulp` = Runs default task of watching files for changes and then compiling
-`Gulp watch` = Same as default task above, watches files
-`Gulp build` = Compiles the assest on command then stops
+`gulp` = Runs default task of watching files for changes and then compiling
+`gulp watch` = Same as default task above, watches files
+`gulp build` = Compiles the assest on command then stops
 
 If issues installing try run `sudo npm i --unsafe-perm`
 The --unsafe-perm flag ignores some issues caused by running in root (locally)
 */
 
-// vars
+// constants
 
-var gulp = require('gulp')
-    stylus = require('gulp-stylus')
-    uglify = require('gulp-uglify')
-    rename = require('gulp-rename')
-    notifier = require('node-notifier')
-    standard = require('gulp-standard')
-    csso = require('gulp-csso')
-    cssnano = require('gulp-cssnano')
-    jeet = require('jeet')
-    del = require('del')
-    rupture = require('rupture')
-    concat = require('gulp-concat')
-    plumber = require('gulp-plumber')
-    autoprefixer = require('autoprefixer')
+const { src, dest, task, parallel, series, watch } = require('gulp')
 
-var supportedBrowsers = [
-  'last 2 versions',
-  'safari >= 8',
-  'ie >= 7',
-  'ff >= 20',
-  'ios 6',
-  'android 4'
+const stylus = require('gulp-stylus')
+      uglify = require('gulp-uglify')
+      rename = require('gulp-rename')
+      notifier = require('node-notifier')
+      standard = require('gulp-standard')
+      csso = require('gulp-csso')
+      cssnano = require('gulp-cssnano')
+      jeet = require('jeet')
+      del = require('del')
+      rupture = require('rupture')
+      concat = require('gulp-concat')
+      plumber = require('gulp-plumber')
+      autoprefixer = require('autoprefixer')
+
+const supportedBrowsers = [
+      'last 2 versions',
+      'safari >= 8',
+      'ie >= 7',
+      'ff >= 20',
+      'ios 6',
+      'android 4'
 ]
 
 /* Source Gulp glob vars
@@ -45,42 +46,42 @@ var supportedBrowsers = [
 * https://gulpjs.com/docs/en/getting-started/explaining-globs
 */
 
-var styleWatchFiles = 'src/**/*.styl'
+const styleWatchFiles = 'src/**/*.styl'
 
-var jsSRC = [
-  'src/components/**/*.js',
-  'src/globals/js/*.js'
+const jsSRC = [
+      'src/components/**/*.js',
+      'src/globals/js/*.js'
 ]
 
-var jsVendorSRC = [
-  'node_modules/jquery/dist/jquery.min.js',
-  'src/vendors/**/*'
+const jsVendorSRC = [
+      'node_modules/jquery/dist/jquery.min.js',
+      'src/vendors/**/*'
 ]
 
-var cssSRC = [
-  'src/globals/css/*.styl',
-  'src/**/*.styl',
-  '!src/**/*.print.styl',
-  '!src/**/*.ie.styl',
-  '!src/**/*.ie8.styl'
+const cssSRC = [
+      'src/globals/css/*.styl',
+      'src/**/*.styl',
+      '!src/**/*.print.styl',
+      '!src/**/*.ie.styl',
+      '!src/**/*.ie8.styl'
 ]
 
-var printSRC = 'src/**/*.print.styl'
-    ieSRC = 'src/**/*.ie8.styl'
-    cssASSETS = 'assets/css/*.css'
-    fontSRC = 'src/globals/fonts/**/*'
-    iconSRC = 'src/globals/images/icons/*'
+const printSRC = 'src/**/*.print.styl'
+      ieSRC = 'src/**/*.ie8.styl'
+      cssASSETS = 'assets/css/*.css'
+      fontSRC = 'src/globals/fonts/**/*'
+      iconSRC = 'src/globals/images/icons/*'
 
-var imgSRC = [
-  'src/globals/images/*.png', 
-  'src/globals/images/*.jpg', 
-  'src/globals/images/*.gif'
+const imgSRC = [
+      'src/globals/images/*.png', 
+      'src/globals/images/*.jpg', 
+      'src/globals/images/*.gif'
 ]
 
 // tasks
 
 function js() {
-  return gulp.src(jsSRC)
+  return src(jsSRC)
   .pipe(plumber())
   .pipe(standard())
   .pipe(standard.reporter('default', {
@@ -93,107 +94,103 @@ function js() {
     ie8: true,
     mangle: { reserved: ['$', 'jQuery'] }
   }))
-  .pipe(gulp.dest('assets/js'))
+  .pipe(dest('assets/js'))
 }
 
 function css() {
-  return gulp.src(cssSRC)
+  return src(cssSRC)
   .pipe(plumber())
   .pipe(stylus({
     'include css': true,
     use: [jeet(), rupture()]
   }))
   .pipe(concat('core.css'))
-  .pipe(gulp.dest('assets/css'))
+  .pipe(dest('assets/css'))
 }
 
 function print() {
-  return gulp.src(printSRC)
+  return src(printSRC)
   .pipe(plumber())
   .pipe(stylus({
     'include css': true
   }))
   .pipe(concat('print.css'))
-  .pipe(gulp.dest('assets/css'))
+  .pipe(dest('assets/css'))
 }
 
 function ie() {
-  return gulp.src(ieSRC)
+  return src(ieSRC)
   .pipe(plumber())
   .pipe(stylus({
     'include css': true,
     use: [jeet(), rupture()]
   }))
   .pipe(concat('ie8.css'))
-  .pipe(gulp.dest('assets/css'))
+  .pipe(dest('assets/css'))
 }
 
 // format final CSS file to spec
+
 function formatCSS() {
-  return gulp.src(cssASSETS)
+  return src(cssASSETS)
   .pipe(plumber())
   .pipe(csso())
   .pipe(cssnano({
     autoprefixer: { browsers: supportedBrowsers, add: true }
   }))
   .pipe(rename({ suffix: '.min' }))
-  .pipe(gulp.dest('assets/css'))
+  .pipe(dest('assets/css'))
 }
 
 function clean() {
   return del(['assets/css/*']);
 }
 
-// move files to required locations
-
-// function files() {
-//   return gulp.src(clarityFiles)
-//   .pipe(gulp.dest('../../../docker/bedrock_volume/web/app/themes/intranet-theme-clarity'))
-//   .pipe(notifier.notify({ title: 'Moved PHP :|', message: 'moved files' }))
-// }
-
 function jsVendor() {
-  return gulp.src(jsVendorSRC)
+  return src(jsVendorSRC)
   .pipe(plumber())
-  .pipe(gulp.dest('assets/vendors'))
+  .pipe(dest('assets/vendors'))
 }
 
 function fonts() {
-  return gulp.src(fontSRC)
+  return src(fontSRC)
   .pipe(plumber())
-  .pipe(gulp.dest('assets/fonts'))
+  .pipe(dest('assets/fonts'))
 }
 
 function icons() {
-  return gulp.src(iconSRC)
+  return src(iconSRC)
   .pipe(plumber())
-  .pipe(gulp.dest('assets/icons'))
+  .pipe(dest('assets/icons'))
 }
 
 function images() {
-  return gulp.src(imgSRC)
+  return src(imgSRC)
   .pipe(plumber())
-  .pipe(gulp.dest('assets/images'))
+  .pipe(dest('assets/images'))
 }
 
-function watch() {
-  gulp.watch(styleWatchFiles, gulp.series([clean, css, ie, print, formatCSS])) // watch and process files in order
-  gulp.watch(jsSRC, js) // (source,function)
+function watchFiles() {
+  // watch and process files in order
+  watch(styleWatchFiles, series([clean, css, ie, print, formatCSS]))
+  watch(jsSRC, js)
 
-  // moving
-  gulp.watch(jsVendorSRC, jsVendor)
-  gulp.watch(fontSRC, fonts)
-  gulp.watch(iconSRC, icons)
-  gulp.watch(imgSRC, images)
+  // watch and then move files
+  watch(jsVendorSRC, jsVendor)
+  watch(fontSRC, fonts)
+  watch(iconSRC, icons)
+  watch(imgSRC, images)
 
   notifier.notify({ title: 'Watching :|', message: '...for the file changes' })
 }
 
-// Consolidate two main functions into vars, watching and building
-var watcher = gulp.parallel(watch)
-var build = gulp.series([clean, css, ie, print, formatCSS, js, jsVendor, fonts, icons, images])
+// consolidate two main functions (watching and building) into variables
 
-// Expose functions
+let watcher = parallel(watchFiles)
+let build = series([clean, css, ie, print, formatCSS, js, jsVendor, fonts, icons, images])
+
+// expose functions
+
 exports.js = js
 exports.css = css
 exports.print = print
@@ -206,7 +203,11 @@ exports.icons = icons
 exports.images = images
 exports.build = build
 
-// Run Gulp tasks i.e `gulp build and gulp watch`
-gulp.task('default', watcher)
-gulp.task('watch', watcher)
-gulp.task('build', build)
+/* 
+* allow the running of Gulp tasks via cmd
+* run `gulp --tasks` to view task structure
+*/
+
+task('default', watcher)
+task('watch', watcher)
+task('build', build)
