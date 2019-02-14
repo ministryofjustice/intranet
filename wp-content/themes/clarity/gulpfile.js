@@ -193,7 +193,7 @@ function mojintranetTheme() {
 function watchFiles() {
   // watch and process files in order
   watch(styleWatchFiles, series([clean, css, ie, print, formatCSS, resync]))
-  watch(jsSRC, js)
+  watch(jsSRC, series([js, resync]))
 
   // watch and then move files
   watch(jsVendorSRC, series([jsVendor, resync]))
