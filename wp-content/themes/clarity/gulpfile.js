@@ -5,10 +5,12 @@ https://gulpjs.com/
 Instructions:
 Run `npm install`
 
-If everything installs correctly, you have three Gulp commands available
-`gulp` = Runs default task of watching files for changes and then compiling
-`gulp watch` = Same as default task above, watches files
-`gulp build` = Compiles the assest on command then stops
+If everything installs correctly, you will have several Gulp commands available,
+
+`gulp` = runs default task of watching files for changes and then compiling
+`gulp watch` = same as default task above, watches files
+`gulp build` = compiles the assest on command then stops
+`gulp resync` = sync WP theme folders with the Docker environment
 
 If issues installing try run `sudo npm i --unsafe-perm`
 The --unsafe-perm flag ignores some issues caused by running in root (locally)
@@ -17,6 +19,7 @@ The --unsafe-perm flag ignores some issues caused by running in root (locally)
 // constants
 
 const { src, dest, task, parallel, series, watch } = require('gulp')
+const { exec } = require('child_process')
 
 const stylus = require('gulp-stylus')
       uglify = require('gulp-uglify')
@@ -46,7 +49,9 @@ const supportedBrowsers = [
 * https://gulpjs.com/docs/en/getting-started/explaining-globs
 */
 
-const styleWatchFiles = 'src/**/*.styl'
+const styleWatchFiles = [
+  'src/**/*.styl'
+]
 
 const jsSRC = [
       'src/components/**/*.js',
@@ -170,22 +175,37 @@ function images() {
   .pipe(dest('assets/images'))
 }
 
+// Sync theme folders into directory for Docker volume to load
+function clarityTheme() {
+
+  var sourcePath = '.'
+  var destinationPath = '../../../docker/bedrock_volume/web/app/themes/'
+  return exec('rsync -a --delete ' + sourcePath + ' ' + destinationPath + 'intranet-theme-clarity')
+}
+
+function mojintranetTheme() {
+  var sourcePath = '../mojintranet/*'
+  var destinationPath = '../../../docker/bedrock_volume/web/app/themes/'
+  return exec('rsync -a --delete ' + sourcePath + ' ' + destinationPath + 'mojintranet')
+}
+
 function watchFiles() {
   // watch and process files in order
-  watch(styleWatchFiles, series([clean, css, ie, print, formatCSS]))
+  watch(styleWatchFiles, series([clean, css, ie, print, formatCSS, resync]))
   watch(jsSRC, js)
 
   // watch and then move files
-  watch(jsVendorSRC, jsVendor)
-  watch(fontSRC, fonts)
-  watch(iconSRC, icons)
-  watch(imgSRC, images)
+  watch(jsVendorSRC, series([jsVendor, resync]))
+  watch(fontSRC, series([fonts, resync]))
+  watch(iconSRC, series([icons, resync]))
+  watch(imgSRC, series([images, resync]))
 
-  notifier.notify({ title: 'Watching :|', message: '...for the file changes' })
+  notifier.notify({ title: 'Gulp running', message: '(•_•) watching Clairty theme files' })
 }
 
 // consolidate two main functions (watching and building) into variables
 
+let resync = series([clarityTheme, mojintranetTheme])
 let watcher = parallel(watchFiles)
 let build = series([clean, css, ie, print, formatCSS, js, jsVendor, fonts, icons, images])
 
@@ -202,6 +222,8 @@ exports.fonts = fonts
 exports.icons = icons
 exports.images = images
 exports.build = build
+exports.clarityTheme = clarityTheme
+exports.mojintranetTheme = mojintranetTheme
 
 /* 
 * allow the running of Gulp tasks via cmd
@@ -211,3 +233,4 @@ exports.build = build
 task('default', watcher)
 task('watch', watcher)
 task('build', build)
+task('resync', resync)
