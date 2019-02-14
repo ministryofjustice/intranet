@@ -5,6 +5,9 @@ add_action( 'wp_ajax_load_events_filter_results', 'load_events_filter_results' )
 add_action( 'wp_ajax_nopriv_load_events_filter_results', 'load_events_filter_results' );
 
 function load_events_filter_results() {
+
+	echo 'hello world';
+
 	if ( ! wp_verify_nonce( $_POST['nonce_hash'], 'search_filter_nonce' ) ) {
 		exit( 'Access not allowed.' );
 	}
@@ -87,6 +90,7 @@ add_action( 'wp_ajax_load_search_results', 'load_search_results' );
 add_action( 'wp_ajax_nopriv_load_search_results', 'load_search_results' );
 
 function load_search_results() {
+
 	if ( ! wp_verify_nonce( $_POST['nonce_hash'], 'search_filter_nonce' ) ) {
 		exit( 'Access not allowed.' );
 	}

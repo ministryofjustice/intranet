@@ -12,12 +12,11 @@ jQuery(function ($) {
   // Tell the css that JavaScript has loaded successfully
   $('html').removeClass('no-js').addClass('js')
   // Load scripts
-  // $('.js-clarity-toolbar').moji_clarityToolbar()
   $('.js-left-hand-menu').moji_leftHandMenu()
   $('.js-feature-video').moji_featureVideo()
   $('.c-news-list > .js-article-item').moji_equaliser()
   // This script is attached to a template and not a component
   $('.js-tabbed-content-container').moji_tabbedContent()
   $('.js-reveal').moji_feedbackForm()
-  $('.js-blog-content-ajaxfilter').moji_moji_ajaxFilter()
+  $('.js-blog-content-ajaxfilter').moji_ajaxFilter()
 })
