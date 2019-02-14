@@ -25,12 +25,12 @@ function enqueue_clarity_scripts() {
 	wp_enqueue_style( 'print-css' );
 
 	// JS and jQuery
-	wp_enqueue_script( 'core-js', get_stylesheet_directory_uri() . '/assets/js/core.min.js', array( 'jquery' ), '1.1.1', true );
+	wp_enqueue_script( 'core-js', get_stylesheet_directory_uri() . '/assets/js/core.min.js', array( 'jquery' ), '1.1.2', true );
 	wp_localize_script( 'core-js', 'myAjax', [ 'ajaxurl' => admin_url( 'admin-ajax.php' ) ] );
 
 	// Third party vendor scripts
 	wp_deregister_script( 'jquery' ); // This removes jquery shipped with WP so that we can add our own.
-	wp_register_script( 'jquery', get_stylesheet_directory_uri() . '/assets/vendors/jquery.min.js', array(), '1.12.4' );
+	wp_register_script( 'jquery', get_stylesheet_directory_uri() . '/assets/vendors/jquery.min.js', array(), '3.3.1' );
 	wp_enqueue_script( 'jquery' );
 
 	wp_enqueue_script( 'popup', get_stylesheet_directory_uri() . '/assets/vendors/magnific-popup.js', array( 'jquery' ) );
