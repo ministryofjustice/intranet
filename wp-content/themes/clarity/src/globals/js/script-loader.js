@@ -15,7 +15,6 @@ jQuery(function ($) {
   // $('.js-clarity-toolbar').moji_clarityToolbar()
   $('.js-left-hand-menu').moji_leftHandMenu()
   $('.js-feature-video').moji_featureVideo()
-  $('.js-need-to-know-widget').moji_slider(true)
   $('.c-news-list > .js-article-item').moji_equaliser()
   // This script is attached to a template and not a component
   $('.js-tabbed-content-container').moji_tabbedContent()
