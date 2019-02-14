@@ -35,5 +35,5 @@ function form_builder( $type, $prefix, $label, $name, $id = '', $value = '', $pl
 		'options'     => $options,
 	];
 
-	return get_component( 'c-input-container', null, $config );
+	include(locate_template('src/components/c-input-container/view.php'));
 }
