@@ -1,13 +1,16 @@
 <?php
+
 	// Get config and sort into named variables
 	$type   = $config['type']; // required
 	$prefix = $config['prefix']; // required
 	$label  = $config['label'];
+
 if ( $prefix === '' ) :
 	  $name = $prefix . $config['name'];
 	else :
 		$name = $prefix . '_' . $config['name'];
 	endif;
+	
 	$id          = $config['id'] ? $config['id'] : $name;
 	$value       = $config['value'];
 	$placeholder = $config['placeholder'] ? 'placeholder = "' . $config['placeholder'] . '"' : null;

@@ -6,8 +6,6 @@ add_action( 'wp_ajax_nopriv_load_events_filter_results', 'load_events_filter_res
 
 function load_events_filter_results() {
 
-	echo 'hello world';
-
 	if ( ! wp_verify_nonce( $_POST['nonce_hash'], 'search_filter_nonce' ) ) {
 		exit( 'Access not allowed.' );
 	}
