@@ -1,4 +1,6 @@
 <?php
+
+die();
 use MOJ\Intranet\News;
 
 $oNews = new News();
