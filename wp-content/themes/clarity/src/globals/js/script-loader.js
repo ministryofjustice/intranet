@@ -19,4 +19,5 @@ jQuery(function ($) {
   // This script is attached to a template and not a component
   $('.js-tabbed-content-container').moji_tabbedContent()
   $('.js-reveal').moji_feedbackForm()
+  $('.js-blog-content-ajaxfilter').moji_moji_ajaxFilter()
 })
