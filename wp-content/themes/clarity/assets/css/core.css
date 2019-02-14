@@ -17652,34 +17652,25 @@ html {
 .o-arrow-toggle-link-after:after {
   right: 0;
 }
-.c-feedback-container .o-arrow-toggle-link::before {
-  display: none;
+.c-full-width-banner {
+  margin-bottom: 1rem;
+  width: 100%;
 }
-.c-feedback-container .c-feedback-form {
+.c-full-width-banner::after {
+  content: '';
+  display: table;
   clear: both;
-  display: none;
-  margin: 2rem;
 }
-@media only screen and (min-width: 740px) {
-  .c-feedback-container .c-feedback-form {
-    float: left;
-    clear: none;
-    text-align: inherit;
-    width: 48.5%;
-    margin-left: 0%;
-    margin-right: 3%;
-  }
-  .c-feedback-container .c-feedback-form::after {
-    content: '';
-    display: table;
-    clear: both;
-  }
-  .c-feedback-container .c-feedback-form:last-child {
-    margin-right: 0%;
-  }
+.c-full-width-banner img {
+  max-width: 100%;
+  width: 100%;
+  height: auto;
 }
-.c-feedback-container .c-feedback-form .o-button {
-  margin: 1rem 0;
+.c-full-width-banner__team img {
+  float: left;
+  width: 100%;
+  padding-top: 1em;
+  margin-bottom: 20px;
 }
 
 @font-face {
@@ -18057,25 +18048,34 @@ html {
 .o-arrow-toggle-link-after:after {
   right: 0;
 }
-.c-full-width-banner {
-  margin-bottom: 1rem;
-  width: 100%;
+.c-feedback-container .o-arrow-toggle-link::before {
+  display: none;
 }
-.c-full-width-banner::after {
-  content: '';
-  display: table;
+.c-feedback-container .c-feedback-form {
   clear: both;
+  display: none;
+  margin: 2rem;
 }
-.c-full-width-banner img {
-  max-width: 100%;
-  width: 100%;
-  height: auto;
+@media only screen and (min-width: 740px) {
+  .c-feedback-container .c-feedback-form {
+    float: left;
+    clear: none;
+    text-align: inherit;
+    width: 48.5%;
+    margin-left: 0%;
+    margin-right: 3%;
+  }
+  .c-feedback-container .c-feedback-form::after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+  .c-feedback-container .c-feedback-form:last-child {
+    margin-right: 0%;
+  }
 }
-.c-full-width-banner__team img {
-  float: left;
-  width: 100%;
-  padding-top: 1em;
-  margin-bottom: 20px;
+.c-feedback-container .c-feedback-form .o-button {
+  margin: 1rem 0;
 }
 
 @font-face {

@@ -5,7 +5,7 @@
     "node": "4.4.5",
     "npm": "2.15.5"
   },
-  "description": "Gulp compilier for Clarity theme",
+  "description": "Gulp compiler for Clarity theme",
   "main": "index.js",
   "scripts": {
     "start": "gulp",
@@ -51,17 +51,6 @@
     "standard": "^12.0.1",
     "autoprefixer": "^9.4.7",
     "vinyl": "^2.2.0",
-    "replace-ext": "^1.0.0",
-    "ansi-colors": "^3.2.3",
-    "date-format": "^2.0.0",
-    "fancy-log": "^1.3.3",
-    "lodash.template": "^4.4.0",
-    "minimist": "^1.2.0",
-    "beeper": "^1.1.1",
-    "through2": "^3.0.0",
-    "multipipe": "^3.0.1",
-    "list-stream": "^1.0.1",
-    "plugin-error": "^1.0.1",
     "del": "^3.0.0"
   },
   "author": "",
@@ -73,7 +62,6 @@
   },
   "devDependencies": {
     "@babel/core": "^7.2.2",
-    "@babel/preset-env": "^7.3.1",
-    "gulp-postcss": "^8.0.0"
+    "@babel/preset-env": "^7.3.1"
   }
 }

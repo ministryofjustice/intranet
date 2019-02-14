@@ -1,5 +1,5 @@
 /*
-GULP 4.0 asset (CSS, JS) compilier
+GULP 4.0 asset (CSS, JS) compiler
 https://gulpjs.com/
 
 Instructions:
@@ -12,7 +12,8 @@ If everything installs correctly, you will have several Gulp commands available,
 `gulp build` = compiles the assest on command then stops
 `gulp resync` = sync WP theme folders with the Docker environment
 
-If issues installing try run `sudo npm i --unsafe-perm`
+If issues installing try 
+`rm -rf node_modules/` and `rm package-lock.json` then run `sudo npm i --unsafe-perm`
 The --unsafe-perm flag ignores some issues caused by running in root (locally)
 */
 
