@@ -1,12 +1,5 @@
 <?php
-
-if ( ! defined( 'ABSPATH' ) ) {
-	die();
-}
-
 /*
- * Use get_component method to build a form input (I realise this is probably awfully done so feel free to refactor/replace/burn. PHP isn't my area - AF)
- * @component [string] the name of the component to build
  * @type [string] the type of input to place (eg, checkbox, text, radio, textarea etc...)
  * @prefix [string] the prefix of the form it belongs to (e.g. feedback form would be 'fbf')
  * @label [string] what should be in the label?
