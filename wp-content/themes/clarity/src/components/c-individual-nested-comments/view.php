@@ -2,8 +2,10 @@
 <li>
   <section class="c-individual-nested-comments">
 	<h1 class="c-individual-nested-comments__author">Rob Moore <span class="c-individual-nested-comments__timestamp"> &mdash; 2 hours ago</span></h1>
-	<?php get_component( 'c-rich-text-block' ); ?>
-	<?php get_component( 'c-comment-response' ); ?>
+	<?php 
+	get_template_part( 'src/components/c-rich-text-block/view' );
+	get_template_part( 'src/components/c-comment-response/view' );
+	?>
   </section>
 </li>
 

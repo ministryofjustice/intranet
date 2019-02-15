@@ -10,6 +10,6 @@
 	  <a class="like-link" href="#">9</a>
 	</li>
   </ul>
-  <?php get_component( 'c-comment-form' ); ?>
+  <?php get_template_part( 'src/components/c-comment-form/view' ); ?>
 </section>
 <!-- c-comment-response ends here -->
