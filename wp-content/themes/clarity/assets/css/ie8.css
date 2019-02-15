@@ -2049,7 +2049,7 @@ html {
 .u-icon--user-circle-o {
   *zoom: expression(this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf2be;');
 }
-.c-news-list .c-article-item.js-article-item {
+.c-news-list-aside .c-article-item.js-article-item {
   width: 45% !important;
 }
 
@@ -2211,7 +2211,7 @@ html {
 .u-icon--user-circle-o {
   *zoom: expression(this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf2be;');
 }
-.c-news-list-aside .c-article-item.js-article-item {
+.c-news-list .c-article-item.js-article-item {
   width: 45% !important;
 }
 

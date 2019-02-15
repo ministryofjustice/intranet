@@ -15,6 +15,8 @@ If everything installs correctly, you will have several Gulp commands available,
 If issues installing try 
 `rm -rf node_modules/` and `rm package-lock.json` then run `sudo npm i --unsafe-perm`
 The --unsafe-perm flag ignores some issues caused by running in root (locally)
+
+This compiler covers changes made to both the Clarity theme (current dir) and the mojintrant theme
 */
 
 // constants
@@ -50,8 +52,16 @@ const supportedBrowsers = [
 * https://gulpjs.com/docs/en/getting-started/explaining-globs
 */
 
-const styleWatchFiles = [
+const stylSRC = [
   'src/**/*.styl'
+]
+
+const phpClaritySRC = [
+  'src/**/*.php'
+]
+
+const phpMOJintranetSRC = [
+  '../mojintranet/**/*.php'
 ]
 
 const jsSRC = [
@@ -176,15 +186,14 @@ function images() {
   .pipe(dest('assets/images'))
 }
 
-// Sync theme folders into directory for Docker volume to load
-function clarityTheme() {
-
+// Sync theme folders and files into Docker directory (so they get pulled into the Docker container)
+function clarityRSYNC() {
   var sourcePath = '.'
   var destinationPath = '../../../docker/bedrock_volume/web/app/themes/'
   return exec('rsync -a --delete ' + sourcePath + ' ' + destinationPath + 'intranet-theme-clarity')
 }
 
-function mojintranetTheme() {
+function mojintranetRSYNC() {
   var sourcePath = '../mojintranet/*'
   var destinationPath = '../../../docker/bedrock_volume/web/app/themes/'
   return exec('rsync -a --delete ' + sourcePath + ' ' + destinationPath + 'mojintranet')
@@ -192,7 +201,9 @@ function mojintranetTheme() {
 
 function watchFiles() {
   // watch and process files in order
-  watch(styleWatchFiles, series([clean, css, ie, print, formatCSS, resync]))
+  watch(stylSRC, series([clean, css, ie, print, formatCSS, resync]))
+  watch(phpClaritySRC, resync)
+  watch(phpMOJintranetSRC, mojintranetRSYNC) // only watch mojintranet php files, as it is a parent theme we don't need its assets
   watch(jsSRC, series([js, resync]))
 
   // watch and then move files
@@ -206,7 +217,7 @@ function watchFiles() {
 
 // consolidate two main functions (watching and building) into variables
 
-let resync = series([clarityTheme, mojintranetTheme])
+let resync = series(clarityRSYNC)
 let watcher = parallel(watchFiles)
 let build = series([clean, css, ie, print, formatCSS, js, jsVendor, fonts, icons, images])
 
@@ -223,8 +234,8 @@ exports.fonts = fonts
 exports.icons = icons
 exports.images = images
 exports.build = build
-exports.clarityTheme = clarityTheme
-exports.mojintranetTheme = mojintranetTheme
+exports.clarityRSYNC = clarityRSYNC
+exports.mojintranetRSYNC = mojintranetRSYNC
 
 /* 
 * allow the running of Gulp tasks via cmd
