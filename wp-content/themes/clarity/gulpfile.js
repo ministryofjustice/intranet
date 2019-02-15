@@ -57,7 +57,9 @@ const stylSRC = [
 ]
 
 const phpClaritySRC = [
-  'src/**/*.php'
+  'src/**/*.php',
+  'inc/**/*.php',
+  '*.php'
 ]
 
 const phpMOJintranetSRC = [

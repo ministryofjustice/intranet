@@ -7,7 +7,18 @@
 $post_id   = get_the_ID();
 $region_id = get_the_terms( $post_id, 'region' );
 
+if ( $region_id ) :
+	foreach ( $region_id as $region ) :
+		// Current region, ie Scotland, North West etc
+		$current_region = '&region=' . $region->term_id;
+endforeach;
+endif;
+
+var_dump($region_id);
+var_dump($current_region);
+
 get_header();
+
 ?>
   <div id="maincontent" class="u-wrapper l-main t-events">
 	<?php
