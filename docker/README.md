@@ -28,8 +28,15 @@ Instructions to run the website on your local machine.
 5. Get database copy from team, unpack (if zipped) and use raw SQL file (named `[something].sql`) and put in the `db-dump` directory in the `docker` folder.
 5. `cd` into `docker` folder and run `Make load-db-dump`. This populates the database for WP.
 6. You should now be able to see the intranet running on your local machine, at `http://intranet.docker` but CSS and JS will not be complied.
-7. Compile CSS and JS. `cd` into `~/intranet/wp-content/themes/clarity`. Run `npm install && gulp`. Then copy compiled files to `~/intranet/docker/bedrock_volume/web/app/themes/intranet-theme-clarity`. You may want to create your own automated process for copying these files. TODO// fix this legacy copying issue.
-8. Visit `http://intranet.docker` you should have a fully working intranet on your local machine.
+7. Compile CSS and JS. `cd` into `~/intranet/wp-content/themes/clarity`. Run `npm install`. This will read the package.json file and install all the frontend NPM packages that are needed (see Gulpfile.js for troubleshooting instructions). Once everything has finshed installing, you will have three main commands at your disposal:
+
+* `Gulp` which is the default command and starts watching for file changes, compiling and moving files. This should be the one you use in most instances.
+* `Gulp build` compiles the JS and CSS but DOESN'T move any files so you won't see changes in your browser.
+* `Gulp resync` Doesn't compile only moves the files to the correct location in the Docker folder structure.
+
+### Two themes, one site
+
+Our WP site uses two themes, the parent `mojintranet` and the child theme `clarity`. `mojintranet` is  being deprecated, and we only make use of its functions, none of its frontend assets, CS or JS are used. Therefore, gulp will only watch for PHP changes in `mojintranet` but will do no asset compiling. All asset compiling is done in the `clarity` theme. For more information on how WP parent/child theme work, visit - https://developer.wordpress.org/themes/advanced-topics/child-themes/
 
 ### Troubleshooting
 
