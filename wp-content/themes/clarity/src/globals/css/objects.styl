@@ -39,6 +39,23 @@
   }
 }
 
+
+.o-notification-panel {
+    +above('m') {
+    column(1);
+  }
+
+  h1 {
+    font-size: $mantle;
+  }
+  
+  background-color:$boxBg;
+  clear:both;
+  display: block;
+  margin: $spacing*2 0;
+  padding: $spacing*8;
+}
+
 // See all/Read more links
 .o-see-all-link,
 .o-read-more-link {
