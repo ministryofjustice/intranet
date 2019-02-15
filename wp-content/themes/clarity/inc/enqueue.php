@@ -58,6 +58,4 @@ function clarity_admin_enqueue( $hook ) {
 		 wp_enqueue_script( 'force_title_script', get_stylesheet_directory_uri() . '/inc/admin/js/force-title.js', array(), null, false  );
 	 endif;
 
-	 wp_enqueue_script( 'network-connectivity', get_stylesheet_directory_uri() . '/inc/admin/js/network-connectivity.js', array(), '0.2.0', false );
-
 }

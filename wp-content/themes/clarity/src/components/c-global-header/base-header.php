@@ -20,8 +20,10 @@ $activeAgency = $oAgency->getCurrentAgency() ? $oAgency->getCurrentAgency() : 'h
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
   <meta name="theme-color" content="<?php echo $agency_colour; ?>">
-  <meta name="agency" content="<?php echo $activeAgency['label']; ?>">
-  <title><?php echo single_post_title(); ?><?php echo ' | ' . $activeAgency['label']; ?></title>
+	<meta name="agency" content="<?php echo $activeAgency['label']; ?>">
+	
+	<title><?php echo single_post_title(); ?><?php echo ' | ' . $activeAgency['label']; ?></title>
+	
   <link rel="icon" sizes="180x180" href="<?php echo get_stylesheet_directory_uri(); ?>/assets/icons/apple-touch-icon-180x180.png">
   <link rel="shortcut icon" href="<?php echo get_stylesheet_directory_uri(); ?>/assets/icons/favicon.ico" type="image/x-icon" />
   <link rel="apple-touch-icon" href="<?php echo get_stylesheet_directory_uri(); ?>/assets/icons/apple-touch-icon.png" />
@@ -83,24 +85,9 @@ if ( ! defined( 'GT_CODE' ) ) {
   $agency_class      = 'agency-' . $agency_shortcode;
   body_class( $class = $agency_class );
 ?>
-  >
-	<?php
-	/**
-	 * Devtools. Highlights components, objects, classes and utilities on the page when activated.
-	 * Activate by adding ?devtools=true to the end of the page url.
-	 */
-	?>
-	<?php
-	if ( $_SERVER['HTTP_HOST'] == 'intranet.dev.wp.dsd.io' ) {
-		if ( isset( $_GET['devtools'] ) ) {
-			if ( $_GET['devtools'] === 'true' ) {
-				get_component( 'c-clarity-toolbar' );
-			}
-		}
-	}
-	?>
-  <a class="u-skip-link" href="#maincontent">Skip to main content</a>
+>
+<a class="u-skip-link" href="#maincontent">Skip to main content</a>
 
-	<?php
-	get_template_part( 'src/components/c-header-container/view' );
-	get_template_part( 'src/components/c-phase-banner/view' );
+<?php
+get_template_part( 'src/components/c-header-container/view' );
+get_template_part( 'src/components/c-phase-banner/view' );

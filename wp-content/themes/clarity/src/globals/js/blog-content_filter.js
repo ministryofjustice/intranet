@@ -12,8 +12,6 @@
       var $content = jQuery('#content')
       var nonce = $('#_search_filter_wpnonce').val()
 
-      console.log(nonce + 'hello seals')
-
       var optionSelected = jQuery(this).find('#ff_date_filter option:selected, #ff_region_news_date_filter option:selected')
       var valueSelected = optionSelected.val()
       var newsCategorySelected = jQuery(this).find('#ff_categories_filter_e-news, input[name="ff_categories_filter_regions"]')
