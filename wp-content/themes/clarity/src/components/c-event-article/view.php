@@ -1,10 +1,3 @@
-<?php
-
-if ( ! defined( 'ABSPATH' ) ) {
-	die();
-}
-
-?>
 <!-- c-event-article starts here -->
 <article class="c-article l-main l-reverse-order">
 
