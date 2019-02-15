@@ -212,7 +212,7 @@ function watchFiles() {
   watch(iconSRC, series([icons, resync]))
   watch(imgSRC, series([images, resync]))
 
-  notifier.notify({ title: 'Gulp running', message: '(•_•) watching Clairty theme files' })
+  notifier.notify({ title: 'Gulp running', message: '(•_•) watching Clairty & mojintranet theme files' })
 }
 
 // consolidate two main functions (watching and building) into variables
