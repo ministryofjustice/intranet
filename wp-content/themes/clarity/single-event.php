@@ -1,40 +1,64 @@
 <?php
 use MOJ\Intranet\Agency;
-use MOJ\Intranet\Event;
-/*
-* Single event post
+
+/**
+* The template for displaying all single event post
+*
+* @link https://developer.wordpress.org/themes/basics/template-hierarchy/#single-post
+*
+* @package WordPress
+* @subpackage Clarity
+* @since 1.0
+* @version 1.0
 */
 
-$oEvent  = new Event();
-$oAgency = new Agency();
+$oAgency        = new Agency();
+$current_agency = $oAgency->getCurrentAgency() ?? array();
+$region_id      = get_the_terms( get_the_id(), 'region' );
+$terms          = get_the_terms( get_the_id(), 'agency' );
 
-$post_id   = get_the_id();
-$region_id = get_the_terms( $post_id, 'region' );
-$terms     = get_the_terms( $post_id, 'agency' );
-$post_type = get_post_type( $post_id );
-$event     = $oEvent->get_event_list( 'search' );
+/**
+* loop through and create array of all agencies associated with event
+ *
+* @return array of agency names
+*/
+if ( $terms ) {
+	foreach ( $terms as $term ) {
+
+		$term_array                        = (array) $term;
+		$list_agency_names_used_by_event[] = $term_array['slug'];
+
+	}
+} else {
+	// return an empty array so that var below recives var in array form
+	$list_agency_names_used_by_event[] = array();
+}
 
 get_header();
-
 ?>
+
   <div id="maincontent" class="u-wrapper l-main t-events">
+	
 	<?php
 
 	// display correct breadcrumb
-	if ( $region_id ) {
+	if ( $region_id ) :
 		get_template_part( 'src/components/c-breadcrumbs/view', 'region-single' );
-	} else {
+	else :
 		get_template_part( 'src/components/c-breadcrumbs/view', 'event' );
-	}
+	endif;
 
-	// display correct page based on agency access
-	if ( $event ) {
+	/**
+	* display either event or message notifying user they are viewing from
+	* an agency that is not associated with event
+	*/
+	if ( in_array( $current_agency['shortcode'], $list_agency_names_used_by_event ) ) {
 		get_template_part( 'src/components/c-event-article/view' );
 	} else {
 
 		echo '<div class="o-notification-panel">';
 
-		if ( is_array( $terms ) ) {
+		if ( $terms ) {
 
 			$agency_count = sizeof( $terms );
 
@@ -59,6 +83,8 @@ get_header();
 
 				echo ' <a href="' . get_permalink() . '?agency=' . esc_attr( $agency_slug ) . '">' . esc_attr( $agency_name ) . '</a>,';
 			}
+		} else {
+			echo 'Unable identify region and display event.';
 		}
 
 		echo '</div>';
@@ -66,10 +92,14 @@ get_header();
 	?>
 
 	<section class="l-full-page">
+
 	<?php
+	// bottom of event page last updated and share/like buttons
 	get_template_part( 'src/components/c-last-updated/view' );
 	get_template_part( 'src/components/c-share-post/view' );
+
 	?>
+
 	</section>
 
   </div>
