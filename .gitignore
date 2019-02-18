@@ -107,8 +107,6 @@ wp-content/mysql.sql
 *.wmv
 *.avi
 
-
-
 # custom
 .sass-cache
 nbproject
@@ -124,6 +122,14 @@ wp-content/plugins/
 /wp-content/whippet-wp-config.php
 
 # auto-generated files
+
+# /wp-content/themes/clarity/assets/css/*
+# /wp-content/themes/clarity/assets/fonts/*
+# /wp-content/themes/clarity/assets/icons/*
+# /wp-content/themes/clarity/assets/images/*
+# /wp-content/themes/clarity/assets/js/*
+# /wp-content/themes/clarity/assets/vendors/*
+
 /wp-content/themes/mojintranet/ping.json
 /wp-content/themes/mojintranet/checksums.json
 /wp-content/themes/mojintranet/assets/css/ie.css

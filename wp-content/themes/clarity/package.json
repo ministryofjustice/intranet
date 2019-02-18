@@ -2,8 +2,8 @@
   "name": "clarity",
   "version": "2.0.0",
   "engines": {
-    "node": "4.4.5",
-    "npm": "2.15.5"
+    "node": "11.10.0",
+    "npm": "6.7.0"
   },
   "description": "Gulp compiler for Clarity theme",
   "main": "index.js",
