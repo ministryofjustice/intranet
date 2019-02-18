@@ -69,7 +69,9 @@ rm -rf vendor/ministryofjustice
 cd web/app/themes/intranet-theme-clarity
 
 npm install && npm install --global gulp-cli
-gulp build --verbose
+
+# Compile all assets (CSS, JS, IMAGES)
+gulp build
 
 # Keep the container size down
 rm -rf node_modules || true
