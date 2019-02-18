@@ -38,9 +38,7 @@ fi
 # below, means that this script can be used to install a container-only version
 # as well as a development version that mounts ./bedrock from a host volume.
 
-# This needs to be left in place, or runs that reuse the container will fail.
 # Composer fails unless these assest are in the ./bedrock directory
-cp Gruntfile.js ./bedrock
 cp *.json ./bedrock
 mkdir ./bedrock/web
 cp web/* ./bedrock/web
@@ -67,6 +65,16 @@ mv vendor/ministryofjustice/intranet/wp-content/themes/clarity/* web/app/themes/
 
 # Remove downloaded theme folders now moved
 rm -rf vendor/ministryofjustice
+
+cd web/app/themes/intranet-theme-clarity
+
+npm install && npm install --global gulp-cli
+
+# Compile all assets (CSS, JS, IMAGES)
+gulp build
+
+# Keep the container size down
+rm -rf node_modules || true
 
 # IFF we are running in development mode, set as a standard envrionment
 # variable in docker-compose-dev.yml, then this script serves as the CMD
