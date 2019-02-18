@@ -23,7 +23,7 @@
     "wpackagist-plugin/wordpress-importer": "0.6.4",
     "wpackagist-plugin/query-monitor": "3.2.2",
     "ministryofjustice/dw-document-revisions":"dev-update-composer-json",
-    "ministryofjustice/intranet":"dev-build",
+    "ministryofjustice/intranet":"dev-master",
     "ministryofjustice/wp-rewrite-media-to-s3": "*",
     "ministryofjustice/like-button-for-wordpress":"dev-master",
     "ministryofjustice/notify-for-wordpress":"dev-master",
