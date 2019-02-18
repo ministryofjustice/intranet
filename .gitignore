@@ -126,6 +126,8 @@ wp-content/plugins/
 # auto-generated files
 
 /wp-content/themes/clarity/assets/
+/wp-content/themes/clarity/assets/css/
+/wp-content/themes/clarity/assets/js/
 
 /wp-content/themes/mojintranet/ping.json
 /wp-content/themes/mojintranet/checksums.json
