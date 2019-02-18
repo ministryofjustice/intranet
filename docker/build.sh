@@ -68,14 +68,14 @@ rm -rf vendor/ministryofjustice
 
 cd web/app/themes/intranet-theme-clarity
 
-npm install
-gulp build
+# npm install
+# gulp build
 
 # Keep the container size down
-rm *.json
-rm *.lock
-rm *.js
-rm -rf node_modules
+# rm *.json
+# rm *.lock
+# rm *.js
+# rm -rf node_modules
 
 # IFF we are running in development mode, set as a standard envrionment
 # variable in docker-compose-dev.yml, then this script serves as the CMD
