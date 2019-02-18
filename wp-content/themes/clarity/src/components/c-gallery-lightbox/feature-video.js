@@ -7,10 +7,5 @@
     $('.popup-image').magnificPopup({
       type: 'image'
     })
-
-    function obama () {
-      console.log(obama)
-    }
-    obama()
   }
 })(jQuery)
