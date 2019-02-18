@@ -124,6 +124,9 @@ wp-content/plugins/
 /wp-content/whippet-wp-config.php
 
 # auto-generated files
+
+wp-content/themes/clarity/assets/
+
 /wp-content/themes/mojintranet/ping.json
 /wp-content/themes/mojintranet/checksums.json
 /wp-content/themes/mojintranet/assets/css/ie.css

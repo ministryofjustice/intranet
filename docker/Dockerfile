@@ -19,6 +19,7 @@ RUN echo 'deb http://apt.newrelic.com/debian/ newrelic non-free' > /etc/apt/sour
       && curl -fsSL https://download.newrelic.com/548C16BF.gpg | apt-key add - \
       && curl -sL https://deb.nodesource.com/setup_11.x | bash - \
       && apt-get update \
+      && apt-get install -y nodejs \
       && apt-get install -y libffi-dev newrelic-php5 \
       && ln -sf /dev/stdout /var/log/fpm.slow.log \
       # Run ./build.sh as part of the build process IFF we are running in production
