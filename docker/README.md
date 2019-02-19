@@ -81,6 +81,11 @@ https://rattic.service.dsd.io/cred/detail/1285/
 Team Browserstack.com account information can be found at
 https://rattic.service.dsd.io/cred/detail/735/
 
+## Logging
+
+All application logs and performance metrics can be viewed at:
+https://eu-west-2.console.aws.amazon.com/cloudwatch/home?region=eu-west-2#dashboards:name=Intranet
+
 ### Permissions/permission groups
 
 We have several roles and capabilities setup for testing purposes that refect the actual roles on the site. Login details for each role can be found below:
@@ -100,4 +105,4 @@ Update as required, either `moj.json` or `bedrock.json` JSON files and commit. P
 
 ### Private plugin repositories
 
-We are using a few paid for, commercial plugins that obviously cannot be in the public repo mentioned above. To solve this we have our own private repo https://composer.wp.dsd.io (you need to be on the MoJ network to access). And this is hosted but us in the department. To add new versions into this repo you need to update the [satis.json file](https://github.com/ministryofjustice/pp-satis-config/blob/master/satis.json).
+We are using paid for, commercial plugins that cannot be in the public repo. To allow us privileged access to the private repository, see https://composer.wp.dsd.io (you need to be on the MoJ network to access). And this is hosted but us in the department. To add new versions into this repo you need to update the [satis.json file](https://github.com/ministryofjustice/pp-satis-config/blob/master/satis.json).
