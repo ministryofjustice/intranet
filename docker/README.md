@@ -9,7 +9,8 @@ Instructions to run the website on your local machine.
 * MoJ network access (via wifi or VPN). Required when building image as it pulls in protected repos.
 * Github account and be added to [Ministry of Justice GitHub account](https://github.com/ministryofjustice)
 * AWS Ministry of Justice account (needed for deployment only)
-* Your .env file provided by team and database copy
+* Access to https://rattic.service.dsd.io
+* Your .env file and database copy (provided by team)
 
 ## Getting Started
 
@@ -79,6 +80,19 @@ https://rattic.service.dsd.io/cred/detail/1285/
 
 Team Browserstack.com account information can be found at
 https://rattic.service.dsd.io/cred/detail/735/
+
+### Permissions/permission groups
+
+We have several roles and capabilities setup for testing purposes that refect the actual roles on the site. Login details for each role can be found below:
+
+* Administrator - https://rattic.service.dsd.io/cred/detail/736/
+* Agency Admin - https://rattic.service.dsd.io/cred/detail/737/
+* Agency Editor - https://rattic.service.dsd.io/cred/detail/1289/
+* Regional Editor - https://rattic.service.dsd.io/cred/detail/1290/
+* Subscriber - https://rattic.service.dsd.io/cred/detail/1294/
+* Team Author - https://rattic.service.dsd.io/cred/detail/1292/
+* Team Lead - N/A (TODO re-add this one)
+
 
 ## Updating Wordpress, plugins and supporting repository versions
 
