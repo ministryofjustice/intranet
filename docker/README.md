@@ -4,7 +4,7 @@ Instructions to run the website on your local machine.
 ## Requirements
 
 * [Docker](https://www.docker.com/)
-* Local version of Node.js, NPM and Git
+* Local version of Node.js (v11.x), NPM (v6.x) and Git
 * Port 80 of your local machine must be available.
 * MoJ network access (via wifi or VPN). Required when building image as it pulls in protected repos.
 * Github account and be added to [Ministry of Justice GitHub account](https://github.com/ministryofjustice)
@@ -27,8 +27,15 @@ Instructions to run the website on your local machine.
 4. Open a new terminal window and run `docker ps`. Check that everything is running: `docker_wordpress`, `mariadb` amd `mailcatcher`.
 5. Get database copy from team, unpack (if zipped) and use raw SQL file (named `[something].sql`) and put in the `db-dump` directory in the `docker` folder.
 5. `cd` into `docker` folder and run `Make load-db-dump`. This populates the database for WP.
-6. You should now be able to see the intranet running on your local machine, at `http://intranet.docker` but CSS and JS will not be complied.
-7. Compile CSS and JS. `cd` into `~/intranet/wp-content/themes/clarity`. Run `npm install`. This will read the package.json file and install all the frontend NPM packages that are needed (see Gulpfile.js for troubleshooting instructions). Once everything has finshed installing, you will have three main commands at your disposal:
+6. You should now be able to see the intranet running on your local machine, at `http://intranet.docker`.
+7. If the site has loaded but there are issues with the CSS and JS see below Compiling assets.
+
+### Compiling assets
+
+For development purposes, we compile assets (CSS and JS) on our local machine. These compiled files however are not used in production. In fact, Git ignores them. Source files are pushed to Git and these are then compiled as part of the Docker build process in the AWS pipline.
+
+### Compiling/running Gulp locally
+* `cd` into the Clarity theme `~/intranet/wp-content/themes/clarity`. If you've not compiled the files before, run `Gulp build` and `Gulp resync` to compile and move the files to the correct locations. From then on you can use `Gulp watch` which watches and moves the files as you work.
 
 * `Gulp` which is the default command and starts watching for file changes, compiling and moving files. This should be the one you use in most instances.
 * `Gulp build` compiles the JS and CSS but DOESN'T move any files so you won't see changes in your browser.
@@ -36,7 +43,9 @@ Instructions to run the website on your local machine.
 
 ### Two themes, one site
 
-Our WP site uses two themes, the parent `mojintranet` and the child theme `clarity`. `mojintranet` is  being deprecated, and we only make use of its functions, none of its frontend assets, CS or JS are used. Therefore, gulp will only watch for PHP changes in `mojintranet` but will do no asset compiling. All asset compiling is done in the `clarity` theme. For more information on how WP parent/child theme work, visit - https://developer.wordpress.org/themes/advanced-topics/child-themes/
+Our WP site uses two themes, the parent `mojintranet` and the child theme `clarity`. `mojintranet` is  being deprecated, and we only make use of its functions, none of its frontend assets, CS or JS. Therefore, gulp will only watch for PHP changes in `mojintranet` but will do no asset compiling. 
+
+All asset compiling is done in the `clarity` theme. For more information on how WP parent/child theme work, visit - https://developer.wordpress.org/themes/advanced-topics/child-themes/
 
 ### Troubleshooting
 
@@ -53,15 +62,23 @@ When running locally for development, emails sent by WordPress are not delivered
 To see emails, go to http://intranet.docker:1080/ or http://127.0.0.1:1080 . This will load a webmail-like interface and display all emails that WordPress has sent.
 
 ### Dev SMTP host
-We use a [Mailtrap](https://mailtrap.io/ ). Account details are found in team password manger.
+We use a [Mailtrap](https://mailtrap.io/ ). Details can be found at:
+https://rattic.service.dsd.io/cred/detail/1094/
 
 ### Prod SMTP host
-We use [SendGrid](https://www.sendgrid.com/) . Details are in team password manager.
+We use [SendGrid](https://www.sendgrid.com/) . Details can be found at:
+https://rattic.service.dsd.io/cred/detail/1285/
+
 
 ## Committing changes to this repository and deployment
 
 1. Branch off master, make code changes to this repository and push to Github. If it is ready for production, create a pull request for another developer in the team to check.
 2. Once approved, merge your changes into the master branch. Merge into master branch triggers the code to be pulled into the AWS pipeline, which will require manual approve at both the dev and production stages. For AWS access see service service desk.
+
+## Testing
+
+Team Browserstack.com account information can be found at
+https://rattic.service.dsd.io/cred/detail/735/
 
 ## Updating Wordpress, plugins and supporting repository versions
 
