@@ -41,7 +41,6 @@ require_once('inc/uploads.php');                          // File uploads
 
 require_once('inc/utility.php');                          // Utility functions
 
-require_once('admin/editor-enhancements.php');            // Adds enhancements to post/page editor screen
 require_once('admin/errors.php');                         // Displays errors in admin
 require_once('admin/listing.php');                        // Listing functions
 
