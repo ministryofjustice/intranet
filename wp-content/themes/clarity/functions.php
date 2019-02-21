@@ -54,6 +54,11 @@ require_once 'inc/forms.php';
 require_once 'inc/get-component.php';
 require_once 'inc/get-intranet-code.php';
 require_once 'inc/guidanceandforms.php';
+
+require_once 'inc/helpers/debug.php';
+require_once 'inc/helpers/taggr.php';
+require_once 'inc/helpers/validation.php';
+
 require_once 'inc/markdown.php';
 require_once 'inc/images.php';
 require_once 'inc/menu.php';

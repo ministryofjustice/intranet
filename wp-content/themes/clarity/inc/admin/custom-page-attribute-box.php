@@ -7,75 +7,61 @@
 add_action( 'admin_menu', 'pageparent_add_theme_box' );
 
 function pageparent_add_theme_box() {
+
 	if ( ! is_admin() ) {
 		return;
-	}
-	add_meta_box( 'pageparent-metabox', __( 'Page Attributes' ), 'pageparent_box', [ 'page', 'regional_page' ], 'side', 'high' );
+  }
+  
+	add_meta_box( 'pageparent-metabox', __( 'Page Attributes' ), 'clarity_custom_page_attribute_box', [ 'page', 'regional_page' ], 'side', 'high' );
 }
 
-function pageparent_box( $post ) {
+function clarity_custom_page_attribute_box( $post ) {
 	echo '<input type="hidden" name="taxonomy_noncename" id="taxonomy_noncename" value="' . wp_create_nonce( 'taxonomy_theme' ) . '"/>';
 
-	// get current parent
-  global $post;
-  
+	global $post;
+
 	$load_image_url = get_template_directory_uri() . '/admin/images/pageparent.gif';
 	$parent_page    = wp_get_post_parent_id( $post->ID );
-	$disabled       = '';
+  $disabled       = '';
 
-	if ( get_post_type( $post->ID ) == 'page' || current_user_can( 'administrator' ) ) {
-		// populate template list
-		if ( get_post_type( $post->ID ) == 'page' ) {
+	if ( current_user_can( 'administrator' ) ) {
 
-			$current_template = get_post_meta( $post->ID, '_wp_page_template', true );
+		// current template selected by user
+		$current_template = get_post_meta( $post->ID, '_wp_page_template', true );
 
-			if ( empty( $current_template ) ) {
-				$current_template = 'page.php';
-				update_post_meta( $post->ID, '_wp_page_template', $current_template );
-				do_action( 'acf/input/admin_head' );
-			}
+		// get full list of templates
+    $templates = get_page_templates();
 
-			if ( in_array( $current_template, Agency_Editor::$restricted_templates ) && ! current_user_can( 'administrator' ) ) {
-				$disabled = 'disabled="disabled"';
-			}
-
-      $templates = get_page_templates();
-      
-		} elseif ( get_post_type( $post->ID ) == 'regional_page' ) {
-			$current_template = get_post_meta( $post->ID, 'dw_regional_template', true );
-
-			$templates = [
-				'Default'               => 'single.php',
-				'Region landing'        => 'page_regional_landing.php',
-				'Region archive events' => 'page_regional_events.php',
-				'Region archive news'   => 'page_regional_news.php',
-			];
-		}
+    Debug::pre($templates);
 
 		$themeselect = '<select id="page_template" name="page_template" ' . $disabled . '>';
+
 		foreach ( $templates as $template_name => $template_filename ) {
-			if ( ! in_array( $template_filename, Agency_Editor::$restricted_templates ) || $current_template == $template_filename || current_user_can( 'administrator' ) ) {
+			if ( $current_template == $template_filename || current_user_can( 'administrator' ) ) {
 				$select       = $current_template == $template_filename ? 'selected="selected"' : '';
 				$themeselect .= '<option value="' . $template_filename . '" ' . $select . '>' . $template_name . '</option>';
 			}
 		}
-		$themeselect .= '</select>'; ?>
-		<p><strong>Current Template:</strong></p>
-		<?php
+
+		$themeselect .= '</select>';
+
+		echo '<p><strong>Current Template:</strong></p>';
 		echo $themeselect;
-	}
-	?>
-	  <p><strong>Current parent page:</strong></p>
+
+	} ?>
+  
+  <p><strong>Current parent page:</strong></p>
 
 	<div class="admin-attribute-box-selection">
-	  <?php
+	
+	<?php
 
-		if ( $parent_page ) {
-			echo get_the_title( $parent_page );
-		} else {
-			echo 'None';
-		}
-		?>
+	if ( $parent_page ) {
+		echo get_the_title( $parent_page );
+	} else {
+		echo 'None';
+	}
+	?>
 	</div>
 
   <p><strong>Select new parent page and update page:</strong></p>
@@ -96,19 +82,19 @@ function pageparent_box( $post ) {
 		  }
 		).done( function(response) {
 
-      if (response.length) {
+	  if (response.length) {
 
-        if (jQuery("#pageparent-filterbox").val()) {
+		if (jQuery("#pageparent-filterbox").val()) {
 
-            jQuery("#pageparent-result").empty().append(response);
+			jQuery("#pageparent-result").empty().append(response);
 
-        } else {
+		} else {
 
-            jQuery("#pageparent-result").empty().append("<p style=\"color:red;\">No keyword or page title entered</p>");
-        }
-        } else {
-          jQuery("#pageparent-result").empty().append("Unable to retrieve pages.");
-        }
+			jQuery("#pageparent-result").empty().append("<p style=\"color:red;\">No keyword or page title entered</p>");
+		}
+		} else {
+		  jQuery("#pageparent-result").empty().append("Unable to retrieve pages.");
+		}
 
 		 })
 	  };
@@ -132,7 +118,7 @@ function pageparent_box( $post ) {
 		jQuery("#pageparent-filterbox").val(parentname);
 		jQuery("#parent_id").val(parentid);
 	  });
-    
+	
 	});
   </script>
 
@@ -168,24 +154,23 @@ function remove_post_custom_fields() {
  * @param bool $update Whether this is an existing post being updated or not.
  */
 
-add_action( 'save_post', 'dw_save_regional_template', 10, 3 );
+// add_action( 'save_post', 'dw_save_regional_template', 10, 3 );
 
-function dw_save_regional_template( $post_id, $post, $update ) {
-	if ( get_post_type( $post_id ) != 'regional_page' ) {
-		return;
-	}
+// function dw_save_regional_template( $post_id, $post, $update ) {
+// 	if ( get_post_type( $post_id ) != 'regional_page' ) {
+// 		return;
+// 	}
 
-	$current_template = get_post_meta( $post_id, 'dw_regional_template', true );
-	if ( isset( $_POST['page_template'] ) ) {
-		update_post_meta( $post_id, 'dw_regional_template', $_POST['page_template'] );
-	} elseif ( empty( $current_template ) ) {
-		update_post_meta( $post_id, 'dw_regional_template', 'page_generic.php' );
-	}
-}
+// 	$current_template = get_post_meta( $post_id, 'dw_regional_template', true );
+// 	if ( isset( $_POST['page_template'] ) ) {
+// 		update_post_meta( $post_id, 'dw_regional_template', $_POST['page_template'] );
+// 	} elseif ( empty( $current_template ) ) {
+// 		update_post_meta( $post_id, 'dw_regional_template', 'page_generic.php' );
+// 	}
+// }
 
 /**
  * AJAX function for page search filter dropdown box
- *
  */
 
 add_action( 'wp_ajax_check_parent', 'pageparent_ajax_check_parent' );
@@ -213,16 +198,16 @@ function pageparent_ajax_check_parent() {
                    AND $wpdb->terms.slug IN ( 'hq', '%s' ) ";
 
 	if ( $post_type == 'regional_page' && Region_Context::current_user_can_have_context() ) {
-    $term_id       = Region_Context::get_region_context( 'term_id' );
-    
-  $parent_query .= "AND $wpdb->posts.ID IN
+		$term_id = Region_Context::get_region_context( 'term_id' );
+
+		$parent_query .= "AND $wpdb->posts.ID IN
                       (SELECT object_id FROM  $wpdb->term_relationships
                         LEFT JOIN $wpdb->term_taxonomy ON ( $wpdb->term_relationships.term_taxonomy_id = $wpdb->term_taxonomy.term_taxonomy_id )
                         WHERE $wpdb->term_taxonomy.term_id = $term_id
                       )
                     ";
-  }
-  
+	}
+
 	$parent_query .= "GROUP BY $wpdb->posts.ID
                     ORDER BY post_title LIMIT 0,30";
 
@@ -250,16 +235,16 @@ function pageparent_ajax_check_parent() {
 			$page_status = '';
 			if ( $parent->post_status == 'draft' ) {
 				$page_status = ' (Draft)';
-      }
-      
-    // generate page results from search query
-    echo "<li class='pageparentoption'>
+			}
+
+			// generate page results from search query
+			echo "<li class='pageparentoption'>
       <a class=\"parentlink\" style=\"cursor:pointer;\" parentname='" . esc_html( $parent->post_title ) . "' parentid='" . $parent->ID . "'>" .
-      '<h4 style="margin:0; padding:6px 0;">' . $parent->post_title . $page_status . ' ' . '</h4></a>' . str_replace( home_url(), "", get_permalink($parent->ID) ) . "
+			'<h4 style="margin:0; padding:6px 0;">' . $parent->post_title . $page_status . ' ' . '</h4></a>' . str_replace( home_url(), '', get_permalink( $parent->ID ) ) . "
       <br><br></li>\n";
-    }
-    
-    // add page selection to input field
+		}
+
+		// add page selection to input field
 		echo '<script language="javascript" type="text/javascript">
 
         jQuery(".parentlink").bind(\'click\', function() {
@@ -277,8 +262,8 @@ function pageparent_ajax_check_parent() {
 
     </script>';
 
-    wp_die();
-    
+		wp_die();
+
 	} else {
 
 		echo '<p style="color:green;">No matching pages found</p>';
