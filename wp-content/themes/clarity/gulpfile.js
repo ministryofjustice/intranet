@@ -66,6 +66,14 @@ const phpMOJintranetSRC = [
   '../mojintranet/**/*.php'
 ]
 
+const cssMOJintranetSRC = [
+  '../mojintranet/**/*.css'
+]
+
+const jsMOJintranetSRC = [
+  '../mojintranet/**/*.js'
+]
+
 const jsSRC = [
       'src/components/**/*.js',
       'src/globals/js/*.js'
@@ -205,7 +213,9 @@ function watchFiles() {
   // watch and process files in order
   watch(stylSRC, series([clean, css, ie, print, formatCSS, resync]))
   watch(phpClaritySRC, resync)
-  watch(phpMOJintranetSRC, mojintranetRSYNC) // only watch mojintranet php files, as it is a parent theme we don't need its assets
+  watch(phpMOJintranetSRC, mojintranetRSYNC)
+  watch(cssMOJintranetSRC, mojintranetRSYNC)
+  watch(jsMOJintranetSRC, mojintranetRSYNC)
   watch(jsSRC, series([js, resync]))
 
   // watch and then move files

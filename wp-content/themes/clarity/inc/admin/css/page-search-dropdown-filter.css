@@ -14,7 +14,7 @@
 #pageparent-result li {
   border-bottom: 1px solid lightgrey;
   margin:0;
-  padding:2px;
+  padding-top:4px;
 }
 
 #pageparent-result li a {

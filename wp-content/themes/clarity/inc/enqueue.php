@@ -56,6 +56,9 @@ function clarity_admin_enqueue( $hook ) {
 	 // Warning message to editors when they don't enter a page title
 	 if ( $hook == 'post-new.php' || $hook == 'post.php' ) :
 		 wp_enqueue_script( 'force_title_script', get_stylesheet_directory_uri() . '/inc/admin/js/force-title.js', array(), null, false  );
+
+		 wp_register_style( 'page-search-dropdown-filter', get_stylesheet_directory_uri() . '/inc/admin/css/page-search-dropdown-filter.css', array(), '0.2.0', 'all' );
+		 wp_enqueue_style( 'page-search-dropdown-filter' );
 	 endif;
 
 }
