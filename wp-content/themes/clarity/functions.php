@@ -11,6 +11,7 @@
  */
 
 require_once 'inc/admin/acf-field-group.php';
+require_once 'inc/admin/admin-commands.php';
 require_once 'inc/admin/comments.php';
 require_once 'inc/admin/dashboard.php';
 require_once 'inc/admin/custom-page-attribute-box.php';
@@ -21,6 +22,7 @@ require_once 'inc/admin/plugins/co-authors-plus.php';
 require_once 'inc/admin/plugins/polls.php';
 require_once 'inc/admin/remove-customizer.php';
 require_once 'inc/admin/suppress-wp-update-msg.php';
+require_once 'inc/admin/tinymce-editor-settings.php';
 require_once 'inc/admin/users/add-acf-capabilities.php';
 require_once 'inc/admin/users/add-agency-admin.php';
 require_once 'inc/admin/users/add-agency-editor.php';

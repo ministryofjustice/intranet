@@ -3,6 +3,8 @@
 /**
  *
  * Template name: Tabs
+ * 
+ * 
  */
  get_header();
 	?>

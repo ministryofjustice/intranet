@@ -3,7 +3,29 @@
 * Custom page attribute box
 */
 
-// custom theme box
+// first remove standard WP attribute box
+add_action( 'admin_menu', 'pageparent_remove_theme_box' );
+
+function pageparent_remove_theme_box() {
+	// Remove default parent metabox
+	if ( ! is_admin() ) {
+		return;
+	}
+	remove_meta_box( 'pageparentdiv', 'page', 'side' );
+	remove_meta_box( 'pageparentdiv', 'regional_page', 'side' );
+}
+
+add_action( 'admin_menu', 'remove_post_custom_fields' );
+
+function remove_post_custom_fields() {
+	if ( ! current_user_can( 'administrator' ) ) {
+		foreach ( get_post_types( array( 'public' => true ), 'names' ) as $post_type ) {
+			remove_meta_box( 'postcustom', $post_type, 'normal' );
+		}
+	}
+}
+
+// add new custom Clairty theme attribute box
 add_action( 'admin_menu', 'pageparent_add_theme_box' );
 
 function pageparent_add_theme_box() {
@@ -22,7 +44,6 @@ function clarity_custom_page_attribute_box( $post ) {
 
 	$load_image_url = get_template_directory_uri() . '/admin/images/pageparent.gif';
 	$parent_page    = wp_get_post_parent_id( $post->ID );
-  $disabled       = '';
 
 	if ( current_user_can( 'administrator' ) ) {
 
@@ -32,9 +53,7 @@ function clarity_custom_page_attribute_box( $post ) {
 		// get full list of templates
     $templates = get_page_templates();
 
-    Debug::pre($templates);
-
-		$themeselect = '<select id="page_template" name="page_template" ' . $disabled . '>';
+    $themeselect = '<select id="page_template" name="page_template">';
 
 		foreach ( $templates as $template_name => $template_filename ) {
 			if ( $current_template == $template_filename || current_user_can( 'administrator' ) ) {
@@ -48,7 +67,11 @@ function clarity_custom_page_attribute_box( $post ) {
 		echo '<p><strong>Current Template:</strong></p>';
 		echo $themeselect;
 
-	} ?>
+  } 
+  
+  // End of template dropdown section of attribute box
+  
+  ?>
   
   <p><strong>Current parent page:</strong></p>
 
@@ -70,6 +93,7 @@ function clarity_custom_page_attribute_box( $post ) {
   <div id="pageparent-result"></div>
 
   <script language="javascript" type="text/javascript">
+
 	jQuery(document).ready(function() {
 	  var timer;
 
@@ -81,21 +105,15 @@ function clarity_custom_page_attribute_box( $post ) {
 			 'data'  : { filtertext: jQuery("#pageparent-filterbox").val() , pageID: <?php echo $post->ID; ?> }
 		  }
 		).done( function(response) {
-
-	  if (response.length) {
-
-		if (jQuery("#pageparent-filterbox").val()) {
-
-			jQuery("#pageparent-result").empty().append(response);
-
-		} else {
-
-			jQuery("#pageparent-result").empty().append("<p style=\"color:red;\">No keyword or page title entered</p>");
-		}
-		} else {
-		  jQuery("#pageparent-result").empty().append("Unable to retrieve pages.");
-		}
-
+      if (response.length) {
+        if (jQuery("#pageparent-filterbox").val()) {
+          jQuery("#pageparent-result").empty().append(response);
+        } else {
+          jQuery("#pageparent-result").empty().append("<p style=\"color:red;\">No keyword or page title entered</p>");
+        }
+      } else {
+        jQuery("#pageparent-result").empty().append("Unable to retrieve pages.");
+      }
 		 })
 	  };
 
@@ -125,27 +143,6 @@ function clarity_custom_page_attribute_box( $post ) {
 	<?php
 }
 
-add_action( 'admin_menu', 'pageparent_remove_theme_box' );
-
-function pageparent_remove_theme_box() {
-	// Remove default parent metabox
-	if ( ! is_admin() ) {
-		return;
-	}
-	remove_meta_box( 'pageparentdiv', 'page', 'side' );
-	remove_meta_box( 'pageparentdiv', 'regional_page', 'side' );
-}
-
-add_action( 'admin_menu', 'remove_post_custom_fields' );
-
-function remove_post_custom_fields() {
-	if ( ! current_user_can( 'administrator' ) ) {
-		foreach ( get_post_types( array( 'public' => true ), 'names' ) as $post_type ) {
-			remove_meta_box( 'postcustom', $post_type, 'normal' );
-		}
-	}
-}
-
 /**
  * Save regional template meta value
  *
@@ -154,20 +151,21 @@ function remove_post_custom_fields() {
  * @param bool $update Whether this is an existing post being updated or not.
  */
 
-// add_action( 'save_post', 'dw_save_regional_template', 10, 3 );
+add_action( 'save_post', 'clarity_save_regional_template', 10, 3 );
 
-// function dw_save_regional_template( $post_id, $post, $update ) {
-// 	if ( get_post_type( $post_id ) != 'regional_page' ) {
-// 		return;
-// 	}
+function clarity_save_regional_template( $post_id, $post, $update ) {
+	if ( get_post_type( $post_id ) != 'regional_page' ) {
+		return;
+	}
 
-// 	$current_template = get_post_meta( $post_id, 'dw_regional_template', true );
-// 	if ( isset( $_POST['page_template'] ) ) {
-// 		update_post_meta( $post_id, 'dw_regional_template', $_POST['page_template'] );
-// 	} elseif ( empty( $current_template ) ) {
-// 		update_post_meta( $post_id, 'dw_regional_template', 'page_generic.php' );
-// 	}
-// }
+  $current_template = get_post_meta( $post_id, '_wp_page_template', true );
+
+	if ( isset( $_POST['page_template'] ) ) {
+		update_post_meta( $post_id, '_wp_page_template', $_POST['page_template'] );
+	} elseif ( empty( $current_template ) ) {
+		update_post_meta( $post_id, '_wp_page_template', 'page.php' );
+	}
+}
 
 /**
  * AJAX function for page search filter dropdown box
