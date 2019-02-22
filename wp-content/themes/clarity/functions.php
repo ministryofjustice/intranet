@@ -16,6 +16,8 @@ require_once 'inc/admin/comments.php';
 require_once 'inc/admin/dashboard.php';
 require_once 'inc/admin/custom-page-attribute-box.php';
 require_once 'inc/admin/lefthand-menu.php';
+require_once 'inc/admin/list-tables.php';
+require_once 'inc/admin/login-with-email.php';
 require_once 'inc/admin/page.php';
 require_once 'inc/admin/permission-display-page.php';
 require_once 'inc/admin/plugins/co-authors-plus.php';
