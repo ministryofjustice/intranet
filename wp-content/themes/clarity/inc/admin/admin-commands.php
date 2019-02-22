@@ -10,17 +10,6 @@ if (!current_user_can('administrator')) {
 }
 
 $load_commands = array(
-    // filename => Class_Name
-    'assign-agency-terms-to-posts' => 'Assign_Agency_Terms_To_Posts',
-    'hide-page-bylines' => 'Hide_Page_Bylines',
-    'agency-doc-opt-in' => 'Agency_Doc_Opt_In',
-    'reset-doc-scan' => 'Reset_Doc_Scan',
-    'set-admin-regional-permissions' => 'Set_Admin_Regional_Permissions',
-    'campaign-page-fix' => 'Campaign_Page_Fix',
-    'generic-template-move-part1' => 'Generic_Template_Move_Part1',
-    'generic-template-move-part2' => 'Generic_Template_Move_Part2',
-    'generic-template-move-part3' => 'Generic_Template_Move_Part3',
-    'set-regional-editor-permissions' => 'Set_Regional_Editor_Permissions',
     'remove-old-tabs-and-links' => 'Remove_Old_Tabs_And_Links',
 );
 

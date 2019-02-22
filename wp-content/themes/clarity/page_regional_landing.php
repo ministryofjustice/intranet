@@ -2,7 +2,7 @@
 /**
  *
  * Template name: Region landing
- * Template Post Type: regional_page
+ *
  */
 $terms = get_the_terms( get_the_ID(), 'region' );
 

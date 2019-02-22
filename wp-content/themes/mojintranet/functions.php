@@ -4,13 +4,11 @@ include('inc/utilities/agency-context.php');         // Agency Context utility
 include('inc/utilities/region-context.php');         // Region Context utility
 
 require_once('inc/ajax.php');                             // Ajax Functions
-require_once('inc/cache.php');                            // Amend the cache headers
+
 require_once('inc/cookies.php');                          // Amend the cache headers
-require_once('inc/customiser-controls.php');              // Extra customiser controls
-require_once('inc/customiser-functions.php');             // Extra customiser functions
-require_once('inc/dependencies.php');                     // CSS/JS dependency enqueing
+
+
 require_once('inc/documents.php');                        // Control how documents are handled
-require_once('inc/excerpts.php');                         // Excerpt filters
 require_once('inc/languages.php');                        // Controls the site language(s)
 require_once('inc/mail.php');                        	  // Mail Functions
 require_once('inc/user-management.php');                  // Additional author information
@@ -18,18 +16,16 @@ require_once('inc/news-customiser.php');                  // Setup news customis
 require_once('inc/post-fork.php');                   	  // Add option to fork posts and pages
 require_once('inc/taxonomies.php');                       // Custom taxonomies
 require_once('inc/list-tables.php');                      // Adjustments to list tables
-require_once('inc/admin-commands.php');                   // Admin commands
+
 require_once('inc/menu-locations.php');                   // Register menu locations
 require_once('inc/option-pages.php');                     // Option Pages
 require_once('inc/event-details.php');                    // Event Detail Fields
 require_once('inc/page-options.php');                     // Page Options
-require_once('inc/query-vars.php');                       // Register custom query variables
-require_once('inc/redirects.php');                        // Site redirects
+
 require_once('inc/searching.php');                        // Functions to enhance searching (using Relevanssi)
 require_once('inc/security.php');                         // Security functions
 require_once('inc/sidebars.php');                         // Register sidebars
-require_once('inc/tidy-up.php');                          // Tidy up CMS
-require_once('inc/titles.php');                           // Title filters
+
 require_once('inc/uploads.php');                          // File uploads
 
 require_once('inc/utility.php');                          // Utility functions

@@ -54,6 +54,8 @@ function my_new_admin_menu_order( $menu_order ) {
 	return $menu_order;
 };
 
+add_action( 'admin_menu', 'remove_regions_from_nonhmcts_users' );
+
 function remove_regions_from_nonhmcts_users() {
 	$context = Agency_Context::get_agency_context();
 
@@ -62,7 +64,8 @@ function remove_regions_from_nonhmcts_users() {
 		remove_menu_page( 'edit.php?post_type=regional_page' );
 	}
 }
-add_action( 'admin_menu', 'remove_regions_from_nonhmcts_users' );
+
+add_action( 'admin_menu', 'remove_options_from_agency_admin' );
 
 function remove_options_from_agency_admin() {
 	// creating functions post_remove for removing menu item
@@ -74,7 +77,8 @@ function remove_options_from_agency_admin() {
 	}
 
 }
-add_action( 'admin_menu', 'remove_options_from_agency_admin' );
+
+add_action( 'admin_menu', 'remove_options_from_teamusers' );
 
 function remove_options_from_teamusers() {
 	// creating functions post_remove for removing menu item
@@ -89,7 +93,8 @@ function remove_options_from_teamusers() {
 	}
 
 }
-add_action( 'admin_menu', 'remove_options_from_teamusers' );
+
+add_action( 'admin_menu', 'remove_options_from_regionalusers' );
 
 function remove_options_from_regionalusers() {
 	// creating functions post_remove for removing menu item
@@ -99,4 +104,15 @@ function remove_options_from_regionalusers() {
 		remove_menu_page( 'edit.php' );
 	}
 }
-add_action( 'admin_menu', 'remove_options_from_regionalusers' );
+
+add_action( 'admin_menu', 'dw_remove_menu_items' );
+
+function dw_remove_menu_items() {
+    if( !current_user_can( 'administrator' ) ):
+      // remove_menu_page( 'edit.php' );
+      remove_menu_page( 'edit-comments.php' );
+      remove_menu_page( 'tools.php' );
+      remove_menu_page( 'themes.php' );
+    endif;
+}
+
