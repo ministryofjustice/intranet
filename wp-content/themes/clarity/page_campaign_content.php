@@ -27,7 +27,10 @@ get_template_part( 'src/components/c-campaign-colour/view' );
 	  </div>
 
 	  <section class="l-full-page">
-		<?php get_template_part( 'src/components/c-share-post/view' ); ?>
+		<?php 
+		get_template_part( 'src/components/c-last-updated/view' );
+		get_template_part( 'src/components/c-share-post/view' ); 
+		?>
 	  </section>
 	</div>
   </div>

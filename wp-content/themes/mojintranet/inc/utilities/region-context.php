@@ -46,8 +46,7 @@ class Region_Context {
 
         // Create an array of slugs from the agency objects
         $slugs = array_map(function($term) {
-            return $term->slug;
-        }, $agencies);
+            return $term->slug; }, $agencies);
 
         return $slugs;
     }

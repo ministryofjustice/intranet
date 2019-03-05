@@ -3,6 +3,7 @@
  *
  * Template name: Region archive news
  * 
+ * 
  */
 $terms = get_the_terms( get_the_ID(), 'region' );
 

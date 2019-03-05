@@ -3,10 +3,6 @@ use MOJ\Intranet;
 
 require_once ABSPATH . 'wp-admin/includes/screen.php';
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die();
-}
-
 /**
  * Pick up ACF fields from parent theme
  */

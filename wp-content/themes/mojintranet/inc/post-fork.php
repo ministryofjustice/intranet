@@ -123,9 +123,9 @@ function dw_fork_post_link( $actions, $post ) {
   $current_template = get_post_meta($post->ID,'_wp_page_template',true);
 
   $hq_check = (has_term( 'hq', 'agency', $post->ID ) && $context != 'hq');
-  $template_check = (!in_array($current_template, Agency_Editor::$restricted_templates) || current_user_can('administrator'));
+  //$template_check = (!in_array($current_template, Agency_Editor::$restricted_templates) || current_user_can('administrator'));
   
-  if (current_user_can('edit_posts') && $post->post_status == 'publish' && $hq_check &&  $template_check) {
+  if (current_user_can('edit_posts') && $post->post_status == 'publish' && $hq_check) {
     $actions['duplicate'] = '<a href="admin.php?action=dw_fork_post_as_draft&amp;post=' . $post->ID . '" title="Fork this item" rel="permalink">Fork</a>';
   }
   return $actions;

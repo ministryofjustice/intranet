@@ -12,9 +12,11 @@
 
 require_once 'inc/admin/acf-field-group.php';
 require_once 'inc/admin/admin-commands.php';
+require_once 'inc/admin/campaign-content-template.php';
 require_once 'inc/admin/comments.php';
 require_once 'inc/admin/dashboard.php';
 require_once 'inc/admin/custom-page-attribute-box.php';
+require_once 'inc/admin/hide-templates-from-editors.php';
 require_once 'inc/admin/lefthand-menu.php';
 require_once 'inc/admin/list-tables.php';
 require_once 'inc/admin/login-with-email.php';
@@ -45,7 +47,9 @@ require_once 'inc/api/get-campaign-news-api.php';
 require_once 'inc/api/get-events-api.php';
 require_once 'inc/api/add-eventsdates-rest-api.php';
 require_once 'inc/api/get-category-news-api.php';
+require_once 'inc/api/intranet-v1-api.php';
 require_once 'inc/api/register-api-fields.php';
+
 
 require_once 'inc/autoloader.php';
 require_once 'inc/cookies.php';
@@ -80,5 +84,8 @@ require_once 'inc/post-types/webchat.php';
 
 require_once 'inc/preselect.php';
 require_once 'inc/rewrite_rules.php';
+require_once 'inc/relevanssi.php';
 require_once 'inc/shortcodes.php';
+require_once 'inc/security.php';
+require_once 'inc/uploads.php';
 require_once 'inc/whitelisted-emails.php';
