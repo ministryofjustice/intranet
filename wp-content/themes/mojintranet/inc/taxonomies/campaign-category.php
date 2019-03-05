@@ -9,7 +9,8 @@ class Campaign_Category extends Content_Category {
         'news',
         'page',
         'post',
-        'event'
+        'event',
+        'regional_page'
     );
 
     protected $args = array(
