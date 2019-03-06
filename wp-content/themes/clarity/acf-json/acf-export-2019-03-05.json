@@ -243,56 +243,6 @@
         "modified": 1512052715
     },
     {
-        "key": "group_57ab434a142d3",
-        "title": "Campaign Page Settings",
-        "fields": [
-            {
-                "key": "field_57ab43521cb60",
-                "label": "Campaign Skin",
-                "name": "dw_campaign_skin",
-                "type": "select",
-                "instructions": "",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "",
-                    "class": "",
-                    "id": ""
-                },
-                "multiple": 0,
-                "allow_null": 0,
-                "choices": {
-                    "basic": "Basic",
-                    "transformation": "Transformation",
-                    "light-blue": "Light Blue"
-                },
-                "default_value": [],
-                "ui": 0,
-                "ajax": 0,
-                "placeholder": "",
-                "return_format": "value"
-            }
-        ],
-        "location": [
-            [
-                {
-                    "param": "page_template",
-                    "operator": "==",
-                    "value": "default"
-                }
-            ]
-        ],
-        "menu_order": 0,
-        "position": "side",
-        "style": "default",
-        "label_placement": "top",
-        "instruction_placement": "label",
-        "hide_on_screen": "",
-        "active": 1,
-        "description": "",
-        "modified": 1528465392
-    },
-    {
         "key": "group_57e8ea6eae028",
         "title": "Event details",
         "fields": [
@@ -5228,14 +5178,14 @@
     },
     {
         "key": "group_58663f70f081d",
-        "title": "Page Details",
+        "title": "Campaign hub template",
         "fields": [
             {
                 "key": "field_5874e98f4f16a",
                 "label": "Excerpt",
-                "name": "dw_excerpt",
+                "name": "campaign_hub_excerpt",
                 "type": "textarea",
-                "instructions": "Displays at the top of the page underneath the page title and as the text of a Featured item on the homepage",
+                "instructions": "Displays at the top of the page, under the page title.",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
@@ -5243,18 +5193,19 @@
                     "class": "",
                     "id": ""
                 },
+                "admin_only": 0,
                 "default_value": "",
-                "new_lines": "",
-                "maxlength": "",
                 "placeholder": "",
-                "rows": ""
+                "maxlength": "",
+                "rows": "",
+                "new_lines": ""
             },
             {
                 "key": "field_5866404b03b66",
-                "label": "Page Banner",
-                "name": "dw_page_banner",
+                "label": "Page banner",
+                "name": "campaign_hub_banner",
                 "type": "image",
-                "instructions": "Please contact newintranet@digital.justice.gov.uk if you need to upload a banner image that is less than 640px high",
+                "instructions": "Upload a campaign banner. As large as possible but minimum 670px or it won't fill up the full space across the section.",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
@@ -5262,6 +5213,7 @@
                     "class": "",
                     "id": ""
                 },
+                "admin_only": 0,
                 "return_format": "id",
                 "preview_size": "medium_large",
                 "library": "all",
@@ -5276,7 +5228,7 @@
             {
                 "key": "field_586d01d4ebaf4",
                 "label": "Banner URL",
-                "name": "dw_banner_url",
+                "name": "campaign_hub_url",
                 "type": "text",
                 "instructions": "",
                 "required": 0,
@@ -5286,11 +5238,30 @@
                     "class": "no-border",
                     "id": ""
                 },
+                "admin_only": 0,
                 "default_value": "",
-                "maxlength": "",
                 "placeholder": "",
                 "prepend": "",
-                "append": ""
+                "append": "",
+                "maxlength": ""
+            },
+            {
+                "key": "field_5c7ef6be4ed33",
+                "label": "Campaign hub instruction to editors",
+                "name": "",
+                "type": "message",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "admin_only": 0,
+                "message": "The campaign hub template pulls in 3 types of site content, news, events and blogs. To pull these all together using this template, tag each piece of content (including this template) with a \"campaign category\". You can find the campaign category checkbox on every page on the right-hand side. \r\n\r\nCreate a new campaign category via the main left-hand menu -> Pages -> Campaign Category.",
+                "new_lines": "wpautop",
+                "esc_html": 0
             }
         ],
         "location": [
@@ -5312,7 +5283,6 @@
             "excerpt"
         ],
         "active": 1,
-        "description": "",
-        "modified": 1528463923
+        "description": ""
     }
 ]

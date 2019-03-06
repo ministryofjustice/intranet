@@ -1,7 +1,7 @@
 <?php
 /*
-* Template Name: Media grid
-*/
+* Template Name: Media grid template
+*/ 
 if (!defined('ABSPATH')) {
     die();
 }

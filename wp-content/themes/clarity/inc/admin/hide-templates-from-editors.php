@@ -11,7 +11,7 @@ $templates_we_want_to_hide = [
 	'page_regional_archive_news.php',
 	'page_regional_landing.php',
 	'page_team_homepage.php',
-	'page_news.php',
+	'page_news.php',	
 	'page_news-tibit.php',
 	'page_news-oneupdate.php',
 	'page_news-enews.php',
@@ -20,6 +20,7 @@ $templates_we_want_to_hide = [
 	'page_events.php',
 	'page_blog.php',
 	'page_about_us.php',
+	'search.php',
 ];
 
 /**

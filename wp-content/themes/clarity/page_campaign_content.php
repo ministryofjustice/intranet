@@ -1,7 +1,7 @@
 <?php
 /**
  *
- * Template name: Campaign content
+ * Template name: Campaign content template
  */
 get_header();
 
