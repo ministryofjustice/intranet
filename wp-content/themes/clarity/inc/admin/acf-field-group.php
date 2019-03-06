@@ -247,58 +247,6 @@ acf_add_local_field_group(array(
 ));
 
 acf_add_local_field_group(array(
-	'key' => 'group_57ab434a142d3',
-	'title' => 'Campaign Page Settings',
-	'fields' => array(
-		array(
-			'key' => 'field_57ab43521cb60',
-			'label' => 'Campaign Skin',
-			'name' => 'dw_campaign_skin',
-			'type' => 'select',
-			'instructions' => '',
-			'required' => 0,
-			'conditional_logic' => 0,
-			'wrapper' => array(
-				'width' => '',
-				'class' => '',
-				'id' => '',
-			),
-			'multiple' => 0,
-			'allow_null' => 0,
-			'choices' => array(
-				'basic' => 'Basic',
-				'transformation' => 'Transformation',
-				'light-blue' => 'Light Blue',
-			),
-			'default_value' => array(
-			),
-			'ui' => 0,
-			'ajax' => 0,
-			'placeholder' => '',
-			'return_format' => 'value',
-		),
-	),
-	'location' => array(
-		array(
-			array(
-				'param' => 'page_template',
-				'operator' => '==',
-				'value' => 'default',
-			),
-		),
-	),
-	'menu_order' => 0,
-	'position' => 'side',
-	'style' => 'default',
-	'label_placement' => 'top',
-	'instruction_placement' => 'label',
-	'hide_on_screen' => '',
-	'active' => 1,
-	'description' => '',
-	'modified' => 1528465392,
-));
-
-acf_add_local_field_group(array(
 	'key' => 'group_57e8ea6eae028',
 	'title' => 'Event details',
 	'fields' => array(
@@ -486,7 +434,7 @@ acf_add_local_field_group(array(
 
 acf_add_local_field_group(array(
 	'key' => 'group_5b338e8b2f4fa',
-	'title' => 'Full width page banner - Media Grid',
+	'title' => 'Full width page banner',
 	'fields' => array(
 		array(
 			'key' => 'field_5b338e8b326cb',
@@ -533,7 +481,6 @@ acf_add_local_field_group(array(
 	),
 	'active' => 1,
 	'description' => '',
-	'modified' => 1530105524,
 ));
 
 acf_add_local_field_group(array(
@@ -3961,8 +3908,26 @@ acf_add_local_field_group(array(
 
 acf_add_local_field_group(array(
 	'key' => 'group_5b321a90a2a47',
-	'title' => 'Media Grid - Flex',
+	'title' => 'Media Grid template',
 	'fields' => array(
+		array(
+			'key' => 'field_5c7f9c7e71a89',
+			'label' => 'Using the Media Grid template',
+			'name' => '',
+			'type' => 'message',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'admin_only' => 0,
+			'message' => 'The Media Grid template allows for adding a range of different media types on a page (photo galleries, video and text quotes). Use the \'Add Row\' to start. You can use any combination of media types together.',
+			'new_lines' => 'wpautop',
+			'esc_html' => 0,
+		),
 		array(
 			'key' => 'field_5b321cfa0f087',
 			'label' => 'Content',
@@ -4486,6 +4451,24 @@ acf_add_local_field_group(array(
 	'key' => 'group_5723208e55e89',
 	'title' => 'Tab template',
 	'fields' => array(
+		array(
+			'key' => 'field_5c7f994416515',
+			'label' => 'Using the tab template',
+			'name' => '',
+			'type' => 'message',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'admin_only' => 0,
+			'message' => 'The tab template allows for organising content inside tabs. You need to be using at least two tabs for the tabs to appear on the page.',
+			'new_lines' => 'wpautop',
+			'esc_html' => 0,
+		),
 		array(
 			'key' => 'field_572320a8bc14c',
 			'label' => 'Tabs',
@@ -5252,14 +5235,14 @@ acf_add_local_field_group(array(
 
 acf_add_local_field_group(array(
 	'key' => 'group_58663f70f081d',
-	'title' => 'Page Details',
+	'title' => 'Campaign hub template',
 	'fields' => array(
 		array(
-			'key' => 'field_5874e98f4f16a',
-			'label' => 'Excerpt',
-			'name' => 'dw_excerpt',
-			'type' => 'textarea',
-			'instructions' => 'Displays at the top of the page underneath the page title and as the text of a Featured item on the homepage',
+			'key' => 'field_5c7ef6be4ed33',
+			'label' => 'Using the Campaign hub template',
+			'name' => '',
+			'type' => 'message',
+			'instructions' => '',
 			'required' => 0,
 			'conditional_logic' => 0,
 			'wrapper' => array(
@@ -5267,18 +5250,39 @@ acf_add_local_field_group(array(
 				'class' => '',
 				'id' => '',
 			),
-			'default_value' => '',
-			'new_lines' => '',
-			'maxlength' => '',
-			'placeholder' => '',
-			'rows' => '',
+			'admin_only' => 0,
+			'message' => 'The campaign hub template pulls in 3 types of site content, news, events and blogs. To pull these all together using this template, tag each piece of content (including this template) with a "campaign category". You can find the campaign category checkbox on every page on the right-hand side. 
+
+Create a new campaign category via the main left-hand menu -> Pages -> Campaign Category.',
+			'new_lines' => 'wpautop',
+			'esc_html' => 0,
+		),
+		array(
+			'key' => 'field_5c7f038522d7e',
+			'label' => 'Display banner on page',
+			'name' => 'campaign_hub_on_off_button',
+			'type' => 'true_false',
+			'instructions' => 'Select option and update page.',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'admin_only' => 0,
+			'message' => '',
+			'default_value' => 0,
+			'ui' => 1,
+			'ui_on_text' => 'On',
+			'ui_off_text' => 'Off',
 		),
 		array(
 			'key' => 'field_5866404b03b66',
-			'label' => 'Page Banner',
-			'name' => 'dw_page_banner',
+			'label' => 'Page banner',
+			'name' => 'campaign_hub_banner',
 			'type' => 'image',
-			'instructions' => 'Please contact newintranet@digital.justice.gov.uk if you need to upload a banner image that is less than 640px high',
+			'instructions' => 'Upload a campaign banner. As large as possible but minimum 1020px or it won\'t fill up the full space across the section.',
 			'required' => 0,
 			'conditional_logic' => 0,
 			'wrapper' => array(
@@ -5286,6 +5290,7 @@ acf_add_local_field_group(array(
 				'class' => '',
 				'id' => '',
 			),
+			'admin_only' => 0,
 			'return_format' => 'id',
 			'preview_size' => 'medium_large',
 			'library' => 'all',
@@ -5300,8 +5305,8 @@ acf_add_local_field_group(array(
 		array(
 			'key' => 'field_586d01d4ebaf4',
 			'label' => 'Banner URL',
-			'name' => 'dw_banner_url',
-			'type' => 'text',
+			'name' => 'campaign_hub_url',
+			'type' => 'url',
 			'instructions' => '',
 			'required' => 0,
 			'conditional_logic' => 0,
@@ -5310,11 +5315,49 @@ acf_add_local_field_group(array(
 				'class' => 'no-border',
 				'id' => '',
 			),
+			'admin_only' => 0,
 			'default_value' => '',
-			'maxlength' => '',
+			'placeholder' => '',
+		),
+		array(
+			'key' => 'field_5c7efa1c0dc4b',
+			'label' => 'Banner alt text',
+			'name' => 'campaign_hub_banner_alt_text',
+			'type' => 'text',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'admin_only' => 0,
+			'default_value' => '',
 			'placeholder' => '',
 			'prepend' => '',
 			'append' => '',
+			'maxlength' => '',
+		),
+		array(
+			'key' => 'field_5874e98f4f16a',
+			'label' => 'Excerpt',
+			'name' => 'campaign_hub_excerpt',
+			'type' => 'textarea',
+			'instructions' => 'Displays at the top of the page, under the page title.',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'admin_only' => 0,
+			'default_value' => '',
+			'placeholder' => '',
+			'maxlength' => '',
+			'rows' => '',
+			'new_lines' => '',
 		),
 	),
 	'location' => array(
@@ -5337,7 +5380,6 @@ acf_add_local_field_group(array(
 	),
 	'active' => 1,
 	'description' => '',
-	'modified' => 1528463923,
 ));
 
 endif;

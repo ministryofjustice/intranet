@@ -5,7 +5,7 @@ function get_campaign_post_api( $campaign_id ) {
 	$oAgency      = new Agency();
 	$activeAgency = $oAgency->getCurrentAgency();
 
-	$post_per_page = 'per_page=10';
+	$post_per_page = 'per_page=6';
 	$current_page  = '&page=1';
 	$agency_name   = '&agency=' . $activeAgency['wp_tag_id'];
 	$campaign_name = '&campaign_category=' . $campaign_id;

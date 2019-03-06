@@ -2,7 +2,7 @@
 
 /**
  *
- * Template name: Tabs
+ * Template name: Tab template
  * 
  * 
  */
