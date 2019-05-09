@@ -9,12 +9,12 @@
 
 <!-- c-article-item-feature starts here -->
 <article class="c-article-item-feature">
-
   <a href="<?php echo esc_url( get_permalink( $id ) ); ?>" class="c-article-item-feature--thumbnail">
 	<?php the_post_thumbnail( 'intranet-large', 'alt=' . $thumbnail_alt ); ?>
   </a>
 
   <div class="text-align">
+	<span class="c-article-byline__date"><?php echo get_the_date( 'd F Y', $id ); ?></span>
 	<h1>
 	  <a href="<?php echo esc_url( get_permalink( $id ) ); ?>" class="c-article-item-feature--title"><?php echo get_the_title( $id ); ?></a>
 	</h1>

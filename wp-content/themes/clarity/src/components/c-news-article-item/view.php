@@ -14,6 +14,7 @@
   </a>
 
   <div class="text-align">
+	<span class="c-article-byline__date"><?php the_date( 'd F Y' ); ?></span>
 	<h1>
 	  <a href="<?php echo esc_url( get_permalink( $id ) ); ?>" class="c-news-article-item--title"><?php echo get_the_title( $id ); ?></a>
 	</h1>
