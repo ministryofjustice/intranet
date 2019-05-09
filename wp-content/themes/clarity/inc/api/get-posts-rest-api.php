@@ -11,11 +11,13 @@ use MOJ\Intranet\Agency;
 add_action( 'wp_ajax_get_post_api', 'get_post_api' );
 add_action( 'wp_ajax_nopriv_get_post_api', 'get_post_api' );
 
-function get_post_api() {
+function get_post_api( $blog_posts_number = '10' ) {
+
+	$post_id      = get_the_ID();
 	$oAgency      = new Agency();
 	$activeAgency = $oAgency->getCurrentAgency();
 
-	$post_per_page = 'per_page=10';
+	$post_per_page = 'per_page=' . $blog_posts_number;
 	$current_page  = '&page=1';
 	$agency_name   = '&agency=' . $activeAgency['wp_tag_id'];
 
@@ -42,7 +44,7 @@ function get_post_api() {
 		echo '<div class="data-type" data-type="posts"></div>';
 
 		foreach ( $posts as $key => $post ) {
-			include locate_template( 'src/components/c-article-item/view-blog-feed.php' );
+				include locate_template( 'src/components/c-article-item/view-blog-feed.php' );
 		}
 	}
 }
