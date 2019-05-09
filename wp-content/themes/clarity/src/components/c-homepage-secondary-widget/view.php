@@ -8,8 +8,6 @@ $oEvent  = new Event();
 $activeAgency = $oAgency->getCurrentAgency();
 $agency       = $activeAgency['shortcode'];
 
-
-
 $mostPopularTitle         = get_field( $agency . '_most_popular_text_1', 'option' );
 $event                    = $oEvent->get_event_list( 'search' );
 $enable_banner_right_side = get_field( $agency . '_enable_banner_right_side', 'option' );
