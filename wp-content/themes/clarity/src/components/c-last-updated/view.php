@@ -5,7 +5,14 @@ $terms     = get_the_terms( $post_id, 'agency' );
 ?>
 <!-- c-last-updated starts here -->
 <section class="c-last-updated">
-  <p><span class="c-share-post__meta__date">Last reviewed: <?php echo the_modified_date( 'j F Y' ); ?></span></p>
+
+	<?php
+	// Remove last reviewed from blog posts as it is not a content item that needs to be reviewed
+	if ( ! is_singular( 'post' ) ) :
+		?>
+	<p><span class="c-share-post__meta__date">Last reviewed: <?php echo the_modified_date( 'j F Y' ); ?></span></p>
+	<?php endif; ?>
+
   <p><span class="c-share-post__meta__date">Content tagged as:
 	<?php
 	if ( is_array( $terms ) ) {
