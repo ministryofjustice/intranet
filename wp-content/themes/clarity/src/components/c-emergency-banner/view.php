@@ -12,8 +12,8 @@ $notification_message = get_field( $agency . '_notification_message', 'option' )
   <!-- c-emergency-banner starts here -->
   <section class="c-emergency-banner c-emergency-banner--<?php echo $notification_type; ?>">
 	<div class="c-emergency-banner__meta">
+	<time datetime="<?php echo $notification_date; ?>"><?php echo $notification_date; ?></time>
 	  <h1><?php echo $notification_title; ?></h1>
-	  <time datetime="<?php echo $notification_date; ?>"><?php echo $notification_date; ?></time>
 	</div>
 	<div class="c-emergency-banner__content ie_content">
 	  <?php echo $notification_message; ?>
