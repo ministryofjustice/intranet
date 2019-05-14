@@ -13,18 +13,16 @@
   }
 
   &__meta {
-    padding: $spacing*2;
-    min-height: 122px;
-
+    padding: $spacing*2 $spacing*2 0 $spacing*2;
     +above(m) {
-      span(1/3)
+      span(2/3)
+      clearfix()
       height: 100%;
     }
   }
   &__content {
     cms-fixes();
-    padding: $spacing*2;
-    border-left: 2px dotted #f7f7f72e;
+    padding: 0 $spacing*2 $spacing*2 $spacing*2;
     a {
       color: $link-colour;
       font-weight: 700;
@@ -40,13 +38,15 @@
   }
   &--service {
     color: $dark;
-    background: #ffbf47;
+    background: #fff;
+    border: 3px solid #000;
     & ^[-1]__meta {
     }
   }
   &--emergency {
-    color: $light;
-    background: #df3034;
+    color: $dark;
+    background: #fff;
+    border: 3px solid #df3034;
     & ^[-1]__meta {
     }
   }
