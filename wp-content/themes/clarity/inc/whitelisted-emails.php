@@ -38,5 +38,5 @@ $GLOBALS['valid_domains'] = [
 	'publicguardian.gov.uk',
 	'ukgovwales.gov.uk',
 	'walesoffice.gov.uk',
-	'yjb.gsi.gov.uk'
+	'yjb.gsi.gov.uk',
 ];
