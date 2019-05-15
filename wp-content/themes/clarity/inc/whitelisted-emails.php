@@ -27,6 +27,7 @@ $GLOBALS['valid_domains'] = [
 	'legalaid.gsi.gov.uk',
 	'legalombudsman.org.uk',
 	'legalservicesboard.org.uk',
+	'moj.justice.go.uk',
 	'noms.gsi.gov.uk',
 	'offsol.gsi.gov.uk',
 	'paroleboard.gsi.gov.uk',
@@ -35,5 +36,7 @@ $GLOBALS['valid_domains'] = [
 	'publicguardian.gsi.gov.uk',
 	'sentencingcouncil.gsi.gov.uk',
 	'publicguardian.gov.uk',
-	'yjb.gsi.gov.uk',
+	'ukgovwales.gov.uk',
+	'walesoffice.gov.uk',
+	'yjb.gsi.gov.uk'
 ];
