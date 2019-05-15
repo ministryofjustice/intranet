@@ -1,6 +1,6 @@
 <?php
 /**
- *  Individual homepage featured item
+ *  Individual homepage blog item
  */
 use MOJ\Intranet\Authors;
 
@@ -17,7 +17,12 @@ $thumbnail_alt = get_post_meta( get_post_thumbnail_id( $id ), '_wp_attachment_im
   </a>
 
   <div class="text-align">
-		<span class="c-article-byline__date"><?php the_date( 'd F Y' ); ?></span>
+		<span class="c-article-byline__date">
+		<?php
+		// Show date on posts that share the same date
+		echo get_the_date( 'd F Y', $id );
+		?>
+		</span>
 		<h1><a class="c-blog-article-item--title" href="<?php echo esc_url( get_permalink( $id ) ); ?>"><?php echo get_the_title( $id ); ?></a></h1>
 
 		<section class="c-article-byline">
