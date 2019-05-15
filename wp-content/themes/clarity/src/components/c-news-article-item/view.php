@@ -1,6 +1,6 @@
 <?php
 /**
- *  Individual homepage featured item
+ *  Individual homepage latest news
  */
 
  $id            = get_the_ID();
@@ -14,7 +14,12 @@
   </a>
 
   <div class="text-align">
-	<span class="c-article-byline__date"><?php the_date( 'd F Y' ); ?></span>
+	<span class="c-article-byline__date">
+		<?php
+		// Show date on posts that share the same date
+		echo get_the_date( 'd F Y', $id );
+		?>
+	</span>
 	<h1>
 	  <a href="<?php echo esc_url( get_permalink( $id ) ); ?>" class="c-news-article-item--title"><?php echo get_the_title( $id ); ?></a>
 	</h1>
