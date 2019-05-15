@@ -6,11 +6,7 @@
 	<?php
 	get_template_part( 'src/components/c-article-byline/view', 'news' );
 	get_template_part( 'src/components/c-article-featured-image/view', 'news' );
-
-	if ( has_excerpt() ) {
-		get_template_part( 'src/components/c-article-excerpt/view' );
-	}
-
+	get_template_part( 'src/components/c-article-excerpt/view' );
 	get_template_part( 'src/components/c-rich-text-block/view' );
 	?>
 

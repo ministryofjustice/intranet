@@ -9,7 +9,7 @@ $options = [
 ];
 
 $post_id    = get_the_ID();
-$latestNews = $oNews->getNews( $options, true );
+$latestNews = $oNews->getNews( $options, false );
 
 if ( ! empty( $latestNews ) ) : ?>
 	<div class="c-news-list-aside">
