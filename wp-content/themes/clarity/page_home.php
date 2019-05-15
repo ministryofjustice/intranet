@@ -1,16 +1,9 @@
 <?php
 
 /**
-
- *
  *
  * Template name: Homepage
  */
-
- // Exit if accessed directly
-if ( ! defined( 'ABSPATH' ) ) {
-	die();
-}
 
 get_header();
 ?>
