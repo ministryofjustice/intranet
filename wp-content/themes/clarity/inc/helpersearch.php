@@ -11,7 +11,7 @@ class HelperSearch {
 	private $posts_orderby;
 
 	public function __construct() {
-		$this->debug = (boolean) get_array_value( $_GET, 'debug', false );
+		$this->debug = (bool) get_array_value( $_GET, 'debug', false );
 		$this->_reset();
 	}
 
@@ -111,7 +111,7 @@ class HelperSearch {
 	 */
 	private function normalize_options( $options ) {
 		$default = [
-			'search_order'   => 'ASC',
+			'search_order'   => 'DESC',
 			'search_orderby' => 'relevance',
 			'meta_fields'    => [],
 			'page'           => 1,
