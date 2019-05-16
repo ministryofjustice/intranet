@@ -2,7 +2,11 @@
 @require "../../globals/css/_toolkit"
 
 .c-phase-banner {
-  padding: $spacing 0 0 0;
+  padding: $spacing;
+
+  +above(m) {
+    padding: $spacing 0 0 0;
+  }
 
   &__icon {
     float:left;

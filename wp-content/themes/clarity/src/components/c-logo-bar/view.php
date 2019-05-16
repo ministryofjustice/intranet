@@ -15,12 +15,20 @@ if ( $activeAgency['shortcode'] === 'law-commission' ) {
 
 <section class="c-logo-bar">
   <div class="u-wrapper">
-	<div class="u-wrapper__stack--left"><a href="/" rel="home">
-	  <img src="<?php echo $logo; ?>" alt="<?php echo $activeAgency['label']; ?> Logo">
-	  <span class="agency-title"><?php echo $activeAgency['label']; ?></span>
-	</a></div>
-	<?php if ( $page_name !== 'agency-switcher' ) : ?>
-	<div class="u-wrapper__stack--right"><a href="/agency-switcher" class="c-logo-bar__switch">Switch to other intranet</a></div>
-	<?php endif; ?>
+
+		<div class="u-wrapper__stack--left">
+			<a href="/" rel="home">
+			<img src="<?php echo $logo; ?>" alt="<?php echo $activeAgency['label']; ?> Logo">
+			<span class="agency-title l-half-section"><?php echo $activeAgency['label']; ?></span>
+			</a>
+		</div>
+
+		<div class="u-wrapper__stack--right">
+			<?php if ( $page_name !== 'agency-switcher' ) : ?>
+			<a href="/agency-switcher" class="c-logo-bar__switch">Switch to other intranet</a>
+			<?php endif; ?>
+		</div>
+		
+	</div>
   </div>
 </section>

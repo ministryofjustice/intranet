@@ -4,9 +4,17 @@
 .c-external-services {
   ul{
     li{
-      width: 50%;
-      float: left;
+      width: 100%;
       line-height: 1.5;
+      margin: $spacing;
+
+      +above(m) {
+        width: 50%;
+        float: left;
+        line-height: 1.5;
+        margin: 0;
+      }
+
       a{
         color: white;
         font-size: 16px;

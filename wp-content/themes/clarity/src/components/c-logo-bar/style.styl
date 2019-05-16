@@ -5,7 +5,6 @@
   position: relative;
   background-color: $dark;
   padding: $spacing $spacing $spacing;
-  height: 47px;
 
   a {
     text-decoration: none;
@@ -26,13 +25,12 @@
 
   &__switch {
     color: $light;
-    display block
+    display block;
+    padding: $spacing 0;
     text-decoration: none;
-
     +above(m) {
-      position: absolute;
-      top: 10%;
-      right: $spacing;
+      padding: 5px 0 0 0;
+      text-align: right;
     }
   }
 
