@@ -3,14 +3,13 @@
 /**
  *
  * Enqueue Clarity scripts and styles.
- *
  */
 
 add_action( 'wp_enqueue_scripts', 'enqueue_clarity_scripts', 99 );
 
 function enqueue_clarity_scripts() {
 	// CSS
-	wp_register_style( 'core-css', get_stylesheet_directory_uri() . '/assets/css/core.min.css', array(), '1.4.0', 'all' );
+	wp_register_style( 'core-css', get_stylesheet_directory_uri() . '/assets/css/core.min.css', array(), '1.5.0', 'all' );
 	wp_enqueue_style( 'core-css' );
 
 	wp_register_style( 'ie-css', get_stylesheet_directory_uri() . '/assets/css/ie.min.css', array(), null, 'screen' );
@@ -46,21 +45,31 @@ function enqueue_clarity_scripts() {
 
 /**
  *
- * Enqueued backend admin CSS and JS
+ * Remove Gutenberg CSS as we do not use
+ */
+add_action( 'wp_print_styles', 'wps_deregister_gutenberg_css', 100 );
+
+function wps_deregister_gutenberg_css() {
+	wp_dequeue_style( 'wp-block-library' );
+	wp_deregister_style( 'wp-block-library' );
+}
+
+/**
  *
+ * Enqueued backend admin CSS and JS
  */
 add_action( 'admin_enqueue_scripts', 'clarity_admin_enqueue' );
 
 function clarity_admin_enqueue( $hook ) {
 
 	 // Warning message to editors when they don't enter a page title
-	 if ( $hook == 'post-new.php' || $hook == 'post.php' ) :
-		 wp_enqueue_script( 'force_title_script', get_stylesheet_directory_uri() . '/inc/admin/js/force-title.js', array(), null, false  );
-		 wp_enqueue_script( 'colour-contrast-checker', get_stylesheet_directory_uri() . '/inc/admin/js/colour-contrast-checker.js', array(), null, false  );
-		 wp_localize_script( 'colour-contrast-checker', 'myAjax', [ 'ajaxurl' => admin_url( 'admin-ajax.php' ) ] );
+	if ( $hook == 'post-new.php' || $hook == 'post.php' ) :
+		wp_enqueue_script( 'force_title_script', get_stylesheet_directory_uri() . '/inc/admin/js/force-title.js', array(), null, false );
+		wp_enqueue_script( 'colour-contrast-checker', get_stylesheet_directory_uri() . '/inc/admin/js/colour-contrast-checker.js', array(), null, false );
+		wp_localize_script( 'colour-contrast-checker', 'myAjax', [ 'ajaxurl' => admin_url( 'admin-ajax.php' ) ] );
 
-		 wp_register_style( 'page-search-dropdown-filter', get_stylesheet_directory_uri() . '/inc/admin/css/page-search-dropdown-filter.css', array(), '0.2.0', 'all' );
-		 wp_enqueue_style( 'page-search-dropdown-filter' );
+		wp_register_style( 'page-search-dropdown-filter', get_stylesheet_directory_uri() . '/inc/admin/css/page-search-dropdown-filter.css', array(), '0.2.0', 'all' );
+		wp_enqueue_style( 'page-search-dropdown-filter' );
 	 endif;
 
 }

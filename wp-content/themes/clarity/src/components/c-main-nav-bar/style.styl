@@ -39,11 +39,15 @@
 
   a {
     display: block;
-    text-align: center;
+    text-align: left;
     padding: $spacing $spacing*2;
     color: $text;
     text-decoration: none;
     font-weight: bold;
+
+    +above(m) {
+      text-align: center;
+     }
 
     &:hover {
       background-color: darken($boxBg, 15%);
