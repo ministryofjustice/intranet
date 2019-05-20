@@ -14,7 +14,7 @@ $campaign_hub_excerpt = get_field( 'campaign_hub_excerpt' ) ?? '';
 		if ( has_excerpt() ) {
 			echo the_excerpt();
 		} else {
-			return;
+			echo '';
 		}
 	}
 	?>
