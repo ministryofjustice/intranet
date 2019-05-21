@@ -49,6 +49,10 @@ function get_news_api( $set_cpt = '' ) {
 			$response = wp_remote_get( $siteurl . '/wp-json/wp/v2/' . $set_cpt . '?' . 'per_page=6' . $current_page . $current_region );
 			break;
 
+		case is_singular( 'news' ):
+			$response = wp_remote_get( $siteurl . '/wp-json/wp/v2/news/?' . 'per_page=6' . $current_page . $agency_name );
+			break;
+
 		default:
 			$response = wp_remote_get( $siteurl . '/wp-json/wp/v2/news/?' . $post_per_page . $current_page . $agency_name );
 	}
@@ -73,7 +77,7 @@ function get_news_api( $set_cpt = '' ) {
 			echo '<div class="data-type" data-type="' . $set_cpt . '"></div>';
 
 			 // We don't want the News title to appear in some sections.
-			if ( is_page_template( 'page_news.php' ) || is_singular( 'regional_news' ) ) :
+			if ( is_page_template( 'page_news.php' ) || is_single() || is_singular( 'regional_news' ) ) :
 				echo '';
 	   else :
 			echo '<h2 class="o-title o-title--section" id="title-section">News</h2>';
