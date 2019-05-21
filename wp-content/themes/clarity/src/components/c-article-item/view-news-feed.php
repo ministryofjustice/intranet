@@ -40,11 +40,15 @@ if ( ! isset( $set_cpt ) ) {
 			<span class="c-article-item__dateline"><?php echo get_gmt_from_date( $post['date'], 'j M Y' ); ?></span>
 		</div>
 
-	<?php if ( ! is_singular( 'regional_news' ) ) : ?>
+	<?php if ( is_singular( 'regional_news' ) || is_singular( 'news' ) ) : ?>
 
-		<div class="c-article-excerpt">
-			<p><?php echo $post['excerpt']['rendered']; ?></p>
-		</div>
+	<div class="c-article-excerpt"><!-- No excerpt available --></div>
+
+	<?php else : ?>
+
+	<div class="c-article-excerpt">
+		<p><?php echo $post['excerpt']['rendered']; ?></p>
+	</div>
 
 	<?php endif; ?>
 

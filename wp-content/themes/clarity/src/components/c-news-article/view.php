@@ -13,8 +13,13 @@
   </section>
 
   <aside class="l-secondary">
-	<!-- <h1 class="o-title">Recent news</h1> -->
-	<?php //get_template_part( 'src/components/c-news-list-aside/view' ); ?>
+
+	<?php
+		echo '<h1 class="o-title">Recent news</h1>';
+		$news_posts_per_page = '';
+		get_news_api();
+	?>
+
   </aside>
 
 </article>
