@@ -16,7 +16,11 @@
    <div class="l-primary js-tabbed-content-container" role="main">
 	<h1 class="o-title o-title--page"><?php the_title(); ?></h1>
 	<div class="c-article-excerpt">
-	  <p><?php the_excerpt(); ?></p>
+        <p><?php
+            if (has_excerpt()) {
+                the_excerpt();
+            } ?>
+        </p>
 	</div>
 
 		<?php get_template_part( 'src/components/c-tabbed-nav/view' ); ?>
