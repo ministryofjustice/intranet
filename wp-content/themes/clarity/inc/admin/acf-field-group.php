@@ -1574,6 +1574,8 @@ acf_add_local_field_group(array(
 			'choices' => array(
 				'emergency' => 'Emergency (red banner)',
 				'service' => 'Service update (orange banner)',
+                'summary' => 'Summary (blue banner)',
+                'information' => 'Information (black banner)',
 			),
 			'allow_null' => 0,
 			'other_choice' => 0,
