@@ -4,7 +4,7 @@
  *
  * Set the intranet cookie if GET variables are passed
  */
-add_action( 'init', 'set_intranet_cookie' );
+add_action( 'wp', 'set_intranet_cookie' );
 
 function set_intranet_cookie() {
 	$default_agency = 'hq';
