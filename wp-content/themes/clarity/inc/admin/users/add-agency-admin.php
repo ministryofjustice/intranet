@@ -13,6 +13,8 @@
  */
 
 $capabilities = array(
+
+	'news'							=> true,
 	// management
 	'edit_dashboard'                => true,
 	'homepage_all_access'           => true,

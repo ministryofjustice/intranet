@@ -28,7 +28,8 @@ add_action( 'init', 'teamarea_option_pages' );
 function hide_teamarea_from_editors() {
 	// creating functions post_remove for removing menu item
 	$current_user = wp_get_current_user();
-	$get_role     = $current_user->roles[0];
+	$get_key_name = $current_user->caps;
+	$get_role = key($get_key_name);
 	if ( $get_role == 'agency-editor' || $get_role == 'regional-editor' ) {
 		remove_menu_page( 'team-area' );
 	}

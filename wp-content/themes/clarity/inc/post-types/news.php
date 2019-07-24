@@ -26,7 +26,7 @@ function define_news_post_type() {
 				'with_front' => false,
 			),
 			'hierarchical'    => false,
-			'capability_type' => array( 'news', 'news' ),
+			
 		)
 	);
 }
