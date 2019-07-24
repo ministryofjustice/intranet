@@ -34,6 +34,7 @@ $capabilities = array(
 	'delete_private_posts'          => true,
 	'delete_published_documents'    => true,
 	'delete_published_posts'        => true,
+	
 	'read_private_documents'        => true,
 	'publish_documents'             => true,
 
@@ -55,8 +56,13 @@ $capabilities = array(
 	'read_private_regional_pages'   => true,
 	'read_regional_page'            => true,
 	'delete_others_regional_pages'  => true,
+
 	'delete_regional_news'          => true,
 	'delete_regional_page'          => true,
+	'delete_published_pages'		=> true,
+	'delete_published_regional_pages'=> true,
+	
+
 );
 
 if ( get_role( 'regional-editor' ) ) {

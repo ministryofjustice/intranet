@@ -12,6 +12,7 @@ add_filter(
 	}
 );
 add_filter( 'menu_order', 'my_new_admin_menu_order' );
+
 /**
  * Filters WordPress' default menu order
  */
@@ -51,6 +52,7 @@ function my_new_admin_menu_order( $menu_order ) {
 			move_element( $menu_order, $current_index, $new_index );
 		}
 	}
+
 	return $menu_order;
 };
 
@@ -69,9 +71,14 @@ add_action( 'admin_menu', 'remove_options_from_agency_admin' );
 
 function remove_options_from_agency_admin() {
 	// creating functions post_remove for removing menu item
+	global $wp_roles;
+
 	$current_user = wp_get_current_user();
-	$get_role     = $current_user->roles[0];
-	if ( $get_role == 'agency_admin' ) {
+	$roles        = $current_user->roles;
+	$role         = array_shift( $roles );
+	
+
+	if ( $role == 'agency_admin' ) {
 		remove_menu_page( 'edit.php?post_type=acf-field-group' );
 		remove_menu_page( 'options-general.php' );
 	}
@@ -82,10 +89,14 @@ add_action( 'admin_menu', 'remove_options_from_teamusers' );
 
 function remove_options_from_teamusers() {
 	// creating functions post_remove for removing menu item
+	global $wp_roles;
+
 	$current_user = wp_get_current_user();
-	$get_role     = $current_user->roles[0];
-	if ( $get_role == 'team-author' || $get_role == 'team-lead' ) {
-		remove_menu_page( 'edit.php' );
+	$roles        = $current_user->roles;
+	$role         = array_shift( $roles );
+
+	if ( $role  == 'team-author' || $role  == 'team-lead' ) {
+		//remove_menu_page( 'edit.php' );
 		remove_menu_page( 'edit.php?post_type=acf-field-group' );
 		remove_menu_page( 'edit.php?post_type=webchat' );
 		remove_menu_page( 'acf-options' );
@@ -94,23 +105,30 @@ function remove_options_from_teamusers() {
 
 }
 
-add_action( 'admin_menu', 'remove_options_from_regionalusers' );
+add_action( 'admin_menu', 'remove_options_from_regionalusers', 120 ); 
+// For newer versions of WP you need to set the priorty quite high to avoid errors. See 
+// https://codex.wordpress.org/Function_Reference/remove_submenu_page#Notes
 
 function remove_options_from_regionalusers() {
 	// creating functions post_remove for removing menu item
+	global $wp_roles;
+
 	$current_user = wp_get_current_user();
-	$get_role     = $current_user->roles[0];
-	if ( $get_role == 'regional-editor' ) {
+	$roles        = $current_user->roles;
+	$role         = array_shift( $roles );
+	
+	if ( $role == 'regional-editor') {
 		remove_menu_page( 'edit.php' );
+		remove_menu_page( 'edit.php?post_type=webchat' );
+		remove_menu_page( 'edit.php?post_type=news' );
 	}
 }
 
-add_action( 'admin_menu', 'dw_remove_menu_items' );
+// General menu item removal across roles
+add_action( 'admin_menu', 'global_remove_menu_items' );
 
-function dw_remove_menu_items() {
+function global_remove_menu_items() {
     if( !current_user_can( 'administrator' ) ):
-      // remove_menu_page( 'edit.php' );
-      remove_menu_page( 'edit-comments.php' );
       remove_menu_page( 'tools.php' );
       remove_menu_page( 'themes.php' );
     endif;

@@ -81,6 +81,9 @@ if ( ! current_user_can( 'administrator' ) ) {
 		global $post;
 		global $templates_we_want_to_hide;
 
+		if ( !is_object( $post) ) 
+		return;
+		
 		$current_template = get_post_meta( $post->ID, '_wp_page_template', true );
 
 		if ( in_array( $current_template, $templates_we_want_to_hide ) ) {

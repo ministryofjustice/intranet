@@ -38,7 +38,7 @@ function define_regional_news_post_type() {
 				'edit_others_posts'   => 'edit_others_regional_news',
 				'read_private_posts'  => 'read_private_regional_news',
 				'edit_post'           => 'edit_regional_news',
-				'delete_post'         => 'delete_regional_news',
+				'delete_post'         => 'delete_regional_news', // add remove trash icon
 				'delete_posts'        => 'delete_regional_news',
 				'delete_others_posts' => 'delete_regional_news',
 				'read_post'           => 'read_regional_news',
