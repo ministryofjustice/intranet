@@ -85,7 +85,9 @@ function remove_options_from_agency_admin() {
 
 }
 
-add_action( 'admin_menu', 'remove_options_from_teamusers' );
+add_action( 'admin_menu', 'remove_options_from_teamusers', 119 );
+// For newer versions of WP you need to set the priorty quite high to avoid errors. See 
+// https://codex.wordpress.org/Function_Reference/remove_submenu_page#Notes
 
 function remove_options_from_teamusers() {
 	// creating functions post_remove for removing menu item
@@ -96,7 +98,7 @@ function remove_options_from_teamusers() {
 	$role         = array_shift( $roles );
 
 	if ( $role  == 'team-author' || $role  == 'team-lead' ) {
-		//remove_menu_page( 'edit.php' );
+		remove_menu_page( 'edit.php' );
 		remove_menu_page( 'edit.php?post_type=acf-field-group' );
 		remove_menu_page( 'edit.php?post_type=webchat' );
 		remove_menu_page( 'acf-options' );
@@ -106,8 +108,6 @@ function remove_options_from_teamusers() {
 }
 
 add_action( 'admin_menu', 'remove_options_from_regionalusers', 120 ); 
-// For newer versions of WP you need to set the priorty quite high to avoid errors. See 
-// https://codex.wordpress.org/Function_Reference/remove_submenu_page#Notes
 
 function remove_options_from_regionalusers() {
 	// creating functions post_remove for removing menu item
@@ -128,7 +128,7 @@ function remove_options_from_regionalusers() {
 add_action( 'admin_menu', 'global_remove_menu_items' );
 
 function global_remove_menu_items() {
-    if( !current_user_can( 'administrator' ) ):
+    if ( !current_user_can( 'administrator' ) ):
       remove_menu_page( 'tools.php' );
       remove_menu_page( 'themes.php' );
     endif;
