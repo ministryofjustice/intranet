@@ -32,11 +32,13 @@ function agency_context_switcher_menu( $wp_admin_bar ) {
 	$roles        = $current_user->roles;
 	$role         = array_shift( $roles );
 
+	$agency_role = isset($agency->name) ? $agency->name : 'Team account';
+
 	$wp_admin_bar->add_node(
 		array(
 			'parent' => 'top-secondary',
 			'id'     => 'agency-context-switcher',
-			'title'  => 'Editing as: ' . $agency->name,
+			'title'  => 'Editing as: ' . $agency_role,
 			'href'   => '#',
 		)
 	);
