@@ -12,19 +12,6 @@ class Agency_Editor {
      * Templates restricted to top level admins
      * @var string[]
      */
-    public static $restricted_templates = array(
-        // 'page_about_us.php',
-        // 'page_blog.php',
-        // 'page_events.php',
-        // 'page_guidance_and_support_index.php',
-        // 'page_home.php',
-        // 'page_news.php',
-        // 'page_search_results.php',
-        // 'page_submit_feedback.php',
-        // 'redirects.php',
-        // 'service.php',
-        // 'single-webchat.php',
-    );
 
     /**
      * Get the agency / owner of a post.
@@ -75,14 +62,15 @@ class Agency_Editor {
         }
 
         // Return null if user has no context, or if the context is HQ.
-        if (is_null($agency) || $agency == 'hq') {
+        if (is_null($agency) || $agency == 'hmcts') {
             return null;
         }
 
-        if ($owner !== 'hq') {
+        if ($owner !== 'hmcts') {
             // The post is not owned by HQ, so it cannot be opted in/out of.
             return null;
-        } else {
+        } 
+        else {
             $opt_in = is_object_in_term($post_id, 'agency', $agency);
             return $opt_in;
         }

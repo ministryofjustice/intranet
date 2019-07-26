@@ -39,14 +39,6 @@ class Agency_Posts extends List_Table {
 
     public function __construct() {
         parent::__construct();
-
-        if (current_user_can('opt_in_content')) {
-            $this->columns['opted-in'] = 'Opt-In Status';
-        }
-        $this->columns['agency'] = 'Agency';
-
-
-
     }
     /**
      * Reorder columns.
@@ -62,56 +54,6 @@ class Agency_Posts extends List_Table {
             $columns
         );
 
-        // Remove the default taxonomy 'Agencies' column
-        if (isset($columns['taxonomy-agency'])) {
-            unset($columns['taxonomy-agency']);
-        }
-
-        // Don't show the agency columns if the user is not an Agency Editor
-        // or is a HQ editor
-        if (
-            !Agency_Context::current_user_can_have_context() ||
-            Agency_Context::get_agency_context() == 'hq'
-        ) {
-            unset($columns['opted-in']);
-        }
-
         return $columns;
-    }
-
-    /**
-     * Content for the Agency column.
-     *
-     * @param int $post_id
-     * @return string
-     */
-    public function column_agency($post_id) {
-        $agency = Agency_Editor::get_post_agency($post_id);
-        $agency = Agency_Editor::get_agency_by_slug($agency);
-        return $agency->name;
-    }
-
-    /**
-     * Content for the Opted Out column.
-     *
-     * @param $post_id
-     * @return string
-     */
-    public function column_opted_in($post_id) {
-        if (!Agency_Context::current_user_can_have_context()) {
-            return '–';
-        }
-
-        $opt_in = Agency_Editor::is_post_opted_in($post_id);
-
-        if (is_null($opt_in)) {
-            $out = '';
-        } elseif ($opt_in === false) {
-            $out = '<span class="dashicons dashicons-hidden" style="opacity:0.5"></span>';
-        } else {
-            $out = '<span class="dashicons dashicons-visibility"></span>';
-        }
-
-        return $out;
     }
 }
