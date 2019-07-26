@@ -6,7 +6,7 @@ include('inc/utilities/region-context.php');         // Region Context utility
 require_once('inc/ajax.php');                             // Ajax Functions
 require_once('inc/languages.php');                        // Controls the site language(s)
 require_once('inc/mail.php');                        	  // Mail Functions
-require_once('inc/post-fork.php');                   	  // Add option to fork posts and pages
+
 require_once('inc/taxonomies.php');                       // Custom taxonomies
 
 require_once('inc/option-pages.php');                     // Option Pages

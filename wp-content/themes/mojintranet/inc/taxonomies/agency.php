@@ -75,7 +75,8 @@ class Agency extends Taxonomy {
             add_action('user_register', array($this, 'edit_user_profile_save'));
         }
 
-        if (!current_user_can('assign_agencies_to_posts')) {
+        // Add page agency meta box
+        if ( ! current_user_can('assign_agencies_to_posts')) {
             // Remove agency meta box
             add_action('admin_menu', array($this, 'remove_agency_meta_box'));
         }
@@ -88,7 +89,7 @@ class Agency extends Taxonomy {
             add_action('save_post', array($this, 'set_agency_terms_on_save_post'));
 
             // Capabilities
-            add_action('map_meta_cap', array($this, 'restrict_edit_post_to_current_agency'), 10, 4);
+            // add_action('map_meta_cap', array($this, 'restrict_edit_post_to_current_agency'), 10, 4);
             
             if (current_user_can('opt_in_content')) {
                 add_filter('restrict_manage_posts', array($this, 'add_agency_filter'));
@@ -296,13 +297,13 @@ class Agency extends Taxonomy {
             return $caps;
         }
 
-        $owner = Agency_Editor::get_post_agency($post_id);
-        $context = Agency_Context::get_agency_context();
+        // $owner = Agency_Editor::get_post_agency($post_id);
+        // $context = Agency_Context::get_agency_context();
 
-        if ($owner !== $context) {
-            // User does not have permission to edit this post
-            $caps[] = 'do_not_allow';
-        }
+        // if ($owner !== $context) {
+        //     // User does not have permission to edit this post
+        //     $caps[] = 'do_not_allow';
+        // }
 
         return $caps;
     }
@@ -310,8 +311,7 @@ class Agency extends Taxonomy {
     public function add_opt_in_out_quick_actions($actions, $post) {
         $is_opted_in = Agency_Editor::is_post_opted_in($post->ID);
 
-        if (
-            is_null($is_opted_in) || // User cannot opt-in to this post.
+        if (is_null($is_opted_in) || // User cannot opt-in to this post.
             $post->post_status !== 'publish' // The post is not published.
         ) {
             return $actions;
