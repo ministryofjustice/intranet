@@ -55,12 +55,10 @@ mkdir -p web/app/uploads
 # Install PHP dependencies (WordPress, plugins, etc.)
 composer install --verbose
 
-# Make two theme folders ready for the next step moving the themes
-mkdir -p web/app/themes/mojintranet
+# Make the theme folder ready for the next step
 mkdir -p web/app/themes/intranet-theme-clarity
 
-# Move downloaded theme folders from Composer to their correct location in the Roots structure
-mv vendor/ministryofjustice/intranet/wp-content/themes/mojintranet web/app/themes
+# Move downloaded theme folder from Composer to its correct location in the Roots structure
 mv vendor/ministryofjustice/intranet/wp-content/themes/clarity/* web/app/themes/intranet-theme-clarity
 
 # Remove downloaded theme folders now moved

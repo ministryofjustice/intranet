@@ -16,7 +16,7 @@ If issues installing try
 `rm -rf node_modules/` and `rm package-lock.json` then run `sudo npm i --unsafe-perm`
 The --unsafe-perm flag ignores some issues caused by running in root (locally)
 
-This compiler covers changes made to both the Clarity theme (current dir) and the mojintrant theme
+This compiler covers changes made to both the Clarity theme (current dir)
 */
 
 // constants
@@ -60,18 +60,6 @@ const phpClaritySRC = [
   'src/**/*.php',
   'inc/**/*.php',
   '*.php'
-]
-
-const phpMOJintranetSRC = [
-  '../mojintranet/**/*.php'
-]
-
-const cssMOJintranetSRC = [
-  '../mojintranet/**/*.css'
-]
-
-const jsMOJintranetSRC = [
-  '../mojintranet/**/*.js'
 ]
 
 const jsSRC = [
@@ -203,19 +191,10 @@ function clarityRSYNC() {
   return exec('rsync -a --delete ' + sourcePath + ' ' + destinationPath + 'intranet-theme-clarity')
 }
 
-function mojintranetRSYNC() {
-  var sourcePath = '../mojintranet/*'
-  var destinationPath = '../../../docker/bedrock_volume/web/app/themes/'
-  return exec('rsync -a --delete ' + sourcePath + ' ' + destinationPath + 'mojintranet')
-}
-
 function watchFiles() {
   // watch and process files in order
   watch(stylSRC, series([clean, css, ie, print, formatCSS, resync]))
   watch(phpClaritySRC, resync)
-  watch(phpMOJintranetSRC, mojintranetRSYNC)
-  watch(cssMOJintranetSRC, mojintranetRSYNC)
-  watch(jsMOJintranetSRC, mojintranetRSYNC)
   watch(jsSRC, series([js, resync]))
 
   // watch and then move files
@@ -224,7 +203,7 @@ function watchFiles() {
   watch(iconSRC, series([icons, resync]))
   watch(imgSRC, series([images, resync]))
 
-  notifier.notify({ title: 'Gulp running', message: '(•_•) watching Clairty & mojintranet theme files' })
+  notifier.notify({ title: 'Gulp running', message: '(•_•) watching Clairty theme files' })
 }
 
 // consolidate two main functions (watching and building) into variables
@@ -247,7 +226,6 @@ exports.icons = icons
 exports.images = images
 exports.build = build
 exports.clarityRSYNC = clarityRSYNC
-exports.mojintranetRSYNC = mojintranetRSYNC
 
 /* 
 * allow the running of Gulp tasks via cmd
