@@ -297,13 +297,13 @@ class Agency extends Taxonomy {
             return $caps;
         }
 
-        // $owner = Agency_Editor::get_post_agency($post_id);
-        // $context = Agency_Context::get_agency_context();
+        $owner = Agency_Editor::get_post_agency($post_id);
+        $context = Agency_Context::get_agency_context();
 
-        // if ($owner !== $context) {
-        //     // User does not have permission to edit this post
-        //     $caps[] = 'do_not_allow';
-        // }
+        if ($owner !== $context) {
+            // User does not have permission to edit this post
+            $caps[] = 'do_not_allow';
+        }
 
         return $caps;
     }
