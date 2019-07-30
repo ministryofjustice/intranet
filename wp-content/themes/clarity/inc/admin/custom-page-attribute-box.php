@@ -42,7 +42,7 @@ function clarity_custom_page_attribute_box( $post ) {
 
 	global $post;
 
-	$load_image_url = get_template_directory_uri() . '/admin/images/pageparent.gif';
+	$load_image_url = get_stylesheet_directory_uri() . '/inc/admin/images/pageparent.gif';
 	$parent_page    = wp_get_post_parent_id( $post->ID );
 
 	if ( current_user_can( 'administrator' ) || current_user_can( 'agency_admin' ) || current_user_can( 'agency-editor' )) {

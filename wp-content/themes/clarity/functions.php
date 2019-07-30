@@ -10,6 +10,13 @@
  * @since 1.0
  */
 
+include('inc2/utilities/agency-editor.php');          // Agency Editor utility
+include('inc2/utilities/agency-context.php');         // Agency Context utility
+include('inc2/utilities/region-context.php');         // Region Context utility
+require_once('inc2/taxonomies.php');                       // Custom taxonomies
+
+
+
 require_once 'inc/admin/acf-field-group.php';
 require_once 'inc/admin/admin-commands.php';
 require_once 'inc/admin/campaign-content-template.php';
@@ -67,8 +74,10 @@ require_once 'inc/helpers/debug.php';
 require_once 'inc/helpers/taggr.php';
 require_once 'inc/helpers/validation.php';
 
-require_once 'inc/markdown.php';
 require_once 'inc/images.php';
+require_once 'inc/languages.php';
+require_once 'inc/mail.php';
+require_once 'inc/markdown.php';
 require_once 'inc/menu.php';
 require_once 'inc/utilities.php';
 require_once 'inc/pagination.php';
