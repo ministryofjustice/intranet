@@ -10,15 +10,16 @@
  * @since 1.0
  */
 
-include('inc2/utilities/agency-editor.php');          // Agency Editor utility
-include('inc2/utilities/agency-context.php');         // Agency Context utility
-include('inc2/utilities/region-context.php');         // Region Context utility
-require_once('inc2/taxonomies.php');                       // Custom taxonomies
-
-
-
 require_once 'inc/admin/acf-field-group.php';
 require_once 'inc/admin/admin-commands.php';
+
+require_once 'inc/admin/agency_taxonomies/utilities/agency-editor.php';
+require_once 'inc/admin/agency_taxonomies/utilities/agency-context.php';
+require_once 'inc/admin/agency_taxonomies/utilities/region-context.php';
+
+// Load after above utilities
+require_once 'inc/admin/agency_taxonomies/taxonomies.php';   
+
 require_once 'inc/admin/campaign-content-template.php';
 require_once 'inc/admin/comments.php';
 require_once 'inc/admin/dashboard.php';
