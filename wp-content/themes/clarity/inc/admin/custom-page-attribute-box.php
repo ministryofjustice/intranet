@@ -87,7 +87,7 @@ function clarity_custom_page_attribute_box( $post ) {
 	?>
 	</div>
 
-  <p><strong>Select new parent page and update page:</strong></p>
+  <p><strong>Select new parent page:</strong></p>
   <input type="text" name="pageparent-filterbox" id="pageparent-filterbox" autocomplete="off" placeholder="Search pages">
   <input type="hidden" name="parent_id" id="parent_id" readonly="readonly" value="<?php echo $post->post_parent; ?>">
   <div id="pageparent-result"></div>

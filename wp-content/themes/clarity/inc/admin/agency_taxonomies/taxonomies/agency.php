@@ -89,8 +89,7 @@ class Agency extends Taxonomy {
             add_action('save_post', array($this, 'set_agency_terms_on_save_post'));
 
             // Capabilities
-            // add_action('map_meta_cap', array($this, 'restrict_edit_post_to_current_agency'), 10, 4);
-            
+
             if (current_user_can('opt_in_content')) {
                 add_filter('restrict_manage_posts', array($this, 'add_agency_filter'));
                 // Quick actions
@@ -197,10 +196,7 @@ class Agency extends Taxonomy {
 
         $is_checked = ( isset($_GET['show-hq-posts']) && $_GET['show-hq-posts'] == '1' );
         ?>
-        <label class="agency-filter-filter">
-            <input type="checkbox" name="show-hq-posts" value="1" <?php checked(true, $is_checked); ?> />
-            Show HQ content
-        </label>
+     
         <?php
     }
 
@@ -263,49 +259,6 @@ class Agency extends Taxonomy {
         foreach ($this->object_types as $object) {
             remove_meta_box('agencydiv', $object, 'normal');
         }
-    }
-
-    /**
-     * Stop users from editing posts that belong to agencies which are not
-     * the current agency context.
-     *
-     * @param $caps
-     * @param $cap
-     * @param $user_id
-     * @param $args
-     *
-     * @return array
-     */
-    public function restrict_edit_post_to_current_agency($caps, $cap, $user_id, $args) {
-        $filter_caps = [
-            'edit_post',
-            'delete_post',
-            'edit_news',
-            'delete_news',
-        ];
-
-        if (!in_array($cap, $filter_caps) || !isset($args[0])) {
-            // Not relevant, return early.
-            return $caps;
-        }
-
-        $post_id = $args[0];
-        $post_type = get_post_type($post_id);
-
-        if (!in_array($post_type, $this->object_types)) {
-            // Not relevant, return early.
-            return $caps;
-        }
-
-        $owner = Agency_Editor::get_post_agency($post_id);
-        $context = Agency_Context::get_agency_context();
-
-        if ($owner !== $context) {
-            // User does not have permission to edit this post
-            $caps[] = 'do_not_allow';
-        }
-
-        return $caps;
     }
 
     public function add_opt_in_out_quick_actions($actions, $post) {
