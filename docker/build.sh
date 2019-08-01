@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-if [ -d ./bedrock/web/app/themes/mojintranet ] && [ ! -z $development ]
+if [ -d ./bedrock/web/app/themes/intranet-theme-clarity ] && [ ! -z $development ]
 then
   cat <<-EOF
     You are running in development mode and it appears that the intranet is
