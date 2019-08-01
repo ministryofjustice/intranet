@@ -20,6 +20,7 @@ $capabilities = array(
 	'assign_campaign_categories' => true,
 	'assign_resource_categories' => true,
 	'unfiltered_html'            => true,
+	'assign_agencies_to_posts'   => true,
 
 	'upload_files'               => true,
 	'read'                       => true,
