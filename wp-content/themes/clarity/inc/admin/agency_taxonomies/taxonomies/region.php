@@ -2,7 +2,9 @@
 
 namespace MOJ_Intranet\Taxonomies;
 
+
 use Region_Context;
+
 
 class Region extends Taxonomy {
     protected $name = 'region';
@@ -51,9 +53,14 @@ class Region extends Taxonomy {
     );
 
     public function __construct() {
+
         parent::__construct();
 
-        if(current_user_can('create_users')) {
+        $user_id = get_current_user_id();
+        $region = get_user_meta($user_id, 'agency_context', true);
+
+        // Region taxonomy only apply to HMCTS
+        if ( current_user_can('create_users' ) && ( $region == 'hmcts' ) ) {
             add_action('admin_menu', array($this, 'add_admin_menu_item'));
 
             add_action('show_user_profile', array($this, 'edit_user_profile'), 9);
@@ -65,10 +72,10 @@ class Region extends Taxonomy {
             add_action('edit_user_profile_update', array($this, 'edit_user_profile_save'));
             add_action('user_register', array($this, 'edit_user_profile_save'));
         }
-        else {
-            // Remove Region Meta Box
-            add_action('admin_menu', array($this, 'remove_region_meta_box'));
-        }
+
+        // Remove Region Meta Box
+        add_action('admin_menu', array($this, 'remove_region_meta_box'));
+
 
         if (Region_Context::current_user_can_have_context()) {
             // Post filtering
@@ -166,6 +173,7 @@ class Region extends Taxonomy {
     /**
      * Remove region meta box from post edit pages.
      */
+
     public function remove_region_meta_box() {
         foreach ($this->object_types as $object) {
             remove_meta_box('regiondiv', $object, 'side');
@@ -250,8 +258,6 @@ class Region extends Taxonomy {
             // Not relevant, return early.
             return $caps;
         }
-        
-        $context = Region_Context::get_region_context();
         
         if (!has_term($context, 'region', $post_id)) {
             // User does not have permission to edit this post

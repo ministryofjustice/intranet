@@ -4,6 +4,11 @@ namespace MOJ_Intranet\Taxonomies;
 
 use Agency_Context;
 
+/**
+ * This class adds a metabox to the side of the post based on if the category is checked or not
+ */
+
+
 class Content_Category extends Taxonomy {
     public function __construct() {
         parent::__construct();
@@ -13,7 +18,7 @@ class Content_Category extends Taxonomy {
         add_action('admin_menu', array($this, 'remove_default_meta_box'));
         add_action('add_meta_boxes', array($this, 'add_custom_category_meta_box'));
     }
-
+   //
     /**
      * Set Category Permissions for Adminstrator, Global Editor and Agency Editor
      */
