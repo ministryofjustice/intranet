@@ -12,6 +12,7 @@
  * @package Clarity
  */
 
+
 $capabilities = array(
 
 	'news'							=> true,

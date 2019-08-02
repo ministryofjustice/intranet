@@ -7,9 +7,11 @@
 $taxonomies = array(
     'agency' => array("dir" => false, "class-name" => 'Agency'),
     'news-category' => array("dir" => false, "class-name" => 'News_Category'),
-    'resource-category' => array("dir" => false, "class-name" => 'Resource_Category'),
     'campaign-category' => array("dir" => false, "class-name" => 'Campaign_Category'),
     'region' => array("dir" => false, "class-name" => 'Region'),
+
+    // 02.08.19 disabled resource cat for now as I don't think it is being used. I've left it in for the time being in case it is and we need to bring it back.
+    //'resource-category' => array("dir" => false, "class-name" => 'Resource_Category'),
 );
 
 require_once 'taxonomies/taxonomy.php';
