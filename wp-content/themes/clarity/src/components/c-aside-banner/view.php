@@ -9,8 +9,6 @@ $homepage_sidebar_banner_link     = get_field( $agency . '_homepage_sidebar_bann
 $homepage_sidebar_banner_alt_text = get_field( $agency . '_homepage_sidebar_banner_alt_text', 'option' );
 ?>
 
-
-
 <?php if ( $enable_banner_right_side == true ) : ?>
 
 <!-- c-aside-banner starts here -->
@@ -19,8 +17,7 @@ $homepage_sidebar_banner_alt_text = get_field( $agency . '_homepage_sidebar_bann
   
   <a href="<?php echo $homepage_sidebar_banner_link; ?>" class="c-aside-banner--link">
 
-  
-	  <img src="<?php echo $homepage_sidebar_banner_image['sizes']['feature-thumbnail']; ?>" alt="<?php echo $homepage_sidebar_banner_alt_text; ?>">
+	  <img src="<?php echo $homepage_sidebar_banner_image; ?>" alt="<?php echo $homepage_sidebar_banner_alt_text; ?>">
   </a>
 </section>
 <!-- c-aside-banner ends here -->
