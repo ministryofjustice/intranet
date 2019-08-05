@@ -129,7 +129,7 @@ acf_add_local_field_group(array(
 	'label_placement' => 'top',
 	'instruction_placement' => 'label',
 	'hide_on_screen' => '',
-	'active' => 1,
+	'active' => true,
 	'description' => '',
 	'modified' => 1522831257,
 ));
@@ -197,9 +197,8 @@ acf_add_local_field_group(array(
 	'label_placement' => 'top',
 	'instruction_placement' => 'label',
 	'hide_on_screen' => '',
-	'active' => 1,
+	'active' => true,
 	'description' => '',
-	'modified' => 1482920545,
 ));
 
 acf_add_local_field_group(array(
@@ -241,7 +240,7 @@ acf_add_local_field_group(array(
 	'label_placement' => 'top',
 	'instruction_placement' => 'label',
 	'hide_on_screen' => '',
-	'active' => 1,
+	'active' => true,
 	'description' => '',
 	'modified' => 1512052715,
 ));
@@ -283,7 +282,7 @@ acf_add_local_field_group(array(
 			array(
 				'param' => 'page_template',
 				'operator' => '==',
-				'value' => 'default',
+				'value' => 'page_campaign_content.php',
 			),
 		),
 	),
@@ -293,9 +292,8 @@ acf_add_local_field_group(array(
 	'label_placement' => 'top',
 	'instruction_placement' => 'label',
 	'hide_on_screen' => '',
-	'active' => 1,
+	'active' => true,
 	'description' => '',
-	'modified' => 1528465392,
 ));
 
 acf_add_local_field_group(array(
@@ -429,7 +427,7 @@ acf_add_local_field_group(array(
 	'label_placement' => 'top',
 	'instruction_placement' => 'label',
 	'hide_on_screen' => '',
-	'active' => 1,
+	'active' => true,
 	'description' => '',
 	'modified' => 1524131934,
 ));
@@ -479,7 +477,7 @@ acf_add_local_field_group(array(
 	'label_placement' => 'top',
 	'instruction_placement' => 'label',
 	'hide_on_screen' => '',
-	'active' => 1,
+	'active' => true,
 	'description' => '',
 	'modified' => 1530105536,
 ));
@@ -531,7 +529,7 @@ acf_add_local_field_group(array(
 	'hide_on_screen' => array(
 		0 => 'the_content',
 	),
-	'active' => 1,
+	'active' => true,
 	'description' => '',
 	'modified' => 1530105524,
 ));
@@ -786,7 +784,7 @@ acf_add_local_field_group(array(
 	'hide_on_screen' => array(
 		0 => 'the_content',
 	),
-	'active' => 1,
+	'active' => true,
 	'description' => '',
 	'modified' => 1475244500,
 ));
@@ -1397,7 +1395,7 @@ acf_add_local_field_group(array(
 	'label_placement' => 'top',
 	'instruction_placement' => 'label',
 	'hide_on_screen' => '',
-	'active' => 1,
+	'active' => true,
 	'description' => '',
 ));
 
@@ -1572,10 +1570,8 @@ acf_add_local_field_group(array(
 			),
 			'admin_only' => 0,
 			'choices' => array(
-                'emergency' => 'Emergency (red border)',
-                'service' => 'Service update (orange border)',
-                'summary' => 'Summary (blue border)',
-                'information' => 'Information (black border)',
+				'emergency' => 'Emergency (red banner)',
+				'service' => 'Service update (orange banner)',
 			),
 			'allow_null' => 0,
 			'other_choice' => 0,
@@ -3917,7 +3913,7 @@ acf_add_local_field_group(array(
 			'label' => 'Banner image',
 			'name' => 'homepage_sidebar_banner_image',
 			'type' => 'image',
-			'instructions' => 'Recommended that the banner should be in a 3:2 or 1:1 ratio to fit best in space.',
+			'instructions' => 'Recommended that the banner should be in a 3:2 or 1:1 ratio to fit best in space. Upload at the largest size possible.',
 			'required' => 0,
 			'conditional_logic' => 0,
 			'wrapper' => array(
@@ -3926,7 +3922,7 @@ acf_add_local_field_group(array(
 				'id' => '',
 			),
 			'admin_only' => 0,
-			'return_format' => 'array',
+			'return_format' => 'url',
 			'preview_size' => 'thumbnail',
 			'library' => 'all',
 			'min_width' => '',
@@ -4212,7 +4208,7 @@ acf_add_local_field_group(array(
 	'label_placement' => 'top',
 	'instruction_placement' => 'label',
 	'hide_on_screen' => '',
-	'active' => 1,
+	'active' => true,
 	'description' => '',
 ));
 
@@ -4478,6 +4474,8 @@ acf_add_local_field_group(array(
 							'mime_types' => '',
 							'insert' => 'append',
 							'admin_only' => 0,
+							'return_format' => 'array',
+							'preview_size' => 'medium',
 						),
 					),
 					'min' => '',
@@ -4505,7 +4503,7 @@ acf_add_local_field_group(array(
 		1 => 'custom_fields',
 		2 => 'send-trackbacks',
 	),
-	'active' => 1,
+	'active' => true,
 	'description' => '',
 	'modified' => 1532687154,
 ));
@@ -4646,7 +4644,7 @@ acf_add_local_field_group(array(
 	'label_placement' => 'top',
 	'instruction_placement' => 'label',
 	'hide_on_screen' => '',
-	'active' => 1,
+	'active' => true,
 	'description' => '',
 	'modified' => 1473410733,
 ));
@@ -4729,7 +4727,7 @@ acf_add_local_field_group(array(
 	'label_placement' => 'top',
 	'instruction_placement' => 'label',
 	'hide_on_screen' => '',
-	'active' => 1,
+	'active' => true,
 	'description' => '',
 	'modified' => 1471269042,
 ));
@@ -4870,7 +4868,7 @@ acf_add_local_field_group(array(
 	'label_placement' => 'top',
 	'instruction_placement' => 'label',
 	'hide_on_screen' => '',
-	'active' => 1,
+	'active' => true,
 	'description' => '',
 	'modified' => 1524581824,
 ));
@@ -4943,7 +4941,7 @@ acf_add_local_field_group(array(
 	'label_placement' => 'top',
 	'instruction_placement' => 'label',
 	'hide_on_screen' => '',
-	'active' => 1,
+	'active' => true,
 	'description' => '',
 	'modified' => 1524055135,
 ));
@@ -5013,7 +5011,7 @@ acf_add_local_field_group(array(
 	'label_placement' => 'top',
 	'instruction_placement' => 'label',
 	'hide_on_screen' => '',
-	'active' => 1,
+	'active' => true,
 	'description' => '',
 	'modified' => 1480330391,
 ));
@@ -5057,91 +5055,9 @@ acf_add_local_field_group(array(
 	'label_placement' => 'top',
 	'instruction_placement' => 'label',
 	'hide_on_screen' => '',
-	'active' => 1,
+	'active' => true,
 	'description' => '',
 	'modified' => 1474898497,
-));
-
-acf_add_local_field_group(array(
-	'key' => 'group_58bd431b4c6a4',
-	'title' => 'My Work Links Menu',
-	'fields' => array(
-		array(
-			'key' => 'field_58bd431b4f6ac',
-			'label' => 'My work',
-			'name' => 'my_work_links',
-			'type' => 'repeater',
-			'instructions' => '',
-			'required' => 0,
-			'conditional_logic' => 0,
-			'wrapper' => array(
-				'width' => '',
-				'class' => '',
-				'id' => '',
-			),
-			'admin_only' => 0,
-			'collapsed' => '',
-			'min' => 0,
-			'max' => 0,
-			'layout' => 'table',
-			'button_label' => 'Add Link',
-			'sub_fields' => array(
-				array(
-					'key' => 'field_58bd431b50d8c',
-					'label' => 'Title',
-					'name' => 'my_work_link_title',
-					'type' => 'text',
-					'instructions' => '',
-					'required' => 0,
-					'conditional_logic' => 0,
-					'wrapper' => array(
-						'width' => '',
-						'class' => '',
-						'id' => '',
-					),
-					'default_value' => '',
-					'placeholder' => '',
-					'prepend' => '',
-					'append' => '',
-					'maxlength' => '',
-				),
-				array(
-					'key' => 'field_58bd431b50d9a',
-					'label' => 'URL',
-					'name' => 'my_work_link_url',
-					'type' => 'url',
-					'instructions' => '',
-					'required' => 0,
-					'conditional_logic' => 0,
-					'wrapper' => array(
-						'width' => '',
-						'class' => '',
-						'id' => '',
-					),
-					'default_value' => '',
-					'placeholder' => '',
-				),
-			),
-		),
-	),
-	'location' => array(
-		array(
-			array(
-				'param' => 'options_page',
-				'operator' => '==',
-				'value' => 'my-work-links-settings',
-			),
-		),
-	),
-	'menu_order' => 2,
-	'position' => 'normal',
-	'style' => 'default',
-	'label_placement' => 'top',
-	'instruction_placement' => 'label',
-	'hide_on_screen' => '',
-	'active' => 1,
-	'description' => '',
-	'modified' => 1535628206,
 ));
 
 acf_add_local_field_group(array(
@@ -5238,13 +5154,6 @@ acf_add_local_field_group(array(
 				'value' => 'page_campaign_content.php',
 			),
 		),
-		array(
-			array(
-				'param' => 'page_template',
-				'operator' => '==',
-				'value' => 'default',
-			),
-		),
 	),
 	'menu_order' => 10,
 	'position' => 'normal',
@@ -5254,9 +5163,8 @@ acf_add_local_field_group(array(
 	'hide_on_screen' => array(
 		0 => 'excerpt',
 	),
-	'active' => 1,
+	'active' => true,
 	'description' => '',
-	'modified' => 1528465406,
 ));
 
 acf_add_local_field_group(array(
@@ -5344,7 +5252,7 @@ acf_add_local_field_group(array(
 		0 => 'the_content',
 		1 => 'excerpt',
 	),
-	'active' => 1,
+	'active' => true,
 	'description' => '',
 	'modified' => 1528463923,
 ));
