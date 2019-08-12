@@ -76,7 +76,7 @@ class Agency extends Taxonomy {
         }
 
         // Add page agency meta box
-        if ( ! current_user_can('agency_admin') ) {
+        if ( ! current_user_can('manage_agencies') ) {
             // Remove agency meta box
             add_action('admin_menu', array($this, 'remove_agency_meta_box'));
         }
@@ -89,7 +89,7 @@ class Agency extends Taxonomy {
             add_action('save_post', array($this, 'set_agency_terms_on_save_post'));
 
             // Capabilities
-            if ( ! current_user_can('agency_admin')  ) {
+            if ( ! current_user_can('manage_agencies')  ) {
                 add_action('map_meta_cap', array($this, 'restrict_edit_post_to_current_agency'), 10, 4);
             }
             
