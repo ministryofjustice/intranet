@@ -11,6 +11,8 @@ if (!current_user_can('administrator')) {
 
 $load_commands = array(
     'remove-old-tabs-and-links' => 'Remove_Old_Tabs_And_Links',
+    'export-agency-content' => 'Export_Agency_Content',
+    'export-terms' => 'Export_Terms',
 );
 
 $admin_commands = array();
