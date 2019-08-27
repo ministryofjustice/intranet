@@ -1,6 +1,7 @@
 <?php
 
 namespace MOJ_Intranet\Admin_Commands;
+use MOJ\Intranet\Agency;
 
 class Export_Agency_Content extends Admin_Command {
     /**
@@ -24,19 +25,26 @@ class Export_Agency_Content extends Admin_Command {
      */
     public function execute() {
 
+        $oAgency          = new Agency();
+        $activeAgencies   = $oAgency->getList();
+
         $uploads = wp_upload_dir();
         //$post_types = ['news', 'page', 'post', 'event'];
         //$post_types = ['document'];
         //$agencies = ['hq', 'hmcts', 'laa', 'judicial-office'];
 
         $post_types = ['page'];
-        $agencies = ['hmcts'];
+        $agencies = ['hq', 'hmcts', 'laa', 'opg'];
 
         if ( file_exists( $uploads["basedir"] . '/content-export') == false ) {
             wp_mkdir_p( $uploads["basedir"] . '/content-export' );
         }
 
         foreach ( $agencies as $current_agency ) {
+
+            if (file_exists($uploads["basedir"] . '/content-export/' . $current_agency) == false) {
+                wp_mkdir_p($uploads["basedir"] . '/content-export/' . $current_agency);
+            }
 
             foreach ($post_types as $post_type) {
 
@@ -59,6 +67,8 @@ class Export_Agency_Content extends Admin_Command {
                     )
                 );
 
+
+
                 foreach ($posts as $post) {
                     setup_postdata($post);
 
@@ -75,19 +85,23 @@ class Export_Agency_Content extends Admin_Command {
 
                     $posts_list[] = $post;
 
-                    //$revisions = wp_get_post_revisions($post->ID);
+
+                    $revisions = wp_get_post_revisions($post->ID);
 
                     if(count($revisions) > 0){
-                        $posts_revisions[$post->ID] = $revisions;
+
+                        if (file_exists($uploads["basedir"] . '/content-export/' . $current_agency . '/revisions') == false) {
+                            wp_mkdir_p($uploads["basedir"] . '/content-export/' . $current_agency . '/revisions');
+                        }
+
+                        $fp = fopen($uploads["basedir"] . '/content-export/' . $current_agency . '/revisions/' . $post->ID . '.json', 'w');
+                        fwrite($fp, json_encode($revisions));
+                        fclose($fp);
                     }
 
 
                 }
                 wp_reset_postdata();
-
-                if (file_exists($uploads["basedir"] . '/content-export/' . $current_agency) == false) {
-                    wp_mkdir_p($uploads["basedir"] . '/content-export/' . $current_agency);
-                }
 
                 $fp = fopen($uploads["basedir"] . '/content-export/' . $current_agency . '/' . $post_type . '.json', 'w');
                 fwrite($fp, json_encode($posts_list));

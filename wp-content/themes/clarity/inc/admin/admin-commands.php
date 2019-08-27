@@ -13,6 +13,8 @@ $load_commands = array(
     'remove-old-tabs-and-links' => 'Remove_Old_Tabs_And_Links',
     'export-agency-content' => 'Export_Agency_Content',
     'export-terms' => 'Export_Terms',
+    'export-users' => 'Export_Users',
+    'export-agency-options' => 'Export_Agency_Options',
 );
 
 $admin_commands = array();
