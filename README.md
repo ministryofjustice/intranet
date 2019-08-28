@@ -21,11 +21,6 @@ And if something cannot be formatted via the official Wordpress formatting stand
 
 * Frontend coding standards, see our WP theme page [Clarity](https://github.com/ministryofjustice/intranet/tree/master/wp-content/themes/clarity)
 
-## Tests
-
-We use a smoke test suite. See [Intranet Smoke Tests](https://github.com/ministryofjustice/intranet/tree/master/smoke-tests).
-TODO: Run BEHAT test suite and integrate CI test, ie Travis.
-
 ## Contribute/contact
 
 We encourage others to contribute via forking the repo and committing your proposed changes in a pull request for review.
