@@ -35,7 +35,7 @@ class Agency_Context {
      * @return array
      */
     public static function current_user_available_agencies() {
-        if (current_user_can('assign_agencies_to_posts')) {
+        if ( current_user_can('assign_agencies_to_posts')) {
             $agencies = get_terms('agency', array(
                 'hide_empty' => false,
             ));

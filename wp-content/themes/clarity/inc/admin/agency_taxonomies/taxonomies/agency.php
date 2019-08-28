@@ -70,9 +70,9 @@ class Agency extends Taxonomy {
             add_action('user_new_form', array($this, 'edit_user_profile'), 9);
 
             // Update the agency terms when the edit user page is updated
-            add_action('personal_options_update', array($this, 'edit_user_profile_save'));
-            add_action('edit_user_profile_update', array($this, 'edit_user_profile_save'));
-            add_action('user_register', array($this, 'edit_user_profile_save'));
+            add_action('personal_options_update', array($this, 'edit_user_profile_save'), 9);
+            add_action('edit_user_profile_update', array($this, 'edit_user_profile_save'), 9);
+            add_action('user_register', array($this, 'edit_user_profile_save'), 9);
         }
 
         // Add page agency meta box
@@ -171,7 +171,9 @@ class Agency extends Taxonomy {
      * @param int $user_id The ID of the user to save the terms for.
      */
     public function edit_user_profile_save($user_id) {
+
         $agencies = $_POST['agency'];
+
         if (!is_array($agencies)) {
             $agencies = array();
         }
@@ -179,7 +181,6 @@ class Agency extends Taxonomy {
 
         /* Sets the terms for the user. */
         wp_set_object_terms($user_id, $agencies, 'agency', false);
-
         clean_object_term_cache($user_id, 'agency');
     }
 
@@ -192,6 +193,7 @@ class Agency extends Taxonomy {
         $is_correct_post_type = in_array($typenow, $this->object_types);
         $is_regional_post_type = in_array($typenow, array('regional_news','regional_page')); //change to custom support?
         $is_correct_page = ($pagenow == 'edit.php');
+        
         $is_hq_user = (Agency_Context::get_agency_context() == 'hq');
 
         if (!$is_correct_post_type || !$is_correct_page || $is_hq_user || $is_regional_post_type) {
