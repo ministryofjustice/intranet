@@ -30,7 +30,8 @@ const stylus = require('gulp-stylus')
       notifier = require('node-notifier')
       standard = require('gulp-standard')
       csso = require('gulp-csso')
-      cssnano = require('gulp-cssnano')
+      cssnano = require('cssnano')
+      postcss = require('gulp-postcss')
       jeet = require('jeet')
       del = require('del')
       rupture = require('rupture')
@@ -146,12 +147,15 @@ function ie() {
 // format final CSS file to spec
 
 function formatCSS() {
+  var plugins = [
+    autoprefixer({overrideBrowserslist: ['last 4 version']}),
+    cssnano()
+   ];
+
   return src(cssASSETS)
   .pipe(plumber())
   .pipe(csso())
-  .pipe(cssnano({
-    autoprefixer: { browsers: supportedBrowsers, add: true }
-  }))
+  .pipe(postcss(plugins))
   .pipe(rename({ suffix: '.min' }))
   .pipe(dest('assets/css'))
 }
