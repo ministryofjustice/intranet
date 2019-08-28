@@ -1,6 +1,0 @@
-[submodule "wp-content/plugins/dw-markdown"]
-	path = wp-content/plugins/dw-markdown
-	url = https://github.com/ministryofjustice/dw-markdown.git
-[submodule "wp-content/plugins/dw-mvc"]
-	path = wp-content/plugins/dw-mvc
-	url = https://github.com/ministryofjustice/dw-mvc.git
