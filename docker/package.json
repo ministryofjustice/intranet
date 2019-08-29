@@ -13,9 +13,5 @@
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/ministryofjustice/intranet/issues"
-  },
-  "homepage": "https://github.com/ministryofjustice/intranet",
-  "devDependencies": {
-    "cucumber": "latest",
   }
 }
