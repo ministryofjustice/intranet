@@ -1,17 +1,27 @@
 <?php
 /*
 * Template Name: Media grid template
+* Template Post Type: page, regional_page
 */ 
 if (!defined('ABSPATH')) {
     die();
 }
+
+$post_id   = get_the_ID();
+$region_id = get_the_terms( $post_id, 'region' );
 
 get_header();
 
 ?>
 <div id="maincontent" class="u-wrapper l-main t-media-grid">
 
-  <?php get_template_part('src/components/c-breadcrumbs/view'); ?>
+  <?php
+  if ($region_id) :
+      get_template_part('src/components/c-breadcrumbs/view', 'region-single');
+  else :
+      get_template_part('src/components/c-breadcrumbs/view');
+  endif;
+  ?>
 
   <?php get_template_part('src/components/c-full-width-banner/view', 'team'); ?>
 

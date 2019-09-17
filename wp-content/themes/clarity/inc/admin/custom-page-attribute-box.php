@@ -45,21 +45,21 @@ function clarity_custom_page_attribute_box( $post ) {
 	$load_image_url = get_stylesheet_directory_uri() . '/inc/admin/images/pageparent.gif';
 	$parent_page    = wp_get_post_parent_id( $post->ID );
 
-	if ( current_user_can( 'administrator' ) || current_user_can( 'agency_admin' ) || current_user_can( 'agency-editor' )) {
+
 
 		// current template selected by user
 		$current_template = get_post_meta( $post->ID, '_wp_page_template', true );
 
 		// get full list of templates
-    $templates = get_page_templates();
+    $templates = get_page_templates($post);
 
     $themeselect = '<select id="page_template" name="page_template">';
 
 		foreach ( $templates as $template_name => $template_filename ) {
-			if ( $current_template == $template_filename || current_user_can( 'administrator' ) || current_user_can( 'agency_admin' ) || current_user_can( 'agency-editor' ) ) {
+
 				$select       = $current_template == $template_filename ? 'selected="selected"' : '';
 				$themeselect .= '<option value="' . $template_filename . '" ' . $select . '>' . $template_name . '</option>';
-			}
+
 		}
 
 		$themeselect .= '</select>';
@@ -67,7 +67,7 @@ function clarity_custom_page_attribute_box( $post ) {
 		echo '<p><strong>Current Template:</strong></p>';
 		echo $themeselect;
 
-  } 
+
   
   // End of template dropdown section of attribute box
   
