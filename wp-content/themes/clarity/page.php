@@ -21,8 +21,6 @@ get_header();
   endif;
   ?>
 
-  <?php get_template_part( 'src/components/c-breadcrumbs/view' ); ?>
-
 	<div class="l-secondary">
 		<?php get_template_part( 'src/components/c-left-hand-menu/view' ); ?>
   </div>
