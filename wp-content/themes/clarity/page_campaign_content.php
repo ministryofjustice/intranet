@@ -2,6 +2,7 @@
 /**
  *
  * Template name: Campaign content template
+ * Template Post Type: page, regional_page
  */
 get_header();
 
