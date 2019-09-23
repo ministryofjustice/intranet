@@ -1,19 +1,18 @@
 <?php
 use MOJ\Intranet\Agency;
-use MOJ\Intranet\Event;
 
 $oAgency = new Agency();
-$oEvent  = new Event();
 
 $activeAgency = $oAgency->getCurrentAgency();
 $agency       = $activeAgency['shortcode'];
+$agency_id = $activeAgency['wp_tag_id'];
 
 $mostPopularTitle         = get_field( $agency . '_most_popular_text_1', 'option' );
-$event                    = $oEvent->get_event_list( 'search' );
+$events                   = get_events($agency_id);
 $enable_banner_right_side = get_field( $agency . '_enable_banner_right_side', 'option' );
 
 
-if ( $mostPopularTitle || $event || $enable_banner_right_side == true ) :
+if ( $mostPopularTitle || $events || $enable_banner_right_side == true ) :
 	?>
 <!-- c-homepage-secondary-widget starts here -->
 <section class="c-homepage-secondary-widget">
@@ -27,9 +26,9 @@ if ( $mostPopularTitle || $event || $enable_banner_right_side == true ) :
 
 	get_template_part( 'src/components/c-most-popular/view' );
 
-	// Some agencies don't want to have events
+	// TODO AGENCY: Some agencies don't want to have events
 	if ( $agency !== 'laa' && $agency !== 'hmcts' ) {
-		get_template_part( 'src/components/c-event-listing/view' );
+        include locate_template( 'src/components/c-event-listing/view.php' );
 	}
 	?>
   </div>

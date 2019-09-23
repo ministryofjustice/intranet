@@ -1,13 +1,8 @@
 <?php
-use MOJ\Intranet\Event;
-
+use MOJ\Intranet\Agency;
 /*
 * Template Name: Events archive
 */
-
-$oEvent = new Event();
-$event  = $oEvent->get_event_list( 'search' );
-
 get_header();
 ?>
   <div id="maincontent" class="u-wrapper l-main t-article-list">
@@ -19,10 +14,18 @@ get_header();
 
 	<div class="l-primary" role="main">
 		<?php
-		if ( $event ) :
+
+        $oAgency = new Agency();
+        $activeAgency = $oAgency->getCurrentAgency();
+
+        $agency_term_id = $activeAgency['wp_tag_id'];
+
+        $events = get_events($agency_term_id);
+
+		if ( $events ) :
 			echo '<h2 class="o-title o-title--section" id="title-section">Upcoming events</h2>';
 			echo '<div id="content">';
-			get_template_part( 'src/components/c-events-list/view' );
+            include locate_template( 'src/components/c-events-list/view.php' );
 			echo '</div>';
 		else :
 			echo 'No events are currently listed :(';

@@ -1,49 +1,82 @@
 <?php
-namespace MOJ\Intranet;
+
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die();
 }
 
+function get_events($agency, $future = true, $search = ''){
+    // Order By
+    $options['search_orderby'] = array(
+        '_event-start-time'   => 'ASC',
+    );
 
-/*
-*
-* This class generates event posts via the WP API
-*
-*/
-class Event {
 
-	public function get_event_list( $taxonomy, $tax_id = false ) {
-		$oAgency      = new Agency();
-		$activeAgency = $oAgency->getCurrentAgency();
-		$agency_name  = $activeAgency['wp_tag_id'];
+    if($future == true) {
 
-		/*
-		* A temporary measure so that API calls do not get blocked by
-		* changing IPs not whitelisted. All calls are within container.
-		*/
-		$siteurl = 'http://127.0.0.1';
+        // Get events that are for today onwards
+        $options ['meta_query'] = array(
+            array(
+                'relation' => 'OR',
+                array(
+                    'key' => '_event-start-date',
+                    'value' => date('Y-m-d'),
+                    'type' => 'date',
+                    'compare' => '>=',
+                ),
+                array(
+                    'key' => '_event-end-date',
+                    'value' => date('Y-m-d'),
+                    'type' => 'date',
+                    'compare' => '>=',
+                ),
+            ),
+        );
+    }
 
-		if ( $taxonomy === 'search' ) {
-			$response = wp_remote_get( $siteurl . '/wp-json/intranet/v2/future-events/' . $agency_name );
-		} elseif ( $taxonomy === 'region' ) {
-			$response = wp_remote_get( $siteurl . '/wp-json/intranet/v2/region-events/' . $agency_name . '/' . $tax_id . '/' );
-		} elseif ( $taxonomy === 'campaign' ) {
-			$response = wp_remote_get( $siteurl . '/wp-json/intranet/v2/campaign-events/' . $agency_name . '/' . $tax_id . '/' );
-		}
+    $args = array(
+        'orderby'        => $options['search_orderby'],
+        'meta_query'     => $options['meta_query'],
+        'post_type'      => 'event',
+        's'              => $search,
+        'posts_per_page' => -1,
+        'nopaging'       => true,
+        'tax_query'      => array(
+            array(
+                'taxonomy' => 'agency',
+                'field'    => 'term_id',
+                'terms'    => $agency,
+            ),
+        ),
+    );
 
-		if ( is_wp_error( $response ) ) {
-			return;
-		}
+    $events = get_posts( $args );
 
-		$pagetotal        = wp_remote_retrieve_header( $response, 'x-wp-totalpages' );
-		$posts            = json_decode( wp_remote_retrieve_body( $response ), true );
-		$response_code    = wp_remote_retrieve_response_code( $response );
-		$response_message = wp_remote_retrieve_response_message( $response );
+    $i = 0;
 
-		if ( 200 == $response_code && $response_message == 'OK' ) {
-			$event_list = $posts['events'];
-			return $event_list;
-		}
-	}
+    foreach ( $events as $event ) {
+        $events[ $i ]->event_start_date = get_post_meta( $event->ID, '_event-start-date', true );
+        $events[ $i ]->event_end_date   = get_post_meta( $event->ID, '_event-end-date', true );
+        $events[ $i ]->event_start_time = get_post_meta( $event->ID, '_event-start-time', true );
+        $events[ $i ]->event_end_time   = get_post_meta( $event->ID, '_event-end-time', true );
+        $events[ $i ]->event_location   = get_post_meta( $event->ID, '_event-location', true );
+        $events[ $i ]->event_allday     = get_post_meta( $event->ID, '_event-allday', true );
+
+        $events[ $i ]->agency   = wp_get_post_terms( $event->ID, 'agency' );
+        $events[ $i ]->region   = wp_get_post_terms( $event->ID, 'region', true );
+        $events[ $i ]->campaign = wp_get_post_terms( $event->ID, 'campaign_category', true );
+
+        $events[ $i ]->url = get_post_permalink( $event->ID );
+
+        $i ++;
+    }
+
+    if ( empty( $events ) ) {
+        return null;
+    }
+    else {
+        return $events;
+    }
+
+
 }
