@@ -20,6 +20,7 @@ $GLOBALS['valid_domains'] = [
 	'ips.gsi.gov.uk',
 	'jac.gsi.gov.uk',
 	'jaco.gsi.gov.uk',
+    'judiciary.uk',
 	'judiciary.gsi.gov.uk',
 	'justice.gov.uk',
 	'justice.gsi.gov.uk',
