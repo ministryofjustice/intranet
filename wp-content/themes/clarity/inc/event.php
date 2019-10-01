@@ -8,7 +8,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 function get_events($agency, $future = true, $search = ''){
     // Order By
     $options['search_orderby'] = array(
-        '_event-start-time'   => 'ASC',
+        '_event-start-date'   => 'ASC',
+        'start_time_clause'   => 'ASC',
     );
 
 
@@ -31,6 +32,12 @@ function get_events($agency, $future = true, $search = ''){
                     'compare' => '>=',
                 ),
             ),
+            array(
+                'start_time_clause' => array(
+                    'key' =>  '_event-start-time',
+                    'compare' => 'EXISTS',
+                ),
+            )
         );
     }
 

@@ -15,6 +15,63 @@ get_header();
 	<div class="l-primary" role="main">
 		<?php
 
+        /*
+         *
+         *   'orderby'   => 'meta_value_num',
+            'meta_key'  => '_event-start-time',
+            'order'     => 'ASC',
+         */
+
+
+        // Get events that are for today onwards
+        $options ['meta_query'] = array(
+            array(
+                'relation' => 'OR',
+                array(
+                    'key' => '_event-start-date',
+                    'value' => date('Y-m-d'),
+                    'type' => 'date',
+                    'compare' => '>=',
+                ),
+                array(
+                    'key' => '_event-end-date',
+                    'value' => date('Y-m-d'),
+                    'type' => 'date',
+                    'compare' => '>=',
+                ),
+
+            ),
+            array(
+                'start_time_clause' => array(
+                    'key' =>  '_event-start-time',
+                    'compare' => 'EXISTS',
+                ),
+            )
+        );
+
+        $args = array(
+            'orderby'   => array ('_event-start-date' => 'ASC','start_time_clause' => 'ASC'),
+            'post_type'      => 'event',
+            'posts_per_page' => 5,
+            'nopaging'       => true,
+            'meta_query'     => $options['meta_query'],
+        );
+
+        $events = get_posts( $args );
+
+        foreach ( $events as $event ) {
+
+            echo "Date ";
+            echo get_post_meta( $event->ID, '_event-start-date', true );
+            echo " Time ";
+            echo get_post_meta( $event->ID, '_event-start-time', true );
+            echo "<br/>";
+
+
+
+        }
+
+
         $oAgency = new Agency();
         $activeAgency = $oAgency->getCurrentAgency();
 
