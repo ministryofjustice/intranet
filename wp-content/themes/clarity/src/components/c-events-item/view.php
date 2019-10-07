@@ -1,5 +1,5 @@
 <?php
-use MOJ\Intranet\Event;
+use MOJ\Intranet\EventsHelper;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die();
@@ -11,32 +11,29 @@ if ( ! defined( 'ABSPATH' ) ) {
 * Normally used on the single event page.
 *
 */
-$oEvent  = new Event();
-$event   = $oEvent->get_event_list( 'search' );
-$post_id = get_the_id();
+
+$EventsHelper  = new EventsHelper();
+$event = $EventsHelper->get_event(get_the_id());
+
+
 ?>
 <!-- c-events-item starts here -->
 <section class="c-events-item">
 	<?php
-	if ( is_array( $event ) ) {
-		foreach ( $event as $key => $post ) {
-			$event_id = $post['ID'];
-			if ( $post_id == $event_id ) {
-				$start_time = $post['event_start_time'];
-				$end_time   = $post['event_end_time'];
-				$start_date = $post['event_start_date'];
-				$end_date   = $post['event_end_date'];
-				$location   = $post['event_location'];
-				$date       = $post['event_start_date'];
-				$day        = date( 'l', strtotime( $start_date ) );
-				$year       = date( 'Y', strtotime( $start_date ) );
-				$all_day    = get_post_meta( $post_id, '_event-allday', true );
+	if ( is_object( $event ) ) {
+        $start_time = $event->event_start_time;
+        $end_time   = $event->event_end_time;
+        $start_date = $event->event_start_date;
+        $end_date   = $event->event_end_date;
+        $location   = $event->event_location;
+        $date       = $event->event_start_date;
+        $day        = date( 'l', strtotime( $start_date ) );
+        $year       = date( 'Y', strtotime( $start_date ) );
+        $all_day    = $event->event_allday;
 
-				if ( $all_day == true ) {
-					$all_day = 'all_day';
-				}
-			}
-		}
+        if ( $all_day == true ) {
+            $all_day = 'all_day';
+        }
 	}
 
 	  // using include() instead of get_template_part to pass variables to components

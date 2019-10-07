@@ -1,5 +1,6 @@
 <?php
 use MOJ\Intranet\Agency;
+use MOJ\Intranet\EventsHelper;
 
 $oAgency = new Agency();
 
@@ -8,7 +9,8 @@ $agency       = $activeAgency['shortcode'];
 $agency_id = $activeAgency['wp_tag_id'];
 
 $mostPopularTitle         = get_field( $agency . '_most_popular_text_1', 'option' );
-$events                   = get_events($agency_id);
+$EventsHelper  = new EventsHelper();
+$events = $EventsHelper->get_events($agency_id);
 $enable_banner_right_side = get_field( $agency . '_enable_banner_right_side', 'option' );
 
 

@@ -47,7 +47,6 @@ require_once 'inc/admin/wp-admin-bar.php';
 
 require_once 'inc/aboutus.php';
 require_once 'inc/acf.php';
-require_once 'inc/event.php';
 
 require_once 'inc/api/get-posts-rest-api.php';
 require_once 'inc/api/get-campaign-posts-api.php';
