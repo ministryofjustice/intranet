@@ -4,13 +4,25 @@
  * Template name: Campaign content template
  * Template Post Type: page, regional_page
  */
+
+$post_id   = get_the_ID();
+$region_id = get_the_terms( $post_id, 'region' );
+
 get_header();
 
 get_template_part( 'src/components/c-campaign-colour/view' );
 ?>
 
   <div id="maincontent" class="u-wrapper l-main l-reverse-order t-default">
-	<?php get_template_part( 'src/components/c-breadcrumbs/view' ); ?>
+
+
+      <?php
+      if (is_singular('regional_page') && $region_id) :
+          get_template_part('src/components/c-breadcrumbs/view', 'region-single');
+      else :
+          get_template_part('src/components/c-breadcrumbs/view');
+      endif;
+      ?>
 
 	<div class="l-secondary">
 		<?php get_template_part( 'src/components/c-left-hand-menu/view' ); ?>
