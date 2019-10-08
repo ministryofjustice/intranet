@@ -243,7 +243,6 @@ function load_page_total() {
 	$current_page            = '&page=' . $nextPageToRetrieve;
 	$search                  = '&search=' . $query;
 	$agency_name             = '&agency=' . $activeAgency['wp_tag_id'];
-	$onlyshow_todays_onwards = ( $postType == 'event' ) ? '&order=asc&after=' . current_time( 'Y-m-d h:i:s' ) : '';
 	$news_category_name      = ( ! empty( $newsCategory_ID ) ? '&news_category=' . $newsCategory_ID : '' );
 
 	/*
@@ -252,7 +251,7 @@ function load_page_total() {
 	*/
 	$siteurl = 'http://127.0.0.1';
 
-	$response = wp_remote_get( $siteurl . '/wp-json/wp/v2/' . $postType . '/?' . $post_per_page . $current_page . $agency_name . $valueSelected . $onlyshow_todays_onwards . $search . $news_category_name );
+	$response = wp_remote_get( $siteurl . '/wp-json/wp/v2/' . $postType . '/?' . $post_per_page . $current_page . $agency_name . $valueSelected  . $search . $news_category_name );
 
 	$pagetotal = wp_remote_retrieve_header( $response, 'x-wp-totalpages' );
 
