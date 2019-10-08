@@ -1,5 +1,6 @@
 <?php
 use MOJ\Intranet\Agency;
+use MOJ\Intranet\EventsHelper;
 
 add_action( 'wp_ajax_load_events_filter_results', 'load_events_filter_results' );
 add_action( 'wp_ajax_nopriv_load_events_filter_results', 'load_events_filter_results' );
@@ -12,76 +13,69 @@ function load_events_filter_results() {
 
 	$oAgency           = new Agency();
 	$activeAgency      = $oAgency->getCurrentAgency();
-	$agency_name       = $activeAgency['wp_tag_id'];
-	$datevalueselected = sanitize_text_field( $_POST['valueSelected'] );
+    $agency_term_id       = $activeAgency['wp_tag_id'];
+	$date_filter = sanitize_text_field( $_POST['valueSelected'] );
 	$post_id           = get_the_ID();
 	$query             = sanitize_text_field( $_POST['query'] );
 
-	if ( isset( $_POST['termID'] ) ) :
-		$tax_id = sanitize_text_field( $_POST['termID'] );
-	endif;
+    $filter_options = ['keyword_search' => $query];
 
-	/*
-	* A temporary measure so that API calls do not get blocked by
-	* changing IPs not whitelisted. All calls are within container.
-	*/
-	$siteurl = 'http://127.0.0.1';
+	if($date_filter != 'all'){
+        $filter_options['date_filter'] = $date_filter;
+    }
 
-	// HMCTS taxonomy ID = 100 becuase right now we only use HMCTS for regions
-	if ( $agency_name === 100 ) :
-		$response = wp_remote_get( $siteurl . '/wp-json/intranet/v2/region-events/' . $agency_name . '/' . $tax_id . '/' ); else :
-			$response = wp_remote_get( $siteurl . '/wp-json/intranet/v2/future-events/' . $agency_name . '/' . $query . '/' );
-	endif;
+    $EventsHelper  = new EventsHelper();
 
-		if ( is_wp_error( $response ) ) :
-			return;
-	endif;
+	if ( isset( $_POST['termID'] ) ) {
+        $tax_id = sanitize_text_field($_POST['termID']);
 
-		$pagetotal        = wp_remote_retrieve_header( $response, 'x-wp-totalpages' );
-		$posts            = json_decode( wp_remote_retrieve_body( $response ), true );
-		$response_code    = wp_remote_retrieve_response_code( $response );
-		$response_message = wp_remote_retrieve_response_message( $response );
 
-		if ( $posts ) :
-			if ( 200 == $response_code && $response_message == 'OK' ) :
-				echo '<div class="data-type" data-type="event"></div>';
-				foreach ( $posts['events'] as $key => $post ) :
-					  $start_date     = $post['event_start_date'];
-					$end_date         = $post['event_end_date'];
-					$event_id         = $post['ID'];
-					$post_url         = $post['url'];
-					$event_title      = $post['post_title'];
-					$start_time       = $post['event_start_time'];
-					$end_time         = $post['event_end_time'];
-					$start_date       = $post['event_start_date'];
-					$end_date         = $post['event_end_date'];
-					$location         = $post['event_location'];
-					$date             = $post['event_start_date'];
-					$year             = date( 'Y', strtotime( $start_date ) );
-					$month            = date( 'M', strtotime( $start_date ) );
-					$day              = date( 'l', strtotime( $start_date ) );
-					$all_day          = get_post_meta( $post_id, '_event-allday', true );
-					$strip_start_date = substr( $start_date, 0, 7 );
+        // $response = wp_remote_get( $siteurl . '/wp-json/intranet/v2/region-events/' . $agency_name . '/' . $tax_id . '/' ); else :
+    }
+    else {
+        $events = $EventsHelper->get_events($agency_term_id, $filter_options);
+        //$response = wp_remote_get( $siteurl . '/wp-json/intranet/v2/future-events/' . $agency_name . '/' . $query . '/' );
+    }
 
-					if ( $all_day == true ) :
-						  $all_day = 'all_day';
-					endif;
+    if ( $events ) {
 
-					if ( $datevalueselected === $strip_start_date ) :
-						  echo '<div class="c-events-item-list">';
-						include locate_template( 'src/components/c-calendar-icon/view.php' );
-						include locate_template( 'src/components/c-events-item-byline/view.php' );
-						echo '</div>'; elseif ( $datevalueselected === 'all' ) :
-							echo '<div class="c-events-item-list">';
-							include locate_template( 'src/components/c-calendar-icon/view.php' );
-							include locate_template( 'src/components/c-events-item-byline/view.php' );
-							echo '</div>';
-					endif;
-			endforeach;
-			endif; else :
-				echo 'No events found during this date range :(';
-	endif;
-			die();
+        echo '<div class="data-type" data-type="event"></div>';
+
+        foreach ( $events as $key => $event ) :
+
+            $event_id         = $event->ID;
+            $post_url         = $event->url;
+            $event_title      = $event->post_title;
+
+            $start_date = $event->event_start_date;
+            $end_date   = $event->event_end_date;
+            $start_time = $event->event_start_time;
+            $end_time   = $event->event_end_time;
+            $location   = $event->event_location;
+            $date       = $event->event_start_date;
+            $day        = date( 'l', strtotime( $start_date ) );
+            $month      = date( 'M', strtotime( $start_date ) );
+            $year       = date( 'Y', strtotime( $start_date ) );
+            $all_day    = $event->event_allday;
+
+            if ( $all_day == true ) {
+                $all_day = 'all_day';
+            }
+
+            echo '<div class="c-events-item-list">';
+
+            include locate_template( 'src/components/c-calendar-icon/view.php' );
+
+            include locate_template( 'src/components/c-events-item-byline/view.php' );
+
+            echo '</div>';
+
+        endforeach;
+    }
+    else {
+        echo 'No events found during this date range :(';
+    }
+    die();
 }
 
 add_action( 'wp_ajax_load_search_results', 'load_search_results' );
