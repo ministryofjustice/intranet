@@ -26,10 +26,8 @@ get_header();
 	</div>
 
 	<div class="l-primary" role="main">
-	  <div id="content">
-		<?php
-		  echo '<br><div id="content">';
 
+		<?php
             $oAgency = new Agency();
             $activeAgency = $oAgency->getCurrentAgency();
 
@@ -39,11 +37,17 @@ get_header();
             $EventsHelper  = new EventsHelper();
             $events = $EventsHelper->get_events($agency_term_id, $filter_options);
             if ( $events ) {
-                include locate_template( 'src/components/c-events-item/view-landing.php' );
+                echo '<h2 class="o-title o-title--section" id="title-section">Events</h2>';
+                echo '<div id="content">';
+                include locate_template( 'src/components/c-events-list/view.php' );
+                echo '</div>';
             }
-		  echo '</div>';
+            else {
+                echo 'No events are currently listed :(';
+            }
+
 		?>
-	  </div>
+
 	</div>
   </div>
 

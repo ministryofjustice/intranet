@@ -44,7 +44,8 @@ get_header(); ?>
         $events = $EventsHelper->get_events($agency_term_id, $filter_options);
 
         if ( $events ) {
-            include locate_template( 'src/components/c-events-item/view-landing.php' );
+            echo '<h2 class="o-title o-title--section" id="title-section">Events</h2>';
+            include locate_template( 'src/components/c-events-list/view.php' );
         }
 		?>
   </div>
