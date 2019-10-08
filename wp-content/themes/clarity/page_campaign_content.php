@@ -32,7 +32,14 @@ get_template_part( 'src/components/c-campaign-colour/view' );
 		<?php get_template_part( 'src/components/c-campaign-banner/view' ); ?>
 	  <h1 class="o-title o-title--page"><?php the_title(); ?></h1>
 	  <section class="c-article-excerpt">
-		<p><?php echo the_excerpt(); ?></p>
+		<p><?php
+            $excerpt = get_field( 'dw_excerpt' );
+
+            if(strlen($excerpt) > 0){
+                echo $excerpt;
+            }
+            ?>
+        </p>
 	  </section>
 
 	  <div class="template-container ">
