@@ -1,4 +1,6 @@
 <?php
+use MOJ\Intranet\Agency;
+use MOJ\Intranet\EventsHelper;
 /**
  *
  * Template name: Region landing
@@ -32,7 +34,18 @@ get_header();
 		echo '</div>';
 
 		echo '<br><div id="content">';
-		get_events_api( 'region_landing', $region_id );
+
+        $oAgency = new Agency();
+        $activeAgency = $oAgency->getCurrentAgency();
+
+        $agency_term_id = $activeAgency['wp_tag_id'];
+        $filter_options = ['region_filter' => $region_id];
+
+        $EventsHelper  = new EventsHelper();
+        $events = $EventsHelper->get_events($agency_term_id, $filter_options);
+        if ( $events ) {
+            include locate_template( 'src/components/c-events-item/view-landing.php' );
+        }
 		echo '</div>';
 		?>
 	</div>

@@ -1,6 +1,4 @@
 <?php
-use MOJ\Intranet\Event;
-
 if ( ! defined( 'ABSPATH' ) ) {
 	die();
 }

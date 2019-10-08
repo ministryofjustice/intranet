@@ -1,5 +1,6 @@
 <?php
 use MOJ\Intranet\Agency;
+use MOJ\Intranet\EventsHelper;
 
 /*
 * Template Name: Campaign hub template
@@ -32,7 +33,19 @@ get_header(); ?>
     get_template_part( 'src/components/c-article-excerpt/view' );
 		get_campaign_news_api( $campaign_id );
 		get_campaign_post_api( $campaign_id );
-		get_events_api( 'campaign', $campaign_id );
+
+        $oAgency = new Agency();
+        $activeAgency = $oAgency->getCurrentAgency();
+
+        $agency_term_id = $activeAgency['wp_tag_id'];
+        $filter_options = ['campaign_filter' => $campaign_id];
+
+        $EventsHelper  = new EventsHelper();
+        $events = $EventsHelper->get_events($agency_term_id, $filter_options);
+
+        if ( $events ) {
+            include locate_template( 'src/components/c-events-item/view-landing.php' );
+        }
 		?>
   </div>
 </div>

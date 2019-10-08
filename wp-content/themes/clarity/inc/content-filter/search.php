@@ -29,12 +29,12 @@ function load_events_filter_results() {
 	if ( isset( $_POST['termID'] ) ) {
         $tax_id = sanitize_text_field($_POST['termID']);
 
+        $filter_options['region_filter'] = $tax_id;
 
-        // $response = wp_remote_get( $siteurl . '/wp-json/intranet/v2/region-events/' . $agency_name . '/' . $tax_id . '/' ); else :
+        $events = $EventsHelper->get_events($agency_term_id, $filter_options);
     }
     else {
         $events = $EventsHelper->get_events($agency_term_id, $filter_options);
-        //$response = wp_remote_get( $siteurl . '/wp-json/intranet/v2/future-events/' . $agency_name . '/' . $query . '/' );
     }
 
     if ( $events ) {
