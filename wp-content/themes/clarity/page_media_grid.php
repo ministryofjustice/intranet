@@ -16,7 +16,7 @@ get_header();
 <div id="maincontent" class="u-wrapper l-main t-media-grid">
 
   <?php
-  if ($region_id) :
+  if (is_singular('regional_page') && $region_id) :
       get_template_part('src/components/c-breadcrumbs/view', 'region-single');
   else :
       get_template_part('src/components/c-breadcrumbs/view');
