@@ -14,7 +14,7 @@ $region_id = get_the_terms( $post_id, 'region' );
  <div id="maincontent" class="u-wrapper l-main l-reverse-order t-tabbed-content">
 
    <?php
-   if ($region_id) :
+   if (is_singular('regional_page') && $region_id) :
      get_template_part('src/components/c-breadcrumbs/view', 'region-single');
    else :
     get_template_part('src/components/c-breadcrumbs/view');
