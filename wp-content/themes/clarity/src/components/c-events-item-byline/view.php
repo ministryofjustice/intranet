@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<?php
 	if ( empty( $all_day ) ) {
 		if ( isset( $start_time ) || isset( $end_time ) ) {
-			$time = $start_time . ' - ' . $end_time;
+			$time = substr($start_time, 0 ,5) . ' - ' . substr($end_time, 0 , 5);
 		} else {
 			$time = '';
 		}
