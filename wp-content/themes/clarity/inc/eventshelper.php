@@ -40,7 +40,7 @@ class EventsHelper  {
 
         // Order By
         $orderby = array(
-            '_event-start-date'   => 'ASC',
+            'start_date_clause'   => 'ASC',
             'start_time_clause'   => 'ASC',
         );
 
@@ -101,6 +101,12 @@ class EventsHelper  {
                 ),
             ),
             array(
+                'start_date_clause' => array(
+                    'key' =>  '_event-start-date',
+                    'compare' => 'EXISTS',
+                ),
+            ),
+            array(
                 'start_time_clause' => array(
                     'key' =>  '_event-start-time',
                     'compare' => 'EXISTS',
@@ -135,8 +141,7 @@ class EventsHelper  {
         if(is_array($filter_options) && key_exists('keyword_search', $filter_options )  && strlen($filter_options['keyword_search']) > 0 ){
             $args['s'] = $filter_options['keyword_search'];
         }
-
-
+        
         $events = get_posts( $args );
 
         $i = 0;
