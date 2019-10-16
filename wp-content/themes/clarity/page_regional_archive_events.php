@@ -1,4 +1,6 @@
 <?php
+use MOJ\Intranet\Agency;
+use MOJ\Intranet\EventsHelper;
 /**
  *
  * Template name: Region archive events
@@ -24,13 +26,28 @@ get_header();
 	</div>
 
 	<div class="l-primary" role="main">
-	  <div id="content">
+
 		<?php
-		  echo '<br><div id="content">';
-		  get_events_api( 'region', $region_id );
-		  echo '</div>';
+            $oAgency = new Agency();
+            $activeAgency = $oAgency->getCurrentAgency();
+
+            $agency_term_id = $activeAgency['wp_tag_id'];
+            $filter_options = ['region_filter' => $region_id];
+
+            $EventsHelper  = new EventsHelper();
+            $events = $EventsHelper->get_events($agency_term_id, $filter_options);
+            if ( $events ) {
+                echo '<h2 class="o-title o-title--section" id="title-section">Events</h2>';
+                echo '<div id="content">';
+                include locate_template( 'src/components/c-events-list/view.php' );
+                echo '</div>';
+            }
+            else {
+                echo 'No events are currently listed :(';
+            }
+
 		?>
-	  </div>
+
 	</div>
   </div>
 

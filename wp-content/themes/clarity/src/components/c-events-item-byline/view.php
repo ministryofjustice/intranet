@@ -1,6 +1,4 @@
 <?php
-use MOJ\Intranet\Event;
-
 if ( ! defined( 'ABSPATH' ) ) {
 	die();
 }
@@ -9,12 +7,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 <!-- c-events-item-byline starts here -->
 <article class="c-events-item-byline">
   <header>
-	<?php
-	// We only want the page title to appear on particular pages.
-	if ( ! is_single() ) :
-		?>
+
 	  <h1><a href="<?php echo $post_url; ?>"><?php echo $event_title; ?></a></h1>
-	<?php endif; ?>
+
 
 	<?php
 	if ( empty( $all_day ) ) {

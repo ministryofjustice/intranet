@@ -52,8 +52,6 @@ require_once 'inc/api/get-posts-rest-api.php';
 require_once 'inc/api/get-campaign-posts-api.php';
 require_once 'inc/api/get-news-rest-api.php';
 require_once 'inc/api/get-campaign-news-api.php';
-require_once 'inc/api/get-events-api.php';
-require_once 'inc/api/add-eventsdates-rest-api.php';
 require_once 'inc/api/get-category-news-api.php';
 require_once 'inc/api/intranet-v1-api.php';
 require_once 'inc/api/register-api-fields.php';

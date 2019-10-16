@@ -1,6 +1,4 @@
 <?php
-use MOJ\Intranet\Event;
-
 /*
 *
 * This page is for displaying the event item when it appears in a list format.
@@ -8,34 +6,31 @@ use MOJ\Intranet\Event;
 *
 */
 
-$oEvent = new Event();
-$event  = $oEvent->get_event_list( 'search' );
-
-if ( isset( $event ) ) :
+if ( isset( $events ) ) :
 
 	// Limit events listed on page to one for homepage display
 	if ( is_front_page() ) {
-			$event = array_splice( $event, 0, 1 );
+        $events = array_splice( $events, 0, 1 );
 	}
 
-	foreach ( $event as $key => $post ) :
-			$event_id    = $post['ID'];
-			$post_url    = $post['url'];
-			$event_title = $post['post_title'];
-			$start_time  = $post['event_start_time'];
-			$end_time    = $post['event_end_time'];
-			$start_date  = $post['event_start_date'];
-			$end_date    = $post['event_end_date'];
-			$location    = $post['event_location'];
-			$date        = $post['event_start_date'];
-			$year        = date( 'Y', strtotime( $start_date ) );
-			$month       = date( 'M', strtotime( $start_date ) );
-			$day         = date( 'l', strtotime( $start_date ) );
-			$all_day     = get_post_meta( $event_id, '_event-allday', true );
+	foreach ( $events as $key => $post ) :
+        $event_id    = $post->ID;
+        $post_url    = $post->url;
+        $event_title = $post->post_title;
+        $start_time  = $post->event_start_time;
+        $end_time    = $post->event_end_time;
+        $start_date  = $post->event_start_date;
+        $end_date    = $post->event_end_date;
+        $location    = $post->event_location;
+        $date        = $post->event_start_date;
+        $year        = date( 'Y', strtotime( $start_date ) );
+        $month       = date( 'M', strtotime( $start_date ) );
+        $day         = date( 'l', strtotime( $start_date ) );
+        $all_day     = $post->event_allday;
 
-		if ( $all_day === true ) {
-				$all_day = 'all_day';
-		}
+        if ( $all_day === true ) {
+            $all_day = 'all_day';
+        }
 
 		?>
 
