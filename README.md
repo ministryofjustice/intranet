@@ -1,4 +1,7 @@
-# MoJ Intranet
+# Ministry of Justice intranet
+
+This is a WordPress project used by Ministry of Justice and agencies.
+https://intranet.justice.gov.uk/
 
 ## Features
 
