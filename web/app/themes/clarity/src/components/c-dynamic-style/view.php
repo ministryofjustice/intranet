@@ -1,6 +1,6 @@
 <!-- c-dynamic-style starts here -->
 <?php
-	$campaign_colour = get_field( 'dw_campaign_colour' );
+    $campaign_colour = get_field('dw_campaign_colour');
 ?>
 <style>
 .page-template-page_campaign .l-main .c-rich-text-block h2 strong,

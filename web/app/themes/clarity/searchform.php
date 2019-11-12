@@ -11,7 +11,7 @@ use MOJ\Intranet\Agency;
  */
  $oAgency = new Agency();
  $activeAgency = $oAgency->getCurrentAgency();
- ?>
+?>
 <section class="c-search-bar">
   <div class="u-wrapper">
     <div class="l-half-section">
@@ -24,7 +24,7 @@ use MOJ\Intranet\Agency;
       </form>
     </div>
     <div class="l-half-section">
-      <?php get_template_part( 'src/components/c-external-services/view' ) ?>
+        <?php get_template_part('src/components/c-external-services/view') ?>
     </div>
   </div>
 

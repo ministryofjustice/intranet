@@ -9,8 +9,10 @@ use Agency_Context;
  */
 
 
-class Content_Category extends Taxonomy {
-    public function __construct() {
+class Content_Category extends Taxonomy
+{
+    public function __construct()
+    {
         parent::__construct();
 
         $this->set_role_permissions();
@@ -22,7 +24,8 @@ class Content_Category extends Taxonomy {
     /**
      * Set Category Permissions for Adminstrator, Global Editor and Agency Editor
      */
-    public function set_role_permissions() {
+    public function set_role_permissions()
+    {
         $administrator = get_role('administrator');
 
         if (array_key_exists($this->args['capabilities']['assign_terms'], $administrator->capabilities) == false) {
@@ -41,11 +44,12 @@ class Content_Category extends Taxonomy {
      *
      * @return bool
      */
-    public function context_has_terms() {
+    public function context_has_terms()
+    {
         $terms = get_terms($this->name, array('hide_empty' => 0));
         $context = Agency_Context::get_agency_context('term_id');
 
-        foreach ($terms as $term){
+        foreach ($terms as $term) {
             $term_agencies = get_field('term_used_by', $this->name . '_' . $term->term_id);
             
             if (is_array($term_agencies) && in_array($context, $term_agencies)) {
@@ -59,7 +63,8 @@ class Content_Category extends Taxonomy {
     /**
      * Remove the default category metabox
      */
-    public function remove_default_meta_box() {
+    public function remove_default_meta_box()
+    {
         foreach ($this->object_types as $type) {
             remove_meta_box($this->name . 'div', $type, 'normal');
         }
@@ -68,7 +73,8 @@ class Content_Category extends Taxonomy {
     /**
      * Adds the custom category metabox
      */
-    public function add_custom_category_meta_box() {
+    public function add_custom_category_meta_box()
+    {
         if ($this->context_has_terms()) {
             foreach ($this->object_types as $type) {
                 add_meta_box($this->name, $this->args['labels']['name'], array($this, 'show_custom_category_meta_box'), $type, 'side');
@@ -79,7 +85,8 @@ class Content_Category extends Taxonomy {
     /**
      * Show the custom category metabox. Which uses the Agency Terms Walker.
      */
-    public function show_custom_category_meta_box($post) {
+    public function show_custom_category_meta_box($post)
+    {
         echo '<div id="' . $this->name . '-all" class="tabs-panel categorydiv">
         <input type="hidden" name="tax_input['.$this->name.'][]" value="0">';
             echo '<ul id="' . $this->name . 'checklist" class="list:' . $this->name . ' categorychecklist form-no-clear">';
@@ -91,7 +98,7 @@ class Content_Category extends Taxonomy {
 
                 wp_terms_checklist($post->ID, $args);
 
-            echo '</ul>';
-        echo '</div>';
+                echo '</ul>';
+                echo '</div>';
     }
 }

@@ -10,20 +10,20 @@
   
   <div class="u-wrapper">
 
-	  <div class="l-primary">
-  		<?php
-  		if ( ! is_404() ) :
-  			get_template_part( 'src/components/c-feedback-container/view' );
-  	  endif;
+      <div class="l-primary">
+        <?php
+        if (! is_404()) :
+            get_template_part('src/components/c-feedback-container/view');
+        endif;
 
-  		get_template_part( 'src/components/c-footer-nav/view' );
-  		?>
+        get_template_part('src/components/c-footer-nav/view');
+        ?>
 
-	  </div>
+      </div>
 
-	  <div class="l-secondary">
-		   <?php get_template_part( 'src/components/c-copyright-notice/view' ); ?>
-	 </div>
+      <div class="l-secondary">
+            <?php get_template_part('src/components/c-copyright-notice/view'); ?>
+     </div>
 
   </div>
 

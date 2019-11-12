@@ -1,42 +1,45 @@
 <?php
 namespace MOJ\Intranet;
 
-if (!defined('ABSPATH')) die();
+if (!defined('ABSPATH')) {
+    die();
+}
 
-class EventsHelper  {
+class EventsHelper
+{
 
-    public function get_event($event_id) {
+    public function get_event($event_id)
+    {
         $args = array(
             'post_type'      => 'event',
             'posts_per_page' => 1,
             'p' => $event_id,
         );
 
-        $event = get_posts( $args );
+        $event = get_posts($args);
 
-        if(is_array($event) && count($event) == 1){
-            $event[0]->event_start_date = get_post_meta( $event[0]->ID, '_event-start-date', true );
-            $event[0]->event_end_date   = get_post_meta( $event[0]->ID, '_event-end-date', true );
-            $event[0]->event_start_time = get_post_meta( $event[0]->ID, '_event-start-time', true );
-            $event[0]->event_end_time   = get_post_meta( $event[0]->ID, '_event-end-time', true );
-            $event[0]->event_location   = get_post_meta( $event[0]->ID, '_event-location', true );
-            $event[0]->event_allday     = get_post_meta( $event[0]->ID, '_event-allday', true );
+        if (is_array($event) && count($event) == 1) {
+            $event[0]->event_start_date = get_post_meta($event[0]->ID, '_event-start-date', true);
+            $event[0]->event_end_date   = get_post_meta($event[0]->ID, '_event-end-date', true);
+            $event[0]->event_start_time = get_post_meta($event[0]->ID, '_event-start-time', true);
+            $event[0]->event_end_time   = get_post_meta($event[0]->ID, '_event-end-time', true);
+            $event[0]->event_location   = get_post_meta($event[0]->ID, '_event-location', true);
+            $event[0]->event_allday     = get_post_meta($event[0]->ID, '_event-allday', true);
 
-            $event[0]->agency   = wp_get_post_terms( $event[0]->ID, 'agency' );
-            $event[0]->region   = wp_get_post_terms( $event[0]->ID, 'region', true );
-            $event[0]->campaign = wp_get_post_terms( $event[0]->ID, 'campaign_category', true );
+            $event[0]->agency   = wp_get_post_terms($event[0]->ID, 'agency');
+            $event[0]->region   = wp_get_post_terms($event[0]->ID, 'region', true);
+            $event[0]->campaign = wp_get_post_terms($event[0]->ID, 'campaign_category', true);
 
-            $event[0]->url = get_post_permalink( $event[0]->ID );
+            $event[0]->url = get_post_permalink($event[0]->ID);
 
             return $event[0];
-
-        }
-        else {
+        } else {
             return false;
         }
     }
 
-    function get_events($agency, $filter_options = false){
+    function get_events($agency, $filter_options = false)
+    {
 
         // Order By
         $orderby = array(
@@ -60,9 +63,8 @@ class EventsHelper  {
             ),
         );
 
-        if(is_array($filter_options)){
-
-            if( key_exists('campaign_filter', $filter_options )  && is_numeric($filter_options['campaign_filter'])  ) {
+        if (is_array($filter_options)) {
+            if (key_exists('campaign_filter', $filter_options)  && is_numeric($filter_options['campaign_filter'])) {
                 $tax_query[] = array(
                     'taxonomy' => 'campaign_category',
                     'field' => 'term_id',
@@ -70,14 +72,13 @@ class EventsHelper  {
                 );
             }
 
-            if( key_exists('region_filter', $filter_options )  && is_numeric($filter_options['region_filter'])  ) {
+            if (key_exists('region_filter', $filter_options)  && is_numeric($filter_options['region_filter'])) {
                 $tax_query[] = array(
                     'taxonomy' => 'region',
                     'field' => 'term_id',
                     'terms' => $filter_options['region_filter'],
                 );
             }
-
         }
 
         $args['tax_query'] = $tax_query;
@@ -114,8 +115,7 @@ class EventsHelper  {
             )
         );
 
-        if(is_array($filter_options) && key_exists('date_filter', $filter_options )  && strlen($filter_options['date_filter']) > 0 ){
-
+        if (is_array($filter_options) && key_exists('date_filter', $filter_options)  && strlen($filter_options['date_filter']) > 0) {
             $month_start_date = $filter_options['date_filter'] . '-' . '1';
             $month_end_date = date("Y-m-t", strtotime($month_start_date));
             $meta_query[] = array(
@@ -138,39 +138,35 @@ class EventsHelper  {
         $args['meta_query'] = $meta_query;
 
 
-        if(is_array($filter_options) && key_exists('keyword_search', $filter_options )  && strlen($filter_options['keyword_search']) > 0 ){
+        if (is_array($filter_options) && key_exists('keyword_search', $filter_options)  && strlen($filter_options['keyword_search']) > 0) {
             $args['s'] = $filter_options['keyword_search'];
         }
         
-        $events = get_posts( $args );
+        $events = get_posts($args);
 
         $i = 0;
 
-        foreach ( $events as $event ) {
-            $events[ $i ]->event_start_date = get_post_meta( $event->ID, '_event-start-date', true );
-            $events[ $i ]->event_end_date   = get_post_meta( $event->ID, '_event-end-date', true );
-            $events[ $i ]->event_start_time = get_post_meta( $event->ID, '_event-start-time', true );
-            $events[ $i ]->event_end_time   = get_post_meta( $event->ID, '_event-end-time', true );
-            $events[ $i ]->event_location   = get_post_meta( $event->ID, '_event-location', true );
-            $events[ $i ]->event_allday     = get_post_meta( $event->ID, '_event-allday', true );
+        foreach ($events as $event) {
+            $events[ $i ]->event_start_date = get_post_meta($event->ID, '_event-start-date', true);
+            $events[ $i ]->event_end_date   = get_post_meta($event->ID, '_event-end-date', true);
+            $events[ $i ]->event_start_time = get_post_meta($event->ID, '_event-start-time', true);
+            $events[ $i ]->event_end_time   = get_post_meta($event->ID, '_event-end-time', true);
+            $events[ $i ]->event_location   = get_post_meta($event->ID, '_event-location', true);
+            $events[ $i ]->event_allday     = get_post_meta($event->ID, '_event-allday', true);
 
-            $events[ $i ]->agency   = wp_get_post_terms( $event->ID, 'agency' );
-            $events[ $i ]->region   = wp_get_post_terms( $event->ID, 'region', true );
-            $events[ $i ]->campaign = wp_get_post_terms( $event->ID, 'campaign_category', true );
+            $events[ $i ]->agency   = wp_get_post_terms($event->ID, 'agency');
+            $events[ $i ]->region   = wp_get_post_terms($event->ID, 'region', true);
+            $events[ $i ]->campaign = wp_get_post_terms($event->ID, 'campaign_category', true);
 
-            $events[ $i ]->url = get_post_permalink( $event->ID );
+            $events[ $i ]->url = get_post_permalink($event->ID);
 
             $i ++;
         }
 
-        if ( empty( $events ) ) {
+        if (empty($events)) {
             return null;
-        }
-        else {
+        } else {
             return $events;
         }
-
-
     }
-
 }

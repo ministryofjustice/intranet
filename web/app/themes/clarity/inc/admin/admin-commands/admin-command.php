@@ -2,7 +2,8 @@
 
 namespace MOJ_Intranet\Admin_Commands;
 
-abstract class Admin_Command {
+abstract class Admin_Command
+{
     /**
      * Name of the command.
      *

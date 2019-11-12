@@ -26,7 +26,7 @@ $activeAgency = $oAgency->getCurrentAgency();
           get_template_part('src/components/c-news-list/view', 'oneupdate');
         ?>
       </div>
-      <?php get_pagination('news', $oneupdates); ?>
+        <?php get_pagination('news', $oneupdates); ?>
     </div>
   </div>
 

@@ -7,13 +7,15 @@
  * admin area.
  */
 
-class Region_Context {
+class Region_Context
+{
     /**
      * Can the current user have an region context?
      *
      * @return bool
      */
-    public static function current_user_can_have_context() {
+    public static function current_user_can_have_context()
+    {
         return current_user_can('regional-editor');
     }
 
@@ -23,7 +25,8 @@ class Region_Context {
      * @param string $region Slug of the region
      * @return bool
      */
-    public static function current_user_can_change_to($region) {
+    public static function current_user_can_change_to($region)
+    {
         $available = self::current_user_available_regions();
         return in_array($region, $available);
     }
@@ -34,19 +37,20 @@ class Region_Context {
      *
      * @return array
      */
-    public static function current_user_available_regions() {
+    public static function current_user_available_regions()
+    {
         if (current_user_can('administrator')) { //is admin
             $agencies = get_terms('region', array(
                 'hide_empty' => false,
             ));
-        }
-        else {
+        } else {
             $agencies = wp_get_object_terms(get_current_user_id(), 'region');
         }
 
         // Create an array of slugs from the agency objects
-        $slugs = array_map(function($term) {
-            return $term->slug; }, $agencies);
+        $slugs = array_map(function ($term) {
+            return $term->slug;
+        }, $agencies);
 
         return $slugs;
     }
@@ -57,7 +61,8 @@ class Region_Context {
      * @param $region
      * @return bool|WP_Error
      */
-    public static function set_region_context($region) {
+    public static function set_region_context($region)
+    {
         if (self::current_user_can_change_to($region)) {
             $user_id = get_current_user_id();
             update_user_meta($user_id, 'region_context', $region);
@@ -73,7 +78,8 @@ class Region_Context {
      * @param string $return_field The field that you want returned for the current region. Default: slug
      * @return string The requested field value for the current region
      */
-    public static function get_region_context($return_field = 'slug') {
+    public static function get_region_context($return_field = 'slug')
+    {
         $user_id = get_current_user_id();
         $region = get_user_meta($user_id, 'region_context', true);
         $available = self::current_user_available_regions();
@@ -85,10 +91,10 @@ class Region_Context {
         }
 
         if ($return_field == 'slug') {
-          return $region;
+            return $region;
         } else {
-          $context_term = get_term_by('slug', $region, 'region');
-          return $context_term->{$return_field};
+            $context_term = get_term_by('slug', $region, 'region');
+            return $context_term->{$return_field};
         }
     }
 }

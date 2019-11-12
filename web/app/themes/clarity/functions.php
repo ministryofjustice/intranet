@@ -18,7 +18,7 @@ require_once 'inc/admin/agency_taxonomies/utilities/agency-context.php';
 require_once 'inc/admin/agency_taxonomies/utilities/region-context.php';
 
 // Load after above utilities
-require_once 'inc/admin/agency_taxonomies/taxonomies.php';   
+require_once 'inc/admin/agency_taxonomies/taxonomies.php';
 
 require_once 'inc/admin/campaign-content-template.php';
 require_once 'inc/admin/comments.php';

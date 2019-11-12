@@ -2,7 +2,8 @@
 
 namespace MOJ_Intranet\Admin_Commands;
 
-class Remove_Old_Tabs_And_Links extends Admin_Command {
+class Remove_Old_Tabs_And_Links extends Admin_Command
+{
     /**
      * Name of the command.
      *
@@ -22,7 +23,8 @@ class Remove_Old_Tabs_And_Links extends Admin_Command {
      *
      * @return void
      */
-    public function execute() {
+    public function execute()
+    {
         global $wpdb;
 
         $wpdb->query(
@@ -31,6 +33,5 @@ class Remove_Old_Tabs_And_Links extends Admin_Command {
 		     OR meta_key LIKE '_content_tabs%'  
 		   "
         );
-
     }
 }

@@ -26,7 +26,7 @@ class Walker_Agency_Terms extends Walker_Category_Checklist
         if ($term_agencies === null) {
             return;
         } elseif (is_bool($term_agencies)) {
-          return;
+            return;
         } else {
             if (in_array($context, $term_agencies)) {
                 parent::start_el($output, $category, $depth, $args, $id);
@@ -54,7 +54,7 @@ class Walker_Agency_Terms extends Walker_Category_Checklist
         if ($term_agencies === null) {
             return;
         } elseif (is_bool($term_agencies)) {
-          return;
+            return;
         } else {
             if (in_array($context, $term_agencies)) {
                 parent::end_el($output, $category, $depth, $args);

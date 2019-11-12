@@ -3,12 +3,12 @@
 
   <?php
 
-  get_template_part( 'src/components/c-homepage-feature-widget/view' );
-  get_template_part( 'src/components/c-homepage-news-widget/view' );
-  get_template_part( 'src/components/c-homepage-blog-widget/view' );
-  get_template_part( 'src/components/c-homepage-secondary-widget/view' );
+  get_template_part('src/components/c-homepage-feature-widget/view');
+  get_template_part('src/components/c-homepage-news-widget/view');
+  get_template_part('src/components/c-homepage-blog-widget/view');
+  get_template_part('src/components/c-homepage-secondary-widget/view');
 
-	?>
+    ?>
 
 </section>
 <!-- c-home-page-primary ends here -->

@@ -1,10 +1,9 @@
 <?php
 
-function dw_change_language( $locale ) {
-	return 'en-GB';
+function dw_change_language($locale)
+{
+    return 'en-GB';
 
-	die();
+    die();
 }
-add_filter( 'locale', 'dw_change_language' );
-
-?>
+add_filter('locale', 'dw_change_language');

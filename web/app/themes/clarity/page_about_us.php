@@ -41,5 +41,5 @@ $hq_id = 116;
     }
     ?>
 </div>
-<?php 
+<?php
 get_footer();

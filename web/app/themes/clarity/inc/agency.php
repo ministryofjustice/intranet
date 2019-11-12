@@ -36,7 +36,7 @@ class Agency
      *      - is_external (boolean) - Is this a link to an external site?
      */
         return [
-      'cica' => [
+        'cica' => [
         'shortcode' => 'cica',
         'label' => 'Criminal Injuries Compensation Authority',
         'abbreviation' => 'CICA',
@@ -44,8 +44,8 @@ class Agency
         'contact_email_address' => 'intranet-cica@digital.justice.gov.uk',
         'links' => [],
         'wp_tag_id' => 1049, //ID number from Taxonomy 'Agency' Term 'CICA'
-      ],
-      'hmcts' => [
+        ],
+        'hmcts' => [
         'shortcode' => 'hmcts',
         'label' => 'HM Courts &amp; Tribunals Service',
         'abbreviation' => 'HMCTS',
@@ -61,8 +61,8 @@ class Agency
             'is_external' => true
           ]
         ]
-      ],
-      'noms' => [
+        ],
+        'noms' => [
         'shortcode' => 'noms',
         'label' => 'HM Prison & Probation Service',
         'abbreviation' => 'HMPPS',
@@ -75,8 +75,8 @@ class Agency
             'is_external' => true
           ]
         ]
-      ],
-      'judicial-appointments-commission' => [
+        ],
+        'judicial-appointments-commission' => [
         'shortcode' => 'judicial-appointments-commission',
         'label' => 'Judicial Appointments Commission',
         'abbreviation' => 'JAC',
@@ -89,8 +89,8 @@ class Agency
             'is_external' => true
           ]
         ]
-      ],
-      'judicial-office' => [
+        ],
+        'judicial-office' => [
         'shortcode' => 'judicial-office',
         'label' => 'Judicial Office',
         'abbreviation' => 'JO',
@@ -98,8 +98,8 @@ class Agency
         'contact_email_address' => 'intranet-jo@digital.justice.gov.uk',
         'wp_tag_id' => 1165, //ID number from Taxonomy 'Agency' Term 'JO'
         'links' => []
-      ],
-      'law-commission' => [
+        ],
+        'law-commission' => [
         'shortcode' => 'law-commission',
         'label' => 'Law Commission',
         'abbreviation' => 'LawCom',
@@ -112,8 +112,8 @@ class Agency
             'is_external' => true
           ]
         ]
-      ],
-      'laa' => [
+        ],
+        'laa' => [
         'shortcode' => 'laa',
         'label' => 'Legal Aid Agency',
         'abbreviation' => 'LAA',
@@ -121,8 +121,8 @@ class Agency
         'contact_email_address' => 'intranet-laa@digital.justice.gov.uk',
         'wp_tag_id' => 101, //ID number from Taxonomy 'Agency' Term 'LAA'
         'links' => []
-      ],
-      'hq' => [
+        ],
+        'hq' => [
         'shortcode' => 'hq',
         'label' => 'Ministry of Justice HQ',
         'abbreviation' => 'MoJ',
@@ -138,8 +138,8 @@ class Agency
             'classes' => 'transformation'
           ]
         ]
-      ],
-      'opg' => [
+        ],
+        'opg' => [
         'shortcode' => 'opg',
         'label' => 'Office of the Public Guardian',
         'abbreviation' => 'OPG',
@@ -147,8 +147,8 @@ class Agency
         'contact_email_address' => 'intranet-opg@digital.justice.gov.uk',
         'wp_tag_id' => 102, //ID number from Taxonomy 'Agency' Term 'OPG'
         'links' => []
-      ],
-      'pb' => [
+        ],
+        'pb' => [
         'shortcode' => 'pb',
         'label' => 'The Parole Board',
         'abbreviation' => 'PB',
@@ -157,8 +157,8 @@ class Agency
         'contact_email_address' => 'intranet-pb@digital.justice.gov.uk',
         'wp_tag_id' => 1098, //ID number from Taxonomy 'Agency' Term 'PB'
         'links' => []
-      ]
-    ];
+        ]
+        ];
     }
 
     /***

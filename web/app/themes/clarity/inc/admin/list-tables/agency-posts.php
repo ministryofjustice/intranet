@@ -10,7 +10,8 @@ use Region_Context;
  * Adjustments to list tables for all post types which have agency taxonomy.
  */
 
-class Agency_Posts extends List_Table {
+class Agency_Posts extends List_Table
+{
     /**
      * Array of object types which this class applies to.
      *
@@ -37,7 +38,8 @@ class Agency_Posts extends List_Table {
      */
     public $columns = [];
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
     }
     /**
@@ -46,7 +48,8 @@ class Agency_Posts extends List_Table {
      * @param array $columns
      * @return array
      */
-    public function filter_columns($columns) {
+    public function filter_columns($columns)
+    {
         // Reorder columns to be: checkbox, title, $this->columns, then everything else.
         $columns = array_merge(
             array_intersect_key($columns, array_flip(array('cb', 'title'))),

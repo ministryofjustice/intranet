@@ -2,7 +2,8 @@
 
 namespace MOJ_Intranet\Taxonomies;
 
-class Campaign_Category extends Content_Category {
+class Campaign_Category extends Content_Category
+{
     protected $name = 'campaign_category';
 
     protected $object_types = array(
