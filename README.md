@@ -1,8 +1,7 @@
-# Template WordPress project
+# Ministry of Justice intranet
 
-Use this template to bootstrap a new WordPress project for use in the MOJ docker hosting environment.
-
-It will provide you with a skeleton WordPress installation which runs locally in docker, and pre-configured with composer for dependency management.
+This is a WordPress project used by Ministry of Justice and agencies.
+https://intranet.justice.gov.uk/
 
 ## Features
 
@@ -23,7 +22,7 @@ It will provide you with a skeleton WordPress installation which runs locally in
 
 1. Clone this repo to your local machine. Since you'll be using this as a starter for your project, you'll want to delete the `.git` directory.
     ```bash
-    git clone git@github.com:ministryofjustice/wp-template.git .
+    git clone git@github.com:ministryofjustice/intranet.git .
     rm -rf .git
     ```
 
@@ -97,12 +96,6 @@ The private composer repository [composer.wp.dsd.io](https://composer.wp.dsd.io)
 
 Access to this repository is restricted. Refer to internal documentation for further details.
 
-## Theme
-
-Put your theme files in `web/app/themes`.
-
-Public themes can be installed using wpackagist.
-
 ### Building theme assets
 
 Theme assets can be built as part of the docker image. Add required commands to `bin/build.sh`.
@@ -112,7 +105,7 @@ Theme assets can be built as part of the docker image. Add required commands to 
 Set your theme as the default by adding the following line to `config/application.php`:
 
 ```php
-define('WP_DEFAULT_THEME', 'yourthemename');
+define('WP_DEFAULT_THEME', 'clarity');
 ```
 
 ## WP-CLI
