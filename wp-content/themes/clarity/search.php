@@ -11,7 +11,16 @@
  */
 get_header();
 ?>
+
   <div id="maincontent" class="u-wrapper l-main t-search-results">
+  <div class="c-emergency-banner c-emergency-banner--service">
+      <div class="c-emergency-banner__meta">
+          <h1>Can't find what you're looking for?</h1>
+      </div>
+      <div class="c-emergency-banner__content ie_content full_banner">
+          <p>We are aware of a problem with the intranet search results. While we are working on it, you might not get the results you expect.</p>
+      </div>
+  </div>
 
     <h1 class="o-title o-title--page">Search</h1>
     <div class="l-secondary" role="complementary">
