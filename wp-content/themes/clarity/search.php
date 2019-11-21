@@ -18,7 +18,7 @@ get_header();
           <h1>Can't find what you're looking for?</h1>
       </div>
       <div class="c-emergency-banner__content ie_content full_banner">
-          <p>We are aware of a problem with the intranet search results. While we are working on it, you might not get the results you expect.</p>
+          <p>We are sorry but there are ongoing issues with the search function, we are working to fix this as quickly as possible. You may wish to use <a href="https://moj.myhub.sscl.com/">MyHub</a> for HR information in the meantime.</p>
       </div>
   </div>
 
