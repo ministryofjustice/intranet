@@ -33,3 +33,7 @@ db:
 # Run tests
 test:
 	composer test
+
+# Fix tests
+test-fixes:
+	composer test-fix
