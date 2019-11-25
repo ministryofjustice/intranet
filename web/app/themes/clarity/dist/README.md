@@ -1,1 +1,0 @@
-### Assets are compiled by the developer locally on their machine for local working but are not commited because they get compiled when pushed to AWS Docker environment
