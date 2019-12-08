@@ -32,10 +32,6 @@
     },
     {
       "type": "vcs",
-      "url": "https://github.com/ministryofjustice/intranet"
-    },
-    {
-      "type": "vcs",
       "url": "https://github.com/ministryofjustice/like-button-for-wordpress"
     },
     {
@@ -55,7 +51,7 @@
     "koodimonni-language/core-en_gb": "*",
     "oscarotero/env": "^1.1.0",
     "roots/wp-password-bcrypt": "*",
-    "wpackagist-plugin/classic-editor": "1.5",
+    "wpackagist-plugin/classic-editor": "*",
     "wpackagist-plugin/totalpoll-lite": "3.0.0",
     "wpackagist-plugin/cms-tree-page-view": "1.6",
     "wpackagist-plugin/co-authors-plus": "3.4",
@@ -63,9 +59,9 @@
     "wpackagist-plugin/recently-edited-content-widget": "0.3.2",
     "wpackagist-plugin/regenerate-thumbnails": "^3.1.1",
     "wpackagist-plugin/upload-url-path-enabler": "1.0.4",
+    "wpackagist-plugin/ewww-image-optimizer":"^5.1",
     "relevanssi/relevanssi-premium": "2.4.4",
-    "acf/advanced-custom-fields-pro": "^5.8.1",
-    "wpackagist-plugin/wordpress-importer": "0.6.4",
+    "acf/advanced-custom-fields-pro": "^5.8.1"
     "wpackagist-plugin/query-monitor": "^3.3.7",
     "ministryofjustice/dw-document-revisions": "dev-master",
     "ministryofjustice/wp-rewrite-media-to-s3": "*",
@@ -80,7 +76,8 @@
   "extra": {
     "installer-paths": {
       "web/app/mu-plugins/{$name}/": [
-        "type:wordpress-muplugin"
+        "type:wordpress-muplugin",
+        "wpackagist-plugin/ewww-image-optimizer"
       ],
       "web/app/plugins/{$name}/": [
         "type:wordpress-plugin"
