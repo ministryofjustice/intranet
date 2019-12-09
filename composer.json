@@ -61,7 +61,7 @@
     "wpackagist-plugin/upload-url-path-enabler": "1.0.4",
     "wpackagist-plugin/ewww-image-optimizer":"^5.1",
     "relevanssi/relevanssi-premium": "2.4.4",
-    "acf/advanced-custom-fields-pro": "^5.8.1"
+    "acf/advanced-custom-fields-pro": "^5.8.1",
     "wpackagist-plugin/query-monitor": "^3.3.7",
     "ministryofjustice/dw-document-revisions": "dev-master",
     "ministryofjustice/wp-rewrite-media-to-s3": "*",
