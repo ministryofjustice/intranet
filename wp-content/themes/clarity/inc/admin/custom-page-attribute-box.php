@@ -46,14 +46,13 @@ function clarity_custom_page_attribute_box( $post ) {
 	$parent_page    = wp_get_post_parent_id( $post->ID );
 
 
-
-		// current template selected by user
-		$current_template = get_post_meta( $post->ID, '_wp_page_template', true );
+	// current template selected by user
+	$current_template = get_post_meta( $post->ID, '_wp_page_template', true );
 
 		// get full list of templates
-    $templates = get_page_templates($post);
+	$templates = get_page_templates($post);
 
-    $themeselect = '<select id="page_template" name="page_template">';
+	$themeselect = '<select id="page_template" name="page_template">';
 
 		foreach ( $templates as $template_name => $template_filename ) {
 

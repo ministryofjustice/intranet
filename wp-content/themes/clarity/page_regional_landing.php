@@ -4,7 +4,7 @@ use MOJ\Intranet\EventsHelper;
 /**
  *
  * Template name: Region landing
- *
+ * Template Post Type: regional_page
  */
 $terms = get_the_terms( get_the_ID(), 'region' );
 
@@ -27,6 +27,10 @@ get_header();
 	<div class="l-primary" role="main">
 
 	  <h1 class="o-title o-title--page"><?php the_title(); ?></h1>
+
+	  <div class="template-container ">
+		<?php get_template_part( 'src/components/c-rich-text-block/view' ); ?>
+	  </div>
 
 		<?php
 		echo '<div id="content">';
