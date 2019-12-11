@@ -45,6 +45,7 @@
   ],
   "require": {
     "php": ">=7.1",
+    "ext-json": "*",
     "composer/installers": "^1.4",
     "vlucas/phpdotenv": "^2.0.1",
     "johnpbloch/wordpress": "*",
