@@ -9,8 +9,6 @@ add_action('wp_enqueue_scripts', 'enqueue_clarity_scripts', 99);
 
 function enqueue_clarity_scripts()
 {
-    define('MOJ_ENQUEUE_PATH', get_template_directory_uri() . '/dist');
-
     // CSS
     wp_enqueue_style('core-css', mix_asset('/css/globals.css'), array(), null, 'all');
     wp_enqueue_style('style', mix_asset('/css/style.css'), array(), null, 'screen');
@@ -49,7 +47,7 @@ function mix_asset($filename)
     if (!isset($manifest[$filename])) {
         error_log("Mix asset '$filename' does not exist in manifest.");
     }
-    return MOJ_ENQUEUE_PATH . $manifest[$filename];
+    return get_template_directory_uri() . '/dist' . $manifest[$filename];
 }
 
 /**
