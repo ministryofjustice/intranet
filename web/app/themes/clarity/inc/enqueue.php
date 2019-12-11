@@ -42,7 +42,7 @@ function enqueue_clarity_scripts()
  */
 function mix_asset($filename)
 {
-    $manifest_path = MOJ_ENQUEUE_PATH . '/mix-manifest.json';
+    $manifest_path = get_template_directory() . '/mix-manifest.json';
     $manifest = json_decode(file_get_contents($manifest_path), true);
     if (!isset($manifest[$filename])) {
         error_log("Mix asset '$filename' does not exist in manifest.");
