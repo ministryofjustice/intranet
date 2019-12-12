@@ -15,7 +15,7 @@
 
 $capabilities = array(
 
-	'news'							=> true,
+	'news'                          => true,
 	// management
 	'edit_dashboard'                => true,
 	'homepage_all_access'           => true,
@@ -161,6 +161,12 @@ $capabilities = array(
 	'read_private_regional_pages'   => true,
 	'publish_regional_news'         => true,
 	'publish_regional_pages'        => true,
+
+	// allow greater permissions managing polls plugin
+	'edit_polls'                    => true,
+	'edit_poll'                     => true,
+	'create_polls'                  => true,
+	'publish_polls'                 => true,
 );
 
 
