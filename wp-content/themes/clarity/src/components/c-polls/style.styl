@@ -9,7 +9,7 @@
 // Needs to be outside of this specific component's scope so it is global and will affect wherever the shortcode is used on the site.
 .totalpoll-button, .totalpoll-button-primary, .totalpoll-button-vote {
   cursor: pointer !important;
-  font-size: $innerCore !important;
+  font-size: $outerCore !important;
   box-shadow: 0 2px 0 #003518 !important;
   padding: 14px 24px 10px !important;
   text-decoration: none !important;
@@ -17,6 +17,20 @@
   border: $defaultAgencyColour !important;
   line-height: $innerCore !important;
   border-radius: 0 !important;
+}
+
+.totalpoll-container, .totalpoll-button, .totalpoll-buttons-results {
+    color: white !important;
+}
+
+.totalpoll-question-choices-item-checked .totalpoll-question-choices-item-control, .totalpoll-question-choices-item-checked:hover .totalpoll-question-choices-item-control, .totalpoll-question-choices-item-checked:focus .totalpoll-question-choices-item-control {
+  background-color: $defaultAgencyColour !important;
+  border: none;
+}
+
+.totalpoll-message-error {
+  color: white !important;
+  background-color: #932214 !important;
 }
 
 .totalpoll-choices {
@@ -41,4 +55,12 @@
 
 h4 {
   font-size: $mantle !important;
+}
+
+.totalpoll-question-choices-item-votes-text {
+  font-size: $outerCore !important;
+}
+
+.totalpoll-question-content, .totalpoll-question-choices-item-label{
+  font-size: $outerCore !important;
 }
