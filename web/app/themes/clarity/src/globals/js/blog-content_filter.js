@@ -26,7 +26,7 @@
 
       jQuery.ajax({
         type: 'post',
-        url: myAjax.ajaxurl,
+        url: mojAjax.ajaxurl,
         dataType: 'html',
         data: {
           action: 'load_search_results',
@@ -45,7 +45,7 @@
 
       jQuery.ajax({
         type: 'post',
-        url: myAjax.ajaxurl,
+        url: mojAjax.ajaxurl,
         dataType: 'html',
         data: {
           action: 'load_search_results_total',
@@ -63,7 +63,7 @@
 
       jQuery.ajax({
         type: 'post',
-        url: myAjax.ajaxurl,
+        url: mojAjax.ajaxurl,
         dataType: 'html',
         data: {
           action: 'load_page_total',
@@ -97,7 +97,7 @@
 
       jQuery.ajax({
         type: 'post',
-        url: myAjax.ajaxurl,
+        url: mojAjax.ajaxurl,
         dataType: 'html',
         data: {
           action: 'load_next_results',
@@ -116,7 +116,7 @@
 
       jQuery.ajax({
         type: 'post',
-        url: myAjax.ajaxurl,
+        url: mojAjax.ajaxurl,
         dataType: 'html',
         data: {
           action: 'load_page_total',
@@ -154,7 +154,7 @@
 
       jQuery.ajax({
         type: 'post',
-        url: myAjax.ajaxurl,
+        url: mojAjax.ajaxurl,
         dataType: 'html',
         data: {
           action: 'load_events_filter_results',

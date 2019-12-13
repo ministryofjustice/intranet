@@ -10,25 +10,26 @@ add_action('wp_enqueue_scripts', 'enqueue_clarity_scripts', 99);
 function enqueue_clarity_scripts()
 {
     define('MOJ_DIST_PATH', get_template_directory_uri() . '/dist');
+
     // CSS
-    wp_enqueue_style('core-css', mix_asset('/css/globals.css'), array(), null, 'all');
     wp_enqueue_style('style', mix_asset('/css/style.css'), array(), null, 'screen');
     wp_enqueue_style('ie', mix_asset('/css/style.ie.css'), array(), null, 'screen');
     wp_enqueue_style('ie8', mix_asset('/css/style.ie8.css'), array(), null, 'screen');
     wp_enqueue_style('print', mix_asset('/css/style.print.css'), array(), null, 'print');
+    wp_enqueue_style('core-css', mix_asset('/css/globals.css'), array(), null, 'all');
 
-    // JS and jQuery
-    wp_enqueue_script('core-js', mix_asset('/js/main.js'), array('jquery'), null, true);
-    wp_localize_script('core', 'myAjax', ['ajaxurl' => admin_url('admin-ajax.php')]);
+    // JS
+    wp_enqueue_script('core-js', mix_asset('/js/main.js'), array('jquery'));
+    wp_localize_script('core-js', 'mojAjax', ['ajaxurl' => admin_url('admin-ajax.php')]);
 
     // Third party vendor scripts
     wp_deregister_script('jquery'); // This removes jquery shipped with WP so that we can add our own.
     wp_enqueue_script('jquery', mix_asset('/js/jquery.min.js'));
 
-    wp_enqueue_script('popup', mix_asset('/js/magnific-popup.js'), array('jquery'));
+    wp_enqueue_script('popup', mix_asset('/js/magnific-popup.js'), array('jquery'), null, true);
     wp_enqueue_script('html5shiv', mix_asset('/js/ie8-js-html5shiv.js'));
     wp_enqueue_script('respond', mix_asset('/js/respond.min.js'));
-    wp_enqueue_script('selectivizr', mix_asset('/js/selectivizr-min.js'));
+    wp_enqueue_script('selectivizr', mix_asset('/js/selectivizr-min.js'), null, true);
 
     // conditionals
     wp_style_add_data('ie', 'conditional', 'IE 7');
@@ -90,7 +91,7 @@ function clarity_admin_enqueue($hook)
             null,
             false
         );
-        wp_localize_script('colour-contrast-checker', 'myAjax', ['ajaxurl' => admin_url('admin-ajax.php')]);
+        wp_localize_script('colour-contrast-checker', 'mojAjax', ['ajaxurl' => admin_url('admin-ajax.php')]);
 
         wp_register_style(
             'page-search-dropdown-filter',
