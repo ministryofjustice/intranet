@@ -8,16 +8,16 @@ mix.setPublicPath('./dist/')
 /*******************/
 
 mix.babel([
-      'src/components/**/*.js',
-      'src/globals/js/*.js'
+      'src/globals/js/*.js',
+      'src/components/**/*.js'
     ],
     'dist/js/main.js'
   )
+  .stylus('src/globals/css/_init.styl','dist/css/globals.css', { use: stylDeps })
   .stylus('src/components/style.print.styl', 'dist/css/', { use: stylDeps })
   .stylus('src/components/style.ie.styl', 'dist/css/', { use: stylDeps })
   .stylus('src/components/style.ie8.styl', 'dist/css/', { use: stylDeps })
   .stylus('src/components/style.styl', 'dist/css/', { use: stylDeps })
-  .stylus('src/globals/css/_init.styl','dist/css/globals.css', { use: stylDeps })
   .imagemin([
       'images/**.*',
       'images/*/**.*',

@@ -17,7 +17,7 @@ jQuery(function($) {
   
             if(/(^#[0-9A-F]{6}$)/i.test(colour)) {
                 $.ajax({
-                    url : myAjax.ajax_url,
+                    url : ajax_url,
                     dataType: "json",
                     data : {
                       action : 'check_colour_contrast',
@@ -59,4 +59,3 @@ jQuery(function($) {
   
       
   })
-  

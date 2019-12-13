@@ -100,7 +100,7 @@ function clarity_custom_page_attribute_box($post)
 
       var checkparent = function () {
         jQuery.post(
-          ajaxurl,
+            mojAjax.ajaxurl,
           {
              'action': 'check_parent',
              'data'  : { filtertext: jQuery("#pageparent-filterbox").val() , pageID: <?php echo $post->ID; ?> }
