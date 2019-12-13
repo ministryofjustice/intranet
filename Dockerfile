@@ -9,9 +9,14 @@ ARG COMPOSER_PASS
 
 # Add custom nginx config and init script
 RUN sed -i 's/fastcgi_intercept_errors off;/fastcgi_intercept_errors on;/' /etc/nginx/php-fpm.conf && \
+    echo 'deb http://apt.newrelic.com/debian/ newrelic non-free' > /etc/apt/sources.list.d/newrelic.list && \
+    curl -fsSL https://download.newrelic.com/548C16BF.gpg | apt-key add - && \
     mv docker/conf/nginx/server.conf /etc/nginx/sites-available/ && \
+    mv docker/conf/php-fpm/newrelic.ini /etc/php/7.3/fpm/conf.d/ && \
     mv docker/init/configure-maintenance-mode.sh /etc/my_init.d/ && \
-    chmod +x /etc/my_init.d/configure-maintenance-mode.sh
+    chmod +x /etc/my_init.d/configure-maintenance-mode.sh && \
+    apt-get update && \
+    apt-get install -y libffi-dev newrelic-php5
 
 # Set execute bit permissions before running build scripts
 RUN chmod +x bin/* && sleep 1 && \

@@ -28,7 +28,7 @@ mix.babel([
       jpegtran: null,
       plugins: [
         require('imagemin-mozjpeg')({
-          quality: 100,
+          quality: 82,
           progressive: true,
         }),
       ],
