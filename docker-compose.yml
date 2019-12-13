@@ -16,6 +16,8 @@ services:
       DB_USER: wordpress
       DB_PASSWORD: wordpress
       DB_HOST: mysql
+      NEWRELIC_LICENSE: change_to_production_value
+      NEWRELIC_APPNAME: change_to_production_value
     depends_on:
       - mysql
       - mailcatcher
