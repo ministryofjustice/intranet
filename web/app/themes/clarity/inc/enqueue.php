@@ -43,7 +43,9 @@ function enqueue_clarity_scripts()
  */
 function mix_asset($filename)
 {
-    $manifest = file_get_contents(MOJ_DIST_PATH . '/mix-manifest.json');
+    global $webroot_dir;
+
+    $manifest = file_get_contents($webroot_dir . '/app/themes/clarity/dist/mix-manifest.json');
     $manifest = json_decode($manifest, true);
 
     if (!isset($manifest[$filename])) {
