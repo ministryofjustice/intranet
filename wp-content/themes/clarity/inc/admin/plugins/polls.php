@@ -26,8 +26,6 @@ if ( in_array( 'totalpoll-lite/plugin.php', apply_filters( 'active_plugins', get
 			echo '<style> .totalpoll-pro-badge { display:none !important }</style>';
 			echo '<style> .totalpoll-pro-badge-container { display:none !important }</style>';
 			echo '<style> .totalpoll-overview-item-segment:nth-of-type(2) { display:none !important }</style>';		
-		} else {
-			trigger_error( "Cannot apply CSS styles to plugin. see inc/polls.php", E_USER_NOTICE );
 		}
 	}
 
