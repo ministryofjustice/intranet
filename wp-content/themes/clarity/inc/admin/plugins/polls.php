@@ -11,18 +11,23 @@ if ( in_array( 'totalpoll-lite/plugin.php', apply_filters( 'active_plugins', get
 	/**
 	 * Remove (for editors) options and settings not needed.
 	 */
-	add_action( 'admin_menu', 'remove_poll_meta_boxes_and_tabs' );
+	add_action( 'admin_notices', 'remove_poll_meta_boxes_and_tabs' );
 
 	// Remove everything that an editor doesn't need to see.
 	function remove_poll_meta_boxes_and_tabs() {
 
-		if ( ! current_user_can( 'administrator' ) ) {
-			echo '<style> .totalpoll-page-tabs { display:none !important }</style>';
+		// Get the current admin screen and use it as a check so we only add the CSS to the poll plugin dashboard
+		$currentAdminScreen = get_current_screen();
+
+		if ( ! current_user_can( 'administrator' ) && ( $currentAdminScreen->id === 'poll_page_dashboard' ) ) {
+		 	echo '<style> .totalpoll-page-tabs { display:none !important }</style>';
 			echo '<style> .totalpoll-column-sidebar { display:none !important }</style>';
 			echo '<style> .totalpoll-box-totalsuite { display:none !important }</style>';
 			echo '<style> .totalpoll-pro-badge { display:none !important }</style>';
 			echo '<style> .totalpoll-pro-badge-container { display:none !important }</style>';
 			echo '<style> .totalpoll-overview-item-segment:nth-of-type(2) { display:none !important }</style>';		
+		} else {
+			trigger_error( "Cannot apply CSS styles to plugin. see inc/polls.php", E_USER_NOTICE );
 		}
 	}
 
