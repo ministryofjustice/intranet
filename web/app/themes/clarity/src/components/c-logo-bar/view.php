@@ -7,7 +7,7 @@
 if ($activeAgency['shortcode'] === 'law-commission') {
     $logo = get_stylesheet_directory_uri() . '/dist/images/lawcomms_logo.png';
 } else {
-	$logo = get_stylesheet_directory_uri() . '/assets/images/moj_logo.png';
+	$logo = get_stylesheet_directory_uri() . '/dist/images/moj_logo.png';
 }
 
   $page_name = get_query_var('name');
