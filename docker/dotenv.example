@@ -1,4 +1,0 @@
-# AWS credentials (used by the WP application)
-
-# Rename this file `.env` and populate it in this directory with the details provided at:
-# https://rattic.service.dsd.io/cred/detail/744

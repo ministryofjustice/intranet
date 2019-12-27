@@ -1,156 +1,34 @@
-*~
-.DS_Store
-.svn
-.cvs
-*.bak
-*.swp
-Thumbs.db
-.idea
+# Editor
+.idea*
+.DS_*
+._DS_*
+._.*
+
 *.sql
-*.sql.gz
 
-docker/bedrock_volume/web
-docker/bedrock_volume/vendor
-docker/bedrock_volume/config
-docker/bedrock_volume/*.json
-docker/bedrock_volume/*.js
-docker/bedrock_volume/*.lock
-docker/bedrock_volume/node_modules
+# Application
+web/app/plugins/*
+!web/app/plugins/.gitkeep
+web/app/mu-plugins/*/
+web/app/upgrade
+web/app/languages
+web/app/uploads/*
+!web/app/uploads/.gitkeep
 
-# wordpress specific
-wp-content/uploads/
-wp-content/blogs.dir/
-wp-content/upgrade/*
-wp-content/backup-db/*
-wp-content/advanced-cache.php
-wp-content/wp-cache-config.php
-wp-content/cache/*
-wp-content/cache/supercache/*
-wp-content/themes/intranet-theme-clarity/
+# Theme
+web/app/themes/clarity/dist/*
+!web/app/themes/clarity/dist/*.md
+web/app/themes/clarity/node_modules
 
-# wpengine specific
-.smushit-status
-_wpeprivate
-wp-content/object-cache.php
-wp-content/mu-plugins/mu-plugin.php
-wp-content/mu-plugins/slt-force-strong-passwords.php
-wp-content/mu-plugins/limit-login-attempts
-wp-content/mu-plugins/wpengine-common
-wp-content/mysql.sql
+# WordPress
+web/wp
+web/.htaccess
 
-# wp core (as of 3.4.1)
-/db-config.php
-/index.php
-/license.txt
-/readme.html
-/wp-activate.php
-/wp-app.php
-/wp-atom.php
-/wp-blog-header.php
-/wp-comments-post.php
-/wp-commentsrss2.php
-/wp-config-sample.php
-/wp-cron.php
-/wp-feed.php
-/wp-links-opml.php
-/wp-load.php
-/wp-login.php
-/wp-mail.php
-/wp-rdf.php
-/wp-rss.php
-/wp-rss2.php
-/wp-pass.php
-/wp-register.php
-/wp-settings.php
-/wp-signup.php
-/wp-trackback.php
-/xmlrpc.php
-/wp-admin
-/wp-includes
-/wp-content/index.php
-/wp-content/themes/twentyten
-/wp-content/themes/index.php
-/wp-content/plugins/index.php
+# Dotenv
+.env
+.env.*
+!.env.example
 
-# large/disallowed file types
-# a CDN should be used for these
-*.hqx
-*.bin
-*.exe
-*.dll
-*.deb
-*.dmg
-*.iso
-*.img
-*.msi
-*.msp
-*.msm
-*.mid
-*.midi
-*.kar
-*.mp3
-*.ogg
-*.m4a
-*.ra
-*.3gpp
-*.3gp
-*.mp4
-*.mpeg
-*.mpg
-*.mov
-*.webm
-*.flv
-*.m4v
-*.mng
-*.asx
-*.asf
-*.wmv
-*.avi
-
-# custom
-.sass-cache
-nbproject
-/wp-content/languages/
-deploy_dev.cfg
-/node_modules/
-/docker/node_modules/
-/docker/package-lock.json
-wp-content/plugins/relevanssi*/
-wp-content/plugins/
-.htaccess
-*.css.map
-/wp-content/whippet-wp-config.php
-
-# auto-generated files
-
-/wp-content/themes/clarity/assets/css/*
-/wp-content/themes/clarity/assets/fonts/*
-/wp-content/themes/clarity/assets/icons/*
-/wp-content/themes/clarity/assets/images/*
-/wp-content/themes/clarity/assets/js/*
-/wp-content/themes/clarity/assets/vendors/*
-
-/wp-content/themes/mojintranet/ping.json
-/wp-content/themes/mojintranet/checksums.json
-/wp-content/themes/mojintranet/assets/css/ie.css
-/wp-content/themes/mojintranet/assets/css/style.css
-/wp-content/themes/mojintranet/assets/css/fonts.css
-/wp-content/themes/mojintranet/assets/js/base.js
-/wp-content/themes/mojintranet/assets/js/main.js
-/wp-content/plugins/amazon-s3-and-cloudfront
-/wp-content/plugins/amazon-web-services
-/wp-content/plugins/cms-tree-page-view
-/wp-content/plugins/oasis-workflow-premium
-/wp-content/plugins/recently-edited-content-widget
-/wp-content/plugins/relevanssi-premium
-
-debug.log
-/wp-content/plugins/co-authors-plus
-/wp-content/plugins/dw-live-drafts
-/wp-content/plugins/heatmap-for-wp
-/wp-content/plugins/regenerate-thumbnails
-/wp-content/plugins/dw-document-revisions
-/wp-content/plugins/advanced-custom-fields-pro
-docker/.env
-
-/wp-content/themes/clarity/node_modules/
+# Composer
+vendor/*
+!vendor/.gitkeep
