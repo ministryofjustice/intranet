@@ -21,6 +21,9 @@ docker-clean:
 run:
 	docker-compose up
 
+down:
+	docker-compose down
+
 # Open a bash shell on the running container
 bash:
 	docker-compose exec wordpress bash
