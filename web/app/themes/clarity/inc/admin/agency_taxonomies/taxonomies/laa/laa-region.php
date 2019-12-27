@@ -4,7 +4,8 @@ namespace MOJ_Intranet\Taxonomies;
 
 use Agency_Context;
 
-class LAA_Region extends Agency_Taxonomy {
+class LAA_Region extends Agency_Taxonomy
+{
     protected $name = 'laa_region';
 
     protected $agency = 'laa';
@@ -40,4 +41,3 @@ class LAA_Region extends Agency_Taxonomy {
         'rewrite' => false,
     );
 }
-

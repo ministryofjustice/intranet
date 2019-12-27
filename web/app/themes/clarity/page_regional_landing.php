@@ -1,17 +1,18 @@
 <?php
 use MOJ\Intranet\Agency;
 use MOJ\Intranet\EventsHelper;
+
 /**
  *
  * Template name: Region landing
  * Template Post Type: regional_page
  */
-$terms = get_the_terms( get_the_ID(), 'region' );
+$terms = get_the_terms(get_the_ID(), 'region');
 
-if ( is_array( $terms ) ) :
-	foreach ( $terms as $term ) :
-		$region_id = $term->term_id;
-   endforeach;
+if (is_array($terms)) :
+    foreach ($terms as $term) :
+        $region_id = $term->term_id;
+    endforeach;
 endif;
 
 get_header();
@@ -19,14 +20,14 @@ get_header();
 
   <div id="maincontent" class="u-wrapper l-main l-reverse-order t-default">
 
-	<?php get_template_part( 'src/components/c-breadcrumbs/view', 'region' ); ?>
+    <?php get_template_part('src/components/c-breadcrumbs/view', 'region'); ?>
 
-	<div class="l-secondary">
-		<?php get_template_part( 'src/components/c-left-hand-menu/view' ); ?>
-	</div>
-	<div class="l-primary" role="main">
+    <div class="l-secondary">
+        <?php get_template_part('src/components/c-left-hand-menu/view'); ?>
+    </div>
+    <div class="l-primary" role="main">
 
-	  <h1 class="o-title o-title--page"><?php the_title(); ?></h1>
+      <h1 class="o-title o-title--page"><?php the_title(); ?></h1>
 
 	  <div class="template-container ">
 		<?php get_template_part( 'src/components/c-rich-text-block/view' ); ?>
@@ -37,7 +38,7 @@ get_header();
 		get_news_api( 'regional_news' );
 		echo '</div>';
 
-		echo '<br><div id="content">';
+        echo '<br><div id="content">';
 
         $oAgency = new Agency();
         $activeAgency = $oAgency->getCurrentAgency();
@@ -47,13 +48,13 @@ get_header();
 
         $EventsHelper  = new EventsHelper();
         $events = $EventsHelper->get_events($agency_term_id, $filter_options);
-        if ( $events ) {
+        if ($events) {
             echo '<h2 class="o-title o-title--section" id="title-section">Events</h2>';
-            include locate_template( 'src/components/c-events-list/view.php' );
+            include locate_template('src/components/c-events-list/view.php');
         }
-		echo '</div>';
-		?>
-	</div>
+        echo '</div>';
+        ?>
+    </div>
   </div>
 
 <?php

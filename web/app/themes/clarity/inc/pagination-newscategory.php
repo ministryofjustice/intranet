@@ -28,21 +28,19 @@ function get_newscategory_pagination($category_id)
         <div id="load_more"></div>
         <nav class="c-pagination category" role="navigation" aria-label="Pagination Navigation">
         <?php if ($pagetotal > 0) {
-        ?>
+            ?>
             <button class="more-btn" data-page="1" data-date="">
             <span class="c-pagination__main "><span class="u-icon u-icon--circle-down"></span> Load Next 10 Results</span><span class="c-pagination__count"> 1 of <?php echo $pagetotal; ?></span>
             </button>
 
             <?php
-
-    } else {
-        ?>
+        } else {
+            ?>
         <button class="more-btn" data-page="1" data-date="">
             <span class="c-pagination__main ">No Results Found</span>
             <span class="c-pagination__count"> 0 of <?php echo $pagetotal; ?></span>
             </button>
         </nav>
-        <?php
-
-    }
+            <?php
+        }
 }

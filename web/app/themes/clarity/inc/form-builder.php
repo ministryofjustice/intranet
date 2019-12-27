@@ -13,20 +13,21 @@
  * @options [array] a list of options to use if using a select input type
  */
 
-function form_builder( $type, $prefix, $label, $name, $id = '', $value = '', $placeholder = '', $class = '', $required = false, $validation = '', $options = '' ) {
-	$config = [
-		'type'        => $type,
-		'prefix'      => $prefix,
-		'label'       => $label,
-		'name'        => $name,
-		'id'          => $id,
-		'value'       => $value,
-		'placeholder' => $placeholder,
-		'class'       => $class,
-		'required'    => $required,
-		'validation'  => $validation,
-		'options'     => $options,
-	];
+function form_builder($type, $prefix, $label, $name, $id = '', $value = '', $placeholder = '', $class = '', $required = false, $validation = '', $options = '')
+{
+    $config = [
+        'type'        => $type,
+        'prefix'      => $prefix,
+        'label'       => $label,
+        'name'        => $name,
+        'id'          => $id,
+        'value'       => $value,
+        'placeholder' => $placeholder,
+        'class'       => $class,
+        'required'    => $required,
+        'validation'  => $validation,
+        'options'     => $options,
+    ];
 
-	include(locate_template('src/components/c-input-container/view.php'));
+    include(locate_template('src/components/c-input-container/view.php'));
 }

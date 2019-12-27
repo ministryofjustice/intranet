@@ -2,7 +2,8 @@
 
 namespace MOJ_Intranet\Taxonomies;
 
-class Resource_Category extends Content_Category {
+class Resource_Category extends Content_Category
+{
     protected $name = 'resource_category';
 
     protected $object_types = array(

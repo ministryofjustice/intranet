@@ -1,20 +1,19 @@
 
   <!-- c-full-width-team-banner starts here -->
   <section class="c-full-width-banner__team">
-	<?php
+    <?php
 
-	  $teamBanner = get_field( 'full_width_page_banner' );
+      $teamBanner = get_field('full_width_page_banner');
 
-	if ( ! empty( $teamBanner ) ) :
-		?>
+    if (! empty($teamBanner)) :
+        ?>
 
-		<img src="<?php echo $teamBanner['url']; ?>" alt="<?php echo $teamBanner['alt']; ?>" />
+        <img src="<?php echo $teamBanner['url']; ?>" alt="<?php echo $teamBanner['alt']; ?>" />
 
-		<?php else : ?>
+    <?php else : ?>
+        <!-- No banner selected or available to display. -->
 
-		<!-- No banner selected or available to display. -->
-
-		<?php endif; ?>
+    <?php endif; ?>
 
   </section>
   <!-- c-full-width-team-banner ends here -->

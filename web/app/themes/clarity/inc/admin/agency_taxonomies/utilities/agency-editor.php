@@ -6,7 +6,8 @@
  * Class AgencyEditor
  */
 
-class Agency_Editor {
+class Agency_Editor
+{
     /**
      * Restricted Templates
      * Templates restricted to top level admins
@@ -20,9 +21,10 @@ class Agency_Editor {
      * @param int $post_id
      * @return string Agency slug
      */
-    public static function get_post_agency($post_id) {
+    public static function get_post_agency($post_id)
+    {
         $terms = wp_get_object_terms($post_id, 'agency');
-        $agencies = array_map(function($term) {
+        $agencies = array_map(function ($term) {
             return $term->slug;
         }, $terms);
 
@@ -41,7 +43,8 @@ class Agency_Editor {
      * @param $slug
      * @return bool|WP_Term
      */
-    public static function get_agency_by_slug($slug) {
+    public static function get_agency_by_slug($slug)
+    {
         return get_term_by('slug', $slug, 'agency');
     }
 
@@ -54,7 +57,8 @@ class Agency_Editor {
      *                   Null for not applicable
      *                     (i.e. the post cannot be opted-out of)
      */
-    public static function is_post_opted_in($post_id, $agency = null) {
+    public static function is_post_opted_in($post_id, $agency = null)
+    {
         $owner = self::get_post_agency($post_id);
 
         if (is_null($agency) && Agency_Context::current_user_can_have_context()) {
@@ -69,8 +73,7 @@ class Agency_Editor {
         if ($owner !== 'hmcts') {
             // The post is not owned by HQ, so it cannot be opted in/out of.
             return null;
-        } 
-        else {
+        } else {
             $opt_in = is_object_in_term($post_id, 'agency', $agency);
             return $opt_in;
         }

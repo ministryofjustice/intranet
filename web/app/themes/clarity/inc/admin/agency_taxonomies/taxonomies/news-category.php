@@ -2,7 +2,8 @@
 
 namespace MOJ_Intranet\Taxonomies;
 
-class News_Category extends Content_Category {
+class News_Category extends Content_Category
+{
     protected $name = 'news_category';
 
     protected $object_types = array(

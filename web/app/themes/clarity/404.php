@@ -11,11 +11,11 @@
 get_header();
 ?>
 
-	<div id="maincontent" class="u-wrapper l-main t-page-error">
-	  <section class="l-primary" role="main">
-		<?php get_template_part( 'src/components/c-page-error/view' ); ?>
-	</section>
-	
-	</div>
+    <div id="maincontent" class="u-wrapper l-main t-page-error">
+      <section class="l-primary" role="main">
+        <?php get_template_part('src/components/c-page-error/view'); ?>
+    </section>
+    
+    </div>
 <?php
 get_footer();

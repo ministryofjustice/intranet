@@ -31,14 +31,14 @@ add_filter('comment_form_defaults', 'remove_must_be_logged_in');
 function remove_must_be_logged_in($fields)
 {
     $fields['must_log_in'] = sprintf(
-    __(
-        '<p class="must-log-in">
+        __(
+            '<p class="must-log-in">
     You must <a href="%s">Register</a> or
     <a href="%s">Login</a> to post a comment.</p>'
-  ),
-  wp_registration_url(),
-  wp_login_url(apply_filters('the_permalink', get_permalink()))
-);
+        ),
+        wp_registration_url(),
+        wp_login_url(apply_filters('the_permalink', get_permalink()))
+    );
     return $fields;
 }
 
@@ -76,18 +76,18 @@ function format_comment($comment, $args, $depth)
                     <?php comment_text(); ?>
 
                     <div class="reply">
-<?php
-  $replyorlogin = '<p class="must-log-in"><a href="'.wp_login_url().'">Login</a> or <a href="'.wp_registration_url().'">Register</a> to post a comment.</p>'
-?>
-<?php comment_reply_link(
-    array_merge(
-    $args,
-array(
-  'depth' => $depth,
-  'max_depth' => $args['max_depth'],
-)
-)
-                        ) ?>
+    <?php
+    $replyorlogin = '<p class="must-log-in"><a href="'.wp_login_url().'">Login</a> or <a href="'.wp_registration_url().'">Register</a> to post a comment.</p>'
+    ?>
+    <?php comment_reply_link(
+        array_merge(
+            $args,
+            array(
+            'depth' => $depth,
+            'max_depth' => $args['max_depth'],
+            )
+        )
+    ) ?>
                     </div>
                     <div class="comment-block">
                     <?php echo do_shortcode('[likebutton]'); ?>
@@ -95,7 +95,7 @@ array(
 
       </div>
 
-<?php
+    <?php
 }
 
 function inject_url_cookies_into_header()
@@ -154,5 +154,5 @@ function format_comment_closed($comment, $args, $depth)
     <div class="comment-block">
     <?php echo do_shortcode('[likebutton]'); ?>
     </div>
-<?php
+    <?php
 }

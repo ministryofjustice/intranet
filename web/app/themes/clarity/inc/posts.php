@@ -1,9 +1,12 @@
 <?php
 namespace MOJ\Intranet;
 
-if (!defined('ABSPATH')) die();
+if (!defined('ABSPATH')) {
+    die();
+}
 
-class Posts {
+class Posts
+{
 
     public $searchHelper;
 
@@ -16,7 +19,8 @@ class Posts {
      * @param {Array} $options Options and filters (see search model for details)
      * @return {Array} Formatted and sanitized results
      */
-    public function getPosts($options = array(), $exclude_featured = false) {
+    public function getPosts($options = array(), $exclude_featured = false)
+    {
         $options['search_order'] = 'DESC';
         $options['search_orderby'] = 'date';
         $options['post_type'] = 'post';
@@ -36,10 +40,11 @@ class Posts {
      * @param {Object} $data Raw results object
      * @return {Array} Formatted results
      */
-    private function format_data($data) {
+    private function format_data($data)
+    {
         $data['results'] = array();
 
-        foreach($data['raw']->posts as $post) {
+        foreach ($data['raw']->posts as $post) {
             $data['results'][] = $this->format_row($post);
         }
 
@@ -52,7 +57,8 @@ class Posts {
      * @param {Object} $post Post object
      * @return {Array} Formatted and trimmed post
      */
-    private function format_row($post) {
+    private function format_row($post)
+    {
         $id = $post->ID;
         setup_postdata(get_post($id));
 

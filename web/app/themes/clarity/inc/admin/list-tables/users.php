@@ -6,7 +6,8 @@ namespace MOJ_Intranet\List_Tables;
  * Adjustments to users list table.
  */
 
-class Users extends List_Table {
+class Users extends List_Table
+{
     /**
      * Array of object types which this class applies to.
      *
@@ -35,7 +36,8 @@ class Users extends List_Table {
      * @param array $columns
      * @return array
      */
-    public function filter_columns($columns) {
+    public function filter_columns($columns)
+    {
         $columns = parent::filter_columns($columns);
 
         // Shift the 'Posts' column to the right so that
@@ -53,7 +55,8 @@ class Users extends List_Table {
      * @param int $user_id
      * @return string
      */
-    public function column_agencies($user_id) {
+    public function column_agencies($user_id)
+    {
         $terms = wp_get_object_terms($user_id, 'agency');
         $user = get_userdata($user_id);
 
@@ -62,7 +65,7 @@ class Users extends List_Table {
             return '–';
         }
 
-        $agencies = array_map(function($term) {
+        $agencies = array_map(function ($term) {
             return $term->name;
         }, $terms);
 

@@ -2,7 +2,8 @@
 
 namespace MOJ_Intranet\Taxonomies;
 
-abstract class Taxonomy {
+abstract class Taxonomy
+{
     /**
      * The name of the taxonomy.
      * Name should only contain lowercase letters and the underscore character,
@@ -32,14 +33,16 @@ abstract class Taxonomy {
     /**
      * BaseTaxonomy constructor.
      */
-    public function __construct() {
+    public function __construct()
+    {
         add_action('init', array($this, 'register'));
     }
 
     /**
      * Register the taxonomy with WordPress.
      */
-    public function register() {
+    public function register()
+    {
         register_taxonomy($this->name, $this->object_types, $this->args);
     }
 }

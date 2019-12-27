@@ -26,12 +26,14 @@ foreach ($load_commands as $include_file => $class_name) {
 /**
  * Create the admin page.
  */
-function add_admin_commands_page() {
+function add_admin_commands_page()
+{
     add_management_page('Admin Commands', 'Admin Commands', 'administrator', 'admin-commands', 'admin_commands_page');
 }
 add_action('admin_menu', 'add_admin_commands_page');
 
-function admin_commands_page() {
+function admin_commands_page()
+{
     global $admin_commands;
 
     ?>
@@ -52,13 +54,13 @@ function admin_commands_page() {
             <p><strong>Warning!</strong> Don't touch anything here unless you know what you're doing.</p>
         </div>
 
-        <?php foreach ($admin_commands as $command_slug => $command): ?>
+        <?php foreach ($admin_commands as $command_slug => $command) : ?>
             <div class="card">
                 <h2 class="alignleft"><?php echo $command->name; ?></h2>
                 <a href="<?php echo esc_attr(admin_url('tools.php?page=admin-commands&run-command=' . $command_slug)); ?>"
                    class="button-primary alignright" style="margin-top: 10px">Run</a>
                 <div class="clear"></div>
-                <?php if (!empty($command->description)): ?>
+                <?php if (!empty($command->description)) : ?>
                     <p><?php echo $command->description; ?></p>
                 <?php endif; ?>
             </div>

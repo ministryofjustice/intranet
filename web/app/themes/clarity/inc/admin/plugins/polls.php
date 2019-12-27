@@ -45,7 +45,5 @@ if ( in_array( 'totalpoll-lite/plugin.php', apply_filters( 'active_plugins', get
 	}
 
 else :
-
-	trigger_error( "Hey! TotalPolls plugin has been deactivated and I'm using it (inc/polls.php).", E_USER_NOTICE );
-
+    trigger_error("Hey! TotalPolls plugin has been deactivated and I'm using it (inc/polls.php).", E_USER_NOTICE);
 endif;

@@ -6,7 +6,8 @@ use Agency_Context;
 use Agency_Editor;
 use Region_Context;
 
-class Agency extends Taxonomy {
+class Agency extends Taxonomy
+{
     protected $name = 'agency';
 
     protected $object_types = array(
@@ -55,14 +56,15 @@ class Agency extends Taxonomy {
         'query_var' => 'agency_filter'
     );
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
 
         if (current_user_can('manage_agencies')) {
             add_action('admin_menu', array($this, 'add_admin_menu_item'));
         }
 
-        if ( current_user_can('assign_agencies_to_posts') ) {
+        if (current_user_can('assign_agencies_to_posts')) {
             // Show form fields to edit user agency
             // Using priority 9 here to bump it above "More fields" section
             add_action('show_user_profile', array($this, 'edit_user_profile'), 9);
@@ -76,7 +78,7 @@ class Agency extends Taxonomy {
         }
 
         // Add page agency meta box
-        if ( ! current_user_can('manage_agencies') ) {
+        if (! current_user_can('manage_agencies')) {
             // Remove agency meta box
             add_action('admin_menu', array($this, 'remove_agency_meta_box'));
         }
@@ -89,7 +91,7 @@ class Agency extends Taxonomy {
             add_action('save_post', array($this, 'set_agency_terms_on_save_post'));
 
             // Capabilities
-            if ( ! current_user_can('manage_agencies')  ) {
+            if (! current_user_can('manage_agencies')) {
                 add_action('map_meta_cap', array($this, 'restrict_edit_post_to_current_agency'), 10, 4);
             }
             
@@ -104,7 +106,8 @@ class Agency extends Taxonomy {
         }
     }
 
-    public function add_admin_menu_item() {
+    public function add_admin_menu_item()
+    {
         add_submenu_page('users.php', 'Agencies', 'Agencies', 'administrator', 'edit-tags.php?taxonomy=agency&post_type=user');
     }
 
@@ -115,13 +118,13 @@ class Agency extends Taxonomy {
      *
      * @param object $user The user object currently being edited.
      */
-    public function edit_user_profile($user) {
+    public function edit_user_profile($user)
+    {
         $terms = get_terms($this->name, array(
             'hide_empty' => false,
         ));
 
-        if (
-            is_string($user) &&
+        if (is_string($user) &&
             in_array($user, array('add-existing-user', 'add-new-user'))
         ) {
             $user = false;
@@ -143,7 +146,6 @@ class Agency extends Taxonomy {
 
                     // If there are any agency terms, loop through them and display checkboxes.
                     if (!empty($terms)) {
-
                         foreach ($terms as $term) { ?>
                             <input type="checkbox" name="agency[]" id="agency-<?php echo esc_attr($term->slug); ?>"
                                    value="<?php echo esc_attr($term->slug); ?>" <?php $user && checked(true, is_object_in_term($user->ID, 'agency', $term->slug)); ?> />
@@ -170,7 +172,8 @@ class Agency extends Taxonomy {
      *
      * @param int $user_id The ID of the user to save the terms for.
      */
-    public function edit_user_profile_save($user_id) {
+    public function edit_user_profile_save($user_id)
+    {
 
         $agencies = $_POST['agency'];
 
@@ -187,7 +190,8 @@ class Agency extends Taxonomy {
     /**
      * Add agency filters to post listing pages.
      */
-    public function add_agency_filter() {
+    public function add_agency_filter()
+    {
         global $typenow, $pagenow;
 
         $is_correct_post_type = in_array($typenow, $this->object_types);
@@ -213,7 +217,8 @@ class Agency extends Taxonomy {
      * @param \WP_Query $query
      * @return mixed
      */
-    public function filter_posts_by_agency(\WP_Query $query) {
+    public function filter_posts_by_agency(\WP_Query $query)
+    {
         global $typenow, $pagenow;
 
         $is_correct_post_type = in_array($typenow, $this->object_types);
@@ -241,10 +246,10 @@ class Agency extends Taxonomy {
      * On save of post set the agency of the content to the current agency context
      * @param int $post_id
      */
-    public function set_agency_terms_on_save_post($post_id) {
+    public function set_agency_terms_on_save_post($post_id)
+    {
         $post_type = get_post_type($post_id);
-        if (
-            !in_array($post_type, $this->object_types) ||
+        if (!in_array($post_type, $this->object_types) ||
             !Agency_Context::current_user_can_have_context()
         ) {
             return;
@@ -261,7 +266,8 @@ class Agency extends Taxonomy {
     /**
      * Remove agency meta box from post edit pages.
      */
-    public function remove_agency_meta_box() {
+    public function remove_agency_meta_box()
+    {
         foreach ($this->object_types as $object) {
             remove_meta_box('agencydiv', $object, 'normal');
         }
@@ -279,7 +285,8 @@ class Agency extends Taxonomy {
      *
      * @return array
      */
-    public function restrict_edit_post_to_current_agency($caps, $cap, $user_id, $args) {
+    public function restrict_edit_post_to_current_agency($caps, $cap, $user_id, $args)
+    {
         $filter_caps = [
             'edit_post',
             'delete_post',
@@ -305,7 +312,8 @@ class Agency extends Taxonomy {
         return $caps;
     }
 
-    public function add_opt_in_out_quick_actions($actions, $post) {
+    public function add_opt_in_out_quick_actions($actions, $post)
+    {
         $is_opted_in = Agency_Editor::is_post_opted_in($post->ID);
 
         if (is_null($is_opted_in) || // User cannot opt-in to this post.
@@ -328,17 +336,17 @@ class Agency extends Taxonomy {
         $url = wp_nonce_url($url, 'opt_in_out-post_' . $post->ID);
 
         if ($is_opted_in) {
-            $actions['opt_out'] = '<a href="' . $url . '" title="' . esc_attr__( 'Opt-out of this post' ) . '">' . _x( 'Opt-out', 'verb' ) . '</a>';
+            $actions['opt_out'] = '<a href="' . $url . '" title="' . esc_attr__('Opt-out of this post') . '">' . _x('Opt-out', 'verb') . '</a>';
         } else {
-            $actions['opt_in'] = '<a href="' . $url . '" title="' . esc_attr__( 'Opt-in to this post' ) . '">' . _x( 'Opt-in', 'verb' ) . '</a>';
+            $actions['opt_in'] = '<a href="' . $url . '" title="' . esc_attr__('Opt-in to this post') . '">' . _x('Opt-in', 'verb') . '</a>';
         }
 
         return $actions;
     }
 
-    public function quick_action_opt_in_out() {
-        if (
-            !isset($_GET['action']) ||
+    public function quick_action_opt_in_out()
+    {
+        if (!isset($_GET['action']) ||
             !in_array($_GET['action'], array('opt-in', 'opt-out')) ||
             !isset($_GET['post'])
         ) {
@@ -347,8 +355,7 @@ class Agency extends Taxonomy {
 
         $post_id = $_GET['post'];
 
-        if (
-            !isset($_GET['_wpnonce']) ||
+        if (!isset($_GET['_wpnonce']) ||
             !wp_verify_nonce($_GET['_wpnonce'], 'opt_in_out-post_' . $post_id)
         ) {
             wp_die('Missing or invalid nonce.');
@@ -368,8 +375,7 @@ class Agency extends Taxonomy {
 
             if ($action == 'opt-in') {
                 $terms[] = $agency;
-            }
-            else {
+            } else {
                 if (($key = array_search($agency, $terms)) !== false) {
                     unset($terms[$key]);
                 }

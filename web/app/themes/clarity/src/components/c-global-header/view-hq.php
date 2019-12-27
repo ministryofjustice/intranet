@@ -3,4 +3,3 @@
   $agency_title     = 'HQ';
   $agency_shortcode = 'hq';
   require_once 'base-header.php';
-

@@ -2,11 +2,10 @@
 
 namespace MOJ_Intranet\Taxonomies;
 
-
 use Region_Context;
 
-
-class Region extends Taxonomy {
+class Region extends Taxonomy
+{
     protected $name = 'region';
 
     protected $object_types = array(
@@ -52,7 +51,8 @@ class Region extends Taxonomy {
 
     );
 
-    public function __construct() {
+    public function __construct()
+    {
 
         parent::__construct();
 
@@ -60,7 +60,7 @@ class Region extends Taxonomy {
         $region = get_user_meta($user_id, 'agency_context', true);
 
         // Region taxonomy only apply to HMCTS
-        if ( current_user_can('create_users' ) && ( $region == 'hmcts' ) ) {
+        if (current_user_can('create_users') && ( $region == 'hmcts' )) {
             add_action('admin_menu', array($this, 'add_admin_menu_item'));
 
             add_action('show_user_profile', array($this, 'edit_user_profile'), 9);
@@ -86,13 +86,11 @@ class Region extends Taxonomy {
 
             // Capabilities
             add_action('map_meta_cap', array($this, 'restrict_edit_post_to_current_region'), 10, 4);
-
         }
-
-
     }
 
-    public function add_admin_menu_item() {
+    public function add_admin_menu_item()
+    {
         add_submenu_page('users.php', 'Regions', 'Regions', 'administrator', 'edit-tags.php?taxonomy=region&post_type=user');
     }
 
@@ -102,13 +100,13 @@ class Region extends Taxonomy {
      *
      * @param object $user The user object currently being edited.
      */
-    public function edit_user_profile($user) {
+    public function edit_user_profile($user)
+    {
         $terms = get_terms($this->name, array(
             'hide_empty' => false,
         ));
 
-        if (
-            is_string($user) &&
+        if (is_string($user) &&
             in_array($user, array('add-existing-user', 'add-new-user'))
         ) {
             $user = false;
@@ -130,7 +128,6 @@ class Region extends Taxonomy {
 
                     // If there are any region terms, loop through them and display checkboxes.
                     if (!empty($terms)) {
-
                         foreach ($terms as $term) { ?>
                             <input type="checkbox" name="region[]" id="region-<?php echo esc_attr($term->slug); ?>"
                                    value="<?php echo esc_attr($term->slug); ?>" <?php $user && checked(true, is_object_in_term($user->ID, 'region', $term->slug)); ?> />
@@ -157,7 +154,8 @@ class Region extends Taxonomy {
      *
      * @param int $user_id The ID of the user to save the terms for.
      */
-    public function edit_user_profile_save($user_id) {
+    public function edit_user_profile_save($user_id)
+    {
         $regions = $_POST['region'];
         if (!is_array($regions)) {
             $regions = array();
@@ -174,7 +172,8 @@ class Region extends Taxonomy {
      * Remove region meta box from post edit pages.
      */
 
-    public function remove_region_meta_box() {
+    public function remove_region_meta_box()
+    {
         foreach ($this->object_types as $object) {
             remove_meta_box('regiondiv', $object, 'side');
         }
@@ -187,7 +186,8 @@ class Region extends Taxonomy {
      * @param \WP_Query $query
      * @return mixed
      */
-    public function filter_posts_by_region(\WP_Query $query) {
+    public function filter_posts_by_region(\WP_Query $query)
+    {
         global $typenow, $pagenow;
 
         $is_correct_post_type = in_array($typenow, $this->object_types);
@@ -210,10 +210,10 @@ class Region extends Taxonomy {
      * On save of post set the region of the content to the current region context
      * @param int $post_id
      */
-    public function set_region_terms_on_save_post($post_id) {
+    public function set_region_terms_on_save_post($post_id)
+    {
         $post_type = get_post_type($post_id);
-        if (
-            !in_array($post_type, $this->object_types) ||
+        if (!in_array($post_type, $this->object_types) ||
             !Region_Context::current_user_can_have_context()
         ) {
             return;
@@ -238,7 +238,8 @@ class Region extends Taxonomy {
      *
      * @return array
      */
-    public function restrict_edit_post_to_current_region($caps, $cap, $user_id, $args) {
+    public function restrict_edit_post_to_current_region($caps, $cap, $user_id, $args)
+    {
         $filter_caps = [
             'edit_regional_page',
             'delete_regional_page',

@@ -3,7 +3,8 @@
 // Added to extend allowed file types in Media upload
 add_filter('upload_mimes', 'custom_upload_mimes');
 
-function custom_upload_mimes ( $existing_mimes=array() ) {
+function custom_upload_mimes($existing_mimes = array())
+{
     
     $existing_mimes['png'] = 'image/png';
     $existing_mimes['jpeg'] = 'image/jpeg';
@@ -32,10 +33,10 @@ function custom_upload_mimes ( $existing_mimes=array() ) {
     $existing_mimes['pot'] = 'application/vnd.ms-powerpoint';
     $existing_mimes['pps'] = 'application/vnd.ms-powerpoint';
     $existing_mimes['ppa'] = 'application/vnd.ms-powerpoint';
-    $existing_mimes['pptx'] = 'application/vnd.openxmlformats-officedocument.presentationml.presentation';   
-    $existing_mimes['potx'] = 'application/vnd.openxmlformats-officedocument.presentationml.template'; 
-    $existing_mimes['ppsx'] = 'application/vnd.openxmlformats-officedocument.presentationml.slideshow'; 
-    $existing_mimes['ppam'] = 'application/vnd.ms-powerpoint.addin.macroEnabled.12'; 
+    $existing_mimes['pptx'] = 'application/vnd.openxmlformats-officedocument.presentationml.presentation';
+    $existing_mimes['potx'] = 'application/vnd.openxmlformats-officedocument.presentationml.template';
+    $existing_mimes['ppsx'] = 'application/vnd.openxmlformats-officedocument.presentationml.slideshow';
+    $existing_mimes['ppam'] = 'application/vnd.ms-powerpoint.addin.macroEnabled.12';
     $existing_mimes['pptm'] = 'application/vnd.ms-powerpoint.presentation.macroEnabled.12';
     $existing_mimes['potm'] = 'application/vnd.ms-powerpoint.presentation.macroEnabled.12';
     $existing_mimes['ppsm'] = 'application/vnd.ms-powerpoint.slideshow.macroEnabled.12';
@@ -45,30 +46,31 @@ function custom_upload_mimes ( $existing_mimes=array() ) {
 }
 
 // Set documents uploaded via WP Document Revisions to be public by default
-add_filter( 'document_to_private', 'dont_make_private', 10, 2);
+add_filter('document_to_private', 'dont_make_private', 10, 2);
 
-function dont_make_private($post, $post_pre ){
-	return $post_pre;
+function dont_make_private($post, $post_pre)
+{
+    return $post_pre;
 }
 
-add_filter('media_row_actions','hide_media_view_link', 10, 2);
+add_filter('media_row_actions', 'hide_media_view_link', 10, 2);
 
-function hide_media_view_link($actions, $post){
+function hide_media_view_link($actions, $post)
+{
     unset($actions['view']);
     return $actions;
 }
 
-add_filter( 'wp_check_filetype_and_ext', 'moj_disable_real_mime_check', 10, 4 );
+add_filter('wp_check_filetype_and_ext', 'moj_disable_real_mime_check', 10, 4);
 
 //Disable the real mime check to avoid conflicts with mimetypes reported by PHP and extension
-function moj_disable_real_mime_check( $data, $file, $filename, $mimes ) {
-    $wp_filetype = wp_check_filetype( $filename, $mimes );
+function moj_disable_real_mime_check($data, $file, $filename, $mimes)
+{
+    $wp_filetype = wp_check_filetype($filename, $mimes);
 
     $ext = $wp_filetype['ext'];
     $type = $wp_filetype['type'];
     $proper_filename = $data['proper_filename'];
 
-    return compact( 'ext', 'type', 'proper_filename' );
+    return compact('ext', 'type', 'proper_filename');
 }
-
-

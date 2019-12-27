@@ -1,7 +1,7 @@
 <!-- c-campaign-colour starts here -->
 <?php
-$campaign_colour = get_field( 'dw_campaign_colour' );
-$excerpt         = get_field( 'dw_excerpt' );
+$campaign_colour = get_field('dw_campaign_colour');
+$excerpt         = get_field('dw_excerpt');
 ?>
 
 <style>

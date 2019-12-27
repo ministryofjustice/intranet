@@ -1,14 +1,14 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die();
+if (! defined('ABSPATH')) {
+    die();
 }
 
 // If start date and end date seleced are the same, just display first date.
-if ( $start_date === $end_date ) {
-	$multidate = date( 'd M', strtotime( $start_date ) );
+if ($start_date === $end_date) {
+    $multidate = date('d M', strtotime($start_date));
 } else {
-	$multidate = date( 'd M', strtotime( $start_date ) ) . ' - ' . date( 'd M', strtotime( $end_date ) );
+    $multidate = date('d M', strtotime($start_date)) . ' - ' . date('d M', strtotime($end_date));
 }
 ?>
 

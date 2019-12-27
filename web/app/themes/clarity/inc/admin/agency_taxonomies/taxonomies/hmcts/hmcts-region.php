@@ -4,7 +4,8 @@ namespace MOJ_Intranet\Taxonomies;
 
 use Agency_Context;
 
-class HMCTS_Region extends Agency_Taxonomy {
+class HMCTS_Region extends Agency_Taxonomy
+{
     protected $name = 'hmcts_region';
 
     protected $agency = 'hmcts';

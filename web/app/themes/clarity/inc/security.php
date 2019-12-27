@@ -17,7 +17,8 @@ add_filter('redirect_canonical', 'no_redirect_on_404');
 add_filter('xmlrpc_enabled', '__return_false');
 
 // Disable pingbacls
-function remove_x_pingback($headers) {
+function remove_x_pingback($headers)
+{
     unset($headers['X-Pingback']);
     return $headers;
 }
@@ -42,8 +43,8 @@ function acme_autocomplete_login_form()
 add_action('login_form', 'acme_autocomplete_login_form');
 
 // Force logout after x hours
-function control_login_period( $expirein ) {
-  return 180 * DAY_IN_SECONDS; // Cookies set to expire in 180 days.
+function control_login_period($expirein)
+{
+    return 180 * DAY_IN_SECONDS; // Cookies set to expire in 180 days.
 }
-add_filter( 'auth_cookie_expiration', 'control_login_period' );
-
+add_filter('auth_cookie_expiration', 'control_login_period');
