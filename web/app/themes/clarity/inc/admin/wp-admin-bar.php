@@ -40,7 +40,7 @@ function agency_context_switcher_menu($wp_admin_bar)
             'parent' => 'top-secondary',
             'id'     => 'perm',
             'title'  => 'Permission group: ' . $role . ', ' . $agency_role,
-            'href'   => '/wp-admin/profile.php?page=permissions-dashboard',
+            'href'   => site_url() . '/wp-admin/profile.php?page=permissions-dashboard',
         )
     );
 

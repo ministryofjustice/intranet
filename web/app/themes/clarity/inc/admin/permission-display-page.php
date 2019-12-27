@@ -17,7 +17,15 @@ add_action('admin_menu', 'clarity_add_permissions_dashboard');
 function clarity_add_permissions_dashboard()
 {
 
-    add_submenu_page('profile.php', 'Permissions', 'Your Account Access and Permissions', 'read', 'permissions-dashboard', 'clarity_permissions_dashboard');
+    add_submenu_page(
+        'profile.php',
+        'Permissions',
+        'Your Account Access and Permissions',
+        'read',
+        'permissions-dashboard',
+        'clarity_permissions_dashboard',
+        10
+    );
 }
 
 /**
@@ -33,7 +41,6 @@ function clarity_permissions_dashboard()
     $roles             = $current_user->roles;
     $role              = array_shift($roles);
     $user_login_record = get_user_meta($current_user->ID, 'user_login_record', false);
-    $last_logged_in    = $user_login_record ? $user_login_record[ count($user_login_record) - 2 ] : 'No login history recorded.';
     $user_data         = get_userdata(get_current_user_id());
 
     $context  = Agency_Context::get_agency_context();
@@ -57,12 +64,6 @@ function clarity_permissions_dashboard()
     foreach ($agencies as $agency) {
         echo '<div style=" display: inline; ">' . sanitize_text_field($agency) . ', ' . '</div>';
     }
-    echo '<br>';
-    echo '<br>';
-
-    // Access record
-    echo '<h2>Access record: </h2>';
-    echo 'Last logged in: ' . sanitize_text_field($last_logged_in);
     echo '<br>';
     echo '<br>';
 
