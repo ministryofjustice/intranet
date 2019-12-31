@@ -1,37 +1,90 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <title>Website Temporarily Unavailable</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+<html lang="en" class="no-js">
 
-    <script>
-      window.dataLayer = [{
-        error_page: '503 Service Unavailable (Maintenance Mode)'
-      }];
-    </script>
-    <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-N2SCJMC');</script>
-    <!-- End Google Tag Manager -->
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <meta name="theme-color" content="<?php echo $agency_colour; ?>">
+  <meta name="agency" content="<?php echo $activeAgency['label']; ?>">
 
-    <link rel="stylesheet" href="/app/themes/ppj/dist/css/error-page.css" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Barlow:400,700" />
-  </head>
-  <body>
-    <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N2SCJMC"
-                      height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->
+  <title>Website temporarily unavailable | Intranet</title>
+  <link rel="stylesheet" href="/app/themes/clarity/dist/css/globals.css" />
+  <link rel="stylesheet" href="/app/themes/clarity/dist/css/style.css" />
 
-    <article>
-      <h1>Website temporarily unavailable</h1>
+</head>
+
+<!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-P545JM" height="0" width="0"
+    style="display:none;visibility:hidden"></iframe></noscript>
+<script>
+  (function (w, d, s, l, i) {
+    w[l] = w[l] || [];
+    w[l].push({
+      'gtm.start': new Date().getTime(),
+      event: 'gtm.js'
+    });
+    var f = d.getElementsByTagName(s)[0],
+      j = d.createElement(s),
+      dl = l != 'dataLayer' ? '&l=' + l : '';
+    j.async = true;
+    j.src =
+      '//www.googletagmanager.com/gtm.js?id=' + i + dl;
+    f.parentNode.insertBefore(j, f);
+  })(window, document, 'script', 'dataLayer', 'GTM-P545JM');
+
+</script>
+<!-- End Google Tag Manager -->
+
+<body>
+  <a class="u-skip-link" href="#maincontent">Skip to main content</a>
+
+
+  <section class="c-logo-bar">
+    <div class="u-wrapper">
+
+      <div class="u-wrapper__stack--left">
+        <a href="/" rel="home">
+          <img src="/app/themes/clarity/dist/images/moj_logo.png" alt="MoJ Logo">
+          <span class="agency-title l-half-section">Ministry of Justice intranet</span>
+        </a>
+      </div>
+
+      <div class="u-wrapper__stack--right">
+        <a href="/agency-switcher" class="c-logo-bar__switch">Switch to other intranet</a>
+      </div>
+
+    </div>
+    </div>
+  </section>
+
+  <!-- Website temporarily unavailable page starts here -->
+
+  <div class="u-wrapper l-main t-page-error">
+    <section class="c-rich-text-block c-page-error">
+      <h1 class="o-title o-title--page">Website temporarily unavailable</h1>
       <p>Sorry – this website is temporarily unavailable while we perform essential maintenance.</p>
       <p>We’ll be back soon.</p>
-      <p>In the meantime, you can find <a href="https://justicejobs.tal.net/vx/lang-en-GB/mobile-0/appcentre-1/brand-2/xf-a5f8e63220f3/candidate/jobboard/vacancy/3/adv/?ftq=prison+officer" target="_blank">prison officer jobs on the Justice Jobs website</a>.</p>
-    </article>
-  </body>
+      <p>For urgent inquiries contact,</p>
+      <a href="mailto:intranet@justice.gov.uk">intranet@justice.gov.uk</a>
+    </section>
+
+    <footer class="c-footer">
+      <div class="u-wrapper">
+        <div class="l-primary"></div>
+        <div class="l-secondary c-copyright">
+          <div class="c-copyright-notice">
+            <img src="/app/themes/clarity/dist/images/crown_copyright_logo.png" alt="crown copyright logo">
+            <br>
+            <span>&copy; Crown copyright</span>
+          </div>
+        </div>
+
+      </div>
+    </footer>
+
+  </div>
+  <!-- Website temporarily unavailable page ends here -->
+
+</body>
+
 </html>
