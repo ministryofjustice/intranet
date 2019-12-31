@@ -4,94 +4,90 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-  <meta name="theme-color" content="<?php echo $agency_colour; ?>">
-  <meta name="agency" content="<?php echo $activeAgency['label']; ?>">
 
   <title>Intranet - 404</title>
-  <link rel="stylesheet" href="/app/themes/clarity/dist/css/globals.css" />
-  <link rel="stylesheet" href="/app/themes/clarity/dist/css/style.css" />
+  <link rel="stylesheet" href="/app/themes/clarity/dist/css/globals.css"/>
+  <link rel="stylesheet" href="/app/themes/clarity/dist/css/style.css"/>
+
+  <!-- Google Tag Manager -->
+  <script>
+    (function (w, d, s, l, i) {
+      w[l] = w[l] || []
+      w[l].push({
+        'gtm.start': new Date().getTime(),
+        event: 'gtm.js'
+      })
+      var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s),
+        dl = l != 'dataLayer' ? '&l=' + l : ''
+      j.async = true
+      j.src =
+        '//www.googletagmanager.com/gtm.js?id=' + i + dl
+      f.parentNode.insertBefore(j, f)
+    })(window, document, 'script', 'dataLayer', 'GTM-P545JM')
+
+  </script>
+  <!-- End Google Tag Manager -->
 
 </head>
 
-<!-- Google Tag Manager -->
-<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-P545JM" height="0" width="0"
-    style="display:none;visibility:hidden"></iframe></noscript>
-<script>
-  (function (w, d, s, l, i) {
-    w[l] = w[l] || [];
-    w[l].push({
-      'gtm.start': new Date().getTime(),
-      event: 'gtm.js'
-    });
-    var f = d.getElementsByTagName(s)[0],
-      j = d.createElement(s),
-      dl = l != 'dataLayer' ? '&l=' + l : '';
-    j.async = true;
-    j.src =
-      '//www.googletagmanager.com/gtm.js?id=' + i + dl;
-    f.parentNode.insertBefore(j, f);
-  })(window, document, 'script', 'dataLayer', 'GTM-P545JM');
-
-</script>
-<!-- End Google Tag Manager -->
-
 <body>
-  <a class="u-skip-link" href="#maincontent">Skip to main content</a>
+<noscript>
+  <iframe src="//www.googletagmanager.com/ns.html?id=GTM-P545JM" height="0" width="0"
+          style="display:none;visibility:hidden"></iframe>
+</noscript>
+<header class="c-logo-bar">
+  <div class="u-wrapper">
 
-
-  <section class="c-logo-bar">
-    <div class="u-wrapper">
-
-      <div class="u-wrapper__stack--left">
-        <a href="/" rel="home">
-          <img src="/app/themes/clarity/dist/images/moj_logo.png" alt="MoJ Logo">
-          <span class="agency-title l-half-section">Ministry of Justice intranet</span>
-        </a>
-      </div>
-
-      <div class="u-wrapper__stack--right">
-        <a href="/agency-switcher" class="c-logo-bar__switch">Switch to other intranet</a>
-      </div>
-
+    <div class="u-wrapper__stack--left">
+      <a href="/" rel="home">
+        <img src="/app/themes/clarity/dist/images/moj_logo.png" alt="MoJ Logo">
+        <span class="agency-title l-half-section">Ministry of Justice intranet</span>
+      </a>
     </div>
+
+    <div class="u-wrapper__stack--right">
+      <a href="/agency-switcher" class="c-logo-bar__switch">Switch to other intranet</a>
     </div>
-  </section>
-
-  <!-- 404 HMTL error page starts here -->
-
-  <div class="u-wrapper l-main t-page-error">
-    <section class="c-rich-text-block c-page-error">
-      <h1 class="o-title o-title--page">Page not found</h1>
-      <p>Page not found - 404</p>
-      <h3 class="o-title o-title--section">Try</h3>
-      <ul>
-        <li>Checking that there are no typos in the page address.</li>
-        <li>You can also use the intranet search or <a href="/">browse from the homepage</a> to find the
-          information you need.</li>
-        <li>If you've reached this page by clicking on a link or file, it is likely that the item has been moved or
-          deleted. Contact the intranet editor team to let them know they've got a broken link, <a
-            href="mailto:intranet@justice.gov.uk">intranet@justice.gov.uk</a> and see if they can help you find what you
-          were looking for.</li>
-        <li>Retry your search using alternative words in case the document or page has been moved or renamed.</li>
-      </ul>
-    </section>
-
-    <footer class="c-footer">
-      <div class="u-wrapper">
-        <div class="l-primary"></div>
-        <div class="l-secondary c-copyright">
-          <div class="c-copyright-notice">
-            <img src="/app/themes/clarity/dist/images/crown_copyright_logo.png" alt="crown copyright logo">
-            <br>
-            <span>&copy; Crown copyright</span>
-          </div>
-        </div>
-
-      </div>
-    </footer>
 
   </div>
-  <!-- 404 HMTL error page ends here -->
+</header>
+
+<!-- 404 HMTL error page starts here -->
+
+<div class="u-wrapper l-main t-page-error">
+  <section class="c-rich-text-block c-page-error">
+    <h1 class="o-title o-title--page">Page not found</h1>
+    <p>Page not found - 404</p>
+    <h3 class="o-title o-title--section">Try</h3>
+    <ul>
+      <li>Checking that there are no typos in the page address.</li>
+      <li>You can also use the intranet search or <a href="/">browse from the homepage</a> to find the
+        information you need.
+      </li>
+      <li>If you've reached this page by clicking on a link or file, it is likely that the item has been moved or
+        deleted. Contact the intranet editor team to let them know they've got a broken link, <a
+          href="mailto:intranet@justice.gov.uk">intranet@justice.gov.uk</a> and see if they can help you find what you
+        were looking for.
+      </li>
+      <li>Retry your search using alternative words in case the document or page has been moved or renamed.</li>
+    </ul>
+  </section>
+</div>
+<footer class="c-footer">
+  <div class="u-wrapper">
+    <div class="l-primary"></div>
+    <div class="l-secondary c-copyright">
+      <div class="c-copyright-notice">
+        <img src="/app/themes/clarity/dist/images/crown_copyright_logo.png" alt="crown copyright logo">
+        <br>
+        <span>&copy; Crown copyright</span>
+      </div>
+    </div>
+
+  </div>
+</footer>
+<!-- 404 HMTL error page ends here -->
 
 </body>
 

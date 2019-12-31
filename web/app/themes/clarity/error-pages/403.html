@@ -1,19 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" class="no-js">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
 
-  <title>Website temporarily unavailable | Intranet</title>
+  <title>Intranet - 403</title>
   <link rel="stylesheet" href="/app/themes/clarity/dist/css/globals.css"/>
   <link rel="stylesheet" href="/app/themes/clarity/dist/css/style.css"/>
 
   <!-- Google Tag Manager -->
-  <noscript>
-    <iframe src="//www.googletagmanager.com/ns.html?id=GTM-P545JM" height="0" width="0"
-            style="display:none;visibility:hidden"></iframe>
-  </noscript>
   <script>
     (function (w, d, s, l, i) {
       w[l] = w[l] || []
@@ -32,10 +27,13 @@
 
   </script>
   <!-- End Google Tag Manager -->
-
 </head>
 
 <body>
+<noscript>
+  <iframe src="//www.googletagmanager.com/ns.html?id=GTM-P545JM" height="0" width="0"
+          style="display:none;visibility:hidden"></iframe>
+</noscript>
 <header class="c-logo-bar">
   <div class="u-wrapper">
 
@@ -47,24 +45,32 @@
     </div>
 
     <div class="u-wrapper__stack--right">
-      <a href="/agency-switcher" class="c-logo-bar__switch">Switch to other intranet</a>
+      &nbsp;
     </div>
 
   </div>
 </header>
 
-<!-- Website temporarily unavailable page starts here -->
+<!-- 403 HMTL error page starts here -->
 
 <div class="u-wrapper l-main t-page-error">
-  <section class="c-rich-text-block c-page-error">
-    <h1 class="o-title o-title--page">Website temporarily unavailable</h1>
-    <p>Sorry – this website is temporarily unavailable while we perform essential maintenance.</p>
-    <p>We’ll be back soon.</p>
-    <p>For urgent inquiries contact,</p>
-    <a href="mailto:intranet@justice.gov.uk">intranet@justice.gov.uk</a>
-  </section>
-</div>
 
+  <section class="c-rich-text-block c-page-error">
+    <h1 class="o-title o-title--page" style="font-size: 2em;font-weight: 700;">You are accessing the intranet from
+      outside the MoJ network.</h1>
+    <p>Forbidden - 403</p>
+    <h3>Please access from:</h3>
+    <ul>
+      <li>Within the network, at an office or commuter hub,</li>
+      <li>Or from home, using VPN access.</li>
+    </ul>
+    <p></p>
+    <p>For further information about VPN access, contact your department service desk for more info.</p>
+    <p>If you feel that you have reached this page in error, please email <a
+      href="mailto:intranet-support@digital.justice.gov.uk">intranet-support@digital.justice.gov.uk</a>.</p>
+  </section>
+
+</div>
 <footer class="c-footer">
   <div class="u-wrapper">
     <div class="l-primary"></div>
@@ -78,7 +84,7 @@
 
   </div>
 </footer>
-<!-- Website temporarily unavailable page ends here -->
+<!-- 403 HMTL error page ends here -->
 
 </body>
 
