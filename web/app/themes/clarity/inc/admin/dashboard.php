@@ -40,6 +40,6 @@ function help_editors_dashboard_widget_function()
 {
      // Display whatever it is you want to show.
     echo '
-  Guidance for editing the MoJ intranet wiki is at <br><a href="https://intranet.justice.gov.uk/guidance/it-services/editing-the-intranet">https://intranet.justice.gov.uk/guidance/it-services/editing-the-intranet</a><br><br>To catch up with the latest developments and for further discussion around editing on the MoJ intranet, join the editor community Slack channel at <a href="https://mojdt.slack.com/messages/C9XUZU0J3/team/U57TUHZ5W/">#intranet-editors.</a> <br><br> Technical issues with this platform can be emailed to <br><a href="mailto:intranet-support@digital.justice.gov.uk">intranet-support@digital.justice.gov.uk</a>
+  Guidance for editing the MoJ intranet wiki is at <br><a href="https://intranet.justice.gov.uk/guidance/it-services/editing-the-intranet">https://intranet.justice.gov.uk/guidance/it-services/editing-the-intranet</a><br><br>To catch up with the latest developments and for further discussion around editing on the MoJ intranet, join the editor community Slack channel at <a href="https://mojdt.slack.com/messages/C9XUZU0J3/team/U57TUHZ5W/">#intranet-editors.</a>
   ';
 }
