@@ -1,4 +1,4 @@
-jQuery(function ($) {
+;(function ($) {
   $('.colour_check input').each(function () {
     checkContrast($(this))
   })
@@ -50,4 +50,4 @@ jQuery(function ($) {
       input.parents('.acf-input').children('.contrast_valid_message').hide()
     }
   }
-})
+})(jQuery)
