@@ -21,6 +21,19 @@ get_header(); ?>
 
   <h1 class="o-title o-title--page"><?php the_title(); ?></h1>
 
+    <?php
+    $excerpt = get_field('dw_excerpt');
+
+    if (strlen($excerpt) > 0) {
+        ?>
+        <section class="c-article-excerpt">
+            <p><?php echo $excerpt; ?></p>
+
+        </section>
+        <?php
+    }
+    ?>
+
   <div class="l-secondary">
     <?php
     get_template_part('src/components/c-left-hand-menu/view');
