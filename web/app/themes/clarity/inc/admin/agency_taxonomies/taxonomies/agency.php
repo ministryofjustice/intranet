@@ -124,7 +124,8 @@ class Agency extends Taxonomy
             'hide_empty' => false,
         ));
 
-        if (is_string($user) &&
+        if (
+            is_string($user) &&
             in_array($user, array('add-existing-user', 'add-new-user'))
         ) {
             $user = false;
@@ -133,9 +134,9 @@ class Agency extends Taxonomy
         // False = a new user is being setup with no ID yet
         if ($user !== false) {
 
-            /** 
-             * If it is your own profile you're editing, make sure the ratio box reflects your agency. 
-            * This is for legacy situations as editors used to have multiple checkboxes selected. 
+            /**
+             * If it is your own profile you're editing, make sure the ratio box reflects your agency.
+            * This is for legacy situations as editors used to have multiple checkboxes selected.
             */
 
             $userProfileBeingEditedID = $user->ID;
@@ -144,30 +145,30 @@ class Agency extends Taxonomy
             if ($userProfileBeingEditedID === $currentEditorID) {
                 $context = Agency_Context::get_agency_context();
                 wp_set_object_terms($user->ID, $context, 'agency', false);
-                clean_object_term_cache($user->ID,'agency');
+                clean_object_term_cache($user->ID, 'agency');
             }
-        }
-;
+        };
+        
         ?>
 
         <h3><?php _e('Agencies'); ?></h3>
 
         <table class="form-table">
-
             <tr>
                 <th><label for="agency"><?php _e('Set your default agency'); ?></label></th>
-
                 <td>
                     <p class="description">Determines which agency posts you're able to view and edit by default when you log in.</p>
+                    
                     <?php
 
                     // If there are any agency terms, loop through them and display checkboxes.
                     if (!empty($terms)) {
                         foreach ($terms as $term) { ?>
-                            <input type="radio" name="agency[]" id="agency-<?php echo esc_attr($term->slug); ?>"
-                                   value="<?php echo esc_attr($term->slug); ?>" <?php $user && checked(true, is_object_in_term($user->ID, 'agency', $term->slug)); ?> />
-                            <label for="agency-<?php echo esc_attr($term->slug); ?>"><?php echo $term->name; ?></label>
-                            <br/>
+                    <input type="radio" name="agency[]" id="agency-<?php echo esc_attr($term->slug); ?>"
+                        value="<?php echo esc_attr($term->slug); ?>"
+                            <?php $user && checked(true, is_object_in_term($user->ID, 'agency', $term->slug)); ?> />
+                    <label for="agency-<?php echo esc_attr($term->slug); ?>"><?php echo $term->name; ?></label>
+                    <br />
                         <?php }
                     } /* If there are no agency terms, display a message. */
                     else {
@@ -224,9 +225,6 @@ class Agency extends Taxonomy
         }
 
         $is_checked = ( isset($_GET['show-hq-posts']) && $_GET['show-hq-posts'] == '1' );
-        ?>
-     
-        <?php
     }
 
     /**
@@ -268,7 +266,8 @@ class Agency extends Taxonomy
     public function set_agency_terms_on_save_post($post_id)
     {
         $post_type = get_post_type($post_id);
-        if (!in_array($post_type, $this->object_types) ||
+        if (
+            !in_array($post_type, $this->object_types) ||
             !Agency_Context::current_user_can_have_context()
         ) {
             return;
@@ -335,7 +334,8 @@ class Agency extends Taxonomy
     {
         $is_opted_in = Agency_Editor::is_post_opted_in($post->ID);
 
-        if (is_null($is_opted_in) || // User cannot opt-in to this post.
+        if (
+            is_null($is_opted_in) || // User cannot opt-in to this post.
             $post->post_status !== 'publish' // The post is not published.
         ) {
             return $actions;
@@ -365,7 +365,8 @@ class Agency extends Taxonomy
 
     public function quick_action_opt_in_out()
     {
-        if (!isset($_GET['action']) ||
+        if (
+            !isset($_GET['action']) ||
             !in_array($_GET['action'], array('opt-in', 'opt-out')) ||
             !isset($_GET['post'])
         ) {
@@ -374,7 +375,8 @@ class Agency extends Taxonomy
 
         $post_id = $_GET['post'];
 
-        if (!isset($_GET['_wpnonce']) ||
+        if (
+            !isset($_GET['_wpnonce']) ||
             !wp_verify_nonce($_GET['_wpnonce'], 'opt_in_out-post_' . $post_id)
         ) {
             wp_die('Missing or invalid nonce.');
