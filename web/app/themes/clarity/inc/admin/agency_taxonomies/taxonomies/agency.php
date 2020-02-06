@@ -130,6 +130,24 @@ class Agency extends Taxonomy
             $user = false;
         }
 
+        // False = a new user is being setup with no ID yet
+        if ($user !== false) {
+
+            /** 
+             * If it is your own profile you're editing, make sure the ratio box reflects your agency. 
+            * This is for legacy situations as editors used to have multiple checkboxes selected. 
+            */
+
+            $userProfileBeingEditedID = $user->ID;
+            $currentEditorID = get_current_user_id();
+
+            if ($userProfileBeingEditedID === $currentEditorID) {
+                $context = Agency_Context::get_agency_context();
+                wp_set_object_terms($user->ID, $context, 'agency', false);
+                clean_object_term_cache($user->ID,'agency');
+            }
+        }
+;
         ?>
 
         <h3><?php _e('Agencies'); ?></h3>
@@ -137,17 +155,16 @@ class Agency extends Taxonomy
         <table class="form-table">
 
             <tr>
-                <th><label for="agency"><?php _e('Agencies for Editor'); ?></label></th>
+                <th><label for="agency"><?php _e('Set your default agency'); ?></label></th>
 
                 <td>
-                    <p class="description">Select agencies that this user is able to edit content for. Only applies to
-                        the Agency Editor role.</p>
+                    <p class="description">Determines which agency posts you're able to view and edit by default when you log in.</p>
                     <?php
 
                     // If there are any agency terms, loop through them and display checkboxes.
                     if (!empty($terms)) {
                         foreach ($terms as $term) { ?>
-                            <input type="checkbox" name="agency[]" id="agency-<?php echo esc_attr($term->slug); ?>"
+                            <input type="radio" name="agency[]" id="agency-<?php echo esc_attr($term->slug); ?>"
                                    value="<?php echo esc_attr($term->slug); ?>" <?php $user && checked(true, is_object_in_term($user->ID, 'agency', $term->slug)); ?> />
                             <label for="agency-<?php echo esc_attr($term->slug); ?>"><?php echo $term->name; ?></label>
                             <br/>
@@ -175,15 +192,17 @@ class Agency extends Taxonomy
     public function edit_user_profile_save($user_id)
     {
 
-        $agencies = $_POST['agency'];
+        // Get the chosen agency value selected from the ratio button
+        $selectedAgency = isset($_POST['agency']) ? $_POST['agency'] : 'hq';
 
-        if (!is_array($agencies)) {
-            $agencies = array();
-        }
-        $agencies = array_map('sanitize_text_field', $agencies);
+        // Sanitize POST value and select chosen agency from array
+        $newAgency = sanitize_text_field(array_shift($selectedAgency));
 
-        /* Sets the terms for the user. */
-        wp_set_object_terms($user_id, $agencies, 'agency', false);
+        // Update the user's agency context
+        update_user_meta($user_id, 'agency_context', $newAgency);
+
+        // Set the terms for the user so their choice stays chosen in radio box
+        wp_set_object_terms($user_id, $newAgency, 'agency', false);
         clean_object_term_cache($user_id, 'agency');
     }
 
