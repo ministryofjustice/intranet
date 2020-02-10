@@ -151,6 +151,4 @@ There are several `make` commands configured in the `Makefile`. These are mostly
 
 ## Bedrock
 
-This project is based on Bedrock. Therefore, much of the Bedrock documentation will be applicable.
-
-Bedrock documentation is available at [https://roots.io/bedrock/docs/](https://roots.io/bedrock/docs/).
+This project is based on Bedrock. Therefore, much of the Bedrock documentation will be applicable. Bedrock documentation is available at [https://roots.io/bedrock/docs/](https://roots.io/bedrock/docs/).
