@@ -1,6 +1,6 @@
 {
     "key": "group_5e4bf0fe004b9",
-    "title": "Agency Wide Banner",
+    "title": "Bridges Update Banner",
     "fields": [
         {
             "key": "field_5e4cfb8adc6a4",
@@ -22,7 +22,7 @@
         },
         {
             "key": "field_5e4bf7798aa9d",
-            "label": "Enable Agency Wide Banner",
+            "label": "Enable Bridges Update Banner",
             "name": "enable_agency_wide_banner",
             "type": "true_false",
             "instructions": "",
@@ -99,5 +99,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1582103960
+    "modified": 1582127389
 }
