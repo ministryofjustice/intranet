@@ -47,9 +47,17 @@ function home_option_fields($field)
 {
     $screen = get_current_screen();
 
+    $agency_wide_fields = ['enable_agency_wide_banner', 'agency_wide_banner_text', 'agency_wide_banner_link'];
+
     if (isset($screen) && ( $screen->id == 'toplevel_page_homepage-settings' )) {
-        $context       = Agency_Context::get_agency_context();
-        $field['name'] = $context . '_' . $field['name'];
+
+        $context = Agency_Context::get_agency_context();
+
+        if(!in_array($field['name'], $agency_wide_fields)){
+            $field['name'] = $context . '_' . $field['name'];
+        }
+
+
     }
     return $field;
 }
@@ -135,3 +143,44 @@ function relationship_options_filter($args, $field, $the_post)
     return $args;
 }
 add_filter('acf/fields/post_object/query', 'relationship_options_filter', 10, 3);
+
+function dw_acf_rule_type_agency_context( $choices ) {
+    $choices['User']['agency_context'] = 'Current Agency Context';
+    return $choices;
+}
+add_filter( 'acf/location/rule_types', 'dw_acf_rule_type_agency_context' );
+
+function dw_acf_rule_values_agency_context( $choices ) {
+
+    $agencies = get_terms('agency', array(
+        'hide_empty' => false,
+    ));
+
+    foreach($agencies as $agency){
+        $choices[ $agency->slug ] = $agency->name;
+    }
+
+    return $choices;
+}
+add_filter( 'acf/location/rule_values/agency_context', 'dw_acf_rule_values_agency_context' );
+
+function dw_acf_rule_match_agency_context( $match, $rule, $options ) {
+
+    $context = Agency_Context::get_agency_context();
+    $match = false;
+
+    if ( '==' == $rule['operator'] ) {
+        if($context == $rule['value']){
+            $match = true;
+        }
+
+    } elseif ( '!=' == $rule['operator'] ) {
+        if($context != $rule['value']){
+            $match = true;
+        }
+    }
+
+    return $match;
+
+}
+add_filter( 'acf/location/rule_match/agency_context', 'dw_acf_rule_match_agency_context', 10, 3 );
