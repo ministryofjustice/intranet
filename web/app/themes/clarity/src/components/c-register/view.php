@@ -48,7 +48,7 @@ if (isset($_POST['task']) && $_POST['task'] == 'register') {
             $user_login     = $user->user_login;
             $rp_link        = '<a style="display:inline-block;padding:8px 15px 5px;background-color:#00823b;color:#ffffff;font-size:19px;font-family:Arial,sans-serif;line-height:25px;text-decoration:none;vertical-align:top" href="' . network_site_url("wp-login.php?action=rp&key=$rp_key&login=" . rawurlencode($user_login), 'login') . '"> Reset Password </a>';
 
-            $subject = 'You are now registrated on our site MoJ Intranet:';
+            $subject = 'You are now registered on the MoJ intranet:';
             $body    =
                 '<div style="background-color:black">
 						<p style="color:#fff">
