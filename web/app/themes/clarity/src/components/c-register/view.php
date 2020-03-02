@@ -48,7 +48,7 @@ if (isset($_POST['task']) && $_POST['task'] == 'register') {
             $user_login     = $user->user_login;
             $rp_link        = '<a style="display:inline-block;padding:8px 15px 5px;background-color:#00823b;color:#ffffff;font-size:19px;font-family:Arial,sans-serif;line-height:25px;text-decoration:none;vertical-align:top" href="' . network_site_url("wp-login.php?action=rp&key=$rp_key&login=" . rawurlencode($user_login), 'login') . '"> Reset Password </a>';
 
-            $subject = 'You are now registered on the MoJ intranet:';
+            $subject = 'You are now registered on the MoJ intranet';
             $body    =
                 '<div style="background-color:black">
 						<p style="color:#fff">
@@ -72,43 +72,46 @@ if (isset($_POST['task']) && $_POST['task'] == 'register') {
 
             wp_mail($to, $subject, $body, $headers);
 
-            $success = 'You\'re successfully register';
+            $success = 'You\'re successfully registered';
         }
     }
 }
 
 ?>
 <div class="c-register">
-    
+
     <!--display error/success message-->
-    
-        <?php
-        if (! empty($err)) :
-            echo '<div id="message" class="error">';
-            echo '<p>' . $err . '</p>';
-            echo '</div>';
-        endif;
+
+    <?php
+    if (! empty($err)) :
+        echo '<div id="message" class="error">';
+        echo '<p>' . $err . '</p>';
+        echo '</div>';
+    endif;
+    ?>
+
+    <?php
+    if (! empty($success)) :
         ?>
+    <div id="message" class="success">
+        <p><strong>Now check your email</strong></p>
+        <p>We're sending an email to <?php echo $email; ?>. This can take up to 5 minutes.</p>
 
+        <p>Open the email and click on the link. This will take you to the reset password page, where you would need to
+            finish the registration.</p>
+
+        <p><strong>Any problems?</strong></p>
+        <p>The email will be from <a href="mailto:wordpress@digital.justice.gov.uk"
+                target="_blank">wordpress@digital.justice.gov.uk</a>.<p>
+
+                <p[>If you can’t find it, check your junk folder then add the address to your safe list.
+            </p>
+
+            <p>Do not reply to the email.</p>
+    </div>
         <?php
-        if (! empty($success)) :
-            ?>
-                <div id="message" class="success">
-                    <p><strong>Now check your email</strong></p>
-                    <p>We're sending an email to <?php echo $email; ?>. This can take up to 5 minutes.</p>
-
-                    <p>Open the email and click on the link. This will take you to the reset password page, where you would need to finish the registration.</p>
-
-                    <p><strong>Any problems?</strong></p>
-                    <p>The email will be from <a href="mailto:intranet-support@digital.justice.gov.uk" target="_blank">intranet-support@digital.justice.gov.uk</a>.<p>
-
-                    <p[>If you can’t find it, check your junk folder then add the address to your safe list.</p>
-
-                    <p>Do not reply to the email.</p>
-                </div>
-                <?php
-        endif;
-        ?>
+    endif;
+    ?>
 
     <p>Fill in your details. We’ll then send you a link back to this page so you can start commenting.</p>
 
@@ -117,7 +120,7 @@ if (isset($_POST['task']) && $_POST['task'] == 'register') {
         <p><input type="text" value="" name="first_name" id="first_name" /></p>
         <p><label>Email address (will not be shown with your comment)</label></p>
         <p><input type="email" value="" name="email" id="email" /></p>
-        <button type="submit" name="btnregister" class="button" >Register</button>
+        <button type="submit" name="btnregister" class="button">Register</button>
         <input type="hidden" name="task" value="register" />
     </form>
 </div>
