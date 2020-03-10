@@ -47,7 +47,7 @@ function home_option_fields($field)
 {
     $screen = get_current_screen();
 
-    $agency_wide_fields = ['enable_agency_wide_banner', 'agency_wide_banner_text', 'agency_wide_banner_link'];
+    $agency_wide_fields = ['enable_agency_wide_banner', 'agency_wide_banner_title', 'agency_wide_banner_message', 'agency_wide_banner_type', 'agency_wide_banner_link'];
 
     if (isset($screen) && ( $screen->id == 'toplevel_page_homepage-settings' )) {
 

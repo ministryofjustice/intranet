@@ -1,6 +1,6 @@
 {
     "key": "group_5e4bf0fe004b9",
-    "title": "Bridges Update Banner",
+    "title": "Agency Wide Banner",
     "fields": [
         {
             "key": "field_5e4cfb8adc6a4",
@@ -22,7 +22,7 @@
         },
         {
             "key": "field_5e4bf7798aa9d",
-            "label": "Enable Bridges Update Banner",
+            "label": "Enable Agency Wide Banner",
             "name": "enable_agency_wide_banner",
             "type": "true_false",
             "instructions": "",
@@ -41,9 +41,36 @@
             "ui_off_text": ""
         },
         {
+            "key": "field_5e679e69d8eff",
+            "label": "Banner Type",
+            "name": "agency_wide_banner_type",
+            "type": "select",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "admin_only": 0,
+            "choices": {
+                "notice": "Service Update (orange)",
+                "emergency": "Emergency (red)",
+                "bridges": "Bridges Update (black)"
+            },
+            "default_value": [],
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "return_format": "value",
+            "ajax": 0,
+            "placeholder": ""
+        },
+        {
             "key": "field_5e4bf12d0281f",
-            "label": "Banner Text",
-            "name": "agency_wide_banner_text",
+            "label": "Banner Title",
+            "name": "agency_wide_banner_title",
             "type": "text",
             "instructions": "",
             "required": 0,
@@ -59,6 +86,26 @@
             "prepend": "",
             "append": "",
             "maxlength": ""
+        },
+        {
+            "key": "field_5e679e41d8efe",
+            "label": "Banner Message",
+            "name": "agency_wide_banner_message",
+            "type": "textarea",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "admin_only": 0,
+            "default_value": "",
+            "placeholder": "",
+            "maxlength": "",
+            "rows": "",
+            "new_lines": "wpautop"
         },
         {
             "key": "field_5e4bf15402820",
@@ -99,5 +146,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1582127389
+    "modified": 1583849809
 }
