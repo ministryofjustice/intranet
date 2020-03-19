@@ -3,21 +3,38 @@
 
 .c-agency-wide-banner {
 
+  padding: 30px;
+  color: #000;
+  background: #fff;
+  border: 3px solid #ffbf47;
+
+  h2 {
+    ff-title();
+    font-weight: 400;
+    font-size: $mantle;
+    margin-bottom: 20px;
+  }
+
+  a {
+    color: #005ea5;
+    font-weight: 700;
+    text-decoration: underline;
+  }
+
+  &.banner-type-emergency {
+    border: 3px solid #B10E1E;
+  }
+
+  &.banner-type-bridges {
     background: #000000;
     color: #FFFFFF;
-    padding: 30px;
+    border none;
 
-    h2 {
-        ff-title();
-        font-weight: 400;
-        font-size: $mantle;
-        margin-bottom: 20px;
+    a {
+      color: #FFFFFF;
+      font-weight normal;
+      text-decoration: none;
     }
 
-    .banner-link {
-      a {
-        color: #FFFFFF;
-        text-decoration: none;
-      }
-    }
+  }
 }
