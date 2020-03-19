@@ -1,4 +1,4 @@
-FROM mojdigital/wordpress-base:latest
+FROM ministryofjustice/wordpress-base:latest
 
 ADD . /bedrock
 
@@ -16,7 +16,8 @@ RUN sed -i 's/fastcgi_intercept_errors off;/fastcgi_intercept_errors on;/' /etc/
     mv docker/init/configure-maintenance-mode.sh /etc/my_init.d/ && \
     chmod +x /etc/my_init.d/configure-maintenance-mode.sh && \
     apt-get update && \
-    apt-get install -y libffi-dev newrelic-php5
+    apt-get install -y libffi-dev newrelic-php5 && \
+    rm -f /etc/my_init.d/configure-ip-whitelist.sh
 
 # Set execute bit permissions before running build scripts
 RUN chmod +x bin/* && sleep 1 && \
