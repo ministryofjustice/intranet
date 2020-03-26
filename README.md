@@ -20,43 +20,41 @@ https://intranet.justice.gov.uk/
 
 ## Getting Started
 
-1. Clone this repo to your local machine. Since you'll be using this as a starter for your project, you'll want to delete the `.git` directory.
+1. Clone this repo to your local machine and change directories.
     ```bash
     git clone git@github.com:ministryofjustice/intranet.git .
-    rm -rf .git
+    cd intranet/
     ```
 
-2. Create a `.env` file by copying from `.env.example`:
-    ```bash
-    cp .env.example .env
-    ```
-
-    Set the `SERVER_NAME` variable – it should be your project name, and must always end with `.docker`. This is the hostname that will be used for development on your local machine.
-
-3. Build the project locally. This will install composer dependencies on your local filesystem.
+2. Build the project locally. This will install composer dependencies on your local filesystem.
     ```bash
     make build
     ```
 
     If you experience any errors at this point, it may be due to being unable to access the private composer repository. [More details here](#private-composer-repository).
 
-4. Start the dory proxy, if it's not already running.
+3. Start the dory proxy, if it's not already running.
     ```bash
     dory up
     ```
 
     If you get an error message when trying to start dory, make sure you have docker running.
 
-5. Build and run the docker image.
+4. Build and run the docker image.
     ```bash
     make run
     ```
+5. Launch the website in your default browser.
+    ```bash
+    make launch
+    ```
 
-6. Once the docker image has built and is running, you should be able to access the running container by going to the hostname you specified in `.env` using your web browser.
+6. If this is a new install you may get a development replica by executing the WASM utility.
+    ```bash
+    wasm migrate intranet2:dev .
+    ```
 
-    You will need to run through the WordPress installation wizard in your browser.
-
-    The WordPress admin area will be accessible at `/wp/wp-admin`.
+   The WordPress admin area will be accessible at `/wp-admin`.
 
 ## Composer + WordPress plugins
 
@@ -141,13 +139,24 @@ This will load a webmail-like interface and display all emails that WordPress ha
 
 There are several `make` commands configured in the `Makefile`. These are mostly just convenience wrappers for longer or more complicated commands.
 
-| Command      | Descrption                                                                                                                                                                                           |
-| ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `make build` | Run the build script to install application dependencies and build theme assets. This will typically involve installing composer packages and compiling SASS stylesheets.                            |
-| `make clean` | Alias of `git clean -xdf`. Restore the git working copy to its original state. This will remove uncommitted changes and ignored files.                                                               |
-| `make run`   | Alias of `docker-compose up`. Launch the application locally using `docker-compose`.                                                                                                                 |
-| `make bash`  | Open a bash shell on the WordPress docker container. The [WP-CLI](https://wp-cli.org/) is accessible as `wp`. The application must already be running (e.g. via `make run`) before this can be used. |
-| `make test`  | Run tests on the application. Out of the box this will run PHP CodeSniffer (code linter).                                                                                                            |
+| Command             | Description                                                                                                                                                                                          |
+| ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `make build`        | Run the build script to install application dependencies and build theme assets. This will typically involve installing composer packages and compiling SASS stylesheets.                            |
+| `make clean`        | Alias of `git clean -xdf`. Restore the git working copy to its original state. This will remove uncommitted changes and ignored files.                                                               |
+| `make docker-clean` | Launches an assistive script to remove docker image caches and persistent data during development. Options: v = Clean volumes. vr = Clean volumes, rebuild and run. n =  Nuke all local Docker images|
+| `make run`          | Alias of `docker-compose up`. Launch the application locally using `docker-compose`.                                                                                                                 |
+| `make down`         | Alias of `docker-compose down`.                                                                                                                                                                      |
+| `make bash`         | Open a bash shell on the WordPress docker container. The [WP-CLI](https://wp-cli.org/) is accessible as `wp`. The application must already be running (e.g. via `make run`) before this can be used. |
+| `make launch`       | Checks if the intranet docker instance is running; if not, launch docker in the background and open the site in the systems default browser                                                          |
+| `make test`         | Run tests on the application. Out of the box this will run PHP CodeSniffer (code linter).                                                                                                            |
+| `make test-fixes`   | Fix issues found during `make test`                                                                                                                                                                  |
+
+## IP whitelisting
+
+The Intranet manages IP whitelisting in a different way to most other deployments. In March 2020 authentication via IdP
+was introduced to present access to the MoJ wider network and as a result, IP whitelists moved to AWS ALB listener rules.
+
+To help manage ALB rule creation 2 scripts are available in the JotW LastPass account.
 
 ## Bedrock
 

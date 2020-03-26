@@ -8,6 +8,7 @@ ARG COMPOSER_USER
 ARG COMPOSER_PASS
 
 # Add custom nginx config and init script
+# the last command in this run sequence removes the whitelist IP configuration file - see README for info
 RUN sed -i 's/fastcgi_intercept_errors off;/fastcgi_intercept_errors on;/' /etc/nginx/php-fpm.conf && \
     echo 'deb http://apt.newrelic.com/debian/ newrelic non-free' > /etc/apt/sources.list.d/newrelic.list && \
     curl -fsSL https://download.newrelic.com/548C16BF.gpg | apt-key add - && \
