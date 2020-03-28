@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "750ead3dfa9cd77a29717e8c4ebe23e4",
+    "content-hash": "7bf64318dbe1d7bf04a523686984dd28",
     "packages": [
         {
             "name": "acf/advanced-custom-fields-pro",
@@ -18,16 +18,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.133.45",
+            "version": "3.133.46",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "928a23e2ee7e195a66f93d0758895e26958c3b7d"
+                "reference": "98d359e61b365f3040ca61c66ae8883334cf5d74"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/928a23e2ee7e195a66f93d0758895e26958c3b7d",
-                "reference": "928a23e2ee7e195a66f93d0758895e26958c3b7d",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/98d359e61b365f3040ca61c66ae8883334cf5d74",
+                "reference": "98d359e61b365f3040ca61c66ae8883334cf5d74",
                 "shasum": ""
             },
             "require": {
@@ -98,7 +98,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2020-03-26T18:12:15+00:00"
+            "time": "2020-03-27T18:15:32+00:00"
         },
         {
             "name": "composer/installers",
@@ -825,17 +825,17 @@
         },
         {
             "name": "ministryofjustice/wp-rewrite-media-to-s3",
-            "version": "0.2.0",
+            "version": "0.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ministryofjustice/wp-rewrite-media-to-s3.git",
-                "reference": "a815ececc76ec1cb8916edcf73c4d859b7cdf8d4"
+                "reference": "10e9380f0e5f480d67c7a10fb50eeb738b21ba65"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.wp.dsd.io/dist/ministryofjustice/wp-rewrite-media-to-s3/ministryofjustice-wp-rewrite-media-to-s3-a815ececc76ec1cb8916edcf73c4d859b7cdf8d4-zip-5d2499.zip",
-                "reference": "a815ececc76ec1cb8916edcf73c4d859b7cdf8d4",
-                "shasum": "65611e6198875e0595b24a2ac49e1f174b66db78"
+                "url": "https://composer.wp.dsd.io/dist/ministryofjustice/wp-rewrite-media-to-s3/ministryofjustice-wp-rewrite-media-to-s3-10e9380f0e5f480d67c7a10fb50eeb738b21ba65-zip-fb1f2c.zip",
+                "reference": "10e9380f0e5f480d67c7a10fb50eeb738b21ba65",
+                "shasum": "23ce21d268cd1815563c8bed2d3aefae37217220"
             },
             "require": {
                 "composer/installers": "^1.0"
@@ -849,10 +849,10 @@
             ],
             "description": "A WordPress plugin which rewrites media attachment URLs to S3.",
             "support": {
-                "source": "https://github.com/ministryofjustice/wp-rewrite-media-to-s3/tree/0.2.0",
+                "source": "https://github.com/ministryofjustice/wp-rewrite-media-to-s3/tree/0.2.1",
                 "issues": "https://github.com/ministryofjustice/wp-rewrite-media-to-s3/issues"
             },
-            "time": "2020-03-27T16:00:43+00:00"
+            "time": "2020-03-28T17:35:10+00:00"
         },
         {
             "name": "mtdowling/jmespath.php",
@@ -1230,16 +1230,16 @@
         },
         {
             "name": "vlucas/phpdotenv",
-            "version": "v2.6.1",
+            "version": "v2.6.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vlucas/phpdotenv.git",
-                "reference": "2a7dcf7e3e02dc5e701004e51a6f304b713107d5"
+                "reference": "c4a653ed3f1ff900baa15b4130c8770b57285b62"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vlucas/phpdotenv/zipball/2a7dcf7e3e02dc5e701004e51a6f304b713107d5",
-                "reference": "2a7dcf7e3e02dc5e701004e51a6f304b713107d5",
+                "url": "https://api.github.com/repos/vlucas/phpdotenv/zipball/c4a653ed3f1ff900baa15b4130c8770b57285b62",
+                "reference": "c4a653ed3f1ff900baa15b4130c8770b57285b62",
                 "shasum": ""
             },
             "require": {
@@ -1247,7 +1247,13 @@
                 "symfony/polyfill-ctype": "^1.9"
             },
             "require-dev": {
+                "ext-filter": "*",
+                "ext-pcre": "*",
                 "phpunit/phpunit": "^4.8.35 || ^5.0"
+            },
+            "suggest": {
+                "ext-filter": "Required to use the boolean validator.",
+                "ext-pcre": "Required to use most of the library."
             },
             "type": "library",
             "extra": {
@@ -1277,7 +1283,7 @@
                 "env",
                 "environment"
             ],
-            "time": "2019-01-29T11:11:52+00:00"
+            "time": "2020-03-27T23:16:19+00:00"
         },
         {
             "name": "wpackagist-plugin/classic-editor",
