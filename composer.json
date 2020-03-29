@@ -1,114 +1,115 @@
 {
-  "name": "ministryofjustice/wp-template",
-  "type": "project",
-  "description": "A starter project for WordPress in MOJ using docker",
-  "config": {
-    "preferred-install": "dist"
-  },
-  "repositories": [
-    {
-      "type": "composer",
-      "url": "https://wpackagist.org"
+    "name": "ministryofjustice/wp-template",
+    "type": "project",
+    "description": "A starter project for WordPress in MOJ using docker",
+    "config": {
+        "preferred-install": "dist"
     },
-    {
-      "type": "composer",
-      "url": "https://composer.wp.dsd.io"
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://wpackagist.org"
+        },
+        {
+            "type": "composer",
+            "url": "https://composer.wp.dsd.io"
+        },
+        {
+            "type": "composer",
+            "url": "https://wp-languages.github.io"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/ministryofjustice/dw-document-revisions"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/ministryofjustice/dw-live-drafts"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/ministryofjustice/dw-markdown"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/ministryofjustice/like-button-for-wordpress"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/ministryofjustice/notify-for-wordpress"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/ministryofjustice/php-markdown-extra"
+        }
+    ],
+    "require": {
+        "php": ">=7.1",
+        "ext-json": "*",
+        "composer/installers": "^1.4",
+        "aws/aws-sdk-php": "^3.133",
+        "vlucas/phpdotenv": "^2.0.1",
+        "johnpbloch/wordpress": "*",
+        "koodimonni-language/core-en_gb": "*",
+        "oscarotero/env": "^1.1.0",
+        "roots/wp-password-bcrypt": "*",
+        "wpackagist-plugin/classic-editor": "*",
+        "wpackagist-plugin/totalpoll-lite": "*",
+        "wpackagist-plugin/cms-tree-page-view": "*",
+        "wpackagist-plugin/co-authors-plus": "*",
+        "wpackagist-plugin/fast-user-switching": "*",
+        "wpackagist-plugin/recently-edited-content-widget": "*",
+        "wpackagist-plugin/regenerate-thumbnails": "*",
+        "wpackagist-plugin/upload-url-path-enabler": "*",
+        "wpackagist-plugin/ewww-image-optimizer": "*",
+        "relevanssi/relevanssi-premium": "*",
+        "acf/advanced-custom-fields-pro": "*",
+        "wpackagist-plugin/query-monitor": "*",
+        "ministryofjustice/dw-document-revisions": "dev-master",
+        "ministryofjustice/wp-rewrite-media-to-s3": "*",
+        "ministryofjustice/like-button-for-wordpress": "dev-master",
+        "ministryofjustice/notify-for-wordpress": "dev-master",
+        "ministryofjustice/php-markdown-extra": "dev-master",
+        "ministryofjustice/wp-moj-components": "*"
     },
-    {
-      "type": "composer",
-      "url": "https://wp-languages.github.io"
+    "require-dev": {
+        "squizlabs/php_codesniffer": "^3.0.2"
     },
-    {
-      "type": "vcs",
-      "url": "https://github.com/ministryofjustice/dw-document-revisions"
+    "extra": {
+        "installer-paths": {
+            "web/app/mu-plugins/{$name}/": [
+                "type:wordpress-muplugin",
+                "wpackagist-plugin/ewww-image-optimizer"
+            ],
+            "web/app/plugins/{$name}/": [
+                "type:wordpress-plugin"
+            ],
+            "web/app/themes/{$name}/": [
+                "type:wordpress-theme"
+            ]
+        },
+        "dropin-paths": {
+            "web/app/languages/": [
+                "vendor:koodimonni-language"
+            ],
+            "web/app/languages/plugins/": [
+                "vendor:koodimonni-plugin-language"
+            ],
+            "web/app/languages/themes/": [
+                "vendor:koodimonni-theme-language"
+            ]
+        },
+        "wordpress-install-dir": "web/wp"
     },
-    {
-      "type": "vcs",
-      "url": "https://github.com/ministryofjustice/dw-live-drafts"
-    },
-    {
-      "type": "vcs",
-      "url": "https://github.com/ministryofjustice/dw-markdown"
-    },
-    {
-      "type": "vcs",
-      "url": "https://github.com/ministryofjustice/like-button-for-wordpress"
-    },
-    {
-      "type": "vcs",
-      "url": "https://github.com/ministryofjustice/notify-for-wordpress"
-    },
-    {
-      "type": "vcs",
-      "url": "https://github.com/ministryofjustice/php-markdown-extra"
+    "scripts": {
+        "post-root-package-install": [
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        ],
+        "test": [
+            "vendor/bin/phpcs"
+        ],
+        "test-fix": [
+            "vendor/bin/phpcbf"
+        ]
     }
-  ],
-  "require": {
-    "php": ">=7.1",
-    "ext-json": "*",
-    "composer/installers": "^1.4",
-    "vlucas/phpdotenv": "^2.0.1",
-    "johnpbloch/wordpress": "*",
-    "koodimonni-language/core-en_gb": "*",
-    "oscarotero/env": "^1.1.0",
-    "roots/wp-password-bcrypt": "*",
-    "wpackagist-plugin/classic-editor": "*",
-    "wpackagist-plugin/totalpoll-lite": "*",
-    "wpackagist-plugin/cms-tree-page-view": "*",
-    "wpackagist-plugin/co-authors-plus": "*",
-    "wpackagist-plugin/fast-user-switching": "*",
-    "wpackagist-plugin/recently-edited-content-widget": "*",
-    "wpackagist-plugin/regenerate-thumbnails": "*",
-    "wpackagist-plugin/upload-url-path-enabler": "*",
-    "wpackagist-plugin/ewww-image-optimizer":"*",
-    "relevanssi/relevanssi-premium": "*",
-    "acf/advanced-custom-fields-pro": "*",
-    "wpackagist-plugin/query-monitor": "*",
-    "ministryofjustice/dw-document-revisions": "dev-master",
-    "ministryofjustice/wp-rewrite-media-to-s3": "*",
-    "ministryofjustice/like-button-for-wordpress": "dev-master",
-    "ministryofjustice/notify-for-wordpress": "dev-master",
-    "ministryofjustice/php-markdown-extra": "dev-master",
-    "ministryofjustice/wp-moj-components": "*"
-  },
-  "require-dev": {
-    "squizlabs/php_codesniffer": "^3.0.2"
-  },
-  "extra": {
-    "installer-paths": {
-      "web/app/mu-plugins/{$name}/": [
-        "type:wordpress-muplugin",
-        "wpackagist-plugin/ewww-image-optimizer"
-      ],
-      "web/app/plugins/{$name}/": [
-        "type:wordpress-plugin"
-      ],
-      "web/app/themes/{$name}/": [
-        "type:wordpress-theme"
-      ]
-    },
-    "dropin-paths": {
-      "web/app/languages/": [
-        "vendor:koodimonni-language"
-      ],
-      "web/app/languages/plugins/": [
-        "vendor:koodimonni-plugin-language"
-      ],
-      "web/app/languages/themes/": [
-        "vendor:koodimonni-theme-language"
-      ]
-    },
-    "wordpress-install-dir": "web/wp"
-  },
-  "scripts": {
-    "post-root-package-install": [
-      "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
-    ],
-    "test": [
-      "vendor/bin/phpcs"
-    ],
-    "test-fix": [
-      "vendor/bin/phpcbf"
-    ]
-  }
 }
