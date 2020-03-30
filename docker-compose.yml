@@ -18,6 +18,8 @@ services:
       DB_HOST: mysql
       NEWRELIC_LICENSE: change_to_production_value
       NEWRELIC_APPNAME: change_to_production_value
+      S3SignUrls: S3SignUrls
+S3SignUrls
     depends_on:
       - mysql
       - mailcatcher
