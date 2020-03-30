@@ -825,17 +825,17 @@
         },
         {
             "name": "ministryofjustice/wp-rewrite-media-to-s3",
-            "version": "0.2.2",
+            "version": "0.2.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ministryofjustice/wp-rewrite-media-to-s3.git",
-                "reference": "ca9a71a97c51dcb0e9abb611ce061b4cfddde913"
+                "reference": "a70e7c567f37d4e8d4729126855dad9c52be5d4a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.wp.dsd.io/dist/ministryofjustice/wp-rewrite-media-to-s3/ministryofjustice-wp-rewrite-media-to-s3-ca9a71a97c51dcb0e9abb611ce061b4cfddde913-zip-8f3a5a.zip",
-                "reference": "ca9a71a97c51dcb0e9abb611ce061b4cfddde913",
-                "shasum": "750c1a3c979dae06d77a1fdf5350d80ae2efc074"
+                "url": "https://composer.wp.dsd.io/dist/ministryofjustice/wp-rewrite-media-to-s3/ministryofjustice-wp-rewrite-media-to-s3-a70e7c567f37d4e8d4729126855dad9c52be5d4a-zip-5b3a0f.zip",
+                "reference": "a70e7c567f37d4e8d4729126855dad9c52be5d4a",
+                "shasum": "bf49034183ea551b55ed4d7737d6ce49c9eef495"
             },
             "require": {
                 "composer/installers": "^1.0"
@@ -849,10 +849,10 @@
             ],
             "description": "A WordPress plugin which rewrites media attachment URLs to S3.",
             "support": {
-                "source": "https://github.com/ministryofjustice/wp-rewrite-media-to-s3/tree/0.2.2",
+                "source": "https://github.com/ministryofjustice/wp-rewrite-media-to-s3/tree/0.2.6",
                 "issues": "https://github.com/ministryofjustice/wp-rewrite-media-to-s3/issues"
             },
-            "time": "2020-03-29T16:12:00+00:00"
+            "time": "2020-03-30T15:36:55+00:00"
         },
         {
             "name": "mtdowling/jmespath.php",
