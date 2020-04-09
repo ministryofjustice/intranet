@@ -39,7 +39,11 @@ if (isset($post_meta['comment_disabled_status'][0])) {
 <section class="c-comment-form">
   <h1 class="o-title o-title--subtitle">Comment on this page</h1>
     <?php
-    if (is_user_logged_in()) {
+    if (is_user_logged_in()) { ?>
+        <p>
+            Your email address and comment will be shared with the author and Intranet Editors. See the <a href="<?php echo get_bloginfo('url'); ?>/privacy-notice/">Intranet Privacy Policy</a> for more information.
+        </p>
+        <?php
         // Display comment section - login and comment box text field
         comment_form($comments_args);
         ?>
