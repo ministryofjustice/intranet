@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7bf64318dbe1d7bf04a523686984dd28",
+    "content-hash": "65980b7b0fd0bc88bd9e6327170caaae",
     "packages": [
         {
             "name": "acf/advanced-custom-fields-pro",
@@ -18,16 +18,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.133.47",
+            "version": "3.134.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "706082d6a0e53c7656eca61866b456178112daf6"
+                "reference": "3ebf1d8b24dc38339d93d943971d7d3e1102327b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/706082d6a0e53c7656eca61866b456178112daf6",
-                "reference": "706082d6a0e53c7656eca61866b456178112daf6",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/3ebf1d8b24dc38339d93d943971d7d3e1102327b",
+                "reference": "3ebf1d8b24dc38339d93d943971d7d3e1102327b",
                 "shasum": ""
             },
             "require": {
@@ -98,32 +98,35 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2020-03-30T18:15:57+00:00"
+            "time": "2020-04-08T18:27:07+00:00"
         },
         {
             "name": "composer/installers",
-            "version": "v1.8.0",
+            "version": "v1.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/installers.git",
-                "reference": "7d610d50aae61ae7ed6675e58efeabdf279bb5e3"
+                "reference": "b93bcf0fa1fccb0b7d176b0967d969691cd74cca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/installers/zipball/7d610d50aae61ae7ed6675e58efeabdf279bb5e3",
-                "reference": "7d610d50aae61ae7ed6675e58efeabdf279bb5e3",
+                "url": "https://api.github.com/repos/composer/installers/zipball/b93bcf0fa1fccb0b7d176b0967d969691cd74cca",
+                "reference": "b93bcf0fa1fccb0b7d176b0967d969691cd74cca",
                 "shasum": ""
             },
             "require": {
-                "composer-plugin-api": "^1.0"
+                "composer-plugin-api": "^1.0 || ^2.0"
             },
             "replace": {
                 "roundcube/plugin-installer": "*",
                 "shama/baton": "*"
             },
             "require-dev": {
-                "composer/composer": "1.0.*@dev",
-                "phpunit/phpunit": "^4.8.36"
+                "composer/composer": "1.6.* || 2.0.*@dev",
+                "composer/semver": "1.0.* || 2.0.*@dev",
+                "phpunit/phpunit": "^4.8.36",
+                "sebastian/comparator": "^1.2.4",
+                "symfony/process": "^2.3"
             },
             "type": "composer-plugin",
             "extra": {
@@ -222,7 +225,171 @@
                 "zend",
                 "zikula"
             ],
-            "time": "2020-02-07T10:39:20+00:00"
+            "time": "2020-04-07T06:57:05+00:00"
+        },
+        {
+            "name": "elasticsearch/elasticsearch",
+            "version": "v7.6.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/elastic/elasticsearch-php.git",
+                "reference": "d4f24bc43c2af60aece3df20eb689d322f9c8acf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/elastic/elasticsearch-php/zipball/d4f24bc43c2af60aece3df20eb689d322f9c8acf",
+                "reference": "d4f24bc43c2af60aece3df20eb689d322f9c8acf",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": ">=1.3.7",
+                "ezimuel/ringphp": "^1.1.2",
+                "php": "^7.1",
+                "psr/log": "~1.0"
+            },
+            "require-dev": {
+                "cpliakas/git-wrapper": "~2.0",
+                "doctrine/inflector": "^1.3",
+                "mockery/mockery": "^1.2",
+                "phpstan/phpstan": "^0.12",
+                "phpunit/phpunit": "^7.5",
+                "squizlabs/php_codesniffer": "^3.4",
+                "symfony/finder": "~4.0",
+                "symfony/yaml": "~4.0"
+            },
+            "suggest": {
+                "ext-curl": "*",
+                "monolog/monolog": "Allows for client-level logging and tracing"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/autoload.php"
+                ],
+                "psr-4": {
+                    "Elasticsearch\\": "src/Elasticsearch/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Zachary Tong"
+                },
+                {
+                    "name": "Enrico Zimuel"
+                }
+            ],
+            "description": "PHP Client for Elasticsearch",
+            "keywords": [
+                "client",
+                "elasticsearch",
+                "search"
+            ],
+            "time": "2020-02-15T00:09:00+00:00"
+        },
+        {
+            "name": "ezimuel/guzzlestreams",
+            "version": "3.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ezimuel/guzzlestreams.git",
+                "reference": "abe3791d231167f14eb80d413420d1eab91163a8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ezimuel/guzzlestreams/zipball/abe3791d231167f14eb80d413420d1eab91163a8",
+                "reference": "abe3791d231167f14eb80d413420d1eab91163a8",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "GuzzleHttp\\Stream\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michael Dowling",
+                    "email": "mtdowling@gmail.com",
+                    "homepage": "https://github.com/mtdowling"
+                }
+            ],
+            "description": "Fork of guzzle/streams (abandoned) to be used with elasticsearch-php",
+            "homepage": "http://guzzlephp.org/",
+            "keywords": [
+                "Guzzle",
+                "stream"
+            ],
+            "time": "2020-02-14T23:11:50+00:00"
+        },
+        {
+            "name": "ezimuel/ringphp",
+            "version": "1.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ezimuel/ringphp.git",
+                "reference": "0b78f89d8e0bb9e380046c31adfa40347e9f663b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ezimuel/ringphp/zipball/0b78f89d8e0bb9e380046c31adfa40347e9f663b",
+                "reference": "0b78f89d8e0bb9e380046c31adfa40347e9f663b",
+                "shasum": ""
+            },
+            "require": {
+                "ezimuel/guzzlestreams": "^3.0.1",
+                "php": ">=5.4.0",
+                "react/promise": "~2.0"
+            },
+            "require-dev": {
+                "ext-curl": "*",
+                "phpunit/phpunit": "~4.0"
+            },
+            "suggest": {
+                "ext-curl": "Guzzle will use specific adapters if cURL is present"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "GuzzleHttp\\Ring\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michael Dowling",
+                    "email": "mtdowling@gmail.com",
+                    "homepage": "https://github.com/mtdowling"
+                }
+            ],
+            "description": "Fork of guzzle/RingPHP (abandoned) to be used with elasticsearch-php",
+            "time": "2020-02-14T23:51:21+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -415,20 +582,20 @@
         },
         {
             "name": "johnpbloch/wordpress",
-            "version": "5.3.2",
+            "version": "5.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/johnpbloch/wordpress.git",
-                "reference": "a463d27a25d317c270e93f7259e2b138287bf8c4"
+                "reference": "6cec3b5d82e24c3fa565d725925afb63f116c584"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/johnpbloch/wordpress/zipball/a463d27a25d317c270e93f7259e2b138287bf8c4",
-                "reference": "a463d27a25d317c270e93f7259e2b138287bf8c4",
+                "url": "https://api.github.com/repos/johnpbloch/wordpress/zipball/6cec3b5d82e24c3fa565d725925afb63f116c584",
+                "reference": "6cec3b5d82e24c3fa565d725925afb63f116c584",
                 "shasum": ""
             },
             "require": {
-                "johnpbloch/wordpress-core": "5.3.2",
+                "johnpbloch/wordpress-core": "5.4.0",
                 "johnpbloch/wordpress-core-installer": "^1.0",
                 "php": ">=5.6.20"
             },
@@ -450,27 +617,27 @@
                 "cms",
                 "wordpress"
             ],
-            "time": "2019-12-18T22:32:20+00:00"
+            "time": "2020-03-31T20:17:18+00:00"
         },
         {
             "name": "johnpbloch/wordpress-core",
-            "version": "5.3.2",
+            "version": "5.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/johnpbloch/wordpress-core.git",
-                "reference": "a282ab0051fac21d4e0cdd828519e6739743ba92"
+                "reference": "9a9941fcad81015507e6d03801aebc51296baf37"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/johnpbloch/wordpress-core/zipball/a282ab0051fac21d4e0cdd828519e6739743ba92",
-                "reference": "a282ab0051fac21d4e0cdd828519e6739743ba92",
+                "url": "https://api.github.com/repos/johnpbloch/wordpress-core/zipball/9a9941fcad81015507e6d03801aebc51296baf37",
+                "reference": "9a9941fcad81015507e6d03801aebc51296baf37",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.6.20"
             },
             "provide": {
-                "wordpress/core-implementation": "5.3.2"
+                "wordpress/core-implementation": "5.4.0"
             },
             "type": "wordpress-core",
             "notification-url": "https://packagist.org/downloads/",
@@ -480,17 +647,17 @@
             "authors": [
                 {
                     "name": "WordPress Community",
-                    "homepage": "http://wordpress.org/about/"
+                    "homepage": "https://wordpress.org/about/"
                 }
             ],
             "description": "WordPress is open source software you can use to create a beautiful website, blog, or app.",
-            "homepage": "http://wordpress.org/",
+            "homepage": "https://wordpress.org/",
             "keywords": [
                 "blog",
                 "cms",
                 "wordpress"
             ],
-            "time": "2019-12-18T22:32:15+00:00"
+            "time": "2020-03-31T20:17:13+00:00"
         },
         {
             "name": "johnpbloch/wordpress-core-installer",
@@ -543,10 +710,10 @@
         },
         {
             "name": "koodimonni-language/core-en_gb",
-            "version": "5.3.2",
+            "version": "5.4",
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/translation/core/5.3.2/en_GB.zip"
+                "url": "https://downloads.wordpress.org/translation/core/5.4/en_GB.zip"
             },
             "require": {
                 "koodimonni/composer-dropin-installer": ">=0.2.3"
@@ -825,17 +992,17 @@
         },
         {
             "name": "ministryofjustice/wp-rewrite-media-to-s3",
-            "version": "0.2.9",
+            "version": "0.2.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ministryofjustice/wp-rewrite-media-to-s3.git",
-                "reference": "f8cdf5c152fa29215fe85514ee6630ba0f24a60f"
+                "reference": "eafe3b165fe3fa0630b011439317ae3b3b3100e4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.wp.dsd.io/dist/ministryofjustice/wp-rewrite-media-to-s3/ministryofjustice-wp-rewrite-media-to-s3-f8cdf5c152fa29215fe85514ee6630ba0f24a60f-zip-bbda4a.zip",
-                "reference": "f8cdf5c152fa29215fe85514ee6630ba0f24a60f",
-                "shasum": "2e3f9eb955d20e32b37131bf0d77307de2ed14ec"
+                "url": "https://composer.wp.dsd.io/dist/ministryofjustice/wp-rewrite-media-to-s3/ministryofjustice-wp-rewrite-media-to-s3-eafe3b165fe3fa0630b011439317ae3b3b3100e4-zip-3a74e0.zip",
+                "reference": "eafe3b165fe3fa0630b011439317ae3b3b3100e4",
+                "shasum": "2980ada9ac27be3e79d90abfe4ecc84eb83c90d6"
             },
             "require": {
                 "composer/installers": "^1.0"
@@ -849,10 +1016,10 @@
             ],
             "description": "A WordPress plugin which rewrites media attachment URLs to S3.",
             "support": {
-                "source": "https://github.com/ministryofjustice/wp-rewrite-media-to-s3/tree/0.2.9",
+                "source": "https://github.com/ministryofjustice/wp-rewrite-media-to-s3/tree/0.2.10",
                 "issues": "https://github.com/ministryofjustice/wp-rewrite-media-to-s3/issues"
             },
-            "time": "2020-03-30T17:22:53+00:00"
+            "time": "2020-04-09T16:11:27+00:00"
         },
         {
             "name": "mtdowling/jmespath.php",
@@ -1005,6 +1172,53 @@
             "time": "2016-08-06T14:39:51+00:00"
         },
         {
+            "name": "psr/log",
+            "version": "1.1.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/log.git",
+                "reference": "0f73288fd15629204f9d42b7055f72dacbe811fc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/log/zipball/0f73288fd15629204f9d42b7055f72dacbe811fc",
+                "reference": "0f73288fd15629204f9d42b7055f72dacbe811fc",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Psr\\Log\\": "Psr/Log/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "http://www.php-fig.org/"
+                }
+            ],
+            "description": "Common interface for logging libraries",
+            "homepage": "https://github.com/php-fig/log",
+            "keywords": [
+                "log",
+                "psr",
+                "psr-3"
+            ],
+            "time": "2020-03-23T09:12:05+00:00"
+        },
+        {
             "name": "ralouphie/getallheaders",
             "version": "3.0.3",
             "source": {
@@ -1043,6 +1257,52 @@
             ],
             "description": "A polyfill for getallheaders.",
             "time": "2019-03-08T08:55:37+00:00"
+        },
+        {
+            "name": "react/promise",
+            "version": "v2.7.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/reactphp/promise.git",
+                "reference": "31ffa96f8d2ed0341a57848cbb84d88b89dd664d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/reactphp/promise/zipball/31ffa96f8d2ed0341a57848cbb84d88b89dd664d",
+                "reference": "31ffa96f8d2ed0341a57848cbb84d88b89dd664d",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.8"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "React\\Promise\\": "src/"
+                },
+                "files": [
+                    "src/functions_include.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jan Sorgalla",
+                    "email": "jsorgalla@gmail.com"
+                }
+            ],
+            "description": "A lightweight implementation of CommonJS Promises/A for PHP",
+            "keywords": [
+                "promise",
+                "promises"
+            ],
+            "time": "2019-01-07T21:25:54+00:00"
         },
         {
             "name": "relevanssi/relevanssi-premium",
@@ -1340,16 +1600,34 @@
             "homepage": "https://wordpress.org/plugins/co-authors-plus/"
         },
         {
-            "name": "wpackagist-plugin/ewww-image-optimizer",
-            "version": "5.2.3",
+            "name": "wpackagist-plugin/elasticpress",
+            "version": "3.4.1",
             "source": {
                 "type": "svn",
-                "url": "https://plugins.svn.wordpress.org/ewww-image-optimizer/",
-                "reference": "tags/5.2.3"
+                "url": "https://plugins.svn.wordpress.org/elasticpress/",
+                "reference": "tags/3.4.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/ewww-image-optimizer.5.2.3.zip"
+                "url": "https://downloads.wordpress.org/plugin/elasticpress.3.4.1.zip"
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/elasticpress/"
+        },
+        {
+            "name": "wpackagist-plugin/ewww-image-optimizer",
+            "version": "5.2.5",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/ewww-image-optimizer/",
+                "reference": "tags/5.2.5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/ewww-image-optimizer.5.2.5.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -1467,6 +1745,76 @@
         }
     ],
     "packages-dev": [
+        {
+            "name": "kint-php/kint",
+            "version": "3.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kint-php/kint.git",
+                "reference": "335ac1bcaf04d87df70d8aa51e8887ba2c6d203b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kint-php/kint/zipball/335ac1bcaf04d87df70d8aa51e8887ba2c6d203b",
+                "reference": "335ac1bcaf04d87df70d8aa51e8887ba2c6d203b",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.6"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.0",
+                "phpunit/phpunit": "^4.0",
+                "seld/phar-utils": "^1.0",
+                "symfony/finder": "^2.0 || ^3.0 || ^4.0",
+                "vimeo/psalm": "^3.0"
+            },
+            "suggest": {
+                "ext-ctype": "Simple data type tests",
+                "ext-iconv": "Provides fallback detection for ambiguous legacy string encodings such as the Windows and ISO 8859 code pages",
+                "ext-mbstring": "Provides string encoding detection",
+                "kint-php/kint-js": "Provides a simplified dump to console.log()",
+                "kint-php/kint-twig": "Provides d() and s() functions in twig templates",
+                "symfony/polyfill-ctype": "Replacement for ext-ctype if missing",
+                "symfony/polyfill-iconv": "Replacement for ext-iconv if missing",
+                "symfony/polyfill-mbstring": "Replacement for ext-mbstring if missing"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "init.php"
+                ],
+                "psr-4": {
+                    "Kint\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jonathan Vollebregt",
+                    "homepage": "https://github.com/jnvsor"
+                },
+                {
+                    "name": "Rokas Šleinius",
+                    "homepage": "https://github.com/raveren"
+                },
+                {
+                    "name": "Contributors",
+                    "homepage": "https://github.com/kint-php/kint/graphs/contributors"
+                }
+            ],
+            "description": "Kint - debugging tool for PHP developers",
+            "homepage": "https://kint-php.github.io/kint/",
+            "keywords": [
+                "debug",
+                "kint",
+                "php"
+            ],
+            "time": "2019-10-17T18:05:24+00:00"
+        },
         {
             "name": "squizlabs/php_codesniffer",
             "version": "3.5.4",
