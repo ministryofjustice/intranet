@@ -1,0 +1,5 @@
+<?php
+/**
+ * THIS FILE IS A TEMPORARY INCLUSION FOR THE WORK AROUND ELASTIC SEARCH INTEGRATION
+ * Not to be included with repo
+ */
