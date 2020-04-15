@@ -1,0 +1,27 @@
+{
+    "name": "Delete User Section",
+    "class": "c-delete-user",
+    "version": "1.0.0",
+    "creator": {
+        "name": "Robert Lowe"
+    },
+    "description": "Handles to deletion of user accounts used be commenters",
+    "standard_or_universal": "standard",
+    "parents": "",
+    "children": "",
+    "notes": {
+        "backend": "",
+        "frontend": ""
+    },
+    "backend_classes": {},
+    "has_js": false,
+    "integrated": false,
+    "is_working": false,
+    "example_link": "http://intranet.justice.gov.uk",
+    "used_on_templates": [],
+    "changelog": [{
+        "date": "14//2020",
+        "author": "Rob Lowe",
+        "description": "Created component"
+    }]
+}
