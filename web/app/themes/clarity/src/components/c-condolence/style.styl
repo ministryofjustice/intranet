@@ -1,0 +1,45 @@
+// include the toolkit (a suite of variables, classes and mixins)
+@require "../../globals/css/_toolkit"
+
+.c-condolence {
+  .c-condolence-header {
+    color: #FFFFFF;
+    background: #000000;
+    padding 20px 15px;
+    display inline-block;
+    width 100%;
+    margin-top: 1rem;
+
+    &__intro {
+      font-size: 2.0rem;
+    }
+
+    &__photo {
+      display:block;
+      border-radius: 100%;
+      width: 200px; //fixed width
+      height: auto;
+      margin-right: $spacing*2;
+
+      +above(m) {
+        float left;
+        width 20%;
+      }
+    }
+
+    &__details {
+      +above(m) {
+        float left;
+        width 75%;
+      }
+    }
+
+    h1 {
+      margin-bottom 1rem;
+    }
+
+    p {
+      margin-bottom 1rem;
+    }
+  }
+}

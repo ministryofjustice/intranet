@@ -28,12 +28,14 @@ function remove_comments_meta_box($wp_post_types)
 
 add_action('add_meta_boxes_post', 'update_discussion_meta_box');
 add_action('add_meta_boxes_news', 'update_discussion_meta_box');
+add_action('add_meta_boxes_condolences', 'update_discussion_meta_box');
 
 function update_discussion_meta_box($wp_post_types)
 {
     // Replace here with custom discussion meta box.
     add_meta_box('commentstatusdiv', __('Discussion'), 'custom_discussion_meta_box', 'news', 'normal', 'low');
     add_meta_box('commentstatusdiv', __('Discussion'), 'custom_discussion_meta_box', 'post', 'normal', 'low');
+    add_meta_box('commentstatusdiv', __('Discussion'), 'custom_discussion_meta_box', 'condolences', 'normal', 'low');
 }
 
 /**
