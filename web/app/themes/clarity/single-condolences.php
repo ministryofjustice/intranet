@@ -1,7 +1,4 @@
 <?php
-use MOJ\Intranet\Agency;
-
-
 get_header();
 
 ?>
