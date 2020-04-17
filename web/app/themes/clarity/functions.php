@@ -91,7 +91,6 @@ require_once 'inc/post-types/regional-page.php';
 require_once 'inc/post-types/team-area.php';
 require_once 'inc/post-types/webchat.php';
 
-
 require_once 'inc/preselect.php';
 require_once 'inc/rewrite_rules.php';
 require_once 'inc/relevanssi.php';

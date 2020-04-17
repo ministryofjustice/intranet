@@ -1,28 +1,27 @@
 {
-    "name": "Article",
-    "class": "c-article",
+    "name": "Condolence",
+    "class": "c-condolence",
     "version": "1.0.0",
     "creator": {
-        "name": "Alex Foxleigh",
-        "github_username": "foxleigh81"
+        "name": "Rob Lowe",
+        "github_username": "RobLoweMOJ"
     },
-    "description": "The full article component",
+    "description": "The single page condolence component",
     "standard_or_universal": "standard",
     "parents": "",
     "children": "",
     "notes": {
         "backend": "",
-        "frontend": "This and c-article-item may prove to be the same component from a WP perspective. Feel free to merge them together"
-    },
+        "frontend": ""
     "backend_classes": {},
     "has_js": false,
     "integrated": false,
     "is_working": false,
-    "example_link": "https://intranet.justice.gov.uk/blog/a-journey-into-skype/",
+    "example_link": "",
     "used_on_templates": [],
     "changelog": [{
-        "date": "25/3/2017",
-        "author": "Alex Foxleigh",
+        "date": "17/4/020",
+        "author": "Rob Lowe",
         "description": "Created component"
     }]
 }
