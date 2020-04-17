@@ -28,7 +28,7 @@ if (!empty($thumbnail_id)) {
 <!-- c-condolence starts here -->
 <article class="c-condolence">
 
-    <div class="">
+    <div class="l-primary">
         <div class="c-condolence-header">
             <p class="c-condolence-header__intro">In Memory of</p>
             <?php if (!empty($thumbnail)) { ?>
