@@ -59,41 +59,52 @@ function is_valid_email_domain($login, $email, $errors)
         $errors->add('domain_whitelist_error', __('<strong>ERROR</strong>: Login is only allowed from .gov emails. If you think you are seeing this in error, please contact the Intranet Team.'));
     }
 }
+
 add_action('register_post', 'is_valid_email_domain', 10, 3);
 
 function format_comment($comment, $args, $depth)
 {
+
+    $post_type = get_post_type();
+
     $GLOBALS['comment'] = $comment; ?>
 
-        <li <?php comment_class(); ?> id="comment-<?php comment_ID() ?>">
-            <div class="comment-body" id="comment-<?php comment_ID() ?>">
-        <div class="comment-author vcard">
-                    <cite class="fn">
-                        <span class="author"><?php printf(__('%s'), get_comment_author_link()) ?></span>
-                        <span class="dash">—</span>
-                        <span class="date"><?php printf(__('%1$s'), get_comment_date(), get_comment_time()) ?></span>
-                    </cite>
-                    <?php comment_text(); ?>
+    <li <?php comment_class(); ?> id="comment-<?php comment_ID() ?>">
+    <div class="comment-body" id="comment-<?php comment_ID() ?>">
+    <div class="comment-author vcard">
+        <cite class="fn">
+            <span class="author"><?php printf(__('%s'), get_comment_author_link()) ?></span>
+            <span class="dash">—</span>
+            <span class="date"><?php printf(__('%1$s'), get_comment_date(), get_comment_time()) ?></span>
+        </cite>
+        <?php comment_text(); ?>
 
-                    <div class="reply">
-    <?php
-    $replyorlogin = '<p class="must-log-in"><a href="'.wp_login_url().'">Login</a> or <a href="'.wp_registration_url().'">Register</a> to post a comment.</p>'
-    ?>
-    <?php comment_reply_link(
-        array_merge(
-            $args,
-            array(
-            'depth' => $depth,
-            'max_depth' => $args['max_depth'],
-            )
-        )
-    ) ?>
-                    </div>
-                    <div class="comment-block">
-                    <?php echo do_shortcode('[likebutton]'); ?>
-                  </div>
+        <?php if ($post_type != 'condolences') { ?>
+            <div class="reply">
+                <?php
+                $replyorlogin = '<p class="must-log-in"><a href="' . wp_login_url() . '">Login</a> or <a href="' . wp_registration_url() . '">Register</a> to post a comment.</p>'
+                ?>
 
-      </div>
+
+                <?php
+
+                comment_reply_link(
+                    array_merge(
+                        $args,
+                        array(
+                            'depth' => $depth,
+                            'max_depth' => $args['max_depth'],
+                        )
+                    )
+                );
+                ?>
+            </div>
+            <div class="comment-block">
+                <?php echo do_shortcode('[likebutton]'); ?>
+            </div>
+        <?php } ?>
+
+    </div>
 
     <?php
 }
@@ -102,10 +113,11 @@ function inject_url_cookies_into_header()
 {
     if (isset($_POST['task']) && $_POST['task'] == 'register') {
         global $wp;
-        $current_url = "//".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'].'#respond';
-        setcookie('referral_url', $current_url, time()+(86400 * 30), "/");
+        $current_url = "//" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . '#respond';
+        setcookie('referral_url', $current_url, time() + (86400 * 30), "/");
     }
 }
+
 add_action('init', 'inject_url_cookies_into_header');
 
 function my_login_redirect($redirect_to, $request, $user)
@@ -123,10 +135,11 @@ function unset_cookies_after_login()
 {
     if (!isset($_COOKIE['referral_url'])) {
     } else {
-        setcookie('referral_url', '', time()-60*60*24*90, '/', '', 0, 0);
+        setcookie('referral_url', '', time() - 60 * 60 * 24 * 90, '/', '', 0, 0);
         unset($_COOKIE['referral_url']);
     }
 }
+
 add_filter('wp_login', 'unset_cookies_after_login', 10, 3);
 
 function is_gov_email($email)
@@ -140,7 +153,7 @@ function is_gov_email($email)
 function format_comment_closed($comment, $args, $depth)
 {
     $GLOBALS['comment'] = $comment; ?>
-    <li <?php comment_class(); ?> id="li-comment-<?php comment_ID() ?>">
+<li <?php comment_class(); ?> id="li-comment-<?php comment_ID() ?>">
 
     <div id="div-comment-8741" class="comment-body">
     <div class="comment-author vcard">
@@ -152,7 +165,7 @@ function format_comment_closed($comment, $args, $depth)
         <?php comment_text(); ?>
     </div>
     <div class="comment-block">
-    <?php echo do_shortcode('[likebutton]'); ?>
+        <?php echo do_shortcode('[likebutton]'); ?>
     </div>
     <?php
 }
