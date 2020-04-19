@@ -43,6 +43,6 @@ add_action('do_meta_boxes', 'remove_metaboxes_condolences');
 
 function remove_metaboxes_condolences()
 {
-        remove_meta_box('workplacediv', 'condolences', 'side');
+        remove_meta_box('tagsdiv-workplace', 'condolences', 'side');
 
 }
