@@ -10,11 +10,6 @@ $query = new WP_Query($args);
 
 if ($query->have_posts()) {
     ?>
-    <div class="view-options">
-        View:
-        <button class="view-by-list current">List</button> |
-        <button class="view-by-grid">Grid</button>
-    </div>
     <section class="c-condolences-list">
         <div>
             <?php
