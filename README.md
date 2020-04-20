@@ -33,7 +33,7 @@ It's important to have Docker ELK running first. Intranet will use the network t
 
 2. Enable API Key communication in elastic search
     ```bash
-   echo "xpack.security.authc.api_key.enabled: true" >> elasticsearch/elasticsearch.yml
+   echo "xpack.security.authc.api_key.enabled: true" >> elasticsearch/config/elasticsearch.yml
     ```
 
 3. Spin up containers
