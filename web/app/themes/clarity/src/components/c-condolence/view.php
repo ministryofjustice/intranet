@@ -30,8 +30,9 @@ if (!empty($thumbnail_id)) {
 <!-- c-condolence starts here -->
 <article class="c-condolence">
 
-    <div class="">
-        <div class="c-condolence-header">
+
+    <div class="c-condolence-header">
+        <div class="l-primary">
             <p class="c-condolence-header__intro">In Memory of</p>
             <?php if (!empty($thumbnail)) { ?>
                 <img class="c-condolence-header__photo"" src="<?php echo $thumbnail[0]; ?>"
@@ -40,20 +41,21 @@ if (!empty($thumbnail_id)) {
             <div class="c-condolence-header__details">
                 <h1 class="o-title o-title--page"><?php echo get_the_title(); ?></h1>
                 <?php if (!empty($job_title)) { ?>
-                    <p><?php echo $job_title; ?></p>
+                    <p class="c-condolence-header__job-title"><?php echo $job_title; ?></p>
                 <?php } ?>
                 <?php if (!empty($workplace)) { ?>
-                    <p><?php echo $workplace; ?></p>
+                    <p class="c-condolence-header__workplace"><?php echo $workplace; ?></p>
                 <?php } ?>
                 <?php the_excerpt(); ?>
             </div>
         </div>
-
+    </div>
+    <div class="l-primary">
         <?php
         get_template_part('src/components/c-rich-text-block/view');
         ?>
-
     </div>
+
 
 </article>
 <!-- c-condolence ends here -->
