@@ -42,7 +42,10 @@ if (!empty($thumbnail_id)) {
     <div class="c-condolence-list-item__details">
         <h2><a href="<?php echo get_permalink(); ?>"><?php echo get_the_title(); ?></a></h2>
         <?php if (!empty($job_title)) { ?>
-            <p><?php echo $job_title; ?></p>
+            <p class="c-condolence-list-item__job-title"><?php echo $job_title; ?></p>
+        <?php } ?>
+        <?php if (!empty($workplace)) { ?>
+            <p class="c-condolence-list-item__workplace"><?php echo $workplace; ?></p>
         <?php } ?>
         <div class="c-condolence-list-item__excerpt">
             <?php the_excerpt(); ?>
