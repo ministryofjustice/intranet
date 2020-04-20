@@ -52,7 +52,7 @@ if (isset($post_meta['comment_disabled_status'][0])) {
       </p>
         <?php
     } else {
-        echo '<p class="must-log-in" id="respond"><a href="' . wp_login_url(get_permalink()) . '">Login</a> or Register below to post a comment.</p>';
+        echo '<p class="must-log-in" id="respond"><a href="' . wp_login_url(get_permalink()) . '">Login</a> or Register below to leave a message.</p>';
         get_template_part('src/components/c-register/view');
     }
     ?>
