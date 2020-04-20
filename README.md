@@ -10,6 +10,7 @@ https://intranet.justice.gov.uk/
 - Enhanced password hashing using bcrypt
 - Builds into a docker image
 - Docker-compose is used to run as a local development server
+- Replaces WP search with Elastic Search
 
 ## Requirements
 
@@ -17,12 +18,34 @@ https://intranet.justice.gov.uk/
 - Composer - [Install](https://getcomposer.org/doc/00-intro.md#installation-linux-unix-osx)
 - Docker & docker-compose - [Install](https://www.docker.com/docker-mac)
 - Dory (docker proxy for local development) - [Install](https://github.com/FreedomBen/dory)
+- Docker ELK for Elastic Search, LogStash and Kibana [Install](https://github.com/deviantony/docker-elk)
 
 ## Getting Started
 
+It's important to have Docker ELK running first. Intranet will use the network that ELK creates to communicate locally.
+
+### Elastic Search
+1. First, get Docker ELK running locally.
+    ```bash
+   git clone https://github.com/deviantony/docker-elk.git .
+   cd docker-elk/
+   ```
+
+2. Enable API Key communication in elastic search
+    ```bash
+   echo "xpack.security.authc.api_key.enabled: true" >> elasticsearch/elasticsearch.yml
+    ```
+
+3. Spin up containers
+    ```bash
+   docker-compose up
+    ```
+
+4. Configure the .env file with IPv4 and API key information. See '''.env.example''' for further information.
+### Intranet Launch
 1. Clone this repo to your local machine and change directories.
     ```bash
-    git clone git@github.com:ministryofjustice/intranet.git .
+    git clone https://github.com/ministryofjustice/intranet.git .
     cd intranet/
     ```
 
