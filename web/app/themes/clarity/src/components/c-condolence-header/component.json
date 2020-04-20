@@ -1,0 +1,27 @@
+{
+    "name": "Condolence",
+    "class": "c-condolence-header",
+    "version": "1.0.0",
+    "creator": {
+        "name": "Rob Lowe",
+        "github_username": "RobLoweMOJ"
+    },
+    "description": "A header for a condolence page",
+    "standard_or_universal": "standard",
+    "parents": "",
+    "children": "",
+    "notes": {
+        "backend": "",
+        "frontend": ""
+    "backend_classes": {},
+    "has_js": false,
+    "integrated": false,
+    "is_working": false,
+    "example_link": "",
+    "used_on_templates": [],
+    "changelog": [{
+        "date": "17/4/020",
+        "author": "Rob Lowe",
+        "description": "Created component"
+    }]
+}

@@ -1,4 +1,6 @@
 <?php
+/** Condolence - Single view **/
+
 $job_title = get_field('job_title');
 
 $workplace_terms = get_the_terms(get_the_ID(), 'workplace');
@@ -38,7 +40,7 @@ if (!empty($thumbnail_id)) {
             <?php } ?>
             <div class="c-condolence-header__details">
                 <h1 class="o-title o-title--page"><?php echo get_the_title(); ?></h1>
-                <?php if (!empty($thumbnail)) { ?>
+                <?php if (!empty($job_title)) { ?>
                     <p class="c-condolence-header__job-title"><?php echo $job_title; ?></p>
                 <?php } ?>
                 <?php if (!empty($workplace)) { ?>

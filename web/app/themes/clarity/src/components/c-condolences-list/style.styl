@@ -1,0 +1,29 @@
+// include the toolkit (a suite of variables, classes and mixins)
+@require "../../globals/css/_toolkit";
+
+.view-options {
+  margin-bottom 2rem;
+  margin-top 2rem;
+
+  +above(m) {
+    margin-top 0;
+    text-align right;
+  }
+
+  button {
+    cursor: pointer;
+
+    &.current {
+      font-weight bold;
+    }
+  }
+
+}
+
+.c-condolences-list {
+  margin-top: 2rem;
+
+  +above(m) {
+    margin-top 0;
+  }
+}
