@@ -1,4 +1,4 @@
-# Ministry of Justice intranet
+# Ministry of Justice Intranet
 
 This is a WordPress project used by Ministry of Justice and agencies.
 https://intranet.justice.gov.uk/
@@ -18,7 +18,7 @@ https://intranet.justice.gov.uk/
 - Composer - [Install](https://getcomposer.org/doc/00-intro.md#installation-linux-unix-osx)
 - Docker & docker-compose - [Install](https://www.docker.com/docker-mac)
 - Dory (docker proxy for local development) - [Install](https://github.com/FreedomBen/dory)
-- Docker ELK for Elastic Search, LogStash and Kibana [Install](https://github.com/deviantony/docker-elk)
+- Docker ELK (elastic search for local development) [Install](https://github.com/deviantony/docker-elk)
 
 ## Getting Started
 
@@ -41,8 +41,10 @@ It's important to have Docker ELK running first. Intranet will use the network t
    docker-compose up
     ```
 
-4. Configure the .env file with IPv4 and API key information. See '''.env.example''' for further information.
+4. Once the containers are running;  [Create your API Key](http://localhost:5601/app/kibana#/management/security/api_keys) and make a record of the details (API ID and Key) for use in the WP MoJ Elastic Search plugin
+
 ### Intranet Launch
+
 1. Clone this repo to your local machine and change directories.
     ```bash
     git clone https://github.com/ministryofjustice/intranet.git .
@@ -72,7 +74,7 @@ It's important to have Docker ELK running first. Intranet will use the network t
     make launch
     ```
 
-6. If this is a new install you may get a development replica by executing the WASM utility.
+6. If this is a new install you can update you local dev environment by executing the WASM utility.
     ```bash
     wasm migrate intranet2:dev .
     ```

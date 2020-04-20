@@ -1,67 +1,63 @@
 version: '3'
 services:
-  wordpress:
-    build: .
-    volumes:
-      - .:/bedrock
-    env_file: .env
-    environment:
-      WP_ENV: development
-      VIRTUAL_HOST: ${SERVER_NAME}
-      WP_HOME: http://${SERVER_NAME}
-      WP_SITEURL: http://${SERVER_NAME}/wp
-      SMTP_HOST: mailcatcher
-      SMTP_PORT: 1025
-      DB_NAME: wordpress
-      DB_USER: wordpress
-      DB_PASSWORD: wordpress
-      DB_HOST: mysql
-      NEWRELIC_LICENSE: change_to_production_value
-      NEWRELIC_APPNAME: change_to_production_value
-    depends_on:
-      - mysql
-      - mailcatcher
-    cap_add:
-      - SYS_ADMIN
-    devices:
-      - /dev/fuse
-
-    networks:
-        - docker-elk_elk
-  mysql:
-    image: mariadb
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: wordpress
-      MYSQL_USER: wordpress
-      MYSQL_PASSWORD: wordpress
-    volumes:
-      - database:/var/lib/mysql
-
-    networks:
-        - docker-elk_elk
-  mailcatcher:
-    image: schickling/mailcatcher
-    environment:
-      VIRTUAL_HOST: mail.${SERVER_NAME}
-      VIRTUAL_PORT: 1080
-
-    networks:
-        - docker-elk_elk
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    environment:
-      - PMA_HOST=mysql
-    depends_on:
-      - mysql
-    ports:
-      - 9191:80
-
-    networks:
-        - docker-elk_elk
+    wordpress:
+        build: .
+        volumes:
+            - .:/bedrock
+        env_file: .env
+        environment:
+            WP_ENV: development
+            VIRTUAL_HOST: ${SERVER_NAME}
+            WP_HOME: http://${SERVER_NAME}
+            WP_SITEURL: http://${SERVER_NAME}/wp
+            SMTP_HOST: mailcatcher
+            SMTP_PORT: 1025
+            DB_NAME: wordpress
+            DB_USER: wordpress
+            DB_PASSWORD: wordpress
+            DB_HOST: mysql
+            NEWRELIC_LICENSE: change_to_production_value
+            NEWRELIC_APPNAME: change_to_production_value
+        depends_on:
+            - mysql
+            - mailcatcher
+        cap_add:
+            - SYS_ADMIN
+        devices:
+            - /dev/fuse
+        networks:
+            - docker-elk_elk
+    mysql:
+        image: mariadb
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: wordpress
+            MYSQL_USER: wordpress
+            MYSQL_PASSWORD: wordpress
+        volumes:
+            - database:/var/lib/mysql
+        networks:
+            - docker-elk_elk
+    mailcatcher:
+        image: schickling/mailcatcher
+        environment:
+            VIRTUAL_HOST: mail.${SERVER_NAME}
+            VIRTUAL_PORT: 1080
+        networks:
+            - docker-elk_elk
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        environment:
+            - PMA_HOST=mysql
+        depends_on:
+            - mysql
+        ports:
+            - 9191:80
+        networks:
+            - docker-elk_elk
 networks:
     docker-elk_elk:
         external: true
 volumes:
-  database:
-    driver: local
+    database:
+        driver: local
