@@ -22,9 +22,10 @@ https://intranet.justice.gov.uk/
 
 ## Getting Started
 
-It's important to have Docker ELK running first. Intranet will use the network that ELK creates to communicate locally.
+For local development it's important to have Docker ELK running first. Intranet will use the network that ELK creates to communicate locally and allow data to flow.
 
 ### Elastic Search
+Nb. memory heap is too low on standard installation to achieve bulk imports. Increasing the `ES_JAVA_OPTS` value in docker-compose.yml will help should you run in to issues with the circuit breaker:  `ES_JAVA_OPTS: "-Xms2g -Xmx2g"`
 1. First, get Docker ELK running locally.
     ```bash
    git clone https://github.com/deviantony/docker-elk.git .
