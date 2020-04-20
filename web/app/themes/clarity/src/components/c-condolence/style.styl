@@ -15,11 +15,11 @@
     }
 
     &__photo {
-      display:block;
+      display: block;
       border-radius: 100%;
       width: 200px; //fixed width
       height: auto;
-      margin-right: $spacing*2;
+      margin-right: $spacing* 2;
 
       +above(m) {
         float left;
@@ -42,4 +42,97 @@
       margin-bottom 1rem;
     }
   }
+}
+
+.c-condolence-list-item {
+
+  display inline-block;
+  width 100%;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid hsla(0,0%,71%,.3);
+  margin-bottom: 1rem;
+
+  h2 {
+    a {
+      font-weight bold;
+    }
+  }
+
+  &__photo {
+    display:block;
+    border-radius: 100%;
+    width: 200px; //fixed width
+    height: auto;
+    margin-right: $spacing*2;
+    margin-bottom 2rem;
+
+    +above(m) {
+      float left;
+      width 20%;
+      margin-bottom 0;
+    }
+  }
+
+  &__details {
+    +above(m) {
+      float left;
+      width 75%;
+    }
+  }
+
+
+  .grid-view & {
+    text-align center;
+    border 1px solid #000000;
+    padding-bottom 0;
+
+    +above(m) {
+      width 30%;
+      margin-right: $spacing*2;
+    }
+    +above(l) {
+      width 31%;
+    }
+
+    &:nth-child(3n) {
+
+      +above(m) {
+        margin-right: 0;
+      }
+    }
+
+    &__photo-wrapper {
+      background : #000000;
+      padding: 2rem 0;
+    }
+
+    &__photo {
+
+      float none;
+      width 60%;
+      margin 0 auto;
+
+      +above(m) {
+        width 80%;
+      }
+
+    }
+
+    &__details {
+      padding: 1rem;
+      +above(m) {
+        float none;
+        width 100%;
+      }
+    }
+
+    p {
+      margin-bottom: 0;
+    }
+
+    &__excerpt {
+      display none;
+    }
+  }
+
 }
