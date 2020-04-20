@@ -18,6 +18,7 @@ require_once 'taxonomies/taxonomy.php';
 require_once 'taxonomies/agency-taxonomy.php';
 require_once 'taxonomies/content-category.php';
 require_once 'taxonomies/agency-terms-walker.php';
+require_once 'taxonomies/workplace.php';
 
 foreach ($taxonomies as $include_file => $tax) {
     $include_path = $include_file . '.php' ;

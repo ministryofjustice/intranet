@@ -19,4 +19,5 @@ jQuery(function ($) {
   $('.js-tabbed-content-container').moji_tabbedContent()
   $('.js-reveal').moji_feedbackForm()
   $('.js-blog-content-ajaxfilter').moji_ajaxFilter()
+  $('.js-condolences-filter').moji_condolencesFilter()
 })
