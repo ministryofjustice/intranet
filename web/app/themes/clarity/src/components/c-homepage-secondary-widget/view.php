@@ -29,7 +29,7 @@ if ($mostPopularTitle || $events || $enable_banner_right_side == true) :
     get_template_part('src/components/c-most-popular/view');
 
     // TODO AGENCY: Some agencies don't want to have events
-    if ($agency !== 'laa' && $agency !== 'hmcts') {
+    if ($agency !== 'hmcts') {
         include locate_template('src/components/c-event-listing/view.php');
     }
     ?>
