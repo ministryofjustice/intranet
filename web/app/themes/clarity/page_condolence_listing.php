@@ -1,6 +1,6 @@
 <?php
 /*
-* Template Name: Book of Condolences
+* Add template name in when ready
 */
 get_header();
 
