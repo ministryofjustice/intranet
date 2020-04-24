@@ -85,7 +85,7 @@ require_once 'inc/pagination-newscategory.php';
 require_once 'inc/post-types/post.php';
 require_once 'inc/post-types/event.php';
 require_once 'inc/post-types/news.php';
-//require_once 'inc/post-types/condolences.php';
+require_once 'inc/post-types/condolences.php';
 require_once 'inc/post-types/regional-news.php';
 require_once 'inc/post-types/regional-page.php';
 require_once 'inc/post-types/team-area.php';
