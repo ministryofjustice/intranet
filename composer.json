@@ -75,7 +75,7 @@
         "ministryofjustice/like-button-for-wordpress": "dev-master",
         "ministryofjustice/notify-for-wordpress": "dev-master",
         "ministryofjustice/php-markdown-extra": "dev-master",
-        "ministryofjustice/wp-moj-elasticsearch": "dev-master",
+        "ministryofjustice/wp-moj-elasticsearch": "*",
         "ministryofjustice/wp-moj-components": "*"
     },
     "require-dev": {
