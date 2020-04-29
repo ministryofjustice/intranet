@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cbe3c109ca5f46813811c58799f25edc",
+    "content-hash": "42359b1b6ce14c7809d4f041b40b48fd",
     "packages": [
         {
             "name": "acf/advanced-custom-fields-pro",
@@ -18,16 +18,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.135.3",
+            "version": "3.135.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "0f6f6e8f4a44193908e18b8c7b8530b02f5bc428"
+                "reference": "ba5a7fe1f4f7c4c38b5804c4779dad23399fccab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/0f6f6e8f4a44193908e18b8c7b8530b02f5bc428",
-                "reference": "0f6f6e8f4a44193908e18b8c7b8530b02f5bc428",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/ba5a7fe1f4f7c4c38b5804c4779dad23399fccab",
+                "reference": "ba5a7fe1f4f7c4c38b5804c4779dad23399fccab",
                 "shasum": ""
             },
             "require": {
@@ -98,7 +98,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2020-04-23T18:18:24+00:00"
+            "time": "2020-04-28T18:15:08+00:00"
         },
         {
             "name": "composer/installers",
@@ -940,17 +940,17 @@
         },
         {
             "name": "ministryofjustice/wp-moj-components",
-            "version": "3.1.0",
+            "version": "3.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ministryofjustice/wp-moj-components.git",
-                "reference": "ee324916353f03ba9019b69c75b9707fb18aaf1a"
+                "reference": "41f785c92b795b76e95ac7f6446298576a0aa48f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.wp.dsd.io/dist/ministryofjustice/wp-moj-components/ministryofjustice-wp-moj-components-ee324916353f03ba9019b69c75b9707fb18aaf1a-zip-4cf905.zip",
-                "reference": "ee324916353f03ba9019b69c75b9707fb18aaf1a",
-                "shasum": "c12642ecea5d7b0471e2a0a1e48a53e88b79631e"
+                "url": "https://composer.wp.dsd.io/dist/ministryofjustice/wp-moj-components/ministryofjustice-wp-moj-components-41f785c92b795b76e95ac7f6446298576a0aa48f-zip-40af90.zip",
+                "reference": "41f785c92b795b76e95ac7f6446298576a0aa48f",
+                "shasum": "b64040f73849868d24c6b5bd9fd25b7cac5b0bb3"
             },
             "require": {
                 "composer/installers": "^1.0"
@@ -985,24 +985,24 @@
             ],
             "description": "A plugin to introduce global functions to a collection of WP sites",
             "support": {
-                "source": "https://github.com/ministryofjustice/wp-moj-components/tree/3.1.0",
+                "source": "https://github.com/ministryofjustice/wp-moj-components/tree/3.1.1",
                 "issues": "https://github.com/ministryofjustice/wp-moj-components/issues"
             },
-            "time": "2020-02-17T13:37:45+00:00"
+            "time": "2020-04-29T12:36:15+00:00"
         },
         {
             "name": "ministryofjustice/wp-moj-elasticsearch",
-            "version": "0.1.0",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "git@github.com:ministryofjustice/wp-moj-elasticsearch.git",
-                "reference": "326d27724ed01467a0818941d9ecbd8d2bd2eff4"
+                "reference": "4d7a0aeef49ce63b0d4571987d01f286f6fc33a6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.wp.dsd.io/dist/ministryofjustice/wp-moj-elasticsearch/ministryofjustice-wp-moj-elasticsearch-326d27724ed01467a0818941d9ecbd8d2bd2eff4-zip-79f7d4.zip",
-                "reference": "326d27724ed01467a0818941d9ecbd8d2bd2eff4",
-                "shasum": "6ec15457bf67b33447b888e45e27d865ba7ac864"
+                "url": "https://composer.wp.dsd.io/dist/ministryofjustice/wp-moj-elasticsearch/ministryofjustice-wp-moj-elasticsearch-4d7a0aeef49ce63b0d4571987d01f286f6fc33a6-zip-079e5c.zip",
+                "reference": "4d7a0aeef49ce63b0d4571987d01f286f6fc33a6",
+                "shasum": "14fa8f536c07efcb8a15ba1f82e5c122284fda3a"
             },
             "require": {
                 "composer/installers": "^1.0"
@@ -1038,10 +1038,10 @@
             ],
             "description": "WP interface for managing elastic search",
             "support": {
-                "source": "https://github.com/ministryofjustice/wp-moj-elasticsearch/tree/0.1.0",
+                "source": "https://github.com/ministryofjustice/wp-moj-elasticsearch/tree/1.1.0",
                 "issues": "https://github.com/ministryofjustice/wp-moj-elasticsearch/issues"
             },
-            "time": "2020-04-24T09:20:21+00:00"
+            "time": "2020-04-29T12:39:36+00:00"
         },
         {
             "name": "ministryofjustice/wp-rewrite-media-to-s3",
@@ -1356,16 +1356,6 @@
                 "promises"
             ],
             "time": "2019-01-07T21:25:54+00:00"
-        },
-        {
-            "name": "relevanssi/relevanssi-premium",
-            "version": "2.4.4",
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.wp.dsd.io/dist/relevanssi/relevanssi-premium/relevanssi-relevanssi-premium-2.4.4.zip",
-                "shasum": "ee7986d36d9bbbb5b81acc886d6686527dd1d2d9"
-            },
-            "type": "wordpress-plugin"
         },
         {
             "name": "roots/wp-password-bcrypt",
@@ -1768,6 +1758,24 @@
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/co-authors-plus/"
+        },
+        {
+            "name": "wpackagist-plugin/elasticpress",
+            "version": "3.4.1",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/elasticpress/",
+                "reference": "tags/3.4.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/elasticpress.3.4.1.zip"
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/elasticpress/"
         },
         {
             "name": "wpackagist-plugin/ewww-image-optimizer",

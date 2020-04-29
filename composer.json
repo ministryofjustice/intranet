@@ -41,10 +41,6 @@
         {
             "type": "vcs",
             "url": "https://github.com/ministryofjustice/php-markdown-extra"
-        },
-        {
-            "type": "vcs",
-            "url": "https://github.com/ministryofjustice/wp-moj-elasticsearch"
         }
     ],
     "require": {
@@ -67,7 +63,6 @@
         "wpackagist-plugin/regenerate-thumbnails": "*",
         "wpackagist-plugin/upload-url-path-enabler": "*",
         "wpackagist-plugin/ewww-image-optimizer": "*",
-        "relevanssi/relevanssi-premium": "*",
         "acf/advanced-custom-fields-pro": "*",
         "wpackagist-plugin/query-monitor": "*",
         "ministryofjustice/dw-document-revisions": "dev-master",
@@ -75,6 +70,7 @@
         "ministryofjustice/like-button-for-wordpress": "dev-master",
         "ministryofjustice/notify-for-wordpress": "dev-master",
         "ministryofjustice/php-markdown-extra": "dev-master",
+        "wpackagist-plugin/elasticpress":"^3.4.1",
         "ministryofjustice/wp-moj-elasticsearch": "*",
         "ministryofjustice/wp-moj-components": "*"
     },
