@@ -41,3 +41,7 @@ test:
 # Fix tests
 test-fixes:
 	composer test-fix
+
+# ElasticPress cli example, `make ep arg=stats`
+ep:
+	docker-compose exec wordpress wp elasticpress $(arg) --allow-root
