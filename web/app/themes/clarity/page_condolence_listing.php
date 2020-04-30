@@ -1,6 +1,6 @@
 <?php
 /*
-* Template Name: Book of Condolences
+* Removed Condolence template until ready to add back in
 */
 get_header();
 
