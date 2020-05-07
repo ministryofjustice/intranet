@@ -4,6 +4,10 @@ default: build
 build:
 	bin/build.sh
 
+# Run the project upgrade script
+upgrade:
+	bin/upgrade.sh
+
 # Remove ignored git files – e.g. composer dependencies and built theme assets
 # But keep .env file, .idea directory (PhpStorm config), and uploaded media files
 clean:

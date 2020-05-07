@@ -41,6 +41,10 @@
         {
             "type": "vcs",
             "url": "https://github.com/ministryofjustice/php-markdown-extra"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/ministryofjustice/wp-moj-elasticsearch"
         }
     ],
     "require": {
