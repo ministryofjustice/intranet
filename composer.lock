@@ -992,17 +992,17 @@
         },
         {
             "name": "ministryofjustice/wp-moj-elasticsearch",
-            "version": "1.1.0",
+            "version": "1.1.1",
             "source": {
                 "type": "git",
                 "url": "git@github.com:ministryofjustice/wp-moj-elasticsearch.git",
-                "reference": "4d7a0aeef49ce63b0d4571987d01f286f6fc33a6"
+                "reference": "051065cac121b4684cf523c49af6fefc02c56054"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.wp.dsd.io/dist/ministryofjustice/wp-moj-elasticsearch/ministryofjustice-wp-moj-elasticsearch-4d7a0aeef49ce63b0d4571987d01f286f6fc33a6-zip-079e5c.zip",
-                "reference": "4d7a0aeef49ce63b0d4571987d01f286f6fc33a6",
-                "shasum": "14fa8f536c07efcb8a15ba1f82e5c122284fda3a"
+                "url": "https://composer.wp.dsd.io/dist/ministryofjustice/wp-moj-elasticsearch/ministryofjustice-wp-moj-elasticsearch-051065cac121b4684cf523c49af6fefc02c56054-zip-9fe8f3.zip",
+                "reference": "051065cac121b4684cf523c49af6fefc02c56054",
+                "shasum": "cb99b3f338ba191b6784dc3239e2de80edd4d8b3"
             },
             "require": {
                 "composer/installers": "^1.0"
@@ -1015,9 +1015,7 @@
             "type": "wordpress-muplugin",
             "autoload": {
                 "psr-4": {
-                    "classes\\ElasticSearch\\": "classes/ElasticSearch/",
-                    "classes\\Insert\\": "classes/Insert/",
-                    "classes\\Query\\": "classes/Query/"
+                    "MOJElasticSearch\\": "."
                 }
             },
             "scripts": {
@@ -1032,16 +1030,15 @@
             },
             "authors": [
                 {
-                    "name": "Damien Wilson",
-                    "email": "damien.wilson@digital.justice.gov.uk"
+                    "name": "Ministry of Justice"
                 }
             ],
             "description": "WP interface for managing elastic search",
             "support": {
-                "source": "https://github.com/ministryofjustice/wp-moj-elasticsearch/tree/1.1.0",
+                "source": "https://github.com/ministryofjustice/wp-moj-elasticsearch/tree/1.1.1",
                 "issues": "https://github.com/ministryofjustice/wp-moj-elasticsearch/issues"
             },
-            "time": "2020-04-29T12:39:36+00:00"
+            "time": "2020-05-07T11:47:53+00:00"
         },
         {
             "name": "ministryofjustice/wp-rewrite-media-to-s3",
