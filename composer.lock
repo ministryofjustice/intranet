@@ -828,17 +828,17 @@
         },
         {
             "name": "ministryofjustice/wp-moj-elasticsearch",
-            "version": "1.2.2",
+            "version": "1.2.3",
             "source": {
                 "type": "git",
                 "url": "git@github.com:ministryofjustice/wp-moj-elasticsearch.git",
-                "reference": "c7a65bc5f788c7fd28464ab0adb83aba0f35b8db"
+                "reference": "a199e9915fceb5ce6986fe2c8916363bf4c85685"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.wp.dsd.io/dist/ministryofjustice/wp-moj-elasticsearch/ministryofjustice-wp-moj-elasticsearch-c7a65bc5f788c7fd28464ab0adb83aba0f35b8db-zip-9e9a39.zip",
-                "reference": "c7a65bc5f788c7fd28464ab0adb83aba0f35b8db",
-                "shasum": "2e21790bccfb00824db2ac41b07a9702830b36f8"
+                "url": "https://composer.wp.dsd.io/dist/ministryofjustice/wp-moj-elasticsearch/ministryofjustice-wp-moj-elasticsearch-a199e9915fceb5ce6986fe2c8916363bf4c85685-zip-c6eca1.zip",
+                "reference": "a199e9915fceb5ce6986fe2c8916363bf4c85685",
+                "shasum": "33b5084ffcec43f83d0a8fee332053bc0e55f3df"
             },
             "require": {
                 "composer/installers": "^1.0"
@@ -874,10 +874,10 @@
             ],
             "description": "WP interface for managing elastic search",
             "support": {
-                "source": "https://github.com/ministryofjustice/wp-moj-elasticsearch/tree/1.2.2",
+                "source": "https://github.com/ministryofjustice/wp-moj-elasticsearch/tree/1.2.3",
                 "issues": "https://github.com/ministryofjustice/wp-moj-elasticsearch/issues"
             },
-            "time": "2020-05-13T13:46:40+00:00"
+            "time": "2020-05-13T15:25:01+00:00"
         },
         {
             "name": "ministryofjustice/wp-rewrite-media-to-s3",
