@@ -48,8 +48,8 @@ if (isset($post_meta['comment_disabled_status'][0])) {
         comment_form($comments_args);
         ?>
       <p class="secondary-action">
-        <a href="https://intranet.justice.gov.uk/commenting-policy/">MoJ commenting policy</a><br/>
-          <a href="<?php echo get_bloginfo('url'); ?>/delete-account/">Delete your Account</a>
+        <a href="<?php echo get_bloginfo('url'); ?>/commenting-policy/">MoJ commenting policy</a><br/>
+          <a href="<?php echo get_bloginfo('url'); ?>/delete-account/">Delete your comment history</a>
       </p>
 
         <?php

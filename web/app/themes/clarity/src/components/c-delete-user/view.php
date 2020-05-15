@@ -1,4 +1,9 @@
 <?php
+/***
+ *
+ * Delete User - delete a user account (confirmed by email)
+ * Also see inc/comments.php
+ */
 
 ?>
 <section class="c-delete-user">
@@ -21,13 +26,13 @@
 
             $user_id = $check_result->ID;
 
-            //wp_delete_user($user_id)
+            wp_delete_user($user_id)
 
             ?>
 
-            <h2>Account Deleted</h2>
+            <h1 class="o-title o-title--page">Your MoJ Intranet comments have been deleted</h1>
 
-            <p>Your account has been deleted</p>
+            <p>You will need to register your email address again to make comments.</p>
         <?php } ?>
         <?php
 
@@ -41,9 +46,9 @@
                 $to = $current_user->user_email;
 
                 $delete_key = get_password_reset_key($current_user);
-                $btn_link = '<a style="display:inline-block;padding:8px 15px 5px;background-color:#00823b;color:#ffffff;font-size:19px;font-family:Arial,sans-serif;line-height:25px;text-decoration:none;vertical-align:top" href="' . get_bloginfo('url') . '/delete-account?key= . ' . $delete_key . '&login=' . rawurlencode($current_user->user_login) . '"> Delete Account</a>';
+                $btn_link = '<a style="display:inline-block;padding:8px 15px 5px;background-color:#00823b;color:#ffffff;font-size:19px;font-family:Arial,sans-serif;line-height:25px;text-decoration:none;vertical-align:top" href="' . get_bloginfo('url') . '/delete-account?key= . ' . $delete_key . '&login=' . rawurlencode($current_user->user_login) . '">I want to delete all of my MOJ Intranet comments</a>';
 
-                $subject = 'Deletion of MoJ Intranet Account';
+                $subject = 'Delete your MoJ Intranet comments';
                 $body =
                     '<div style="background-color:black">
 						<p style="color:#fff">
@@ -51,11 +56,11 @@
 						</p>
 					</div>
 					<p style="padding:5px 0;font-size:19px;font-family:Arial,sans-serif">Hello,</p>
-					<p style="padding:5px 0;font-size:19px;font-family:Arial,sans-serif">To confirm the deletion of your MoJ Intranet account please click the link below</p>' .
+					<p style="padding:5px 0;font-size:19px;font-family:Arial,sans-serif">Click the link to delete all MoJ Intranet comments associated with your name and email address:</p>' .
                     $btn_link .
                     '<br/>
 					<p style="padding:5px 0;font-size:19px;font-family:Arial,sans-serif"><strong>Any problems?</strong></p>
-					<p style="padding:5px 0;font-size:19px;font-family:Arial,sans-serif">If this link has expired, you’ll need to request to delete your account again to get another link. If you don’t want to delete your account, ignore this email.</p>
+					<p style="padding:5px 0;font-size:19px;font-family:Arial,sans-serif">If this link has expired, you’ll need to ask again to delete your comment history. If you don’t want to delete your MoJ Intranet comments, ignore this email.</p>
 					<p style="padding:25px 0 5px;font-size:16px;font-family:Arial,sans-serif;color:#6f777b">This email is generated automatically. Do not reply.</p>
 					<div style="background-color:#dee0e2">
 						<p style="padding:20px;font-size:16px;font-family:Arial,sans-serif">
@@ -67,33 +72,27 @@
                 wp_mail($to, $subject, $body, $headers);
 
                 ?>
-                <p>An email has been sent to your registered email address to confirm the deletion of your account.
-                    Please click the link in this email to delete your account.</p>
+                <h1 class="o-title o-title--page">We have sent you a confirmation email</h1>
+                <p>Check your email inbox and click the link in the email to delete your MoJ Intranet comments.</p>
                 <?php
 
             } else {
                 ?>
+                <h1 class="o-title o-title--page">Delete your comment history</h1>
+                <p>We will send an email to confirm you want to delete comments on the MoJ Intranet associated with the following details:</p>
 
-                <p>This will delete your account and all comments associated to your account. An email will be sent to
-                    your
-                    registered email address to confirm this deletion.</p>
-
-                <p>You are currently logged in as:</p>
-                <p>Screen name: <?php echo $current_user->display_name; ?></p>
+                <p>Commenting as: <?php echo $current_user->display_name; ?></p>
                 <p>Email Address: <?php echo $current_user->user_email; ?></p>
 
-                <h2>Confirm Deletion</h2>
-
-                <p>To confirm deletion please click the button below</p>
-
                 <form method="post" action="?#respond">
-                    <button type="submit" name="btndelete" class="button" value="1">Delete Account</button>
+                    <button type="submit" name="btndelete" class="button" value="1">Continue</button>
                 </form>
 
                 <?php
             }
         } else { ?>
-            <p class="must-log-in">For security you have to be logged in to delete your account. Please <a
+            <h1 class="o-title o-title--page">Delete your comment history</h1>
+            <p class="must-log-in">For security you have to be logged in to delete comments. Please <a
                         href="' . wp_login_url(get_permalink()) . '">Login</a></p>';
             <?php
         }
