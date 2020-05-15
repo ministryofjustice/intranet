@@ -27,6 +27,19 @@
             $user_id = $check_result->ID;
 
             if(is_numeric($user_id)) {
+
+                $query    = new WP_Comment_Query;
+                $comments = $query->query( array (
+                    'user_id' => $user_id,
+                    'type'    => 'comment',
+                    'fields'  => 'ids',
+                    'status'  => 'any',
+                ) );
+                
+                foreach ( $comments as $comment ) {
+                    wp_delete_comment( $comment, true );
+                }
+
                 require_once(ABSPATH.'wp-admin/includes/user.php');
                 wp_delete_user($user_id);
             }
