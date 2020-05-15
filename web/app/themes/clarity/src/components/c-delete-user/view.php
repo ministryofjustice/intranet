@@ -93,7 +93,7 @@
         } else { ?>
             <h1 class="o-title o-title--page">Delete your comment history</h1>
             <p class="must-log-in">For security you have to be logged in to delete comments. Please <a
-                        href="' . wp_login_url(get_permalink()) . '">Login</a></p>';
+                        href="<?php echo wp_login_url(get_permalink()); ?>">Login</a></p>';
             <?php
         }
     }
