@@ -15,18 +15,21 @@
         $check_result = check_password_reset_key($key, $login);
 
         if (is_wp_error($check_result)) { ?>
-            <h2>Link Expired</h2>
+            <h1 class="o-title o-title--page">Delete your comment history</h1>
 
-            <p>This link is no longer valid.</p>
-            <p>If you still wish to delete your account you will need to make another <a
-                        href="<?php echo get_permalink(); ?>"> account deletion request</a></p>
+            <p>Link Expired. This link is no longer valid.</p>
+            <p>If you still wish to delete your comment history you will need to <a
+                        href="<?php echo get_permalink(); ?>">ask again</a></p>
 
             <?php
         } else {
 
             $user_id = $check_result->ID;
 
-            wp_delete_user($user_id)
+            if(is_numeric($user_id)) {
+                require_once(ABSPATH.'wp-admin/includes/user.php');
+                wp_delete_user($user_id);
+            }
 
             ?>
 
