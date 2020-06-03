@@ -42,8 +42,15 @@ function custom_upload_mimes($existing_mimes = array())
     $existing_mimes['ppsm'] = 'application/vnd.ms-powerpoint.slideshow.macroEnabled.12';
     $existing_mimes['rdp'] = 'application/rdp';
 
+    $existing_mimes = array_filter($existing_mimes, 'restrict_file_types');
+
     return $existing_mimes;
 }
+
+function restrict_file_types($string) {
+    return strpos($string, 'video') === false;
+}
+
 
 // Set documents uploaded via WP Document Revisions to be public by default
 add_filter('document_to_private', 'dont_make_private', 10, 2);
