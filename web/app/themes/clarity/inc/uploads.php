@@ -51,7 +51,6 @@ function restrict_file_types($string) {
     return strpos($string, 'video') === false;
 }
 
-
 // Set documents uploaded via WP Document Revisions to be public by default
 add_filter('document_to_private', 'dont_make_private', 10, 2);
 
