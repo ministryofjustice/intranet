@@ -4,30 +4,30 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "01c08f4d41500c954fd4e4e72c11a072",
+    "content-hash": "c9ef2b3c9b277eaa54479d173b176154",
     "packages": [
         {
             "name": "acf/advanced-custom-fields-pro",
-            "version": "5.8.9",
+            "version": "5.8.11",
             "dist": {
                 "type": "zip",
-                "url": "https://composer.wp.dsd.io/dist/acf/advanced-custom-fields-pro/acf-advanced-custom-fields-pro-5.8.9.zip",
-                "shasum": "fbb8ca091ebb08a13d5423acd3e04f0f365b86de"
+                "url": "https://composer.wp.dsd.io/dist/acf/advanced-custom-fields-pro/acf-advanced-custom-fields-pro-5.8.11.zip",
+                "shasum": "d3d3254dfc1ff42f01645f21b82baa158cc99796"
             },
             "type": "wordpress-plugin"
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.138.1",
+            "version": "3.140.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "66df78e714c7ac87a9ea2bbb77cde586649d0141"
+                "reference": "7e37960c1103ee211932be51b2282b41c948a5f0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/66df78e714c7ac87a9ea2bbb77cde586649d0141",
-                "reference": "66df78e714c7ac87a9ea2bbb77cde586649d0141",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/7e37960c1103ee211932be51b2282b41c948a5f0",
+                "reference": "7e37960c1103ee211932be51b2282b41c948a5f0",
                 "shasum": ""
             },
             "require": {
@@ -98,7 +98,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2020-05-14T18:17:11+00:00"
+            "time": "2020-06-05T18:12:25+00:00"
         },
         {
             "name": "composer/installers",
@@ -229,16 +229,16 @@
         },
         {
             "name": "guzzlehttp/guzzle",
-            "version": "6.5.3",
+            "version": "6.5.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "aab4ebd862aa7d04f01a4b51849d657db56d882e"
+                "reference": "a4a1b6930528a8f7ee03518e6442ec7a44155d9d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/aab4ebd862aa7d04f01a4b51849d657db56d882e",
-                "reference": "aab4ebd862aa7d04f01a4b51849d657db56d882e",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/a4a1b6930528a8f7ee03518e6442ec7a44155d9d",
+                "reference": "a4a1b6930528a8f7ee03518e6442ec7a44155d9d",
                 "shasum": ""
             },
             "require": {
@@ -246,7 +246,7 @@
                 "guzzlehttp/promises": "^1.0",
                 "guzzlehttp/psr7": "^1.6.1",
                 "php": ">=5.5",
-                "symfony/polyfill-intl-idn": "^1.11"
+                "symfony/polyfill-intl-idn": "1.17.0"
             },
             "require-dev": {
                 "ext-curl": "*",
@@ -292,7 +292,7 @@
                 "rest",
                 "web service"
             ],
-            "time": "2020-04-18T10:38:46+00:00"
+            "time": "2020-05-25T19:35:05+00:00"
         },
         {
             "name": "guzzlehttp/promises",
@@ -776,17 +776,17 @@
         },
         {
             "name": "ministryofjustice/wp-moj-components",
-            "version": "3.1.1",
+            "version": "3.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ministryofjustice/wp-moj-components.git",
-                "reference": "41f785c92b795b76e95ac7f6446298576a0aa48f"
+                "reference": "df36b85ae54e0fd49ccde37cda7b06825b4c6595"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.wp.dsd.io/dist/ministryofjustice/wp-moj-components/ministryofjustice-wp-moj-components-41f785c92b795b76e95ac7f6446298576a0aa48f-zip-40af90.zip",
-                "reference": "41f785c92b795b76e95ac7f6446298576a0aa48f",
-                "shasum": "b64040f73849868d24c6b5bd9fd25b7cac5b0bb3"
+                "url": "https://composer.wp.dsd.io/dist/ministryofjustice/wp-moj-components/ministryofjustice-wp-moj-components-df36b85ae54e0fd49ccde37cda7b06825b4c6595-zip-6fef8c.zip",
+                "reference": "df36b85ae54e0fd49ccde37cda7b06825b4c6595",
+                "shasum": "e58161844aaf6786dbcc870dbc9c2d683ebbf76c"
             },
             "require": {
                 "composer/installers": "^1.0"
@@ -821,31 +821,30 @@
             ],
             "description": "A plugin to introduce global functions to a collection of WP sites",
             "support": {
-                "source": "https://github.com/ministryofjustice/wp-moj-components/tree/3.1.1",
+                "source": "https://github.com/ministryofjustice/wp-moj-components/tree/3.1.2",
                 "issues": "https://github.com/ministryofjustice/wp-moj-components/issues"
             },
-            "time": "2020-04-29T12:36:15+00:00"
+            "time": "2020-05-19T10:00:26+00:00"
         },
         {
             "name": "ministryofjustice/wp-moj-elasticsearch",
-            "version": "1.2.3",
+            "version": "dev-bulk-index-management",
             "source": {
                 "type": "git",
-                "url": "git@github.com:ministryofjustice/wp-moj-elasticsearch.git",
-                "reference": "a199e9915fceb5ce6986fe2c8916363bf4c85685"
+                "url": "https://github.com/ministryofjustice/wp-moj-elasticsearch.git",
+                "reference": "9852ef17e916e20ef4f9b7ce3fb3a8add9853d04"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.wp.dsd.io/dist/ministryofjustice/wp-moj-elasticsearch/ministryofjustice-wp-moj-elasticsearch-a199e9915fceb5ce6986fe2c8916363bf4c85685-zip-c6eca1.zip",
-                "reference": "a199e9915fceb5ce6986fe2c8916363bf4c85685",
-                "shasum": "33b5084ffcec43f83d0a8fee332053bc0e55f3df"
+                "url": "https://api.github.com/repos/ministryofjustice/wp-moj-elasticsearch/zipball/9852ef17e916e20ef4f9b7ce3fb3a8add9853d04",
+                "reference": "9852ef17e916e20ef4f9b7ce3fb3a8add9853d04",
+                "shasum": ""
             },
             "require": {
                 "composer/installers": "^1.0"
             },
             "require-dev": {
-                "10up/wp_mock": "0.4.2",
-                "phpmd/phpmd": "^2.7",
+                "phpmd/phpmd": "@stable",
                 "squizlabs/php_codesniffer": "^3.5"
             },
             "type": "wordpress-muplugin",
@@ -859,12 +858,11 @@
             },
             "scripts": {
                 "test": [
-                    "vendor/bin/phpunit",
-                    "vendor/bin/phpcs -p",
-                    "vendor/bin/phpmd component/ text cleancode,codesize,controversial,design,naming,unusedcode"
+                    "vendor/bin/phpcs",
+                    "vendor/bin/phpmd classes/ text cleancode,codesize,design,naming,unusedcode"
                 ],
-                "coverage": [
-                    "vendor/bin/phpunit --coverage-html coverage --whitelist component"
+                "test-fix": [
+                    "vendor/bin/phpcbf"
                 ]
             },
             "authors": [
@@ -874,10 +872,10 @@
             ],
             "description": "WP interface for managing elastic search",
             "support": {
-                "source": "https://github.com/ministryofjustice/wp-moj-elasticsearch/tree/1.2.3",
+                "source": "https://github.com/ministryofjustice/wp-moj-elasticsearch/tree/bulk-index-management",
                 "issues": "https://github.com/ministryofjustice/wp-moj-elasticsearch/issues"
             },
-            "time": "2020-05-13T15:25:01+00:00"
+            "time": "2020-06-07T16:49:38+00:00"
         },
         {
             "name": "ministryofjustice/wp-rewrite-media-to-s3",
@@ -1714,7 +1712,8 @@
         "ministryofjustice/dw-document-revisions": 20,
         "ministryofjustice/like-button-for-wordpress": 20,
         "ministryofjustice/notify-for-wordpress": 20,
-        "ministryofjustice/php-markdown-extra": 20
+        "ministryofjustice/php-markdown-extra": 20,
+        "ministryofjustice/wp-moj-elasticsearch": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

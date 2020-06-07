@@ -74,7 +74,7 @@
         "ministryofjustice/notify-for-wordpress": "dev-master",
         "ministryofjustice/php-markdown-extra": "dev-master",
         "wpackagist-plugin/elasticpress": "^3.4.1",
-        "ministryofjustice/wp-moj-elasticsearch": "*",
+        "ministryofjustice/wp-moj-elasticsearch": "dev-bulk-index-management",
         "ministryofjustice/wp-moj-components": "*"
     },
     "require-dev": {
