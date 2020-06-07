@@ -1,10 +1,10 @@
 <?php
 
 /** @var string Directory containing all of the site's files */
-$root_dir = dirname(__DIR__);
+define('MOJ_ROOT_DIR', dirname(__DIR__));
 
 /** @var string Document Root */
-$webroot_dir = $root_dir . '/web';
+$webroot_dir = MOJ_ROOT_DIR . '/web';
 
 /**
  * Expose global env() function from oscarotero/env
@@ -14,8 +14,8 @@ Env::init();
 /**
  * Use Dotenv to set required environment variables and load .env file in root
  */
-$dotenv = new Dotenv\Dotenv($root_dir);
-if (file_exists($root_dir . '/.env')) {
+$dotenv = new Dotenv\Dotenv(MOJ_ROOT_DIR);
+if (file_exists(MOJ_ROOT_DIR . '/.env')) {
     $dotenv->load();
     $dotenv->required(['DB_NAME', 'DB_USER', 'DB_PASSWORD', 'WP_HOME', 'WP_SITEURL']);
 }
@@ -75,6 +75,12 @@ define('AUTOMATIC_UPDATER_DISABLED', true);
 define('DISABLE_WP_CRON', true);
 define('DISALLOW_FILE_EDIT', true);
 define('S3_UPLOADS_BASE_URL', getenv('S3_UPLOADS_BASE_URL') ? getenv('S3_UPLOADS_BASE_URL') : false);
+
+/**
+ * ElasticPress
+ * - remove dashboard sync capability, issue; breaks with large data sets
+ */
+define('EP_DASHBOARD_SYNC', false);
 
 /**
  * Bootstrap WordPress
