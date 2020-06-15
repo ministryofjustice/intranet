@@ -1,0 +1,27 @@
+{
+    "name": "Footer navigation",
+    "class": "c-footer-nav",
+    "version": "1.0.0",
+    "creator": {
+        "name": "Rob Lowe",
+    },
+    "description": "The footer navigation",
+    "standard_or_universal": "standard",
+    "parents": "",
+    "children": "",
+    "notes": {
+        "backend": "",
+        "frontend": ""
+    },
+    "backend_classes": {},
+    "has_js": false,
+    "integrated": false,
+    "is_working": false,
+    "example_link": "http://intranet.justice.gov.uk",
+    "used_on_templates": [],
+    "changelog": [{
+        "date": "15/06/2020",
+        "author": "Rob Lowe",
+        "description": "Created component"
+    }]
+}
