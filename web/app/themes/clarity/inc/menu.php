@@ -15,6 +15,7 @@ add_action('init', 'register_my_menu');
 function register_my_menu()
 {
     register_nav_menu('header-menu', __('Header Menu'));
+    register_nav_menu('footer-menu', __('Footer Menu'));
     register_nav_menu('hq-menu', __('HQ Menu'));
     register_nav_menu('cica-menu', __('CICA Menu'));
     register_nav_menu('hmcts-menu', __('HMCTS Menu'));
