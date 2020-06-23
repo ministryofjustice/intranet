@@ -4,14 +4,19 @@
 .c-logo-bar {
   position: relative;
   background-color: $dark;
-  padding: $spacing $spacing $spacing;
+  padding: 0 $spacing 0 $spacing;
+
+  +above(m) {
+    padding: 0;
+    max-height 49px;
+  }
 
   a {
     text-decoration: none;
   }
 
   img {
-    height: $spacing*2.6;
+    height: 49px;
     position: relative;
     display: block;
     float: left;
@@ -21,6 +26,8 @@
     font-size: 26px;
     font-weight: 400;
     line-height: 29px;
+    float: left;
+    padding: $spacing $spacing $spacing;
   }
 
   &__switch {
@@ -28,13 +35,19 @@
     display block;
     padding: $spacing 0;
     text-decoration: none;
+    clear left;
     +above(m) {
       padding: 5px 0 0 0;
       text-align: right;
+      clear none;
     }
   }
 
   .u-wrapper {
+
+    &__stack--right {
+      padding: $spacing 0 $spacing;
+    }
   }
 
   &__stack--left {
