@@ -5,9 +5,17 @@
   $activeAgency = $oAgency->getCurrentAgency();
 
 if ($activeAgency['shortcode'] === 'law-commission') {
-    $logo = get_stylesheet_directory_uri() . '/dist/images/lawcomms_logo.png';
+    $logo = get_stylesheet_directory_uri() . '/dist/images/lawcomms_logo_new.png';
 } else {
-	$logo = get_stylesheet_directory_uri() . '/dist/images/moj_logo.png';
+	$logo = get_stylesheet_directory_uri() . '/dist/images/moj_logo_new.png';
+}
+
+$agency = get_intranet_code();
+
+$header_logo  = get_field($agency .'_header_logo', 'option');
+
+if(empty($header_logo) == false){
+    $logo = $header_logo;
 }
 
   $page_name = get_query_var('name');
