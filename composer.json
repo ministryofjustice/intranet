@@ -74,8 +74,10 @@
         "ministryofjustice/notify-for-wordpress": "dev-master",
         "ministryofjustice/php-markdown-extra": "dev-master",
         "wpackagist-plugin/elasticpress": "^3.4.1",
-        "ministryofjustice/wp-moj-elasticsearch": "dev-bulk-index-management",
-        "ministryofjustice/wp-moj-components": "*"
+        "ministryofjustice/wp-moj-elasticsearch": "*",
+        "ministryofjustice/wp-moj-components": "*",
+      "ext-zlib": "*",
+        "a5hleyrich/wp-background-processing": "^1.0"
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "^3.0.2"

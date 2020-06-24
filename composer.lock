@@ -4,8 +4,44 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c9ef2b3c9b277eaa54479d173b176154",
+    "content-hash": "783ed47612c9afed80d189048904855b",
     "packages": [
+        {
+            "name": "a5hleyrich/wp-background-processing",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/A5hleyRich/wp-background-processing.git",
+                "reference": "1f070aab5058dbaf45d5435a343033ddd8a641b1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/A5hleyRich/wp-background-processing/zipball/1f070aab5058dbaf45d5435a343033ddd8a641b1",
+                "reference": "1f070aab5058dbaf45d5435a343033ddd8a641b1",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "classes/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0-only"
+            ],
+            "authors": [
+                {
+                    "name": "Ashley Rich",
+                    "email": "hello@ashleyrich.com"
+                }
+            ],
+            "description": "WP Background Processing can be used to fire off non-blocking asynchronous requests or as a background processing tool, allowing you to queue tasks.",
+            "time": "2018-02-12T09:24:05+00:00"
+        },
         {
             "name": "acf/advanced-custom-fields-pro",
             "version": "5.8.11",
@@ -18,16 +54,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.140.2",
+            "version": "3.142.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "7e37960c1103ee211932be51b2282b41c948a5f0"
+                "reference": "a9cffb2442b63ca8a99ed3e68aef19df221e2a54"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/7e37960c1103ee211932be51b2282b41c948a5f0",
-                "reference": "7e37960c1103ee211932be51b2282b41c948a5f0",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/a9cffb2442b63ca8a99ed3e68aef19df221e2a54",
+                "reference": "a9cffb2442b63ca8a99ed3e68aef19df221e2a54",
                 "shasum": ""
             },
             "require": {
@@ -50,6 +86,7 @@
                 "ext-pcntl": "*",
                 "ext-sockets": "*",
                 "nette/neon": "^2.3",
+                "paragonie/random_compat": ">= 2",
                 "phpunit/phpunit": "^4.8.35|^5.4.3",
                 "psr/cache": "^1.0",
                 "psr/simple-cache": "^1.0",
@@ -98,7 +135,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2020-06-05T18:12:25+00:00"
+            "time": "2020-06-23T18:46:28+00:00"
         },
         {
             "name": "composer/installers",
@@ -229,16 +266,16 @@
         },
         {
             "name": "guzzlehttp/guzzle",
-            "version": "6.5.4",
+            "version": "6.5.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "a4a1b6930528a8f7ee03518e6442ec7a44155d9d"
+                "reference": "9d4290de1cfd701f38099ef7e183b64b4b7b0c5e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/a4a1b6930528a8f7ee03518e6442ec7a44155d9d",
-                "reference": "a4a1b6930528a8f7ee03518e6442ec7a44155d9d",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/9d4290de1cfd701f38099ef7e183b64b4b7b0c5e",
+                "reference": "9d4290de1cfd701f38099ef7e183b64b4b7b0c5e",
                 "shasum": ""
             },
             "require": {
@@ -246,7 +283,7 @@
                 "guzzlehttp/promises": "^1.0",
                 "guzzlehttp/psr7": "^1.6.1",
                 "php": ">=5.5",
-                "symfony/polyfill-intl-idn": "1.17.0"
+                "symfony/polyfill-intl-idn": "^1.17.0"
             },
             "require-dev": {
                 "ext-curl": "*",
@@ -292,7 +329,7 @@
                 "rest",
                 "web service"
             ],
-            "time": "2020-05-25T19:35:05+00:00"
+            "time": "2020-06-16T21:01:06+00:00"
         },
         {
             "name": "guzzlehttp/promises",
@@ -418,21 +455,21 @@
         },
         {
             "name": "johnpbloch/wordpress",
-            "version": "5.4.1",
+            "version": "5.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/johnpbloch/wordpress.git",
-                "reference": "2cdacd2a14c9960bcd86d8b4d7b1f211b3e77684"
+                "reference": "18c41a328193d6f7425a3cea4e01faa220e90218"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/johnpbloch/wordpress/zipball/2cdacd2a14c9960bcd86d8b4d7b1f211b3e77684",
-                "reference": "2cdacd2a14c9960bcd86d8b4d7b1f211b3e77684",
+                "url": "https://api.github.com/repos/johnpbloch/wordpress/zipball/18c41a328193d6f7425a3cea4e01faa220e90218",
+                "reference": "18c41a328193d6f7425a3cea4e01faa220e90218",
                 "shasum": ""
             },
             "require": {
-                "johnpbloch/wordpress-core": "5.4.1",
-                "johnpbloch/wordpress-core-installer": "^1.0",
+                "johnpbloch/wordpress-core": "5.4.2",
+                "johnpbloch/wordpress-core-installer": "^1.0 || ^2.0",
                 "php": ">=5.6.20"
             },
             "type": "package",
@@ -453,27 +490,28 @@
                 "cms",
                 "wordpress"
             ],
-            "time": "2020-04-29T19:02:59+00:00"
+            "time": "2020-06-10T22:05:43+00:00"
         },
         {
             "name": "johnpbloch/wordpress-core",
-            "version": "5.4.1",
+            "version": "5.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/johnpbloch/wordpress-core.git",
-                "reference": "4639993365dbb3c935d420df22f84c136d9ef4d1"
+                "reference": "3e67d8b6ee6c11e8ce404da4627117fb7fbf9266"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/johnpbloch/wordpress-core/zipball/4639993365dbb3c935d420df22f84c136d9ef4d1",
-                "reference": "4639993365dbb3c935d420df22f84c136d9ef4d1",
+                "url": "https://api.github.com/repos/johnpbloch/wordpress-core/zipball/3e67d8b6ee6c11e8ce404da4627117fb7fbf9266",
+                "reference": "3e67d8b6ee6c11e8ce404da4627117fb7fbf9266",
                 "shasum": ""
             },
             "require": {
+                "ext-json": "*",
                 "php": ">=5.6.20"
             },
             "provide": {
-                "wordpress/core-implementation": "5.4.1"
+                "wordpress/core-implementation": "5.4.2"
             },
             "type": "wordpress-core",
             "notification-url": "https://packagist.org/downloads/",
@@ -493,31 +531,32 @@
                 "cms",
                 "wordpress"
             ],
-            "time": "2020-04-29T19:02:53+00:00"
+            "time": "2020-06-10T22:05:38+00:00"
         },
         {
             "name": "johnpbloch/wordpress-core-installer",
-            "version": "1.0.2",
+            "version": "2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/johnpbloch/wordpress-core-installer.git",
-                "reference": "fd12f5cfe27223b92b0f4bbc097059eb23cc56c4"
+                "reference": "237faae9a60a4a2e1d45dce1a5836ffa616de63e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/johnpbloch/wordpress-core-installer/zipball/fd12f5cfe27223b92b0f4bbc097059eb23cc56c4",
-                "reference": "fd12f5cfe27223b92b0f4bbc097059eb23cc56c4",
+                "url": "https://api.github.com/repos/johnpbloch/wordpress-core-installer/zipball/237faae9a60a4a2e1d45dce1a5836ffa616de63e",
+                "reference": "237faae9a60a4a2e1d45dce1a5836ffa616de63e",
                 "shasum": ""
             },
             "require": {
-                "composer-plugin-api": "^1.0"
+                "composer-plugin-api": "^1.0 || ^2.0",
+                "php": ">=5.6.0"
             },
             "conflict": {
                 "composer/installers": "<1.0.6"
             },
             "require-dev": {
-                "composer/composer": "^1.0",
-                "phpunit/phpunit": ">=4.8.35"
+                "composer/composer": "^1.0 || ^2.0",
+                "phpunit/phpunit": ">=5.7.27"
             },
             "type": "composer-plugin",
             "extra": {
@@ -542,14 +581,14 @@
             "keywords": [
                 "wordpress"
             ],
-            "time": "2018-11-09T20:10:38+00:00"
+            "time": "2020-04-16T21:44:57+00:00"
         },
         {
             "name": "koodimonni-language/core-en_gb",
-            "version": "5.4.1",
+            "version": "5.4.2",
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/translation/core/5.4.1/en_GB.zip"
+                "url": "https://downloads.wordpress.org/translation/core/5.4.2/en_GB.zip"
             },
             "require": {
                 "koodimonni/composer-dropin-installer": ">=0.2.3"
@@ -828,17 +867,17 @@
         },
         {
             "name": "ministryofjustice/wp-moj-elasticsearch",
-            "version": "dev-bulk-index-management",
+            "version": "2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ministryofjustice/wp-moj-elasticsearch.git",
-                "reference": "9852ef17e916e20ef4f9b7ce3fb3a8add9853d04"
+                "reference": "377beb1a3f69018f8e6df779258f7a263efc6b4b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ministryofjustice/wp-moj-elasticsearch/zipball/9852ef17e916e20ef4f9b7ce3fb3a8add9853d04",
-                "reference": "9852ef17e916e20ef4f9b7ce3fb3a8add9853d04",
-                "shasum": ""
+                "url": "https://composer.wp.dsd.io/dist/ministryofjustice/wp-moj-elasticsearch/ministryofjustice-wp-moj-elasticsearch-377beb1a3f69018f8e6df779258f7a263efc6b4b-zip-35009a.zip",
+                "reference": "377beb1a3f69018f8e6df779258f7a263efc6b4b",
+                "shasum": "e50608ca9e09bf3f6930ed1a3d997bdbcaa1b358"
             },
             "require": {
                 "composer/installers": "^1.0"
@@ -872,10 +911,10 @@
             ],
             "description": "WP interface for managing elastic search",
             "support": {
-                "source": "https://github.com/ministryofjustice/wp-moj-elasticsearch/tree/bulk-index-management",
+                "source": "https://github.com/ministryofjustice/wp-moj-elasticsearch/tree/2.1.0",
                 "issues": "https://github.com/ministryofjustice/wp-moj-elasticsearch/issues"
             },
-            "time": "2020-06-07T16:49:38+00:00"
+            "time": "2020-06-24T11:07:11+00:00"
         },
         {
             "name": "ministryofjustice/wp-rewrite-media-to-s3",
@@ -1160,16 +1199,16 @@
         },
         {
             "name": "symfony/polyfill-ctype",
-            "version": "v1.17.0",
+            "version": "v1.17.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-ctype.git",
-                "reference": "e94c8b1bbe2bc77507a1056cdb06451c75b427f9"
+                "reference": "2edd75b8b35d62fd3eeabba73b26b8f1f60ce13d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/e94c8b1bbe2bc77507a1056cdb06451c75b427f9",
-                "reference": "e94c8b1bbe2bc77507a1056cdb06451c75b427f9",
+                "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/2edd75b8b35d62fd3eeabba73b26b8f1f60ce13d",
+                "reference": "2edd75b8b35d62fd3eeabba73b26b8f1f60ce13d",
                 "shasum": ""
             },
             "require": {
@@ -1182,6 +1221,10 @@
             "extra": {
                 "branch-alias": {
                     "dev-master": "1.17-dev"
+                },
+                "thanks": {
+                    "name": "symfony/polyfill",
+                    "url": "https://github.com/symfony/polyfill"
                 }
             },
             "autoload": {
@@ -1214,20 +1257,20 @@
                 "polyfill",
                 "portable"
             ],
-            "time": "2020-05-12T16:14:59+00:00"
+            "time": "2020-06-06T08:46:27+00:00"
         },
         {
             "name": "symfony/polyfill-intl-idn",
-            "version": "v1.17.0",
+            "version": "v1.17.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-intl-idn.git",
-                "reference": "3bff59ea7047e925be6b7f2059d60af31bb46d6a"
+                "reference": "a57f8161502549a742a63c09f0a604997bf47027"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-intl-idn/zipball/3bff59ea7047e925be6b7f2059d60af31bb46d6a",
-                "reference": "3bff59ea7047e925be6b7f2059d60af31bb46d6a",
+                "url": "https://api.github.com/repos/symfony/polyfill-intl-idn/zipball/a57f8161502549a742a63c09f0a604997bf47027",
+                "reference": "a57f8161502549a742a63c09f0a604997bf47027",
                 "shasum": ""
             },
             "require": {
@@ -1242,6 +1285,10 @@
             "extra": {
                 "branch-alias": {
                     "dev-master": "1.17-dev"
+                },
+                "thanks": {
+                    "name": "symfony/polyfill",
+                    "url": "https://github.com/symfony/polyfill"
                 }
             },
             "autoload": {
@@ -1276,20 +1323,20 @@
                 "portable",
                 "shim"
             ],
-            "time": "2020-05-12T16:47:27+00:00"
+            "time": "2020-06-06T08:46:27+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",
-            "version": "v1.17.0",
+            "version": "v1.17.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "fa79b11539418b02fc5e1897267673ba2c19419c"
+                "reference": "7110338d81ce1cbc3e273136e4574663627037a7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/fa79b11539418b02fc5e1897267673ba2c19419c",
-                "reference": "fa79b11539418b02fc5e1897267673ba2c19419c",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/7110338d81ce1cbc3e273136e4574663627037a7",
+                "reference": "7110338d81ce1cbc3e273136e4574663627037a7",
                 "shasum": ""
             },
             "require": {
@@ -1302,6 +1349,10 @@
             "extra": {
                 "branch-alias": {
                     "dev-master": "1.17-dev"
+                },
+                "thanks": {
+                    "name": "symfony/polyfill",
+                    "url": "https://github.com/symfony/polyfill"
                 }
             },
             "autoload": {
@@ -1335,7 +1386,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2020-05-12T16:47:27+00:00"
+            "time": "2020-06-06T08:46:27+00:00"
         },
         {
             "name": "symfony/polyfill-php72",
@@ -1394,26 +1445,26 @@
         },
         {
             "name": "vlucas/phpdotenv",
-            "version": "v2.6.4",
+            "version": "v2.6.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vlucas/phpdotenv.git",
-                "reference": "67d472b1794c986381a8950e4958e1adb779d561"
+                "reference": "2e977311ffb17b2f82028a9c36824647789c6365"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vlucas/phpdotenv/zipball/67d472b1794c986381a8950e4958e1adb779d561",
-                "reference": "67d472b1794c986381a8950e4958e1adb779d561",
+                "url": "https://api.github.com/repos/vlucas/phpdotenv/zipball/2e977311ffb17b2f82028a9c36824647789c6365",
+                "reference": "2e977311ffb17b2f82028a9c36824647789c6365",
                 "shasum": ""
             },
             "require": {
                 "php": "^5.3.9 || ^7.0 || ^8.0",
-                "symfony/polyfill-ctype": "^1.9"
+                "symfony/polyfill-ctype": "^1.16"
             },
             "require-dev": {
                 "ext-filter": "*",
                 "ext-pcre": "*",
-                "phpunit/phpunit": "^4.8.35 || ^5.0"
+                "phpunit/phpunit": "^4.8.35 || ^5.7.27"
             },
             "suggest": {
                 "ext-filter": "Required to use the boolean validator.",
@@ -1452,7 +1503,7 @@
                 "env",
                 "environment"
             ],
-            "time": "2020-05-02T13:38:00+00:00"
+            "time": "2020-06-02T14:06:52+00:00"
         },
         {
             "name": "wpackagist-plugin/classic-editor",
@@ -1510,15 +1561,15 @@
         },
         {
             "name": "wpackagist-plugin/elasticpress",
-            "version": "3.4.1",
+            "version": "3.4.2",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/elasticpress/",
-                "reference": "tags/3.4.1"
+                "reference": "tags/3.4.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/elasticpress.3.4.1.zip"
+                "url": "https://downloads.wordpress.org/plugin/elasticpress.3.4.2.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -1528,15 +1579,15 @@
         },
         {
             "name": "wpackagist-plugin/ewww-image-optimizer",
-            "version": "5.3.2",
+            "version": "5.4.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/ewww-image-optimizer/",
-                "reference": "tags/5.3.2"
+                "reference": "tags/5.4.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/ewww-image-optimizer.5.3.2.zip"
+                "url": "https://downloads.wordpress.org/plugin/ewww-image-optimizer.5.4.1.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -1618,7 +1669,7 @@
         },
         {
             "name": "wpackagist-plugin/totalpoll-lite",
-            "version": "4.1.6",
+            "version": "4.1.7",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/totalpoll-lite/",
@@ -1626,7 +1677,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/totalpoll-lite.zip?timestamp=1588836528"
+                "url": "https://downloads.wordpress.org/plugin/totalpoll-lite.zip?timestamp=1592834868"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -1712,14 +1763,14 @@
         "ministryofjustice/dw-document-revisions": 20,
         "ministryofjustice/like-button-for-wordpress": 20,
         "ministryofjustice/notify-for-wordpress": 20,
-        "ministryofjustice/php-markdown-extra": 20,
-        "ministryofjustice/wp-moj-elasticsearch": 20
+        "ministryofjustice/php-markdown-extra": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
         "php": ">=7.1",
-        "ext-json": "*"
+        "ext-json": "*",
+        "ext-zlib": "*"
     },
     "platform-dev": []
 }

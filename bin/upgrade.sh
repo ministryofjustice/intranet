@@ -24,6 +24,7 @@ for d in web/app/themes/*; do
     echo "***"
     cd "$d"
     npm-upgrade
+    npm install
     npm audit fix
     cd ../../../..
   fi

@@ -78,7 +78,7 @@ define('S3_UPLOADS_BASE_URL', getenv('S3_UPLOADS_BASE_URL') ? getenv('S3_UPLOADS
 
 /**
  * ElasticPress
- * - remove dashboard sync capability, issue; breaks with large data sets
+ * - remove dashboard sync capability, issue; extremely slow and clear index
  */
 define('EP_DASHBOARD_SYNC', false);
 
