@@ -5,6 +5,9 @@ build:
 	bin/build.sh
 
 # Run the project upgrade script
+update:
+	bin/upgrade.sh
+
 upgrade:
 	bin/upgrade.sh
 
