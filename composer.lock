@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "127e8723b1eb6cf91e035ddc98024358",
+    "content-hash": "5b5de5d0ee9b5039d780aea91293a8d6",
     "packages": [
         {
             "name": "a5hleyrich/wp-background-processing",
@@ -829,17 +829,17 @@
         },
         {
             "name": "ministryofjustice/wp-moj-components",
-            "version": "dev-master",
+            "version": "3.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ministryofjustice/wp-moj-components.git",
-                "reference": "acc0ac38e9c972fb8a3a579d6316e84d40ec8b0f"
+                "reference": "df36b85ae54e0fd49ccde37cda7b06825b4c6595"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ministryofjustice/wp-moj-components/zipball/acc0ac38e9c972fb8a3a579d6316e84d40ec8b0f",
-                "reference": "acc0ac38e9c972fb8a3a579d6316e84d40ec8b0f",
-                "shasum": ""
+                "url": "https://composer.wp.dsd.io/dist/ministryofjustice/wp-moj-components/ministryofjustice-wp-moj-components-df36b85ae54e0fd49ccde37cda7b06825b4c6595-zip-6fef8c.zip",
+                "reference": "df36b85ae54e0fd49ccde37cda7b06825b4c6595",
+                "shasum": "e58161844aaf6786dbcc870dbc9c2d683ebbf76c"
             },
             "require": {
                 "composer/installers": "^1.0"
@@ -874,10 +874,10 @@
             ],
             "description": "A plugin to introduce global functions to a collection of WP sites",
             "support": {
-                "source": "https://github.com/ministryofjustice/wp-moj-components/tree/master",
+                "source": "https://github.com/ministryofjustice/wp-moj-components/tree/3.1.2",
                 "issues": "https://github.com/ministryofjustice/wp-moj-components/issues"
             },
-            "time": "2020-06-29T11:41:39+00:00"
+            "time": "2020-05-19T10:00:26+00:00"
         },
         {
             "name": "ministryofjustice/wp-moj-elasticsearch",
@@ -1706,8 +1706,7 @@
         "ministryofjustice/like-button-for-wordpress": 20,
         "ministryofjustice/notify-for-wordpress": 20,
         "ministryofjustice/php-markdown-extra": 20,
-        "ministryofjustice/wp-moj-elasticsearch": 20,
-        "ministryofjustice/wp-moj-components": 20
+        "ministryofjustice/wp-moj-elasticsearch": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
