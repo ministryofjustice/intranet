@@ -54,16 +54,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.143.2",
+            "version": "3.144.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "d44eac162f8ed1869d20c076adca9869c70a8ad9"
+                "reference": "6848e85b4a019e1012e65cf8c82888863fe9dad7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/d44eac162f8ed1869d20c076adca9869c70a8ad9",
-                "reference": "d44eac162f8ed1869d20c076adca9869c70a8ad9",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/6848e85b4a019e1012e65cf8c82888863fe9dad7",
+                "reference": "6848e85b4a019e1012e65cf8c82888863fe9dad7",
                 "shasum": ""
             },
             "require": {
@@ -135,7 +135,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2020-06-26T18:21:03+00:00"
+            "time": "2020-06-29T18:15:16+00:00"
         },
         {
             "name": "composer/installers",
@@ -829,17 +829,17 @@
         },
         {
             "name": "ministryofjustice/wp-moj-components",
-            "version": "3.1.2",
+            "version": "3.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ministryofjustice/wp-moj-components.git",
-                "reference": "df36b85ae54e0fd49ccde37cda7b06825b4c6595"
+                "reference": "f80ad1cda3dd9c01d74b02e11e021e5cb6f0b1e0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.wp.dsd.io/dist/ministryofjustice/wp-moj-components/ministryofjustice-wp-moj-components-df36b85ae54e0fd49ccde37cda7b06825b4c6595-zip-6fef8c.zip",
-                "reference": "df36b85ae54e0fd49ccde37cda7b06825b4c6595",
-                "shasum": "e58161844aaf6786dbcc870dbc9c2d683ebbf76c"
+                "url": "https://composer.wp.dsd.io/dist/ministryofjustice/wp-moj-components/ministryofjustice-wp-moj-components-f80ad1cda3dd9c01d74b02e11e021e5cb6f0b1e0-zip-64d040.zip",
+                "reference": "f80ad1cda3dd9c01d74b02e11e021e5cb6f0b1e0",
+                "shasum": "b518ee7bd19ade64c1daccf83aa7d630516a863e"
             },
             "require": {
                 "composer/installers": "^1.0"
@@ -874,10 +874,10 @@
             ],
             "description": "A plugin to introduce global functions to a collection of WP sites",
             "support": {
-                "source": "https://github.com/ministryofjustice/wp-moj-components/tree/3.1.2",
+                "source": "https://github.com/ministryofjustice/wp-moj-components/tree/3.2.1",
                 "issues": "https://github.com/ministryofjustice/wp-moj-components/issues"
             },
-            "time": "2020-05-19T10:00:26+00:00"
+            "time": "2020-06-30T11:26:21+00:00"
         },
         {
             "name": "ministryofjustice/wp-moj-elasticsearch",
@@ -885,12 +885,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ministryofjustice/wp-moj-elasticsearch.git",
-                "reference": "70e4ffbd2803e192f6e9111707d6efb71ba6ed83"
+                "reference": "2754bb4a02bb6781fa635f36406297da9415ad74"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ministryofjustice/wp-moj-elasticsearch/zipball/70e4ffbd2803e192f6e9111707d6efb71ba6ed83",
-                "reference": "70e4ffbd2803e192f6e9111707d6efb71ba6ed83",
+                "url": "https://api.github.com/repos/ministryofjustice/wp-moj-elasticsearch/zipball/2754bb4a02bb6781fa635f36406297da9415ad74",
+                "reference": "2754bb4a02bb6781fa635f36406297da9415ad74",
                 "shasum": ""
             },
             "require": {
@@ -928,7 +928,7 @@
                 "source": "https://github.com/ministryofjustice/wp-moj-elasticsearch/tree/master",
                 "issues": "https://github.com/ministryofjustice/wp-moj-elasticsearch/issues"
             },
-            "time": "2020-06-29T11:37:37+00:00"
+            "time": "2020-06-30T14:00:59+00:00"
         },
         {
             "name": "ministryofjustice/wp-rewrite-media-to-s3",
