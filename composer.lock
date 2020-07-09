@@ -885,12 +885,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ministryofjustice/wp-moj-elasticsearch.git",
-                "reference": "2e541cf3d6a1320abb8f055adc26c383e878f9c4"
+                "reference": "324582a4adea952cf3f2035e304c74e3fb072d69"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ministryofjustice/wp-moj-elasticsearch/zipball/2e541cf3d6a1320abb8f055adc26c383e878f9c4",
-                "reference": "2e541cf3d6a1320abb8f055adc26c383e878f9c4",
+                "url": "https://api.github.com/repos/ministryofjustice/wp-moj-elasticsearch/zipball/324582a4adea952cf3f2035e304c74e3fb072d69",
+                "reference": "324582a4adea952cf3f2035e304c74e3fb072d69",
                 "shasum": ""
             },
             "require": {
@@ -928,7 +928,7 @@
                 "source": "https://github.com/ministryofjustice/wp-moj-elasticsearch/tree/master",
                 "issues": "https://github.com/ministryofjustice/wp-moj-elasticsearch/issues"
             },
-            "time": "2020-06-30T18:51:55+00:00"
+            "time": "2020-07-09T17:13:23+00:00"
         },
         {
             "name": "ministryofjustice/wp-rewrite-media-to-s3",
