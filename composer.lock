@@ -54,16 +54,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.146.0",
+            "version": "3.147.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "3975a494888375b5bdabf21285f86b47d6e9d531"
+                "reference": "e63974c002c0f6520da597d44a3f83ce46d7a612"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/3975a494888375b5bdabf21285f86b47d6e9d531",
-                "reference": "3975a494888375b5bdabf21285f86b47d6e9d531",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/e63974c002c0f6520da597d44a3f83ce46d7a612",
+                "reference": "e63974c002c0f6520da597d44a3f83ce46d7a612",
                 "shasum": ""
             },
             "require": {
@@ -135,7 +135,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2020-07-15T18:18:08+00:00"
+            "time": "2020-07-17T18:14:13+00:00"
         },
         {
             "name": "composer/installers",
@@ -885,12 +885,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ministryofjustice/wp-moj-elasticsearch.git",
-                "reference": "16e0ab7b1304512d7299e1c945c3f3d56045fd31"
+                "reference": "29314bc45eebd1f445163b842b9e295232a850e0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ministryofjustice/wp-moj-elasticsearch/zipball/16e0ab7b1304512d7299e1c945c3f3d56045fd31",
-                "reference": "16e0ab7b1304512d7299e1c945c3f3d56045fd31",
+                "url": "https://api.github.com/repos/ministryofjustice/wp-moj-elasticsearch/zipball/29314bc45eebd1f445163b842b9e295232a850e0",
+                "reference": "29314bc45eebd1f445163b842b9e295232a850e0",
                 "shasum": ""
             },
             "require": {
@@ -928,7 +928,7 @@
                 "source": "https://github.com/ministryofjustice/wp-moj-elasticsearch/tree/master",
                 "issues": "https://github.com/ministryofjustice/wp-moj-elasticsearch/issues"
             },
-            "time": "2020-07-17T14:02:33+00:00"
+            "time": "2020-07-19T08:41:20+00:00"
         },
         {
             "name": "ministryofjustice/wp-rewrite-media-to-s3",
