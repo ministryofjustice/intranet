@@ -7,12 +7,7 @@ require('laravel-mix-imagemin')
 mix.setPublicPath('./dist/')
 
 /*******************/
-mix.js(
-    [
-        'src/globals/js/script-loader.js'
-    ],
-    'dist/js/main.min.js'
-)
+mix.js('src/globals/js/script-loader.js', 'dist/js/main.min.js')
     .stylus('src/globals/css/_init.styl', 'dist/css/globals.css', { use: stylDeps })
     .stylus('src/components/style.print.styl', 'dist/css/', { use: stylDeps })
     .stylus('src/components/style.ie.styl', 'dist/css/', { use: stylDeps })
