@@ -19,12 +19,13 @@ function enqueue_clarity_scripts()
     wp_enqueue_style('core-css', mix_asset('/css/globals.css'), array(), null, 'all');
 
     // JS
-    wp_enqueue_script('core-js', mix_asset('/js/main.js'), array('jquery'));
+    wp_enqueue_script('core-js', mix_asset('/js/main.min.js'), array('jquery'));
     wp_localize_script('core-js', 'mojAjax', ['ajaxurl' => admin_url('admin-ajax.php')]);
 
     // Third party vendor scripts
     wp_deregister_script('jquery'); // This removes jquery shipped with WP so that we can add our own.
-    wp_enqueue_script('jquery', mix_asset('/js/jquery.min.js'));
+    wp_register_script('jquery', mix_asset('/js/jquery.min.js'));
+    wp_enqueue_script('jquery');
 
     wp_enqueue_script('popup', mix_asset('/js/magnific-popup.js'), array('jquery'), null, true);
     wp_enqueue_script('html5shiv', mix_asset('/js/ie8-js-html5shiv.js'));
