@@ -1,5 +1,4 @@
-;
-(function ($) {
+export default (function ($) {
     $.fn.moji_condolencesFilter = function () {
         jQuery(document).on('submit', '#filter_condolences', function (e) {
             e.preventDefault();
@@ -30,4 +29,4 @@
 
 
     }
-})(jQuery)
+})(jQuery);
