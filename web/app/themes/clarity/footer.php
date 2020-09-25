@@ -17,8 +17,8 @@
         endif;
 
         get_template_part('src/components/c-footer-nav/view');
-        ?>
 
+        ?>
       </div>
 
       <div class="l-secondary">

@@ -9,7 +9,7 @@ function define_regional_news_post_type()
         [
             'labels'             => [
                 'name'               => __('Regional News'),
-                'singular_name'      => __('News story'),
+                'singular_name'      => __('Regional news story'),
                 'add_new_item'       => __('Add New News story'),
                 'edit_item'          => __('Edit News story'),
                 'new_item'           => __('New News story'),

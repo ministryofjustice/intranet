@@ -73,7 +73,7 @@
         "ministryofjustice/like-button-for-wordpress": "dev-master",
         "ministryofjustice/notify-for-wordpress": "dev-master",
         "ministryofjustice/php-markdown-extra": "dev-master",
-        "wpackagist-plugin/elasticpress": "^3.4.1",
+        "wpackagist-plugin/elasticpress": "*",
         "wpackagist-plugin/debug-bar":"1.0.1",
         "wpackagist-plugin/debug-bar-elasticpress":"1.4",
         "ministryofjustice/wp-moj-elasticsearch": "dev-master",
