@@ -26,12 +26,12 @@
     },
     "homepage": "https://github.com/ministryofjustice/intranet/#readme",
     "dependencies": {
-        "autoprefixer": "^9.8.6",
+        "autoprefixer": "^10.0.0",
         "chalk": "^4.1.0",
         "ctgen": "^1.6.6",
         "del": "^5.1.0",
         "jquery": "^3.5.1",
-        "node-notifier": "^7.0.2"
+        "node-notifier": "^8.0.0"
     },
     "devDependencies": {
         "copy-webpack-plugin": "^5.1.2",
