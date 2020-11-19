@@ -1,23 +1,10 @@
 const mix = require('laravel-mix')
+
 const stylDeps = [require('jeet')(), require('rupture')()]
-const ImageminPlugin = require('imagemin-webpack-plugin').default
-const CopyPlugin = require('copy-webpack-plugin')
+
+require('laravel-mix-imagemin')
 
 mix.setPublicPath('./dist/')
-
-mix.webpackConfig({
-    plugins: [
-        new CopyPlugin({
-            patterns: [
-                { from: '**.*', to: 'images', context: 'src/globals/images' },
-                { from: '*/**.*', to: 'images', context: 'src/globals/images' }
-            ]
-        }),
-        new ImageminPlugin({
-            test: /\.(jpe?g|png|gif|svg)$/i
-        })
-    ]
-})
 
 /*******************/
 mix.js('src/globals/js/script-loader.js', 'dist/js/main.min.js')
@@ -26,6 +13,16 @@ mix.js('src/globals/js/script-loader.js', 'dist/js/main.min.js')
     .stylus('src/components/style.ie.styl', 'dist/css/', { use: stylDeps })
     .stylus('src/components/style.ie8.styl', 'dist/css/', { use: stylDeps })
     .stylus('src/components/style.styl', 'dist/css/', { use: stylDeps })
+    .imagemin([
+            'images/**.*',
+            'images/*/**.*'
+        ],
+        { context: 'src/globals' },
+        {
+            optipng: { optimizationLevel: 5 },
+            jpegtran: null
+        }
+    )
     .copy('src/vendors/*', 'dist/js/')
     .copy('./node_modules/jquery/dist/jquery.min.js', 'dist/js/')
     .copy('src/globals/fonts/*', 'dist/fonts/')

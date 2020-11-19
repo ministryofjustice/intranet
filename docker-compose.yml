@@ -18,6 +18,7 @@ services:
             DB_HOST: mysql
             NEWRELIC_LICENSE: change_to_production_value
             NEWRELIC_APPNAME: change_to_production_value
+            S3SignUrls: S3SignUrls
         depends_on:
             - mysql
             - mailcatcher
@@ -25,8 +26,6 @@ services:
             - SYS_ADMIN
         devices:
             - /dev/fuse
-        networks:
-            - docker-elk_elk
     mysql:
         image: mariadb
         environment:
@@ -36,15 +35,11 @@ services:
             MYSQL_PASSWORD: wordpress
         volumes:
             - database:/var/lib/mysql
-        networks:
-            - docker-elk_elk
     mailcatcher:
         image: schickling/mailcatcher
         environment:
             VIRTUAL_HOST: mail.${SERVER_NAME}
             VIRTUAL_PORT: 1080
-        networks:
-            - docker-elk_elk
     phpmyadmin:
         image: phpmyadmin/phpmyadmin
         environment:
@@ -53,11 +48,6 @@ services:
             - mysql
         ports:
             - 9191:80
-        networks:
-            - docker-elk_elk
-networks:
-    docker-elk_elk:
-        external: true
 volumes:
     database:
         driver: local

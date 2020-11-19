@@ -58,10 +58,9 @@
         "oscarotero/env": "^1.1.0",
         "roots/wp-password-bcrypt": "*",
         "wpackagist-plugin/classic-editor": "*",
-        "wpackagist-plugin/totalpoll-lite": "*",
+        "wpackagist-plugin/totalpoll-lite":"*",
         "wpackagist-plugin/cms-tree-page-view": "*",
         "wpackagist-plugin/co-authors-plus": "*",
-        "wpackagist-plugin/fast-user-switching": "*",
         "wpackagist-plugin/recently-edited-content-widget": "*",
         "wpackagist-plugin/regenerate-thumbnails": "*",
         "wpackagist-plugin/upload-url-path-enabler": "*",
@@ -74,12 +73,11 @@
         "ministryofjustice/notify-for-wordpress": "dev-master",
         "ministryofjustice/php-markdown-extra": "dev-master",
         "wpackagist-plugin/elasticpress": "*",
-        "wpackagist-plugin/debug-bar":"1.0.1",
-        "wpackagist-plugin/debug-bar-elasticpress":"1.4",
-        "ministryofjustice/wp-moj-elasticsearch": "dev-master",
+        "wpackagist-plugin/debug-bar":"^1.1.2",
+        "wpackagist-plugin/debug-bar-elasticpress":"^1.4",
+        "ministryofjustice/wp-moj-elasticsearch": "dev-aliasing-query-keep-alive",
         "ministryofjustice/wp-moj-components": "*",
-        "ext-zlib": "*",
-        "a5hleyrich/wp-background-processing": "^1.0"
+        "ext-zlib": "*"
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "^3.0.2"
