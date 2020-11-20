@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d0f4f695bc92dcec4d742ece77c15b6e",
+    "content-hash": "1d7dc302e4021ef7ffa596f03f07d063",
     "packages": [
         {
             "name": "acf/advanced-custom-fields-pro",
@@ -18,16 +18,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.160.0",
+            "version": "3.163.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "5f1be65b657a53d79f585e2df8c996931b1b01b1"
+                "reference": "7b6948915654f0f94847ccaf51172fa1a7f1cc59"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/5f1be65b657a53d79f585e2df8c996931b1b01b1",
-                "reference": "5f1be65b657a53d79f585e2df8c996931b1b01b1",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/7b6948915654f0f94847ccaf51172fa1a7f1cc59",
+                "reference": "7b6948915654f0f94847ccaf51172fa1a7f1cc59",
                 "shasum": ""
             },
             "require": {
@@ -99,7 +99,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2020-11-11T19:16:21+00:00"
+            "time": "2020-11-19T19:26:10+00:00"
         },
         {
             "name": "composer/installers",
@@ -844,6 +844,57 @@
             "time": "2020-08-14T13:39:13+00:00"
         },
         {
+            "name": "ministryofjustice/wp-moj-elasticsearch",
+            "version": "dev-aliasing-query-keep-alive",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ministryofjustice/wp-moj-elasticsearch.git",
+                "reference": "12caf08a340ffd424301dd47f9b8fac6bf32317b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ministryofjustice/wp-moj-elasticsearch/zipball/12caf08a340ffd424301dd47f9b8fac6bf32317b",
+                "reference": "12caf08a340ffd424301dd47f9b8fac6bf32317b",
+                "shasum": ""
+            },
+            "require": {
+                "composer/installers": "^1.0"
+            },
+            "require-dev": {
+                "phpmd/phpmd": "@stable",
+                "squizlabs/php_codesniffer": "^3.5"
+            },
+            "type": "wordpress-muplugin",
+            "autoload": {
+                "psr-4": {
+                    "MOJElasticSearch\\": [
+                        "classes/",
+                        "traits/"
+                    ]
+                }
+            },
+            "scripts": {
+                "test": [
+                    "vendor/bin/phpcs",
+                    "vendor/bin/phpmd classes/ text cleancode,codesize,design,naming,unusedcode"
+                ],
+                "test-fix": [
+                    "vendor/bin/phpcbf"
+                ]
+            },
+            "authors": [
+                {
+                    "name": "Ministry of Justice"
+                }
+            ],
+            "description": "WP interface for managing elastic search",
+            "support": {
+                "source": "https://github.com/ministryofjustice/wp-moj-elasticsearch/tree/aliasing-query-keep-alive",
+                "issues": "https://github.com/ministryofjustice/wp-moj-elasticsearch/issues"
+            },
+            "time": "2020-10-13T13:50:17+00:00"
+        },
+        {
             "name": "ministryofjustice/wp-rewrite-media-to-s3",
             "version": "0.3.1",
             "source": {
@@ -1453,6 +1504,60 @@
             "homepage": "https://wordpress.org/plugins/co-authors-plus/"
         },
         {
+            "name": "wpackagist-plugin/debug-bar",
+            "version": "1.1.2",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/debug-bar/",
+                "reference": "tags/1.1.2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/debug-bar.1.1.2.zip"
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/debug-bar/"
+        },
+        {
+            "name": "wpackagist-plugin/debug-bar-elasticpress",
+            "version": "1.4",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/debug-bar-elasticpress/",
+                "reference": "tags/1.4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/debug-bar-elasticpress.1.4.zip"
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/debug-bar-elasticpress/"
+        },
+        {
+            "name": "wpackagist-plugin/elasticpress",
+            "version": "3.5.1",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/elasticpress/",
+                "reference": "tags/3.5.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/elasticpress.3.5.1.zip"
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/elasticpress/"
+        },
+        {
             "name": "wpackagist-plugin/enable-jquery-migrate-helper",
             "version": "1.1.0",
             "source": {
@@ -1472,15 +1577,15 @@
         },
         {
             "name": "wpackagist-plugin/ewww-image-optimizer",
-            "version": "5.8.1",
+            "version": "5.8.2",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/ewww-image-optimizer/",
-                "reference": "tags/5.8.1"
+                "reference": "tags/5.8.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/ewww-image-optimizer.5.8.1.zip"
+                "url": "https://downloads.wordpress.org/plugin/ewww-image-optimizer.5.8.2.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -1508,15 +1613,15 @@
         },
         {
             "name": "wpackagist-plugin/query-monitor",
-            "version": "3.6.4",
+            "version": "3.6.5",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/query-monitor/",
-                "reference": "tags/3.6.4"
+                "reference": "tags/3.6.5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/query-monitor.3.6.4.zip"
+                "url": "https://downloads.wordpress.org/plugin/query-monitor.3.6.5.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -1562,7 +1667,7 @@
         },
         {
             "name": "wpackagist-plugin/totalpoll-lite",
-            "version": "4.1.9",
+            "version": "4.3.2",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/totalpoll-lite/",
@@ -1570,7 +1675,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/totalpoll-lite.zip?timestamp=1596067540"
+                "url": "https://downloads.wordpress.org/plugin/totalpoll-lite.zip?timestamp=1602697797"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -1656,13 +1761,15 @@
         "ministryofjustice/dw-document-revisions": 20,
         "ministryofjustice/like-button-for-wordpress": 20,
         "ministryofjustice/notify-for-wordpress": 20,
-        "ministryofjustice/php-markdown-extra": 20
+        "ministryofjustice/php-markdown-extra": 20,
+        "ministryofjustice/wp-moj-elasticsearch": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
         "php": ">=7.1",
-        "ext-json": "*"
+        "ext-json": "*",
+        "ext-zlib": "*"
     },
     "platform-dev": [],
     "plugin-api-version": "1.1.0"

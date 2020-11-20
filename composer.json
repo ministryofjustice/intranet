@@ -71,7 +71,12 @@
         "ministryofjustice/like-button-for-wordpress": "dev-master",
         "ministryofjustice/notify-for-wordpress": "dev-master",
         "ministryofjustice/php-markdown-extra": "dev-master",
-        "ministryofjustice/wp-moj-components": "*"
+        "ministryofjustice/wp-moj-components": "*",
+        "wpackagist-plugin/elasticpress": "*",
+        "wpackagist-plugin/debug-bar":"*",
+        "wpackagist-plugin/debug-bar-elasticpress":"*",
+        "ministryofjustice/wp-moj-elasticsearch": "dev-aliasing-progress-time",
+        "ext-zlib": "*"
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "^3.0.2"
@@ -83,7 +88,8 @@
                 "wpackagist-plugin/ewww-image-optimizer"
             ],
             "web/app/plugins/{$name}/": [
-                "type:wordpress-plugin"
+                "type:wordpress-plugin",
+                "ministryofjustice/wp-moj-elasticsearch"
             ],
             "web/app/themes/{$name}/": [
                 "type:wordpress-theme"

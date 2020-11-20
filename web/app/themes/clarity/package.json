@@ -29,7 +29,7 @@
         "autoprefixer": "^10.0.2",
         "chalk": "^4.1.0",
         "ctgen": "^1.6.6",
-        "del": "^5.1.0",
+        "del": "^6.0.0",
         "jquery": "^3.5.1",
         "node-notifier": "^8.0.0"
     },
