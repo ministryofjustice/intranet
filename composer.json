@@ -88,8 +88,7 @@
                 "wpackagist-plugin/ewww-image-optimizer"
             ],
             "web/app/plugins/{$name}/": [
-                "type:wordpress-plugin",
-                "ministryofjustice/wp-moj-elasticsearch"
+                "type:wordpress-plugin"
             ],
             "web/app/themes/{$name}/": [
                 "type:wordpress-theme"
