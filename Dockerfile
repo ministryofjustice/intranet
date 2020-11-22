@@ -1,4 +1,4 @@
-FROM ministryofjustice/wordpress-base:latest
+FROM ministryofjustice/wordpress-base:focal
 
 ADD . /bedrock
 
