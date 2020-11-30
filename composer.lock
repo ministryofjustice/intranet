@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ea6126d819d3371fe91083fc85be3a51",
+    "content-hash": "92d43d0e8c32a5c484ce048c69686324",
     "packages": [
         {
             "name": "acf/advanced-custom-fields-pro",
@@ -18,16 +18,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.163.2",
+            "version": "3.164.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "ef46d2daf80f2a21809608ada7ba76dddfd103cd"
+                "reference": "39ecf57d828eb50ab23fd70255a68b8996392ac9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/ef46d2daf80f2a21809608ada7ba76dddfd103cd",
-                "reference": "ef46d2daf80f2a21809608ada7ba76dddfd103cd",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/39ecf57d828eb50ab23fd70255a68b8996392ac9",
+                "reference": "39ecf57d828eb50ab23fd70255a68b8996392ac9",
                 "shasum": ""
             },
             "require": {
@@ -99,7 +99,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2020-11-20T19:13:16+00:00"
+            "time": "2020-11-24T19:18:22+00:00"
         },
         {
             "name": "composer/installers",
@@ -845,16 +845,16 @@
         },
         {
             "name": "ministryofjustice/wp-moj-elasticsearch",
-            "version": "dev-aliasing-progress-time",
+            "version": "dev-dashboard-info",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ministryofjustice/wp-moj-elasticsearch.git",
-                "reference": "73acb5af3ff2c8f3ff8f74490576d1d43239a4d9"
+                "reference": "768f04f834e519a73f50bb342dce0de74e866099"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ministryofjustice/wp-moj-elasticsearch/zipball/73acb5af3ff2c8f3ff8f74490576d1d43239a4d9",
-                "reference": "73acb5af3ff2c8f3ff8f74490576d1d43239a4d9",
+                "url": "https://api.github.com/repos/ministryofjustice/wp-moj-elasticsearch/zipball/768f04f834e519a73f50bb342dce0de74e866099",
+                "reference": "768f04f834e519a73f50bb342dce0de74e866099",
                 "shasum": ""
             },
             "require": {
@@ -889,10 +889,10 @@
             ],
             "description": "WP interface for managing elastic search",
             "support": {
-                "source": "https://github.com/ministryofjustice/wp-moj-elasticsearch/tree/aliasing-progress-time",
+                "source": "https://github.com/ministryofjustice/wp-moj-elasticsearch/tree/dashboard-info",
                 "issues": "https://github.com/ministryofjustice/wp-moj-elasticsearch/issues"
             },
-            "time": "2020-11-20T16:56:25+00:00"
+            "time": "2020-11-30T23:11:28+00:00"
         },
         {
             "name": "ministryofjustice/wp-rewrite-media-to-s3",
