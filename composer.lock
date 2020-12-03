@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4bde0677eeabfee1b24b1ad36f2c6334",
+    "content-hash": "81105d56ea2dfba0a22517c47ea97959",
     "packages": [
         {
             "name": "acf/advanced-custom-fields-pro",
@@ -849,12 +849,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ministryofjustice/wp-moj-elasticsearch.git",
-                "reference": "41768c6483abfc925b5d1dac7883be0385413f65"
+                "reference": "ab57506f36978667ee00067f59828eca9d2aeee7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ministryofjustice/wp-moj-elasticsearch/zipball/41768c6483abfc925b5d1dac7883be0385413f65",
-                "reference": "41768c6483abfc925b5d1dac7883be0385413f65",
+                "url": "https://api.github.com/repos/ministryofjustice/wp-moj-elasticsearch/zipball/ab57506f36978667ee00067f59828eca9d2aeee7",
+                "reference": "ab57506f36978667ee00067f59828eca9d2aeee7",
                 "shasum": ""
             },
             "require": {
@@ -892,7 +892,7 @@
                 "source": "https://github.com/ministryofjustice/wp-moj-elasticsearch/tree/main",
                 "issues": "https://github.com/ministryofjustice/wp-moj-elasticsearch/issues"
             },
-            "time": "2020-12-03T12:45:21+00:00"
+            "time": "2020-12-03T16:30:43+00:00"
         },
         {
             "name": "ministryofjustice/wp-rewrite-media-to-s3",
@@ -1667,7 +1667,7 @@
         },
         {
             "name": "wpackagist-plugin/totalpoll-lite",
-            "version": "4.3.2",
+            "version": "4.4.0",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/totalpoll-lite/",
@@ -1675,7 +1675,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/totalpoll-lite.zip?timestamp=1602697797"
+                "url": "https://downloads.wordpress.org/plugin/totalpoll-lite.zip?timestamp=1606837561"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -1769,7 +1769,8 @@
     "platform": {
         "php": ">=7.1",
         "ext-json": "*",
-        "ext-zlib": "*"
+        "ext-zlib": "*",
+        "ext-posix": "*"
     },
     "platform-dev": [],
     "plugin-api-version": "1.1.0"
