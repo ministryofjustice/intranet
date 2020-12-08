@@ -35,6 +35,8 @@ services:
       MYSQL_PASSWORD: wordpress
     volumes:
       - database:/var/lib/mysql
+    ports:
+      - 9000:3306
   mailcatcher:
     image: schickling/mailcatcher
     environment:

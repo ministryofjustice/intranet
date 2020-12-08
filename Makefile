@@ -19,7 +19,6 @@ docker-clean:
 
 # Run the application
 run:
-	cp .env.example .env
 	docker-compose up
 
 # Stop the application
