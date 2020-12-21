@@ -42,14 +42,6 @@ services:
     environment:
       VIRTUAL_HOST: mail.${SERVER_NAME}
       VIRTUAL_PORT: 1080
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    environment:
-      - PMA_HOST=mysql
-    depends_on:
-      - mysql
-    ports:
-      - 9191:80
 volumes:
   database:
     driver: local
