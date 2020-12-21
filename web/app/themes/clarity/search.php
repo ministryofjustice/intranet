@@ -13,12 +13,12 @@ get_header();
 ?>
 
   <div id="maincontent" class="u-wrapper l-main t-search-results">
-  <div class="c-emergency-banner c-emergency-banner--service">
-      <div class="c-emergency-banner__meta">
-          <h1>Can't find what you're looking for?</h1>
+  <div class="c-emergency-banner c-emergency-banner--service" style="border:2px solid green;">
+      <div class="c-emergency-banner__meta" style="height:auto;">
+          <h2 class="o-title o-title--byline">New search, better results</h2>
       </div>
       <div class="c-emergency-banner__content ie_content full_banner">
-          <p>We are sorry but there are ongoing issues with the search function, we are working to fix this as quickly as possible. You may wish to use <a href="https://moj.myhub.sscl.com/">MyHub</a> for HR information in the meantime.</p>
+          <p style="margin-bottom:0;">We are trialling a brand new search engine to help you find what you need among the thousands of pages and documents on the MoJ intranet. If you have a moment, <a target="_blank" href="https://www.surveymonkey.co.uk/r/LW52QYT">tell us about your experience</a>.</p>
       </div>
   </div>
 
