@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1cfdf9af606fd5686e0df0707e1a1793",
+    "content-hash": "6eac8fd6c25d9993de0485525b67c645",
     "packages": [
         {
             "name": "acf/advanced-custom-fields-pro",
@@ -1077,17 +1077,17 @@
         },
         {
             "name": "ministryofjustice/wp-moj-elasticsearch",
-            "version": "2.2.2",
+            "version": "dev-main",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ministryofjustice/wp-moj-elasticsearch.git",
-                "reference": "8d889bd7aadbaee655e4d9a479002566c12e962e"
+                "reference": "0deccae34fed7e63a6e3f144b68a8787d0b13659"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.wp.dsd.io/dist/ministryofjustice/wp-moj-elasticsearch/ministryofjustice-wp-moj-elasticsearch-8d889bd7aadbaee655e4d9a479002566c12e962e-zip-375b7f.zip",
-                "reference": "8d889bd7aadbaee655e4d9a479002566c12e962e",
-                "shasum": "09791a0214569f8b89507d1707f28fd13ad568d3"
+                "url": "https://api.github.com/repos/ministryofjustice/wp-moj-elasticsearch/zipball/0deccae34fed7e63a6e3f144b68a8787d0b13659",
+                "reference": "0deccae34fed7e63a6e3f144b68a8787d0b13659",
+                "shasum": ""
             },
             "require": {
                 "composer/installers": "^1.0"
@@ -1121,10 +1121,10 @@
             ],
             "description": "WP interface for managing elastic search",
             "support": {
-                "source": "https://github.com/ministryofjustice/wp-moj-elasticsearch/tree/2.2.2",
+                "source": "https://github.com/ministryofjustice/wp-moj-elasticsearch/tree/main",
                 "issues": "https://github.com/ministryofjustice/wp-moj-elasticsearch/issues"
             },
-            "time": "2020-12-16T10:54:49+00:00"
+            "time": "2020-12-21T23:42:06+00:00"
         },
         {
             "name": "ministryofjustice/wp-rewrite-media-to-s3",
@@ -3259,7 +3259,8 @@
         "ministryofjustice/dw-document-revisions": 20,
         "ministryofjustice/like-button-for-wordpress": 20,
         "ministryofjustice/notify-for-wordpress": 20,
-        "ministryofjustice/php-markdown-extra": 20
+        "ministryofjustice/php-markdown-extra": 20,
+        "ministryofjustice/wp-moj-elasticsearch": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
