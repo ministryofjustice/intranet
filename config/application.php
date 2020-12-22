@@ -12,11 +12,6 @@ $webroot_dir = MOJ_ROOT_DIR . '/web';
 Env::init();
 
 /**
- * Initialise Sentry
- */
-Sentry\init(['dsn' => 'https://6bd7835cf8a249a288670a45d0c9f926@o486881.ingest.sentry.io/5544839']);
-
-/**
  * Use Dotenv to set required environment variables and load .env file in root
  */
 $dotenv = new Dotenv\Dotenv(MOJ_ROOT_DIR);
@@ -30,6 +25,14 @@ if (file_exists(MOJ_ROOT_DIR . '/.env')) {
  * Default: production
  */
 define('WP_ENV', env('WP_ENV') ?: 'production');
+
+/**
+ * Initialise Sentry
+ */
+Sentry\init([
+    'dsn' => 'https://6bd7835cf8a249a288670a45d0c9f926@o486881.ingest.sentry.io/5544839',
+    'environment'=> WP_ENV,
+]);
 
 $env_config = __DIR__ . '/environments/' . WP_ENV . '.php';
 
