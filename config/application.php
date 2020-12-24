@@ -17,7 +17,7 @@ Env::init();
 $dotenv = new Dotenv\Dotenv(MOJ_ROOT_DIR);
 if (file_exists(MOJ_ROOT_DIR . '/.env')) {
     $dotenv->load();
-    $dotenv->required(['DB_NAME', 'DB_USER', 'DB_PASSWORD', 'WP_HOME', 'WP_SITEURL']);
+    $dotenv->required(['DB_NAME', 'DB_USER', 'DB_PASSWORD', 'WP_HOME', 'WP_SITEURL', 'WP_ENV']);
 }
 
 /**
@@ -31,7 +31,7 @@ define('WP_ENV', env('WP_ENV') ?: 'production');
  */
 Sentry\init([
     'dsn' => 'https://6bd7835cf8a249a288670a45d0c9f926@o486881.ingest.sentry.io/5544839',
-    'environment'=> WP_ENV,
+    'environment'=> WP_ENV . (env('SENTRY_DEV_ID') ?? ''),
 ]);
 
 $env_config = __DIR__ . '/environments/' . WP_ENV . '.php';
