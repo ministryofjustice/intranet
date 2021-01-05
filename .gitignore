@@ -16,6 +16,9 @@ web/app/languages
 web/app/uploads/*
 !web/app/uploads/.gitkeep
 
+# plugins
+store-data-size.json
+
 web/app/cache
 
 # Theme

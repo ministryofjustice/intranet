@@ -20,6 +20,13 @@ RUN sed -i 's/fastcgi_intercept_errors off;/fastcgi_intercept_errors on;/' /etc/
     #apt-get install -y libffi-dev newrelic-php5 && \
     rm -f /etc/my_init.d/configure-ip-whitelist.sh
 
+# install awscli
+RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && \
+    unzip awscliv2.zip && \
+    ./aws/install && \
+    alias aws='/usr/local/bin/aws'
+
+
 # Set execute bit permissions before running build scripts
 RUN chmod +x bin/* && sleep 1 && \
     #make clean && \
