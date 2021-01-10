@@ -1099,12 +1099,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ministryofjustice/wp-moj-elasticsearch.git",
-                "reference": "57b3bea89cfbe11f71ad87c1c05ad4bc32f5c436"
+                "reference": "d8edf40b8304acf9887d61295c54514516645536"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ministryofjustice/wp-moj-elasticsearch/zipball/57b3bea89cfbe11f71ad87c1c05ad4bc32f5c436",
-                "reference": "57b3bea89cfbe11f71ad87c1c05ad4bc32f5c436",
+                "url": "https://api.github.com/repos/ministryofjustice/wp-moj-elasticsearch/zipball/d8edf40b8304acf9887d61295c54514516645536",
+                "reference": "d8edf40b8304acf9887d61295c54514516645536",
                 "shasum": ""
             },
             "require": {
@@ -1142,7 +1142,7 @@
                 "source": "https://github.com/ministryofjustice/wp-moj-elasticsearch/tree/develop/cleanup-poc",
                 "issues": "https://github.com/ministryofjustice/wp-moj-elasticsearch/issues"
             },
-            "time": "2021-01-10T12:43:23+00:00"
+            "time": "2021-01-10T15:06:34+00:00"
         },
         {
             "name": "ministryofjustice/wp-rewrite-media-to-s3",
