@@ -75,7 +75,7 @@
         "wpackagist-plugin/elasticpress": "*",
         "wpackagist-plugin/debug-bar":"*",
         "wpackagist-plugin/debug-bar-elasticpress":"*",
-        "ministryofjustice/wp-moj-elasticsearch": "dev-main",
+        "ministryofjustice/wp-moj-elasticsearch": "dev-retro",
         "ext-zlib": "*",
         "ext-posix": "*",
         "sentry/sdk": "^3.1"
