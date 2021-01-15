@@ -18,16 +18,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.171.17",
+            "version": "3.171.18",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "f23f4871eceec8c92645f054186a83bba86c1f3e"
+                "reference": "9252e55e995492a65ec9b705a5a7fdcfcaef46ef"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/f23f4871eceec8c92645f054186a83bba86c1f3e",
-                "reference": "f23f4871eceec8c92645f054186a83bba86c1f3e",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/9252e55e995492a65ec9b705a5a7fdcfcaef46ef",
+                "reference": "9252e55e995492a65ec9b705a5a7fdcfcaef46ef",
                 "shasum": ""
             },
             "require": {
@@ -102,9 +102,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.171.17"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.171.18"
             },
-            "time": "2021-01-13T19:17:33+00:00"
+            "time": "2021-01-14T19:12:48+00:00"
         },
         {
             "name": "clue/stream-filter",
@@ -1179,12 +1179,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ministryofjustice/wp-moj-elasticsearch.git",
-                "reference": "9966d6c0a1677a091e091a189071e6e8e29b4315"
+                "reference": "3cb8bf681223edc25dcdfc5dbe457e8885621799"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ministryofjustice/wp-moj-elasticsearch/zipball/9966d6c0a1677a091e091a189071e6e8e29b4315",
-                "reference": "9966d6c0a1677a091e091a189071e6e8e29b4315",
+                "url": "https://api.github.com/repos/ministryofjustice/wp-moj-elasticsearch/zipball/3cb8bf681223edc25dcdfc5dbe457e8885621799",
+                "reference": "3cb8bf681223edc25dcdfc5dbe457e8885621799",
                 "shasum": ""
             },
             "require": {
@@ -1222,7 +1222,7 @@
                 "source": "https://github.com/ministryofjustice/wp-moj-elasticsearch/tree/retro",
                 "issues": "https://github.com/ministryofjustice/wp-moj-elasticsearch/issues"
             },
-            "time": "2021-01-14T11:54:49+00:00"
+            "time": "2021-01-15T16:26:07+00:00"
         },
         {
             "name": "ministryofjustice/wp-rewrite-media-to-s3",
