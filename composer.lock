@@ -18,16 +18,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.171.18",
+            "version": "3.171.19",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "9252e55e995492a65ec9b705a5a7fdcfcaef46ef"
+                "reference": "e786e4a8b2ec85b258833d0570ff6b61348cbdb6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/9252e55e995492a65ec9b705a5a7fdcfcaef46ef",
-                "reference": "9252e55e995492a65ec9b705a5a7fdcfcaef46ef",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/e786e4a8b2ec85b258833d0570ff6b61348cbdb6",
+                "reference": "e786e4a8b2ec85b258833d0570ff6b61348cbdb6",
                 "shasum": ""
             },
             "require": {
@@ -99,12 +99,7 @@
                 "s3",
                 "sdk"
             ],
-            "support": {
-                "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
-                "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.171.18"
-            },
-            "time": "2021-01-14T19:12:48+00:00"
+            "time": "2021-01-15T19:26:11+00:00"
         },
         {
             "name": "clue/stream-filter",
@@ -155,20 +150,6 @@
                 "stream",
                 "stream_filter_append",
                 "stream_filter_register"
-            ],
-            "support": {
-                "issues": "https://github.com/clue/php-stream-filter/issues",
-                "source": "https://github.com/clue/php-stream-filter/tree/v1.5.0"
-            },
-            "funding": [
-                {
-                    "url": "https://clue.engineering/support",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/clue",
-                    "type": "github"
-                }
             ],
             "time": "2020-10-02T12:38:20+00:00"
         },
@@ -300,24 +281,6 @@
                 "zend",
                 "zikula"
             ],
-            "support": {
-                "issues": "https://github.com/composer/installers/issues",
-                "source": "https://github.com/composer/installers/tree/v1.10.0"
-            },
-            "funding": [
-                {
-                    "url": "https://packagist.com",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/composer",
-                    "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/composer/composer",
-                    "type": "tidelift"
-                }
-            ],
             "time": "2021-01-14T11:07:16+00:00"
         },
         {
@@ -373,24 +336,6 @@
                 }
             ],
             "description": "Composer plugin that provides efficient querying for installed package versions (no runtime IO)",
-            "support": {
-                "issues": "https://github.com/composer/package-versions-deprecated/issues",
-                "source": "https://github.com/composer/package-versions-deprecated/tree/1.11.99.1"
-            },
-            "funding": [
-                {
-                    "url": "https://packagist.com",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/composer",
-                    "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/composer/composer",
-                    "type": "tidelift"
-                }
-            ],
             "time": "2020-11-11T10:22:58+00:00"
         },
         {
@@ -471,28 +416,6 @@
                 "rest",
                 "web service"
             ],
-            "support": {
-                "issues": "https://github.com/guzzle/guzzle/issues",
-                "source": "https://github.com/guzzle/guzzle/tree/7.2.0"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/GrahamCampbell",
-                    "type": "github"
-                },
-                {
-                    "url": "https://github.com/Nyholm",
-                    "type": "github"
-                },
-                {
-                    "url": "https://github.com/alexeyshockov",
-                    "type": "github"
-                },
-                {
-                    "url": "https://github.com/gmponos",
-                    "type": "github"
-                }
-            ],
             "time": "2020-10-10T11:47:56+00:00"
         },
         {
@@ -544,10 +467,6 @@
             "keywords": [
                 "promise"
             ],
-            "support": {
-                "issues": "https://github.com/guzzle/promises/issues",
-                "source": "https://github.com/guzzle/promises/tree/1.4.0"
-            },
             "time": "2020-09-30T07:37:28+00:00"
         },
         {
@@ -619,10 +538,6 @@
                 "uri",
                 "url"
             ],
-            "support": {
-                "issues": "https://github.com/guzzle/psr7/issues",
-                "source": "https://github.com/guzzle/psr7/tree/1.7.0"
-            },
             "time": "2020-09-30T07:37:11+00:00"
         },
         {
@@ -673,10 +588,6 @@
                 "psr-17",
                 "psr-7"
             ],
-            "support": {
-                "issues": "https://github.com/http-interop/http-factory-guzzle/issues",
-                "source": "https://github.com/http-interop/http-factory-guzzle/tree/master"
-            },
             "time": "2018-07-31T19:32:56+00:00"
         },
         {
@@ -728,10 +639,6 @@
                 "release",
                 "versions"
             ],
-            "support": {
-                "issues": "https://github.com/Jean85/pretty-package-versions/issues",
-                "source": "https://github.com/Jean85/pretty-package-versions/tree/1.5.1"
-            },
             "time": "2020-09-14T08:43:34+00:00"
         },
         {
@@ -771,13 +678,6 @@
                 "cms",
                 "wordpress"
             ],
-            "support": {
-                "forum": "http://wordpress.org/support/",
-                "irc": "irc://irc.freenode.net/wordpress",
-                "issues": "http://core.trac.wordpress.org/",
-                "source": "http://core.trac.wordpress.org/browser",
-                "wiki": "http://codex.wordpress.org/"
-            },
             "time": "2020-12-08T22:34:35+00:00"
         },
         {
@@ -819,13 +719,6 @@
                 "cms",
                 "wordpress"
             ],
-            "support": {
-                "forum": "https://wordpress.org/support/",
-                "irc": "irc://irc.freenode.net/wordpress",
-                "issues": "https://core.trac.wordpress.org/",
-                "source": "https://core.trac.wordpress.org/browser",
-                "wiki": "https://codex.wordpress.org/"
-            },
             "time": "2020-12-08T22:34:23+00:00"
         },
         {
@@ -876,10 +769,6 @@
             "keywords": [
                 "wordpress"
             ],
-            "support": {
-                "issues": "https://github.com/johnpbloch/wordpress-core-installer/issues",
-                "source": "https://github.com/johnpbloch/wordpress-core-installer/tree/master"
-            },
             "time": "2020-04-16T21:44:57+00:00"
         },
         {
@@ -943,10 +832,6 @@
                 }
             ],
             "description": "Install packages or a few files from packages into custom paths without overwriting existing stuff.",
-            "support": {
-                "issues": "https://github.com/Koodimonni/Composer-Dropin-Installer/issues",
-                "source": "https://github.com/Koodimonni/Composer-Dropin-Installer/tree/master"
-            },
             "time": "2020-08-17T07:41:05+00:00"
         },
         {
@@ -967,7 +852,6 @@
                 "composer/installers": "^1.4",
                 "php": ">=5.6"
             },
-            "default-branch": true,
             "type": "wordpress-plugin",
             "extra": {
                 "installer-name": "dw-document-revisions"
@@ -1007,7 +891,6 @@
                 "composer/installers": "^1.4",
                 "php": ">=5.6"
             },
-            "default-branch": true,
             "type": "wordpress-plugin",
             "extra": {
                 "installer-name": "like-button-for-wordpress"
@@ -1051,7 +934,6 @@
                 "composer/installers": "^1.4",
                 "php": ">=5.6"
             },
-            "default-branch": true,
             "type": "wordpress-plugin",
             "extra": {
                 "installer-name": "notify-for-wordpress"
@@ -1095,7 +977,6 @@
                 "composer/installers": "^1.4",
                 "php": ">=5.6"
             },
-            "default-branch": true,
             "type": "wordpress-plugin",
             "extra": {
                 "installer-name": "php-markdown-extra"
@@ -1179,12 +1060,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ministryofjustice/wp-moj-elasticsearch.git",
-                "reference": "3cb8bf681223edc25dcdfc5dbe457e8885621799"
+                "reference": "c5ab0d467e5ef60be23e7cba3f165b0ddea08976"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ministryofjustice/wp-moj-elasticsearch/zipball/3cb8bf681223edc25dcdfc5dbe457e8885621799",
-                "reference": "3cb8bf681223edc25dcdfc5dbe457e8885621799",
+                "url": "https://api.github.com/repos/ministryofjustice/wp-moj-elasticsearch/zipball/c5ab0d467e5ef60be23e7cba3f165b0ddea08976",
+                "reference": "c5ab0d467e5ef60be23e7cba3f165b0ddea08976",
                 "shasum": ""
             },
             "require": {
@@ -1210,6 +1091,15 @@
                 ],
                 "test-fix": [
                     "vendor/bin/phpcbf"
+                ],
+                "phpcs-config-set": [
+                    "phpcs --config-set ignore_warnings_on_exit 1"
+                ],
+                "phpcs": [
+                    "phpcs --extensions=php --ignore=*/vendor/* --standard=PSR12 ."
+                ],
+                "phpcbf": [
+                    "phpcbf --extensions=php --ignore=*/vendor/* --standard=PSR12 ."
                 ]
             },
             "authors": [
@@ -1222,7 +1112,7 @@
                 "source": "https://github.com/ministryofjustice/wp-moj-elasticsearch/tree/retro",
                 "issues": "https://github.com/ministryofjustice/wp-moj-elasticsearch/issues"
             },
-            "time": "2021-01-15T16:26:07+00:00"
+            "time": "2021-01-19T10:58:54+00:00"
         },
         {
             "name": "ministryofjustice/wp-rewrite-media-to-s3",
@@ -1313,10 +1203,6 @@
                 "json",
                 "jsonpath"
             ],
-            "support": {
-                "issues": "https://github.com/jmespath/jmespath.php/issues",
-                "source": "https://github.com/jmespath/jmespath.php/tree/2.6.0"
-            },
             "time": "2020-07-31T21:01:56+00:00"
         },
         {
@@ -1360,11 +1246,6 @@
             "keywords": [
                 "env"
             ],
-            "support": {
-                "email": "oom@oscarotero.com",
-                "issues": "https://github.com/oscarotero/env/issues",
-                "source": "https://github.com/oscarotero/env/tree/v1.2.0"
-            },
             "time": "2019-04-03T18:28:43+00:00"
         },
         {
@@ -1436,10 +1317,6 @@
                 "http",
                 "httplug"
             ],
-            "support": {
-                "issues": "https://github.com/php-http/client-common/issues",
-                "source": "https://github.com/php-http/client-common/tree/2.3.0"
-            },
             "time": "2020-07-21T10:04:13+00:00"
         },
         {
@@ -1505,10 +1382,6 @@
                 "message",
                 "psr7"
             ],
-            "support": {
-                "issues": "https://github.com/php-http/discovery/issues",
-                "source": "https://github.com/php-http/discovery/tree/1.13.0"
-            },
             "time": "2020-11-27T14:49:42+00:00"
         },
         {
@@ -1567,10 +1440,6 @@
                 "client",
                 "http"
             ],
-            "support": {
-                "issues": "https://github.com/php-http/httplug/issues",
-                "source": "https://github.com/php-http/httplug/tree/master"
-            },
             "time": "2020-07-13T15:43:23+00:00"
         },
         {
@@ -1641,10 +1510,6 @@
                 "message",
                 "psr-7"
             ],
-            "support": {
-                "issues": "https://github.com/php-http/message/issues",
-                "source": "https://github.com/php-http/message/tree/1.10.0"
-            },
             "time": "2020-11-11T10:19:56+00:00"
         },
         {
@@ -1695,10 +1560,6 @@
                 "stream",
                 "uri"
             ],
-            "support": {
-                "issues": "https://github.com/php-http/message-factory/issues",
-                "source": "https://github.com/php-http/message-factory/tree/master"
-            },
             "time": "2015-12-19T14:08:53+00:00"
         },
         {
@@ -1752,10 +1613,6 @@
             "keywords": [
                 "promise"
             ],
-            "support": {
-                "issues": "https://github.com/php-http/promise/issues",
-                "source": "https://github.com/php-http/promise/tree/1.1.0"
-            },
             "time": "2020-07-07T09:29:14+00:00"
         },
         {
@@ -1805,10 +1662,6 @@
                 "container-interop",
                 "psr"
             ],
-            "support": {
-                "issues": "https://github.com/php-fig/container/issues",
-                "source": "https://github.com/php-fig/container/tree/master"
-            },
             "time": "2017-02-14T16:28:37+00:00"
         },
         {
@@ -1858,9 +1711,6 @@
                 "psr",
                 "psr-18"
             ],
-            "support": {
-                "source": "https://github.com/php-fig/http-client/tree/master"
-            },
             "time": "2020-06-29T06:28:15+00:00"
         },
         {
@@ -1913,9 +1763,6 @@
                 "request",
                 "response"
             ],
-            "support": {
-                "source": "https://github.com/php-fig/http-factory/tree/master"
-            },
             "time": "2019-04-30T12:38:16+00:00"
         },
         {
@@ -1966,9 +1813,6 @@
                 "request",
                 "response"
             ],
-            "support": {
-                "source": "https://github.com/php-fig/http-message/tree/master"
-            },
             "time": "2016-08-06T14:39:51+00:00"
         },
         {
@@ -2016,9 +1860,6 @@
                 "psr",
                 "psr-3"
             ],
-            "support": {
-                "source": "https://github.com/php-fig/log/tree/1.1.3"
-            },
             "time": "2020-03-23T09:12:05+00:00"
         },
         {
@@ -2059,10 +1900,6 @@
                 }
             ],
             "description": "A polyfill for getallheaders.",
-            "support": {
-                "issues": "https://github.com/ralouphie/getallheaders/issues",
-                "source": "https://github.com/ralouphie/getallheaders/tree/develop"
-            },
             "time": "2019-03-08T08:55:37+00:00"
         },
         {
@@ -2130,11 +1967,6 @@
             "keywords": [
                 "wordpress wp bcrypt password"
             ],
-            "support": {
-                "forum": "https://discourse.roots.io/",
-                "issues": "https://github.com/roots/wp-password-bcrypt/issues",
-                "source": "https://github.com/roots/wp-password-bcrypt/tree/master"
-            },
             "time": "2016-03-01T16:27:06+00:00"
         },
         {
@@ -2177,19 +2009,6 @@
                 "log",
                 "logging",
                 "sentry"
-            ],
-            "support": {
-                "source": "https://github.com/getsentry/sentry-php-sdk/tree/3.1.0"
-            },
-            "funding": [
-                {
-                    "url": "https://sentry.io/",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://sentry.io/pricing/",
-                    "type": "custom"
-                }
             ],
             "time": "2020-12-01T10:31:45+00:00"
         },
@@ -2286,16 +2105,6 @@
                 "issues": "https://github.com/getsentry/sentry-php/issues",
                 "source": "https://github.com/getsentry/sentry-php/tree/3.1.2"
             },
-            "funding": [
-                {
-                    "url": "https://sentry.io/",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://sentry.io/pricing/",
-                    "type": "custom"
-                }
-            ],
             "time": "2021-01-07T18:51:44+00:00"
         },
         {
@@ -2346,23 +2155,6 @@
             ],
             "description": "A generic function and convention to trigger deprecation notices",
             "homepage": "https://symfony.com",
-            "support": {
-                "source": "https://github.com/symfony/deprecation-contracts/tree/master"
-            },
-            "funding": [
-                {
-                    "url": "https://symfony.com/sponsor",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/fabpot",
-                    "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
-                    "type": "tidelift"
-                }
-            ],
             "time": "2020-09-07T11:33:47+00:00"
         },
         {
@@ -2432,23 +2224,6 @@
             ],
             "description": "Symfony HttpClient component",
             "homepage": "https://symfony.com",
-            "support": {
-                "source": "https://github.com/symfony/http-client/tree/v5.2.1"
-            },
-            "funding": [
-                {
-                    "url": "https://symfony.com/sponsor",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/fabpot",
-                    "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
-                    "type": "tidelift"
-                }
-            ],
             "time": "2020-12-14T10:56:50+00:00"
         },
         {
@@ -2511,23 +2286,6 @@
                 "interoperability",
                 "standards"
             ],
-            "support": {
-                "source": "https://github.com/symfony/http-client-contracts/tree/v2.3.1"
-            },
-            "funding": [
-                {
-                    "url": "https://symfony.com/sponsor",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/fabpot",
-                    "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
-                    "type": "tidelift"
-                }
-            ],
             "time": "2020-10-14T17:08:19+00:00"
         },
         {
@@ -2579,23 +2337,6 @@
                 "config",
                 "configuration",
                 "options"
-            ],
-            "support": {
-                "source": "https://github.com/symfony/options-resolver/tree/v5.2.1"
-            },
-            "funding": [
-                {
-                    "url": "https://symfony.com/sponsor",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/fabpot",
-                    "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
-                    "type": "tidelift"
-                }
             ],
             "time": "2020-10-24T12:08:07+00:00"
         },
@@ -2662,20 +2403,6 @@
             "support": {
                 "source": "https://github.com/symfony/polyfill-ctype/tree/v1.22.0"
             },
-            "funding": [
-                {
-                    "url": "https://symfony.com/sponsor",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/fabpot",
-                    "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
-                    "type": "tidelift"
-                }
-            ],
             "time": "2021-01-07T16:49:33+00:00"
         },
         {
@@ -2742,20 +2469,6 @@
             "support": {
                 "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.22.0"
             },
-            "funding": [
-                {
-                    "url": "https://symfony.com/sponsor",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/fabpot",
-                    "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
-                    "type": "tidelift"
-                }
-            ],
             "time": "2021-01-07T16:49:33+00:00"
         },
         {
@@ -2821,20 +2534,6 @@
             "support": {
                 "source": "https://github.com/symfony/polyfill-php73/tree/v1.22.0"
             },
-            "funding": [
-                {
-                    "url": "https://symfony.com/sponsor",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/fabpot",
-                    "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
-                    "type": "tidelift"
-                }
-            ],
             "time": "2021-01-07T16:49:33+00:00"
         },
         {
@@ -2904,20 +2603,6 @@
             "support": {
                 "source": "https://github.com/symfony/polyfill-php80/tree/v1.22.0"
             },
-            "funding": [
-                {
-                    "url": "https://symfony.com/sponsor",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/fabpot",
-                    "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
-                    "type": "tidelift"
-                }
-            ],
             "time": "2021-01-07T16:49:33+00:00"
         },
         {
@@ -2983,20 +2668,6 @@
             "support": {
                 "source": "https://github.com/symfony/polyfill-uuid/tree/v1.22.0"
             },
-            "funding": [
-                {
-                    "url": "https://symfony.com/sponsor",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/fabpot",
-                    "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
-                    "type": "tidelift"
-                }
-            ],
             "time": "2021-01-07T16:49:33+00:00"
         },
         {
@@ -3059,23 +2730,6 @@
                 "interoperability",
                 "standards"
             ],
-            "support": {
-                "source": "https://github.com/symfony/service-contracts/tree/master"
-            },
-            "funding": [
-                {
-                    "url": "https://symfony.com/sponsor",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/fabpot",
-                    "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
-                    "type": "tidelift"
-                }
-            ],
             "time": "2020-09-07T11:33:47+00:00"
         },
         {
@@ -3137,20 +2791,6 @@
                 "dotenv",
                 "env",
                 "environment"
-            ],
-            "support": {
-                "issues": "https://github.com/vlucas/phpdotenv/issues",
-                "source": "https://github.com/vlucas/phpdotenv/tree/v2.6.6"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/GrahamCampbell",
-                    "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/vlucas/phpdotenv",
-                    "type": "tidelift"
-                }
             ],
             "time": "2020-07-14T17:54:18+00:00"
         },
@@ -3246,15 +2886,15 @@
         },
         {
             "name": "wpackagist-plugin/elasticpress",
-            "version": "3.5.1",
+            "version": "3.5.2",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/elasticpress/",
-                "reference": "tags/3.5.1"
+                "reference": "tags/3.5.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/elasticpress.3.5.1.zip"
+                "url": "https://downloads.wordpress.org/plugin/elasticpress.3.5.2.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -3380,7 +3020,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/totalpoll-lite.zip?timestamp=1609010736"
+                "url": "https://downloads.wordpress.org/plugin/totalpoll-lite.zip?timestamp=1606837561"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -3457,11 +3097,6 @@
                 "phpcs",
                 "standards"
             ],
-            "support": {
-                "issues": "https://github.com/squizlabs/PHP_CodeSniffer/issues",
-                "source": "https://github.com/squizlabs/PHP_CodeSniffer",
-                "wiki": "https://github.com/squizlabs/PHP_CodeSniffer/wiki"
-            },
             "time": "2020-10-23T02:01:07+00:00"
         }
     ],
@@ -3482,6 +3117,5 @@
         "ext-zlib": "*",
         "ext-posix": "*"
     },
-    "platform-dev": [],
-    "plugin-api-version": "2.0.0"
+    "platform-dev": []
 }
