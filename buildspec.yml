@@ -1,7 +1,7 @@
 version: 0.1
 environment_variables:
   plaintext:
-    APPNAME: "design102"
+    APPNAME: "intranet2"
 phases:
   pre_build:
     commands:

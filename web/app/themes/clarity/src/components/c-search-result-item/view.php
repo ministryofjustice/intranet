@@ -10,7 +10,7 @@ $terms = get_the_terms($post_id, 'agency');
 ?>
 <!-- c-search-result-item starts here -->
 <section class="c-search-result-item">
-  <h1 class="o-title o-title--subtitle"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a><span class="c-search-result-item__meta__itemtype">| <?php esc_attr_e(ucwords($post_type_blog_filter)); ?></span></h1>
+  <h1 class="o-title o-title--subtitle"><a href="<?php echo get_permalink($post_id); ?>"><?php the_title(); ?></a><span class="c-search-result-item__meta__itemtype">| <?php esc_attr_e(ucwords($post_type_blog_filter)); ?></span></h1>
   <div class="c-search-result-item__meta">
     <span class="c-search-result-item__meta__date"><?php echo the_modified_date('j F Y') . ', '; ?>
     <?php

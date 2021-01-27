@@ -1,10 +1,10 @@
 <?php
 
 /** @var string Directory containing all of the site's files */
-$root_dir = dirname(__DIR__);
+define('MOJ_ROOT_DIR', dirname(__DIR__));
 
 /** @var string Document Root */
-$webroot_dir = $root_dir . '/web';
+$webroot_dir = MOJ_ROOT_DIR . '/web';
 
 /**
  * Expose global env() function from oscarotero/env
@@ -14,10 +14,10 @@ Env::init();
 /**
  * Use Dotenv to set required environment variables and load .env file in root
  */
-$dotenv = new Dotenv\Dotenv($root_dir);
-if (file_exists($root_dir . '/.env')) {
+$dotenv = new Dotenv\Dotenv(MOJ_ROOT_DIR);
+if (file_exists(MOJ_ROOT_DIR . '/.env')) {
     $dotenv->load();
-    $dotenv->required(['DB_NAME', 'DB_USER', 'DB_PASSWORD', 'WP_HOME', 'WP_SITEURL']);
+    $dotenv->required(['DB_NAME', 'DB_USER', 'DB_PASSWORD', 'WP_HOME', 'WP_SITEURL', 'WP_ENV']);
 }
 
 /**
@@ -25,6 +25,14 @@ if (file_exists($root_dir . '/.env')) {
  * Default: production
  */
 define('WP_ENV', env('WP_ENV') ?: 'production');
+
+/**
+ * Initialise Sentry
+ */
+Sentry\init([
+    'dsn' => 'https://6bd7835cf8a249a288670a45d0c9f926@o486881.ingest.sentry.io/5544839',
+    'environment'=> WP_ENV . (env('SENTRY_DEV_ID') ?? ''),
+]);
 
 $env_config = __DIR__ . '/environments/' . WP_ENV . '.php';
 
