@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1cfdf9af606fd5686e0df0707e1a1793",
+    "content-hash": "81082385311299cbc50ab631b00411ec",
     "packages": [
         {
             "name": "acf/advanced-custom-fields-pro",
@@ -18,16 +18,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.176.3",
+            "version": "3.177.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "a4f0bbeff965f67ca4dbfccfa2865de611f14c30"
+                "reference": "ce99fa71b917428ae790063c41e9cc4b85592299"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/a4f0bbeff965f67ca4dbfccfa2865de611f14c30",
-                "reference": "a4f0bbeff965f67ca4dbfccfa2865de611f14c30",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/ce99fa71b917428ae790063c41e9cc4b85592299",
+                "reference": "ce99fa71b917428ae790063c41e9cc4b85592299",
                 "shasum": ""
             },
             "require": {
@@ -102,9 +102,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.176.3"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.177.0"
             },
-            "time": "2021-03-29T18:16:38+00:00"
+            "time": "2021-04-07T18:13:10+00:00"
         },
         {
             "name": "clue/stream-filter",
@@ -2003,11 +2003,11 @@
         },
         {
             "name": "relevanssi/relevanssi-premium",
-            "version": "2.9.0",
+            "version": "2.14.5",
             "dist": {
                 "type": "zip",
-                "url": "https://composer.wp.dsd.io/dist/relevanssi/relevanssi-premium/relevanssi-relevanssi-premium-2.9.0.zip",
-                "shasum": "5b54b3cb8316c9acf8f3558864b13658c8c52809"
+                "url": "https://composer.wp.dsd.io/dist/relevanssi/relevanssi-premium/relevanssi-relevanssi-premium-2.14.5.zip",
+                "shasum": "14b1602c453a5b56e3ae6268ef579fad1e2016e7"
             },
             "type": "wordpress-plugin"
         },
@@ -2131,16 +2131,16 @@
         },
         {
             "name": "sentry/sentry",
-            "version": "3.2.0",
+            "version": "3.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/getsentry/sentry-php.git",
-                "reference": "899b0de58c1e01feb54829b3094af74252aff385"
+                "reference": "fb4f83e6e2d718d1e5fbfe3a20cced83f47f040f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/getsentry/sentry-php/zipball/899b0de58c1e01feb54829b3094af74252aff385",
-                "reference": "899b0de58c1e01feb54829b3094af74252aff385",
+                "url": "https://api.github.com/repos/getsentry/sentry-php/zipball/fb4f83e6e2d718d1e5fbfe3a20cced83f47f040f",
+                "reference": "fb4f83e6e2d718d1e5fbfe3a20cced83f47f040f",
                 "shasum": ""
             },
             "require": {
@@ -2219,7 +2219,7 @@
             ],
             "support": {
                 "issues": "https://github.com/getsentry/sentry-php/issues",
-                "source": "https://github.com/getsentry/sentry-php/tree/3.2.0"
+                "source": "https://github.com/getsentry/sentry-php/tree/3.2.1"
             },
             "funding": [
                 {
@@ -2231,7 +2231,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2021-03-03T11:54:34+00:00"
+            "time": "2021-04-06T07:55:41+00:00"
         },
         {
             "name": "symfony/deprecation-contracts",
@@ -3217,15 +3217,15 @@
         },
         {
             "name": "wpackagist-plugin/ewww-image-optimizer",
-            "version": "6.0.3",
+            "version": "6.1.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/ewww-image-optimizer/",
-                "reference": "tags/6.0.3"
+                "reference": "tags/6.1.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/ewww-image-optimizer.6.0.3.zip"
+                "url": "https://downloads.wordpress.org/plugin/ewww-image-optimizer.6.1.1.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -3340,6 +3340,24 @@
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/upload-url-path-enabler/"
+        },
+        {
+            "name": "wpackagist-plugin/wp-force-login",
+            "version": "5.5",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/wp-force-login/",
+                "reference": "tags/5.5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/wp-force-login.5.5.zip"
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/wp-force-login/"
         }
     ],
     "packages-dev": [
