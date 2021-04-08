@@ -63,6 +63,7 @@
         "wpackagist-plugin/upload-url-path-enabler": "*",
         "wpackagist-plugin/ewww-image-optimizer": "*",
         "wpackagist-plugin/enable-jquery-migrate-helper": "*",
+        "wpackagist-plugin/wp-force-login": "*",
         "relevanssi/relevanssi-premium": "*",
         "acf/advanced-custom-fields-pro": "*",
         "wpackagist-plugin/query-monitor": "*",
