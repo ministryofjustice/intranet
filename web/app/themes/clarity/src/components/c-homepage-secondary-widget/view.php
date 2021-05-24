@@ -27,11 +27,8 @@ if ($mostPopularTitle || $events || $enable_banner_right_side == true) :
     <?php
 
     get_template_part('src/components/c-most-popular/view');
+    include locate_template('src/components/c-event-listing/view.php');
 
-    // TODO AGENCY: Some agencies don't want to have events
-    if ($agency !== 'hmcts') {
-        include locate_template('src/components/c-event-listing/view.php');
-    }
     ?>
   </div>
 
