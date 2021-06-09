@@ -13,6 +13,8 @@ phases:
       - echo -n -`date "+%Y%m%d%H%M"` >> BUILD_TAG.txt
       - echo Created build tag `cat BUILD_TAG.txt`
       - echo Build started on `date`
+      - echo Docker authenticate
+      - docker login --username "$DOCKERUSERNAME" --password "$DOCKERPASSWORD"
       - echo Building the Docker image...
       - docker build --build-arg COMPOSER_USER="$COMPOSER_USER" --build-arg COMPOSER_PASS="$COMPOSER_PASS" -t $APPNAME:`cat BUILD_TAG.txt` .
       - docker tag $APPNAME:`cat BUILD_TAG.txt` 613903586696.dkr.ecr.eu-west-2.amazonaws.com/wp/intranet:`cat BUILD_TAG.txt`
