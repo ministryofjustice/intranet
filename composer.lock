@@ -4,30 +4,30 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "81082385311299cbc50ab631b00411ec",
+    "content-hash": "5846c2b2333bcb5e7a6f19a83a709304",
     "packages": [
         {
             "name": "acf/advanced-custom-fields-pro",
-            "version": "5.9.5",
+            "version": "5.9.9",
             "dist": {
                 "type": "zip",
-                "url": "https://composer.wp.dsd.io/dist/acf/advanced-custom-fields-pro/acf-advanced-custom-fields-pro-5.9.5.zip",
-                "shasum": "e7f66bba63e48092fa85a862425cb109158b5e47"
+                "url": "https://composer.wp.dsd.io/dist/acf/advanced-custom-fields-pro/acf-advanced-custom-fields-pro-5.9.9.zip",
+                "shasum": "ec834f6a64d7532ac4620fa87cf264ef0cacc014"
             },
             "type": "wordpress-plugin"
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.183.14",
+            "version": "3.189.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "5664b49a3338acb1dac095778f4136bd1e514d7d"
+                "reference": "f1f9e6cc3f5df8ef53a46d590985ca1b8dabb0f8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/5664b49a3338acb1dac095778f4136bd1e514d7d",
-                "reference": "5664b49a3338acb1dac095778f4136bd1e514d7d",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/f1f9e6cc3f5df8ef53a46d590985ca1b8dabb0f8",
+                "reference": "f1f9e6cc3f5df8ef53a46d590985ca1b8dabb0f8",
                 "shasum": ""
             },
             "require": {
@@ -102,9 +102,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.183.14"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.189.0"
             },
-            "time": "2021-06-07T18:19:21+00:00"
+            "time": "2021-08-10T18:17:34+00:00"
         },
         {
             "name": "clue/stream-filter",
@@ -557,28 +557,32 @@
         },
         {
             "name": "http-interop/http-factory-guzzle",
-            "version": "1.0.0",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/http-interop/http-factory-guzzle.git",
-                "reference": "34861658efb9899a6618cef03de46e2a52c80fc0"
+                "reference": "8f06e92b95405216b237521cc64c804dd44c4a81"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/http-interop/http-factory-guzzle/zipball/34861658efb9899a6618cef03de46e2a52c80fc0",
-                "reference": "34861658efb9899a6618cef03de46e2a52c80fc0",
+                "url": "https://api.github.com/repos/http-interop/http-factory-guzzle/zipball/8f06e92b95405216b237521cc64c804dd44c4a81",
+                "reference": "8f06e92b95405216b237521cc64c804dd44c4a81",
                 "shasum": ""
             },
             "require": {
-                "guzzlehttp/psr7": "^1.4.2",
+                "guzzlehttp/psr7": "^1.7||^2.0",
+                "php": ">=7.3",
                 "psr/http-factory": "^1.0"
             },
             "provide": {
                 "psr/http-factory-implementation": "^1.0"
             },
             "require-dev": {
-                "http-interop/http-factory-tests": "^0.5",
-                "phpunit/phpunit": "^6.5"
+                "http-interop/http-factory-tests": "^0.9",
+                "phpunit/phpunit": "^9.5"
+            },
+            "suggest": {
+                "guzzlehttp/psr7": "Includes an HTTP factory starting in version 2.0"
             },
             "type": "library",
             "autoload": {
@@ -605,9 +609,44 @@
             ],
             "support": {
                 "issues": "https://github.com/http-interop/http-factory-guzzle/issues",
-                "source": "https://github.com/http-interop/http-factory-guzzle/tree/master"
+                "source": "https://github.com/http-interop/http-factory-guzzle/tree/1.2.0"
             },
-            "time": "2018-07-31T19:32:56+00:00"
+            "time": "2021-07-21T13:50:14+00:00"
+        },
+        {
+            "name": "humanmade/aws-xray",
+            "version": "1.2.13",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/humanmade/aws-xray.git",
+                "reference": "10ca0f27ca94de45ba7155dd7eedc16f8c98e76f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/humanmade/aws-xray/zipball/10ca0f27ca94de45ba7155dd7eedc16f8c98e76f",
+                "reference": "10ca0f27ca94de45ba7155dd7eedc16f8c98e76f",
+                "shasum": ""
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^8.0"
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Joe Hoyle",
+                    "email": "joehoyle@gmail.com"
+                }
+            ],
+            "description": "HM Platform AWS X-Ray Integration",
+            "support": {
+                "issues": "https://github.com/humanmade/aws-xray/issues",
+                "source": "https://github.com/humanmade/aws-xray/tree/1.2.13"
+            },
+            "time": "2021-02-02T15:57:23+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
@@ -1223,16 +1262,16 @@
         },
         {
             "name": "mtdowling/jmespath.php",
-            "version": "2.6.0",
+            "version": "2.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jmespath/jmespath.php.git",
-                "reference": "42dae2cbd13154083ca6d70099692fef8ca84bfb"
+                "reference": "9b87907a81b87bc76d19a7fb2d61e61486ee9edb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jmespath/jmespath.php/zipball/42dae2cbd13154083ca6d70099692fef8ca84bfb",
-                "reference": "42dae2cbd13154083ca6d70099692fef8ca84bfb",
+                "url": "https://api.github.com/repos/jmespath/jmespath.php/zipball/9b87907a81b87bc76d19a7fb2d61e61486ee9edb",
+                "reference": "9b87907a81b87bc76d19a7fb2d61e61486ee9edb",
                 "shasum": ""
             },
             "require": {
@@ -1240,7 +1279,7 @@
                 "symfony/polyfill-mbstring": "^1.17"
             },
             "require-dev": {
-                "composer/xdebug-handler": "^1.4",
+                "composer/xdebug-handler": "^1.4 || ^2.0",
                 "phpunit/phpunit": "^4.8.36 || ^7.5.15"
             },
             "bin": [
@@ -1278,9 +1317,9 @@
             ],
             "support": {
                 "issues": "https://github.com/jmespath/jmespath.php/issues",
-                "source": "https://github.com/jmespath/jmespath.php/tree/2.6.0"
+                "source": "https://github.com/jmespath/jmespath.php/tree/2.6.1"
             },
-            "time": "2020-07-31T21:01:56+00:00"
+            "time": "2021-06-14T00:11:39+00:00"
         },
         {
             "name": "oscarotero/env",
@@ -1332,16 +1371,16 @@
         },
         {
             "name": "php-http/client-common",
-            "version": "2.3.0",
+            "version": "2.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-http/client-common.git",
-                "reference": "e37e46c610c87519753135fb893111798c69076a"
+                "reference": "29e0c60d982f04017069483e832b92074d0a90b2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-http/client-common/zipball/e37e46c610c87519753135fb893111798c69076a",
-                "reference": "e37e46c610c87519753135fb893111798c69076a",
+                "url": "https://api.github.com/repos/php-http/client-common/zipball/29e0c60d982f04017069483e832b92074d0a90b2",
+                "reference": "29e0c60d982f04017069483e832b92074d0a90b2",
                 "shasum": ""
             },
             "require": {
@@ -1401,9 +1440,9 @@
             ],
             "support": {
                 "issues": "https://github.com/php-http/client-common/issues",
-                "source": "https://github.com/php-http/client-common/tree/2.3.0"
+                "source": "https://github.com/php-http/client-common/tree/2.4.0"
             },
-            "time": "2020-07-21T10:04:13+00:00"
+            "time": "2021-07-05T08:19:25+00:00"
         },
         {
             "name": "php-http/discovery",
@@ -1537,16 +1576,16 @@
         },
         {
             "name": "php-http/message",
-            "version": "1.11.1",
+            "version": "1.11.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-http/message.git",
-                "reference": "887734d9c515ad9a564f6581a682fff87a6253cc"
+                "reference": "295c82867d07261f2fa4b3a26677519fc6f7f5f6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-http/message/zipball/887734d9c515ad9a564f6581a682fff87a6253cc",
-                "reference": "887734d9c515ad9a564f6581a682fff87a6253cc",
+                "url": "https://api.github.com/repos/php-http/message/zipball/295c82867d07261f2fa4b3a26677519fc6f7f5f6",
+                "reference": "295c82867d07261f2fa4b3a26677519fc6f7f5f6",
                 "shasum": ""
             },
             "require": {
@@ -1605,9 +1644,9 @@
             ],
             "support": {
                 "issues": "https://github.com/php-http/message/issues",
-                "source": "https://github.com/php-http/message/tree/1.11.1"
+                "source": "https://github.com/php-http/message/tree/1.11.2"
             },
-            "time": "2021-05-24T18:11:08+00:00"
+            "time": "2021-08-03T11:52:11+00:00"
         },
         {
             "name": "php-http/message-factory",
@@ -2152,23 +2191,23 @@
         },
         {
             "name": "sentry/sentry",
-            "version": "3.3.0",
+            "version": "3.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/getsentry/sentry-php.git",
-                "reference": "3bb122f9fc2bc43a4646e37db79eaf115b35b047"
+                "reference": "3d733139a3ba2d1d3a8011580e3acf0ba1d0dc9b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/getsentry/sentry-php/zipball/3bb122f9fc2bc43a4646e37db79eaf115b35b047",
-                "reference": "3bb122f9fc2bc43a4646e37db79eaf115b35b047",
+                "url": "https://api.github.com/repos/getsentry/sentry-php/zipball/3d733139a3ba2d1d3a8011580e3acf0ba1d0dc9b",
+                "reference": "3d733139a3ba2d1d3a8011580e3acf0ba1d0dc9b",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
                 "ext-mbstring": "*",
                 "guzzlehttp/promises": "^1.4",
-                "guzzlehttp/psr7": "^1.7",
+                "guzzlehttp/psr7": "^1.7|^2.0",
                 "jean85/pretty-package-versions": "^1.5|^2.0.1",
                 "php": "^7.2|^8.0",
                 "php-http/async-client-implementation": "^1.0",
@@ -2178,7 +2217,7 @@
                 "php-http/message": "^1.5",
                 "psr/http-factory": "^1.0",
                 "psr/http-message-implementation": "^1.0",
-                "psr/log": "^1.0",
+                "psr/log": "^1.0|^2.0|^3.0",
                 "symfony/options-resolver": "^3.4.43|^4.4.11|^5.0.11",
                 "symfony/polyfill-php80": "^1.17",
                 "symfony/polyfill-uuid": "^1.13.1"
@@ -2240,7 +2279,7 @@
             ],
             "support": {
                 "issues": "https://github.com/getsentry/sentry-php/issues",
-                "source": "https://github.com/getsentry/sentry-php/tree/3.3.0"
+                "source": "https://github.com/getsentry/sentry-php/tree/3.3.2"
             },
             "funding": [
                 {
@@ -2252,7 +2291,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2021-05-25T18:32:24+00:00"
+            "time": "2021-07-19T08:09:34+00:00"
         },
         {
             "name": "symfony/deprecation-contracts",
@@ -2323,25 +2362,25 @@
         },
         {
             "name": "symfony/http-client",
-            "version": "v5.3.0",
+            "version": "v5.3.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/http-client.git",
-                "reference": "ef85ca5fa7a4f9c57592fab49faeccdf22b13136"
+                "reference": "67c177d4df8601d9a71f9d615c52171c98d22d74"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/http-client/zipball/ef85ca5fa7a4f9c57592fab49faeccdf22b13136",
-                "reference": "ef85ca5fa7a4f9c57592fab49faeccdf22b13136",
+                "url": "https://api.github.com/repos/symfony/http-client/zipball/67c177d4df8601d9a71f9d615c52171c98d22d74",
+                "reference": "67c177d4df8601d9a71f9d615c52171c98d22d74",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.2.5",
-                "psr/log": "^1.0",
+                "psr/log": "^1|^2|^3",
                 "symfony/deprecation-contracts": "^2.1",
                 "symfony/http-client-contracts": "^2.4",
                 "symfony/polyfill-php73": "^1.11",
-                "symfony/polyfill-php80": "^1.15",
+                "symfony/polyfill-php80": "^1.16",
                 "symfony/service-contracts": "^1.0|^2"
             },
             "provide": {
@@ -2390,7 +2429,7 @@
             "description": "Provides powerful methods to fetch HTTP resources synchronously or asynchronously",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/http-client/tree/v5.3.0"
+                "source": "https://github.com/symfony/http-client/tree/v5.3.4"
             },
             "funding": [
                 {
@@ -2406,7 +2445,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-05-26T17:43:10+00:00"
+            "time": "2021-07-23T15:55:36+00:00"
         },
         {
             "name": "symfony/http-client-contracts",
@@ -2488,23 +2527,23 @@
         },
         {
             "name": "symfony/options-resolver",
-            "version": "v5.3.0",
+            "version": "v5.3.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/options-resolver.git",
-                "reference": "162e886ca035869866d233a2bfef70cc28f9bbe5"
+                "reference": "a603e5701bd6e305cfc777a8b50bf081ef73105e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/options-resolver/zipball/162e886ca035869866d233a2bfef70cc28f9bbe5",
-                "reference": "162e886ca035869866d233a2bfef70cc28f9bbe5",
+                "url": "https://api.github.com/repos/symfony/options-resolver/zipball/a603e5701bd6e305cfc777a8b50bf081ef73105e",
+                "reference": "a603e5701bd6e305cfc777a8b50bf081ef73105e",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.2.5",
                 "symfony/deprecation-contracts": "^2.1",
                 "symfony/polyfill-php73": "~1.0",
-                "symfony/polyfill-php80": "^1.15"
+                "symfony/polyfill-php80": "^1.16"
             },
             "type": "library",
             "autoload": {
@@ -2537,7 +2576,7 @@
                 "options"
             ],
             "support": {
-                "source": "https://github.com/symfony/options-resolver/tree/v5.3.0"
+                "source": "https://github.com/symfony/options-resolver/tree/v5.3.4"
             },
             "funding": [
                 {
@@ -2553,7 +2592,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-05-26T17:43:10+00:00"
+            "time": "2021-07-23T15:55:36+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
@@ -2636,16 +2675,16 @@
         },
         {
             "name": "symfony/polyfill-mbstring",
-            "version": "v1.23.0",
+            "version": "v1.23.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "2df51500adbaebdc4c38dea4c89a2e131c45c8a1"
+                "reference": "9174a3d80210dca8daa7f31fec659150bbeabfc6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/2df51500adbaebdc4c38dea4c89a2e131c45c8a1",
-                "reference": "2df51500adbaebdc4c38dea4c89a2e131c45c8a1",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/9174a3d80210dca8daa7f31fec659150bbeabfc6",
+                "reference": "9174a3d80210dca8daa7f31fec659150bbeabfc6",
                 "shasum": ""
             },
             "require": {
@@ -2696,7 +2735,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.23.0"
+                "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.23.1"
             },
             "funding": [
                 {
@@ -2712,7 +2751,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-05-27T09:27:20+00:00"
+            "time": "2021-05-27T12:26:48+00:00"
         },
         {
             "name": "symfony/polyfill-php73",
@@ -2795,16 +2834,16 @@
         },
         {
             "name": "symfony/polyfill-php80",
-            "version": "v1.23.0",
+            "version": "v1.23.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-php80.git",
-                "reference": "eca0bf41ed421bed1b57c4958bab16aa86b757d0"
+                "reference": "1100343ed1a92e3a38f9ae122fc0eb21602547be"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-php80/zipball/eca0bf41ed421bed1b57c4958bab16aa86b757d0",
-                "reference": "eca0bf41ed421bed1b57c4958bab16aa86b757d0",
+                "url": "https://api.github.com/repos/symfony/polyfill-php80/zipball/1100343ed1a92e3a38f9ae122fc0eb21602547be",
+                "reference": "1100343ed1a92e3a38f9ae122fc0eb21602547be",
                 "shasum": ""
             },
             "require": {
@@ -2858,7 +2897,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-php80/tree/v1.23.0"
+                "source": "https://github.com/symfony/polyfill-php80/tree/v1.23.1"
             },
             "funding": [
                 {
@@ -2874,7 +2913,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-02-19T12:13:01+00:00"
+            "time": "2021-07-28T13:41:28+00:00"
         },
         {
             "name": "symfony/polyfill-uuid",
@@ -3112,15 +3151,15 @@
         },
         {
             "name": "wpackagist-plugin/classic-editor",
-            "version": "1.6",
+            "version": "1.6.2",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/classic-editor/",
-                "reference": "tags/1.6"
+                "reference": "tags/1.6.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/classic-editor.1.6.zip"
+                "url": "https://downloads.wordpress.org/plugin/classic-editor.1.6.2.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -3148,15 +3187,15 @@
         },
         {
             "name": "wpackagist-plugin/co-authors-plus",
-            "version": "3.4.7",
+            "version": "3.4.8",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/co-authors-plus/",
-                "reference": "tags/3.4.7"
+                "reference": "tags/3.4.8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/co-authors-plus.3.4.7.zip"
+                "url": "https://downloads.wordpress.org/plugin/co-authors-plus.3.4.8.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -3184,15 +3223,15 @@
         },
         {
             "name": "wpackagist-plugin/debug-bar-elasticpress",
-            "version": "2.0.0",
+            "version": "2.1.0",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/debug-bar-elasticpress/",
-                "reference": "tags/2.0.0"
+                "reference": "tags/2.1.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/debug-bar-elasticpress.2.0.0.zip"
+                "url": "https://downloads.wordpress.org/plugin/debug-bar-elasticpress.2.1.0.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -3202,15 +3241,15 @@
         },
         {
             "name": "wpackagist-plugin/elasticpress",
-            "version": "3.5.6",
+            "version": "3.6.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/elasticpress/",
-                "reference": "tags/3.5.6"
+                "reference": "tags/3.6.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/elasticpress.3.5.6.zip"
+                "url": "https://downloads.wordpress.org/plugin/elasticpress.3.6.1.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -3238,15 +3277,15 @@
         },
         {
             "name": "wpackagist-plugin/ewww-image-optimizer",
-            "version": "6.1.5",
+            "version": "6.2.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/ewww-image-optimizer/",
-                "reference": "tags/6.1.5"
+                "reference": "tags/6.2.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/ewww-image-optimizer.6.1.5.zip"
+                "url": "https://downloads.wordpress.org/plugin/ewww-image-optimizer.6.2.1.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -3364,15 +3403,15 @@
         },
         {
             "name": "wpackagist-plugin/wp-force-login",
-            "version": "5.6.1",
+            "version": "5.6.2",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/wp-force-login/",
-                "reference": "tags/5.6.1"
+                "reference": "tags/5.6.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wp-force-login.5.6.1.zip"
+                "url": "https://downloads.wordpress.org/plugin/wp-force-login.5.6.2.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
