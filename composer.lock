@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5846c2b2333bcb5e7a6f19a83a709304",
+    "content-hash": "5d91ad217406c1a4b363236f3414a817",
     "packages": [
         {
             "name": "acf/advanced-custom-fields-pro",
@@ -612,41 +612,6 @@
                 "source": "https://github.com/http-interop/http-factory-guzzle/tree/1.2.0"
             },
             "time": "2021-07-21T13:50:14+00:00"
-        },
-        {
-            "name": "humanmade/aws-xray",
-            "version": "1.2.13",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/humanmade/aws-xray.git",
-                "reference": "10ca0f27ca94de45ba7155dd7eedc16f8c98e76f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/humanmade/aws-xray/zipball/10ca0f27ca94de45ba7155dd7eedc16f8c98e76f",
-                "reference": "10ca0f27ca94de45ba7155dd7eedc16f8c98e76f",
-                "shasum": ""
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^8.0"
-            },
-            "type": "library",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "Joe Hoyle",
-                    "email": "joehoyle@gmail.com"
-                }
-            ],
-            "description": "HM Platform AWS X-Ray Integration",
-            "support": {
-                "issues": "https://github.com/humanmade/aws-xray/issues",
-                "source": "https://github.com/humanmade/aws-xray/tree/1.2.13"
-            },
-            "time": "2021-02-02T15:57:23+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
