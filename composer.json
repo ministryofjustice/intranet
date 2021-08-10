@@ -49,7 +49,7 @@
         "composer/installers": "^1.4",
         "aws/aws-sdk-php": "^3.133",
         "vlucas/phpdotenv": "^2.0.1",
-        "johnpbloch/wordpress": "^5.7.2",
+        "johnpbloch/wordpress": "5.7.2",
         "koodimonni-language/core-en_gb": "*",
         "humanmade/aws-xray": "*",
         "oscarotero/env": "^1.1.0",
