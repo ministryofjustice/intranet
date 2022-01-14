@@ -30,7 +30,7 @@ define('WP_ENV', env('WP_ENV') ?: 'production');
  * Initialise Sentry
  */
 Sentry\init([
-    'dsn' => 'https://6bd7835cf8a249a288670a45d0c9f926@o486881.ingest.sentry.io/5544839',
+    'dsn' => 'https://85635e3372244483b86823c4f75dcee2@o345774.ingest.sentry.io/6143405',
     'environment'=> WP_ENV . (env('SENTRY_DEV_ID') ?? ''),
 ]);
 
