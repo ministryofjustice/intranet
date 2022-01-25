@@ -169,10 +169,8 @@
             },
             "admin_only": 0,
             "choices": {
-                "emergency": "Emergency (red border)",
-                "service": "Service update (orange border)",
-                "summary": "Summary (blue border)",
-                "information": "Information (black border)"
+                "emergency": "Emergency (red banner)",
+                "service": "Service update (orange banner)"
             },
             "allow_null": 0,
             "other_choice": 0,
@@ -283,7 +281,8 @@
                 "lawcom": "LawCom",
                 "opg": "OPG",
                 "pb": "PB",
-                "ppo": "PPO"
+                "ppo": "PPO",
+                "ospt": "OSPT"
             },
             "allow_null": 0,
             "other_choice": 0,
@@ -396,6 +395,116 @@
             ],
             "taxonomy": [
                 "agency:hq"
+            ],
+            "allow_null": 0,
+            "multiple": 0,
+            "return_format": "object",
+            "ui": 1
+        },
+        {
+            "key": "field_61f0551f5d37c",
+            "label": "Select blog in OSPT",
+            "name": "feature_item_left_post__ospt",
+            "type": "post_object",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_5b6966b5ddfb7",
+                        "operator": "==",
+                        "value": "post"
+                    },
+                    {
+                        "field": "field_5b696b695a61a",
+                        "operator": "==",
+                        "value": "ospt"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "admin_only": 0,
+            "post_type": "",
+            "taxonomy": "",
+            "allow_null": 0,
+            "multiple": 0,
+            "return_format": "object",
+            "ui": 1
+        },
+        {
+            "key": "field_61f0562660e03",
+            "label": "Select news article in OSPT",
+            "name": "feature_item_left_news__ospt",
+            "type": "post_object",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_5b6966b5ddfb7",
+                        "operator": "==",
+                        "value": "news"
+                    },
+                    {
+                        "field": "field_5b696b695a61a",
+                        "operator": "==",
+                        "value": "ospt"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "admin_only": 0,
+            "post_type": [
+                "news"
+            ],
+            "taxonomy": [
+                "agency:ospt"
+            ],
+            "allow_null": 0,
+            "multiple": 0,
+            "return_format": "object",
+            "ui": 1
+        },
+        {
+            "key": "field_61f0564760e04",
+            "label": "Select page in OSPT",
+            "name": "feature_item_left_pages__ospt",
+            "type": "post_object",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_5b6966b5ddfb7",
+                        "operator": "==",
+                        "value": "pages"
+                    },
+                    {
+                        "field": "field_5b696b695a61a",
+                        "operator": "==",
+                        "value": "ospt"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "admin_only": 0,
+            "post_type": [
+                "page"
+            ],
+            "taxonomy": [
+                "agency:ospt"
             ],
             "allow_null": 0,
             "multiple": 0,
@@ -1401,7 +1510,8 @@
                 "lawcom": "LawCom",
                 "opg": "OPG",
                 "pb": "PB",
-                "ppo": "PPO"
+                "ppo": "PPO",
+                "ospt": "OSPT"
             },
             "allow_null": 0,
             "other_choice": 0,
@@ -1514,6 +1624,116 @@
             ],
             "taxonomy": [
                 "agency:hq"
+            ],
+            "allow_null": 0,
+            "multiple": 0,
+            "return_format": "object",
+            "ui": 1
+        },
+        {
+            "key": "field_61f056b80318b",
+            "label": "Select blog in OSPT",
+            "name": "feature_item_right_post__ospt",
+            "type": "post_object",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_5b698d5376087",
+                        "operator": "==",
+                        "value": "post"
+                    },
+                    {
+                        "field": "field_5b698d9976088",
+                        "operator": "==",
+                        "value": "ospt"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "admin_only": 0,
+            "post_type": "",
+            "taxonomy": "",
+            "allow_null": 0,
+            "multiple": 0,
+            "return_format": "object",
+            "ui": 1
+        },
+        {
+            "key": "field_61f0570bd5abb",
+            "label": "Select news article in OSPT",
+            "name": "feature_item_right_news_ospt",
+            "type": "post_object",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_5b698d5376087",
+                        "operator": "==",
+                        "value": "news"
+                    },
+                    {
+                        "field": "field_5b698d9976088",
+                        "operator": "==",
+                        "value": "ospt"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "admin_only": 0,
+            "post_type": [
+                "news"
+            ],
+            "taxonomy": [
+                "agency:ospt"
+            ],
+            "allow_null": 0,
+            "multiple": 0,
+            "return_format": "object",
+            "ui": 1
+        },
+        {
+            "key": "field_61f05728d5abc",
+            "label": "Select page in OSPT",
+            "name": "feature_item_right_pages__ospt",
+            "type": "post_object",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_5b698d5376087",
+                        "operator": "==",
+                        "value": "pages"
+                    },
+                    {
+                        "field": "field_5b698d9976088",
+                        "operator": "==",
+                        "value": "ospt"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "admin_only": 0,
+            "post_type": [
+                "page"
+            ],
+            "taxonomy": [
+                "agency:ospt"
             ],
             "allow_null": 0,
             "multiple": 0,
@@ -2809,7 +3029,8 @@
     "label_placement": "top",
     "instruction_placement": "label",
     "hide_on_screen": "",
-    "active": 1,
+    "active": true,
     "description": "",
-    "modified": 1560433163
+    "show_in_rest": 0,
+    "modified": 1643141437
 }
