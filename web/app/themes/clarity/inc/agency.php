@@ -160,7 +160,7 @@ class Agency
         ],
         'ospt' => [
         'shortcode' => 'ospt',
-        'label' => 'OSPT',
+        'label' => 'Official Solicitor and Public Trustee',
         'abbreviation' => 'OSPT',
         'is_integrated' => true,
         'contact_email_address' => 'intranet-pb@digital.justice.gov.uk',
