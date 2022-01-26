@@ -169,7 +169,6 @@
             },
             "admin_only": 0,
             "choices": {
-
                 "emergency": "Emergency (red banner)",
                 "service": "Service update (orange banner)",
                 "summary": "Summary (blue border)",
