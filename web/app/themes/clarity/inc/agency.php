@@ -164,7 +164,7 @@ class Agency
         'abbreviation' => 'OSPT',
         'is_integrated' => true,
         'contact_email_address' => 'intranet-pb@digital.justice.gov.uk',
-        'wp_tag_id' => 1099,
+        'wp_tag_id' => 6398,
         'links' => []
         ]
         ];
