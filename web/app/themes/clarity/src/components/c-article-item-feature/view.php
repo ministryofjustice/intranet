@@ -5,12 +5,13 @@
 
  $id            = get_the_ID();
  $thumbnail_alt = get_post_meta(get_post_thumbnail_id($id), '_wp_attachment_image_alt', true);
+ 
 ?>
 
 <!-- c-article-item-feature starts here -->
 <article class="c-article-item-feature">
-  <a href="<?php echo esc_url(get_permalink($id)); ?>" class="c-article-item-feature--thumbnail">
-    <?php the_post_thumbnail('intranet-large', 'alt=' . $thumbnail_alt); ?>
+  <a aria-hidden="true" href="<?php echo esc_url(get_permalink($id)); ?>" class="c-article-item-feature--thumbnail">
+    <?php the_post_thumbnail('intranet-large', 'alt'); ?>
   </a>
 
   <div class="text-align">
@@ -21,7 +22,7 @@
     ?>
     </span>
     <h1>
-      <a href="<?php echo esc_url(get_permalink($id)); ?>" class="c-article-item-feature--title"><?php echo get_the_title($id); ?></a>
+      <a href="<?php echo esc_url(get_permalink($id)); ?>" class="c-article-item-feature--title"><?php echo get_the_title($id); ?> </a>
     </h1>
 
     <div class="c-article-item-feature__excerpt">

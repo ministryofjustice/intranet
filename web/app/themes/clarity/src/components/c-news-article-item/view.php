@@ -9,8 +9,8 @@
 
 <article class="c-news-article-item">
 
-  <a href="<?php echo esc_url(get_permalink($id)); ?>" class="c-news-article-item--thumbnail">
-    <?php the_post_thumbnail('feature-thumbnail', 'alt=' . $thumbnail_alt); ?>
+  <a aria-hidden="true" href="<?php echo esc_url(get_permalink($id)); ?>" class="c-news-article-item--thumbnail">
+    <?php the_post_thumbnail('feature-thumbnail', 'alt' ); ?>
   </a>
 
   <div class="text-align">

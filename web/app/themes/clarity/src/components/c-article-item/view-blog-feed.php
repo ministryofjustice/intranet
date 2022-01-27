@@ -31,13 +31,13 @@ if ($post['id'] != '') :
     if ($thumbnail) :
         ?>
 
-  <a href="<?php echo esc_url(get_permalink($id)); ?>">
-    <img src="<?php echo $thumbnail; ?>" alt="<?php echo $thumbnail_alt; ?>" class="thumbnail">
+  <a aria-hidden="true" href="<?php echo esc_url(get_permalink($id)); ?>">
+    <img src="<?php echo $thumbnail; ?>" alt class="thumbnail">
     </a>
 
     <?php elseif ($authors[0]['thumbnail_url']) : ?>
-  <a href="<?php echo esc_url(get_permalink($id)); ?>" class="thumbnail">
-    <img src="<?php echo $post['coauthors'][0]['thumbnail_avatar']; ?>" alt="<?php echo $post['coauthors'][0]['display_name']; ?>">
+  <a aria-hidden="true" href="<?php echo esc_url(get_permalink($id)); ?>" class="thumbnail">
+    <img src="<?php echo $post['coauthors'][0]['thumbnail_avatar']; ?>" alt >
   </a>
 
     <?php else : ?>
