@@ -157,6 +157,15 @@ class Agency
         'contact_email_address' => 'intranet-pb@digital.justice.gov.uk',
         'wp_tag_id' => 1098, //ID number from Taxonomy 'Agency' Term 'PB'
         'links' => []
+        ],
+        'ospt' => [
+        'shortcode' => 'ospt',
+        'label' => 'Official Solicitor and Public Trustee',
+        'abbreviation' => 'OSPT',
+        'is_integrated' => true,
+        'contact_email_address' => 'intranet-pb@digital.justice.gov.uk',
+        'wp_tag_id' => 6398,
+        'links' => []
         ]
         ];
     }
@@ -282,7 +291,14 @@ class Agency
                     'url' => 'https://twitter.com/opggovuk',
                     'label' => 'OPG on Twitter',
                     'name' => 'twitter',
+                ],
+            'ospt' => [
+                [
+                    'url' => '',
+                    'label' => '',
+                    'name' => '',
                 ]
+            ]
             ]
         ];
 

@@ -1,4 +1,5 @@
 <?php
+
 use MOJ\Intranet\Agency;
 
 $oAgency          = new Agency();
@@ -42,12 +43,20 @@ if (isset($referrer['query'])) {
   <ul class="c-intranet-switcher">
 
         <?php
-        foreach ($activeAgencies as $agency_id => $agency) {
+
+	// Temporarily filtering out OSPT until site is ready to go live
+	// Remove OSPT hardcoded link to old intranet below when site goes live.
+	$modified_agency_array = array_filter( $activeAgencies, function($data) {
+		return $data["shortcode"] != 'ospt';
+	});
+
+        foreach ($modified_agency_array as $agency_id => $agency) {
             if ($current_intranet == $agency_id) {
                 $extra_class = ' u-active';
             } else {
                 $extra_class = '';
-            }
+	    }
+
             if ($agency_id != 'noms') {
                 echo '<li class="c-intranet-switcher__switch c-intranet-switcher__switch--' . $agency_id . $extra_class . ' "><a href="/?agency=' . $agency_id . $referrer['query'] . '">' . $agency['label'] . '</a></li>';
             } else {
