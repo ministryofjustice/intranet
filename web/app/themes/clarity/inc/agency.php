@@ -1,9 +1,11 @@
 <?php
+
 namespace MOJ\Intranet;
 
 if (!defined('ABSPATH')) {
     die();
 }
+
 
 class Agency
 {
@@ -21,153 +23,153 @@ class Agency
     public function getList()
     {
         /**
-     * Agency array structure:
-     *
-     *  - shortcode (string) - agency code
-     *  - label (string) - the full name of the agency
-     *  - abbreviation (string) - short name, such as HMCTS
-     *  - blog url (string) (optional) - custom url for main menu blog
-     *  - is_integrated (boolean) - whether the agency is already integrated into the intranet or not
-     *  - contact_email_address (string) (optional) - the email address used for the feedback form
-     *  - links (array) - links that display into the My MoJ section, with fields:
-     *      - url (string) - URL of the link
-     *      - label (string) - Text label for the link
-     *      - classes (string) (optional) - Classes for the HTML element
-     *      - is_external (boolean) - Is this a link to an external site?
-     */
-        return [
+        * Agency array structure:
+        *
+        *  - shortcode (string) - agency code
+        *  - label (string) - the full name of the agency
+        *  - abbreviation (string) - short name, such as HMCTS
+        *  - blog url (string) (optional) - custom url for main menu blog
+        *  - is_integrated (boolean) - whether the agency is already integrated into the intranet or not
+        *  - contact_email_address (string) (optional) - the email address used for the feedback form
+        *  - links (array) - links that display into the My MoJ section, with fields:
+        *      - url (string) - URL of the link
+        *      - label (string) - Text label for the link
+        *      - classes (string) (optional) - Classes for the HTML element
+        *      - is_external (boolean) - Is this a link to an external site?
+        */
+
+        $agencies_array = [
         'cica' => [
-        'shortcode' => 'cica',
-        'label' => 'Criminal Injuries Compensation Authority',
-        'abbreviation' => 'CICA',
-        'is_integrated' => true,
-        'contact_email_address' => 'intranet-cica@digital.justice.gov.uk',
-        'links' => [],
-        'wp_tag_id' => 1049, //ID number from Taxonomy 'Agency' Term 'CICA'
+            'shortcode' => 'cica',
+            'label' => 'Criminal Injuries Compensation Authority',
+            'abbreviation' => 'CICA',
+            'is_integrated' => true,
+            'contact_email_address' => 'intranet-cica@digital.justice.gov.uk',
+            'links' => [],
         ],
         'hmcts' => [
-        'shortcode' => 'hmcts',
-        'label' => 'HM Courts &amp; Tribunals Service',
-        'abbreviation' => 'HMCTS',
-        'blog_url' => '/blog/',
-        'is_integrated' => true,
-        'contact_email_address' => 'intranet-hmcts@digital.justice.gov.uk',
-        'wp_tag_id' => 100, //ID number from Taxonomy 'Agency' Term 'HMCTS'
-        'links' => [
-          [
-            'url' => site_url('/about-hmcts/justice-matters/'),
-            'label' => 'Justice Matters',
-            'classes' => 'transformation',
-            'is_external' => true
-          ]
-        ]
+            'shortcode' => 'hmcts',
+            'label' => 'HM Courts &amp; Tribunals Service',
+            'abbreviation' => 'HMCTS',
+            'blog_url' => '/blog/',
+            'is_integrated' => true,
+            'contact_email_address' => 'intranet-hmcts@digital.justice.gov.uk',
+            'links' => [
+                [
+                'url' => site_url('/about-hmcts/justice-matters/'),
+                'label' => 'Justice Matters',
+                'classes' => 'transformation',
+                'is_external' => true
+                ]
+            ]
         ],
         'noms' => [
-        'shortcode' => 'noms',
-        'label' => 'HM Prison & Probation Service',
-        'abbreviation' => 'HMPPS',
-        'is_integrated' => false,
-        'wp_tag_id' => 99, //ID number from Taxonomy 'Agency' Term 'HQ' as there isn;t a HMPPS
-        'links' => [
-          [
-            'url' => 'https://intranet.noms.gsi.gov.uk/',
-            'label' => 'HM Prison & Probation Service intranet',
-            'is_external' => true
-          ]
-        ]
+            'shortcode' => 'noms',
+            'label' => 'HM Prison & Probation Service',
+            'abbreviation' => 'HMPPS',
+            'is_integrated' => false,
+            'links' => [
+                [
+                'url' => 'https://intranet.noms.gsi.gov.uk/',
+                'label' => 'HM Prison & Probation Service intranet',
+                'is_external' => true
+                ]
+            ]
         ],
         'judicial-appointments-commission' => [
-        'shortcode' => 'judicial-appointments-commission',
-        'label' => 'Judicial Appointments Commission',
-        'abbreviation' => 'JAC',
-        'is_integrated' => false,
-        'wp_tag_id' => 99, //ID number from Taxonomy 'Agency' Term 'HMCTS'
-        'links' => [
-          [
-            'url' => 'http://jac.intranet.service.justice.gov.uk/',
-            'label' => 'Judicial Appointments Commission intranet',
-            'is_external' => true
-          ]
-        ]
+            'shortcode' => 'judicial-appointments-commission',
+            'label' => 'Judicial Appointments Commission',
+            'abbreviation' => 'JAC',
+            'is_integrated' => false,
+            'links' => [
+                [
+                'url' => 'http://jac.intranet.service.justice.gov.uk/',
+                'label' => 'Judicial Appointments Commission intranet',
+                'is_external' => true
+                ]
+            ]
         ],
         'judicial-office' => [
-        'shortcode' => 'judicial-office',
-        'label' => 'Judicial Office',
-        'abbreviation' => 'JO',
-        'is_integrated' => true,
-        'contact_email_address' => 'intranet-jo@digital.justice.gov.uk',
-        'wp_tag_id' => 1165, //ID number from Taxonomy 'Agency' Term 'JO'
-        'links' => []
+            'shortcode' => 'judicial-office',
+            'label' => 'Judicial Office',
+            'abbreviation' => 'JO',
+            'is_integrated' => true,
+            'contact_email_address' => 'intranet-jo@digital.justice.gov.uk',
+            'links' => []
         ],
         'law-commission' => [
-        'shortcode' => 'law-commission',
-        'label' => 'Law Commission',
-        'abbreviation' => 'LawCom',
-        'is_integrated' => false,
-        'wp_tag_id' => 1857, //ID number from Taxonomy 'Agency' Term 'Law Commission'
-        'links' => [
-          [
-            'url' => 'http://lawcommission.intranet.service.justice.gov.uk/',
-            'label' => 'Law Commission intranet',
-            'is_external' => true
-          ]
-        ]
+            'shortcode' => 'law-commission',
+            'label' => 'Law Commission',
+            'abbreviation' => 'LawCom',
+            'is_integrated' => false,
+            'links' => [
+                [
+                'url' => 'http://lawcommission.intranet.service.justice.gov.uk/',
+                'label' => 'Law Commission intranet',
+                'is_external' => true
+                ]
+            ]
         ],
         'laa' => [
-        'shortcode' => 'laa',
-        'label' => 'Legal Aid Agency',
-        'abbreviation' => 'LAA',
-        'is_integrated' => true,
-        'contact_email_address' => 'intranet-laa@digital.justice.gov.uk',
-        'wp_tag_id' => 101, //ID number from Taxonomy 'Agency' Term 'LAA'
-        'links' => []
+            'shortcode' => 'laa',
+            'label' => 'Legal Aid Agency',
+            'abbreviation' => 'LAA',
+            'is_integrated' => true,
+            'contact_email_address' => 'intranet-laa@digital.justice.gov.uk',
+            'links' => []
         ],
         'hq' => [
-        'shortcode' => 'hq',
-        'label' => 'Ministry of Justice HQ',
-        'abbreviation' => 'MoJ',
-        'is_integrated' => true,
-        'default' => true,
-        'contact_email_address' => 'intranet@justice.gsi.gov.uk',
-        'wp_tag_id' => 99, //ID number from Taxonomy 'Agency' Term 'HQ'
-        'links' => [
-          [
-            'url' => site_url('/about-us/moj-transformation'),
-            'label' => 'MoJ TRANSFORMATION',
-            'is_external' => false,
-            'classes' => 'transformation'
-          ]
-        ]
+            'shortcode' => 'hq',
+            'label' => 'Ministry of Justice HQ',
+            'abbreviation' => 'MoJ',
+            'is_integrated' => true,
+            'default' => true,
+            'contact_email_address' => 'intranet@justice.gsi.gov.uk',
+            'links' => [
+                [
+                'url' => site_url('/about-us/moj-transformation'),
+                'label' => 'MoJ TRANSFORMATION',
+                'is_external' => false,
+                'classes' => 'transformation'
+                ]
+            ]
         ],
         'opg' => [
-        'shortcode' => 'opg',
-        'label' => 'Office of the Public Guardian',
-        'abbreviation' => 'OPG',
-        'is_integrated' => true,
-        'contact_email_address' => 'intranet-opg@digital.justice.gov.uk',
-        'wp_tag_id' => 102, //ID number from Taxonomy 'Agency' Term 'OPG'
-        'links' => []
+            'shortcode' => 'opg',
+            'label' => 'Office of the Public Guardian',
+            'abbreviation' => 'OPG',
+            'is_integrated' => true,
+            'contact_email_address' => 'intranet-opg@digital.justice.gov.uk',
+            'links' => []
         ],
         'pb' => [
-        'shortcode' => 'pb',
-        'label' => 'The Parole Board',
-        'abbreviation' => 'PB',
-        'is_integrated' => true,
-        'about_us_url' => '/about-parole-board/',
-        'contact_email_address' => 'intranet-pb@digital.justice.gov.uk',
-        'wp_tag_id' => 1098, //ID number from Taxonomy 'Agency' Term 'PB'
-        'links' => []
+            'shortcode' => 'pb',
+            'label' => 'The Parole Board',
+            'abbreviation' => 'PB',
+            'is_integrated' => true,
+            'about_us_url' => '/about-parole-board/',
+            'contact_email_address' => 'intranet-pb@digital.justice.gov.uk',
+            'links' => []
         ],
         'ospt' => [
-        'shortcode' => 'ospt',
-        'label' => 'Official Solicitor and Public Trustee',
-        'abbreviation' => 'OSPT',
-        'is_integrated' => true,
-        'contact_email_address' => 'intranet-pb@digital.justice.gov.uk',
-        'wp_tag_id' => 6398,
-        'links' => []
-        ]
+            'shortcode' => 'ospt',
+            'label' => 'Official Solicitor and Public Trustee',
+            'abbreviation' => 'OSPT',
+            'is_integrated' => true,
+            'contact_email_address' => '',
+            'links' => []
+            ]
         ];
+
+        // Dynamically populate tag_ids for each agency
+        foreach ($agencies_array as $agency) {
+            $shortcode = $agency['shortcode'] ?? 'hq';
+            $tag = get_term_by('slug', $shortcode, 'agency');
+            $tag_id = $tag->term_id ?? '';
+            $agencies_array[$shortcode]['wp_tag_id'] = $tag_id;
+        }
+
+        return $agencies_array;
     }
 
     /***
