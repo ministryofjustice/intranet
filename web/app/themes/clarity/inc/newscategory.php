@@ -22,11 +22,9 @@ class NewsCategory
         $agency_name        = '&agency=' . $activeAgency['wp_tag_id'];
         $category_name      = '&news_category=' .$category_id;
 
-        /*
-        * A temporary measure so that API calls do not get blocked by
-        * changing IPs not whitelisted. All calls are within container.
-        */
-        $siteurl = 'http://127.0.0.1';
+
+        // Internal http call used by the WordPress API
+    	$siteurl = 'http://' . $_SERVER['SERVER_NAME'];
 
         $response = wp_remote_get($siteurl.'/wp-json/wp/v2/news/?' . $post_per_page . $current_page . $agency_name . $category_name);
 

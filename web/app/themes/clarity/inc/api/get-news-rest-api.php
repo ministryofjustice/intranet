@@ -24,18 +24,15 @@ function get_news_api($set_cpt = '')
     $region_id         = get_the_terms($post_id, 'region');
     $regional_template = get_post_meta(get_the_ID(), 'dw_regional_template', true);
 
+    // Internal http call used by the WordPress API
+    $siteurl = 'http://' . $_SERVER['SERVER_NAME'];
+
     if ($region_id) :
         foreach ($region_id as $region) :
             // Current region, ie Scotland, North West etc
             $current_region = '&region=' . $region->term_id;
         endforeach;
     endif;
-
-    /*
-    * A temporary measure so that API calls do not get blocked by
-    * changing IPs not whitelisted. All calls are within container.
-    */
-    $siteurl = 'http://127.0.0.1';
 
     switch ($post_type) {
         case 'regional_page':

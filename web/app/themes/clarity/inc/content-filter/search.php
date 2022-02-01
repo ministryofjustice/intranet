@@ -104,12 +104,9 @@ function load_search_results()
         $news_category_name = ( ! empty($newsCategory_ID) ? '&news_category=' . $newsCategory_ID : '' );
     }
 
-    /*
-    * A temporary measure so that API calls do not get blocked by
-    * changing IPs not whitelisted. All calls are within container.
-    */
-    $siteurl = 'http://127.0.0.1';
-
+    // Internal http call used by the WordPress API
+    $siteurl = 'http://' . $_SERVER['SERVER_NAME'];
+    
     $response = wp_remote_get($siteurl . '/wp-json/wp/v2/' . $postType . '/?' . $post_per_page . $agency_name . $valueSelected . $search . $news_category_name);
 
     $post_total = wp_remote_retrieve_header($response, 'x-wp-total');
@@ -154,13 +151,10 @@ function load_next_results()
     $search             = ( ! empty($query) ? '&search=' . $query : '' );
     $agency_name        = '&agency=' . $activeAgency['wp_tag_id'];
     $news_category_name = ( ! empty($newsCategory_ID) ? '&news_category=' . $newsCategory_ID : '' );
-
-    /*
-    * A temporary measure so that API calls do not get blocked by
-    * changing IPs not whitelisted. All calls are within container.
-    */
-    $siteurl = 'http://127.0.0.1';
-
+    
+    // Internal http call used by the WordPress API
+    $siteurl = 'http://' . $_SERVER['SERVER_NAME'];
+    
     $response = wp_remote_get($siteurl . '/wp-json/wp/v2/' . $postType . '/?' . $post_per_page . $current_page . $agency_name . $valueSelected . $search . $news_category_name);
 
     $pagetotal = wp_remote_retrieve_header($response, 'x-wp-totalpages');
@@ -204,11 +198,9 @@ function load_search_results_total()
     $agency_name        = '&agency=' . $activeAgency['wp_tag_id'];
     $news_category_name = ( ! empty($newsCategory_ID) ? '&news_category=' . $newsCategory_ID : '' );
 
-    /*
-    * A temporary measure so that API calls do not get blocked by
-    * changing IPs not whitelisted. All calls are within container.
-    */
-    $siteurl = 'http://127.0.0.1';
+
+    // Internal http call used by the WordPress API
+    $siteurl = 'http://' . $_SERVER['SERVER_NAME'];
 
     $response   = wp_remote_get($siteurl . '/wp-json/wp/v2/' . $postType . '/?' . $post_per_page . $agency_name . $valueSelected . $search . $news_category_name);
     $post_total = wp_remote_retrieve_header($response, 'x-wp-total');
@@ -245,11 +237,9 @@ function load_page_total()
     $agency_name             = '&agency=' . $activeAgency['wp_tag_id'];
     $news_category_name      = ( ! empty($newsCategory_ID) ? '&news_category=' . $newsCategory_ID : '' );
 
-    /*
-    * A temporary measure so that API calls do not get blocked by
-    * changing IPs not whitelisted. All calls are within container.
-    */
-    $siteurl = 'http://127.0.0.1';
+
+    // Internal http call used by the WordPress API
+    $siteurl = 'http://' . $_SERVER['SERVER_NAME'];
 
     $response = wp_remote_get($siteurl . '/wp-json/wp/v2/' . $postType . '/?' . $post_per_page . $current_page . $agency_name . $valueSelected  . $search . $news_category_name);
 

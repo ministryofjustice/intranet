@@ -6,11 +6,9 @@ function get_newscategory_pagination($category_id)
     $oAgency = new Agency();
     $activeAgency = $oAgency->getCurrentAgency();
 
-    /*
-    * A temporary measure so that API calls do not get blocked by
-    * changing IPs not whitelisted. All calls are within container.
-    */
-    $siteurl = 'http://127.0.0.1';
+
+    // Internal http call used by the WordPress API
+    $siteurl = 'http://' . $_SERVER['SERVER_NAME'];
 
     $post_per_page      = 'per_page=10';
     $current_page       = '&page=1';
