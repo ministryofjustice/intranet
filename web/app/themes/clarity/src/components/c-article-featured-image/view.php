@@ -13,6 +13,6 @@ if (isset($thumbnail)) {
 ?>
 <!-- c-article-featured-image starts here -->
 <div class="c-article-featured-image c-article-featured-image__news">
-  <img src="<?php echo $thumbnail_url; ?>" alt="<?php echo $alt_text; ?>">
+  <img src="<?php echo $thumbnail_url; ?>" alt>
 </div>
 <!-- c-article-featured-image ends here -->

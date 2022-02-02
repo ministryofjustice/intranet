@@ -20,8 +20,8 @@ if (! isset($set_cpt)) {
         <?php
 
         if ($thumbnail) :
-            echo '<a href="' . esc_url(get_permalink($id)) . '" class="thumbnail">';
-            echo '<img src="' . esc_url($thumbnail) . '" alt="' . esc_attr($thumbnail_alt) . '">';
+            echo '<a aria-hidden="true" href="' . esc_url(get_permalink($id)) . '" class="thumbnail">';
+            echo '<img src="' . esc_url($thumbnail) . '" alt>';
             echo '</a>';
         else :
                 echo '<!-- No news author or image supplied-->';

@@ -10,8 +10,8 @@
 <article class="c-article-item">
 
     <h1 class="o-title o-title--subtitle">Latest from our blog</h1>
-  <a href="<?php echo esc_url(get_permalink($id)); ?>">
-    <?php the_post_thumbnail('square-feature', 'alt=' . $thumbnail_alt); ?>
+  <a aria-hidden="true" href="<?php echo esc_url(get_permalink($id)); ?>">
+    <?php the_post_thumbnail('square-feature', 'alt'); ?>
   </a>
 
   <div class="text-align">
