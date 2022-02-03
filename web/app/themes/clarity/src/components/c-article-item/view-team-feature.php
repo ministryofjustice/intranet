@@ -16,8 +16,8 @@ $thumbnail_alt = get_post_meta(get_post_thumbnail_id($id), '_wp_attachment_image
 <article class="c-article-item js-article-item">
 
     <?php if ($thumbnail) : ?>
-        <a href="<?php echo esc_url(get_permalink($id)); ?>">
-            <img src="<?php echo esc_url($thumbnail); ?> " alt="<?php echo $thumbnail_alt; ?>">
+        <a aria-hidden="true" href="<?php echo esc_url(get_permalink($id)); ?>">
+            <img src="<?php echo esc_url($thumbnail); ?> " alt>
       </a>
 
     <?php else : ?>

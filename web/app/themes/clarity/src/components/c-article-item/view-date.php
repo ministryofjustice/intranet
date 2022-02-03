@@ -14,8 +14,8 @@ $thumbnail_alt = get_post_meta(get_post_thumbnail_id($id), '_wp_attachment_image
 <article class="c-article-item js-article-item">
 
     <?php if ($thumbnail) : ?>
-  <a href="<?php echo get_the_permalink($id); ?>" class="thumb_image">
-        <?php the_post_thumbnail('feature-thumbnail', 'alt=' . $thumbnail_alt); ?>
+  <a aria-hidden="true" href="<?php echo get_the_permalink($id); ?>" class="thumb_image">
+        <?php the_post_thumbnail('feature-thumbnail', 'alt'); ?>
   </a>
 
   <div class="text-align">

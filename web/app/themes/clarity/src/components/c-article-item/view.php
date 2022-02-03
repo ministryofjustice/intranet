@@ -16,8 +16,8 @@ $thumbnail_url = $thumbnail[0];
 <article class="c-article-item js-article-item">
 
     <?php if (! empty($thumbnail_url)) : ?>
-    <a href="<?php echo esc_url(get_permalink($id)); ?>">
-      <img src="<?php echo $thumbnail_url; ?>" alt="<?php echo $thumbnail_alt; ?>">
+    <a aria-hidden="true" href="<?php echo esc_url(get_permalink($id)); ?>">
+      <img src="<?php echo $thumbnail_url; ?>" alt>
     </a>
     <?php endif; ?>
 
