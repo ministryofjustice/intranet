@@ -26,7 +26,7 @@ if(empty($header_logo) == false){
 
         <div class="u-wrapper__stack--left">
             <a href="/" rel="home">
-            <img src="<?php echo $logo; ?>" alt="<?php echo $activeAgency['label']; ?> Logo">
+            <img aria-hidden="true" src="<?php echo $logo; ?>" alt>
             <span class="agency-title l-half-section"><?php echo $activeAgency['label']; ?></span>
             </a>
         </div>
