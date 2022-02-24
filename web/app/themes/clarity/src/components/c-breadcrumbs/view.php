@@ -28,8 +28,8 @@ function get_breadcrumb()
         }
     }
 
-    $trail .= $page_title;
-
+    $trail .= '<li class="c-breadcrumbs__list-item c-breadcrumbs__list-item--separated">' . $page_title . "</li>";
+              
     return $trail;
 }
 ?>

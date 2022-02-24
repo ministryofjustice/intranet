@@ -28,7 +28,7 @@ function get_breadcrumb()
         }
     }
 
-    $trail .= $page_title;
+    $trail .= '<li class="c-breadcrumbs__list-item c-breadcrumbs__list-item--separated">' . $page_title . "</li>";
 
     return $trail;
 }
@@ -44,7 +44,7 @@ function get_breadcrumb()
       </li>  
       <li class="c-breadcrumbs__list-item c-breadcrumbs__list-item--separated">
         <a href="/regional-pages/">
-          <span>Regions</span>
+          <span>Regions XYZ</span>
         </a>
       </li>
       <li class="c-breadcrumbs__list-item c-breadcrumbs__list-item--separated">
