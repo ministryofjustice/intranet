@@ -44,12 +44,10 @@ function get_breadcrumb()
       </li>  
       <li class="c-breadcrumbs__list-item c-breadcrumbs__list-item--separated">
         <a href="/regional-pages/">
-          <span>Regions XYZ</span>
+          <span>Regions</span>
         </a>
       </li>
-      <li class="c-breadcrumbs__list-item c-breadcrumbs__list-item--separated">
-        <span><?php echo get_breadcrumb(); ?></span>
-      </li>
+      <?php echo get_breadcrumb(); ?>
     </ol>
   </section>
   <!-- c-breadcrumbs ends here -->
