@@ -8,7 +8,7 @@ if (! defined('ABSPATH')) {
 <article class="c-events-item-byline">
   <header>
 
-      <h1><a href="<?php echo $post_url; ?>"><?php echo $event_title; ?></a></h1>
+      <h3><a href="<?php echo $post_url; ?>"><?php echo $event_title; ?></a></h3>
 
 
     <?php
@@ -24,14 +24,16 @@ if (! defined('ABSPATH')) {
     ?>
 
     <div class="c-events-item-byline__time">
-      <h2>Time:</h2>
+      <span>Time:
         <?php echo $time; ?>
+      </span>  
     </div>
 
     <?php if (isset($location)) : ?>
       <div class="c-events-item-byline__location">
-        <h2>Location:</h2>
-        <address><?php echo $location; ?></address>
+        <span>Location:
+          <address><?php echo $location; ?></address>
+        </span>  
       </div>
 
     <?php endif; ?>

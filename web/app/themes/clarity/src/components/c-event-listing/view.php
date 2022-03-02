@@ -70,12 +70,12 @@ if (isset($events)) :
         ?>
 
       <div class="c-event-listing--time">
-        <h2>Time:</h2><?php echo $time; ?>
+        <span>Time:<?php echo $time; ?></span>
       </div>
 
         <?php if (isset($location)) : ?>
         <div class="c-event-listing--location">
-          <h2>Location:</h2><address><?php echo $location; ?></address>
+          <span>Location:<address><?php echo $location; ?></address></span>
         </div>
 
         <?php endif; ?>
