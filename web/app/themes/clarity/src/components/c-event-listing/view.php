@@ -16,8 +16,8 @@ if (isset($events)) :
         $event_id    = $post->ID;
         $post_url    = $post->url;
         $event_title = $post->post_title;
-        $start_time  = $post->event_start_time;
-        $end_time    = $post->event_end_time;
+        $start_time  = substr($post->event_start_time, 0, -3); //removing seconds from string
+        $end_time    = substr($post->event_end_time, 0, -3); //removing seconds from string
         $start_date  = $post->event_start_date;
         $end_date    = $post->event_end_date;
         $location    = $post->event_location;
@@ -51,7 +51,8 @@ if (isset($events)) :
   <a class="c-event-listing--title" href="<?php echo $post_url; ?>"><?php echo $event_title; ?></a>
 
   <div class="c-event-listing--date" datetime="<?php echo $start_date; ?>">
-    Date: <?php echo $day . ' ' . $multidate . ' ' . $year; ?>
+    <span>Date:</span>
+    <?php echo $day . ', ' . $multidate . ' ' . $year; ?>
   </div>
 
   <article class="c-events-item-byline__team">
@@ -70,12 +71,14 @@ if (isset($events)) :
         ?>
 
       <div class="c-event-listing--time">
-        Time: <?php echo $time; ?>
+        <span>Time:</span>
+        <?php echo $time; ?>
       </div>
 
         <?php if (isset($location)) : ?>
         <div class="c-event-listing--location">
-          <span>Location:<address><?php echo $location; ?></address></span>
+          <span>Location:</span>
+          <address><?php echo $location; ?></address>
         </div>
 
         <?php endif; ?>
