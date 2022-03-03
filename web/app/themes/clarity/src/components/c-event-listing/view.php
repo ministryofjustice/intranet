@@ -35,7 +35,7 @@ if (isset($events)) :
 
 <!-- c-event-listing starts here -->
 
-<h1 class="o-title o-title--subtitle">Next event</h1>
+<h2 class="o-title o-title--subtitle">Next event</h2>
 
 <section class="c-event-listing">
 
@@ -48,10 +48,10 @@ if (isset($events)) :
         }
         ?>
 
-  <h1><a class="c-event-listing--title" href="<?php echo $post_url; ?>"><?php echo $event_title; ?></a></h1>
+  <a class="c-event-listing--title" href="<?php echo $post_url; ?>"><?php echo $event_title; ?></a>
 
   <div class="c-event-listing--date" datetime="<?php echo $start_date; ?>">
-    <h2>Date:</h2><?php echo $day . ' ' . $multidate . ' ' . $year; ?>
+    Date: <?php echo $day . ' ' . $multidate . ' ' . $year; ?>
   </div>
 
   <article class="c-events-item-byline__team">
@@ -70,7 +70,7 @@ if (isset($events)) :
         ?>
 
       <div class="c-event-listing--time">
-        <span>Time:<?php echo $time; ?></span>
+        Time: <?php echo $time; ?>
       </div>
 
         <?php if (isset($location)) : ?>
