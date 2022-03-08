@@ -50,9 +50,11 @@ if (isset($events)) :
 
   <a class="c-event-listing--title" href="<?php echo $post_url; ?>"><?php echo $event_title; ?></a>
 
-  <div class="c-event-listing--date" datetime="<?php echo $start_date; ?>">
+  <div class="c-event-listing--date">
     <span>Date:</span>
-    <?php echo $day . ', ' . $multidate . ' ' . $year; ?>
+    <time datetime="<?php echo $start_date; ?>">
+      <?php echo $day . ', ' . $multidate . ' ' . $year; ?>
+      </time>  
   </div>
 
   <article class="c-events-item-byline__team">
