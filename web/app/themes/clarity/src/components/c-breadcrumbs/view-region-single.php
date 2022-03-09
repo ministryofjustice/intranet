@@ -16,18 +16,25 @@ $current_region_name_formated = ucwords($current_region);
 
 <!-- c-breadcrumbs (view-region-single) starts here -->
 <section class="c-breadcrumbs">
-  <a title="Go home" href="<?php echo get_home_url(); ?>" class="home">
-    <span>Home</span>
-  </a>
-  <span class="separator"> &gt; </span>
-
-    <a href="/regional-pages/">
-      <span>Regions</span>
-    </a>
-  <span class="separator"> &gt; </span>
-  <a href="/regional-pages/<?php echo sanitize_text_field($current_region_url_formated); ?>">
-    <span><?php echo sanitize_text_field($current_region_name_formated); ?></span>
-  </a>
-  <span class="separator"> &gt; </span><span><?php the_title(); ?></span>
+  <ol class="c-breadcrumbs__list">
+    <li class="c-breadcrumbs__list-item">
+      <a title="Go home" href="<?php echo get_home_url(); ?>" class="home">
+        <span>Home</span>
+      </a>
+    </li> 
+    <li class="c-breadcrumbs__list-item c-breadcrumbs__list-item--separated">
+      <a href="/regional-pages/">
+        <span>Regions</span>
+      </a>
+    </li>
+    <li class="c-breadcrumbs__list-item c-breadcrumbs__list-item--separated">
+      <a href="/regional-pages/<?php echo sanitize_text_field($current_region_url_formated); ?>">
+        <span><?php echo sanitize_text_field($current_region_name_formated); ?></span>
+      </a>
+    </li>
+    <li class="c-breadcrumbs__list-item c-breadcrumbs__list-item--separated">
+      <span><?php the_title(); ?></span>
+    </li>
+  </ol>    
 </section>
 <!-- c-breadcrumbs (view-region-single) ends here -->
