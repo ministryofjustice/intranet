@@ -54,7 +54,7 @@ if (isset($events)) :
     <span>Date:</span>
     <time datetime="<?php echo $start_date; ?>">
       <?php echo $day . ', ' . $multidate . ' ' . $year; ?>
-      </time>  
+    </time>  
   </div>
 
   <article class="c-events-item-byline__team">
