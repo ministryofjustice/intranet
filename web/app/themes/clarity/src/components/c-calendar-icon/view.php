@@ -16,7 +16,7 @@ if ($start_date === $end_date) {
 
 <div class="c-calendar-icon">
   <span class="u-visually-hidden">Date:</span>
-  <time datetime="<?php echo $start_date; ?>">
+  <time datetime="<?php echo $datetime; ?>">
     <span class="c-calendar-icon--dow"><?php echo $day; ?></span>
     <span class="c-calendar-icon--dom"><?php echo $multidate; ?></span>
     <span class="c-calendar-icon--my"><?php echo $year; ?></span>
