@@ -26,6 +26,7 @@ if (isset($events)) :
         $month       = date('M', strtotime($start_date));
         $day         = date('l', strtotime($start_date));
         $all_day     = $post->event_allday;
+        $datetime    = date('Y-m-d', strtotime($start_date)) ."T". $start_time;
 
         if ($all_day === true) {
             $all_day = 'all_day';
@@ -52,7 +53,7 @@ if (isset($events)) :
 
   <div class="c-event-listing--date">
     <span>Date:</span>
-    <time datetime="<?php echo $start_date; ?>">
+    <time datetime="<?php echo $datetime; ?>">
       <?php echo $day . ', ' . $multidate . ' ' . $year; ?>
     </time>  
   </div>
@@ -74,7 +75,9 @@ if (isset($events)) :
 
       <div class="c-event-listing--time">
         <span>Time:</span>
-        <?php echo $time; ?>
+        <time datetime='<?php echo $datetime; ?>'> 
+          <?php echo $time; ?>
+        </time>  
       </div>
 
         <?php if (isset($location)) : ?>

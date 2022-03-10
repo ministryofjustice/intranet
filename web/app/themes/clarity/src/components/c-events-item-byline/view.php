@@ -14,18 +14,26 @@ if (! defined('ABSPATH')) {
     <?php
     if (empty($all_day)) {
         if (isset($start_time) || isset($end_time)) {
-            $time = substr($start_time, 0, 5) . ' - ' . substr($end_time, 0, 5);
+            // If start date and end date seleced are the same, just display first date.
+            if ($start_time === $end_time) {
+              $time = substr($start_time, 0, 5);
+            } else {
+              $time = substr($start_time, 0, 5) . ' - ' . substr($end_time, 0, 5);
+            }
         } else {
             $time = '';
         }
     } else {
         $time = 'All day';
+        $datetime = 'P1D'; //period 1 day duration
     }
     ?>
 
     <div class="c-events-item-byline__time">
       <span>Time:</span>
-      <?php echo $time; ?>
+      <time datetime='<?php echo $datetime;?>'>
+        <?php echo $time; ?>
+      </time>
     </div>
 
     <?php if (isset($location)) : ?>

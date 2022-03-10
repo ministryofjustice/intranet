@@ -31,6 +31,7 @@ $event = $EventsHelper->get_event(get_the_id());
         $month      = date('M', strtotime($start_date));
         $year       = date('Y', strtotime($start_date));
         $all_day    = $event->event_allday;
+        $datetime   = date('Y-m-d', strtotime($start_date)) ."T". $start_time;
 
         if ($all_day == true) {
             $all_day = 'all_day';
