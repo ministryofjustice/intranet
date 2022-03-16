@@ -6,6 +6,10 @@
   margin-bottom: 0;
   border-bottom: 0;
 
+  &--thumbnail {
+    display: block;
+  }  
+
   img {
     width: 100%;
     max-width: 100%;
@@ -22,122 +26,10 @@
       column(1/2, $cycle: 2);
     }
 
-    h1 {
+    .c-article-item-feature--title {
       font-size: $outerCore;
       text-decoration: underline;
+      margin-bottom: 1rem;
     }
   }
 }
-//
-// .c-news-list {
-//   .c-article-item{
-//     border-bottom: none;
-//   }
-// }
-//
-// .c-article-item {
-//   clearfix();
-//   padding-bottom: $spacing*2;
-//   border-bottom: 1px solid $border;
-//   margin-bottom: $spacing;
-//   position: relative;
-//   display: inline-block;
-//   width: 100%;
-//
-//   .thumbnail{
-//     width: 100px;
-//     height: 100px;
-//     margin-right: 20px;
-//     float: left;
-//   }
-//   .content{
-//     overflow: hidden;
-//   }
-//
-//   .meta {
-//     .c-featured-news-list & {
-//       padding: 12px 0px;
-//     }
-//   }
-//
-//   a {
-//     text-decoration: underline;
-//   }
-//   img {
-//     width: 100%;
-//     max-width: 100%;
-//     height: auto;
-//   }
-//
-//   h1 {
-//     ff-title();
-//     margin-bottom: $spacing;
-//   }
-//
-//   &__dateline {
-//     font-size: 1.6rem;
-//     color: $mid;
-//     line-height: 2;
-//   }
-//
-// /*
-//   PARENT OVERRIDES
-// */
-//
-//   // Featured news
-//
-//
-//   // Regular news
-//   .c-news-list & {
-//     padding-bottom: $spacing;
-//     clearfix();
-//     +above('s') {
-//       column(1/3, $cycle: 3);
-//     }
-//
-//     &__excerpt {
-//       display: block;
-//     }
-//   }
-//
-//   // Blog feed & article list
-//   .c-article-list &,
-//   .c-blog-feed & {
-//     clearfix();
-//     h1 {
-//       font-size: 1.6rem;
-//     }
-//     img {
-//       column(1/4);
-//     }
-//
-//     &__byline {
-//       @extend .c-article-item__dateline;
-//       &:before {
-//         content: "|";
-//         padding: 0 $spacing;
-//       }
-//     }
-//   }
-//
-//   .c-blog-feed & {
-//     +above('s') {
-//       column(1/2, $cycle: 2)
-//     }
-//     +above(m) {
-//       column(1, $cycle: 1)
-//     }
-//   }
-//
-//   // If the excerpt has been output, hide it on the blog summary component
-//   .c-blog-feed & {
-//     &__excerpt {
-//       display: none;
-//     }
-//   }
-// }
-//
-// .c-specialist-content {
-//   overflow: hidden;
-//   margin-bottom: 2rem;
-// }
