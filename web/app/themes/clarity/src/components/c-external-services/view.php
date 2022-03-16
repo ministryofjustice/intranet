@@ -16,8 +16,7 @@ $agency = get_intranet_code();
 
                 $title = get_sub_field('external_services_title_' . $i, 'option');
                 $url   = get_sub_field('external_services_url_' . $i, 'option');
-
-                echo '<li><a href="' . esc_url($url) . '" class="app-list-link">' . esc_attr($title) . '</a></li>';
+                if (esc_url($url) != '') echo '<li><a href="' . esc_url($url) . '" class="app-list-link">' . esc_attr($title) . '</a></li>';
             endwhile;
         endif;
     }
