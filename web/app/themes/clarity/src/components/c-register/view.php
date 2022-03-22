@@ -5,7 +5,7 @@ if (! defined('ABSPATH')) {
     die();
 }
 
-    $err     = '';
+    $err = $err_name = $err_email = '';
     $success = '';
 
     global $wpdb, $PasswordHash, $current_user, $user_ID;
@@ -17,15 +17,19 @@ if (isset($_POST['task']) && $_POST['task'] == 'register') {
     $email      = esc_sql(trim($_POST['email']));
     $username   = $email;
 
-    if ($email == '' || $first_name == '') {
-        $err = 'Please don\'t leave the required fields.';
+    if ($first_name == '') {
+        $err_name = 'Enter a screen name';
+    }    
+    if ($email == '') {
+        $err_email = 'Enter an email address';
     } elseif (! filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $err = 'Invalid email address.';
+        $err_email = 'Enter a valid email address';
     } elseif (email_exists($email)) {
-        $err = 'Email already exist.';
+        $err_email = 'This email already exists';
     } elseif (! is_gov_email($email)) {
-        $err = 'You need to use an MoJ email address';
-    } else {
+        $err_email = 'Enter an MoJ email address';
+    } 
+    if ($err_name == '' && $err_email== '') {
         $create_user = wp_insert_user(
             array(
                 'first_name' => apply_filters('pre_user_name', $first_name),
@@ -36,7 +40,7 @@ if (isset($_POST['task']) && $_POST['task'] == 'register') {
             )
         );
         if (is_wp_error($create_user)) {
-            $err = 'Error on user creation.';
+            $err = '<p>Error on user creation</p>';
         } else {
             do_action('user_register', $create_user);
 
@@ -74,6 +78,13 @@ if (isset($_POST['task']) && $_POST['task'] == 'register') {
 
             $success = 'You\'re successfully registered';
         }
+    } else { 
+        if ($err_name != '') {
+            $err .= "<p><a href='#name-error' class='error-message'>$err_name</a></p>";
+        }
+        if ($err_email != '') {
+            $err .= "<p><a href='#email-error' class='error-message'>$err_email</a></p>";
+        }
     }
 }
 
@@ -84,8 +95,9 @@ if (isset($_POST['task']) && $_POST['task'] == 'register') {
 
     <?php
     if (! empty($err)) :
-        echo '<div id="message" class="error">';
-        echo '<p>' . $err . '</p>';
+        echo '<div id="message" class="error" aria-labelledby="error-summary-title" role="alert">';
+        echo '<h2 id="error-summary-title" class="error-title">There is a problem</h2>';
+        echo $err;
         echo '</div>';
     endif;
     ?>
@@ -116,12 +128,23 @@ if (isset($_POST['task']) && $_POST['task'] == 'register') {
     <p>Fill in your details. We’ll then send you a link back to this page so you can start commenting.</p>
 
     <form method="post" action="?#respond">
-        <p><label>Screen name (will appear on screen)</label></p>
-        <p><input type="text" value="" name="first_name" id="first_name" /></p>
-        <p><label>Email address (will not be shown with your comment)</label></p>
-        <p><input type="email" value="" name="email" id="email" /></p>
+        <div <?php if ($err_name !='') echo 'class="error-state"'; ?>>
+            <p><label>Screen name (will appear on screen)</label></p>
+            <p id="name-error" class="error-message">
+                <span class="govuk-visually-hidden">Error:</span> <?php echo $err_name; ?>
+            </p>
+            <p><input type="text" value="" name="first_name" id="first_name" /></p>
+        </div>
+        <div <?php if ($err_email !='') echo 'class="error-state"'; ?>>
+            <p><label>Email address (will not be shown with your comment)</label></p>
+            <p id="email-error" class="error-message">
+                <span class="govuk-visually-hidden">Error:</span> <?php echo $err_email; ?>
+            </p>
+            <p><input type="email" value="" name="email" id="email" /></p>
+        </div>    
         <button type="submit" name="btnregister" class="button">Register</button>
         <input type="hidden" name="task" value="register" />
+        
     </form>
 </div>
 <!-- c-register ends here -->

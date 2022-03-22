@@ -20,6 +20,26 @@
     }
     .error {
         border: 3px solid #b10e1e;
+
+        &-title {
+            font-weight: 700;
+            font-size: 2.1rem;   
+        }
+
+        &-state {
+            padding-left: 15px;
+            border-left: 5px solid #b10e1e;
+
+            input[type=text], input[type=email]{
+                border: 2px solid #b10e1e;
+            }
+        }
+
+        &-message {
+            color: #b10e1e;
+            font-weight: 700;
+            font-size: 1.6rem;
+        }
     }
     .success{
         border: 3px solid #006435;
@@ -42,4 +62,17 @@
         font-size: 19px;
         line-height: 35px;
     }
+}
+govuk-visually-hidden {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    clip: rect(0 0 0 0) !important;
+    -webkit-clip-path: inset(50%) !important;
+    clip-path: inset(50%) !important;
+    border: 0 !important;
+    white-space: nowrap !important;
 }
