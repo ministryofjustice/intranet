@@ -9,11 +9,16 @@
     }
     #message{
         margin-bottom: 20px;
-        padding: 15px 60px;
+        padding: 15px;
         display: inline-block;
-        width: auto;
+        width: 100%;
+        max-width: 600px;
+
+        H2{
+            margin-bottom: 20px;
+        }
+        
         p{
-            font-size: 19px;
             line-height: 25px;
             margin-bottom: 0;
         }
@@ -29,6 +34,10 @@
         &-state {
             padding-left: 15px;
             border-left: 5px solid #b10e1e;
+
+            .label-paragraph {
+                margin-bottom: 0;
+            }
 
             input[type=text], input[type=email]{
                 border: 2px solid #b10e1e;

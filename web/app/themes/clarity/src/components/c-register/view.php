@@ -5,10 +5,12 @@ if (! defined('ABSPATH')) {
     die();
 }
 
-    $err = $err_name = $err_email = '';
-    $success = '';
+$err = $err_name = $err_email = '';
+$success = '';
+$first_name = '';
+$email = '';
 
-    global $wpdb, $PasswordHash, $current_user, $user_ID;
+global $wpdb, $PasswordHash, $current_user, $user_ID;
 
 if (isset($_POST['task']) && $_POST['task'] == 'register') {
     $pwd1 = wp_generate_password();
@@ -40,7 +42,7 @@ if (isset($_POST['task']) && $_POST['task'] == 'register') {
             )
         );
         if (is_wp_error($create_user)) {
-            $err = '<p>Error on user creation</p>';
+            $err = '<p class="error-message">Error on user creation</p>';
         } else {
             do_action('user_register', $create_user);
 
@@ -127,20 +129,20 @@ if (isset($_POST['task']) && $_POST['task'] == 'register') {
 
     <p>Fill in your details. We’ll then send you a link back to this page so you can start commenting.</p>
 
-    <form method="post" action="?#respond">
+    <form method="post" action="?#respond" novalidate>
         <div <?php if ($err_name !='') echo 'class="error-state"'; ?>>
-            <p><label>Screen name (will appear on screen)</label></p>
+            <p class="label-paragraph"><label>Screen name (will appear on screen)</label></p>
             <p id="name-error" class="error-message">
                 <span class="govuk-visually-hidden">Error:</span> <?php echo $err_name; ?>
             </p>
-            <p><input type="text" value="" name="first_name" id="first_name" /></p>
+            <p><input type="text" value="<?php echo $first_name;?>" name="first_name" id="first_name" /></p>
         </div>
         <div <?php if ($err_email !='') echo 'class="error-state"'; ?>>
-            <p><label>Email address (will not be shown with your comment)</label></p>
+            <p class="label-paragraph"><label>Email address (will not be shown with your comment)</label></p>
             <p id="email-error" class="error-message">
                 <span class="govuk-visually-hidden">Error:</span> <?php echo $err_email; ?>
             </p>
-            <p><input type="email" value="" name="email" id="email" /></p>
+            <p><input type="email" value="<?php echo $email;?>" name="email" id="email" /></p>
         </div>    
         <button type="submit" name="btnregister" class="button">Register</button>
         <input type="hidden" name="task" value="register" />
