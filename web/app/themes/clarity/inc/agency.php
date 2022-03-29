@@ -161,7 +161,7 @@ class Agency
             ],
         'jac' => [
             'shortcode' => 'jac',
-            'label' => 'judicial-appointments-commission',
+            'label' => 'Judicial Appointments Commission',
             'abbreviation' => 'JAC',
             'is_integrated' => true,
             'contact_email_address' => 'communications@judicialappointments.gov.uk',

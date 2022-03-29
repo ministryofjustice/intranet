@@ -169,10 +169,8 @@
             },
             "admin_only": 0,
             "choices": {
-                "emergency": "Emergency (red border)",
-                "service": "Service update (orange border)",
-                "summary": "Summary (blue border)",
-                "information": "Information (black border)"
+                "emergency": "Emergency (red banner)",
+                "service": "Service update (orange banner)"
             },
             "allow_null": 0,
             "other_choice": 0,
@@ -284,7 +282,7 @@
                 "opg": "OPG",
                 "pb": "PB",
                 "ppo": "PPO",
-                "ospt": "OSPT"
+                "jac": "JAC"
             },
             "allow_null": 0,
             "other_choice": 0,
@@ -404,9 +402,9 @@
             "ui": 1
         },
         {
-            "key": "field_61f0551f5d37c",
-            "label": "Select blog in OSPT",
-            "name": "feature_item_left_post__ospt",
+            "key": "field_62436fcbf6df9",
+            "label": "Select blog in JAC",
+            "name": "feature_item_left_post__jac",
             "type": "post_object",
             "instructions": "",
             "required": 0,
@@ -420,7 +418,7 @@
                     {
                         "field": "field_5b696b695a61a",
                         "operator": "==",
-                        "value": "ospt"
+                        "value": "jac"
                     }
                 ]
             ],
@@ -438,9 +436,9 @@
             "ui": 1
         },
         {
-            "key": "field_61f0562660e03",
-            "label": "Select news article in OSPT",
-            "name": "feature_item_left_news__ospt",
+            "key": "field_624370167cbf1",
+            "label": "Select news article in JAC",
+            "name": "feature_item_left_news__jac",
             "type": "post_object",
             "instructions": "",
             "required": 0,
@@ -454,7 +452,7 @@
                     {
                         "field": "field_5b696b695a61a",
                         "operator": "==",
-                        "value": "ospt"
+                        "value": "jac"
                     }
                 ]
             ],
@@ -468,7 +466,7 @@
                 "news"
             ],
             "taxonomy": [
-                "agency:ospt"
+                "agency:jac"
             ],
             "allow_null": 0,
             "multiple": 0,
@@ -476,9 +474,9 @@
             "ui": 1
         },
         {
-            "key": "field_61f0564760e04",
-            "label": "Select page in OSPT",
-            "name": "feature_item_left_pages__ospt",
+            "key": "field_624370337cbf2",
+            "label": "Select page in JAC",
+            "name": "feature_item_left_pages__jac",
             "type": "post_object",
             "instructions": "",
             "required": 0,
@@ -492,7 +490,7 @@
                     {
                         "field": "field_5b696b695a61a",
                         "operator": "==",
-                        "value": "ospt"
+                        "value": "jac"
                     }
                 ]
             ],
@@ -506,7 +504,7 @@
                 "page"
             ],
             "taxonomy": [
-                "agency:ospt"
+                "agency:jac"
             ],
             "allow_null": 0,
             "multiple": 0,
@@ -1513,7 +1511,7 @@
                 "opg": "OPG",
                 "pb": "PB",
                 "ppo": "PPO",
-                "ospt": "OSPT"
+                "jac": "JAC"
             },
             "allow_null": 0,
             "other_choice": 0,
@@ -1633,9 +1631,9 @@
             "ui": 1
         },
         {
-            "key": "field_61f056b80318b",
-            "label": "Select blog in OSPT",
-            "name": "feature_item_right_post__ospt",
+            "key": "field_624370b2e04b9",
+            "label": "Select blog in JAC",
+            "name": "feature_item_right_post__jac",
             "type": "post_object",
             "instructions": "",
             "required": 0,
@@ -1649,7 +1647,7 @@
                     {
                         "field": "field_5b698d9976088",
                         "operator": "==",
-                        "value": "ospt"
+                        "value": "jac"
                     }
                 ]
             ],
@@ -1667,9 +1665,9 @@
             "ui": 1
         },
         {
-            "key": "field_61f0570bd5abb",
-            "label": "Select news article in OSPT",
-            "name": "feature_item_right_news_ospt",
+            "key": "field_624370e76ce74",
+            "label": "Select news article in JAC",
+            "name": "feature_item_right_news__jac",
             "type": "post_object",
             "instructions": "",
             "required": 0,
@@ -1683,7 +1681,7 @@
                     {
                         "field": "field_5b698d9976088",
                         "operator": "==",
-                        "value": "ospt"
+                        "value": "jac"
                     }
                 ]
             ],
@@ -1697,7 +1695,7 @@
                 "news"
             ],
             "taxonomy": [
-                "agency:ospt"
+                "agency:jac"
             ],
             "allow_null": 0,
             "multiple": 0,
@@ -1705,9 +1703,9 @@
             "ui": 1
         },
         {
-            "key": "field_61f05728d5abc",
-            "label": "Select page in OSPT",
-            "name": "feature_item_right_pages__ospt",
+            "key": "field_624370fa6ce75",
+            "label": "Select page in JAC",
+            "name": "feature_item_right_pages__jac",
             "type": "post_object",
             "instructions": "",
             "required": 0,
@@ -1721,7 +1719,7 @@
                     {
                         "field": "field_5b698d9976088",
                         "operator": "==",
-                        "value": "ospt"
+                        "value": "jac"
                     }
                 ]
             ],
@@ -1735,7 +1733,7 @@
                 "page"
             ],
             "taxonomy": [
-                "agency:ospt"
+                "agency:jac"
             ],
             "allow_null": 0,
             "multiple": 0,
@@ -3034,5 +3032,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1643141437
+    "modified": 1648588135
 }
