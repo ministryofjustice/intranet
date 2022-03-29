@@ -17,7 +17,7 @@
     border: 0;
   }
 
-  h1 {
+  &__link {
     font-size: $outerCore;
     ff-title();
     margin-bottom: $spacing*1;
@@ -31,25 +31,17 @@
   }
 
   &__time, &__location, &__date {
-    h2 {
+    span {
       float:left;
       font-weight: bold;
       padding-right: $spacing*1;
       margin-bottom: $spacing*.5;
     }
-    time,
-    address {
-    }
   }
-  &__location {
-    h2 {
-      margin-bottom: 0;
-    }
+  &__details {
+    clear: both;
   }
-    &__details {
-      clear: both;
-    }
-  }
+}
 
   .c-events-item-homepage & {
       +above('m') {

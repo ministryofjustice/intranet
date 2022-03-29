@@ -19,7 +19,7 @@ if (have_posts()) :
 <section class="c-article-byline">
 
         <?php if ($authors[0]['thumbnail_url']) : ?>
-    <img class="c-article-byline__photo" src="<?php echo esc_url($authors[0]['thumbnail_url']); ?>" alt="Photo of author, <?php echo esc_attr($authors[0]['name']); ?>">
+    <img class="c-article-byline__photo" src="<?php echo esc_url($authors[0]['thumbnail_url']); ?>" alt >
 
         <?php endif; ?>
     

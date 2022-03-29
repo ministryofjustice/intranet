@@ -8,8 +8,8 @@
         <img src="<?php echo $featured_img_url; ?>" alt="">
     </a>
     <?php } elseif (! empty($author_image)) { ?>
-    <a href="<?php echo $news_link; ?>" class="thumbnail">
-        <img src="<?php echo $author_image; ?>" alt="<?php echo $author_name; ?>">
+    <a aria-hidden="true" href="<?php echo $news_link; ?>" class="thumbnail">
+        <img src="<?php echo $author_image; ?>" alt>
     </a>
     <?php } ?>
       <div class="content">

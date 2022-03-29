@@ -14,10 +14,11 @@ $agency = get_intranet_code();
             while (have_rows($agency . '_external_services', 'option')) :
                 the_row();
 
-                $title = get_sub_field('external_services_title_' . $i, 'option');
-                $url   = get_sub_field('external_services_url_' . $i, 'option');
-
-                echo '<li><a href="' . esc_url($url) . '" class="app-list-link">' . esc_attr($title) . '</a></li>';
+                $title = esc_attr(get_sub_field('external_services_title_' . $i, 'option'));
+                $url   = esc_url(get_sub_field('external_services_url_' . $i, 'option'));
+                if ($url != '' && $title !='') {
+                  echo '<li><a href="' . $url . '" class="app-list-link">' . $title . '</a></li>';
+                }
             endwhile;
         endif;
     }

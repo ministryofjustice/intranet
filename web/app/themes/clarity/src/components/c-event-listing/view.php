@@ -16,8 +16,8 @@ if (isset($events)) :
         $event_id    = $post->ID;
         $post_url    = $post->url;
         $event_title = $post->post_title;
-        $start_time  = $post->event_start_time;
-        $end_time    = $post->event_end_time;
+        $start_time  = substr($post->event_start_time, 0, -3); //removing seconds from string
+        $end_time    = substr($post->event_end_time, 0, -3); //removing seconds from string
         $start_date  = $post->event_start_date;
         $end_date    = $post->event_end_date;
         $location    = $post->event_location;
@@ -26,6 +26,7 @@ if (isset($events)) :
         $month       = date('M', strtotime($start_date));
         $day         = date('l', strtotime($start_date));
         $all_day     = $post->event_allday;
+        $datetime    = date('Y-m-d', strtotime($start_date)) ."T". $start_time;
 
         if ($all_day === true) {
             $all_day = 'all_day';
@@ -35,7 +36,7 @@ if (isset($events)) :
 
 <!-- c-event-listing starts here -->
 
-<h1 class="o-title o-title--subtitle">Next event</h1>
+<h2 class="o-title o-title--subtitle">Next event</h2>
 
 <section class="c-event-listing">
 
@@ -48,10 +49,13 @@ if (isset($events)) :
         }
         ?>
 
-  <h1><a class="c-event-listing--title" href="<?php echo $post_url; ?>"><?php echo $event_title; ?></a></h1>
+  <a class="c-event-listing--title" href="<?php echo $post_url; ?>"><?php echo $event_title; ?></a>
 
-  <div class="c-event-listing--date" datetime="<?php echo $start_date; ?>">
-    <h2>Date:</h2><?php echo $day . ' ' . $multidate . ' ' . $year; ?>
+  <div class="c-event-listing--date">
+    <span>Date:</span>
+    <time datetime="<?php echo $datetime; ?>">
+      <?php echo $day . ', ' . $multidate . ' ' . $year; ?>
+    </time>  
   </div>
 
   <article class="c-events-item-byline__team">
@@ -70,12 +74,16 @@ if (isset($events)) :
         ?>
 
       <div class="c-event-listing--time">
-        <h2>Time:</h2><?php echo $time; ?>
+        <span>Time:</span>
+        <time datetime='<?php echo $datetime; ?>'> 
+          <?php echo $time; ?>
+        </time>  
       </div>
 
         <?php if (isset($location)) : ?>
         <div class="c-event-listing--location">
-          <h2>Location:</h2><address><?php echo $location; ?></address>
+          <span>Location:</span>
+          <address><?php echo $location; ?></address>
         </div>
 
         <?php endif; ?>

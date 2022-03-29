@@ -22,8 +22,8 @@ $activeAgency = $oAgency->getCurrentAgency() ? $oAgency->getCurrentAgency() : 'h
   <meta name="theme-color" content="<?php echo $agency_colour; ?>">
     <meta name="agency" content="<?php echo $activeAgency['label']; ?>">
     
-    <title><?php echo single_post_title(); ?><?php echo ' | ' . $activeAgency['label']; ?></title>
-    
+    <title><?php echo single_post_title(); ?><?php echo ' - ' . $activeAgency['label'] . ' Intranet'; ?></title>
+
   <link rel="icon" sizes="180x180" href="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/icons/apple-touch-icon-180x180.png">
   <link rel="shortcut icon" href="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/icons/favicon.ico" type="image/x-icon" />
   <link rel="apple-touch-icon" href="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/icons/apple-touch-icon.png" />
