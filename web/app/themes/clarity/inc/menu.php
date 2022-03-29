@@ -29,5 +29,5 @@ function register_my_menu()
     register_nav_menu('pb-menu', __('PB Menu'));
     register_nav_menu('ppo-menu', __('PPO Menu'));
     register_nav_menu('ospt-menu', __('OSPT Menu'));
-    register_nav_menu('jac-menu', __('JAC Menu));
+    register_nav_menu('jac-menu', __('JAC Menu'));
 }
