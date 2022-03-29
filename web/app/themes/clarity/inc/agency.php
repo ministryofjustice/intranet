@@ -76,20 +76,7 @@ class Agency
                 ]
             ]
         ],
-        'judicial-appointments-commission' => [
-            'shortcode' => 'judicial-appointments-commission',
-            'label' => 'Judicial Appointments Commission',
-            'abbreviation' => 'JAC',
-            'is_integrated' => false,
-            'links' => [
-                [
-                'url' => 'http://jac.intranet.service.justice.gov.uk/',
-                'label' => 'Judicial Appointments Commission intranet',
-                'is_external' => true
-                ]
-            ]
-        ],
-        'judicial-office' => [
+       'judicial-office' => [
             'shortcode' => 'judicial-office',
             'label' => 'Judicial Office',
             'abbreviation' => 'JO',
