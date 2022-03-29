@@ -158,8 +158,16 @@ class Agency
             'is_integrated' => true,
             'contact_email_address' => '',
             'links' => []
+            ],
+        'jac' => [
+            'shortcode' => 'jac',
+            'label' => 'judicial-appointments-commission',
+            'abbreviation' => 'JAC',
+            'is_integrated' => true,
+            'contact_email_address' => 'communications@judicialappointments.gov.uk',
+            'links' => []
             ]
-        ];
+	];
 
         // Dynamically populate tag_ids for each agency
         foreach ($agencies_array as $agency) {
