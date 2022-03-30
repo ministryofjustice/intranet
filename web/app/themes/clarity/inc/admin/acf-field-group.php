@@ -801,6 +801,31 @@ acf_add_local_field_group(array(
 	'title' => 'Header settings',
 	'fields' => array(
 		array(
+			'key' => 'field_5ef1b5ed49656',
+			'label' => 'Logo',
+			'name' => 'header_logo',
+			'type' => 'image',
+			'instructions' => 'Default Logo/Crest will show if none is set.',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'admin_only' => 0,
+			'return_format' => 'url',
+			'preview_size' => 'thumbnail',
+			'library' => 'all',
+			'min_width' => '',
+			'min_height' => '',
+			'min_size' => '',
+			'max_width' => '',
+			'max_height' => '',
+			'max_size' => '',
+			'mime_types' => '',
+		),
+		array(
 			'key' => 'field_5c0abbb99923c',
 			'label' => 'External service links',
 			'name' => 'external_services',
@@ -1405,6 +1430,7 @@ acf_add_local_field_group(array(
 	'active' => true,
 	'description' => '',
 	'show_in_rest' => false,
+	'modified' => 1592915459,
 ));
 
 acf_add_local_field_group(array(
@@ -6066,7 +6092,7 @@ acf_add_local_field_group(array(
 
 acf_add_local_field_group(array(
 	'key' => 'group_5e4bf0fe004b9',
-	'title' => 'Bridges Update Banner',
+	'title' => 'Agency Wide Banner',
 	'fields' => array(
 		array(
 			'key' => 'field_5e4cfb8adc6a4',
@@ -6088,7 +6114,7 @@ acf_add_local_field_group(array(
 		),
 		array(
 			'key' => 'field_5e4bf7798aa9d',
-			'label' => 'Enable Bridges Update Banner',
+			'label' => 'Enable Agency Wide Banner',
 			'name' => 'enable_agency_wide_banner',
 			'type' => 'true_false',
 			'instructions' => '',
@@ -6107,9 +6133,36 @@ acf_add_local_field_group(array(
 			'ui_off_text' => '',
 		),
 		array(
+			'key' => 'field_5e679e69d8eff',
+			'label' => 'Banner Type',
+			'name' => 'agency_wide_banner_type',
+			'type' => 'select',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'admin_only' => 0,
+			'choices' => array(
+				'notice' => 'Service Update (orange)',
+				'emergency' => 'Emergency (red)',
+				'bridges' => 'Bridges Update (black)',
+			),
+			'default_value' => false,
+			'allow_null' => 0,
+			'multiple' => 0,
+			'ui' => 0,
+			'return_format' => 'value',
+			'ajax' => 0,
+			'placeholder' => '',
+		),
+		array(
 			'key' => 'field_5e4bf12d0281f',
-			'label' => 'Banner Text',
-			'name' => 'agency_wide_banner_text',
+			'label' => 'Banner Title',
+			'name' => 'agency_wide_banner_title',
 			'type' => 'text',
 			'instructions' => '',
 			'required' => 0,
@@ -6125,6 +6178,26 @@ acf_add_local_field_group(array(
 			'prepend' => '',
 			'append' => '',
 			'maxlength' => '',
+		),
+		array(
+			'key' => 'field_5e679e41d8efe',
+			'label' => 'Banner Message',
+			'name' => 'agency_wide_banner_message',
+			'type' => 'textarea',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'admin_only' => 0,
+			'default_value' => '',
+			'placeholder' => '',
+			'maxlength' => '',
+			'rows' => '',
+			'new_lines' => 'wpautop',
 		),
 		array(
 			'key' => 'field_5e4bf15402820',
@@ -6166,7 +6239,8 @@ acf_add_local_field_group(array(
 	'active' => true,
 	'description' => '',
 	'show_in_rest' => false,
-	'modified' => 1582127389,
+	'modified' => 1583849809,
 ));
+
 
 endif;		
