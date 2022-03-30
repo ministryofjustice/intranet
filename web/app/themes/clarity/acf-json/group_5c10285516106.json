@@ -282,6 +282,7 @@
                 "opg": "OPG",
                 "pb": "PB",
                 "ppo": "PPO",
+                "ospt": "OSPT",
                 "jac": "JAC"
             },
             "allow_null": 0,
@@ -402,7 +403,117 @@
             "ui": 1
         },
         {
-            "key": "field_62436fcbf6df9",
+            "key": "field_62444f7ec5571",
+            "label": "Select blog in OSPT",
+            "name": "feature_item_left_post__ospt",
+            "type": "post_object",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_5b6966b5ddfb7",
+                        "operator": "==",
+                        "value": "post"
+                    },
+                    {
+                        "field": "field_5b696b695a61a",
+                        "operator": "==",
+                        "value": "ospt"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "admin_only": 0,
+            "post_type": "",
+            "taxonomy": "",
+            "allow_null": 0,
+            "multiple": 0,
+            "return_format": "object",
+            "ui": 1
+        },
+        {
+            "key": "field_62444f9ac5572",
+            "label": "Select news article in OSPT",
+            "name": "feature_item_left_news__ospt",
+            "type": "post_object",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_5b6966b5ddfb7",
+                        "operator": "==",
+                        "value": "news"
+                    },
+                    {
+                        "field": "field_5b696b695a61a",
+                        "operator": "==",
+                        "value": "ospt"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "admin_only": 0,
+            "post_type": [
+                "news"
+            ],
+            "taxonomy": [
+                "agency:ospt"
+            ],
+            "allow_null": 0,
+            "multiple": 0,
+            "return_format": "object",
+            "ui": 1
+        },
+        {
+            "key": "field_62444faec5573",
+            "label": "Select page in OSPT",
+            "name": "feature_item_left_pages__ospt",
+            "type": "post_object",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_5b6966b5ddfb7",
+                        "operator": "==",
+                        "value": "pages"
+                    },
+                    {
+                        "field": "field_5b696b695a61a",
+                        "operator": "==",
+                        "value": "ospt"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "admin_only": 0,
+            "post_type": [
+                "page"
+            ],
+            "taxonomy": [
+                "agency:ospt"
+            ],
+            "allow_null": 0,
+            "multiple": 0,
+            "return_format": "object",
+            "ui": 1
+        },
+        {
+            "key": "field_62444fc6c5574",
             "label": "Select blog in JAC",
             "name": "feature_item_left_post__jac",
             "type": "post_object",
@@ -428,15 +539,19 @@
                 "id": ""
             },
             "admin_only": 0,
-            "post_type": "",
-            "taxonomy": "",
+            "post_type": [
+                "post"
+            ],
+            "taxonomy": [
+                "agency:jac"
+            ],
             "allow_null": 0,
             "multiple": 0,
             "return_format": "object",
             "ui": 1
         },
         {
-            "key": "field_624370167cbf1",
+            "key": "field_62444fd7c5575",
             "label": "Select news article in JAC",
             "name": "feature_item_left_news__jac",
             "type": "post_object",
@@ -474,9 +589,9 @@
             "ui": 1
         },
         {
-            "key": "field_624370337cbf2",
+            "key": "field_62444fe8c5576",
             "label": "Select page in JAC",
-            "name": "feature_item_left_pages__jac",
+            "name": "feature_item_left_pag_jac",
             "type": "post_object",
             "instructions": "",
             "required": 0,
@@ -1511,6 +1626,7 @@
                 "opg": "OPG",
                 "pb": "PB",
                 "ppo": "PPO",
+                "ospt": "OSPT",
                 "jac": "JAC"
             },
             "allow_null": 0,
@@ -1631,7 +1747,117 @@
             "ui": 1
         },
         {
-            "key": "field_624370b2e04b9",
+            "key": "field_62445045b2cac",
+            "label": "Select blog in OSPT",
+            "name": "feature_item_right_post__ospt",
+            "type": "post_object",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_5b698d5376087",
+                        "operator": "==",
+                        "value": "post"
+                    },
+                    {
+                        "field": "field_5b698d9976088",
+                        "operator": "==",
+                        "value": "ospt"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "admin_only": 0,
+            "post_type": "",
+            "taxonomy": "",
+            "allow_null": 0,
+            "multiple": 0,
+            "return_format": "object",
+            "ui": 1
+        },
+        {
+            "key": "field_62445057b2cad",
+            "label": "Select news article in OSPT",
+            "name": "feature_item_right_news__ospt",
+            "type": "post_object",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_5b698d5376087",
+                        "operator": "==",
+                        "value": "news"
+                    },
+                    {
+                        "field": "field_5b698d9976088",
+                        "operator": "==",
+                        "value": "ospt"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "admin_only": 0,
+            "post_type": [
+                "news"
+            ],
+            "taxonomy": [
+                "agency:ospt"
+            ],
+            "allow_null": 0,
+            "multiple": 0,
+            "return_format": "object",
+            "ui": 1
+        },
+        {
+            "key": "field_62445069b2cae",
+            "label": "Select page in OSPT",
+            "name": "feature_item_right_pages__ospt",
+            "type": "post_object",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_5b698d5376087",
+                        "operator": "==",
+                        "value": "pages"
+                    },
+                    {
+                        "field": "field_5b698d9976088",
+                        "operator": "==",
+                        "value": "ospt"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "admin_only": 0,
+            "post_type": [
+                "page"
+            ],
+            "taxonomy": [
+                "agency:ospt"
+            ],
+            "allow_null": 0,
+            "multiple": 0,
+            "return_format": "object",
+            "ui": 1
+        },
+        {
+            "key": "field_6244507ab2caf",
             "label": "Select blog in JAC",
             "name": "feature_item_right_post__jac",
             "type": "post_object",
@@ -1657,15 +1883,19 @@
                 "id": ""
             },
             "admin_only": 0,
-            "post_type": "",
-            "taxonomy": "",
+            "post_type": [
+                "post"
+            ],
+            "taxonomy": [
+                "agency:jac"
+            ],
             "allow_null": 0,
             "multiple": 0,
             "return_format": "object",
             "ui": 1
         },
         {
-            "key": "field_624370e76ce74",
+            "key": "field_6244508cb2cb0",
             "label": "Select news article in JAC",
             "name": "feature_item_right_news__jac",
             "type": "post_object",
@@ -1703,7 +1933,7 @@
             "ui": 1
         },
         {
-            "key": "field_624370fa6ce75",
+            "key": "field_624450df942ba",
             "label": "Select page in JAC",
             "name": "feature_item_right_pages__jac",
             "type": "post_object",
@@ -3032,5 +3262,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1648588135
+    "modified": 1648644369
 }

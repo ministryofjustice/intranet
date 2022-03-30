@@ -3,31 +3,6 @@
     "title": "Header settings",
     "fields": [
         {
-            "key": "field_5ef1b5ed49656",
-            "label": "Logo",
-            "name": "header_logo",
-            "type": "image",
-            "instructions": "Default Logo\/Crest will show if none is set.",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "admin_only": 0,
-            "return_format": "url",
-            "preview_size": "thumbnail",
-            "library": "all",
-            "min_width": "",
-            "min_height": "",
-            "min_size": "",
-            "max_width": "",
-            "max_height": "",
-            "max_size": "",
-            "mime_types": ""
-        },
-        {
             "key": "field_5c0abbb99923c",
             "label": "External service links",
             "name": "external_services",
@@ -629,7 +604,8 @@
     "label_placement": "top",
     "instruction_placement": "label",
     "hide_on_screen": "",
-    "active": 1,
+    "active": true,
     "description": "",
-    "modified": 1592915459
+    "show_in_rest": false,
+    "modified": 1648643632
 }
