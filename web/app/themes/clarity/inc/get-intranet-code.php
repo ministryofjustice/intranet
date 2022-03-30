@@ -20,7 +20,7 @@ function get_intranet_code()
     $activeAgency = $oAgency->getCurrentAgency();
     $agency = $activeAgency['shortcode'];
 
-    if ($agency === 'noms' || $agency === 'judicial-appointments-commission') {
+    if ($agency === 'noms') {
         $agency = 'hq';
         return $agency;
     } else {
