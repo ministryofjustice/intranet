@@ -44,10 +44,10 @@ if (isset($referrer['query'])) {
 
         <?php
 
-	// Temporarily filtering out OSPT until site is ready to go live
+	// Temporarily filtering out OSPT/JAC until site is ready to go live
 	// Remove OSPT hardcoded link to old intranet below when site goes live.
 	$modified_agency_array = array_filter( $activeAgencies, function($data) {
-		return $data["shortcode"] != 'ospt';
+		return !in_array($data["shortcode"], ['jac', 'ospt']);
 	});
 
         foreach ($modified_agency_array as $agency_id => $agency) {

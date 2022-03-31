@@ -17,9 +17,9 @@ acf_add_local_field_group(array(
 				'class' => '',
 				'id' => 'admin_only',
 			),
-			'admin_only' => 0,
 			'message' => '',
 			'default_value' => 1,
+			'admin_only' => 1,
 			'ui' => 0,
 			'ui_on_text' => '',
 			'ui_off_text' => '',
@@ -119,7 +119,7 @@ acf_add_local_field_group(array(
 			array(
 				'param' => 'page_template',
 				'operator' => '==',
-				'value' => 'default',
+				'value' => 'page_aboutus.php',
 			),
 		),
 	),
@@ -131,7 +131,8 @@ acf_add_local_field_group(array(
 	'hide_on_screen' => '',
 	'active' => true,
 	'description' => '',
-	'show_in_rest' => 0,
+	'show_in_rest' => false,
+	'modified' => 1522831257,
 ));
 
 acf_add_local_field_group(array(
@@ -272,8 +273,7 @@ acf_add_local_field_group(array(
 				'transformation' => 'Transformation',
 				'light-blue' => 'Light Blue',
 			),
-			'default_value' => array(
-			),
+			'default_value' => false,
 			'ui' => 0,
 			'ajax' => 0,
 			'placeholder' => '',
@@ -724,8 +724,7 @@ acf_add_local_field_group(array(
 								'link' => 'Link',
 								'heading' => 'Heading',
 							),
-							'default_value' => array(
-							),
+							'default_value' => false,
 							'allow_null' => 0,
 							'multiple' => 0,
 							'ui' => 0,
@@ -1719,6 +1718,7 @@ acf_add_local_field_group(array(
 				'pb' => 'PB',
 				'ppo' => 'PPO',
 				'ospt' => 'OSPT',
+				'jac' => 'JAC',
 			),
 			'allow_null' => 0,
 			'other_choice' => 0,
@@ -1838,7 +1838,7 @@ acf_add_local_field_group(array(
 			'ui' => 1,
 		),
 		array(
-			'key' => 'field_61f0551f5d37c',
+			'key' => 'field_62444f7ec5571',
 			'label' => 'Select blog in OSPT',
 			'name' => 'feature_item_left_post__ospt',
 			'type' => 'post_object',
@@ -1872,7 +1872,7 @@ acf_add_local_field_group(array(
 			'ui' => 1,
 		),
 		array(
-			'key' => 'field_61f0562660e03',
+			'key' => 'field_62444f9ac5572',
 			'label' => 'Select news article in OSPT',
 			'name' => 'feature_item_left_news__ospt',
 			'type' => 'post_object',
@@ -1910,7 +1910,7 @@ acf_add_local_field_group(array(
 			'ui' => 1,
 		),
 		array(
-			'key' => 'field_61f0564760e04',
+			'key' => 'field_62444faec5573',
 			'label' => 'Select page in OSPT',
 			'name' => 'feature_item_left_pages__ospt',
 			'type' => 'post_object',
@@ -1941,6 +1941,120 @@ acf_add_local_field_group(array(
 			),
 			'taxonomy' => array(
 				0 => 'agency:ospt',
+			),
+			'allow_null' => 0,
+			'multiple' => 0,
+			'return_format' => 'object',
+			'ui' => 1,
+		),
+		array(
+			'key' => 'field_62444fc6c5574',
+			'label' => 'Select blog in JAC',
+			'name' => 'feature_item_left_post__jac',
+			'type' => 'post_object',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => array(
+				array(
+					array(
+						'field' => 'field_5b6966b5ddfb7',
+						'operator' => '==',
+						'value' => 'post',
+					),
+					array(
+						'field' => 'field_5b696b695a61a',
+						'operator' => '==',
+						'value' => 'jac',
+					),
+				),
+			),
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'admin_only' => 0,
+			'post_type' => array(
+				0 => 'post',
+			),
+			'taxonomy' => array(
+				0 => 'agency:jac',
+			),
+			'allow_null' => 0,
+			'multiple' => 0,
+			'return_format' => 'object',
+			'ui' => 1,
+		),
+		array(
+			'key' => 'field_62444fd7c5575',
+			'label' => 'Select news article in JAC',
+			'name' => 'feature_item_left_news__jac',
+			'type' => 'post_object',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => array(
+				array(
+					array(
+						'field' => 'field_5b6966b5ddfb7',
+						'operator' => '==',
+						'value' => 'news',
+					),
+					array(
+						'field' => 'field_5b696b695a61a',
+						'operator' => '==',
+						'value' => 'jac',
+					),
+				),
+			),
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'admin_only' => 0,
+			'post_type' => array(
+				0 => 'news',
+			),
+			'taxonomy' => array(
+				0 => 'agency:jac',
+			),
+			'allow_null' => 0,
+			'multiple' => 0,
+			'return_format' => 'object',
+			'ui' => 1,
+		),
+		array(
+			'key' => 'field_62444fe8c5576',
+			'label' => 'Select page in JAC',
+			'name' => 'feature_item_left_pag_jac',
+			'type' => 'post_object',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => array(
+				array(
+					array(
+						'field' => 'field_5b6966b5ddfb7',
+						'operator' => '==',
+						'value' => 'pages',
+					),
+					array(
+						'field' => 'field_5b696b695a61a',
+						'operator' => '==',
+						'value' => 'jac',
+					),
+				),
+			),
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'admin_only' => 0,
+			'post_type' => array(
+				0 => 'page',
+			),
+			'taxonomy' => array(
+				0 => 'agency:jac',
 			),
 			'allow_null' => 0,
 			'multiple' => 0,
@@ -2948,6 +3062,7 @@ acf_add_local_field_group(array(
 				'pb' => 'PB',
 				'ppo' => 'PPO',
 				'ospt' => 'OSPT',
+				'jac' => 'JAC',
 			),
 			'allow_null' => 0,
 			'other_choice' => 0,
@@ -3067,7 +3182,7 @@ acf_add_local_field_group(array(
 			'ui' => 1,
 		),
 		array(
-			'key' => 'field_61f056b80318b',
+			'key' => 'field_62445045b2cac',
 			'label' => 'Select blog in OSPT',
 			'name' => 'feature_item_right_post__ospt',
 			'type' => 'post_object',
@@ -3101,9 +3216,9 @@ acf_add_local_field_group(array(
 			'ui' => 1,
 		),
 		array(
-			'key' => 'field_61f0570bd5abb',
+			'key' => 'field_62445057b2cad',
 			'label' => 'Select news article in OSPT',
-			'name' => 'feature_item_right_news_ospt',
+			'name' => 'feature_item_right_news__ospt',
 			'type' => 'post_object',
 			'instructions' => '',
 			'required' => 0,
@@ -3139,7 +3254,7 @@ acf_add_local_field_group(array(
 			'ui' => 1,
 		),
 		array(
-			'key' => 'field_61f05728d5abc',
+			'key' => 'field_62445069b2cae',
 			'label' => 'Select page in OSPT',
 			'name' => 'feature_item_right_pages__ospt',
 			'type' => 'post_object',
@@ -3170,6 +3285,120 @@ acf_add_local_field_group(array(
 			),
 			'taxonomy' => array(
 				0 => 'agency:ospt',
+			),
+			'allow_null' => 0,
+			'multiple' => 0,
+			'return_format' => 'object',
+			'ui' => 1,
+		),
+		array(
+			'key' => 'field_6244507ab2caf',
+			'label' => 'Select blog in JAC',
+			'name' => 'feature_item_right_post__jac',
+			'type' => 'post_object',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => array(
+				array(
+					array(
+						'field' => 'field_5b698d5376087',
+						'operator' => '==',
+						'value' => 'post',
+					),
+					array(
+						'field' => 'field_5b698d9976088',
+						'operator' => '==',
+						'value' => 'jac',
+					),
+				),
+			),
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'admin_only' => 0,
+			'post_type' => array(
+				0 => 'post',
+			),
+			'taxonomy' => array(
+				0 => 'agency:jac',
+			),
+			'allow_null' => 0,
+			'multiple' => 0,
+			'return_format' => 'object',
+			'ui' => 1,
+		),
+		array(
+			'key' => 'field_6244508cb2cb0',
+			'label' => 'Select news article in JAC',
+			'name' => 'feature_item_right_news__jac',
+			'type' => 'post_object',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => array(
+				array(
+					array(
+						'field' => 'field_5b698d5376087',
+						'operator' => '==',
+						'value' => 'news',
+					),
+					array(
+						'field' => 'field_5b698d9976088',
+						'operator' => '==',
+						'value' => 'jac',
+					),
+				),
+			),
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'admin_only' => 0,
+			'post_type' => array(
+				0 => 'news',
+			),
+			'taxonomy' => array(
+				0 => 'agency:jac',
+			),
+			'allow_null' => 0,
+			'multiple' => 0,
+			'return_format' => 'object',
+			'ui' => 1,
+		),
+		array(
+			'key' => 'field_624450df942ba',
+			'label' => 'Select page in JAC',
+			'name' => 'feature_item_right_pages__jac',
+			'type' => 'post_object',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => array(
+				array(
+					array(
+						'field' => 'field_5b698d5376087',
+						'operator' => '==',
+						'value' => 'pages',
+					),
+					array(
+						'field' => 'field_5b698d9976088',
+						'operator' => '==',
+						'value' => 'jac',
+					),
+				),
+			),
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'admin_only' => 0,
+			'post_type' => array(
+				0 => 'page',
+			),
+			'taxonomy' => array(
+				0 => 'agency:jac',
 			),
 			'allow_null' => 0,
 			'multiple' => 0,
@@ -5176,8 +5405,7 @@ acf_add_local_field_group(array(
 								'link' => 'Link',
 								'heading' => 'Heading',
 							),
-							'default_value' => array(
-							),
+							'default_value' => false,
 							'allow_null' => 0,
 							'multiple' => 0,
 							'ui' => 0,
@@ -6014,4 +6242,5 @@ acf_add_local_field_group(array(
 	'modified' => 1583849809,
 ));
 
-endif;
+
+endif;		
