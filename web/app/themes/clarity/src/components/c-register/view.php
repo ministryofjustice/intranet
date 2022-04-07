@@ -132,16 +132,20 @@ if (isset($_POST['task']) && $_POST['task'] == 'register') {
     <form method="post" action="?#respond" novalidate>
         <div <?php if ($err_name !='') echo 'class="error-state"'; ?>>
             <p class="label-paragraph"><label>Screen name (will appear on screen)</label></p>
-            <p id="name-error" class="error-message">
-                <span class="govuk-visually-hidden">Error:</span> <?php echo $err_name; ?>
-            </p>
+            <?php if (trim($err_name) !='') {?>
+                <p id="name-error" class="error-message">
+                    <span class="govuk-visually-hidden">Error:</span> <?php echo $err_name; ?>
+                </p>
+            <?php } ?>
             <p><input type="text" value="<?php echo $first_name;?>" name="first_name" id="first_name" /></p>
         </div>
         <div <?php if ($err_email !='') echo 'class="error-state"'; ?>>
             <p class="label-paragraph"><label>Email address (will not be shown with your comment)</label></p>
-            <p id="email-error" class="error-message">
-                <span class="govuk-visually-hidden">Error:</span> <?php echo $err_email; ?>
-            </p>
+            <?php if ($err_email !='') {?>
+                <p id="email-error" class="error-message">
+                    <span class="govuk-visually-hidden">Error:</span> <?php echo $err_email; ?>
+                </p>
+            <?php } ?>
             <p><input type="email" value="<?php echo $email;?>" name="email" id="email" /></p>
         </div>    
         <button type="submit" name="btnregister" class="button">Register</button>
