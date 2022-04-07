@@ -8,7 +8,7 @@ if ($regions) :
 
     <!-- c-headed-link-list-region-directory starts here -->
     <section class="c-headed-link-list c-headed-link-list--region-directory">
-      <h1><a href="<?php echo get_permalink() . $region->slug; ?>"><?php echo $region->name; ?></a></h1>
+      <h2><a href="<?php echo get_permalink() . $region->slug; ?>"><?php echo $region->name; ?></a></h2>
     </section>
     <!-- c-headed-link-list-region-directory ends here -->
 
