@@ -24,7 +24,7 @@ function feedback_form()
     $agencymail = '';
 
     if ($agency === 'hmcts') {
-        $agencymail = 'INTRANET.ENQUIRIES2@Justice.gov.uk';
+        $agencymail = 'HMCTS.Communications@justice.gov.uk';
     } elseif ($agency === 'opg') {
         $agencymail = 'communications@publicguardian.gov.uk';
     } elseif ($agency === 'laa') {
