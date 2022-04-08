@@ -8,7 +8,7 @@ export default (function ($) {
                     $(this).addClass('u-closed')
                 }
                 // If the list item has children, attach a click event to each directly descended anchor element
-                $(this).filter('.page_item_has_children').find('> a ').on(
+                $(this).filter('.page_item_has_children').find('> a .dropdown').on(
                     'click',
                     function (e) {
                         if ($(this).parentsUntil('ul').hasClass('u-closed')) {
