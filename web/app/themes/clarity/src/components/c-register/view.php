@@ -131,7 +131,7 @@ if (isset($_POST['task']) && $_POST['task'] == 'register') {
 
     <form method="post" action="?#respond" novalidate>
         <div <?php if ($err_name !='') echo 'class="error-state"'; ?>>
-            <p class="label-paragraph"><label>Screen name (will appear on screen)</label></p>
+            <p class="label-paragraph"><label for="first_name">Screen name (will appear on screen)</label></p>
             <?php if (trim($err_name) !='') {?>
                 <p id="name-error" class="error-message">
                     <span class="govuk-visually-hidden">Error:</span> <?php echo $err_name; ?>
@@ -140,7 +140,7 @@ if (isset($_POST['task']) && $_POST['task'] == 'register') {
             <p><input type="text" value="<?php echo $first_name;?>" name="first_name" id="first_name" /></p>
         </div>
         <div <?php if ($err_email !='') echo 'class="error-state"'; ?>>
-            <p class="label-paragraph"><label>Email address (will not be shown with your comment)</label></p>
+            <p class="label-paragraph"><label for="email">Email address (will not be shown with your comment)</label></p>
             <?php if ($err_email !='') {?>
                 <p id="email-error" class="error-message">
                     <span class="govuk-visually-hidden">Error:</span> <?php echo $err_email; ?>
