@@ -1,7 +1,7 @@
 <!-- c-tabbed-nav starts here -->
   <?php
   if (have_rows('guidance_tabs')) :
-      echo '<ul class="c-tabbed-content__nav" />';
+      echo '<ul class="c-tabbed-content__nav" role="tablist"/>';
 
       while (have_rows('guidance_tabs')) :
           the_row();

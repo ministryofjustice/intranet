@@ -25,6 +25,22 @@
       &:not(.u-current):hover {
         background-color: darken($boxBg, 2%)
       }
+      &:focus,
+      &.u-current:focus{  
+        background-color: #ffbf47;
+        color: #0b0c0c;
+        outline: none;
+        position: relative;
+        &:after{
+          content: "";
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          height: 5px;
+          background-color: #0b0c0c;
+        }
+      }
       &.u-current {
         color: $dark;
         +above(m) {
