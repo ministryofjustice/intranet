@@ -6,25 +6,32 @@ export default (function ($) {
 
         // create tabs var then assign u-current to first tab to display first tab
         var tabs = $('.c-tabbed-content__nav li')
-        $('.c-tabbed-content__nav li:first-child').addClass('u-current')
+        tabs.attr("tabindex", "0").attr('aria-selected', 'false')
+        $('.c-tabbed-content__nav li:first-child').addClass('u-current').attr('aria-selected', 'true')
 
         // remove  nav styling if there is less than 1 tab
         if (tabs.length < 1) {
             $('.c-tabbed-content__nav').hide()
         }
+        function showhidetab (tab) {
+            // Hide panel
+            tabs.removeClass('u-current').attr('aria-selected', 'false')
+            panels.removeClass('u-current')
+            panels.hide()
 
+            // show panel
+            tab.addClass('u-current').attr('aria-selected', 'true')
+            var thisTab = tab.text()
+            panels.filter('[data-tab-title="' + thisTab + '"]').show().addClass('u-current')
+        }
         tabs.click(
             function () {
-                // Hide panel
-                tabs.removeClass('u-current')
-                panels.removeClass('u-current')
-                panels.hide()
-
-                // show panel
-                $(this).addClass('u-current')
-                var thisTab = $(this).text()
-                panels.filter('[data-tab-title="' + thisTab + '"]').show().addClass('u-current')
+                showhidetab($(this)); 
             }
-        )
+        ).keyup(function (quay){
+            if (quay.keyCode && quay.keyCode == "13" ){
+                showhidetab($(this));
+            }
+        }) 
     }
 })(jQuery);
