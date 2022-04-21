@@ -21,10 +21,9 @@ endif;
 ?>
 
   <div class="c-input-container c-input-container--<?php echo $type; ?>">
-
-    <?php if ($label != false) : ?>
-      <label for="<?php echo $name; ?>"><?php echo $label; ?>
-        <?php
+      <?php if ($label != false) : ?>
+        <label class="govuk-label govuk-label--l" for="<?php echo $name; ?>"><?php echo $label; ?>
+      <?php
         if ($required) {
             ?>
           <span class="c-input-container--required">*</span>
@@ -41,6 +40,7 @@ endif;
     if ($type !== 'select') {
         $tag = ( $type === 'textarea' ) ? 'textarea' : 'input';
         ?>
+        
         <<?php echo $tag; ?> type="<?php echo $type; ?>" name="<?php echo $name; ?>" id="<?php echo $id; ?>" 
                     <?php
                     if ($type !== 'textarea') {
@@ -52,11 +52,18 @@ endif;
                <?php echo $class . ' ' . $required . ' ' . $validation . ' ' . $placeholder; ?>>
               <?php
                 if ($type === 'textarea') {
-                      echo $value
+                      echo $value 
+                      
                     ?>
               </textarea>
                     <?php
-                }
+                } 
+                if ($type === 'hidden') {
+                  ?>
+                    <div id="event-name-hint" class="govuk-hint">Contains words such as food</div>
+                  <?php
+                  }
+
     } else {
         // Input is a select box, act accordingly
         ?>
