@@ -13,7 +13,7 @@ endif;
     
     $id          = $config['id'] ? $config['id'] : $name;
     $value       = $config['value'];
-    $placeholder = $config['placeholder'] ? 'placeholder = "' . $config['placeholder'] . '"' : null;
+    $placeholder = $config['placeholder'] ? '<div id="event-name-hint" class="govuk-hint">' . $config['placeholder'] . '</div>' : null;
     $class       = $config['class'] ? 'class = "' . $config['class'] . '"' : null;
     $required    = $config['required'] ? 'required = "required"' : null;
     $validation  = $config['validation'] ? 'pattern = "' . $config['validation'] . '"' : null;
@@ -22,7 +22,8 @@ endif;
 
   <div class="c-input-container c-input-container--<?php echo $type; ?>">
       <?php if ($label != false) : ?>
-        <label class="govuk-label govuk-label--l" for="<?php echo $name; ?>"><?php echo $label; ?>
+      <label class="govuk-label govuk-label--l" for="<?php echo $name; ?>"><?php echo $label; ?>
+      
       <?php
         if ($required) {
             ?>
@@ -32,8 +33,9 @@ endif;
         if ($type !== 'checkbox' && $type !== 'radio') {
             // stop label here if it's a normal input type
             ?>
-          :</label>
-            <?php
+          </label>
+          <?php
+          echo $placeholder;
         }
     endif;
       // Outputs different elements depending on input type
@@ -49,20 +51,19 @@ endif;
                         <?php
                     }
                     ?>
-               <?php echo $class . ' ' . $required . ' ' . $validation . ' ' . $placeholder; ?>>
+               <?php echo $class . ' ' . $required . ' ' . $validation; ?>>
               <?php
                 if ($type === 'textarea') {
                       echo $value 
                       
                     ?>
+                    
               </textarea>
                     <?php
                 } 
-                if ($type === 'hidden') {
-                  ?>
-                    <div id="event-name-hint" class="govuk-hint">Contains words such as food</div>
-                  <?php
-                  }
+                ?>  
+                <?php
+
 
     } else {
         // Input is a select box, act accordingly
