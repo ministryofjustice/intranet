@@ -13,7 +13,8 @@ endif;
     
     $id          = $config['id'] ? $config['id'] : $name;
     $value       = $config['value'];
-    $placeholder = $config['placeholder'] ? '<div id="event-name-hint" class="govuk-hint">' . $config['placeholder'] . '</div>' : null;
+    // placeholder now is hint text
+    $hint = $config['placeholder'] ? '<div id="'. $id .'-hint" class="govuk-hint">' . $config['placeholder'] . '</div>' : null;
     $class       = $config['class'] ? 'class = "' . $config['class'] . '"' : null;
     $required    = $config['required'] ? 'required = "required"' : null;
     $validation  = $config['validation'] ? 'pattern = "' . $config['validation'] . '"' : null;
@@ -35,7 +36,7 @@ endif;
             ?>
           </label>
           <?php
-          echo $placeholder;
+          if ($hint) echo $hint;
         }
     endif;
       // Outputs different elements depending on input type
@@ -50,7 +51,12 @@ endif;
                value="<?php echo $value; ?>" 
                         <?php
                     }
+                    if ($hint) {
+                      echo "aria-describedby='$id-hint'";
+                    }
+                    
                     ?>
+                    
                <?php echo $class . ' ' . $required . ' ' . $validation; ?>>
               <?php
                 if ($type === 'textarea') {
