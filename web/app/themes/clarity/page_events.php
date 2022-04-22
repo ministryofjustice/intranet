@@ -7,7 +7,7 @@ use MOJ\Intranet\EventsHelper;
 */
 get_header();
 ?>
-  <div id="maincontent" class="u-wrapper l-main t-article-list">
+  <main role="main" id="maincontent" class="u-wrapper l-main t-article-list">
     <h1 class="o-title o-title--page"><?php the_title(); ?></h1>
 
     <div class="l-secondary" role="complementary">
@@ -34,7 +34,7 @@ get_header();
         endif;
         ?>
     </div>
-  </div>
+      </main>
 
 <?php
 get_footer();

@@ -12,7 +12,7 @@
 get_header();
 ?>
 
-  <div id="maincontent" class="u-wrapper l-main t-search-results">
+  <main role="main" id="maincontent" class="u-wrapper l-main t-search-results">
   <div class="c-emergency-banner c-emergency-banner--service" style="border:2px solid green;">
       <div class="c-emergency-banner__meta" style="height:auto;">
           <h2 class="o-title o-title--byline">New search, better results</h2>
@@ -51,7 +51,7 @@ get_header();
             <?php endif; ?>
       </div>
     </div>
-  </div>
+  </main>
 
 <?php
 get_footer();

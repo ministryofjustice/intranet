@@ -13,7 +13,7 @@ $oAgency      = new Agency();
 $activeAgency = $oAgency->getCurrentAgency();
 ?>
 
-<div id="maincontent" class="u-wrapper l-main t-team-blog-article" role="main">
+<main role="main" id="maincontent" class="u-wrapper l-main t-team-blog-article" role="main">
 
     <?php
     get_template_part('src/components/c-breadcrumbs/view', 'team');
@@ -27,7 +27,7 @@ $activeAgency = $oAgency->getCurrentAgency();
     ?>
   </section>
 
-</div>
+</main>
 
 <?php
 get_footer();

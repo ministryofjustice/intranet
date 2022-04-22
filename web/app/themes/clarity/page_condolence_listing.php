@@ -5,7 +5,7 @@
 get_header();
 
 ?>
-    <div id="maincontent" class="u-wrapper l-main t-article-list">
+    <main role="main" id="maincontent" class="u-wrapper l-main t-article-list">
         <?php get_template_part('src/components/c-condolence-header/view'); ?>
         <div class="l-secondary">
             <?php get_template_part('src/components/c-content-filter/view', 'condolences'); ?>
@@ -15,7 +15,7 @@ get_header();
                 <?php get_template_part('src/components/c-condolences-list/view'); ?>
             </div>
         </div>
-    </div>
+</main>
 
 <?php
 get_footer();

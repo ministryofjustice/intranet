@@ -7,7 +7,7 @@
  */
 get_header();
 ?>
-  <div id="maincontent" class="u-wrapper l-main t-region-directory">
+  <main role="main" id="maincontent" class="u-wrapper l-main t-region-directory">
     <div class="l-full-page" role="main">
         <h1 class="o-title o-title--page"><?php echo get_the_title(); ?></h1>
         <?php get_template_part('src/components/c-rich-text-block/view'); ?>
@@ -17,6 +17,6 @@ get_header();
           </div>
         </div>
     </div>
-  </div>
+  </main>
 <?php
 get_footer();

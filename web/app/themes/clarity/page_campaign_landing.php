@@ -16,7 +16,7 @@ if ($terms) {
 }
 
 get_header(); ?>
-<div id="maincontent" class="u-wrapper l-main l-reverse-order t-hub">
+<main role="main" id="maincontent" class="u-wrapper l-main l-reverse-order t-hub">
     <?php get_template_part('src/components/c-breadcrumbs/view'); ?>
 
   <h1 class="o-title o-title--page"><?php the_title(); ?></h1>
@@ -62,7 +62,7 @@ get_header(); ?>
         }
         ?>
   </div>
-</div>
+      </main>
 
 <?php
 get_footer();

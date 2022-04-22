@@ -11,7 +11,7 @@ $region_id = get_the_terms($post_id, 'region');
 
  get_header();
 ?>
- <div id="maincontent" class="u-wrapper l-main l-reverse-order t-tabbed-content">
+ <main role="main" id="maincontent" class="u-wrapper l-main l-reverse-order t-tabbed-content">
 
     <?php
     if (is_singular('regional_page') && $region_id) :
@@ -41,6 +41,6 @@ $region_id = get_the_terms($post_id, 'region');
         <?php get_template_part('src/components/c-share-post/view'); ?>
      </section>
    </div>
-</div>
+    </main>
     <?php
     get_footer();

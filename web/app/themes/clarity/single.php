@@ -12,7 +12,7 @@ $region_id = get_the_terms($post_id, 'region');
 get_header();
 ?>
 
-  <div id="maincontent" class="u-wrapper l-main l-reverse-order t-default">
+  <main role="main" id="maincontent" class="u-wrapper l-main l-reverse-order t-default">
 
     <?php
     if ($region_id) :
@@ -26,7 +26,7 @@ get_header();
         <?php get_template_part('src/components/c-left-hand-menu/view'); ?>
     </div>
 
-    <div class="l-primary" role="main">
+    <div class="l-primary">
       <h1 class="o-title o-title--page"><?php the_title(); ?></h1>
         <?php get_template_part('src/components/c-rich-text-block/view'); ?>
 
@@ -37,7 +37,7 @@ get_header();
         ?>
       </section>
     </div>
-  </div>
+  </main>
 
 <?php
 get_footer();

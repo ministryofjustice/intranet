@@ -6,7 +6,7 @@
 
 get_header();
 ?>
-  <div id="maincontent" class="u-wrapper l-main t-events">
+  <main role="main" id="maincontent" class="u-wrapper l-main t-events">
     <?php
     get_template_part('src/components/c-breadcrumbs/view', 'team');
     get_template_part('src/components/c-event-article/view', 'team');
@@ -16,6 +16,6 @@ get_header();
     <?php get_template_part('src/components/c-share-post/view'); ?>
     </section>
 
-  </div>
+</main>
 <?php
 get_footer();

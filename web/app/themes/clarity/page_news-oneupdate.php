@@ -14,7 +14,7 @@ $oAgency = new Agency();
 $activeAgency = $oAgency->getCurrentAgency();
 
 ?>
-  <div id="maincontent" class="u-wrapper l-main t-article-list">
+  <main role="main" id="maincontent" class="u-wrapper l-main t-article-list">
     <h1 class="o-title o-title--page"><?php the_title(); ?></h1>
     <div class="l-secondary">
     </div>
@@ -28,7 +28,7 @@ $activeAgency = $oAgency->getCurrentAgency();
       </div>
         <?php get_pagination('news', $oneupdates); ?>
     </div>
-  </div>
+  </main>
 
 <?php
 get_footer();

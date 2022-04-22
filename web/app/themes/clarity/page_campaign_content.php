@@ -13,7 +13,7 @@ get_header();
 get_template_part('src/components/c-campaign-colour/view');
 ?>
 
-  <div id="maincontent" class="u-wrapper l-main l-reverse-order t-default">
+  <main role="main" id="maincontent" class="u-wrapper l-main l-reverse-order t-default">
 
 
         <?php
@@ -55,7 +55,7 @@ get_template_part('src/components/c-campaign-colour/view');
         ?>
       </section>
     </div>
-  </div>
+      </main>
 
 <?php
 get_footer();

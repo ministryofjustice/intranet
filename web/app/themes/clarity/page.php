@@ -11,7 +11,7 @@ $region_id = get_the_terms($post_id, 'region');
 get_header();
 ?>
 
-  <div id="maincontent" class="u-wrapper l-main l-reverse-order t-default">
+  <main role="main" id="maincontent" class="u-wrapper l-main l-reverse-order t-default">
 
     <?php
     if (is_singular('regional_page') && $region_id) :
@@ -41,7 +41,7 @@ get_header();
     ?>
 
       </section>
-  </div>
+  </main>
 
   </div>
 

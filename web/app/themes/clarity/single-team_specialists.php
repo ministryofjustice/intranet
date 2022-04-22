@@ -16,7 +16,7 @@ $activeAgency = $oAgency->getCurrentAgency();
 
 ?>
 
-<div id="maincontent" class="u-wrapper l-main t-news-article" role="main">
+<main role="main" id="maincontent" class="u-wrapper l-main t-news-article" role="main">
     <?php
     get_template_part('src/components/c-breadcrumbs/view', 'team');
     get_template_part('src/components/c-news-article/view', 'full');
@@ -28,7 +28,7 @@ $activeAgency = $oAgency->getCurrentAgency();
     get_template_part('src/components/c-comments/view');
     ?>
   </section>
-</div>
+</main>
 
 <?php
 get_footer();

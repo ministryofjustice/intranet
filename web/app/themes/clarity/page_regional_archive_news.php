@@ -17,7 +17,7 @@ endif;
 
 get_header();
 ?>
-  <div id="maincontent" class="u-wrapper l-main t-regional-archive">
+  <main role="main" id="maincontent" class="u-wrapper l-main t-regional-archive">
     <?php get_template_part('src/components/c-breadcrumbs/view', 'region'); ?>
 
     <h1 class="o-title o-title--page"><?php the_title(); ?></h1>
@@ -36,7 +36,7 @@ get_header();
         ?>
       </div>
     </div>
-  </div>
+  </main>
 
 <?php
 get_footer();

@@ -13,7 +13,7 @@ $activeAgency = $oAgency->getCurrentAgency();
 $id = get_the_ID();
 $hq_id = 116;
 ?>
-<div id="maincontent" class="u-wrapper l-main t-about-us">
+<main id="maincontent" class="u-wrapper l-main t-about-us">
 
     <?php
     // get agency specifc about us
@@ -40,6 +40,6 @@ $hq_id = 116;
         get_aboutus_list($hq_id);
     }
     ?>
-</div>
+</main>
 <?php
 get_footer();

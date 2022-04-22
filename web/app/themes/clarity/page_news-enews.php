@@ -17,7 +17,7 @@ $activeAgency = $oAgency->getCurrentAgency();
 $enews = 748; // news category id for tibit
 
 ?>
-  <div id="maincontent" class="u-wrapper l-main t-article-list">
+  <main role="main" id="maincontent" class="u-wrapper l-main t-article-list">
     <h1 class="o-title o-title--page"><?php the_title(); ?></h1>
     <div class="l-secondary">
         <?php get_template_part('src/components/c-content-filter/view', 'enews'); ?>
@@ -32,7 +32,7 @@ $enews = 748; // news category id for tibit
       </div>
         <?php get_pagination('news', $enews); ?>
     </div>
-  </div>
+  </main>
 
 <?php
 get_footer();
