@@ -21,7 +21,7 @@
 
     <aside class="l-secondary">
     <?php
-        echo '<h1 class="o-title">Recent blog posts</h1>';
+        echo '<h2 class="o-title">Recent blog posts</h2>';
         $blog_posts_per_page = '5';
         get_post_api($blog_posts_per_page);
     ?>
