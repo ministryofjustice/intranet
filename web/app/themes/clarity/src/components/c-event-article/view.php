@@ -11,7 +11,7 @@
         while (have_posts()) :
             the_post();
             ?>
-  <section class="l-primary" role="main">
+  <section class="l-primary">
     <h1 class="o-title o-title--page"><?php echo get_the_title(); ?></h1>
         <?php endwhile;
     else : ?>

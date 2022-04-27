@@ -1,5 +1,5 @@
 <!-- c-home-page-primary starts here -->
-<section class="c-home-page-primary l-full-page" role="main">
+<section class="c-home-page-primary l-full-page">
 
   <?php
 

@@ -1,5 +1,5 @@
 <!-- c-team-homepage-primary starts -->
-<section class="c-team-homepage-primary l-primary" role="main">
+<section class="c-team-homepage-primary l-primary">
 
   <h1 class="o-title o-title--page"><?php the_title(); ?></h1>
 

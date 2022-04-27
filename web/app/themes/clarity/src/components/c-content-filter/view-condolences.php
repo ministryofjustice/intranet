@@ -11,7 +11,7 @@ $workplaces = get_terms([
     <p>Filter condolences</p>
     <form action="" id="filter_condolences" action="post" data-page="0">
         <div class="c-input-container c-input-container--select">
-            <label for="ff_workplace_filter">Agency:</label>
+            <label for="ff_workplace_filter">Agency</label>
             <select name="ff_workplace_filter" id="ff_workplace_filter">
                 <option value=""><?php echo esc_attr(__('All')); ?></option>
                 <?php foreach ($workplaces as $workplace){ ?>

@@ -13,7 +13,8 @@ endif;
     
     $id          = $config['id'] ? $config['id'] : $name;
     $value       = $config['value'];
-    $placeholder = $config['placeholder'] ? 'placeholder = "' . $config['placeholder'] . '"' : null;
+    // placeholder now is hint text
+    $hint = $config['placeholder'] ? '<div id="'. $id .'-hint" class="govuk-hint">' . $config['placeholder'] . '</div>' : null;
     $class       = $config['class'] ? 'class = "' . $config['class'] . '"' : null;
     $required    = $config['required'] ? 'required = "required"' : null;
     $validation  = $config['validation'] ? 'pattern = "' . $config['validation'] . '"' : null;
@@ -21,10 +22,10 @@ endif;
 ?>
 
   <div class="c-input-container c-input-container--<?php echo $type; ?>">
-
-    <?php if ($label != false) : ?>
-      <label for="<?php echo $name; ?>"><?php echo $label; ?>
-        <?php
+      <?php if ($label != false) : ?>
+      <label class="govuk-label govuk-label--l" for="<?php echo $name; ?>"><?php echo $label; ?>
+      
+      <?php
         if ($required) {
             ?>
           <span class="c-input-container--required">*</span>
@@ -33,14 +34,16 @@ endif;
         if ($type !== 'checkbox' && $type !== 'radio') {
             // stop label here if it's a normal input type
             ?>
-          :</label>
-            <?php
+          </label>
+          <?php
+          if ($hint) echo $hint;
         }
     endif;
       // Outputs different elements depending on input type
     if ($type !== 'select') {
         $tag = ( $type === 'textarea' ) ? 'textarea' : 'input';
         ?>
+        
         <<?php echo $tag; ?> type="<?php echo $type; ?>" name="<?php echo $name; ?>" id="<?php echo $id; ?>" 
                     <?php
                     if ($type !== 'textarea') {
@@ -48,15 +51,26 @@ endif;
                value="<?php echo $value; ?>" 
                         <?php
                     }
+                    if ($hint) {
+                      echo "aria-describedby='$id-hint'";
+                    }
+                    
                     ?>
-               <?php echo $class . ' ' . $required . ' ' . $validation . ' ' . $placeholder; ?>>
+                    
+               <?php echo $class . ' ' . $required . ' ' . $validation; ?>>
               <?php
                 if ($type === 'textarea') {
-                      echo $value
+                      echo $value 
+                      
                     ?>
+                    
               </textarea>
                     <?php
-                }
+                } 
+                ?>  
+                <?php
+
+
     } else {
         // Input is a select box, act accordingly
         ?>
