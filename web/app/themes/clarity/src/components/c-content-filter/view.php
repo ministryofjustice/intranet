@@ -20,10 +20,10 @@ $oAgency        = new Agency();
       <legend><h2>Filter by</h2></legend>
       <div class="c-input-container c-input-container--select">
         <label for="ff_date_filter">Date</label>
-        <select name="ff_date_filter" id="ff_date_filter" >
-          <option value=""><?php echo esc_attr(__('All')); ?></option>
-          <?php wp_get_archives($archives_args); ?>
-        </select>
+          <select name="ff_date_filter" id="ff_date_filter" >
+            <option value=""><?php echo esc_attr(__('All')); ?></option>
+            <?php wp_get_archives($archives_args); ?>
+          </select>
       </div>
       <?php
 
