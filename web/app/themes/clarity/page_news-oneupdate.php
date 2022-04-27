@@ -18,7 +18,7 @@ $activeAgency = $oAgency->getCurrentAgency();
     <h1 class="o-title o-title--page"><?php the_title(); ?></h1>
     <div class="l-secondary">
     </div>
-    <div class="l-primary" role="main">
+    <div class="l-primary">
       <h2 class="o-title o-title--section" id="title-section">Latest</h2>
       <div id="content">
         <div class="data-type" data-type="news"></div>

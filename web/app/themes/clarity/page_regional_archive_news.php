@@ -23,10 +23,10 @@ get_header();
     <h1 class="o-title o-title--page"><?php the_title(); ?></h1>
     
     <div class="l-secondary" role="complementary" data-termid="<?php echo $region_id; ?>">
-        <?php get_template_part('src/components/c-content-filter/view', 'region-news'); ?>
+      <?php get_template_part('src/components/c-content-filter/view', 'region-news'); ?>
     </div>
 
-    <div class="l-primary" role="main">
+    <div class="l-primary">
 
       <div id="content">
         <?php

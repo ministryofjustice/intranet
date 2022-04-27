@@ -14,36 +14,35 @@ get_header();
   <main role="main" id="maincontent" class="u-wrapper l-main l-reverse-order t-default">
 
     <?php
-    if (is_singular('regional_page') && $region_id) :
-        get_template_part('src/components/c-breadcrumbs/view', 'region-single');
-    else :
-        get_template_part('src/components/c-breadcrumbs/view');
-    endif;
+      if (is_singular('regional_page') && $region_id) :
+          get_template_part('src/components/c-breadcrumbs/view', 'region-single');
+      else :
+          get_template_part('src/components/c-breadcrumbs/view');
+      endif;
     ?>
 
     <div class="l-secondary">
-        <?php get_template_part('src/components/c-left-hand-menu/view'); ?>
-  </div>
+      <?php get_template_part('src/components/c-left-hand-menu/view'); ?>
+    </div>
 
-    <div class="l-primary" role="main">
+    <div class="l-primary">
       <h1 class="o-title o-title--page"><?php the_title(); ?></h1>
 
-    <?php
-      get_template_part('src/components/c-article-excerpt/view');
-      get_template_part('src/components/c-rich-text-block/view');
-    ?>
+      <?php
+        get_template_part('src/components/c-article-excerpt/view');
+        get_template_part('src/components/c-rich-text-block/view');
+      ?>
 
       <section class="l-full-page">
 
-    <?php
-      get_template_part('src/components/c-last-updated/view');
-      get_template_part('src/components/c-share-post/view');
-    ?>
+        <?php
+          get_template_part('src/components/c-last-updated/view');
+          get_template_part('src/components/c-share-post/view');
+        ?>
 
       </section>
+    </div>
   </main>
-
-  </div>
 
 <?php
 get_footer();

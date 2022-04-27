@@ -13,6 +13,6 @@ get_header();
             <?php get_template_part('src/components/c-delete-user/view'); ?>
         </div>
 
-</main>
+    </main>
 <?php
 get_footer();

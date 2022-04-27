@@ -21,6 +21,6 @@ get_header();
       get_template_part('src/components/c-team-homepage-secondary/view');
     ?>
   </main>
-    <!-- c-team-homepage ends here -->
+  <!-- c-team-homepage ends here -->
 <?php
 get_footer();

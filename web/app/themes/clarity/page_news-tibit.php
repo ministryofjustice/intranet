@@ -21,7 +21,7 @@ $tibit = 749; // news category id for tibit
     <div class="l-secondary">
         <?php get_template_part('src/components/c-content-filter/view', 'tibit'); ?>
     </div>
-    <div class="l-primary" role="main">
+    <div class="l-primary">
       <h2 class="o-title o-title--section" id="title-section">Latest</h2>
       <div id="content">
         <div class="data-type" data-type="news"></div>
@@ -31,7 +31,7 @@ $tibit = 749; // news category id for tibit
       </div>
         <?php get_pagination('news', $tibit); ?>
     </div>
-</main>
+  </main>
 
 <?php
 get_footer();
