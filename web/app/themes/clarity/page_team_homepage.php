@@ -8,8 +8,8 @@
 
 get_header();
 ?>
-    <!-- c-team-homepage ends here -->
-    <div id="maincontent" class="u-wrapper l-main t-team-homepage">
+  <!-- c-team-homepage ends here -->
+  <main role="main" id="maincontent" class="u-wrapper l-main t-team-homepage">
     <?php
       get_template_part('src/components/c-breadcrumbs/view');
     ?>
@@ -20,7 +20,7 @@ get_header();
       get_template_part('src/components/c-team-homepage-primary/view');
       get_template_part('src/components/c-team-homepage-secondary/view');
     ?>
-    </div>
-    <!-- c-team-homepage ends here -->
+  </main>
+  <!-- c-team-homepage ends here -->
 <?php
 get_footer();

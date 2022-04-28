@@ -13,7 +13,7 @@ $region_id = get_the_terms($post_id, 'region');
 get_header();
 
 ?>
-<div id="maincontent" class="u-wrapper l-main t-media-grid">
+<main role="main" id="maincontent" class="u-wrapper l-main t-media-grid">
 
     <?php
     if (is_singular('regional_page') && $region_id) :
@@ -106,7 +106,7 @@ get_header();
     <?php get_template_part('src/components/c-comments/view'); ?>
   </section>
 
-</div>
+</main>
 
 <?php
 get_footer();

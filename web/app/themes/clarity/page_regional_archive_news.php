@@ -17,16 +17,16 @@ endif;
 
 get_header();
 ?>
-  <div id="maincontent" class="u-wrapper l-main t-regional-archive">
+  <main role="main" id="maincontent" class="u-wrapper l-main t-regional-archive">
     <?php get_template_part('src/components/c-breadcrumbs/view', 'region'); ?>
 
     <h1 class="o-title o-title--page"><?php the_title(); ?></h1>
     
     <div class="l-secondary" role="complementary" data-termid="<?php echo $region_id; ?>">
-        <?php get_template_part('src/components/c-content-filter/view', 'region-news'); ?>
+      <?php get_template_part('src/components/c-content-filter/view', 'region-news'); ?>
     </div>
 
-    <div class="l-primary" role="main">
+    <div class="l-primary">
 
       <div id="content">
         <?php
@@ -36,7 +36,7 @@ get_header();
         ?>
       </div>
     </div>
-  </div>
+  </main>
 
 <?php
 get_footer();

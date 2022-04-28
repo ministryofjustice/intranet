@@ -20,7 +20,7 @@ if ($mostPopularTitle || $events || $enable_banner_right_side == true) :
 <section class="c-homepage-secondary-widget">
 
   <div class="l-secondary">
-    <h1 class="o-title o-title--section">More on the intranet</h1>
+    <h2 class="o-title o-title--section">More on the intranet</h2>
   </div>
 
   <div class="l-secondary">

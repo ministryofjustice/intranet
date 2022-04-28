@@ -41,7 +41,7 @@ $the_query = new WP_Query($args); ?>
 <?php
 
 if ($the_query->have_posts()) {
-    echo '<h1 class="o-title o-title--section">Latest blogs</h1>';
+    echo '<h2 class="o-title o-title--section">Latest blogs</h2>';
 
     echo '<section class="c-homepage-blog-widget">';
 
