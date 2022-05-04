@@ -8,7 +8,7 @@
         <img src="<?php echo $featured_img_url; ?>" alt="">
     </a>
     <?php } elseif (! empty($author_image)) { ?>
-    <a aria-hidden="true" href="<?php echo $news_link; ?>" class="thumbnail">
+    <a tabindex="-1" aria-hidden="true" href="<?php echo $news_link; ?>" class="thumbnail">
         <img src="<?php echo $author_image; ?>" alt>
     </a>
     <?php } ?>

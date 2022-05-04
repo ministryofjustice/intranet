@@ -16,7 +16,7 @@ $thumbnail_url = $thumbnail[0];
 <article class="c-article-item js-article-item">
 
     <?php if (! empty($thumbnail_url)) : ?>
-    <a aria-hidden="true" href="<?php echo esc_url(get_permalink($id)); ?>">
+    <a tabindex="-1" aria-hidden="true" href="<?php echo esc_url(get_permalink($id)); ?>">
       <img src="<?php echo $thumbnail_url; ?>" alt>
     </a>
     <?php endif; ?>

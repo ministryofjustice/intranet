@@ -20,7 +20,7 @@ if (! isset($set_cpt)) {
         <?php
 
         if ($thumbnail) :
-            echo '<a aria-hidden="true" href="' . esc_url(get_permalink($id)) . '" class="thumbnail">';
+            echo '<a tabindex="-1" aria-hidden="true" href="' . esc_url(get_permalink($id)) . '" class="thumbnail">';
             echo '<img src="' . esc_url($thumbnail) . '" alt>';
             echo '</a>';
         else :
