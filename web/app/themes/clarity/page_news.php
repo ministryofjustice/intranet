@@ -14,7 +14,7 @@ $activeAgency = $oAgency->getCurrentAgency();
     <div class="l-secondary">
       <?php get_template_part('src/components/c-content-filter/view'); ?>
     </div>
-    <div class="l-primary">
+    <div role="status" class="l-primary">
       <h2 class="o-title o-title--section" id="title-section">Latest</h2>
       <div id="content">
         <?php get_news_api('news'); ?>

@@ -21,7 +21,7 @@ $thumbnail_url  = $thumbnail[0];
     <?php
     if (isset($thumbnail_url)) {
         ?>
-        <a aria-hidden="true" href="<?php echo get_the_permalink($id); ?>" class="thumb_image">
+        <a tabindex="-1" aria-hidden="true" href="<?php echo get_the_permalink($id); ?>" class="thumb_image">
           <img src="<?php echo $thumbnail_url; ?>" alt>
         </a>
         <?php

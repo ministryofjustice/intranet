@@ -82,6 +82,7 @@ export default (function ($) {
         })
 
         jQuery('.c-pagination').on('click', function () {
+            $("#load_more div.data-type").addClass("shown-item")
             var nonce = $('#_search_filter_wpnonce').val()
             var nextPageToRetrieve = jQuery('.more-btn').data('page') + 1
             jQuery('.more-btn').attr('data-page', nextPageToRetrieve)
@@ -110,6 +111,7 @@ export default (function ($) {
 
                 success: function (response) {
                     $('#load_more').append(response)
+                    $("#load_more div.data-type:not('.shown-item')+article div.content a").focus()
                 }
             })
 
