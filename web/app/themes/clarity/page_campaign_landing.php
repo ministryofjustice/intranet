@@ -38,7 +38,7 @@ get_header(); ?>
     ?>
   </div>
 
-  <div class=" campaign">
+  <div class="campaign">
         <?php
             get_template_part('src/components/c-campaign-hub-banner/view');
             get_template_part('src/components/c-article-excerpt/view');
