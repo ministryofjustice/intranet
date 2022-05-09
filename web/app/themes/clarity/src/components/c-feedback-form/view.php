@@ -20,5 +20,5 @@ $current_url = home_url($wp->request)
 
     ?>
   <input type="hidden" value="<?php echo $activeAgency['shortcode']; ?>" name="fbf_agency" id="agency">
-  <input type="submit" class="o-button" name="submit" type="submit" value="Report">
+  <input type="submit" class="o-button" name="submit" value="Report">
 </form>
