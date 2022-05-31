@@ -23,7 +23,7 @@ if (have_rows('guidance_tabs')) :
                     echo '<h2>';
                     the_sub_field('section_title');
                     echo '</h2>';
-                    the_sub_field('section_content');
+                    echo apply_filters( 'acf_the_content', get_sub_field('section_content'));
                 endwhile;
             endif;
 

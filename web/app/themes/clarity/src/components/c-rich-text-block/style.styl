@@ -104,6 +104,75 @@ img.aligncenter { display: block; margin-left: auto; margin-right: auto; }
   }
 }
 
+@media only screen and (max-width: 1280px) {
+  .c-rich-text-block table thead tbody th td tr {
+    display: block;
+  }
+
+  /* Hide table headers (but not display: none;, for accessibility) */
+	.c-rich-text-block thead tr { 
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+
+  .reflow {
+    background-color: yellow;
+    color: red;
+    font-weight: bold;
+  }
+
+  tr { border: 1px solid #ccc; }
+
+  td { 
+		/* Behave  like a "row" */
+		border: none;
+		border-bottom: 1px solid #eee; 
+		position: relative;
+		padding-left: 50%; 
+	}
+
+  td:before { 
+		/* Now like a table header */
+		position: absolute;
+		/* Top/left values mimic padding */
+		top: 6px;
+		left: 6px;
+		width: 45%; 
+		padding-right: 10px; 
+		white-space: nowrap;
+    
+	}
+
+  /*
+	Label the data
+	*/
+  
+	
+  .c-rich-text-block {
+    tr td {
+      float: left;
+      clear: left;
+      display: block;
+      width: 100%;
+    }
+  
+    tr td:last-child {
+      padding-bottom: 20px;
+      border-bottom: 0;
+    }
+
+    .cell-label {
+      display: block;
+      float:left;
+    }
+
+    .cell-content {
+      display: block;
+      float:right;
+  }
+}
+}
 .c-rich-text-block {
 
   iframe {
