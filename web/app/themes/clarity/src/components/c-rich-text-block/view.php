@@ -6,7 +6,8 @@ if (have_posts()) :
 
 <!-- c-rich-text-block starts here -->
 <section class="c-rich-text-block">
-        <?php the_content(); ?>
+    <?php echo apply_filters( 'the_content', get_sub_field(the_content())); ?>
+    
 </section>
 <!-- c-rich-text-block ends here -->
 
