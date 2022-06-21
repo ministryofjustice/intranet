@@ -1,3 +1,9 @@
+<?php
+  $feedback_ack = '<div class="c-feedback__prompt" id="fbf_ack" tabindex="-1" autofocus>';
+  $feedback_ack .= '<div class="feedback__prompt-success" style="input:focus" role="alert">';
+  $feedback_ack .= 'Thank you for your feedback</div></div>';
+  echo $feedback_ack;
+?>
 <footer class="c-footer">
   <div class="u-wrapper">
     <div class="l-primary">
