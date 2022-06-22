@@ -7,11 +7,13 @@ $activeAgency = $oAgency->getCurrentAgency();
 // LEGACY END
 global $wp;
 $current_url = home_url($wp->request)
-
 ?>
 
-<?php $prefix = 'fbf'; ?>
-<form class="c-feedback-form js-reveal-target" id="<?php echo $prefix; ?>" action="<?php echo $current_url; ?>" method="POST">
+<?php 
+  $prefix = 'fbf'
+?>
+
+<form class="c-feedback-form js-reveal-target" id="<?php echo $prefix; ?>" action="<?php echo $current_url; ?>#confirmation-message" method="POST">
     <?php
 
     form_builder('text', $prefix, 'Your name', 'name', null, null, 'Enter your name', null, true, null, null);
