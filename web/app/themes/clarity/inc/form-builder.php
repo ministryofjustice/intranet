@@ -13,7 +13,7 @@
  * @options [array] a list of options to use if using a select input type
  */
 
-function ($type, $prefix, $label, $name, $id = '', $value = '', $placeholder = '', $class = '', $required = false, $validation = '', $options = '')
+function form_builder($type, $prefix, $label, $name, $id = '', $value = '', $placeholder = '', $class = '', $required = false, $validation = '', $options = '')
 {
     $config = [
         'type'        => $type,
