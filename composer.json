@@ -3,7 +3,12 @@
     "type": "project",
     "description": "A starter project for WordPress in MOJ using docker",
     "config": {
-        "preferred-install": "dist"
+        "preferred-install": "dist",
+        "allow-plugins": {
+            "johnpbloch/wordpress-core-installer": true,
+            "koodimonni/composer-dropin-installer": true,
+            "composer/installers": true
+        }
     },
     "repositories": [
         {

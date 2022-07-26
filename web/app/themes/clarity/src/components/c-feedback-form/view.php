@@ -9,7 +9,7 @@ global $wp;
 $current_url = home_url($wp->request);
 $current_user = wp_get_current_user();
 $display_name = $current_user->display_name;
-$user_email = $current_user->user_email
+$user_email = $current_user->user_email;
 ?>
 
 <?php 
