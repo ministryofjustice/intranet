@@ -26,10 +26,10 @@ endif;
       <label class="govuk-label govuk-label--l" for="<?php echo $name; ?>"><?php echo $label; ?>
       
       <?php
-        if ($required) {
-            ?>
-          <span class="c-input-container--required">*</span>
-            <?php
+        if ($required !== 'required = "required"') {
+          ?>
+            <span class="c-input-container--optional">(optional)</span>
+          <?php
         }
         if ($type !== 'checkbox' && $type !== 'radio') {
             // stop label here if it's a normal input type
