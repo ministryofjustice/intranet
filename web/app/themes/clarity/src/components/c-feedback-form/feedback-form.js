@@ -6,6 +6,12 @@ export default (function ($) {
             function (e) {
                 e.preventDefault()
                 form.toggle()
+                if (form.is(":hidden")) {
+                    $("a").attr("aria-expanded",false);
+                } else {
+                    $("a").attr("aria-expanded",true);
+                }
+        
             }
         )
     }
