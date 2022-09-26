@@ -60,7 +60,7 @@ if (isset($referrer['query'])) {
             if ($agency_id != 'noms') {
                 echo '<li class="c-intranet-switcher__switch c-intranet-switcher__switch--' . $agency_id . $extra_class . ' "><a href="/?agency=' . $agency_id . $referrer['query'] . '">' . $agency['label'] . '</a></li>';
             } else {
-                echo '<li class="c-intranet-switcher__switch c-intranet-switcher__switch--' . $agency_id . $extra_class . ' "><a href="https://intranet.noms.gsi.gov.uk/">' . $agency['label'] . '</a></li>';
+                echo '<li class="c-intranet-switcher__switch c-intranet-switcher__switch--' . $agency_id . $extra_class . ' "><a href="https://justiceuk.sharepoint.com/sites/hmppsintranet">' . $agency['label'] . '</a></li>';
             }
         }
         ?>
