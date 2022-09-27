@@ -12,7 +12,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://composer.wp.dsd.io/dist/acf/advanced-custom-fields-pro/acf-advanced-custom-fields-pro-5.12.3.zip",
-                "shasum": "04e7d8b833b96a1d6a2dbe4a0f01726548cc0576"
+                "shasum": "6e5ad7f13808ee28cb46360836eda1185b770527"
             },
             "type": "wordpress-plugin"
         },
