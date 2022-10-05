@@ -18,10 +18,7 @@ jobs:
     - uses: actions/checkout@v3
     
     - name: Authentication
-      run: composer config [--global] http-basic.repo.composer.wp.dsd.io ${{ secrets.COMPOSER_USER }} ${{ secrets.COMPOSER_PASS }}
-    
-    - name: Check auth
-      run: cat auth.json
+      run: composer config --global http-basic.repo.composer.wp.dsd.io ${{ secrets.COMPOSER_USER }} ${{ secrets.COMPOSER_PASS }}
 
     - name: Validate composer.json and composer.lock
       run: composer validate
