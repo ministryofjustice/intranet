@@ -13,6 +13,10 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    
+    defaults:
+      run:
+        working-directory: ./web/app/themes/clarity
 
     strategy:
       matrix:
@@ -24,7 +28,6 @@ jobs:
     - name: Compile with Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
-        path: ./web/app/themes/clarity
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - run: npm ci
