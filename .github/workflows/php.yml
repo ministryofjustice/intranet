@@ -8,7 +8,7 @@ on:
 
 permissions:
   contents: read
-
+  
 jobs:
   build:
 
@@ -17,18 +17,11 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     
-    - name: Define authentication
-      run: |
-        cat <<- EOF >> auth.json
-            {
-                "http-basic": {
-                    "composer.wp.dsd.io": {
-                        "username": "{{ secrets.COMPOSER_USER }}",
-                        "password": "{{ secrets.COMPOSER_PASS }}"
-                    }
-                }
-            }
-        EOF
+    - name: Authentication
+      run: composer config [--global] http-basic.repo.composer.wp.dsd.io ${{ secrets.COMPOSER_USER }} ${{ secrets.COMPOSER_PASS }}
+    
+    - name: Check auth
+      run: cat auth.json
 
     - name: Validate composer.json and composer.lock
       run: composer validate
