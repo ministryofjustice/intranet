@@ -16,9 +16,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    
-    - name: Authentication
-      run: composer config --global http-basic.repo.composer.wp.dsd.io ${{ secrets.COMPOSER_USER }} ${{ secrets.COMPOSER_PASS }}
 
     - name: Validate composer.json and composer.lock
       run: composer validate
@@ -33,7 +30,9 @@ jobs:
           ${{ runner.os }}-php-
 
     - name: Install dependencies
-      run: composer install --prefer-dist --no-progress
+      run: |
+        composer config --global http-basic.repo.composer.wp.dsd.io ${{ secrets.COMPOSER_USER }} ${{ secrets.COMPOSER_PASS }}
+        composer install --prefer-dist --no-progress
 
     # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
     # Docs: https://getcomposer.org/doc/articles/scripts.md
