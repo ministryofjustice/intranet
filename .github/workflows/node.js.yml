@@ -24,8 +24,8 @@ jobs:
     - name: Compile with Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
+        path: ./web/app/themes/clarity
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: cd web/app/themes/clarity
     - run: npm ci
     - run: npm run production
