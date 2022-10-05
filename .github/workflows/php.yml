@@ -16,6 +16,19 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+    
+    - name: Define authentication
+      run: |
+        cat <<- EOF >> auth.json
+            {
+                "http-basic": {
+                    "composer.wp.dsd.io": {
+                        "username": "{{ secrets.COMPOSER_USER }}",
+                        "password": "{{ secrets.COMPOSER_PASS }}"
+                    }
+                }
+            }
+        EOF
 
     - name: Validate composer.json and composer.lock
       run: composer validate --strict
