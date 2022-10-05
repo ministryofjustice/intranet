@@ -30,5 +30,6 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+        cache-dependency-path: '**/web/app/themes/clarity/package-lock.json'
     - run: npm ci
     - run: npm run production
