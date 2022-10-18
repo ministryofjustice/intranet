@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fb3bc58452bfbde39faf8cd48f4f3731",
+    "content-hash": "ecba521f0abe0cfa163c03eb07201ce5",
     "packages": [
         {
             "name": "acf/advanced-custom-fields-pro",
@@ -68,16 +68,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.237.1",
+            "version": "3.238.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "4667dd4b863a8686417e0d2a50da8682d8b68bb5"
+                "reference": "14fb64c934614ea5a52c9931189f687f30b6ba3b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/4667dd4b863a8686417e0d2a50da8682d8b68bb5",
-                "reference": "4667dd4b863a8686417e0d2a50da8682d8b68bb5",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/14fb64c934614ea5a52c9931189f687f30b6ba3b",
+                "reference": "14fb64c934614ea5a52c9931189f687f30b6ba3b",
                 "shasum": ""
             },
             "require": {
@@ -156,9 +156,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.237.1"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.238.3"
             },
-            "time": "2022-09-30T18:15:04+00:00"
+            "time": "2022-10-07T18:16:40+00:00"
         },
         {
             "name": "clue/stream-filter",
@@ -1114,17 +1114,17 @@
         },
         {
             "name": "ministryofjustice/wp-moj-elasticsearch",
-            "version": "dev-develop/cleanup-poc",
+            "version": "2.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ministryofjustice/wp-moj-elasticsearch.git",
-                "reference": "a788ec6d5476e890d390439df0b6141e8dca0fcd"
+                "reference": "d300d47894ff5fe9156a786e4e5c41fc1170cbd0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ministryofjustice/wp-moj-elasticsearch/zipball/a788ec6d5476e890d390439df0b6141e8dca0fcd",
-                "reference": "a788ec6d5476e890d390439df0b6141e8dca0fcd",
-                "shasum": ""
+                "url": "https://composer.wp.dsd.io/dist/ministryofjustice/wp-moj-elasticsearch/ministryofjustice-wp-moj-elasticsearch-d300d47894ff5fe9156a786e4e5c41fc1170cbd0-zip-be3a32.zip",
+                "reference": "d300d47894ff5fe9156a786e4e5c41fc1170cbd0",
+                "shasum": "10045644f6b7887bfd03d5c020c6c7f53be10a36"
             },
             "require": {
                 "composer/installers": "^1.0"
@@ -1133,7 +1133,7 @@
                 "phpmd/phpmd": "@stable",
                 "squizlabs/php_codesniffer": "^3.5"
             },
-            "type": "wordpress-muplugin",
+            "type": "wordpress-plugin",
             "autoload": {
                 "psr-4": {
                     "MOJElasticSearch\\": [
@@ -1149,6 +1149,15 @@
                 ],
                 "test-fix": [
                     "vendor/bin/phpcbf"
+                ],
+                "phpcs-config-set": [
+                    "phpcs --config-set ignore_warnings_on_exit 1"
+                ],
+                "phpcs": [
+                    "phpcs --extensions=php --ignore=*/vendor/* --standard=PSR12 ."
+                ],
+                "phpcbf": [
+                    "phpcbf --extensions=php --ignore=*/vendor/* --standard=PSR12 ."
                 ]
             },
             "authors": [
@@ -1158,10 +1167,10 @@
             ],
             "description": "WP interface for managing elastic search",
             "support": {
-                "source": "https://github.com/ministryofjustice/wp-moj-elasticsearch/tree/develop/cleanup-poc",
+                "source": "https://github.com/ministryofjustice/wp-moj-elasticsearch/tree/2.3.2",
                 "issues": "https://github.com/ministryofjustice/wp-moj-elasticsearch/issues"
             },
-            "time": "2021-01-10T20:31:45+00:00"
+            "time": "2021-01-27T15:27:02+00:00"
         },
         {
             "name": "ministryofjustice/wp-rewrite-media-to-s3",
@@ -2084,21 +2093,21 @@
         },
         {
             "name": "sentry/sdk",
-            "version": "3.2.0",
+            "version": "3.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/getsentry/sentry-php-sdk.git",
-                "reference": "6d78bd83b43efbb52f81d6824f4af344fa9ba292"
+                "reference": "d0678fc7274dbb03046ed05cb24eb92945bedf8e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/getsentry/sentry-php-sdk/zipball/6d78bd83b43efbb52f81d6824f4af344fa9ba292",
-                "reference": "6d78bd83b43efbb52f81d6824f4af344fa9ba292",
+                "url": "https://api.github.com/repos/getsentry/sentry-php-sdk/zipball/d0678fc7274dbb03046ed05cb24eb92945bedf8e",
+                "reference": "d0678fc7274dbb03046ed05cb24eb92945bedf8e",
                 "shasum": ""
             },
             "require": {
                 "http-interop/http-factory-guzzle": "^1.0",
-                "sentry/sentry": "^3.5",
+                "sentry/sentry": "^3.9",
                 "symfony/http-client": "^4.3|^5.0|^6.0"
             },
             "type": "metapackage",
@@ -2125,7 +2134,7 @@
             ],
             "support": {
                 "issues": "https://github.com/getsentry/sentry-php-sdk/issues",
-                "source": "https://github.com/getsentry/sentry-php-sdk/tree/3.2.0"
+                "source": "https://github.com/getsentry/sentry-php-sdk/tree/3.3.0"
             },
             "funding": [
                 {
@@ -2137,20 +2146,20 @@
                     "type": "custom"
                 }
             ],
-            "time": "2022-05-21T11:10:11+00:00"
+            "time": "2022-10-11T09:05:00+00:00"
         },
         {
             "name": "sentry/sentry",
-            "version": "3.8.1",
+            "version": "3.9.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/getsentry/sentry-php.git",
-                "reference": "5150776a0a9835c4ea56ff0ecd94e0a109b6c163"
+                "reference": "45b618b2265d11bc9b5a15f31bcc573a2dc3b956"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/getsentry/sentry-php/zipball/5150776a0a9835c4ea56ff0ecd94e0a109b6c163",
-                "reference": "5150776a0a9835c4ea56ff0ecd94e0a109b6c163",
+                "url": "https://api.github.com/repos/getsentry/sentry-php/zipball/45b618b2265d11bc9b5a15f31bcc573a2dc3b956",
+                "reference": "45b618b2265d11bc9b5a15f31bcc573a2dc3b956",
                 "shasum": ""
             },
             "require": {
@@ -2195,7 +2204,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.8.x-dev"
+                    "dev-master": "3.9.x-dev"
                 }
             },
             "autoload": {
@@ -2229,7 +2238,7 @@
             ],
             "support": {
                 "issues": "https://github.com/getsentry/sentry-php/issues",
-                "source": "https://github.com/getsentry/sentry-php/tree/3.8.1"
+                "source": "https://github.com/getsentry/sentry-php/tree/3.9.1"
             },
             "funding": [
                 {
@@ -2241,7 +2250,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2022-09-21T11:01:17+00:00"
+            "time": "2022-10-11T09:00:25+00:00"
         },
         {
             "name": "symfony/deprecation-contracts",
@@ -3061,15 +3070,15 @@
         },
         {
             "name": "wpackagist-plugin/ewww-image-optimizer",
-            "version": "6.9.0",
+            "version": "6.9.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/ewww-image-optimizer/",
-                "reference": "tags/6.9.0"
+                "reference": "tags/6.9.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/ewww-image-optimizer.6.9.0.zip"
+                "url": "https://downloads.wordpress.org/plugin/ewww-image-optimizer.6.9.1.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -3174,9 +3183,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "ministryofjustice/wp-moj-elasticsearch": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
