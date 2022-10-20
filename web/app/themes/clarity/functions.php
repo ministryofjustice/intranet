@@ -10,6 +10,7 @@
  * @since 1.0
  */
 
+
 require_once 'inc/admin/acf-field-group.php';
 require_once 'inc/admin/admin-commands.php';
 
@@ -99,3 +100,7 @@ require_once 'inc/security.php';
 require_once 'inc/table-modification.php';
 require_once 'inc/uploads.php';
 require_once 'inc/whitelisted-emails.php';
+
+use MOJ\Intranet\EnvironmentNotice;
+
+new EnvironmentNotice();
