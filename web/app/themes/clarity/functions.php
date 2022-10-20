@@ -100,6 +100,10 @@ require_once 'inc/table-modification.php';
 require_once 'inc/uploads.php';
 require_once 'inc/whitelisted-emails.php';
 
+/***
+ * Environment Notice
+ */
+require_once 'inc/environment-notice.php';
 use MOJ\Intranet\EnvironmentNotice;
 
 new EnvironmentNotice();
