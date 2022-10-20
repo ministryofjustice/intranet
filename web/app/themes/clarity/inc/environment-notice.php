@@ -2,7 +2,7 @@
 
 namespace MOJ\Intranet;
 
-class EnvironmentNotice
+class environmentnotice
 {
     public function __construct()
     {
