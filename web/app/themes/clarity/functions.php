@@ -99,8 +99,6 @@ require_once 'inc/security.php';
 require_once 'inc/table-modification.php';
 require_once 'inc/uploads.php';
 require_once 'inc/whitelisted-emails.php';
-require_once 'inc/whitelisted-emails.php';
-
 
 /***
  * Environment Notice
