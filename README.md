@@ -56,6 +56,24 @@ https://intranet.justice.gov.uk/
 
    The WordPress admin area will be accessible at `/wp-admin`.
 
+### Access points
+
+**The application**
+> http://intranet.docker/
+
+**Mailcatcher**
+> http://mail.intranet.docker/
+
+**phpMyAdmin**
+> http://phpmyadmin.intranet.docker:9191/
+
+**Elasticsearch**
+> http://elasticsearch.intranet.docker/
+
+**Kibana**
+> http://kibana.intranet.docker/
+
+
 ## Composer + WordPress plugins
 
 The installation of WordPress core and plugins is managed by composer.
@@ -103,7 +121,7 @@ Theme assets can be built as part of the docker image. Add required commands to 
 Set your theme as the default by adding the following line to `config/application.php`:
 
 ```php
-define('WP_DEFAULT_THEME', 'clarity');
+WP_DEFAULT_THEME = 'clarity';
 ```
 
 ## WP-CLI
