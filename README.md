@@ -1,4 +1,6 @@
-# Ministry of Justice intranet
+# <img alt="MoJ logo" src="https://www.gov.uk/assets/collections/govuk_publishing_components/crests/org_crest_18px-7026afebba9918a0830ebf68cf496cbb0b81f3514b884dc2c32904780baa3368.png" width="30">&nbsp;&nbsp; MOJ Intranet
+
+[![repo standards badge](https://img.shields.io/badge/dynamic/json?color=blue&style=for-the-badge&logo=github&label=MoJ%20Compliant&query=%24.result&url=https%3A%2F%2Foperations-engineering-reports.cloud-platform.service.justice.gov.uk%2Fapi%2Fv1%2Fcompliant_public_repositories%2Fintranet)](https://operations-engineering-reports.cloud-platform.service.justice.gov.uk/public-github-repositories.html#intranet)
 
 This is a WordPress project used by Ministry of Justice and agencies.
 https://intranet.justice.gov.uk/
@@ -57,6 +59,24 @@ https://intranet.justice.gov.uk/
 
    The WordPress admin area will be accessible at `/wp-admin`.
 
+### Access points
+
+**The application**
+> http://intranet.docker/
+
+**Mailcatcher**
+> http://mail.intranet.docker/
+
+**phpMyAdmin**
+> http://phpmyadmin.intranet.docker:9191/
+
+**Elasticsearch**
+> http://elasticsearch.intranet.docker/
+
+**Kibana**
+> http://kibana.intranet.docker/
+
+
 ## Composer + WordPress plugins
 
 The installation of WordPress core and plugins is managed by composer.
@@ -104,7 +124,7 @@ Theme assets can be built as part of the docker image. Add required commands to 
 Set your theme as the default by adding the following line to `config/application.php`:
 
 ```php
-define('WP_DEFAULT_THEME', 'clarity');
+WP_DEFAULT_THEME = 'clarity';
 ```
 
 ## WP-CLI
