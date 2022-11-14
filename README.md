@@ -19,6 +19,7 @@ https://intranet.justice.gov.uk/
 - Composer - [Install](https://getcomposer.org/doc/00-intro.md#installation-linux-unix-osx)
 - Docker & docker-compose - [Install](https://www.docker.com/docker-mac)
 - Dory (docker proxy for local development) - [Install](https://github.com/FreedomBen/dory)
+- Supported version of NodeJS e.g. lts/gallium -> v16.18.1 
 
 ## Getting Started
 
