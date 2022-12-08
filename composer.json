@@ -49,12 +49,12 @@
         }
     ],
     "require": {
-        "php": ">=7.1",
+        "php": ">=7.1|>=8.1",
         "ext-json": "*",
         "composer/installers": "^1.4",
         "aws/aws-sdk-php": "^3.133",
         "vlucas/phpdotenv": "^2.0.1",
-        "johnpbloch/wordpress": "5.9.3",
+        "johnpbloch/wordpress": "*",
         "koodimonni-language/core-en_gb": "*",
         "oscarotero/env": "^1.1.0",
         "roots/wp-password-bcrypt": "*",
