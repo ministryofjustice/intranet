@@ -61,11 +61,7 @@ $activeAgency = $oAgency->getCurrentAgency() ? $oAgency->getCurrentAgency() : 'h
 </head>
 <?php
 if (! defined('GT_CODE')) {
-    if ($_SERVER['HTTP_HOST'] == 'intranet.dev.wp.dsd.io') {
-        define('GT_CODE', 'GTM-W5VKJK');
-    } else {
-        define('GT_CODE', 'GTM-P545JM');
-    }
+  define('GT_CODE', 'GTM-P545JM');
 }
 ?>
 <!-- Google Tag Manager -->
