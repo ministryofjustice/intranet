@@ -1,4 +1,4 @@
-FROM ministryofjustice/wordpress-base:latest
+FROM ministryofjustice/intranet-base:latest
 
 ADD . /bedrock
 WORKDIR /bedrock
