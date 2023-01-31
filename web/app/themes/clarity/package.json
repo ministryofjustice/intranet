@@ -23,7 +23,7 @@
     "homepage": "https://github.com/ministryofjustice/intranet/#readme",
     "dependencies": {
         "autoprefixer": "^10.4.8",
-        "chalk": "^5.0.1",
+        "chalk": "^5.2.0",
         "ctgen": "^1.6.6",
         "del": "^7.0.0",
         "jquery": "^3.6.1",
