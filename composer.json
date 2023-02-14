@@ -49,7 +49,7 @@
         }
     ],
     "require": {
-        "php": ">=7.1|>=8.1",
+        "php": ">=7.4",
         "ext-json": "*",
         "composer/installers": "^1.4",
         "aws/aws-sdk-php": "^3.133",
