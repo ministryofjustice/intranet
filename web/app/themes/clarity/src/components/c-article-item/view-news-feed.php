@@ -15,13 +15,13 @@ if (! isset($set_cpt)) {
 }
 ?>
 
-<article class="c-article-item js-article-item" data-type="<?php echo $set_cpt; ?>">
+<article class="c-article-item js-article-item" data-type="<?= $set_cpt ?>">
 
         <?php
 
         if ($thumbnail) :
             echo '<a tabindex="-1" aria-hidden="true" href="' . esc_url(get_permalink($id)) . '" class="thumbnail">';
-            echo '<img src="' . esc_url($thumbnail) . '" alt>';
+            echo '<img src="' . esc_url($thumbnail) . '" alt="' . $thumbnail_alt . '">';
             echo '</a>';
         else :
                 echo '<!-- No news author or image supplied-->';
@@ -32,11 +32,11 @@ if (! isset($set_cpt)) {
     <div class="content">
 
         <h1>
-            <a href="<?php echo esc_url($post['link']); ?>"><?php echo esc_attr($post['title']['rendered']); ?></a>
+            <a href="<?= esc_url($post['link']) ?>"><?= esc_attr($post['title']['rendered']) ?></a>
         </h1>
 
         <div class="meta">
-            <span class="c-article-item__dateline"><?php echo get_gmt_from_date($post['date'], 'j M Y'); ?></span>
+            <span class="c-article-item__dateline"><?= get_gmt_from_date($post['date'], 'j M Y') ?></span>
         </div>
 
     <?php if (is_singular('regional_news') || is_singular('news')) : ?>
@@ -44,7 +44,7 @@ if (! isset($set_cpt)) {
 
     <?php else : ?>
     <div class="c-article-excerpt">
-        <p><?php echo $post['excerpt']['rendered']; ?></p>
+        <p><?= $post['excerpt']['rendered'] ?></p>
     </div>
 
     <?php endif; ?>
