@@ -1,7 +1,7 @@
 version: '3'
 services:
     wordpress:
-        container_name: wordpress
+        container_name: intranet-wordpress
         build: .
         volumes:
             - .:/bedrock
@@ -27,7 +27,7 @@ services:
             - /dev/fuse
 
     mysql:
-        container_name: mariadb
+        container_name: intranet-mariadb
         image: mariadb
         environment:
             MYSQL_ROOT_PASSWORD: root
@@ -40,14 +40,14 @@ services:
             - "9000:3306"
 
     mailcatcher:
-        container_name: mailcatcher
+        container_name: intranet-mailcatcher
         image: schickling/mailcatcher
         environment:
             VIRTUAL_HOST: mail.${SERVER_NAME}
             VIRTUAL_PORT: 1080
 
     phpmyadmin:
-        container_name: phpmyadmin
+        container_name: intranet-phpmyadmin
         image: phpmyadmin:latest
         environment:
             VIRTUAL_HOST: phpmyadmin.${SERVER_NAME}
@@ -59,7 +59,7 @@ services:
             - "9191:80"
 
     elasticsearch:
-        container_name: elasticsearch
+        container_name: intranet-elasticsearch
         image: elasticsearch:${ELASTICSEARCH_VERSION}
         environment:
             VIRTUAL_HOST: elasticsearch.${SERVER_NAME}
@@ -81,7 +81,7 @@ services:
             - "9200:9200"
             - "9300:9300"
     kibana:
-        container_name: kibana
+        container_name: intranet-kibana
         image: kibana:${ELASTICSEARCH_VERSION}
         environment:
             VIRTUAL_HOST: kibana.${SERVER_NAME}
