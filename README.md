@@ -23,11 +23,11 @@ https://intranet.justice.gov.uk/
 
 ## Requirements
 
-- PHP >= 7.1
-- Composer - [Install](https://getcomposer.org/doc/00-intro.md#installation-linux-unix-osx)
+- PHP >= 8.1
+- Composer - [Install](https://getcomposer.org/doc/00-intro.md#installation-linux-unix-macos)
 - Docker & docker-compose - [Install](https://www.docker.com/docker-mac)
 - Dory (docker proxy for local development) - [Install](https://github.com/FreedomBen/dory)
-- Supported version of NodeJS e.g. lts/gallium -> v16.18.1
+- Supported version of NodeJS & NPM - [Versions](https://nodejs.org/en/about/releases/), [Install](https://formulae.brew.sh/formula/node)
 
 ## Getting Started
 
