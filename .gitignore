@@ -28,6 +28,9 @@ web/app/themes/clarity/node_modules
 web/wp
 web/.htaccess
 
+# WordPress Plugins
+web/app/ewww
+
 # Dotenv
 .env
 .env.*
