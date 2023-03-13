@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8fe5ae8b124db9a1f2f30b6b69ac770f",
+    "content-hash": "bc6c129a5a370ee9937935766b103299",
     "packages": [
         {
             "name": "acf/advanced-custom-fields-pro",
@@ -591,16 +591,16 @@
         },
         {
             "name": "guzzlehttp/psr7",
-            "version": "2.4.3",
+            "version": "2.4.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/psr7.git",
-                "reference": "67c26b443f348a51926030c83481b85718457d3d"
+                "reference": "3cf1b6d4f0c820a2cf8bcaec39fc698f3443b5cf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/psr7/zipball/67c26b443f348a51926030c83481b85718457d3d",
-                "reference": "67c26b443f348a51926030c83481b85718457d3d",
+                "url": "https://api.github.com/repos/guzzle/psr7/zipball/3cf1b6d4f0c820a2cf8bcaec39fc698f3443b5cf",
+                "reference": "3cf1b6d4f0c820a2cf8bcaec39fc698f3443b5cf",
                 "shasum": ""
             },
             "require": {
@@ -690,7 +690,7 @@
             ],
             "support": {
                 "issues": "https://github.com/guzzle/psr7/issues",
-                "source": "https://github.com/guzzle/psr7/tree/2.4.3"
+                "source": "https://github.com/guzzle/psr7/tree/2.4.4"
             },
             "funding": [
                 {
@@ -706,7 +706,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-10-26T14:07:24+00:00"
+            "time": "2023-03-09T13:19:02+00:00"
         },
         {
             "name": "http-interop/http-factory-guzzle",
@@ -1039,47 +1039,6 @@
                 "source": "https://github.com/Koodimonni/Composer-Dropin-Installer/tree/1.4"
             },
             "time": "2022-02-02T11:42:57+00:00"
-        },
-        {
-            "name": "ministryofjustice/dw-document-revisions",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/ministryofjustice/dw-document-revisions.git",
-                "reference": "c3ff07ad12ed1ec6000599e3cc28cc98cc0b77f1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/ministryofjustice/dw-document-revisions/zipball/c3ff07ad12ed1ec6000599e3cc28cc98cc0b77f1",
-                "reference": "c3ff07ad12ed1ec6000599e3cc28cc98cc0b77f1",
-                "shasum": ""
-            },
-            "require": {
-                "composer/installers": "^1.4",
-                "php": ">=5.6"
-            },
-            "default-branch": true,
-            "type": "wordpress-plugin",
-            "extra": {
-                "installer-name": "dw-document-revisions"
-            },
-            "authors": [
-                {
-                    "name": "Bill Mulholland",
-                    "email": "Bill.Mulholland@cinq.co.uk",
-                    "homepage": "https://github.com/billmulholland"
-                }
-            ],
-            "homepage": "https://github.com/ministryofjustice/dw-document-revisions",
-            "keywords": [
-                "wordpress"
-            ],
-            "support": {
-                "issues": "https://github.com/ministryofjustice/dw-document-revisions/issues",
-                "source": "https://github.com/ministryofjustice/dw-document-revisions/tree/master"
-            },
-            "abandoned": true,
-            "time": "2019-05-02T16:58:55+00:00"
         },
         {
             "name": "ministryofjustice/like-button-for-wordpress",
@@ -3342,6 +3301,24 @@
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/upload-url-path-enabler/"
+        },
+        {
+            "name": "wpackagist-plugin/wp-document-revisions",
+            "version": "3.5.0",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/wp-document-revisions/",
+                "reference": "tags/3.5.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/wp-document-revisions.3.5.0.zip"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/wp-document-revisions/"
         }
     ],
     "packages-dev": [
@@ -3526,7 +3503,6 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "ministryofjustice/dw-document-revisions": 20,
         "ministryofjustice/like-button-for-wordpress": 20,
         "ministryofjustice/notify-for-wordpress": 20,
         "ministryofjustice/php-markdown-extra": 20
