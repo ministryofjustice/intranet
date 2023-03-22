@@ -1,4 +1,4 @@
-FROM ministryofjustice/intranet-base:latest
+FROM --platform=linux/amd64 ministryofjustice/intranet-base:latest
 
 ADD . /bedrock
 WORKDIR /bedrock
