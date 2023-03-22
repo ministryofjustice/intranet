@@ -1,4 +1,4 @@
-FROM ministryofjustice/intranet-base:latest
+FROM ministryofjustice/intranet-base
 
 ADD . /bedrock
 WORKDIR /bedrock
