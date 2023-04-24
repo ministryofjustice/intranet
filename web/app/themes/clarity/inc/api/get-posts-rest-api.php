@@ -44,8 +44,10 @@ function get_post_api($blog_posts_number = '10')
     if (200 == $response_code && $response_message == 'OK') {
         echo '<div class="data-type" data-type="posts"></div>';
 
-        foreach ($posts as $key => $post) {
+        if (is_array($posts)) {
+            foreach ($posts as $key => $post) {
                 include locate_template('src/components/c-article-item/view-blog-feed.php');
+            }
         }
     }
 }
