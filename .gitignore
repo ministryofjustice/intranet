@@ -36,3 +36,6 @@ web/.htaccess
 # Composer
 vendor/*
 !vendor/.gitkeep
+/web/app/themes/clarity/acf-json/group_5c10285516106.json
+/web/app/ewww/lazy/*
+/rector.php
