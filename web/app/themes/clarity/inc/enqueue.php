@@ -94,13 +94,14 @@ function clarity_admin_enqueue($hook)
         );
         wp_localize_script('colour-contrast-checker', 'mojAjax', ['ajaxurl' => admin_url('admin-ajax.php')]);
 
-        wp_register_style(
-            'page-search-dropdown-filter',
-            get_stylesheet_directory_uri() . '/inc/admin/css/page-search-dropdown-filter.css',
-            array(),
-            '0.2.0',
-            'all'
-        );
-        wp_enqueue_style('page-search-dropdown-filter');
     endif;
+
+    wp_register_style(
+        'clarity-admin-styles',
+        get_stylesheet_directory_uri() . '/inc/admin/css/admin.css',
+        array(),
+        '0.2.1',
+        'all'
+    );
+    wp_enqueue_style('clarity-admin-styles');
 }
