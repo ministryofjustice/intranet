@@ -40,9 +40,16 @@ add_filter('intranet_mail_settings', function ($templates, $attrs) {
  *  Redirect mail to Gov.UK Notify
  */
 add_filter('pre_wp_mail', function ($null, $mail) {
+    // Don't short-circuit if the password doesn't look right
+    $maybe_api_key = env('SMTP_PASSWORD');
+    if (count_chars($maybe_api_key) < 80) {
+        // hand back to wp_mail()
+        return $null;
+    }
+
     // Set up Gov Notify client
     $client = new Client([
-        'apiKey' => env('SMTP_PASSWORD'),
+        'apiKey' => $maybe_api_key,
         'httpClient' => new \Http\Adapter\Guzzle7\Client
     ]);
 
