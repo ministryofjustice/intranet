@@ -42,7 +42,8 @@ add_filter('intranet_mail_settings', function ($templates, $attrs) {
 add_filter('pre_wp_mail', function ($null, $mail) {
     // Don't short-circuit if the password doesn't look right
     $maybe_api_key = env('SMTP_PASSWORD');
-    if (count_chars($maybe_api_key) < 80) {
+    preg_match_all('/[a-f0-9]{8}\-[a-f0-9]{4}\-4[a-f0-9]{3}\-[a-f0-9]{4}\-[a-f0-9]{12}/', $maybe_api_key, $matches);
+    if (count_chars($maybe_api_key) < 73 && count($matches[0]) < 2) {
         // hand back to wp_mail()
         return null;
     }
