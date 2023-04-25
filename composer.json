@@ -7,7 +7,8 @@
         "allow-plugins": {
             "johnpbloch/wordpress-core-installer": true,
             "koodimonni/composer-dropin-installer": true,
-            "composer/installers": true
+            "composer/installers": true,
+            "php-http/discovery": true
         }
     },
     "repositories": [
@@ -68,8 +69,8 @@
         "acf/advanced-custom-fields-pro": "*",
         "wpackagist-plugin/query-monitor": "*",
         "ministryofjustice/wp-rewrite-media-to-s3": "*",
-        "ministryofjustice/like-button-for-wordpress": "dev-master",
-        "ministryofjustice/notify-for-wordpress": "dev-master",
+        "ministryofjustice/like-button-for-wordpress": "dev-main",
+        "ministryofjustice/notify-for-wordpress": "dev-main",
         "ministryofjustice/php-markdown-extra": "dev-main",
         "ministryofjustice/wp-moj-components": "*",
         "ministryofjustice/wp-moj-elasticsearch": "*",
@@ -78,7 +79,9 @@
         "wpackagist-plugin/debug-bar-elasticpress": "*",
         "ext-zlib": "*",
         "ext-posix": "*",
-        "sentry/sdk": "^3.1"
+        "sentry/sdk": "^3.1",
+        "php-http/guzzle7-adapter": "^1.0",
+        "alphagov/notifications-php-client": "^5.0"
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "^3.0.2",

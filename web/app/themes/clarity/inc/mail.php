@@ -1,25 +1,104 @@
 <?php
+
 // Mail Functions
+use Alphagov\Notifications\Client as Client;
+use Alphagov\Notifications\Exception\ApiException;
 
-add_filter('wp_mail_from', 'dw_mail_from');
-function dw_mail_from($old)
-{
-    return 'intranet-support@digital.justice.gov.uk';
+if (defined('SMTP_HOST') && SMTP_HOST !== "") {
+    add_filter('wp_mail_from', fn() => 'intranet-support@digital.justice.gov.uk');
+    add_filter('wp_mail_from_name', fn() => 'Intranet support');
 }
 
-add_filter('wp_mail_from_name', 'dw_mail_from_name');
-function dw_mail_from_name($old)
-{
-    return 'Intranet support';
-}
-
-//remove sitename from email subject
-add_filter('wp_mail', 'email_subject_remove_sitename');
-function email_subject_remove_sitename($email)
-{
+//remove site name from email subject
+add_filter('wp_mail', function ($attrs) {
     $blogname = wp_specialchars_decode(get_option('blogname'), ENT_QUOTES);
-    $email['subject'] = str_replace("[".$blogname."] -", "", $email['subject']);
-    $email['subject'] = str_replace("[".$blogname."]", "", $email['subject']);
-    $email['subject'] = trim($email['subject']);
-    return $email;
-}
+    $attrs['subject'] = str_replace("[" . $blogname . "] -", "", $attrs['subject']);
+    $attrs['subject'] = str_replace("[" . $blogname . "]", "", $attrs['subject']);
+    $attrs['subject'] = trim($attrs['subject']);
+    return $attrs;
+}, 2, 1);
+
+
+/**
+ * Set up the default filter (example)
+ * Use a filter like this to modify email or SMS content
+ *
+ * Call it just before you send an email using wp_mail()
+ */
+add_filter('intranet_mail_settings', function ($templates, $attrs) {
+    // default
+    $default = $templates['email']['default'];
+
+    // personalisation
+    $default['personalisation']['subject'] = $attrs['subject'];
+    $default['personalisation']['message'] = $attrs['message'];
+
+    return $default;
+}, 2, 2);
+
+
+/**
+ *  Redirect mail to Gov.UK Notify
+ */
+add_filter('pre_wp_mail', function ($null, $mail) {
+    // Set up Gov Notify client
+    $client = new Client([
+        'apiKey' => env('SMTP_PASSWORD'),
+        'httpClient' => new \Http\Adapter\Guzzle7\Client
+    ]);
+
+    $templates = require 'mail-templates.php';
+
+    /**
+     * Filters the Intranet mail settings, in the form of Gov Notify args
+     *
+     * @param array $settings
+     */
+    $settings = apply_filters('intranet_mail_settings', $templates, $mail);
+
+    $to = $mail['to'];
+    $message = $mail['message'];
+    $subject = $mail['subject'];
+    $headers = $mail['headers'];
+    $attachments = $mail['attachments'];
+
+    if (isset($mail['to'])) {
+        $to = $mail['to'];
+    }
+
+    if (!is_array($to)) {
+        $to = explode(',', $to);
+    }
+
+    $mail_data = compact('to', 'subject', 'message', 'headers', 'attachments', 'settings');
+
+    if (empty($settings)) {
+        do_action('wp_mail_failed', new WP_Error('wp_mail_failed', "Gov Notify: No settings were found.", $mail_data));
+    }
+
+    foreach ($to as $recipient) {
+        // Send!
+        try {
+            $id = $settings['id'];
+            $placeholders = $settings['personalisation'] ?? [];
+            $ref = $settings['reference'] ?? '';
+            $reply_id = $settings['reply_to_id'] ?? null;
+
+            /**
+             * Supports SMS, plus email delivery
+             * * * * * * * * * * * * * * * * * * * * */
+            $response = (strpos($recipient, "@") > 0)
+                ? $client->sendEmail($recipient, $id, $placeholders, $ref, $reply_id)
+                : $client->sendSms($recipient, $id, $placeholders, $ref, $reply_id);
+
+            $mail_data['gov_notify_success'] = $response;
+            do_action('wp_mail_succeeded', $mail_data);
+        }
+        catch (ApiException $ex) {
+            $mail_data['gov_notify_exception_code'] = $ex->getCode();
+            do_action('wp_mail_failed', new WP_Error('wp_mail_failed', $ex->getMessage(), $mail_data));
+        }
+    }
+
+    return true;
+}, 8, 2);
