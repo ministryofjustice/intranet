@@ -1,0 +1,12 @@
+/**
+ACF homepage feature style amendments
+ */
+
+.toplevel_page_homepage-settings .acf-field.acf-accordion .acf-input.acf-accordion-content {
+    padding-bottom: 30px;
+}
+
+.toplevel_page_homepage-settings .select2-results__option small,
+.toplevel_page_homepage-settings .select2-container--default .select2-selection--single .select2-selection__rendered small {
+    font-weight: bold;
+}
