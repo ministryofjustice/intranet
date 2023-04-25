@@ -44,7 +44,7 @@ add_filter('pre_wp_mail', function ($null, $mail) {
     $maybe_api_key = env('SMTP_PASSWORD');
     if (count_chars($maybe_api_key) < 80) {
         // hand back to wp_mail()
-        return $null;
+        return null;
     }
 
     // Set up Gov Notify client
