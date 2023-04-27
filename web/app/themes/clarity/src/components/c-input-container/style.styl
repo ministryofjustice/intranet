@@ -43,4 +43,35 @@
 			font-weight: normal;
 		}
 	}
+
+    &--radio-group-item {
+        display: block;
+        float: none;
+        clear: left;
+        position: relative;
+        padding: 0 0 0 38px;
+        margin-bottom: 10px;
+
+        label {
+            float: left;
+            padding: 8px 10px 9px 12px;
+            cursor: pointer;
+            display: block;
+            -ms-touch-action: manipulation;
+            touch-action: manipulation;
+        }
+
+        input {
+            position: absolute;
+            cursor: pointer;
+            left: 0;
+            top: 0;
+            width: 38px;
+            height: 38px;
+            z-index: 1;
+            margin: 0;
+            zoom: 1;
+            accent-color: #232323;
+        }
+    }
 }
