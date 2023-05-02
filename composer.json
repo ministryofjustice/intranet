@@ -64,7 +64,6 @@
         "wpackagist-plugin/cms-tree-page-view": "*",
         "wpackagist-plugin/co-authors-plus": "*",
         "wpackagist-plugin/fast-user-switching": "*",
-        "wpackagist-plugin/recently-edited-content-widget": "*",
         "wpackagist-plugin/regenerate-thumbnails": "*",
         "wpackagist-plugin/upload-url-path-enabler": "*",
         "wpackagist-plugin/ewww-image-optimizer": "*",
