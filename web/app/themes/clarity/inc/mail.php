@@ -41,7 +41,7 @@ add_filter('intranet_mail_settings', function ($templates, $attrs) {
  */
 add_filter('pre_wp_mail', function ($null, $mail) {
     // Don't short-circuit if the password doesn't look right
-    $maybe_api_key = env('SMTP_PASSWORD');
+    $maybe_api_key = env('SMTP_PASSWORD') ?? env('SMTP_PASS');
     preg_match_all('/[a-f0-9]{8}\-[a-f0-9]{4}\-4[a-f0-9]{3}\-[a-f0-9]{4}\-[a-f0-9]{12}/', $maybe_api_key, $matches);
     if (count_chars($maybe_api_key) < 73 && count($matches[0]) < 2) {
         // hand back to wp_mail()
@@ -100,8 +100,7 @@ add_filter('pre_wp_mail', function ($null, $mail) {
 
             $mail_data['gov_notify_success'] = $response;
             do_action('wp_mail_succeeded', $mail_data);
-        }
-        catch (ApiException $ex) {
+        } catch (ApiException $ex) {
             $mail_data['gov_notify_exception_code'] = $ex->getCode();
             do_action('wp_mail_failed', new WP_Error('wp_mail_failed', $ex->getMessage(), $mail_data));
         }
