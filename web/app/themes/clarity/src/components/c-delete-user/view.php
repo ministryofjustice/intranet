@@ -35,7 +35,7 @@
                     'fields'  => 'ids',
                     'status'  => 'any',
                 ) );
-                
+
                 foreach ( $comments as $comment ) {
                     wp_delete_comment( $comment, true );
                 }
@@ -59,33 +59,16 @@
 
             if (!empty($_POST['btndelete'])) {
 
-                $to = $current_user->user_email;
+                $delete_link = get_bloginfo('url') . '/delete-account?key=' . get_password_reset_key($current_user) . '&login=' . rawurlencode($current_user->user_login);
 
-                $delete_key = get_password_reset_key($current_user);
-                $btn_link = '<a style="display:inline-block;padding:8px 15px 5px;background-color:#00823b;color:#ffffff;font-size:19px;font-family:Arial,sans-serif;line-height:25px;text-decoration:none;vertical-align:top" href="' . get_bloginfo('url') . '/delete-account?key= . ' . $delete_key . '&login=' . rawurlencode($current_user->user_login) . '">I want to delete all of my MOJ Intranet comments</a>';
+                add_filter('intranet_mail_templates', function ($templates) use ($delete_link, $current_user) {
+                    $template = $templates['email']['comment-deletion'];
+                    $template['personalisation']['name'] = $current_user->display_name;
+                    $template['personalisation']['delete_link'] = $delete_link;
+                    return $template;
+                }, 10, 1);
 
-                $subject = 'Delete your MoJ Intranet comments';
-                $body =
-                    '<div style="background-color:black">
-						<p style="color:#fff">
-						<img src="' . get_stylesheet_directory_uri() . '/dist/images/moj_logo_email.png" alt="Ministry of Justice" height="36px" style="padding:20px 40px" class="CToWUd">
-						</p>
-					</div>
-					<p style="padding:5px 0;font-size:19px;font-family:Arial,sans-serif">Hello,</p>
-					<p style="padding:5px 0;font-size:19px;font-family:Arial,sans-serif">Click the link to delete all MoJ Intranet comments associated with your name and email address:</p>' .
-                    $btn_link .
-                    '<br/>
-					<p style="padding:5px 0;font-size:19px;font-family:Arial,sans-serif"><strong>Any problems?</strong></p>
-					<p style="padding:5px 0;font-size:19px;font-family:Arial,sans-serif">If this link has expired, you’ll need to ask again to delete your comment history. If you don’t want to delete your MoJ Intranet comments, ignore this email.</p>
-					<p style="padding:25px 0 5px;font-size:16px;font-family:Arial,sans-serif;color:#6f777b">This email is generated automatically. Do not reply.</p>
-					<div style="background-color:#dee0e2">
-						<p style="padding:20px;font-size:16px;font-family:Arial,sans-serif">
-							If you\'re unsure an email is from the MoJ, forward it to <a href="mailto:phishing@digital.justice.gov.uk" target="_blank">phishing@digital.justice.gov.<wbr>uk</a>.
-						</p>
-          			</div>';
-                $headers = array('Content-Type: text/html; charset=UTF-8');
-
-                wp_mail($to, $subject, $body, $headers);
+                wp_mail($current_user->user_email, 'default', 'default');
 
                 ?>
                 <h1 class="o-title o-title--page">We have sent you a confirmation email</h1>
