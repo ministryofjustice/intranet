@@ -17,7 +17,7 @@ function has_ancestor($s)
     }
     return false;
 }
-  
+
   /**
    * Determines the difference between two timestamps.
    *
@@ -35,7 +35,7 @@ function human_time_diff_plus($from, $to = '')
 {
     $tzone = get_option('timezone_string');
     date_default_timezone_set($tzone);
-  
+
     $MONTH_IN_SECONDS = DAY_IN_SECONDS * 30;
     if (empty($to)) {
          $to = time();
@@ -75,7 +75,7 @@ function human_time_diff_plus($from, $to = '')
     }
      return $since;
 }
-  
+
   // Returns the caption of the featured image associated with the current post
 function get_post_thumbnail_caption()
 {
@@ -83,7 +83,7 @@ function get_post_thumbnail_caption()
         return get_post($thumb)->post_excerpt;
     }
 }
-  
+
 function get_field_by_id($id, $function)
 {
     global $post;
@@ -92,15 +92,15 @@ function get_field_by_id($id, $function)
     $args = array_slice(func_get_args(), 2);
     $value = call_user_func_array($function, $args);
     $post = $orig_post;
-  
+
     return $value;
 }
-  
+
 function get_the_excerpt_by_id($id)
 {
     return get_field_by_id($id, 'get_the_excerpt');
 }
-  
+
 function get_the_content_by_id($id)
 {
     $post = get_post($id);
@@ -109,7 +109,7 @@ function get_the_content_by_id($id)
     $content = str_replace(']]>', ']]&gt;', $content);
     return $content;
 }
-  
+
   /**
    * Get an attachment ID given a URL.
    *
@@ -150,16 +150,8 @@ function get_attachment_id_from_url($url)
     }
     return $attachment_id;
 }
-  
-function html_mail($email, $subject, $message)
-{
-    add_filter('wp_mail_content_type', function ($content_type) {
-        return 'text/html';
-    });
-  
-    wp_mail($email, $subject, $message);
-}
-  
+
+
   /** comparator function for sorting items in an array by value of a specific key
    * @param {Mixed} $a First value
    * @param {Mixed} $b Second value
@@ -169,7 +161,7 @@ function alpha_sort_by_key($a, $b, $key)
 {
     return strnatcmp($a[$key], $b[$key]);
 }
-  
+
   /** gets a value of an element of the array
    * @param {Array} $array Input array
    * @param {Integer|String} $element Key name or index number of the desired element
@@ -180,7 +172,7 @@ function get_array_value($array, $element, $default)
 {
     return isset($array) && isset($array[$element]) && $array[$element] ? $array[$element] : $default;
 }
-  
+
   /** Check if the supplied tax_query array uses the specified taxonomy
    * @param {Array} $tax_query Tax query array
    * @param {Array} $taxonomy Taxonomy name
@@ -193,10 +185,10 @@ function has_taxonomy($tax_query, $taxonomy)
             return true;
         }
     }
-  
+
     return false;
 }
-  
+
   /** Gets a list of term slugs within a taxonomy
    * @param {String} $taxonomy Taxonomy name
    * @return {Array} List of all term slugs
@@ -204,16 +196,16 @@ function has_taxonomy($tax_query, $taxonomy)
 function get_term_slugs($taxonomy)
 {
     $term_slugs = [];
-  
+
     $terms = get_terms([
     'taxonomy' => $taxonomy,
     'hide_empty' => false
     ]);
-  
+
     foreach ($terms as $term) {
         $term_slugs[] = $term->slug;
     }
-  
+
     return $term_slugs;
 }
 
