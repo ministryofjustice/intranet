@@ -3,6 +3,8 @@
 use Alphagov\Notifications\Client as Client;
 use Alphagov\Notifications\Exception\ApiException;
 
+const CLARITY_MAIL_TEMPLATES = __DIR__ . "/mail-templates.php";
+
 if (defined('SMTP_HOST') && SMTP_HOST !== "") {
     add_filter('wp_mail_from', fn() => 'intranet-support@digital.justice.gov.uk');
     add_filter('wp_mail_from_name', fn() => 'Intranet support');
@@ -20,30 +22,39 @@ add_filter('wp_mail', function ($attrs) {
 
 /**
  * Set up the default filter (example)
- * Use a filter like this to modify email or SMS content
+ *
+ * This is a working filter however, you can yse a filter
+ * like this to modify email or SMS content.
  *
  * Call it just before you send an email using wp_mail()
  */
-add_filter('intranet_mail_settings', function ($templates, $attrs) {
+function intranet_mail_template_default($templates, $attrs)
+{
     // default
-    $default = $templates['email']['default'];
+    $template = $templates['email']['default'];
 
     // personalisation
-    $default['personalisation']['subject'] = $attrs['subject'];
-    $default['personalisation']['message'] = $attrs['message'];
+    $template['personalisation']['subject'] = $attrs['subject'];
+    $template['personalisation']['message'] = $attrs['message'];
 
-    return $default;
-}, 2, 2);
-
+    return $template;
+}
 
 /**
- *  Redirect mail to Gov.UK Notify
+ * Short-circuits wp_mail()
+ * Redirect mail to Gov.UK Notify
  */
 add_filter('pre_wp_mail', function ($null, $mail) {
+    // Things we'd like to find:
+    $patterns = [
+        'api' => '/[a-f0-9]{8}\-[a-f0-9]{4}\-4[a-f0-9]{3}\-[a-f0-9]{4}\-[a-f0-9]{12}/',
+        'sms' => '/((\+44(\s\(0\)\s|\s0\s|\s)?)|0)7\d{3}(\s)?\d{6}/' # matches UK mobile numbers
+    ];
+
     // Don't short-circuit if the password doesn't look right
     $maybe_api_key = env('SMTP_PASSWORD') ?? env('SMTP_PASS');
-    preg_match_all('/[a-f0-9]{8}\-[a-f0-9]{4}\-4[a-f0-9]{3}\-[a-f0-9]{4}\-[a-f0-9]{12}/', $maybe_api_key, $matches);
-    if (count_chars($maybe_api_key) < 73 && count($matches[0]) < 2) {
+    preg_match_all($patterns['api'], $maybe_api_key, $matches);
+    if (count($matches[0]) !== 2) {
         // hand back to wp_mail()
         return null;
     }
@@ -54,21 +65,36 @@ add_filter('pre_wp_mail', function ($null, $mail) {
         'httpClient' => new \Http\Adapter\Guzzle7\Client
     ]);
 
-    $templates = require 'mail-templates.php';
+    $templates = require CLARITY_MAIL_TEMPLATES;
+
+    $settings = intranet_mail_template_default($templates, $mail);
 
     /**
-     * Filters the Intranet mail settings, in the form of Gov Notify args
+     * Filters the Intranet mail template, in the form of Gov Notify args
      *
      * @param array $settings
      */
-    $settings = apply_filters('intranet_mail_settings', $templates, $mail);
+    if (has_filter('intranet_mail_templates')) {
+        $settings = apply_filters('intranet_mail_templates', $templates, $mail);
 
-    $to = $mail['to'];
+        /**
+         * Resets the filter hook
+         *
+         * Always demand a clean filter callback list.
+         * There may be a better way of doing this; we are cleaning the callback list to allow closures to
+         * pluck templates from the template array. If we don't clean, closures will strip the array clean
+         * every time leaving us nothing to 'pluck'. This way, we can safely assume we have a full array of
+         * templates to chose from on each closure call.
+         */
+        remove_all_filters('intranet_mail_templates');
+    }
+
     $message = $mail['message'];
     $subject = $mail['subject'];
     $headers = $mail['headers'];
     $attachments = $mail['attachments'];
 
+    $to = '';
     if (isset($mail['to'])) {
         $to = $mail['to'];
     }
@@ -92,9 +118,9 @@ add_filter('pre_wp_mail', function ($null, $mail) {
             $reply_id = $settings['reply_to_id'] ?? null;
 
             /**
-             * Supports SMS, plus email delivery
+             * Support SMS and email delivery
              * * * * * * * * * * * * * * * * * * * * */
-            $response = (strpos($recipient, "@") > 0)
+            $response = !preg_match($patterns['sms'], $recipient)
                 ? $client->sendEmail($recipient, $id, $placeholders, $ref, $reply_id)
                 : $client->sendSms($recipient, $id, $placeholders, $ref, $reply_id);
 
