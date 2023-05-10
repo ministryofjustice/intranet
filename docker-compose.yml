@@ -44,14 +44,14 @@ services:
         image: schickling/mailcatcher
         environment:
             VIRTUAL_HOST: mail.${SERVER_NAME}
-            VIRTUAL_PORT: 1080
+            VIRTUAL_PORT: "1080"
 
     phpmyadmin:
         container_name: int-phpmyadmin
-        image: phpmyadmin/phpmyadmin
+        image: phpmyadmin:latest
         environment:
             VIRTUAL_HOST: phpmyadmin.${SERVER_NAME}
-            VIRTUAL_PORT: 9191
+            VIRTUAL_PORT: "9191"
             PMA_HOST: mysql
         depends_on:
             - mysql
@@ -60,10 +60,10 @@ services:
 
     elasticsearch:
         container_name: int-elasticsearch
-        image: docker.elastic.co/elasticsearch/elasticsearch:${ELASTICSEARCH_VERSION}
+        image: elasticsearch:${ELASTICSEARCH_VERSION}
         environment:
             VIRTUAL_HOST: elasticsearch.${SERVER_NAME}
-            VIRTUAL_PORT: 9200
+            VIRTUAL_PORT: "9200"
             xpack.security.enabled: false
             discovery.type: single-node
         ulimits:
@@ -82,10 +82,10 @@ services:
             - "9300:9300"
     kibana:
         container_name: int-kibana
-        image: docker.elastic.co/kibana/kibana:${ELASTICSEARCH_VERSION}
+        image: kibana:${ELASTICSEARCH_VERSION}
         environment:
             VIRTUAL_HOST: kibana.${SERVER_NAME}
-            VIRTUAL_PORT: 5601
+            VIRTUAL_PORT: "5601"
             ELASTICSEARCH_HOSTS: http://elasticsearch:9200/
         ports:
             - "5610:5610"
