@@ -76,7 +76,7 @@ require_once 'inc/helpers/validation.php';
 require_once 'inc/images.php';
 require_once 'inc/languages.php';
 require_once 'inc/mail.php';
-require_once 'inc/markdown.php';
+require_once 'inc/elasticsearch.php';
 require_once 'inc/menu.php';
 require_once 'inc/utilities.php';
 require_once 'inc/pagination.php';

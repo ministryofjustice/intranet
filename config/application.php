@@ -40,6 +40,9 @@ if (file_exists($env_config)) {
     require_once $env_config;
 }
 
+/** Elasticsearch  /  ElasticPress */
+define("EP_HOST", env('ELASTICSEARCH_HOST'));
+
 /**
  * URLs
  */
@@ -49,9 +52,9 @@ define('WP_SITEURL', env('WP_SITEURL'));
 /**
  * Custom Content Directory
  */
-define('CONTENT_DIR', '/app');
+const CONTENT_DIR = '/app';
 define('WP_CONTENT_DIR', $webroot_dir . CONTENT_DIR);
-define('WP_CONTENT_URL', WP_HOME . CONTENT_DIR);
+const WP_CONTENT_URL = WP_HOME . CONTENT_DIR;
 
 /**
  * DB settings
@@ -60,8 +63,8 @@ define('DB_NAME', env('DB_NAME'));
 define('DB_USER', env('DB_USER'));
 define('DB_PASSWORD', env('DB_PASSWORD'));
 define('DB_HOST', env('DB_HOST') ?: 'localhost');
-define('DB_CHARSET', 'utf8mb4');
-define('DB_COLLATE', '');
+const DB_CHARSET = 'utf8mb4';
+const DB_COLLATE = '';
 $table_prefix = env('DB_PREFIX') ?: 'wp_';
 
 /**
@@ -79,10 +82,10 @@ define('NONCE_SALT', env('NONCE_SALT'));
 /**
  * Custom Settings
  */
-define('AUTOMATIC_UPDATER_DISABLED', true);
-define('DISABLE_WP_CRON', true);
-define('DISALLOW_FILE_EDIT', true);
-define('S3_UPLOADS_BASE_URL', getenv('S3_UPLOADS_BASE_URL') ? getenv('S3_UPLOADS_BASE_URL') : false);
+const AUTOMATIC_UPDATER_DISABLED = true;
+const DISABLE_WP_CRON = true;
+const DISALLOW_FILE_EDIT = true;
+define('S3_UPLOADS_BASE_URL', env('S3_UPLOADS_BASE_URL') ?? false);
 
 /**
  * Bootstrap WordPress
