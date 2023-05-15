@@ -1,7 +1,7 @@
 {
-    "name": "ministryofjustice/wp-template",
+    "name": "ministryofjustice/intranet",
     "type": "project",
-    "description": "A starter project for WordPress in MOJ using docker",
+    "description": "MoJ Intranet, used by Ministry of Justice and agencies",
     "config": {
         "preferred-install": "dist",
         "allow-plugins": {
@@ -26,15 +26,7 @@
         },
         {
             "type": "vcs",
-            "url": "https://github.com/ministryofjustice/dw-document-revisions"
-        },
-        {
-            "type": "vcs",
             "url": "https://github.com/ministryofjustice/dw-live-drafts"
-        },
-        {
-            "type": "vcs",
-            "url": "https://github.com/ministryofjustice/dw-markdown"
         },
         {
             "type": "vcs",
@@ -50,8 +42,7 @@
         }
     ],
     "require": {
-        "php": ">=7.4",
-        "ext-json": "*",
+        "php": ">=8.2",
         "composer/installers": "^1.4",
         "aws/aws-sdk-php": "^3.133",
         "vlucas/phpdotenv": "^2.0.1",
@@ -63,25 +54,19 @@
         "wpackagist-plugin/totalpoll-lite": "*",
         "wpackagist-plugin/cms-tree-page-view": "*",
         "wpackagist-plugin/co-authors-plus": "*",
-        "wpackagist-plugin/fast-user-switching": "*",
-        "wpackagist-plugin/regenerate-thumbnails": "*",
-        "wpackagist-plugin/upload-url-path-enabler": "*",
         "wpackagist-plugin/ewww-image-optimizer": "*",
-        "wpackagist-plugin/enable-jquery-migrate-helper": "*",
-        "wpackagist-plugin/wp-force-login": "*",
-        "relevanssi/relevanssi-premium": "*",
+        "wpackagist-plugin/wp-document-revisions": "^3.5.0",
         "acf/advanced-custom-fields-pro": "*",
         "wpackagist-plugin/query-monitor": "*",
-        "ministryofjustice/dw-document-revisions": "dev-master",
-        "ministryofjustice/wp-rewrite-media-to-s3": "*",
+        "ministryofjustice/wp-rewrite-media-to-s3": "dev-php8-code-update",
         "ministryofjustice/like-button-for-wordpress": "dev-main",
         "ministryofjustice/notify-for-wordpress": "dev-main",
         "ministryofjustice/php-markdown-extra": "dev-main",
         "ministryofjustice/wp-moj-components": "*",
-        "wpackagist-plugin/elasticpress": "*",
-        "wpackagist-plugin/debug-bar":"*",
-        "wpackagist-plugin/debug-bar-elasticpress":"*",
         "ministryofjustice/wp-moj-elasticsearch": "*",
+        "wpackagist-plugin/elasticpress": "*",
+        "wpackagist-plugin/debug-bar": "*",
+        "wpackagist-plugin/debug-bar-elasticpress": "*",
         "ext-zlib": "*",
         "ext-posix": "*",
         "sentry/sdk": "^3.1",
@@ -89,13 +74,15 @@
         "alphagov/notifications-php-client": "^5.0"
     },
     "require-dev": {
-        "squizlabs/php_codesniffer": "^3.0.2"
+        "squizlabs/php_codesniffer": "^3.0.2",
+        "rector/rector": "^0.15.19"
     },
     "extra": {
         "installer-paths": {
             "web/app/mu-plugins/{$name}/": [
                 "type:wordpress-muplugin",
-                "wpackagist-plugin/ewww-image-optimizer"
+                "wpackagist-plugin/ewww-image-optimizer",
+                "ministryofjustice/php-markdown-extra"
             ],
             "web/app/plugins/{$name}/": [
                 "type:wordpress-plugin"
@@ -122,10 +109,20 @@
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
         ],
         "test": [
-            "vendor/bin/phpcs"
+            "vendor/bin/phpcs -d memory_limit=256M"
         ],
         "test-fix": [
-            "vendor/bin/phpcbf"
+            "vendor/bin/phpcbf -d memory_limit=256M"
         ]
-    }
+    },
+    "authors": [
+        {
+            "name": "Damien Wilson",
+            "email": "damien.wilson@digital.justice.gov.uk"
+        },
+        {
+            "name": "Adam Brown",
+            "email": "wordpress@digital.justice.gov.uk"
+        }
+    ]
 }

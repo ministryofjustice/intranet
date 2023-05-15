@@ -18,20 +18,24 @@ docker-clean:
 	bin/docker-clean.sh
 
 # Run the application
-run:
-	docker-compose up
+run: dory
+	docker compose up
 
 # Stop the application
 down:
-	docker-compose down
+	docker compose down
 
 # Launch the application, open browser, no stdout
-launch:
+launch: dory
 	bin/launch.sh
+
+# Start the Dory Proxy
+dory:
+	@chmod +x ./bin/dory-check.sh && ./bin/dory-check.sh
 
 # Open a bash shell on the running container
 bash:
-	docker-compose exec wordpress bash
+	docker compose exec wordpress bash
 
 # Run tests
 test:

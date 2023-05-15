@@ -9,6 +9,7 @@
 # Application
 web/.well-known/*
 web/app/plugins/*
+web/app/db.php
 !web/app/plugins/aws-xray/
 !web/app/plugins/.gitkeep
 web/app/mu-plugins/*/

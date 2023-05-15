@@ -9,6 +9,7 @@ import "../../components/c-feedback-form/feedback-form";
 import "../../components/c-gallery-lightbox/feature-video";
 import "../../components/c-left-hand-menu/left-hand-menu";
 import "../../components/c-tabbed-content/tabbed-content";
+import "../../components/c-input-container/on-change";
 
 // Global scripts
 import "./blog-content_filter";
@@ -26,6 +27,7 @@ jQuery(function ($) {
     // Load global scripts
     $('.js-left-hand-menu').moji_leftHandMenu()
     $('.js-feature-video').moji_featureVideo()
+    $('.js-radios-onChange').mojRadiosOnChange();
     $('.c-news-list > .js-article-item').moji_equaliser()
 
     // Load component scripts
