@@ -21,7 +21,6 @@ return [
                 'message' => '<message>'
             ]
         ],
-
         'comment-registration' => [
             'id' => 'ab5e3dbb-4bda-4323-86ca-a200fa3d6689',
             'personalisation' => [
@@ -59,7 +58,6 @@ return [
                 'agency_name' => ''
             ]
         ],
-
         'auto-response' => [
             'id' => '4f4639e0-9673-4221-9f42-fe5e543f1718'
         ]
