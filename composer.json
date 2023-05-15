@@ -26,15 +26,7 @@
         },
         {
             "type": "vcs",
-            "url": "https://github.com/ministryofjustice/dw-document-revisions"
-        },
-        {
-            "type": "vcs",
             "url": "https://github.com/ministryofjustice/dw-live-drafts"
-        },
-        {
-            "type": "vcs",
-            "url": "https://github.com/ministryofjustice/dw-markdown"
         },
         {
             "type": "vcs",
@@ -54,21 +46,19 @@
         "composer/installers": "^1.4",
         "aws/aws-sdk-php": "^3.133",
         "vlucas/phpdotenv": "^2.0.1",
-        "johnpbloch/wordpress": "^6.0",
-        "koodimonni-language/core-en_gb": "^6.0",
+        "johnpbloch/wordpress": "^6.2",
+        "koodimonni-language/core-en_gb": "^6.2",
         "oscarotero/env": "^1.1.0",
         "roots/wp-password-bcrypt": "*",
         "wpackagist-plugin/classic-editor": "*",
         "wpackagist-plugin/totalpoll-lite": "*",
         "wpackagist-plugin/cms-tree-page-view": "*",
         "wpackagist-plugin/co-authors-plus": "*",
-        "wpackagist-plugin/recently-edited-content-widget": "*",
-        "wpackagist-plugin/upload-url-path-enabler": "*",
         "wpackagist-plugin/ewww-image-optimizer": "*",
         "wpackagist-plugin/wp-document-revisions": "^3.5.0",
         "acf/advanced-custom-fields-pro": "*",
         "wpackagist-plugin/query-monitor": "*",
-        "ministryofjustice/wp-rewrite-media-to-s3": "*",
+        "ministryofjustice/wp-rewrite-media-to-s3": "dev-php8-code-update",
         "ministryofjustice/like-button-for-wordpress": "dev-main",
         "ministryofjustice/notify-for-wordpress": "dev-main",
         "ministryofjustice/php-markdown-extra": "dev-main",
