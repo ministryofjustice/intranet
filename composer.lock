@@ -1445,12 +1445,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ministryofjustice/wp-rewrite-media-to-s3.git",
-                "reference": "d05a3197cec70857cb9ca7328fc4631f7053c0c8"
+                "reference": "7179d6229b49dd7fdcf1ff4d1ac001e551309119"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ministryofjustice/wp-rewrite-media-to-s3/zipball/d05a3197cec70857cb9ca7328fc4631f7053c0c8",
-                "reference": "d05a3197cec70857cb9ca7328fc4631f7053c0c8",
+                "url": "https://api.github.com/repos/ministryofjustice/wp-rewrite-media-to-s3/zipball/7179d6229b49dd7fdcf1ff4d1ac001e551309119",
+                "reference": "7179d6229b49dd7fdcf1ff4d1ac001e551309119",
                 "shasum": ""
             },
             "require": {
@@ -1476,7 +1476,7 @@
                 "source": "https://github.com/ministryofjustice/wp-rewrite-media-to-s3/tree/php8-code-update",
                 "issues": "https://github.com/ministryofjustice/wp-rewrite-media-to-s3/issues"
             },
-            "time": "2023-04-11T20:35:36+00:00"
+            "time": "2023-05-15T07:34:21+00:00"
         },
         {
             "name": "mtdowling/jmespath.php",
