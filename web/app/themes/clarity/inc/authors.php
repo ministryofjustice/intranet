@@ -27,7 +27,8 @@ class Authors
                 } else {
                     $author_name      = $author->display_name;
                     $author_thumb_id  = get_post_thumbnail_id($author_id);
-                    $author_thumb     = wp_get_attachment_image_src($author_thumb_id, 'square-feature')[0];
+                    $author_thumb     = wp_get_attachment_image_src($author_thumb_id, 'square-feature');
+                    $author_thumb     = $author_thumb[0] ?? false;
                     $author_alt_text  = get_post_meta($author_thumb_id, '_wp_attachment_image_alt', true);
                     $author_job_title = $author->job_title;
                     $author_bio       = $author->description;
