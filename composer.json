@@ -82,7 +82,6 @@
             "web/app/mu-plugins/{$name}/": [
                 "type:wordpress-muplugin",
                 "wpackagist-plugin/ewww-image-optimizer",
-                "wpackagist-plugin/wp-document-revisions",
                 "ministryofjustice/php-markdown-extra"
             ],
             "web/app/plugins/{$name}/": [
