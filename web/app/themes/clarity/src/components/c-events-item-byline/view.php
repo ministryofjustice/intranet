@@ -8,13 +8,13 @@ if (! defined('ABSPATH')) {
 <article class="c-events-item-byline">
   <header>
 
-      <h3 class="c-events-item-byline__link"><a href="<?php echo $post_url; ?>"><?php echo $event_title; ?></a></h3>
+      <h3 class="c-events-item-byline__link"><a href="<?= $post_url ?? '' ?>"><?= $event_title ?? '' ?></a></h3>
 
 
     <?php
     if (empty($all_day)) {
         if (isset($start_time) || isset($end_time)) {
-            // If start date and end date seleced are the same, just display first date.
+            // If start date and end date selected are the same, just display first date.
             if ($start_time === $end_time) {
               $time = substr($start_time, 0, 5);
             } else {
