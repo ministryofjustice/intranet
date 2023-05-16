@@ -5,7 +5,7 @@ if (!defined('ABSPATH')) {
     die();
 }
 
-$err = $err_name = '';
+$err = $err_name = $err_email = '';
 $success = false;
 $first_name = '';
 $email = '';
