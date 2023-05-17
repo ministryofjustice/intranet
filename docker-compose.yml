@@ -1,7 +1,7 @@
 version: '3'
 services:
     wordpress:
-        container_name: int-wordpress
+        container_name: intranet-wordpress
         build: .
         volumes:
             - .:/bedrock
@@ -27,7 +27,7 @@ services:
             - /dev/fuse
 
     mysql:
-        container_name: int-mariadb
+        container_name: intranet-mariadb
         image: mariadb
         environment:
             MYSQL_ROOT_PASSWORD: root
@@ -40,15 +40,15 @@ services:
             - "9000:3306"
 
     mailcatcher:
-        container_name: int-mailcatcher
+        container_name: intranet-mailcatcher
         image: schickling/mailcatcher
         environment:
             VIRTUAL_HOST: mail.${SERVER_NAME}
             VIRTUAL_PORT: 1080
 
     phpmyadmin:
-        container_name: int-phpmyadmin
-        image: phpmyadmin/phpmyadmin
+        container_name: intranet-phpmyadmin
+        image: phpmyadmin:latest
         environment:
             VIRTUAL_HOST: phpmyadmin.${SERVER_NAME}
             VIRTUAL_PORT: 9191
@@ -59,8 +59,8 @@ services:
             - "9191:80"
 
     elasticsearch:
-        container_name: int-elasticsearch
-        image: docker.elastic.co/elasticsearch/elasticsearch:${ELASTICSEARCH_VERSION}
+        container_name: intranet-elasticsearch
+        image: elasticsearch:${ELASTICSEARCH_VERSION}
         environment:
             VIRTUAL_HOST: elasticsearch.${SERVER_NAME}
             VIRTUAL_PORT: 9200
@@ -81,12 +81,12 @@ services:
             - "9200:9200"
             - "9300:9300"
     kibana:
-        container_name: int-kibana
-        image: docker.elastic.co/kibana/kibana:${ELASTICSEARCH_VERSION}
+        container_name: intranet-kibana
+        image: kibana:${ELASTICSEARCH_VERSION}
         environment:
             VIRTUAL_HOST: kibana.${SERVER_NAME}
             VIRTUAL_PORT: 5601
-            ELASTICSEARCH_HOSTS: http://elasticsearch:9200/
+            ELASTICSEARCH_HOSTS: http://elasticsearch:9200
         ports:
             - "5610:5610"
         depends_on:
