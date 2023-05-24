@@ -22,11 +22,11 @@
     },
     "homepage": "https://github.com/ministryofjustice/intranet/#readme",
     "dependencies": {
-        "autoprefixer": "^10.4.13",
+        "autoprefixer": "^10.4.14",
         "chalk": "^5.2.0",
         "ctgen": "^1.6.6",
         "del": "^7.0.0",
-        "jquery": "^3.6.3",
+        "jquery": "^3.7.0",
         "node-notifier": "^10.0.1"
     },
     "devDependencies": {
