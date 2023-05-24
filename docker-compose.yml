@@ -86,7 +86,7 @@ services:
         environment:
             VIRTUAL_HOST: kibana.${SERVER_NAME}
             VIRTUAL_PORT: 5601
-            ELASTICSEARCH_HOSTS: http://elasticsearch:9200
+            ELASTICSEARCH_HOSTS: ${ELASTICSEARCH_HOST}
         ports:
             - "5610:5610"
         depends_on:

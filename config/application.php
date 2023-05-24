@@ -40,6 +40,9 @@ if (file_exists($env_config)) {
     require_once $env_config;
 }
 
+/** Elasticsearch  /  ElasticPress */
+define("EP_HOST", env('ELASTICSEARCH_HOST'));
+
 /**
  * URLs
  */
