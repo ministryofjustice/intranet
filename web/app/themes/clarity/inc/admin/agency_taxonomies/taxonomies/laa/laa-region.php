@@ -6,15 +6,15 @@ use Agency_Context;
 
 class LAA_Region extends Agency_Taxonomy
 {
-    protected $name = 'laa_region';
+    protected string $name = 'laa_region';
 
     protected ?string $agency = 'laa';
 
-    protected $object_types = array(
+    protected array $object_types = array(
         'event',
     );
 
-    protected $args = array(
+    protected array $args = array(
         'labels' => array(
             'name' => 'LAA Regions',
             'singular_name' => 'Region',

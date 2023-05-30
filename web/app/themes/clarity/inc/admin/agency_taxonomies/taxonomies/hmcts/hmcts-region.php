@@ -6,15 +6,15 @@ use Agency_Context;
 
 class HMCTS_Region extends Agency_Taxonomy
 {
-    protected $name = 'hmcts_region';
+    protected string $name = 'hmcts_region';
 
     protected ?string $agency = 'hmcts';
 
-    protected $object_types = array(
+    protected array $object_types = array(
         'event'
     );
 
-    protected $args = array(
+    protected array $args = array(
         'labels' => array(
             'name' => 'HMCTS Regions',
             'singular_name' => 'Region',
