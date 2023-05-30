@@ -4,13 +4,13 @@ namespace MOJ_Intranet\Taxonomies;
 
 class News_Category extends Content_Category
 {
-    protected $name = 'news_category';
+    protected string $name = 'news_category';
 
-    protected $object_types = array(
+    protected array $object_types = array(
         'news'
     );
 
-    protected $args = array(
+    protected array $args = array(
         'labels' => array(
             'name' => 'News Categories',
             'singular_name' => 'News Category',

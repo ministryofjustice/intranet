@@ -4,15 +4,15 @@ namespace MOJ_Intranet\Taxonomies;
 
 class Resource_Category extends Content_Category
 {
-    protected $name = 'resource_category';
+    protected string $name = 'resource_category';
 
-    protected $object_types = array(
+    protected array $object_types = array(
         'page',
         'document',
         'regional_page'
     );
 
-    protected $args = array(
+    protected array $args = array(
         'labels' => array(
             'name' => 'Resource Categories',
             'singular_name' => 'Resource Category',

@@ -11,9 +11,9 @@ abstract class Agency_Taxonomy extends Taxonomy
      * The agency the taxonomy belongs to
      * This should match the agency slug
      *
-     * @var string
+     * @var string|null
      */
-    protected $agency = null;
+    protected string|null $agency = null;
 
     public function __construct()
     {
@@ -35,7 +35,7 @@ abstract class Agency_Taxonomy extends Taxonomy
                 if ($object_type == 'post') {
                     remove_submenu_page('edit.php', 'edit-tags.php?taxonomy=' . $this->name);
                 } else {
-                    remove_submenu_page('edit.php?post_type=' . $object_type, 'edit-tags.php?taxonomy=' . $this->name.'&amp;post_type=' . $object_type);
+                    remove_submenu_page('edit.php?post_type=' . $object_type, 'edit-tags.php?taxonomy=' . $this->name . '&amp;post_type=' . $object_type);
                 }
             }
         }

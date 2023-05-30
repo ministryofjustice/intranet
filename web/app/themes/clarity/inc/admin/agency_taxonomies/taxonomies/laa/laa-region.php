@@ -8,7 +8,7 @@ class LAA_Region extends Agency_Taxonomy
 {
     protected $name = 'laa_region';
 
-    protected $agency = 'laa';
+    protected ?string $agency = 'laa';
 
     protected $object_types = array(
         'event',

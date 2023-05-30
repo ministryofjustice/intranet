@@ -11,16 +11,16 @@ abstract class Taxonomy
      *
      * @var string
      */
-    protected $name = null;
+    protected string $name = '';
 
     /**
      * Name of the object types which the taxonomy object should apply to.
      * Object-types can be built-in Post Type or any Custom Post Type that may
      * be registered.
      *
-     * @var string[]
+     * @var array
      */
-    protected $object_types = array();
+    protected array $object_types = [];
 
     /**
      * An array of arguments passed to register_taxonomy.
@@ -28,7 +28,7 @@ abstract class Taxonomy
      *
      * @var array
      */
-    protected $args = array();
+    protected array $args = array();
 
     /**
      * BaseTaxonomy constructor.

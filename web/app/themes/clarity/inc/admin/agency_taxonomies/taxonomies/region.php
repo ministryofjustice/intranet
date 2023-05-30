@@ -3,12 +3,13 @@
 namespace MOJ_Intranet\Taxonomies;
 
 use Region_Context;
+use WP_Query;
 
 class Region extends Taxonomy
 {
-    protected $name = 'region';
+    protected string $name = 'region';
 
-    protected $object_types = array(
+    protected array $object_types = array(
         'user',
         'regional_page',
         'regional_news',
@@ -17,7 +18,7 @@ class Region extends Taxonomy
         'page'
     );
 
-    protected $args = array(
+    protected array $args = array(
         'labels' => array(
             'name' => 'Regions',
             'singular_name' => 'Region',
@@ -53,14 +54,13 @@ class Region extends Taxonomy
 
     public function __construct()
     {
-
         parent::__construct();
 
         $user_id = get_current_user_id();
         $region = get_user_meta($user_id, 'agency_context', true);
 
         // Region taxonomy only apply to HMCTS
-        if (current_user_can('create_users') && ( $region == 'hmcts' )) {
+        if (current_user_can('create_users') && ($region == 'hmcts')) {
             add_action('admin_menu', array($this, 'add_admin_menu_item'));
 
             add_action('show_user_profile', array($this, 'edit_user_profile'), 9);
@@ -76,7 +76,6 @@ class Region extends Taxonomy
         // Remove Region Meta Box
         add_action('admin_menu', array($this, 'remove_region_meta_box'));
 
-
         if (Region_Context::current_user_can_have_context()) {
             // Post filtering
             add_filter('parse_query', array($this, 'filter_posts_by_region'));
@@ -85,7 +84,7 @@ class Region extends Taxonomy
             add_action('save_post', array($this, 'set_region_terms_on_save_post'));
 
             // Capabilities
-            add_action('map_meta_cap', array($this, 'restrict_edit_post_to_current_region'), 10, 4);
+            add_filter('map_meta_cap', array($this, 'restrict_edit_post_to_current_region'), 10, 4);
         }
     }
 
@@ -95,12 +94,12 @@ class Region extends Taxonomy
     }
 
     /**
-     * Adds an additional settings section on the edit user/profile page in the admin.  This section allows users to
+     * Adds a settings section on the edit user/profile page in the admin.  This section allows users to
      * select a regions from checkboxes of terms from the region taxonomy.
      *
      * @param object $user The user object currently being edited.
      */
-    public function edit_user_profile($user)
+    public function edit_user_profile(object $user)
     {
         $terms = get_terms($this->name, array(
             'hide_empty' => false,
@@ -154,7 +153,7 @@ class Region extends Taxonomy
      *
      * @param int $user_id The ID of the user to save the terms for.
      */
-    public function edit_user_profile_save($user_id)
+    public function edit_user_profile_save(int $user_id)
     {
         $regions = $_POST['region'];
         if (!is_array($regions)) {
@@ -183,15 +182,15 @@ class Region extends Taxonomy
      * Add taxonomy filter to the WP_Query object used for displaying posts
      * on the page.
      *
-     * @param \WP_Query $query
-     * @return mixed
+     * @param WP_Query $query
+     * @return WP_Query
      */
-    public function filter_posts_by_region(\WP_Query $query)
+    public function filter_posts_by_region(WP_Query $query): WP_Query
     {
         global $typenow, $pagenow;
 
         $is_correct_post_type = in_array($typenow, $this->object_types);
-        $is_correct_page = ( $pagenow == 'edit.php' );
+        $is_correct_page = ($pagenow == 'edit.php');
         $user_can_have_context = Region_Context::current_user_can_have_context();
 
         if (!$is_correct_post_type || !$is_correct_page || !$user_can_have_context) {
@@ -210,7 +209,7 @@ class Region extends Taxonomy
      * On save of post set the region of the content to the current region context
      * @param int $post_id
      */
-    public function set_region_terms_on_save_post($post_id)
+    public function set_region_terms_on_save_post(int $post_id)
     {
         $post_type = get_post_type($post_id);
         if (!in_array($post_type, $this->object_types) ||
@@ -238,7 +237,7 @@ class Region extends Taxonomy
      *
      * @return array
      */
-    public function restrict_edit_post_to_current_region($caps, $cap, $user_id, $args)
+    public function restrict_edit_post_to_current_region($caps, $cap, $user_id, $args): array
     {
         $filter_caps = [
             'edit_regional_page',
@@ -259,7 +258,9 @@ class Region extends Taxonomy
             // Not relevant, return early.
             return $caps;
         }
-        
+
+        $context = Region_Context::get_region_context();
+
         if (!has_term($context, 'region', $post_id)) {
             // User does not have permission to edit this post
             $caps[] = 'do_not_allow';

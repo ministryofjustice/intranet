@@ -8,7 +8,7 @@ class HMCTS_Region extends Agency_Taxonomy
 {
     protected $name = 'hmcts_region';
 
-    protected $agency = 'hmcts';
+    protected ?string $agency = 'hmcts';
 
     protected $object_types = array(
         'event'

@@ -4,9 +4,9 @@ namespace MOJ_Intranet\Taxonomies;
 
 class Campaign_Category extends Content_Category
 {
-    protected $name = 'campaign_category';
+    protected string $name = 'campaign_category';
 
-    protected $object_types = array(
+    protected array $object_types = array(
         'news',
         'page',
         'post',
@@ -14,7 +14,7 @@ class Campaign_Category extends Content_Category
         'regional_page'
     );
 
-    protected $args = array(
+    protected array $args = array(
         'labels' => array(
             'name' => 'Campaign Categories',
             'singular_name' => 'Campaign Category',
