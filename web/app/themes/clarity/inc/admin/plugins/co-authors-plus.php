@@ -114,9 +114,22 @@ if (function_exists('get_coauthors')) {
             $local_avatar = get_user_meta($id_or_email, 'wp_user_avatar', true);
 
             if (is_numeric($local_avatar)) {
-                $url = wp_get_attachment_image_src($local_avatar, 'user-thumb')[0];
+                $url = wp_get_attachment_image_src($local_avatar, 'user-thumb');
+
+                // get a default avatar
+                $avatar = '';
+                if (!$url) {
+                    $user = get_userdata($id_or_email);
+                    if ($user) {
+                        $avatar = 'https://www.gravatar.com/avatar/' . md5(strtolower($user->user_email)) . '?d=mp';
+                    }
+                }
+
+                $url = $url[0] ?? $avatar;
             }
         }
-        return $url;
+
+        // always return an avatar
+        return $url ?: 'https://www.gravatar.com/avatar/?d=mp';
     }
 }
