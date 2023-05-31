@@ -259,7 +259,9 @@ class Region extends Taxonomy
             // Not relevant, return early.
             return $caps;
         }
-        
+
+        $context = Region_Context::get_region_context();
+
         if (!has_term($context, 'region', $post_id)) {
             // User does not have permission to edit this post
             $caps[] = 'do_not_allow';
