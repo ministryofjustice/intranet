@@ -2,47 +2,47 @@
 @require "../../globals/css/_toolkit"
 
 .c-input-container {
-   margin-bottom: $spacing*2;
+	margin-bottom: $spacing*2;
 
-   label {
-      display: block;
-      font-weight: bold;
-      font-size: $outerCore;
-   }
+	label {
+		display: block;
+		font-weight: bold;
+		font-size: $outerCore;
+	}
 
-   input[type="text"],
-   input[type="password"],
-   input[type="email"],
-   input[type="tel"],
-   textarea,
-   select {
-      color: $text-colour;
-      display: block;
-      width: 100%;
-      max-width: 100%;
-      margin-top: $spacing*.5;
-      padding: $spacing $spacing*.6;
-      border: 2px solid $text-colour;
-      font-size: $outerCore;
-      line-height: $lineHeight*1.2;
-   }
+	input[type="text"],
+	input[type="password"],
+	input[type="email"],
+	input[type="tel"],
+	textarea,
+	select {
+		color: $text-colour;
+		display: block;
+		width: 100%;
+		max-width: 100%;
+		margin-top: $spacing*.5;
+		padding: $spacing $spacing*.6;
+		border: 2px solid $text-colour;
+		font-size: $outerCore;
+		line-height: $lineHeight*1.2;
+	}
 
-   &--checkbox {
-      border: 2px solid $text-colour;
-      position: relative;
-      overflow: hidden; //simple clearfix
-      padding-left: $spacing*4;
-      margin-bottom: $spacing;
-      input {
-         position: absolute;
-         top:0;
-         left:0;
-      }
-      label {
-         font-size: $bodyCopy;
-         font-weight: normal;
-      }
-   }
+	&--checkbox {
+		border: 2px solid $text-colour;
+		position: relative;
+		overflow: hidden; //simple clearfix
+		padding-left: $spacing*4;
+		margin-bottom: $spacing;
+		input {
+			position: absolute;
+			top:0;
+			left:0;
+		}
+		label {
+			font-size: $bodyCopy;
+			font-weight: normal;
+		}
+	}
 
     &--radio-group-item {
         display: block;
