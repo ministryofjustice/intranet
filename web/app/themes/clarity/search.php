@@ -9,6 +9,7 @@
  * @since 1.0
  * @version 1.0
  */
+wp_enqueue_script( 'googleOptimizeAB', 'https://www.googleoptimize.com/optimize.js?id=OPT-5MGTCQZ' );
 get_header();
 ?>
 
