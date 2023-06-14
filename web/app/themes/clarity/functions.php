@@ -10,6 +10,11 @@
  * @since 1.0
  */
 
+if ( defined( 'WP_CLI' ) && WP_CLI ) {
+    require_once 'inc/commands/NotesFromAntonia.php';
+}
+
+
 require_once 'inc/admin/acf-field-group.php';
 require_once 'inc/admin/admin-commands.php';
 
@@ -51,6 +56,7 @@ require_once 'inc/acf.php';
 require_once 'inc/api/get-posts-rest-api.php';
 require_once 'inc/api/get-campaign-posts-api.php';
 require_once 'inc/api/get-news-rest-api.php';
+require_once 'inc/api/get-notes-rest-api.php';
 require_once 'inc/api/get-campaign-news-api.php';
 require_once 'inc/api/get-category-news-api.php';
 require_once 'inc/api/intranet-v1-api.php';

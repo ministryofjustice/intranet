@@ -1,0 +1,294 @@
+{
+    "key": "group_648865d2883c3",
+    "title": "Blog-roll settings",
+    "fields": [
+        {
+            "key": "field_6489b2ac9df2a",
+            "label": "Excerpt",
+            "name": "blog_roll_excerpt",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Displays at the top of the page underneath the page title.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "admin_only": 0,
+            "default_value": "",
+            "maxlength": "",
+            "rows": 3,
+            "placeholder": "",
+            "new_lines": ""
+        },
+        {
+            "key": "field_6489c6f8986f9",
+            "label": "Loading message text",
+            "name": "loading_message_text",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Is used to inform the user that content is being loaded.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "admin_only": 0,
+            "default_value": "",
+            "maxlength": "",
+            "rows": 3,
+            "placeholder": "",
+            "new_lines": ""
+        },
+        {
+            "key": "field_64898fb729f45",
+            "label": "Scroll to view",
+            "name": "scroll_to_view_group",
+            "aria-label": "",
+            "type": "group",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "admin_only": 0,
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_64898a35536dd",
+                    "label": "",
+                    "name": "scroll_to_view_active",
+                    "aria-label": "",
+                    "type": "true_false",
+                    "instructions": "Scroll to view assists our users by showing the content they requested. It is only used when a search has been used and",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "admin_only": 0,
+                    "message": "Use scroll to view feature?",
+                    "default_value": 1,
+                    "ui_on_text": "On",
+                    "ui_off_text": "Off",
+                    "ui": 1
+                },
+                {
+                    "key": "field_6489932a8b9e1",
+                    "label": "Settings",
+                    "name": "stv_settings",
+                    "aria-label": "",
+                    "type": "group",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_64898a35536dd",
+                                "operator": "==",
+                                "value": "1"
+                            }
+                        ]
+                    ],
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "admin_only": 0,
+                    "layout": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_648865d382d1b",
+                            "label": "Scroll to view delay",
+                            "name": "scroll_to_view",
+                            "aria-label": "",
+                            "type": "number",
+                            "instructions": "Adjust the delay time before the page auto-scrolls to the users requested content.",
+                            "required": 0,
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_64898a35536dd",
+                                        "operator": "==",
+                                        "value": "1"
+                                    }
+                                ]
+                            ],
+                            "wrapper": {
+                                "width": "50",
+                                "class": "",
+                                "id": ""
+                            },
+                            "admin_only": 0,
+                            "default_value": 800,
+                            "min": 0,
+                            "max": 1200,
+                            "placeholder": "0 will turn this feature off",
+                            "step": 25,
+                            "prepend": "",
+                            "append": "milliseconds"
+                        },
+                        {
+                            "key": "field_64898721536dc",
+                            "label": "Scroll to view speed",
+                            "name": "scroll_to_view_speed",
+                            "aria-label": "",
+                            "type": "number",
+                            "instructions": "Adjust the speed of the scroll. A lower number is faster, higher is slower.",
+                            "required": 0,
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_64898a35536dd",
+                                        "operator": "==",
+                                        "value": "1"
+                                    }
+                                ]
+                            ],
+                            "wrapper": {
+                                "width": "50",
+                                "class": "",
+                                "id": ""
+                            },
+                            "admin_only": 0,
+                            "default_value": 600,
+                            "min": 0,
+                            "max": 1000,
+                            "placeholder": "",
+                            "step": "",
+                            "prepend": "",
+                            "append": "milliseconds"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "key": "field_6489906729f46",
+            "label": "Image loader",
+            "name": "image_load_manage_group",
+            "aria-label": "",
+            "type": "group",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "admin_only": 0,
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_64898cbc536de",
+                    "label": "",
+                    "name": "image_load_active",
+                    "aria-label": "",
+                    "type": "true_false",
+                    "instructions": "Image pre-loading helps ease the interface for users. This feature will only show an image once it has loaded in the users browser.",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "admin_only": 0,
+                    "message": "Use Image loading option?",
+                    "default_value": 1,
+                    "ui_on_text": "On",
+                    "ui_off_text": "Off",
+                    "ui": 1
+                },
+                {
+                    "key": "field_648993958b9e2",
+                    "label": "Settings",
+                    "name": "image_load_settings",
+                    "aria-label": "",
+                    "type": "group",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_64898cbc536de",
+                                "operator": "==",
+                                "value": "1"
+                            }
+                        ]
+                    ],
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "admin_only": 0,
+                    "layout": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_6488669982d1c",
+                            "label": "Image loaded - fade in",
+                            "name": "image_loaded_fade_in",
+                            "aria-label": "",
+                            "type": "number",
+                            "instructions": "Images are hidden before they are shown. Change the speed of the fade in action here.",
+                            "required": 0,
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_64898cbc536de",
+                                        "operator": "==",
+                                        "value": "1"
+                                    }
+                                ]
+                            ],
+                            "wrapper": {
+                                "width": "50",
+                                "class": "",
+                                "id": ""
+                            },
+                            "admin_only": 0,
+                            "default_value": 400,
+                            "min": 0,
+                            "max": 1000,
+                            "placeholder": "0 turns this off",
+                            "step": 25,
+                            "prepend": "",
+                            "append": "milliseconds"
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page_template",
+                "operator": "==",
+                "value": "page_notes_from_antonia.php"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1686753120
+}

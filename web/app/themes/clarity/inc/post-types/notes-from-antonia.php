@@ -1,0 +1,56 @@
+<?php
+// Define news post type
+
+add_action('init', function () {
+    register_post_type('note-from-antonia', array(
+        'labels' => array(
+            'name' => 'Notes from Antonia',
+            'singular_name' => 'Note',
+            'menu_name' => 'Notes from Antonia',
+            'all_items' => 'All Notes from Antonia',
+            'edit_item' => 'Edit Note',
+            'view_item' => 'View Note',
+            'view_items' => 'View Notes from Antonia',
+            'add_new_item' => 'Add New Note',
+            'new_item' => 'New Note',
+            'parent_item_colon' => 'Parent Note:',
+            'search_items' => 'Search Notes from Antonia',
+            'not_found' => 'No notes from antonia found',
+            'not_found_in_trash' => 'No notes from antonia found in Trash',
+            'archives' => 'Note Archives',
+            'attributes' => 'Note Attributes',
+            'insert_into_item' => 'Insert into note',
+            'uploaded_to_this_item' => 'Uploaded to this note',
+            'filter_items_list' => 'Filter notes from antonia list',
+            'filter_by_date' => 'Filter notes from antonia by date',
+            'items_list_navigation' => 'Notes from Antonia list navigation',
+            'items_list' => 'Notes from Antonia list',
+            'item_published' => 'Note published.',
+            'item_published_privately' => 'Note published privately.',
+            'item_reverted_to_draft' => 'Note reverted to draft.',
+            'item_scheduled' => 'Note scheduled.',
+            'item_updated' => 'Note updated.',
+            'item_link' => 'Note Link',
+            'item_link_description' => 'A link to a note.',
+        ),
+        'description' => 'Contains notes from Antonia Romeo, MoJs\' Permanent Secretary',
+        'public' => true,
+        'show_in_rest' => true,
+        'rest_base' => 'notes-from-antonia',
+        'menu_position' => 3,
+        'menu_icon' => 'dashicons-welcome-write-blog',
+        'has_archive' => true,
+        'taxonomies' => array('agency'),
+        'supports' => array(
+            0 => 'title',
+            1 => 'editor',
+            2 => 'revisions',
+            3 => 'thumbnail',
+        ),
+        'rewrite' => array(
+            'slug' => 'notes-from-antonia',
+            'with_front' => false,
+        ),
+        'delete_with_user' => false,
+    ));
+});

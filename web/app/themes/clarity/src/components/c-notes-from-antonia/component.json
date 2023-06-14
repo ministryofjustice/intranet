@@ -1,0 +1,28 @@
+{
+    "name": "notes-from-antonia",
+    "class": "c-notes-from-antonia",
+    "version": "1.0.0",
+    "creator": {
+        "name": "Damien Wilson",
+        "github_username": "https://github.com/wilson1000-MoJ"
+    },
+    "description": "Manage notes view and functions",
+    "standard_or_universal": "standard",
+    "parents": "",
+    "children": "",
+    "notes": {
+        "backend": "",
+        "frontend": ""
+    },
+    "backend_classes": {},
+    "has_js": true ,
+    "integrated": false,
+    "is_working": false,
+    "example_link": "",
+    "used_on_templates" : [],
+    "changelog": [{
+        "date": "12/6/2023",
+        "author": "Damien Wilson",
+        "description": "Created component"
+    }]
+}
