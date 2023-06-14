@@ -10,14 +10,14 @@ phases:
             - echo Build started on `date`
             - echo Building the Docker image...
             - docker build --build-arg COMPOSER_USER="$COMPOSER_USER" --build-arg COMPOSER_PASS="$COMPOSER_PASS" -t $APPNAME:`cat BUILD_TAG.txt` .
-            - docker tag $APPNAME:`cat BUILD_TAG.txt` 613903586696.dkr.ecr.eu-west-2.amazonaws.com/wp/intranet:`cat BUILD_TAG.txt`
+            - docker tag $APPNAME:`cat BUILD_TAG.txt` 613903586696.dkr.ecr.eu-west-2.amazonaws.com/wp/$ECR_REPO:`cat BUILD_TAG.txt`
     post_build:
         commands:
             - echo Build completed on `date`
             - echo Logging in to Amazon ECR...
             - aws ecr get-login-password --region eu-west-2 | docker login --username AWS --password-stdin 613903586696.dkr.ecr.eu-west-2.amazonaws.com
             - echo Pushing the Docker image...
-            - docker push 613903586696.dkr.ecr.eu-west-2.amazonaws.com/wp/intranet:`cat BUILD_TAG.txt`
+            - docker push 613903586696.dkr.ecr.eu-west-2.amazonaws.com/wp/$ECR_REPO:`cat BUILD_TAG.txt`
 artifacts:
     files:
         - BUILD_TAG.txt
