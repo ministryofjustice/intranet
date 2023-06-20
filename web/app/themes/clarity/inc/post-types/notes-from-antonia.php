@@ -82,6 +82,7 @@ add_action('init', function () {
 // Hook into this post_type, we need to detect
 // new notes and apply the agencies that have
 // access to the main page...
+
 /**
  * Copy tagged agencies from 'Notes from Antonia' page to individual Notes.
  *
