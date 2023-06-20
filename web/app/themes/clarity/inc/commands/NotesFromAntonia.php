@@ -255,7 +255,7 @@ class NotesFromAntonia
         if (str_contains($this->notes[$key]['object']['raw'], 'blockquote')) {
             // extract a date
             if (preg_match('/>([\w]{3,11} [\d]{1,2}, [\d]{4})</', $this->notes[$key]['object']['raw'], $match)) {
-                $value['parsed'] = date('Y-m-d H:i:s', strtotime($match[1]));
+                $value['parsed'] = date('Y-m-d 01:00:00', strtotime($match[1]));
             }
         }
 
@@ -316,7 +316,7 @@ class NotesFromAntonia
         return $value;
     }
 
-    private function fix_content($key, $value)
+    private function fix_content($key, $value): string
     {
         $return = $this->notes[$key]['object']['raw'];
         if (!empty($value)) {
@@ -358,7 +358,7 @@ class NotesFromAntonia
         }
 
         $datetime = strtotime($value);
-        return $this->parsed_format($value, date('Y-m-d H:i:s', $datetime));
+        return $this->parsed_format($value, date('Y-m-d 01:00:00', $datetime));
     }
 
     public function parse_title($value)
