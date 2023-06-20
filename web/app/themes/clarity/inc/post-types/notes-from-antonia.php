@@ -138,15 +138,13 @@ function moj_intranet_copy_agencies_to_notes($note = null)
 // Hook into wp_insert_post action.
 // This will fire on new post open, save, publish, update
 add_action('wp_insert_post', function ($note_id, $note) {
-
     if ($note->post_type === 'note-from-antonia') {
         moj_intranet_copy_agencies_to_notes($note);
     }
 }, 10, 2);
 
-
 // let's create a task to keep agencies up to date
-// create custom schedule in case it doesn't exist
+// create one minute schedule in case it doesn't exist
 add_filter('cron_schedules', function ($schedules) {
     $schedules['one_minute'] = [
         'interval' => 60,
@@ -158,5 +156,9 @@ add_filter('cron_schedules', function ($schedules) {
 add_action('notes_from_antonia_cron_hook', 'moj_intranet_copy_agencies_to_notes');
 
 if (!wp_next_scheduled('notes_from_antonia_cron_hook')) {
-    wp_schedule_event(time(), 'one_minute', 'notes_from_antonia_cron_hook');
+    wp_schedule_event(
+        time(),
+        (getenv('WP_ENV') === 'production' ? 'twicedaily' : 'one_minute'),
+        'notes_from_antonia_cron_hook'
+    );
 }
