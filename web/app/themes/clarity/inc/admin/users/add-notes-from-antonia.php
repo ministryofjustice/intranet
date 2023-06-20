@@ -1,10 +1,6 @@
 <?php
 
-add_action('init', 'notes_from_antonia_capabilities', 12);
-add_action('admin_init', 'notes_from_antonia_capabilities', 12);
-
-function notes_from_antonia_capabilities()
-{
+add_action('init', function () {
     global $wp_roles;
 
     $capabilities = [
@@ -24,6 +20,8 @@ function notes_from_antonia_capabilities()
         ]
     ];
 
+    // Small multi-loop that helps to prevent
+    // unnecessary modifications on role capabilities
     foreach ($capabilities as $role => $caps) {
         $target = $wp_roles->get_role($role);
         foreach ($caps as $cap => $value) {
@@ -36,4 +34,5 @@ function notes_from_antonia_capabilities()
             }
         }
     }
-}
+}, 12);
+
