@@ -14,7 +14,6 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
     require_once 'inc/commands/NotesFromAntonia.php';
 }
 
-
 require_once 'inc/admin/acf-field-group.php';
 require_once 'inc/admin/admin-commands.php';
 
@@ -41,6 +40,7 @@ require_once 'inc/admin/remove-customizer.php';
 require_once 'inc/admin/suppress-wp-update-msg.php';
 require_once 'inc/admin/tinymce-editor-settings.php';
 require_once 'inc/admin/users/add-acf-capabilities.php';
+require_once 'inc/admin/users/add-notes-from-antonia.php';
 require_once 'inc/admin/users/add-agency-admin.php';
 require_once 'inc/admin/users/add-agency-editor.php';
 require_once 'inc/admin/users/add-regional-editor.php';
@@ -95,6 +95,7 @@ require_once 'inc/post-types/regional-news.php';
 require_once 'inc/post-types/regional-page.php';
 require_once 'inc/post-types/team-area.php';
 require_once 'inc/post-types/webchat.php';
+require_once 'inc/post-types/notes-from-antonia.php';
 
 require_once 'inc/preselect.php';
 require_once 'inc/rewrite_rules.php';
