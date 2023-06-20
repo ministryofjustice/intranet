@@ -19,7 +19,7 @@ export default (function ($) {
 
         let notes = [];
 
-        $('.c-article-item__note-from-antonia').each(function (k, v) {
+        $('article.c-article-item__note-from-antonia').each(function (k, v) {
             notes[k] = v;
         });
 
@@ -36,6 +36,7 @@ export default (function ($) {
 
                     $.ajax({
                         url: mojAjax.ajaxurl,
+                        // note-543210
                         data: {action: 'get_note_from_antonia', notes_id: id.split('-')[1]},
                         complete: () => {
                             // hash match scrolling
@@ -86,6 +87,7 @@ export default (function ($) {
          * of the element, forcing content to load earlier.
          *
          * @param element
+         * @param padding pixel value
          * @returns {boolean}
          */
         function isInViewport(element, padding) {
@@ -95,7 +97,7 @@ export default (function ($) {
             return (
                 rect.top >= -padding &&
                 rect.left >= 0 &&
-                (rect.bottom - padding) <= (window.innerHeight || document.documentElement.clientHeight) &&
+                (rect.bottom -padding) <= (window.innerHeight || document.documentElement.clientHeight) &&
                 rect.right <= (window.innerWidth || document.documentElement.clientWidth)
             );
         }
