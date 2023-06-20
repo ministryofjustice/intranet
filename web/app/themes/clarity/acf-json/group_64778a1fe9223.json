@@ -4,7 +4,7 @@
     "fields": [
         {
             "key": "field_64778a2057781",
-            "label": "Display note title",
+            "label": "Display date and title",
             "name": "display_title_notes_from_antonia",
             "aria-label": "",
             "type": "true_false",
@@ -16,8 +16,8 @@
                 "class": "",
                 "id": ""
             },
-            "admin_only": 1,
-            "message": "Show title on Notes from Antonia page",
+            "admin_only": 0,
+            "message": "Show date and title along side content on our Notes from Antonia page?",
             "default_value": 1,
             "ui_on_text": "",
             "ui_off_text": "",
@@ -42,5 +42,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1686673696
+    "modified": 1687276804
 }
