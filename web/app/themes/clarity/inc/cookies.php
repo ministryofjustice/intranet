@@ -80,7 +80,7 @@ function dw_set_edit_posts_cookie(bool $active)
     $options = [
         'expires' => time() + (3650 * DAY_IN_SECONDS),
         'path' => COOKIEPATH,
-        'domain' => preg_replace('#^https?://#', '', get_home_url()),
+        'domain' => parse_url(get_home_url(), PHP_URL_HOST),
         'httponly' => true
     ];
 
@@ -91,5 +91,5 @@ function dw_set_edit_posts_cookie(bool $active)
 
     $options['expires'] = ($active ? strtotime('+7 days') : 1);
 
-    setcookie('dw_can_edit_posts', 0, $options);
+    setcookie('dw_can_edit_posts', ($active ? 1 : 0), $options);
 }
