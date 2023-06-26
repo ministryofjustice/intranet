@@ -21,6 +21,7 @@ class Agency extends Taxonomy
         'regional_news',
         'regional_page',
         'condolences',
+        'note-from-antonia'
     );
 
     protected $args = array(
@@ -95,7 +96,7 @@ class Agency extends Taxonomy
             if (! current_user_can('manage_agencies')) {
                 add_action('map_meta_cap', array($this, 'restrict_edit_post_to_current_agency'), 10, 4);
             }
-            
+
 
             if (current_user_can('opt_in_content')) {
                 add_filter('restrict_manage_posts', array($this, 'add_agency_filter'));
@@ -149,7 +150,7 @@ class Agency extends Taxonomy
                 clean_object_term_cache($user->ID, 'agency');
             }
         };
-        
+
         ?>
 
         <h3><?php _e('Agencies'); ?></h3>
@@ -159,7 +160,7 @@ class Agency extends Taxonomy
                 <th><label for="agency"><?php _e('Set your default agency'); ?></label></th>
                 <td>
                     <p class="description">Determines which agency posts you're able to view and edit by default when you log in.</p>
-                    
+
                     <?php
 
                     // If there are any agency terms, loop through them and display checkboxes.
@@ -218,7 +219,7 @@ class Agency extends Taxonomy
         $is_correct_post_type = in_array($typenow, $this->object_types);
         $is_regional_post_type = in_array($typenow, array('regional_news','regional_page')); //change to custom support?
         $is_correct_page = ($pagenow == 'edit.php');
-        
+
         $is_hq_user = (Agency_Context::get_agency_context() == 'hq');
 
         if (!$is_correct_post_type || !$is_correct_page || $is_hq_user || $is_regional_post_type) {
@@ -311,7 +312,10 @@ class Agency extends Taxonomy
             'delete_post',
             'edit_news',
             'delete_news',
+            'edit_notes_from_antonia',
+            'delete_notes_from_antonia'
         ];
+
         if (!in_array($cap, $filter_caps) || !isset($args[0])) {
             // Not relevant, return early.
             return $caps;

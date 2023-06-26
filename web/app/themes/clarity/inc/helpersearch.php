@@ -151,11 +151,11 @@ class HelperSearch
     {
         switch ($post_type) {
             case 'all':
-                $post_type = array( 'page', 'regional_page', 'regional_news', 'news', 'document', 'webchat', 'event', 'post', 'team_news' );
+                $post_type = array( 'page', 'regional_page', 'regional_news', 'news', 'document', 'webchat', 'event', 'post', 'team_news', 'note-from-antonia' );
                 break;
 
             case 'content':
-                $post_type = array( 'page', 'regional_page', 'regional_news', 'news', 'webchat', 'event', 'post', 'team_news' );
+                $post_type = array( 'page', 'regional_page', 'regional_news', 'news', 'webchat', 'event', 'post', 'team_news', 'note-from-antonia' );
                 break;
         }
 

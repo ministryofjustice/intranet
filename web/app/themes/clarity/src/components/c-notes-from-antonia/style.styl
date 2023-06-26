@@ -1,0 +1,99 @@
+// include the toolkit (a suite of variables, classes and mixins)
+@require "../../globals/css/_toolkit"
+
+.c-notes-from-antonia {
+    border-top: 2px solid #1D609D;
+    margin-top: 13px;
+    padding-top: 7px;
+    border-bottom: none;
+
+    p {
+        font-family: 'nta', sans-serif;
+        font-weight: normal;
+        line-height: 1.6;
+        margin-top: 17px;
+        margin-bottom: 1.6rem;
+        word-wrap: break-word;
+        font-size: 1.9rem;
+        white-space: pre-wrap;
+    }
+
+    a.button {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        font-weight: 400;
+        font-size: 16px;
+        font-size: 1.6rem;
+        line-height: 1.1875;
+        float:right;
+        box-sizing: border-box;
+        display: inline-block;
+        position: relative;
+        width: auto;
+        margin-top: 0;
+        margin-right: 0;
+        margin-left: 0;
+        margin-bottom: 0;
+        padding: 8px 10px 7px;
+        border: 2px solid rgba(0,0,0,0);
+        border-radius: 0;
+        color: #fff;
+        background-color: #00703c;
+        box-shadow: 0 2px 0 #002d18;
+        text-align: center;
+        vertical-align: top;
+        -webkit-appearance: none;
+        text-decoration: none;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
+.c-article-item__note-from-antonia {
+    span.pre-loading {
+        display: inline-block;
+        position: relative;
+        width: 10px;
+        height: 10px;
+        border-radius: 5px;
+        background-color: #005ea5;
+        color: #005ea5;
+        animation: pre-loading 0.6s infinite linear alternate;
+        animation-delay: 0.3s;
+        margin-left: 20px;
+
+        &:before, &:after {
+            content: "";
+            display: inline-block;
+            position: absolute;
+            top: 0;
+            width: 10px;
+            height: 10px;
+            border-radius: 5px;
+            background-color: #005ea5;
+            color: #005ea5;
+            animation: pre-loading .6s infinite alternate;
+        }
+
+        &:before {
+            left: -15px;
+            animation-delay: 0s;
+        }
+
+        &:after {
+            left: 15px;
+            animation-delay: .6s;
+        }
+    }
+
+    @keyframes pre-loading {
+        0% {
+            background-color: #005ea5;
+        }
+        50%, 100% {
+            background-color: rgba(0, 94, 165, 0.2);
+        }
+    }
+}

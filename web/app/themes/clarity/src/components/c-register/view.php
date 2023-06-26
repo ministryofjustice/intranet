@@ -17,7 +17,7 @@ global $wpdb, $PasswordHash, $current_user, $user_ID;
 if (isset($c_register_post_array['task']) && $c_register_post_array['task'] == 'register') {
 
     $first_name = esc_sql(trim($c_register_post_array['first_name']));
-    $email = esc_sql(trim($c_register_post_array['email']));
+    $email = trim($c_register_post_array['email']);
     $username = $email;
 
     /**
@@ -117,8 +117,8 @@ if (isset($c_register_post_array['task']) && $c_register_post_array['task'] == '
                 finish the registration.</p>
 
             <p><strong>Any problems?</strong></p>
-            <p>The email will be from <a href="mailto:wordpress@digital.justice.gov.uk"
-                                         target="_blank">wordpress@digital.justice.gov.uk</a>.
+            <p>The email will be from <a href="mailto:intranet-support@digital.justice.gov.uk"
+                                         target="_blank">intranet-support@digital.justice.gov.uk</a>.
             <p>
 
             <p>If you can’t find it, check your junk folder then add the address to your safe list.
