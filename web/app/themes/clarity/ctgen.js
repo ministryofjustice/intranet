@@ -6,15 +6,17 @@
    Usage: 'node ctgen'
  */
 
-var chalk = require('chalk')
-var inquirer = require('inquirer')
-var exec = require('child_process').exec
-var fs = require('fs')
-var path = require('path')
-var yml = require('js-yaml')
+"use strict";
+
+import chalk from 'chalk';
+import inquirer from 'inquirer';
+import process from 'child_process';
+import fs from 'fs';
+import path from 'path';
+import yml from 'js-yaml';
 
 // Initialise a config variable
-var config
+var config;
 
 // Later on we'll need to convert a string to camel case. This function will do that nicely.
 function camelize (str) {
@@ -162,7 +164,7 @@ var fileGen = function (answers) {
   createFile('component.json', componentMeta, 'doc', answers)
   // - finish up
   setTimeout(function () {
-    finishUp(componentName, answers, exec('node genreg'))
+    finishUp(componentName, answers, process.exec('node genreg'))
   }, 500)
 }
 
