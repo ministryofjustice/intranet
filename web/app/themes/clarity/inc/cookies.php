@@ -1,40 +1,59 @@
 <?php
 
-/***
- *
+/**
  * Set the intranet cookie if GET variables are passed
  */
-add_action('wp', 'set_intranet_cookie');
+add_action('wp', function () {
+    $agency_default = 'hq';
+    $agency = $_GET['agency'] ?? false;
 
-function set_intranet_cookie()
-{
-    $default_agency = 'hq';
+    $options = [
+        'expires' => time() + (3650 * DAY_IN_SECONDS),
+        'path' => COOKIEPATH,
+        'domain' => COOKIE_DOMAIN,
+        'httponly' => true
+    ];
 
-    if (isset($_GET['agency'])) {
-        $agency_value = isset($_GET['agency']) ? trim($_GET['agency']) : $default_agency;
-        setcookie('dw_agency', $agency_value, time() + ( 3650 * DAY_IN_SECONDS ), COOKIEPATH, COOKIE_DOMAIN);
-        $_COOKIE['dw_agency'] = $agency_value;
-    } elseif (! isset($_COOKIE['dw_agency'])) {
-        setcookie('dw_agency', $default_agency, time() + ( 3650 * DAY_IN_SECONDS ), COOKIEPATH, COOKIE_DOMAIN);
-        $_COOKIE['dw_agency'] = $default_agency;
+    // use only on HTTPS - browser redirects on a loop otherwise
+    if (!empty($_SERVER["HTTPS"])) {
+        $options['secure'] = true;
     }
-}
+
+    if ($agency) {
+        // tidy up
+        $agency = trim($agency);
+        // set a cookie with an agency defined by the user
+        setcookie('dw_agency', $agency, $options);
+        $_COOKIE['dw_agency'] = $agency;
+
+        // else fires if agency is false and
+        // a dw_agency cookie does not exist
+    } elseif (!isset($_COOKIE['dw_agency'])) {
+        // set a default cookie
+        setcookie('dw_agency', $agency_default, $options);
+        $_COOKIE['dw_agency'] = $agency_default;
+    }
+});
 
 /**
  * Check if the user has permission to edit posts, and set or delete the
  * 'edit posts' cookie accordingly.
  *
+ * Logic: $can_edit = current_user_can
+ * If ($can_edit = true) = dw_set_edit_posts_cookie(true);
+ * If ($can_edit = false || isset = true) = dw_set_edit_posts_cookie(false);
+ * If ($can_edit = false || isset = false) = null;
+ *
  * Action: init
  */
-function dw_set_cache_cookie()
-{
-    if (current_user_can('edit_posts')) {
-        dw_set_edit_posts_cookie(true);
-    } elseif (isset($_COOKIE['dw_can_edit_posts'])) {
-        dw_set_edit_posts_cookie(false);
+add_action('init', function () {
+    $can_edit = current_user_can('edit_posts');
+
+    if ($can_edit || isset($_COOKIE['dw_can_edit_posts'])) {
+        dw_set_edit_posts_cookie($can_edit);
     }
-}
-add_action('init', 'dw_set_cache_cookie', 10);
+}, 10);
+
 
 /**
  * Check if the user has permission to edit posts, and set or delete the
@@ -47,28 +66,30 @@ add_action('init', 'dw_set_cache_cookie', 10);
  * @param string $user_login
  * @param WP_User $user
  */
-function dw_set_login_cookie($user_login, WP_User $user)
-{
-    if (!empty($user->allcaps['edit_posts'])) {
-        dw_set_edit_posts_cookie(true);
-    } else {
-        dw_set_edit_posts_cookie(false);
-    }
-}
-add_action('wp_login', 'dw_set_login_cookie', 10, 2);
+add_action('wp_login', function ($user_login, WP_User $user) {
+    dw_set_edit_posts_cookie(!empty($user->allcaps['edit_posts']));
+}, 10, 2);
 
 /**
  * Set or delete the 'edit posts' cookie.
  *
  * @param bool $active To set the cookie, or not to set the cookie. That is the question.
  */
-function dw_set_edit_posts_cookie($active)
+function dw_set_edit_posts_cookie(bool $active)
 {
-    $cookie_url = preg_replace('#^https?://#', '', get_home_url());
+    $options = [
+        'expires' => time() + (3650 * DAY_IN_SECONDS),
+        'path' => COOKIEPATH,
+        'domain' => parse_url(get_home_url(), PHP_URL_HOST),
+        'httponly' => true
+    ];
 
-    if ($active) {
-        setcookie('dw_can_edit_posts', 1, strtotime('+7 days'), COOKIEPATH, $cookie_url);
-    } else {
-        setcookie('dw_can_edit_posts', 0, 1, COOKIEPATH, $cookie_url);
+    // use only on HTTPS - browser redirects on a loop otherwise
+    if (!empty($_SERVER["HTTPS"])) {
+        $options['secure'] = true;
     }
+
+    $options['expires'] = ($active ? strtotime('+7 days') : 1);
+
+    setcookie('dw_can_edit_posts', ($active ? 1 : 0), $options);
 }
