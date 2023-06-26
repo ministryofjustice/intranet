@@ -64,8 +64,7 @@ add_action('init', function () {
                 'notes_from_antonia',
                 'edit.php?post_type=note-from-antonia',
                 '',
-                'dashicons-welcome-write-blog',
-                1
+                'dashicons-welcome-write-blog'
             );
 
             add_submenu_page(
