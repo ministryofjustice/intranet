@@ -85,9 +85,6 @@ class NotesFromAntonia
 
         $this->prepare();
 
-        //WP_CLI::log(print_r($this->notes[203], true));
-        //WP_CLI::log(print_r($this->notes[205], true));
-
         // perform the dry-run / insert
         $this->perform();
     }
@@ -102,11 +99,15 @@ class NotesFromAntonia
             $progress = $this->progress("---> importing 'Notes from Antonia': ", $this->pattern_matches);
 
             $count = 0;
+            $agencies = [];
+            foreach (wp_get_object_terms($this->main_page_id, 'agency') as $agency) {
+                $agencies[] = $agency->slug;
+            }
 
             foreach ($this->notes as $note) {
                 $date = $note['date']['parsed'];
                 $title = $note['title']['string'];
-                $display = $note['title']['display'] ? 'yes' : 'no';
+                $display = $note['title']['display'];
                 $content = $note['content'];
 
                 $id = wp_insert_post([
@@ -124,7 +125,7 @@ class NotesFromAntonia
                     WP_CLI::error("something happened when inserting a note, we cannot proceed.");
                 } else {
 
-                    $terms = wp_set_object_terms($id, ['cica', 'hmcts', 'hq', 'laa', 'opg'], 'agency');
+                    $terms = wp_set_object_terms($id, $agencies, 'agency');
 
                     // now check the result of our term inputs...
                     if (is_wp_error($terms)) {
@@ -199,8 +200,6 @@ class NotesFromAntonia
                  */
                 $this->parse($name, $value, $key);
 
-                usleep(400);
-
                 $count++;
                 $this->tick($progress);
             }
@@ -220,8 +219,6 @@ class NotesFromAntonia
             foreach ($note as $name => $value) {
 
                 $this->fix($key, $name, $value);
-
-                usleep(400);
 
                 $count++;
                 $this->tick($progress);
@@ -365,12 +362,12 @@ class NotesFromAntonia
     {
         $meta = [
             'string' => $value,
-            'display' => true
+            'display' => 1
         ];
 
         // produce a string if value results as empty
         if (empty($value)) {
-            $meta['display'] = false;
+            $meta['display'] = 0;
             return $meta;
         }
 
