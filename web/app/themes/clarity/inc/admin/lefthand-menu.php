@@ -5,58 +5,56 @@ use MOJ\Intranet;
 /**
  * Activates the 'menu_order' filter and then hooks into 'menu_order'
  */
-add_filter(
-    'custom_menu_order',
-    function () {
-        return true;
-    }
-);
-add_filter('menu_order', 'my_new_admin_menu_order');
+add_filter('custom_menu_order', fn() => true);
 
 /**
  * Filters WordPress' default menu order
  */
-function my_new_admin_menu_order($menu_order)
-{
+add_filter('menu_order', function ($menu_order) {
+    // The order here is replicated in the admin panel...
+    $new_positions = [
+        'index.php',
+        'admin.php?page=header-settings',
+        'admin.php?page=homepage-settings',
+        'separator1',
+        'edit.php?post_type=note-from-antonia',
+        'edit.php?post_type=news',
+        'edit.php?post_type=page',
+        'edit.php',
+        'edit.php?post_type=event',
+        'edit.php?post_type=webchat',
+        'edit-comments.php',
+        'upload.php',
+        'edit.php?post_type=document',
+        'edit.php?post_type=poll',
+        'separator2',
+        'themes.php',
+        'plugins.php',
+        'users.php',
+        'tools.php',
+        'options-general.php',
+        'edit.php?post_type=acf-field-group',
+        'elasticpress',
+        'edit.php?post_type=team_news',
+        'separator-last'
+    ];
 
-    $new_positions = array(
-        'index.php'                          => 0,
-        'admin.php?page=header-settings'     => 1,
-        'admin.php?page=homepage-settings'   => 2,
-        'edit.php?post_type=news'            => 3,
-        'edit.php?post_type=page'            => 4,
-        'edit.php'                           => 5,
-        'edit.php?post_type=event'           => 6,
-        'edit.php?post_type=webchat'         => 7,
-        'edit-comments.php'                  => 8,
-        'upload.php'                         => 9,
-        'edit.php?post_type=document'        => 10,
-        'edit.php?post_type=poll'            => 11,
-        'themes.php'                         => 12,
-        'plugins.php'                        => 13,
-        'users.php'                          => 14,
-        'tools.php'                          => 15,
-        'options-general.php'                => 16,
-        'edit.php?post_type=acf-field-group' => 17,
-        'edit.php?post_type=team_news'       => 18,
-    );
-
-    // helper function to move an element inside an array
-    function move_element(&$array, $a, $b)
-    {
-        $out = array_splice($array, $a, 1);
-        array_splice($array, $b, 0, $out);
-    }
     // traverse through the new positions and move
     // the items if found in the original menu_positions
-    foreach ($new_positions as $value => $new_index) {
+    foreach ($new_positions as $new_position => $value) {
         if ($current_index = array_search($value, $menu_order)) {
-            move_element($menu_order, $current_index, $new_index);
+            $replacement = array_splice($menu_order, $current_index, 1);
+            array_splice(
+                $menu_order,
+                $new_position,
+                0,
+                $replacement
+            );
         }
     }
 
     return $menu_order;
-};
+});
 
 add_action('admin_menu', 'remove_regions_from_nonhmcts_users');
 
@@ -78,9 +76,9 @@ function remove_options_from_agency_admin()
     global $wp_roles;
 
     $current_user = wp_get_current_user();
-    $roles        = $current_user->roles;
-    $role         = array_shift($roles);
-    
+    $roles = $current_user->roles;
+    $role = array_shift($roles);
+
 
     if ($role == 'agency_admin') {
         remove_menu_page('edit.php?post_type=acf-field-group');
@@ -98,10 +96,10 @@ function remove_options_from_teamusers()
     global $wp_roles;
 
     $current_user = wp_get_current_user();
-    $roles        = $current_user->roles;
-    $role         = array_shift($roles);
+    $roles = $current_user->roles;
+    $role = array_shift($roles);
 
-    if ($role  == 'team-author' || $role  == 'team-lead') {
+    if ($role == 'team-author' || $role == 'team-lead') {
         remove_menu_page('edit.php');
         remove_menu_page('edit.php?post_type=acf-field-group');
         remove_menu_page('edit.php?post_type=webchat');
@@ -118,9 +116,9 @@ function remove_options_from_regionalusers()
     global $wp_roles;
 
     $current_user = wp_get_current_user();
-    $roles        = $current_user->roles;
-    $role         = array_shift($roles);
-    
+    $roles = $current_user->roles;
+    $role = array_shift($roles);
+
     if ($role == 'regional-editor') {
         remove_menu_page('edit.php');
         remove_menu_page('edit.php?post_type=webchat');
