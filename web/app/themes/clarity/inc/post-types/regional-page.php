@@ -205,7 +205,7 @@ function clarity_regional_page_post_type()
             false, // 'custom-fields',
 
             /* Displays the Revisions meta box. If set, stores post revisions in the database. */
-            false, // 'revisions',
+            'revisions', // 'revisions',
 
             /* Displays the Attributes meta box with a parent selector and menu_order input box. */
             'page-attributes',
