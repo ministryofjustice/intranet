@@ -26,6 +26,8 @@ add_filter('menu_order', function ($menu_order) {
         'edit-comments.php',
         'upload.php',
         'edit.php?post_type=document',
+        'edit.php?post_type=regional_pages',
+        'edit.php?post_type=regional_news',
         'edit.php?post_type=poll',
         'separator2',
         'themes.php',
