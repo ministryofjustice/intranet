@@ -26,19 +26,21 @@ if (file_exists(MOJ_ROOT_DIR . '/.env')) {
  */
 define('WP_ENV', env('WP_ENV') ?: 'production');
 
+$env_config = __DIR__ . '/environments/' . WP_ENV . '.php';
+
+if (file_exists($env_config)) {
+    require_once $env_config;
+}
+
 /**
  * Initialise Sentry
  */
 Sentry\init([
     'dsn' => 'https://85635e3372244483b86823c4f75dcee2@o345774.ingest.sentry.io/6143405',
     'environment'=> WP_ENV . (env('SENTRY_DEV_ID') ?? ''),
+    'traces_sample_rate' => SENTRY_TRACES_SAMPLE_RATE,
+    'profiles_sample_rate' => SENTRY_PROFILE_SAMPLE_RATE
 ]);
-
-$env_config = __DIR__ . '/environments/' . WP_ENV . '.php';
-
-if (file_exists($env_config)) {
-    require_once $env_config;
-}
 
 /** Elasticsearch  /  ElasticPress */
 define("EP_HOST", env('ELASTICSEARCH_HOST'));
@@ -93,3 +95,13 @@ define('S3_UPLOADS_BASE_URL', getenv('S3_UPLOADS_BASE_URL') ?: false);
 if (!defined('ABSPATH')) {
     define('ABSPATH', $webroot_dir . '/wp/');
 }
+
+
+$timer = new ExcimerTimer;
+$timer->setInterval( 10 /* seconds */ );
+$timer->setCallback(/**
+ * @throws Exception
+ */ function () {
+    throw new Exception( "The allowed time has been exceeded" );
+} );
+$timer->start();
