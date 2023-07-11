@@ -95,13 +95,3 @@ define('S3_UPLOADS_BASE_URL', getenv('S3_UPLOADS_BASE_URL') ?: false);
 if (!defined('ABSPATH')) {
     define('ABSPATH', $webroot_dir . '/wp/');
 }
-
-
-$timer = new ExcimerTimer;
-$timer->setInterval( 10 /* seconds */ );
-$timer->setCallback(/**
- * @throws Exception
- */ function () {
-    throw new Exception( "The allowed time has been exceeded" );
-} );
-$timer->start();
