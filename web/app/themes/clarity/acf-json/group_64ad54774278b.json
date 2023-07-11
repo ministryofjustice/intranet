@@ -1,0 +1,65 @@
+{
+    "key": "group_64ad54774278b",
+    "title": "Presentation Settings",
+    "fields": [
+        {
+            "key": "field_64ad5477005a1",
+            "label": "Number of items",
+            "name": "number_of_items",
+            "aria-label": "",
+            "type": "number",
+            "instructions": "How many items would you like to show per category section?",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "admin_only": 0,
+            "default_value": 6,
+            "min": 6,
+            "max": 80,
+            "placeholder": "",
+            "step": "",
+            "prepend": "",
+            "append": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_template",
+                "operator": "==",
+                "value": "page_campaign_landing.php"
+            },
+            {
+                "param": "current_user_role",
+                "operator": "==",
+                "value": "agency_admin"
+            }
+        ],
+        [
+            {
+                "param": "post_template",
+                "operator": "==",
+                "value": "page_campaign_landing.php"
+            },
+            {
+                "param": "current_user_role",
+                "operator": "==",
+                "value": "administrator"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "side",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1689082821
+}

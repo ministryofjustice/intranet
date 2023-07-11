@@ -3,18 +3,18 @@ use MOJ\Intranet\Agency;
 
 function get_campaign_news_api($campaign_id)
 {
-    $oAgency      = new Agency();
+    $oAgency = new Agency();
     $activeAgency = $oAgency->getCurrentAgency();
 
-    $post_per_page = 'per_page=6';
+    $post_per_page = 'per_page=' . get_field('number_of_items');
     $current_page  = '&page=1';
     $agency_name   = '&agency=' . $activeAgency['wp_tag_id'];
     $campaign_name = '&campaign_category=' . $campaign_id;
 
     /*
-    * A temporary measure so that API calls do not get blocked by
-    * changing IPs not whitelisted. All calls are within container.
-    */
+     * A temporary measure so that API calls do not get blocked by
+     * changing IPs not whitelisted. All calls are within container.
+     */
     $siteurl = 'http://127.0.0.1';
 
     $response = wp_remote_get($siteurl . '/wp-json/wp/v2/news/?' . $post_per_page . $current_page . $agency_name . $campaign_name);
