@@ -11,7 +11,7 @@ add_action('wp', function () {
         'expires' => time() + (3650 * DAY_IN_SECONDS),
         'path' => COOKIEPATH,
         'domain' => COOKIE_DOMAIN,
-        'httponly' => true
+        'httponly' => false
     ];
 
     // use only on HTTPS - browser redirects on a loop otherwise
