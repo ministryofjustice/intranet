@@ -1,4 +1,5 @@
 <?php
+use MOJ\Intranet\Agency as Agency;
 
 /**
  * Set the intranet cookie if GET variables are passed
@@ -6,6 +7,15 @@
 add_action('wp', function () {
     $agency_default = 'hq';
     $agency = $_GET['agency'] ?? false;
+
+    $agencies = new Agency();
+    $agencies_list = $agencies->getList();
+
+    // Check we have a valid agency, if not...
+    if(array_key_exists($agency, $agencies_list) === false) {
+        // ...assign our default:
+        $agency = $agency_default;
+    }
 
     $options = [
         'expires' => time() + (3650 * DAY_IN_SECONDS),
@@ -78,7 +88,6 @@ add_action('wp_login', function ($user_login, WP_User $user) {
 function dw_set_edit_posts_cookie(bool $active)
 {
     $options = [
-        'expires' => time() + (3650 * DAY_IN_SECONDS),
         'path' => COOKIEPATH,
         'domain' => parse_url(get_home_url(), PHP_URL_HOST),
         'httponly' => true
