@@ -8,14 +8,14 @@ add_action('wp', function () {
     $agency_default = 'hq';
     $agency = $_GET['agency'] ?? false;
 
-    $agencies = new Agency();
+    /*$agencies = new Agency();
     $agencies_list = $agencies->getList();
 
     // Check we have a valid agency, if not...
     if(array_key_exists($agency, $agencies_list) === false) {
         // ...assign our default:
         $agency = $agency_default;
-    }
+    }*/
 
     $options = [
         'expires' => time() + (3650 * DAY_IN_SECONDS),
