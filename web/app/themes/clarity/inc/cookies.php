@@ -12,7 +12,7 @@ add_action('wp', function () {
     $agencies_list = $agencies->getList();
 
     // Check we have a valid agency, if not...
-    if($agencies_list[$agency] === null) {
+    if(array_key_exists($agency, $agencies_list) === false) {
         // ...assign our default:
         $agency = $agency_default;
     }
