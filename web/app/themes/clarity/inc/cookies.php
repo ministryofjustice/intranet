@@ -9,17 +9,6 @@ add_action('wp', function () {
     $agency_default = 'hq';
     $agency = $_GET['agency'] ?? false;
 
-    /**
-     * $agencies = new Agency();
-     * $agencies_list = $agencies->getList();
-     *
-     * // Check we have a valid agency, if not...
-     * if(array_key_exists($agency, $agencies_list) === false) {
-     * // ...assign our default:
-     * $agency = $agency_default;
-     * }
-     ***/
-
     $options = [
         'expires' => time() + (3650 * DAY_IN_SECONDS),
         'path' => COOKIEPATH,
@@ -35,6 +24,16 @@ add_action('wp', function () {
     if ($agency) {
         // tidy up
         $agency = trim($agency);
+
+        // agency check
+        $agencies = new Agency();
+        $agencies_list = $agencies->getList();
+        // Check we have a valid agency, if not...
+        if (array_key_exists($agency, $agencies_list) === false) {
+            // ...assign our default:
+            $agency = $agency_default;
+        }
+
         // set a cookie with an agency defined by the user
         setcookie('dw_agency', $agency, $options);
         $_COOKIE['dw_agency'] = $agency;
@@ -88,7 +87,7 @@ add_action('wp_login', function ($user_login, WP_User $user) {
  *
  * @param bool $active To set the cookie, or not to set the cookie. That is the question.
  */
-function dw_set_edit_posts_cookie(bool $active)
+function dw_set_edit_posts_cookie(bool $active): void
 {
     $options = [
         'path' => COOKIEPATH,
