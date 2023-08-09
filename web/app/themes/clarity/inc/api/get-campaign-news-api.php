@@ -6,7 +6,7 @@ function get_campaign_news_api($campaign_id)
     $oAgency = new Agency();
     $activeAgency = $oAgency->getCurrentAgency();
 
-    $post_per_page = 'per_page=' . get_field('number_of_items');
+    $post_per_page = 'per_page=' . get_field('number_of_items') || '6';
     $current_page  = '&page=1';
     $agency_name   = '&agency=' . $activeAgency['wp_tag_id'];
     $campaign_name = '&campaign_category=' . $campaign_id;
