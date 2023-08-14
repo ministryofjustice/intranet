@@ -1,6 +1,6 @@
 {
     "key": "group_64ad54774278b",
-    "title": "Presentation Settings",
+    "title": "Presentation",
     "fields": [
         {
             "key": "field_64ad5477005a1",
@@ -24,6 +24,27 @@
             "step": "",
             "prepend": "",
             "append": ""
+        },
+        {
+            "key": "field_64da5f52f806e",
+            "label": "Author Thumbnail",
+            "name": "use_author_headshot",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "Instead of featured images, show the author image in the list.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "admin_only": 0,
+            "message": "Use the author image?",
+            "default_value": 0,
+            "ui_on_text": "",
+            "ui_off_text": "",
+            "ui": 1
         }
     ],
     "location": [
@@ -61,5 +82,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1689082821
+    "modified": 1692038915
 }
