@@ -61,6 +61,15 @@ get_header(); ?>
                     include locate_template('src/components/c-events-list/view.php');
                 }
             }
+            else {
+                $campaign_edit_id_link = '';
+                if (current_user_can('edit_posts')) {
+                    $edit_link = get_admin_url() . "edit.php?s=".urlencode(get_the_title())."&post_type=page";
+                    $campaign_edit_id_link = '<strong>Editors:</strong> <a href="' . $edit_link . '">select a campaign category using the Quick Edit feature</a>.';
+                }
+                echo '<h2 class="o-title o-title--section" id="title-section">Almost ready</h2>';
+                echo '<p>Content will appear here once a campaign category has been allocated.</p>' . $campaign_edit_id_link;
+            }
             ?>
         </div>
     </main>
