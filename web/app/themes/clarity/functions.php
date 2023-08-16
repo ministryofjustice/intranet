@@ -54,6 +54,7 @@ require_once 'inc/aboutus.php';
 require_once 'inc/acf.php';
 
 require_once 'inc/api/get-posts-rest-api.php';
+require_once 'inc/api/campaign-api.php';
 require_once 'inc/api/get-campaign-posts-api.php';
 require_once 'inc/api/get-news-rest-api.php';
 require_once 'inc/api/get-notes-rest-api.php';
