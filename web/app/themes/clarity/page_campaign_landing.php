@@ -8,6 +8,7 @@ use MOJ\Intranet\EventsHelper;
 
 global $post;
 
+$campaign_id = null;
 $terms = get_the_terms($post->ID, 'campaign_category');
 if ($terms) {
     foreach ($terms as $term) {
@@ -42,21 +43,24 @@ get_header(); ?>
         <?php
             get_template_part('src/components/c-campaign-hub-banner/view');
             get_template_part('src/components/c-article-excerpt/view');
-            get_campaign_news_api($campaign_id);
-            get_campaign_post_api($campaign_id);
+            // check for populated campaign ID
+            if($campaign_id !== null) {
+                get_campaign_news_api($campaign_id);
+                get_campaign_post_api($campaign_id);
 
-            $oAgency = new Agency();
-            $activeAgency = $oAgency->getCurrentAgency();
+                $oAgency = new Agency();
+                $activeAgency = $oAgency->getCurrentAgency();
 
-            $agency_term_id = $activeAgency['wp_tag_id'];
-            $filter_options = ['campaign_filter' => $campaign_id];
+                $EventsHelper = new EventsHelper();
+                $events = $EventsHelper->get_events(
+                    $activeAgency['wp_tag_id'],
+                    ['campaign_filter' => $campaign_id]
+                );
 
-            $EventsHelper  = new EventsHelper();
-            $events = $EventsHelper->get_events($agency_term_id, $filter_options);
-
-            if ($events) {
-                echo '<h2 class="o-title o-title--section" id="title-section">Events</h2>';
-                include locate_template('src/components/c-events-list/view.php');
+                if ($events) {
+                    echo '<h2 class="o-title o-title--section" id="title-section">Events</h2>';
+                    include locate_template('src/components/c-events-list/view.php');
+                }
             }
         ?>
   </div>
