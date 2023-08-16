@@ -64,8 +64,8 @@ get_header(); ?>
             else {
                 $campaign_edit_id_link = '';
                 if (current_user_can('edit_posts')) {
-                    $edit_link = get_admin_url() . "edit.php?s=".urlencode(get_the_title())."&post_type=page";
-                    $campaign_edit_id_link = '<strong>Editors:</strong> <a href="' . $edit_link . '">select a campaign category using the Quick Edit feature</a>.';
+                    $edit_link = get_edit_post_link();
+                    $campaign_edit_id_link = '<strong>Editors:</strong> <a href="' . $edit_link . '">select a campaign category</a>.';
                 }
                 echo '<h2 class="o-title o-title--section" id="title-section">Almost ready</h2>';
                 echo '<p>Content will appear here once a campaign category has been allocated.</p>' . $campaign_edit_id_link;
