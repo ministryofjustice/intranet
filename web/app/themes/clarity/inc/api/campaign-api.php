@@ -5,6 +5,10 @@ use MOJ\Intranet\Authors;
 
 function get_campaign_api($campaign_id, $post_type): void
 {
+    if ($campaign_id === null) {
+        return;
+    }
+
     $agency = new Agency();
     $authors = new Authors();
     $activeAgency = $agency->getCurrentAgency();
