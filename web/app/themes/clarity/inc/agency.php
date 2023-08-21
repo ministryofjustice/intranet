@@ -168,7 +168,8 @@ class Agency
     }
 
     /***
-     * Gets the intranet code, if present
+     * Get the agency from cookie, and make sure it's in 
+     * the list, otherwise default to HQ
      *
      */
     public function getCurrentAgency()

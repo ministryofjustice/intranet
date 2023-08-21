@@ -21,12 +21,12 @@ add_action('wp', function () {
         $options['secure'] = true;
     }
 
+    $agencies = new Agency();
     if ($agency) {
         // tidy up
         $agency = trim($agency);
 
         // agency check
-        $agencies = new Agency();
         $agencies_list = $agencies->getList();
         // Check we have a valid agency, if not...
         if (array_key_exists($agency, $agencies_list) === false) {
@@ -45,6 +45,12 @@ add_action('wp', function () {
         setcookie('dw_agency', $agency_default, $options);
         $_COOKIE['dw_agency'] = $agency_default;
     }
+    else { // Make sure the cookie is valid i.e. in the list of agencies
+        $agency = $agencies->getCurrentAgency();
+        setcookie('dw_agency', $agency, $options);
+        $_COOKIE['dw_agency'] = $agency;
+    }
+
 });
 
 /**
