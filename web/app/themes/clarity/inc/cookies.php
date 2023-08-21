@@ -26,7 +26,7 @@ add_action('wp', function () {
         // tidy up
         $agency = trim($agency);
 
-        if (!$agencies->ifAgencyExists($agency)) {
+        if (!$agencies->agencyExists($agency)) {
             $agency = $agency_default;
         }
 
@@ -39,7 +39,7 @@ add_action('wp', function () {
     } else {
         $agency = $_COOKIE['dw_agency'] ?? '';
 
-        if (!$agencies->ifAgencyExists($agency)) {
+        if (!$agencies->agencyExists($agency)) {
             setcookie('dw_agency', $agency_default, $options);
             $_COOKIE['dw_agency'] = $agency_default;
         }

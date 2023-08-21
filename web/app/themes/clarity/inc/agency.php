@@ -182,7 +182,7 @@ class Agency
     /**
      * Check the agency exists
      */
-    public function ifAgencyExists($agency): bool
+    public function agencyExists($agency): bool
     {
         // Check we have a valid agency
         return array_key_exists($agency, $this->getList());
