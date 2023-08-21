@@ -168,7 +168,7 @@ class Agency
     }
 
     /***
-     * Get the agency from cookie, and make sure it's in 
+     * Get the agency from cookie, and make sure it's in
      * the list, otherwise default to HQ
      *
      */
@@ -177,6 +177,16 @@ class Agency
         $agency = $_COOKIE['dw_agency'] ?? '';
         $liveAgencies = $this->getList();
         return $liveAgencies[trim($agency)] ?? $liveAgencies['hq'];
+    }
+
+    /**
+     * Check the agency exists
+     */
+    public function ifAgencyExists($agency)
+    {
+        $agencies_list = $this->getList();
+        // Check we have a valid agency
+        return array_key_exists($agency, $agencies_list);
     }
 
     /**
