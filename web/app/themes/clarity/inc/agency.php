@@ -168,7 +168,8 @@ class Agency
     }
 
     /***
-     * Gets the intranet code, if present
+     * Get the agency from cookie, and make sure it's in
+     * the list, otherwise default to HQ
      *
      */
     public function getCurrentAgency()
@@ -176,6 +177,15 @@ class Agency
         $agency = $_COOKIE['dw_agency'] ?? '';
         $liveAgencies = $this->getList();
         return $liveAgencies[trim($agency)] ?? $liveAgencies['hq'];
+    }
+
+    /**
+     * Check the agency exists
+     */
+    public function agencyExists($agency): bool
+    {
+        // Check we have a valid agency
+        return array_key_exists($agency, $this->getList());
     }
 
     /**

@@ -21,16 +21,12 @@ add_action('wp', function () {
         $options['secure'] = true;
     }
 
+    $agencies = new Agency();
     if ($agency) {
         // tidy up
         $agency = trim($agency);
 
-        // agency check
-        $agencies = new Agency();
-        $agencies_list = $agencies->getList();
-        // Check we have a valid agency, if not...
-        if (array_key_exists($agency, $agencies_list) === false) {
-            // ...assign our default:
+        if (!$agencies->agencyExists($agency)) {
             $agency = $agency_default;
         }
 
@@ -40,10 +36,13 @@ add_action('wp', function () {
 
         // else fires if agency is false and
         // a dw_agency cookie does not exist
-    } elseif (!isset($_COOKIE['dw_agency'])) {
-        // set a default cookie
-        setcookie('dw_agency', $agency_default, $options);
-        $_COOKIE['dw_agency'] = $agency_default;
+    } else {
+        $agency = $_COOKIE['dw_agency'] ?? '';
+
+        if (!$agencies->agencyExists($agency)) {
+            setcookie('dw_agency', $agency_default, $options);
+            $_COOKIE['dw_agency'] = $agency_default;
+        }
     }
 });
 
