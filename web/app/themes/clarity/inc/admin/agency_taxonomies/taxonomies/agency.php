@@ -192,20 +192,24 @@ class Agency extends Taxonomy
      *
      * @param int $user_id The ID of the user to save the terms for.
      */
-    public function edit_user_profile_save($user_id)
+    public function edit_user_profile_save(int $user_id): void
     {
+        // Get the chosen agency value selected from the radio button
+        $selectedAgency = $_POST['agency'] ?? Agency_Context::get_agency_context();
 
-        // Get the chosen agency value selected from the ratio button
-        $selectedAgency = isset($_POST['agency']) ? $_POST['agency'] : 'hq';
+        // if selected, result is array, otherwise it's a string
+        if (is_array($selectedAgency)) {
+            $selectedAgency = array_shift($selectedAgency);
+        }
 
         // Sanitize POST value and select chosen agency from array
-        $newAgency = sanitize_text_field(array_shift($selectedAgency));
+        $newAgency = sanitize_text_field($selectedAgency);
 
         // Update the user's agency context
         update_user_meta($user_id, 'agency_context', $newAgency);
 
         // Set the terms for the user so their choice stays chosen in radio box
-        wp_set_object_terms($user_id, $newAgency, 'agency', false);
+        wp_set_object_terms($user_id, $newAgency, 'agency');
         clean_object_term_cache($user_id, 'agency');
     }
 
@@ -294,7 +298,7 @@ class Agency extends Taxonomy
     }
 
 
-        /**
+    /**
      * Stop users from editing posts that belong to agencies which are not
      * the current agency context.
      *
@@ -368,6 +372,9 @@ class Agency extends Taxonomy
         return $actions;
     }
 
+    /**
+     * @return false|void
+     */
     public function quick_action_opt_in_out()
     {
         if (
