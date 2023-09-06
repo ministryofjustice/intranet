@@ -1,0 +1,4 @@
+.post-type-document #post-body-content h2,
+.post-type-document #postdivrich {
+    display: none !important;
+}
