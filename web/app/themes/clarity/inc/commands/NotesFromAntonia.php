@@ -4,7 +4,7 @@
  *
  * Notes From Antonia is a live feature!
  * This command should not be used but instead, kept to further
- * develop into a generic long-tail page to blog converter
+ * develop into a generic 'long-tail page to blog' converter
  *
  * ------------------------------------
  *
