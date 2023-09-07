@@ -1,6 +1,13 @@
 <?php
-
 /**
+ * ------------------------------------
+ *
+ * Notes From Antonia is a live feature!
+ * This command should not be used but instead, kept to further
+ * develop into a generic long-tail page to blog converter
+ *
+ * ------------------------------------
+ *
  * Import and restructure content from the long-tail NFA page
  * Usage:
  *  dry-run: wp notes-from-antonia convert
