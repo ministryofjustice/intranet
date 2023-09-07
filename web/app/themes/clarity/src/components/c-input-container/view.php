@@ -68,8 +68,7 @@ if (!in_array($c_input_container_config['type'], ['select', 'radio-group'])) {
 
         $c_input_container_output .= '
         <div class="c-input-container--radio-group-item">
-            <input
-                type="radio"
+            <input type="radio"
                 id="'.$c_input_container_config['name'].'_'.$value[1].'"
                 name="'.$c_input_container_config['name'].'"
                 '.$c_input_container_class.'

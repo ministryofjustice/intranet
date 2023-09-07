@@ -18,30 +18,68 @@ $activeAgency = $oAgency->getCurrentAgency();
 ?>
 <!-- c-search-results-filter starts here -->
 <section class="c-search-results-filter c-content-filter">
-    <p>You are searching across <strong><?php esc_attr_e($activeAgency['abbreviation']); ?></strong>. To search another
-        agency use <a href="/agency-switcher/">agency switcher</a>.</p>
+    <p>You are searching across <strong><?php esc_attr_e($activeAgency['abbreviation']); ?></strong>.
+        To search another agency use <a href="/agency-switcher">agency switcher</a>.</p>
     <form action="<?php echo esc_url(home_url('/')); ?>" method="get" id="<?php echo $prefix; ?>" class="u-wrapper"
-          id="searchform"/>
-    <?php
-    $placeholder = 'Search' . $activeAgency['abbreviation'] . 'intranet';
-    $keyword_query = get_search_query();
+          id="searchform">
+        <?php
+        $placeholder = 'Search' . $activeAgency['abbreviation'] . 'intranet';
+        $keyword_query = get_search_query();
 
-    // Keyword input field
-    form_builder('text', '', false, 's', null, $keyword_query, $placeholder, null, false, null, null);
+        // Keyword input field
+        form_builder('text', '', false, 's', null, $keyword_query, $placeholder, null, false, null, null);
 
-    // Dropdown options field
-    $select_options = [
-        ['All', 'any', $any],
-        ['Blogs', 'post', $post],
-        ['Documents &amp; forms', 'document', $document],
-        ['Events', 'event', $event],
-        ['News', 'news', $news],
-        ['Pages', 'page', $page],
-    ];
-    form_builder('select', '', 'Filter by', 'post_types', null, $selected_value, null, null, false, null, $select_options);
-    ?>
+        if ($activeAgency['shortcode'] === 'hmcts') {
 
-    <input type="submit" value="Filter" id="ff_button_submit"/>
+            echo '<input type="submit" value="Search" id="ff_button_submit"/><br><br><br><hr><br>';
+
+            form_builder(
+                'radio-group',
+                '',
+                'Filter by',
+                'post_types',
+                null,
+                $selected_value,
+                null,
+                'js-radios-onChange',
+                false,
+                null,
+                [
+                    ['All', 'any', $any],
+                    ['Pages', 'page', $page],
+                    ['Documents &amp; forms', 'document', $document],
+                    ['News', 'news', $news],
+                    ['Blogs', 'post', $post],
+                    ['Events', 'event', $event]
+                ]
+            );
+
+        } else {
+
+            form_builder(
+                'select',
+                '',
+                'Filter by',
+                'post_types',
+                null,
+                $selected_value,
+                null,
+                null,
+                false,
+                null,
+                [
+                    ['All', 'any', $any],
+                    ['Blogs', 'post', $post],
+                    ['Documents &amp; forms', 'document', $document],
+                    ['Events', 'event', $event],
+                    ['News', 'news', $news],
+                    ['Pages', 'page', $page]
+                ]
+            );
+
+            echo '<input type="submit" value="Filter" id="ff_button_submit"/>';
+        }
+        ?>
     </form>
 </section>
 <!-- c-search-results-filter ends here -->
