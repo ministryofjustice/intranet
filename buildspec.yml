@@ -10,7 +10,7 @@ phases:
             - echo Build started on `date`
             - echo "$WP_ENV"
             - echo Building the Docker image...
-            - docker build --build-arg COMPOSER_USER="$COMPOSER_USER" --build-arg COMPOSER_PASS="$COMPOSER_PASS" -t $APPNAME:`cat BUILD_TAG.txt` .
+            - docker build --build-arg COMPOSER_USER="$COMPOSER_USER" --build-arg COMPOSER_PASS="$COMPOSER_PASS" --build-arg WP_ENV="$WP_ENV" -t $APPNAME:`cat BUILD_TAG.txt` .
             - docker tag $APPNAME:`cat BUILD_TAG.txt` 613903586696.dkr.ecr.eu-west-2.amazonaws.com/wp/$ECR_REPO:`cat BUILD_TAG.txt`
     post_build:
         commands:
