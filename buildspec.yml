@@ -5,9 +5,10 @@ phases:
             - aws codepipeline get-pipeline-execution --pipeline-name `echo $CODEBUILD_INITIATOR | cut -f 2 -d '/'` --pipeline-execution-id `aws codepipeline get-pipeline-state --name $(echo $CODEBUILD_INITIATOR | cut -f 2 -d '/') --query "stageStates[?actionStates[0].actionName=='DockerBuild'].latestExecution.pipelineExecutionId" --output text` --query "pipelineExecution.artifactRevisions[?name=='Application'].revisionId" --output text | cut -c 1-7 | xargs echo -n > BUILD_TAG.txt
             - echo -n -`date "+%Y%m%d%H%M"` >> BUILD_TAG.txt
             - echo Created build tag `cat BUILD_TAG.txt`
-            - echo Logging into Docker Hub, to successfuly pull our base image
+            - echo Logging into Docker Hub, to successfully pull our base image
             - docker login --username "$DOCKERUSERNAME" --password "$DOCKERPASSWORD"
             - echo Build started on `date`
+            - echo "$WP_ENV"
             - echo Building the Docker image...
             - docker build --build-arg COMPOSER_USER="$COMPOSER_USER" --build-arg COMPOSER_PASS="$COMPOSER_PASS" -t $APPNAME:`cat BUILD_TAG.txt` .
             - docker tag $APPNAME:`cat BUILD_TAG.txt` 613903586696.dkr.ecr.eu-west-2.amazonaws.com/wp/$ECR_REPO:`cat BUILD_TAG.txt`
