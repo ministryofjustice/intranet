@@ -5,6 +5,7 @@ WORKDIR /bedrock
 
 ARG COMPOSER_USER
 ARG COMPOSER_PASS
+ARG WP_ENV
 
 # Add custom nginx config and init script
 RUN mv docker/conf/nginx/server.conf /etc/nginx/sites-available/
