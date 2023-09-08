@@ -57,7 +57,6 @@
         "wpackagist-plugin/ewww-image-optimizer": "*",
         "wpackagist-plugin/wp-document-revisions": "^3.5.0",
         "acf/advanced-custom-fields-pro": "*",
-        "wpackagist-plugin/query-monitor": "*",
         "ministryofjustice/wp-rewrite-media-to-s3": "dev-php8-code-update",
         "ministryofjustice/like-button-for-wordpress": "dev-main",
         "ministryofjustice/notify-for-wordpress": "dev-main",
@@ -65,8 +64,6 @@
         "ministryofjustice/wp-moj-components": "*",
         "ministryofjustice/wp-moj-elasticsearch": "*",
         "wpackagist-plugin/elasticpress": "*",
-        "wpackagist-plugin/debug-bar": "*",
-        "wpackagist-plugin/debug-bar-elasticpress": "*",
         "ext-zlib": "*",
         "ext-posix": "*",
         "sentry/sdk": "^3.1",
@@ -74,6 +71,9 @@
         "alphagov/notifications-php-client": "^5.0"
     },
     "require-dev": {
+        "wpackagist-plugin/query-monitor": "*",
+        "wpackagist-plugin/debug-bar": "*",
+        "wpackagist-plugin/debug-bar-elasticpress": "*",
         "squizlabs/php_codesniffer": "^3.0.2",
         "rector/rector": "^0.15.19"
     },
