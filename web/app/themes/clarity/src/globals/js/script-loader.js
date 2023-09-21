@@ -34,7 +34,7 @@ jQuery(function ($) {
     $('.c-news-list > .js-article-item').moji_equaliser();
 
     // Load component scripts
-    $('.js-tabbed-content-container').moji_tabbedContent();
+    $('.js-tabbed-content-container').mojTabbedContent();
     $('.js-reveal').moji_feedbackForm();
     $('.js-blog-content-ajaxfilter').moji_ajaxFilter();
     $('.js-condolences-filter').moji_condolencesFilter();
