@@ -57,7 +57,6 @@ export default (($) => {
                     if ($(this).text() === title) {
 
                         // show the right tab
-                        console.log("The tab is", $(this));
                         tabbed.show($(this));
 
                         // scroll to the item
