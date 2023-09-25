@@ -120,7 +120,8 @@ export default (function ($) {
             });
 
         // track link clicks in panels
-        tabbed.panels.find("a")
+        tabbed.panels
+            .find('a[href*=\\#]')
             .on("click", function () {
                 let url = $(this).attr("href");
 
