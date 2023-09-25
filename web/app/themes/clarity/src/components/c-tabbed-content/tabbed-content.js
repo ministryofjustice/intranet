@@ -1,17 +1,27 @@
 /* global console */
 /* jshint esversion: 6 */
-export default (($) => {
+export default (function ($) {
     const tabbed = {
         panels: {},
         tabs: {},
-        hash: null,
         /**
-         * Get the hash fragment
-         * @returns {string}
+         * Hash object used to track and perform interactions
          */
-        getHash: () => {
-            return tabbed.hash || (tabbed.hash = window.location.hash.substring(1));
+        hash: {
+            fragment: null,
+            /**
+             * On the current page, take the user to a specified hash
+             * @param hash
+             */
+            goto: (hash) => {
+                window.location.hash = hash;
+                tabbed.hash.fragment = null; // reset the hash
+                tabbed.search.locate();
+            },
+            get: () => tabbed.hash.fragment || (tabbed.hash.fragment = window.location.hash.substring(1)),
+            check: (string) => string.charAt(0) === '#'
         },
+        defined: (test) => typeof test !== 'undefined',
         /**
          * Show a tab and panel
          * Supports accessibility
@@ -36,46 +46,53 @@ export default (($) => {
             tabbed.panels.hide();
         },
         /**
-         * Handle hash fragments, locates named anchors or elements with IDs
+         * Search for hash fragments, locates named anchors or elements with IDs
          * Switches the tab and activates scroll
          */
-        findAndDeliver: () => {
-            /** F I N D */
-            let target = $("a[name='" + tabbed.getHash() + "']");
+        search: {
+            target: null,
+            locate: () => {
+                if (tabbed.hash.get()) {
+                    tabbed.search.target = $("a[name='" + tabbed.hash.get() + "']");
 
-            // test target ~ .get(0) reduces object to DOM element
-            if (typeof target.get(0) === 'undefined') {
-                target = $("#" + tabbed.getHash());
-            }
-
-            // attempt to match the tab title
-            const title = target.closest('.c-tabbed-content').data('tab-title');
-
-            /** D E L I V E R */
-            if (typeof title !== 'undefined') {
-                tabbed.tabs.each(function(){
-                    if ($(this).text() === title) {
-
-                        // show the right tab
-                        tabbed.show($(this));
-
-                        // scroll to the item
-                        $('html,body').animate({
-                            scrollTop: (target.offset().top - 20)
-                        }, 'slow');
-                        return false;
+                    // test target ~ .get(0) reduces object to DOM element
+                    if (!tabbed.defined(tabbed.search.target.get(0))) {
+                        tabbed.search.target = $("#" + tabbed.hash.get());
                     }
-                });
+
+                    // attempt to match the tab title
+                    tabbed.search.title = tabbed.search.target.closest('.c-tabbed-content').data('tab-title');
+
+                    // try and goto the content
+                    tabbed.search.goto();
+                }
+            },
+            goto: () => {
+                if (tabbed.defined(tabbed.search.title)) {
+                    tabbed.tabs.each(function () {
+                        if ($(this).text() === tabbed.search.title) {
+
+                            // show the right tab
+                            tabbed.show($(this));
+
+                            // scroll to the item
+                            $('html,body').animate({
+                                scrollTop: (tabbed.search.target.offset().top - 20)
+                            }, 'slow');
+                            return false;
+                        }
+                    });
+                }
             }
         }
     };
 
-    $.fn.mojTabbedContent = () => {
-        // create panels var then assign u-current to first panel to display first panel
+    $.fn.mojTabbedContent = function () {
+        // populate panels object then assign u-current to first panel to display first panel
         tabbed.panels = $('.js-tabbed-content');
         tabbed.panels.filter(':first-of-type').show().addClass('u-current');
 
-        // create tabs var then assign u-current to first tab to display first tab
+        // populate tabs object then assign u-current to first tab to display first tab
         tabbed.tabs = $('.c-tabbed-content__nav li');
         tabbed.tabs.attr("tabindex", "0").attr('aria-selected', 'false');
         $('.c-tabbed-content__nav li:first-child').addClass('u-current').attr('aria-selected', 'true');
@@ -85,20 +102,52 @@ export default (($) => {
             $('.c-tabbed-content__nav').hide();
         }
 
-        // try and follow hash fragments
-        tabbed.findAndDeliver();
+        // try and locate hash fragments
+        tabbed.search.locate();
 
-        // set up user interaction
-        tabbed.tabs.click(
-            function () {
+        /**
+         * Set up user interactions
+         */
+        tabbed.tabs
+            .on("click", function () {
                 tabbed.show($(this));
-            }
-        ).keyup(function (event) {
-            // https://api.jquery.com/event.which/
-            if (event.which === 13) {
-                tabbed.show($(this));
-            }
-        });
+            })
+            .on("keyup", function (event) {
+                // https://api.jquery.com/event.which/
+                if (event.which === 13) {
+                    tabbed.show($(this));
+                }
+            });
+
+        // track link clicks in panels
+        tabbed.panels
+            .find('a[href*=\\#]')
+            .on("click", function () {
+                let url = $(this).attr("href");
+
+                if (tabbed.defined(url)) {
+                    // do we have a URL or a hash?
+                    if (tabbed.hash.check(url)) {
+                        // it's a hash
+                        tabbed.hash.goto(url);
+                        return false; // intercept click
+                    }
+
+                    // only act on valid URLs
+                    try {
+                        url = new URL(url);
+                    } catch (_) {
+                        return true; // hand back to browser
+                    }
+
+                    // still here?... validate same-page hashes
+                    if (url.pathname === window.location.pathname && url.hash) {
+                        tabbed.hash.goto(url.hash);
+                        return false; // intercept click
+                    }
+                }
+                return true;
+            });
     };
 
     return null;
