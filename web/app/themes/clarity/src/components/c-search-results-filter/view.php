@@ -29,56 +29,29 @@ $activeAgency = $oAgency->getCurrentAgency();
         // Keyword input field
         form_builder('text', '', false, 's', null, $keyword_query, $placeholder, null, false, null, null);
 
-        if ($activeAgency['shortcode'] === 'hmcts') {
+        echo '<input type="submit" value="Search" id="ff_button_submit"/><br><br><br><hr><br>';
 
-            echo '<input type="submit" value="Search" id="ff_button_submit"/><br><br><br><hr><br>';
+        form_builder(
+            'radio-group',
+            '',
+            'Filter by',
+            'post_types',
+            null,
+            $selected_value,
+            null,
+            'js-radios-onChange',
+            false,
+            null,
+            [
+                ['All', 'any', $any],
+                ['Pages', 'page', $page],
+                ['Documents &amp; forms', 'document', $document],
+                ['News', 'news', $news],
+                ['Blogs', 'post', $post],
+                ['Events', 'event', $event]
+            ]
+        );
 
-            form_builder(
-                'radio-group',
-                '',
-                'Filter by',
-                'post_types',
-                null,
-                $selected_value,
-                null,
-                'js-radios-onChange',
-                false,
-                null,
-                [
-                    ['All', 'any', $any],
-                    ['Pages', 'page', $page],
-                    ['Documents &amp; forms', 'document', $document],
-                    ['News', 'news', $news],
-                    ['Blogs', 'post', $post],
-                    ['Events', 'event', $event]
-                ]
-            );
-
-        } else {
-
-            form_builder(
-                'select',
-                '',
-                'Filter by',
-                'post_types',
-                null,
-                $selected_value,
-                null,
-                null,
-                false,
-                null,
-                [
-                    ['All', 'any', $any],
-                    ['Blogs', 'post', $post],
-                    ['Documents &amp; forms', 'document', $document],
-                    ['Events', 'event', $event],
-                    ['News', 'news', $news],
-                    ['Pages', 'page', $page]
-                ]
-            );
-
-            echo '<input type="submit" value="Filter" id="ff_button_submit"/>';
-        }
         ?>
     </form>
 </section>
