@@ -6,6 +6,7 @@
  * Debug::full($var) - shows the structure of $variable, recurses objects
  * Debug::raw($var) - does print_r($var)
  * Debug::pre($var) - does print_r($var) wrapped in <pre></pre>
+ * Debug::log($var) - wirtes print_r($var) to file. Requires WP_DEBUG_LOG=true. Watch with `tail -f /bedrock/web/app/debug.log`
  */
 class Debug
 {
@@ -37,6 +38,15 @@ class Debug
     public static function full($var, $maxlevel = 5)
     {
         self::debug_var($var, true, $maxlevel);
+    }
+
+    public static function log($var)
+    {
+        if (is_array($var) || is_object($var)) {
+            error_log(print_r($var, true));
+         } else {
+            error_log($var);
+         }
     }
 
     private static function debug_var($var, $recurseObjects = false, $maxlevel = 5)
