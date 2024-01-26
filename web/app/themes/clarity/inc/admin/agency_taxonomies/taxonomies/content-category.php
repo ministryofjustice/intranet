@@ -61,6 +61,38 @@ class Content_Category extends Taxonomy
     }
 
     /**
+     * For the current post, check if any terms in this category are:
+     * - attached to the post and,
+     * - do not relate to current Agengy context
+     * 
+     * @return bool
+     */
+
+     public function has_attached_terms_not_in_context()
+     {  
+        global $post;
+        
+        if (!is_object($post)) return;
+        
+        $terms = get_the_terms($post->ID, $this->name);
+        $context = Agency_Context::get_agency_context('term_id');
+
+        if (!$terms) return;
+
+        foreach ($terms as $term) {
+            $term_agencies = get_field('term_used_by', $this->name . '_' . $term->term_id);
+            
+            if (is_array($term_agencies) && !in_array($context, $term_agencies)) {
+                return true;
+            }
+        }
+
+        return;
+     }
+
+
+
+    /**
      * Remove the default category metabox
      */
     public function remove_default_meta_box()
@@ -75,11 +107,19 @@ class Content_Category extends Taxonomy
      */
     public function add_custom_category_meta_box()
     {
-        if ($this->context_has_terms()) {
-            foreach ($this->object_types as $type) {
-                add_meta_box($this->name, $this->args['labels']['name'], array($this, 'show_custom_category_meta_box'), $type, 'side');
-            }
+
+        if (!$this->context_has_terms()) {
+            return;
         }
+
+        if(!empty($this->run_has_attached_terms_not_in_context) && $this->has_attached_terms_not_in_context()) {
+            return;
+        }
+
+        foreach ($this->object_types as $type) {
+            add_meta_box($this->name, $this->args['labels']['name'], array($this, 'show_custom_category_meta_box'), $type, 'side');
+        }
+        
     }
 
     /**
