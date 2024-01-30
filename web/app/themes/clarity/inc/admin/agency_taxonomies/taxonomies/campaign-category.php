@@ -46,4 +46,7 @@ class Campaign_Category extends Content_Category
             'assign_terms' => 'assign_campaign_categories',
         ),
     );
+
+    protected $run_has_attached_terms_not_in_context = true;
+
 }
