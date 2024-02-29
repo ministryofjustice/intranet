@@ -43,11 +43,10 @@ if (isset($referrer['query'])) {
     <ul class="c-intranet-switcher">
 
         <?php
-        // Temporarily filtering out OSPT/JAC until site is ready to go live
-        // Remove OSPT hardcoded link to old intranet below when site goes live.
+        // Temporarily filtering out JAC/PB until site is ready to go live
         // 10th Jan 2024: Parole Board added to exclude list: https://dsdmoj.atlassian.net/jira/software/c/projects/CDPT/boards/1154?selectedIssue=CDPT-1170
         $modified_agency_array = array_filter($activeAgencies, function ($data) {
-            return !in_array($data["shortcode"], ['jac', 'ospt', 'pb']);
+            return !in_array($data["shortcode"], ['jac', 'pb']);
         });
 
         foreach ($modified_agency_array as $agency_id => $agency) {
@@ -64,11 +63,6 @@ if (isset($referrer['query'])) {
             }
         }
         ?>
-
-        <li class="c-intranet-switcher__switch c-intranet-switcher__switch--ospt">
-            <a href="http://officialsolicitorandpublictrustee.intranet.service.justice.gov.uk/">Official Solicitor and
-                Public Trustee</a>
-        </li>
 
         <li class="c-intranet-switcher__switch c-intranet-switcher__switch--yjbrh">
             <a href="https://yjresourcehub.uk/">Youth Justice Board Resource Hub</a>
