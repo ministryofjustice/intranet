@@ -1,0 +1,42 @@
+name: "CI Build"
+
+on:
+  workflow_call:
+    outputs:
+      registry:
+        description: "AWS registry where the ECR is located"
+        value: ${{ jobs.image_build.outputs.registry }}
+
+jobs:
+  image_build:
+    name: "Build"
+    runs-on: ubuntu-latest
+    outputs:
+      registry: ${{ steps.ecr-login.outputs.registry }}
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v4
+
+      - name: "Configuring AWS credentials"
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.PRODUCTION_ECR_ROLE_TO_ASSUME }}
+          aws-region: ${{ vars.PRODUCTION_ECR_REGION }}
+
+      - name: "Logging into ECR"
+        uses: aws-actions/amazon-ecr-login@v2
+        id: ecr-login
+
+      - name: "Build & Push to ECR"
+        run: |
+          docker image build -t $REGISTRY/$REPOSITORY:fpm-$IMAGE_TAG --target build-fpm .
+          docker image build -t $REGISTRY/$REPOSITORY:nginx-$IMAGE_TAG --target build-nginx .
+          docker push $REGISTRY/$REPOSITORY:fpm-$IMAGE_TAG
+          docker push $REGISTRY/$REPOSITORY:nginx-$IMAGE_TAG
+        env:
+          REGISTRY: ${{ steps.ecr-login.outputs.registry }}
+          REPOSITORY: ${{ vars.PRODUCTION_ECR_REPOSITORY }}
+          IMAGE_TAG: ${{ github.sha }}

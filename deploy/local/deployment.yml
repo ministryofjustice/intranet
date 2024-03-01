@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: intranet-local
+spec:
+  revisionHistoryLimit: 5
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 100%
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: intranet-local
+  template:
+    metadata:
+      labels:
+        app: intranet-local
+    spec:
+      volumes:
+        - name: uploads
+          emptyDir: {}
+        - name: nginx-cache
+          emptyDir: {}
+      terminationGracePeriodSeconds: 35
+      containers:
+        - name: nginx
+          image: justice-nginx:latest
+          imagePullPolicy: Never
+          resources: {}
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - name: nginx-cache
+              mountPath: /var/run/nginx-cache
+
+        - name: fpm
+          image: justice-fpm:latest
+          imagePullPolicy: Never
+          envFrom:
+            - configMapRef:
+                name: intranet-config
+          securityContext:
+            runAsUser: 82
+          volumeMounts:
+            - name: uploads
+              mountPath: /var/www/html/public/app/uploads
+          resources: {}
+          ports:
+            - containerPort: 9000

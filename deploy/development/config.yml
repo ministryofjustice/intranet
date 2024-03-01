@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: intranet-dev
+  namespace: intranet-dev
+data:
+  WP_ENV: "development"
+  WP_HOME: 'https://dev.justice.gov.uk'
+  WP_SITEURL: 'https://dev.justice.gov.uk/wp'

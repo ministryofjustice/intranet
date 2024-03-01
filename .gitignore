@@ -3,42 +3,44 @@
 .DS_*
 ._DS_*
 ._.*
+.editorconfig
 
 *.sql
 
 # Application
-web/.well-known/*
-web/app/plugins/*
-web/app/db.php
-!web/app/plugins/aws-xray/
-!web/app/plugins/.gitkeep
-web/app/mu-plugins/*/
-web/app/upgrade
-web/app/languages
-web/app/uploads/*
-!web/app/uploads/.gitkeep
+public/.well-known/*
+public/hot
+public/app/debug.log
+public/app/plugins/*
+public/app/db.php
+public/app/mu-plugins/*/
+public/app/upgrade
+public/app/languages
+public/app/uploads/*
+vendor
+vendor-assets
+.dory.yml
+auth.json
 
-web/app/cache
+
+!public/app/plugins/.keep
+!public/app/uploads/.keep
+
+public/app/cache
 
 # Theme
-web/app/themes/clarity/dist/*
-!web/app/themes/clarity/dist/*.md
-web/app/themes/clarity/node_modules
+public/app/themes/*
+!public/app/themes/clarity
+public/app/themes/clarity/dist
+public/app/themes/clarity/node_modules
 
 # WordPress
-web/wp
-web/.htaccess
+public/wp
 
-# WordPress Plugins
-web/app/ewww
+# WordPress Plugin additions
+public/app/ewww
 
 # Dotenv
 .env
 .env.*
 !.env.example
-
-# Composer
-vendor/*
-!vendor/.gitkeep
-/web/app/ewww/lazy/*
-/rector.php

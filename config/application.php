@@ -1,23 +1,46 @@
 <?php
+/**
+ * Your base production configuration goes in this file. Environment-specific
+ * overrides go in their respective config/environments/{{WP_ENV}}.php file.
+ *
+ * A good default policy is to deviate from the production config as little as
+ * possible. Try to define as much of your configuration in this file as you
+ * can.
+ */
+
+use Roots\WPConfig\Config;
+use function Env\env;
 
 /** @var string Directory containing all of the site's files */
 define('MOJ_ROOT_DIR', dirname(__DIR__));
 
-/** @var string Document Root */
-$webroot_dir = MOJ_ROOT_DIR . '/web';
+/**
+ * Directory containing all the site's files
+ */
+$root_dir = dirname(__DIR__);
 
 /**
- * Expose global env() function from oscarotero/env
+ * Document Root
  */
-Env::init();
+$webroot_dir = $root_dir . '/public';
 
 /**
  * Use Dotenv to set required environment variables and load .env file in root
+ * .env.local will override .env if it exists
  */
-$dotenv = new Dotenv\Dotenv(MOJ_ROOT_DIR);
-if (file_exists(MOJ_ROOT_DIR . '/.env')) {
+if (file_exists($root_dir . '/.env')) {
+    $env_files = file_exists($root_dir . '/.env.local')
+        ? ['.env', '.env.local']
+        : ['.env'];
+
+    $dotenv = Dotenv\Dotenv::createUnsafeImmutable($root_dir, $env_files, false);
+
     $dotenv->load();
-    $dotenv->required(['DB_NAME', 'DB_USER', 'DB_PASSWORD', 'WP_HOME', 'WP_SITEURL', 'WP_ENV']);
+
+    $dotenv->required(['WP_HOME', 'WP_SITEURL']);
+    if (!env('DATABASE_URL')) {
+        $dotenv->required(['DB_NAME', 'DB_USER', 'DB_PASSWORD']);
+    }
 }
 
 /**
@@ -26,68 +49,133 @@ if (file_exists(MOJ_ROOT_DIR . '/.env')) {
  */
 define('WP_ENV', env('WP_ENV') ?: 'production');
 
+Config::define('WP_DEFAULT_THEME', 'clarity');
+
+/**
+ * Infer WP_ENVIRONMENT_TYPE based on WP_ENV
+ */
+if (!env('WP_ENVIRONMENT_TYPE') && in_array(WP_ENV, ['production', 'staging', 'development', 'local'])) {
+    Config::define('WP_ENVIRONMENT_TYPE', WP_ENV);
+}
+
+/**
+ * URLs
+ */
+Config::define('WP_HOME', env('WP_HOME'));
+Config::define('WP_SITEURL', env('WP_SITEURL'));
+
+/**
+ * Custom Content Directory
+ */
+Config::define('CONTENT_DIR', '/app');
+Config::define('WP_CONTENT_DIR', $webroot_dir . Config::get('CONTENT_DIR'));
+Config::define('WP_CONTENT_URL', Config::get('WP_HOME') . Config::get('CONTENT_DIR'));
+
+/**
+ * DB settings
+ */
+if (env('DB_SSL')) {
+    Config::define('MYSQL_CLIENT_FLAGS', MYSQLI_CLIENT_SSL);
+}
+
+Config::define('DB_NAME', env('DB_NAME'));
+Config::define('DB_USER', env('DB_USER'));
+Config::define('DB_PASSWORD', env('DB_PASSWORD'));
+Config::define('DB_HOST', env('DB_HOST') ?: 'localhost');
+Config::define('DB_CHARSET', 'utf8mb4');
+Config::define('DB_COLLATE', '');
+$table_prefix = env('DB_PREFIX') ?: 'wp_';
+
+if (env('DATABASE_URL')) {
+    $dsn = (object) parse_url(env('DATABASE_URL'));
+
+    Config::define('DB_NAME', substr($dsn->path, 1));
+    Config::define('DB_USER', $dsn->user);
+    Config::define('DB_PASSWORD', $dsn->pass ?? null);
+    Config::define('DB_HOST', isset($dsn->port) ? "{$dsn->host}:{$dsn->port}" : $dsn->host);
+}
+
+/**
+ * Authentication Unique Keys and Salts
+ */
+Config::define('AUTH_KEY', env('AUTH_KEY'));
+Config::define('SECURE_AUTH_KEY', env('SECURE_AUTH_KEY'));
+Config::define('LOGGED_IN_KEY', env('LOGGED_IN_KEY'));
+Config::define('NONCE_KEY', env('NONCE_KEY'));
+Config::define('AUTH_SALT', env('AUTH_SALT'));
+Config::define('SECURE_AUTH_SALT', env('SECURE_AUTH_SALT'));
+Config::define('LOGGED_IN_SALT', env('LOGGED_IN_SALT'));
+Config::define('NONCE_SALT', env('NONCE_SALT'));
+
+/**
+ * Custom Settings
+ */
+Config::define('AUTOMATIC_UPDATER_DISABLED', true);
+
+// Disable the plugin and theme file editor in the admin
+Config::define('DISALLOW_FILE_EDIT', true);
+
+// Disable plugin and theme updates and installation from the admin
+Config::define('DISALLOW_FILE_MODS', true);
+
+// Limit the number of post revisions
+Config::define('WP_POST_REVISIONS', env('WP_POST_REVISIONS') ?? true);
+
+// API key for notifications.service.gov.uk email service
+Config::define('GOV_NOTIFY_API_KEY', env('GOV_NOTIFY_API_KEY') ?? null);
+
+// Sentry settings
+Config::define('SENTRY_TRACES_SAMPLE_RATE', 0.3);
+Config::define('SENTRY_PROFILE_SAMPLE_RATE', 0.3);
+
+/**
+ * Debugging Settings
+ */
+Config::define('WP_DEBUG_DISPLAY', false);
+Config::define('WP_DEBUG_LOG', false);
+Config::define('SCRIPT_DEBUG', false);
+ini_set('display_errors', '0');
+
+/**
+ * Allow WordPress to detect HTTPS when used behind a reverse proxy or a load balancer
+ * See https://codex.wordpress.org/Function_Reference/is_ssl#Notes
+ */
+if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') {
+    $_SERVER['HTTPS'] = 'on';
+}
+
+/**
+ * WP Offload Media settings
+ */
+
+// By not setting AS3CF_SETTINGS here, we can use the plugin GUI to configure the settings during debugging.
+if (file_exists(__DIR__ . '/wp-offload-media.php')) {
+    require_once __DIR__ . '/wp-offload-media.php';
+}
+
+/**
+ * Environment-specific settings
+ */
 $env_config = __DIR__ . '/environments/' . WP_ENV . '.php';
 
 if (file_exists($env_config)) {
     require_once $env_config;
 }
 
+
+Config::apply();
+
 /**
  * Initialise Sentry
  */
-Sentry\init([
-    'dsn' => 'https://85635e3372244483b86823c4f75dcee2@o345774.ingest.sentry.io/6143405',
-    'environment'=> WP_ENV . (env('SENTRY_DEV_ID') ?? ''),
-    'traces_sample_rate' => SENTRY_TRACES_SAMPLE_RATE,
-    'profiles_sample_rate' => SENTRY_PROFILE_SAMPLE_RATE
-]);
-
-/** Elasticsearch  /  ElasticPress */
-define("EP_HOST", env('ELASTICSEARCH_HOST'));
-
-/**
- * URLs
- */
-define('WP_HOME', env('WP_HOME'));
-define('WP_SITEURL', env('WP_SITEURL'));
-
-/**
- * Custom Content Directory
- */
-const CONTENT_DIR = '/app';
-const WP_CONTENT_URL = WP_HOME . CONTENT_DIR;
-define("WP_CONTENT_DIR", $webroot_dir . CONTENT_DIR);
-
-/**
- * DB settings
- */
-define('DB_NAME', env('DB_NAME'));
-define('DB_USER', env('DB_USER'));
-define('DB_PASSWORD', env('DB_PASSWORD'));
-define('DB_HOST', env('DB_HOST') ?: 'localhost');
-const DB_CHARSET = 'utf8mb4';
-const DB_COLLATE = '';
-$table_prefix = env('DB_PREFIX') ?: 'wp_';
-
-/**
- * Authentication Unique Keys and Salts
- */
-define('AUTH_KEY', env('AUTH_KEY'));
-define('SECURE_AUTH_KEY', env('SECURE_AUTH_KEY'));
-define('LOGGED_IN_KEY', env('LOGGED_IN_KEY'));
-define('NONCE_KEY', env('NONCE_KEY'));
-define('AUTH_SALT', env('AUTH_SALT'));
-define('SECURE_AUTH_SALT', env('SECURE_AUTH_SALT'));
-define('LOGGED_IN_SALT', env('LOGGED_IN_SALT'));
-define('NONCE_SALT', env('NONCE_SALT'));
-
-/**
- * Custom Settings
- */
-const AUTOMATIC_UPDATER_DISABLED = true;
-const DISABLE_WP_CRON = true;
-const DISALLOW_FILE_EDIT = true;
-define('S3_UPLOADS_BASE_URL', getenv('S3_UPLOADS_BASE_URL') ?: false);
+if (env('SENTRY_DSN')) {
+    Sentry\init([
+        'dsn' => env('SENTRY_DSN'),
+        'environment'=> WP_ENV . (env('SENTRY_DEV_ID') ?? ''),
+        'traces_sample_rate' => Config::get('SENTRY_TRACES_SAMPLE_RATE'),
+        'profiles_sample_rate' => Config::get('SENTRY_PROFILE_SAMPLE_RATE')
+    ]);
+}
 
 /**
  * Bootstrap WordPress

@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: intranet-config
+data:
+  WP_ENV: 'development'
+  WP_HOME: 'http://justice.local'
+  WP_SITEURL: 'http://justice.local/wp'
+  SENTRY_DEV_ID: '-damien-local-kube'
+
+  # Composer auth
+  COMPOSER_USER: 'circleci'
+  COMPOSER_PASS: 'some_password'
+  # used so composer can access repos
+  COMPOSER_TOKEN: 'some_token'
+
+  # Generated in Cloud Platform
+  DB_HOST: 'mariadb'
+  DB_NAME: 'wordpress'
+  DB_USER: 'wordpress'
+  DB_PASSWORD: 'wordpress'
+
+  # Applied via GitHub Actions
+  GOV_NOTIFY_API_KEY: ''
+  SENTRY_DSN: ''
+  AUTH_KEY: 'strong-64-character-random-string'
+  SECURE_AUTH_KEY: 'strong-64-character-random-string'
+  LOGGED_IN_KEY: 'strong-64-character-random-string'
+  NONCE_KEY: 'strong-64-character-random-string'
+  AUTH_SALT: 'strong-64-character-random-string'
+  SECURE_AUTH_SALT: 'strong-64-character-random-string'
+  LOGGED_IN_SALT: 'strong-64-character-random-string'
+  NONCE_SALT: 'strong-64-character-random-string'

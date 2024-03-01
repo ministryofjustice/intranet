@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mariadb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mariadb
+  template:
+    metadata:
+      labels:
+        app: mariadb
+    spec:
+      containers:
+        - name: mariadb
+          image: mariadb:10
+          env:
+            - name: MYSQL_RANDOM_ROOT_PASSWORD
+              value: "true"
+            - name: MYSQL_USER
+              value: justice
+            - name: MYSQL_PASSWORD
+              value: justice
+            - name: MYSQL_DATABASE
+              value: justice
+          resources: {}
+          ports:
+            - containerPort: 3306
+          volumeMounts:
+            - name: mariadb-pv
+              mountPath: /var/lib/mysql
+      volumes:
+      - name: mariadb-pv
+        persistentVolumeClaim:
+          claimName: mariadb-pv-claim
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mariadb
+spec:
+  selector:
+    app: mariadb
+  ports:
+    - port: 3306
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mariadb-pv-claim
+  labels:
+    app: mariadb
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 300M

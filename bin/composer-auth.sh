@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env ash
 
 ##
 # CONFIGURE COMPOSER AUTHENTICATION
@@ -10,8 +10,9 @@
 # be set with authentication credentials.
 ##
 
-if [ ! -z $COMPOSER_USER ] && [ ! -z $COMPOSER_PASS ]
-then
+if [ -n "$COMPOSER_USER" ] && [ -n "$COMPOSER_PASS" ]; then
+  composer config --global github-oauth.github.com "$COMPOSER_TOKEN"
+  rm -f auth.json
 	cat <<- EOF >> auth.json
 		{
 			"http-basic": {

@@ -1,0 +1,39 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: intranet-staging-ingress
+  namespace: intranet-staging
+  annotations:
+    external-dns.alpha.kubernetes.io/set-identifier: intranet-staging-ingress-intranet-staging-green
+    external-dns.alpha.kubernetes.io/aws-weight: "100"
+    nginx.ingress.kubernetes.io/auth-type: basic
+    nginx.ingress.kubernetes.io/auth-secret: basic-auth-secret
+    nginx.ingress.kubernetes.io/auth-realm: 'Staging User | Authentication Required'
+    nginx.ingress.kubernetes.io/server-snippet: |
+      location = /health {
+        auth_basic off;
+        access_log off;
+        default_type text/plain;
+        add_header Content-Type text/plain;
+        return 200 "OK";
+      }
+      location = /.well-known/security.txt {
+        auth_basic off;
+        return 301 https://raw.githubusercontent.com/ministryofjustice/security-guidance/main/contact/vulnerability-disclosure-security.txt;
+      }
+spec:
+  ingressClassName: default
+  tls:
+  - hosts:
+    - intranet-staging.apps.live.cloud-platform.service.justice.gov.uk
+  rules:
+  - host: intranet-staging.apps.live.cloud-platform.service.justice.gov.uk
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: nginx-service
+            port:
+              number: 8080

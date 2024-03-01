@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: intranet-staging
+  namespace: intranet-staging
+data:
+  WP_ENV: "staging"
+  WP_HOME: 'https://intranet-staging.apps.live.cloud-platform.service.justice.gov.uk'
+  WP_SITEURL: 'https://intranet-staging.apps.live.cloud-platform.service.justice.gov.uk/wp'

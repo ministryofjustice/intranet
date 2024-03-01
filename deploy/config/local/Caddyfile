@@ -1,0 +1,8 @@
+# A CDN to proxy requests to the Minio (S3) server.
+# Mimics AWS CloudFront, and removes the bucket path from the URL.
+# e.g. Request: http://cdn.justice.docker/uploads/2024/02/xyz.jpg
+# proxies to  : http://minio:9000/bucket-name/uploads/2024/02/xyz.jpg
+
+:2019
+rewrite * /{$S3_BUCKET_NAME}{uri}
+reverse_proxy minio:9000

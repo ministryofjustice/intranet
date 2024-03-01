@@ -1,0 +1,38 @@
+name: Composer Test
+
+on: [pull_request]
+
+jobs:
+  test:
+    if: github.event.ref != 'refs/heads/main'
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php-version: ['8.2', '8.3']
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: "Setup PHP"
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ matrix.php-version }}
+
+    - name: "Cache Composer dependencies"
+      id: composer-cache
+      run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+    - uses: actions/cache@v3
+      with:
+        path: ${{ steps.composer-cache.outputs.dir }}
+        key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+        restore-keys: ${{ runner.os }}-composer-
+
+    - name: "Check Composer lock file is up to date"
+      run: composer validate --no-check-all
+
+    - name: "Install Composer dependencies"
+      run: composer install --no-progress --prefer-dist --optimize-autoloader
+
+    - name: "Run tests"
+      run: make test

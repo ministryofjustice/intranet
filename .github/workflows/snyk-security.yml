@@ -1,0 +1,61 @@
+# For more examples, including how to limit scans to only high-severity issues
+# and fail PR checks, see https://github.com/snyk/actions/
+
+name: Snyk Security
+
+on:
+  pull_request:
+    branches: [ "main", "develop" ]
+  schedule:
+    - cron: '12 8 * * 2'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  snyk:
+    permissions:
+      actions: read
+      contents: read
+      statuses: read
+      security-events: write
+    runs-on: ubuntu-latest
+    env:
+      SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Snyk CLI to check for security issues
+        uses: snyk/actions/setup@806182742461562b67788a64410098c9d9b96adb
+
+        # Runs Snyk Code (SAST) analysis and uploads results into GitHub.
+      - name: Code (SAST) test
+        run: snyk code test --sarif > snyk-code.sarif || true
+
+        # Runs Snyk Infrastructure as Code (IaC) analysis and uploads result into GitHub.
+      - name: Infrastructure as Code test and report
+        run: snyk iac test --report || true
+
+      - name: PHP test
+        uses: snyk/actions/php@master
+        continue-on-error: true
+
+        # Build the docker images for testing
+      - name: Container monitor ~ build FPM & Nginx Docker images
+        run: |
+          docker image build -t justice-fpm:snyk --target build-fpm .
+          docker image build -t justice-nginx:snyk --target build-nginx .
+        # Runs Snyk Container (Container and SCA) analysis.
+      - name: Container monitor ~ analyse
+        run: |
+          snyk container monitor justice-fpm:snyk --file=Dockerfile
+          snyk container monitor justice-nginx:snyk --file=Dockerfile
+
+        # Push the Snyk Code results into GitHub Code Scanning tab
+      - name: Upload result to GitHub Code Scanning
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: snyk-code.sarif

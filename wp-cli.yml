@@ -1,1 +1,4 @@
-path: web/wp
+path: /var/www/html/public/wp
+disabled_commands:
+  - db drop
+  - plugin install

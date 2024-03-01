@@ -8,7 +8,8 @@
             "johnpbloch/wordpress-core-installer": true,
             "koodimonni/composer-dropin-installer": true,
             "composer/installers": true,
-            "php-http/discovery": true
+            "php-http/discovery": true,
+            "roots/wordpress-core-installer": true
         }
     },
     "repositories": [
@@ -26,10 +27,6 @@
         },
         {
             "type": "vcs",
-            "url": "https://github.com/ministryofjustice/dw-live-drafts"
-        },
-        {
-            "type": "vcs",
             "url": "https://github.com/ministryofjustice/like-button-for-wordpress"
         },
         {
@@ -43,13 +40,14 @@
     ],
     "require": {
         "php": ">=8.2",
-        "composer/installers": "^1.4",
-        "aws/aws-sdk-php": "^3.133",
-        "vlucas/phpdotenv": "^2.0.1",
-        "johnpbloch/wordpress": "^6.2",
-        "koodimonni-language/core-en_gb": "^6.2",
-        "oscarotero/env": "^1.1.0",
+        "composer/installers": "^1.0.0",
+        "vlucas/phpdotenv": "^5.5",
+        "oscarotero/env": "^2.1",
+        "roots/bedrock-autoloader": "^1.0",
+        "roots/bedrock-disallow-indexing": "^2.0",
+        "roots/wordpress": "^6.4",
         "roots/wp-password-bcrypt": "*",
+        "roots/wp-config": "^1.0",
         "wpackagist-plugin/classic-editor": "*",
         "wpackagist-plugin/totalpoll-lite": "*",
         "wpackagist-plugin/cms-tree-page-view": "*",
@@ -69,41 +67,41 @@
         "ext-posix": "*",
         "sentry/sdk": "^3.1",
         "php-http/guzzle7-adapter": "^1.0",
-        "alphagov/notifications-php-client": "^5.0"
+        "alphagov/notifications-php-client": "^5.0",
+        "aws/aws-sdk-php": "^3.133"
     },
     "require-dev": {
         "wpackagist-plugin/query-monitor": "*",
         "wpackagist-plugin/debug-bar": "*",
         "wpackagist-plugin/debug-bar-elasticpress": "*",
-        "squizlabs/php_codesniffer": "^3.0.2",
-        "rector/rector": "^0.15.19"
+        "squizlabs/php_codesniffer": "^3.0.2"
     },
     "extra": {
         "installer-paths": {
-            "web/app/mu-plugins/{$name}/": [
+            "public/app/mu-plugins/{$name}/": [
                 "type:wordpress-muplugin",
                 "wpackagist-plugin/ewww-image-optimizer",
                 "ministryofjustice/php-markdown-extra"
             ],
-            "web/app/plugins/{$name}/": [
+            "public/app/plugins/{$name}/": [
                 "type:wordpress-plugin"
             ],
-            "web/app/themes/{$name}/": [
+            "public/app/themes/{$name}/": [
                 "type:wordpress-theme"
             ]
         },
         "dropin-paths": {
-            "web/app/languages/": [
+            "public/app/languages/": [
                 "vendor:koodimonni-language"
             ],
-            "web/app/languages/plugins/": [
+            "public/app/languages/plugins/": [
                 "vendor:koodimonni-plugin-language"
             ],
-            "web/app/languages/themes/": [
+            "public/app/languages/themes/": [
                 "vendor:koodimonni-theme-language"
             ]
         },
-        "wordpress-install-dir": "web/wp"
+        "wordpress-install-dir": "public/wp"
     },
     "scripts": {
         "post-root-package-install": [
@@ -118,12 +116,16 @@
     },
     "authors": [
         {
-            "name": "Damien Wilson",
-            "email": "damien.wilson@digital.justice.gov.uk"
+            "name": "Ministry of Justice",
+            "email": "central-digital-product-team@digital.justice.gov.uk"
         },
         {
-            "name": "Adam Brown",
-            "email": "wordpress@digital.justice.gov.uk"
+            "name": "Damien Wilson",
+            "homepage": "https://github.com/wilson1000"
+        },
+        {
+            "name": "Davey Brown",
+            "homepage": "https://github.com/EarthlingDavey"
         }
     ]
 }

@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: intranet-demo
+  namespace: intranet-demo
+data:
+  WP_ENV: "production"
+  WP_HOME: 'https://intranet-demo.apps.live.cloud-platform.service.justice.gov.uk'
+  WP_SITEURL: 'https://intranet-demo.apps.live.cloud-platform.service.justice.gov.uk/wp'
+  SENTRY_DEV_ID: '-demo'
