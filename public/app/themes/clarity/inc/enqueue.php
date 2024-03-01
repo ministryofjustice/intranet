@@ -9,7 +9,7 @@ add_action('wp_enqueue_scripts', 'enqueue_clarity_scripts', 99);
 
 function enqueue_clarity_scripts()
 {
-    define('MOJ_DIST_PATH', get_template_directory_uri() . '/dist');
+    define('MOJ_DIST_PATH', get_stylesheet_directory_uri() . '/dist');
 
     // CSS
     wp_enqueue_style('style', mix_asset('/css/style.css'), array(), null, 'screen');
@@ -45,15 +45,15 @@ function enqueue_clarity_scripts()
  */
 function mix_asset($filename)
 {
-    global $webroot_dir;
+    /*global $webroot_dir;
 
     $manifest = file_get_contents($webroot_dir . '/app/themes/clarity/dist/mix-manifest.json');
     $manifest = json_decode($manifest, true);
 
     if (!isset($manifest[$filename])) {
         error_log("Mix asset '$filename' does not exist in manifest.");
-    }
-    return MOJ_DIST_PATH . $manifest[$filename];
+    }*/
+    return MOJ_DIST_PATH . $filename;
 }
 
 /**

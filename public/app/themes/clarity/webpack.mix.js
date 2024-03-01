@@ -1,4 +1,4 @@
-let mix = require('laravel-mix')
+let mix = require('laravel-mix');
 
 let stylDeps = {
     stylusOptions: {
@@ -6,7 +6,7 @@ let stylDeps = {
     }
 };
 
-mix.setPublicPath('./dist/')
+mix.setPublicPath('./dist/');
 
 /*******************/
 mix.js('src/globals/js/script-loader.js', 'dist/js/main.min.js')
@@ -19,10 +19,10 @@ mix.js('src/globals/js/script-loader.js', 'dist/js/main.min.js')
     .copy('./node_modules/jquery/dist/jquery.min.js', 'dist/js/')
     .copy('src/globals/fonts/*', 'dist/fonts/')
     .copy('src/globals/images', 'dist/images/')
-    .options({ processCssUrls: false })
+    .options({ processCssUrls: false });
 
 if (mix.inProduction()) {
-    mix.version()
+    mix.version();
 } else {
-    mix.sourceMaps()
+    mix.sourceMaps();
 }
