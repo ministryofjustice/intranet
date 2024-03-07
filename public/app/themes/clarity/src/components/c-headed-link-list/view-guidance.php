@@ -2,7 +2,7 @@
 use MOJ\Intranet\GuidanceAndForms;
 
 $oGuidance      = new GuidanceAndForms();
-$guidance_pages = $oGuidance->get_guidance_and_forms_pages();
+$guidance_pages = $oGuidance->getGuidanceAndFormsPages();
 
 if (! empty($guidance_pages)) {
     foreach ($guidance_pages as $page) : ?>

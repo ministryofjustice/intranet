@@ -10,7 +10,7 @@ if (!current_user_can('administrator')) {
 }
 
 $load_commands = array(
-    'remove-old-tabs-and-links' => 'Remove_Old_Tabs_And_Links',
+    'remove-old-tabs-and-links' => 'RemoveOldTabsAndLinks',
 );
 
 $admin_commands = array();
@@ -26,7 +26,7 @@ foreach ($load_commands as $include_file => $class_name) {
 /**
  * Create the admin page.
  */
-function add_admin_commands_page()
+function add_admin_commands_page(): void
 {
     add_management_page('Admin Commands', 'Admin Commands', 'administrator', 'admin-commands', 'admin_commands_page');
 }
