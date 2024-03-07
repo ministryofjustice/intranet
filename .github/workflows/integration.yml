@@ -14,13 +14,13 @@ concurrency:
 jobs:
   image:
     name: "Image"
-    if: github.event.ref == 'refs/heads/main'
+    if: github.event.ref == 'refs/heads/develop'
     uses: ./.github/workflows/build.yml
     secrets: inherit
 
   deploy_dev:
     name: "Development"
-    if: github.event.ref == 'refs/heads/main'
+    if: github.event.ref == 'refs/heads/develop'
     uses: ./.github/workflows/deploy.yml
     needs: image
     with:
@@ -31,7 +31,7 @@ jobs:
   deploy_staging:
     name: "Staging"
     needs: deploy_dev
-    if: github.event.ref == 'refs/heads/main'
+    if: github.event.ref == 'refs/heads/develop'
     uses: ./.github/workflows/deploy.yml
     with:
       environment: staging
@@ -41,7 +41,7 @@ jobs:
   deploy_demo:
     name: "Demo"
     needs: deploy_dev
-    if: github.event.ref == 'refs/heads/main'
+    if: github.event.ref == 'refs/heads/develop'
     uses: ./.github/workflows/deploy.yml
     with:
       environment: demo
@@ -51,7 +51,7 @@ jobs:
   deploy_production:
     name: "Production"
     needs: deploy_staging
-    if: github.event.ref == 'refs/heads/main'
+    if: github.event.ref == 'refs/heads/develop'
     uses: ./.github/workflows/deploy.yml
     with:
       environment: production
