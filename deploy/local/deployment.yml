@@ -25,7 +25,7 @@ spec:
       terminationGracePeriodSeconds: 35
       containers:
         - name: nginx
-          image: justice-nginx:latest
+          image: intranet-nginx:latest
           imagePullPolicy: Never
           resources: {}
           ports:
@@ -35,7 +35,7 @@ spec:
               mountPath: /var/run/nginx-cache
 
         - name: fpm
-          image: justice-fpm:latest
+          image: intranet-fpm:latest
           imagePullPolicy: Never
           envFrom:
             - configMapRef:

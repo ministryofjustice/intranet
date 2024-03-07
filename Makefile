@@ -91,17 +91,17 @@ test-fixes:
 #####
 build-nginx:
 	@echo "\n-->  Building local Nginx  <---------------------------|\n"; sleep 3;
-	docker image build -t justice-nginx:latest --target build-nginx .
+	docker image build -t intranet-nginx:latest --target build-nginx .
 
 # FastCGI Process Manager for PHP
 # https://www.php.net/manual/en/install.fpm.php
 # https://www.plesk.com/blog/various/php-fpm-the-future-of-php-handling/
 build-fpm:
 	@echo "\n-->  Building local FPM  <---------------------------|\n"; sleep 3;
-	docker image build -t justice-fpm:latest --target build-fpm .
+	docker image build -t intranet-fpm:latest --target build-fpm .
 
 build: build-fpm build-nginx
-	@if [ ${kube} == 'kind' ]; then kind load docker-image justice-fpm:latest; kind load docker-image justice-nginx:latest; fi
+	@if [ ${kube} == 'kind' ]; then kind load docker-image intranet-fpm:latest; kind load docker-image intranet-nginx:latest; fi
 	@echo "\n-->  Done.\n"
 
 deploy: clear
