@@ -23,21 +23,19 @@
 
             <?php
         } else {
-
             $user_id = $check_result->ID;
 
-            if(is_numeric($user_id)) {
-
+            if (is_numeric($user_id)) {
                 $query    = new WP_Comment_Query;
-                $comments = $query->query( array (
+                $comments = $query->query(array (
                     'user_id' => $user_id,
                     'type'    => 'comment',
                     'fields'  => 'ids',
                     'status'  => 'any',
-                ) );
+                ));
 
-                foreach ( $comments as $comment ) {
-                    wp_delete_comment( $comment, true );
+                foreach ($comments as $comment) {
+                    wp_delete_comment($comment, true);
                 }
 
                 require_once(ABSPATH.'wp-admin/includes/user.php');
@@ -51,14 +49,12 @@
             <p>You will need to register your email address again to make comments.</p>
         <?php } ?>
         <?php
-
     } else {
         if (is_user_logged_in()) {
             global $current_user;
             wp_get_current_user();
 
             if (!empty($_POST['btndelete'])) {
-
                 $delete_link = get_bloginfo('url') . '/delete-account?key=' . get_password_reset_key($current_user) . '&login=' . rawurlencode($current_user->user_login);
 
                 add_filter('intranet_mail_templates', function ($templates) use ($delete_link, $current_user) {
@@ -74,7 +70,6 @@
                 <h1 class="o-title o-title--page">We have sent you a confirmation email</h1>
                 <p>Check your email inbox and click the link in the email to delete your MoJ Intranet comments.</p>
                 <?php
-
             } else {
                 ?>
                 <h1 class="o-title o-title--page">Delete your comment history</h1>

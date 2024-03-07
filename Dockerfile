@@ -30,7 +30,7 @@ USER 82
 FROM base-fpm AS build-fpm-composer
 
 ARG COMPOSER_USER
-ENV COMPOSER_USER $COMPOSER_USER
+ARG COMPOSER_PASS
 
 WORKDIR /var/www/html
 
@@ -39,7 +39,6 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 COPY ./bin/composer-auth.sh /var/www/html/composer-auth.sh
 RUN chmod +x /var/www/html/composer-auth.sh
 RUN /var/www/html/composer-auth.sh
-
 
 # non-root
 USER 82

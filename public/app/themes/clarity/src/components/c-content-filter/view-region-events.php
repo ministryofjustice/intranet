@@ -29,13 +29,13 @@ $prefix = 'ff';
         </select>
       </div>
       <?php
-      $nonce = wp_create_nonce('search_filter_nonce');
+        $nonce = wp_create_nonce('search_filter_nonce');
 
-      form_builder('text', $prefix, 'Keywords', 'keywords_filter', null, null, 'Contains words such as &lsquo;induction&rsquo;', null, false, null, null);
+        form_builder('text', $prefix, 'Keywords', 'keywords_filter', null, null, 'Contains words such as &lsquo;induction&rsquo;', null, false, null, null);
 
       // Hidden field to pass nonce for improved security
-      form_builder('hidden', '', false, '_nonce', '_search_filter_wpnonce', $nonce, null, null, false, null, null);
-      ?>
+        form_builder('hidden', '', false, '_nonce', '_search_filter_wpnonce', $nonce, null, null, false, null, null);
+        ?>
       <input type="submit" value="Filter" id="ff_button_submit" />
     </fieldset>  
   </form>

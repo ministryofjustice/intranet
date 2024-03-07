@@ -25,7 +25,7 @@ $oAgency        = new Agency();
           <option value=""><?php echo esc_attr(__('All')); ?></option>
           <?php
             wp_get_archives($archives_args);
-          ?>
+            ?>
         </select>
       </div>
       <?php
@@ -35,7 +35,7 @@ $oAgency        = new Agency();
 
         // Hidden field to pass nonce for improved security
         form_builder('hidden', '', false, '_nonce', '_search_filter_wpnonce', $nonce, null, null, false, null, null);
-      ?>
+        ?>
       <div class="c-input-container">
         <label for="ff_categories_filter">Categories    </label>
         <div class="c-input-box">

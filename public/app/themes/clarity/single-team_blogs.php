@@ -24,7 +24,7 @@ $activeAgency = $oAgency->getCurrentAgency();
       <?php
         get_template_part('src/components/c-share-post/view');
         get_template_part('src/components/c-comments/view');
-      ?>
+        ?>
     </section>
 
   </main>

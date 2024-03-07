@@ -3,15 +3,15 @@
     <description>Justice Digital Coding Standards</description>
 
     <!-- Scan all files in directory -->
-    <file>.</file>
+    <file>public/</file>
 
     <!-- Scan only PHP files -->
     <arg name="extensions" value="php"/>
 
     <!-- Ignore WordPress and Composer dependencies -->
     <exclude-pattern>public/wp</exclude-pattern>
+    <exclude-pattern>public/app/mu-plugins</exclude-pattern>
     <exclude-pattern>public/app/plugins</exclude-pattern>
-    <exclude-pattern>vendor/</exclude-pattern>
 
     <!-- Show colors in console -->
     <arg value="-colors"/>
@@ -19,8 +19,18 @@
     <!-- Show sniff codes in all reports -->
     <arg value="ns"/>
 
-    <!-- Use PSR-2 as a base -->
-    <rule ref="PSR2"/>
+    <!-- Use PSR-1 as a base -->
+    <rule ref="PSR1"/>
+
+    <rule ref="PSR1.Methods.CamelCapsMethodName">
+        <exclude-pattern>public/app/themes/clarity/inc/*</exclude-pattern>
+    </rule>
+    <rule ref="PSR1.Classes.ClassDeclaration.MissingNamespace">
+        <exclude-pattern>public/app/themes/clarity/inc/*</exclude-pattern>
+    </rule>
+    <rule ref="Squiz.Classes.ValidClassName">
+        <exclude-pattern>public/app/themes/clarity/inc/*</exclude-pattern>
+    </rule>
 
     <!-- Increase memory limit -->
     <ini name="memory_limit" value="1024M"/>

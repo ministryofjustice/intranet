@@ -126,8 +126,7 @@ class Agency extends Taxonomy
             'hide_empty' => false,
         ));
 
-        if (
-            is_string($user) &&
+        if (is_string($user) &&
             in_array($user, array('add-existing-user', 'add-new-user'))
         ) {
             $user = false;
@@ -272,8 +271,7 @@ class Agency extends Taxonomy
     public function set_agency_terms_on_save_post($post_id)
     {
         $post_type = get_post_type($post_id);
-        if (
-            !in_array($post_type, $this->object_types) ||
+        if (!in_array($post_type, $this->object_types) ||
             !Agency_Context::current_user_can_have_context()
         ) {
             return;
@@ -343,8 +341,7 @@ class Agency extends Taxonomy
     {
         $is_opted_in = Agency_Editor::is_post_opted_in($post->ID);
 
-        if (
-            is_null($is_opted_in) || // User cannot opt-in to this post.
+        if (is_null($is_opted_in) || // User cannot opt-in to this post.
             $post->post_status !== 'publish' // The post is not published.
         ) {
             return $actions;
@@ -377,8 +374,7 @@ class Agency extends Taxonomy
      */
     public function quick_action_opt_in_out()
     {
-        if (
-            !isset($_GET['action']) ||
+        if (!isset($_GET['action']) ||
             !in_array($_GET['action'], array('opt-in', 'opt-out')) ||
             !isset($_GET['post'])
         ) {
@@ -387,8 +383,7 @@ class Agency extends Taxonomy
 
         $post_id = $_GET['post'];
 
-        if (
-            !isset($_GET['_wpnonce']) ||
+        if (!isset($_GET['_wpnonce']) ||
             !wp_verify_nonce($_GET['_wpnonce'], 'opt_in_out-post_' . $post_id)
         ) {
             wp_die('Missing or invalid nonce.');

@@ -121,9 +121,10 @@ class DocumentRevisionReconcile
             // what would have happened?
             if ($attachment_is_set) {
                 $this->succeeded($post);
-                $this->message([
+                $this->message(
+                    [
                     'Update succeeded for: %s' => "UPDATE `wp_posts` SET `post_content` = '<!-- WPDR $post->attachment -->' WHERE `ID` = $post->ID"
-                ],
+                    ],
                     'success'
                 );
             } else {
@@ -210,7 +211,6 @@ class DocumentRevisionReconcile
             case 'log':
                 WP_CLI::log($message);
                 break;
-
         }
     }
 }

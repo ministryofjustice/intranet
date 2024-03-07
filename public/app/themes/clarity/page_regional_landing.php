@@ -30,12 +30,12 @@ get_header();
       <h1 class="o-title o-title--page"><?php the_title(); ?></h1>
 
       <div class="template-container ">
-        <?php get_template_part( 'src/components/c-rich-text-block/view' ); ?>
+        <?php get_template_part('src/components/c-rich-text-block/view'); ?>
       </div>
 
       <?php
         echo '<div id="content">';
-        get_news_api( 'regional_news' );
+        get_news_api('regional_news');
         echo '</div>';
 
         echo '<br><div id="content">';
@@ -49,11 +49,11 @@ get_header();
         $EventsHelper  = new EventsHelper();
         $events = $EventsHelper->get_events($agency_term_id, $filter_options);
         if ($events) {
-          echo '<h2 class="o-title o-title--section" id="title-section">Events</h2>';
-          include locate_template('src/components/c-events-list/view.php');
+            echo '<h2 class="o-title o-title--section" id="title-section">Events</h2>';
+            include locate_template('src/components/c-events-list/view.php');
         }
         echo '</div>';
-      ?>
+        ?>
     </div>
   </main>
 

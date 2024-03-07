@@ -48,5 +48,4 @@ class Campaign_Category extends Content_Category
     );
 
     protected $run_has_attached_terms_not_in_context = true;
-
 }

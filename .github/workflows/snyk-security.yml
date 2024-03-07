@@ -46,8 +46,12 @@ jobs:
         # Build the docker images for testing
       - name: Container monitor ~ build FPM & Nginx Docker images
         run: |
-          docker image build -t justice-fpm:snyk --target build-fpm .
-          docker image build -t justice-nginx:snyk --target build-nginx .
+          docker image build --build-arg COMPOSER_USER="$COMPOSER_USER" --build-arg COMPOSER_PASS="$COMPOSER_PASS" -t justice-fpm:snyk --target build-fpm .
+          docker image build --build-arg COMPOSER_USER="$COMPOSER_USER" --build-arg COMPOSER_PASS="$COMPOSER_PASS" -t justice-nginx:snyk --target build-nginx .
+        env:
+          COMPOSER_USER: ${{ secrets.COMPOSER_USER }}
+          COMPOSER_PASS: ${{ secrets.COMPOSER_PASS }}
+
         # Runs Snyk Container (Container and SCA) analysis.
       - name: Container monitor ~ analyse
         run: |

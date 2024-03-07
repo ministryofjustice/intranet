@@ -93,7 +93,6 @@ function clarity_admin_enqueue($hook)
             false
         );
         wp_localize_script('colour-contrast-checker', 'mojAjax', ['ajaxurl' => admin_url('admin-ajax.php')]);
-
     endif;
 
     wp_register_style(

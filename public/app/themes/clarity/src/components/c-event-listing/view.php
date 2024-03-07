@@ -54,7 +54,7 @@ if (isset($events)) :
   <div class="c-event-listing--date">
     <span>Date:</span>
     <time datetime="<?php echo $datetime; ?>">
-      <?php echo $day . ', ' . $multidate . ' ' . $year; ?>
+        <?php echo $day . ', ' . $multidate . ' ' . $year; ?>
     </time>  
   </div>
 

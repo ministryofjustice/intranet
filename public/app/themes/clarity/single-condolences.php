@@ -11,7 +11,7 @@ get_header();
     <section class="l-full-page">
       <?php
         get_template_part('src/components/c-comments/view', 'condolence');
-      ?>
+        ?>
     </section>
 
   </main>

@@ -1,4 +1,4 @@
-#!/usr/bin/env ash
+#!/usr/bin/env sh
 
 ##
 # CONFIGURE COMPOSER AUTHENTICATION
@@ -10,8 +10,12 @@
 # be set with authentication credentials.
 ##
 
-if [ -n "$COMPOSER_USER" ] && [ -n "$COMPOSER_PASS" ]; then
+if [ -n "$COMPOSER_TOKEN" ]; then
   composer config --global github-oauth.github.com "$COMPOSER_TOKEN"
+fi
+
+if [ -n "$COMPOSER_USER" ] && [ -n "$COMPOSER_PASS" ]
+then
   rm -f auth.json
 	cat <<- EOF >> auth.json
 		{
@@ -23,4 +27,11 @@ if [ -n "$COMPOSER_USER" ] && [ -n "$COMPOSER_PASS" ]; then
 			}
 		}
 	EOF
+else
+	echo "FATAL: COMPOSER_USER and COMPOSER_PASS were not available."
+fi
+
+## check for auth.json
+if [ ! -f "auth.json" ]; then
+  echo "FATAL: auth.json was not written to the FS."
 fi

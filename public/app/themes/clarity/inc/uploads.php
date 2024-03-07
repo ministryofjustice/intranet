@@ -47,7 +47,8 @@ function custom_upload_mimes($existing_mimes = array())
     return $existing_mimes;
 }
 
-function restrict_file_types($string) {
+function restrict_file_types($string)
+{
     return strpos($string, 'video') === false;
 }
 

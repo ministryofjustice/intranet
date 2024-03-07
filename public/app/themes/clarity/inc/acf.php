@@ -51,14 +51,11 @@ function home_option_fields($field)
     $agency_wide_fields = ['enable_agency_wide_banner', 'agency_wide_banner_title', 'agency_wide_banner_message', 'agency_wide_banner_type', 'agency_wide_banner_link'];
 
     if (isset($screen) && ($screen->id == 'toplevel_page_homepage-settings')) {
-
         $context = Agency_Context::get_agency_context();
 
         if (!in_array($field['name'], $agency_wide_fields)) {
             $field['name'] = $context . '_' . $field['name'];
         }
-
-
     }
     return $field;
 }
@@ -203,7 +200,6 @@ function dw_acf_rule_match_agency_context($match, $rule, $options)
         if ($context == $rule['value']) {
             $match = true;
         }
-
     } elseif ('!=' == $rule['operator']) {
         if ($context != $rule['value']) {
             $match = true;
@@ -211,7 +207,6 @@ function dw_acf_rule_match_agency_context($match, $rule, $options)
     }
 
     return $match;
-
 }
 
 add_filter('acf/location/rule_match/agency_context', 'dw_acf_rule_match_agency_context', 10, 3);

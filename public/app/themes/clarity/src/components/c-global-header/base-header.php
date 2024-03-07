@@ -61,7 +61,7 @@ $activeAgency = $oAgency->getCurrentAgency() ? $oAgency->getCurrentAgency() : 'h
 </head>
 <?php
 if (! defined('GT_CODE')) {
-  define('GT_CODE', 'GTM-P545JM');
+    define('GT_CODE', 'GTM-P545JM');
 }
 ?>
 <!-- Google Tag Manager -->
