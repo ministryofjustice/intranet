@@ -14,7 +14,7 @@ if [ ! -d "./vendor-assets" ]; then
   echo "Generating vendor-assets directory..."
 
   mkdir -p ./vendor-assets
-  find public/ -name '*node_modules*' -prune -name '*clarity/src*' -prune -name '*clarity/webpack*' -prune -o -type f -regex "public\/${regex_path}.*\.${regex_files}" -exec cp --parent "{}" vendor-assets/  \;
+  find public/ -name '*node_modules*' -prune -name '*uploads*' -prune -name '*clarity/src*' -prune -name '*clarity/webpack*' -prune -o -type f -regex "public\/${regex_path}.*\.${regex_files}" -exec cp --parent "{}" vendor-assets/  \;
 
   echo "Done."
 fi
