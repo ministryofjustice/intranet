@@ -25,9 +25,9 @@ spec:
   ingressClassName: default
   tls:
   - hosts:
-    - intranet-demo.apps.live.cloud-platform.service.justice.gov.uk
+    - demo-intranet.apps.live.cloud-platform.service.justice.gov.uk
   rules:
-  - host: intranet-demo.apps.live.cloud-platform.service.justice.gov.uk
+  - host: demo-intranet.apps.live.cloud-platform.service.justice.gov.uk
     http:
       paths:
       - path: /

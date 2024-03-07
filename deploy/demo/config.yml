@@ -5,6 +5,6 @@ metadata:
   namespace: intranet-demo
 data:
   WP_ENV: "production"
-  WP_HOME: 'https://intranet-demo.apps.live.cloud-platform.service.justice.gov.uk'
-  WP_SITEURL: 'https://intranet-demo.apps.live.cloud-platform.service.justice.gov.uk/wp'
+  WP_HOME: 'https://demo-intranet.apps.live.cloud-platform.service.justice.gov.uk'
+  WP_SITEURL: 'https://demo-intranet.apps.live.cloud-platform.service.justice.gov.uk/wp'
   SENTRY_DEV_ID: '-demo'
