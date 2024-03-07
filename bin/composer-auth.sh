@@ -27,3 +27,8 @@ if [ -n "$COMPOSER_USER" ] && [ -n "$COMPOSER_PASS" ]; then
 		}
 	EOF
 fi
+
+## check for auth.json
+if [ ! -f "auth.json" ]; then
+  echo "FATAL: auth.json was not written to the FS."
+fi
