@@ -4,7 +4,8 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - 'main'
+      # - 'main' # protect main during initial development
+      - 'develop'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}

@@ -25,7 +25,7 @@ jobs:
       - name: "Inject environment variables"
         env:
           TPL_PATH: "deploy/${{ inputs.environment }}"
-          ECR_URL: ${{ inputs.registry }}/${{ vars.PRODUCTION_ECR_REPOSITORY }}
+          ECR_URL: ${{ inputs.registry }}/${{ vars.ECR_REPOSITORY }}
           IMAGE_TAG_NGINX: "nginx-${{ github.sha }}"
           IMAGE_TAG_FPM: "fpm-${{ github.sha }}"
           GOV_NOTIFY_API_KEY: ${{ secrets.GOV_NOTIFY_API_KEY }}

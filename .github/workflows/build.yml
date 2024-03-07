@@ -23,8 +23,8 @@ jobs:
       - name: "Configuring AWS credentials"
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: ${{ secrets.PRODUCTION_ECR_ROLE_TO_ASSUME }}
-          aws-region: ${{ vars.PRODUCTION_ECR_REGION }}
+          role-to-assume: ${{ secrets.ECR_ROLE_TO_ASSUME }}
+          aws-region: ${{ vars.ECR_REGION }}
 
       - name: "Logging into ECR"
         uses: aws-actions/amazon-ecr-login@v2
@@ -38,5 +38,5 @@ jobs:
           docker push $REGISTRY/$REPOSITORY:nginx-$IMAGE_TAG
         env:
           REGISTRY: ${{ steps.ecr-login.outputs.registry }}
-          REPOSITORY: ${{ vars.PRODUCTION_ECR_REPOSITORY }}
+          REPOSITORY: ${{ vars.ECR_REPOSITORY }}
           IMAGE_TAG: ${{ github.sha }}
