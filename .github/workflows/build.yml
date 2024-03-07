@@ -32,11 +32,13 @@ jobs:
 
       - name: "Build & Push to ECR"
         run: |
-          docker image build -t $REGISTRY/$REPOSITORY:fpm-$IMAGE_TAG --target build-fpm .
-          docker image build -t $REGISTRY/$REPOSITORY:nginx-$IMAGE_TAG --target build-nginx .
+          docker image build --build-arg COMPOSER_USER="$COMPOSER_USER" --build-arg COMPOSER_PASS="$COMPOSER_PASS" -t $REGISTRY/$REPOSITORY:fpm-$IMAGE_TAG --target build-fpm .
+          docker image build --build-arg COMPOSER_USER="$COMPOSER_USER" --build-arg COMPOSER_PASS="$COMPOSER_PASS" -t $REGISTRY/$REPOSITORY:nginx-$IMAGE_TAG --target build-nginx .
           docker push $REGISTRY/$REPOSITORY:fpm-$IMAGE_TAG
           docker push $REGISTRY/$REPOSITORY:nginx-$IMAGE_TAG
         env:
           REGISTRY: ${{ steps.ecr-login.outputs.registry }}
           REPOSITORY: ${{ vars.ECR_REPOSITORY }}
           IMAGE_TAG: ${{ github.sha }}
+          COMPOSER_USER: ${{ secrets.COMPOSER_USER }}
+          COMPOSER_PASS: ${{ secrets.COMPOSER_PASS }}
