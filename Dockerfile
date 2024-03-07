@@ -30,7 +30,7 @@ USER 82
 FROM base-fpm AS build-fpm-composer
 
 ARG COMPOSER_USER
-ENV COMPOSER_USER $COMPOSER_USER
+ARG COMPOSER_PASS
 
 WORKDIR /var/www/html
 
@@ -40,7 +40,6 @@ COPY ./bin/composer-auth.sh /var/www/html/composer-auth.sh
 RUN chmod +x /var/www/html/composer-auth.sh
 RUN /var/www/html/composer-auth.sh
 
-
 # non-root
 USER 82
 
@@ -49,7 +48,7 @@ RUN composer install --no-dev --no-scripts --no-autoloader
 
 COPY . .
 RUN composer install --no-dev
-RUN composer dump-autoload -o
+RUN composer dump-autoload -o && rm -f auth.json
 
 ARG regex_files='\(htm\|html\|js\|css\|png\|jpg\|jpeg\|gif\|ico\|svg\|webmanifest\)'
 ARG regex_path='\(app\/themes\/clarity\/error\-pages\|app\/mu\-plugins\|app\/plugins\|wp\)'
