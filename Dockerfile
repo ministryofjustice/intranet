@@ -48,7 +48,7 @@ RUN composer install --no-dev --no-scripts --no-autoloader
 
 COPY . .
 RUN composer install --no-dev
-RUN composer dump-autoload -o && rm -f auth.json
+RUN composer dump-autoload -o
 
 ARG regex_files='\(htm\|html\|js\|css\|png\|jpg\|jpeg\|gif\|ico\|svg\|webmanifest\)'
 ARG regex_path='\(app\/themes\/clarity\/error\-pages\|app\/mu\-plugins\|app\/plugins\|wp\)'
@@ -110,6 +110,6 @@ COPY --from=assets-build /code/public/app/themes/clarity/style.css /var/www/html
 COPY --from=assets-build /code/public/app/themes/clarity/dist /var/www/html/public/app/themes/clarity/dist/
 
 # Only take what Nginx needs (current configuration)
-COPY --from=build-fpm-composer --chown=www-data:www-data /var/www/html/vendor-assets /var/www/html/
-COPY --from=build-fpm-composer --chown=www-data:www-data /var/www/html/public/index.php /var/www/html/public/index.php
-COPY --from=build-fpm-composer --chown=www-data:www-data /var/www/html/public/wp/wp-admin/index.php /var/www/html/public/wp/wp-admin/index.php
+# COPY --from=build-fpm-composer --chown=www-data:www-data /var/www/html/vendor-assets /var/www/html/
+# COPY --from=build-fpm-composer --chown=www-data:www-data /var/www/html/public/index.php /var/www/html/public/index.php
+# COPY --from=build-fpm-composer --chown=www-data:www-data /var/www/html/public/wp/wp-admin/index.php /var/www/html/public/wp/wp-admin/index.php
