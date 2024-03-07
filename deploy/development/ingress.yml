@@ -8,7 +8,7 @@ metadata:
     external-dns.alpha.kubernetes.io/aws-weight: "100"
     nginx.ingress.kubernetes.io/auth-type: basic
     nginx.ingress.kubernetes.io/auth-secret: intranet-basic-auth
-    nginx.ingress.kubernetes.io/auth-realm: 'Development User | Authentication Required'
+    nginx.ingress.kubernetes.io/auth-realm: 'Development Access | Authentication Required'
     nginx.ingress.kubernetes.io/server-snippet: |
       location = /health {
         auth_basic off;
