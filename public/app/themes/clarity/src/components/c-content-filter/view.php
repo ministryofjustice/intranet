@@ -33,7 +33,7 @@ $oAgency        = new Agency();
 
         // Hidden field to pass nonce for improved security
         form_builder('hidden', '', false, '_nonce', '_search_filter_wpnonce', $nonce, null, null, false, null, null);
-      ?>
+        ?>
       <input type="submit" value="Filter" id="ff_button_submit" />
     </fieldset>
   </form>

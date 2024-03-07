@@ -112,7 +112,6 @@ function moj_intranet_copy_agencies_to_notes($note = null)
     }
 
     foreach ($notes as $note) {
-
         // check if agencies match the current saved agencies...
         $terms = get_the_terms($note->ID, 'agency');
         $agencies_current = [];
@@ -123,7 +122,6 @@ function moj_intranet_copy_agencies_to_notes($note = null)
         // we are checking if the agency arrays are different
         // if they are, we will make changes, otherwise, do nothing.
         if (!empty(array_diff($agencies, $agencies_current))) {
-
             // set as defined
             $terms = wp_set_object_terms($note->ID, $agencies, 'agency');
 

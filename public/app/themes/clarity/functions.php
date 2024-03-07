@@ -10,7 +10,7 @@
  * @since 1.0
  */
 
-if ( defined( 'WP_CLI' ) && WP_CLI ) {
+if (defined('WP_CLI') && WP_CLI) {
     require_once 'inc/commands/DocumentRevisionReconcile.php';
 }
 
@@ -109,4 +109,3 @@ require_once 'inc/whitelisted-emails.php';
 
 /** Environment Notice **/
 require_once 'inc/environment-notice.php';
-

@@ -10,7 +10,7 @@
 <article class="c-news-article-item">
 
   <a href="<?php echo esc_url(get_permalink($id)); ?>" class="c-news-article-item--thumbnail">
-    <?php the_post_thumbnail('feature-thumbnail', 'alt' ); ?>
+    <?php the_post_thumbnail('feature-thumbnail', 'alt'); ?>
     <h2 class="c-news-article-item--title">
       <?php echo get_the_title($id); ?>
     </h2>

@@ -64,20 +64,24 @@ class Content_Category extends Taxonomy
      * For the current post, check if any terms in this category are:
      * - attached to the post and,
      * - do not relate to current Agengy context
-     * 
+     *
      * @return bool
      */
 
-     public function has_attached_terms_not_in_context()
-     {  
+    public function has_attached_terms_not_in_context()
+    {
         global $post;
         
-        if (!is_object($post)) return;
+        if (!is_object($post)) {
+            return;
+        }
         
         $terms = get_the_terms($post->ID, $this->name);
         $context = Agency_Context::get_agency_context('term_id');
 
-        if (!$terms) return;
+        if (!$terms) {
+            return;
+        }
 
         foreach ($terms as $term) {
             $term_agencies = get_field('term_used_by', $this->name . '_' . $term->term_id);
@@ -88,7 +92,7 @@ class Content_Category extends Taxonomy
         }
 
         return;
-     }
+    }
 
 
 
@@ -112,14 +116,13 @@ class Content_Category extends Taxonomy
             return;
         }
 
-        if(!empty($this->run_has_attached_terms_not_in_context) && $this->has_attached_terms_not_in_context()) {
+        if (!empty($this->run_has_attached_terms_not_in_context) && $this->has_attached_terms_not_in_context()) {
             return;
         }
 
         foreach ($this->object_types as $type) {
             add_meta_box($this->name, $this->args['labels']['name'], array($this, 'show_custom_category_meta_box'), $type, 'side');
         }
-        
     }
 
     /**

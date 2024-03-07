@@ -131,7 +131,6 @@ class NotesFromAntonia
                     WP_CLI::log("");
                     WP_CLI::error("something happened when inserting a note, we cannot proceed.");
                 } else {
-
                     $terms = wp_set_object_terms($id, $agencies, 'agency');
 
                     // now check the result of our term inputs...
@@ -173,7 +172,6 @@ class NotesFromAntonia
 
         // bail if we couldn't find any matches
         if (!$this->pattern_matches) {
-
             WP_CLI::warning(($this->pattern_matches === 0
                 ? 'no matches were found using the pattern - was the post ID correct?'
                 : 'an error occurred whilst executing preg_match_all()'));
@@ -224,7 +222,6 @@ class NotesFromAntonia
         // loop through notes
         foreach ($this->notes as $key => $note) {
             foreach ($note as $name => $value) {
-
                 $this->fix($key, $name, $value);
 
                 $count++;

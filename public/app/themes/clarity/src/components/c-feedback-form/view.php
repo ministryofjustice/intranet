@@ -12,7 +12,7 @@ $display_name = $current_user->display_name;
 $user_email = $current_user->user_email;
 ?>
 
-<?php 
+<?php
   $prefix = 'fbf'
 ?>
 

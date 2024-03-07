@@ -14,11 +14,11 @@ get_header();
   <main role="main" id="maincontent" class="u-wrapper l-main l-reverse-order t-default">
 
     <?php
-      if (is_singular('regional_page') && $region_id) :
-          get_template_part('src/components/c-breadcrumbs/view', 'region-single');
-      else :
+    if (is_singular('regional_page') && $region_id) :
+        get_template_part('src/components/c-breadcrumbs/view', 'region-single');
+    else :
           get_template_part('src/components/c-breadcrumbs/view');
-      endif;
+    endif;
     ?>
 
     <div class="l-secondary">
@@ -31,7 +31,7 @@ get_header();
       <?php
         get_template_part('src/components/c-article-excerpt/view');
         get_template_part('src/components/c-rich-text-block/view');
-      ?>
+        ?>
 
       <section class="l-full-page">
 

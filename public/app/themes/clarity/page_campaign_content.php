@@ -16,11 +16,11 @@ get_template_part('src/components/c-campaign-colour/view');
   <main role="main" id="maincontent" class="u-wrapper l-main l-reverse-order t-default">
 
     <?php
-      if (is_singular('regional_page') && $region_id) :
+    if (is_singular('regional_page') && $region_id) :
         get_template_part('src/components/c-breadcrumbs/view', 'region-single');
-      else :
-        get_template_part('src/components/c-breadcrumbs/view');
-      endif;
+    else :
+          get_template_part('src/components/c-breadcrumbs/view');
+    endif;
     ?>
 
     <div class="l-secondary">
@@ -34,13 +34,13 @@ get_template_part('src/components/c-campaign-colour/view');
         $excerpt = get_field('dw_excerpt');
 
         if (strlen($excerpt) > 0) {
-          ?>
+            ?>
             <section class="c-article-excerpt">
               <p><?php echo $excerpt; ?></p>
             </section>
-          <?php
+            <?php
         }
-      ?>
+        ?>
 
       <div class="template-container ">
         <?php get_template_part('src/components/c-rich-text-block/view'); ?>

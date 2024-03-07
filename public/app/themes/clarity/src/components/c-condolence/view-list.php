@@ -7,10 +7,8 @@ $workplace_terms = get_the_terms(get_the_ID(), 'workplace');
 $workplace = '';
 $workplace_class = '';
 if (!empty($workplace_terms)) {
-
     $count = 0;
     foreach ($workplace_terms as $workplace_term) {
-
         if ($count > 0) {
             $workplace .= ", ";
         }
@@ -19,7 +17,6 @@ if (!empty($workplace_terms)) {
         $count++;
 
         $workplace_class .= " agency-" . $workplace_term->term_id;
-
     }
 }
 

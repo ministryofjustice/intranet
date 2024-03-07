@@ -249,7 +249,7 @@ class MyMOJ
             'external' => true,
           ],
         ],
-       'hmcts' => [
+        'hmcts' => [
           [
             'title' => 'SOP',
             'icon' => 'sop',

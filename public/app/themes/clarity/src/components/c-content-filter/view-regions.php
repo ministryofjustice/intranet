@@ -19,12 +19,12 @@ $prefix = 'ff';
             <?php
               $m = 0;
 
-              while ($m <= 12) {
-                  $next_month = date('Y-m', strtotime('+' . $m . 'months'));
-                  $human_date = date('F Y', strtotime('+' . $m . 'months'));
-                  echo '<option value=' . $next_month . '>' . $human_date . '</option>';
-                  $m++;
-              }
+            while ($m <= 12) {
+                $next_month = date('Y-m', strtotime('+' . $m . 'months'));
+                $human_date = date('F Y', strtotime('+' . $m . 'months'));
+                echo '<option value=' . $next_month . '>' . $human_date . '</option>';
+                $m++;
+            }
             ?>
         </select>
       </div>
@@ -34,7 +34,7 @@ $prefix = 'ff';
         form_builder('text', $prefix, 'Keywords', 'keywords_filter', null, null, 'Contains words such as &lsquo;induction&rsquo;', null, false, null, null);
         // Hidden field to pass nonce for improved security
         form_builder('hidden', '', false, '_nonce', '_search_filter_wpnonce', $nonce, null, null, false, null, null);
-      ?>
+        ?>
       <input type="submit" value="Filter" id="ff_button_submit" />
     </fieldset>  
   </form>

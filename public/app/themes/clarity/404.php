@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This page is not being used as per standard WP config. 
+ * This page is not being used as per standard WP config.
  * All error pages now reside in the /error-pages/ directory.
  * These are loaded via NGINX configurations.
  *

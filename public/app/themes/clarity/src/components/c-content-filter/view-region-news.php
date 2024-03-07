@@ -29,7 +29,7 @@ $oAgency         = new Agency();
           <option value=""><?php echo esc_attr(__('All')); ?></option>
           <?php
             wp_get_archives($archives_args);
-          ?>
+            ?>
         </select>
       </div>
       <?php
@@ -38,7 +38,7 @@ $oAgency         = new Agency();
         form_builder('text', $prefix, 'Keywords', 'keywords_filter', null, null, 'Contains words such as &lsquo;food&rsquo;', null, false, null, null);
         // Hidden field to pass nonce for improved security
         form_builder('hidden', '', false, '_nonce', '_search_filter_wpnonce', $nonce, null, null, false, null, null);
-      ?>
+        ?>
 
       <input type="hidden" name="ff_categories_filter_regions" id="ff_categories_filter_<?php echo $term_name; ?>" value="<?php echo $term_id; ?>">
 

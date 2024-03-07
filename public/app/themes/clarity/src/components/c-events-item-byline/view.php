@@ -16,9 +16,9 @@ if (! defined('ABSPATH')) {
         if (isset($start_time) || isset($end_time)) {
             // If start date and end date selected are the same, just display first date.
             if ($start_time === $end_time) {
-              $time = substr($start_time, 0, 5);
+                $time = substr($start_time, 0, 5);
             } else {
-              $time = substr($start_time, 0, 5) . ' - ' . substr($end_time, 0, 5);
+                $time = substr($start_time, 0, 5) . ' - ' . substr($end_time, 0, 5);
             }
         } else {
             $time = '';

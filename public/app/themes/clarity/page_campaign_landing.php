@@ -60,8 +60,7 @@ get_header(); ?>
                     echo '<h2 class="o-title o-title--section" id="title-section">Events</h2>';
                     include locate_template('src/components/c-events-list/view.php');
                 }
-            }
-            else {
+            } else {
                 echo '<h2 class="o-title o-title--section" id="title-section">Almost ready</h2>';
                 echo '<p>Content will appear here once a campaign category has been allocated.</p>';
 

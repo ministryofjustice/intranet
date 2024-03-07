@@ -38,5 +38,4 @@ function create_workplace_taxonomy()
     );
 
     register_taxonomy('workplace', 'condolences', $args);
-
 }

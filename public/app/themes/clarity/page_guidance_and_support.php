@@ -14,11 +14,11 @@ $region_id = get_the_terms($post_id, 'region');
     <main role="main" id="maincontent" class="u-wrapper l-main l-reverse-order t-tabbed-content">
 
         <?php
-            if (is_singular('regional_page') && $region_id) :
-                get_template_part('src/components/c-breadcrumbs/view', 'region-single');
-            else :
+        if (is_singular('regional_page') && $region_id) :
+            get_template_part('src/components/c-breadcrumbs/view', 'region-single');
+        else :
                 get_template_part('src/components/c-breadcrumbs/view');
-            endif;
+        endif;
         ?>
 
         <div class="l-secondary">
@@ -28,10 +28,10 @@ $region_id = get_the_terms($post_id, 'region');
             <h1 class="o-title o-title--page"><?php the_title(); ?></h1>
             <div class="c-article-excerpt">
                 <p><?php
-                        if (has_excerpt()) {
-                            the_excerpt();
-                        } 
-                    ?>
+                if (has_excerpt()) {
+                    the_excerpt();
+                }
+                ?>
                 </p>
             </div>
 

@@ -15,7 +15,6 @@ $c_register_post_array = $_POST;
 global $wpdb, $PasswordHash, $current_user, $user_ID;
 
 if (isset($c_register_post_array['task']) && $c_register_post_array['task'] == 'register') {
-
     $first_name = esc_sql(trim($c_register_post_array['first_name']));
     $email = trim($c_register_post_array['email']);
     $username = $email;
@@ -126,14 +125,16 @@ if (isset($c_register_post_array['task']) && $c_register_post_array['task'] == '
 
             <p>Do not reply to the email.</p>
         </div>
-    <?php
+        <?php
     endif;
     ?>
 
     <p>Fill in your details. We’ll then send you a link back to this page so you can start commenting.</p>
 
     <form method="post" action="?#respond" novalidate>
-        <div <?php if ($err_name != '') echo 'class="error-state"'; ?>>
+        <div <?php if ($err_name != '') {
+            echo 'class="error-state"';
+             } ?>>
             <p class="label-paragraph"><label for="first_name">Screen name (will appear on screen)</label></p>
             <?php if (trim($err_name) != '') { ?>
                 <p id="name-error" class="error-message">
@@ -142,7 +143,9 @@ if (isset($c_register_post_array['task']) && $c_register_post_array['task'] == '
             <?php } ?>
             <p><input type="text" value="<?php echo $first_name; ?>" name="first_name" id="first_name"/></p>
         </div>
-        <div <?php if ($err_email != '') echo 'class="error-state"'; ?>>
+        <div <?php if ($err_email != '') {
+            echo 'class="error-state"';
+             } ?>>
             <p class="label-paragraph"><label for="email">Email address (will not be shown with your comment)</label>
             </p>
             <?php if ($err_email != '') { ?>

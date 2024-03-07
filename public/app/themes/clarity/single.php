@@ -15,11 +15,11 @@ get_header();
   <main role="main" id="maincontent" class="u-wrapper l-main l-reverse-order t-default">
 
     <?php
-      if ($region_id) :
+    if ($region_id) :
         get_template_part('src/components/c-breadcrumbs/view', 'region');
-      else :
-        get_template_part('src/components/c-breadcrumbs/view', 'event');
-      endif;
+    else :
+          get_template_part('src/components/c-breadcrumbs/view', 'event');
+    endif;
     ?>
 
     <div class="l-secondary">

@@ -37,14 +37,14 @@ get_header();
 
                 $EventsHelper  = new EventsHelper();
                 $events = $EventsHelper->get_events($agency_term_id, $filter_options);
-                if ($events) {
-                    echo '<h2 class="o-title o-title--section" id="title-section">Events</h2>';
-                    echo '<div id="content">';
-                    include locate_template('src/components/c-events-list/view.php');
-                    echo '</div>';
-                } else {
-                    echo 'No events are currently listed :(';
-                }
+            if ($events) {
+                echo '<h2 class="o-title o-title--section" id="title-section">Events</h2>';
+                echo '<div id="content">';
+                include locate_template('src/components/c-events-list/view.php');
+                echo '</div>';
+            } else {
+                echo 'No events are currently listed :(';
+            }
 
             ?>
 
