@@ -38,8 +38,8 @@ jobs:
         composer install --no-progress --prefer-dist --optimize-autoloader
         rm -f auth.json
       env:
-        COMPOSER_USER: ${{ vars.COMPOSER_USER }}
-        COMPOSER_PASS: ${{ vars.COMPOSER_PASS }}
+        COMPOSER_USER: ${{ secrets.COMPOSER_USER }}
+        COMPOSER_PASS: ${{ secrets.COMPOSER_PASS }}
 
     - name: "Run tests"
       run: make test
