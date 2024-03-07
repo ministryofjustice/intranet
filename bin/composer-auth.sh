@@ -29,7 +29,6 @@ then
 	EOF
 else
 	echo "FATAL: COMPOSER_USER and COMPOSER_PASS were not available."
-	pringenv
 fi
 
 ## check for auth.json
