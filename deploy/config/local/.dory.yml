@@ -1,0 +1,24 @@
+---
+dory:
+  dnsmasq:
+    enabled: true
+    domains:
+      - domain: docker
+        address: 127.0.0.1
+    container_name: dory_dnsmasq
+    port: 53
+    kill_others: true
+    service_start_delay: 5
+    image: ministryofjustice/dory-dnsmasq:2.89.6
+  nginx_proxy:
+    enabled: true
+    container_name: dory_dinghy_http_proxy
+    https_enabled: false
+    ssl_certs_dir: ''
+    port: 80
+    tls_port: 443
+    image: codekitchen/dinghy-http-proxy:2.7.1
+  resolv:
+    enabled: true
+    nameserver: 127.0.0.1
+    port: 53

@@ -20,7 +20,9 @@ public/app/uploads/*
 vendor
 vendor-assets
 .dory.yml
+!deploy/config/local/.dory.yml
 auth.json
+auth
 
 
 !public/app/plugins/.keep
