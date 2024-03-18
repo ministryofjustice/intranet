@@ -8,7 +8,7 @@ k8s_pod := kubectl -n $(k8s_nsp) get pod -l app=intranet-local -o jsonpath="{.it
 init: setup run
 
 d-compose: local-stop
-	docker compose up -d nginx phpmyadmin
+	docker compose up -d nginx phpmyadmin opensearch-dashboards
 
 d-shell: setup dory d-compose composer
 
@@ -59,7 +59,9 @@ docker-clean:
 	bin/local-docker-clean.sh
 
 # Run the application
-run: local-stop dory
+run: local-stop dory up
+
+up:
 	docker compose up
 
 down:
