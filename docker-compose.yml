@@ -3,9 +3,7 @@ version: "3.8"
 volumes:
   node_modules: ~
   dist: ~
-  minio_storage: ~
-  local_ssh: ~
-  elasticsearch-data:
+  opensearch-data:
   database:
     driver: local
 
@@ -20,7 +18,7 @@ services:
       - .env
     depends_on:
       - mariadb
-      - minio
+      - opensearch
 
   nginx:
     build:
@@ -70,49 +68,6 @@ services:
       MYSQL_PASSWORD: ${DB_PASSWORD}
       MYSQL_DATABASE: ${DB_NAME}
 
-  minio:
-    image: minio/minio
-    ports:
-      - "9000:9000"
-      - "9001:9001"
-    volumes:
-      - minio_storage:/data
-    environment:
-      MINIO_ROOT_USER: ${AWS_ACCESS_KEY_ID}
-      MINIO_ROOT_PASSWORD: ${AWS_SECRET_ACCESS_KEY}
-      VIRTUAL_HOST: minio.${SERVER_NAME}
-      VIRTUAL_PORT: 9000
-    command: server --console-address ":9001" /data
-    healthcheck:
-      test: timeout 5s bash -c ':> /dev/tcp/127.0.0.1/9000' || exit 1
-      start_period: 5s
-      interval: 10s
-      timeout: 5s
-      retries: 2
-
-  minio-init:
-    image: minio/mc
-    depends_on:
-      - minio
-    entrypoint: |
-      /bin/sh -c "
-        mc config host add intranet http://minio:9000 ${AWS_ACCESS_KEY_ID} ${AWS_SECRET_ACCESS_KEY}
-        mc mb intranet/${S3_BUCKET_NAME}
-        mc anonymous set download intranet/${S3_BUCKET_NAME};
-        exit 0
-      "
-
-  cdn:
-    image: caddy:2.7.6-alpine
-    volumes:
-      - ./deploy/config/local/Caddyfile:/etc/caddy/Caddyfile
-    environment:
-      S3_BUCKET_NAME: ${S3_BUCKET_NAME}
-      VIRTUAL_HOST: cdn.${SERVER_NAME}
-      VIRTUAL_PORT: 2019
-    depends_on:
-      - minio
-
   phpmyadmin:
     image: phpmyadmin
     environment:
@@ -124,37 +79,43 @@ services:
     links:
       - mariadb
 
-  elasticsearch:
-    container_name: intranet-elasticsearch
-    image: elasticsearch:${ELASTICSEARCH_VERSION}
+  opensearch:
+    container_name: intranet-opensearch
+    image: opensearchproject/opensearch:${OPENSEARCH_VERSION}
     environment:
-      VIRTUAL_HOST: elasticsearch.${SERVER_NAME}
-      VIRTUAL_PORT: 9200
-      xpack.security.enabled: false
+      cluster.name: opensearch-cluster
+      node.name: opensearch
       discovery.type: single-node
+      bootstrap.memory_lock: true
+      VIRTUAL_HOST: opensearch.${SERVER_NAME}
+      VIRTUAL_PORT: 9200
+      OPENSEARCH_JAVA_OPTS: -Xms512m -Xmx512m # Set min and max JVM heap sizes to at least 50% of system RAM
+      DISABLE_INSTALL_DEMO_CONFIG: true # Prevents execution of bundled demo script which installs demo certificates and security configurations to OpenSearch
+      DISABLE_SECURITY_PLUGIN: true # Disables Security plugin
     ulimits:
       memlock:
         soft: -1
         hard: -1
       nofile:
-        soft: 65536
+        soft: 65536 # maximum number of open files for the OpenSearch user, set to at least 65536 on modern systems
         hard: 65536
-    cap_add:
-      - IPC_LOCK
     volumes:
-      - elasticsearch-data:/usr/share/elasticsearch/data
+      - opensearch-data:/usr/share/opensearch/data
     ports:
       - "9200:9200"
-      - "9300:9300"
+      - "9600:9600" # required for Performance Analyzer
 
-  kibana:
-    container_name: intranet-kibana
-    image: kibana:${ELASTICSEARCH_VERSION}
-    environment:
-      VIRTUAL_HOST: kibana.${SERVER_NAME}
-      VIRTUAL_PORT: 5601
-      ELASTICSEARCH_HOSTS: ${ELASTICSEARCH_HOST}
+  opensearch-dashboards:
+    container_name: intranet-opensearch-dashboards
+    image: opensearchproject/opensearch-dashboards:${OPENSEARCH_VERSION}
     ports:
-      - "5610:5610"
+      - "5601:5601"
+    expose:
+      - "5601"
+    environment:
+      VIRTUAL_HOST: opensearch-dashboards.${SERVER_NAME}
+      VIRTUAL_PORT: 5601
+      OPENSEARCH_HOSTS: ${OPENSEARCH_URL} # must be a string with no spaces when specified as an environment variable
+      DISABLE_SECURITY_DASHBOARDS_PLUGIN: true # disables security dashboards plugin in OpenSearch Dashboards
     depends_on:
-      - elasticsearch
+      - opensearch

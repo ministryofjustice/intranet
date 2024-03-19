@@ -73,6 +73,11 @@ spec:
               secretKeyRef:
                 name: rds-output
                 key: database_password
+          - name: OPENSEARCH_URL
+            valueFrom:
+              secretKeyRef:
+                name: opensearch
+                key: proxy_url
         envFrom:
           - configMapRef:
               name: ${KUBE_NAMESPACE}

@@ -51,6 +51,8 @@ define('WP_ENV', env('WP_ENV') ?: 'production');
 
 Config::define('WP_DEFAULT_THEME', 'clarity');
 
+Config::define('EP_HOST', env('OPENSEARCH_URL'));
+
 /**
  * Infer WP_ENVIRONMENT_TYPE based on WP_ENV
  */
