@@ -6,6 +6,7 @@
  */
 
 $templates_we_want_to_hide = [
+    'page_agency_switcher.php',
     'page_region_directory.php',
     'page_regional_archive_events.php',
     'page_regional_archive_news.php',
