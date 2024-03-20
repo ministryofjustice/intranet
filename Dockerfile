@@ -17,6 +17,17 @@ USER 82
 FROM base-fpm AS dev
 RUN apk add --update nano nodejs npm
 
+RUN apk add --no-cache --virtual .build-deps $PHPIZE_DEPS linux-headers \
+    && pecl install xdebug-3.3.1 \
+    && docker-php-ext-enable xdebug \
+    && apk del -f .build-deps
+
+RUN echo "xdebug.start_with_request=yes" >> /usr/local/etc/php/conf.d/xdebug.ini \
+    && echo "xdebug.mode=profile,trace" >> /usr/local/etc/php/conf.d/xdebug.ini \
+    && echo "xdebug.log=/var/www/html/xdebug.log" >> /usr/local/etc/php/conf.d/xdebug.ini \
+    && echo "xdebug.discover_client_host=1" >> /usr/local/etc/php/conf.d/xdebug.ini \
+    && echo "xdebug.client_port=9000" >> /usr/local/etc/php/conf.d/xdebug.ini
+
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 # www-data
