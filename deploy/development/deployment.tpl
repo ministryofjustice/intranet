@@ -76,7 +76,7 @@ spec:
           - name: OPENSEARCH_URL
             valueFrom:
               secretKeyRef:
-                name: opensearch
+                name: central-digital-product-team-opensearch-proxy-url
                 key: proxy_url
         envFrom:
           - configMapRef:
