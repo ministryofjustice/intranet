@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d81574294454fef16a30ba9e1a2f6a01",
+    "content-hash": "3c6f2d451a418d768cf0a36983703587",
     "packages": [
         {
             "name": "acf/advanced-custom-fields-pro",
@@ -3723,6 +3723,24 @@
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/wp-document-revisions/"
+        },
+        {
+            "name": "wpackagist-plugin/wp-migrate-db",
+            "version": "2.6.10",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/wp-migrate-db/",
+                "reference": "tags/2.6.10"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/wp-migrate-db.2.6.10.zip"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/wp-migrate-db/"
         }
     ],
     "packages-dev": [
