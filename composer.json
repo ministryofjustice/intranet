@@ -69,12 +69,12 @@
         "php-http/guzzle7-adapter": "^1.0",
         "alphagov/notifications-php-client": "^5.0",
         "aws/aws-sdk-php": "^3.133",
+        "wpackagist-plugin/query-monitor": "^3.15",
+        "wpackagist-plugin/debug-bar": "^1.1",
+        "wpackagist-plugin/debug-bar-elasticpress": "^3.1",
         "wpackagist-plugin/wp-migrate-db": "2.6.10"
     },
     "require-dev": {
-        "wpackagist-plugin/query-monitor": "*",
-        "wpackagist-plugin/debug-bar": "*",
-        "wpackagist-plugin/debug-bar-elasticpress": "*",
         "squizlabs/php_codesniffer": "^3.0.2"
     },
     "extra": {
