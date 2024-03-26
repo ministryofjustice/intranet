@@ -68,7 +68,12 @@
         "sentry/sentry": "^3.1",
         "php-http/guzzle7-adapter": "^1.0",
         "alphagov/notifications-php-client": "^5.0",
-        "aws/aws-sdk-php": "^3.133"
+        "aws/aws-sdk-php": "^3.133",
+        "wpackagist-plugin/query-monitor": "^3.15",
+        "wpackagist-plugin/debug-bar": "^1.1",
+        "wpackagist-plugin/debug-bar-elasticpress": "^3.1",
+        "wpackagist-plugin/wp-migrate-db": "2.6.10",
+        "wpackagist-plugin/amazon-s3-and-cloudfront": "^3.2"
     },
     "require-dev": {
         "wpackagist-plugin/query-monitor": "^3.15.0",
