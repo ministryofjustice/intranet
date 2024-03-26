@@ -72,7 +72,8 @@
         "wpackagist-plugin/query-monitor": "^3.15",
         "wpackagist-plugin/debug-bar": "^1.1",
         "wpackagist-plugin/debug-bar-elasticpress": "^3.1",
-        "wpackagist-plugin/wp-migrate-db": "2.6.10"
+        "wpackagist-plugin/wp-migrate-db": "2.6.10",
+        "wpackagist-plugin/amazon-s3-and-cloudfront": "^3.2"
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "^3.0.2"
