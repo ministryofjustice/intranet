@@ -44,8 +44,6 @@ class GuidanceAndForms
             ],
         ];
 
-        $posts = get_posts($args);
-
-        return $posts;
+        return get_posts($args);
     }
 }
