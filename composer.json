@@ -56,7 +56,6 @@
         "wpackagist-plugin/wp-document-revisions": "^3.5.0",
         "wpackagist-plugin/simple-301-redirects": "2.0.9",
         "acf/advanced-custom-fields-pro": "^6.1.0",
-        "ministryofjustice/wp-rewrite-media-to-s3": "dev-php8-code-update",
         "ministryofjustice/like-button-for-wordpress": "dev-main",
         "ministryofjustice/notify-for-wordpress": "dev-main",
         "ministryofjustice/php-markdown-extra": "dev-main",
