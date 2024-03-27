@@ -10,6 +10,8 @@
  * @since 1.0
  */
 
+use function Env\env;
+
 if (defined('WP_CLI') && WP_CLI) {
     require_once 'inc/commands/DocumentRevisionReconcile.php';
 }
@@ -52,6 +54,7 @@ require_once 'inc/admin/wp-admin-bar.php';
 
 require_once 'inc/aboutus.php';
 require_once 'inc/acf.php';
+require_once 'inc/amazon-s3-and-cloudfront-tweaks-for-minio.php';
 
 require_once 'inc/api/get-posts-rest-api.php';
 require_once 'inc/api/campaign-api.php';
