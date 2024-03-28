@@ -10,8 +10,6 @@
  * @since 1.0
  */
 
-use function Env\env;
-
 if (defined('WP_CLI') && WP_CLI) {
     require_once 'inc/commands/DocumentRevisionReconcile.php';
 }
