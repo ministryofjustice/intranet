@@ -19,7 +19,7 @@ class AmazonS3AndCloudFrontTweaks
 {
 
     // Define the Minio hostnames.
-    private $Minio_host = '';
+    private $minio_host = '';
 
     public function __construct()
     {
@@ -30,8 +30,8 @@ class AmazonS3AndCloudFrontTweaks
          * https://wordpress.org/plugins/amazon-s3-and-cloudfront/
         */
         
-        // If the S3_DOMAIN doesn't start with 'Minio', then we are not using Minio.
-        $this->Minio_host = Config::get('S3_CUSTOM_DOMAIN');
+        // If the S3_DOMAIN doesn't start with 'minio', then we are not using Minio.
+        $this->minio_host = Config::get('S3_CUSTOM_DOMAIN');
 
         /*
          * Custom S3 API Example: Minio
@@ -40,7 +40,9 @@ class AmazonS3AndCloudFrontTweaks
         add_filter('as3cf_aws_s3_client_args', array($this, 'MinioS3ClientArgs'));
         add_filter('as3cf_aws_s3_url_domain', array($this, 'MinioS3UrlDomain'), 10, 5);
         add_filter('as3cf_aws_s3_console_url', array($this, 'MinioS3ConsoleUrl'));
-        add_filter('as3cf_aws_s3_console_url_prefix_param', array($this, 'MinioS3ConsoleUrlPrefixParam'));
+        // The "prefix param" denotes what should be in the console URL before the path prefix value.
+        // Minio just appends the path prefix directly after the bucket name.
+        add_filter('as3cf_aws_s3_console_url_prefix_param', fn () => '/');
 
         /*
          * URL Rewrite related filters.
@@ -56,7 +58,7 @@ class AmazonS3AndCloudFrontTweaks
      * set overrides in the provider client rather than service client for a slight improvement in performance.
      *
      * @see     https://docs.aws.amazon.com/aws-sdk-php/v3/api/class-Aws.S3.S3Client.html#___construct
-     * @see     https://docs.min.io/docs/how-to-use-aws-sdk-for-php-with-Minio-server.html
+     * @see     https://docs.min.io/docs/how-to-use-aws-sdk-for-php-with-minio-server.html
      *
      * @handles `MinioS3ClientArgs`
      *
@@ -69,7 +71,7 @@ class AmazonS3AndCloudFrontTweaks
     public function MinioS3ClientArgs($args)
     {
         // Example changes endpoint to connect to a local Minio server configured to use port 54321 (the default Minio port is 9000).
-        $args['endpoint'] = 'http://' . $this->Minio_host . ':9000';
+        $args['endpoint'] = 'http://' . $this->minio_host . ':9000';
 
         // Example forces SDK to use endpoint URLs with bucket name in path rather than domain name as required by Minio.
         $args['use_path_style_endpoint'] = true;
@@ -93,7 +95,7 @@ class AmazonS3AndCloudFrontTweaks
     public function MinioS3UrlDomain($domain, $bucket, $region, $expires, $args)
     {
         // Minio doesn't need a region prefix, and always puts the bucket in the path.
-        return $this->Minio_host . ':9000/' . $bucket;
+        return $this->minio_host . ':9000/' . $bucket;
     }
 
 
@@ -109,31 +111,11 @@ class AmazonS3AndCloudFrontTweaks
      */
     public function MinioS3ConsoleUrl($url)
     {
-        return 'http://' . $this->Minio_host . ':9001/browser/';
-    }
-
-    /**
-     * The "prefix param" denotes what should be in the console URL before the path prefix value.
-     *
-     * For example, the default for AWS/S3 is "?prefix=".
-     *
-     * The prefix is usually added to the console URL just after the bucket name.
-     *
-     * @handles `MinioS3ConsoleUrlPrefixParam`
-     *
-     * @param $param
-     *
-     * @return string
-     *
-     * Minio just appends the path prefix directly after the bucket name.
-     */
-    public function MinioS3ConsoleUrlPrefixParam($param)
-    {
-        return '/';
+        return 'http://' . $this->minio_host . ':9001/browser/';
     }
 
 }
 
-if (str_starts_with(Config::get('S3_CUSTOM_DOMAIN'), 'Minio')) {
+if (str_starts_with(Config::get('S3_CUSTOM_DOMAIN'), 'minio')) {
     new AmazonS3AndCloudFrontTweaks();
 }
