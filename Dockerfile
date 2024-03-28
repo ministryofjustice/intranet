@@ -43,12 +43,14 @@ RUN chmod +x /var/www/html/composer-auth.sh && \
 # non-root
 USER 82
 
-COPY ./composer.json /var/www/html/composer.json
-RUN composer install --no-dev --no-scripts --no-autoloader
+COPY composer.* /var/www/html/
 
-COPY . .
 RUN composer install --no-dev
 RUN composer dump-autoload -o
+
+# Copy all of the files here for now.
+# We can move this later.
+COPY . .
 
 ARG regex_files='\(htm\|html\|js\|css\|png\|jpg\|jpeg\|gif\|ico\|svg\|webmanifest\)'
 ARG regex_path='\(app\/themes\/clarity\/error\-pages\|app\/mu\-plugins\|app\/plugins\|wp\)'
