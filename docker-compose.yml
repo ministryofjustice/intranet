@@ -128,7 +128,7 @@ services:
     image: minio/minio
     ports:
       - "9000:9000" # The AWS S3 compatible API.
-      - "9001:9001" # The MinIO web console.
+      - "9001:9001" # The Minio web console.
     volumes:
       - minio_storage:/data
     environment:
