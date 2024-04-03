@@ -47,7 +47,7 @@ spec:
           - name: php-socket
             mountPath: /sock
         securityContext:
-            runAsUser: 101
+            runAsUser: 82
         env:
           - name: S3_BUCKET_NAME
             valueFrom:
