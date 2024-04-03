@@ -76,7 +76,7 @@ RUN chmod +x /var/www/html/composer-auth.sh && \
 # non-root
 USER 82
 
-COPY composer.? ./
+COPY composer.? /var/www/html/
 RUN composer install --no-dev
 RUN composer dump-autoload -o
 
