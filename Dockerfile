@@ -9,7 +9,7 @@ RUN mkdir /sock && \
     rm /usr/local/etc/php-fpm.d/www.conf.default && \
     rm /usr/local/etc/php-fpm.d/www.conf
 
-# create pool
+# Create FPM pool
 RUN { \
         echo '[www]'; \
         echo 'user = www-data'; \
@@ -32,7 +32,6 @@ RUN { \
         echo 'process_control_timeout = 10s'; \
     } > /usr/local/etc/php-fpm.d/pool.conf
 
-VOLUME ["/sock"]
 
 ###
 
@@ -49,16 +48,16 @@ USER 101
 
 ## target: dev
 FROM base-fpm AS dev
-RUN apk add --update nodejs npm
 
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# www-data
+# nginx
 USER 101
+
+VOLUME ["/sock"]
 
 
 ###
-
 
 ## target: production
 FROM base-fpm AS build-fpm-composer
@@ -75,15 +74,11 @@ RUN chmod +x /var/www/html/composer-auth.sh && \
     /var/www/html/composer-auth.sh
 
 # non-root
-USER 101
+USER 82
 
-COPY composer.* /var/www/html/
+COPY composer.? ./
 RUN composer install --no-dev
 RUN composer dump-autoload -o
-
-# Copy all of the files here for now.
-# We can move this later.
-COPY . .
 
 ARG regex_files='\(htm\|html\|js\|css\|png\|jpg\|jpeg\|gif\|ico\|svg\|webmanifest\)'
 ARG regex_path='\(app\/themes\/clarity\/error\-pages\|app\/mu\-plugins\|app\/plugins\|wp\)'
@@ -92,7 +87,6 @@ RUN mkdir -p ./vendor-assets && \
 
 
 ###
-
 
 FROM node:20 AS assets-build
 
@@ -106,7 +100,6 @@ RUN rm -rf node_modules
 
 ###
 
-
 FROM base-fpm AS build-fpm
 
 WORKDIR /var/www/html
@@ -116,24 +109,24 @@ COPY --from=build-fpm-composer --chown=www-data:www-data /var/www/html/public/wp
 COPY --from=build-fpm-composer --chown=www-data:www-data /var/www/html/vendor /var/www/html/vendor
 
 # non-root
-USER 101
+USER 82
 
 ###
-
 
 FROM build-fpm AS test
 RUN make test
 
 
-###
 
+###
 
 FROM base-nginx AS nginx-dev
 
 RUN echo "# This is a placeholder, because the file is included in `php-fpm.conf`." > /etc/nginx/server_name.conf
 
-###
 
+
+###
 
 FROM base-nginx AS build-nginx
 
