@@ -28,13 +28,13 @@ $as3_settings = array(
     // Append a timestamped folder to path of files offloaded to bucket to avoid filename clashes and bust CDN cache if updated
     'object-versioning' => true,
     // Delivery Provider ('storage', 'aws', 'do', 'gcp', 'cloudflare', 'keycdn', 'stackpath', 'other')
-    'delivery-provider' => env('CLOUDFRONT_URL') ? 'aws' : 'storage',
+    'delivery-provider' => env('DELIVERY_DOMAIN') ? 'aws' : 'storage',
     // Rewrite file URLs to bucket (s3 or cloudfront)
     'serve-from-s3' => true,
     // Use a custom domain (CNAME), not supported when using 'storage' Delivery Provider
-    'enable-delivery-domain' => !!env('CLOUDFRONT_URL'),
+    'enable-delivery-domain' => !!env('DELIVERY_DOMAIN'),
     // Custom domain (CNAME), not supported when using 'storage' Delivery Provider
-    'delivery-domain' =>  env('CLOUDFRONT_URL'),
+    'delivery-domain' =>  env('DELIVERY_DOMAIN'),
     // Enable signed URLs for Delivery Provider that uses separate key pair (currently only 'aws' supported, a.k.a. CloudFront)
     // 'enable-signed-urls' => false,
     // Access Key ID for signed URLs (aws only, replace '*')
@@ -45,9 +45,9 @@ $as3_settings = array(
     // Private Prefix for signed URLs (aws only, relative directory, no wildcards)
     // 'signed-urls-object-prefix' => 'private/',
     // Serve files over HTTPS
-    'force-https' => !!env('CLOUDFRONT_URL'),
+    'force-https' => !!env('DELIVERY_DOMAIN'),
     // Remove the local file version once offloaded to bucket
-    'remove-local-file' => false,
+    'remove-local-file' => true,
     // Access Control List for the bucket
     'use-bucket-acls' => false,
 );
@@ -63,5 +63,7 @@ if (env('AWS_ACCESS_KEY_ID') && env('AWS_SECRET_ACCESS_KEY')) {
         'secret-access-key' => env('AWS_SECRET_ACCESS_KEY'),
     ]);
 }
+
+Config::define('S3_CUSTOM_DOMAIN', env('S3_CUSTOM_DOMAIN') ?? '');
 
 Config::define('AS3CF_SETTINGS', serialize($as3_settings));
