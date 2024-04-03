@@ -77,7 +77,6 @@ RUN chmod +x /var/www/html/composer-auth.sh && \
 USER 101
 
 COPY composer.json composer.lock /var/www/html/
-
 RUN composer install --no-dev
 RUN composer dump-autoload -o
 
