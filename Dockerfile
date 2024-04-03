@@ -74,9 +74,9 @@ RUN chmod +x /var/www/html/composer-auth.sh && \
     /var/www/html/composer-auth.sh
 
 # non-root
-USER 82
+USER 101
 
-COPY composer.? /var/www/html/
+COPY composer.json composer.lock /var/www/html/
 RUN composer install --no-dev
 RUN composer dump-autoload -o
 
@@ -109,7 +109,7 @@ COPY --from=build-fpm-composer --chown=www-data:www-data /var/www/html/public/wp
 COPY --from=build-fpm-composer --chown=www-data:www-data /var/www/html/vendor /var/www/html/vendor
 
 # non-root
-USER 82
+USER 101
 
 ###
 
