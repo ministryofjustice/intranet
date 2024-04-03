@@ -3,6 +3,6 @@
 # e.g. Request: http://cdn.justice.docker/uploads/2024/02/xyz.jpg
 # proxies to  : http://minio:9000/bucket-name/uploads/2024/02/xyz.jpg
 
-:2019
+:80
 rewrite * /{$S3_BUCKET_NAME}{uri}
 reverse_proxy minio:9000

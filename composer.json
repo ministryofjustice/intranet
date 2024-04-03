@@ -76,9 +76,6 @@
         "stayallive/wp-sentry": "^7.11"
     },
     "require-dev": {
-        "wpackagist-plugin/query-monitor": "^3.15.0",
-        "wpackagist-plugin/debug-bar": "^1.1.0",
-        "wpackagist-plugin/debug-bar-elasticpress": "^3.1.0",
         "squizlabs/php_codesniffer": "^3.0.2"
     },
     "extra": {
