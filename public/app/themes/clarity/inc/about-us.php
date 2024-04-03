@@ -25,7 +25,7 @@ function get_aboutus_list($page_id)
                 $child_posts = get_posts($child_args);
                 if (! empty($child_posts)) {
                         echo '<ul>';
-                    foreach ($child_posts as $key => $child_post) {
+                    foreach ($child_posts as $child_post) {
                         echo '<li><a href="' . get_permalink($child_post->ID) . '">' . $child_post->post_title . '</a></li>';
                     }
                     echo '</ul>';
