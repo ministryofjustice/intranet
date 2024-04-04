@@ -39,15 +39,11 @@ spec:
             mountPath: /sock
       - name: fpm
         image: ${ECR_URL}:${IMAGE_TAG_FPM}
-        ports:
-          - containerPort: 9000
         volumeMounts:
           - name: uploads
             mountPath: /var/www/html/public/app/uploads
           - name: php-socket
             mountPath: /sock
-        securityContext:
-            runAsUser: 82
         env:
           - name: S3_BUCKET_NAME
             valueFrom:
