@@ -1,5 +1,10 @@
 .DEFAULT_GOAL := d-shell
 
+## populate as needed for testing
+## ... never commit!
+COMPOSER_USER := ***
+COMPOSER_PASS := ***
+
 kube := kind
 k8s_prt := 8080:80
 k8s_nsp := default
@@ -38,7 +43,7 @@ composer: composer-assets composer-copy
 bash:
 	docker compose exec php-fpm bash
 
-nginx:
+bash-nginx:
 	docker compose exec --workdir /var/www/html nginx ash
 
 node:
@@ -93,14 +98,14 @@ test-fixes:
 #####
 build-nginx:
 	@echo "\n-->  Building local Nginx  <---------------------------|\n"; sleep 3;
-	docker image build -t intranet-nginx:latest --target build-nginx .
+	docker image build --build-arg COMPOSER_USER="${COMPOSER_USER}" --build-arg COMPOSER_PASS="${COMPOSER_PASS}" -t intranet-nginx:latest --target build-nginx .
 
 # FastCGI Process Manager for PHP
 # https://www.php.net/manual/en/install.fpm.php
 # https://www.plesk.com/blog/various/php-fpm-the-future-of-php-handling/
 build-fpm:
 	@echo "\n-->  Building local FPM  <---------------------------|\n"; sleep 3;
-	docker image build -t intranet-fpm:latest --target build-fpm .
+	docker image build --build-arg COMPOSER_USER="${COMPOSER_USER}" --build-arg COMPOSER_PASS="${COMPOSER_PASS}" -t intranet-fpm:latest --target build-fpm .
 
 build: build-fpm build-nginx
 	@if [ ${kube} == 'kind' ]; then kind load docker-image intranet-fpm:latest; kind load docker-image intranet-nginx:latest; fi
@@ -120,7 +125,7 @@ kind: local-kube-start clear cluster local-kube-build
 
 local-kube-start:
 	@if [ -n "$(docker ps | grep dory_dnsmasq)" ]; then dory down; fi # lets make sure port 80 is free
-	@docker container start kind-control-plane
+	@docker container start kind-control-plane || kind create cluster
 
 local-stop:
 	@echo "\n-->  Checking if we should stop the kind-control-plane container..."
