@@ -22,10 +22,10 @@ class Auth
 {
 
     private $now = null;
-    private $privateKey = '';
-    private $publicKey = '';
+    private $key = '';
 
-    const JWT_ALGORITHM = 'RS256';
+    // JWT constants
+    const JWT_ALGORITHM = 'HS256'; // The only algorithm supported in CloudFront functions.
     const JWT_COOKIE_NAME = 'jwt';
     const JWT_DURATION = 60 * 60; // 1 hour
     const JWT_REFRESH = 60 * 5; // 5 minutes
@@ -33,12 +33,10 @@ class Auth
     public function __construct()
     {
         $this->now = time();
-        $this->publicKey = $_ENV['JWT_PUBLIC_KEY'];
-        $this->privateKey = $_ENV['JWT_PRIVATE_KEY'];
-        // Clear JWT_PUBLIC_KEY & JWT_PRIVATE_KEY from memory. 
-        // They're not required elsewhere in the app.
-        unset($_ENV['JWT_PUBLIC_KEY']);
-        unset($_ENV['JWT_PRIVATE_KEY']);
+        $this->key = $_ENV['JWT_SECRET'];
+        // Clear JWT_SECRET from $_ENV global. 
+        // It's not required elsewhere in the app.
+        unset($_ENV['JWT_SECRET']);
     }
 
     /**
@@ -102,7 +100,7 @@ class Auth
         }
 
         try {
-            $decoded = JWT::decode($jwt, new Key($this->publicKey, $this::JWT_ALGORITHM));
+            $decoded = JWT::decode($jwt, new Key($this->key, $this::JWT_ALGORITHM));
         } catch (\Exception $e) {
             \Sentry\captureException($e);
             // TODO: remove this error_log once we confirm that this way of capturing to Sentry is working.
@@ -131,18 +129,21 @@ class Auth
             'roles' => ['reader']
         ];
 
-        $jwt = JWT::encode($payload, $this->privateKey, $this::JWT_ALGORITHM);
+        $jwt = JWT::encode($payload, $this->key, $this::JWT_ALGORITHM);
 
         // Build the cookie value - the domain is important for the cookie to be accessed by the subdomains.
         $cookie_parts = [
             $this::JWT_COOKIE_NAME . '=' . $jwt,
             'path=/',
-            'secure',
             'HttpOnly',
             'domain=intranet.docker',
             'Expires=' . gmdate('D, d M Y H:i:s T', $expiry),
             'SameSite=Strict' // Will this work with subdomain?
         ];
+
+        if($_ENV['WP_ENV'] !== 'development') {
+            $cookie_parts[] = 'Secure';
+        }
 
         header('Set-Cookie: ' . implode('; ', $cookie_parts));
     }

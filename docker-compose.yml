@@ -7,6 +7,7 @@ volumes:
   database:
     driver: local
   minio_storage: ~
+  cdn_node_modules: ~
 
 services:
   php-fpm:
@@ -157,12 +158,22 @@ services:
       "
 
   cdn:
-    image: caddy:2-alpine
+    image: node:20
+    working_dir: /node
+    entrypoint: make
+    command: node-cdn
     volumes:
-      - ./deploy/config/local/Caddyfile:/etc/caddy/Caddyfile
+      - cdn_node_modules:/node/node_modules
+      - ./Makefile:/node/Makefile
+      - ./cdn/package.json:/node/package.json
+      - ./cdn/handler.js:/node/handler.js
+      - ./cdn/server.js:/node/server.js
     environment:
+      JWT_SECRET: ${JWT_SECRET}
       S3_BUCKET_NAME: ${S3_BUCKET_NAME}
       VIRTUAL_HOST: cdn.${SERVER_NAME}
       VIRTUAL_PORT: 80
     depends_on:
       - minio
+    ports:
+      - "8081:80"
