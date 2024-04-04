@@ -8,22 +8,37 @@ defined('ABSPATH') || exit;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 
+/**
+ * Class Auth
+ * 
+ * Handles authentication for the Intranet.
+ * The class runs early in the page loading process.
+ * As such, it should be lightweight, and not rely on WordPress functions.
+ * 
+ * @see https://github.com/firebase/php-jwt
+ */
 
-class Auth {
+class Auth
+{
 
-    private $publicKey = '';
+    private $now = null;
     private $privateKey = '';
-    private $jwt = null;
+    private $publicKey = '';
 
-    public function __construct() {
+    const JWT_ALGORITHM = 'RS256';
+    const JWT_COOKIE_NAME = 'jwt';
+    const JWT_DURATION = 60 * 60; // 1 hour
+    const JWT_REFRESH = 60 * 5; // 5 minutes
+
+    public function __construct()
+    {
+        $this->now = time();
         $this->publicKey = $_ENV['JWT_PUBLIC_KEY'];
         $this->privateKey = $_ENV['JWT_PRIVATE_KEY'];
         // Clear JWT_PUBLIC_KEY & JWT_PRIVATE_KEY from memory. 
         // They're not required elsewhere in the app.
         unset($_ENV['JWT_PUBLIC_KEY']);
         unset($_ENV['JWT_PRIVATE_KEY']);
-
-        $this->handlePageRequest();
     }
 
     /**
@@ -36,12 +51,13 @@ class Auth {
      * @param string $match optional If provided, will contain the first matched IP subnet
      * @return boolean TRUE if the IP matches a given subnet or FALSE if it does not
      */
-    public function ipMatch($ip, $cidrs, &$match = null) {
-        foreach((array) $cidrs as $cidr) {
+    public function ipMatch($ip, $cidrs, &$match = null): bool
+    {
+        foreach ((array) $cidrs as $cidr) {
             $parts = explode('/', $cidr);
             $subnet = $parts[0];
             $mask = $parts[1] ?? 32;
-            if(((ip2long($ip) & ($mask = ~ ((1 << (32 - $mask)) - 1))) == (ip2long($subnet) & $mask))) {
+            if (((ip2long($ip) & ($mask = ~((1 << (32 - $mask)) - 1))) == (ip2long($subnet) & $mask))) {
                 $match = $cidr;
                 return true;
             }
@@ -49,111 +65,134 @@ class Auth {
         return false;
     }
 
-    public function ipAddressIsAllowed() 
+    /**
+     * Check if the IP address is allowed.
+     * 
+     * Checks that we have the environment variables ALLOWED_IPS and REMOTE_ADDR set.
+     * Runs the ipMatch method to check if the REMOTE_ADDR is in the ALLOWED_IPS.
+     * 
+     * @return bool Returns true if the IP address is allowed, otherwise false.
+     */
+
+    public function ipAddressIsAllowed(): bool
     {
 
-        if(empty($_ENV['ALLOWED_IPS']) || empty($_SERVER['REMOTE_ADDR'])) {
+        if (empty($_ENV['ALLOWED_IPS']) || empty($_SERVER['REMOTE_ADDR'])) {
             return false;
         }
 
-        $allowedIps = array_map('trim', explode(',', $_ENV['ALLOWED_IPS']) );
-
-        error_log($_SERVER['REMOTE_ADDR']);
-        error_log(print_r($allowedIps, true));
+        $allowedIps = array_map('trim', explode(',', $_ENV['ALLOWED_IPS']));
 
         return $this->ipMatch($_SERVER['REMOTE_ADDR'], $allowedIps);
     }
 
-    public function handlePageRequest() {
-        // Is there a valid JWT token in the request?
+    /**
+     * Get the JWT from the request.
+     * 
+     * @return bool|object Returns false if the JWT is not found or an object if it is found.
+     */
 
-        // Maybe extend the JWT token expiry time.
+    public function getJwt(): bool | object
+    {
+        // Get the JWT cookie from the request.
+        $jwt = $_COOKIE[$this::JWT_COOKIE_NAME] ?? null;
 
-        // If not, is the IP address allowed?
-        if($this->ipAddressIsAllowed()) {
-            // Set a cookie with the JWT token.
-            $this->setJwt();
-            error_log('IP address allowed');
-            return;
-        } 
+        if (!is_string($jwt)) {
+            return false;
+        }
 
-        error_log('IP address not allowed');
+        try {
+            $decoded = JWT::decode($jwt, new Key($this->publicKey, $this::JWT_ALGORITHM));
+        } catch (\Exception $e) {
+            \Sentry\captureException($e);
+            // TODO: remove this error_log once we confirm that this way of capturing to Sentry is working.
+            error_log($e->getMessage());
+            return false;
+        }
 
-
-        // Redirect to login page
-
+        return $decoded;
     }
 
-    public function setJwt() {
-        // Set a cookie with the JWT token
+    /**
+     * Set a JWT cookie.
+     * 
+     * @return void
+     */
+
+    public function setJwt(): void
+    {
+
+        $expiry = $this->now + $this::JWT_DURATION;
 
         $payload = [
-            'iss' => 'example.org',
-            'aud' => 'example.com',
-            'iat' => 1356999524,
-            'nbf' => 1357000000
+            // Registered claims - https://datatracker.ietf.org/doc/html/rfc7519#section-4.1
+            'exp' => $expiry,
+            // Public claims - https://www.iana.org/assignments/jwt/jwt.xhtml
+            'roles' => ['reader']
         ];
 
-        $this->jwt = JWT::encode($payload, $this->privateKey, 'RS256');
+        $jwt = JWT::encode($payload, $this->privateKey, $this::JWT_ALGORITHM);
 
-        header('Set-Cookie: jwt=' . $this->jwt . '; path=/; secure; HttpOnly');
+        // Build the cookie value - the domain is important for the cookie to be accessed by the subdomains.
+        $cookie_parts = [
+            $this::JWT_COOKIE_NAME . '=' . $jwt,
+            'path=/',
+            'secure',
+            'HttpOnly',
+            'domain=intranet.docker',
+            'Expires=' . gmdate('D, d M Y H:i:s T', $expiry),
+            'SameSite=Strict' // Will this work with subdomain?
+        ];
 
+        header('Set-Cookie: ' . implode('; ', $cookie_parts));
     }
 
+    /**
+     * Handle the page request
+     * 
+     * This method is called on every page request. 
+     * It checks the JWT cookie and the IP address to determine if the user should be allowed access.
+     * 
+     * @param string $required_role The necessary role required to access the page.
+     * @return void
+     */
 
+    public function handlePageRequest(string $required_role = 'reader'): void
+    {
+        // Get the JWT token from the request.
+        $jwt = $this->getJwt();
 
-    // public function jwt() {
-    //     $publicKey = $_ENV['JWT_PUBLIC_KEY'];
-    //     $privateKey = $_ENV['JWT_PRIVATE_KEY'];
+        // Get the roles from the JWT and check that they're sufficient.
+        $jwt_correct_role = $jwt && $jwt->roles ? in_array($required_role, $jwt->roles) : false;
 
-    //     $payload = [
-    //         'iss' => 'example.org',
-    //         'aud' => 'example.com',
-    //         'iat' => 1356999524,
-    //         'nbf' => 1357000000
-    //     ];
+        // Calculate the remaining time on the JWT token.
+        $jwt_remaining_time = $jwt && $jwt->exp ? $jwt->exp - $this->now : 0;
 
-    //     $jwt = JWT::encode($payload, $privateKey, 'RS256');
-    //     error_log("Encode:\n" . print_r($jwt, true));
+        // JWT is valid and it's not time to refresh it.
+        if ($jwt_correct_role && $jwt_remaining_time > $this::JWT_REFRESH) {
+            return;
+        }
 
-    //     $decoded = JWT::decode($jwt, new Key($publicKey, 'RS256'));
+        // There is no valid JWT, or it's about to expire.
+        if ($this->ipAddressIsAllowed()) {
+            // Set a JWT cookie.
+            $this->setJwt();
+            return;
+        }
 
-    //     /*
-    //      NOTE: This will now be an object instead of an associative array. To get
-    //      an associative array, you will need to cast it as such:
-    //     */
+        // Here is a good place to handle Azure AD/Entra ID authentication.
 
-    //     $decoded_array = (array) $decoded;
-    //     error_log("Decode:\n" . print_r($decoded_array, true) );
-    // }
+        // If there's any time left on the JWT then return.
+        if ($jwt_remaining_time > 0) {
+            return;
+        }
 
-
+        // If the IP address is not allowed and the JWT has expired, then deny access.
+        http_response_code(403);
+        include(get_template_directory() . '/error-pages/403.html');
+        exit();
+    }
 }
 
 $auth = new Auth();
-// $auth->handlePageRequest();
-
-
-
-// $publicKey = $_ENV['JWT_PUBLIC_KEY'];
-// $privateKey = $_ENV['JWT_PRIVATE_KEY'];
-
-// $payload = [
-//     'iss' => 'example.org',
-//     'aud' => 'example.com',
-//     'iat' => 1356999524,
-//     'nbf' => 1357000000
-// ];
-
-// $jwt = JWT::encode($payload, $privateKey, 'RS256');
-// error_log("Encode:\n" . print_r($jwt, true));
-
-// $decoded = JWT::decode($jwt, new Key($publicKey, 'RS256'));
-
-// /*
-//  NOTE: This will now be an object instead of an associative array. To get
-//  an associative array, you will need to cast it as such:
-// */
-
-// $decoded_array = (array) $decoded;
-// error_log("Decode:\n" . print_r($decoded_array, true) );
+$auth->handlePageRequest('reader');
