@@ -15,7 +15,7 @@ public/app/plugins/*
 public/app/db.php
 public/app/mu-plugins/*/
 public/app/upgrade
-public/app/languages
+public/app/languages/*
 public/app/uploads/*
 vendor
 vendor-assets
@@ -26,6 +26,7 @@ auth
 
 
 !public/app/plugins/.keep
+!public/app/languages/.keep
 !public/app/uploads/.keep
 
 public/app/cache
