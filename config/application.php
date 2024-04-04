@@ -17,7 +17,7 @@ define('MOJ_ROOT_DIR', dirname(__DIR__));
 /**
  * Directory containing all the site's files
  */
-$root_dir = dirname(__DIR__);
+$root_dir = MOJ_ROOT_DIR;
 
 /**
  * Document Root
@@ -28,12 +28,12 @@ $webroot_dir = $root_dir . '/public';
  * Use Dotenv to set required environment variables and load .env file in root
  * .env.local will override .env if it exists
  */
-if (file_exists($root_dir . '/.env')) {
-    $env_files = file_exists($root_dir . '/.env.local')
+if (file_exists(MOJ_ROOT_DIR . '/.env')) {
+    $env_files = file_exists(MOJ_ROOT_DIR . '/.env.local')
         ? ['.env', '.env.local']
         : ['.env'];
 
-    $dotenv = Dotenv\Dotenv::createUnsafeImmutable($root_dir, $env_files, false);
+    $dotenv = Dotenv\Dotenv::createUnsafeImmutable(MOJ_ROOT_DIR, $env_files, false);
 
     $dotenv->load();
 
@@ -89,7 +89,7 @@ Config::define('DB_COLLATE', '');
 $table_prefix = env('DB_PREFIX') ?: 'wp_';
 
 if (env('DATABASE_URL')) {
-    $dsn = (object) parse_url(env('DATABASE_URL'));
+    $dsn = (object)parse_url(env('DATABASE_URL'));
 
     Config::define('DB_NAME', substr($dsn->path, 1));
     Config::define('DB_USER', $dsn->user);
@@ -167,16 +167,9 @@ if (file_exists($env_config)) {
 
 Config::apply();
 
-/**
- * Initialise Sentry
- */
-if (env('SENTRY_DSN')) {
-    Sentry\init([
-        'dsn' => env('SENTRY_DSN'),
-        'environment'=> WP_ENV . (env('SENTRY_DEV_ID') ?? ''),
-        'traces_sample_rate' => Config::get('SENTRY_TRACES_SAMPLE_RATE'),
-        'profiles_sample_rate' => Config::get('SENTRY_PROFILE_SAMPLE_RATE')
-    ]);
+// settings are dependent on a plugin
+if (file_exists(MOJ_ROOT_DIR . '/public/app/plugins/wp-sentry/wp-sentry.php')) {
+    require_once __DIR__ . '/wp-sentry.php';
 }
 
 /**

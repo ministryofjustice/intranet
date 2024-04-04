@@ -20,13 +20,13 @@ $templates_we_want_to_hide = [
     'page_events.php',
     'page_blog.php',
     'page_about_us.php',
-    'search.php',
+    'search.php'
 ];
 
 /**
  * 1. Step one
  * Hide/remove templates from the dropdown Page Attribute box.
- * Some templates are only used once for particular pages, ie homepage, landingpages,
+ * Some templates are only used once for particular pages, ie homepage, landing pages,
  * so it doesn't make sense for editors to have these at their disposal as they can't use them for anything else.
  * Only admins can see all templates.
  */
