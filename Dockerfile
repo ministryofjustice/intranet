@@ -104,6 +104,9 @@ FROM base-fpm AS build-fpm
 WORKDIR /var/www/html
 COPY --chown=nginx:nginx ./config ./config
 COPY --chown=nginx:nginx ./public ./public
+COPY --from=build-fpm-composer --chown=nginx:nginx /var/www/html/public/app/mu-plugins /var/www/html/public/app/mu-plugins
+COPY --from=build-fpm-composer --chown=nginx:nginx /var/www/html/public/app/plugins /var/www/html/public/app/plugins
+COPY --from=build-fpm-composer --chown=nginx:nginx /var/www/html/public/app/languages /var/www/html/public/app/languages
 COPY --from=build-fpm-composer --chown=nginx:nginx /var/www/html/public/wp /var/www/html/public/wp
 COPY --from=build-fpm-composer --chown=nginx:nginx /var/www/html/vendor /var/www/html/vendor
 
@@ -135,9 +138,9 @@ COPY deploy/config/server.conf /etc/nginx/conf.d/default.conf
 
 # Get bootstraper for WordPress
 COPY public/index.php /var/www/html/public/index.php
+COPY public/app/themes/clarity/style.css /var/www/html/public/app/themes/clarity/
 
 # Grab assets for Nginx
-COPY --from=assets-build /node/style.css /var/www/html/public/app/themes/clarity/
 COPY --from=assets-build /node/dist /var/www/html/public/app/themes/clarity/dist/
 
 # Only take what Nginx needs (current configuration)
