@@ -47,6 +47,7 @@
         "roots/bedrock-autoloader": "^1.0",
         "roots/bedrock-disallow-indexing": "^2.0",
         "roots/wordpress": "^6.4",
+        "koodimonni-language/core-en_gb": "^6.4",
         "roots/wp-password-bcrypt": "^1.1.0",
         "roots/wp-config": "^1.0",
         "wpackagist-plugin/classic-editor": "^1.6.0",

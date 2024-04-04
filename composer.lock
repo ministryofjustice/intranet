@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "517d3dee1cd0672553360f0640176281",
+    "content-hash": "dd533ce6fb8a4876c75b8504a9666543",
     "packages": [
         {
             "name": "acf/advanced-custom-fields-pro",
@@ -125,16 +125,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.303.1",
+            "version": "3.303.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "e695623e9f6f278bed69172fddb932de3705030f"
+                "reference": "c087819351de027791d830ffc7f45195488ae988"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/e695623e9f6f278bed69172fddb932de3705030f",
-                "reference": "e695623e9f6f278bed69172fddb932de3705030f",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/c087819351de027791d830ffc7f45195488ae988",
+                "reference": "c087819351de027791d830ffc7f45195488ae988",
                 "shasum": ""
             },
             "require": {
@@ -214,9 +214,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.303.1"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.303.2"
             },
-            "time": "2024-04-02T18:09:38+00:00"
+            "time": "2024-04-03T18:08:21+00:00"
         },
         {
             "name": "composer/installers",
@@ -946,6 +946,73 @@
                 "source": "https://github.com/Jean85/pretty-package-versions/tree/1.6.0"
             },
             "time": "2021-02-04T16:20:16+00:00"
+        },
+        {
+            "name": "koodimonni-language/core-en_gb",
+            "version": "6.5",
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/translation/core/6.5/en_GB.zip"
+            },
+            "require": {
+                "koodimonni/composer-dropin-installer": ">=0.2.3"
+            },
+            "type": "wordpress-language",
+            "description": "WordPress core translations for English (UK) - en_gb",
+            "keywords": [
+                "Translation",
+                "WordPress",
+                "core",
+                "en_gb"
+            ]
+        },
+        {
+            "name": "koodimonni/composer-dropin-installer",
+            "version": "1.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Koodimonni/Composer-Dropin-Installer.git",
+                "reference": "9596ef8f50cbba2cdc707ca3b1f5e4a0e9fa7e7e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Koodimonni/Composer-Dropin-Installer/zipball/9596ef8f50cbba2cdc707ca3b1f5e4a0e9fa7e7e",
+                "reference": "9596ef8f50cbba2cdc707ca3b1f5e4a0e9fa7e7e",
+                "shasum": ""
+            },
+            "require": {
+                "composer-plugin-api": "^1.0 | ^2.0",
+                "php": ">=5.3.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^5.7"
+            },
+            "type": "composer-plugin",
+            "extra": {
+                "class": "Koodimonni\\Composer\\Dropin"
+            },
+            "autoload": {
+                "psr-4": {
+                    "Koodimonni\\Composer\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "WTFPL"
+            ],
+            "authors": [
+                {
+                    "name": "Onni Hakala",
+                    "email": "onni@keksi.io",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Install packages or a few files from packages into custom paths without overwriting existing stuff.",
+            "support": {
+                "issues": "https://github.com/Koodimonni/Composer-Dropin-Installer/issues",
+                "source": "https://github.com/Koodimonni/Composer-Dropin-Installer/tree/1.4"
+            },
+            "time": "2022-02-02T11:42:57+00:00"
         },
         {
             "name": "ministryofjustice/like-button-for-wordpress",
