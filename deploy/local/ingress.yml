@@ -17,7 +17,7 @@ metadata:
       }
 spec:
   rules:
-  - host: justice.local
+  - host: application.kind.local
     http:
       paths:
       - path: /
