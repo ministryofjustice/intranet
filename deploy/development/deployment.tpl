@@ -44,6 +44,8 @@ spec:
             mountPath: /var/www/html/public/app/uploads
           - name: php-socket
             mountPath: /sock
+        securityContext:
+            runAsUser: 101
         env:
           - name: S3_BUCKET_NAME
             valueFrom:
