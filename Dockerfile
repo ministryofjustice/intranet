@@ -1,5 +1,4 @@
 FROM ministryofjustice/wordpress-base-fpm:latest AS base-fpm
-#FROM testing-local-build AS base-fpm
 
 RUN addgroup -g 101 -S nginx; adduser -u 101 -S -D -G nginx nginx
 
@@ -12,8 +11,8 @@ RUN mkdir /sock && \
 # Create FPM pool
 RUN { \
         echo '[www]'; \
-        echo 'user = www-data'; \
-        echo 'group = www-data'; \
+        echo 'user = nginx'; \
+        echo 'group = nginx'; \
         echo 'listen = /sock/fpm.sock'; \
         echo 'listen.owner = nginx'; \
         echo 'listen.group = nginx'; \
@@ -77,6 +76,7 @@ RUN chmod +x /var/www/html/composer-auth.sh && \
 USER 101
 
 COPY composer.json composer.lock /var/www/html/
+
 RUN composer install --no-dev
 RUN composer dump-autoload -o
 
