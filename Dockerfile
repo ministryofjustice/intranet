@@ -102,10 +102,10 @@ RUN rm -rf node_modules
 FROM base-fpm AS build-fpm
 
 WORKDIR /var/www/html
-COPY --chown=www-data:www-data ./config ./config
-COPY --chown=www-data:www-data ./public ./public
-COPY --from=build-fpm-composer --chown=www-data:www-data /var/www/html/public/wp /var/www/html/public/wp
-COPY --from=build-fpm-composer --chown=www-data:www-data /var/www/html/vendor /var/www/html/vendor
+COPY --chown=nginx:nginx ./config ./config
+COPY --chown=nginx:nginx ./public ./public
+COPY --from=build-fpm-composer --chown=nginx:nginx /var/www/html/public/wp /var/www/html/public/wp
+COPY --from=build-fpm-composer --chown=nginx:nginx /var/www/html/vendor /var/www/html/vendor
 
 # non-root
 USER 101
@@ -133,11 +133,13 @@ FROM base-nginx AS build-nginx
 COPY deploy/config/php-fpm.conf /etc/nginx/php-fpm.conf
 COPY deploy/config/server.conf /etc/nginx/conf.d/default.conf
 
+# Get bootstraper for WordPress
+COPY public/index.php /var/www/html/public/index.php
+
 # Grab assets for Nginx
 COPY --from=assets-build /node/style.css /var/www/html/public/app/themes/clarity/
 COPY --from=assets-build /node/dist /var/www/html/public/app/themes/clarity/dist/
 
 # Only take what Nginx needs (current configuration)
-COPY --from=build-fpm-composer --chown=www-data:www-data /var/www/html/public/wp/wp-admin/index.php /var/www/html/public/wp/wp-admin/index.php
-COPY --from=build-fpm-composer --chown=www-data:www-data /var/www/html/vendor-assets /var/www/html/
-COPY --chown=www-data:www-data public/index.php /var/www/html/public/index.php
+COPY --from=build-fpm-composer --chown=nginx:nginx /var/www/html/public/wp/wp-admin/index.php /var/www/html/public/wp/wp-admin/index.php
+COPY --from=build-fpm-composer --chown=nginx:nginx /var/www/html/vendor-assets /var/www/html/
