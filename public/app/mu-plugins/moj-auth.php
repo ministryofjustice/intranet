@@ -251,9 +251,8 @@ class Auth
     {
         error_log('Auth::handlePageRequest');
 
+        // TODO: refactor when this runs?
         $this->setCloudFrontCookies();
-
-        return;
 
         // Get the JWT token from the request.
         $jwt = $this->getJwt();
