@@ -22,21 +22,43 @@ class Auth
 {
 
     private $now = null;
-    private $key = '';
+    private $is_dev = false;
 
-    // JWT constants
+    // JWT
+    private $jwt_secret = '';
+    // Constants
     const JWT_ALGORITHM = 'HS256'; // The only algorithm supported in CloudFront functions.
     const JWT_COOKIE_NAME = 'jwt';
+    const JWT_DOMAIN = 'intranet.docker';
     const JWT_DURATION = 60 * 60; // 1 hour
     const JWT_REFRESH = 60 * 5; // 5 minutes
+
+    // CloudFront constants
+    private $cloudfront_public_key_id = '';
+    private $cloudfront_private_key = '';
+    private $cloudfront_url = '';
+    // Constants
+    const CLOUDFRONT_COOKIE_DOMAIN = 'intranet.docker';
+    const CLOUDFRONT_DURATION = 60 * 60; // 60 minutes
 
     public function __construct()
     {
         $this->now = time();
-        $this->key = $_ENV['JWT_SECRET'];
-        // Clear JWT_SECRET from $_ENV global. 
-        // It's not required elsewhere in the app.
+        if ($_ENV['WP_ENV'] === 'development') {
+            $this->is_dev = true;
+        }
+
+        $this->jwt_secret = $_ENV['JWT_SECRET'];
+
+        $this->cloudfront_public_key_id = $_ENV['CLOUDFRONT_PUBLIC_KEY_ID'];
+        $this->cloudfront_private_key = $_ENV['CLOUDFRONT_PRIVATE_KEY'];
+        // $this->cloudfront_url =  'http' . $this->is_dev ? '' : 's' . ' ://' . $_ENV['DELIVERY_DOMAIN'];
+        $this->cloudfront_url =  'https://d33j2ssc6ogdaa.cloudfront.net';
+
+        // Clear JWT_SECRET & CLOUDFRONT_PRIVATE_KEY from $_ENV global. 
+        // They're not required elsewhere in the app.
         unset($_ENV['JWT_SECRET']);
+        unset($_ENV['CLOUDFRONT_PRIVATE_KEY']);
     }
 
     /**
@@ -100,7 +122,7 @@ class Auth
         }
 
         try {
-            $decoded = JWT::decode($jwt, new Key($this->key, $this::JWT_ALGORITHM));
+            $decoded = JWT::decode($jwt, new Key($this->jwt_secret, $this::JWT_ALGORITHM));
         } catch (\Exception $e) {
             \Sentry\captureException($e);
             // TODO: remove this error_log once we confirm that this way of capturing to Sentry is working.
@@ -129,23 +151,90 @@ class Auth
             'roles' => ['reader']
         ];
 
-        $jwt = JWT::encode($payload, $this->key, $this::JWT_ALGORITHM);
+        $jwt = JWT::encode($payload, $this->jwt_secret, $this::JWT_ALGORITHM);
 
-        // Build the cookie value - the domain is important for the cookie to be accessed by the subdomains.
+        // Build the cookie value - the the JWT cookie doesn't need to be accessed by the subdomains.
         $cookie_parts = [
             $this::JWT_COOKIE_NAME . '=' . $jwt,
             'path=/',
             'HttpOnly',
-            'domain=intranet.docker',
             'Expires=' . gmdate('D, d M Y H:i:s T', $expiry),
             'SameSite=Strict' // Will this work with subdomain?
         ];
 
-        if($_ENV['WP_ENV'] !== 'development') {
+        if ($_ENV['WP_ENV'] !== 'development') {
             $cookie_parts[] = 'Secure';
         }
 
         header('Set-Cookie: ' . implode('; ', $cookie_parts));
+    }
+
+    public function url_safe_base64_encode($value)
+    {
+        $encoded = base64_encode($value);
+        // replace unsafe characters +, = and / with the safe characters -, _ and ~
+        return str_replace(
+            array('+', '=', '/'),
+            array('-', '_', '~'),
+            $encoded
+        );
+    }
+
+    public function createSignedCookie($streamHostUrl, $resourceKey)
+    {
+        // @see https://github.com/egunda/signed-cookie-php/blob/master/index.php
+        // @see https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/CreateURL_PHP.html
+
+        $expiry = $this->now + $this::CLOUDFRONT_DURATION; // Expire Time
+
+        $url = $streamHostUrl . '/' . $resourceKey; // Service URL
+
+        $json = '{"Statement":[{"Resource":"' . $url . '","Condition":{"DateLessThan":{"AWS:EpochTime":' . $expiry . '}}}]}';
+
+        $key = openssl_get_privatekey($this->cloudfront_private_key);
+        if (!$key) {
+            echo "<p>Failed to load private key!</p>";
+            return;
+        }
+        if (!openssl_sign($json, $signed_policy, $key, OPENSSL_ALGO_SHA1)) {
+            echo '<p>Failed to sign policy: ' . openssl_error_string() . '</p>';
+            return;
+        }
+
+        // In case you want to use signed URL, just use the below code - make sure to pass a url path and not '*'.
+        // $signedUrl = $url.'?Expires='.$expiry.'&Signature='.$this->url_safe_base64_encode($signed_policy).'&Key-Pair-Id='.$this->cloudfront_public_key_id;
+
+        $signedCookies = [
+            "CloudFront-Key-Pair-Id" => $this->cloudfront_public_key_id,
+            "CloudFront-Policy" => $this->url_safe_base64_encode($json), //Canned Policy
+            "CloudFront-Signature" => $this->url_safe_base64_encode($signed_policy)
+        ];
+
+        return $signedCookies;
+    }
+
+    public function setCloudFrontCookies()
+    {
+
+        $signedCookieCustomPolicy = $this->createSignedCookie($this->cloudfront_url, '*');
+
+        $cookie_parts = [
+            'path=/',
+            'HttpOnly',
+            'Domain=' . $this::CLOUDFRONT_COOKIE_DOMAIN,
+            'SameSite=Strict',
+            ...($this->is_dev ? [] : ['Secure']),
+        ];
+
+        $cookie_string = implode('; ', $cookie_parts);
+
+        foreach ($signedCookieCustomPolicy as $name => $value) {
+            // These cookies work if I copy and paste them into the browser console.
+            // e.g. https://d33j2ssc6ogdaa.cloudfront.net/uploads/2024/02/09142406/287-4-150x150.jpg
+            error_log(sprintf('Set-Cookie: %s=%s; %s', $name, $value, $cookie_string));
+            header(sprintf('Set-Cookie: %s=%s; %s', $name, $value, $cookie_string), false);
+        }
+
     }
 
     /**
@@ -160,6 +249,12 @@ class Auth
 
     public function handlePageRequest(string $required_role = 'reader'): void
     {
+        error_log('Auth::handlePageRequest');
+
+        $this->setCloudFrontCookies();
+
+        return;
+
         // Get the JWT token from the request.
         $jwt = $this->getJwt();
 

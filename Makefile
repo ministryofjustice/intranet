@@ -91,6 +91,10 @@ test:
 test-fixes:
 	composer test-fix
 
+# RSA key generation
+key-gen:
+	@chmod +x ./bin/local-key-gen.sh && ./bin/local-key-gen.sh
+
 
 #####
 ## Mock production, K8S deployment
