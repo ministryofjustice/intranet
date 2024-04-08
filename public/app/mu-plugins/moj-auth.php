@@ -27,38 +27,19 @@ class Auth
     // JWT
     private $jwt_secret = '';
     // Constants
-    const JWT_ALGORITHM = 'HS256'; // The only algorithm supported in CloudFront functions.
+    const JWT_ALGORITHM = 'HS256';
     const JWT_COOKIE_NAME = 'jwt';
-    const JWT_DOMAIN = 'intranet.docker';
     const JWT_DURATION = 60 * 60; // 1 hour
     const JWT_REFRESH = 60 * 5; // 5 minutes
-
-    // CloudFront constants
-    private $cloudfront_public_key_id = '';
-    private $cloudfront_private_key = '';
-    private $cloudfront_url = '';
-    // Constants
-    const CLOUDFRONT_COOKIE_DOMAIN = 'intranet.docker';
-    const CLOUDFRONT_DURATION = 60 * 60; // 60 minutes
 
     public function __construct()
     {
         $this->now = time();
-        if ($_ENV['WP_ENV'] === 'development') {
-            $this->is_dev = true;
-        }
-
+        $this->is_dev = $_ENV['WP_ENV'] === 'development';
         $this->jwt_secret = $_ENV['JWT_SECRET'];
 
-        $this->cloudfront_public_key_id = $_ENV['CLOUDFRONT_PUBLIC_KEY_ID'];
-        $this->cloudfront_private_key = $_ENV['CLOUDFRONT_PRIVATE_KEY'];
-        // $this->cloudfront_url =  'http' . $this->is_dev ? '' : 's' . ' ://' . $_ENV['DELIVERY_DOMAIN'];
-        $this->cloudfront_url =  'https://d33j2ssc6ogdaa.cloudfront.net';
-
-        // Clear JWT_SECRET & CLOUDFRONT_PRIVATE_KEY from $_ENV global. 
-        // They're not required elsewhere in the app.
+        // Clear JWT_SECRET from $_ENV global. It's not required elsewhere in the app.
         unset($_ENV['JWT_SECRET']);
-        unset($_ENV['CLOUDFRONT_PRIVATE_KEY']);
     }
 
     /**
@@ -71,9 +52,13 @@ class Auth
      * @param string $match optional If provided, will contain the first matched IP subnet
      * @return boolean TRUE if the IP matches a given subnet or FALSE if it does not
      */
+
     public function ipMatch($ip, $cidrs, &$match = null): bool
     {
         foreach ((array) $cidrs as $cidr) {
+            if (empty($cidr)) {
+                continue;
+            }
             $parts = explode('/', $cidr);
             $subnet = $parts[0];
             $mask = $parts[1] ?? 32;
@@ -101,7 +86,15 @@ class Auth
             return false;
         }
 
-        $allowedIps = array_map('trim', explode(',', $_ENV['ALLOWED_IPS']));
+        $newline_pattern  = '/\r\n|\n|\r/'; // Match newlines.
+        $comments_pattern = '/\s*#.*/'; // Match comments.
+
+        $allowedIps = array_map(
+            'trim',
+            preg_split($newline_pattern, preg_replace($comments_pattern, '', $_ENV['ALLOWED_IPS']))
+        );
+
+        error_log(print_r($allowedIps, true));
 
         return $this->ipMatch($_SERVER['REMOTE_ADDR'], $allowedIps);
     }
@@ -159,82 +152,11 @@ class Auth
             'path=/',
             'HttpOnly',
             'Expires=' . gmdate('D, d M Y H:i:s T', $expiry),
-            'SameSite=Strict' // Will this work with subdomain?
-        ];
-
-        if ($_ENV['WP_ENV'] !== 'development') {
-            $cookie_parts[] = 'Secure';
-        }
-
-        header('Set-Cookie: ' . implode('; ', $cookie_parts));
-    }
-
-    public function url_safe_base64_encode($value)
-    {
-        $encoded = base64_encode($value);
-        // replace unsafe characters +, = and / with the safe characters -, _ and ~
-        return str_replace(
-            array('+', '=', '/'),
-            array('-', '_', '~'),
-            $encoded
-        );
-    }
-
-    public function createSignedCookie($streamHostUrl, $resourceKey)
-    {
-        // @see https://github.com/egunda/signed-cookie-php/blob/master/index.php
-        // @see https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/CreateURL_PHP.html
-
-        $expiry = $this->now + $this::CLOUDFRONT_DURATION; // Expire Time
-
-        $url = $streamHostUrl . '/' . $resourceKey; // Service URL
-
-        $json = '{"Statement":[{"Resource":"' . $url . '","Condition":{"DateLessThan":{"AWS:EpochTime":' . $expiry . '}}}]}';
-
-        $key = openssl_get_privatekey($this->cloudfront_private_key);
-        if (!$key) {
-            echo "<p>Failed to load private key!</p>";
-            return;
-        }
-        if (!openssl_sign($json, $signed_policy, $key, OPENSSL_ALGO_SHA1)) {
-            echo '<p>Failed to sign policy: ' . openssl_error_string() . '</p>';
-            return;
-        }
-
-        // In case you want to use signed URL, just use the below code - make sure to pass a url path and not '*'.
-        // $signedUrl = $url.'?Expires='.$expiry.'&Signature='.$this->url_safe_base64_encode($signed_policy).'&Key-Pair-Id='.$this->cloudfront_public_key_id;
-
-        $signedCookies = [
-            "CloudFront-Key-Pair-Id" => $this->cloudfront_public_key_id,
-            "CloudFront-Policy" => $this->url_safe_base64_encode($json), //Canned Policy
-            "CloudFront-Signature" => $this->url_safe_base64_encode($signed_policy)
-        ];
-
-        return $signedCookies;
-    }
-
-    public function setCloudFrontCookies()
-    {
-
-        $signedCookieCustomPolicy = $this->createSignedCookie($this->cloudfront_url, '*');
-
-        $cookie_parts = [
-            'path=/',
-            'HttpOnly',
-            'Domain=' . $this::CLOUDFRONT_COOKIE_DOMAIN,
             'SameSite=Strict',
             ...($this->is_dev ? [] : ['Secure']),
         ];
 
-        $cookie_string = implode('; ', $cookie_parts);
-
-        foreach ($signedCookieCustomPolicy as $name => $value) {
-            // These cookies work if I copy and paste them into the browser console.
-            // e.g. https://d33j2ssc6ogdaa.cloudfront.net/uploads/2024/02/09142406/287-4-150x150.jpg
-            error_log(sprintf('Set-Cookie: %s=%s; %s', $name, $value, $cookie_string));
-            header(sprintf('Set-Cookie: %s=%s; %s', $name, $value, $cookie_string), false);
-        }
-
+        header('Set-Cookie: ' . implode('; ', $cookie_parts));
     }
 
     /**
@@ -249,11 +171,6 @@ class Auth
 
     public function handlePageRequest(string $required_role = 'reader'): void
     {
-        error_log('Auth::handlePageRequest');
-
-        // TODO: refactor when this runs?
-        $this->setCloudFrontCookies();
-
         // Get the JWT token from the request.
         $jwt = $this->getJwt();
 
@@ -283,8 +200,8 @@ class Auth
         }
 
         // If the IP address is not allowed and the JWT has expired, then deny access.
-        http_response_code(403);
-        include(get_template_directory() . '/error-pages/403.html');
+        http_response_code(401);
+        include(get_template_directory() . '/error-pages/401.html');
         exit();
     }
 }

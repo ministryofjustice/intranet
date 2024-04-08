@@ -4,7 +4,6 @@
     "description": "Local CloudFront CDN",
     "main": "index.js",
     "scripts": {
-        "development": "NODE_ENV=development node server.js",
         "watch": "NODE_ENV=development node --watch server.js"
     },
     "repository": {
@@ -22,7 +21,6 @@
     "dependencies": {
         "cookie-parser": "^1.4.6",
         "express": "^4.19.0",
-        "express-http-proxy": "^2.0.0",
         "http-proxy-middleware": "^3.0.0"
     },
     "author": ""

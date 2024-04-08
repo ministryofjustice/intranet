@@ -169,7 +169,7 @@ services:
       - ./cdn/handler.js:/node/handler.js
       - ./cdn/server.js:/node/server.js
     environment:
-      JWT_SECRET: ${JWT_SECRET}
+      CLOUDFRONT_PUBLIC_KEY: ${CLOUDFRONT_PUBLIC_KEY}
       S3_BUCKET_NAME: ${S3_BUCKET_NAME}
       VIRTUAL_HOST: cdn.${SERVER_NAME}
       VIRTUAL_PORT: 80
