@@ -126,9 +126,8 @@ Config::define('WP_POST_REVISIONS', env('WP_POST_REVISIONS') ?? true);
 // API key for notifications.service.gov.uk email service
 Config::define('GOV_NOTIFY_API_KEY', env('GOV_NOTIFY_API_KEY') ?? null);
 
-// Sentry settings
-Config::define('SENTRY_TRACES_SAMPLE_RATE', 0.3);
-Config::define('SENTRY_PROFILE_SAMPLE_RATE', 0.3);
+// Turn off WP Cron - use `wp cron` instead
+Config::define('DISABLE_WP_CRON', true);
 
 /**
  * Debugging Settings

@@ -58,3 +58,11 @@ spec:
           resources: {}
           ports:
             - containerPort: 9000
+
+        - name: cron
+          image: intranet-cron:latest
+          imagePullPolicy: Never
+          securityContext:
+            runAsUser: 3001
+          resources: {}
+
