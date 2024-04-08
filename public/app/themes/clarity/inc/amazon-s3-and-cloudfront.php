@@ -223,8 +223,8 @@ class AmazonS3AndCloudFrontForCloudPlatform
 
     public function getCloudfrontPublicKeyId() : string
     {
-        // The first 8 chars of the public key are used to identify AWS's key id.
-        $public_key_short = substr( $_ENV['CLOUDFRONT_PUBLIC_KEY'], 27, 8);
+        // The first unique 8 chars of the public key are used to identify AWS's key id.
+        $public_key_short = substr( $_ENV['CLOUDFRONT_PUBLIC_KEY'], 71, 8);
 
         // Decode the JSON string to an array.
         $public_key_ids_and_keys = json_decode($_ENV['CLOUDFRONT_PUBLIC_KEY_OBJECT'], true);
