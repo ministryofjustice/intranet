@@ -138,7 +138,6 @@ class AmazonS3AndCloudFrontForCloudPlatform
 
     private $cloudfront_cookie_domain = '';
     private $cloudfront_private_key = '';
-    private $cloudfront_public_key_id = '';
     private $cloudfront_url = '';
 
     const CLOUDFRONT_DURATION = 60 * 10; // 10 minutes
@@ -153,7 +152,6 @@ class AmazonS3AndCloudFrontForCloudPlatform
 
         // Cookie domain is important for sharing a cookie with a subdomain.
         $this->cloudfront_cookie_domain = preg_replace('/https?:\/\//', '', $_ENV['WP_HOME']);
-        $this->cloudfront_public_key_id = $_ENV['CLOUDFRONT_PUBLIC_KEY_ID'];
         $this->cloudfront_private_key = $_ENV['CLOUDFRONT_PRIVATE_KEY'];
         $this->cloudfront_url =  'http' . $this->is_dev ? '' : 's' . ' ://' . $_ENV['DELIVERY_DOMAIN'];
 
@@ -214,6 +212,35 @@ class AmazonS3AndCloudFrontForCloudPlatform
     }
 
     /**
+     * Get the CloudFront public key ID.
+     * 
+     * The public key ID is required for creating a signed cookie.
+     * Having multiple public keys allows for key rotation.
+     * This function parses an array of public key IDs and keys to find the correct key.
+     * 
+     * @return string The CloudFront public key ID.
+     */
+
+    public function getCloudfrontPublicKeyId() : string
+    {
+        // The first 8 chars of the public key are used to identify AWS's key id.
+        $public_key_short = substr( $_ENV['CLOUDFRONT_PUBLIC_KEY'], 27, 8);
+
+        // Decode the JSON string to an array.
+        $public_key_ids_and_keys = json_decode($_ENV['CLOUDFRONT_PUBLIC_KEY_OBJECT'], true);
+
+        // Find the matching array entry for the public key.
+        $public_key_id_and_key = array_filter($public_key_ids_and_keys, fn ($key) =>  $key['key'] === $public_key_short );
+
+        // If the public key is not found, throw an exception.
+        if(empty($public_key_id_and_key) || !$public_key_id_and_key[0]['id']) {
+            throw new \Exception('CloudFront public key not found');
+        }
+
+        return $public_key_id_and_key[0]['id'];
+    }
+
+    /**
      * Create a signed cookie for CloudFront.
      * 
      * @see https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/CreateURL_PHP.html AWS Documentation - Create a URL signature using PHP.
@@ -241,11 +268,8 @@ class AmazonS3AndCloudFrontForCloudPlatform
             throw new \Exception('Failed to sign policy: ' . openssl_error_string());
         }
 
-        error_log($json);
-        error_log($this->urlSafeBase64Encode($signed_policy));
-
         return [
-            "CloudFront-Key-Pair-Id" => $this->cloudfront_public_key_id,
+            "CloudFront-Key-Pair-Id" => $this->getCloudfrontPublicKeyId(),
             "CloudFront-Policy" => $this->urlSafeBase64Encode($json),
             "CloudFront-Signature" => $this->urlSafeBase64Encode($signed_policy)
         ];
@@ -268,8 +292,6 @@ class AmazonS3AndCloudFrontForCloudPlatform
 
     public function handlePageRequest(): void
     {
-
-        $this->createSignedCookie($this->cloudfront_url . '/*');
 
         $remaining_time = $this->remainingTimeFromCookie();
 
@@ -321,7 +343,6 @@ class AmazonS3AndCloudFrontForCloudPlatform
 switch (str_starts_with(Config::get('S3_CUSTOM_DOMAIN'), 'minio')) {
     case true:
         new AmazonS3AndCloudFrontForMinio();
-        new AmazonS3AndCloudFrontForCloudPlatform();
         break;
     default:
         new AmazonS3AndCloudFrontForCloudPlatform();
