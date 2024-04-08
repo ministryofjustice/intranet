@@ -37,6 +37,12 @@ spec:
             mountPath: /var/www/html/public/app/uploads
           - name: php-socket
             mountPath: /sock
+
+      - name: cron
+        image: ${ECR_URL}:${IMAGE_TAG_CRON}
+        securityContext:
+          runAsUser: 3001
+
       - name: fpm
         image: ${ECR_URL}:${IMAGE_TAG_FPM}
         volumeMounts:
