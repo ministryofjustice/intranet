@@ -28,6 +28,7 @@ jobs:
           ECR_URL: ${{ inputs.registry }}/${{ vars.ECR_REPOSITORY }}
           IMAGE_TAG_NGINX: "nginx-${{ github.sha }}"
           IMAGE_TAG_FPM: "fpm-${{ github.sha }}"
+          IMAGE_TAG_CRON: "cron-${{ github.sha }}"
           GOV_NOTIFY_API_KEY: ${{ secrets.GOV_NOTIFY_API_KEY }}
           SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
           AUTH_KEY: ${{ secrets.AUTH_KEY }}

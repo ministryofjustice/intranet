@@ -34,11 +34,41 @@ RUN { \
 
 ###
 
+FROM alpine:3.19.1 as base-cron
+
+ARG user=crooner
+RUN addgroup --gid 3001 ${user} && adduser -D -G ${user} -g "${user} user" -u 3001 ${user}
+
+RUN apk add dpkg curl
+
+COPY deploy/config/init/cron-install.sh /usr/bin/cron-install
+COPY deploy/config/init/start-wp-cron.sh /usr/bin/start-wp-cron
+RUN chmod +x /usr/bin/cron-install && chmod +x /usr/bin/start-wp-cron && cron-install
+
+RUN apk del dpkg
+
+## cron-schedule directory
+RUN mkdir -p /schedule && chown ${user}:${user} /schedule
+
+USER 3001
+
+## DEVELOPMENT
+FROM base-cron as cron-dev
+ENTRYPOINT ["/bin/sh", "-c", "start-wp-cron"]
+
+## PRODUCTION
+FROM base-cron as build-cron
+COPY deploy/config/cron/process-wp-cron /schedule/wp-cron
+ENTRYPOINT ["/bin/sh", "-c", "start-wp-cron"]
+
+###
+
 FROM nginxinc/nginx-unprivileged:1.25-alpine AS base-nginx
 
 USER root
 
-COPY deploy/config/init/* /docker-entrypoint.d/
+COPY deploy/config/init/nginx-* /docker-entrypoint.d/
+
 RUN chmod +x /docker-entrypoint.d/*
 RUN echo "# This file is configured at runtime." > /etc/nginx/real_ip.conf
 
