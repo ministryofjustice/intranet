@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 
-# This script creates a RSA key pair and copies the public key to the clipboard.
-# Follows the instructions from the AWS 'Creating key pairs for your signers' documentation:
+# This script creates a JWT sectet, RSA key pair and copies them to the clipboard - ready for pasting into .env.
+# The script follows the instructions from the AWS 'Creating key pairs for your signers' documentation:
 # https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-trusted-signers.html#private-content-creating-cloudfront-key-pairs
 
+echo "Generating JWT secret"
 JWT_SECRET=$(openssl rand -base64 64)
 
 echo "Generating RSA keys"
