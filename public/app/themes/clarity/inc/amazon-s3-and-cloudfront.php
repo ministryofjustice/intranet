@@ -1,6 +1,5 @@
 <?php
 
-
 namespace DeliciousBrains\WP_Offload_Media\Tweaks;
 
 use Roots\WPConfig\Config;
@@ -221,19 +220,19 @@ class AmazonS3AndCloudFrontForCloudPlatform
      * @return string The CloudFront public key ID.
      */
 
-    public function getCloudfrontPublicKeyId() : string
+    public function getCloudfrontPublicKeyId(): string
     {
         // The first unique 8 chars of the public key are used to identify AWS's key id.
-        $public_key_short = substr( $_ENV['CLOUDFRONT_PUBLIC_KEY'], 71, 8);
+        $public_key_short = substr($_ENV['CLOUDFRONT_PUBLIC_KEY'], 71, 8);
 
         // Decode the JSON string to an array.
         $public_key_ids_and_keys = json_decode($_ENV['CLOUDFRONT_PUBLIC_KEY_OBJECT'], true);
 
         // Find the matching array entry for the public key.
-        $public_key_id_and_key = array_filter($public_key_ids_and_keys, fn ($key) =>  $key['key'] === $public_key_short );
+        $public_key_id_and_key = array_filter($public_key_ids_and_keys, fn ($key) =>  $key['key'] === $public_key_short);
 
         // If the public key is not found, throw an exception.
-        if(empty($public_key_id_and_key) || !$public_key_id_and_key[0]['id']) {
+        if (empty($public_key_id_and_key) || !$public_key_id_and_key[0]['id']) {
             throw new \Exception('CloudFront public key not found');
         }
 
