@@ -50,7 +50,7 @@ require_once 'inc/admin/users/delete-roles.php';
 require_once 'inc/admin/users/user-access-and-security.php';
 require_once 'inc/admin/wp-admin-bar.php';
 
-require_once 'inc/aboutus.php';
+require_once 'inc/about-us.php';
 require_once 'inc/acf.php';
 require_once 'inc/amazon-s3-and-cloudfront.php';
 
@@ -76,7 +76,7 @@ require_once 'inc/form-builder.php';
 require_once 'inc/forms.php';
 require_once 'inc/get-component.php';
 require_once 'inc/get-intranet-code.php';
-require_once 'inc/guidanceandforms.php';
+require_once 'inc/guidance-and-forms.php';
 
 require_once 'inc/helpers/debug.php';
 require_once 'inc/helpers/taggr.php';
@@ -110,3 +110,12 @@ require_once 'inc/whitelisted-emails.php';
 
 /** Environment Notice **/
 require_once 'inc/environment-notice.php';
+
+
+add_action('save_post', function ($post_id, $post) {
+    if ($post->post_name === 'agency-switcher') {
+        update_post_meta($post_id, '_wp_page_template', 'agency-switcher.php');
+    }
+}, 99, 2);
+
+

@@ -11,7 +11,7 @@ if (getenv('WP_ENV') !== 'development') {
 
 
 # output all settings concerning the PHP installation
-xdebug_info();
+phpinfo();
 
 
 trigger_error("Triggering a warning for output", E_USER_WARNING);

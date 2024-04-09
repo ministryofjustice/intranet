@@ -11,9 +11,9 @@
 
 /* Disable specified plugins in non-development environments */
 if (getenv('WP_ENV') !== 'development' && is_admin()) {
-    $plugins = array(
+    $plugins = [
         'wordpress-importer/wordpress-importer.php'
-    );
+    ];
     require_once(ABSPATH . 'wp-admin/includes/plugin.php');
     deactivate_plugins($plugins);
 }

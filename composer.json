@@ -2,6 +2,7 @@
     "name": "ministryofjustice/intranet",
     "type": "project",
     "description": "MoJ Intranet, used by Ministry of Justice and agencies",
+    "version": "3.0",
     "config": {
         "preferred-install": "dist",
         "allow-plugins": {
@@ -40,12 +41,13 @@
     ],
     "require": {
         "php": ">=8.2",
-        "composer/installers": "^1.0.0",
+        "composer/installers": "^1.0 || ^2.0",
         "vlucas/phpdotenv": "^5.5",
         "oscarotero/env": "^2.1",
         "roots/bedrock-autoloader": "^1.0",
         "roots/bedrock-disallow-indexing": "^2.0",
         "roots/wordpress": "^6.4",
+        "koodimonni-language/core-en_gb": "^6.4",
         "roots/wp-password-bcrypt": "^1.1.0",
         "roots/wp-config": "^1.0",
         "wpackagist-plugin/classic-editor": "^1.6.0",
@@ -56,16 +58,12 @@
         "wpackagist-plugin/wp-document-revisions": "^3.5.0",
         "wpackagist-plugin/simple-301-redirects": "2.0.9",
         "acf/advanced-custom-fields-pro": "^6.1.0",
-        "ministryofjustice/wp-rewrite-media-to-s3": "dev-php8-code-update",
         "ministryofjustice/like-button-for-wordpress": "dev-main",
         "ministryofjustice/notify-for-wordpress": "dev-main",
         "ministryofjustice/php-markdown-extra": "dev-main",
         "ministryofjustice/wp-moj-components": "^3.5.0",
         "ministryofjustice/wp-moj-elasticsearch": "^2.3.0",
         "wpackagist-plugin/elasticpress": "^5.0.0",
-        "ext-zlib": "*",
-        "ext-posix": "*",
-        "sentry/sentry": "^3.1",
         "php-http/guzzle7-adapter": "^1.0",
         "alphagov/notifications-php-client": "^5.0",
         "aws/aws-sdk-php": "^3.133",
@@ -73,7 +71,11 @@
         "wpackagist-plugin/debug-bar": "^1.1",
         "wpackagist-plugin/debug-bar-elasticpress": "^3.1",
         "wpackagist-plugin/wp-migrate-db": "2.6.10",
-        "wpackagist-plugin/amazon-s3-and-cloudfront": "^3.2"
+        "wpackagist-plugin/amazon-s3-and-cloudfront": "^3.2",
+        "stayallive/wp-sentry": "^7.11",
+        "ext-posix": "*",
+        "ext-mysqli": "*",
+        "ext-zlib": "*"
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "^3.0.2"

@@ -20,6 +20,8 @@ spec:
       volumes:
         - name: uploads
           emptyDir: {}
+        - name: php-socket
+          emptyDir: {}
         - name: nginx-cache
           emptyDir: {}
       terminationGracePeriodSeconds: 35
@@ -27,10 +29,16 @@ spec:
         - name: nginx
           image: intranet-nginx:latest
           imagePullPolicy: Never
+          securityContext:
+            runAsUser: 101
           resources: {}
           ports:
             - containerPort: 8080
           volumeMounts:
+            - name: uploads
+              mountPath: /var/www/html/public/app/uploads
+            - name: php-socket
+              mountPath: /sock
             - name: nginx-cache
               mountPath: /var/run/nginx-cache
 
@@ -41,10 +49,20 @@ spec:
             - configMapRef:
                 name: intranet-config
           securityContext:
-            runAsUser: 82
+            runAsUser: 101
           volumeMounts:
             - name: uploads
               mountPath: /var/www/html/public/app/uploads
+            - name: php-socket
+              mountPath: /sock
           resources: {}
           ports:
             - containerPort: 9000
+
+        - name: cron
+          image: intranet-cron:latest
+          imagePullPolicy: Never
+          securityContext:
+            runAsUser: 3001
+          resources: {}
+

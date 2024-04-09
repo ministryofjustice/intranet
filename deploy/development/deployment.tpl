@@ -23,6 +23,8 @@ spec:
       volumes:
         - name: uploads
           emptyDir: { }
+        - name: php-socket
+          emptyDir: { }
       terminationGracePeriodSeconds: 35
       serviceAccountName: ${KUBE_NAMESPACE}-service
       containers:
@@ -33,15 +35,23 @@ spec:
         volumeMounts:
           - name: uploads
             mountPath: /var/www/html/public/app/uploads
+          - name: php-socket
+            mountPath: /sock
+
+      - name: cron
+        image: ${ECR_URL}:${IMAGE_TAG_CRON}
+        securityContext:
+          runAsUser: 3001
+
       - name: fpm
         image: ${ECR_URL}:${IMAGE_TAG_FPM}
-        ports:
-          - containerPort: 9000
         volumeMounts:
           - name: uploads
             mountPath: /var/www/html/public/app/uploads
+          - name: php-socket
+            mountPath: /sock
         securityContext:
-            runAsUser: 82
+            runAsUser: 101
         env:
           - name: S3_BUCKET_NAME
             valueFrom:

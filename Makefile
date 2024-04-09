@@ -1,5 +1,10 @@
 .DEFAULT_GOAL := d-shell
 
+## populate as needed for testing
+## ... never commit!
+COMPOSER_USER := ***
+COMPOSER_PASS := ***
+
 kube := kind
 k8s_prt := 8080:80
 k8s_nsp := default
@@ -8,7 +13,7 @@ k8s_pod := kubectl -n $(k8s_nsp) get pod -l app=intranet-local -o jsonpath="{.it
 init: setup run
 
 d-compose: local-stop
-	docker compose up -d nginx phpmyadmin opensearch-dashboards
+	docker compose up -d nginx phpmyadmin opensearch-dashboard wp-cron
 
 d-shell: setup dory d-compose composer
 
@@ -42,7 +47,7 @@ composer: composer-assets composer-copy
 bash:
 	docker compose exec php-fpm bash
 
-nginx:
+bash-nginx:
 	docker compose exec --workdir /var/www/html nginx ash
 
 node:
@@ -101,14 +106,18 @@ key-gen:
 #####
 build-nginx:
 	@echo "\n-->  Building local Nginx  <---------------------------|\n"; sleep 3;
-	docker image build -t intranet-nginx:latest --target build-nginx .
+	docker image build --build-arg COMPOSER_USER="${COMPOSER_USER}" --build-arg COMPOSER_PASS="${COMPOSER_PASS}" -t intranet-nginx:latest --target build-nginx .
 
 # FastCGI Process Manager for PHP
 # https://www.php.net/manual/en/install.fpm.php
 # https://www.plesk.com/blog/various/php-fpm-the-future-of-php-handling/
 build-fpm:
 	@echo "\n-->  Building local FPM  <---------------------------|\n"; sleep 3;
-	docker image build -t intranet-fpm:latest --target build-fpm .
+	docker image build --build-arg COMPOSER_USER="${COMPOSER_USER}" --build-arg COMPOSER_PASS="${COMPOSER_PASS}" -t intranet-fpm:latest --target build-fpm .
+
+build-cron:
+	@echo "\n-->  Building local CRON (runs wp-cron process)  <---------------------------|\n"; sleep 3;
+	docker image build -t intranet-cron:latest --target cron .
 
 build: build-fpm build-nginx
 	@if [ ${kube} == 'kind' ]; then kind load docker-image intranet-fpm:latest; kind load docker-image intranet-nginx:latest; fi
@@ -120,7 +129,7 @@ deploy: clear
 
 cluster:
 	@if [ "${kube}" != 'kind' ]; then echo "\n-->  Please, activate the kind cluster to assist in local app development on Kubernetes"; echo "-->  Amend the variable named kube on line 3 in Makefile to read 'kind' (without quotes)"; echo "-->  ... or, install kind from scratch: https://kind.sigs.k8s.io/docs/user/quick-start/#installation \n"; sleep 8; fi
-	@if [ "${kube}" == 'kind' ]; then kind create cluster --config=deploy/config/local/cluster.yml; kubectl apply -f https://projectcontour.io/quickstart/contour.yaml; fi
+	@if [ "${kube}" == 'kind' ]; then kind create cluster --config=deploy/config/local/kube/cluster.yml; kubectl apply -f https://projectcontour.io/quickstart/contour.yaml; fi
 	@if [ "${kube}" == 'kind' ]; then kubectl patch daemonsets -n projectcontour envoy -p '{"spec":{"template":{"spec":{"nodeSelector":{"ingress-ready":"true"},"tolerations":[{"key":"node-role.kubernetes.io/control-plane","operator":"Equal","effect":"NoSchedule"},{"key":"node-role.kubernetes.io/master","operator":"Equal","effect":"NoSchedule"}]}}}}'; fi
 
 kind: local-kube-start clear cluster local-kube-build
@@ -128,7 +137,7 @@ kind: local-kube-start clear cluster local-kube-build
 
 local-kube-start:
 	@if [ -n "$(docker ps | grep dory_dnsmasq)" ]; then dory down; fi # lets make sure port 80 is free
-	@docker container start kind-control-plane
+	@docker container start kind-control-plane || kind create cluster
 
 local-stop:
 	@echo "\n-->  Checking if we should stop the kind-control-plane container..."
