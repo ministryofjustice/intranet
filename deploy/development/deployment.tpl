@@ -53,6 +53,11 @@ spec:
               secretKeyRef:
                 name: cloudfront-output
                 key: cloudfront_url
+          - name: CLOUDFRONT_PUBLIC_KEY_OBJECT
+            valueFrom:
+              secretKeyRef:
+                name: cloudfront-output
+                key: cloudfront_public_key_ids
           - name: DB_HOST
             valueFrom:
               secretKeyRef:
