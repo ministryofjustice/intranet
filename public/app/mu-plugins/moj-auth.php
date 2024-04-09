@@ -94,8 +94,6 @@ class Auth
             preg_split($newline_pattern, preg_replace($comments_pattern, '', $_ENV['ALLOWED_IPS']))
         );
 
-        error_log(print_r($allowedIps, true));
-
         return $this->ipMatch($_SERVER['REMOTE_ADDR'], $allowedIps);
     }
 
