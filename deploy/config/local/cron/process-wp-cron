@@ -1,6 +1,0 @@
-##-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#
-## Run WP scheduled events
-## Every 2nd minute
-##-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#
-
-* * * * * sleep `shuf -i0-15 -n1` && curl http://nginx:8080/wp/wp-cron.php --silent > /dev/null
