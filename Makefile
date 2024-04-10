@@ -46,6 +46,9 @@ bash:
 bash-nginx:
 	docker compose exec --workdir /var/www/html nginx ash
 
+bash-cron:
+	docker compose exec wp-cron ash
+
 node:
 	docker compose exec --workdir /node node bash
 
