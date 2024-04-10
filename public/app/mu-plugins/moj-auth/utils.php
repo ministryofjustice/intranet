@@ -88,6 +88,13 @@ trait AuthUtils
         return $this->ipMatch($_SERVER['REMOTE_ADDR'], $allowedIps);
     }
 
+    /**
+     * Hash a value using SHA256 and a salt.
+     * 
+     * @param string $value The value to hash.
+     * @return string The hashed value.
+     */
+
     public function hash(string $value): string
     {
         $this->log('hash()');

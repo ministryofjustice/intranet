@@ -35,9 +35,10 @@ trait AuthOauth
         $this->log('initOauth()');
 
         // Check for required environment variables. OAuth can be disable by not setting these.
-        if(empty($_ENV['OAUTH_TENNANT_ID']) || empty($_ENV['OAUTH_CLIENT_ID']) || empty($_ENV['OAUTH_CLIENT_SECRET'])) {
+        $this->oauth_enabled = !empty($_ENV['OAUTH_TENNANT_ID']) && !empty($_ENV['OAUTH_CLIENT_ID']) && !empty($_ENV['OAUTH_CLIENT_SECRET']);
+
+        if (!$this->oauth_enabled) {
             $this->log('Missing OAuth environment variables');
-            $this->oauth_enabled = false;
             return;
         }
 
@@ -94,7 +95,7 @@ trait AuthOauth
     {
         $this->log('oauthLogin()');
 
-        if(!$this->oauth_enabled) {
+        if (!$this->oauth_enabled) {
             $this->log('OAuth is not enabled');
             http_response_code(401) && exit();
         }
@@ -109,8 +110,8 @@ trait AuthOauth
         // Use a cookie to store oauth state.
         $this->setCookie($this::OAUTH_STATE_COOKIE_NAME, $state_hashed, -1);
 
-        // Store the user's origin URL in a cookie.
-        $this->setCookie($this::OAUTH_USER_URL_COOKIE_NAME, $_SERVER['REQUEST_URI'] ?? '', -1);
+        // Store the user's origin URL in a transient.
+        set_transient('oauth_user_url_' . $this->sub, $_SERVER['REQUEST_URI'] ?? '', 60 * 5); // 5 minutes
 
         // Storing pkce prevents an attacker from potentially intercepting the auth code and using it.
         set_transient('oauth_pkce_' . $state_hashed, $oauth_client->getPkceCode(), 60 * 5); // 5 minutes
@@ -132,7 +133,7 @@ trait AuthOauth
     {
         $this->log('oauthCallback()');
 
-        if(!$this->oauth_enabled) {
+        if (!$this->oauth_enabled) {
             $this->log('OAuth is not enabled');
             http_response_code(401) && exit();
         }

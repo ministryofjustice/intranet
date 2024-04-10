@@ -60,7 +60,7 @@ trait AuthJwt
             return false;
         }
 
-        if($decoded && $decoded->sub) {
+        if ($decoded && $decoded->sub) {
             $this->sub = $decoded->sub;
         }
 
@@ -73,18 +73,22 @@ trait AuthJwt
      * @return object Returns the JWT payload.
      */
 
-    public function setJwt(array $args = []) : object
+    public function setJwt(array $args = []): object
     {
         $this->log('setJwt()');
 
         $expiry = isset($args['expiry']) ? $args['expiry'] : $this->now + $this::JWT_DURATION;
+
+        if (!$this->sub) {
+            $this->sub = bin2hex(random_bytes(16));
+        }
 
         $payload = [
             // Registered claims - https://datatracker.ietf.org/doc/html/rfc7519#section-4.1
             'sub' => $this->sub,
             'exp' => $expiry,
             // Public claims - https://www.iana.org/assignments/jwt/jwt.xhtml
-            'roles' => ['reader']
+            'roles' =>  isset($args['roles']) ? $args['roles'] : [],
         ];
 
         $jwt = JWT::encode($payload, $this->jwt_secret, $this::JWT_ALGORITHM);

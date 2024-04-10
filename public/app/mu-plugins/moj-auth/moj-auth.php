@@ -77,9 +77,9 @@ class Auth
         // Get the JWT token from the request. Do this early so that we populate $this->sub if it's known.
         $jwt = $this->getJwt();
 
-        // If there was no JWT and subsequently no user ID, let's create one and set it.
-        if(empty($this->sub)) {
-            $this->sub = bin2hex(random_bytes(16));
+        // Set a JWT without a role, to persist the user's ID.
+        if (!$jwt) {
+            $jwt = $this->setJwt();
         }
 
         // If we've hit the callback endpoint, then handle it here. On fail it exits with 401 & php code execution stops here.
@@ -91,15 +91,16 @@ class Auth
             // Set a JWT cookie.
             $this->setJwt([
                 'expiry' => $oauth_access_token->getExpires(),
+                'roles'  => ['reader']
             ]);
             // Store the tokens.
             $this->storeTokens($this->sub, $oauth_access_token, 'refresh');
             // Get the origin request from the cookie.
-            $user_redirect = \home_url($_COOKIE[$this::OAUTH_USER_URL_COOKIE_NAME] ?? '/');
-            // Remove the cookie.
-            $this->deleteCookie($this::OAUTH_USER_URL_COOKIE_NAME);
+            $user_redirect = get_transient('oauth_user_url_' . $this->sub);
+            // Remove the transient.
+            delete_transient('oauth_user_url_' . $this->sub);
             // Redirect the user to the page they were trying to access.
-            header('Location: ' . $user_redirect);
+            header('Location: ' . \home_url($user_redirect ?? '/'));
             exit();
         }
 
@@ -120,7 +121,7 @@ class Auth
 
         // If the IP address is allowed, set a JWT and return.
         if ($this->ipAddressIsAllowed()) {
-            $this->setJwt();
+            $this->setJwt(['roles' => ['reader']]);
             return;
         }
 
@@ -133,6 +134,7 @@ class Auth
             // Set a JWT cookie.
             $jwt = $this->setJwt([
                 'expiry' => $oauth_access_token->getExpires(),
+                'roles'  => ['reader']
             ]);
             // Store the tokens.
             $this->storeTokens($this->sub, $oauth_refreshed_access_token, 'refresh');
@@ -140,11 +142,11 @@ class Auth
         }
 
         // If there's any time left on the JWT then return.
-        if ($jwt_remaining_time > 0) {
+        if ($jwt_correct_role && $jwt_remaining_time > 0) {
             return;
         }
 
-        // Handle Azure AD/Entra ID OAuth. It redirects to Azure or xeits with 401 if disabled. php code execution always stops here.
+        // Handle Azure AD/Entra ID OAuth. It redirects to Azure or exits with 401 if disabled. php code execution always stops here.
         $this->oauthLogin();
     }
 
