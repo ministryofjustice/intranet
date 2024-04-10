@@ -110,7 +110,9 @@
         "wordpress-install-dir": "public/wp",
         "meta-comments": {
             "description": [
-                "As comments are not allowed in composer.json, use this section for comments."
+                "As comments are not allowed in composer.json, use this section for comments.",
+                "After adding comments here, run a benign composer command like ",
+                "`composer update paragonie/random_compat` to update composer.lock's hash."
             ],
             "replace.paragonie/random_compat": [
                 "The `paragonie/random_compat` package is a dependency of `league/oauth2-client`.",
