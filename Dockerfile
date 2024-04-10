@@ -34,32 +34,35 @@ RUN { \
 
 ###
 
-FROM alpine:3.19.1 as base-cron
+FROM alpine:3.19.1 as cron
 
 ARG user=crooner
 RUN addgroup --gid 3001 ${user} && adduser -D -G ${user} -g "${user} user" -u 3001 ${user}
 
-RUN apk add dpkg curl
+RUN apk add dpkg curl tzdata
 
-COPY deploy/config/init/cron-install.sh /usr/bin/cron-install
-COPY deploy/config/init/start-wp-cron.sh /usr/bin/start-wp-cron
-RUN chmod +x /usr/bin/cron-install && chmod +x /usr/bin/start-wp-cron && cron-install
-
-RUN apk del dpkg
+RUN ln -s /usr/share/zoneinfo/Europe/London /etc/localtime
 
 ## cron-schedule directory
 RUN mkdir -p /schedule && chown ${user}:${user} /schedule
 
+COPY deploy/config/cron/wp-cron /schedule/wp-cron
+COPY deploy/config/cron/wp-cron-exec.sh /usr/bin/wp-cron-exec
+COPY deploy/config/init/cron-install.sh /usr/bin/cron-install
+COPY deploy/config/init/cron-start.sh /usr/bin/cron-start
+
+RUN chmod +x /usr/bin/wp-cron-exec && \
+    chmod +x /usr/bin/cron-install && \
+    chmod +x /usr/bin/cron-start
+
+RUN cron-install
+
+RUN apk del dpkg
+
 USER 3001
 
-## DEVELOPMENT
-FROM base-cron as cron-dev
-ENTRYPOINT ["/bin/sh", "-c", "start-wp-cron"]
+ENTRYPOINT ["/bin/sh", "-c", "cron-start"]
 
-## PRODUCTION
-FROM base-cron as build-cron
-COPY deploy/config/cron/process-wp-cron /schedule/wp-cron
-ENTRYPOINT ["/bin/sh", "-c", "start-wp-cron"]
 
 ###
 
