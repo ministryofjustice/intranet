@@ -7,3 +7,4 @@ data:
   WP_ENV: "development"
   WP_HOME: 'https://dev-intranet.apps.live.cloud-platform.service.justice.gov.uk'
   WP_SITEURL: 'https://dev-intranet.apps.live.cloud-platform.service.justice.gov.uk/wp'
+  NGINX_HOST: "localhost"
