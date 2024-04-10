@@ -16,6 +16,7 @@ use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 trait AuthOauth
 {
 
+    private $oauth_enabled    = true;
     private $oauth_tennant_id = '';
     private $oauth_authority  = '';
     private $oauth_app_id     = '';
@@ -33,6 +34,13 @@ trait AuthOauth
     {
         $this->log('initOauth()');
 
+        // Check for required environment variables. OAuth can be disable by not setting these.
+        if(empty($_ENV['OAUTH_TENNANT_ID']) || empty($_ENV['OAUTH_CLIENT_ID']) || empty($_ENV['OAUTH_CLIENT_SECRET'])) {
+            $this->log('Missing OAuth environment variables');
+            $this->oauth_enabled = false;
+            return;
+        }
+
         $this->oauth_tennant_id = $_ENV['OAUTH_TENNANT_ID'];
         $this->oauth_authority  = 'https://login.microsoftonline.com/' . $this->oauth_tennant_id;
         $this->oauth_app_id     = $_ENV['OAUTH_CLIENT_ID'];
@@ -49,6 +57,9 @@ trait AuthOauth
         ) {
             $this->oauth_action = $_GET['action'];
         }
+
+        // Clear OAUTH_CLIENT_SECRET from $_ENV global. It's not required elsewhere in the app.
+        unset($_ENV['OAUTH_CLIENT_SECRET']);
     }
 
     /**
@@ -83,6 +94,11 @@ trait AuthOauth
     {
         $this->log('oauthLogin()');
 
+        if(!$this->oauth_enabled) {
+            $this->log('OAuth is not enabled');
+            http_response_code(401) && exit();
+        }
+
         $oauth_client = $this->getOAuthClient();
 
         $authUrl = $oauth_client->getAuthorizationUrl();
@@ -115,6 +131,11 @@ trait AuthOauth
     public function oauthCallback(): AccessTokenInterface
     {
         $this->log('oauthCallback()');
+
+        if(!$this->oauth_enabled) {
+            $this->log('OAuth is not enabled');
+            http_response_code(401) && exit();
+        }
 
         if (!isset($_SERVER['REQUEST_URI']) || !str_starts_with($_SERVER['REQUEST_URI'], $this::OAUTH_CALLBACK_URI)) {
             $this->log('in oauthCallback(), request uri does not match');

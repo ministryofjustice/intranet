@@ -144,7 +144,7 @@ class Auth
             return;
         }
 
-        // Handle Azure AD/Entra ID OAuth. It redirects to Azure, php code execution always stops here.
+        // Handle Azure AD/Entra ID OAuth. It redirects to Azure or xeits with 401 if disabled. php code execution always stops here.
         $this->oauthLogin();
     }
 
