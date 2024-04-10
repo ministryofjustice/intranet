@@ -107,7 +107,18 @@
                 "vendor:koodimonni-theme-language"
             ]
         },
-        "wordpress-install-dir": "public/wp"
+        "wordpress-install-dir": "public/wp",
+        "meta-comments": {
+            "description": [
+                "As comments are not allowed in composer.json, use this section for comments."
+            ],
+            "replace.paragonie/random_compat": [
+                "This package is a dependency of league/oauth2-client. As our php version is > 7 we do not need this package.",
+                "The package authors have an empty version of the package for this case: 9.99.99",
+                "Defining it above, within replace, will prevent it from being installed.",
+                "@see: https://github.com/paragonie/random_compat?tab=readme-ov-file#version-99999"
+            ]
+        }
     },
     "scripts": {
         "post-root-package-install": [
@@ -122,14 +133,6 @@
     },
     "replace": {
         "paragonie/random_compat": "9.99.99"
-    },
-    "replaceComments": {
-        "paragonie/random_compat": [
-            "This package is a dependency of league/oauth2-client. As our php version is > 7 we do not need this package.",
-            "The package authors have an empty version of the package for this case: 9.99.99",
-            "Defining it above, within replace, will prevent it from being installed.",
-            "@see: https://github.com/paragonie/random_compat?tab=readme-ov-file#version-99999"
-        ]
     },
     "authors": [
         {
