@@ -24,6 +24,7 @@ trait AuthUtils
         if (!$this->debug) {
             return;
         }
+
         error_log($message . ' ' . print_r($data, true));
     }
 
@@ -54,6 +55,7 @@ trait AuthUtils
                 return true;
             }
         }
+
         return false;
     }
 
@@ -84,6 +86,13 @@ trait AuthUtils
         );
 
         return $this->ipMatch($_SERVER['REMOTE_ADDR'], $allowedIps);
+    }
+
+    public function hash(string $value): string
+    {
+        $this->log('hash()');
+
+        return hash('sha256', $value  . $_ENV['AUTH_SALT']);
     }
 
     /**

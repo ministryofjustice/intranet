@@ -6,6 +6,8 @@ namespace MOJ\Intranet;
 defined('ABSPATH') || exit;
 
 use League\OAuth2\Client\Provider\GenericProvider;
+use League\OAuth2\Client\Token\AccessTokenInterface;
+use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 
 /**
  * OAuth functions for MOJ\Intranet\Auth.
@@ -21,11 +23,11 @@ trait AuthOauth
     private $oauth_scopes     = [];
     private $oauth_action     = '';
 
-    const OAUTH_CALLBACK_URI           = '/oauth2?action=callback';
-    const OAUTH_AUTHORIZE_ENDPOINT     = '/oauth2/v2.0/authorize';
-    const OAUTH_TOKEN_ENDPOINT         = '/oauth2/v2.0/token';
-    const OAUTH_SESSION_ID_COOKIE_NAME = 'OAUTH_SESSION_ID';
-    const OAUTH_USER_URL_COOKIE_NAME   = 'OAUTH_USER_URL';
+    const OAUTH_CALLBACK_URI         = '/oauth2?action=callback';
+    const OAUTH_AUTHORIZE_ENDPOINT   = '/oauth2/v2.0/authorize';
+    const OAUTH_TOKEN_ENDPOINT       = '/oauth2/v2.0/token';
+    const OAUTH_STATE_COOKIE_NAME    = 'OAUTH_STATE';
+    const OAUTH_USER_URL_COOKIE_NAME = 'OAUTH_USER_URL';
 
     public function initOauth()
     {
@@ -52,10 +54,10 @@ trait AuthOauth
     /**
      * Get OAuth client.
      * 
-     * @return \League\OAuth2\Client\Provider\GenericProvider
+     * @return GenericProvider
      */
 
-    public function getOAuthClient(): \League\OAuth2\Client\Provider\GenericProvider
+    public function getOAuthClient(): GenericProvider
     {
         $this->log('getOAuthClient()');
 
@@ -67,6 +69,7 @@ trait AuthOauth
             'urlAccessToken'          =>  $this->oauth_authority . $this::OAUTH_TOKEN_ENDPOINT,
             'urlResourceOwnerDetails' => '',
             'scopes'                  => implode(' ', $this->oauth_scopes),
+            'pkceMethod'              => GenericProvider::PKCE_METHOD_S256
         ]);
     }
 
@@ -80,105 +83,152 @@ trait AuthOauth
     {
         $this->log('oauthLogin()');
 
-        $oAuthClient = $this->getOAuthClient();
+        $oauth_client = $this->getOAuthClient();
 
-        $authUrl = $oAuthClient->getAuthorizationUrl();
+        $authUrl = $oauth_client->getAuthorizationUrl();
 
-        // Hash it with a salt, else the user could make their cookie match the callback's state. 
-        $state_hashed = hash('sha256', $oAuthClient->getState() . $_ENV['AUTH_SALT']);
+        // Hash state (with a salt), else the user could read the state and make their cookie match the callback's state.
+        $state_hashed =  $this->hash($oauth_client->getState());
 
         // Use a cookie to store oauth state.
-        // TODO rename OAUTH_SESSION_ID_COOKIE_NAME
-        $this->setCookie($this::OAUTH_SESSION_ID_COOKIE_NAME, $state_hashed, -1);
+        $this->setCookie($this::OAUTH_STATE_COOKIE_NAME, $state_hashed, -1);
 
         // Store the user's origin URL in a cookie.
         $this->setCookie($this::OAUTH_USER_URL_COOKIE_NAME, $_SERVER['REQUEST_URI'] ?? '', -1);
+
+        // Storing pkce prevents an attacker from potentially intercepting the auth code and using it.
+        set_transient('oauth_pkce_' . $state_hashed, $oauth_client->getPkceCode(), 60 * 5); // 5 minutes
 
         header('Location: ' . $authUrl);
         exit();
     }
 
-    public function oauthCallback(): \League\OAuth2\Client\Token\AccessTokenInterface
+    /**
+     * Handle the OAuth callback.
+     * 
+     * This function will handle the OAuth callback and return the access token.
+     * If the callback is invalid, it will return a 401 response.
+     * 
+     * @return AccessTokenInterface
+     */
+
+    public function oauthCallback(): AccessTokenInterface
     {
         $this->log('oauthCallback()');
 
         if (!isset($_SERVER['REQUEST_URI']) || !str_starts_with($_SERVER['REQUEST_URI'], $this::OAUTH_CALLBACK_URI)) {
-            error_log('in oauthCallback(), request uri does not match');
-            http_response_code(401);
-            exit();
+            $this->log('in oauthCallback(), request uri does not match');
+            http_response_code(401) && exit();
         }
 
-        $expected_state_hashed = $_COOKIE[$this::OAUTH_SESSION_ID_COOKIE_NAME] ?? null;
-
-        // Remove the cookies.
-        $this->deleteCookie($this::OAUTH_SESSION_ID_COOKIE_NAME);
-        error_log('Removed the session cookie');
-        // $this->setCookie($this::OAUTH_ORIGIN_COOKIE_NAME, '', $this->now -1);
-
-        if (!isset($_GET['state']) || !isset($_GET['code'])) {
-            // If there is no state or code in the query params,
-            error_log('No state or code in the query params');
-            http_response_code(401);
-            exit();
-        }
-
-        $provided_state = $_GET['state'];
-
-        $provided_state_hashed = hash('sha256', $provided_state . $_ENV['AUTH_SALT']);
-
-        error_log($expected_state_hashed);
-        error_log($provided_state_hashed);
+        // Get the hashed expected state from the cookie.
+        $expected_state_hashed = $_COOKIE[$this::OAUTH_STATE_COOKIE_NAME] ?? null;
+        // Delete the cookie.
+        $this->deleteCookie($this::OAUTH_STATE_COOKIE_NAME);
 
         if (empty($expected_state_hashed)) {
-            // If there is no expected state in the session,
-            // do nothing and redirect to the home page.
-            // header('Location: ' . $host . '/?type=error&message=Expected%20state%20not%20available');
-            http_response_code(401);
-            exit();
+            $this->log('No hashed expected state in the cookie.');
+            http_response_code(401) && exit();
         }
 
-        if (empty($provided_state_hashed) || $expected_state_hashed !== $provided_state_hashed) {
-            error_log('State does not match');
-            http_response_code(401);
-            exit();
+        // Get the pkce code from the transient.
+        $pkce = get_transient('oauth_pkce_' . $expected_state_hashed);
+        // Delete the transient.
+        delete_transient('oauth_pkce_' . $expected_state_hashed);
 
-            // header('Location: ' . $host . '/auth.php?type=error&message=State%20does%20not%20match');
+        // Check for state and code in the query params.
+        if (!isset($_GET['state']) || !isset($_GET['code'])) {
+            $this->log('No state or code in the query params');
+            http_response_code(401) && exit();
         }
 
-        // Authorization code should be in the "code" query param
-        $auth_code = $_GET['code'];
+        if (empty($expected_state_hashed) || $expected_state_hashed !== $this->hash($_GET['state'])) {
+            $this->log('Hashed states do not match');
+            http_response_code(401) && exit();
+        }
 
-        // Initialize the OAuth client
-        $oAuthClient = $this->getOAuthClient();
+        // Initialize the OAuth client.
+        $access_token = null;
+        $oauth_client  = $this->getOAuthClient();
 
-        $accessToken = null;
         try {
+            // Set the pkce code.
+            $oauth_client->setPkceCode($pkce);
+
             // Make the token request
-            $accessToken = $oAuthClient->getAccessToken('authorization_code', [
-                'code' => $auth_code
-            ]);
-        } catch (\League\OAuth2\Client\Provider\Exception\IdentityProviderException $e) {
-            error_log('Error: ' . $e->getMessage());
-            http_response_code(401);
-            exit();
-            // header('Location: ' . $host . '/auth.php?type=error&message=' . urlencode($e->getMessage()));
+            $access_token = $oauth_client->getAccessToken('authorization_code', ['code' => $_GET['code']]);
+        } catch (IdentityProviderException $e) {
+            $this->log('Error: ' . $e->getMessage());
+            http_response_code(401) && exit();
         }
 
-
-        return $accessToken;
-
-        // $user = [];
-        // if (null !== $accessToken) {
-        //     // error_log(print_r($accessToken->expires, true));
-
-
-        //     // We have an access token, which we may use in authenticated
-        //     // requests against the service provider's API.
-        //     error_log('Access Token: ' . $accessToken->getToken());
-        //     error_log('Refresh Token: ' . $accessToken->getRefreshToken());
-        //     error_log('Expired in: ' . $accessToken->getExpires());
-        //     error_log('Already expired? ' . ($accessToken->hasExpired() ? 'expired' : 'not expired'));
-        // }
+        return $access_token;
     }
 
+    /**
+     * Store the access and refresh tokens.
+     * 
+     * @param string $sub The subject of the tokens, i.e. a generated user ID.
+     * @param AccessTokenInterface $access_token The access token object.
+     * @param string|null $type The type of token to store. If not set, both access and refresh tokens will be stored.
+     * @return void
+     */
+
+    public function storeTokens(string $sub, AccessTokenInterface $access_token, string|null $type = null): void
+    {
+        $this->log('storeTokens()');
+
+        if (!$type ||  $type === 'access') {
+            set_transient('access_token_' . $sub, $access_token->getToken(), $access_token->getExpires());
+        }
+        if (!$type ||  $type === 'refresh') {
+            set_transient('refresh_token_' . $sub, $access_token->getRefreshToken(), $access_token->getExpires());
+        }
+    }
+
+    /**
+     * Get the stored tokens.
+     * 
+     * @param string $sub The subject of the tokens, i.e. a generated user ID.
+     * @param string|null $type The type of token to get. If not set, both access and refresh tokens will be returned.
+     * @return array|string|null
+     */
+
+    public function getStoredTokens(string $sub, string|null $type = null): array|string|null
+    {
+        $this->log('getStoredTokens()');
+
+        if ($type === 'access') {
+            return get_transient('access_token_' . $sub);
+        }
+
+        if ($type === 'refresh') {
+            return get_transient('refresh_token_' . $sub);
+        }
+
+        return [
+            'access' => get_transient('access_token_' . $sub),
+            'refresh' => get_transient('refresh_token_' . $sub)
+        ];
+    }
+
+    /**
+     * Refresh the OAuth access token.
+     * 
+     * @param string $refresh_token The refresh token.
+     * @return AccessTokenInterface
+     */
+
+    public function oauthRefreshToken(string $refresh_token): AccessTokenInterface
+    {
+        $this->log('oauthRefreshToken()');
+
+        $oauth_client = $this->getOAuthClient();
+
+        $access_token = $oauth_client->getAccessToken('refresh_token', [
+            'refresh_token' => $refresh_token
+        ]);
+
+        return $access_token;
+    }
 }

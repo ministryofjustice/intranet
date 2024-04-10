@@ -19,7 +19,7 @@ trait AuthJwt
     const JWT_ALGORITHM   = 'HS256';
     const JWT_COOKIE_NAME = 'jwt';
     const JWT_DURATION    = 60 * 60; // 1 hour
-    const JWT_REFRESH     = 60 * 5; // 5 minutes
+    const JWT_REFRESH     = 60 * 2; // 2 minutes
 
     /**
      * Init
@@ -56,9 +56,12 @@ trait AuthJwt
             $decoded = JWT::decode($jwt, new Key($this->jwt_secret, $this::JWT_ALGORITHM));
         } catch (\Exception $e) {
             \Sentry\captureException($e);
-            // TODO: remove this error_log once we confirm that this way of capturing to Sentry is working.
-            error_log($e->getMessage());
+            $this->error($e->getMessage());
             return false;
+        }
+
+        if($decoded && $decoded->sub) {
+            $this->sub = $decoded->sub;
         }
 
         return $decoded;
@@ -67,17 +70,18 @@ trait AuthJwt
     /**
      * Set a JWT cookie.
      * 
-     * @return void
+     * @return object Returns the JWT payload.
      */
 
-    public function setJwt(): void
+    public function setJwt(array $args = []) : object
     {
         $this->log('setJwt()');
 
-        $expiry = $this->now + $this::JWT_DURATION;
+        $expiry = isset($args['expiry']) ? $args['expiry'] : $this->now + $this::JWT_DURATION;
 
         $payload = [
             // Registered claims - https://datatracker.ietf.org/doc/html/rfc7519#section-4.1
+            'sub' => $this->sub,
             'exp' => $expiry,
             // Public claims - https://www.iana.org/assignments/jwt/jwt.xhtml
             'roles' => ['reader']
@@ -86,5 +90,7 @@ trait AuthJwt
         $jwt = JWT::encode($payload, $this->jwt_secret, $this::JWT_ALGORITHM);
 
         $this->setCookie($this::JWT_COOKIE_NAME, $jwt, $expiry);
+
+        return (object) $payload;
     }
 }

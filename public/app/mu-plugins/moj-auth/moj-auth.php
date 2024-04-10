@@ -33,9 +33,10 @@ class Auth
     use AuthOauth;
     use AuthUtils;
 
-    private $now    = null;
-    private $debug  = false;
-    private $https  = false;
+    private $now   = null;
+    private $debug = false;
+    private $https = false;
+    private $sub   = '';
 
     /**
      * Constructor
@@ -73,15 +74,26 @@ class Auth
             return;
         }
 
+        // Get the JWT token from the request. Do this early so that we populate $this->sub if it's known.
+        $jwt = $this->getJwt();
+
+        // If there was no JWT and subsequently no user ID, let's create one and set it.
+        if(empty($this->sub)) {
+            $this->sub = bin2hex(random_bytes(16));
+        }
+
         // If we've hit the callback endpoint, then handle it here. On fail it exits with 401 & php code execution stops here.
-        $access_token = 'callback' === $this->oauth_action ? $this->oauthCallback() : null;
+        $oauth_access_token = 'callback' === $this->oauth_action ? $this->oauthCallback() : null;
 
         // The callback has returned an access token.
-        if (is_object($access_token) && !$access_token->hasExpired()) {
-            error_log('Access token is valid. Will set JWT.');
-            // TODO save refresh token and other properties on the JWT.
+        if (is_object($oauth_access_token) && !$oauth_access_token->hasExpired()) {
+            $this->log('Access token is valid. Will set JWT and store refresh token.');
             // Set a JWT cookie.
-            $this->setJwt();
+            $this->setJwt([
+                'expiry' => $oauth_access_token->getExpires(),
+            ]);
+            // Store the tokens.
+            $this->storeTokens($this->sub, $oauth_access_token, 'refresh');
             // Get the origin request from the cookie.
             $user_redirect = \home_url($_COOKIE[$this::OAUTH_USER_URL_COOKIE_NAME] ?? '/');
             // Remove the cookie.
@@ -90,9 +102,6 @@ class Auth
             header('Location: ' . $user_redirect);
             exit();
         }
-
-        // Get the JWT token from the request.
-        $jwt = $this->getJwt();
 
         // Get the roles from the JWT and check that they're sufficient.
         $jwt_correct_role = $jwt && $jwt->roles ? in_array($required_role, $jwt->roles) : false;
@@ -105,15 +114,30 @@ class Auth
             return;
         }
 
-        // There is no valid JWT, or it's about to expire.
+        /*
+         * There is no valid JWT, or it's about to expire.
+         */
+
+        // If the IP address is allowed, set a JWT and return.
         if ($this->ipAddressIsAllowed()) {
-            // Set a JWT cookie.
             $this->setJwt();
             return;
         }
 
-        // Refresh oAuth token if it's about to expire.
+        // Refresh OAuth token if it's about to expire.
+        $oauth_refresh_token = $this->sub ? $this->getStoredTokens($this->sub, 'refresh') : null;
+        $oauth_refreshed_access_token = $oauth_refresh_token ? $this->oauthRefreshToken($oauth_refresh_token) : null;
 
+        if (is_object($oauth_refreshed_access_token) && !$oauth_refreshed_access_token->hasExpired()) {
+            $this->log('Refreshed access token is valid. Will set JWT and store refresh token.');
+            // Set a JWT cookie.
+            $jwt = $this->setJwt([
+                'expiry' => $oauth_access_token->getExpires(),
+            ]);
+            // Store the tokens.
+            $this->storeTokens($this->sub, $oauth_refreshed_access_token, 'refresh');
+            return;
+        }
 
         // If there's any time left on the JWT then return.
         if ($jwt_remaining_time > 0) {
@@ -135,10 +159,9 @@ class Auth
     public function logout(): void
     {
         $this->deleteCookie($this::JWT_COOKIE_NAME);
-        http_response_code(401);
-        exit();
+        http_response_code(401) && exit();
     }
 }
 
-$auth = new Auth(['debug' => true]);
+$auth = new Auth(['debug' => false]);
 $auth->handlePageRequest('reader');
