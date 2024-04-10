@@ -7,6 +7,9 @@ data:
   WP_ENV: "development"
   WP_HOME: 'https://dev-intranet.apps.live.cloud-platform.service.justice.gov.uk'
   WP_SITEURL: 'https://dev-intranet.apps.live.cloud-platform.service.justice.gov.uk/wp'
+  # See Azure Setup for more information on how to get these values.
+  OAUTH_CLIENT_ID: 1dac3cbf-91d2-4c0e-9c80-0bf3f8fabd75
+  OAUTH_TENNANT_ID: c6874728-71e6-41fe-a9e1-2e8c36776ad8
   # IP addresses, with optional CIDR notation. Separated by newlines and using # for comments.
   ALLOWED_IPS: |
     # Global Protect
