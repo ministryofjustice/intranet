@@ -177,6 +177,10 @@ class AmazonS3AndCloudFrontSigning
 
     public function handlePageRequest(): void
     {
+        // If headers are already sent or we're doing a cron job, return early.
+        if (\headers_sent() || defined( 'DOING_CRON' )) {
+            return;
+        }
 
         $remaining_time = $this->remainingTimeFromCookie();
 
@@ -217,6 +221,33 @@ class AmazonS3AndCloudFrontSigning
         foreach (($cached_cookies ?: $generated_cookies) as $name => $value) {
             // error_log(sprintf('Set-Cookie: %s=%s; %s', $name, $value, $cloudfront_cookie_params_string));
             header(sprintf('Set-Cookie: %s=%s; %s', $name, $value, $cloudfront_cookie_params_string), false);
+        }
+    }
+
+    /**
+     * Revoke the CloudFront cookies.
+     * 
+     * Delete the cookies from the user's browser.
+     * 
+     * @return void
+     */
+
+    public function revoke (): void
+    {
+        // Properties for the cookies.
+        $cloudfront_cookie_params = [
+            'path=/',
+            'HttpOnly',
+            'Domain=' . $this->cloudfront_cookie_domain,
+            'SameSite=Strict',
+            'Expires=' . gmdate('D, d M Y H:i:s T', 0),
+            ...($this->is_dev ? [] : ['Secure']),
+        ];
+        $cloudfront_cookie_params_string = implode('; ', $cloudfront_cookie_params);
+
+        // Delete the cookies.
+        foreach (['CloudFront-Key-Pair-Id', 'CloudFront-Policy', 'CloudFront-Signature'] as $name) {
+            header(sprintf('Set-Cookie: %s=; %s', $name, $cloudfront_cookie_params_string), false);
         }
     }
 }
