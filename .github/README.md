@@ -265,6 +265,48 @@ To verify that S3 & CloudFront are working correctly.
 - The img source domain should be CloudFront.
 - Directly trying to access an image via the S3 bucket url should return an access denied message.
 
+## Azure Setup
+
+### Useful links
+
+- [Ministry of Justice | Overview](https://portal.azure.com/#view/Microsoft_AAD_IAM/ActiveDirectoryMenuBlade/~/Overview)
+- App [MOJ-Local-Intranet-v2](https://portal.azure.com/#view/Microsoft_AAD_RegisteredApps/ApplicationMenuBlade/~/Overview/appId/73ed65a5-e879-4027-beab-f5e64de803b7/isMSAApp~/false)
+
+### Register an application
+
+1. Go to the Azure portal and sign in with your account.
+2. Click on the `Microsoft Entra ID` service.
+3. Click on `App registrations`.
+4. Click on `New registration`.
+5. Fill in the form (adjust to the environment):
+   - Name: `MOJ-Local-Intranet-v2`
+   - Supported account types: `Accounts in this organizational directory only`
+   - Redirect URI: `Web` and `http://localhost/oauth2?action=callback`
+6. Copy the `Application (client) ID` and `Directory (tenant) ID` values,
+  make them available as environment variables `ENTRA_CLIENT_ID`, `ENTRA_TENNANT_ID`.
+7. Click on `Certificates & secrets` > `New client secret`.
+8. Fill in the form:
+   - Description: `Local-Intranet-v2`
+   - Expires: `6 months`
+9. Set a reminder to update the client secret before it expires.
+10. Copy the `Value` value, make it available as environment variable `ENTRA_CLIENT_SECRET`.
+11. Click on `API permissions` > `Add a permission`.
+12. Click on `Expose an API` > `Add a scope`.
+13. Use the default Application ID URI, which is `api://<client_id>`.
+14. Fill in the form:
+    - Scope name: `user_impersonation`
+    - Who can consent: `Admins and users`
+    - Admin consent display name: `Access Intranet`
+    - Admin consent description: `Access Intranet on behalf of the signed-in user`
+    - User consent display name: `Access Intranet`
+    - User consent description: `Access Intranet on your behalf`
+15. Click on `Add a client application`.
+16. Enter the Client ID of the application you created.
+16. Check the box next to the application you created.
+17. Click on `Add application`.
+
+The oauth2 flow should now work with the Azure AD/Entra ID application.
+You can get an Access Token, Refresh Token and an expiry of the token.
 
 
 <!-- License -->

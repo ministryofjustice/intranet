@@ -75,7 +75,8 @@
         "stayallive/wp-sentry": "^7.11",
         "ext-posix": "*",
         "ext-mysqli": "*",
-        "ext-zlib": "*"
+        "ext-zlib": "*",
+        "league/oauth2-client": "^2.7"
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "^3.0.2"
@@ -116,6 +117,17 @@
         ],
         "test-fix": [
             "vendor/bin/phpcbf -d memory_limit=256M"
+        ]
+    },
+    "replace": {
+        "paragonie/random_compat": "9.99.99"
+    },
+    "replaceComments": {
+        "paragonie/random_compat": [
+            "This package is a dependency of league/oauth2-client. As our php version is > 7 we do not need this package.",
+            "The package authors have an empty version of the package for this case: 9.99.99",
+            "Defining it above, within replace, will prevent it from being installed.",
+            "@see: https://github.com/paragonie/random_compat?tab=readme-ov-file#version-99999"
         ]
     },
     "authors": [
