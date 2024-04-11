@@ -28,79 +28,82 @@ spec:
       terminationGracePeriodSeconds: 35
       serviceAccountName: ${KUBE_NAMESPACE}-service
       containers:
-      - name: nginx
-        image: ${ECR_URL}:${IMAGE_TAG_NGINX}
-        ports:
-          - containerPort: 8080
-        volumeMounts:
-          - name: uploads
-            mountPath: /var/www/html/public/app/uploads
-          - name: php-socket
-            mountPath: /sock
+        - name: nginx
+          image: ${ECR_URL}:${IMAGE_TAG_NGINX}
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - name: uploads
+              mountPath: /var/www/html/public/app/uploads
+            - name: php-socket
+              mountPath: /sock
 
-      - name: cron
-        image: ${ECR_URL}:${IMAGE_TAG_CRON}
-        securityContext:
-          runAsUser: 3001
-        envFrom:
-          - configMapRef:
-            name: ${KUBE_NAMESPACE}
+        - name: cron
+          image: ${ECR_URL}:${IMAGE_TAG_CRON}
+          securityContext:
+            runAsUser: 3001
+          env:
+            - name: NGINX_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: intranet-dev
+                  key: NGINX_HOST
 
-      - name: fpm
-        image: ${ECR_URL}:${IMAGE_TAG_FPM}
-        volumeMounts:
-          - name: uploads
-            mountPath: /var/www/html/public/app/uploads
-          - name: php-socket
-            mountPath: /sock
-        securityContext:
+        - name: fpm
+          image: ${ECR_URL}:${IMAGE_TAG_FPM}
+          volumeMounts:
+            - name: uploads
+              mountPath: /var/www/html/public/app/uploads
+            - name: php-socket
+              mountPath: /sock
+          securityContext:
             runAsUser: 101
-        env:
-          - name: AWS_S3_BUCKET
-            valueFrom:
-              secretKeyRef:
-                name: s3-bucket-output
-                key: bucket_name
-          - name: AWS_CLOUDFRONT_HOST
-            valueFrom:
-              secretKeyRef:
-                name: cloudfront-output
-                key: cloudfront_url
-          # Pending Cloud Platform team.
-          # - name: AWS_CLOUDFRONT_PUBLIC_KEY_OBJECT
-          #   valueFrom:
-          #     secretKeyRef:
-          #       name: cloudfront-output
-          #       key: cloudfront_public_key_ids
-          - name: DB_HOST
-            valueFrom:
-              secretKeyRef:
-                name: rds-output
-                key: rds_instance_address
-          - name: DB_NAME
-            valueFrom:
-              secretKeyRef:
-                name: rds-output
-                key: database_name
-          - name: DB_USER
-            valueFrom:
-              secretKeyRef:
-                name: rds-output
-                key: database_username
-          - name: DB_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: rds-output
-                key: database_password
-          - name: OPENSEARCH_URL
-            valueFrom:
-              secretKeyRef:
-                name: central-digital-product-team-opensearch-proxy-url
-                key: proxy_url
-        envFrom:
-          - configMapRef:
-              name: ${KUBE_NAMESPACE}
-          - secretRef:
-              name: ${KUBE_NAMESPACE}-secrets
-          - secretRef:
-              name: ${KUBE_NAMESPACE}-base64-secrets
+          env:
+            - name: AWS_S3_BUCKET
+              valueFrom:
+                secretKeyRef:
+                  name: s3-bucket-output
+                  key: bucket_name
+            - name: AWS_CLOUDFRONT_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: cloudfront-output
+                  key: cloudfront_url
+            # Pending Cloud Platform team.
+            # - name: AWS_CLOUDFRONT_PUBLIC_KEY_OBJECT
+            #   valueFrom:
+            #     secretKeyRef:
+            #       name: cloudfront-output
+            #       key: cloudfront_public_key_ids
+            - name: DB_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: rds-output
+                  key: rds_instance_address
+            - name: DB_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: rds-output
+                  key: database_name
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: rds-output
+                  key: database_username
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: rds-output
+                  key: database_password
+            - name: OPENSEARCH_URL
+              valueFrom:
+                secretKeyRef:
+                  name: central-digital-product-team-opensearch-proxy-url
+                  key: proxy_url
+          envFrom:
+            - configMapRef:
+                name: ${KUBE_NAMESPACE}
+            - secretRef:
+                name: ${KUBE_NAMESPACE}-secrets
+            - secretRef:
+                name: ${KUBE_NAMESPACE}-base64-secrets
