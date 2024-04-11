@@ -8,11 +8,6 @@ if (getenv('WP_ENV') !== 'development') {
 ## -------------------------------------------------------------------------
 ## -------------------------------------------------------------------------
 
-# Output the IP address of the client. To make sure ingress is passing it correctly.
-if(!empty($_SERVER['HTTP_X_REAL_IP'])) {
-    echo 'Your IP address is: ' . $_SERVER['HTTP_X_REAL_IP'];
-}
-
 
 # output all settings concerning the PHP installation
 phpinfo();
