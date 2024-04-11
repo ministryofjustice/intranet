@@ -42,6 +42,9 @@ spec:
         image: ${ECR_URL}:${IMAGE_TAG_CRON}
         securityContext:
           runAsUser: 3001
+        envFrom:
+          - configMapRef:
+            name: ${KUBE_NAMESPACE}
 
       - name: fpm
         image: ${ECR_URL}:${IMAGE_TAG_FPM}
