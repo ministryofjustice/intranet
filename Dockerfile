@@ -108,13 +108,13 @@ FROM base-fpm AS build-fpm-composer
 ARG COMPOSER_USER
 ARG COMPOSER_PASS
 
-WORKDIR /var/www/html
-
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-COPY ./bin/composer-auth.sh /var/www/html/composer-auth.sh
-RUN chmod +x /var/www/html/composer-auth.sh && \
-    /var/www/html/composer-auth.sh
+WORKDIR /var/www/html
+
+COPY ./bin/composer-auth.sh composer-auth.sh
+RUN chmod +x composer-auth.sh && \
+    ./composer-auth.sh
 
 USER 101
 
@@ -155,11 +155,14 @@ FROM base-fpm AS build-fpm
 WORKDIR /var/www/html
 COPY --chown=nginx:nginx ./config ./config
 COPY --chown=nginx:nginx ./public ./public
-COPY --from=build-fpm-composer --chown=nginx:nginx /var/www/html/public/app/mu-plugins /var/www/html/public/app/mu-plugins
-COPY --from=build-fpm-composer --chown=nginx:nginx /var/www/html/public/app/plugins /var/www/html/public/app/plugins
-COPY --from=build-fpm-composer --chown=nginx:nginx /var/www/html/public/app/languages /var/www/html/public/app/languages
-COPY --from=build-fpm-composer --chown=nginx:nginx /var/www/html/public/wp /var/www/html/public/wp
-COPY --from=build-fpm-composer --chown=nginx:nginx /var/www/html/vendor /var/www/html/vendor
+
+# Replace paths with dependanies from build-fpm-composer
+ARG path="/var/www/html"
+COPY --from=build-fpm-composer ${path}/public/app/mu-plugins public/app/mu-plugins
+COPY --from=build-fpm-composer ${path}/public/app/plugins public/app/plugins
+COPY --from=build-fpm-composer ${path}/public/app/languages public/app/languages
+COPY --from=build-fpm-composer ${path}/public/wp public/wp
+COPY --from=build-fpm-composer ${path}/vendor vendor
 
 # non-root
 USER 101
