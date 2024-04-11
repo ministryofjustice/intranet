@@ -37,11 +37,11 @@ class AmazonS3AndCloudFrontSigning
 
         // Cookie domain is important for sharing a cookie with a subdomain.
         $this->cloudfront_cookie_domain = preg_replace('/https?:\/\//', '', $_ENV['WP_HOME']);
-        $this->cloudfront_private_key = $_ENV['CLOUDFRONT_PRIVATE_KEY'];
-        $this->cloudfront_url =  'http' . $this->is_dev ? '' : 's' . ' ://' . $_ENV['DELIVERY_DOMAIN'];
+        $this->cloudfront_private_key = $_ENV['AWS_CLOUDFRONT_PRIVATE_KEY'];
+        $this->cloudfront_url =  'http' . $this->is_dev ? '' : 's' . ' ://' . $_ENV['AWS_CLOUDFRONT_HOST'];
 
-        // Clear CLOUDFRONT_PRIVATE_KEY from $_ENV global. It's not required elsewhere in the app.
-        unset($_ENV['CLOUDFRONT_PRIVATE_KEY']);
+        // Clear AWS_CLOUDFRONT_PRIVATE_KEY from $_ENV global. It's not required elsewhere in the app.
+        unset($_ENV['AWS_CLOUDFRONT_PRIVATE_KEY']);
 
         $this->handlePageRequest();
     }
@@ -109,10 +109,10 @@ class AmazonS3AndCloudFrontSigning
     public function getCloudfrontPublicKeyId(): string
     {
         // The first unique 8 chars of the public key are used to identify AWS's key id.
-        $public_key_short = substr($_ENV['CLOUDFRONT_PUBLIC_KEY'], 71, 8);
+        $public_key_short = substr($_ENV['AWS_CLOUDFRONT_PUBLIC_KEY'], 71, 8);
 
         // Decode the JSON string to an array.
-        $public_key_ids_and_keys = json_decode($_ENV['CLOUDFRONT_PUBLIC_KEY_OBJECT'], true);
+        $public_key_ids_and_keys = json_decode($_ENV['AWS_CLOUDFRONT_PUBLIC_KEY_OBJECT'], true);
 
         // Find the matching array entry for the public key.
         $public_key_id_and_key = array_filter($public_key_ids_and_keys, fn ($key) =>  $key['key'] === $public_key_short);

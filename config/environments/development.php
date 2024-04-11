@@ -14,9 +14,5 @@ Config::define('WP_DISABLE_FATAL_ERROR_HANDLER', true);
 Config::define('SCRIPT_DEBUG', true);
 Config::define('DISALLOW_INDEXING', true);
 
-if (env('WP_OFFLOAD_MEDIA_PRESET')) {
-    Config::define('WP_OFFLOAD_MEDIA_PRESET', env('WP_OFFLOAD_MEDIA_PRESET'));
-}
-
 Config::define('SENTRY_TRACES_SAMPLE_RATE', 1.0);
 Config::define('SENTRY_PROFILE_SAMPLE_RATE', 1.0);

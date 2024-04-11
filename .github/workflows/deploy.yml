@@ -40,9 +40,11 @@ jobs:
           SECURE_AUTH_KEY: ${{ secrets.SECURE_AUTH_KEY }}
           SECURE_AUTH_SALT: ${{ secrets.SECURE_AUTH_SALT }}
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
-          CLOUDFRONT_PUBLIC_KEY: "${{ secrets.CLOUDFRONT_PUBLIC_KEY }}"
-          CLOUDFRONT_PRIVATE_KEY: "${{ secrets.CLOUDFRONT_PRIVATE_KEY }}"
+          AWS_CLOUDFRONT_PUBLIC_KEY: "${{ secrets.AWS_CLOUDFRONT_PUBLIC_KEY }}"
+          AWS_CLOUDFRONT_PRIVATE_KEY: "${{ secrets.AWS_CLOUDFRONT_PRIVATE_KEY }}"
         run: |
+          AWS_CLOUDFRONT_PUBLIC_KEY_BASE64=$(echo $AWS_CLOUDFRONT_PUBLIC_KEY | base64 -w 0)
+          AWS_CLOUDFRONT_PRIVATE_KEY_BASE64=$(echo $AWS_CLOUDFRONT_PRIVATE_KEY | base64 -w 0)
           export CLOUDFRONT_PUBLIC_KEY_BASE64=$(echo $CLOUDFRONT_PUBLIC_KEY | base64 -w 0)
           export CLOUDFRONT_PRIVATE_KEY_BASE64=$(echo $CLOUDFRONT_PRIVATE_KEY | base64 -w 0)
           cat $TPL_PATH/secret.tpl | envsubst > $TPL_PATH/secret.yaml

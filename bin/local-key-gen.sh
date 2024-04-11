@@ -13,19 +13,19 @@ openssl genrsa -out /tmp/intranet_private_key.pem 2048
 
 openssl rsa -pubout -in /tmp/intranet_private_key.pem -out /tmp/intranet_public_key.pem
 
-CLOUDFRONT_PUBLIC_KEY=$(cat /tmp/intranet_public_key.pem)
+AWS_CLOUDFRONT_PUBLIC_KEY=$(cat /tmp/intranet_public_key.pem)
 # Substring of public key starting at 72 chars and 8 chars long.
-CLOUDFRONT_PUBLIC_KEY_OBJECT="[{\"id\":\"GENERATED_BY_AWS\",\"key\":\"$(echo $CLOUDFRONT_PUBLIC_KEY | cut -c 72-79)\"}]"
-CLOUDFRONT_PRIVATE_KEY=$(cat /tmp/intranet_private_key.pem)
+AWS_CLOUDFRONT_PUBLIC_KEY_OBJECT="[{\"id\":\"GENERATED_BY_AWS\",\"key\":\"$(echo $AWS_CLOUDFRONT_PUBLIC_KEY | cut -c 72-79)\"}]"
+AWS_CLOUDFRONT_PRIVATE_KEY=$(cat /tmp/intranet_private_key.pem)
 
 echo "Keys copied to clipboard"
-echo -e "JWT_SECRET=\"$JWT_SECRET\"\n\nCLOUDFRONT_PUBLIC_KEY_OBJECT=$CLOUDFRONT_PUBLIC_KEY_OBJECT\n\nCLOUDFRONT_PUBLIC_KEY=\"$CLOUDFRONT_PUBLIC_KEY\"\n\nCLOUDFRONT_PRIVATE_KEY=\"$CLOUDFRONT_PRIVATE_KEY\"" | pbcopy
+echo -e "JWT_SECRET=\"$JWT_SECRET\"\n\nAWS_CLOUDFRONT_PUBLIC_KEY_OBJECT=$AWS_CLOUDFRONT_PUBLIC_KEY_OBJECT\n\nAWS_CLOUDFRONT_PUBLIC_KEY=\"$AWS_CLOUDFRONT_PUBLIC_KEY\"\n\nAWS_CLOUDFRONT_PRIVATE_KEY=\"$AWS_CLOUDFRONT_PRIVATE_KEY\"" | pbcopy
 
 # Clear the variables.
 unset JWT_SECRET
-unset CLOUDFRONT_PUBLIC_KEY
-unset CLOUDFRONT_PRIVATE_KEY
-unset CLOUDFRONT_PUBLIC_KEY_OBJECT
+unset AWS_CLOUDFRONT_PUBLIC_KEY
+unset AWS_CLOUDFRONT_PRIVATE_KEY
+unset AWS_CLOUDFRONT_PUBLIC_KEY_OBJECT
 
 echo "Deleting temporary key files"
 rm /tmp/intranet_private_key.pem /tmp/intranet_public_key.pem
