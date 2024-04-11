@@ -98,3 +98,5 @@ spec:
               name: ${KUBE_NAMESPACE}
           - secretRef:
               name: ${KUBE_NAMESPACE}-secrets
+          - secretRef:
+              name: ${KUBE_NAMESPACE}-base64-secrets
