@@ -53,12 +53,12 @@ spec:
         securityContext:
             runAsUser: 101
         env:
-          - name: S3_BUCKET_NAME
+          - name: AWS_S3_BUCKET
             valueFrom:
               secretKeyRef:
                 name: s3-bucket-output
                 key: bucket_name
-          - name: CLOUDFRONT_URL
+          - name: AWS_CLOUDFRONT_HOST
             valueFrom:
               secretKeyRef:
                 name: cloudfront-output

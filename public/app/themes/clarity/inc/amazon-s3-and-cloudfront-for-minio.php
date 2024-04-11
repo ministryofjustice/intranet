@@ -32,7 +32,7 @@ class AmazonS3AndCloudFrontForMinio
         */
 
         // If the S3_DOMAIN doesn't start with 'minio', then we are not using Minio.
-        $this->minio_host = Config::get('S3_CUSTOM_DOMAIN');
+        $this->minio_host = Config::get('AWS_S3_CUSTOM_HOST');
 
         /*
          * Custom S3 API Example: Minio
@@ -114,6 +114,6 @@ class AmazonS3AndCloudFrontForMinio
     }
 }
 
-if(str_starts_with(Config::get('S3_CUSTOM_DOMAIN'), 'minio')) {
+if(str_starts_with(Config::get('AWS_S3_CUSTOM_HOST'), 'minio')) {
     new AmazonS3AndCloudFrontForMinio();
 }

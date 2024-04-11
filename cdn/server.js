@@ -7,7 +7,7 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 
 const app = express();
 const port = 80;
-const publicKey = process.env.CLOUDFRONT_PUBLIC_KEY;
+const publicKey = process.env.AWS_CLOUDFRONT_PUBLIC_KEY;
 
 // Undo the character substitution that was done in php.
 const revertCharacterSubstitution = (str) => {
@@ -47,7 +47,7 @@ app.use(function (req, res, next) {
 // Middleware to proxy all the requests to the minio server.
 app.use(
     createProxyMiddleware({
-        target: `http://minio:9000/${process.env.S3_BUCKET_NAME}`,
+        target: `http://minio:9000/${process.env.AWS_S3_BUCKET}`,
     }),
 );
 
