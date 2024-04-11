@@ -219,13 +219,17 @@ RUN apk add dpkg tzdata && \
 RUN mkdir -p /schedule && chown ${user}:${user} /schedule
 
 COPY deploy/config/cron/wp-cron /schedule/wp-cron
-COPY deploy/config/cron/wp-cron-exec.sh /usr/bin/execute-wp-cron
-COPY deploy/config/init/cron-install.sh /usr/bin/cron-install
-COPY deploy/config/init/cron-start.sh /usr/bin/cron-start
 
-RUN chmod +x /usr/bin/execute-wp-cron && \
-    chmod +x /usr/bin/cron-install && \
-    chmod +x /usr/bin/cron-start
+# Change directory for the rest
+WORKDIR /usr/bin
+
+COPY deploy/config/cron/wp-cron-exec.sh ./execute-wp-cron
+COPY deploy/config/init/cron-install.sh ./cron-install
+COPY deploy/config/init/cron-start.sh ./cron-start
+
+RUN chmod +x execute-wp-cron && \
+    chmod +x cron-install && \
+    chmod +x cron-start
 
 RUN cron-install
 
