@@ -172,6 +172,11 @@ class Auth
         // Get the JWT token from the request.
         $jwt = $this->getJwt();
 
+        // If headers are already sent or we're doing a cron job, return early.
+        if (\headers_sent() || defined('DOING_CRON')) {
+            return;
+        }
+
         // Get the roles from the JWT and check that they're sufficient.
         $jwt_correct_role = $jwt && $jwt->roles ? in_array($required_role, $jwt->roles) : false;
 
