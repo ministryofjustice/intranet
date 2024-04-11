@@ -73,8 +73,8 @@ class Auth
     /**
      * Check if the IP address is allowed.
      * 
-     * Checks that we have the environment variables ALLOWED_IPS and REMOTE_ADDR set.
-     * Runs the ipMatch method to check if the REMOTE_ADDR is in the ALLOWED_IPS.
+     * Checks that we have the environment variable ALLOWED_IPS and server property HTTP_X_REAL_IP set.
+     * Runs the ipMatch method to check if the HTTP_X_REAL_IP is in the ALLOWED_IPS.
      * 
      * @return bool Returns true if the IP address is allowed, otherwise false.
      */
@@ -82,7 +82,7 @@ class Auth
     public function ipAddressIsAllowed(): bool
     {
 
-        if (empty($_ENV['ALLOWED_IPS']) || empty($_SERVER['REMOTE_ADDR'])) {
+        if (empty($_ENV['ALLOWED_IPS']) || empty($_SERVER['HTTP_X_REAL_IP'])) {
             return false;
         }
 
@@ -94,7 +94,7 @@ class Auth
             preg_split($newline_pattern, preg_replace($comments_pattern, '', $_ENV['ALLOWED_IPS']))
         );
 
-        return $this->ipMatch($_SERVER['REMOTE_ADDR'], $allowedIps);
+        return $this->ipMatch($_SERVER['HTTP_X_REAL_IP'], $allowedIps);
     }
 
     /**
@@ -171,6 +171,11 @@ class Auth
     {
         // Get the JWT token from the request.
         $jwt = $this->getJwt();
+
+        // If headers are already sent or we're doing a cron job, return early.
+        if (\headers_sent() || defined('DOING_CRON')) {
+            return;
+        }
 
         // Get the roles from the JWT and check that they're sufficient.
         $jwt_correct_role = $jwt && $jwt->roles ? in_array($required_role, $jwt->roles) : false;
