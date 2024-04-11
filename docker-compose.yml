@@ -190,8 +190,8 @@ services:
     container_name: intranet-wp-cron
     build:
       context: .
-      target: cron-dev
-    volumes:
-      - ./deploy/config/local/cron/process-wp-cron:/schedule/wp-cron
+      target: build-cron
+    environment:
+      NGINX_HOST: ${NGINX_HOST}
     depends_on:
       - nginx
