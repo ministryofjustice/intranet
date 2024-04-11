@@ -34,37 +34,6 @@ RUN { \
 
 ###
 
-FROM alpine:3.19.1 as cron
-
-ARG user=crooner
-RUN addgroup --gid 3001 ${user} && adduser -D -G ${user} -g "${user} user" -u 3001 ${user}
-
-RUN apk add dpkg curl tzdata
-
-RUN ln -s /usr/share/zoneinfo/Europe/London /etc/localtime
-
-## cron-schedule directory
-RUN mkdir -p /schedule && chown ${user}:${user} /schedule
-
-COPY deploy/config/cron/wp-cron /schedule/wp-cron
-COPY deploy/config/cron/wp-cron-exec.sh /usr/bin/wp-cron-exec
-COPY deploy/config/init/cron-install.sh /usr/bin/cron-install
-COPY deploy/config/init/cron-start.sh /usr/bin/cron-start
-
-RUN chmod +x /usr/bin/wp-cron-exec && \
-    chmod +x /usr/bin/cron-install && \
-    chmod +x /usr/bin/cron-start
-
-RUN cron-install
-
-RUN apk del dpkg
-
-USER 3001
-
-ENTRYPOINT ["/bin/sh", "-c", "cron-start"]
-
-
-###
 
 FROM nginxinc/nginx-unprivileged:1.25-alpine AS base-nginx
 
@@ -152,8 +121,8 @@ FROM build-fpm AS test
 RUN make test
 
 
-
 ###
+
 
 FROM base-nginx AS nginx-dev
 
@@ -179,3 +148,38 @@ COPY --from=assets-build /node/dist /var/www/html/public/app/themes/clarity/dist
 # Only take what Nginx needs (current configuration)
 COPY --from=build-fpm-composer --chown=nginx:nginx /var/www/html/public/wp/wp-admin/index.php /var/www/html/public/wp/wp-admin/index.php
 COPY --from=build-fpm-composer --chown=nginx:nginx /var/www/html/vendor-assets /var/www/html/
+
+
+###
+
+
+FROM alpine:3.19.1 as build-cron
+
+ARG user=crooner
+RUN addgroup --gid 3001 ${user} && adduser -D -G ${user} -g "${user} user" -u 3001 ${user}
+
+RUN apk add dpkg curl tzdata
+
+RUN ln -s /usr/share/zoneinfo/Europe/London /etc/localtime
+
+## cron-schedule directory
+RUN mkdir -p /schedule && chown ${user}:${user} /schedule
+
+COPY deploy/config/cron/wp-cron /schedule/wp-cron
+COPY deploy/config/cron/wp-cron-exec.sh /usr/bin/wp-cron-exec
+COPY deploy/config/init/cron-install.sh /usr/bin/cron-install
+COPY deploy/config/init/cron-start.sh /usr/bin/cron-start
+
+RUN chmod +x /usr/bin/wp-cron-exec && \
+    chmod +x /usr/bin/cron-install && \
+    chmod +x /usr/bin/cron-start
+
+RUN cron-install
+
+RUN apk del dpkg
+
+USER 3001
+
+ENTRYPOINT ["/bin/sh", "-c", "cron-start"]
+
+
