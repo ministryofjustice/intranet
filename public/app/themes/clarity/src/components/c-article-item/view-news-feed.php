@@ -5,9 +5,10 @@
  *
  *  @package Clarity
  */
- $id            = $post['id'];
+ $id            = $post->ID;
  $thumbnail     = get_the_post_thumbnail_url($id, 'user-thumb');
  $thumbnail_alt = get_post_meta(get_post_thumbnail_id($id), '_wp_attachment_image_alt', true);
+ $link = get_the_permalink($post->ID);
 
 // This component sometimes requires `$set_cpt` depending where this component gets called.
 if (! isset($set_cpt)) {
@@ -32,11 +33,11 @@ if (! isset($set_cpt)) {
     <div class="content">
 
         <h1>
-            <a href="<?= esc_url($post['link']) ?>"><?= esc_attr($post['title']['rendered']) ?></a>
+            <a href="<?= esc_url($link) ?>"><?= esc_attr($post->post_title) ?></a>
         </h1>
 
         <div class="meta">
-            <span class="c-article-item__dateline"><?= get_gmt_from_date($post['date'], 'j M Y') ?></span>
+            <span class="c-article-item__dateline"><?= get_gmt_from_date($post->post_date, 'j M Y') ?></span>
         </div>
 
     <?php if (is_singular('regional_news') || is_singular('news')) : ?>
@@ -44,7 +45,7 @@ if (! isset($set_cpt)) {
 
     <?php else : ?>
     <div class="c-article-excerpt">
-        <p><?= $post['excerpt']['rendered'] ?></p>
+        <p><?= $post->post_excerpt ?></p>
     </div>
 
     <?php endif; ?>
