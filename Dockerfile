@@ -19,20 +19,22 @@
 
 FROM ministryofjustice/wordpress-base-fpm:latest AS base-fpm
 
+# Make the Nginx user available in this container
 RUN addgroup -g 101 -S nginx; adduser -u 101 -S -D -G nginx nginx
-
-ARG conf="/usr/local/etc/php-fpm.d"
 
 RUN mkdir /sock && \
     chown nginx:nginx /sock
 
+## Change directory
+WORKDIR /usr/local/etc/php-fpm.d
+
 ## Tidy up PHP pools; leave docker.conf in situe
-RUN rm ${conf}/zz-docker.conf && \
-    rm ${conf}/www.conf.default && \
-    rm ${conf}/www.conf
+RUN rm zz-docker.conf && \
+    rm www.conf.default && \
+    rm www.conf
 
 ## Set PHP-FPM pool configuration
-COPY deploy/config/php-pool.conf ${conf}/pool.conf
+COPY deploy/config/php-pool.conf pool.conf
 
 
 #    ▄▄  ▄▄     █▄░█  █▀▀  █  █▄░█  ▀▄▀     ▄▄  ▄▄    #
