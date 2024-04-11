@@ -15,7 +15,7 @@ services:
     container_name: intranet-php-fpm
     build:
       context: .
-      target: dev
+      target: fpm-dev
     volumes:
       - .:/var/www/html
       - php-socket:/sock
