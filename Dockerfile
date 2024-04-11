@@ -28,12 +28,12 @@ RUN mkdir /sock && \
 ## Change directory
 WORKDIR /usr/local/etc/php-fpm.d
 
-## Tidy up PHP pools; leave docker.conf in situe
+## Clean PHP pools; leave docker.conf in situe
 RUN rm zz-docker.conf && \
     rm www.conf.default && \
     rm www.conf
 
-## Set PHP-FPM pool configuration
+## Set our pool configuration
 COPY deploy/config/php-pool.conf pool.conf
 
 
