@@ -1,0 +1,27 @@
+{
+    "name": "cdn",
+    "version": "0.0.1",
+    "description": "Local CloudFront CDN",
+    "main": "index.js",
+    "scripts": {
+        "watch": "NODE_ENV=development node --watch server.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/ministryofjustice/intranet.git"
+    },
+    "contributors": [
+        "MoJ Digital team"
+    ],
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/ministryofjustice/intranet/issues"
+    },
+    "homepage": "https://github.com/ministryofjustice/intranet/#readme",
+    "dependencies": {
+        "cookie-parser": "^1.4.6",
+        "express": "^4.19.0",
+        "http-proxy-middleware": "^3.0.0"
+    },
+    "author": ""
+}

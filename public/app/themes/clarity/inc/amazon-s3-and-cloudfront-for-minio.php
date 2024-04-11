@@ -1,7 +1,11 @@
 <?php
 
+namespace DeliciousBrains\WP_Offload_Media\Tweaks;
+
+use Roots\WPConfig\Config;
+
 /**
- * This file is cherry-picked functions from the wp-amazon-s3-and-cloudfront-tweaks plugin.
+ * This class is cherry-picked functions from the wp-amazon-s3-and-cloudfront-tweaks plugin.
  * It is the config for using Minio Locally with WP Offload Media.
  * @see http://github.com/deliciousbrains/wp-amazon-s3-and-cloudfront-tweaks
  *
@@ -12,10 +16,7 @@
  * This is because Minio does not support these features.
  */
 
-namespace DeliciousBrains\WP_Offload_Media\Tweaks;
-use Roots\WPConfig\Config;
-
-class AmazonS3AndCloudFrontTweaks
+class AmazonS3AndCloudFrontForMinio
 {
 
     // Define the Minio hostnames.
@@ -29,7 +30,7 @@ class AmazonS3AndCloudFrontTweaks
          * https://deliciousbrains.com/wp-offload-media/
          * https://wordpress.org/plugins/amazon-s3-and-cloudfront/
         */
-        
+
         // If the S3_DOMAIN doesn't start with 'minio', then we are not using Minio.
         $this->minio_host = Config::get('S3_CUSTOM_DOMAIN');
 
@@ -98,8 +99,6 @@ class AmazonS3AndCloudFrontTweaks
         return $this->minio_host . ':9000/' . $bucket;
     }
 
-
-
     /**
      * This filter allows you to change the base URL used to take you to the provider's console from WP Offload Media's settings.
      *
@@ -113,9 +112,8 @@ class AmazonS3AndCloudFrontTweaks
     {
         return 'http://' . $this->minio_host . ':9001/browser/';
     }
-
 }
 
-if (str_starts_with(Config::get('S3_CUSTOM_DOMAIN'), 'minio')) {
-    new AmazonS3AndCloudFrontTweaks();
+if(str_starts_with(Config::get('S3_CUSTOM_DOMAIN'), 'minio')) {
+    new AmazonS3AndCloudFrontForMinio();
 }
