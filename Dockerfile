@@ -180,19 +180,18 @@ FROM base-nginx AS build-nginx
 COPY deploy/config/php-fpm.conf /etc/nginx/php-fpm.conf
 COPY deploy/config/server.conf /etc/nginx/conf.d/default.conf
 
-# limit repetition
-ARG path="/var/www/html/public"
+WORKDIR /var/www/html
 
 # Get bootstraper for WordPress
-COPY public/index.php ${path}/index.php
-COPY public/app/themes/clarity/style.css ${path}/app/themes/clarity/
+COPY public/index.php public/index.php
+COPY public/app/themes/clarity/style.css public/app/themes/clarity/
+
+# Only take what Nginx needs (cached configuration)
+COPY --from=build-fpm-composer /var/www/html/public/wp/wp-admin/index.php public/wp/wp-admin/index.php
+COPY --from=build-fpm-composer /var/www/html/vendor-assets ./
 
 # Grab assets for Nginx
-COPY --from=assets-build /node/dist ${path}/app/themes/clarity/dist/
-
-# Only take what Nginx needs (current configuration)
-COPY --from=build-fpm-composer --chown=nginx:nginx ${path}/wp/wp-admin/index.php ${path}/wp/wp-admin/index.php
-COPY --from=build-fpm-composer --chown=nginx:nginx /var/www/html/vendor-assets /var/www/html/
+COPY --from=assets-build /node/dist public/app/themes/clarity/dist/
 
 
 #  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
