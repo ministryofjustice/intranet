@@ -25,7 +25,7 @@ if [ "$arch" = 'unimplemented' ]; then
     exit 1;
 fi;
 
-curl -fsSLO "https://github.com/aptible/supercronic/releases/download/${SUPERCRONIC_VERSION}/${supercronic}" &&
+wget --quiet "https://github.com/aptible/supercronic/releases/download/${SUPERCRONIC_VERSION}/${supercronic}" &&
 echo "${supercronic_sha}  ${supercronic}" | sha1sum -c - &&
 chmod +x "${supercronic}" &&
 mv "${supercronic}" "/usr/local/bin/${supercronic}" &&
