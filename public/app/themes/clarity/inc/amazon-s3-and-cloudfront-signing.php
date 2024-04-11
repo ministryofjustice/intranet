@@ -114,6 +114,11 @@ class AmazonS3AndCloudFrontSigning
         // Decode the JSON string to an array.
         $public_key_ids_and_keys = json_decode($_ENV['AWS_CLOUDFRONT_PUBLIC_KEY_OBJECT'], true);
 
+        // If the public key is not found, throw an exception.
+        if (empty($public_key_ids_and_keys)) {
+            throw new \Exception('AWS_CLOUDFRONT_PUBLIC_KEY_OBJECT was not found');
+        }
+
         // Find the matching array entry for the public key.
         $public_key_id_and_key = array_filter($public_key_ids_and_keys, fn ($key) =>  $key['key'] === $public_key_short);
 
@@ -137,7 +142,6 @@ class AmazonS3AndCloudFrontSigning
 
     public function createSignedCookie(string $url)
     {
-
         // Expire Time - this is for the policy. It's not the cookie expiry, i.e. when it's removed from the browser.
         $expiry = $this->now + $this::CLOUDFRONT_DURATION;
 
@@ -192,15 +196,19 @@ class AmazonS3AndCloudFrontSigning
         $generated_cookies = [];
 
         if (!$cached_cookies) {
-            // Create a signed cookie for CloudFront.
-            $generated_cookies = $this->createSignedCookie($this->cloudfront_url . '/*');
-
-            // Write the cookies to the cache.
-            set_transient(
-                $this::TRANSIENT_KEY,
-                $generated_cookies,
-                $this::TRANSIENT_DURATION
-            );
+            try {
+                // Create a signed cookie for CloudFront.
+                $generated_cookies = $this->createSignedCookie($this->cloudfront_url . '/*');
+                // Write the cookies to the cache.
+                set_transient(
+                    $this::TRANSIENT_KEY,
+                    $generated_cookies,
+                    $this::TRANSIENT_DURATION
+                );
+            } catch (\Exception $e) {
+                \Sentry\captureException($e);
+                error_log($e->getMessage());
+            }
         }
 
         // Properties for the cookies.
