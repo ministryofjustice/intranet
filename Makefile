@@ -29,6 +29,10 @@ node-assets:
 	npm install
 	npm run watch
 
+node-cdn:
+	npm install
+	npm run watch
+
 composer-assets:
 	@chmod +x ./bin/local-composer-assets.sh
 	@docker compose exec php-fpm ./bin/local-composer-assets.sh ash
@@ -94,6 +98,10 @@ test:
 # Fix tests
 test-fixes:
 	composer test-fix
+
+# RSA key generation
+key-gen:
+	@chmod +x ./bin/local-key-gen.sh && ./bin/local-key-gen.sh
 
 
 #####

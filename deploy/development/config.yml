@@ -8,3 +8,10 @@ data:
   WP_HOME: 'https://dev-intranet.apps.live.cloud-platform.service.justice.gov.uk'
   WP_SITEURL: 'https://dev-intranet.apps.live.cloud-platform.service.justice.gov.uk/wp'
   NGINX_HOST: "localhost"
+  # IP addresses, with optional CIDR notation. Separated by newlines and using # for comments.
+  ALLOWED_IPS: |
+    # Global Protect
+    18.169.147.172
+    35.176.93.186
+    18.130.148.126
+    35.176.148.126
