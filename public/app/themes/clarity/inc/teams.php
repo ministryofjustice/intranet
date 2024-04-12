@@ -28,33 +28,28 @@ class Teams
       */
     public function team_news_api($number)
     {
-        $post_per_page = 'per_page=' . $number;
-        $current_page  = '&page=1';
-        $agency_name   = '&agency=' . $this->page_meta['agency'];
+        $oAgency = new Agency();
+        $activeAgency = $oAgency->getCurrentAgency();
 
-        /*
-        * A temporary measure so that API calls do not get blocked by
-        * changing IPs not whitelisted. All calls are within container.
-        */
-        $siteurl = 'http://127.0.0.1';
+        $post_per_page = 10;
 
-        $response = wp_remote_get($siteurl . '/wp-json/wp/v2/team-news/?' . $post_per_page . $current_page);
+        $args = [
+            'numberposts' => $post_per_page,
+            'post_type' => 'team-news',
+            'post_status' => 'publish',
+            'tax_query' => [
+              'relation' => 'AND',
+              [
+                'taxonomy' => 'agency',
+                'field' => 'term_id',
+                'terms' => $activeAgency['wp_tag_id']
+              ],
+          ]
+        ];
 
-        if (is_wp_error($response)) :
-            return;
-        endif;
-
-        $pagetotal        = wp_remote_retrieve_header($response, 'x-wp-totalpages');
-        $posts            = json_decode(wp_remote_retrieve_body($response), true);
-        $response_code    = wp_remote_retrieve_response_code($response);
-        $response_message = wp_remote_retrieve_response_message($response);
-
-        if (200 == $response_code && $response_message == 'OK') :
-            return $posts;
-        else :
-                return 0;
-        endif;
-    } // END team_news_api()
+        $posts = get_posts($args);
+        return $posts;
+    }
 
      /**
       *
@@ -65,33 +60,28 @@ class Teams
       */
     public function team_blog_api($number)
     {
-        $post_per_page = 'per_page=' . $number;
-        $current_page  = '&page=1';
-        $agency_name   = '&agency=' . $this->page_meta['agency'];
+        $oAgency = new Agency();
+        $activeAgency = $oAgency->getCurrentAgency();
 
-        /*
-        * A temporary measure so that API calls do not get blocked by
-        * changing IPs not whitelisted. All calls are within container.
-        */
-        $siteurl = 'http://127.0.0.1';
+        $post_per_page = 10;
 
-        $response = wp_remote_get($siteurl . '/wp-json/wp/v2/team-blogs/?' . $post_per_page . $current_page);
+        $args = [
+            'numberposts' => $post_per_page,
+            'post_type' => 'team-blogs',
+            'post_status' => 'publish',
+            'tax_query' => [
+              'relation' => 'AND',
+              [
+                'taxonomy' => 'agency',
+                'field' => 'term_id',
+                'terms' => $activeAgency['wp_tag_id']
+              ],
+          ]
+        ];
 
-        if (is_wp_error($response)) :
-            return;
-        endif;
-
-        $pagetotal        = wp_remote_retrieve_header($response, 'x-wp-totalpages');
-        $posts            = json_decode(wp_remote_retrieve_body($response), true);
-        $response_code    = wp_remote_retrieve_response_code($response);
-        $response_message = wp_remote_retrieve_response_message($response);
-
-        if (200 == $response_code && $response_message == 'OK') :
-            return $posts;
-        else :
-                return 0;
-        endif;
-    } // END team_blog_api()
+        $posts = get_posts($args);
+        return $posts;
+    }
 
      /**
       *
@@ -102,32 +92,26 @@ class Teams
       */
     public function team_events_api($number)
     {
-        $post_per_page = 'per_page=' . $number;
-        $current_page  = '&page=1';
-        $orderby       = '&meta_key=event-start-date';
-        $order         = '&order=desc';
+        $oAgency = new Agency();
+        $activeAgency = $oAgency->getCurrentAgency();
 
-        /*
-        * A temporary measure so that API calls do not get blocked by
-        * changing IPs not whitelisted. All calls are within container.
-        */
-        $siteurl = 'http://127.0.0.1';
+        $post_per_page = 10;
 
-        $response = wp_remote_get($siteurl . '/wp-json/wp/v2/team-events/?' . $post_per_page . $current_page . $orderby . $order);
+        $args = [
+            'numberposts' => $post_per_page,
+            'post_type' => 'team-events',
+            'post_status' => 'publish',
+            'tax_query' => [
+              'relation' => 'AND',
+              [
+                'taxonomy' => 'agency',
+                'field' => 'term_id',
+                'terms' => $activeAgency['wp_tag_id']
+              ],
+          ]
+        ];
 
-        if (is_wp_error($response)) :
-            return;
-        endif;
-
-        $pagetotal        = wp_remote_retrieve_header($response, 'x-wp-totalpages');
-        $posts            = json_decode(wp_remote_retrieve_body($response), true);
-        $response_code    = wp_remote_retrieve_response_code($response);
-        $response_message = wp_remote_retrieve_response_message($response);
-
-        if (200 == $response_code && $response_message == 'OK') :
-            return $posts;
-        else :
-                return 0;
-        endif;
-    } // END team_events_api()
+        $posts = get_posts($args);
+        return $posts;
+    }
 }
