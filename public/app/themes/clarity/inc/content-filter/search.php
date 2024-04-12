@@ -91,7 +91,7 @@ function get_args() {
     }
 
     $nextPageToRetrieve = isset($_POST['nextPageToRetrieve']) ?  sanitize_text_field($_POST['nextPageToRetrieve']) : '';
-    $offset = $nextPageToRetrieve ? $nextPageToRetrieve * $post_per_page : 0;
+    $offset = $nextPageToRetrieve ? ($nextPageToRetrieve - 1) * $post_per_page : 0;
 
     $postType = isset($_POST['postType']) ? sanitize_text_field($_POST['postType']) : '';
     $newsCategoryValue = isset($_POST['newsCategoryValue']) ?  sanitize_text_field($_POST['newsCategoryValue']) : '';
@@ -110,7 +110,7 @@ function get_args() {
         'date_query' => [
           'after' => $after,
           'before' => $before,
-          'inclusive' => true,  
+          'inclusive' => false,  
         ],
         'tax_query' => [
           'relation' => 'AND',
