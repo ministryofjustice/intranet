@@ -10,19 +10,23 @@ use MOJ\Intranet\Authors;
 
 $oAuthor = new Authors();
 
-$id            = $post['id'];
+$id            = $post->ID;
 $authors       = $oAuthor->getAuthorInfo($id);
 $thumbnail     = get_the_post_thumbnail_url($id, 'user-thumb');
 $thumbnail_alt = get_post_meta(get_post_thumbnail_id($id), '_wp_attachment_image_alt', true);
+$link = get_the_permalink($id);
+$author = $post->post_author;
+$author_avatar = $author ? get_the_author_meta('display_name', $author) : '';
+$author_display_name = $author ? get_the_author_meta('thumbnail_avatar', $author) : '';
 
 // Filter right-hand blog list so the page your on isn't duplicated and doesn't appear in that list
 if (is_singular('post')) {
-    if ($post_id === $post['id']) {
-        $post['id'] = '';
+    if ($post_id === $id) {
+        $id = '';
     }
 }
 
-if ($post['id'] != '') :
+if ($id != '') :
     ?>
 <article class="c-article-item js-article-item" >
 
@@ -35,9 +39,9 @@ if ($post['id'] != '') :
     <img src="<?php echo $thumbnail; ?>" alt class="thumbnail">
     </a>
 
-    <?php elseif ($authors[0]['thumbnail_url']) : ?>
+    <?php elseif ($author_avatar) : ?>
   <a aria-hidden="true" href="<?php echo esc_url(get_permalink($id)); ?>" class="thumbnail">
-    <img src="<?php echo $post['coauthors'][0]['thumbnail_avatar']; ?>" alt >
+    <img src="<?php echo $author_avatar; ?>" alt="<?php echo $author_display_name; ?>" >
   </a>
 
     <?php else : ?>
@@ -49,15 +53,13 @@ if ($post['id'] != '') :
     <div class="content">
         
         <h1>
-            <a href="<?php echo esc_url(get_permalink($id)); ?>"><?php echo $post['title']['rendered']; ?></a>
+            <a href="<?php echo esc_url($link); ?>"><?php echo $post->post_title; ?></a>
         </h1>
 
         <div class="meta">
             <span class="c-article-item__dateline">
-             By <strong><?php echo $post['coauthors'][0]['display_name']; ?></strong> |
-
-             <?php echo get_gmt_from_date($post['date'], 'j M Y'); ?>
-
+                By <strong><?php echo $author_display_name; ?></strong> |
+                <?php echo get_gmt_from_date($post->post_date, 'j M Y'); ?>
             </span> 
         </div>
 
@@ -67,7 +69,7 @@ if ($post['id'] != '') :
             ?>
 
         <div class="c-article-excerpt">
-            <p><?php echo $post['excerpt']['rendered']; ?></p>
+            <p><?php echo $post->post_excerpt; ?></p>
         </div>
 
         <?php endif; ?>

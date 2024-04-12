@@ -59,7 +59,7 @@ function get_category_news_api($category_id)
                         <a href="<?php echo $link; ?>"><?php echo $post->post_title; ?></a>
                     </h1>
                     <div class="meta">
-                        <span class="c-article-item__dateline"><?php echo $post->post_date; ?></span>
+                        <span class="c-article-item__dateline"><?php echo get_gmt_from_date($post->post_date, 'j M Y'); ?></span>
                     </div>
                     <div class="c-article-excerpt">
                         <p><?php echo $post->post_excerpt; ?></p>

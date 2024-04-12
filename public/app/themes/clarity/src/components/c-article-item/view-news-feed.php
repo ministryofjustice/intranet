@@ -45,7 +45,7 @@ if (! isset($set_cpt)) {
 
     <?php else : ?>
     <div class="c-article-excerpt">
-        <p><?= $post->post_excerpt ?></p>
+        <p><?= $post->post_excerpt; ?></p>
     </div>
 
     <?php endif; ?>
