@@ -103,7 +103,7 @@ function get_args() {
 
     $args = [
         'numberposts' => $post_per_page,
-        'post_type' => $postType,
+        'post_type' => $postType === 'posts' ? 'post' : $postType,
         'post_status' => 'publish',
         'offset' => $offset,
         's' => $query,

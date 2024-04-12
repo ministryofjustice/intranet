@@ -9,7 +9,7 @@ function get_pagination($type, $category_id = false, $post_per_page = 10)
 
     $args = [
       'numberposts' => $post_per_page,
-      'post_type' => $type,
+      'post_type' => 'posts' ? 'post' : $type,
       'post_status' => 'publish',
       'tax_query' => [
         'relation' => 'AND',

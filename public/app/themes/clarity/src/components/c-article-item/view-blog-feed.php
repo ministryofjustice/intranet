@@ -16,8 +16,8 @@ $thumbnail     = get_the_post_thumbnail_url($id, 'user-thumb');
 $thumbnail_alt = get_post_meta(get_post_thumbnail_id($id), '_wp_attachment_image_alt', true);
 $link = get_the_permalink($id);
 $author = $post->post_author;
-$author_avatar = $author ? get_the_author_meta('display_name', $author) : '';
-$author_display_name = $author ? get_the_author_meta('thumbnail_avatar', $author) : '';
+$author_display_name = $author ? get_the_author_meta('display_name', $author) : '';
+$author_avatar = $author ? get_the_author_meta('thumbnail_avatar', $author) : '';
 
 // Filter right-hand blog list so the page your on isn't duplicated and doesn't appear in that list
 if (is_singular('post')) {
