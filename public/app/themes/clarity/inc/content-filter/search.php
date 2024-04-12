@@ -97,7 +97,7 @@ function get_args() {
     $newsCategoryValue = isset($_POST['newsCategoryValue']) ?  sanitize_text_field($_POST['newsCategoryValue']) : '';
     $newsCategory_ID = $newsCategoryValue ? $newsCategoryValue : '';
     
-    $query = sanitize_text_field($_POST['query']);
+    $query = isset($_POST['query']) ?  sanitize_text_field($_POST['query']) : '';
 
     $regional = $postType === 'regional_news' ? true : false;
 
@@ -106,6 +106,7 @@ function get_args() {
         'post_type' => $postType,
         'post_status' => 'publish',
         'offset' => $offset,
+        's' => $query,
         'date_query' => [
           'after' => $after,
           'before' => $before,
@@ -128,11 +129,6 @@ function get_args() {
             'field' => 'category_id',
             'terms' =>  $newsCategory_ID,
           ] : []),
-          ...($query ? [
-              'taxonomy' => 'news_category',
-              'field' => 'category_id',
-              'terms' => $category_id,
-            ] : []),
       ]
       ];
 
@@ -155,6 +151,7 @@ function load_search_results()
     foreach ($posts as $key => $post) {
         include locate_template('src/components/c-article-item/view-news-feed.php');
     }
+    die();
 }
 
 add_action('wp_ajax_load_next_results', 'load_next_results');
@@ -173,6 +170,7 @@ function load_next_results()
     foreach ($posts as $key => $post) {
       include locate_template('src/components/c-article-item/view-news-feed.php');
     }
+    die();
 }
 
 add_action('wp_ajax_load_search_results_total', 'load_search_results_total');
@@ -188,6 +186,7 @@ function load_search_results_total()
     $post_total = $query->found_posts;
 
     echo $post_total . ' search results';
+    die();
 }
 
 add_action('wp_ajax_load_page_total', 'load_page_total');
@@ -222,4 +221,5 @@ function load_page_total()
         echo '<span class="c-pagination__count"> ' . $nextPageToRetrieve . ' of ' . $pagetotal . '</span>';
         echo '</button>';
     }
+    die();
 }
