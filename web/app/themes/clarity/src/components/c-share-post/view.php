@@ -11,7 +11,10 @@ if (have_posts()) :
     while (have_posts()) :
         the_post();
         $post_meta = get_post_meta(get_the_ID());        
-        $options = get_option('maintenance_options');
+        $options = get_option('maintenance_options', [
+            'maintenance_mode_status' => 0,
+            'maintenance_mode_message' => '',
+        ]);
         $maintenance_mode = $options['maintenance_mode_status'] ?? false;
         ?>
 <!-- c-share-post starts here -->

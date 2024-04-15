@@ -63,7 +63,10 @@ function format_comment($comment, $args, $depth)
 {
     $post_type = get_post_type();
     $GLOBALS['comment'] = $comment;
-    $options = get_option('maintenance_options');
+    $options = get_option('maintenance_options', [
+        'maintenance_mode_status' => 0,
+        'maintenance_mode_message' => '',
+    ]);
     $maintenance_mode = $options['maintenance_mode_status'] ?? false;
     ?>
     

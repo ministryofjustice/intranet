@@ -14,7 +14,10 @@ if (isset($post_meta['comment_disabled_status'][0])) {
     $comments_disabled = sanitize_text_field($post_meta['comment_disabled_status'][0]);
 }
 
-$options = get_option('maintenance_options');
+$options = get_option('maintenance_options', [
+  'maintenance_mode_status' => 0,
+  'maintenance_mode_message' => '',
+]);
 $maintenance_mode = $options['maintenance_mode_status'] ?? false;
 
 $title = $maintenance_mode ? 'Comments temporarily disabled' : 'Comment on this page';
