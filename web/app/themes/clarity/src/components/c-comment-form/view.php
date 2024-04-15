@@ -15,12 +15,10 @@ if (isset($post_meta['comment_disabled_status'][0])) {
 }
 
 $options = get_option('maintenance_options', [
-  'maintenance_mode_status' => 0,
-  'maintenance_mode_message' => '',
+    'maintenance_mode_status' => 0,
+    'maintenance_mode_message' => '',
 ]);
 $maintenance_mode = $options['maintenance_mode_status'] ?? false;
-
-$title = $maintenance_mode ? 'Comments temporarily disabled' : 'Comment on this page';
 
   // Login form - required author name and email
   $fields = [
@@ -45,10 +43,13 @@ $title = $maintenance_mode ? 'Comments temporarily disabled' : 'Comment on this 
 
 <!-- c-comment-form starts here -->
 <section class="c-comment-form">
-  <h1 class="o-title o-title--subtitle"><?php echo $title; ?></h1>
-    <?php
-    if (is_user_logged_in() && !$maintenance_mode) { ?>
-        <p>
+  <?php
+    if (!$maintenance_mode) {
+      ?>
+        <h1 class="o-title o-title--subtitle">Comment on this page</h1>
+      <?php
+        if (is_user_logged_in() && !$maintenance_mode) { ?>
+          <p>
             Your email address and comment will be shared with the author and Intranet Editors. See the <a href="<?php echo get_bloginfo('url'); ?>/privacy-notice/">Intranet Privacy Policy</a> for more information.
         </p>
         <?php
@@ -57,14 +58,14 @@ $title = $maintenance_mode ? 'Comments temporarily disabled' : 'Comment on this 
         ?>
       <p class="secondary-action">
         <a href="<?php echo get_bloginfo('url'); ?>/commenting-policy/">MoJ commenting policy</a><br/>
-          <a href="<?php echo get_bloginfo('url'); ?>/delete-account/">Delete your comment history</a>
+        <a href="<?php echo get_bloginfo('url'); ?>/delete-account/">Delete your comment history</a>
       </p>
-
-        <?php
-    } elseif (!$maintenance_mode) {
+      <?php
+    } else {
         echo '<p class="must-log-in" id="respond"><a href="' . wp_login_url(get_permalink()) . '">Login</a> or Register below to post a comment.</p>';
         get_template_part('src/components/c-register/view');
     }
-    ?>
+  }
+?>
 </section>
 <!-- c-comment-form ends here -->
