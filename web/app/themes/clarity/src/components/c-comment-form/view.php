@@ -14,6 +14,11 @@ if (isset($post_meta['comment_disabled_status'][0])) {
     $comments_disabled = sanitize_text_field($post_meta['comment_disabled_status'][0]);
 }
 
+$options = get_option('maintenance_options');
+$maintenance_mode = $options['maintenance_mode_status'] ?? false;
+
+$title = $maintenance_mode ? 'Comments temporarily disabled' : 'Comment on this page';
+
   // Login form - required author name and email
   $fields = [
       'author' => '<p class="comment-form-author">' . '<label for="author">' . __('Name') . '</label> ' . ( $req ? '<span class="required">*</span>' : '' ) .
@@ -37,9 +42,9 @@ if (isset($post_meta['comment_disabled_status'][0])) {
 
 <!-- c-comment-form starts here -->
 <section class="c-comment-form">
-  <h1 class="o-title o-title--subtitle">Comment on this page</h1>
+  <h1 class="o-title o-title--subtitle"><?php echo $title; ?></h1>
     <?php
-    if (is_user_logged_in()) { ?>
+    if (is_user_logged_in() && !$maintenance_mode) { ?>
         <p>
             Your email address and comment will be shared with the author and Intranet Editors. See the <a href="<?php echo get_bloginfo('url'); ?>/privacy-notice/">Intranet Privacy Policy</a> for more information.
         </p>
@@ -53,7 +58,7 @@ if (isset($post_meta['comment_disabled_status'][0])) {
       </p>
 
         <?php
-    } else {
+    } elseif (!$maintenance_mode) {
         echo '<p class="must-log-in" id="respond"><a href="' . wp_login_url(get_permalink()) . '">Login</a> or Register below to post a comment.</p>';
         get_template_part('src/components/c-register/view');
     }

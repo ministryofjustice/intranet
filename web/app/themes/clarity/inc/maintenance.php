@@ -110,7 +110,7 @@ class Maintenance
             foreach ($fields as $field) {
                 add_settings_field(
                     $field['id'],
-                    __($field['label'], 'maintenance'),
+                    __(isset($field['label']) ? $field['label'] : '', 'maintenance'),
                     [$this, 'render_field'],
                     'maintenance',
                     "{$group}-section",
@@ -211,7 +211,6 @@ class Maintenance
      */
     public function render_field(array $args): void
     {
-
         $field = $args['field'];
 
         // Get the value of the setting we've registered with register_setting()
@@ -228,10 +227,7 @@ class Maintenance
                     id="<?php echo esc_attr($field['id']); ?>"
                     name="maintenance_options[<?php echo esc_attr($field['id']); ?>]"
                     value="<?php echo isset($options[$field['id']]) ? esc_attr($options[$field['id']]) : ''; ?>"
-                >
-                <p class="description">
-                    <?php esc_html_e($field['description'], 'maintenance'); ?>
-                </p>
+                > 
                 <?php
                 break;
             }
@@ -246,9 +242,6 @@ class Maintenance
                     value="1"
                     <?php echo isset($options[$field['id']]) ? (checked($options[$field['id']], 1, false)) : (''); ?>
                 >
-                <p class="description">
-                    <?php esc_html_e($field['description'], 'maintenance'); ?>
-                </p>
                 <?php
                 break;
             }
@@ -260,9 +253,6 @@ class Maintenance
                     id="<?php echo esc_attr($field['id']); ?>"
                     name="maintenance_options[<?php echo esc_attr($field['id']); ?>]"
                 ><?php echo isset($options[$field['id']]) ? esc_attr($options[$field['id']]) : ''; ?></textarea>
-                <p class="description">
-                    <?php esc_html_e($field['description'], 'maintenance'); ?>
-                </p>
                 <?php
                 break;
             }
@@ -282,9 +272,6 @@ class Maintenance
                         </option>
                     <?php } ?>
                 </select>
-                <p class="description">
-                    <?php esc_html_e($field['description'], 'maintenance'); ?>
-                </p>
                 <?php
                 break;
             }
@@ -300,6 +287,14 @@ class Maintenance
                 <?php
                 break;
             }
+        }
+
+        if (isset($field['description'])) {
+            ?>
+                <p class="description">
+                    <?php esc_html_e($field['description'], 'maintenance'); ?>
+                </p>
+            <?php
         }
     }
 
