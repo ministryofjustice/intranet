@@ -48,7 +48,7 @@ $maintenance_mode = $options['maintenance_mode_status'] ?? false;
       ?>
         <h1 class="o-title o-title--subtitle">Comment on this page</h1>
       <?php
-        if (is_user_logged_in() && !$maintenance_mode) { ?>
+        if (is_user_logged_in()) { ?>
           <p>
             Your email address and comment will be shared with the author and Intranet Editors. See the <a href="<?php echo get_bloginfo('url'); ?>/privacy-notice/">Intranet Privacy Policy</a> for more information.
         </p>
