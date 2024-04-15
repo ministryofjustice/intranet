@@ -128,6 +128,11 @@ class AmazonS3AndCloudFrontSigning
         // Get the first 8 characters of the sha256.
         $public_key_short = substr($public_key_sha256, 0, 8);
 
+        // If the public key is not found, throw an exception.
+        if (empty($public_key_ids_and_keys)) {
+            throw new \Exception('AWS_CLOUDFRONT_PUBLIC_KEY_OBJECT was not found');
+        }
+
         // Find the matching array entry for the public key.
         $public_key_id_and_comment = array_filter($cloudfront_public_key_object, fn ($key) =>  $key['comment'] === $public_key_short && !empty($key['id']) );
 
