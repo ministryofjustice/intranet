@@ -22,5 +22,13 @@ metadata:
   name: intranet-dev-base64-secrets
 type: Opaque
 data:
-  AWS_CLOUDFRONT_PUBLIC_KEY: "${AWS_CLOUDFRONT_PUBLIC_KEY_BASE64}"
   AWS_CLOUDFRONT_PRIVATE_KEY: "${AWS_CLOUDFRONT_PRIVATE_KEY_BASE64}"
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: cloudfront-input
+type: Opaque
+data:
+  AWS_CLOUDFRONT_PUBLIC_KEY: "${AWS_CLOUDFRONT_PUBLIC_KEY_BASE64}"
+  # AWS_CLOUDFRONT_PUBLIC_KEY_EXPIRING: "${AWS_CLOUDFRONT_PUBLIC_KEY_EXPIRING_BASE64}"

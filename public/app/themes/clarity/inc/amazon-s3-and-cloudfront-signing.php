@@ -130,7 +130,7 @@ class AmazonS3AndCloudFrontSigning
 
         // If the public key is not found, throw an exception.
         if (empty($public_key_ids_and_keys)) {
-            throw new \Exception('AWS_CLOUDFRONT_PUBLIC_KEY_OBJECT was not found');
+            throw new \Exception('AWS_CLOUDFRONT_PUBLIC_KEYS_OBJECT was not found');
         }
 
         // Find the matching array entry for the public key.

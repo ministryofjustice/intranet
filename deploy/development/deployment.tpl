@@ -69,7 +69,7 @@ spec:
                 secretKeyRef:
                   name: cloudfront-output
                   key: cloudfront_url
-            - name: AWS_CLOUDFRONT_PUBLIC_KEY_OBJECT
+            - name: AWS_CLOUDFRONT_PUBLIC_KEYS_OBJECT
               valueFrom:
                 secretKeyRef:
                   name: cloudfront-output
