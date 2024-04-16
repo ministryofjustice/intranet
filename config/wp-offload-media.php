@@ -64,6 +64,8 @@ if (env('AWS_ACCESS_KEY_ID') && env('AWS_SECRET_ACCESS_KEY')) {
     ]);
 }
 
+
+Config::define('AS3CFPRO_LICENCE', env('AS3CF_PRO_LICENCE') ?? '');
 Config::define('AWS_S3_CUSTOM_HOST', env('AWS_S3_CUSTOM_HOST') ?? '');
 
 Config::define('AS3CF_SETTINGS', serialize($as3_settings));
