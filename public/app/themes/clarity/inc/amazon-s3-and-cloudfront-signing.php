@@ -108,26 +108,40 @@ class AmazonS3AndCloudFrontSigning
 
     public function getCloudfrontPublicKeyId(): string
     {
-        // The first unique 8 chars of the public key are used to identify AWS's key id.
-        $public_key_short = substr($_ENV['AWS_CLOUDFRONT_PUBLIC_KEY'], 71, 8);
+        // Get the private key.
+        $private_key = openssl_get_privatekey($this->cloudfront_private_key);
 
+        // Derive public key from private key. It should be in the standard format (with a single newline at the end).
+        $public_key_formatted = openssl_pkey_get_details($private_key)['key'];
+        
         // Decode the JSON string to an array.
-        $public_key_ids_and_keys = json_decode($_ENV['AWS_CLOUDFRONT_PUBLIC_KEY_OBJECT'], true);
+        $cloudfront_public_key_object = json_decode($_ENV['AWS_CLOUDFRONT_PUBLIC_KEYS_OBJECT'], true);
+        
+        // If the public key is not found, throw an exception.
+        if (empty($cloudfront_public_key_object)) {
+            throw new \Exception('AWS_CLOUDFRONT_PUBLIC_KEYS_OBJECT was not found');
+        }
+
+        // Get the sha256 of the public key.
+        $public_key_sha256 = hash('sha256', $public_key_formatted);
+
+        // Get the first 8 characters of the sha256.
+        $public_key_short = substr($public_key_sha256, 0, 8);
 
         // If the public key is not found, throw an exception.
         if (empty($public_key_ids_and_keys)) {
-            throw new \Exception('AWS_CLOUDFRONT_PUBLIC_KEY_OBJECT was not found');
+            throw new \Exception('AWS_CLOUDFRONT_PUBLIC_KEYS_OBJECT was not found');
         }
 
         // Find the matching array entry for the public key.
-        $public_key_id_and_key = array_filter($public_key_ids_and_keys, fn ($key) =>  $key['key'] === $public_key_short);
+        $public_key_id_and_comment = array_filter($cloudfront_public_key_object, fn ($key) =>  $key['comment'] === $public_key_short && !empty($key['id']) );
 
         // If the public key is not found, throw an exception.
-        if (empty($public_key_id_and_key) || !$public_key_id_and_key[0]['id']) {
+        if (empty($public_key_id_and_comment)) {
             throw new \Exception('CloudFront public key not found');
         }
 
-        return $public_key_id_and_key[0]['id'];
+        return $public_key_id_and_comment[0]['id'];
     }
 
     /**
@@ -156,6 +170,9 @@ class AmazonS3AndCloudFrontSigning
         if (!openssl_sign($json, $signed_policy, $key, OPENSSL_ALGO_SHA1)) {
             throw new \Exception('Failed to sign policy: ' . openssl_error_string());
         }
+
+        // TEMP - for testing
+        // $signed_url = $url . '?Expires=' . $expiry . '&Signature=' . $this->urlSafeBase64Encode($signed_policy) . '&Key-Pair-Id=' . $this->getCloudfrontPublicKeyId();
 
         return [
             "CloudFront-Key-Pair-Id" => $this->getCloudfrontPublicKeyId(),
@@ -199,6 +216,8 @@ class AmazonS3AndCloudFrontSigning
             try {
                 // Create a signed cookie for CloudFront.
                 $generated_cookies = $this->createSignedCookie($this->cloudfront_url . '/*');
+                // TEMP - for testing
+                // $generated_cookies = $this->createSignedCookie('https://d192h9x2ipg6ln.cloudfront.net/media/2024/03/26131145/287-2.jpg');
                 // Write the cookies to the cache.
                 set_transient(
                     $this::TRANSIENT_KEY,

@@ -69,12 +69,11 @@ spec:
                 secretKeyRef:
                   name: cloudfront-output
                   key: cloudfront_url
-            # Pending Cloud Platform team.
-            # - name: AWS_CLOUDFRONT_PUBLIC_KEY_OBJECT
-            #   valueFrom:
-            #     secretKeyRef:
-            #       name: cloudfront-output
-            #       key: cloudfront_public_key_ids
+            - name: AWS_CLOUDFRONT_PUBLIC_KEYS_OBJECT
+              valueFrom:
+                secretKeyRef:
+                  name: cloudfront-output
+                  key: cloudfront_public_key_ids
             - name: DB_HOST
               valueFrom:
                 secretKeyRef:
