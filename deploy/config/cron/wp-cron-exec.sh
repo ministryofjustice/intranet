@@ -1,11 +1,11 @@
 #!/bin/sh
 
-# set hosts
-ENV_HOST=$1    # raw hostname of the container
-NGINX_HOST=$2  # hostname of the nginx service
+## $NGINX_SERVICE_PORT is available in the container
+## Replace 'tcp' with 'http'
+NGINX_HOST=$(echo "$NGINX_SERVICE_PORT" | sed 's/tcp/http/');
 
 wget_it() {
-  wget --spider --quiet http://"$NGINX_HOST":8080/wp/wp-cron.php
+  wget --spider --quiet http://"$NGINX_HOST"/wp/wp-cron.php
 }
 
 contains() {
