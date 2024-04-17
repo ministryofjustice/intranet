@@ -2,10 +2,10 @@
 
 ## $1 ($NGINX_SERVICE_PORT) is available in the container
 ## Replace 'tcp' with 'http'
-NGINX_HOST=$(echo "$1" | sed 's/tcp/http/');
+NGINX_HTTP_URL=$(echo "$NGINX_SERVICE_PORT" | sed 's/tcp/http/');
 
 wget_it() {
-  wget --spider --quiet "$NGINX_HOST"/wp/wp-cron.php
+  wget --spider --quiet "$NGINX_HTTP_URL/wp/wp-cron.php"
 }
 
 contains() {
@@ -18,7 +18,8 @@ contains() {
     fi
 }
 
-HOST_TEST=$(contains "$ENV_HOST" "-prod")
+# shellcheck disable=SC2039
+HOST_TEST=$(contains "$HOSTNAME" "-prod")
 
 if [ "$HOST_TEST" = 0 ]; then
   wget_it
