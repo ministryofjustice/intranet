@@ -33,7 +33,7 @@ if (! isset($set_cpt)) {
     <div class="content">
 
         <h1>
-            <a href="<?= esc_url($link) ?>"><?= esc_attr($post->post_title) ?></a>
+            <a href="<?= esc_url($link) ?>"><?= get_the_title($id); ?></a>
         </h1>
 
         <div class="meta">
@@ -45,7 +45,7 @@ if (! isset($set_cpt)) {
 
     <?php else : ?>
     <div class="c-article-excerpt">
-        <p><?= $post->post_excerpt; ?></p>
+        <p><?= get_the_excerpt($id); ?></p>
     </div>
 
     <?php endif; ?>

@@ -5,11 +5,10 @@ function get_pagination($type, $category_id = false, $post_per_page = 10)
 {
     $oAgency      = new Agency();
     $activeAgency = $oAgency->getCurrentAgency();
-    $current_page  = 1;
 
     $args = [
       'numberposts' => $post_per_page,
-      'post_type' => 'posts' ? 'post' : $type,
+      'post_type' => $type === 'posts' ? 'post' : $type,
       'post_status' => 'publish',
       'tax_query' => [
         'relation' => 'AND',
@@ -26,7 +25,7 @@ function get_pagination($type, $category_id = false, $post_per_page = 10)
       ]
     ];
 
-    $query = new WP_QUERY($args);
+    $query = new WP_Query($args);
     $pagetotal = $query->max_num_pages;
 
     ?>
@@ -49,4 +48,5 @@ function get_pagination($type, $category_id = false, $post_per_page = 10)
         </nav>
             <?php
         }
+        wp_reset_postdata();
 }

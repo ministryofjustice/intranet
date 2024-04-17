@@ -91,7 +91,7 @@ function get_args() {
     }
 
     $nextPageToRetrieve = isset($_POST['nextPageToRetrieve']) ?  sanitize_text_field($_POST['nextPageToRetrieve']) : '';
-    $offset = $nextPageToRetrieve ? ($nextPageToRetrieve - 1) * $post_per_page : 0;
+    $offset = $nextPageToRetrieve ? (($nextPageToRetrieve - 1) * $post_per_page) : 0;
 
     $postType = isset($_POST['postType']) ? sanitize_text_field($_POST['postType']) : '';
     $newsCategoryValue = isset($_POST['newsCategoryValue']) ?  sanitize_text_field($_POST['newsCategoryValue']) : '';
@@ -182,10 +182,11 @@ function load_search_results_total()
         exit('Access not allowed.');
     }
 
-    $query = new WP_QUERY(get_args());
+    $query = new WP_Query(get_args());
     $post_total = $query->found_posts;
 
     echo $post_total . ' search results';
+    wp_reset_postdata();
     die();
 }
 
@@ -203,7 +204,7 @@ function load_page_total()
 
     $args = get_args();
 
-    $query = new WP_QUERY($args);
+    $query = new WP_Query($args);
     $pagetotal = $query->max_num_pages;
 
     if ($nextPageToRetrieve == $pagetotal) {
@@ -221,5 +222,6 @@ function load_page_total()
         echo '<span class="c-pagination__count"> ' . $nextPageToRetrieve . ' of ' . $pagetotal . '</span>';
         echo '</button>';
     }
+    wp_reset_postdata();
     die();
 }

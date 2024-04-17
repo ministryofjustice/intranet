@@ -53,7 +53,7 @@ if ($id != '') :
     <div class="content">
         
         <h1>
-            <a href="<?php echo esc_url($link); ?>"><?php echo $post->post_title; ?></a>
+            <a href="<?php echo esc_url($link); ?>"><?php echo get_the_title($id); ?></a>
         </h1>
 
         <div class="meta">
@@ -69,7 +69,7 @@ if ($id != '') :
             ?>
 
         <div class="c-article-excerpt">
-            <p><?php echo $post->post_excerpt; ?></p>
+            <p><?php echo get_the_excerpt($id); ?></p>
         </div>
 
         <?php endif; ?>

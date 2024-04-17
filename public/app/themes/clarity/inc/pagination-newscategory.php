@@ -27,7 +27,7 @@ function get_newscategory_pagination($category_id)
       ]
     ];
 
-    $query = new WP_QUERY($args);
+    $query = new WP_Query($args);
     $pagetotal = $query->max_num_pages;
 
     ?>
@@ -49,4 +49,5 @@ function get_newscategory_pagination($category_id)
     </nav>
         <?php
     }
+    wp_reset_postdata();
 }
