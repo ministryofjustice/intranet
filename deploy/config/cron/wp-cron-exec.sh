@@ -1,8 +1,8 @@
 #!/bin/sh
 
-## $NGINX_SERVICE_PORT is available in the container
+## $1 ($NGINX_SERVICE_PORT) is available in the container
 ## Replace 'tcp' with 'http'
-NGINX_HOST=$(echo "$NGINX_SERVICE_PORT" | sed 's/tcp/http/');
+NGINX_HOST=$(echo "$1" | sed 's/tcp/http/');
 
 wget_it() {
   wget --spider --quiet http://"$NGINX_HOST"/wp/wp-cron.php
