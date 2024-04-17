@@ -5,7 +5,7 @@
 NGINX_HOST=$(echo "$1" | sed 's/tcp/http/');
 
 wget_it() {
-  wget --spider --quiet http://"$NGINX_HOST"/wp/wp-cron.php
+  wget --spider --quiet "$NGINX_HOST"/wp/wp-cron.php
 }
 
 contains() {
