@@ -3,4 +3,4 @@
 ## Every minute
 ##-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#
 
-* * * * * sleep `shuf -i0-15 -n1` && execute-wp-cron > /dev/null
+* * * * * sleep `shuf -i0-15 -n1` && execute-wp-cron "$NGINX_SERVICE_PORT" > /dev/null
