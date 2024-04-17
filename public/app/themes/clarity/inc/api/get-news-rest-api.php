@@ -52,6 +52,7 @@ function get_news_api($set_cpt = '')
           'field' => 'term_id',
           'terms' => $activeAgency['wp_tag_id']
         ],
+        // If the region is set add its ID to the taxonomy query
         ...($regional ? [
           'taxonomy' => 'region',
           'field' => 'region_id',

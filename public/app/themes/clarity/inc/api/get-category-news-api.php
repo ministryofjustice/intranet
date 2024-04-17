@@ -19,6 +19,7 @@ function get_category_news_api($category_id)
             'field' => 'term_id',
             'terms' => $activeAgency['wp_tag_id']
           ],
+          // If the category_id is set add it to the taxonomy query
           ...( $category_id ? [
             'taxonomy' => 'news_category',
             'field' => 'category_id',

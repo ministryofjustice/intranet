@@ -119,11 +119,13 @@ function get_args() {
             'field' => 'term_id',
             'terms' => $activeAgency['wp_tag_id']
           ],
+          // If the region is set add its ID to the taxonomy query
           ...( $regional ? [
             'taxonomy' => 'region',
             'field' => 'region_id',
             'terms' =>  $newsCategory_ID,
           ] : []),
+          // If the news category is set add its ID unless the query is regional, as it will have already been added to the tax query
           ...( $newsCategory_ID && !$regional ? [
             'taxonomy' => 'news_category',
             'field' => 'category_id',

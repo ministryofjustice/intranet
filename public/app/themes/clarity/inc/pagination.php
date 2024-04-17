@@ -17,6 +17,7 @@ function get_pagination($type, $category_id = false, $post_per_page = 10)
           'field' => 'term_id',
           'terms' => $activeAgency['wp_tag_id']
         ],
+        // If the category_id is set add it to the taxonomy query
         ...($category_id ? [
           'taxonomy' => 'news_category',
           'field' => 'category_id',
