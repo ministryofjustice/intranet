@@ -5,6 +5,7 @@ metadata:
 type: Opaque
 stringData:
   GOV_NOTIFY_API_KEY: "${GOV_NOTIFY_API_KEY}"
+  AS3CF_PRO_LICENCE: "${AS3CF_PRO_LICENCE}"
   SENTRY_DSN: "${SENTRY_DSN}"
   AUTH_KEY: "${AUTH_KEY}"
   AUTH_SALT: "${AUTH_SALT}"

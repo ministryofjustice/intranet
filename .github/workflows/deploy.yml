@@ -30,6 +30,7 @@ jobs:
           IMAGE_TAG_FPM: "fpm-${{ github.sha }}"
           IMAGE_TAG_CRON: "cron-${{ github.sha }}"
           GOV_NOTIFY_API_KEY: ${{ secrets.GOV_NOTIFY_API_KEY }}
+          AS3CF_PRO_LICENCE: ${{ secrets.AS3CF_PRO_LICENCE }}
           SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
           AUTH_KEY: ${{ secrets.AUTH_KEY }}
           AUTH_SALT: ${{ secrets.AUTH_SALT }}
