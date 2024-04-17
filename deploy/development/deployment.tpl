@@ -42,12 +42,6 @@ spec:
           image: ${ECR_URL}:${IMAGE_TAG_CRON}
           securityContext:
             runAsUser: 3001
-          env:
-            - name: NGINX_HOST
-              valueFrom:
-                configMapKeyRef:
-                  name: intranet-dev
-                  key: NGINX_HOST
 
         - name: fpm
           image: ${ECR_URL}:${IMAGE_TAG_FPM}
