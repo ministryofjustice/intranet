@@ -193,6 +193,10 @@ class AmazonS3AndCloudFrontSigning
 
     public function handlePageRequest(): void
     {
+        // If headers are already sent or we're doing a cron job, return early.
+        if (\headers_sent() || defined('DOING_CRON')) {
+            return;
+        }
 
         $remaining_time = $this->remainingTimeFromCookie();
 
