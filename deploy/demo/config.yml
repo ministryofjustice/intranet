@@ -8,4 +8,3 @@ data:
   WP_HOME: 'https://demo-intranet.apps.live.cloud-platform.service.justice.gov.uk'
   WP_SITEURL: 'https://demo-intranet.apps.live.cloud-platform.service.justice.gov.uk/wp'
   SENTRY_DEV_ID: '-demo'
-  NGINX_HOST: "localhost"

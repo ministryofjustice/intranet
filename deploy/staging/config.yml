@@ -7,4 +7,3 @@ data:
   WP_ENV: "staging"
   WP_HOME: 'https://staging-intranet.apps.live.cloud-platform.service.justice.gov.uk'
   WP_SITEURL: 'https://staging-intranet.apps.live.cloud-platform.service.justice.gov.uk/wp'
-  NGINX_HOST: "localhost"
