@@ -67,7 +67,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: cloudfront-output
-                  key: cloudfront_public_key_ids
+                  key: cloudfront_public_keys
             - name: DB_HOST
               valueFrom:
                 secretKeyRef:
