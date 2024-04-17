@@ -16,81 +16,67 @@ function get_news_api($set_cpt = '')
 {
     $oAgency           = new Agency();
     $activeAgency      = $oAgency->getCurrentAgency();
-    $post_per_page     = 'per_page=10';
-    $current_page      = '&page=1';
-    $agency_name       = '&agency=' . $activeAgency['wp_tag_id'];
-    $post_type         = get_post_type();
+    $post_per_page     = 10;
+    $post_type         = 'news';
     $post_id           = get_the_ID();
     $region_id         = get_the_terms($post_id, 'region');
     $regional_template = get_post_meta(get_the_ID(), 'dw_regional_template', true);
+    $regional          = false;
 
-    if ($region_id) :
-        foreach ($region_id as $region) :
-            // Current region, ie Scotland, North West etc
-            $current_region = '&region=' . $region->term_id;
-        endforeach;
-    endif;
-
-    /*
-    * A temporary measure so that API calls do not get blocked by
-    * changing IPs not whitelisted. All calls are within container.
-    */
-    $siteurl = 'http://127.0.0.1';
+    $args = [];
 
     switch ($post_type) {
         case 'regional_page':
-            $response = wp_remote_get($siteurl . '/wp-json/wp/v2/' . $set_cpt . '?' . 'per_page=4' . $current_page . $current_region);
-            if ($regional_template === 'page_regional_archive_news.php') :
-                $response = wp_remote_get($siteurl . '/wp-json/wp/v2/' . $set_cpt . '?' . 'per_page=30' . $current_page . $current_region);
-            endif;
+            $args['numberposts'] = 4;
+            $args['post_type'] = $set_cpt;
+            $regional = true;
+            if ($regional_template === 'page_regional_archive_news.php') {
+                $args['numberposts'] = 30;
+            }
             break;
 
         case is_singular('regional_news'):
-            $response = wp_remote_get($siteurl . '/wp-json/wp/v2/' . $set_cpt . '?' . 'per_page=6' . $current_page . $current_region);
-            break;
-
-        case is_singular('news'):
-            $response = wp_remote_get($siteurl . '/wp-json/wp/v2/news/?' . 'per_page=6' . $current_page . $agency_name);
+        case is_singular('news'):    
+            $args['numberposts'] = 6;
             break;
 
         default:
-            $response = wp_remote_get($siteurl . '/wp-json/wp/v2/news/?' . $post_per_page . $current_page . $agency_name);
+            $args['numberposts'] = $post_per_page;
+            $args['post_type'] = 'news';
     }
 
-    if (is_wp_error($response)) :
-        return;
-    endif;
+    $args['tax_query'] = [
+        'relation' => 'AND',
+        [
+          'taxonomy' => 'agency',
+          'field' => 'term_id',
+          'terms' => $activeAgency['wp_tag_id']
+        ],
+        // If the region is set add its ID to the taxonomy query
+        ...($regional ? [
+          'taxonomy' => 'region',
+          'field' => 'region_id',
+          'terms' => $region_id,
+        ] : []),
+    ];
 
-    /*
-    * Return API results and populate component(s)
-    *
-    */
-    $pagetotal        = wp_remote_retrieve_header($response, 'x-wp-totalpages');
-    $posts            = json_decode(wp_remote_retrieve_body($response), true);
-    $response_code    = wp_remote_retrieve_response_code($response);
-    $response_message = wp_remote_retrieve_response_message($response);
+    $args['post_status'] = 'publish';
 
-    if (200 == $response_code && $response_message == 'OK') {
-        if ($posts) {
-            echo '<div class="data-type" data-type="' . $set_cpt . '"></div>';
+    $posts = get_posts($args);
 
-             // We don't want the News title to appear in some sections.
-            if (is_page_template('page_news.php') || is_single() || is_singular('regional_news')) :
-                echo '';
-            else :
-                echo '<h2 class="o-title o-title--section" id="title-section">News</h2>';
-            endif;
+    if ($posts) {
+        echo '<div class="data-type" data-type="' . $set_cpt . '"></div>';
+            // We don't want the News title to appear in some sections.
+        if (is_page_template('page_news.php') || is_single() || is_singular('regional_news')) :
+            echo '';
+        else :
+            echo '<h2 class="o-title o-title--section" id="title-section">News</h2>';
+        endif;
 
-            foreach ($posts as $key => $post) {
-                // This checks if the same post is appearing on the page twice and removes it.
-                if ($post['id'] === $post_id) {
-                    $post['id'] = '';
-                } else {
-                    include locate_template('src/components/c-article-item/view-news-feed.php');
-                }
-            }
-        } else {
-                echo '<!-- No posts available to return -->';
+        foreach ($posts as $key => $post) {
+          include locate_template('src/components/c-article-item/view-news-feed.php');   
         }
-    }// if (200 == $response_code && $response_message == 'OK'):
+    } else {
+            echo '<!-- No posts available to return -->';
+    }
 }

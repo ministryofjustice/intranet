@@ -1,30 +1,35 @@
 <?php
 use MOJ\Intranet\Agency;
 
-function get_pagination($type, $category_id = false)
+function get_pagination($type, $category_id = false, $post_per_page = 10)
 {
     $oAgency      = new Agency();
     $activeAgency = $oAgency->getCurrentAgency();
 
-    /*
-    * A temporary measure so that API calls do not get blocked by
-    * changing IPs not whitelisted. All calls are within container.
-    */
-    $siteurl = 'http://127.0.0.1';
+    $args = [
+      'numberposts' => $post_per_page,
+      'post_type' => $type === 'posts' ? 'post' : $type,
+      'post_status' => 'publish',
+      'tax_query' => [
+        'relation' => 'AND',
+        [
+          'taxonomy' => 'agency',
+          'field' => 'term_id',
+          'terms' => $activeAgency['wp_tag_id']
+        ],
+        // If the category_id is set add it to the taxonomy query
+        ...($category_id ? [
+          'taxonomy' => 'news_category',
+          'field' => 'category_id',
+          'terms' => $category_id,
+        ] : []),
+      ]
+    ];
 
-    $post_per_page = 'per_page=10';
-    $current_page  = '&page=1';
-    $agency_name   = '&agency=' . $activeAgency['wp_tag_id'];
-    $category_name = ( ! empty($category_id) ? '&news_category=' . $category_id : '' );
+    $query = new WP_Query($args);
+    $pagetotal = $query->max_num_pages;
 
-    $response = wp_remote_get($siteurl . '/wp-json/wp/v2/' . $type . '/?' . $post_per_page . $current_page . $agency_name . $category_name);
-
-    if (is_wp_error($response)) {
-        return;
-    }
-
-    $pagetotal = wp_remote_retrieve_header($response, 'x-wp-totalpages'); ?>
-
+    ?>
         <div id="load_more"></div>
         <nav class="c-pagination" role="navigation" aria-label="Pagination Navigation">
         <?php
@@ -33,7 +38,7 @@ function get_pagination($type, $category_id = false)
             <button class="more-btn" data-page="1" data-date="">
             <span class="c-pagination__main "><span class="u-icon u-icon--circle-down"></span> Load Next 10 Results</span><span class="c-pagination__count"> 1 of <?php echo $pagetotal; ?></span>
             </button>
-
+            
             <?php
         } else {
             ?>
@@ -44,4 +49,5 @@ function get_pagination($type, $category_id = false)
         </nav>
             <?php
         }
+        wp_reset_postdata();
 }
