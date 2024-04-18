@@ -125,7 +125,7 @@ RUN composer install --no-dev
 RUN composer dump-autoload -o
 
 ARG regex_files='\(htm\|html\|js\|css\|png\|jpg\|jpeg\|gif\|ico\|svg\|webmanifest\)'
-ARG regex_path='\(app\/themes\/clarity\/error\-pages\|app\/mu\-plugins\|app\/plugins\|wp\)'
+ARG regex_path='\(app\/mu\-plugins\|app\/plugins\|wp\)'
 RUN mkdir -p ./vendor-assets && \
     find public/ -regex "public\/${regex_path}.*\.${regex_files}" -exec cp --parent "{}" vendor-assets/  \;
 
@@ -186,14 +186,15 @@ WORKDIR /var/www/html
 
 # Get bootstraper for WordPress
 COPY public/index.php public/index.php
-COPY public/app/themes/clarity/style.css public/app/themes/clarity/
 
 # Only take what Nginx needs (cached configuration)
 COPY --from=build-fpm-composer /var/www/html/public/wp/wp-admin/index.php public/wp/wp-admin/index.php
 COPY --from=build-fpm-composer /var/www/html/vendor-assets ./
 
 # Grab assets for Nginx
-COPY --from=assets-build /node/dist public/app/themes/clarity/dist/
+COPY --from=assets-build --chown=nginx:nginx /node/dist public/app/themes/clarity/dist/
+COPY --from=assets-build --chown=nginx:nginx /node/ public/app/themes/clarity/error-pages/
+COPY --from=assets-build --chown=nginx:nginx /node/style.css public/app/themes/clarity/style.css
 
 
 #  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
