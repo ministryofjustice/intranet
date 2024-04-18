@@ -3,4 +3,4 @@
 ## Every minute
 ##-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#
 
-* * * * * sleep `shuf -i0-15 -n1` && curl http://localhost:8080/wp/wp-cron.php --silent > /dev/null
+* * * * * sleep `shuf -i0-15 -n1` && execute-wp-cron > /dev/null

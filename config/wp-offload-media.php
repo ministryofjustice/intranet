@@ -14,7 +14,7 @@ $as3_settings = array(
     // Use IAM Roles on Amazon Elastic Compute Cloud (EC2) or Google Compute Engine (GCE)
     'use-server-roles' => true,
     // Bucket to upload files to
-    'bucket' => env('S3_BUCKET_NAME'),
+    'bucket' => env('AWS_S3_BUCKET'),
     // Bucket region (e.g. 'us-west-1' - leave blank for default region)
     'region' => 'eu-west-2',
     // Automatically copy files to bucket on upload
@@ -28,13 +28,13 @@ $as3_settings = array(
     // Append a timestamped folder to path of files offloaded to bucket to avoid filename clashes and bust CDN cache if updated
     'object-versioning' => true,
     // Delivery Provider ('storage', 'aws', 'do', 'gcp', 'cloudflare', 'keycdn', 'stackpath', 'other')
-    'delivery-provider' => env('DELIVERY_DOMAIN') ? 'aws' : 'storage',
+    'delivery-provider' => env('AWS_CLOUDFRONT_HOST') ? 'aws' : 'storage',
     // Rewrite file URLs to bucket (s3 or cloudfront)
     'serve-from-s3' => true,
     // Use a custom domain (CNAME), not supported when using 'storage' Delivery Provider
-    'enable-delivery-domain' => !!env('DELIVERY_DOMAIN'),
+    'enable-delivery-domain' => !!env('AWS_CLOUDFRONT_HOST'),
     // Custom domain (CNAME), not supported when using 'storage' Delivery Provider
-    'delivery-domain' =>  env('DELIVERY_DOMAIN'),
+    'delivery-domain' =>  env('AWS_CLOUDFRONT_HOST'),
     // Enable signed URLs for Delivery Provider that uses separate key pair (currently only 'aws' supported, a.k.a. CloudFront)
     // 'enable-signed-urls' => false,
     // Access Key ID for signed URLs (aws only, replace '*')
@@ -45,7 +45,7 @@ $as3_settings = array(
     // Private Prefix for signed URLs (aws only, relative directory, no wildcards)
     // 'signed-urls-object-prefix' => 'private/',
     // Serve files over HTTPS
-    'force-https' => !!env('DELIVERY_DOMAIN'),
+    'force-https' => !!env('AWS_CLOUDFRONT_HOST'),
     // Remove the local file version once offloaded to bucket
     'remove-local-file' => true,
     // Access Control List for the bucket
@@ -64,6 +64,8 @@ if (env('AWS_ACCESS_KEY_ID') && env('AWS_SECRET_ACCESS_KEY')) {
     ]);
 }
 
-Config::define('S3_CUSTOM_DOMAIN', env('S3_CUSTOM_DOMAIN') ?? '');
+
+Config::define('AS3CFPRO_LICENCE', env('AS3CF_PRO_LICENCE') ?? '');
+Config::define('AWS_S3_CUSTOM_HOST', env('AWS_S3_CUSTOM_HOST') ?? '');
 
 Config::define('AS3CF_SETTINGS', serialize($as3_settings));

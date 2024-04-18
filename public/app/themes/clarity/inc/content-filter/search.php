@@ -75,55 +75,83 @@ function load_events_filter_results()
     die();
 }
 
+function get_args() {
+    $oAgency = new Agency();
+    $activeAgency = $oAgency->getCurrentAgency();
+    $post_per_page = 10;
+
+    $valueSelected = isset($_POST['valueSelected']) ? sanitize_text_field($_POST['valueSelected']) : ''; 
+    $before = '';
+    $after = '';
+
+    if ($valueSelected) {
+        preg_match('/&after=([^&]*)&before=([^&]*)/', $valueSelected, $matches);
+        $after = date('Y-m-d', strtotime($matches[1]));
+        $before = date('Y-m-d', strtotime($matches[2]));
+    }
+
+    $nextPageToRetrieve = isset($_POST['nextPageToRetrieve']) ?  sanitize_text_field($_POST['nextPageToRetrieve']) : '';
+    $offset = $nextPageToRetrieve ? (($nextPageToRetrieve - 1) * $post_per_page) : 0;
+
+    $postType = isset($_POST['postType']) ? sanitize_text_field($_POST['postType']) : '';
+    $newsCategoryValue = isset($_POST['newsCategoryValue']) ?  sanitize_text_field($_POST['newsCategoryValue']) : '';
+    $newsCategory_ID = $newsCategoryValue ? $newsCategoryValue : '';
+    
+    $query = isset($_POST['query']) ?  sanitize_text_field($_POST['query']) : '';
+
+    $regional = $postType === 'regional_news' ? true : false;
+
+    $args = [
+        'numberposts' => $post_per_page,
+        'post_type' => $postType === 'posts' ? 'post' : $postType,
+        'post_status' => 'publish',
+        'offset' => $offset,
+        's' => $query,
+        'date_query' => [
+          'after' => $after,
+          'before' => $before,
+          'inclusive' => false,  
+        ],
+        'tax_query' => [
+          'relation' => 'AND',
+          [
+            'taxonomy' => 'agency',
+            'field' => 'term_id',
+            'terms' => $activeAgency['wp_tag_id']
+          ],
+          // If the region is set add its ID to the taxonomy query
+          ...( $regional ? [
+            'taxonomy' => 'region',
+            'field' => 'region_id',
+            'terms' =>  $newsCategory_ID,
+          ] : []),
+          // If the news category is set add its ID unless the query is regional, as it will have already been added to the tax query
+          ...( $newsCategory_ID && !$regional ? [
+            'taxonomy' => 'news_category',
+            'field' => 'category_id',
+            'terms' =>  $newsCategory_ID,
+          ] : []),
+      ]
+      ];
+
+      return $args;
+}
+
 add_action('wp_ajax_load_search_results', 'load_search_results');
 add_action('wp_ajax_nopriv_load_search_results', 'load_search_results');
 
 function load_search_results()
 {
-
     if (!wp_verify_nonce($_POST['nonce_hash'], 'search_filter_nonce')) {
         exit('Access not allowed.');
     }
 
-    $query = sanitize_text_field($_POST['query']);
-    $valueSelected = sanitize_text_field($_POST['valueSelected']);
-    $postType = sanitize_text_field($_POST['postType']);
+    $postType = isset($_POST['postType']) ? sanitize_text_field($_POST['postType']) : '';
+    $posts = get_posts(get_args());
 
-    if (isset($_POST['newsCategoryValue'])) {
-        $newsCategory_ID = sanitize_text_field($_POST['newsCategoryValue']);
-    }
-
-    $oAgency = new Agency();
-    $activeAgency = $oAgency->getCurrentAgency();
-
-    $post_per_page = 'per_page=10';
-    $search = (!empty($query) ? '&search=' . $query : '');
-    $agency_name = '&agency=' . $activeAgency['wp_tag_id'];
-    if ($postType === 'regional_news') {
-        $news_category_name = (!empty($newsCategory_ID) ? '&region=' . $newsCategory_ID : '');
-    } else {
-        $news_category_name = (!empty($newsCategory_ID) ? '&news_category=' . $newsCategory_ID : '');
-    }
-
-    /*
-    * A temporary measure so that API calls do not get blocked by
-    * changing IPs not whitelisted. All calls are within container.
-    */
-    $siteurl = 'http://127.0.0.1';
-
-    $response = wp_remote_get($siteurl . '/wp-json/wp/v2/' . $postType . '/?' . $post_per_page . $agency_name . $valueSelected . $search . $news_category_name);
-
-    $post_total = wp_remote_retrieve_header($response, 'x-wp-total');
-    $posts = json_decode(wp_remote_retrieve_body($response), true);
-
-    $response_code = wp_remote_retrieve_response_code($response);
-    $response_message = wp_remote_retrieve_response_message($response);
-
-    if (200 == $response_code && $response_message == 'OK') {
-        echo '<div class="data-type" data-type="' . $postType . '"></div>';
-        foreach ($posts as $key => $post) {
-            include locate_template('src/components/c-article-item/view-news-feed.php');
-        }
+    echo '<div class="data-type" data-type="' . $postType . '"></div>';
+    foreach ($posts as $key => $post) {
+        include locate_template('src/components/c-article-item/view-news-feed.php');
     }
     die();
 }
@@ -137,45 +165,12 @@ function load_next_results()
         exit('Access not allowed.');
     }
 
-    $nextPageToRetrieve = sanitize_text_field($_POST['nextPageToRetrieve']);
-    $query = sanitize_text_field($_POST['query']);
-    $valueSelected = sanitize_text_field($_POST['valueSelected']);
-    $postType = sanitize_text_field($_POST['postType']);
+    $postType = isset($_POST['postType']) ? sanitize_text_field($_POST['postType']) : '';
+    $posts = get_posts(get_args());
 
-    if (isset($_POST['newsCategoryValue'])) {
-        $newsCategory_ID = sanitize_text_field($_POST['newsCategoryValue']);
-    }
-
-    $oAgency = new Agency();
-    $activeAgency = $oAgency->getCurrentAgency();
-
-    $post_per_page = 'per_page=10';
-    $current_page = '&page=' . $nextPageToRetrieve;
-
-    $search = (!empty($query) ? '&search=' . $query : '');
-    $agency_name = '&agency=' . $activeAgency['wp_tag_id'];
-    $news_category_name = (!empty($newsCategory_ID) ? '&news_category=' . $newsCategory_ID : '');
-
-    /*
-    * A temporary measure so that API calls do not get blocked by
-    * changing IPs not whitelisted. All calls are within container.
-    */
-    $siteurl = 'http://127.0.0.1';
-
-    $response = wp_remote_get($siteurl . '/wp-json/wp/v2/' . $postType . '/?' . $post_per_page . $current_page . $agency_name . $valueSelected . $search . $news_category_name);
-
-    $pagetotal = wp_remote_retrieve_header($response, 'x-wp-totalpages');
-
-    $posts = json_decode(wp_remote_retrieve_body($response), true);
-
-    $response_code = wp_remote_retrieve_response_code($response);
-    $response_message = wp_remote_retrieve_response_message($response);
-
-    if (200 == $response_code && $response_message == 'OK') {
-        echo '<div class="data-type" data-type="' . $postType . '"></div>';
-        foreach ($posts as $key => $post) {
-            include locate_template('src/components/c-article-item/view-news-feed.php');
-        }
+    echo '<div class="data-type" data-type="' . $postType . '"></div>';
+    foreach ($posts as $key => $post) {
+      include locate_template('src/components/c-article-item/view-news-feed.php');
     }
     die();
 }
@@ -189,33 +184,11 @@ function load_search_results_total()
         exit('Access not allowed.');
     }
 
-    $query = $_POST['query'];
-    $valueSelected = $_POST['valueSelected'];
-    $postType = $_POST['postType'];
-
-    if (isset($newsCategory_ID)) {
-        $newsCategory_ID = $_POST['newsCategoryValue'];
-    }
-
-    $oAgency = new Agency();
-    $activeAgency = $oAgency->getCurrentAgency();
-
-    $post_per_page = 'per_page=10';
-    $search = (!empty($query) ? '&search=' . $query : '');
-    $agency_name = '&agency=' . $activeAgency['wp_tag_id'];
-    $news_category_name = (!empty($newsCategory_ID) ? '&news_category=' . $newsCategory_ID : '');
-
-    /*
-    * A temporary measure so that API calls do not get blocked by
-    * changing IPs not whitelisted. All calls are within container.
-    */
-    $siteurl = 'http://127.0.0.1';
-
-    $response = wp_remote_get($siteurl . '/wp-json/wp/v2/' . $postType . '/?' . $post_per_page . $agency_name . $valueSelected . $search . $news_category_name);
-    $post_total = wp_remote_retrieve_header($response, 'x-wp-total');
+    $query = new WP_Query(get_args());
+    $post_total = $query->found_posts;
 
     echo $post_total . ' search results';
-
+    wp_reset_postdata();
     die();
 }
 
@@ -229,57 +202,28 @@ function load_page_total()
     }
 
     $nextPageToRetrieve = sanitize_text_field($_POST['nextPageToRetrieve']);
-    $query = sanitize_text_field($_POST['query']);
     $valueSelected = sanitize_text_field($_POST['valueSelected']);
-    $postType = sanitize_text_field($_POST['postType']);
 
-    if (isset($_POST['newsCategoryValue'])) {
-        $newsCategory_ID = sanitize_text_field($_POST['newsCategoryValue']);
-    }
+    $args = get_args();
 
-    $oAgency = new Agency();
-    $activeAgency = $oAgency->getCurrentAgency();
+    $query = new WP_Query($args);
+    $pagetotal = $query->max_num_pages;
 
-    $post_per_page = 'per_page=10';
-    $current_page = '&page=' . $nextPageToRetrieve;
-    $search = '&search=' . $query;
-    $agency_name = '&agency=' . $activeAgency['wp_tag_id'];
-    $news_category_name = (!empty($newsCategory_ID) ? '&news_category=' . $newsCategory_ID : '');
-
-    /*
-    * A temporary measure so that API calls do not get blocked by
-    * changing IPs not whitelisted. All calls are within container.
-    */
-    $siteurl = 'http://127.0.0.1';
-
-    $response = wp_remote_get($siteurl . '/wp-json/wp/v2/' . $postType . '/?' . $post_per_page . $current_page . $agency_name . $valueSelected . $search . $news_category_name);
-
-    $pagetotal = wp_remote_retrieve_header($response, 'x-wp-totalpages');
-
-    $response_code = wp_remote_retrieve_response_code($response);
-    $response_message = wp_remote_retrieve_response_message($response);
-
-    if (200 != $response_code && !empty($response_message)) {
+    if ($nextPageToRetrieve == $pagetotal) {
         echo '<span class="nomore-btn" data-date="' . $valueSelected . '">';
-        echo '<span class="c-pagination__main">No Results</span>';
+        echo '<span class="c-pagination__main">No More Results</span>';
         echo '</span>';
+    } elseif ($pagetotal <= 1) {
+        echo '<button class="more-btn" data-page="' . $nextPageToRetrieve . '" data-date="' . $valueSelected . '">';
+        echo '<span class="c-pagination__main">No More Results</span>';
+        echo '<span class="c-pagination__count"> ' . $nextPageToRetrieve . ' of 1</span>';
+        echo '</button>';
     } else {
-        if ($nextPageToRetrieve == $pagetotal) {
-            echo '<span class="nomore-btn" data-date="' . $valueSelected . '">';
-            echo '<span class="c-pagination__main">No More Results</span>';
-            echo '</span>';
-        } elseif ($pagetotal <= 1) {
-            echo '<button class="more-btn" data-page="' . $nextPageToRetrieve . '" data-date="' . $valueSelected . '">';
-            echo '<span class="c-pagination__main">No More Results</span>';
-            echo '<span class="c-pagination__count"> ' . $nextPageToRetrieve . ' of 1</span>';
-            echo '</button>';
-        } else {
-            echo '<button class="more-btn" data-page="' . $nextPageToRetrieve . '" data-date="' . $valueSelected . '">';
-            echo '<span class="c-pagination__main"><span class="u-icon u-icon--circle-down"></span> Load Next 10 Results</span>';
-            echo '<span class="c-pagination__count"> ' . $nextPageToRetrieve . ' of ' . $pagetotal . '</span>';
-            echo '</button>';
-        }
+        echo '<button class="more-btn" data-page="' . $nextPageToRetrieve . '" data-date="' . $valueSelected . '">';
+        echo '<span class="c-pagination__main"><span class="u-icon u-icon--circle-down"></span> Load Next 10 Results</span>';
+        echo '<span class="c-pagination__count"> ' . $nextPageToRetrieve . ' of ' . $pagetotal . '</span>';
+        echo '</button>';
     }
-
+    wp_reset_postdata();
     die();
 }

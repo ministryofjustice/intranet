@@ -13,7 +13,6 @@ if(!empty($_SERVER['REMOTE_ADDR'])) {
     echo 'Your IP address is: ' . $_SERVER['REMOTE_ADDR'];
 }
 
-
 # output all settings concerning the PHP installation
 phpinfo();
 

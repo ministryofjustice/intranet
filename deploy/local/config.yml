@@ -7,6 +7,7 @@ data:
   WP_HOME: 'http://justice.local'
   WP_SITEURL: 'http://justice.local/wp'
   SENTRY_DEV_ID: '-damien-local-kube'
+  NGINX_SERVICE_PORT: "http://localhost:8080"
 
   # Composer auth
   COMPOSER_USER: 'circleci'
