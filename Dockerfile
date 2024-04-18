@@ -193,7 +193,7 @@ COPY --from=build-fpm-composer /var/www/html/vendor-assets ./
 
 # Grab assets for Nginx
 COPY --from=assets-build --chown=nginx:nginx /node/dist public/app/themes/clarity/dist/
-COPY --from=assets-build --chown=nginx:nginx /node/ public/app/themes/clarity/error-pages/
+COPY --from=assets-build --chown=nginx:nginx /node/error-pages public/app/themes/clarity/error-pages/
 COPY --from=assets-build --chown=nginx:nginx /node/style.css public/app/themes/clarity/style.css
 
 
