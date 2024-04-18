@@ -14,6 +14,7 @@ public/app/debug.log
 public/app/plugins/*
 public/app/db.php
 public/app/mu-plugins/*/
+!public/app/mu-plugins/moj-auth/
 public/app/upgrade
 public/app/languages/*
 public/app/uploads/*

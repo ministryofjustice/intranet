@@ -113,10 +113,10 @@ class AmazonS3AndCloudFrontSigning
 
         // Derive public key from private key. It should be in the standard format (with a single newline at the end).
         $public_key_formatted = openssl_pkey_get_details($private_key)['key'];
-        
+
         // Decode the JSON string to an array.
         $cloudfront_public_key_object = json_decode($_ENV['AWS_CLOUDFRONT_PUBLIC_KEYS_OBJECT'], true);
-        
+
         // If the public key is not found, throw an exception.
         if (empty($cloudfront_public_key_object)) {
             throw new \Exception('AWS_CLOUDFRONT_PUBLIC_KEYS_OBJECT was not found');
@@ -129,7 +129,7 @@ class AmazonS3AndCloudFrontSigning
         $public_key_short = substr($public_key_sha256, 0, 8);
 
         // Find the matching array entry for the public key.
-        $public_key_id_and_comment = array_filter($cloudfront_public_key_object, fn ($key) =>  $key['comment'] === $public_key_short && !empty($key['id']) );
+        $public_key_id_and_comment = array_filter($cloudfront_public_key_object, fn ($key) =>  $key['comment'] === $public_key_short && !empty($key['id']));
 
         // If the public key is not found, throw an exception.
         if (empty($public_key_id_and_comment)) {
@@ -151,6 +151,7 @@ class AmazonS3AndCloudFrontSigning
 
     public function createSignedCookie(string $url)
     {
+
         // Expire Time - this is for the policy. It's not the cookie expiry, i.e. when it's removed from the browser.
         $expiry = $this->now + $this::CLOUDFRONT_DURATION;
 
@@ -243,6 +244,33 @@ class AmazonS3AndCloudFrontSigning
         foreach (($cached_cookies ?: $generated_cookies) as $name => $value) {
             // error_log(sprintf('Set-Cookie: %s=%s; %s', $name, $value, $cloudfront_cookie_params_string));
             header(sprintf('Set-Cookie: %s=%s; %s', $name, $value, $cloudfront_cookie_params_string), false);
+        }
+    }
+
+    /**
+     * Revoke the CloudFront cookies.
+     * 
+     * Delete the cookies from the user's browser.
+     * 
+     * @return void
+     */
+
+    public function revoke(): void
+    {
+        // Properties for the cookies.
+        $cloudfront_cookie_params = [
+            'path=/',
+            'HttpOnly',
+            'Domain=' . $this->cloudfront_cookie_domain,
+            'SameSite=Strict',
+            'Expires=' . gmdate('D, d M Y H:i:s T', 0),
+            ...($this->is_dev ? [] : ['Secure']),
+        ];
+        $cloudfront_cookie_params_string = implode('; ', $cloudfront_cookie_params);
+
+        // Delete the cookies.
+        foreach (['CloudFront-Key-Pair-Id', 'CloudFront-Policy', 'CloudFront-Signature'] as $name) {
+            header(sprintf('Set-Cookie: %s=; %s', $name, $cloudfront_cookie_params_string), false);
         }
     }
 }
