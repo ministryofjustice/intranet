@@ -17,7 +17,7 @@ trait AuthOauth
 {
 
     private $oauth_enabled    = true;
-    private $oauth_tennant_id = '';
+    private $oauth_tenant_id = '';
     private $oauth_authority  = '';
     private $oauth_app_id     = '';
     private $oauth_app_secret = '';
@@ -35,15 +35,15 @@ trait AuthOauth
         $this->log('initOauth()');
 
         // Check for required environment variables. OAuth can be disable by not setting these.
-        $this->oauth_enabled = !empty($_ENV['OAUTH_TENNANT_ID']) && !empty($_ENV['OAUTH_CLIENT_ID']) && !empty($_ENV['OAUTH_CLIENT_SECRET']);
+        $this->oauth_enabled = !empty($_ENV['OAUTH_TENANT_ID']) && !empty($_ENV['OAUTH_CLIENT_ID']) && !empty($_ENV['OAUTH_CLIENT_SECRET']);
 
         if (!$this->oauth_enabled) {
             $this->log('Missing OAuth environment variables');
             return;
         }
 
-        $this->oauth_tennant_id = $_ENV['OAUTH_TENNANT_ID'];
-        $this->oauth_authority  = 'https://login.microsoftonline.com/' . $this->oauth_tennant_id;
+        $this->oauth_tenant_id = $_ENV['OAUTH_TENANT_ID'];
+        $this->oauth_authority  = 'https://login.microsoftonline.com/' . $this->oauth_tenant_id;
         $this->oauth_app_id     = $_ENV['OAUTH_CLIENT_ID'];
         $this->oauth_app_secret = $_ENV['OAUTH_CLIENT_SECRET'];
         $this->oauth_scopes     = [
