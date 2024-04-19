@@ -133,7 +133,7 @@ class Auth
             $this->log('Refreshed access token is valid. Will set JWT and store refresh token.');
             // Set a JWT cookie.
             $jwt = $this->setJwt([
-                'expiry' => $oauth_access_token->getExpires(),
+                'expiry' => $oauth_refreshed_access_token->getExpires(),
                 'roles'  => ['reader']
             ]);
             // Store the tokens.
