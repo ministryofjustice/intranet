@@ -66,6 +66,8 @@ USER 101
 
 FROM base-fpm AS fpm-dev
 
+WORKDIR /var/www/html
+
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 VOLUME ["/sock"]
