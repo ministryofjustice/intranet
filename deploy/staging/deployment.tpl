@@ -45,11 +45,6 @@ spec:
                 secretKeyRef:
                   name: s3-bucket-output
                   key: bucket_name
-            - name: AWS_CLOUDFRONT_HOST
-              valueFrom:
-                secretKeyRef:
-                  name: cloudfront-output
-                  key: cloudfront_url
             - name: DB_HOST
               valueFrom:
                 secretKeyRef:

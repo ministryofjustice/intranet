@@ -19,7 +19,7 @@ class AmazonS3AndCloudFrontSigning
 {
 
     private $now = null;
-    private $is_dev = false;
+    private $https = true;
 
     private $cloudfront_cookie_domain = '';
     private $cloudfront_private_key = '';
@@ -33,12 +33,12 @@ class AmazonS3AndCloudFrontSigning
     public function __construct()
     {
         $this->now = time();
-        $this->is_dev = $_ENV['WP_ENV'] === 'development';
+        $this->https = isset($_SERVER['HTTPS']) || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && 'https' === $_SERVER['HTTP_X_FORWARDED_PROTO']);
 
         // Cookie domain is important for sharing a cookie with a subdomain.
         $this->cloudfront_cookie_domain = preg_replace('/https?:\/\//', '', $_ENV['WP_HOME']);
         $this->cloudfront_private_key = $_ENV['AWS_CLOUDFRONT_PRIVATE_KEY'];
-        $this->cloudfront_url =  'http' . $this->is_dev ? '' : 's' . ' ://' . $_ENV['AWS_CLOUDFRONT_HOST'];
+        $this->cloudfront_url =  'http' . ($this->https ? 's' : '') . '://' . $_ENV['AWS_CLOUDFRONT_HOST'];
 
         // Clear AWS_CLOUDFRONT_PRIVATE_KEY from $_ENV global. It's not required elsewhere in the app.
         unset($_ENV['AWS_CLOUDFRONT_PRIVATE_KEY']);
@@ -151,7 +151,6 @@ class AmazonS3AndCloudFrontSigning
 
     public function createSignedCookie(string $url)
     {
-
         // Expire Time - this is for the policy. It's not the cookie expiry, i.e. when it's removed from the browser.
         $expiry = $this->now + $this::CLOUDFRONT_DURATION;
 
@@ -236,7 +235,7 @@ class AmazonS3AndCloudFrontSigning
             'HttpOnly',
             'Domain=' . $this->cloudfront_cookie_domain,
             'SameSite=Strict',
-            ...($this->is_dev ? [] : ['Secure']),
+            ...($this->https ? ['Secure'] : []),
         ];
         $cloudfront_cookie_params_string = implode('; ', $cloudfront_cookie_params);
 
@@ -264,7 +263,7 @@ class AmazonS3AndCloudFrontSigning
             'Domain=' . $this->cloudfront_cookie_domain,
             'SameSite=Strict',
             'Expires=' . gmdate('D, d M Y H:i:s T', 0),
-            ...($this->is_dev ? [] : ['Secure']),
+            ...($this->https ? ['Secure'] : []),
         ];
         $cloudfront_cookie_params_string = implode('; ', $cloudfront_cookie_params);
 
