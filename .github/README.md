@@ -283,7 +283,7 @@ To verify that S3 & CloudFront are working correctly.
    - Name: `MOJ-Local-Intranet-v2`
    - Supported account types: `Accounts in this organizational directory only`
    - Redirect URI: `Web` and `http://localhost/oauth2?action=callback`  
-     or `https://dev-intranet.apps.live.cloud-platform.service.justice.gov.uk/oauth2?action=callback` etc.
+     or `https://dev.intranet.justice.gov.uk/oauth2?action=callback` etc.
 6. Copy the `Application (client) ID` and `Directory (tenant) ID` values,
   make them available as environment variables `OAUTH_CLIENT_ID`, `OAUTH_TENNANT_ID`.
 7. Click on `Certificates & secrets` > `New client secret`.
