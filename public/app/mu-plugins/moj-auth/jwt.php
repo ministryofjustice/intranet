@@ -55,8 +55,10 @@ trait AuthJwt
         try {
             $decoded = JWT::decode($jwt, new Key($this->jwt_secret, $this::JWT_ALGORITHM));
         } catch (\Exception $e) {
-            \Sentry\captureException($e);
-            $this->error($e->getMessage());
+            if($e->getMessage() !== 'Expired token') {
+                \Sentry\captureException($e);
+            }
+            $this->log($e->getMessage());
             return false;
         }
 
