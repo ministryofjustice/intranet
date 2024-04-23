@@ -32,6 +32,7 @@ jobs:
 
       - name: "Build & Push to ECR"
         run: |
+          
           # ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
                
           docker image build -t $REGISTRY/$REPOSITORY:fpm-$IMAGE_TAG \
@@ -54,6 +55,7 @@ jobs:
           docker push $REGISTRY/$REPOSITORY:cron-$IMAGE_TAG
           
           # ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
+
         env:
           REGISTRY: ${{ steps.ecr-login.outputs.registry }}
           REPOSITORY: ${{ vars.ECR_REPOSITORY }}
