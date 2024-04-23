@@ -4,30 +4,30 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d08066b7cb591092462dcf090d0e47ae",
+    "content-hash": "6bd7d8c14bbf98d807ff1a392fec2251",
     "packages": [
         {
             "name": "acf/advanced-custom-fields-pro",
-            "version": "6.1.6",
+            "version": "6.2.9",
             "dist": {
                 "type": "zip",
-                "url": "https://composer.wp.dsd.io/dist/acf/advanced-custom-fields-pro/acf-advanced-custom-fields-pro-6.1.6.zip",
-                "shasum": "113871a5221f02295cbc89b3d233237ff4a334fe"
+                "url": "https://composer.wp.dsd.io/dist/acf/advanced-custom-fields-pro/acf-advanced-custom-fields-pro-6.2.9.zip",
+                "shasum": "0bff7e6576ca319573e8671d507650f263f9a35f"
             },
             "type": "wordpress-plugin"
         },
         {
             "name": "alphagov/notifications-php-client",
-            "version": "5.0.0",
+            "version": "6.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/alphagov/notifications-php-client.git",
-                "reference": "3dbe415415b52c07a986559aae5152481df90213"
+                "reference": "ffa3cefd063ec951c55ea612ebb11c32454a54dd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/alphagov/notifications-php-client/zipball/3dbe415415b52c07a986559aae5152481df90213",
-                "reference": "3dbe415415b52c07a986559aae5152481df90213",
+                "url": "https://api.github.com/repos/alphagov/notifications-php-client/zipball/ffa3cefd063ec951c55ea612ebb11c32454a54dd",
+                "reference": "ffa3cefd063ec951c55ea612ebb11c32454a54dd",
                 "shasum": ""
             },
             "require": {
@@ -65,9 +65,9 @@
             "description": "PHP client for GOV.UK Notifications",
             "support": {
                 "issues": "https://github.com/alphagov/notifications-php-client/issues",
-                "source": "https://github.com/alphagov/notifications-php-client/tree/5.0.0"
+                "source": "https://github.com/alphagov/notifications-php-client/tree/6.0.0"
             },
-            "time": "2022-12-16T11:40:31+00:00"
+            "time": "2024-01-04T12:29:59+00:00"
         },
         {
             "name": "aws/aws-crt-php",
@@ -125,16 +125,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.303.2",
+            "version": "3.305.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "c087819351de027791d830ffc7f45195488ae988"
+                "reference": "6992342acf7dd4501163c6cddabe76c74f2020ad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/c087819351de027791d830ffc7f45195488ae988",
-                "reference": "c087819351de027791d830ffc7f45195488ae988",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/6992342acf7dd4501163c6cddabe76c74f2020ad",
+                "reference": "6992342acf7dd4501163c6cddabe76c74f2020ad",
                 "shasum": ""
             },
             "require": {
@@ -214,9 +214,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.303.2"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.305.0"
             },
-            "time": "2024-04-03T18:08:21+00:00"
+            "time": "2024-04-22T18:07:07+00:00"
         },
         {
             "name": "composer/installers",
@@ -441,6 +441,36 @@
                 }
             ],
             "time": "2022-01-17T14:14:24+00:00"
+        },
+        {
+            "name": "deliciousbrains-plugin/wp-offload-media",
+            "version": "3.2.7",
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.deliciousbrains.com/?wc-api=delicious-brains&request=composer_download&package=wp-offload-media&version=3.2.7"
+            },
+            "require": {
+                "composer/installers": "~1.0 || ~2.0"
+            },
+            "type": "wordpress-plugin",
+            "extra": {
+                "installer-name": "amazon-s3-and-cloudfront-pro"
+            }
+        },
+        {
+            "name": "deliciousbrains-plugin/wp-offload-media-assets-pull",
+            "version": "1.1.2",
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.deliciousbrains.com/?wc-api=delicious-brains&request=composer_download&package=wp-offload-media-assets-pull&version=1.1.2"
+            },
+            "require": {
+                "composer/installers": "~1.0 || ~2.0"
+            },
+            "type": "wordpress-plugin",
+            "extra": {
+                "installer-name": "amazon-s3-and-cloudfront-assets-pull"
+            }
         },
         {
             "name": "firebase/php-jwt",
@@ -949,10 +979,10 @@
         },
         {
             "name": "koodimonni-language/core-en_gb",
-            "version": "6.5",
+            "version": "6.5.2",
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/translation/core/6.5/en_GB.zip"
+                "url": "https://downloads.wordpress.org/translation/core/6.5.2/en_GB.zip"
             },
             "require": {
                 "koodimonni/composer-dropin-installer": ">=0.2.3"
@@ -2126,7 +2156,7 @@
         },
         {
             "name": "roots/wordpress",
-            "version": "6.5",
+            "version": "6.5.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/roots/wordpress.git",
@@ -2157,7 +2187,7 @@
             ],
             "support": {
                 "issues": "https://github.com/roots/wordpress/issues",
-                "source": "https://github.com/roots/wordpress/tree/6.5"
+                "source": "https://github.com/roots/wordpress/tree/6.5.2"
             },
             "funding": [
                 {
@@ -2240,22 +2270,22 @@
         },
         {
             "name": "roots/wordpress-no-content",
-            "version": "6.5",
+            "version": "6.5.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/WordPress/WordPress.git",
-                "reference": "6.5"
+                "reference": "6.5.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/release/wordpress-6.5-no-content.zip",
-                "shasum": "bc1bb88bbdedbea276cd09c13054765c532701db"
+                "url": "https://downloads.wordpress.org/release/wordpress-6.5.2-no-content.zip",
+                "shasum": "09a5fbf3d93546bc54e96ca27888b29bba906492"
             },
             "require": {
                 "php": ">= 7.0.0"
             },
             "provide": {
-                "wordpress/core-implementation": "6.5"
+                "wordpress/core-implementation": "6.5.2"
             },
             "suggest": {
                 "ext-curl": "Performs remote request operations.",
@@ -2306,7 +2336,7 @@
                     "type": "other"
                 }
             ],
-            "time": "2024-04-02T18:15:04+00:00"
+            "time": "2024-04-09T22:02:16+00:00"
         },
         {
             "name": "roots/wp-config",
@@ -2435,16 +2465,16 @@
         },
         {
             "name": "sentry/sentry",
-            "version": "4.6.1",
+            "version": "4.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/getsentry/sentry-php.git",
-                "reference": "5a94184175e5830b589bf923da8c9c3af2c0f409"
+                "reference": "d6769b2a5e6bf19ed3bbfbf52328ceaf8e6fcb1f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/getsentry/sentry-php/zipball/5a94184175e5830b589bf923da8c9c3af2c0f409",
-                "reference": "5a94184175e5830b589bf923da8c9c3af2c0f409",
+                "url": "https://api.github.com/repos/getsentry/sentry-php/zipball/d6769b2a5e6bf19ed3bbfbf52328ceaf8e6fcb1f",
+                "reference": "d6769b2a5e6bf19ed3bbfbf52328ceaf8e6fcb1f",
                 "shasum": ""
             },
             "require": {
@@ -2508,7 +2538,7 @@
             ],
             "support": {
                 "issues": "https://github.com/getsentry/sentry-php/issues",
-                "source": "https://github.com/getsentry/sentry-php/tree/4.6.1"
+                "source": "https://github.com/getsentry/sentry-php/tree/4.7.0"
             },
             "funding": [
                 {
@@ -2520,20 +2550,20 @@
                     "type": "custom"
                 }
             ],
-            "time": "2024-03-08T08:18:09+00:00"
+            "time": "2024-04-10T13:22:13+00:00"
         },
         {
             "name": "stayallive/wp-sentry",
-            "version": "v7.11.0",
+            "version": "v7.12.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stayallive/wp-sentry.git",
-                "reference": "9af54dbc272a4e915e8824cd431f1df585724bfc"
+                "reference": "d4716b108b6202abcdeb36e74900a570481b813a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stayallive/wp-sentry/zipball/9af54dbc272a4e915e8824cd431f1df585724bfc",
-                "reference": "9af54dbc272a4e915e8824cd431f1df585724bfc",
+                "url": "https://api.github.com/repos/stayallive/wp-sentry/zipball/d4716b108b6202abcdeb36e74900a570481b813a",
+                "reference": "d4716b108b6202abcdeb36e74900a570481b813a",
                 "shasum": ""
             },
             "require": {
@@ -2572,7 +2602,7 @@
                 "docs": "https://github.com/stayallive/wp-sentry#readme",
                 "forum": "https://github.com/stayallive/wp-sentry/discussions",
                 "issues": "https://github.com/stayallive/wp-sentry/issues",
-                "source": "https://github.com/stayallive/wp-sentry/tree/v7.11.0"
+                "source": "https://github.com/stayallive/wp-sentry/tree/v7.12.0"
             },
             "funding": [
                 {
@@ -2580,7 +2610,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-03-27T16:13:20+00:00"
+            "time": "2024-04-10T18:12:36+00:00"
         },
         {
             "name": "symfony/deprecation-contracts",
@@ -3040,24 +3070,6 @@
             "time": "2023-11-12T22:43:29+00:00"
         },
         {
-            "name": "wpackagist-plugin/amazon-s3-and-cloudfront",
-            "version": "3.2.7",
-            "source": {
-                "type": "svn",
-                "url": "https://plugins.svn.wordpress.org/amazon-s3-and-cloudfront/",
-                "reference": "tags/3.2.7"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/amazon-s3-and-cloudfront.3.2.7.zip"
-            },
-            "require": {
-                "composer/installers": "^1.0 || ^2.0"
-            },
-            "type": "wordpress-plugin",
-            "homepage": "https://wordpress.org/plugins/amazon-s3-and-cloudfront/"
-        },
-        {
             "name": "wpackagist-plugin/classic-editor",
             "version": "1.6.3",
             "source": {
@@ -3095,15 +3107,15 @@
         },
         {
             "name": "wpackagist-plugin/co-authors-plus",
-            "version": "3.5.15",
+            "version": "3.6.0",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/co-authors-plus/",
-                "reference": "tags/3.5.15"
+                "reference": "tags/3.6.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/co-authors-plus.3.5.15.zip"
+                "url": "https://downloads.wordpress.org/plugin/co-authors-plus.3.6.0.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -3185,15 +3197,15 @@
         },
         {
             "name": "wpackagist-plugin/query-monitor",
-            "version": "3.15.0",
+            "version": "3.16.2",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/query-monitor/",
-                "reference": "tags/3.15.0"
+                "reference": "tags/3.16.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/query-monitor.3.15.0.zip"
+                "url": "https://downloads.wordpress.org/plugin/query-monitor.3.16.2.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -3221,15 +3233,15 @@
         },
         {
             "name": "wpackagist-plugin/totalpoll-lite",
-            "version": "4.10.2",
+            "version": "4.10.3",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/totalpoll-lite/",
-                "reference": "tags/4.10.2"
+                "reference": "tags/4.10.3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/totalpoll-lite.4.10.2.zip"
+                "url": "https://downloads.wordpress.org/plugin/totalpoll-lite.4.10.3.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -3254,24 +3266,6 @@
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/wp-document-revisions/"
-        },
-        {
-            "name": "wpackagist-plugin/wp-migrate-db",
-            "version": "2.6.10",
-            "source": {
-                "type": "svn",
-                "url": "https://plugins.svn.wordpress.org/wp-migrate-db/",
-                "reference": "tags/2.6.10"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wp-migrate-db.2.6.10.zip"
-            },
-            "require": {
-                "composer/installers": "^1.0 || ^2.0"
-            },
-            "type": "wordpress-plugin",
-            "homepage": "https://wordpress.org/plugins/wp-migrate-db/"
         }
     ],
     "packages-dev": [
