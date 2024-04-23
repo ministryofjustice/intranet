@@ -18,8 +18,7 @@ public/app/mu-plugins/*/
 public/app/upgrade
 public/app/languages/*
 public/app/uploads/*
-vendor
-vendor-assets
+vendor*
 .dory.yml
 !deploy/config/local/.dory.yml
 auth.json

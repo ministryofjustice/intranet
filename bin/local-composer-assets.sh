@@ -4,6 +4,11 @@ source bin/composer-auth.sh
 
 if [ ! -d "./vendor" ]; then
   composer install
+
+  echo "Generating checksum..."
+  zip -r -f --quiet vendor ./vendor
+  sha1sum vendor.zip > vendor.sha1
+  echo "Done."
 fi
 
 if [ ! -d "./vendor-assets" ]; then

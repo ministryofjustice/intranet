@@ -66,6 +66,8 @@ USER 101
 
 FROM base-fpm AS fpm-dev
 
+RUN apk add zip
+
 WORKDIR /var/www/html
 
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
@@ -111,6 +113,8 @@ FROM base-fpm AS build-fpm-composer
 
 ARG COMPOSER_USER
 ARG COMPOSER_PASS
+ARG AS3CF_PRO_USER
+ARG AS3CF_PRO_PASS
 
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 

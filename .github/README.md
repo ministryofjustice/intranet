@@ -18,7 +18,7 @@ https://intranet.justice.gov.uk/
 
 ## Summary
 
-> Nb. `README.md` is located in `.github/`, the preferred location for a clean repository.
+> Nb. `README.md` is located in `.github/`
 
 
 ## Installation for development
@@ -28,7 +28,7 @@ The application uses Docker. This repository provides two separate local test en
 1. Docker Compose
 2. Kubernetes
 
-Where `docker compose` provides a pre-production environment to develop features and apply upgrades, Kubernetes allows
+Where `docker compose` provides a pre-production environment to apply upgrades and develop features, Kubernetes allows
 us to test and debug our deployments to the Cloud Platform.
 
 ### Setup
@@ -45,7 +45,11 @@ Change directories:
 cd intranet
 ```
 
-Next, depending on the environment you would like to launch, do one of the following.
+Next, depending on the environment you would like to launch, choose one of the following:
+
+- [Docker Compose](#1-docker-compose)
+- [Kubernetes](#2-kubernetes)
+
 
 ### 1. Docker Compose
 
@@ -58,7 +62,7 @@ This environment has been set up to develop and improve the application.
 
 The following make command will get you up and running.
 
-It creates the environment, starts all services and opens a command prompt on the container that houses our PHP code,
+It creates the environment and starts all services,
 the service is called `php-fpm`:
 
 ```bash
@@ -69,21 +73,15 @@ During the `make` process, the Dory proxy will attempt to install. You will be g
 
 ### Services
 
-You will have five services running with different access points. They are:
+You will have ten services running in total, all with different access points. They are:
 
 **Nginx**<br>
 http://intranet.docker/
 
-**PHP-FPM**<br>
+**PHP-FPM**
 
 ```bash
 make bash
-```
-
-On first use, the application will need initializing with the following command.
-
-```bash
-composer install
 ```
 
 **Node**<br>
@@ -102,10 +100,53 @@ Internally accessed by PHP-FPM on port 3306
 
 **PHPMyAdmin**<br>
 http://intranet.docker:9191/ <br>
-Login details located in `docker-compose.yml`
+Login information can be found in [.env](https://github.com/ministryofjustice/intranet/blob/develop/.env.example#L16)
+
+
+**Opensearch**
+
+We use this 
+
+**Opensearch Dashboard**
+
+Dashboards that allow us to query indexed data.
+
+**Minio**
+
+Minio acts just like an AWS S3 bucket. 
+
+**CDN**
+
+This service acts like a distributed CloudFront service allowing us to imitate a CDN.  
+
+**CRON**
+
+In production we have a scalable cron container. It's only job right now is to make a head request to `wp-cron.php`
+There is no need to access this container. However, with every running container you can reach the OS.
+
+```bash
+docker compose exec -it wp-cron ash
+```
+
+---
 
 > There is no need to install application software on your computer.<br>
-> All required software is built within the services and all services are ephemeral.
+> All required software is built within the services - all services are ephemeral.
+
+**Composer**
+
+We match the process that occurs in production CI locally to ensure we test against the same criteria.
+As such, during development it will be necessary to rebuild directories when updating composer.
+
+**After making changes to `composer.json`**...
+
+```bash
+make composer-update
+```
+
+This will fire off a set of checks, ensuring composer updates and all static assets are distributed correctly.
+For more information, review [Dockerfile](https://github.com/ministryofjustice/intranet/blob/develop/Dockerfile#L125) 
+and [local assets files](https://github.com/ministryofjustice/intranet/blob/develop/bin/local-composer-assets.sh#L10).
 
 #### Volumes
 
@@ -130,7 +171,7 @@ Once the above requirements have been met, we are able to launch our application
 command:
 
 ```bash
-make local-kube
+make kube
 ```
 
 The following will take place:

@@ -45,7 +45,7 @@ $as3_settings = array(
     // Private Prefix for signed URLs (aws only, relative directory, no wildcards)
     // 'signed-urls-object-prefix' => 'private/',
     // Serve files over HTTPS
-    'force-https' => !!env('AWS_CLOUDFRONT_HOST'),
+    'force-https' => (str_contains(env('WP_HOME'), 'justice.gov.uk')),
     // Remove the local file version once offloaded to bucket
     'remove-local-file' => true,
     // Access Control List for the bucket
