@@ -2,6 +2,7 @@
 // Mail Functions
 use Alphagov\Notifications\Client as Client;
 use Alphagov\Notifications\Exception\ApiException;
+use function Env\env;
 
 const CLARITY_MAIL_TEMPLATES = __DIR__ . "/mail-templates.php";
 
@@ -12,9 +13,9 @@ if (defined('SMTP_HOST') && SMTP_HOST !== "") {
 
 //remove site name from email subject
 add_filter('wp_mail', function ($attrs) {
-    $blogname = wp_specialchars_decode(get_option('blogname'), ENT_QUOTES);
-    $attrs['subject'] = str_replace("[" . $blogname . "] -", "", $attrs['subject']);
-    $attrs['subject'] = str_replace("[" . $blogname . "]", "", $attrs['subject']);
+    $blog_name = wp_specialchars_decode(get_option('blogname'), ENT_QUOTES);
+    $attrs['subject'] = str_replace("[" . $blog_name . "] -", "", $attrs['subject']);
+    $attrs['subject'] = str_replace("[" . $blog_name . "]", "", $attrs['subject']);
     $attrs['subject'] = trim($attrs['subject']);
     return $attrs;
 }, 2, 1);
@@ -47,13 +48,13 @@ function intranet_mail_template_default($templates, $attrs)
 add_filter('pre_wp_mail', function ($null, $mail) {
     // Things we'd like to find:
     $patterns = [
-        'api' => '/[a-f0-9]{8}\-[a-f0-9]{4}\-4[a-f0-9]{3}\-[a-f0-9]{4}\-[a-f0-9]{12}/',
+        'api' => '/[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[a-f0-9]{4}-[a-f0-9]{12}/',
         'sms' => '/((\+44(\s\(0\)\s|\s0\s|\s)?)|0)7\d{3}(\s)?\d{6}/' # matches UK mobile numbers
     ];
 
     // Don't short-circuit if the password doesn't look right
-    $maybe_api_key = env('SMTP_PASSWORD') ?? env('SMTP_PASS');
-    preg_match_all($patterns['api'], $maybe_api_key, $matches);
+    $notify_api_key = env('GOV_NOTIFY_API_KEY');
+    preg_match_all($patterns['api'], $notify_api_key, $matches);
     if (count($matches[0]) !== 2) {
         // hand back to wp_mail()
         return null;
@@ -61,7 +62,7 @@ add_filter('pre_wp_mail', function ($null, $mail) {
 
     // Set up Gov Notify client
     $client = new Client([
-        'apiKey' => $maybe_api_key,
+        'apiKey' => $notify_api_key,
         'httpClient' => new \Http\Adapter\Guzzle7\Client
     ]);
 
