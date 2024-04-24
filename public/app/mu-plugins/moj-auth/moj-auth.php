@@ -3,8 +3,11 @@
 /*
  * Plugin Name: MOJ Auth
  * Plugin URI: https://github.com/ministryofjustice/intranet
- * Description: Plugin for authentication for the Intranet. It is a mu-plugin, so that it runs early in the page loading process. For now, it requires `firebase/php-jwt` & `league/oauth2-client` packages to be installed at the project root.
+ * Description: Plugin for authentication for the Intranet. It is a mu-plugin, so that it runs early in the
+ * page loading process. For now, it requires `firebase/php-jwt` & `league/oauth2-client` packages to be
+ * installed at the project root.
  * Author: Ministry of Justice - central-digital-product-team@digital.justice.gov.uk
+ *
  * Version: 0.0.1
  */
 
@@ -153,8 +156,8 @@ class Auth
     /**
      * Log a user out.
      *
-     * There is currently no UI machanism for logging out. This is here for completeness.
-     * If it's used in the future it should used proceded with revoking CloudFront cookies.
+     * There is currently no UI mechanism for logging out. This is here for completeness.
+     * If it's used in the future it should used proceeded with revoking CloudFront cookies.
      * 
      * @return void
      */
@@ -166,4 +169,4 @@ class Auth
 }
 
 $auth = new Auth(['debug' => false]);
-$auth->handlePageRequest('reader');
+//$auth->handlePageRequest('reader');
