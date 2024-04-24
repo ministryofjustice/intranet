@@ -21,7 +21,7 @@ k8s_pod := kubectl -n $(k8s_nsp) get pod -l app=intranet-local -o jsonpath="{.it
 init: setup run
 
 d-compose: local-stop
-	docker compose up -d nginx phpmyadmin opensearch-dashboard wp-cron
+	docker compose up -d nginx phpmyadmin opensearch-dashboard wp-cron php-fpm
 
 d-shell: setup dory d-compose composer
 
@@ -128,7 +128,7 @@ key-gen:
 
 
 # ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
-
+#
 #   █▀█  █▀█  █▀█  █▀▄  █░█  █▀▀  ▀█▀  █  █▀█  █▄░█     █▀▄▀█  █▀█  █▀▀  █▄▀
 #   █▀▀  █▀▄  █▄█  █▄▀  █▄█  █▄▄  ░█░  █  █▄█  █░▀█     █░▀░█  █▄█  █▄▄  █░█
 ##  𝕂𝟠𝕊 𝕕𝕖𝕡𝕝𝕠𝕪𝕞𝕖𝕟𝕥
@@ -180,7 +180,7 @@ kube: local-kube-start clear cluster local-kube-build
 cluster:
 	@if [ "${kube}" != 'kind' ]; then \
   		echo "\n-->  Please, activate the kind cluster to assist in local app development on Kubernetes"; \
-		echo "-->  Amend the variable named kube on line 3 in Makefile to read 'kind' (without quotes)"; \
+		echo "-->  Amend the variable named 'kube' on line 14 in Makefile to read 'kind' (without quotes)"; \
 		echo "-->  ... or, install kind from scratch: https://kind.sigs.k8s.io/docs/user/quick-start/#installation \n"; sleep 8; \
 	fi
 	@if [ "${kube}" == 'kind' ]; then \
