@@ -25,6 +25,7 @@ services:
     links:
       - "cdn:cdn.${SERVER_NAME}"
       - "minio:minio.${SERVER_NAME}"
+      - "nginx:${SERVER_NAME}"
 
   nginx:
     container_name: intranet-nginx
@@ -44,7 +45,6 @@ services:
     ports:
       - "8080:8080"
     depends_on:
-      - php-fpm
       - node
 
   node:

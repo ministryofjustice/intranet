@@ -238,10 +238,13 @@ RUN chmod +x execute-wp-cron && \
     chmod +x cron-install && \
     chmod +x cron-start
 
-RUN cron-install
+RUN cron-install && rm ./cron-install
 
 RUN apk del dpkg
 
 USER 3001
+
+# Go home...
+WORKDIR /home/crooner
 
 ENTRYPOINT ["/bin/sh", "-c", "cron-start"]

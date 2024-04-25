@@ -2,6 +2,8 @@
 
 namespace DeliciousBrains\WP_Offload_Media\Tweaks;
 
+use Exception;
+
 /**
  * Amazon S3 and CloudFront - signing cookies.
  * 
@@ -44,6 +46,18 @@ class AmazonS3AndCloudFrontSigning
         unset($_ENV['AWS_CLOUDFRONT_PRIVATE_KEY']);
 
         $this->handlePageRequest();
+
+        add_filter('http_request_args', function($args){
+            $headers = $args['headers'] ?? false;
+            if ($headers) {
+                $user_agent = $headers['user-agent'] ?? false;
+                if ($user_agent === 'wp-offload-media') {
+                    $args['cookies'] = $this->createSignedCookie($this->cloudfront_url . '/*');
+                }
+            }
+
+            return $args;
+        }, 10, 1);
     }
 
 
@@ -87,7 +101,7 @@ class AmazonS3AndCloudFrontSigning
 
             preg_match('/"AWS:EpochTime":(\d+)}/', $policy, $matches);
             $remaining_time =  isset($matches[1]) ? $matches[1] - $this->now : 0;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             \Sentry\captureException($e);
             // TODO: possibly remove this error_log once we confirm that this way of capturing to Sentry is working.
             error_log($e->getMessage());
@@ -119,7 +133,7 @@ class AmazonS3AndCloudFrontSigning
 
         // If the public key is not found, throw an exception.
         if (empty($cloudfront_public_key_object)) {
-            throw new \Exception('AWS_CLOUDFRONT_PUBLIC_KEYS_OBJECT was not found');
+            throw new Exception('AWS_CLOUDFRONT_PUBLIC_KEYS_OBJECT was not found');
         }
 
         // Get the sha256 of the public key.
@@ -129,11 +143,11 @@ class AmazonS3AndCloudFrontSigning
         $public_key_short = substr($public_key_sha256, 0, 8);
 
         // Find the matching array entry for the public key.
-        $public_key_id_and_comment = array_filter($cloudfront_public_key_object, fn ($key) =>  $key['comment'] === $public_key_short && !empty($key['id']));
+        $public_key_id_and_comment = array_filter($cloudfront_public_key_object, fn ($key) => $key['key'] === $public_key_short && !empty($key['id']));
 
         // If the public key is not found, throw an exception.
         if (empty($public_key_id_and_comment)) {
-            throw new \Exception('CloudFront public key not found');
+            throw new Exception('CloudFront public key not found');
         }
 
         return $public_key_id_and_comment[0]['id'];
@@ -159,11 +173,11 @@ class AmazonS3AndCloudFrontSigning
         $key = openssl_get_privatekey($this->cloudfront_private_key);
 
         if (!$key) {
-            throw new \Exception('Failed to load private key!');
+            throw new Exception('Failed to load private key!');
         }
 
         if (!openssl_sign($json, $signed_policy, $key, OPENSSL_ALGO_SHA1)) {
-            throw new \Exception('Failed to sign policy: ' . openssl_error_string());
+            throw new Exception('Failed to sign policy: ' . openssl_error_string());
         }
 
         // TEMP - for testing
@@ -223,7 +237,7 @@ class AmazonS3AndCloudFrontSigning
                     $generated_cookies,
                     $this::TRANSIENT_DURATION
                 );
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
                 \Sentry\captureException($e);
                 error_log($e->getMessage());
             }
