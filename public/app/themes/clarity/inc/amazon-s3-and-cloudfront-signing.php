@@ -51,7 +51,7 @@ class AmazonS3AndCloudFrontSigning
             if ($args['headers'] ?? false) {
                 $user_agent = $args['headers']['user-agent'] ?? false;
                 if ($user_agent === 'wp-offload-media') {
-                    $args['headers']['Authorization'] = 'Basic ' . $_ENV['BASIC_AUTH'];
+                    $args['headers']['Authorization'] = 'Basic ' . base64_encode($_ENV['BASIC_AUTH']);
                 }
             }
             return $args;
