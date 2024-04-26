@@ -17,7 +17,7 @@
 #    ▄▄  ▄▄     █▀▀  █▀█  █▀▄▀█     ▄▄  ▄▄    #
 #    ░░  ░░     █▀░  █▀▀  █░▀░█     ░░  ░░    #
 
-FROM ministryofjustice/wordpress-base-fpm:latest AS base-fpm
+FROM ministryofjustice/wordpress-base-fpm:0.0.1 AS base-fpm
 
 # Make the Nginx user available in this container
 RUN addgroup -g 101 -S nginx; adduser -u 101 -S -D -G nginx nginx
