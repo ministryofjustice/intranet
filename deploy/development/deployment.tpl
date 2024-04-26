@@ -88,6 +88,11 @@ spec:
                 secretKeyRef:
                   name: central-digital-product-team-opensearch-proxy-url
                   key: proxy_url
+            - name: BASIC_AUTH
+              valueFrom:
+                secretKeyRef:
+                  name: intranet-basic-auth
+                  key: auth          
           envFrom:
             - configMapRef:
                 name: ${KUBE_NAMESPACE}
