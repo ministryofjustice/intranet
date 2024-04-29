@@ -56,7 +56,7 @@ class AmazonS3AndCloudFrontSigning
                     error_log(print_r($args, true));
                 }
                 elseif(0 === strpos( $url, home_url())) {
-                    $r['headers']['Authorization'] = 'Basic ' . base64_encode( $_ENV['BASIC_AUTH_USER'] . ':' . $_ENV['BASIC_AUTH_PASS'] );
+                    $args['headers']['Authorization'] = 'Basic ' . base64_encode( $_ENV['BASIC_AUTH_USER'] . ':' . $_ENV['BASIC_AUTH_PASS'] );
                     error_log('ua=other: ' . $url);
                     error_log(print_r($args, true));
                 }
