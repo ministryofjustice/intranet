@@ -17,6 +17,8 @@ stringData:
   SECURE_AUTH_SALT: "${SECURE_AUTH_SALT}"
   JWT_SECRET: "${JWT_SECRET}"
   OAUTH_CLIENT_SECRET: "${OAUTH_CLIENT_SECRET}"
+  BASIC_AUTH_USER: "${BASIC_AUTH_USER}"
+  BASIC_AUTH_PASS: "${BASIC_AUTH_PASS}"
 ---
 apiVersion: v1
 kind: Secret
@@ -34,11 +36,3 @@ type: Opaque
 data:
   AWS_CLOUDFRONT_PUBLIC_KEY: "${AWS_CLOUDFRONT_PUBLIC_KEY_BASE64}"
   # AWS_CLOUDFRONT_PUBLIC_KEY_EXPIRING: "${AWS_CLOUDFRONT_PUBLIC_KEY_EXPIRING_BASE64}"
----
-apiVersion: v1
-kind: Secret
-metadata:
-  name: basic-auth-secret
-type: Opaque
-data:
-  auth: "${BASIC_AUTH_BASE64}"
