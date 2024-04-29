@@ -55,7 +55,7 @@ class AmazonS3AndCloudFrontSigning
                     error_log('ua=offloadmedia: ' . $url);
                     error_log(print_r($args, true));
                 }
-                else {
+                elseif(0 === strpos( $url, home_url())) {
                     $args['headers']['Authorization'] = 'Basic ' . base64_encode($_ENV['BASIC_AUTH']);
                     error_log('ua=other: ' . $url);
                     error_log(print_r($args, true));
