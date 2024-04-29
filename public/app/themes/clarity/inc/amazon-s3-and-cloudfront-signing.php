@@ -58,7 +58,7 @@ class AmazonS3AndCloudFrontSigning
                 }
             }
             return $args;
-        }, 10, 1);
+        }, 10, 2);
     }
 
 
