@@ -53,12 +53,12 @@ class AmazonS3AndCloudFrontSigning
                 if ($user_agent === 'wp-offload-media') {
                     $args['cookies'] = $this->createSignedCookie($this->cloudfront_url . '/*');
                     error_log('ua=offloadmedia: ' . $url);
-                    error_log(var_dump($args));
+                    error_log(print_r($args, true));
                 }
                 else {
                     $args['headers']['Authorization'] = 'Basic ' . base64_encode($_ENV['BASIC_AUTH']);
                     error_log('ua=other: ' . $url);
-                    error_log(var_dump($args));
+                    error_log(print_r($args, true));
                 }
             }
             return $args;
