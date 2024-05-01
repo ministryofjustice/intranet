@@ -24,9 +24,6 @@ metadata:
         auth_basic off;
         return 301 https://raw.githubusercontent.com/ministryofjustice/security-guidance/main/contact/vulnerability-disclosure-security.txt;
       }
-      location = /wp/wp-cron.php {
-        auth_basic off;
-      }
 spec:
   ingressClassName: default
   tls:
