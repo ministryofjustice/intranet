@@ -36,9 +36,9 @@ jobs:
           # ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
                
           docker image build -t $REGISTRY/$REPOSITORY:fpm-$IMAGE_TAG \
-              --build-arg COMPOSER_USER="$COMPOSER_USER" --build-arg COMPOSER_PASS="$COMPOSER_PASS" \
-              --build-arg AS3CF_PRO_USER="$AS3CF_PRO_USER" --build-arg AS3CF_PRO_PASS="$AS3CF_PRO_PASS" \
-              --target build-fpm .
+            --build-arg COMPOSER_USER="$COMPOSER_USER" --build-arg COMPOSER_PASS="$COMPOSER_PASS" \
+            --build-arg AS3CF_PRO_USER="$AS3CF_PRO_USER" --build-arg AS3CF_PRO_PASS="$AS3CF_PRO_PASS" \
+            --target build-fpm .
           
           docker image build -t $REGISTRY/$REPOSITORY:nginx-$IMAGE_TAG \
             --build-arg COMPOSER_USER="$COMPOSER_USER" --build-arg COMPOSER_PASS="$COMPOSER_PASS" \
@@ -50,9 +50,9 @@ jobs:
         
           # ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
           
-          docker push $REGISTRY/$REPOSITORY:fpm-$IMAGE_TAG
-          docker push $REGISTRY/$REPOSITORY:nginx-$IMAGE_TAG
-          docker push $REGISTRY/$REPOSITORY:cron-$IMAGE_TAG
+          docker image push $REGISTRY/$REPOSITORY:fpm-$IMAGE_TAG
+          docker image push $REGISTRY/$REPOSITORY:nginx-$IMAGE_TAG
+          docker image push $REGISTRY/$REPOSITORY:cron-$IMAGE_TAG
           
           # ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
 
