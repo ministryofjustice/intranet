@@ -14,18 +14,24 @@ openssl genrsa -out /tmp/intranet_private_key.pem 2048
 openssl rsa -pubout -in /tmp/intranet_private_key.pem -out /tmp/intranet_public_key.pem
 
 AWS_CLOUDFRONT_PUBLIC_KEY=$(cat /tmp/intranet_public_key.pem)
-# Substring of public key starting at 72 chars and 8 chars long.
-AWS_CLOUDFRONT_PUBLIC_KEY_OBJECT="[{\"id\":\"GENERATED_BY_AWS\",\"key\":\"$(echo $AWS_CLOUDFRONT_PUBLIC_KEY | cut -c 72-79)\"}]"
+# First 8 chars of hash
+AWS_CLOUDFRONT_PUBLIC_KEY_SHORT_HASH="$(echo "$AWS_CLOUDFRONT_PUBLIC_KEY" | openssl dgst -binary -sha256 | xxd -p -c 32 | cut -c 1-8)"
+# Build the object, similar to terraform's output.
+AWS_CLOUDFRONT_PUBLIC_KEYS_OBJECT="[{\"id\":\"GENERATED_BY_AWS\",\"key\":\"$AWS_CLOUDFRONT_PUBLIC_KEY_SHORT_HASH\"}]"
 AWS_CLOUDFRONT_PRIVATE_KEY=$(cat /tmp/intranet_private_key.pem)
 
+# First 8 chars of hash
+echo "$AWS_CLOUDFRONT_PUBLIC_KEY" | openssl dgst -binary -sha256 | xxd -p -c 32 | cut -c 1-8
+
 echo "Keys copied to clipboard"
-echo -e "JWT_SECRET=\"$JWT_SECRET\"\n\nAWS_CLOUDFRONT_PUBLIC_KEY_OBJECT=$AWS_CLOUDFRONT_PUBLIC_KEY_OBJECT\n\nAWS_CLOUDFRONT_PUBLIC_KEY=\"$AWS_CLOUDFRONT_PUBLIC_KEY\"\n\nAWS_CLOUDFRONT_PRIVATE_KEY=\"$AWS_CLOUDFRONT_PRIVATE_KEY\"" | pbcopy
+echo -e "JWT_SECRET=\"$JWT_SECRET\"\n\nAWS_CLOUDFRONT_PUBLIC_KEYS_OBJECT=$AWS_CLOUDFRONT_PUBLIC_KEYS_OBJECT\n\nAWS_CLOUDFRONT_PUBLIC_KEY=\"$AWS_CLOUDFRONT_PUBLIC_KEY\"\n\nAWS_CLOUDFRONT_PRIVATE_KEY=\"$AWS_CLOUDFRONT_PRIVATE_KEY\"" | pbcopy
 
 # Clear the variables.
 unset JWT_SECRET
 unset AWS_CLOUDFRONT_PUBLIC_KEY
+unset AWS_CLOUDFRONT_PUBLIC_KEY_SHORT_HASH
 unset AWS_CLOUDFRONT_PRIVATE_KEY
-unset AWS_CLOUDFRONT_PUBLIC_KEY_OBJECT
+unset AWS_CLOUDFRONT_PUBLIC_KEYS_OBJECT
 
 echo "Deleting temporary key files"
 rm /tmp/intranet_private_key.pem /tmp/intranet_public_key.pem

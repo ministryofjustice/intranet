@@ -42,12 +42,6 @@ spec:
           image: ${ECR_URL}:${IMAGE_TAG_CRON}
           securityContext:
             runAsUser: 3001
-          env:
-            - name: NGINX_HOST
-              valueFrom:
-                configMapKeyRef:
-                  name: intranet-dev
-                  key: NGINX_HOST
 
         - name: fpm
           image: ${ECR_URL}:${IMAGE_TAG_FPM}
@@ -64,17 +58,11 @@ spec:
                 secretKeyRef:
                   name: s3-bucket-output
                   key: bucket_name
-            - name: AWS_CLOUDFRONT_HOST
+            - name: AWS_CLOUDFRONT_PUBLIC_KEYS_OBJECT
               valueFrom:
                 secretKeyRef:
                   name: cloudfront-output
-                  key: cloudfront_url
-            # Pending Cloud Platform team.
-            # - name: AWS_CLOUDFRONT_PUBLIC_KEY_OBJECT
-            #   valueFrom:
-            #     secretKeyRef:
-            #       name: cloudfront-output
-            #       key: cloudfront_public_key_ids
+                  key: cloudfront_public_keys
             - name: DB_HOST
               valueFrom:
                 secretKeyRef:
@@ -100,6 +88,11 @@ spec:
                 secretKeyRef:
                   name: central-digital-product-team-opensearch-proxy-url
                   key: proxy_url
+            - name: BASIC_AUTH
+              valueFrom:
+                secretKeyRef:
+                  name: intranet-basic-auth
+                  key: auth          
           envFrom:
             - configMapRef:
                 name: ${KUBE_NAMESPACE}

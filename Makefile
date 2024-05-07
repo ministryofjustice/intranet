@@ -1,19 +1,27 @@
 .DEFAULT_GOAL := d-shell
 
-## populate as needed for testing
-## ... never commit!
+##  █░█  ▄▀█  █▀█  █  ▄▀█  █▄▄  █░░  █▀▀  █▀
+##  ▀▄▀  █▀█  █▀▄  █  █▀█  █▄█  █▄▄  ██▄  ▄█
+##  populate as needed for testing
+##  ... never commit!
 COMPOSER_USER := ***
 COMPOSER_PASS := ***
+AS3CF_PRO_USER := ***
+AS3CF_PRO_PASS := ***
+
+# ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
 
 kube := kind
 k8s_prt := 8080:80
 k8s_nsp := default
 k8s_pod := kubectl -n $(k8s_nsp) get pod -l app=intranet-local -o jsonpath="{.items[0].metadata.name}"
 
+# ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
+
 init: setup run
 
 d-compose: local-stop
-	docker compose up -d nginx phpmyadmin opensearch-dashboard wp-cron
+	docker compose up -d nginx phpmyadmin opensearch-dashboard wp-cron php-fpm
 
 d-shell: setup dory d-compose composer
 
@@ -25,6 +33,10 @@ restart:
 	@docker compose down php-fpm
 	@make d-compose
 
+
+#   █▄░█  █▀█  █▀▄  █▀▀
+#   █░▀█  █▄█  █▄▀  ██▄
+
 node-assets:
 	npm install
 	npm run watch
@@ -32,6 +44,14 @@ node-assets:
 node-cdn:
 	npm install
 	npm run watch
+
+
+#   █▀▀  █▀█  █▀▄▀█  █▀█  █▀█  █▀  █▀▀  █▀█
+#   █▄▄  █▄█  █░▀░█  █▀▀  █▄█  ▄█  ██▄  █▀▄
+
+composer-update:
+	@docker compose exec php-fpm ./bin/local-composer-update.sh ash
+	@make composer
 
 composer-assets:
 	@chmod +x ./bin/local-composer-assets.sh
@@ -43,7 +63,10 @@ composer-copy:
 
 composer: composer-assets composer-copy
 
-# Open a bash shell on the running php container
+
+#   █▀  █░█  █▀▀  █░░  █░░
+#   ▄█  █▀█  ██▄  █▄▄  █▄▄
+#   𝕆𝕡𝕖𝕟 𝕒 𝕓𝕒𝕤𝕙 𝕤𝕙𝕖𝕝𝕝 𝕠𝕟 𝕥𝕙𝕖 𝕣𝕦𝕟𝕟𝕚𝕟𝕘 𝕡𝕙𝕡 𝕔𝕠𝕟𝕥𝕒𝕚𝕟𝕖𝕣
 bash:
 	docker compose exec php-fpm bash
 
@@ -55,6 +78,7 @@ bash-cron:
 
 node:
 	docker compose exec --workdir /node node bash
+
 
 # Remove ignored git files – e.g. composer dependencies and built theme assets
 # But keep .env file, .idea directory (PhpStorm config), and uploaded media files
@@ -70,7 +94,10 @@ deep-clean:
 docker-clean:
 	bin/local-docker-clean.sh
 
-# Run the application
+
+#   ▄▀█  █▀▀  ▀█▀  █  █▀█  █▄░█
+#   █▀█  █▄▄  ░█░  █  █▄█  █░▀█
+#   ℝ𝕦𝕟 𝕥𝕙𝕖 𝕒𝕡𝕡𝕝𝕚𝕔𝕒𝕥𝕚𝕠𝕟
 run: local-stop dory up
 
 up:
@@ -87,10 +114,6 @@ launch: local-stop dory
 dory:
 	@chmod +x ./bin/local-dory-check.sh && ./bin/local-dory-check.sh
 
-# Starts the application, includes the local-ssh container for migrations.
-migrate:
-	docker compose --profile local-ssh up
-
 # Run tests
 test:
 	composer test
@@ -104,39 +127,69 @@ key-gen:
 	@chmod +x ./bin/local-key-gen.sh && ./bin/local-key-gen.sh
 
 
-#####
-## Mock production, K8S deployment
-#####
+# ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
+#
+#   █▀█  █▀█  █▀█  █▀▄  █░█  █▀▀  ▀█▀  █  █▀█  █▄░█     █▀▄▀█  █▀█  █▀▀  █▄▀
+#   █▀▀  █▀▄  █▄█  █▄▀  █▄█  █▄▄  ░█░  █  █▄█  █░▀█     █░▀░█  █▄█  █▄▄  █░█
+##  𝕂𝟠𝕊 𝕕𝕖𝕡𝕝𝕠𝕪𝕞𝕖𝕟𝕥
+#
+#  █▄▄  █░█  █  █░░  █▀▄
+#  █▄█  █▄█  █  █▄▄  █▄▀
+
 build-nginx:
 	@echo "\n-->  Building local Nginx  <---------------------------|\n"; sleep 3;
-	docker image build --build-arg COMPOSER_USER="${COMPOSER_USER}" --build-arg COMPOSER_PASS="${COMPOSER_PASS}" -t intranet-nginx:latest --target build-nginx .
+	docker image build -t intranet-nginx:latest \
+		--build-arg COMPOSER_USER="${COMPOSER_USER}" --build-arg COMPOSER_PASS="${COMPOSER_PASS}" \
+		--build-arg AS3CF_PRO_USER="${AS3CF_PRO_USER}" --build-arg AS3CF_PRO_PASS="${AS3CF_PRO_PASS}" \
+		--target build-nginx .
 
 # FastCGI Process Manager for PHP
 # https://www.php.net/manual/en/install.fpm.php
 # https://www.plesk.com/blog/various/php-fpm-the-future-of-php-handling/
 build-fpm:
 	@echo "\n-->  Building local FPM  <---------------------------|\n"; sleep 3;
-	docker image build --build-arg COMPOSER_USER="${COMPOSER_USER}" --build-arg COMPOSER_PASS="${COMPOSER_PASS}" -t intranet-fpm:latest --target build-fpm .
+	docker image build -t intranet-fpm:latest \
+		--build-arg COMPOSER_USER="${COMPOSER_USER}" --build-arg COMPOSER_PASS="${COMPOSER_PASS}" \
+		--build-arg AS3CF_PRO_USER="${AS3CF_PRO_USER}" --build-arg AS3CF_PRO_PASS="${AS3CF_PRO_PASS}" \
+		--target build-fpm .
 
 build-cron:
 	@echo "\n-->  Building local CRON (runs wp-cron process)  <---------------------------|\n"; sleep 3;
-	docker image build -t intranet-cron:latest --target cron .
+	docker image build -t intranet-cron:latest \
+		--target build-cron .
 
-build: build-fpm build-nginx
-	@if [ ${kube} == 'kind' ]; then kind load docker-image intranet-fpm:latest; kind load docker-image intranet-nginx:latest; fi
+build: build-fpm build-nginx build-cron
+	@if [ ${kube} == 'kind' ]; then \
+  		kind load docker-image intranet-fpm:latest; \
+  		kind load docker-image intranet-nginx:latest; \
+  		kind load docker-image intranet-cron:latest; \
+  	fi
 	@echo "\n-->  Done.\n"
 
-deploy: clear
-	@echo "\n-->  Local Kubernetes deployment  <---------------------------|\n"
-	kubectl apply -f deploy/local
+
+#   █▀▄  █▀▀  █▀█  █░░  █▀█  █▄█
+#   █▄▀  ██▄  █▀▀  █▄▄  █▄█  ░█░
+
+kube: local-kube-start clear cluster local-kube-build
+	@if [ "${kube}" == 'kind' ]; then \
+  		echo "\n-->  Verifying..."; \
+  		echo "-->  Use ctrl + C to exit when ready\n"; \
+  		kubectl get pods -w; \
+  	fi
 
 cluster:
-	@if [ "${kube}" != 'kind' ]; then echo "\n-->  Please, activate the kind cluster to assist in local app development on Kubernetes"; echo "-->  Amend the variable named kube on line 3 in Makefile to read 'kind' (without quotes)"; echo "-->  ... or, install kind from scratch: https://kind.sigs.k8s.io/docs/user/quick-start/#installation \n"; sleep 8; fi
-	@if [ "${kube}" == 'kind' ]; then kind create cluster --config=deploy/config/local/kube/cluster.yml; kubectl apply -f https://projectcontour.io/quickstart/contour.yaml; fi
-	@if [ "${kube}" == 'kind' ]; then kubectl patch daemonsets -n projectcontour envoy -p '{"spec":{"template":{"spec":{"nodeSelector":{"ingress-ready":"true"},"tolerations":[{"key":"node-role.kubernetes.io/control-plane","operator":"Equal","effect":"NoSchedule"},{"key":"node-role.kubernetes.io/master","operator":"Equal","effect":"NoSchedule"}]}}}}'; fi
-
-kind: local-kube-start clear cluster local-kube-build
-	@if [ "${kube}" == 'kind' ]; then echo "\n-->  Verifying..."; echo "-->  Use ctrl + C to exit when ready\n"; kubectl get pods -w; fi
+	@if [ "${kube}" != 'kind' ]; then \
+  		echo "\n-->  Please, activate the kind cluster to assist in local app development on Kubernetes"; \
+		echo "-->  Amend the variable named 'kube' on line 14 in Makefile to read 'kind' (without quotes)"; \
+		echo "-->  ... or, install kind from scratch: https://kind.sigs.k8s.io/docs/user/quick-start/#installation \n"; sleep 8; \
+	fi
+	@if [ "${kube}" == 'kind' ]; then \
+  		kind create cluster --config=deploy/config/local/kube/cluster.yml; \
+  		kubectl apply -f https://projectcontour.io/quickstart/contour.yaml; \
+  	fi
+	@if [ "${kube}" == 'kind' ]; then \
+  		kubectl patch daemonsets -n projectcontour envoy -p '{"spec":{"template":{"spec":{"nodeSelector":{"ingress-ready":"true"},"tolerations":[{"key":"node-role.kubernetes.io/control-plane","operator":"Equal","effect":"NoSchedule"},{"key":"node-role.kubernetes.io/master","operator":"Equal","effect":"NoSchedule"}]}}}}'; \
+  	fi
 
 local-kube-start:
 	@if [ -n "$(docker ps | grep dory_dnsmasq)" ]; then dory down; fi # lets make sure port 80 is free
@@ -147,18 +200,33 @@ local-stop:
 	@docker container stop kind-control-plane || true >/dev/null 2>&1
 	@echo "-->  Done.\n"
 
+deploy: clear
+	@echo "\n-->  Local Kubernetes deployment  <---------------------------|\n"
+	kubectl apply -f deploy/local
+
 local-kube-build: build deploy
-	@if [ "${kube}" == 'kind' ]; then echo "\n-->  Verifying..."; echo "-->  Use ctrl + C to exit when ready\n"; kubectl get pods -w; fi
+	@if [ "${kube}" == 'kind' ]; then \
+  		echo "\n-->  Verifying..."; \
+  		echo "-->  Use ctrl + C to exit when ready\n"; \
+  		kubectl get pods -w; \
+  	fi
 
 clear:
 	@clear
 
+
+#   █░░  █▀█  █▀▀     █▀█  █░█  ▀█▀  █▀█  █░█  ▀█▀
+#   █▄▄  █▄█  █▄█     █▄█  █▄█  ░█░  █▀▀  █▄█  ░█░
+
+logs: clear logs-fpm-flash logs-nginx-flash
+	@echo "\n---------------------------------------------\n"
+
 log-nginx: clear
-	@echo "\n-->  NGINX LOGS  <---------------------------|\n"
+	@echo "\n-->  NGINX LOGS (tail)  <---------------------------|\n"
 	@$(k8s_pod) | xargs -t kubectl logs -f -n $(k8s_nsp) -c nginx
 
 log-fpm: clear
-	@echo "\n-->  FPM PHP LOGS  <-------------------------|\n"
+	@echo "\n-->  FPM PHP LOGS (tail)  <-------------------------|\n"
 	@$(k8s_pod) | xargs kubectl logs -f -n $(k8s_nsp) -c fpm
 
 logs-nginx-flash:
@@ -169,14 +237,13 @@ logs-fpm-flash:
 	@echo "\n-->  FPM PHP LOGS  <-------------------------|\n"
 	@$(k8s_pod) | xargs kubectl logs -n $(k8s_nsp) -c fpm
 
-logs: clear logs-fpm-flash logs-nginx-flash
-	@echo "\n---------------------------------------------\n"
+
+
+#   █▄▀  █░█  █▄▄  █▀▀  █▀█  █▄░█  █▀▀  ▀█▀  █▀▀  █▀
+#   █░█  █▄█  █▄█  ██▄  █▀▄  █░▀█  ██▄  ░█░  ██▄  ▄█
 
 port-forward:
 	@$(k8s_pod) | echo $$(cat -)" "$(k8s_prt) | xargs kubectl -n $(k8s_nsp) port-forward
-
-apply:
-	kubectl apply -f deploy/local
 
 unapply:
 	@$(k8s_pod) | xargs kubectl -n $(k8s_nsp) delete pod

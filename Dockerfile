@@ -17,7 +17,7 @@
 #    ▄▄  ▄▄     █▀▀  █▀█  █▀▄▀█     ▄▄  ▄▄    #
 #    ░░  ░░     █▀░  █▀▀  █░▀░█     ░░  ░░    #
 
-FROM ministryofjustice/wordpress-base-fpm:latest AS base-fpm
+FROM ministryofjustice/wordpress-base-fpm:0.0.1 AS base-fpm
 
 # Make the Nginx user available in this container
 RUN addgroup -g 101 -S nginx; adduser -u 101 -S -D -G nginx nginx
@@ -66,6 +66,10 @@ USER 101
 
 FROM base-fpm AS fpm-dev
 
+RUN apk add zip
+
+WORKDIR /var/www/html
+
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 VOLUME ["/sock"]
@@ -109,6 +113,8 @@ FROM base-fpm AS build-fpm-composer
 
 ARG COMPOSER_USER
 ARG COMPOSER_PASS
+ARG AS3CF_PRO_USER
+ARG AS3CF_PRO_PASS
 
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
@@ -125,7 +131,7 @@ RUN composer install --no-dev
 RUN composer dump-autoload -o
 
 ARG regex_files='\(htm\|html\|js\|css\|png\|jpg\|jpeg\|gif\|ico\|svg\|webmanifest\)'
-ARG regex_path='\(app\/themes\/clarity\/error\-pages\|app\/mu\-plugins\|app\/plugins\|wp\)'
+ARG regex_path='\(app\/mu\-plugins\|app\/plugins\|wp\)'
 RUN mkdir -p ./vendor-assets && \
     find public/ -regex "public\/${regex_path}.*\.${regex_files}" -exec cp --parent "{}" vendor-assets/  \;
 
@@ -186,14 +192,15 @@ WORKDIR /var/www/html
 
 # Get bootstraper for WordPress
 COPY public/index.php public/index.php
-COPY public/app/themes/clarity/style.css public/app/themes/clarity/
 
 # Only take what Nginx needs (cached configuration)
 COPY --from=build-fpm-composer /var/www/html/public/wp/wp-admin/index.php public/wp/wp-admin/index.php
 COPY --from=build-fpm-composer /var/www/html/vendor-assets ./
 
 # Grab assets for Nginx
-COPY --from=assets-build /node/dist public/app/themes/clarity/dist/
+COPY --from=assets-build --chown=nginx:nginx /node/dist public/app/themes/clarity/dist/
+COPY --from=assets-build --chown=nginx:nginx /node/error-pages public/app/themes/clarity/error-pages/
+COPY --from=assets-build --chown=nginx:nginx /node/style.css public/app/themes/clarity/style.css
 
 
 #  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
@@ -231,10 +238,13 @@ RUN chmod +x execute-wp-cron && \
     chmod +x cron-install && \
     chmod +x cron-start
 
-RUN cron-install
+RUN cron-install && rm ./cron-install
 
 RUN apk del dpkg
 
 USER 3001
+
+# Go home...
+WORKDIR /home/crooner
 
 ENTRYPOINT ["/bin/sh", "-c", "cron-start"]

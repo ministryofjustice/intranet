@@ -24,6 +24,10 @@
         },
         {
             "type": "composer",
+            "url": "https://composer.deliciousbrains.com"
+        },
+        {
+            "type": "composer",
             "url": "https://wp-languages.github.io"
         },
         {
@@ -41,7 +45,7 @@
     ],
     "require": {
         "php": ">=8.2",
-        "composer/installers": "^1.0 || ^2.0",
+        "composer/installers": "2.* || 1.*",
         "vlucas/phpdotenv": "^5.5",
         "oscarotero/env": "^2.1",
         "roots/bedrock-autoloader": "^1.0",
@@ -65,17 +69,19 @@
         "ministryofjustice/wp-moj-elasticsearch": "^2.3.0",
         "wpackagist-plugin/elasticpress": "^5.0.0",
         "php-http/guzzle7-adapter": "^1.0",
-        "alphagov/notifications-php-client": "^5.0",
+        "alphagov/notifications-php-client": "^6.0",
         "aws/aws-sdk-php": "^3.133",
         "wpackagist-plugin/query-monitor": "^3.15",
         "wpackagist-plugin/debug-bar": "^1.1",
         "wpackagist-plugin/debug-bar-elasticpress": "^3.1",
-        "wpackagist-plugin/wp-migrate-db": "2.6.10",
-        "wpackagist-plugin/amazon-s3-and-cloudfront": "^3.2",
+        "deliciousbrains-plugin/wp-offload-media": "^3.2",
+        "deliciousbrains-plugin/wp-offload-media-assets-pull": "^1.1",
         "stayallive/wp-sentry": "^7.11",
         "ext-posix": "*",
         "ext-mysqli": "*",
-        "ext-zlib": "*"
+        "ext-zlib": "*",
+        "league/oauth2-client": "^2.7",
+        "firebase/php-jwt": "^6.10"
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "^3.0.2"
@@ -105,7 +111,21 @@
                 "vendor:koodimonni-theme-language"
             ]
         },
-        "wordpress-install-dir": "public/wp"
+        "wordpress-install-dir": "public/wp",
+        "meta-comments": {
+            "description": [
+                "As comments are not allowed in composer.json, use this section for comments.",
+                "After adding comments here, run a benign composer command like ",
+                "`composer update paragonie/random_compat` to update composer.lock's hash."
+            ],
+            "replace.paragonie/random_compat": [
+                "The `paragonie/random_compat` package is a dependency of `league/oauth2-client`.",
+                "As our php version is > 7 we do not need this package.",
+                "The package authors have an empty version of the package for this case: 9.99.99",
+                "Defining it inside `replace`, will prevent it from being installed.",
+                "@see: https://github.com/paragonie/random_compat?tab=readme-ov-file#version-99999"
+            ]
+        }
     },
     "scripts": {
         "post-root-package-install": [
@@ -117,6 +137,9 @@
         "test-fix": [
             "vendor/bin/phpcbf -d memory_limit=256M"
         ]
+    },
+    "replace": {
+        "paragonie/random_compat": "9.99.99"
     },
     "authors": [
         {

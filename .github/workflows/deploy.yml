@@ -41,11 +41,18 @@ jobs:
           SECURE_AUTH_KEY: ${{ secrets.SECURE_AUTH_KEY }}
           SECURE_AUTH_SALT: ${{ secrets.SECURE_AUTH_SALT }}
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
-          AWS_CLOUDFRONT_PUBLIC_KEY: "${{ secrets.AWS_CLOUDFRONT_PUBLIC_KEY }}"
-          AWS_CLOUDFRONT_PRIVATE_KEY: "${{ secrets.AWS_CLOUDFRONT_PRIVATE_KEY }}"
+          OAUTH_CLIENT_SECRET: "${{ secrets.OAUTH_CLIENT_SECRET }}"
+          AWS_CLOUDFRONT_PUBLIC_KEY: "${{ secrets.AWS_CLOUDFRONT_PUBLIC_KEY_A }}"
+          AWS_CLOUDFRONT_PRIVATE_KEY: "${{ secrets.AWS_CLOUDFRONT_PRIVATE_KEY_A }}"
+          # AWS_CLOUDFRONT_PUBLIC_KEY_EXPIRING: "${{ secrets.AWS_CLOUDFRONT_PUBLIC_KEY_B }}"
+          BASIC_AUTH_USER: ${{ secrets.BASIC_AUTH_USER }}
+          BASIC_AUTH_PASS: ${{ secrets.BASIC_AUTH_PASS }}
         run: |
           export AWS_CLOUDFRONT_PUBLIC_KEY_BASE64=$(echo -n "$AWS_CLOUDFRONT_PUBLIC_KEY" | base64 -w 0)
           export AWS_CLOUDFRONT_PRIVATE_KEY_BASE64=$(echo -n "$AWS_CLOUDFRONT_PRIVATE_KEY" | base64 -w 0)
+          # export AWS_CLOUDFRONT_PUBLIC_KEY_EXPIRING_BASE64=$(echo -n "$AWS_CLOUDFRONT_PUBLIC_KEY_EXPIRING" | base64 -w 0)
+          export BASIC_AUTH_BASE64=$(htpasswd -nbm "$BASIC_AUTH_USER" "$BASIC_AUTH_PASS" | base64)
+
           cat $TPL_PATH/secret.tpl | envsubst > $TPL_PATH/secret.yaml
           cat $TPL_PATH/deployment.tpl | envsubst > $TPL_PATH/deployment.yaml
 

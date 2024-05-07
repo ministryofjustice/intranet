@@ -20,10 +20,8 @@ then
 	cat <<- EOF >> auth.json
 		{
 			"http-basic": {
-				"composer.wp.dsd.io": {
-					"username": "$COMPOSER_USER",
-					"password": "$COMPOSER_PASS"
-				}
+			  "composer.wp.dsd.io": {"username": "$COMPOSER_USER","password": "$COMPOSER_PASS"},
+        "composer.deliciousbrains.com": {"username": "$AS3CF_PRO_USER","password": "$AS3CF_PRO_PASS"}
 			}
 		}
 	EOF

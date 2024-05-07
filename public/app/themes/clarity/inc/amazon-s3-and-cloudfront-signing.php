@@ -2,6 +2,8 @@
 
 namespace DeliciousBrains\WP_Offload_Media\Tweaks;
 
+use Exception;
+
 /**
  * Amazon S3 and CloudFront - signing cookies.
  * 
@@ -19,7 +21,7 @@ class AmazonS3AndCloudFrontSigning
 {
 
     private $now = null;
-    private $is_dev = false;
+    private $https = true;
 
     private $cloudfront_cookie_domain = '';
     private $cloudfront_private_key = '';
@@ -33,17 +35,34 @@ class AmazonS3AndCloudFrontSigning
     public function __construct()
     {
         $this->now = time();
-        $this->is_dev = $_ENV['WP_ENV'] === 'development';
+        $this->https = isset($_SERVER['HTTPS']) || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && 'https' === $_SERVER['HTTP_X_FORWARDED_PROTO']);
 
         // Cookie domain is important for sharing a cookie with a subdomain.
         $this->cloudfront_cookie_domain = preg_replace('/https?:\/\//', '', $_ENV['WP_HOME']);
         $this->cloudfront_private_key = $_ENV['AWS_CLOUDFRONT_PRIVATE_KEY'];
-        $this->cloudfront_url =  'http' . $this->is_dev ? '' : 's' . ' ://' . $_ENV['AWS_CLOUDFRONT_HOST'];
+        $this->cloudfront_url =  'http' . ($this->https ? 's' : '') . '://' . $_ENV['AWS_CLOUDFRONT_HOST'];
 
         // Clear AWS_CLOUDFRONT_PRIVATE_KEY from $_ENV global. It's not required elsewhere in the app.
         unset($_ENV['AWS_CLOUDFRONT_PRIVATE_KEY']);
 
         $this->handlePageRequest();
+
+        add_filter('http_request_args', function($args, $url){
+            if ($args['headers'] ?? false) {
+                $user_agent = $args['headers']['user-agent'] ?? false;
+                if ($user_agent === 'wp-offload-media') {
+                    $args['cookies'] = $this->createSignedCookie($this->cloudfront_url . '/*');
+                    error_log('ua=offloadmedia: ' . $url);
+                    error_log(print_r($args, true));
+                }
+                elseif(0 === strpos( $url, home_url())) {
+                    $args['headers']['Authorization'] = 'Basic ' . base64_encode( $_ENV['BASIC_AUTH_USER'] . ':' . $_ENV['BASIC_AUTH_PASS'] );
+                    error_log('ua=other: ' . $url);
+                    error_log(print_r($args, true));
+                }
+            }
+            return $args;
+        }, 10, 2);
     }
 
 
@@ -87,7 +106,7 @@ class AmazonS3AndCloudFrontSigning
 
             preg_match('/"AWS:EpochTime":(\d+)}/', $policy, $matches);
             $remaining_time =  isset($matches[1]) ? $matches[1] - $this->now : 0;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             \Sentry\captureException($e);
             // TODO: possibly remove this error_log once we confirm that this way of capturing to Sentry is working.
             error_log($e->getMessage());
@@ -108,26 +127,35 @@ class AmazonS3AndCloudFrontSigning
 
     public function getCloudfrontPublicKeyId(): string
     {
-        // The first unique 8 chars of the public key are used to identify AWS's key id.
-        $public_key_short = substr($_ENV['AWS_CLOUDFRONT_PUBLIC_KEY'], 71, 8);
+        // Get the private key.
+        $private_key = openssl_get_privatekey($this->cloudfront_private_key);
+
+        // Derive public key from private key. It should be in the standard format (with a single newline at the end).
+        $public_key_formatted = openssl_pkey_get_details($private_key)['key'];
 
         // Decode the JSON string to an array.
-        $public_key_ids_and_keys = json_decode($_ENV['AWS_CLOUDFRONT_PUBLIC_KEY_OBJECT'], true);
+        $cloudfront_public_key_object = json_decode($_ENV['AWS_CLOUDFRONT_PUBLIC_KEYS_OBJECT'], true);
 
         // If the public key is not found, throw an exception.
-        if (empty($public_key_ids_and_keys)) {
-            throw new \Exception('AWS_CLOUDFRONT_PUBLIC_KEY_OBJECT was not found');
+        if (empty($cloudfront_public_key_object)) {
+            throw new Exception('AWS_CLOUDFRONT_PUBLIC_KEYS_OBJECT was not found');
         }
+
+        // Get the sha256 of the public key.
+        $public_key_sha256 = hash('sha256', $public_key_formatted);
+
+        // Get the first 8 characters of the sha256.
+        $public_key_short = substr($public_key_sha256, 0, 8);
 
         // Find the matching array entry for the public key.
-        $public_key_id_and_key = array_filter($public_key_ids_and_keys, fn ($key) =>  $key['key'] === $public_key_short);
+        $public_key_id_and_comment = array_filter($cloudfront_public_key_object, fn ($key) => $key['comment'] === $public_key_short && !empty($key['id']));
 
         // If the public key is not found, throw an exception.
-        if (empty($public_key_id_and_key) || !$public_key_id_and_key[0]['id']) {
-            throw new \Exception('CloudFront public key not found');
+        if (empty($public_key_id_and_comment)) {
+            throw new Exception('CloudFront public key not found');
         }
 
-        return $public_key_id_and_key[0]['id'];
+        return $public_key_id_and_comment[0]['id'];
     }
 
     /**
@@ -150,12 +178,15 @@ class AmazonS3AndCloudFrontSigning
         $key = openssl_get_privatekey($this->cloudfront_private_key);
 
         if (!$key) {
-            throw new \Exception('Failed to load private key!');
+            throw new Exception('Failed to load private key!');
         }
 
         if (!openssl_sign($json, $signed_policy, $key, OPENSSL_ALGO_SHA1)) {
-            throw new \Exception('Failed to sign policy: ' . openssl_error_string());
+            throw new Exception('Failed to sign policy: ' . openssl_error_string());
         }
+
+        // TEMP - for testing
+        // $signed_url = $url . '?Expires=' . $expiry . '&Signature=' . $this->urlSafeBase64Encode($signed_policy) . '&Key-Pair-Id=' . $this->getCloudfrontPublicKeyId();
 
         return [
             "CloudFront-Key-Pair-Id" => $this->getCloudfrontPublicKeyId(),
@@ -181,6 +212,10 @@ class AmazonS3AndCloudFrontSigning
 
     public function handlePageRequest(): void
     {
+        // If headers are already sent or we're doing a cron job, return early.
+        if (\headers_sent() || defined('DOING_CRON')) {
+            return;
+        }
 
         $remaining_time = $this->remainingTimeFromCookie();
 
@@ -199,13 +234,15 @@ class AmazonS3AndCloudFrontSigning
             try {
                 // Create a signed cookie for CloudFront.
                 $generated_cookies = $this->createSignedCookie($this->cloudfront_url . '/*');
+                // TEMP - for testing
+                // $generated_cookies = $this->createSignedCookie('https://d192h9x2ipg6ln.cloudfront.net/media/2024/03/26131145/287-2.jpg');
                 // Write the cookies to the cache.
                 set_transient(
                     $this::TRANSIENT_KEY,
                     $generated_cookies,
                     $this::TRANSIENT_DURATION
                 );
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
                 \Sentry\captureException($e);
                 error_log($e->getMessage());
             }
@@ -217,7 +254,7 @@ class AmazonS3AndCloudFrontSigning
             'HttpOnly',
             'Domain=' . $this->cloudfront_cookie_domain,
             'SameSite=Strict',
-            ...($this->is_dev ? [] : ['Secure']),
+            ...($this->https ? ['Secure'] : []),
         ];
         $cloudfront_cookie_params_string = implode('; ', $cloudfront_cookie_params);
 
@@ -225,6 +262,33 @@ class AmazonS3AndCloudFrontSigning
         foreach (($cached_cookies ?: $generated_cookies) as $name => $value) {
             // error_log(sprintf('Set-Cookie: %s=%s; %s', $name, $value, $cloudfront_cookie_params_string));
             header(sprintf('Set-Cookie: %s=%s; %s', $name, $value, $cloudfront_cookie_params_string), false);
+        }
+    }
+
+    /**
+     * Revoke the CloudFront cookies.
+     * 
+     * Delete the cookies from the user's browser.
+     * 
+     * @return void
+     */
+
+    public function revoke(): void
+    {
+        // Properties for the cookies.
+        $cloudfront_cookie_params = [
+            'path=/',
+            'HttpOnly',
+            'Domain=' . $this->cloudfront_cookie_domain,
+            'SameSite=Strict',
+            'Expires=' . gmdate('D, d M Y H:i:s T', 0),
+            ...($this->https ? ['Secure'] : []),
+        ];
+        $cloudfront_cookie_params_string = implode('; ', $cloudfront_cookie_params);
+
+        // Delete the cookies.
+        foreach (['CloudFront-Key-Pair-Id', 'CloudFront-Policy', 'CloudFront-Signature'] as $name) {
+            header(sprintf('Set-Cookie: %s=; %s', $name, $cloudfront_cookie_params_string), false);
         }
     }
 }

@@ -32,15 +32,35 @@ jobs:
 
       - name: "Build & Push to ECR"
         run: |
-          docker image build -t $REGISTRY/$REPOSITORY:fpm-$IMAGE_TAG --target build-fpm --build-arg COMPOSER_USER="$COMPOSER_USER" --build-arg COMPOSER_PASS="$COMPOSER_PASS" .
-          docker image build -t $REGISTRY/$REPOSITORY:nginx-$IMAGE_TAG --target build-nginx --build-arg COMPOSER_USER="$COMPOSER_USER" --build-arg COMPOSER_PASS="$COMPOSER_PASS" .
-          docker image build -t $REGISTRY/$REPOSITORY:cron-$IMAGE_TAG --target build-cron .
-          docker push $REGISTRY/$REPOSITORY:fpm-$IMAGE_TAG
-          docker push $REGISTRY/$REPOSITORY:nginx-$IMAGE_TAG
-          docker push $REGISTRY/$REPOSITORY:cron-$IMAGE_TAG
+          
+          # ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
+               
+          docker image build -t $REGISTRY/$REPOSITORY:fpm-$IMAGE_TAG \
+            --build-arg COMPOSER_USER="$COMPOSER_USER" --build-arg COMPOSER_PASS="$COMPOSER_PASS" \
+            --build-arg AS3CF_PRO_USER="$AS3CF_PRO_USER" --build-arg AS3CF_PRO_PASS="$AS3CF_PRO_PASS" \
+            --target build-fpm .
+          
+          docker image build -t $REGISTRY/$REPOSITORY:nginx-$IMAGE_TAG \
+            --build-arg COMPOSER_USER="$COMPOSER_USER" --build-arg COMPOSER_PASS="$COMPOSER_PASS" \
+            --build-arg AS3CF_PRO_USER="$AS3CF_PRO_USER" --build-arg AS3CF_PRO_PASS="$AS3CF_PRO_PASS" \
+            --target build-nginx .
+          
+          docker image build -t $REGISTRY/$REPOSITORY:cron-$IMAGE_TAG \
+            --target build-cron .
+        
+          # ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
+          
+          docker image push $REGISTRY/$REPOSITORY:fpm-$IMAGE_TAG
+          docker image push $REGISTRY/$REPOSITORY:nginx-$IMAGE_TAG
+          docker image push $REGISTRY/$REPOSITORY:cron-$IMAGE_TAG
+          
+          # ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
+
         env:
           REGISTRY: ${{ steps.ecr-login.outputs.registry }}
           REPOSITORY: ${{ vars.ECR_REPOSITORY }}
           IMAGE_TAG: ${{ github.sha }}
           COMPOSER_USER: ${{ secrets.COMPOSER_USER }}
           COMPOSER_PASS: ${{ secrets.COMPOSER_PASS }}
+          AS3CF_PRO_USER: ${{ secrets.AS3CF_PRO_USER }}
+          AS3CF_PRO_PASS: ${{ secrets.AS3CF_PRO_PASS }}

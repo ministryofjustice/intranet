@@ -45,7 +45,7 @@ $as3_settings = array(
     // Private Prefix for signed URLs (aws only, relative directory, no wildcards)
     // 'signed-urls-object-prefix' => 'private/',
     // Serve files over HTTPS
-    'force-https' => !!env('AWS_CLOUDFRONT_HOST'),
+    'force-https' => (str_contains(env('WP_HOME'), 'justice.gov.uk')),
     // Remove the local file version once offloaded to bucket
     'remove-local-file' => true,
     // Access Control List for the bucket
@@ -64,8 +64,7 @@ if (env('AWS_ACCESS_KEY_ID') && env('AWS_SECRET_ACCESS_KEY')) {
     ]);
 }
 
-
 Config::define('AS3CFPRO_LICENCE', env('AS3CF_PRO_LICENCE') ?? '');
 Config::define('AWS_S3_CUSTOM_HOST', env('AWS_S3_CUSTOM_HOST') ?? '');
-
+Config::define( 'AS3CF_SHOW_ADD_METADATA_TOOL', true );
 Config::define('AS3CF_SETTINGS', serialize($as3_settings));

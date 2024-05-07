@@ -14,11 +14,11 @@ public/app/debug.log
 public/app/plugins/*
 public/app/db.php
 public/app/mu-plugins/*/
+!public/app/mu-plugins/moj-auth/
 public/app/upgrade
 public/app/languages/*
 public/app/uploads/*
-vendor
-vendor-assets
+vendor*
 .dory.yml
 !deploy/config/local/.dory.yml
 auth.json

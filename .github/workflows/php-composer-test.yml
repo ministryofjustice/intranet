@@ -40,6 +40,8 @@ jobs:
       env:
         COMPOSER_USER: ${{ secrets.COMPOSER_USER }}
         COMPOSER_PASS: ${{ secrets.COMPOSER_PASS }}
+        AS3CF_PRO_USER: ${{ secrets.AS3CF_PRO_USER }}
+        AS3CF_PRO_PASS: ${{ secrets.AS3CF_PRO_PASS }}
 
     - name: "Run tests"
       run: make test

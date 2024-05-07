@@ -46,11 +46,21 @@ jobs:
         # Build the docker images for testing
       - name: Container monitor ~ build FPM & Nginx Docker images
         run: |
-          docker image build --build-arg COMPOSER_USER="$COMPOSER_USER" --build-arg COMPOSER_PASS="$COMPOSER_PASS" -t intranet-fpm:snyk --target build-fpm .
-          docker image build --build-arg COMPOSER_USER="$COMPOSER_USER" --build-arg COMPOSER_PASS="$COMPOSER_PASS" -t intranet-nginx:snyk --target build-nginx .
+          docker image build \
+            --build-arg COMPOSER_USER="$COMPOSER_USER" --build-arg COMPOSER_PASS="$COMPOSER_PASS" \
+            --build-arg AS3CF_PRO_USER="$AS3CF_PRO_USER" --build-arg AS3CF_PRO_PASS="$AS3CF_PRO_PASS" \
+            -t intranet-fpm:snyk --target build-fpm .
+          
+          docker image build \
+            --build-arg COMPOSER_USER="$COMPOSER_USER" --build-arg COMPOSER_PASS="$COMPOSER_PASS" \
+            --build-arg AS3CF_PRO_USER="$AS3CF_PRO_USER" --build-arg AS3CF_PRO_PASS="$AS3CF_PRO_PASS" \
+            -t intranet-nginx:snyk --target build-nginx .
+
         env:
           COMPOSER_USER: ${{ secrets.COMPOSER_USER }}
           COMPOSER_PASS: ${{ secrets.COMPOSER_PASS }}
+          AS3CF_PRO_USER: ${{ secrets.AS3CF_PRO_USER }}
+          AS3CF_PRO_PASS: ${{ secrets.AS3CF_PRO_PASS }}
 
         # Runs Snyk Container (Container and SCA) analysis.
       - name: Container monitor ~ analyse
