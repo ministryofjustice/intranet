@@ -49,19 +49,11 @@ node-cdn:
 #   █▀▀  █▀█  █▀▄▀█  █▀█  █▀█  █▀  █▀▀  █▀█
 #   █▄▄  █▄█  █░▀░█  █▀▀  █▄█  ▄█  ██▄  █▀▄
 
-composer-update:
-	@docker compose exec php-fpm ./bin/local-composer-update.sh ash
-	@make composer
-
 composer-assets:
 	@chmod +x ./bin/local-composer-assets.sh
 	@docker compose exec php-fpm ./bin/local-composer-assets.sh ash
 
-composer-copy:
-	@chmod +x ./bin/local-composer-assets-copy.sh
-	@./bin/local-composer-assets-copy.sh
-
-composer: composer-assets composer-copy
+composer: composer-assets
 
 
 #   █▀  █░█  █▀▀  █░░  █░░
