@@ -35,8 +35,13 @@ services:
     volumes:
       - dist:/var/www/html/public/app/themes/clarity/dist
       - php-socket:/sock
+      ### Deploy scripts
       - ./deploy/config/local/nginx/php-fpm.conf:/etc/nginx/php-fpm.conf
       - ./deploy/config/local/nginx/server.conf:/etc/nginx/conf.d/default.conf
+      ### Assets
+      - ./public/app/plugins:/var/www/html/public/app/plugins
+      - ./public/app/themes/justice/screenshot.png:/var/www/html/public/app/themes/justice/screenshot.png
+      - ./public/wp:/var/www/html/public/wp
       - ./public/index.php:/var/www/html/public/index.php
     environment:
       VIRTUAL_HOST: ${SERVER_NAME}
