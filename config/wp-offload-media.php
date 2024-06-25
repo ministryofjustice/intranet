@@ -2,10 +2,12 @@
 
 /**
  * WP Offload Media settings
+ *
  * @see https://deliciousbrains.com/wp-offload-media/doc/settings-constants
  */
 
 use Roots\WPConfig\Config;
+
 use function Env\env;
 
 $as3_settings = array(
@@ -34,7 +36,7 @@ $as3_settings = array(
     // Use a custom domain (CNAME), not supported when using 'storage' Delivery Provider
     'enable-delivery-domain' => !!env('AWS_CLOUDFRONT_HOST'),
     // Custom domain (CNAME), not supported when using 'storage' Delivery Provider
-    'delivery-domain' =>  env('AWS_CLOUDFRONT_HOST'),
+    'delivery-domain' => env('AWS_CLOUDFRONT_HOST'),
     // Enable signed URLs for Delivery Provider that uses separate key pair (currently only 'aws' supported, a.k.a. CloudFront)
     // 'enable-signed-urls' => false,
     // Access Key ID for signed URLs (aws only, replace '*')
@@ -57,7 +59,7 @@ if (env('AWS_ACCESS_KEY_ID') && env('AWS_SECRET_ACCESS_KEY')) {
     unset($as3_settings['use-server-roles']);
 
     $as3_settings = array_merge($as3_settings, [
-         // Access Key ID for Storage Provider (aws and do only, replace '*')
+        // Access Key ID for Storage Provider (aws and do only, replace '*')
         'access-key-id' => env('AWS_ACCESS_KEY_ID'),
         // Secret Access Key for Storage Providers (aws and do only, replace '*')
         'secret-access-key' => env('AWS_SECRET_ACCESS_KEY'),
@@ -67,5 +69,5 @@ if (env('AWS_ACCESS_KEY_ID') && env('AWS_SECRET_ACCESS_KEY')) {
 
 Config::define('AS3CFPRO_LICENCE', env('AS3CF_PRO_LICENCE') ?? '');
 Config::define('AWS_S3_CUSTOM_HOST', env('AWS_S3_CUSTOM_HOST') ?? '');
-Config::define( 'AS3CF_SHOW_ADD_METADATA_TOOL', true );
+Config::define('AS3CF_SHOW_ADD_METADATA_TOOL', true);
 Config::define('AS3CF_SETTINGS', serialize($as3_settings));
