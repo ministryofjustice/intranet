@@ -163,6 +163,7 @@ FROM base-fpm AS build-fpm
 WORKDIR /var/www/html
 COPY --chown=nginx:nginx ./config ./config
 COPY --chown=nginx:nginx ./public ./public
+COPY --chown=nginx:nginx wp-cli.yml wp-cli.yml
 
 # Replace paths with dependanies from build-fpm-composer
 ARG path="/var/www/html"
