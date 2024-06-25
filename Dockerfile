@@ -17,7 +17,7 @@
 #    ▄▄  ▄▄     █▀▀  █▀█  █▀▄▀█     ▄▄  ▄▄    #
 #    ░░  ░░     █▀░  █▀▀  █░▀░█     ░░  ░░    #
 
-FROM ministryofjustice/wordpress-base-fpm:0.0.1 AS base-fpm
+FROM ministryofjustice/wordpress-base-fpm:latest AS base-fpm
 
 # Make the Nginx user available in this container
 RUN addgroup -g 101 -S nginx; adduser -u 101 -S -D -G nginx nginx
@@ -234,11 +234,9 @@ COPY deploy/config/cron/wp-cron-exec.sh ./execute-wp-cron
 COPY deploy/config/init/cron-install.sh ./cron-install
 COPY deploy/config/init/cron-start.sh ./cron-start
 
-RUN chmod +x execute-wp-cron && \
-    chmod +x cron-install && \
-    chmod +x cron-start
-
-RUN cron-install && rm ./cron-install
+RUN chmod +x execute-wp-cron cron-install cron-start && \
+    cron-install &&  \
+    rm ./cron-install
 
 RUN apk del dpkg
 
