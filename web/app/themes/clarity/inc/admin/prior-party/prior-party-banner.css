@@ -1,0 +1,38 @@
+.prior-party-banner {
+    padding: 20px;
+    background-color: #fff;
+    border: 5px solid #1d70b8;
+    box-sizing: border-box;
+    max-width: 705px;
+}
+
+.prior-party-banner__text {
+    margin-bottom: 0;
+    font-size: 1rem;
+    line-height: 1.25;
+    padding: 0;
+    color: #0b0c0c;
+    font-weight: bold;
+}
+
+.ppb-posts {
+    width:1200px
+}
+.ppb-posts__row.header {
+    font-weight: bold;
+    color: white;
+    background-color: #1d70b8;
+}
+.ppb-posts__row {
+    display: flex;
+    border-top: 1px solid grey;
+    border-left: 1px solid grey;
+}
+.ppb-posts__row:last-child {
+    border-bottom: 1px solid grey;
+}
+.ppb-post-col {
+    flex: 1;
+    border-right: 1px solid grey;
+    padding: 5px 8px 6px
+}
