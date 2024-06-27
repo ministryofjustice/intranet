@@ -1,0 +1,118 @@
+{
+    "key": "group_667d8a0f642b5",
+    "title": "Prior Party Banner",
+    "fields": [
+        {
+            "key": "field_667d8a0fd14f1",
+            "label": "Prior Party Banner",
+            "name": "prior_party_banner",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "If this content was published under a previous government, should we show a banner to inform site visitors?",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "admin_only": 0,
+            "message": "",
+            "default_value": 1,
+            "ui_on_text": "On",
+            "ui_off_text": "Off",
+            "ui": 1
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "post"
+            }
+        ],
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "page"
+            },
+            {
+                "param": "post_template",
+                "operator": "!=",
+                "value": "page_home.php"
+            },
+            {
+                "param": "post_template",
+                "operator": "!=",
+                "value": "search.php"
+            },
+            {
+                "param": "post_template",
+                "operator": "!=",
+                "value": "page_about_us.php"
+            },
+            {
+                "param": "post_template",
+                "operator": "!=",
+                "value": "page_blog.php"
+            },
+            {
+                "param": "post_template",
+                "operator": "!=",
+                "value": "page_news.php"
+            }
+        ],
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "news"
+            }
+        ],
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "note-from-antonia"
+            }
+        ],
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "regional_news"
+            }
+        ],
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "regional_page"
+            }
+        ],
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "team_pages"
+            },
+            {
+                "param": "post_template",
+                "operator": "!=",
+                "value": "page_team_homepage.php"
+            }
+        ]
+    ],
+    "menu_order": 10,
+    "position": "side",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1719504066
+}

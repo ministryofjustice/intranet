@@ -1,0 +1,134 @@
+{
+    "key": "group_667d8381383f1",
+    "title": "Prior Party Options Page",
+    "fields": [
+        {
+            "key": "field_667d8381b4592",
+            "label": "Prior Political Parties",
+            "name": "prior_parties",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "admin_only": 1,
+            "layout": "block",
+            "pagination": 0,
+            "min": 0,
+            "max": 0,
+            "collapsed": "",
+            "button_label": "Add Prior Party",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_667d851cb4594",
+                    "label": "Start Date",
+                    "name": "start_date",
+                    "aria-label": "",
+                    "type": "date_picker",
+                    "instructions": "The start date of the party's government.",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "admin_only": 0,
+                    "display_format": "d\/m\/Y",
+                    "return_format": "d\/m\/Y",
+                    "first_day": 1,
+                    "parent_repeater": "field_667d8381b4592"
+                },
+                {
+                    "key": "field_667d86bbb4595",
+                    "label": "End Date",
+                    "name": "end_date",
+                    "aria-label": "",
+                    "type": "date_picker",
+                    "instructions": "The end date of the party's government.",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "admin_only": 0,
+                    "display_format": "d\/m\/Y",
+                    "return_format": "d\/m\/Y",
+                    "first_day": 1,
+                    "parent_repeater": "field_667d8381b4592"
+                },
+                {
+                    "key": "field_667d849fb4593",
+                    "label": "Banner Content",
+                    "name": "banner_content",
+                    "aria-label": "",
+                    "type": "textarea",
+                    "instructions": "The text that will be shown in Prior Party Banner.\r\ne.g. This was published under the 2015 to 2024 Conservative government",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "admin_only": 0,
+                    "default_value": "",
+                    "maxlength": "",
+                    "rows": "",
+                    "placeholder": "",
+                    "new_lines": "",
+                    "parent_repeater": "field_667d8381b4592"
+                },
+                {
+                    "key": "field_667d86dcb4596",
+                    "label": "Banner Active",
+                    "name": "banner_active",
+                    "aria-label": "",
+                    "type": "true_false",
+                    "instructions": "Activate a banner on content with a publish date between the start and end dates?",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "admin_only": 0,
+                    "message": "",
+                    "default_value": 0,
+                    "ui_on_text": "",
+                    "ui_off_text": "",
+                    "ui": 1,
+                    "parent_repeater": "field_667d8381b4592"
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "prior-party-settings"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1719503341
+}
