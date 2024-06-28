@@ -96,6 +96,14 @@ function clarity_admin_enqueue($hook)
 
     endif;
 
+    wp_enqueue_script(
+        'prior-party-banner',
+        get_stylesheet_directory_uri() . '/inc/admin/prior-party/prior-party-banner.js',
+        ['jquery'],
+        null,
+        false
+    );
+
     wp_register_style(
         'clarity-admin-styles',
         get_stylesheet_directory_uri() . '/inc/admin/css/admin.css',
