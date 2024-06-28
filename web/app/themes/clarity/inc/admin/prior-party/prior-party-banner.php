@@ -57,14 +57,6 @@ class PriorPartyBanner
         add_action('before_rich_text_block', [$this, 'addBannerBeforeRichText']);
     }
 
-    public function getBanner($post_id)
-    {
-
-        // Based on the post_id get the correct banner.
-
-        return 'This was published under the 2015 to 2024 Conservative government';
-    }
-
     public function isValidLocation($post_id) 
     {
 
