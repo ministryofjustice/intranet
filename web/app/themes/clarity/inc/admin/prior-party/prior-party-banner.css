@@ -15,6 +15,18 @@
     font-weight: bold;
 }
 
+.prior-party-banner__dates {
+    display: flex;
+    width: 600px;
+    padding: 10px 26px 12px;
+}
+.banner__date {
+    flex: 1
+}
+.banner__date span {
+    font-weight: 700;
+}
+
 /**
 Prior Party Posts
  */
@@ -46,26 +58,50 @@ Prior Party Banners
 .ppb-banners {
     width:1200px
 }
+
 .ppb-banners__row.header {
     font-weight: bold;
     color: white;
     background-color: #1d70b8;
+    border-top: 1px solid #1d70b8;
+    border-left: 1px solid #1d70b8;
 }
+
+.ppb-banners__row.header .ppb-banner__col {
+    font-weight: bold;
+    color: white;
+    background-color: #1d70b8;
+    border-left: 1px solid #1d70b8;
+    border-right: 1px solid #1d70b8;
+}
+
 .ppb-banners__row {
     display: flex;
-    border-top: 1px solid grey;
-    border-left: 1px solid grey;
+    border-top: 12px solid #f1f1f1;
+    border-left: 1px solid #f1f1f1;
+    background-color: #ffffff;
 }
-
+.ppb-banners__row:not(.header):hover {
+    background-color: #f3f3ca;
+    cursor: pointer;
+}
 .ppb-banners__row:last-child {
-    border-bottom: 1px solid grey;
+    border-bottom: 5px solid #f1f1f1;
 }
 
-.ppb-banner-col {
+.ppb-banner__col {
     flex: 1;
-    border-right: 1px solid grey;
+    border-right: 1px solid #f1f1f1;
     padding: 5px 8px 6px
 }
-.ppb-banner-col:first-child {
+.ppb-banner__col:first-child {
     flex: 3
+}
+
+.ppb-banner__col.ppb-banners__dates > span {
+    display: inline-block;
+    padding:7px;
+}
+.ppb-banner__col.ppb-banners__dates > span > span {
+    font-weight: 700;
 }
