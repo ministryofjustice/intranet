@@ -7,13 +7,25 @@ use WP_Query;
 class PriorPartyBannerPreview
 {
     private array $banner = [];
-    private string $repeater_name = 'prior_party_banners';
-    private mixed $banner_id = null;
+    private string $repeater_name = 'prior_political_party_banners';
+    private mixed $banner_reference = null;
     private array $posts = [];
+
+    private string $menu_slug = 'prior-party-banner-preview';
 
     public function __construct()
     {
-        $this->banner_id = $_GET['banner_id'];
+        $current_page = sanitize_text_field($_GET['page'] ?? '');
+        if ($current_page !== $this->menu_slug) {
+            return;
+        }
+
+        $banner_reference = sanitize_text_field($_GET['ref'] ?? '');
+        if ($banner_reference === '') {
+            $banner_reference = 'not-found';
+        }
+
+        $this->banner_reference = $banner_reference;
         $this->banner();
         $this->posts();
 
@@ -28,7 +40,7 @@ class PriorPartyBannerPreview
             'Prior Party Banner - Preview',
             'Prior Party Banner - Preview',
             'manage_options',
-            'prior-party-banner-preview',
+            $this->menu_slug,
             [$this, 'page']
         );
 
@@ -38,17 +50,17 @@ class PriorPartyBannerPreview
 
     public function pageLoad(): void
     {
-
+        //
     }
 
-    public function page()
+    public function page(): void
     {
         echo "<h1>Prior Party Banner - Preview</h1>";
-        echo "<h2>$this->banner_id</h2>";
+        echo "<h2>$this->banner_reference</h2>";
 
         // banner display
         echo '<div class="prior-party-banner">
-                <div class="prior-party-banner__text">' . $this->banner["text"] . '</div>
+                <div class="prior-party-banner__text">' . $this->banner["banner_content"] . '</div>
              </div>';
 
         echo '<hr />';
@@ -78,30 +90,11 @@ class PriorPartyBannerPreview
 
     private function banner(): void
     {
-        if (have_rows($this->repeater_name)) :
-            while (have_rows($this->repeater_name)) :
-                the_row();
-                $tab_count = 0;
-                try {
-                    $tab_count = count(get_field($this->repeater_name));
-                } catch (\Exception) {
-                }
-
-                if ($tab_count) :
-                    if (get_field($this->repeater_name)) :
-                        while (the_repeater_field('banners')) :
-                            $this->banner['text'] = get_sub_field('text');
-                            $this->banner['start'] = get_sub_field('start_date');
-                            $this->banner['end'] = get_sub_field('end_date');
-                        endwhile;
-                    endif;
-                endif; // if tab_count is set
-            endwhile;
-        endif;
-
-        $this->banner['text'] = 'This was published under the 2015 to 2024 Conservative government';
-        $this->banner['start'] = '2015-05-05';
-        $this->banner['end'] = '2024-07-05';
+        foreach (get_field($this->repeater_name, 'option') as $banner) {
+            if ($this->banner_reference === $banner['reference']) {
+                $this->banner = $banner;
+            }
+        }
     }
 
     private function posts(): void
@@ -109,8 +102,8 @@ class PriorPartyBannerPreview
         $args = [
             'date_query' => [
                 [
-                    'after' => $this->banner['start'],
-                    'before' => $this->banner['end'],
+                    'after' => $this->banner['start_date'],
+                    'before' => $this->banner['end_date'],
                     'inclusive' => true
                 ]
             ],
