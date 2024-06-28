@@ -42,27 +42,6 @@ function homesettings_option_pages()
     }
 }
 
-/**
- * Create potions page for prior political parties
- */
-add_action('init', 'prior_party_option_pages');
-
-function prior_party_option_pages()
-{
-    if (function_exists('acf_add_options_page')) {
-        acf_add_options_page(
-            array(
-                'page_title' => 'Prior Political Parties',
-                'capability' => 'manage_options',
-                'icon_url' => 'dashicons-calendar',
-                'menu_title' => 'Prior Political Parties',
-                'menu_slug' => 'prior-party-settings',
-                'parent_slug' => 'tools.php',
-            )
-        );
-    }
-}
-
 add_filter('acf/load_field', 'home_option_fields');
 
 function home_option_fields($field)
