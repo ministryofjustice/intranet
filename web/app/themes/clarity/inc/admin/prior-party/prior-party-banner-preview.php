@@ -107,9 +107,9 @@ class PriorPartyBannerPreview
         if ($this->banner_reference) {
             // drop return link
             echo '<a href="' . get_admin_url(
-                    null,
-                    'tools.php?page=prior-party-banner-preview'
-                ) . '" class="banner-return-link">View all banners</a>';
+                null,
+                'tools.php?page=prior-party-banner-preview'
+            ) . '" class="banner-return-link">View all banners</a>';
 
             // get the banner
             $this->banner();
@@ -140,7 +140,7 @@ class PriorPartyBannerPreview
                 echo '<div class="ppb-posts__row header">';
                 echo '<div class="ppb-post-col ppb-posts__title">Title</div>';
                 echo '<div class="ppb-post-col ppb-posts__date">Date</div>';
-                echo '<div class="ppb-post-col ppb-posts__type">Post type</div>';
+                echo '<div class="ppb-post-col ppb-posts__type">Type</div>';
                 echo '<div class="ppb-post-col ppb-posts__agency">Agency</div>';
                 echo '<div class="ppb-post-col ppb-posts__visibility">Visible</div>';
                 echo '</div>';
