@@ -63,7 +63,7 @@
                     },
                     "admin_only": 0,
                     "display_format": "d\/m\/Y",
-                    "return_format": "d\/m\/Y",
+                    "return_format": "Y-m-d",
                     "first_day": 1,
                     "parent_repeater": "field_667d8381b4592"
                 },
@@ -83,7 +83,7 @@
                     },
                     "admin_only": 0,
                     "display_format": "d\/m\/Y",
-                    "return_format": "d\/m\/Y",
+                    "return_format": "Y-m-d",
                     "first_day": 1,
                     "parent_repeater": "field_667d8381b4592"
                 },
@@ -152,5 +152,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1719566720
+    "modified": 1719584440
 }
