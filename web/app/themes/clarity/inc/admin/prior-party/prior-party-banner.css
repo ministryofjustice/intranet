@@ -8,6 +8,7 @@
     text-decoration: none;
     margin-bottom: 30px
 }
+
 .banner-return-link:hover,
 .banner-return-link:focus {
     color: #ffffff;
@@ -36,9 +37,11 @@
     width: 600px;
     padding: 10px 26px 12px;
 }
+
 .banner__date {
     flex: 1
 }
+
 .banner__date span {
     font-weight: 700;
 }
@@ -47,40 +50,91 @@
 Prior Party Posts
  */
 .ppb-posts {
-    width:1200px
+    width: 80%
 }
+
 .ppb-posts__row.header {
     font-weight: bold;
     color: white;
     background-color: #1d70b8;
+    border-top: 1px solid #1d70b8;
+    border-left: 1px solid #1d70b8;
 }
+
 .ppb-posts__row {
     display: flex;
-    border-top: 1px solid grey;
-    border-left: 1px solid grey;
+    border-top: 1px solid lightgrey;
+    border-left: 1px solid lightgrey;
     font-size: 1.1em;
 }
+
 .ppb-posts__row:not(.header):hover {
     background-color: #f3f3ca;
     cursor: pointer;
 }
+
 .ppb-posts__row:last-child {
-    border-bottom: 1px solid grey;
+    border-bottom: 1px solid lightgrey;
 }
+
+
+.ppb-posts__row.header .ppb-post-col {
+    font-weight: bold;
+    color: white;
+    background-color: #1d70b8;
+    border-left: 1px solid #1d70b8;
+    border-right: 1px solid #1d70b8;
+}
+
 .ppb-post-col {
     flex: 1;
-    border-right: 1px solid grey;
+    border-right: 1px solid lightgrey;
     padding: 7px 12px 8px
 }
+
 .ppb-post-col:first-child {
-    flex: 3
+    flex: 4
 }
+
+.ppb-post-col:last-child {
+    flex: .5
+}
+
+.agency-name {
+    font-size: 0.8rem;
+    display: inline-block;
+    border: 1px solid #009fff;
+    border-radius: 6px;
+    padding: 1px 6px 0;
+    background-color: #f1f1f1;
+    margin-top: 3px
+}
+
+
+.ppb-posts__row.excluded {
+    background-color: #fbc4b9;
+}
+
+.ppb-post-col.ppb-posts__status.tick {
+    background-image: url('icon_tick.svg');
+    background-size: 42%;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.ppb-post-col.ppb-posts__status.cross {
+    background-image: url('icon_cross.svg');
+    background-size: 42%;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
 
 /**
 Prior Party Banners
  */
 .ppb-banners {
-    width:1200px
+    width: 1200px
 }
 
 .ppb-banners__row.header {
@@ -105,10 +159,12 @@ Prior Party Banners
     border-left: 1px solid #f1f1f1;
     background-color: #ffffff;
 }
+
 .ppb-banners__row:not(.header):hover {
     background-color: #f3f3ca;
     cursor: pointer;
 }
+
 .ppb-banners__row:last-child {
     border-bottom: 5px solid #f1f1f1;
 }
@@ -118,14 +174,16 @@ Prior Party Banners
     border-right: 1px solid #f1f1f1;
     padding: 5px 8px 6px
 }
+
 .ppb-banner__col:first-child {
     flex: 3
 }
 
 .ppb-banner__col.ppb-banners__dates > span {
     display: inline-block;
-    padding:7px;
+    padding: 7px;
 }
+
 .ppb-banner__col.ppb-banners__dates > span > span {
     font-weight: 700;
 }
