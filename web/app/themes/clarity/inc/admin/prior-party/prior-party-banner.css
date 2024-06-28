@@ -111,6 +111,10 @@ Prior Party Posts
     display: inline-block;
 }
 
+.ppb-post-col.ppb-posts__visibility {
+    text-align: center;
+}
+
 .ppb-post-col:first-child {
     flex: 4
 }
