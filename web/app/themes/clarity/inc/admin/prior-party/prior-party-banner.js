@@ -65,11 +65,11 @@ jQuery(document).ready(function ($) {
             status.addClass(response.message.new);
 
             if (response.message.new === 'tick') {
-                _this.removeClass('excluded');
+                _this.removeClass('excluded').attr('title', null);
                 return true;
             }
 
-            _this.addClass('excluded');
+            _this.addClass('excluded').attr('title', 'The banner will not be shown');
         });
     });
 
