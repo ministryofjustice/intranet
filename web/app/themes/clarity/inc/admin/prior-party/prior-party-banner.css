@@ -60,12 +60,22 @@ Prior Party Posts
     border-top: 1px solid #1d70b8;
     border-left: 1px solid #1d70b8;
 }
+.header-fixed {
+    position: fixed;
+    top: 32px;
+    width: 72.5%;
+    contain: content;
+}
 
 .ppb-posts__row {
     display: flex;
     border-top: 1px solid lightgrey;
     border-left: 1px solid lightgrey;
     font-size: 1.1em;
+}
+
+.ppb-posts__row:not(.header) {
+    min-height: 60px;
 }
 
 .ppb-posts__row:not(.header):hover {
@@ -91,6 +101,15 @@ Prior Party Posts
     border-right: 1px solid lightgrey;
     padding: 7px 12px 8px
 }
+.ppb-posts__row .ppb-post-col.ppb-posts__title > span.nav-link {
+    display: none;
+    font-size: 0.8rem;
+    font-weight: 700;
+    margin-top: 6px;
+}
+.ppb-posts__row:hover .ppb-post-col.ppb-posts__title > span.nav-link {
+    display: inline-block;
+}
 
 .ppb-post-col:first-child {
     flex: 4
@@ -111,8 +130,9 @@ Prior Party Posts
 }
 
 
-.ppb-posts__row.excluded {
-    background-color: #fbc4b9;
+.ppb-posts__row.excluded,
+.ppb-posts__row.excluded:hover {
+    background-color: #feddd6;
 }
 
 .ppb-post-col.ppb-posts__status.tick {
@@ -124,7 +144,7 @@ Prior Party Posts
 
 .ppb-post-col.ppb-posts__status.cross {
     background-image: url('icon_cross.svg');
-    background-size: 42%;
+    background-size: 26%;
     background-repeat: no-repeat;
     background-position: center center;
 }
