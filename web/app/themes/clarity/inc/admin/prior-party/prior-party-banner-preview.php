@@ -36,6 +36,11 @@ class PriorPartyBannerPreview
      */
     private string $menu_slug = 'prior-party-banner-preview';
 
+    /**
+     * @var string normalised date format
+     */
+    private string $date_format = 'l jS \o\f F, Y';
+
     public function __construct()
     {
         /**
@@ -60,8 +65,6 @@ class PriorPartyBannerPreview
         }
 
         $this->banner_reference = $banner_reference;
-        $this->banner();
-        $this->posts();
     }
 
 
@@ -75,15 +78,25 @@ class PriorPartyBannerPreview
     {
         echo "<h1>Prior Party Banner - Preview</h1>";
 
-        echo "<h2>$this->banner_reference</h2>";
-        //echo "<h2>Banners</h2><pre>" . print_r($this->banners, true) . "</pre>";
-
-
         if ($this->banner_reference) {
-            // banner display
+            // get the banner
+            $this->banner();
+
+            // get the posts
+            $this->posts();
+
+            // normalise the dates
+            $start = new \DateTime($this->banner["start_date"]);
+            $stop  = new \DateTime($this->banner["end_date"]);
+
+            // display the banner
             echo '<div class="prior-party-banner">
-                <div class="prior-party-banner__text">' . $this->banner["banner_content"] . '</div>
-             </div>';
+                    <div class="prior-party-banner__text">' . $this->banner["banner_content"] . '</div>
+                  </div>
+                  <div class="prior-party-banner__dates">
+                    <div class="banner__date start">Active: <span>' . $start->format($this->date_format) . '</span></div>
+                    <div class="banner__date end">Ended: <span>' . $stop->format($this->date_format) . '</span></div>
+                  </div>';
 
             echo '<hr />';
 
@@ -117,19 +130,28 @@ class PriorPartyBannerPreview
     {
         echo '<div class="ppb-banners">';
         echo '<div class="ppb-banners__row header">';
-        echo '<div class="ppb-banner-col ppb-banners__title">Banner</div>';
-        echo '<div class="ppb-banner-col ppb-banners__dates">Dates</div>';
-        echo '<div class="ppb-banner-col ppb-banners__active">Active</div>';
+        echo '<div class="ppb-banner__col ppb-banners__title">Banner</div>';
+        echo '<div class="ppb-banner__col ppb-banners__dates">Dates</div>';
         echo '</div>';
 
         foreach ($this->banners as $banner) {
+            // readable dates
+            $start_date = new \DateTime($banner['start_date']);
+            $end_date   = new \DateTime($banner['end_date']);
+
+
+
             echo '<div class="ppb-banners__row" data-reference="' . $banner['reference'] . '">';
-            echo '<div class="ppb-banner-col ppb-banners__title">' . $banner['banner_content'] . '</div>';
-            echo '<div class="ppb-banner-col ppb-banners__dates">
-                    <span class="ppb-banners__date_starts">' . $banner['start_date'] . '</span>
-                    <span class="ppb-banners__date_stops">' . $banner['end_date'] . '</span>
+            echo '<div class="ppb-banner__col ppb-banners__title">
+                    <div class="prior-party-banner">
+                        <div class="prior-party-banner__text">' . $banner['banner_content'] . '</div>
+                    </div>
                   </div>';
-            echo '<div class="ppb-banner-col ppb-banners__active">' . $banner['banner_active'] . '</div>';
+
+            echo '<div class="ppb-banner__col ppb-banners__dates">
+                    <span class="ppb-banners__date_starts"><span>Active:</span> ' . $start_date->format($this->date_format) . '</span>
+                    <span class="ppb-banners__date_stops"><span>Ended:</span> ' . $end_date->format($this->date_format) . '</span>
+                  </div>';
             echo '</div>';
         }
 
@@ -138,6 +160,8 @@ class PriorPartyBannerPreview
 
     private function banner(): void
     {
+        //echo '<pre>' . print_r($this->banner, true) . '</pre>';
+
         foreach ($this->banners as $banner) {
             if ($this->banner_reference === $banner['reference']) {
                 $this->banner = $banner;
