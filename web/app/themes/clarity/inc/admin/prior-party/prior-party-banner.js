@@ -39,8 +39,12 @@ jQuery(document).ready(function ($) {
         const post_id = _this.data('id');
         const status  = _this.find('.ppb-posts__status');
 
-        _this.attr('disabled', 'disabled');
+        console.log(_this.attr('disabled'));
+        if (_this.attr('disabled') === 'disabled') {
+            return;
+        }
 
+        _this.attr('disabled', 'disabled');
 
         $.ajax({
             url: wpApiSettings.root + 'prior-party/v2/update',
@@ -67,6 +71,26 @@ jQuery(document).ready(function ($) {
 
             _this.addClass('excluded');
         });
+    });
 
-    })
+    _rows.find('.nav-link').on('click', function (e) {
+        e.stopPropagation();
+    });
+
+    const pbbPosts = $('.ppb-posts').offset().top - 32;
+    const header = $('.ppb-posts__row.header').clone();
+    const fixed  = $('.header-fixed').append(header);
+
+    // init
+    fixed.hide();
+    $(window).bind("scroll", function () {
+        const offset = $(this).scrollTop();
+
+        if (offset >= pbbPosts && fixed.is(":hidden")) {
+            console.log()
+            fixed.show();
+        } else if (offset < pbbPosts) {
+            fixed.hide();
+        }
+    });
 })
