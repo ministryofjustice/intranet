@@ -42,6 +42,7 @@ Prior Party Posts
     display: flex;
     border-top: 1px solid grey;
     border-left: 1px solid grey;
+    font-size: 1.1em;
 }
 .ppb-posts__row:last-child {
     border-bottom: 1px solid grey;
@@ -49,7 +50,10 @@ Prior Party Posts
 .ppb-post-col {
     flex: 1;
     border-right: 1px solid grey;
-    padding: 5px 8px 6px
+    padding: 7px 12px 8px
+}
+.ppb-post-col:first-child {
+    flex: 3
 }
 
 /**
