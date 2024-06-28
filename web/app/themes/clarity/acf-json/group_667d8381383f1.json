@@ -5,7 +5,7 @@
         {
             "key": "field_667d8381b4592",
             "label": "Prior Political Parties",
-            "name": "prior_parties",
+            "name": "prior_political_party_banners",
             "aria-label": "",
             "type": "repeater",
             "instructions": "",
@@ -17,7 +17,7 @@
                 "id": ""
             },
             "admin_only": 1,
-            "layout": "block",
+            "layout": "table",
             "pagination": 0,
             "min": 0,
             "max": 0,
@@ -25,6 +25,28 @@
             "button_label": "Add Prior Party",
             "rows_per_page": 20,
             "sub_fields": [
+                {
+                    "key": "field_667d849fb4593",
+                    "label": "Banner Content",
+                    "name": "banner_content",
+                    "aria-label": "",
+                    "type": "textarea",
+                    "instructions": "The text that will be shown in Prior Party Banner.\r\ne.g. This was published under the 2015 to 2024 Conservative government",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "admin_only": 0,
+                    "default_value": "",
+                    "maxlength": "",
+                    "rows": 3,
+                    "placeholder": "",
+                    "new_lines": "",
+                    "parent_repeater": "field_667d8381b4592"
+                },
                 {
                     "key": "field_667d851cb4594",
                     "label": "Start Date",
@@ -66,12 +88,12 @@
                     "parent_repeater": "field_667d8381b4592"
                 },
                 {
-                    "key": "field_667d849fb4593",
-                    "label": "Banner Content",
-                    "name": "banner_content",
+                    "key": "field_667e7c46c47ca",
+                    "label": "Reference",
+                    "name": "reference",
                     "aria-label": "",
-                    "type": "textarea",
-                    "instructions": "The text that will be shown in Prior Party Banner.\r\ne.g. This was published under the 2015 to 2024 Conservative government",
+                    "type": "text",
+                    "instructions": "A string with no spaces or special chars, underscores are ok",
                     "required": 1,
                     "conditional_logic": 0,
                     "wrapper": {
@@ -81,10 +103,10 @@
                     },
                     "admin_only": 0,
                     "default_value": "",
-                    "maxlength": "",
-                    "rows": "",
+                    "maxlength": 22,
                     "placeholder": "",
-                    "new_lines": "",
+                    "prepend": "",
+                    "append": "",
                     "parent_repeater": "field_667d8381b4592"
                 },
                 {
@@ -130,5 +152,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1719503341
+    "modified": 1719566720
 }
