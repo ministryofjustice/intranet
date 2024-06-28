@@ -57,36 +57,51 @@ class PriorPartyBanner
         add_action('before_rich_text_block', [$this, 'addBannerBeforeRichText']);
     }
 
-    public function isValidLocation($post_id) 
+
+    /**
+     * A helper function to return true only if all entries of an array return true for the callback.
+     */
+
+    public function arrayEvery(array $arr, callable $predicate)
+    {
+        foreach ($arr as $e) {
+            if (!call_user_func($predicate, $e)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public function locationMatchesPost($location)
     {
 
-        $post_type = get_post_type($post_id);
-        $page_template = get_page_template_slug($post_id);
+        if ($location['param'] === 'post_type' && $location['operator'] === '==') {
+            return $location['value'] == get_post_type(get_the_ID());
+        }
 
-        // TODO:
-        // - Throw an error if there is a location rule that is not handled.
-        // - Handle AND rules.
+        if ($location['param'] === 'post_type' && $location['operator'] === '!=') {
+            return $location['value'] != get_post_type(get_the_ID());
+        }
 
-        // Are we at a location where the banner could be displayed?
+        if ($location['param'] === 'post_template' && $location['operator'] === '==') {
+            return $location['value'] == get_page_template_slug(get_the_ID());
+        }
+
+        if ($location['param'] === 'post_template' && $location['operator'] === '!=') {
+            return $location['value'] != get_page_template_slug(get_the_ID());
+        }
+
+        throw new \Error('A location rule was not handled');
+    }
+
+    public function isValidLocation()
+    {
+
+        // Are we at a location where the banner could be displayed? Every rule in a location group must return true.
         $location_matches = array_filter(
             $this->locations,
-            function ($location) use ($post_type, $page_template) {
-                if (
-                    $location[0]['param'] === 'post_type' &&
-                    $location[0]['operator'] === '==' &&
-                    $location[0]['value'] === $post_type
-                ) {
-                    return true;
-                }
-
-                if (
-                    $location[0]['param'] === 'post_template' &&
-                    $location[0]['operator'] === '!=' &&
-                    $location[0]['value'] !== $page_template
-                ) {
-                    return true;
-                }
-            }
+            fn ($locations_group) => $this->arrayEvery($locations_group, [$this, 'locationMatchesPost'])
         );
 
         // If there are matches return true.
@@ -117,9 +132,7 @@ class PriorPartyBanner
         // Do any banners coincide with this date?
         $banners = array_filter(
             $this->banners,
-            function ($banner) use ($date) {
-                return $date >= $banner['start_epoch'] && $date <= $banner['end_epoch'];
-            }
+            fn ($banner) => $date >= $banner['start_epoch'] && $date <= $banner['end_epoch']
         );
 
         // If there are more than one banner, log an error. Possibly send to Sentry.
