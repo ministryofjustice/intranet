@@ -4,7 +4,9 @@ namespace MOJIntranet;
 
 use Exception;
 use MOJ\Intranet\Agency;
+use WP_Error;
 use WP_Query;
+use WP_REST_Request;
 
 class PriorPartyBannerPreview
 {
@@ -42,9 +44,13 @@ class PriorPartyBannerPreview
      * @var string normalised date format
      */
     private string $date_format = 'l jS \o\f F, Y';
+    private string $date_format_short = 'jS F, Y';
+
+    private array $post_type_labels = [];
 
     public function __construct()
     {
+        global $wp_post_types;
         /**
          * Create options page for
          * - prior party settings
@@ -52,6 +58,8 @@ class PriorPartyBannerPreview
          */
         add_action('init', [$this, 'priorPartyOptionPages']);
         add_action('admin_menu', [$this, 'menu']);
+
+        add_action('rest_api_init', [$this, 'actionHandler']);
 
         /**
          * Don't load preview code until needed
@@ -86,14 +94,22 @@ class PriorPartyBannerPreview
      */
     public function page(): void
     {
+        // housekeeping
+        $this->post_type_labels = [
+            'post' => get_post_type_object('post'),
+            'news' => get_post_type_object('news'),
+            'page' => get_post_type_object('page'),
+            'note-from-antonia' => get_post_type_object('note-from-antonia')
+        ];
+
         echo "<h1>Prior Party Banner - Preview</h1>";
 
         if ($this->banner_reference) {
             // drop return link
             echo '<a href="' . get_admin_url(
-                null,
-                'tools.php?page=prior-party-banner-preview'
-            ) . '" class="banner-return-link">View all banners</a>';
+                    null,
+                    'tools.php?page=prior-party-banner-preview'
+                ) . '" class="banner-return-link">View all banners</a>';
 
             // get the banner
             $this->banner();
@@ -105,6 +121,7 @@ class PriorPartyBannerPreview
             $start = new \DateTime($this->banner["start_date"]);
             $stop = new \DateTime($this->banner["end_date"]);
 
+
             // display the banner
             echo '<div class="prior-party-banner">
                     <div class="prior-party-banner__text">' . $this->banner["banner_content"] . '</div>
@@ -115,7 +132,7 @@ class PriorPartyBannerPreview
                   </div>';
 
             echo '<hr />';
-
+            //echo '<pre>' . print_r($this->posts[0], true) . '</pre>';
             // list of posts falling within date range
             if (!empty($this->posts)) {
                 echo '<div class="ppb-posts">';
@@ -125,14 +142,20 @@ class PriorPartyBannerPreview
                 echo '<div class="ppb-post-col ppb-posts__date">Date</div>';
                 echo '<div class="ppb-post-col ppb-posts__type">Post type</div>';
                 echo '<div class="ppb-post-col ppb-posts__agency">Agency</div>';
+                echo '<div class="ppb-post-col ppb-posts__visibility">Visible</div>';
                 echo '</div>';
 
                 foreach ($this->posts as $post) {
-                    echo '<div class="ppb-posts__row" data-id="'. $post->ID . '">';
+                    $date = new \DateTime($post->post_date);
+                    $agencies = $this->getPostAgencies($post->ID);
+                    $status = get_field('prior_party_banner', $post->ID);
+                    //echo '<pre>' . print_r($agencies, true) . '</pre>';
+                    echo '<div class="ppb-posts__row" data-id="' . $post->ID . '">';
                     echo '<div class="ppb-post-col ppb-posts__title">' . $post->post_title . '</div>';
-                    echo '<div class="ppb-post-col ppb-posts__date">' . $post->post_date . '</div>';
-                    echo '<div class="ppb-post-col ppb-posts__type">' . $post->post_type . '</div>';
-                    echo '<div class="ppb-post-col ppb-posts__agency"></div>';
+                    echo '<div class="ppb-post-col ppb-posts__date">' . $date->format($this->date_format_short) . '</div>';
+                    echo '<div class="ppb-post-col ppb-posts__type">' . $this->post_type_labels[$post->post_type]->labels->name . '</div>';
+                    echo '<div class="ppb-post-col ppb-posts__agency">' . implode(' ', $agencies) . '</div>';
+                    echo '<div class="ppb-post-col ppb-posts__status" data-status="' . ($status === false ? 'off' : 'on') . '"></div>';
                     echo '</div>';
                 }
                 echo '</div>';
@@ -140,6 +163,17 @@ class PriorPartyBannerPreview
         } else {
             $this->displayBanners();
         }
+    }
+
+    private function getPostAgencies($id)
+    {
+        $agencies = get_the_terms($id, 'agency');
+        $result = [];
+        foreach ($agencies as $agency) {
+            $result[] = '<span class="agency-name">' . $agency->name . '</span>';
+        }
+
+        return $result;
     }
 
     /**
@@ -169,12 +203,8 @@ class PriorPartyBannerPreview
                   </div>';
 
             echo '<div class="ppb-banner__col ppb-banners__dates">
-                    <span class="ppb-banners__date_starts"><span>Active:</span> ' . $start_date->format(
-                $this->date_format
-            ) . '</span>
-                    <span class="ppb-banners__date_stops"><span>Ended:</span> ' . $end_date->format(
-                $this->date_format
-            ) . '</span>
+                    <span class="ppb-banners__date_starts"><span>Active:</span> ' . $start_date->format($this->date_format) . '</span>
+                    <span class="ppb-banners__date_stops"><span>Ended:</span> ' . $end_date->format($this->date_format) . '</span>
                   </div>';
             echo '</div>';
         }
@@ -209,6 +239,7 @@ class PriorPartyBannerPreview
             $agency = new Agency();
             $active = $agency->getCurrentAgency();
             $args = [
+                'post_type' => ['post', 'page', 'news', 'note-from-antonia'],
                 'date_query' => [
                     [
                         'after' => $this->banner['start_date'],
@@ -277,6 +308,50 @@ class PriorPartyBannerPreview
                 )
             );
         }
+    }
+
+    public function actionHandler(): void
+    {
+        register_rest_route(
+            "prior-party/v2",
+            "/update",
+            [
+                'methods' => \WP_REST_Server::READABLE,
+                'permission_callback' => function (\WP_REST_Request $request) {
+                    return is_user_logged_in();
+                },
+                'callback' => [$this, 'updateStatus']
+            ]
+        );
+    }
+
+    /**
+     * @param WP_REST_Request $request
+     *
+     * @return WP_Error|false|string
+     */
+    public function updateStatus(WP_REST_Request $request): WP_Error|false|string
+    {
+        $id = $request->get_param('id');
+        $status = $request->get_param('status');
+
+        // perform the update
+        $result = update_field('prior_party_banner', ($status === 'off'), $id);
+
+        $state = [
+            'old' => 'tick',
+            'new' => 'cross'
+        ];
+
+        // let's switch if needed...
+        if ($status === 'off') {
+            $state = [
+                'old' => 'cross',
+                'new' => 'tick'
+            ];
+        }
+
+        return json_encode(["message" => (is_wp_error($result) ? $result : $state)]);
     }
 }
 
