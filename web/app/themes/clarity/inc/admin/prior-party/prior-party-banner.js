@@ -2,31 +2,71 @@
  * default data object
  */
 const MOJ_PPB = {
-    excluded: []
+    excluded: [],
 }
 
 jQuery(document).ready(function ($) {
+
+    const _rows = $('.ppb-posts__row');
     /**
      * React to clicks on banners, redirect to preview
      */
     $('.ppb-banners__row').on('click', function (e) {
         // redirect to post preview...
-        window.location.href = window.location.href+"&"+$.param({'ref':$(this).data('reference')})
-    });
+        window.location.href = window.location.href + '&' +
+            $.param({ 'ref': $(this).data('reference') })
+    })
+
+    /**
+     * reconcile status
+     */
+    _rows.find('.ppb-posts__status').each(function (key, element) {
+        console.log('Data', {key: key, value: element})
+        if ($(element).data('status') === 'on') {
+            $(element).addClass('tick');
+            return;
+        }
+
+        $(element).addClass('cross');
+        $(element).parent().addClass('excluded');
+    })
 
     /**
      * react to clicks on Post table, add the ID to the exclude array
      */
-    $('.ppb-posts__row').on('click', function (e) {
-        const post_id = $(this).data('id');
-        const index = $.inArray(post_id, MOJ_PPB.excluded);
+    _rows.on('click', function (e) {
+        const _this = $(this);
+        const post_id = _this.data('id');
+        const status  = _this.find('.ppb-posts__status');
 
-        if (index !== -1) {
-            MOJ_PPB.excluded.splice(index, 1);
-        } else {
-            MOJ_PPB.excluded.push(post_id);
-        }
+        _this.attr('disabled', 'disabled');
 
-        console.log(MOJ_PPB.excluded);
+
+        $.ajax({
+            url: wpApiSettings.root + 'prior-party/v2/update',
+            method: 'GET',
+            beforeSend: function ( xhr ) {
+                xhr.setRequestHeader('X-WP-Nonce', wpApiSettings.nonce);
+            },
+            data:{
+                'status' : status.hasClass('tick') ? 'on' : 'off',
+                'id': post_id
+            }
+        }).done(function ( response ) {
+            response = JSON.parse(response);
+
+            _this.attr('disabled', null);
+
+            status.removeClass(response.message.old);
+            status.addClass(response.message.new);
+
+            if (response.message.new === 'tick') {
+                _this.removeClass('excluded');
+                return true;
+            }
+
+            _this.addClass('excluded');
+        });
+
     })
 })
