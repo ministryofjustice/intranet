@@ -71,6 +71,7 @@ class PriorPartyBannerPreview
 
     /**
      * Loaded via a hook
+     *
      * @return void
      */
     public function pageLoad(): void
@@ -80,6 +81,7 @@ class PriorPartyBannerPreview
 
     /**
      * Build the page
+     *
      * @throws Exception
      */
     public function page(): void
@@ -87,6 +89,12 @@ class PriorPartyBannerPreview
         echo "<h1>Prior Party Banner - Preview</h1>";
 
         if ($this->banner_reference) {
+            // drop return link
+            echo '<a href="' . get_admin_url(
+                null,
+                'tools.php?page=prior-party-banner-preview'
+            ) . '" class="banner-return-link">View all banners</a>';
+
             // get the banner
             $this->banner();
 
@@ -95,7 +103,7 @@ class PriorPartyBannerPreview
 
             // normalise the dates
             $start = new \DateTime($this->banner["start_date"]);
-            $stop  = new \DateTime($this->banner["end_date"]);
+            $stop = new \DateTime($this->banner["end_date"]);
 
             // display the banner
             echo '<div class="prior-party-banner">
@@ -120,7 +128,7 @@ class PriorPartyBannerPreview
                 echo '</div>';
 
                 foreach ($this->posts as $post) {
-                    echo '<div class="ppb-posts__row">';
+                    echo '<div class="ppb-posts__row" data-id="'. $post->ID . '">';
                     echo '<div class="ppb-post-col ppb-posts__title">' . $post->post_title . '</div>';
                     echo '<div class="ppb-post-col ppb-posts__date">' . $post->post_date . '</div>';
                     echo '<div class="ppb-post-col ppb-posts__type">' . $post->post_type . '</div>';
@@ -151,7 +159,7 @@ class PriorPartyBannerPreview
         foreach ($this->banners as $banner) {
             // readable dates
             $start_date = new \DateTime($banner['start_date']);
-            $end_date   = new \DateTime($banner['end_date']);
+            $end_date = new \DateTime($banner['end_date']);
 
             echo '<div class="ppb-banners__row" data-reference="' . $banner['reference'] . '">';
             echo '<div class="ppb-banner__col ppb-banners__title">
@@ -161,8 +169,12 @@ class PriorPartyBannerPreview
                   </div>';
 
             echo '<div class="ppb-banner__col ppb-banners__dates">
-                    <span class="ppb-banners__date_starts"><span>Active:</span> ' . $start_date->format($this->date_format) . '</span>
-                    <span class="ppb-banners__date_stops"><span>Ended:</span> ' . $end_date->format($this->date_format) . '</span>
+                    <span class="ppb-banners__date_starts"><span>Active:</span> ' . $start_date->format(
+                $this->date_format
+            ) . '</span>
+                    <span class="ppb-banners__date_stops"><span>Ended:</span> ' . $end_date->format(
+                $this->date_format
+            ) . '</span>
                   </div>';
             echo '</div>';
         }
@@ -188,6 +200,7 @@ class PriorPartyBannerPreview
 
     /**
      * Search the DB for posts that match the Agency and date range provided
+     *
      * @return void
      */
     private function posts(): void
@@ -223,6 +236,7 @@ class PriorPartyBannerPreview
 
     /**
      * Creates a menu link under the Tools section in the admin Dashboard
+     *
      * @return void
      */
     public function menu(): void
@@ -243,6 +257,7 @@ class PriorPartyBannerPreview
 
     /**
      * Create the ACF settings page menu item, located under Tools
+     *
      * @return void
      */
     public function priorPartyOptionPages(): void
