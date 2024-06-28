@@ -2,6 +2,7 @@
 if (have_posts()) :
     while (have_posts()) :
         the_post();
+        do_action('before_rich_text_block');
         ?>
 
 <!-- c-rich-text-block starts here -->
