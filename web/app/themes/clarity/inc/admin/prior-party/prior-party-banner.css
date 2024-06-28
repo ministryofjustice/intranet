@@ -1,3 +1,19 @@
+.banner-return-link {
+    display: inline-block;
+    font-size: 0.9rem;
+    padding: 8px 15px 7px;
+    border: 1px solid #008000;
+    background-color: #009f00;
+    color: #ffffff;
+    text-decoration: none;
+    margin-bottom: 30px
+}
+.banner-return-link:hover,
+.banner-return-link:focus {
+    color: #ffffff;
+    background-color: #026802;
+}
+
 .prior-party-banner {
     padding: 20px;
     background-color: #fff;
@@ -43,6 +59,10 @@ Prior Party Posts
     border-top: 1px solid grey;
     border-left: 1px solid grey;
     font-size: 1.1em;
+}
+.ppb-posts__row:not(.header):hover {
+    background-color: #f3f3ca;
+    cursor: pointer;
 }
 .ppb-posts__row:last-child {
     border-bottom: 1px solid grey;
