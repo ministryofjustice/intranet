@@ -15,6 +15,9 @@
     font-weight: bold;
 }
 
+/**
+Prior Party Posts
+ */
 .ppb-posts {
     width:1200px
 }
@@ -35,4 +38,34 @@
     flex: 1;
     border-right: 1px solid grey;
     padding: 5px 8px 6px
+}
+
+/**
+Prior Party Banners
+ */
+.ppb-banners {
+    width:1200px
+}
+.ppb-banners__row.header {
+    font-weight: bold;
+    color: white;
+    background-color: #1d70b8;
+}
+.ppb-banners__row {
+    display: flex;
+    border-top: 1px solid grey;
+    border-left: 1px solid grey;
+}
+
+.ppb-banners__row:last-child {
+    border-bottom: 1px solid grey;
+}
+
+.ppb-banner-col {
+    flex: 1;
+    border-right: 1px solid grey;
+    padding: 5px 8px 6px
+}
+.ppb-banner-col:first-child {
+    flex: 3
 }
