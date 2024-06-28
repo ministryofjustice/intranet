@@ -1,0 +1,31 @@
+{
+    "name": "notification-banner",
+    "class": "c-notification-banner",
+    "version": "1.0.0",
+    "creator": {
+        "name": "Davey Brown",
+        "github_username": "https://github.com/EarthlingDavey"
+    },
+    "description": "A notification banner based on the MoJ Design System.",
+    "standard_or_universal": "standard",
+    "parents": "",
+    "children": "",
+    "notes": {
+        "backend": "",
+        "frontend": ""
+    },
+    "backend_classes": {},
+    "has_js": false ,
+    "integrated": false,
+    "is_working": false,
+    "example_link": "",
+    "used_on_templates" : [{
+        "name": "Prior Party Banner (controller)",
+        "path": "clarity/inc/admin/prior-party/prior-party-banner.php"
+    }],
+    "changelog": [{
+        "date": "27/6/2024",
+        "author": "Davey Brown",
+        "description": "Created component"
+    }]
+}
