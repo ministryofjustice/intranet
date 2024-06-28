@@ -149,15 +149,22 @@ class PriorPartyBannerPreview
                     $date = new \DateTime($post->post_date);
                     $agencies = $this->getPostAgencies($post->ID);
                     $status = get_field('prior_party_banner', $post->ID);
+                    $link_admin = get_edit_post_link($post->ID);
+                    $link_view = get_permalink($post->ID);
                     //echo '<pre>' . print_r($agencies, true) . '</pre>';
+
                     echo '<div class="ppb-posts__row" data-id="' . $post->ID . '">';
-                    echo '<div class="ppb-post-col ppb-posts__title">' . $post->post_title . '</div>';
+                    echo '<div class="ppb-post-col ppb-posts__title">' . $post->post_title . '<br>
+                              <span class="nav-link"><a href="'.$link_view.'" target="_blank">View</a> | </span>
+                              <span class="nav-link"><a href="'.$link_admin.'" target="_blank">Edit</a></span>
+                          </div>';
                     echo '<div class="ppb-post-col ppb-posts__date">' . $date->format($this->date_format_short) . '</div>';
                     echo '<div class="ppb-post-col ppb-posts__type">' . $this->post_type_labels[$post->post_type]->labels->name . '</div>';
                     echo '<div class="ppb-post-col ppb-posts__agency">' . implode(' ', $agencies) . '</div>';
                     echo '<div class="ppb-post-col ppb-posts__status" data-status="' . ($status === false ? 'off' : 'on') . '"></div>';
                     echo '</div>';
                 }
+                echo '<div class="header-fixed"></div>';
                 echo '</div>';
             }
         } else {
