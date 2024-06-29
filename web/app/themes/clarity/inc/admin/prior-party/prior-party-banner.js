@@ -1,17 +1,52 @@
 /**
  * default data object
  */
-const MOJ_PPB = {
-    excluded: [],
-}
-
 jQuery(document).ready(function ($) {
+    const JQ = {
+        all: $('.ppb-posts'),
+        rows: $('.ppb-posts__row'),
+        header: $('.ppb-posts__row.header'),
+        fixed: $('.header-fixed'),
+        banners: {
+            row: $('.ppb-banners__row')
+        }
+    };
 
-    const _rows = $('.ppb-posts__row');
+    const MOJ_PPB = {
+        on: {
+            scroll: function (e) {
+                const pbbPosts = JQ.all.offset().top - 32;
+                const fixed  = JQ.fixed.append(JQ.header.clone());
+
+                // init
+                fixed.hide();
+                $(window).bind("scroll", function () {
+                    const offset = $(this).scrollTop();
+                    const width = JQ.header.outerWidth();
+
+                    if (offset >= pbbPosts && fixed.is(":hidden")) {
+                        fixed.css({width: width + 'px'}).show();
+                    } else if (offset < pbbPosts) {
+                        fixed.hide();
+                    }
+                });
+            },
+            resize: function () {
+                $(window).bind("resize", function () {
+                    const width = JQ.header.outerWidth();
+
+                    if (JQ.fixed.is(":visible")) {
+                        JQ.fixed.css({width: width + 'px'})
+                    }
+                });
+            }
+        }
+    }
+
     /**
      * React to clicks on banners, redirect to preview
      */
-    $('.ppb-banners__row').on('click', function (e) {
+    JQ.banners.row.on('click', function (e) {
         // redirect to post preview...
         window.location.href = window.location.href + '&' +
             $.param({ 'ref': $(this).data('reference') })
@@ -20,7 +55,7 @@ jQuery(document).ready(function ($) {
     /**
      * reconcile status
      */
-    _rows.find('.ppb-posts__status').each(function (key, element) {
+    JQ.rows.find('.ppb-posts__status').each(function (key, element) {
         console.log('Data', {key: key, value: element})
         if ($(element).data('status') === 'on') {
             $(element).addClass('tick');
@@ -34,7 +69,7 @@ jQuery(document).ready(function ($) {
     /**
      * react to clicks on Post table, add the ID to the exclude array
      */
-    _rows.on('click', function (e) {
+    JQ.rows.on('click', function (e) {
         const _this = $(this);
         const post_id = _this.data('id');
         const status  = _this.find('.ppb-posts__status');
@@ -73,24 +108,11 @@ jQuery(document).ready(function ($) {
         });
     });
 
-    _rows.find('.nav-link').on('click', function (e) {
+    JQ.rows.find('.nav-link').on('click', function (e) {
         e.stopPropagation();
     });
 
-    const pbbPosts = $('.ppb-posts').offset().top - 32;
-    const header = $('.ppb-posts__row.header').clone();
-    const fixed  = $('.header-fixed').append(header);
+    MOJ_PPB.on.scroll();
+    MOJ_PPB.on.resize();
 
-    // init
-    fixed.hide();
-    $(window).bind("scroll", function () {
-        const offset = $(this).scrollTop();
-
-        if (offset >= pbbPosts && fixed.is(":hidden")) {
-            console.log()
-            fixed.show();
-        } else if (offset < pbbPosts) {
-            fixed.hide();
-        }
-    });
-})
+});
