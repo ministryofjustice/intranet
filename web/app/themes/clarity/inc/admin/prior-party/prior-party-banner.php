@@ -145,6 +145,9 @@ class PriorPartyBanner
             return;
         }
 
+        // reset index
+        $banners = array_values($banners);
+
         // We have a banner to display.
         get_template_part('src/components/c-notification-banner/view', null, ['heading' => $banners[0]['banner_content']]);
     }
