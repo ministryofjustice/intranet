@@ -335,9 +335,9 @@ class PriorPartyBannerPreview
     /**
      * @param WP_REST_Request $request
      *
-     * @return WP_Error|false|string
+     * @return false|string
      */
-    public function updateStatus(WP_REST_Request $request): WP_Error|false|string
+    public function updateStatus(WP_REST_Request $request): false|string
     {
         $id = $request->get_param('id');
         $status = $request->get_param('status');
