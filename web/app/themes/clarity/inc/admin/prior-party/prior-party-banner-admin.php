@@ -116,7 +116,7 @@ class PriorPartyBannerAdmin
             echo '<a href="' . get_admin_url(
                 null,
                 'tools.php?page=' . $this->menu_slug
-            ) . '" class="banner-return-link">View all banners</a>';
+            ) . '" class="ppb-cta-link">View all banners</a>';
 
             // get and cache the banner
             $this->banner();
@@ -138,13 +138,18 @@ class PriorPartyBannerAdmin
                     <div class="banner__date end">Ended: <span>' . $stop->format($this->date_format) . '</span></div>
                   </div>';
 
-            echo '<hr />';
+            echo '<div class="info-description">';
             echo '<h2>Affected Content</h2>';
-            echo '<p>A list of all content that will present a banner is displayed below.<br>The list is interactive. For example, you can filter using the input, just type a word and, you can<br>click each content item to change the banners visible state.</p>';
+            echo '<p><strong>Total items: </strong>' . count($this->posts) . '</p>';
+            echo '<p>A list of all content that will present a banner is displayed below.<br>The list is interactive.
+                     For example, you can click an item to remove the<br>banner or, filter results using the input, just
+                     type a word.</p>';
 
             echo '<h3>Filter</h3>';
             echo '<p>Type a word in the input field to filter content rows.</p>';
-            echo '<input id="search-input" class="filter-rows-input" placeholder="Filter words"><br><br>';
+            echo '<input id="search-input" class="filter-rows-input" placeholder="Filter words">
+                  <a href="#" id="clear-filter" class="ppb-cta-link disabled">Clear</a>';
+            echo '</div><br />';
 
             //echo '<pre>' . print_r($this->posts[0], true) . '</pre>';
 
@@ -181,6 +186,7 @@ class PriorPartyBannerAdmin
                 }
                 echo '<div id="header-fixed"></div>';
                 echo '</div>';
+                echo '<div id="back-to-top"></div>';
             }
         } else {
             $this->displayBanners();
@@ -268,6 +274,7 @@ class PriorPartyBannerAdmin
             $active = $agency->getCurrentAgency();
             $args = [
                 'post_type' => ['post', 'page', 'news', 'note-from-antonia'],
+                'post_status' => ['publish', 'pending'],
                 'date_query' => [
                     [
                         'after' => $this->banner['start_date'],

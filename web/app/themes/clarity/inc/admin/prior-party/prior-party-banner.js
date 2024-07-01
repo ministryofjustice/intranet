@@ -10,7 +10,11 @@ jQuery(document).ready(function ($) {
         banners: {
             row: $('.ppb-banners__row')
         },
-        search: $("#search-input")
+        search: {
+            input: $('#search-input'),
+            clear: $('#clear-filter')
+        },
+        top: $('#back-to-top')
     };
 
     const MOJ_PPB = {
@@ -18,6 +22,7 @@ jQuery(document).ready(function ($) {
             scroll: function (e) {
                 const pbbPosts = JQ.all.offset().top - 32;
                 const fixed  = JQ.fixed.append(JQ.header.clone());
+                const backToTop = JQ.top;
 
                 // init
                 fixed.hide();
@@ -27,8 +32,11 @@ jQuery(document).ready(function ($) {
 
                     if (offset >= pbbPosts && fixed.is(":hidden")) {
                         fixed.css({width: width + 'px'}).show();
+
+                        MOJ_PPB.toTop.display(); // back to top
                     } else if (offset < pbbPosts) {
                         fixed.hide();
+                        backToTop.fadeOut();
                     }
                 });
             },
@@ -54,8 +62,15 @@ jQuery(document).ready(function ($) {
         },
         filter: function () {
             const delay_time = 400; // milliseconds
-            JQ.search.keyup(this.delay(function () {
-                if (this.value.length < 3) {
+
+            JQ.search.clear.addClass('disabled').on('click', function (e) {
+                e.preventDefault();
+                JQ.search.input.val("").keyup().focus();
+            });
+
+            JQ.search.input.keyup(this.delay(function () {
+                if (this.value.length < 2) {
+                    JQ.search.clear.addClass('disabled');
                     JQ.rows.show();
                     return;
                 }
@@ -64,12 +79,15 @@ jQuery(document).ready(function ($) {
                 const data = this.value.toUpperCase().split(' ')
 
                 if (this.value === "") {
+                    JQ.search.clear.addClass('disabled');
                     JQ.rows.show();
                     return;
                 }
 
                 //hide all the rows
                 JQ.rows.hide();
+
+                JQ.search.clear.removeClass('disabled');
 
                 //Recursively filter the jquery object to get results.
                 JQ.rows.filter(function (i, v) {
@@ -81,6 +99,7 @@ jQuery(document).ready(function ($) {
                     }
                     return false;
                 }).show();
+
             }, delay_time)).focus(function () {
                 this.value = "";
                 $(this).css({
@@ -90,8 +109,22 @@ jQuery(document).ready(function ($) {
             }).css({
                 "color": "#C0C0C0"
             });
+        },
+        toTop: {
+            init: () => {
+                JQ.top.hide();
+                JQ.top.on('click', function (e) {
+                    const topOfBanner = $('.prior-party-banner').offset().top - 50;
+                    window.scrollTo({top: topOfBanner, behavior: 'smooth'});
+                });
+            },
+            display: () => {
+                JQ.top.fadeIn();
+            }
         }
     }
+
+    MOJ_PPB.filter();
 
     /**
      * React to clicks on banners, redirect to preview
@@ -163,6 +196,5 @@ jQuery(document).ready(function ($) {
 
     MOJ_PPB.on.scroll();
     MOJ_PPB.on.resize();
-    MOJ_PPB.filter();
-
+    MOJ_PPB.toTop.init();
 });
