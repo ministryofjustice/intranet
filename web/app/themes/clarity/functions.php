@@ -36,7 +36,7 @@ require_once 'inc/admin/page.php';
 require_once 'inc/admin/permission-display-page.php';
 require_once 'inc/admin/plugins/co-authors-plus.php';
 require_once 'inc/admin/plugins/polls.php';
-require_once 'inc/admin/prior-party/prior-party-banner-preview.php';
+require_once 'inc/admin/prior-party/prior-party-banner-admin.php';
 require_once 'inc/admin/prior-party/prior-party-banner.php';
 require_once 'inc/admin/remove-customizer.php';
 require_once 'inc/admin/suppress-wp-update-msg.php';

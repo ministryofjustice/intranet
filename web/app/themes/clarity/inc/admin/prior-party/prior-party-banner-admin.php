@@ -8,7 +8,7 @@ use WP_Error;
 use WP_Query;
 use WP_REST_Request;
 
-class PriorPartyBannerPreview
+class PriorPartyBannerAdmin
 {
     /**
      * @var array contains all available banners
@@ -41,9 +41,9 @@ class PriorPartyBannerPreview
     private array $posts = [];
 
     /**
-     * @var string the name of the page for previewing banner posts
+     * @var string the name of the page for viewing banner posts
      */
-    private string $menu_slug = 'prior-party-banner-preview';
+    private string $menu_slug = 'prior-party-banners';
 
     /**
      * @var string normalised date format
@@ -59,7 +59,7 @@ class PriorPartyBannerPreview
         /**
          * Create options page for
          * - prior party settings
-         * - prior party preview
+         * - prior party view
          */
         add_action('init', [$this, 'priorPartyOptionPages']);
         add_action('admin_menu', [$this, 'menu']);
@@ -69,7 +69,7 @@ class PriorPartyBannerPreview
         add_filter('acf/update_value/name=' . $this->post_field_name, [$this, 'trackBannerUpdates'], 10, 4);
 
         /**
-         * Don't load preview code until needed
+         * Don't load view code until needed
          */
         $current_page = sanitize_text_field($_GET['page'] ?? '');
         if ($current_page !== $this->menu_slug) {
@@ -115,7 +115,7 @@ class PriorPartyBannerPreview
             // drop return link
             echo '<a href="' . get_admin_url(
                 null,
-                'tools.php?page=prior-party-banner-preview'
+                'tools.php?page=' . $this->menu_slug
             ) . '" class="banner-return-link">View all banners</a>';
 
             // get and cache the banner
@@ -165,13 +165,13 @@ class PriorPartyBannerPreview
                     $agencies = $this->getPostAgencies($post->ID);
                     $status = get_field('prior_party_banner', $post->ID);
                     $link_admin = get_edit_post_link($post->ID);
-                    $link_view = get_permalink($post->ID);
+                    $link_view = get_permalink($post->ID) . '?time_context=' . $stop->format('U');
                     //echo '<pre>' . print_r($agencies, true) . '</pre>';
 
                     echo '<div class="ppb-posts__row" data-id="' . $post->ID . '">';
                     echo '<div class="ppb-post-col ppb-posts__title">' . $post->post_title . '<br>
-                              <span class="nav-link"><a href="'.$link_view.'" target="_blank">View</a> | </span>
-                              <span class="nav-link"><a href="'.$link_admin.'" target="_blank">Edit</a></span>
+                              <span class="nav-link"><a href="' . $link_view . '" target="_blank">View</a> | </span>
+                              <span class="nav-link"><a href="' . $link_admin . '" target="_blank">Edit</a></span>
                           </div>';
                     echo '<div class="ppb-post-col ppb-posts__date">' . $date->format($this->date_format_short) . '</div>';
                     echo '<div class="ppb-post-col ppb-posts__type">' . $this->post_type_labels[$post->post_type]->labels->name . '</div>';
@@ -416,4 +416,4 @@ class PriorPartyBannerPreview
     }
 }
 
-new PriorPartyBannerPreview();
+new PriorPartyBannerAdmin();
