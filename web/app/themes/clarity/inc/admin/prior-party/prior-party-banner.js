@@ -53,6 +53,7 @@ jQuery(document).ready(function ($) {
             };
         },
         filter: function () {
+            const delay_time = 400; // milliseconds
             JQ.search.keyup(this.delay(function () {
                 if (this.value.length < 3) {
                     JQ.rows.show();
@@ -80,7 +81,7 @@ jQuery(document).ready(function ($) {
                     }
                     return false;
                 }).show();
-            }, 500)).focus(function () {
+            }, delay_time)).focus(function () {
                 this.value = "";
                 $(this).css({
                     "color": "#1d1d1d"
