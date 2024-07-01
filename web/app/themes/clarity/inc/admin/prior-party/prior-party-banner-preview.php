@@ -111,10 +111,10 @@ class PriorPartyBannerPreview
                 'tools.php?page=prior-party-banner-preview'
             ) . '" class="banner-return-link">View all banners</a>';
 
-            // get the banner
+            // get and cache the banner
             $this->banner();
 
-            // get the posts
+            // get and cache the posts
             $this->posts();
 
             // normalise the dates
@@ -132,10 +132,17 @@ class PriorPartyBannerPreview
                   </div>';
 
             echo '<hr />';
+            echo '<h2>Affected Content</h2>';
+            echo '<p>A list of all content that will present a banner is displayed below.<br>The list is interactive. For example, you can filter using the input, just type a word and, you can<br>click each content item to change the banners visible state.</p>';
+
+            echo '<h3>Filter</h3>';
+            echo '<p>Type a word in the input field to filter content rows.</p>';
+            echo '<input id="search-input" class="filter-rows-input" placeholder="Filter using..."><br><br>';
+
             //echo '<pre>' . print_r($this->posts[0], true) . '</pre>';
             // list of posts falling within date range
             if (!empty($this->posts)) {
-                echo '<div class="ppb-posts">';
+                echo '<div id="ppb-posts">';
 
                 echo '<div class="ppb-posts__row header">';
                 echo '<div class="ppb-post-col ppb-posts__title">Title</div>';
@@ -164,7 +171,7 @@ class PriorPartyBannerPreview
                     echo '<div class="ppb-post-col ppb-posts__status" data-status="' . ($status === false ? 'off' : 'on') . '"></div>';
                     echo '</div>';
                 }
-                echo '<div class="header-fixed"></div>';
+                echo '<div id="header-fixed"></div>';
                 echo '</div>';
             }
         } else {
