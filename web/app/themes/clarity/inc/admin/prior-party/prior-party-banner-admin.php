@@ -141,7 +141,7 @@ class PriorPartyBannerAdmin
             echo '<div class="info-description">';
             echo '<h2>Affected Content</h2>';
             echo '<p><strong>Total items: </strong>' . count($this->posts) . '</p>';
-            echo '<p>A list of all content that will present a banner is displayed below.<br>The list is interactive.
+            echo '<p>A list of content that will present a banner is displayed below.<br>The list is interactive.
                      For example, you can click an item to remove the<br>banner or, filter results using the input, just
                      type a word.</p>';
 
@@ -186,7 +186,7 @@ class PriorPartyBannerAdmin
                 }
                 echo '<div id="header-fixed"></div>';
                 echo '</div>';
-                echo '<div id="back-to-top"></div>';
+                echo '<div id="back-to-top" title="Back to top"></div>';
             }
         } else {
             $this->displayBanners();
