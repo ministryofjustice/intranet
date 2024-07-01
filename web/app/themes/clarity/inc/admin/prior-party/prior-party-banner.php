@@ -47,6 +47,26 @@ class PriorPartyBanner
         add_action('before_note_from_antonia', [$this, 'maybeAddBannerBeforeRichText']);
     }
 
+    public function getPreviewTime(array $known_end_epochs): false | int
+    {
+        // Is the user logged in and can edit posts?
+        if (!current_user_can('edit_posts')) {
+            return false;
+        }
+
+        // If the query var is empty, return now.
+        if (empty($_GET['time_context'])) {
+            return false;
+        }
+
+        // Compare time_context against known end_epochs.
+        if (in_array($_GET['time_context'], $known_end_epochs,  false)) {
+            return (int) $_GET['time_context'];
+        }
+
+        return false;
+    }
+
     public function init(): void
     {
         // The ACF field for the 'Prior Party Banner' checkbox has.
@@ -55,27 +75,50 @@ class PriorPartyBanner
         // Use the locations to determine where the banner should be displayed.
         $this->locations = $fields['location'];
 
-        // Set the current timestamp.
-        $this->time_context = time();
+        // Are we doing AJAX, needed for Notes from Antonia lazy load.
+        $doing_ajax = defined('DOING_AJAX') && DOING_AJAX;
+
+        // During AJAX requests, is_admin will be true. Return here if we're at an admin screen and not doing AJAX.
+        if ( is_admin() && !$doing_ajax) {
+            return;
+        }
 
         // Get all banners from the repeater field.
-        $all_banners = get_field($this->repeater_name, 'option') ?? [];
+        $all_banners = get_field($this->repeater_name, 'option');
+
+        // I think when this is run during a json api request, the field is not defined and it is erroring.
+        // TODO - look into this.
+        if (gettype($all_banners) !== 'array') {
+            return;
+        }
+
+        // Map the banners to a more usable format - epoch timestamps are used for comparison.
+        $mapped_banners = array_map(
+            fn ($banner) => [
+                'banner_active' => $banner['banner_active'],
+                'banner_content' => $banner['banner_content'],
+                'start_epoch' => strtotime($banner['start_date']),
+                'end_epoch' => $banner['end_date'] ? strtotime($banner['end_date']) : null
+            ],
+            $all_banners
+        );
+
+        // An array of known end dates in epoch format.
+        $known_end_epochs = array_map(
+            fn ($banner) => $banner['end_epoch'],
+            $mapped_banners
+        );
+
+        // Set the current timestamp.
+        $this->time_context =  $this->getPreviewTime($known_end_epochs) ?: time();
 
         // Only include active banners where the end date is in the past.
         $active_banners = array_filter(
-            $all_banners,
-            fn ($banner) => $banner['banner_active'] === true && strtotime($banner['end_date']) <= $this->time_context
+            $mapped_banners,
+            fn ($banner) =>  $banner['banner_active'] === true && $banner['end_epoch'] && ($banner['end_epoch'] <= $this->time_context)
         );
 
-        // Map the banners to a more usable format - epoch timestamps are used for comparison.
-        $this->banners = array_map(
-            fn ($banner) => [
-                'start_epoch' => strtotime($banner['start_date']),
-                'end_epoch' => strtotime($banner['end_date'] . " +1 day") - 1,
-                'banner_content' => $banner['banner_content']
-            ],
-            $active_banners
-        );
+        $this->banners = $active_banners;
     }
 
     /**
