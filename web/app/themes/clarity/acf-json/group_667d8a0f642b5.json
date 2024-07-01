@@ -62,6 +62,11 @@
                 "param": "post_template",
                 "operator": "!=",
                 "value": "page_news.php"
+            },
+            {
+                "param": "post_template",
+                "operator": "!=",
+                "value": "page_notes_from_antonia.php"
             }
         ],
         [
@@ -114,5 +119,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1719504066
+    "modified": 1719840984
 }
