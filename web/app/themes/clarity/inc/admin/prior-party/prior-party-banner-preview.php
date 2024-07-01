@@ -109,7 +109,7 @@ class PriorPartyBannerPreview
             'note-from-antonia' => get_post_type_object('note-from-antonia')
         ];
 
-        echo "<h1>Prior Party Banner - Preview</h1>";
+        echo "<h1>Prior Party Banners</h1>";
 
         if ($this->banner_reference) {
             // drop return link
@@ -144,9 +144,10 @@ class PriorPartyBannerPreview
 
             echo '<h3>Filter</h3>';
             echo '<p>Type a word in the input field to filter content rows.</p>';
-            echo '<input id="search-input" class="filter-rows-input" placeholder="Filter using..."><br><br>';
+            echo '<input id="search-input" class="filter-rows-input" placeholder="Filter words"><br><br>';
 
             //echo '<pre>' . print_r($this->posts[0], true) . '</pre>';
+
             // list of posts falling within date range
             if (!empty($this->posts)) {
                 echo '<div id="ppb-posts">';
@@ -186,7 +187,7 @@ class PriorPartyBannerPreview
         }
     }
 
-    private function getPostAgencies($id)
+    private function getPostAgencies($id): array
     {
         $agencies = get_the_terms($id, 'agency');
         $result = [];
@@ -205,6 +206,8 @@ class PriorPartyBannerPreview
      */
     private function displayBanners(): void
     {
+        echo '<p>Please select a banner from the list.<br>You can view all content items that will have the
+                 banner displayed.</p>';
         echo '<div class="ppb-banners">';
         echo '<div class="ppb-banners__row header">';
         echo '<div class="ppb-banner__col ppb-banners__title">Banner</div>';
@@ -212,6 +215,10 @@ class PriorPartyBannerPreview
         echo '</div>';
 
         foreach ($this->banners as $banner) {
+            if ($banner['banner_active'] === false) {
+                continue;
+            }
+
             // readable dates
             $start_date = new \DateTime($banner['start_date']);
             $end_date = new \DateTime($banner['end_date']);
@@ -281,7 +288,13 @@ class PriorPartyBannerPreview
             $query = new WP_Query($args);
 
             if (!is_wp_error($query)) {
-                $this->posts = $query->get_posts();
+                $pp_banner = new PriorPartyBanner();
+                $pp_banner->init();
+
+                $this->posts = array_filter(
+                    $query->get_posts(),
+                    fn($post) => $pp_banner->isValidLocation($post->ID)
+                );
             }
         }
     }
@@ -293,12 +306,12 @@ class PriorPartyBannerPreview
      */
     public function menu(): void
     {
-        $title = 'Prior Party Preview';
+        $title = 'Prior Party Banners';
         $hook = add_submenu_page(
             'tools.php',
             $title,
             $title,
-            'manage_options',
+            'edit_posts',
             $this->menu_slug,
             [$this, 'page'],
             8
@@ -377,12 +390,12 @@ class PriorPartyBannerPreview
 
     /**
      * Track updates to the prior_party_banner field.
-     * 
+     *
      * This function is triggered when the prior_party_banner field is updated.
      * Includes via: $this->updateStatus and via the ACF UI on the edit screen.
-     * 
+     *
      * @see https://www.advancedcustomfields.com/resources/acf-update_value/
-     * 
+     *
      * @param bool $value The field value.
      * @param int $post_id The post ID where the value is saved.
      * @param array $field The field array containing all settings.
@@ -395,7 +408,7 @@ class PriorPartyBannerPreview
 
         error_log(print_r($original, true));
 
-        error_log( 'type: ' . gettype($original) );
+        error_log('type: ' . gettype($original));
 
         // TODO add tracking here.
 
