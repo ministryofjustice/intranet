@@ -14,7 +14,8 @@ jQuery(document).ready(function ($) {
             input: $('#search-input'),
             clear: $('#clear-filter')
         },
-        top: $('#back-to-top')
+        top: $('#back-to-top'),
+        totalCount: $('#total-count')
     };
 
     const MOJ_PPB = {
@@ -62,14 +63,17 @@ jQuery(document).ready(function ($) {
         },
         filter: function () {
             const delay_time = 400; // milliseconds
+            let remaining = JQ.rows.length;
 
             JQ.search.clear.addClass('disabled').on('click', function (e) {
                 e.preventDefault();
                 JQ.search.input.val("").keyup().focus();
             });
 
+
             JQ.search.input.keyup(this.delay(function () {
                 if (this.value.length < 2) {
+                    JQ.totalCount.text(JQ.rows.length);
                     JQ.search.clear.addClass('disabled');
                     JQ.rows.show();
                     return;
@@ -79,6 +83,7 @@ jQuery(document).ready(function ($) {
                 const data = this.value.toUpperCase().split(' ')
 
                 if (this.value === "") {
+                    JQ.totalCount.text(JQ.rows.length);
                     JQ.search.clear.addClass('disabled');
                     JQ.rows.show();
                     return;
@@ -90,15 +95,17 @@ jQuery(document).ready(function ($) {
                 JQ.search.clear.removeClass('disabled');
 
                 //Recursively filter the jquery object to get results.
-                JQ.rows.filter(function (i, v) {
-                    var $t = $(this);
-                    for (var d = 0; d < data.length; ++d) {
+                remaining = JQ.rows.filter(function (i, v) {
+                    const $t = $(this)
+                    for (let d = 0; d < data.length; ++d) {
                         if ($t.text().toUpperCase().indexOf(data[d]) > -1) {
                             return true;
                         }
                     }
                     return false;
-                }).show();
+                }).show().length;
+
+                JQ.totalCount.text(remaining);
 
             }, delay_time)).focus(function () {
                 this.value = "";

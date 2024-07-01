@@ -140,7 +140,7 @@ class PriorPartyBannerAdmin
 
             echo '<div class="info-description">';
             echo '<h2>Affected Content</h2>';
-            echo '<p><strong>Total items: </strong>' . count($this->posts) . '</p>';
+            echo '<p><strong>Total items: </strong><span id="total-count">' . count($this->posts) . '</span></p>';
             echo '<p>A list of content that will present a banner is displayed below.<br>The list is interactive.
                      For example, you can click an item to remove the<br>banner or, filter results using the input, just
                      type a word.</p>';
