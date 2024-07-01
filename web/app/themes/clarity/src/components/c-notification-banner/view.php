@@ -28,13 +28,17 @@ $variant_with_default = isset($args['variant']) && in_array($args['variant'], ar
 
 $variant_values = $variants[$variant_with_default];
 
+// check for array keys
+$banner_label = $variant_values['label'] ?? '';
+$banner_icon = $variant_values['icon'] ?? false;
 ?>
 
 <!-- c-moj-banner starts here -->
-<section class="c-moj-banner c-moj-banner--<?= $variant_with_default ?>" role="region" aria-label="<?= $variant_values['label'] ?>">
+<section class="c-moj-banner c-moj-banner--<?= $variant_with_default ?>" role="region" aria-label="<?= $banner_label ?>">
     <?php
-    if ($variant_values['icon']) {
-        require 'icons/' . $variant_values['icon'] . '.php';
+    $banner_icon_file = 'icons/' . $banner_icon . '.php';
+    if (file_exists($banner_icon_file)) {
+        require $banner_icon_file;
     }
     ?>
     <div class="c-moj-banner__message">

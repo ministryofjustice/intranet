@@ -12,8 +12,8 @@ $thumbnail      = wp_get_attachment_image_src($thumbnail_id, $thumbnail_type);
 
 $oAuthor        = new Authors();
 $authors        = $oAuthor->getAuthorInfo($id);
-$thumbnail_url  = $thumbnail[0];
-$article_author = $authors[0];
+$thumbnail_url  = $thumbnail[0] ?? '';
+$article_author = $authors[0] ?? null;
 if (isset($article_author)) {
     $author = $article_author['name'];
 }
