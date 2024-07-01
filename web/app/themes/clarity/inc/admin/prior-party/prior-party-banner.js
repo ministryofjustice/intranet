@@ -3,13 +3,14 @@
  */
 jQuery(document).ready(function ($) {
     const JQ = {
-        all: $('.ppb-posts'),
-        rows: $('.ppb-posts__row'),
+        all: $('#ppb-posts'),
         header: $('.ppb-posts__row.header'),
-        fixed: $('.header-fixed'),
+        rows: $('.ppb-posts__row:not(.header)'),
+        fixed: $('#header-fixed'),
         banners: {
             row: $('.ppb-banners__row')
-        }
+        },
+        search: $("#search-input")
     };
 
     const MOJ_PPB = {
@@ -40,6 +41,55 @@ jQuery(document).ready(function ($) {
                     }
                 });
             }
+        },
+        delay: function (callback, ms) {
+            let timer = 0
+            return function () {
+                const context = this, args = arguments
+                clearTimeout(timer);
+                timer = setTimeout(function () {
+                    callback.apply(context, args);
+                }, ms || 0);
+            };
+        },
+        filter: function () {
+            const delay_time = 400; // milliseconds
+            JQ.search.keyup(this.delay(function () {
+                if (this.value.length < 3) {
+                    JQ.rows.show();
+                    return;
+                }
+
+                // split the current value of searchInput
+                const data = this.value.toUpperCase().split(' ')
+
+                if (this.value === "") {
+                    JQ.rows.show();
+                    return;
+                }
+
+                //hide all the rows
+                JQ.rows.hide();
+
+                //Recursively filter the jquery object to get results.
+                JQ.rows.filter(function (i, v) {
+                    var $t = $(this);
+                    for (var d = 0; d < data.length; ++d) {
+                        if ($t.text().toUpperCase().indexOf(data[d]) > -1) {
+                            return true;
+                        }
+                    }
+                    return false;
+                }).show();
+            }, delay_time)).focus(function () {
+                this.value = "";
+                $(this).css({
+                    "color": "#1d1d1d"
+                });
+                $(this).unbind('focus');
+            }).css({
+                "color": "#C0C0C0"
+            });
         }
     }
 
@@ -74,7 +124,6 @@ jQuery(document).ready(function ($) {
         const post_id = _this.data('id');
         const status  = _this.find('.ppb-posts__status');
 
-        console.log(_this.attr('disabled'));
         if (_this.attr('disabled') === 'disabled') {
             return;
         }
@@ -114,5 +163,6 @@ jQuery(document).ready(function ($) {
 
     MOJ_PPB.on.scroll();
     MOJ_PPB.on.resize();
+    MOJ_PPB.filter();
 
 });
