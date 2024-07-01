@@ -2,8 +2,6 @@
 
 namespace MOJIntranet;
 
-use WP_Query;
-
 class PriorPartyBanner
 {
 
@@ -68,14 +66,18 @@ class PriorPartyBanner
         );
 
         // Finally, add a hook to display the banner.
-        add_action('before_rich_text_block', [$this, 'addBannerBeforeRichText']);
+        add_action('before_rich_text_block', [$this, 'maybeAddBannerBeforeRichText']);
     }
 
     /**
      * A helper function to return if any entries of an array return true for the callback.
+     * 
+     * @param array $arr
+     * @param callable $predicate
+     * @return bool
      */
 
-    public function arrayAny(array $arr, callable $predicate)
+    public function arrayAny(array $arr, callable $predicate): bool
     {
         foreach ($arr as $e) {
             if (call_user_func($predicate, $e)) {
@@ -88,9 +90,13 @@ class PriorPartyBanner
 
     /**
      * A helper function to return true only if all entries of an array return true for the callback.
+     * 
+     * @param array $arr
+     * @param callable $predicate
+     * @return bool
      */
 
-    public function arrayEvery(array $arr, callable $predicate)
+    public function arrayEvery(array $arr, callable $predicate): bool
     {
         foreach ($arr as $e) {
             if (!call_user_func($predicate, $e)) {
@@ -101,7 +107,14 @@ class PriorPartyBanner
         return true;
     }
 
-    public function locationMatchesPost($location)
+    /**
+     * Determine if the current post matches an ACF location rule.
+     * 
+     * @param array $location
+     * @return bool
+     */
+
+    public function locationMatchesPost($location): bool
     {
 
         if ($location['param'] === 'post_type' && $location['operator'] === '==') {
@@ -123,7 +136,13 @@ class PriorPartyBanner
         throw new \Error('A location rule was not handled');
     }
 
-    public function isValidLocation()
+    /**
+     * Given all of the location rules for an ACF field group, determine if the current post is a valid location.
+     * 
+     * @return bool
+     */
+
+    public function isValidLocation(): bool
     {
 
         // Are we at a location where the banner could be displayed? Any location group must return true.
@@ -137,7 +156,15 @@ class PriorPartyBanner
         return $match;
     }
 
-    public function addBannerBeforeRichText()
+    /**
+     * Add a banner before the rich text block.
+     * 
+     * This function will return void, but will output the banner if the conditions are met.
+     * 
+     * @return void
+     */
+
+    public function maybeAddBannerBeforeRichText(): void
     {
         // Get the post ID.
         $post_id = get_the_ID();
@@ -169,12 +196,12 @@ class PriorPartyBanner
             error_log('More than one banner is active for this date. Check the ACF settings.');
         }
 
-        // If there are no banners, return.
+        // If there is not exactly 1 banner, return.
         if (sizeof($banners) !== 1) {
             return;
         }
 
-        // reset index
+        // Reset index.
         $banners = array_values($banners);
 
         // We have a banner to display.
