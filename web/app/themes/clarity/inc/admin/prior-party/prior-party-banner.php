@@ -4,7 +4,6 @@ namespace MOJIntranet;
 
 class PriorPartyBanner
 {
-
     /**
      * @var int the current timestamp
      */
@@ -37,11 +36,19 @@ class PriorPartyBanner
 
     public function __construct()
     {
-        // Do not run this code in the admin area.
-        if (is_admin()) {
-            return;
-        }
+        $this->hooks();
+    }
 
+    public function hooks(): void
+    {
+        add_action('init', [$this, 'init']);
+        // Finally, add a hook to display the banner.
+        add_action('before_rich_text_block', [$this, 'maybeAddBannerBeforeRichText']);
+        add_action('before_note_from_antonia', [$this, 'maybeAddBannerBeforeRichText']);
+    }
+
+    public function init(): void
+    {
         // The ACF field for the 'Prior Party Banner' checkbox has.
         $fields = acf_get_field_group($this->page_field_group_name);
 
@@ -69,23 +76,22 @@ class PriorPartyBanner
             ],
             $active_banners
         );
-
-        // Finally, add a hook to display the banner.
-        add_action('before_rich_text_block', [$this, 'maybeAddBannerBeforeRichText']);
     }
 
     /**
      * A helper function to return if any entries of an array return true for the callback.
-     * 
-     * @param array $arr
+     *
+     * @param array    $arr
+     * @param int      $post_id
      * @param callable $predicate
+     *
      * @return bool
      */
 
-    public function arrayAny(array $arr, callable $predicate): bool
+    public function arrayAny(array $arr, int $post_id, callable $predicate): bool
     {
         foreach ($arr as $e) {
-            if (call_user_func($predicate, $e)) {
+            if (call_user_func($predicate, $e, $post_id)) {
                 return true;
             }
         }
@@ -95,16 +101,18 @@ class PriorPartyBanner
 
     /**
      * A helper function to return true only if all entries of an array return true for the callback.
-     * 
-     * @param array $arr
+     *
+     * @param array    $arr
+     * @param int      $post_id
      * @param callable $predicate
+     *
      * @return bool
      */
 
-    public function arrayEvery(array $arr, callable $predicate): bool
+    public function arrayEvery(array $arr, int $post_id, callable $predicate): bool
     {
         foreach ($arr as $e) {
-            if (!call_user_func($predicate, $e)) {
+            if (!call_user_func($predicate, $e, $post_id)) {
                 return false;
             }
         }
@@ -114,65 +122,73 @@ class PriorPartyBanner
 
     /**
      * Determine if the current post matches an ACF location rule.
-     * 
+     *
      * @param array $location
+     * @param int   $post_id
+     *
      * @return bool
      */
 
-    public function locationMatchesPost($location): bool
+    public function locationMatchesPost(array $location, int $post_id): bool
     {
-
+        /**
+         * Post type
+         */
         if ($location['param'] === 'post_type' && $location['operator'] === '==') {
-            return $location['value'] == get_post_type(get_the_ID());
+            return $location['value'] == get_post_type($post_id);
         }
 
         if ($location['param'] === 'post_type' && $location['operator'] === '!=') {
-            return $location['value'] != get_post_type(get_the_ID());
+            return $location['value'] != get_post_type($post_id);
         }
 
+        /**
+         * Post template
+         */
         if ($location['param'] === 'post_template' && $location['operator'] === '==') {
-            return $location['value'] == get_page_template_slug(get_the_ID());
+            return $location['value'] == get_page_template_slug($post_id);
         }
 
         if ($location['param'] === 'post_template' && $location['operator'] === '!=') {
-            return $location['value'] != get_page_template_slug(get_the_ID());
+            return $location['value'] != get_page_template_slug($post_id);
         }
 
         throw new \Error('A location rule was not handled');
     }
 
     /**
-     * Given all of the location rules for an ACF field group, determine if the current post is a valid location.
-     * 
+     * Given all the location rules for an ACF field group, determine if the current post is a valid location.
+     *
+     * @param $post_id
+     *
      * @return bool
      */
-
-    public function isValidLocation(): bool
+    public function isValidLocation($post_id): bool
     {
 
         // Are we at a location where the banner could be displayed? Any location group must return true.
-        $match = $this->arrayAny(
+        return $this->arrayAny(
             $this->locations,
+            $post_id,
             // Every rule in a location group must return true.
-            fn ($locations_group) => $this->arrayEvery($locations_group, [$this, 'locationMatchesPost'])
+            fn ($locations_group) => $this->arrayEvery($locations_group, $post_id, [$this, 'locationMatchesPost'])
         );
-
-        // If is a match return true.
-        return $match;
     }
 
     /**
      * Add a banner before the rich text block.
-     * 
+     *
      * This function will return void, but will output the banner if the conditions are met.
-     * 
+     *
+     * @param null $post_id
+     *
      * @return void
      */
 
-    public function maybeAddBannerBeforeRichText(): void
+    public function maybeAddBannerBeforeRichText($post_id = null): void
     {
         // Get the post ID.
-        $post_id = get_the_ID();
+        $post_id = $post_id ?: get_the_ID();
 
         // Are we at a location where the banner could be displayed?
         $valid_location = $this->isValidLocation($post_id);
@@ -183,12 +199,12 @@ class PriorPartyBanner
         }
 
         // Return if an editor has opted-out of the banner.
-        if (get_field($this->post_field_name) === false) {
+        if (get_field($this->post_field_name, $post_id) === false) {
             return;
         }
 
         // Get the published date.
-        $date = get_the_date('U', get_the_ID());
+        $date = get_the_date('U', $post_id);
 
         // Do any banners coincide with this date?
         $banners = array_filter(
