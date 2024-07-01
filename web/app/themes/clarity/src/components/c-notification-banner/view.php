@@ -24,7 +24,7 @@ $variants = [
     ]
 ];
 
-$variant_with_default = in_array($args['variant'], array_keys($variants)) ? $args['variant'] : 'default';
+$variant_with_default = isset($args['variant']) && in_array($args['variant'], array_keys($variants)) ? $args['variant'] : 'default';
 
 $variant_values = $variants[$variant_with_default];
 
@@ -34,7 +34,7 @@ $variant_values = $variants[$variant_with_default];
 <section class="c-moj-banner c-moj-banner--<?= $variant_with_default ?>" role="region" aria-label="<?= $variant_values['label'] ?>">
     <?php
     if ($variant_values['icon']) {
-        require 'icons/' . $args['variant'] . '.php';
+        require 'icons/' . $variant_values['icon'] . '.php';
     }
     ?>
     <div class="c-moj-banner__message">
@@ -42,4 +42,3 @@ $variant_values = $variants[$variant_with_default];
     </div>
 </section>
 <!-- c-moj-banner ends here -->
- 
