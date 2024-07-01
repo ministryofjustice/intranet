@@ -26,6 +26,11 @@ class PriorPartyBannerPreview
     private string $repeater_name = 'prior_political_party_banners';
 
     /**
+     * @var string defines the name of the ACF field on the posts
+     */
+    private string $post_field_name = 'prior_party_banner';
+
+    /**
      * @var string the reference of the selected banner
      */
     private mixed $banner_reference = null;
@@ -60,6 +65,8 @@ class PriorPartyBannerPreview
         add_action('admin_menu', [$this, 'menu']);
 
         add_action('rest_api_init', [$this, 'actionHandler']);
+
+        add_filter('acf/update_value/name=' . $this->post_field_name, [$this, 'trackBannerUpdates'], 10, 4);
 
         /**
          * Don't load preview code until needed
@@ -366,6 +373,33 @@ class PriorPartyBannerPreview
         }
 
         return json_encode(["message" => (is_wp_error($result) ? $result : $state)]);
+    }
+
+    /**
+     * Track updates to the prior_party_banner field.
+     * 
+     * This function is triggered when the prior_party_banner field is updated.
+     * Includes via: $this->updateStatus and via the ACF UI on the edit screen.
+     * 
+     * @see https://www.advancedcustomfields.com/resources/acf-update_value/
+     * 
+     * @param bool $value The field value.
+     * @param int $post_id The post ID where the value is saved.
+     * @param array $field The field array containing all settings.
+     * @param bool $original The updated value in its original form before modifiers are applied.
+     */
+
+    public function trackBannerUpdates(bool $value, int $post_id, array $field, bool $original): bool
+    {
+        error_log('Banner update detected.');
+
+        error_log(print_r($original, true));
+
+        error_log( 'type: ' . gettype($original) );
+
+        // TODO add tracking here.
+
+        return $value;
     }
 }
 

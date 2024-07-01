@@ -30,6 +30,11 @@ class PriorPartyBanner
      */
     private string $page_field_group_name = 'group_667d8a0f642b5';
 
+    /**
+     * @var string defines the name of the ACF field on the posts
+     */
+    private string $post_field_name = 'prior_party_banner';
+
     public function __construct()
     {
         // Do not run this code in the admin area.
@@ -178,7 +183,7 @@ class PriorPartyBanner
         }
 
         // Return if an editor has opted-out of the banner.
-        if (get_field('prior_party_banner') === false) {
+        if (get_field($this->post_field_name) === false) {
             return;
         }
 
