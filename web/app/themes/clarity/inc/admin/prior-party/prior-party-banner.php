@@ -6,6 +6,12 @@ use WP_Query;
 
 class PriorPartyBanner
 {
+
+    /**
+     * @var int the current timestamp
+     */
+    private int $time_context = 0;
+
     /**
      * @var array contains all available banners
      */
@@ -28,19 +34,27 @@ class PriorPartyBanner
 
     public function __construct()
     {
+        // Do not run this code in the admin area.
+        if (is_admin()) {
+            return;
+        }
+
         // The ACF field for the 'Prior Party Banner' checkbox has.
         $fields = acf_get_field_group($this->page_field_group_name);
 
         // Use the locations to determine where the banner should be displayed.
         $this->locations = $fields['location'];
 
+        // Set the current timestamp.
+        $this->time_context = time();
+
         // Get all banners from the repeater field.
         $all_banners = get_field($this->repeater_name, 'option') ?? [];
 
-        // Filter out the banners that are not active.
+        // Only include active banners where the end date is in the past.
         $active_banners = array_filter(
             $all_banners,
-            fn ($banner) => $banner['banner_active'] === true
+            fn ($banner) => $banner['banner_active'] === true && strtotime($banner['end_date']) <= $this->time_context
         );
 
         // Map the banners to a more usable format - epoch timestamps are used for comparison.
@@ -57,6 +71,20 @@ class PriorPartyBanner
         add_action('before_rich_text_block', [$this, 'addBannerBeforeRichText']);
     }
 
+    /**
+     * A helper function to return if any entries of an array return true for the callback.
+     */
+
+    public function arrayAny(array $arr, callable $predicate)
+    {
+        foreach ($arr as $e) {
+            if (call_user_func($predicate, $e)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 
     /**
      * A helper function to return true only if all entries of an array return true for the callback.
@@ -98,14 +126,15 @@ class PriorPartyBanner
     public function isValidLocation()
     {
 
-        // Are we at a location where the banner could be displayed? Every rule in a location group must return true.
-        $location_matches = array_filter(
+        // Are we at a location where the banner could be displayed? Any location group must return true.
+        $match = $this->arrayAny(
             $this->locations,
+            // Every rule in a location group must return true.
             fn ($locations_group) => $this->arrayEvery($locations_group, [$this, 'locationMatchesPost'])
         );
 
-        // If there are matches return true.
-        return sizeof($location_matches) ? true : false;
+        // If is a match return true.
+        return $match;
     }
 
     public function addBannerBeforeRichText()
