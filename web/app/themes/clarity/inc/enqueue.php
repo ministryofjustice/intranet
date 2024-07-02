@@ -41,6 +41,7 @@ function enqueue_clarity_scripts()
 
 /**
  * @param $filename
+ *
  * @return string
  */
 function mix_asset($filename)
@@ -95,6 +96,18 @@ function clarity_admin_enqueue($hook)
         wp_localize_script('colour-contrast-checker', 'mojAjax', ['ajaxurl' => admin_url('admin-ajax.php')]);
 
     endif;
+
+    wp_enqueue_script(
+        'prior-party-banner',
+        get_stylesheet_directory_uri() . '/inc/admin/prior-party/prior-party-banner.js',
+        ['jquery'],
+        1.3,
+        false
+    );
+    wp_localize_script('prior-party-api', 'mojApiSettings', [
+        'root' => esc_url_raw(rest_url()),
+        'nonce' => wp_create_nonce('wp_rest')
+    ]);
 
     wp_register_style(
         'clarity-admin-styles',

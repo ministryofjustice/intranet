@@ -1,0 +1,61 @@
+// include the toolkit (a suite of variables, classes and mixins)
+@require "../../globals/css/_toolkit"
+
+.c-moj-banner {
+
+    border: 5px solid #1d70b8;
+    color: #1d70b8;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    padding: 15px;
+    background-color: #fff;
+    clear: both;
+
+    +above(m) {
+        padding: 20px;
+    }
+
+    &--success {
+        border-color: #00703c;
+        color: #00703c;
+    }
+
+    &--warning {
+        border-color: #d4351c;
+        color: #d4351c;
+    }
+
+    &__message {
+        font-weight: 400;
+        font-size: 1rem;
+        line-height: 1.25;
+        color: #0b0c0c;
+        display: block;
+        overflow: hidden;
+
+        +above(m) {
+            font-size: 1.1875rem;
+            line-height: 1.3157894737;
+        }
+
+        h2:last-child,
+        p:last-child {
+            margin-bottom: 0;
+        }
+
+        .o-title {
+            font-size: 18px;
+            line-height: 1.11;
+            +above(m) {
+                font-size: 2.2rem;
+                line-height: 1.25;
+            }
+        }
+    }
+
+    &__icon {
+        fill: currentColor;
+        float: left;
+        margin-right: 10px;
+    }
+}
