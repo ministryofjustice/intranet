@@ -213,7 +213,7 @@ class PriorPartyBannerAdmin
                     $link_admin = get_edit_post_link($post->ID);
                     $link_view = get_permalink($post->ID) . '?time_context=' . $stop->format('U');
                     // Transform the events assoc. array into a readable format.
-                    $readable_events = array_map([$this, 'eventToReadableFormat'] , $events[$post->ID]);
+                    $readable_events = array_map([$this, 'eventToReadableFormat'] , $events[$post->ID] ?: []);
                     //echo '<pre>' . print_r($agencies, true) . '</pre>';
 
                     echo '<div class="ppb-posts__row" data-id="' . $post->ID . '">';
