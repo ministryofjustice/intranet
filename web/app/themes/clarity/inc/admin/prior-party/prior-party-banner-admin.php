@@ -8,8 +8,13 @@ use WP_Error;
 use WP_Query;
 use WP_REST_Request;
 
+require_once 'prior-party-banner-events.php';
+
 class PriorPartyBannerAdmin
 {
+
+    use PriorPartyBannerTrackEvents;
+
     /**
      * @var array contains all available banners
      */
@@ -46,10 +51,26 @@ class PriorPartyBannerAdmin
     private string $menu_slug = 'prior-party-banners';
 
     /**
+     * @var bool should we review tracked events on this page?
+     */
+    private bool $review_tracked_events = false;
+
+    /**
+     * @var int|null review events from this time
+     */
+    private int | null $review_tracked_events_from = null;
+
+    /**
+     * @var int|null review events up to this time
+     */
+    private int | null $review_tracked_events_to = null;
+
+    /**
      * @var string normalised date format
      */
     private string $date_format = 'l jS \o\f F, Y';
     private string $date_format_short = 'jS F, Y';
+    private string $date_format_time = 'jS F, Y - g:i a';
 
     private array $post_type_labels = [];
 
@@ -82,6 +103,15 @@ class PriorPartyBannerAdmin
         }
 
         $this->banner_reference = $banner_reference;
+
+        /**
+         * Parse the query string for review time-frame
+         */
+        if(isset($_GET['review_tracked_events']) && $_GET['review_tracked_events'] === 'true') {
+            $this->review_tracked_events = true;
+            $this->review_tracked_events_from = isset($_GET['events_from']) ? (int) $_GET['events_from'] : null;
+            $this->review_tracked_events_to =  isset($_GET['events_to']) ? (int) $_GET['events_to'] : null;
+        }
     }
 
     /**
@@ -121,8 +151,15 @@ class PriorPartyBannerAdmin
             // get and cache the banner
             $this->banner();
 
+            $posts_in = null;
+
+            if($this->review_tracked_events) {
+                $events = $this->getTrackEvents(null, $this->review_tracked_events_from, $this->review_tracked_events_to);
+                $posts_in = array_keys($events);
+            }
+
             // get and cache the posts
-            $this->posts();
+            $this->posts($posts_in);
 
             // normalise the dates
             $start = new \DateTime($this->banner["start_date"]);
@@ -162,6 +199,10 @@ class PriorPartyBannerAdmin
                 echo '<div class="ppb-post-col ppb-posts__date">Date</div>';
                 echo '<div class="ppb-post-col ppb-posts__type">Type</div>';
                 echo '<div class="ppb-post-col ppb-posts__agency">Agency</div>';
+                // Add an extra header column if we're reviewing tracked changes.
+                if($this->review_tracked_events) {
+                    echo '<div class="ppb-post-col ppb-posts__review">Review</div>';
+                }
                 echo '<div class="ppb-post-col ppb-posts__visibility">Visible</div>';
                 echo '</div>';
 
@@ -171,6 +212,8 @@ class PriorPartyBannerAdmin
                     $status = get_field('prior_party_banner', $post->ID);
                     $link_admin = get_edit_post_link($post->ID);
                     $link_view = get_permalink($post->ID) . '?time_context=' . $stop->format('U');
+                    // Transform the events assoc. array into a readable format.
+                    $readable_events = array_map([$this, 'eventToReadableFormat'] , $events[$post->ID] ?: []);
                     //echo '<pre>' . print_r($agencies, true) . '</pre>';
 
                     echo '<div class="ppb-posts__row" data-id="' . $post->ID . '">';
@@ -181,6 +224,10 @@ class PriorPartyBannerAdmin
                     echo '<div class="ppb-post-col ppb-posts__date">' . $date->format($this->date_format_short) . '</div>';
                     echo '<div class="ppb-post-col ppb-posts__type">' . $this->post_type_labels[$post->post_type]->labels->name . '</div>';
                     echo '<div class="ppb-post-col ppb-posts__agency">' . implode(' ', $agencies) . '</div>';
+                    // Add an extra body column if we're reviewing tracked changes.
+                    if($this->review_tracked_events) {
+                        echo '<div class="ppb-post-col ppb-posts__review">' . implode('<br/><br/>', $readable_events) . '</div>';
+                    }
                     echo '<div class="ppb-post-col ppb-posts__status" data-status="' . ($status === false ? 'off' : 'on') . '"></div>';
                     echo '</div>';
                 }
@@ -265,9 +312,11 @@ class PriorPartyBannerAdmin
     /**
      * Search the DB for posts that match the Agency and date range provided
      *
+     * @param null|array $post_ids an optional array to filter the posts
+     * 
      * @return void
      */
-    private function posts(): void
+    private function posts(null | array $posts_in): void
     {
         if (($this->banner['start_date'] ?? false) && ($this->banner['end_date'] ?? false)) {
             $agency = new Agency();
@@ -292,6 +341,10 @@ class PriorPartyBannerAdmin
                 'posts_per_page' => -1
             ];
 
+            if($posts_in) {
+                $args['post__in'] = $posts_in;
+            }
+
             $query = new WP_Query($args);
 
             if (!is_wp_error($query)) {
@@ -300,7 +353,7 @@ class PriorPartyBannerAdmin
 
                 $this->posts = array_filter(
                     $query->get_posts(),
-                    fn($post) => $pp_banner->isValidLocation($post->ID)
+                    fn ($post) => $pp_banner->isValidLocation($post->ID)
                 );
             }
         }
@@ -405,19 +458,13 @@ class PriorPartyBannerAdmin
      *
      * @param bool $value The field value.
      * @param int $post_id The post ID where the value is saved.
-     * @param array $field The field array containing all settings.
-     * @param bool $original The updated value in its original form before modifiers are applied.
+     * 
+     * @return bool The field value - unchanged.
      */
 
-    public function trackBannerUpdates(bool $value, int $post_id, array $field, bool $original): bool
+    public function trackBannerUpdates(bool $value, int $post_id): bool
     {
-        error_log('Banner update detected.');
-
-        error_log(print_r($original, true));
-
-        error_log('type: ' . gettype($original));
-
-        // TODO add tracking here.
+        $this->createTrackEvent($value, $post_id);
 
         return $value;
     }
