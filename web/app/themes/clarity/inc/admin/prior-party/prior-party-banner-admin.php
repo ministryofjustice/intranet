@@ -70,6 +70,7 @@ class PriorPartyBannerAdmin
      */
     private string $date_format = 'l jS \o\f F, Y';
     private string $date_format_short = 'jS F, Y';
+    private string $date_format_time = 'jS F, Y - g:i a';
 
     private array $post_type_labels = [];
 

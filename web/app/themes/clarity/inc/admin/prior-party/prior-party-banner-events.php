@@ -162,19 +162,22 @@ trait PriorPartyBannerTrackEvents
         return $all_post_events;
     }
 
-    public function eventToReadableFormat (array $event)
+    /**
+     * Transform the event array into a readable format.
+     * 
+     * @param array $event The event.
+     * 
+     * @return string
+     */
+
+    public function eventToReadableFormat (array $event): string
     {
-        $time = date($this->date_format_short, $event['time']);
+        $time = date($this->date_format_time, $event['time']);
         $user = get_user_by('id', $event['user_id']);
         $user_name = $user ? $user->display_name : 'Unknown';
         return "User: $user_name,<br/> Action: {$event['action']},<br/> Time: $time";
     }
 
     // TODO: lifecycle policy, delete events older than x? Or keep only the most recent x events per post?
-    
-    // TODO: schedule task for digest emails.
-
-    // TODO: Update the admin page view to be filtered and include a column with recent changes
-    // This link will then be sent in the digest emails.
 }
 
