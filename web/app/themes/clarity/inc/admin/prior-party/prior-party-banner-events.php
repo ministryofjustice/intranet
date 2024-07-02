@@ -162,6 +162,14 @@ trait PriorPartyBannerTrackEvents
         return $all_post_events;
     }
 
+    public function eventToReadableFormat (array $event)
+    {
+        $time = date($this->date_format_short, $event['time']);
+        $user = get_user_by('id', $event['user_id']);
+        $user_name = $user ? $user->display_name : 'Unknown';
+        return "User: $user_name,<br/> Action: {$event['action']},<br/> Time: $time";
+    }
+
     // TODO: lifecycle policy, delete events older than x? Or keep only the most recent x events per post?
     
     // TODO: schedule task for digest emails.
