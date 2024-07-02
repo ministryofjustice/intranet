@@ -13,7 +13,7 @@ trait PriorPartyBannerTrackEvents
     /**
      * @var string the name of the event timestamp meta field
      */
-    private string $event_event_timestamp_field = '_prior_party_banner_event_timestamp';
+    private string $event_timestamp_field = '_prior_party_banner_event_timestamp';
 
     /**
      * @var string the name of the event details meta field
@@ -170,4 +170,3 @@ trait PriorPartyBannerTrackEvents
     // This link will then be sent in the digest emails.
 }
 
-new PriorPartyBannerAdmin();

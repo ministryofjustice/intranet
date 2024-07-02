@@ -8,6 +8,8 @@ use WP_Error;
 use WP_Query;
 use WP_REST_Request;
 
+require_once 'prior-party-banner-events.php';
+
 class PriorPartyBannerAdmin
 {
 
