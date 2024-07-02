@@ -22,6 +22,23 @@
     cursor: not-allowed;
 }
 
+.tool-tip[title-new]:hover:after {
+    content: attr(title-new);
+    position: absolute;
+    top: -22px;
+    right:0;
+    border: #ffffff 1px solid;
+    border-radius: 4px;
+    padding: 1px 6px 2px;
+    display: block;
+    z-index: 100;
+    background-color: #ffffff;
+    color: inherit;
+    max-width: 160px;
+    text-decoration: none;
+    text-align: center;
+}
+
 #clear-filter {
     margin-bottom: 0;
 }
@@ -163,6 +180,10 @@ Prior Party Posts
     min-height: 60px;
 }
 
+.ppb-posts__row.excluded {
+    background-color: #feddd6;
+}
+
 .ppb-posts__row:not(.header):hover {
     background-color: #f3f3ca;
     cursor: pointer;
@@ -184,7 +205,8 @@ Prior Party Posts
 .ppb-post-col {
     flex: 1;
     border-right: 1px solid lightgrey;
-    padding: 7px 12px 8px
+    padding: 7px 12px 8px;
+    position: relative;
 }
 .ppb-posts__row .ppb-post-col.ppb-posts__title > span.nav-link,
 .ppb-posts__row .ppb-post-col.ppb-posts__title > span.event-data {
@@ -196,6 +218,14 @@ Prior Party Posts
 
 .ppb-posts__row:hover .ppb-post-col.ppb-posts__title > span.event-data {
     font-weight: 400;
+    display: block;
+    text-align: center;
+    border-radius: 5px;
+    background-color: #fff;
+    position: absolute;
+    right: 5px;
+    bottom: 5px;
+    padding: 2px 8px 3px;
 }
 .ppb-posts__row:hover .ppb-post-col.ppb-posts__title > span.nav-link,
 .ppb-posts__row:hover .ppb-post-col.ppb-posts__title > span.event-data {
@@ -222,11 +252,6 @@ Prior Party Posts
     padding: 1px 6px 0;
     background-color: #f1f1f1;
     margin-top: 3px
-}
-
-.ppb-posts__row.excluded,
-.ppb-posts__row.excluded:hover {
-    background-color: #feddd6;
 }
 
 .ppb-post-col.ppb-posts__status.tick {

@@ -225,9 +225,13 @@ class PriorPartyBannerAdmin
                     echo '<div class="ppb-posts__row" data-id="' . $post->ID . '">';
                     echo '<div class="ppb-post-col ppb-posts__title">' . $post->post_title . '<br>
                               <span class="nav-link"><a href="' . $link_view . '" target="_blank">View</a> | </span>
-                              <span class="nav-link"><a href="' . $link_admin . '" target="_blank">Edit</a></span>
-                              <span class="event-data">' . $event_data . '</span>
-                          </div>';
+                              <span class="nav-link"><a href="' . $link_admin . '" target="_blank">Edit</a></span>';
+
+                    if (isset($event_data['date'])) {
+                        echo '<span class="event-data tool-tip" title-new="' .$event_data['date'] . '">' . $event_data['text'] . '</span>';
+                    }
+
+                    echo '</div>';
                     echo '<div class="ppb-post-col ppb-posts__date">' . $date->format($this->date_format_short) . '</div>';
                     echo '<div class="ppb-post-col ppb-posts__type">' . $post_type_labels[$post->post_type]->labels->name . '</div>';
                     echo '<div class="ppb-post-col ppb-posts__agency">' . implode(' ', $agencies) . '</div>';
@@ -476,20 +480,20 @@ class PriorPartyBannerAdmin
         return $value;
     }
 
-    private function getTrackedDisplayString($post_id): string
+    private function getTrackedDisplayString($post_id): array
     {
         $latest = $this->getLatestEvent($post_id);
 
-        $event_data = '';
+        $event_data = [];
         if ($latest['tracked']) {
             // redact name if current user is not administrator
-            $name = (current_user_can('manage_options') ? $latest['name'] : 'a user');
+            $name = (current_user_can('manage_options') ? $latest['name'] : 'A user');
 
             // create the display string
-            $sp = '&nbsp;';
-            $event_data = $sp.$sp.$sp.$sp.'On ' .
-                $latest['date'] . ' at ' . $latest['time'] . ', ' .
-                $name . ' from ' . $latest['agency'] . ' ' . $latest['action'] . ' the banner';
+            $event_data = [
+                'date' => $latest['date'] . ', ' . $latest['time'],
+                'text' => $name . ' from ' . $latest['agency'] . ' ' . $latest['action'] . ' the banner'
+            ];
         }
 
         return $event_data;
