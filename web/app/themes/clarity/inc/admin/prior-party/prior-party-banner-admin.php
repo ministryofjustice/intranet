@@ -10,6 +10,9 @@ use WP_REST_Request;
 
 class PriorPartyBannerAdmin
 {
+
+    use PriorPartyBannerTrackEvents;
+
     /**
      * @var array contains all available banners
      */
@@ -300,7 +303,7 @@ class PriorPartyBannerAdmin
 
                 $this->posts = array_filter(
                     $query->get_posts(),
-                    fn($post) => $pp_banner->isValidLocation($post->ID)
+                    fn ($post) => $pp_banner->isValidLocation($post->ID)
                 );
             }
         }
@@ -405,19 +408,13 @@ class PriorPartyBannerAdmin
      *
      * @param bool $value The field value.
      * @param int $post_id The post ID where the value is saved.
-     * @param array $field The field array containing all settings.
-     * @param bool $original The updated value in its original form before modifiers are applied.
+     * 
+     * @return bool The field value - unchanged.
      */
 
-    public function trackBannerUpdates(bool $value, int $post_id, array $field, bool $original): bool
+    public function trackBannerUpdates(bool $value, int $post_id): bool
     {
-        error_log('Banner update detected.');
-
-        error_log(print_r($original, true));
-
-        error_log('type: ' . gettype($original));
-
-        // TODO add tracking here.
+        $this->createTrackEvent($value, $post_id);
 
         return $value;
     }
