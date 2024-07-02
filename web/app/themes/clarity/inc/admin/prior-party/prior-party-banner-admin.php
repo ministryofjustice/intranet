@@ -72,8 +72,6 @@ class PriorPartyBannerAdmin
     private string $date_format_short = 'jS F, Y';
     private string $date_format_time = 'jS F, Y - g:i a';
 
-    private array $post_type_labels = [];
-
     public function __construct()
     {
         global $wp_post_types;
@@ -107,10 +105,11 @@ class PriorPartyBannerAdmin
         /**
          * Parse the query string for review time-frame
          */
-        if(isset($_GET['review_tracked_events']) && $_GET['review_tracked_events'] === 'true') {
+        $tracked_events = $_GET['review_tracked_events'] ?? false;
+        if ($tracked_events === 'true') {
             $this->review_tracked_events = true;
-            $this->review_tracked_events_from = isset($_GET['events_from']) ? (int) $_GET['events_from'] : null;
-            $this->review_tracked_events_to =  isset($_GET['events_to']) ? (int) $_GET['events_to'] : null;
+            $this->review_tracked_events_from = (int) $_GET['events_from'] ?: null;
+            $this->review_tracked_events_to =  (int) $_GET['events_to'] ?: null;
         }
     }
 
@@ -132,7 +131,8 @@ class PriorPartyBannerAdmin
     public function page(): void
     {
         // housekeeping
-        $this->post_type_labels = [
+        $post_type_labels = [];
+        $post_type_labels = [
             'post' => get_post_type_object('post'),
             'news' => get_post_type_object('news'),
             'page' => get_post_type_object('page'),
@@ -153,7 +153,8 @@ class PriorPartyBannerAdmin
 
             $posts_in = null;
 
-            if($this->review_tracked_events) {
+            $events = [];
+            if ($this->review_tracked_events) {
                 $events = $this->getTrackEvents(null, $this->review_tracked_events_from, $this->review_tracked_events_to);
                 $posts_in = array_keys($events);
             }
@@ -200,7 +201,7 @@ class PriorPartyBannerAdmin
                 echo '<div class="ppb-post-col ppb-posts__type">Type</div>';
                 echo '<div class="ppb-post-col ppb-posts__agency">Agency</div>';
                 // Add an extra header column if we're reviewing tracked changes.
-                if($this->review_tracked_events) {
+                if ($this->review_tracked_events) {
                     echo '<div class="ppb-post-col ppb-posts__review">Review</div>';
                 }
                 echo '<div class="ppb-post-col ppb-posts__visibility">Visible</div>';
@@ -210,22 +211,28 @@ class PriorPartyBannerAdmin
                     $date = new \DateTime($post->post_date);
                     $agencies = $this->getPostAgencies($post->ID);
                     $status = get_field('prior_party_banner', $post->ID);
+
+                    // links
                     $link_admin = get_edit_post_link($post->ID);
                     $link_view = get_permalink($post->ID) . '?time_context=' . $stop->format('U');
-                    // Transform the events assoc. array into a readable format.
-                    $readable_events = array_map([$this, 'eventToReadableFormat'] , $events[$post->ID] ?: []);
+
+                    // latest event
+                    $event_data = $this->getTrackedDisplayString($post->ID);
+                    // Transform the events' assoc. array into a readable format.
+                    $readable_events = array_map([$this, 'eventToReadableFormat'], $events[$post->ID] ?: []);
                     //echo '<pre>' . print_r($agencies, true) . '</pre>';
 
                     echo '<div class="ppb-posts__row" data-id="' . $post->ID . '">';
                     echo '<div class="ppb-post-col ppb-posts__title">' . $post->post_title . '<br>
                               <span class="nav-link"><a href="' . $link_view . '" target="_blank">View</a> | </span>
                               <span class="nav-link"><a href="' . $link_admin . '" target="_blank">Edit</a></span>
+                              <span class="event-data">' . $event_data . '</span>
                           </div>';
                     echo '<div class="ppb-post-col ppb-posts__date">' . $date->format($this->date_format_short) . '</div>';
-                    echo '<div class="ppb-post-col ppb-posts__type">' . $this->post_type_labels[$post->post_type]->labels->name . '</div>';
+                    echo '<div class="ppb-post-col ppb-posts__type">' . $post_type_labels[$post->post_type]->labels->name . '</div>';
                     echo '<div class="ppb-post-col ppb-posts__agency">' . implode(' ', $agencies) . '</div>';
                     // Add an extra body column if we're reviewing tracked changes.
-                    if($this->review_tracked_events) {
+                    if ($this->review_tracked_events) {
                         echo '<div class="ppb-post-col ppb-posts__review">' . implode('<br/><br/>', $readable_events) . '</div>';
                     }
                     echo '<div class="ppb-post-col ppb-posts__status" data-status="' . ($status === false ? 'off' : 'on') . '"></div>';
@@ -313,7 +320,7 @@ class PriorPartyBannerAdmin
      * Search the DB for posts that match the Agency and date range provided
      *
      * @param null|array $post_ids an optional array to filter the posts
-     * 
+     *
      * @return void
      */
     private function posts(null | array $posts_in): void
@@ -341,7 +348,7 @@ class PriorPartyBannerAdmin
                 'posts_per_page' => -1
             ];
 
-            if($posts_in) {
+            if ($posts_in) {
                 $args['post__in'] = $posts_in;
             }
 
@@ -458,7 +465,7 @@ class PriorPartyBannerAdmin
      *
      * @param bool $value The field value.
      * @param int $post_id The post ID where the value is saved.
-     * 
+     *
      * @return bool The field value - unchanged.
      */
 
@@ -467,6 +474,25 @@ class PriorPartyBannerAdmin
         $this->createTrackEvent($value, $post_id);
 
         return $value;
+    }
+
+    private function getTrackedDisplayString($post_id): string
+    {
+        $latest = $this->getLatestEvent($post_id);
+
+        $event_data = '';
+        if ($latest['tracked']) {
+            // redact name if current user is not administrator
+            $name = (current_user_can('manage_options') ? $latest['name'] : 'a user');
+
+            // create the display string
+            $sp = '&nbsp;';
+            $event_data = $sp.$sp.$sp.$sp.'On ' .
+                $latest['date'] . ' at ' . $latest['time'] . ', ' .
+                $name . ' from ' . $latest['agency'] . ' ' . $latest['action'] . ' the banner';
+        }
+
+        return $event_data;
     }
 }
 

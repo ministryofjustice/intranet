@@ -2,8 +2,8 @@
 
 namespace MOJIntranet;
 
+use MOJ\Intranet\Agency;
 use WP_Query;
-
 
 defined('ABSPATH') || exit;
 
@@ -25,7 +25,7 @@ trait PriorPartyBannerTrackEvents
      *
      * @param bool $value The value.
      * @param int $post_id The post ID.
-     * 
+     *
      * @return void
      */
 
@@ -48,11 +48,11 @@ trait PriorPartyBannerTrackEvents
 
     /**
      * A helper function to filter existing track events by time.
-     * 
+     *
      * @param array $events The events.
      * @param int|null $from The start time.
      * @param int|null $to The end time.
-     * 
+     *
      * @return array
      */
 
@@ -80,27 +80,56 @@ trait PriorPartyBannerTrackEvents
         return array_values($filtered_events);
     }
 
+    public function getLatestEvent($post_id): array
+    {
+        $events = $this->getTrackEvents($post_id);
+        $events = array_reverse($events[$post_id] ?? []);
+
+        if (!empty($events[0])) {
+            $event = $events[0];
+            $user = get_user_by('id', $event['user_id']);
+            $agencies = wp_get_object_terms($user->ID, 'agency');
+
+            $agency_name = 'No Agency';
+            foreach ($agencies as $agency) {
+                if (property_exists($agency, 'name')) {
+                    $agency_name = $agency->name;
+                }
+            }
+
+            return [
+                'name' => $user->display_name ?: 'Unknown',
+                'date' => date('jS F Y', $event['time']),
+                'time' => date('H:i', $event['time']),
+                'agency' => $agency_name,
+                'action' => $event['action'] === 'true' ? 'displayed' : 'removed',
+                'tracked' => true
+            ];
+        }
+
+        return [
+            'tracked' => false
+        ];
+    }
+
     /**
      * Get track events.
-     * 
+     *
      * Accepts optional arguments for post_id, from, and to.
-     * 
+     *
      * @param int|null $post_id The post ID.
      * @param int|null $from The start time.
      * @param int|null $to The end time.
-     * 
+     *
      * @return array
      */
-
     public function getTrackEvents(int | null $post_id = null, int | null $from = null, int | null $to = null): array
     {
-
         /**
          * A post_id was passed, so we only need to get the details for that post.
          */
         if ($post_id) {
             $all_details = get_metadata('post', $post_id, $this->event_details_field);
-
             return [$post_id => $this->filterTrackEvents($all_details, $from, $to)];
         }
 
@@ -164,20 +193,23 @@ trait PriorPartyBannerTrackEvents
 
     /**
      * Transform the event array into a readable format.
-     * 
+     *
      * @param array $event The event.
-     * 
+     *
      * @return string
      */
-
-    public function eventToReadableFormat (array $event): string
+    public function eventToReadableFormat(array $event): string
     {
+        if (empty($event)) {
+            return '';
+        }
+
         $time = date($this->date_format_time, $event['time']);
         $user = get_user_by('id', $event['user_id']);
         $user_name = $user ? $user->display_name : 'Unknown';
+
         return "User: $user_name,<br/> Action: {$event['action']},<br/> Time: $time";
     }
 
     // TODO: lifecycle policy, delete events older than x? Or keep only the most recent x events per post?
 }
-

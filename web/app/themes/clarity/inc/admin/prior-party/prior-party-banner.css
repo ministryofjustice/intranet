@@ -186,13 +186,19 @@ Prior Party Posts
     border-right: 1px solid lightgrey;
     padding: 7px 12px 8px
 }
-.ppb-posts__row .ppb-post-col.ppb-posts__title > span.nav-link {
+.ppb-posts__row .ppb-post-col.ppb-posts__title > span.nav-link,
+.ppb-posts__row .ppb-post-col.ppb-posts__title > span.event-data {
     display: none;
     font-size: 0.8rem;
     font-weight: 700;
     margin-top: 6px;
 }
-.ppb-posts__row:hover .ppb-post-col.ppb-posts__title > span.nav-link {
+
+.ppb-posts__row:hover .ppb-post-col.ppb-posts__title > span.event-data {
+    font-weight: 400;
+}
+.ppb-posts__row:hover .ppb-post-col.ppb-posts__title > span.nav-link,
+.ppb-posts__row:hover .ppb-post-col.ppb-posts__title > span.event-data {
     display: inline-block;
 }
 
