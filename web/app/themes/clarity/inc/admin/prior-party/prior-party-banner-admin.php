@@ -164,8 +164,6 @@ class PriorPartyBannerAdmin
             $start = new \DateTime($this->banner["start_date"]);
             $stop = new \DateTime($this->banner["end_date"]);
 
-            // print_r($this->getTrackEvents());
-
 
             // display the banner
             echo '<div class="prior-party-banner">
@@ -200,6 +198,7 @@ class PriorPartyBannerAdmin
                 echo '<div class="ppb-post-col ppb-posts__date">Date</div>';
                 echo '<div class="ppb-post-col ppb-posts__type">Type</div>';
                 echo '<div class="ppb-post-col ppb-posts__agency">Agency</div>';
+                // Add an extra header column if we're reviewing tracked changes.
                 if($this->review_tracked_events) {
                     echo '<div class="ppb-post-col ppb-posts__review">Review</div>';
                 }
@@ -212,7 +211,8 @@ class PriorPartyBannerAdmin
                     $status = get_field('prior_party_banner', $post->ID);
                     $link_admin = get_edit_post_link($post->ID);
                     $link_view = get_permalink($post->ID) . '?time_context=' . $stop->format('U');
-                    $events_strings = array_map([$this, 'eventToReadableFormat'] , $events[$post->ID]);
+                    // Transform the events assoc. array into a readable format.
+                    $readable_events = array_map([$this, 'eventToReadableFormat'] , $events[$post->ID]);
                     //echo '<pre>' . print_r($agencies, true) . '</pre>';
 
                     echo '<div class="ppb-posts__row" data-id="' . $post->ID . '">';
@@ -223,8 +223,9 @@ class PriorPartyBannerAdmin
                     echo '<div class="ppb-post-col ppb-posts__date">' . $date->format($this->date_format_short) . '</div>';
                     echo '<div class="ppb-post-col ppb-posts__type">' . $this->post_type_labels[$post->post_type]->labels->name . '</div>';
                     echo '<div class="ppb-post-col ppb-posts__agency">' . implode(' ', $agencies) . '</div>';
+                    // Add an extra body column if we're reviewing tracked changes.
                     if($this->review_tracked_events) {
-                        echo '<div class="ppb-post-col ppb-posts__review">' . implode('<br/><br/>', $events_strings) . '</div>';
+                        echo '<div class="ppb-post-col ppb-posts__review">' . implode('<br/><br/>', $readable_events) . '</div>';
                     }
                     echo '<div class="ppb-post-col ppb-posts__status" data-status="' . ($status === false ? 'off' : 'on') . '"></div>';
                     echo '</div>';
