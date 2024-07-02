@@ -1,7 +1,13 @@
 /**
- * default data object
+ * Feature frontend functionality
  */
 jQuery(document).ready(function ($) {
+    /**
+     * jQuery object store
+     * Provides an organised way to cache objects
+     *
+     * @type {jQuery|HTMLElement|*}
+     */
     const JQ = {
         all: $('#ppb-posts'),
         header: $('.ppb-posts__row.header'),
@@ -18,9 +24,15 @@ jQuery(document).ready(function ($) {
         totalCount: $('#total-count')
     };
 
+    /**
+     * Feature functions
+     * Provides an organised way to store functions to execute on the application
+     *
+     * @type Object
+     */
     const MOJ_PPB = {
         on: {
-            scroll: function (e) {
+            scroll: function () {
                 const pbbPosts = JQ.all.offset().top - 32;
                 const fixed  = JQ.fixed.append(JQ.header.clone());
                 const backToTop = JQ.top;
@@ -89,15 +101,17 @@ jQuery(document).ready(function ($) {
                     return;
                 }
 
-                //hide all the rows
+                // hide all the rows
                 JQ.rows.hide();
 
+                // activate the clear button
                 JQ.search.clear.removeClass('disabled');
 
-                //Recursively filter the jquery object to get results.
+                // Recursively filter the jquery object to get results.
                 remaining = JQ.rows.filter(function (i, v) {
                     const $t = $(this)
-                    for (let d = 0; d < data.length; ++d) {
+                    let d = 0;
+                    for (d; d < data.length; ++d) {
                         if ($t.text().toUpperCase().indexOf(data[d]) > -1) {
                             return true;
                         }
@@ -131,6 +145,9 @@ jQuery(document).ready(function ($) {
         }
     }
 
+    /**
+     * Initialise post filter
+     */
     MOJ_PPB.filter();
 
     /**
@@ -143,7 +160,7 @@ jQuery(document).ready(function ($) {
     })
 
     /**
-     * reconcile status
+     * Reconcile status
      */
     JQ.rows.find('.ppb-posts__status').each(function (key, element) {
         console.log('Data', {key: key, value: element})
@@ -157,7 +174,7 @@ jQuery(document).ready(function ($) {
     })
 
     /**
-     * react to clicks on Post table, add the ID to the exclude array
+     * React to clicks on Post table
      */
     JQ.rows.on('click', function (e) {
         const _this = $(this);
@@ -197,11 +214,24 @@ jQuery(document).ready(function ($) {
         });
     });
 
-    JQ.rows.find('.nav-link').on('click', function (e) {
+    /**
+     * Prevent bubbling on post rows when a user clicks a link
+     *
+     * This was implemented to fix a bug where a link click
+     * also toggled the banners visibility status
+     */
+    JQ.rows.find('a.nav-link').on('click', function (e) {
         e.stopPropagation();
     });
 
+    /**
+     * Initialise scroll and resize listeners
+     */
     MOJ_PPB.on.scroll();
     MOJ_PPB.on.resize();
+
+    /**
+     * Initialise to-top button
+     */
     MOJ_PPB.toTop.init();
 });
