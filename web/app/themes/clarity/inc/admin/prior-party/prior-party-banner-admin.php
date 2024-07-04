@@ -8,8 +8,13 @@ use WP_Error;
 use WP_Query;
 use WP_REST_Request;
 
+require_once 'prior-party-banner-events.php';
+
 class PriorPartyBannerAdmin
 {
+
+    use PriorPartyBannerTrackEvents;
+
     /**
      * @var array contains all available banners
      */
@@ -46,12 +51,26 @@ class PriorPartyBannerAdmin
     private string $menu_slug = 'prior-party-banners';
 
     /**
+     * @var bool should we review tracked events on this page?
+     */
+    private bool $review_tracked_events = false;
+
+    /**
+     * @var int|null review events from this time
+     */
+    private int | null $review_tracked_events_from = null;
+
+    /**
+     * @var int|null review events up to this time
+     */
+    private int | null $review_tracked_events_to = null;
+
+    /**
      * @var string normalised date format
      */
     private string $date_format = 'l jS \o\f F, Y';
     private string $date_format_short = 'jS F, Y';
-
-    private array $post_type_labels = [];
+    private string $date_format_time = 'jS F, Y - g:i a';
 
     public function __construct()
     {
@@ -62,11 +81,14 @@ class PriorPartyBannerAdmin
          * - prior party view
          */
         add_action('init', [$this, 'priorPartyOptionPages']);
+        add_action('admin_menu', [$this, 'editorToolsMenu']);
         add_action('admin_menu', [$this, 'menu']);
 
         add_action('rest_api_init', [$this, 'actionHandler']);
 
         add_filter('acf/update_value/name=' . $this->post_field_name, [$this, 'trackBannerUpdates'], 10, 4);
+
+        add_filter('acf/load_value/name=' .  $this->post_field_name, [$this, 'filterValueOnPages'], 10, 2);
 
         /**
          * Don't load view code until needed
@@ -82,6 +104,59 @@ class PriorPartyBannerAdmin
         }
 
         $this->banner_reference = $banner_reference;
+
+        // Moved here because it was causing errors in the admin_menu hook - when logged in as an editor.
+        $this->banners = get_field($this->repeater_name, 'option');
+
+        /**
+         * Parse the query string for review time-frame
+         */
+        $tracked_events = $_GET['review_tracked_events'] ?? false;
+        if ($tracked_events === 'true') {
+            $this->review_tracked_events = true;
+            $this->review_tracked_events_from = (int) $_GET['events_from'] ?: null;
+            $this->review_tracked_events_to =  (int) $_GET['events_to'] ?: null;
+        }
+    }
+
+    /**
+     * Set the default value of the prior_party_banner field to 0 on pages.
+     * 
+     * The effects of this function can be seen at: 
+     * - the Prior Party Banners table view
+     * - the edit page screen
+     * - the frontend pages
+     * 
+     * @param bool $value The value of the field.
+     * @param int $post_id The ID of the post.
+     * 
+     * @return bool The filtered value of the field.
+     */
+
+    public function filterValueOnPages(bool|null $value, int $post_id): null|bool
+    {
+
+        $post_type = get_post_type($post_id);
+
+        // If we're not dealing with a page, or the value is not 1, do nothing.
+        if ($post_type !== 'page' || $value === false) {
+            return $value;
+        }
+
+        // Here, we're on a page and the value of the toggle is 1. 
+        // How do we know if that's 1 by default, or if it's been set by the user?
+
+        // Get the metadata for the post, directly from the database.
+        $metadata = get_metadata('post', $post_id, 'prior_party_banner', true);
+
+        // We have an entry in the database, so return $value.
+        if ($metadata) {
+            return $value;
+        }
+
+        // We don't have an entry in the database, so set the value to 0. 
+        // i.e. the banner is not active by default.
+        return false;
     }
 
     /**
@@ -102,7 +177,8 @@ class PriorPartyBannerAdmin
     public function page(): void
     {
         // housekeeping
-        $this->post_type_labels = [
+        $post_type_labels = [];
+        $post_type_labels = [
             'post' => get_post_type_object('post'),
             'news' => get_post_type_object('news'),
             'page' => get_post_type_object('page'),
@@ -115,14 +191,22 @@ class PriorPartyBannerAdmin
             // drop return link
             echo '<a href="' . get_admin_url(
                 null,
-                'tools.php?page=' . $this->menu_slug
+                'admin.php?page=' . $this->menu_slug
             ) . '" class="ppb-cta-link">View all banners</a>';
 
             // get and cache the banner
             $this->banner();
 
+            $posts_in = null;
+
+            $events = [];
+            if ($this->review_tracked_events) {
+                $events = $this->getTrackEvents(null, $this->review_tracked_events_from, $this->review_tracked_events_to);
+                $posts_in = array_keys($events);
+            }
+
             // get and cache the posts
-            $this->posts();
+            $this->posts($posts_in);
 
             // normalise the dates
             $start = new \DateTime($this->banner["start_date"]);
@@ -162,6 +246,10 @@ class PriorPartyBannerAdmin
                 echo '<div class="ppb-post-col ppb-posts__date">Date</div>';
                 echo '<div class="ppb-post-col ppb-posts__type">Type</div>';
                 echo '<div class="ppb-post-col ppb-posts__agency">Agency</div>';
+                // Add an extra header column if we're reviewing tracked changes.
+                if ($this->review_tracked_events) {
+                    echo '<div class="ppb-post-col ppb-posts__review">Review</div>';
+                }
                 echo '<div class="ppb-post-col ppb-posts__visibility">Visible</div>';
                 echo '</div>';
 
@@ -169,18 +257,34 @@ class PriorPartyBannerAdmin
                     $date = new \DateTime($post->post_date);
                     $agencies = $this->getPostAgencies($post->ID);
                     $status = get_field('prior_party_banner', $post->ID);
+
+                    // links
                     $link_admin = get_edit_post_link($post->ID);
                     $link_view = get_permalink($post->ID) . '?time_context=' . $stop->format('U');
+
+                    // latest event
+                    $event_data = $this->getTrackedDisplayString($post->ID);
+                    // Transform the events' assoc. array into a readable format.
+                    $readable_events = isset($events[$post->ID]) ? array_map([$this, 'eventToReadableFormat'], $events[$post->ID]) : [];
                     //echo '<pre>' . print_r($agencies, true) . '</pre>';
 
                     echo '<div class="ppb-posts__row" data-id="' . $post->ID . '">';
                     echo '<div class="ppb-post-col ppb-posts__title">' . $post->post_title . '<br>
                               <span class="nav-link"><a href="' . $link_view . '" target="_blank">View</a> | </span>
-                              <span class="nav-link"><a href="' . $link_admin . '" target="_blank">Edit</a></span>
-                          </div>';
+                              <span class="nav-link"><a href="' . $link_admin . '" target="_blank">Edit</a></span>';
+
+                    if (isset($event_data['date'])) {
+                        echo '<span class="event-data tool-tip" title-new="' . $event_data['date'] . '">' . $event_data['text'] . '</span>';
+                    }
+
+                    echo '</div>';
                     echo '<div class="ppb-post-col ppb-posts__date">' . $date->format($this->date_format_short) . '</div>';
-                    echo '<div class="ppb-post-col ppb-posts__type">' . $this->post_type_labels[$post->post_type]->labels->name . '</div>';
+                    echo '<div class="ppb-post-col ppb-posts__type">' . $post_type_labels[$post->post_type]->labels->name . '</div>';
                     echo '<div class="ppb-post-col ppb-posts__agency">' . implode(' ', $agencies) . '</div>';
+                    // Add an extra body column if we're reviewing tracked changes.
+                    if ($this->review_tracked_events) {
+                        echo '<div class="ppb-post-col ppb-posts__review">' . implode('<br/><br/>', $readable_events) . '</div>';
+                    }
                     echo '<div class="ppb-post-col ppb-posts__status" data-status="' . ($status === false ? 'off' : 'on') . '"></div>';
                     echo '</div>';
                 }
@@ -265,9 +369,11 @@ class PriorPartyBannerAdmin
     /**
      * Search the DB for posts that match the Agency and date range provided
      *
+     * @param null|array $post_ids an optional array to filter the posts
+     *
      * @return void
      */
-    private function posts(): void
+    private function posts(null | array $posts_in): void
     {
         if (($this->banner['start_date'] ?? false) && ($this->banner['end_date'] ?? false)) {
             $agency = new Agency();
@@ -292,6 +398,10 @@ class PriorPartyBannerAdmin
                 'posts_per_page' => -1
             ];
 
+            if ($posts_in) {
+                $args['post__in'] = $posts_in;
+            }
+
             $query = new WP_Query($args);
 
             if (!is_wp_error($query)) {
@@ -300,10 +410,34 @@ class PriorPartyBannerAdmin
 
                 $this->posts = array_filter(
                     $query->get_posts(),
-                    fn($post) => $pp_banner->isValidLocation($post->ID)
+                    fn ($post) => $pp_banner->isValidLocation($post->ID)
                 );
             }
         }
+    }
+
+    /**
+     * Create a top level menu for editors.
+     *
+     * @return void
+     */
+
+    public function editorToolsMenu(): void
+    {
+        add_menu_page(
+            'Editor Tools',
+            'Editor Tools',
+            'edit_posts',
+            'editor-tools',
+            [$this, 'editorToolsPage'],
+            'dashicons-admin-tools',
+            60
+        );
+    }
+
+    public function editorToolsPage()
+    {
+        echo '<h1>Editor Tools</h1>';
     }
 
     /**
@@ -315,7 +449,7 @@ class PriorPartyBannerAdmin
     {
         $title = 'Prior Party Banners';
         $hook = add_submenu_page(
-            'tools.php',
+            'editor-tools',
             $title,
             $title,
             'edit_posts',
@@ -324,7 +458,7 @@ class PriorPartyBannerAdmin
             8
         );
 
-        add_action("load-$hook", [$this, 'pageLoad']);
+        // add_action("load-$hook", [$this, 'pageLoad']);
     }
 
     /**
@@ -405,21 +539,34 @@ class PriorPartyBannerAdmin
      *
      * @param bool $value The field value.
      * @param int $post_id The post ID where the value is saved.
-     * @param array $field The field array containing all settings.
-     * @param bool $original The updated value in its original form before modifiers are applied.
+     *
+     * @return bool The field value - unchanged.
      */
 
-    public function trackBannerUpdates(bool $value, int $post_id, array $field, bool $original): bool
+    public function trackBannerUpdates(bool $value, int $post_id): bool
     {
-        error_log('Banner update detected.');
-
-        error_log(print_r($original, true));
-
-        error_log('type: ' . gettype($original));
-
-        // TODO add tracking here.
+        $this->createTrackEvent($value, $post_id);
 
         return $value;
+    }
+
+    private function getTrackedDisplayString($post_id): array
+    {
+        $latest = $this->getLatestEvent($post_id);
+
+        $event_data = [];
+        if ($latest['tracked']) {
+            // redact name if current user is not administrator
+            $name = (current_user_can('manage_options') ? $latest['name'] : 'A user');
+
+            // create the display string
+            $event_data = [
+                'date' => $latest['date'] . ', ' . $latest['time'],
+                'text' => $name . ' from ' . $latest['agency'] . ' ' . $latest['action'] . ' the banner'
+            ];
+        }
+
+        return $event_data;
     }
 }
 

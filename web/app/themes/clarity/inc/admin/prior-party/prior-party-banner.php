@@ -45,6 +45,9 @@ class PriorPartyBanner
         // Finally, add a hook to display the banner.
         add_action('before_rich_text_block', [$this, 'maybeAddBannerBeforeRichText']);
         add_action('before_note_from_antonia', [$this, 'maybeAddBannerBeforeRichText']);
+        add_action('before_tabbed_content', [$this, 'maybeAddBannerBeforeRichText']);
+        // Add a shortcode to display the banner.
+        add_shortcode('prior-party-banner', [$this, 'renderBannerShortcode']);
     }
 
     public function getPreviewTime(array $known_end_epochs): false | int
@@ -79,7 +82,7 @@ class PriorPartyBanner
         $doing_ajax = defined('DOING_AJAX') && DOING_AJAX;
 
         // During AJAX requests, is_admin will be true. Return here if we're at an admin screen and not doing AJAX.
-        if ( is_admin() && !$doing_ajax) {
+        if (is_admin() && !$doing_ajax) {
             return;
         }
 
@@ -218,6 +221,39 @@ class PriorPartyBanner
         );
     }
 
+
+    public function getBannerByPostId($post_id = null): null|array
+    {
+        // Return if an editor has opted-out of the banner.
+        if (get_field($this->post_field_name, $post_id) === false) {
+            return null;
+        }
+
+        // Get the published date.
+        $date = get_the_date('U', $post_id);
+
+        // Do any banners coincide with this date?
+        $banners = array_filter(
+            $this->banners,
+            fn ($banner) => $date >= $banner['start_epoch'] && $date <= $banner['end_epoch']
+        );
+
+        // If there are more than one banner, log an error. Possibly send to Sentry.
+        if (sizeof($banners) > 1) {
+            error_log('More than one banner is active for this date. Check the ACF settings.');
+        }
+
+        // If there is not exactly 1 banner, return.
+        if (sizeof($banners) !== 1) {
+            return null;
+        }
+
+        // Reset index.
+        $banners = array_values($banners);
+
+        return $banners[0];
+    }
+
     /**
      * Add a banner before the rich text block.
      *
@@ -241,35 +277,21 @@ class PriorPartyBanner
             return;
         }
 
-        // Return if an editor has opted-out of the banner.
-        if (get_field($this->post_field_name, $post_id) === false) {
-            return;
-        }
-
-        // Get the published date.
-        $date = get_the_date('U', $post_id);
-
-        // Do any banners coincide with this date?
-        $banners = array_filter(
-            $this->banners,
-            fn ($banner) => $date >= $banner['start_epoch'] && $date <= $banner['end_epoch']
-        );
-
-        // If there are more than one banner, log an error. Possibly send to Sentry.
-        if (sizeof($banners) > 1) {
-            error_log('More than one banner is active for this date. Check the ACF settings.');
-        }
-
-        // If there is not exactly 1 banner, return.
-        if (sizeof($banners) !== 1) {
-            return;
-        }
-
-        // Reset index.
-        $banners = array_values($banners);
+        $banner = $this->getBannerByPostId($post_id);
 
         // We have a banner to display.
-        get_template_part('src/components/c-notification-banner/view', null, ['heading' => $banners[0]['banner_content']]);
+        get_template_part('src/components/c-notification-banner/view', null, ['heading' => $banner['banner_content']]);
+    }
+
+    public function renderBannerShortcode() {
+        // Get the post ID.
+        $post_id = get_the_ID();
+
+        // Don't validate the location, leave that up to the editor.
+        $banner = $this->getBannerByPostId($post_id);
+
+        // We have a banner to display.
+        get_template_part('src/components/c-notification-banner/view', null, ['heading' => $banner['banner_content']]);
     }
 }
 
