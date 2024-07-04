@@ -18,6 +18,8 @@ if (have_rows('guidance_tabs')) :
                 echo '<section class="c-rich-text-block">';
             endif;
 
+            do_action('before_tabbed_content');
+
             if (get_field('guidance_tabs')) :
                 while (the_repeater_field('sections')) :
                     echo '<h2>';
