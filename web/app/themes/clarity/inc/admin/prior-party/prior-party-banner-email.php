@@ -159,6 +159,8 @@ class PriorPartyBannerEmail
         }
         $string .= sprintf('<strong>Total changes</strong>: %s <br/>', $banner['change_count']);
 
+        $string .= sprintf('<a href="%s">Review</a>', $banner['review_url']);
+
         return $string;
     }
 
@@ -284,7 +286,7 @@ class PriorPartyBannerEmail
 
             // Build the url for reviewing.
             $query_strings = array_merge($base_query_strings, ['ref' => $banner['reference']]);
-            $banner['review_url'] = admin_url('tools.php?' . http_build_query($query_strings));
+            $banner['review_url'] = admin_url('admin.php?' . http_build_query($query_strings));
 
             $banner['email_body'] = $this->bannerArrayToText($banner);
         }

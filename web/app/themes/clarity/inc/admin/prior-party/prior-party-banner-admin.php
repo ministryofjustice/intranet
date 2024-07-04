@@ -81,6 +81,7 @@ class PriorPartyBannerAdmin
          * - prior party view
          */
         add_action('init', [$this, 'priorPartyOptionPages']);
+        add_action('admin_menu', [$this, 'editorToolsMenu']);
         add_action('admin_menu', [$this, 'menu']);
 
         add_action('rest_api_init', [$this, 'actionHandler']);
@@ -145,7 +146,7 @@ class PriorPartyBannerAdmin
             // drop return link
             echo '<a href="' . get_admin_url(
                 null,
-                'tools.php?page=' . $this->menu_slug
+                'admin.php?page=' . $this->menu_slug
             ) . '" class="ppb-cta-link">View all banners</a>';
 
             // get and cache the banner
@@ -371,6 +372,30 @@ class PriorPartyBannerAdmin
     }
 
     /**
+     * Create a top level menu for editors.
+     *
+     * @return void
+     */
+
+     public function editorToolsMenu(): void
+     {
+         add_menu_page(
+             'Editor Tools',
+             'Editor Tools',
+             'edit_posts',
+             'editor-tools',
+             [$this, 'editorToolsPage'],
+             'dashicons-admin-tools',
+             60
+         );
+     }
+
+     public function editorToolsPage()
+     {
+        echo '<h1>Editor Tools</h1>';
+     }
+
+    /**
      * Creates a menu link under the Tools section in the admin Dashboard
      *
      * @return void
@@ -379,7 +404,7 @@ class PriorPartyBannerAdmin
     {
         $title = 'Prior Party Banners';
         $hook = add_submenu_page(
-            'tools.php',
+            'editor-tools',
             $title,
             $title,
             'edit_posts',
