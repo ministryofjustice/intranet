@@ -88,6 +88,8 @@ class PriorPartyBannerAdmin
 
         add_filter('acf/update_value/name=' . $this->post_field_name, [$this, 'trackBannerUpdates'], 10, 4);
 
+        add_filter('acf/load_value/name=' .  $this->post_field_name, [$this, 'filterValueOnPages'], 10, 2);
+
         /**
          * Don't load view code until needed
          */
@@ -115,6 +117,46 @@ class PriorPartyBannerAdmin
             $this->review_tracked_events_from = (int) $_GET['events_from'] ?: null;
             $this->review_tracked_events_to =  (int) $_GET['events_to'] ?: null;
         }
+    }
+
+    /**
+     * Set the default value of the prior_party_banner field to 0 on pages.
+     * 
+     * The effects of this function can be seen at: 
+     * - the Prior Party Banners table view
+     * - the edit page screen
+     * - the frontend pages
+     * 
+     * @param bool $value The value of the field.
+     * @param int $post_id The ID of the post.
+     * 
+     * @return bool The filtered value of the field.
+     */
+
+    public function filterValueOnPages(bool|null $value, int $post_id): null|bool
+    {
+
+        $post_type = get_post_type($post_id);
+
+        // If we're not dealing with a page, or the value is not 1, do nothing.
+        if ($post_type !== 'page' || $value === false) {
+            return $value;
+        }
+
+        // Here, we're on a page and the value of the toggle is 1. 
+        // How do we know if that's 1 by default, or if it's been set by the user?
+
+        // Get the metadata for the post, directly from the database.
+        $metadata = get_metadata('post', $post_id, 'prior_party_banner', true);
+
+        // We have an entry in the database, so return $value.
+        if ($metadata) {
+            return $value;
+        }
+
+        // We don't have an entry in the database, so set the value to 0. 
+        // i.e. the banner is not active by default.
+        return false;
     }
 
     /**
@@ -223,7 +265,7 @@ class PriorPartyBannerAdmin
                     // latest event
                     $event_data = $this->getTrackedDisplayString($post->ID);
                     // Transform the events' assoc. array into a readable format.
-                    $readable_events = array_map([$this, 'eventToReadableFormat'], $events[$post->ID] ?: []);
+                    $readable_events = isset($events[$post->ID]) ? array_map([$this, 'eventToReadableFormat'], $events[$post->ID]) : [];
                     //echo '<pre>' . print_r($agencies, true) . '</pre>';
 
                     echo '<div class="ppb-posts__row" data-id="' . $post->ID . '">';
@@ -232,7 +274,7 @@ class PriorPartyBannerAdmin
                               <span class="nav-link"><a href="' . $link_admin . '" target="_blank">Edit</a></span>';
 
                     if (isset($event_data['date'])) {
-                        echo '<span class="event-data tool-tip" title-new="' .$event_data['date'] . '">' . $event_data['text'] . '</span>';
+                        echo '<span class="event-data tool-tip" title-new="' . $event_data['date'] . '">' . $event_data['text'] . '</span>';
                     }
 
                     echo '</div>';
@@ -380,23 +422,23 @@ class PriorPartyBannerAdmin
      * @return void
      */
 
-     public function editorToolsMenu(): void
-     {
-         add_menu_page(
-             'Editor Tools',
-             'Editor Tools',
-             'edit_posts',
-             'editor-tools',
-             [$this, 'editorToolsPage'],
-             'dashicons-admin-tools',
-             60
-         );
-     }
+    public function editorToolsMenu(): void
+    {
+        add_menu_page(
+            'Editor Tools',
+            'Editor Tools',
+            'edit_posts',
+            'editor-tools',
+            [$this, 'editorToolsPage'],
+            'dashicons-admin-tools',
+            60
+        );
+    }
 
-     public function editorToolsPage()
-     {
+    public function editorToolsPage()
+    {
         echo '<h1>Editor Tools</h1>';
-     }
+    }
 
     /**
      * Creates a menu link under the Tools section in the admin Dashboard
