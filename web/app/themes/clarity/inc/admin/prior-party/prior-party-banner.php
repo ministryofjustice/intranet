@@ -323,7 +323,7 @@ class PriorPartyBanner
     {
         // Are we on a post edit screen?
         $screen = get_current_screen();
-        if ($screen->base !== 'post') {
+        if (!$screen || $screen->base !== 'post') {
             return $field;
         }
 
