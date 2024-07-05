@@ -18,7 +18,7 @@
             },
             "admin_only": 0,
             "message": "",
-            "default_value": 0,
+            "default_value": 1,
             "ui_on_text": "On",
             "ui_off_text": "Off",
             "ui": 1
@@ -124,5 +124,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1720172797
+    "modified": 1720173662
 }
