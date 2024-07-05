@@ -18,7 +18,7 @@
             },
             "admin_only": 0,
             "message": "",
-            "default_value": 1,
+            "default_value": 0,
             "ui_on_text": "On",
             "ui_off_text": "Off",
             "ui": 1
@@ -67,6 +67,11 @@
                 "param": "post_template",
                 "operator": "!=",
                 "value": "page_notes_from_antonia.php"
+            },
+            {
+                "param": "post_template",
+                "operator": "!=",
+                "value": "page_campaign_landing.php"
             }
         ],
         [
@@ -119,5 +124,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1719840984
+    "modified": 1720172797
 }

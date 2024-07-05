@@ -27,6 +27,8 @@ get_header();
 
   <h1 class="o-title o-title--page"><?php echo the_title(); ?></h1>
 
+    <?php do_action('before_media_grid_content'); ?>
+
     <div class="l-full-page" role="main">
 
         <?php
