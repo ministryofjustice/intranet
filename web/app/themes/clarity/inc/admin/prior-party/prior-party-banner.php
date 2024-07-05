@@ -30,6 +30,11 @@ class PriorPartyBanner
     private string $page_field_group_name = 'group_667d8a0f642b5';
 
     /**
+     * @var string defines the key of the ACF field for the on/off toggle
+     */
+    private string $page_field_group_key = 'field_667d8a0fd14f1';
+
+    /**
      * @var string defines the name of the ACF field on the posts
      */
     private string $post_field_name = 'prior_party_banner';
@@ -42,12 +47,37 @@ class PriorPartyBanner
     public function hooks(): void
     {
         add_action('init', [$this, 'init']);
+
         // Finally, add a hook to display the banner.
         add_action('before_rich_text_block', [$this, 'maybeAddBannerBeforeRichText']);
+        add_action('before_media_grid_content', [$this, 'maybeAddBannerBeforeRichText']);
         add_action('before_note_from_antonia', [$this, 'maybeAddBannerBeforeRichText']);
         add_action('before_tabbed_content', [$this, 'maybeAddBannerBeforeRichText']);
+
         // Add a shortcode to display the banner.
         add_shortcode('prior-party-banner', [$this, 'renderBannerShortcode']);
+
+        // Filter the instructions on the edit post screen.
+        add_filter('acf/load_field/key=' . $this->page_field_group_key, [$this, 'modifyFieldInstructions']);
+    }
+
+    public function init(): void
+    {
+        // The ACF field for the 'Prior Party Banner' checkbox has.
+        $fields = acf_get_field_group($this->page_field_group_name);
+
+        // Use the locations to determine where the banner should be displayed.
+        $this->locations = $fields['location'];
+
+        // Are we doing AJAX, needed for Notes from Antonia lazy load.
+        $doing_ajax = defined('DOING_AJAX') && DOING_AJAX;
+
+        // During AJAX requests, is_admin will be true. Return here if we're at an admin screen and not doing AJAX.
+        if (is_admin() && !$doing_ajax) {
+            return;
+        }
+
+        $this->loadBanners();
     }
 
     public function getPreviewTime(array $known_end_epochs): false | int
@@ -70,22 +100,8 @@ class PriorPartyBanner
         return false;
     }
 
-    public function init(): void
+    public function loadBanners()
     {
-        // The ACF field for the 'Prior Party Banner' checkbox has.
-        $fields = acf_get_field_group($this->page_field_group_name);
-
-        // Use the locations to determine where the banner should be displayed.
-        $this->locations = $fields['location'];
-
-        // Are we doing AJAX, needed for Notes from Antonia lazy load.
-        $doing_ajax = defined('DOING_AJAX') && DOING_AJAX;
-
-        // During AJAX requests, is_admin will be true. Return here if we're at an admin screen and not doing AJAX.
-        if (is_admin() && !$doing_ajax) {
-            return;
-        }
-
         // Get all banners from the repeater field.
         $all_banners = get_field($this->repeater_name, 'option');
 
@@ -279,7 +295,7 @@ class PriorPartyBanner
 
         $banner = $this->getBannerByPostId($post_id);
 
-        if(!$banner) {
+        if (!$banner) {
             return;
         }
 
@@ -287,19 +303,48 @@ class PriorPartyBanner
         get_template_part('src/components/c-notification-banner/view', null, ['heading' => $banner['banner_content']]);
     }
 
-    public function renderBannerShortcode() {
+    public function renderBannerShortcode()
+    {
         // Get the post ID.
         $post_id = get_the_ID();
 
         // Don't validate the location, leave that up to the editor.
         $banner = $this->getBannerByPostId($post_id);
 
-        if(!$banner) {
+        if (!$banner) {
             return;
         }
 
         // We have a banner to display.
         get_template_part('src/components/c-notification-banner/view', null, ['heading' => $banner['banner_content']]);
+    }
+
+    public function modifyFieldInstructions($field)
+    {
+        // Are we on a post edit screen?
+        $screen = get_current_screen();
+        if (!$screen || $screen->base !== 'post') {
+            return $field;
+        }
+
+        // Get the published date.
+        $date = get_the_date('U', get_the_ID());
+
+        $this->loadBanners();
+
+        // Do any banners coincide with this date?
+        $banners = array_filter(
+            $this->banners,
+            fn ($banner) => ($date >= $banner['start_epoch']) && ($date <= $banner['end_epoch'])
+        );
+
+        // If there are no banners then re-word the instructions accordingly.
+        if (empty($banners)) {
+            $field['instructions'] = 'When a different government is is elected, should we show a ';
+            $field['instructions'] .= 'banner to inform visitors that this content was published under a prior government?';
+        }
+
+        return $field;
     }
 }
 

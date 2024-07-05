@@ -67,6 +67,11 @@
                 "param": "post_template",
                 "operator": "!=",
                 "value": "page_notes_from_antonia.php"
+            },
+            {
+                "param": "post_template",
+                "operator": "!=",
+                "value": "page_campaign_landing.php"
             }
         ],
         [
@@ -119,5 +124,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1719840984
+    "modified": 1720173662
 }
