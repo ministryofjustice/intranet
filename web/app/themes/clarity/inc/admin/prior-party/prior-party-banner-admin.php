@@ -431,7 +431,7 @@ class PriorPartyBannerAdmin
             'editor-tools',
             [$this, 'editorToolsPage'],
             'dashicons-admin-tools',
-            60
+            71
         );
     }
 

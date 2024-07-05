@@ -16,7 +16,7 @@
                 "class": "",
                 "id": ""
             },
-            "admin_only": 1,
+            "admin_only": 0,
             "layout": "table",
             "pagination": 0,
             "min": 0,
@@ -152,5 +152,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1719584440
+    "modified": 1720166982
 }

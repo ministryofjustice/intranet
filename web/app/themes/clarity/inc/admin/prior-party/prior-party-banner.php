@@ -222,7 +222,7 @@ class PriorPartyBanner
     }
 
 
-    public function getBannerByPostId($post_id = null): null|array
+    public function getBannerByPostId($post_id = null): ?array
     {
         // Return if an editor has opted-out of the banner.
         if (get_field($this->post_field_name, $post_id) === false) {
@@ -279,6 +279,10 @@ class PriorPartyBanner
 
         $banner = $this->getBannerByPostId($post_id);
 
+        if(!$banner) {
+            return;
+        }
+
         // We have a banner to display.
         get_template_part('src/components/c-notification-banner/view', null, ['heading' => $banner['banner_content']]);
     }
@@ -289,6 +293,10 @@ class PriorPartyBanner
 
         // Don't validate the location, leave that up to the editor.
         $banner = $this->getBannerByPostId($post_id);
+
+        if(!$banner) {
+            return;
+        }
 
         // We have a banner to display.
         get_template_part('src/components/c-notification-banner/view', null, ['heading' => $banner['banner_content']]);
