@@ -93,14 +93,14 @@ class PriorPartyBanner
         }
 
         // Compare time_context against known end_epochs.
-        if (in_array($_GET['time_context'], $known_end_epochs,  false)) {
+        if (in_array($_GET['time_context'], $known_end_epochs, false)) {
             return (int) $_GET['time_context'];
         }
 
         return false;
     }
 
-    public function loadBanners()
+    public function loadBanners(): void
     {
         // Get all banners from the repeater field.
         $all_banners = get_field($this->repeater_name, 'option');
@@ -129,12 +129,27 @@ class PriorPartyBanner
         );
 
         // Set the current timestamp.
-        $this->time_context =  $this->getPreviewTime($known_end_epochs) ?: time();
+        $preview_time = $this->getPreviewTime($known_end_epochs);
+        $this->time_context = $preview_time ?: time();
+
+        // is this a dummy context for viewing?
+        if ($preview_time > 0) {
+            // Only include banners where the user is an editor (or beyond) and the end date is in the past.
+            $active_banners = array_filter(
+                $mapped_banners,
+                fn ($banner) => (current_user_can('edit_posts') && $banner['end_epoch']) && ($banner['end_epoch'] <= $this->time_context)
+            );
+
+            $this->banners = $active_banners;
+
+            // let's bail (void) - our work here is done
+            return;
+        }
 
         // Only include active banners where the end date is in the past.
         $active_banners = array_filter(
             $mapped_banners,
-            fn ($banner) =>  $banner['banner_active'] === true && $banner['end_epoch'] && ($banner['end_epoch'] <= $this->time_context)
+            fn ($banner) => ($banner['banner_active'] === true && $banner['end_epoch']) && ($banner['end_epoch'] <= $this->time_context)
         );
 
         $this->banners = $active_banners;
