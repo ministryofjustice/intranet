@@ -83,11 +83,8 @@ class PriorPartyBannerAdmin
         add_action('init', [$this, 'priorPartyOptionPages']);
         add_action('admin_menu', [$this, 'editorToolsMenu']);
         add_action('admin_menu', [$this, 'menu']);
-
         add_action('rest_api_init', [$this, 'actionHandler']);
-
         add_filter('acf/update_value/name=' . $this->post_field_name, [$this, 'trackBannerUpdates'], 10, 4);
-
         add_filter('acf/load_value/name=' . $this->post_field_name, [$this, 'filterValueOnPages'], 10, 2);
 
         /**
@@ -114,8 +111,8 @@ class PriorPartyBannerAdmin
         $tracked_events = $_GET['review_tracked_events'] ?? false;
         if ($tracked_events === 'true') {
             $this->review_tracked_events = true;
-            $this->review_tracked_events_from = (int)$_GET['events_from'] ?: null;
-            $this->review_tracked_events_to = (int)$_GET['events_to'] ?: null;
+            $this->review_tracked_events_from = (int)$_GET['events_from'] ?? null;
+            $this->review_tracked_events_to = (int)$_GET['events_to'] ?? null;
         }
     }
 
