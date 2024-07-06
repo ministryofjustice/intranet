@@ -378,17 +378,17 @@ class PriorPartyBannerAdmin
     /**
      * Search the DB for posts that match the Agency and date range provided
      *
-     * @param null|array $post_ids an optional array to filter the posts
+     * @param array|null $posts_in
      *
      * @return void
      */
     private function posts(null|array $posts_in): void
     {
         if (($this->banner['start_date'] ?? false) && ($this->banner['end_date'] ?? false)) {
-            $agency = new Agency();
-            $active = $agency->getCurrentAgency();
+            $agency = wp_get_object_terms(get_current_user_id(), 'agency');
+
             $args = [
-                'post_type' => ['post', 'page', 'news', 'note-from-antonia'],
+                'post_type' => ['post', 'page', 'news'],
                 'post_status' => ['publish', 'pending'],
                 'date_query' => [
                     [
@@ -400,12 +400,17 @@ class PriorPartyBannerAdmin
                 'tax_query' => [
                     [
                         'taxonomy' => 'agency',
-                        'field' => 'term_id',
-                        'terms' => $active['wp_tag_id']
+                        'field' => 'slug',
+                        'terms' => $agency[0]->slug
                     ]
                 ],
                 'posts_per_page' => -1
             ];
+
+            // Only allow HQ access to notes
+            if (!empty($agency) && isset($agency[0]) && $agency[0]->slug === 'hq') {
+                $args['post_type'][] = 'note-from-antonia';
+            }
 
             if ($posts_in) {
                 $args['post__in'] = $posts_in;
