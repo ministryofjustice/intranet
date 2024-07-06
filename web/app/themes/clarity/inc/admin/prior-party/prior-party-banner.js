@@ -186,6 +186,7 @@ jQuery(document).ready(function ($) {
         }
 
         _this.attr('disabled', 'disabled');
+        status.addClass('hide-icon').html('<span class="ppb-loader"></span>');
 
         $.ajax({
             url: wpApiSettings.root + 'prior-party/v2/update',
@@ -199,10 +200,11 @@ jQuery(document).ready(function ($) {
             }
         }).done(function ( response ) {
             response = JSON.parse(response);
+            status.html('');
 
             _this.attr('disabled', null);
 
-            status.removeClass(response.message.old);
+            status.removeClass('hide-icon ' + response.message.old);
             status.addClass(response.message.new);
 
             if (response.message.new === 'tick') {
@@ -212,6 +214,15 @@ jQuery(document).ready(function ($) {
 
             _this.addClass('excluded').attr('title', 'The banner will not be shown');
         });
+    });
+
+    /**
+     * When the row is in focus, the enter key will cause a click event
+     */
+    JQ.rows.on('keydown', function (e) {
+        if (e.which === 13) {
+            $(this).click();
+        }
     });
 
     /**
@@ -234,4 +245,5 @@ jQuery(document).ready(function ($) {
      * Initialise to-top button
      */
     MOJ_PPB.toTop.init();
+
 });
