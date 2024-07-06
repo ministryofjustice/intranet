@@ -220,17 +220,24 @@ Prior Party Posts
     font-weight: 400;
     display: block;
     text-align: center;
-    border-radius: 5px;
+    border-radius: 4px;
     background-color: #fff;
     position: absolute;
     right: 5px;
     bottom: 5px;
     padding: 2px 8px 3px;
 }
+.ppb-posts__row:hover .ppb-post-col.ppb-posts__title > span.event-data:hover {
+    border-radius: 4px 0 4px 4px;
+}
+.ppb-posts__row:hover .ppb-post-col.ppb-posts__title > span.event-data.tool-tip[title-new]:hover:after {
+    border-radius: 4px 4px 0 0;
+}
 .ppb-posts__row:hover .ppb-post-col.ppb-posts__title > span.nav-link,
 .ppb-posts__row:hover .ppb-post-col.ppb-posts__title > span.event-data {
     display: inline-block;
 }
+
 
 .ppb-post-col.ppb-posts__visibility {
     text-align: center;

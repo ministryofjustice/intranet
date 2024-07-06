@@ -58,12 +58,12 @@ class PriorPartyBannerAdmin
     /**
      * @var int|null review events from this time
      */
-    private int | null $review_tracked_events_from = null;
+    private int|null $review_tracked_events_from = null;
 
     /**
      * @var int|null review events up to this time
      */
-    private int | null $review_tracked_events_to = null;
+    private int|null $review_tracked_events_to = null;
 
     /**
      * @var string normalised date format
@@ -83,12 +83,9 @@ class PriorPartyBannerAdmin
         add_action('init', [$this, 'priorPartyOptionPages']);
         add_action('admin_menu', [$this, 'editorToolsMenu']);
         add_action('admin_menu', [$this, 'menu']);
-
         add_action('rest_api_init', [$this, 'actionHandler']);
-
         add_filter('acf/update_value/name=' . $this->post_field_name, [$this, 'trackBannerUpdates'], 10, 4);
-
-        add_filter('acf/load_value/name=' .  $this->post_field_name, [$this, 'filterValueOnPages'], 10, 2);
+        add_filter('acf/load_value/name=' . $this->post_field_name, [$this, 'filterValueOnPages'], 10, 2);
 
         /**
          * Don't load view code until needed
@@ -114,28 +111,26 @@ class PriorPartyBannerAdmin
         $tracked_events = $_GET['review_tracked_events'] ?? false;
         if ($tracked_events === 'true') {
             $this->review_tracked_events = true;
-            $this->review_tracked_events_from = (int) $_GET['events_from'] ?: null;
-            $this->review_tracked_events_to =  (int) $_GET['events_to'] ?: null;
+            $this->review_tracked_events_from = (int)$_GET['events_from'] ?? null;
+            $this->review_tracked_events_to = (int)$_GET['events_to'] ?? null;
         }
     }
 
     /**
      * Set the default value of the prior_party_banner field to 0 on pages.
-     * 
-     * The effects of this function can be seen at: 
+     *
+     * The effects of this function can be seen at:
      * - the Prior Party Banners table view
      * - the edit page screen
      * - the frontend pages
-     * 
+     *
      * @param bool $value The value of the field.
-     * @param int $post_id The ID of the post.
-     * 
-     * @return bool The filtered value of the field.
+     * @param int  $post_id The ID of the post.
+     *
+     * @return bool|null The filtered value of the field.
      */
-
     public function filterValueOnPages(bool|null $value, int $post_id): null|bool
     {
-
         $post_type = get_post_type($post_id);
 
         // If we're not dealing with a page, or the value is not 1, do nothing.
@@ -143,7 +138,7 @@ class PriorPartyBannerAdmin
             return $value;
         }
 
-        // Here, we're on a page and the value of the toggle is 1. 
+        // Here, we're on a page and the value of the toggle is 1.
         // How do we know if that's 1 by default, or if it's been set by the user?
 
         // Get the metadata for the post, directly from the database.
@@ -154,7 +149,7 @@ class PriorPartyBannerAdmin
             return $value;
         }
 
-        // We don't have an entry in the database, so set the value to 0. 
+        // We don't have an entry in the database, so set the value to 0.
         // i.e. the banner is not active by default.
         return false;
     }
@@ -201,7 +196,11 @@ class PriorPartyBannerAdmin
 
             $events = [];
             if ($this->review_tracked_events) {
-                $events = $this->getTrackEvents(null, $this->review_tracked_events_from, $this->review_tracked_events_to);
+                $events = $this->getTrackEvents(
+                    null,
+                    $this->review_tracked_events_from,
+                    $this->review_tracked_events_to
+                );
                 $posts_in = array_keys($events);
             }
 
@@ -265,7 +264,10 @@ class PriorPartyBannerAdmin
                     // latest event
                     $event_data = $this->getTrackedDisplayString($post->ID);
                     // Transform the events' assoc. array into a readable format.
-                    $readable_events = isset($events[$post->ID]) ? array_map([$this, 'eventToReadableFormat'], $events[$post->ID]) : [];
+                    $readable_events = isset($events[$post->ID]) ? array_map(
+                        [$this, 'eventToReadableFormat'],
+                        $events[$post->ID]
+                    ) : [];
                     //echo '<pre>' . print_r($agencies, true) . '</pre>';
 
                     echo '<div class="ppb-posts__row" data-id="' . $post->ID . '">';
@@ -278,12 +280,17 @@ class PriorPartyBannerAdmin
                     }
 
                     echo '</div>';
-                    echo '<div class="ppb-post-col ppb-posts__date">' . $date->format($this->date_format_short) . '</div>';
+                    echo '<div class="ppb-post-col ppb-posts__date">' . $date->format(
+                        $this->date_format_short
+                    ) . '</div>';
                     echo '<div class="ppb-post-col ppb-posts__type">' . $post_type_labels[$post->post_type]->labels->name . '</div>';
                     echo '<div class="ppb-post-col ppb-posts__agency">' . implode(' ', $agencies) . '</div>';
                     // Add an extra body column if we're reviewing tracked changes.
                     if ($this->review_tracked_events) {
-                        echo '<div class="ppb-post-col ppb-posts__review">' . implode('<br/><br/>', $readable_events) . '</div>';
+                        echo '<div class="ppb-post-col ppb-posts__review">' . implode(
+                            '<br/><br/>',
+                            $readable_events
+                        ) . '</div>';
                     }
                     echo '<div class="ppb-post-col ppb-posts__status" data-status="' . ($status === false ? 'off' : 'on') . '"></div>';
                     echo '</div>';
@@ -325,10 +332,6 @@ class PriorPartyBannerAdmin
         echo '</div>';
 
         foreach ($this->banners as $banner) {
-            if ($banner['banner_active'] === false) {
-                continue;
-            }
-
             // readable dates
             $start_date = new \DateTime($banner['start_date']);
             $end_date = new \DateTime($banner['end_date']);
@@ -341,8 +344,12 @@ class PriorPartyBannerAdmin
                   </div>';
 
             echo '<div class="ppb-banner__col ppb-banners__dates">
-                    <span class="ppb-banners__date_starts"><span>Active:</span> ' . $start_date->format($this->date_format) . '</span>
-                    <span class="ppb-banners__date_stops"><span>Ended:</span> ' . $end_date->format($this->date_format) . '</span>
+                    <span class="ppb-banners__date_starts"><span>Active:</span> ' . $start_date->format(
+                $this->date_format
+            ) . '</span>
+                    <span class="ppb-banners__date_stops"><span>Ended:</span> ' . $end_date->format(
+                $this->date_format
+            ) . '</span>
                   </div>';
             echo '</div>';
         }
@@ -373,7 +380,7 @@ class PriorPartyBannerAdmin
      *
      * @return void
      */
-    private function posts(null | array $posts_in): void
+    private function posts(null|array $posts_in): void
     {
         if (($this->banner['start_date'] ?? false) && ($this->banner['end_date'] ?? false)) {
             $agency = new Agency();
@@ -410,7 +417,7 @@ class PriorPartyBannerAdmin
 
                 $this->posts = array_filter(
                     $query->get_posts(),
-                    fn ($post) => $pp_banner->isValidLocation($post->ID)
+                    fn($post) => $pp_banner->isValidLocation($post->ID)
                 );
             }
         }
@@ -457,7 +464,6 @@ class PriorPartyBannerAdmin
             [$this, 'page'],
             8
         );
-
         // add_action("load-$hook", [$this, 'pageLoad']);
     }
 
@@ -538,7 +544,7 @@ class PriorPartyBannerAdmin
      * @see https://www.advancedcustomfields.com/resources/acf-update_value/
      *
      * @param bool $value The field value.
-     * @param int $post_id The post ID where the value is saved.
+     * @param int  $post_id The post ID where the value is saved.
      *
      * @return bool The field value - unchanged.
      */
