@@ -226,6 +226,23 @@ jQuery(document).ready(function ($) {
     });
 
     /**
+     * If we are on a row, is the tabbed element near the bottom?
+     * If so, move the interface so tabbing can stay close to the eye
+     */
+    JQ.rows.on('keydown', function (e) {
+        if (e.which === 9) {
+            const element_top = $(this).offset().top;
+            const viewport_top = $(window).scrollTop();
+            const viewport_bottom = viewport_top + $(window).height();
+
+            if ((viewport_bottom - element_top) < (window.innerHeight / 2)) {
+                const upto = window.innerHeight / 2 + viewport_top - 150;
+                window.scrollTo({top: upto, behavior: 'smooth'});
+            }
+        }
+    });
+
+    /**
      * Prevent bubbling on post rows when a user clicks a link
      *
      * This was implemented to fix a bug where a link click
