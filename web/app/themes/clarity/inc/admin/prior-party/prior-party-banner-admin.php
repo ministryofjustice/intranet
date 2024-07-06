@@ -335,6 +335,7 @@ class PriorPartyBannerAdmin
             // readable dates
             $start_date = new \DateTime($banner['start_date']);
             $end_date = new \DateTime($banner['end_date']);
+            $published = ($banner['banner_active'] ? 'Yes.<br>The banner is visible' : 'No.<br>Administrators can activate this banner.');
 
             echo '<div class="ppb-banners__row" data-reference="' . $banner['reference'] . '">';
             echo '<div class="ppb-banner__col ppb-banners__title">
@@ -344,12 +345,13 @@ class PriorPartyBannerAdmin
                   </div>';
 
             echo '<div class="ppb-banner__col ppb-banners__dates">
-                    <span class="ppb-banners__date_starts"><span>Active:</span> ' . $start_date->format(
+                    <span class="ppb-banners__date_starts"><span>Started:</span> ' . $start_date->format(
                 $this->date_format
             ) . '</span>
                     <span class="ppb-banners__date_stops"><span>Ended:</span> ' . $end_date->format(
                 $this->date_format
             ) . '</span>
+                    <span class="ppb-banners__date_starts"><span>Published:</span> ' . $published . '</span>
                   </div>';
             echo '</div>';
         }
