@@ -220,7 +220,7 @@ jQuery(document).ready(function ($) {
      * This was implemented to fix a bug where a link click
      * also toggled the banners visibility status
      */
-    JQ.rows.find('.nav-link').on('click', function (e) {
+    JQ.rows.find('.nav-link a, span.event-data').on('click', function (e) {
         e.stopPropagation();
     });
 
