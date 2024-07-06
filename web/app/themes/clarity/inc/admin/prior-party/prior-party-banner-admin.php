@@ -252,7 +252,7 @@ class PriorPartyBannerAdmin
                 echo '<div class="ppb-post-col ppb-posts__visibility">Visible</div>';
                 echo '</div>';
 
-                foreach ($this->posts as $post) {
+                foreach ($this->posts as $key => $post) {
                     $date = new \DateTime($post->post_date);
                     $agencies = $this->getPostAgencies($post->ID);
                     $status = get_field('prior_party_banner', $post->ID);
@@ -270,7 +270,7 @@ class PriorPartyBannerAdmin
                     ) : [];
                     //echo '<pre>' . print_r($agencies, true) . '</pre>';
 
-                    echo '<div class="ppb-posts__row" data-id="' . $post->ID . '">';
+                    echo '<div class="ppb-posts__row" data-id="' . $post->ID . '" tabindex="0">';
                     echo '<div class="ppb-post-col ppb-posts__title">' . $post->post_title . '<br>
                               <span class="nav-link"><a href="' . $link_view . '" target="_blank">View</a> | </span>
                               <span class="nav-link"><a href="' . $link_admin . '" target="_blank">Edit</a></span>';
