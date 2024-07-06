@@ -215,12 +215,13 @@ jQuery(document).ready(function ($) {
     });
 
     /**
-     * Prevent bubbling on post rows when a user clicks a link
+     * Prevent bubbling when a user clicks a visual
+     * element on post rows
      *
      * This was implemented to fix a bug where a link click
      * also toggled the banners visibility status
      */
-    JQ.rows.find('.nav-link').on('click', function (e) {
+    JQ.rows.find('.nav-link a, span.event-data').on('click', function (e) {
         e.stopPropagation();
     });
 
