@@ -216,7 +216,7 @@ class PriorPartyBannerAdmin
             $link_view_queries = [];
             // If the banner is inactive, we need to set a query string to show it.
             if(!$this->banner['banner_active']) {
-                $link_view_queries['show_inactive'] = '';
+                $link_view_queries['preview_unpublished'] = '';
             }
 
             // If the end date has not passed... for previewing we need to set a time context after the end date.
@@ -272,6 +272,7 @@ class PriorPartyBannerAdmin
 
                     // links
                     $link_admin = get_edit_post_link($post->ID);
+                    // The query string can be 0, 1, or 2 of: `preview_unpublished`, `time_context`.
                     $link_view = get_permalink($post->ID) . '?' . http_build_query($link_view_queries);
 
                     // latest event
