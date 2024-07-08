@@ -262,7 +262,7 @@ class PriorPartyBannerAdmin
 
                     // links
                     $link_admin = get_edit_post_link($post->ID);
-                    $link_view = get_permalink($post->ID) . '?show-inactive' . $link_view_suffix;
+                    $link_view = get_permalink($post->ID) . '?show_inactive' . $link_view_suffix;
 
                     // latest event
                     $event_data = $this->getTrackedDisplayString($post->ID);
