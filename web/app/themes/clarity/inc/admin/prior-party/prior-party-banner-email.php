@@ -77,6 +77,14 @@ class PriorPartyBannerEmail
         return $date_object;
     }
 
+    /**
+     * A timezone aware function that will send digest emails to those set in the Options page.
+     * 
+     * @param array $props An array containing the DST status.
+     * 
+     * @return void
+     */
+
     public function maybeSendEmails($props)
     {
         // Is London currently observing DST?
@@ -88,32 +96,16 @@ class PriorPartyBannerEmail
             return;
         }
 
-        $users_to_email = get_field($this->user_field_name, 'option');
-
+        $users_to_email = get_field($this->user_field_name, 'option') ?: [];
         $bcc_addresses_to_email = get_field($this->bcc_field_name, 'option') ?: [];
-
-        $recipients = array_merge($users_to_email, $bcc_addresses_to_email);
+        $all_recipients = array_merge($users_to_email, $bcc_addresses_to_email);
 
         $timestamp_from = strtotime('yesterday 9:00 Europe/London');
         $timestamp_to = strtotime('today 9:00 Europe/London');
-
         $email_content = $this->getEmailDigestByTimes($timestamp_from, $timestamp_to);
 
-        foreach ($recipients as $recipient) {
-            $to = $recipient['user_email'];
-            $subject = $email_content['subject'];
-            $body = $email_content['body'];
-
-            echo '<pre>';
-            echo 'Emailing...';
-            print_r($to);
-            echo '<br/>';
-            print_r($subject);
-            echo '<br/>';
-            print_r($body);
-
-            echo '</pre>';
-            wp_mail($to, $subject, $body);
+        foreach ($all_recipients as $recipient) {
+            wp_mail($recipient['user_email'], $email_content['subject'], $email_content['body']);
         }
     }
 
