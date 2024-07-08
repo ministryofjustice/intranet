@@ -260,8 +260,10 @@ class PriorPartyBannerAdmin
 
                     // links
                     $link_admin = get_edit_post_link($post->ID);
-                    // The query string can be 0, 1, or 2 of: `preview_unpublished`, `time_context`.
-                    $link_view = get_permalink($post->ID) . '?' . http_build_query($link_view_queries);
+                    // Get the permalink, we'll test if it contains a ? to correctly append the query string.
+                    $permalink = get_permalink($post->ID);
+                    // Use ? or & appropriately. The query string can be 0, 1, or 2 of: `preview_unpublished`, `time_context`.
+                    $link_view = $permalink . (str_contains($permalink, '?') ? '&' : '?') . http_build_query($link_view_queries);
 
                     // latest event
                     $event_data = $this->getTrackedDisplayString($post->ID);
@@ -277,8 +279,8 @@ class PriorPartyBannerAdmin
                               <span class="nav-link"><a href="' . $link_view . '" target="_blank">View</a> | </span>
                               <span class="nav-link"><a href="' . $link_admin . '" target="_blank">Edit</a></span>';
 
-                    if (isset($event_data['date'])) {
-                        echo '<span class="event-data tool-tip" title-new="' . $event_data['date'] . '">' . $event_data['text'] . '</span>';
+                    if (isset($event_data['local_date'])) {
+                        echo '<span class="event-data tool-tip" title-new="' . $event_data['local_date'] . '">' . $event_data['text'] . '</span>';
                     }
 
                     echo '</div>';
@@ -426,7 +428,7 @@ class PriorPartyBannerAdmin
 
                 $this->posts = array_filter(
                     $query->get_posts(),
-                    fn($post) => $pp_banner->isValidLocation($post->ID)
+                    fn ($post) => $pp_banner->isValidLocation($post->ID)
                 );
             }
         }
@@ -575,7 +577,7 @@ class PriorPartyBannerAdmin
 
             // create the display string
             $event_data = [
-                'date' => $latest['date'] . ', ' . $latest['time'],
+                'local_date' => $latest['local_date'] . ', ' . $latest['local_time'],
                 'text' => $name . ' from ' . $latest['agency'] . ' ' . $latest['action'] . ' the banner'
             ];
         }

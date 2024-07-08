@@ -21,6 +21,22 @@ trait PriorPartyBannerTrackEvents
     private string $event_details_field = '_prior_party_banner_event_details';
 
     /**
+     * A function to convert a timestamp to a local date object.
+     * 
+     * @param int $timestamp The timestamp.
+     * 
+     * @return \DateTime
+     */
+
+    public function timestampToLocalDateObject (int $timestamp): \DateTime
+    {
+        $date_object = new \DateTime();
+        $date_object->setTimezone(new \DateTimeZone('Europe/London'));
+        $date_object->setTimestamp($timestamp);
+        return $date_object;
+    }
+
+    /**
      * Create a new track event.
      *
      * @param bool $value The value.
@@ -97,10 +113,12 @@ trait PriorPartyBannerTrackEvents
                 }
             }
 
+            $local_date = $this->timestampToLocalDateObject($event['time']);
+
             return [
                 'name' => $user->display_name ?: 'Unknown',
-                'date' => date('jS F Y', $event['time']),
-                'time' => date('H:i', $event['time']),
+                'local_date' => $local_date->format('jS F Y'),
+                'local_time' => $local_date->format('H:i'),
                 'agency' => $agency_name,
                 'action' => $event['action'] === 'true' ? 'displayed' : 'removed',
                 'tracked' => true
@@ -204,11 +222,12 @@ trait PriorPartyBannerTrackEvents
             return '';
         }
 
-        $time = date($this->date_format_time, $event['time']);
+        $local_date = $this->timestampToLocalDateObject($event['time']);
+        $local_time = $local_date->format($this->date_format_time);
         $user = get_user_by('id', $event['user_id']);
         $user_name = $user ? $user->display_name : 'Unknown';
 
-        return "User: $user_name,<br/> Action: {$event['action']},<br/> Time: $time";
+        return "User: $user_name,<br/> Action: {$event['action']},<br/> Time: $local_time";
     }
 
     // TODO: lifecycle policy, delete events older than x? Or keep only the most recent x events per post?
