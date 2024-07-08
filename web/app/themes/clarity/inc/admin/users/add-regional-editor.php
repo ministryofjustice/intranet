@@ -29,13 +29,9 @@ $capabilities = array(
     'edit_published_documents'      => true,
     'delete_documents'              => true,
     'delete_others_documents'       => true,
-    'delete_posts'                  => true,
     'delete_private_documents'      => true,
-    'delete_private_posts'          => true,
     'delete_published_documents'    => true,
-    'delete_published_posts'        => true,
-    
-    'read_private_documents'        => true,
+
     'publish_documents'             => true,
 
     'edit_events'                   => true,
@@ -60,9 +56,7 @@ $capabilities = array(
     'delete_regional_news'          => true,
     'delete_regional_page'          => true,
     'delete_published_pages'        => true,
-    'delete_published_regional_pages'=> true,
-    
-
+    'delete_published_regional_pages'=> true
 );
 
 if (get_role('regional-editor')) {

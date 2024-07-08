@@ -2,11 +2,11 @@
 
 namespace MOJIntranet;
 
+use DateTime;
 use Exception;
-use MOJ\Intranet\Agency;
-use WP_Error;
 use WP_Query;
 use WP_REST_Request;
+use WP_REST_Server;
 
 require_once 'prior-party-banner-events.php';
 
@@ -74,7 +74,6 @@ class PriorPartyBannerAdmin
 
     public function __construct()
     {
-        global $wp_post_types;
         /**
          * Create options page for
          * - prior party settings
@@ -155,16 +154,6 @@ class PriorPartyBannerAdmin
     }
 
     /**
-     * Loaded via a hook
-     *
-     * @return void
-     */
-    public function pageLoad(): void
-    {
-        $this->banners = get_field($this->repeater_name, 'option');
-    }
-
-    /**
      * Build the page
      *
      * @throws Exception
@@ -172,7 +161,6 @@ class PriorPartyBannerAdmin
     public function page(): void
     {
         // housekeeping
-        $post_type_labels = [];
         $post_type_labels = [
             'post' => get_post_type_object('post'),
             'news' => get_post_type_object('news'),
@@ -208,20 +196,20 @@ class PriorPartyBannerAdmin
             $this->posts($posts_in);
 
             // normalise the dates
-            $start = new \DateTime($this->banner["start_date"]);
-            $stop = new \DateTime($this->banner["end_date"]);
+            $start = new DateTime($this->banner["start_date"]);
+            $stop = new DateTime($this->banner["end_date"]);
 
 
             // Init an array to hold the query string for viewing the banner.
             $link_view_queries = [];
             // If the banner is inactive, we need to set a query string to show it.
-            if(!$this->banner['banner_active']) {
+            if (!$this->banner['banner_active']) {
                 $link_view_queries['preview_unpublished'] = '';
             }
 
             // If the end date has not passed... for previewing we need to set a time context after the end date.
             // i.e. exactly 00:00:00 the next day.
-            if($stop > new \DateTime()) {
+            if ($stop > new DateTime()) {
                 $link_view_queries['time_context'] = $stop->modify('+1 day')->format('U');
             }
 
@@ -265,8 +253,8 @@ class PriorPartyBannerAdmin
                 echo '<div class="ppb-post-col ppb-posts__visibility">Visible</div>';
                 echo '</div>';
 
-                foreach ($this->posts as $key => $post) {
-                    $date = new \DateTime($post->post_date);
+                foreach ($this->posts as $post) {
+                    $date = new DateTime($post->post_date);
                     $agencies = $this->getPostAgencies($post->ID);
                     $status = get_field('prior_party_banner', $post->ID);
 
@@ -347,8 +335,8 @@ class PriorPartyBannerAdmin
 
         foreach ($this->banners as $banner) {
             // readable dates
-            $start_date = new \DateTime($banner['start_date']);
-            $end_date = new \DateTime($banner['end_date']);
+            $start_date = new DateTime($banner['start_date']);
+            $end_date = new DateTime($banner['end_date']);
             $published = ($banner['banner_active'] ? 'Yes.<br>The banner is visible' : 'No.<br>Administrators can activate this banner.');
 
             echo '<div class="ppb-banners__row" data-reference="' . $banner['reference'] . '">';
@@ -455,7 +443,7 @@ class PriorPartyBannerAdmin
         add_menu_page(
             'Editor Tools',
             'Editor Tools',
-            'edit_posts',
+            'create_posts',
             'editor-tools',
             [$this, 'editorToolsPage'],
             'dashicons-admin-tools',
@@ -463,7 +451,7 @@ class PriorPartyBannerAdmin
         );
     }
 
-    public function editorToolsPage()
+    public function editorToolsPage(): void
     {
         echo '<h1>Editor Tools</h1>';
     }
@@ -476,16 +464,15 @@ class PriorPartyBannerAdmin
     public function menu(): void
     {
         $title = 'Prior Party Banners';
-        $hook = add_submenu_page(
+        add_submenu_page(
             'editor-tools',
             $title,
             $title,
-            'edit_posts',
+            'create_posts',
             $this->menu_slug,
             [$this, 'page'],
             8
         );
-        // add_action("load-$hook", [$this, 'pageLoad']);
     }
 
     /**
@@ -518,8 +505,8 @@ class PriorPartyBannerAdmin
             "prior-party/v2",
             "/update",
             [
-                'methods' => \WP_REST_Server::READABLE,
-                'permission_callback' => function (\WP_REST_Request $request) {
+                'methods' => WP_REST_Server::READABLE,
+                'permission_callback' => function (WP_REST_Request $request) {
                     return is_user_logged_in();
                 },
                 'callback' => [$this, 'updateStatus']
