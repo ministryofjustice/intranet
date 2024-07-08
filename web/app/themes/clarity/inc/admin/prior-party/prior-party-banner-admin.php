@@ -213,7 +213,7 @@ class PriorPartyBannerAdmin
 
             // If the end date has not passed... for previewing we need to set a time context after the end date.
             // i.e. exactly 00:00:00 the next day.
-            $link_view_suffix = $stop > new \DateTime() ? '?time_context=' . $stop->modify('+1 day')->format('U') : '';
+            $link_view_suffix = $stop > new \DateTime() ? '&time_context=' . $stop->modify('+1 day')->format('U') : '';
 
             // display the banner
             echo '<div class="prior-party-banner">
@@ -262,7 +262,7 @@ class PriorPartyBannerAdmin
 
                     // links
                     $link_admin = get_edit_post_link($post->ID);
-                    $link_view = get_permalink($post->ID) . $link_view_suffix;
+                    $link_view = get_permalink($post->ID) . '?show-inactive' . $link_view_suffix;
 
                     // latest event
                     $event_data = $this->getTrackedDisplayString($post->ID);
