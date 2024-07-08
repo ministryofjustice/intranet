@@ -81,10 +81,17 @@ class PriorPartyBanner
     }
 
     /**
-     * Get the preview time from the query string.
+     * Get the time context from the query string.
      * 
-     * Validates the time_context query var against known end epochs.
-     * Returns false if if: 
+     * Why do we need a time context?
+     * Under normal circumstances, the banner will only show if the current date is between the start and end dates.
+     * This makes sense in the context of *Prior* Party Banners. We don't want to show a banner for a government that hasn't left yet.
+     * ...
+     * However, to preview a banner that hasn't ended yet, we need to set the time context to the day after the banner ends.
+     * In effect we are time travelling the user into the future, the day after a banner's end date, so that they can see the banner.
+     * 
+     * This function validates the time_context query var against known end epochs.
+     * Returns false if: 
      * - the user is not logged in or can't edit posts
      * - the value not in the known array
      * - or the time_context is in the past
@@ -94,7 +101,7 @@ class PriorPartyBanner
      * @return false|int
      */
 
-    public function getPreviewTime(array $known_end_epochs): false | int
+    public function getTimeContext(array $known_end_epochs): false | int
     {
         // Is the user logged in and can edit posts?
         if (!current_user_can('edit_posts')) {
@@ -158,7 +165,7 @@ class PriorPartyBanner
         );
 
         // Set the current timestamp.
-        $preview_time = $this->getPreviewTime($known_end_epochs);
+        $preview_time = $this->getTimeContext($known_end_epochs);
         // Time context will either be:
         // - 00:00:00 the day after a banner that hasn't ended yet
         // - or now
