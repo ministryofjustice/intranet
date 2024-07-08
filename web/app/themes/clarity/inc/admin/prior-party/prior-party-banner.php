@@ -59,6 +59,9 @@ class PriorPartyBanner
 
         // Filter the instructions on the edit post screen.
         add_filter('acf/load_field/key=' . $this->page_field_key, [$this, 'modifyFieldInstructions']);
+
+        // Filter the content.
+        add_filter('the_content', [$this, 'filterRichTextContent'], 15);
     }
 
     public function init(): void
@@ -107,7 +110,7 @@ class PriorPartyBanner
         }
 
         // Return false if the time_context is in the past - it's unnecessary.
-        if((int) $_GET['time_context'] < time()) {
+        if ((int) $_GET['time_context'] < time()) {
             return false;
         }
 
@@ -378,7 +381,25 @@ class PriorPartyBanner
         }
 
         // We have a banner to display.
+        ob_start();
         get_template_part('src/components/c-notification-banner/view', null, ['heading' => $banner['banner_content']]);
+        return ob_get_clean();
+    }
+
+    /**
+     * If a shortcode has been applied, then the banner will be inside a p tag. Remove the opening and closing p tags.
+     * 
+     * @param string $content
+     * 
+     * @return string
+     */
+
+    public function filterRichTextContent(string $content): string
+    {
+        $content = preg_replace('/<p>\s*(<!-- c-moj-banner starts here -->)/', '$1', $content);
+        $content = preg_replace('/(<!-- c-moj-banner ends here -->)\s*<\/p>/', '$1', $content);
+
+        return $content;
     }
 
     /**
