@@ -59,9 +59,6 @@ class PriorPartyBanner
 
         // Filter the instructions on the edit post screen.
         add_filter('acf/load_field/key=' . $this->page_field_key, [$this, 'modifyFieldInstructions']);
-
-        // Filter the content.
-        add_filter('the_content', [$this, 'filterRichTextContent'], 15);
     }
 
     public function init(): void
@@ -379,6 +376,9 @@ class PriorPartyBanner
         if (!$banner) {
             return;
         }
+
+        // Filter the content to remove the p tags that are added before and after the shortcode.
+        add_filter('the_content', [$this, 'filterRichTextContent'], 15);
 
         // We have a banner to display.
         ob_start();
