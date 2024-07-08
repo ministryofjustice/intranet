@@ -167,7 +167,13 @@ class PriorPartyBanner
         // Only include active banners where the end date is in the past.
         $active_banners = array_filter(
             $mapped_banners,
-            fn ($banner) => ($banner['banner_active'] === true && $banner['end_epoch']) && ($banner['end_epoch'] <= $this->time_context)
+            function ($banner) {
+                // If the user can edit posts then they can see all banners regardless of banner_active state.
+                // Else, other users (and logged out visitors) are only show banners that are active.
+                $user_can_view = current_user_can('edit_posts') || $banner['banner_active'] === true;
+
+                return ($user_can_view && $banner['end_epoch']) && ($banner['end_epoch'] <= $this->time_context);
+            } 
         );
 
         $this->banners = $active_banners;
