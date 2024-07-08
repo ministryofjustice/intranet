@@ -53,6 +53,10 @@ add_filter('pre_wp_mail', function ($null, $mail) {
 
     // Don't short-circuit if the password doesn't look right
     $maybe_api_key = env('SMTP_PASSWORD') ?? env('SMTP_PASS');
+    if(empty($maybe_api_key)) {
+        // hand back to wp_mail()
+        return null;
+    }
     preg_match_all($patterns['api'], $maybe_api_key, $matches);
     if (count($matches[0]) !== 2) {
         // hand back to wp_mail()

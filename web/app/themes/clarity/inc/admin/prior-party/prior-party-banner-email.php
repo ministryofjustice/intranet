@@ -21,6 +21,10 @@ class PriorPartyBannerEmail
      */
     private string $repeater_name = 'prior_political_party_banners';
 
+    private string $user_field_name = 'prior_political_party_banners_digest_users';
+
+    private string $bcc_field_name = 'prior_political_party_banners_digest_bcc';
+
 
     /**
      * @var string the name of the page for viewing banner posts
@@ -33,6 +37,76 @@ class PriorPartyBannerEmail
     public function __construct()
     {
         add_action('admin_menu', [$this, 'emailMenu']);
+
+        // Schedule the email digest.
+        // This will run the maybeSendEmails function twice a day.
+        // During winter, this will be 8am and 9am in the UK.
+        // During summer, this will be 9am and 10am in the UK.
+        // Running twice will ensure that one is run at 9am UK time.
+        // Params:
+        // - Unix timestamp (UTC) for when to next run the event.
+        // - How often the event should subsequently recur.
+        // - Action hook to execute when the event is run.
+
+        $args = ['dst' => true];
+        if (!wp_next_scheduled('prior_party_banner_email_cron_hook', $args)) {
+            wp_schedule_event(strtotime('08:02:00'), 'daily', 'prior_party_banner_email_cron_hook', $args);
+        }
+
+        $args = ['dst' => false];
+        if (!wp_next_scheduled('prior_party_banner_email_cron_hook', $args)) {
+            wp_schedule_event(strtotime('09:02:00'), 'daily', 'prior_party_banner_email_cron_hook', $args);
+        }
+
+        add_action('prior_party_banner_email_cron_hook', [$this, 'maybeSendEmails']);
+    }
+
+    /**
+     * A function to convert a timestamp to a local date object.
+     * 
+     * @param int $timestamp The timestamp.
+     * 
+     * @return \DateTime
+     */
+
+    public function timestampToLocalDateObject(int $timestamp): \DateTime
+    {
+        $date_object = new \DateTime();
+        $date_object->setTimezone(new \DateTimeZone('Europe/London'));
+        $date_object->setTimestamp($timestamp);
+        return $date_object;
+    }
+
+    /**
+     * A timezone aware function that will send digest emails to those set in the Options page.
+     * 
+     * @param array $props An array containing the DST status.
+     * 
+     * @return void
+     */
+
+    public function maybeSendEmails($props)
+    {
+        // Is London currently observing DST?
+        $in_dst = strtotime("today 9:00 am Europe/London") !== strtotime("today 9:00 am UTC");
+
+        // If the current DST status doesn't match the props, return early.
+        if ($in_dst !== $props['dst']) {
+            // It's 10am in the summer or 8am in the winter - don't send emails.
+            return;
+        }
+
+        $users_to_email = get_field($this->user_field_name, 'option') ?: [];
+        $bcc_addresses_to_email = get_field($this->bcc_field_name, 'option') ?: [];
+        $all_recipients = array_merge($users_to_email, $bcc_addresses_to_email);
+
+        $timestamp_from = strtotime('yesterday 9:00 Europe/London');
+        $timestamp_to = strtotime('today 9:00 Europe/London');
+        $email_content = $this->getEmailDigestByTimes($timestamp_from, $timestamp_to);
+
+        foreach ($all_recipients as $recipient) {
+            wp_mail($recipient['user_email'], $email_content['subject'], $email_content['body']);
+        }
     }
 
     /**
@@ -108,12 +182,15 @@ class PriorPartyBannerEmail
 
     public function emailPage(): void
     {
+
+        $this->maybeSendEmails(['dst' => true]);
+
         $is_after_nine = date('H', time()) >= 9;
 
         if ($is_after_nine) {
-            $time_window_start = strtotime('today 09:00');
+            $time_window_start = strtotime('today 09:00 Europe/London');
         } else {
-            $time_window_start = strtotime('yesterday 09:00');
+            $time_window_start = strtotime('yesterday 09:00 Europe/London');
         }
 
         $email_index = 0;
@@ -133,10 +210,12 @@ class PriorPartyBannerEmail
             // Get the email digest for this time window.
             $email = $this->getEmailDigestByTimes($from, $to);
 
-            // Echo out the email.
-            echo '<h2>Subject: ' . $email['subject'] . '</h2>';
-            echo '<p>' . $email['body'] . '</p>';
-            echo '<hr/>';
+            if ($email) {
+                // Echo out the email.
+                echo '<h2>Subject: ' . $email['subject'] . '</h2>';
+                echo '<pre>' . $email['body'] . '</pre>';
+                echo '<hr/>';
+            }
 
             $email_index++;
         }
@@ -152,14 +231,14 @@ class PriorPartyBannerEmail
 
     public function bannerArrayToText(array $banner): string
     {
-        $string = sprintf('<strong>%s</strong> <br/>', $banner['banner_content']);
+        $string = sprintf("Banner: %s \n", $banner['banner_content']);
 
         foreach ($banner['post_types'] as $post_type) {
-            $string .= sprintf('<strong>%s</strong>: %d opt-in, %d opt-out <br/>', $post_type['label'], $post_type['true_count'], $post_type['false_count']);
+            $string .= sprintf("%s: %d opt-in, %d opt-out\n", $post_type['label'], $post_type['true_count'], $post_type['false_count']);
         }
-        $string .= sprintf('<strong>Total changes</strong>: %s <br/>', $banner['change_count']);
+        $string .= sprintf("Total changes: %s\n", $banner['change_count']);
 
-        $string .= sprintf('<a href="%s">Review</a>', $banner['review_url']);
+        $string .= sprintf("Review: %s\n", $banner['review_url']);
 
         return $string;
     }
@@ -200,10 +279,10 @@ class PriorPartyBannerEmail
      * @param int $from
      * @param int $to
      * 
-     * @return array the email associative array with a subject and body.
+     * @return array|null the email associative array with a subject and body - or null for no changes.
      */
 
-    public function getEmailDigestByTimes(int $from, int $to): array
+    public function getEmailDigestByTimes(int $from, int $to): array|null
     {
         $events = $this->getTrackEvents(null, $from, $to);
 
@@ -295,22 +374,31 @@ class PriorPartyBannerEmail
          * End a loop over all the banners.
          */
 
+        // Filter out banners with no changes.
+        $banners = array_filter($banners, fn ($banner) => $banner['change_count'] > 0);
+
+        // Return early if there are no banners.
+        if (empty($banners)) {
+            return null;
+        }
 
         // Total changes for all banners.
         $total_change_count = array_reduce($banners, fn ($c, $s) => $c + $s['change_count'], 0);
 
-        $email_heading = sprintf('<h2>Email digest for %s to %s</h2>', date('jS F, Y - g:i a', $from),  date('jS F, Y - g:i a', $to));
+
+        $local_from_date = $this->timestampToLocalDateObject($from);
+        $local_to_date = $this->timestampToLocalDateObject($to);
+
+        $email_heading = sprintf("Email digest for %s to %s\n\n", $local_from_date->format('jS F - g:i a'),  $local_to_date->format('jS F - g:i a'));
         $email_bodies = array_map(fn ($b) => $b['email_body'], $banners);
 
         $email = [
             'subject' => sprintf('Moj Intranet - Prior Party Banner Digest %d recent changes', $total_change_count),
-            'body' => $email_heading . implode('<br/>', $email_bodies)
+            'body' => $email_heading . implode("\n\n", $email_bodies)
         ];
 
         return $email;
     }
-
-    // TODO: schedule task for digest emails.
 }
 
 new PriorPartyBannerEmail();

@@ -132,6 +132,75 @@
                     "parent_repeater": "field_667d8381b4592"
                 }
             ]
+        },
+        {
+            "key": "field_668be710054be",
+            "label": "User Digest Emails",
+            "name": "prior_political_party_banners_digest_users",
+            "aria-label": "",
+            "type": "user",
+            "instructions": "Users to receive daily digest emails.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "admin_only": 0,
+            "role": [
+                "administrator",
+                "agency_admin"
+            ],
+            "return_format": "array",
+            "multiple": 1,
+            "allow_null": 0
+        },
+        {
+            "key": "field_668bf3eefe765",
+            "label": "BCC Digest Emails",
+            "name": "prior_political_party_banners_digest_bcc",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "A list of BCC emails for the digest emails.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "admin_only": 0,
+            "layout": "table",
+            "pagination": 0,
+            "min": 0,
+            "max": 0,
+            "collapsed": "",
+            "button_label": "Add email address",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_668be7e71b6d6",
+                    "label": "BCC Email",
+                    "name": "user_email",
+                    "aria-label": "",
+                    "type": "email",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "admin_only": 0,
+                    "default_value": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_668bf3eefe765"
+                }
+            ]
         }
     ],
     "location": [
@@ -152,5 +221,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1720434982
+    "modified": 1720448176
 }
