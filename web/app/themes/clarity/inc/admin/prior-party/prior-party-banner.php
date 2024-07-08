@@ -32,7 +32,7 @@ class PriorPartyBanner
     /**
      * @var string defines the key of the ACF field for the on/off toggle
      */
-    private string $page_field_group_key = 'field_667d8a0fd14f1';
+    private string $page_field_key = 'field_667d8a0fd14f1';
 
     /**
      * @var string defines the name of the ACF field on the posts
@@ -58,7 +58,7 @@ class PriorPartyBanner
         add_shortcode('prior-party-banner', [$this, 'renderBannerShortcode']);
 
         // Filter the instructions on the edit post screen.
-        add_filter('acf/load_field/key=' . $this->page_field_group_key, [$this, 'modifyFieldInstructions']);
+        add_filter('acf/load_field/key=' . $this->page_field_key, [$this, 'modifyFieldInstructions']);
     }
 
     public function init(): void
@@ -80,7 +80,28 @@ class PriorPartyBanner
         $this->loadBanners();
     }
 
-    public function getPreviewTime(array $known_end_epochs): false | int
+    /**
+     * Get the time context from the query string.
+     * 
+     * Why do we need a time context?
+     * Under normal circumstances, the banner will only show if the current date is between the start and end dates.
+     * This makes sense in the context of *Prior* Party Banners. We don't want to show a banner for a government that hasn't left yet.
+     * ...
+     * However, to preview a banner that hasn't ended yet, we need to set the time context to the day after the banner ends.
+     * In effect we are time travelling the user into the future, the day after a banner's end date, so that they can see the banner.
+     * 
+     * This function validates the time_context query var against known end epochs.
+     * Returns false if: 
+     * - the user is not logged in or can't edit posts
+     * - the value not in the known array
+     * - or the time_context is in the past
+     * 
+     * @param array $known_end_epochs
+     * 
+     * @return false|int
+     */
+
+    public function getTimeContext(array $known_end_epochs): false | int
     {
         // Is the user logged in and can edit posts?
         if (!current_user_can('edit_posts')) {
@@ -92,6 +113,11 @@ class PriorPartyBanner
             return false;
         }
 
+        // Return false if the time_context is in the past - it's unnecessary.
+        if ((int) $_GET['time_context'] < time()) {
+            return false;
+        }
+
         // Compare time_context against known end_epochs.
         if (in_array($_GET['time_context'], $known_end_epochs, false)) {
             return (int) $_GET['time_context'];
@@ -99,6 +125,16 @@ class PriorPartyBanner
 
         return false;
     }
+
+
+    /**
+     * Load banners from the ACF repeater field.
+     * 
+     * This function maps the start and end dates to epoch timestamps for comparison.
+     * It also sets the time context to the current time or a preview time.
+     * 
+     * @return void
+     */
 
     public function loadBanners(): void
     {
@@ -117,7 +153,7 @@ class PriorPartyBanner
                 'banner_active' => $banner['banner_active'],
                 'banner_content' => $banner['banner_content'],
                 'start_epoch' => strtotime($banner['start_date']),
-                'end_epoch' => $banner['end_date'] ? strtotime($banner['end_date']) : null
+                'end_epoch' => $banner['end_date'] ? (new \DateTime($banner["end_date"]))->modify('+1 day')->format('U')  : null
             ],
             $all_banners
         );
@@ -129,27 +165,22 @@ class PriorPartyBanner
         );
 
         // Set the current timestamp.
-        $preview_time = $this->getPreviewTime($known_end_epochs);
+        $preview_time = $this->getTimeContext($known_end_epochs);
+        // Time context will either be:
+        // - 00:00:00 the day after a banner that hasn't ended yet
+        // - or now
         $this->time_context = $preview_time ?: time();
-
-        // is this a dummy context for viewing?
-        if ($preview_time > 0) {
-            // Only include banners where the user is an editor (or beyond) and the end date is in the past.
-            $active_banners = array_filter(
-                $mapped_banners,
-                fn ($banner) => (current_user_can('edit_posts') && $banner['end_epoch']) && ($banner['end_epoch'] <= $this->time_context)
-            );
-
-            $this->banners = $active_banners;
-
-            // let's bail (void) - our work here is done
-            return;
-        }
 
         // Only include active banners where the end date is in the past.
         $active_banners = array_filter(
             $mapped_banners,
-            fn ($banner) => ($banner['banner_active'] === true && $banner['end_epoch']) && ($banner['end_epoch'] <= $this->time_context)
+            function ($banner) {
+                // If preview_unpublished is in the query string & the user can edit posts... they can see banners regardless of banner_active state.
+                // Else, other users (and logged out visitors) are only shown banners that are active.
+                $user_can_view = (isset($_GET['preview_unpublished']) && current_user_can('edit_posts')) || $banner['banner_active'] === true;
+
+                return $user_can_view && $banner['end_epoch'] && ($banner['end_epoch'] <= $this->time_context);
+            }
         );
 
         $this->banners = $active_banners;
@@ -252,21 +283,29 @@ class PriorPartyBanner
         );
     }
 
+    /**
+     * Get the banner that should be displayed for the current post.
+     * 
+     * This doesn't check for a valid location or if it's opted out.
+     * That's so that a shortcode can be used to show the banner regardless of location or toggle value.
+     * 
+     * @param int $post_id
+     * 
+     * @return array|null
+     */
 
-    public function getBannerByPostId($post_id = null): ?array
+    public function getBannerByPostId(int $post_id): ?array
     {
-        // Return if an editor has opted-out of the banner.
-        if (get_field($this->post_field_name, $post_id) === false) {
-            return null;
-        }
-
         // Get the published date.
         $date = get_the_date('U', $post_id);
 
-        // Do any banners coincide with this date?
+        // Do any banners coincide with this date? 
         $banners = array_filter(
             $this->banners,
-            fn ($banner) => $date >= $banner['start_epoch'] && $date <= $banner['end_epoch']
+            // Using >= and < here to match:
+            // - times after and *including* 00:00:00 on the banner start date.
+            // - and times before, but *not including* 24:00:00 on the banner end date.
+            fn ($banner) => $date >= $banner['start_epoch'] && $date < $banner['end_epoch']
         );
 
         // If there are more than one banner, log an error. Possibly send to Sentry.
@@ -308,6 +347,11 @@ class PriorPartyBanner
             return;
         }
 
+        // Return if an editor has opted-out of the banner.
+        if (get_field($this->post_field_name, $post_id) === false) {
+            return;
+        }
+
         $banner = $this->getBannerByPostId($post_id);
 
         if (!$banner) {
@@ -317,6 +361,16 @@ class PriorPartyBanner
         // We have a banner to display.
         get_template_part('src/components/c-notification-banner/view', null, ['heading' => $banner['banner_content']]);
     }
+
+    /**
+     * Render the banner shortcode.
+     * 
+     * Run when the shortcode has been used in the content.
+     * If there's a banner that could be displayed, render it.
+     * The status of the toggle and the location rules are ignored.
+     * 
+     * @return void
+     */
 
     public function renderBannerShortcode()
     {
@@ -330,11 +384,43 @@ class PriorPartyBanner
             return;
         }
 
+        // Filter the content to remove the p tags that are added before and after the shortcode.
+        add_filter('the_content', [$this, 'filterRichTextContent'], 15);
+
         // We have a banner to display.
+        ob_start();
         get_template_part('src/components/c-notification-banner/view', null, ['heading' => $banner['banner_content']]);
+        return ob_get_clean();
     }
 
-    public function modifyFieldInstructions($field)
+    /**
+     * If a shortcode has been applied, then the banner will be inside a p tag. Remove the opening and closing p tags.
+     * 
+     * @param string $content
+     * 
+     * @return string
+     */
+
+    public function filterRichTextContent(string $content): string
+    {
+        $content = preg_replace('/<p>\s*(<!-- c-moj-banner starts here -->)/', '$1', $content);
+        $content = preg_replace('/(<!-- c-moj-banner ends here -->)\s*<\/p>/', '$1', $content);
+
+        return $content;
+    }
+
+    /**
+     * Modify the instructions for the ACF field.
+     * 
+     * This is so that editors have a different message when there are no banners to display.
+     * i.e. they've just created a page, so re-word and use the future tense.
+     * 
+     * @param array $field
+     * 
+     * @return array
+     */
+
+    public function modifyFieldInstructions(array $field): array
     {
         // Are we on a post edit screen?
         $screen = get_current_screen();
@@ -345,6 +431,7 @@ class PriorPartyBanner
         // Get the published date.
         $date = get_the_date('U', get_the_ID());
 
+        // Load the banners from the ACF field.
         $this->loadBanners();
 
         // Do any banners coincide with this date?
@@ -355,6 +442,8 @@ class PriorPartyBanner
 
         // If there are no banners then re-word the instructions accordingly.
         if (empty($banners)) {
+            $field['ui_on_text'] = 'Yes';
+            $field['ui_off_text'] = 'No';
             $field['instructions'] = 'When a different government is is elected, should we show a ';
             $field['instructions'] .= 'banner to inform visitors that this content was published under a prior government?';
         }
