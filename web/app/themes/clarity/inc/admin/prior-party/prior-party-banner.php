@@ -168,12 +168,12 @@ class PriorPartyBanner
         $active_banners = array_filter(
             $mapped_banners,
             function ($banner) {
-                // If show-inactive is in the query string & the user can edit posts... they can see banners regardless of banner_active state.
+                // If show_inactive is in the query string & the user can edit posts... they can see banners regardless of banner_active state.
                 // Else, other users (and logged out visitors) are only shown banners that are active.
                 $user_can_view = (isset($_GET['show_inactive']) && current_user_can('edit_posts')) || $banner['banner_active'] === true;
 
-                return ($user_can_view && $banner['end_epoch']) && ($banner['end_epoch'] <= $this->time_context);
-            } 
+                return $user_can_view && $banner['end_epoch'] && ($banner['end_epoch'] <= $this->time_context);
+            }
         );
 
         $this->banners = $active_banners;
