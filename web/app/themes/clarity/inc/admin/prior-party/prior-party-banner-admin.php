@@ -211,9 +211,19 @@ class PriorPartyBannerAdmin
             $start = new \DateTime($this->banner["start_date"]);
             $stop = new \DateTime($this->banner["end_date"]);
 
+
+            // Init an array to hold the query string for viewing the banner.
+            $link_view_queries = [];
+            // If the banner is inactive, we need to set a query string to show it.
+            if(!$this->banner['banner_active']) {
+                $link_view_queries['show_inactive'] = '';
+            }
+
             // If the end date has not passed... for previewing we need to set a time context after the end date.
             // i.e. exactly 00:00:00 the next day.
-            $link_view_suffix = $stop > new \DateTime() ? '&time_context=' . $stop->modify('+1 day')->format('U') : '';
+            if($stop > new \DateTime()) {
+                $link_view_queries['time_context'] = $stop->modify('+1 day')->format('U');
+            }
 
             // display the banner
             echo '<div class="prior-party-banner">
@@ -262,7 +272,7 @@ class PriorPartyBannerAdmin
 
                     // links
                     $link_admin = get_edit_post_link($post->ID);
-                    $link_view = get_permalink($post->ID) . '?show_inactive' . $link_view_suffix;
+                    $link_view = get_permalink($post->ID) . '?' . http_build_query($link_view_queries);
 
                     // latest event
                     $event_data = $this->getTrackedDisplayString($post->ID);
