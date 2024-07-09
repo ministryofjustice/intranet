@@ -80,29 +80,49 @@ class PriorPartyBannerEmail
     /**
      * A timezone aware function that will send digest emails to those set in the Options page.
      * 
-     * @param array $props An array containing the DST status.
+     * @param ?array $props An optional array containing the DST status.
      * 
      * @return void
      */
 
-    public function maybeSendEmails($props)
+    public function maybeSendEmails(?array $props = []) : void
     {
         // Is London currently observing DST?
         $in_dst = strtotime("today 9:00 am Europe/London") !== strtotime("today 9:00 am UTC");
 
         // If the current DST status doesn't match the props, return early.
-        if ($in_dst !== $props['dst']) {
+        if (isset($props['dst']) && $props['dst'] !== $in_dst) {
             // It's 10am in the summer or 8am in the winter - don't send emails.
             return;
         }
 
-        $users_to_email = get_field($this->user_field_name, 'option') ?: [];
-        $bcc_addresses_to_email = get_field($this->bcc_field_name, 'option') ?: [];
-        $all_recipients = array_merge($users_to_email, $bcc_addresses_to_email);
-
         $timestamp_from = strtotime('yesterday 9:00 Europe/London');
         $timestamp_to = strtotime('today 9:00 Europe/London');
         $email_content = $this->getEmailDigestByTimes($timestamp_from, $timestamp_to);
+
+        if(empty($email_content)) {
+            return;
+        }
+
+        // Was an email passed in manually - for testing purposes?
+        if(isset($props['recipient'])) {
+            wp_mail($props['recipient'], $email_content['subject'], $email_content['body']);
+            echo 'A test email was sent to email sent to ' . $props['recipient'];
+            // Return early.
+            return;
+        }
+
+        $all_recipients = [];
+        $users_to_email = get_field($this->user_field_name, 'option');
+        $bcc_addresses_to_email = get_field($this->bcc_field_name, 'option');
+
+        if(is_array($users_to_email)){
+            $all_recipients = array_merge($all_recipients, $users_to_email);
+        }
+
+        if(is_array($bcc_addresses_to_email)) {
+            $all_recipients = array_merge($all_recipients, $bcc_addresses_to_email);
+        }
 
         foreach ($all_recipients as $recipient) {
             wp_mail($recipient['user_email'], $email_content['subject'], $email_content['body']);
@@ -176,14 +196,17 @@ class PriorPartyBannerEmail
      * The content for the email digests page.
      * 
      * Here, we can render the upcoming email and previous 9 day's emails.
+     * Administrators can also trigger an email to be sent, by adding ?send=<test-email> to the URL.
      * 
      * @return void
      */
 
     public function emailPage(): void
     {
-
-        $this->maybeSendEmails(['dst' => true]);
+        // Manually trigger an email to be sent.
+        if($_GET['send'] && is_email(urldecode($_GET['send'])) && current_user_can('administrator')) {
+            $this->maybeSendEmails(['recipient' => urldecode($_GET['send'])]);
+        }
 
         $is_after_nine = date('H', time()) >= 9;
 
@@ -234,11 +257,14 @@ class PriorPartyBannerEmail
         $string = sprintf("Banner: %s \n", $banner['banner_content']);
 
         foreach ($banner['post_types'] as $post_type) {
+            if(!$post_type['true_count'] && !$post_type['false_count'] ) {
+                continue;
+            }
             $string .= sprintf("%s: %d opt-in, %d opt-out\n", $post_type['label'], $post_type['true_count'], $post_type['false_count']);
         }
         $string .= sprintf("Total changes: %s\n", $banner['change_count']);
 
-        $string .= sprintf("Review: %s\n", $banner['review_url']);
+        $string .= sprintf("Review: %s", $banner['review_url']);
 
         return $string;
     }
@@ -385,16 +411,15 @@ class PriorPartyBannerEmail
         // Total changes for all banners.
         $total_change_count = array_reduce($banners, fn ($c, $s) => $c + $s['change_count'], 0);
 
-
         $local_from_date = $this->timestampToLocalDateObject($from);
         $local_to_date = $this->timestampToLocalDateObject($to);
 
-        $email_heading = sprintf("Email digest for %s to %s\n\n", $local_from_date->format('jS F - g:i a'),  $local_to_date->format('jS F - g:i a'));
+        $email_heading = sprintf("Email digest for %s to %s\n---\n", $local_from_date->format('jS F - g:i a'),  $local_to_date->format('jS F - g:i a'));
         $email_bodies = array_map(fn ($b) => $b['email_body'], $banners);
 
         $email = [
             'subject' => sprintf('Moj Intranet - Prior Party Banner Digest %d recent changes', $total_change_count),
-            'body' => $email_heading . implode("\n\n", $email_bodies)
+            'body' => $email_heading . implode("\n---\n", $email_bodies)
         ];
 
         return $email;

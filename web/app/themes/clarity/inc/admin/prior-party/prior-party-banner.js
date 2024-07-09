@@ -11,7 +11,7 @@ jQuery(document).ready(function ($) {
     const JQ = {
         all: $('#ppb-posts'),
         header: $('.ppb-posts__row.header'),
-        rows: $('.ppb-posts__row:not(.header)'),
+        rows: $('.ppb-posts__row[data-id]'),
         fixed: $('#header-fixed'),
         banners: {
             row: $('.ppb-banners__row')

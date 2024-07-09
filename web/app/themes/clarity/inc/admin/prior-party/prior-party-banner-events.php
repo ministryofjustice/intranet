@@ -28,7 +28,7 @@ trait PriorPartyBannerTrackEvents
      * @return \DateTime
      */
 
-    public function timestampToLocalDateObject (int $timestamp): \DateTime
+    public function timestampToLocalDateObject(int $timestamp): \DateTime
     {
         $date_object = new \DateTime();
         $date_object->setTimezone(new \DateTimeZone('Europe/London'));
@@ -68,6 +68,7 @@ trait PriorPartyBannerTrackEvents
      * @param array $events The events.
      * @param int|null $from The start time.
      * @param int|null $to The end time.
+     * @param int|null $limit How many events to return (sorted by newest first).
      *
      * @return array
      */
@@ -96,40 +97,6 @@ trait PriorPartyBannerTrackEvents
         return array_values($filtered_events);
     }
 
-    public function getLatestEvent($post_id): array
-    {
-        $events = $this->getTrackEvents($post_id);
-        $events = array_reverse($events[$post_id] ?? []);
-
-        if (!empty($events[0])) {
-            $event = $events[0];
-            $user = get_user_by('id', $event['user_id']);
-            $agencies = wp_get_object_terms($user->ID, 'agency');
-
-            $agency_name = 'No Agency';
-            foreach ($agencies as $agency) {
-                if (property_exists($agency, 'name')) {
-                    $agency_name = $agency->name;
-                }
-            }
-
-            $local_date = $this->timestampToLocalDateObject($event['time']);
-
-            return [
-                'name' => $user->display_name ?: 'Unknown',
-                'local_date' => $local_date->format('jS F Y'),
-                'local_time' => $local_date->format('H:i'),
-                'agency' => $agency_name,
-                'action' => $event['action'] === 'true' ? 'displayed' : 'removed',
-                'tracked' => true
-            ];
-        }
-
-        return [
-            'tracked' => false
-        ];
-    }
-
     /**
      * Get track events.
      *
@@ -138,17 +105,24 @@ trait PriorPartyBannerTrackEvents
      * @param int|null $post_id The post ID.
      * @param int|null $from The start time.
      * @param int|null $to The end time.
+     * @param int|null $limit How many events to return for each post (sorted by newest first).
      *
      * @return array
      */
-    public function getTrackEvents(int | null $post_id = null, int | null $from = null, int | null $to = null): array
+    public function getTrackEvents(int | null $post_id = null, int | null $from = null, int | null $to = null, int | null $limit = null): array
     {
         /**
          * A post_id was passed, so we only need to get the details for that post.
          */
         if ($post_id) {
             $all_details = get_metadata('post', $post_id, $this->event_details_field);
-            return [$post_id => $this->filterTrackEvents($all_details, $from, $to)];
+            $filtered_events = $this->filterTrackEvents($all_details, $from, $to);
+
+            if ($limit) {
+                $filtered_events = array_slice($filtered_events, $limit * -1, $limit);
+            }
+
+            return [$post_id => $filtered_events];
         }
 
         /**
@@ -203,31 +177,127 @@ trait PriorPartyBannerTrackEvents
 
         foreach ($posts->posts as $post_id) {
             $all_events = get_metadata('post', $post_id, $this->event_details_field);
-            $all_post_events[$post_id] = $this->filterTrackEvents($all_events, $from, $to);
+            $filtered_events = $this->filterTrackEvents($all_events, $from, $to);
+
+            if ($limit) {
+                $filtered_events = array_slice($filtered_events,  $limit * -1, $limit);
+            }
+
+            $all_post_events[$post_id] = $filtered_events;
         }
 
         return $all_post_events;
     }
 
     /**
-     * Transform the event array into a readable format.
-     *
+     * Populate the event details.
+     * 
+     * Add display name, agency and localised date and time to the event details.
+     * 
      * @param array $event The event.
-     *
-     * @return string
+     * 
+     * @return array
      */
-    public function eventToReadableFormat(array $event): string
+
+    public function populateEventDetails(array $event): array
     {
-        if (empty($event)) {
-            return '';
+        $user = get_user_by('id', $event['user_id']);
+        $agencies = wp_get_object_terms($user->ID, 'agency');
+
+        $agency_name = 'No Agency';
+        foreach ($agencies as $agency) {
+            if (property_exists($agency, 'name')) {
+                $agency_name = $agency->name;
+            }
         }
 
         $local_date = $this->timestampToLocalDateObject($event['time']);
-        $local_time = $local_date->format($this->date_format_time);
-        $user = get_user_by('id', $event['user_id']);
-        $user_name = $user ? $user->display_name : 'Unknown';
 
-        return "User: $user_name,<br/> Action: {$event['action']},<br/> Time: $local_time";
+        return [
+            'name' => $user->display_name ?: 'Unknown',
+            'local_date' => $local_date->format('jS F Y'),
+            'local_time' => $local_date->format('H:i'),
+            'agency' => $agency_name,
+            'action' => $event['action'] === 'true' ? 'displayed' : 'removed',
+        ];
+    }
+
+
+
+    public function getPopulatedTrackEvents(int | null $post_id = null, int | null $from = null, int | null $to = null,  int | null $limit = null): array
+    {
+        $events = $this->getTrackEvents($post_id, $from, $to, $limit);
+        $fortified_events = [];
+
+        foreach ($events as $post_id => $post_events) {
+            $fortified_events[$post_id] = array_map([$this, 'populateEventDetails'], $post_events);
+        }
+
+        return $fortified_events;
+    }
+
+    /**
+     * Get the latest event for a post.
+     * 
+     * A convenience function that calls getTrackEvents with a limit of 1.
+     * 
+     * @param int $post_id The post ID.
+     * @param int|null $from The start time.
+     * @param int|null $to The end time.
+     * 
+     * @return ?array
+     */
+
+    public function getLatestEventForPost(int $post_id = null, int | null $from = null, int | null $to = null): ?array
+    {
+        $events = $this->getTrackEvents($post_id, $from, $to, 1);
+
+        if (!empty($events[$post_id][0])) {
+            return $this->populateEventDetails($events[$post_id][0]);
+        }
+
+        return null;
+    }
+
+    /**
+     * Transform the fortified event array into a readable format.
+     *
+     * @param array $event The event.
+     *
+     * @return array an associative array with redacted user, the local date and the text.
+     */
+
+    public function populatedEventToReadableFormat(?array $event): array
+    {
+        if (!$event) {
+            return [];
+        }
+
+        // Redact name if current user is not administrator
+        $name = (current_user_can('manage_options') ? $event['name'] : 'A user');
+
+        // create the display string
+        $event_data = [
+            'local_date' => $event['local_date'] . ', ' . $event['local_time'],
+            'text' => $name . ' from ' . $event['agency'] . ' ' . $event['action'] . ' the banner'
+        ];
+
+        return $event_data;
+    }
+
+    /**
+     * Get the latest event display string.
+     * 
+     * @param int $post_id The post ID.
+     * 
+     * @return array an associative array with redacted user, the local date and the text.
+     */
+
+    private function getLatestEventDisplayString(int $post_id): array
+    {
+        $latest = $this->getLatestEventForPost($post_id);
+
+        return $latest ? $this->populatedEventToReadableFormat($latest) : [];
     }
 
     // TODO: lifecycle policy, delete events older than x? Or keep only the most recent x events per post?
