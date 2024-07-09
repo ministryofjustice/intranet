@@ -445,7 +445,8 @@ class PriorPartyBannerAdmin
         add_menu_page(
             'Editor Tools',
             'Editor Tools',
-            'create_posts',
+            // Enable the menu for capabilities: `administrator` or `create_posts`.
+            current_user_can('administrator') ? 'administrator' : 'create_posts',
             'editor-tools',
             [$this, 'editorToolsPage'],
             'dashicons-admin-tools',
@@ -470,7 +471,8 @@ class PriorPartyBannerAdmin
             'editor-tools',
             $title,
             $title,
-            'create_posts',
+            // Enable the menu for capabilities: `administrator` or `create_posts`.
+            current_user_can('administrator') ? 'administrator' : 'create_posts',
             $this->menu_slug,
             [$this, 'page'],
             8
