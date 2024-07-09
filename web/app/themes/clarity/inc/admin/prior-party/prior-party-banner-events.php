@@ -222,7 +222,18 @@ trait PriorPartyBannerTrackEvents
         ];
     }
 
-
+    /**
+     * Get the populated track events.
+     * 
+     * A wrapper function that calls getTrackEvents and then populates the event details.
+     * 
+     * @param int|null $post_id The post ID.
+     * @param int|null $from The start time.
+     * @param int|null $to The end time.
+     * @param int|null $limit How many events to return for each post (sorted by newest first).
+     * 
+     * @return array
+     */
 
     public function getPopulatedTrackEvents(int | null $post_id = null, int | null $from = null, int | null $to = null,  int | null $limit = null): array
     {
