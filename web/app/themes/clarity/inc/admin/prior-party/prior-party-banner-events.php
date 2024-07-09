@@ -248,7 +248,7 @@ trait PriorPartyBannerTrackEvents
      * @return ?array
      */
 
-    public function getLatestEventForPost(int $post_id = null, int | null $from = null, int | null $to = null): ?array
+    public function getLatestEventForPost(int $post_id, int | null $from = null, int | null $to = null): ?array
     {
         $events = $this->getTrackEvents($post_id, $from, $to, 1);
 
