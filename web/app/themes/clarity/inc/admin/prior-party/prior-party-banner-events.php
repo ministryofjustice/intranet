@@ -34,7 +34,7 @@ trait PriorPartyBannerTrackEvents
      * @return \DateTime
      */
 
-    public function timestampToLocalDateObject (int $timestamp): \DateTime
+    public function timestampToLocalDateObject(int $timestamp): \DateTime
     {
         $date_object = new \DateTime();
         $date_object->setTimezone(new \DateTimeZone('Europe/London'));
@@ -167,6 +167,11 @@ trait PriorPartyBannerTrackEvents
      */
     public function getTrackEvents(int | null $post_id = null, int | null $from = null, int | null $to = null): array
     {
+
+        if ($from && $from < strtotime('-' . $this->max_age_in_days . ' days')) {
+            error_log('The events returned by getTrackEvents may be truncated due to old ones being deleted.');
+        }
+
         /**
          * A post_id was passed, so we only need to get the details for that post.
          */
