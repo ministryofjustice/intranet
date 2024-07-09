@@ -255,14 +255,14 @@ trait PriorPartyBannerTrackEvents
     }
 
     /**
-     * Delete old events.
+     * Delete old track events.
      * 
      * This function will delete all events older than the max age.
      * 
      * @return void
      */
 
-    public function deleteOldEvents(): void
+    public function deleteOldTrackEvents(): void
     {
         // Get the expiry date in timestamp format.
         $expiry_timestamp = strtotime('-' . $this->max_age_in_days . ' days');
