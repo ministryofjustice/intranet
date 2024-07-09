@@ -566,7 +566,6 @@ class PriorPartyBannerAdmin
         return $value;
     }
 
-
 }
 
 new PriorPartyBannerAdmin();
