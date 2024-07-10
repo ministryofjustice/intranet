@@ -37,7 +37,7 @@ class PriorPartyBannerEmail
     public function __construct()
     {
 
-        // Hook into an ACF field on the Settings page - echo the content of the email page.
+        // Hook into a placeholder ACF field on the Prior Party Settings page, for the content of the email page.
         add_filter('acf/load_field/key=field_668e41dd45027', [$this, 'placeholderField']);
 
         // Schedule the email digest.
@@ -62,6 +62,16 @@ class PriorPartyBannerEmail
 
         add_action('prior_party_banner_email_cron_hook', [$this, 'maybeSendEmails']);
     }
+
+    /**
+     * Filter the ACF field to display the email digest content.
+     * 
+     * Make use of a message field to display the content of the email digest.
+     * 
+     * @param array $field The field array.
+     * 
+     * @return array The filtered field array.
+     */
 
     public function placeholderField($field)
     {
