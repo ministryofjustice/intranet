@@ -86,6 +86,13 @@ class PriorPartyBannerAdmin
         add_filter('acf/update_value/name=' . $this->post_field_name, [$this, 'trackBannerUpdates'], 10, 4);
         add_filter('acf/load_value/name=' . $this->post_field_name, [$this, 'filterValueOnPages'], 10, 2);
 
+        // Create a schedule for deleting old track events.
+        if (!wp_next_scheduled('prior_party_banner_event_cleanup_cron_hook')) {
+            wp_schedule_event(strtotime('01:35:00'), 'weekly', 'prior_party_banner_event_cleanup_cron_hook');
+        }
+        // Add the delete action to the schedule.
+        add_action('prior_party_banner_event_cleanup_cron_hook', [$this, 'deleteOldTrackEvents']);
+
         /**
          * Don't load view code until needed
          */

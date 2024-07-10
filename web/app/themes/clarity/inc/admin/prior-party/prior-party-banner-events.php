@@ -20,6 +20,12 @@ trait PriorPartyBannerTrackEvents
      */
     private string $event_details_field = '_prior_party_banner_event_details';
 
+
+    /**
+     * @var int the maximum age of an event in days, before it is deleted
+     */
+    private int $max_age_in_days = 365;
+
     /**
      * A function to convert a timestamp to a local date object.
      * 
@@ -60,6 +66,24 @@ trait PriorPartyBannerTrackEvents
         ];
 
         add_metadata('post', $post_id, $this->event_details_field, $new_event);
+    }
+
+    /**
+     * Delete a track event.
+     * 
+     * This function deletes 2 rows from the post_meta table.
+     * Similar to how 2 are created when a track event is created.
+     * 
+     * @param int $post_id The post ID.
+     * @param array $event The event.
+     * 
+     * @return void
+     */
+
+    public function deleteTrackEvent(int $post_id, array $event): void
+    {
+        delete_metadata_by_mid('post', $event['timestamp_id']);
+        delete_metadata('post', $post_id, $this->event_details_field, $event);
     }
 
     /**
@@ -111,6 +135,11 @@ trait PriorPartyBannerTrackEvents
      */
     public function getTrackEvents(int | null $post_id = null, int | null $from = null, int | null $to = null, int | null $limit = null): array
     {
+
+        if ($from && $from < strtotime('-' . $this->max_age_in_days . ' days')) {
+            error_log('The events returned by getTrackEvents may be truncated due to old ones being deleted.');
+        }
+
         /**
          * A post_id was passed, so we only need to get the details for that post.
          */
@@ -311,5 +340,29 @@ trait PriorPartyBannerTrackEvents
         return $latest ? $this->populatedEventToReadableFormat($latest) : [];
     }
 
-    // TODO: lifecycle policy, delete events older than x? Or keep only the most recent x events per post?
+    /**
+     * Delete old track events.
+     * 
+     * This function will delete all events older than the max age.
+     * 
+     * @return void
+     */
+
+    public function deleteOldTrackEvents(): void
+    {
+        // Get the expiry date in timestamp format.
+        $expiry_timestamp = strtotime('-' . $this->max_age_in_days . ' days');
+
+        // Get all events older than the expiry date.
+        $old_events = $this->getTrackEvents(null, null, $expiry_timestamp);
+
+        // Delete the old events, except the last one.
+        foreach ($old_events as $post_id => $events) {
+            // Remove the last event from the array.
+            array_pop($events);
+            foreach ($events as $event) {
+                $this->deleteTrackEvent($post_id, $event);
+            }
+        }
+    }
 }
