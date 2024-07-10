@@ -36,7 +36,9 @@ class PriorPartyBannerEmail
 
     public function __construct()
     {
-        add_action('admin_menu', [$this, 'emailMenu']);
+
+        // Hook into a placeholder ACF field on the Prior Party Settings page, for the content of the email page.
+        add_filter('acf/load_field/key=field_668e41dd45027', [$this, 'placeholderField']);
 
         // Schedule the email digest.
         // This will run the maybeSendEmails function twice a day.
@@ -62,6 +64,32 @@ class PriorPartyBannerEmail
     }
 
     /**
+     * Filter the ACF field to display the email digest content.
+     * 
+     * Make use of a message field to display the content of the email digest.
+     * 
+     * @param array $field The field array.
+     * 
+     * @return array The filtered field array.
+     */
+
+    public function placeholderField($field)
+    {
+        // Are we on the options page? 
+        // It's important not to filter on the ACF > Fields Groups > Setting page.
+        $screen = get_current_screen();
+        if (is_admin() && $screen->base === 'tools_page_prior-party-settings') {
+            $field['label'] = '';
+            ob_start();
+            $this->emailPage();
+            $field['message'] = ob_get_clean();
+            return $field;
+        }
+
+        return $field;
+    }
+
+    /**
      * A function to convert a timestamp to a local date object.
      * 
      * @param int $timestamp The timestamp.
@@ -80,37 +108,55 @@ class PriorPartyBannerEmail
     /**
      * A timezone aware function that will send digest emails to those set in the Options page.
      * 
-     * @param array $props An array containing the DST status.
+     * @param ?array $props An optional array containing the DST status.
      * 
      * @return void
      */
 
-    public function maybeSendEmails($props)
+    public function maybeSendEmails(?array $props = []): void
     {
         // Is London currently observing DST?
         $in_dst = strtotime("today 9:00 am Europe/London") !== strtotime("today 9:00 am UTC");
 
         // If the current DST status doesn't match the props, return early.
-        if ($in_dst !== $props['dst']) {
+        if (isset($props['dst']) && $props['dst'] !== $in_dst) {
             // It's 10am in the summer or 8am in the winter - don't send emails.
             return;
         }
-
-        $users_to_email = get_field($this->user_field_name, 'option') ?: [];
-        $bcc_addresses_to_email = get_field($this->bcc_field_name, 'option') ?: [];
-        $all_recipients = array_merge($users_to_email, $bcc_addresses_to_email);
 
         $timestamp_from = strtotime('yesterday 9:00 Europe/London');
         $timestamp_to = strtotime('today 9:00 Europe/London');
         $email_content = $this->getEmailDigestByTimes($timestamp_from, $timestamp_to);
 
-        foreach ($all_recipients as $recipient) {
-            wp_mail($recipient['user_email'], $email_content['subject'], $email_content['body']);
+        if (empty($email_content)) {
+            return;
+        }
+
+        // Was an email passed in manually - for testing purposes?
+        if (isset($props['recipient'])) {
+            wp_mail($props['recipient'], $email_content['subject'], $email_content['body']);
+            echo 'A test email was sent to email sent to ' . $props['recipient'];
+            // Return early.
+            return;
+        }
+
+        // Get all recipients - from both Users and BCC fields.
+        $all_recipients = [
+            // Spread the arrays into a single array.
+            ...(get_field($this->user_field_name, 'option') ?: []),
+            ...(get_field($this->bcc_field_name, 'option') ?: [])
+        ];
+
+        if (!empty($all_recipients)) {
+            // Get all the emails - from the User objects and the BCC rows.
+            $all_emails = array_map(fn ($row) => $row['user_email'], $all_recipients);
+            // Send the email(s).
+            wp_mail($all_emails, $email_content['subject'], $email_content['body']);
         }
     }
 
     /**
-     * Loaded via a hook
+     * Load the banners and post type labels.
      *
      * @return void
      */
@@ -151,44 +197,29 @@ class PriorPartyBannerEmail
     }
 
     /**
-     * Creates a menu link under the Tools section in the admin Dashboard
-     *
-     * @return void
-     */
-    public function emailMenu(): void
-    {
-        $title = 'Prior Party Digests';
-        $hook = add_submenu_page(
-            'tools.php',
-            $title,
-            $title,
-            'manage_options',
-            $this->menu_slug,
-            [$this, 'emailPage'],
-            8
-        );
-
-        add_action("load-$hook", [$this, 'pageLoad']);
-    }
-
-
-    /**
      * The content for the email digests page.
      * 
      * Here, we can render the upcoming email and previous 9 day's emails.
+     * Administrators can also trigger an email to be sent, by adding ?send=<test-email> to the URL.
      * 
      * @return void
      */
 
     public function emailPage(): void
     {
+        // Load the page.
+        $this->pageLoad();
 
-        $this->maybeSendEmails(['dst' => true]);
+        // Manually trigger an email to be sent.
+        if ($_GET['send'] && is_email(urldecode($_GET['send'])) && current_user_can('administrator')) {
+            $this->maybeSendEmails(['recipient' => urldecode($_GET['send'])]);
+        }
 
-        $is_after_nine = date('H', time()) >= 9;
+        $nine_am_today = strtotime('today 09:00 Europe/London');
+        $is_after_nine = time() > $nine_am_today;
 
         if ($is_after_nine) {
-            $time_window_start = strtotime('today 09:00 Europe/London');
+            $time_window_start = $nine_am_today;
         } else {
             $time_window_start = strtotime('yesterday 09:00 Europe/London');
         }
@@ -234,11 +265,14 @@ class PriorPartyBannerEmail
         $string = sprintf("Banner: %s \n", $banner['banner_content']);
 
         foreach ($banner['post_types'] as $post_type) {
+            if (!$post_type['true_count'] && !$post_type['false_count']) {
+                continue;
+            }
             $string .= sprintf("%s: %d opt-in, %d opt-out\n", $post_type['label'], $post_type['true_count'], $post_type['false_count']);
         }
         $string .= sprintf("Total changes: %s\n", $banner['change_count']);
 
-        $string .= sprintf("Review: %s\n", $banner['review_url']);
+        $string .= sprintf("Review: %s", $banner['review_url']);
 
         return $string;
     }
@@ -385,16 +419,15 @@ class PriorPartyBannerEmail
         // Total changes for all banners.
         $total_change_count = array_reduce($banners, fn ($c, $s) => $c + $s['change_count'], 0);
 
-
         $local_from_date = $this->timestampToLocalDateObject($from);
         $local_to_date = $this->timestampToLocalDateObject($to);
 
-        $email_heading = sprintf("Email digest for %s to %s\n\n", $local_from_date->format('jS F - g:i a'),  $local_to_date->format('jS F - g:i a'));
+        $email_heading = sprintf("Email digest for %s to %s\n---\n", $local_from_date->format('jS F - g:i a'),  $local_to_date->format('jS F - g:i a'));
         $email_bodies = array_map(fn ($b) => $b['email_body'], $banners);
 
         $email = [
             'subject' => sprintf('Moj Intranet - Prior Party Banner Digest %d recent changes', $total_change_count),
-            'body' => $email_heading . implode("\n\n", $email_bodies)
+            'body' => $email_heading . implode("\n---\n", $email_bodies)
         ];
 
         return $email;

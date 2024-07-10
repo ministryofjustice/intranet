@@ -176,10 +176,10 @@ Prior Party Posts
     background-color: #ffffff;
 }
 
-.ppb-posts__row:not(.header) {
+.ppb-posts__row[data-id] {
     min-height: 60px;
 }
-.ppb-posts__row:not(.header):focus {
+.ppb-posts__row[data-id]:focus {
     background-color: #b6e6b6;
 }
 
@@ -187,13 +187,18 @@ Prior Party Posts
     background-color: #feddd6;
 }
 
-.ppb-posts__row:not(.header):hover {
+.ppb-posts__row[data-id]:hover {
     background-color: #f3f3ca;
     cursor: pointer;
 }
 
 .ppb-posts__row:last-child {
     border-bottom: 1px solid lightgrey;
+}
+
+.ppb-posts__row--review {
+    font-size: 0.8em;
+    padding: 7px;
 }
 
 
@@ -314,7 +319,7 @@ Prior Party Banners
     background-color: #ffffff;
 }
 
-.ppb-banners__row:not(.header):hover {
+.ppb-banners__row[data-id]:hover {
     background-color: #f3f3ca;
     cursor: pointer;
 }
