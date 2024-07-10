@@ -377,7 +377,7 @@ class PriorPartyBannerEmail
                     continue;
                 }
                 // Don't count multiple events on the same post id. Just get the last one.
-                $last_action = end($last_event)['action'];
+                $last_action = end($post_events)['action'];
                 // Get the first event for comparison.
                 $first_action = $post_events[0]['action'];
                 // If the first event is opposite to the last event, then no change happened.
