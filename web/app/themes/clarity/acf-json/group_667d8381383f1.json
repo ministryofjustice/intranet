@@ -3,6 +3,24 @@
     "title": "Prior Party Options Page",
     "fields": [
         {
+            "key": "field_668e419fd62e2",
+            "label": "Settings",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "admin_only": 0,
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
             "key": "field_667d8381b4592",
             "label": "Prior Political Parties",
             "name": "prior_political_party_banners",
@@ -201,6 +219,43 @@
                     "parent_repeater": "field_668bf3eefe765"
                 }
             ]
+        },
+        {
+            "key": "field_668e41b2d62e3",
+            "label": "Email Digest",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "admin_only": 0,
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_668e41dd45027",
+            "label": "Email Digest Placeholder",
+            "name": "",
+            "aria-label": "",
+            "type": "message",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "admin_only": 0,
+            "message": "",
+            "new_lines": "wpautop",
+            "esc_html": 0
         }
     ],
     "location": [
@@ -221,5 +276,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1720448176
+    "modified": 1720600315
 }

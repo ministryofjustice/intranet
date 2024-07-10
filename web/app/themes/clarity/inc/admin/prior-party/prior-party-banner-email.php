@@ -36,7 +36,9 @@ class PriorPartyBannerEmail
 
     public function __construct()
     {
-        add_action('admin_menu', [$this, 'emailMenu']);
+
+        // Hook into an ACF field on the Settings page - echo the content of the email page.
+        add_filter('acf/load_field/key=field_668e41dd45027', [$this, 'placeholderField']);
 
         // Schedule the email digest.
         // This will run the maybeSendEmails function twice a day.
@@ -59,6 +61,22 @@ class PriorPartyBannerEmail
         }
 
         add_action('prior_party_banner_email_cron_hook', [$this, 'maybeSendEmails']);
+    }
+
+    public function placeholderField($field)
+    {
+        // Are we on the options page? 
+        // It's important not to filter on the ACF > Fields Groups > Setting page.
+        $screen = get_current_screen();
+        if (is_admin() && $screen->base === 'tools_page_prior-party-settings') {
+            $field['label'] = '';
+            ob_start();
+            $this->emailPage();
+            $field['message'] = ob_get_clean();
+            return $field;
+        }
+
+        return $field;
     }
 
     /**
@@ -85,7 +103,7 @@ class PriorPartyBannerEmail
      * @return void
      */
 
-    public function maybeSendEmails(?array $props = []) : void
+    public function maybeSendEmails(?array $props = []): void
     {
         // Is London currently observing DST?
         $in_dst = strtotime("today 9:00 am Europe/London") !== strtotime("today 9:00 am UTC");
@@ -100,12 +118,12 @@ class PriorPartyBannerEmail
         $timestamp_to = strtotime('today 9:00 Europe/London');
         $email_content = $this->getEmailDigestByTimes($timestamp_from, $timestamp_to);
 
-        if(empty($email_content)) {
+        if (empty($email_content)) {
             return;
         }
 
         // Was an email passed in manually - for testing purposes?
-        if(isset($props['recipient'])) {
+        if (isset($props['recipient'])) {
             wp_mail($props['recipient'], $email_content['subject'], $email_content['body']);
             echo 'A test email was sent to email sent to ' . $props['recipient'];
             // Return early.
@@ -113,13 +131,13 @@ class PriorPartyBannerEmail
         }
 
         // Get all recipients - from both Users and BCC fields.
-        $all_recipients =[
+        $all_recipients = [
             // Spread the arrays into a single array.
             ...(get_field($this->user_field_name, 'option') ?: []),
             ...(get_field($this->bcc_field_name, 'option') ?: [])
         ];
-        
-        if(!empty($all_recipients)) {
+
+        if (!empty($all_recipients)) {
             // Get all the emails - from the User objects and the BCC rows.
             $all_emails = array_map(fn ($row) => $row['user_email'], $all_recipients);
             // Send the email(s).
@@ -128,7 +146,7 @@ class PriorPartyBannerEmail
     }
 
     /**
-     * Loaded via a hook
+     * Load the banners and post type labels.
      *
      * @return void
      */
@@ -169,28 +187,6 @@ class PriorPartyBannerEmail
     }
 
     /**
-     * Creates a menu link under the Tools section in the admin Dashboard
-     *
-     * @return void
-     */
-    public function emailMenu(): void
-    {
-        $title = 'Prior Party Digests';
-        $hook = add_submenu_page(
-            'tools.php',
-            $title,
-            $title,
-            'manage_options',
-            $this->menu_slug,
-            [$this, 'emailPage'],
-            8
-        );
-
-        add_action("load-$hook", [$this, 'pageLoad']);
-    }
-
-
-    /**
      * The content for the email digests page.
      * 
      * Here, we can render the upcoming email and previous 9 day's emails.
@@ -201,15 +197,19 @@ class PriorPartyBannerEmail
 
     public function emailPage(): void
     {
+        // Load the page.
+        $this->pageLoad();
+
         // Manually trigger an email to be sent.
-        if($_GET['send'] && is_email(urldecode($_GET['send'])) && current_user_can('administrator')) {
+        if ($_GET['send'] && is_email(urldecode($_GET['send'])) && current_user_can('administrator')) {
             $this->maybeSendEmails(['recipient' => urldecode($_GET['send'])]);
         }
 
-        $is_after_nine = date('H', time()) >= 9;
+        $nine_am_today = strtotime('today 09:00 Europe/London');
+        $is_after_nine = time() > $nine_am_today;
 
         if ($is_after_nine) {
-            $time_window_start = strtotime('today 09:00 Europe/London');
+            $time_window_start = $nine_am_today;
         } else {
             $time_window_start = strtotime('yesterday 09:00 Europe/London');
         }
@@ -255,7 +255,7 @@ class PriorPartyBannerEmail
         $string = sprintf("Banner: %s \n", $banner['banner_content']);
 
         foreach ($banner['post_types'] as $post_type) {
-            if(!$post_type['true_count'] && !$post_type['false_count'] ) {
+            if (!$post_type['true_count'] && !$post_type['false_count']) {
                 continue;
             }
             $string .= sprintf("%s: %d opt-in, %d opt-out\n", $post_type['label'], $post_type['true_count'], $post_type['false_count']);
