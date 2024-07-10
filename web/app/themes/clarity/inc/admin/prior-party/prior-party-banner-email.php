@@ -211,7 +211,7 @@ class PriorPartyBannerEmail
         $this->pageLoad();
 
         // Manually trigger an email to be sent.
-        if ($_GET['send'] && is_email(urldecode($_GET['send'])) && current_user_can('administrator')) {
+        if (isset($_GET['send']) && is_email(urldecode($_GET['send'])) && current_user_can('administrator')) {
             $this->maybeSendEmails(['recipient' => urldecode($_GET['send'])]);
         }
 
@@ -372,8 +372,12 @@ class PriorPartyBannerEmail
                 if (!isset($post_banner['reference']) ||  $post_banner['reference'] !== $banner['reference']) {
                     continue;
                 }
+                // Continue the loop if there are no events for this post.
+                if(empty($post_events)) {
+                    continue;
+                }
                 // Don't count multiple events on the same post id. Just get the last one.
-                $last_action = end($post_events)['action'];
+                $last_action = end($last_event)['action'];
                 // Get the first event for comparison.
                 $first_action = $post_events[0]['action'];
                 // If the first event is opposite to the last event, then no change happened.
