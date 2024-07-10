@@ -165,7 +165,7 @@ class PriorPartyBannerEmail
     {
 
         // Get all banners from the repeater field.
-        $all_banners = get_field($this->repeater_name, 'option');
+        $all_banners = get_field($this->repeater_name, 'option') ?: [];
 
         // Map the banners to a more usable format - epoch timestamps are used for comparison.
         $mapped_banners = array_map(

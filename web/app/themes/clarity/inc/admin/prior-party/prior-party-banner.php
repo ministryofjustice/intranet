@@ -139,11 +139,10 @@ class PriorPartyBanner
     public function loadBanners(): void
     {
         // Get all banners from the repeater field.
-        $all_banners = get_field($this->repeater_name, 'option');
+        $all_banners = get_field($this->repeater_name, 'option') ?: [];
 
         // I think when this is run during a json api request, the field is not defined and it is erroring.
-        // TODO - look into this.
-        if (gettype($all_banners) !== 'array') {
+        if (empty($all_banners) || !is_array($all_banners)) {
             return;
         }
 
