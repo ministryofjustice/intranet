@@ -207,8 +207,17 @@ class PriorPartyBannerEmail
 
     public function emailPage(): void
     {
+        if (isset($_GET['debug'])) {
+            echo 'Returning early in emailPage';
+            return;
+        } 
+
         // Load the page.
         $this->pageLoad();
+
+        if(empty($this->banners)) {
+            return;
+        }
 
         // Manually trigger an email to be sent.
         if (isset($_GET['send']) && is_email(urldecode($_GET['send'])) && current_user_can('administrator')) {
@@ -232,6 +241,8 @@ class PriorPartyBannerEmail
             // Get the offset in seconds.
             $offset = $email_index * 86400;
 
+            $email_index++;
+
             // Start is the offset + the start of the time window.
             $from = $time_window_start - $offset;
 
@@ -248,7 +259,6 @@ class PriorPartyBannerEmail
                 echo '<hr/>';
             }
 
-            $email_index++;
         }
     }
 
@@ -327,6 +337,10 @@ class PriorPartyBannerEmail
             ...($from ? ['events_from' => $from] : []),
             ...($to ? ['events_to' => $to] : []),
         ];
+
+        if(empty($this->banners)) {
+            return null;
+        }
 
         // Assign to a local variable. This is mutable and will have it's entries updated.
         $banners = $this->banners;
