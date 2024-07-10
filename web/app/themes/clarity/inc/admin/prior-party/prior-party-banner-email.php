@@ -112,20 +112,18 @@ class PriorPartyBannerEmail
             return;
         }
 
-        $all_recipients = [];
-        $users_to_email = get_field($this->user_field_name, 'option');
-        $bcc_addresses_to_email = get_field($this->bcc_field_name, 'option');
-
-        if(is_array($users_to_email)){
-            $all_recipients = array_merge($all_recipients, $users_to_email);
-        }
-
-        if(is_array($bcc_addresses_to_email)) {
-            $all_recipients = array_merge($all_recipients, $bcc_addresses_to_email);
-        }
-
-        foreach ($all_recipients as $recipient) {
-            wp_mail($recipient['user_email'], $email_content['subject'], $email_content['body']);
+        // Get all recipients - from both Users and BCC fields.
+        $all_recipients =[
+            // Spread the arrays into a single array.
+            ...(get_field($this->user_field_name, 'option') ?: []),
+            ...(get_field($this->bcc_field_name, 'option') ?: [])
+        ];
+        
+        if(!empty($all_recipients)) {
+            // Get all the emails - from the User objects and the BCC rows.
+            $all_emails = array_map(fn ($row) => $row['user_email'], $all_recipients);
+            // Send the email(s).
+            wp_mail($all_emails, $email_content['subject'], $email_content['body']);
         }
     }
 
