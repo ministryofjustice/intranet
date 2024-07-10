@@ -109,7 +109,7 @@ class PriorPartyBannerAdmin
         $this->banner_reference = $banner_reference;
 
         // Moved here because it was causing errors in the admin_menu hook - when logged in as an editor.
-        $this->banners = get_field($this->repeater_name, 'option');
+        $this->banners = get_field($this->repeater_name, 'option') ?: [];
 
         /**
          * Parse the query string for review time-frame
