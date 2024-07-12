@@ -86,12 +86,12 @@ spec:
             - name: OPENSEARCH_URL
               valueFrom:
                 secretKeyRef:
-                  name: opensearch-output
+                  name: central-digital-product-team-opensearch-proxy-url
                   key: proxy_url
             - name: BASIC_AUTH
               valueFrom:
                 secretKeyRef:
-                  name: intranet-basic-auth
+                  name: basic-auth-secret
                   key: auth          
           envFrom:
             - configMapRef:
