@@ -6,7 +6,7 @@ metadata:
   labels:
     app: ${KUBE_NAMESPACE}
 spec:
-  replicas: 2
+  replicas: 1
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -23,6 +23,8 @@ spec:
       volumes:
         - name: uploads
           emptyDir: { }
+        - name: php-socket
+          emptyDir: { }
       terminationGracePeriodSeconds: 35
       serviceAccountName: ${KUBE_NAMESPACE}-service
       containers:
@@ -30,21 +32,37 @@ spec:
           image: ${ECR_URL}:${IMAGE_TAG_NGINX}
           ports:
             - containerPort: 8080
-        - name: fpm
-          image: ${ECR_URL}:${IMAGE_TAG_FPM}
-          ports:
-            - containerPort: 9000
           volumeMounts:
             - name: uploads
               mountPath: /var/www/html/public/app/uploads
+            - name: php-socket
+              mountPath: /sock
+
+        - name: cron
+          image: ${ECR_URL}:${IMAGE_TAG_CRON}
           securityContext:
-              runAsUser: 82
+            runAsUser: 3001
+
+        - name: fpm
+          image: ${ECR_URL}:${IMAGE_TAG_FPM}
+          volumeMounts:
+            - name: uploads
+              mountPath: /var/www/html/public/app/uploads
+            - name: php-socket
+              mountPath: /sock
+          securityContext:
+            runAsUser: 101
           env:
             - name: AWS_S3_BUCKET
               valueFrom:
                 secretKeyRef:
                   name: s3-bucket-output
                   key: bucket_name
+            - name: AWS_CLOUDFRONT_PUBLIC_KEYS_OBJECT
+              valueFrom:
+                secretKeyRef:
+                  name: cloudfront-output
+                  key: cloudfront_public_keys
             - name: DB_HOST
               valueFrom:
                 secretKeyRef:
@@ -65,8 +83,20 @@ spec:
                 secretKeyRef:
                   name: rds-output
                   key: database_password
+            - name: OPENSEARCH_URL
+              valueFrom:
+                secretKeyRef:
+                  name: opensearch-output
+                  key: proxy_url
+            - name: BASIC_AUTH
+              valueFrom:
+                secretKeyRef:
+                  name: intranet-basic-auth
+                  key: auth          
           envFrom:
             - configMapRef:
                 name: ${KUBE_NAMESPACE}
             - secretRef:
                 name: ${KUBE_NAMESPACE}-secrets
+            - secretRef:
+                name: ${KUBE_NAMESPACE}-base64-secrets

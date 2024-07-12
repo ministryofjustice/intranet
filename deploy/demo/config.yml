@@ -9,3 +9,13 @@ data:
   WP_SITEURL: 'https://demo.intranet.justice.gov.uk/wp'
   AWS_CLOUDFRONT_HOST: 'cdn.demo.intranet.justice.gov.uk'
   SENTRY_DEV_ID: '-demo'
+  # See Azure Setup for more information on how to get these values.
+  OAUTH_CLIENT_ID: "8d928bcf-c45e-41ec-aedf-059828aa6e3f"
+  OAUTH_TENANT_ID: "c6874728-71e6-41fe-a9e1-2e8c36776ad8"
+  # IP addresses, with optional CIDR notation. Separated by newlines and using # for comments.
+  ALLOWED_IPS: |
+    # Global Protect
+    18.169.147.172
+    35.176.93.186
+    18.130.148.126
+    35.176.148.126
