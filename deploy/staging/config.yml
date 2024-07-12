@@ -8,3 +8,13 @@ data:
   WP_HOME: 'https://staging.intranet.justice.gov.uk'
   WP_SITEURL: 'https://staging.intranet.justice.gov.uk/wp'
   AWS_CLOUDFRONT_HOST: 'cdn.staging.intranet.justice.gov.uk'
+  # See Azure Setup for more information on how to get these values.
+  OAUTH_CLIENT_ID: "ffb808d2-312b-4ffe-a6e5-d6eacfd9f06f"
+  OAUTH_TENANT_ID: "c6874728-71e6-41fe-a9e1-2e8c36776ad8"
+  # IP addresses, with optional CIDR notation. Separated by newlines and using # for comments.
+  ALLOWED_IPS: |
+    # Global Protect
+    18.169.147.172
+    35.176.93.186
+    18.130.148.126
+    35.176.148.126
