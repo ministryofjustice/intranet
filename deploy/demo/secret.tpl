@@ -23,7 +23,7 @@ stringData:
 apiVersion: v1
 kind: Secret
 metadata:
-  name: intranet-dev-base64-secrets
+  name: intranet-demo-base64-secrets
 type: Opaque
 data:
   AWS_CLOUDFRONT_PRIVATE_KEY: "${AWS_CLOUDFRONT_PRIVATE_KEY_BASE64}"

@@ -314,6 +314,7 @@ To verify that S3 & CloudFront are working correctly.
 - App [MOJ-Local-Intranet-v2](https://portal.azure.com/#view/Microsoft_AAD_RegisteredApps/ApplicationMenuBlade/~/Overview/appId/73ed65a5-e879-4027-beab-f5e64de803b7/isMSAApp~/false)
 - App [MOJ-Dev-Intranet-V2](https://portal.azure.com/#view/Microsoft_AAD_RegisteredApps/ApplicationMenuBlade/~/Overview/quickStartType~/null/sourceType/Microsoft_AAD_IAM/appId/1dac3cbf-91d2-4c0e-9c80-0bf3f8fabd75)
 - App [MOJ-Demo-Intranet-V2](https://portal.azure.com/#view/Microsoft_AAD_RegisteredApps/ApplicationMenuBlade/~/Overview/quickStartType~/null/sourceType/Microsoft_AAD_IAM/appId/8d928bcf-c45e-41ec-aedf-059828aa6e3f)
+- App [MOJ-Staging-Intranet-V2](https://portal.azure.com/#view/Microsoft_AAD_RegisteredApps/ApplicationMenuBlade/~/Overview/quickStartType~/null/sourceType/Microsoft_AAD_IAM/appId/ffb808d2-312b-4ffe-a6e5-d6eacfd9f06f)
 
 ### Register an application
 
