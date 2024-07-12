@@ -30,7 +30,7 @@ jobs:
 
   deploy_staging:
     name: "Staging"
-    needs: deploy_dev
+    needs: [image, deploy_dev]
     if: github.event.ref == 'refs/heads/develop'
     uses: ./.github/workflows/deploy.yml
     with:
@@ -40,7 +40,7 @@ jobs:
 
   deploy_demo:
     name: "Demo"
-    needs: deploy_dev
+    needs: [image, deploy_dev]
     if: github.event.ref == 'refs/heads/develop'
     uses: ./.github/workflows/deploy.yml
     with:
@@ -50,7 +50,7 @@ jobs:
 
   deploy_production:
     name: "Production"
-    needs: deploy_staging
+    needs: [image, deploy_staging]
     if: github.event.ref == 'refs/heads/develop'
     uses: ./.github/workflows/deploy.yml
     with:
