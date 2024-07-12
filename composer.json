@@ -70,7 +70,8 @@
         "sentry/sdk": "^3.1",
         "php-http/guzzle7-adapter": "^1.0",
         "alphagov/notifications-php-client": "^5.0",
-        "wpackagist-plugin/wp-migrate-db": "2.6.10"
+        "wpackagist-plugin/wp-migrate-db": "2.6.10",
+        "wpackagist-plugin/wp-crontrol": "^1.16"
     },
     "require-dev": {
         "wpackagist-plugin/query-monitor": "*",

@@ -50,17 +50,20 @@ class PriorPartyBannerEmail
         // - How often the event should subsequently recur.
         // - Action hook to execute when the event is run.
 
-        $args = ['dst' => true];
+        $args = [['dst' => true]];
         if (!wp_next_scheduled('prior_party_banner_email_cron_hook', $args)) {
             wp_schedule_event(strtotime('08:02:00'), 'daily', 'prior_party_banner_email_cron_hook', $args);
         }
 
-        $args = ['dst' => false];
+        $args = [['dst' => false]];
         if (!wp_next_scheduled('prior_party_banner_email_cron_hook', $args)) {
             wp_schedule_event(strtotime('09:02:00'), 'daily', 'prior_party_banner_email_cron_hook', $args);
         }
 
         add_action('prior_party_banner_email_cron_hook', [$this, 'maybeSendEmails']);
+
+        // Load the data.
+        add_action('init', [$this, 'loadData'], 20);
     }
 
     /**
@@ -161,7 +164,7 @@ class PriorPartyBannerEmail
      * @return void
      */
 
-    public function pageLoad(): void
+    public function loadData(): void
     {
 
         // Get all banners from the repeater field.
@@ -210,10 +213,7 @@ class PriorPartyBannerEmail
         if (isset($_GET['debug'])) {
             echo 'Returning early in emailPage';
             return;
-        } 
-
-        // Load the page.
-        $this->pageLoad();
+        }
 
         if(empty($this->banners)) {
             return;
