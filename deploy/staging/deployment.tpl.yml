@@ -91,7 +91,7 @@ spec:
             - name: BASIC_AUTH
               valueFrom:
                 secretKeyRef:
-                  name: intranet-basic-auth
+                  name: basic-auth-secret
                   key: auth          
           envFrom:
             - configMapRef:
