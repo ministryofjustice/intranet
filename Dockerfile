@@ -113,6 +113,8 @@ RUN make test
 
 FROM base-fpm AS build-fpm-composer
 
+WORKDIR /var/www/html
+
 ARG COMPOSER_USER
 ARG COMPOSER_PASS
 ARG AS3CF_PRO_USER
@@ -120,11 +122,11 @@ ARG AS3CF_PRO_PASS
 
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-WORKDIR /var/www/html
+COPY ./bin/composer-auth.sh ./bin/composer-post-install.sh ./bin/
 
-COPY ./bin/composer-auth.sh composer-auth.sh
-RUN chmod +x composer-auth.sh && \
-    ./composer-auth.sh
+RUN chmod +x ./bin/composer-auth.sh && \
+    ./bin/composer-auth.sh
+RUN chmod +x ./bin/composer-post-install.sh
 
 USER 101
 
