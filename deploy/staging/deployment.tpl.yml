@@ -6,7 +6,7 @@ metadata:
   labels:
     app: ${KUBE_NAMESPACE}
 spec:
-  replicas: 1
+  replicas: 4
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -37,6 +37,8 @@ spec:
               mountPath: /var/www/html/public/app/uploads
             - name: php-socket
               mountPath: /sock
+          securityContext:
+            runAsUser: 101
 
         - name: cron
           image: ${ECR_URL}:${IMAGE_TAG_CRON}
