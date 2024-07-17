@@ -47,6 +47,7 @@ jobs:
           # AWS_CLOUDFRONT_PUBLIC_KEY_EXPIRING: "${{ secrets.AWS_CLOUDFRONT_PUBLIC_KEY_B }}"
           BASIC_AUTH_USER: ${{ secrets.BASIC_AUTH_USER }}
           BASIC_AUTH_PASS: ${{ secrets.BASIC_AUTH_PASS }}
+          ALLOWED_IPS: ${{ secrets.ALLOWED_IPS }}
         run: |
           export AWS_CLOUDFRONT_PUBLIC_KEY_BASE64=$(echo -n "$AWS_CLOUDFRONT_PUBLIC_KEY" | base64 -w 0)
           export AWS_CLOUDFRONT_PRIVATE_KEY_BASE64=$(echo -n "$AWS_CLOUDFRONT_PRIVATE_KEY" | base64 -w 0)
@@ -65,12 +66,14 @@ jobs:
           export BASIC_AUTH_BASE64
 
           ## Perform find/replace
-          < "$TPL_PATH"/secret.tpl.yml envsubst > "$TPL_PATH"/secret.yaml
-          < "$TPL_PATH"/deployment.tpl.yml envsubst > "$TPL_PATH"/deployment.yaml
+          < "$TPL_PATH"/secret.tpl.yml                envsubst > "$TPL_PATH"/secret.yaml
+          < "$TPL_PATH"/deployment.tpl.yml            envsubst > "$TPL_PATH"/deployment.yaml
+          < "$TPL_PATH"/ingress-ip-restricted.tpl.yml envsubst > "$TPL_PATH"/ingress-ip-restricted.yaml
           
           ## Remove template files before apply
           rm "$TPL_PATH"/secret.tpl.yml
           rm "$TPL_PATH"/deployment.tpl.yml
+          rm "$TPL_PATH"/ingress-ip-restricted.tpl.yml
 
       - name: "Authenticate to the cluster"
         env:

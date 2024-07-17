@@ -10,9 +10,6 @@ metadata:
     nginx.ingress.kubernetes.io/auth-secret: basic-auth-secret
     nginx.ingress.kubernetes.io/auth-realm: 'Development Access | Authentication Required'
     nginx.ingress.kubernetes.io/server-snippet: |
-      if ($host = 'dev-intranet.apps.live.cloud-platform.service.justice.gov.uk') {
-        return 301 https://dev.intranet.justice.gov.uk;
-      }
       location = /health {
         auth_basic off;
         access_log off;
@@ -24,25 +21,18 @@ metadata:
         auth_basic off;
         return 301 https://raw.githubusercontent.com/ministryofjustice/security-guidance/main/contact/vulnerability-disclosure-security.txt;
       }
+      # Redirect a specific endpoint to the ip restricted endpoint. We can trust that a user at that path has not gone through this ingress.
+      location = /ip-restricted {
+        auth_basic off;
+        return 302 https://dev-intranet-ip-restricted.apps.live.cloud-platform.service.justice.gov.uk/ip-restricted;
+      }
 spec:
   ingressClassName: default
   tls:
   - hosts:
-    - dev-intranet.apps.live.cloud-platform.service.justice.gov.uk
-  - hosts:
     - dev.intranet.justice.gov.uk
     secretName: intranet-dev-cert-secret
   rules:
-  - host: dev-intranet.apps.live.cloud-platform.service.justice.gov.uk
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: nginx-service
-            port:
-              number: 8080
   - host: dev.intranet.justice.gov.uk
     http:
       paths:

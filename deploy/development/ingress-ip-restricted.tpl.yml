@@ -1,0 +1,30 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ${KUBE_NAMESPACE}-ip-restricted-ingress
+  namespace: ${KUBE_NAMESPACE}
+  annotations:
+    external-dns.alpha.kubernetes.io/set-identifier: intranet-dev-ip-restricted-ingress-intranet-dev-green
+    external-dns.alpha.kubernetes.io/aws-weight: "100"
+    nginx.ingress.kubernetes.io/whitelist-source-range: ${ALLOWED_IPS}
+    nginx.ingress.kubernetes.io/server-snippet: |
+      # Redirect everything that's not for our specified endpoints.
+      location ~ ^/(?!(ip-restricted|info\.php)) {
+        rewrite ^/(.*) https://dev.intranet.justice.gov.uk/$1; 
+      }
+spec:
+  ingressClassName: default
+  tls:
+  - hosts:
+    - dev-intranet-ip-restricted.apps.live.cloud-platform.service.justice.gov.uk
+  rules:
+  - host: dev-intranet-ip-restricted.apps.live.cloud-platform.service.justice.gov.uk
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: nginx-service
+            port:
+              number: 8080
