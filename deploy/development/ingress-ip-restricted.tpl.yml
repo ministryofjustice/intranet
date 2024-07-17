@@ -4,7 +4,7 @@ metadata:
   name: ${KUBE_NAMESPACE}-ip-restricted-ingress
   namespace: ${KUBE_NAMESPACE}
   annotations:
-    external-dns.alpha.kubernetes.io/set-identifier: intranet-dev-ip-restricted-ingress-intranet-dev-green
+    external-dns.alpha.kubernetes.io/set-identifier: ${KUBE_NAMESPACE}-ip-restricted-ingress-${KUBE_NAMESPACE}-green
     external-dns.alpha.kubernetes.io/aws-weight: "100"
     nginx.ingress.kubernetes.io/whitelist-source-range: ${ALLOWED_IPS}
     nginx.ingress.kubernetes.io/server-snippet: |
@@ -16,9 +16,9 @@ spec:
   ingressClassName: default
   tls:
   - hosts:
-    - dev-intranet-ip-restricted.apps.live.cloud-platform.service.justice.gov.uk
+    - ${KUBE_NAMESPACE}-ip-restricted.apps.live.cloud-platform.service.justice.gov.uk
   rules:
-  - host: dev-intranet-ip-restricted.apps.live.cloud-platform.service.justice.gov.uk
+  - host: ${KUBE_NAMESPACE}-ip-restricted.apps.live.cloud-platform.service.justice.gov.uk
     http:
       paths:
       - path: /

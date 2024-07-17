@@ -24,7 +24,7 @@ metadata:
       # Redirect a specific endpoint to the ip restricted endpoint. We can trust that a user at that path has not gone through this ingress.
       location = /ip-restricted {
         auth_basic off;
-        return 302 https://dev-intranet-ip-restricted.apps.live.cloud-platform.service.justice.gov.uk/ip-restricted;
+        return 302 https://intranet-dev-ip-restricted.apps.live.cloud-platform.service.justice.gov.uk/ip-restricted;
       }
 spec:
   ingressClassName: default
