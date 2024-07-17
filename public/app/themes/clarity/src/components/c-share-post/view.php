@@ -10,7 +10,12 @@ if (! defined('ABSPATH')) {
 if (have_posts()) :
     while (have_posts()) :
         the_post();
-        $post_meta = get_post_meta(get_the_ID());
+        $post_meta = get_post_meta(get_the_ID());        
+        $options = get_option('maintenance_options', [
+            'maintenance_mode_status' => 0,
+            'maintenance_mode_message' => '',
+        ]);
+        $maintenance_mode = $options['maintenance_mode_status'] ?? false;
         ?>
 <!-- c-share-post starts here -->
 <section class="c-share-post">
@@ -18,15 +23,21 @@ if (have_posts()) :
         <?php
         if (comments_open() == '1') {
             ?>
-        <li class="u-icon u-icon--chat_bubble"><span><?php echo get_comments_number(); ?></span> </li>
+        <li class="u-icon u-icon--chat_bubble"><span><?= get_comments_number() ?></span> </li>
             <?php
         }
         ?>
 
-    <li><?php echo do_shortcode('[likebutton]'); ?><li>
+    <?php
+        if (!$maintenance_mode) {
+            ?>
+              <li><?= do_shortcode('[likebutton]') ?><li>
+            <?php
+        }
+    ?>
 
       <span class="u-icon u-icon--redo2"></span>
-      <a href="mailto:?subject=<?php echo get_the_title(); ?>&body=A colleague thought you would be interested in this intranet article <?php echo get_permalink(); ?>" class="share-email">Share this post by email</a>
+      <a href="mailto:?subject=<?= get_the_title() ?>&body=A colleague thought you would be interested in this intranet article <?= get_permalink() ?>" class="share-email">Share this post by email</a>
     </li>
   </ul>
 </section>

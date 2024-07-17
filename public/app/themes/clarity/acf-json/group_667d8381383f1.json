@@ -1,0 +1,280 @@
+{
+    "key": "group_667d8381383f1",
+    "title": "Prior Party Options Page",
+    "fields": [
+        {
+            "key": "field_668e419fd62e2",
+            "label": "Settings",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "admin_only": 0,
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_667d8381b4592",
+            "label": "Prior Political Parties",
+            "name": "prior_political_party_banners",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "admin_only": 0,
+            "layout": "table",
+            "pagination": 0,
+            "min": 0,
+            "max": 0,
+            "collapsed": "",
+            "button_label": "Add Prior Party",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_667d849fb4593",
+                    "label": "Banner Content",
+                    "name": "banner_content",
+                    "aria-label": "",
+                    "type": "textarea",
+                    "instructions": "The text that will be shown in Prior Party Banner.<br\/><br\/>\r\ne.g. This was published under the 2015 to 2024 Conservative government",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "admin_only": 0,
+                    "default_value": "",
+                    "maxlength": "",
+                    "rows": 3,
+                    "placeholder": "",
+                    "new_lines": "",
+                    "parent_repeater": "field_667d8381b4592"
+                },
+                {
+                    "key": "field_667d851cb4594",
+                    "label": "Start Date",
+                    "name": "start_date",
+                    "aria-label": "",
+                    "type": "date_picker",
+                    "instructions": "The start date of the party's government.<br\/><br\/>\r\nWhen looking up which banner to use, a post's publish date must be >= 00:00:00 on this date.",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "admin_only": 0,
+                    "display_format": "d\/m\/Y",
+                    "return_format": "Y-m-d",
+                    "first_day": 1,
+                    "parent_repeater": "field_667d8381b4592"
+                },
+                {
+                    "key": "field_667d86bbb4595",
+                    "label": "End Date",
+                    "name": "end_date",
+                    "aria-label": "",
+                    "type": "date_picker",
+                    "instructions": "The end date of the party's government.<br\/><br\/>\r\nWhen looking up which banner to use, a post's publish date must be < 00:00:00 on the following date.",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "admin_only": 0,
+                    "display_format": "d\/m\/Y",
+                    "return_format": "Y-m-d",
+                    "first_day": 1,
+                    "parent_repeater": "field_667d8381b4592"
+                },
+                {
+                    "key": "field_667e7c46c47ca",
+                    "label": "Reference",
+                    "name": "reference",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "A string with no spaces or special chars, underscores are ok",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "admin_only": 0,
+                    "default_value": "",
+                    "maxlength": 22,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_667d8381b4592"
+                },
+                {
+                    "key": "field_667d86dcb4596",
+                    "label": "Banner Active",
+                    "name": "banner_active",
+                    "aria-label": "",
+                    "type": "true_false",
+                    "instructions": "Activate a banner on content with a publish date between the start and end dates?",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "admin_only": 0,
+                    "message": "",
+                    "default_value": 0,
+                    "ui_on_text": "",
+                    "ui_off_text": "",
+                    "ui": 1,
+                    "parent_repeater": "field_667d8381b4592"
+                }
+            ]
+        },
+        {
+            "key": "field_668be710054be",
+            "label": "User Digest Emails",
+            "name": "prior_political_party_banners_digest_users",
+            "aria-label": "",
+            "type": "user",
+            "instructions": "Users to receive daily digest emails.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "admin_only": 0,
+            "role": [
+                "administrator",
+                "agency_admin"
+            ],
+            "return_format": "array",
+            "multiple": 1,
+            "allow_null": 0
+        },
+        {
+            "key": "field_668bf3eefe765",
+            "label": "BCC Digest Emails",
+            "name": "prior_political_party_banners_digest_bcc",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "A list of BCC emails for the digest emails.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "admin_only": 0,
+            "layout": "table",
+            "pagination": 0,
+            "min": 0,
+            "max": 0,
+            "collapsed": "",
+            "button_label": "Add email address",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_668be7e71b6d6",
+                    "label": "BCC Email",
+                    "name": "user_email",
+                    "aria-label": "",
+                    "type": "email",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "admin_only": 0,
+                    "default_value": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_668bf3eefe765"
+                }
+            ]
+        },
+        {
+            "key": "field_668e41b2d62e3",
+            "label": "Email Digest",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "admin_only": 0,
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_668e41dd45027",
+            "label": "Email Digest Placeholder",
+            "name": "",
+            "aria-label": "",
+            "type": "message",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "admin_only": 0,
+            "message": "",
+            "new_lines": "wpautop",
+            "esc_html": 0
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "prior-party-settings"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1720600315
+}

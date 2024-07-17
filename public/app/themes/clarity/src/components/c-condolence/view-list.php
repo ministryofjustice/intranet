@@ -26,23 +26,23 @@ if (!empty($thumbnail_id)) {
     $thumbnail = wp_get_attachment_image_src($thumbnail_id, 'square-feature');
 }
 ?>
-<article class="c-condolence-list-item<?php echo $workplace_class; ?>">
+<article class="c-condolence-list-item<?= $workplace_class ?>">
 
     <?php if (!empty($thumbnail)) { ?>
         <div class="c-condolence-list-item__photo-wrapper">
-            <a href="<?php echo get_permalink(); ?>"><img class="c-condolence-list-item__photo""
-                src="<?php echo $thumbnail[0]; ?>"
-                alt="Photo of <?php echo get_the_title(); ?>"></a>
+            <a href="<?= get_permalink() ?>"><img class="c-condolence-list-item__photo""
+                src="<?= $thumbnail[0] ?>"
+                alt="Photo of <?= get_the_title() ?>"></a>
         </div>
     <?php } ?>
 
     <div class="c-condolence-list-item__details">
-        <h2><a href="<?php echo get_permalink(); ?>"><?php echo get_the_title(); ?></a></h2>
+        <h2><a href="<?= get_permalink() ?>"><?= get_the_title() ?></a></h2>
         <?php if (!empty($job_title)) { ?>
-            <p class="c-condolence-list-item__job-title"><?php echo $job_title; ?></p>
+            <p class="c-condolence-list-item__job-title"><?= $job_title ?></p>
         <?php } ?>
         <?php if (!empty($workplace)) { ?>
-            <p class="c-condolence-list-item__workplace"><?php echo $workplace; ?></p>
+            <p class="c-condolence-list-item__workplace"><?= $workplace ?></p>
         <?php } ?>
         <div class="c-condolence-list-item__excerpt">
             <?php the_excerpt(); ?>

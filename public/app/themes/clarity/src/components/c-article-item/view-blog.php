@@ -13,7 +13,7 @@ $authors = $oAuthor->getAuthorInfo($id);
 <article class="c-article-item js-article-item">
 
     <?php if (! empty($authors[0]['thumbnail_url'])) : ?>
-    <a aria-hidden="true" href="<?php echo esc_url(get_permalink($id)); ?>">
+    <a aria-hidden="true" href="<?= esc_url(get_permalink($id)) ?>">
       <img src="
         <?php
         // Display guest author image
@@ -32,14 +32,14 @@ $authors = $oAuthor->getAuthorInfo($id);
     <?php endif; ?>
 
     <h1>
-      <a href="<?php echo esc_url(get_permalink($id)); ?>">
-        <?php echo get_the_title($id); ?>
+      <a href="<?= esc_url(get_permalink($id)) ?>">
+        <?= get_the_title($id) ?>
     </a>
     </h1>
 
     <div class="meta">
       <span class="c-article-item__dateline">
-        <?php echo get_the_time('j M Y', $id); ?>
+        <?= get_the_time('j M Y', $id) ?>
     </span>
     </div>
 

@@ -19,22 +19,22 @@ $activeAgency = $oAgency->getCurrentAgency() ? $oAgency->getCurrentAgency() : 'h
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-  <meta name="theme-color" content="<?php echo $agency_colour; ?>">
-    <meta name="agency" content="<?php echo $activeAgency['label']; ?>">
+  <meta name="theme-color" content="<?= $agency_colour ?>">
+    <meta name="agency" content="<?= $activeAgency['label'] ?>">
     
-    <title><?php echo single_post_title(); ?><?php echo ' - ' . $activeAgency['label'] . ' Intranet'; ?></title>
+    <title><?= single_post_title(); ?><?= ' - ' . $activeAgency['label'] . ' Intranet'; ?></title>
 
-  <link rel="icon" sizes="180x180" href="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/icons/apple-touch-icon-180x180.png">
-  <link rel="shortcut icon" href="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/icons/favicon.ico" type="image/x-icon" />
-  <link rel="apple-touch-icon" href="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/icons/apple-touch-icon.png" />
-  <link rel="apple-touch-icon" sizes="57x57" href="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/icons/apple-touch-icon-57x57.png" />
-  <link rel="apple-touch-icon" sizes="72x72" href="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/icons/apple-touch-icon-72x72.png" />
-  <link rel="apple-touch-icon" sizes="76x76" href="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/icons/apple-touch-icon-76x76.png" />
-  <link rel="apple-touch-icon" sizes="114x114" href="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/icons/apple-touch-icon-114x114.png" />
-  <link rel="apple-touch-icon" sizes="120x120" href="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/icons/apple-touch-icon-120x120.png" />
-  <link rel="apple-touch-icon" sizes="144x144" href="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/icons/apple-touch-icon-144x144.png" />
-  <link rel="apple-touch-icon" sizes="152x152" href="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/icons/apple-touch-icon-152x152.png" />
-  <link rel="apple-touch-icon" sizes="180x180" href="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/icons/apple-touch-icon-180x180.png" />
+  <link rel="icon" sizes="180x180" href="<?= get_stylesheet_directory_uri() ?>/dist/images/icons/apple-touch-icon-180x180.png">
+  <link rel="shortcut icon" href="<?= get_stylesheet_directory_uri() ?>/dist/images/icons/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" href="<?= get_stylesheet_directory_uri(); ?>/dist/images/icons/apple-touch-icon.png" />
+  <link rel="apple-touch-icon" sizes="57x57" href="<?= get_stylesheet_directory_uri() ?>/dist/images/icons/apple-touch-icon-57x57.png" />
+  <link rel="apple-touch-icon" sizes="72x72" href="<?= get_stylesheet_directory_uri() ?>/dist/images/icons/apple-touch-icon-72x72.png" />
+  <link rel="apple-touch-icon" sizes="76x76" href="<?= get_stylesheet_directory_uri() ?>/dist/images/icons/apple-touch-icon-76x76.png" />
+  <link rel="apple-touch-icon" sizes="114x114" href="<?= get_stylesheet_directory_uri() ?>/dist/images/icons/apple-touch-icon-114x114.png" />
+  <link rel="apple-touch-icon" sizes="120x120" href="<?= get_stylesheet_directory_uri() ?>/dist/images/icons/apple-touch-icon-120x120.png" />
+  <link rel="apple-touch-icon" sizes="144x144" href="<?= get_stylesheet_directory_uri() ?>/dist/images/icons/apple-touch-icon-144x144.png" />
+  <link rel="apple-touch-icon" sizes="152x152" href="<?= get_stylesheet_directory_uri() ?>/dist/images/icons/apple-touch-icon-152x152.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="<?= get_stylesheet_directory_uri() ?>/dist/images/icons/apple-touch-icon-180x180.png" />
     <?php
     /**
      * wp_head() required WP function do not remove. Used by plugins to hook into and for theme development.
@@ -55,7 +55,7 @@ $activeAgency = $oAgency->getCurrentAgency() ? $oAgency->getCurrentAgency() : 'h
       document.addEventListener('DOMContentLoaded', function() {
         <!-- Ensure the correct agency cookie gets picked up -->
         var agency_cookie = readCookie("dw_agency");
-        if (agency_cookie !== null && agency_cookie !== '<?php echo $agency_shortcode; ?>') { window.location.reload(true); }
+        if (agency_cookie !== null && agency_cookie !== '<?= $agency_shortcode ?>') { window.location.reload(true) }
       });
     </script>
 </head>
@@ -65,13 +65,13 @@ if (! defined('GT_CODE')) {
 }
 ?>
 <!-- Google Tag Manager -->
-<noscript><iframe src="//www.googletagmanager.com/ns.html?id=<?php echo GT_CODE; ?>"
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=<?= GT_CODE ?>"
                   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
         new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
         j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','<?php echo GT_CODE; ?>');</script>
+    })(window,document,'script','dataLayer','<?= GT_CODE ?>');</script>
 <!-- End Google Tag Manager -->
 <body
 <?php

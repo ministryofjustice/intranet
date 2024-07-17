@@ -35,13 +35,13 @@ if ($id != '') :
     if ($thumbnail) :
         ?>
 
-  <a aria-hidden="true" href="<?php echo esc_url(get_permalink($id)); ?>">
-    <img src="<?php echo $thumbnail; ?>" alt class="thumbnail">
+  <a aria-hidden="true" href="<?= esc_url(get_permalink($id)) ?>">
+    <img src="<?= $thumbnail ?>" alt class="thumbnail">
     </a>
 
     <?php elseif ($author_avatar) : ?>
-  <a aria-hidden="true" href="<?php echo esc_url(get_permalink($id)); ?>" class="thumbnail">
-    <img src="<?php echo $author_avatar; ?>" alt="<?php echo $author_display_name; ?>" >
+  <a aria-hidden="true" href="<?= esc_url(get_permalink($id)) ?>" class="thumbnail">
+    <img src="<?= $author_avatar ?>" alt="<?= $author_display_name ?>" >
   </a>
 
     <?php else : ?>
@@ -53,13 +53,13 @@ if ($id != '') :
     <div class="content">
         
         <h1>
-            <a href="<?php echo esc_url($link); ?>"><?php echo get_the_title($id); ?></a>
+            <a href="<?= esc_url($link) ?>"><?= get_the_title($id) ?></a>
         </h1>
 
         <div class="meta">
             <span class="c-article-item__dateline">
-                By <strong><?php echo $author_display_name; ?></strong> |
-                <?php echo get_gmt_from_date($post->post_date, 'j M Y'); ?>
+                By <strong><?= $author_display_name ?></strong> |
+                <?= get_gmt_from_date($post->post_date, 'j M Y') ?>
             </span> 
         </div>
 
@@ -69,7 +69,7 @@ if ($id != '') :
             ?>
 
         <div class="c-article-excerpt">
-            <p><?php echo get_the_excerpt($id); ?></p>
+            <p><?= get_the_excerpt($id) ?></p>
         </div>
 
         <?php endif; ?>

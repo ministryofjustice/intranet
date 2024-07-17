@@ -2,7 +2,7 @@
 <section class="c-breadcrumbs">
   <ol class="c-breadcrumbs__list">
     <li class="c-breadcrumbs__list-item">
-      <a title="Go to intranet home." href="<?php echo get_home_url(); ?>" class="home">
+      <a title="Go to intranet home." href="<?= get_home_url() ?>" class="home">
         <span>Home</span>
       </a>
     </li> 

@@ -45,8 +45,9 @@ if (isset($referrer['query'])) {
         <?php
         // Temporarily filtering out JAC/PB until site is ready to go live
         // 10th Jan 2024: Parole Board added to exclude list: https://dsdmoj.atlassian.net/jira/software/c/projects/CDPT/boards/1154?selectedIssue=CDPT-1170
+        // 17th July 2024: JAC removed
         $modified_agency_array = array_filter($activeAgencies, function ($data) {
-            return !in_array($data["shortcode"], ['jac', 'pb']);
+            return $data["shortcode"] != 'pb';
         });
 
         foreach ($modified_agency_array as $agency_id => $agency) {

@@ -19,13 +19,12 @@ if (! defined('ABSPATH')) {
             the_post();
             ?>
   <section class="l-primary">
-    <h1 class="o-title o-title--page"><?php echo get_the_title(); ?></h1>
+    <h1 class="o-title o-title--page"><?= get_the_title() ?></h1>
         <?php endwhile;
     else : ?>
-    <p><?php esc_html_e('Calendar event details'); ?></p>
-    <?php endif; ?>
-
-    <?php get_template_part('src/components/c-rich-text-block/view'); ?>
+    <p><?php esc_html_e('Calendar event details') ?></p>
+    <?php endif;
+        get_template_part('src/components/c-rich-text-block/view'); ?>
   </section>
 
 </article>

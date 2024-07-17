@@ -49,12 +49,12 @@ if (isset($events)) :
         }
         ?>
 
-  <a class="c-event-listing--title" href="<?php echo $post_url; ?>"><?php echo $event_title; ?></a>
+  <a class="c-event-listing--title" href="<?= $post_url ?>"><?= $event_title ?></a>
 
   <div class="c-event-listing--date">
     <span>Date:</span>
-    <time datetime="<?php echo $datetime; ?>">
-        <?php echo $day . ', ' . $multidate . ' ' . $year; ?>
+    <time datetime="<?= $datetime ?>">
+      <?= $day . ', ' . $multidate . ' ' . $year ?>
     </time>  
   </div>
 
@@ -75,15 +75,15 @@ if (isset($events)) :
 
       <div class="c-event-listing--time">
         <span>Time:</span>
-        <time datetime='<?php echo $datetime; ?>'> 
-          <?php echo $time; ?>
+        <time datetime='<?= $datetime ?>'>
+          <?= $time ?>
         </time>  
       </div>
 
         <?php if (isset($location)) : ?>
         <div class="c-event-listing--location">
           <span>Location:</span>
-          <address><?php echo $location; ?></address>
+          <address><?= $location ?></address>
         </div>
 
         <?php endif; ?>

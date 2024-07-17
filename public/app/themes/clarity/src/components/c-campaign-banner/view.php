@@ -7,9 +7,9 @@ $banner_image = wp_get_attachment_image_src($banner_id, 'full');
 <!-- c-campaign-banner starts here -->
 <section class="c-campaign-banner">
     <?php if (! empty($banner_url)) : ?>
-    <a href="<?php echo $banner_url; ?>">
+    <a href="<?= $banner_url ?>">
     <?php endif ?>
-    <img src="<?php echo $banner_image[0]; ?>" class="campaign-banner" />
+    <img src="<?= $banner_image[0] ?>" class="campaign-banner" />
     <?php if (! empty($banner_url)) : ?>
     </a>
     <?php endif ?>

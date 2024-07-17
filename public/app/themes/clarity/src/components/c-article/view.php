@@ -9,7 +9,7 @@
 <!-- c-article starts here -->
 <article class="c-article">
 
-    <h1 class="o-title o-title--page"><?php echo get_the_title(); ?></h1>
+    <h1 class="o-title o-title--page"><?= get_the_title() ?></h1>
   
     <div class="l-primary">
         <?php

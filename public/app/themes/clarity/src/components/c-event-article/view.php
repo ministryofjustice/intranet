@@ -12,7 +12,7 @@
             the_post();
             ?>
   <section class="l-primary">
-    <h1 class="o-title o-title--page"><?php echo get_the_title(); ?></h1>
+    <h1 class="o-title o-title--page"><?= get_the_title() ?></h1>
         <?php endwhile;
     else : ?>
     <p><?php esc_html_e('Calendar event details'); ?></p>

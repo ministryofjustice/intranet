@@ -20,7 +20,7 @@ $activeAgency = $oAgency->getCurrentAgency();
 <section class="c-search-results-filter c-content-filter">
     <p>You are searching across <strong><?php esc_attr_e($activeAgency['abbreviation']); ?></strong>.
         To search another agency use <a href="/agency-switcher">agency switcher</a>.</p>
-    <form action="<?php echo esc_url(home_url('/')); ?>" method="get" id="<?php echo $prefix; ?>" class="u-wrapper"
+    <form action="<?= esc_url(home_url('/')) ?>" method="get" id="<?= $prefix ?>" class="u-wrapper"
           id="searchform">
         <?php
         $placeholder = 'Search' . $activeAgency['abbreviation'] . 'intranet';

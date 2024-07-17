@@ -21,31 +21,29 @@ $thumbnail_url  = $thumbnail[0];
     <?php
     if (isset($thumbnail_url)) {
         ?>
-        <a tabindex="-1" aria-hidden="true" href="<?php echo get_the_permalink($id); ?>" class="thumb_image">
-          <img src="<?php echo $thumbnail_url; ?>" alt>
+        <a tabindex="-1" aria-hidden="true" href="<?= get_the_permalink($id) ?>" class="thumb_image">
+          <img src="<?= $thumbnail_url ?>" alt>
         </a>
         <?php
     } else {
         ?>
-        <a href="<?php echo get_the_permalink($id); ?>" class="thumb_image">
+        <a href="<?= get_the_permalink($id) ?>" class="thumb_image">
           <img src="
-          <?php
-            echo $authors[0]['thumbnail_url'];
-            ?>
-        " alt="<?php echo $alt_text; ?>">
+          <?= $authors[0]['thumbnail_url'] ?>
+        " alt="<?= $alt_text ?>">
         </a>
         <?php
     }
     ?>
   <div class="text-align">
     <h1>
-      <a href="<?php echo get_the_permalink($id); ?>"><?php echo get_the_title($id); ?></a>
+      <a href="<?= get_the_permalink($id) ?>"><?= get_the_title($id) ?></a>
     </h1>
     <?php
     if ($config === 'show_date') {
         ?>
         <div class="meta">
-          <span class="c-article-item__dateline"><?php echo get_the_time('j M Y', $id); ?></span>
+          <span class="c-article-item__dateline"><?= get_the_time('j M Y', $id) ?></span>
         </div>
         <?php
     }
@@ -55,10 +53,10 @@ $thumbnail_url  = $thumbnail[0];
     if ($config === 'show_date_and_excerpt') {
         ?>
         <div class="c-article-excerpt">
-          <p><?php echo get_the_excerpt($id); ?></p>
+          <p><?= get_the_excerpt($id) ?></p>
         </div>
         <div class="meta">
-          <span class="c-article-item__dateline"><?php echo get_the_time('j M Y', $id); ?></span>
+          <span class="c-article-item__dateline"><?= get_the_time('j M Y', $id) ?></span>
         </div>
         <?php
     }
@@ -69,10 +67,10 @@ $thumbnail_url  = $thumbnail[0];
     if ($config === 'show_excerpt') {
         ?>
         <div class="c-article-exceprt">
-          <p><?php echo get_the_excerpt($id); ?></p>
+          <p><?= get_the_excerpt($id) ?></p>
         </div>
         <div class="meta">
-          <span class="c-article-item__dateline"><?php echo get_the_time('j M Y', $id); ?> by <?php echo $authors[0]['name']; ?></span>
+          <span class="c-article-item__dateline"><?= get_the_time('j M Y', $id) ?> by <?= $authors[0]['name'] ?></span>
         </div>
         <?php
     }
@@ -81,7 +79,7 @@ $thumbnail_url  = $thumbnail[0];
     // If the 'blog' value has been passed to $config: Display the byline.
     if ($config === 'blog') {
         ?>
-      <span class="c-article-item__dateline"><?php echo get_the_time('j M Y', $id); ?></span>
+      <span class="c-article-item__dateline"><?= get_the_time('j M Y', $id) ?></span>
         <?php
     }
     ?>

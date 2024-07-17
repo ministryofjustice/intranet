@@ -109,7 +109,7 @@ if (isset($c_register_post_array['task']) && $c_register_post_array['task'] == '
         ?>
         <div id="message" class="success">
             <p><strong>Now check your email</strong></p>
-            <p>We're sending an email to <?php echo $email; ?>. This can take up to 5 minutes.</p>
+            <p>We're sending an email to <?= $email; ?>. This can take up to 5 minutes.</p>
 
             <p>Open the email and click on the link. This will take you to the reset password page, where you would need
                 to
@@ -125,35 +125,31 @@ if (isset($c_register_post_array['task']) && $c_register_post_array['task'] == '
 
             <p>Do not reply to the email.</p>
         </div>
-        <?php
+    <?php
     endif;
     ?>
 
     <p>Fill in your details. We’ll then send you a link back to this page so you can start commenting.</p>
 
     <form method="post" action="?#respond" novalidate>
-        <div <?php if ($err_name != '') {
-            echo 'class="error-state"';
-             } ?>>
+        <div <?php if ($err_name != '') echo 'class="error-state"'; ?>>
             <p class="label-paragraph"><label for="first_name">Screen name (will appear on screen)</label></p>
             <?php if (trim($err_name) != '') { ?>
                 <p id="name-error" class="error-message">
-                    <span class="govuk-visually-hidden">Error:</span> <?php echo $err_name; ?>
+                    <span class="govuk-visually-hidden">Error:</span> <?= $err_name ?>
                 </p>
             <?php } ?>
-            <p><input type="text" value="<?php echo $first_name; ?>" name="first_name" id="first_name"/></p>
+            <p><input type="text" value="<?= $first_name ?>" name="first_name" id="first_name"/></p>
         </div>
-        <div <?php if ($err_email != '') {
-            echo 'class="error-state"';
-             } ?>>
+        <div <?php if ($err_email != '') echo 'class="error-state"'; ?>>
             <p class="label-paragraph"><label for="email">Email address (will not be shown with your comment)</label>
             </p>
             <?php if ($err_email != '') { ?>
                 <p id="email-error" class="error-message">
-                    <span class="govuk-visually-hidden">Error:</span> <?php echo $err_email; ?>
+                    <span class="govuk-visually-hidden">Error:</span> <?= $err_email ?>
                 </p>
             <?php } ?>
-            <p><input type="email" value="<?php echo $email; ?>" name="email" id="email"/></p>
+            <p><input type="email" value="<?= $email ?>" name="email" id="email"/></p>
         </div>
         <button type="submit" name="btnregister" class="button">Register</button>
         <input type="hidden" name="task" value="register"/>
