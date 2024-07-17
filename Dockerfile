@@ -42,9 +42,38 @@ WORKDIR /var/www/html
 #    ▄▄  ▄▄     █▄░█  █▀▀  █  █▄░█  ▀▄▀     ▄▄  ▄▄    #
 #    ░░  ░░     █░▀█  █▄█  █  █░▀█  █░█     ░░  ░░    #
 
-FROM nginxinc/nginx-unprivileged:1.25-alpine AS base-nginx
+
+FROM nginx:1.26-alpine as nginx-module-builder
+
+SHELL ["/bin/ash", "-exo", "pipefail", "-c"]
+
+RUN apk update && \
+    apk add linux-headers openssl-dev pcre2-dev zlib-dev openssl abuild \
+        musl-dev libxslt libxml2-utils make mercurial gcc unzip git \
+        xz g++ coreutils
+
+RUN printf "#!/bin/sh\\nSETFATTR=true /usr/bin/abuild -F \"\$@\"\\n" > /usr/local/bin/abuild && \
+    chmod +x /usr/local/bin/abuild && \
+    hg clone -r ${NGINX_VERSION}-${PKG_RELEASE} https://hg.nginx.org/pkg-oss/ && \
+    cd pkg-oss && \
+    mkdir /tmp/packages && \
+    /pkg-oss/build_module.sh -v $NGINX_VERSION -f -y -o /tmp/packages -n cachepurge https://github.com/nginx-modules/ngx_cache_purge/archive/2.5.3.tar.gz; \
+    BUILT_MODULES="$BUILT_MODULES $(echo cachepurge | tr '[A-Z]' '[a-z]' | tr -d '[/_\-\.\t ]')"; \
+    echo "BUILT_MODULES=\"$BUILT_MODULES\"" > /tmp/packages/modules.env
+
+FROM nginxinc/nginx-unprivileged:1.26-alpine AS base-nginx
 
 USER root
+
+RUN --mount=type=bind,target=/tmp/packages/,source=/tmp/packages/,from=nginx-module-builder \
+    . /tmp/packages/modules.env \
+    &&  apk add --no-cache --allow-untrusted /tmp/packages/nginx-module-cachepurge-${NGINX_VERSION}*.apk;
+
+RUN mkdir /var/run/nginx-cache && \
+    chown nginx:nginx /var/run/nginx-cache
+
+# contains gzip and module include
+COPY --chown=nginx:nginx deploy/config/nginx.conf /etc/nginx/nginx.conf
 
 COPY deploy/config/init/nginx-* /docker-entrypoint.d/
 
