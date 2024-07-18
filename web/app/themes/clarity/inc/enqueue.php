@@ -113,7 +113,7 @@ function clarity_admin_enqueue($hook)
         'clarity-admin-styles',
         get_stylesheet_directory_uri() . '/inc/admin/css/admin.css',
         array(),
-        '0.2.1',
+        '0.2.2',
         'all'
     );
     wp_enqueue_style('clarity-admin-styles');
