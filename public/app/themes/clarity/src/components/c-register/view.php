@@ -16,7 +16,7 @@ global $wpdb, $PasswordHash, $current_user, $user_ID;
 
 if (isset($c_register_post_array['task']) && $c_register_post_array['task'] == 'register') {
     $first_name = esc_sql(trim($c_register_post_array['first_name']));
-    $email = sanitize_text_field(trim($c_register_post_array['email']));
+    $email = trim(sanitize_text_field($c_register_post_array['email']));
     $username = $email;
 
     /**
