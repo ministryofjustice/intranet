@@ -109,7 +109,7 @@ if (isset($c_register_post_array['task']) && $c_register_post_array['task'] == '
         ?>
         <div id="message" class="success">
             <p><strong>Now check your email</strong></p>
-            <p>We're sending an email to <?= $email; ?>. This can take up to 5 minutes.</p>
+            <p>We're sending an email to <?= $email ?>. This can take up to 5 minutes.</p>
 
             <p>Open the email and click on the link. This will take you to the reset password page, where you would need
                 to
