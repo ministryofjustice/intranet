@@ -25,13 +25,9 @@ class PriorPartyBannerEmail
 
     private string $bcc_field_name = 'prior_political_party_banners_digest_bcc';
 
-
-    /**
-     * @var string the name of the page for viewing banner posts
-     */
-    private string $menu_slug = 'prior-party-banners-email';
-
     private array $post_type_labels = [];
+
+    private string $date_format = 'jS F - g:i a';
 
 
     public function __construct()
@@ -210,18 +206,37 @@ class PriorPartyBannerEmail
 
     public function emailPage(): void
     {
-        if (isset($_GET['debug'])) {
-            echo 'Returning early in emailPage';
-            return;
-        }
-
-        if(empty($this->banners)) {
+        if (empty($this->banners)) {
             return;
         }
 
         // Manually trigger an email to be sent.
         if (isset($_GET['send']) && is_email(urldecode($_GET['send'])) && current_user_can('administrator')) {
             $this->maybeSendEmails(['recipient' => urldecode($_GET['send'])]);
+        }
+
+        $email_index = isset($_GET['email_index']) ? (int) $_GET['email_index'] : null;
+
+        // Build up a base url for the paginated links.
+        $base_uri = sprintf('%s?page=%s', get_current_screen()->parent_file, $_GET['page']);
+        $base_url = get_admin_url(null, $base_uri);
+
+        // Start an unordered list for the links.
+        echo '<ul class="ppb-email-preview-list">';
+
+        // Loop over the last 10 days.
+        for ($days_ago = 0; $days_ago <= 9; $days_ago++) {
+            $class_name = $email_index === $days_ago ? 'ppb-email-preview-list-item--active' : '';
+            $label = $days_ago ? sprintf('%d days ago', $days_ago) : 'Today';
+            printf('<li><a class="ppb-email-preview-list-item %s" href="%s&email_index=%d">%s</a></li>',  $class_name, $base_url, $days_ago,  $label);
+        }
+
+        // End the list.
+        echo '</ul>';
+
+        // Return early if there is no email_index or it's out of bounds.
+        if ($email_index === null || $email_index < 0 || $email_index >= 365) {
+            return;
         }
 
         $nine_am_today = strtotime('today 09:00 Europe/London');
@@ -233,32 +248,27 @@ class PriorPartyBannerEmail
             $time_window_start = strtotime('yesterday 09:00 Europe/London');
         }
 
-        $email_index = 0;
+        // Get the offset in seconds.
+        $offset = $email_index * 86400;
 
-        // Loop over the last 10 days.
-        while ($email_index < 10) {
+        // Start is the offset + the start of the time window.
+        $from = $time_window_start - $offset;
 
-            // Get the offset in seconds.
-            $offset = $email_index * 86400;
+        // End is start + 24 hours, minus 1 second.
+        $to =  $from + 86400 - 1;
 
-            $email_index++;
+        // Get the email digest for this time window.
+        $email = $this->getEmailDigestByTimes($from, $to);
 
-            // Start is the offset + the start of the time window.
-            $from = $time_window_start - $offset;
-
-            // End is start + 24 hours, minus 1 second.
-            $to =  $from + 86400 - 1;
-
-            // Get the email digest for this time window.
-            $email = $this->getEmailDigestByTimes($from, $to);
-
-            if ($email) {
-                // Echo out the email.
-                echo '<h2>Subject: ' . $email['subject'] . '</h2>';
-                echo '<pre>' . $email['body'] . '</pre>';
-                echo '<hr/>';
-            }
-
+        if ($email) {
+            // Echo out the email.
+            echo '<h2 class="ppb-email-preview-heading">Subject: ' . $email['subject'] . '</h2>';
+            echo '<pre>' . $email['body'] . '</pre>';
+        } else {
+            // Echo the empty state.
+            $local_from_date = $this->timestampToLocalDateObject($from);
+            $local_to_date = $this->timestampToLocalDateObject($to);
+            printf("No email content for %s to %s", $local_from_date->format($this->date_format),  $local_to_date->format($this->date_format));
         }
     }
 
@@ -338,7 +348,7 @@ class PriorPartyBannerEmail
             ...($to ? ['events_to' => $to] : []),
         ];
 
-        if(empty($this->banners)) {
+        if (empty($this->banners)) {
             return null;
         }
 
@@ -387,7 +397,7 @@ class PriorPartyBannerEmail
                     continue;
                 }
                 // Continue the loop if there are no events for this post.
-                if(empty($post_events)) {
+                if (empty($post_events)) {
                     continue;
                 }
                 // Don't count multiple events on the same post id. Just get the last one.
@@ -440,7 +450,7 @@ class PriorPartyBannerEmail
         $local_from_date = $this->timestampToLocalDateObject($from);
         $local_to_date = $this->timestampToLocalDateObject($to);
 
-        $email_heading = sprintf("Email digest for %s to %s\n---\n", $local_from_date->format('jS F - g:i a'),  $local_to_date->format('jS F - g:i a'));
+        $email_heading = sprintf("Email digest for %s to %s\n---\n", $local_from_date->format($this->date_format),  $local_to_date->format($this->date_format));
         $email_bodies = array_map(fn ($b) => $b['email_body'], $banners);
 
         $email = [
