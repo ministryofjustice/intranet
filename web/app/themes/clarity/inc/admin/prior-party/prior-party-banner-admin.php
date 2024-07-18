@@ -84,7 +84,7 @@ class PriorPartyBannerAdmin
         add_action('admin_menu', [$this, 'menu']);
         add_action('rest_api_init', [$this, 'actionHandler']);
         add_filter('acf/update_value/name=' . $this->post_field_name, [$this, 'trackBannerUpdates'], 10, 4);
-        add_filter('acf/load_value/name=' . $this->post_field_name, [$this, 'filterValueOnPages'], 10, 2);
+        add_filter('acf/load_value/name=' . $this->post_field_name, [$this, 'filterValueByPostType'], 10, 2);
 
         // Create a schedule for deleting old track events.
         if (!wp_next_scheduled('prior_party_banner_event_cleanup_cron_hook')) {
@@ -123,7 +123,7 @@ class PriorPartyBannerAdmin
     }
 
     /**
-     * Set the default value of the prior_party_banner field to 0 on pages.
+     * Set the default value of the prior_party_banner field to 0 on pages and notes-frm-antonia.
      *
      * The effects of this function can be seen at:
      * - the Prior Party Banners table view
@@ -135,16 +135,16 @@ class PriorPartyBannerAdmin
      *
      * @return bool|null The filtered value of the field.
      */
-    public function filterValueOnPages(bool|null $value, int $post_id): null|bool
+    public function filterValueByPostType(bool|null $value, int $post_id): null|bool
     {
         $post_type = get_post_type($post_id);
 
-        // If we're not dealing with a page, or the value is not 1, do nothing.
-        if ($post_type !== 'page' || $value === false) {
+        // If we're not dealing with a page or note-from-antonia, or the value is not 1, do nothing.
+        if (!in_array($post_type, ['page', 'note-from-antonia']) || $value === false) {
             return $value;
         }
 
-        // Here, we're on a page and the value of the toggle is 1.
+        // Here, we're on a page or note-from-antonia and the value of the toggle is 1.
         // How do we know if that's 1 by default, or if it's been set by the user?
 
         // Get the metadata for the post, directly from the database.
@@ -289,7 +289,7 @@ class PriorPartyBannerAdmin
                     echo '<div class="ppb-post-col ppb-posts__agency">' . implode(' ', $agencies) . '</div>';
                     echo '<div class="ppb-post-col ppb-posts__status" data-status="' . ($status === false ? 'off' : 'on') . '"></div>';
                     echo '</div>';
-                    
+
                     if ($this->review_tracked_events) {
                         // Transform the events' assoc. array into a readable format.
                         $readable_events = isset($events[$post->ID]) ? array_map(
@@ -298,7 +298,7 @@ class PriorPartyBannerAdmin
                         ) : [];
                         // Add an extra full width row if we're reviewing tracked changes.
                         echo '<div class="ppb-posts__row ppb-posts__row--review" >';
-                        foreach($readable_events as $event) {
+                        foreach ($readable_events as $event) {
                             echo $event['text'] . ' at ' . $event['local_date'] . '<br/>';
                         }
                         echo '</div>';
@@ -572,7 +572,6 @@ class PriorPartyBannerAdmin
 
         return $value;
     }
-
 }
 
 new PriorPartyBannerAdmin();
