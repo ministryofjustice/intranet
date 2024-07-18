@@ -140,7 +140,7 @@ class PriorPartyBannerAdmin
         $post_type = get_post_type($post_id);
 
         // If we're not dealing with a page or note-from-antonia, or the value is not 1, do nothing.
-        if ( !in_array($post_type, ['page', 'note-from-antonia']) || $value === false) {
+        if (!in_array($post_type, ['page', 'note-from-antonia']) || $value === false) {
             return $value;
         }
 
@@ -289,7 +289,7 @@ class PriorPartyBannerAdmin
                     echo '<div class="ppb-post-col ppb-posts__agency">' . implode(' ', $agencies) . '</div>';
                     echo '<div class="ppb-post-col ppb-posts__status" data-status="' . ($status === false ? 'off' : 'on') . '"></div>';
                     echo '</div>';
-                    
+
                     if ($this->review_tracked_events) {
                         // Transform the events' assoc. array into a readable format.
                         $readable_events = isset($events[$post->ID]) ? array_map(
@@ -298,7 +298,7 @@ class PriorPartyBannerAdmin
                         ) : [];
                         // Add an extra full width row if we're reviewing tracked changes.
                         echo '<div class="ppb-posts__row ppb-posts__row--review" >';
-                        foreach($readable_events as $event) {
+                        foreach ($readable_events as $event) {
                             echo $event['text'] . ' at ' . $event['local_date'] . '<br/>';
                         }
                         echo '</div>';
@@ -572,7 +572,6 @@ class PriorPartyBannerAdmin
 
         return $value;
     }
-
 }
 
 new PriorPartyBannerAdmin();
