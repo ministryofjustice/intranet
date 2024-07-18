@@ -7,8 +7,8 @@ if (!defined('ABSPATH')) {
 
 $err = $err_name = $err_email = '';
 $success = false;
-$first_name = '';
-$email = '';
+$first_name = ''; // init var
+$email = ''; // init var
 
 $c_register_post_array = $_POST;
 
@@ -16,7 +16,7 @@ global $wpdb, $PasswordHash, $current_user, $user_ID;
 
 if (isset($c_register_post_array['task']) && $c_register_post_array['task'] == 'register') {
     $first_name = esc_sql(trim($c_register_post_array['first_name']));
-    $email = trim(sanitize_text_field($c_register_post_array['email']));
+    $email = sanitize_text_field($c_register_post_array['email']);
     $username = $email;
 
     /**
@@ -80,6 +80,8 @@ if (isset($c_register_post_array['task']) && $c_register_post_array['task'] == '
         }
     }
 }
+
+$email = sanitize_text_field($email);
 
 ?>
 <div class="c-register">
