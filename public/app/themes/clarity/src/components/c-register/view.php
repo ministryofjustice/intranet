@@ -29,22 +29,13 @@ if (isset($c_register_post_array['task']) && $c_register_post_array['task'] == '
     /**
      * Test the given email
      */
-    switch (true) {
-        case $email == '':
-            $err_email = 'Enter an email address';
-            break;
-        case !filter_var($email, FILTER_VALIDATE_EMAIL):
-            $err_email = 'Enter a valid email address';
-            break;
-        case email_exists($email):
-            $err_email = 'This email already exists';
-            break;
-        case !is_gov_email($email):
-            $err_email = 'Enter an MoJ email address';
-            break;
-        default:
-            $err_email = '';
-    }
+    $err_email = match (true) {
+        $email == '' => 'Enter an email address',
+        !filter_var($email, FILTER_VALIDATE_EMAIL) => 'Enter a valid email address',
+        email_exists($email) => 'This email already exists',
+        !is_gov_email($email) => 'Enter an MoJ email address',
+        default => '',
+    };
 
     if ($err_name == '' && $err_email == '') {
         $create_user = wp_insert_user([
