@@ -1,0 +1,20 @@
+name: "Handle Allowed IPs"
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - 'ip-develop'
+
+jobs:
+  handle_allowed_ips:
+    name: "Handle Allowed IPs"
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout"
+        # @see https://github.com/actions/checkout
+        uses: actions/checkout@v4
+        with:
+          repository: 'ministryofjustice/moj-ip-addresses'
+        env:
+          # Maybe ass ssh key for ministryofjustice/moj-ip-addresses.
