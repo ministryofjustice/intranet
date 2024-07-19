@@ -93,7 +93,7 @@ class PriorPartyBannerAdmin
         add_action('admin_menu', [$this, 'editorToolsMenu']);
         add_action('admin_menu', [$this, 'menu']);
         add_action('rest_api_init', [$this, 'actionHandler']);
-        add_filter('acf/load_field_groups', [$this,'hideToggleForNonAdmins'], 30);
+        add_filter('acf/load_field_groups', [$this, 'hideToggleForNonAdmins'], 30);
         add_filter('acf/load_value/name=' . $this->post_field_name, [$this, 'filterValueByPostType'], 10, 2);
         add_filter('acf/update_value/name=' . $this->post_field_name, [$this, 'trackBannerUpdates'], 10, 4);
 
@@ -105,7 +105,7 @@ class PriorPartyBannerAdmin
         add_action('prior_party_banner_event_cleanup_cron_hook', [$this, 'deleteOldTrackEvents']);
 
         // Ensure administrator always has the required capability.
-        if(current_user_can('administrator')) {
+        if (current_user_can('administrator')) {
             $this->required_capability = 'administrator';
         }
 
@@ -146,10 +146,11 @@ class PriorPartyBannerAdmin
      * @return array $groups the filtered field groups
      */
 
-    public function hideToggleForNonAdmins($groups) {
+    public function hideToggleForNonAdmins($groups)
+    {
 
-        if(!current_user_can($this->required_capability)) {
-            $groups = array_filter($groups, fn($group) => $group['key'] !== $this->page_field_group_name);
+        if (!current_user_can($this->required_capability)) {
+            $groups = array_filter($groups, fn ($group) => $group['key'] !== $this->page_field_group_name);
         }
 
         return $groups;
