@@ -39,6 +39,7 @@ $capabilities = array(
     'delete_resource_categories' => true,
     'opt_in_content' => true,
     'unfiltered_html' => true,
+    'manage_prior_party_banners' => true,
 
     // files
     'export' => true,
