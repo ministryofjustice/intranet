@@ -15,19 +15,19 @@ concurrency:
 jobs:
   image:
     name: "Image"
-    if: github.event.ref == 'refs/heads/develop'
+    if: github.event.ref == 'refs/heads/ip-develop'
     uses: ./.github/workflows/build.yml
     secrets: inherit
 
   ips:
     name: "IPs"
-    if: github.event.ref == 'refs/heads/develop'
+    if: github.event.ref == 'refs/heads/ip-develop'
     uses: ./.github/workflows/ips.yml
     secrets: inherit
 
   deploy_dev:
     name: "Development"
-    if: github.event.ref == 'refs/heads/develop'
+    if: github.event.ref == 'refs/heads/ip-develop'
     uses: ./.github/workflows/deploy.yml
     needs: [image, ips]
     with:
