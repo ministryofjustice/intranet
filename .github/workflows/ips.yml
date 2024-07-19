@@ -39,4 +39,4 @@ jobs:
           echo 'Test2'
           IPS="${{ steps.parseIps.outputs.ips }}"
           echo ::add-mask::$IPS
-          echo ${{ steps.parseIps.outputs.ips }}
+          echo $IPS
