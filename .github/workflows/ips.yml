@@ -37,5 +37,5 @@ jobs:
           size=${#IPS}
           echo $size
         env:
-          IPS: ${{ needs.parseIps.outputs.ips }}
+          IPS: ${{ steps.parseIps.outputs.ips }}
             
