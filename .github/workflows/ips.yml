@@ -10,6 +10,8 @@ jobs:
   handle_allowed_ips:
     name: "Handle Allowed IPs"
     runs-on: ubuntu-latest
+    outputs:
+      ips: ${{ steps.parseIps.outputs.ips }}
     steps:
       - name: "Checkout"
         # @see https://github.com/actions/checkout
@@ -25,4 +27,10 @@ jobs:
         id: parseIps
         uses: mikefarah/yq@master
         with:
-          cmd: "yq 'explode(.) | {\"deprecating\": .deprecating_access_to_moj_intranet | flatten, \"allow\": .allow_access_to_moj_intranet | flatten }' -o json deploy/config/example-moj-ips.yaml"
+          cmd: |
+            IPS=$((yq 'explode(.) | {"deprecating": .deprecating_access_to_moj_intranet | flatten, "allow": .allow_access_to_moj_intranet | flatten }' -o json deploy/config/example-moj-ips.yaml))
+            echo "::add-mask::$IPS"
+            echo "ips=$IPS" >> "$GITHUB_OUTPUT"
+          # cmd: "IPS=$(yq 'explode(.) | {"deprecating": .deprecating_access_to_moj_intranet | flatten, "allow": .allow_access_to_moj_intranet | flatten }' -o json deploy/config/example-moj-ips.yaml)"
+      - name: Reuse a variable obtained in another step
+        run: echo ${{ steps.parseIps.outputs.result }}
