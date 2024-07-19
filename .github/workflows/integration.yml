@@ -13,11 +13,11 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  # image:
-  #   name: "Image"
-  #   if: github.event.ref == 'refs/heads/ip-develop'
-  #   uses: ./.github/workflows/build.yml
-  #   secrets: inherit
+  image:
+    name: "Image"
+    if: github.event.ref == 'refs/heads/ip-develop'
+    uses: ./.github/workflows/build.yml
+    secrets: inherit
 
   ips:
     name: "IPs"
