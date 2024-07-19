@@ -10,7 +10,7 @@ on:
         required: true
         type: string
       ips:
-        required: false
+        required: true
         type: string
 
 jobs:
