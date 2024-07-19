@@ -66,6 +66,16 @@ class PriorPartyBannerAdmin
     private int|null $review_tracked_events_to = null;
 
     /**
+     * @var string required capability to access the menu page and edit banner state.
+     */
+    private string $required_capability = 'manage_prior_party_banners';
+
+    /**
+     * @var string defines the name of the ACF field group where the on/off toggle is
+     */
+    private string $page_field_group_name = 'group_667d8a0f642b5';
+
+    /**
      * @var string normalised date format
      */
     private string $date_format = 'l jS \o\f F, Y';
@@ -83,8 +93,9 @@ class PriorPartyBannerAdmin
         add_action('admin_menu', [$this, 'editorToolsMenu']);
         add_action('admin_menu', [$this, 'menu']);
         add_action('rest_api_init', [$this, 'actionHandler']);
-        add_filter('acf/update_value/name=' . $this->post_field_name, [$this, 'trackBannerUpdates'], 10, 4);
+        add_filter('acf/load_field_groups', [$this, 'hideToggleForNonAdmins'], 30);
         add_filter('acf/load_value/name=' . $this->post_field_name, [$this, 'filterValueByPostType'], 10, 2);
+        add_filter('acf/update_value/name=' . $this->post_field_name, [$this, 'trackBannerUpdates'], 10, 4);
 
         // Create a schedule for deleting old track events.
         if (!wp_next_scheduled('prior_party_banner_event_cleanup_cron_hook')) {
@@ -92,6 +103,11 @@ class PriorPartyBannerAdmin
         }
         // Add the delete action to the schedule.
         add_action('prior_party_banner_event_cleanup_cron_hook', [$this, 'deleteOldTrackEvents']);
+
+        // Ensure administrator always has the required capability.
+        if (current_user_can('administrator')) {
+            $this->required_capability = 'administrator';
+        }
 
         /**
          * Don't load view code until needed
@@ -120,6 +136,24 @@ class PriorPartyBannerAdmin
             $this->review_tracked_events_from = (int)$_GET['events_from'] ?? null;
             $this->review_tracked_events_to = (int)$_GET['events_to'] ?? null;
         }
+    }
+
+    /**
+     * Conditionally hide the show banner toggle on edit post screens.
+     * 
+     * @param array $groups the field groups
+     * 
+     * @return array $groups the filtered field groups
+     */
+
+    public function hideToggleForNonAdmins($groups)
+    {
+
+        if (!current_user_can($this->required_capability)) {
+            $groups = array_filter($groups, fn ($group) => $group['key'] !== $this->page_field_group_name);
+        }
+
+        return $groups;
     }
 
     /**
@@ -450,8 +484,7 @@ class PriorPartyBannerAdmin
         add_menu_page(
             'Editor Tools',
             'Editor Tools',
-            // Enable the menu for capabilities: `administrator` or `create_posts`.
-            current_user_can('administrator') ? 'administrator' : 'create_posts',
+            $this->required_capability,
             'editor-tools',
             [$this, 'editorToolsPage'],
             'dashicons-admin-tools',
@@ -476,8 +509,7 @@ class PriorPartyBannerAdmin
             'editor-tools',
             $title,
             $title,
-            // Enable the menu for capabilities: `administrator` or `create_posts`.
-            current_user_can('administrator') ? 'administrator' : 'create_posts',
+            $this->required_capability,
             $this->menu_slug,
             [$this, 'page'],
             8
