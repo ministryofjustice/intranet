@@ -17,4 +17,7 @@ jobs:
         with:
           repository: 'ministryofjustice/moj-ip-addresses'
           ref: 'main'
+          # This is a fine grained PAT, it's scoped to the moj-ip private repository 
+          # with the single permission: Content: Read-only.
+          # The token is pending approval: https://github.com/settings/personal-access-tokens/3669004
           token: ${{ secrets.MOJ_IP_ADDRESSES_RO_PAT }}
