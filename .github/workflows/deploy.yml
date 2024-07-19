@@ -26,6 +26,7 @@ jobs:
         env:
           TPL_PATH: "deploy/${{ inputs.environment }}"
           ECR_URL: ${{ inputs.registry }}/${{ vars.ECR_REPOSITORY }}
+          IPS: ${{ inputs.ips }}
           IMAGE_TAG_NGINX: "nginx-${{ github.sha }}"
           IMAGE_TAG_FPM: "fpm-${{ github.sha }}"
           IMAGE_TAG_CRON: "cron-${{ github.sha }}"

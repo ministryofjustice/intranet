@@ -1,10 +1,17 @@
 name: "Handle Allowed IPs"
 
+# on:
+#   workflow_dispatch:
+#   push:
+#     branches:
+#       - 'ip-develop'
+  
 on:
-  workflow_dispatch:
-  push:
-    branches:
-      - 'ip-develop'
+  workflow_call:
+    outputs:
+      registry:
+        description: "Allowed IPs"
+        value: ${{ jobs.handle_allowed_ips.outputs.ips }}
 
 jobs:
   handle_allowed_ips:
@@ -31,12 +38,3 @@ jobs:
             IPS=$(yq 'explode(.) | {"deprecating": .deprecating_access_to_moj_intranet | flatten, "allow": .allow_access_to_moj_intranet | flatten }' -o json -I=0 deploy/config/example-moj-ips.yaml)
             echo ::add-mask::$IPS
             echo "ips=$IPS" >> $GITHUB_OUTPUT
-      - name: Reuse a variable obtained in another step
-        run: | 
-          echo ::add-mask::$IPS
-          echo $IPS
-          size=${#IPS}
-          echo $size
-        with:
-          IPS: ${{ steps.parseIps.outputs.ips }}
-            
