@@ -16,5 +16,5 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: 'ministryofjustice/moj-ip-addresses'
-        env:
+        # env:
           # Maybe ass ssh key for ministryofjustice/moj-ip-addresses.
