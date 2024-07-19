@@ -11,8 +11,7 @@ on:
     outputs:
       registry:
         description: "Allowed IPs"
-        value: test
-        # value: ${{ jobs.handle_allowed_ips.outputs.ips }}
+        value: ${{ jobs.handle_allowed_ips.outputs.ips }}
 
 jobs:
   handle_allowed_ips:

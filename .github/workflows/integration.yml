@@ -25,15 +25,15 @@ jobs:
     uses: ./.github/workflows/ips.yml
     secrets: inherit
 
-  # deploy_dev:
-  #   name: "Development"
-  #   if: github.event.ref == 'refs/heads/ip-develop'
-  #   uses: ./.github/workflows/deploy.yml
-  #   needs: [image, ips]
-  #   with:
-  #     environment: development
-  #     registry: ${{ needs.image.outputs.registry }}
-  #     ips: test
-  #   secrets: inherit
+  deploy_dev:
+    name: "Development"
+    if: github.event.ref == 'refs/heads/ip-develop'
+    uses: ./.github/workflows/deploy.yml
+    needs: [image, ips]
+    with:
+      environment: development
+      registry: ${{ needs.image.outputs.registry }}
+      ips: ${{ needs.ips.outputs.ips }}
+    secrets: inherit
 
 

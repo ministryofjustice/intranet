@@ -29,7 +29,6 @@ jobs:
         env:
           TPL_PATH: "deploy/${{ inputs.environment }}"
           ECR_URL: ${{ inputs.registry }}/${{ vars.ECR_REPOSITORY }}
-          IPS: ${{ inputs.ips }}
           IMAGE_TAG_NGINX: "nginx-${{ github.sha }}"
           IMAGE_TAG_FPM: "fpm-${{ github.sha }}"
           IMAGE_TAG_CRON: "cron-${{ github.sha }}"
@@ -51,6 +50,7 @@ jobs:
           # AWS_CLOUDFRONT_PUBLIC_KEY_EXPIRING: "${{ secrets.AWS_CLOUDFRONT_PUBLIC_KEY_B }}"
           BASIC_AUTH_USER: ${{ secrets.BASIC_AUTH_USER }}
           BASIC_AUTH_PASS: ${{ secrets.BASIC_AUTH_PASS }}
+          IPS: ${{ inputs.ips }}
         run: |
           export AWS_CLOUDFRONT_PUBLIC_KEY_BASE64=$(echo -n "$AWS_CLOUDFRONT_PUBLIC_KEY" | base64 -w 0)
           export AWS_CLOUDFRONT_PRIVATE_KEY_BASE64=$(echo -n "$AWS_CLOUDFRONT_PRIVATE_KEY" | base64 -w 0)
