@@ -9,7 +9,7 @@ name: "Handle Allowed IPs"
 on:
   workflow_call:
     outputs:
-      registry:
+      ips:
         description: "Allowed IPs"
         value: ${{ jobs.handle_allowed_ips.outputs.ips }}
 
