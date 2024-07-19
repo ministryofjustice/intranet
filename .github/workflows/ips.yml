@@ -17,5 +17,4 @@ jobs:
         with:
           repository: 'ministryofjustice/moj-ip-addresses'
           ref: 'main'
-        # env:
-          # Maybe ass ssh key for ministryofjustice/moj-ip-addresses.
+          token: ${{ secrets.MOJ_IP_ADDRESSES_RO_PAT }}
