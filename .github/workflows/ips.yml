@@ -30,7 +30,8 @@ jobs:
           cmd: |
             IPS=$(yq 'explode(.) | {"deprecating": .deprecating_access_to_moj_intranet | flatten, "allow": .allow_access_to_moj_intranet | flatten }' -o json deploy/config/example-moj-ips.yaml)
             echo ::add-mask::$IPS
-            echo ::set-output name=ips::$IPS
+            # echo ::set-output name=ips::$IPS # deprecated
+            echo "ips=$IPS" >> "$GITHUB_OUTPUT"
           # cmd: "IPS=$(yq 'explode(.) | {"deprecating": .deprecating_access_to_moj_intranet | flatten, "allow": .allow_access_to_moj_intranet | flatten }' -o json deploy/config/example-moj-ips.yaml)"
       - name: Reuse a variable obtained in another step
         run: echo ${{ steps.parseIps.outputs.ips }}
