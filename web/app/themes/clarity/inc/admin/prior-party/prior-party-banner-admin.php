@@ -68,7 +68,7 @@ class PriorPartyBannerAdmin
     /**
      * @var string required capability to access the menu page and edit banner state.
      */
-    private string $required_capability = 'manage_prior_party_banners';
+    private string $required_capability = '';
 
     /**
      * @var string defines the name of the ACF field group where the on/off toggle is
@@ -104,10 +104,9 @@ class PriorPartyBannerAdmin
         // Add the delete action to the schedule.
         add_action('prior_party_banner_event_cleanup_cron_hook', [$this, 'deleteOldTrackEvents']);
 
-        // Ensure administrator always has the required capability.
-        if (current_user_can('administrator')) {
-            $this->required_capability = 'administrator';
-        }
+        // Set the capability to `manage_prior_party_banners`. Or if administrator, set it to `administrator`.
+        // This ensures admins always have access, even without the `manage_prior_party_banners` capability.
+        $this->required_capability = current_user_can('administrator') ? 'administrator' : 'manage_prior_party_banners';
 
         /**
          * Don't load view code until needed
