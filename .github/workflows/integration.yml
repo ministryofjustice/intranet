@@ -13,11 +13,11 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  image:
-    name: "Image"
-    if: github.event.ref == 'refs/heads/ip-develop'
-    uses: ./.github/workflows/build.yml
-    secrets: inherit
+  # image:
+  #   name: "Image"
+  #   if: github.event.ref == 'refs/heads/ip-develop'
+  #   uses: ./.github/workflows/build.yml
+  #   secrets: inherit
 
   ips:
     name: "IPs"
@@ -25,44 +25,15 @@ jobs:
     uses: ./.github/workflows/ips.yml
     secrets: inherit
 
-  deploy_dev:
-    name: "Development"
-    if: github.event.ref == 'refs/heads/ip-develop'
-    uses: ./.github/workflows/deploy.yml
-    needs: [image, ips]
-    with:
-      environment: development
-      registry: ${{ needs.image.outputs.registry }}
-      ips: test
-    secrets: inherit
+  # deploy_dev:
+  #   name: "Development"
+  #   if: github.event.ref == 'refs/heads/ip-develop'
+  #   uses: ./.github/workflows/deploy.yml
+  #   needs: [image, ips]
+  #   with:
+  #     environment: development
+  #     registry: ${{ needs.image.outputs.registry }}
+  #     ips: test
+  #   secrets: inherit
 
-  deploy_staging:
-    name: "Staging"
-    needs: [image, deploy_dev]
-    if: github.event.ref == 'refs/heads/develop'
-    uses: ./.github/workflows/deploy.yml
-    with:
-      environment: staging
-      registry: ${{ needs.image.outputs.registry }}
-    secrets: inherit
-
-  deploy_demo:
-    name: "Demo"
-    needs: [image, deploy_dev]
-    if: github.event.ref == 'refs/heads/develop'
-    uses: ./.github/workflows/deploy.yml
-    with:
-      environment: demo
-      registry: ${{ needs.image.outputs.registry }}
-    secrets: inherit
-
-  deploy_production:
-    name: "Production"
-    needs: [image, deploy_staging]
-    if: github.event.ref == 'refs/heads/develop'
-    uses: ./.github/workflows/deploy.yml
-    with:
-      environment: production
-      registry: ${{ needs.image.outputs.registry }}
-    secrets: inherit
 
