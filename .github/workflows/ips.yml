@@ -33,6 +33,7 @@ jobs:
             echo "ips=$IPS" >> $GITHUB_OUTPUT
       - name: Reuse a variable obtained in another step
         run: | 
+          echo ::add-mask::$IPS
           echo $IPS
           size=${#IPS}
           echo $size
