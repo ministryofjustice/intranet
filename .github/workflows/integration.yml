@@ -33,7 +33,7 @@ jobs:
     with:
       environment: development
       registry: ${{ needs.image.outputs.registry }}
-      ips: ${{ needs.ips.outputs.ips }}
+      ips: test
     secrets: inherit
 
   deploy_staging:
