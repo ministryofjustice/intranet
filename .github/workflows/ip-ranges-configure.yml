@@ -9,7 +9,7 @@ on:
 
 jobs:
   get_ip_ranges:
-    name: "Get IPs from moj-ip-addresses"
+    name: "Build"
     runs-on: ubuntu-latest
     outputs:
       ip_ranges: ${{ steps.get-ips.outputs.ip_ranges }}
