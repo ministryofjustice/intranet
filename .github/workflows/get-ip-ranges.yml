@@ -18,8 +18,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: 'ministryofjustice/moj-ip-addresses'
-          # ref: 'main'
-          ref: 'merge-cognito-rules-patch-1'
+          ref: 'main'
           # This is a fine grained PAT, it's scoped to the moj-ip private repository 
           # with the single permission: Content: Read-only.
           # The token is pending approval: https://github.com/settings/personal-access-tokens/3669004
