@@ -1,40 +1,33 @@
-name: "Handle Allowed IPs"
+name: "Get IP ranges"
 
-# on:
-#   workflow_dispatch:
-#   push:
-#     branches:
-#       - 'ip-develop'
-  
 on:
   workflow_call:
     outputs:
       ips:
         description: "Allowed IPs"
-        value: ${{ jobs.handle_allowed_ips.outputs.ips }}
+        value: ${{ jobs.get_ip_ranges.outputs.ip_ranges }}
 
 jobs:
-  handle_allowed_ips:
-    name: "Handle Allowed IPs"
+  get_ip_ranges:
+    name: "Get IPs from moj-ip-addresses"
     runs-on: ubuntu-latest
     outputs:
-      ips: ${{ steps.parseIps.outputs.ips }}
+      ips: ${{ steps.get-ips.outputs.ips }}
     steps:
       - name: "Checkout"
-        # @see https://github.com/actions/checkout
         uses: actions/checkout@v4
-        # with:
-          # repository: 'ministryofjustice/moj-ip-addresses'
+        with:
+          repository: 'ministryofjustice/moj-ip-addresses'
           # ref: 'main'
-          # # This is a fine grained PAT, it's scoped to the moj-ip private repository 
-          # # with the single permission: Content: Read-only.
-          # # The token is pending approval: https://github.com/settings/personal-access-tokens/3669004
-          # token: ${{ secrets.MOJ_IP_ADDRESSES_RO_PAT }}
-      - name: "Parse IPs"
-        id: parseIps
+          ref: 'merge-cognito-rules-patch-1'
+          # This is a fine grained PAT, it's scoped to the moj-ip private repository 
+          # with the single permission: Content: Read-only.
+          # The token is pending approval: https://github.com/settings/personal-access-tokens/3669004
+          token: ${{ secrets.MOJ_IP_ADDRESSES_RO_PAT }}
+      - name: "Get & format IPs"
+        id: get-ips
         uses: mikefarah/yq@master
         with:
           cmd: |
-            IPS=$(yq 'explode(.) | {"deprecating": .deprecating_access_to_moj_intranet | flatten, "allow": .allow_access_to_moj_intranet | flatten }' -o json -I=0 deploy/config/example-moj-ips.yaml)
-            echo ::add-mask::$IPS
-            echo "ips=$IPS" >> $GITHUB_OUTPUT
+            IP_RANGES=$(yq 'explode(.) | {"deprecating": .deprecating_access_to_moj_intranet | flatten, "allow": .allow_access_to_moj_intranet | flatten }' -o json -I=0 deploy/config/example-moj-ips.yaml)
+            echo "ip_ranges=$IP_RANGES" >> $GITHUB_OUTPUT
