@@ -87,32 +87,6 @@
                 "operator": "==",
                 "value": "note-from-antonia"
             }
-        ],
-        [
-            {
-                "param": "post_type",
-                "operator": "==",
-                "value": "regional_news"
-            }
-        ],
-        [
-            {
-                "param": "post_type",
-                "operator": "==",
-                "value": "regional_page"
-            }
-        ],
-        [
-            {
-                "param": "post_type",
-                "operator": "==",
-                "value": "team_pages"
-            },
-            {
-                "param": "post_template",
-                "operator": "!=",
-                "value": "page_team_homepage.php"
-            }
         ]
     ],
     "menu_order": 10,
@@ -124,5 +98,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1720173662
+    "modified": 1721654995
 }
