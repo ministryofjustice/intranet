@@ -12,7 +12,7 @@ jobs:
     name: "Get IPs from moj-ip-addresses"
     runs-on: ubuntu-latest
     outputs:
-      ips: ${{ steps.get-ips.outputs.ips }}
+      ip_ranges: ${{ steps.get-ips.outputs.ip_ranges }}
     steps:
       - name: "Checkout"
         uses: actions/checkout@v4
