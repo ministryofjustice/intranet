@@ -23,21 +23,16 @@ if ($team_blog_posts && $team_blog_posts !== 0) {
             <article class="c-article-item js-article-item">
 
             <?php if ($thumbnail) : ?>
-                <a href="<?php echo esc_url(get_permalink($id)); ?>">
+                <a href="<?= esc_url(get_permalink($id)) ?>">
                     <img src="
-                    <?php echo esc_url($thumbnail); ?> " alt="<?php echo $thumbnail_alt; ?>">
+                    <?= esc_url($thumbnail) ?> " alt="<?= $thumbnail_alt ?>">
                   </a>
 
               <div class="text-align">
 
             <?php elseif (! empty($authors[0]['thumbnail_url'])) : ?>
-                <a href="<?php echo esc_url(get_permalink($id)); ?>">
-                  <img src="
-                  <?php
-                    // If no feature image then show guest author image. .
-                    echo $authors[0]['thumbnail_url'];
-                    ?>
-                " alt="<?php echo $authors[0]['thumbnail_alt_text']; ?>">
+                <a href="<?= esc_url(get_permalink($id)) ?>">
+                  <img src="<?= $authors[0]['thumbnail_url'] ?>" alt="<?= $authors[0]['thumbnail_alt_text'] ?>">
                 </a>
 
               <div class="text-align">
@@ -50,14 +45,14 @@ if ($team_blog_posts && $team_blog_posts !== 0) {
             <?php endif; ?>
 
                 <h1>
-                  <a href="<?php echo esc_url(get_permalink($id)); ?>">
-                    <?php echo get_the_title($id); ?>
-                </a>
+                  <a href="<?= esc_url(get_permalink($id)) ?>">
+                    <?= get_the_title($id) ?>
+                  </a>
                 </h1>
 
                 <div class="meta">
                   <span class="c-article-item__dateline">
-                    <?php echo get_the_time('j M Y', $id); ?>
+                    <?= get_the_time('j M Y', $id) ?>
                 </span>
                 </div>
 

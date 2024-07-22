@@ -42,14 +42,12 @@ $comment_title = 'Comments';
 
 <?php
 if (comments_open($post_id) === true && $comments_disabled === 'comments_disabled') {
-    ?>
-
-    <?php if (! get_comments_number()) : // Check in case comments gets switched on without any comments added. ?>
-      <h1 class="o-title o-title--subtitle"><?php echo $comment_title; ?></h1>
+    if (! get_comments_number()) : // Check in case comments gets switched on without any comments added. ?>
+      <h1 class="o-title o-title--subtitle"><?= $comment_title ?></h1>
       <h3>No comments have been left and comments have now been closed.</h3>
 
     <?php else : ?>
-      <h1 class="o-title o-title--subtitle"><?php echo $comment_title; ?></h1>
+      <h1 class="o-title o-title--subtitle"><?= $comment_title ?></h1>
       <ul class="commentlist">
       <p><span class="u-message u-message--warning">Comments are now closed</span></p>
         <?php
@@ -65,19 +63,21 @@ if (comments_open($post_id) === true && $comments_disabled === 'comments_disable
         );
         ?>
       </ul>
-    <?php endif; ?>
-    <?php
-} elseif (comments_open($post_id) === true || $post_comment_status === 'open' && $comments_disabled === '0') {
+    <?php endif;
+        } elseif (comments_open($post_id) === true || $post_comment_status === 'open' && $comments_disabled === '0') {
+
+        if (! get_comments_number()) : // Check in case comments gets switched on without any comments added.
+            get_template_part('src/components/c-comment-form/view');
     ?>
-    <?php if (! get_comments_number()) : // Check in case comments gets switched on without any comments added. ?>
-        <?php get_template_part('src/components/c-comment-form/view'); ?>
-    <!-- <h1 class="o-title o-title--subtitle"><?php echo $comment_title; ?></h1> -->
+
+    <!-- <h1 class="o-title o-title--subtitle"><?= $comment_title ?></h1> -->
     <!-- <h3>Leave a comment</h3> -->
 
-    <?php else : ?>
-        <?php get_template_part('src/components/c-comment-form/view'); ?>
+    <?php else :
+        get_template_part('src/components/c-comment-form/view');
+    ?>
 
-    <h1 class="o-title o-title--subtitle"><?php echo $comment_title; ?></h1>
+    <h1 class="o-title o-title--subtitle"><?= $comment_title ?></h1>
     <ul class="commentlist">
         <?php
         wp_list_comments(
@@ -92,20 +92,12 @@ if (comments_open($post_id) === true && $comments_disabled === 'comments_disable
         );
         ?>
     </ul>
-    <?php endif; ?>
-    <?php
-} elseif (! comments_open($post_id) && $comments_disabled === '0') {
-    ?>
-    <?php echo ''; ?>
-    <?php
-} elseif (! comments_open($post_id) && $comments_disabled === 'comments_disabled') {
-    ?>
-    <?php echo ''; ?>
-    <?php
-} else {
-    ?>
-    <?php echo '<!-- Comment settings have not yet been set on this page. -->'; ?>
-    <?php
+    <?php endif;
+
+    } elseif ((! comments_open($post_id) && $comments_disabled === '0') || $comments_disabled === 'comments_disabled') {
+        echo '';
+    } else {
+        echo '<!-- Comment settings have not yet been set on this page. -->';
 }
 ?>
 

@@ -8,7 +8,7 @@ if (! defined('ABSPATH')) {
 <!-- c-news-article starts here -->
 <article class="c-news-article l-main">
 
-    <h1 class="o-title o-title--headline"><?php echo get_the_title(); ?></h1>
+    <h1 class="o-title o-title--headline"><?= get_the_title() ?></h1>
     <?php get_template_part('src/components/c-article-byline/view', 'news'); ?>
     <?php get_template_part('src/components/c-article-featured-image/view', 'news'); ?>
     <?php

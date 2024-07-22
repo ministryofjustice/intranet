@@ -1,8 +1,8 @@
 <section class="c-quotes">
   <div class="quote_text">
-    <p><?php echo $quote_text; ?></p>
+    <p><?= $quote_text ?></p>
   </div>
   <div class="quote_author">
-    <p><?php echo $quote_author; ?></p>
+    <p><?= $quote_author ?></p>
   </div>
 </section>

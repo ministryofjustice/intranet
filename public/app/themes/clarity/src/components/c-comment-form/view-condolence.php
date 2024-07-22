@@ -41,7 +41,7 @@ if (isset($post_meta['comment_disabled_status'][0])) {
     <?php
     if (is_user_logged_in()) { ?>
         <p>
-            Your email address and message will be shared with the author and Intranet Editors. See the <a href="<?php echo get_bloginfo('url'); ?>/privacy-notice/">Intranet Privacy Policy</a> for more information.
+            Your email address and message will be shared with the author and Intranet Editors. See the <a href="<?= get_bloginfo('url') ?>/privacy-notice/">Intranet Privacy Policy</a> for more information.
         </p>
         <?php
         // Display comment section - login and comment box text field

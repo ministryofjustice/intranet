@@ -18,20 +18,18 @@ if (!empty($banner_type)) {
 
 <?php if ($enable_banner == true) { ?>
     <!-- c-agency-wide-banner starts here -->
-    <section class="c-agency-wide-banner <?php echo $banner_type_class; ?>">
+    <section class="c-agency-wide-banner <?= $banner_type_class; ?>">
         <?php if (!empty($banner_title)) { ?>
-            <h2><?php echo $banner_title; ?></h2>
-        <?php } ?>
-
-        <?php if (!empty($banner_message)) { ?>
+            <h2><?= $banner_title ?></h2>
+        <?php }
+            if (!empty($banner_message)) { ?>
             <div class="c-agency-wide-banner__content">
-                <?php echo $banner_message; ?>
+                <?= $banner_message ?>
             </div>
-        <?php } ?>
-
-        <?php if (!empty($banner_link)) {?>
+        <?php }
+            if (!empty($banner_link)) {?>
             <div class="banner-link">
-                <a href="<?php echo $banner_link['url']; ?>" target="<?php echo $banner_link['target']; ?>"><?php echo $banner_link['title']; ?></a>
+                <a href="<?= $banner_link['url'] ?>" target="<?= $banner_link['target'] ?>"><?= $banner_link['title'] ?></a>
             </div>
         <?php } ?>
 

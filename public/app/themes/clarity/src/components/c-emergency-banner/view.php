@@ -9,15 +9,15 @@ $notification_title   = get_field($agency . '_notification_title', 'option');
 $notification_date    = get_field($agency . '_notification_date', 'option');
 $notification_message = get_field($agency . '_notification_message', 'option');
 ?>
-<?php if ($enable_notification == true) : ?>
+<?php if ($enable_notification) : ?>
   <!-- c-emergency-banner starts here -->
-  <section class="c-emergency-banner c-emergency-banner--<?php echo $notification_type; ?>">
+  <section class="c-emergency-banner c-emergency-banner--<?= $notification_type ?>">
     <div class="c-emergency-banner__meta">
-    <time datetime="<?php echo $notification_date; ?>"><?php echo $notification_date; ?></time>
-      <h1><?php echo $notification_title; ?></h1>
+    <time datetime="<?= $notification_date; ?>"><?= $notification_date ?></time>
+      <h1><?= $notification_title ?></h1>
     </div>
     <div class="c-emergency-banner__content ie_content">
-      <?php echo $notification_message; ?>
+      <?= $notification_message ?>
     </div>
   </section>
   <!-- c-emergency-banner ends here -->

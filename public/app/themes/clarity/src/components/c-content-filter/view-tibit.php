@@ -16,16 +16,16 @@ $oAgency        = new Agency();
 <?php $prefix = 'ff'; ?>
 <section class="c-content-filter">
   <p>The results will update automatically based on your selections.</p>
-  <form action="" id="<?php echo $prefix; ?>" action="post" data-page="0">
+  <form action="" id="<?= $prefix ?>" action="post" data-page="0">
     <fieldset>
       <legend><p>Search upcoming regional events</p></legend>  
       <div class="c-input-container c-input-container--select">
         <label for="ff_date_filter">Date</label>
         <select name="ff_date_filter" id="ff_date_filter" >
-          <option value=""><?php echo esc_attr(__('All')); ?></option>
+          <option value=""><?= esc_attr(__('All')); ?></option>
           <?php
             wp_get_archives($archives_args);
-            ?>
+          ?>
         </select>
       </div>
       <?php
@@ -35,7 +35,7 @@ $oAgency        = new Agency();
 
         // Hidden field to pass nonce for improved security
         form_builder('hidden', '', false, '_nonce', '_search_filter_wpnonce', $nonce, null, null, false, null, null);
-        ?>
+      ?>
       <div class="c-input-container">
         <label for="ff_categories_filter">Categories    </label>
         <div class="c-input-box">

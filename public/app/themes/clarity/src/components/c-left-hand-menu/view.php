@@ -45,7 +45,7 @@ endif;
 <nav class="c-left-hand-menu js-left-hand-menu">
 
   <div class="c-left-hand-menu__step_back">
-        <?php echo get_the_title($post->ID); ?>
+        <?= get_the_title($post->ID) ?>
   </div>
   <ul><?php wp_list_pages($page_args); ?></ul>
 </nav>

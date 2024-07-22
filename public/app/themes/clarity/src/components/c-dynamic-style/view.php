@@ -8,18 +8,18 @@
 .page-template-page_campaign .l-main .c-rich-text-block h4 strong,
 .page-template-page_campaign .l-main .c-rich-text-block h5 strong,
 .page-template-page_campaign .l-main .c-rich-text-block h6 strong {
-  color: <?php echo $campaign_colour; ?>;
+  color: <?= $campaign_colour ?>;
 }
 
 .page-template-page_campaign .l-main .c-rich-text-block hr {
   display: inline-block;
   width: 100%;
   margin: 10px 0 0;
-  border: 1px solid <?php echo $campaign_colour; ?>;
+  border: 1px solid <?= $campaign_colour ?>;
 }
 
 .l-main .c-rich-text-block .example {
-  border-left-color: <?php echo $campaign_colour; ?>;
+  border-left-color: <?= $campaign_colour ?>;
 }
 </style>
 <!-- c-dynamic-style ends here -->

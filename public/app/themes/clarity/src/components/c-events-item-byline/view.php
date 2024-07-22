@@ -16,9 +16,9 @@ if (! defined('ABSPATH')) {
         if (isset($start_time) || isset($end_time)) {
             // If start date and end date selected are the same, just display first date.
             if ($start_time === $end_time) {
-                $time = substr($start_time, 0, 5);
+              $time = substr($start_time, 0, 5);
             } else {
-                $time = substr($start_time, 0, 5) . ' - ' . substr($end_time, 0, 5);
+              $time = substr($start_time, 0, 5) . ' - ' . substr($end_time, 0, 5);
             }
         } else {
             $time = '';
@@ -31,15 +31,15 @@ if (! defined('ABSPATH')) {
 
     <div class="c-events-item-byline__time">
       <span>Time:</span>
-      <time datetime='<?php echo $datetime;?>'>
-        <?php echo $time; ?>
+      <time datetime='<?= $datetime ?>'>
+        <?= $time ?>
       </time>
     </div>
 
     <?php if (isset($location)) : ?>
       <div class="c-events-item-byline__location">
         <span>Location:</span>
-        <address><?php echo $location; ?></address>
+        <address><?= $location ?></address>
       </div>
 
     <?php endif; ?>

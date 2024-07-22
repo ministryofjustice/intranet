@@ -9,10 +9,10 @@
 
 <article class="c-news-article-item">
 
-  <a href="<?php echo esc_url(get_permalink($id)); ?>" class="c-news-article-item--thumbnail">
-    <?php the_post_thumbnail('feature-thumbnail', 'alt'); ?>
+  <a href="<?= esc_url(get_permalink($id)) ?>" class="c-news-article-item--thumbnail">
+    <?php the_post_thumbnail('feature-thumbnail', 'alt' ); ?>
     <h2 class="c-news-article-item--title">
-      <?php echo get_the_title($id); ?>
+      <?= get_the_title($id) ?>
     </h2>
   </a>
 
@@ -25,7 +25,7 @@
     </div>
 
     <div class="c-news-article-item__excerpt">
-      <p><?php echo get_the_excerpt($id); ?></p>
+      <p><?= get_the_excerpt($id) ?></p>
     </div>
   </div>
 

@@ -19,13 +19,13 @@ if (have_posts()) :
 <section class="c-article-byline">
 
         <?php if ($authors[0]['thumbnail_url']) : ?>
-    <img class="c-article-byline__photo" src="<?php echo esc_url($authors[0]['thumbnail_url']); ?>" alt >
+    <img class="c-article-byline__photo" src="<?= esc_url($authors[0]['thumbnail_url']) ?>" alt >
 
         <?php endif; ?>
     
-    <span class="c-article-byline__intro"><strong><?php echo esc_attr($authors[0]['name']); ?></strong></span>
-    <span class="c-article-byline__job"><?php echo esc_attr($authors[0]['job_title']); ?></span>
-    <span class="c-article-byline__date"><?php the_date('d F Y'); ?></span>
+    <span class="c-article-byline__intro"><strong><?= esc_attr($authors[0]['name']) ?></strong></span>
+    <span class="c-article-byline__job"><?= esc_attr($authors[0]['job_title']) ?></span>
+    <span class="c-article-byline__date"><?php the_date('d F Y') ?></span>
 
 </section>
 <!-- c-article-byline ends here -->

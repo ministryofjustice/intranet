@@ -7,7 +7,7 @@ $thumbnail      = wp_get_attachment_image_src($thumbnail_id, $thumbnail_type);
 $alt_text       = get_post_meta($thumbnail_id, '_wp_attachment_image_alt', true);
 
 $thumbnail_url = "";
-if (isset($thumbnail)) {
+if (is_array($thumbnail)) {
     $thumbnail_url = $thumbnail[0];
 }
 

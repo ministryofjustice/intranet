@@ -48,10 +48,10 @@ if ($event) :
         }
         ?>
 
-  <h1><a href="<?php echo $post_url; ?>"><?php echo $event_title['rendered']; ?></a></h1>
+  <h1><a href="<?= $post_url ?>"><?= $event_title['rendered'] ?></a></h1>
 
-  <div class="c-event-listing--date" datetime="<?php echo $start_date; ?>">
-    <h2>Date:</h2><?php echo $day . ' ' . $multidate . ' ' . $year; ?>
+  <div class="c-event-listing--date" datetime="<?= $start_date ?>">
+    <h2>Date:</h2><?= $day . ' ' . $multidate . ' ' . $year ?>
   </div>
 
   <article class="c-events-item-byline__team">
@@ -70,12 +70,12 @@ if ($event) :
         ?>
 
       <div class="c-event-listing--time">
-        <h2>Time:</h2><?php echo $time; ?>
+        <h2>Time:</h2><?= $time ?>
       </div>
 
         <?php if (isset($location)) : ?>
         <div class="c-event-listing--location">
-          <h2>Location:</h2><address><?php echo $location; ?></address>
+          <h2>Location:</h2><address><?= $location ?></address>
         </div>
 
         <?php endif; ?>
