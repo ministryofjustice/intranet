@@ -20,7 +20,7 @@ jobs:
     secrets: inherit
 
   ips:
-    name: "IPs"
+    name: "Get IP Ranges"
     if: github.event.ref == 'refs/heads/ip-develop'
     uses: ./.github/workflows/ips.yml
     secrets: inherit
@@ -33,7 +33,7 @@ jobs:
     with:
       environment: development
       registry: ${{ needs.image.outputs.registry }}
-      ips: ${{ needs.ips.outputs.ips }}
+      ip_ranges: ${{ needs.ips.outputs.ip_ranges }}
     secrets: inherit
 
 
