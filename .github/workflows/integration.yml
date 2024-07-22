@@ -21,7 +21,7 @@ jobs:
   get_ip_ranges:
     name: "Get IP Ranges"
     if: github.event.ref == 'refs/heads/develop'
-    uses: ./.github/workflows/get-ip-ranges.yml
+    uses: ./.github/workflows/ip-ranges-configure.yml
     secrets: inherit
 
   deploy_dev:
