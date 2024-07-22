@@ -9,6 +9,9 @@ on:
       registry:
         required: true
         type: string
+      ip_ranges:
+        required: true
+        type: string
 
 jobs:
   deploy_environment:
@@ -47,11 +50,22 @@ jobs:
           # AWS_CLOUDFRONT_PUBLIC_KEY_EXPIRING: "${{ secrets.AWS_CLOUDFRONT_PUBLIC_KEY_B }}"
           BASIC_AUTH_USER: ${{ secrets.BASIC_AUTH_USER }}
           BASIC_AUTH_PASS: ${{ secrets.BASIC_AUTH_PASS }}
+          IP_RANGES: ${{ inputs.ip_ranges }}
+          IGNORE_IP_RANGES: ${{ vars.IGNORE_IP_RANGES }}
         run: |
+          # - - - - - - - - - -
+          # CloudFront  - - - -
+          # - - - - - - - - - -
+
           export AWS_CLOUDFRONT_PUBLIC_KEY_BASE64=$(echo -n "$AWS_CLOUDFRONT_PUBLIC_KEY" | base64 -w 0)
           export AWS_CLOUDFRONT_PRIVATE_KEY_BASE64=$(echo -n "$AWS_CLOUDFRONT_PRIVATE_KEY" | base64 -w 0)
           # export AWS_CLOUDFRONT_PUBLIC_KEY_EXPIRING_BASE64=$(echo -n "$AWS_CLOUDFRONT_PUBLIC_KEY_EXPIRING" | base64 -w 0)
-          
+
+
+          ## - - - - - - - - - -
+          ## Basic Auth  - - - -
+          ## - - - - - - - - - -
+
           BASIC_AUTH_BASE64=""
           
           ## Prevent errors when basic auth isn't used
@@ -64,7 +78,27 @@ jobs:
           
           export BASIC_AUTH_BASE64
 
+
+          ## - - - - - - - - - -
+          ## IP Ranges - - - - -
+          ## - - - - - - - - - -
+
+          ## Allow IP rangges to be ignored.
+          ## Nb. set SKIP_IP_RANGES env var to `true` for the intended GH environment.
+          
+          if [ "$IGNORE_IP_RANGES" = "true" ]; then
+            IP_RANGES=$'{"ignore":true}'
+          fi
+
+          IP_RANGES_BASE64=$(echo -n "$IP_RANGES" | base64 -w 0)
+
+          export IP_RANGES_BASE64
+
+
+          ## - - - - - - - - - - -
           ## Perform find/replace
+          ## - - - - - - - - - - -
+
           < "$TPL_PATH"/secret.tpl.yml envsubst > "$TPL_PATH"/secret.yaml
           < "$TPL_PATH"/deployment.tpl.yml envsubst > "$TPL_PATH"/deployment.yaml
           

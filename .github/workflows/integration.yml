@@ -18,43 +18,52 @@ jobs:
     uses: ./.github/workflows/build.yml
     secrets: inherit
 
+  get_ip_ranges:
+    name: "Get IP Ranges"
+    if: github.event.ref == 'refs/heads/develop'
+    uses: ./.github/workflows/ip-ranges-configure.yml
+    secrets: inherit
+
   deploy_dev:
     name: "Development"
     if: github.event.ref == 'refs/heads/develop'
     uses: ./.github/workflows/deploy.yml
-    needs: image
+    needs: [image, get_ip_ranges]
     with:
       environment: development
       registry: ${{ needs.image.outputs.registry }}
+      ip_ranges: ${{ needs.get_ip_ranges.outputs.ip_ranges }}
     secrets: inherit
 
   deploy_staging:
     name: "Staging"
-    needs: [image, deploy_dev]
+    needs: [image, deploy_dev, get_ip_ranges]
     if: github.event.ref == 'refs/heads/develop'
     uses: ./.github/workflows/deploy.yml
     with:
       environment: staging
       registry: ${{ needs.image.outputs.registry }}
+      ip_ranges: ${{ needs.get_ip_ranges.outputs.ip_ranges }}
     secrets: inherit
 
   deploy_demo:
     name: "Demo"
-    needs: [image, deploy_dev]
+    needs: [image, deploy_dev, get_ip_ranges]
     if: github.event.ref == 'refs/heads/develop'
     uses: ./.github/workflows/deploy.yml
     with:
       environment: demo
       registry: ${{ needs.image.outputs.registry }}
+      ip_ranges: ${{ needs.get_ip_ranges.outputs.ip_ranges }}
     secrets: inherit
 
   deploy_production:
     name: "Production"
-    needs: [image, deploy_staging]
+    needs: [image, deploy_staging, get_ip_ranges]
     if: github.event.ref == 'refs/heads/develop'
     uses: ./.github/workflows/deploy.yml
     with:
       environment: production
       registry: ${{ needs.image.outputs.registry }}
+      ip_ranges: ${{ needs.get_ip_ranges.outputs.ip_ranges }}
     secrets: inherit
-

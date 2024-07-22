@@ -1,0 +1,32 @@
+name: "Get IP ranges"
+
+on:
+  workflow_call:
+    outputs:
+      ip_ranges:
+        description: "IPs Ranges"
+        value: ${{ jobs.get_ip_ranges.outputs.ip_ranges }}
+
+jobs:
+  get_ip_ranges:
+    name: "Get IPs from moj-ip-addresses"
+    runs-on: ubuntu-latest
+    outputs:
+      ip_ranges: ${{ steps.get-ips.outputs.ip_ranges }}
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v4
+        with:
+          repository: 'ministryofjustice/moj-ip-addresses'
+          ref: 'main'
+          # This is a fine grained PAT, it's scoped to the moj-ip private repository 
+          # with the single permission: Content: Read-only.
+          # The token is pending approval: https://github.com/settings/personal-access-tokens/3669004
+          token: ${{ secrets.MOJ_IP_ADDRESSES_RO_PAT }}
+      - name: "Get & format IPs"
+        id: get-ips
+        uses: mikefarah/yq@master
+        with:
+          cmd: |
+            IP_RANGES=$(yq 'explode(.) | {"deprecating": .deprecating_access_to_moj_intranet | flatten, "allow": .allow_access_to_moj_intranet | flatten }' -o json -I=0 moj-cidr-addresses.yml)
+            echo "ip_ranges=$IP_RANGES" >> $GITHUB_OUTPUT
