@@ -29,5 +29,5 @@ jobs:
         uses: mikefarah/yq@master
         with:
           cmd: |
-            IP_RANGES=$(yq 'explode(.) | {"deprecating": .deprecating_access_to_moj_intranet | flatten, "allow": .allow_access_to_moj_intranet | flatten }' -o json -I=0 deploy/config/example-moj-ips.yaml)
+            IP_RANGES=$(yq 'explode(.) | {"deprecating": .deprecating_access_to_moj_intranet | flatten, "allow": .allow_access_to_moj_intranet | flatten }' -o json -I=0 moj-cidr-addresses.yml)
             echo "ip_ranges=$IP_RANGES" >> $GITHUB_OUTPUT
