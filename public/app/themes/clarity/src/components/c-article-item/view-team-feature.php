@@ -16,8 +16,8 @@ $thumbnail_alt = get_post_meta(get_post_thumbnail_id($id), '_wp_attachment_image
 <article class="c-article-item js-article-item">
 
     <?php if ($thumbnail) : ?>
-        <a tabindex="-1" aria-hidden="true" href="<?php echo esc_url(get_permalink($id)); ?>">
-            <img src="<?php echo esc_url($thumbnail); ?> " alt>
+        <a tabindex="-1" aria-hidden="true" href="<?= esc_url(get_permalink($id)) ?>">
+            <img src="<?= esc_url($thumbnail) ?> " alt>
       </a>
 
     <?php else : ?>
@@ -26,14 +26,14 @@ $thumbnail_alt = get_post_meta(get_post_thumbnail_id($id), '_wp_attachment_image
     <?php endif; ?>
 
     <h1>
-      <a href="<?php echo esc_url(get_permalink($id)); ?>">
-        <?php echo get_the_title($id); ?>
+      <a href="<?= esc_url(get_permalink($id)) ?>">
+        <?= get_the_title($id) ?>
         </a>
     </h1>
 
     <div class="meta">
       <span class="c-article-item__dateline">
-        <?php echo get_the_time('j M Y', $id); ?>
+        <?= get_the_time('j M Y', $id) ?>
     </span>
 
   </div>

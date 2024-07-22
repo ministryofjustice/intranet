@@ -12,8 +12,8 @@ $thumbnail      = wp_get_attachment_image_src($thumbnail_id, $thumbnail_type);
 
 $oAuthor        = new Authors();
 $authors        = $oAuthor->getAuthorInfo($id);
-$thumbnail_url  = $thumbnail[0];
-$article_author = $authors[0];
+$thumbnail_url  = $thumbnail[0] ?? '';
+$article_author = $authors[0] ?? null;
 if (isset($article_author)) {
     $author = $article_author['name'];
 }
@@ -25,7 +25,7 @@ if (have_posts()) :
         ?>
 <!-- c-article-byline starts here -->
 <section class="c-article-byline">
-  <span class="c-article-byline__intro"><?php echo $author; ?></span>
+  <span class="c-article-byline__intro"><?= $author ?></span>
   <span class="c-article-byline__date"><?php the_date('d M Y'); ?></span>
 </section>
 <!-- c-article-byline ends here -->

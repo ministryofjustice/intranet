@@ -10,7 +10,7 @@
 <article class="c-team-blog-article l-main">
 
     <h1 class="o-title o-title--headline">
-        <?php echo get_the_title(); ?>
+        <?= get_the_title() ?>
     </h1>
 
     <?php

@@ -44,11 +44,11 @@ if (comments_open($post_id) === true && $comments_disabled === 'comments_disable
     ?>
 
     <?php if (! get_comments_number()) : // Check in case comments gets switched on without any comments added. ?>
-      <h1 class="o-title o-title--subtitle"><?php echo $comment_title; ?></h1>
+      <h1 class="o-title o-title--subtitle"><?= $comment_title ?></h1>
       <h3>No messages have been left and messages have now been closed.</h3>
 
     <?php else : ?>
-      <h1 class="o-title o-title--subtitle"><?php echo $comment_title; ?></h1>
+      <h1 class="o-title o-title--subtitle"><?= $comment_title ?></h1>
       <ul class="commentlist">
       <p><span class="u-message u-message--warning">Messages are now closed</span></p>
         <?php
@@ -70,13 +70,13 @@ if (comments_open($post_id) === true && $comments_disabled === 'comments_disable
     ?>
     <?php if (! get_comments_number()) : // Check in case comments gets switched on without any comments added. ?>
         <?php get_template_part('src/components/c-comment-form/view', 'condolence'); ?>
-    <!-- <h1 class="o-title o-title--subtitle"><?php echo $comment_title; ?></h1> -->
+    <!-- <h1 class="o-title o-title--subtitle"><?= $comment_title ?></h1> -->
     <!-- <h3>Leave a comment</h3> -->
 
     <?php else : ?>
         <?php get_template_part('src/components/c-comment-form/view', 'condolence'); ?>
 
-    <h1 class="o-title o-title--subtitle"><?php echo $comment_title; ?></h1>
+    <h1 class="o-title o-title--subtitle"><?= $comment_title ?></h1>
     <ul class="commentlist">
         <?php
         wp_list_comments(
@@ -91,19 +91,18 @@ if (comments_open($post_id) === true && $comments_disabled === 'comments_disable
         );
         ?>
     </ul>
-    <?php endif; ?>
-    <?php
+    <?php endif;
 } elseif (! comments_open($post_id) && $comments_disabled === '0') {
     ?>
-    <?php echo ''; ?>
+    <?= ''; ?>
     <?php
 } elseif (! comments_open($post_id) && $comments_disabled === 'comments_disabled') {
     ?>
-    <?php echo ''; ?>
+    <?= ''; ?>
     <?php
 } else {
     ?>
-    <?php echo '<!-- Comment settings have not yet been set on this page. -->'; ?>
+    <?= '<!-- Comment settings have not yet been set on this page. -->'; ?>
     <?php
 }
 ?>

@@ -13,9 +13,9 @@ $workplaces = get_terms([
         <div class="c-input-container c-input-container--select">
             <label for="ff_workplace_filter">Agency</label>
             <select name="ff_workplace_filter" id="ff_workplace_filter">
-                <option value=""><?php echo esc_attr(__('All')); ?></option>
+                <option value=""><?= esc_attr(__('All')) ?></option>
                 <?php foreach ($workplaces as $workplace) { ?>
-                    <option value="<?php echo $workplace->term_id; ?>"><?php echo $workplace->name; ?></option>
+                    <option value="<?= $workplace->term_id ?>"><?= $workplace->name ?></option>
                 <?php } ?>
 
             </select>

@@ -8,7 +8,7 @@
     if (! empty($teamBanner)) :
         ?>
 
-        <img src="<?php echo $teamBanner['url']; ?>" alt="<?php echo $teamBanner['alt']; ?>" />
+        <img src="<?= $teamBanner['url'] ?>" alt="<?= $teamBanner['alt'] ?>" />
 
     <?php else : ?>
         <!-- No banner selected or available to display. -->

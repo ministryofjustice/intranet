@@ -19,7 +19,7 @@ if (! empty($featuredLinkList)) {
         }
         ?>
 ">
-            <a href="<?php echo $link['url']; ?>" class="agency-link" 
+            <a href="<?= $link['url'] ?>" class="agency-link"
                                 <?php
                                 if ($link['is_external']) {
                                     echo "rel='external' title='This link will take you away from the MoJ intranet'";

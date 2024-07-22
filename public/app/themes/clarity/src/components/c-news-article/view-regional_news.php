@@ -2,7 +2,7 @@
 <article class="c-news-article l-main">
 
   <section class="l-primary">
-    <h1 class="o-title o-title--headline"><?php echo get_the_title(); ?></h1>
+    <h1 class="o-title o-title--headline"><?= get_the_title() ?></h1>
 
     <?php
 

@@ -10,8 +10,8 @@ if (! empty($socialLinks)) {
         <ul>
             <?php foreach ($socialLinks as $link) { ?>
             <li>
-                <a href="<?php echo $link['url']; ?>">
-                    <span class="u-icon u-icon--<?php echo $link['name']; ?>"></span><?php echo $link['label']; ?>
+                <a href="<?= $link['url'] ?>">
+                    <span class="u-icon u-icon--<?= $link['name'] ?>"></span><?= $link['label'] ?>
                 </a>
             </li>
             <?php } ?>

@@ -7,14 +7,14 @@
 if ($activeAgency['shortcode'] === 'law-commission') {
     $logo = get_stylesheet_directory_uri() . '/dist/images/lawcomms_logo_new.png';
 } else {
-    $logo = get_stylesheet_directory_uri() . '/dist/images/moj_logo_new.png';
+	$logo = get_stylesheet_directory_uri() . '/dist/images/moj_logo_new.png';
 }
 
 $agency = get_intranet_code();
 
 $header_logo  = get_field($agency .'_header_logo', 'option');
 
-if (empty($header_logo) == false) {
+if(!empty($header_logo)){
     $logo = $header_logo;
 }
 
@@ -26,8 +26,8 @@ if (empty($header_logo) == false) {
 
         <div class="u-wrapper__stack--left">
             <a href="/" rel="home">
-            <img aria-hidden="true" src="<?php echo $logo; ?>" alt>
-            <span class="agency-title l-half-section"><?php echo $activeAgency['label']; ?></span>
+            <img aria-hidden="true" src="<?= $logo ?>" alt>
+            <span class="agency-title l-half-section"><?= $activeAgency['label'] ?></span>
             </a>
         </div>
 

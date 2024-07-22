@@ -15,7 +15,7 @@ if ($team_email || $team_tele || $team_location || $team_about_link) {
     ?>
   <!-- c-team-contact-box starts here -->
   <section class="c-team-contact-box">
-    <h3 class="o-title o-title--section"><?php echo $team_title; ?></h3>
+    <h3 class="o-title o-title--section"><?= $team_title ?></h3>
     <ul>
       <li>
       <?php

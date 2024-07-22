@@ -8,7 +8,7 @@ if (! empty($guidance_pages)) {
     foreach ($guidance_pages as $page) : ?>
     <!-- c-headed-link-list-guidance-and-forms starts here -->
     <section class="c-headed-link-list c-headed-link-list--guidance">
-      <h2><a href="<?php echo get_permalink($page->ID); ?>"><?php echo $page->post_title; ?></a></h2>
+      <h2><a href="<?= get_permalink($page->ID) ?>"><?= $page->post_title ?></a></h2>
     </section>
     <!-- c-headed-link-list-guidance-and-forms ends here -->
 

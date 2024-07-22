@@ -61,7 +61,7 @@ if (!in_array($c_input_container_config['type'], ['select', 'radio-group'])) {
 } else if ($c_input_container_config['type'] === 'radio-group') {
     $c_input_container_output .= '<div class="'.$c_input_container_config['name'].'">';
 
-    foreach ($c_input_container_options as $key => $value) {
+    foreach($c_input_container_options as $key => $value) {
         $default = $value[2] ? 'checked' : null;
         $default = $default ?: ($key === 0 ? 'checked' : null);
 

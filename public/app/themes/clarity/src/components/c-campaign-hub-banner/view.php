@@ -10,8 +10,8 @@ if ($campaign_on_off_button) { ?>
 <!-- c-campaign-hub-banner starts here -->
 <section class="c-campaign-hub-banner">
     
-    <a href="<?php echo esc_url($campaign_hub_banner_url); ?>">
-    <img src="<?php echo $campaign_hub_banner[0]; ?>" class="campaign-banner" alt="<?php echo esc_attr($campaign_hub_banner_alt_text); ?>" />
+    <a href="<?= esc_url($campaign_hub_banner_url) ?>">
+    <img src="<?= $campaign_hub_banner[0] ?? '' ?>" class="campaign-banner" alt="<?= esc_attr($campaign_hub_banner_alt_text); ?>" />
     </a>
     
 </section>

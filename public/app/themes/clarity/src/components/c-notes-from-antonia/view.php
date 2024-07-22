@@ -7,6 +7,7 @@
             echo '<p><strong>' . get_gmt_from_date($post->post_date, 'l j F Y') . ' &ndash; ' . $post->post_title . '</strong></p>';
         }
 
+        do_action('before_note_from_antonia', $post->ID);
         ?>
 
         <div class="c-article-content">
