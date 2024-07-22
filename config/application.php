@@ -129,6 +129,15 @@ Config::define('GOV_NOTIFY_API_KEY', env('GOV_NOTIFY_API_KEY') ?? null);
 // Turn off WP Cron - use `wp cron` instead
 Config::define('DISABLE_WP_CRON', true);
 
+// Disable php script concatenation at runtime - we serve WP assets via nginx
+Config::define('CONCATENATE_SCRIPTS', false);
+
+// For completeness, disable css and script compression at runtime
+// These should be irrelevant because CONCATENATE_SCRIPTS is false
+Config::define('COMPRESS_CSS', false);
+Config::define('COMPRESS_SCRIPTS', false);
+
+
 /**
  * Debugging Settings
  */
