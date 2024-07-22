@@ -3,8 +3,8 @@ name: "Get IP ranges"
 on:
   workflow_call:
     outputs:
-      ips:
-        description: "Allowed IPs"
+      ip_ranges:
+        description: "IPs Ranges"
         value: ${{ jobs.get_ip_ranges.outputs.ip_ranges }}
 
 jobs:
