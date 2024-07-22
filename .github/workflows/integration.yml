@@ -19,7 +19,7 @@ jobs:
     secrets: inherit
 
   get_ip_ranges:
-    name: "Get IP Ranges"
+    name: "IP Ranges"
     if: github.event.ref == 'refs/heads/develop'
     uses: ./.github/workflows/ip-ranges-configure.yml
     secrets: inherit
