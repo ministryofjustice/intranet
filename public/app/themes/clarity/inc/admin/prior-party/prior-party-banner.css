@@ -319,7 +319,7 @@ Prior Party Banners
     background-color: #ffffff;
 }
 
-.ppb-banners__row[data-id]:hover {
+.ppb-banners__row:hover {
     background-color: #f3f3ca;
     cursor: pointer;
 }
@@ -394,4 +394,22 @@ Prior Party Banners
     100% {
         transform: rotate(-360deg);
     }
+}
+
+/**
+Email Preview
+ */
+.ppb-email-preview-list {
+    display: flex;
+    gap: 10px;
+}
+
+.ppb-email-preview-list-item--active {
+    font-weight: bold;
+}
+
+.ppb-email-preview-heading {
+    margin-bottom: 1em!important;
+    padding: 0!important;
+    font-weight: bold!important;
 }

@@ -33,6 +33,11 @@ jQuery(document).ready(function ($) {
     const MOJ_PPB = {
         on: {
             scroll: function () {
+                // Return early, if we're on a banners page.
+                if(!JQ.all.length) {
+                    return;
+                }
+
                 const pbbPosts = JQ.all.offset().top - 32;
                 const fixed  = JQ.fixed.append(JQ.header.clone());
                 const backToTop = JQ.top;
@@ -163,7 +168,6 @@ jQuery(document).ready(function ($) {
      * Reconcile status
      */
     JQ.rows.find('.ppb-posts__status').each(function (key, element) {
-        console.log('Data', {key: key, value: element})
         if ($(element).data('status') === 'on') {
             $(element).addClass('tick');
             return;
