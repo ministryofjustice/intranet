@@ -93,6 +93,8 @@ class Security
     {
         // Is the request url to the application host?
         if (parse_url($url, PHP_URL_HOST) !== parse_url(get_home_url(), PHP_URL_HOST)) {
+            // Request is not to the application host - log the url.
+            error_log('pre_http_request url: ' . $url);
             return $response;
         }
 
