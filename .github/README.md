@@ -328,11 +328,11 @@ To verify that S3 & CloudFront are working correctly.
    - Redirect URI: `Web` and `http://localhost/oauth2?action=callback`  
      or `https://dev.intranet.justice.gov.uk/oauth2?action=callback` etc.
 6. Copy the `Application (client) ID` and `Directory (tenant) ID` values,
-  make them available as environment variables `OAUTH_CLIENT_ID`, `OAUTH_TENNANT_ID`.
+  make them available as environment variables `OAUTH_CLIENT_ID`, `OAUTH_TENANT_ID`.
 7. Click on `Certificates & secrets` > `New client secret`.
 8. Fill in the form:
    - Description: `Local-Intranet-v2`
-   - Expires: `6 months`
+   - Expires: `18 months`
 9. Set a reminder to update the client secret before it expires.
 10. Copy the `Value` value, make it available as environment variable `OAUTH_CLIENT_SECRET`.
 11. Click on `Expose an API` > `Add a scope`.

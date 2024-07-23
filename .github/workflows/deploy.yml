@@ -53,9 +53,9 @@ jobs:
           IP_RANGES: ${{ inputs.ip_ranges }}
           IGNORE_IP_RANGES: ${{ vars.IGNORE_IP_RANGES }}
         run: |
-          # - - - - - - - - - -
-          # CloudFront  - - - -
-          # - - - - - - - - - -
+          ## - - - - - - - - - -
+          ## CloudFront  - - - -
+          ## - - - - - - - - - -
 
           export AWS_CLOUDFRONT_PUBLIC_KEY_BASE64=$(echo -n "$AWS_CLOUDFRONT_PUBLIC_KEY" | base64 -w 0)
           export AWS_CLOUDFRONT_PRIVATE_KEY_BASE64=$(echo -n "$AWS_CLOUDFRONT_PRIVATE_KEY" | base64 -w 0)
@@ -84,7 +84,7 @@ jobs:
           ## - - - - - - - - - -
 
           ## Allow IP rangges to be ignored.
-          ## Nb. set SKIP_IP_RANGES env var to `true` for the intended GH environment.
+          ## Nb. set IGNORE_IP_RANGES env var to `true` for the intended GH environment.
           
           if [ "$IGNORE_IP_RANGES" = "true" ]; then
             IP_RANGES=$'{"ignore":true}'

@@ -12,9 +12,15 @@
  */
 
 namespace MOJ\Intranet;
+use Roots\WPConfig\Config;
 
 // Do not allow access outside WP
 defined('ABSPATH') || exit;
+
+// If the plugin isn't enabled, return early.
+if(Config::get('MOJ_AUTH_ENABLED') === false) {
+    return;
+}
 
 require_once 'jwt.php';
 require_once 'oauth.php';
@@ -168,5 +174,5 @@ class Auth
     }
 }
 
-$auth = new Auth(['debug' => false]);
-//$auth->handlePageRequest('reader');
+$auth = new Auth(['debug' => Config::get('MOJ_AUTH_DEBUG')]);
+$auth->handlePageRequest('reader');

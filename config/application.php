@@ -137,6 +137,8 @@ Config::define('CONCATENATE_SCRIPTS', false);
 Config::define('COMPRESS_CSS', false);
 Config::define('COMPRESS_SCRIPTS', false);
 
+// Enable the authentication mu-plugin.
+Config::define('MOJ_AUTH_ENABLED', true);
 
 /**
  * Debugging Settings
@@ -145,6 +147,8 @@ Config::define('WP_DEBUG_DISPLAY', false);
 Config::define('WP_DEBUG_LOG', false);
 Config::define('SCRIPT_DEBUG', false);
 ini_set('display_errors', '0');
+// Additional logging for the authentication mu-plugin.
+Config::define('MOJ_AUTH_DEBUG', true);
 
 /**
  * Allow WordPress to detect HTTPS when used behind a reverse proxy or a load balancer

@@ -105,9 +105,14 @@ trait AuthUtils
     /**
      * A generic function to set a cookie.
      * 
+     * We use SameSite=Lax policy because:
+     * - We need the oauth cookies to ent to the server when the oauth provider redirects us to the callback url.
+     * - We need the JWT to be sent to the server if visitors click links from outside of the intranet domain.
+     * 
      * @param string $name The name of the cookie.
      * @param string $value The value of the cookie.
      * @param int $expiry The expiry time of the cookie. If not set, the cookie will expire at the end of the session.
+     * 
      * @return void
      */
 
@@ -119,7 +124,7 @@ trait AuthUtils
             $name . '=' . $value,
             'path=/',
             'HttpOnly',
-            'SameSite=Strict',
+            'SameSite=Lax',
             ...($this->https ? ['Secure'] : []),
             ...($expiry > 0 ? ['Expires=' . gmdate('D, d M Y H:i:s T', $expiry)] : []),
         ];
