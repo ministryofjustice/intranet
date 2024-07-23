@@ -138,7 +138,7 @@ Config::define('COMPRESS_CSS', false);
 Config::define('COMPRESS_SCRIPTS', false);
 
 // Enable the authentication mu-plugin.
-Config::define('MOJ_AUTH_ENABLED', true);
+Config::define('MOJ_AUTH_ENABLED', false);
 
 /**
  * Debugging Settings
