@@ -1,6 +1,7 @@
-let mix = require('laravel-mix');
-
-let stylDeps = {
+const mix = require('laravel-mix');
+const pathJS = 'dist/js/';
+const pathCSS = 'dist/css/';
+const stylDeps = {
     stylusOptions: {
         use: [require('jeet')(), require('rupture')()]
     }
@@ -9,14 +10,18 @@ let stylDeps = {
 mix.setPublicPath('./dist/');
 
 /*******************/
-mix.js('src/globals/js/script-loader.js', 'dist/js/main.min.js')
-    .stylus('src/globals/css/_init.styl', 'dist/css/globals.css', stylDeps)
-    .stylus('src/components/style.print.styl', 'dist/css/', stylDeps)
-    .stylus('src/components/style.ie.styl', 'dist/css/', stylDeps)
-    .stylus('src/components/style.ie8.styl', 'dist/css/', stylDeps)
-    .stylus('src/components/style.styl', 'dist/css/', stylDeps)
-    .copy('src/vendors/*', 'dist/js/')
-    .copy('./node_modules/jquery/dist/jquery.min.js', 'dist/js/')
+mix.js('src/globals/js/script-loader.js', pathJS + 'main.min.js')
+    .js('inc/admin/js/prior-party-banner.js', pathJS)
+    .js('inc/admin/js/force-title.js', pathJS)
+    .js('inc/admin/js/colour-contrast-checker.js', pathJS)
+    .stylus('src/globals/css/_init.styl', pathCSS + 'globals.css', stylDeps)
+    .stylus('src/components/style.print.styl', pathCSS, stylDeps)
+    .stylus('src/components/style.ie.styl', pathCSS, stylDeps)
+    .stylus('src/components/style.ie8.styl', pathCSS, stylDeps)
+    .stylus('src/components/style.styl', pathCSS, stylDeps)
+    .css('inc/admin/css/admin.css', pathCSS)
+    .copy('src/vendors/*', pathJS)
+    .copy('./node_modules/jquery/dist/jquery.min.js', pathJS)
     .copy('src/globals/fonts/*', 'dist/fonts/')
     .copy('src/globals/images', 'dist/images/')
     .options({ processCssUrls: false });
