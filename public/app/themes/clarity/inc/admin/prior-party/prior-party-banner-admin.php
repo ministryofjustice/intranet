@@ -66,6 +66,16 @@ class PriorPartyBannerAdmin
     private int|null $review_tracked_events_to = null;
 
     /**
+     * @var string required capability to access the menu page and edit banner state.
+     */
+    private string $required_capability = '';
+
+    /**
+     * @var string defines the name of the ACF field group where the on/off toggle is
+     */
+    private string $page_field_group_name = 'group_667d8a0f642b5';
+
+    /**
      * @var string normalised date format
      */
     private string $date_format = 'l jS \o\f F, Y';
@@ -83,8 +93,9 @@ class PriorPartyBannerAdmin
         add_action('admin_menu', [$this, 'editorToolsMenu']);
         add_action('admin_menu', [$this, 'menu']);
         add_action('rest_api_init', [$this, 'actionHandler']);
+        add_filter('acf/load_field_groups', [$this, 'hideToggleForNonAdmins'], 30);
+        add_filter('acf/load_value/name=' . $this->post_field_name, [$this, 'filterValueByPostType'], 10, 2);
         add_filter('acf/update_value/name=' . $this->post_field_name, [$this, 'trackBannerUpdates'], 10, 4);
-        add_filter('acf/load_value/name=' . $this->post_field_name, [$this, 'filterValueOnPages'], 10, 2);
 
         // Create a schedule for deleting old track events.
         if (!wp_next_scheduled('prior_party_banner_event_cleanup_cron_hook')) {
@@ -92,6 +103,10 @@ class PriorPartyBannerAdmin
         }
         // Add the delete action to the schedule.
         add_action('prior_party_banner_event_cleanup_cron_hook', [$this, 'deleteOldTrackEvents']);
+
+        // Set the capability to `manage_prior_party_banners`. Or if administrator, set it to `administrator`.
+        // This ensures admins always have access, even without the `manage_prior_party_banners` capability.
+        $this->required_capability = current_user_can('administrator') ? 'administrator' : 'manage_prior_party_banners';
 
         /**
          * Don't load view code until needed
@@ -123,7 +138,25 @@ class PriorPartyBannerAdmin
     }
 
     /**
-     * Set the default value of the prior_party_banner field to 0 on pages.
+     * Conditionally hide the show banner toggle on edit post screens.
+     * 
+     * @param array $groups the field groups
+     * 
+     * @return array $groups the filtered field groups
+     */
+
+    public function hideToggleForNonAdmins($groups)
+    {
+
+        if (!current_user_can($this->required_capability)) {
+            $groups = array_filter($groups, fn ($group) => $group['key'] !== $this->page_field_group_name);
+        }
+
+        return $groups;
+    }
+
+    /**
+     * Set the default value of the prior_party_banner field to 0 on pages and notes-frm-antonia.
      *
      * The effects of this function can be seen at:
      * - the Prior Party Banners table view
@@ -135,16 +168,16 @@ class PriorPartyBannerAdmin
      *
      * @return bool|null The filtered value of the field.
      */
-    public function filterValueOnPages(bool|null $value, int $post_id): null|bool
+    public function filterValueByPostType(bool|null $value, int $post_id): null|bool
     {
         $post_type = get_post_type($post_id);
 
-        // If we're not dealing with a page, or the value is not 1, do nothing.
-        if ($post_type !== 'page' || $value === false) {
+        // If we're not dealing with a page or note-from-antonia, or the value is not 1, do nothing.
+        if (!in_array($post_type, ['page', 'note-from-antonia']) || $value === false) {
             return $value;
         }
 
-        // Here, we're on a page and the value of the toggle is 1.
+        // Here, we're on a page or note-from-antonia and the value of the toggle is 1.
         // How do we know if that's 1 by default, or if it's been set by the user?
 
         // Get the metadata for the post, directly from the database.
@@ -289,7 +322,7 @@ class PriorPartyBannerAdmin
                     echo '<div class="ppb-post-col ppb-posts__agency">' . implode(' ', $agencies) . '</div>';
                     echo '<div class="ppb-post-col ppb-posts__status" data-status="' . ($status === false ? 'off' : 'on') . '"></div>';
                     echo '</div>';
-                    
+
                     if ($this->review_tracked_events) {
                         // Transform the events' assoc. array into a readable format.
                         $readable_events = isset($events[$post->ID]) ? array_map(
@@ -298,7 +331,7 @@ class PriorPartyBannerAdmin
                         ) : [];
                         // Add an extra full width row if we're reviewing tracked changes.
                         echo '<div class="ppb-posts__row ppb-posts__row--review" >';
-                        foreach($readable_events as $event) {
+                        foreach ($readable_events as $event) {
                             echo $event['text'] . ' at ' . $event['local_date'] . '<br/>';
                         }
                         echo '</div>';
@@ -450,8 +483,7 @@ class PriorPartyBannerAdmin
         add_menu_page(
             'Editor Tools',
             'Editor Tools',
-            // Enable the menu for capabilities: `administrator` or `create_posts`.
-            current_user_can('administrator') ? 'administrator' : 'create_posts',
+            $this->required_capability,
             'editor-tools',
             [$this, 'editorToolsPage'],
             'dashicons-admin-tools',
@@ -476,8 +508,7 @@ class PriorPartyBannerAdmin
             'editor-tools',
             $title,
             $title,
-            // Enable the menu for capabilities: `administrator` or `create_posts`.
-            current_user_can('administrator') ? 'administrator' : 'create_posts',
+            $this->required_capability,
             $this->menu_slug,
             [$this, 'page'],
             8
@@ -572,7 +603,6 @@ class PriorPartyBannerAdmin
 
         return $value;
     }
-
 }
 
 new PriorPartyBannerAdmin();
