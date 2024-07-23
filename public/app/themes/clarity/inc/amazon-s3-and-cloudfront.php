@@ -17,7 +17,8 @@ class AmazonS3AndCloudFrontTweaks
         // Increase limits from 50 to 5000. 
         add_filter( 'as3cf_update_replace_provider_urls_batch_size', fn() => 5000);
         add_filter( 'as3cf_update_filter_post_excerpt_batch_size', fn() => 5000);
-        add_filter( 'as3cf_update_fix_broken_item_extra_data_batch_size', fn() => 2500);
+        // Increase limits from 500 to 3500, duration is about 45 seconds.
+        add_filter( 'as3cf_update_fix_broken_item_extra_data_batch_size', fn() => 3500);
 
         // Increase limit from 50 to 750.
         add_filter( 'as3cf_update_as3cf_items_table_batch_size', fn() => 750);
