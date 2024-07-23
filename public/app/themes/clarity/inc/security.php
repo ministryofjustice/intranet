@@ -31,6 +31,7 @@ class Security
         add_filter('xmlrpc_enabled', '__return_false');
         add_filter('wp_headers', [$this, 'headerMods']);
         add_filter('auth_cookie_expiration', [$this, 'setLoginPeriod'], 10, 0);
+        add_filter('pre_http_request', [$this, 'handleLoopbackRequests'], 10, 3);
     }
 
     /**
