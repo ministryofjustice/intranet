@@ -12,13 +12,14 @@
  */
 
 namespace MOJ\Intranet;
+
 use Roots\WPConfig\Config;
 
 // Do not allow access outside WP
 defined('ABSPATH') || exit;
 
 // If the plugin isn't enabled, return early.
-if(Config::get('MOJ_AUTH_ENABLED') === false) {
+if (Config::get('MOJ_AUTH_ENABLED') === false) {
     return;
 }
 
@@ -78,6 +79,11 @@ class Auth
     {
         $this->log('handlePageRequest()');
 
+        if (isset($_GET['auth']) && $_GET['auth'] !== 'subrequest'){
+            return;
+        }
+
+        // TODO - is \headers_sent() a good idea? Could the user exploit a bug?
         // If headers are already sent or we're doing a cron job, return early.
         if (\headers_sent() || defined('DOING_CRON')) {
             return;
@@ -159,6 +165,30 @@ class Auth
         $this->oauthLogin();
     }
 
+    public function handleAuthRequest(string $required_role = 'reader'): void
+    {
+        $this->log('handleAuthRequest()');
+
+        // var_dump($_GET['auth']);
+        // exit();
+
+        if (empty($_GET['auth']) || $_GET['auth'] !== 'subrequest') {
+            return;
+        }
+
+        // Get the JWT token from the request. Do this early so that we populate $this->sub if it's known.
+        $jwt = $this->getJwt();
+
+        // Get the roles from the JWT and check that they're sufficient.
+        $jwt_correct_role = $jwt && $jwt->roles ? in_array($required_role, $jwt->roles) : false;
+
+        $response_code = $jwt_correct_role ? 200 : 401;
+
+        $this->log('handleAuthRequest returning: ' . $response_code);
+
+        http_response_code($response_code) && exit();
+    }
+
     /**
      * Log a user out.
      *
@@ -176,3 +206,4 @@ class Auth
 
 $auth = new Auth(['debug' => Config::get('MOJ_AUTH_DEBUG')]);
 $auth->handlePageRequest('reader');
+$auth->handleAuthRequest('reader');
