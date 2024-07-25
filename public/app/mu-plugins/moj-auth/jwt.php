@@ -2,8 +2,8 @@
 
 namespace MOJ\Intranet;
 
-// Do not allow access outside WP
-defined('ABSPATH') || exit;
+// Do not allow access outside WP or standalone.php
+defined('ABSPATH') || defined('DOING_STANDALONE_AUTH') || exit;
 
 /**
  * JWT functions for MOJ\Intranet\Auth.
