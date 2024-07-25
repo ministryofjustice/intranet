@@ -47,8 +47,6 @@ class StandaloneAuth
         $jwt_correct_role = $jwt && $jwt->roles ? in_array($required_role, $jwt->roles) : false;
 
         $status_code = $jwt_correct_role ? 200 : 401;
-        // $status_code = 401;
-        $status_code = 200;
 
         http_response_code($status_code) && exit();
     }
