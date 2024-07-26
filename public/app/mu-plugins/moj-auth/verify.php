@@ -4,22 +4,22 @@ namespace MOJ\Intranet;
 
 // Exit if this file is included within a WordPress request.
 if (defined('ABSPATH')) {
-    error_log('moj-auth/standalone.php was accessed within the context of WordPress.');
+    error_log('moj-auth/verify.php was accessed within the context of WordPress.');
     http_response_code(401) && exit();
 }
 
-define('DOING_STANDALONE_AUTH', true);
+define('DOING_STANDALONE_VERIFY', true);
 
 $autoload = '../../../../vendor/autoload.php';
 
 if (!file_exists($autoload)) {
-    error_log('moj-auth/standalone.php autoloader.php was not found.');
+    error_log('moj-auth/verify.php autoloader.php was not found.');
     http_response_code(401) && exit();
 }
 
 require_once  $autoload;
-require_once 'jwt.php';
-require_once 'utils.php';
+require_once 'traits/jwt.php';
+require_once 'traits/utils.php';
 
 class StandaloneAuth
 {
@@ -43,10 +43,17 @@ class StandaloneAuth
         // Get the JWT token from the request. Do this early so that we populate $this->sub if it's known.
         $jwt = $this->getJwt();
 
+        $this->log('jwt in auth request', $jwt);
+
         // Get the roles from the JWT and check that they're sufficient.
         $jwt_correct_role = $jwt && $jwt->roles ? in_array($required_role, $jwt->roles) : false;
 
         $status_code = $jwt_correct_role ? 200 : 401;
+
+        $status_code = 200;
+        // $status_code = 401;
+
+        $this->log('handleAuthRequest status: ' . $status_code);
 
         http_response_code($status_code) && exit();
     }

@@ -18,14 +18,16 @@ use Roots\WPConfig\Config;
 // Do not allow access outside WP
 defined('ABSPATH') || exit;
 
+
+
 // If the plugin isn't enabled, return early.
 if (Config::get('MOJ_AUTH_ENABLED') === false) {
     return;
 }
 
-require_once 'jwt.php';
-require_once 'oauth.php';
-require_once 'utils.php';
+require_once 'traits/jwt.php';
+require_once 'traits/oauth.php';
+require_once 'traits/utils.php';
 
 /**
  * Class Auth
@@ -43,10 +45,12 @@ class Auth
     use AuthOauth;
     use AuthUtils;
 
-    private $now   = null;
-    private $debug = false;
-    private $https = false;
-    private $sub   = '';
+    private $now            = null;
+    private $debug          = false;
+    private $https          = false;
+    private $sub            = '';
+    private $login_attempts = null;
+    private $success_uri    = null;
 
     /**
      * Constructor
@@ -65,6 +69,45 @@ class Auth
         $this->initOauth();
     }
 
+    public function handleLoginRequest(): void
+    {
+        // Get the JWT token from the request. Do this early so that we populate $this->sub if it's known.
+        $jwt = $this->getJwt();
+
+        // Set a JWT without a role, to persist the user's ID.
+        if (!$jwt) {
+            $jwt = $this->setJwt();
+        }
+
+        if ($this->oauth_action === 'login') {
+            // Handle Azure AD/Entra ID OAuth. It redirects to Azure or exits with 401 if disabled. php code execution always stops here.
+            $this->oauthLogin();
+        }
+    }
+
+    public function handleCallbackRequest(): void
+    {
+        $this->log('handleCallbackRequest()');
+
+        // If we've hit the callback endpoint, then handle it here. On fail it exits with 401 & php code execution stops here.
+        $oauth_access_token = 'callback' === $this->oauth_action ? $this->oauthCallback() : null;
+
+        // The callback has returned an access token.
+        if (is_object($oauth_access_token) && !$oauth_access_token->hasExpired()) {
+            $this->log('Access token is valid. Will set JWT and store refresh token.');
+            // Set a JWT cookie.
+            $this->setJwt((object)[
+                'expiry' => $oauth_access_token->getExpires(),
+                'roles'  => ['reader'],
+            ]);
+            // Store the tokens.
+            $this->storeTokens($this->sub, $oauth_access_token, 'refresh');
+            // Redirect the user to the page they were trying to access.
+            header('Location: ' . \home_url($this->success_uri ?? '/'));
+            exit();
+        }
+    }
+
     /**
      * Handle the page request
      * 
@@ -78,10 +121,6 @@ class Auth
     public function handlePageRequest(string $required_role = 'reader'): void
     {
         $this->log('handlePageRequest()');
-
-        if (isset($_GET['auth']) && $_GET['auth'] !== 'subrequest'){
-            return;
-        }
 
         // TODO - is \headers_sent() a good idea? Could the user exploit a bug?
         // If headers are already sent or we're doing a cron job, return early.
@@ -97,6 +136,13 @@ class Auth
             $jwt = $this->setJwt();
         }
 
+        $this->log('$this->oauth_action: ' . $this->oauth_action);
+
+        if ('login' === $this->oauth_action) {
+            // Handle Azure AD/Entra ID OAuth. It redirects to Azure or exits with 401 if disabled. php code execution always stops here.
+            $this->oauthLogin();
+        }
+
         // If we've hit the callback endpoint, then handle it here. On fail it exits with 401 & php code execution stops here.
         $oauth_access_token = 'callback' === $this->oauth_action ? $this->oauthCallback() : null;
 
@@ -104,7 +150,7 @@ class Auth
         if (is_object($oauth_access_token) && !$oauth_access_token->hasExpired()) {
             $this->log('Access token is valid. Will set JWT and store refresh token.');
             // Set a JWT cookie.
-            $this->setJwt([
+            $this->setJwt((object)[
                 'expiry' => $oauth_access_token->getExpires(),
                 'roles'  => ['reader']
             ]);
@@ -136,7 +182,7 @@ class Auth
 
         // If the IP address is allowed, set a JWT and return.
         if ($this->ipAddressIsAllowed()) {
-            $this->setJwt(['roles' => ['reader']]);
+            $this->setJwt((object)['roles' => ['reader']]);
             return;
         }
 
@@ -147,7 +193,7 @@ class Auth
         if (is_object($oauth_refreshed_access_token) && !$oauth_refreshed_access_token->hasExpired()) {
             $this->log('Refreshed access token is valid. Will set JWT and store refresh token.');
             // Set a JWT cookie.
-            $jwt = $this->setJwt([
+            $jwt = $this->setJwt((object)[
                 'expiry' => $oauth_refreshed_access_token->getExpires(),
                 'roles'  => ['reader']
             ]);
@@ -162,31 +208,7 @@ class Auth
         }
 
         // Handle Azure AD/Entra ID OAuth. It redirects to Azure or exits with 401 if disabled. php code execution always stops here.
-        $this->oauthLogin();
-    }
-
-    public function handleAuthRequest(string $required_role = 'reader'): void
-    {
-        $this->log('handleAuthRequest()');
-
-        // var_dump($_GET['auth']);
-        // exit();
-
-        if (empty($_GET['auth']) || $_GET['auth'] !== 'subrequest') {
-            return;
-        }
-
-        // Get the JWT token from the request. Do this early so that we populate $this->sub if it's known.
-        $jwt = $this->getJwt();
-
-        // Get the roles from the JWT and check that they're sufficient.
-        $jwt_correct_role = $jwt && $jwt->roles ? in_array($required_role, $jwt->roles) : false;
-
-        $response_code = $jwt_correct_role ? 200 : 401;
-
-        $this->log('handleAuthRequest returning: ' . $response_code);
-
-        http_response_code($response_code) && exit();
+        // $this->oauthLogin();
     }
 
     /**
@@ -204,6 +226,12 @@ class Auth
     }
 }
 
-$auth = new Auth(['debug' => Config::get('MOJ_AUTH_DEBUG')]);
-$auth->handlePageRequest('reader');
-$auth->handleAuthRequest('reader');
+
+$auth = new Auth(['debug' => true]); // Config::get('MOJ_AUTH_DEBUG')]);
+$auth->handleLoginRequest();
+$auth->handleCallbackRequest();
+
+// Handle a normal page view
+// - refresh token if necessary
+// - clean up the success_uri
+// - clean up the login_attempts

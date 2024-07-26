@@ -2,8 +2,8 @@
 
 namespace MOJ\Intranet;
 
-// Do not allow access outside WP or standalone.php
-defined('ABSPATH') || defined('DOING_STANDALONE_AUTH') || exit;
+// Do not allow access outside WP, 401.php or verify.php
+defined('ABSPATH') || defined('DOING_STANDALONE_401') || defined('DOING_STANDALONE_VERIFY') || exit;
 
 /**
  * Util functions for MOJ\Intranet\Auth.
@@ -73,6 +73,8 @@ trait AuthUtils
     {
         $this->log('ipAddressIsAllowed()');
 
+        return false;
+
         if (empty($_ENV['ALLOWED_IPS']) || empty($_SERVER['HTTP_X_REAL_IP'])) {
             return false;
         }
@@ -128,6 +130,8 @@ trait AuthUtils
             ...($this->https ? ['Secure'] : []),
             ...($expiry > 0 ? ['Expires=' . gmdate('D, d M Y H:i:s T', $expiry)] : []),
         ];
+
+        // $this->log('setCookie()', $cookie_parts);
 
         header('Set-Cookie: ' . implode('; ', $cookie_parts), false);
     }

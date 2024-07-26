@@ -2,8 +2,8 @@
 
 namespace MOJ\Intranet;
 
-// Do not allow access outside WP or standalone.php
-defined('ABSPATH') || defined('DOING_STANDALONE_AUTH') || exit;
+// Do not allow access outside WP, 401.php or verify.php
+defined('ABSPATH') || defined('DOING_STANDALONE_401') || defined('DOING_STANDALONE_VERIFY') || exit;
 
 /**
  * JWT functions for MOJ\Intranet\Auth.
@@ -55,15 +55,27 @@ trait AuthJwt
         try {
             $decoded = JWT::decode($jwt, new Key($this->jwt_secret, $this::JWT_ALGORITHM));
         } catch (\Exception $e) {
-            if($e->getMessage() !== 'Expired token') {
+            if ($e->getMessage() !== 'Expired token') {
                 \Sentry\captureException($e);
             }
             $this->log($e->getMessage());
             return false;
         }
 
-        if ($decoded && $decoded->sub) {
+        if(!$decoded) {
+            return $decoded;
+        }
+
+        if ($decoded->sub) {
             $this->sub = $decoded->sub;
+        }
+
+        if (!empty($decoded->login_attempts)) {
+            $this->login_attempts = $decoded->login_attempts;
+        }
+
+        if (!empty($decoded->success_uri)) {
+            $this->success_uri = $decoded->success_uri;
         }
 
         return $decoded;
@@ -75,11 +87,11 @@ trait AuthJwt
      * @return object Returns the JWT payload.
      */
 
-    public function setJwt(array $args = []): object
+    public function setJwt(object $args = new \stdClass()): object
     {
         $this->log('setJwt()');
 
-        $expiry = isset($args['expiry']) ? $args['expiry'] : $this->now + $this::JWT_DURATION;
+        $expiry = isset($args->expiry) ? $args->expiry : $this->now + $this::JWT_DURATION;
 
         if (!$this->sub) {
             $this->sub = bin2hex(random_bytes(16));
@@ -90,8 +102,17 @@ trait AuthJwt
             'sub' => $this->sub,
             'exp' => $expiry,
             // Public claims - https://www.iana.org/assignments/jwt/jwt.xhtml
-            'roles' =>  isset($args['roles']) ? $args['roles'] : [],
+            'roles' =>  isset($args->roles) ? $args->roles : [],
         ];
+        
+        // Custom claims - conditionally add login_attempts & success_uri.
+        if(!empty($this->login_attempts)) {
+            $payload['login_attempts'] = $this->login_attempts;
+        }
+
+        if(!empty($this->success_uri)) {
+            $payload['success_uri'] = $this->success_uri;
+        }
 
         $jwt = JWT::encode($payload, $this->jwt_secret, $this::JWT_ALGORITHM);
 
