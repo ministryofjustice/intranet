@@ -50,7 +50,6 @@ jobs:
           # AWS_CLOUDFRONT_PUBLIC_KEY_EXPIRING: "${{ secrets.AWS_CLOUDFRONT_PUBLIC_KEY_B }}"
           BASIC_AUTH_USER: ${{ secrets.BASIC_AUTH_USER }}
           BASIC_AUTH_PASS: ${{ secrets.BASIC_AUTH_PASS }}
-          IP_RANGES: ${{ inputs.ip_ranges }}
           IPS_FORMATTED: ${{ inputs.ips_formatted }}
           IGNORE_IP_RANGES: ${{ vars.IGNORE_IP_RANGES }}
         run: |
@@ -88,14 +87,11 @@ jobs:
           ## Nb. set IGNORE_IP_RANGES env var to `true` for the intended GH environment.
           
           if [ "$IGNORE_IP_RANGES" = "true" ]; then
-            IP_RANGES    =$'{"ignore":true}'
             IPS_FORMATTED=""
           fi
 
-          IP_RANGES_BASE64    =$(echo -n "$IP_RANGES"     | base64 -w 0)
           IPS_FORMATTED_BASE64=$(echo -n "$IPS_FORMATTED" | base64 -w 0)
 
-          export IP_RANGES_BASE64
           export IPS_FORMATTED_BASE64
 
 

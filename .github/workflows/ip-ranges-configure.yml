@@ -3,9 +3,6 @@ name: "Get IP ranges"
 on:
   workflow_call:
     outputs:
-      ip_ranges:
-        description: "IPs Ranges"
-        value: ${{ jobs.get_ip_ranges.outputs.ip_ranges }}
       ips_formatted:
         description: "IPs Ranges (formatted)"
         value: ${{ jobs.get_ip_ranges.outputs.ips_formatted }}
@@ -15,7 +12,6 @@ jobs:
     name: "Build"
     runs-on: ubuntu-latest
     outputs:
-      ip_ranges: ${{ steps.get-ips.outputs.ip_ranges }}
       ips_formatted: ${{ steps.get-ips.outputs.ips_formatted }}
     steps:
       - name: "Checkout"
@@ -32,10 +28,7 @@ jobs:
         uses: mikefarah/yq@master
         with:
           cmd: |
-            IP_RANGES=$(yq 'explode(.) | {"deprecating": .deprecating_access_to_moj_intranet | flatten, "allow": .allow_access_to_moj_intranet | flatten }' -o json -I=0 moj-cidr-addresses.yml)
-            echo "ip_ranges=$IP_RANGES" >> $GITHUB_OUTPUT
-
-            # Transform into nginx geo format. 1 IP range per line, each range is followed by it's value.
+            # Transform IPs into nginx geo format. 1 IP range per line, each range is followed by it's value.
             # @see https://nginx.org/en/docs/http/ngx_http_geo_module.html
             ALLOW_VALUE=1
             DEPRI_VALUE=2
