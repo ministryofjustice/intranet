@@ -37,8 +37,6 @@ class Standalone401
     private $debug          = false;
     private $https          = false;
     private $sub            = '';
-    private $login_attempts = null;
-    private $success_uri    = null;
 
     const OAUTH_LOGIN_URI = '/auth/login';
     const MAX_AUTO_LOGIN_ATTEMPTS = 5;
@@ -50,7 +48,6 @@ class Standalone401
         $this->now = time();
         $this->debug = $args['debug'] ?? false;
         $this->https = isset($_SERVER['HTTPS']) || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && 'https' === $_SERVER['HTTP_X_FORWARDED_PROTO']);
-        $this->success_uri = $_SERVER['REQUEST_URI'];
 
         if (!file_exists($this::STATIC_401)) {
             error_log('moj-auth/401.php 401.html was not found.');
@@ -70,13 +67,16 @@ class Standalone401
         $this->log('handle401Request()');
 
         // Get the JWT token from the request. Do this early so that we populate $this->sub if it's known.
-        $jwt = $this->getJwt();
+        $jwt = $this->getJwt() ?: (object)[];
 
         // Set loginAttempts with a default of 1, or add one to the existing value.
-        $this->login_attempts = empty($jwt->login_attempts) ? 1 : ((int) $jwt->login_attempts) + 1;
+        $jwt->login_attempts = empty($jwt->login_attempts) ? 1 : ((int) $jwt->login_attempts) + 1;
+
+        // Where to redirect the user after successful login.
+        $jwt->success_uri = $_SERVER['REQUEST_URI'];
 
         // Set a JWT without a role, to persist the user's ID, login attempts and success_uri.
-        $jwt = $this->setJwt();
+        $jwt = $this->setJwt($jwt);
 
         // Is this the first few times a visitor has hit the 401 page?
         if ($jwt->login_attempts <= $this::MAX_AUTO_LOGIN_ATTEMPTS) {

@@ -43,17 +43,10 @@ class StandaloneAuth
         // Get the JWT token from the request. Do this early so that we populate $this->sub if it's known.
         $jwt = $this->getJwt();
 
-        $this->log('jwt in auth request', $jwt);
-
         // Get the roles from the JWT and check that they're sufficient.
         $jwt_correct_role = $jwt && $jwt->roles ? in_array($required_role, $jwt->roles) : false;
 
         $status_code = $jwt_correct_role ? 200 : 401;
-
-        $status_code = 200;
-        // $status_code = 401;
-
-        $this->log('handleAuthRequest status: ' . $status_code);
 
         http_response_code($status_code) && exit();
     }

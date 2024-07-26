@@ -111,9 +111,7 @@ trait AuthOauth
         // Storing pkce prevents an attacker from potentially intercepting the auth code and using it.
         set_transient('oauth_pkce_' . $state_hashed, $oauth_client->getPkceCode(), 60 * 5); // 5 minutes
 
-        header('Location: ' . $authUrl);
-        // echo 'will redirect to: ' . $authUrl;
-        exit();
+        header('Location: ' . $authUrl) && exit();
     }
 
     /**

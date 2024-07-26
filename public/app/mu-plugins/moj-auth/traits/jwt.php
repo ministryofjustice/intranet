@@ -41,7 +41,7 @@ trait AuthJwt
      * @return bool|object Returns false if the JWT is not found or an object if it is found.
      */
 
-    public function getJwt(): bool | object
+    public function getJwt(): false | object
     {
         $this->log('getJwt()');
 
@@ -68,14 +68,6 @@ trait AuthJwt
 
         if ($decoded->sub) {
             $this->sub = $decoded->sub;
-        }
-
-        if (!empty($decoded->login_attempts)) {
-            $this->login_attempts = $decoded->login_attempts;
-        }
-
-        if (!empty($decoded->success_uri)) {
-            $this->success_uri = $decoded->success_uri;
         }
 
         return $decoded;
@@ -105,13 +97,14 @@ trait AuthJwt
             'roles' =>  isset($args->roles) ? $args->roles : [],
         ];
         
-        // Custom claims - conditionally add login_attempts & success_uri.
-        if(!empty($this->login_attempts)) {
-            $payload['login_attempts'] = $this->login_attempts;
+        // Custom claims - conditionally add login_attempts from $args or class property.
+        if(!empty($args->login_attempts)) {
+            $payload['login_attempts'] = $args->login_attempts;
         }
-
-        if(!empty($this->success_uri)) {
-            $payload['success_uri'] = $this->success_uri;
+        
+        // Custom claims - conditionally add success_uri from $args or class property.
+        if(!empty($args->success_uri)) {
+            $payload['success_uri'] = $args->success_uri;
         }
 
         $jwt = JWT::encode($payload, $this->jwt_secret, $this::JWT_ALGORITHM);
