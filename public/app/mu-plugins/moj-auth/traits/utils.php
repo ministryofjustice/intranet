@@ -2,7 +2,14 @@
 
 namespace MOJ\Intranet;
 
-// Do not allow access outside WP, 401.php or verify.php
+/**
+ * Do not allow access outside WP, 401.php or verify.php
+ * 
+ * @used-by Auth
+ * @used-by Standalone401
+ * @used-by StandaloneVerify
+ */
+
 defined('ABSPATH') || defined('DOING_STANDALONE_401') || defined('DOING_STANDALONE_VERIFY') || exit;
 
 /**

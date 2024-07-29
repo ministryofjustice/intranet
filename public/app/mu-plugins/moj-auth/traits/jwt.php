@@ -2,7 +2,14 @@
 
 namespace MOJ\Intranet;
 
-// Do not allow access outside WP, 401.php or verify.php
+/**
+ * Do not allow access outside WP, 401.php or verify.php
+ * 
+ * @used-by Auth
+ * @used-by Standalone401
+ * @used-by StandaloneVerify
+ */
+
 defined('ABSPATH') || defined('DOING_STANDALONE_401') || defined('DOING_STANDALONE_VERIFY') || exit;
 
 /**
@@ -85,6 +92,8 @@ trait AuthJwt
 
         $expiry = isset($args->expiry) ? $args->expiry : $this->now + $this::JWT_DURATION;
 
+        $cookie_expiry = isset($args->cookie_expiry) ? $args->cookie_expiry : $expiry;
+
         if (!$this->sub) {
             $this->sub = bin2hex(random_bytes(16));
         }
@@ -102,14 +111,14 @@ trait AuthJwt
             $payload['login_attempts'] = $args->login_attempts;
         }
         
-        // Custom claims - conditionally add success_uri from $args or class property.
-        if(!empty($args->success_uri)) {
-            $payload['success_uri'] = $args->success_uri;
+        // Custom claims - conditionally add success_url from $args or class property.
+        if(!empty($args->success_url)) {
+            $payload['success_url'] = $args->success_url;
         }
 
         $jwt = JWT::encode($payload, $this->jwt_secret, $this::JWT_ALGORITHM);
 
-        $this->setCookie($this::JWT_COOKIE_NAME, $jwt, $expiry);
+        $this->setCookie($this::JWT_COOKIE_NAME, $jwt, $cookie_expiry);
 
         return (object) $payload;
     }

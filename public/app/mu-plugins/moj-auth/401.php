@@ -38,10 +38,10 @@ class Standalone401
     private $https          = false;
     private $sub            = '';
 
-    const OAUTH_LOGIN_URI = '/auth/login';
-    const MAX_AUTO_LOGIN_ATTEMPTS = 5;
-    const STATIC_401 = '../../themes/clarity/error-pages/401.html';
-    const REDIRECT_TEMPLATE = './templates/401-redirect.php';
+    const OAUTH_LOGIN_URI         = '/auth/login';
+    const MAX_AUTO_LOGIN_ATTEMPTS = 1;
+    const STATIC_401              = '../../themes/clarity/error-pages/401.html';
+    const STATIC_401_REDIRECT     = '../../themes/clarity/error-pages/401-redirect.html';
 
     public function __construct(array $args = [])
     {
@@ -54,8 +54,13 @@ class Standalone401
             http_response_code(401) && exit();
         }
 
-        if (!file_exists($this::REDIRECT_TEMPLATE)) {
+        if (!file_exists($this::STATIC_401_REDIRECT)) {
             error_log('moj-auth/401.php template was not found.');
+            http_response_code(401) && exit();
+        }
+
+        if(empty($_ENV['WP_HOME'])) {
+            error_log('moj-auth/401.php WP_HOME was not set.');
             http_response_code(401) && exit();
         }
 
@@ -72,17 +77,20 @@ class Standalone401
         // Set loginAttempts with a default of 1, or add one to the existing value.
         $jwt->login_attempts = empty($jwt->login_attempts) ? 1 : ((int) $jwt->login_attempts) + 1;
 
-        // Where to redirect the user after successful login.
-        $jwt->success_uri = $_SERVER['REQUEST_URI'];
+        // Always add the schema and domain here, to prevent an open redirect vulnerability.
+        $jwt->success_url = $_ENV['WP_HOME'] . $_SERVER['REQUEST_URI'];
 
-        // Set a JWT without a role, to persist the user's ID, login attempts and success_uri.
+        // Set the cookie expiry to 0 to create a session cookie.
+        $jwt->cookie_expiry = 0;
+
+        // Set a JWT without a role, to persist the user's ID, login attempts and success_url.
         $jwt = $this->setJwt($jwt);
 
         // Is this the first few times a visitor has hit the 401 page?
         if ($jwt->login_attempts <= $this::MAX_AUTO_LOGIN_ATTEMPTS) {
 
             // This template will redirect them to login.
-            require_once $this::REDIRECT_TEMPLATE;
+            require_once $this::STATIC_401_REDIRECT;
 
             // Return early.
             return;
