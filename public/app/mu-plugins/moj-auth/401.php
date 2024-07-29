@@ -50,12 +50,12 @@ class Standalone401
         $this->https = isset($_SERVER['HTTPS']) || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && 'https' === $_SERVER['HTTP_X_FORWARDED_PROTO']);
 
         if (!file_exists($this::STATIC_401)) {
-            error_log('moj-auth/401.php 401.html was not found.');
+            error_log('moj-auth/401.php ' . basename($this::STATIC_401) . ' was not found.');
             http_response_code(401) && exit();
         }
 
         if (!file_exists($this::STATIC_401_REDIRECT)) {
-            error_log('moj-auth/401.php template was not found.');
+            error_log('moj-auth/401.php ' . basename($this::STATIC_401_REDIRECT) . ' was not found.');
             http_response_code(401) && exit();
         }
 
