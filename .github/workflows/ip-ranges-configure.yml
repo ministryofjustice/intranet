@@ -38,6 +38,7 @@ jobs:
 
             {
                 echo 'ips_formatted<<EOF'
-                echo "$ALLOW_FORMATTED\n$DEPRI_FORMATTED"
+                echo "$ALLOW_FORMATTED"
+                echo "$DEPRI_FORMATTED"
                 echo EOF
             }  >> $GITHUB_OUTPUT
