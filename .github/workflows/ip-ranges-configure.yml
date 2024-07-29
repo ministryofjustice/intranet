@@ -36,4 +36,8 @@ jobs:
             ALLOW_FORMATTED=$(yq 'explode(.) | .allow_access_to_moj_intranet       | flatten | map(. + " '$ALLOW_VALUE';") | join("\n")' moj-cidr-addresses.yml)
             DEPRI_FORMATTED=$(yq 'explode(.) | .deprecating_access_to_moj_intranet | flatten | map(. + " '$DEPRI_VALUE';") | join("\n")' moj-cidr-addresses.yml)
 
-            echo "ips_formatted=$ALLOW_FORMATTED"$'\n'"$DEPRI_FORMATTED" >> $GITHUB_OUTPUT
+            {
+                echo 'ips_formatted<<EOF'
+                echo "$ALLOW_FORMATTED"$'\n'"$DEPRI_FORMATTED"
+                echo EOF
+            }  >> $GITHUB_OUTPUT
