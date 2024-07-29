@@ -9,7 +9,7 @@ on:
       registry:
         required: true
         type: string
-      ip_ranges:
+      ips_formatted:
         required: true
         type: string
 

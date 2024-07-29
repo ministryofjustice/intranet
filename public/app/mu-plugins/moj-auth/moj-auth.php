@@ -69,7 +69,7 @@ class Auth
     {
         $this->log('handleRequest()');
 
-        if(!$this->oauth_action) {
+        if (!$this->oauth_action) {
             return;
         }
 
@@ -136,8 +136,13 @@ class Auth
         // Store the tokens.
         $this->storeTokens($this->sub, $oauth_access_token, 'refresh');
 
+        // Ensure we're redirecting to a page on the same domain as our home_url.
+        if (!$jwt->success_url || !str_starts_with($jwt->success_url, home_url())) {
+            $jwt->success_url = '/';
+        }
+
         // Redirect the user to the page they were trying to access.
-        header('Location: ' . \home_url($jwt->success_uri ?? '/')) && exit();
+        header('Location: ' . $jwt->success_url) && exit();
     }
 
     public function handleHeartbeatRequest(): void
@@ -147,18 +152,18 @@ class Auth
         // Get the JWT token from the request. Do this early so that we populate $this->sub if it's known.
         $jwt = $this->getJwt();
 
-        if(!$jwt) {
+        if (!$jwt) {
             return;
         }
 
         // Keep track of JWT mutations.
         $mutated_jwt = false;
 
-        // Clear success_uri & login_attempts here?
-        if (!empty($jwt->login_attempts) || !empty($jwt->success_uri)) {
+        // Clear success_url & login_attempts here?
+        if (!empty($jwt->login_attempts) || !empty($jwt->success_url)) {
             $mutated_jwt = true;
             $jwt->login_attempts = null;
-            $jwt->success_uri = null;
+            $jwt->success_url = null;
         }
 
         // Calculate the remaining time on the JWT token.
@@ -181,7 +186,7 @@ class Auth
         // Refresh OAuth token if it's about to expire.
         $oauth_refresh_token = $this->sub ? $this->getStoredTokens($this->sub, 'refresh') : null;
         $oauth_refreshed_access_token = $oauth_refresh_token ? $this->oauthRefreshToken($oauth_refresh_token) : null;
-        
+
         if (is_object($oauth_refreshed_access_token) && !$oauth_refreshed_access_token->hasExpired()) {
             $this->log('Refreshed access token is valid. Will set JWT and store refresh token.');
             // Set a JWT cookie.

@@ -21,7 +21,7 @@ require_once  $autoload;
 require_once 'traits/jwt.php';
 require_once 'traits/utils.php';
 
-class StandaloneAuth
+class StandaloneVerify
 {
     use AuthJwt;
     use AuthUtils;
@@ -48,9 +48,11 @@ class StandaloneAuth
 
         $status_code = $jwt_correct_role ? 200 : 401;
 
+        // $status_code= 401;
+
         http_response_code($status_code) && exit();
     }
 }
 
-$standalone_auth = new StandaloneAuth(['debug' => true]);
-$standalone_auth->handleAuthRequest();
+$standalone_verify = new StandaloneVerify(['debug' => true]);
+$standalone_verify->handleAuthRequest();
