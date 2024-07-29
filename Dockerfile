@@ -75,8 +75,7 @@ RUN mkdir /var/run/nginx-cache && \
 # contains gzip and module include
 COPY --chown=nginx:nginx deploy/config/nginx.conf /etc/nginx/nginx.conf
 
-# Disabled on 22 July 2024 - no deployment init files for Nginx
-#COPY deploy/config/init/nginx-* /docker-entrypoint.d/
+COPY deploy/config/init/nginx-* /docker-entrypoint.d/
 
 RUN chmod +x /docker-entrypoint.d/*; \
     echo "# This file is configured at runtime." > /etc/nginx/real_ip.conf

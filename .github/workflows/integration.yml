@@ -33,6 +33,7 @@ jobs:
       environment: development
       registry: ${{ needs.image.outputs.registry }}
       ip_ranges: ${{ needs.get_ip_ranges.outputs.ip_ranges }}
+      ips_formatted: ${{ needs.get_ip_ranges.outputs.ips_formatted }}
     secrets: inherit
 
   deploy_staging:
@@ -44,6 +45,7 @@ jobs:
       environment: staging
       registry: ${{ needs.image.outputs.registry }}
       ip_ranges: ${{ needs.get_ip_ranges.outputs.ip_ranges }}
+      ips_formatted: ${{ needs.get_ip_ranges.outputs.ips_formatted }}
     secrets: inherit
 
   deploy_demo:
@@ -55,6 +57,7 @@ jobs:
       environment: demo
       registry: ${{ needs.image.outputs.registry }}
       ip_ranges: ${{ needs.get_ip_ranges.outputs.ip_ranges }}
+      ips_formatted: ${{ needs.get_ip_ranges.outputs.ips_formatted }}
     secrets: inherit
 
   deploy_production:
@@ -66,4 +69,5 @@ jobs:
       environment: production
       registry: ${{ needs.image.outputs.registry }}
       ip_ranges: ${{ needs.get_ip_ranges.outputs.ip_ranges }}
+      ips_formatted: ${{ needs.get_ip_ranges.outputs.ips_formatted }}
     secrets: inherit

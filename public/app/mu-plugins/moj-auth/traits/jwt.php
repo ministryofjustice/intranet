@@ -2,8 +2,8 @@
 
 namespace MOJ\Intranet;
 
-// Do not allow access outside WP
-defined('ABSPATH') || exit;
+// Do not allow access outside WP, 401.php or verify.php
+defined('ABSPATH') || defined('DOING_STANDALONE_401') || defined('DOING_STANDALONE_VERIFY') || exit;
 
 /**
  * JWT functions for MOJ\Intranet\Auth.
@@ -41,7 +41,7 @@ trait AuthJwt
      * @return bool|object Returns false if the JWT is not found or an object if it is found.
      */
 
-    public function getJwt(): bool | object
+    public function getJwt(): false | object
     {
         $this->log('getJwt()');
 
@@ -55,14 +55,18 @@ trait AuthJwt
         try {
             $decoded = JWT::decode($jwt, new Key($this->jwt_secret, $this::JWT_ALGORITHM));
         } catch (\Exception $e) {
-            if($e->getMessage() !== 'Expired token') {
+            if ($e->getMessage() !== 'Expired token') {
                 \Sentry\captureException($e);
             }
             $this->log($e->getMessage());
             return false;
         }
 
-        if ($decoded && $decoded->sub) {
+        if(!$decoded) {
+            return $decoded;
+        }
+
+        if ($decoded->sub) {
             $this->sub = $decoded->sub;
         }
 
@@ -75,11 +79,11 @@ trait AuthJwt
      * @return object Returns the JWT payload.
      */
 
-    public function setJwt(array $args = []): object
+    public function setJwt(object $args = new \stdClass()): object
     {
         $this->log('setJwt()');
 
-        $expiry = isset($args['expiry']) ? $args['expiry'] : $this->now + $this::JWT_DURATION;
+        $expiry = isset($args->expiry) ? $args->expiry : $this->now + $this::JWT_DURATION;
 
         if (!$this->sub) {
             $this->sub = bin2hex(random_bytes(16));
@@ -90,8 +94,18 @@ trait AuthJwt
             'sub' => $this->sub,
             'exp' => $expiry,
             // Public claims - https://www.iana.org/assignments/jwt/jwt.xhtml
-            'roles' =>  isset($args['roles']) ? $args['roles'] : [],
+            'roles' =>  isset($args->roles) ? $args->roles : [],
         ];
+        
+        // Custom claims - conditionally add login_attempts from $args or class property.
+        if(!empty($args->login_attempts)) {
+            $payload['login_attempts'] = $args->login_attempts;
+        }
+        
+        // Custom claims - conditionally add success_uri from $args or class property.
+        if(!empty($args->success_uri)) {
+            $payload['success_uri'] = $args->success_uri;
+        }
 
         $jwt = JWT::encode($payload, $this->jwt_secret, $this::JWT_ALGORITHM);
 

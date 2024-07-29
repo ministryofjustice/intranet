@@ -12,19 +12,20 @@
  */
 
 namespace MOJ\Intranet;
+
 use Roots\WPConfig\Config;
 
 // Do not allow access outside WP
 defined('ABSPATH') || exit;
 
 // If the plugin isn't enabled, return early.
-if(Config::get('MOJ_AUTH_ENABLED') === false) {
+if (Config::get('MOJ_AUTH_ENABLED') === false) {
     return;
 }
 
-require_once 'jwt.php';
-require_once 'oauth.php';
-require_once 'utils.php';
+require_once 'traits/jwt.php';
+require_once 'traits/oauth.php';
+require_once 'traits/utils.php';
 
 /**
  * Class Auth
@@ -42,10 +43,10 @@ class Auth
     use AuthOauth;
     use AuthUtils;
 
-    private $now   = null;
-    private $debug = false;
-    private $https = false;
-    private $sub   = '';
+    private $now            = null;
+    private $debug          = false;
+    private $https          = false;
+    private $sub            = '';
 
     /**
      * Constructor
@@ -64,22 +65,11 @@ class Auth
         $this->initOauth();
     }
 
-    /**
-     * Handle the page request
-     * 
-     * This method is called on every page request. 
-     * It checks the JWT cookie and the IP address to determine if the user should be allowed access.
-     * 
-     * @param string $required_role The necessary role required to access the page.
-     * @return void
-     */
-
-    public function handlePageRequest(string $required_role = 'reader'): void
+    public function handleRequest(): void
     {
-        $this->log('handlePageRequest()');
+        $this->log('handleRequest()');
 
-        // If headers are already sent or we're doing a cron job, return early.
-        if (\headers_sent() || defined('DOING_CRON')) {
+        if(!$this->oauth_action) {
             return;
         }
 
@@ -91,72 +81,116 @@ class Auth
             $jwt = $this->setJwt();
         }
 
-        // If we've hit the callback endpoint, then handle it here. On fail it exits with 401 & php code execution stops here.
-        $oauth_access_token = 'callback' === $this->oauth_action ? $this->oauthCallback() : null;
-
-        // The callback has returned an access token.
-        if (is_object($oauth_access_token) && !$oauth_access_token->hasExpired()) {
-            $this->log('Access token is valid. Will set JWT and store refresh token.');
-            // Set a JWT cookie.
-            $this->setJwt([
-                'expiry' => $oauth_access_token->getExpires(),
-                'roles'  => ['reader']
-            ]);
-            // Store the tokens.
-            $this->storeTokens($this->sub, $oauth_access_token, 'refresh');
-            // Get the origin request from the cookie.
-            $user_redirect = get_transient('oauth_user_url_' . $this->sub);
-            // Remove the transient.
-            delete_transient('oauth_user_url_' . $this->sub);
-            // Redirect the user to the page they were trying to access.
-            header('Location: ' . \home_url($user_redirect ?? '/'));
+        if ('login' === $this->oauth_action) {
+            $this->handleLoginRequest();
             exit();
         }
 
-        // Get the roles from the JWT and check that they're sufficient.
-        $jwt_correct_role = $jwt && $jwt->roles ? in_array($required_role, $jwt->roles) : false;
+        if ('callback' === $this->oauth_action) {
+            $this->handleCallbackRequest();
+            exit();
+        }
+
+        if ('heartbeat' === $this->oauth_action) {
+            $this->handleHeartbeatRequest();
+            exit();
+        }
+
+        if (!empty($this->oauth_action)) {
+            $this->log('Unknown oauth action');
+            exit();
+        }
+    }
+
+    public function handleLoginRequest(): void
+    {
+        $this->log('handleLoginRequest()');
+
+        // Handle Azure AD/Entra ID OAuth. It redirects to Azure or exits with 401 if disabled.
+        $this->oauthLogin();
+    }
+
+    public function handleCallbackRequest(): void
+    {
+        $this->log('handleCallbackRequest()');
+
+        // If we've hit the callback endpoint, then handle it here. On fail it exits with 401 & php code execution stops here.
+        $oauth_access_token = $this->oauthCallback();
+
+        // The callback has returned an access token.
+        if (!is_object($oauth_access_token) || $oauth_access_token->hasExpired()) {
+            $this->log('Access token is not valid, or expired.');
+            return;
+        }
+
+        $this->log('Access token is valid. Will set JWT and store refresh token.');
+
+        $jwt = $this->getJwt() ?: (object)[];
+
+        $jwt->expiry = $oauth_access_token->getExpires();
+        $jwt->roles = ['reader'];
+
+        // Set a JWT cookie.
+        $this->setJwt($jwt);
+
+        // Store the tokens.
+        $this->storeTokens($this->sub, $oauth_access_token, 'refresh');
+
+        // Redirect the user to the page they were trying to access.
+        header('Location: ' . \home_url($jwt->success_uri ?? '/')) && exit();
+    }
+
+    public function handleHeartbeatRequest(): void
+    {
+        $this->log('handleHeartbeatRequest()');
+
+        // Get the JWT token from the request. Do this early so that we populate $this->sub if it's known.
+        $jwt = $this->getJwt();
+
+        if(!$jwt) {
+            return;
+        }
+
+        // Keep track of JWT mutations.
+        $mutated_jwt = false;
+
+        // Clear success_uri & login_attempts here?
+        if (!empty($jwt->login_attempts) || !empty($jwt->success_uri)) {
+            $mutated_jwt = true;
+            $jwt->login_attempts = null;
+            $jwt->success_uri = null;
+        }
 
         // Calculate the remaining time on the JWT token.
         $jwt_remaining_time = $jwt && $jwt->exp ? $jwt->exp - $this->now : 0;
 
-        // JWT is valid and it's not time to refresh it.
-        if ($jwt_correct_role && $jwt_remaining_time > $this::JWT_REFRESH) {
+        // It's not time to refresh the JWT, and we need to update the JWT.
+        if ($jwt_remaining_time > $this::JWT_REFRESH && $mutated_jwt) {
+            $jwt = $this->setJwt($jwt);
+        }
+
+        // It's not time to refresh the JWT, return early.
+        if ($jwt_remaining_time > $this::JWT_REFRESH) {
             return;
         }
 
         /*
-         * There is no valid JWT, or it's about to expire.
+         * The JWT is about to expire.
          */
-
-        // If the IP address is allowed, set a JWT and return.
-        if ($this->ipAddressIsAllowed()) {
-            $this->setJwt(['roles' => ['reader']]);
-            return;
-        }
 
         // Refresh OAuth token if it's about to expire.
         $oauth_refresh_token = $this->sub ? $this->getStoredTokens($this->sub, 'refresh') : null;
         $oauth_refreshed_access_token = $oauth_refresh_token ? $this->oauthRefreshToken($oauth_refresh_token) : null;
-
+        
         if (is_object($oauth_refreshed_access_token) && !$oauth_refreshed_access_token->hasExpired()) {
             $this->log('Refreshed access token is valid. Will set JWT and store refresh token.');
             // Set a JWT cookie.
-            $jwt = $this->setJwt([
-                'expiry' => $oauth_refreshed_access_token->getExpires(),
-                'roles'  => ['reader']
-            ]);
+            $jwt->expiry = $oauth_refreshed_access_token->getExpires();
+            $jwt->roles = ['reader'];
+            $jwt = $this->setJwt($jwt);
             // Store the tokens.
             $this->storeTokens($this->sub, $oauth_refreshed_access_token, 'refresh');
-            return;
         }
-
-        // If there's any time left on the JWT then return.
-        if ($jwt_correct_role && $jwt_remaining_time > 0) {
-            return;
-        }
-
-        // Handle Azure AD/Entra ID OAuth. It redirects to Azure or exits with 401 if disabled. php code execution always stops here.
-        $this->oauthLogin();
     }
 
     /**
@@ -174,5 +208,6 @@ class Auth
     }
 }
 
+
 $auth = new Auth(['debug' => Config::get('MOJ_AUTH_DEBUG')]);
-$auth->handlePageRequest('reader');
+$auth->handleRequest();

@@ -24,7 +24,7 @@ trait AuthOauth
     private $oauth_scopes     = [];
     private $oauth_action     = '';
 
-    const OAUTH_CALLBACK_URI         = '/oauth2?action=callback';
+    const OAUTH_CALLBACK_URI         = '/auth/callback';
     const OAUTH_AUTHORIZE_ENDPOINT   = '/oauth2/v2.0/authorize';
     const OAUTH_TOKEN_ENDPOINT       = '/oauth2/v2.0/token';
     const OAUTH_STATE_COOKIE_NAME    = 'OAUTH_STATE';
@@ -47,16 +47,14 @@ trait AuthOauth
         $this->oauth_app_id     = $_ENV['OAUTH_CLIENT_ID'];
         $this->oauth_app_secret = $_ENV['OAUTH_CLIENT_SECRET'];
         $this->oauth_scopes     = [
-            'api://' . $this->oauth_app_id . '/user_impersonation',
+            'User.Read',
             'offline_access' // To get a refresh token
         ];
         if (
-            isset($_SERVER['REQUEST_URI'])
-            && str_starts_with($_SERVER['REQUEST_URI'], '/oauth2')
-            && isset($_GET['action'])
-            && in_array($_GET['action'], ['callback', 'login', 'logout'])
+            isset($_SERVER['REQUEST_URI']) && str_starts_with ($_SERVER['REQUEST_URI'], '/auth/' )
         ) {
-            $this->oauth_action = $_GET['action'];
+            $path = explode('?', $_SERVER['REQUEST_URI'])[0];
+            $this->oauth_action = explode('/', $path )[2];
         }
 
         // Clear OAUTH_CLIENT_SECRET from $_ENV global. It's not required elsewhere in the app.
@@ -110,14 +108,10 @@ trait AuthOauth
         // Use a cookie to store oauth state.
         $this->setCookie($this::OAUTH_STATE_COOKIE_NAME, $state_hashed, -1);
 
-        // Store the user's origin URL in a transient.
-        set_transient('oauth_user_url_' . $this->sub, $_SERVER['REQUEST_URI'] ?? '', 60 * 5); // 5 minutes
-
         // Storing pkce prevents an attacker from potentially intercepting the auth code and using it.
         set_transient('oauth_pkce_' . $state_hashed, $oauth_client->getPkceCode(), 60 * 5); // 5 minutes
 
-        header('Location: ' . $authUrl);
-        exit();
+        header('Location: ' . $authUrl) && exit();
     }
 
     /**
