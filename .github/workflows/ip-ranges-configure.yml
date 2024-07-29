@@ -19,7 +19,7 @@ jobs:
         with:
           repository: 'ministryofjustice/moj-ip-addresses'
           ref: 'main'
-          # This is a fine grained PAT, it's scoped to the moj-ip private repository 
+          # This is a fine-grained PAT, it's scoped to the moj-ip private repository 
           # with the single permission: Content: Read-only.
           # The token is pending approval: https://github.com/settings/personal-access-tokens/3669004
           token: ${{ secrets.MOJ_IP_ADDRESSES_RO_PAT }}
@@ -28,7 +28,7 @@ jobs:
         uses: mikefarah/yq@master
         with:
           cmd: |
-            # Transform IPs into nginx geo format. 1 IP range per line, each range is followed by it's value.
+            # Transform IPs into nginx geo format. 1 IP range per line, each range is followed by its value.
             # @see https://nginx.org/en/docs/http/ngx_http_geo_module.html
             ALLOW_VALUE=1
             DEPRI_VALUE=2
@@ -36,4 +36,8 @@ jobs:
             ALLOW_FORMATTED=$(yq 'explode(.) | .allow_access_to_moj_intranet       | flatten | map(. + " '$ALLOW_VALUE';") | join("\n")' moj-cidr-addresses.yml)
             DEPRI_FORMATTED=$(yq 'explode(.) | .deprecating_access_to_moj_intranet | flatten | map(. + " '$DEPRI_VALUE';") | join("\n")' moj-cidr-addresses.yml)
 
-            echo "ips_formatted=$ALLOW_FORMATTED"$'\n'"$DEPRI_FORMATTED" >> $GITHUB_OUTPUT
+            {
+                echo 'ips_formatted<<EOF'
+                echo "$ALLOW_FORMATTED\n$DEPRI_FORMATTED"
+                echo EOF
+            }  >> $GITHUB_OUTPUT
