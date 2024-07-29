@@ -1,16 +1,14 @@
 <?php
 
 /**
- *
  * Enqueue Clarity scripts and styles.
  */
 
 add_action('wp_enqueue_scripts', 'enqueue_clarity_scripts', 99);
+define("MOJ_DIST_PATH", get_stylesheet_directory_uri() . '/dist');
 
-function enqueue_clarity_scripts()
+function enqueue_clarity_scripts(): void
 {
-    define('MOJ_DIST_PATH', get_stylesheet_directory_uri() . '/dist');
-
     // CSS
     wp_enqueue_style('style', mix_asset('/css/style.css'), array(), null, 'screen');
     wp_enqueue_style('ie', mix_asset('/css/style.ie.css'), array(), null, 'screen');
@@ -43,7 +41,7 @@ function enqueue_clarity_scripts()
  * @param $filename
  * @return string
  */
-function mix_asset($filename)
+function mix_asset($filename): string
 {
     /*global $webroot_dir;
 
@@ -57,7 +55,6 @@ function mix_asset($filename)
 }
 
 /**
- *
  * Remove Gutenberg CSS as we do not use
  */
 add_action('wp_print_styles', 'wps_deregister_gutenberg_css', 100);
@@ -69,25 +66,24 @@ function wps_deregister_gutenberg_css()
 }
 
 /**
- *
  * Enqueued backend admin CSS and JS
  */
 add_action('admin_enqueue_scripts', 'clarity_admin_enqueue');
 
-function clarity_admin_enqueue($hook)
+function clarity_admin_enqueue($hook): void
 {
     // Warning message to editors when they don't enter a page title
     if ($hook == 'post-new.php' || $hook == 'post.php') :
         wp_enqueue_script(
             'force_title_script',
-            get_stylesheet_directory_uri() . '/inc/admin/js/force-title.js',
+            mix_asset('/js/force-title.js'),
             array(),
             null,
             false
         );
         wp_enqueue_script(
             'colour-contrast-checker',
-            get_stylesheet_directory_uri() . '/inc/admin/js/colour-contrast-checker.js',
+            mix_asset('/js/colour-contrast-checker.js'),
             array(),
             null,
             false
@@ -97,7 +93,7 @@ function clarity_admin_enqueue($hook)
 
     wp_enqueue_script(
         'prior-party-banner',
-        get_stylesheet_directory_uri() . '/inc/admin/prior-party/prior-party-banner.js',
+        mix_asset('/js/prior-party-banner.js'),
         ['jquery'],
         1.3,
         false
@@ -109,7 +105,7 @@ function clarity_admin_enqueue($hook)
 
     wp_register_style(
         'clarity-admin-styles',
-        get_stylesheet_directory_uri() . '/inc/admin/css/admin.css',
+        mix_asset('/css/admin.css'),
         array(),
         '0.2.1',
         'all'

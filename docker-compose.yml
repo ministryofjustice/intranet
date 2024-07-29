@@ -64,6 +64,7 @@ services:
       - dist:/node/dist
       - ./Makefile:/node/Makefile
       - ./public/app/themes/clarity/src:/node/src
+      - ./public/app/themes/clarity/inc:/node/inc
       - ./public/app/themes/clarity/jsconfig.json:/node/jsconfig.json
       - ./public/app/themes/clarity/package.json:/node/package.json
       - ./public/app/themes/clarity/package-lock.json:/node/package-lock.json
