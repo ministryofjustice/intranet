@@ -136,8 +136,13 @@ class Auth
         // Store the tokens.
         $this->storeTokens($this->sub, $oauth_access_token, 'refresh');
 
+        // Ensure we're redirecting to a page on the same domain as our home_url.
+        if (!$jwt->success_url || !str_starts_with($jwt->success_url, home_url())) {
+            $jwt->success_url = '/';
+        }
+
         // Redirect the user to the page they were trying to access.
-        header('Location: ' . $jwt->success_url ?? '/') && exit();
+        header('Location: ' . $jwt->success_url) && exit();
     }
 
     public function handleHeartbeatRequest(): void
