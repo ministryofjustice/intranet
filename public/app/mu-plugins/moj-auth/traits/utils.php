@@ -32,7 +32,7 @@ trait AuthUtils
             return;
         }
 
-        error_log($message . ' ' . print_r($data, true));
+        error_log('MOJ_AUTH: ' . $message . ' ' . print_r($data, true));
     }
 
     /**
