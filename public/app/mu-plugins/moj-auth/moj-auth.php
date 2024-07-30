@@ -120,6 +120,19 @@ class Auth
         // The callback has returned an access token.
         if (!is_object($oauth_access_token) || $oauth_access_token->hasExpired()) {
             $this->log('Access token is not valid, or expired.');
+
+            // Update (or create) the JWT to keep track of failed callbacks.
+            $jwt = $this->getJwt() ?: (object)[];
+
+            // Set to 0 for a session cookie.
+            $jwt->cookie_expiry = 0;
+
+            // Set failed_callbacks with a default of 1, or add one to the existing value.
+            $jwt->failed_callbacks = isset($jwt->failed_callbacks) ? ((int) $jwt->failed_callbacks) + 1 : 1;
+            
+            // Set the JWT.
+            $this->setJwt($jwt);
+
             return;
         }
 
@@ -128,6 +141,9 @@ class Auth
         $jwt = $this->getJwt() ?: (object)[];
 
         $jwt->expiry = $oauth_access_token->getExpires();
+
+        $this->log('handleCallbackRequest initial token expiry: ' . $jwt->expiry);
+
         $jwt->roles = ['reader'];
 
         // Set a JWT cookie.
@@ -159,10 +175,10 @@ class Auth
         // Keep track of JWT mutations.
         $mutated_jwt = false;
 
-        // Clear success_url & login_attempts here?
-        if (!empty($jwt->login_attempts) || !empty($jwt->success_url)) {
+        // Clear success_url & failed_callbacks here?
+        if (isset($jwt->failed_callbacks) || !empty($jwt->success_url)) {
             $mutated_jwt = true;
-            $jwt->login_attempts = null;
+            $jwt->failed_callbacks = null;
             $jwt->success_url = null;
         }
 
@@ -195,7 +211,10 @@ class Auth
             $jwt = $this->setJwt($jwt);
             // Store the tokens.
             $this->storeTokens($this->sub, $oauth_refreshed_access_token, 'refresh');
+        } else {
+            $this->log('Refresh token was not valid.');
         }
+
     }
 
     /**

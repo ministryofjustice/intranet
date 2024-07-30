@@ -69,7 +69,7 @@ trait AuthJwt
             return false;
         }
 
-        if(!$decoded) {
+        if (!$decoded) {
             return $decoded;
         }
 
@@ -105,14 +105,14 @@ trait AuthJwt
             // Public claims - https://www.iana.org/assignments/jwt/jwt.xhtml
             'roles' =>  isset($args->roles) ? $args->roles : [],
         ];
-        
-        // Custom claims - conditionally add login_attempts from $args or class property.
-        if(!empty($args->login_attempts)) {
-            $payload['login_attempts'] = $args->login_attempts;
+
+        // Custom claims - conditionally add failed_callbacks from $args or class property.
+        if (isset($args->failed_callbacks)) {
+            $payload['failed_callbacks'] = $args->failed_callbacks;
         }
-        
+
         // Custom claims - conditionally add success_url from $args or class property.
-        if(!empty($args->success_url)) {
+        if (!empty($args->success_url)) {
             $payload['success_url'] = $args->success_url;
         }
 

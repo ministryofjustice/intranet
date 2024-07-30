@@ -38,10 +38,10 @@ class Standalone401
     private $https          = false;
     private $sub            = '';
 
-    const OAUTH_LOGIN_URI         = '/auth/login';
-    const MAX_AUTO_LOGIN_ATTEMPTS = 1;
-    const STATIC_401              = '../../themes/clarity/error-pages/401.html';
-    const STATIC_401_REDIRECT     = '../../themes/clarity/error-pages/401-redirect.html';
+    const OAUTH_LOGIN_URI      = '/auth/login';
+    const MAX_FAILED_CALLBACKS = 3;
+    const STATIC_401           = '../../themes/clarity/error-pages/401.html';
+    const STATIC_401_REDIRECT  = '../../themes/clarity/error-pages/401-redirect.html';
 
     public function __construct(array $args = [])
     {
@@ -59,7 +59,7 @@ class Standalone401
             http_response_code(401) && exit();
         }
 
-        if(empty($_ENV['WP_HOME'])) {
+        if (empty($_ENV['WP_HOME'])) {
             error_log('moj-auth/401.php WP_HOME was not set.');
             http_response_code(401) && exit();
         }
@@ -71,11 +71,16 @@ class Standalone401
     {
         $this->log('handle401Request()');
 
+        // Return early if it's a heartbeat request. 
+        // If that endpoint is a 401 do nothing here.
+        if ($_SERVER['REQUEST_URI'] === '/auth/heartbeat') {
+            return;
+        }
+
         // Get the JWT token from the request. Do this early so that we populate $this->sub if it's known.
         $jwt = $this->getJwt() ?: (object)[];
 
-        // Set loginAttempts with a default of 1, or add one to the existing value.
-        $jwt->login_attempts = empty($jwt->login_attempts) ? 1 : ((int) $jwt->login_attempts) + 1;
+        $this->log('Request URI: ' . $_SERVER['REQUEST_URI']);
 
         // Always add the schema and domain here, to prevent an open redirect vulnerability.
         $jwt->success_url = $_ENV['WP_HOME'] . $_SERVER['REQUEST_URI'];
@@ -83,11 +88,16 @@ class Standalone401
         // Set the cookie expiry to 0 to create a session cookie.
         $jwt->cookie_expiry = 0;
 
+        // Set failed_callbacks with a default of 0.
+        $jwt->failed_callbacks = isset($jwt->failed_callbacks) ? $jwt->failed_callbacks : 0;
+
         // Set a JWT without a role, to persist the user's ID, login attempts and success_url.
         $jwt = $this->setJwt($jwt);
 
-        // Is this the first few times a visitor has hit the 401 page?
-        if ($jwt->login_attempts <= $this::MAX_AUTO_LOGIN_ATTEMPTS) {
+        $this->log('handle401Request failed_callbacks: ' . $jwt->failed_callbacks);
+
+        // The visitor has zero of a few failed callbacks.
+        if ($jwt->failed_callbacks <= $this::MAX_FAILED_CALLBACKS) {
 
             // This template will redirect them to login.
             require_once $this::STATIC_401_REDIRECT;
@@ -96,7 +106,7 @@ class Standalone401
             return;
         }
 
-        // The user has hit a 401 too many times, we won't redirect.
+        // The user has failed to login via the callback too many times, we won't redirect.
         require_once $this::STATIC_401;
     }
 }
