@@ -89,7 +89,7 @@ class Standalone401
         $jwt->cookie_expiry = 0;
 
         // Set failed_callbacks with a default of 0.
-        $jwt->failed_callbacks = isset($jwt->failed_callbacks) ? $jwt->failed_callbacks : 0;
+        $jwt->failed_callbacks = $jwt->failed_callbacks ?? 0;
 
         // Set a JWT without a role, to persist the user's ID, login attempts and success_url.
         $jwt = $this->setJwt($jwt);
