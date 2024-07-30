@@ -311,10 +311,9 @@ To verify that S3 & CloudFront are working correctly.
 ### Useful links
 
 - [Ministry of Justice | Overview](https://portal.azure.com/#view/Microsoft_AAD_IAM/ActiveDirectoryMenuBlade/~/Overview)
-- App [MOJ-Local-Intranet-v2](https://portal.azure.com/#view/Microsoft_AAD_RegisteredApps/ApplicationMenuBlade/~/Overview/appId/73ed65a5-e879-4027-beab-f5e64de803b7/isMSAApp~/false)
-- App [MOJ-Dev-Intranet-V2](https://portal.azure.com/#view/Microsoft_AAD_RegisteredApps/ApplicationMenuBlade/~/Overview/quickStartType~/null/sourceType/Microsoft_AAD_IAM/appId/1dac3cbf-91d2-4c0e-9c80-0bf3f8fabd75)
-- App [MOJ-Demo-Intranet-V2](https://portal.azure.com/#view/Microsoft_AAD_RegisteredApps/ApplicationMenuBlade/~/Overview/quickStartType~/null/sourceType/Microsoft_AAD_IAM/appId/8d928bcf-c45e-41ec-aedf-059828aa6e3f)
-- App [MOJ-Staging-Intranet-V2](https://portal.azure.com/#view/Microsoft_AAD_RegisteredApps/ApplicationMenuBlade/~/Overview/quickStartType~/null/sourceType/Microsoft_AAD_IAM/appId/ffb808d2-312b-4ffe-a6e5-d6eacfd9f06f)
+- App [justicedigital-centraldigital-intranet-local](https://portal.azure.com/#view/Microsoft_AAD_RegisteredApps/ApplicationMenuBlade/~/Overview/appId/73ed65a5-e879-4027-beab-f5e64de803b7/isMSAApp~/false)
+- App [justicedigital-centraldigital-intranet-development](https://portal.azure.com/#view/Microsoft_AAD_RegisteredApps/ApplicationMenuBlade/~/Overview/quickStartType~/null/sourceType/Microsoft_AAD_IAM/appId/1dac3cbf-91d2-4c0e-9c80-0bf3f8fabd75)
+- App [justicedigital-centraldigital-intranet-staging](https://portal.azure.com/#view/Microsoft_AAD_RegisteredApps/ApplicationMenuBlade/~/Overview/quickStartType~/null/sourceType/Microsoft_AAD_IAM/appId/ffb808d2-312b-4ffe-a6e5-d6eacfd9f06f)
 
 ### Register an application
 
@@ -323,7 +322,7 @@ To verify that S3 & CloudFront are working correctly.
 3. Click on `App registrations`.
 4. Click on `New registration`.
 5. Fill in the form (adjust to the environment):
-   - Name: `MOJ-Local-Intranet-v2`
+   - Name: `justicedigital-centraldigital-intranet-development`
    - Supported account types: `Accounts in this organizational directory only`
    - Redirect URI: `Web` and `http://localhost/oauth2?action=callback`  
      or `https://dev.intranet.justice.gov.uk/oauth2?action=callback` etc.
@@ -335,19 +334,7 @@ To verify that S3 & CloudFront are working correctly.
    - Expires: `18 months`
 9. Set a reminder to update the client secret before it expires.
 10. Copy the `Value` value, make it available as environment variable `OAUTH_CLIENT_SECRET`.
-11. Click on `Expose an API` > `Add a scope`.
-12. Use the default Application ID URI, which is `api://<client_id>`.
-13. Fill in the form:
-    - Scope name: `user_impersonation`
-    - Who can consent: `Admins and users`
-    - Admin consent display name: `Access Intranet`
-    - Admin consent description: `Access Intranet on behalf of the signed-in user`
-    - User consent display name: `Access Intranet`
-    - User consent description: `Access Intranet on your behalf`
-14. Click on `Add a client application`.
-15. Enter the Client ID of the application you created.
-16. Check the box next to the application you created.
-17. Click on `Add application`.
+11. Make a request the Identity Team, that `User.Read` API permissions be added to the app.
 
 The oauth2 flow should now work with the Azure AD/Entra ID application.
 You can get an Access Token, Refresh Token and an expiry of the token.
