@@ -36,8 +36,11 @@ jobs:
             ALLOW_FORMATTED=$(yq 'explode(.) | .allow_access_to_moj_intranet       | flatten | map(. + " '$ALLOW_VALUE';") | join("\n")' moj-cidr-addresses.yml)
             DEPRI_FORMATTED=$(yq 'explode(.) | .deprecating_access_to_moj_intranet | flatten | map(. + " '$DEPRI_VALUE';") | join("\n")' moj-cidr-addresses.yml)
 
+            # Below is a line for LB_RANGE - trust these internal IPs to correctly report HTTP_X_FORWARDED_FOR
+
             {
                 echo 'ips_formatted<<EOF'
+                echo "proxy ${{ vars.LB_RANGE }};"
                 echo "$ALLOW_FORMATTED"
                 echo "$DEPRI_FORMATTED"
                 echo EOF
