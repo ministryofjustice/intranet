@@ -71,12 +71,6 @@ class Standalone401
     {
         $this->log('handle401Request()');
 
-        // Return early if it's a heartbeat request. 
-        // If that endpoint is a 401 do nothing here.
-        if ($_SERVER['REQUEST_URI'] === '/auth/heartbeat') {
-            return;
-        }
-
         // Get the JWT token from the request. Do this early so that we populate $this->sub if it's known.
         $jwt = $this->getJwt() ?: (object)[];
 
