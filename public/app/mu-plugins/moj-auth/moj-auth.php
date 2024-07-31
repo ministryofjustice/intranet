@@ -129,7 +129,7 @@ class Auth
 
             // Set failed_callbacks with a default of 1, or add one to the existing value.
             $jwt->failed_callbacks = isset($jwt->failed_callbacks) ? ((int) $jwt->failed_callbacks) + 1 : 1;
-            
+
             // Set the JWT.
             $this->setJwt($jwt);
 
@@ -153,7 +153,7 @@ class Auth
         $this->storeTokens($this->sub, $oauth_access_token, 'refresh');
 
         // Ensure we're redirecting to a page on the same domain as our home_url.
-        if (!$jwt->success_url || !str_starts_with($jwt->success_url, home_url())) {
+        if (empty($jwt->success_url) || !str_starts_with($jwt->success_url, home_url())) {
             $jwt->success_url = '/';
         }
 
@@ -214,7 +214,6 @@ class Auth
         } else {
             $this->log('Refresh token was not valid.');
         }
-
     }
 
     /**
