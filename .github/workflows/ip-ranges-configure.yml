@@ -32,6 +32,7 @@ jobs:
             # @see https://nginx.org/en/docs/http/ngx_http_geo_module.html
             ALLOW_VALUE=1
             DEPRI_VALUE=2
+            LOCAL_VALUE=3
 
             ALLOW_FORMATTED=$(yq 'explode(.) | .allow_access_to_moj_intranet       | flatten | map(. + " '$ALLOW_VALUE';") | join("\n")' moj-cidr-addresses.yml)
             DEPRI_FORMATTED=$(yq 'explode(.) | .deprecating_access_to_moj_intranet | flatten | map(. + " '$DEPRI_VALUE';") | join("\n")' moj-cidr-addresses.yml)
@@ -43,5 +44,6 @@ jobs:
                 echo "proxy ${{ vars.LB_RANGE }};"
                 echo "$ALLOW_FORMATTED"
                 echo "$DEPRI_FORMATTED"
+                echo "${{ vars.LOCAL_RANGE }} $LOCAL_VALUE;"
                 echo EOF
             }  >> $GITHUB_OUTPUT
