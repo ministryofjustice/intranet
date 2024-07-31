@@ -37,9 +37,10 @@ services:
       - php-socket:/sock
       ### Deploy scripts
       - ./deploy/config/local/nginx/php-fpm.conf:/etc/nginx/php-fpm.conf
-      - ./deploy/config/local/nginx/php-fpm-auth.conf:/etc/nginx/php-fpm-auth.conf
       - ./deploy/config/local/nginx/server.conf:/etc/nginx/conf.d/default.conf
       - ./deploy/config/nginx.conf:/etc/nginx/nginx.conf
+      - ./deploy/config/auth-request.conf:/etc/nginx/auth-request.conf
+      - ./deploy/config/php-fpm-auth.conf:/etc/nginx/php-fpm-auth.conf
       ### Assets
       - ./public/app/plugins:/var/www/html/public/app/plugins
       - ./public/app/themes/clarity/screenshot.png:/var/www/html/public/app/themes/clarity/screenshot.png
