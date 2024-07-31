@@ -22,7 +22,7 @@ metadata:
         return 301 https://raw.githubusercontent.com/ministryofjustice/security-guidance/main/contact/vulnerability-disclosure-security.txt;
       }
 spec:
-  ingressClassName: default
+  ingressClassName: modsec
   tls:
   - hosts:
     - demo.intranet.justice.gov.uk
