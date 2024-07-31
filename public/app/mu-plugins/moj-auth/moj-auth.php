@@ -92,8 +92,7 @@ class Auth
         }
 
         if ('heartbeat' === $this->oauth_action) {
-            $correct_role = $this->handleHeartbeatRequest();
-            echo json_encode(['correct_role' => $correct_role]);
+            $this->handleHeartbeatRequest();
             exit();
         }
 
@@ -162,7 +161,7 @@ class Auth
         header('Location: ' . $jwt->success_url) && exit();
     }
 
-    public function handleHeartbeatRequest(string $required_role = 'reader'): bool
+    public function handleHeartbeatRequest(): void
     {
         $this->log('handleHeartbeatRequest()');
 
@@ -170,11 +169,8 @@ class Auth
         $jwt = $this->getJwt();
 
         if (!$jwt) {
-            return false;
+            return;
         }
-
-        // Get the roles from the JWT and check that they're sufficient.
-        $jwt_correct_role = $jwt && $jwt->roles ? in_array($required_role, $jwt->roles) : false;
 
         // Keep track of JWT mutations.
         $mutated_jwt = false;
@@ -197,7 +193,7 @@ class Auth
 
         // It's not time to refresh the JWT, return early.
         if ($jwt_remaining_time > $this::JWT_REFRESH) {
-            return $jwt_correct_role;
+            return;
         }
 
         /*
@@ -223,11 +219,9 @@ class Auth
         // Set the JWT, if it's been mutated. Either by clearing properties, or it's been refreshed.
         if ($mutated_jwt) {
             $jwt = $this->setJwt($jwt);
-            // Re-assign the $jwt_correct_role variable because $jwt was mutated.
-            $jwt_correct_role = $jwt && $jwt->roles ? in_array($required_role, $jwt->roles) : false;
         }
 
-        return $jwt_correct_role;
+        return;
     }
 
     /**
