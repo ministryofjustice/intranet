@@ -58,6 +58,23 @@ export default (function ($) {
                 width:'100%'
             }
         },
+        feature: {
+            can_run: () => {
+                const runOn = [
+                    'dev.intranet',
+                    'intranet.docker',
+                    'staging.intranet'
+                ];
+                let ii = 0;
+
+                for (ii; ii < runOn.length; ii++) {
+                    if (location.href.includes(runOn[ii])) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+        },
         modal: (title, html) => {
             let modal = $('<div\>', { 'class': 'heartbeat__modal' })
                 .css(Backdrop.style.modal);
@@ -122,8 +139,10 @@ export default (function ($) {
     }
 
     $(function(){
-        Backdrop.confirm();
-        Backdrop.feedback();
+        if (Backdrop.feature.can_run()) {
+            Backdrop.confirm();
+            Backdrop.feedback();
+        }
 
         // Send a request to the heartbeat endpoint, this will refresh the oauth token.
         setInterval(function () {
