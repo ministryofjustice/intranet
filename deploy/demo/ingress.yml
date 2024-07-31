@@ -6,6 +6,11 @@ metadata:
   annotations:
     external-dns.alpha.kubernetes.io/set-identifier: intranet-demo-ingress-intranet-demo-green
     external-dns.alpha.kubernetes.io/aws-weight: "100"
+    nginx.ingress.kubernetes.io/enable-modsecurity: "true"
+    nginx.ingress.kubernetes.io/modsecurity-snippet: |
+      SecRuleEngine On
+      SecDefaultAction "phase:2,pass,log,tag:github_team=central-digital-product-team"
+      SecDefaultAction "phase:4,pass,log,tag:github_team=central-digital-product-team"
     nginx.ingress.kubernetes.io/auth-type: basic
     nginx.ingress.kubernetes.io/auth-secret: basic-auth-secret
     nginx.ingress.kubernetes.io/auth-realm: 'Demo User | Authentication Required'

@@ -82,8 +82,12 @@ class Standalone401
 
         $this->log('Request URI: ' . $_SERVER['REQUEST_URI']);
 
+        $jwt->success_url = $_ENV['WP_HOME'];
+
         // Always add the schema and domain here, to prevent an open redirect vulnerability.
-        $jwt->success_url = $_ENV['WP_HOME'] . $_SERVER['REQUEST_URI'];
+        if (!str_starts_with($_SERVER['REQUEST_URI'], '/auth')) {
+            $jwt->success_url .= $_SERVER['REQUEST_URI'];
+        }
 
         // Set the cookie expiry to 0 to create a session cookie.
         $jwt->cookie_expiry = 0;
