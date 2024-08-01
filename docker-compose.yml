@@ -59,10 +59,9 @@ services:
 
   node:
     container_name: intranet-node
-    image: node:20
+    image: node:22-alpine
     working_dir: /node
-    entrypoint: make
-    command: node-assets
+    command: ash -c "npm i && npm run watch"
     volumes:
       - node_modules:/node/node_modules
       - dist:/node/dist
@@ -177,10 +176,9 @@ services:
 
   cdn:
     container_name: intranet-cdn
-    image: node:20
+    image: node:22-alpine
     working_dir: /node
-    entrypoint: make
-    command: node-cdn
+    command: ash -c "npm i && npm run watch"
     volumes:
       - cdn_node_modules:/node/node_modules
       - ./Makefile:/node/Makefile

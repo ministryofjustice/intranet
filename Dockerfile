@@ -175,7 +175,7 @@ RUN mkdir -p ./vendor-assets && \
 #  █▀█  ▄█  ▄█  ██▄  ░█░  ▄█
 
 
-FROM node:20 AS assets-build
+FROM node:22-alpine AS assets-build
 
 WORKDIR /node
 COPY ./public/app/themes/clarity /node/
