@@ -249,6 +249,15 @@ kubectl exec -it $POD -n $NSP -- ash
 kubectl exec -it $POD -n $NSP -c fpm -- ash
 ```
 
+To access the OpenSearch dashboards, use port forwarding on the OpenSearch Proxy pod.
+
+```bash
+OS_POD=$(kubectl -n $NSP get pods  --no-headers  -o custom-columns=":metadata.name" |  awk '{if ($1 ~ "opensearch-proxy-cloud-platform-") print $0}');
+kubectl -n $NSP port-forward $OS_POD 8181:8080
+```
+
+And visit the dashboards in your browser at [http://localhost:8181/_dashboards](http://localhost:8181/_dashboards)
+
 ## AWS setup
 
 ### S3
