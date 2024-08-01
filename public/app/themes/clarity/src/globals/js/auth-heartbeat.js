@@ -41,7 +41,14 @@ export default (function ($) {
                 escape: {
                     backgroundColor: '#2271b1',
                     color: 'white',
-                    cursor: 'pointer'
+                    padding: '9px',
+                    textDecoration: 'none'
+                },
+                refresh: {
+                    backgroundColor: '#2271b1',
+                    color: 'white',
+                    cursor: 'pointer',
+                    marginTop: '16px'
                 }
             },
             modal: {
@@ -123,14 +130,14 @@ export default (function ($) {
          * On first visit to the site, ask the user what they would like to do.
          */
         confirm: () => {
-            const title = 'You are about to view a test version of the MoJ Intranet'
-            const html = '<br />To participate in user acceptance testing, please continue.<br /><br />' +
-              '<button class="modal-continue primary" type="button">&nbsp; Continue &nbsp;</button> &nbsp; or &nbsp; ' +
-              '<button class="modal-escape primary" type="button">&nbsp; Visit the live Intranet &nbsp;</button>'
-
             if (Backdrop.cookie.get() !== Backdrop.cookie.value) {
-                const modal = Backdrop.modal(title, html);
-                $("body").prepend(modal);
+                const title = 'You are about to view a test version of the MoJ Intranet'
+                const html = '<br />To participate in user acceptance testing, please continue.<br /><br />' +
+                  '<button class="modal-continue" type="button">&nbsp; Continue &nbsp;</button> &nbsp; or &nbsp; ' +
+                  '<a class="modal-escape" href="https://intranet.justice.gov.uk/">&nbsp; Visit the live Intranet &nbsp;</a>'
+
+                // present the modal
+                $("body").prepend(Backdrop.modal(title, html));
 
                 $('.heartbeat__modal button.modal-continue')
                 .on('click', () => {
@@ -139,8 +146,7 @@ export default (function ($) {
                 })
                 .css(Backdrop.style.button.continue);
 
-                $('.heartbeat__modal button.modal-escape')
-                .on('click', () => location.href = 'https://intranet.justice.gov.uk/')
+                $('.heartbeat__modal a.modal-escape')
                 .css(Backdrop.style.button.escape);
             }
         },
@@ -162,12 +168,12 @@ export default (function ($) {
                 const title = 'Your session has expired.'
                 const html = '<button class="modal-expired primary" type="button">&nbsp; Refresh &nbsp;</button>'
 
-                const modal = Backdrop.modal(title, html);
-                $("body").prepend(modal);
+                // present the modal
+                $("body").prepend(Backdrop.modal(title, html));
 
-                $('.heartbeat__modal button.modal-expired').
-                  on('click', () => location.reload()).
-                  css(Backdrop.style.button.escape).css({marginTop:'16px'});
+                $('.heartbeat__modal button.modal-expired')
+                .on('click', () => location.reload())
+                .css(Backdrop.style.button.refresh);
             }
         }
     }
