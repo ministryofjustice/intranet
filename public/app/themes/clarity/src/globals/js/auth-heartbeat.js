@@ -1,12 +1,16 @@
 
 export default (function ($) {
     const Backdrop = {
+        /**
+         * cookie object containes methods to set, get and
+         * delete the user_accetance cookie.
+         */
         cookie: {
             name: 'moj_uat_session',
             value: 'user_accepted',
-            set: (value, days = 7, path = '/') => {
+            set: (value, days = 7) => {
                 const expires = new Date( Date.now() + days * 864e5).toUTCString()
-                document.cookie = Backdrop.cookie.name + '=' + value + '; expires=' + expires + '; path=' + path
+                document.cookie = Backdrop.cookie.name + '=' + value + '; expires=' + expires + '; path=/'
             },
             get: () => {
                 return document.cookie.split('; ').reduce((r, v) => {
@@ -16,6 +20,11 @@ export default (function ($) {
             },
             delete: () => Backdrop.cookie.set('', -1),
         },
+        /**
+         * We are not using a style sheet.
+         * jQuery is fed properties and values to inline styles for
+         * the element it creates
+         */
         style: {
             img: {
                 maxWidth: '120px',
@@ -58,6 +67,10 @@ export default (function ($) {
                 width:'100%'
             }
         },
+        /**
+         * Prevents the UAT confirm box from running on production
+         * The object format used here is for readability
+         */
         feature: {
             can_run: () => {
                 const runOn = [
@@ -75,6 +88,13 @@ export default (function ($) {
                 return false;
             }
         },
+        /**
+         * Create a Modal
+         *
+         * @param title string
+         * @param html string
+         * @returns {*|jQuery}
+         */
         modal: (title, html) => {
             let modal = $('<div\>', { 'class': 'heartbeat__modal' })
                 .css(Backdrop.style.modal);
@@ -94,20 +114,16 @@ export default (function ($) {
 
             return backdrop.append(modal);
         },
-        feedback: () => {
-            // We can use this to place a box in the bottom right corner of
-            // the screen. This box can remind the user they are UATing and
-            // offer a link to submit feedback.
-            console.log('Display the feedback box.');
-        },
+        /**
+         * On first visit to the site, ask the user what they would like to do.
+         */
         confirm: () => {
             const title = 'You are about to view a test version of the MoJ Intranet'
-            const html = '<br />If you intend to assist in user acceptance testing, please continue.<br /><br />' +
+            const html = '<br />To participate in user acceptance testing, please continue.<br /><br />' +
               '<button class="modal-continue primary" type="button">&nbsp; Continue &nbsp;</button> &nbsp; or &nbsp; ' +
               '<button class="modal-escape primary" type="button">&nbsp; Visit the live Intranet &nbsp;</button>'
 
             if (Backdrop.cookie.get() !== Backdrop.cookie.value) {
-
                 const modal = Backdrop.modal(title, html);
                 $("body").prepend(modal);
 
@@ -123,11 +139,24 @@ export default (function ($) {
                 .css(Backdrop.style.button.escape);
             }
         },
+        /**
+         * Drop a feeback box in the bottom right orner of the screen
+         */
+        feedback: () => {
+            // We can use this to place a box in the bottom right corner of
+            // the screen. This box can remind the user they are UATing and
+            // offer a link to submit feedback.
+            console.log('Display the feedback box.');
+        },
+        /**
+         * Let the user know they should refresh the page they're on.
+         * The session has expired.
+         */
         failed: () => {
-            const title = 'Your session has expired.'
-            const html = '<button class="modal-expired primary" type="button">&nbsp; Refresh &nbsp;</button>'
-
             if ($('.heartbeat__backdrop').length === 0) {
+                const title = 'Your session has expired.'
+                const html = '<button class="modal-expired primary" type="button">&nbsp; Refresh &nbsp;</button>'
+
                 const modal = Backdrop.modal(title, html);
                 $("body").prepend(modal);
 
