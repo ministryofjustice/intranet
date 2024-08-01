@@ -68,10 +68,15 @@ export default (function ($) {
             }
         },
         /**
-         * Prevents the UAT confirm box from running on production
-         * The object format used here is for readability
+         * Feature flags...
          */
         feature: {
+            /**
+             * Prevents the UAT confirm box from running on production
+             * The object format used here is for readability
+             *
+             * @returns {boolean}
+             */
             can_run: () => {
                 const runOn = [
                     'dev.intranet',
