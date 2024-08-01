@@ -43,6 +43,7 @@ services:
       - ./deploy/config/php-fpm-auth.conf:/etc/nginx/php-fpm-auth.conf
       ### Assets
       - ./public/app/plugins:/var/www/html/public/app/plugins
+      - ./public/app/mu-plugins:/var/www/html/public/app/mu-plugins
       - ./public/app/themes/clarity/screenshot.png:/var/www/html/public/app/themes/clarity/screenshot.png
       - ./public/app/themes/clarity/error-pages:/var/www/html/public/app/themes/clarity/error-pages
       - ./public/wp:/var/www/html/public/wp
