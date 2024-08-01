@@ -84,21 +84,11 @@ export default (function ($) {
              *
              * @returns {boolean}
              */
-            can_run: () => {
-                const runOn = [
-                    'dev.intranet',
+            can_run: () => [
                     'intranet.docker',
-                    'staging.intranet'
-                ];
-                let ii = 0;
-
-                for (ii; ii < runOn.length; ii++) {
-                    if (location.href.includes(runOn[ii])) {
-                        return true;
-                    }
-                }
-                return false;
-            }
+                    'dev.intranet.justice.gov.uk',
+                    'staging.intranet.justice.gov.uk'
+                ].includes(location.hostname)
         },
         /**
          * Create a Modal
