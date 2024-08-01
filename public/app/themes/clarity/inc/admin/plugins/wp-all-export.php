@@ -11,7 +11,7 @@ defined('ABSPATH') || exit;
  * - Set memory_limit=512M for the local/php-fpm.php.
  * - Install wp-all-export locally.
  * - Disable WP Media Offload Plugin - so urls are not filtered.
- * - Include this file in functions.php if you need to do any filtering of the results.
+ * - Include this file in functions.php and adjust the filter to your needs..
  * - Set environment variables accordingly, e.g. `WP_ALL_EXPORT_PARENT_ID`.
  * - Set the export WP_Query to: 'post_type' => 'page', 'post_status' => 'publish'.
  * - Set: Fields ID, Title, Content, URL, MenuOrder, Date.
