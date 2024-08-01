@@ -183,11 +183,12 @@ class Auth
         }
 
         // Calculate the remaining time on the JWT token.
-        $jwt_remaining_time = $jwt && $jwt->exp ? $jwt->exp - $this->now : 0;
+        $jwt_remaining_time = $jwt->exp ? $jwt->exp - $this->now : 0;
 
         // It's not time to refresh the JWT, and we need to update the JWT.
         if ($jwt_remaining_time > $this::JWT_REFRESH && $mutated_jwt) {
             $jwt = $this->setJwt($jwt);
+            $mutated_jwt = false;
         }
 
         // It's not time to refresh the JWT, return early.
@@ -206,14 +207,21 @@ class Auth
         if (is_object($oauth_refreshed_access_token) && !$oauth_refreshed_access_token->hasExpired()) {
             $this->log('Refreshed access token is valid. Will set JWT and store refresh token.');
             // Set a JWT cookie.
+            $mutated_jwt = true;
             $jwt->expiry = $oauth_refreshed_access_token->getExpires();
             $jwt->roles = ['reader'];
-            $jwt = $this->setJwt($jwt);
             // Store the tokens.
             $this->storeTokens($this->sub, $oauth_refreshed_access_token, 'refresh');
         } else {
             $this->log('Refresh token was not valid.');
         }
+
+        // Set the JWT, if it's been mutated. Either by clearing properties, or it's been refreshed.
+        if ($mutated_jwt) {
+            $jwt = $this->setJwt($jwt);
+        }
+
+        return;
     }
 
     /**
