@@ -11,9 +11,10 @@ metadata:
       SecRuleEngine On
       SecDefaultAction "phase:2,pass,log,tag:github_team=central-digital-product-team"
       SecDefaultAction "phase:4,pass,log,tag:github_team=central-digital-product-team"
-    nginx.ingress.kubernetes.io/auth-type: basic
-    nginx.ingress.kubernetes.io/auth-secret: basic-auth-secret
-    nginx.ingress.kubernetes.io/auth-realm: 'Staging User | Authentication Required'
+      SecRuleRemoveById 949110
+    # nginx.ingress.kubernetes.io/auth-type: basic
+    # nginx.ingress.kubernetes.io/auth-secret: basic-auth-secret
+    # nginx.ingress.kubernetes.io/auth-realm: 'Staging User | Authentication Required'
     nginx.ingress.kubernetes.io/server-snippet: |
       location = /health {
         auth_basic off;
