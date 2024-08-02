@@ -65,7 +65,6 @@ services:
     volumes:
       - node_modules:/node/node_modules
       - dist:/node/dist
-      - ./Makefile:/node/Makefile
       - ./public/app/themes/clarity/src:/node/src
       - ./public/app/themes/clarity/inc:/node/inc
       - ./public/app/themes/clarity/jsconfig.json:/node/jsconfig.json
@@ -181,7 +180,6 @@ services:
     command: ash -c "npm i && npm run watch"
     volumes:
       - cdn_node_modules:/node/node_modules
-      - ./Makefile:/node/Makefile
       - ./cdn/package.json:/node/package.json
       - ./cdn/server.js:/node/server.js
     environment:
