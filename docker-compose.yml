@@ -60,14 +60,12 @@ services:
 
   node:
     container_name: intranet-node
-    image: node:20
+    image: node:22-alpine
     working_dir: /node
-    entrypoint: make
-    command: node-assets
+    command: ash -c "npm i && npm run watch"
     volumes:
       - node_modules:/node/node_modules
       - dist:/node/dist
-      - ./Makefile:/node/Makefile
       - ./public/app/themes/clarity/src:/node/src
       - ./public/app/themes/clarity/inc:/node/inc
       - ./public/app/themes/clarity/jsconfig.json:/node/jsconfig.json
@@ -178,13 +176,11 @@ services:
 
   cdn:
     container_name: intranet-cdn
-    image: node:20
+    image: node:22-alpine
     working_dir: /node
-    entrypoint: make
-    command: node-cdn
+    command: ash -c "npm i && npm run watch"
     volumes:
       - cdn_node_modules:/node/node_modules
-      - ./Makefile:/node/Makefile
       - ./cdn/package.json:/node/package.json
       - ./cdn/server.js:/node/server.js
     environment:
