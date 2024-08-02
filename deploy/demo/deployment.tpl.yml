@@ -37,6 +37,14 @@ spec:
               mountPath: /var/www/html/public/app/uploads
             - name: php-socket
               mountPath: /sock
+          securityContext:
+            runAsUser: 101
+          env:
+            - name: IPS_FORMATTED
+              valueFrom:
+                secretKeyRef:
+                  name: ${KUBE_NAMESPACE}-base64-secrets
+                  key: IPS_FORMATTED
 
         - name: cron
           image: ${ECR_URL}:${IMAGE_TAG_CRON}
