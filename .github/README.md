@@ -446,19 +446,72 @@ sequenceDiagram
 
 ### OAuth
 
-Hold on tight, this is a beast.
+#### Redirect to login
+
+This diagram shows how a user without a privileged IP will be redirected to `/auth/login` when they first try to visit the intranet.
 
 ```mermaid
 sequenceDiagram
     actor Client
-    Note left of Client: IP not in list, has org email address
+    Note left of Client: Unprivileged IP
     Client->>nginx: Content request
     nginx->>nginx (/auth/verify): Auth subrequest
-    Note right of nginx (/auth/verify): IP is not allowed via geo module
+    Note right of nginx (/auth/verify): geo module ⛔️
     nginx (/auth/verify)->>nginx: 401 response code
+    nginx->>fpm: Load dynamic 401 page
+    Note right of fpm: Generate JWT with success_url,<br/>serve document with meta/js<br/>redirect to /auth/login
+    fpm->>nginx: 401, JWT & doc.
+    nginx->>Client: Forward 401, JWT & doc.
+    Note left of Client: User is redircted
+    Client->>nginx: Request /auth/login
+```
+
+#### Handle login
+
+This diagram shows how a user with an organisation email address will logged in via Entra.
+
+Nginx is transparent for these requests, so it's omitted from the diagram.
+
+```mermaid
+sequenceDiagram
+    actor Client
+    Note left of Client: Unprivileged IP
+    Client->>fpm: Request /auth/login
+    Note right of fpm: Start OAuth flow,<br/>hash state and send cookie,<br/> save pkce<br/>redirect to Entra.
+    fpm->>Client: 302 & state cooke.
+    Client->>Entra: Authorization URL.
+    Note right of Entra: Prompt for login<br/>or use existing session.
+    Entra->>Client: Redirect to callback URL
+    Client->>fpm: Request /auth/callback?state=...
+    Note right of fpm: Callback state is validated,<br/>refresh tokens stored<br/>JWT generated with role and expiry<br/>cleanup state cookie & pkce
+    fpm->>Client: 302 to success_url or / & JWT.
+```
+
+#### Access with JWT
+
+Here, the user has a JWT with an expiry time in the future, and a necessary role of `reader`.
+
+The following diagram shows how this user will access content. The requests/responses have been omitted*, as this step is the same with or without auth.
+
+```mermaid
+sequenceDiagram
+    actor Client
+    Note left of Client: Has valid JWT
+    Client->>nginx: Content request
+    nginx->>nginx (/auth/verify): Auth subrequest
+    nginx (/auth/verify)->>fpm (moj-auth/verify.php): Handle auth subrequest
+    Note right of fpm (moj-auth/verify.php): JWT is validated
+    fpm (moj-auth/verify.php)->>nginx (/auth/verify): 200 response code
+    nginx (/auth/verify)->>nginx: 200 response code
+    Note right of nginx: ...<br/>serve content from WP<br/>or static asset*<br/>....
     nginx->>Client: Content response
 ```
 
+#### OAuth Refresh
+
+
+
+### Access control heartbeat
 
 <!-- License -->
 
