@@ -1,4 +1,4 @@
-export default (function ($) {
+(function ($) {
   const Feedback= {
     style: {
       box: {
@@ -15,6 +15,7 @@ export default (function ($) {
         position: 'fixed',
         right: '30px',
         width: '240px',
+        zIndex: 999,
       },
       link: {
         backgroundColor: 'green',
@@ -35,25 +36,25 @@ export default (function ($) {
       }
     },
     init: () => {
-      const feedback_box = $('<div\>', { id: 'feedback-box' })
+      const feedback_box = $('<div\>', { id: 'feedback-box' });
 
       feedback_box.html(
         'You are viewing a test version of the MoJ Intranet<br><br>' +
         '<a class="uat-feedback" href="https://forms.office.com/e/aDTcBxUfdF" target="_blank">&nbsp; Send feedback &nbsp;</a>' +
-        '<span> ( opens in a new tab )</span>',
-      ).css(Feedback.style.box)
+        '<span> ( opens in a new tab )</span>'
+      ).css(Feedback.style.box);
 
       // drop the box in the UI
-      $('body').append(feedback_box)
+      $('body').append(feedback_box);
 
       // apply styles
-      $('#feedback-box a.uat-feedback').css(Feedback.style.link)
-      $('#feedback-box span').css(Feedback.style.span)
+      $('#feedback-box a.uat-feedback').css(Feedback.style.link);
+      $('#feedback-box span').css(Feedback.style.span);
     }
-  }
+  };
 
   $(function () {
-    Feedback.init()
-  })
+    Feedback.init();
+  });
 
 })(jQuery);
