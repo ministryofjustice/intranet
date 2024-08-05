@@ -1,7 +1,7 @@
 <div align="center">
 
 
-# <img alt="MoJ logo" src="https://moj-logos.s3.eu-west-2.amazonaws.com/moj-uk-logo.png" width="200"/><br>Intranet
+# <img alt="MoJ logo" src="https://moj-logos.s3.eu-west-2.amazonaws.com/moj-uk-logo.png" width="200"><br>Intranet
 
 [![Standards Icon]][Standards Link]
 [![License Icon]][License Link]
