@@ -176,8 +176,9 @@ export default (function ($) {
         feedback: () => {
             const feedback_box = $('<div\>', {id: 'feedback-box'});
 
-            feedback_box.html('You are viewing a test version of the MoJ Intranet.<br><br>' +
-                '<a class="uat-feedback" href="https://forms.office.com/e/aDTcBxUfdF" target="_blank">&nbsp; Send feedback &nbsp;</a>' +
+            feedback_box.html(
+              'You are viewing a test version of the MoJ Intranet.<br><br>' +
+              '<a class="uat-feedback" href="https://forms.office.com/e/aDTcBxUfdF" target="_blank">&nbsp; Send feedback &nbsp;</a>' +
               '<span> ( opens in a new tab )</span>'
             ).css(Backdrop.style.feedback);
 
