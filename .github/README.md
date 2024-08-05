@@ -1,6 +1,7 @@
 <div align="center">
 
-# <img alt="MoJ logo" src="https://moj-logos.s3.eu-west-2.amazonaws.com/moj-uk-logo.png" width="200"><br>Intranet
+
+# <img alt="MoJ logo" src="https://moj-logos.s3.eu-west-2.amazonaws.com/moj-uk-logo.png" width="200"/><br>Intranet
 
 [![Standards Icon]][Standards Link]
 [![License Icon]][License Link]
@@ -14,7 +15,6 @@
 This is a project used by Ministry of Justice UK and agencies.
 https://intranet.justice.gov.uk/
 
-</div>
 
 ## Summary
 
@@ -347,6 +347,90 @@ To verify that S3 & CloudFront are working correctly.
 
 The oauth2 flow should now work with the Azure AD/Entra ID application.
 You can get an Access Token, Refresh Token and an expiry of the token.
+
+## Access controls
+
+To view the intranet content, visitors must meet one of the following criteria.
+
+- Be in an Allow List of IP ranges. 
+- Or, have a Microsoft Azure account, within the organisation.
+
+The visitor's IP is checked first, then if that check fails, they are redirected to the project's Entra application.
+
+### Auth request
+
+This project uses nginx to serve content, either by sending requests to fpm (php) or serving static assets.
+We use nginx to control access to the site's content by using the `ngx_http_auth_request_module`.
+
+> [It] implements client authorization based on the result of a subrequest. If the subrequest returns a 2xx response code, the access is allowed. If it returns 401 or 403, the access is denied with the corresponding error code.
+
+Documentation is found at https://nginx.org/en/docs/http/ngx_http_auth_request_module.html
+
+The internals of the `/auth/verify` endpoint will be explained next, for now the following diagrams show how the `ngx_http_auth_request_module` works.
+
+#### Authorized user
+
+For an authorized user, the internal subrequest to `/auth/verify` will return a 2xx status code, and the user will see the requested content.
+
+```mermaid
+sequenceDiagram
+    actor Client
+    Note left of Client: Authorized user
+    Client->>nginx: Content request
+    nginx->>nginx (/auth/verify): Auth subrequest
+    Note right of nginx (/auth/verify): Request is authorized
+    nginx (/auth/verify)->>nginx: 200 response code
+    nginx->>Client: Content response.
+```
+
+#### Un-authorized user
+
+For an un-authorized user, the internal subrequest to `/auth/verify` will return a 401 or 403 status code, and the user will see an error page.
+
+```mermaid
+sequenceDiagram
+    actor Client
+    Note left of Client: Un-authorized user
+    Client->>nginx: Content request
+    nginx->>nginx (/auth/verify): Auth subrequest
+    Note right of nginx (/auth/verify): Request is not authorized
+    nginx (/auth/verify)->>nginx: 401 response code
+    nginx->>Client: Error page response.
+```
+
+#### Implementation
+
+The auth request rules can be found in the [auth-request.conf](../deploy/config/auth-request.conf).
+
+- `auth_request` sets the endpoint.
+- `auth_request_set` is used to set a variable, that's available after the subrequest.
+
+This file is then `include`d in all protected locations in nginx [server.conf](../deploy/config/server.conf).
+
+### Allowed IPs
+
+The first process in handling a subrequest to `/auth/verify` is comparing the client's IP address to a list of know allowed IP ranges.
+
+To achieve this efficiently, the `ngx_http_geo_module` module is used.
+
+> The `ngx_http_geo_module` module creates variables with values depending on the client IP address.
+
+Documentation is found at https://nginx.org/en/docs/http/ngx_http_geo_module.html
+
+#### Implementation
+
+Our implementation is across 2 nginx config files.
+
+```mermaid
+sequenceDiagram
+    actor Client
+    Note left of Client: Has allowed IP
+    Client->>nginx: Content request
+    nginx->>nginx (/auth/verify): Auth subrequest
+    Note right of nginx (/auth/verify): IP is verified
+    nginx (/auth/verify)->>nginx: 200 response code
+    nginx->>Client: Content response.
+```
 
 
 <!-- License -->
