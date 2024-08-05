@@ -507,11 +507,14 @@ sequenceDiagram
     nginx->>Client: Content response
 ```
 
-#### OAuth Refresh
-
-
-
 ### Access control heartbeat
+
+In the background, as a visitor is browsing, javascript is requesting the `auth/heartbeat` endpoint.
+
+This is for 2 reasons:
+
+- It will keep the OAuth session fresh, the endpoint handler will refresh OAuth tokens, and update JWTs before they expire.
+- If a visitor's state has changed, e.g. they have moved from an office with an allowed IP, then their browser content is blurred and they are prompted to refresh the page.
 
 <!-- License -->
 
