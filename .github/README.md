@@ -525,7 +525,7 @@ sequenceDiagram
     Note right of fpm: JWT indicates too many<br/>failed login attempts  ⛔️
     fpm->>nginx: 401, JWT & doc.
     nginx->>Client: Forward 401, JWT & doc.
-    Note left of Client: User sees static 401<br/>without redirect to /auth/login
+    Note left of Client: Static 401 error page<br/>without redirect to /auth/login ⛔️
 ```
 
 ### Access control heartbeat
