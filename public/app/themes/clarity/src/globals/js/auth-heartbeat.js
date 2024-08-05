@@ -44,6 +44,23 @@ export default (function ($) {
                     padding: '9px',
                     textDecoration: 'none'
                 },
+                feedback: {
+                    box: {
+                        backgroundColor: 'green',
+                        color: 'white',
+                        padding: '9px',
+                        textAlign: 'center',
+                        textDecoration: 'none',
+                        display: 'block'
+                    },
+                    span: {
+                        fontSize:'1.2rem',
+                        fontStyle: 'italic',
+                        textAlign: 'center',
+                        display: 'block',
+                        marginTop:'5px'
+                    }
+                },
                 refresh: {
                     backgroundColor: '#2271b1',
                     color: 'white',
@@ -72,6 +89,19 @@ export default (function ($) {
                 zIndex:1000000,
                 height:'100%',
                 width:'100%'
+            },
+            feedback: {
+                backgroundColor: 'rgba(255, 255, 255, 0.75)',
+                boxShadow: 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px',
+                border: '5px solid #005ea5',
+                bottom: '30px',
+                fontSize: '1.4rem',
+                fontWeight: '900',
+                height: 'auto',
+                padding: '15px 20px',
+                position: 'fixed',
+                right: '30px',
+                width: '240px'
             }
         },
         /**
@@ -141,13 +171,19 @@ export default (function ($) {
             }
         },
         /**
-         * Drop a feeback box in the bottom right orner of the screen
+         * Drop a feeback box in the bottom right corner of the screen
          */
         feedback: () => {
-            // We can use this to place a box in the bottom right corner of
-            // the screen. This box can remind the user they are UATing and
-            // offer a link to submit feedback.
-            console.log('Display the feedback box.');
+            const feedback_box = $('<div\>', {id: 'feedback-box'});
+
+            feedback_box.html('You are viewing a test version of the MoJ Intranet.<br><br>' +
+                '<a class="uat-feedback" href="https://forms.office.com/e/aDTcBxUfdF" target="_blank">&nbsp; Send feedback &nbsp;</a>' +
+              '<span> ( opens in a new tab )</span>'
+            ).css(Backdrop.style.feedback);
+
+            $("body").append(feedback_box);
+            $('#feedback-box a.uat-feedback').css(Backdrop.style.button.feedback.box);
+            $('#feedback-box span').css(Backdrop.style.button.feedback.span);
         },
         /**
          * Let the user know they should refresh the page they're on.
