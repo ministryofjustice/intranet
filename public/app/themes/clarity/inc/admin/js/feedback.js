@@ -43,6 +43,9 @@
         marginTop: '5px',
       }
     },
+    /**
+     * Create the feedback box
+     */
     init: () => {
       const feedback_box = $('<div\>', { id: 'feedback-box' });
 
