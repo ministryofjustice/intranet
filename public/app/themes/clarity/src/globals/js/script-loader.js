@@ -13,6 +13,7 @@ import "../../components/c-input-container/on-change.js";
 import "../../components/c-notes-from-antonia/lazy_load.js";
 
 // Global scripts
+import "../../../inc/admin/js/feedback.js";
 import "./auth-heartbeat.js";
 import "./blog-content_filter.js";
 import "./condolences-filter.js";

@@ -141,15 +141,6 @@ export default (function ($) {
             }
         },
         /**
-         * Drop a feeback box in the bottom right orner of the screen
-         */
-        feedback: () => {
-            // We can use this to place a box in the bottom right corner of
-            // the screen. This box can remind the user they are UATing and
-            // offer a link to submit feedback.
-            console.log('Display the feedback box.');
-        },
-        /**
          * Let the user know they should refresh the page they're on.
          * The session has expired.
          */
@@ -171,7 +162,6 @@ export default (function ($) {
     $(function(){
         if (Backdrop.feature.can_run()) {
             Backdrop.confirm();
-            Backdrop.feedback();
         }
 
         // Send a request to the heartbeat endpoint, this will refresh the oauth token.
