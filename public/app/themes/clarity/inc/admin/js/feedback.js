@@ -1,5 +1,13 @@
 (function ($) {
   const Feedback= {
+
+    /**
+     * Prevents the UAT feedback box from running on production
+     * The object format used here is for readability
+     *
+     * @returns {boolean}
+     */
+    can_run: () => ['intranet.docker','dev.intranet.justice.gov.uk','staging.intranet.justice.gov.uk'].includes(location.hostname),
     style: {
       box: {
         backgroundColor: 'rgba(255, 255, 255, 0.75)',
@@ -54,7 +62,8 @@
   };
 
   $(function () {
-    Feedback.init();
+    if (Feedback.can_run()) {
+      Feedback.init();
+    }
   });
-
 })(jQuery);
