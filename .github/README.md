@@ -507,6 +507,27 @@ sequenceDiagram
     nginx->>Client: Content response
 ```
 
+#### Failed logins
+
+This diagram shows how a user will not be redirected to `/auth/login` after too many failed login attempts.
+
+Nginx is transparent for these requests, so it's omitted from the diagram.
+
+```mermaid
+sequenceDiagram
+    actor Client
+    Note left of Client: Unprivileged IP &<br/>3 failed callback attempts
+    Client->>nginx: Content request
+    nginx->>nginx (/auth/verify): Auth subrequest
+    Note right of nginx (/auth/verify): geo module ⛔️
+    nginx (/auth/verify)->>nginx: 401 response code
+    nginx->>fpm: Load dynamic 401 page
+    Note right of fpm: JWT indicates too many<br/>failed login attempts  ⛔️
+    fpm->>nginx: 401, JWT & doc.
+    nginx->>Client: Forward 401, JWT & doc.
+    Note left of Client: User sees static 401<br/>without redirect to /auth/login
+```
+
 ### Access control heartbeat
 
 In the background, as a visitor is browsing, javascript is requesting the `auth/heartbeat` endpoint.
