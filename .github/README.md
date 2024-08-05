@@ -348,7 +348,7 @@ To verify that S3 & CloudFront are working correctly.
 The oauth2 flow should now work with the Azure AD/Entra ID application.
 You can get an Access Token, Refresh Token and an expiry of the token.
 
-## Access controls
+## Access control
 
 To view the intranet content, visitors must meet one of the following criteria.
 
