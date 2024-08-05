@@ -409,7 +409,7 @@ This file is then `include`d in all protected locations in nginx [server.conf](.
 
 ### Allowed IPs
 
-The first process in handling a subrequest to `/auth/verify` is comparing the client's IP address to a list of know allowed IP ranges.
+The first step in handling a subrequest to `/auth/verify` is comparing the client's IP address to a list of know allowed IP ranges.
 
 To achieve this efficiently, the `ngx_http_geo_module` module is used.
 
@@ -419,7 +419,19 @@ Documentation is found at https://nginx.org/en/docs/http/ngx_http_geo_module.htm
 
 #### Implementation
 
-Our implementation is across 2 nginx config files.
+Our implementation is in nginx [server.conf](../deploy/config/server.conf). 
+
+The `geo` block towards the start of the file contains some module config, along with an include `include /etc/nginx/geo.conf;`
+
+`geo.conf` is a list of IPs with group value. The file is not checked into source control, instead:
+
+- an enviromnet variable `IPS_FORMATTED` is generated during deployment, from the private [ministryofjustice/moj-ip-addresses](https://github.com/ministryofjustice/moj-ip-addresses/) repository. 
+- `geo.conf` is generated when `nginx` containers startup, based on the value of `IPS_FORMATTED`. 
+
+See [.github/workflows/ip-ranges-configure.yml](./workflows/ip-ranges-configure.yml) for the script that downloads and transforms the IP ranges.
+See [deploy/config/init/nginx-geo.sh](../deploy/config/init/nginx-geo.sh) for for the nginx init script.
+
+A flow diagram of `ngx_http_auth_request_module` & `ngx_http_geo_module` responding to a client (who has a valid IP address).
 
 ```mermaid
 sequenceDiagram
@@ -427,9 +439,24 @@ sequenceDiagram
     Note left of Client: Has allowed IP
     Client->>nginx: Content request
     nginx->>nginx (/auth/verify): Auth subrequest
-    Note right of nginx (/auth/verify): IP is verified
+    Note right of nginx (/auth/verify): IP is verified via geo module
     nginx (/auth/verify)->>nginx: 200 response code
-    nginx->>Client: Content response.
+    nginx->>Client: Content response
+```
+
+### OAuth
+
+Hold on tight, this is a beast.
+
+```mermaid
+sequenceDiagram
+    actor Client
+    Note left of Client: IP not in list, has org email address
+    Client->>nginx: Content request
+    nginx->>nginx (/auth/verify): Auth subrequest
+    Note right of nginx (/auth/verify): IP is not allowed via geo module
+    nginx (/auth/verify)->>nginx: 401 response code
+    nginx->>Client: Content response
 ```
 
 
