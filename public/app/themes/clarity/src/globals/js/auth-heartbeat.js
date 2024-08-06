@@ -27,14 +27,14 @@ export default (function ($) {
          */
         style: {
             img: {
-                maxWidth: '120px',
+                maxWidth: '110px',
                 height: 'auto',
                 float: 'left',
                 marginRight: '30px'
             },
             button: {
                 continue: {
-                    backgroundColor: 'green',
+                    backgroundColor: '#00823b',
                     color: 'white',
                     cursor: 'pointer'
                 },
@@ -45,15 +45,16 @@ export default (function ($) {
                     textDecoration: 'none'
                 },
                 refresh: {
-                    backgroundColor: '#2271b1',
+                    backgroundColor: '#00823b',
                     color: 'white',
                     cursor: 'pointer',
-                    marginTop: '16px'
+                    margin: '16px -15px 5px 0',
+                    float: 'right'
                 }
             },
             modal: {
                 textAlign:'left',
-                padding:'20px 30px',
+                padding:'20px 30px 10px',
                 background:'#fff',
                 borderRadius:'5px',
                 alignItems: 'center',
@@ -146,8 +147,9 @@ export default (function ($) {
          */
         failed: () => {
             if ($('.heartbeat__backdrop').length === 0) {
-                const title = 'Your session has expired.'
-                const html = '<button class="modal-expired primary" type="button">&nbsp; Refresh &nbsp;</button>'
+                const title = 'Your session has expired'
+                const html = 'Please press ‘Reload’ to sign in to the Intranet again.<br>' +
+                  '<button class="modal-expired primary" type="button">&nbsp; Reload &nbsp;</button>'
 
                 // present the modal
                 $("body").prepend(Backdrop.modal(title, html));
