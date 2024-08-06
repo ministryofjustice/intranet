@@ -38,7 +38,8 @@ add_action('init', function () {
         'supports' => [
             'title',
             'editor',
-            'revisions'
+            'revisions',
+            'thumbnail'
         ],
         'rewrite' => array(
             'slug' => 'notes-from-antonia',
