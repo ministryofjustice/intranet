@@ -1,5 +1,6 @@
 <div align="center">
 
+
 # <img alt="MoJ logo" src="https://moj-logos.s3.eu-west-2.amazonaws.com/moj-uk-logo.png" width="200"><br>Intranet
 
 [![Standards Icon]][Standards Link]
@@ -14,7 +15,6 @@
 This is a project used by Ministry of Justice UK and agencies.
 https://intranet.justice.gov.uk/
 
-</div>
 
 ## Summary
 
@@ -348,6 +348,194 @@ To verify that S3 & CloudFront are working correctly.
 The oauth2 flow should now work with the Azure AD/Entra ID application.
 You can get an Access Token, Refresh Token and an expiry of the token.
 
+## Access control
+
+To view the intranet content, visitors must meet one of the following criteria.
+
+- Be in an Allow List of IP ranges. 
+- Or, have a Microsoft Azure account, within the organisation.
+
+The visitor's IP is checked first, then if that check fails, they are redirected to the project's Entra application.
+
+### Auth request
+
+This project uses nginx to serve content, either by sending requests to fpm (php) or serving static assets.
+We use nginx to control access to the site's content by using the `ngx_http_auth_request_module`.
+
+> [It] implements client authorization based on the result of a subrequest. If the subrequest returns a 2xx response code, the access is allowed. If it returns 401 or 403, the access is denied with the corresponding error code.
+
+Documentation is found at https://nginx.org/en/docs/http/ngx_http_auth_request_module.html
+
+The internals of the `/auth/verify` endpoint will be explained next, for now the following diagrams show how the `ngx_http_auth_request_module` works.
+
+#### Authorized user
+
+For an authorized user, the internal subrequest to `/auth/verify` will return a 2xx status code, and the user will see the requested content.
+
+```mermaid
+sequenceDiagram
+    actor Client
+    Note left of Client: Authorized user
+    Client->>nginx: Content request
+    nginx->>nginx (/auth/verify): Auth subrequest
+    Note right of nginx (/auth/verify): Request is authorized
+    nginx (/auth/verify)->>nginx: 200 response code
+    nginx->>Client: Content response.
+```
+
+#### Un-authorized user
+
+For an un-authorized user, the internal subrequest to `/auth/verify` will return a 401 or 403 status code, and the user will see an error page.
+
+```mermaid
+sequenceDiagram
+    actor Client
+    Note left of Client: Un-authorized user
+    Client->>nginx: Content request
+    nginx->>nginx (/auth/verify): Auth subrequest
+    Note right of nginx (/auth/verify): Request is not authorized
+    nginx (/auth/verify)->>nginx: 401 response code
+    nginx->>Client: Error page response.
+```
+
+#### Implementation
+
+The auth request rules can be found in the [auth-request.conf](../deploy/config/auth-request.conf).
+
+- `auth_request` sets the endpoint.
+- `auth_request_set` is used to set a variable, that's available after the subrequest.
+
+This file is then `include`d in all protected locations in nginx [server.conf](../deploy/config/server.conf).
+
+### Allowed IPs
+
+The first step in handling a subrequest to `/auth/verify` is comparing the client's IP address to a list of know allowed IP ranges.
+
+To achieve this efficiently, the `ngx_http_geo_module` module is used.
+
+> The `ngx_http_geo_module` module creates variables with values depending on the client IP address.
+
+Documentation is found at https://nginx.org/en/docs/http/ngx_http_geo_module.html
+
+#### Implementation
+
+Our implementation is in nginx [server.conf](../deploy/config/server.conf). 
+
+The `geo` block towards the start of the file contains some module config, along with an include `include /etc/nginx/geo.conf;`
+
+`geo.conf` is a list of IPs with group value. The file is not checked into source control, instead:
+
+- an enviromnet variable `IPS_FORMATTED` is generated during deployment, from the private [ministryofjustice/moj-ip-addresses](https://github.com/ministryofjustice/moj-ip-addresses/) repository. 
+- `geo.conf` is generated when `nginx` containers startup, based on the value of `IPS_FORMATTED`. 
+
+See [.github/workflows/ip-ranges-configure.yml](./workflows/ip-ranges-configure.yml) for the script that downloads and transforms the IP ranges.
+See [deploy/config/init/nginx-geo.sh](../deploy/config/init/nginx-geo.sh) for for the nginx init script.
+
+A flow diagram of `ngx_http_auth_request_module` & `ngx_http_geo_module` responding to a client (who has a valid IP address).
+
+```mermaid
+sequenceDiagram
+    actor Client
+    Note left of Client: Has allowed IP
+    Client->>nginx: Content request
+    nginx->>nginx (/auth/verify): Auth subrequest
+    Note right of nginx (/auth/verify): IP is verified via geo module
+    nginx (/auth/verify)->>nginx: 200 response code
+    nginx->>Client: Content response
+```
+
+### OAuth
+
+#### Redirect to login
+
+This diagram shows how a user without a privileged IP will be redirected to `/auth/login` when they first try to visit the intranet.
+
+```mermaid
+sequenceDiagram
+    actor Client
+    Note left of Client: Unprivileged IP
+    Client->>nginx: Content request
+    nginx->>nginx (/auth/verify): Auth subrequest
+    Note right of nginx (/auth/verify): geo module ⛔️
+    nginx (/auth/verify)->>nginx: 401 response code
+    nginx->>fpm: Load dynamic 401 page
+    Note right of fpm: Generate JWT with success_url,<br/>serve document with meta/js<br/>redirect to /auth/login
+    fpm->>nginx: 401, JWT & doc.
+    nginx->>Client: Forward 401, JWT & doc.
+    Note left of Client: User is redircted
+    Client->>nginx: Request /auth/login
+```
+
+#### Handle login
+
+This diagram shows how a user with an organisation email address will logged in via Entra.
+
+Nginx is transparent for these requests, so it's omitted from the diagram.
+
+```mermaid
+sequenceDiagram
+    actor Client
+    Note left of Client: Unprivileged IP
+    Client->>fpm: Request /auth/login
+    Note right of fpm: Start OAuth flow,<br/>hash state and send cookie,<br/> save pkce<br/>redirect to Entra.
+    fpm->>Client: 302 & state cooke.
+    Client->>Entra: Authorization URL.
+    Note right of Entra: Prompt for login<br/>or use existing session.
+    Entra->>Client: Redirect to callback URL
+    Client->>fpm: Request /auth/callback?state=...
+    Note right of fpm: Callback state is validated,<br/>refresh tokens stored<br/>JWT generated with role and expiry<br/>cleanup state cookie & pkce
+    fpm->>Client: 302 to success_url or / & JWT.
+```
+
+#### Access with JWT
+
+Here, the user has a JWT with an expiry time in the future, and a necessary role of `reader`.
+
+The following diagram shows how this user will access content. The requests/responses have been omitted*, as this step is the same with or without auth.
+
+```mermaid
+sequenceDiagram
+    actor Client
+    Note left of Client: Has valid JWT
+    Client->>nginx: Content request
+    nginx->>nginx (/auth/verify): Auth subrequest
+    nginx (/auth/verify)->>fpm (moj-auth/verify.php): Handle auth subrequest
+    Note right of fpm (moj-auth/verify.php): JWT is validated
+    fpm (moj-auth/verify.php)->>nginx (/auth/verify): 200 response code
+    nginx (/auth/verify)->>nginx: 200 response code
+    Note right of nginx: ...<br/>serve content from WP<br/>or static asset*<br/>....
+    nginx->>Client: Content response
+```
+
+#### Failed logins
+
+This diagram shows how a user will not be redirected to `/auth/login` after too many failed login attempts.
+
+Nginx is transparent for these requests, so it's omitted from the diagram.
+
+```mermaid
+sequenceDiagram
+    actor Client
+    Note left of Client: Unprivileged IP &<br/>3 failed callback attempts
+    Client->>nginx: Content request
+    nginx->>nginx (/auth/verify): Auth subrequest
+    Note right of nginx (/auth/verify): geo module ⛔️
+    nginx (/auth/verify)->>nginx: 401 response code
+    nginx->>fpm: Load dynamic 401 page
+    Note right of fpm: JWT indicates too many<br/>failed login attempts  ⛔️
+    fpm->>nginx: 401, JWT & doc.
+    nginx->>Client: Forward 401, JWT & doc.
+    Note left of Client: Static 401 error page<br/>without redirect to /auth/login ⛔️
+```
+
+### Access control heartbeat
+
+In the background, as a visitor is browsing, javascript is requesting the `auth/heartbeat` endpoint.
+
+This is for 2 reasons:
+
+- It will keep the OAuth session fresh, the endpoint handler will refresh OAuth tokens, and update JWTs before they expire.
+- If a visitor's state has changed, e.g. they have moved from an office with an allowed IP, then their browser content is blurred and they are prompted to refresh the page.
 
 <!-- License -->
 
