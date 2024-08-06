@@ -1685,6 +1685,7 @@ acf_add_local_field_group(array(
 				'news' => 'News',
 				'post' => 'Blogs',
 				'pages' => 'Pages',
+				'note' => 'Notes from Antonia',
 			),
 			'allow_null' => 0,
 			'other_choice' => 0,
@@ -1835,6 +1836,46 @@ acf_add_local_field_group(array(
 			'allow_null' => 0,
 			'multiple' => 0,
 			'return_format' => 'object',
+			'ui' => 1,
+		),
+		array(
+			'key' => 'field_66b1e7ee0e5b9',
+			'label' => 'Select note in HQ',
+			'name' => 'feature_item_left_note__hq',
+			'aria-label' => '',
+			'type' => 'post_object',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => array(
+				array(
+					array(
+						'field' => 'field_5b6966b5ddfb7',
+						'operator' => '==',
+						'value' => 'note',
+					),
+					array(
+						'field' => 'field_5b696b695a61a',
+						'operator' => '==',
+						'value' => 'hq',
+					),
+				),
+			),
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'admin_only' => 0,
+			'post_type' => array(
+				0 => 'note-from-antonia',
+			),
+			'post_status' => '',
+			'taxonomy' => array(
+				0 => 'agency:hq',
+			),
+			'return_format' => 'object',
+			'multiple' => 0,
+			'allow_null' => 0,
 			'ui' => 1,
 		),
 		array(
@@ -3029,6 +3070,7 @@ acf_add_local_field_group(array(
 				'news' => 'News',
 				'post' => 'Blogs',
 				'pages' => 'Pages',
+				'note' => 'Notes from Antonia',
 			),
 			'allow_null' => 0,
 			'other_choice' => 0,
@@ -3179,6 +3221,46 @@ acf_add_local_field_group(array(
 			'allow_null' => 0,
 			'multiple' => 0,
 			'return_format' => 'object',
+			'ui' => 1,
+		),
+		array(
+			'key' => 'field_66b1e7ee0e5b1',
+			'label' => 'Select note in HQ',
+			'name' => 'feature_item_right_note__hq',
+			'aria-label' => '',
+			'type' => 'post_object',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => array(
+				array(
+					array(
+						'field' => 'field_5b698d5376087',
+						'operator' => '==',
+						'value' => 'note',
+					),
+					array(
+						'field' => 'field_5b698d9976088',
+						'operator' => '==',
+						'value' => 'hq',
+					),
+				),
+			),
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'admin_only' => 0,
+			'post_type' => array(
+				0 => 'note-from-antonia',
+			),
+			'post_status' => '',
+			'taxonomy' => array(
+				0 => 'agency:hq',
+			),
+			'return_format' => 'object',
+			'multiple' => 0,
+			'allow_null' => 0,
 			'ui' => 1,
 		),
 		array(
