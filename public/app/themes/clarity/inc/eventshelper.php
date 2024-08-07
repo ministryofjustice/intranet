@@ -42,7 +42,7 @@ class EventsHelper
 
     function get_events($agency, $filter_options = false)
     {
-        // Set a cache key based on the Class, function mane and parameters.
+        // Set a cache key based on the post type, function name and parameters.
         $cache_key = 'event_get_events_' . $agency . '_' . ($filter_options ? md5(serialize($filter_options)) : 'false');
 
         // Get the cached value.
