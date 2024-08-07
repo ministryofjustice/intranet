@@ -121,3 +121,12 @@ function mojintranet_sort_events($vars)
 
     return $vars;
 }
+
+// Trigger clearing event cache on post create or update. 
+add_action( 'save_post_event', 'mojintranet_clear_events_cache', 10, 0);
+
+// Delete transients from the database, transients are created in EventsHelper.
+function mojintranet_clear_events_cache() {
+    global $wpdb;
+    $wpdb->query( "DELETE FROM `$wpdb->options` WHERE `option_name` LIKE ('_transient_event_get_events_%')" );
+}

@@ -8,6 +8,7 @@ if (!defined('ABSPATH')) {
 
 class EventsHelper
 {
+    const CACHE_DURATION = 60 * 10; // 10 mins.
 
     public function get_event($event_id)
     {
@@ -41,6 +42,16 @@ class EventsHelper
 
     function get_events($agency, $filter_options = false)
     {
+        // Set a cache key based on the Class, function mane and parameters.
+        $cache_key = 'event_get_events_' . $agency . '_' . ($filter_options ? md5(serialize($filter_options)) : 'false');
+
+        // Get the cached value.
+        $cache = get_transient($cache_key);
+
+        // If we have a value then return it.
+        if($cache) {
+            return $cache;
+        }
 
         // Order By
         $orderby = array(
@@ -164,10 +175,12 @@ class EventsHelper
             $i++;
         }
 
-        if (empty($events)) {
-            return null;
-        } else {
-            return $events;
-        }
+        // Assign the function's return value.
+        $return_value = empty($events) ? null : $events;
+
+        // Cache it, with the correct duration.
+        set_transient($cache_key, $return_value, $this::CACHE_DURATION);
+
+        return $return_value;
     }
 }
