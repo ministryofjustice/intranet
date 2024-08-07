@@ -92,6 +92,14 @@ function clarity_admin_enqueue($hook): void
     endif;
 
     wp_enqueue_script(
+        'moj-acf',
+        mix_asset('/js/acf.js'),
+        ['acf-input'],
+        1,
+        false
+    );
+
+    wp_enqueue_script(
         'uat-feedback',
         mix_asset('/js/feedback.js'),
         ['jquery'],

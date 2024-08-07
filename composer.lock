@@ -4,18 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6bd7d8c14bbf98d807ff1a392fec2251",
+    "content-hash": "76d0c088f49961f6ea9fd5f673d354e6",
     "packages": [
-        {
-            "name": "acf/advanced-custom-fields-pro",
-            "version": "6.2.9",
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.wp.dsd.io/dist/acf/advanced-custom-fields-pro/acf-advanced-custom-fields-pro-6.2.9.zip",
-                "shasum": "0bff7e6576ca319573e8671d507650f263f9a35f"
-            },
-            "type": "wordpress-plugin"
-        },
         {
             "name": "alphagov/notifications-php-client",
             "version": "6.2.0",
@@ -3267,6 +3257,21 @@
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/wp-document-revisions/"
+        },
+        {
+            "name": "wpengine/advanced-custom-fields-pro",
+            "version": "6.3.5",
+            "dist": {
+                "type": "zip",
+                "url": "https://connect.advancedcustomfields.com/v2/plugins/composer_download?p=pro&t=6.3.5"
+            },
+            "require": {
+                "composer/installers": "~1.0 || ~2.0"
+            },
+            "replace": {
+                "wpackagist-plugin/advanced-custom-fields": "self.version"
+            },
+            "type": "wordpress-plugin"
         }
     ],
     "packages-dev": [
