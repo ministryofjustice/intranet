@@ -6,6 +6,7 @@
  *
  *  @package Clarity
  */
+
 use MOJ\Intranet\Authors;
 
 $oAuthor = new Authors();
