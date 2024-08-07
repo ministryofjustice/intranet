@@ -21,6 +21,7 @@ $author_avatar = $author ? get_the_author_meta('thumbnail_avatar', $author) : ''
 
 // Filter right-hand blog list so the page your on isn't duplicated and doesn't appear in that list
 if (is_singular('post')) {
+    $post_id = $post_id ?? 0;
     if ($post_id === $id) {
         $id = '';
     }
