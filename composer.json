@@ -41,6 +41,10 @@
         {
             "type": "vcs",
             "url": "https://github.com/ministryofjustice/php-markdown-extra"
+        },
+        {
+            "type":"composer",
+            "url":"https://connect.advancedcustomfields.com"
         }
     ],
     "require": {
@@ -61,7 +65,7 @@
         "wpackagist-plugin/ewww-image-optimizer": "^7.4.0",
         "wpackagist-plugin/wp-document-revisions": "^3.5.0",
         "wpackagist-plugin/simple-301-redirects": "2.0.9",
-        "acf/advanced-custom-fields-pro": "^6.1.0",
+        "wpengine/advanced-custom-fields-pro": "^6.3.5",
         "ministryofjustice/like-button-for-wordpress": "dev-main",
         "ministryofjustice/notify-for-wordpress": "dev-main",
         "ministryofjustice/php-markdown-extra": "dev-main",

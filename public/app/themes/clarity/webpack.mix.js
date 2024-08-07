@@ -13,6 +13,7 @@ mix.setPublicPath('./dist/');
 mix.js('src/globals/js/script-loader.js', pathJS + 'main.min.js')
     .js('inc/admin/js/prior-party-banner.js', pathJS)
     .js('inc/admin/js/force-title.js', pathJS)
+    .js('inc/admin/js/acf.js', pathJS)
     .js('inc/admin/js/colour-contrast-checker.js', pathJS)
     .js('inc/admin/js/feedback.js', pathJS)
     .stylus('src/globals/css/_init.styl', pathCSS + 'globals.css', stylDeps)

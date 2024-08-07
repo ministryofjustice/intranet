@@ -140,6 +140,9 @@ Config::define('COMPRESS_SCRIPTS', false);
 // Enable the authentication mu-plugin.
 Config::define('MOJ_AUTH_ENABLED', true);
 
+// ACF License Key
+Config::define('ACF_PRO_LICENSE', env('ACF_PRO_LICENSE'));
+
 /**
  * Debugging Settings
  */
