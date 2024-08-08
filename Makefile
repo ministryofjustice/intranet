@@ -4,10 +4,12 @@
 ##  ▀▄▀  █▀█  █▀▄  █  █▀█  █▄█  █▄▄  ██▄  ▄█
 ##  populate as needed for testing
 ##  ... never commit!
-COMPOSER_USER := ***
-COMPOSER_PASS := ***
-AS3CF_PRO_USER := ***
-AS3CF_PRO_PASS := ***
+COMPOSER_USER   := ***
+COMPOSER_PASS   := ***
+ACF_PRO_LICENSE := ***
+ACF_PRO_PASS    := ***
+AS3CF_PRO_USER  := ***
+AS3CF_PRO_PASS  := ***
 
 # ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
 
