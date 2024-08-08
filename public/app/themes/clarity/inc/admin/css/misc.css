@@ -1,0 +1,4 @@
+div[data-ep-notice="different_server_type"].notice {
+    display: none !important;
+}
+
