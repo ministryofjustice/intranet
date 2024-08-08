@@ -37,6 +37,8 @@
         "pretty": "^2.0.0",
         "resolve-url-loader": "^5.0.0",
         "rupture": "^0.7.1",
+        "sass": "^1.77.8",
+        "sass-loader": "^12.6.0",
         "stylus": "^0.63.0",
         "stylus-loader": "7.1.2"
     },

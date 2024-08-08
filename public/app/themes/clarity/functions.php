@@ -71,6 +71,7 @@ require_once 'inc/api/intranet-v1-api.php';
 require_once 'inc/api/register-api-fields.php';
 
 
+require_once 'inc/admin-branding.php';
 require_once 'inc/autoloader.php';
 require_once 'inc/elasticsearch-on-opensearch.php';
 require_once 'inc/cookies.php';
@@ -114,9 +115,8 @@ require_once 'inc/table-modification.php';
 require_once 'inc/uploads.php';
 require_once 'inc/whitelisted-emails.php';
 
-/** Environment Notice **/
-require_once 'inc/environment-notice.php';
 
+new MOJ\Intranet\AdminBranding();
 
 add_action('save_post', function ($post_id, $post) {
     if ($post->post_name === 'agency-switcher') {
