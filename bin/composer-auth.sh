@@ -22,7 +22,7 @@ then
 			"http-basic": {
 				"composer.wp.dsd.io": {"username": "$COMPOSER_USER","password": "$COMPOSER_PASS"},
 				"composer.deliciousbrains.com": {"username": "$AS3CF_PRO_USER","password": "$AS3CF_PRO_PASS"},
-				"connect.advancedcustomfields.com": {"username": "$ACF_PRO_LICENSE", "password": "https://intranet.justice.gov.uk"}
+				"connect.advancedcustomfields.com": {"username": "$ACF_PRO_LICENSE", "password": "$ACF_PRO_PASS"}
 			}
 		}
 	EOF
