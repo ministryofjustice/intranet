@@ -36,15 +36,15 @@ jobs:
           # ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
                
           docker image build -t $REGISTRY/$REPOSITORY:fpm-$IMAGE_TAG \
-            --build-arg COMPOSER_USER="$COMPOSER_USER" --build-arg COMPOSER_PASS="$COMPOSER_PASS" \
-            --build-arg ACF_PRO_LICENSE="$ACF_PRO_LICENSE" \
-            --build-arg AS3CF_PRO_USER="$AS3CF_PRO_USER" --build-arg AS3CF_PRO_PASS="$AS3CF_PRO_PASS" \
+            --build-arg COMPOSER_USER="$COMPOSER_USER"     --build-arg COMPOSER_PASS="$COMPOSER_PASS"   \
+            --build-arg ACF_PRO_LICENSE="$ACF_PRO_LICENSE" --build-arg ACF_PRO_PASS="$ACF_PRO_PASS"     \
+            --build-arg AS3CF_PRO_USER="$AS3CF_PRO_USER"   --build-arg AS3CF_PRO_PASS="$AS3CF_PRO_PASS" \
             --target build-fpm .
           
           docker image build -t $REGISTRY/$REPOSITORY:nginx-$IMAGE_TAG \
-            --build-arg COMPOSER_USER="$COMPOSER_USER" --build-arg COMPOSER_PASS="$COMPOSER_PASS" \
-            --build-arg ACF_PRO_LICENSE="$ACF_PRO_LICENSE" \
-            --build-arg AS3CF_PRO_USER="$AS3CF_PRO_USER" --build-arg AS3CF_PRO_PASS="$AS3CF_PRO_PASS" \
+            --build-arg COMPOSER_USER="$COMPOSER_USER"     --build-arg COMPOSER_PASS="$COMPOSER_PASS"   \
+            --build-arg ACF_PRO_LICENSE="$ACF_PRO_LICENSE" --build-arg ACF_PRO_PASS="$ACF_PRO_PASS"     \
+            --build-arg AS3CF_PRO_USER="$AS3CF_PRO_USER"   --build-arg AS3CF_PRO_PASS="$AS3CF_PRO_PASS" \
             --target build-nginx .
           
           docker image build -t $REGISTRY/$REPOSITORY:cron-$IMAGE_TAG \
@@ -65,5 +65,6 @@ jobs:
           COMPOSER_USER: ${{ secrets.COMPOSER_USER }}
           COMPOSER_PASS: ${{ secrets.COMPOSER_PASS }}
           ACF_PRO_LICENSE: ${{ secrets.ACF_PRO_LICENSE }}
+          ACF_PRO_PASS: ${{ secrets.ACF_PRO_PASS }}
           AS3CF_PRO_USER: ${{ secrets.AS3CF_PRO_USER }}
           AS3CF_PRO_PASS: ${{ secrets.AS3CF_PRO_PASS }}
