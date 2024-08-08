@@ -231,3 +231,28 @@ function acf_hide_notice_for_non_admins()
 }
 
 add_filter('acf/admin/prevent_escaped_html_notice', 'acf_hide_notice_for_non_admins');
+
+/**
+ * Allow iframe tags to be returned by ACF the_field & the_sub_field.
+ * 
+ * @param array $tags the allowed html tags.
+ * @param string  $context the wp_kses context.
+ * 
+ * @return array $tags the filtered allowed html tags.
+ */
+
+function acf_add_allowed_iframe_tag( $tags, $context ) {
+    if ( $context === 'acf' ) {
+        $tags['iframe'] = array(
+            'src'             => true,
+            'height'          => true,
+            'width'           => true,
+            'frameborder'     => true,
+            'allowfullscreen' => true,
+        );
+    }
+    
+    return $tags;
+}
+
+add_filter( 'wp_kses_allowed_html', 'acf_add_allowed_iframe_tag', 10, 2 );
