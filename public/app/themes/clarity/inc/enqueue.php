@@ -100,8 +100,8 @@ function clarity_admin_enqueue($hook): void
     );
 
     wp_enqueue_script(
-        'uat-feedback',
-        mix_asset('/js/feedback.js'),
+        'admin-global',
+        mix_asset('/js/admin.min.js'),
         ['jquery'],
         1,
         false

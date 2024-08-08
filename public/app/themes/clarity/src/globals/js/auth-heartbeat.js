@@ -49,7 +49,11 @@ export default (function ($) {
                     color: 'white',
                     cursor: 'pointer',
                     margin: '16px -15px 5px 0',
-                    float: 'right'
+                    float: 'right',
+                    // Additional styles for admin view.
+                    padding: '10px',
+                    border: 'none',
+                    textDecoration: 'none'
                 }
             },
             modal: {
@@ -105,7 +109,8 @@ export default (function ($) {
             const backdrop = $('<div\>', { 'class': 'heartbeat__backdrop' })
                 .css(Backdrop.style.backdrop);
 
-            const heading = $('<h3\>').text(title).css({fontWeight:'700', fontSize: '2rem', lineHeight: '3.3rem'})
+            // This element is shown on the frontend and admin views, and frontend html `font-size: 62.5%`, use px values. 
+            const heading = $('<h3\>').text(title).css({fontWeight:'700', fontSize: '20px', lineHeight: '1.2', margin: 0})
             const content = $('<p\>').html(html).css({})
             const image = $('<img>', {
                 src: '/app/themes/clarity/dist/images/crown_copyright_logo.png',
@@ -113,7 +118,6 @@ export default (function ($) {
             }).css(Backdrop.style.img);
 
             modal = modal.append(image, heading, content);
-            console.log('Heartbeat:', modal);
 
             return backdrop.append(modal);
         },
@@ -147,15 +151,20 @@ export default (function ($) {
          */
         failed: () => {
             if ($('.heartbeat__backdrop').length === 0) {
+                // Set up some different behaviour depending on screen.
+                const isAdmin = location.pathname.includes('/wp-admin/');
+                const linkTarget = isAdmin ? '_blank' : '';
+                const linkHref = isAdmin ? `${location.origin}/auth/auto-close` : location;
+                const linkLabel = isAdmin ? 'Login' : 'Reload';
+
                 const title = 'Your session has expired'
                 const html = 'Please press ‘Reload’ to sign in to the Intranet again.<br>' +
-                  '<button class="modal-expired primary" type="button">&nbsp; Reload &nbsp;</button>'
+                  `<a target="${linkTarget}" class="modal-expired primary" href="${linkHref}" type="button">&nbsp; ${linkLabel} &nbsp;</a>`;
 
                 // present the modal
                 $("body").prepend(Backdrop.modal(title, html));
 
-                $('.heartbeat__modal button.modal-expired')
-                .on('click', () => location.reload())
+                $('.heartbeat__modal a.modal-expired')
                 .css(Backdrop.style.button.refresh);
             }
         }
