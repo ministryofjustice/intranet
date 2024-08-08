@@ -210,3 +210,24 @@ function dw_acf_rule_match_agency_context($match, $rule, $options)
 }
 
 add_filter('acf/location/rule_match/agency_context', 'dw_acf_rule_match_agency_context', 10, 3);
+
+/**
+ * This function hides the 'Escaped HTML notice' for non-admins.
+ * 
+ * @see https://www.advancedcustomfields.com/blog/acf-6-2-5-security-release/#detection-and-notice-information
+ */
+
+function acf_hide_notice_for_non_admins() 
+{
+    // If we're on the frontend, return false to keep logging enabled.
+    if(!is_admin()) {
+        return false;
+    }
+
+    // We're on an admin screen.
+
+    // Set the value false if user is admin. Set it to true for non-admins.
+    return !current_user_can('administrator');
+}
+
+add_filter('acf/admin/prevent_escaped_html_notice', 'acf_hide_notice_for_non_admins');
