@@ -2,9 +2,9 @@
  * Modify the login page
  */
 
-const wpLink = document.querySelector('a[href="https://en-gb.wordpress.org/"]');
-const siteLink = document.querySelector('#backtoblog a');
+const wpAnchor = document.querySelector('#login h1 > a');
+const siteAnchor = document.querySelector('#backtoblog > a');
 
-if (wpLink && siteLink) {
-    wpLink.href = siteLink.href;
+if (wpAnchor && siteAnchor) {
+    wpAnchor.href = siteAnchor.href;
 }
