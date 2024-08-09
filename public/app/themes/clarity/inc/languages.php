@@ -1,9 +1,7 @@
 <?php
 
-function dw_change_language($locale)
-{
-    return 'en-GB';
+add_filter('locale', function(){
+    return 'en_GB';
+});
 
-    die();
-}
-add_filter('locale', 'dw_change_language');
+add_filter('login_display_language_dropdown', '__return_false');
