@@ -1,4 +1,24 @@
+/**
+ * Plugin: ElasticPress
+ */
 div[data-ep-notice="different_server_type"].notice {
     display: none !important;
 }
 
+
+/**
+ * Plugin: WPOffloadMedia
+ */
+table.table-view-list.media .as3cf_bucket .row-actions,
+table.table-view-list.media .as3cf_access .row-actions {
+    display: none !important;
+}
+
+.media-frame-content .attachment-info .details .provider_name,
+.media-frame-content .attachment-info .details .region,
+.media-frame-content .attachment-info .details .bucket,
+.media-frame-content .attachment-info .details .key,
+.media-frame-content .attachment-info .details .acl,
+.media-frame-content .attachment-info .actions .s3-actions {
+    display: none !important;
+}
