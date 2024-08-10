@@ -10,3 +10,13 @@
 @import "prior-party-banner.css";
 @import "misc.css";
 
+/**
+ * Administrators (all):
+ * Don't manage access to media items - we use a JWT
+ */
+table.table-view-list.media .as3cf_bucket .row-actions,
+table.table-view-list.media .as3cf_access .row-actions {
+    display: none !important;
+}
+
+

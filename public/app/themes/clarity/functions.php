@@ -118,6 +118,21 @@ require_once 'inc/whitelisted-emails.php';
 
 new MOJ\Intranet\AdminBranding();
 
+// Remove AS3CF media columns for all apart from admin
+add_filter('manage_media_columns', function ($columns) {
+    $user = wp_get_current_user();
+
+    if (!user_can($user->ID, 'administrator')) {
+        echo '<script>alert("' . print_r($user->ID, true) . '")</script>';
+        unset($columns['as3cf_bucket']);
+        unset($columns['as3cf_access']);
+    }
+
+    return $columns;
+}, 99, 1);
+
+
+/// Prevent the Agency Switcher page from being overwritten
 add_action('save_post', function ($post_id, $post) {
     if ($post->post_name === 'agency-switcher') {
         update_post_meta($post_id, '_wp_page_template', 'agency-switcher.php');
