@@ -36,6 +36,7 @@ require_once 'inc/admin/page.php';
 require_once 'inc/admin/permission-display-page.php';
 require_once 'inc/admin/plugins/co-authors-plus.php';
 require_once 'inc/admin/plugins/polls.php';
+require_once 'inc/admin/plugins/wp-offload-media.php';
 require_once 'inc/admin/prior-party/prior-party-banner-admin.php';
 require_once 'inc/admin/prior-party/prior-party-banner-email.php';
 require_once 'inc/admin/prior-party/prior-party-banner.php';
@@ -117,20 +118,7 @@ require_once 'inc/whitelisted-emails.php';
 
 
 new MOJ\Intranet\AdminBranding();
-
-// Remove AS3CF media columns for all apart from admin
-add_filter('manage_media_columns', function ($columns) {
-    $user = wp_get_current_user();
-
-    if (!user_can($user->ID, 'administrator')) {
-        echo '<script>alert("' . print_r($user->ID, true) . '")</script>';
-        unset($columns['as3cf_bucket']);
-        unset($columns['as3cf_access']);
-    }
-
-    return $columns;
-}, 99, 1);
-
+new MOJ\Intranet\WPOffloadMedia();
 
 /// Prevent the Agency Switcher page from being overwritten
 add_action('save_post', function ($post_id, $post) {
