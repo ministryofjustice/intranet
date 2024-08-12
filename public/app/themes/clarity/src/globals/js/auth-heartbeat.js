@@ -155,25 +155,35 @@ export default (function ($) {
          */
         failed: () => {
             if ($('.heartbeat__backdrop').length === 0) {
-                // Set up some different behaviour depending on screen.
-                const isAdmin = location.pathname.includes('/wp-admin/');
-
-                // For admin screens, send the user to login in a new tab.
-                const linkTarget = isAdmin ? '_blank' : '';
-                const linkHref = isAdmin ? `${location.origin}/wp/wp-admin/?heartbeat-modal=success` : location.href;
-                const linkLabel = isAdmin ? 'Login (opens in a new tab)' : 'Reload';
-                const linkLabelShort = isAdmin ? 'Login' : 'Reload';
-
                 const title = 'Your session has expired'
-                const html = `Please press ‘${linkLabelShort}’ to sign in to the Intranet again.
-                    <br>
+                const html = 'Please press ‘Reload’ to sign in to the Intranet again.<br>' +
+                  '<button class="modal-expired primary" type="button">&nbsp; Reload &nbsp;</button>'
+
+                // present the modal
+                $("body").prepend(Backdrop.modal(title, html));
+
+                // Add a class to the modal, so that we can remove it when heartbeat is successful.
+                $('.heartbeat__backdrop').addClass('heartbeat__backdrop--failed');
+
+                $('.heartbeat__modal button.modal-expired')
+                .on('click', () => location.reload())
+                .css(Backdrop.style.button.refresh);
+            }
+        },
+        /**
+         * Let the user know they should Login via a new tab, to access the current admin screen.
+         * The session has expired.
+         */
+        adminFailed: () => {
+            if ($('.heartbeat__backdrop').length === 0) {
+                const title = 'Your session has expired'
+                const linkLabel = 'Login (opens in a new tab)';
+                const html = `Please press ‘Login’ to sign in to the Intranet again.<br>
                     <a 
-                        target="${linkTarget}" 
+                        target="'_blank'" 
                         class="modal-expired primary" 
-                        href="${linkHref}" 
-                        type="button">
-                        &nbsp; ${linkLabel} &nbsp;
-                    </a>`;
+                        href="${location.origin}/wp/wp-admin/?heartbeat-modal=success" 
+                    >&nbsp; ${linkLabel} &nbsp;</a>`;
 
                 // present the modal
                 $("body").prepend(Backdrop.modal(title, html));
@@ -189,7 +199,7 @@ export default (function ($) {
                     $link.text('Loading...');
                     // Revert back to normal state after 60s.
                     setTimeout(
-                        function () { $link.text(linkLabel) },
+                        () => $link.text(linkLabel),
                         60_000,
                     )
                 });
@@ -215,6 +225,7 @@ export default (function ($) {
             Backdrop.confirm();
         }
 
+        const isAdmin = location.pathname.includes('/wp-admin/');
         const urlParams = new URLSearchParams(window.location.search);
 
         if(urlParams.get('heartbeat-modal') === 'success') {
@@ -224,7 +235,7 @@ export default (function ($) {
         // Send a request to the heartbeat endpoint, this will refresh the oauth token.
         setInterval(function () {
             $.get('/auth/heartbeat').fail(() => {
-                Backdrop.failed();
+                isAdmin ? Backdrop.adminFailed() : Backdrop.failed();
             }).done(function() {
                 // Remove the failed modal if we have a success.
                 if($('.heartbeat__backdrop--failed').length) {
