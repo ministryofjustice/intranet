@@ -160,7 +160,7 @@ export default (function ($) {
 
                 // For admin screens, send the user to login in a new tab.
                 const linkTarget = isAdmin ? '_blank' : '';
-                const linkHref = isAdmin ? `${location.origin}/wp/wp-admin/?heartbeat-modal=success` : location;
+                const linkHref = isAdmin ? `${location.origin}/wp/wp-admin/?heartbeat-modal=success` : location.href;
                 const linkLabel = isAdmin ? 'Login (opens in a new tab)' : 'Reload';
                 const linkLabelShort = isAdmin ? 'Login' : 'Reload';
 
