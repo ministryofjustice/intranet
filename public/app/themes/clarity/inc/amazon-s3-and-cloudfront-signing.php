@@ -25,6 +25,7 @@ class AmazonS3AndCloudFrontSigning
 
     private $cloudfront_cookie_domain = '';
     private $cloudfront_private_key = '';
+    private $cloudfront_host = '';
     private $cloudfront_url = '';
 
     const CLOUDFRONT_DURATION = 60 * 10; // 10 minutes
@@ -40,6 +41,7 @@ class AmazonS3AndCloudFrontSigning
         // Cookie domain is important for sharing a cookie with a subdomain.
         $this->cloudfront_cookie_domain = preg_replace('/https?:\/\//', '', $_ENV['WP_HOME']);
         $this->cloudfront_private_key = $_ENV['AWS_CLOUDFRONT_PRIVATE_KEY'];
+        $this->cloudfront_host =  $_ENV['AWS_CLOUDFRONT_HOST'];
         $this->cloudfront_url =  'http' . ($this->https ? 's' : '') . '://' . $_ENV['AWS_CLOUDFRONT_HOST'];
 
         // Clear AWS_CLOUDFRONT_PRIVATE_KEY from $_ENV global. It's not required elsewhere in the app.
@@ -47,20 +49,18 @@ class AmazonS3AndCloudFrontSigning
 
         $this->handlePageRequest();
 
-        add_filter('http_request_args', function($args, $url){
-            if ($args['headers'] ?? false) {
-                $user_agent = $args['headers']['user-agent'] ?? false;
-                if ($user_agent === 'wp-offload-media') {
-                    $args['cookies'] = $this->createSignedCookie($this->cloudfront_url . '/*');
-                    error_log('ua=offloadmedia: ' . $url);
-                    error_log(print_r($args, true));
-                }
-                elseif(0 === strpos( $url, home_url())) {
-                    $args['headers']['Authorization'] = 'Basic ' . base64_encode( $_ENV['BASIC_AUTH_USER'] . ':' . $_ENV['BASIC_AUTH_PASS'] );
-                    error_log('ua=other: ' . $url);
-                    error_log(print_r($args, true));
-                }
+        add_filter('http_request_args', function ($args, $url) {
+            // Send cookies with the request to the cdn.
+            if (parse_url($url, PHP_URL_HOST) ===  $this->cloudfront_host) {
+                $args['cookies'] = $this->createSignedCookie($this->cloudfront_url . '/*');
             }
+
+            if (str_starts_with($url, home_url())) {
+                $args['headers']['Authorization'] = 'Basic ' . base64_encode($_ENV['BASIC_AUTH_USER'] . ':' . $_ENV['BASIC_AUTH_PASS']);
+                error_log('ua=other: ' . $url);
+                error_log(print_r($args, true));
+            }
+
             return $args;
         }, 10, 2);
     }
@@ -148,7 +148,7 @@ class AmazonS3AndCloudFrontSigning
         $public_key_short = substr($public_key_sha256, 0, 8);
 
         // Find the matching array entry for the public key.
-        $public_key_id_and_comment = array_filter($cloudfront_public_key_object, fn ($key) => $key['comment'] === $public_key_short && !empty($key['id']));
+        $public_key_id_and_comment = array_filter($cloudfront_public_key_object, fn($key) => $key['comment'] === $public_key_short && !empty($key['id']));
 
         // If the public key is not found, throw an exception.
         if (empty($public_key_id_and_comment)) {

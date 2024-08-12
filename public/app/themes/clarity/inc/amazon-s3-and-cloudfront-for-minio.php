@@ -19,8 +19,9 @@ use Roots\WPConfig\Config;
 class AmazonS3AndCloudFrontForMinio
 {
 
-    // Define the Minio hostnames.
+    // Define the Minio and CDN hostnames.
     private $minio_host = '';
+    private $cloudfront_host = '';
 
     public function __construct()
     {
@@ -33,6 +34,7 @@ class AmazonS3AndCloudFrontForMinio
 
         // If the S3_DOMAIN doesn't start with 'minio', then we are not using Minio.
         $this->minio_host = Config::get('AWS_S3_CUSTOM_HOST');
+        $this->cloudfront_host =   Config::get('AWS_CLOUDFRONT_HOST');
 
         /*
          * Custom S3 API Example: Minio
@@ -43,12 +45,13 @@ class AmazonS3AndCloudFrontForMinio
         add_filter('as3cf_aws_s3_console_url', array($this, 'MinioS3ConsoleUrl'));
         // The "prefix param" denotes what should be in the console URL before the path prefix value.
         // Minio just appends the path prefix directly after the bucket name.
-        add_filter('as3cf_aws_s3_console_url_prefix_param', fn () => '/');
+        add_filter('as3cf_aws_s3_console_url_prefix_param', fn() => '/');
 
         /*
          * URL Rewrite related filters.
          */
         add_filter('as3cf_use_ssl', '__return_false', 10, 1);
+        add_filter('http_request_args', [$this, 'filterRequestArgs'], 10, 2);
     }
 
     /**
@@ -112,8 +115,25 @@ class AmazonS3AndCloudFrontForMinio
     {
         return 'http://' . $this->minio_host . ':9001/browser/';
     }
+
+    /**
+     * Filter http_request_args to allow non-https requests to the local cdn.
+     * 
+     * @param array $args
+     * @param string $url
+     * 
+     * @return array
+     */
+
+    public function filterRequestArgs($args, $url)
+    {
+        if (parse_url($url, PHP_URL_HOST) ===   $this->cloudfront_host) {
+            $args['reject_unsafe_urls'] = false;
+        }
+        return $args;
+    }
 }
 
-if(str_starts_with(Config::get('AWS_S3_CUSTOM_HOST'), 'minio')) {
+if (str_starts_with(Config::get('AWS_S3_CUSTOM_HOST'), 'minio')) {
     new AmazonS3AndCloudFrontForMinio();
 }
