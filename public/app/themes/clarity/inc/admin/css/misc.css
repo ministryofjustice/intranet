@@ -9,6 +9,7 @@ div[data-ep-notice="different_server_type"].notice {
 /**
  * Plugin: WPOffloadMedia
  */
+table.table-view-list.media .column-primary .row-actions .as3cfpro_download,
 table.table-view-list.media .as3cf_bucket .row-actions,
 table.table-view-list.media .as3cf_access .row-actions {
     display: none !important;
