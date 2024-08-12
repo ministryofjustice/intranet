@@ -1,0 +1,39 @@
+/**
+ * Modifications for the login page
+ */
+body.login {
+  h1 {
+    margin-bottom: 15px;
+
+    a {
+      background-image: url('../images/moj-logo-crest.svg');
+      background-size: 100px;
+      height: 94px;
+      width: 104px;
+      margin-bottom: 5px;
+    }
+
+    &:after {
+      content: "MoJ Intranet";
+    }
+  }
+
+  form {
+    border-radius: 8px;
+    border: 1px solid #bdbdbd;
+    box-shadow:
+            rgba(255, 255, 255, 0.1) 0 1px 1px 0 inset,
+            rgba(50, 50, 93, 0.25) 0 50px 100px -20px,
+            rgba(0, 0, 0, 0.3) 0 30px 60px -30px;
+  }
+}
+
+body.wp-core-ui .button-primary {
+  background: #3479d6;
+  border-color: #3479d6;
+
+  &:hover {
+    background: #3888da;
+    border-color: #3888da;
+  }
+}
