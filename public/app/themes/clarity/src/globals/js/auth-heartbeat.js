@@ -36,7 +36,11 @@ export default (function ($) {
                 continue: {
                     backgroundColor: '#00823b',
                     color: 'white',
-                    cursor: 'pointer'
+                    cursor: 'pointer',
+                    // Additional styles for admin view.
+                    padding: '9px',
+                    border: 'none',
+                    textDecoration: 'none'
                 },
                 escape: {
                     backgroundColor: '#2271b1',
@@ -153,19 +157,55 @@ export default (function ($) {
             if ($('.heartbeat__backdrop').length === 0) {
                 // Set up some different behaviour depending on screen.
                 const isAdmin = location.pathname.includes('/wp-admin/');
+
+                // For admin screens, send the user to login in a new tab.
                 const linkTarget = isAdmin ? '_blank' : '';
-                const linkHref = isAdmin ? `${location.origin}/auth/auto-close` : location;
-                const linkLabel = isAdmin ? 'Login' : 'Reload';
+                const linkHref = isAdmin ? `${location.origin}/wp/wp-admin/?heartbeat-modal=success` : location;
+                const linkLabel = isAdmin ? 'Login (opens in a new tab)' : 'Reload';
+                const linkLabelShort = isAdmin ? 'Login' : 'Reload';
 
                 const title = 'Your session has expired'
-                const html = 'Please press ‘Reload’ to sign in to the Intranet again.<br>' +
-                  `<a target="${linkTarget}" class="modal-expired primary" href="${linkHref}" type="button">&nbsp; ${linkLabel} &nbsp;</a>`;
+                const html = `Please press ‘${linkLabelShort}’ to sign in to the Intranet again.
+                    <br>
+                    <a 
+                        target="${linkTarget}" 
+                        class="modal-expired primary" 
+                        href="${linkHref}" 
+                        type="button">
+                        &nbsp; ${linkLabel} &nbsp;
+                    </a>`;
 
                 // present the modal
                 $("body").prepend(Backdrop.modal(title, html));
 
+                // Add a class to the modal, so that we can remove it when heartbeat is successful.
+                $('.heartbeat__backdrop').addClass('heartbeat__backdrop--failed');
+
                 $('.heartbeat__modal a.modal-expired')
-                .css(Backdrop.style.button.refresh);
+                .css(Backdrop.style.button.refresh)
+                // Set the loading state on click.
+                .on('click', function () {
+                    const $link = $(this);
+                    $link.text('Loading...');
+                    // Revert back to normal state after 60s.
+                    setTimeout(
+                        function () { $link.text(linkLabel) },
+                        60_000,
+                    )
+                });
+            }
+        },
+        /**
+         * Let the user know they should close the tab they're on.
+         * They've successfully logged in from an admin screen via a new tab.
+         */
+        adminSuccess: () => {
+            if ($('.heartbeat__backdrop').length === 0) {
+                const title = 'You\'ve successfully logged in.'
+                const html = `Please close this browser tab to return to where you left off.`;
+
+                // present the modal
+                $("body").prepend(Backdrop.modal(title, html));
             }
         }
     }
@@ -175,10 +215,19 @@ export default (function ($) {
             Backdrop.confirm();
         }
 
+        if(location.search === '?heartbeat-modal=success') {
+            Backdrop.adminSuccess();
+        }
+
         // Send a request to the heartbeat endpoint, this will refresh the oauth token.
         setInterval(function () {
             $.get('/auth/heartbeat').fail(() => {
                 Backdrop.failed();
+            }).done(function() {
+                // Remove the failed modal if we have a success.
+                if($('.heartbeat__backdrop--failed').length) {
+                    $('.heartbeat__backdrop--failed').remove();
+                }
             })
         }, 10000)
     });
