@@ -215,7 +215,9 @@ export default (function ($) {
             Backdrop.confirm();
         }
 
-        if(location.search === '?heartbeat-modal=success') {
+        const urlParams = new URLSearchParams(window.location.search);
+
+        if(urlParams.get('heartbeat-modal') === 'success') {
             Backdrop.adminSuccess();
         }
 
