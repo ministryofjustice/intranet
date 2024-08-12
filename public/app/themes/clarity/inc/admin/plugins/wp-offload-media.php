@@ -27,11 +27,12 @@ class WPOffloadMedia
     {
         add_action('init', [$this, 'cannotView']);
         add_filter('manage_media_columns', [$this, 'maybeRemoveColumns'], 99, 1);
-        add_action('add_meta_boxes_attachment', [$this, 'maybeRemoveMetaBoxes'], 99, 1);
+        add_action('add_meta_boxes_attachment', [$this, 'maybeRemoveMetaBoxesAttachment'], 99, 0);
     }
 
     /**
-     * Determine if the current user should have a restricted view
+     * Determine if the current user should have a restricted view.
+     * In this context, only administrators can view Offload Media details.
      *
      * @return void
      */
@@ -44,7 +45,14 @@ class WPOffloadMedia
         }
     }
 
-    public function maybeRemoveColumns($columns)
+    /**
+     * On the Media list view page, remove columns if not an administrator
+     *
+     * @param $columns
+     *
+     * @return mixed
+     */
+    public function maybeRemoveColumns($columns): mixed
     {
         if ($this->view_restricted) {
             unset($columns['as3cf_bucket']);
@@ -54,7 +62,13 @@ class WPOffloadMedia
         return $columns;
     }
 
-    public function maybeRemoveMetaBoxes($post): void
+    /**
+     * When viewing an edit page of post type attachment, remove
+     * the Offload Media meta-box if user has restricted view.
+     *
+     * @return void
+     */
+    public function maybeRemoveMetaBoxesAttachment(): void
     {
         if ($this->view_restricted) {
             remove_meta_box('s3-actions', 'attachment', 'side');
