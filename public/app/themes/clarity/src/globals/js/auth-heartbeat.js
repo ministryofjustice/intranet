@@ -113,7 +113,7 @@ export default (function ($) {
             const backdrop = $('<div\>', { 'class': 'heartbeat__backdrop' })
                 .css(Backdrop.style.backdrop);
 
-            // This element is shown on the frontend and admin views, and frontend html `font-size: 62.5%`, use px values. 
+            // This element is on frontend and admin views. The frontend html has `font-size: 62.5%`, so use px values here.
             const heading = $('<h3\>').text(title).css({fontWeight:'700', fontSize: '20px', lineHeight: '1.2', margin: 0})
             const content = $('<p\>').html(html).css({})
             const image = $('<img>', {
