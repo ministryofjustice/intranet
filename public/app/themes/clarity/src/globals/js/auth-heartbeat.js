@@ -36,7 +36,11 @@ export default (function ($) {
                 continue: {
                     backgroundColor: '#00823b',
                     color: 'white',
-                    cursor: 'pointer'
+                    cursor: 'pointer',
+                    // Additional styles for admin view.
+                    padding: '9px',
+                    border: 'none',
+                    textDecoration: 'none'
                 },
                 escape: {
                     backgroundColor: '#2271b1',
@@ -49,7 +53,11 @@ export default (function ($) {
                     color: 'white',
                     cursor: 'pointer',
                     margin: '16px -15px 5px 0',
-                    float: 'right'
+                    float: 'right',
+                    // Additional styles for admin view.
+                    padding: '10px',
+                    border: 'none',
+                    textDecoration: 'none'
                 }
             },
             modal: {
@@ -105,7 +113,8 @@ export default (function ($) {
             const backdrop = $('<div\>', { 'class': 'heartbeat__backdrop' })
                 .css(Backdrop.style.backdrop);
 
-            const heading = $('<h3\>').text(title).css({fontWeight:'700', fontSize: '2rem', lineHeight: '3.3rem'})
+            // This element is on frontend and admin views. The frontend html has `font-size: 62.5%`, so use px values here.
+            const heading = $('<h3\>').text(title).css({fontWeight:'700', fontSize: '20px', lineHeight: '1.2', margin: 0})
             const content = $('<p\>').html(html).css({})
             const image = $('<img>', {
                 src: '/app/themes/clarity/dist/images/crown_copyright_logo.png',
@@ -113,7 +122,6 @@ export default (function ($) {
             }).css(Backdrop.style.img);
 
             modal = modal.append(image, heading, content);
-            console.log('Heartbeat:', modal);
 
             return backdrop.append(modal);
         },
@@ -154,9 +162,60 @@ export default (function ($) {
                 // present the modal
                 $("body").prepend(Backdrop.modal(title, html));
 
+                // Add a class to the modal, so that we can remove it when heartbeat is successful.
+                $('.heartbeat__backdrop').addClass('heartbeat__backdrop--failed');
+
                 $('.heartbeat__modal button.modal-expired')
                 .on('click', () => location.reload())
                 .css(Backdrop.style.button.refresh);
+            }
+        },
+        /**
+         * Let the user know they should Login via a new tab, to access the current admin screen.
+         * The session has expired.
+         */
+        adminFailed: () => {
+            if ($('.heartbeat__backdrop').length === 0) {
+                const title = 'Your session has expired'
+                const linkLabel = 'Login (opens in a new tab)';
+                const html = `Please press ‘Login’ to sign in to the Intranet again.<br>
+                    <a 
+                        target="'_blank'" 
+                        class="modal-expired primary" 
+                        href="${location.origin}/wp/wp-admin/?heartbeat-modal=success" 
+                    >&nbsp; ${linkLabel} &nbsp;</a>`;
+
+                // present the modal
+                $("body").prepend(Backdrop.modal(title, html));
+
+                // Add a class to the modal, so that we can remove it when heartbeat is successful.
+                $('.heartbeat__backdrop').addClass('heartbeat__backdrop--failed');
+
+                $('.heartbeat__modal a.modal-expired')
+                .css(Backdrop.style.button.refresh)
+                // Set the loading state on click.
+                .on('click', function () {
+                    const $link = $(this);
+                    $link.text('Loading...');
+                    // Revert back to normal state after 60s.
+                    setTimeout(
+                        () => $link.text(linkLabel),
+                        60_000,
+                    )
+                });
+            }
+        },
+        /**
+         * Let the user know they should close the tab they're on.
+         * They've successfully logged in from an admin screen via a new tab.
+         */
+        adminSuccess: () => {
+            if ($('.heartbeat__backdrop').length === 0) {
+                const title = 'You\'ve successfully logged in.'
+                const html = `Please close this browser tab to return to where you left off.`;
+
+                // present the modal
+                $("body").prepend(Backdrop.modal(title, html));
             }
         }
     }
@@ -166,10 +225,22 @@ export default (function ($) {
             Backdrop.confirm();
         }
 
+        const isAdmin = location.pathname.includes('/wp-admin/');
+        const urlParams = new URLSearchParams(window.location.search);
+
+        if(urlParams.get('heartbeat-modal') === 'success') {
+            Backdrop.adminSuccess();
+        }
+
         // Send a request to the heartbeat endpoint, this will refresh the oauth token.
         setInterval(function () {
             $.get('/auth/heartbeat').fail(() => {
-                Backdrop.failed();
+                isAdmin ? Backdrop.adminFailed() : Backdrop.failed();
+            }).done(function() {
+                // Remove the failed modal if we have a success.
+                if($('.heartbeat__backdrop--failed').length) {
+                    $('.heartbeat__backdrop--failed').remove();
+                }
             })
         }, 10000)
     });
