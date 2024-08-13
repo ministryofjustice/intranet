@@ -23,3 +23,7 @@ table.table-view-list.media .as3cf_access .row-actions {
 .media-frame-content .attachment-info .actions .s3-actions {
     display: none !important;
 }
+
+body.as3cf-pro .attachments-browser .media-toolbar-secondary .offload-buttons.visible {
+    display: none !important;
+}
