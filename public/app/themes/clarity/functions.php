@@ -36,6 +36,7 @@ require_once 'inc/admin/page.php';
 require_once 'inc/admin/permission-display-page.php';
 require_once 'inc/admin/plugins/co-authors-plus.php';
 require_once 'inc/admin/plugins/polls.php';
+require_once 'inc/admin/plugins/wp-document-revisions.php';
 require_once 'inc/admin/plugins/wp-offload-media.php';
 require_once 'inc/admin/prior-party/prior-party-banner-admin.php';
 require_once 'inc/admin/prior-party/prior-party-banner-email.php';
@@ -118,6 +119,7 @@ require_once 'inc/whitelisted-emails.php';
 
 
 new MOJ\Intranet\AdminBranding();
+new MOJ\Intranet\WPDocumentRevisions();
 new MOJ\Intranet\WPOffloadMedia();
 
 /// Prevent the Agency Switcher page from being overwritten
