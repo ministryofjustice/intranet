@@ -28,6 +28,7 @@ class WPOffloadMedia
         add_action('init', [$this, 'cannotView']);
         add_filter('manage_media_columns', [$this, 'maybeRemoveColumns'], 99, 1);
         add_action('add_meta_boxes_attachment', [$this, 'maybeRemoveMetaBoxesAttachment'], 99, 0);
+        add_filter('as3cfpro_media_actions_capability', fn() => 'administrator', 99);
     }
 
     /**
