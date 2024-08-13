@@ -47,12 +47,12 @@ class WPDocumentRevisions
 
     public function filterPermalink(string $link, null|object|array $document)
     {
-        // Remove unnecessary `/wp` from the link.
-        if (get_post_status($document) !== 'publish') {
-            $link = str_replace($this->site_url, $this->home_url, $link);
+        // Do nothing if the document is published.
+        if (get_post_status($document) === 'publish') {
+            return $link;
         }
 
-        // Remove the trailing slashes.
-        return untrailingslashit($link);
+        // Remove unnecessary `/wp` from the link.
+        return str_replace($this->site_url, $this->home_url, $link);
     }
 }
