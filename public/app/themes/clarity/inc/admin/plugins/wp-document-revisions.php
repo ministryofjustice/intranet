@@ -34,6 +34,8 @@ class WPDocumentRevisions
     public function hooks(): void
     {
         add_filter('document_permalink', [$this, 'filterPermalink'], 10, 2);
+        // Filter using gzip, always return false, let nginx handle gzipping where necessary.
+        add_filter('document_serve_use_gzip', '__return_false', null, 2);
     }
 
     /**
