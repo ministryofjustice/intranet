@@ -203,16 +203,3 @@ services:
       NGINX_SERVICE_PORT: ${NGINX_SERVICE_PORT}
     depends_on:
       - nginx
-
-  fpm-exporter:
-    container_name: fpm-exporter
-    build:
-      context: .
-      target: build-fpm-exporter
-    volumes:
-      - php-socket:/sock
-    environment:
-      PHP_FPM_SCRAPE_URI: "unix:/sock/fpm.sock;/status"
-      PHP_FPM_FIX_PROCESS_COUNT: true
-    ports:
-      - "9253:9253"
