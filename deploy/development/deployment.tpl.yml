@@ -106,18 +106,3 @@ spec:
                 name: ${KUBE_NAMESPACE}-secrets
             - secretRef:
                 name: ${KUBE_NAMESPACE}-base64-secrets
-
-        - name: fpm-exporter
-          image: ${ECR_URL}:${IMAGE_TAG_FPM_EXPORTER}
-          ports:
-            - containerPort: 9253
-          volumeMounts:
-            - name: php-socket
-              mountPath: /sock
-          securityContext:
-            runAsUser: 101
-          env:
-            - name: PHP_FPM_SCRAPE_URI
-              value: "unix:/sock/fpm.sock;/status"
-            - name: PHP_FPM_FIX_PROCESS_COUNT
-              value: true

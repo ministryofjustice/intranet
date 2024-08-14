@@ -214,16 +214,6 @@ USER 101
 
 #  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
 
-#  EXPORTER
-
-FROM hipages/php-fpm_exporter AS build-fpm-exporter
-
-# non-root
-USER 101
-
-
-#  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
-
 #  █▄░█  █▀▀  █  █▄░█  ▀▄▀
 #  █░▀█  █▄█  █  █░▀█  █░█
 
