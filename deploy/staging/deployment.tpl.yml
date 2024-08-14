@@ -10,8 +10,8 @@ spec:
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxUnavailable: 0
-      maxSurge: 100%
+      maxUnavailable: 50%
+      maxSurge: 50%
   selector:
     matchLabels:
       app: ${KUBE_NAMESPACE}
