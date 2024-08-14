@@ -49,12 +49,16 @@ jobs:
           
           docker image build -t $REGISTRY/$REPOSITORY:cron-$IMAGE_TAG \
             --target build-cron .
+
+          docker image build -t $REGISTRY/$REPOSITORY:fpm-exporter-$IMAGE_TAG \
+            --target build-fpm-exporter .
         
           # ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
           
           docker image push $REGISTRY/$REPOSITORY:fpm-$IMAGE_TAG
           docker image push $REGISTRY/$REPOSITORY:nginx-$IMAGE_TAG
           docker image push $REGISTRY/$REPOSITORY:cron-$IMAGE_TAG
+          docker image push $REGISTRY/$REPOSITORY:fpm-exporter-$IMAGE_TAG
           
           # ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
 

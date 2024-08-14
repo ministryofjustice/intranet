@@ -208,7 +208,7 @@ services:
     container_name: fpm-exporter
     build:
       context: .
-      target: fpm-exporter-unprivileged
+      target: build-fpm-exporter
     volumes:
       - php-socket:/sock
     environment:

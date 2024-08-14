@@ -58,6 +58,9 @@ jobs:
             --build-arg AS3CF_PRO_USER="$AS3CF_PRO_USER"   --build-arg AS3CF_PRO_PASS="$AS3CF_PRO_PASS" \
             -t intranet-nginx:snyk --target build-nginx .
 
+          docker image build \
+            -t intranet-fpm-exporter:snyk --target build-fpm-exporter .
+
         env:
           COMPOSER_USER: ${{ secrets.COMPOSER_USER }}
           COMPOSER_PASS: ${{ secrets.COMPOSER_PASS }}
@@ -71,6 +74,7 @@ jobs:
         run: |
           snyk container monitor intranet-fpm:snyk --file=Dockerfile
           snyk container monitor intranet-nginx:snyk --file=Dockerfile
+          snyk container monitor intranet-fpm-exporter:snyk --file=Dockerfile
 
         # Push the Snyk Code results into GitHub Code Scanning tab
       - name: Upload result to GitHub Code Scanning
