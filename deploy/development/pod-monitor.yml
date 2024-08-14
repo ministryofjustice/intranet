@@ -1,0 +1,13 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: intranet-dev
+  namespace: intranet-dev
+spec:
+  selector:
+    matchLabels:
+      app: ${KUBE_NAMESPACE}
+  podMetricsEndpoints:
+  - port: nginx-port
+    path: "/status?openmetrics"
+    interval: 15s
