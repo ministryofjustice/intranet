@@ -29,10 +29,6 @@ metadata:
         auth_basic off;
         return 301 https://raw.githubusercontent.com/ministryofjustice/security-guidance/main/contact/vulnerability-disclosure-security.txt;
       }
-      location = /status {
-        add_header Content-Type text/plain;
-        return 401;
-      }
 spec:
   ingressClassName: modsec
   tls:
