@@ -6,7 +6,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: ${KUBE_NAMESPACE}
+      app: intranet-dev
   podMetricsEndpoints:
   - port: nginx-port
     path: "/status?openmetrics"
