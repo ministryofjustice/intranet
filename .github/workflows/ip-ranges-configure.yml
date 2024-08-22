@@ -45,7 +45,7 @@ jobs:
             # `127.0.0.1 $LOCAL_VALUE;` - allows requests from fpm to nginx containers.
 
             {
-                echo 'IPS_FORMATTED<<EOF'
+                echo 'ips_formatted<<EOF'
                 echo "proxy ${{ vars.LB_RANGE }};"
                 echo "127.0.0.1 $LOCAL_VALUE;"
                 echo "$ALLOW_FORMATTED"
