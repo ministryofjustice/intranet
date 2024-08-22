@@ -6,12 +6,12 @@ metadata:
   labels:
     app: ${KUBE_NAMESPACE}
 spec:
-  replicas: 1
+  replicas: 4
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxUnavailable: 0
-      maxSurge: 100%
+      maxUnavailable: 50%
+      maxSurge: 50%
   selector:
     matchLabels:
       app: ${KUBE_NAMESPACE}
@@ -32,12 +32,13 @@ spec:
           image: ${ECR_URL}:${IMAGE_TAG_NGINX}
           ports:
             - containerPort: 8080
-              name: nginx-port
           volumeMounts:
             - name: uploads
               mountPath: /var/www/html/public/app/uploads
             - name: php-socket
               mountPath: /sock
+          securityContext:
+            runAsUser: 101
           env:
             - name: IPS_FORMATTED
               valueFrom:
@@ -93,7 +94,7 @@ spec:
             - name: OPENSEARCH_URL
               valueFrom:
                 secretKeyRef:
-                  name: central-digital-product-team-opensearch-proxy-url
+                  name: opensearch-output
                   key: proxy_url
             - name: BASIC_AUTH
               valueFrom:

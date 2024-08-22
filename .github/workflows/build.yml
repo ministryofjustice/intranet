@@ -49,7 +49,7 @@ jobs:
           
           docker image build -t $REGISTRY/$REPOSITORY:cron-$IMAGE_TAG \
             --target build-cron .
-        
+
           # ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
           
           docker image push $REGISTRY/$REPOSITORY:fpm-$IMAGE_TAG

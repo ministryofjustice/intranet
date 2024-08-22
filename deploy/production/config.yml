@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: intranet-production
+  namespace: intranet-production
+data:
+  WP_ENV: "production"
+  WP_HOME: 'https://intranet.justice.gov.uk'
+  WP_SITEURL: 'https://intranet.justice.gov.uk/wp'
+  AWS_CLOUDFRONT_HOST: 'cdn.intranet.justice.gov.uk'
+  # See Azure Setup in the README for more information on how to get these values.
+  OAUTH_CLIENT_ID: "f508fd07-8504-47ed-a7d1-aa55fd2163d1"
+  OAUTH_TENANT_ID: "c6874728-71e6-41fe-a9e1-2e8c36776ad8"
