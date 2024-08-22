@@ -52,4 +52,4 @@ jobs:
                 echo "$DEPRI_FORMATTED"
                 echo "${{ vars.CLOUD_RANGE }} $CLOUD_VALUE;"
                 echo EOF
-            }  >> $GITHUB_OUPUT
+            }  >> $GITHUB_OUTPUT
