@@ -37,6 +37,9 @@ jobs:
 
             ALLOW_FORMATTED=$(yq 'explode(.) | .allow_access_to_moj_intranet       | flatten | map(. + " '$ALLOW_VALUE';") | join("\n")' moj-cidr-addresses.yml)
             DEPRI_FORMATTED=$(yq 'explode(.) | .deprecating_access_to_moj_intranet | flatten | map(. + " '$DEPRI_VALUE';") | join("\n")' moj-cidr-addresses.yml)
+            
+            echo "::add-mask::$ALLOW_FORMATTED"
+            echo "::add-mask::$DEPRI_FORMATTED"
 
             # Below is a line for LB_RANGE - trust these internal IPs to correctly report HTTP_X_FORWARDED_FOR.
             # `127.0.0.1 $LOCAL_VALUE;` - allows requests from fpm to nginx containers.
