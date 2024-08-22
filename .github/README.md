@@ -323,6 +323,7 @@ To verify that S3 & CloudFront are working correctly.
 - App [justicedigital-centraldigital-intranet-local](https://portal.azure.com/#view/Microsoft_AAD_RegisteredApps/ApplicationMenuBlade/~/Overview/appId/73ed65a5-e879-4027-beab-f5e64de803b7/isMSAApp~/false)
 - App [justicedigital-centraldigital-intranet-development](https://portal.azure.com/#view/Microsoft_AAD_RegisteredApps/ApplicationMenuBlade/~/Overview/quickStartType~/null/sourceType/Microsoft_AAD_IAM/appId/1dac3cbf-91d2-4c0e-9c80-0bf3f8fabd75)
 - App [justicedigital-centraldigital-intranet-staging](https://portal.azure.com/#view/Microsoft_AAD_RegisteredApps/ApplicationMenuBlade/~/Overview/quickStartType~/null/sourceType/Microsoft_AAD_IAM/appId/ffb808d2-312b-4ffe-a6e5-d6eacfd9f06f)
+- App [justicedigital-centraldigital-intranet](https://portal.azure.com/#view/Microsoft_AAD_RegisteredApps/ApplicationMenuBlade/~/Overview/quickStartType~/null/sourceType/Microsoft_AAD_IAM/appId/f508fd07-8504-47ed-a7d1-aa55fd2163d1)
 
 ### Register an application
 
