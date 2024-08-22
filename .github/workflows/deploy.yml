@@ -9,6 +9,9 @@ on:
       registry:
         required: true
         type: string
+      ips_formatted:
+        required: true
+        type: string
 
 jobs:
   deploy_environment:
