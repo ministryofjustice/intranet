@@ -9,6 +9,9 @@ on:
       registry:
         required: true
         type: string
+      ips_formatted:
+        required: true
+        type: string
 
 jobs:
   deploy_environment:
@@ -48,8 +51,8 @@ jobs:
           # AWS_CLOUDFRONT_PUBLIC_KEY_EXPIRING: "${{ secrets.AWS_CLOUDFRONT_PUBLIC_KEY_B }}"
           BASIC_AUTH_USER: ${{ secrets.BASIC_AUTH_USER }}
           BASIC_AUTH_PASS: ${{ secrets.BASIC_AUTH_PASS }}
+          IPS_FORMATTED: ${{ inputs.ips_formatted }}
           IGNORE_IP_RANGES: ${{ vars.IGNORE_IP_RANGES }}
-          IPS_FORMATTED: $IPS_FORMATTED
         run: |
           ## - - - - - - - - - -
           ## CloudFront  - - - -
