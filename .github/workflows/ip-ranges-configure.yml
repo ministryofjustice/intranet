@@ -38,9 +38,8 @@ jobs:
             ALLOW_FORMATTED=$(yq 'explode(.) | .allow_access_to_moj_intranet       | flatten | map(. + " '$ALLOW_VALUE';") | join("\n")' moj-cidr-addresses.yml)
             DEPRI_FORMATTED=$(yq 'explode(.) | .deprecating_access_to_moj_intranet | flatten | map(. + " '$DEPRI_VALUE';") | join("\n")' moj-cidr-addresses.yml)
             
-            echo "::add-mask::This is my value"
-            echo "::add-mask::$ALLOW_FORMATTED"
-            echo "::add-mask::$DEPRI_FORMATTED"
+            echo "::add-mask::$(echo "$ALLOW_FORMATTED" | sed ':a;N;$!ba;s/%/%25/g' | sed ':a;N;$!ba;s/\r/%0D/g' | sed ':a;N;$!ba;s/\n/%0A/g')"
+            echo "::add-mask::$(echo "$DEPRI_FORMATTED" | sed ':a;N;$!ba;s/%/%25/g' | sed ':a;N;$!ba;s/\r/%0D/g' | sed ':a;N;$!ba;s/\n/%0A/g')"
 
             # Below is a line for LB_RANGE - trust these internal IPs to correctly report HTTP_X_FORWARDED_FOR.
             # `127.0.0.1 $LOCAL_VALUE;` - allows requests from fpm to nginx containers.
@@ -53,4 +52,4 @@ jobs:
                 echo "$DEPRI_FORMATTED"
                 echo "${{ vars.CLOUD_RANGE }} $CLOUD_VALUE;"
                 echo EOF
-            }  >> $GITHUB_ENV
+            }  >> $GITHUB_OUPUT
