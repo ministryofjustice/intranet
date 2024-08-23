@@ -2,6 +2,8 @@
 
 namespace MOJ\Justice;
 
+use Roots\WPConfig\Config;
+
 // ---------------------------------------------
 // Functions to improve the security of the site
 // ---------------------------------------------
@@ -98,8 +100,12 @@ class Security
             return $response;
         }
 
+        if (isset($parsed_args['keep_home_url'])) {
+            return $response;
+        }
+
         // Replace the URL.
-        $new_url = str_replace(get_home_url(), 'http://127.0.0.1:8080', $url);
+        $new_url = str_replace(get_home_url(), Config::get('LOOPBACK_URL'), $url);
 
         // We don't need to verify ssl, calling a trusted container.
         $parsed_args['sslverify'] = false;

@@ -65,6 +65,7 @@ if (!env('WP_ENVIRONMENT_TYPE') && in_array(WP_ENV, ['production', 'staging', 'd
  */
 Config::define('WP_HOME', env('WP_HOME'));
 Config::define('WP_SITEURL', env('WP_SITEURL'));
+Config::define('LOOPBACK_URL', env('LOOPBACK_URL') ?? 'http://127.0.0.1:8080');
 
 /**
  * Custom Content Directory
