@@ -52,7 +52,6 @@ jobs:
           BASIC_AUTH_USER: ${{ secrets.BASIC_AUTH_USER }}
           BASIC_AUTH_PASS: ${{ secrets.BASIC_AUTH_PASS }}
           IGNORE_IP_RANGES: ${{ vars.IGNORE_IP_RANGES }}
-          IPS_FORMATTED: ${{ inputs.ips_formatted }}
         run: |
           ## - - - - - - - - - -
           ## CloudFront  - - - -
@@ -86,12 +85,16 @@ jobs:
 
           ## Allow IP ranges to be ignored.
           ## Nb. set IGNORE_IP_RANGES env var to `true` for the intended GH environment.
+
+          IPS_FORMATTED_BASE64=$(
+            echo -n "${{ inputs.ips_formatted }}" | 
+            openssl enc -aes-256-cbc -pbkdf2 -base64 -d -salt -k "${{ secrets.WORKFLOW_ENCRYPTION_KEY }}"
+          );
+
           
           if [ "$IGNORE_IP_RANGES" = "true" ]; then
-            IPS_FORMATTED=""
+            IPS_FORMATTED_BASE64=""
           fi
-
-          IPS_FORMATTED_BASE64=$(echo -n "$IPS_FORMATTED" | base64 -w 0)
 
           export IPS_FORMATTED_BASE64
 
