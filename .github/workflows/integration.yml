@@ -24,46 +24,56 @@ jobs:
     uses: ./.github/workflows/ip-ranges-configure.yml
     secrets: inherit
 
+  modsec_config:
+    name: "Modsec"
+    if: github.event.ref == 'refs/heads/develop'
+    uses: ./.github/workflows/modsec-config.yml
+    secrets: inherit
+
   deploy_dev:
     name: "Development"
     if: github.event.ref == 'refs/heads/develop'
     uses: ./.github/workflows/deploy.yml
-    needs: [image, get_ip_ranges]
+    needs: [image, get_ip_ranges, modsec_config]
     with:
       environment: development
       registry: ${{ needs.image.outputs.registry }}
       ips_formatted: ${{ needs.get_ip_ranges.outputs.ips_formatted }}
+      modsec_config: ${{ needs.modsec_config.outputs.development }}
     secrets: inherit
 
   deploy_staging:
     name: "Staging"
-    needs: [image, deploy_dev, get_ip_ranges]
+    needs: [image, deploy_dev, get_ip_ranges, modsec_config]
     if: github.event.ref == 'refs/heads/develop'
     uses: ./.github/workflows/deploy.yml
     with:
       environment: staging
       registry: ${{ needs.image.outputs.registry }}
       ips_formatted: ${{ needs.get_ip_ranges.outputs.ips_formatted }}
+      modsec_config: ${{ needs.modsec_config.outputs.staging }}
     secrets: inherit
 
   deploy_demo:
     name: "Demo"
-    needs: [image, deploy_dev, get_ip_ranges]
+    needs: [image, deploy_dev, get_ip_ranges, modsec_config]
     if: github.event.ref == 'refs/heads/develop'
     uses: ./.github/workflows/deploy.yml
     with:
       environment: demo
       registry: ${{ needs.image.outputs.registry }}
       ips_formatted: ${{ needs.get_ip_ranges.outputs.ips_formatted }}
+      modsec_config: ${{ needs.modsec_config.outputs.demo }}
     secrets: inherit
 
   deploy_production:
     name: "Production"
-    needs: [image, deploy_staging, get_ip_ranges]
+    needs: [image, deploy_staging, get_ip_ranges, modsec_config]
     if: github.event.ref == 'refs/heads/develop'
     uses: ./.github/workflows/deploy.yml
     with:
       environment: production
       registry: ${{ needs.image.outputs.registry }}
       ips_formatted: ${{ needs.get_ip_ranges.outputs.ips_formatted }}
+      modsec_config: ${{ needs.modsec_config.outputs.production }}
     secrets: inherit
