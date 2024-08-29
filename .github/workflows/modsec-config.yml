@@ -55,25 +55,25 @@ jobs:
           # - Encode it with `WORKFLOW_ENCRYPTION_KEY` (e.g. generate with `openssl rand -base64 4096`).
 
           DEVELOPMENT=$(
-            ./scripts/get-modsec-config.sh --namespace=justice-gov-uk --env=development --indent=6 --file=data/php-wordpress.yml | 
+            ./scripts/get-modsec-config.sh --namespace=intranet --env=development --indent=6 --file=data/php-wordpress.yml | 
             base64 -w 0 | 
             openssl enc -aes-256-cbc -pbkdf2 -salt -k "${{ secrets.WORKFLOW_ENCRYPTION_KEY }}" -e -base64
           );
 
           DEMO=$(
-            ./scripts/get-modsec-config.sh --namespace=justice-gov-uk --env=demo --indent=6 --file=data/php-wordpress.yml | 
+            ./scripts/get-modsec-config.sh --namespace=intranet --env=demo --indent=6 --file=data/php-wordpress.yml | 
             base64 -w 0 | 
             openssl enc -aes-256-cbc -pbkdf2 -salt -k "${{ secrets.WORKFLOW_ENCRYPTION_KEY }}" -e -base64
           );
 
           STAGING=$(
-            ./scripts/get-modsec-config.sh --namespace=justice-gov-uk --env=staging --indent=6 --file=data/php-wordpress.yml | 
+            ./scripts/get-modsec-config.sh --namespace=intranet --env=staging --indent=6 --file=data/php-wordpress.yml | 
             base64 -w 0 | 
             openssl enc -aes-256-cbc -pbkdf2 -salt -k "${{ secrets.WORKFLOW_ENCRYPTION_KEY }}" -e -base64
           );
 
           PRODUCTION=$(
-            ./scripts/get-modsec-config.sh --namespace=justice-gov-uk --env=production --indent=6 --file=data/php-wordpress.yml | 
+            ./scripts/get-modsec-config.sh --namespace=intranet --env=production --indent=6 --file=data/php-wordpress.yml | 
             base64 -w 0 | 
             openssl enc -aes-256-cbc -pbkdf2 -salt -k "${{ secrets.WORKFLOW_ENCRYPTION_KEY }}" -e -base64
           );
