@@ -12,6 +12,9 @@ on:
       ips_formatted:
         required: true
         type: string
+      modsec_config:
+        required: true
+        type: string
 
 jobs:
   deploy_environment:
@@ -98,17 +101,28 @@ jobs:
 
           export IPS_FORMATTED_BASE64
 
+          ## - - - - - - - - - - -
+          ## Modsec config
+          ## - - - - - - - - - - -
+
+          export MODSEC_CONFIG=$(
+            echo -n "${{ inputs.modsec_config }}" | 
+            openssl enc -aes-256-cbc -pbkdf2 -base64 -d -salt -k "${{ secrets.WORKFLOW_ENCRYPTION_KEY }}" |
+            base64 --decode
+          );
 
           ## - - - - - - - - - - -
           ## Perform find/replace
           ## - - - - - - - - - - -
 
+          ## Only replace $MODSEC_CONFIG fromn ingress.tpl.yml
+
+          < "$TPL_PATH"/ingress.tpl.yml envsubst '${MODSEC_CONFIG}' > "$TPL_PATH"/ingress.yaml
           < "$TPL_PATH"/secret.tpl.yml envsubst > "$TPL_PATH"/secret.yaml
           < "$TPL_PATH"/deployment.tpl.yml envsubst > "$TPL_PATH"/deployment.yaml
           
           ## Remove template files before apply
-          rm "$TPL_PATH"/secret.tpl.yml
-          rm "$TPL_PATH"/deployment.tpl.yml
+          rm "$TPL_PATH"/*.tpl.yml
 
       - name: "Authenticate to the cluster"
         env:
