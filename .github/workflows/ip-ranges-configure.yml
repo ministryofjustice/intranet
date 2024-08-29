@@ -43,7 +43,13 @@ jobs:
           # Below is a line for LB_RANGE - trust these internal IPs to correctly report HTTP_X_FORWARDED_FOR.
           # `127.0.0.1 $LOCAL_VALUE;` - allows requests from fpm to nginx containers.
 
-          CONFIG="proxy ${{ vars.LB_RANGE }};\n127.0.0.1 $LOCAL_VALUE;\n$ALLOW_FORMATTED\n$DEPRI_FORMATTED\n${{ vars.CLOUD_RANGE }} $CLOUD_VALUE;"
+          CONFIG=$(
+              echo "proxy ${{ vars.LB_RANGE }};"
+              echo "127.0.0.1 $LOCAL_VALUE;"
+              echo "$ALLOW_FORMATTED"
+              echo "$DEPRI_FORMATTED"
+              echo "${{ vars.CLOUD_RANGE }} $CLOUD_VALUE;"
+          )
 
           CONFIG_ENCRYPTED=$(
             echo -n "$CONFIG" |
