@@ -46,11 +46,15 @@ jobs:
           CONFIG="proxy ${{ vars.LB_RANGE }};\n127.0.0.1 $LOCAL_VALUE;\n$ALLOW_FORMATTED\n$DEPRI_FORMATTED\n${{ vars.CLOUD_RANGE }} $CLOUD_VALUE;"
 
           CONFIG_ENCRYPTED=$(
-            echo $CONFIG | 
-            base64 -w 0 | 
+            echo -n "$CONFIG" |
+            base64 -w 0 |
             openssl enc -aes-256-cbc -pbkdf2 -salt -k "${{ secrets.WORKFLOW_ENCRYPTION_KEY }}" -e -base64
           );
 
           # Set the multi line variable as an output.
 
-          echo "ips_formatted<<EOF"$'\n'"$CONFIG_ENCRYPTED"$'\n'EOF >> "$GITHUB_OUTPUT"
+          {
+              echo "ips_formatted<<EOF"
+              echo "$CONFIG_ENCRYPTED"
+              echo EOF
+          } >> "$GITHUB_OUTPUT"
