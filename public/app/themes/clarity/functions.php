@@ -96,6 +96,7 @@ require_once 'inc/images.php';
 require_once 'inc/languages.php';
 require_once 'inc/mail.php';
 require_once 'inc/menu.php';
+require_once 'inc/metrics.php';
 require_once 'inc/utilities.php';
 require_once 'inc/pagination.php';
 require_once 'inc/pagination-newscategory.php';
@@ -120,6 +121,7 @@ require_once 'inc/whitelisted-emails.php';
 
 
 new MOJ\Intranet\AdminBranding();
+new MOJ\Intranet\Metrics();
 new MOJ\Intranet\WPDocumentRevisions();
 new MOJ\Intranet\WPOffloadMedia();
 new MOJ\Intranet\WPElasticPress();
@@ -130,5 +132,4 @@ add_action('save_post', function ($post_id, $post) {
         update_post_meta($post_id, '_wp_page_template', 'agency-switcher.php');
     }
 }, 99, 2);
-
 

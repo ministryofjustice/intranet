@@ -55,7 +55,7 @@ class AmazonS3AndCloudFrontSigning
                 $args['cookies'] = $this->createSignedCookie($this->cloudfront_url . '/*');
             }
 
-            if (str_starts_with($url, home_url())) {
+            if (str_starts_with($url, home_url()) && !empty($_ENV['BASIC_AUTH_USER']) && !empty($_ENV['BASIC_AUTH_PASS'])) {
                 $args['headers']['Authorization'] = 'Basic ' . base64_encode($_ENV['BASIC_AUTH_USER'] . ':' . $_ENV['BASIC_AUTH_PASS']);
                 error_log('ua=other: ' . $url);
                 error_log(print_r($args, true));
