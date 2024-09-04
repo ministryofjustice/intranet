@@ -1,0 +1,105 @@
+name: "Get Modsec config."
+
+on:
+  workflow_call:
+    outputs:
+      development:
+        description: "Modsec Config. for Development"
+        value: ${{ jobs.modsec.outputs.development }}
+      demo:
+        description: "Modsec Config. for Demo"
+        value: ${{ jobs.modsec.outputs.demo }}
+      staging:
+        description: "Modsec Config. for Staging"
+        value: ${{ jobs.modsec.outputs.staging }}
+      production:
+        description: "Modsec Config. for Production"
+        value: ${{ jobs.modsec.outputs.production }}
+
+jobs:
+  modsec:
+    name: "Build"
+    runs-on: ubuntu-latest
+    outputs:
+      development: ${{ steps.config.outputs.development }}
+      demo: ${{ steps.config.outputs.demo }}
+      staging: ${{ steps.config.outputs.staging }}
+      production: ${{ steps.config.outputs.production }}
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v4
+        with:
+          repository: 'ministryofjustice/moj-modsec-rules'
+          # This is a fine-grained PAT, it's scoped to the moj-modsec private repository with 2 permissions: 
+          # Content: Read-only.
+          # Metadata: Read-only.
+          token: ${{ secrets.MOJ_MODSEC_RO_PAT }}
+
+      - name: "Get, format & encrypt"
+        id: config
+        shell: bash
+        run: |
+          # Ensure we have an encryption key.
+          if [ -z "${{ secrets.WORKFLOW_ENCRYPTION_KEY }}" ];then
+            echo "WORKFLOW_ENCRYPTION_KEY is not set."
+            exit 1
+          fi
+
+
+          # Install yq package from snap.
+          sudo snap install yq
+
+
+          # - Get the config from the helper script.
+          # - Base64 encode to preserve line breaks.
+          # - Encode it with `WORKFLOW_ENCRYPTION_KEY` (e.g. generate with `openssl rand -base64 4096`).
+
+          DEVELOPMENT=$(
+            ./scripts/get-modsec-config.sh --namespace=intranet --env=development --indent=6 --file=data/php-wordpress.yml | 
+            base64 -w 0 | 
+            openssl enc -aes-256-cbc -pbkdf2 -salt -k "${{ secrets.WORKFLOW_ENCRYPTION_KEY }}" -e -base64
+          );
+
+          DEMO=$(
+            ./scripts/get-modsec-config.sh --namespace=intranet --env=demo --indent=6 --file=data/php-wordpress.yml | 
+            base64 -w 0 | 
+            openssl enc -aes-256-cbc -pbkdf2 -salt -k "${{ secrets.WORKFLOW_ENCRYPTION_KEY }}" -e -base64
+          );
+
+          STAGING=$(
+            ./scripts/get-modsec-config.sh --namespace=intranet --env=staging --indent=6 --file=data/php-wordpress.yml | 
+            base64 -w 0 | 
+            openssl enc -aes-256-cbc -pbkdf2 -salt -k "${{ secrets.WORKFLOW_ENCRYPTION_KEY }}" -e -base64
+          );
+
+          PRODUCTION=$(
+            ./scripts/get-modsec-config.sh --namespace=intranet --env=production --indent=6 --file=data/php-wordpress.yml | 
+            base64 -w 0 | 
+            openssl enc -aes-256-cbc -pbkdf2 -salt -k "${{ secrets.WORKFLOW_ENCRYPTION_KEY }}" -e -base64
+          );
+
+
+          # Set the multi line variables as an outputs.
+          {
+              echo "development<<EOF"
+              echo "$DEVELOPMENT"
+              echo EOF
+          } >> "$GITHUB_OUTPUT"
+
+          {
+              echo "demo<<EOF"
+              echo "$DEMO"
+              echo EOF
+          } >> "$GITHUB_OUTPUT"
+
+          {
+              echo "staging<<EOF"
+              echo "$STAGING"
+              echo EOF
+          } >> "$GITHUB_OUTPUT"
+
+          {
+              echo "production<<EOF"
+              echo "$PRODUCTION"
+              echo EOF
+          } >> "$GITHUB_OUTPUT"

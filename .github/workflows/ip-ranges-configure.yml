@@ -25,28 +25,42 @@ jobs:
           token: ${{ secrets.MOJ_IP_ADDRESSES_RO_PAT }}
       - name: "Get & format IPs"
         id: get-ips
-        uses: mikefarah/yq@master
-        with:
-          cmd: |
-            # Transform IPs into nginx geo format. 1 IP range per line, each range is followed by its value.
-            # @see https://nginx.org/en/docs/http/ngx_http_geo_module.html
-            ALLOW_VALUE=1
-            DEPRI_VALUE=2
-            CLOUD_VALUE=3
-            LOCAL_VALUE=4
+        shell: bash
+        run: |
+          # Install yq package from snap.
+          sudo snap install yq
 
-            ALLOW_FORMATTED=$(yq 'explode(.) | .allow_access_to_moj_intranet       | flatten | map(. + " '$ALLOW_VALUE';") | join("\n")' moj-cidr-addresses.yml)
-            DEPRI_FORMATTED=$(yq 'explode(.) | .deprecating_access_to_moj_intranet | flatten | map(. + " '$DEPRI_VALUE';") | join("\n")' moj-cidr-addresses.yml)
+          # Transform IPs into nginx geo format. 1 IP range per line, each range is followed by its value.
+          # @see https://nginx.org/en/docs/http/ngx_http_geo_module.html
+          ALLOW_VALUE=1
+          DEPRI_VALUE=2
+          CLOUD_VALUE=3
+          LOCAL_VALUE=4
 
-            # Below is a line for LB_RANGE - trust these internal IPs to correctly report HTTP_X_FORWARDED_FOR.
-            # `127.0.0.1 $LOCAL_VALUE;` - allows requests from fpm to nginx containers.
+          ALLOW_FORMATTED=$(yq 'explode(.) | .allow_access_to_moj_intranet       | flatten | map(. + " '$ALLOW_VALUE';") | join("\n")' moj-cidr-addresses.yml)
+          DEPRI_FORMATTED=$(yq 'explode(.) | .deprecating_access_to_moj_intranet | flatten | map(. + " '$DEPRI_VALUE';") | join("\n")' moj-cidr-addresses.yml)
 
-            {
-                echo 'ips_formatted<<EOF'
-                echo "proxy ${{ vars.LB_RANGE }};"
-                echo "127.0.0.1 $LOCAL_VALUE;"
-                echo "$ALLOW_FORMATTED"
-                echo "$DEPRI_FORMATTED"
-                echo "${{ vars.CLOUD_RANGE }} $CLOUD_VALUE;"
-                echo EOF
-            }  >> $GITHUB_OUTPUT
+          # Below is a line for LB_RANGE - trust these internal IPs to correctly report HTTP_X_FORWARDED_FOR.
+          # `127.0.0.1 $LOCAL_VALUE;` - allows requests from fpm to nginx containers.
+
+          CONFIG=$(
+              echo "proxy ${{ vars.LB_RANGE }};"
+              echo "127.0.0.1 $LOCAL_VALUE;"
+              echo "$ALLOW_FORMATTED"
+              echo "$DEPRI_FORMATTED"
+              echo "${{ vars.CLOUD_RANGE }} $CLOUD_VALUE;"
+          )
+
+          CONFIG_ENCRYPTED=$(
+            echo -n "$CONFIG" |
+            base64 -w 0 |
+            openssl enc -aes-256-cbc -pbkdf2 -salt -k "${{ secrets.WORKFLOW_ENCRYPTION_KEY }}" -e -base64
+          );
+
+          # Set the multi line variable as an output.
+
+          {
+              echo "ips_formatted<<EOF"
+              echo "$CONFIG_ENCRYPTED"
+              echo EOF
+          } >> "$GITHUB_OUTPUT"
