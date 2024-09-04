@@ -55,7 +55,11 @@ class AmazonS3AndCloudFrontSigning
                 $args['cookies'] = $this->createSignedCookie($this->cloudfront_url . '/*');
             }
 
-            if (str_starts_with($url, home_url()) && !empty($_ENV['BASIC_AUTH_USER']) && !empty($_ENV['BASIC_AUTH_PASS'])) {
+            $request_is_for_self = str_starts_with($url, home_url());
+            $auth_credentials_exist = !empty($_ENV['BASIC_AUTH_USER']) && !empty($_ENV['BASIC_AUTH_PASS']);
+            $skip_adding_basic_auth = $args['user-agent'] === 'moj-intranet-metrics-collector';
+
+            if ($request_is_for_self && $auth_credentials_exist && !$skip_adding_basic_auth) {
                 $args['headers']['Authorization'] = 'Basic ' . base64_encode($_ENV['BASIC_AUTH_USER'] . ':' . $_ENV['BASIC_AUTH_PASS']);
                 error_log('ua=other: ' . $url);
                 error_log(print_r($args, true));

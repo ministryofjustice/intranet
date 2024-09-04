@@ -152,6 +152,9 @@ class Metrics
 
     public function getStatusCode(string $url, ?array $request_args = []): int
     {
+        // Set user-agent - used in AmazonS3AndCloudFrontSigning to prevent adding auth to the request.
+        $request_args['user-agent'] = 'moj-intranet-metrics-collector';
+
         // Just make a http head request. We don't need get.
         $head = wp_remote_head($url, $request_args);
 
