@@ -9,5 +9,5 @@ spec:
       app: intranet-dev
   podMetricsEndpoints:
   - port: nginx-port
-    path: "/status?openmetrics"
+    path: "/metrics/fpm"
     interval: 15s
