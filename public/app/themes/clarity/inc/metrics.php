@@ -171,9 +171,9 @@ class Metrics
         $response_string = '';
 
         foreach ($this->metrics_properties as $key => $value) {
-            $response_string .= '# HELP ' . $value['help'] . "\n";
-            $response_string .= '# TYPE ' . $value['type'] . "\n";
-            $response_string .= $key . ' ' . call_user_func($value['callback'], ...$value['args'])  . "\n";
+            $response_string .= "# HELP {$key} {$value['help']}\n";
+            $response_string .= "# TYPE {$key} {$value['type']}\n";
+            $response_string .= "{$key} " . call_user_func($value['callback'], ...$value['args']) . "\n";
         }
 
         return $response_string;
