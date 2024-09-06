@@ -22,6 +22,7 @@ class AmazonS3AndCloudFrontSigning
 
     private $now = null;
     private $https = true;
+    private $transient_key = '';
 
     private $cloudfront_cookie_domain = '';
     private $cloudfront_private_key = '';
@@ -31,7 +32,6 @@ class AmazonS3AndCloudFrontSigning
     const CLOUDFRONT_DURATION = 60 * 10; // 10 minutes
     const CLOUDFRONT_REFRESH = 60 * 5; // 5 minutes
     const TRANSIENT_DURATION = 60; // 1 minute
-    const TRANSIENT_KEY = 'cloudfront_cookies';
 
     public function __construct()
     {
@@ -44,7 +44,10 @@ class AmazonS3AndCloudFrontSigning
         $this->cloudfront_host =  $_ENV['AWS_CLOUDFRONT_HOST'];
         // Set the scheme/protocol for CloudFront, default to https.
         $cloudfront_scheme = isset($_ENV['AWS_CLOUDFRONT_SCHEME']) && $_ENV['AWS_CLOUDFRONT_SCHEME'] === 'http' ? 'http' : 'https';
-        $this->cloudfront_url = $cloudfront_scheme . '://' . $_ENV['AWS_CLOUDFRONT_HOST'];
+        $this->cloudfront_url = $cloudfront_scheme . '://' . $this->cloudfront_host;
+
+        // Create a transient key, unique to the scheme and host.
+        $this->transient_key = "cloudfront_cookies_{$cloudfront_scheme}_" . str_replace([ ':', '/', '.',], '_', $this->cloudfront_host);
 
         // Clear AWS_CLOUDFRONT_PRIVATE_KEY from $_ENV global. It's not required elsewhere in the app.
         unset($_ENV['AWS_CLOUDFRONT_PRIVATE_KEY']);
@@ -213,7 +216,7 @@ class AmazonS3AndCloudFrontSigning
     public function getSignedCookie(): array
     {
         // Is there a signed cookie in the transient (cache)?
-        $cached_cookies = get_transient($this::TRANSIENT_KEY);
+        $cached_cookies = get_transient($this->transient_key);
         $generated_cookies = [];
 
         if ($cached_cookies) {
@@ -225,7 +228,7 @@ class AmazonS3AndCloudFrontSigning
             $generated_cookies = $this->createSignedCookie($this->cloudfront_url . '/*');
             // Write the cookies to the cache.
             set_transient(
-                $this::TRANSIENT_KEY,
+                $this->transient_key,
                 $generated_cookies,
                 $this::TRANSIENT_DURATION
             );
