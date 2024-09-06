@@ -52,7 +52,7 @@ class AmazonS3AndCloudFrontSigning
         add_filter('http_request_args', function ($args, $url) {
             // Send cookies with the request to the cdn.
             if (parse_url($url, PHP_URL_HOST) ===  $this->cloudfront_host) {
-                $args['cookies'] = $this->createSignedCookie($this->cloudfront_url . '/*');
+                $args['cookies'] = $this->createSignedCookie(parse_url($url, PHP_URL_SCHEME) . '://' . $this->cloudfront_host . '/*');
             }
 
             $request_is_for_self = str_starts_with($url, home_url());
