@@ -32,6 +32,7 @@ spec:
           image: ${ECR_URL}:${IMAGE_TAG_NGINX}
           ports:
             - containerPort: 8080
+              name: http
           volumeMounts:
             - name: uploads
               mountPath: /var/www/html/public/app/uploads

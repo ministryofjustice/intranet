@@ -1,0 +1,29 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  namespace: intranet-dev
+  labels:
+    role: alert-rules
+  name: prometheus-custom-rules-intranet-dev
+spec:
+  groups:
+  - name: application-rules
+    rules:
+    - alert: ServiceInsufficientAccessPolicy
+      expr: http_status_code_wp_home{namespace="intranet-dev"} != 401
+      for: 1m
+      labels:
+        severity: intranet-dev
+      annotations:
+        message: Namespace {{ $labels.namespace }} (homepage) is returning an unexpected status code {{ printf "%0.0f" $value}}.
+        runbook_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/bdwyqxz07sxkwg/intranet-service?orgId=1
+        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/bdwyqxz07sxkwg/intranet-service?orgId=1
+    - alert: ServiceInsufficientHeaderHandling
+      expr: http_status_code_invalid_header{namespace="intranet-dev"} != 400
+      for: 1m
+      labels:
+        severity: intranet-dev
+      annotations:
+        message: Namespace {{ $labels.namespace } (invalid header) is returning an unexpected status code {{ printf "%0.0f" $value}}.
+        runbook_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/bdwyqxz07sxkwg/intranet-service?orgId=1
+        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/bdwyqxz07sxkwg/intranet-service?orgId=1

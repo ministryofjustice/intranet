@@ -7,5 +7,6 @@ metadata:
 spec:
   ports:
   - port: 8080
+    name: http
   selector:
     app: intranet-staging
