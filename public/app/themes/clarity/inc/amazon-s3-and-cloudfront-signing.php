@@ -22,6 +22,7 @@ class AmazonS3AndCloudFrontSigning
 
     private $now = null;
     private $https = true;
+    private $transient_key = '';
 
     private $cloudfront_cookie_domain = '';
     private $cloudfront_private_key = '';
@@ -31,7 +32,6 @@ class AmazonS3AndCloudFrontSigning
     const CLOUDFRONT_DURATION = 60 * 10; // 10 minutes
     const CLOUDFRONT_REFRESH = 60 * 5; // 5 minutes
     const TRANSIENT_DURATION = 60; // 1 minute
-    const TRANSIENT_KEY = 'cloudfront_cookies';
 
     public function __construct()
     {
@@ -42,7 +42,12 @@ class AmazonS3AndCloudFrontSigning
         $this->cloudfront_cookie_domain = preg_replace('/https?:\/\//', '', $_ENV['WP_HOME']);
         $this->cloudfront_private_key = $_ENV['AWS_CLOUDFRONT_PRIVATE_KEY'];
         $this->cloudfront_host =  $_ENV['AWS_CLOUDFRONT_HOST'];
-        $this->cloudfront_url =  'http' . ($this->https ? 's' : '') . '://' . $_ENV['AWS_CLOUDFRONT_HOST'];
+        // Set the scheme/protocol for CloudFront, default to https.
+        $cloudfront_scheme = isset($_ENV['AWS_CLOUDFRONT_SCHEME']) && $_ENV['AWS_CLOUDFRONT_SCHEME'] === 'http' ? 'http' : 'https';
+        $this->cloudfront_url = $cloudfront_scheme . '://' . $this->cloudfront_host;
+
+        // Create a transient key, unique to the scheme and host.
+        $this->transient_key = "cloudfront_cookies_{$cloudfront_scheme}_" . str_replace([ ':', '/', '.',], '_', $this->cloudfront_host);
 
         // Clear AWS_CLOUDFRONT_PRIVATE_KEY from $_ENV global. It's not required elsewhere in the app.
         unset($_ENV['AWS_CLOUDFRONT_PRIVATE_KEY']);
@@ -52,7 +57,7 @@ class AmazonS3AndCloudFrontSigning
         add_filter('http_request_args', function ($args, $url) {
             // Send cookies with the request to the cdn.
             if (parse_url($url, PHP_URL_HOST) ===  $this->cloudfront_host) {
-                $args['cookies'] = $this->createSignedCookie(parse_url($url, PHP_URL_SCHEME) . '://' . $this->cloudfront_host . '/*');
+                $args['cookies'] = $this->getSignedCookie();
             }
 
             $request_is_for_self = str_starts_with($url, home_url());
@@ -200,15 +205,49 @@ class AmazonS3AndCloudFrontSigning
     }
 
     /**
+     * Get the signed cookie, with cache.
+     * 
+     * A wrapper function around createSignedCookie to get from cache if the value exists,
+     * and save to cache after cookie creation.
+     * 
+     * @return array
+     */
+
+    public function getSignedCookie(): array
+    {
+        // Is there a signed cookie in the transient (cache)?
+        $cached_cookies = get_transient($this->transient_key);
+        $generated_cookies = [];
+
+        if ($cached_cookies) {
+            return $cached_cookies;
+        }
+
+        try {
+            // Create a signed cookie for CloudFront with an expiry of 10mins.
+            $generated_cookies = $this->createSignedCookie($this->cloudfront_url . '/*');
+            // Write the cookies to the cache.
+            set_transient(
+                $this->transient_key,
+                $generated_cookies,
+                $this::TRANSIENT_DURATION
+            );
+        } catch (Exception $e) {
+            \Sentry\captureException($e);
+            error_log($e->getMessage());
+        }
+
+        return $generated_cookies;
+    }
+
+    /**
      * Handle the page request.
      * 
      * Timeline
      * 1. Does the user have a signed cookie with a long expiry in their browser?
      *   a. Yes: Do nothing.
      *   b. No: Continue.
-     * 2. Is there a signed cookie in the transient (cache)?
-     *   a. Yes: Get the cookie from the transient.
-     *   b. No: Create a signed cookie for CloudFront with an expiry of 10mins, save it as a transient.
+     * 2. Get signed cookie (from cache or create).
      * 3. Set the CloudFront cookies in the user's browser.
      * 
      * @return void
@@ -230,27 +269,7 @@ class AmazonS3AndCloudFrontSigning
 
         // If we're here then we need to send a cookie to the user.
 
-        // Check the cache.
-        $cached_cookies = get_transient($this::TRANSIENT_KEY);
-        $generated_cookies = [];
-
-        if (!$cached_cookies) {
-            try {
-                // Create a signed cookie for CloudFront.
-                $generated_cookies = $this->createSignedCookie($this->cloudfront_url . '/*');
-                // TEMP - for testing
-                // $generated_cookies = $this->createSignedCookie('https://d192h9x2ipg6ln.cloudfront.net/media/2024/03/26131145/287-2.jpg');
-                // Write the cookies to the cache.
-                set_transient(
-                    $this::TRANSIENT_KEY,
-                    $generated_cookies,
-                    $this::TRANSIENT_DURATION
-                );
-            } catch (Exception $e) {
-                \Sentry\captureException($e);
-                error_log($e->getMessage());
-            }
-        }
+        $cookies = $this->getSignedCookie();
 
         // Properties for the cookies.
         $cloudfront_cookie_params = [
@@ -263,7 +282,7 @@ class AmazonS3AndCloudFrontSigning
         $cloudfront_cookie_params_string = implode('; ', $cloudfront_cookie_params);
 
         // Set the cookies in the user's browser.
-        foreach (($cached_cookies ?: $generated_cookies) as $name => $value) {
+        foreach ($cookies as $name => $value) {
             // error_log(sprintf('Set-Cookie: %s=%s; %s', $name, $value, $cloudfront_cookie_params_string));
             header(sprintf('Set-Cookie: %s=%s; %s', $name, $value, $cloudfront_cookie_params_string), false);
         }
