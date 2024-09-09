@@ -1,0 +1,13 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: intranet-demo
+  namespace: intranet-demo
+spec:
+  selector:
+    matchLabels:
+      app: intranet-demo
+  endpoints:
+  - port: http
+    interval: 15s
+    path: /metrics/service
