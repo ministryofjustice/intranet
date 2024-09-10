@@ -86,10 +86,36 @@ jobs:
           ## IP Ranges - - - - -
           ## - - - - - - - - - -
 
+          EXTERNAL_IPS_FORMATTED=""
+
+          ## Allow external IP ranges to be ignored.
+          ## Nb. set IGNORE_IP_RANGES env var to `true` for the intended GH environment.
+
+          if [ "${{ vars.IGNORE_IP_RANGES }}" != "true" ]; then
+            EXTERNAL_IPS_FORMATTED=$(
+              echo -n "${{ inputs.ips_formatted }}" | 
+              openssl enc -aes-256-cbc -pbkdf2 -base64 -d -salt -k "${{ secrets.WORKFLOW_ENCRYPTION_KEY }}" |
+              base64 --decode
+            );
+          fi
+
+          # Below is a line for LB_RANGE - trust these internal IPs to correctly report HTTP_X_FORWARDED_FOR.
+          # `127.0.0.1 $LOCAL_VALUE;` - allows requests from fpm to nginx containers.
+
+          IP_CLOUD_GROUP=3
+          IP_LOCAL_GROUP=4
+
+          IPS_FORMATTED=$(
+              echo "proxy ${{ vars.LB_RANGE }};"
+              echo "$EXTERNAL_IPS_FORMATTED"
+              echo "127.0.0.1               $IP_CLOUD_GROUP;"
+              echo "${{ vars.CLOUD_RANGE }} $IP_LOCAL_GROUP;"
+          )
+
           export IPS_FORMATTED_BASE64=$(
-            echo -n "${{ inputs.ips_formatted }}" | 
-            openssl enc -aes-256-cbc -pbkdf2 -base64 -d -salt -k "${{ secrets.WORKFLOW_ENCRYPTION_KEY }}"
-          );
+            echo -n "$IPS_FORMATTED" |
+            base64 -w 0
+          )
 
 
           ## - - - - - - - - - - -
