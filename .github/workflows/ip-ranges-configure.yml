@@ -34,29 +34,13 @@ jobs:
           # @see https://nginx.org/en/docs/http/ngx_http_geo_module.html
           ALLOW_VALUE=1
           DEPRI_VALUE=2
-          CLOUD_VALUE=3
-          LOCAL_VALUE=4
 
           ALLOW_FORMATTED=$(yq 'explode(.) | .allow_access_to_moj_intranet       | flatten | map(. + " '$ALLOW_VALUE';") | join("\n")' moj-cidr-addresses.yml)
           DEPRI_FORMATTED=$(yq 'explode(.) | .deprecating_access_to_moj_intranet | flatten | map(. + " '$DEPRI_VALUE';") | join("\n")' moj-cidr-addresses.yml)
 
-          # Allow IP ranges to be ignored.
-          # Nb. set IGNORE_IP_RANGES env var to `true` for the intended GH environment.
-
-          if [ "${{ vars.IGNORE_IP_RANGES }}" = "true" ]; then
-            ALLOW_FORMATTED=""
-            DEPRI_FORMATTED=""
-          fi
-
-          # Below is a line for LB_RANGE - trust these internal IPs to correctly report HTTP_X_FORWARDED_FOR.
-          # `127.0.0.1 $LOCAL_VALUE;` - allows requests from fpm to nginx containers.
-
           CONFIG=$(
-              echo "proxy ${{ vars.LB_RANGE }};"
-              echo "127.0.0.1 $LOCAL_VALUE;"
               echo "$ALLOW_FORMATTED"
               echo "$DEPRI_FORMATTED"
-              echo "${{ vars.CLOUD_RANGE }} $CLOUD_VALUE;"
           )
 
           CONFIG_ENCRYPTED=$(
