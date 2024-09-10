@@ -86,20 +86,11 @@ jobs:
           ## IP Ranges - - - - -
           ## - - - - - - - - - -
 
-          ## Allow IP ranges to be ignored.
-          ## Nb. set IGNORE_IP_RANGES env var to `true` for the intended GH environment.
-
-          IPS_FORMATTED_BASE64=$(
+          export IPS_FORMATTED_BASE64=$(
             echo -n "${{ inputs.ips_formatted }}" | 
             openssl enc -aes-256-cbc -pbkdf2 -base64 -d -salt -k "${{ secrets.WORKFLOW_ENCRYPTION_KEY }}"
           );
 
-          
-          if [ "$IGNORE_IP_RANGES" = "true" ]; then
-            IPS_FORMATTED_BASE64=""
-          fi
-
-          export IPS_FORMATTED_BASE64
 
           ## - - - - - - - - - - -
           ## Modsec config
@@ -110,6 +101,7 @@ jobs:
             openssl enc -aes-256-cbc -pbkdf2 -base64 -d -salt -k "${{ secrets.WORKFLOW_ENCRYPTION_KEY }}" |
             base64 --decode
           );
+
 
           ## - - - - - - - - - - -
           ## Perform find/replace
