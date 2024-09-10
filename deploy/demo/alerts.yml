@@ -20,7 +20,7 @@ spec:
         dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/bdwyqxz07sxkwg/intranet-service?orgId=1&var-namespace=intranet-demo
 
     - alert: ServiceAbsentAccessPolicy
-      expr: absent(http_status_code_wp_home{namespace="intranet-demo"})
+      expr: absent(http_status_code_wp_home{namespace="intranet-demo"}) == 1
       for: 1m
       labels:
         severity: intranet-demo
@@ -35,6 +35,6 @@ spec:
       labels:
         severity: intranet-demo
       annotations:
-        message: Namespace {{ $labels.namespace } (invalid header) is returning an unexpected status code {{ printf "%0.0f" $value}}.
+        message: Namespace {{ $labels.namespace }} (invalid header) is returning an unexpected status code {{ printf "%0.0f" $value}}.
         runbook_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/bdwyqxz07sxkwg/intranet-service?orgId=1&var-namespace=intranet-demo
         dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/bdwyqxz07sxkwg/intranet-service?orgId=1&var-namespace=intranet-demo
