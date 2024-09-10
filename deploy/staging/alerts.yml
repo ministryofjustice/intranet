@@ -1,0 +1,40 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  namespace: intranet-staging
+  labels:
+    role: alert-rules
+  name: prometheus-custom-rules-intranet-staging
+spec:
+  groups:
+  - name: application-rules
+    rules:
+    - alert: ServiceInsufficientAccessPolicy
+      expr: http_status_code_wp_home{namespace="intranet-staging"} != 401
+      for: 1m
+      labels:
+        severity: intranet-staging
+      annotations:
+        message: Namespace {{ $labels.namespace }} (homepage) is returning an unexpected status code {{ printf "%0.0f" $value}}.
+        runbook_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/bdwyqxz07sxkwg/intranet-service?orgId=1&var-namespace=intranet-staging
+        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/bdwyqxz07sxkwg/intranet-service?orgId=1&var-namespace=intranet-staging
+
+    - alert: ServiceAbsentAccessPolicy
+      expr: absent(http_status_code_wp_home{namespace="intranet-staging"})
+      for: 1m
+      labels:
+        severity: intranet-staging
+      annotations:
+        message: Namespace {{ $labels.namespace }} (homepage) is not returning a status code.
+        runbook_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/bdwyqxz07sxkwg/intranet-service?orgId=1&var-namespace=intranet-staging
+        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/bdwyqxz07sxkwg/intranet-service?orgId=1&var-namespace=intranet-staging
+
+    - alert: ServiceInsufficientHeaderHandling
+      expr: http_status_code_invalid_header{namespace="intranet-staging"} != 400
+      for: 1m
+      labels:
+        severity: intranet-staging
+      annotations:
+        message: Namespace {{ $labels.namespace } (invalid header) is returning an unexpected status code {{ printf "%0.0f" $value}}.
+        runbook_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/bdwyqxz07sxkwg/intranet-service?orgId=1&var-namespace=intranet-staging
+        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/bdwyqxz07sxkwg/intranet-service?orgId=1&var-namespace=intranet-staging
