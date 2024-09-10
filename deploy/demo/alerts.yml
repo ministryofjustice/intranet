@@ -16,8 +16,19 @@ spec:
         severity: intranet-demo
       annotations:
         message: Namespace {{ $labels.namespace }} (homepage) is returning an unexpected status code {{ printf "%0.0f" $value}}.
-        runbook_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/bdwyqxz07sxkwg/intranet-service?orgId=1
-        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/bdwyqxz07sxkwg/intranet-service?orgId=1
+        runbook_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/bdwyqxz07sxkwg/intranet-service?orgId=1&var-namespace=intranet-demo
+        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/bdwyqxz07sxkwg/intranet-service?orgId=1&var-namespace=intranet-demo
+
+    - alert: ServiceAbsentAccessPolicy
+      expr: absent(http_status_code_wp_home{namespace="intranet-demo"})
+      for: 1m
+      labels:
+        severity: intranet-demo
+      annotations:
+        message: Namespace {{ $labels.namespace }} (homepage) is not returning a status code.
+        runbook_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/bdwyqxz07sxkwg/intranet-service?orgId=1&var-namespace=intranet-demo
+        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/bdwyqxz07sxkwg/intranet-service?orgId=1&var-namespace=intranet-demo
+
     - alert: ServiceInsufficientHeaderHandling
       expr: http_status_code_invalid_header{namespace="intranet-demo"} != 400
       for: 1m
@@ -25,5 +36,5 @@ spec:
         severity: intranet-demo
       annotations:
         message: Namespace {{ $labels.namespace } (invalid header) is returning an unexpected status code {{ printf "%0.0f" $value}}.
-        runbook_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/bdwyqxz07sxkwg/intranet-service?orgId=1
-        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/bdwyqxz07sxkwg/intranet-service?orgId=1
+        runbook_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/bdwyqxz07sxkwg/intranet-service?orgId=1&var-namespace=intranet-demo
+        dashboard_url: https://grafana.live.cloud-platform.service.justice.gov.uk/d/bdwyqxz07sxkwg/intranet-service?orgId=1&var-namespace=intranet-demo
