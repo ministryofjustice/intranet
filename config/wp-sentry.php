@@ -16,13 +16,14 @@ const WP_SENTRY_BROWSER_TRACES_SAMPLE_RATE = 0.3;
 const WP_SENTRY_BROWSER_REPLAYS_SESSION_SAMPLE_RATE = 0.1; // replaysSessionSampleRate
 const WP_SENTRY_BROWSER_REPLAYS_ON_ERROR_SAMPLE_RATE = 1.0; // replaysOnErrorSampleRate
 
-require_once MOJ_ROOT_DIR . '/public/app/plugins/wp-sentry/wp-sentry.php';
+
+//require_once MOJ_ROOT_DIR. '/public/app/plugins/wp-sentry/wp-sentry.php';
 
 /*if (env('SENTRY_DSN')) {
     try {
         \Sentry\init([
             'dsn' => env('SENTRY_DSN'),
-            'environment' => WP_ENV . (env('SENTRY_DEV_ID') ?? ''),
+            'environment' => WP_ENV. env('SENTRY_DEV_ID') ?? '',
             'traces_sample_rate' => Config::get('SENTRY_TRACES_SAMPLE_RATE'),
             'profiles_sample_rate' => Config::get('SENTRY_PROFILE_SAMPLE_RATE')
         ]);

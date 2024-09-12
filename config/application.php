@@ -11,18 +11,20 @@
 use Roots\WPConfig\Config;
 use function Env\env;
 
-/** @var string Directory containing all of the site's files */
+/**
+ * @const MOJ_ROOT_DIR string
+ *
+ * Resolves the system path directory containing the
+ * application's files
+ *
+ * @example /var/www/html
+ */
 define('MOJ_ROOT_DIR', dirname(__DIR__));
 
 /**
- * Directory containing all the site's files
+ * Website directory, system path
  */
-$root_dir = MOJ_ROOT_DIR;
-
-/**
- * Document Root
- */
-$webroot_dir = $root_dir . '/public';
+$webroot_dir = MOJ_ROOT_DIR . '/public';
 
 /**
  * Use Dotenv to set required environment variables and load .env file in root
@@ -34,9 +36,7 @@ if (file_exists(MOJ_ROOT_DIR . '/.env')) {
         : ['.env'];
 
     $dotenv = Dotenv\Dotenv::createUnsafeImmutable(MOJ_ROOT_DIR, $env_files, false);
-
     $dotenv->load();
-
     $dotenv->required(['WP_HOME', 'WP_SITEURL']);
     if (!env('DATABASE_URL')) {
         $dotenv->required(['DB_NAME', 'DB_USER', 'DB_PASSWORD']);
@@ -44,13 +44,31 @@ if (file_exists(MOJ_ROOT_DIR . '/.env')) {
 }
 
 /**
- * Set up our global environment constant and load its config first
- * Default: production
+ * @const WP_ENV string
+ *
+ * Contains our global environment string.
+ * Can be one of:
+ *  - development
+ *  - staging
+ *  - production
+ * @example production
  */
 define('WP_ENV', env('WP_ENV') ?: 'production');
 
+/**
+ * @const WP_DEFAULT_THEME string
+ *
+ * Define the default theme to run in WordPress.
+ */
 Config::define('WP_DEFAULT_THEME', 'clarity');
 
+/**
+ * @const EP_HOST string
+ *
+ * Define the URL ElasticPress will use to manage
+ * search functionality
+ * @example http://host.opensearch.service.com:8890
+ */
 Config::define('EP_HOST', env('OPENSEARCH_URL'));
 
 /**
@@ -95,7 +113,7 @@ if (env('DATABASE_URL')) {
     Config::define('DB_NAME', substr($dsn->path, 1));
     Config::define('DB_USER', $dsn->user);
     Config::define('DB_PASSWORD', $dsn->pass ?? null);
-    Config::define('DB_HOST', isset($dsn->port) ? "{$dsn->host}:{$dsn->port}" : $dsn->host);
+    Config::define('DB_HOST', isset($dsn->port) ? "$dsn->host:$dsn->port" : $dsn->host);
 }
 
 /**
@@ -133,7 +151,7 @@ Config::define('DISABLE_WP_CRON', true);
 // Disable php script concatenation at runtime - we serve WP assets via nginx
 Config::define('CONCATENATE_SCRIPTS', false);
 
-// For completeness, disable css and script compression at runtime
+// For completeness, disable CSS and script compression at runtime
 // These should be irrelevant because CONCATENATE_SCRIPTS is false
 Config::define('COMPRESS_CSS', false);
 Config::define('COMPRESS_SCRIPTS', false);
@@ -155,7 +173,7 @@ ini_set('display_errors', '0');
 Config::define('MOJ_AUTH_DEBUG', true);
 
 /**
- * Allow WordPress to detect HTTPS when used behind a reverse proxy or a load balancer
+ * Allow WordPress to detect HTTPS when used behind a reverse proxy or load balancer
  * See https://codex.wordpress.org/Function_Reference/is_ssl#Notes
  */
 if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') {
@@ -164,9 +182,10 @@ if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROT
 
 /**
  * WP Offload Media settings
+ *
+ * If we don't set AS3CF_SETTINGS here, we can use the
+ * plugin GUI to configure the settings during debugging.
  */
-
-// By not setting AS3CF_SETTINGS here, we can use the plugin GUI to configure the settings during debugging.
 if (file_exists(__DIR__ . '/wp-offload-media.php')) {
     require_once __DIR__ . '/wp-offload-media.php';
 }
