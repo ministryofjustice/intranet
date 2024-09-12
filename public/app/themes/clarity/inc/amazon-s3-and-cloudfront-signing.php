@@ -4,6 +4,9 @@ namespace DeliciousBrains\WP_Offload_Media\Tweaks;
 
 use Exception;
 
+use function headers_sent;
+
+
 /**
  * Amazon S3 and CloudFront - signing cookies.
  * 
@@ -12,26 +15,25 @@ use Exception;
  * To get to this point in code execution, the user has already been allowed access to the intranet's content,
  * this is either by IP address or authentication with Azure AD/Entra ID.
  * 
- * This class creates 3 cookies for CloudFront and sets them in the user's browser.
+ * This class creates three cookies for CloudFront and sets them in the user's browser.
  * The cookies allow access to **all** CloudFront URLs, and subsequently the entire S3 bucket.
  * As all users have access to CloudFront, we don't need to generate & sign cookies for every user, we sign once and cache for a while.
  */
 
 class AmazonS3AndCloudFrontSigning
 {
+    private ?int $now;
+    private bool $https;
+    private string $transient_key;
 
-    private $now = null;
-    private $https = true;
-    private $transient_key = '';
-
-    private $cloudfront_cookie_domain = '';
-    private $cloudfront_private_key = '';
-    private $cloudfront_host = '';
-    private $cloudfront_url = '';
+    private string|array|null $cloudfront_cookie_domain;
+    private mixed $cloudfront_private_key;
+    private mixed $cloudfront_host;
+    private string $cloudfront_url;
 
     const CLOUDFRONT_DURATION = 60 * 10; // 10 minutes
     const CLOUDFRONT_REFRESH = 60 * 5; // 5 minutes
-    const TRANSIENT_DURATION = 60; // 1 minute
+    const TRANSIENT_DURATION = 60 * 2; // 2 minutes
 
     public function __construct()
     {
@@ -107,7 +109,7 @@ class AmazonS3AndCloudFrontSigning
         $remaining_time = 0;
 
         try {
-            $policy = isset($_COOKIE['CloudFront-Policy']) ? $_COOKIE['CloudFront-Policy'] : null;
+            $policy = $_COOKIE['CloudFront-Policy'] ?? null;
 
             if (!$policy) {
                 return $remaining_time;
@@ -116,8 +118,11 @@ class AmazonS3AndCloudFrontSigning
             preg_match('/"AWS:EpochTime":(\d+)}/', $policy, $matches);
             $remaining_time =  isset($matches[1]) ? $matches[1] - $this->now : 0;
         } catch (Exception $e) {
-            \Sentry\captureException($e);
-            // TODO: possibly remove this error_log once we confirm that this way of capturing to Sentry is working.
+            if (is_plugin_active('wp-sentry/wp-sentry.php')) {
+                \Sentry\captureException($e);
+            }
+
+            // log the error to STDOUT
             error_log($e->getMessage());
         }
 
@@ -126,12 +131,13 @@ class AmazonS3AndCloudFrontSigning
 
     /**
      * Get the CloudFront public key ID.
-     * 
+     *
      * The public key ID is required for creating a signed cookie.
      * Having multiple public keys allows for key rotation.
      * This function parses an array of public key IDs and keys to find the correct key.
-     * 
+     *
      * @return string The CloudFront public key ID.
+     * @throws Exception
      */
 
     public function getCloudfrontPublicKeyId(): string
@@ -139,7 +145,7 @@ class AmazonS3AndCloudFrontSigning
         // Get the private key.
         $private_key = openssl_get_privatekey($this->cloudfront_private_key);
 
-        // Derive public key from private key. It should be in the standard format (with a single newline at the end).
+        // Derive public key from a private key. It should be in the standard format (with a single newline at the end).
         $public_key_formatted = openssl_pkey_get_details($private_key)['key'];
 
         // Decode the JSON string to an array.
@@ -169,17 +175,20 @@ class AmazonS3AndCloudFrontSigning
 
     /**
      * Create a signed cookie for CloudFront.
-     * 
-     * @see https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/CreateURL_PHP.html AWS Documentation - Create a URL signature using PHP.
+     *
+     * @see https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/CreateURL_PHP.html AWS Documentation -
+     *     Create a URL signature using PHP.
      * @see https://github.com/egunda/signed-cookie-php/blob/master/index.php Example implementation.
-     * 
+     *
      * @param string $url The URL to sign. Can have wildcards.
+     *
      * @return array
+     * @throws Exception
      */
 
-    public function createSignedCookie(string $url)
+    public function createSignedCookie(string $url): array
     {
-        // Expire Time - this is for the policy. It's not the cookie expiry, i.e. when it's removed from the browser.
+        // Expire Time - this is for the policy. It's not the cookie expiry, i.e., when it's removed from the browser.
         $expiry = $this->now + $this::CLOUDFRONT_DURATION;
 
         $json = '{"Statement":[{"Resource":"' . $url . '","Condition":{"DateLessThan":{"AWS:EpochTime":' . $expiry . '}}}]}';
@@ -190,7 +199,7 @@ class AmazonS3AndCloudFrontSigning
             throw new Exception('Failed to load private key!');
         }
 
-        if (!openssl_sign($json, $signed_policy, $key, OPENSSL_ALGO_SHA1)) {
+        if (!openssl_sign($json, $signed_policy, $key)) {
             throw new Exception('Failed to sign policy: ' . openssl_error_string());
         }
 
@@ -217,14 +226,13 @@ class AmazonS3AndCloudFrontSigning
     {
         // Is there a signed cookie in the transient (cache)?
         $cached_cookies = get_transient($this->transient_key);
-        $generated_cookies = [];
 
         if ($cached_cookies) {
             return $cached_cookies;
         }
 
         try {
-            // Create a signed cookie for CloudFront with an expiry of 10mins.
+            // Create a signed cookie for CloudFront with a suitable expiry time.
             $generated_cookies = $this->createSignedCookie($this->cloudfront_url . '/*');
             // Write the cookies to the cache.
             set_transient(
@@ -233,8 +241,12 @@ class AmazonS3AndCloudFrontSigning
                 $this::TRANSIENT_DURATION
             );
         } catch (Exception $e) {
-            \Sentry\captureException($e);
+            if (is_plugin_active('wp-sentry/wp-sentry.php')) {
+                \Sentry\captureException($e);
+            }
             error_log($e->getMessage());
+
+            $generated_cookies = [];
         }
 
         return $generated_cookies;
@@ -246,7 +258,7 @@ class AmazonS3AndCloudFrontSigning
      * Timeline
      * 1. Does the user have a signed cookie with a long expiry in their browser?
      *   a. Yes: Do nothing.
-     *   b. No: Continue.
+     *   B. No: Continue.
      * 2. Get signed cookie (from cache or create).
      * 3. Set the CloudFront cookies in the user's browser.
      * 
@@ -255,19 +267,19 @@ class AmazonS3AndCloudFrontSigning
 
     public function handlePageRequest(): void
     {
-        // If headers are already sent or we're doing a cron job, return early.
-        if (\headers_sent() || defined('DOING_CRON')) {
+        // If headers are already sent, or we're doing a cron job, return early.
+        if (headers_sent() || defined('DOING_CRON')) {
             return;
         }
 
         $remaining_time = $this->remainingTimeFromCookie();
 
         if ($remaining_time && $remaining_time > $this::CLOUDFRONT_REFRESH) {
-            // Cookie-Policy exists and it's not time to refresh it.
+            // Cookie-Policy exists, and it's not time to refresh it.
             return;
         }
 
-        // If we're here then we need to send a cookie to the user.
+        // If we're here, then we need to send a cookie to the user.
 
         $cookies = $this->getSignedCookie();
 
