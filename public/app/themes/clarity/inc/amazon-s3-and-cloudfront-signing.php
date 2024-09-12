@@ -257,8 +257,8 @@ class AmazonS3AndCloudFrontSigning
      * 
      * Timeline
      * 1. Does the user have a signed cookie with a long expiry in their browser?
-     *   a. Yes: Do nothing.
-     *   B. No: Continue.
+     *    - Yes: Do nothing.
+     *    - No: Continue.
      * 2. Get signed cookie (from cache or create).
      * 3. Set the CloudFront cookies in the user's browser.
      * 
