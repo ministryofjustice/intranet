@@ -85,7 +85,8 @@
         "ext-mysqli": "*",
         "ext-zlib": "*",
         "league/oauth2-client": "^2.7",
-        "firebase/php-jwt": "^6.10"
+        "firebase/php-jwt": "^6.10",
+        "guzzlehttp/guzzle": "^7.9"
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "^3.0.2"
