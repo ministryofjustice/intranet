@@ -58,7 +58,7 @@ RUN printf "#!/bin/sh\\nSETFATTR=true /usr/bin/abuild -F \"\$@\"\\n" > /usr/loca
     chmod +x /usr/local/bin/abuild && \
     hg clone -r ${NGINX_VERSION}-${PKG_RELEASE} https://hg.nginx.org/pkg-oss/ && \
     cd pkg-oss && \
-    mkdir /tmp/packages && \
+    mkdir -p /tmp/packages && \
     /pkg-oss/build_module.sh -v $NGINX_VERSION -f -y -o /tmp/packages -n cachepurge https://github.com/nginx-modules/ngx_cache_purge/archive/2.5.3.tar.gz; \
     BUILT_MODULES="$BUILT_MODULES $(echo cachepurge | tr '[A-Z]' '[a-z]' | tr -d '[/_\-\.\t ]')"; \
     echo "BUILT_MODULES=\"$BUILT_MODULES\"" > /tmp/packages/modules.env
