@@ -11,6 +11,7 @@ if (!current_user_can('administrator')) {
 
 $load_commands = array(
     'remove-old-tabs-and-links' => 'RemoveOldTabsAndLinks',
+    'sync-user-roles'           => 'SyncUserRoles',
 );
 
 $admin_commands = array();

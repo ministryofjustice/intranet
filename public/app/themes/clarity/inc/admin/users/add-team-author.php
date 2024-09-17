@@ -1,6 +1,10 @@
 <?php
 /**
  * Team Author User Role
+ * 
+ * If you edit this file, you must sync the roles to the database by running the 
+ * SyncUserRoles admin action. 
+ * Navigate to Tools > Admin Commands > Sync user roles from codebase to database
  *
  * @package Clarity
  */

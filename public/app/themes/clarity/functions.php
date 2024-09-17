@@ -47,12 +47,7 @@ require_once 'inc/admin/suppress-wp-update-msg.php';
 require_once 'inc/admin/tinymce-editor-settings.php';
 require_once 'inc/admin/users/add-acf-capabilities.php';
 require_once 'inc/admin/users/add-notes-from-antonia.php';
-require_once 'inc/admin/users/add-agency-admin.php';
-require_once 'inc/admin/users/add-agency-editor.php';
-require_once 'inc/admin/users/add-regional-editor.php';
-require_once 'inc/admin/users/add-team-lead.php';
-require_once 'inc/admin/users/add-team-author.php';
-require_once 'inc/admin/users/delete-roles.php';
+require_once 'inc/admin/users/remove-agency-admin-admin-access.php';
 require_once 'inc/admin/users/user-access-and-security.php';
 require_once 'inc/admin/wp-admin-bar.php';
 
