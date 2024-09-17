@@ -170,7 +170,7 @@ Config::define('WP_DEBUG_LOG', false);
 Config::define('SCRIPT_DEBUG', false);
 ini_set('display_errors', '0');
 // Additional logging for the authentication mu-plugin.
-Config::define('MOJ_AUTH_DEBUG', true);
+Config::define('MOJ_AUTH_DEBUG', env('MOJ_AUTH_DEBUG') ?? false);
 
 /**
  * Allow WordPress to detect HTTPS when used behind a reverse proxy or load balancer
