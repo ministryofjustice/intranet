@@ -107,6 +107,15 @@ WORKDIR /var/www/html
 
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
+# Temporarily add relay (an alternative redis module that is faster), for object caching.
+# https://relay.so/
+
+COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin/
+RUN install-php-extensions relay
+
+# Don't leg every request.
+RUN perl -pi -e 's#^(?=access\.log\b)#;#' /usr/local/etc/php-fpm.d/docker.conf
+
 VOLUME ["/sock"]
 # nginx
 USER 101

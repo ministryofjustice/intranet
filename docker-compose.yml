@@ -203,3 +203,8 @@ services:
       NGINX_SERVICE_PORT: ${NGINX_SERVICE_PORT}
     depends_on:
       - nginx
+
+  redis:
+    image: 'bitnami/redis:latest'
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes

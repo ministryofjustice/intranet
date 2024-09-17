@@ -173,6 +173,31 @@ ini_set('display_errors', '0');
 Config::define('MOJ_AUTH_DEBUG', true);
 
 /**
+ * Redis Object Cache settings
+ * 
+ * @see https://github.com/rhubarbgroup/redis-cache
+ */
+// The hostname of the Redis server
+Config::define('WP_REDIS_HOST', env('WP_REDIS_HOST') ?: 'redis');
+// The prefix used for all cache keys to avoid data collisions, should be human readable
+Config::define('WP_REDIS_PREFIX', env('WP_REDIS_PREFIX') ?: '');
+// Relay is the fastest redis client.
+Config::define('WP_REDIS_CLIENT', env('WP_REDIS_CLIENT') ?: 'relay');
+
+// Advanced config...
+
+// Disable the caching via env var - in case of emergency.
+// Config::define('WP_REDIS_DISABLED', true);
+// Disables promotional banners and notices - Doesn't seem to do anything.
+Config::define('WP_REDIS_DISABLE_BANNERS', true);
+// Disable credit comment from served html.
+Config::define('WP_REDIS_DISABLE_COMMENT', true);
+// Consume less memory, by using igbinary serializer.
+Config::define('WP_REDIS_IGBINARY', env('WP_REDIS_IGBINARY') ?? true);
+// The capability a user must have to manage the plugin
+Config::define('WP_REDIS_MANAGER_CAPABILITY', 'administrator');
+
+/**
  * Allow WordPress to detect HTTPS when used behind a reverse proxy or load balancer
  * See https://codex.wordpress.org/Function_Reference/is_ssl#Notes
  */
