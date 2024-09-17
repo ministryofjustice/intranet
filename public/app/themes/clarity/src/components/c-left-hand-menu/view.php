@@ -1,5 +1,6 @@
 <?php
 
+namespace MOJ\Intranet;
 
 class CLeftHandMenu
 {
