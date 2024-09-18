@@ -47,8 +47,7 @@ class Metrics
 
         $this->guzzle_client = new GuzzleHttp\Client();
 
-        // $this->home_url = env('WP_HOME');
-        $this->home_url = 'host.docker.internal:8080';
+        $this->home_url = env('WP_HOME');
 
         // Define an array of metrics that we want to generate.
         $this->metrics_properties = [
