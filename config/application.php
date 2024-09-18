@@ -177,12 +177,17 @@ Config::define('MOJ_AUTH_DEBUG', true);
  * 
  * @see https://github.com/rhubarbgroup/redis-cache
  */
-// The hostname of the Redis server
-Config::define('WP_REDIS_HOST', env('WP_REDIS_HOST') ?: 'redis');
+
+// The hostname of the Redis server.
+Config::define('WP_REDIS_HOST', env('WP_REDIS_HOST'));
+// Set the connection scheme.
+Config::define('WP_REDIS_SCHEME', env('WP_REDIS_SCHEME') ?: 'rediss');
 // The prefix used for all cache keys to avoid data collisions, should be human readable
-Config::define('WP_REDIS_PREFIX', env('WP_REDIS_PREFIX') ?: '');
+Config::define('WP_REDIS_PREFIX', env('WP_REDIS_PREFIX') ?: 'local');
 // Relay is the fastest redis client.
-Config::define('WP_REDIS_CLIENT', env('WP_REDIS_CLIENT') ?: 'relay');
+Config::define('WP_REDIS_CLIENT', env('WP_REDIS_CLIENT') ?: 'predis'); 
+
+// Config::define('WP_REDIS_PASSWORD', env('WP_REDIS_PASSWORD')); 
 
 // Advanced config...
 
