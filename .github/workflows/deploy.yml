@@ -108,8 +108,8 @@ jobs:
           IPS_FORMATTED=$(
               echo "proxy ${{ vars.LB_RANGE }};"
               echo "$EXTERNAL_IPS_FORMATTED"
-              echo "127.0.0.1               $IP_CLOUD_GROUP;"
-              echo "${{ vars.CLOUD_RANGE }} $IP_LOCAL_GROUP;"
+              echo "${{ vars.CLOUD_RANGE }} $IP_CLOUD_GROUP;"
+              echo "127.0.0.1               $IP_LOCAL_GROUP;"
           )
 
           export IPS_FORMATTED_BASE64=$(
