@@ -96,7 +96,6 @@ require_once 'inc/images.php';
 require_once 'inc/languages.php';
 require_once 'inc/mail.php';
 require_once 'inc/menu.php';
-require_once 'inc/metrics.php';
 require_once 'inc/utilities.php';
 require_once 'inc/pagination.php';
 require_once 'inc/pagination-newscategory.php';
@@ -121,7 +120,6 @@ require_once 'inc/whitelisted-emails.php';
 
 
 new MOJ\Intranet\AdminBranding();
-new MOJ\Intranet\Metrics();
 new MOJ\Intranet\WPDocumentRevisions();
 new MOJ\Intranet\WPOffloadMedia();
 new MOJ\Intranet\WPElasticPress();
