@@ -87,6 +87,7 @@
         "ext-zlib": "*",
         "league/oauth2-client": "^2.7",
         "firebase/php-jwt": "^6.10",
+        "wpackagist-plugin/redis-cache": "^2.5",
         "guzzlehttp/guzzle": "^7.9"
     },
     "require-dev": {

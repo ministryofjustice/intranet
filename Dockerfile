@@ -39,6 +39,18 @@ RUN rm zz-docker.conf && \
 ## Set our pool configuration
 COPY deploy/config/php-pool.conf pool.conf
 
+# Temporarily add relay & phpredis (alternative redis modules that are faster than predis), for object caching.
+# https://relay.so/
+
+COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin/
+RUN install-php-extensions relay
+
+# https://github.com/phpredis/phpredis
+
+RUN apk add --no-cache pcre-dev $PHPIZE_DEPS \
+        && pecl install redis \
+        && docker-php-ext-enable redis.so
+
 WORKDIR /var/www/html
 
 
@@ -106,6 +118,9 @@ RUN apk add zip
 WORKDIR /var/www/html
 
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
+# Don't leg every request.
+RUN perl -pi -e 's#^(?=access\.log\b)#;#' /usr/local/etc/php-fpm.d/docker.conf
 
 VOLUME ["/sock"]
 # nginx
