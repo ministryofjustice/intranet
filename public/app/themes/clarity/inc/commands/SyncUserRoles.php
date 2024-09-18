@@ -15,8 +15,10 @@ class SyncUserRoles
     {
         error_reporting(0);
 
+        WP_CLI::log('SyncUserRoles starting');
+
         if (empty($args[0]) || $args[0] !== 'sync') {
-            WP_CLI::log('Dry run');
+            WP_CLI::log('SyncUserRoles dry run complete');
             return;
         }
 
@@ -29,7 +31,7 @@ class SyncUserRoles
         require_once $theme_dir . '/inc/admin/users/add-team-lead.php';
         require_once $theme_dir . '/inc/admin/users/delete-roles.php';
 
-        WP_CLI::log('Sync complete');
+        WP_CLI::log('SyncUserRoles complete');
     }
 }
 
