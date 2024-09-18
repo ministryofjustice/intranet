@@ -5,9 +5,8 @@
  * Agency Editor:
  * Third greatest permission group.
  * 
- * If you edit this file, you must sync the roles to the database by running the 
- * SyncUserRoles admin action. 
- * Navigate to Tools > Admin Commands > Sync user roles from codebase to database
+ * Changes to this file are applied on app. startup, via `wp sync-user-roles sync`.
+ * @see public/app/themes/clarity/inc/commands/SyncUserRoles.php
  *
  * @package Clarity
  */
