@@ -4,6 +4,9 @@
  *
  * Regional Editor:
  * Third greatest permission group.
+ * 
+ * Changes to this file are applied on app. startup, via `wp sync-user-roles sync`.
+ * @see public/app/themes/clarity/inc/commands/SyncUserRoles.php
  *
  * @package Clarity
  */

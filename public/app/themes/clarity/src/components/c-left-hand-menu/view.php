@@ -1,55 +1,123 @@
 <?php
 
-$parent_ID         = wp_get_post_parent_id($post->ID);
-$current_post_type = get_post_type();
+namespace MOJ\Intranet;
 
+class CLeftHandMenu
+{
 
-if ($current_post_type === 'regional_page') :
-    // Arguments needed to be passed to wp_list_pages() when the child pages are a custom post type.
-    $page_args = [
-        'child_of'    => $post->ID,
-        'title_li'    => 0,
-        'post_type'   => 'regional_page',
-        'post_status' => 'publish',
-        'link_after'  => '<span class="dropdown"></span>',
-        'order'       => 'ASC',
-        'orderby'     => 'menu_order',
-    ];
-else :
-        $page_args = [
-            'child_of'    => $post->ID,
-            'depth'       => 0,
-            'exclude'     => $parent_ID,
-            'title_li'    => 0,
+    private $post_id;
+    private $post_type;
+    private $transient_key;
+
+    public function __construct($post_id)
+    {
+        $this->post_id = $post_id;
+        $this->post_type = get_post_type();
+        $this->transient_key = 'c-left-hand-menu:list:' . $this->post_type . ':' . $this->post_id;
+    }
+
+    /**
+     * Get child pages.
+     * 
+     * @return int[]
+     */
+
+    public function getChildPages()
+    {
+        $child_page_args = [
+            'post_parent' => $this->post_id,
+            'post_type'   => 'any',
+            'numberposts' => 1,
+            'post_status' => 'publish',
+        ];
+
+        return get_children($child_page_args, ARRAY_N);
+    }
+
+    /**
+     * Get the list
+     * 
+     * @return void|string
+     */
+
+    public function getList()
+    {
+
+        $child_pages = $this->getChildPages();
+
+        if (empty($child_pages)) {
+            return;
+        }
+
+        // Common arguments for wp_list_pages
+        $args = [
+            'child_of'    => $this->post_id,
             'post_status' => 'publish',
             'link_after'  => '<span class="dropdown"></span>',
             'order'       => 'ASC',
             'orderby'     => 'menu_order',
+            'echo'        => false,
+            'title_li'    => 0,
         ];
-endif;
 
+        if (get_post_type() === 'regional_page') {
+            // Custom arguments for regional_page.
+            $args['post_type'] = 'regional_page';
+        } else {
+            // Arguments when not regional_page
+            $args = array_merge($args, [
+                'depth'       => 0,
+                'exclude'     => wp_get_post_parent_id($this->post_id),
+            ]);
+        }
 
-    $child_page_args = [
-        'post_parent' => $post->ID,
-        'post_type'   => 'any',
-        'numberposts' => -1,
-        'post_status' => 'publish',
-    ];
+        return wp_list_pages($args);
+    }
 
-    $child_pages = get_children($child_page_args);
+    /**
+     * Get the list (with cache)
+     * 
+     * @return void|string
+     */
 
-    if ($child_pages) :
-        ?>
+    public function getListWithCache()
+    {
+        // Is there a list in the transient (cache)?
+        $cached_list = get_transient($this->transient_key);
+
+        if ($cached_list) {
+            return $cached_list;
+        }
+
+        $list = $this->getList();
+
+        if(empty($list)) {
+            delete_transient($this->transient_key);
+        } else {
+            // This could be increased to a very long duration if we delete transients
+            // based on admin actions like post creation, update or delete.
+            set_transient($this->transient_key, $list, 60 * 5); // 5 minutes
+        }
+
+        return $list;
+    }
+}
+
+$list = (new CLeftHandMenu($post->ID))->getListWithCache($post->Id);
+
+if (!$list) {
+    return;
+}
+
+?>
 
 <!-- c-left-hand-menu starts here -->
 <nav class="c-left-hand-menu js-left-hand-menu">
 
-  <div class="c-left-hand-menu__step_back">
+    <div class="c-left-hand-menu__step_back">
         <?= get_the_title($post->ID) ?>
-  </div>
-  <ul><?php wp_list_pages($page_args); ?></ul>
+    </div>
+    <ul><?= $list ?></ul>
+
 </nav>
 <!-- c-left-hand-menu ends here -->
-
-        <?php
-    endif;

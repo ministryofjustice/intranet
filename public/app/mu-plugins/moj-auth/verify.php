@@ -53,6 +53,6 @@ class StandaloneVerify
         http_response_code($status_code) && exit();
     }
 }
-
-$standalone_verify = new StandaloneVerify(['debug' => true]);
+$debug = isset($_ENV['MOJ_AUTH_DEBUG']) && $_ENV['MOJ_AUTH_DEBUG'] === 'true';
+$standalone_verify = new StandaloneVerify(['debug' => $debug]);
 $standalone_verify->handleAuthRequest();

@@ -114,7 +114,7 @@ class Standalone401
         require_once $this::STATIC_401;
     }
 }
-
-$standalone_401 = new Standalone401(['debug' => true]);
+$debug = isset($_ENV['MOJ_AUTH_DEBUG']) && $_ENV['MOJ_AUTH_DEBUG'] === 'true';
+$standalone_401 = new Standalone401(['debug' => $debug]);
 $standalone_401->handle401Request();
 exit();

@@ -28,6 +28,11 @@ RUN addgroup -g 101 -S nginx; adduser -u 101 -S -D -G nginx nginx
 RUN mkdir /sock && \
     chown nginx:nginx /sock
 
+# Copy our init. script(s) and set them to executable
+COPY deploy/config/init/fpm-*.sh /usr/local/bin/docker-entrypoint.d/
+
+RUN chmod +x /usr/local/bin/docker-entrypoint.d/*
+
 ## Change directory
 WORKDIR /usr/local/etc/php-fpm.d
 
