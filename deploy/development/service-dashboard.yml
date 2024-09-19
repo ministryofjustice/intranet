@@ -471,7 +471,7 @@ data:
             "type": "prometheus",
             "uid": "prometheus"
         },
-        "description": "The status when sending an X-Moj-Ip-Group header.\n\nThis should always be 400 (✅). A cross (❌) will display when any other value is presented.",
+        "description": "The status when sending an X-Moj-Ip-Group header.\n\nThis should always be 400 or 401 (✅) depending on ingress basic auth being disabled, or enabled, respectively. A cross (❌) will display when any other value is presented.",
         "fieldConfig": {
             "defaults": {
             "color": {
@@ -480,12 +480,14 @@ data:
             "mappings": [
                 {
                 "options": {
-                    "400": {
+                    "from": 400,
+                    "result": {
                     "index": 1,
                     "text": "✅"
-                    }
+                    },
+                    "to": 401
                 },
-                "type": "value"
+                "type": "range"
                 },
                 {
                 "options": {
@@ -510,7 +512,7 @@ data:
                 },
                 {
                 "options": {
-                    "from": 401,
+                    "from": 402,
                     "result": {
                     "index": 3,
                     "text": "❌"
