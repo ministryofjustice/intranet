@@ -181,18 +181,18 @@ Config::define('MOJ_AUTH_DEBUG', env('MOJ_AUTH_DEBUG'));
 // The hostname of the Redis server.
 Config::define('WP_REDIS_HOST', env('WP_REDIS_HOST'));
 // Set the connection scheme.
-Config::define('WP_REDIS_SCHEME', env('WP_REDIS_SCHEME') ?: 'rediss');
-// The prefix used for all cache keys to avoid data collisions, should be human readable
-Config::define('WP_REDIS_PREFIX', env('WP_REDIS_PREFIX') ?: 'local');
+Config::define('WP_REDIS_SCHEME', env('WP_REDIS_SCHEME') ?: 'tls');
+// The prefix used for all cache keys to avoid data collisions, should be human readable.
+Config::define('WP_REDIS_PREFIX', env('WP_REDIS_PREFIX') ?: WP_ENV);
 // Relay is the fastest redis client.
-Config::define('WP_REDIS_CLIENT', env('WP_REDIS_CLIENT') ?: 'predis'); 
-
-// Config::define('WP_REDIS_PASSWORD', env('WP_REDIS_PASSWORD')); 
+Config::define('WP_REDIS_CLIENT', env('WP_REDIS_CLIENT') ?: 'relay');
+// The password of the Redis server.
+Config::define('WP_REDIS_PASSWORD', env('WP_REDIS_PASSWORD'));
 
 // Advanced config...
 
-// Disable the caching via env var - in case of emergency.
-// Config::define('WP_REDIS_DISABLED', true);
+// Disable the caching if WP_REDIS_HOST or via WP_REDIS_DISABLED - in case of emergency.
+Config::define('WP_REDIS_DISABLED', empty(Config::get('WP_REDIS_HOST')) || env('WP_REDIS_DISABLED'));
 // Disables promotional banners and notices - Doesn't seem to do anything.
 Config::define('WP_REDIS_DISABLE_BANNERS', true);
 // Disable credit comment from served html.

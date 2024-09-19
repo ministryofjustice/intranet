@@ -18,6 +18,7 @@ public/app/mu-plugins/*/
 public/app/upgrade
 public/app/languages/*
 public/app/uploads/*
+public/app/object-cache.php
 vendor*
 .dory.yml
 !deploy/config/local/.dory.yml
