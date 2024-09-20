@@ -177,10 +177,9 @@ Config::define('MOJ_AUTH_DEBUG', env('MOJ_AUTH_DEBUG'));
  * 
  * In object-cache.php, specific variables are read via $_SERVER
  * CACHE_HOST, CACHE_PORT, CACHE_PASSWORD, CACHE_DB, CACHE_TIMEOUT
- * They can be set vie ENV VARS or set here.
+ * They can be set via ENV VARS or here.
  * 
- * Other variables use constants 
- * WP_REDIS_OBJECT_CACHE
+ * Other config entries use constants and can be defined as usual.
  * 
  * @see https://github.com/pantheon-systems/wp-redis
  */
