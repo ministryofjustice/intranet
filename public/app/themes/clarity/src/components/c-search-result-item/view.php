@@ -11,8 +11,9 @@ if ($post_type_blog_filter === 'note-from-antonia') {
     list($note, $from, $antonia) = explode('-', $post_type_blog_filter);
     $post_type_blog_filter_display = ucfirst($note) . ' ' . $from . ' ' . ucfirst($antonia);
 }
-
+do_action( 'qm/start', 'get_the_terms' );
 $terms = get_the_terms($post_id, 'agency');
+do_action( 'qm/stop', 'get_the_terms' );
 ?>
 <!-- c-search-result-item starts here -->
 <section class="c-search-result-item">
