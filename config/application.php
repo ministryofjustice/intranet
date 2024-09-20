@@ -189,8 +189,13 @@ if (!isset($_SERVER['CACHE_TIMEOUT'])) {
     $_SERVER['CACHE_TIMEOUT'] = 2500;
 }
 
+if (!empty($_SERVER['CACHE_HOST'])) {
+    // Prefix scheme to the host, default to tls.
+    $_SERVER['CACHE_HOST'] = (env('CACHE_SCHEME') ?: 'tls') . '://' . $_SERVER['CACHE_HOST'];
+}
+
 // Disable the caching if CACHE_HOST is empty, or via WP_REDIS_DISABLED - in case of emergency.
-Config::define('WP_REDIS_DISABLED', empty(env('CACHE_HOST')) || env('WP_REDIS_DISABLED'));
+Config::define('WP_REDIS_DISABLED', empty($_SERVER['CACHE_HOST']) || env('WP_REDIS_DISABLED'));
 // Use Relay redis client, over predis.
 Config::define('WP_REDIS_USE_RELAY', true);
 // Set default expiry to 1hour.

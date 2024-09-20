@@ -101,7 +101,17 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: basic-auth-secret
-                  key: auth          
+                  key: auth
+            - name: CACHE_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: elasticache-output
+                  key: primary_endpoint_address
+            - name: CACHE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: elasticache-output
+                  key: auth_token
           envFrom:
             - configMapRef:
                 name: ${KUBE_NAMESPACE}
