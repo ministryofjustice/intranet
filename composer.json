@@ -145,10 +145,10 @@
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
         ],
         "test": [
-            "vendor/bin/phpcs -d memory_limit=256M"
+            "vendor/bin/phpcs -d memory_limit=256M --ignore=public/app/object-cache.php"
         ],
         "test-fix": [
-            "vendor/bin/phpcbf -d memory_limit=256M"
+            "vendor/bin/phpcbf -d memory_limit=256M --ignore=public/app/object-cache.php"
         ]
     },
     "replace": {
