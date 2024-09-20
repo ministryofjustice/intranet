@@ -173,34 +173,32 @@ ini_set('display_errors', '0');
 Config::define('MOJ_AUTH_DEBUG', env('MOJ_AUTH_DEBUG'));
 
 /**
- * Redis Object Cache settings
+ * WP Redis config.
  * 
- * @see https://github.com/rhubarbgroup/redis-cache
+ * In object-cache.php, specific variables are read via $_SERVER
+ * CACHE_HOST, CACHE_PORT, CACHE_PASSWORD, CACHE_DB, CACHE_TIMEOUT
+ * They can be set vie ENV VARS or set here.
+ * 
+ * Other variables use constants 
+ * WP_REDIS_OBJECT_CACHE
+ * 
+ * @see https://github.com/pantheon-systems/wp-redis
  */
 
-// The hostname of the Redis server.
-Config::define('WP_REDIS_HOST', env('WP_REDIS_HOST'));
-// Set the connection scheme.
-Config::define('WP_REDIS_SCHEME', env('WP_REDIS_SCHEME') ?: 'tls');
-// The prefix used for all cache keys to avoid data collisions, should be human readable.
-Config::define('WP_REDIS_PREFIX', env('WP_REDIS_PREFIX') ?: WP_ENV);
-// Relay is the fastest redis client.
-Config::define('WP_REDIS_CLIENT', env('WP_REDIS_CLIENT') ?: 'relay');
-// The password of the Redis server.
-Config::define('WP_REDIS_PASSWORD', env('WP_REDIS_PASSWORD'));
+if (!isset($_SERVER['CACHE_TIMEOUT'])) {
+    // Set a timeout over 1s to allow for tls.
+    $_SERVER['CACHE_TIMEOUT'] = 2500;
+}
 
-// Advanced config...
+// Disable the caching if CACHE_HOST is empty, or via WP_REDIS_DISABLED - in case of emergency.
+Config::define('WP_REDIS_DISABLED', empty(env('CACHE_HOST')) || env('WP_REDIS_DISABLED'));
+// Use Relay redis client, over predis.
+Config::define('WP_REDIS_USE_RELAY', true);
+// Set default expiry to 1hour.
+Config::define('WP_REDIS_DEFAULT_EXPIRE_SECONDS', 3600);
+// This salt prefixes the cache keys.
+Config::define('WP_CACHE_KEY_SALT', env('WP_CACHE_KEY_SALT') ?: WP_ENV);
 
-// Disable the caching if WP_REDIS_HOST or via WP_REDIS_DISABLED - in case of emergency.
-Config::define('WP_REDIS_DISABLED', empty(Config::get('WP_REDIS_HOST')) || env('WP_REDIS_DISABLED'));
-// Disables promotional banners and notices - Doesn't seem to do anything.
-Config::define('WP_REDIS_DISABLE_BANNERS', true);
-// Disable credit comment from served html.
-Config::define('WP_REDIS_DISABLE_COMMENT', true);
-// Consume less memory, by using igbinary serializer.
-Config::define('WP_REDIS_IGBINARY', env('WP_REDIS_IGBINARY') ?? true);
-// The capability a user must have to manage the plugin
-Config::define('WP_REDIS_MANAGER_CAPABILITY', 'administrator');
 
 /**
  * Allow WordPress to detect HTTPS when used behind a reverse proxy or load balancer

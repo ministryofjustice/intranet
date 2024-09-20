@@ -100,12 +100,12 @@ spec:
                 secretKeyRef:
                   name: basic-auth-secret
                   key: auth
-            - name: WP_REDIS_HOST
+            - name: CACHE_HOST
               valueFrom:
                 secretKeyRef:
                   name: elasticache-output
                   key: primary_endpoint_address
-            - name: WP_REDIS_PASSWORD
+            - name: CACHE_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: elasticache-output
