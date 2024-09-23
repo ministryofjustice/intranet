@@ -30,6 +30,13 @@ spec:
       containers:
         - name: nginx
           image: ${ECR_URL}:${IMAGE_TAG_NGINX}
+          resources:
+            limits:
+              cpu: 100m
+              memory: 200Mi
+            requests:
+              cpu: 10m
+              memory: 32Mi
           ports:
             - containerPort: 8080
               name: http
@@ -49,11 +56,25 @@ spec:
 
         - name: cron
           image: ${ECR_URL}:${IMAGE_TAG_CRON}
+          resources:
+            limits:
+              cpu: 20m
+              memory: 30Mi
+            requests:
+              cpu: 1m
+              memory: 12Mi
           securityContext:
             runAsUser: 3001
 
         - name: fpm
           image: ${ECR_URL}:${IMAGE_TAG_FPM}
+          resources:
+            limits:
+              cpu: 2000m
+              memory: 2000Mi
+            requests:
+              cpu: 500m
+              memory: 600Mi
           volumeMounts:
             - name: uploads
               mountPath: /var/www/html/public/app/uploads

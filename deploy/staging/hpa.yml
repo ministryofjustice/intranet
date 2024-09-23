@@ -11,15 +11,34 @@ spec:
   minReplicas: 4
   maxReplicas: 12
   metrics:
-    - type: Resource
-      resource:
+    # fpm
+    - type: ContainerResource
+      containerResource:
         name: cpu
+        container: fpm
         target:
           type: Utilization
           averageUtilization: 60
-    - type: Resource
-      resource:
+    - type: ContainerResource
+      containerResource:
         name: memory
+        container: fpm
         target:
           type: Utilization
-          averageUtilization: 80
+          # If request is 600Mi and php max is 384Mi let's scale at 420Mi
+          averageUtilization: 70
+    # nginx
+    - type: ContainerResource
+      containerResource:
+        name: cpu
+        container: nginx
+        target:
+          type: Utilization
+          averageUtilization: 70
+    - type: ContainerResource
+      containerResource:
+        name: memory
+        container: nginx
+        target:
+          type: Utilization
+          averageUtilization: 70
