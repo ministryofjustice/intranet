@@ -35,7 +35,7 @@ spec:
               cpu: 500m
               memory: 200Mi
             requests:
-              cpu: 10m
+              cpu: 20m
               memory: 32Mi
           ports:
             - containerPort: 8080
@@ -84,7 +84,7 @@ spec:
               memory: 2000Mi
             requests:
               cpu: 500m
-              memory: 500Mi
+              memory: 600Mi
           volumeMounts:
             - name: uploads
               mountPath: /var/www/html/public/app/uploads
