@@ -134,6 +134,9 @@ WORKDIR /var/www/html
 
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
+# Don't leg every request.
+RUN perl -pi -e 's#^(?=access\.log\b)#;#' /usr/local/etc/php-fpm.d/docker.conf
+
 VOLUME ["/sock"]
 # nginx
 USER 101
