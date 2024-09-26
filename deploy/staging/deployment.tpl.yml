@@ -32,7 +32,7 @@ spec:
           image: ${ECR_URL}:${IMAGE_TAG_NGINX}
           resources:
             limits:
-              cpu: 100m
+              cpu: 500m
               memory: 200Mi
             requests:
               cpu: 10m
@@ -66,7 +66,7 @@ spec:
           image: ${ECR_URL}:${IMAGE_TAG_CRON}
           resources:
             limits:
-              cpu: 20m
+              cpu: 50m
               memory: 30Mi
             requests:
               cpu: 1m
@@ -78,11 +78,13 @@ spec:
           image: ${ECR_URL}:${IMAGE_TAG_FPM}
           resources:
             limits:
-              cpu: 2000m
+              # If a pod exceeds its CPU limit, Kubernetes will simply throttle the pod.
+              cpu: "4"
+              # If a pod exceeds its memory limit, Kubernetes will kill the pod.
               memory: 2000Mi
             requests:
               cpu: 500m
-              memory: 600Mi
+              memory: 500Mi
           volumeMounts:
             - name: uploads
               mountPath: /var/www/html/public/app/uploads
