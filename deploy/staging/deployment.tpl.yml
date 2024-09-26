@@ -47,6 +47,14 @@ spec:
               mountPath: /sock
           securityContext:
             runAsUser: 101
+          readinessProbe:
+            httpGet:
+              path: /readiness
+              port: 8080
+          livenessProbe:
+            httpGet:
+              path: /liveness
+              port: 8080
           env:
             - name: IPS_FORMATTED
               valueFrom:
@@ -82,6 +90,25 @@ spec:
               mountPath: /sock
           securityContext:
             runAsUser: 101
+          # Check frequently during startup, so that scaling up can happen as fast as possible.
+          startupProbe:
+            exec:
+              command:
+              - /usr/local/bin/fpm-health/fpm-readiness.sh
+            failureThreshold: 20
+            periodSeconds: 5
+          # Don't route traffic to this pod if the container is not ready.
+          readinessProbe:
+            exec:
+              command:
+              - /usr/local/bin/fpm-health/fpm-readiness.sh
+            periodSeconds: 10
+          # Restart the container if it fails liveness script.
+          livenessProbe:
+            exec:
+              command:
+              - /usr/local/bin/fpm-health/fpm-liveness.sh
+            periodSeconds: 10
           env:
             - name: AWS_S3_BUCKET
               valueFrom:
