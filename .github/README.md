@@ -321,8 +321,6 @@ To verify that S3 & CloudFront are working correctly.
 ### Useful links
 
 - [Ministry of Justice | Overview](https://portal.azure.com/#view/Microsoft_AAD_IAM/ActiveDirectoryMenuBlade/~/Overview)
-- App [justicedigital-centraldigital-intranet-local](https://portal.azure.com/#view/Microsoft_AAD_RegisteredApps/ApplicationMenuBlade/~/Overview/appId/73ed65a5-e879-4027-beab-f5e64de803b7/isMSAApp~/false)
-- App [justicedigital-centraldigital-intranet-development](https://portal.azure.com/#view/Microsoft_AAD_RegisteredApps/ApplicationMenuBlade/~/Overview/quickStartType~/null/sourceType/Microsoft_AAD_IAM/appId/1dac3cbf-91d2-4c0e-9c80-0bf3f8fabd75)
 - App [justicedigital-centraldigital-intranet-staging](https://portal.azure.com/#view/Microsoft_AAD_RegisteredApps/ApplicationMenuBlade/~/Overview/quickStartType~/null/sourceType/Microsoft_AAD_IAM/appId/ffb808d2-312b-4ffe-a6e5-d6eacfd9f06f)
 - App [justicedigital-centraldigital-intranet](https://portal.azure.com/#view/Microsoft_AAD_RegisteredApps/ApplicationMenuBlade/~/Overview/quickStartType~/null/sourceType/Microsoft_AAD_IAM/appId/f508fd07-8504-47ed-a7d1-aa55fd2163d1)
 
@@ -333,15 +331,15 @@ To verify that S3 & CloudFront are working correctly.
 3. Click on `App registrations`.
 4. Click on `New registration`.
 5. Fill in the form (adjust to the environment):
-   - Name: `justicedigital-centraldigital-intranet-development`
+   - Name: `justicedigital-centraldigital-intranet-staging`
    - Supported account types: `Accounts in this organizational directory only`
-   - Redirect URI: `Web` and `http://localhost/oauth2?action=callback`  
-     or `https://dev.intranet.justice.gov.uk/oauth2?action=callback` etc.
+   - Redirect URI: `Web` and `https://staging.intranet.justice.gov.uk/oauth2/callback`  
+     or `https://intranet.justice.gov.uk/oauth2/callback` etc.
 6. Copy the `Application (client) ID` and `Directory (tenant) ID` values,
   make them available as environment variables `OAUTH_CLIENT_ID`, `OAUTH_TENANT_ID`.
 7. Click on `Certificates & secrets` > `New client secret`.
 8. Fill in the form:
-   - Description: `Local-Intranet-v2`
+   - Description: `Staging-Intranet-v2`
    - Expires: `18 months`
 9. Set a reminder to update the client secret before it expires.
 10. Copy the `Value` value, make it available as environment variable `OAUTH_CLIENT_SECRET`.
@@ -349,6 +347,15 @@ To verify that S3 & CloudFront are working correctly.
 
 The oauth2 flow should now work with the Azure AD/Entra ID application.
 You can get an Access Token, Refresh Token and an expiry of the token.
+
+### Development Tenant
+
+The App for localhost and dev.intranet.justice.gov.uk is managed by the Identity Team.
+
+The App is on the development tenant, any you'll need to use a development email address for access.
+
+The `OAUTH_*` values are stored in a shared note in 1password. 
+They can be copied to `.env` to use oauth locally.
 
 ## Access control
 
