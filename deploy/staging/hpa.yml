@@ -8,7 +8,7 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: intranet-staging
-  minReplicas: 3
+  minReplicas: 4
   maxReplicas: 12
   metrics:
     # fpm
@@ -19,6 +19,8 @@ spec:
         target:
           type: Utilization
           # If request is 500m let's early scale at 250m
+          # Rely on CPU usage for scaling more than memory usage.
+          # For scaling down, CPU settles quickly and memory is freed up slowly.
           averageUtilization: 50
     - type: ContainerResource
       containerResource:
@@ -26,8 +28,8 @@ spec:
         container: fpm
         target:
           type: Utilization
-          # If request is 600Mi and php max is 384Mi let's scale at 420Mi
-          averageUtilization: 70
+          # If request is 640Mi and php max is 384Mi let's scale at 512Mi
+          averageUtilization: 80
     # nginx
     - type: ContainerResource
       containerResource:
