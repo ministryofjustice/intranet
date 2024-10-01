@@ -339,7 +339,7 @@ To verify that S3 & CloudFront are working correctly.
   make them available as environment variables `OAUTH_CLIENT_ID`, `OAUTH_TENANT_ID`.
 7. Click on `Certificates & secrets` > `New client secret`.
 8. Fill in the form:
-   - Description: `Staging-Intranet-v2`
+   - Description: `Staging-Intranet`
    - Expires: `18 months`
 9. Set a reminder to update the client secret before it expires.
 10. Copy the `Value` value, make it available as environment variable `OAUTH_CLIENT_SECRET`.
