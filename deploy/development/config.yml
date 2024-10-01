@@ -9,5 +9,6 @@ data:
   WP_SITEURL: 'https://dev.intranet.justice.gov.uk/wp'
   AWS_CLOUDFRONT_HOST: 'cdn.dev.intranet.justice.gov.uk'
   # See Azure Setup for more information on how to get these values.
-  OAUTH_CLIENT_ID: "1dac3cbf-91d2-4c0e-9c80-0bf3f8fabd75"
-  OAUTH_TENANT_ID: "c6874728-71e6-41fe-a9e1-2e8c36776ad8"
+  # The following IDs are not private, they form part of the publicly visible oauth login url.
+  OAUTH_CLIENT_ID: "51266573-d4eb-41db-8ebe-a9548aa4f01e"
+  OAUTH_TENANT_ID: "0bb413d7-160d-4839-868a-f3d46537f6af"
