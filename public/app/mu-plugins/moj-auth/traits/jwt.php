@@ -65,7 +65,7 @@ trait AuthJwt
             if ($e->getMessage() !== 'Expired token') {
                 \Sentry\captureException($e);
             }
-            $this->log($e->getMessage());
+            $this->log($e->getMessage(), null, 'error');
             return false;
         }
 

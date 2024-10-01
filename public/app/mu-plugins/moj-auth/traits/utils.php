@@ -26,9 +26,10 @@ trait AuthUtils
      * @return void
      */
 
-    public function log(string $message, $data = null): void
+    public function log(string $message, $data = null, $level = 'debug'): void
     {
-        if (!$this->debug) {
+        // If this message is a debug level, and debug is turned off, then return. 
+        if ($level === 'debug' && !$this->debug) {
             return;
         }
 
