@@ -30,8 +30,16 @@ spec:
       containers:
         - name: nginx
           image: ${ECR_URL}:${IMAGE_TAG_NGINX}
+          resources:
+            limits:
+              cpu: 500m
+              memory: 250Mi
+            requests:
+              cpu: 50m
+              memory: 100Mi
           ports:
             - containerPort: 8080
+              name: http
           volumeMounts:
             - name: uploads
               mountPath: /var/www/html/public/app/uploads
@@ -39,6 +47,14 @@ spec:
               mountPath: /sock
           securityContext:
             runAsUser: 101
+          readinessProbe:
+            httpGet:
+              path: /readiness
+              port: 8080
+          livenessProbe:
+            httpGet:
+              path: /liveness
+              port: 8080
           env:
             - name: IPS_FORMATTED
               valueFrom:
@@ -48,11 +64,27 @@ spec:
 
         - name: cron
           image: ${ECR_URL}:${IMAGE_TAG_CRON}
+          resources:
+            limits:
+              cpu: 50m
+              memory: 30Mi
+            requests:
+              cpu: 1m
+              memory: 12Mi
           securityContext:
             runAsUser: 3001
 
         - name: fpm
           image: ${ECR_URL}:${IMAGE_TAG_FPM}
+          resources:
+            limits:
+              # If a pod exceeds its CPU limit, Kubernetes will simply throttle the pod.
+              cpu: "4"
+              # If a pod exceeds its memory limit, Kubernetes will kill the pod.
+              memory: 2000Mi
+            requests:
+              cpu: 500m
+              memory: 600Mi
           volumeMounts:
             - name: uploads
               mountPath: /var/www/html/public/app/uploads
@@ -60,6 +92,26 @@ spec:
               mountPath: /sock
           securityContext:
             runAsUser: 101
+          # Check frequently during startup, so that scaling up can happen as fast as possible.
+          startupProbe:
+            exec:
+              command:
+              - /usr/local/bin/fpm-health/fpm-readiness.sh
+            failureThreshold: 20
+            periodSeconds: 5
+          # Don't route traffic to this pod if the container is not ready.
+          readinessProbe:
+            exec:
+              command:
+              - /usr/local/bin/fpm-health/fpm-readiness.sh
+            periodSeconds: 10
+            failureThreshold: 1
+          # Restart the container if it fails liveness script.
+          livenessProbe:
+            exec:
+              command:
+              - /usr/local/bin/fpm-health/fpm-liveness.sh
+            periodSeconds: 10
           env:
             - name: AWS_S3_BUCKET
               valueFrom:
@@ -100,7 +152,17 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: basic-auth-secret
-                  key: auth          
+                  key: auth
+            - name: CACHE_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: elasticache-output
+                  key: primary_endpoint_address
+            - name: CACHE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: elasticache-output
+                  key: auth_token
           envFrom:
             - configMapRef:
                 name: ${KUBE_NAMESPACE}
