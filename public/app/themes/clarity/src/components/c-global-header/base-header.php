@@ -14,15 +14,28 @@ use MOJ\Intranet\Agency;
 $oAgency      = new Agency();
 $activeAgency = $oAgency->getCurrentAgency() ? $oAgency->getCurrentAgency() : 'hq';
 
+// define the title
+$header_title = get_the_title();
+
+// Search page?
+if (is_search()) {
+    $header_title = 'Search: ' . get_search_query();
+
+    $query_post_type = sanitize_text_field($_GET['post_types'] ?? null);
+    if ($query_post_type) {
+        $header_title .= ' (' . $query_post_type . ')';
+    }
+}
+
 ?><!DOCTYPE html>
 <html lang="en" class="no-js">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-  <meta name="theme-color" content="<?= $agency_colour ?>">
-    <meta name="agency" content="<?= $activeAgency['label'] ?>">
-    
-    <title><?= single_post_title(); ?><?= ' - ' . $activeAgency['label'] . ' Intranet'; ?></title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0"/>
+    <meta name="theme-color" content="<?= $agency_colour ?>"/>
+    <meta name="agency" content="<?= $activeAgency['label'] ?>"/>
+
+    <title><?= $header_title ?><?= ' - ' . $activeAgency['label'] . ' Intranet'; ?></title>
 
   <link rel="icon" sizes="180x180" href="<?= get_stylesheet_directory_uri() ?>/dist/images/icons/apple-touch-icon-180x180.png">
   <link rel="shortcut icon" href="<?= get_stylesheet_directory_uri() ?>/dist/images/icons/favicon.ico" type="image/x-icon" />
@@ -36,26 +49,13 @@ $activeAgency = $oAgency->getCurrentAgency() ? $oAgency->getCurrentAgency() : 'h
   <link rel="apple-touch-icon" sizes="152x152" href="<?= get_stylesheet_directory_uri() ?>/dist/images/icons/apple-touch-icon-152x152.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="<?= get_stylesheet_directory_uri() ?>/dist/images/icons/apple-touch-icon-180x180.png" />
     <?php
-    /**
-     * wp_head() required WP function do not remove. Used by plugins to hook into and for theme development.
-     */
-    wp_head();
-    ?>
+    wp_head() ?>
+
    <script defer>
-      function readCookie(name) {
-        var nameEQ = name + "=";
-        var ca = document.cookie.split(';');
-        for (var i = 0; i < ca.length; i++) {
-          var c = ca[i];
-          while (c.charAt(0) == ' ') c = c.substring(1, c.length);
-          if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
-        }
-        return null;
-      }
       document.addEventListener('DOMContentLoaded', function() {
         <!-- Ensure the correct agency cookie gets picked up -->
-        var agency_cookie = readCookie("dw_agency");
-        if (agency_cookie !== null && agency_cookie !== '<?= $agency_shortcode ?>') { window.location.reload(true) }
+        var agency_cookie = ('; ' + document.cookie).split('; dw_agency=').pop().split(';').shift();
+        if (agency_cookie !== null && agency_cookie !== '<?= $agency_shortcode ?>') { window.location.reload() }
       });
     </script>
 </head>
