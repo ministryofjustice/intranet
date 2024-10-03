@@ -162,6 +162,13 @@ Config::define('MOJ_AUTH_ENABLED', true);
 // ACF License Key
 Config::define('ACF_PRO_LICENSE', env('ACF_PRO_LICENSE'));
 
+// Set to true to turn off automatic optimization of your images.
+// i.e. during migration, when using WP Offload Media - Metadata Tool.
+Config::define('EWWW_IMAGE_OPTIMIZER_NOAUTO', env('EWWW_IMAGE_OPTIMIZER_NOAUTO'));
+
+// Enable "agency" mode, which hides all external links and support resources.
+Config::define('EWWWIO_WHITELABEL', true);
+
 /**
  * Debugging Settings
  */
