@@ -72,14 +72,12 @@
         "ministryofjustice/wp-moj-components": "^3.5.0",
         "ministryofjustice/wp-moj-elasticsearch": "^2.3.0",
         "wpackagist-plugin/elasticpress": "^5.0.0",
-        "php-http/guzzle7-adapter": "^1.0",
         "alphagov/notifications-php-client": "^6.0",
         "aws/aws-sdk-php": "^3.133",
         "wpackagist-plugin/query-monitor": "^3.15",
         "wpackagist-plugin/debug-bar": "^1.1",
         "wpackagist-plugin/debug-bar-elasticpress": "^3.1",
         "deliciousbrains-plugin/wp-offload-media": "^3.2",
-        "deliciousbrains-plugin/wp-offload-media-assets-pull": "^1.1",
         "stayallive/wp-sentry": "^7.11",
         "ext-mysqli": "*",
         "ext-openssl": "*",
@@ -87,8 +85,8 @@
         "ext-zlib": "*",
         "league/oauth2-client": "^2.7",
         "firebase/php-jwt": "^6.10",
-        "wpackagist-plugin/redis-cache": "^2.5",
-        "guzzlehttp/guzzle": "^7.9"
+        "guzzlehttp/guzzle": "^7.9",
+        "php-http/guzzle7-adapter": "^1.0"
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "^3.0.2"
@@ -97,8 +95,13 @@
         "installer-paths": {
             "public/app/mu-plugins/{$name}/": [
                 "type:wordpress-muplugin",
+                "deliciousbrains-plugin/wp-offload-media",
+                "ministryofjustice/wp-moj-elasticsearch",
+                "ministryofjustice/php-markdown-extra",
+                "wpackagist-plugin/wp-document-revisions",
+                "wpackagist-plugin/elasticpress",
                 "wpackagist-plugin/ewww-image-optimizer",
-                "ministryofjustice/php-markdown-extra"
+                "wpengine/advanced-custom-fields-pro"
             ],
             "public/app/plugins/{$name}/": [
                 "type:wordpress-plugin"
