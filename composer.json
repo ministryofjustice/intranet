@@ -55,7 +55,7 @@
         "wpackagist-plugin/cms-tree-page-view": "*",
         "wpackagist-plugin/co-authors-plus": "*",
         "wpackagist-plugin/ewww-image-optimizer": "*",
-        "wpackagist-plugin/wp-document-revisions": "^3.5.0",
+        "wpackagist-plugin/wp-document-revisions": "^3.6.0",
         "wpackagist-plugin/simple-301-redirects":"2.0.9",
         "acf/advanced-custom-fields-pro": "*",
         "ministryofjustice/wp-rewrite-media-to-s3": "dev-php8-code-update",
