@@ -53,7 +53,7 @@ if (is_search()) {
 
    <script defer>
       document.addEventListener('DOMContentLoaded', function() {
-        <!-- Ensure the correct agency cookie gets picked up -->
+        // Ensure the correct agency cookie gets picked up
         var agency_cookie = ('; ' + document.cookie).split('; dw_agency=').pop().split(';').shift();
         if (agency_cookie !== null && agency_cookie !== '<?= $agency_shortcode ?>') { window.location.reload() }
       });
