@@ -65,33 +65,65 @@ class WPElasticPress
             return $formatted_args;
         }
 
-        /**
-         * Filter search date weighting scale
-         * 
-         * This function is copy/pasted from ElasticPress. 
-         * Using it, ensures we are targeting the correct array key.
-         *
-         * @hook epwr_decay_function
-         * @param  {string} $decay_function Current decay function
-         * @param  {array} $formatted_args Formatted Elasticsearch arguments
-         * @param  {array} $args WP_Query arguments
-         * @return  {string} New decay function
-         */
-        $decay_name = apply_filters('epwr_decay_function', 'exp', $formatted_args, $args);
+        // The following code is a copy/paste from an ElasticPress query.
+        // "functions": [
+        //     {
+        //         "exp": {
+        //             "post_date_gmt": {
+        //                 "scale": "14d",
+        //                 "decay": 0.25,
+        //                 "offset": "7d"
+        //             }
+        //         }
+        //     },
+        //     {
+        //         "weight": 0.001
+        //     }
+        // ],
 
-        // Map over the functions.
-        $formatted_args['query']['function_score']['functions'] = array_map(function ($f) use ($decay_name) {
-            // Identify the decay function.
-            if (isset($f[$decay_name])) {
-                // Add a filter so that the function will only apply to specific post types.
-                $f['filter'] = [
-                    'terms' => [
-                        "post_type.raw" => $this::RECENT_WEIGHT_POST_TYPES
-                    ]
-                ];
-            }
-            return $f;
-        }, $formatted_args['query']['function_score']['functions']);
+        // Remove it, so that we can use our own script_score.
+        unset($formatted_args['query']['function_score']['functions']);
+
+        
+        /**
+         * Apply a script_score to the query.
+         * 
+         * For post types: blog, event & news - apply a *severe* decay script to the score.
+         * For other post types - apply a *mild* decay script to the score.
+         * 
+         * @see https://opensearch.org/docs/latest/query-dsl/specialized/script-score/#decay-functions
+         * @see https://opensearch.org/docs/latest/query-dsl/compound/function-score/#decay-functions
+         */
+
+        $formatted_args['query']['function_score']["script_score"] = [
+            "script" => [
+                'source' => "
+                    if (
+                        doc['post_type.raw'].value == 'blog' 
+                        || doc['post_type.raw'].value == 'event' 
+                        || doc['post_type.raw'].value == 'news' 
+                    ) {
+                        return _score * decayDateExp(params.severe.origin, params.severe.scale,  params.severe.offset, params.severe.decay, doc.post_modified_gmt.value);
+                    } else { 
+                        return _score * decayDateExp(params.mild.origin, params.mild.scale,  params.mild.offset, params.mild.decay, doc.post_modified_gmt.value);
+                    }",
+                'params' => [
+                    "severe"  => [
+                        "scale" => "14d",
+                        "decay" => 0.25, // the score to assign to a document at the scale + offset distance.
+                        "offset" => "7d",
+                        // Today's date in the format : strict_date_optional_time without time
+                        "origin" => date('Y-m-d')
+                    ],
+                    "mild"  => [
+                        "scale" => "183d",
+                        "decay" => 0.6,
+                        "offset" => "183d",
+                        "origin" => date('Y-m-d')
+                    ],
+                ]
+            ]
+        ];
 
         return $formatted_args;
     }
