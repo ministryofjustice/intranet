@@ -7,11 +7,13 @@ $activeAgency = $oAgency->getCurrentAgency();
 $header_logo = get_field(get_intranet_code() .'_header_logo', 'option');
 $logo = get_stylesheet_directory_uri() . '/dist/images/moj_logo_header.png';
 
+# If law commission, use different logo
 if ($activeAgency['shortcode'] === 'law-commission') {
-    $logo = get_stylesheet_directory_uri() . '/dist/images/lawcomms_logo_new.png';
+    $logo = get_stylesheet_directory_uri() . '/dist/images/lawcomms_logo_new.jpg';
 }
 
-if(!empty($header_logo)){
+# If header logo is set, use that instead
+if (!empty($header_logo)) {
     $logo = $header_logo;
 }
 
