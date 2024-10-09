@@ -19,8 +19,6 @@ class WPElasticPress
         'menu_order',
     ];
 
-    const RECENT_WEIGHT_POST_TYPES = ['blog', 'event', 'news', "note-from-antonia"];
-
     public function __construct()
     {
         // do early stuff here, outside WP ecosys...
@@ -84,7 +82,6 @@ class WPElasticPress
         // Remove it, so that we can use our own script_score.
         unset($formatted_args['query']['function_score']['functions']);
 
-        
         /**
          * Apply a script_score to the query.
          * 
