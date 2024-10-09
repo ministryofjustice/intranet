@@ -19,8 +19,6 @@ class WPElasticPress
         'menu_order',
     ];
 
-    const RECENT_WEIGHT_POST_TYPES = ['blog', 'event', 'news', "note-from-antonia"];
-
     public function __construct()
     {
         // do early stuff here, outside WP ecosys...
