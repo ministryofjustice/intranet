@@ -14,8 +14,59 @@ use MOJ\Intranet\Agency;
 use MOJ\Intranet\EventsHelper;
 use WP_Query;
 
+
+/**
+ * QueryProps
+ * 
+ * This class is responsible for handling the query properties.
+ * 
+ * @package Clarity
+ *
+ * @property string $agency - The active agency.
+ * @property string $post_type - The post type.
+ * @property string $page - The page number.
+ * @property string $posts_per_page - The number of posts per page.
+ * @property string $keywords_filter - The keywords filter.
+ * @property string $date_filter - The date filter.
+ * 
+ * @return void
+ */
+
+class QueryProps
+{
+    public $agency_term_id;
+    public $post_type;
+    public $page;
+    public $posts_per_page;
+    public $keywords_filter;
+    public $date_filter;
+    public $news_category_id;
+    public $region_id;
+
+    public function __construct(
+        $agency_term_id,
+        $post_type,
+        $page,
+        $posts_per_page = 10,
+        $keywords_filter = null,
+        $date_filter = null,
+        $news_category_id = null,
+        $region_id = null
+    ) {
+        $this->agency_term_id = $agency_term_id;
+        $this->post_type = $post_type;
+        $this->page = $page;
+        $this->posts_per_page = $posts_per_page;
+        $this->date_filter = $date_filter;
+        $this->keywords_filter = $keywords_filter;
+        $this->news_category_id = $news_category_id;
+        $this->region_id = $region_id;
+    }
+}
+
 class FilterSearch
 {
+
     /**
      * FilterSearch constructor.
      * 
@@ -113,6 +164,20 @@ class FilterSearch
         die();
     }
 
+    public function mapResults(\WP_Post $post)
+    {
+        return [
+            'ID' => $post->ID,
+            'post_title' => $post->post_title,
+            'post_date_formatted' => get_gmt_from_date($post->post_date, 'j M Y'),
+            'post_excerpt_formatted' => empty($post->post_excerpt) ? '' : "<p>{$post->post_excerpt}</p>",
+            'permalink' => get_permalink($post->ID),
+            'post_type' => get_post_type($post->ID), // ? Is not used in the template.
+            'post_thumbnail' => get_the_post_thumbnail_url($post->ID, 'user-thumb'),
+            'post_thumbnail_alt' => get_post_meta(get_post_thumbnail_id($post->ID), '_wp_attachment_image_alt', true),
+        ];
+    }
+
     /**
      * Load results for post types except for events.
      * 
@@ -121,7 +186,7 @@ class FilterSearch
 
     public function loadSearchResults()
     {
-        if (!wp_verify_nonce($_POST['nonce_hash'], 'search_filter_nonce')) {
+        if (!wp_verify_nonce($_POST['_nonce'], 'search_filter_nonce')) {
             exit('Access not allowed.');
         }
 
@@ -131,32 +196,41 @@ class FilterSearch
         // Apply the weighting fields configuration to the query.
         add_filter('ep_enable_do_weighting', '__return_true');
 
-        // Run a query based on generated query arguments.
-        $query = new WP_Query($this->getQueryArgs());
-
-        // Use output buffering to capture the HTML output.
-        // This is necessary to get the html without refactoring the component's code.
-        ob_start();
-        echo '<div class="data-type" data-type="' . sanitize_text_field($_POST['postType']) . '"></div>';
-        foreach ($query->posts as $post) {
-            // $post is used in the included file.
-            include locate_template('src/components/c-article-item/view-news-feed.php');
+        $page = (int) $_POST['page'] ?? 1;
+        if($page < 1 || $page > 1000) {
+            $page = 1;
         }
-        $result_html = ob_get_clean();
 
-        // Get the pagination HTML.
-        $pagination_html = $this->getPagination(
-            sanitize_text_field($_POST['valueSelected']),
-            sanitize_text_field($_POST['nextPageToRetrieve']),
-            $query->max_num_pages
+        $posts_per_page = (int) ($_POST['posts_per_page'] ?? 10);
+        if($posts_per_page < 1 || $posts_per_page > 100) {
+            $posts_per_page = 10;
+        }
+
+        $query_props = new QueryProps(
+            (new Agency())->getCurrentAgency()['wp_tag_id'],
+            sanitize_text_field($_POST['post_type']),
+            $page,
+            $posts_per_page,
+            sanitize_text_field($_POST['keywords_filter'] ?? null),
+            sanitize_text_field($_POST['date_filter'] ?? null),
+            sanitize_text_field($_POST['news_category_id'] ?? null),
+            sanitize_text_field($_POST['region_id'] ?? null)
         );
 
-        // Return the results as JSON.
+        // Run a query based on generated query arguments.
+        $query = new WP_Query($this->getQueryArgs($query_props));
+
+        // include locate_template('src/components/c-article-item/view-news-feed.php');
+
         return wp_send_json([
-            'results' =>  $result_html,
-            'total' => $query->found_posts  . ' search results',
-            'pagination' => $pagination_html
+            'aggregates' => [
+                'totalResults' =>  $query->found_posts,
+                'resultsPerPage' => $posts_per_page,
+                'currentPage' => $page,
+            ],
+            'results' =>  array_map([$this, 'mapResults'], $query->posts),
         ]);
+
     }
 
     /**
@@ -165,29 +239,14 @@ class FilterSearch
      * @return array
      */
 
-    function getQueryArgs()
+    function getQueryArgs(QueryProps $props)
     {
-        // Get the active agency.
-        $active_agency = (new Agency())->getCurrentAgency();
-
         // Pagination.
-        $post_per_page = 10;
-        $next_page_to_retrieve = sanitize_text_field($_POST['nextPageToRetrieve'] ?? '');
-        $offset = $next_page_to_retrieve ? (($next_page_to_retrieve - 1) * $post_per_page) : 0;
-
-        // Post type, with a cleanup of the value.
-        $post_type = sanitize_text_field($_POST['postType'] ?? '');
-        $post_type = $post_type === 'posts' ? 'post' : $post_type;
-
-        // Is the request for a news category?
-        $news_category_id = sanitize_text_field($_POST['newsCategoryValue'] ?? '');
-
-        // Check if the post type is regional.
-        $is_regional = $post_type === 'regional_news' ? true : false;
+        $offset = $props->page ? (($props->page - 1) * $props->posts_per_page) : 0;
 
         $args = [
-            'numberposts' => $post_per_page,
-            'post_type' => $post_type,
+            'numberposts' => $props->posts_per_page,
+            'post_type' => $props->post_type,
             'post_status' => 'publish',
             'offset' => $offset,
             'tax_query' => [
@@ -195,30 +254,27 @@ class FilterSearch
                 [
                     'taxonomy' => 'agency',
                     'field' => 'term_id',
-                    'terms' => $active_agency['wp_tag_id']
+                    'terms' => $props->agency_term_id
                 ],
                 // If the region is set add its ID to the taxonomy query
-                ...($is_regional ? [
+                ...(!empty($props->region_id) ? [
                     'taxonomy' => 'region',
                     'field' => 'region_id',
-                    'terms' =>  $news_category_id,
+                    'terms' =>  $props->region_id,
                 ] : []),
                 // If the news category is set add its ID unless the query is regional, 
                 // as it will have already been added to the tax query.
-                ...(!empty($news_category_id) && !$is_regional ? [
+                ...(!empty($props->news_category_id) && empty($props->region_id) ? [
                     'taxonomy' => 'news_category',
                     'field' => 'category_id',
-                    'terms' =>  $news_category_id,
+                    'terms' =>  $props->news_category_id,
                 ] : []),
             ]
         ];
 
-        // Get the date filter value.
-        $value_selected = sanitize_text_field($_POST['valueSelected'] ?? '');
-
-        // Parse dates from the value selected.
-        if (!empty($value_selected)) {
-            preg_match('/&after=([^&]*)&before=([^&]*)/', $value_selected, $matches);
+        // Parse dates from the date filter.
+        if (!empty($props->date_filter)) {
+            preg_match('/&after=([^&]*)&before=([^&]*)/', $props->date_filter, $matches);
             $args['date_query'] = [
                 'after' =>  date('Y-m-d', strtotime($matches[1])),
                 'before' => date('Y-m-d', strtotime($matches[2])),
@@ -226,13 +282,10 @@ class FilterSearch
             ];
         }
 
-        // Get the search query.
-        $query = sanitize_text_field($_POST['query'] ?? '');
-
         // If there is a search query, set the orderby to relevance.
-        if (!empty($query)) {
+        if (!empty($props->keywords_filter)) {
             $args['orderby'] = 'relevance';
-            $args['s'] = $query;
+            $args['s'] = $props->keywords_filter;
         }
 
         return $args;
