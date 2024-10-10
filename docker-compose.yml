@@ -86,6 +86,8 @@ services:
       MYSQL_USER: ${DB_USER}
       MYSQL_PASSWORD: ${DB_PASSWORD}
       MYSQL_DATABASE: ${DB_NAME}
+    depends_on:
+      - redis
 
   phpmyadmin:
     container_name: intranet-phpmyadmin
@@ -205,6 +207,7 @@ services:
       - nginx
 
   redis:
+    container_name: intranet-redis
     image: 'bitnami/redis:latest'
     environment:
       - ALLOW_EMPTY_PASSWORD=yes
