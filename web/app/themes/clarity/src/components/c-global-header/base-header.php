@@ -21,11 +21,11 @@ $activeAgency = $oAgency->getCurrentAgency() ? $oAgency->getCurrentAgency() : 'h
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
   <meta name="theme-color" content="<?php echo $agency_colour; ?>">
     <meta name="agency" content="<?php echo $activeAgency['label']; ?>">
-    
+
     <title><?php echo single_post_title(); ?><?php echo ' - ' . $activeAgency['label'] . ' Intranet'; ?></title>
 
-  <link rel="icon" sizes="180x180" href="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/icons/apple-touch-icon-180x180.png">
-  <link rel="shortcut icon" href="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/icons/favicon.ico" type="image/x-icon" />
+  <link rel="icon" sizes="180x180" href="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/tudor_crest.svg">
+  <link rel="shortcut icon" href="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/tudor_crest.svg" type="image/x-icon" />
   <link rel="apple-touch-icon" href="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/icons/apple-touch-icon.png" />
   <link rel="apple-touch-icon" sizes="57x57" href="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/icons/apple-touch-icon-57x57.png" />
   <link rel="apple-touch-icon" sizes="72x72" href="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/icons/apple-touch-icon-72x72.png" />
