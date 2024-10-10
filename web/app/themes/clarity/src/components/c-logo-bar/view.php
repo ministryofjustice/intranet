@@ -23,7 +23,7 @@ if (!empty($header_logo)) {
     <div class="u-wrapper">
         <div class="u-wrapper__stack--left">
             <a href="/" rel="home">
-                <img class="logo" aria-hidden="true" src="<?= $logo ?>" alt="" />
+                <img class="c-logo-bar__logo" aria-hidden="true" src="<?= $logo ?>" alt="" />
                 <span class="agency-title l-half-section"><?= $activeAgency['label'] ?></span>
             </a>
         </div>
