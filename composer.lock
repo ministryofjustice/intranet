@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ae95797e9bf762423963b6cbe4e02ccc",
+    "content-hash": "ad7ff58b4cd4dbe4ed5e383179240838",
     "packages": [
         {
             "name": "acf/advanced-custom-fields-pro",
@@ -3434,15 +3434,15 @@
         },
         {
             "name": "wpackagist-plugin/wp-document-revisions",
-            "version": "3.5.0",
+            "version": "3.6.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/wp-document-revisions/",
-                "reference": "tags/3.5.0"
+                "reference": "tags/3.6.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wp-document-revisions.3.5.0.zip"
+                "url": "https://downloads.wordpress.org/plugin/wp-document-revisions.3.6.1.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
