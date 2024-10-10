@@ -15,19 +15,24 @@
     text-decoration: none;
   }
 
-  img {
-    height: 49px;
-    position: relative;
+  &__logo {
     display: block;
     float: left;
+    height: 50px;
+    margin: -1px 2px 0 0;
+    -o-object-fit: contain;
+    object-fit: contain;
+    padding-left: 1px;
+    width: 38px;
   }
+
   .agency-title {
     color: white;
     font-size: 26px;
     font-weight: 400;
-    line-height: 29px;
+    line-height: 31px;
     float: left;
-    padding: $spacing $spacing $spacing;
+    padding: $spacing $spacing 0.8rem;
   }
 
   &__switch {
