@@ -17,24 +17,19 @@ $activeAgency = $oAgency->getCurrentAgency() ? $oAgency->getCurrentAgency() : 'h
 ?><!DOCTYPE html>
 <html lang="en" class="no-js">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-  <meta name="theme-color" content="<?php echo $agency_colour; ?>">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <meta name="theme-color" content="<?php echo $agency_colour; ?>">
     <meta name="agency" content="<?php echo $activeAgency['label']; ?>">
 
     <title><?php echo single_post_title(); ?><?php echo ' - ' . $activeAgency['label'] . ' Intranet'; ?></title>
 
-  <link rel="icon" sizes="180x180" href="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/tudor_crest.svg">
-  <link rel="shortcut icon" href="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/tudor_crest.svg" type="image/x-icon" />
-  <link rel="apple-touch-icon" href="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/icons/apple-touch-icon.png" />
-  <link rel="apple-touch-icon" sizes="57x57" href="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/icons/apple-touch-icon-57x57.png" />
-  <link rel="apple-touch-icon" sizes="72x72" href="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/icons/apple-touch-icon-72x72.png" />
-  <link rel="apple-touch-icon" sizes="76x76" href="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/icons/apple-touch-icon-76x76.png" />
-  <link rel="apple-touch-icon" sizes="114x114" href="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/icons/apple-touch-icon-114x114.png" />
-  <link rel="apple-touch-icon" sizes="120x120" href="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/icons/apple-touch-icon-120x120.png" />
-  <link rel="apple-touch-icon" sizes="144x144" href="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/icons/apple-touch-icon-144x144.png" />
-  <link rel="apple-touch-icon" sizes="152x152" href="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/icons/apple-touch-icon-152x152.png" />
-  <link rel="apple-touch-icon" sizes="180x180" href="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/icons/apple-touch-icon-180x180.png" />
+    <link rel="icon" type="image/png" href="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/icons/favicon-48x48.png" sizes="48x48" />
+    <link rel="icon" type="image/svg+xml" href="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/icons/favicon.svg" />
+    <link rel="shortcut icon" href="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/icons/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/icons/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="MoJ Intranet" />
+    <link rel="manifest" href="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/icons/site.webmanifest" />
     <?php
     /**
      * wp_head() required WP function do not remove. Used by plugins to hook into and for theme development.
@@ -61,17 +56,20 @@ $activeAgency = $oAgency->getCurrentAgency() ? $oAgency->getCurrentAgency() : 'h
 </head>
 <?php
 if (! defined('GT_CODE')) {
-  define('GT_CODE', 'GTM-P545JM');
+    define('GT_CODE', 'GTM-P545JM');
 }
 ?>
 <!-- Google Tag Manager -->
-<noscript><iframe src="//www.googletagmanager.com/ns.html?id=<?php echo GT_CODE; ?>"
-                  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+<noscript>
+    <iframe src="//www.googletagmanager.com/ns.html?id=<?php echo GT_CODE; ?>" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
+<script>
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
         new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
         j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','<?php echo GT_CODE; ?>');</script>
+    })(window,document,'script','dataLayer','<?php echo GT_CODE; ?>');
+</script>
 <!-- End Google Tag Manager -->
 <body
 <?php
