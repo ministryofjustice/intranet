@@ -1,10 +1,10 @@
 <?php
 
 /**
- * Pagination template.
+ * Pagination AJAX template.
  * 
  * The template is used for search results loaded via AJAX.
- * Class names and html structure matches the pagination.php file.
+ * Class names and html structure matches the view-infinite.php file.
  *
  * @package Clarity
  */

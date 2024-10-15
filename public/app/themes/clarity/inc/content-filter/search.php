@@ -24,47 +24,86 @@ use WP_Query;
  *
  * @property string $agency - The active agency.
  * @property string $post_type - The post type.
- * @property string $page - The page number.
- * @property string $posts_per_page - The number of posts per page.
- * @property string $keywords_filter - The keywords filter.
- * @property string $date_filter - The date filter.
- * 
+ * @property int $page - The page number.
+ * @property int $posts_per_page - The number of posts per page.
+ * @property ?bool $exclude_current - Exclude the current post.
+ * @property ?string $keywords_filter - The keywords filter.
+ * @property ?string $date_filter - The date filter.
+ * @property ?string $news_category_id - The news category ID.
+ * @property ?string $region_id - The region ID.
+ *
  * @return void
  */
 
-class QueryProps
+class SearchQueryArgs
 {
-    public $agency_term_id;
-    public $post_type;
-    public $page;
-    public $posts_per_page;
-    public $keywords_filter;
-    public $date_filter;
-    public $news_category_id;
-    public $region_id;
-
     public function __construct(
-        $agency_term_id,
-        $post_type,
-        $page,
-        $posts_per_page = 10,
-        $keywords_filter = null,
-        $date_filter = null,
-        $news_category_id = null,
-        $region_id = null
-    ) {
-        $this->agency_term_id = $agency_term_id;
-        $this->post_type = $post_type;
-        $this->page = $page;
-        $this->posts_per_page = $posts_per_page;
-        $this->date_filter = $date_filter;
-        $this->keywords_filter = $keywords_filter;
-        $this->news_category_id = $news_category_id;
-        $this->region_id = $region_id;
+        public string $agency_term_id,
+        public string $post_type,
+        public int $page,
+        public int $posts_per_page = 10,
+        public ?bool $exclude_current = false,
+        public ?string $keywords_filter = null,
+        public ?string $date_filter = null,
+        public ?string $news_category_id = null,
+        public ?string $region_id = null,
+    ) {}
+
+    function get()
+    {
+        // Pagination.
+        $offset = $this->page ? (($this->page - 1) * $this->posts_per_page) : 0;
+
+        $args = [
+            'posts_per_page' => $this->posts_per_page,
+            'post_type' => $this->post_type,
+            'post_status' => 'publish',
+            'offset' => $offset,
+            ...($this->exclude_current ? ['post__not_in' => [get_the_ID()]] : []),
+            'tax_query' => [
+                'relation' => 'AND',
+                [
+                    'taxonomy' => 'agency',
+                    'field' => 'term_id',
+                    'terms' => $this->agency_term_id
+                ],
+                // If the region is set add its ID to the taxonomy query
+                ...(!empty($this->region_id) ? [
+                    'taxonomy' => 'region',
+                    'field' => 'region_id',
+                    'terms' =>  $this->region_id,
+                ] : []),
+                // If the news category is set add its ID unless the query is regional, 
+                // as it will have already been added to the tax query.
+                ...(!empty($this->news_category_id) && empty($this->region_id) ? [
+                    'taxonomy' => 'news_category',
+                    'field' => 'category_id',
+                    'terms' =>  $this->news_category_id,
+                ] : []),
+            ]
+        ];
+
+        // Parse dates from the date filter.
+        if (!empty($this->date_filter)) {
+            preg_match('/&after=([^&]*)&before=([^&]*)/', $this->date_filter, $matches);
+            $args['date_query'] = [
+                'after' =>  date('Y-m-d', strtotime($matches[1])),
+                'before' => date('Y-m-d', strtotime($matches[2])),
+                'inclusive' => false,
+            ];
+        }
+
+        // If there is a search query, set the orderby to relevance.
+        if (!empty($this->keywords_filter)) {
+            $args['orderby'] = 'relevance';
+            $args['s'] = $this->keywords_filter;
+        }
+
+        return $args;
     }
 }
 
-class FilterSearch
+class Search
 {
 
     /**
@@ -73,10 +112,7 @@ class FilterSearch
      * @return void
      */
 
-    public function __construct()
-    {
-        $this->hooks();
-    }
+    public function __construct() {}
 
     /**
      * Hooks
@@ -85,10 +121,14 @@ class FilterSearch
      */
     public function hooks(): void
     {
+        // Add functions to handle AJAX requests.
         add_action('wp_ajax_load_search_results', [$this, 'loadSearchResults']);
         add_action('wp_ajax_nopriv_load_search_results', [$this, 'loadSearchResults']);
         add_action('wp_ajax_load_events_filter_results', [$this, 'loadEventSearchResults']);
         add_action('wp_ajax_nopriv_load_events_filter_results', [$this, 'loadEventSearchResults']);
+
+        // Add templates to the footer.
+        add_action('wp_footer', [$this, 'addAjaxTemplates']);
     }
 
     /**
@@ -164,17 +204,46 @@ class FilterSearch
         die();
     }
 
-    public function mapResults(\WP_Post $post)
+    public function mapNewsResult(\WP_Post $post)
     {
         return [
             'ID' => $post->ID,
+            'post_type' => get_post_type($post->ID),
             'post_title' => $post->post_title,
             'post_date_formatted' => get_gmt_from_date($post->post_date, 'j M Y'),
             'post_excerpt_formatted' => empty($post->post_excerpt) ? '' : "<p>{$post->post_excerpt}</p>",
             'permalink' => get_permalink($post->ID),
-            'post_type' => get_post_type($post->ID), // ? Is not used in the template.
             'post_thumbnail' => get_the_post_thumbnail_url($post->ID, 'user-thumb'),
             'post_thumbnail_alt' => get_post_meta(get_post_thumbnail_id($post->ID), '_wp_attachment_image_alt', true),
+        ];
+    }
+
+    public function mapPostResult(\WP_Post $post)
+    {
+
+        $thumbnail     = get_the_post_thumbnail_url($post->ID, 'user-thumb');
+        $thumbnail_alt = get_post_meta(get_post_thumbnail_id($post->ID), '_wp_attachment_image_alt', true);
+
+        $author = $post->post_author;
+        $author_display_name = $author ? get_the_author_meta('display_name', $author) : '';
+
+        if (!$thumbnail) {
+            // Mutate thumbnail with author image.
+            $thumbnail = $author ? get_the_author_meta('thumbnail_avatar', $author) : false;
+            $thumbnail_alt = $author_display_name;
+        }
+
+        return [
+            'ID' => $post->ID,
+            'post_type' => get_post_type($post->ID),
+            'post_title' => $post->post_title,
+            'post_date_formatted' => get_gmt_from_date($post->post_date, 'j M Y'),
+            'post_excerpt_formatted' => empty($post->post_excerpt) ? '' : "<p>{$post->post_excerpt}</p>",
+            'permalink' => get_permalink($post->ID),
+            // 'post_thumbnail' => $thumbnail,
+            'post_thumbnail' => false,
+            'post_thumbnail_alt' => $thumbnail_alt,
+            'author_display_name' => $author ? get_the_author_meta('display_name', $author) : '',
         ];
     }
 
@@ -197,20 +266,29 @@ class FilterSearch
         add_filter('ep_enable_do_weighting', '__return_true');
 
         $page = (int) $_POST['page'] ?? 1;
-        if($page < 1 || $page > 1000) {
+        if ($page < 1 || $page > 1000) {
             $page = 1;
         }
 
         $posts_per_page = (int) ($_POST['posts_per_page'] ?? 10);
-        if($posts_per_page < 1 || $posts_per_page > 100) {
+        if ($posts_per_page < 1 || $posts_per_page > 100) {
             $posts_per_page = 10;
         }
 
-        $query_props = new QueryProps(
+        $allowed_post_types = ['post', 'news'];
+
+        if (!in_array($_POST['post_type'], $allowed_post_types)) {
+            throw new \Exception('Invalid post type.');
+        }
+
+        $post_type = $_POST['post_type'];
+
+        $query_args = new SearchQueryArgs(
             (new Agency())->getCurrentAgency()['wp_tag_id'],
-            sanitize_text_field($_POST['post_type']),
+            $post_type,
             $page,
             $posts_per_page,
+            false,
             sanitize_text_field($_POST['keywords_filter'] ?? null),
             sanitize_text_field($_POST['date_filter'] ?? null),
             sanitize_text_field($_POST['news_category_id'] ?? null),
@@ -218,9 +296,9 @@ class FilterSearch
         );
 
         // Run a query based on generated query arguments.
-        $query = new WP_Query($this->getQueryArgs($query_props));
+        $query = new WP_Query($query_args->get());
 
-        // include locate_template('src/components/c-article-item/view-news-feed.php');
+        $map_function = $post_type === 'news' ? 'mapNewsResult' : 'mapPostResult';
 
         return wp_send_json([
             'aggregates' => [
@@ -228,98 +306,36 @@ class FilterSearch
                 'resultsPerPage' => $posts_per_page,
                 'currentPage' => $page,
             ],
-            'results' =>  array_map([$this, 'mapResults'], $query->posts),
+            'results' =>  [
+                'posts' => array_map([$this, $map_function], $query->posts),
+                'templateName' => "view-{$post_type}-feed",
+            ],
         ]);
-
     }
 
-    /**
-     * Get Query Args
-     * 
-     * @return array
-     */
-
-    function getQueryArgs(QueryProps $props)
-    {
-        // Pagination.
-        $offset = $props->page ? (($props->page - 1) * $props->posts_per_page) : 0;
-
-        $args = [
-            'numberposts' => $props->posts_per_page,
-            'post_type' => $props->post_type,
-            'post_status' => 'publish',
-            'offset' => $offset,
-            'tax_query' => [
-                'relation' => 'AND',
-                [
-                    'taxonomy' => 'agency',
-                    'field' => 'term_id',
-                    'terms' => $props->agency_term_id
-                ],
-                // If the region is set add its ID to the taxonomy query
-                ...(!empty($props->region_id) ? [
-                    'taxonomy' => 'region',
-                    'field' => 'region_id',
-                    'terms' =>  $props->region_id,
-                ] : []),
-                // If the news category is set add its ID unless the query is regional, 
-                // as it will have already been added to the tax query.
-                ...(!empty($props->news_category_id) && empty($props->region_id) ? [
-                    'taxonomy' => 'news_category',
-                    'field' => 'category_id',
-                    'terms' =>  $props->news_category_id,
-                ] : []),
-            ]
-        ];
-
-        // Parse dates from the date filter.
-        if (!empty($props->date_filter)) {
-            preg_match('/&after=([^&]*)&before=([^&]*)/', $props->date_filter, $matches);
-            $args['date_query'] = [
-                'after' =>  date('Y-m-d', strtotime($matches[1])),
-                'before' => date('Y-m-d', strtotime($matches[2])),
-                'inclusive' => false,
-            ];
-        }
-
-        // If there is a search query, set the orderby to relevance.
-        if (!empty($props->keywords_filter)) {
-            $args['orderby'] = 'relevance';
-            $args['s'] = $props->keywords_filter;
-        }
-
-        return $args;
-    }
 
     /**
-     * Get Pagination
+     * Add AJAX templates to the footer.
      * 
-     * @param string $selected
-     * @param int|string $next
-     * @param int $total
-     * @return string
+     * These JS templates are used to render the AJAX results to html.
+     * 
+     * @return void
      */
 
-    function getPagination(string $selected, int|string $next, int $total): string
+    public function addAjaxTemplates()
     {
-        $html = '';
-        if ($next == $total) {
-            $html .= '<span class="nomore-btn" data-date="' . $selected . '">';
-            $html .= '<span class="c-pagination__main">No More Results</span>';
-            $html .= '</span>';
-        } elseif ($total <= 1) {
-            $html .= '<button class="more-btn" data-page="' . $next . '" data-date="' . $selected . '">';
-            $html .= '<span class="c-pagination__main">No More Results</span>';
-            $html .= '<span class="c-pagination__count"> ' . $next . ' of 1</span>';
-            $html .= '</button>';
-        } else {
-            $html .= '<button class="more-btn" data-page="' . $next . '" data-date="' . $selected . '">';
-            $html .= '<span class="c-pagination__main"><span class="u-icon u-icon--circle-down"></span> Load Next 10 Results</span>';
-            $html .= '<span class="c-pagination__count"> ' . $next . ' of ' . $total . '</span>';
-            $html .= '</button>';
+
+        if (is_page_template('page_blog.php') || is_page_template('page_news.php')) {
+            get_template_part('src/components/c-pagination/view-infinite.ajax');
+            echo '<script src="https://cdn.jsdelivr.net/gh/ranaroussi/pointjs/dist/point.js"></script>';
         }
-        return $html;
+
+        if (is_page_template('page_blog.php')) {
+            get_template_part('src/components/c-article-item/view-blog-feed.ajax');
+        }
+
+        if (is_page_template('page_news.php')) {
+            get_template_part('src/components/c-article-item/view-news-feed.ajax');
+        }
     }
 }
-
-new FilterSearch();

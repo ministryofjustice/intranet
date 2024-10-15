@@ -9,7 +9,7 @@ $prefix = 'ff';
 
 <!-- c-content-filter starts here -->
 <section class="c-content-filter">
-  <form action="" id="<?= $prefix . '_events' ?>" data-page="0">
+  <form action="load_events_filter_results" id="<?= $prefix . '_events' ?>" method="post">
     <fieldset>
       <legend><h2>Filter by</h2></legend>  
       <div class="c-input-container c-input-container--select">
@@ -35,6 +35,18 @@ $prefix = 'ff';
         // Hidden field to pass nonce for improved security
         form_builder('hidden', '', false, '_nonce', '_search_filter_wpnonce', $nonce, null, null, false, null, null);
       ?>
+
+      <?php 
+      // I'm not sure why the field names have a prefix, but let's keep with that and send the prefix so it can be stripped by js. 
+      ?>
+      <input type="hidden" name="prefix" value="<?= $prefix ?>_" />
+
+      <input type="hidden" name="page" value="1" />
+
+      <input type="hidden" name="template" value="<?= $args['template']; ?>" />
+
+      <input type="hidden" name="post_type" value="<?= $args['post_type']; ?>" />
+
       <input type="submit" value="Filter" id="ff_button_submit" />
     </fieldset>  
   </form>

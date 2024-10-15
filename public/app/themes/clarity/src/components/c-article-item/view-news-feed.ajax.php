@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Individual news feed list item - template.
+ * Individual news feed list item - AJAX template.
  * 
  * The template is used for search results loaded via AJAX.
  * Class names and html structure matches the view-news-feed.php component.
@@ -9,11 +9,11 @@
  * @package Clarity
  */
 
+defined('ABSPATH') || exit;
+
 ?>
 
-<?php defined('ABSPATH') || exit; ?>
-
-<script type="text/template" data-template="view-news-feed-template">
+<script type="text/template" data-template="view-news-feed">
 
     <article class="c-article-item js-article-item" data-type="">
         <a tabindex="-1" aria-hidden="true" href="${permalink}" class="thumbnail">
