@@ -1,37 +1,36 @@
 #!/usr/bin/env bash
 
-# This script creates a JWT secret, RSA key pair and copies them to the clipboard - ready for pasting into .env.
+# This script creates a JWT secret, RSA key pair and saves them into .env.
+# If the secrets already exist in the .env file, the script will not overwrite them.
 # The script follows the instructions from the AWS 'Creating key pairs for your signers' documentation:
 # https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-trusted-signers.html#private-content-creating-cloudfront-key-pairs
 
-echo "Generating JWT secret"
-JWT_SECRET=$(openssl rand -base64 64)
+source bin/local-key-gen-functions.sh
 
-echo "Generating RSA keys"
-echo "writing RSA private key"
-openssl genrsa -out /tmp/intranet_private_key.pem 2048
+ENV_FILE=".env"
+FILE_OUTPUT="/tmp/intranet_secrets_string"
 
-openssl rsa -pubout -in /tmp/intranet_private_key.pem -out /tmp/intranet_public_key.pem
+# Create outputs file
+touch $FILE_OUTPUT
+{
+  echo -e "\n# # # # # # # # # # # # # # # # # #"
+  echo "# -->  auto-gen secrets keys  <-- #"
+  echo "# # # # # # # # # # # # # # # # # #"
+} > $FILE_OUTPUT
 
-AWS_CLOUDFRONT_PUBLIC_KEY=$(cat /tmp/intranet_public_key.pem)
-# First 8 chars of hash
-AWS_CLOUDFRONT_PUBLIC_KEY_SHORT_HASH="$(echo "$AWS_CLOUDFRONT_PUBLIC_KEY" | openssl dgst -binary -sha256 | xxd -p -c 32 | cut -c 1-8)"
-# Build the object, similar to terraform output.
-AWS_CLOUDFRONT_PUBLIC_KEYS_OBJECT="[{\"id\":\"GENERATED_BY_AWS\",\"comment\":\"$AWS_CLOUDFRONT_PUBLIC_KEY_SHORT_HASH\"}]"
-AWS_CLOUDFRONT_PRIVATE_KEY=$(cat /tmp/intranet_private_key.pem)
+[[ "$(env_var_exists JWT_SECRET)" == "0" ]] && make_secret JWT
+[[ "$(env_var_exists AWS_CLOUDFRONT_PRIVATE_KEY)" == "0" ]] && make_secret PRIVATE_KEY
+[[ "$(env_var_exists AWS_CLOUDFRONT_PUBLIC_KEY)" == "0" ]] && make_secret PUBLIC_KEY
+[[ "$(env_var_exists AWS_CLOUDFRONT_PUBLIC_KEYS_OBJECT)" == "0" ]] && make_secret PUBLIC_KEYS_OBJECT
 
-# First 8 chars of hash
-echo "$AWS_CLOUDFRONT_PUBLIC_KEY" | openssl dgst -binary -sha256 | xxd -p -c 32 | cut -c 1-8
+if [[ "$(action_track)" == "0" ]]; then
+  echo "No new secrets were created."
+  clean_up quiet
+  exit 0
+fi
 
-echo "Keys copied to clipboard"
-echo -e "JWT_SECRET=\"$JWT_SECRET\"\n\nAWS_CLOUDFRONT_PUBLIC_KEYS_OBJECT=$AWS_CLOUDFRONT_PUBLIC_KEYS_OBJECT\n\nAWS_CLOUDFRONT_PUBLIC_KEY=\"$AWS_CLOUDFRONT_PUBLIC_KEY\"\n\nAWS_CLOUDFRONT_PRIVATE_KEY=\"$AWS_CLOUDFRONT_PRIVATE_KEY\"" | pbcopy
+# Append secrets to the .env file
+cat $FILE_OUTPUT >> $ENV_FILE
 
 # Clear the variables.
-unset JWT_SECRET
-unset AWS_CLOUDFRONT_PUBLIC_KEY
-unset AWS_CLOUDFRONT_PUBLIC_KEY_SHORT_HASH
-unset AWS_CLOUDFRONT_PRIVATE_KEY
-unset AWS_CLOUDFRONT_PUBLIC_KEYS_OBJECT
-
-echo "Deleting temporary key files"
-rm /tmp/intranet_private_key.pem /tmp/intranet_public_key.pem
+clean_up
