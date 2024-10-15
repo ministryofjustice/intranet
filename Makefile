@@ -20,12 +20,12 @@ k8s_pod := kubectl -n $(k8s_nsp) get pod -l app=intranet-local -o jsonpath="{.it
 
 # ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
 
-init: setup run
+init: setup key-gen run
 
 d-compose: local-stop
 	docker compose up -d nginx phpmyadmin opensearch-dashboard wp-cron php-fpm
 
-d-shell: setup dory d-compose composer
+d-shell: setup key-gen dory d-compose composer
 
 setup:
 	@chmod +x ./bin/*
