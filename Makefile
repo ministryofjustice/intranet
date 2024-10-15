@@ -20,7 +20,7 @@ k8s_pod := kubectl -n $(k8s_nsp) get pod -l app=intranet-local -o jsonpath="{.it
 
 # ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
 
-init: key-gen setup run
+init: setup run
 
 d-compose: local-stop
 	docker compose up -d nginx phpmyadmin opensearch-dashboard wp-cron php-fpm
