@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * The is part of a template that is used for search results loaded via AJAX.
+ * It is not wrapped in a script tag with a template attribute because it forms 
+ * part of `src/components/c-events-item/view-list.ajax.php`.
+ * Class names and html structure matches the view.php component.
+ */
+
 defined('ABSPATH')  || exit;
 
 ?>

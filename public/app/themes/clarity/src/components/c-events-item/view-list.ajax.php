@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * The template is used for search results loaded via AJAX.
+ * Class names and html structure matches the view-list.php component.
+ */
+
 defined('ABSPATH') || exit;
 
 ?>
