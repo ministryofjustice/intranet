@@ -1,6 +1,7 @@
 /**
- * This Class is responsible for rendering HTML from AJAX template.
+ * This class is responsible for rendering HTML from an AJAX template.
  *
+ * This is an extension of a bare bones templating engine.
  * @see https://stackoverflow.com/a/39065147/6671505
  *
  * @example
