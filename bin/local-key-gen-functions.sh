@@ -3,7 +3,17 @@
 ACTION_TRACKER="/tmp/intranet_action_tracker"
 FILE_PRIVATE="/tmp/intranet_private_key.pem"
 FILE_PUBLIC="/tmp/intranet_public_key.pem"
-touch $ACTION_TRACKER
+
+ENV_FILE=".env"
+FILE_OUTPUT="/tmp/intranet_secrets_string"
+
+# Create outputs files
+touch $FILE_OUTPUT
+{
+  echo -e "\n# # # # # # # # # # # # # # # # # #"
+  echo "# -->  auto-gen secrets keys  <-- #"
+  echo "# # # # # # # # # # # # # # # # # #"
+} > $FILE_OUTPUT
 
 env_var_exists(){
   VAR=$(< "$ENV_FILE" grep -w "$1")
@@ -18,6 +28,7 @@ env_var_exists(){
   fi
 }
 
+touch $ACTION_TRACKER
 action_track(){
   TRACKER_SIZE=$(sed -n '$='  "$ACTION_TRACKER")
   if [[ "$TRACKER_SIZE" -gt 1 ]] ; then
@@ -68,12 +79,8 @@ clean_up(){
   unset AWS_CLOUDFRONT_PUBLIC_KEY
   unset AWS_CLOUDFRONT_PUBLIC_KEY_SHORT_HASH
 
-  [[ "$1" != "quiet" ]] && echo "Deleting temporary files"
-
   [[ -f "$ACTION_TRACKER" ]] && rm "$ACTION_TRACKER"
   [[ -f "$FILE_PRIVATE" ]] && rm "$FILE_PRIVATE"
   [[ -f "$FILE_PUBLIC" ]] && rm "$FILE_PUBLIC"
   [[ -f "$FILE_OUTPUT" ]] && rm "$FILE_OUTPUT"
 }
-
-
