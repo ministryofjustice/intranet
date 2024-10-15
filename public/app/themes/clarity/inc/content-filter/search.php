@@ -139,69 +139,74 @@ class Search
 
     public function loadEventSearchResults()
     {
-        if (!wp_verify_nonce($_POST['nonce_hash'], 'search_filter_nonce')) {
+        if (!wp_verify_nonce($_POST['_nonce'], 'search_filter_nonce')) {
             exit('Access not allowed.');
         }
 
-        $active_agency = (new Agency())->getCurrentAgency();
-        $agency_term_id = $active_agency['wp_tag_id'];
-        $date_filter = sanitize_text_field($_POST['valueSelected'] ?? 'all');
-        $post_id = get_the_ID();
-        $query = sanitize_text_field($_POST['query']);
-
-        $filter_options = ['keyword_search' => $query];
-
-        if ($date_filter != 'all') {
-            $filter_options['date_filter'] = $date_filter;
+        
+        $agency_term_id =(new Agency())->getCurrentAgency()['wp_tag_id'];
+        
+        $filter_options = [
+            'keyword_search' => sanitize_text_field($_POST['keywords_filter'] ?? ''),
+            'date_filter' => $_POST['date_filter'] == 'all' ? '' : sanitize_text_field($_POST['date_filter']),
+        ];
+        
+        
+        if (isset($_POST['termID'])) {
+            $tax_id = sanitize_text_field($_POST['termID']);
+            
+            $filter_options['region_filter'] = $tax_id;
         }
 
         $events_helper = new EventsHelper();
 
-        if (isset($_POST['termID'])) {
-            $tax_id = sanitize_text_field($_POST['termID']);
+        $events = $events_helper->get_events($agency_term_id, $filter_options) ?? [];
 
-            $filter_options['region_filter'] = $tax_id;
+        return wp_send_json([
+            'aggregates' => [
+                'totalResults' =>  count($events),
+                'resultsPerPage' => -1,
+                'currentPage' => 1,
+            ],
+            'results' =>  [
+                'templateName' => "c-events-item-list",
+                'posts' => array_map([$this, 'mapEventResult'], $events),
+            ],
+        ]);
+    }
 
-            $events = $events_helper->get_events($agency_term_id, $filter_options);
-        } else {
-            $events = $events_helper->get_events($agency_term_id, $filter_options);
+    public function mapEventResult($event)
+    {
+        // Assign some default values.
+        $time_formatted = 'All day';
+        $datetime = 'P1D';
+
+        if (!$event->event_allday) {
+            $datetime = $event->event_start_time;
+            // If start date and end date selected are the same, just display first date.
+            if ($event->event_start_time === $event->event_end_time) {
+                $time_formatted = substr($event->event_start_time, 0, 5);
+            } else {
+                $time_formatted = substr($event->event_start_time, 0, 5) . ' - ' . substr($event->event_end_time, 0, 5);
+            }
         }
 
-        if ($events) {
-            echo '<div class="data-type" data-type="event"></div>';
-
-            foreach ($events as $key => $event) :
-                $event_id = $event->ID;
-                $post_url = $event->url;
-                $event_title = $event->post_title;
-
-                $start_date = $event->event_start_date;
-                $end_date = $event->event_end_date;
-                $start_time = $event->event_start_time;
-                $end_time = $event->event_end_time;
-                $location = $event->event_location;
-                $date = $event->event_start_date;
-                $day = date('l', strtotime($start_date));
-                $month = date('M', strtotime($start_date));
-                $year = date('Y', strtotime($start_date));
-                $all_day = $event->event_allday;
-
-                if ($all_day == true) {
-                    $all_day = 'all_day';
-                }
-
-                echo '<div class="c-events-item-list">';
-
-                include locate_template('src/components/c-calendar-icon/view.php');
-
-                include locate_template('src/components/c-events-item-byline/view.php');
-
-                echo '</div>';
-            endforeach;
+        if ($event->event_start_date === $event->event_end_date) {
+            $multi_date = date('d M', strtotime($event->event_start_date));
         } else {
-            echo 'No events found during this date range :(';
+            $multi_date = date('d M', strtotime($event->event_start_date)) . ' - ' . date('d M', strtotime($event->event_end_date));
         }
-        die();
+
+        return [
+            'permalink' => $event->url,
+            'post_title' => $event->post_title,
+            'year' => date('Y', strtotime($event->event_start_date)),
+            'day' => date('l', strtotime($event->event_start_date)),
+            'location' => $event->event_location,
+            'time_formatted'  => $time_formatted,
+            'datetime_formatted' => $datetime,
+            'multi_date_formatted' => $multi_date
+        ];
     }
 
     public function mapNewsResult(\WP_Post $post)
@@ -240,8 +245,7 @@ class Search
             'post_date_formatted' => get_gmt_from_date($post->post_date, 'j M Y'),
             'post_excerpt_formatted' => empty($post->post_excerpt) ? '' : "<p>{$post->post_excerpt}</p>",
             'permalink' => get_permalink($post->ID),
-            // 'post_thumbnail' => $thumbnail,
-            'post_thumbnail' => false,
+            'post_thumbnail' => $thumbnail,
             'post_thumbnail_alt' => $thumbnail_alt,
             'author_display_name' => $author ? get_the_author_meta('display_name', $author) : '',
         ];
@@ -336,6 +340,10 @@ class Search
 
         if (is_page_template('page_news.php')) {
             get_template_part('src/components/c-article-item/view-news-feed.ajax');
+        }
+
+        if (is_page_template('page_events.php')) {
+            get_template_part('src/components/c-events-item/view-list.ajax');
         }
     }
 }

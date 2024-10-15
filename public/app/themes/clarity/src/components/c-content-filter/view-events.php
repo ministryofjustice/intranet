@@ -41,12 +41,6 @@ $prefix = 'ff';
       ?>
       <input type="hidden" name="prefix" value="<?= $prefix ?>_" />
 
-      <input type="hidden" name="page" value="1" />
-
-      <input type="hidden" name="template" value="<?= $args['template']; ?>" />
-
-      <input type="hidden" name="post_type" value="<?= $args['post_type']; ?>" />
-
       <input type="submit" value="Filter" id="ff_button_submit" />
     </fieldset>  
   </form>

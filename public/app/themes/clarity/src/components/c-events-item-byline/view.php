@@ -25,6 +25,7 @@ if (! defined('ABSPATH')) {
         }
     } else {
         $time = 'All day';
+        // TODO: fix bug, I think this variable leaks over to next events in the loop.
         $datetime = 'P1D'; //period 1 day duration
     }
     ?>

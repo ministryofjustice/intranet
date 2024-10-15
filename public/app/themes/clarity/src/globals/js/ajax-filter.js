@@ -38,7 +38,7 @@ export default (function ($) {
   }) => {
     // Remove all articles if page is 1.
     if (currentPage === 1) {
-      $(".c-article-item").remove();
+      $(".c-article-item, .c-events-item-list").remove();
     }
 
     const t = new AjaxTemplating(templateName);
@@ -57,6 +57,11 @@ export default (function ($) {
    */
 
   const renderPagination = ({ currentPage, resultsPerPage, totalResults }) => {
+
+    if(resultsPerPage === undefined || resultsPerPage === -1) {
+      return;
+    }
+
     const isLastPage = currentPage * resultsPerPage >= totalResults;
 
     const paginationTitle = ({ totalResults, isLastPage }) => {
@@ -119,11 +124,6 @@ export default (function ($) {
         // Skip prefix and template keys, and empty values.
         if (["prefix"].includes(key) || value === "") {
           return false;
-        }
-
-        if (key === "post_type" && value === "posts") {
-          console.error("posts needs to transformed to post! or edit the form");
-          value = "post";
         }
 
         return true;
