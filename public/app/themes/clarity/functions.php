@@ -75,6 +75,7 @@ require_once 'inc/elasticsearch-on-opensearch.php';
 require_once 'inc/cookies.php';
 require_once 'inc/comments.php';
 require_once 'inc/constants.php';
+require_once 'inc/content-filter/search-query.php';
 require_once 'inc/content-filter/search.php';
 require_once 'inc/enqueue.php';
 require_once 'inc/form-builder.php';
