@@ -17,12 +17,10 @@ if (!defined('ABSPATH')) {
 function get_intranet_code()
 {
     $oAgency = new Agency();
-    $activeAgency = $oAgency->getCurrentAgency();
-    $agency = $activeAgency['shortcode'];
+    $agency = $oAgency->getCurrentAgency()['shortcode'];
 
     if ($agency === 'noms') {
-        $agency = 'hq';
-        return $agency;
+        return 'hq';
     } else {
         return $agency;
     }
