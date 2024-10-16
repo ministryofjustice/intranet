@@ -96,6 +96,27 @@ class AmazonS3AndCloudFrontSigning
     }
 
     /**
+     * Url safe base64 decode a string.
+     * 
+     * Replace safe characters -, _ and ~ with the unsafe characters +, = and /.
+     * Required for CloudFront cookies (and URLs).
+     * 
+     * @param string $value The string to decode.
+     * @return string The decoded string.
+     */
+
+    public function urlSafeBase64Decode(string $value): string
+    {
+        return base64_decode(
+            str_replace(
+                ['-', '_', '~'],
+                ['+', '=', '/'],
+                $value
+            )
+        );
+    }
+
+    /**
      * Get the remaining time from the user's CloudFront cookie.
      * 
      * Use regex to parse the cookie and get the remaining time, it's faster than JSON parsing.
@@ -108,13 +129,13 @@ class AmazonS3AndCloudFrontSigning
         $remaining_time = 0;
 
         try {
-            $policy = $_COOKIE['CloudFront-Policy'] ?? null;
+            $policy_base64 = $_COOKIE['CloudFront-Policy'] ?? null;
 
-            if (!$policy) {
+            if (!$policy_base64) {
                 return $remaining_time;
             }
 
-            preg_match('/"AWS:EpochTime":(\d+)}/', $policy, $matches);
+            preg_match('/"AWS:EpochTime":(\d+)}/', $this->urlSafeBase64Decode($policy_base64), $matches);
             $remaining_time =  isset($matches[1]) ? $matches[1] - $this->now : 0;
         } catch (Exception $e) {
             if (is_plugin_active('wp-sentry/wp-sentry.php')) {

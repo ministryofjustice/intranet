@@ -18,4 +18,4 @@
 # last request cpu:     0.00
 # last request memory:  2097152
 
-env -i SCRIPT_NAME=/status SCRIPT_FILENAME=/status QUERY_STRING="full&html" REQUEST_METHOD=GET cgi-fcgi -bind -connect /sock/fpm.sock
+env -i SCRIPT_NAME=/status SCRIPT_FILENAME=/status QUERY_STRING="full" REQUEST_METHOD=GET cgi-fcgi -bind -connect /sock/fpm.sock
