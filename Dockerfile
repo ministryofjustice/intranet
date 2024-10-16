@@ -34,8 +34,6 @@ COPY deploy/config/init/fpm-*.sh /usr/local/bin/docker-entrypoint.d/
 RUN chmod +x /usr/local/bin/docker-entrypoint.d/*
 
 # Copy our healthcheck scripts and set them to executable
-RUN mkdir -p /usr/local/bin/fpm-health
-
 COPY bin/fpm-*.sh /usr/local/bin/fpm-health/
 
 RUN chmod +x /usr/local/bin/fpm-health/*
@@ -50,21 +48,6 @@ RUN rm zz-docker.conf && \
 
 ## Set our pool configuration
 COPY deploy/config/php-pool.conf pool.conf
-
-# Temporarily add relay & phpredis (alternative redis modules that are faster than predis), for object caching.
-# https://relay.so/
-
-COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin/
-RUN install-php-extensions relay
-
-# https://github.com/phpredis/phpredis
-
-RUN apk add --no-cache pcre-dev $PHPIZE_DEPS \
-        && pecl install redis \
-        && docker-php-ext-enable redis.so
-
-# Install a fgci client for container healthchecks
-RUN apk add --no-cache fcgi
 
 WORKDIR /var/www/html
 
