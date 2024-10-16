@@ -16,6 +16,7 @@
 ARG version_nginx=1.26.1
 ARG version_node=22
 ARG version_cron_alpine=3.19.1
+ARG version_s3_alpine=3.19.1
 
 #    ▄▄  ▄▄     █▀▀  █▀█  █▀▄▀█     ▄▄  ▄▄    #
 #    ░░  ░░     █▀░  █▀▀  █░▀░█     ░░  ░░    #
@@ -301,3 +302,34 @@ USER 3001
 WORKDIR /home/crooner
 
 ENTRYPOINT ["/bin/sh", "-c", "cron-start"]
+
+#  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
+
+# S3 Pusher
+
+FROM alpine:${version_s3_alpine} AS build-s3-push
+
+ARG user=s3pusher
+RUN addgroup --gid 3001 ${user} && adduser -D -G ${user} -g "${user} user" -u 3001 ${user}
+
+RUN apk add --no-cache aws-cli
+
+WORKDIR /usr/bin
+
+COPY deploy/config/init/s3-push-start.sh ./s3-push-start
+
+RUN chmod +x s3-push-start
+
+# non-root
+USER 3001
+
+# Go home...
+WORKDIR /home/s3pusher
+
+# Grab assets for pushing to s3
+COPY --from=build-fpm-composer  /var/www/html/vendor-assets ./
+COPY --from=assets-build        /node/dist                  public/app/themes/clarity/dist/
+COPY --from=assets-build        /node/error-pages           public/app/themes/clarity/error-pages/
+COPY --from=assets-build        /node/style.css             public/app/themes/clarity/style.css
+
+ENTRYPOINT ["/bin/sh", "-c", "s3-push-start"]
