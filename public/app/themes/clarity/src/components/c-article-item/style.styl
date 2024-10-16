@@ -79,6 +79,14 @@
         font-size: 1.6rem;
         color: $mid;
         line-height: 2;
+
+        &__date {
+            /* 
+            Prevent date from spanning 2 lines
+            This happens when blog author is a long string.
+             */
+            white-space: nowrap;
+        }
     }
 
     /*
@@ -109,7 +117,7 @@
       PARENT OVERRIDES
     */
 
-    // Featured news
+    /* Featured news */
 
     .c-featured-news-list & {
         +above('s') {
@@ -124,7 +132,7 @@
         }
     }
 
-    // Regular news
+    /* Regular news */
 
     .c-news-list & {
         padding-bottom: $spacing;
@@ -138,7 +146,7 @@
         }
     }
 
-    // Blog feed & article list
+    /* Blog feed & article list */
 
     .c-article-list &,
     .c-blog-feed & {
@@ -170,13 +178,28 @@
         }
     }
 
-    // If the excerpt has been output, hide it on the blog summary component
+    /* If the excerpt has been output, hide it on the blog summary component */
 
     .c-blog-feed & {
         &__excerpt {
             display: none;
         }
     }
+
+    /* 
+    Variations
+    */
+
+    
+    &--blog {
+        .meta {
+            margin-bottom: 0.4em;
+        }
+        .c-article-item__dateline {
+            line-height: inherit;
+        }
+    }
+
 }
 
 .c-specialist-content {

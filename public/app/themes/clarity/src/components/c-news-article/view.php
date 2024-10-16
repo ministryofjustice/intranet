@@ -1,3 +1,24 @@
+<?php
+
+use MOJ\Intranet\Agency;
+use MOJ\Intranet\SearchQueryArgs;
+
+/*
+* Template Name: News archive
+*/
+
+defined('ABSPATH') || exit;
+
+get_header();
+
+// Use the SearchQueryProps class to create the query properties.
+$query_args = new SearchQueryArgs((new Agency())->getCurrentAgency()['wp_tag_id'], 'news', 1, 6, true);
+
+// Run the query.
+$query = new WP_Query($query_args->get());
+
+?>
+
 <!-- c-news-article starts here -->
 <article class="c-news-article l-main">
 
@@ -16,8 +37,9 @@
 
     <?php
         echo '<h1 class="o-title">Recent news</h1>';
-        $news_posts_per_page = '';
-        get_news_api();
+        foreach ($query->posts as $key => $post) {
+          include locate_template('src/components/c-article-item/view-news-feed.php');
+        }
     ?>
 
   </aside>

@@ -18,17 +18,11 @@ if (! isset($set_cpt)) {
 
 <article class="c-article-item js-article-item" data-type="<?= $set_cpt ?>">
 
-        <?php
-
-        if ($thumbnail) :
-            echo '<a tabindex="-1" aria-hidden="true" href="' . esc_url(get_permalink($id)) . '" class="thumbnail">';
-            echo '<img src="' . esc_url($thumbnail) . '" alt="' . $thumbnail_alt . '">';
-            echo '</a>';
-        else :
-                echo '<!-- No news author or image supplied-->';
-        endif;
-
-        ?>
+    <?php if ($thumbnail) : ?>
+        <a tabindex="-1" aria-hidden="true" href="<?= esc_url(get_permalink($id)) ?>" class="thumbnail">
+            <img src="<?= esc_url($thumbnail) ?>" alt="<?= $thumbnail_alt ?>">
+        </a>
+    <?php endif; ?>
 
     <div class="content">
 
@@ -37,18 +31,16 @@ if (! isset($set_cpt)) {
         </h1>
 
         <div class="meta">
-            <span class="c-article-item__dateline"><?= get_gmt_from_date($post->post_date, 'j M Y') ?></span>
+            <span class="c-article-item__dateline">
+                <?= get_gmt_from_date($post->post_date, 'j M Y') ?>
+            </span>
         </div>
 
-    <?php if (is_singular('regional_news') || is_singular('news')) : ?>
-    <div class="c-article-excerpt"><!-- No excerpt available --></div>
-
-    <?php else : ?>
-    <div class="c-article-excerpt">
-        <p><?= get_the_excerpt($id); ?></p>
-    </div>
-
-    <?php endif; ?>
+        <?php if (!is_singular('regional_news') && !is_singular('news')) : ?>
+            <div class="c-article-excerpt">
+                <p><?= get_the_excerpt($id); ?></p>
+            </div>
+        <?php endif; ?>
 
     </div>
 

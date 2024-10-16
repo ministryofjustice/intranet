@@ -9,73 +9,63 @@
 
 use MOJ\Intranet\Authors;
 
-$oAuthor = new Authors();
 
 $id            = $post->ID;
-$authors       = $oAuthor->getAuthorInfo($id);
+
 $thumbnail     = get_the_post_thumbnail_url($id, 'user-thumb');
 $thumbnail_alt = get_post_meta(get_post_thumbnail_id($id), '_wp_attachment_image_alt', true);
-$link = get_the_permalink($id);
+
+// TODO: Why is this here? It's not used.
+// If it should be here, make sure to update `Search->mapPostResult()`
+$oAuthor = new Authors();
+$authors = $oAuthor->getAuthorInfo($id);
+
 $author = $post->post_author;
 $author_display_name = $author ? get_the_author_meta('display_name', $author) : '';
-$author_avatar = $author ? get_the_author_meta('thumbnail_avatar', $author) : '';
 
-// Filter right-hand blog list so the page your on isn't duplicated and doesn't appear in that list
-if (is_singular('post')) {
-    $post_id = $post_id ?? 0;
-    if ($post_id === $id) {
-        $id = '';
-    }
+if (!$thumbnail) {
+    // Mutate thumbnail with author image.
+    $thumbnail = $author ? get_the_author_meta('thumbnail_avatar', $author) : false;
+    $thumbnail_alt = $author_display_name;
 }
 
-if ($id != '') :
-    ?>
-<article class="c-article-item js-article-item" >
+?>
 
-    <?php
-    // Conditional if feature image set or coauthor image set
-    if ($thumbnail) :
-        ?>
+<article class="c-article-item c-article-item--blog js-article-item">
 
-  <a aria-hidden="true" href="<?= esc_url(get_permalink($id)) ?>">
-    <img src="<?= $thumbnail ?>" alt class="thumbnail">
-    </a>
+    <?php // Conditional if feature image set or co-author image set ?>
+    <?php if ($thumbnail) : ?>
 
-    <?php elseif ($author_avatar) : ?>
-  <a aria-hidden="true" href="<?= esc_url(get_permalink($id)) ?>" class="thumbnail">
-    <img src="<?= $author_avatar ?>" alt="<?= $author_display_name ?>" >
-  </a>
-
-    <?php else : ?>
-        <?php // If no feature image or guest author image remove photo div and show nothing.
-        echo '<!-- No author or blog image provided -->';  ?>
+        <a aria-hidden="true" href="<?php the_permalink($id); ?>">
+            <img src="<?= $thumbnail ?>" alt="<?= $thumbnail_alt; ?>" class="thumbnail">
+        </a>
 
     <?php endif; ?>
 
     <div class="content">
-        
+
         <h1>
-            <a href="<?= esc_url($link) ?>"><?= get_the_title($id) ?></a>
+            <a href="<?php the_permalink($id); ?>"><?= get_the_title($id) ?></a>
         </h1>
 
         <div class="meta">
             <span class="c-article-item__dateline">
-                By <strong><?= $author_display_name ?></strong> |
-                <?= get_gmt_from_date($post->post_date, 'j M Y') ?>
-            </span> 
+                By 
+                <strong><?= $author_display_name ?></strong> |
+                <span class="c-article-item__dateline__date">
+                    <?= get_gmt_from_date($post->post_date, 'j M Y') ?>
+                </span>
+            </span>
         </div>
 
-        <?php
-        // On single blog pages where this is listed we don't have room for the excerpt
-        if (! is_singular('post')) :
-            ?>
+        <?php // On single blog pages where this is listed we don't have room for the excerpt ?>
+        <?php if (! is_singular('post')) : ?>
 
-        <div class="c-article-excerpt">
-            <p><?= get_the_excerpt($id) ?></p>
-        </div>
+            <div class="c-article-excerpt">
+                <p><?= get_the_excerpt($id) ?></p>
+            </div>
 
         <?php endif; ?>
     </div>
 
 </article>
-<?php endif; ?>

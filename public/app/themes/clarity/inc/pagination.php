@@ -35,14 +35,14 @@ function get_pagination($type, $category_id = false, $post_per_page = 10)
         <?php
         if ($pagetotal > 0) {
             ?>
-            <button class="more-btn" data-page="1" data-date="">
+            <button class="more-btn" data-page="2" data-date="">
             <span class="c-pagination__main "><span class="u-icon u-icon--circle-down"></span> Load Next 10 Results</span><span class="c-pagination__count"> 1 of <?php echo $pagetotal; ?></span>
             </button>
             
             <?php
         } else {
             ?>
-        <button class="more-btn" data-page="1" data-date="">
+        <button class="more-btn" data-date="">
             <span class="c-pagination__main ">No Results Found</span>
             <span class="c-pagination__count"> 0 of <?php echo $pagetotal; ?></span>
             </button>
