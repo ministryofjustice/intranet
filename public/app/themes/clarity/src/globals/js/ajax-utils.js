@@ -94,25 +94,28 @@ export const renderResults = ({
   $("#title-section").text(`${totalResults} search results`);
 
   // If we are on a page greater than 1, focus on the first new result.
-  if(currentPage > 1) {
+  if (currentPage > 1) {
     const position = (currentPage - 1) * resultsPerPage + 1;
     $("#content").children().eq(position).focus();
   }
-
 };
 
 /**
  * Render pagination to the page.
- * 
+ *
  * @param {Object} props
  * @param {number} props.currentPage
  * @param {number} props.resultsPerPage
  * @param {number} props.totalResults
- * 
+ *
  * @returns {void}
  */
 
-export const renderPagination = ({ currentPage, resultsPerPage, totalResults }) => {
+export const renderPagination = ({
+  currentPage,
+  resultsPerPage,
+  totalResults,
+}) => {
   if (resultsPerPage === undefined || resultsPerPage === -1) {
     return;
   }
