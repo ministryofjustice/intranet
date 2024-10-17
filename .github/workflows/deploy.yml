@@ -55,6 +55,7 @@ jobs:
           BASIC_AUTH_USER: ${{ secrets.BASIC_AUTH_USER }}
           BASIC_AUTH_PASS: ${{ secrets.BASIC_AUTH_PASS }}
           IGNORE_IP_RANGES: ${{ vars.IGNORE_IP_RANGES }}
+          ALERTS_SLACK_WEBHOOK: ${{ secrets.ALERTS_SLACK_WEBHOOK }}
         run: |
           ## - - - - - - - - - -
           ## CloudFront  - - - -
