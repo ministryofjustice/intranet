@@ -95,8 +95,8 @@ export const renderResults = ({
 
   // If we are on a page greater than 1, focus on the first new result.
   if (currentPage > 1) {
-    const position = (currentPage - 1) * resultsPerPage + 1;
-    $("#content").children().eq(position).focus();
+    const index = (currentPage - 1) * resultsPerPage;
+    $("#content").children().eq(index).find('div.content a').focus();
   }
 };
 
