@@ -18,10 +18,11 @@ $activeAgency = $oAgency->getCurrentAgency();
 ?>
 <!-- c-search-results-filter starts here -->
 <section class="c-search-results-filter c-content-filter">
-    <p>You are searching across <strong><?php esc_attr_e($activeAgency['abbreviation']); ?></strong>.
+    <!-- p tag below to prevent box collapse whe position: fixed applied to form-->
+    <p style="height:1px;padding:0 1px 0;margin:0 1px;"></p>
+    <form action="<?= esc_url(home_url('/')) ?>" method="get" id="<?= $prefix ?>" class="u-wrapper" id="searchform">
+        <p>You are searching across <strong><?php esc_attr_e($activeAgency['abbreviation']); ?></strong>.
         To search another agency use <a href="/agency-switcher">agency switcher</a>.</p>
-    <form action="<?= esc_url(home_url('/')) ?>" method="get" id="<?= $prefix ?>" class="u-wrapper"
-          id="searchform">
         <?php
         $placeholder = 'Search' . $activeAgency['abbreviation'] . 'intranet';
         $keyword_query = get_search_query();
