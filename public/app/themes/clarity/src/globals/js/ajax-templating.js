@@ -5,11 +5,24 @@
  * @see https://stackoverflow.com/a/39065147/6671505
  *
  * @example
+ * Template:
+ * <script type="text/template" data-template="results-template">
+ *  <div class="result">
+ *    <h2>${title}</h2>
+ *    <p>${content}</p>
+ *    ${?imgSrc}
+ *      <img src="${imgSrc}" alt="${title}" />
+ *    ${/?imgSrc}
+ * </div>
+ *
+ * Implementation:
  * const template = new AjaxTemplating("results-template");
  * const html = template.renderHtml({
  *  title: "Hello World",
- *  content: "This is a test."
+ *  content: "This is a test.",
+ *  imgSrc: "https://example.com/image.jpg",
  * });
+ *
  */
 
 export default class AjaxTemplating {
@@ -19,23 +32,16 @@ export default class AjaxTemplating {
    * @param {string} templateName
    */
   constructor(templateName) {
-    this.resultsTemplate = this.loadTemplate(templateName);
-  }
-
-  /**
-   * Load the template from the DOM.
-   *
-   * Returns an array of strings where:
-   * - every odd index is a template variable
-   * - every even is a string of html text
-   *
-   * @param {string} templateName
-   * @returns {string[]}
-   */
-
-  loadTemplate(templateName) {
-    // do this without jQuery
-    return document
+    /**
+     * The template from the DOM.
+     *
+     * An array of strings where:
+     * - every odd index is a template variable
+     * - every even is a string of html text
+     *
+     * @type {string[]}
+     */
+    this.resultsTemplate = document
       .querySelector(`script[data-template="${templateName}"]`)
       .textContent.split(/\$\{(.+?)\}/g);
   }
@@ -50,39 +56,28 @@ export default class AjaxTemplating {
   renderHtml(props) {
     // Keep track of the conditional blocks
     // If a conditional block is not met, we skip the block
-    let skip = false;
+    let skip = 0;
 
-    let parts = [];
+    return this.resultsTemplate
+      .map((tok, i) => {
+        // Handle the html text - even indexes
 
-    for (let i = 0; i < this.resultsTemplate.length; i++) {
-      const tok = this.resultsTemplate[i];
+        if (i % 2 === 0) {
+          return skip ? "" : tok;
+        }
 
-      // Handle the html text - even indexes
+        // Handle the template variables - odd indexes
 
-      if (i % 2 === 0 && !skip) {
-        parts.push(tok);
-        continue;
-      }
+        if (tok.startsWith("?") && !props[tok.substring(1)]) {
+          skip++;
+        }
 
-      if (i % 2 === 0) {
-        continue;
-      }
+        if (tok.startsWith("/?") && !props[tok.substring(2)]) {
+          skip--;
+        }
 
-      // Handle the template variables - odd indexes
-
-      if (tok.startsWith("?") && !props[tok.substring(1)]) {
-        skip = true;
-      }
-
-      if (tok.startsWith("/?") && !props[tok.substring(2)]) {
-        skip = false;
-      }
-
-      if (!skip) {
-        parts.push(props[tok]);
-      }
-    }
-
-    return parts.join("");
+        return skip ? "" : props[tok];
+      })
+      .join("");
   }
 }

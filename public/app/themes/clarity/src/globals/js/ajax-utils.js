@@ -74,7 +74,7 @@ export const getFormData = (form) => {
 
 export const renderResults = ({
   results: { posts, templateName },
-  aggregates: { currentPage, totalResults },
+  aggregates: { currentPage, resultsPerPage, totalResults },
 }) => {
   // Remove all articles if page is 1.
   if (currentPage === 1) {
@@ -92,20 +92,30 @@ export const renderResults = ({
 
   // Update the title.
   $("#title-section").text(`${totalResults} search results`);
+
+  // If we are on a page greater than 1, focus on the first new result.
+  if (currentPage > 1) {
+    const index = (currentPage - 1) * resultsPerPage;
+    $("#content").children().eq(index).find("div.content a").focus();
+  }
 };
 
 /**
  * Render pagination to the page.
- * 
+ *
  * @param {Object} props
  * @param {number} props.currentPage
  * @param {number} props.resultsPerPage
  * @param {number} props.totalResults
- * 
+ *
  * @returns {void}
  */
 
-export const renderPagination = ({ currentPage, resultsPerPage, totalResults }) => {
+export const renderPagination = ({
+  currentPage,
+  resultsPerPage,
+  totalResults,
+}) => {
   if (resultsPerPage === undefined || resultsPerPage === -1) {
     return;
   }
