@@ -56,39 +56,28 @@ export default class AjaxTemplating {
   renderHtml(props) {
     // Keep track of the conditional blocks
     // If a conditional block is not met, we skip the block
-    let skip = false;
+    let skip = 0;
 
-    let parts = [];
+    return this.resultsTemplate
+      .map((tok, i) => {
+        // Handle the html text - even indexes
 
-    for (let i = 0; i < this.resultsTemplate.length; i++) {
-      const tok = this.resultsTemplate[i];
+        if (i % 2 === 0) {
+          return skip ? "" : tok;
+        }
 
-      // Handle the html text - even indexes
+        // Handle the template variables - odd indexes
 
-      if (i % 2 === 0 && !skip) {
-        parts.push(tok);
-        continue;
-      }
+        if (tok.startsWith("?") && !props[tok.substring(1)]) {
+          skip++;
+        }
 
-      if (i % 2 === 0) {
-        continue;
-      }
+        if (tok.startsWith("/?") && !props[tok.substring(2)]) {
+          skip--;
+        }
 
-      // Handle the template variables - odd indexes
-
-      if (tok.startsWith("?") && !props[tok.substring(1)]) {
-        skip = true;
-      }
-
-      if (tok.startsWith("/?") && !props[tok.substring(2)]) {
-        skip = false;
-      }
-
-      if (!skip) {
-        parts.push(props[tok]);
-      }
-    }
-
-    return parts.join("");
+        return skip ? "" : props[tok];
+      })
+      .join("");
   }
 }
