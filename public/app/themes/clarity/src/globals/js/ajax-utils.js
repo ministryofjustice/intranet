@@ -74,7 +74,7 @@ export const getFormData = (form) => {
 
 export const renderResults = ({
   results: { posts, templateName },
-  aggregates: { currentPage, totalResults },
+  aggregates: { currentPage, resultsPerPage, totalResults },
 }) => {
   // Remove all articles if page is 1.
   if (currentPage === 1) {
@@ -92,6 +92,13 @@ export const renderResults = ({
 
   // Update the title.
   $("#title-section").text(`${totalResults} search results`);
+
+  // If we are on a page greater than 1, focus on the first new result.
+  if(currentPage > 1) {
+    const position = (currentPage - 1) * resultsPerPage + 1;
+    $("#content").children().eq(position).focus();
+  }
+
 };
 
 /**
