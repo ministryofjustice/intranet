@@ -51,6 +51,7 @@ require_once 'inc/admin/users/add-notes-from-antonia.php';
 require_once 'inc/admin/users/remove-agency-admin-admin-access.php';
 require_once 'inc/admin/users/user-access-and-security.php';
 require_once 'inc/admin/wp-admin-bar.php';
+require_once 'inc/admin/transient-admin-notices.php';
 
 require_once 'inc/about-us.php';
 require_once 'inc/acf.php';
