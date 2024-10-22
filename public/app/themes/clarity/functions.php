@@ -55,6 +55,7 @@ require_once 'inc/admin/wp-admin-bar.php';
 require_once 'inc/about-us.php';
 require_once 'inc/acf.php';
 require_once 'inc/maintenance.php';
+require_once 'inc/amazon-s3-and-cloudfront-assets.php';
 require_once 'inc/amazon-s3-and-cloudfront-for-minio.php';
 require_once 'inc/amazon-s3-and-cloudfront-signing.php';
 require_once 'inc/amazon-s3-and-cloudfront.php';
@@ -129,21 +130,4 @@ add_action('save_post', function ($post_id, $post) {
     }
 }, 99, 2);
 
-function rewrite_src ($src, $handle) {
-    // If the host is not the same as WP_HOME, then return early.
-    if (parse_url($src, PHP_URL_HOST) !== parse_url(get_home_url(), PHP_URL_HOST)) {
-        return $src;
-    }
-    
-    // If the host is the same as WP_HOME, then rewrite the URL.
-    
-    error_log($src);
 
-    return $src;
-}
-
-// URL Rewriting.
-add_filter( 'style_loader_src', 'rewrite_src', 10, 2 );
-// add_filter( 'script_loader_src', 'rewrite_src', 10, 2 );
-// add_filter( 'as3cf_get_asset', 'rewrite_src' );
-// add_filter( 'wp_resource_hints', 'register_resource_hints', 10, 2 );
