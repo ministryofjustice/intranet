@@ -1,4 +1,4 @@
-# A one time job to run the build-s3-push container once.
+# A one time job to run the s3-push container once.
 # It will already be built and available at: ${ECR_URL}:${IMAGE_TAG_S3_PUSHER}
 
 apiVersion: apps/v1
@@ -18,8 +18,6 @@ metadata:
           - name: s3-push
             image: ${ECR_URL}:${IMAGE_TAG_S3_PUSH}
             env:
-              - name: RELEASE_TAG
-                value: ${RELEASE_TAG}
               - name: AWS_S3_BUCKET
                 valueFrom:
                   secretKeyRef:
