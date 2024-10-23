@@ -29,7 +29,6 @@ class AmazonS3AndCloudFrontAssets
 
         // Get the first 8 chars only.
         $this->image_tag = substr($_ENV['IMAGE_TAG'], 0, 8);
-
         // Set the transient key - for caching the result of `checkManifestsSummary()`.
         $this->transient_key = "cloudfront_assets_$this->image_tag";
 
@@ -38,7 +37,7 @@ class AmazonS3AndCloudFrontAssets
         // Set the scheme/protocol for CloudFront, default to https.
         $cloudfront_scheme = isset($_ENV['AWS_CLOUDFRONT_SCHEME']) && $_ENV['AWS_CLOUDFRONT_SCHEME'] === 'http' ? 'http' : 'https';
         // Set the CloudFront asset URL.
-        $this->cloudfront_asset_url = $cloudfront_scheme . '://' . $this->cloudfront_host . '/build/' . $_ENV['IMAGE_TAG'];
+        $this->cloudfront_asset_url = $cloudfront_scheme . '://' . $this->cloudfront_host . '/build/' . $this->image_tag;
         // There is a manifest summary on S3, access that via the CloudFront URL.
         $this->cloudfront_manifest_summary_url = $cloudfront_scheme . '://' . $this->cloudfront_host . '/build/manifests/summary.jsonl';
 
