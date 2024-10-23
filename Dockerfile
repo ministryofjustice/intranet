@@ -213,6 +213,9 @@ RUN rm -rf node_modules
 
 FROM base-fpm AS build-fpm
 
+ARG IMAGE_TAG
+ENV IMAGE_TAG=$IMAGE_TAG
+
 WORKDIR /var/www/html
 COPY --chown=nginx:nginx ./config ./config
 COPY --chown=nginx:nginx ./public ./public
@@ -309,10 +312,14 @@ ENTRYPOINT ["/bin/sh", "-c", "cron-start"]
 
 FROM alpine:${version_s3_alpine} AS build-s3-push
 
+# Set IMAGE_TAG at build time, we don't want this container to be run with an incorrect IMAGE_TAG.
+ARG IMAGE_TAG
+ENV IMAGE_TAG=$IMAGE_TAG
+
 ARG user=s3pusher
 RUN addgroup --gid 3001 ${user} && adduser -D -G ${user} -g "${user} user" -u 3001 ${user}
 
-RUN apk add --no-cache aws-cli
+RUN apk add --no-cache aws-cli jq
 
 WORKDIR /usr/bin
 
@@ -320,7 +327,6 @@ COPY deploy/config/init/s3-push-start.sh ./s3-push-start
 
 RUN chmod +x s3-push-start
 
-# non-root
 USER 3001
 
 # Go home...
@@ -329,7 +335,5 @@ WORKDIR /home/s3pusher
 # Grab assets for pushing to s3
 COPY --from=build-fpm-composer  /var/www/html/vendor-assets ./
 COPY --from=assets-build        /node/dist                  public/app/themes/clarity/dist/
-COPY --from=assets-build        /node/error-pages           public/app/themes/clarity/error-pages/
-COPY --from=assets-build        /node/style.css             public/app/themes/clarity/style.css
 
 ENTRYPOINT ["/bin/sh", "-c", "s3-push-start"]
