@@ -309,8 +309,9 @@ ENTRYPOINT ["/bin/sh", "-c", "cron-start"]
 
 #  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
 
-# S3 Pusher - use the same verion as the cron (to benefit from caching).
+# S3 Pusher
 
+# Use the same verion as the cron (to benefit from caching).
 FROM alpine:${version_cron_alpine} AS build-s3-push
 
 ARG user=s3pusher
