@@ -11,23 +11,21 @@
 # Run the script from the project root with the following command:
 # $ bin/local-run-s3-push.sh
 
-# Set a custom S3 endpoint because we are using minio locally.
-export AWS_ENDPOINT_URL=http://host.docker.internal:9000
-
 # Load the environment variables from the .env file.
 set -a && source .env && set +a
 
 docker image build -t intranet-s3-push:latest \
-  --build-arg COMPOSER_USER=${COMPOSER_USER}     --build-arg COMPOSER_PASS=${COMPOSER_PASS}   \
-  --build-arg ACF_PRO_LICENSE=${ACF_PRO_LICENSE} --build-arg ACF_PRO_PASS=${ACF_PRO_PASS}     \
-  --build-arg AS3CF_PRO_USER=${AS3CF_PRO_USER}   --build-arg AS3CF_PRO_PASS=${AS3CF_PRO_PASS} \
-  --build-arg IMAGE_TAG=${IMAGE_TAG} \
+  --build-arg COMPOSER_USER   --build-arg COMPOSER_PASS  \
+  --build-arg ACF_PRO_LICENSE --build-arg ACF_PRO_PASS   \
+  --build-arg AS3CF_PRO_USER  --build-arg AS3CF_PRO_PASS \
+  --build-arg IMAGE_TAG \
   --target build-s3-push .
 
-
+# Run the container with env vars from .env, 
+# and a custom S3 endpoint because we are using minio locally.
 docker run --rm -it \
   -e AWS_ACCESS_KEY_ID \
   -e AWS_SECRET_ACCESS_KEY \
-  -e AWS_ENDPOINT_URL \
   -e AWS_S3_BUCKET \
+  -e AWS_ENDPOINT_URL=http://host.docker.internal:9000 \
   intranet-s3-push:latest
