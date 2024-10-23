@@ -1,6 +1,8 @@
 #!/bin/sh
 
 export AWS_CLI_ARGS=""
+# Truncate $IMAGE_TAG to 8 chars.
+export IMAGE_TAG=$(echo $IMAGE_TAG | cut -c1-8)
 export S3_DESTINATION="s3://$AWS_S3_BUCKET/build/$IMAGE_TAG"
 export S3_MANIFEST="s3://$AWS_S3_BUCKET/build/manifests/$IMAGE_TAG.json"
 export S3_SUMMARY="s3://$AWS_S3_BUCKET/build/manifests/summary.jsonl"

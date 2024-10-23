@@ -16,7 +16,6 @@
 ARG version_nginx=1.26.1
 ARG version_node=22
 ARG version_cron_alpine=3.19.1
-ARG version_s3_alpine=3.19.1
 
 #    ▄▄  ▄▄     █▀▀  █▀█  █▀▄▀█     ▄▄  ▄▄    #
 #    ░░  ░░     █▀░  █▀▀  █░▀░█     ░░  ░░    #
@@ -213,9 +212,6 @@ RUN rm -rf node_modules
 
 FROM base-fpm AS build-fpm
 
-ARG IMAGE_TAG
-ENV IMAGE_TAG=$IMAGE_TAG
-
 WORKDIR /var/www/html
 COPY --chown=nginx:nginx ./config ./config
 COPY --chown=nginx:nginx ./public ./public
@@ -231,6 +227,11 @@ COPY --from=build-fpm-composer ${path}/vendor vendor
 
 # non-root
 USER 101
+
+# Set IMAGE_TAG at build time, we don't want this container to be run with an incorrect IMAGE_TAG.
+# Set towards the end of the Dockerfile to benefit from caching.
+ARG IMAGE_TAG
+ENV IMAGE_TAG=$IMAGE_TAG
 
 
 #  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
@@ -308,13 +309,9 @@ ENTRYPOINT ["/bin/sh", "-c", "cron-start"]
 
 #  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
 
-# S3 Pusher
+# S3 Pusher - use the same verion as the cron (to benefit from caching).
 
-FROM alpine:${version_s3_alpine} AS build-s3-push
-
-# Set IMAGE_TAG at build time, we don't want this container to be run with an incorrect IMAGE_TAG.
-ARG IMAGE_TAG
-ENV IMAGE_TAG=$IMAGE_TAG
+FROM alpine:${version_cron_alpine} AS build-s3-push
 
 ARG user=s3pusher
 RUN addgroup --gid 3001 ${user} && adduser -D -G ${user} -g "${user} user" -u 3001 ${user}
@@ -324,16 +321,19 @@ RUN apk add --no-cache aws-cli jq
 WORKDIR /usr/bin
 
 COPY deploy/config/init/s3-push-start.sh ./s3-push-start
-
 RUN chmod +x s3-push-start
 
 USER 3001
 
 # Go home...
 WORKDIR /home/s3pusher
-
 # Grab assets for pushing to s3
 COPY --from=build-fpm-composer  /var/www/html/vendor-assets ./
 COPY --from=assets-build        /node/dist                  public/app/themes/clarity/dist/
+
+# Set IMAGE_TAG at build time, we don't want this container to be run with an incorrect IMAGE_TAG.
+# Set towards the end of the Dockerfile to benefit from caching.
+ARG IMAGE_TAG
+ENV IMAGE_TAG=$IMAGE_TAG
 
 ENTRYPOINT ["/bin/sh", "-c", "s3-push-start"]

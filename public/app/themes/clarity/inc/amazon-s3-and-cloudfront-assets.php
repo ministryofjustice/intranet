@@ -22,10 +22,13 @@ class AmazonS3AndCloudFrontAssets
 
     public function __construct()
     {
-        // Assign and check if the image tag is set.
-        if (empty($this->image_tag = $_ENV['IMAGE_TAG'])) {
+        // Check if the image tag is set.
+        if (empty($_ENV['IMAGE_TAG'])) {
             return;
         }
+
+        // Get the first 8 chars only.
+        $this->image_tag = substr($_ENV['IMAGE_TAG'], 0, 8);
 
         // Set the transient key - for caching the result of `checkManifestsSummary()`.
         $this->transient_key = "cloudfront_assets_$this->image_tag";
