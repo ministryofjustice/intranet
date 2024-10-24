@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# This script will build an s3-push image and ran the container.
+# This script will build an s3-push image and run the container.
 # When the container runs, assets will be pushed to the S3 bucket.
 # This script is meant to be run locally and not in the CI/CD pipeline.
 
