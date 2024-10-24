@@ -47,6 +47,7 @@ require_once 'inc/admin/prior-party/prior-party-banner.php';
 require_once 'inc/admin/remove-customizer.php';
 require_once 'inc/admin/suppress-wp-update-msg.php';
 require_once 'inc/admin/tinymce-editor-settings.php';
+require_once 'inc/admin/transient-admin-notices.php';
 require_once 'inc/admin/users/add-acf-capabilities.php';
 require_once 'inc/admin/users/add-notes-from-antonia.php';
 require_once 'inc/admin/users/remove-agency-admin-admin-access.php';
