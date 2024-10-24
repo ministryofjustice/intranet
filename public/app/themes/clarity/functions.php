@@ -40,6 +40,7 @@ require_once 'inc/admin/plugins/polls.php';
 require_once 'inc/admin/plugins/wp-elasticsearch.php';
 require_once 'inc/admin/plugins/wp-document-revisions.php';
 require_once 'inc/admin/plugins/wp-offload-media.php';
+require_once 'inc/admin/plugins/wp-sentry.php';
 require_once 'inc/admin/prior-party/prior-party-banner-admin.php';
 require_once 'inc/admin/prior-party/prior-party-banner-email.php';
 require_once 'inc/admin/prior-party/prior-party-banner.php';
