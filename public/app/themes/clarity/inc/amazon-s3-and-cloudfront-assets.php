@@ -195,7 +195,7 @@ class AmazonS3AndCloudFrontAssets
     public function registerResourceHints(array $hints, string $relation_type): array
     {
         if ($this->use_cloudfront_for_assets && 'dns-prefetch' === $relation_type) {
-            $hints[] = '//cdn.intranet.docker';
+            $hints[] = $this->cloudfront_host;
         }
 
         return $hints;
