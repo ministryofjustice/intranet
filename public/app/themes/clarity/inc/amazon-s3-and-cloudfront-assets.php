@@ -113,13 +113,16 @@ class AmazonS3AndCloudFrontAssets
             // e.g.
             // [
             //     '{"build":"a1b2c3d4","timestamp":"1729685222"}',
-            //     '{"build":"e5f6a7b8","timestamp":"1729685221"}',
+            //     '{"build":"e5f6a7b8","timestamp":"1729685221", "deleteAfter":"1729685223"}',
             //     ...
             // ]
             $manifest_summary = array_reverse(explode("\n", $response['body']));
 
             // Check if the image tag is in the manifest summary.
-            return $this->arrayAny($manifest_summary, fn($line) => json_decode($line)?->build === $this->image_tag);
+            return $this->arrayAny($manifest_summary, function ($line) {
+                $object = json_decode($line);
+                return $object && $object->build === $this->image_tag && empty($object->deleteAfter);
+            });
         } catch (Exception $e) {
             error_log('AmazonS3AndCloudFrontAssets->checkManifestsSummary() There was an error handling the response.');
             error_log($e->getMessage());
@@ -144,7 +147,7 @@ class AmazonS3AndCloudFrontAssets
 
         $assets_exist = $this->checkManifestsSummary();
 
-        $expiration = $assets_exist ? null : 60 * 60; // No expiry or 60 minutes
+        $expiration = $assets_exist ? 12 * 60 * 60 : 60 * 60; // 12 hours or 60 minutes
 
         set_transient($this->transient_key, (int)$assets_exist, $expiration);
 

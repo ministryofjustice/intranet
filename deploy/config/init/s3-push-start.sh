@@ -136,28 +136,29 @@ catch_error $? "aws s3 cp ./summary.jsonl $S3_SUMMARY"
 # - The application's cached value will expire before the build is deleted.
 # - This way, the application's cached value is never incorrect.
 
-
 # This function deletes a build from the S3 bucket, accepts a build tag as an argument
 delete_build () {
 
-  # Remove the build from the summary file first.
+  # 🅐 Remove the build from the summary file first.
+  echo "Removing build $1 from $S3_SUMMARY..."
 
   cat ./summary.jsonl | jq -s -c 'map(select(.build != "'$1'")) .[]' > ./summary-tmp.jsonl
   catch_error $? "jq removing build from summary"
-
   mv ./summary-tmp.jsonl ./summary.jsonl
 
-  echo "Removing build $1 from $S3_SUMMARY..."
-
-  # Copy the revised summary to S3
+  # 🅑 Copy the revised summary to S3
   aws $AWS_CLI_ARGS s3 cp ./summary.jsonl $S3_SUMMARY
   catch_error $? "aws s3 cp ./summary.jsonl $S3_SUMMARY"
 
   # Next, delete the build folder from the S3 bucket.
-  echo "Removing build $1 from $S3_DESTINATION..."
+  echo "Removing build $1 from s3://$AWS_S3_BUCKET/build/$1..."
 
   aws $AWS_CLI_ARGS s3 rm s3://$AWS_S3_BUCKET/build/$1 --recursive
   catch_error $? "aws s3 rm s3://$AWS_S3_BUCKET/build/$1 --recursive"
+
+
+  # 🅒 Finally, remove the manifest file from the S3 bucket.
+  echo "Removing manifest $1 from s3://$AWS_S3_BUCKET/build/manifests/$1.json..."
 
   aws $AWS_CLI_ARGS s3 rm s3://$AWS_S3_BUCKET/build/manifests/$1.json
   catch_error $? "aws s3 rm s3://$AWS_S3_BUCKET/build/manifests/$1.json"
@@ -194,6 +195,40 @@ else
   done
 fi
 
+# This function flags a build for deletion (with the deleteAfter property) in the summary file,
+# it accepts a variable of build tags (seperated by line breaks) as an argument.
+
+flag_builds () {
+
+  echo "Marking the following builds for deletion: $BUILDS_TO_FLAG_CSV"
+
+  # 🅐 Prepare a csv string to use in jq.
+  BUILDS_TO_FLAG_CSV=$(echo $1 | tr '\n' ',' | sed 's/,$//')
+  DELETE_AFTER=$(expr $TIMESTAMP + 86400) # 24 hours from now
+  
+  # 🅑 Use jq to transform the contents of summary.jsonl
+  cat ./summary.jsonl | jq -s -c '
+    map(
+      if .build | IN ('$BUILDS_TO_FLAG_CSV') then
+        . + {deleteAfter: '$DELETE_AFTER'}
+      else
+        .
+      end
+    )
+    .[]
+  ' > ./summary-tmp.jsonl
+  catch_error $? "jq setting deleteAfter property"
+
+  mv ./summary-tmp.jsonl ./summary.jsonl
+  
+  # 🅒 Copy the updated file to S3
+  echo "Copying summary (with builds flagged for deletion) to S3..."
+  aws $AWS_CLI_ARGS s3 cp ./summary.jsonl $S3_SUMMARY
+  catch_error $? "aws s3 cp ./summary.jsonl $S3_SUMMARY"
+
+}
+
+# Get the oldest builds (excluding the newest 5), they will be flagged for deletion.
 BUILDS_TO_FLAG=$(
   cat ./summary.jsonl |
   jq -s -c '
@@ -213,30 +248,7 @@ if [ -z "$BUILDS_TO_FLAG" ]; then
   BUILDS_TO_FLAG_COUNT="0"
 else
   BUILDS_TO_FLAG_COUNT=$(echo "$BUILDS_TO_FLAG" | wc -l)
-  BUILDS_TO_FLAG_CSV=$(echo "$BUILDS_TO_FLAG" | tr '\n' ',' | sed 's/,$//')
-  DELETE_AFTER=$(expr $TIMESTAMP + 86400) # 24 hours from now
-  DELETE_AFTER=$(expr $TIMESTAMP + 600) # 10 minutes from now
-
-  echo "Marking the following builds for deletion: $BUILDS_TO_FLAG_CSV"
-
-  cat ./summary.jsonl | jq -s -c '
-    map(
-      if .build | IN ('$BUILDS_TO_FLAG_CSV') then
-        . + {deleteAfter: '$DELETE_AFTER'}
-      else
-        .
-      end
-    )
-    .[]
-  ' > ./summary-tmp.jsonl
-  catch_error $? "jq setting deleteAfter property"
-
-  mv ./summary-tmp.jsonl ./summary.jsonl
-
-  echo "Copying summary (with builds flagged for deletion) to S3..."
-  aws $AWS_CLI_ARGS s3 cp ./summary.jsonl $S3_SUMMARY
-  catch_error $? "aws s3 cp ./summary.jsonl $S3_SUMMARY"
-
+  flag_builds $BUILDS_TO_FLAG
 fi
 
 
