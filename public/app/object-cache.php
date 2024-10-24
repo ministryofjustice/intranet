@@ -15,9 +15,13 @@ if ( ! defined( 'WP_REDIS_USE_RELAY' ) ) {
 	define( 'WP_REDIS_USE_RELAY', false );
 }
 
+// * There is a bug where auth transients are not being `set` or `get` correctly.
+// It could be because auth endpoints `die()` early. So let's, skip the cache for auth endpoints.
+$is_auth_url = strpos($_SERVER['REQUEST_URI'], '/auth/') === 0;
+
 // *
 // Conditionally, run the script if the correct class exists, and the script has not been disabled.
-if ( class_exists( WP_REDIS_USE_RELAY ? 'Relay\Relay' : 'Redis' ) && ( ! defined( 'WP_REDIS_DISABLED' ) || ! WP_REDIS_DISABLED ) ):
+if ( !$is_auth_url && class_exists( WP_REDIS_USE_RELAY ? 'Relay\Relay' : 'Redis' ) && ( ! defined( 'WP_REDIS_DISABLED' ) || ! WP_REDIS_DISABLED ) ):
 
 if ( ! defined( 'WP_CACHE_KEY_SALT' ) ) {
 	define( 'WP_CACHE_KEY_SALT', '' );
