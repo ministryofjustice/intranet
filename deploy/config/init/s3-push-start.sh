@@ -4,6 +4,7 @@ export AWS_CLI_ARGS=""
 # Truncate $IMAGE_TAG to 8 chars.
 export IMAGE_TAG=$(echo $IMAGE_TAG | cut -c1-8)
 export S3_DESTINATION="s3://$AWS_S3_BUCKET/build/$IMAGE_TAG"
+export S3_MANIFESTS="s3://$AWS_S3_BUCKET/build/manifests/"
 export S3_MANIFEST="s3://$AWS_S3_BUCKET/build/manifests/$IMAGE_TAG.json"
 export S3_SUMMARY="s3://$AWS_S3_BUCKET/build/manifests/summary.jsonl"
 export TIMESTAMP=$(date +%s)
@@ -96,10 +97,13 @@ catch_error $? "aws s3 cp ./mainfest.json $S3_MANIFEST"
 
 echo "Getting summary file..."
 
-SUMMARY_RESPONSE=$(aws $AWS_CLI_ARGS s3 ls $S3_SUMMARY)
-catch_error $? "aws s3 ls $S3_SUMMARY"
+MANIFESTS_LS=$(aws $AWS_CLI_ARGS s3 ls $S3_MANIFESTS | awk '{print $4}')
+catch_error $? "aws s3 ls $S3_MANIFESTS"
 
-if [ -n "$SUMMARY_RESPONSE" ]; then
+# Check if the summary file exists.
+SUMMARY_EXISTS=$(echo "$MANIFESTS_LS" | grep -q "^summary.jsonl$" && echo "true" || echo "false")
+
+if [ "$SUMMARY_EXISTS" = "true" ]; then
   echo "Summary file exists. Downloading..."
   aws $AWS_CLI_ARGS s3 cp $S3_SUMMARY ./summary.jsonl
   catch_error $? "aws s3 cp $S3_SUMMARY ./summary.jsonl"
@@ -115,6 +119,133 @@ echo "Copying summary to S3..."
 aws $AWS_CLI_ARGS s3 cp ./summary.jsonl $S3_SUMMARY
 catch_error $? "aws s3 cp ./summary.jsonl $S3_SUMMARY"
 
-echo "Assets pushed to $S3_DESTINATION"
-echo "Manifest pushed to $S3_MANIFEST"
-echo "Summary pushed to $S3_SUMMARY"
+
+# ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
+# 8️⃣ Manage the lifecycle of old builds
+# ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
+
+# Here we will:
+# - Delete any builds that have been marked for deletion with the deleteAfter property
+#   (so long as the current time is greater than the deleteAfter value).
+# - Mark all builds except for the latest 5 deletion, with a deleteAfter property.
+
+# An example of what will happen:
+# - The application checks the summary file to see if it's build is still there.
+# - Let's say it is, that value is cached for an hour.
+# - We mark the build for deletion in the summary file (with deleteAfter property).
+# - The application's cached value will expire before the build is deleted.
+# - This way, the application's cached value is never incorrect.
+
+
+# This function deletes a build from the S3 bucket, accepts a build tag as an argument
+delete_build () {
+
+  # Remove the build from the summary file first.
+
+  cat ./summary.jsonl | jq -s -c 'map(select(.build != "'$1'")) .[]' > ./summary-tmp.jsonl
+  catch_error $? "jq removing build from summary"
+
+  mv ./summary-tmp.jsonl ./summary.jsonl
+
+  echo "Removing build $1 from $S3_SUMMARY..."
+
+  # Copy the revised summary to S3
+  aws $AWS_CLI_ARGS s3 cp ./summary.jsonl $S3_SUMMARY
+  catch_error $? "aws s3 cp ./summary.jsonl $S3_SUMMARY"
+
+  # Next, delete the build folder from the S3 bucket.
+  echo "Removing build $1 from $S3_DESTINATION..."
+
+  aws $AWS_CLI_ARGS s3 rm s3://$AWS_S3_BUCKET/build/$1 --recursive
+  catch_error $? "aws s3 rm s3://$AWS_S3_BUCKET/build/$1 --recursive"
+
+  aws $AWS_CLI_ARGS s3 rm s3://$AWS_S3_BUCKET/build/manifests/$1.json
+  catch_error $? "aws s3 rm s3://$AWS_S3_BUCKET/build/manifests/$1.json"
+
+  echo "Build $1 removed."
+}
+
+BUILDS_TO_DELETE=$(
+  cat ./summary.jsonl |
+  jq -s -c -r '
+    # Identfy the entries where the deleteAfter property is set 
+    # and the current time is greater than the deleteAfter value.
+    map(select(.deleteAfter and .deleteAfter < '$TIMESTAMP')) |
+    # Get unique values by build property
+    unique_by(.build) |
+    # Return only the build property
+    map(.build)
+    .[]
+  '
+)
+catch_error $? "jq getting builds to delete"
+
+
+if [ -z "$BUILDS_TO_DELETE" ]; then
+  BUILDS_TO_DELETE_COUNT="0"
+else
+  BUILDS_TO_DELETE_COUNT=$(echo "$BUILDS_TO_DELETE" | wc -l)
+  BUILDS_TO_DELETE_CSV=$(echo "$BUILDS_TO_DELETE" | tr '\n' ',' | sed 's/,$//')
+
+  echo "Deleting the following builds: $BUILDS_TO_DELETE_CSV"
+
+  for row in $BUILDS_TO_DELETE; do
+    delete_build ${row}
+  done
+fi
+
+BUILDS_TO_FLAG=$(
+  cat ./summary.jsonl |
+  jq -s -c '
+    unique_by(.build) |
+    sort_by(.timestamp) |
+    # Filter out entries where the deleteAfter property is already set
+    map(select(.deleteAfter == null)) |
+    # Get all but the last 5 builds
+    .[:-5] |
+    map(.build)
+    .[]
+  '
+)
+catch_error $? "jq getting builds to flag"
+
+if [ -z "$BUILDS_TO_FLAG" ]; then
+  BUILDS_TO_FLAG_COUNT="0"
+else
+  BUILDS_TO_FLAG_COUNT=$(echo "$BUILDS_TO_FLAG" | wc -l)
+  BUILDS_TO_FLAG_CSV=$(echo "$BUILDS_TO_FLAG" | tr '\n' ',' | sed 's/,$//')
+  DELETE_AFTER=$(expr $TIMESTAMP + 86400) # 24 hours from now
+  DELETE_AFTER=$(expr $TIMESTAMP + 600) # 10 minutes from now
+
+  echo "Marking the following builds for deletion: $BUILDS_TO_FLAG_CSV"
+
+  cat ./summary.jsonl | jq -s -c '
+    map(
+      if .build | IN ('$BUILDS_TO_FLAG_CSV') then
+        . + {deleteAfter: '$DELETE_AFTER'}
+      else
+        .
+      end
+    )
+    .[]
+  ' > ./summary-tmp.jsonl
+  catch_error $? "jq setting deleteAfter property"
+
+  mv ./summary-tmp.jsonl ./summary.jsonl
+
+  echo "Copying summary (with builds flagged for deletion) to S3..."
+  aws $AWS_CLI_ARGS s3 cp ./summary.jsonl $S3_SUMMARY
+  catch_error $? "aws s3 cp ./summary.jsonl $S3_SUMMARY"
+
+fi
+
+
+# ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
+# 9️⃣ Report on actions taken
+# ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
+
+echo "Assets pushed to:            $S3_DESTINATION"
+echo "Manifest pushed to:          $S3_MANIFEST"
+echo "Summary pushed to:           $S3_SUMMARY"
+echo "Builds deleted:              $BUILDS_TO_DELETE_COUNT"
+echo "Builds flagged for deletion: $BUILDS_TO_FLAG_COUNT"
