@@ -39,6 +39,7 @@ jobs:
             --build-arg COMPOSER_USER="$COMPOSER_USER"     --build-arg COMPOSER_PASS="$COMPOSER_PASS"   \
             --build-arg ACF_PRO_LICENSE="$ACF_PRO_LICENSE" --build-arg ACF_PRO_PASS="$ACF_PRO_PASS"     \
             --build-arg AS3CF_PRO_USER="$AS3CF_PRO_USER"   --build-arg AS3CF_PRO_PASS="$AS3CF_PRO_PASS" \
+            --build-arg IMAGE_TAG="$IMAGE_TAG" \
             --target build-fpm .
           
           docker image build -t $REGISTRY/$REPOSITORY:nginx-$IMAGE_TAG \
@@ -50,11 +51,19 @@ jobs:
           docker image build -t $REGISTRY/$REPOSITORY:cron-$IMAGE_TAG \
             --target build-cron .
 
+          docker image build -t $REGISTRY/$REPOSITORY:s3-push-$IMAGE_TAG \
+            --build-arg COMPOSER_USER   --build-arg COMPOSER_PASS  \
+            --build-arg ACF_PRO_LICENSE --build-arg ACF_PRO_PASS   \
+            --build-arg AS3CF_PRO_USER  --build-arg AS3CF_PRO_PASS \
+            --build-arg IMAGE_TAG \
+            --target build-s3-push .
+
           # ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
           
           docker image push $REGISTRY/$REPOSITORY:fpm-$IMAGE_TAG
           docker image push $REGISTRY/$REPOSITORY:nginx-$IMAGE_TAG
           docker image push $REGISTRY/$REPOSITORY:cron-$IMAGE_TAG
+          docker image push $REGISTRY/$REPOSITORY:s3-push-$IMAGE_TAG
           
           # ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
 
