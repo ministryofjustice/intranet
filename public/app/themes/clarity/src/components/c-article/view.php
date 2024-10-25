@@ -25,7 +25,10 @@ get_header();
 $query_args = new SearchQueryArgs((new Agency())->getCurrentAgency()['wp_tag_id'], 'post', 1, 5, true);
 
 // Run the query.
-$query = new WP_Query($query_args->get());
+$recent_query = new WP_Query($query_args->get());
+
+// Reset the post data.
+wp_reset_postdata();
 
 ?>
 <!-- c-article starts here -->
@@ -44,9 +47,12 @@ $query = new WP_Query($query_args->get());
     <aside class="l-secondary">
     <?php
         echo '<h2 class="o-title">Recent blog posts</h2>';
-        foreach ($query->posts as $key => $post) {
+        $main_post = $post;
+        foreach ($recent_query->posts as $key => $post) {
             include locate_template('src/components/c-article-item/view-blog-feed.php');
         }
+        $post = $main_post;
+        unset($main_post);
     ?>
     </aside>
 

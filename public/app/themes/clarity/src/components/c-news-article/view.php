@@ -15,7 +15,10 @@ get_header();
 $query_args = new SearchQueryArgs((new Agency())->getCurrentAgency()['wp_tag_id'], 'news', 1, 6, true);
 
 // Run the query.
-$query = new WP_Query($query_args->get());
+$recent_query = new WP_Query($query_args->get());
+
+// Reset the post data.
+wp_reset_postdata();
 
 ?>
 
@@ -37,9 +40,12 @@ $query = new WP_Query($query_args->get());
 
     <?php
         echo '<h1 class="o-title">Recent news</h1>';
-        foreach ($query->posts as $key => $post) {
+        $main_post = $post;
+        foreach ($recent_query->posts as $key => $post) {
           include locate_template('src/components/c-article-item/view-news-feed.php');
         }
+        $post = $main_post;
+        unset($main_post);
     ?>
 
   </aside>

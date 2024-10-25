@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if wp core is-installed 2&gt;/dev/null; then
+if wp core is-installed 2>/dev/null; then
     # WP is installed.
     wp sync-user-roles sync
 else
