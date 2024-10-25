@@ -17,9 +17,6 @@ $query_args = new SearchQueryArgs((new Agency())->getCurrentAgency()['wp_tag_id'
 // Run the query.
 $recent_query = new WP_Query($query_args->get());
 
-// Reset the post data.
-wp_reset_postdata();
-
 ?>
 
 <!-- c-news-article starts here -->
@@ -37,15 +34,12 @@ wp_reset_postdata();
   </section>
 
   <aside class="l-secondary">
-
+    <h1 class="o-title">Recent news</h1>
     <?php
-        echo '<h1 class="o-title">Recent news</h1>';
-        $main_post = $post;
-        foreach ($recent_query->posts as $key => $post) {
-          include locate_template('src/components/c-article-item/view-news-feed.php');
-        }
-        $post = $main_post;
-        unset($main_post);
+        while ($recent_query->have_posts()): $recent_query->the_post();
+            get_template_part('src/components/c-article-item/view-news-feed', null, ['show_excerpt' => false]);
+        endwhile;
+        wp_reset_postdata();
     ?>
 
   </aside>
