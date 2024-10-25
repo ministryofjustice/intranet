@@ -1,25 +1,27 @@
 # A one time job to run the s3-push container once.
 # It will already be built and available at: ${ECR_URL}:${IMAGE_TAG_S3_PUSHER}
 
-apiVersion: apps/v1
+apiVersion: batch/v1
 kind: Job
 metadata:
-  name: ${KUBE_NAMESPACE}-s3-pusher
+  name: ${IMAGE_TAG_S3_PUSH}
   namespace: ${KUBE_NAMESPACE}
   labels:
     app: ${KUBE_NAMESPACE}
-  spec:
-    template:
-      metadata:
-        labels:
-          app: ${KUBE_NAMESPACE}
-      spec:
-        containers:
-          - name: s3-push
-            image: ${ECR_URL}:${IMAGE_TAG_S3_PUSH}
-            env:
-              - name: AWS_S3_BUCKET
-                valueFrom:
-                  secretKeyRef:
-                    name: s3-bucket-output
-                    key: bucket_name
+spec:
+  template:
+    metadata:
+      labels:
+        app: ${KUBE_NAMESPACE}
+    spec:
+      serviceAccountName: ${KUBE_NAMESPACE}-service
+      restartPolicy: Never
+      containers:
+      - name: s3-push
+        image: ${ECR_URL}:${IMAGE_TAG_S3_PUSH}
+        env:
+        - name: AWS_S3_BUCKET
+          valueFrom:
+            secretKeyRef:
+              name: s3-bucket-output
+              key: bucket_name
