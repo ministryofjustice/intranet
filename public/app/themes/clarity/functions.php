@@ -56,6 +56,7 @@ require_once 'inc/admin/wp-admin-bar.php';
 require_once 'inc/about-us.php';
 require_once 'inc/acf.php';
 require_once 'inc/maintenance.php';
+require_once 'inc/amazon-s3-and-cloudfront-assets.php';
 require_once 'inc/amazon-s3-and-cloudfront-for-minio.php';
 require_once 'inc/amazon-s3-and-cloudfront-signing.php';
 require_once 'inc/amazon-s3-and-cloudfront.php';
