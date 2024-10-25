@@ -116,7 +116,7 @@ echo "Appending manifest to summary..."
 echo '{"timestamp": '$TIMESTAMP', "build": "'$IMAGE_TAG'"}' >> ./summary.jsonl
 
 echo "Copying summary to S3..."
-aws $AWS_CLI_ARGS s3 cp ./summary.jsonl $S3_SUMMARY
+aws $AWS_CLI_ARGS s3 cp --cache-control 'no-cache' ./summary.jsonl $S3_SUMMARY
 catch_error $? "aws s3 cp ./summary.jsonl $S3_SUMMARY"
 
 
@@ -147,7 +147,7 @@ delete_build () {
   mv ./summary-tmp.jsonl ./summary.jsonl
 
   # 🅑 Copy the revised summary to S3
-  aws $AWS_CLI_ARGS s3 cp ./summary.jsonl $S3_SUMMARY
+  aws $AWS_CLI_ARGS s3 cp --cache-control 'no-cache' ./summary.jsonl $S3_SUMMARY
   catch_error $? "aws s3 cp ./summary.jsonl $S3_SUMMARY"
 
   # Next, delete the build folder from the S3 bucket.
@@ -223,7 +223,7 @@ flag_builds () {
   
   # 🅒 Copy the updated file to S3
   echo "Copying summary (with builds flagged for deletion) to S3..."
-  aws $AWS_CLI_ARGS s3 cp ./summary.jsonl $S3_SUMMARY
+  aws $AWS_CLI_ARGS s3 cp --cache-control 'no-cache' ./summary.jsonl $S3_SUMMARY
   catch_error $? "aws s3 cp ./summary.jsonl $S3_SUMMARY"
 
 }
