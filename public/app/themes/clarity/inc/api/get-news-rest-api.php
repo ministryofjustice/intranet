@@ -73,8 +73,12 @@ function get_news_api($set_cpt = '')
             echo '<h2 class="o-title o-title--section" id="title-section">News</h2>';
         endif;
 
-        foreach ($posts as $key => $post) {
-          include locate_template('src/components/c-article-item/view-news-feed.php');   
+        foreach ($posts as $this_post) {
+            // Load the $post
+            setup_postdata($this_post);
+            get_template_part('src/components/c-article-item/view-news-feed');
+            // Reset the post data
+            wp_reset_postdata();
         }
     } else {
             echo '<!-- No posts available to return -->';

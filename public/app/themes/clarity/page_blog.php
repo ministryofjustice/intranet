@@ -31,9 +31,11 @@ $query = new WP_Query($query_args->get());
 
 
       <div id="content">
-        <?php foreach ($query->posts as $key => $post) {
-          include locate_template('src/components/c-article-item/view-blog-feed.php');
-        } ?>
+        <?php 
+          while ($query->have_posts()): $query->the_post();
+            get_template_part('src/components/c-article-item/view-blog-feed');
+          endwhile;
+        ?>
       </div>
 
       <?php get_template_part('src/components/c-pagination/view-infinite', null, ['total_pages' => $query->max_num_pages, 'page' => 1]); ?>

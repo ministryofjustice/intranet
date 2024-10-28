@@ -5,10 +5,14 @@
  *
  *  @package Clarity
  */
- $id            = $post->ID;
- $thumbnail     = get_the_post_thumbnail_url($id, 'user-thumb');
- $thumbnail_alt = get_post_meta(get_post_thumbnail_id($id), '_wp_attachment_image_alt', true);
- $link = get_the_permalink($post->ID);
+
+// Parse template args.
+$show_excerpt = isset($args['show_excerpt']) ? $args['show_excerpt'] : true;
+
+$id            = $post->ID;
+$thumbnail     = get_the_post_thumbnail_url($id, 'user-thumb');
+$thumbnail_alt = get_post_meta(get_post_thumbnail_id($id), '_wp_attachment_image_alt', true);
+$link = get_the_permalink($post->ID);
 
 // This component sometimes requires `$set_cpt` depending where this component gets called.
 if (! isset($set_cpt)) {
@@ -36,7 +40,7 @@ if (! isset($set_cpt)) {
             </span>
         </div>
 
-        <?php if (!is_singular('regional_news') && !is_singular('news')) : ?>
+        <?php if ($show_excerpt) : ?>
             <div class="c-article-excerpt">
                 <p><?= get_the_excerpt($id); ?></p>
             </div>
