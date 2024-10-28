@@ -23,7 +23,6 @@ class WpSentry
     public function addHooks()
     {
         add_filter('wp_sentry_public_options', [$this, 'filterSentryJsOptions']);
-        error_log('added wp_sentry_public_options hook');
     }
 
     /**
