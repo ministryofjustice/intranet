@@ -163,6 +163,31 @@ if (function_exists('get_coauthors')) {
         return $handler;
     }
 
+
+    add_filter('gettext', 'coauthors_filter_text', 10, 3);
+
+    /**
+     * Filter the text of the plugin to remove the string 'WordPress'.
+     * 
+     * @see https://developer.wordpress.org/reference/hooks/gettext/
+     * 
+     * @param string $translated_text The translated text
+     * @param string $text The original text
+     * @param string $domain The text domain
+     * @return string The modified text
+     */
+
+    function coauthors_filter_text(string $translated_text, string $text, string $domain): string
+    {
+        if ($domain === 'co-authors-plus') {
+            // Remove the string 'WordPress' from the plugin's text.
+            $translated_text = str_replace('WordPress user', 'user', $translated_text);
+            $translated_text = str_replace('WordPress User Mapping', 'User Mapping', $translated_text);
+        }
+        
+        return $translated_text;
+    }
+
     /**
      * Custom handler for wp_die when the post type is guest-author
      * 
