@@ -2,6 +2,7 @@
 
 namespace DeliciousBrains\WP_Offload_Media\Tweaks;
 
+use Amazon_S3_And_CloudFront_Pro;
 use Exception;
 
 /**
@@ -14,11 +15,13 @@ class AmazonS3AndCloudFrontAssets
 {
     private string $image_tag = '';
     private string $transient_key;
+    private string $summary_file = 'build/manifests/summary.jsonl';
     private bool $use_cloudfront_for_assets = false;
 
     private string $cloudfront_host;
     private string $cloudfront_asset_url;
-    private string $cloudfront_manifest_summary_url;
+
+    private Amazon_S3_And_CloudFront_Pro $as3cf;
 
     public function __construct()
     {
@@ -38,15 +41,25 @@ class AmazonS3AndCloudFrontAssets
         $cloudfront_scheme = isset($_ENV['AWS_CLOUDFRONT_SCHEME']) && $_ENV['AWS_CLOUDFRONT_SCHEME'] === 'http' ? 'http' : 'https';
         // Set the CloudFront asset URL.
         $this->cloudfront_asset_url = $cloudfront_scheme . '://' . $this->cloudfront_host . '/build/' . $this->image_tag;
-        // There is a manifest summary on S3, access that via the CloudFront URL.
-        $this->cloudfront_manifest_summary_url = $cloudfront_scheme . '://' . $this->cloudfront_host . '/build/manifests/summary.jsonl';
 
+        add_action('as3cf_pro_ready', [$this, 'setAs3cfInstance']);
         add_action('init', [$this, 'init']);
         add_filter('style_loader_src', [$this, 'rewriteSrc'], 10, 2);
         add_filter('script_loader_src', [$this, 'rewriteSrc'], 10, 2);
         add_filter('wp_resource_hints', [$this, 'registerResourceHints'], 10, 2);
     }
 
+    /**
+     * Set the Amazon_S3_And_CloudFront_Pro instance.
+     * 
+     * @param Amazon_S3_And_CloudFront_Pro $as3cf_instance
+     * @return void
+     */
+
+    public function setAs3cfInstance($as3cf_instance): void
+    {
+        $this->as3cf = $as3cf_instance;
+    }
 
     /**
      * On init, check if the assets exist on the CDN.
@@ -90,8 +103,14 @@ class AmazonS3AndCloudFrontAssets
 
     public function checkManifestsSummary(): bool
     {
-        // Make a request to the CloudFront URL, to check if the assets are accessible.
-        $response = wp_remote_get($this->cloudfront_manifest_summary_url);
+        // Get the provider client. See `amazon-s3-and-cloudfront-pro/classes/providers/storage/aws-provider.php`
+        $provider_client = $this->as3cf->get_provider_client($this->as3cf->get_setting('region'));
+
+        // Create a signed S3 URL for the summary file.
+        $signed_summary_url = $provider_client->get_object_url($this->as3cf->get_setting('bucket'), $this->summary_file, time() + 300);
+
+        // Make a request to the S3 URL, to check if the assets are available.
+        $response = wp_remote_get($signed_summary_url);
 
         // Check for errors
         if (is_wp_error($response)) {
@@ -147,7 +166,7 @@ class AmazonS3AndCloudFrontAssets
 
         $assets_exist = $this->checkManifestsSummary();
 
-        $expiration = $assets_exist ? 12 * 60 * 60 : 60 * 60; // 12 hours or 60 minutes
+        $expiration = $assets_exist ? 12 * 60 * 60 : 60; // 12 hours or 1 minute.
 
         set_transient($this->transient_key, (int)$assets_exist, $expiration);
 
