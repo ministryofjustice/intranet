@@ -173,7 +173,8 @@ Config::define('EWWWIO_WHITELABEL', true);
  * Debugging Settings
  */
 Config::define('WP_DEBUG_DISPLAY', false);
-Config::define('WP_DEBUG_LOG', false);
+Config::define('WP_DEBUG_LOG', true);
+Config::define('WP_DEBUG_LOG', '/dev/stderr');
 Config::define('SCRIPT_DEBUG', false);
 ini_set('display_errors', '0');
 // Additional logging for the authentication mu-plugin.
