@@ -62,7 +62,14 @@ add_action('register_post', 'is_valid_email_domain', 10, 3);
 function format_comment($comment, $args, $depth)
 {
     $post_type = get_post_type();
-    $GLOBALS['comment'] = $comment; ?>
+    $GLOBALS['comment'] = $comment;
+    $options = get_option('maintenance_options', [
+        'maintenance_mode_status' => 0,
+        'maintenance_mode_message' => '',
+    ]);
+    $maintenance_mode = $options['maintenance_mode_status'] ?? false;
+    ?>
+    
 
     <li <?= comment_class() ?> id="comment-<?= comment_ID() ?>">
     <div class="comment-body" id="comment-<?= comment_ID() ?>">
@@ -74,7 +81,7 @@ function format_comment($comment, $args, $depth)
         </cite>
         <?php comment_text();
 
-        if ($post_type != 'condolences') { ?>
+        if ($post_type != 'condolences' && !$maintenance_mode) { ?>
             <div class="reply">
                 <?php
                 $args['depth'] = $depth;

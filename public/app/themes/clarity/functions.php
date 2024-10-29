@@ -81,6 +81,7 @@ require_once 'inc/constants.php';
 require_once 'inc/content-filter/search-query.php';
 require_once 'inc/content-filter/search.php';
 require_once 'inc/enqueue.php';
+require_once 'inc/environment-notice.php';
 require_once 'inc/form-builder.php';
 require_once 'inc/forms.php';
 require_once 'inc/get-component.php';
@@ -124,11 +125,4 @@ new MOJ\Intranet\WPElasticPress();
 
 $search = new MOJ\Intranet\Search();
 $search->hooks();
-
-/// Prevent the Agency Switcher page from being overwritten
-add_action('save_post', function ($post_id, $post) {
-    if ($post->post_name === 'agency-switcher') {
-        update_post_meta($post_id, '_wp_page_template', 'agency-switcher.php');
-    }
-}, 99, 2);
 
