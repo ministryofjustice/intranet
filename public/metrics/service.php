@@ -140,6 +140,7 @@ class Metrics
     {
         header('Content-Type', 'text/plain');
         echo $this->getServiceMetrics();
+        unset($this->guzzle_client);
         exit();
     }
 }
