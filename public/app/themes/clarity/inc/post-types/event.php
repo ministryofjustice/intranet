@@ -129,4 +129,10 @@ add_action( 'save_post_event', 'mojintranet_clear_events_cache', 10, 0);
 function mojintranet_clear_events_cache() {
     global $wpdb;
     $wpdb->query( "DELETE FROM `$wpdb->options` WHERE `option_name` LIKE ('_transient_event_get_events_%')" );
+
+    // If using persistent object cache, clear the cache here.
+    if(function_exists('wp_cache_flush')) {
+        // As there is no function to clear cache by 'keys that start with', we have to flush the whole cache.
+        wp_cache_flush();
+    }
 }

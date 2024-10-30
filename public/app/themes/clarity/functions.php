@@ -125,10 +125,3 @@ new MOJ\Intranet\WPElasticPress();
 $search = new MOJ\Intranet\Search();
 $search->hooks();
 
-/// Prevent the Agency Switcher page from being overwritten
-add_action('save_post', function ($post_id, $post) {
-    if ($post->post_name === 'agency-switcher') {
-        update_post_meta($post_id, '_wp_page_template', 'agency-switcher.php');
-    }
-}, 99, 2);
-
