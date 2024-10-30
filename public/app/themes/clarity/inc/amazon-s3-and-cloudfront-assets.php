@@ -41,7 +41,7 @@ class AmazonS3AndCloudFrontAssets
         // Set the transient key - for caching the result of `checkManifestsSummary()`.
         $this->transient_key = "cloudfront_assets_$this->image_tag";
         // Get the home host.
-        $this->home_host = parse_url(get_home_url(), PHP_URL_HOST);
+        $this->home_host = parse_url(Config::get('WP_HOME'), PHP_URL_HOST);
 
         // Get the CloudFront host.
         $this->cloudfront_host = $_ENV['AWS_CLOUDFRONT_HOST'];
