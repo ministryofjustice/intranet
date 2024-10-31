@@ -10,7 +10,7 @@
 use MOJ\Intranet\Authors;
 
 // Parse template args.
-$show_excerpt = isset($args['show_excerpt']) ? $args['show_excerpt'] : true;
+$show_excerpt = !isset($args['show_excerpt']) || $args['show_excerpt'];
 
 $id = $post->ID;
 $thumbnail = get_the_post_thumbnail_url($id, 'user-thumb');
@@ -18,12 +18,8 @@ $thumbnail_alt = get_post_meta(get_post_thumbnail_id($id), '_wp_attachment_image
 
 $oAuthor = new Authors();
 $authors = $oAuthor->getAuthorInfo($id);
-
 $author = $authors[0] ?? false;
 $author_display_name = $author['name'] ?? false;
-$thumbnail = get_the_post_thumbnail_url($id, 'user-thumb');
-$thumbnail_alt = get_post_meta(get_post_thumbnail_id($id), '_wp_attachment_image_alt', true);
-
 
 if (!$thumbnail) {
     $thumbnail = $author['thumbnail_url'] ?? false;
