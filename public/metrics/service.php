@@ -35,6 +35,11 @@ class Metrics
     public function __construct()
     {
 
+        // Skip on production.
+        if ('production' === env('WP_ENV')) {
+            return;
+        }
+
         // Get the ip group of the incoming request.
         $ip_group = $_SERVER['HTTP_X_MOJ_IP_GROUP'] ?? 0;
 
