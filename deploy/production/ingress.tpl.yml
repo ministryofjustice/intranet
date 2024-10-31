@@ -6,9 +6,9 @@ metadata:
   annotations:
     external-dns.alpha.kubernetes.io/set-identifier: intranet-production-ingress-intranet-production-green
     external-dns.alpha.kubernetes.io/aws-weight: "100"
-    nginx.ingress.kubernetes.io/auth-type: basic
-    nginx.ingress.kubernetes.io/auth-secret: basic-auth-secret
-    nginx.ingress.kubernetes.io/auth-realm: 'Production Access | Authentication Required'
+    nginx.ingress.kubernetes.io/enable-modsecurity: "true"
+    nginx.ingress.kubernetes.io/modsecurity-snippet: |
+      ${MODSEC_CONFIG}
     # Set vhost so that WP doesn't see prod-intranet.apps... and redirect.
     nginx.ingress.kubernetes.io/upstream-vhost: intranet.justice.gov.uk
     nginx.ingress.kubernetes.io/server-snippet: |
@@ -24,11 +24,25 @@ metadata:
         return 301 https://raw.githubusercontent.com/ministryofjustice/security-guidance/main/contact/vulnerability-disclosure-security.txt;
       }
 spec:
+  ingressClassName: modsec
   tls:
   - hosts:
     - prod-intranet.apps.live.cloud-platform.service.justice.gov.uk
+  - hosts:
+    - intranet.justice.gov.uk
+    secretName: intranet-production-cert-secret
   rules:
   - host: prod-intranet.apps.live.cloud-platform.service.justice.gov.uk
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: nginx-service
+            port:
+              number: 8080
+  - host: intranet.justice.gov.uk
     http:
       paths:
       - path: /
