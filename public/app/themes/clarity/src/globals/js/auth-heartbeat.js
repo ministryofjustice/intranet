@@ -116,7 +116,7 @@ export default (function ($) {
 
             // This element is on frontend and admin views. The frontend html has `font-size: 62.5%`, so use px values here.
             const heading = $('<h3\>').text(title).css({fontWeight:'700', fontSize: '20px', lineHeight: '1.2', margin: 0})
-            const content = $('<p\>').html(html).css({ clear: 'both' })
+            const content = $('<p\>').html(html)
             const image = $('<img>', {
                 src: '/app/themes/clarity/dist/images/tudor_crest.svg',
                 alt: 'Crown copyright logo',
