@@ -19,7 +19,6 @@ use WP_Query;
 
 class Search
 {
-
     /**
      * FilterSearch constructor.
      * 
@@ -51,7 +50,7 @@ class Search
      * @return void
      */
 
-    public function loadEventSearchResults()
+    public function loadEventSearchResults(): void
     {
         if (!wp_verify_nonce($_POST['_nonce'], 'search_filter_nonce')) {
             exit('Access not allowed.');
@@ -76,7 +75,7 @@ class Search
 
         $events = $events_helper->get_events($agency_term_id, $filter_options) ?? [];
 
-        return wp_send_json([
+        wp_send_json([
             'aggregates' => [
                 'totalResults' =>  count($events),
                 'resultsPerPage' => -1,
@@ -85,7 +84,7 @@ class Search
             'results' =>  [
                 'templateName' => "c-events-item-list",
                 'posts' => array_map([$this, 'mapEventResult'], $events),
-            ],
+            ]
         ]);
     }
 
@@ -143,12 +142,13 @@ class Search
         $thumbnail     = get_the_post_thumbnail_url($post->ID, 'user-thumb');
         $thumbnail_alt = get_post_meta(get_post_thumbnail_id($post->ID), '_wp_attachment_image_alt', true);
 
-        $author = $post->post_author;
-        $author_display_name = $author ? get_the_author_meta('display_name', $author) : '';
+        $authors = new Authors();
+        $authors = $authors->getAuthorInfo($post->ID);
+        $author = $authors[0] ?? false;
+        $author_display_name = $author['name'] ?? false;
 
         if (!$thumbnail) {
-            // Mutate thumbnail with author image.
-            $thumbnail = $author ? get_the_author_meta('thumbnail_avatar', $author) : false;
+            $thumbnail = $author['thumbnail_url'] ?? false;
             $thumbnail_alt = $author_display_name;
         }
 
@@ -161,7 +161,7 @@ class Search
             'permalink' => get_permalink($post->ID),
             'post_thumbnail' => $thumbnail,
             'post_thumbnail_alt' => $thumbnail_alt,
-            'author_display_name' => $author ? get_the_author_meta('display_name', $author) : '',
+            'author_display_name' => $author_display_name,
         ];
     }
 
