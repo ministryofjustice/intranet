@@ -47,8 +47,10 @@ if (!$thumbnail) {
 
         <div class="meta">
             <span class="c-article-item__dateline">
-                By 
-                <strong><?= $author_display_name ?></strong> |
+                <?php if ($author_display_name) : ?>
+                    By
+                    <strong><?= $author_display_name ?></strong> |
+                <?php endif; ?>
                 <span class="c-article-item__dateline__date">
                     <?= get_gmt_from_date($post->post_date, 'j M Y') ?>
                 </span>

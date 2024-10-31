@@ -30,7 +30,9 @@ defined('ABSPATH') || exit;
 
             <div class="meta">
                 <span class="c-article-item__dateline">
-                    By <strong>${author_display_name}</strong> | 
+                    ${?author_display_name}
+                        By <strong>${author_display_name}</strong> |
+                    ${/?author_display_name}
                     <span class="c-article-item__dateline__date">${post_date_formatted}</span>
                 </span>
             </div>
