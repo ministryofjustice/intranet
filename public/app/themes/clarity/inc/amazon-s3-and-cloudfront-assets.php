@@ -4,6 +4,7 @@ namespace DeliciousBrains\WP_Offload_Media\Tweaks;
 
 use Amazon_S3_And_CloudFront_Pro;
 use Exception;
+use Roots\WPConfig\Config;
 
 /**
  * Amazon S3 and CloudFront - assets.
@@ -15,6 +16,7 @@ class AmazonS3AndCloudFrontAssets
 {
     private string $image_tag = '';
     private string $transient_key;
+    private string $home_host;
     private string $summary_file = 'build/manifests/summary.jsonl';
     private bool $use_cloudfront_for_assets = false;
 
@@ -30,10 +32,16 @@ class AmazonS3AndCloudFrontAssets
             return;
         }
 
+        if (Config::get('DISABLE_CDN_ASSETS')) {
+            return;
+        }
+
         // Get the first 8 chars only.
         $this->image_tag = substr($_ENV['IMAGE_TAG'], 0, 8);
         // Set the transient key - for caching the result of `checkManifestsSummary()`.
         $this->transient_key = "cloudfront_assets_$this->image_tag";
+        // Get the home host.
+        $this->home_host = parse_url(Config::get('WP_HOME'), PHP_URL_HOST);
 
         // Get the CloudFront host.
         $this->cloudfront_host = $_ENV['AWS_CLOUDFRONT_HOST'];
@@ -189,7 +197,7 @@ class AmazonS3AndCloudFrontAssets
         }
 
         // If the host is not the same as WP_HOME, then return early.
-        if (parse_url($src, PHP_URL_HOST) !== parse_url(get_home_url(), PHP_URL_HOST)) {
+        if (parse_url($src, PHP_URL_HOST) !== $this->home_host) {
             return $src;
         }
 

@@ -173,6 +173,9 @@ Config::define('EWWW_IMAGE_OPTIMIZER_NOAUTO', env('EWWW_IMAGE_OPTIMIZER_NOAUTO')
 // Enable "agency" mode, which hides all external links and support resources.
 Config::define('EWWWIO_WHITELABEL', true);
 
+// Disable rewrite of enqueued assets to CDN.
+Config::define('DISABLE_CDN_ASSETS', env('DISABLE_CDN_ASSETS'));
+
 /**
  * Debugging Settings
  */
