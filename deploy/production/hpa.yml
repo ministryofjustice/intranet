@@ -8,8 +8,8 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: intranet-production
-  minReplicas: 4
-  maxReplicas: 12
+  minReplicas: 5
+  maxReplicas: 18
   metrics:
     # fpm
     - type: ContainerResource
