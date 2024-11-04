@@ -18,10 +18,10 @@ spec:
         container: fpm
         target:
           type: Utilization
-          # If request is 500m let's early scale at 250m
+          # If request is 500m let's early scale at 200m
           # Rely on CPU usage for scaling more than memory usage.
           # For scaling down, CPU settles quickly and memory is freed up slowly.
-          averageUtilization: 50
+          averageUtilization: 40
     - type: ContainerResource
       containerResource:
         name: memory
