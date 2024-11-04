@@ -43,3 +43,22 @@ if [ -f "$MOJ_COMPONENTS_FILE" ] ; then
   MOJ_COMPONENTS_CONTENT=$(perl -0777pe 's/'"$MOJ_COMPONENTS_SEARCH_PARAGRAPH"'/'"$MOJ_COMPONENTS_REPLACE_PARAGRAPH"'/s' "$MOJ_COMPONENTS_FILE")
   echo "$MOJ_COMPONENTS_CONTENT" > "$MOJ_COMPONENTS_FILE"
 fi
+
+
+NOTIFY_FILE=/var/www/html/public/app/plugins/notify-for-wordpress/inc/admin/class-dashboard-table.php
+NOTIFY_SEARCH="public function get_columns"
+NOTIFY_REPLACE='private \$plugin_text_domain;
+
+	public function __construct(string \$plugin_text_domain)
+	{ 
+		parent::__construct();
+		\$this->plugin_text_domain = \$plugin_text_domain;
+	}
+
+	public function get_columns'
+
+if [ -f "$NOTIFY_FILE" ] ; then
+  echo "Adding code blocke to notify-for-wordpress plugin"
+  NOTIFY_CONTENT=$(perl -0777pe 's/'"$NOTIFY_SEARCH"'/'"$NOTIFY_REPLACE"'/s' "$NOTIFY_FILE")
+  echo "$NOTIFY_CONTENT" > "$NOTIFY_FILE"
+fi

@@ -156,7 +156,7 @@ if (function_exists('get_coauthors')) {
         global $post;
 
         // If the post does not have an error and is a guest-author post type.
-        if (!is_wp_error($post) && $post->post_type === 'guest-author') {
+        if (!is_wp_error($post) && $post?->post_type === 'guest-author') {
             return 'coauthors_wp_die_handler';
         }
 
@@ -173,11 +173,11 @@ if (function_exists('get_coauthors')) {
      * 
      * @param string $translated_text The translated text
      * @param string $text The original text
-     * @param string $domain The text domain
+     * @param ?string $domain The text domain
      * @return string The modified text
      */
 
-    function coauthors_filter_text(string $translated_text, string $text, string $domain): string
+    function coauthors_filter_text(string $translated_text, string $text, ?string $domain): string
     {
         if ($domain === 'co-authors-plus') {
             // Remove the string 'WordPress' from the plugin's text.
