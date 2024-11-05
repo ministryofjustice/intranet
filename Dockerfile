@@ -54,6 +54,7 @@ COPY deploy/config/php-pool.conf pool.conf
 
 # Apend our relay config to the existing config file.
 RUN { \
+        echo 'relay.maxmemory = 16M'; \
         echo 'relay.loglevel = error'; \
         echo 'relay.logfile  = /dev/stderr'; \
     } >> /usr/local/etc/php/conf.d/docker-php-ext-relay.ini
