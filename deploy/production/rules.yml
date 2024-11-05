@@ -23,20 +23,20 @@ spec:
           > 0.9 < 1
       for: 15m
       labels:
-        severity: justice-gov-uk-alerts
+        severity: intranet-production
     - alert: KubeQuota-Exceeded
       annotations:
         message: Namespace {{ $labels.namespace }} is using {{ printf "%0.0f" $value
           }}% of its {{ $labels.resource }} quota.
         runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubequotaexceeded
       expr: |-
-        100 * kube_resourcequota{job="kube-state-metrics", type="used", namespace="justice-gov-uk-production"} 
+        100 * kube_resourcequota{job="kube-state-metrics", type="used", namespace="intranet-production"} 
         / ignoring(instance, job, type)
-        (kube_resourcequota{job="kube-state-metrics", type="hard", namespace="justice-gov-uk-production"} > 0)
+        (kube_resourcequota{job="kube-state-metrics", type="hard", namespace="intranet-production"} > 0)
         > 90
       for: 15m
       labels:
-        severity: justice-gov-uk-alerts
+        severity: intranet-production
     - alert: KubePodCrashLooping
       # pint file/disable alerts/template
       annotations:
@@ -44,21 +44,21 @@ spec:
           }}) is restarting {{ printf "%.2f" $value }} times / 5 minutes.
         runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubepodcrashlooping
       expr: |-
-        rate(kube_pod_container_status_restarts_total{job="kube-state-metrics", namespace="justice-gov-uk-production"}[15m]) * 60 * 5 > 0
+        rate(kube_pod_container_status_restarts_total{job="kube-state-metrics", namespace="intranet-production"}[15m]) * 60 * 5 > 0
       for: 1h
       labels:
-        severity: justice-gov-uk-alerts
+        severity: intranet-production
     - alert: KubePodNotReady
       annotations:
         message: Pod {{ $labels.namespace }}/{{ $labels.pod }} has been in a non-ready
           state for longer than an hour.
         runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubepodnotready
       expr: |-
-        sum by (namespace, pod) (kube_pod_status_phase{job="kube-state-metrics", phase=~"Pending|Unknown", namespace="justice-gov-uk-production"}) 
+        sum by (namespace, pod) (kube_pod_status_phase{job="kube-state-metrics", phase=~"Pending|Unknown", namespace="intranet-production"}) 
         > 0
       for: 1h
       labels:
-        severity: justice-gov-uk-alerts
+        severity: intranet-production
     - alert: KubeDeploymentGenerationMismatch
       annotations:
         message: Deployment generation for {{ $labels.namespace }}/{{ $labels.deployment
@@ -66,12 +66,12 @@ spec:
           not been rolled back.
         runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubedeploymentgenerationmismatch
       expr: |-
-        kube_deployment_status_observed_generation{job="kube-state-metrics", namespace="justice-gov-uk-production"}
+        kube_deployment_status_observed_generation{job="kube-state-metrics", namespace="intranet-production"}
         !=
-        kube_deployment_metadata_generation{job="kube-state-metrics", namespace="justice-gov-uk-production"}
+        kube_deployment_metadata_generation{job="kube-state-metrics", namespace="intranet-production"}
       for: 15m
       labels:
-        severity: justice-gov-uk-alerts
+        severity: intranet-production
 
   - name: application-rules
     rules:
@@ -84,19 +84,19 @@ spec:
           https://grafana.live.cloud-platform.service.justice.gov.uk
           /d/k8s-nginx-ingress-prometheus-ng2/5178fc76-29af-51b9-83a8-cbab85db37a6
           ?orgId=1&refresh=1m&var-controller_class=All&var-pod=All&var-datasource=default&from=now-1h&to=now
-          &var-namespace=All&var-ingress=justice-gov-uk-production-ingress-modsec
+          &var-namespace=All&var-ingress=intranet-production-ingress
       expr: |-
         histogram_quantile(
           0.99,
           sum by (le, ingress) (
             rate(
-              nginx_ingress_controller_request_duration_seconds_bucket{exported_namespace="justice-gov-uk-production",status!="404",status!="500"}[1m]
+              nginx_ingress_controller_request_duration_seconds_bucket{exported_namespace="intranet-production",status!="404",status!="500"}[1m]
             )
           )
         ) > 5
       for: 3m
       labels:
-        severity: justice-gov-uk-alerts
+        severity: intranet-production
 
     - alert: SlownessOutage
       annotations:
@@ -106,37 +106,37 @@ spec:
           https://grafana.live.cloud-platform.service.justice.gov.uk
           /d/k8s-nginx-ingress-prometheus-ng2/5178fc76-29af-51b9-83a8-cbab85db37a6
           ?orgId=1&refresh=1m&var-controller_class=All&var-pod=All&var-datasource=default&from=now-1h&to=now
-          &var-namespace=All&var-ingress=justice-gov-uk-production-ingress-modsec
+          &var-namespace=All&var-ingress=intranet-production-ingress
       expr: |-
           histogram_quantile(
             0.9,
             sum by (le, ingress) (
               rate(
-                nginx_ingress_controller_request_duration_seconds_bucket{exported_namespace="justice-gov-uk-production",status!="404",status!="500"}[1m]
+                nginx_ingress_controller_request_duration_seconds_bucket{exported_namespace="intranet-production",status!="404",status!="500"}[1m]
               )
             )
           ) > 7.5
       for: 3m
       labels:
-        severity: justice-gov-uk-alerts
+        severity: intranet-production
 
     - alert: High404Rate
       annotations:
-        message: More than 10% of responses were 404 errors.
+        message: More than 5% of responses were 404 errors.
         runbook_url: https://dsdmoj.atlassian.net/wiki/spaces/CDPT/pages/edit-v2/5124292758#High404Rate
         dashboard_url: >-
           https://grafana.live.cloud-platform.service.justice.gov.uk
           /d/k8s-nginx-ingress-prometheus-ng2/5178fc76-29af-51b9-83a8-cbab85db37a6
           ?orgId=1&refresh=1m&var-controller_class=All&var-pod=All&var-datasource=default&from=now-1h&to=now
-          &var-namespace=All&var-ingress=justice-gov-uk-production-ingress-modsec
+          &var-namespace=All&var-ingress=intranet-production-ingress
       expr: |-
-        sum by (ingress, cluster) (rate(nginx_ingress_controller_requests{exported_namespace="justice-gov-uk-production",status="404"}[1m]))
+        sum by (ingress, cluster) (rate(nginx_ingress_controller_requests{exported_namespace="intranet-production",status="404"}[1m]))
         /
-        sum by (ingress) (rate(nginx_ingress_controller_requests{exported_namespace="justice-gov-uk-production"}[1m]))
-        > 0.1
+        sum by (ingress) (rate(nginx_ingress_controller_requests{exported_namespace="intranet-production"}[1m]))
+        > 0.05
       for: 3m
       labels:
-        severity: justice-gov-uk-alerts
+        severity: intranet-production
 
     - alert: High5xxRate
       annotations:
@@ -146,15 +146,15 @@ spec:
           https://grafana.live.cloud-platform.service.justice.gov.uk
           /d/k8s-nginx-ingress-prometheus-ng2/5178fc76-29af-51b9-83a8-cbab85db37a6
           ?orgId=1&refresh=1m&var-controller_class=All&var-pod=All&var-datasource=default&from=now-1h&to=now
-          &var-namespace=All&var-ingress=justice-gov-uk-production-ingress-modsec
+          &var-namespace=All&var-ingress=intranet-production-ingress
       expr: |-
-        sum by (ingress, cluster) (rate(nginx_ingress_controller_requests{exported_namespace="justice-gov-uk-production",status=~"5.."}[1m]))
+        sum by (ingress, cluster) (rate(nginx_ingress_controller_requests{exported_namespace="intranet-production",status=~"5.."}[1m]))
         /
-        sum by (ingress) (rate(nginx_ingress_controller_requests{exported_namespace="justice-gov-uk-production"}[1m]))
+        sum by (ingress) (rate(nginx_ingress_controller_requests{exported_namespace="intranet-production"}[1m]))
         > 0.05
       for: 3m
       labels:
-        severity: justice-gov-uk-alerts
+        severity: intranet-production
 
     - alert: TrafficSpike
       annotations:
@@ -164,13 +164,13 @@ spec:
           https://grafana.live.cloud-platform.service.justice.gov.uk
           /d/k8s-nginx-ingress-prometheus-ng2/5178fc76-29af-51b9-83a8-cbab85db37a6
           ?orgId=1&refresh=1m&var-controller_class=All&var-pod=All&var-datasource=default&from=now-1h&to=now
-          &var-namespace=All&var-ingress=justice-gov-uk-production-ingress-modsec
+          &var-namespace=All&var-ingress=intranet-production-ingress
       expr: |-
-        sum(rate(nginx_ingress_controller_requests{exported_namespace="justice-gov-uk-production"}[5m])) by (ingress)
+        sum(rate(nginx_ingress_controller_requests{exported_namespace="intranet-production"}[5m])) by (ingress)
         > 33
       for: 3m
       labels:
-        severity: justice-gov-uk-alerts
+        severity: intranet-production
 
     - alert: MemorySpike
       annotations:
@@ -185,7 +185,7 @@ spec:
         > 500000000
       for: 1m
       labels:
-        severity: justice-gov-uk-alerts
+        severity: intranet-production
 
     - alert: CpuSpike
       annotations:
@@ -200,4 +200,4 @@ spec:
         > 0.5
       for: 1m
       labels:
-        severity: justice-gov-uk-alerts
+        severity: intranet-production
