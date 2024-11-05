@@ -52,6 +52,12 @@ RUN rm zz-docker.conf && \
 ## Set our pool configuration
 COPY deploy/config/php-pool.conf pool.conf
 
+# Apend our relay config to the existing config file.
+RUN { \
+        echo 'relay.loglevel = error'; \
+        echo 'relay.logfile  = /dev/stderr'; \
+    } >> /usr/local/etc/php/conf.d/docker-php-ext-relay.ini
+
 WORKDIR /var/www/html
 
 
