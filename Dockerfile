@@ -22,6 +22,9 @@ ARG version_cron_alpine=3.19.1
 
 FROM ministryofjustice/wordpress-base-fpm:latest AS base-fpm
 
+RUN apk update && \
+    apk add strace
+
 # Make the Nginx user available in this container
 RUN addgroup -g 101 -S nginx; adduser -u 101 -S -D -G nginx nginx
 
