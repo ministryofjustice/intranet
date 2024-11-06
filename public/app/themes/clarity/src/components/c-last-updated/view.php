@@ -13,8 +13,11 @@ $term_names = is_array($terms) ? array_map(fn($term) => $term->name, $terms) : n
     <p><span class="c-share-post__meta__date">Last reviewed: <?= the_modified_date('j F Y') ?></span></p>
   <?php endif; ?>
 
-  <p>
-    <span class="c-share-post__meta__date">Content tagged as: <?= join(', ', $term_names) ?></span>
-  </p>
+  <?php if ($term_names) : ?>
+    <p>
+      <span class="c-share-post__meta__date">Content tagged as: <?= join(', ', $term_names) ?></span>
+    </p>
+  <?php endif; ?>
+
 </section>
 <!-- c-last-updated ends here -->
