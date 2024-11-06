@@ -17,6 +17,8 @@ services:
     volumes:
       - .:/var/www/html
       - php-socket:/sock
+      ### Deploy scripts
+      - ./deploy/config/php-pool.conf:/usr/local/etc/php-fpm.d/pool.conf
     env_file:
       - .env
     depends_on:

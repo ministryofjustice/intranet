@@ -2,6 +2,7 @@
 
 namespace MOJ\Justice;
 
+use function Env\env;
 use Roots\WPConfig\Config;
 
 // ---------------------------------------------
@@ -13,12 +14,45 @@ use Roots\WPConfig\Config;
  */
 class Security
 {
+
+    /**
+     * A list of known hosts.
+     */
+    private array $known_hosts = [
+        'api.deliciousbrains.com',
+        'connect.advancedcustomfields.com'
+    ];
+
+    /**
+     * The application host e.g. intranet.docker or intranet.justice.gov.uk
+     */
+    private string $home_host;
+
     /**
      * Loads up actions that are called when WordPress initialises
      */
     public function __construct()
     {
+        $this->home_host = parse_url(get_home_url(), PHP_URL_HOST);
+
         $this->actions();
+
+        // Push the application host to known_hosts.
+        array_push($this->known_hosts, $this->home_host);
+
+        // Push the OpenSearch host to known_hosts.
+        if ($ep_url = Config::get('EP_HOST')) {
+            array_push($this->known_hosts, parse_url($ep_url, PHP_URL_HOST));
+        }
+
+        // Push the S3 bucket host to known_hosts.
+        if ($s3_bucket = env('AWS_S3_BUCKET')) {
+            array_push($this->known_hosts, $s3_bucket . ".s3.eu-west-2.amazonaws.com");
+        }
+
+        if ($custom_s3_host = env('AWS_S3_CUSTOM_HOST')) {
+            array_push($this->known_hosts, $custom_s3_host);
+        }
     }
 
     /**
@@ -34,6 +68,7 @@ class Security
         add_filter('wp_headers', [$this, 'headerMods']);
         add_filter('auth_cookie_expiration', [$this, 'setLoginPeriod'], 10, 0);
         add_filter('pre_http_request', [$this, 'handleLoopbackRequests'], 10, 3);
+        add_filter('pre_http_request', [$this, 'logUnknownHostRequests'], 10, 3);
     }
 
     /**
@@ -90,13 +125,10 @@ class Security
      * @param string $url
      * @return false|array|\WP_Error
      */
-
     public function handleLoopbackRequests(false|array|\WP_Error $response, array $parsed_args, string $url): false|array|\WP_Error
     {
         // Is the request url to the application host?
-        if (parse_url($url, PHP_URL_HOST) !== parse_url(get_home_url(), PHP_URL_HOST)) {
-            // Request is not to the application host - log the url.
-            error_log('pre_http_request url: ' . $url);
+        if (parse_url($url, PHP_URL_HOST) !== $this->home_host) {
             return $response;
         }
 
@@ -115,6 +147,26 @@ class Security
 
         // Return the result.
         return $http->request($new_url, $parsed_args);
+    }
+
+    /**
+     * Log the urls of requests to unknown hosts.
+     * 
+     * This could be useful in identifying requests to malicious URLs.
+     * 
+     * @param false|array|\WP_Error $response
+     * @param array $parsed_args
+     * @param string $url
+     * @return false|array|\WP_Error
+     */
+    public function logUnknownHostRequests(false|array|\WP_Error $response, array $parsed_args, string $url): false|array|\WP_Error
+    {
+        if (!in_array(parse_url($url, PHP_URL_HOST), $this->known_hosts)) {
+            // Log the request url.
+            error_log('pre_http_request url: ' . $url);
+        }
+
+        return $response;
     }
 }
 

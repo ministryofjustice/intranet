@@ -52,6 +52,16 @@ RUN rm zz-docker.conf && \
 ## Set our pool configuration
 COPY deploy/config/php-pool.conf pool.conf
 
+# Apend our relay config to the existing config file.
+RUN { \
+        echo 'relay.maxmemory = 16M'; \
+        echo 'relay.loglevel = error'; \
+        echo 'relay.logfile  = /dev/stderr'; \
+    } >> /usr/local/etc/php/conf.d/docker-php-ext-relay.ini
+
+# Don't log every request.
+RUN perl -pi -e 's#^(?=access\.log\b)#;#' /usr/local/etc/php-fpm.d/docker.conf
+
 WORKDIR /var/www/html
 
 
@@ -119,9 +129,6 @@ RUN apk add zip
 WORKDIR /var/www/html
 
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
-
-# Don't leg every request.
-RUN perl -pi -e 's#^(?=access\.log\b)#;#' /usr/local/etc/php-fpm.d/docker.conf
 
 VOLUME ["/sock"]
 # nginx
