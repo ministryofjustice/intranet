@@ -48,10 +48,8 @@ add_action(
 );
 function webchat_attributes_meta_box($post)
 {
-    $post_type_object = get_post_type_object($post->post_type);
-    // if ( $post_type_object->hierarchical ) {
-    $landing_page = get_page_by_title('Webchats', $output = OBJECT, $post_type = 'page');
-    $archive_page = get_page_by_title('Webchats Archive', $output = OBJECT, $post_type = 'page');
+    $landing_page = get_page_by_path('webchats-hq', OBJECT, 'page');
+    $archive_page = get_page_by_path('webchats-hq/archive', OBJECT, 'page');
 
     if ($landing_page && $archive_page) {
         ?>
@@ -59,13 +57,17 @@ function webchat_attributes_meta_box($post)
       <input type="radio" name="parent_id" id="parent_id" value="<?php echo $archive_page->ID; ?>" <?php echo $post->post_parent == $archive_page->ID ? 'checked="yes"' : ''; ?>><label for="webchat_status">Archive</label>
         <?php
     }
-    // } // end hierarchical check.
 }
 
 // Append archive to webchat permalink if archive selected
 function append_query_string($post_link, $post)
 {
-    $archive_page = get_page_by_title('Webchats Archive', $output = OBJECT, $post_type = 'page');
+    $archive_page = get_page_by_path('webchats-hq/archive', OBJECT, 'page');
+
+    if (is_int($post)) {
+        $post = get_post($post);
+    }
+
     if (isset($archive_page) && $post->post_type == 'webchat' && $post->post_parent == $archive_page->ID) {
         return str_replace('/webchats/', '/webchats/archive', $post_link);
     } else {
