@@ -29,7 +29,6 @@ class Updates
          * @see https://wp-kama.com/2020/disable-wp-updates-check
          * @see https://developer.wordpress.org/reference/functions/wp_version_check/
          */
-
         add_filter(
             'pre_site_transient_update_core',
             fn() =>  (object) [
@@ -48,7 +47,6 @@ class Updates
          * @see https://wp-kama.com/2020/disable-wp-updates-check
          * @see https://developer.wordpress.org/reference/functions/wp_update_themes/
          */
-
         add_filter('pre_site_transient_update_themes', static function ($value) {
             static $theme;
 
@@ -71,7 +69,6 @@ class Updates
          * @see https://wp-kama.com/2020/disable-wp-updates-check
          * @see https://developer.wordpress.org/reference/functions/wp_update_plugins/
          */
-
         add_filter('pre_site_transient_update_plugins', static function ($value) {
             static $plugins;
             $plugins || $plugins = get_plugins();
