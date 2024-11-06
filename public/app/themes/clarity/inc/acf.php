@@ -132,7 +132,7 @@ function my_admin_only_load_field($field)
     return $field;
 }
 
-add_filter('acf/load_field', 'my_admin_only_load_field');
+add_filter('acf/prepare_field', 'my_admin_only_load_field');
 
 
 // hide drafts
