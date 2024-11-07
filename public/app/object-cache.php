@@ -25,6 +25,12 @@ $is_auth_uri = strpos($_SERVER['REQUEST_URI'], '/auth/') === 0;
 // Conditionally, run the script if the correct class exists, and the script has not been disabled.
 if ( !$is_auth_uri && class_exists( WP_REDIS_USE_RELAY ? 'Relay\Relay' : 'Redis' ) && ( ! defined( 'WP_REDIS_DISABLED' ) || ! WP_REDIS_DISABLED ) ):
 
+// ^ When using Relay, we need to prefix a scheme to `$_SERVER['CACHE_HOST']`
+if ( WP_REDIS_USE_RELAY && !empty($_SERVER['CACHE_HOST']) ) {
+    // Prefix scheme to the host, default to tls.
+    $_SERVER['CACHE_HOST'] = ($_SERVER['CACHE_SCHEME'] ?: 'tls') . '://' . $_SERVER['CACHE_HOST'];
+}
+
 if ( ! defined( 'WP_CACHE_KEY_SALT' ) ) {
 	define( 'WP_CACHE_KEY_SALT', '' );
 }
@@ -1264,7 +1270,8 @@ class WP_Object_Cache {
 		// Default Redis port.
 		$port = 6379;
 		// Default Redis database number.
-		$database = 1;
+		// ^ Prevent a conflict where data from a previous class is still present in the cluster.
+		$database = WP_REDIS_USE_RELAY ? 0 : 1;
 		// *
 		// Default timeout in ms.
 		// I multiplied this by 1000 so we'd have a common measure of ms instead of s and ms, need to make sure this gets divided by 1000.
