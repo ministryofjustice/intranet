@@ -28,7 +28,7 @@ if ( !$is_auth_uri && class_exists( WP_REDIS_USE_RELAY ? 'Relay\Relay' : 'Redis'
 // ^ When using Relay, we need to prefix a scheme to `$_SERVER['CACHE_HOST']`
 if ( WP_REDIS_USE_RELAY && !empty($_SERVER['CACHE_HOST']) ) {
     // Prefix scheme to the host, default to tls.
-    $_SERVER['CACHE_HOST'] = ($_SERVER['CACHE_SCHEME'] ?: 'tls') . '://' . $_SERVER['CACHE_HOST'];
+    $_SERVER['CACHE_HOST'] = ($_SERVER['CACHE_SCHEME'] ?? 'tls') . '://' . $_SERVER['CACHE_HOST'];
 }
 
 if ( ! defined( 'WP_CACHE_KEY_SALT' ) ) {
