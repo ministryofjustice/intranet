@@ -9,6 +9,7 @@ metadata:
     nginx.ingress.kubernetes.io/enable-modsecurity: "true"
     nginx.ingress.kubernetes.io/modsecurity-snippet: |
       ${MODSEC_CONFIG}
+    nginx.ingress.kubernetes.io/proxy-body-size: "250m"
     # Set vhost so that WP doesn't see prod-intranet.apps... and redirect.
     nginx.ingress.kubernetes.io/upstream-vhost: intranet.justice.gov.uk
     nginx.ingress.kubernetes.io/server-snippet: |
