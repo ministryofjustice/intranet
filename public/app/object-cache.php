@@ -1271,7 +1271,7 @@ class WP_Object_Cache {
 		$port = 6379;
 		// Default Redis database number.
 		// ^ Prevent a conflict where data from a previous class is still present in the cluster.
-		$database = WP_REDIS_USE_RELAY ? 0 : 1;
+		$database = WP_REDIS_USE_RELAY ? 2 : 1;
 		// *
 		// Default timeout in ms.
 		// I multiplied this by 1000 so we'd have a common measure of ms instead of s and ms, need to make sure this gets divided by 1000.
