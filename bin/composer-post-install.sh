@@ -62,3 +62,14 @@ if [ -f "$NOTIFY_FILE" ] ; then
   NOTIFY_CONTENT=$(perl -0777pe 's/'"$NOTIFY_SEARCH"'/'"$NOTIFY_REPLACE"'/s' "$NOTIFY_FILE")
   echo "$NOTIFY_CONTENT" > "$NOTIFY_FILE"
 fi
+
+
+TREE_VIEW_FILE=/var/www/html/public/app/plugins/cms-tree-page-view/functions.php
+TREE_VIEW_SEARCH="htmlspecialchars_decode(\$editLink)"
+TREE_VIEW_REPLACE="htmlspecialchars_decode(\$editLink ?? '')"
+
+# If search string is in file. Then replace it.
+if grep -q  $TREE_VIEW_SEARCH $TREE_VIEW_FILE ; then
+  echo "Fixing warning in cms-tree-page-view..."
+  sed -i "s/$TREE_VIEW_SEARCH/$TREE_VIEW_REPLACE/g" $TREE_VIEW_FILE
+fi
