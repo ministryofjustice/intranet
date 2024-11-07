@@ -32,9 +32,11 @@ $query = new WP_Query($query_args->get());
     <h2 class="o-title o-title--section" id="title-section">Latest</h2>
 
     <div id="content">
-      <?php foreach ($query->posts as $key => $post) {
-        include locate_template('src/components/c-article-item/view-news-feed.php');
-      } ?>
+      <?php
+      while ($query->have_posts()): $query->the_post();
+        get_template_part('src/components/c-article-item/view-news-feed');
+      endwhile;
+      ?>
     </div>
 
     <?php get_template_part('src/components/c-pagination/view-infinite', null, ['total_pages' => $query->max_num_pages, 'page' => 1]); ?>

@@ -22,6 +22,9 @@ ARG version_cron_alpine=3.19.1
 
 FROM ministryofjustice/wordpress-base-fpm:latest AS base-fpm
 
+RUN apk update && \
+    apk add strace
+
 # Make the Nginx user available in this container
 RUN addgroup -g 101 -S nginx; adduser -u 101 -S -D -G nginx nginx
 
@@ -48,6 +51,16 @@ RUN rm zz-docker.conf && \
 
 ## Set our pool configuration
 COPY deploy/config/php-pool.conf pool.conf
+
+# Apend our relay config to the existing config file.
+RUN { \
+        echo 'relay.maxmemory = 16M'; \
+        echo 'relay.loglevel = error'; \
+        echo 'relay.logfile  = /dev/stderr'; \
+    } >> /usr/local/etc/php/conf.d/docker-php-ext-relay.ini
+
+# Don't log every request.
+RUN perl -pi -e 's#^(?=access\.log\b)#;#' /usr/local/etc/php-fpm.d/docker.conf
 
 WORKDIR /var/www/html
 
@@ -116,9 +129,6 @@ RUN apk add zip
 WORKDIR /var/www/html
 
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
-
-# Don't leg every request.
-RUN perl -pi -e 's#^(?=access\.log\b)#;#' /usr/local/etc/php-fpm.d/docker.conf
 
 VOLUME ["/sock"]
 # nginx
@@ -228,6 +238,11 @@ COPY --from=build-fpm-composer ${path}/vendor vendor
 # non-root
 USER 101
 
+# Set IMAGE_TAG at build time, we don't want this container to be run with an incorrect IMAGE_TAG.
+# Set towards the end of the Dockerfile to benefit from caching.
+ARG IMAGE_TAG
+ENV IMAGE_TAG=$IMAGE_TAG
+
 
 #  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
 
@@ -301,3 +316,35 @@ USER 3001
 WORKDIR /home/crooner
 
 ENTRYPOINT ["/bin/sh", "-c", "cron-start"]
+
+#  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
+
+# S3 Pusher
+
+# Use the same verion as the cron (to benefit from caching).
+FROM alpine:${version_cron_alpine} AS build-s3-push
+
+ARG user=s3pusher
+RUN addgroup --gid 3001 ${user} && adduser -D -G ${user} -g "${user} user" -u 3001 ${user}
+
+RUN apk add --no-cache aws-cli jq
+
+WORKDIR /usr/bin
+
+COPY deploy/config/init/s3-push-start.sh ./s3-push-start
+RUN chmod +x s3-push-start
+
+USER 3001
+
+# Go home...
+WORKDIR /home/s3pusher
+# Grab assets for pushing to s3
+COPY --from=build-fpm-composer  /var/www/html/vendor-assets ./
+COPY --from=assets-build        /node/dist                  public/app/themes/clarity/dist/
+
+# Set IMAGE_TAG at build time, we don't want this container to be run with an incorrect IMAGE_TAG.
+# Set towards the end of the Dockerfile to benefit from caching.
+ARG IMAGE_TAG
+ENV IMAGE_TAG=$IMAGE_TAG
+
+ENTRYPOINT ["/bin/sh", "-c", "s3-push-start"]

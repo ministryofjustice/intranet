@@ -200,30 +200,35 @@ add_action('rest_api_init', function () {
     register_rest_route('intranet/v1', '/featurednews/(?P<agency>[a-zA-Z0-9-]+)/(?P<max_featured>\d+)', array(
         'methods' => 'GET',
         'callback' => 'get_featured_news_endpoint',
+        'permission_callback' => '__return_true',
     ));
 
     //Homepage News
     register_rest_route('intranet/v1', '/homenews/(?P<agency>[a-zA-Z0-9-]+)/(?P<max_news>\d+)', array(
         'methods' => 'GET',
         'callback' => 'get_homepage_news_endpoint',
+        'permission_callback' => '__return_true',
     ));
 
     //Homepage Blog
     register_rest_route('intranet/v1', '/homebloglist/(?P<agency>[a-zA-Z0-9-]+)/(?P<max_items>\d+)', array(
         'methods' => 'GET',
         'callback' => 'get_homepage_blogs_endpoint',
+        'permission_callback' => '__return_true',
     ));
 
     //Events by Region
     register_rest_route('intranet/v1', '/events/(?P<agency>[a-zA-Z0-9-]+)/(?P<region>[a-zA-Z0-9-]+)/(?P<max_events>\d+)', array(
         'methods' => 'GET',
         'callback' => 'get_events_endpoint',
+        'permission_callback' => '__return_true',
     ));
 
     //Events
     register_rest_route('intranet/v1', '/events/(?P<agency>[a-zA-Z0-9-]+)/(?P<max_events>\d+)', array(
         'methods' => 'GET',
         'callback' => 'get_events_endpoint',
+        'permission_callback' => '__return_true',
     ));
 });
 

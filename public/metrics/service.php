@@ -34,7 +34,6 @@ class Metrics
      */
     public function __construct()
     {
-
         // Get the ip group of the incoming request.
         $ip_group = $_SERVER['HTTP_X_MOJ_IP_GROUP'] ?? 0;
 
@@ -49,29 +48,8 @@ class Metrics
 
         $this->home_url = env('WP_HOME');
 
-        // Define an array of metrics that we want to generate.
+        // Define an array of metrics that we want to generate for all environments.
         $this->metrics_properties = [
-            'http_status_code_control' => [
-                'help' => 'The http status code when accessing an open site.',
-                'type' => 'gauge',
-                'callback' => [$this, 'getStatusCode'],
-                'args' => [$this::OPEN_URL]
-            ],
-            'http_status_code_invalid_header' => [
-                'help' => 'The http status code of when sending X-Moj-Ip-Group header.',
-                'type' => 'gauge',
-                'callback' => [$this, 'getStatusCode'],
-                'args' => [
-                    $this->home_url,
-                    ['headers' => ['X-Moj-Ip-Group' => 0]]
-                ]
-            ],
-            'http_status_code_health' => [
-                'help' => 'The http status code of /health.',
-                'type' => 'gauge',
-                'callback' => [$this, 'getStatusCode'],
-                'args' => ["{$this->home_url}/health"]
-            ],
             'http_status_code_wp_home' => [
                 'help' => 'The http status code when accessing this service via it\'s full url as defined in WP_HOME.',
                 'type' => 'gauge',
@@ -79,6 +57,33 @@ class Metrics
                 'args' => [$this->home_url]
             ]
         ];
+
+        if ('production' !== env('WP_ENV')) {
+            // Add other metrics for non-production.
+            $this->metrics_properties = array_merge($this->metrics_properties, [
+                'http_status_code_control' => [
+                    'help' => 'The http status code when accessing an open site.',
+                    'type' => 'gauge',
+                    'callback' => [$this, 'getStatusCode'],
+                    'args' => [$this::OPEN_URL]
+                ],
+                'http_status_code_invalid_header' => [
+                    'help' => 'The http status code of when sending X-Moj-Ip-Group header.',
+                    'type' => 'gauge',
+                    'callback' => [$this, 'getStatusCode'],
+                    'args' => [
+                        $this->home_url,
+                        ['headers' => ['X-Moj-Ip-Group' => 0]]
+                    ]
+                ],
+                'http_status_code_health' => [
+                    'help' => 'The http status code of /health.',
+                    'type' => 'gauge',
+                    'callback' => [$this, 'getStatusCode'],
+                    'args' => ["{$this->home_url}/health"]
+                ]
+            ]);
+        }
     }
 
     /**
@@ -140,6 +145,7 @@ class Metrics
     {
         header('Content-Type', 'text/plain');
         echo $this->getServiceMetrics();
+        unset($this->guzzle_client);
         exit();
     }
 }

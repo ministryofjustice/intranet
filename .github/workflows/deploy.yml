@@ -35,6 +35,7 @@ jobs:
           IMAGE_TAG_NGINX: "nginx-${{ github.sha }}"
           IMAGE_TAG_FPM: "fpm-${{ github.sha }}"
           IMAGE_TAG_CRON: "cron-${{ github.sha }}"
+          IMAGE_TAG_S3_PUSH: "s3-push-${{ github.sha }}"
           GOV_NOTIFY_API_KEY: ${{ secrets.GOV_NOTIFY_API_KEY }}
           ACF_PRO_LICENSE: ${{ secrets.ACF_PRO_LICENSE }}
           AS3CF_PRO_LICENCE: ${{ secrets.AS3CF_PRO_LICENCE }}
@@ -55,6 +56,7 @@ jobs:
           BASIC_AUTH_USER: ${{ secrets.BASIC_AUTH_USER }}
           BASIC_AUTH_PASS: ${{ secrets.BASIC_AUTH_PASS }}
           IGNORE_IP_RANGES: ${{ vars.IGNORE_IP_RANGES }}
+          ALERTS_SLACK_WEBHOOK: ${{ secrets.ALERTS_SLACK_WEBHOOK }}
         run: |
           ## - - - - - - - - - -
           ## CloudFront  - - - -
@@ -138,6 +140,7 @@ jobs:
           < "$TPL_PATH"/ingress.tpl.yml envsubst '${MODSEC_CONFIG}' > "$TPL_PATH"/ingress.yaml
           < "$TPL_PATH"/secret.tpl.yml envsubst > "$TPL_PATH"/secret.yaml
           < "$TPL_PATH"/deployment.tpl.yml envsubst > "$TPL_PATH"/deployment.yaml
+          < "$TPL_PATH"/job.tpl.yml envsubst > "$TPL_PATH"/job.yaml
           
           ## Remove template files before apply
           rm "$TPL_PATH"/*.tpl.yml

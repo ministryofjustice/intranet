@@ -30,7 +30,8 @@ export default (function ($) {
                 maxWidth: '110px',
                 height: 'auto',
                 float: 'left',
-                marginRight: '30px'
+                marginRight: '30px',
+                paddingBottom: '10px'
             },
             button: {
                 continue: {
@@ -115,9 +116,9 @@ export default (function ($) {
 
             // This element is on frontend and admin views. The frontend html has `font-size: 62.5%`, so use px values here.
             const heading = $('<h3\>').text(title).css({fontWeight:'700', fontSize: '20px', lineHeight: '1.2', margin: 0})
-            const content = $('<p\>').html(html).css({})
+            const content = $('<p\>').html(html)
             const image = $('<img>', {
-                src: '/app/themes/clarity/dist/images/crown_copyright_logo.png',
+                src: '/app/themes/clarity/dist/images/tudor_crest.svg',
                 alt: 'Crown copyright logo',
             }).css(Backdrop.style.img);
 
@@ -131,7 +132,7 @@ export default (function ($) {
         confirm: () => {
             if (Backdrop.cookie.get() !== Backdrop.cookie.value) {
                 const title = 'You are about to view a test version of the MoJ Intranet'
-                const html = '<br />To participate in user acceptance testing, please continue.<br /><br />' +
+                const html = 'To participate in user acceptance testing, please continue.<br /><br />' +
                   '<button class="modal-continue" type="button">&nbsp; Continue &nbsp;</button> &nbsp; or &nbsp; ' +
                   '<a class="modal-escape" href="https://intranet.justice.gov.uk/">&nbsp; Visit the live Intranet &nbsp;</a>'
 

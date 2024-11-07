@@ -23,3 +23,42 @@ if grep -q  $TOTAL_POLL_SEARCH $TOTAL_POLL_FILE ; then
   echo "Fixing syntax error in totalpoll-lite..."
   sed -i "s/$TOTAL_POLL_SEARCH/$TOTAL_POLL_REPLACE/g" $TOTAL_POLL_FILE
 fi
+
+
+MOJ_COMPONENTS_FILE=/var/www/html/public/app/mu-plugins/wp-moj-components/component/Introduce/Introduce.php
+MOJ_COMPONENTS_SEARCH_EMAIL="justice\.web@digital\.justice\.gov\.uk"
+MOJ_COMPONENTS_REPLACE_EMAIL="intranet-support@digital.justice.gov.uk"
+
+# If search string is in file. Then replace it.
+if grep -q  $MOJ_COMPONENTS_SEARCH_EMAIL $MOJ_COMPONENTS_FILE ; then
+  echo "Replacing email text in wp-moj-components plugin."
+  sed -i "s/$MOJ_COMPONENTS_SEARCH_EMAIL/$MOJ_COMPONENTS_REPLACE_EMAIL/g" $MOJ_COMPONENTS_FILE
+fi
+
+MOJ_COMPONENTS_SEARCH_PARAGRAPH="<p>This website is ([\w\W]*?)<\/p>"
+MOJ_COMPONENTS_REPLACE_PARAGRAPH="<p>This website is technically maintained by Justice Digital, Central Digital Product Team:<\/p>"
+
+if [ -f "$MOJ_COMPONENTS_FILE" ] ; then
+  echo "Replacing paragraph text in wp-moj-components plugin"
+  MOJ_COMPONENTS_CONTENT=$(perl -0777pe 's/'"$MOJ_COMPONENTS_SEARCH_PARAGRAPH"'/'"$MOJ_COMPONENTS_REPLACE_PARAGRAPH"'/s' "$MOJ_COMPONENTS_FILE")
+  echo "$MOJ_COMPONENTS_CONTENT" > "$MOJ_COMPONENTS_FILE"
+fi
+
+
+NOTIFY_FILE=/var/www/html/public/app/plugins/notify-for-wordpress/inc/admin/class-dashboard-table.php
+NOTIFY_SEARCH="public function get_columns"
+NOTIFY_REPLACE='private \$plugin_text_domain;
+
+	public function __construct(string \$plugin_text_domain)
+	{ 
+		parent::__construct();
+		\$this->plugin_text_domain = \$plugin_text_domain;
+	}
+
+	public function get_columns'
+
+if [ -f "$NOTIFY_FILE" ] ; then
+  echo "Adding code blocke to notify-for-wordpress plugin"
+  NOTIFY_CONTENT=$(perl -0777pe 's/'"$NOTIFY_SEARCH"'/'"$NOTIFY_REPLACE"'/s' "$NOTIFY_FILE")
+  echo "$NOTIFY_CONTENT" > "$NOTIFY_FILE"
+fi

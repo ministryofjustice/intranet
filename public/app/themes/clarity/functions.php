@@ -40,12 +40,14 @@ require_once 'inc/admin/plugins/polls.php';
 require_once 'inc/admin/plugins/wp-elasticsearch.php';
 require_once 'inc/admin/plugins/wp-document-revisions.php';
 require_once 'inc/admin/plugins/wp-offload-media.php';
+require_once 'inc/admin/plugins/wp-sentry.php';
 require_once 'inc/admin/prior-party/prior-party-banner-admin.php';
 require_once 'inc/admin/prior-party/prior-party-banner-email.php';
 require_once 'inc/admin/prior-party/prior-party-banner.php';
 require_once 'inc/admin/remove-customizer.php';
 require_once 'inc/admin/suppress-wp-update-msg.php';
 require_once 'inc/admin/tinymce-editor-settings.php';
+require_once 'inc/admin/transient-admin-notices.php';
 require_once 'inc/admin/users/add-acf-capabilities.php';
 require_once 'inc/admin/users/add-notes-from-antonia.php';
 require_once 'inc/admin/users/remove-agency-admin-admin-access.php';
@@ -55,6 +57,7 @@ require_once 'inc/admin/wp-admin-bar.php';
 require_once 'inc/about-us.php';
 require_once 'inc/acf.php';
 require_once 'inc/maintenance.php';
+require_once 'inc/amazon-s3-and-cloudfront-assets.php';
 require_once 'inc/amazon-s3-and-cloudfront-for-minio.php';
 require_once 'inc/amazon-s3-and-cloudfront-signing.php';
 require_once 'inc/amazon-s3-and-cloudfront.php';
@@ -110,6 +113,7 @@ require_once 'inc/relevanssi.php';
 require_once 'inc/shortcodes.php';
 require_once 'inc/security.php';
 require_once 'inc/table-modification.php';
+require_once 'inc/updates.php';
 require_once 'inc/uploads.php';
 require_once 'inc/whitelisted-emails.php';
 
@@ -121,11 +125,4 @@ new MOJ\Intranet\WPElasticPress();
 
 $search = new MOJ\Intranet\Search();
 $search->hooks();
-
-/// Prevent the Agency Switcher page from being overwritten
-add_action('save_post', function ($post_id, $post) {
-    if ($post->post_name === 'agency-switcher') {
-        update_post_meta($post_id, '_wp_page_template', 'agency-switcher.php');
-    }
-}, 99, 2);
 

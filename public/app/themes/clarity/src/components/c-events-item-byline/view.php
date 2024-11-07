@@ -8,8 +8,7 @@ if (! defined('ABSPATH')) {
 <article class="c-events-item-byline">
   <header>
 
-      <h3 class="c-events-item-byline__link"><a href="<?= $post_url ?? '' ?>"><?= $event_title ?? '' ?></a></h3>
-
+    <h3 class="c-events-item-byline__link"><a href="<?= $post_url ?? '' ?>"><?= $event_title ?? '' ?></a></h3>
 
     <?php
     if (empty($all_day)) {
@@ -47,3 +46,8 @@ if (! defined('ABSPATH')) {
   </header>
 </article>
 <!-- c-events-item-byline ends here -->
+
+<?php
+  // Unset variables to prevent leaking to following events in the loop.
+  unset($time);
+  unset($datetime);

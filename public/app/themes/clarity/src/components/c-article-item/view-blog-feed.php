@@ -9,23 +9,20 @@
 
 use MOJ\Intranet\Authors;
 
+// Parse template args.
+$show_excerpt = !isset($args['show_excerpt']) || $args['show_excerpt'];
 
-$id            = $post->ID;
-
-$thumbnail     = get_the_post_thumbnail_url($id, 'user-thumb');
+$id = $post->ID;
+$thumbnail = get_the_post_thumbnail_url($id, 'user-thumb');
 $thumbnail_alt = get_post_meta(get_post_thumbnail_id($id), '_wp_attachment_image_alt', true);
 
-// TODO: Why is this here? It's not used.
-// If it should be here, make sure to update `Search->mapPostResult()`
 $oAuthor = new Authors();
 $authors = $oAuthor->getAuthorInfo($id);
-
-$author = $post->post_author;
-$author_display_name = $author ? get_the_author_meta('display_name', $author) : '';
+$author = $authors[0] ?? false;
+$author_display_name = $author['name'] ?? false;
 
 if (!$thumbnail) {
-    // Mutate thumbnail with author image.
-    $thumbnail = $author ? get_the_author_meta('thumbnail_avatar', $author) : false;
+    $thumbnail = $author['thumbnail_url'] ?? false;
     $thumbnail_alt = $author_display_name;
 }
 
@@ -50,16 +47,17 @@ if (!$thumbnail) {
 
         <div class="meta">
             <span class="c-article-item__dateline">
-                By 
-                <strong><?= $author_display_name ?></strong> |
+                <?php if ($author_display_name) : ?>
+                    By
+                    <strong><?= $author_display_name ?></strong> |
+                <?php endif; ?>
                 <span class="c-article-item__dateline__date">
                     <?= get_gmt_from_date($post->post_date, 'j M Y') ?>
                 </span>
             </span>
         </div>
 
-        <?php // On single blog pages where this is listed we don't have room for the excerpt ?>
-        <?php if (! is_singular('post')) : ?>
+        <?php if ($show_excerpt) : ?>
 
             <div class="c-article-excerpt">
                 <p><?= get_the_excerpt($id) ?></p>

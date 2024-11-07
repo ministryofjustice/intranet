@@ -84,6 +84,10 @@ if (!env('WP_ENVIRONMENT_TYPE') && in_array(WP_ENV, ['production', 'staging', 'd
 Config::define('WP_HOME', env('WP_HOME'));
 Config::define('WP_SITEURL', env('WP_SITEURL'));
 Config::define('LOOPBACK_URL', env('LOOPBACK_URL') ?? 'http://127.0.0.1:8080');
+// Explicitly set cookie paths, to prevent conflicting wordpress_logged_in... wordpress_sec_... cookies.
+Config::define('COOKIEPATH', '/');
+Config::define('SITECOOKIEPATH', '/');
+Config::define('ADMIN_COOKIE_PATH', '/');
 
 /**
  * Custom Content Directory
@@ -169,11 +173,15 @@ Config::define('EWWW_IMAGE_OPTIMIZER_NOAUTO', env('EWWW_IMAGE_OPTIMIZER_NOAUTO')
 // Enable "agency" mode, which hides all external links and support resources.
 Config::define('EWWWIO_WHITELABEL', true);
 
+// Disable rewrite of enqueued assets to CDN.
+Config::define('DISABLE_CDN_ASSETS', env('DISABLE_CDN_ASSETS'));
+
 /**
  * Debugging Settings
  */
 Config::define('WP_DEBUG_DISPLAY', false);
-Config::define('WP_DEBUG_LOG', false);
+Config::define('WP_DEBUG_LOG', true);
+Config::define('WP_DEBUG_LOG', '/dev/stderr');
 Config::define('SCRIPT_DEBUG', false);
 ini_set('display_errors', '0');
 // Additional logging for the authentication mu-plugin.
