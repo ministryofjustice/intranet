@@ -25,6 +25,14 @@ FROM ministryofjustice/wordpress-base-fpm:latest AS base-fpm
 RUN apk update && \
     apk add strace
 
+# Temporarily install phpredis here. With potential to move to wordpress-base-image.
+# See https://github.com/phpredis/phpredis
+RUN apk add --no-cache pcre-dev $PHPIZE_DEPS \
+    && pecl install redis \
+    && docker-php-ext-enable redis.so
+
+RUN apk del pcre-dev $PHPIZE_DEPS
+
 # Make the Nginx user available in this container
 RUN addgroup -g 101 -S nginx; adduser -u 101 -S -D -G nginx nginx
 
