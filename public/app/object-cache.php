@@ -25,10 +25,12 @@ $is_auth_uri = strpos($_SERVER['REQUEST_URI'], '/auth/') === 0;
 // Conditionally, run the script if the correct class exists, and the script has not been disabled.
 if ( !$is_auth_uri && class_exists( WP_REDIS_USE_RELAY ? 'Relay\Relay' : 'Redis' ) && ( ! defined( 'WP_REDIS_DISABLED' ) || ! WP_REDIS_DISABLED ) ):
 
-// ^ When using Relay, we need to prefix a scheme to `$_SERVER['CACHE_HOST']`
-if ( WP_REDIS_USE_RELAY && !empty($_SERVER['CACHE_HOST']) ) {
-    // Prefix scheme to the host, default to tls.
-    $_SERVER['CACHE_HOST'] = ($_SERVER['CACHE_SCHEME'] ?? 'tls') . '://' . $_SERVER['CACHE_HOST'];
+// ^ Set the default cache scheme to `tls`, an empty string is allowed.
+// If $cache_scheme is an empty string, then we don't need to prefix it.
+$cache_scheme = $_SERVER['CACHE_SCHEME'] ?? 'tls';
+if ( $cache_scheme !== '' && isset($_SERVER['CACHE_HOST']) ) {
+	// Prefix a scheme to `$_SERVER['CACHE_HOST']`
+	$_SERVER['CACHE_HOST'] = $cache_scheme . '://' . $_SERVER['CACHE_HOST'];
 }
 
 if ( ! defined( 'WP_CACHE_KEY_SALT' ) ) {
