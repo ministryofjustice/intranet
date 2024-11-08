@@ -73,3 +73,14 @@ if grep -q  $TREE_VIEW_SEARCH $TREE_VIEW_FILE ; then
   echo "Fixing warning in cms-tree-page-view..."
   sed -i "s/$TREE_VIEW_SEARCH/$TREE_VIEW_REPLACE/g" $TREE_VIEW_FILE
 fi
+
+
+ELASTIC_PRESS_FILE=/var/www/html/public/app/mu-plugins/elasticpress/includes/classes/Indexable/Post/SyncManager.php
+ELASTIC_PRESS_SEARCH="\t\$this->action_delete_post( \$post_id );"
+ELASTIC_PRESS_REPLACE="\t\$indexable->get( \$post_id ) \&\& \$this->action_delete_post( \$post_id );"
+
+# If search string is in file. Then replace it.
+if [ -f "$ELASTIC_PRESS_FILE" ] ; then
+  echo "Fixing warning in elasticpress. Checking for doc before deleting prevents 404s in logs..."
+  sed -i "s/$ELASTIC_PRESS_SEARCH/$ELASTIC_PRESS_REPLACE/g" $ELASTIC_PRESS_FILE
+fi
