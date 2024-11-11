@@ -328,12 +328,15 @@ class AmazonS3AndCloudFrontSigning
      * 
      * Delete the cookies from the user's browser.
      * 
-     * @param string $domain The domain to revoke the cookies from.
+     * @param ?string $domain Optional domain to revoke the cookies.
      * @return void
      */
 
-    public function revoke(string $domain): void
+    public function revoke(?string $domain): void
     {
+        // If $domain is not passed in, default to the CloudFront cookie domain.
+        $domain = $domain ?? $this->cloudfront_cookie_domain;
+
         // Properties for the cookies.
         $cloudfront_cookie_params = [
             'path=/',
