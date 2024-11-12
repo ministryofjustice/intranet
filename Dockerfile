@@ -67,7 +67,7 @@ RUN RELAY_CONFIG_FILE=/usr/local/etc/php/conf.d/docker-php-ext-relay.ini && \
     # Set log file to stderr
     sed -i 's/^;\? \?relay.logfile =.*/relay.logfile = \/dev\/stderr/' $RELAY_CONFIG_FILE && \
     # Settings related to the in-memory cache (not Redis).
-    ## Set maxmemory to 16M.
+    ## Set maxmemory to 16M - this is the max. w/o a license.
     sed -i 's/^;\? \?relay.maxmemory =.*/relay.maxmemory = 16M/' $RELAY_CONFIG_FILE && \
     ## Eviction policy: lru. Evicts the least recently used keys out of all keys when relay.maxmemory_pct is reached
     sed -i 's/^;\? \?relay.eviction_policy =.*/relay.eviction_policy = lru/' $RELAY_CONFIG_FILE && \
