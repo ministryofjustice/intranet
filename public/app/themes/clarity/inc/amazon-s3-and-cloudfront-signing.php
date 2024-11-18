@@ -292,6 +292,9 @@ class AmazonS3AndCloudFrontSigning
             return;
         }
 
+        // Clear the production session cookie - avoid sending conflicting cookies to CloudFront.
+        $this->maybeClearProductionCookies();
+
         $remaining_time = $this->remainingTimeFromCookie();
 
         if ($remaining_time && $remaining_time > $this::CLOUDFRONT_REFRESH) {
@@ -325,16 +328,20 @@ class AmazonS3AndCloudFrontSigning
      * 
      * Delete the cookies from the user's browser.
      * 
+     * @param ?string $domain Optional domain to revoke the cookies.
      * @return void
      */
 
-    public function revoke(): void
+    public function revoke(?string $domain): void
     {
+        // If $domain is not passed in, default to the CloudFront cookie domain.
+        $domain = $domain ?? $this->cloudfront_cookie_domain;
+
         // Properties for the cookies.
         $cloudfront_cookie_params = [
             'path=/',
             'HttpOnly',
-            'Domain=' . $this->cloudfront_cookie_domain,
+            'Domain=' . $domain,
             'SameSite=Strict',
             'Expires=' . gmdate('D, d M Y H:i:s T', 0),
             ...($this->https ? ['Secure'] : []),
@@ -345,6 +352,38 @@ class AmazonS3AndCloudFrontSigning
         foreach (['CloudFront-Key-Pair-Id', 'CloudFront-Policy', 'CloudFront-Signature'] as $name) {
             header(sprintf('Set-Cookie: %s=; %s', $name, $cloudfront_cookie_params_string), false);
         }
+    }
+
+    /**
+     * Clear the production session cookies.
+     * 
+     * If we are on a non-production environment e.g. dev or staging,
+     * delete production CloudFront session cookie.
+     * 
+     * This is necessary, otherwise CDN requests will include the production 
+     * session cookie. Resulting in 401 errors from the CloudFront.
+     * 
+     * @return void
+     */
+
+    public function maybeClearProductionCookies(): void
+    {
+        // Do nothing if we are on production.
+        if ($_ENV['WP_ENV'] === 'production') {
+            return;
+        }
+
+        // Does the home host start with dev, demo or staging?
+        preg_match('/^(dev|demo|staging)\.(.*)/', parse_url($_ENV['WP_HOME'], PHP_URL_HOST), $matches);
+
+        // If there is no match, return early.
+        if (!$matches) {
+            return;
+        }
+
+        // Delete production cookies - $matches[2] will be the production domain. 
+        // e.g. if WP_HOME is dev.intranet.justice.gov.uk, it will be intranet.justice.gov.uk
+        $this->revoke($matches[2]);
     }
 }
 
