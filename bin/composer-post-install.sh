@@ -82,7 +82,7 @@ fi
 
 # Plugin version check.
 ELASTIC_PRESS_TARGET_PACKAGE="wpackagist-plugin/elasticpress"
-ELASTIC_PRESS_TARGET_VERSION="5.1.4"
+ELASTIC_PRESS_TARGET_VERSION="5.1.3"
 ELASTIC_PRESS_INSTALLED_VERSION=$(get_installed_version $ELASTIC_PRESS_TARGET_PACKAGE)
 # Variables for the find and replace.
 ELASTIC_PRESS_FILE=/var/www/html/public/app/mu-plugins/elasticpress/includes/classes/Indexable/Post/SyncManager.php
