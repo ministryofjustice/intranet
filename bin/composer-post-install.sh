@@ -1,8 +1,15 @@
 #!/usr/bin/env sh
 
-# A function to get the installed version of a composer package.
-get_installed_version() {
-  composer show $1 | sed -n '/versions/s/^[^0-9]\+\([^,]\+\).*$/\1/p'
+# A function to verify version is supported, exit it it's not.
+verify_composer_package_version() {
+  TARGET_PACKAGE=$1
+  TARGET_VERSION=$2
+  INSTALLED_VERSION=$(composer show $1 | sed -n '/versions/s/^[^0-9]\+\([^,]\+\).*$/\1/p')
+
+  if [ "$INSTALLED_VERSION" != "$TARGET_VERSION" ] ; then
+    echo "$TARGET_PACKAGE target version is not installed - review composer-post-install.sh."
+    exit 1;
+  fi
 }
 
 # Add logging to amazon-s3-and-cloudfront-pro plugin.
@@ -81,15 +88,8 @@ fi
 
 
 # Plugin version check.
-ELASTIC_PRESS_TARGET_PACKAGE="wpackagist-plugin/elasticpress"
 ELASTIC_PRESS_TARGET_VERSION="5.1.3"
-ELASTIC_PRESS_INSTALLED_VERSION=$(get_installed_version $ELASTIC_PRESS_TARGET_PACKAGE)
-
-# If the target version is not inatalled then exit.
-if [ "$ELASTIC_PRESS_INSTALLED_VERSION" != "$ELASTIC_PRESS_TARGET_VERSION" ] ; then
-  echo "Elasticpress target version is not installed - review composer-post-install.sh."
-  exit 1;
-fi
+verify_composer_package_version "wpackagist-plugin/elasticpress" $ELASTIC_PRESS_TARGET_VERSION
 
 # Variables for the find and replace.
 ELASTIC_PRESS_FILE=/var/www/html/public/app/mu-plugins/elasticpress/includes/classes/Indexable/Post/SyncManager.php
