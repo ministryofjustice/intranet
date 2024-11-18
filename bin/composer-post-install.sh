@@ -92,7 +92,8 @@ verify_composer_package_version "wpackagist-plugin/elasticpress" $ELASTIC_PRESS_
 
 ELASTIC_PRESS_FILE=/var/www/html/public/app/mu-plugins/elasticpress/includes/classes/Indexable/Post/SyncManager.php
 ELASTIC_PRESS_SEARCH="\t\$this->action_delete_post( \$post_id );"
-ELASTIC_PRESS_REPLACE="\t\$indexable->get( \$post_id ) \&\& \$this->action_delete_post( \$post_id );"
+ELASTIC_PRESS_REPLACE="\t\/\/ The following line was modified by composer-post-install.sh\n\t\t"
+ELASTIC_PRESS_REPLACE="$ELASTIC_PRESS_REPLACE\t\$indexable->get( \$post_id ) \&\& \$this->action_delete_post( \$post_id );"
 
 if [ -f "$ELASTIC_PRESS_FILE" ] ; then
   echo "Fixing warning in elasticpress. Checking for doc before deleting prevents 404s in logs..."
