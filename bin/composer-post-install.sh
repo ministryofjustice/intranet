@@ -1,5 +1,10 @@
 #!/usr/bin/env sh
 
+# A function to get the installed version of a composer package.
+get_installed_version() {
+  composer show $1 | sed -n '/versions/s/^[^0-9]\+\([^,]\+\).*$/\1/p'
+}
+
 # Add logging to amazon-s3-and-cloudfront-pro plugin.
 
 # Define the search and replace strings.
@@ -75,12 +80,17 @@ if grep -q  $TREE_VIEW_SEARCH $TREE_VIEW_FILE ; then
 fi
 
 
+# Plugin version check.
+ELASTIC_PRESS_TARGET_PACKAGE="wpackagist-plugin/elasticpress"
+ELASTIC_PRESS_TARGET_VERSION="5.1.3"
+ELASTIC_PRESS_INSTALLED_VERSION=$(get_installed_version $ELASTIC_PRESS_TARGET_PACKAGE)
+# Variables for the find and replace.
 ELASTIC_PRESS_FILE=/var/www/html/public/app/mu-plugins/elasticpress/includes/classes/Indexable/Post/SyncManager.php
 ELASTIC_PRESS_SEARCH="\t\$this->action_delete_post( \$post_id );"
 ELASTIC_PRESS_REPLACE="\t\$indexable->get( \$post_id ) \&\& \$this->action_delete_post( \$post_id );"
 
-# If search string is in file. Then replace it.
-if [ -f "$ELASTIC_PRESS_FILE" ] ; then
+# If elasticpress is installed and version is the target version.
+if [ "$ELASTIC_PRESS_INSTALLED_VERSION" = "$ELASTIC_PRESS_TARGET_VERSION" ] ; then
   echo "Fixing warning in elasticpress. Checking for doc before deleting prevents 404s in logs..."
   sed -i "s/$ELASTIC_PRESS_SEARCH/$ELASTIC_PRESS_REPLACE/g" $ELASTIC_PRESS_FILE
 fi
