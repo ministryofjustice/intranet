@@ -62,8 +62,8 @@ COPY deploy/config/php-pool.conf pool.conf
 
 # Configure Relay - See https://relay.so/docs/1.x/configuration
 RUN RELAY_CONFIG_FILE=/usr/local/etc/php/conf.d/docker-php-ext-relay.ini && \
-    # Set log level to notice
-    sed -i 's/^;\? \?relay.loglevel =.*/relay.loglevel = notice/' $RELAY_CONFIG_FILE && \
+    # Set log level to error
+    sed -i 's/^;\? \?relay.loglevel =.*/relay.loglevel = error/' $RELAY_CONFIG_FILE && \
     # Set log file to stderr
     sed -i 's/^;\? \?relay.logfile =.*/relay.logfile = \/dev\/stderr/' $RELAY_CONFIG_FILE && \
     # Settings related to the in-memory cache (not Redis).
