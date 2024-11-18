@@ -89,11 +89,13 @@ ELASTIC_PRESS_FILE=/var/www/html/public/app/mu-plugins/elasticpress/includes/cla
 ELASTIC_PRESS_SEARCH="\t\$this->action_delete_post( \$post_id );"
 ELASTIC_PRESS_REPLACE="\t\$indexable->get( \$post_id ) \&\& \$this->action_delete_post( \$post_id );"
 
-# If elasticpress is installed and version is the target version.
-if [ -f "$ELASTIC_PRESS_FILE" ] && [ "$ELASTIC_PRESS_INSTALLED_VERSION" = "$ELASTIC_PRESS_TARGET_VERSION" ] ; then
-  echo "Fixing warning in elasticpress. Checking for doc before deleting prevents 404s in logs..."
-  sed -i "s/$ELASTIC_PRESS_SEARCH/$ELASTIC_PRESS_REPLACE/g" $ELASTIC_PRESS_FILE
-else
+# If the target version is not inatalled then exit.
+if [ "$ELASTIC_PRESS_INSTALLED_VERSION" != "$ELASTIC_PRESS_TARGET_VERSION" ] ; then
   echo "Elasticpress target version is not installed - review composer-post-install.sh."
   exit 1;
+fi
+
+if [ -f "$ELASTIC_PRESS_FILE" ] ; then
+  echo "Fixing warning in elasticpress. Checking for doc before deleting prevents 404s in logs..."
+  sed -i "s/$ELASTIC_PRESS_SEARCH/$ELASTIC_PRESS_REPLACE/g" $ELASTIC_PRESS_FILE
 fi
