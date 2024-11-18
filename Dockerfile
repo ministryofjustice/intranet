@@ -60,12 +60,24 @@ RUN rm zz-docker.conf && \
 ## Set our pool configuration
 COPY deploy/config/php-pool.conf pool.conf
 
-# Apend our relay config to the existing config file.
-RUN { \
-        echo 'relay.maxmemory = 16M'; \
-        echo 'relay.loglevel = error'; \
-        echo 'relay.logfile  = /dev/stderr'; \
-    } >> /usr/local/etc/php/conf.d/docker-php-ext-relay.ini
+# Configure Relay - See https://relay.so/docs/1.x/configuration
+RUN RELAY_CONFIG_FILE=/usr/local/etc/php/conf.d/docker-php-ext-relay.ini && \
+    # Set log level to error
+    sed -i 's/^;\? \?relay.loglevel =.*/relay.loglevel = error/' $RELAY_CONFIG_FILE && \
+    # Set log file to stderr
+    sed -i 's/^;\? \?relay.logfile =.*/relay.logfile = \/dev\/stderr/' $RELAY_CONFIG_FILE && \
+    # Settings related to the in-memory cache (not Redis).
+    ## Set maxmemory to 16M - this is the max. w/o a license.
+    sed -i 's/^;\? \?relay.maxmemory =.*/relay.maxmemory = 16M/' $RELAY_CONFIG_FILE && \
+    ## Eviction policy: lru. Evicts the least recently used keys out of all keys when relay.maxmemory_pct is reached
+    sed -i 's/^;\? \?relay.eviction_policy =.*/relay.eviction_policy = lru/' $RELAY_CONFIG_FILE && \
+    ## Start evicting keys when 90% of the memory is used.
+    sed -i 's/^;\? \?relay.maxmemory_pct =.*/relay.maxmemory_pct = 90/' $RELAY_CONFIG_FILE && \
+    ## Set the session compression to lz4
+    sed -i 's/^;\? \?relay.session.compression =.*/relay.session.compression = lz4/' $RELAY_CONFIG_FILE && \
+    ## Set the session compression level to 1
+    sed -i 's/^;\? \?relay.session.compression_level =.*/relay.session.compression_level = 1/' $RELAY_CONFIG_FILE
+    
 
 # Don't log every request.
 RUN perl -pi -e 's#^(?=access\.log\b)#;#' /usr/local/etc/php-fpm.d/docker.conf
