@@ -84,16 +84,17 @@ fi
 ELASTIC_PRESS_TARGET_PACKAGE="wpackagist-plugin/elasticpress"
 ELASTIC_PRESS_TARGET_VERSION="5.1.3"
 ELASTIC_PRESS_INSTALLED_VERSION=$(get_installed_version $ELASTIC_PRESS_TARGET_PACKAGE)
-# Variables for the find and replace.
-ELASTIC_PRESS_FILE=/var/www/html/public/app/mu-plugins/elasticpress/includes/classes/Indexable/Post/SyncManager.php
-ELASTIC_PRESS_SEARCH="\t\$this->action_delete_post( \$post_id );"
-ELASTIC_PRESS_REPLACE="\t\$indexable->get( \$post_id ) \&\& \$this->action_delete_post( \$post_id );"
 
 # If the target version is not inatalled then exit.
 if [ "$ELASTIC_PRESS_INSTALLED_VERSION" != "$ELASTIC_PRESS_TARGET_VERSION" ] ; then
   echo "Elasticpress target version is not installed - review composer-post-install.sh."
   exit 1;
 fi
+
+# Variables for the find and replace.
+ELASTIC_PRESS_FILE=/var/www/html/public/app/mu-plugins/elasticpress/includes/classes/Indexable/Post/SyncManager.php
+ELASTIC_PRESS_SEARCH="\t\$this->action_delete_post( \$post_id );"
+ELASTIC_PRESS_REPLACE="\t\$indexable->get( \$post_id ) \&\& \$this->action_delete_post( \$post_id );"
 
 if [ -f "$ELASTIC_PRESS_FILE" ] ; then
   echo "Fixing warning in elasticpress. Checking for doc before deleting prevents 404s in logs..."
