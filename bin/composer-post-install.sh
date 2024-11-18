@@ -95,7 +95,7 @@ fi
 #
 # This change adds a check to see if the post is in the index before deleting it, preventing the 404 error.
 
-ELASTIC_PRESS_TARGET_VERSION="5.1.4"
+ELASTIC_PRESS_TARGET_VERSION="5.1.3"
 verify_composer_package_version "wpackagist-plugin/elasticpress" $ELASTIC_PRESS_TARGET_VERSION
 
 ELASTIC_PRESS_FILE=/var/www/html/public/app/mu-plugins/elasticpress/includes/classes/Indexable/Post/SyncManager.php
