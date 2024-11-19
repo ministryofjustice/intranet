@@ -51,20 +51,3 @@ wait $STATUS_PID;
 
 # Exit with code 1 if the status is 'Could not connect to /sock/fpm.sock'.
 if [ "$(echo "$FPM_STATUS" | grep -c 'Could not connect')" -gt 0 ]; then exit 1; fi;
-
-
-# How do I run a script once every 200ms 1000 times in shell?
-# Like so
-for i in $(seq 1 10000); do
-    # Run the script
-    /usr/local/bin/fpm-health/fpm-readiness.sh
-    # Get the exit code
-    exit_code=$?
-    # If the exit code is non 0, break the loop
-    if [ $exit_code -ne 0 ]; then
-        break
-    fi
-    # Wait 200ms
-    sleep 0.001
-    echo "Attempt $i"
-done
