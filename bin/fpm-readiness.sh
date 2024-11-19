@@ -28,7 +28,7 @@ if [ $(echo "$PING_RESPONSE" | tail -1) != 'pong' ]; then exit 1; fi;
 
 
 # 2️⃣ Request the fpm status via fast-cgi.
-FPM_STATUS=$(env -i SCRIPT_NAME=/status SCRIPT_FILENAME=/status REQUEST_METHOD=GET cgi-fcgi -bind -connect /sock/fpm.sock);
+FPM_STATUS=$(env -i SCRIPT_NAME=/status SCRIPT_FILENAME=/status REQUEST_METHOD=GET cgi-fcgi -bind -connect /sock/fpm.sock &);
 
 # Store the process ID of the status request.
 STATUS_PID=$!;
