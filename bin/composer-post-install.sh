@@ -85,25 +85,3 @@ if grep -q  $TREE_VIEW_SEARCH $TREE_VIEW_FILE ; then
   echo "Fixing warning in cms-tree-page-view..."
   sed -i "s/$TREE_VIEW_SEARCH/$TREE_VIEW_REPLACE/g" $TREE_VIEW_FILE
 fi
-
-
-# This find/replace is for the ElasticPress plugin.
-# 
-# When a new post is created via the WordPress dashboard, the existing behaviour of the ElasticPress plugin 
-# is to delete the post from the search index. Delteing a post that's not in the index causes a 404 error to 
-# be logged on Cloud Platform's OpenSearch proxy server.
-#
-# This change adds a check to see if the post is in the index before deleting it, preventing the 404 error.
-
-ELASTIC_PRESS_TARGET_VERSION="5.1.3"
-verify_composer_package_version "wpackagist-plugin/elasticpress" $ELASTIC_PRESS_TARGET_VERSION
-
-ELASTIC_PRESS_FILE=/var/www/html/public/app/mu-plugins/elasticpress/includes/classes/Indexable/Post/SyncManager.php
-ELASTIC_PRESS_SEARCH="\t\$this->action_delete_post( \$post_id );"
-ELASTIC_PRESS_REPLACE="\t\/\/ The following line was modified by composer-post-install.sh\n\t\t"
-ELASTIC_PRESS_REPLACE="$ELASTIC_PRESS_REPLACE\t\$indexable->get( \$post_id ) \&\& \$this->action_delete_post( \$post_id );"
-
-if [ -f "$ELASTIC_PRESS_FILE" ] ; then
-  echo "Fixing warning in elasticpress. Checking for doc before deleting prevents 404s in logs..."
-  sed -i "s/$ELASTIC_PRESS_SEARCH/$ELASTIC_PRESS_REPLACE/g" $ELASTIC_PRESS_FILE
-fi
