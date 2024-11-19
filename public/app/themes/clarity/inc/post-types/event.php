@@ -127,6 +127,9 @@ add_action( 'save_post_event', 'mojintranet_clear_events_cache', 10, 0);
 
 // Delete `event_get_events_...` transients from the database, these are created in EventsHelper.
 function mojintranet_clear_events_cache() {
+
+    error_log('Clearing event cache.');
+
     global $wpdb;
     $wpdb->query( "DELETE FROM `$wpdb->options` WHERE `option_name` LIKE ('_transient_event_get_events_%')" );
 

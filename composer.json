@@ -100,7 +100,6 @@
                 "ministryofjustice/php-markdown-extra",
                 "wpackagist-plugin/wp-document-revisions",
                 "wpackagist-plugin/elasticpress",
-                "wpackagist-plugin/ewww-image-optimizer",
                 "wpengine/advanced-custom-fields-pro"
             ],
             "public/app/plugins/{$name}/": [

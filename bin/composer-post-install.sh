@@ -1,5 +1,17 @@
 #!/usr/bin/env sh
 
+# A function to verify version is supported, exit it it's not.
+verify_composer_package_version() {
+  TARGET_PACKAGE=$1
+  TARGET_VERSION=$2
+  INSTALLED_VERSION=$(composer show $1 | sed -n '/versions/s/^[^0-9]\+\([^,]\+\).*$/\1/p')
+
+  if [ "$INSTALLED_VERSION" != "$TARGET_VERSION" ] ; then
+    echo "$TARGET_PACKAGE target version is not installed - review composer-post-install.sh."
+    exit 1;
+  fi
+}
+
 # Add logging to amazon-s3-and-cloudfront-pro plugin.
 
 # Define the search and replace strings.
@@ -61,4 +73,15 @@ if [ -f "$NOTIFY_FILE" ] ; then
   echo "Adding code blocke to notify-for-wordpress plugin"
   NOTIFY_CONTENT=$(perl -0777pe 's/'"$NOTIFY_SEARCH"'/'"$NOTIFY_REPLACE"'/s' "$NOTIFY_FILE")
   echo "$NOTIFY_CONTENT" > "$NOTIFY_FILE"
+fi
+
+
+TREE_VIEW_FILE=/var/www/html/public/app/plugins/cms-tree-page-view/functions.php
+TREE_VIEW_SEARCH="htmlspecialchars_decode(\$editLink)"
+TREE_VIEW_REPLACE="htmlspecialchars_decode(\$editLink ?? '')"
+
+# If search string is in file. Then replace it.
+if grep -q  $TREE_VIEW_SEARCH $TREE_VIEW_FILE ; then
+  echo "Fixing warning in cms-tree-page-view..."
+  sed -i "s/$TREE_VIEW_SEARCH/$TREE_VIEW_REPLACE/g" $TREE_VIEW_FILE
 fi
