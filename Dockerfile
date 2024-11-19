@@ -72,11 +72,11 @@ RUN RELAY_CONFIG_FILE=/usr/local/etc/php/conf.d/docker-php-ext-relay.ini && \
     ## Eviction policy: lru. Evicts the least recently used keys out of all keys when relay.maxmemory_pct is reached
     sed -i 's/^;\? \?relay.eviction_policy =.*/relay.eviction_policy = lru/' $RELAY_CONFIG_FILE && \
     ## Start evicting keys when 90% of the memory is used.
-    sed -i 's/^;\? \?relay.maxmemory_pct =.*/relay.maxmemory_pct = 90/' $RELAY_CONFIG_FILE && \
+    sed -i 's/^;\? \?relay.maxmemory_pct =.*/relay.maxmemory_pct = 75/' $RELAY_CONFIG_FILE && \
     ## Set the session compression to lz4
     sed -i 's/^;\? \?relay.session.compression =.*/relay.session.compression = lz4/' $RELAY_CONFIG_FILE && \
     ## Set the session compression level to 1
-    sed -i 's/^;\? \?relay.session.compression_level =.*/relay.session.compression_level = 1/' $RELAY_CONFIG_FILE
+    sed -i 's/^;\? \?relay.session.compression_level =.*/relay.session.compression_level = 3/' $RELAY_CONFIG_FILE
     
 
 # Don't log every request.
