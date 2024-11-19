@@ -1,7 +1,7 @@
 #!/usr/bin/env ash
 
 # 1️⃣ Send a ping request via fast-cgi. Use an empty environment with `env -i`.
-PING_RESPONSE=$(env -i SCRIPT_NAME=/ping SCRIPT_FILENAME=/ping REQUEST_METHOD=GET cgi-fcgi -bind -connect /sock/fpm.sock | tail -1 &);
+PING_RESPONSE=$(env -i SCRIPT_NAME=/ping SCRIPT_FILENAME=/ping REQUEST_METHOD=GET cgi-fcgi -bind -connect /sock/fpm.sock &);
 
 # Store the process ID of the ping request.
 PING_PID=$!;
@@ -23,7 +23,7 @@ fi;
 wait $PING_PID;
 
 # Exit with code 1 if the ping response was not 'pong'.
-if [ "$PING_RESPONSE" != 'pong' ]; then exit 1; fi;
+if [ $(echo "$PING_RESPONSE" | tail -1) != 'pong' ]; then exit 1; fi;
 
 
 
