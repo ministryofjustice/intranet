@@ -131,7 +131,7 @@ $search->hooks();
  */
 
 // Log on document_serve
-add_action('document_serve', function ($file, $post_id, $attach_id) {
+/*add_action('document_serve', function ($file, $post_id, $attach_id) {
     error_log('CDPT_Debug: document_serve: ' . $file . ' ' . $post_id . ' ' . $attach_id);
 }, 10, 3);
 
@@ -148,7 +148,7 @@ add_action('document_edit', function () {
 // Log on document saved
 add_action('document_saved', function ($doc_id, $attach_id) {
     error_log('CDPT_Debug: document_saved: ' . $doc_id . ' ' . $attach_id);
-}, 10, 2);
+}, 10, 2);*/
 
 // Log on attachment upload
 add_action('add_attachment', function ($attach_id) {
