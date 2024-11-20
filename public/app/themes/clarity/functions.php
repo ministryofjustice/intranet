@@ -131,9 +131,9 @@ $search->hooks();
  */
 
 // Log on document_serve
-/*add_action('document_serve', function ($file, $post_id, $attach_id) {
-    error_log('CDPT_Debug: document_serve: ' . $file . ' ' . $post_id . ' ' . $attach_id);
-}, 10, 3);
+add_action('serve_document', function ( $post_id, $file ) {
+    error_log('CDPT_Debug: document_serve: ' . $post_id . ' ' . $file);
+}, 10, 2);
 
 // Log on document_serve_done
 add_action('document_serve_done', function ($file, $attach_id ) {
@@ -143,39 +143,39 @@ add_action('document_serve_done', function ($file, $attach_id ) {
 // Log on document edit
 add_action('document_edit', function () {
     error_log('CDPT_Debug: document_edit');
-}, 10);
+});
 
 // Log on document saved
 add_action('document_saved', function ($doc_id, $attach_id) {
     error_log('CDPT_Debug: document_saved: ' . $doc_id . ' ' . $attach_id);
-}, 10, 2);*/
+}, 10, 2);
 
 // Log on attachment upload
 add_action('add_attachment', function ($attach_id) {
     error_log('CDPT_Debug: add_attachment: ' . $attach_id);
-}, 10, 1);
+});
 
 // Log on edit post
 add_action('edit_post', function ($post_id) {
     error_log('CDPT_Debug: edit_post: ' . $post_id);
-}, 10, 1);
+});
 
 // Log on post save
 add_action('save_post', function ($post_id) {
     error_log('CDPT_Debug: save_post: ' . $post_id);
-}, 10, 1);
+});
 
 // Log on S3 upload - as3cf_post_upload_attachment
 add_action('as3cf_post_upload_attachment', function ($source_id, $item) {
     error_log('CDPT_Debug: as3cf_post_upload_attachment: ' . $source_id);
-}, 10, 3);
+}, 10, 2);
 
 // Log on as3cf_pre_upload_object
-add_action('as3cf_pre_upload_object', function ($args) {
+add_action('as3cf_pre_upload_object', function ($args, $file) {
     error_log('CDPT_Debug: as3cf_pre_upload_object');
-}, 10, 1);
+}, 10, 2);
 
 // Log on as3cf_post_upload_item
 add_action('as3cf_post_upload_item', function ($item) {
     error_log('CDPT_Debug: as3cf_post_upload_item');
-}, 10, 1);
+});
