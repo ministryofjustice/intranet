@@ -128,8 +128,8 @@ add_action( 'save_post_event', 'mojintranet_clear_events_cache', 10, 0);
 // Delete `event_get_events_...` transients from the database, these are created in EventsHelper.
 function mojintranet_clear_events_cache() {
 
-    error_log('Clearing event cache.');
-
+    error_log('CDPT_Debug: Clearing event cache.');
+    
     global $wpdb;
     $wpdb->query( "DELETE FROM `$wpdb->options` WHERE `option_name` LIKE ('_transient_event_get_events_%')" );
 
@@ -138,4 +138,6 @@ function mojintranet_clear_events_cache() {
         // As there is no function to clear cache by 'keys that start with', we have to flush the whole cache.
         wp_cache_flush();
     }
+
+    error_log('CDPT_Debug: Cleared event cache.');
 }
