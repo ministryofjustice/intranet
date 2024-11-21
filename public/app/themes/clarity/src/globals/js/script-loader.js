@@ -1,6 +1,6 @@
 /**
  Script loader
- In order to avoid performance issues, scripts are not automatically
+ To avoid performance issues, scripts are not automatically
  loaded when a component is generated. You must explicitly import and execute your scripts here.
  */
 
@@ -11,6 +11,7 @@ import "../../components/c-left-hand-menu/left-hand-menu.js";
 import "../../components/c-tabbed-content/tabbed-content.js";
 import "../../components/c-input-container/on-change.js";
 import "../../components/c-notes-from-antonia/lazy_load.js";
+import "../../components/c-search-results-filter/filter-follow-user.js";
 
 // Global scripts
 import "../../../inc/admin/js/feedback.js";
@@ -41,4 +42,5 @@ jQuery(function ($) {
     $('.js-blog-content-ajaxfilter').moji_ajaxFilter();
     $('.js-condolences-filter').moji_condolencesFilter();
     $('.js-notes-from-antonia').notesFromAntonia_getNote();
+    $('.js-search-results-filter').filterFollowUser();
 });
