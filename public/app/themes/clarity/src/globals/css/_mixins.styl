@@ -17,6 +17,75 @@ ff-body() {
   margin-bottom: $bodyCopy;
 }
 
+// Heading styles for c-rich-text component and the o-page--title object, adapted from https://design-system.service.gov.uk/styles/type-scale/
+h1() {
+  ff-title();
+  font-size: 3.2rem;
+  line-height: 1.1875;
+  margin-bottom: 2.5rem;
+  @media screen and (min-width: 640px) {
+    font-size: 4.8rem;
+    line-height: 1.125;
+    margin-bottom: 3.125rem;
+  }
+}
+
+h2() {
+  ff-title();
+  font-size: 2.7rem;
+  line-height: 1.22222;
+  margin-top: 3rem;
+  margin-bottom: 1.25rem;
+  @media screen and (min-width: 640px) {
+    font-size: 3.6rem;
+    line-height: 1.16667;
+    margin-bottom: 1.875rem;
+  }
+}
+
+h3() {
+  ff-title();
+  font-size: 2.2rem;
+  line-height: 1.31818;
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+  @media screen and (min-width: 640px) {
+    font-size: 2.6rem;
+    line-height: 1.25;
+    margin-bottom: 1.25rem;
+  }
+}
+
+h4() {
+  ff-title();
+  font-size: 1.9rem;
+  line-height: 1.42105;
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+  @media screen and (min-width: 640px) {
+    font-size: 2.2rem;
+    line-height: 1.36364;
+    margin-bottom: 1.25rem;
+  }
+}
+
+h5() {
+  ff-title();
+  font-size: 1.6rem;
+  line-height: 1.5;
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+  @media screen and (min-width: 640px) {
+    font-size: 1.9rem;
+    line-height: 1.47368;
+    margin-bottom: 1.25rem;
+  }
+}
+
+body() {
+  ff-body();
+}
+
 // For a real content list with bullet points
 real-list() {
   ff-body();
