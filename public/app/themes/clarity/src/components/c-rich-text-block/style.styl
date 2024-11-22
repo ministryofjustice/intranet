@@ -150,24 +150,39 @@ img.aligncenter { display: block; margin-left: auto; margin-right: auto; }
     border: 1px solid $border;
   }
 
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    ff-title();
+    margin-bottom: $spacing;
+    font-weight: 700;
+  }
+
   h1 {
-    h1();
+      ff-title()
+      font-size: $crust;
   }
 
   h2 {
-    h2();
+    font-size: $mantle;
+    margin-top: 50px;
   }
 
   h3 {
-    h3();
+    font-size: 24px;
+    line-height: 30px;
   }
 
   h4 {
-    h4();
+    font-size: 19px;
+    line-height: 25px;
   }
 
   h5 {
-    h5();
+    font-size: 16px;
+    line-height: 20px;
   }
 
   h6 {
