@@ -48,7 +48,7 @@ class AmazonS3AndCloudFrontTweaks
         }
 
         // Check if the request is for a local upload URL.
-        if (false === strpos($_SERVER['REQUEST_URI'], '/app/uploads/')) {
+        if (!str_starts_with($_SERVER['REQUEST_URI'], '/app/uploads/')) {
             return;
         }
 
