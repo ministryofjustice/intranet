@@ -40,6 +40,9 @@ class StandaloneVerify
     {
         $this->log('handleAuthRequest()');
 
+        // If the response is from the intranet-archiver, then return a 200 response.
+        $this->isIntranetArchiver() && http_response_code(200) && exit();
+
         // Get the JWT token from the request. Do this early so that we populate $this->sub if it's known.
         $jwt = $this->getJwt();
 

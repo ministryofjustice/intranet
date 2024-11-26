@@ -94,4 +94,26 @@ trait AuthUtils
 
         $this->setCookie($name, '', $this->now - 1);
     }
+
+    /**
+     * Check if the request is from the intranet archiver.
+     * 
+     * Checks the following:
+     * - the user-agent is 'intranet-archive'
+     * - the X-MOJ-IP-GROUP header is 5 (the IPs are Cloud Platform egress)
+     * - the X-ACCESS-TOKEN header is the same as the INTRANET_ARCHIVE_TOKEN env var.
+     * 
+     * @return bool True if the request satisfies the above conditions.
+     */
+
+    public function isIntranetArchiver(): bool
+    {
+        $this->log('isIntranetArchiver()');
+
+        $user_agent = $_SERVER['HTTP_USER_AGENT'] ?? '';
+        $group = $_SERVER['HTTP_X_MOJ_IP_GROUP'] ?? '';
+        $access_token = $_SERVER['HTTP_X_ACCESS_TOKEN'] ?? '';
+
+        return (int) $group === 5 && $user_agent === 'intranet-archive' && $access_token === $_ENV['INTRANET_ARCHIVE_TOKEN'];
+    }
 }
