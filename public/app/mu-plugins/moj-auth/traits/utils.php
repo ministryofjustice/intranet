@@ -110,8 +110,8 @@ trait AuthUtils
     {
         $this->log('isIntranetArchiver()');
 
-        $user_agent = $_SERVER['HTTP_USER_AGENT'] ?? '';
         $group = $_SERVER['HTTP_X_MOJ_IP_GROUP'] ?? '';
+        $user_agent = $_SERVER['HTTP_USER_AGENT'] ?? '';
         $access_token = $_SERVER['HTTP_X_ACCESS_TOKEN'] ?? '';
 
         return (int) $group === 5 && $user_agent === 'intranet-archive' && $access_token === $_ENV['INTRANET_ARCHIVE_TOKEN'];
