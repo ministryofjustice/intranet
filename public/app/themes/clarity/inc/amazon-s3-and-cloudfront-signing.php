@@ -31,7 +31,7 @@ class AmazonS3AndCloudFrontSigning
     private mixed $cloudfront_host;
     private string $cloudfront_url;
 
-    const CLOUDFRONT_DURATION = 60 * 10; // 10 minutes
+    const CLOUDFRONT_DURATION = 60 * 15; // 15 minutes - important that this is at least nginx cache (10mins) + TRANSIENT_DURATION (2mins)
     const CLOUDFRONT_REFRESH = 60 * 5; // 5 minutes
     const TRANSIENT_DURATION = 60 * 2; // 2 minutes
 

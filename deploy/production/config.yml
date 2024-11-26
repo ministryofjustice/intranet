@@ -12,4 +12,3 @@ data:
   # The following IDs are not private, they form part of the publicly visible oauth login url.
   OAUTH_CLIENT_ID: "ffb808d2-312b-4ffe-a6e5-d6eacfd9f06f"
   OAUTH_TENANT_ID: "c6874728-71e6-41fe-a9e1-2e8c36776ad8"
-  WP_REDIS_USE_RELAY: 'true'
