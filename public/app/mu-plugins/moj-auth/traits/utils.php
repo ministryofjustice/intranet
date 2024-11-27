@@ -128,8 +128,8 @@ trait AuthUtils
 
     public function arrayAll($array, $callback)
     {
-        foreach ($array as $entry) {
-            if (call_user_func($callback, $entry) === false)
+        foreach ($array as $key => $value) {
+            if (call_user_func($callback, $key, $value) === false)
                 return false;
         }
         return true;

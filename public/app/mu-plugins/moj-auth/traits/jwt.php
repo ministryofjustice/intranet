@@ -141,7 +141,6 @@ trait AuthJwt
      */
     public function verifyJwtRoles(array $jwt_roles): bool
     {
-
         $this->log('verifyJwtRoles()');
 
         if (!is_array($jwt_roles)) {
@@ -169,15 +168,15 @@ trait AuthJwt
                 return false;
             }
 
-            return $this->arrayAll($conditions, function ($condition, $key) {
-                $method = 'verifyJwtRole' . ucfirst($key);
+            return $this->arrayAll($conditions, function ($condition_name, $condition_value) {
+                $method = 'verifyJwtRole' . ucfirst($condition_name);
 
                 if (!method_exists($this, $method)) {
                     $this->log('verifyJwtRoles() $method does not exist.', null, 'error');
                     return false;
                 }
 
-                return $this->$method($condition);
+                return $this->$method($condition_value);
             });
         });
     }
