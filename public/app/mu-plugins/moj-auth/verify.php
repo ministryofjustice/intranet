@@ -36,20 +36,17 @@ class StandaloneVerify
         $this->initJwt();
     }
 
-    public function handleAuthRequest(string $required_role = 'reader'): void
+    public function handleAuthRequest(): void
     {
         $this->log('handleAuthRequest()');
-
-        // If the response is from the intranet-archiver, then return a 200 response.
-        $this->isIntranetArchiver() && http_response_code(200) && exit();
 
         // Get the JWT token from the request. Do this early so that we populate $this->sub if it's known.
         $jwt = $this->getJwt();
 
         // Get the roles from the JWT and check that they're sufficient.
-        $jwt_correct_role = $jwt && $jwt->roles ? in_array($required_role, $jwt->roles) : false;
+        $jwt_verified_role = $this->verifyJwtRoles($jwt?->roles ?? []);
 
-        $status_code = $jwt_correct_role ? 200 : 401;
+        $status_code = $jwt_verified_role ? 200 : 401;
 
         // $status_code= 401;
 

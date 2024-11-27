@@ -96,24 +96,42 @@ trait AuthUtils
     }
 
     /**
-     * Check if the request is from the intranet archiver.
+     * Find an item in an array.
      * 
-     * Checks the following:
-     * - the user-agent is 'intranet-archive'
-     * - the X-MOJ-IP-GROUP header is 5 (the IPs are Cloud Platform egress)
-     * - the X-ACCESS-TOKEN header is the same as the INTRANET_ARCHIVE_TOKEN env var.
+     * When we upgrade to PHP 8.4, we can use array_any instead.
      * 
-     * @return bool True if the request satisfies the above conditions.
+     * @param array $array
+     * @param callable $callback
+     * 
+     * @return mixed
      */
 
-    public function isIntranetArchiver(): bool
+    public function arrayAny($array, $callback)
     {
-        $this->log('isIntranetArchiver()');
+        foreach ($array as $entry) {
+            if (call_user_func($callback, $entry) === true)
+                return true;
+        }
+        return false;
+    }
 
-        $group = $_SERVER['HTTP_X_MOJ_IP_GROUP'] ?? '';
-        $user_agent = $_SERVER['HTTP_USER_AGENT'] ?? '';
-        $access_token = $_SERVER['HTTP_X_ACCESS_TOKEN'] ?? '';
+    /**
+     * Ensure all items in an array satisfy the callback function.
+     * 
+     * When we upgrade to PHP 8.4, we can use array_all instead.
+     * 
+     * @param array $array
+     * @param callable $callback
+     * 
+     * @return mixed
+     */
 
-        return (int) $group === 5 && $user_agent === 'intranet-archive' && $access_token === $_ENV['INTRANET_ARCHIVE_TOKEN'];
+    public function arrayAll($array, $callback)
+    {
+        foreach ($array as $entry) {
+            if (call_user_func($callback, $entry) === false)
+                return false;
+        }
+        return true;
     }
 }
