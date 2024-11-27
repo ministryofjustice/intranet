@@ -555,6 +555,8 @@ It is granted access via a JWT token, which is generated manually by running the
 
 The cookie has a role of `intranet-archive`. For this roll to be granted access to the intranet, the request IP must be one of Cloud Platform's egress IPs.
 
+When the JWT_SECRET is rotated, a new JWT token will need to be generated, and the Intranet Archive service will need to be updated with the new JWT.
+
 <!-- License -->
 
 [License Link]: https://github.com/ministryofjustice/intranet/blob/main/LICENSE 'License.'

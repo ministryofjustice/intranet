@@ -16,7 +16,7 @@ use WP_CLI;
 
 trait AuthCli
 {
-    const GENERATED_JWT_DURATION    = 60 * 60 * 24 * 365 * 5; // 5 years
+    const GENERATED_JWT_DURATION    = 60 * 60 * 24 * 365 * 3; // 3 years
 
     /**
      * Init the WP CLI command.
