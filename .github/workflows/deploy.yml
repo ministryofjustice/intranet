@@ -57,7 +57,6 @@ jobs:
           BASIC_AUTH_PASS: ${{ secrets.BASIC_AUTH_PASS }}
           IGNORE_IP_RANGES: ${{ vars.IGNORE_IP_RANGES }}
           ALERTS_SLACK_WEBHOOK: ${{ secrets.ALERTS_SLACK_WEBHOOK }}
-          INTRANET_ARCHIVE_TOKEN: ${{ secrets.INTRANET_ARCHIVE_TOKEN }}
         run: |
           ## - - - - - - - - - -
           ## CloudFront  - - - -
