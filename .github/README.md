@@ -363,6 +363,7 @@ To view the intranet content, visitors must meet one of the following criteria.
 
 - Be in an Allow List of IP ranges. 
 - Or, have a Microsoft Azure account, within the organisation.
+- Or, in the case of the intranet-archive scraper, have a valid JWT token.
 
 The visitor's IP is checked first, then if that check fails, they are redirected to the project's Entra application.
 
@@ -545,6 +546,16 @@ This is for 2 reasons:
 
 - It will keep the OAuth session fresh, the endpoint handler will refresh OAuth tokens, and update JWTs before they expire.
 - If a visitor's state has changed, e.g. they have moved from an office with an allowed IP, then their browser content is blurred and they are prompted to refresh the page.
+
+### Access for the Intranet Archive service.
+
+The intranet-archive service is a scraper that collects content from the intranet for archiving purposes.
+
+It is granted access via a JWT token, which is generated manually by running the `wp gen-jwt intranet-archive` command from an fpm container.
+
+The cookie has a role of `intranet-archive`. For this roll to be granted access to the intranet, the request IP must be one of Cloud Platform's egress IPs.
+
+When the JWT_SECRET is rotated, a new JWT token will need to be generated, and the Intranet Archive service will need to be updated with the new JWT.
 
 <!-- License -->
 

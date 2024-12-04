@@ -34,13 +34,16 @@ jobs:
           # @see https://nginx.org/en/docs/http/ngx_http_geo_module.html
           ALLOW_VALUE=1
           DEPRI_VALUE=2
+          CLOUD_EGRES=5
 
           ALLOW_FORMATTED=$(yq 'explode(.) | .allow_access_to_moj_intranet       | flatten | map(. + " '$ALLOW_VALUE';") | join("\n")' moj-cidr-addresses.yml)
           DEPRI_FORMATTED=$(yq 'explode(.) | .deprecating_access_to_moj_intranet | flatten | map(. + " '$DEPRI_VALUE';") | join("\n")' moj-cidr-addresses.yml)
+          CLOUD_FORMATTED=$(yq 'explode(.) | .cloud_platform                     | flatten | map(. + " '$CLOUD_EGRES';") | join("\n")' moj-cidr-addresses.yml)
 
           CONFIG=$(
               echo "$ALLOW_FORMATTED"
               echo "$DEPRI_FORMATTED"
+              echo "$CLOUD_FORMATTED"
           )
 
           CONFIG_ENCRYPTED=$(
