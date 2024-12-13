@@ -167,6 +167,16 @@ class Agency
         return $agencies_array;
     }
 
+    /*
+     * If the agency cookie is not set hide the agency header unless the user is logged in
+     *
+     */
+    public function hideAgencyHeader(): bool
+    {
+        $agencyCookie = $_COOKIE['dw_agency'] ?? '';
+        return !$agencyCookie && !is_user_logged_in();
+    }
+
     /***
      * Get the agency from cookie, and make sure it's in
      * the list, otherwise default to HQ

@@ -38,10 +38,22 @@ add_action('wp', function () {
         // a dw_agency cookie does not exist
     } else {
         $agency = $_COOKIE['dw_agency'] ?? '';
+        $slug = get_post_field('post_name');
 
-        if (!$agencies->agencyExists($agency)) {
-            setcookie('dw_agency', $agency_default, $options);
-            $_COOKIE['dw_agency'] = $agency_default;
+        if (
+            // If the agency cookie isn't set or is set to an invalid agency
+            !$agencies->agencyExists($agency) &&
+            // And the current page isn't the agency switcher, privacy notice, or accessibility page
+            !in_array($slug, ['agency-switcher', 'privacy-notice', 'accessibility'], true) &&
+            // And the user isn't logged in
+            !is_user_logged_in() &&
+            // And we're not in the admin area
+            $_SERVER['PHP_SELF'] != '/wp-admin/admin-ajax.php'
+        )
+        {
+            // Redirect to the agency switcher page
+            wp_safe_redirect('/agency-switcher/');
+            exit;
         }
     }
 });
