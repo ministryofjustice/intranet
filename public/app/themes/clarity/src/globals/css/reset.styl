@@ -89,6 +89,11 @@ select::-ms-expand {
   display: none;
   } // Remove default drop down style in IE
 html {
+  /* This is an old trick to make rems map to pixel values.
+   * The browser default is 16px, 62.5% sets it to 10px so 1.6 rem is equivalent to 16px.
+   * See this article for a better explanation: https://www.aleksandrhovhannisyan.com/blog/62-5-percent-font-size-trick/
+   * TODO: remove this in future as it's confusing and doesn't integrate well
+   */
   // Reset font size to 10px
   font-size: 62.5%;
 }

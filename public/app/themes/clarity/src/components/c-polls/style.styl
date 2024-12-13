@@ -7,6 +7,12 @@
 
 // Overriding Totalpoll plugin styles to Clarity theme styles.
 // Needs to be outside of this specific component's scope so it is global and will affect wherever the shortcode is used on the site.
+.totalpoll-wrapper {
+  h4 {
+    font-size: $mantle !important;
+  }
+}
+
 .totalpoll-button, .totalpoll-button-primary, .totalpoll-button-vote {
   cursor: pointer !important;
   font-size: $outerCore !important;
@@ -51,10 +57,6 @@
 
 .totalpoll-button.totalpoll-button-link.totalpoll-button-results {
   display: none !important;
-}
-
-h4 {
-  font-size: $mantle !important;
 }
 
 .totalpoll-question-choices-item-votes-text {
