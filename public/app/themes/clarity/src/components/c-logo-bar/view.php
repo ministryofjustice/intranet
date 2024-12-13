@@ -6,7 +6,7 @@ $oAgency = new Agency();
 $activeAgency = $oAgency->getCurrentAgency();
 
 // Show a simplified header if the user has not yet chosen an agency
-$simpleHeader = $oAgency->hideAgencyHeader();
+$simpleHeader = !$oAgency->hasAgencyCookie();
 
 $header_logo = get_field(get_intranet_code() .'_header_logo', 'option');
 $logo = get_stylesheet_directory_uri() . '/dist/images/moj_logo_header.png';

@@ -168,13 +168,12 @@ class Agency
     }
 
     /*
-     * If the agency cookie is not set hide the agency header
-     *
+     * Check if the agency cookie is set
      */
-    public function hideAgencyHeader(): bool
+    public function hasAgencyCookie(): bool
     {
         $agencyCookie = $_COOKIE['dw_agency'] ?? '';
-        return !$agencyCookie;
+        return (bool)$agencyCookie;
     }
 
     /***

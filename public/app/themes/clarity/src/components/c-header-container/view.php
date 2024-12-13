@@ -5,7 +5,7 @@ use MOJ\Intranet\Agency;
 $oAgency = new Agency();
 
 // Show a simplified header if the user has not yet chosen an agency
-$simpleHeader = $oAgency->hideAgencyHeader();
+$simpleHeader = !$oAgency->hasAgencyCookie();
 
 ?>
 <header class="c-header-container<?= $simpleHeader ? " c-header-container--underlined" : ""?>" role="banner">

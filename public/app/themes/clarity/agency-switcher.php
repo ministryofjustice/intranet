@@ -8,7 +8,7 @@ use MOJ\Intranet\Agency;
 get_header();
 
 $oAgency = new Agency();
-$simpleHeader = $oAgency->hideAgencyHeader();
+$simpleHeader = !$oAgency->hasAgencyCookie();
 
 $heading = 'Choose your agency or body';
 $body = 'Other agencies and bodies have their own specific intranet content available to view by visiting the links 
