@@ -100,7 +100,6 @@ class WPDocumentRevisions
      */
     public function retryFilesNotFound($file, $attachment_id)
     {
-        // error_log('DOC_DEBUG: get_attached_file_filter $attachment_id: ' . $attachment_id);
         if (!$file) {
             return $file;
         }
