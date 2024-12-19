@@ -20,7 +20,7 @@ class WPDocumentRevisions
 
     private $home_url = '';
     private $site_url = '';
-    private $wp_document_revisions;
+    private $wp_document_revisions = null;
 
     public function __construct()
     {
@@ -87,7 +87,7 @@ class WPDocumentRevisions
     }
 
     /**
-     * Retry missing file, with date from attachment guid.
+     * Retry missing document/file, with date from attachment guid.
      * 
      * This function has been added because files are not being served correctly 
      * when the published date has been updated. In the function, we check if the 
@@ -133,12 +133,11 @@ class WPDocumentRevisions
             return $file;
         }
 
-        // Lets replace the date with the one from the attachment's guid.
+        // Let's replace the date with the one from the attachment's guid.
         $new_file = str_replace($dates['file'], $dates['guid'], $file);
         
         // If the new file exists, return it.
         if (is_file($new_file)) {
-            error_log('DOC_DEBUG: get_attached_file_filter: ' . $dates['file'] . ' -> ' . $dates['guid']);
             return $new_file;
         }
 
