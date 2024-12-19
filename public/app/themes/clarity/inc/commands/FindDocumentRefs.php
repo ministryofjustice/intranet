@@ -54,6 +54,9 @@ if (defined('WP_CLI') && WP_CLI) {
             // Init an array to store the documents and their references.
             $documents = [];
 
+            // Broken document links
+            $broken_links = [];
+
             foreach ($results as $result) {
                 if ($result->type === 'post') {
                     WP_CLI::line("Processing Post: {$result->ID}");
@@ -74,11 +77,41 @@ if (defined('WP_CLI') && WP_CLI) {
                     $part = explode('"', $part)[0];
                     $part = explode('\'', $part)[0];
                     $part = explode(')', $part)[0];
+                    $part = explode("\n", $part)[0]; // 2211 before this, 2194 after
+
+                    // Trim all white space
+                    $part = trim($part); // 2194 before this, 2187 after
 
                     // Get the document ID
                     $document_id = url_to_postid('/documents/' . rtrim($part, '/'));
 
                     if (!$document_id) {
+                        // Log the $part, so we can try and manually find it.
+                        WP_CLI::line("Could not find document ID for: {$part}");
+
+                        // Get the agencies for this post
+                        $terms = get_the_terms($result->ID, 'agency');
+
+                        // If there is only one agency and the slug is the same as the agency we're looking for, log the part.
+                        if (is_array($terms) && count($terms) === 1 && $terms[0]->slug === $agency) {
+                            WP_CLI::line("Document link not found: {$part}");
+                            WP_CLI::line("On {$agency} page: " . get_permalink($result->ID));
+
+                            $post_url = get_permalink($result->ID);
+
+                            // If we're running locally, replace the URL with the production URL.
+                            if (get_home_url() === 'http://intranet.docker') {
+                                $post_url = str_replace('http://intranet.docker', 'https://intranet.justice.gov.uk', get_permalink($result->ID));
+                            }
+
+                            $broken_links[] = [
+                                'location_id' => $result->ID,
+                                'location' => $post_url,
+                                'link' => $part,
+                                'post_type' => get_post_type($result->ID)
+                            ];
+                        }
+
                         continue;
                     }
 
@@ -123,6 +156,10 @@ if (defined('WP_CLI') && WP_CLI) {
                 }
             }
 
+            /**
+             * Document references
+             */
+
             // Sort the documents by document_id
             uasort($documents, static function ($a, $b) {
                 return $b['document_id'] <=> $a['document_id'];
@@ -139,6 +176,20 @@ if (defined('WP_CLI') && WP_CLI) {
             // Write the CSV
             $fd = fopen("/var/www/html/tmp/{$agency}_document_references.csv", 'w');
             WP_CLI\Utils\write_csv($fd, $documents_flat);
+            fclose($fd);
+
+            /**
+             * Broken links 
+             */
+
+            // Sort the broken links by location
+            uasort($broken_links, static function ($a, $b) {
+                return $b['location_id'] <=> $a['location_id'];
+            });
+
+            // Write the CSV
+            $fd = fopen("/var/www/html/tmp/{$agency}_broken_links.csv", 'w');
+            WP_CLI\Utils\write_csv($fd, $broken_links);
             fclose($fd);
         }
     }
