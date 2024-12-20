@@ -77,13 +77,24 @@ if (defined('WP_CLI') && WP_CLI) {
                     $part = explode('"', $part)[0];
                     $part = explode('\'', $part)[0];
                     $part = explode(')', $part)[0];
-                    $part = explode("\n", $part)[0]; // 2211 before this, 2194 after
+                    $part = explode("\n", $part)[0];
+                    $part = explode("<", $part)[0];
+                    $part = explode("?", $part)[0];
+                    $part = explode("#", $part)[0];
+                    $part = explode(">", $part)[0];
 
                     // Trim all white space
                     $part = trim($part); // 2194 before this, 2187 after
 
                     // Get the document ID
                     $document_id = url_to_postid('/documents/' . rtrim($part, '/'));
+
+                    // Try and get the document by removing the date from the URL
+                    if (!$document_id) {
+                        $document_slug = end(explode('/', $part));
+
+                        $document_id = url_to_postid('/documents/' . $document_slug);
+                    }
 
                     if (!$document_id) {
                         // Log the $part, so we can try and manually find it.
@@ -104,12 +115,14 @@ if (defined('WP_CLI') && WP_CLI) {
                                 $post_url = str_replace('http://intranet.docker', 'https://intranet.justice.gov.uk', get_permalink($result->ID));
                             }
 
-                            $broken_links[] = [
-                                'location_id' => $result->ID,
-                                'location' => $post_url,
-                                'link' => $part,
-                                'post_type' => get_post_type($result->ID)
-                            ];
+                            if (!isset($broken_links[$part])) {
+                                $broken_links[$part] = [
+                                    'locations' => [$post_url],
+                                    'link' => 'https://intranet.justice.gov.uk/documents/' . $part,
+                                ];
+                            } else {
+                                $broken_links[$part]['locations'][] = $post_url;
+                            }
                         }
 
                         continue;
@@ -141,6 +154,7 @@ if (defined('WP_CLI') && WP_CLI) {
                     // If the document doesn't exist in the documents array, add it.
                     if (!isset($documents[$document_id])) {
                         $documents[$document_id] = [
+                            'title' => get_the_title($document_id),
                             'document_id' => $document_id,
                             'links' => [$post_url]
                         ];
@@ -169,6 +183,7 @@ if (defined('WP_CLI') && WP_CLI) {
             $documents_flat = array_map(static function ($document) {
                 return [
                     $document['document_id'],
+                    $document['title'],
                     ...$document['links']
                 ];
             }, $documents);
@@ -184,12 +199,19 @@ if (defined('WP_CLI') && WP_CLI) {
 
             // Sort the broken links by location
             uasort($broken_links, static function ($a, $b) {
-                return $b['location_id'] <=> $a['location_id'];
+                return $b['link'] <=> $a['link'];
             });
+
+            $broken_links_flat = array_map(static function ($link) {
+                return [
+                    $link['link'],
+                    ...$link['locations']
+                ];
+            }, $broken_links);
 
             // Write the CSV
             $fd = fopen("/var/www/html/tmp/{$agency}_broken_links.csv", 'w');
-            WP_CLI\Utils\write_csv($fd, $broken_links);
+            WP_CLI\Utils\write_csv($fd, $broken_links_flat);
             fclose($fd);
         }
     }
