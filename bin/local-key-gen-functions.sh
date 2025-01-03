@@ -31,7 +31,7 @@ env_var_exists(){
 touch $ACTION_TRACKER
 action_track(){
   TRACKER_SIZE=$(sed -n '$='  "$ACTION_TRACKER")
-  if [[ "$TRACKER_SIZE" -gt 1 ]] ; then
+  if [[ "$TRACKER_SIZE" -gt 0 ]] ; then
       echo "1"
   else
       echo "0"

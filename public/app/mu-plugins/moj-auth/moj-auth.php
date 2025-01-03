@@ -246,6 +246,5 @@ class Auth
     }
 }
 
-
-$auth = new Auth(['debug' => Config::get('MOJ_AUTH_DEBUG')]);
-$auth->handleRequest();
+$moj_auth = new Auth(['debug' => Config::get('MOJ_AUTH_DEBUG')]);
+$moj_auth->handleRequest();
