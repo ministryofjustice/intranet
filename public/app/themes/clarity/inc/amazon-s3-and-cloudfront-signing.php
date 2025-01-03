@@ -31,7 +31,7 @@ class AmazonS3AndCloudFrontSigning
     private mixed $cloudfront_host;
     private string $cloudfront_url;
 
-    const CLOUDFRONT_DURATION = 60 * 15; // 15 minutes - important that this is at least nginx cache (10mins) + TRANSIENT_DURATION (2mins)
+    const CLOUDFRONT_DURATION = 60 * 20; // 20 minutes - important that this is at least nginx cache (10mins) + TRANSIENT_DURATION (2mins)
     const CLOUDFRONT_REFRESH = 60 * 5; // 5 minutes
     const TRANSIENT_DURATION = 60 * 2; // 2 minutes
 
@@ -295,15 +295,7 @@ class AmazonS3AndCloudFrontSigning
         // Clear the production session cookie - avoid sending conflicting cookies to CloudFront.
         $this->maybeClearProductionCookies();
 
-        $remaining_time = $this->remainingTimeFromCookie();
-
-        if ($remaining_time && $remaining_time > $this::CLOUDFRONT_REFRESH) {
-            // Cookie-Policy exists, and it's not time to refresh it.
-            return;
-        }
-
         // If we're here, then we need to send a cookie to the user.
-
         $cookies = $this->getSignedCookie();
 
         // Properties for the cookies.
