@@ -198,4 +198,23 @@ trait AuthJwt
 
         return true;
     }
+
+    /**
+     * Check if the JWT has a specific role.
+     * 
+     * @param string $role The role to check for.
+     * @return bool Returns true if the JWT has the role.
+     */
+    public function jwtHasRole(string $role): bool
+    {
+        $this->log('jwtHasRole()');
+
+        $jwt = $this->getJwt();
+
+        return $this->arrayAny($jwt->roles ?? [], function ($jwt_role) use ($role) {
+            if ($role === $jwt_role) {
+                return true;
+            }
+        });
+    }
 }
