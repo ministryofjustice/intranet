@@ -36,6 +36,7 @@ spec:
   - hosts:
     - dev.intranet.justice.gov.uk
     secretName: intranet-dev-cert-secret
+  rules:
   - host: dev-intranet.apps.live.cloud-platform.service.justice.gov.uk
     http:
       paths:
