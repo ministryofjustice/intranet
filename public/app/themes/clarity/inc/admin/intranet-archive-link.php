@@ -16,13 +16,24 @@ use Roots\WPConfig\Config;
 
 class IntranetArchiveLink
 {
-
+    /**
+     * @var string
+     */
     private $agency_context = '';
 
+    /**
+     * @var string
+     */
     private $archive_url = '';
 
+    /**
+     * @var string
+     */
     private $archive_link_payload_encoded = '';
 
+    /**
+     * @var string
+     */
     private $archive_link_signature = '';
 
 
