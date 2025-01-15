@@ -175,6 +175,7 @@ trait AuthOauth
             $access_token = $oauth_client->getAccessToken('authorization_code', ['code' => $_GET['code']]);
         } catch (IdentityProviderException $e) {
             $this->log('Error: ' . $e->getMessage(), null, 'error');
+            $this->log('Error response body: ', $e->getResponseBody(), 'error');
             http_response_code(401) && exit();
         }
 
