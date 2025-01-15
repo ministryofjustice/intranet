@@ -32,6 +32,7 @@ require_once 'inc/admin/dashboard.php';
 require_once 'inc/admin/custom-page-attribute-box.php';
 require_once 'inc/admin/hide-templates-from-editors.php';
 require_once 'inc/admin/lefthand-menu.php';
+require_once 'inc/admin/intranet-archive-link.php';
 require_once 'inc/admin/list-tables.php';
 require_once 'inc/admin/login-with-email.php';
 require_once 'inc/admin/page.php';
