@@ -36,6 +36,7 @@ class Agency
         *      - label (string) - Text label for the link
         *      - classes (string) (optional) - Classes for the HTML element
         *      - is_external (boolean) - Is this a link to an external site?
+        *  - has_archive (boolean) (optional) - is the intranet archive available for this agency?
         */
 
         $agencies_array = [
@@ -61,7 +62,8 @@ class Agency
                         'classes' => 'transformation',
                         'is_external' => true
                     ]
-                ]
+                ],
+                'has_archive' => true
             ],
             'noms' => [
                 'shortcode' => 'noms',

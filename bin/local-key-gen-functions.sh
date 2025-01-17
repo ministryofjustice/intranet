@@ -48,6 +48,13 @@ make_secret(){
       echo "JWT created" >> "$ACTION_TRACKER"
       ;;
 
+    INTRANET_ARCHIVE)
+      echo "Generating Intranet Archive shared secret"
+      ## append to file
+      echo -e "INTRANET_ARCHIVE_SHARED_SECRET=$(openssl rand -base64 64 | tr -d '\n')\n" >> "$FILE_OUTPUT"
+      echo "Intranet Archive shared secret created" >> "$ACTION_TRACKER"
+      ;;
+
     PUBLIC_KEY)
       echo "Generating RSA public key"
       openssl rsa -pubout -in "$FILE_PRIVATE" -out "$FILE_PUBLIC"
