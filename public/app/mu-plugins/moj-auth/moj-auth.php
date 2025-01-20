@@ -23,6 +23,7 @@ if (Config::get('MOJ_AUTH_ENABLED') === false) {
     return;
 }
 
+require_once 'traits/cli.php';
 require_once 'traits/jwt.php';
 require_once 'traits/oauth.php';
 require_once 'traits/utils.php';
@@ -39,6 +40,7 @@ require_once 'traits/utils.php';
 
 class Auth
 {
+    use AuthCli;
     use AuthJwt;
     use AuthOauth;
     use AuthUtils;
@@ -61,6 +63,7 @@ class Auth
         $this->debug = $args['debug'] ?? false;
         $this->https = isset($_SERVER['HTTPS']) || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && 'https' === $_SERVER['HTTP_X_FORWARDED_PROTO']);
 
+        $this->initCli();
         $this->initJwt();
         $this->initOauth();
     }
@@ -68,6 +71,10 @@ class Auth
     public function handleRequest(): void
     {
         $this->log('handleRequest()');
+
+        if (defined('WP_CLI') && WP_CLI) {
+            return;
+        }
 
         if (!$this->oauth_action) {
             return;
@@ -78,7 +85,7 @@ class Auth
 
         // Set a JWT without a role, to persist the user's ID.
         if (!$jwt) {
-            $jwt = $this->setJwt();
+            $this->setJwt();
         }
 
         if ('login' === $this->oauth_action) {
@@ -187,7 +194,7 @@ class Auth
 
         // It's not time to refresh the JWT, and we need to update the JWT.
         if ($jwt_remaining_time > $this::JWT_REFRESH && $mutated_jwt) {
-            $jwt = $this->setJwt($jwt);
+            [$jwt] = $this->setJwt($jwt);
             $mutated_jwt = false;
         }
 
@@ -218,7 +225,7 @@ class Auth
 
         // Set the JWT, if it's been mutated. Either by clearing properties, or it's been refreshed.
         if ($mutated_jwt) {
-            $jwt = $this->setJwt($jwt);
+            $this->setJwt($jwt);
         }
 
         return;
@@ -239,6 +246,5 @@ class Auth
     }
 }
 
-
-$auth = new Auth(['debug' => Config::get('MOJ_AUTH_DEBUG')]);
-$auth->handleRequest();
+$moj_auth = new Auth(['debug' => Config::get('MOJ_AUTH_DEBUG')]);
+$moj_auth->handleRequest();

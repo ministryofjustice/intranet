@@ -96,7 +96,7 @@ class Standalone401
         $jwt->failed_callbacks = $jwt->failed_callbacks ?? 0;
 
         // Set a JWT without a role, to persist the user's ID, login attempts and success_url.
-        $jwt = $this->setJwt($jwt);
+        [$jwt] = $this->setJwt($jwt);
 
         $this->log('handle401Request failed_callbacks: ' . $jwt->failed_callbacks);
 

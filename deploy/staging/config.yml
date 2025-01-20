@@ -8,7 +8,8 @@ data:
   WP_HOME: 'https://staging.intranet.justice.gov.uk'
   WP_SITEURL: 'https://staging.intranet.justice.gov.uk/wp'
   AWS_CLOUDFRONT_HOST: 'cdn.staging.intranet.justice.gov.uk'
+  INTRANET_ARCHIVE_URL: 'https://app.archive.staging.intranet.justice.gov.uk/access'
   # See Azure Setup in the README for more information on how to get these values.
   # The following IDs are not private, they form part of the publicly visible oauth login url.
-  OAUTH_CLIENT_ID: "ffb808d2-312b-4ffe-a6e5-d6eacfd9f06f"
+  OAUTH_CLIENT_ID: "f508fd07-8504-47ed-a7d1-aa55fd2163d1"
   OAUTH_TENANT_ID: "c6874728-71e6-41fe-a9e1-2e8c36776ad8"
