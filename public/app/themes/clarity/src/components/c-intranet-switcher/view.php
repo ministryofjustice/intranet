@@ -65,8 +65,12 @@ if (isset($referrer['query'])) {
         }
         ?>
 
+        <li class="c-intranet-switcher__switch c-intranet-switcher__switch--ima">
+            <a href="https://myima.ima-citizensrights.org.uk">Independent Monitoring Authority</a>
+        </li>
+
         <li class="c-intranet-switcher__switch c-intranet-switcher__switch--yjbrh">
-            <a href="https://yjresourcehub.uk/">Youth Justice Board Resource Hub</a>
+            <a href="https://yjresourcehub.uk/">Youth Justice Board</a>
         </li>
 
     </ul>
