@@ -66,7 +66,7 @@ class IntranetArchiveLink
         $this->archive_url = Config::get('INTRANET_ARCHIVE_URL');
 
         // Current timestamp, plus 60 seconds.
-        $archive_link_payload_array = ['expiry' => time() + 60, 'agency' => $this->agency_context];
+        $archive_link_payload_array = ['expiry' => time() + 60, 'agency' => $this->agency_context, 'hostname' => parse_url(home_url(), PHP_URL_HOST)];
 
         // Encode the array.
         $this->archive_link_payload_encoded = base64_encode(json_encode($archive_link_payload_array));
