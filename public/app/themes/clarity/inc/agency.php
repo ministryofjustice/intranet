@@ -169,6 +169,15 @@ class Agency
         return $agencies_array;
     }
 
+    /*
+     * Check if the agency cookie is set
+     */
+    public function hasAgencyCookie(): bool
+    {
+        $agencyCookie = $_COOKIE['dw_agency'] ?? '';
+        return (bool)$agencyCookie;
+    }
+
     /***
      * Get the agency from cookie, and make sure it's in
      * the list, otherwise default to HQ
