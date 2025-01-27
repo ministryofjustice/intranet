@@ -29,12 +29,11 @@ spec:
   ingressClassName: modsec
   tls:
   - hosts:
-    - dev-intranet.apps.live.cloud-platform.service.justice.gov.uk
-  - hosts:
     - dev.intranet.justice.gov.uk
+    - app-alias.cdn.dev.intranet.justice.gov.uk
     secretName: intranet-dev-cert-secret
   rules:
-  - host: dev-intranet.apps.live.cloud-platform.service.justice.gov.uk
+  - host: dev.intranet.justice.gov.uk
     http:
       paths:
       - path: /
@@ -44,7 +43,7 @@ spec:
             name: nginx-service
             port:
               number: 8080
-  - host: dev.intranet.justice.gov.uk
+  - host: app-alias.cdn.dev.intranet.justice.gov.uk
     http:
       paths:
       - path: /

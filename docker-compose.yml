@@ -51,7 +51,7 @@ services:
       - ./public/wp:/var/www/html/public/wp
       - ./public/index.php:/var/www/html/public/index.php
     environment:
-      VIRTUAL_HOST: ${SERVER_NAME}
+      VIRTUAL_HOST: ${SERVER_NAME},app-alias.cdn.${SERVER_NAME}
       VIRTUAL_PORT: 8080
       SERVER_NAME: ${SERVER_NAME}
       IPS_FORMATTED: ${IPS_FORMATTED}
@@ -90,6 +90,8 @@ services:
       MYSQL_DATABASE: ${DB_NAME}
     depends_on:
       - redis
+    ports:
+      - "3310:3306"
 
   phpmyadmin:
     container_name: intranet-phpmyadmin
