@@ -70,8 +70,9 @@ class Agency
                 'is_integrated' => false,
                 'links' => [
                     [
-                        'url' => 'https://intranet.noms.gsi.gov.uk/',
+                        'url' => 'https://justiceuk.sharepoint.com/sites/HMPPSIntranet',
                         'label' => 'HM Prison & Probation Service intranet',
+                        'main' => true, // When true, this link will be used for the agency switcher
                         'is_external' => true
                     ]
                 ]
@@ -88,14 +89,8 @@ class Agency
                 'shortcode' => 'law-commission',
                 'label' => 'Law Commission',
                 'abbreviation' => 'LawCom',
-                'is_integrated' => false,
-                'links' => [
-                    [
-                        'url' => 'http://lawcommission.intranet.service.justice.gov.uk/',
-                        'label' => 'Law Commission intranet',
-                        'is_external' => true
-                    ]
-                ]
+                'is_integrated' => true,
+                'links' => []
             ],
             'laa' => [
                 'shortcode' => 'laa',
@@ -153,6 +148,21 @@ class Agency
                 'is_integrated' => true,
                 'contact_email_address' => 'communications@judicialappointments.gov.uk',
                 'links' => []
+            ],
+            'yjbrh' => [
+                'shortcode' => 'yjbrh',
+                'label' => 'Youth Justice Board Resource Hub',
+                'abbreviation' => 'YJBRH',
+                'is_integrated' => false,
+                'contact_email_address' => '',
+                'links' => [
+                    [
+                        'url' => 'https://yjresourcehub.uk/',
+                        'label' => 'HM Prison & Probation Service intranet',
+                        'main' => true, // When true, this link will be used for the agency switcher
+                        'is_external' => true
+                    ]
+                ]
             ]
         ];
 
@@ -172,8 +182,7 @@ class Agency
      */
     public function hasAgencyCookie(): bool
     {
-        $agencyCookie = $_COOKIE['dw_agency'] ?? '';
-        return (bool)$agencyCookie;
+        return !empty($_COOKIE['dw_agency']);
     }
 
     /***
