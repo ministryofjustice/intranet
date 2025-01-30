@@ -151,6 +151,21 @@ class Agency
                 'contact_email_address' => 'communications@judicialappointments.gov.uk',
                 'links' => []
             ],
+            'ima' => [
+                'shortcode' => 'ima',
+                'label' => 'Independent Monitoring Authority',
+                'abbreviation' => 'IMA',
+                'is_integrated' => false,
+                'contact_email_address' => '',
+                'links' => [
+                    [
+                        'url' => 'https://myima.ima-citizensrights.org.uk',
+                        'label' => 'Independent Monitoring Authority intranet',
+                        'main' => true, // When true, this link will be used for the agency switcher
+                        'is_external' => true
+                    ]
+                ]
+            ],
             'yjbrh' => [
                 'shortcode' => 'yjbrh',
                 'label' => 'Youth Justice Board Resource Hub',
@@ -160,7 +175,7 @@ class Agency
                 'links' => [
                     [
                         'url' => 'https://yjresourcehub.uk/',
-                        'label' => 'HM Prison & Probation Service intranet',
+                        'label' => 'Youth Justice Board Resource Hub intranet',
                         'main' => true, // When true, this link will be used for the agency switcher
                         'is_external' => true
                     ]
