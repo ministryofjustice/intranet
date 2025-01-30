@@ -94,4 +94,44 @@ trait AuthUtils
 
         $this->setCookie($name, '', $this->now - 1);
     }
+
+    /**
+     * Find an item in an array.
+     * 
+     * When we upgrade to PHP 8.4, we can use array_any instead.
+     * 
+     * @param array $array
+     * @param callable $callback
+     * 
+     * @return mixed
+     */
+
+    public function arrayAny($array, $callback)
+    {
+        foreach ($array as $entry) {
+            if (call_user_func($callback, $entry) === true)
+                return true;
+        }
+        return false;
+    }
+
+    /**
+     * Ensure all items in an array satisfy the callback function.
+     * 
+     * When we upgrade to PHP 8.4, we can use array_all instead.
+     * 
+     * @param array $array
+     * @param callable $callback
+     * 
+     * @return mixed
+     */
+
+    public function arrayAll($array, $callback)
+    {
+        foreach ($array as $key => $value) {
+            if (call_user_func($callback, $key, $value) === false)
+                return false;
+        }
+        return true;
+    }
 }

@@ -28,10 +28,21 @@ trait AuthJwt
     const JWT_DURATION    = 60 * 60; // 1 hour
     const JWT_REFRESH     = 60 * 2; // 2 minutes
 
+    // JWT roles and their conditions.
+    const JWT_ROLES = [
+        // The reader role has no conditions.
+        'reader' => true,
+        // The intranet-archive role has a condition that the IP group must be 5.
+        'intranet-archive' => [
+            'conditions' => [
+                'ipGroupIn' => [5]
+            ]
+        ]
+    ];
+
     /**
      * Init
      */
-
     public function initJwt(): void
     {
         $this->log('initJwt()');
@@ -47,7 +58,6 @@ trait AuthJwt
      * 
      * @return bool|object Returns false if the JWT is not found or an object if it is found.
      */
-
     public function getJwt(): false | object
     {
         $this->log('getJwt()');
@@ -83,10 +93,9 @@ trait AuthJwt
     /**
      * Set a JWT cookie.
      * 
-     * @return object Returns the JWT payload.
+     * @return [object, string] Returns the JWT payload.
      */
-
-    public function setJwt(object $args = new \stdClass()): object
+    public function setJwt(object $args = new \stdClass()): array
     {
         $this->log('setJwt()');
 
@@ -116,10 +125,96 @@ trait AuthJwt
             $payload['success_url'] = $args->success_url;
         }
 
-        $jwt = JWT::encode($payload, $this->jwt_secret, $this::JWT_ALGORITHM);
+        $jwt_string = JWT::encode($payload, $this->jwt_secret, $this::JWT_ALGORITHM);
 
-        $this->setCookie($this::JWT_COOKIE_NAME, $jwt, $cookie_expiry);
+        $this->setCookie($this::JWT_COOKIE_NAME, $jwt_string, $cookie_expiry);
 
-        return (object) $payload;
+        return [(object) $payload, $jwt_string];
+    }
+
+
+    /**
+     * Verify the JWT roles.
+     * 
+     * @param [string] $jwt_roles The roles from the JWT.
+     * @return bool
+     */
+    public function verifyJwtRoles(array $jwt_roles): bool
+    {
+        $this->log('verifyJwtRoles()');
+
+        if (!is_array($jwt_roles)) {
+            $this->log('verifyJwtRoles() $jwt_roles is not an array.', null, 'error');
+            return false;
+        }
+
+        return $this->arrayAny($jwt_roles, function ($role) {
+            $role_props = $this::JWT_ROLES[$role] ?? false;
+
+            if (!$role_props) {
+                $this->log('verifyJwtRoles() jwt role is not defined in JWT_ROLES.', null, 'error');
+                return false;
+            }
+
+            // If the role has no conditions, then return true.
+            if ($role_props === true) {
+                return true;
+            }
+
+            $conditions = $role_props['conditions'] ?? false;
+
+            if (!$conditions) {
+                $this->log('verifyJwtRoles() $conditions is false.', null, 'error');
+                return false;
+            }
+
+            return $this->arrayAll($conditions, function ($condition_name, $condition_value) {
+                $method = 'verifyJwtRole' . ucfirst($condition_name);
+
+                if (!method_exists($this, $method)) {
+                    $this->log('verifyJwtRoles() $method does not exist.', null, 'error');
+                    return false;
+                }
+
+                return $this->$method($condition_value);
+            });
+        });
+    }
+
+    /**
+     * Verify the IPs group of the request is in array.
+     * 
+     * @param [int] $valid_groups
+     * @return bool
+     */
+    public function verifyJwtRoleIpGroupIn(array $valid_groups): bool
+    {
+        $request_ip_group = $_SERVER['HTTP_X_MOJ_IP_GROUP'] ?? '';
+
+        if (!in_array((int) $request_ip_group, $valid_groups)) {
+            $this->log('verifyJwtRoleIpGroupIn() $request_ip_group is not in $valid_groups.', null, 'error');
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Check if the JWT has a specific role.
+     * 
+     * @param string $role The role to check for.
+     * @return bool Returns true if the JWT has the role.
+     */
+    public function jwtHasRole(string $role): bool
+    {
+        $this->log('jwtHasRole()');
+
+        $jwt = $this->getJwt();
+
+        return $this->arrayAny($jwt->roles ?? [], function ($jwt_role) use ($role) {
+            if ($role === $jwt_role) {
+                return true;
+            }
+        });
     }
 }
