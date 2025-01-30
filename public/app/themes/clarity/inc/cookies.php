@@ -38,24 +38,26 @@ add_action('wp', function () {
     // Otherwise, check if the agency cookie is already set
     $agency = $_COOKIE['dw_agency'] ?? '';
     $slug = get_post_field('post_name');
+
     if (
-        // If the agency cookie isn't set or is set to an invalid agency
-        !$agencies->agencyExists($agency) &&
-        // And the current page isn't the agency switcher, privacy notice, or accessibility page
-        !in_array($slug, ['agency-switcher', 'privacy-notice', 'accessibility'], true) &&
-        // And the user isn't logged in
-        !is_user_logged_in() &&
-        // And we're not in the admin area
-        (!is_admin() && !wp_doing_ajax() && !wp_doing_cron())
-    )
-    {
-        $url = '/agency-switcher';
-        // Set the send_back param so that we can send the user back to the current page after selecting an agency
-        $url = add_query_arg(['send_back' => urlencode(get_permalink())], $url);
-        // Redirect to the agency switcher page
-        wp_safe_redirect($url);
-        exit;
+        // If the agency cookie is set and is a valid agency
+        $agencies->agencyExists($agency) ||
+        // Or the current page is the agency switcher, privacy notice, or accessibility page
+        in_array($slug, ['agency-switcher', 'privacy-notice', 'accessibility'], true) ||
+        // Or the user is logged in
+        is_user_logged_in() ||
+        // Or we are in the admin area
+        (is_admin() || wp_doing_ajax() || wp_doing_cron())
+    ) {
+        // Do nothing and return
+        return;
     }
+    $url = '/agency-switcher';
+    // Set the send_back param so that we can send the user back to the current page after selecting an agency
+    $url = add_query_arg(['send_back' => urlencode(get_permalink())], $url);
+    // Redirect to the agency switcher page
+    wp_safe_redirect($url);
+    exit;
 });
 
 /**
