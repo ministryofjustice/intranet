@@ -36,6 +36,7 @@ class Agency
         *      - label (string) - Text label for the link
         *      - classes (string) (optional) - Classes for the HTML element
         *      - is_external (boolean) - Is this a link to an external site?
+         *     - main (boolean) - Should this link be used for the agency switcher?
         *  - has_archive (boolean) (optional) - is the intranet archive available for this agency?
         */
 
@@ -74,7 +75,7 @@ class Agency
                     [
                         'url' => 'https://justiceuk.sharepoint.com/sites/HMPPSIntranet',
                         'label' => 'HM Prison & Probation Service intranet',
-                        'main' => true, // When true, this link will be used for the agency switcher
+                        'main' => true,
                         'is_external' => true
                     ]
                 ]
@@ -161,7 +162,7 @@ class Agency
                     [
                         'url' => 'https://myima.ima-citizensrights.org.uk',
                         'label' => 'Independent Monitoring Authority intranet',
-                        'main' => true, // When true, this link will be used for the agency switcher
+                        'main' => true,
                         'is_external' => true
                     ]
                 ]
@@ -176,7 +177,7 @@ class Agency
                     [
                         'url' => 'https://yjresourcehub.uk/',
                         'label' => 'Youth Justice Board Resource Hub intranet',
-                        'main' => true, // When true, this link will be used for the agency switcher
+                        'main' => true,
                         'is_external' => true
                     ]
                 ]

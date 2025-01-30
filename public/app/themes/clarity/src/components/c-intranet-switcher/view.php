@@ -11,7 +11,8 @@ $url = get_home_url();
 
 // Redirect back to the previous page after selecting an agency if this is their first visit
 if (isset($_GET['send_back'])) {
-    $url = $_GET['send_back'];
+    // Validate the URL to prevent open redirects
+    $url = wp_validate_redirect($_GET['send_back'], get_home_url());
 }
 
 /**
