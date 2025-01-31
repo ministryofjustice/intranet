@@ -36,6 +36,7 @@ class Agency
         *      - label (string) - Text label for the link
         *      - classes (string) (optional) - Classes for the HTML element
         *      - is_external (boolean) - Is this a link to an external site?
+         *     - main (boolean) - Should this link be used for the agency switcher?
         *  - has_archive (boolean) (optional) - is the intranet archive available for this agency?
         */
 
@@ -72,8 +73,9 @@ class Agency
                 'is_integrated' => false,
                 'links' => [
                     [
-                        'url' => 'https://intranet.noms.gsi.gov.uk/',
+                        'url' => 'https://justiceuk.sharepoint.com/sites/HMPPSIntranet',
                         'label' => 'HM Prison & Probation Service intranet',
+                        'main' => true,
                         'is_external' => true
                     ]
                 ]
@@ -90,14 +92,8 @@ class Agency
                 'shortcode' => 'law-commission',
                 'label' => 'Law Commission',
                 'abbreviation' => 'LawCom',
-                'is_integrated' => false,
-                'links' => [
-                    [
-                        'url' => 'http://lawcommission.intranet.service.justice.gov.uk/',
-                        'label' => 'Law Commission intranet',
-                        'is_external' => true
-                    ]
-                ]
+                'is_integrated' => true,
+                'links' => []
             ],
             'laa' => [
                 'shortcode' => 'laa',
@@ -155,6 +151,36 @@ class Agency
                 'is_integrated' => true,
                 'contact_email_address' => 'communications@judicialappointments.gov.uk',
                 'links' => []
+            ],
+            'ima' => [
+                'shortcode' => 'ima',
+                'label' => 'Independent Monitoring Authority',
+                'abbreviation' => 'IMA',
+                'is_integrated' => false,
+                'contact_email_address' => '',
+                'links' => [
+                    [
+                        'url' => 'https://myima.ima-citizensrights.org.uk',
+                        'label' => 'Independent Monitoring Authority intranet',
+                        'main' => true,
+                        'is_external' => true
+                    ]
+                ]
+            ],
+            'yjbrh' => [
+                'shortcode' => 'yjbrh',
+                'label' => 'Youth Justice Board Resource Hub',
+                'abbreviation' => 'YJBRH',
+                'is_integrated' => false,
+                'contact_email_address' => '',
+                'links' => [
+                    [
+                        'url' => 'https://yjresourcehub.uk/',
+                        'label' => 'Youth Justice Board Resource Hub intranet',
+                        'main' => true,
+                        'is_external' => true
+                    ]
+                ]
             ]
         ];
 
@@ -167,6 +193,14 @@ class Agency
         }
 
         return $agencies_array;
+    }
+
+    /*
+     * Check if the agency cookie is set
+     */
+    public function hasAgencyCookie(): bool
+    {
+        return !empty($_COOKIE['dw_agency']);
     }
 
     /***

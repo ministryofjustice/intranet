@@ -6,14 +6,12 @@
   clearfix();
   &__switch {
     margin-bottom: $spacing;
-    +above(m) {
-      column(1, $cycle: 1)
-    }
 
     a {
       display: block;
       //background-color: $boxBg;
       padding: $spacing*.5;
+      padding-left: 0;
       color: $text-colour;
       //border: 2px solid $boxBg;
       font-size: $outerCore;
@@ -28,10 +26,16 @@
         //border: 2px solid $boxBg;
       }
     }
-
-
   }
 
-
-
+  &__list-element {
+    margin-bottom: $spacing*2;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  &__heading {
+    font-size: $outerCore;
+    margin-bottom: 0 !important;
+  }
 }
