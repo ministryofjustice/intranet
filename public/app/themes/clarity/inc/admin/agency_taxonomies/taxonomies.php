@@ -9,7 +9,6 @@ use MOJ\Intranet\Multisite;
 $taxonomies = array(
     'news-category' => array("dir" => false, "class-name" => 'News_Category'),
     'campaign-category' => array("dir" => false, "class-name" => 'Campaign_Category'),
-    'region' => array("dir" => false, "class-name" => 'Region'),
 
     // 02.08.19 disabled resource cat for now as I don't think it is being used. I've left it in for the time being in case it is and we need to bring it back.
     //'resource-category' => array("dir" => false, "class-name" => 'Resource_Category'),
@@ -17,6 +16,10 @@ $taxonomies = array(
 
 if (Multisite::isAgencyTaxonomyEnabled()) {
     $taxonomies['agency'] = array("dir" => false, "class-name" => 'Agency');
+}
+
+if(Multisite::isRegionTaxonomyEnabled()) {
+    $taxonomies['region'] = array("dir" => false, "class-name" => 'Region');
 }
 
 require_once 'taxonomies/taxonomy.php';
