@@ -1,5 +1,7 @@
 <?php
 
+use MOJ\Intranet\Multisite;
+
 /**
  * Class Region_Context
  *
@@ -10,13 +12,17 @@
 class Region_Context
 {
     /**
-     * Can the current user have an region context?
+     * Can the current user and blog have a region context?
      *
      * @return bool
      */
     public static function current_user_can_have_context()
     {
-        return current_user_can('regional-editor');
+        if(!Multisite::isRegionTaxonomyEnabled()) {
+            return false;
+        }
+
+        return current_user_can('administrator') || current_user_can('regional-editor');
     }
 
     /**
@@ -35,10 +41,14 @@ class Region_Context
      * Which regions can the current user change context to?
      * Returns an array of region slugs.
      *
-     * @return array
+     * @return array|false
      */
     public static function current_user_available_regions()
     {
+        if(!Multisite::isRegionTaxonomyEnabled()) {
+            return false;
+        }
+
         if (current_user_can('administrator')) { //is admin
             $agencies = get_terms('region', array(
                 'hide_empty' => false,
@@ -76,10 +86,14 @@ class Region_Context
      * If the user doesn't have a context, default to one of the users' available regions
      *
      * @param string $return_field The field that you want returned for the current region. Default: slug
-     * @return string The requested field value for the current region
+     * @return string|false The requested field value for the current region
      */
     public static function get_region_context($return_field = 'slug')
     {
+        if(!Multisite::isRegionTaxonomyEnabled()) {
+            return false;
+        }
+
         $user_id = get_current_user_id();
         $region = get_user_meta($user_id, 'region_context', true);
         $available = self::current_user_available_regions();
