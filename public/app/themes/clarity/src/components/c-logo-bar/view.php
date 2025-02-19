@@ -36,7 +36,7 @@ if (!empty($header_logo)) {
 
         <div class="u-wrapper__stack--right">
             <?php if (get_query_var('name') !== 'agency-switcher') : ?>
-            <a href="/agency-switcher" class="c-logo-bar__switch"><?= $simpleHeader ? 'Choose an agency' : 'Switch to other intranet' ?></a>
+            <a href="<?= get_home_url( 1, '/agency-switcher') ?>" class="c-logo-bar__switch"><?= $simpleHeader ? 'Choose an agency' : 'Switch to other intranet' ?></a>
             <?php endif; ?>
         </div>
     </div>

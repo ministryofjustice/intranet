@@ -52,7 +52,7 @@ add_action('wp', function () {
         // Do nothing and return
         return;
     }
-    $url = '/agency-switcher';
+    $url = get_home_url(1, '/agency-switcher');
     // Set the send_back param so that we can send the user back to the current page after selecting an agency
     $url = add_query_arg(['send_back' => urlencode(get_permalink())], $url);
     // Redirect to the agency switcher page
