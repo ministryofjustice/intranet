@@ -1,12 +1,12 @@
 <?php
 
-// Adding custom capabilities
-function add_theme_caps()
-{
-    // gets the author role
-    $role = get_role('administrator');
+namespace MOJ\Intranet;
 
-    $role->add_cap(
+defined('ABSPATH') || exit;
+
+class AddTeamRolesToAdministrator
+{
+    protected $capabilities = [
         'edit_others_team_news',
         'edit_team_news',
         'publish_team_news',
@@ -31,6 +31,16 @@ function add_theme_caps()
         'edit_team_specialists',
         'publish_team_specialists',
         'read_private_team_specialists'
-    );
+    ];
+
+    public function __construct()
+    {
+        $administrator_role = get_role('administrator');
+
+        foreach ($this->capabilities as $cap) {
+            if (empty($administrator_role->capabilities[$cap])) {
+                $administrator_role->add_cap($cap);
+            }
+        }
+    }
 }
-add_action('admin_init', 'add_theme_caps');

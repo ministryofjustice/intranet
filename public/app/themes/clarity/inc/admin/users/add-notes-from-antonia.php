@@ -1,37 +1,34 @@
 <?php
 
-add_action('init', function () {
-    global $wp_roles;
+namespace MOJ\Intranet;
 
-    $capabilities = [
-        'administrator' => [
-            'note_from_antonia' => true,
-            'notes_from_antonia' => true,
-            'edit_notes_from_antonia' => true,
-            'edit_note_from_antonia' => true,
-            'edit_others_notes_from_antonia' => true,
-            'edit_published_notes_from_antonia' => true,
-            'publish_notes_from_antonia' => true,
-            'delete_notes_from_antonia' => true,
-            'delete_published_notes_from_antonia' => true,
-            'delete_private_notes_from_antonia' => true,
-            'delete_note_from_antonia' => true,
-            'delete_others_notes_from_antonia' => true
-        ]
+defined('ABSPATH') || exit;
+
+class AddNotesFromAntoniaCapabilities
+{
+    protected $capabilities = [
+        'note_from_antonia',
+        'notes_from_antonia',
+        'edit_notes_from_antonia',
+        'edit_note_from_antonia',
+        'edit_others_notes_from_antonia',
+        'edit_published_notes_from_antonia',
+        'publish_notes_from_antonia',
+        'delete_notes_from_antonia',
+        'delete_published_notes_from_antonia',
+        'delete_private_notes_from_antonia',
+        'delete_note_from_antonia',
+        'delete_others_notes_from_antonia'
     ];
 
-    // Small multi-loop that helps to prevent
-    // unnecessary modifications on role capabilities
-    foreach ($capabilities as $role => $caps) {
-        $target = $wp_roles->get_role($role);
-        foreach ($caps as $cap => $value) {
-            if ($value === true) {
-                if (!isset($target->capabilities[$cap])) {
-                    $wp_roles->add_cap($role, $cap);
-                }
-            } else if ($value === false) {
-                $wp_roles->remove_cap($role, $cap);
+    public function __construct()
+    {
+        $administrator_role = get_role('administrator');
+
+        foreach ($this->capabilities as $cap) {
+            if (empty($administrator_role->capabilities[$cap])) {
+                $administrator_role->add_cap($cap);
             }
         }
     }
-}, 12);
+}

@@ -10,6 +10,9 @@
  * @since 1.0
  */
 
+// Load early to ensure functions are available throughout the theme.
+require_once 'inc/multisite.php';
+
 if (defined('WP_CLI') && WP_CLI) {
     require_once 'inc/commands/DocumentRevisionReconcile.php';
     require_once 'inc/commands/FindDocumentRefs.php';
@@ -50,8 +53,6 @@ require_once 'inc/admin/remove-customizer.php';
 require_once 'inc/admin/suppress-wp-update-msg.php';
 require_once 'inc/admin/tinymce-editor-settings.php';
 require_once 'inc/admin/transient-admin-notices.php';
-require_once 'inc/admin/users/add-acf-capabilities.php';
-require_once 'inc/admin/users/add-notes-from-antonia.php';
 require_once 'inc/admin/users/remove-agency-admin-admin-access.php';
 require_once 'inc/admin/users/user-access-and-security.php';
 require_once 'inc/admin/wp-admin-bar.php';

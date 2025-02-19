@@ -1,5 +1,6 @@
 <?php
 use MOJ\Intranet\Agency;
+use MOJ\Intranet\Multisite;
 
 /**
  * The header for our theme
@@ -12,7 +13,7 @@ use MOJ\Intranet\Agency;
  */
 
 $oAgency      = new Agency();
-$activeAgency = $oAgency->getCurrentAgency() ? $oAgency->getCurrentAgency() : 'hq';
+$activeAgency = $oAgency->getCurrentAgency() ?: 'hq';
 
 ?><!DOCTYPE html>
 <html lang="en" class="no-js">
@@ -36,23 +37,25 @@ $activeAgency = $oAgency->getCurrentAgency() ? $oAgency->getCurrentAgency() : 'h
      */
     wp_head();
     ?>
-    <script defer>
-      function readCookie(name) {
-        var nameEQ = name + "=";
-        var ca = document.cookie.split(';');
-        for (var i = 0; i < ca.length; i++) {
-          var c = ca[i];
-          while (c.charAt(0) == ' ') c = c.substring(1, c.length);
-          if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+    <?php if(Multisite::isAgencyTaxonomyEnabled()): ?>
+      <script defer>
+        function readCookie(name) {
+          var nameEQ = name + "=";
+          var ca = document.cookie.split(';');
+          for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+          }
+          return null;
         }
-        return null;
-      }
-      document.addEventListener('DOMContentLoaded', function() {
-        <!-- Ensure the correct agency cookie gets picked up -->
-        var agency_cookie = readCookie("dw_agency");
-        if (agency_cookie !== null && agency_cookie !== '<?php echo $agency_shortcode; ?>') { window.location.reload(true); }
-      });
-    </script>
+        document.addEventListener('DOMContentLoaded', function() {
+          // Ensure the correct agency cookie gets picked up
+          var agency_cookie = readCookie("dw_agency");
+          if (agency_cookie !== null && agency_cookie !== '<?php echo $agency_shortcode; ?>') { window.location.reload(true); }
+        });
+      </script>
+    <?php endif; ?>
 </head>
 <?php
 if (! defined('GT_CODE')) {
