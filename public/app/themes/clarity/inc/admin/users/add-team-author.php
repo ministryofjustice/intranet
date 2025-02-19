@@ -1,4 +1,9 @@
 <?php
+
+namespace MOJ\Intranet;
+
+defined('ABSPATH') || exit;
+
 /**
  * Team Author User Role
  * 
@@ -8,37 +13,34 @@
  * @package Clarity
  */
 
-$capabilities = array(
-    'upload_files'                 => true,
-    'edit_posts'                   => true,
-    'read'                         => true,
-    'edit_others_team_blogs'       => true,
-    'edit_others_team_events'      => true,
-    'edit_others_team_news'        => true,
-    'edit_others_team_pages'       => true,
-    'edit_others_team_specialists' => true,
-    'edit_team_blogs'              => true,
-    'edit_team_events'             => true,
-    'edit_team_news'               => true,
-    'edit_team_pages'              => true,
-    'edit_team_specialists'        => true,
-    'publish_team_blogs'           => true,
-    'publish_team_events'          => true,
-    'publish_team_news'            => true,
-    'publish_team_pages'           => true,
-    'publish_team_specialists'     => true,
+class TeamAuthorRole extends Role
+{
+    protected string $name = 'team-author';
 
-    // These are only here so that this role can view wp admin bar features
-    'edit_regional_news'           => true,
-    'edit_regional_pages'          => true,
-);
+    protected string $display_name = 'Team Author';
 
-if (get_role('team-author')) {
-    remove_role('team-author');
-}
+    protected array $capabilities = [
+        'upload_files'                 => true,
+        'edit_posts'                   => true,
+        'read'                         => true,
+        'edit_others_team_blogs'       => true,
+        'edit_others_team_events'      => true,
+        'edit_others_team_news'        => true,
+        'edit_others_team_pages'       => true,
+        'edit_others_team_specialists' => true,
+        'edit_team_blogs'              => true,
+        'edit_team_events'             => true,
+        'edit_team_news'               => true,
+        'edit_team_pages'              => true,
+        'edit_team_specialists'        => true,
+        'publish_team_blogs'           => true,
+        'publish_team_events'          => true,
+        'publish_team_news'            => true,
+        'publish_team_pages'           => true,
+        'publish_team_specialists'     => true,
 
-// check if role doesnt exist
-$wp_roles = new WP_Roles();
-if (! role_exists('team-author')) {
-    add_role('team-author', 'Team Author', $capabilities);
+        // These are only here so that this role can view wp admin bar features
+        'edit_regional_news'           => true,
+        'edit_regional_pages'          => true,
+    ];
 }
