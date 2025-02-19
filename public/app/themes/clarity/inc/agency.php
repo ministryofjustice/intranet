@@ -2,6 +2,8 @@
 
 namespace MOJ\Intranet;
 
+use MOJ\Intranet\Multisite;
+
 if (!defined('ABSPATH')) {
     die();
 }
@@ -203,14 +205,20 @@ class Agency
         return !empty($_COOKIE['dw_agency']);
     }
 
-    /***
+    /**
      * Get the agency from cookie, and make sure it's in
      * the list, otherwise default to HQ
      *
+     * @return array The agency details
      */
     public function getCurrentAgency()
     {
-        $agency = $_COOKIE['dw_agency'] ?? '';
+        $agency = Multisite::getAgencyId();
+
+        if (!$agency) {
+            $agency = $_COOKIE['dw_agency'] ?? '';
+        }
+
         $liveAgencies = $this->getList();
         return $liveAgencies[trim($agency)] ?? $liveAgencies['hq'];
     }
@@ -233,8 +241,7 @@ class Agency
     public static function getSocialLinks($agency = 'hq')
     {
         $links = [
-            'ppo' => [
-            ],
+            'ppo' => [],
             'judicial-office' => [
                 [
                     'url' => 'https://twitter.com/JudiciaryUK',
@@ -242,8 +249,7 @@ class Agency
                     'name' => 'twitter',
                 ]
             ],
-            'cica' => [
-            ],
+            'cica' => [],
             'pb' => [
                 [
                     'url' => 'https://twitter.com/Parole_Board',
