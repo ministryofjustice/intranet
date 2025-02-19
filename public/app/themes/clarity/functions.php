@@ -10,6 +10,9 @@
  * @since 1.0
  */
 
+// Load early to ensure functions are available throughout the theme.
+require_once 'inc/multisite.php';
+
 if (defined('WP_CLI') && WP_CLI) {
     require_once 'inc/commands/DocumentRevisionReconcile.php';
     require_once 'inc/commands/FindDocumentRefs.php';
