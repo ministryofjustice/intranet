@@ -18,13 +18,9 @@ class RemoveUnusedRoles
 {
     public function __construct()
     {
-        add_action('init', [$this, 'removeRoles']);
-    }
-
-    public function removeRoles()
-    {
+        // add_action('init', [$this, 'removeRoles']);
         $wp_roles = new WP_Roles();
-
+    
         $wp_roles->remove_role('agency_admin_editor');
         $wp_roles->remove_role('author');
         $wp_roles->remove_role('contributor');

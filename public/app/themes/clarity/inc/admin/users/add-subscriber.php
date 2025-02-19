@@ -12,11 +12,6 @@ class RemoveSubscriberCapabilities
 {
     public function __construct()
     {
-        add_action('init', [$this, 'removeCapabilities']);
-    }
-
-    public function removeCapabilities()
-    {
         $subscriber = get_role('subscriber');
 
         $caps = [
@@ -33,7 +28,7 @@ class RemoveSubscriberCapabilities
         ];
 
         foreach ($caps as $cap) {
-            if ($subscriber->capabilities[$cap]) {
+            if (isset($subscriber->capabilities[$cap])) {
                 $subscriber->remove_cap($cap);
             }
         }
