@@ -22,7 +22,7 @@ class Content_Category extends Taxonomy
     }
    //
     /**
-     * Set Category Permissions for Adminstrator, Global Editor and Agency Editor
+     * Set Category Permissions for Administrator, Global Editor and Agency Editor
      */
     public function set_role_permissions()
     {
@@ -35,7 +35,7 @@ class Content_Category extends Taxonomy
             $administrator->add_cap($this->args['capabilities']['assign_terms']);
 
             $agency_editor = get_role('agency-editor');
-            $agency_editor->add_cap($this->args['capabilities']['assign_terms']);
+            $agency_editor?->add_cap($this->args['capabilities']['assign_terms']);
         }
     }
 

@@ -54,10 +54,12 @@ class Agency_Context
         }
 
         if (current_user_can('assign_agencies_to_posts')) {
+            // Get all agencies
             $agencies = get_terms('agency', array(
                 'hide_empty' => false,
             ));
         } else {
+            // Get the agencies assigned to the current user
             $agencies = wp_get_object_terms(get_current_user_id(), 'agency');
         }
 
