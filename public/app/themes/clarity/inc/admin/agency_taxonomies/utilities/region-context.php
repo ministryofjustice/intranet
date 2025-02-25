@@ -22,7 +22,7 @@ class Region_Context
             return false;
         }
 
-        return current_user_can('administrator') || current_user_can('regional-editor');
+        return current_user_can('regional-editor');
     }
 
     /**
