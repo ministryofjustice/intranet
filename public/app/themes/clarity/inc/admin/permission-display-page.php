@@ -1,5 +1,7 @@
 <?php
 
+use MOJ\Intranet\Multisite;
+
 /**
  * Account access and permissions dashboard
  * Purpose is so that editors have a central dashboard providing all access and security information
@@ -43,12 +45,6 @@ function clarity_permissions_dashboard()
     $user_login_record = get_user_meta($current_user->ID, 'user_login_record', false);
     $user_data         = get_userdata(get_current_user_id());
 
-    $context  = Agency_Context::get_agency_context();
-    $agencies = Agency_Context::current_user_available_agencies();
-
-    if (! Agency_Context::current_user_can_have_context()) :
-        return false;
-    endif;
 
     // Your role is
     echo '<div>';
@@ -58,14 +54,20 @@ function clarity_permissions_dashboard()
     esc_attr_e($role);
     echo '<br>';
     echo '<br>';
-    echo '<h2>Agency access: </h2>';
 
-    // Agency access, loop through all agencies
-    foreach ($agencies as $agency) {
-        echo '<div style=" display: inline; ">' . sanitize_text_field($agency) . ', ' . '</div>';
-    }
-    echo '<br>';
-    echo '<br>';
+
+    if (Multisite::isAgencyTaxonomyEnabled() && Agency_Context::current_user_can_have_context()) :
+        $agencies = Agency_Context::current_user_available_agencies();
+        echo '<h2>Agency access: </h2>';
+    
+        // Agency access, loop through all agencies
+        foreach ($agencies as $agency) {
+            echo '<div style=" display: inline; ">' . sanitize_text_field($agency) . ', ' . '</div>';
+        }
+        echo '<br>';
+        echo '<br>';
+    endif;
+
 
     // Your current capibilities
     if (is_object($user_data)) {
