@@ -11,7 +11,7 @@ $list_tables = array(
     'agency-posts' => 'Agency_Posts',
 );
 
-// Conditionally add columns to the users list table if the agency taxonomy is enabled
+// Conditionally add agency column to the users list table if the agency taxonomy is enabled
 if(Multisite::isAgencyTaxonomyEnabled()) {
     $list_tables['users'] = 'Users';
 }
