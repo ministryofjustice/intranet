@@ -26,23 +26,23 @@ class SyncUserRoles
 
         $theme_dir = get_stylesheet_directory();
 
-        require $theme_dir . '/inc/admin/users/role-class.php';
+        require_once $theme_dir . '/inc/admin/users/role-class.php';
 
         // Creating roles
-        require $theme_dir . '/inc/admin/users/add-agency-admin.php';
-        require $theme_dir . '/inc/admin/users/add-agency-editor.php';
-        require $theme_dir . '/inc/admin/users/add-regional-editor.php';
-        require $theme_dir . '/inc/admin/users/add-team-author.php';
-        require $theme_dir . '/inc/admin/users/add-team-lead.php';
+        require_once $theme_dir . '/inc/admin/users/add-agency-admin.php';
+        require_once $theme_dir . '/inc/admin/users/add-agency-editor.php';
+        require_once $theme_dir . '/inc/admin/users/add-regional-editor.php';
+        require_once $theme_dir . '/inc/admin/users/add-team-author.php';
+        require_once $theme_dir . '/inc/admin/users/add-team-lead.php';
 
         // Add capabilities to existing roles
-        require $theme_dir . '/inc/admin/users/add-acf-capabilities.php';
-        require $theme_dir . '/inc/admin/users/add-notes-from-antonia.php';
-        require $theme_dir . '/inc/admin/users/add-subscriber.php';
-        require $theme_dir . '/inc/admin/users/add-team-roles.php';
+        require_once $theme_dir . '/inc/admin/users/add-acf-capabilities.php';
+        require_once $theme_dir . '/inc/admin/users/add-notes-from-antonia.php';
+        require_once $theme_dir . '/inc/admin/users/add-subscriber.php';
+        require_once $theme_dir . '/inc/admin/users/add-team-roles.php';
 
         // Delete unused roles
-        require $theme_dir . '/inc/admin/users/delete-roles.php';
+        require_once $theme_dir . '/inc/admin/users/delete-roles.php';
 
         $blog_ids = is_multisite() ? get_sites(['fields' => 'ids']) : [null];
 
