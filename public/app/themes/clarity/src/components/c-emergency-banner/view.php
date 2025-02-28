@@ -1,13 +1,17 @@
 <?php
-use MOJ\Intranet\Agency;
 
-$agency = get_intranet_code();
+use MOJ\Intranet\Multisite;
 
-$enable_notification  = get_field($agency . '_enable_notification', 'option');
-$notification_type    = get_field($agency . '_notification_type', 'option');
-$notification_title   = get_field($agency . '_notification_title', 'option');
-$notification_date    = get_field($agency . '_notification_date', 'option');
-$notification_message = get_field($agency . '_notification_message', 'option');
+$blog_is_single_agency = Multisite::isSingleAgencyBlog();
+
+$field_prefix = $blog_is_single_agency ? '' : get_intranet_code() . '_';
+
+$enable_notification  = get_field($field_prefix . 'enable_notification', 'option');
+$notification_type    = get_field($field_prefix . 'notification_type', 'option');
+$notification_title   = get_field($field_prefix . 'notification_title', 'option');
+$notification_date    = get_field($field_prefix . 'notification_date', 'option');
+$notification_message = get_field($field_prefix . 'notification_message', 'option');
+
 ?>
 <?php if ($enable_notification) : ?>
   <!-- c-emergency-banner starts here -->

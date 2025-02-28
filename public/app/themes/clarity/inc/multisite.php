@@ -76,6 +76,29 @@ class Multisite
         return is_subdomain_install() ? self::agencyIdFromDomain($blog_details->domain) : self::agencyIdFromPath($blog_details->path);
     }
 
+    /**
+     * Is the blog a single agency blog?
+     * 
+     * @return bool True if the blog is a single agency blog, false otherwise
+     */
+    public static function isSingleAgencyBlog(): bool
+    {
+        // If we are not on a multisite, return false.
+        if (!is_multisite()) {
+            return false;
+        }
+
+        // If migration is complete return true.
+        if (self::MULTISITE_MIGRATION_COMPLETE) {
+            return true;
+        }
+
+        // Here, the migration is *not* complete.
+
+        // Return true if blog id > 1.
+        return get_current_blog_id() > 1;
+    }
+
 
     /**
      * Get the blog id by the agency id

@@ -1,13 +1,24 @@
 <?php
-use MOJ\Intranet\Agency;
 
-$agency = get_intranet_code();
+use MOJ\Intranet\Multisite;
 
-$enable_banner_right_side         = get_field($agency . '_enable_banner_right_side', 'option');
-$banner_header                    = get_field($agency . '_banner_sidebar_header', 'option');
-$homepage_sidebar_banner_image    = get_field($agency . '_homepage_sidebar_banner_image', 'option');
-$homepage_sidebar_banner_link     = get_field($agency . '_homepage_sidebar_banner_link', 'option');
-$homepage_sidebar_banner_alt_text = get_field($agency . '_homepage_sidebar_banner_alt_text', 'option');
+$blog_is_single_agency = Multisite::isSingleAgencyBlog();
+// If we are on a multisite blog and it only has one agency, then the field prefix is empty.
+$field_prefix = '';
+
+if(!$blog_is_single_agency) {
+  // Here, we can't get the agency from the multisite, so we are still on blog id 1.
+  // Get the agency from the cookie.
+  $agency = get_intranet_code();
+  // Set the field prefix to the agency shortcode.
+  $field_prefix = $agency . '_';
+}
+
+$enable_banner_right_side         = get_field($field_prefix . 'enable_banner_right_side', 'option');
+$banner_header                    = get_field($field_prefix . 'banner_sidebar_header', 'option');
+$homepage_sidebar_banner_image    = get_field($field_prefix . 'homepage_sidebar_banner_image', 'option');
+$homepage_sidebar_banner_link     = get_field($field_prefix . 'homepage_sidebar_banner_link', 'option');
+$homepage_sidebar_banner_alt_text = get_field($field_prefix . 'homepage_sidebar_banner_alt_text', 'option');
 ?>
 
 <?php if ($enable_banner_right_side) : ?>
