@@ -1,7 +1,5 @@
 <?php
 
-use MOJ\Intranet;
-
 require_once ABSPATH . 'wp-admin/includes/screen.php';
 
 /**
@@ -44,19 +42,45 @@ function homesettings_option_pages()
 
 add_filter('acf/load_field', 'home_option_fields');
 
+/**
+ * Modify the field name to include the agency context
+ *
+ * The is legacy behaviour, pre migration to multisite.
+ * Options for agencies are stored in the database with option names like options_laa_beta_banner_text
+ * If we are on a migrated multisite blog, then the field is returned unmodified e.g. options_beta_banner_text
+ * 
+ * @see /wp/wp-admin/admin.php?page=homepage-settings
+ *
+ * @param mixed $field - the field array
+ * @return mixed $field - the modified field array
+ */
 function home_option_fields($field)
 {
-    $screen = get_current_screen();
+    $context = Agency_Context::get_agency_context();
 
+    // If we are on a migrated multisite blog, then the field is returned unmodified
+    if (false === $context) {
+        return $field;
+    }
+
+    // Continue with logic to work out if the field name should be modified...
+
+    // List of fields that are agency wide - these will never be modified
     $agency_wide_fields = ['enable_agency_wide_banner', 'agency_wide_banner_title', 'agency_wide_banner_message', 'agency_wide_banner_type', 'agency_wide_banner_link'];
 
-    if (isset($screen) && ($screen->id == 'toplevel_page_homepage-settings')) {
-        $context = Agency_Context::get_agency_context();
-
-        if (!in_array($field['name'], $agency_wide_fields)) {
-            $field['name'] = $context . '_' . $field['name'];
-        }
+    // If the field is an agency wide field, return it unmodified
+    if (in_array($field['name'], $agency_wide_fields)) {
+        return $field;
     }
+
+    // If we are not on the homepage settings page, return the field unmodified
+    if (get_current_screen()?->id !== 'toplevel_page_homepage-settings') {
+        return $field;
+    }
+
+    // Modify the field name to include the agency context
+    $field['name'] = $context . '_' . $field['name'];
+
     return $field;
 }
 
@@ -87,12 +111,28 @@ function headersettings_option_pages()
 
 add_filter('acf/load_field', 'header_option_fields');
 
+/**
+ * Modify the field name to include the agency context
+ *
+ * The is legacy behaviour, pre migration to multisite.
+ * Options for agencies are stored in the database with option names like options_external_services_external_services_title_1
+ * If we are on a migrated multisite blog, then the field is returned unmodified e.g. options_laa_external_services_external_services_title_1
+ * 
+ * @see r/wp/wp-admin/admin.php?page=header-settings
+ *
+ * @param mixed $field - the field array
+ * @return mixed $field - the modified field array
+ */
 function header_option_fields($field)
 {
-    $screen = get_current_screen();
+    $context = Agency_Context::get_agency_context();
 
-    if (isset($screen) && ($screen->id == 'toplevel_page_header-settings')) {
-        $context = Agency_Context::get_agency_context();
+    // If we are on a migrated multisite blog, then the field is returned unmodified
+    if (false === $context) {
+        return $field;
+    }
+
+    if (get_current_screen()?->id === 'toplevel_page_header-settings') {
         $field['name'] = $context . '_' . $field['name'];
     }
     return $field;
@@ -170,6 +210,8 @@ function my_acf_fields_post_object_result($text, $post, $field, $post_id)
 add_filter('acf/location/rule_types', 'dw_acf_rule_type_agency_context');
 function dw_acf_rule_type_agency_context($choices)
 {
+    // This location is only used by a single field group: homepage-settings
+    // TODO It will need to be refactored after migrating to multisite.
     $choices['User']['agency_context'] = 'Current Agency Context';
     return $choices;
 }
@@ -217,10 +259,10 @@ add_filter('acf/location/rule_match/agency_context', 'dw_acf_rule_match_agency_c
  * @see https://www.advancedcustomfields.com/blog/acf-6-2-5-security-release/#detection-and-notice-information
  */
 
-function acf_hide_notice_for_non_admins() 
+function acf_hide_notice_for_non_admins()
 {
     // If we're on the frontend, return false to keep logging enabled.
-    if(!is_admin()) {
+    if (!is_admin()) {
         return false;
     }
 
@@ -241,8 +283,9 @@ add_filter('acf/admin/prevent_escaped_html_notice', 'acf_hide_notice_for_non_adm
  * @return array $tags the filtered allowed html tags.
  */
 
-function acf_add_allowed_iframe_tag( $tags, $context ) {
-    if ( $context === 'acf' ) {
+function acf_add_allowed_iframe_tag($tags, $context)
+{
+    if ($context === 'acf') {
         $tags['iframe'] = array(
             'src'             => true,
             'height'          => true,
@@ -251,8 +294,152 @@ function acf_add_allowed_iframe_tag( $tags, $context ) {
             'allowfullscreen' => true,
         );
     }
-    
+
     return $tags;
 }
 
-add_filter( 'wp_kses_allowed_html', 'acf_add_allowed_iframe_tag', 10, 2 );
+add_filter('wp_kses_allowed_html', 'acf_add_allowed_iframe_tag', 10, 2);
+
+
+/**
+ * An inline script so that the 'Publish' button is disabled on production.
+ * 
+ * This is a guard rail to stop developers from updating ACF field groups on production.
+ * It's only client side, and is not intended as a security measure.
+ * 
+ * The proper way to update ACF field groups is to:
+ * - modify the field group locally
+ * - commit the generated .json files to the repository
+ * - deploy to dev, staging & production
+ * 
+ * @see https://www.advancedcustomfields.com/resources/acf-field_group-admin_footer/
+ */
+function acfFilterFieldGroupEditsClientSide()
+{
+    if (getenv('WP_ENV') === 'development') {
+        return;
+    }
+?>
+    <script>
+        jQuery(document).ready(function($) {
+            $('.acf-btn.acf-publish').attr('disabled', 'disabled').append(' (disabled on production)');
+        });
+    </script>
+<?php
+}
+
+add_action('acf/field_group/admin_footer', 'acfFilterFieldGroupEditsClientSide');
+
+
+/**
+ * Prevent ACF field groups from being saved on production.
+ * 
+ * This is the server side check to prevent ACF field groups from being saved on production.
+ * The `wp_insert_post_empty_content` hook is usually used to prevent empty posts from being saved.
+ * Here, we are using it to prevent ACF field groups from being saved on production,
+ * by running `wp_die` to interrupt the process.
+ * 
+ * @see https://developer.wordpress.org/reference/hooks/wp_insert_post_empty_content/
+ * 
+ * @param bool $maybe_empty Whether the post is empty.
+ * @param array $postarr The post data array.
+ */
+function acfFilterFieldGroupEditsServerSide(bool $maybe_empty, array $postarr): bool
+{
+    if ($postarr['post_type'] !== 'acf-field-group' && getenv('WP_ENV') !== 'development') {
+        // If we are on production, we want to prevent the field group from being saved.
+        wp_die('You are not allowed to update ACF field groups on production.');
+    }
+
+    return $maybe_empty;
+}
+
+add_filter('wp_insert_post_empty_content', 'acfFilterFieldGroupEditsServerSide', 10, 2);
+
+
+/**
+ * Allow ACF settings screens only on blog one.
+ * 
+ * This filter will prevent ACF settings screens from being accessed on any blog other than blog one.
+ * 
+ * @see https://www.advancedcustomfields.com/resources/acf-settings/
+ */
+
+function acfSettingsOnlyOnBlogOne( $capability ) {
+    if (is_multisite() && get_current_blog_id() !== 1) {
+        return 'do_not_allow';
+    }
+    return $capability;
+}
+
+add_filter('acf/settings/capability', 'acfSettingsOnlyOnBlogOne');
+
+
+/**
+ * Add the 'Site' location rule type to ACF field groups.
+ * 
+ * Part 1️⃣/3️⃣
+ * 
+ * @see https://www.advancedcustomfields.com/resources/custom-location-rules/
+ * @see https://support.advancedcustomfields.com/forums/topic/multisite-location-rules-display-field-groups-on-specific-sites/
+ * 
+ * @param array $choices The location rule types.
+ */
+function acfLocationRuleTypeMultisite($choices)
+{
+    if(!is_multisite()) {
+        return $choices;
+    }
+    
+    $choices['Multisite']['site'] = 'Site';
+    return $choices;
+}
+
+add_filter('acf/location/rule_types', 'acfLocationRuleTypeMultisite');
+
+
+/**
+ * Add the values for the 'Site' location rule type to ACF field groups.
+ * 
+ * Part 2️⃣/3️⃣
+ * 
+ * @param array $choices The location rule values.
+ */
+function acfLocationRuleValuesMultisite($choices)
+{
+    $choices['all'] = 'All';
+    $sites = get_sites();
+
+    foreach ($sites as $site) {
+        $choices[get_object_vars($site)["blog_id"]] = get_object_vars($site)["domain"];
+    }
+
+    return $choices;
+}
+
+add_filter('acf/location/rule_values/site',  'acfLocationRuleValuesMultisite');
+
+
+/**
+ * Match the 'Site' location rule type to the current blog id.
+ * 
+ * Part 3️⃣/3️⃣
+ * 
+ * @param bool $match Whether the rule matches.
+ * @param array $rule The location rule.
+ */
+function acfLocationRuleMatchMultisite($match, $rule)
+{
+    $current_site = get_current_blog_id();
+    $selected_site = (int) $rule['value'];
+
+    if ($rule['operator'] == "==") {
+        $match = ($current_site == $selected_site);
+    } elseif ($rule['operator'] == "!=") {
+        $match = ($current_site != $selected_site);
+    }
+
+    return $match;
+}
+
+add_filter('acf/location/rule_match/site', 'acfLocationRuleMatchMultisite', 10, 2);

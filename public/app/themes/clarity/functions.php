@@ -19,7 +19,6 @@ if (defined('WP_CLI') && WP_CLI) {
     require_once 'inc/commands/SyncUserRoles.php';
 }
 
-require_once 'inc/admin/acf-field-group.php';
 require_once 'inc/admin/admin-commands.php';
 
 require_once 'inc/admin/agency_taxonomies/utilities/agency-editor.php';
