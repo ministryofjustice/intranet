@@ -346,7 +346,7 @@ add_action('acf/field_group/admin_footer', 'acfFilterFieldGroupEditsClientSide')
  */
 function acfFilterFieldGroupEditsServerSide(bool $maybe_empty, array $postarr): bool
 {
-    if ($postarr['post_type'] !== 'acf-field-group' && getenv('WP_ENV') !== 'development') {
+    if ($postarr['post_type'] === 'acf-field-group' && getenv('WP_ENV') !== 'development') {
         // If we are on production, we want to prevent the field group from being saved.
         wp_die('You are not allowed to update ACF field groups on production.');
     }
