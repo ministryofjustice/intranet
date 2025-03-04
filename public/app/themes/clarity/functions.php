@@ -54,6 +54,8 @@ require_once 'inc/admin/remove-customizer.php';
 require_once 'inc/admin/suppress-wp-update-msg.php';
 require_once 'inc/admin/tinymce-editor-settings.php';
 require_once 'inc/admin/transient-admin-notices.php';
+require_once 'inc/admin/users/role-class.php';
+require_once 'inc/admin/users/add-regional-editor.php';
 require_once 'inc/admin/users/remove-agency-admin-admin-access.php';
 require_once 'inc/admin/users/user-access-and-security.php';
 require_once 'inc/admin/wp-admin-bar.php';

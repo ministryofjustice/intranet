@@ -77,4 +77,65 @@ class RegionalEditorRole extends Role
         'delete_published_pages'        => true,
         'delete_published_regional_pages' => true,
     ];
+
+    /**
+     * Hooks
+     * 
+     * Don't load these in a constructor, because the must be loaded for standard requests,
+     * but are not needed for WP CLI commands.
+     */
+    public function hooks()
+    {
+        add_filter('map_meta_cap', [$this, 'setDoNotAllow'], 10, 3);
+    }
+
+    /**
+     * Set Do Not Allow
+     *
+     * On multisite, by default the super-administrator role can do anything.
+     * This is not useful certain cases. To effectively remove a capability from 
+     * super-administrator, we need to add a special do_not_allow entry to the
+     * meta capabilities array.
+     *
+     * Specifically, here we are adding do_not_allow unless the user has the
+     * regional-editor capability.
+     * It stops super-administrators from:
+     * - seeing the region context switcher
+     * - seeing a filtered list of posts in the post list screens
+     *
+     * @param array $caps
+     * @param string $cap
+     * @param int $user_id
+     * @return array
+     */
+
+    public function setDoNotAllow($caps, $cap, $user_id)
+    {
+        // Only filter for multisite
+        if (!is_multisite()) {
+            return $caps;
+        }
+
+        /**
+         * Only filter checks for custom_capability.
+         */
+        if ('regional-editor' === $cap) {
+            $user      = get_userdata($user_id);
+            $user_caps = $user->get_role_caps();
+
+            /**
+             * If the user does not have the capability, or it's denied, then
+             * add do_not_allow.
+             */
+            if (empty($user_caps[$cap])) {
+                $caps[] = 'do_not_allow';
+            }
+        }
+
+        return $caps;
+    }
+}
+
+if (!defined('WP_CLI') || !WP_CLI) {
+    (new RegionalEditorRole())->hooks();
 }
