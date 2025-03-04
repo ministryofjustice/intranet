@@ -1,5 +1,7 @@
 <?php
 
+use MOJ\Intranet\Multisite;
+
 if (!defined('ABSPATH')) {
     die();
 }
@@ -16,6 +18,12 @@ function register_my_menu()
 {
     register_nav_menu('header-menu', __('Header Menu'));
     register_nav_menu('footer-menu', __('Footer Menu'));
+
+    // If we are on a multisite blog and it only has one agency, then we don't need to register the other menus.
+    if(Multisite::isSingleAgencyBlog()) {
+        return;
+    }
+
     register_nav_menu('hq-menu', __('HQ Menu'));
     register_nav_menu('cica-menu', __('CICA Menu'));
     register_nav_menu('hmcts-menu', __('HMCTS Menu'));
