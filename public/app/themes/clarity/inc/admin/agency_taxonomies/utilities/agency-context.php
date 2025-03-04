@@ -1,5 +1,7 @@
 <?php
 
+use MOJ\Intranet\Multisite;
+
 /**
  * Class Agency_Context
  *
@@ -10,12 +12,16 @@
 class Agency_Context
 {
     /**
-     * Can the current user have an agency editor context?
+     * Can the current user and blog have an agency editor context?
      *
      * @return bool
      */
     public static function current_user_can_have_context()
     {
+        if(!Multisite::isAgencyTaxonomyEnabled()) {
+            return false;
+        }
+
         return current_user_can('edit_pages') || current_user_can('edit_regional_pages');
     }
 
@@ -27,6 +33,10 @@ class Agency_Context
      */
     public static function current_user_can_change_to($agency)
     {
+        if(!Multisite::isAgencyTaxonomyEnabled()) {
+            return false;
+        }
+
         $available = self::current_user_available_agencies();
         return in_array($agency, $available);
     }
@@ -35,15 +45,21 @@ class Agency_Context
      * Which agencies can the current user change context to?
      * Returns an array of agency slugs.
      *
-     * @return array
+     * @return array|false
      */
     public static function current_user_available_agencies()
     {
+        if(!Multisite::isAgencyTaxonomyEnabled()) {
+            return false;
+        }
+
         if (current_user_can('assign_agencies_to_posts')) {
+            // Get all agencies
             $agencies = get_terms('agency', array(
                 'hide_empty' => false,
             ));
         } else {
+            // Get the agencies assigned to the current user
             $agencies = wp_get_object_terms(get_current_user_id(), 'agency');
         }
 
@@ -63,6 +79,10 @@ class Agency_Context
      */
     public static function set_agency_context($agency)
     {
+        if(!Multisite::isAgencyTaxonomyEnabled()) {
+            return false;
+        }
+
         if (self::current_user_can_change_to($agency)) {
             $user_id = get_current_user_id();
             update_user_meta($user_id, 'agency_context', $agency);
@@ -77,10 +97,14 @@ class Agency_Context
      * available agencies, with a preference for HQ.
      *
      * @param string $return_field The field that you want returned for the current agency. Default: slug
-     * @return string The requested field value for the current agency
+     * @return string|false The requested field value for the current agency
      */
     public static function get_agency_context($return_field = 'slug')
     {
+        if(!Multisite::isAgencyTaxonomyEnabled()) {
+            return false;
+        }
+
         $user_id = get_current_user_id();
         $agency = get_user_meta($user_id, 'agency_context', true);
         $available = self::current_user_available_agencies();

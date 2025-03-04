@@ -1,11 +1,14 @@
 <?php
 
 use MOJ\Intranet\Agency;
+use MOJ\Intranet\Multisite;
+
+$blog_is_single_agency = Multisite::isSingleAgencyBlog();
 
 $oAgency = new Agency();
 
-// Show a simplified header if the user has not yet chosen an agency
-$simpleHeader = !$oAgency->hasAgencyCookie();
+// Show a simplified header if on a multi agency blog, and the user has not yet chosen an agency
+$simpleHeader = !$blog_is_single_agency && !$oAgency->hasAgencyCookie();
 
 ?>
 <header class="c-header-container<?= $simpleHeader ? " c-header-container--underlined" : ""?>" role="banner">

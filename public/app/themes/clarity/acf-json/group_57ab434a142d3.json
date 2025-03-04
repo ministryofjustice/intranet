@@ -1,0 +1,52 @@
+{
+    "key": "group_57ab434a142d3",
+    "title": "Campaign Page Settings",
+    "fields": [
+        {
+            "key": "field_57ab43521cb60",
+            "label": "Campaign Skin",
+            "name": "dw_campaign_skin",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "multiple": 0,
+            "allow_null": 0,
+            "choices": {
+                "basic": "Basic",
+                "transformation": "Transformation",
+                "light-blue": "Light Blue"
+            },
+            "default_value": [],
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": "",
+            "return_format": "value"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page_template",
+                "operator": "==",
+                "value": "page_campaign_content.php"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "side",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1740664504
+}

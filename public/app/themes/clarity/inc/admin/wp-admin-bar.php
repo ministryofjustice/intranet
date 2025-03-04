@@ -1,5 +1,7 @@
 <?php
 
+use MOJ\Intranet\Multisite;
+
 /**
  * WP Admin Bar modifications
  */
@@ -121,7 +123,12 @@ function region_context_switcher_menu($wp_admin_bar)
         return false;
     }
 
-    $context     = Region_Context::get_region_context();
+    $is_hmcts =  Agency_Context::get_agency_context() === 'hmcts' || Multisite::getAgencyId() === 'hmcts';
+
+    if (!$is_hmcts) {
+        return false;
+    }
+
     $region_name = Region_Context::get_region_context('name');
 
     $wp_admin_bar->add_node(

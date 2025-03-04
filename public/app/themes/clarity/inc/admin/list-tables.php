@@ -1,14 +1,20 @@
 <?php
 
+use MOJ\Intranet\Multisite;
+
 /**
  * Adjustments to list tables.
  */
 
 $list_tables = array(
     // filename => Class_Name
-    'users' => 'Users',
     'agency-posts' => 'Agency_Posts',
 );
+
+// Conditionally add agency column to the users list table if the agency taxonomy is enabled
+if(Multisite::isAgencyTaxonomyEnabled()) {
+    $list_tables['users'] = 'Users';
+}
 
 require_once 'list-tables/list-table.php';
 
