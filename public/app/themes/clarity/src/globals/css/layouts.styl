@@ -6,6 +6,14 @@
   +above('l') {
     padding: $spacing*1.8 0 0 0;
   }
+  // Remove padding if there's a breadcrumb section
+  &:has(section.c-breadcrumbs) {
+    padding-top: 0;
+  }
+  // Remove padding from any l-main children
+  .l-main {
+    padding-top: 0;
+  }
   .l-full-page {
     column(1);
     margin: $spacing*3 0;
