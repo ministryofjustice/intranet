@@ -4,10 +4,15 @@
 .l-main {
   padding: $spacing;
   +above('l') {
-    padding: 0;
+    padding: $spacing*1.8 0 0 0;
   }
   .l-full-page {
     column(1);
+    margin: $spacing*3 0;
+  }
+  // If l-full-page is the first element, remove the top margin
+  > .l-full-page:first-child {
+    margin-top: 0;
   }
   .l-primary {
     +above('m') {
@@ -50,6 +55,10 @@
       }
     }
   }
+}
+
+.l-full-page {
+  margin: $spacing*3 0;
 }
 
 .u-wrapper{
