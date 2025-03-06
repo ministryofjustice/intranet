@@ -36,7 +36,7 @@ class StandaloneVerify
         $this->initJwt();
     }
 
-    public function handleAuthRequest(string $required_role = 'reader'): void
+    public function handleAuthRequest(): void
     {
         $this->log('handleAuthRequest()');
 
@@ -44,9 +44,9 @@ class StandaloneVerify
         $jwt = $this->getJwt();
 
         // Get the roles from the JWT and check that they're sufficient.
-        $jwt_correct_role = $jwt && $jwt->roles ? in_array($required_role, $jwt->roles) : false;
+        $jwt_verified_role = $this->verifyJwtRoles($jwt?->roles ?? []);
 
-        $status_code = $jwt_correct_role ? 200 : 401;
+        $status_code = $jwt_verified_role ? 200 : 401;
 
         // $status_code= 401;
 

@@ -6,8 +6,8 @@ PING_RESPONSE=$(env -i SCRIPT_NAME=/ping SCRIPT_FILENAME=/ping REQUEST_METHOD=GE
 # Store the process ID of the ping request.
 PING_PID=$!;
 
-# Wait for 1 second to give the ping request time to complete.
-sleep 1;
+# Wait for 0.25 seconds to give the ping request time to complete.
+sleep 0.25;
 
 # Check if the ping request is still running.
 if kill -0 $PING_PID 2>/dev/null; then
@@ -33,8 +33,8 @@ FPM_STATUS=$(env -i SCRIPT_NAME=/status SCRIPT_FILENAME=/status REQUEST_METHOD=G
 # Store the process ID of the status request.
 STATUS_PID=$!;
 
-# Wait for 1 second to give the status request time to complete.
-sleep 1;
+# Wait for 0.5 seconds to give the status request time to complete.
+sleep 0.5;
 
 # Check if the status request is still running.
 if kill -0 $STATUS_PID 2>/dev/null; then

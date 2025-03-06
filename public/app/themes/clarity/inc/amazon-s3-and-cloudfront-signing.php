@@ -18,6 +18,9 @@ use function headers_sent;
  * This class creates three cookies for CloudFront and sets them in the user's browser.
  * The cookies allow access to **all** CloudFront URLs, and subsequently the entire S3 bucket.
  * As all users have access to CloudFront, we don't need to generate & sign cookies for every user, we sign once and cache for a while.
+ * 
+ * All users and requests are treated equally, with the exception of requests that come from the intranet-archive service.
+ * These can be identified by the JWT role of intranet-archive, and a longer expiry time will be set on the CloudFront policy.
  */
 
 class AmazonS3AndCloudFrontSigning
@@ -30,8 +33,10 @@ class AmazonS3AndCloudFrontSigning
     private mixed $cloudfront_private_key;
     private mixed $cloudfront_host;
     private string $cloudfront_url;
+    private int $cloudfront_duration;
 
-    const CLOUDFRONT_DURATION = 60 * 10; // 10 minutes
+    const CLOUDFRONT_DURATION_STANDARD = 20 * 60; // 20 minutes - important that this is at least nginx cache (10mins) + TRANSIENT_DURATION (2mins).
+    const CLOUDFRONT_DURATION_ARCHIVE = 24 * 60 * 60; // 24 hours - intranet-archive requires a longer duration, else access is blocked mid-scrape.
     const CLOUDFRONT_REFRESH = 60 * 5; // 5 minutes
     const TRANSIENT_DURATION = 60 * 2; // 2 minutes
 
@@ -44,9 +49,13 @@ class AmazonS3AndCloudFrontSigning
         $this->cloudfront_cookie_domain = preg_replace('/https?:\/\//', '', $_ENV['WP_HOME']);
         $this->cloudfront_private_key = $_ENV['AWS_CLOUDFRONT_PRIVATE_KEY'];
         $this->cloudfront_host =  $_ENV['AWS_CLOUDFRONT_HOST'];
+
         // Set the scheme/protocol for CloudFront, default to https.
         $cloudfront_scheme = isset($_ENV['AWS_CLOUDFRONT_SCHEME']) && $_ENV['AWS_CLOUDFRONT_SCHEME'] === 'http' ? 'http' : 'https';
         $this->cloudfront_url = $cloudfront_scheme . '://' . $this->cloudfront_host;
+        
+        // Set the duration for the CloudFront cookie, it will be different for intranet-archive.
+        $this->cloudfront_duration = $this->isIntranetArchive() ? $this::CLOUDFRONT_DURATION_ARCHIVE : $this::CLOUDFRONT_DURATION_STANDARD;
 
         // Create a transient key, unique to the scheme and host.
         $this->transient_key = "cloudfront_cookies_{$cloudfront_scheme}_" . str_replace([ ':', '/', '.',], '_', $this->cloudfront_host);
@@ -73,6 +82,25 @@ class AmazonS3AndCloudFrontSigning
 
             return $args;
         }, 10, 2);
+    }
+
+    /**
+     * Check if the request is from the intranet-archive service.
+     * 
+     * @return bool
+     */
+    public function isIntranetArchive(): bool
+    {
+        // Use the global $moj_auth as it has the jwtHasRole utility function.
+        global $moj_auth;
+
+        // If the global doesn't exist then we're not in a request context.
+        if(!$moj_auth) {
+            return false;
+        }
+
+        // Check if the user has the intranet-archive role.
+        return $moj_auth->jwtHasRole('intranet-archive');
     }
 
 
@@ -209,7 +237,7 @@ class AmazonS3AndCloudFrontSigning
     public function createSignedCookie(string $url): array
     {
         // Expire Time - this is for the policy. It's not the cookie expiry, i.e., when it's removed from the browser.
-        $expiry = $this->now + $this::CLOUDFRONT_DURATION;
+        $expiry = $this->now + $this->cloudfront_duration;
 
         $json = '{"Statement":[{"Resource":"' . $url . '","Condition":{"DateLessThan":{"AWS:EpochTime":' . $expiry . '}}}]}';
 
@@ -295,15 +323,7 @@ class AmazonS3AndCloudFrontSigning
         // Clear the production session cookie - avoid sending conflicting cookies to CloudFront.
         $this->maybeClearProductionCookies();
 
-        $remaining_time = $this->remainingTimeFromCookie();
-
-        if ($remaining_time && $remaining_time > $this::CLOUDFRONT_REFRESH) {
-            // Cookie-Policy exists, and it's not time to refresh it.
-            return;
-        }
-
         // If we're here, then we need to send a cookie to the user.
-
         $cookies = $this->getSignedCookie();
 
         // Properties for the cookies.

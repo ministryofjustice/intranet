@@ -8,7 +8,7 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: intranet-production
-  minReplicas: 6
+  minReplicas: 5
   maxReplicas: 18
   metrics:
     # fpm

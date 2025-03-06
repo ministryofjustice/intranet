@@ -9,6 +9,11 @@ use League\OAuth2\Client\Provider\GenericProvider;
 use League\OAuth2\Client\Token\AccessTokenInterface;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 
+use Microsoft\Kiota\Authentication\PhpLeagueAccessTokenProvider;
+use Microsoft\Kiota\Authentication\Cache\TransientAccessTokenCache;
+use Microsoft\Kiota\Authentication\Oauth\AuthorizationCodeContext;
+use Microsoft\Kiota\Authentication\Oauth\OnBehalfOfContext;
+
 /**
  * OAuth functions for MOJ\Intranet\Auth.
  */
@@ -175,10 +180,96 @@ trait AuthOauth
             $access_token = $oauth_client->getAccessToken('authorization_code', ['code' => $_GET['code']]);
         } catch (IdentityProviderException $e) {
             $this->log('Error: ' . $e->getMessage(), null, 'error');
+            $this->log('Error response body: ', $e->getResponseBody(), 'error');
             http_response_code(401) && exit();
         }
 
         return $access_token;
+    }
+
+    /**
+     * Handle the OAuth callback V2.
+     * 
+     * This function will handle the OAuth callback and return the access token.
+     * If the callback is invalid, it will return a 401 response.
+     * 
+     */
+
+    public function oauthCallbackV2()
+    {
+        $this->log('oauthCallbackV2()');
+
+        if (!$this->oauth_enabled) {
+            $this->log('OAuth is not enabled');
+            http_response_code(401) && exit();
+        }
+
+        if (!isset($_SERVER['REQUEST_URI']) || !str_starts_with($_SERVER['REQUEST_URI'], $this::OAUTH_CALLBACK_URI)) {
+            $this->log('in oauthCallbackV2(), request uri does not match');
+            http_response_code(401) && exit();
+        }
+
+        // Get the hashed expected state from the cookie.
+        $expected_state_hashed = $_COOKIE[$this::OAUTH_STATE_COOKIE_NAME] ?? null;
+        // Delete the cookie.
+        $this->deleteCookie($this::OAUTH_STATE_COOKIE_NAME);
+
+        if (empty($expected_state_hashed)) {
+            $this->log('No hashed expected state in the cookie.');
+            http_response_code(401) && exit();
+        }
+
+        // Get the pkce code from the transient.
+        $pkce = get_transient('oauth_pkce_' . $expected_state_hashed);
+        // Delete the transient.
+        delete_transient('oauth_pkce_' . $expected_state_hashed);
+
+        // Check for state and code in the query params.
+        if (!isset($_GET['state']) || !isset($_GET['code'])) {
+            $this->log('No state or code in the query params');
+            http_response_code(401) && exit();
+        }
+
+        if (empty($expected_state_hashed) || $expected_state_hashed !== $this->hash($_GET['state'])) {
+            $this->log('Hashed states do not match');
+            http_response_code(401) && exit();
+        }
+
+        // Initialize the OAuth client.
+        $oauth_client  = $this->getOAuthClient();
+
+        $tokenRequestContext = new AuthorizationCodeContext(
+            $this->oauth_tenant_id,
+            $this->oauth_app_id,
+            $this->oauth_app_secret,
+            $_GET['code'],
+            \home_url($this::OAUTH_CALLBACK_URI),
+        );
+
+        $allowedHosts = ['graph.microsoft.com'];
+
+        try {
+
+            $oauth_client->setPkceCode($pkce);
+
+            $tokenProvider = new PhpLeagueAccessTokenProvider(
+                $tokenRequestContext,
+                $this->oauth_scopes,
+                $allowedHosts,
+                $oauth_client,
+                new TransientAccessTokenCache($this->debug)
+            );
+
+            $tokenProvider->getOauthProvider()->setHttpClient(new \GuzzleHttp\Client());
+
+            $authorizationToken = $tokenProvider->getAuthorizationTokenAsync('https://graph.microsoft.com')->wait();
+        } catch (IdentityProviderException $e) {
+            $this->log('Error: ' . $e->getMessage(), null, 'error');
+            $this->log('Error response body: ', $e->getResponseBody(), 'error');
+            http_response_code(401) && exit();
+        }
+
+        return $authorizationToken;
     }
 
     /**
@@ -246,5 +337,44 @@ trait AuthOauth
         ]);
 
         return $access_token;
+    }
+
+    /**
+     * Refresh the OAuth access token V2.
+     * 
+     * @param string $refresh_token The refresh token.
+     * @return AccessTokenInterface
+     */
+
+    public function oauthRefreshTokenV2(string $entra_jwt)
+    {
+        $this->log('oauthRefreshToken()');
+
+        // TODO: test this
+
+        $tokenRequestContext = new OnBehalfOfContext(
+            $this->oauth_tenant_id,
+            $this->oauth_app_id,
+            $this->oauth_app_secret,
+            $entra_jwt
+        );
+
+        $allowedHosts = ['graph.microsoft.com'];
+
+        $oauth_client = $this->getOAuthClient();
+
+        $tokenProvider = new PhpLeagueAccessTokenProvider(
+            $tokenRequestContext,
+            $this->oauth_scopes,
+            $allowedHosts,
+            $oauth_client,
+            new TransientAccessTokenCache($this->debug)
+        );
+
+        $tokenProvider->getOauthProvider()->setHttpClient(new \GuzzleHttp\Client());
+
+        $authorizationToken = $tokenProvider->getAuthorizationTokenAsync('https://graph.microsoft.com')->wait();
+
+        return $authorizationToken;
     }
 }

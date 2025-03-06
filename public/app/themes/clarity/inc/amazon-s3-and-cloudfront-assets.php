@@ -202,8 +202,8 @@ class AmazonS3AndCloudFrontAssets
         }
 
         // Fonts cannot be served via the CDN, because browsers do not send cookies for `@font-face` requests.
-        // Exclude the core-css and style handles from being rewritten, because they use `@font-face`.
-        if (in_array($handle, ['core-css', 'style'])) {
+        // Exclude the core-css handle from being rewritten, because it uses `@font-face`.
+        if (in_array($handle, ['core-css'])) {
             return $src;
         }
 

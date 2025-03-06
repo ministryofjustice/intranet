@@ -176,6 +176,11 @@ Config::define('EWWWIO_WHITELABEL', true);
 // Disable rewrite of enqueued assets to CDN.
 Config::define('DISABLE_CDN_ASSETS', env('DISABLE_CDN_ASSETS'));
 
+// Set the Intranet Archive URL and agencies - for the link on the dashboard.
+Config::define('INTRANET_ARCHIVE_URL', env('INTRANET_ARCHIVE_URL'));
+// Set the shared secret for the Intranet Archive.
+Config::define('INTRANET_ARCHIVE_SHARED_SECRET', env('INTRANET_ARCHIVE_SHARED_SECRET'));
+
 /**
  * Debugging Settings
  */
@@ -186,6 +191,8 @@ Config::define('SCRIPT_DEBUG', false);
 ini_set('display_errors', '0');
 // Additional logging for the authentication mu-plugin.
 Config::define('MOJ_AUTH_DEBUG', env('MOJ_AUTH_DEBUG'));
+// Version of the authentication mu-plugin.
+Config::define('MOJ_AUTH_VERSION', env('MOJ_AUTH_VERSION'));
 
 /**
  * WP Redis config.
