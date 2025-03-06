@@ -6322,6 +6322,11 @@
                 'value' => 'homepage-settings',
             ),
             array(
+                'param' => 'agency_context',
+                'operator' => '==',
+                'value' => 'hq',
+            ),
+            array(
                 'param' => 'current_user_role',
                 'operator' => '==',
                 'value' => 'administrator',
