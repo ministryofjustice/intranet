@@ -6342,6 +6342,6 @@
     'active' => true,
     'description' => '',
     'show_in_rest' => false,
-    'modified' => 1583849809,
+    'modified' => 1741259223,
     ));
 endif;
