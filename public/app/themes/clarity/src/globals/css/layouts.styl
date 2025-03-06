@@ -4,10 +4,23 @@
 .l-main {
   padding: $spacing;
   +above('l') {
-    padding: 0;
+    padding: $spacing 0 0 0;
+  }
+  // Remove padding if there's a breadcrumb section
+  &:has(section.c-breadcrumbs) {
+    padding-top: 0;
+  }
+  // Remove padding from any l-main children
+  .l-main {
+    padding-top: 0;
   }
   .l-full-page {
     column(1);
+    margin: $spacing*3 0;
+  }
+  // If l-full-page is the first element, remove the top margin
+  > .l-full-page:first-child {
+    margin-top: 0;
   }
   .l-primary {
     +above('m') {
@@ -50,6 +63,10 @@
       }
     }
   }
+}
+
+.l-full-page {
+  margin: $spacing*3 0;
 }
 
 .u-wrapper{
