@@ -6309,6 +6309,23 @@
                 'operator' => '==',
                 'value' => 'hq',
             ),
+            array(
+                'param' => 'current_user_role',
+                'operator' => '==',
+                'value' => 'agency_admin',
+            ),
+        ),
+        array(
+            array(
+                'param' => 'options_page',
+                'operator' => '==',
+                'value' => 'homepage-settings',
+            ),
+            array(
+                'param' => 'current_user_role',
+                'operator' => '==',
+                'value' => 'administrator',
+            ),
         ),
     ),
     'menu_order' => 99,
