@@ -30,9 +30,7 @@ uasort($filteredAgencies, function($a, $b) {
     return strcmp($a['label'], $b['label']);
 });
 
-var_dump($filteredAgencies);
-
-// Split the agencies into integrated and external
+// Split the agencies into integrated (host and external
 array_map(function($key, array $agency) use (&$integrated, &$external) {
     $shortcode = $agency['shortcode'];
     if ($agency['is_integrated']) {
