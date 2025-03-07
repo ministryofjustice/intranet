@@ -36,7 +36,7 @@ class Agency
         *      - label (string) - Text label for the link
         *      - classes (string) (optional) - Classes for the HTML element
         *      - is_external (boolean) - Is this a link to an external site?
-         *     - main (boolean) - Should this link be used for the agency switcher?
+        *      - main (boolean) - Should this link be used for the agency switcher?
         *  - has_archive (boolean) (optional) - is the intranet archive available for this agency?
         */
 
@@ -177,6 +177,36 @@ class Agency
                     [
                         'url' => 'https://yjresourcehub.uk/',
                         'label' => 'Youth Justice Board Resource Hub intranet',
+                        'main' => true,
+                        'is_external' => true
+                    ]
+                ]
+            ],
+            'hmi' => [
+                'shortcode' => 'hmi',
+                'label' => 'HM Inspectorate of Probation',
+                'abbreviation' => 'HMI',
+                'is_integrated' => false,
+                'contact_email_address' => '',
+                'links' => [
+                    [
+                        'url' => 'https://justiceuk.sharepoint.com/sites/HMIProbationIntranet2',
+                        'label' => 'HM Inspectorate of Probation',
+                        'main' => true,
+                        'is_external' => true,
+                    ]
+                ]
+            ],
+            'ycs' => [
+                'shortcode' => 'ycs',
+                'label' => 'Youth Custody Service',
+                'abbreviation' => 'YCS',
+                'is_integrated' => false,
+                'contact_email_address' => '',
+                'links' => [
+                    [
+                        'url' => 'https://justiceuk.sharepoint.com/sites/HMPPSIntranet-YCS',
+                        'label' => 'Youth Custody Service',
                         'main' => true,
                         'is_external' => true
                     ]
