@@ -20,10 +20,17 @@ $excluded = ['pb'];
 $integrated = [];
 $external = [];
 
+// Remove the excluded agencies
 $filteredAgencies = array_filter($activeAgencies, function($agency) use ($excluded) {
     return !in_array($agency['shortcode'], $excluded);
 });
 
+// Alphabetically sort the agencies
+usort($filteredAgencies, function($a, $b) {
+    return strcmp($a['label'], $b['label']);
+});
+
+// Split the agencies into integrated and external
 array_map(function($key, array $agency) use (&$integrated, &$external) {
     $shortcode = $agency['shortcode'];
     if ($agency['is_integrated']) {
