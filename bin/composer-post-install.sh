@@ -57,7 +57,7 @@ if [ -f "$MOJ_COMPONENTS_FILE" ] ; then
 fi
 
 
-NOTIFY_FILE=/var/www/html/public/app/plugins/notify-for-wordpress/inc/admin/class-dashboard-table.php
+NOTIFY_FILE=/var/www/html/public/app/mu-plugins/notify-for-wordpress/inc/admin/class-dashboard-table.php
 NOTIFY_SEARCH="public function get_columns"
 NOTIFY_REPLACE='private \$plugin_text_domain;
 
@@ -84,4 +84,24 @@ TREE_VIEW_REPLACE="htmlspecialchars_decode(\$editLink ?? '')"
 if grep -q  $TREE_VIEW_SEARCH $TREE_VIEW_FILE ; then
   echo "Fixing warning in cms-tree-page-view..."
   sed -i "s/$TREE_VIEW_SEARCH/$TREE_VIEW_REPLACE/g" $TREE_VIEW_FILE
+fi
+
+# Check that the version of wp-document-revisions is ont that's been confirmed to work.
+verify_composer_package_version "wpackagist-plugin/wp-document-revisions" "3.6.1"
+
+DOCUMENT_REVISIONS_FILE=/var/www/html/public/app/mu-plugins/wp-document-revisions/includes/class-wp-document-revisions-admin.php
+
+DOCUMENT_REVISIONS_SEARCH_1="\$revisions    = \$this->get_revisions( \$post->ID );"
+DOCUMENT_REVISIONS_REPLACE_1="\$revisions    = apply_filters('wp_document_revisions_get_revisions', \$this->get_revisions( \$post->ID ), 'document_metabox');"
+
+DOCUMENT_REVISIONS_SEARCH_2="\$latest_version = \$this->get_latest_revision( \$post->ID );"
+DOCUMENT_REVISIONS_REPLACE_2="\$latest_version = apply_filters('wp_document_revisions_get_latest_revision', \$this->get_latest_revision( \$post->ID ), 'document_metabox');"
+
+# If the file exists, then replace the search strings.
+if [ -f "$DOCUMENT_REVISIONS_FILE" ] ; then
+  echo "Adding wp_document_revisions_get_revisions filter to wp-document-revisions..."
+  sed -i "s/$DOCUMENT_REVISIONS_SEARCH_1/$DOCUMENT_REVISIONS_REPLACE_1/g" $DOCUMENT_REVISIONS_FILE
+
+  echo "Adding wp_document_revisions_get_latest_revision filter to wp-document-revisions..."
+  sed -i "s/$DOCUMENT_REVISIONS_SEARCH_2/$DOCUMENT_REVISIONS_REPLACE_2/g" $DOCUMENT_REVISIONS_FILE
 fi
