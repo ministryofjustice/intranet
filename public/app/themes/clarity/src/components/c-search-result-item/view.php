@@ -22,7 +22,7 @@ $term_names = is_array($terms) ? array_map(fn($term) => $term->name, $terms) : [
       <span class="c-search-result-item__meta__itemtype">| <?= esc_attr_e($post_type_blog_filter_display) ?></span>
   </h1>
   <div class="c-search-result-item__meta">
-    <span class="c-search-result-item__meta__date"><?= the_modified_date('j F Y') . ', ' ?>
+    <span class="c-search-result-item__meta__date"><?= get_the_date('j F Y') . ', ' ?>
     <?= join(', ', $term_names) ?>
     </span>
   </div>
