@@ -26,9 +26,11 @@ $filteredAgencies = array_filter($activeAgencies, function($agency) use ($exclud
 });
 
 // Alphabetically sort the agencies
-usort($filteredAgencies, function($a, $b) {
+uasort($filteredAgencies, function($a, $b) {
     return strcmp($a['label'], $b['label']);
 });
+
+var_dump($filteredAgencies);
 
 // Split the agencies into integrated and external
 array_map(function($key, array $agency) use (&$integrated, &$external) {
