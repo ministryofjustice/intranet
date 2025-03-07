@@ -46,7 +46,7 @@ class WPDocumentRevisions
         // Filter to retry missing files.
         add_filter('get_attached_file', [$this, 'retryFilesNotFound'], 15, 2);
         // Filter the document get_revisions result to correct the author.
-        add_filter('wp_document_revisions_get_revisions', [$this, 'filterGetMostRecentRevisionAuthor'], 10, 2);
+        add_filter('wp_document_revisions_get_revisions', [$this, 'filterGetMostRecentRevision'], 10, 2);
         // Filter the get_latest_revision result to correct the author.
         add_filter('wp_document_revisions_get_latest_revision', [$this, 'filterGetLatestRevision'], 10, 2);
     }
@@ -227,12 +227,15 @@ class WPDocumentRevisions
 
     /**
      * Filter the get_revisions result to correct the author.
-     * 
+     *
+     * When this filter is called in the context of 'revision_metabox',
+     * it is used to correct the author on the first row of the revisions table.
+     *
      * @param array $revisions The revisions.
      * @param string $context The context.
      * @return array The filtered revisions.
      */
-    public function filterGetMostRecentRevisionAuthor($revisions, $context)
+    public function filterGetMostRecentRevision($revisions, $context)
     {
         if ('revision_metabox' !== $context) {
             return $revisions;
@@ -249,6 +252,9 @@ class WPDocumentRevisions
 
     /**
      * Filter the get_latest_revision result to correct the author.
+     * 
+     * When this filter is called in the context of 'document_metabox',
+     * it is used to correct the author in the string 'Checked in x ago by y'.
      * 
      * @param mixed $revision The revision.
      * @param string $context The context.
