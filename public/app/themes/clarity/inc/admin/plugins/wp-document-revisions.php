@@ -45,6 +45,10 @@ class WPDocumentRevisions
         add_filter('document_serve_use_gzip', '__return_false', null, 2);
         // Filter to retry missing files.
         add_filter('get_attached_file', [$this, 'retryFilesNotFound'], 15, 2);
+        // Filter the document get_revisions result to correct the author.
+        add_filter('wp_document_revisions_get_revisions', [$this, 'filterGetMostRecentRevisionAuthor'], 10, 2);
+        // Filter the get_latest_revision result to correct the author.
+        add_filter('wp_document_revisions_get_latest_revision', [$this, 'filterGetLatestRevision'], 10, 2);
     }
 
     /**
@@ -171,5 +175,97 @@ class WPDocumentRevisions
 
         // If the file still doesn't exist, return the original file.
         return $file;
+    }
+
+    /**
+     * Get the most recent revision author.
+     * 
+     * @param string $format The format to return the author in.
+     * @param int|null $post_id The post ID.
+     * @return int|string The author ID or display name.
+     */
+    public function getMostRecentRevisionAuthor(string $format = 'id', int|null $post_id = null): int|string
+    {
+        // Only allow 'id' or 'displayname' as formats.
+        if (!in_array($format, ['id', 'displayname'])) {
+            return 0;
+        }
+
+        // If we don't have a post ID, but we are in the loop, get the post ID.
+        if (!$post_id && get_the_ID()) {
+            $post_id = get_the_ID();
+        }
+
+        // If we haven't already set the wp_document_revisions object, do so now.
+        if (!$this->wp_document_revisions) {
+            $this->wp_document_revisions = new \WP_Document_Revisions();
+        }
+
+        // Get the revisions for the current post - the first in the array is the document, technically not a revision.
+        $document_revisions = $this->wp_document_revisions->get_revisions(get_the_ID());
+
+        // In an edge case we might not have any revisions. If so, return 0.
+        if (empty($document_revisions)) {
+            return 0;
+        }
+
+        // Get the author of the most recent revision.
+        $most_recent_revision_author = $document_revisions[1]->post_author ?? null;
+
+        // If we can't find the author, return the 0;
+        if (!$most_recent_revision_author || !is_numeric($most_recent_revision_author)) {
+            return 0;
+        }
+
+        // Return the author ID or display name.
+        if ($format === 'id') {
+            return (int) $most_recent_revision_author;
+        }
+
+        return get_user_by('ID', $most_recent_revision_author)?->display_name ?? 0;
+    }
+
+    /**
+     * Filter the get_revisions result to correct the author.
+     * 
+     * @param array $revisions The revisions.
+     * @param string $context The context.
+     * @return array The filtered revisions.
+     */
+    public function filterGetMostRecentRevisionAuthor($revisions, $context)
+    {
+        if ('revision_metabox' !== $context) {
+            return $revisions;
+        }
+
+        if (empty($revisions) || !is_array($revisions) || !isset($revisions[1])) {
+            return $revisions;
+        }
+
+        $revisions[0]->post_author = $revisions[1]->post_author;
+
+        return $revisions;
+    }
+
+    /**
+     * Filter the get_latest_revision result to correct the author.
+     * 
+     * @param mixed $revision The revision.
+     * @param string $context The context.
+     * @return mixed The filtered revision.
+     */
+    public function filterGetLatestRevision(mixed $revision, string $context): mixed
+    {
+        if ('document_metabox' !== $context) {
+            return $revision;
+        }
+
+        if (empty($revision) || !is_object($revision)) {
+            return $revision;
+        }
+
+        $revision->post_author = $this->getMostRecentRevisionAuthor('id');
+
+        return $revision;
     }
 }
