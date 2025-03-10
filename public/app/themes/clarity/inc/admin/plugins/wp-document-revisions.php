@@ -192,8 +192,11 @@ class WPDocumentRevisions
         }
 
         // If we don't have a post ID, but we are in the loop, get the post ID.
-        if (!$post_id && get_the_ID()) {
-            $post_id = get_the_ID();
+        $post_id = $post_id ?: get_the_ID();
+
+        // If we still don't have a post ID, return 0.
+        if (!$post_id) {
+            return 0;
         }
 
         // If we haven't already set the wp_document_revisions object, do so now.
@@ -202,7 +205,7 @@ class WPDocumentRevisions
         }
 
         // Get the revisions for the current post - the first in the array is the document, technically not a revision.
-        $document_revisions = $this->wp_document_revisions->get_revisions(get_the_ID());
+        $document_revisions = $this->wp_document_revisions->get_revisions($post_id);
 
         // In an edge case we might not have any revisions. If so, return 0.
         if (empty($document_revisions)) {
@@ -231,11 +234,11 @@ class WPDocumentRevisions
      * When this filter is called in the context of 'revision_metabox',
      * it is used to correct the author on the first row of the revisions table.
      *
-     * @param array $revisions The revisions.
+     * @param false|array $revisions The revisions.
      * @param string $context The context.
-     * @return array The filtered revisions.
+     * @return false|array The filtered revisions.
      */
-    public function filterGetMostRecentRevision($revisions, $context)
+    public function filterGetMostRecentRevision($revisions, string $context)
     {
         if ('revision_metabox' !== $context) {
             return $revisions;
@@ -256,11 +259,11 @@ class WPDocumentRevisions
      * When this filter is called in the context of 'document_metabox',
      * it is used to correct the author in the string 'Checked in x ago by y'.
      * 
-     * @param mixed $revision The revision.
+     * @param false|WP_Post $revision The revision.
      * @param string $context The context.
-     * @return mixed The filtered revision.
+     * @return false|WP_Post The filtered revision.
      */
-    public function filterGetLatestRevision(mixed $revision, string $context): mixed
+    public function filterGetLatestRevision($revision, string $context)
     {
         if ('document_metabox' !== $context) {
             return $revision;
