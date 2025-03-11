@@ -251,17 +251,6 @@ class Agency extends Taxonomy
             return $query;
         }
 
-        // For documents, only filter the main query. This is important because wp-document-revisions
-        // runs sub-queries related to revisions on the document list screen.
-        // The revisions do not have the agency taxonomy, so we don't want to filter them out.
-        // The query result is cached and used on the edit post screen; filtering the sub-query
-        // results here results in revisions not showing in the revision log on the edit post screen.
-        // Potential improvement: skip filtering sub-queries for all post types, 
-        // that will require discussion and testing.
-        if ('document' === $typenow && !$query->is_main_query()) {
-            return $query;
-        }
-
         // Define the agency taxonomy filter
         $agency = array(Agency_Context::get_agency_context());
 

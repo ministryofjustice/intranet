@@ -32,6 +32,10 @@ class WPDocumentRevisions
         // Set the document URL regex - optional home_url, followed by /documents/.
         $this->document_url_regex = '/^(' . preg_quote($this->home_url, '/') . ')?\/documents/';
 
+        // Add document_revisions to the cache's non-persistent groups.
+        // Because, the values for this group are different for the list and single views.
+        wp_cache_add_non_persistent_groups('document_revisions');
+
         // load hooks here, inside WP ecosys...
         $this->hooks();
     }
@@ -212,20 +216,20 @@ class WPDocumentRevisions
             return 0;
         }
 
-        // Get the author of the most recent revision.
-        $most_recent_revision_author = $document_revisions[1]->post_author ?? null;
+        // Get the most recent revision, if there are no revisions, use the original document.
+        $most_recent = $document_revisions[1] ?? $document_revisions[0];
 
         // If we can't find the author, return the 0;
-        if (!$most_recent_revision_author || !is_numeric($most_recent_revision_author)) {
+        if (!$most_recent?->post_author || !is_numeric($most_recent?->post_author)) {
             return 0;
         }
 
         // Return the author ID or display name.
         if ($format === 'id') {
-            return (int) $most_recent_revision_author;
+            return (int) $most_recent->post_author;
         }
 
-        return get_user_by('ID', $most_recent_revision_author)?->display_name ?? 0;
+        return get_user_by('ID', $most_recent->post_author)?->display_name ?? 0;
     }
 
     /**
@@ -244,7 +248,7 @@ class WPDocumentRevisions
             return $revisions;
         }
 
-        if (empty($revisions) || !is_array($revisions) || !isset($revisions[1])) {
+        if (empty($revisions) || !is_array($revisions) || !isset($revisions[1]?->post_author)) {
             return $revisions;
         }
 
