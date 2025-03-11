@@ -220,7 +220,7 @@ class WPDocumentRevisions
         $most_recent = $document_revisions[1] ?? $document_revisions[0];
 
         // If we can't find the author, return the 0;
-        if (!$most_recent?->post_author || !is_numeric($most_recent?->post_author)) {
+        if (!$most_recent?->post_author || !is_numeric($most_recent->post_author)) {
             return 0;
         }
 
