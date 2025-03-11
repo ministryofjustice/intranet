@@ -92,7 +92,7 @@ verify_composer_package_version "wpackagist-plugin/wp-document-revisions" "3.6.1
 DOCUMENT_REVISIONS_FILE=/var/www/html/public/app/mu-plugins/wp-document-revisions/includes/class-wp-document-revisions-admin.php
 
 DOCUMENT_REVISIONS_SEARCH_1="\$revisions    = \$this->get_revisions( \$post->ID );"
-DOCUMENT_REVISIONS_REPLACE_1="\$revisions    = apply_filters('wp_document_revisions_get_revisions', \$this->get_revisions( \$post->ID ), 'document_metabox');"
+DOCUMENT_REVISIONS_REPLACE_1="\$revisions    = apply_filters('wp_document_revisions_get_revisions', \$this->get_revisions( \$post->ID ), 'revision_metabox');"
 
 DOCUMENT_REVISIONS_SEARCH_2="\$latest_version = \$this->get_latest_revision( \$post->ID );"
 DOCUMENT_REVISIONS_REPLACE_2="\$latest_version = apply_filters('wp_document_revisions_get_latest_revision', \$this->get_latest_revision( \$post->ID ), 'document_metabox');"
