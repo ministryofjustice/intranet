@@ -191,7 +191,7 @@ class Agency
                 'links' => [
                     [
                         'url' => 'https://justiceuk.sharepoint.com/sites/HMIProbationIntranet2',
-                        'label' => 'HM Inspectorate of Probation',
+                        'label' => 'HM Inspectorate of Probation (for Inspectorate staff only)',
                         'main' => true,
                         'is_external' => true,
                     ]
