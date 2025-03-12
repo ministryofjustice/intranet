@@ -184,7 +184,7 @@ class Agency
             ],
             'hmi' => [
                 'shortcode' => 'hmi',
-                'label' => 'HM Inspectorate of Probation',
+                'label' => 'HM Inspectorate of Probation (for Inspectorate staff only)',
                 'abbreviation' => 'HMI',
                 'is_integrated' => false,
                 'contact_email_address' => '',
