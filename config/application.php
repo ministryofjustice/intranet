@@ -214,8 +214,6 @@ if (!isset($_SERVER['CACHE_TIMEOUT'])) {
 
 // Disable the caching if CACHE_HOST is empty, or via WP_REDIS_DISABLED - in case of emergency.
 Config::define('WP_REDIS_DISABLED', empty($_SERVER['CACHE_HOST']) || env('WP_REDIS_DISABLED'));
-// Use Relay redis client, over predis.
-Config::define('WP_REDIS_USE_RELAY', env('WP_REDIS_USE_RELAY'));
 // Set default expiry to 1hour.
 Config::define('WP_REDIS_DEFAULT_EXPIRE_SECONDS', 3600);
 // This salt prefixes the cache keys.
