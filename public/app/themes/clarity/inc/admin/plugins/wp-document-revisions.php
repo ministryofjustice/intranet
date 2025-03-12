@@ -212,7 +212,7 @@ class WPDocumentRevisions
         $document_revisions = $this->wp_document_revisions->get_revisions($post_id);
 
         // In an edge case we might not have any revisions. If so, return 0.
-        if (empty($document_revisions)) {
+        if (empty($document_revisions) || !is_array($document_revisions)) {
             return 0;
         }
 
