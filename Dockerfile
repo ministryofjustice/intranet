@@ -335,8 +335,8 @@ USER 3001
 WORKDIR /home/s3pusher
 
 # Grab assets for pushing to s3
-COPY --from=build-fpm-composer  /var/www/html/vendor-assets ./
-COPY --from=assets-build        /node/dist                  public/app/themes/clarity/dist/
+COPY --from=build-fpm-composer /var/www/html/vendor-assets ./
+COPY --from=assets-build /node/dist public/app/themes/clarity/dist/
 
 # Set IMAGE_TAG at build time, we don't want this container to be run with an incorrect IMAGE_TAG.
 # Set towards the end of the Dockerfile to benefit from caching.
