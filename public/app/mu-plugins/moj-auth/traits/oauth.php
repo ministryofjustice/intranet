@@ -55,6 +55,26 @@ trait AuthOauth
             'User.Read',
             'offline_access' // To get a refresh token
         ];
+
+        /**
+         * Add openid to the scopes if the user is on edge on iOS.
+         * 
+         * Having openid in the scopes will force the user to use MFA,
+         * successfully login and avoid the following error:
+         * 
+         * AADSTS50076: Due to a configuration change made by your administrator, 
+         * or because you moved to a new location, you must use multi-factor 
+         * authentication to access
+         * 
+         * TODO The long term plan is to *not* make an exception for Edge on iOS.
+         * And, use the same scopes for all users. But, this will require further 
+         * testing and comms to users.
+         */
+        if (isset($_SERVER['HTTP_USER_AGENT']) && str_contains($_SERVER['HTTP_USER_AGENT'], 'EdgiOS')) {
+            $this->log('initOauth() Adding openid to the scopes for Edge on iOS');
+            $this->oauth_scopes[] = 'openid';
+        }
+
         if (
             isset($_SERVER['REQUEST_URI']) && str_starts_with ($_SERVER['REQUEST_URI'], '/auth/' )
         ) {
