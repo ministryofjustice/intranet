@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e83f22005bd32f6f95a9278497c0a4c6",
+    "content-hash": "b1e965e73f9251d61ce6905fa9563b03",
     "packages": [
         {
             "name": "alphagov/notifications-php-client",
@@ -590,6 +590,45 @@
             "extra": {
                 "installer-name": "amazon-s3-and-cloudfront-pro"
             }
+        },
+        {
+            "name": "deliciousbrains/wp-amazon-s3-and-cloudfront",
+            "version": "3.2.11",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/deliciousbrains/wp-amazon-s3-and-cloudfront.git",
+                "reference": "c6a44528c93586be89296b592c918fb3b87b8c15"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/deliciousbrains/wp-amazon-s3-and-cloudfront/zipball/c6a44528c93586be89296b592c918fb3b87b8c15",
+                "reference": "c6a44528c93586be89296b592c918fb3b87b8c15",
+                "shasum": ""
+            },
+            "require": {
+                "composer/installers": "^1.0"
+            },
+            "type": "wordpress-plugin",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0-only"
+            ],
+            "description": "Automatically copies media uploads to a storage provider's bucket for delivery. Optionally configure a CDN for even faster delivery.",
+            "homepage": "https://github.com/deliciousbrains/wp-amazon-s3-and-cloudfront",
+            "keywords": [
+                "amazon-web-services",
+                "cdn",
+                "cloudfront",
+                "digitalocean",
+                "plugin",
+                "s3",
+                "spaces"
+            ],
+            "support": {
+                "issues": "https://github.com/deliciousbrains/wp-amazon-s3-and-cloudfront/issues",
+                "source": "https://github.com/deliciousbrains/wp-amazon-s3-and-cloudfront/tree/3.2.11"
+            },
+            "time": "2025-01-22T10:09:23+00:00"
         },
         {
             "name": "doctrine/annotations",
