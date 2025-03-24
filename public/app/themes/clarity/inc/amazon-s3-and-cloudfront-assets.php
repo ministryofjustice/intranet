@@ -7,7 +7,7 @@ use Exception;
 use Roots\WPConfig\Config;
 
 // Return early if the Amazon S3 and CloudFront plugin is not active.
-if(!class_exists('Amazon_S3_And_CloudFront') || !class_exists('Amazon_S3_And_CloudFront_Pro')) {
+if (!class_exists('Amazon_S3_And_CloudFront') || !class_exists('Amazon_S3_And_CloudFront_Pro')) {
     return;
 }
 
