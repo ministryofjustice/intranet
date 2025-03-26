@@ -7,8 +7,9 @@ use Amazon_S3_And_CloudFront_Pro;
 use Exception;
 use Roots\WPConfig\Config;
 
-// Return early if both of the Amazon S3 and CloudFront plugins (Lite & Pro) are inactive.
-if (!class_exists('Amazon_S3_And_CloudFront') && !class_exists('Amazon_S3_And_CloudFront_Pro')) {
+// If we are using the CLI, there is a chance that during plugin switchover that neither
+// Lite or Pro versions of the plugin are active. In this case, we should return early.
+if (defined('WP_CLI') && WP_CLI) {
     return;
 }
 
