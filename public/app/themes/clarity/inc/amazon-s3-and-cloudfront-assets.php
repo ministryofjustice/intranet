@@ -3,15 +3,8 @@
 namespace DeliciousBrains\WP_Offload_Media\Tweaks;
 
 use Amazon_S3_And_CloudFront;
-use Amazon_S3_And_CloudFront_Pro;
 use Exception;
 use Roots\WPConfig\Config;
-
-// If we are using the CLI, there is a chance that during plugin switchover that neither
-// Lite or Pro versions of the plugin are active. In this case, we should return early.
-if (defined('WP_CLI') && WP_CLI) {
-    return;
-}
 
 /**
  * Amazon S3 and CloudFront - assets.
@@ -30,7 +23,7 @@ class AmazonS3AndCloudFrontAssets
     private string $cloudfront_host;
     private string $cloudfront_asset_url;
 
-    private Amazon_S3_And_CloudFront|Amazon_S3_And_CloudFront_Pro $as3cf;
+    private Amazon_S3_And_CloudFront $as3cf;
 
     public function __construct()
     {
@@ -58,7 +51,6 @@ class AmazonS3AndCloudFrontAssets
         $this->cloudfront_asset_url = $cloudfront_scheme . '://' . $this->cloudfront_host . '/build/' . $this->image_tag;
 
         add_action('as3cf_ready', [$this, 'setAs3cfInstance']);
-        add_action('as3cf_pro_ready', [$this, 'setAs3cfInstance']);
         add_action('init', [$this, 'init']);
         add_filter('style_loader_src', [$this, 'rewriteSrc'], 10, 2);
         add_filter('script_loader_src', [$this, 'rewriteSrc'], 10, 2);
@@ -66,9 +58,9 @@ class AmazonS3AndCloudFrontAssets
     }
 
     /**
-     * Set the Amazon_S3_And_CloudFront(_Pro) instance.
+     * Set the Amazon_S3_And_CloudFront instance.
      * 
-     * @param Amazon_S3_And_CloudFront|Amazon_S3_And_CloudFront_Pro $as3cf_instance
+     * @param Amazon_S3_And_CloudFront $as3cf_instance
      * @return void
      */
 

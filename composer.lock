@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b1e965e73f9251d61ce6905fa9563b03",
+    "content-hash": "3452f27414b260b46cef81c270922a59",
     "packages": [
         {
             "name": "alphagov/notifications-php-client",
@@ -575,21 +575,6 @@
                 }
             ],
             "time": "2024-09-19T14:15:21+00:00"
-        },
-        {
-            "name": "deliciousbrains-plugin/wp-offload-media",
-            "version": "3.2.8",
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.deliciousbrains.com/?wc-api=delicious-brains&request=composer_download&package=wp-offload-media&version=3.2.8"
-            },
-            "require": {
-                "composer/installers": "~1.0 || ~2.0"
-            },
-            "type": "wordpress-plugin",
-            "extra": {
-                "installer-name": "amazon-s3-and-cloudfront-pro"
-            }
         },
         {
             "name": "deliciousbrains/wp-amazon-s3-and-cloudfront",
