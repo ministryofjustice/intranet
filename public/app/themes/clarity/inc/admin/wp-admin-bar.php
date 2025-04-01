@@ -35,18 +35,6 @@ function agency_context_switcher_menu($wp_admin_bar)
 
     $agency_role = isset($agency->name) ? $agency->name : 'Team account';
 
-    $wp_admin_bar->add_node(
-        array(
-            'parent' => 'top-secondary',
-            'id'     => 'perm',
-            'title'  => ucwords($role) . ', ' . $agency_role,
-            'href'   => site_url() . '/wp-admin/profile.php?page=permissions-dashboard',
-            'meta'   => [
-                'title' => 'Permission group'
-            ]
-        )
-    );
-
     if (current_user_can('administrator')) {
         $wp_admin_bar->add_node(
             array(
@@ -93,6 +81,19 @@ function agency_context_switcher_menu($wp_admin_bar)
             }
         }
     }
+
+    // Show the permission group after current agency
+    $wp_admin_bar->add_node(
+        array(
+            'parent' => 'top-secondary',
+            'id'     => 'perm',
+            'title'  => ucwords($role) . ', ' . $agency_role,
+            'href'   => site_url() . '/wp-admin/profile.php?page=permissions-dashboard',
+            'meta'   => [
+                'title' => 'Permission group'
+            ]
+        )
+    );
 }
 
 add_action('admin_init', 'set_agency_context');
