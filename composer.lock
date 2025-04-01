@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b1e965e73f9251d61ce6905fa9563b03",
+    "content-hash": "4de21599a5afbe2a6cedf8a6fd971b54",
     "packages": [
         {
             "name": "alphagov/notifications-php-client",
@@ -1738,9 +1738,9 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.wp.dsd.io/dist/ministryofjustice/wp-moj-components/ministryofjustice-wp-moj-components-bc735aaab6ee2d67e6afed2fad6399ecf9accf05-zip-447db5.zip",
+                "url": "https://api.github.com/repos/ministryofjustice/wp-moj-components/zipball/bc735aaab6ee2d67e6afed2fad6399ecf9accf05",
                 "reference": "bc735aaab6ee2d67e6afed2fad6399ecf9accf05",
-                "shasum": "409a59383d53bfcdb53696b3356b9d4191cefc1b"
+                "shasum": ""
             },
             "require": {
                 "composer/installers": "^1.0"
@@ -1810,9 +1810,9 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.wp.dsd.io/dist/ministryofjustice/wp-moj-elasticsearch/ministryofjustice-wp-moj-elasticsearch-9bfb7e185fb3adeafd26ed3ae96d67e22523f2fc-zip-80fb6b.zip",
+                "url": "https://api.github.com/repos/ministryofjustice/wp-moj-elasticsearch/zipball/9bfb7e185fb3adeafd26ed3ae96d67e22523f2fc",
                 "reference": "9bfb7e185fb3adeafd26ed3ae96d67e22523f2fc",
-                "shasum": "b4de18b627da64b01ae3d07701fb771ff7ec336f"
+                "shasum": ""
             },
             "require": {
                 "composer/installers": "^1.0"
@@ -4548,13 +4548,14 @@
             "version": "6.3.6",
             "dist": {
                 "type": "zip",
-                "url": "https://connect.advancedcustomfields.com/v2/plugins/composer_download?p=pro&t=6.3.6"
+                "url": "https://connect.advancedcustomfields.com/v2/plugins/composer_download?s=composer&p=pro&t=6.3.6"
             },
             "require": {
                 "composer/installers": "~1.0 || ~2.0"
             },
             "replace": {
-                "wpackagist-plugin/advanced-custom-fields": "self.version"
+                "wpackagist-plugin/advanced-custom-fields": "self.version",
+                "wpengine/advanced-custom-fields": "self.version"
             },
             "type": "wordpress-plugin"
         }

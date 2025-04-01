@@ -47,19 +47,16 @@ jobs:
       - name: Container monitor ~ build FPM & Nginx Docker images
         run: |
           docker image build \
-            --build-arg COMPOSER_USER="$COMPOSER_USER"     --build-arg COMPOSER_PASS="$COMPOSER_PASS"   \
             --build-arg ACF_PRO_LICENSE="$ACF_PRO_LICENSE" --build-arg ACF_PRO_PASS="$ACF_PRO_PASS"     \
             --build-arg AS3CF_PRO_USER="$AS3CF_PRO_USER"   --build-arg AS3CF_PRO_PASS="$AS3CF_PRO_PASS" \
             -t intranet-fpm:snyk --target build-fpm .
           
           docker image build \
-            --build-arg COMPOSER_USER="$COMPOSER_USER"     --build-arg COMPOSER_PASS="$COMPOSER_PASS"   \
             --build-arg ACF_PRO_LICENSE="$ACF_PRO_LICENSE" --build-arg ACF_PRO_PASS="$ACF_PRO_PASS"     \
             --build-arg AS3CF_PRO_USER="$AS3CF_PRO_USER"   --build-arg AS3CF_PRO_PASS="$AS3CF_PRO_PASS" \
             -t intranet-nginx:snyk --target build-nginx .
 
         env:
-          COMPOSER_USER: ${{ secrets.COMPOSER_USER }}
           COMPOSER_PASS: ${{ secrets.COMPOSER_PASS }}
           ACF_PRO_LICENSE: ${{ secrets.ACF_PRO_LICENSE }}
           ACF_PRO_PASS: ${{ secrets.ACF_PRO_PASS }}
