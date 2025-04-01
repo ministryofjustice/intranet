@@ -22,6 +22,9 @@ ARG version_cron_alpine=3.19.1
 
 FROM ministryofjustice/wordpress-base-fpm:latest AS base-fpm
 
+# Switch to the alpine's default user, for installing packages
+USER root
+
 RUN apk update && \
     apk add strace
 
