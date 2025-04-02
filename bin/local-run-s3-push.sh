@@ -15,7 +15,6 @@
 set -a && source .env && set +a
 
 docker image build -t intranet-s3-push:latest \
-  --build-arg COMPOSER_USER   --build-arg COMPOSER_PASS  \
   --build-arg ACF_PRO_LICENSE --build-arg ACF_PRO_PASS   \
   --build-arg AS3CF_PRO_USER  --build-arg AS3CF_PRO_PASS \
   --build-arg IMAGE_TAG \

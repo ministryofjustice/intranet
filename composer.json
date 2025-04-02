@@ -21,10 +21,6 @@
         },
         {
             "type": "composer",
-            "url": "https://composer.wp.dsd.io"
-        },
-        {
-            "type": "composer",
             "url": "https://composer.deliciousbrains.com"
         },
         {
@@ -42,6 +38,14 @@
         {
             "type": "vcs",
             "url": "https://github.com/ministryofjustice/php-markdown-extra"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/ministryofjustice/wp-moj-components"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/ministryofjustice/wp-moj-elasticsearch"
         },
         {
             "type":"composer",
