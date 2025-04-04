@@ -21,7 +21,8 @@ class Agency extends Taxonomy
         'regional_news',
         'regional_page',
         'condolences',
-        'note-from-antonia'
+        'note-from-amy',
+        'note-from-antonia',
     );
 
     protected $args = array(

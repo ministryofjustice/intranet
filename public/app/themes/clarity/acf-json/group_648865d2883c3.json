@@ -3,6 +3,34 @@
     "title": "Blog-roll settings",
     "fields": [
         {
+            "key": "field_67ed604ac5f42",
+            "label": "Content Type",
+            "name": "content_post_type",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "The type of content to display.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "33.3",
+                "class": "",
+                "id": ""
+            },
+            "admin_only": 0,
+            "choices": {
+                "note-from-antonia": "Notes from Antonia",
+                "note-from-amy": "Notes from Amy"
+            },
+            "default_value": false,
+            "return_format": "value",
+            "multiple": 0,
+            "allow_null": 0,
+            "allow_in_bindings": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": ""
+        },
+        {
             "key": "field_6489b2ac9df2a",
             "label": "Excerpt",
             "name": "blog_roll_excerpt",
@@ -12,13 +40,14 @@
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
-                "width": "50",
+                "width": "33.3",
                 "class": "",
                 "id": ""
             },
             "admin_only": 0,
             "default_value": "",
             "maxlength": "",
+            "allow_in_bindings": 1,
             "rows": 3,
             "placeholder": "",
             "new_lines": ""
@@ -33,13 +62,14 @@
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
-                "width": "50",
+                "width": "33.3",
                 "class": "",
                 "id": ""
             },
             "admin_only": 0,
             "default_value": "",
             "maxlength": "",
+            "allow_in_bindings": 1,
             "rows": 3,
             "placeholder": "",
             "new_lines": ""
@@ -277,7 +307,7 @@
             {
                 "param": "page_template",
                 "operator": "==",
-                "value": "page_notes_from_antonia.php"
+                "value": "page_blogroll.php"
             }
         ]
     ],
@@ -290,5 +320,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1686753120
+    "modified": 1743610131
 }

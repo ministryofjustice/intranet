@@ -1,6 +1,6 @@
 <?php
 /*
-* Template Name: Notes from Antonia
+* Template Name: Blogroll (Notes from Perm. Sec.)
 */
 get_header();
 get_template_part('src/components/c-campaign-colour/view');
@@ -9,6 +9,7 @@ get_template_part('src/components/c-campaign-colour/view');
 $stv_pre = 'scroll_to_view_group_';
 $img_pre = 'image_load_manage_group_';
 $page_settings = [
+    'post_type' => get_post_meta($post->ID, 'content_post_type', true),
     'loading_message' =>  get_post_meta($post->ID, 'loading_message_text', true),
     'scroll_to_view' => [
         'active' => get_post_meta($post->ID, $stv_pre . 'scroll_to_view_active', true)
@@ -66,7 +67,7 @@ if ($page_settings['image_load']['active']) {
             </div>
 
             <div id="content">
-                <?php get_notes_api('note-from-antonia'); ?>
+                <?php get_blogroll_posts_api($page_settings['post_type']); ?>
             </div>
         </div>
 
