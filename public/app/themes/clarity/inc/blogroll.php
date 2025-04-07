@@ -18,10 +18,13 @@ if (!defined('ABSPATH')) {
 class Blogroll
 {
 
+    // Map of post types (array key) to content pages (array value)
     const CONTENT_PAGE_MAP = [
         'note-from-amy' => 'notes-from-amy',
         'note-from-antonia' => 'notes-from-antonia'
     ];
+
+    const CRON_HOOK = 'blogroll_cron_hook';
 
     /**
      * Constructor
@@ -30,6 +33,9 @@ class Blogroll
      */
     public function __construct()
     {
+        // Hook into template redirect, to redirect from a single post to the content page.
+        add_action('template_redirect', [$this, 'redirectToContentPage']);
+
         // Hook into wp_insert_post action.
         // This will fire on new post open, save, publish, update
         add_action('wp_insert_post', [$this, 'handleNotesFromInsert'], 10, 2);
@@ -37,25 +43,33 @@ class Blogroll
         // Create a 1 minute schedule
         add_filter('cron_schedules', [$this, 'addOneMinuteCronSchedule']);
 
-        // Hook into template redirect
-        add_action('template_redirect', [$this, 'redirectToContentPage']);
+        // Schedule the cron job
+        add_action('init', [$this, 'scheduleCronJob']);
+
+        // Hook into the cron job to copy agencies to notes.
+        add_action($this::CRON_HOOK, [$this, 'copyAgenciesToNotes']);
     }
 
     /**
-     * Adds a custom cron schedule of 1 minute.
-     *
-     * @param array $schedules
-     * @return array
+     * Redirects from a single blogroll post, 
+     * e.g. a single 'Note from Amy' or 'Note from Antonia'
+     * to a content page that contains all notes of that type.
+     * 
+     * @return void
      */
-    public function addOneMinuteCronSchedule($schedules)
+    public function redirectToContentPage()
     {
-        $schedules['one_minute'] = [
-            'interval' => 60,
-            'display' => esc_html__('Every Minute')
-        ];
+        // Only run on single post pages and if the post type is in the redirect map
+        if (!is_single() || !isset($this::CONTENT_PAGE_MAP[get_post_type()])) {
+            return;
+        }
 
-        return $schedules;
+        // Redirect to the page that contains all notes
+        // and append the ID of the note to the URL
+        wp_redirect(home_url($this::CONTENT_PAGE_MAP[get_post_type()] . '#note-' . get_the_ID()), 301);
+        exit;
     }
+
 
     /**
      * Handle notes-from-* post creation or updates
@@ -138,30 +152,42 @@ class Blogroll
         }
     }
 
+
     /**
-     * Redirects from a single blogroll post, 
-     * e.g. a single 'Note from Amy' or 'Note from Antonia'
-     * to a content page that contains all notes of that type.
+     * Adds a custom cron schedule of 1 minute.
+     *
+     * @param array $schedules
+     * @return array
+     */
+    public function addOneMinuteCronSchedule($schedules)
+    {
+        $schedules['one_minute'] = [
+            'interval' => 60,
+            'display' => esc_html__('Every Minute')
+        ];
+
+        return $schedules;
+    }
+
+    /**
+     * Schedules a cron job to run the copyAgenciesToNotes function.
+     * 
+     * This function checks if the cron job is already scheduled,
+     * and if not, schedules it to run every 1 minute.
      * 
      * @return void
      */
-    public function redirectToContentPage()
+    public function scheduleCronJob()
     {
-        // Map the post type (array keys) to the destination URL (array values)
-        $redirect_map = [
-            'note-from-amy' => '/notes-from-amy/#note-%d',
-            'note-from-antonia' => '/notes-from-antonia/#note-%d',
-        ];
-
-        // Only run on single post pages and if the post type is in the redirect map
-        if (!is_single() || !isset($redirect_map[get_post_type()])) {
-            return;
+        // Check if the cron job is already scheduled
+        if (!wp_next_scheduled($this::CRON_HOOK)) {
+            // Schedule the cron job to run every 1 minute
+            wp_schedule_event(
+                time(),
+                (getenv('WP_ENV') === 'production' ? 'twicedaily' : 'one_minute'),
+                $this::CRON_HOOK
+            );
         }
-
-        // Redirect to the page that contains all notes
-        // and append the ID of the note to the URL
-        wp_redirect(home_url(sprintf($redirect_map[get_post_type()], get_the_ID())), 301);
-        exit;
     }
 }
 
