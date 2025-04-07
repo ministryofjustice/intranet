@@ -16,7 +16,7 @@
 
         <?php
         if (current_user_can('edit_post', $post->ID)) {
-            echo '<a href="' . get_edit_post_link($post->ID) .'" class="button" title="Click to edit ' . $post->post_title . '">Edit Note</a><br>';
+            echo '<a href="' . get_edit_post_link($post->ID) .'" class="button c-notes-from-antonia__edit-button" title="Click to edit ' . $post->post_title . '">Edit Note</a><br>';
         }
         ?>
     </div>

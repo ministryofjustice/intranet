@@ -39,7 +39,7 @@ function get_notes_api($set_cpt = '')
         foreach ($posts as $key => $post) {
             include locate_template('src/components/c-article-item/view-notes-feed.php');
             if (($key !== 0) && $key % 3 == 0) {
-                echo '<br><br><a href="#top">Back to top</a>';
+                echo '<a class="c-notes-from-antonia__to-the-top" href="#top">Back to top</a>';
             }
         }
     } else {

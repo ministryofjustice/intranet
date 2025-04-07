@@ -1,3 +1,52 @@
 .c-notes-from-antonia {
+    break-inside: avoid;
 
+    .c-article-content {
+        img {
+            display: block;
+            height: 8cm;
+            width: auto;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .twitter-tweet {
+            margin-left: auto;
+            margin-right: auto;
+        }
+    }
+
+    &__edit-button {
+        display: none;
+    }
+
+    // This element is after every 3rd .c-notes-from-antonia
+    &__to-the-top {
+        display: none;
+    }
+}
+
+// Page-level styles
+.page-template-page_notes_from_antonia {
+
+    .template-container {
+        // Add a page break after the title and intro.
+        page-break-after: always;
+    }
+
+    #feedback-box {
+        display: none;
+    }
+
+    .c-share-post__meta__date {
+        display: none;
+    }
+
+    .c-footer {
+        .l-primary {
+            display: none;
+        }
+
+        text-align: center;
+    }
 }
