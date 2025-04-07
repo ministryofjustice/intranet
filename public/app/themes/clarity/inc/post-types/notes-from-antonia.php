@@ -79,3 +79,10 @@ add_action('init', function () {
         });
     }
 });
+
+// Remove notes_from_antonia_cron_hook cron hook
+add_action('init', function () {
+    if (wp_next_scheduled('notes_from_antonia_cron_hook')) {
+        wp_clear_scheduled_hook('notes_from_antonia_cron_hook');
+    }
+});
