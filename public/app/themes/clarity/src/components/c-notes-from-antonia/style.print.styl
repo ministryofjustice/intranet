@@ -13,7 +13,22 @@
         .twitter-tweet {
             margin-left: auto;
             margin-right: auto;
+            break-inside: avoid;
         }
+
+        // YouTube iframes
+        > p > iframe {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            break-inside: avoid;
+        }
+
+        // Target empty p tags
+        p:empty {
+            display: none;
+        }
+
     }
 
     &__edit-button {

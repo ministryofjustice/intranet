@@ -15,7 +15,8 @@ $page_settings = [
     ],
     'image_load' => [
         'active' => get_post_meta($post->ID, $img_pre . 'image_load_active', true)
-    ]
+    ],
+    'year_filter' => isset($_GET['year-filter']) && (int)$_GET['year-filter'] > 2016 && (int)$_GET['year-filter'] < 2048  ? (int)$_GET['year-filter'] : null
 ];
 
 if ($page_settings['scroll_to_view']['active']) {
@@ -66,7 +67,7 @@ if ($page_settings['image_load']['active']) {
             </div>
 
             <div id="content">
-                <?php get_notes_api('note-from-antonia'); ?>
+                <?php get_notes_api('note-from-antonia', $page_settings['year_filter']); ?>
             </div>
         </div>
 

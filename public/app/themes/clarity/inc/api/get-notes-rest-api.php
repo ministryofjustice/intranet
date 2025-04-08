@@ -26,12 +26,18 @@ function get_note_from_antonia()
 }
 
 // $set_cpt custom post type
-function get_notes_api($set_cpt = '')
+function get_notes_api($set_cpt = '', $year_filter = null)
 {
     $args = [
         'post_type' => $set_cpt,
         'numberposts' => -1
     ];
+
+    if($year_filter) {
+        $args['date_query'] = [
+            'year' => $year_filter
+        ];
+    }
 
     $posts = get_posts($args);
 
