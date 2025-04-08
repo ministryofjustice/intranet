@@ -24,7 +24,14 @@ class Blogroll
         'note-from-antonia' => 'notes-from-antonia'
     ];
 
+    // Name of the cron job
     const CRON_HOOK = 'blogroll_cron_hook';
+
+    // Which user roles are allowed to view archived pages?
+    const ARCHIVE_PERMISSIONS = [
+        'agency_admin',
+        'administrator',
+    ];
 
     /**
      * Constructor
@@ -35,6 +42,9 @@ class Blogroll
     {
         // Hook into template redirect, to redirect from a single post to the content page.
         add_action('template_redirect', [$this, 'redirectToContentPage']);
+
+        // Hook into template redirect, to redirect some visitors from an archived Perm. Sec. page to the current one.
+        add_action('template_redirect', [$this, 'maybeRedirectFromArchivedPage']);
 
         // Hook into wp_insert_post action.
         // This will fire on new post open, save, publish, update
@@ -67,6 +77,43 @@ class Blogroll
         // Redirect to the page that contains all notes
         // and append the ID of the note to the URL
         wp_redirect(home_url($this::CONTENT_PAGE_MAP[get_post_type()] . '#note-' . get_the_ID()), 301);
+        exit;
+    }
+
+    /**
+     * Redirects from an archived page to the current one.
+     * This is used when a Perm. Sec. page is archived and the user
+     * does not have the required permissions to view it.
+     * 
+     * @return void
+     */
+    public function maybeRedirectFromArchivedPage()
+    {
+        // Check if the current page the blogroll template
+        if (!is_page_template('page_blogroll.php')) {
+            return;
+        }
+
+        // Check if the current user has the required permissions
+        if (current_user_can('agency_admin') || current_user_can('administrator')) {
+            return;
+        }
+
+        // Check if the current page is archived
+        $is_archived = get_post_meta(get_the_ID(), 'is_archived', true);
+        if (!$is_archived) {
+            return;
+        }
+
+        // Get the redirect URL
+        $redirect_url = get_post_meta(get_the_ID(), 'archive_redirect', true);
+        if (empty($redirect_url)) {
+            return;
+        }
+
+        // Redirect to the new URL, use 302 so that the redirect 
+        // is not cached when an Agency Admin is logged out.
+        wp_redirect(get_the_permalink($redirect_url), 302);
         exit;
     }
 

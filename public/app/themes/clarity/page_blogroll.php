@@ -16,7 +16,8 @@ $page_settings = [
     ],
     'image_load' => [
         'active' => get_post_meta($post->ID, $img_pre . 'image_load_active', true)
-    ]
+    ],
+    'is_archived' => get_post_meta($post->ID, 'is_archived', true),
 ];
 
 if ($page_settings['scroll_to_view']['active']) {
@@ -28,6 +29,10 @@ if ($page_settings['scroll_to_view']['active']) {
 if ($page_settings['image_load']['active']) {
     $img_pre .= 'image_load_settings_';
     $page_settings['image_load']['fade_in'] = get_post_meta($post->ID, $img_pre . 'image_loaded_fade_in', true);
+}
+
+if($page_settings['is_archived']) {
+    $page_settings['archive_redirect'] = get_post_meta($post->ID, 'archive_redirect', true);
 }
 
 ?>
@@ -53,6 +58,19 @@ if ($page_settings['image_load']['active']) {
     <main role="main" id="maincontent" class="u-wrapper l-main l-reverse-order t-default js-notes-from-antonia">
 
         <?php get_template_part('src/components/c-breadcrumbs/view') ?>
+
+        <?php if($page_settings['is_archived']): ?>
+            <div class="c-moj-banner c-moj-banner--warning">
+                <div class="c-moj-banner__message">
+                     <h2 class="o-title">This page is archived</h2>
+                    This page is archived and no longer updated. Agency Admins have access to this page,
+                    users with other accounts, and visitors without an account will be redirected to: 
+                    <a href="<?php the_permalink($page_settings['archive_redirect']); ?>">
+                        <?php echo get_the_title($page_settings['archive_redirect']); ?>
+                    </a>
+                </div>
+            </div>
+        <?php endif; ?>
 
         <div role="status" class="l-primary">
             <?php get_template_part('src/components/c-campaign-banner/view') ?>
