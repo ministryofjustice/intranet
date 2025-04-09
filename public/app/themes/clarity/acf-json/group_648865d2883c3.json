@@ -31,7 +31,7 @@
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
-                "width": "33.3",
+                "width": "50",
                 "class": "",
                 "id": ""
             },
@@ -50,6 +50,33 @@
             "placeholder": ""
         },
         {
+            "key": "field_67f697e6012b0",
+            "label": "Banner image",
+            "name": "dw_page_banner",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "admin_only": 0,
+            "return_format": "id",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "",
+            "allow_in_bindings": 0,
+            "preview_size": "medium"
+        },
+        {
             "key": "field_6489b2ac9df2a",
             "label": "Excerpt",
             "name": "blog_roll_excerpt",
@@ -59,7 +86,7 @@
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
-                "width": "33.3",
+                "width": "50",
                 "class": "",
                 "id": ""
             },
@@ -415,5 +442,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1744128070
+    "modified": 1744214133
 }
