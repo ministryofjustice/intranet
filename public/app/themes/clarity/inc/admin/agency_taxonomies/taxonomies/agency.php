@@ -315,6 +315,8 @@ class Agency extends Taxonomy
             'delete_post',
             'edit_news',
             'delete_news',
+            'edit_notes_from_amy',
+            'delete_notes_from_amy',
             'edit_notes_from_antonia',
             'delete_notes_from_antonia'
         ];
