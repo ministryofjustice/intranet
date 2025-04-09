@@ -57,7 +57,7 @@ class Blogroll
         add_action('init', [$this, 'scheduleCronJob']);
 
         // Hook into the cron job to copy agencies to notes.
-        add_action($this::CRON_HOOK, [$this, 'copyAgenciesToNotes']);
+        add_action($this::CRON_HOOK, [$this, 'copyAgenciesToNotesCronHandler']);
     }
 
     /**
@@ -65,7 +65,7 @@ class Blogroll
      * e.g. a single 'Note from Amy' or 'Note from Antonia'
      * to a content page that contains all notes of that type.
      * 
-     * @return void
+     * @return void - returns void or exits if a redirect is performed.
      */
     public function redirectToContentPage()
     {
@@ -85,7 +85,7 @@ class Blogroll
      * This is used when a Perm. Sec. page is archived and the user
      * does not have the required permissions to view it.
      * 
-     * @return void
+     * @return void - returns void or exits if a redirect is performed.
      */
     public function maybeRedirectFromArchivedPage()
     {
@@ -128,21 +128,33 @@ class Blogroll
      * @param WP_Post $post
      * @return void
      */
-
-    public function handleNotesFromInsert($post_id, $post)
+    public function handleNotesFromInsert($post_id, $post): void
     {
         if (in_array($post->post_type, ['note-from-amy', 'note-from-antonia'])) {
             $this->copyAgenciesToNotes($post->post_type, $post_id);
         }
     }
 
-
-    // Hook into this post_type, we need to detect
-    // new notes and apply the agencies that have
-    // access to the main page...
+    /**
+     * Cron handler for copying agencies to notes.
+     * 
+     * This function is called by the cron job and will copy the agencies
+     * from the content page to all notes of that type.
+     * Loops over the post types and calls the copyAgenciesToNotes function.
+     * 
+     * @return void
+     */
+    public function copyAgenciesToNotesCronHandler(): void
+    {
+        // Get all notes
+        $post_types = ['note-from-amy', 'note-from-antonia'];
+        foreach ($post_types as $post_type) {
+            $this->copyAgenciesToNotes($post_type);
+        }
+    }
 
     /**
-     * Copy tagged agencies from 'Notes from Amy' page to individual Notes.
+     * Copy tagged agencies from 'Notes from Amy' or 'Notes from Antonia' page to individual Notes.
      *
      * Agencies have the ability to include content on their own Intranets. If they
      * choose Notes from Amy then each individual Note will need to reflect
@@ -150,7 +162,7 @@ class Blogroll
      *
      * @param null $note
      */
-    function copyAgenciesToNotes($post_type = null, $post_id = null)
+    function copyAgenciesToNotes($post_type = null, $post_id = null): void
     {
 
         if (!$post_type || !in_array($post_type, ['note-from-amy', 'note-from-antonia'])) {
@@ -206,7 +218,8 @@ class Blogroll
      * @param array $schedules
      * @return array
      */
-    public function addOneMinuteCronSchedule($schedules)
+    public function addOneMinuteCronSchedule(array $schedules): array
+
     {
         $schedules['one_minute'] = [
             'interval' => 60,
@@ -224,7 +237,7 @@ class Blogroll
      * 
      * @return void
      */
-    public function scheduleCronJob()
+    public function scheduleCronJob(): void
     {
         // Check if the cron job is already scheduled
         if (!wp_next_scheduled($this::CRON_HOOK)) {
