@@ -2,7 +2,11 @@
 <div class="c-notes-from-antonia">
     <div class="content">
         <?php
-        $show_title = get_field('display_title_notes_from_antonia', $post->ID);
+        if ($post->post_type === 'note-from-antonia') {
+            $show_title = get_field('display_title_notes_from_antonia', $post->ID);
+        } else {
+            $show_title = get_field('display_title', $post->ID);
+        }
         if ($show_title === '1' || $show_title =='yes') {
             echo '<p><strong>' . get_gmt_from_date($post->post_date, 'l j F Y') . ' &ndash; ' . $post->post_title . '</strong></p>';
         }

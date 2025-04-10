@@ -191,6 +191,7 @@ class PriorPartyBannerEmail
             'post' => get_post_type_object('post'),
             'news' => get_post_type_object('news'),
             'page' => get_post_type_object('page'),
+            'note-from-amy' => get_post_type_object('note-from-amy'),
             'note-from-antonia' => get_post_type_object('note-from-antonia')
         ];
     }

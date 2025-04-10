@@ -17,6 +17,7 @@ add_filter('menu_order', function ($menu_order) {
         'admin.php?page=header-settings',
         'admin.php?page=homepage-settings',
         'separator1',
+        'edit.php?post_type=note-from-amy',
         'edit.php?post_type=note-from-antonia',
         'edit.php?post_type=news',
         'edit.php?post_type=page',
