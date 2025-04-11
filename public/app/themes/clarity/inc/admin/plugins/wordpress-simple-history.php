@@ -148,8 +148,11 @@ class SimpleHistory
         error_log('Dropins: ' . print_r($dropins, true));
 
         $remove = [
+            // Export is unnecessary as we are not using it.
             'Simple_History\Dropins\Export_Dropin',
+            // Filter out the stats dropin so that the vendor bundled js is not loaded.
             'Simple_History\Dropins\Sidebar_Stats_Dropin',
+            // Promotional dropin.
             'Simple_History\Dropins\Sidebar_Add_Ons_Dropin',
         ];
 
