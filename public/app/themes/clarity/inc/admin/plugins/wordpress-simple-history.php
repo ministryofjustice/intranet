@@ -145,8 +145,6 @@ class SimpleHistory
      */
     public function removeUnnecessaryDropins($dropins)
     {
-        error_log('Dropins: ' . print_r($dropins, true));
-
         $remove = [
             // Export is unnecessary as we are not using it.
             'Simple_History\Dropins\Export_Dropin',
@@ -171,14 +169,6 @@ class SimpleHistory
     {
         // For all users remove the review box.
         unset($sidebar_boxes['boxReview']);
-
-        // If not admin, remove the donate and support sidebar boxes
-        if (!current_user_can('administrator')) {
-            unset($sidebar_boxes['boxDonate']);
-            unset($sidebar_boxes['boxSupport']);
-        }
-
-        error_log(print_r($sidebar_boxes, true));
 
         return $sidebar_boxes;
     }
