@@ -35,31 +35,21 @@ function agency_context_switcher_menu($wp_admin_bar)
 
     $agency_role = isset($agency->name) ? $agency->name : 'Team account';
 
-    $wp_admin_bar->add_node(
-        array(
-            'parent' => 'top-secondary',
-            'id'     => 'perm',
-            'title'  => 'Permission group: ' . $role . ', ' . $agency_role,
-            'href'   => site_url() . '/wp-admin/profile.php?page=permissions-dashboard',
-        )
-    );
-
     if (current_user_can('administrator')) {
         $wp_admin_bar->add_node(
             array(
                 'parent' => 'top-secondary',
                 'id'     => 'agency-context-switcher',
-                'title'  => 'Switch agency. Current agency: ' . $agency_role,
+                'title'  => 'Current agency: ' . $agency_role,
                 'href'   => '#',
+                'meta'   => [
+                    'title' => 'Click to switch agency'
+                ]
             )
         );
-    }
-
-    $agencies = Agency_Context::current_user_available_agencies();
-
-    // Add sub-menu to switch context if there are multiple agencies
-
-    if (current_user_can('administrator')) {
+        
+        $agencies = Agency_Context::current_user_available_agencies();
+        
         if (count($agencies) > 1) {
             $wp_admin_bar->add_group(
                 array(
@@ -91,6 +81,19 @@ function agency_context_switcher_menu($wp_admin_bar)
             }
         }
     }
+
+    // Show the permission group after current agency
+    $wp_admin_bar->add_node(
+        array(
+            'parent' => 'top-secondary',
+            'id'     => 'perm',
+            'title'  => ucwords($role) . ', ' . $agency_role,
+            'href'   => site_url() . '/wp-admin/profile.php?page=permissions-dashboard',
+            'meta'   => [
+                'title' => 'Permission group'
+            ]
+        )
+    );
 }
 
 add_action('admin_init', 'set_agency_context');

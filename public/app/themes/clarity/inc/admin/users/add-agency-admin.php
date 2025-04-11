@@ -98,6 +98,20 @@ $capabilities = array(
     'delete_note_from_antonia' => true,
     'delete_others_notes_from_antonia' => true,
 
+    // Notes from Amy
+    'note_from_amy' => true,
+    'notes_from_amy' => true,
+    'edit_notes_from_amy' => true,
+    'edit_note_from_amy' => true,
+    'edit_others_notes_from_amy' => true,
+    'edit_published_notes_from_amy' => true,
+    'publish_notes_from_amy' => true,
+    'delete_notes_from_amy' => true,
+    'delete_published_notes_from_amy' => true,
+    'delete_private_notes_from_amy' => true,
+    'delete_note_from_amy' => true,
+    'delete_others_notes_from_amy' => true,
+
     // Documents
     'edit_documents' => true,
     'edit_others_documents' => true,

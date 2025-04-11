@@ -21,10 +21,6 @@
         },
         {
             "type": "composer",
-            "url": "https://composer.wp.dsd.io"
-        },
-        {
-            "type": "composer",
             "url": "https://composer.deliciousbrains.com"
         },
         {
@@ -42,6 +38,14 @@
         {
             "type": "vcs",
             "url": "https://github.com/ministryofjustice/php-markdown-extra"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/ministryofjustice/wp-moj-components"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/ministryofjustice/wp-moj-elasticsearch"
         },
         {
             "type":"composer",
@@ -78,7 +82,6 @@
         "wpackagist-plugin/query-monitor": "^3.15",
         "wpackagist-plugin/debug-bar": "^1.1",
         "wpackagist-plugin/debug-bar-elasticpress": "^3.1",
-        "deliciousbrains-plugin/wp-offload-media": "^3.2",
         "stayallive/wp-sentry": "^7.11",
         "ext-mysqli": "*",
         "ext-openssl": "*",
@@ -102,6 +105,7 @@
         "installer-paths": {
             "public/app/mu-plugins/{$name}/": [
                 "type:wordpress-muplugin",
+                "deliciousbrains/wp-amazon-s3-and-cloudfront",
                 "ministryofjustice/wp-moj-elasticsearch",
                 "ministryofjustice/php-markdown-extra",
                 "wpackagist-plugin/wp-document-revisions",

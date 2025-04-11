@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f31d78d480c6ca5ad603f8353b3ebf82",
+    "content-hash": "89174c884d7e51fc95c7d72e5bb1fff5",
     "packages": [
         {
             "name": "alphagov/notifications-php-client",
@@ -650,21 +650,6 @@
                 }
             ],
             "time": "2024-09-19T14:15:21+00:00"
-        },
-        {
-            "name": "deliciousbrains-plugin/wp-offload-media",
-            "version": "3.2.8",
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.deliciousbrains.com/?wc-api=delicious-brains&request=composer_download&package=wp-offload-media&version=3.2.8"
-            },
-            "require": {
-                "composer/installers": "~1.0 || ~2.0"
-            },
-            "type": "wordpress-plugin",
-            "extra": {
-                "installer-name": "amazon-s3-and-cloudfront-pro"
-            }
         },
         {
             "name": "deliciousbrains/wp-amazon-s3-and-cloudfront",
@@ -1813,9 +1798,9 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.wp.dsd.io/dist/ministryofjustice/wp-moj-components/ministryofjustice-wp-moj-components-bc735aaab6ee2d67e6afed2fad6399ecf9accf05-zip-447db5.zip",
+                "url": "https://api.github.com/repos/ministryofjustice/wp-moj-components/zipball/bc735aaab6ee2d67e6afed2fad6399ecf9accf05",
                 "reference": "bc735aaab6ee2d67e6afed2fad6399ecf9accf05",
-                "shasum": "409a59383d53bfcdb53696b3356b9d4191cefc1b"
+                "shasum": ""
             },
             "require": {
                 "composer/installers": "^1.0"
@@ -1885,9 +1870,9 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.wp.dsd.io/dist/ministryofjustice/wp-moj-elasticsearch/ministryofjustice-wp-moj-elasticsearch-9bfb7e185fb3adeafd26ed3ae96d67e22523f2fc-zip-80fb6b.zip",
+                "url": "https://api.github.com/repos/ministryofjustice/wp-moj-elasticsearch/zipball/9bfb7e185fb3adeafd26ed3ae96d67e22523f2fc",
                 "reference": "9bfb7e185fb3adeafd26ed3ae96d67e22523f2fc",
-                "shasum": "b4de18b627da64b01ae3d07701fb771ff7ec336f"
+                "shasum": ""
             },
             "require": {
                 "composer/installers": "^1.0"

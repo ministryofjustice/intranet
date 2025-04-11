@@ -52,7 +52,7 @@ require_once 'inc/admin/suppress-wp-update-msg.php';
 require_once 'inc/admin/tinymce-editor-settings.php';
 require_once 'inc/admin/transient-admin-notices.php';
 require_once 'inc/admin/users/add-acf-capabilities.php';
-require_once 'inc/admin/users/add-notes-from-antonia.php';
+require_once 'inc/admin/users/add-notes-from-perm-sec.php';
 require_once 'inc/admin/users/remove-agency-admin-admin-access.php';
 require_once 'inc/admin/users/user-access-and-security.php';
 require_once 'inc/admin/wp-admin-bar.php';
@@ -66,9 +66,9 @@ require_once 'inc/amazon-s3-and-cloudfront-signing.php';
 require_once 'inc/amazon-s3-and-cloudfront.php';
 
 require_once 'inc/api/campaign-api.php';
+require_once 'inc/api/get-blogroll-rest-api.php';
 require_once 'inc/api/get-campaign-posts-api.php';
 require_once 'inc/api/get-news-rest-api.php';
-require_once 'inc/api/get-notes-rest-api.php';
 require_once 'inc/api/get-campaign-news-api.php';
 require_once 'inc/api/get-category-news-api.php';
 require_once 'inc/api/intranet-v1-api.php';
@@ -77,6 +77,7 @@ require_once 'inc/api/register-api-fields.php';
 
 require_once 'inc/admin-branding.php';
 require_once 'inc/autoloader.php';
+require_once 'inc/blogroll.php';
 require_once 'inc/elasticsearch-on-opensearch.php';
 require_once 'inc/cookies.php';
 require_once 'inc/comments.php';
@@ -108,6 +109,7 @@ require_once 'inc/post-types/regional-news.php';
 require_once 'inc/post-types/regional-page.php';
 require_once 'inc/post-types/team-area.php';
 require_once 'inc/post-types/webchat.php';
+require_once 'inc/post-types/notes-from-amy.php';
 require_once 'inc/post-types/notes-from-antonia.php';
 
 require_once 'inc/preselect.php';
