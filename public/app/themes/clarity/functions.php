@@ -127,3 +127,151 @@ new MOJ\Intranet\WPElasticPress();
 
 $search = new MOJ\Intranet\Search();
 $search->hooks();
+
+add_filter('simple_history/core_dropins', 'filter_dropins', 10, 1 );
+
+function filter_dropins($dropins)
+{
+    // error_log(print_r($dropins, true));
+
+    $remove = [
+        // 'Simple_History\Dropins\Donate_Dropin',
+        'Simple_History\Dropins\Sidebar_Stats_Dropin',
+        'Simple_History\Dropins\Sidebar_Add_Ons_Dropin',
+    ];
+
+    // Remove the dropins we don't want
+    
+
+    $dropins = array_filter($dropins, function ($v, $k) use ($remove) {
+        return !in_array($v, $remove);
+    }, ARRAY_FILTER_USE_BOTH);
+
+
+    return $dropins;
+}
+
+add_filter ('simple_history/SidebarDropin/default_sidebar_boxes', 'filter_sideboxes', 10, 1);
+
+function filter_sideboxes($sidebar_boxes)
+{
+    unset($sidebar_boxes['boxReview']);
+
+    // If not admin, remove the sidebar boxes
+    if (!current_user_can('administrator')) {
+        unset($sidebar_boxes['boxSupport']);
+        unset($sidebar_boxes['boxDonate']);
+    }
+
+    return $sidebar_boxes;
+}
+
+// add_filter('simple_history/post_logger/context', 'handle_acf_context', 10, 5);
+
+function handle_acf_context($context, $_old_data, $_new_data, $old_meta, $new_meta)
+{
+    error_log('in handle acf context');
+    error_log(print_r($old_meta['prior_party_banner'], true));
+    error_log(print_r($new_meta['prior_party_banner'], true));
+
+    $arr_meta_keys_to_ignore = array(
+        // Ignore our custom event tracking fields.
+        // We don't need to track the tracking :)
+        '_prior_party_banner_event_timestamp',
+        '_prior_party_banner_event_details'
+    );
+
+    foreach ( $arr_meta_keys_to_ignore as $key_to_ignore ) {
+        unset( $old_meta[ $key_to_ignore ] );
+        unset( $new_meta[ $key_to_ignore ] );
+    }
+
+
+    // Look for added custom fields/meta.
+    foreach ($new_meta as $meta_key => $meta_value) {
+        if (! isset($old_meta[$meta_key])) {
+            error_log('meta key added: ' . $meta_key);
+            $context["post_prev_meta_$meta_key"] = null;
+            $context["post_new_meta_$meta_key"] = $meta_value;
+        }
+    }
+
+    // Look for changed custom fields/meta.
+    foreach ($old_meta as $meta_key => $meta_value) {
+        if (isset($new_meta[$meta_key]) && json_encode($old_meta[$meta_key]) !== json_encode($new_meta[$meta_key])) {
+            error_log('meta key changed: ' . $meta_key);
+            $context["post_prev_meta_$meta_key"] = $meta_value;
+            $context["post_new_meta_$meta_key"] = $new_meta[$meta_key];
+        }
+    }
+
+    return $context;
+}
+
+// require_once 'inc/admin/plugins/developer-loggers-for-simple-history/developer_loggers.php';
+
+
+// add_filter('simple_history/post_logger/post_updated/diff_table_output', 'my_function', 10, 2);
+
+// function my_function(
+//     $diff_table_output,
+//     $context
+// ) {
+//     // error_log('diff table output: ' . print_r($diff_table_output, true));
+//     // error_log('context: ' . print_r($context, true));
+//     return $diff_table_output;
+// }
+
+// apply_filters(
+// 	'simple_history_log',
+// 	'This is a logged message'
+// );
+
+// function my_acf_update_value($value, $post_id, $field)
+// {
+
+//     // if($field['value'] === null && )
+
+//     $existing_value = get_field($field['key'], $post_id);
+
+//     error_log('existing value: ' . print_r($existing_value, true));
+
+//     if($existing_value === $value) {
+//         error_log('returning matching values');
+//         return $value;
+//     }
+
+//     if (is_string($value) && empty($value) && empty($field['value'])) {
+//         error_log('returning empty string');
+//         return $value;
+//     }
+
+//     // error_log(print_r($field['value'], true));
+
+    
+//     // error_log(print_r($field, true));
+//     // error_log(print_r(gettype($field['value']), true));
+//     // error_log('is string: ' . (is_string($value) ? 'true' : 'false'));
+//     // error_log('is value empty: ' . (empty($value) ? 'true' : 'false'));
+//     // error_log('is field empty: ' . (empty($field['value']) ? 'true' : 'false'));
+
+//     apply_filters(
+//         'simple_history_log',
+//         'User {username} updated field {field_label} from {field_value} to {new_value} for post with ID {post_id}.',
+//         [
+//             'username' => 'admin',
+//             'post_id' => $post_id,
+//             'field_value' => $field['value'],
+//             'field_label' => $field['label'],
+//             'new_value' => $value,
+//             '_occasionsID' => "postID:{$post_id},fieldID:{$field['key']},action:fieldUpdated"
+//         ],
+//         'info'
+//     );
+
+//     // don't forget to return to be saved in the database
+//     return $value;
+// }
+
+// // acf/update_value - filter for every field
+// add_filter('acf/update_value', 'my_acf_update_value', 90, 3);
