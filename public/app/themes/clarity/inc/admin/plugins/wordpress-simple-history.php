@@ -57,6 +57,12 @@ class SimpleHistory
 
         // Hide promotional elements
         add_action('admin_head', [$this, 'inlineStyles']);
+
+        // Metadata logging - ignore some custom fields
+        add_filter('simple_history/post_logger/meta_keys_to_ignore', [$this, 'filterOutEventsMetaKeys'], 10, 1);
+
+        // Metadata logging - add custom context for ACF fields
+        // add_filter('simple_history/post_logger/context', [$this, 'handleAcfContext'], 10, 5);
     }
 
     /**
@@ -186,6 +192,58 @@ class SimpleHistory
             // Add inline styles to the admin head
             echo '<style>.sh-PremiumFeaturesPostbox { display: none; }</style>';
         }
+    }
+
+    /**
+     * Filter out events meta keys.
+     * 
+     * @param array $arr_meta_keys_to_ignore - An array of meta keys to ignore.
+     * @return array - An array of meta keys to ignore after filtering.
+     */
+    public function filterOutEventsMetaKeys( $arr_meta_keys_to_ignore) {
+        return array_merge($arr_meta_keys_to_ignore, array(
+            // Ignore our custom event tracking fields.
+            // We don't need to track the tracking :)
+            '_prior_party_banner_event_timestamp',
+            '_prior_party_banner_event_details'
+        ));
+    }
+
+    /**
+     * Handle ACF context.
+     * 
+     * This function is a work in progress, and needs further development & testing.
+     * The aim is to compare the meta data before and after the change, 
+     * and log the changes in a diff format that is easy to read.
+     * 
+     * @param array $context - The context array.
+     * @param array $_old_data - The old data array.
+     * @param array $_new_data - The new data array.
+     * @param array $old_meta - The old meta array.
+     * @param array $new_meta - The new meta array.
+     * @return array - The context array after handling ACF context.
+     */
+    public function handleAcfContext($context, $_old_data, $_new_data, $old_meta, $new_meta)
+    {
+        // Look for added custom fields/meta.
+        foreach ($new_meta as $meta_key => $meta_value) {
+            if (! isset($old_meta[$meta_key])) {
+                error_log('meta key added: ' . $meta_key);
+                $context["post_prev_meta_$meta_key"] = null;
+                $context["post_new_meta_$meta_key"] = $meta_value;
+            }
+        }
+    
+        // Look for changed custom fields/meta.
+        foreach ($old_meta as $meta_key => $meta_value) {
+            if (isset($new_meta[$meta_key]) && json_encode($old_meta[$meta_key]) !== json_encode($new_meta[$meta_key])) {
+                error_log('meta key changed: ' . $meta_key);
+                $context["post_prev_meta_$meta_key"] = $meta_value;
+                $context["post_new_meta_$meta_key"] = $new_meta[$meta_key];
+            }
+        }
+    
+        return $context;
     }
 }
 
