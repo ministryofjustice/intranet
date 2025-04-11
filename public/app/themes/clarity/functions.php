@@ -39,6 +39,7 @@ require_once 'inc/admin/page.php';
 require_once 'inc/admin/permission-display-page.php';
 require_once 'inc/admin/plugins/co-authors-plus.php';
 require_once 'inc/admin/plugins/polls.php';
+require_once 'inc/admin/plugins/wordpress-simple-history.php';
 require_once 'inc/admin/plugins/wp-elasticsearch.php';
 require_once 'inc/admin/plugins/wp-document-revisions.php';
 require_once 'inc/admin/plugins/wp-offload-media.php';
