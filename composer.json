@@ -94,7 +94,8 @@
         "microsoft/kiota-authentication-phpleague": "^1.3",
         "microsoft/kiota-http-guzzle": "^1.1",
         "microsoft/kiota-abstractions": "^1.0",
-        "deliciousbrains/wp-amazon-s3-and-cloudfront": "^3.2"
+        "deliciousbrains/wp-amazon-s3-and-cloudfront": "^3.2",
+        "bonny/wordpress-simple-history": "dev-main#475f3ba"
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "^3.0.2",
@@ -135,6 +136,14 @@
                 "As comments are not allowed in composer.json, use this section for comments.",
                 "After adding comments here, run a benign composer command like ",
                 "`composer update paragonie/random_compat` to update composer.lock's hash."
+            ],
+            "bonny/wordpress-simple-history": [
+                "The package `bonny/wordpress-simple-history` is pinned to a specific commit.",
+                "This gives developers the opportunity to review the code of each release.",
+                "When a new version is released, developers should check the diff between",
+                "the pinned commit and the new version. There is a compare view on GitHub.",
+                "e.g. https://github.com/bonny/WordPress-Simple-History/compare/b8cc09b...475f3baa",
+                "If the changes are acceptable, the pinned version can be updated."
             ],
             "replace.paragonie/random_compat": [
                 "The `paragonie/random_compat` package is a dependency of `league/oauth2-client`.",
