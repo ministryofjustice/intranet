@@ -19,28 +19,20 @@ add_action('admin_bar_menu', 'agency_context_switcher_menu', 99);
 
 function agency_context_switcher_menu($wp_admin_bar)
 {
-
     if (! Agency_Context::current_user_can_have_context()) {
         return false;
     }
 
     $context = Agency_Context::get_agency_context();
-    $agency  = Agency_Editor::get_agency_by_slug($context);
-
-    global $wp_roles;
-
-    $current_user = wp_get_current_user();
-    $roles        = $current_user->roles;
-    $role         = array_shift($roles);
-
-    $agency_role = isset($agency->name) ? $agency->name : 'Team account';
+    $agency = Agency_Editor::get_agency_by_slug($context);
+    $agency_name = $agency->name ?? 'Team account';
 
     if (current_user_can('administrator')) {
         $wp_admin_bar->add_node(
             array(
                 'parent' => 'top-secondary',
                 'id'     => 'agency-context-switcher',
-                'title'  => 'Current agency: ' . $agency_role,
+                'title'  => 'Current agency: ' . $agency_name,
                 'href'   => '#',
                 'meta'   => [
                     'title' => 'Click to switch agency'
@@ -87,13 +79,30 @@ function agency_context_switcher_menu($wp_admin_bar)
         array(
             'parent' => 'top-secondary',
             'id'     => 'perm',
-            'title'  => ucwords($role) . ', ' . $agency_role,
+            'title'  => get_agency_user_role() . ', ' . $agency_name,
             'href'   => site_url() . '/wp-admin/profile.php?page=permissions-dashboard',
             'meta'   => [
                 'title' => 'Permission group'
             ]
         )
     );
+}
+
+function get_agency_user_role()
+{
+    $current_user = wp_get_current_user();
+
+    if (is_wp_error()) {
+        return 'User';
+    }
+    
+    $roles = $current_user->roles;
+    $role  = array_shift($roles);
+    
+    // sanitise for display purposes
+    $role = str_replace(['_', '-'], ' ', $role);
+    
+    return ucwords($role); // [ Administrator, Agency Admin, Agency Editor, Subscriber ]
 }
 
 add_action('admin_init', 'set_agency_context');
