@@ -89,7 +89,7 @@ class DocumentSubscriptions
     public function set_context_object(string $context_id, string $url, string $name): void
     {
         $this->context_objects[] = (object) [
-            'id' => $this->get_document_id($name),
+            'id' => url_to_postid($url),
             'url' => $url,
             'text' => ucfirst($name),
             'context' => $context_id
@@ -115,32 +115,6 @@ class DocumentSubscriptions
 
         $this->context_ids[] = $context_id;
         return $context_id;
-    }
-
-    /**
-     * Get the document ID from the title
-     *
-     * @param string $title
-     *
-     * @return int
-     */
-    public function get_document_id(string $title): int
-    {
-        $query = new WP_Query(
-            [
-                'post_type'              => 'document',
-                'title'                  => $title,
-                'posts_per_page'         => 1,
-                'no_found_rows'          => true,
-                'ignore_sticky_posts'    => true,
-                'update_post_term_cache' => false,
-                'update_post_meta_cache' => false,
-                'orderby'                => 'post_date ID',
-                'order'                  => 'ASC',
-            ]
-        );
-
-        return $query->post->ID ?? 0;
     }
 
     /**

@@ -39,8 +39,8 @@ export default (function ($) {
           append('<h2>' + Subscribe.vars.context.text + '</h2>').
           append('<p>Would you like to know when this document is updated?</p>').
           append('<p>Enter your work email address and we\'ll keep you posted.</p>').
-          append('<input type="email" name="email_address" value="" placeholder="Add your email address" />').
-          append('<input type="hidden" name="post_id" value="' + Subscribe.vars.context.id + '" autocomplete="off" />').
+          append('<input type="email" name="email_address" value="" placeholder="Add your email address" autocomplete="off" />').
+          append('<input type="hidden" name="post_id" value="' + Subscribe.vars.context.id + '" />').
           append('<button class="subscribe-button">Subscribe</button>').
           append('<div class="doc-subscribe--loading"></div>').
           append('<div class="doc-subscribe--events"></div>')
