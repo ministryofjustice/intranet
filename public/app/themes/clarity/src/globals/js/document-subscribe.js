@@ -164,7 +164,7 @@ export default (function ($) {
           } else {
             Subscribe.dialog.log.add(
               'Oops, that didn\'t work.',
-              'We are sorry. Data is missing meaning we couldn\'t complete your request.',
+              'We are sorry.<br>Data is missing meaning we couldn\'t complete your request.',
               'warning'
             );
           }
