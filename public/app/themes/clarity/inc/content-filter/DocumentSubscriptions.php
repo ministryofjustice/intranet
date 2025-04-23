@@ -3,7 +3,6 @@
 namespace MOJ\Intranet;
 
 use WP_Error;
-use WP_Query;
 use WP_REST_Request;
 use WP_REST_Response;
 
@@ -50,8 +49,8 @@ class DocumentSubscriptions
      */
     public function hooks(): void
     {
-        add_filter('acf_the_content', [$this, 'append_option_links'], 100, 1);
-        add_filter('the_content', [$this, 'append_option_links'], 100, 1);
+        add_filter('acf_the_content', [$this, 'append_subscription_icons'], 100, 1);
+        add_filter('the_content', [$this, 'append_subscription_icons'], 100, 1);
 
         // API
         add_action('rest_api_init', [$this, 'register_rest_route']);
@@ -64,7 +63,7 @@ class DocumentSubscriptions
      *
      * @return string
      */
-    public function append_option_links(string $content): string
+    public function append_subscription_icons(string $content): string
     {
         // scan the content and append an icon to all links that contain the word "document"
         $pattern = '/<a[^>]+href="([^"]+)"[^>]*>(.*?)<\/a>/i';
@@ -77,6 +76,34 @@ class DocumentSubscriptions
 
         // Append the script to the end of the content
         return $content . $context_script;
+    }
+
+    /**
+     * Apply icons to document links
+     *
+     * @param array $matches
+     *
+     * @return string
+     */
+    public function apply_icons(array $matches): string
+    {
+        $link = $matches[0];
+        $url = $matches[1];
+        $text = $matches[2];
+
+        // Check if the URL string contains the word "documents"
+        if (stripos($url, '/documents/') !== false) {
+            // track a context_object id for the icon, ensure it is not in use
+            $context_id = $this->get_context_id_unique();
+
+            // Set a JSON object JS will use to construct a context box
+            $this->set_context_object($context_id, $url, $text);
+
+            // Wrap the link with a span element containing the context ID
+            return '<span class="doc-subscribe-link" id="' . $context_id . '">' . $link. '</span>';
+        }
+
+        return $link;
     }
 
     /**
@@ -115,34 +142,6 @@ class DocumentSubscriptions
 
         $this->context_ids[] = $context_id;
         return $context_id;
-    }
-
-    /**
-     * Apply icons to document links
-     *
-     * @param array $matches
-     *
-     * @return string
-     */
-    public function apply_icons(array $matches): string
-    {
-        $link = $matches[0];
-        $url = $matches[1];
-        $text = $matches[2];
-
-        // Check if the URL string contains the word "documents"
-        if (stripos($url, '/documents/') !== false) {
-            // track a context_object id for the icon, ensure it is not in use
-            $context_id = $this->get_context_id_unique();
-
-            // Set a JSON object JS will use to construct a context box
-            $this->set_context_object($context_id, $url, $text);
-
-            // Wrap the link with a span element containing the context ID
-            return '<span class="doc-subscribe-link" id="' . $context_id . '">' . $link. '</span>';
-        }
-
-        return $link;
     }
 
     /**
