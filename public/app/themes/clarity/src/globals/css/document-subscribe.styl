@@ -11,6 +11,7 @@
   padding: 120px 50px 0;
   z-index: 1;
   font-family: 'nta', sans-serif;
+  font-size: 1.8rem;
 
   .close {
     position: absolute;
@@ -43,8 +44,6 @@
 
   input[type="email"] {
     width: 100%;
-    padding: 10px;
-    font-size: 1.5rem;
     margin-bottom: 20px;
   }
 
@@ -58,6 +57,36 @@
     float:right;
     &:hover {
       background-color: #026802;
+    }
+  }
+  .doc-subscribe--loading {
+    width: 60px;
+    height: 60px;
+    background-image: url(../images/loading.gif);
+    background-repeat: no-repeat;
+    background-size: contain;
+    display: none;
+
+    &.show {
+      display: block;
+    }
+  }
+  .doc-subscribe--message {
+    font-size: 1.6rem;
+    margin-top: 10px;
+    color: #0c0c0c;
+
+    &.error {
+      color: #ae0808;
+    }
+    &.success {
+      color: #008000;
+    }
+    &.warning {
+      color: #ca7900;
+    }
+    &.info {
+      color: #0553ec;
     }
   }
 }
@@ -86,3 +115,5 @@
     display: inline-block;
   }
 }
+
+
