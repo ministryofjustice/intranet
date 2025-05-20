@@ -15,7 +15,7 @@
         ?>
 
         <div class="c-article-content">
-            <p><?= wp_kses_post( apply_filters('the_content', $post->post_content) ) ?></p>
+            <p><?= wp_kses_post(apply_filters('the_content', $post->post_content)) ?></p>
         </div>
 
         <?php
