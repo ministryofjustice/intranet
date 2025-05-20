@@ -491,12 +491,16 @@
         // allows to modify markup
         _mfpTrigger('FirstMarkupParse', markup);
 
-        if (markup) {
-          mfp.currTemplate[type] = $(markup);
-        } else {
-          // if there is no markup found we just define that template is parsed
-          mfp.currTemplate[type] = true;
-        }
+        // Before
+        // if (markup) {
+        //   mfp.currTemplate[type] = $(markup);
+        // } else {
+        //   // if there is no markup found we just define that template is parsed
+        //   mfp.currTemplate[type] = true;
+        // }
+
+        // After
+        mfp.currTemplate[type] = true;
       }
 
       if (_prevContentType && _prevContentType !== item.type) {
