@@ -79,7 +79,7 @@ function agency_context_switcher_menu($wp_admin_bar)
         array(
             'parent' => 'top-secondary',
             'id'     => 'perm',
-            'title'  => get_agency_user_role() . ', ' . $agency_name,
+            'title'  => get_formatted_user_role() . ', ' . $agency_name,
             'href'   => site_url() . '/wp-admin/profile.php?page=permissions-dashboard',
             'meta'   => [
                 'title' => 'Permission group'
@@ -88,11 +88,11 @@ function agency_context_switcher_menu($wp_admin_bar)
     );
 }
 
-function get_agency_user_role()
+function get_formatted_user_role()
 {
     $current_user = wp_get_current_user();
 
-    if (is_wp_error()) {
+    if (is_wp_error($current_user)) {
         return 'User';
     }
     
