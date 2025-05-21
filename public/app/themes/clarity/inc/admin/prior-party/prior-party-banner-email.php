@@ -219,7 +219,7 @@ class PriorPartyBannerEmail
         $email_index = isset($_GET['email_index']) ? (int) $_GET['email_index'] : null;
 
         // Build up a base url for the paginated links.
-        $base_uri = sprintf('%s?page=%s', get_current_screen()->parent_file, $_GET['page']);
+        $base_uri = sprintf('%s?page=%s', get_current_screen()->parent_file, sanitize_title_with_dashes($_GET['page']));
         $base_url = get_admin_url(null, $base_uri);
 
         // Start an unordered list for the links.
