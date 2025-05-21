@@ -134,7 +134,7 @@ class PriorPartyBannerEmail
         // Was an email passed in manually - for testing purposes?
         if (isset($props['recipient'])) {
             wp_mail($props['recipient'], $email_content['subject'], $email_content['body']);
-            echo 'A test email was sent to email sent to ' . $props['recipient'];
+            echo 'A test email was sent to email sent to ' . sanitize_text_field($props['recipient']);
             // Return early.
             return;
         }
