@@ -182,21 +182,6 @@ class Agency
                     ]
                 ]
             ],
-            'hmi' => [
-                'shortcode' => 'hmi',
-                'label' => 'HM Inspectorate of Probation (for Inspectorate staff only)',
-                'abbreviation' => 'HMI',
-                'is_integrated' => false,
-                'contact_email_address' => '',
-                'links' => [
-                    [
-                        'url' => 'https://justiceuk.sharepoint.com/sites/HMIProbationIntranet2',
-                        'label' => 'HM Inspectorate of Probation (for Inspectorate staff only)',
-                        'main' => true,
-                        'is_external' => true,
-                    ]
-                ]
-            ],
             'ycs' => [
                 'shortcode' => 'ycs',
                 'label' => 'Youth Custody Service',
