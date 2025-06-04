@@ -36,6 +36,9 @@ spec:
   - hosts:
     - intranet.justice.gov.uk
     secretName: intranet-production-cert-secret
+  - hosts:
+    - jac.intranet.service.justice.gov.uk
+    secretName: jac-intranet-service-cert-secret
   rules:
   - host: prod-intranet.apps.live.cloud-platform.service.justice.gov.uk
     http:
@@ -48,6 +51,18 @@ spec:
             port:
               number: 8080
   - host: intranet.justice.gov.uk
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: nginx-service
+            port:
+              number: 8080
+  - host: jac.intranet.service.justice.gov.uk
+    # Cloud Platform will create a DNS entry for the domain.
+    # But, due to the redirect in server-snippet, the backend will be inaccessible.
     http:
       paths:
       - path: /
