@@ -13,6 +13,10 @@ metadata:
     # Set vhost so that WP doesn't see prod-intranet.apps... and redirect.
     nginx.ingress.kubernetes.io/upstream-vhost: intranet.justice.gov.uk
     nginx.ingress.kubernetes.io/server-snippet: |
+      # Redirect requests for legacy JAC intranet to /?agency=jac
+      if ($host = 'jac.intranet.service.justice.gov.uk') {
+        return 301 https://intranet.justice.gov.uk/?agency=jac;
+      }
       location = /health {
         auth_basic off;
         access_log off;
