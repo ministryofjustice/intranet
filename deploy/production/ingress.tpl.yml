@@ -61,7 +61,7 @@ spec:
             port:
               number: 8080
   - host: jac.intranet.service.justice.gov.uk
-    # Cloud Platform will create a DNS entry for the domain.
+    # This rule will cause Cloud Platform to create a DNS entry for the domain.
     # The redirect in server-snippet will happen before traffic is sent to the backend.
     http:
       paths:
