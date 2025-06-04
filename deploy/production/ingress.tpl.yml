@@ -62,7 +62,7 @@ spec:
               number: 8080
   - host: jac.intranet.service.justice.gov.uk
     # Cloud Platform will create a DNS entry for the domain.
-    # But, due to the redirect in server-snippet, the backend will be inaccessible.
+    # The redirect in server-snippet will happen before traffic is sent to the backend.
     http:
       paths:
       - path: /
