@@ -6,6 +6,11 @@ on:
     branches:
       - 'main'
 
+env:
+  # Demo environment is scaled to, and hence does not need to be deployed
+  # See README.md section: 'Deployment to Cloud Platform'
+  DISABLE_DEMO_DEPLOY: "true"
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -56,7 +61,7 @@ jobs:
   deploy_demo:
     name: "Demo"
     needs: [image, deploy_dev, get_ip_ranges, modsec_config]
-    if: github.event.ref == 'refs/heads/main'
+    if: env.DISABLE_DEMO_DEPLOY != 'true' && github.event.ref == 'refs/heads/main'
     uses: ./.github/workflows/deploy.yml
     with:
       environment: demo
