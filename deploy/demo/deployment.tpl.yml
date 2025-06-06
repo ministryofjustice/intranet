@@ -6,6 +6,7 @@ metadata:
   labels:
     app: ${KUBE_NAMESPACE}
 spec:
+  # Scaled to zero, see README.md section: 'Deployment to Cloud Platform'
   replicas: 0
   strategy:
     type: RollingUpdate
