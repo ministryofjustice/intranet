@@ -37,5 +37,5 @@ if (empty($args['total_pages']) || empty($args['page'])) {
             <span class="c-pagination__count"> 0 of <?= $args['total_pages']; ?></span>
         </button>
 
-    <? endif; ?>
+    <?php endif; ?>
 </nav>
