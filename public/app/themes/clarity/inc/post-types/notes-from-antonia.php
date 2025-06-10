@@ -61,20 +61,20 @@ add_action('init', function () {
     if (Agency_Context::get_agency_context() === 'hq') {
         add_action('admin_menu', function () {
             add_menu_page(
-                __('Notes from Antonia', 'clarity'),
-                'Notes from Antonia',
+                __('Archived Content', 'clarity'),
+                'Archived Content',
                 'notes_from_antonia',
-                'edit.php?post_type=note-from-antonia',
-                '',
+                'archived-content',
+                function () { echo '<h1>Archived Content</h1>'; },
                 'dashicons-welcome-write-blog'
             );
 
             add_submenu_page(
-                'edit.php?post_type=note-from-antonia',
-                'Add  Note',
-                'Add New Note',
+                'archived-content',
+                __('Notes from Antonia', 'clarity'),
+                'Notes from Antonia',
                 'notes_from_antonia',
-                'post-new.php?post_type=note-from-antonia'
+                'edit.php?post_type=note-from-antonia'
             );
         });
     }
