@@ -91,6 +91,12 @@ class ProtectKeyPages
             return $allcaps; // Admins have all capabilities
         }
 
+        // Ensure we have a valid capability request.
+        if (!isset($args[0]) || !is_string($args[0])) {
+            // The first argument is not set or is not a string, so do nothing.
+            return $allcaps;
+        }
+
         // The second argument is typically the object ID (post ID, page ID, etc.)
         if (!isset($args[2]) || !is_numeric($args[2])) {
             // The second argument is not set or is numeric, so do nothing.
