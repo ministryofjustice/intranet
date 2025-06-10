@@ -103,6 +103,7 @@ class ProtectKeyPages
             return $allcaps;
         }
 
+        // Safe to use $args[2] here - already checked for isset and is_numeric above.
         if (!$this->isKeyPage((int) $args[2])) {
             // If we are not dealing with a key page, do nothing.
             return $allcaps;
