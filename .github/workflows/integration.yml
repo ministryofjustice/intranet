@@ -6,11 +6,6 @@ on:
     branches:
       - 'main'
 
-env:
-  # Demo environment is scaled to, and hence does not need to be deployed
-  # See README.md section: 'Deployment to Cloud Platform'
-  DISABLE_DEMO_DEPLOY: "true"
-
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -58,17 +53,19 @@ jobs:
       modsec_config: ${{ needs.modsec_config.outputs.staging }}
     secrets: inherit
 
-  deploy_demo:
-    name: "Demo"
-    needs: [image, deploy_dev, get_ip_ranges, modsec_config]
-    if: ${{ env.DISABLE_DEMO_DEPLOY != 'true' && github.event.ref == 'refs/heads/main' }}
-    uses: ./.github/workflows/deploy.yml
-    with:
-      environment: demo
-      registry: ${{ needs.image.outputs.registry }}
-      ips_formatted: ${{ needs.get_ip_ranges.outputs.ips_formatted }}
-      modsec_config: ${{ needs.modsec_config.outputs.demo }}
-    secrets: inherit
+  # Demo environment is scaled to, and hence does not need to be deployed
+  # See README.md section: 'Deployment to Cloud Platform'
+  # deploy_demo:
+  #   name: "Demo"
+  #   needs: [image, deploy_dev, get_ip_ranges, modsec_config]
+  #   if: github.event.ref == 'refs/heads/main'
+  #   uses: ./.github/workflows/deploy.yml
+  #   with:
+  #     environment: demo
+  #     registry: ${{ needs.image.outputs.registry }}
+  #     ips_formatted: ${{ needs.get_ip_ranges.outputs.ips_formatted }}
+  #     modsec_config: ${{ needs.modsec_config.outputs.demo }}
+  #   secrets: inherit
 
   deploy_production:
     name: "Production"
