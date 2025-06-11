@@ -61,7 +61,7 @@ jobs:
   deploy_demo:
     name: "Demo"
     needs: [image, deploy_dev, get_ip_ranges, modsec_config]
-    if: env.DISABLE_DEMO_DEPLOY != 'true' && github.event.ref == 'refs/heads/main'
+    if: $DISABLE_DEMO_DEPLOY != 'true' && github.event.ref == 'refs/heads/main'
     uses: ./.github/workflows/deploy.yml
     with:
       environment: demo
