@@ -24,7 +24,7 @@ jobs:
       - name: Get draft PRs
         id: get-draft-prs
         env:
-          GH_TOKEN: ${{ secrets.ACTIONS_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           echo "result=$(gh pr list --repo ministryofjustice/intranet --draft --state open --json number)" >> "$GITHUB_OUTPUT";
       - name: Verify PR status
