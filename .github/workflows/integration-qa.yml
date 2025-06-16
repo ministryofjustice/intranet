@@ -59,6 +59,5 @@ jobs:
     with:
       environment: demo
       registry: ${{ needs.image.outputs.registry }}
-      ips_formatted: ${{ needs.get_ip_ranges.outputs.ips_formatted }}
       modsec_config: ${{ needs.modsec_config.outputs.demo }}
     secrets: inherit
