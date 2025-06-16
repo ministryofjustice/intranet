@@ -62,7 +62,7 @@ jobs:
     name: "Quality Control"
     if: ${{ needs.eligibility.outputs.eligible == 'true' }}
     uses: ./.github/workflows/deploy.yml
-    needs: [eligibility, image, modsec_config]
+    needs: [eligibility, image, get_ip_ranges, modsec_config]
     with:
       environment: demo
       registry: ${{ needs.image.outputs.registry }}
