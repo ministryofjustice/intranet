@@ -67,8 +67,10 @@ $capabilities = array(
     // Notes from Antonia
     'note_from_antonia' => true,
     'notes_from_antonia' => true,
-    'edit_notes_from_antonia' => false,
-    'edit_note_from_antonia' => false,
+    // Retain edit permissions, so that the edit screen is available,
+    // as these users are not the author, this results in a read-only view.
+    'edit_notes_from_antonia' => true,
+    'edit_note_from_antonia' => true,
     'edit_others_notes_from_antonia' => false,
     'edit_published_notes_from_antonia' => false,
     'publish_notes_from_antonia' => false,
