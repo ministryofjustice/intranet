@@ -33,7 +33,9 @@ jobs:
         with:
           script: |
             const draftPRs = JSON.parse('${{ steps.get-draft-prs.outputs.result }}').map( ( pr ) => pr.number );
-            return ! draftPRs.includes( ${{ github.event.pull_request.number }} );
+            return !draftPRs.includes(${{
+              github.event.pull_request.number
+            }});
 
   image:
     name: "Image"
