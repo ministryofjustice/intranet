@@ -32,11 +32,8 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            const draftPRs = JSON.parse(process.env.DRAFT_PRS).map((pr) => pr.number);
-            return !draftPRs.includes(parseInt(process.env.PULL_REQUEST_NUMBER, 10));
-          env:
-            DRAFT_PRS: ${{ steps.get-draft-prs.outputs.result }}
-            PULL_REQUEST_NUMBER: ${{ github.event.pull_request.number }}
+            const draftPRs = ${{ steps.get-draft-prs.outputs.result }}.map( ( pr ) => pr.number );
+            return ! draftPRs.includes( ${{ github.event.pull_request.number }} );
 
   image:
     name: "Image"
