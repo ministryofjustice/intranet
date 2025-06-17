@@ -162,7 +162,7 @@ trait PriorPartyBannerTrackEvents
         $wp_query_args = [
             'fields' => 'ids',
             'posts_per_page'    => -1,
-            'post_type' => ['post', 'page', 'news', 'note-from-amy', 'note-from-antonia'],
+            'post_type' => ['post', 'page', 'news', 'note-from-antonia'],
             'post_status' => ['publish', 'pending'],
             'meta_query' => [
                 'relation' => 'AND',

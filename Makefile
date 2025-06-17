@@ -4,6 +4,8 @@
 ##  ▀▄▀  █▀█  █▀▄  █  █▀█  █▄█  █▄▄  ██▄  ▄█
 ##  populate as needed for testing
 ##  ... never commit!
+COMPOSER_USER   := ***
+COMPOSER_PASS   := ***
 ACF_PRO_LICENSE := ***
 ACF_PRO_PASS    := ***
 AS3CF_PRO_USER  := ***
@@ -131,6 +133,7 @@ key-gen:
 build-nginx:
 	@echo "\n-->  Building local Nginx  <---------------------------|\n"; sleep 3;
 	docker image build -t intranet-nginx:latest \
+		--build-arg COMPOSER_USER="${COMPOSER_USER}" --build-arg COMPOSER_PASS="${COMPOSER_PASS}" \
 		--build-arg AS3CF_PRO_USER="${AS3CF_PRO_USER}" --build-arg AS3CF_PRO_PASS="${AS3CF_PRO_PASS}" \
 		--target build-nginx .
 
@@ -140,6 +143,7 @@ build-nginx:
 build-fpm:
 	@echo "\n-->  Building local FPM  <---------------------------|\n"; sleep 3;
 	docker image build -t intranet-fpm:latest \
+		--build-arg COMPOSER_USER="${COMPOSER_USER}" --build-arg COMPOSER_PASS="${COMPOSER_PASS}" \
 		--build-arg AS3CF_PRO_USER="${AS3CF_PRO_USER}" --build-arg AS3CF_PRO_PASS="${AS3CF_PRO_PASS}" \
 		--target build-fpm .
 

@@ -331,10 +331,7 @@
       $('html').css(windowStyles);
 
       // add everything to DOM
-      // Passing `mfp.st.prependTo` as an agrgument is flagging a security vulnerability
-      // Since we are not using that feature, we can safely remove it
-      // mfp.bgOverlay.add(mfp.wrap).prependTo(mfp.st.prependTo || $(document.body));
-      mfp.bgOverlay.add(mfp.wrap).prependTo($(document.body));
+      mfp.bgOverlay.add(mfp.wrap).prependTo(mfp.st.prependTo || $(document.body));
 
       // Save last focused element
       mfp._lastFocusedEl = document.activeElement;
@@ -494,16 +491,12 @@
         // allows to modify markup
         _mfpTrigger('FirstMarkupParse', markup);
 
-        // Before
-        // if (markup) {
-        //   mfp.currTemplate[type] = $(markup);
-        // } else {
-        //   // if there is no markup found we just define that template is parsed
-        //   mfp.currTemplate[type] = true;
-        // }
-
-        // After
-        mfp.currTemplate[type] = true;
+        if (markup) {
+          mfp.currTemplate[type] = $(markup);
+        } else {
+          // if there is no markup found we just define that template is parsed
+          mfp.currTemplate[type] = true;
+        }
       }
 
       if (_prevContentType && _prevContentType !== item.type) {

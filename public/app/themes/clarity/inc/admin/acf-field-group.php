@@ -1684,7 +1684,7 @@
                 'news' => 'News',
                 'post' => 'Blogs',
                 'pages' => 'Pages',
-                'note' => 'Notes from Perm. Sec.',
+                'note' => 'Notes from Antonia',
             ),
             'allow_null' => 0,
             'other_choice' => 0,
@@ -1866,7 +1866,7 @@
             ),
             'admin_only' => 0,
             'post_type' => array(
-                0 => 'note-from-amy',
+                0 => 'note-from-antonia',
             ),
             'post_status' => '',
             'taxonomy' => array(
@@ -3069,7 +3069,7 @@
                 'news' => 'News',
                 'post' => 'Blogs',
                 'pages' => 'Pages',
-                'note' => 'Notes from Perm. Sec.',
+                'note' => 'Notes from Antonia',
             ),
             'allow_null' => 0,
             'other_choice' => 0,
@@ -3251,7 +3251,7 @@
             ),
             'admin_only' => 0,
             'post_type' => array(
-                0 => 'note-from-amy',
+                0 => 'note-from-antonia',
             ),
             'post_status' => '',
             'taxonomy' => array(

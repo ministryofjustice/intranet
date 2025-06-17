@@ -2,11 +2,7 @@
 <div class="c-notes-from-antonia">
     <div class="content">
         <?php
-        if ($post->post_type === 'note-from-antonia') {
-            $show_title = get_field('display_title_notes_from_antonia', $post->ID);
-        } else {
-            $show_title = get_field('display_title', $post->ID);
-        }
+        $show_title = get_field('display_title_notes_from_antonia', $post->ID);
         if ($show_title === '1' || $show_title =='yes') {
             echo '<p><strong>' . get_gmt_from_date($post->post_date, 'l j F Y') . ' &ndash; ' . $post->post_title . '</strong></p>';
         }
@@ -15,7 +11,7 @@
         ?>
 
         <div class="c-article-content">
-            <p><?= wp_kses_post(apply_filters('the_content', $post->post_content)) ?></p>
+            <p><?= apply_filters('the_content', $post->post_content) ?></p>
         </div>
 
         <?php

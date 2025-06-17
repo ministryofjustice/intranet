@@ -21,8 +21,7 @@ class Agency extends Taxonomy
         'regional_news',
         'regional_page',
         'condolences',
-        'note-from-amy',
-        'note-from-antonia',
+        'note-from-antonia'
     );
 
     protected $args = array(
@@ -315,8 +314,6 @@ class Agency extends Taxonomy
             'delete_post',
             'edit_news',
             'delete_news',
-            'edit_notes_from_amy',
-            'delete_notes_from_amy',
             'edit_notes_from_antonia',
             'delete_notes_from_antonia'
         ];

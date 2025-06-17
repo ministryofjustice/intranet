@@ -66,7 +66,7 @@
             {
                 "param": "post_template",
                 "operator": "!=",
-                "value": "page_blogroll.php"
+                "value": "page_notes_from_antonia.php"
             },
             {
                 "param": "post_template",
@@ -79,13 +79,6 @@
                 "param": "post_type",
                 "operator": "==",
                 "value": "news"
-            }
-        ],
-        [
-            {
-                "param": "post_type",
-                "operator": "==",
-                "value": "note-from-amy"
             }
         ],
         [
@@ -105,5 +98,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1743609747
+    "modified": 1721654995
 }

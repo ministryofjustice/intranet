@@ -37,7 +37,7 @@ export default (function ($) {
                     $.ajax({
                         url: mojAjax.ajaxurl,
                         // note-543210
-                        data: {action: 'get_blogroll_post', notes_id: id.split('-')[1]},
+                        data: {action: 'get_note_from_antonia', notes_id: id.split('-')[1]},
                         complete: () => {
                             // hash match scrolling
                             // does a hash exist in the URL?

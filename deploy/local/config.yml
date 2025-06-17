@@ -10,6 +10,8 @@ data:
   NGINX_SERVICE_PORT: "http://localhost:8080"
 
   # Composer auth
+  COMPOSER_USER: 'circleci'
+  COMPOSER_PASS: 'some_password'
   # used so composer can access repos
   COMPOSER_TOKEN: 'some_token'
 

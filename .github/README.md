@@ -316,33 +316,6 @@ To verify that S3 & CloudFront are working correctly.
 - The img source domain should be CloudFront.
 - Directly trying to access an image via the S3 bucket url should return an access denied message.
 
-## Deployment to Cloud Platform
-
-This application is deployed to MoJ Cloud Platform, using GitHub Actions.
-
-The relevant workflows can be found at:
-
-- [.github/workflows/integration.yml](./.github/workflows/integration.yml)
-- [.github/workflows/ip-ranges-configure.yml](/.github/workflows/ip-ranges-configure.yml)
-- [.github/workflows/modsec-config.yml](/.github/workflows/modsec-config.yml)
-- [.github/workflows/build.yml](/.github/workflows/build.yml)
-- [.github/workflows/deploy.yml](/.github/workflows/deploy.yml)
-
-Kubernetes manifests are located in the [deploy](/deploy) directory.
-
-There is a sub directory for each of the Cloud Platform environments: 
-
-- [development](/deploy/development)
-- [demo](/deploy/demo)
-- [staging](/deploy/staging)
-- [production](/deploy/production)
-
-> [!NOTE]
-> While not in use, the demo environment has been scaled to zero, and the workflow is not run.  
-> To scale up the demo environment, update the demo deployment manifest, and the integration workflow:
-> - [deploy/demo/deployment.tpl.yml](/deploy/demo/deployment.tpl.yml)
-> - [.github/workflows/integration.yml](/.github/workflows/integration.yml)
-
 ## Azure Setup
 
 ### Useful links

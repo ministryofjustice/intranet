@@ -61,28 +61,103 @@ add_action('init', function () {
     if (Agency_Context::get_agency_context() === 'hq') {
         add_action('admin_menu', function () {
             add_menu_page(
-                __('Archived Content', 'clarity'),
-                'Archived Content',
+                __('Notes from Antonia', 'clarity'),
+                'Notes from Antonia',
                 'notes_from_antonia',
-                'archived-content',
-                function () { echo '<h1>Archived Content</h1>'; },
+                'edit.php?post_type=note-from-antonia',
+                '',
                 'dashicons-welcome-write-blog'
             );
 
             add_submenu_page(
-                'archived-content',
-                __('Notes from Antonia', 'clarity'),
-                'Notes from Antonia',
+                'edit.php?post_type=note-from-antonia',
+                'Add  Note',
+                'Add New Note',
                 'notes_from_antonia',
-                'edit.php?post_type=note-from-antonia'
+                'post-new.php?post_type=note-from-antonia'
             );
         });
     }
 });
 
-// Remove notes_from_antonia_cron_hook cron hook
-add_action('init', function () {
-    if (wp_next_scheduled('notes_from_antonia_cron_hook')) {
-        wp_clear_scheduled_hook('notes_from_antonia_cron_hook');
+// Hook into this post_type, we need to detect
+// new notes and apply the agencies that have
+// access to the main page...
+
+/**
+ * Copy tagged agencies from 'Notes from Antonia' page to individual Notes.
+ *
+ * Agencies have the ability to include content on their own Intranets. If they
+ * choose Notes from Antonia then each individual Note will need to reflect
+ * this, otherwise it won't show up in search results for them.
+ *
+ * @param null $note
+ */
+function moj_intranet_copy_agencies_to_notes($note = null)
+{
+    $agencies = [];
+    $notes = [$note];
+
+    // get agencies attached to the page
+    // this is our source of truth...
+    $page = get_page_by_path('notes-from-antonia');
+    foreach (wp_get_object_terms($page->ID, 'agency') as $agency) {
+        $agencies[] = $agency->slug;
     }
+
+    if (!$note) {
+        // get all notes
+        $notes = get_posts([
+            'post_type' => 'note-from-antonia',
+            'numberposts' => -1
+        ]);
+    }
+
+    foreach ($notes as $note) {
+        // check if agencies match the current saved agencies...
+        $terms = get_the_terms($note->ID, 'agency');
+        $agencies_current = [];
+        foreach ($terms as $agency) {
+            $agencies_current[] = $agency->slug;
+        }
+
+        // we are checking if the agency arrays are different
+        // if they are, we will make changes, otherwise, do nothing.
+        if (!empty(array_diff($agencies, $agencies_current))) {
+            // set as defined
+            $terms = wp_set_object_terms($note->ID, $agencies, 'agency');
+
+            if (is_wp_error($terms)) {
+                trigger_error("Terms could not be added for a note with an ID of: " . $note->ID);
+            }
+        }
+    }
+}
+
+// Hook into wp_insert_post action.
+// This will fire on new post open, save, publish, update
+add_action('wp_insert_post', function ($note_id, $note) {
+    if ($note->post_type === 'note-from-antonia') {
+        moj_intranet_copy_agencies_to_notes($note);
+    }
+}, 10, 2);
+
+// let's create a task to keep agencies up to date
+// create one minute schedule in case it doesn't exist
+add_filter('cron_schedules', function ($schedules) {
+    $schedules['one_minute'] = [
+        'interval' => 60,
+        'display' => esc_html__('Every Minute')
+    ];
+    return $schedules;
 });
+
+add_action('notes_from_antonia_cron_hook', 'moj_intranet_copy_agencies_to_notes');
+
+if (!wp_next_scheduled('notes_from_antonia_cron_hook')) {
+    wp_schedule_event(
+        time(),
+        (getenv('WP_ENV') === 'production' ? 'twicedaily' : 'one_minute'),
+        'notes_from_antonia_cron_hook'
+    );
+}

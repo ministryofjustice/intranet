@@ -4,30 +4,30 @@
 # CONFIGURE COMPOSER AUTHENTICATION
 #
 # This script will create an `auth.json` file, which is used by composer for
-# HTTP basic auth access to the private composer repositories:
-# composer.deliciousbrains.com & connect.advancedcustomfields.com.
+# HTTP basic auth access to the private composer repository composer.wp.dsd.io.
 #
-# It requires the environment variables: `AS3CF_PRO_USER`, `AS3CF_PRO_PASS`, 
-# `ACF_PRO_LICENSE` and, `ACF_PRO_PASS` to be set with authentication credentials.
+# It requires the environment variables `COMPOSER_USER` and `COMPOSER_PASS` to
+# be set with authentication credentials.
 ##
 
 if [ -n "$COMPOSER_TOKEN" ]; then
   composer config --global github-oauth.github.com "$COMPOSER_TOKEN"
 fi
 
-if [ -n "$AS3CF_PRO_USER" ] && [ -n "$AS3CF_PRO_PASS" ] && [ -n "$ACF_PRO_LICENSE" ] && [ -n "$ACF_PRO_PASS" ]
+if [ -n "$COMPOSER_USER" ] && [ -n "$COMPOSER_PASS" ]
 then
   rm -f auth.json
 	cat <<- EOF >> auth.json
 		{
 			"http-basic": {
+				"composer.wp.dsd.io": {"username": "$COMPOSER_USER","password": "$COMPOSER_PASS"},
 				"composer.deliciousbrains.com": {"username": "$AS3CF_PRO_USER","password": "$AS3CF_PRO_PASS"},
 				"connect.advancedcustomfields.com": {"username": "$ACF_PRO_LICENSE", "password": "$ACF_PRO_PASS"}
 			}
 		}
 	EOF
 else
-	echo "FATAL: AS3CF_PRO_USER, AS3CF_PRO_PASS, ACF_PRO_LICENSE or, ACF_PRO_PASS were not available."
+	echo "FATAL: COMPOSER_USER and COMPOSER_PASS were not available."
 fi
 
 ## check for auth.json

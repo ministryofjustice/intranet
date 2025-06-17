@@ -22,9 +22,6 @@ ARG version_cron_alpine=3.19.1
 
 FROM ministryofjustice/wordpress-base-fpm:latest AS base-fpm
 
-# Switch to the alpine's default user, for installing packages
-USER root
-
 RUN apk update && \
     apk add strace
 
@@ -167,6 +164,8 @@ FROM base-fpm AS build-fpm-composer
 
 WORKDIR /var/www/html
 
+ARG COMPOSER_USER
+ARG COMPOSER_PASS
 ARG ACF_PRO_LICENSE
 ARG ACF_PRO_PASS
 ARG AS3CF_PRO_USER
@@ -311,13 +310,11 @@ WORKDIR /home/crooner
 
 ENTRYPOINT ["/bin/sh", "-c", "cron-start"]
 
-
 #  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
 
-#  █▀█ █░█ █▀ █░█ █▀▀ █▀█
-#  █▀▀ █▄█ ▄█ █▀█ ██▄ █▀▄
+# S3 Pusher
 
-
+# Use the same verion as the cron (to benefit from caching).
 FROM alpine:${version_cron_alpine} AS build-s3-push
 
 ARG user=s3pusher
@@ -334,10 +331,9 @@ USER 3001
 
 # Go home...
 WORKDIR /home/s3pusher
-
 # Grab assets for pushing to s3
-COPY --from=build-fpm-composer /var/www/html/vendor-assets ./
-COPY --from=assets-build /node/dist public/app/themes/clarity/dist/
+COPY --from=build-fpm-composer  /var/www/html/vendor-assets ./
+COPY --from=assets-build        /node/dist                  public/app/themes/clarity/dist/
 
 # Set IMAGE_TAG at build time, we don't want this container to be run with an incorrect IMAGE_TAG.
 # Set towards the end of the Dockerfile to benefit from caching.
