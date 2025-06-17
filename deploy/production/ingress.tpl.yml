@@ -13,6 +13,10 @@ metadata:
     # Set vhost so that WP doesn't see prod-intranet.apps... and redirect.
     nginx.ingress.kubernetes.io/upstream-vhost: intranet.justice.gov.uk
     nginx.ingress.kubernetes.io/server-snippet: |
+      # Redirect requests for legacy JAC intranet to /?agency=jac
+      if ($host = 'jac.intranet.service.justice.gov.uk') {
+        return 301 https://intranet.justice.gov.uk/?agency=jac;
+      }
       location = /health {
         auth_basic off;
         access_log off;
@@ -32,6 +36,9 @@ spec:
   - hosts:
     - intranet.justice.gov.uk
     secretName: intranet-production-cert-secret
+  - hosts:
+    - jac.intranet.service.justice.gov.uk
+    secretName: jac-intranet-service-cert-secret
   rules:
   - host: prod-intranet.apps.live.cloud-platform.service.justice.gov.uk
     http:
@@ -44,6 +51,18 @@ spec:
             port:
               number: 8080
   - host: intranet.justice.gov.uk
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: nginx-service
+            port:
+              number: 8080
+  - host: jac.intranet.service.justice.gov.uk
+    # This rule will cause Cloud Platform to create a DNS entry for the domain.
+    # The redirect in server-snippet will happen before traffic is sent to the backend.
     http:
       paths:
       - path: /

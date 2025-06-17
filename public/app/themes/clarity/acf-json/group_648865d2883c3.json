@@ -3,6 +3,80 @@
     "title": "Blog-roll settings",
     "fields": [
         {
+            "key": "field_67f54713b3eb0",
+            "label": "Settings",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "admin_only": 0,
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_67ed604ac5f42",
+            "label": "Content Type",
+            "name": "content_post_type",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "The type of content to display.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "admin_only": 0,
+            "choices": {
+                "note-from-antonia": "Notes from Antonia",
+                "note-from-amy": "Notes from Amy"
+            },
+            "default_value": false,
+            "return_format": "value",
+            "multiple": 0,
+            "allow_null": 0,
+            "allow_in_bindings": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": ""
+        },
+        {
+            "key": "field_67f697e6012b0",
+            "label": "Banner image",
+            "name": "dw_page_banner",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "admin_only": 0,
+            "return_format": "id",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "",
+            "allow_in_bindings": 0,
+            "preview_size": "medium"
+        },
+        {
             "key": "field_6489b2ac9df2a",
             "label": "Excerpt",
             "name": "blog_roll_excerpt",
@@ -19,6 +93,7 @@
             "admin_only": 0,
             "default_value": "",
             "maxlength": "",
+            "allow_in_bindings": 1,
             "rows": 3,
             "placeholder": "",
             "new_lines": ""
@@ -33,13 +108,14 @@
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
-                "width": "50",
+                "width": "33.3",
                 "class": "",
                 "id": ""
             },
             "admin_only": 0,
             "default_value": "",
             "maxlength": "",
+            "allow_in_bindings": 1,
             "rows": 3,
             "placeholder": "",
             "new_lines": ""
@@ -270,6 +346,82 @@
                     ]
                 }
             ]
+        },
+        {
+            "key": "field_67f546c8b12a9",
+            "label": "Archived page",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "admin_only": 0,
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_67f545d488424",
+            "label": "Page is archived",
+            "name": "is_archived",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "Is the content archived? Agency admins will still be able to access the content.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "admin_only": 0,
+            "message": "",
+            "default_value": 0,
+            "allow_in_bindings": 0,
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": ""
+        },
+        {
+            "key": "field_67f544bb05df4",
+            "label": "Archive redirect",
+            "name": "archive_redirect",
+            "aria-label": "",
+            "type": "page_link",
+            "instructions": "The page is archived, redirect staff to a different page, e.g. the current Perm. Sec. page.",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_67f545d488424",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "admin_only": 0,
+            "post_type": [
+                "page"
+            ],
+            "post_status": [
+                "publish"
+            ],
+            "taxonomy": "",
+            "allow_archives": 0,
+            "multiple": 0,
+            "allow_null": 0,
+            "allow_in_bindings": 0
         }
     ],
     "location": [
@@ -277,7 +429,7 @@
             {
                 "param": "page_template",
                 "operator": "==",
-                "value": "page_notes_from_antonia.php"
+                "value": "page_blogroll.php"
             }
         ]
     ],
@@ -290,5 +442,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1686753120
+    "modified": 1744214133
 }

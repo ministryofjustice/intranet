@@ -102,6 +102,11 @@ add_action('wp_login', function ($user_login, WP_User $user) {
  */
 function dw_set_edit_posts_cookie(bool $active): void
 {
+    // Return if doing cron
+    if (wp_doing_cron()) {
+        return;
+    }
+
     $options = [
         'path' => COOKIEPATH,
         'domain' => parse_url(get_home_url(), PHP_URL_HOST),

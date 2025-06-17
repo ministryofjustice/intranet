@@ -26,7 +26,6 @@ function enqueue_clarity_scripts(): void
     wp_enqueue_script('jquery');
 
     wp_enqueue_script('popup', mix_asset('/js/magnific-popup.js'), array('jquery'), null, true);
-    wp_enqueue_script('html5shiv', mix_asset('/js/ie8-js-html5shiv.js'));
     wp_enqueue_script('respond', mix_asset('/js/respond.min.js'));
     wp_enqueue_script('selectivizr', mix_asset('/js/selectivizr-min.js'), null, true);
 
