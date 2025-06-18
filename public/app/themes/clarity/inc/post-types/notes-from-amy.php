@@ -1,27 +1,27 @@
 <?php
 add_action('init', function () {
-    register_post_type('note-from-antonia', array(
+    register_post_type('note-from-amy', array(
         'labels' => array(
-            'name' => 'Notes from Antonia',
+            'name' => 'Notes from Amy',
             'singular_name' => 'Note',
-            'menu_name' => 'Notes from Antonia',
-            'all_items' => 'Notes from Antonia',
+            'menu_name' => 'Notes from Amy',
+            'all_items' => 'Notes from Amy',
             'edit_item' => 'Edit Note',
             'view_item' => 'View Note',
-            'view_items' => 'View Notes from Antonia',
+            'view_items' => 'View Notes from Amy',
             'add_new_item' => 'Add New Note',
             'new_item' => 'New Note',
             'parent_item_colon' => 'Parent Note:',
-            'search_items' => 'Search Notes from Antonia',
-            'not_found' => 'No notes from antonia found',
-            'not_found_in_trash' => 'No notes from antonia found in Trash',
+            'search_items' => 'Search Notes from Amy',
+            'not_found' => 'No notes from Amy found',
+            'not_found_in_trash' => 'No notes from amy found in Trash',
             'archives' => 'Note Archives',
             'attributes' => 'Note Attributes',
             'uploaded_to_this_item' => 'Uploaded to this note',
-            'filter_items_list' => 'Filter notes from antonia list',
-            'filter_by_date' => 'Filter notes from antonia by date',
-            'items_list_navigation' => 'Notes from Antonia list navigation',
-            'items_list' => 'Notes from Antonia list',
+            'filter_items_list' => 'Filter notes from Amy list',
+            'filter_by_date' => 'Filter notes from Amy by date',
+            'items_list_navigation' => 'Notes from Amy list navigation',
+            'items_list' => 'Notes from Amy list',
             'item_published' => 'Note published.',
             'item_published_privately' => 'Note published privately.',
             'item_reverted_to_draft' => 'Note reverted to draft.',
@@ -30,10 +30,10 @@ add_action('init', function () {
             'item_link' => 'Note Link',
             'item_link_description' => 'A link to a note.',
         ),
-        'description' => 'Contains notes from Antonia Romeo, MoJs\' Permanent Secretary',
+        'description' => 'Contains notes from Amy Romeo, MoJs\' Permanent Secretary',
         'public' => true,
         'show_in_rest' => true,
-        'rest_base' => 'notes-from-antonia',
+        'rest_base' => 'notes-from-amy',
         'show_in_menu' => false,
         'supports' => [
             'title',
@@ -43,13 +43,13 @@ add_action('init', function () {
             'excerpt'
         ],
         'rewrite' => array(
-            'slug' => 'notes-from-antonia',
+            'slug' => 'notes-from-amy',
             'with_front' => false,
         ),
         'delete_with_user' => false,
         'capability_type' => [
-            'note_from_antonia',
-            'notes_from_antonia'
+            'note_from_amy',
+            'notes_from_amy'
         ],
         'map_meta_cap' => true
     ));
@@ -61,28 +61,21 @@ add_action('init', function () {
     if (Agency_Context::get_agency_context() === 'hq') {
         add_action('admin_menu', function () {
             add_menu_page(
-                __('Archived Content', 'clarity'),
-                'Archived Content',
-                'notes_from_antonia',
-                'archived-content',
-                function () { echo '<h1>Archived Content</h1>'; },
+                __('Notes from Amy', 'clarity'),
+                'Notes from Amy',
+                'notes_from_amy',
+                'edit.php?post_type=note-from-amy',
+                '',
                 'dashicons-welcome-write-blog'
             );
 
             add_submenu_page(
-                'archived-content',
-                __('Notes from Antonia', 'clarity'),
-                'Notes from Antonia',
-                'notes_from_antonia',
-                'edit.php?post_type=note-from-antonia'
+                'edit.php?post_type=note-from-amy',
+                'Add  Note',
+                'Add New Note',
+                'notes_from_amy',
+                'post-new.php?post_type=note-from-amy'
             );
         });
-    }
-});
-
-// Remove notes_from_antonia_cron_hook cron hook
-add_action('init', function () {
-    if (wp_next_scheduled('notes_from_antonia_cron_hook')) {
-        wp_clear_scheduled_hook('notes_from_antonia_cron_hook');
     }
 });

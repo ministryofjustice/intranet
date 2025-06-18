@@ -1,11 +1,11 @@
 {
-    "key": "group_64778a1fe9223",
-    "title": "Note from Antonia options",
+    "key": "group_67f6910b978c8",
+    "title": "Note options",
     "fields": [
         {
-            "key": "field_64778a2057781",
+            "key": "field_67f6910ba1b7f",
             "label": "Display date and title",
-            "name": "display_title_notes_from_antonia",
+            "name": "display_title",
             "aria-label": "",
             "type": "true_false",
             "instructions": "",
@@ -17,8 +17,9 @@
                 "id": ""
             },
             "admin_only": 0,
-            "message": "Show date and title along side content on our Notes from Antonia page?",
+            "message": "Show date and title along side content on our Notes from Perm. Sec. page?",
             "default_value": 1,
+            "allow_in_bindings": 1,
             "ui_on_text": "",
             "ui_off_text": "",
             "ui": 1
@@ -29,7 +30,7 @@
             {
                 "param": "post_type",
                 "operator": "==",
-                "value": "note-from-antonia"
+                "value": "note-from-amy"
             }
         ]
     ],
@@ -42,5 +43,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1744212270
+    "modified": 1744212295
 }
