@@ -112,6 +112,10 @@ spec:
               command:
               - /usr/local/bin/fpm-health/fpm-liveness.sh
             periodSeconds: 10
+          lifecycle:
+            preStop:
+              exec:
+                command: ["ash", "-c",  "/usr/local/bin/fpm-stop.sh >> /proc/1/fd/2"]
           env:
             - name: AWS_S3_BUCKET
               valueFrom:
@@ -163,6 +167,16 @@ spec:
                 secretKeyRef:
                   name: elasticache-output
                   key: auth_token
+            # This is the name of the pod, set by Kubernetes.
+            # Pods on the network can use this hostname to communicate with each other.
+            # i.e. An nginx purge url can be created with <nginx_hostname>:8080/purge/<url>
+            #      Purge urls for all pods, can be called from a single fpm container.
+            # N.B. On Kubernetes, the hostname is the same for all containers in the pod.
+            #      On Docker Compose, the hostname is the name of the service.
+            - name: NGINX_HOSTNAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
           envFrom:
             - configMapRef:
                 name: ${KUBE_NAMESPACE}
