@@ -2,7 +2,7 @@
 
 // Page post type. Add excerpts to pages
 add_action('init', 'add_page_excerpts');
-add_action('wp_after_insert_post', 'clear_cache', 10, 2);
+add_action('wp_after_insert_post', 'clear_nginx_cache', 10, 2);
 
 function add_page_excerpts()
 {
@@ -17,26 +17,44 @@ add_action('save_post', function ($post_id, $post) {
 }, 99, 2);
 
 /**
- * Send a purge cache request to the Nginx server when a post is saved or updated.
+ * Send a purge cache request to all Nginx servers when a post is saved or updated.
  *
  * @param int $post_id The post ID
  *
  * @return void
  */
-function clear_cache(int $post_id): void {
+function clear_nginx_cache(int $post_id): void
+{
     // Check if the post is a revision or unpublished.
     if (wp_is_post_revision($post_id) || get_post_status($post_id) !== 'publish') {
         return;
     }
+
     // Get the post URL.
-    $url = get_permalink($post_id);
-    $path = parse_url($url, PHP_URL_PATH);
-    $nginx_cache_path = get_home_url(null, '/purge-cache' . $path);
-    // Purge the cache.
-    $result = wp_remote_get($nginx_cache_path, ['blocking' => false, 'keep_home_url' => true]);
-    if (is_wp_error($result)) {
-        error_log('Unable to clear cache for path ' . $nginx_cache_path);
-        error_log('Error message: ' . $result->get_error_message());
+    $post_url = get_permalink($post_id);
+    $post_path = parse_url($post_url, PHP_URL_PATH);
+
+    // Get all Nginx hosts from the ClusterHelper.
+    $cluster_helper = new ClusterHelper();
+    $nginx_hosts = $cluster_helper->getNginxHosts('hosts');
+
+    // Loop through each Nginx host and send a purge request.
+    foreach ($nginx_hosts as $host) {
+        // Construct the full URL for the purge request.
+        $nginx_cache_path = $host . '/purge-cache' . $post_path;
+
+        // Purge the cache.
+        $result = wp_remote_get($nginx_cache_path, [
+            'blocking' => false,
+            'headers' => ['Host' => parse_url(home_url(), PHP_URL_HOST)]
+        ]);
+
+        // Check for errors in the response.
+        if (is_wp_error($result)) {
+            error_log(sprintf('Error purging cache at %s: %s', $nginx_cache_path, $result->get_error_message()));
+            continue;
+        }
+
+        error_log(sprintf('Cache cleared at %s', $nginx_cache_path));
     }
 }
-
