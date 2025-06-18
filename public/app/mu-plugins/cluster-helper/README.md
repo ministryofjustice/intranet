@@ -29,6 +29,11 @@ When a pod stops, it unregisters itself by removing its hostname from the list.
 Periodically, the plugin will check if the list of pods is up to date.
 If a pod is no longer in the list, it will be removed.
 
+## Dashboard Widget
+
+A dashboard widget is provided to display the current list of pods in the cluster.
+This widget can be used to monitor the status of the cluster and ensure that all pods are registered correctly.
+
 ## Example usage
 
 In the file `public/app/themes/clarity/inc/admin/page.php` you can find an example of how to use the cluster helper plugin to clear the nginx cache across all pods in the cluster.
