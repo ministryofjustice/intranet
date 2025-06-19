@@ -17,6 +17,11 @@ class ClusterHelper
      */
     public function __construct()
     {
+        // If WP_CLI is defined, we do not run the scheduled tasks or dashboard widget.
+        if (defined('WP_CLI') && WP_CLI) {
+            return;
+        }
+
         // Set up a scheduled task to clean up old Nginx hosts.
         if (!wp_next_scheduled('cluster_helper_cleanup_nginx_hosts')) {
             wp_schedule_event(time(), 'hourly', 'cluster_helper_cleanup_nginx_hosts');
@@ -64,23 +69,6 @@ class ClusterHelper
     }
 
     /**
-     * Set the nginx hosts option with a new array of hosts.
-     * 
-     * @param array $hosts An associative array of nginx hosts with their timestamps.
-     *                     Example: 
-     *                     [
-     *                         'http://host1:8080' => ['updated_at' => 1234567890, 'unresolved_count' => 0],
-     *                         'http://host2:8080' => ['updated_at' => 1234567890, 'unresolved_count' => 2]
-     *                     ]
-     * @return void
-     */
-    public function setNginxHosts(array $hosts): void
-    {
-        // Update the option with the new array of nginx hosts
-        update_option($this::OPTION_KEY, maybe_serialize($hosts), false);
-    }
-
-    /**
      * Upsert an nginx host in the option.
      * Set the entry with updated_at timestamp and unresolved_count.
      * 
@@ -89,19 +77,33 @@ class ClusterHelper
      */
     public function upsertNginxHost(string $host): bool
     {
-        $current_nginx_hosts = $this->getNginxHosts();
+        // Start a transaction to ensure atomicity
+        global $wpdb;
+        $wpdb->query('START TRANSACTION');
 
-        $updated = isset($current_nginx_hosts[$host]);
+        try {
+            $nginx_hosts = $this->getNginxHosts();
 
-        $current_nginx_hosts[$host] = [
-            'updated_at' => time(),
-            'unresolved_count' => 0,
-        ];
+            $already_exists = isset($nginx_hosts[$host]);
 
-        // Update the option with the modified array
-        $this->setNginxHosts($current_nginx_hosts);
+            $nginx_hosts[$host] = [
+                'updated_at' => time(),
+                'unresolved_count' => 0,
+            ];
 
-        return $updated;
+            // Update the option with the modified array
+            update_option($this::OPTION_KEY, serialize($nginx_hosts), false);
+
+            // Commit the transaction
+            $wpdb->query('COMMIT');
+
+            return $already_exists;
+        } catch (Exception $e) {
+            // Rollback the transaction in case of an error
+            $wpdb->query('ROLLBACK');
+            error_log(sprintf('Error upserting nginx host %s: %s', $host, $e->getMessage()));
+            return false;
+        }
     }
 
     /**
@@ -114,18 +116,32 @@ class ClusterHelper
      */
     public function deleteNginxHost(string $host): bool
     {
-        $current_nginx_hosts = $this->getNginxHosts();
+        // Start a transaction to ensure atomicity
+        global $wpdb;
+        $wpdb->query('START TRANSACTION');
 
-        $found = array_key_exists($host, $current_nginx_hosts);
+        try {
+            $nginx_hosts = $this->getNginxHosts();
 
-        // Check if the hostname exists
-        if ($found) {
-            unset($current_nginx_hosts[$host]);
-            // Update the option with the modified array
-            $this->setNginxHosts($current_nginx_hosts);
+            $found = array_key_exists($host, $nginx_hosts);
+
+            // Check if the hostname exists
+            if ($found) {
+                unset($nginx_hosts[$host]);
+                // Update the option with the modified array
+                update_option($this::OPTION_KEY, serialize($nginx_hosts), false);
+            }
+
+            // Commit the transaction
+            $wpdb->query('COMMIT');
+
+            return $found;
+        } catch (Exception $e) {
+            // Rollback the transaction in case of an error
+            $wpdb->query('ROLLBACK');
+            error_log(sprintf('Error deleting nginx host %s: %s', $host, $e->getMessage()));
+            return false;
         }
-
-        return $found;
     }
 
     /**
@@ -137,17 +153,19 @@ class ClusterHelper
     public function cleanupOldNginxHosts(): array
     {
         $nginx_hosts = $this->getNginxHosts('full');
-        $nginx_hosts_have_been_updated = false;
         $now = time();
         $threshold = 0; //24 * 60 * 60; // 24 hours in seconds
 
+        // An array of hosts to delete e.g. ['host1', 'host2']
+        $nginx_hosts_to_delete = [];
+
+        // An array of hosts to update e.g. ['host1' => ['updated_at' => 1234567890, 'unresolved_count' => 0]]
+        $nginx_hosts_to_update = [];
 
         foreach ($nginx_hosts as $host => $values) {
-
             // Ensure the timestamps are set, if not, remove the entry.
             if (!isset($values['updated_at']) || !isset($values['unresolved_count'])) {
-                unset($nginx_hosts[$host]);
-                $nginx_hosts_have_been_updated = true;
+                $nginx_hosts_to_delete[] = $host;
                 continue;
             }
 
@@ -159,24 +177,57 @@ class ClusterHelper
             $hostname = parse_url($host, PHP_URL_HOST);
             $resolved_ip = gethostbyname($hostname);
 
-            if ($hostname === $resolved_ip) {
-                // If the hostname does not resolve, it will return the hostname itself.
-                // So we can safely assume it does not resolve.
-                // We increment the unresolved count.
-                $nginx_hosts[$host]['unresolved_count']++;
-                $nginx_hosts_have_been_updated = true;
+            if ($hostname !== $resolved_ip) {
+                continue; // Hostname resolves, so we skip it.
             }
 
-            // If the unresolved count is greater than 3, we remove the host.
-            // This is to prevent the array from growing indefinitely with unresolved hosts.
-            if ($nginx_hosts[$host]['unresolved_count'] > 3) {
-                unset($nginx_hosts[$host]);
+            // If the hostname does not resolve, it will return the hostname itself.
+            // So we can safely assume it does not resolve.
+
+            // If the current unresolved count is greater than 3, we remove the host.
+            if ($values['unresolved_count'] > 3) {
+                $nginx_hosts_to_delete[] = $host;
+                continue;
             }
+
+            // Otherwise, we update the host with an incremented unresolved count.
+            $nginx_hosts_to_update[$host] = [
+                'unresolved_count' => $values['unresolved_count'] + 1,
+            ];
         }
 
-        if ($nginx_hosts_have_been_updated) {
-            // Update the option with the updated/cleaned up array.
-            $this->setNginxHosts($nginx_hosts);
+        if (sizeof($nginx_hosts_to_delete) || sizeof($nginx_hosts_to_update)) {
+            global $wpdb;
+            // Start a transaction to ensure atomicity
+            // Important that we don't do anything slow here, so we can keep the transaction short.
+            $wpdb->query('START TRANSACTION');
+
+            try {
+                // Re-read the original option to ensure we have the latest data.
+                $tx_nginx_hosts = $this->getNginxHosts('full');
+
+                // Update the hosts that need to be updated.
+                $tx_nginx_hosts = array_merge($tx_nginx_hosts, $nginx_hosts_to_update);
+
+                // Remove the hosts that need to be deleted.
+                foreach ($nginx_hosts_to_delete as $host) {
+                    if (isset($tx_nginx_hosts[$host])) {
+                        unset($tx_nginx_hosts[$host]);
+                    }
+                }
+
+                // Update the option with the modified array.
+                update_option($this::OPTION_KEY, serialize($tx_nginx_hosts), false);
+
+                // Commit the transaction
+                $wpdb->query('COMMIT');
+
+                return $tx_nginx_hosts;
+            } catch (Exception $e) {
+                // Rollback the transaction in case of an error
+                $wpdb->query('ROLLBACK');
+                error_log(sprintf('Error cleaning up nginx hosts: %s', $e->getMessage()));
+            }
         }
 
         return $nginx_hosts;

@@ -44,10 +44,15 @@ class ClusterHelperCommands
             case 'register-self':
                 $updated = $this->cluster_helper->upsertNginxHost($this->nginx_host);
                 if ($updated) {
-                    WP_CLI::log('Registered self with Nginx host: ' . $this->nginx_host);
-                } else {
                     WP_CLI::log('Nginx host already registered: ' . $this->nginx_host);
+                } else {
+                    WP_CLI::log('Registered self with Nginx host: ' . $this->nginx_host);
                 }
+                break;
+
+            case 'register-host':
+                $this->cluster_helper->upsertNginxHost($args[1] ?? '');
+                WP_CLI::log('Registered host: ' . esc_url($args[1] ?? ''));
                 break;
 
             case 'deregister-self':
