@@ -40,9 +40,14 @@ COPY deploy/config/init/fpm-*.sh /usr/local/bin/docker-entrypoint.d/
 RUN chmod +x /usr/local/bin/docker-entrypoint.d/*
 
 # Copy our healthcheck scripts and set them to executable
-COPY bin/fpm-*.sh /usr/local/bin/fpm-health/
+COPY bin/fpm-liveness.sh bin/fpm-readiness.sh bin/fpm-status.sh /usr/local/bin/fpm-health/
 
 RUN chmod +x /usr/local/bin/fpm-health/*
+
+# Copy our stop script and set it to executable
+COPY bin/fpm-stop.sh /usr/local/bin/fpm-stop.sh
+
+RUN chmod +x /usr/local/bin/fpm-stop.sh
 
 ## Change directory
 WORKDIR /usr/local/etc/php-fpm.d

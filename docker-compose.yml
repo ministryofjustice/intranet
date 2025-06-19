@@ -22,12 +22,18 @@ services:
     env_file:
       - .env
     depends_on:
-      - mariadb
-      - opensearch
+      mariadb:
+        condition: service_healthy
+      opensearch:
+        condition: service_started
     links:
       - "cdn:cdn.${SERVER_NAME}"
       - "minio:minio.${SERVER_NAME}"
       - "nginx:${SERVER_NAME}"
+    pre_stop:
+      # Run the stop script before stopping the container.
+      # Redirect the output to the main process's stderr.
+      - command: ["ash", "-c",  "/usr/local/bin/fpm-stop.sh >> /proc/1/fd/2"]
 
   nginx:
     container_name: intranet-nginx
