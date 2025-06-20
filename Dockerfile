@@ -345,3 +345,20 @@ ARG IMAGE_TAG
 ENV IMAGE_TAG=$IMAGE_TAG
 
 ENTRYPOINT ["/bin/sh", "-c", "s3-push-start"]
+
+
+FROM mcr.microsoft.com/playwright:v1.53.0-noble AS e2e
+
+# TODO Create a non-root user for running tests
+
+WORKDIR /node
+
+WORKDIR /node/tests/e2e
+
+RUN npx playwright install --with-deps chromium
+
+COPY ./tests/e2e /node/tests/e2e
+
+RUN npm ci
+
+CMD ["npm", "test"]

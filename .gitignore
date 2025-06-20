@@ -48,3 +48,8 @@ public/app/ewww
 .env
 .env.*
 !.env.example
+
+# Tests
+/tests/e2e/artifacts/storage-states
+/tests/e2e/artifacts/test-results
+/tests/e2e/node_modules

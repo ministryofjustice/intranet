@@ -213,3 +213,23 @@ services:
     image: 'bitnami/redis:latest'
     environment:
       - ALLOW_EMPTY_PASSWORD=yes
+
+  e2e:
+    container_name: intranet-e2e
+    build:
+      context: .
+      target: e2e
+    volumes:
+      - ./tests/e2e:/node/tests/e2e
+    depends_on:
+      - php-fpm
+      - nginx
+      - cdn
+    links:
+      - "cdn:cdn.${SERVER_NAME}"
+      - "nginx:${SERVER_NAME}"
+    environment:
+      WP_BASE_URL: ${WP_HOME}
+      WP_USERNAME: test
+      WP_PASSWORD: test
+    command: bash -c "tail -f /dev/null"
