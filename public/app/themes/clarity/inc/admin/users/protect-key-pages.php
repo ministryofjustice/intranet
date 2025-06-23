@@ -23,6 +23,11 @@ class ProtectKeyPages
         'page_news.php',
     ];
 
+    // Key templates that have child pages.
+    const KEY_TEMPLATES_WITH_CHILDREN = [
+        'page_guidance_and_support_index.php'
+    ];
+
     // Key slugs for pages that only admins can edit.
     const KEY_SLUGS = [
         'agency-switcher',
@@ -32,14 +37,14 @@ class ProtectKeyPages
     {
         add_filter('user_has_cap', [$this, 'filterUserCapabilities'], 10, 3);
 
-        add_action("cms_tree_page_view_post_can_edit", [$this, 'filterTreeViewCapabilities'], 10, 2);
+        add_action("cms_tree_page_view_post_can_edit", [$this, 'filterTreeViewCanEdit'], 10, 2);
 
-        add_action("cms_tree_page_view_post_user_can_add_inside", [$this, 'filterTreeViewCapabilities'], 10, 2);
+        add_action("cms_tree_page_view_post_user_can_add_inside", [$this, 'filterTreeViewCanAddInside'], 10, 2);
     }
 
     /**
      * Checks is a post or page is limited to editing by admin only.
-     * e.g. the page that has been slected as the front page, or a page with the template of page_blog.php
+     * e.g. the page that has been selected as the front page, or a page with the template of page_blog.php
      * 
      * @param int $object_id The ID of the post or page to check.
      * @return bool True if the post is a special post that only admins can edit, false otherwise.
@@ -65,6 +70,26 @@ class ProtectKeyPages
         }
 
         return false;
+    }
+
+    /**
+     * Checks if a post or page is a key page that can have children.
+     * e.g. a Guidance and Forms page.
+     * 
+     * @param int $object_id The ID of the post or page to check.
+     * @return bool True if the post is a key page that can have children, false otherwise.
+     */
+    public function isKeyPageWithChildren(int $object_id): bool
+    {
+        if (!$this->isKeyPage($object_id)) {
+            return false; // If it's not a key page, it can't have children.
+        }
+
+        return in_array(
+            get_page_template_slug($object_id),
+            self::KEY_TEMPLATES_WITH_CHILDREN,
+            true
+        );
     }
 
     /**
@@ -140,7 +165,7 @@ class ProtectKeyPages
      * @param int  $post_id  The ID of the post being checked.
      * @return bool          True if the user can edit, false otherwise.
      */
-    public function filterTreeViewCapabilities($can_edit, $post_id)
+    public function filterTreeViewCanEdit($can_edit, $post_id)
     {
         // Check if the user is an administrator
         if (current_user_can('administrator')) {
@@ -153,6 +178,29 @@ class ProtectKeyPages
         }
 
         return $can_edit; // Allow editing for other pages.
+    }
+
+    /**
+     * Filter the capabilities for adding inside a post in the tree view.
+     * 
+     * This function checks if the user can add a post inside another post in the tree view.
+     * It prevents all users from adding child pages to key pages.
+     * 
+     * @param bool $can_add_inside Whether the user can add a post inside another post.
+     * @param int  $post_id        The ID of the post being checked.
+     * @return bool                True if the user can add inside, false otherwise.
+     */
+    public function filterTreeViewCanAddInside($can_add_inside, $post_id)
+    {
+        if ($this->isKeyPageWithChildren($post_id)) {
+            return true; // Allow adding inside if the page is a key page with children.
+        }
+
+        if ($this->isKeyPage($post_id)) {
+            return false; // Prevent adding inside other key pages.
+        }
+
+        return $can_add_inside;
     }
 }
 
