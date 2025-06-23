@@ -31,6 +31,10 @@ class ProtectKeyPages
     function __construct()
     {
         add_filter('user_has_cap', [$this, 'filterUserCapabilities'], 10, 3);
+
+        add_action("cms_tree_page_view_post_can_edit", [$this, 'filterTreeViewCapabilities'], 10, 2);
+
+        add_action("cms_tree_page_view_post_user_can_add_inside", [$this, 'filterTreeViewCapabilities'], 10, 2);
     }
 
     /**
@@ -124,6 +128,31 @@ class ProtectKeyPages
         }
 
         return $allcaps;
+    }
+
+    /**
+     * Filter the capabilities for tree view editing.
+     *
+     * This function checks if the user can edit a post in the tree view.
+     * It prevents non-admin users from editing, or inserting inside, key pages.
+     *
+     * @param bool $can_edit Whether the user can edit the post.
+     * @param int  $post_id  The ID of the post being checked.
+     * @return bool          True if the user can edit, false otherwise.
+     */
+    public function filterTreeViewCapabilities($can_edit, $post_id)
+    {
+        // Check if the user is an administrator
+        if (current_user_can('administrator')) {
+            return $can_edit; // No change for administrators.
+        }
+
+        // If the post ID is one of the key pages, prevent editing.
+        if ($this->isKeyPage($post_id)) {
+            return false; // Prevent editing of key pages in the tree view.
+        }
+
+        return $can_edit; // Allow editing for other pages.
     }
 }
 
