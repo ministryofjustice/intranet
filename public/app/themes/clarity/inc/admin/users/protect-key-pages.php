@@ -117,6 +117,10 @@ class ProtectKeyPages
         // If we are dealing with a key page, and WP is checking if the user can delete it.
         if ('delete_post' === $args[0]) {
             $allcaps['delete_others_pages'] = false;
+            // Removing the manage_options capability is also required to completely drop the ability delete.
+            // This can be verified by switching to a non-admin user, visiting the All Pages admin screen,
+            // and hovering over a key page - the Bin link should not be visible.
+            $allcaps['manage_options'] = false;
         }
 
         return $allcaps;
