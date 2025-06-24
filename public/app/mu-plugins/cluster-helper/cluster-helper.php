@@ -186,9 +186,7 @@ class ClusterHelper
             'args' => [
                 'home_url' => [
                     'required' => true,
-                    'validate_callback' => fn($param) =>
-                    // Param must be a valid URL
-                    filter_var($param, FILTER_VALIDATE_URL) !== false,
+                    'validate_callback' => fn($param) => filter_var($param, FILTER_VALIDATE_URL) !== false,
                 ],
             ],
             'callback' => fn($request) => new WP_REST_Response($request->get_param('home_url') === get_home_url())
