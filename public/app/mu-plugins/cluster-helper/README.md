@@ -17,22 +17,22 @@ But, the functions are versatile and can be used for other purposes as well.
 
 - `docker-compose.yml`: Here we use a `pre_stop` hook to run the `fpm-stop.sh` script, which unregisters the current pod from the cluster helper.
 - `deploy/*/deployment.tpl.yml`: Here we use a `preStop` hook to run the `fpm-stop.sh` script, which unregisters the current pod from the cluster helper.
-   The environment variable `NGINX_HOSTNAME` is made available to the fpm container, which is used to identify the pod to other pods in the cluster.
-- `config/application.php`: Here, the config variable `NGINX_HOST` is derived from `NGINX_HOSTNAME`.
+   The environment variable `NGINX_IP` is made available to the fpm container, which is used to identify the pod to other pods in the cluster.
+- `config/application.php`: Here, the config variable `NGINX_HOST` is derived from `NGINX_IP`.
 
 ## How it works
 
 An option in the WordPress database is used to hold the list of pods in the cluster. 
-When a pod starts, it registers itself by adding its hostname to this list. 
-When a pod stops, it unregisters itself by removing its hostname from the list.
+When a pod starts, it registers itself by adding its endpoint (e.g. `http://<NGINX_IP>:8080`) to this list. 
+When a pod stops, it deregisters itself by removing its IP from the list.
 
 Periodically, the plugin will check if the list of pods is up to date.
-If a pod is no longer in the list, it will be removed.
+If a pod is no longer reachable, it will be removed from the list.
 
 ## Dashboard Widget
 
 A dashboard widget is provided to display the current list of pods in the cluster.
-This widget can be used to monitor the status of the cluster and ensure that all pods are registered correctly.
+This widget can be used to monitor the status of the cluster and ensure that all pods are registered and deregistered correctly.
 
 ## Example usage
 
