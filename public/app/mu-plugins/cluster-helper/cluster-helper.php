@@ -187,15 +187,19 @@ class ClusterHelper
                 continue;
             }
 
-            $hostname = parse_url($host, PHP_URL_HOST);
-            $resolved_ip = gethostbyname($hostname);
+            // Make a request to the liveness endpoint of the host.
+            $response = wp_remote_get($host . '/liveness');
 
-            if ($hostname !== $resolved_ip) {
-                continue; // Hostname resolves, so we skip it.
+            // Check if the response is an error or not.
+            if (!is_wp_error($response)) {
+                // If there is an unresolved count, reset it to zero.
+                if ($values['unresolved_count'] > 0) {
+                    $this->upsertNginxHost($host, 0);
+                }
+                continue;
             }
 
-            // If the hostname does not resolve, it will return the hostname itself.
-            // So we can safely assume it does not resolve.
+            // Here, the request failed, so we need to handle the unresolved count.
 
             // If the current unresolved count is greater than 3, we remove the host.
             if ($values['unresolved_count'] >= 3) {
