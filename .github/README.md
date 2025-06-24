@@ -574,6 +574,12 @@ This is for 2 reasons:
 - It will keep the OAuth session fresh, the endpoint handler will refresh OAuth tokens, and update JWTs before they expire.
 - If a visitor's state has changed, e.g. they have moved from an office with an allowed IP, then their browser content is blurred and they are prompted to refresh the page.
 
+### Disabling access control
+
+If access control is to be handled by Basic Auth, then the environment variable `MOJ_AUTH_ENABLED` should be set to `false`.
+
+This can should be set in the environment's `config.yml` manifest file with the line: `MOJ_AUTH_ENABLED: 'false'`.
+
 ### Access for the Intranet Archive service.
 
 The intranet-archive service is a scraper that collects content from the intranet for archiving purposes.
