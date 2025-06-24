@@ -338,10 +338,8 @@ There is a sub directory for each of the Cloud Platform environments:
 - [production](/deploy/production)
 
 > [!NOTE]
-> While not in use, the demo environment has been scaled to zero, and the workflow is not run.  
-> To scale up the demo environment, update the demo deployment manifest, and the integration workflow:
-> - [deploy/demo/deployment.tpl.yml](/deploy/demo/deployment.tpl.yml)
-> - [.github/workflows/integration.yml](/.github/workflows/integration.yml)
+> The demo environment has been used to offer a quality assurance (QA) step for branch deployments (pull_requests).
+> It is not used for production deployments and is not a staging environment.
 
 ## Azure Setup
 
