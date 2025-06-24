@@ -14,7 +14,6 @@ jobs:
     outputs:
       registry: ${{ steps.ecr-login.outputs.registry }}
     permissions:
-      id-token: write
       contents: read
       pull-requests: write
     steps:
