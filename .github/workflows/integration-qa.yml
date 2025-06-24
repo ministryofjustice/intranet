@@ -59,7 +59,7 @@ jobs:
     secrets: inherit
 
   deploy_qa:
-    name: "Quality Control"
+    name: "Application"
     if: ${{ needs.eligibility.outputs.eligible == 'true' }}
     uses: ./.github/workflows/deploy.yml
     needs: [eligibility, image, get_ip_ranges, modsec_config]
