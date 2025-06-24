@@ -16,6 +16,9 @@ on:
         required: true
         type: string
 
+permissions:
+  pull-requests: write
+
 jobs:
   deploy_environment:
     name: "Deploy"
@@ -170,4 +173,3 @@ jobs:
           reactions: rocket, heart
           comment-tag: execution
           mode: recreate
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
