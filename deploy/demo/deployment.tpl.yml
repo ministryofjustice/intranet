@@ -6,13 +6,15 @@ metadata:
   labels:
     app: ${KUBE_NAMESPACE}
 spec:
-  # Scaled to zero, see README.md section: 'Deployment to Cloud Platform'
-  replicas: 0
+  # Scaled to 3 to allow for rolling update, on 24th June 25
+  # See README.md section: 'Deployment to Cloud Platform'
+  replicas: 3
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxUnavailable: 0
-      maxSurge: 100%
+      maxSurge: 1
+      maxUnavailable: 1
+  minReadySeconds: 5
   selector:
     matchLabels:
       app: ${KUBE_NAMESPACE}
