@@ -161,3 +161,10 @@ jobs:
       - name: "Apply manifest files"
         run: |
           kubectl -n ${KUBE_NAMESPACE} apply -f deploy/${{ inputs.environment }}
+
+      - name: "QA Link"
+        if: inputs.environment == 'demo'
+        uses: thollander/actions-comment-pull-request@v1
+        with:
+          message: 'QA is available at: https://demo.intranet.justice.gov.uk/'
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
