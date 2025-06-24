@@ -16,13 +16,12 @@ on:
         required: true
         type: string
 
-permissions:
-  pull-requests: write
-
 jobs:
   deploy_environment:
     name: "Deploy"
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
     environment: ${{ inputs.environment }}
     env:
       KUBE_NAMESPACE: ${{ secrets.KUBE_NAMESPACE }}

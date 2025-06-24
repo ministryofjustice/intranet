@@ -7,9 +7,6 @@ on:
         description: "AWS registry where the ECR is located"
         value: ${{ jobs.image_build.outputs.registry }}
 
-permissions:
-  pull-requests: write
-
 jobs:
   image_build:
     name: "Build"
@@ -19,6 +16,7 @@ jobs:
     permissions:
       id-token: write
       contents: read
+      pull-requests: write
     steps:
       - name: "Checkout"
         uses: actions/checkout@v4
