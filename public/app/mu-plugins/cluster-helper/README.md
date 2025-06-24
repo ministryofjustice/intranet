@@ -34,7 +34,21 @@ If a pod is no longer reachable, it will be removed from the list.
 A dashboard widget is provided to display the current list of pods in the cluster.
 This widget can be used to monitor the status of the cluster and ensure that all pods are registered and deregistered correctly.
 
-## Example usage
+The widget can be used to see pod registration and deregistration in action, for example on the dev namespace on Cloud Platform:
+
+```bash
+# Temporarily scale the deployment up to 5 pods
+kubectl -n intranet-dev scale deployment/intranet-dev --replicas=6
+
+# Check the dashboard widget to see the new pods have registered
+
+# After a few seconds, scale the deployment back down to 1 pod (or the value set in deploy/development/deployment.tpl.yml)
+kubectl -n intranet-dev scale deployment/intranet-dev --replicas=1
+
+# Check the dashboard widget to see the pods have deregistered
+```
+
+## Cache clearing - an example use case
 
 In the file `public/app/themes/clarity/inc/admin/page.php` you can find an example of how to use the cluster helper plugin to clear the nginx cache across all pods in the cluster.
 
@@ -65,3 +79,35 @@ foreach ($nginx_hosts as $host) {
     // ...
 }
 ```
+
+### Cache clearing manual test
+
+The cache clearing functionality can be verified, or debugged, on the dev namespace with the following steps:
+
+1.  Temporarily scale the deployment up to 5 pods
+    ```bash
+    kubectl -n intranet-dev scale deployment/intranet-dev --replicas=5
+    ```
+2. Login to the WordPress admin dashboard.
+3. Grab the JWT cookie value from the browser's developer tools.
+4. Open Postman or similar tool:
+   - Set the `dw_agency` cookie to `hq`.
+   - Use the JWT cookie to access the content, access to the admin area is not necessary.
+   - Navigate to a page that is cached, such as `/about-us`.
+   - Reload the page to ensure that the content is cached by nginx, check the response headers for `X-Fastcgi-Cache: HIT`.
+5. Now, in the WordPress admin dashboard, make an edit to the page, such as changing the title or content.
+6. After saving the changes, the nginx cache should be cleared across all pods.
+7. Reload the page in Postman to verify that the content has been updated, and check the response headers for `X-Fastcgi-Cache: MISS` to confirm that the cache has been cleared.
+8. Finally, scale the deployment back down to 1 pod (or the value set in deploy/development/deployment.tpl.yml):
+    ```bash
+    kubectl -n intranet-dev scale deployment/intranet-dev --replicas=1
+    ```
+
+The staging environment can be tested for QA, with 2 browsers.
+
+1. Have one browser logged in to WordPress,
+2. Use an incognito browser to access staging, log in with Entra, but don't log into WordPress.
+3. Visit a page in the incognito browser, such as `/about-us`, refresh a few times to ensure that the page is cached by nginx. Check the response headers for `X-Fastcgi-Cache: HIT`.
+4. In the logged-in browser, navigate to the WordPress admin dashboard.
+3. Make a change to a page in the logged-in browser, such as changing the title or content.
+4. Reload the page in the incognito browser to verify that the content has been updated, and check the response headers for `X-Fastcgi-Cache: MISS` to confirm that the cache has been cleared.
