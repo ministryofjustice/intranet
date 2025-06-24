@@ -13,3 +13,4 @@ data:
   # The following IDs are not private, they form part of the publicly visible oauth login url.
   OAUTH_CLIENT_ID: ""
   OAUTH_TENANT_ID: ""
+  MOJ_AUTH_ENABLED: 'false'
