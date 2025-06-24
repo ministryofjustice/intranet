@@ -173,7 +173,7 @@ class ClusterHelper
      * In the cleanup script, we need to know if a URL is still associated with this application.
      * This endpoint accepts a `home_url` parameter and checks if it matches the current site's home URL.
      * 
-     * e.g. http://172.0.0.12/wp-json/cluster-helper/v1/is-nginx-host?home_url=https://dev.intranet.justice.gov.uk
+     * e.g. http://172.0.0.12/wp-json/cluster-helper/v1/check-home-url?home-url=https://dev.intranet.justice.gov.uk
      *      will return true if the home URL matches the current site's home URL,
      *      or false if it does not match.
      * 
@@ -184,7 +184,7 @@ class ClusterHelper
         register_rest_route('cluster-helper/v1', '/check-home-url', [
             'permission_callback' => '__return_true', // Allow public access.
             'args' => [
-                'home_url' => [
+                'home-url' => [
                     'required' => true,
                     'validate_callback' => fn($param) => filter_var($param, FILTER_VALIDATE_URL) !== false,
                 ],
@@ -218,7 +218,7 @@ class ClusterHelper
             }
 
             // Make a request to the check-home-url endpoint of the host.
-            $response = wp_remote_get($host . '/wp-json/cluster-helper/v1/check-home-url?home_url=' . urlencode(get_home_url()));
+            $response = wp_remote_get($host . '/wp-json/cluster-helper/v1/check-home-url?home-url=' . urlencode(get_home_url()));
 
             // Check for a couple of things:
             // 1. If the request was successful and there was no error.
