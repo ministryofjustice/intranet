@@ -1,4 +1,4 @@
-name: Deploy to QA Environment
+name: QA Environment
 
 on:
   pull_request:
