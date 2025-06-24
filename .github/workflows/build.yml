@@ -28,6 +28,7 @@ jobs:
             The QA environment is being updated...
           comment-tag: to_delete_on_completion
           mode: delete-on-completion
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: "Configuring AWS credentials"
         uses: aws-actions/configure-aws-credentials@v4
