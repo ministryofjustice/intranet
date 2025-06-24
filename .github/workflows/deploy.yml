@@ -168,7 +168,7 @@ jobs:
         if: inputs.environment == 'demo'
         uses: thollander/actions-comment-pull-request@v3
         with:
-          message: '**QA is available at: https://demo.intranet.justice.gov.uk/**'
+          message: '**QA is ready: https://demo.intranet.justice.gov.uk/**'
           reactions: rocket, heart
           comment-tag: execution
           mode: recreate
