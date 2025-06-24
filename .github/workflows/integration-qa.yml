@@ -18,6 +18,8 @@ jobs:
     name: Determine eligibility
     if: github.event.ref != 'refs/heads/main'
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
     outputs:
       eligible: ${{ steps.eligible.outputs.result }}
     steps:
@@ -36,6 +38,16 @@ jobs:
             return !draftPRs.includes(${{
               github.event.pull_request.number
             }});
+
+      - name: "Comment PR to indicate eligibility success"
+        if: ${{ steps.eligible.outputs.result == 'true' }}
+        uses: thollander/actions-comment-pull-request@v3
+        with:
+          message: |
+            :rocket: **QA is being updated...**
+          comment-tag: to_delete_on_completion
+          mode: delete-on-completion
+          reactions: thumbsup
 
   image:
     name: "Image"
