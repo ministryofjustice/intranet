@@ -17,6 +17,10 @@ class ClusterHelper
      */
     public function __construct()
     {
+        // Create a rest API endpoint, for use in the cleanupOldNginxHosts function.
+        // It's reachable at /wp-json/cluster-helper/v1/nginx-hosts
+        add_action('rest_api_init', [$this, 'registerCheckHomeUrlRoute']);
+
         // If WP_CLI is defined, we do not run the scheduled tasks or dashboard widget.
         if (defined('WP_CLI') && WP_CLI) {
             return;
@@ -87,23 +91,23 @@ class ClusterHelper
 
         while ($attempts < $max_attempts && $return_value === null) {
             $wpdb->query('START TRANSACTION');
-    
+
             try {
                 $nginx_hosts = $this->getNginxHosts();
-    
+
                 $already_exists = isset($nginx_hosts[$host]);
-    
+
                 $nginx_hosts[$host] = [
                     'updated_at' => time(),
                     'unresolved_count' => $unresolved_count,
                 ];
-    
+
                 // Update the option with the modified array
                 update_option($this::OPTION_KEY, serialize($nginx_hosts), false);
-    
+
                 // Commit the transaction
                 $wpdb->query('COMMIT');
-    
+
                 $return_value = $already_exists;
             } catch (Exception $e) {
                 // Rollback the transaction in case of an error
@@ -135,22 +139,22 @@ class ClusterHelper
 
         while ($attempts < $max_attempts && $return_value === null) {
             $wpdb->query('START TRANSACTION');
-    
+
             try {
                 $nginx_hosts = $this->getNginxHosts();
-    
+
                 $found = array_key_exists($host, $nginx_hosts);
-    
+
                 // Check if the hostname exists
                 if ($found) {
                     unset($nginx_hosts[$host]);
                     // Update the option with the modified array
                     update_option($this::OPTION_KEY, serialize($nginx_hosts), false);
                 }
-    
+
                 // Commit the transaction
                 $wpdb->query('COMMIT');
-    
+
                 $return_value = $found;
             } catch (Exception $e) {
                 // Rollback the transaction in case of an error
@@ -164,6 +168,32 @@ class ClusterHelper
     }
 
     /**
+     * Register a REST route to check if the current host is an Nginx host *for this application*.
+     * 
+     * In the cleanup script, we need to know if a URL is still associated with this application.
+     * This endpoint accepts a `home_url` parameter and checks if it matches the current site's home URL.
+     * 
+     * e.g. http://172.0.0.12/wp-json/cluster-helper/v1/check-home-url?home-url=https://dev.intranet.justice.gov.uk
+     *      will return true if the home URL matches the current site's home URL,
+     *      or false if it does not match.
+     * 
+     * @return void
+     */
+    static function registerCheckHomeUrlRoute(): void
+    {
+        register_rest_route('cluster-helper/v1', '/check-home-url', [
+            'permission_callback' => '__return_true', // Allow public access.
+            'args' => [
+                'home-url' => [
+                    'required' => true,
+                    'validate_callback' => fn($param) => filter_var($param, FILTER_VALIDATE_URL) !== false,
+                ],
+            ],
+            'callback' => fn($request) => new WP_REST_Response($request->get_param('home_url') === get_home_url())
+        ]);
+    }
+
+    /**
      * Clean up old Nginx hosts that do not resolve and are older than 48 hours.
      * This function is scheduled to run hourly.
      *
@@ -173,7 +203,7 @@ class ClusterHelper
     {
         $nginx_hosts = $this->getNginxHosts('full');
         $now = time();
-        $threshold = 0;//24 * 60 * 60; // 24 hours in seconds
+        $threshold = 24 * 60 * 60; // 24 hours in seconds
 
         foreach ($nginx_hosts as $host => $values) {
             // Ensure the timestamps are set, if not, remove the entry.
@@ -187,15 +217,21 @@ class ClusterHelper
                 continue;
             }
 
-            $hostname = parse_url($host, PHP_URL_HOST);
-            $resolved_ip = gethostbyname($hostname);
+            // Make a request to the check-home-url endpoint of the host.
+            $response = wp_remote_get($host . '/wp-json/cluster-helper/v1/check-home-url?home-url=' . urlencode(get_home_url()));
 
-            if ($hostname !== $resolved_ip) {
-                continue; // Hostname resolves, so we skip it.
+            // Check for a couple of things:
+            // 1. If the request was successful and there was no error.
+            // 2. If the response body is 'true', indicating that the host is still running this application.
+            if (!is_wp_error($response) && wp_remote_retrieve_body($response) === 'true') {
+                // Both conditions are met, we can assume the host is still valid and reset the unresolved count to zero.
+                if ($values['unresolved_count'] > 0) {
+                    $this->upsertNginxHost($host, 0);
+                }
+                continue;
             }
 
-            // If the hostname does not resolve, it will return the hostname itself.
-            // So we can safely assume it does not resolve.
+            // Here, the request failed, so we need to handle the unresolved count.
 
             // If the current unresolved count is greater than 3, we remove the host.
             if ($values['unresolved_count'] >= 3) {

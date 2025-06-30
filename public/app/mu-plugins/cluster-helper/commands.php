@@ -8,6 +8,7 @@ defined('ABSPATH') || exit;
  * 
  * Usage:
  * - wp cluster-helper register-self
+ * - wp cluster-helper register-host <host>
  * - wp cluster-helper deregister-self
  * - wp cluster-helper deregister-host <host>
  * - wp cluster-helper get-hosts
