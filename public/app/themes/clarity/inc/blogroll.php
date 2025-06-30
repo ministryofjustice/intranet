@@ -7,8 +7,8 @@ if (!defined('ABSPATH')) {
 /**
  * Blogroll
  * 
- * This class s all about the blogroll template, 
- * that is currently used for the following post types:
+ * This class is all about the blogroll template that is currently used for the following post types:
+ * - Note from Jo 'note-from-jo'
  * - Note from Amy 'note-from-amy'
  * - Note from Antonia 'note-from-antonia'
  *
@@ -17,11 +17,17 @@ if (!defined('ABSPATH')) {
 
 class Blogroll
 {
-
     // Map of post types (array key) to content pages (array value)
     const CONTENT_PAGE_MAP = [
+        'note-from-jo' => 'notes-from-jo',
         'note-from-amy' => 'notes-from-amy',
         'note-from-antonia' => 'notes-from-antonia'
+    ];
+
+    const POST_TYPE_ARRAY = [
+        'note-from-jo',
+        'note-from-amy',
+        'note-from-antonia'
     ];
 
     // Name of the cron job
@@ -67,7 +73,7 @@ class Blogroll
      * 
      * @return void - returns void or exits if a redirect is performed.
      */
-    public function redirectToContentPage()
+    public function redirectToContentPage(): void
     {
         // Only run on single post pages and if the post type is in the redirect map
         if (!is_single() || !isset($this::CONTENT_PAGE_MAP[get_post_type()])) {
@@ -87,7 +93,7 @@ class Blogroll
      * 
      * @return void - returns void or exits if a redirect is performed.
      */
-    public function maybeRedirectFromArchivedPage()
+    public function maybeRedirectFromArchivedPage(): void
     {
         // Check if the current page the blogroll template
         if (!is_page_template('page_blogroll.php')) {
@@ -124,13 +130,14 @@ class Blogroll
      * When a note is created or updated, we need to copy the agencies 
      * from the content page to the individual note.
      * 
-     * @param int $post_id
+     * @param int     $post_id
      * @param WP_Post $post
+     *
      * @return void
      */
-    public function handleNotesFromInsert($post_id, $post): void
+    public function handleNotesFromInsert(int $post_id, WP_Post $post): void
     {
-        if (in_array($post->post_type, ['note-from-amy', 'note-from-antonia'])) {
+        if (in_array($post->post_type, $this::POST_TYPE_ARRAY)) {
             $this->copyAgenciesToNotes($post->post_type, $post_id);
         }
     }
@@ -147,25 +154,26 @@ class Blogroll
     public function copyAgenciesToNotesCronHandler(): void
     {
         // Get all notes
-        $post_types = ['note-from-amy', 'note-from-antonia'];
+        $post_types = $this::POST_TYPE_ARRAY;
         foreach ($post_types as $post_type) {
             $this->copyAgenciesToNotes($post_type);
         }
     }
 
     /**
-     * Copy tagged agencies from 'Notes from Amy' or 'Notes from Antonia' page to individual Notes.
+     * Copy tagged agencies from parent page to individual Notes.
      *
      * Agencies have the ability to include content on their own Intranets. If they
      * choose Notes from Amy then each individual Note will need to reflect
      * this, otherwise it won't show up in search results for them.
      *
-     * @param null $note
+     * @param null $post_type
+     * @param null $post_id
      */
     function copyAgenciesToNotes($post_type = null, $post_id = null): void
     {
 
-        if (!$post_type || !in_array($post_type, ['note-from-amy', 'note-from-antonia'])) {
+        if (!$post_type || !in_array($post_type, $this::POST_TYPE_ARRAY)) {
             return;
         }
 
@@ -177,6 +185,13 @@ class Blogroll
         // get agencies attached to the page
         // this is our source of truth...
         $page = get_page_by_path($content_page);
+
+        // Check if the page exists
+        if (!$page) {
+            trigger_error("Content page (/$content_page) for post type $post_type not found.");
+            return;
+        }
+
         foreach (wp_get_object_terms($page->ID, 'agency') as $agency) {
             $agencies[] = $agency->slug;
         }
