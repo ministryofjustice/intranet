@@ -8,7 +8,7 @@
             "name": "prior_party_banner",
             "aria-label": "",
             "type": "true_false",
-            "instructions": "If this content was published under a previous government, should we show a banner to inform site visitors?",
+            "instructions": "When a different government is is elected, should we show a banner to inform visitors that this content was published under a prior government?",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -19,8 +19,8 @@
             "admin_only": 0,
             "message": "",
             "default_value": 1,
-            "ui_on_text": "On",
-            "ui_off_text": "Off",
+            "ui_on_text": "Yes",
+            "ui_off_text": "No",
             "ui": 1
         }
     ],
@@ -94,6 +94,13 @@
                 "operator": "==",
                 "value": "note-from-antonia"
             }
+        ],
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "note-from-jo"
+            }
         ]
     ],
     "menu_order": 10,
@@ -105,5 +112,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1743609747
+    "modified": 1751287510
 }

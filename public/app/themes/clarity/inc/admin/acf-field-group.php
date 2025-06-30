@@ -1866,7 +1866,8 @@
             ),
             'admin_only' => 0,
             'post_type' => array(
-                0 => 'note-from-amy',
+                0 => 'note-from-jo',
+                1 => 'note-from-amy',
             ),
             'post_status' => '',
             'taxonomy' => array(
@@ -3251,7 +3252,8 @@
             ),
             'admin_only' => 0,
             'post_type' => array(
-                0 => 'note-from-amy',
+                0 => 'note-from-jo',
+                1 => 'note-from-amy',
             ),
             'post_status' => '',
             'taxonomy' => array(
