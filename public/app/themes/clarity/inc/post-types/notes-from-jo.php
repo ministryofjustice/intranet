@@ -1,7 +1,7 @@
 <?php
 add_action('init', function () {
-    register_post_type('note-from-jo', array(
-        'labels' => array(
+    register_post_type('note-from-jo', [
+        'labels' => [
             'name' => 'Notes from Jo',
             'singular_name' => 'Note',
             'menu_name' => 'Notes from Jo',
@@ -29,7 +29,7 @@ add_action('init', function () {
             'item_updated' => 'Note updated.',
             'item_link' => 'Note Link',
             'item_link_description' => 'A link to a note.',
-        ),
+        ],
         'description' => 'Contains notes from Jo Romeo, MoJs\' Permanent Secretary',
         'public' => true,
         'show_in_rest' => true,
@@ -52,7 +52,7 @@ add_action('init', function () {
             'notes_from_jo'
         ],
         'map_meta_cap' => true
-    ));
+    ]);
 
     if (!Agency_Context::current_user_can_have_context()) {
         return false;

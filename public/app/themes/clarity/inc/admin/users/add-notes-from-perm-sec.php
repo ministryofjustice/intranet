@@ -30,7 +30,20 @@ add_action('init', function () {
             'delete_published_notes_from_amy' => true,
             'delete_private_notes_from_amy' => true,
             'delete_note_from_amy' => true,
-            'delete_others_notes_from_amy' => true
+            'delete_others_notes_from_amy' => true,
+            // Notes from Jo
+            'note_from_jo' => true,
+            'notes_from_jo' => true,
+            'edit_notes_from_jo' => true,
+            'edit_note_from_jo' => true,
+            'edit_others_notes_from_jo' => true,
+            'edit_published_notes_from_jo' => true,
+            'publish_notes_from_jo' => true,
+            'delete_notes_from_jo' => true,
+            'delete_published_notes_from_jo' => true,
+            'delete_private_notes_from_jo' => true,
+            'delete_note_from_jo' => true,
+            'delete_others_notes_from_jo' => true
         ]
     ];
 
