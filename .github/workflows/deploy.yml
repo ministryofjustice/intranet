@@ -20,6 +20,8 @@ jobs:
   deploy_environment:
     name: "Deploy"
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
     environment: ${{ inputs.environment }}
     env:
       KUBE_NAMESPACE: ${{ secrets.KUBE_NAMESPACE }}
@@ -161,3 +163,12 @@ jobs:
       - name: "Apply manifest files"
         run: |
           kubectl -n ${KUBE_NAMESPACE} apply -f deploy/${{ inputs.environment }}
+
+      - name: "QA Link"
+        if: inputs.environment == 'demo'
+        uses: thollander/actions-comment-pull-request@v3
+        with:
+          message: '**QA is ready: https://demo.intranet.justice.gov.uk/**'
+          reactions: rocket, heart
+          comment-tag: execution
+          mode: recreate
