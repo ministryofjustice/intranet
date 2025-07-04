@@ -60,21 +60,14 @@ add_action('init', function () {
 
     if (Agency_Context::get_agency_context() === 'hq') {
         add_action('admin_menu', function () {
-            add_menu_page(
+            add_submenu_page(
+                'archived-content',
                 __('Notes from Amy', 'clarity'),
                 'Notes from Amy',
                 'notes_from_amy',
                 'edit.php?post_type=note-from-amy',
-                '',
-                'dashicons-welcome-write-blog'
-            );
-
-            add_submenu_page(
-                'edit.php?post_type=note-from-amy',
-                'Add  Note',
-                'Add New Note',
-                'notes_from_amy',
-                'post-new.php?post_type=note-from-amy'
+                '', // An empty callback
+                2   // Menu position, below Notes from Antonia
             );
         });
     }
