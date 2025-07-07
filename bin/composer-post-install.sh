@@ -12,19 +12,6 @@ verify_composer_package_version() {
   fi
 }
 
-# Add logging to amazon-s3-and-cloudfront-pro plugin.
-
-# Define the search and replace strings.
-AS3CF_FILE=/var/www/html/public/app/mu-plugins/amazon-s3-and-cloudfront-pro/classes/upgrades/upgrade.php
-AS3CF_SEARCH="\$this->items_processed++;"
-AS3CF_NEW="if(\$upgraded % 100 === 0) { error_log(\"AS3CF_Upgrade - total \$total, items_processed \$this->items_processed, upgrade_name \$this->upgrade_name\"); }"
-AS3CF_REPLACE="$AS3CF_SEARCH\n\n\t\t\t$AS3CF_NEW"
-
-# If search string is in file. Then replace it.
-if grep -q  $AS3CF_SEARCH $AS3CF_FILE ; then
-  echo "Adding logging to amazon-s3-and-cloudfront-pro..."
-  sed -i "s/$AS3CF_SEARCH/$AS3CF_REPLACE/g" $AS3CF_FILE
-fi
 
 TOTAL_POLL_FILE=/var/www/html/public/app/plugins/totalpoll-lite/src/Plugin.php
 TOTAL_POLL_SEARCH="\${tooltip}"
@@ -57,7 +44,7 @@ if [ -f "$MOJ_COMPONENTS_FILE" ] ; then
 fi
 
 
-NOTIFY_FILE=/var/www/html/public/app/mu-plugins/notify-for-wordpress/inc/admin/class-dashboard-table.php
+NOTIFY_FILE=/var/www/html/public/app/plugins/notify-for-wordpress/inc/admin/class-dashboard-table.php
 NOTIFY_SEARCH="public function get_columns"
 NOTIFY_REPLACE='private \$plugin_text_domain;
 
@@ -70,7 +57,7 @@ NOTIFY_REPLACE='private \$plugin_text_domain;
 	public function get_columns'
 
 if [ -f "$NOTIFY_FILE" ] ; then
-  echo "Adding code blocke to notify-for-wordpress plugin"
+  echo "Adding code block to notify-for-wordpress plugin"
   NOTIFY_CONTENT=$(perl -0777pe 's/'"$NOTIFY_SEARCH"'/'"$NOTIFY_REPLACE"'/s' "$NOTIFY_FILE")
   echo "$NOTIFY_CONTENT" > "$NOTIFY_FILE"
 fi

@@ -21,6 +21,7 @@ class Agency extends Taxonomy
         'regional_news',
         'regional_page',
         'condolences',
+        'note-from-jo',
         'note-from-amy',
         'note-from-antonia',
     );
@@ -315,6 +316,8 @@ class Agency extends Taxonomy
             'delete_post',
             'edit_news',
             'delete_news',
+            'edit_notes_from_jo',
+            'delete_notes_from_jo',
             'edit_notes_from_amy',
             'delete_notes_from_amy',
             'edit_notes_from_antonia',

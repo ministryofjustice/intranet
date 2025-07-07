@@ -32,6 +32,13 @@
                 "operator": "==",
                 "value": "note-from-amy"
             }
+        ],
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "note-from-jo"
+            }
         ]
     ],
     "menu_order": 1,
@@ -43,5 +50,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1744212295
+    "modified": 1751287560
 }

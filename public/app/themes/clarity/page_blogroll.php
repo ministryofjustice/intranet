@@ -62,12 +62,13 @@ if($page_settings['is_archived']) {
         <?php if($page_settings['is_archived']): ?>
             <div class="c-moj-banner c-moj-banner--warning">
                 <div class="c-moj-banner__message">
-                     <h2 class="o-title">This page is archived</h2>
-                    This page is archived and no longer updated. Agency Admins have access to this page,
-                    users with other accounts, and visitors without an account will be redirected to: 
-                    <a href="<?php the_permalink($page_settings['archive_redirect']); ?>">
-                        <?php echo get_the_title($page_settings['archive_redirect']); ?>
-                    </a>
+                    <h2 class="o-title">This page is archived</h2>
+                    <p>This page is archived and no longer updated. Agency Admins have access to this page,
+                        users with other accounts, and visitors without an account will be redirected to:
+                        <a href="<?php the_permalink($page_settings['archive_redirect']); ?>">
+                            <?php echo get_the_title($page_settings['archive_redirect']); ?>
+                        </a>
+                    </p>
                 </div>
             </div>
         <?php endif; ?>

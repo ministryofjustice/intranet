@@ -110,6 +110,7 @@ require_once 'inc/post-types/regional-news.php';
 require_once 'inc/post-types/regional-page.php';
 require_once 'inc/post-types/team-area.php';
 require_once 'inc/post-types/webchat.php';
+require_once 'inc/post-types/notes-from-jo.php';
 require_once 'inc/post-types/notes-from-amy.php';
 require_once 'inc/post-types/notes-from-antonia.php';
 
