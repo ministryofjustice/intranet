@@ -10,7 +10,7 @@ export default (function ($) {
             value: 'user_accepted',
             set: (value, days = 7) => {
                 const expires = new Date( Date.now() + days * 864e5).toUTCString()
-                const maybeSecure = window.mojAuthHeartbeat.https ? 'secure' : ''
+                const maybeSecure = window.mojAuthHeartbeat?.https ? 'secure' : ''
                 document.cookie = `${Backdrop.cookie.name}=${value}; expires=${expires}; path=/; ${maybeSecure}`
             },
             get: () => {
