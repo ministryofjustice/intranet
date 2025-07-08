@@ -59,6 +59,11 @@ services:
       - "8080:8080"
     depends_on:
       - node
+    healthcheck:
+      test: [ "CMD-SHELL", "curl -f http://localhost:8080/liveness || exit 1" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
 
   node:
     container_name: intranet-node
@@ -172,8 +177,8 @@ services:
       - minio
     entrypoint: |
       /bin/sh -c "
-        mc config host add intranet http://minio:9000 ${AWS_ACCESS_KEY_ID} ${AWS_SECRET_ACCESS_KEY}
-        mc mb intranet/${AWS_S3_BUCKET}
+        mc alias set intranet http://minio:9000 ${AWS_ACCESS_KEY_ID} ${AWS_SECRET_ACCESS_KEY}
+        mc mb intranet/${AWS_S3_BUCKET} --ignore-existing
         mc anonymous set download intranet/${AWS_S3_BUCKET};
         exit 0
       "
@@ -213,23 +218,3 @@ services:
     image: 'bitnami/redis:latest'
     environment:
       - ALLOW_EMPTY_PASSWORD=yes
-
-  e2e:
-    container_name: intranet-e2e
-    build:
-      context: .
-      target: e2e
-    volumes:
-      - ./tests/e2e:/node/tests/e2e
-    depends_on:
-      - php-fpm
-      - nginx
-      - cdn
-    links:
-      - "cdn:cdn.${SERVER_NAME}"
-      - "nginx:${SERVER_NAME}"
-    environment:
-      WP_BASE_URL: ${WP_HOME}
-      WP_USERNAME: test
-      WP_PASSWORD: test
-    command: bash -c "tail -f /dev/null"

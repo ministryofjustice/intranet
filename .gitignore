@@ -48,8 +48,11 @@ public/app/ewww
 .env
 .env.*
 !.env.example
+<<<<<<< Updated upstream
 
 # Tests
 /tests/e2e/artifacts/storage-states
 /tests/e2e/artifacts/test-results
+=======
+>>>>>>> Stashed changes
 /tests/e2e/node_modules

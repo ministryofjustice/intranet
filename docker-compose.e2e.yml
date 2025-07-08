@@ -1,0 +1,54 @@
+volumes:
+  node_modules:
+  dist:
+  php-socket:
+  opensearch-data:
+  # Use a nemed volume for the database, to ensure we don't get it mixed up with the dev database.
+  database:
+    name: intranet_e2e_db
+    driver: local
+  minio_storage: ~
+  cdn_node_modules: ~
+
+services:
+
+  php-fpm:
+    env_file:
+      - .env.e2e
+
+  e2e:
+    container_name: intranet-e2e
+    build:
+      context: .
+      target: e2e
+    volumes:
+      - ./tests/e2e/config:/node/tests/e2e/config
+      - ./tests/e2e/specs:/node/tests/e2e/specs
+      - ./tests/e2e/package-lock.json:/node/tests/e2e/package-lock.json
+      - ./tests/e2e/package.json:/node/tests/e2e/package.json
+      - ./tests/e2e/playwright.config.js:/node/tests/e2e/playwright.config.js
+    env_file:
+      - .env.e2e
+    depends_on:
+      php-fpm:
+        condition: service_started
+      nginx:
+        condition: service_healthy
+      cdn:
+        condition: service_started
+      minio:
+        condition: service_healthy
+    links:
+      - "cdn:cdn.${SERVER_NAME}"
+      - "nginx:${SERVER_NAME}"
+    command: bash -c "tail -f /dev/null"
+    # command: bash -c "npm run test"
+
+  # Override the opensearch-dashboard service so that it doesn't run in E2E tests
+  opensearch-dashboard: !reset null
+  
+  minio-init: !reset null
+
+  wp-cron: !reset null
+
+  phpmyadmin: !reset null

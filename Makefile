@@ -241,3 +241,11 @@ unapply:
 apply-production:
 	kubectl apply -f deploy/production
 
+# Tests
+
+# e2e
+
+e2e:
+	@echo "\n-->  Running E2E tests...  <---------------------------|\n"
+	@chmod +x ./bin/e2e.sh
+	@./bin/e2e.sh
