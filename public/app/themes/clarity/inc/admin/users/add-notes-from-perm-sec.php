@@ -43,7 +43,9 @@ add_action('init', function () {
             'delete_published_notes_from_jo' => true,
             'delete_private_notes_from_jo' => true,
             'delete_note_from_jo' => true,
-            'delete_others_notes_from_jo' => true
+            'delete_others_notes_from_jo' => true,
+            // Archived Content
+            'archived_content' => true
         ]
     ];
 

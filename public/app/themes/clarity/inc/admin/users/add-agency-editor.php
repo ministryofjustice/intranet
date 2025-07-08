@@ -127,6 +127,8 @@ $capabilities = array(
     'delete_published_news' => true,
     'delete_private_news' => true,
 
+    // Archived Content
+    'archived_content' => true,
 );
 
 if (get_role('agency-editor')) {
