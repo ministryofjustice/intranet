@@ -28,6 +28,12 @@ services:
       - "cdn:cdn.${SERVER_NAME}"
       - "minio:minio.${SERVER_NAME}"
       - "nginx:${SERVER_NAME}"
+    healthcheck:
+      test: [ "CMD-SHELL", "/usr/local/bin/fpm-health/fpm-liveness.sh" ]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
 
   nginx:
     container_name: intranet-nginx
@@ -174,7 +180,8 @@ services:
     container_name: intranet-minio-init
     image: minio/mc
     depends_on:
-      - minio
+      minio:
+        condition: service_healthy
     entrypoint: |
       /bin/sh -c "
         mc alias set intranet http://minio:9000 ${AWS_ACCESS_KEY_ID} ${AWS_SECRET_ACCESS_KEY}

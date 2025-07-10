@@ -1,20 +1,22 @@
 volumes:
-  node_modules:
-  dist:
-  php-socket:
-  opensearch-data:
-  # Use a nemed volume for the database, to ensure we don't get it mixed up with the dev database.
+  # Use a named volumes for various services to ensure we don't overwrite dev data.
   database:
     name: intranet_e2e_db
     driver: local
-  minio_storage: ~
-  cdn_node_modules: ~
+  minio_storage: 
+    name: intranet_e2e_minio_storage
+    driver: local
+  opensearch-data:
+    name: intranet_e2e_opensearch_data
+    driver: local
 
 services:
 
   php-fpm:
     env_file:
       - .env.e2e
+    environment:
+      WP_ENV: test
 
   e2e:
     container_name: intranet-e2e
@@ -29,6 +31,8 @@ services:
       - ./tests/e2e/playwright.config.js:/node/tests/e2e/playwright.config.js
     env_file:
       - .env.e2e
+    environment:
+      WP_BASE_URL: http://intranet.docker
     depends_on:
       php-fpm:
         condition: service_started
@@ -41,13 +45,12 @@ services:
     links:
       - "cdn:cdn.${SERVER_NAME}"
       - "nginx:${SERVER_NAME}"
-    command: bash -c "tail -f /dev/null"
-    # command: bash -c "npm run test"
+    # command: bash -c "tail -f /dev/null"
 
   # Override the opensearch-dashboard service so that it doesn't run in E2E tests
   opensearch-dashboard: !reset null
   
-  minio-init: !reset null
+  # minio-init: !reset null
 
   wp-cron: !reset null
 
