@@ -1,4 +1,10 @@
 /**
+ * This file is an adapted version from the e2e tests in the WordPress/wordpress-develop repository.
+ * 
+ * https://github.com/WordPress/wordpress-develop/blob/trunk/tests/e2e/playwright.config.js
+ */
+
+/**
  * External dependencies
  */
 import path from 'node:path';
@@ -23,6 +29,8 @@ const config = defineConfig( {
 	webServer: null,
     use: {
         ...baseConfig.use,
+        // Set a custom property for the admin URL, to use in tests.
+        // This is because our admin URIs all start with `/wp/`.
         adminURL: `${baseConfig.use.baseURL}/wp/`
     }
 } );
