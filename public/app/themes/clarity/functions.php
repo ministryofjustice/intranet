@@ -103,6 +103,7 @@ require_once 'inc/menu.php';
 require_once 'inc/utilities.php';
 require_once 'inc/pagination.php';
 
+require_once 'inc/post-types/archived-content.php';
 require_once 'inc/post-types/post.php';
 require_once 'inc/post-types/event.php';
 require_once 'inc/post-types/news.php';
@@ -110,6 +111,7 @@ require_once 'inc/post-types/regional-news.php';
 require_once 'inc/post-types/regional-page.php';
 require_once 'inc/post-types/team-area.php';
 require_once 'inc/post-types/webchat.php';
+require_once 'inc/post-types/notes-from-jo.php';
 require_once 'inc/post-types/notes-from-amy.php';
 require_once 'inc/post-types/notes-from-antonia.php';
 

@@ -84,6 +84,7 @@ if (!env('WP_ENVIRONMENT_TYPE') && in_array(WP_ENV, ['production', 'staging', 'd
 Config::define('WP_HOME', env('WP_HOME'));
 Config::define('WP_SITEURL', env('WP_SITEURL'));
 Config::define('LOOPBACK_URL', env('LOOPBACK_URL') ?? 'http://127.0.0.1:8080');
+Config::define('NGINX_HOST', 'http://' . (env('NGINX_IP') ?? 'nginx') . ':8080');
 // Explicitly set cookie paths, to prevent conflicting wordpress_logged_in... wordpress_sec_... cookies.
 Config::define('COOKIEPATH', '/');
 Config::define('SITECOOKIEPATH', '/');

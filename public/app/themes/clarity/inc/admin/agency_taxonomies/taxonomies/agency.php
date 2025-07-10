@@ -21,6 +21,7 @@ class Agency extends Taxonomy
         'regional_news',
         'regional_page',
         'condolences',
+        'note-from-jo',
         'note-from-amy',
         'note-from-antonia',
     );
@@ -107,6 +108,8 @@ class Agency extends Taxonomy
                 add_action('load-post.php', array($this, 'quick_action_opt_in_out'));
             }
         }
+
+        add_action('map_meta_cap', array($this, 'restrict_archived_content_to_agency'), 10, 2);
     }
 
     public function add_admin_menu_item()
@@ -315,6 +318,8 @@ class Agency extends Taxonomy
             'delete_post',
             'edit_news',
             'delete_news',
+            'edit_notes_from_jo',
+            'delete_notes_from_jo',
             'edit_notes_from_amy',
             'delete_notes_from_amy',
             'edit_notes_from_antonia',
@@ -337,6 +342,39 @@ class Agency extends Taxonomy
             // User does not have permission to edit this post
             $caps[] = 'do_not_allow';
         }
+        return $caps;
+    }
+
+    /**
+     * Filter the `archived_content` capability so that only users with
+     * the correct agency context can view archived content.
+     * 
+     * Currently, only users in the 'hq' agency context can view archived content.
+     *
+     * @param $caps
+     * @param $cap
+     *
+     * @return array
+     */
+    public function restrict_archived_content_to_agency($caps, $cap)
+    {
+        if ($cap !== 'archived_content') {
+            return $caps;
+        }
+
+        // If the user does not have an agency context, they cannot view archived content.
+        if (!Agency_Context::current_user_can_have_context()) {
+            $caps[] = 'do_not_allow';
+        }
+
+        // Allowed agencies, use an array for future extensibility.
+        $allowed_agencies = ['hq'];
+
+        // If the user is not in an allowed agency, they cannot view archived content.
+        if (!in_array(Agency_Context::get_agency_context(), $allowed_agencies)) {
+            $caps[] = 'do_not_allow';
+        }
+
         return $caps;
     }
 

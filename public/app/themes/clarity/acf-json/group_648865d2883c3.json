@@ -37,10 +37,11 @@
             },
             "admin_only": 0,
             "choices": {
-                "note-from-antonia": "Notes from Antonia",
-                "note-from-amy": "Notes from Amy"
+                "note-from-jo": "Notes from Jo",
+                "note-from-amy": "Notes from Amy",
+                "note-from-antonia": "Notes from Antonia"
             },
-            "default_value": false,
+            "default_value": "note-from-jo",
             "return_format": "value",
             "multiple": 0,
             "allow_null": 0,
@@ -442,5 +443,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1744214133
+    "modified": 1751289065
 }

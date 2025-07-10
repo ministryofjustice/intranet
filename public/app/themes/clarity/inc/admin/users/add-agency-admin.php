@@ -105,14 +105,28 @@ $capabilities = array(
     'notes_from_amy' => true,
     'edit_notes_from_amy' => true,
     'edit_note_from_amy' => true,
-    'edit_others_notes_from_amy' => true,
-    'edit_published_notes_from_amy' => true,
-    'publish_notes_from_amy' => true,
-    'delete_notes_from_amy' => true,
-    'delete_published_notes_from_amy' => true,
-    'delete_private_notes_from_amy' => true,
-    'delete_note_from_amy' => true,
-    'delete_others_notes_from_amy' => true,
+    'edit_others_notes_from_amy' => false,
+    'edit_published_notes_from_amy' => false,
+    'publish_notes_from_amy' => false,
+    'delete_notes_from_amy' => false,
+    'delete_published_notes_from_amy' => false,
+    'delete_private_notes_from_amy' => false,
+    'delete_note_from_amy' => false,
+    'delete_others_notes_from_amy' => false,
+
+    // Notes from Jo
+    'note_from_jo' => true,
+    'notes_from_jo' => true,
+    'edit_notes_from_jo' => true,
+    'edit_note_from_jo' => true,
+    'edit_others_notes_from_jo' => true,
+    'edit_published_notes_from_jo' => true,
+    'publish_notes_from_jo' => true,
+    'delete_notes_from_jo' => true,
+    'delete_published_notes_from_jo' => true,
+    'delete_private_notes_from_jo' => true,
+    'delete_note_from_jo' => true,
+    'delete_others_notes_from_jo' => true,
 
     // Documents
     'edit_documents' => true,
@@ -196,6 +210,9 @@ $capabilities = array(
     'edit_poll' => true,
     'create_polls' => true,
     'publish_polls' => true,
+
+    // Archived Content
+    'archived_content' => true,
 );
 
 
