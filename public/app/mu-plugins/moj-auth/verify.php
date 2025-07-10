@@ -8,6 +8,17 @@ if (defined('ABSPATH')) {
     http_response_code(401) && exit();
 }
 
+$debug = isset($_ENV['MOJ_AUTH_DEBUG']) && $_ENV['MOJ_AUTH_DEBUG'] === 'true';
+
+// Return 200 if MOJ_AUTH_ENABLED is exactly equal to false, useful when working locally.
+if (isset($_ENV['MOJ_AUTH_ENABLED']) && $_ENV['MOJ_AUTH_ENABLED'] === 'false') {
+    if($debug) {
+        error_log('MOJ_AUTH_ENABLED is false - skipping auth check.');
+    }
+    http_response_code(200) && exit();
+}
+
+
 define('DOING_STANDALONE_VERIFY', true);
 
 $autoload = '../../../../vendor/autoload.php';
@@ -53,6 +64,6 @@ class StandaloneVerify
         http_response_code($status_code) && exit();
     }
 }
-$debug = isset($_ENV['MOJ_AUTH_DEBUG']) && $_ENV['MOJ_AUTH_DEBUG'] === 'true';
+
 $standalone_verify = new StandaloneVerify(['debug' => $debug]);
 $standalone_verify->handleAuthRequest();

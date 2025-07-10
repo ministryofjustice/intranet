@@ -20,6 +20,10 @@ defined('ABSPATH') || exit;
 
 // If the plugin isn't enabled, return early.
 if (Config::get('MOJ_AUTH_ENABLED') === false) {
+    // Exit here to return a 200 response for the heartbeat endpoint.
+    $_SERVER['REQUEST_URI'] === '/auth/heartbeat' && exit;
+
+    // For all other requests, return here, because we don't want to run any of the code below.
     return;
 }
 
