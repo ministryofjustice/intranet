@@ -24,10 +24,10 @@ trait Utils
             foreach ($pri_data as $cb => $cb_data) {
                 // If the function is not an array, then skip it.
                 if (!is_array($cb_data['function'])) continue;
-                
+
                 // If function index 1 is not the function name, then skip it.
                 if ($cb_data['function'][1] !== $function_name) continue;
-                
+
                 // The passed in $function name could match in 2 ways:
                 // 1. The class name matches the class of the object.
                 $class_match = is_object($cb_data['function'][0]) && get_class($cb_data['function'][0]) == $class_name;
@@ -35,7 +35,7 @@ trait Utils
                 $static_class_match = $cb_data['function'][0] === $class_name;
                 // If neither match, then skip it.
                 if (!$class_match && !$static_class_match) continue;
-                
+
                 // If we have a match, then remove the filter.
                 remove_filter($filter_name,  [$cb_data['function'][0], $function_name], $priority);
 
@@ -43,5 +43,32 @@ trait Utils
                 break 2;
             }
         }
+    }
+
+    /**
+     * Validate date-time string, in ISO format.
+     * 
+     * This function checks if the provided date-time string is in ISO 8601 format.
+     * It returns true if the string is valid, otherwise false.
+     * 
+     * @param string|null $date_time The date-time string to validate.
+     * @return bool True if the date-time string is valid, false otherwise.
+     */
+
+    public function isValidIsoDateTime($date_time = null): bool
+    {
+        if (empty($date_time) || gettype($date_time) !== 'string') {
+            // If the date_time is empty or not a string, return false.
+            return false; 
+        }
+
+        // Example value: modified_after=2024-05-01T00:00:00
+        // Example value: modified_after=2024-05-01T00:00:00Z
+        // Example value: modified_after=2024-05-01T08:03:00%2b01:00
+        // Example value: modified_after=2024-05-01T08:03:00-01:00
+
+        $iso_pattern = '/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[\+\-]\d{2}:\d{2})?$/';
+
+        return (bool) preg_match($iso_pattern, $date_time);
     }
 }

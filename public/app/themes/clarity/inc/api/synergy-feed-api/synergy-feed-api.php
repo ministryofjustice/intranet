@@ -24,39 +24,64 @@ class SynergyFeedApi
     const BASE_URIS = [
         // HR content
         // These URLs were copied by visiting all Agency's Intranets and extracting the HR link from the top menu.
-        'guidance/hr' => [
+        '/guidance/hr/' => [
             'agencies' => ['hq', 'lawcomm', 'ospt'],
             'content_type' => 'hr',
         ],
-        'guidance/human-resources-2' => [
+        '/guidance/human-resources-2/' => [
             'agencies' => ['cica'],
             'content_type' => 'hr',
         ],
-        'corporate-services/human-resources' => [
+        '/corporate-services/human-resources/' => [
             'agencies' => ['jac'],
             'content_type' => 'hr',
         ],
-        'guidance/hr-matters' => [
+        '/guidance/hr-matters/' => [
             'agencies' => ['jo'],
             'content_type' => 'hr',
         ],
-        'hmcts-human-resources' => [
+        '/hmcts-human-resources/' => [
             'agencies' => ['hmcts'],
             'content_type' => 'hr',
         ],
-        'guidance/human-resources' => [
+        '/guidance/human-resources/' => [
             'agencies' => ['laa'],
             'content_type' => 'hr',
         ],
-        'guidance/hr-opg' => [
+        '/guidance/hr-opg/' => [
             'agencies' => ['opg'],
             'content_type' => 'hr',
-        ]
+        ],
+        // Finance content
+        // These URLs were copied by visiting all Agency's Intranets clicking 'Guidance & forms' in the top menu,
+        // and then identifying the 'Finance' link on that page.
+        '/guidance/financial-management/' => [
+            'agencies' => ['hq'],
+            'content_type' => 'finance',
+        ],
+        '/corporate-services/finance/' => [
+            'agencies' => ['jac'],
+            'content_type' => 'finance',
+        ],
+        '/guidance/finance/' => [
+            'agencies' => ['jo'],
+            'content_type' => 'finance',
+        ],
+        '/guidance/finance-law-commission/' => [
+            'agencies' => ['lawcomm'],
+            'content_type' => 'finance',
+        ],
+        '/guidance/finance-and-purchasing/' => [
+            'agencies' => ['laa'],
+            'content_type' => 'finance',
+        ],
     ];
 
     public $agencies = [];
 
     public $content_types = [];
+
+    public $feeds_response = [];
 
     public function __construct()
     {
@@ -79,6 +104,13 @@ class SynergyFeedApi
      */
     public function initProperties(): void
     {
+        // Initialise the feeds endpoint response, with some default values.
+        $this->feeds_response = [
+            'timestamp' => date(\DateTime::ATOM),
+            'items_count' => 0,
+            'items' => [],
+        ];
+
         foreach ($this::BASE_URIS as $uri => $data) {
             // Add the agencies to the enum for the 'agency' parameter in the REST API route.
             foreach ($data['agencies'] as $agency) {
@@ -91,9 +123,32 @@ class SynergyFeedApi
             if (!in_array($data['content_type'], $this->content_types)) {
                 $this->content_types[] = $data['content_type'];
             }
+
+            $this->feeds_response['items'][] = [
+                'feed_api_url' => get_home_url(null, '/wp-json/synergy/v1/feed?' . http_build_query([
+                    'agency' => $data['agencies'][0],
+                    'content_type' => $data['content_type'],
+                ])),
+                'base_permalink' => get_home_url(null, $uri),
+                ...$data,
+            ];
         }
+
+        // Count the items in the feeds response.
+        $this->feeds_response['items_count'] = count($this->feeds_response['items']);
     }
 
+
+    /**
+     * A helper function to get the base URI from the properties.
+     * 
+     * This function checks the `BASE_URIS` constant for a matching agency and content type,
+     * and returns the base URI if found.
+     * 
+     * @param string $agency The agency to match.
+     * @param string $content_type The content type to match.
+     * @return string|null The base URI if found, null otherwise.
+     */
     public function getBaseUriFromProperties($agency, $content_type): string|null
     {
         // Find the base URI that matches the agency and content type.
@@ -137,7 +192,7 @@ class SynergyFeedApi
             'feeds',
             [
                 'methods'  => 'GET',
-                'callback' => fn() => $this::BASE_URIS,
+                'callback' => fn() => $this->feeds_response,
                 'permission_callback' => [$this, 'userHasPermission'],
             ]
         );
@@ -158,7 +213,7 @@ class SynergyFeedApi
                     );
 
                     // If no base URI is found, return a WP_Error with a 400 status code.
-                    if(!$base_uri) {
+                    if (!$base_uri) {
                         // If no base URI is found, return a WP_Error with a 400 status code.
                         return new \WP_Error(
                             'invalid_agency_or_content_type',
@@ -186,20 +241,11 @@ class SynergyFeedApi
                         'required' => false,
                         'default' => '',
                         'validate_callback' => function ($param) {
-                            // Ensure it's a date or datetime in ISO format
-
                             if (empty($param)) {
                                 return true; // If no value is provided, it's valid.
                             }
-
-                            // Example value: modified_after=2024-05-01T00:00:00
-                            // Example value: modified_after=2024-05-01T00:00:00Z
-                            // Example value: modified_after=2024-05-01T08:03:00%2b01:00
-                            // Example value: modified_after=2024-05-01T08:03:00-01:00
-
-                            $iso_pattern = '/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[\+\-]\d{2}:\d{2})?$/';
-
-                            return (bool) preg_match($iso_pattern, $param);
+                            // If a value is provided, validate it.
+                            return $this->isValidIsoDateTime($param);
                         },
                     ],
                     'format' => [
@@ -207,12 +253,21 @@ class SynergyFeedApi
                         'default' => 'markdown',
                         'enum'    => ['html', 'markdown'],
                         // validate_callback is not needed here as 'enum' already validates the value.
-                    ],
+                    ]
                 ],
             ]
         );
     }
 
+    /**
+     * Get the pages for the Synergy API.
+     * 
+     * This function retrieves the feed for the Synergy API based on the provided parameters.
+     * It returns a WP_REST_Response object containing the matching pages.
+     * 
+     * @param WP_REST_Request $request The request object containing the parameters.
+     * @return WP_REST_Response The response object containing the feed data.
+     */
     public function getFeed(\WP_REST_Request $request): \WP_REST_Response
     {
         $format = $request->get_param('format');
@@ -230,7 +285,9 @@ class SynergyFeedApi
             'modified_after' => $modified_after,
             'agency' => $agency,
             'content_type' => $content_type,
-            'base_uri' => $base_uri,
+            'base_permalink' => get_home_url(null, $base_uri),
+            'timestamp' => date(\DateTime::ATOM),
+            'items_count' => 0,
             'items' => [],
         ];
 
@@ -241,15 +298,26 @@ class SynergyFeedApi
             return new \WP_REST_Response(['error' => 'Page not found'], 404);
         }
 
-        $root_page_formatted = $this->formatPagePayload($page, $format);
+        // Is there a modified_after parameter is this page modified after the provided date?
+        if (!$modified_after || strtotime($page->post_modified) > strtotime($modified_after)) {
+            // If it is, then format the page and add it to the response.
+            $root_page_formatted = $this->formatPagePayload($page, $format);
+            $response['items'][] = $root_page_formatted;
+        }
 
+        // Get all descendants of the page, optionally filtered by modified date.
         $descendants = $this->getAllDescendants(page_id: $page->ID, modified_after: $modified_after);
 
+        // Map over the descendants and format them.
         $descendants_formatted = array_map(function ($descendant) use ($format) {
             return $this->formatPagePayload($descendant, $format);
         }, $descendants);
 
-        $response['items'] = array_merge([$root_page_formatted], $descendants_formatted);
+        // Add the formatted descendants to the response.
+        array_push($response['items'], ...$descendants_formatted);
+
+        // Count the items in the response.
+        $response['items_count'] = count($response['items']);
 
         return new \WP_REST_Response($response, 200);
     }
@@ -288,7 +356,7 @@ class SynergyFeedApi
             ...(!empty($modified_after) ? ['date_query' => [
                 'column' => 'post_modified',
                 'after' => $modified_after,
-            ]] : []),
+            ]] : [])
         ];
 
         // Add a filter to modify the query args for get_pages.
@@ -301,55 +369,60 @@ class SynergyFeedApi
         // This is important to avoid affecting other queries that use get_pages.
         remove_filter('get_pages_query_args', [$this, 'modifyGetPagesQueryArgs'], 10, 2);
 
-
         return $descendants;
     }
 
 
-    public function formatPagePayload($page, $format = 'html')
+    /**
+     * Format the page payload for the Synergy feed.
+     * 
+     * This function formats the page payload to include the necessary information.
+     * 
+     * @param object $page The page object to format.
+     * @param string $format The preferred format to return the content in, either 'html' or 'markdown'.
+     * @return array The formatted page payload.
+     */
+    public function formatPagePayload(\WP_Post $page, string $format = 'markdown'): array
     {
         $page->post_content = $this->getPageContent($page, $format);
 
-        // Filter properties from $page
-        $keep_properties = [
-            'ID',
-            'post_title',
-            'post_content',
-            'post_excerpt',
-            'post_date',
-            'post_modified',
-            'post_type',
-            'post_parent',
-            'post_status',
-        ];
-
-        return $page;
-
-        // TODO
-        $page = array_intersect_key((array) $page, array_flip($keep_properties));
-
-
-
-        $page['permalink'] = get_permalink($page['ID']);
-
-
-        // Format post_date and post_modified to ISO 8601 format.
-        $page['post_date'] = date(\DateTime::ATOM, strtotime($page['post_date']));
-        $page['post_modified'] = date(\DateTime::ATOM, strtotime($page['post_modified']));
+        // Authors - get the authors according to co-authors-plus plugin.
+        $authors = get_coauthors($page->ID) ?? [];
 
         // Agencies - this is equivalent to the 'Content tagged as' part of the rendered page.
-        $agencies         = get_the_terms($page['ID'], 'agency');
-        $page['agencies'] = is_array($agencies) ? array_map(fn($agency) => $agency->name, $agencies) : null;
+        $agencies = get_the_terms($page->ID, 'agency') ?: [];
 
-        // Authors - get the authors according to co-authors-plus plugin.
-        $authors = get_coauthors($page['ID']) ?? [];
-        $page['authors'] = array_map(fn($author) => [
-            'ID' => $author->ID,
-            'display_name' => $author->display_name,
-            'user_nicename' => $author->user_nicename,
-        ], $authors);
+        $formatted_page = [
+            'id' => $page->ID,
+            // Post title.
+            'title' => $page->post_title,
+            // Post excerpt, if it exists.
+            'excerpt' => $page->post_excerpt,
+            // Parent ID of the page, if it has a parent.
+            'parent_id' => $page->post_parent,
+            // Format post_date and post_modified to ISO 8601 format.
+            'date' => date(\DateTime::ATOM, strtotime($page->post_date)),
+            'modified' => date(\DateTime::ATOM, strtotime($page->post_modified)),
+            // Permalink for the page.
+            'permalink' => get_permalink($page->ID),
+            // Author information.
+            'authors' => array_map(fn($author) => [
+                'ID' => $author->ID,
+                'display_name' => $author->display_name,
+                'user_nicename' => $author->user_nicename,
+            ], $authors),
+            // Agencies
+            'tagged_agencies' => array_map(fn($agency) => $agency->slug, $agencies),
+            // Menu order may be useful in working out hierarchy or order of pages.
+            'menu_order' => $page->menu_order,
+            // Less important properties...
+            'status' => $page->post_status,
+            'type' => $page->post_type,
+            // Finally, add the content to the page object.
+            'content' => $page->post_content,
+        ];
 
-        return $page;
+        return $formatted_page;
     }
 
     /**
