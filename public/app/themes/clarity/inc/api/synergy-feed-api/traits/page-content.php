@@ -71,9 +71,17 @@ trait PageContent
     public function getContentFromMarkdownTemplate($page, $format = 'html'): string
     {
 
-        return 'html' === $format ?
+        $content = 'html' === $format ?
             apply_filters('the_content', $page->post_content) :
             $page->post_content;
+
+        // Remove html comments from the content.
+        $content = preg_replace('/<!--(.*?)-->/', '', $content);
+
+        // Trim the content to remove any leading or trailing whitespace.
+        $content = trim($content);
+
+        return $content;
     }
 
 
@@ -101,9 +109,9 @@ trait PageContent
             ob_start();
         });
 
-        add_action('clarity_after_content', function () use (&$content) {
+        add_action('clarity_after_content', function () {
             // 🅱️ End the nested output buffer and capture the content.
-            $this->content = trim(ob_get_clean());
+            $this->content = ob_get_clean();
         });
 
         // Set the hooks_added property to true, so that we don't add the hooks again.
@@ -161,6 +169,12 @@ trait PageContent
 
         // Assign content to a local variable, so that we clear the class's content property.
         $content = $this->content;
+
+        // Remove html comments from the content.
+        $content = preg_replace('/<!--(.*?)-->/', '', $content);
+
+        // Trim the content to remove any leading or trailing whitespace.
+        $content = trim($content);
 
         // Clear the content property, so that it can be reused.
         $this->content = null;
