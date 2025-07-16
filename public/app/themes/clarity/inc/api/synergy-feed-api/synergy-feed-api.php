@@ -124,6 +124,7 @@ class SynergyFeedApi
                 $this->content_types[] = $data['content_type'];
             }
 
+            // Add this entry to the feeds response.
             $this->feeds_response['items'][] = [
                 'feed_api_url' => get_home_url(null, '/wp-json/synergy/v1/feed?' . http_build_query([
                     'agency' => $data['agencies'][0],
@@ -177,7 +178,15 @@ class SynergyFeedApi
      */
     public function userHasPermission(): bool
     {
-        return current_user_can('administrator') || current_user_can('synergy_feed');
+        // If the user is an administrator, they have permission.
+        if (current_user_can('administrator')) {
+            return true;
+        }
+
+        // Use the global $moj_auth as it has the jwtHasRole utility function.
+        global $moj_auth;
+
+        return $moj_auth?->jwtHasRole('synergy') && current_user_can('synergy');
     }
 
     /**
@@ -460,19 +469,27 @@ class SynergyFeedApi
             return $result;
         }
 
-        // Current user ID
-        $current_user_id = get_current_user_id();
+        // Is rest route in the pattern we are looking for? Where user_id is for the user being edited.
+        // e.g. /wp/v2/users/<user_id>/application-passwords(/<application_password_id>)?
+        $user_id = preg_replace('/^\/wp\/v2\/users\/(\d+)\/application-passwords(\/[0-9a-fA-F\-]{36})?$/', '$1', $rest_route);
 
-        $allowed_rest_route = '/wp/v2/users/' . $current_user_id . '/application-passwords';
+        if (!$user_id || !is_numeric($user_id)) {
+            // If the user ID is not numeric, then return the result.
+            return $result;
+        }
 
-        if ($rest_route !== $allowed_rest_route && !str_starts_with($rest_route, $allowed_rest_route . '/')) {
+        // The user must be role 'synergy'.
+        $user_role = get_userdata($user_id)->roles[0] ?? '';
+
+        if ('synergy' !== $user_role) {
+            // If the user is not a synergy user, then return the result.
             return $result;
         }
 
         // Check if the referrer is the allowed referrer, if not then do nothing.
-        $allowed_referrer = get_admin_url(null, 'profile.php');
+        $allowed_referrer = get_admin_url(null, 'user-edit.php?user_id=' . $user_id);
 
-        if (wp_get_referer() !== $allowed_referrer) {
+        if (!str_starts_with(wp_get_referer(), $allowed_referrer)) {
             return $result;
         }
 

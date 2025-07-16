@@ -16,6 +16,7 @@ trait PageContent
      * For pages with these templates, the content can be returned as markdown or html, from the `$page` property `post_content`.
      */
     const MARKDOWN_TEMPLATES = [
+        '', // An empty string is used to match the default page template.
         'page.php',
         'page_generic.php', // This template file doesn't exist, and pages with this template will use the default page template.
     ];

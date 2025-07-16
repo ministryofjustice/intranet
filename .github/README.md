@@ -584,6 +584,56 @@ The cookie has a role of `intranet-archive`. For this roll to be granted access 
 
 When the JWT_SECRET is rotated, a new JWT token will need to be generated, and the Intranet Archive service will need to be updated with the new JWT.
 
+### Access for the Synergy service.
+
+#### Synergy Endpoints
+
+Two API endpoints are available to facilitate content syndication from the intranet to the Synergy platform.
+
+- https://intranet.justice.gov.uk/wp-json/synergy/v1/feeds
+- https://intranet.justice.gov.uk/wp-json/synergy/v1/feed?agency={agency}content_type={content_type}
+
+The `feeds` endpoint returns a list of available feeds.
+
+The `feed` endpoint returns a specific feed for a given agency and content type. The feed includes pages for the specified agency and content type, along with their metadata.
+
+An optional parameter of `modified_after` should be used to get recently modified content. The value should be in ISO date-time format, e.g. `2023-10-01T00:00:00Z`.
+
+#### Synergy Authentication
+
+To make requests to the intranet, the Synergy service must be authenticated. Requests should be made with a JWT token and an application password.
+
+- Requests should include a cookie with the key `jwt` and a value of the provided JWT token.
+- Requests should include the provided username and application password in Basic Auth headers.
+
+#### Synergy JWT
+
+The Synergy service is a scraper that syndicates content from the intranet on the Synergy platform.
+
+It is granted access via a JWT token, which is generated manually by running the `wp gen-jwt synergy` command from an fpm container.
+
+The cookie has a role of `intranet-archive`. <!-- For this roll to be granted access to the intranet, the request IP must be one of Cloud Platform's egress IPs -->.
+
+When the JWT_SECRET is rotated, a new JWT token will need to be generated, and the Synergy service will need to be updated with the new JWT.
+
+#### Synergy application password
+
+An intranet administrator must create a dedicated WordPress user for the Synergy service with the role Synergy Bot, and generate an application password for that user.
+
+The application password should be stored securely and used in the Basic Auth headers of requests to the intranet.
+
+#### Synergy CloudFront cookies
+
+All authenticated responses from the endpoints will include 3 CloudFront cookies (in addition to the response payload).
+
+- CloudFront-Key-Pair-Id
+- CloudFront-Policy
+- CloudFront-Signature
+
+The Cloudfront cookies must be used in any subsequent requests to download images/media from the `cdn.intranet.justice.gov.uk` domain.
+
+The CloudFront cookies will expire after 24 hours. New ones can be generated at any time by making a request to the `feeds` endpoint.
+
 <!-- License -->
 
 [License Link]: https://github.com/ministryofjustice/intranet/blob/main/LICENSE 'License.'
