@@ -25,7 +25,7 @@ class SynergyFeedApi
         // HR content
         // These URLs were copied by visiting all Agency's Intranets and extracting the HR link from the top menu.
         '/guidance/hr/' => [
-            'agencies' => ['hq', 'lawcomm', 'ospt'],
+            'agencies' => ['hq', 'ospt'],
             'content_type' => 'hr',
         ],
         '/guidance/human-resources-2/' => [
@@ -38,6 +38,10 @@ class SynergyFeedApi
         ],
         '/guidance/hr-matters/' => [
             'agencies' => ['jo'],
+            'content_type' => 'hr',
+        ],
+        '/guidance/hr-law-commission/' => [
+            'agencies' => ['law-commission'],
             'content_type' => 'hr',
         ],
         '/hmcts-human-resources/' => [
@@ -59,6 +63,10 @@ class SynergyFeedApi
             'agencies' => ['hq'],
             'content_type' => 'finance',
         ],
+        '/guidance/financial-management-2/' => [
+            'agencies' => ['cica'],
+            'content_type' => 'finance',
+        ],
         '/corporate-services/finance/' => [
             'agencies' => ['jac'],
             'content_type' => 'finance',
@@ -68,12 +76,64 @@ class SynergyFeedApi
             'content_type' => 'finance',
         ],
         '/guidance/finance-law-commission/' => [
-            'agencies' => ['lawcomm'],
+            'agencies' => ['law-commission'],
+            'content_type' => 'finance',
+        ],
+        '/guidance/finance-job-cards/' => [
+            'agencies' => ['law-commission'],
             'content_type' => 'finance',
         ],
         '/guidance/finance-and-purchasing/' => [
             'agencies' => ['laa'],
             'content_type' => 'finance',
+        ],
+        // Commercial content
+        '/guidance/procurement/' => [
+            'agencies' => ['hq'],
+            'content_type' => 'commercial',
+        ],
+        // Guidance, excluding HR, Finance & Commercial
+        // These URLs were provided by the Synergy team.
+        '/guidance/learning-and-development-2/' => [
+            'agencies' => ['cica'],
+            'content_type' => 'guidance',
+        ],
+        '/guidance/business-travel/' => [
+            'agencies' => ['cica'],
+            'content_type' => 'guidance',
+        ],
+        '/guidance/reward-and-recognition/' => [
+            'agencies' => ['cica'],
+            'content_type' => 'guidance',
+        ],
+        '/guidance/operations-area/' => [
+            'agencies' => ['cica'],
+            'content_type' => 'guidance',
+        ],
+        // 2 pages on JAC's /corporate-services, that are not HR, Finance or Commercial.
+        '/corporate-services/fraud-and-whistleblowing/' => [
+            'agencies' => ['jac'],
+            'content_type' => 'guidance',
+        ],
+        '/corporate-services/jac-staff-networks/' => [
+            'agencies' => ['jac'],
+            'content_type' => 'guidance',
+        ],
+        '/guidance/learning-development-in-the-judicial-office/' => [
+            'agencies' => ['jo'],
+            'content_type' => 'guidance',
+        ],
+        '/guidance/learning-and-development-law-commission/' => [
+            'agencies' => ['law-commission'],
+            'content_type' => 'guidance',
+        ],
+        '/guidance/learning-and-development-3/' => [
+            'agencies' => ['laa'],
+            'content_type' => 'guidance',
+        ],
+        '/guidance/contract-management/' => [
+            'agencies' => ['laa'],
+            'content_type' => 'guidance',
         ],
     ];
 
@@ -141,16 +201,16 @@ class SynergyFeedApi
 
 
     /**
-     * A helper function to get the base URI from the properties.
+     * A helper function to get the base URIs from the properties.
      * 
      * This function checks the `BASE_URIS` constant for a matching agency and content type,
      * and returns the base URI if found.
      * 
      * @param string $agency The agency to match.
      * @param string $content_type The content type to match.
-     * @return string|null The base URI if found, null otherwise.
+     * @return array|null The base URI if found, null otherwise.
      */
-    public function getBaseUriFromProperties($agency, $content_type): string|null
+    public function getBaseUrisFromProperties($agency, $content_type): array|null
     {
         // Find the base URI that matches the agency and content type.
         $filtered_uris = array_filter(
@@ -166,7 +226,7 @@ class SynergyFeedApi
         }
 
         // Return the first matching base URI.
-        return array_key_first($filtered_uris);
+        return array_keys($filtered_uris);
     }
 
     /**
@@ -216,13 +276,13 @@ class SynergyFeedApi
                 'permission_callback' => [$this, 'userHasPermission'],
                 'validate_callback' => function ($request) {
                     // Ensure the request is valid - look for an entry in BASE_URIS with the requested agency and content_type parameters.
-                    $base_uri = $this->getBaseUriFromProperties(
+                    $base_uris = $this->getBaseUrisFromProperties(
                         $request->get_param('agency'),
                         $request->get_param('content_type')
                     );
 
                     // If no base URI is found, return a WP_Error with a 400 status code.
-                    if (!$base_uri) {
+                    if (empty($base_uris)) {
                         // If no base URI is found, return a WP_Error with a 400 status code.
                         return new \WP_Error(
                             'invalid_agency_or_content_type',
@@ -287,43 +347,46 @@ class SynergyFeedApi
 
         $content_type = $request->get_param('content_type');
 
-        $base_uri = $this->getBaseUriFromProperties($agency, $content_type);
+        $base_uris = $this->getBaseUrisFromProperties($agency, $content_type);
 
         $response = [
             'format' => $format,
             'modified_after' => $modified_after,
             'agency' => $agency,
             'content_type' => $content_type,
-            'base_permalink' => get_home_url(null, $base_uri),
+            'base_permalinks' => array_map(fn($uri) => get_home_url(null, $uri), $base_uris),
             'timestamp' => date(\DateTime::ATOM),
             'items_count' => 0,
             'items' => [],
         ];
 
-        // Get the page with the root URI.
-        $page = get_page_by_path($base_uri, OBJECT, 'page');
+        // Loop over the base URIs.
+        foreach ($base_uris as $base_uri) {
+            // Get the page with the root URI.
+            $page = get_page_by_path($base_uri, OBJECT, 'page');
+            
+            if (!$page) {
+                return new \WP_REST_Response(['error' => 'Page not found'], 404);
+            }
 
-        if (!$page) {
-            return new \WP_REST_Response(['error' => 'Page not found'], 404);
+            // Is there a modified_after parameter is this page modified after the provided date?
+            if (!$modified_after || strtotime($page->post_modified) > strtotime($modified_after)) {
+                // If it is, then format the page and add it to the response.
+                $root_page_formatted = $this->formatPagePayload($page, $format);
+                $response['items'][] = $root_page_formatted;
+            }
+    
+            // Get all descendants of the page, optionally filtered by modified date.
+            $descendants = $this->getAllDescendants(page_id: $page->ID, modified_after: $modified_after);
+    
+            // Map over the descendants and format them.
+            $descendants_formatted = array_map(function ($descendant) use ($format) {
+                return $this->formatPagePayload($descendant, $format);
+            }, $descendants);
+    
+            // Add the formatted descendants to the response.
+            array_push($response['items'], ...$descendants_formatted);
         }
-
-        // Is there a modified_after parameter is this page modified after the provided date?
-        if (!$modified_after || strtotime($page->post_modified) > strtotime($modified_after)) {
-            // If it is, then format the page and add it to the response.
-            $root_page_formatted = $this->formatPagePayload($page, $format);
-            $response['items'][] = $root_page_formatted;
-        }
-
-        // Get all descendants of the page, optionally filtered by modified date.
-        $descendants = $this->getAllDescendants(page_id: $page->ID, modified_after: $modified_after);
-
-        // Map over the descendants and format them.
-        $descendants_formatted = array_map(function ($descendant) use ($format) {
-            return $this->formatPagePayload($descendant, $format);
-        }, $descendants);
-
-        // Add the formatted descendants to the response.
-        array_push($response['items'], ...$descendants_formatted);
 
         // Count the items in the response.
         $response['items_count'] = count($response['items']);
