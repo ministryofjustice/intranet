@@ -634,6 +634,40 @@ The Cloudfront cookies must be used in any subsequent requests to download image
 
 The CloudFront cookies will expire after 24 hours. New ones can be generated at any time by making a request to the `feeds` endpoint.
 
+#### Synergy troubleshooting
+
+I see a 401 HTML response when making a request to the Synergy endpoints, like the following:
+
+```html
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+...
+<h1>Redirecting to login.</h1>
+...
+```
+
+This is a sign that the JWT token is not valid. Please ensure that you are using the correct JWT token in the request cookie.
+
+---
+
+I see a 401 JSON response from an API endpoint, like the following:
+
+```json
+{
+    "code": "rest_forbidden",
+    "message": "Sorry, you are not allowed to do that.",
+    "data": {
+        "status": 401
+    }
+}
+```
+
+This means that your JWT token is valid, but there is an issue with the basic auth credentials.
+
+Please ensure that you are using the correct username and application password in the Basic Auth headers of your request.
+
+
+
 <!-- License -->
 
 [License Link]: https://github.com/ministryofjustice/intranet/blob/main/LICENSE 'License.'
