@@ -667,7 +667,6 @@ This means that your JWT token is valid, but there is an issue with the basic au
 Please ensure that you are using the correct username and application password in the Basic Auth headers of your request.
 
 
-
 <!-- License -->
 
 [License Link]: https://github.com/ministryofjustice/intranet/blob/main/LICENSE 'License.'
