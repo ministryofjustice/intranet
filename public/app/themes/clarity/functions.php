@@ -74,6 +74,7 @@ require_once 'inc/api/get-campaign-news-api.php';
 require_once 'inc/api/get-category-news-api.php';
 require_once 'inc/api/intranet-v1-api.php';
 require_once 'inc/api/register-api-fields.php';
+require_once 'inc/api/synergy-feed-api/synergy-feed-api.php';
 
 
 require_once 'inc/admin-branding.php';
