@@ -9,7 +9,7 @@
 $post_id   = get_the_ID();
 $region_id = get_the_terms($post_id, 'region');
 
- get_header();
+get_header();
 ?>
     <main role="main" id="maincontent" class="u-wrapper l-main l-reverse-order t-tabbed-content">
 
@@ -17,7 +17,7 @@ $region_id = get_the_terms($post_id, 'region');
         if (is_singular('regional_page') && $region_id) :
             get_template_part('src/components/c-breadcrumbs/view', 'region-single');
         else :
-                get_template_part('src/components/c-breadcrumbs/view');
+            get_template_part('src/components/c-breadcrumbs/view');
         endif;
         ?>
 
@@ -35,8 +35,13 @@ $region_id = get_the_terms($post_id, 'region');
                 </p>
             </div>
 
+            <?php do_action('clarity_before_content'); ?>
+
             <?php get_template_part('src/components/c-tabbed-nav/view'); ?>
             <?php get_template_part('src/components/c-tabbed-content/view'); ?>
+
+            <?php do_action('clarity_after_content'); ?>
+
             <section class="l-full-page">
                 <?php get_template_part('src/components/c-last-updated/view'); ?>
                 <?php get_template_part('src/components/c-share-post/view'); ?>

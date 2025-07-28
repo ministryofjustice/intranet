@@ -19,6 +19,7 @@ function enqueue_clarity_scripts(): void
     // JS
     wp_enqueue_script('core-js', mix_asset('/js/main.min.js'), array('jquery'));
     wp_localize_script('core-js', 'mojAjax', ['ajaxurl' => admin_url('admin-ajax.php')]);
+    wp_localize_script('core-js', 'mojAuthHeartbeat', ['https' => wp_is_using_https()]);
 
     // Third party vendor scripts
     wp_deregister_script('jquery'); // This removes jquery shipped with WP so that we can add our own.

@@ -8,6 +8,7 @@
  * 
  * Usage:
  *  run: wp gen-jwt intranet-archive
+ *       wp gen-jwt synergy
  */
 
 namespace MOJ\Intranet;
@@ -17,6 +18,11 @@ use WP_CLI;
 trait AuthCli
 {
     const GENERATED_JWT_DURATION    = 60 * 60 * 24 * 365 * 3; // 3 years
+
+    const VALID_ROLES = [
+        'intranet-archive',
+        'synergy',
+    ];
 
     /**
      * Init the WP CLI command.
@@ -33,7 +39,7 @@ trait AuthCli
     }
 
     /**
-     * Generate a JWT token for the intranet-archive service.
+     * Generate a JWT token for the intranet-archive or synergy service.
      * 
      * @param array $args The arguments passed to the command.
      * @return void
@@ -44,12 +50,17 @@ trait AuthCli
 
         WP_CLI::log('GenerateJwt starting');
 
-        if (empty($args[0]) || $args[0] !== 'intranet-archive') {
+        if (empty($args[0])) {
             WP_CLI::log('GenerateJwt the command was missing the role argument.');
             return;
         }
 
-        // Generate a JWT with the intranet-archive role and a long expiry.
+        if (!in_array($args[0], self::VALID_ROLES, true)) {
+            WP_CLI::log('GenerateJwt the role argument is not valid, it must be one of: ' . implode(', ', self::VALID_ROLES));
+            return;
+        }
+
+        // Generate a JWT with the requested role and a long expiry.
         [$jwt, $jwt_string] = $this->setJwt((object) [
             'roles' => [$args[0]],
             'expiry'   => time() + self::GENERATED_JWT_DURATION

@@ -37,7 +37,9 @@ trait AuthJwt
             'conditions' => [
                 'ipGroupIn' => [5]
             ]
-        ]
+        ],
+        // The synergy role has no conditions.
+        'synergy' => true
     ];
 
     /**

@@ -210,6 +210,9 @@ $capabilities = array(
     'edit_poll' => true,
     'create_polls' => true,
     'publish_polls' => true,
+
+    // Archived Content
+    'archived_content' => true,
 );
 
 
