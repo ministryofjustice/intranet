@@ -23,8 +23,6 @@ $prefix = 'ff';
               // So that we don't get rounding errors when adding months.
               $base_timestamp = strtotime("15 " . date('F Y'));
 
-              $base_timestamp = strtotime("31 July 2024");
-
               while ($m <= 12) {
                 $next_month = date('Y-m', strtotime('+' . $m . 'months', $base_timestamp));
                 $human_date = date('F Y', strtotime('+' . $m . 'months', $base_timestamp));
