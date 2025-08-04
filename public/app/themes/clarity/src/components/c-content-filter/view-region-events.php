@@ -19,9 +19,13 @@ $prefix = 'ff';
             <?php
             $m = 0;
 
+            // Set a base timestamp as the 15th of the current month.
+            // So that we don't get rounding errors when adding months.
+            $base_timestamp = strtotime("15 " . date('F Y'));
+
             while ($m <= 12) {
-                $next_month = date('Y-m', strtotime('+' . $m . 'months'));
-                $human_date = date('F Y', strtotime('+' . $m . 'months'));
+                $next_month = date('Y-m', strtotime('+' . $m . 'months', $base_timestamp));
+                $human_date = date('F Y', strtotime('+' . $m . 'months', $base_timestamp));
                 echo '<option value=' . $next_month . '>' . $human_date . '</option>';
                 $m++;
             }
