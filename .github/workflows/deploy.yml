@@ -166,7 +166,7 @@ jobs:
 
       - name: "QA Link"
         if: inputs.environment == 'demo'
-        uses: thollander/actions-comment-pull-request@v3
+        uses: thollander/actions-comment-pull-request@24bffb9b452ba05a4f3f77933840a6a841d1b32b #v3.0.1
         with:
           message: '**QA is ready: https://demo.intranet.justice.gov.uk/**'
           reactions: rocket, heart
