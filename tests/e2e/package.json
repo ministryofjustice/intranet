@@ -1,0 +1,19 @@
+{
+  "name": "e2e-tests",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "comment": "https://github.com/WordPress/gutenberg/tree/trunk/packages/scripts",
+    "test": "npx playwright test"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@wordpress/e2e-test-utils-playwright": "0.10.13",
+    "@wordpress/scripts": "26.13.13"
+  },
+  "devDependenciesCommants": [
+    "The versions match those in https://github.com/WordPress/wordpress-develop/blob/6.4/package.json"
+  ]
+}
