@@ -173,6 +173,7 @@ jobs:
 
       - name: "QA Link"
         if: ${{ (inputs.environment == 'demo') && (steps.apply.outcome == 'success') }}
+        id: qalink
         uses: thollander/actions-comment-pull-request@24bffb9b452ba05a4f3f77933840a6a841d1b32b #v3.0.1
         with:
           message: '**QA is ready: https://demo.intranet.justice.gov.uk/**'
@@ -182,9 +183,14 @@ jobs:
 
       - name: "QA Failed"
         if: ${{ (inputs.environment == 'demo') && (steps.apply.outcome != 'success') }}
+        id: qafailed
         uses: thollander/actions-comment-pull-request@24bffb9b452ba05a4f3f77933840a6a841d1b32b #v3.0.1
         with:
           message: '**QA failed to build** :broken_heart:'
           reactions: confused
           comment-tag: execution
           mode: recreate
+
+      - name: "Check outcome"
+        if: steps.qalink.outcome == 'skipped'
+        run: exit 1
