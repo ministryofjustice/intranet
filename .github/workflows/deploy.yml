@@ -166,7 +166,7 @@ jobs:
           kubectl -n ${KUBE_NAMESPACE} apply -f deploy/${{ inputs.environment }}
 
           if [ "${{ inputs.environment }}" == "demo" ]; then
-            kubectl wait --for=condition=Ready pod/intranet-fail
+            kubectl wait --for=condition=Ready pod/intranet-demo --timeout=30s
           fi
           
         continue-on-error: true
@@ -183,7 +183,6 @@ jobs:
 
       - name: "QA Failed"
         if: ${{ (inputs.environment == 'demo') && (steps.apply.outcome != 'success') }}
-        id: qafailed
         uses: thollander/actions-comment-pull-request@24bffb9b452ba05a4f3f77933840a6a841d1b32b #v3.0.1
         with:
           message: '**QA failed to build** :broken_heart:'
