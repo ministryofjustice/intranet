@@ -5,30 +5,34 @@
 * hierarchy from homepage (news, event, blog singles)
 */
 
-function get_breadcrumb(): string
-{
-    global $post;
-
-    $trail = '';
-    $breadcrumbs = [];
-
-    if ($post->post_parent) {
-        $parent_id = $post->post_parent;
-
-        while ($parent_id) {
-            $page = get_post($parent_id);
-            $breadcrumbs[] = '<li class="c-breadcrumbs__list-item c-breadcrumbs__list-item--separated">
-                <a href="' . get_the_permalink($page->ID) . '">' . get_the_title($page->ID) . '</a>
-            </li>';
-
-            $parent_id = $page->post_parent;
+if(!function_exists('get_region_breadcrumb')) {
+    function get_region_breadcrumb(): string
+    {
+        global $post;
+    
+        $trail = '';
+        $breadcrumbs = [];
+    
+        if ($post->post_parent) {
+            $parent_id = $post->post_parent;
+    
+            while ($parent_id) {
+                $page = get_post($parent_id);
+                $breadcrumbs[] = '<li class="c-breadcrumbs__list-item c-breadcrumbs__list-item--separated">
+                    <a href="' . get_the_permalink($page->ID) . '">' . get_the_title($page->ID) . '</a>
+                </li>';
+    
+                $parent_id = $page->post_parent;
+            }
+    
+            $trail = implode('', array_reverse($breadcrumbs));
         }
-
-        $trail = implode('', array_reverse($breadcrumbs));
+    
+        return $trail . '<li class="c-breadcrumbs__list-item c-breadcrumbs__list-item--separated">' . get_the_title($post->ID) . "</li>";
     }
-
-    return $trail . '<li class="c-breadcrumbs__list-item c-breadcrumbs__list-item--separated">' . get_the_title($post->ID) . "</li>";
 }
+
+
 
 ?>
 
@@ -45,7 +49,7 @@ function get_breadcrumb(): string
                 <span>Regions</span>
             </a>
         </li>
-        <?= get_breadcrumb() ?>
+        <?= get_region_breadcrumb() ?>
     </ol>
 </section>
 <!-- c-breadcrumbs ends here -->

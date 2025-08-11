@@ -84,6 +84,7 @@ if (!env('WP_ENVIRONMENT_TYPE') && in_array(WP_ENV, ['production', 'staging', 'd
 Config::define('WP_HOME', env('WP_HOME'));
 Config::define('WP_SITEURL', env('WP_SITEURL'));
 Config::define('LOOPBACK_URL', env('LOOPBACK_URL') ?? 'http://127.0.0.1:8080');
+Config::define('NGINX_HOST', 'http://' . (env('NGINX_IP') ?? 'nginx') . ':8080');
 // Explicitly set cookie paths, to prevent conflicting wordpress_logged_in... wordpress_sec_... cookies.
 Config::define('COOKIEPATH', '/');
 Config::define('SITECOOKIEPATH', '/');
@@ -161,7 +162,7 @@ Config::define('COMPRESS_CSS', false);
 Config::define('COMPRESS_SCRIPTS', false);
 
 // Enable the authentication mu-plugin.
-Config::define('MOJ_AUTH_ENABLED', true);
+Config::define('MOJ_AUTH_ENABLED', env('MOJ_AUTH_ENABLED'));
 
 // ACF License Key
 Config::define('ACF_PRO_LICENSE', env('ACF_PRO_LICENSE'));

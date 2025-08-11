@@ -53,6 +53,7 @@ require_once 'inc/admin/tinymce-editor-settings.php';
 require_once 'inc/admin/transient-admin-notices.php';
 require_once 'inc/admin/users/add-acf-capabilities.php';
 require_once 'inc/admin/users/add-notes-from-perm-sec.php';
+require_once 'inc/admin/users/protect-key-pages.php';
 require_once 'inc/admin/users/remove-agency-admin-admin-access.php';
 require_once 'inc/admin/users/user-access-and-security.php';
 require_once 'inc/admin/wp-admin-bar.php';
@@ -73,6 +74,7 @@ require_once 'inc/api/get-campaign-news-api.php';
 require_once 'inc/api/get-category-news-api.php';
 require_once 'inc/api/intranet-v1-api.php';
 require_once 'inc/api/register-api-fields.php';
+require_once 'inc/api/synergy-feed-api/synergy-feed-api.php';
 
 
 require_once 'inc/admin-branding.php';
@@ -103,6 +105,7 @@ require_once 'inc/menu.php';
 require_once 'inc/utilities.php';
 require_once 'inc/pagination.php';
 
+require_once 'inc/post-types/archived-content.php';
 require_once 'inc/post-types/post.php';
 require_once 'inc/post-types/event.php';
 require_once 'inc/post-types/news.php';
@@ -110,6 +113,7 @@ require_once 'inc/post-types/regional-news.php';
 require_once 'inc/post-types/regional-page.php';
 require_once 'inc/post-types/team-area.php';
 require_once 'inc/post-types/webchat.php';
+require_once 'inc/post-types/notes-from-jo.php';
 require_once 'inc/post-types/notes-from-amy.php';
 require_once 'inc/post-types/notes-from-antonia.php';
 

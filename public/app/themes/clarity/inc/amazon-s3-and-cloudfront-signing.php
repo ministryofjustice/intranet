@@ -55,7 +55,7 @@ class AmazonS3AndCloudFrontSigning
         $this->cloudfront_url = $cloudfront_scheme . '://' . $this->cloudfront_host;
         
         // Set the duration for the CloudFront cookie, it will be different for intranet-archive.
-        $this->cloudfront_duration = $this->isIntranetArchive() ? $this::CLOUDFRONT_DURATION_ARCHIVE : $this::CLOUDFRONT_DURATION_STANDARD;
+        $this->cloudfront_duration = $this->isArchiveService() ? $this::CLOUDFRONT_DURATION_ARCHIVE : $this::CLOUDFRONT_DURATION_STANDARD;
 
         // Create a transient key, unique to the scheme and host.
         $this->transient_key = "cloudfront_cookies_{$cloudfront_scheme}_" . str_replace([ ':', '/', '.',], '_', $this->cloudfront_host);
@@ -85,11 +85,11 @@ class AmazonS3AndCloudFrontSigning
     }
 
     /**
-     * Check if the request is from the intranet-archive service.
+     * Check if the request is from the intranet-archive or Synergy service.
      * 
      * @return bool
      */
-    public function isIntranetArchive(): bool
+    public function isArchiveService(): bool
     {
         // Use the global $moj_auth as it has the jwtHasRole utility function.
         global $moj_auth;
@@ -99,10 +99,9 @@ class AmazonS3AndCloudFrontSigning
             return false;
         }
 
-        // Check if the user has the intranet-archive role.
-        return $moj_auth->jwtHasRole('intranet-archive');
+        // Check if the user has the intranet-archive or synergy role.
+        return $moj_auth->jwtHasRole('intranet-archive') || $moj_auth->jwtHasRole('synergy');
     }
-
 
     /**
      * Url safe base64 encode a string.
