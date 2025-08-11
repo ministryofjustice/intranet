@@ -190,5 +190,5 @@ jobs:
           mode: recreate
 
       - name: "Check outcome"
-        if: steps.qalink.outcome == 'skipped'
+        if: ${{ (inputs.environment == 'demo') && (steps.qalink.outcome == 'skipped') }}
         run: exit 1
