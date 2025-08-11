@@ -164,11 +164,11 @@ jobs:
         id: apply
         run: |
           kubectl -n ${KUBE_NAMESPACE} apply -f deploy/${{ inputs.environment }}
-
-          if [ "${{ inputs.environment }}" == "demo" ]; then
-            kubectl wait --for=condition=Ready pod/intranet-demo --timeout=30s
-          fi
           
+          if [ "${{ inputs.environment }}" == "demo" ]; then
+            sleep 2
+            kubectl wait -n ${KUBE_NAMESPACE} --for=jsonpath='{.status.phase}'=Running pod/$(kubectl -n ${KUBE_NAMESPACE} get pod -l app=${KUBE_NAMESPACE} -o jsonpath="{.items[0].metadata.name}") --timeout=30s
+          fi
         continue-on-error: true
 
       - name: "QA Link"
