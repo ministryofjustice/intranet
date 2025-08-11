@@ -9,6 +9,7 @@ metadata:
     nginx.ingress.kubernetes.io/enable-modsecurity: "true"
     nginx.ingress.kubernetes.io/modsecurity-snippet:  |
       ${MODSEC_CONFIG}
+    nginx.ingress.kubernetes.io/proxy-body-size: "250m"
     nginx.ingress.kubernetes.io/auth-type: basic
     nginx.ingress.kubernetes.io/auth-secret: basic-auth-secret
     nginx.ingress.kubernetes.io/auth-realm: 'Demo User | Authentication Required'

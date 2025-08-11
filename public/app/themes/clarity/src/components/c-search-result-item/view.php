@@ -13,6 +13,7 @@ if ($post_type_blog_filter === 'note-from-antonia') {
 }
 
 $terms = get_the_terms($post_id, 'agency');
+$term_names = is_array($terms) ? array_map(fn($term) => $term->name, $terms) : [];
 ?>
 <!-- c-search-result-item starts here -->
 <section class="c-search-result-item">
@@ -21,14 +22,8 @@ $terms = get_the_terms($post_id, 'agency');
       <span class="c-search-result-item__meta__itemtype">| <?= esc_attr_e($post_type_blog_filter_display) ?></span>
   </h1>
   <div class="c-search-result-item__meta">
-    <span class="c-search-result-item__meta__date"><?= the_modified_date('j F Y') . ', ' ?>
-    <?php
-    if (isset($terms)) {
-        foreach ($terms as $term) {
-            echo $term->name . ', ';
-        }
-    };
-    ?>
+    <span class="c-search-result-item__meta__date"><?= get_the_date('j F Y') . ', ' ?>
+    <?= join(', ', $term_names) ?>
     </span>
   </div>
   <div class="c-search-result-item__description">

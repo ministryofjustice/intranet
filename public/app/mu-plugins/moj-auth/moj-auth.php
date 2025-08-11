@@ -18,11 +18,17 @@ use Roots\WPConfig\Config;
 // Do not allow access outside WP
 defined('ABSPATH') || exit;
 
-// If the plugin isn't enabled, return early.
+// If the plugin isn't enabled, exit or return early.
 if (Config::get('MOJ_AUTH_ENABLED') === false) {
+    // Exit here to return a 200 response for the heartbeat endpoint.
+    $_SERVER['REQUEST_URI'] === '/auth/heartbeat' && exit;
+    
+    // For all other requests, return here, because we don't want to run any of the code below.
     return;
 }
 
+require_once 'classes/oauth-cache.php';
+require_once 'traits/cli.php';
 require_once 'traits/jwt.php';
 require_once 'traits/oauth.php';
 require_once 'traits/utils.php';
@@ -39,10 +45,12 @@ require_once 'traits/utils.php';
 
 class Auth
 {
+    use AuthCli;
     use AuthJwt;
     use AuthOauth;
     use AuthUtils;
 
+    private $version        = null;
     private $now            = null;
     private $debug          = false;
     private $https          = false;
@@ -57,10 +65,12 @@ class Auth
 
     public function __construct(array $args = [])
     {
+        $this->version = $args['version'] ?? '';
         $this->now = time();
         $this->debug = $args['debug'] ?? false;
         $this->https = isset($_SERVER['HTTPS']) || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && 'https' === $_SERVER['HTTP_X_FORWARDED_PROTO']);
 
+        $this->initCli();
         $this->initJwt();
         $this->initOauth();
     }
@@ -68,6 +78,10 @@ class Auth
     public function handleRequest(): void
     {
         $this->log('handleRequest()');
+
+        if (defined('WP_CLI') && WP_CLI) {
+            return;
+        }
 
         if (!$this->oauth_action) {
             return;
@@ -78,7 +92,7 @@ class Auth
 
         // Set a JWT without a role, to persist the user's ID.
         if (!$jwt) {
-            $jwt = $this->setJwt();
+            $this->setJwt();
         }
 
         if ('login' === $this->oauth_action) {
@@ -87,7 +101,7 @@ class Auth
         }
 
         if ('callback' === $this->oauth_action) {
-            $this->handleCallbackRequest();
+            $this->version === 2 ? $this->handleCallbackRequestV2() : $this->handleCallbackRequest();
             exit();
         }
 
@@ -161,6 +175,62 @@ class Auth
         header('Location: ' . $jwt->success_url) && exit();
     }
 
+    public function handleCallbackRequestV2(): void
+    {
+        $this->log('handleCallbackRequestV2()');
+
+        // If we've hit the callback endpoint, then handle it here. On fail it exits with 401 & php code execution stops here.
+        $entra_jwt = $this->oauthCallbackV2();
+
+        $entra_jwt_parts = explode('.', $entra_jwt);
+
+        // Decode the payload.
+        $entra_jwt_payload = json_decode(base64_decode($entra_jwt_parts[1]));
+
+        // Is it expired?
+        if ($entra_jwt_payload->exp < time()) {
+            $this->log('JWT is expired.');
+
+            // Update (or create) the JWT to keep track of failed callbacks.
+            $jwt = $this->getJwt() ?: (object)[];
+
+            // Set to 0 for a session cookie.
+            $jwt->cookie_expiry = 0;
+
+            // Set failed_callbacks with a default of 1, or add one to the existing value.
+            $jwt->failed_callbacks = isset($jwt->failed_callbacks) ? ((int) $jwt->failed_callbacks) + 1 : 1;
+
+            // Set the JWT.
+            $this->setJwt($jwt);
+
+            return;
+        }
+
+        $this->log('Access token is valid. Will set JWT and store refresh token.');
+
+        $jwt = $this->getJwt() ?: (object)[];
+
+        $jwt->expiry = $entra_jwt_payload->exp;
+
+        $this->log('handleCallbackRequest initial token expiry: ' . $jwt->expiry);
+
+        $jwt->roles = ['reader'];
+
+        // Set a JWT cookie.
+        $this->setJwt($jwt);
+
+        // Store the tokens.
+        // $this->storeTokens($this->sub, $oauth_access_token, 'refresh');
+
+        // Ensure we're redirecting to a page on the same domain as our home_url.
+        if (empty($jwt->success_url) || !str_starts_with($jwt->success_url, home_url())) {
+            $jwt->success_url = '/';
+        }
+
+        // Redirect the user to the page they were trying to access.
+        header('Location: ' . $jwt->success_url) && exit();
+    }
+
     public function handleHeartbeatRequest(): void
     {
         $this->log('handleHeartbeatRequest()');
@@ -187,7 +257,7 @@ class Auth
 
         // It's not time to refresh the JWT, and we need to update the JWT.
         if ($jwt_remaining_time > $this::JWT_REFRESH && $mutated_jwt) {
-            $jwt = $this->setJwt($jwt);
+            [$jwt] = $this->setJwt($jwt);
             $mutated_jwt = false;
         }
 
@@ -218,7 +288,7 @@ class Auth
 
         // Set the JWT, if it's been mutated. Either by clearing properties, or it's been refreshed.
         if ($mutated_jwt) {
-            $jwt = $this->setJwt($jwt);
+            $this->setJwt($jwt);
         }
 
         return;
@@ -239,6 +309,5 @@ class Auth
     }
 }
 
-
-$auth = new Auth(['debug' => Config::get('MOJ_AUTH_DEBUG')]);
-$auth->handleRequest();
+$moj_auth = new Auth(['debug' => Config::get('MOJ_AUTH_DEBUG'), 'version' =>  Config::get('MOJ_AUTH_VERSION')]);
+$moj_auth->handleRequest();

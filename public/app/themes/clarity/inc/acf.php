@@ -117,7 +117,7 @@ function my_admin_only_render_field_settings($field)
 add_action('acf/render_field_settings', 'my_admin_only_render_field_settings');
 
 // This will allow us to check if the current user is an administrator, and if not, prevent the field from being displayed.
-function my_admin_only_load_field($field)
+function my_admin_only_prepare_field($field)
 {
 
     // bail early if no 'admin_only' setting
@@ -132,7 +132,7 @@ function my_admin_only_load_field($field)
     return $field;
 }
 
-add_filter('acf/load_field', 'my_admin_only_load_field');
+add_filter('acf/prepare_field', 'my_admin_only_prepare_field');
 
 
 // hide drafts

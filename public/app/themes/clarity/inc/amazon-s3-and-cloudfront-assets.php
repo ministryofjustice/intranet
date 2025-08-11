@@ -2,7 +2,7 @@
 
 namespace DeliciousBrains\WP_Offload_Media\Tweaks;
 
-use Amazon_S3_And_CloudFront_Pro;
+use Amazon_S3_And_CloudFront;
 use Exception;
 use Roots\WPConfig\Config;
 
@@ -23,7 +23,7 @@ class AmazonS3AndCloudFrontAssets
     private string $cloudfront_host;
     private string $cloudfront_asset_url;
 
-    private Amazon_S3_And_CloudFront_Pro $as3cf;
+    private Amazon_S3_And_CloudFront $as3cf;
 
     public function __construct()
     {
@@ -50,7 +50,7 @@ class AmazonS3AndCloudFrontAssets
         // Set the CloudFront asset URL.
         $this->cloudfront_asset_url = $cloudfront_scheme . '://' . $this->cloudfront_host . '/build/' . $this->image_tag;
 
-        add_action('as3cf_pro_ready', [$this, 'setAs3cfInstance']);
+        add_action('as3cf_ready', [$this, 'setAs3cfInstance']);
         add_action('init', [$this, 'init']);
         add_filter('style_loader_src', [$this, 'rewriteSrc'], 10, 2);
         add_filter('script_loader_src', [$this, 'rewriteSrc'], 10, 2);
@@ -58,9 +58,9 @@ class AmazonS3AndCloudFrontAssets
     }
 
     /**
-     * Set the Amazon_S3_And_CloudFront_Pro instance.
+     * Set the Amazon_S3_And_CloudFront instance.
      * 
-     * @param Amazon_S3_And_CloudFront_Pro $as3cf_instance
+     * @param Amazon_S3_And_CloudFront $as3cf_instance
      * @return void
      */
 
@@ -202,8 +202,8 @@ class AmazonS3AndCloudFrontAssets
         }
 
         // Fonts cannot be served via the CDN, because browsers do not send cookies for `@font-face` requests.
-        // Exclude the core-css and style handles from being rewritten, because they use `@font-face`.
-        if (in_array($handle, ['core-css', 'style'])) {
+        // Exclude the core-css handle from being rewritten, because it uses `@font-face`.
+        if (in_array($handle, ['core-css'])) {
             return $src;
         }
 

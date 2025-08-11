@@ -22,6 +22,12 @@ ARG version_cron_alpine=3.19.1
 
 FROM ministryofjustice/wordpress-base-fpm:latest AS base-fpm
 
+# Switch to the alpine's default user, for installing packages
+USER root
+
+RUN apk update && \
+    apk add strace
+
 # Make the Nginx user available in this container
 RUN addgroup -g 101 -S nginx; adduser -u 101 -S -D -G nginx nginx
 
@@ -34,9 +40,14 @@ COPY deploy/config/init/fpm-*.sh /usr/local/bin/docker-entrypoint.d/
 RUN chmod +x /usr/local/bin/docker-entrypoint.d/*
 
 # Copy our healthcheck scripts and set them to executable
-COPY bin/fpm-*.sh /usr/local/bin/fpm-health/
+COPY bin/fpm-liveness.sh bin/fpm-readiness.sh bin/fpm-status.sh /usr/local/bin/fpm-health/
 
 RUN chmod +x /usr/local/bin/fpm-health/*
+
+# Copy our stop script and set it to executable
+COPY bin/fpm-stop.sh /usr/local/bin/fpm-stop.sh
+
+RUN chmod +x /usr/local/bin/fpm-stop.sh
 
 ## Change directory
 WORKDIR /usr/local/etc/php-fpm.d
@@ -47,7 +58,10 @@ RUN rm zz-docker.conf && \
     rm www.conf
 
 ## Set our pool configuration
-COPY deploy/config/php-pool.conf pool.conf
+COPY deploy/config/php-pool.conf pool.conf    
+
+# Don't log every request.
+RUN perl -pi -e 's#^(?=access\.log\b)#;#' /usr/local/etc/php-fpm.d/docker.conf
 
 WORKDIR /var/www/html
 
@@ -117,9 +131,6 @@ WORKDIR /var/www/html
 
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# Don't leg every request.
-RUN perl -pi -e 's#^(?=access\.log\b)#;#' /usr/local/etc/php-fpm.d/docker.conf
-
 VOLUME ["/sock"]
 # nginx
 USER 101
@@ -161,8 +172,6 @@ FROM base-fpm AS build-fpm-composer
 
 WORKDIR /var/www/html
 
-ARG COMPOSER_USER
-ARG COMPOSER_PASS
 ARG ACF_PRO_LICENSE
 ARG ACF_PRO_PASS
 ARG AS3CF_PRO_USER
@@ -307,11 +316,13 @@ WORKDIR /home/crooner
 
 ENTRYPOINT ["/bin/sh", "-c", "cron-start"]
 
+
 #  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
 
-# S3 Pusher
+#  █▀█ █░█ █▀ █░█ █▀▀ █▀█
+#  █▀▀ █▄█ ▄█ █▀█ ██▄ █▀▄
 
-# Use the same verion as the cron (to benefit from caching).
+
 FROM alpine:${version_cron_alpine} AS build-s3-push
 
 ARG user=s3pusher
@@ -328,9 +339,10 @@ USER 3001
 
 # Go home...
 WORKDIR /home/s3pusher
+
 # Grab assets for pushing to s3
-COPY --from=build-fpm-composer  /var/www/html/vendor-assets ./
-COPY --from=assets-build        /node/dist                  public/app/themes/clarity/dist/
+COPY --from=build-fpm-composer /var/www/html/vendor-assets ./
+COPY --from=assets-build /node/dist public/app/themes/clarity/dist/
 
 # Set IMAGE_TAG at build time, we don't want this container to be run with an incorrect IMAGE_TAG.
 # Set towards the end of the Dockerfile to benefit from caching.

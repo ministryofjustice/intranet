@@ -84,6 +84,7 @@ if (!env('WP_ENVIRONMENT_TYPE') && in_array(WP_ENV, ['production', 'staging', 'd
 Config::define('WP_HOME', env('WP_HOME'));
 Config::define('WP_SITEURL', env('WP_SITEURL'));
 Config::define('LOOPBACK_URL', env('LOOPBACK_URL') ?? 'http://127.0.0.1:8080');
+Config::define('NGINX_HOST', 'http://' . (env('NGINX_IP') ?? 'nginx') . ':8080');
 // Explicitly set cookie paths, to prevent conflicting wordpress_logged_in... wordpress_sec_... cookies.
 Config::define('COOKIEPATH', '/');
 Config::define('SITECOOKIEPATH', '/');
@@ -161,7 +162,7 @@ Config::define('COMPRESS_CSS', false);
 Config::define('COMPRESS_SCRIPTS', false);
 
 // Enable the authentication mu-plugin.
-Config::define('MOJ_AUTH_ENABLED', true);
+Config::define('MOJ_AUTH_ENABLED', env('MOJ_AUTH_ENABLED'));
 
 // ACF License Key
 Config::define('ACF_PRO_LICENSE', env('ACF_PRO_LICENSE'));
@@ -176,6 +177,11 @@ Config::define('EWWWIO_WHITELABEL', true);
 // Disable rewrite of enqueued assets to CDN.
 Config::define('DISABLE_CDN_ASSETS', env('DISABLE_CDN_ASSETS'));
 
+// Set the Intranet Archive URL and agencies - for the link on the dashboard.
+Config::define('INTRANET_ARCHIVE_URL', env('INTRANET_ARCHIVE_URL'));
+// Set the shared secret for the Intranet Archive.
+Config::define('INTRANET_ARCHIVE_SHARED_SECRET', env('INTRANET_ARCHIVE_SHARED_SECRET'));
+
 /**
  * Debugging Settings
  */
@@ -186,6 +192,8 @@ Config::define('SCRIPT_DEBUG', false);
 ini_set('display_errors', '0');
 // Additional logging for the authentication mu-plugin.
 Config::define('MOJ_AUTH_DEBUG', env('MOJ_AUTH_DEBUG'));
+// Version of the authentication mu-plugin.
+Config::define('MOJ_AUTH_VERSION', env('MOJ_AUTH_VERSION'));
 
 /**
  * WP Redis config.
@@ -204,15 +212,9 @@ if (!isset($_SERVER['CACHE_TIMEOUT'])) {
     $_SERVER['CACHE_TIMEOUT'] = 2500;
 }
 
-if (!empty($_SERVER['CACHE_HOST'])) {
-    // Prefix scheme to the host, default to tls.
-    $_SERVER['CACHE_HOST'] = (env('CACHE_SCHEME') ?: 'tls') . '://' . $_SERVER['CACHE_HOST'];
-}
 
 // Disable the caching if CACHE_HOST is empty, or via WP_REDIS_DISABLED - in case of emergency.
 Config::define('WP_REDIS_DISABLED', empty($_SERVER['CACHE_HOST']) || env('WP_REDIS_DISABLED'));
-// Use Relay redis client, over predis.
-Config::define('WP_REDIS_USE_RELAY', true);
 // Set default expiry to 1hour.
 Config::define('WP_REDIS_DEFAULT_EXPIRE_SECONDS', 3600);
 // This salt prefixes the cache keys.

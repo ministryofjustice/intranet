@@ -28,6 +28,9 @@ get_template_part('src/components/c-campaign-colour/view');
     </div>
 
     <div class="l-primary">
+
+      <?php do_action('clarity_before_content'); ?>
+
       <?php get_template_part('src/components/c-campaign-banner/view'); ?>
       <h1 class="o-title o-title--page"><?php the_title(); ?></h1>
       <?php
@@ -45,6 +48,8 @@ get_template_part('src/components/c-campaign-colour/view');
       <div class="template-container ">
         <?php get_template_part('src/components/c-rich-text-block/view'); ?>
       </div>
+
+      <?php do_action('clarity_after_content'); ?>
 
       <section class="l-full-page">
         <?php

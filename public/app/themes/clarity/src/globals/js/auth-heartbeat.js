@@ -2,15 +2,16 @@
 export default (function ($) {
     const Backdrop = {
         /**
-         * cookie object containes methods to set, get and
-         * delete the user_accetance cookie.
+         * cookie object contains methods to set, get and
+         * delete the user_acceptance cookie.
          */
         cookie: {
             name: 'moj_uat_session',
             value: 'user_accepted',
             set: (value, days = 7) => {
                 const expires = new Date( Date.now() + days * 864e5).toUTCString()
-                document.cookie = Backdrop.cookie.name + '=' + value + '; expires=' + expires + '; path=/'
+                const maybeSecure = window.mojAuthHeartbeat?.https ? 'secure' : ''
+                document.cookie = `${Backdrop.cookie.name}=${value}; expires=${expires}; path=/; ${maybeSecure}`
             },
             get: () => {
                 return document.cookie.split('; ').reduce((r, v) => {

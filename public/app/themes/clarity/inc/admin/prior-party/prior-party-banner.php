@@ -51,6 +51,8 @@ class PriorPartyBanner
         // Finally, add a hook to display the banner.
         add_action('before_rich_text_block', [$this, 'maybeAddBannerBeforeRichText']);
         add_action('before_media_grid_content', [$this, 'maybeAddBannerBeforeRichText']);
+        add_action('before_note_from_jo', [$this, 'maybeAddBannerBeforeRichText']);
+        add_action('before_note_from_amy', [$this, 'maybeAddBannerBeforeRichText']);
         add_action('before_note_from_antonia', [$this, 'maybeAddBannerBeforeRichText']);
         add_action('before_tabbed_content', [$this, 'maybeAddBannerBeforeRichText']);
 

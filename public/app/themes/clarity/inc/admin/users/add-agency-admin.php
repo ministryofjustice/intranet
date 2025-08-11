@@ -87,16 +87,46 @@ $capabilities = array(
     // Notes from Antonia
     'note_from_antonia' => true,
     'notes_from_antonia' => true,
+    // Retain edit permissions, so that the edit screen is available,
+    // as these users are not the author, this results in a read-only view.
     'edit_notes_from_antonia' => true,
     'edit_note_from_antonia' => true,
-    'edit_others_notes_from_antonia' => true,
-    'edit_published_notes_from_antonia' => true,
-    'publish_notes_from_antonia' => true,
-    'delete_notes_from_antonia' => true,
-    'delete_published_notes_from_antonia' => true,
-    'delete_private_notes_from_antonia' => true,
-    'delete_note_from_antonia' => true,
-    'delete_others_notes_from_antonia' => true,
+    'edit_others_notes_from_antonia' => false,
+    'edit_published_notes_from_antonia' => false,
+    'publish_notes_from_antonia' => false,
+    'delete_notes_from_antonia' => false,
+    'delete_published_notes_from_antonia' => false,
+    'delete_private_notes_from_antonia' => false,
+    'delete_note_from_antonia' => false,
+    'delete_others_notes_from_antonia' => false,
+
+    // Notes from Amy
+    'note_from_amy' => true,
+    'notes_from_amy' => true,
+    'edit_notes_from_amy' => true,
+    'edit_note_from_amy' => true,
+    'edit_others_notes_from_amy' => false,
+    'edit_published_notes_from_amy' => false,
+    'publish_notes_from_amy' => false,
+    'delete_notes_from_amy' => false,
+    'delete_published_notes_from_amy' => false,
+    'delete_private_notes_from_amy' => false,
+    'delete_note_from_amy' => false,
+    'delete_others_notes_from_amy' => false,
+
+    // Notes from Jo
+    'note_from_jo' => true,
+    'notes_from_jo' => true,
+    'edit_notes_from_jo' => true,
+    'edit_note_from_jo' => true,
+    'edit_others_notes_from_jo' => true,
+    'edit_published_notes_from_jo' => true,
+    'publish_notes_from_jo' => true,
+    'delete_notes_from_jo' => true,
+    'delete_published_notes_from_jo' => true,
+    'delete_private_notes_from_jo' => true,
+    'delete_note_from_jo' => true,
+    'delete_others_notes_from_jo' => true,
 
     // Documents
     'edit_documents' => true,
@@ -180,6 +210,9 @@ $capabilities = array(
     'edit_poll' => true,
     'create_polls' => true,
     'publish_polls' => true,
+
+    // Archived Content
+    'archived_content' => true,
 );
 
 

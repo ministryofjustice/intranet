@@ -31,7 +31,7 @@ env_var_exists(){
 touch $ACTION_TRACKER
 action_track(){
   TRACKER_SIZE=$(sed -n '$='  "$ACTION_TRACKER")
-  if [[ "$TRACKER_SIZE" -gt 1 ]] ; then
+  if [[ "$TRACKER_SIZE" -gt 0 ]] ; then
       echo "1"
   else
       echo "0"
@@ -46,6 +46,13 @@ make_secret(){
       ## append to file
       echo -e "JWT_SECRET=$(openssl rand -base64 64 | tr -d '\n')\n" >> "$FILE_OUTPUT"
       echo "JWT created" >> "$ACTION_TRACKER"
+      ;;
+
+    INTRANET_ARCHIVE)
+      echo "Generating Intranet Archive shared secret"
+      ## append to file
+      echo -e "INTRANET_ARCHIVE_SHARED_SECRET=$(openssl rand -base64 64 | tr -d '\n')\n" >> "$FILE_OUTPUT"
+      echo "Intranet Archive shared secret created" >> "$ACTION_TRACKER"
       ;;
 
     PUBLIC_KEY)

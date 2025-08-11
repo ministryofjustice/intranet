@@ -9,6 +9,7 @@ echo "Key Generation: detection..."
 source bin/local-key-gen-functions.sh
 
 [[ "$(env_var_exists JWT_SECRET)" == "0" ]] && make_secret JWT
+[[ "$(env_var_exists INTRANET_ARCHIVE_SHARED_SECRET)" == "0" ]] && make_secret INTRANET_ARCHIVE
 [[ "$(env_var_exists AWS_CLOUDFRONT_PRIVATE_KEY)" == "0" ]] && make_secret PRIVATE_KEY
 [[ "$(env_var_exists AWS_CLOUDFRONT_PUBLIC_KEY)" == "0" ]] && make_secret PUBLIC_KEY
 [[ "$(env_var_exists AWS_CLOUDFRONT_PUBLIC_KEYS_OBJECT)" == "0" ]] && make_secret PUBLIC_KEYS_OBJECT

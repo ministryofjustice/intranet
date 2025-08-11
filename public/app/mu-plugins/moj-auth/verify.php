@@ -8,6 +8,16 @@ if (defined('ABSPATH')) {
     http_response_code(401) && exit();
 }
 
+$debug = isset($_ENV['MOJ_AUTH_DEBUG']) && $_ENV['MOJ_AUTH_DEBUG'] === 'true';
+
+// Return 200 if MOJ_AUTH_ENABLED is exactly equal to false, useful when working locally.
+if (isset($_ENV['MOJ_AUTH_ENABLED']) && $_ENV['MOJ_AUTH_ENABLED'] === 'false') {
+    if($debug) {
+        error_log('MOJ_AUTH_ENABLED is false - skipping auth check.');
+    }
+    http_response_code(200) && exit();
+}
+
 define('DOING_STANDALONE_VERIFY', true);
 
 $autoload = '../../../../vendor/autoload.php';
@@ -36,7 +46,7 @@ class StandaloneVerify
         $this->initJwt();
     }
 
-    public function handleAuthRequest(string $required_role = 'reader'): void
+    public function handleAuthRequest(): void
     {
         $this->log('handleAuthRequest()');
 
@@ -44,15 +54,15 @@ class StandaloneVerify
         $jwt = $this->getJwt();
 
         // Get the roles from the JWT and check that they're sufficient.
-        $jwt_correct_role = $jwt && $jwt->roles ? in_array($required_role, $jwt->roles) : false;
+        $jwt_verified_role = $this->verifyJwtRoles($jwt?->roles ?? []);
 
-        $status_code = $jwt_correct_role ? 200 : 401;
+        $status_code = $jwt_verified_role ? 200 : 401;
 
         // $status_code= 401;
 
         http_response_code($status_code) && exit();
     }
 }
-$debug = isset($_ENV['MOJ_AUTH_DEBUG']) && $_ENV['MOJ_AUTH_DEBUG'] === 'true';
+
 $standalone_verify = new StandaloneVerify(['debug' => $debug]);
 $standalone_verify->handleAuthRequest();

@@ -4,8 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      # - 'main' # protect main during initial development
-      - 'develop'
+      - 'main'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -14,25 +13,25 @@ concurrency:
 jobs:
   image:
     name: "Image"
-    if: github.event.ref == 'refs/heads/develop'
+    if: github.event.ref == 'refs/heads/main'
     uses: ./.github/workflows/build.yml
     secrets: inherit
 
   get_ip_ranges:
     name: "IP Ranges"
-    if: github.event.ref == 'refs/heads/develop'
+    if: github.event.ref == 'refs/heads/main'
     uses: ./.github/workflows/ip-ranges-configure.yml
     secrets: inherit
 
   modsec_config:
     name: "Modsec"
-    if: github.event.ref == 'refs/heads/develop'
+    if: github.event.ref == 'refs/heads/main'
     uses: ./.github/workflows/modsec-config.yml
     secrets: inherit
 
   deploy_dev:
     name: "Development"
-    if: github.event.ref == 'refs/heads/develop'
+    if: github.event.ref == 'refs/heads/main'
     uses: ./.github/workflows/deploy.yml
     needs: [image, get_ip_ranges, modsec_config]
     with:
@@ -45,7 +44,7 @@ jobs:
   deploy_staging:
     name: "Staging"
     needs: [image, deploy_dev, get_ip_ranges, modsec_config]
-    if: github.event.ref == 'refs/heads/develop'
+    if: github.event.ref == 'refs/heads/main'
     uses: ./.github/workflows/deploy.yml
     with:
       environment: staging
@@ -54,22 +53,10 @@ jobs:
       modsec_config: ${{ needs.modsec_config.outputs.staging }}
     secrets: inherit
 
-  deploy_demo:
-    name: "Demo"
-    needs: [image, deploy_dev, get_ip_ranges, modsec_config]
-    if: github.event.ref == 'refs/heads/develop'
-    uses: ./.github/workflows/deploy.yml
-    with:
-      environment: demo
-      registry: ${{ needs.image.outputs.registry }}
-      ips_formatted: ${{ needs.get_ip_ranges.outputs.ips_formatted }}
-      modsec_config: ${{ needs.modsec_config.outputs.demo }}
-    secrets: inherit
-
   deploy_production:
     name: "Production"
     needs: [image, deploy_staging, get_ip_ranges, modsec_config]
-    if: github.event.ref == 'refs/heads/develop'
+    if: github.event.ref == 'refs/heads/main'
     uses: ./.github/workflows/deploy.yml
     with:
       environment: production

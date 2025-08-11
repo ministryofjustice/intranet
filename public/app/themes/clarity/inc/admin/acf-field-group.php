@@ -1684,7 +1684,7 @@
                 'news' => 'News',
                 'post' => 'Blogs',
                 'pages' => 'Pages',
-                'note' => 'Notes from Antonia',
+                'note' => 'Notes from Perm. Sec.',
             ),
             'allow_null' => 0,
             'other_choice' => 0,
@@ -1866,7 +1866,8 @@
             ),
             'admin_only' => 0,
             'post_type' => array(
-                0 => 'note-from-antonia',
+                0 => 'note-from-jo',
+                1 => 'note-from-amy',
             ),
             'post_status' => '',
             'taxonomy' => array(
@@ -3069,7 +3070,7 @@
                 'news' => 'News',
                 'post' => 'Blogs',
                 'pages' => 'Pages',
-                'note' => 'Notes from Antonia',
+                'note' => 'Notes from Perm. Sec.',
             ),
             'allow_null' => 0,
             'other_choice' => 0,
@@ -3251,7 +3252,8 @@
             ),
             'admin_only' => 0,
             'post_type' => array(
-                0 => 'note-from-antonia',
+                0 => 'note-from-jo',
+                1 => 'note-from-amy',
             ),
             'post_status' => '',
             'taxonomy' => array(
@@ -6309,6 +6311,28 @@
                 'operator' => '==',
                 'value' => 'hq',
             ),
+            array(
+                'param' => 'current_user_role',
+                'operator' => '==',
+                'value' => 'agency_admin',
+            ),
+        ),
+        array(
+            array(
+                'param' => 'options_page',
+                'operator' => '==',
+                'value' => 'homepage-settings',
+            ),
+            array(
+                'param' => 'agency_context',
+                'operator' => '==',
+                'value' => 'hq',
+            ),
+            array(
+                'param' => 'current_user_role',
+                'operator' => '==',
+                'value' => 'administrator',
+            ),
         ),
     ),
     'menu_order' => 99,
@@ -6320,6 +6344,6 @@
     'active' => true,
     'description' => '',
     'show_in_rest' => false,
-    'modified' => 1583849809,
+    'modified' => 1741259223,
     ));
 endif;
