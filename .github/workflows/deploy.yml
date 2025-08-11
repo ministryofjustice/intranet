@@ -20,6 +20,8 @@ jobs:
   deploy_environment:
     name: "Deploy"
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
     environment: ${{ inputs.environment }}
     env:
       KUBE_NAMESPACE: ${{ secrets.KUBE_NAMESPACE }}
@@ -159,5 +161,34 @@ jobs:
           kubectl config use-context ${KUBE_CLUSTER}
 
       - name: "Apply manifest files"
+        id: apply
         run: |
           kubectl -n ${KUBE_NAMESPACE} apply -f deploy/${{ inputs.environment }}
+          
+          if [ "${{ inputs.environment }}" == "demo" ]; then
+            kubectl wait -n ${KUBE_NAMESPACE} --for=jsonpath='{.status.phase}'=Running pod/$(kubectl -n ${KUBE_NAMESPACE} get pod -l app=${KUBE_NAMESPACE} -o jsonpath="{.items[0].metadata.name}") --timeout=30s
+          fi
+        continue-on-error: true
+
+      - name: "QA Link"
+        if: ${{ (inputs.environment == 'demo') && (steps.apply.outcome == 'success') }}
+        id: qalink
+        uses: thollander/actions-comment-pull-request@24bffb9b452ba05a4f3f77933840a6a841d1b32b #v3.0.1
+        with:
+          message: '**QA is ready: https://demo.intranet.justice.gov.uk/**'
+          reactions: rocket, heart
+          comment-tag: execution
+          mode: recreate
+
+      - name: "QA Failed"
+        if: ${{ (inputs.environment == 'demo') && (steps.apply.outcome != 'success') }}
+        uses: thollander/actions-comment-pull-request@24bffb9b452ba05a4f3f77933840a6a841d1b32b #v3.0.1
+        with:
+          message: '**QA failed to build** :broken_heart:'
+          reactions: confused
+          comment-tag: execution
+          mode: recreate
+
+      - name: "Check outcome"
+        if: steps.qalink.outcome == 'skipped'
+        run: exit 1

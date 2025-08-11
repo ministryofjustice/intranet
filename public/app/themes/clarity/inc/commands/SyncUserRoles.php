@@ -27,6 +27,7 @@ class SyncUserRoles
         require_once $theme_dir . '/inc/admin/users/add-agency-admin.php';
         require_once $theme_dir . '/inc/admin/users/add-agency-editor.php';
         require_once $theme_dir . '/inc/admin/users/add-regional-editor.php';
+        require_once $theme_dir . '/inc/admin/users/add-synergy.php';
         require_once $theme_dir . '/inc/admin/users/add-team-author.php';
         require_once $theme_dir . '/inc/admin/users/add-team-lead.php';
         require_once $theme_dir . '/inc/admin/users/delete-roles.php';

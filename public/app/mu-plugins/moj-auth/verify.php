@@ -18,7 +18,6 @@ if (isset($_ENV['MOJ_AUTH_ENABLED']) && $_ENV['MOJ_AUTH_ENABLED'] === 'false') {
     http_response_code(200) && exit();
 }
 
-
 define('DOING_STANDALONE_VERIFY', true);
 
 $autoload = '../../../../vendor/autoload.php';
