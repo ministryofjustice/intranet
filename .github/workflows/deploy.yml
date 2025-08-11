@@ -164,7 +164,11 @@ jobs:
         id: apply
         run: |
           kubectl -n ${KUBE_NAMESPACE} apply -f deploy/${{ inputs.environment }}
-          kubectl wait --for=condition=Ready pod/fpm
+
+          if [ "${{ inputs.environment }}" == "demo" ]; then
+            kubectl wait --for=condition=Ready pod/intranet-fail
+          fi
+          
         continue-on-error: true
 
       - name: "QA Link"
@@ -173,5 +177,14 @@ jobs:
         with:
           message: '**QA is ready: https://demo.intranet.justice.gov.uk/**'
           reactions: rocket, heart
+          comment-tag: execution
+          mode: recreate
+
+      - name: "QA Failed"
+        if: ${{ (inputs.environment == 'demo') && (steps.apply.outcome != 'success') }}
+        uses: thollander/actions-comment-pull-request@24bffb9b452ba05a4f3f77933840a6a841d1b32b #v3.0.1
+        with:
+          message: '**QA failed to build** :broken_heart:'
+          reactions: confused
           comment-tag: execution
           mode: recreate
