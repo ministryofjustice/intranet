@@ -316,6 +316,31 @@ To verify that S3 & CloudFront are working correctly.
 - The img source domain should be CloudFront.
 - Directly trying to access an image via the S3 bucket url should return an access denied message.
 
+## Deployment to Cloud Platform
+
+This application is deployed to MoJ Cloud Platform, using GitHub Actions.
+
+The relevant workflows can be found at:
+
+- [.github/workflows/integration.yml](./.github/workflows/integration.yml)
+- [.github/workflows/ip-ranges-configure.yml](/.github/workflows/ip-ranges-configure.yml)
+- [.github/workflows/modsec-config.yml](/.github/workflows/modsec-config.yml)
+- [.github/workflows/build.yml](/.github/workflows/build.yml)
+- [.github/workflows/deploy.yml](/.github/workflows/deploy.yml)
+
+Kubernetes manifests are located in the [deploy](/deploy) directory.
+
+There is a sub directory for each of the Cloud Platform environments: 
+
+- [development](/deploy/development)
+- [demo](/deploy/demo)
+- [staging](/deploy/staging)
+- [production](/deploy/production)
+
+> [!NOTE]
+> The demo environment has been used to offer a quality assurance (QA) step for branch deployments (pull_requests).
+> It is not used for production deployments and is not a staging environment.
+
 ## Azure Setup
 
 ### Useful links
@@ -547,6 +572,12 @@ This is for 2 reasons:
 - It will keep the OAuth session fresh, the endpoint handler will refresh OAuth tokens, and update JWTs before they expire.
 - If a visitor's state has changed, e.g. they have moved from an office with an allowed IP, then their browser content is blurred and they are prompted to refresh the page.
 
+### Disabling access control
+
+If access control is to be handled by Basic Auth, then the environment variable `MOJ_AUTH_ENABLED` should be set to `false`.
+
+This can should be set in the environment's `config.yml` manifest file with the line: `MOJ_AUTH_ENABLED: 'false'`.
+
 ### Access for the Intranet Archive service.
 
 The intranet-archive service is a scraper that collects content from the intranet for archiving purposes.
@@ -556,6 +587,89 @@ It is granted access via a JWT token, which is generated manually by running the
 The cookie has a role of `intranet-archive`. For this roll to be granted access to the intranet, the request IP must be one of Cloud Platform's egress IPs.
 
 When the JWT_SECRET is rotated, a new JWT token will need to be generated, and the Intranet Archive service will need to be updated with the new JWT.
+
+### Access for the Synergy service.
+
+#### Synergy Endpoints
+
+Two API endpoints are available to facilitate content syndication from the intranet to the Synergy platform.
+
+- https://intranet.justice.gov.uk/wp-json/synergy/v1/feeds
+- https://intranet.justice.gov.uk/wp-json/synergy/v1/feed?agency={agency}content_type={content_type}
+
+The `feeds` endpoint returns a list of available feeds.
+
+The `feed` endpoint returns a specific feed for a given agency and content type. The feed includes pages for the specified agency and content type, along with their metadata.
+
+An optional parameter of `modified_after` should be used to get recently modified content. The value should be in ISO date-time format, e.g. `2023-10-01T00:00:00Z`.
+
+#### Synergy Authentication
+
+To make requests to the intranet, the Synergy service must be authenticated. Requests should be made with a JWT token and an application password.
+
+- Requests should include a cookie with the key `jwt` and a value of the provided JWT token.
+- Requests should include the provided username and application password in Basic Auth headers.
+
+#### Synergy JWT
+
+The Synergy service is a scraper that syndicates content from the intranet on the Synergy platform.
+
+It is granted access via a JWT token, which is generated manually by running the `wp gen-jwt synergy` command from an fpm container.
+
+The cookie has a role of `intranet-archive`. <!-- For this roll to be granted access to the intranet, the request IP must be one of Cloud Platform's egress IPs -->.
+
+When the JWT_SECRET is rotated, a new JWT token will need to be generated, and the Synergy service will need to be updated with the new JWT.
+
+#### Synergy application password
+
+An intranet administrator must create a dedicated WordPress user for the Synergy service with the role Synergy Bot, and generate an application password for that user.
+
+The application password should be stored securely and used in the Basic Auth headers of requests to the intranet.
+
+#### Synergy CloudFront cookies
+
+All authenticated responses from the endpoints will include 3 CloudFront cookies (in addition to the response payload).
+
+- CloudFront-Key-Pair-Id
+- CloudFront-Policy
+- CloudFront-Signature
+
+The Cloudfront cookies must be used in any subsequent requests to download images/media from the `cdn.intranet.justice.gov.uk` domain.
+
+The CloudFront cookies will expire after 24 hours. New ones can be generated at any time by making a request to the `feeds` endpoint.
+
+#### Synergy troubleshooting
+
+I see a 401 HTML response when making a request to the Synergy endpoints, like the following:
+
+```html
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+...
+<h1>Redirecting to login.</h1>
+...
+```
+
+This is a sign that the JWT token is not valid. Please ensure that you are using the correct JWT token in the request cookie.
+
+---
+
+I see a 401 JSON response from an API endpoint, like the following:
+
+```json
+{
+    "code": "rest_forbidden",
+    "message": "Sorry, you are not allowed to do that.",
+    "data": {
+        "status": 401
+    }
+}
+```
+
+This means that your JWT token is valid, but there is an issue with the basic auth credentials.
+
+Please ensure that you are using the correct username and application password in the Basic Auth headers of your request.
+
 
 <!-- License -->
 

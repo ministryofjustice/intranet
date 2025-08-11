@@ -156,7 +156,8 @@ class PriorPartyBannerAdmin
     }
 
     /**
-     * Set the default value of the prior_party_banner field to 0 on pages and notes-frm-antonia.
+     * Set the default value of the prior_party_banner field to 0 on
+     * pages, notes-from-jo, notes-from-amy and notes-from-antonia.
      *
      * The effects of this function can be seen at:
      * - the Prior Party Banners table view
@@ -171,9 +172,15 @@ class PriorPartyBannerAdmin
     public function filterValueByPostType(bool|null $value, int $post_id): null|bool
     {
         $post_type = get_post_type($post_id);
+        $post_type_array = [
+            'page',
+            'note-from-jo',
+            'note-from-amy',
+            'note-from-antonia'
+        ];
 
-        // If we're not dealing with a page or note-from-antonia, or the value is not 1, do nothing.
-        if (!in_array($post_type, ['page', 'note-from-antonia']) || $value === false) {
+        // If we're not dealing with a page, note-from-amy or note-from-antonia, or the value is not 1, do nothing.
+        if (!in_array($post_type, $post_type_array) || $value === false) {
             return $value;
         }
 
@@ -205,6 +212,8 @@ class PriorPartyBannerAdmin
             'post' => get_post_type_object('post'),
             'news' => get_post_type_object('news'),
             'page' => get_post_type_object('page'),
+            'note-from-jo' => get_post_type_object('note-from-jo'),
+            'note-from-amy' => get_post_type_object('note-from-amy'),
             'note-from-antonia' => get_post_type_object('note-from-antonia')
         ];
 
@@ -451,6 +460,8 @@ class PriorPartyBannerAdmin
 
             // Only allow HQ access to notes
             if (!empty($agency) && isset($agency[0]) && $agency[0]->slug === 'hq') {
+                $args['post_type'][] = 'note-from-jo';
+                $args['post_type'][] = 'note-from-amy';
                 $args['post_type'][] = 'note-from-antonia';
             }
 

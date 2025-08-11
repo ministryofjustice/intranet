@@ -12,19 +12,6 @@ verify_composer_package_version() {
   fi
 }
 
-# Add logging to amazon-s3-and-cloudfront-pro plugin.
-
-# Define the search and replace strings.
-AS3CF_FILE=/var/www/html/public/app/mu-plugins/amazon-s3-and-cloudfront-pro/classes/upgrades/upgrade.php
-AS3CF_SEARCH="\$this->items_processed++;"
-AS3CF_NEW="if(\$upgraded % 100 === 0) { error_log(\"AS3CF_Upgrade - total \$total, items_processed \$this->items_processed, upgrade_name \$this->upgrade_name\"); }"
-AS3CF_REPLACE="$AS3CF_SEARCH\n\n\t\t\t$AS3CF_NEW"
-
-# If search string is in file. Then replace it.
-if grep -q  $AS3CF_SEARCH $AS3CF_FILE ; then
-  echo "Adding logging to amazon-s3-and-cloudfront-pro..."
-  sed -i "s/$AS3CF_SEARCH/$AS3CF_REPLACE/g" $AS3CF_FILE
-fi
 
 TOTAL_POLL_FILE=/var/www/html/public/app/plugins/totalpoll-lite/src/Plugin.php
 TOTAL_POLL_SEARCH="\${tooltip}"
@@ -70,7 +57,7 @@ NOTIFY_REPLACE='private \$plugin_text_domain;
 	public function get_columns'
 
 if [ -f "$NOTIFY_FILE" ] ; then
-  echo "Adding code blocke to notify-for-wordpress plugin"
+  echo "Adding code block to notify-for-wordpress plugin"
   NOTIFY_CONTENT=$(perl -0777pe 's/'"$NOTIFY_SEARCH"'/'"$NOTIFY_REPLACE"'/s' "$NOTIFY_FILE")
   echo "$NOTIFY_CONTENT" > "$NOTIFY_FILE"
 fi
@@ -84,4 +71,24 @@ TREE_VIEW_REPLACE="htmlspecialchars_decode(\$editLink ?? '')"
 if grep -q  $TREE_VIEW_SEARCH $TREE_VIEW_FILE ; then
   echo "Fixing warning in cms-tree-page-view..."
   sed -i "s/$TREE_VIEW_SEARCH/$TREE_VIEW_REPLACE/g" $TREE_VIEW_FILE
+fi
+
+# Check that the version of wp-document-revisions is ont that's been confirmed to work.
+verify_composer_package_version "wpackagist-plugin/wp-document-revisions" "3.6.1"
+
+DOCUMENT_REVISIONS_FILE=/var/www/html/public/app/mu-plugins/wp-document-revisions/includes/class-wp-document-revisions-admin.php
+
+DOCUMENT_REVISIONS_SEARCH_1="\$revisions    = \$this->get_revisions( \$post->ID );"
+DOCUMENT_REVISIONS_REPLACE_1="\$revisions    = apply_filters('wp_document_revisions_get_revisions', \$this->get_revisions( \$post->ID ), 'revision_metabox');"
+
+DOCUMENT_REVISIONS_SEARCH_2="\$latest_version = \$this->get_latest_revision( \$post->ID );"
+DOCUMENT_REVISIONS_REPLACE_2="\$latest_version = apply_filters('wp_document_revisions_get_latest_revision', \$this->get_latest_revision( \$post->ID ), 'document_metabox');"
+
+# If the file exists, then replace the search strings.
+if [ -f "$DOCUMENT_REVISIONS_FILE" ] ; then
+  echo "Adding wp_document_revisions_get_revisions filter to wp-document-revisions..."
+  sed -i "s/$DOCUMENT_REVISIONS_SEARCH_1/$DOCUMENT_REVISIONS_REPLACE_1/g" $DOCUMENT_REVISIONS_FILE
+
+  echo "Adding wp_document_revisions_get_latest_revision filter to wp-document-revisions..."
+  sed -i "s/$DOCUMENT_REVISIONS_SEARCH_2/$DOCUMENT_REVISIONS_REPLACE_2/g" $DOCUMENT_REVISIONS_FILE
 fi

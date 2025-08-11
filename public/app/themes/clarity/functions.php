@@ -39,6 +39,7 @@ require_once 'inc/admin/page.php';
 require_once 'inc/admin/permission-display-page.php';
 require_once 'inc/admin/plugins/co-authors-plus.php';
 require_once 'inc/admin/plugins/polls.php';
+require_once 'inc/admin/plugins/wordpress-simple-history.php';
 require_once 'inc/admin/plugins/wp-elasticsearch.php';
 require_once 'inc/admin/plugins/wp-document-revisions.php';
 require_once 'inc/admin/plugins/wp-offload-media.php';
@@ -51,7 +52,8 @@ require_once 'inc/admin/suppress-wp-update-msg.php';
 require_once 'inc/admin/tinymce-editor-settings.php';
 require_once 'inc/admin/transient-admin-notices.php';
 require_once 'inc/admin/users/add-acf-capabilities.php';
-require_once 'inc/admin/users/add-notes-from-antonia.php';
+require_once 'inc/admin/users/add-notes-from-perm-sec.php';
+require_once 'inc/admin/users/protect-key-pages.php';
 require_once 'inc/admin/users/remove-agency-admin-admin-access.php';
 require_once 'inc/admin/users/user-access-and-security.php';
 require_once 'inc/admin/wp-admin-bar.php';
@@ -65,17 +67,19 @@ require_once 'inc/amazon-s3-and-cloudfront-signing.php';
 require_once 'inc/amazon-s3-and-cloudfront.php';
 
 require_once 'inc/api/campaign-api.php';
+require_once 'inc/api/get-blogroll-rest-api.php';
 require_once 'inc/api/get-campaign-posts-api.php';
 require_once 'inc/api/get-news-rest-api.php';
-require_once 'inc/api/get-notes-rest-api.php';
 require_once 'inc/api/get-campaign-news-api.php';
 require_once 'inc/api/get-category-news-api.php';
 require_once 'inc/api/intranet-v1-api.php';
 require_once 'inc/api/register-api-fields.php';
+require_once 'inc/api/synergy-feed-api/synergy-feed-api.php';
 
 
 require_once 'inc/admin-branding.php';
 require_once 'inc/autoloader.php';
+require_once 'inc/blogroll.php';
 require_once 'inc/elasticsearch-on-opensearch.php';
 require_once 'inc/cookies.php';
 require_once 'inc/comments.php';
@@ -100,6 +104,7 @@ require_once 'inc/menu.php';
 require_once 'inc/utilities.php';
 require_once 'inc/pagination.php';
 
+require_once 'inc/post-types/archived-content.php';
 require_once 'inc/post-types/post.php';
 require_once 'inc/post-types/event.php';
 require_once 'inc/post-types/news.php';
@@ -107,6 +112,8 @@ require_once 'inc/post-types/regional-news.php';
 require_once 'inc/post-types/regional-page.php';
 require_once 'inc/post-types/team-area.php';
 require_once 'inc/post-types/webchat.php';
+require_once 'inc/post-types/notes-from-jo.php';
+require_once 'inc/post-types/notes-from-amy.php';
 require_once 'inc/post-types/notes-from-antonia.php';
 
 require_once 'inc/preselect.php';

@@ -134,7 +134,7 @@ class PriorPartyBannerEmail
         // Was an email passed in manually - for testing purposes?
         if (isset($props['recipient'])) {
             wp_mail($props['recipient'], $email_content['subject'], $email_content['body']);
-            echo 'A test email was sent to email sent to ' . $props['recipient'];
+            echo 'A test email was sent to email sent to ' . esc_attr($props['recipient']);
             // Return early.
             return;
         }
@@ -191,6 +191,8 @@ class PriorPartyBannerEmail
             'post' => get_post_type_object('post'),
             'news' => get_post_type_object('news'),
             'page' => get_post_type_object('page'),
+            'note-from-jo' => get_post_type_object('note-from-jo'),
+            'note-from-amy' => get_post_type_object('note-from-amy'),
             'note-from-antonia' => get_post_type_object('note-from-antonia')
         ];
     }
@@ -218,7 +220,7 @@ class PriorPartyBannerEmail
         $email_index = isset($_GET['email_index']) ? (int) $_GET['email_index'] : null;
 
         // Build up a base url for the paginated links.
-        $base_uri = sprintf('%s?page=%s', get_current_screen()->parent_file, $_GET['page']);
+        $base_uri = sprintf('%s?page=%s', get_current_screen()->parent_file, sanitize_title_with_dashes($_GET['page']));
         $base_url = get_admin_url(null, $base_uri);
 
         // Start an unordered list for the links.

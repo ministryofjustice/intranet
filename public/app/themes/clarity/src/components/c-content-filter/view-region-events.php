@@ -5,6 +5,10 @@ if (! defined('ABSPATH')) {
 }
 
 $prefix = 'ff';
+
+// Set an initial date as the 15th of the current month.
+// So that we don't get rounding errors when adding months.
+$ff_date = new DateTime(date('Y-m-\1\5'));
 ?>
 
 <!-- c-content-filter starts here -->
@@ -16,16 +20,12 @@ $prefix = 'ff';
         <label for="ff_date_filter">Date</label>
         <select name="ff_date_filter" id="ff_date_filter" >
           <option value="all"><?= esc_attr(__('All')) ?></option>
-            <?php
-            $m = 0;
 
-            while ($m <= 12) {
-                $next_month = date('Y-m', strtotime('+' . $m . 'months'));
-                $human_date = date('F Y', strtotime('+' . $m . 'months'));
-                echo '<option value=' . $next_month . '>' . $human_date . '</option>';
-                $m++;
-            }
-            ?>
+          <?php for ($m = 0 ; $m <= 12; $m++) : ?>
+            <option value="<?= $ff_date->format('Y-m') ?>"><?= $ff_date->format('F Y') ?></option>
+            <?php $ff_date->modify('+ 1 month'); ?>
+          <?php endfor; ?>
+
         </select>
       </div>
       <?php

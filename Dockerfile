@@ -22,16 +22,11 @@ ARG version_cron_alpine=3.19.1
 
 FROM ministryofjustice/wordpress-base-fpm:latest AS base-fpm
 
+# Switch to the alpine's default user, for installing packages
+USER root
+
 RUN apk update && \
     apk add strace
-
-# Temporarily install phpredis here. With potential to move to wordpress-base-image.
-# See https://github.com/phpredis/phpredis
-RUN apk add --no-cache pcre-dev $PHPIZE_DEPS \
-    && pecl install redis \
-    && docker-php-ext-enable redis.so
-
-RUN apk del pcre-dev $PHPIZE_DEPS
 
 # Make the Nginx user available in this container
 RUN addgroup -g 101 -S nginx; adduser -u 101 -S -D -G nginx nginx
@@ -45,9 +40,14 @@ COPY deploy/config/init/fpm-*.sh /usr/local/bin/docker-entrypoint.d/
 RUN chmod +x /usr/local/bin/docker-entrypoint.d/*
 
 # Copy our healthcheck scripts and set them to executable
-COPY bin/fpm-*.sh /usr/local/bin/fpm-health/
+COPY bin/fpm-liveness.sh bin/fpm-readiness.sh bin/fpm-status.sh /usr/local/bin/fpm-health/
 
 RUN chmod +x /usr/local/bin/fpm-health/*
+
+# Copy our stop script and set it to executable
+COPY bin/fpm-stop.sh /usr/local/bin/fpm-stop.sh
+
+RUN chmod +x /usr/local/bin/fpm-stop.sh
 
 ## Change directory
 WORKDIR /usr/local/etc/php-fpm.d
@@ -58,26 +58,7 @@ RUN rm zz-docker.conf && \
     rm www.conf
 
 ## Set our pool configuration
-COPY deploy/config/php-pool.conf pool.conf
-
-# Configure Relay - See https://relay.so/docs/1.x/configuration
-RUN RELAY_CONFIG_FILE=/usr/local/etc/php/conf.d/docker-php-ext-relay.ini && \
-    # Set log level to error
-    sed -i 's/^;\? \?relay.loglevel =.*/relay.loglevel = error/' $RELAY_CONFIG_FILE && \
-    # Set log file to stderr
-    sed -i 's/^;\? \?relay.logfile =.*/relay.logfile = \/dev\/stderr/' $RELAY_CONFIG_FILE && \
-    # Settings related to the in-memory cache (not Redis).
-    ## Set maxmemory to 16M - this is the max. w/o a license.
-    sed -i 's/^;\? \?relay.maxmemory =.*/relay.maxmemory = 16M/' $RELAY_CONFIG_FILE && \
-    ## Eviction policy: lru. Evicts the least recently used keys out of all keys when relay.maxmemory_pct is reached
-    sed -i 's/^;\? \?relay.eviction_policy =.*/relay.eviction_policy = lru/' $RELAY_CONFIG_FILE && \
-    ## Start evicting keys when 90% of the memory is used.
-    sed -i 's/^;\? \?relay.maxmemory_pct =.*/relay.maxmemory_pct = 75/' $RELAY_CONFIG_FILE && \
-    ## Set the session compression to lz4
-    sed -i 's/^;\? \?relay.session.compression =.*/relay.session.compression = lz4/' $RELAY_CONFIG_FILE && \
-    ## Set the session compression level to 1
-    sed -i 's/^;\? \?relay.session.compression_level =.*/relay.session.compression_level = 3/' $RELAY_CONFIG_FILE
-    
+COPY deploy/config/php-pool.conf pool.conf    
 
 # Don't log every request.
 RUN perl -pi -e 's#^(?=access\.log\b)#;#' /usr/local/etc/php-fpm.d/docker.conf
@@ -191,8 +172,6 @@ FROM base-fpm AS build-fpm-composer
 
 WORKDIR /var/www/html
 
-ARG COMPOSER_USER
-ARG COMPOSER_PASS
 ARG ACF_PRO_LICENSE
 ARG ACF_PRO_PASS
 ARG AS3CF_PRO_USER
@@ -337,11 +316,13 @@ WORKDIR /home/crooner
 
 ENTRYPOINT ["/bin/sh", "-c", "cron-start"]
 
+
 #  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
 
-# S3 Pusher
+#  █▀█ █░█ █▀ █░█ █▀▀ █▀█
+#  █▀▀ █▄█ ▄█ █▀█ ██▄ █▀▄
 
-# Use the same verion as the cron (to benefit from caching).
+
 FROM alpine:${version_cron_alpine} AS build-s3-push
 
 ARG user=s3pusher
@@ -358,9 +339,10 @@ USER 3001
 
 # Go home...
 WORKDIR /home/s3pusher
+
 # Grab assets for pushing to s3
-COPY --from=build-fpm-composer  /var/www/html/vendor-assets ./
-COPY --from=assets-build        /node/dist                  public/app/themes/clarity/dist/
+COPY --from=build-fpm-composer /var/www/html/vendor-assets ./
+COPY --from=assets-build /node/dist public/app/themes/clarity/dist/
 
 # Set IMAGE_TAG at build time, we don't want this container to be run with an incorrect IMAGE_TAG.
 # Set towards the end of the Dockerfile to benefit from caching.
