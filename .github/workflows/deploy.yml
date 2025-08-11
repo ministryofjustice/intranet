@@ -164,7 +164,7 @@ jobs:
         id: apply
         run: |
           kubectl -n ${KUBE_NAMESPACE} apply -f deploy/${{ inputs.environment }}
-          kubectl wait --for=condition=Ready
+          kubectl wait --for=condition=Ready pod/fpm
         continue-on-error: true
 
       - name: "QA Link"
