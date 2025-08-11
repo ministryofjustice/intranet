@@ -161,11 +161,14 @@ jobs:
           kubectl config use-context ${KUBE_CLUSTER}
 
       - name: "Apply manifest files"
+        id: apply
         run: |
           kubectl -n ${KUBE_NAMESPACE} apply -f deploy/${{ inputs.environment }}
+          kubectl wait --for=condition=Ready
+        continue-on-error: true
 
       - name: "QA Link"
-        if: inputs.environment == 'demo'
+        if: ${{ (inputs.environment == 'demo') && (steps.apply.outcome == 'success') }}
         uses: thollander/actions-comment-pull-request@24bffb9b452ba05a4f3f77933840a6a841d1b32b #v3.0.1
         with:
           message: '**QA is ready: https://demo.intranet.justice.gov.uk/**'
