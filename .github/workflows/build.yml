@@ -2,6 +2,10 @@ name: "CI Build"
 
 on:
   workflow_call:
+    inputs:
+      pipeline:
+        required: true
+        type: string
     outputs:
       registry:
         description: "AWS registry where the ECR is located"
