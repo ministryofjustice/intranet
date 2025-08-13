@@ -45,6 +45,8 @@ jobs:
     if: ${{ needs.eligibility.outputs.eligible == 'true' }}
     uses: ./.github/workflows/build.yml
     secrets: inherit
+    with:
+      pipeline: qa
 
   get_ip_ranges:
     name: "IP Ranges"
