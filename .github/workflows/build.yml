@@ -6,6 +6,12 @@ on:
       registry:
         description: "AWS registry where the ECR is located"
         value: ${{ jobs.image_build.outputs.registry }}
+    inputs:
+      pipeline:
+        description: 'Define the pipeline in use. One of main or qa'
+        required: true
+        default: 'main'
+        type: string
 
 jobs:
   image_build:
@@ -83,7 +89,7 @@ jobs:
           REGISTRY: ${{ steps.ecr-login.outputs.registry }}
           REPOSITORY: ${{ vars.ECR_REPOSITORY }}
           IMAGE_TAG: ${{ github.sha }}
-          PIPELINE_TAG: ${{ inputs.pipeline }}
+          PIPELINE_TAG: ${{ github.events.inputs.pipeline }}
           ACF_PRO_LICENSE: ${{ secrets.ACF_PRO_LICENSE }}
           ACF_PRO_PASS: ${{ secrets.ACF_PRO_PASS }}
           AS3CF_PRO_USER: ${{ secrets.AS3CF_PRO_USER }}
