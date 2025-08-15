@@ -18,6 +18,7 @@
     "integrated": true,
     "example_link": "https://intranet.dev.wp.dsd.io/",
     "used_on_templates": [],
+    "changelog": [
         {
             "date": "30/11/17",
             "author": "Adam",
