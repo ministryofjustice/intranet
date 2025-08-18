@@ -16,8 +16,6 @@ jobs:
     if: github.event.ref == 'refs/heads/main'
     uses: ./.github/workflows/build.yml
     secrets: inherit
-    with:
-      pipeline: main
 
   get_ip_ranges:
     name: "IP Ranges"
