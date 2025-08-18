@@ -89,7 +89,7 @@ jobs:
           REGISTRY: ${{ steps.ecr-login.outputs.registry }}
           REPOSITORY: ${{ vars.ECR_REPOSITORY }}
           IMAGE_TAG: ${{ github.sha }}
-          PIPELINE_TAG: ${{ github.events.inputs.pipeline }}
+          PIPELINE_TAG: ${{ inputs.pipeline }}
           ACF_PRO_LICENSE: ${{ secrets.ACF_PRO_LICENSE }}
           ACF_PRO_PASS: ${{ secrets.ACF_PRO_PASS }}
           AS3CF_PRO_USER: ${{ secrets.AS3CF_PRO_USER }}
