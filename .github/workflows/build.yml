@@ -10,6 +10,12 @@ on:
       registry:
         description: "AWS registry where the ECR is located"
         value: ${{ jobs.image_build.outputs.registry }}
+    inputs:
+      pipeline:
+        description: 'Define the pipeline in use. One of main or qa'
+        required: true
+        default: 'main'
+        type: string
 
 jobs:
   image_build:
