@@ -17,7 +17,6 @@ on:
         type: string
       pipeline:
         description: 'Define the pipeline in use. One of main or qa'
-        required: true
         default: 'main'
         type: string
 
