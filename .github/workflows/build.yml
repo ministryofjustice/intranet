@@ -86,6 +86,8 @@ jobs:
           docker image push $REGISTRY/$REPOSITORY:nginx-$IMAGE_TAG
           docker image push $REGISTRY/$REPOSITORY:cron-$IMAGE_TAG
           docker image push $REGISTRY/$REPOSITORY:s3-push-$IMAGE_TAG
+
+          # ░░ QA
           
           docker image push $REGISTRY/$REPOSITORY:fpm-$PIPELINE_TAG
           docker image push $REGISTRY/$REPOSITORY:nginx-$PIPELINE_TAG
