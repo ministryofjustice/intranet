@@ -45,6 +45,8 @@ jobs:
     if: ${{ needs.eligibility.outputs.eligible == 'true' }}
     uses: ./.github/workflows/build.yml
     secrets: inherit
+    with:
+      pipeline: qa
 
   get_ip_ranges:
     name: "IP Ranges"
@@ -70,4 +72,5 @@ jobs:
       registry: ${{ needs.image.outputs.registry }}
       ips_formatted: ${{ needs.get_ip_ranges.outputs.ips_formatted }}
       modsec_config: ${{ needs.modsec_config.outputs.demo }}
+      pipeline: qa
     secrets: inherit
