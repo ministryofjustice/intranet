@@ -3,15 +3,23 @@
 /* Ctgen v1.0.0
    Author: Alex Foxleigh (github.com/foxleigh81)
    Description: A tool to automatically generate a component and it's associated folder structure.
-   Usage: 'node ctgen'
+   Usage: 'node ctgen.js'
  */
 
-var chalk = require('chalk')
 var inquirer = require('inquirer')
 var exec = require('child_process').exec
 var fs = require('fs')
 var path = require('path')
 var yml = require('js-yaml')
+
+var chalk = {
+  magenta: function (msg) { return '\x1b[35m' + msg + '\x1b[0m' },
+  white: function (msg) { return '\x1b[37m' + msg + '\x1b[0m' },
+  blue: function (msg) { return '\x1b[34m' + msg + '\x1b[0m' },
+  green: function (msg) { return '\x1b[32m' + msg + '\x1b[0m' },
+  red: function (msg) { return '\x1b[31m' + msg + '\x1b[0m' },
+  yellow: function (msg) { return '\x1b[33m' + msg + '\x1b[0m' }
+}
 
 // Initialise a config variable
 var config
@@ -34,7 +42,7 @@ console.log(chalk.magenta('=============================================\n\n'))
 fs.stat(path.join('clarity.yml'), function (err, stat) {
   if (err === null) {
     console.log(chalk.green('clarity.yml detected!\nLoading your preferences...\n\n'))
-    config = yml.safeLoad(fs.readFileSync(path.join('clarity.yml'), 'utf8'))
+    config = yml.load(fs.readFileSync(path.join('clarity.yml'), 'utf8'))
     questionTime()
   } else if (err.code === 'ENOENT') {
     console.error(chalk.red('clarity.yml not found. Please add one to the root of your project. A template can be found at https://git.io/v5Tt2 \nProcess aborted with errors'))
@@ -169,7 +177,7 @@ var fileGen = function (answers) {
 var finishUp = function (componentName, answers) {
   console.log(chalk.green('Component "', componentName, '" has been created'))
   // 7. A message is displayed to the user that component [component name] has been created and is ready to edit
-  console.log(chalk.white.bgRed('\n  ** Please note: **  '))
+  console.log(chalk.red('\n  ** Please note: **  '))
   console.warn(chalk.white('\nThis has generated most of the documentation required in component.json but please ensure you keep it up to date and add any additional information to it.'))
   if (answers.usesJavaScript) console.warn(chalk.white('\nAs you have specified JavaScript is being used, an example plugin has been created for you. Please ensure you rename this file to the name of your function and keep to the "one function per file" principle\n'))
 }

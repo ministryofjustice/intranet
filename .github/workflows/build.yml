@@ -6,6 +6,11 @@ on:
       registry:
         description: "AWS registry where the ECR is located"
         value: ${{ jobs.image_build.outputs.registry }}
+    inputs:
+      pipeline:
+        description: 'Define the pipeline in use. One of main or qa'
+        default: 'main'
+        type: string
 
 jobs:
   image_build:
@@ -46,21 +51,25 @@ jobs:
           
           # ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
                
-          docker image build -t $REGISTRY/$REPOSITORY:fpm-$IMAGE_TAG \
+          docker image build \
+            -t $REGISTRY/$REPOSITORY:fpm-$PIPELINE_TAG-$IMAGE_TAG \
             --build-arg ACF_PRO_LICENSE="$ACF_PRO_LICENSE" --build-arg ACF_PRO_PASS="$ACF_PRO_PASS"     \
             --build-arg AS3CF_PRO_USER="$AS3CF_PRO_USER"   --build-arg AS3CF_PRO_PASS="$AS3CF_PRO_PASS" \
             --build-arg IMAGE_TAG="$IMAGE_TAG" \
             --target build-fpm .
           
-          docker image build -t $REGISTRY/$REPOSITORY:nginx-$IMAGE_TAG \
+          docker image build \
+            -t $REGISTRY/$REPOSITORY:nginx-$PIPELINE_TAG-$IMAGE_TAG \
             --build-arg ACF_PRO_LICENSE="$ACF_PRO_LICENSE" --build-arg ACF_PRO_PASS="$ACF_PRO_PASS"     \
             --build-arg AS3CF_PRO_USER="$AS3CF_PRO_USER"   --build-arg AS3CF_PRO_PASS="$AS3CF_PRO_PASS" \
             --target build-nginx .
           
-          docker image build -t $REGISTRY/$REPOSITORY:cron-$IMAGE_TAG \
+          docker image build \
+            -t $REGISTRY/$REPOSITORY:cron-$PIPELINE_TAG-$IMAGE_TAG \
             --target build-cron .
 
-          docker image build -t $REGISTRY/$REPOSITORY:s3-push-$IMAGE_TAG \
+          docker image build \
+            -t $REGISTRY/$REPOSITORY:s3-push-$PIPELINE_TAG-$IMAGE_TAG \
             --build-arg ACF_PRO_LICENSE --build-arg ACF_PRO_PASS   \
             --build-arg AS3CF_PRO_USER  --build-arg AS3CF_PRO_PASS \
             --build-arg IMAGE_TAG \
@@ -68,10 +77,10 @@ jobs:
 
           # ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
           
-          docker image push $REGISTRY/$REPOSITORY:fpm-$IMAGE_TAG
-          docker image push $REGISTRY/$REPOSITORY:nginx-$IMAGE_TAG
-          docker image push $REGISTRY/$REPOSITORY:cron-$IMAGE_TAG
-          docker image push $REGISTRY/$REPOSITORY:s3-push-$IMAGE_TAG
+          docker image push $REGISTRY/$REPOSITORY:fpm-$PIPELINE_TAG-$IMAGE_TAG
+          docker image push $REGISTRY/$REPOSITORY:nginx-$PIPELINE_TAG-$IMAGE_TAG
+          docker image push $REGISTRY/$REPOSITORY:cron-$PIPELINE_TAG-$IMAGE_TAG
+          docker image push $REGISTRY/$REPOSITORY:s3-push-$PIPELINE_TAG-$IMAGE_TAG
           
           # ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
 
@@ -79,6 +88,7 @@ jobs:
           REGISTRY: ${{ steps.ecr-login.outputs.registry }}
           REPOSITORY: ${{ vars.ECR_REPOSITORY }}
           IMAGE_TAG: ${{ github.sha }}
+          PIPELINE_TAG: ${{ inputs.pipeline }}
           ACF_PRO_LICENSE: ${{ secrets.ACF_PRO_LICENSE }}
           ACF_PRO_PASS: ${{ secrets.ACF_PRO_PASS }}
           AS3CF_PRO_USER: ${{ secrets.AS3CF_PRO_USER }}
