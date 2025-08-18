@@ -76,7 +76,12 @@ services:
       - dist:/node/dist
       - ./public/app/themes/clarity/src:/node/src
       - ./public/app/themes/clarity/inc:/node/inc
+      - ./public/app/themes/clarity/scaffold:/node/scaffold
+      - ./public/app/themes/clarity/clarity.yml:/node/clarity.yml
+      - ./public/app/themes/clarity/component-register.html:/node/component-register.html
+      - ./public/app/themes/clarity/ctgen.js:/node/ctgen.js
       - ./public/app/themes/clarity/jsconfig.json:/node/jsconfig.json
+      - ./public/app/themes/clarity/genreg.js:/node/genreg.js
       - ./public/app/themes/clarity/package.json:/node/package.json
       - ./public/app/themes/clarity/package-lock.json:/node/package-lock.json
       - ./public/app/themes/clarity/webpack.mix.js:/node/webpack.mix.js
