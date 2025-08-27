@@ -13,3 +13,5 @@ else
     # This will happen during a first run on localhost.
     echo 'WordPress is not installed yet, so skipping command `wp sync-user-roles sync` and `wp cluster-helper register-self` in `fpm-start.sh`.'
 fi
+
+echo "fpm started"
