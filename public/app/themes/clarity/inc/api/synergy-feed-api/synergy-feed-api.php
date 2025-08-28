@@ -81,8 +81,8 @@ class SynergyFeedApi
             }
 
             $query = http_build_query([
-                    'agency' => $data['agencies'][0],
-                    'content_type' => $data['content_type'],
+                'agency' => $data['agencies'][0],
+                'content_type' => $data['content_type'],
             ]);
 
             // Add this entry to the feeds response.
@@ -154,7 +154,7 @@ class SynergyFeedApi
         // Construct a request ID, this will be used in the CSV filename to help identify the request.
         $request_id = "{$agency}_{$content_type}";
 
-        if($modified_after) {
+        if ($modified_after) {
             $request_id .= '_modified-after-' . str_replace(':', '-', $modified_after);
         }
 
@@ -183,15 +183,11 @@ class SynergyFeedApi
                 );
             }
 
-            // Is there a modified_after parameter is this page modified after the provided date?
-            if (!$modified_after || strtotime($page->post_modified) > strtotime($modified_after)) {
-                // If it is, then format the page and add it to the response.
-                $root_page_formatted = $this->formatPagePayload($page, $agency, $content_type, $format);
-                $data['items'][] = $root_page_formatted;
-            }
+            // Format the page and add it to the response.
+            $data['items'][] = $this->formatPagePayload($page, $agency, $content_type, $format);
 
-            // Get all descendants of the page, optionally filtered by modified date.
-            $descendants = $this->getAllDescendants(page_id: $page->ID, modified_after: $modified_after);
+            // Get all descendants of the page.
+            $descendants = $this->getAllDescendants($page->ID);
 
             // Map over the descendants and format them.
             $descendants_formatted = array_map(function ($descendant) use ($format, $agency, $content_type) {
@@ -202,6 +198,9 @@ class SynergyFeedApi
             array_push($data['items'], ...$descendants_formatted);
         }
 
+
+        $documents_formatted = [];
+
         // Loop over the pages, and add documents to the items.
         foreach ($data['items'] as &$item) {
             // Get the documents from the content of the page.
@@ -210,18 +209,45 @@ class SynergyFeedApi
             // Add document_ids to a linked documents column
             $item['linked_ids'] = $document_ids;
 
-            // If there are documents, add them to the item.
-            // if (!empty($document_ids)) {
-            //     $document_id = 551396;
-            //     $document = get_post($document_id);
-            //     $data['items'][] = $this->formatPagePayload(
-            //         $document,
-            //         $agency,
-            //         $content_type,
-            //         $format
-            //     );
-            // }
+            foreach ($document_ids as $document_id) {
+                $exists_in_document_formatted = $this->arrayFind(
+                    $documents_formatted,
+                    fn($i) => $i['id'] === $document_id
+                );
+
+                if ($exists_in_document_formatted) {
+                    // If the document already exists in the formatted array, skip it.
+                    continue;
+                }
+
+                // Get the document post object.
+                $document = get_post($document_id);
+
+                if (!$document) {
+                    continue; // If the document does not exist, skip to the next iteration.
+                }
+
+
+                if (!$modified_after || strtotime($document->post_modified) > strtotime($modified_after)) {
+                    $documents_formatted[] = $this->formatPagePayload(
+                        $document,
+                        $agency,
+                        $content_type,
+                        $format
+                    );
+                }
+            }
         }
+
+        // Filter $data['items'] to remove pages that were not modified after $modified_after.
+        if ($modified_after) {
+            $data['items'] = array_filter($data['items'], function ($item) use ($modified_after) {
+                return strtotime($item['modified']) > strtotime($modified_after);
+            });
+        }
+
+        // Add the documents to the items.
+        $data['items'] = array_merge($data['items'], $documents_formatted);
 
         // Count the items in the response.
         $data['items_count'] = count($data['items']);
@@ -273,7 +299,7 @@ class SynergyFeedApi
 
             // Set the headers for the CSV download.
             header('Content-Type: text/csv');
-            header('Content-Disposition: attachment; filename="synergy_feed_' .$data['request_id'] . '.csv"');
+            header('Content-Disposition: attachment; filename="synergy_feed_' . $data['request_id'] . '.csv"');
 
             // Stream the CSV data to the browser/client.
             $out = fopen('php://output', 'w');
@@ -281,13 +307,14 @@ class SynergyFeedApi
             // Write the header row.
             fputcsv($out, [
                 self::CSV_HEADERS['id'],
+                self::CSV_HEADERS['linked_ids'],
                 self::CSV_HEADERS['title'],
                 self::CSV_HEADERS['agency'],
                 self::CSV_HEADERS['additional_agencies'],
                 self::CSV_HEADERS['content_type'],
                 self::CSV_HEADERS['status'],
                 self::CSV_HEADERS['location'],
-                self::CSV_HEADERS['format'],
+                self::CSV_HEADERS['file_type'],
                 self::CSV_HEADERS['url'],
                 self::CSV_HEADERS['author'],
                 self::CSV_HEADERS['additional_authors'],
@@ -299,16 +326,17 @@ class SynergyFeedApi
             foreach ($data['items'] as $item) {
                 fputcsv($out, [
                     $item['id'],
+                    implode(', ', $item['linked_ids'] ?? []),
                     $item['title'],
                     $item['agency'],
-                    implode(',', $item['additional_agencies']),
+                    implode(', ', $item['additional_agencies']),
                     $item['content_type'],
                     self::CSV_STATUSES[$item['status']] ?? $item['status'],
                     $item['location'],
-                    'Web Page',
+                    $item['file_type'],
                     $item['url'],
                     $item['author'],
-                    implode(',', $item['additional_authors']),
+                    implode(', ', $item['additional_authors']),
                     $item['published'],
                     $item['modified'],
                 ]);
@@ -329,53 +357,23 @@ class SynergyFeedApi
         exit;
     }
 
-    /**
-     * Modify the query arguments for get_pages to include a date_query.
-     * 
-     * This is necessary because get_pages does not support date_query by default.
-     * 
-     * @param array $query_args The query arguments for get_pages.
-     * @param array $passed_args The arguments passed to the get_pages function.
-     * @return array The modified query arguments.
-     */
-    public function modifyGetPagesQueryArgs($query_args, $passed_args)
-    {
-        $query_args['date_query'] = $passed_args['date_query'] ?? [];
-
-        return $query_args;
-    }
-
 
     /**
      * Get all descendants of a page, optionally filtered by modified date.
      * 
      * @param int $page_id The ID of the page to get descendants for.
-     * @param string|null  $modified_after Optional. A date in ISO 8601 format to filter descendants by their last modified date.
      * @return array An array of page objects representing the descendants.
      */
-    public function getAllDescendants(int $page_id, string|null $modified_after): array
+    public function getAllDescendants(int $page_id): array
     {
         $get_pages_args = [
             'child_of' => $page_id,
             'sort_column' => 'menu_order',
             'sort_order' => 'ASC',
             'post_type' => 'page',
-            // Optionally add a date query to filter by modified date.
-            ...(!empty($modified_after) ? ['date_query' => [
-                'column' => 'post_modified',
-                'after' => $modified_after,
-            ]] : [])
         ];
 
-        // Add a filter to modify the query args for get_pages.
-        // This is necessary to ensure that the date_query is applied correctly.
-        add_filter('get_pages_query_args', [$this, 'modifyGetPagesQueryArgs'], 10, 2);
-
         $descendants = get_pages($get_pages_args);
-
-        // Remove the filter after we have retrieved the pages.
-        // This is important to avoid affecting other queries that use get_pages.
-        remove_filter('get_pages_query_args', [$this, 'modifyGetPagesQueryArgs'], 10, 2);
 
         return $descendants;
     }
@@ -416,6 +414,15 @@ class SynergyFeedApi
         $agency_term = get_term_by('slug', $agency, 'agency');
         $location = "MoJ Intranet - {$agency_term->name}";
 
+        $file_type = $format === 'markdown' ? 'md' : 'html';
+
+        if ($page->post_type === 'document') {
+            global $wpdr;
+            $attach = $wpdr->get_document($page->ID);
+            $file = get_attached_file($attach->ID);
+            $file_type = pathinfo($file, PATHINFO_EXTENSION);
+        }
+
         $formatted_page = [
             'id' => $page->ID,
             // Post title.
@@ -454,7 +461,10 @@ class SynergyFeedApi
             'location' => $location,
             // Less important properties...
             'status' => $page->post_status,
+            // Post type
             'type' => $page->post_type,
+            // File type, if applicable.
+            'file_type' => $file_type,
             // Finally, add the content to the page object.
             'content' => $page->post_content,
         ];

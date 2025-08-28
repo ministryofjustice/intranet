@@ -9,13 +9,14 @@ trait Constants
 
     const CSV_HEADERS = [
         'id' => 'ID',
+        'linked_ids' => 'Linked IDs',
         'title' => 'Document Title',
         'agency' => 'Organisation',
         'additional_agencies' => 'Additional Organisations',
         'content_type' => 'Functional Area',
         'status' => 'Status',
         'location' => 'Location',
-        'format' => 'File Format',
+        'file_type' => 'File Format',
         'url' => 'Link',
         'author' => 'Author',
         'additional_authors' => 'Additional Authors',
