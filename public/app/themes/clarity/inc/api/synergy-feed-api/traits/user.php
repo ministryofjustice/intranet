@@ -15,7 +15,6 @@ trait User
      */
     public function userHasPermission(): bool
     {
-        return true;
         // If the user is an administrator, they have permission.
         if (current_user_can('administrator')) {
             return true;
