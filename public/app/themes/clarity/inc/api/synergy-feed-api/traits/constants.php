@@ -6,7 +6,6 @@ defined('ABSPATH') || exit;
 
 trait Constants
 {
-
     const CSV_HEADERS = [
         'id' => 'ID',
         'linked_ids' => 'Linked IDs',
