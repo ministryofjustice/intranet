@@ -37,6 +37,7 @@ trait PageContent
      */
     const ACF_TEMPLATES = [
         'page_campaign_content.php',
+        'page_campaign_landing.php',
         'page_guidance_and_support.php',
     ];
 

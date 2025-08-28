@@ -31,9 +31,9 @@ class SynergyFeedApi
     use User;
     use Utils;
 
-    public $agencies = [];
+    public $agencies = ['all'];
 
-    public $content_types = [];
+    public $content_types = ['all'];
 
     public $feeds_response = [];
 
@@ -68,11 +68,9 @@ class SynergyFeedApi
         ];
 
         foreach ($this::BASE_URIS as $uri => $data) {
-            // Add the agencies to the enum for the 'agency' parameter in the REST API route.
-            foreach ($data['agencies'] as $agency) {
-                if (!in_array($agency, $this->agencies)) {
-                    $this->agencies[] = $agency;
-                }
+            // Add the agency to the enum for the 'agency' parameter in the REST API route.
+            if (!in_array($data['agency'], $this->agencies)) {
+                $this->agencies[] = $data['agency'];
             }
 
             // Add the content type to the enum for the 'content_type' parameter in the REST API route.
@@ -81,7 +79,7 @@ class SynergyFeedApi
             }
 
             $query = http_build_query([
-                'agency' => $data['agencies'][0],
+                'agency' => $data['agency'],
                 'content_type' => $data['content_type'],
             ]);
 
@@ -107,7 +105,7 @@ class SynergyFeedApi
      * 
      * @param string $agency The agency to match.
      * @param string $content_type The content type to match.
-     * @return array|null The base URI if found, null otherwise.
+     * @return array|null The base URI array(s) if found, null otherwise.
      */
     public function getBaseUrisFromProperties($agency, $content_type): array|null
     {
@@ -115,7 +113,9 @@ class SynergyFeedApi
         $filtered_uris = array_filter(
             $this::BASE_URIS,
             function ($base_uri) use ($agency, $content_type) {
-                return in_array($agency, $base_uri['agencies']) && $content_type === $base_uri['content_type'];
+                $agency_match = 'all' ===  $agency || $agency === $base_uri['agency'];
+                $content_type_match = 'all' === $content_type || $content_type === $base_uri['content_type'];
+                return $agency_match && $content_type_match;
             }
         );
 
@@ -124,8 +124,8 @@ class SynergyFeedApi
             return null;
         }
 
-        // Return the first matching base URI.
-        return array_keys($filtered_uris);
+        // Return the matching base URI array(s).
+        return $filtered_uris;
     }
 
 
@@ -171,7 +171,14 @@ class SynergyFeedApi
         ];
 
         // Loop over the base URIs.
-        foreach ($base_uris as $base_uri) {
+        foreach ($base_uris as $base_uri => $base_uri_values) {
+
+            // Get the content type for the current iteration, since the request could be for 'all' content types.
+            $content_type = $base_uri_values['content_type'];
+
+            // Get the agency for the current iteration, since the request could be for 'all' agencies.
+            $agency = $base_uri_values['agency'];
+
             // Get the page with the root URI.
             $page = get_page_by_path($base_uri, OBJECT, 'page');
 
@@ -234,8 +241,8 @@ class SynergyFeedApi
                 if (!$modified_after || strtotime($document->post_modified) > strtotime($modified_after)) {
                     $documents_formatted[] = $this->formatPagePayload(
                         $document,
-                        $agency,
-                        $content_type,
+                        $item['agency'],
+                        $item['content_type'],
                         $format
                     );
                 }

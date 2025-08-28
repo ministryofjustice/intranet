@@ -4,6 +4,8 @@ namespace MOJ\Intranet;
 
 defined('ABSPATH') || exit;
 
+use WP_Error;
+
 trait Routes
 {
     /**
