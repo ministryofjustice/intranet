@@ -80,12 +80,15 @@ class SynergyFeedApi
                 $this->content_types[] = $data['content_type'];
             }
 
-            // Add this entry to the feeds response.
-            $this->feeds_response['items'][] = [
-                'feed_api_url' => get_home_url(null, '/wp-json/synergy/v1/feed?' . http_build_query([
+            $query = http_build_query([
                     'agency' => $data['agencies'][0],
                     'content_type' => $data['content_type'],
-                ])),
+            ]);
+
+            // Add this entry to the feeds response.
+            $this->feeds_response['items'][] = [
+                'feed_csv' => get_home_url(null, '/wp-json/synergy/v1/feed.csv?' . $query),
+                'feed_json' => get_home_url(null, '/wp-json/synergy/v1/feed?' . $query),
                 'base_permalink' => get_home_url(null, $uri),
                 ...$data,
             ];
