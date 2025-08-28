@@ -227,6 +227,9 @@ class SynergyFeedApi
                     continue; // If the document does not exist, skip to the next iteration.
                 }
 
+                if (!$document->post_status || $document->post_status !== 'publish') {
+                    continue; // If the document is not published, skip to the next iteration.
+                }
 
                 if (!$modified_after || strtotime($document->post_modified) > strtotime($modified_after)) {
                     $documents_formatted[] = $this->formatPagePayload(

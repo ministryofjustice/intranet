@@ -297,20 +297,14 @@ trait PageContent
 
         // If no matches are found, return an empty array.
         if (empty($matches[1])) {
-            // error_log('No document links found in content.');
             return [];
         }
 
         // Deduplicate the matches to avoid processing the same document multiple times.
         $document_urls = array_unique($matches[1]);
 
-        $document_ids = array_map(function ($document_url) {
-            $document_id = url_to_postid($document_url);
-            if ($document_id === 0) {
-                error_log('No document ID found for URL: ' . $document_url);
-            }
-            return $document_id;
-        }, $document_urls);
+        // Map the document URLs to their IDs.
+        $document_ids = array_map('url_to_postid', $document_urls);
 
         // Filter out any invalid document IDs (0 means no post found).
         $document_ids = array_filter($document_ids, fn ($id) => $id !== 0);
