@@ -4,7 +4,10 @@ namespace MOJ\Intranet;
 
 defined('ABSPATH') || exit;
 
+require_once 'traits/constants.php';
 require_once 'traits/page-content.php';
+require_once 'traits/routes.php';
+require_once 'traits/user.php';
 require_once 'traits/utils.php';
 
 use WP_REST_Request;
@@ -22,154 +25,18 @@ use WP_Error;
  */
 class SynergyFeedApi
 {
+    use Constants;
     use PageContent;
+    use Routes;
+    use User;
     use Utils;
-
-    const CSV_HEADERS = [
-        'id' => 'ID',
-        'title' => 'Document Title',
-        'agency' => 'Organisation',
-        'additional_agencies' => 'Additional Organisations',
-        'content_type' => 'Functional Area',
-        'status' => 'Status',
-        'location' => 'Location',
-        'format' => 'File Format',
-        'url' => 'Link',
-        'author' => 'Author',
-        'additional_authors' => 'Additional Authors',
-        'published' => 'Published Date',
-        'modified' => 'Last Modified Date',
-    ];
-
-    const CSV_STATUSES = [
-        'draft' => 'Draft',
-        'publish' => 'Published',
-        'private' => 'Private',
-        'future' => 'Future',
-        'pending' => 'Pending Review',
-    ];
-
-    const BASE_URIS = [
-        // HR content
-        // These URLs were copied by visiting all Agency's Intranets and extracting the HR link from the top menu.
-        '/guidance/hr/' => [
-            'agencies' => ['hq', 'ospt'],
-            'content_type' => 'hr',
-        ],
-        '/guidance/human-resources-2/' => [
-            'agencies' => ['cica'],
-            'content_type' => 'hr',
-        ],
-        '/corporate-services/human-resources/' => [
-            'agencies' => ['jac'],
-            'content_type' => 'hr',
-        ],
-        '/guidance/hr-matters/' => [
-            'agencies' => ['jo'],
-            'content_type' => 'hr',
-        ],
-        '/guidance/hr-law-commission/' => [
-            'agencies' => ['law-commission'],
-            'content_type' => 'hr',
-        ],
-        '/hmcts-human-resources/' => [
-            'agencies' => ['hmcts'],
-            'content_type' => 'hr',
-        ],
-        '/guidance/human-resources/' => [
-            'agencies' => ['laa'],
-            'content_type' => 'hr',
-        ],
-        '/guidance/hr-opg/' => [
-            'agencies' => ['opg'],
-            'content_type' => 'hr',
-        ],
-        // Finance content
-        // These URLs were copied by visiting all Agency's Intranets clicking 'Guidance & forms' in the top menu,
-        // and then identifying the 'Finance' link on that page.
-        '/guidance/financial-management/' => [
-            'agencies' => ['hq'],
-            'content_type' => 'finance',
-        ],
-        '/guidance/financial-management-2/' => [
-            'agencies' => ['cica'],
-            'content_type' => 'finance',
-        ],
-        '/corporate-services/finance/' => [
-            'agencies' => ['jac'],
-            'content_type' => 'finance',
-        ],
-        '/guidance/finance/' => [
-            'agencies' => ['jo'],
-            'content_type' => 'finance',
-        ],
-        '/guidance/finance-law-commission/' => [
-            'agencies' => ['law-commission'],
-            'content_type' => 'finance',
-        ],
-        '/guidance/finance-job-cards/' => [
-            'agencies' => ['law-commission'],
-            'content_type' => 'finance',
-        ],
-        '/guidance/finance-and-purchasing/' => [
-            'agencies' => ['laa'],
-            'content_type' => 'finance',
-        ],
-        // Commercial content
-        '/guidance/procurement/' => [
-            'agencies' => ['hq'],
-            'content_type' => 'commercial',
-        ],
-        // Guidance, excluding HR, Finance & Commercial
-        // These URLs were provided by the Synergy team.
-        '/guidance/learning-and-development-2/' => [
-            'agencies' => ['cica'],
-            'content_type' => 'guidance',
-        ],
-        '/guidance/business-travel/' => [
-            'agencies' => ['cica'],
-            'content_type' => 'guidance',
-        ],
-        '/guidance/reward-and-recognition/' => [
-            'agencies' => ['cica'],
-            'content_type' => 'guidance',
-        ],
-        '/guidance/operations-area/' => [
-            'agencies' => ['cica'],
-            'content_type' => 'guidance',
-        ],
-        // 2 pages on JAC's /corporate-services, that are not HR, Finance or Commercial.
-        '/corporate-services/fraud-and-whistleblowing/' => [
-            'agencies' => ['jac'],
-            'content_type' => 'guidance',
-        ],
-        '/corporate-services/jac-staff-networks/' => [
-            'agencies' => ['jac'],
-            'content_type' => 'guidance',
-        ],
-        '/guidance/learning-development-in-the-judicial-office/' => [
-            'agencies' => ['jo'],
-            'content_type' => 'guidance',
-        ],
-        '/guidance/learning-and-development-law-commission/' => [
-            'agencies' => ['law-commission'],
-            'content_type' => 'guidance',
-        ],
-        '/guidance/learning-and-development-3/' => [
-            'agencies' => ['laa'],
-            'content_type' => 'guidance',
-        ],
-        '/guidance/contract-management/' => [
-            'agencies' => ['laa'],
-            'content_type' => 'guidance',
-        ],
-    ];
 
     public $agencies = [];
 
     public $content_types = [];
 
     public $feeds_response = [];
+
 
     public function __construct()
     {
@@ -182,6 +49,7 @@ class SynergyFeedApi
         // Allow a subset of users to create an application password for themselves.
         add_filter('rest_authentication_errors', [$this, 'allowUserRestRouteForAdmins'], 11);
     }
+
 
     /**
      * Initialise the properties of the SynergyFeedApi class.
@@ -257,117 +125,6 @@ class SynergyFeedApi
         return array_keys($filtered_uris);
     }
 
-    /**
-     * Does the current user have permission to: 
-     * - access the Synergy feed, and
-     * - create an application password
-     * 
-     * @return bool True if the user has permissions, false otherwise.
-     */
-    public function userHasPermission(): bool
-    {
-        return true;
-        // If the user is an administrator, they have permission.
-        if (current_user_can('administrator')) {
-            return true;
-        }
-
-        // Use the global $moj_auth as it has the jwtHasRole utility function.
-        global $moj_auth;
-
-        return $moj_auth?->jwtHasRole('synergy') && current_user_can('synergy');
-    }
-
-    /**
-     * Register the REST API routes for the Synergy feed.
-     *
-     * @return void
-     */
-    public function registerRoutes(): void
-    {
-        register_rest_route(
-            'synergy/v1',
-            'feeds',
-            [
-                'methods'  => 'GET',
-                'callback' => fn() => $this->feeds_response,
-                'permission_callback' => [$this, 'userHasPermission'],
-            ]
-        );
-
-        // Create an args varaible to be used for the feed and feed.csv routes.
-        $feed_route_args = [
-            'methods'  => 'GET',
-            'callback' => [$this, 'getFeedJson'],
-            'permission_callback' => [$this, 'userHasPermission'],
-            'validate_callback' => function ($request) {
-                // Ensure the request is valid - look for an entry in BASE_URIS with the requested agency and content_type parameters.
-                $base_uris = $this->getBaseUrisFromProperties(
-                    $request->get_param('agency'),
-                    $request->get_param('content_type')
-                );
-
-                // If no base URI is found, return a WP_Error with a 400 status code.
-                if (empty($base_uris)) {
-                    // If no base URI is found, return a WP_Error with a 400 status code.
-                    return new WP_Error(
-                        'invalid_agency_or_content_type',
-                        'Invalid agency and content type combination provided.',
-                        ['status' => 400]
-                    );
-                }
-
-                // If we have a base URI, then the request is valid.
-                return true;
-            },
-            'args' => [
-                'agency' => [
-                    'type'    => 'string',
-                    'default' => 'hq',
-                    'enum' => $this->agencies,
-                ],
-                'content_type' => [
-                    'type'    => 'string',
-                    'default' => 'hr',
-                    'enum' => $this->content_types,
-                ],
-                'modified_after' => [
-                    'type'    => 'string',
-                    'required' => false,
-                    'default' => '',
-                    'validate_callback' => function ($param) {
-                        if (empty($param)) {
-                            return true; // If no value is provided, it's valid.
-                        }
-                        // If a value is provided, validate it.
-                        return $this->isValidIsoDateTime($param);
-                    },
-                ],
-                'format' => [
-                    'type'    => 'string',
-                    'default' => 'markdown',
-                    'enum'    => ['html', 'markdown'],
-                    // validate_callback is not needed here as 'enum' already validates the value.
-                ]
-            ],
-        ];
-
-        register_rest_route(
-            'synergy/v1',
-            // URL is /wp-json/synergy/v1/feed
-            '/feed',
-            $feed_route_args
-        );
-
-        $feed_route_args['callback'] = [$this, 'getFeedCsv'];
-
-        register_rest_route(
-            'synergy/v1',
-            // URL is /wp-json/synergy/v1/feed.csv
-            '/feed.csv',
-            $feed_route_args
-        );
-    }
 
     /**
      * Get the pages for the Synergy API.
@@ -440,6 +197,27 @@ class SynergyFeedApi
 
             // Add the formatted descendants to the response.
             array_push($data['items'], ...$descendants_formatted);
+        }
+
+        // Loop over the pages, and add documents to the items.
+        foreach ($data['items'] as &$item) {
+            // Get the documents from the content of the page.
+            $document_ids = $this->getDocumentsFromContent(get_home_url(), $item['content']);
+
+            // Add document_ids to a linked documents column
+            $item['linked_ids'] = $document_ids;
+
+            // If there are documents, add them to the item.
+            // if (!empty($document_ids)) {
+            //     $document_id = 551396;
+            //     $document = get_post($document_id);
+            //     $data['items'][] = $this->formatPagePayload(
+            //         $document,
+            //         $agency,
+            //         $content_type,
+            //         $format
+            //     );
+            // }
         }
 
         // Count the items in the response.
@@ -564,6 +342,7 @@ class SynergyFeedApi
         return $query_args;
     }
 
+
     /**
      * Get all descendants of a page, optionally filtered by modified date.
      * 
@@ -678,90 +457,6 @@ class SynergyFeedApi
         ];
 
         return $formatted_page;
-    }
-
-    /**
-     * This function allows the user to access the /wp/v2/users/me REST route
-     * if they are an administrator. If not, it returns the result of the
-     * rest_authentication_errors filter.
-     * 
-     * This is a thorough workaround for the security plugin that blocks access to the
-     * /wp/v2/users/<own_user_id>/application-passwords REST route for all users.
-     * 
-     * @param WP_Error|null The result of the rest_authentication_errors filter, so far.
-     * @return WP_Error|null The filtered result, null if conditions are met.
-     */
-    public function allowUserRestRouteForAdmins($result)
-    {
-        // Check if class exists, if not then do noting.
-        if (!class_exists('MOJComponents\Security\FilterRestAPI')) {
-            return $result;
-        }
-
-        // Check if the passed in value is an error, if not then do nothing.
-        if (!is_wp_error($result)) {
-            return $result;
-        }
-
-        // Check if we are an administrator, if not then do nothing.
-        if (!current_user_can('administrator')) {
-            return $result;
-        }
-
-        // Check if we are on the specific REST API route, if not then do nothing.
-        $rest_route = $GLOBALS['wp']->query_vars['rest_route'];
-
-        if (!$rest_route) {
-            return $result;
-        }
-
-        // Is rest route in the pattern we are looking for? Where user_id is for the user being edited.
-        // e.g. /wp/v2/users/<user_id>/application-passwords(/<application_password_id>)?
-        $user_id = preg_replace('/^\/wp\/v2\/users\/(\d+)\/application-passwords(\/[0-9a-fA-F\-]{36})?$/', '$1', $rest_route);
-
-        if (!$user_id || !is_numeric($user_id)) {
-            // If the user ID is not numeric, then return the result.
-            return $result;
-        }
-
-        // The user must be role 'synergy'.
-        $user_role = get_userdata($user_id)->roles[0] ?? '';
-
-        if ('synergy' !== $user_role) {
-            // If the user is not a synergy user, then return the result.
-            return $result;
-        }
-
-        // Check if the referrer is the allowed referrer, if not then do nothing.
-        $allowed_referrer = get_admin_url(null, 'user-edit.php?user_id=' . $user_id);
-
-        if (!str_starts_with(wp_get_referer(), $allowed_referrer)) {
-            return $result;
-        }
-
-        // Check if the error message is the one we are looking for, if not then do nothing.
-        $error_messages = $result->get_error_messages();
-        if (count($error_messages) !== 1 || $error_messages[0] !== esc_html__('Only authenticated users can access the REST API.')) {
-            return $result;
-        }
-
-        // Check if the error data is the one we are looking for, if not then do nothing.
-        $error_data = $result->get_error_data();
-        if (count($error_data) !== 1 || $error_data['status'] !== 403) {
-            return $result;
-        }
-
-        // If we are here, the whe have satisfied the following conditions:
-        // 1. The class exists.
-        // 2. The passed in value is an error(s).
-        // 3. The user is an administrator.
-        // 4. The REST API route is one of the allowed routes.
-        // 5. The referrer is the allowed referrer.
-        // 6. The error message is the one we are looking for.
-        // 7. The error data is the one we are looking for.
-        // So we can return null to allow the admin user to access the REST API route.
-
-        return null;
     }
 }
 

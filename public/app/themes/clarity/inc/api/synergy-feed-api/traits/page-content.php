@@ -6,9 +6,13 @@ defined('ABSPATH') || exit;
 
 trait PageContent
 {
+    public $home_url = '';
+
     public $content = null;
 
     public $hooks_added = false;
+
+    public $document_url_regex = '';
 
     /**
      * A list of page templates, where the content is stored as markdown exclusively in the 'content' field.
@@ -36,6 +40,7 @@ trait PageContent
         'page_guidance_and_support.php',
     ];
 
+
     /**
      * Get the content of the page.
      *
@@ -61,6 +66,7 @@ trait PageContent
 
         return null;
     }
+
 
     /**
      * Get the content of the page when using a markdown template.
@@ -96,7 +102,7 @@ trait PageContent
      */
     public function addHooksForContent(): void
     {
-        if($this->hooks_added) {
+        if ($this->hooks_added) {
             // If the hooks have already been added, then return early.
             return;
         }
@@ -118,6 +124,7 @@ trait PageContent
         // Set the hooks_added property to true, so that we don't add the hooks again.
         $this->hooks_added = true;
     }
+
 
     /**
      * Get the content of the page when using a template that makes use of ACF fields.
@@ -190,6 +197,7 @@ trait PageContent
         return $content;
     }
 
+
     /**
      * Remove the markdown filters that are added by the php-markdown-extra plugin.
      * 
@@ -229,5 +237,54 @@ trait PageContent
             'Michelf\Bootstrap',
             'markdown'
         );
+    }
+
+
+    /**
+     * Get documents (of document post type) from page content.
+     *
+     * This function retrieves document URLs from the content of a page.
+     * It uses a regular expression to find all document links in the content.
+     *
+     * @param string $home_url The home URL of the site, used to match document URLs.
+     * @param string $content The content of the page to search for document links.
+     * @return array An array of document URLs found in the content.
+     */
+    public static function getDocumentsFromContent(string $home_url, string $content): array
+    {
+        // Set the document URL regex - optional home_url, followed by /documents/*.
+        $document_url_regex = '/(' . preg_quote($home_url, '/') . ')?\/documents\/[^\'"\)\s]+/i';
+
+        // If the content is empty, return an empty array.
+        if (empty($content)) {
+            return [];
+        }
+
+        // Use the document URL regex to find all document links in the content.
+        preg_match_all($document_url_regex, $content, $matches);
+
+        // If no matches are found, return an empty array.
+        if (empty($matches[0])) {
+            error_log('No document links found in content.');
+            return [];
+        }
+
+        // Deduplicate the matches to avoid processing the same document multiple times.
+        $matches[0] = array_unique($matches[0]);
+
+        $document_ids = array_map(function ($match) {
+            $document_id = url_to_postid($match);
+            if ($document_id === 0) {
+                error_log('No document ID found for URL: ' . $match);
+            }
+            return $document_id;
+        }, $matches[0]);
+
+        // Filter out any invalid document IDs (0 means no post found).
+        $document_ids = array_filter($document_ids, function ($id) {
+            return $id > 0;
+        });
+
+        return $document_ids;
     }
 }
