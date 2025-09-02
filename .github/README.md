@@ -592,14 +592,17 @@ When the JWT_SECRET is rotated, a new JWT token will need to be generated, and t
 
 #### Synergy Endpoints
 
-Two API endpoints are available to facilitate content syndication from the intranet to the Synergy platform.
+Three API endpoints are available to facilitate content syndication from the intranet to the Synergy platform.
 
 - https://intranet.justice.gov.uk/wp-json/synergy/v1/feeds
 - https://intranet.justice.gov.uk/wp-json/synergy/v1/feed?agency={agency}content_type={content_type}
+- https://intranet.justice.gov.uk/wp-json/synergy/v1/feed.csv?agency={agency}content_type={content_type}
 
 The `feeds` endpoint returns a list of available feeds.
 
-The `feed` endpoint returns a specific feed for a given agency and content type. The feed includes pages for the specified agency and content type, along with their metadata.
+The `feed` and `feed.csv` endpoints return a specific feed for a given agency and content type. The feed includes pages and documents for the specified agency and content type, along with their metadata.
+
+To get an aggregate of multiple agencies or content types, the `agency` and/or `content_type` parameters can be set to `all`.
 
 An optional parameter of `modified_after` should be used to get recently modified content. The value should be in ISO date-time format, e.g. `2023-10-01T00:00:00Z`.
 
