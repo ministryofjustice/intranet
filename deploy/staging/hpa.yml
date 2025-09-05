@@ -39,7 +39,7 @@ spec:
           # If the request is cpu: 50m, let's scale at 30m
           # type: Utilization
           # averageUtilization: 60
-          # Test out using AverageValue instead no mitigate duplicate logs as described in:
+          # Test out using AverageValue instead to mitigate duplicate logs as described in:
           # https://github.com/kubernetes/kube-state-metrics/issues/2403
           type: AverageValue
           averageValue: 30m
@@ -51,7 +51,7 @@ spec:
           # If the request is memory: 100Mi, let's scale at 70Mi
           # type: Utilization
           # averageUtilization: 70
-          # Test out using AverageValue instead no mitigate duplicate logs as described in:
+          # Test out using AverageValue instead to mitigate duplicate logs as described in:
           # https://github.com/kubernetes/kube-state-metrics/issues/2403
           type: AverageValue
           averageValue: 70Mi
