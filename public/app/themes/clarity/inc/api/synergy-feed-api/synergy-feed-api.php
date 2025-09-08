@@ -136,10 +136,9 @@ class SynergyFeedApi
      * It returns an array containing the matching pages.
      * 
      * @param WP_REST_Request $request The request object containing the parameters.
-     * @return array The response data containing the feed items.
-     * @throws WP_Error If the page is not found or if there is an error in the request.
+     * @return array|WP_Error The response data containing the feed items.
      */
-    public function getFeed(WP_REST_Request $request): array
+    public function getFeed(WP_REST_Request $request): array|WP_Error
     {
         $format = $request->get_param('format');
 
@@ -183,7 +182,7 @@ class SynergyFeedApi
             $page = get_page_by_path($base_uri, OBJECT, 'page');
 
             if (!$page) {
-                throw new WP_Error(
+                return new WP_Error(
                     'page_not_found',
                     'Page not found for the provided base URI.',
                     ['status' => 404]
@@ -205,7 +204,7 @@ class SynergyFeedApi
             array_push($data['items'], ...$descendants_formatted);
         }
 
-
+        global $wpdr;
         $documents_formatted = [];
 
         // Loop over the pages, and add documents to the items.
@@ -231,11 +230,19 @@ class SynergyFeedApi
                 $document = get_post($document_id);
 
                 if (!$document) {
-                    continue; // If the document does not exist, skip to the next iteration.
+                    // If the document does not exist, skip to the next iteration.
+                    continue;
                 }
 
                 if (!$document->post_status || $document->post_status !== 'publish') {
-                    continue; // If the document is not published, skip to the next iteration.
+                    // If the document is not published, skip to the next iteration.
+                    continue;
+                }
+
+                if (!$wpdr->get_document($document->ID)) {
+                    // If the document is not found in WP Document Revisions, skip to the next iteration.
+                    // This is an edge case where a document has no attachment.
+                    continue; 
                 }
 
                 if (!$modified_after || strtotime($document->post_modified) > strtotime($modified_after)) {
@@ -278,18 +285,19 @@ class SynergyFeedApi
      */
     public function getFeedJson(WP_REST_Request $request): WP_REST_Response
     {
-        try {
-            $data = $this->getFeed($request);
-            // Return a WP_REST_Response with the data and a 200 status code.
-            return new WP_REST_Response($data, 200);
-        } catch (WP_Error $e) {
-            // If an error occurs, return a WP_REST_Response with the error data.
+        $data = $this->getFeed($request);
+
+        if (is_wp_error($data)) {
+            // If an error occurred, return a WP_REST_Response with the error data.
             return new WP_REST_Response([
-                'error' => $e->get_error_message(),
-                'code' => $e->get_error_code(),
-                'status' => $e->get_error_data()['status'] ?? 500,
-            ], $e->get_error_data()['status'] ?? 500);
+                'error' => $data->get_error_message(),
+                'code' => $data->get_error_code(),
+                'status' => $data->get_error_data()['status'] ?? 500,
+            ], $data->get_error_data()['status'] ?? 500);
         }
+
+        // Return a WP_REST_Response with the data and a 200 status code.
+        return new WP_REST_Response($data, 200);
     }
 
 
@@ -304,9 +312,21 @@ class SynergyFeedApi
      */
     public function getFeedCsv(WP_REST_Request $request): string
     {
-        try {
-            $data = $this->getFeed($request);
+        $data = $this->getFeed($request);
 
+        if (is_wp_error($data)) {
+            // If an error occurred, return a JSON response with the error data.
+            header('Content-Type: application/json');
+            http_response_code($data->get_error_data()['status'] ?? 500);
+            echo json_encode([
+                'error' => $data->get_error_message(),
+                'code' => $data->get_error_code(),
+                'status' => $data->get_error_data()['status'] ?? 500,
+            ]);
+            exit;
+        }
+
+        try {
             // Set the headers for the CSV download.
             header('Content-Type: text/csv');
             header('Content-Disposition: attachment; filename="synergy_feed_' . $data['request_id'] . '.csv"');
@@ -353,15 +373,15 @@ class SynergyFeedApi
             }
 
             fclose($out);
-        } catch (WP_Error $e) {
+        } catch (\Exception $e) {
+            // If an error occurred while writing the CSV, return a JSON response with the error data
             header('Content-Type: application/json');
-            http_response_code($e->get_error_data()['status'] ?? 500);
+            http_response_code(500);
             echo json_encode([
-                'error' => $e->get_error_message(),
-                'code' => $e->get_error_code(),
-                'status' => $e->get_error_data()['status'] ?? 500,
+                'error' => 'An error occurred while generating the CSV file: ' . $e->getMessage(),
+                'code' => 'csv_generation_error',
+                'status' => 500,
             ]);
-            exit;
         }
 
         exit;
@@ -429,7 +449,7 @@ class SynergyFeedApi
         if ($page->post_type === 'document') {
             global $wpdr;
             $attach = $wpdr->get_document($page->ID);
-            $file = get_attached_file($attach->ID);
+            $file = get_attached_file($attach?->ID ?? 0);
             $file_type = pathinfo($file, PATHINFO_EXTENSION);
         }
 
