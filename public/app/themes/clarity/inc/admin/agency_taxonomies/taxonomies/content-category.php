@@ -35,7 +35,7 @@ class Content_Category extends Taxonomy
             $administrator->add_cap($this->args['capabilities']['assign_terms']);
 
             $agency_editor = get_role('agency-editor');
-            $agency_editor->add_cap($this->args['capabilities']['assign_terms']);
+            $agency_editor?->add_cap($this->args['capabilities']['assign_terms']);
         }
     }
 
