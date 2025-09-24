@@ -221,12 +221,16 @@ RUN rm -rf node_modules
 
 FROM base-fpm AS build-fpm
 
+# Set the WP_CLI configuration path - so that the `wp` command can be run from anywhere 
+# e.g. /usr/local/bin/docker-entrypoint.d/fpm-start.sh
+ENV WP_CLI_CONFIG_PATH=/var/www/html/wp-cli.yml
+
 WORKDIR /var/www/html
 COPY --chown=nginx:nginx ./config ./config
 COPY --chown=nginx:nginx ./public ./public
 COPY --chown=nginx:nginx wp-cli.yml wp-cli.yml
 
-# Replace paths with dependanies from build-fpm-composer
+# Replace paths with dependencies from build-fpm-composer
 ARG path="/var/www/html"
 COPY --from=build-fpm-composer ${path}/public/app/mu-plugins public/app/mu-plugins
 COPY --from=build-fpm-composer ${path}/public/app/plugins public/app/plugins
