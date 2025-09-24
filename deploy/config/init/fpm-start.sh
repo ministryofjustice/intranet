@@ -12,4 +12,7 @@ else
     # Fallback if WP is not installed.
     # This will happen during a first run on localhost.
     echo 'WordPress is not installed yet, so skipping command `wp sync-user-roles sync` and `wp cluster-helper register-self` in `fpm-start.sh`.'
+
+    # What is causing `wp core is-installed` to fail? Let's run it with debug.
+    wp core is-installed --debug
 fi
