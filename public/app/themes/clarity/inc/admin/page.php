@@ -141,14 +141,11 @@ class CacheHandler
         // Start a timer to track the purge requests.
         $start_time = microtime(true);
 
-        $headers = [
-            'Host' => parse_url(home_url(), PHP_URL_HOST),
-        ];
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 0.01); // Set a short timeout
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_TIMEOUT_MS, 10); // Set a short timeout
+        curl_setopt($ch, CURLOPT_HTTPHEADER, ['Host: ' . parse_url(home_url(), PHP_URL_HOST)]);
 
         // 3️⃣ Loop through each URL to purge.
         foreach ($purge_urls as $purge_url) :
@@ -162,6 +159,18 @@ class CacheHandler
             // Use curl to purge the cache - we don't care about the response, and e can't wait for it.
             curl_setopt($ch, CURLOPT_URL, $purge_url);
             curl_exec($ch);
+
+            $curl_errno = curl_errno($ch);
+            if ($curl_errno) {
+                // If there was an error with the cURL request, log it.
+                error_log(sprintf(
+                    'cURL error %d while purging URL %s: %s',
+                    $curl_errno,
+                    $purge_url,
+                    curl_error($ch)
+                ));
+                continue; // Skip to the next URL if there was an error.
+            }
 
             $this->purged_urls[] = $purge_url; // Add the URL to the purged URLs array
 
