@@ -223,7 +223,7 @@ class ClusterHelper
     {
         $nginx_hosts = $this->getNginxHosts('full');
         $now = time();
-        $threshold = 24 * 60 * 60; // 24 hours in seconds
+        $threshold = 10 * 60; // 10 minutes in seconds
 
         foreach ($nginx_hosts as $host => $values) {
             // Ensure the timestamps are set, if not, remove the entry.
@@ -232,7 +232,7 @@ class ClusterHelper
                 continue;
             }
 
-            // Check if the host has been updated in the last 24 hours, and return early if it is.
+            // Check if the host has been updated in the last 10 minutes, and return early if it is.
             if (($now - $values['updated_at']) < $threshold) {
                 continue;
             }
