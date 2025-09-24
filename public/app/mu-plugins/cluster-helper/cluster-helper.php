@@ -134,7 +134,7 @@ class ClusterHelper
 
             // Clear the cache.
             wp_cache_delete('cluster_helper_nginx_hosts', 'options');
-            
+
             // Read from the database again.
             $nginx_hosts = $this->getNginxHosts();
 
@@ -142,7 +142,7 @@ class ClusterHelper
             $did_set = isset($nginx_hosts[$host]);
         }
 
-        if(!$did_set) {
+        if (!$did_set) {
             error_log(sprintf('Failed to upsert nginx host %s after %d attempts', $host, $attempts));
             return null; // Return null if we failed to set the host.
         }
@@ -166,8 +166,9 @@ class ClusterHelper
         $attempts = 0;
         $max_attempts = 5;
         $return_value = null;
+        $did_delete = false;
 
-        while ($attempts < $max_attempts && $return_value === null) {
+        while ($attempts < $max_attempts && $did_delete === false) {
             $wpdb->query('START TRANSACTION');
 
             try {
@@ -192,6 +193,20 @@ class ClusterHelper
                 error_log(sprintf('Error deleting nginx host %s: %s', $host, $e->getMessage()));
                 $attempts++;
             }
+
+            // Clear the cache.
+            wp_cache_delete('cluster_helper_nginx_hosts', 'options');
+
+            // Read from the database again.
+            $nginx_hosts = $this->getNginxHosts();
+
+            // Set the return value.
+            $did_delete = !isset($nginx_hosts[$host]);
+        }
+
+        if (!$did_delete) {
+            error_log(sprintf('Failed to delete nginx host %s after %d attempts', $host, $attempts));
+            return null; // Return null if we failed to set the host.
         }
 
         return $return_value;
