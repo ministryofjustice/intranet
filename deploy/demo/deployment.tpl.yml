@@ -33,6 +33,13 @@ spec:
       containers:
         - name: nginx
           image: ${ECR_URL}:${IMAGE_TAG_NGINX}
+          resources:
+            limits:
+              cpu: 500m
+              memory: 250Mi
+            requests:
+              cpu: 50m
+              memory: 100Mi
           ports:
             - containerPort: 8080
               name: http
@@ -52,11 +59,25 @@ spec:
 
         - name: cron
           image: ${ECR_URL}:${IMAGE_TAG_CRON}
+          resources:
+            limits:
+              cpu: 50m
+              memory: 30Mi
+            requests:
+              cpu: 1m
+              memory: 12Mi
           securityContext:
             runAsUser: 3001
 
         - name: fpm
           image: ${ECR_URL}:${IMAGE_TAG_FPM}
+          resources:
+            limits:
+              cpu: "4"
+              memory: 2000Mi
+            requests:
+              cpu: 500m
+              memory: 600Mi
           volumeMounts:
             - name: uploads
               mountPath: /var/www/html/public/app/uploads
@@ -104,7 +125,18 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: basic-auth-secret
-                  key: auth          
+                  key: basic-auth-secret
+            # This is the IP address of the pod, set by Kubernetes.
+            # Pods on the network can use this IP to communicate with each other.
+            # i.e. An nginx purge url can be created with http://<NGINX_IP>:8080/purge/<url>
+            #      Purge urls for all pods, can be called from a single fpm container.
+            # N.B. On Kubernetes, the IP address is the same for all containers in the pod,
+            #      and the IP address assigned to a pod will never change once the pod is running.
+            #      On Docker Compose, the hostname is the name of the service, and used instead of the IP address.
+            - name: NGINX_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
           envFrom:
             - configMapRef:
                 name: ${KUBE_NAMESPACE}
