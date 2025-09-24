@@ -102,8 +102,9 @@ class ClusterHelper
         $attempts = 0;
         $max_attempts = 5;
         $return_value = null;
+        $did_set = false;
 
-        while ($attempts < $max_attempts && $return_value === null) {
+        while ($attempts < $max_attempts && $did_set === false) {
             $wpdb->query('START TRANSACTION');
 
             try {
@@ -129,6 +130,21 @@ class ClusterHelper
                 error_log(sprintf('Error upserting nginx host %s: %s', $host, $e->getMessage()));
                 $attempts++;
             }
+
+
+            // Clear the cache.
+            wp_cache_delete('cluster_helper_nginx_hosts', 'options');
+            
+            // Read from the database again.
+            $nginx_hosts = $this->getNginxHosts();
+
+            // Set the return value.
+            $did_set = isset($nginx_hosts[$host]);
+        }
+
+        if(!$did_set) {
+            error_log(sprintf('Failed to upsert nginx host %s after %d attempts', $host, $attempts));
+            return null; // Return null if we failed to set the host.
         }
 
         return $return_value;
@@ -327,7 +343,7 @@ class ClusterHelper
      */
     public function addOneMinuteCronSchedule(array $schedules): array
     {
-        if(!isset($schedules['one_minute'])) {
+        if (!isset($schedules['one_minute'])) {
             $schedules['one_minute'] = [
                 'interval' => 60,
                 'display' => 'Every Minute'
