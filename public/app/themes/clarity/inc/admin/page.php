@@ -59,7 +59,7 @@ class CacheHandler
         WP_Post $post
     ): void {
         // If the post is a revision, we don't need to clear the cache.
-        if($post->post_type === 'revision') {
+        if ($post->post_type === 'revision') {
             return;
         }
 
@@ -146,6 +146,9 @@ class CacheHandler
         ];
 
         $ch = curl_init();
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 0.01); // Set a short timeout
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
         // 3️⃣ Loop through each URL to purge.
         foreach ($purge_urls as $purge_url) :
@@ -158,13 +161,10 @@ class CacheHandler
 
             // Use curl to purge the cache - we don't care about the response, and e can't wait for it.
             curl_setopt($ch, CURLOPT_URL, $purge_url);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_TIMEOUT, 0.01); // Set a short timeout
-            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
             curl_exec($ch);
-            
+
             $this->purged_urls[] = $purge_url; // Add the URL to the purged URLs array
-            
+
         endforeach;
 
         curl_close($ch);
