@@ -86,8 +86,8 @@ class CacheHandler
         }
 
         $post_status = get_post_status($post_id);
-        if (in_array($post_status, ['auto-draft', 'trash'])) {
-            // If the post is an auto-draft or in the trash, we can't clear the cache because we can't determine a URL.
+        if (in_array($post_status, ['auto-draft', 'draft', 'trash'])) {
+            // If the post is an auto-draft, draft or in the trash, we can't clear the cache because we can't determine a URL.
             // But, this is fine  for posts in the trash because this function will have been called before the post was trashed.
             return;
         }
