@@ -125,7 +125,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: basic-auth-secret
-                  key: basic-auth-secret
+                  key: auth
             # This is the IP address of the pod, set by Kubernetes.
             # Pods on the network can use this IP to communicate with each other.
             # i.e. An nginx purge url can be created with http://<NGINX_IP>:8080/purge/<url>
