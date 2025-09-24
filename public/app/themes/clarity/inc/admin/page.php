@@ -1,8 +1,15 @@
 <?php
 
+use MOJ\ClusterHelper;
+
 // Page post type. Add excerpts to pages
 add_action('init', 'add_page_excerpts');
-add_action('wp_after_insert_post', 'clear_nginx_cache', 10, 2);
+
+// Clear Nginx cache when various post actions occur.
+add_action('wp_after_insert_post', 'clear_nginx_cache', 10, 1);
+add_action('wp_trash_post', 'clear_nginx_cache', 10, 1);
+add_action('before_delete_post', 'clear_nginx_cache', 90, 1);
+add_action('transition_post_status', 'handle_post_status_transition', 10, 3);
 
 function add_page_excerpts()
 {
@@ -15,6 +22,31 @@ add_action('save_post', function ($post_id, $post) {
         update_post_meta($post_id, '_wp_page_template', 'agency-switcher.php');
     }
 }, 99, 2);
+
+
+/**
+ * Handle post status transitions to clear the Nginx cache.
+ *
+ * This function is triggered when a post's status changes, allowing us to
+ * clear the cache for that post if necessary.
+ *
+ * @param string $new_status The new post status.
+ * @param string $old_status The old post status.
+ * @param WP_Post $post The post object.
+ */
+function handle_post_status_transition(
+    string $new_status,
+    string $old_status,
+    WP_Post $post
+): void {
+    // Only handle transitions where the post status is actually changed.
+    if ($new_status !== $old_status) {
+        return;
+    }
+
+    // Clear the Nginx cache for the post.
+    clear_nginx_cache($post->ID);
+}
 
 /**
  * Send a purge cache request to all Nginx servers when a post is saved or updated.
