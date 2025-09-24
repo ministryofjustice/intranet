@@ -32,12 +32,12 @@ class ClusterHelper
             return;
         }
 
-        // Create a 5 minute schedule
-        add_filter('cron_schedules', [$this, 'addFiveMinuteCronSchedule']);
+        // Create a 1 minute schedule
+        add_filter('cron_schedules', [$this, 'addOneMinuteCronSchedule']);
 
         // Set up a scheduled task to ensure Nginx hosts are registered and cleaned up.
         if (!wp_next_scheduled('cluster_helper_schedule')) {
-            wp_schedule_event(time(), 'five_minutes', 'cluster_helper_schedule');
+            wp_schedule_event(time(), 'one_minute', 'cluster_helper_schedule');
         }
 
         // Ensure current host in the the list of Nginx hosts.
@@ -66,6 +66,9 @@ class ClusterHelper
         if (!in_array($format, ['full', 'hosts'])) {
             $format = 'full';
         }
+
+        // Clear the cache for the nginx hosts option - always read from the database.
+        wp_cache_delete('cluster_helper_nginx_hosts', 'options');
 
         // Get the current nginx hosts from the option
         $nginx_hosts_string = get_option(self::OPTION_KEY, '');
@@ -114,7 +117,7 @@ class ClusterHelper
                 ];
 
                 // Update the option with the modified array
-                update_option($this::OPTION_KEY, serialize($nginx_hosts), false);
+                update_option(self::OPTION_KEY, serialize($nginx_hosts), false);
 
                 // Commit the transaction
                 $wpdb->query('COMMIT');
@@ -160,7 +163,7 @@ class ClusterHelper
                 if ($found) {
                     unset($nginx_hosts[$host]);
                     // Update the option with the modified array
-                    update_option($this::OPTION_KEY, serialize($nginx_hosts), false);
+                    update_option(self::OPTION_KEY, serialize($nginx_hosts), false);
                 }
 
                 // Commit the transaction
@@ -322,12 +325,14 @@ class ClusterHelper
      * @param array $schedules
      * @return array
      */
-    public function addFiveMinuteCronSchedule(array $schedules): array
+    public function addOneMinuteCronSchedule(array $schedules): array
     {
-        $schedules['five_minutes'] = [
-            'interval' => 300,
-            'display' => 'Every 5 Minutes'
-        ];
+        if(!isset($schedules['one_minute'])) {
+            $schedules['one_minute'] = [
+                'interval' => 60,
+                'display' => 'Every Minute'
+            ];
+        }
 
         return $schedules;
     }

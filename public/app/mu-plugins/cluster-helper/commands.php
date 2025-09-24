@@ -94,10 +94,6 @@ class ClusterHelperCommands
 
 
 if (defined('WP_CLI') && WP_CLI) {
-    $cluster_helper_commands = new ClusterHelperCommands();
-    // 1. Register the instance for the callable parameter.
-    WP_CLI::add_command('cluster-helper', $cluster_helper_commands);
-
-    // 2. Register object as a function for the callable parameter.
+    // Register object as a function for the callable parameter.
     WP_CLI::add_command('cluster-helper', 'MOJ\ClusterHelperCommands');
 }
