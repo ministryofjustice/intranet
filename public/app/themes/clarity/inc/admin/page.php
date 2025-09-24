@@ -58,11 +58,16 @@ class CacheHandler
         string $old_status,
         WP_Post $post
     ): void {
-        // Only handle transitions where the post status is actually changed.
-        if ($new_status !== $old_status) {
+        // If the post is a revision, we don't need to clear the cache.
+        if($post->post_type === 'revision') {
             return;
         }
-    
+
+        // Only handle transitions where the post status is actually changed.
+        if ($new_status === $old_status) {
+            return;
+        }
+
         // Clear the Nginx cache for the post.
         $this->clearNginxCache($post->ID);
     }
@@ -76,24 +81,23 @@ class CacheHandler
      */
     public function clearNginxCache(int $post_id): void
     {
-        // Check if the post is a revision.
         if (wp_is_post_revision($post_id)) {
-            $post_id = wp_is_post_revision($post_id);
+            return; // Do not clear cache for revisions.
         }
-    
+
         $post_status = get_post_status($post_id);
         if (in_array($post_status, ['auto-draft', 'trash'])) {
             // If the post is an auto-draft or in the trash, we can't clear the cache because we can't determine a URL.
             // But, this is fine  for posts in the trash because this function will have been called before the post was trashed.
             return;
         }
-    
+
         $paths_to_purge = [];
-    
+
         // Get the post URL.
         $post_url = get_permalink($post_id);
         $post_path = parse_url($post_url, PHP_URL_PATH);
-    
+
         if (get_post_type($post_id) === 'document') {
             // If we are dealing with a document, these are served without a trailing slash at the end of the path.
             $paths_to_purge[] = rtrim($post_path, '/');
@@ -110,10 +114,10 @@ class CacheHandler
                 ['/'] // Start with the root path
             );
         }
-    
+
         // Get all Nginx hosts from the ClusterHelper.
         $nginx_hosts = ClusterHelper::getNginxHosts('hosts');
-    
+
         // An array of urls to purge.
         // Will be populated with the full URLs to purge.
         // e.g. locally with a single host: 
@@ -125,7 +129,7 @@ class CacheHandler
         //   ... (for each host)
         // ]
         $purge_urls = [];
-    
+
         // 1️⃣ Loop through each Nginx host to purge.
         foreach ($nginx_hosts as $host) {
             // 2️⃣ Loop through each path to purge.
@@ -133,32 +137,48 @@ class CacheHandler
                 $purge_urls[] = $host . '/purge-cache' . $path;
             }
         }
-    
-    
+
+        // Start a timer to track the purge requests.
+        $start_time = microtime(true);
+
+        $headers = [
+            'Host' => parse_url(home_url(), PHP_URL_HOST),
+        ];
+
+        $ch = curl_init();
+
+        // 3️⃣ Loop through each URL to purge.
         foreach ($purge_urls as $purge_url) :
-    
-            if(in_array($purge_url, $this->purged_urls)) {
+
+            if (in_array($purge_url, $this->purged_urls)) {
                 // If this URL has already been purged, skip it.
                 continue;
             }
 
-            // Purge the cache.
-            $result = wp_remote_get($purge_url, [
-                'blocking' => false,
-                'headers' => ['Host' => parse_url(home_url(), PHP_URL_HOST)]
-            ]);
-    
-            // Check for errors in the response.
-            if (is_wp_error($result)) {
-                error_log(sprintf('Error purging cache at %s: %s', $purge_url, $result->get_error_message()));
-                continue;
-            }
 
-            $this->purged_urls[] = $purge_url;
-    
-            error_log(sprintf('Cache cleared at %s', $purge_url));
-    
+            // Use curl to purge the cache - we don't care about the response, and e can't wait for it.
+            curl_setopt($ch, CURLOPT_URL, $purge_url);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_TIMEOUT, 0.01); // Set a short timeout
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+            curl_exec($ch);
+            
+            $this->purged_urls[] = $purge_url; // Add the URL to the purged URLs array
+            
         endforeach;
+
+        curl_close($ch);
+
+        $end_time = microtime(true);
+        $duration = $end_time - $start_time;
+
+        // Log the purge request.
+        error_log(sprintf(
+            'Purged %d URLs in %.2f seconds: %s',
+            count($purge_urls),
+            $duration,
+            implode(', ', $purge_urls)
+        ));
     }
 }
 
