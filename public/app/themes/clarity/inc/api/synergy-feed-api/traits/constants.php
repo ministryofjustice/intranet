@@ -13,6 +13,7 @@ trait Constants
         'agency' => 'Organisation',
         'additional_agencies' => 'Additional Organisations',
         'content_type' => 'Functional Area',
+        'category' => 'Category',
         'status' => 'Status',
         'location' => 'Location',
         'file_type' => 'File Format',
