@@ -1,7 +1,13 @@
 <?php
 
+namespace MOJ;
+
 // Do not allow access outside WP
 defined('ABSPATH') || exit;
+
+use Exception;
+use WP_REST_Response;
+use Roots\WPConfig\Config;
 
 /**
  * This class contains methods related to managing Nginx hosts in a WordPress cluster.
@@ -26,13 +32,19 @@ class ClusterHelper
             return;
         }
 
-        // Set up a scheduled task to clean up old Nginx hosts.
-        if (!wp_next_scheduled('cluster_helper_cleanup_nginx_hosts')) {
-            wp_schedule_event(time(), 'hourly', 'cluster_helper_cleanup_nginx_hosts');
+        // Create a 1 minute schedule
+        add_filter('cron_schedules', [$this, 'addOneMinuteCronSchedule']);
+
+        // Set up a scheduled task to ensure Nginx hosts are registered and cleaned up.
+        if (!wp_next_scheduled('cluster_helper_schedule')) {
+            wp_schedule_event(time(), 'one_minute', 'cluster_helper_schedule');
         }
 
+        // Ensure current host in the the list of Nginx hosts.
+        add_action('cluster_helper_schedule', [$this, 'registerSelf'], 10);
+
         // Add the cleanup function to the scheduled task.
-        add_action('cluster_helper_cleanup_nginx_hosts', [$this, 'cleanupOldNginxHosts']);
+        add_action('cluster_helper_schedule', [$this, 'cleanupOldNginxHosts'], 20);
 
         // Add a Dashboard widget to display a table of Nginx hosts.
         add_action('wp_dashboard_setup', [$this, 'addDashboardWidget']);
@@ -40,8 +52,7 @@ class ClusterHelper
 
     /**
      * Get the current nginx hosts from the option.
-     * 
-     * 
+     *
      * @param string $format The format to return the nginx hosts, either full or hostnames.
      * @return array An array of nginx hosts.
      *               - If $format is 'full', it returns the full array of nginx hosts with their timestamps.
@@ -49,15 +60,18 @@ class ClusterHelper
      *               - If $format is invalid, it defaults to 'full'.
      * If the option does not exist or is not an array, it returns an empty array.
      */
-    public function getNginxHosts($format = 'full'): array
+    public static function getNginxHosts($format = 'full'): array
     {
         // Validate the format parameter
         if (!in_array($format, ['full', 'hosts'])) {
             $format = 'full';
         }
 
+        // Clear the cache for the nginx hosts option - always read from the database.
+        wp_cache_delete('cluster_helper_nginx_hosts', 'options');
+
         // Get the current nginx hosts from the option
-        $nginx_hosts_string = get_option($this::OPTION_KEY, '');
+        $nginx_hosts_string = get_option(self::OPTION_KEY, '');
         $nginx_hosts = maybe_unserialize($nginx_hosts_string);
 
         // Ensure it's an array
@@ -75,7 +89,7 @@ class ClusterHelper
     /**
      * Upsert an nginx host in the option.
      * Set the entry with updated_at timestamp and unresolved_count.
-     * 
+     *
      * @param string     $host The host to upsert.
      * @param int        $unresolved_count The unresolved count to set for the host (default is 0).
      * @return bool|null Returns true if the host was already present and updated, false if it was newly added,
@@ -88,8 +102,9 @@ class ClusterHelper
         $attempts = 0;
         $max_attempts = 5;
         $return_value = null;
+        $did_set = false;
 
-        while ($attempts < $max_attempts && $return_value === null) {
+        while ($attempts < $max_attempts && $did_set === false) {
             $wpdb->query('START TRANSACTION');
 
             try {
@@ -103,7 +118,7 @@ class ClusterHelper
                 ];
 
                 // Update the option with the modified array
-                update_option($this::OPTION_KEY, serialize($nginx_hosts), false);
+                update_option(self::OPTION_KEY, serialize($nginx_hosts), false);
 
                 // Commit the transaction
                 $wpdb->query('COMMIT');
@@ -115,6 +130,21 @@ class ClusterHelper
                 error_log(sprintf('Error upserting nginx host %s: %s', $host, $e->getMessage()));
                 $attempts++;
             }
+
+
+            // Clear the cache.
+            wp_cache_delete('cluster_helper_nginx_hosts', 'options');
+
+            // Read from the database again.
+            $nginx_hosts = $this->getNginxHosts();
+
+            // Set the return value.
+            $did_set = isset($nginx_hosts[$host]);
+        }
+
+        if (!$did_set) {
+            error_log(sprintf('Failed to upsert nginx host %s after %d attempts', $host, $attempts));
+            return null; // Return null if we failed to set the host.
         }
 
         return $return_value;
@@ -124,7 +154,7 @@ class ClusterHelper
      * Delete an nginx host from the option.
      * If the host exists, it will be removed from the array.
      * If it does not exist, a message will be logged indicating nothing to remove.
-     * 
+     *
      * @param string $host The host to delete.
      * @return bool|null Returns true if the host was found and deleted, false if it was not found,
      *                  or null if there was an error during the operation.
@@ -136,8 +166,9 @@ class ClusterHelper
         $attempts = 0;
         $max_attempts = 5;
         $return_value = null;
+        $did_delete = false;
 
-        while ($attempts < $max_attempts && $return_value === null) {
+        while ($attempts < $max_attempts && $did_delete === false) {
             $wpdb->query('START TRANSACTION');
 
             try {
@@ -149,7 +180,7 @@ class ClusterHelper
                 if ($found) {
                     unset($nginx_hosts[$host]);
                     // Update the option with the modified array
-                    update_option($this::OPTION_KEY, serialize($nginx_hosts), false);
+                    update_option(self::OPTION_KEY, serialize($nginx_hosts), false);
                 }
 
                 // Commit the transaction
@@ -162,6 +193,20 @@ class ClusterHelper
                 error_log(sprintf('Error deleting nginx host %s: %s', $host, $e->getMessage()));
                 $attempts++;
             }
+
+            // Clear the cache.
+            wp_cache_delete('cluster_helper_nginx_hosts', 'options');
+
+            // Read from the database again.
+            $nginx_hosts = $this->getNginxHosts();
+
+            // Set the return value.
+            $did_delete = !isset($nginx_hosts[$host]);
+        }
+
+        if (!$did_delete) {
+            error_log(sprintf('Failed to delete nginx host %s after %d attempts', $host, $attempts));
+            return null; // Return null if we failed to set the host.
         }
 
         return $return_value;
@@ -169,17 +214,17 @@ class ClusterHelper
 
     /**
      * Register a REST route to check if the current host is an Nginx host *for this application*.
-     * 
+     *
      * In the cleanup script, we need to know if a URL is still associated with this application.
      * This endpoint accepts a `home_url` parameter and checks if it matches the current site's home URL.
-     * 
+     *
      * e.g. http://172.0.0.12/wp-json/cluster-helper/v1/check-home-url?home-url=https://dev.intranet.justice.gov.uk
      *      will return true if the home URL matches the current site's home URL,
      *      or false if it does not match.
-     * 
+     *
      * @return void
      */
-    static function registerCheckHomeUrlRoute(): void
+    public static function registerCheckHomeUrlRoute(): void
     {
         register_rest_route('cluster-helper/v1', '/check-home-url', [
             'permission_callback' => '__return_true', // Allow public access.
@@ -193,6 +238,12 @@ class ClusterHelper
         ]);
     }
 
+    public function registerSelf(): void
+    {
+        // Register the current host with the cluster helper.
+        $this->upsertNginxHost(Config::get('NGINX_HOST'));
+    }
+
     /**
      * Clean up old Nginx hosts that do not resolve and are older than 48 hours.
      * This function is scheduled to run hourly.
@@ -203,7 +254,7 @@ class ClusterHelper
     {
         $nginx_hosts = $this->getNginxHosts('full');
         $now = time();
-        $threshold = 24 * 60 * 60; // 24 hours in seconds
+        $threshold = 10 * 60; // 10 minutes in seconds
 
         foreach ($nginx_hosts as $host => $values) {
             // Ensure the timestamps are set, if not, remove the entry.
@@ -212,7 +263,7 @@ class ClusterHelper
                 continue;
             }
 
-            // Check if the host has been updated in the last 24 hours, and return early if it is.
+            // Check if the host has been updated in the last 10 minutes, and return early if it is.
             if (($now - $values['updated_at']) < $threshold) {
                 continue;
             }
@@ -248,9 +299,9 @@ class ClusterHelper
 
     /**
      * Add a dashboard widget to display the Nginx hosts.
-     * 
+     *
      * This widget will only be added if the current user has administrator capabilities.
-     * 
+     *
      * @return void
      */
     public function addDashboardWidget(): void
@@ -268,10 +319,10 @@ class ClusterHelper
 
     /**
      * Render the dashboard widget that displays the Nginx hosts.
-     * 
+     *
      * This method retrieves the Nginx hosts and displays them in a table format.
      * If no hosts are registered, it displays a message indicating that.
-     * 
+     *
      * @return void
      */
     public function renderDashboardWidget(): void
@@ -297,6 +348,24 @@ class ClusterHelper
         }
         echo '</tbody>';
         echo '</table>';
+    }
+
+    /**
+     * Adds a custom cron schedule of 1 minute.
+     *
+     * @param array $schedules
+     * @return array
+     */
+    public function addOneMinuteCronSchedule(array $schedules): array
+    {
+        if (!isset($schedules['one_minute'])) {
+            $schedules['one_minute'] = [
+                'interval' => 60,
+                'display' => 'Every Minute'
+            ];
+        }
+
+        return $schedules;
     }
 }
 

@@ -4,6 +4,7 @@ namespace MOJ\Justice;
 
 use function Env\env;
 use Roots\WPConfig\Config;
+use MOJ\ClusterHelper;
 
 // ---------------------------------------------
 // Functions to improve the security of the site
@@ -53,6 +54,11 @@ class Security
         if ($custom_s3_host = env('AWS_S3_CUSTOM_HOST')) {
             array_push($this->known_hosts, $custom_s3_host);
         }
+
+        // Push the Nginx hosts to known_hosts.
+        $nginx_urls = ClusterHelper::getNginxHosts('hosts');
+        $nginx_hosts = array_map(fn ($host) => parse_url($host, PHP_URL_HOST), $nginx_urls);
+        array_push($this->known_hosts, ...$nginx_hosts);
     }
 
     /**
