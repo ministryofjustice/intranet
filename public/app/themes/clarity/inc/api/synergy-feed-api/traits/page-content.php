@@ -51,6 +51,11 @@ trait PageContent
      */
     public function getPageContent($page, $format = 'html'): string | null
     {
+        if(is_null($page->post_content)) {
+            // If the page content is null, return null.
+            return null;
+        }
+
         $page_template = get_page_template_slug($page->ID);
 
         if (in_array($page_template, self::MARKDOWN_TEMPLATES)) {

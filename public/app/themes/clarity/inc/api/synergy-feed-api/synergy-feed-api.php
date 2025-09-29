@@ -189,15 +189,18 @@ class SynergyFeedApi
                 );
             }
 
+            // Start off the breadcrumbs with this base page, we don't need to start with Home and Guidance.
+            $breadcrumbs_from_parent = [['title' => $page->post_title, 'id' => $page->ID]];
+
             // Format the page and add it to the response.
-            $data['items'][] = $this->formatPagePayload($page, $agency, $content_type, $format);
+            $data['items'][] = $this->formatPagePayload($page, $agency, $content_type, $format, $breadcrumbs_from_parent);
 
             // Get all descendants of the page.
             $descendants = $this->getAllDescendants($page->ID);
 
             // Map over the descendants and format them.
-            $descendants_formatted = array_map(function ($descendant) use ($format, $agency, $content_type) {
-                return $this->formatPagePayload($descendant, $agency, $content_type, $format);
+            $descendants_formatted = array_map(function ($descendant) use ($format, $agency, $content_type, $breadcrumbs_from_parent) {
+                return $this->formatPagePayload($descendant, $agency, $content_type, $format, $breadcrumbs_from_parent);
             }, $descendants);
 
             // Add the formatted descendants to the response.
@@ -214,6 +217,8 @@ class SynergyFeedApi
 
             // Add document_ids to a linked documents column
             $item['linked_ids'] = $document_ids;
+
+            $breadcrumbs_from_parent = $item['breadcrumbs'];
 
             foreach ($document_ids as $document_id) {
                 $exists_in_document_formatted = $this->arrayFind(
@@ -242,7 +247,7 @@ class SynergyFeedApi
                 if (!$wpdr->get_document($document->ID)) {
                     // If the document is not found in WP Document Revisions, skip to the next iteration.
                     // This is an edge case where a document has no attachment.
-                    continue; 
+                    continue;
                 }
 
                 if (!$modified_after || strtotime($document->post_modified) > strtotime($modified_after)) {
@@ -250,7 +255,8 @@ class SynergyFeedApi
                         $document,
                         $item['agency'],
                         $item['content_type'],
-                        $format
+                        $format,
+                        $breadcrumbs_from_parent
                     );
                 }
             }
@@ -342,6 +348,7 @@ class SynergyFeedApi
                 self::CSV_HEADERS['agency'],
                 self::CSV_HEADERS['additional_agencies'],
                 self::CSV_HEADERS['content_type'],
+                self::CSV_HEADERS['category'],
                 self::CSV_HEADERS['status'],
                 self::CSV_HEADERS['location'],
                 self::CSV_HEADERS['file_type'],
@@ -354,6 +361,10 @@ class SynergyFeedApi
 
             // Write each item in the feed to the CSV.
             foreach ($data['items'] as $item) {
+                if (sizeof($item['breadcrumbs']) > 1) {
+                    array_splice($item['breadcrumbs'], -1);
+                }
+                $categories = $item['breadcrumbs'] ? array_map(fn($b) => $b['title'], $item['breadcrumbs']) : [];
                 fputcsv($out, [
                     $item['id'],
                     implode(', ', $item['linked_ids'] ?? []),
@@ -361,6 +372,7 @@ class SynergyFeedApi
                     $item['agency'],
                     implode(', ', $item['additional_agencies']),
                     $item['content_type'],
+                    implode(' > ', $categories),
                     self::CSV_STATUSES[$item['status']] ?? $item['status'],
                     $item['location'],
                     $item['file_type'],
@@ -418,7 +430,7 @@ class SynergyFeedApi
      * @param string $format The preferred format to return the content in, either 'html' or 'markdown'.
      * @return array The formatted page payload.
      */
-    public function formatPagePayload(\WP_Post $page, string $request_agency, string $content_type, string $format = 'markdown'): array
+    public function formatPagePayload(\WP_Post $page, string $request_agency, string $content_type, string $format, array $breadcrumbs_from_parent): array
     {
         $page->post_content = $this->getPageContent($page, $format);
 
@@ -495,11 +507,59 @@ class SynergyFeedApi
             'type' => $page->post_type,
             // File type, if applicable.
             'file_type' => $file_type,
+            // Category, i.e. the patent pages. e.g. HR or HR > Conduct and behaviour > Declarations of interest etc.
+            'breadcrumbs' => self::getBreadcrumbs($breadcrumbs_from_parent, $page),
             // Finally, add the content to the page object.
             'content' => $page->post_content,
         ];
 
         return $formatted_page;
+    }
+
+
+    /**
+     * Get the breadcrumbs for a page.
+     *
+     * @param array $existing_breadcrumbs The existing breadcrumbs to append to.
+     * @param \WP_Post $page The current page to add to the breadcrumbs.
+     * @return array The updated breadcrumbs array.
+     */
+    public static function getBreadcrumbs($existing_breadcrumbs, $page)
+    {
+        // If the last breadcrumb is the same as the current page, return the existing breadcrumbs.
+        if (end($existing_breadcrumbs)['id'] === $page->ID) {
+            return $existing_breadcrumbs;
+        }
+
+        // If the page is a document, we just need to add it to the breadcrumbs.
+        if ($page->post_type === 'document') {
+            return array_merge($existing_breadcrumbs, [['title' => $page->post_title, 'id' => $page->ID]]);
+        }
+
+        // Here, we are dealing with a page, not a document...
+        // we need to get the parent pages and add them to the breadcrumbs.
+        // we will add any intermediate pages to the breadcrumbs...
+        // e.g. HR > Intermediate page 1 > Intermediate page 2 > Current page.
+
+        // Let's start with the current page in the breadcrumbs.
+        $reverse_breadcrumbs = [['title' => $page->post_title, 'id' => $page->ID]];
+
+        // Get the page parent, if it exists.
+        $parent = get_post($page->post_parent);
+
+        // Loop while parent exists, and it is not the last breadcrumb.
+        while ($parent && $parent->ID !== end($existing_breadcrumbs)['id']) {
+            // If the parent exists, and it's not the last entry in the breadcrumbs array, append it.
+            $reverse_breadcrumbs[] = ['title' => $parent->post_title, 'id' => $parent->ID];
+
+            // Get the parent of the parent.
+            $parent = get_post($parent->post_parent);
+        }
+
+        // Reverse the breadcrumbs to have the current page at the end.
+        $forward_breadcrumbs = array_reverse($reverse_breadcrumbs);
+
+        return array_merge($existing_breadcrumbs, $forward_breadcrumbs);
     }
 }
 
