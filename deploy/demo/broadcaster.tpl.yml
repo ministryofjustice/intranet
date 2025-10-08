@@ -28,6 +28,7 @@ spec:
               memory: 64Mi
           securityContext:
             runAsUser: 1000
+          args: ["task cluster"]
           env:
             - name: NAMESPACE
               value: ${KUBE_NAMESPACE}
