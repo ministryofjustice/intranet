@@ -18,6 +18,7 @@ spec:
       containers:
         - name: pod-broadcaster
           image: ${ECR_URL}:${IMAGE_TAG_POD_BROADCASTER}
+          serviceAccountName: pod-broadcaster-serviceaccount
           resources:
             limits:
               cpu: 100m
