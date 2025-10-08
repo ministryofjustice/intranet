@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ${KUBE_NAMESPACE}
+  name: ${KUBE_NAMESPACE}-pod-broadcaster
   namespace: ${KUBE_NAMESPACE}
   labels:
     app: ${KUBE_NAMESPACE}-pod-broadcaster
