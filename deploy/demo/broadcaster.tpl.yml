@@ -15,10 +15,10 @@ spec:
       labels:
         app: ${KUBE_NAMESPACE}-pod-broadcaster
     spec:
+      serviceAccountName: pod-broadcaster-serviceaccount
       containers:
         - name: pod-broadcaster
           image: ${ECR_URL}:${IMAGE_TAG_POD_BROADCASTER}
-          serviceAccountName: pod-broadcaster-serviceaccount
           resources:
             limits:
               cpu: 100m
