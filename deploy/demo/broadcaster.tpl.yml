@@ -26,6 +26,8 @@ spec:
             requests:
               cpu: 50m
               memory: 64Mi
+          securityContext:
+            runAsUser: 1000
           env:
             - name: NAMESPACE
               value: ${KUBE_NAMESPACE}
