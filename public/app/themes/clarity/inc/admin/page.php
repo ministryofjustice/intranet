@@ -120,6 +120,9 @@ class CacheHandler
             $paths_to_purge = array_reduce(
                 explode('/', trim($post_path, '/')),
                 function ($acc, $item) {
+                    if(empty($item)) {
+                        return $acc; // Skip empty items
+                    }
                     // Append the current item to the last path in the accumulator.
                     $acc[] = $acc[count($acc) - 1] . $item . '/';
                     return $acc;
