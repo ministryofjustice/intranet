@@ -1,6 +1,5 @@
 <?php
 
-use MOJ\ClusterHelper;
 use Roots\WPConfig\Config;
 
 // Page post type. Add excerpts to pages
