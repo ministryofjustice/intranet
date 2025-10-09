@@ -1,6 +1,7 @@
 <?php
 
 use MOJ\ClusterHelper;
+use Roots\WPConfig\Config;
 
 // Page post type. Add excerpts to pages
 add_action('init', 'add_page_excerpts');
@@ -21,12 +22,24 @@ class CacheHandler
 {
     private $purged_urls = [];
 
+    private string $cache_purge_url;
+
     /**
      * Constructor
      * Initializes the class and sets up the necessary hooks.
      */
     public function __construct()
     {
+        $cache_purge_url = Config::get('NGINX_PURGE_CACHE_URL');
+
+        if (empty($cache_purge_url)) {
+            // If the NGINX_PURGE_CACHE_URL is not set, we cannot proceed.
+            error_log('NGINX_PURGE_CACHE_URL is not set. Cannot purge cache.');
+            return;
+        }
+
+        $this->cache_purge_url = $cache_purge_url;
+
         // Add hooks to clear Nginx cache on post actions.
         $this->addHooks();
     }
@@ -51,7 +64,7 @@ class CacheHandler
      * @param string $old_status The old post status.
      * @param WP_Post $post The post object.
      */
-    function handlePostStatusTransition(
+    public function handlePostStatusTransition(
         string $new_status,
         string $old_status,
         WP_Post $post
@@ -79,6 +92,9 @@ class CacheHandler
      */
     public function clearNginxCache(int $post_id): void
     {
+        // Start a timer to track the purge requests.
+        $start_time = microtime(true);
+
         if (wp_is_post_revision($post_id)) {
             return; // Do not clear cache for revisions.
         }
@@ -113,46 +129,24 @@ class CacheHandler
             );
         }
 
-        // Get all Nginx hosts from the ClusterHelper.
-        $nginx_hosts = ClusterHelper::getNginxHosts('hosts');
-
-        // An array of urls to purge.
-        // Will be populated with the full URLs to purge.
-        // e.g. locally with a single host: 
-        // ['http://nginx:8080/purge-cache/', 'http://nginx:8080/purge-cache/blog/', 'http://nginx:8080/purge-cache/blog/post-name/']
-        // e.g. on production with multiple hosts:
-        // [
-        //   'http://172.20.177.215:8080/purge-cache/', 'http://172.20.177.215:8080/purge-cache/blog/', 'http://172.20.177.215:8080/purge-cache/blog/post-name',
-        //   'http://172.20.176.123:8080/purge-cache/', 'http://172.20.176.123:8080/purge-cache/blog/', 'http://172.20.176.123:8080/purge-cache/blog/post-name',
-        //   ... (for each host)
-        // ]
-        $purge_urls = [];
-
-        // 1️⃣ Loop through each Nginx host to purge.
-        foreach ($nginx_hosts as $host) {
-            // 2️⃣ Loop through each path to purge.
-            foreach ($paths_to_purge as $path) {
-                $purge_urls[] = $host . '/purge-cache' . $path;
-            }
+        $cache_purge_url = Config::get('NGINX_PURGE_CACHE_URL');
+        if (empty($cache_purge_url)) {
+            // If the NGINX_PURGE_CACHE_URL is not set, we cannot proceed.
+            error_log('NGINX_PURGE_CACHE_URL is not set. Cannot purge cache.');
+            return;
         }
 
-        // Start a timer to track the purge requests.
-        $start_time = microtime(true);
-
+        $curl_start_time = microtime(true);
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_TIMEOUT_MS, 10); // Set a short timeout
         curl_setopt($ch, CURLOPT_HTTPHEADER, ['Host: ' . parse_url(home_url(), PHP_URL_HOST)]);
 
-        // 3️⃣ Loop through each URL to purge.
-        foreach ($purge_urls as $purge_url) :
+        // Loop through each URL to purge.
+        foreach ($paths_to_purge as $path) :
 
-            if (in_array($purge_url, $this->purged_urls)) {
-                // If this URL has already been purged, skip it.
-                continue;
-            }
-
+            $purge_url = $this->cache_purge_url . $path;
 
             // Use curl to purge the cache - we don't care about the response, and e can't wait for it.
             curl_setopt($ch, CURLOPT_URL, $purge_url);
@@ -177,14 +171,17 @@ class CacheHandler
         curl_close($ch);
 
         $end_time = microtime(true);
-        $duration = $end_time - $start_time;
+        $function_duration = $end_time - $start_time;
+        $curl_duration = $end_time - $curl_start_time;
 
         // Log the purge request.
         error_log(sprintf(
-            'Purged %d URLs in %.2f seconds: %s',
-            count($purge_urls),
-            $duration,
-            implode(', ', $purge_urls)
+            'Purged %d URLs in %.2f seconds (cURL: %.2f seconds). Endpoint: %s, Paths: %s',
+            count($paths_to_purge),
+            $function_duration,
+            $curl_duration,
+            $this->cache_purge_url,
+            implode(', ', $paths_to_purge)
         ));
     }
 }

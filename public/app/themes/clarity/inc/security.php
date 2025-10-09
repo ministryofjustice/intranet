@@ -4,7 +4,6 @@ namespace MOJ\Justice;
 
 use function Env\env;
 use Roots\WPConfig\Config;
-use MOJ\ClusterHelper;
 
 // ---------------------------------------------
 // Functions to improve the security of the site
@@ -55,10 +54,11 @@ class Security
             array_push($this->known_hosts, $custom_s3_host);
         }
 
-        // Push the Nginx hosts to known_hosts.
-        $nginx_urls = ClusterHelper::getNginxHosts('hosts');
-        $nginx_hosts = array_map(fn ($host) => parse_url($host, PHP_URL_HOST), $nginx_urls);
-        array_push($this->known_hosts, ...$nginx_hosts);
+        // Push the cache purge url host to known_hosts.
+        $cache_purge_url = Config::get('NGINX_PURGE_CACHE_URL');
+        if ($cache_purge_url) {
+            array_push($this->known_hosts, parse_url($cache_purge_url, PHP_URL_HOST));
+        }
     }
 
     /**

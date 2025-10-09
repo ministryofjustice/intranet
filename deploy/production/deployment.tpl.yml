@@ -112,12 +112,6 @@ spec:
               command:
               - /usr/local/bin/fpm-health/fpm-liveness.sh
             periodSeconds: 10
-          lifecycle:
-            preStop:
-              exec:
-                # Run the stop script before stopping the container.
-                # Redirect the output to the main process's stderr.
-                command: ["ash", "-c",  "/usr/local/bin/fpm-stop.sh >> /proc/1/fd/2"]
           env:
             - name: AWS_S3_BUCKET
               valueFrom:

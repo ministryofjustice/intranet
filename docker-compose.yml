@@ -30,10 +30,6 @@ services:
       - "cdn:cdn.${SERVER_NAME}"
       - "minio:minio.${SERVER_NAME}"
       - "nginx:${SERVER_NAME}"
-    pre_stop:
-      # Run the stop script before stopping the container.
-      # Redirect the output to the main process's stderr.
-      - command: ["ash", "-c",  "/usr/local/bin/fpm-stop.sh >> /proc/1/fd/2"]
 
   nginx:
     container_name: intranet-nginx
@@ -213,9 +209,6 @@ services:
     build:
       context: .
       target: build-cron
-    environment:
-      NGINX_HOST: ${NGINX_SERVICE_PORT}
-      NGINX_SERVICE_PORT: ${NGINX_SERVICE_PORT}
     depends_on:
       - nginx
 
