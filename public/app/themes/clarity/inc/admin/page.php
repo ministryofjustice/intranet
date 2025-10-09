@@ -169,7 +169,7 @@ class CacheHandler
         $function_duration = $end_time - $start_time;
         $curl_duration = $end_time - $curl_start_time;
 
-        // Log the purge request.
+        // Log the purge request
         error_log(sprintf(
             'Purged %d URLs in %.2f seconds (cURL: %.2f seconds). Endpoint: %s, Paths: %s',
             count($paths_to_purge),
