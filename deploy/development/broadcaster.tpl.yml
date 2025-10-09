@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ${KUBE_NAMESPACE}-pod-broadcaster
+  namespace: ${KUBE_NAMESPACE}
+  labels:
+    app: ${KUBE_NAMESPACE}-pod-broadcaster
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ${KUBE_NAMESPACE}-pod-broadcaster
+  template:
+    metadata:
+      labels:
+        app: ${KUBE_NAMESPACE}-pod-broadcaster
+    spec:
+      serviceAccountName: pod-broadcaster-serviceaccount
+      containers:
+        - name: pod-broadcaster
+          image: ${ECR_URL}:${IMAGE_TAG_POD_BROADCASTER}
+          resources:
+            limits:
+              cpu: 100m
+              memory: 128Mi
+            requests:
+              cpu: 50m
+              memory: 64Mi
+          securityContext:
+            runAsUser: 1000
+          # Run the 'cluster' task, it passes the cluster cert to deno.
+          command: ["/bin/sh", "-c"]
+          args: ["deno task cluster"]
+          env:
+            - name: NAMESPACE
+              value: ${KUBE_NAMESPACE}
+            - name: LABEL_SELECTOR
+              value: app=${KUBE_NAMESPACE}
+            - name: DEBUG
+              value: "true"

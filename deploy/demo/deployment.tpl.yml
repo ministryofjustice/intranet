@@ -126,17 +126,6 @@ spec:
                 secretKeyRef:
                   name: basic-auth-secret
                   key: auth
-            # This is the IP address of the pod, set by Kubernetes.
-            # Pods on the network can use this IP to communicate with each other.
-            # i.e. An nginx purge url can be created with http://<NGINX_IP>:8080/purge/<url>
-            #      Purge urls for all pods, can be called from a single fpm container.
-            # N.B. On Kubernetes, the IP address is the same for all containers in the pod,
-            #      and the IP address assigned to a pod will never change once the pod is running.
-            #      On Docker Compose, the hostname is the name of the service, and used instead of the IP address.
-            - name: NGINX_IP
-              valueFrom:
-                fieldRef:
-                  fieldPath: status.podIP
           envFrom:
             - configMapRef:
                 name: ${KUBE_NAMESPACE}
