@@ -128,13 +128,6 @@ class CacheHandler
             );
         }
 
-        $cache_purge_url = Config::get('NGINX_PURGE_CACHE_URL');
-        if (empty($cache_purge_url)) {
-            // If the NGINX_PURGE_CACHE_URL is not set, we cannot proceed.
-            error_log('NGINX_PURGE_CACHE_URL is not set. Cannot purge cache.');
-            return;
-        }
-
         $curl_start_time = microtime(true);
 
         $ch = curl_init();
