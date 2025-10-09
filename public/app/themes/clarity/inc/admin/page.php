@@ -120,7 +120,7 @@ class CacheHandler
             $paths_to_purge = array_reduce(
                 explode('/', trim($post_path, '/')),
                 function ($acc, $item) {
-                    if(empty($item)) {
+                    if (empty($item)) {
                         return $acc; // Skip empty items
                     }
                     // Append the current item to the last path in the accumulator.
@@ -140,7 +140,6 @@ class CacheHandler
 
         // Loop through each URL to purge.
         foreach ($paths_to_purge as $path) :
-
             $purge_url = $this->cache_purge_url . $path;
 
             // Use curl to purge the cache - we don't care about the response, and e can't wait for it.
