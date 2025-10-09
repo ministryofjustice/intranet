@@ -140,6 +140,7 @@ class CacheHandler
 
         // Loop through each URL to purge.
         foreach ($paths_to_purge as $path) :
+
             $purge_url = $this->cache_purge_url . $path;
 
             // Use curl to purge the cache - we don't care about the response, and e can't wait for it.
