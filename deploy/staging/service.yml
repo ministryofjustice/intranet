@@ -10,3 +10,16 @@ spec:
     name: http
   selector:
     app: intranet-staging
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pod-broadcaster-service
+  labels:
+    app: intranet-staging-pod-broadcaster
+spec:
+  ports:
+  - port: 1993
+    name: http
+  selector:
+    app: intranet-staging-pod-broadcaster

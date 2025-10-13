@@ -44,11 +44,6 @@ COPY bin/fpm-liveness.sh bin/fpm-readiness.sh bin/fpm-status.sh /usr/local/bin/f
 
 RUN chmod +x /usr/local/bin/fpm-health/*
 
-# Copy our stop script and set it to executable
-COPY bin/fpm-stop.sh /usr/local/bin/fpm-stop.sh
-
-RUN chmod +x /usr/local/bin/fpm-stop.sh
-
 ## Change directory
 WORKDIR /usr/local/etc/php-fpm.d
 
