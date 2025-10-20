@@ -1,5 +1,10 @@
 #!/bin/sh
 
+# Check if this is a job pod (job-marker directory exists)
+if [ ! -d "/job-marker" ]; then
+    exit 0
+fi
+
 if wp core is-installed 2>/dev/null; then
     # WP is installed.
 
