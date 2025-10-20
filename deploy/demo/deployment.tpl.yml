@@ -193,6 +193,8 @@ items:
       labels:
         app: ${KUBE_NAMESPACE}-fpm-init
     spec:
+      # Delete 10 minutes after finishing
+      ttlSecondsAfterFinished: 600
       template:
         metadata:
           labels:
@@ -206,8 +208,6 @@ items:
             seccompProfile:
               type: "RuntimeDefault"
           restartPolicy: Never
-          # Delete 1 hour after finishing
-          ttlSecondsAfterFinished: 3600
           containers:
           - <<: *fpm-container
             # Set the container entrypoint to the init script.
