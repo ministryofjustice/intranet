@@ -209,12 +209,13 @@ items:
           containers:
           - <<: *fpm-container
             # Override and add various properties for the deployment's FPM container.
-            limits:
-              cpu: 500m
-              memory: 600Mi
-            requests:
-              cpu: 500m
-              memory: 600Mi
+            resources:
+              limits:
+                cpu: 500m
+                memory: 600Mi
+              requests:
+                cpu: 500m
+                memory: 600Mi
             volumeMounts:
               - name: job-marker
                 mountPath: /job-marker
