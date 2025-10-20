@@ -1,0 +1,36 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: wp-cron-trigger
+spec:
+  schedule: "* * * * *" # Every minute
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 3001
+            runAsGroup: 3001
+            seccompProfile:
+              type: "RuntimeDefault"
+          containers:
+          - name: wp-cron
+            image: alpine:latest
+            command:
+              - /bin/sh
+              - -c
+              - wget --spider --quiet "nginx-service:8080/wp/wp-cron.php?doing_wp_cron"
+            securityContext:
+              allowPrivilegeEscalation: false
+              capabilities: 
+                drop: ["ALL"]
+              readOnlyRootFilesystem: true
+            resources:
+              limits:
+                cpu: 50m
+                memory: 50Mi
+              requests:
+                cpu: 10m
+                memory: 20Mi
+            restartPolicy: OnFailure
