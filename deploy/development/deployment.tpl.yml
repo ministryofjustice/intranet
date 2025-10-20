@@ -219,6 +219,6 @@ items:
             volumeMounts:
               - name: job-marker
                 mountPath: /job-marker
-            startupProbe: { }
-            readinessProbe: { }
-            livenessProbe: { }
+            startupProbe: null
+            readinessProbe: null
+            livenessProbe: null
