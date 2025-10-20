@@ -206,3 +206,7 @@ items:
             startupProbe: null
             readinessProbe: null
             livenessProbe: null
+            # Set the container entrypoint to the init script.
+            command:
+              - /bin/sh
+              - /usr/local/bin/init/fpm-init.sh
