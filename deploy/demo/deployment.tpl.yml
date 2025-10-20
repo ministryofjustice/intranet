@@ -82,7 +82,7 @@ items:
             - &fpm-container
               # Properties shared between this and the job definition.
               name: fpm
-              image: ${ECR_URL}:${IMAGE_TAG_FPM}=
+              image: ${ECR_URL}:${IMAGE_TAG_FPM}
               securityContext:
                 runAsUser: 101
               env:
