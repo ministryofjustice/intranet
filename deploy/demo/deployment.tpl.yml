@@ -202,7 +202,7 @@ items:
             # Otherwise the fpm service would start instead.
             command:
               - /bin/sh
-              - /usr/local/bin/fpm-start.sh
+              - /usr/local/bin/fpm-init.sh
             # Override and add various properties for the deployment's FPM container.
             resources:
               limits:
@@ -211,7 +211,7 @@ items:
               requests:
                 cpu: 500m
                 memory: 200Mi
-            volumeMounts: null
+            volumeMounts: []
             startupProbe: null
             readinessProbe: null
             livenessProbe: null
