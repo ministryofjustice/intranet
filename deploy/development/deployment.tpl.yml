@@ -1,5 +1,6 @@
 # This file uses a YAML alias, an advanced feature of YAML to avoid duplication.
 # It uses a Kubernetes List to define both a Deployment and a Job in one file.
+
 apiVersion: v1
 kind: List
 items:
@@ -191,7 +192,7 @@ items:
   - apiVersion: batch/v1
     kind: Job
     metadata:
-      name: ${KUBE_NAMESPACE}-fpm-job
+      name: ${KUBE_NAMESPACE}-fpm-init
       namespace: ${KUBE_NAMESPACE}
       labels:
         app: ${KUBE_NAMESPACE}-fpm-init

@@ -1,5 +1,6 @@
 # This file uses a YAML alias, an advanced feature of YAML to avoid duplication.
 # It uses a Kubernetes List to define both a Deployment and a Job in one file.
+
 apiVersion: v1
 kind: List
 items:
@@ -147,7 +148,26 @@ items:
                   mountPath: /var/www/html/public/app/uploads
                 - name: php-socket
                   mountPath: /sock
-
+              # Check frequently during startup, so that scaling up can happen as fast as possible.
+              startupProbe:
+                exec:
+                  command:
+                  - /usr/local/bin/fpm-health/fpm-readiness.sh
+                failureThreshold: 20
+                periodSeconds: 5
+              # Don't route traffic to this pod if the container is not ready.
+              readinessProbe:
+                exec:
+                  command:
+                  - /usr/local/bin/fpm-health/fpm-readiness.sh
+                periodSeconds: 10
+                failureThreshold: 1
+              # Restart the container if it fails liveness script.
+              livenessProbe:
+                exec:
+                  command:
+                  - /usr/local/bin/fpm-health/fpm-liveness.sh
+                periodSeconds: 10
 
   # Next in the list, define a Job to run initialization tasks using the same FPM container definition.
   # This reuses the fpm container definition above via a YAML alias to avoid duplication.
@@ -155,7 +175,7 @@ items:
   - apiVersion: batch/v1
     kind: Job
     metadata:
-      name: ${KUBE_NAMESPACE}-fpm-job
+      name: ${KUBE_NAMESPACE}-fpm-init
       namespace: ${KUBE_NAMESPACE}
       labels:
         app: ${KUBE_NAMESPACE}-fpm-init
