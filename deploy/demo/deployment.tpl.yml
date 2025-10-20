@@ -1,135 +1,187 @@
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: ${KUBE_NAMESPACE}
-  namespace: ${KUBE_NAMESPACE}
-  labels:
-    app: ${KUBE_NAMESPACE}
-spec:
-  # Scaled to 3 to allow for rolling update, on 24th June 25
-  # See README.md section: 'Deployment to Cloud Platform'
-  replicas: 3
-  strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 1
-  minReadySeconds: 5
-  selector:
-    matchLabels:
-      app: ${KUBE_NAMESPACE}
-  template:
+# This file uses a YAML alias, an advanced feature of YAML to avoid duplication.
+# It uses a Kubernetes List to define both a Deployment and a Job in one file.
+apiVersion: v1
+kind: List
+items:
+  
+  # First in the list, define the main Deployment for the application.
+  # The fpm container definition is aliased below so it can be reused in the Job definition.
+  # This avoids duplication and ensures consistency between the two definitions.
+
+  - apiVersion: apps/v1
+    kind: Deployment
     metadata:
+      name: ${KUBE_NAMESPACE}
+      namespace: ${KUBE_NAMESPACE}
       labels:
         app: ${KUBE_NAMESPACE}
     spec:
-      volumes:
-        - name: uploads
-          emptyDir: { }
-        - name: php-socket
-          emptyDir: { }
-      terminationGracePeriodSeconds: 35
-      serviceAccountName: ${KUBE_NAMESPACE}-service
-      containers:
-        - name: nginx
-          image: ${ECR_URL}:${IMAGE_TAG_NGINX}
-          resources:
+      # Scaled to 3 to allow for rolling update, on 24th June 25
+      # See README.md section: 'Deployment to Cloud Platform'
+      replicas: 3
+      strategy:
+        type: RollingUpdate
+        rollingUpdate:
+          maxSurge: 1
+          maxUnavailable: 1
+      minReadySeconds: 5
+      selector:
+        matchLabels:
+          app: ${KUBE_NAMESPACE}
+      template:
+        metadata:
+          labels:
+            app: ${KUBE_NAMESPACE}
+        spec:
+          volumes:
+            - name: uploads
+              emptyDir: { }
+            - name: php-socket
+              emptyDir: { }
+          terminationGracePeriodSeconds: 35
+          serviceAccountName: ${KUBE_NAMESPACE}-service
+          containers:
+            - name: nginx
+              image: ${ECR_URL}:${IMAGE_TAG_NGINX}
+              resources:
+                limits:
+                  cpu: 500m
+                  memory: 250Mi
+                requests:
+                  cpu: 50m
+                  memory: 100Mi
+              ports:
+                - containerPort: 8080
+                  name: http
+              volumeMounts:
+                - name: uploads
+                  mountPath: /var/www/html/public/app/uploads
+                - name: php-socket
+                  mountPath: /sock
+              securityContext:
+                runAsUser: 101
+              env:
+                - name: IPS_FORMATTED
+                  valueFrom:
+                    secretKeyRef:
+                      name: ${KUBE_NAMESPACE}-base64-secrets
+                      key: IPS_FORMATTED
+
+            - name: cron
+              image: ${ECR_URL}:${IMAGE_TAG_CRON}
+              resources:
+                limits:
+                  cpu: 50m
+                  memory: 30Mi
+                requests:
+                  cpu: 1m
+                  memory: 12Mi
+              securityContext:
+                runAsUser: 3001
+
+            - &fpm-container
+              # Properties shared between this and the job definition.
+              name: fpm
+              image: ${ECR_URL}:${IMAGE_TAG_FPM}=
+              securityContext:
+                runAsUser: 101
+              env:
+                - name: AWS_S3_BUCKET
+                  valueFrom:
+                    secretKeyRef:
+                      name: s3-bucket-output
+                      key: bucket_name
+                - name: AWS_CLOUDFRONT_PUBLIC_KEYS_OBJECT
+                  valueFrom:
+                    secretKeyRef:
+                      name: cloudfront-output
+                      key: cloudfront_public_keys
+                - name: DB_HOST
+                  valueFrom:
+                    secretKeyRef:
+                      name: rds-output
+                      key: rds_instance_address
+                - name: DB_NAME
+                  valueFrom:
+                    secretKeyRef:
+                      name: rds-output
+                      key: database_name
+                - name: DB_USER
+                  valueFrom:
+                    secretKeyRef:
+                      name: rds-output
+                      key: database_username
+                - name: DB_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: rds-output
+                      key: database_password
+                - name: OPENSEARCH_URL
+                  valueFrom:
+                    secretKeyRef:
+                      name: opensearch-output
+                      key: proxy_url
+                - name: BASIC_AUTH
+                  valueFrom:
+                    secretKeyRef:
+                      name: basic-auth-secret
+                      key: auth
+              envFrom:
+                - configMapRef:
+                    name: ${KUBE_NAMESPACE}
+                - secretRef:
+                    name: ${KUBE_NAMESPACE}-secrets
+                - secretRef:
+                    name: ${KUBE_NAMESPACE}-base64-secrets
+
+              # Properties that will be overridden in the following job definition.
+              resources:
+                limits:
+                  cpu: "4"
+                  memory: 2000Mi
+                requests:
+                  cpu: 500m
+                  memory: 600Mi
+              volumeMounts:
+                - name: uploads
+                  mountPath: /var/www/html/public/app/uploads
+                - name: php-socket
+                  mountPath: /sock
+
+
+  # Next in the list, define a Job to run initialization tasks using the same FPM container definition.
+  # This reuses the fpm container definition above via a YAML alias to avoid duplication.
+
+  - apiVersion: batch/v1
+    kind: Job
+    metadata:
+      name: ${KUBE_NAMESPACE}-fpm-job
+      namespace: ${KUBE_NAMESPACE}
+      labels:
+        app: ${KUBE_NAMESPACE}-fpm-init
+    spec:
+      template:
+        metadata:
+          labels:
+            app: ${KUBE_NAMESPACE}-fpm-init
+        spec:
+          volumes:
+            - name: job-marker
+              emptyDir: { }
+          serviceAccountName: ${KUBE_NAMESPACE}-service
+          restartPolicy: Never
+          containers:
+          - <<: *fpm-container
+            # Override and add various properties for the deployment's FPM container.
             limits:
               cpu: 500m
-              memory: 250Mi
-            requests:
-              cpu: 50m
-              memory: 100Mi
-          ports:
-            - containerPort: 8080
-              name: http
-          volumeMounts:
-            - name: uploads
-              mountPath: /var/www/html/public/app/uploads
-            - name: php-socket
-              mountPath: /sock
-          securityContext:
-            runAsUser: 101
-          env:
-            - name: IPS_FORMATTED
-              valueFrom:
-                secretKeyRef:
-                  name: ${KUBE_NAMESPACE}-base64-secrets
-                  key: IPS_FORMATTED
-
-        - name: cron
-          image: ${ECR_URL}:${IMAGE_TAG_CRON}
-          resources:
-            limits:
-              cpu: 50m
-              memory: 30Mi
-            requests:
-              cpu: 1m
-              memory: 12Mi
-          securityContext:
-            runAsUser: 3001
-
-        - name: fpm
-          image: ${ECR_URL}:${IMAGE_TAG_FPM}
-          resources:
-            limits:
-              cpu: "4"
-              memory: 2000Mi
+              memory: 600Mi
             requests:
               cpu: 500m
               memory: 600Mi
-          volumeMounts:
-            - name: uploads
-              mountPath: /var/www/html/public/app/uploads
-            - name: php-socket
-              mountPath: /sock
-          securityContext:
-            runAsUser: 101
-          env:
-            - name: AWS_S3_BUCKET
-              valueFrom:
-                secretKeyRef:
-                  name: s3-bucket-output
-                  key: bucket_name
-            - name: AWS_CLOUDFRONT_PUBLIC_KEYS_OBJECT
-              valueFrom:
-                secretKeyRef:
-                  name: cloudfront-output
-                  key: cloudfront_public_keys
-            - name: DB_HOST
-              valueFrom:
-                secretKeyRef:
-                  name: rds-output
-                  key: rds_instance_address
-            - name: DB_NAME
-              valueFrom:
-                secretKeyRef:
-                  name: rds-output
-                  key: database_name
-            - name: DB_USER
-              valueFrom:
-                secretKeyRef:
-                  name: rds-output
-                  key: database_username
-            - name: DB_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: rds-output
-                  key: database_password
-            - name: OPENSEARCH_URL
-              valueFrom:
-                secretKeyRef:
-                  name: opensearch-output
-                  key: proxy_url
-            - name: BASIC_AUTH
-              valueFrom:
-                secretKeyRef:
-                  name: basic-auth-secret
-                  key: auth
-          envFrom:
-            - configMapRef:
-                name: ${KUBE_NAMESPACE}
-            - secretRef:
-                name: ${KUBE_NAMESPACE}-secrets
-            - secretRef:
-                name: ${KUBE_NAMESPACE}-base64-secrets
+            volumeMounts:
+              - name: job-marker
+                mountPath: /job-marker
+            startupProbe: { }
+            readinessProbe: { }
+            livenessProbe: { }
