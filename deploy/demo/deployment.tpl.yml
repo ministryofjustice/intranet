@@ -86,6 +86,9 @@ items:
               image: ${ECR_URL}:${IMAGE_TAG_FPM}
               securityContext:
                 runAsUser: 101
+                allowPrivilegeEscalation: false
+                capabilities: 
+                  drop: ["ALL"]
               env:
                 - name: AWS_S3_BUCKET
                   valueFrom:
@@ -185,28 +188,30 @@ items:
           labels:
             app: ${KUBE_NAMESPACE}-fpm-init
         spec:
-          volumes:
-            - name: job-marker
-              emptyDir: { }
           serviceAccountName: ${KUBE_NAMESPACE}-service
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 101
+            runAsGroup: 101
+            seccompProfile:
+              type: "RuntimeDefault"
           restartPolicy: Never
           containers:
           - <<: *fpm-container
+            # Set the container entrypoint to the init script.
+            # Otherwise the fpm service would start instead.
+            command:
+              - /bin/sh
+              - /usr/local/bin/fpm-start.sh
             # Override and add various properties for the deployment's FPM container.
             resources:
               limits:
                 cpu: 500m
-                memory: 600Mi
+                memory: 200Mi
               requests:
                 cpu: 500m
-                memory: 600Mi
-            volumeMounts:
-              - name: job-marker
-                mountPath: /job-marker
+                memory: 200Mi
+            volumeMounts: null
             startupProbe: null
             readinessProbe: null
             livenessProbe: null
-            # Set the container entrypoint to the init script.
-            command:
-              - /bin/sh
-              - /usr/local/bin/init/fpm-init.sh
