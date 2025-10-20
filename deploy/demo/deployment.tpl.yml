@@ -206,6 +206,8 @@ items:
             seccompProfile:
               type: "RuntimeDefault"
           restartPolicy: Never
+          # Delete 1 hour after finishing
+          ttlSecondsAfterFinished: 3600
           containers:
           - <<: *fpm-container
             # Set the container entrypoint to the init script.
