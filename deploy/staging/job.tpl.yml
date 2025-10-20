@@ -17,8 +17,8 @@ spec:
       serviceAccountName: ${KUBE_NAMESPACE}-service
       securityContext:
         runAsNonRoot: true
-        runAsUser: 101
-        runAsGroup: 101
+        runAsUser: 3001
+        runAsGroup: 3001
         seccompProfile:
           type: "RuntimeDefault"
       restartPolicy: Never
