@@ -66,7 +66,7 @@ items:
               securityContext:
                 allowPrivilegeEscalation: false
                 runAsUser: 101
-                capabilities: 
+                capabilities:
                   drop: ["ALL"]
               env:
                 - name: IPS_FORMATTED
@@ -188,7 +188,7 @@ items:
   - apiVersion: batch/v1
     kind: Job
     metadata:
-      name: ${KUBE_NAMESPACE}-fpm-init
+      name: ${IMAGE_TAG_FPM}
       namespace: ${KUBE_NAMESPACE}
       labels:
         app: ${KUBE_NAMESPACE}-fpm-init
