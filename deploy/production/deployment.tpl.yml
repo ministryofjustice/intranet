@@ -38,6 +38,10 @@ items:
               emptyDir: { }
           terminationGracePeriodSeconds: 35
           serviceAccountName: ${KUBE_NAMESPACE}-service
+          securityContext:
+            runAsNonRoot: true
+            seccompProfile:
+              type: "RuntimeDefault"
           containers:
             - name: nginx
               image: ${ECR_URL}:${IMAGE_TAG_NGINX}
@@ -57,7 +61,10 @@ items:
                 - name: php-socket
                   mountPath: /sock
               securityContext:
+                allowPrivilegeEscalation: false
                 runAsUser: 101
+                capabilities:
+                  drop: ["ALL"]
               readinessProbe:
                 httpGet:
                   path: /readiness
@@ -83,7 +90,10 @@ items:
                   cpu: 1m
                   memory: 12Mi
               securityContext:
+                allowPrivilegeEscalation: false
                 runAsUser: 3001
+                capabilities: 
+                  drop: ["ALL"]
 
             - &fpm-container
               # Properties shared between this and the job definition.
@@ -91,6 +101,9 @@ items:
               image: ${ECR_URL}:${IMAGE_TAG_FPM}
               securityContext:
                 runAsUser: 101
+                allowPrivilegeEscalation: false
+                capabilities: 
+                  drop: ["ALL"]
               env:
                 - name: AWS_S3_BUCKET
                   valueFrom:
@@ -192,34 +205,42 @@ items:
   - apiVersion: batch/v1
     kind: Job
     metadata:
-      name: ${KUBE_NAMESPACE}-fpm-init
+      name: ${IMAGE_TAG_FPM}
       namespace: ${KUBE_NAMESPACE}
       labels:
         app: ${KUBE_NAMESPACE}-fpm-init
     spec:
+      # Delete 10 minutes after finishing
+      ttlSecondsAfterFinished: 600
       template:
         metadata:
           labels:
             app: ${KUBE_NAMESPACE}-fpm-init
         spec:
-          volumes:
-            - name: job-marker
-              emptyDir: { }
           serviceAccountName: ${KUBE_NAMESPACE}-service
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 101
+            runAsGroup: 101
+            seccompProfile:
+              type: "RuntimeDefault"
           restartPolicy: Never
           containers:
           - <<: *fpm-container
+            # Set the container entrypoint to the init script.
+            # Otherwise the fpm service would start instead.
+            command:
+              - /bin/sh
+              - /usr/local/bin/fpm-init.sh
             # Override and add various properties for the deployment's FPM container.
             resources:
               limits:
                 cpu: 500m
-                memory: 600Mi
+                memory: 200Mi
               requests:
                 cpu: 500m
-                memory: 600Mi
-            volumeMounts:
-              - name: job-marker
-                mountPath: /job-marker
+                memory: 200Mi
+            volumeMounts: []
             startupProbe: null
             readinessProbe: null
             livenessProbe: null
