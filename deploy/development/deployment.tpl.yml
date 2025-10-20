@@ -90,6 +90,7 @@ items:
                   cpu: 1m
                   memory: 12Mi
               securityContext:
+                allowPrivilegeEscalation: false
                 runAsUser: 3001
                 capabilities: 
                   drop: ["ALL"]
