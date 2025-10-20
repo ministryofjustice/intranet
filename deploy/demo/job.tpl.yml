@@ -17,21 +17,21 @@ spec:
       serviceAccountName: ${KUBE_NAMESPACE}-service
       securityContext:
         runAsNonRoot: true
-        runAsUser: 101
-        runAsGroup: 101
+        runAsUser: 3001
+        runAsGroup: 3001
         seccompProfile:
           type: "RuntimeDefault"
       restartPolicy: Never
       containers:
       - name: s3-push
         image: ${ECR_URL}:${IMAGE_TAG_S3_PUSH}
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities: 
+            drop: ["ALL"]
         env:
         - name: AWS_S3_BUCKET
           valueFrom:
             secretKeyRef:
               name: s3-bucket-output
               key: bucket_name
-        securityContext:
-          allowPrivilegeEscalation: false
-          capabilities: 
-            drop: ["ALL"]
