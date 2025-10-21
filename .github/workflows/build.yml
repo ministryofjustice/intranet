@@ -63,10 +63,6 @@ jobs:
             --build-arg ACF_PRO_LICENSE="$ACF_PRO_LICENSE" --build-arg ACF_PRO_PASS="$ACF_PRO_PASS"     \
             --build-arg AS3CF_PRO_USER="$AS3CF_PRO_USER"   --build-arg AS3CF_PRO_PASS="$AS3CF_PRO_PASS" \
             --target build-nginx .
-          
-          docker image build \
-            -t $REGISTRY/$REPOSITORY:cron-$PIPELINE_TAG-$IMAGE_TAG \
-            --target build-cron .
 
           docker image build \
             -t $REGISTRY/$REPOSITORY:s3-push-$PIPELINE_TAG-$IMAGE_TAG \
@@ -87,7 +83,6 @@ jobs:
           
           docker image push $REGISTRY/$REPOSITORY:fpm-$PIPELINE_TAG-$IMAGE_TAG
           docker image push $REGISTRY/$REPOSITORY:nginx-$PIPELINE_TAG-$IMAGE_TAG
-          docker image push $REGISTRY/$REPOSITORY:cron-$PIPELINE_TAG-$IMAGE_TAG
           docker image push $REGISTRY/$REPOSITORY:s3-push-$PIPELINE_TAG-$IMAGE_TAG
           docker image push $REGISTRY/$REPOSITORY:pod-broadcaster-$PIPELINE_TAG-$IMAGE_TAG
           
