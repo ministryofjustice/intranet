@@ -127,7 +127,8 @@ In production a Kubernetes CronJob triggers a `wp-cron.php` file every minute.
 By triggering the wp-cron.php endpoint in this way, we ensure that when a deployment replica 
 count increases, we do not have multiple instances trying to run scheduled tasks at the same time.
 
-Locally, a cron container is used to replicate this behaviour. There is no need to access this container. However, with every running container you can reach the OS.
+Locally, a cron container is used to replicate this behaviour. There is no need to access this container.
+However, with every running container you can reach the OS.
 
 ```bash
 docker compose exec -it wp-cron ash
