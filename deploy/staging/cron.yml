@@ -2,9 +2,9 @@ apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: wp-cron-trigger
-  namespace: intranet-demo
+  namespace: intranet-staging
   labels:
-    app: intranet-demo
+    app: intranet-staging
     component: cron-trigger
 spec:
   schedule: "* * * * *" # Every minute
@@ -13,14 +13,14 @@ spec:
   jobTemplate:
     metadata:
       labels:
-        app: intranet-demo
+        app: intranet-staging
         component: cron-trigger
     spec:
       backoffLimit: 0 # Ensures no retries on failure
       template:
         metadata:
           labels:
-            app: intranet-demo
+            app: intranet-staging
             component: cron-trigger
         spec:
           securityContext:
