@@ -14,4 +14,3 @@ data:
   # The following IDs are not private, they form part of the publicly visible oauth login url.
   OAUTH_CLIENT_ID: "51266573-d4eb-41db-8ebe-a9548aa4f01e"
   OAUTH_TENANT_ID: "0bb413d7-160d-4839-868a-f3d46537f6af"
-  MOJ_AUTH_VERSION: "2"
