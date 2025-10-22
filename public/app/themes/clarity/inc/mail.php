@@ -2,7 +2,7 @@
 // Mail Functions
 use Alphagov\Notifications\Client as Client;
 use Alphagov\Notifications\Exception\ApiException;
-use function Env\env;
+use function MOJ\Justice\env;
 
 const CLARITY_MAIL_TEMPLATES = __DIR__ . "/mail-templates.php";
 
