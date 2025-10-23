@@ -2,6 +2,7 @@
 
 namespace MOJ\Intranet;
 
+require_once dirname(__DIR__) . '../../config/env.php';
 require_once dirname(__DIR__) . '../../vendor/autoload.php';
 
 use GuzzleHttp;
