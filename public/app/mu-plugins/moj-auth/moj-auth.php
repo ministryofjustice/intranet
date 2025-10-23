@@ -185,61 +185,6 @@ class Auth
         header('Location: ' . $jwt->success_url);
     }
 
-    public function handleCallbackRequestV2(): void
-    {
-        $this->log('handleCallbackRequestV2()');
-
-        // If we've hit the callback endpoint, then handle it here. On fail it exits with 401 & php code execution stops here.
-        $entra_jwt = $this->oauthCallbackV2();
-
-        $entra_jwt_parts = explode('.', $entra_jwt);
-
-        // Decode the payload.
-        $entra_jwt_payload = json_decode(base64_decode($entra_jwt_parts[1]));
-
-        // Is it expired?
-        if ($entra_jwt_payload->exp < time()) {
-            $this->log('JWT is expired.');
-
-            // Update (or create) the JWT to keep track of failed callbacks.
-            $jwt = $this->getJwt() ?: (object)[];
-
-            // Set to 0 for a session cookie.
-            $jwt->cookie_expiry = 0;
-
-            // Set failed_callbacks with a default of 1, or add one to the existing value.
-            $jwt->failed_callbacks = isset($jwt->failed_callbacks) ? ((int) $jwt->failed_callbacks) + 1 : 1;
-
-            // Set the JWT.
-            $this->setJwt($jwt);
-
-            return;
-        }
-
-        $this->log('Access token is valid. Will set JWT and store refresh token.');
-
-        $jwt = $this->getJwt() ?: (object)[];
-
-        $jwt->expiry = $entra_jwt_payload->exp;
-
-        $this->log('handleCallbackRequest initial token expiry: ' . $jwt->expiry);
-
-        $jwt->roles = ['reader'];
-
-        // Set a JWT cookie.
-        $this->setJwt($jwt);
-
-        // Store the tokens.
-        // $this->storeTokens($this->sub, $oauth_access_token, 'refresh');
-
-        // Ensure we're redirecting to a page on the same domain as our home_url.
-        if (empty($jwt->success_url) || !str_starts_with($jwt->success_url, home_url())) {
-            $jwt->success_url = '/';
-        }
-
-        // Redirect the user to the page they were trying to access.
-        header('Location: ' . $jwt->success_url) && exit();
-    }
 
     public function handleHeartbeatRequest(): void
     {
