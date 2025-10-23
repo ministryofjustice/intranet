@@ -134,4 +134,31 @@ trait AuthUtils
         }
         return true;
     }
+
+    /**
+     * A safe exit function that flushes the object cache if Redis is connected.
+     *
+     * Without this, using set_transient() and exit() will mean values are not saved to Redis.
+     *
+     * @return void
+     */
+    public function safeExit(): void
+    {
+        global $wp_object_cache;
+
+        if (!isset($wp_object_cache) || !$wp_object_cache->is_redis_connected) {
+            $this->log('Redis not connected, skipping cache flush');
+            return;
+        }
+
+        // Force any pending cache operations to complete
+        try {
+            // This ensures all pending Redis operations are flushed
+            $wp_object_cache->redis->save();
+        } catch (\Exception $e) {
+            // Log but don't break the auth flow
+            $this->log('Cache flush failed: ' . $e->getMessage());
+        }
+        exit();
+    }
 }
