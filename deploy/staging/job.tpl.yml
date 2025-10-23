@@ -7,18 +7,28 @@ metadata:
   name: ${IMAGE_TAG_S3_PUSH}
   namespace: ${KUBE_NAMESPACE}
   labels:
-    app: ${KUBE_NAMESPACE}
+    app: ${KUBE_NAMESPACE}-s3-push
 spec:
   template:
     metadata:
       labels:
-        app: ${KUBE_NAMESPACE}
+        app: ${KUBE_NAMESPACE}-s3-push
     spec:
       serviceAccountName: ${KUBE_NAMESPACE}-service
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 3001
+        runAsGroup: 3001
+        seccompProfile:
+          type: "RuntimeDefault"
       restartPolicy: Never
       containers:
       - name: s3-push
         image: ${ECR_URL}:${IMAGE_TAG_S3_PUSH}
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities: 
+            drop: ["ALL"]
         env:
         - name: AWS_S3_BUCKET
           valueFrom:

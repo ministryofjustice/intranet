@@ -2,7 +2,7 @@
 
 namespace MOJ\Justice;
 
-use function Env\env;
+use function MOJ\Justice\env;
 use Roots\WPConfig\Config;
 
 // ---------------------------------------------
