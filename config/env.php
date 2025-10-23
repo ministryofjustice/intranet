@@ -16,5 +16,12 @@ namespace MOJ\Justice;
 
 function env(string $key) : mixed
 {
-    return isset($_ENV[$key]) ? $_ENV[$key] : null;
+    $value = isset($_ENV[$key]) ? $_ENV[$key] : null;
+    if($value === 'true') {
+        return true;
+    }
+    if($value === 'false') {
+        return false;
+    }
+    return $value;
 }
