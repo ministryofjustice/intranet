@@ -10,9 +10,9 @@ delete_cron_if_exists() {
     fi
     
     # Check if the cron event exists
-    if wp cron event list --format=csv --fields=hook --skip-plugins | grep -q "^$event_name$"; then
+    if wp cron event list --format=csv --fields=hook --skip-plugins --skip-themes | grep -q "^$event_name$"; then
         echo "Deleting cron event: $event_name"
-        wp cron event delete "$event_name" --skip-plugins
+        wp cron event delete "$event_name" --skip-plugins --skip-themes
     else
         echo "Cron event '$event_name' does not exist, skipping deletion"
     fi
