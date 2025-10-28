@@ -1627,12 +1627,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ministryofjustice/notify-for-wordpress.git",
-                "reference": "832ae0c555cbcf8cff19dbbad6df113bd16fe8cb"
+                "reference": "f20cd2a27b8ef7d2525e1ade70dfbbbd0dec6cb2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ministryofjustice/notify-for-wordpress/zipball/832ae0c555cbcf8cff19dbbad6df113bd16fe8cb",
-                "reference": "832ae0c555cbcf8cff19dbbad6df113bd16fe8cb",
+                "url": "https://api.github.com/repos/ministryofjustice/notify-for-wordpress/zipball/f20cd2a27b8ef7d2525e1ade70dfbbbd0dec6cb2",
+                "reference": "f20cd2a27b8ef7d2525e1ade70dfbbbd0dec6cb2",
                 "shasum": ""
             },
             "require": {
@@ -1671,7 +1671,7 @@
                 "security": "https://security-guidance.service.justice.gov.uk/.well-known/security.txt",
                 "source": "https://github.com/ministryofjustice/notify-for-wordpress/tree/main"
             },
-            "time": "2023-04-17T21:27:42+00:00"
+            "time": "2025-10-28T11:29:47+00:00"
         },
         {
             "name": "ministryofjustice/php-markdown-extra",
