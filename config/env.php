@@ -14,14 +14,15 @@ namespace MOJ\Justice;
  * @return mixed
  */
 
-function env(string $key) : mixed
+function env(string $key): mixed
 {
-    $value = isset($_ENV[$key]) ? $_ENV[$key] : null;
-    if($value === 'true') {
-        return true;
+    // Get the value from the $_ENV super-global
+    $value = $_ENV[$key] ?? null;
+
+    // Convert 'true'/'false' strings to boolean values
+    if (in_array($value, ['true', 'false'], true)) {
+        $value = filter_var($value, FILTER_VALIDATE_BOOLEAN);
     }
-    if($value === 'false') {
-        return false;
-    }
+
     return $value;
 }
