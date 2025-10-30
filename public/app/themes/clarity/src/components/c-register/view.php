@@ -81,6 +81,8 @@ if (isset($c_register_post_array['task']) && $c_register_post_array['task'] == '
     }
 }
 
+$email = sanitize_text_field($email);
+
 ?>
 <div class="c-register">
 
@@ -140,7 +142,7 @@ if (isset($c_register_post_array['task']) && $c_register_post_array['task'] == '
                     <span class="govuk-visually-hidden">Error:</span> <?= $err_email ?>
                 </p>
             <?php } ?>
-            <p><input type="email" value="<?= sanitize_text_field($email) ?>" name="email" id="email"/></p>
+            <p><input type="email" value="<?= esc_attr($email) ?>" name="email" id="email"/></p>
         </div>
         <button type="submit" name="btnregister" class="button">Register</button>
         <input type="hidden" name="task" value="register"/>
