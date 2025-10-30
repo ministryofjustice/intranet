@@ -14,13 +14,11 @@ add_action('wp', function () {
         'expires' => time() + (3650 * DAY_IN_SECONDS),
         'path' => COOKIEPATH,
         'domain' => COOKIE_DOMAIN,
-        'httponly' => false
+        'httponly' => false,
+        // use only on HTTPS - browser redirects on a loop otherwise
+        'secure' => is_ssl()
     ];
 
-    // use only on HTTPS - browser redirects on a loop otherwise
-    if (!empty($_SERVER["HTTPS"])) {
-        $options['secure'] = true;
-    }
     // If the agency param is set, set the dw_agency cookie and return
     if ($agency_param) {
         $agency = trim($agency_param);
@@ -116,13 +114,10 @@ function dw_set_edit_posts_cookie(bool $active): void
     $options = [
         'path' => COOKIEPATH,
         'domain' => parse_url(get_home_url(), PHP_URL_HOST),
-        'httponly' => true
+        'httponly' => true,
+        // use only on HTTPS - browser redirects on a loop otherwise
+        'secure' => is_ssl()
     ];
-
-    // use only on HTTPS - browser redirects on a loop otherwise
-    if (!empty($_SERVER["HTTPS"])) {
-        $options['secure'] = true;
-    }
 
     $options['expires'] = ($active ? strtotime('+7 days') : 1);
 
