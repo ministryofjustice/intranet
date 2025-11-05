@@ -18,15 +18,6 @@ class Updates
     public function hooks(): void
     {
         /**
-         * Remove scheduled events for: wp_version_check, wp_update_plugins and wp_update_themes
-         *
-         * This will mean that less data is being stored in the cron row of the wp_options table.
-         *
-         * @see public/wp/wp-includes/update.php
-         */
-        remove_action( 'init', 'wp_schedule_update_checks' );
-
-        /**
          * Prevent http requests to api.wordpress.org to check for WP core versions.
          * 
          * Even though `AUTOMATIC_UPDATER_DISABLED` is set to true, we need to block

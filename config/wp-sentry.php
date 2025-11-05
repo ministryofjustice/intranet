@@ -1,6 +1,6 @@
 <?php
 
-use function MOJ\Justice\env;
+use function Env\env;
 
 /**
  * Initialise Sentry options

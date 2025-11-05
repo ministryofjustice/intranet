@@ -14,11 +14,13 @@ add_action('wp', function () {
         'expires' => time() + (3650 * DAY_IN_SECONDS),
         'path' => COOKIEPATH,
         'domain' => COOKIE_DOMAIN,
-        'httponly' => false,
-        // use only on HTTPS - browser redirects on a loop otherwise
-        'secure' => is_ssl()
+        'httponly' => false
     ];
 
+    // use only on HTTPS - browser redirects on a loop otherwise
+    if (!empty($_SERVER["HTTPS"])) {
+        $options['secure'] = true;
+    }
     // If the agency param is set, set the dw_agency cookie and return
     if ($agency_param) {
         $agency = trim($agency_param);
@@ -50,15 +52,9 @@ add_action('wp', function () {
         // Do nothing and return
         return;
     }
-
     $url = '/agency-switcher';
-    // If we are on the homepage, we don't need to set the send_back param.
-    // Otherwise, set the send_back param to the current page URL
-    if (!is_front_page()) {
-        // Set the send_back param so that we can send the user back to the current page after selecting an agency
-        $url = add_query_arg(['send_back' => urlencode(get_permalink())], $url);
-    }
-
+    // Set the send_back param so that we can send the user back to the current page after selecting an agency
+    $url = add_query_arg(['send_back' => urlencode(get_permalink())], $url);
     // Redirect to the agency switcher page
     wp_safe_redirect($url);
     exit;
@@ -114,10 +110,13 @@ function dw_set_edit_posts_cookie(bool $active): void
     $options = [
         'path' => COOKIEPATH,
         'domain' => parse_url(get_home_url(), PHP_URL_HOST),
-        'httponly' => true,
-        // use only on HTTPS - browser redirects on a loop otherwise
-        'secure' => is_ssl()
+        'httponly' => true
     ];
+
+    // use only on HTTPS - browser redirects on a loop otherwise
+    if (!empty($_SERVER["HTTPS"])) {
+        $options['secure'] = true;
+    }
 
     $options['expires'] = ($active ? strtotime('+7 days') : 1);
 

@@ -107,9 +107,12 @@ function inject_url_cookies_into_header()
             'expires' => time() + (86400 * 30),
             'path' => "/",
             'domain' => "",
-            'httponly' => true,
-            'secure' => is_ssl()
+            'httponly' => true
         ];
+
+        if (!empty($_SERVER["HTTPS"])) {
+            $options['secure'] = true;
+        }
 
         setcookie('referral_url', $current_url, $options);
     }

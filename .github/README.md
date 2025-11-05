@@ -122,13 +122,8 @@ This service acts like a distributed CloudFront service allowing us to imitate a
 
 **CRON**
 
-In production a Kubernetes CronJob triggers a `wp-cron.php` file every minute.
-
-By triggering the wp-cron.php endpoint in this way, we ensure that when a deployment replica 
-count increases, we do not have multiple instances trying to run scheduled tasks at the same time.
-
-Locally, a cron container is used to replicate this behaviour. There is no need to access this container.
-However, with every running container you can reach the OS.
+In production we have a scalable cron container. It's only job right now is to make a head request to `wp-cron.php`
+There is no need to access this container. However, with every running container you can reach the OS.
 
 ```bash
 docker compose exec -it wp-cron ash

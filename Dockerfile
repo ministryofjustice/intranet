@@ -14,13 +14,13 @@
 #░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
 
 ARG version_nginx=1.26.3
-ARG version_node=24
-ARG version_cron_alpine=3.22
+ARG version_node=22
+ARG version_cron_alpine=3.19.1
 
 #    ▄▄  ▄▄     █▀▀  █▀█  █▀▄▀█     ▄▄  ▄▄    #
 #    ░░  ░░     █▀░  █▀▀  █░▀░█     ░░  ░░    #
 
-FROM ministryofjustice/wordpress-base-fpm:latest AS base-fpm
+FROM ministryofjustice/wordpress-base-fpm:0.0.6 AS base-fpm
 
 # Switch to the alpine's default user, for installing packages
 USER root
@@ -35,9 +35,9 @@ RUN mkdir /sock && \
     chown nginx:nginx /sock
 
 # Copy our init. script(s) and set them to executable
-COPY bin/fpm-init.sh /usr/local/bin/
+COPY deploy/config/init/fpm-*.sh /usr/local/bin/docker-entrypoint.d/
 
-RUN chmod +x /usr/local/bin/fpm-init.sh
+RUN chmod +x /usr/local/bin/docker-entrypoint.d/*
 
 # Copy our healthcheck scripts and set them to executable
 COPY bin/fpm-liveness.sh bin/fpm-readiness.sh bin/fpm-status.sh /usr/local/bin/fpm-health/
@@ -55,8 +55,8 @@ RUN rm zz-docker.conf && \
 ## Set our pool configuration
 COPY deploy/config/php-pool.conf pool.conf    
 
-# Disable access logging in PHP-FPM to reduce log noise.
-RUN sed -i 's/^[[:space:]]*access\.log/;access.log/' /usr/local/etc/php-fpm.d/docker.conf
+# Don't log every request.
+RUN perl -pi -e 's#^(?=access\.log\b)#;#' /usr/local/etc/php-fpm.d/docker.conf
 
 WORKDIR /var/www/html
 

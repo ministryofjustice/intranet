@@ -6,7 +6,7 @@ metadata:
   labels:
     app: ${KUBE_NAMESPACE}-pod-broadcaster
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: ${KUBE_NAMESPACE}-pod-broadcaster
@@ -37,4 +37,4 @@ spec:
             - name: LABEL_SELECTOR
               value: app=${KUBE_NAMESPACE}
             - name: DEBUG
-              value: "false"
+              value: "true"
