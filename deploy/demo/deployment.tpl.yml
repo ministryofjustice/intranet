@@ -57,6 +57,18 @@ spec:
                   name: ${KUBE_NAMESPACE}-base64-secrets
                   key: IPS_FORMATTED
 
+        - name: cron
+          image: ${ECR_URL}:${IMAGE_TAG_CRON}
+          resources:
+            limits:
+              cpu: 50m
+              memory: 30Mi
+            requests:
+              cpu: 1m
+              memory: 12Mi
+          securityContext:
+            runAsUser: 3001
+
         - name: fpm
           image: ${ECR_URL}:${IMAGE_TAG_FPM}
           resources:
