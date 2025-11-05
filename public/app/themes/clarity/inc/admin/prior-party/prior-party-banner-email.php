@@ -230,7 +230,7 @@ class PriorPartyBannerEmail
         for ($days_ago = 0; $days_ago <= 9; $days_ago++) {
             $class_name = $email_index === $days_ago ? 'ppb-email-preview-list-item--active' : '';
             $label = $days_ago ? sprintf('%d days ago', $days_ago) : 'Today';
-            printf('<li><a class="ppb-email-preview-list-item %s" href="%s&email_index=%d">%s</a></li>',  $class_name, esc_url($base_url), $days_ago,  $label);
+            printf('<li><a class="ppb-email-preview-list-item %s" href="%s&email_index=%d">%s</a></li>',  $class_name, $base_url, $days_ago,  $label);
         }
 
         // End the list.

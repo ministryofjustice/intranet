@@ -102,7 +102,7 @@ $email = sanitize_text_field($email);
         ?>
         <div id="message" class="success">
             <p><strong>Now check your email</strong></p>
-            <p>We're sending an email to <?= esc_html($email) ?>. This can take up to 5 minutes.</p>
+            <p>We're sending an email to <?= $email ?>. This can take up to 5 minutes.</p>
 
             <p>Open the email and click on the link. This will take you to the reset password page, where you would need
                 to
@@ -142,7 +142,7 @@ $email = sanitize_text_field($email);
                     <span class="govuk-visually-hidden">Error:</span> <?= $err_email ?>
                 </p>
             <?php } ?>
-            <p><input type="email" value="<?= esc_attr($email) ?>" name="email" id="email"/></p>
+            <p><input type="email" value="<?= $email ?>" name="email" id="email"/></p>
         </div>
         <button type="submit" name="btnregister" class="button">Register</button>
         <input type="hidden" name="task" value="register"/>

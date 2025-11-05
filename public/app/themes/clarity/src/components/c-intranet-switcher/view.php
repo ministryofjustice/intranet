@@ -61,14 +61,7 @@ array_map(function($key, array $agency) use (&$integrated, &$external) {
                             } else {
                                 $extra_class = '';
                             }
-                            printf(
-                                '<li class="c-intranet-switcher__switch c-intranet-switcher__switch--%s %s"><a href="%s?agency=%s">%s</a></li>',
-                                esc_attr($agency_id),
-                                esc_attr($extra_class),
-                                esc_url($url),
-                                esc_attr($agency_id),
-                                esc_html($agency['label'])
-                            );
+                            echo '<li class="c-intranet-switcher__switch c-intranet-switcher__switch--' . $agency_id . $extra_class . ' "><a href="'. $url .'?agency=' . $agency_id . '">' . $agency['label'] . '</a></li>';
                         }
                     ?>
                 </ul>

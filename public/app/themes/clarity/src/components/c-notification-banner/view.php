@@ -34,15 +34,15 @@ $banner_icon = $variant_values['icon'] ?? false;
 ?>
 
 <!-- c-moj-banner starts here -->
-<section class="c-moj-banner c-moj-banner--<?= esc_attr($variant_with_default) ?>" role="region" aria-label="<?= esc_attr($banner_label) ?>">
+<section class="c-moj-banner c-moj-banner--<?= $variant_with_default ?>" role="region" aria-label="<?= $banner_label ?>">
     <?php
     $banner_icon_file = 'icons/' . $banner_icon . '.php';
-    if ($banner_icon && file_exists($banner_icon_file)) {
+    if (file_exists($banner_icon_file)) {
         require $banner_icon_file;
     }
     ?>
     <div class="c-moj-banner__message">
-        <h2 class="o-title"><?= esc_html($args['heading']) ?></h2>
+        <h2 class="o-title"><?= $args['heading'] ?></h2>
     </div>
 </section>
 <!-- c-moj-banner ends here -->
