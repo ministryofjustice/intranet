@@ -13,7 +13,7 @@
 #░░
 #░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
 
-ARG version_nginx=1.26.3
+ARG version_nginx=1.28.0
 ARG version_node=24
 ARG version_cron_alpine=3.22
 
