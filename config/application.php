@@ -1,7 +1,4 @@
 <?php
-
-require_once 'env.php';
-
 /**
  * Your base production configuration goes in this file. Environment-specific
  * overrides go in their respective config/environments/{{WP_ENV}}.php file.
@@ -12,7 +9,7 @@ require_once 'env.php';
  */
 
 use Roots\WPConfig\Config;
-use function MOJ\Justice\env;
+use function Env\env;
 
 /**
  * @const MOJ_ROOT_DIR string

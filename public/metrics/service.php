@@ -5,7 +5,7 @@ namespace MOJ\Intranet;
 require_once dirname(__DIR__) . '../../vendor/autoload.php';
 
 use GuzzleHttp;
-use function MOJ\Justice\env;
+use function Env\env;
 
 /**
  * Metrics related to the service available at `/metrics/service`.

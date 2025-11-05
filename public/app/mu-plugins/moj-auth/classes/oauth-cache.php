@@ -3,6 +3,7 @@
 namespace Microsoft\Kiota\Authentication\Cache;
 
 use League\OAuth2\Client\Token\AccessToken;
+use Roots\WPConfig\Config;
 
 /**
  * Class TransientAccessTokenCache

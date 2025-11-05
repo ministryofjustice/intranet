@@ -92,13 +92,3 @@ if [ -f "$DOCUMENT_REVISIONS_FILE" ] ; then
   echo "Adding wp_document_revisions_get_latest_revision filter to wp-document-revisions..."
   sed -i "s/$DOCUMENT_REVISIONS_SEARCH_2/$DOCUMENT_REVISIONS_REPLACE_2/g" $DOCUMENT_REVISIONS_FILE
 fi
-
-# Modify the 'Requires Plugins' line from debug-bar-elasticpress plugin since it is incompatible with elasticpress being a MU plugin.
-DEBUG_BAR_EP_FILE=/var/www/html/public/app/plugins/debug-bar-elasticpress/debug-bar-elasticpress.php
-DEBUG_BAR_EP_SEARCH="* Requires Plugins:  elasticpress"
-DEBUG_BAR_EP_REPLACE="* Requires Plugins:"
-
-if [ -f "$DEBUG_BAR_EP_FILE" ] ; then
-  echo "Removing Requires Plugins line from debug-bar-elasticpress plugin..."
-  sed -i "s/$DEBUG_BAR_EP_SEARCH/$DEBUG_BAR_EP_REPLACE/g" $DEBUG_BAR_EP_FILE
-fi
