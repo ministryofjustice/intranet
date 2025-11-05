@@ -24,14 +24,6 @@ class Security
     ];
 
     /**
-     * A list of known blocked hosts.
-     */
-    private array $blocked_hosts = [
-        'totalsuite.net',          // Totalpoll Lite update check
-        'collect.totalsuite.net', // Totalpoll Lite telemetry
-    ];
-
-    /**
      * The application host e.g. intranet.docker or intranet.justice.gov.uk
      */
     private string $home_host;
@@ -82,8 +74,7 @@ class Security
         add_filter('wp_headers', [$this, 'headerMods']);
         add_filter('auth_cookie_expiration', [$this, 'setLoginPeriod'], 10, 0);
         add_filter('pre_http_request', [$this, 'handleLoopbackRequests'], 10, 3);
-        add_filter('pre_http_request', [$this, 'blockHostRequests'], 10, 3);
-        add_filter('pre_http_request', [$this, 'logUnknownHostRequests'], 15, 3);
+        add_filter('pre_http_request', [$this, 'logUnknownHostRequests'], 10, 3);
     }
 
     /**
@@ -162,22 +153,6 @@ class Security
 
         // Return the result.
         return $http->request($new_url, $parsed_args);
-    }
-
-    /**
-     * Block requests to known bad hosts.
-     *
-     * @param false|array|\WP_Error $response
-     * @param array $parsed_args
-     * @param string $url
-     * @return false|array|\WP_Error
-     */
-    public function blockHostRequests(false|array|\WP_Error $response, array $parsed_args, string $url): false|array|\WP_Error
-    {
-        if (in_array(parse_url($url, PHP_URL_HOST), $this->blocked_hosts)) {
-            return new \WP_Error('blocked_host', 'Requests to this host are blocked for security reasons.');
-        }
-        return $response;
     }
 
     /**

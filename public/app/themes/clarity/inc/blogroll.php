@@ -24,14 +24,20 @@ class Blogroll
         'note-from-antonia' => 'notes-from-antonia'
     ];
 
-    // Array of post types that are handled by this class
-    // During a crossover-period, more post types may be added here.
     const POST_TYPE_ARRAY = [
-        'note-from-jo'
+        'note-from-jo',
+        'note-from-amy',
+        'note-from-antonia'
     ];
 
     // Name of the cron job
     const CRON_HOOK = 'blogroll_cron_hook';
+
+    // Which user roles are allowed to view archived pages?
+    const ARCHIVE_PERMISSIONS = [
+        'agency_admin',
+        'administrator',
+    ];
 
     /**
      * Constructor
@@ -50,8 +56,8 @@ class Blogroll
         // This will fire on new post open, save, publish, update
         add_action('wp_insert_post', [$this, 'handleNotesFromInsert'], 10, 2);
 
-        // Handle content page edit, e.g. if an agency is changed on the note-from-jo page.
-        add_action('wp_insert_post', [$this, 'handleContentPageEdit'], 10, 2);
+        // Create a 1 minute schedule
+        add_filter('cron_schedules', [$this, 'addOneMinuteCronSchedule']);
 
         // Schedule the cron job
         add_action('init', [$this, 'scheduleCronJob']);
@@ -115,27 +121,6 @@ class Blogroll
         // is not cached when an Agency Admin is logged out.
         wp_redirect(get_the_permalink($redirect_url), 302);
         exit;
-    }
-
-    /**
-     * Handle content page edits
-     * 
-     * When a content page is edited, we need to copy the agencies 
-     * from the content page to all individual notes of that type.
-     * 
-     * @param int     $post_id
-     * @param WP_Post $post
-     *
-     * @return void
-     */
-    public function handleContentPageEdit(int $post_id, WP_Post $post): void
-    {
-        // Check if the post is a content page
-        if (in_array($post->post_name, $this::CONTENT_PAGE_MAP)) {
-            // Get the post type from the content page
-            $post_type = array_search($post->post_name, $this::CONTENT_PAGE_MAP);
-            $this->copyAgenciesToNotes($post_type);
-        }
     }
 
 
@@ -230,10 +215,7 @@ class Blogroll
 
             // we are checking if the agency arrays are different
             // if they are, we will make changes, otherwise, do nothing.
-            $needs_update = array_diff($agencies, $agencies_current)
-                || array_diff($agencies_current, $agencies);
-
-            if ($needs_update) {
+            if (!empty(array_diff($agencies, $agencies_current))) {
                 // set as defined
                 $terms = wp_set_object_terms($post_id, $agencies, 'agency');
 
@@ -246,12 +228,27 @@ class Blogroll
 
 
     /**
+     * Adds a custom cron schedule of 1 minute.
+     *
+     * @param array $schedules
+     * @return array
+     */
+    public function addOneMinuteCronSchedule(array $schedules): array
+
+    {
+        $schedules['one_minute'] = [
+            'interval' => 60,
+            'display' => esc_html__('Every Minute')
+        ];
+
+        return $schedules;
+    }
+
+    /**
      * Schedules a cron job to run the copyAgenciesToNotes function.
      * 
      * This function checks if the cron job is already scheduled,
-     * and if not, schedules it to run every day. 
-     * Previously, this was running every minute, but the `wp_insert_post`
-     * hooks are working reliably, so a daily reconciliation is sufficient.
+     * and if not, schedules it to run every 1 minute.
      * 
      * @return void
      */
@@ -259,8 +256,12 @@ class Blogroll
     {
         // Check if the cron job is already scheduled
         if (!wp_next_scheduled($this::CRON_HOOK)) {
-            // Schedule the cron job to run every day
-            wp_schedule_event(time(), 'daily', $this::CRON_HOOK);
+            // Schedule the cron job to run every 1 minute
+            wp_schedule_event(
+                time(),
+                (getenv('WP_ENV') === 'production' ? 'twicedaily' : 'one_minute'),
+                $this::CRON_HOOK
+            );
         }
     }
 }
