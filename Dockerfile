@@ -35,9 +35,9 @@ RUN mkdir /sock && \
     chown nginx:nginx /sock
 
 # Copy our init. script(s) and set them to executable
-COPY deploy/config/init/fpm-*.sh /usr/local/bin/docker-entrypoint.d/
+COPY bin/fpm-init.sh /usr/local/bin/
 
-RUN chmod +x /usr/local/bin/docker-entrypoint.d/*
+RUN chmod +x /usr/local/bin/fpm-init.sh
 
 # Copy our healthcheck scripts and set them to executable
 COPY bin/fpm-liveness.sh bin/fpm-readiness.sh bin/fpm-status.sh /usr/local/bin/fpm-health/
