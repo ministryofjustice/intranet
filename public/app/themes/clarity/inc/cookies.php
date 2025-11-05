@@ -52,15 +52,9 @@ add_action('wp', function () {
         // Do nothing and return
         return;
     }
-
     $url = '/agency-switcher';
-    // If we are on the homepage, we don't need to set the send_back param.
-    // Otherwise, set the send_back param to the current page URL
-    if (!is_front_page()) {
-        // Set the send_back param so that we can send the user back to the current page after selecting an agency
-        $url = add_query_arg(['send_back' => urlencode(get_permalink())], $url);
-    }
-
+    // Set the send_back param so that we can send the user back to the current page after selecting an agency
+    $url = add_query_arg(['send_back' => urlencode(get_permalink())], $url);
     // Redirect to the agency switcher page
     wp_safe_redirect($url);
     exit;

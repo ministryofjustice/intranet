@@ -48,10 +48,10 @@ items:
               resources:
                 limits:
                   cpu: 500m
-                  memory: 350Mi
+                  memory: 250Mi
                 requests:
                   cpu: 50m
-                  memory: 200Mi
+                  memory: 100Mi
               ports:
                 - containerPort: 8080
                   name: http
