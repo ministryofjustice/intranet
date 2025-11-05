@@ -1627,12 +1627,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ministryofjustice/notify-for-wordpress.git",
-                "reference": "f20cd2a27b8ef7d2525e1ade70dfbbbd0dec6cb2"
+                "reference": "832ae0c555cbcf8cff19dbbad6df113bd16fe8cb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ministryofjustice/notify-for-wordpress/zipball/f20cd2a27b8ef7d2525e1ade70dfbbbd0dec6cb2",
-                "reference": "f20cd2a27b8ef7d2525e1ade70dfbbbd0dec6cb2",
+                "url": "https://api.github.com/repos/ministryofjustice/notify-for-wordpress/zipball/832ae0c555cbcf8cff19dbbad6df113bd16fe8cb",
+                "reference": "832ae0c555cbcf8cff19dbbad6df113bd16fe8cb",
                 "shasum": ""
             },
             "require": {
@@ -1671,7 +1671,7 @@
                 "security": "https://security-guidance.service.justice.gov.uk/.well-known/security.txt",
                 "source": "https://github.com/ministryofjustice/notify-for-wordpress/tree/main"
             },
-            "time": "2025-10-28T11:29:47+00:00"
+            "time": "2023-04-17T21:27:42+00:00"
         },
         {
             "name": "ministryofjustice/php-markdown-extra",
@@ -1731,16 +1731,16 @@
         },
         {
             "name": "ministryofjustice/wp-moj-components",
-            "version": "3.5.2",
+            "version": "3.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ministryofjustice/wp-moj-components.git",
-                "reference": "3fc07fbc127f6e3b6450342bd11bbaa627aac0e4"
+                "reference": "bc735aaab6ee2d67e6afed2fad6399ecf9accf05"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ministryofjustice/wp-moj-components/zipball/3fc07fbc127f6e3b6450342bd11bbaa627aac0e4",
-                "reference": "3fc07fbc127f6e3b6450342bd11bbaa627aac0e4",
+                "url": "https://api.github.com/repos/ministryofjustice/wp-moj-components/zipball/bc735aaab6ee2d67e6afed2fad6399ecf9accf05",
+                "reference": "bc735aaab6ee2d67e6afed2fad6399ecf9accf05",
                 "shasum": ""
             },
             "require": {
@@ -1796,10 +1796,10 @@
             ],
             "description": "A plugin to introduce global functions to a collection of WP sites",
             "support": {
-                "source": "https://github.com/ministryofjustice/wp-moj-components/tree/3.5.2",
+                "source": "https://github.com/ministryofjustice/wp-moj-components/tree/3.5.1",
                 "issues": "https://github.com/ministryofjustice/wp-moj-components/issues"
             },
-            "time": "2025-10-23T15:19:57+00:00"
+            "time": "2022-02-23T10:40:42+00:00"
         },
         {
             "name": "ministryofjustice/wp-moj-elasticsearch",

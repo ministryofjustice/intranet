@@ -15,7 +15,7 @@ defined('ABSPATH') || exit;
 add_filter('pre_schedule_event', function ($pre, $event) {
     // Block attempts to schedule unwanted TotalPoll cron hooks.
     if (isset($event->hook) && in_array($event->hook, ['totalpoll_weekly_environment', 'totalpoll_daily_activity'], true)) {
-        return new \WP_Error('blocked_event', 'Scheduling ' . $event->hook . ' is disabled.', ['skip-log' => true]);
+        return new \WP_Error('blocked_event', 'Scheduling ' . $event->hook . ' is disabled.');
     }
 
     return $pre;
