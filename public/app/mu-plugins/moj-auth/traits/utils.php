@@ -153,7 +153,7 @@ trait AuthUtils
         global $wp_object_cache;
 
         if (!isset($wp_object_cache) || !$wp_object_cache->is_redis_connected) {
-            $this->log('Redis not connected, skipping cache flush', 'error');
+            $this->log('Redis not connected, skipping cache flush', null, 'error');
             return;
         }
 
@@ -163,7 +163,7 @@ trait AuthUtils
             $wp_object_cache->redis->save();
         } catch (\Exception $e) {
             // Log but don't break the auth flow
-            $this->log('Cache flush failed: ' . $e->getMessage(), 'error');
+            $this->log('Cache flush failed: ' . $e->getMessage(), null, 'error');
         }
         exit();
     }
