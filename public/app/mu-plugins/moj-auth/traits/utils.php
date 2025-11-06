@@ -146,7 +146,7 @@ trait AuthUtils
     public function safeExit($values_updated): void
     {
         // No values were updated, so no need to flush cache
-        if($values_updated === false) {
+        if ($values_updated === false) {
             exit();
         }
 
