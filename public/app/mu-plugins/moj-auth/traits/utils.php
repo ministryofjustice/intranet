@@ -140,10 +140,16 @@ trait AuthUtils
      *
      * Without this, using set_transient() and exit() will mean values are not saved to Redis.
      *
+     * @param bool $values_updated Whether any values were updated that need flushing.
      * @return void
      */
-    public function safeExit(): void
+    public function safeExit($values_updated): void
     {
+        // No values were updated, so no need to flush cache
+        if($values_updated === false) {
+            exit();
+        }
+
         global $wp_object_cache;
 
         if (!isset($wp_object_cache) || !$wp_object_cache->is_redis_connected) {
