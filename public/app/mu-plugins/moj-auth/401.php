@@ -4,7 +4,7 @@
  * A dynamic 401 page.
  * 
  * We can either redirect to the login endpoint.
- * Or, if maximum attempts have been used, then do nothing.
+ * Or, if mamximum attempts have been used, then do nothing.
  */
 
 namespace MOJ\Intranet;
