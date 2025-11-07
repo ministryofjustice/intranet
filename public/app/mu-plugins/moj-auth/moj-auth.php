@@ -95,22 +95,22 @@ class Auth
 
         if ('login' === $this->oauth_action) {
             $this->handleLoginRequest();
-            $this->safeExit(true);
+            $this->safeExit();
         }
 
         if ('callback' === $this->oauth_action) {
             $this->handleCallbackRequest();
-            $this->safeExit(true);
+            $this->safeExit();
         }
 
         if ('heartbeat' === $this->oauth_action) {
-            $tokens_updated = $this->handleHeartbeatRequest();
-            $this->safeExit($tokens_updated);
+            $this->handleHeartbeatRequest();
+            $this->safeExit();
         }
 
         if (!empty($this->oauth_action)) {
             $this->log('Unknown oauth action');
-            $this->safeExit(false);
+            $this->safeExit();
         }
     }
 
@@ -124,7 +124,7 @@ class Auth
         // If we got a WP_Error, then log it and return 401.
         if (is_wp_error($maybe_error)) {
             http_response_code(401);
-            $this->safeExit(true);
+            $this->safeExit();
         }
     }
 
@@ -138,7 +138,7 @@ class Auth
         // Return 401 and exit if we got a WP_Error.
         if (is_wp_error($oauth_access_token)) {
             http_response_code(401);
-            $this->safeExit(true);
+            $this->safeExit();
         }
 
         // The callback has returned an access token.
@@ -186,23 +186,15 @@ class Auth
     }
 
 
-    /**
-     * Handle a heartbeat request.
-     *
-     * @return bool True if tokens were updated, false otherwise.
-     */
-    public function handleHeartbeatRequest(): bool
+    public function handleHeartbeatRequest(): void
     {
         $this->log('handleHeartbeatRequest()');
-
-        // Keep track of updated tokens, will we need to do do a safeExit to write these to the storage?
-        $tokens_updated = false;
 
         // Get the JWT token from the request. Do this early so that we populate $this->sub if it's known.
         $jwt = $this->getJwt();
 
         if (!$jwt) {
-            return $tokens_updated;
+            return;
         }
 
         // Keep track of JWT mutations.
@@ -226,7 +218,7 @@ class Auth
 
         // It's not time to refresh the JWT, return early.
         if ($jwt_remaining_time > $this::JWT_REFRESH) {
-            return $tokens_updated;
+            return;
         }
 
         /*
@@ -245,8 +237,6 @@ class Auth
             $jwt->roles = ['reader'];
             // Store the tokens.
             $this->storeTokens($this->sub, $oauth_refreshed_access_token, 'refresh');
-            // Keep track that we've updated tokens.
-            $tokens_updated = true;
         } else {
             $this->log('Refresh token was not valid.');
         }
@@ -256,7 +246,7 @@ class Auth
             $this->setJwt($jwt);
         }
 
-        return $tokens_updated;
+        return;
     }
 
     /**
@@ -270,7 +260,7 @@ class Auth
     public function logout(): void
     {
         $this->deleteCookie($this::JWT_COOKIE_NAME);
-        http_response_code(401) && $this->safeExit(false);
+        http_response_code(401) && $this->safeExit();
     }
 }
 
