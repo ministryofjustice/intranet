@@ -43,6 +43,7 @@ class Metrics
         if (!in_array($ip_group, [3, 4])) {
             // Set status code to 401.
             http_response_code(401);
+            // Return early if IP is not allowed ranges.
             return;
         }
 
