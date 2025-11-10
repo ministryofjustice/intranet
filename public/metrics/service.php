@@ -41,9 +41,7 @@ class Metrics
         // Group 3 is Cloud Platform network, and group 4 is 127.0.0.1.
         // To test locally, set IPS_FORMATTED="0.0.0.0/0  3;"
         if (!in_array($ip_group, [3, 4])) {
-            // Return early if IP is not allowed ranges.
-            error_log('Metrics access denied for IP: ' . $_SERVER['REMOTE_ADDR']);
-            // Set status code to 403.
+            // Set status code to 401.
             http_response_code(401);
             return;
         }
