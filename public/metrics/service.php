@@ -42,6 +42,9 @@ class Metrics
         // To test locally, set IPS_FORMATTED="0.0.0.0/0  3;"
         if (!in_array($ip_group, [3, 4])) {
             // Return early if IP is not allowed ranges.
+            error_log('Metrics access denied for IP: ' . $_SERVER['REMOTE_ADDR']);
+            // Set status code to 403.
+            http_response_code(401);
             return;
         }
 
@@ -144,7 +147,6 @@ class Metrics
 
     public function serveMetrics(): void
     {
-        header('Content-Type', 'text/plain');
         echo $this->getServiceMetrics();
         unset($this->guzzle_client);
         exit();
