@@ -18,6 +18,9 @@ if (getenv('WP_ENV') !== 'development') {
  */
 
 add_action('wp_error_added', function (string|int $code, string $message, mixed $data, WP_Error $wp_error) {
+    if (!empty($data['skip-log'])) {
+        return;
+    }
     if (is_array($message) || is_object($message)) {
         error_log("Error code: $code. Message: " . print_r($message, true));
     } else {
