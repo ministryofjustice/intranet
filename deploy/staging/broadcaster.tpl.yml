@@ -18,7 +18,7 @@ spec:
       serviceAccountName: pod-broadcaster-serviceaccount
       containers:
         - name: pod-broadcaster
-          image: ${ECR_URL}:${IMAGE_TAG_POD_BROADCASTER}
+          image: ghcr.io/ministryofjustice/kubernetes-pod-broadcaster:latest
           resources:
             limits:
               cpu: 100m
