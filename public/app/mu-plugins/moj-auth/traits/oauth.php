@@ -5,8 +5,6 @@ namespace MOJ\Intranet;
 // Do not allow access outside WP
 defined('ABSPATH') || exit;
 
-use WP_Error;
-
 use League\OAuth2\Client\Provider\GenericProvider;
 use League\OAuth2\Client\Token\AccessTokenInterface;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
@@ -113,16 +111,16 @@ trait AuthOauth
     /**
      * Handle the OAuth login.
      * 
-     * @return true|WP_Error
+     * @return void
      */
 
-    public function oauthLogin(): true|WP_Error
+    public function oauthLogin(): void
     {
         $this->log('oauthLogin()');
 
         if (!$this->oauth_enabled) {
             $this->log('OAuth is not enabled');
-            return new WP_Error('oauth_disabled', 'OAuth is not enabled');
+            http_response_code(401) && exit();
         }
 
         $oauth_client = $this->getOAuthClient();
@@ -138,31 +136,30 @@ trait AuthOauth
         // Storing pkce prevents an attacker from potentially intercepting the auth code and using it.
         set_transient('oauth_pkce_' . $state_hashed, $oauth_client->getPkceCode(), 60 * 5); // 5 minutes
 
-        header('Location: ' . $authUrl);
-        return true;
+        header('Location: ' . $authUrl) && exit();
     }
 
     /**
      * Handle the OAuth callback.
      * 
      * This function will handle the OAuth callback and return the access token.
-     * If the callback is invalid, it will return a WP_Error.
+     * If the callback is invalid, it will return a 401 response.
      * 
-     * @return AccessTokenInterface|WP_Error
+     * @return AccessTokenInterface
      */
 
-    public function oauthCallback(): AccessTokenInterface|WP_Error
+    public function oauthCallback(): AccessTokenInterface
     {
         $this->log('oauthCallback()');
 
         if (!$this->oauth_enabled) {
             $this->log('OAuth is not enabled');
-            return new WP_Error('oauth_disabled', 'OAuth is not enabled');
+            http_response_code(401) && exit();
         }
 
         if (!isset($_SERVER['REQUEST_URI']) || !str_starts_with($_SERVER['REQUEST_URI'], $this::OAUTH_CALLBACK_URI)) {
             $this->log('in oauthCallback(), request uri does not match');
-            return new WP_Error('invalid_request', 'Request URI does not match');
+            http_response_code(401) && exit();
         }
 
         // Get the hashed expected state from the cookie.
@@ -172,7 +169,7 @@ trait AuthOauth
 
         if (empty($expected_state_hashed)) {
             $this->log('No hashed expected state in the cookie.');
-            return new WP_Error('missing_state', 'No hashed expected state in the cookie');
+            http_response_code(401) && exit();
         }
 
         // Get the pkce code from the transient.
@@ -183,13 +180,12 @@ trait AuthOauth
         // Check for state and code in the query params.
         if (!isset($_GET['state']) || !isset($_GET['code'])) {
             $this->log('No state or code in the query params');
-            // Return an instance of WP_Error instead of exiting directly.
-            return new WP_Error('missing_params', 'No state or code in the query params');
+            http_response_code(401) && exit();
         }
 
         if (empty($expected_state_hashed) || $expected_state_hashed !== $this->hash($_GET['state'])) {
             $this->log('Hashed states do not match');
-            return new WP_Error('invalid_state', 'Hashed states do not match');
+            http_response_code(401) && exit();
         }
 
         // Initialize the OAuth client.
@@ -205,7 +201,7 @@ trait AuthOauth
         } catch (IdentityProviderException $e) {
             $this->log('Error: ' . $e->getMessage(), null, 'error');
             $this->log('Error response body: ', $e->getResponseBody(), 'error');
-            return new WP_Error('invalid_grant', 'Invalid grant');
+            http_response_code(401) && exit();
         }
 
         return $access_token;

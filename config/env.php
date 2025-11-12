@@ -15,7 +15,7 @@ namespace MOJ\Justice;
  */
 
 function env(string $key) : mixed
-{  
+{
     // Get the value from the $_ENV super-global
     $value = $_ENV[$key] ?? null;
 

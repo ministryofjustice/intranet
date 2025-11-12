@@ -22,7 +22,7 @@ defined('ABSPATH') || exit;
 if (Config::get('MOJ_AUTH_ENABLED') === false) {
     // Exit here to return a 200 response for the heartbeat endpoint.
     $_SERVER['REQUEST_URI'] === '/auth/heartbeat' && exit;
-
+    
     // For all other requests, return here, because we don't want to run any of the code below.
     return;
 }
@@ -95,22 +95,22 @@ class Auth
 
         if ('login' === $this->oauth_action) {
             $this->handleLoginRequest();
-            $this->safeExit(true);
+            exit();
         }
 
         if ('callback' === $this->oauth_action) {
             $this->handleCallbackRequest();
-            $this->safeExit(true);
+            exit();
         }
 
         if ('heartbeat' === $this->oauth_action) {
-            $tokens_updated = $this->handleHeartbeatRequest();
-            $this->safeExit($tokens_updated);
+            $this->handleHeartbeatRequest();
+            exit();
         }
 
         if (!empty($this->oauth_action)) {
             $this->log('Unknown oauth action');
-            $this->safeExit(false);
+            exit();
         }
     }
 
@@ -118,28 +118,16 @@ class Auth
     {
         $this->log('handleLoginRequest()');
 
-        // Handle Azure AD/Entra ID OAuth. It redirects to Entra or, on fail it returns a WP_Error.
-        $maybe_error = $this->oauthLogin();
-
-        // If we got a WP_Error, then log it and return 401.
-        if (is_wp_error($maybe_error)) {
-            http_response_code(401);
-            $this->safeExit(true);
-        }
+        // Handle Azure AD/Entra ID OAuth. It redirects to Azure or exits with 401 if disabled.
+        $this->oauthLogin();
     }
 
     public function handleCallbackRequest(): void
     {
         $this->log('handleCallbackRequest()');
 
-        // If we've hit the callback endpoint, then handle it here. On fail it returns a WP_Error.
+        // If we've hit the callback endpoint, then handle it here. On fail it exits with 401 & php code execution stops here.
         $oauth_access_token = $this->oauthCallback();
-
-        // Return 401 and exit if we got a WP_Error.
-        if (is_wp_error($oauth_access_token)) {
-            http_response_code(401);
-            $this->safeExit(true);
-        }
 
         // The callback has returned an access token.
         if (!is_object($oauth_access_token) || $oauth_access_token->hasExpired()) {
@@ -182,27 +170,19 @@ class Auth
         }
 
         // Redirect the user to the page they were trying to access.
-        header('Location: ' . $jwt->success_url);
+        header('Location: ' . $jwt->success_url) && exit();
     }
 
 
-    /**
-     * Handle a heartbeat request.
-     *
-     * @return bool True if tokens were updated, false otherwise.
-     */
-    public function handleHeartbeatRequest(): bool
+    public function handleHeartbeatRequest(): void
     {
         $this->log('handleHeartbeatRequest()');
-
-        // Keep track of updated tokens, will we need to do do a safeExit to write these to the storage?
-        $tokens_updated = false;
 
         // Get the JWT token from the request. Do this early so that we populate $this->sub if it's known.
         $jwt = $this->getJwt();
 
         if (!$jwt) {
-            return $tokens_updated;
+            return;
         }
 
         // Keep track of JWT mutations.
@@ -226,7 +206,7 @@ class Auth
 
         // It's not time to refresh the JWT, return early.
         if ($jwt_remaining_time > $this::JWT_REFRESH) {
-            return $tokens_updated;
+            return;
         }
 
         /*
@@ -245,8 +225,6 @@ class Auth
             $jwt->roles = ['reader'];
             // Store the tokens.
             $this->storeTokens($this->sub, $oauth_refreshed_access_token, 'refresh');
-            // Keep track that we've updated tokens.
-            $tokens_updated = true;
         } else {
             $this->log('Refresh token was not valid.');
         }
@@ -256,7 +234,7 @@ class Auth
             $this->setJwt($jwt);
         }
 
-        return $tokens_updated;
+        return;
     }
 
     /**
@@ -270,7 +248,7 @@ class Auth
     public function logout(): void
     {
         $this->deleteCookie($this::JWT_COOKIE_NAME);
-        http_response_code(401) && $this->safeExit(false);
+        http_response_code(401) && exit();
     }
 }
 
