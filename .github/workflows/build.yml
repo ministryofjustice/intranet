@@ -72,19 +72,10 @@ jobs:
             --target build-s3-push .
 
           # ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
-
-          git clone https://github.com/ministryofjustice/kubernetes-pod-broadcaster /tmp/pod-broadcaster
-          cd /tmp/pod-broadcaster
-
-          docker image build \
-            -t $REGISTRY/$REPOSITORY:pod-broadcaster-$PIPELINE_TAG-$IMAGE_TAG .
-
-          # ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
           
           docker image push $REGISTRY/$REPOSITORY:fpm-$PIPELINE_TAG-$IMAGE_TAG
           docker image push $REGISTRY/$REPOSITORY:nginx-$PIPELINE_TAG-$IMAGE_TAG
           docker image push $REGISTRY/$REPOSITORY:s3-push-$PIPELINE_TAG-$IMAGE_TAG
-          docker image push $REGISTRY/$REPOSITORY:pod-broadcaster-$PIPELINE_TAG-$IMAGE_TAG
           
           # ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
 
