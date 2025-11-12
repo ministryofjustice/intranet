@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ${KUBE_NAMESPACE}-pod-broadcaster
-  namespace: ${KUBE_NAMESPACE}
+  name: intranet-demo-pod-broadcaster
+  namespace: intranet-demo
   labels:
-    app: ${KUBE_NAMESPACE}-pod-broadcaster
+    app: intranet-demo-pod-broadcaster
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: ${KUBE_NAMESPACE}-pod-broadcaster
+      app: intranet-demo-pod-broadcaster
   template:
     metadata:
       labels:
-        app: ${KUBE_NAMESPACE}-pod-broadcaster
+        app: intranet-demo-pod-broadcaster
     spec:
       serviceAccountName: pod-broadcaster-serviceaccount
       containers:
@@ -21,11 +21,11 @@ spec:
           image: ghcr.io/ministryofjustice/kubernetes-pod-broadcaster:latest
           resources:
             limits:
-              cpu: 100m
-              memory: 128Mi
+              cpu: 200m
+              memory: 64Mi
             requests:
               cpu: 50m
-              memory: 64Mi
+              memory: 32Mi
           securityContext:
             runAsUser: 1000
           # Run the 'cluster' task, it passes the cluster cert to deno.
@@ -33,8 +33,8 @@ spec:
           args: ["deno task cluster"]
           env:
             - name: NAMESPACE
-              value: ${KUBE_NAMESPACE}
+              value: intranet-demo
             - name: LABEL_SELECTOR
-              value: app=${KUBE_NAMESPACE}
+              value: app=intranet-demo
             - name: DEBUG
               value: "true"
