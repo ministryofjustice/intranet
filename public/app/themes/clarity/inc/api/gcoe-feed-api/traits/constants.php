@@ -10,15 +10,16 @@ trait Constants
         'id' => 'ID',
         'linked_ids' => 'Linked IDs',
         'title' => 'Document Title',
+        'intranet_page' => 'Intranet Page',
         'content_type' => 'Functional Area',
         'category' => 'Category',
-        'status' => 'Status',
         'file_type' => 'File Format',
         'url' => 'Link',
         'author' => 'Author',
         'additional_authors' => 'Additional Authors',
         'published' => 'Published Date',
         'modified' => 'Last Modified Date',
+        'version_control' => 'Version Control',
     ];
 
     const CSV_STATUSES = [

@@ -155,6 +155,24 @@ class GcoeFeedApi
         // Add the documents to the items.
         $data['items'] = array_merge($data['items'], $documents_formatted);
 
+        // Fort by key content_type, then by intranet_page, then id.
+        usort($data['items'], function ($a, $b) {
+            // First, compare by content_type.
+            $content_type_comparison = strcmp($a['content_type'], $b['content_type']);
+            if ($content_type_comparison !== 0) {
+                return $content_type_comparison;
+            }
+
+            // Next, compare by intranet_page.
+            $intranet_page_comparison = strcmp($a['intranet_page'], $b['intranet_page']);
+            if ($intranet_page_comparison !== 0) {
+                return $intranet_page_comparison;
+            }
+
+            // Finally, compare by id.
+            return strcmp($a['id'], $b['id']);
+        });
+
         // Count the items in the response.
         $data['items_count'] = count($data['items']);
 
@@ -186,15 +204,16 @@ class GcoeFeedApi
             // Write the header row.
             fputcsv($out, [
                 self::CSV_HEADERS['id'],
-                self::CSV_HEADERS['linked_ids'],
-                self::CSV_HEADERS['title'],
+                // self::CSV_HEADERS['linked_ids'],
                 self::CSV_HEADERS['content_type'],
+                self::CSV_HEADERS['title'],
+                self::CSV_HEADERS['intranet_page'],
                 self::CSV_HEADERS['category'],
-                self::CSV_HEADERS['status'],
                 self::CSV_HEADERS['file_type'],
                 self::CSV_HEADERS['url'],
                 self::CSV_HEADERS['author'],
                 self::CSV_HEADERS['additional_authors'],
+                self::CSV_HEADERS['version_control'],
                 self::CSV_HEADERS['published'],
                 self::CSV_HEADERS['modified'],
             ]);
@@ -207,15 +226,16 @@ class GcoeFeedApi
                 $categories = $item['breadcrumbs'] ? array_map(fn($b) => $b['title'], $item['breadcrumbs']) : [];
                 fputcsv($out, [
                     $item['id'],
-                    implode(', ', $item['linked_ids'] ?? []),
-                    $item['title'],
+                    // implode(', ', $item['linked_ids'] ?? []),
                     $item['content_type'],
+                    $item['title'],
+                    $item['intranet_page'],
                     implode(' > ', $categories),
-                    self::CSV_STATUSES[$item['status']] ?? $item['status'],
                     $item['file_type'],
                     $item['url'],
                     $item['author'],
                     implode(', ', $item['additional_authors']),
+                    $item['version_control'],
                     $item['published'],
                     $item['modified'],
                 ]);
@@ -251,6 +271,7 @@ class GcoeFeedApi
             'sort_column' => 'menu_order',
             'sort_order' => 'ASC',
             'post_type' => 'page',
+            'post_status' => 'publish',
         ];
 
         $descendants = get_pages($get_pages_args);
@@ -274,18 +295,25 @@ class GcoeFeedApi
         $author_names = array_map(fn($author) => $author->display_name, $authors);
 
         $file_type = 'html';
+        $version_control = 'N';
+        $intranet_page = $page->post_title;
 
         if ($page->post_type === 'document') {
             global $wpdr;
             $attach = $wpdr->get_document($page->ID);
             $file = get_attached_file($attach?->ID ?? 0);
             $file_type = pathinfo($file, PATHINFO_EXTENSION);
+            $version_control = 'Y';
+            // Get this from the last breadcrumb instead.
+            $intranet_page = $breadcrumbs_from_parent[count($breadcrumbs_from_parent) - 1]['title'];
         }
 
         $formatted_page = [
             'id' => $page->ID,
             // Post title.
             'title' => $page->post_title,
+            // Intranet page title - this will be post title, or for documents, the page it is linked from.
+            'intranet_page' => $intranet_page,
             // Post excerpt, if it exists.
             'excerpt' => $page->post_excerpt,
             // Parent ID of the page, if it has a parent.
@@ -318,6 +346,8 @@ class GcoeFeedApi
             'file_type' => $file_type,
             // Category, i.e. the patent pages. e.g. HR or HR > Conduct and behaviour > Declarations of interest etc.
             'breadcrumbs' => self::getBreadcrumbs($breadcrumbs_from_parent, $page),
+            // Version control flag for documents.
+            'version_control' => $version_control,
             // Finally, add the content to the page object.
             'content' => $page->post_content,
         ];
