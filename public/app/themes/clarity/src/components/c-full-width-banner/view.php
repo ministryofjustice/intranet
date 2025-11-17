@@ -13,7 +13,7 @@ $homepage_banner_alt_text = get_field($agency . '_homepage_banner_alt_text', 'op
   <!-- c-full-width-banner starts here -->
   <section class="c-full-width-banner">
     <a href="<?= esc_url($homepage_banner_link) ?>" class="full-width-banner">
-        <img src="<?= esc_url($homepage_banner_image) ?>" alt="<?= esc_attr($homepage_banner_alt_text ?? '') ?>">
+        <img src="<?= esc_url($homepage_banner_image ?? '') ?>" alt="<?= esc_attr($homepage_banner_alt_text ?? '') ?>">
     </a>
   </section>
   <!-- c-full-width-banner ends here -->
