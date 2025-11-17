@@ -14,6 +14,6 @@ if (is_array($thumbnail)) {
 ?>
 <!-- c-article-featured-image starts here -->
 <div class="c-article-featured-image c-article-featured-image__news">
-  <img src="<?= $thumbnail_url ?>" alt="<?= $alt_text ?? '' ?>">
+  <img src="<?= esc_url($thumbnail_url) ?>" alt="<?= esc_attr($alt_text ?? '') ?>">
 </div>
 <!-- c-article-featured-image ends here -->
