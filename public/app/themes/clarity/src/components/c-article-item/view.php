@@ -18,7 +18,7 @@ $thumbnail_url = $thumbnail[0];
 
     <?php if (! empty($thumbnail_url)) : ?>
     <a tabindex="-1" aria-hidden="true" href="<?= esc_url(get_permalink($id)) ?>">
-      <img src="<?= $thumbnail_url ?>" alt="<?= $thumbnail_alt ?>">
+      <img src="<?= esc_url($thumbnail_url) ?>" alt="<?= esc_attr($thumbnail_alt ?? '') ?>">
     </a>
     <?php endif; ?>
 

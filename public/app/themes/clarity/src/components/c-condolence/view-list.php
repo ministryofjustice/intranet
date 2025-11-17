@@ -30,9 +30,9 @@ if (!empty($thumbnail_id)) {
 
     <?php if (!empty($thumbnail)) { ?>
         <div class="c-condolence-list-item__photo-wrapper">
-            <a href="<?= get_permalink() ?>"><img class="c-condolence-list-item__photo""
-                src="<?= $thumbnail[0] ?>"
-                alt="Photo of <?= get_the_title() ?>"></a>
+            <a href="<?= esc_url(get_permalink()) ?>"><img class="c-condolence-list-item__photo""
+                src="<?= esc_url($thumbnail[0] ?? '') ?>"
+                alt="Photo of <?= esc_attr(get_the_title()) ?>"></a>
         </div>
     <?php } ?>
 

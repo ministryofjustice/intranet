@@ -25,14 +25,14 @@ if ($team_blog_posts && $team_blog_posts !== 0) {
             <?php if ($thumbnail) : ?>
                 <a href="<?= esc_url(get_permalink($id)) ?>">
                     <img src="
-                    <?= esc_url($thumbnail) ?> " alt="<?= $thumbnail_alt ?>">
+                    <?= esc_url($thumbnail) ?> " alt="<?= esc_attr($thumbnail_alt ?? '') ?>">
                   </a>
 
               <div class="text-align">
 
             <?php elseif (! empty($authors[0]['thumbnail_url'])) : ?>
                 <a href="<?= esc_url(get_permalink($id)) ?>">
-                  <img src="<?= $authors[0]['thumbnail_url'] ?>" alt="<?= $authors[0]['thumbnail_alt_text'] ?>">
+                  <img src="<?= esc_url($authors[0]['thumbnail_url']) ?>" alt="<?= esc_attr($authors[0]['thumbnail_alt_text'] ?? '') ?>">
                 </a>
 
               <div class="text-align">

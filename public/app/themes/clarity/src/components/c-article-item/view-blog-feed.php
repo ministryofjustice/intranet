@@ -34,7 +34,7 @@ if (!$thumbnail) {
     <?php if ($thumbnail) : ?>
 
         <a aria-hidden="true" href="<?php the_permalink($id); ?>">
-            <img src="<?= $thumbnail ?>" alt="<?= $thumbnail_alt; ?>" class="thumbnail">
+            <img src="<?= esc_url($thumbnail) ?>" alt="<?= esc_attr($thumbnail_alt ?? '') ?>" class="thumbnail">
         </a>
 
     <?php endif; ?>
