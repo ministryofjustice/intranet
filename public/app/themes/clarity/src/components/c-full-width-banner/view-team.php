@@ -8,7 +8,7 @@
     if (! empty($teamBanner)) :
         ?>
 
-        <img src="<?= $teamBanner['url'] ?>" alt="<?= $teamBanner['alt'] ?>" />
+        <img src="<?= esc_url($teamBanner['url']) ?>" alt="<?= esc_attr($teamBanner['alt'] ?? '') ?>" />
 
     <?php else : ?>
         <!-- No banner selected or available to display. -->

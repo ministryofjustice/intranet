@@ -3,8 +3,7 @@
  *  Individual homepage featured item
  */
 
- $id            = get_the_ID();
- $thumbnail_alt = get_post_meta(get_post_thumbnail_id($id), '_wp_attachment_image_alt', true);
+$id            = get_the_ID();
  
 ?>
 
@@ -27,7 +26,7 @@
     
 
     <div class="c-article-item-feature__excerpt">
-      <p><?= get_the_excerpt($id) ?></p>
+      <p><?= get_the_excerpt() ?></p>
     </div>
   </div>
 
