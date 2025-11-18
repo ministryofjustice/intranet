@@ -35,8 +35,8 @@ if (!empty($thumbnail_id)) {
         <div class="l-primary">
             <p class="c-condolence-header__intro">In Memory of</p>
             <?php if (!empty($thumbnail)) { ?>
-                <img class="c-condolence-header__photo"" src="<?= $thumbnail[0] ?>"
-                alt="Photo of <?= get_the_title() ?>">
+                <img class="c-condolence-header__photo"" src="<?= esc_url($thumbnail[0] ?? '') ?>"
+                alt="Photo of <?= esc_attr(get_the_title()) ?>">
             <?php } ?>
             <div class="c-condolence-header__details">
                 <h1 class="o-title o-title--page"><?= get_the_title() ?></h1>
