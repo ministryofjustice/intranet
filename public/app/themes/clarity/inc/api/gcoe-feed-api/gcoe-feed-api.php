@@ -11,7 +11,6 @@ require_once 'traits/user.php';
 require_once 'traits/utils.php';
 
 use WP_REST_Request;
-use WP_REST_Response;
 use WP_Error;
 
 /**
@@ -69,7 +68,7 @@ class GcoeFeedApi
         foreach (self::BASE_URIS as $base_uri => $base_uri_values) {
 
             // Get the content type for the current iteration, since the request could be for 'all' content types.
-            $content_type = $base_uri_values['content_type'];
+            $content_type = $base_uri_values['content_type_label'];
 
             // Get the page with the root URI.
             $page = get_page_by_path($base_uri, OBJECT, 'page');
@@ -155,22 +154,50 @@ class GcoeFeedApi
         // Add the documents to the items.
         $data['items'] = array_merge($data['items'], $documents_formatted);
 
+        // Create the breadcrumbs strings for each item.
+        $data['items'] = array_map(function ($item) {
+            // Create a breadcrumbs string from the breadcrumbs array.
+            $item['breadcrumbs_string'] = implode(
+                ' > ',
+                array_map(fn($b) => $b['title'], $item['breadcrumbs'])
+            );
+
+            return $item;
+        }, $data['items']);
+
         // Fort by key content_type, then by intranet_page, then id.
         usort($data['items'], function ($a, $b) {
-            // First, compare by content_type.
+
+            // Sort by content_type first.
             $content_type_comparison = strcmp($a['content_type'], $b['content_type']);
             if ($content_type_comparison !== 0) {
                 return $content_type_comparison;
             }
 
-            // Next, compare by intranet_page.
-            $intranet_page_comparison = strcmp($a['intranet_page'], $b['intranet_page']);
-            if ($intranet_page_comparison !== 0) {
-                return $intranet_page_comparison;
+            // Breadcrumbs excluding the last item (which is the page/document itself).
+            $a_breadcrumbs = $a['breadcrumbs'];
+            array_splice($a_breadcrumbs, -1);
+            $a_breadcrumbs_string = implode(' > ', array_map(fn($b) => $b['title'], $a_breadcrumbs));
+
+            $b_breadcrumbs = $b['breadcrumbs'];
+            array_splice($b_breadcrumbs, -1);
+            $b_breadcrumbs_string = implode(' > ', array_map(fn($b) => $b['title'], $b_breadcrumbs));
+
+            // First, compare by breadcrumbs string.
+            $breadcrumbs_comparison = strcmp($a_breadcrumbs_string, $b_breadcrumbs_string);
+            if ($breadcrumbs_comparison !== 0) {
+                return $breadcrumbs_comparison;
             }
 
-            // Finally, compare by id.
-            return strcmp($a['id'], $b['id']);
+            // Next, compare by file_type, alphabetical, except html should be last.
+            if ($a['file_type'] === 'html' && $b['file_type'] !== 'html') {
+                return 1;
+            } elseif ($a['file_type'] !== 'html' && $b['file_type'] === 'html') {
+                return -1;
+            }
+
+            // Finally, document title.
+            return strcmp($a['title'], $b['title']);
         });
 
         // Count the items in the response.
@@ -197,6 +224,7 @@ class GcoeFeedApi
             // Set the headers for the CSV download.
             header('Content-Type: text/csv');
             header('Content-Disposition: attachment; filename="gcoe_feed.csv"');
+            // header('Content-Type: text/plain');
 
             // Stream the CSV data to the browser/client.
             $out = fopen('php://output', 'w');
@@ -204,38 +232,28 @@ class GcoeFeedApi
             // Write the header row.
             fputcsv($out, [
                 self::CSV_HEADERS['id'],
-                // self::CSV_HEADERS['linked_ids'],
-                self::CSV_HEADERS['content_type'],
+                self::CSV_HEADERS['content_type_label'],
                 self::CSV_HEADERS['title'],
-                self::CSV_HEADERS['intranet_page'],
-                self::CSV_HEADERS['category'],
-                self::CSV_HEADERS['file_type'],
-                self::CSV_HEADERS['url'],
                 self::CSV_HEADERS['author'],
-                self::CSV_HEADERS['additional_authors'],
                 self::CSV_HEADERS['version_control'],
+                self::CSV_HEADERS['file_type'],
+                self::CSV_HEADERS['category'],
+                self::CSV_HEADERS['url'],
                 self::CSV_HEADERS['published'],
                 self::CSV_HEADERS['modified'],
             ]);
 
             // Write each item in the feed to the CSV.
             foreach ($data['items'] as $item) {
-                if (sizeof($item['breadcrumbs']) > 1) {
-                    array_splice($item['breadcrumbs'], -1);
-                }
-                $categories = $item['breadcrumbs'] ? array_map(fn($b) => $b['title'], $item['breadcrumbs']) : [];
                 fputcsv($out, [
                     $item['id'],
-                    // implode(', ', $item['linked_ids'] ?? []),
                     $item['content_type'],
                     $item['title'],
-                    $item['intranet_page'],
-                    implode(' > ', $categories),
-                    $item['file_type'],
-                    $item['url'],
                     $item['author'],
-                    implode(', ', $item['additional_authors']),
                     $item['version_control'],
+                    $item['file_type'],
+                    $item['breadcrumbs_string'],
+                    $item['url'],
                     $item['published'],
                     $item['modified'],
                 ]);
@@ -296,7 +314,6 @@ class GcoeFeedApi
 
         $file_type = 'html';
         $version_control = 'N';
-        $intranet_page = $page->post_title;
 
         if ($page->post_type === 'document') {
             global $wpdr;
@@ -304,16 +321,12 @@ class GcoeFeedApi
             $file = get_attached_file($attach?->ID ?? 0);
             $file_type = pathinfo($file, PATHINFO_EXTENSION);
             $version_control = 'Y';
-            // Get this from the last breadcrumb instead.
-            $intranet_page = $breadcrumbs_from_parent[count($breadcrumbs_from_parent) - 1]['title'];
         }
 
         $formatted_page = [
             'id' => $page->ID,
             // Post title.
             'title' => $page->post_title,
-            // Intranet page title - this will be post title, or for documents, the page it is linked from.
-            'intranet_page' => $intranet_page,
             // Post excerpt, if it exists.
             'excerpt' => $page->post_excerpt,
             // Parent ID of the page, if it has a parent.
