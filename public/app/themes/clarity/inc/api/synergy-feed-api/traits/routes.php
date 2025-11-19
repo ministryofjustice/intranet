@@ -4,12 +4,16 @@ namespace MOJ\Intranet;
 
 defined('ABSPATH') || exit;
 
+require_once 'constants.php';
+
 use WP_Error;
 
 trait Routes
 {
+    use Constants;
+
     /**
-     * Register the REST API routes for the Synergy feed.
+     * Register the REST API routes for the Synergy feed.   
      *
      * @return void
      */
@@ -20,19 +24,19 @@ trait Routes
             'feeds',
             [
                 'methods'  => 'GET',
-                'callback' => fn() => $this->feeds_response,
-                'permission_callback' => [$this, 'userHasPermission'],
+                'callback' => [__CLASS__, 'getFeeds'],
+                'permission_callback' => [__CLASS__, 'userHasPermission'],
             ]
         );
 
-        // Create an args varaible to be used for the feed and feed.csv routes.
+        // Create an args variable to be used for the feed and feed.csv routes.
         $feed_route_args = [
             'methods'  => 'GET',
             'callback' => [$this, 'getFeedJson'],
-            'permission_callback' => [$this, 'userHasPermission'],
+            'permission_callback' => [__CLASS__, 'userHasPermission'],
             'validate_callback' => function ($request) {
                 // Ensure the request is valid - look for an entry in BASE_URIS with the requested agency and content_type parameters.
-                $base_uris = $this->getBaseUrisFromProperties(
+                $base_uris = self::getBaseUrisFromProperties(
                     $request->get_param('agency'),
                     $request->get_param('content_type')
                 );
@@ -54,12 +58,12 @@ trait Routes
                 'agency' => [
                     'type'    => 'string',
                     'default' => 'hq',
-                    'enum' => $this->agencies,
+                    'enum' => self::AGENCIES,
                 ],
                 'content_type' => [
                     'type'    => 'string',
                     'default' => 'hr',
-                    'enum' => $this->content_types,
+                    'enum' => self::CONTENT_TYPES,
                 ],
                 'modified_after' => [
                     'type'    => 'string',
@@ -70,7 +74,7 @@ trait Routes
                             return true; // If no value is provided, it's valid.
                         }
                         // If a value is provided, validate it.
-                        return $this->isValidIsoDateTime($param);
+                        return self::isValidIsoDateTime($param);
                     },
                 ],
                 'format' => [
@@ -89,7 +93,7 @@ trait Routes
             $feed_route_args
         );
 
-        $feed_route_args['callback'] = [$this, 'getFeedCsv'];
+        $feed_route_args['callback'] = [__CLASS__, 'getFeedCsv'];
 
         register_rest_route(
             'synergy/v1',

@@ -13,7 +13,7 @@ trait User
      * 
      * @return bool True if the user has permissions, false otherwise.
      */
-    public function userHasPermission(): bool
+    public static function userHasPermission(): bool
     {
         // If the user is an administrator, they have permission.
         if (current_user_can('administrator')) {
@@ -34,11 +34,13 @@ trait User
      * 
      * This is a thorough workaround for the security plugin that blocks access to the
      * /wp/v2/users/<own_user_id>/application-passwords REST route for all users.
-     * 
+     *
+     * This allows admins to create application passwords for synergy users via the WP admin UI.
+     *
      * @param WP_Error|null The result of the rest_authentication_errors filter, so far.
      * @return WP_Error|null The filtered result, null if conditions are met.
      */
-    public function allowUserRestRouteForAdmins($result)
+    public static function allowUserRestRouteForAdmins($result)
     {
         // Check if class exists, if not then do noting.
         if (!class_exists('MOJComponents\Security\FilterRestAPI')) {

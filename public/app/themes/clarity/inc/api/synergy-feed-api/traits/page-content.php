@@ -60,7 +60,7 @@ trait PageContent
 
         if (in_array($page_template, self::MARKDOWN_TEMPLATES)) {
             // If the page template is in the markdown templates, return the content in the preferred format.
-            return  $this->getContentFromMarkdownTemplate($page, $format);
+            return  self::getContentFromMarkdownTemplate($page, $format);
         }
 
         if (in_array($page_template, self::ACF_TEMPLATES)) {
@@ -81,7 +81,7 @@ trait PageContent
      * @param string $format The preferred format to return the content in, either 'html' or 'markdown'.
      * @return string
      */
-    public function getContentFromMarkdownTemplate($page, $format = 'html'): string
+    public static function getContentFromMarkdownTemplate($page, $format = 'html'): string
     {
 
         $content = 'html' === $format ?
@@ -211,7 +211,7 @@ trait PageContent
      * 
      * @return void
      */
-    public function removeMarkdownFilters(): void
+    public static function removeMarkdownFilters(): void
     {
         remove_filter('acf_the_content', 'wpautop');
 
@@ -220,25 +220,25 @@ trait PageContent
             return;
         }
 
-        $this->remove_class_object_filter(
+        self::remove_class_object_filter(
             'the_content',
             'Michelf\Bootstrap',
             'markdownPost'
         );
-
-        $this->remove_class_object_filter(
+        
+        self::remove_class_object_filter(
             'the_content',
             'Michelf\Bootstrap',
             'markdown'
         );
 
-        $this->remove_class_object_filter(
+        self::remove_class_object_filter(
             'the_excerpt',
             'Michelf\Bootstrap',
             'markdown'
         );
 
-        $this->remove_class_object_filter(
+        self::remove_class_object_filter(
             'acf_the_content',
             'Michelf\Bootstrap',
             'markdown'

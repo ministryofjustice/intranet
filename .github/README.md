@@ -678,6 +678,13 @@ This means that your JWT token is valid, but there is an issue with the basic au
 
 Please ensure that you are using the correct username and application password in the Basic Auth headers of your request.
 
+### Access for the Governance Centre of Expertise service.
+
+Automated access for the GCoE team has not yet been implemented. To manually download an export for GCoE, follow the steps:
+
+- Generate a JWT with the role `gcoe`.
+- Set this value as a cookie in requests to the intranet.
+- Visit the endpoint https://intranet.justice.gov.uk/wp-json/synergy/v1/feed.csv
 
 <!-- License -->
 
