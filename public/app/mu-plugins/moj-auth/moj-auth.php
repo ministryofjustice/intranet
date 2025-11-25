@@ -22,7 +22,7 @@ defined('ABSPATH') || exit;
 if (Config::get('MOJ_AUTH_ENABLED') === false) {
     // Exit here to return a 200 response for the heartbeat endpoint.
     $_SERVER['REQUEST_URI'] === '/auth/heartbeat' && exit;
-    
+
     // For all other requests, return here, because we don't want to run any of the code below.
     return;
 }
@@ -50,7 +50,6 @@ class Auth
     use AuthOauth;
     use AuthUtils;
 
-    private $version        = null;
     private $now            = null;
     private $debug          = false;
     private $https          = false;
@@ -65,7 +64,6 @@ class Auth
 
     public function __construct(array $args = [])
     {
-        $this->version = $args['version'] ?? '';
         $this->now = time();
         $this->debug = $args['debug'] ?? false;
         $this->https = isset($_SERVER['HTTPS']) || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && 'https' === $_SERVER['HTTP_X_FORWARDED_PROTO']);
@@ -97,22 +95,22 @@ class Auth
 
         if ('login' === $this->oauth_action) {
             $this->handleLoginRequest();
-            exit();
+            $this->safeExit(true);
         }
 
         if ('callback' === $this->oauth_action) {
-            $this->version === 2 ? $this->handleCallbackRequestV2() : $this->handleCallbackRequest();
-            exit();
+            $this->handleCallbackRequest();
+            $this->safeExit(true);
         }
 
         if ('heartbeat' === $this->oauth_action) {
-            $this->handleHeartbeatRequest();
-            exit();
+            $tokens_updated = $this->handleHeartbeatRequest();
+            $this->safeExit($tokens_updated);
         }
 
         if (!empty($this->oauth_action)) {
             $this->log('Unknown oauth action');
-            exit();
+            $this->safeExit(false);
         }
     }
 
@@ -120,16 +118,28 @@ class Auth
     {
         $this->log('handleLoginRequest()');
 
-        // Handle Azure AD/Entra ID OAuth. It redirects to Azure or exits with 401 if disabled.
-        $this->oauthLogin();
+        // Handle Azure AD/Entra ID OAuth. It redirects to Entra or, on fail it returns a WP_Error.
+        $maybe_error = $this->oauthLogin();
+
+        // If we got a WP_Error, then log it and return 401.
+        if (is_wp_error($maybe_error)) {
+            http_response_code(401);
+            $this->safeExit(true);
+        }
     }
 
     public function handleCallbackRequest(): void
     {
         $this->log('handleCallbackRequest()');
 
-        // If we've hit the callback endpoint, then handle it here. On fail it exits with 401 & php code execution stops here.
+        // If we've hit the callback endpoint, then handle it here. On fail it returns a WP_Error.
         $oauth_access_token = $this->oauthCallback();
+
+        // Return 401 and exit if we got a WP_Error.
+        if (is_wp_error($oauth_access_token)) {
+            http_response_code(401);
+            $this->safeExit(true);
+        }
 
         // The callback has returned an access token.
         if (!is_object($oauth_access_token) || $oauth_access_token->hasExpired()) {
@@ -172,74 +182,27 @@ class Auth
         }
 
         // Redirect the user to the page they were trying to access.
-        header('Location: ' . $jwt->success_url) && exit();
+        header('Location: ' . $jwt->success_url);
     }
 
-    public function handleCallbackRequestV2(): void
-    {
-        $this->log('handleCallbackRequestV2()');
 
-        // If we've hit the callback endpoint, then handle it here. On fail it exits with 401 & php code execution stops here.
-        $entra_jwt = $this->oauthCallbackV2();
-
-        $entra_jwt_parts = explode('.', $entra_jwt);
-
-        // Decode the payload.
-        $entra_jwt_payload = json_decode(base64_decode($entra_jwt_parts[1]));
-
-        // Is it expired?
-        if ($entra_jwt_payload->exp < time()) {
-            $this->log('JWT is expired.');
-
-            // Update (or create) the JWT to keep track of failed callbacks.
-            $jwt = $this->getJwt() ?: (object)[];
-
-            // Set to 0 for a session cookie.
-            $jwt->cookie_expiry = 0;
-
-            // Set failed_callbacks with a default of 1, or add one to the existing value.
-            $jwt->failed_callbacks = isset($jwt->failed_callbacks) ? ((int) $jwt->failed_callbacks) + 1 : 1;
-
-            // Set the JWT.
-            $this->setJwt($jwt);
-
-            return;
-        }
-
-        $this->log('Access token is valid. Will set JWT and store refresh token.');
-
-        $jwt = $this->getJwt() ?: (object)[];
-
-        $jwt->expiry = $entra_jwt_payload->exp;
-
-        $this->log('handleCallbackRequest initial token expiry: ' . $jwt->expiry);
-
-        $jwt->roles = ['reader'];
-
-        // Set a JWT cookie.
-        $this->setJwt($jwt);
-
-        // Store the tokens.
-        // $this->storeTokens($this->sub, $oauth_access_token, 'refresh');
-
-        // Ensure we're redirecting to a page on the same domain as our home_url.
-        if (empty($jwt->success_url) || !str_starts_with($jwt->success_url, home_url())) {
-            $jwt->success_url = '/';
-        }
-
-        // Redirect the user to the page they were trying to access.
-        header('Location: ' . $jwt->success_url) && exit();
-    }
-
-    public function handleHeartbeatRequest(): void
+    /**
+     * Handle a heartbeat request.
+     *
+     * @return bool True if tokens were updated, false otherwise.
+     */
+    public function handleHeartbeatRequest(): bool
     {
         $this->log('handleHeartbeatRequest()');
+
+        // Keep track of updated tokens, will we need to do do a safeExit to write these to the storage?
+        $tokens_updated = false;
 
         // Get the JWT token from the request. Do this early so that we populate $this->sub if it's known.
         $jwt = $this->getJwt();
 
         if (!$jwt) {
-            return;
+            return $tokens_updated;
         }
 
         // Keep track of JWT mutations.
@@ -263,7 +226,7 @@ class Auth
 
         // It's not time to refresh the JWT, return early.
         if ($jwt_remaining_time > $this::JWT_REFRESH) {
-            return;
+            return $tokens_updated;
         }
 
         /*
@@ -282,6 +245,8 @@ class Auth
             $jwt->roles = ['reader'];
             // Store the tokens.
             $this->storeTokens($this->sub, $oauth_refreshed_access_token, 'refresh');
+            // Keep track that we've updated tokens.
+            $tokens_updated = true;
         } else {
             $this->log('Refresh token was not valid.');
         }
@@ -291,7 +256,7 @@ class Auth
             $this->setJwt($jwt);
         }
 
-        return;
+        return $tokens_updated;
     }
 
     /**
@@ -305,9 +270,9 @@ class Auth
     public function logout(): void
     {
         $this->deleteCookie($this::JWT_COOKIE_NAME);
-        http_response_code(401) && exit();
+        http_response_code(401) && $this->safeExit(false);
     }
 }
 
-$moj_auth = new Auth(['debug' => Config::get('MOJ_AUTH_DEBUG'), 'version' =>  Config::get('MOJ_AUTH_VERSION')]);
+$moj_auth = new Auth(['debug' => Config::get('MOJ_AUTH_DEBUG')]);
 $moj_auth->handleRequest();

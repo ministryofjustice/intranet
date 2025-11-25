@@ -17,7 +17,7 @@ trait Utils
      * @param string $function_name The name of the method to remove.
      * @return void
      */
-    public function remove_class_object_filter(string $filter_name, string $class_name, string $function_name): void
+    public static function remove_class_object_filter(string $filter_name, string $class_name, string $function_name): void
     {
         global $wp_filter;
         foreach ($wp_filter[$filter_name]->callbacks as $priority => $pri_data) {
@@ -55,7 +55,7 @@ trait Utils
      * @return bool True if the date-time string is valid, false otherwise.
      */
 
-    public function isValidIsoDateTime($date_time = null): bool
+    public static function isValidIsoDateTime($date_time = null): bool
     {
         if (empty($date_time) || gettype($date_time) !== 'string') {
             // If the date_time is empty or not a string, return false.
@@ -70,5 +70,24 @@ trait Utils
         $iso_pattern = '/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[\+\-]\d{2}:\d{2})?$/';
 
         return (bool) preg_match($iso_pattern, $date_time);
+    }
+
+
+    /**
+     * Find an entry in an array that matches a filter function.
+     *
+     * @param array $array The array to search.
+     * @param callable $filter_function The filter function to use.
+     * @return mixed|null The first entry in the array that matches the filter function.
+     */
+
+    public static function arrayFind(array $array, callable $filter_function): mixed
+    {
+        foreach ($array as $entry) {
+            if (call_user_func($filter_function, $entry) === true) {
+                return $entry;
+            }
+        }
+        return null;
     }
 }

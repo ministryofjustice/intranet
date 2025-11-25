@@ -9,6 +9,7 @@ data:
   WP_SITEURL: 'https://intranet.justice.gov.uk/wp'
   AWS_CLOUDFRONT_HOST: 'cdn.intranet.justice.gov.uk'
   INTRANET_ARCHIVE_URL: 'https://app.archive.intranet.justice.gov.uk/access'
+  NGINX_PURGE_CACHE_URL: 'http://pod-broadcaster-service:1993/broadcast/purge-cache'
   # See Azure Setup in the README for more information on how to get these values.
   # The following IDs are not private, they form part of the publicly visible oauth login url.
   OAUTH_CLIENT_ID: "ffb808d2-312b-4ffe-a6e5-d6eacfd9f06f"

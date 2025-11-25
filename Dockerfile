@@ -13,14 +13,14 @@
 #░░
 #░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
 
-ARG version_nginx=1.26.1
-ARG version_node=22
-ARG version_cron_alpine=3.19.1
+ARG version_nginx=1.28.0
+ARG version_node=24
+ARG version_cron_alpine=3.22
 
 #    ▄▄  ▄▄     █▀▀  █▀█  █▀▄▀█     ▄▄  ▄▄    #
 #    ░░  ░░     █▀░  █▀▀  █░▀░█     ░░  ░░    #
 
-FROM ministryofjustice/wordpress-base-fpm:latest AS base-fpm
+FROM ministryofjustice/wordpress-base-fpm:0.0.6 AS base-fpm
 
 # Switch to the alpine's default user, for installing packages
 USER root
@@ -35,19 +35,14 @@ RUN mkdir /sock && \
     chown nginx:nginx /sock
 
 # Copy our init. script(s) and set them to executable
-COPY deploy/config/init/fpm-*.sh /usr/local/bin/docker-entrypoint.d/
+COPY bin/fpm-init.sh /usr/local/bin/
 
-RUN chmod +x /usr/local/bin/docker-entrypoint.d/*
+RUN chmod +x /usr/local/bin/fpm-init.sh
 
 # Copy our healthcheck scripts and set them to executable
 COPY bin/fpm-liveness.sh bin/fpm-readiness.sh bin/fpm-status.sh /usr/local/bin/fpm-health/
 
 RUN chmod +x /usr/local/bin/fpm-health/*
-
-# Copy our stop script and set it to executable
-COPY bin/fpm-stop.sh /usr/local/bin/fpm-stop.sh
-
-RUN chmod +x /usr/local/bin/fpm-stop.sh
 
 ## Change directory
 WORKDIR /usr/local/etc/php-fpm.d
@@ -75,12 +70,12 @@ SHELL ["/bin/ash", "-exo", "pipefail", "-c"]
 
 RUN apk update && \
     apk add linux-headers openssl-dev pcre2-dev zlib-dev openssl abuild \
-        musl-dev libxslt libxml2-utils make mercurial gcc unzip git \
+        musl-dev libxslt libxml2-utils make gcc unzip git \
         xz g++ coreutils
 
 RUN printf "#!/bin/sh\\nSETFATTR=true /usr/bin/abuild -F \"\$@\"\\n" > /usr/local/bin/abuild && \
     chmod +x /usr/local/bin/abuild && \
-    hg clone -r ${NGINX_VERSION}-${PKG_RELEASE} https://hg.nginx.org/pkg-oss/ && \
+    git clone --branch ${NGINX_VERSION}-${PKG_RELEASE} https://github.com/nginx/pkg-oss.git pkg-oss && \
     mkdir -p /tmp/packages && \
     cd pkg-oss && \
     /pkg-oss/build_module.sh -v $NGINX_VERSION -f -y -o /tmp/packages -n cachepurge https://github.com/nginx-modules/ngx_cache_purge/archive/2.5.3.tar.gz; \
@@ -221,12 +216,16 @@ RUN rm -rf node_modules
 
 FROM base-fpm AS build-fpm
 
+# Set the WP_CLI configuration path - so that the `wp` command can be run from anywhere 
+# e.g. /usr/local/bin/docker-entrypoint.d/fpm-start.sh
+ENV WP_CLI_CONFIG_PATH=/var/www/html/wp-cli.yml
+
 WORKDIR /var/www/html
 COPY --chown=nginx:nginx ./config ./config
 COPY --chown=nginx:nginx ./public ./public
 COPY --chown=nginx:nginx wp-cli.yml wp-cli.yml
 
-# Replace paths with dependanies from build-fpm-composer
+# Replace paths with dependencies from build-fpm-composer
 ARG path="/var/www/html"
 COPY --from=build-fpm-composer ${path}/public/app/mu-plugins public/app/mu-plugins
 COPY --from=build-fpm-composer ${path}/public/app/plugins public/app/plugins

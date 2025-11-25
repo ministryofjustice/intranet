@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: intranet-dev-pod-broadcaster
+  namespace: intranet-dev
+  labels:
+    app: intranet-dev-pod-broadcaster
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: intranet-dev-pod-broadcaster
+  template:
+    metadata:
+      labels:
+        app: intranet-dev-pod-broadcaster
+    spec:
+      serviceAccountName: pod-broadcaster-serviceaccount
+      containers:
+        - name: pod-broadcaster
+          image: ghcr.io/ministryofjustice/kubernetes-pod-broadcaster:latest
+          resources:
+            limits:
+              cpu: 200m
+              memory: 64Mi
+            requests:
+              cpu: 50m
+              memory: 32Mi
+          securityContext:
+            runAsUser: 1000
+          # Run the 'cluster' task, it passes the cluster cert to deno.
+          command: ["/bin/sh", "-c"]
+          args: ["deno task cluster"]
+          env:
+            - name: NAMESPACE
+              value: intranet-dev
+            - name: LABEL_SELECTOR
+              value: app=intranet-dev
+            - name: DEBUG
+              value: "true"

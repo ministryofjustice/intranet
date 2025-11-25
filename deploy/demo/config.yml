@@ -4,11 +4,12 @@ metadata:
   name: intranet-demo
   namespace: intranet-demo
 data:
-  WP_ENV: "production"
+  WP_ENV: "demo"
   WP_HOME: 'https://demo.intranet.justice.gov.uk'
   WP_SITEURL: 'https://demo.intranet.justice.gov.uk/wp'
   AWS_CLOUDFRONT_HOST: 'cdn.demo.intranet.justice.gov.uk'
   SENTRY_DEV_ID: '-demo'
+  NGINX_PURGE_CACHE_URL: 'http://pod-broadcaster-service:1993/broadcast/purge-cache'
   # See Azure Setup for more information on how to get these values.
   # The following IDs are not private, they form part of the publicly visible oauth login url.
   OAUTH_CLIENT_ID: ""

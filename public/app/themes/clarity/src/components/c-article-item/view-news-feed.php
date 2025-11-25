@@ -24,7 +24,7 @@ if (! isset($set_cpt)) {
 
     <?php if ($thumbnail) : ?>
         <a tabindex="-1" aria-hidden="true" href="<?= esc_url(get_permalink($id)) ?>" class="thumbnail">
-            <img src="<?= esc_url($thumbnail) ?>" alt="<?= $thumbnail_alt ?>">
+            <img src="<?= esc_url($thumbnail) ?>" alt="<?= esc_attr($thumbnail_alt ?? '') ?>">
         </a>
     <?php endif; ?>
 

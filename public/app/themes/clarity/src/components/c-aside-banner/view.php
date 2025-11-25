@@ -15,9 +15,9 @@ $homepage_sidebar_banner_alt_text = get_field($agency . '_homepage_sidebar_banne
 <section class="c-aside-banner">
   <h1 class="o-title o-title--subtitle"><?= $banner_header ?></h1>
   
-  <a href="<?= $homepage_sidebar_banner_link ?>" class="c-aside-banner--link">
+  <a href="<?= esc_url($homepage_sidebar_banner_link) ?>" class="c-aside-banner--link">
 
-      <img src="<?= $homepage_sidebar_banner_image ?>" alt="<?= $homepage_sidebar_banner_alt_text ?>">
+      <img src="<?= esc_url($homepage_sidebar_banner_image) ?>" alt="<?= esc_attr($homepage_sidebar_banner_alt_text ?? '') ?>">
   </a>
 </section>
 <!-- c-aside-banner ends here -->

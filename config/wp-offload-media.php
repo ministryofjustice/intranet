@@ -7,8 +7,7 @@
  */
 
 use Roots\WPConfig\Config;
-
-use function Env\env;
+use function MOJ\Justice\env;
 
 /**
  *  Setting                | Type    | Description

@@ -38,7 +38,8 @@ trait AuthJwt
                 'ipGroupIn' => [5]
             ]
         ],
-        // The synergy role has no conditions.
+        // The gcoe & synergy roles have no conditions.
+        'gcoe' => true,
         'synergy' => true
     ];
 
