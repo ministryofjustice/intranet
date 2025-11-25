@@ -88,6 +88,7 @@ require_once 'inc/comments.php';
 require_once 'inc/constants.php';
 require_once 'inc/content-filter/search-query.php';
 require_once 'inc/content-filter/search.php';
+require_once 'inc/content-filter/DocumentSubscriptions.php';
 require_once 'inc/enqueue.php';
 require_once 'inc/form-builder.php';
 require_once 'inc/forms.php';
@@ -133,6 +134,7 @@ new MOJ\Intranet\AdminBranding();
 new MOJ\Intranet\WPDocumentRevisions();
 new MOJ\Intranet\WPOffloadMedia();
 new MOJ\Intranet\WPElasticPress();
+new MOJ\Intranet\DocumentSubscriptions();
 
 $search = new MOJ\Intranet\Search();
 $search->hooks();
