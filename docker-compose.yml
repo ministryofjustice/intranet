@@ -73,6 +73,7 @@ services:
       - ./public/app/themes/clarity/src:/node/src
       - ./public/app/themes/clarity/inc:/node/inc
       - ./public/app/themes/clarity/scaffold:/node/scaffold
+      - ./public/app/themes/clarity/.npmrc:/node/.npmrc
       - ./public/app/themes/clarity/clarity.yml:/node/clarity.yml
       - ./public/app/themes/clarity/component-register.html:/node/component-register.html
       - ./public/app/themes/clarity/ctgen.js:/node/ctgen.js
