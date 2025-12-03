@@ -78,7 +78,10 @@ make
 
 During the `make` process, the Dory proxy will attempt to install. You will be guided though an installation, if needed.
 
-You will be prompted for the ACF Pro license key, this is necessary for the composer install step.
+> [!IMPORTANT] 
+> You will be prompted for the ACF Pro license key, this is necessary for the composer install step.
+> Before continuing, edit the .env file at the root of the project. 
+> Update the line `ACF_PRO_LICENSE=license_placeholder` with the actual API key.
 
 ### Services
 
@@ -98,7 +101,11 @@ Next, you can import the local database with a WP_CLI import command.
 Place a copy of the local database at the root of the project, named `local.sql`, then run:
 
 ```bash
-wp db import --defaults local.sql
+openssl enc -d -aes-256-cbc -pbkdf2 -iter 100000 -salt -in intranet-local.sql.gz.enc -out intranet-local.sql.gz
+
+gunzip intranet-local.sql.gz
+
+wp db import --defaults intranet-local.sql
 ```
 
 **Node**<br>
