@@ -25,6 +25,13 @@ spec:
       containers:
       - name: s3-push
         image: ${ECR_URL}:${IMAGE_TAG_S3_PUSH}
+        resources:
+          limits:
+            cpu: "2"
+            memory: 256Mi
+          requests:
+            cpu: "1"
+            memory: 128Mi
         securityContext:
           allowPrivilegeEscalation: false
           capabilities: 
