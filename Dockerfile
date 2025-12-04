@@ -329,6 +329,11 @@ RUN addgroup --gid 3001 ${user} && adduser -D -G ${user} -g "${user} user" -u 30
 
 RUN apk add --no-cache aws-cli jq
 
+# Create temp directory for s3pusher
+# This will be the only writable location in the read-only container.
+RUN mkdir -p /tmp/s3pusher
+RUN chown ${user}:${user} /tmp/s3pusher
+
 WORKDIR /usr/bin
 
 COPY deploy/config/init/s3-push-start.sh ./s3-push-start

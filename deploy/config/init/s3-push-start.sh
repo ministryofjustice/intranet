@@ -3,10 +3,17 @@
 export AWS_CLI_ARGS=""
 # Truncate $IMAGE_TAG to 8 chars.
 export IMAGE_TAG=$(echo $IMAGE_TAG | cut -c1-8)
+# File paths on the local filesystem.
+export TMP_DIR="/tmp/s3pusher"
+export LOCAL_MANIFEST="$TMP_DIR/manifest.json"
+export LOCAL_SUMMARY="$TMP_DIR/summary.jsonl"
+export LOCAL_SUMMARY_TMP="$TMP_DIR/summary-tmp.jsonl"
+# S3 paths
 export S3_DESTINATION="s3://$AWS_S3_BUCKET/build/$IMAGE_TAG"
 export S3_MANIFESTS="s3://$AWS_S3_BUCKET/build/manifests/"
 export S3_MANIFEST="s3://$AWS_S3_BUCKET/build/manifests/$IMAGE_TAG.json"
 export S3_SUMMARY="s3://$AWS_S3_BUCKET/build/manifests/summary.jsonl"
+# Current timestamp
 export TIMESTAMP=$(date +%s)
 
 
@@ -29,7 +36,15 @@ catch_error() {
 
 
 # ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
-# 2️⃣ Prepare CLI arguments
+# 2️⃣ Prepare a temporary workspace
+# ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
+
+mkdir -p "$TMP_DIR"
+catch_error $? "mkdir -p $TMP_DIR"
+
+
+# ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
+# 3️⃣ Prepare CLI arguments
 # ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
 
 # If $AWS_ENDPOINT_URL is set and it's not an empty string, append to the AWS CLI args.
@@ -40,7 +55,7 @@ fi
 
 
 # ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
-# 3️⃣ Sync files to S3
+# 4️⃣ Sync files to S3
 # ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
 
 echo "Syncing assets to $S3_DESTINATION ..."
@@ -51,7 +66,7 @@ catch_error $? "aws s3 sync ./public $S3_DESTINATION"
 
 
 # ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
-# 4️⃣ Get a list of uploaded files
+# 5️⃣ Get a list of uploaded files
 # ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
 
 echo "Fetching list of uploaded files..."
@@ -62,7 +77,7 @@ catch_error $? "aws s3 ls $S3_DESTINATION/ --recursive"
 
 
 # ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
-# 5️⃣ Verify file counts
+# 6️⃣ Verify file counts
 # ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
 
 echo "Verifying file counts..."
@@ -79,20 +94,20 @@ fi
 
 
 # ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
-# 6️⃣ Copy the list of uploaded files to S3
+# 7️⃣ Copy the list of uploaded files to S3
 # ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
 
 echo "Copying manifest to $S3_MANIFEST..."
 
 # Use jq to parse the line-seperated $UPLOADED_FILES variable into a json array.
-echo "$UPLOADED_FILES" | jq -R -s '{timestamp: '$TIMESTAMP', build: "'$IMAGE_TAG'", files: split("\n")[:-1]}' > ./mainfest.json
+echo "$UPLOADED_FILES" | jq -R -s '{timestamp: '$TIMESTAMP', build: "'$IMAGE_TAG'", files: split("\n")[:-1]}' > $LOCAL_MANIFEST
 
-aws $AWS_CLI_ARGS s3 cp ./mainfest.json $S3_MANIFEST
-catch_error $? "aws s3 cp ./mainfest.json $S3_MANIFEST"
+aws $AWS_CLI_ARGS s3 cp $LOCAL_MANIFEST $S3_MANIFEST
+catch_error $? "aws s3 cp $LOCAL_MANIFEST $S3_MANIFEST"
 
 
 # ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
-# 7️⃣ Append this manifest to the summary
+# 8️⃣ Append this manifest to the summary
 # ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
 
 echo "Getting summary file..."
@@ -105,23 +120,23 @@ SUMMARY_EXISTS=$(echo "$MANIFESTS_LS" | grep -q "^summary.jsonl$" && echo "true"
 
 if [ "$SUMMARY_EXISTS" = "true" ]; then
   echo "Summary file exists. Downloading..."
-  aws $AWS_CLI_ARGS s3 cp $S3_SUMMARY ./summary.jsonl
-  catch_error $? "aws s3 cp $S3_SUMMARY ./summary.jsonl"
+  aws $AWS_CLI_ARGS s3 cp $S3_SUMMARY $LOCAL_SUMMARY
+  catch_error $? "aws s3 cp $S3_SUMMARY $LOCAL_SUMMARY"
 else
   echo "Summary file does not exist. Creating..."
-  touch ./summary.jsonl
+  touch "$LOCAL_SUMMARY"
 fi
 
 echo "Appending manifest to summary..."
-echo '{"timestamp": '$TIMESTAMP', "build": "'$IMAGE_TAG'"}' >> ./summary.jsonl
+echo '{"timestamp": '$TIMESTAMP', "build": "'$IMAGE_TAG'"}' >> $LOCAL_SUMMARY
 
 echo "Copying summary to S3..."
-aws $AWS_CLI_ARGS s3 cp --cache-control 'no-cache' ./summary.jsonl $S3_SUMMARY
-catch_error $? "aws s3 cp ./summary.jsonl $S3_SUMMARY"
+aws $AWS_CLI_ARGS s3 cp --cache-control 'no-cache' $LOCAL_SUMMARY $S3_SUMMARY
+catch_error $? "aws s3 cp $LOCAL_SUMMARY $S3_SUMMARY"
 
 
 # ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
-# 8️⃣ Manage the lifecycle of old builds
+# 9️⃣ Manage the lifecycle of old builds
 # ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
 
 # Here we will:
@@ -142,13 +157,13 @@ delete_build () {
   # 🅐 Remove the build from the summary file first.
   echo "Removing build $1 from $S3_SUMMARY..."
 
-  cat ./summary.jsonl | jq -s -c 'map(select(.build != "'$1'")) .[]' > ./summary-tmp.jsonl
+  cat "$LOCAL_SUMMARY" | jq -s -c 'map(select(.build != "'$1'")) .[]' > $LOCAL_SUMMARY_TMP
   catch_error $? "jq removing build from summary"
-  mv ./summary-tmp.jsonl ./summary.jsonl
+  mv $LOCAL_SUMMARY_TMP $LOCAL_SUMMARY
 
   # 🅑 Copy the revised summary to S3
-  aws $AWS_CLI_ARGS s3 cp --cache-control 'no-cache' ./summary.jsonl $S3_SUMMARY
-  catch_error $? "aws s3 cp ./summary.jsonl $S3_SUMMARY"
+  aws $AWS_CLI_ARGS s3 cp --cache-control 'no-cache' $LOCAL_SUMMARY $S3_SUMMARY
+  catch_error $? "aws s3 cp $LOCAL_SUMMARY $S3_SUMMARY"
 
   # Next, delete the build folder from the S3 bucket.
   echo "Removing build $1 from s3://$AWS_S3_BUCKET/build/$1..."
@@ -167,7 +182,7 @@ delete_build () {
 }
 
 BUILDS_TO_DELETE=$(
-  cat ./summary.jsonl |
+  cat $LOCAL_SUMMARY |
   jq -s -c -r '
     # Identfy the entries where the deleteAfter property is set 
     # and the current time is greater than the deleteAfter value.
@@ -199,15 +214,13 @@ fi
 # it accepts a variable of build tags (seperated by line breaks) as an argument.
 
 flag_builds () {
-
-  echo "Marking the following builds for deletion: $BUILDS_TO_FLAG_CSV"
-
   # 🅐 Prepare a csv string to use in jq.
   BUILDS_TO_FLAG_CSV=$(echo $1 | tr '\n' ',' | sed 's/,$//')
+  echo "Marking the following builds for deletion: $BUILDS_TO_FLAG_CSV"
   DELETE_AFTER=$(expr $TIMESTAMP + 86400) # 24 hours from now
-  
+
   # 🅑 Use jq to transform the contents of summary.jsonl
-  cat ./summary.jsonl | jq -s -c '
+  cat $LOCAL_SUMMARY | jq -s -c '
     map(
       if .build | IN ('$BUILDS_TO_FLAG_CSV') then
         . + {deleteAfter: '$DELETE_AFTER'}
@@ -216,21 +229,21 @@ flag_builds () {
       end
     )
     .[]
-  ' > ./summary-tmp.jsonl
+  ' > $LOCAL_SUMMARY_TMP
   catch_error $? "jq setting deleteAfter property"
 
-  mv ./summary-tmp.jsonl ./summary.jsonl
+  mv $LOCAL_SUMMARY_TMP $LOCAL_SUMMARY
   
   # 🅒 Copy the updated file to S3
   echo "Copying summary (with builds flagged for deletion) to S3..."
-  aws $AWS_CLI_ARGS s3 cp --cache-control 'no-cache' ./summary.jsonl $S3_SUMMARY
-  catch_error $? "aws s3 cp ./summary.jsonl $S3_SUMMARY"
+  aws $AWS_CLI_ARGS s3 cp --cache-control 'no-cache' $LOCAL_SUMMARY $S3_SUMMARY
+  catch_error $? "aws s3 cp $LOCAL_SUMMARY $S3_SUMMARY"
 
 }
 
 # Get the oldest builds (excluding the newest 5), they will be flagged for deletion.
 BUILDS_TO_FLAG=$(
-  cat ./summary.jsonl |
+  cat $LOCAL_SUMMARY |
   jq -s -c '
     unique_by(.build) |
     sort_by(.timestamp) |
