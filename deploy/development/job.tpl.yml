@@ -4,17 +4,17 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: s3-push-main-b74edbce7d2d1ad7213f9600d80b24869e9125ac
-  namespace: intranet-dev
+  name: ${IMAGE_TAG_S3_PUSH}
+  namespace: ${KUBE_NAMESPACE}
   labels:
-    app: intranet-dev-s3-push
+    app: ${KUBE_NAMESPACE}-s3-push
 spec:
   template:
     metadata:
       labels:
-        app: intranet-dev-s3-push
+        app: ${KUBE_NAMESPACE}-s3-push
     spec:
-      serviceAccountName: intranet-dev-service
+      serviceAccountName: ${KUBE_NAMESPACE}-service
       securityContext:
         runAsNonRoot: true
         runAsUser: 3001
@@ -24,7 +24,7 @@ spec:
       restartPolicy: Never
       containers:
       - name: s3-push
-        image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/central-digital-product-team/intranet-production-ecr:s3-push-main-b74edbce7d2d1ad7213f9600d80b24869e9125ac
+        image: ${ECR_URL}:${IMAGE_TAG_S3_PUSH}
         resources:
           limits:
             cpu: "2"
