@@ -329,11 +329,6 @@ RUN addgroup --gid 3001 ${user} && adduser -D -G ${user} -g "${user} user" -u 30
 
 RUN apk add --no-cache aws-cli jq
 
-# Create temp directory for s3pusher
-# This will be the only writable location in the read-only container.
-RUN mkdir -p /tmp/s3pusher
-RUN chown ${user}:${user} /tmp/s3pusher
-
 WORKDIR /usr/bin
 
 COPY deploy/config/init/s3-push-start.sh ./s3-push-start
@@ -343,6 +338,10 @@ USER 3001
 
 # Go home...
 WORKDIR /home/s3pusher
+
+# Create .aws directory for AWS CLI configuration and a tmp directory for other temp files.
+# This will be the only writable location in the read-only container.
+RUN mkdir -p .aws && mkdir -p tmp
 
 # Grab assets for pushing to s3
 COPY --from=build-fpm-composer /var/www/html/vendor-assets ./

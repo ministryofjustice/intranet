@@ -38,8 +38,10 @@ spec:
             drop: ["ALL"]
           readOnlyRootFilesystem: true
         volumeMounts:
+        - name: writable-aws
+          mountPath: /home/s3pusher/.aws
         - name: writable-tmp
-          mountPath: /tmp/s3pusher
+          mountPath: /home/s3pusher/tmp
         env:
         - name: AWS_S3_BUCKET
           valueFrom:
@@ -47,5 +49,7 @@ spec:
               name: s3-bucket-output
               key: bucket_name
       volumes:
+      - name: writable-aws
+        emptyDir: {}
       - name: writable-tmp
         emptyDir: {}

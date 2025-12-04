@@ -4,12 +4,9 @@ export AWS_CLI_ARGS=""
 # Truncate $IMAGE_TAG to 8 chars.
 export IMAGE_TAG=$(echo $IMAGE_TAG | cut -c1-8)
 # File paths on the local filesystem.
-export TMP_DIR="/tmp/s3pusher"
-export LOCAL_MANIFEST="$TMP_DIR/manifest.json"
-export LOCAL_SUMMARY="$TMP_DIR/summary.jsonl"
-export LOCAL_SUMMARY_TMP="$TMP_DIR/summary-tmp.jsonl"
-export AWS_CONFIG_FILE="$TMP_DIR/.aws/config"
-export AWS_SHARED_CREDENTIALS_FILE="$TMP_DIR/.aws/credentials"
+export LOCAL_MANIFEST="./tmp/manifest.json"
+export LOCAL_SUMMARY="./tmp/summary.jsonl"
+export LOCAL_SUMMARY_TMP="./tmp/summary-tmp.jsonl"
 # S3 paths
 export S3_DESTINATION="s3://$AWS_S3_BUCKET/build/$IMAGE_TAG"
 export S3_MANIFESTS="s3://$AWS_S3_BUCKET/build/manifests/"
@@ -38,15 +35,7 @@ catch_error() {
 
 
 # ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
-# 2️⃣ Prepare a temporary workspace
-# ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
-
-mkdir -p "$TMP_DIR"
-catch_error $? "mkdir -p $TMP_DIR"
-
-
-# ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
-# 3️⃣ Prepare CLI arguments
+# 2️⃣ Prepare CLI arguments
 # ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
 
 # If $AWS_ENDPOINT_URL is set and it's not an empty string, append to the AWS CLI args.
@@ -57,7 +46,7 @@ fi
 
 
 # ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
-# 4️⃣ Sync files to S3
+# 3️⃣ Sync files to S3
 # ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
 
 echo "Syncing assets to $S3_DESTINATION ..."
@@ -68,7 +57,7 @@ catch_error $? "aws s3 sync ./public $S3_DESTINATION"
 
 
 # ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
-# 5️⃣ Get a list of uploaded files
+# 4️⃣ Get a list of uploaded files
 # ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
 
 echo "Fetching list of uploaded files..."
@@ -79,7 +68,7 @@ catch_error $? "aws s3 ls $S3_DESTINATION/ --recursive"
 
 
 # ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
-# 6️⃣ Verify file counts
+# 5️⃣ Verify file counts
 # ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
 
 echo "Verifying file counts..."
@@ -96,7 +85,7 @@ fi
 
 
 # ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
-# 7️⃣ Copy the list of uploaded files to S3
+# 6️⃣ Copy the list of uploaded files to S3
 # ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
 
 echo "Copying manifest to $S3_MANIFEST..."
@@ -109,7 +98,7 @@ catch_error $? "aws s3 cp $LOCAL_MANIFEST $S3_MANIFEST"
 
 
 # ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
-# 8️⃣ Append this manifest to the summary
+# 7️⃣ Append this manifest to the summary
 # ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
 
 echo "Getting summary file..."
@@ -138,7 +127,7 @@ catch_error $? "aws s3 cp $LOCAL_SUMMARY $S3_SUMMARY"
 
 
 # ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
-# 9️⃣ Manage the lifecycle of old builds
+# 8️⃣ Manage the lifecycle of old builds
 # ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
 
 # Here we will:
