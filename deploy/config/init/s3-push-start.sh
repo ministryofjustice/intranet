@@ -8,6 +8,8 @@ export TMP_DIR="/tmp/s3pusher"
 export LOCAL_MANIFEST="$TMP_DIR/manifest.json"
 export LOCAL_SUMMARY="$TMP_DIR/summary.jsonl"
 export LOCAL_SUMMARY_TMP="$TMP_DIR/summary-tmp.jsonl"
+export AWS_CONFIG_FILE="$TMP_DIR/.aws/config"
+export AWS_SHARED_CREDENTIALS_FILE="$TMP_DIR/.aws/credentials"
 # S3 paths
 export S3_DESTINATION="s3://$AWS_S3_BUCKET/build/$IMAGE_TAG"
 export S3_MANIFESTS="s3://$AWS_S3_BUCKET/build/manifests/"
