@@ -1,6 +1,33 @@
 #!/bin/sh
 
-export AWS_CLI_ARGS=""
+
+# ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
+# 0️⃣ Validate environment variables
+# ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
+
+echo "Validating environment variables..."
+
+# Validate the $IMAGE_TAG environment variable, it should be 40 hexadecimal characters.
+if [ -z "$IMAGE_TAG" ] || [ ${#IMAGE_TAG} -ne 40 ] || echo "$IMAGE_TAG" | grep -qi '[^a-f0-9]'; then
+  echo "Error: IMAGE_TAG environment variable is not set correctly. It must be a 40 character hexadecimal string."
+  exit 1
+fi
+
+# If $AWS_ENDPOINT_URL is set, allow only URI-safe characters to prevent shell injection.
+if [ -n "$AWS_ENDPOINT_URL" ]; then
+  case "$AWS_ENDPOINT_URL" in
+    *[!A-Za-z0-9.:/_-]*)
+      echo "Error: AWS_ENDPOINT_URL contains invalid characters."
+      exit 1
+      ;;
+  esac
+fi
+
+
+# ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
+# 1️⃣ Setup script variables
+# ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
+
 # Truncate $IMAGE_TAG to 8 chars.
 export IMAGE_TAG=$(echo $IMAGE_TAG | cut -c1-8)
 # File paths on the local filesystem.
@@ -14,10 +41,17 @@ export S3_MANIFEST="s3://$AWS_S3_BUCKET/build/manifests/$IMAGE_TAG.json"
 export S3_SUMMARY="s3://$AWS_S3_BUCKET/build/manifests/summary.jsonl"
 # Current timestamp
 export TIMESTAMP=$(date +%s)
+# AWS CLI arguments
+export AWS_CLI_ARGS=""
+# If $AWS_ENDPOINT_URL is set and it's not an empty string, append to the AWS CLI args.
+# This allows for localhost testing with minio.
+if [ -n "$AWS_ENDPOINT_URL" ]; then
+  export AWS_CLI_ARGS="$AWS_CLI_ARGS --endpoint-url $AWS_ENDPOINT_URL"
+fi
 
 
 # ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
-# 1️⃣ Function to handle errors
+# 2️⃣ Function to handle errors
 # ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
 
 # Accepts 2 arguments, the return code of the aws command and the command itself.
@@ -32,17 +66,6 @@ catch_error() {
     exit $1
   fi
 }
-
-
-# ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
-# 2️⃣ Prepare CLI arguments
-# ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
-
-# If $AWS_ENDPOINT_URL is set and it's not an empty string, append to the AWS CLI args.
-# This allows for localhost testing with minio.
-if [ -n "$AWS_ENDPOINT_URL" ]; then
-  export AWS_CLI_ARGS="$AWS_CLI_ARGS --endpoint-url $AWS_ENDPOINT_URL"
-fi
 
 
 # ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
