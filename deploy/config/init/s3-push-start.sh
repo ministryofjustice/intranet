@@ -85,9 +85,15 @@ catch_error $? "aws s3 sync ./public $S3_DESTINATION"
 
 echo "Fetching list of uploaded files..."
 
-# Get an array of all the files that were uploaded, remove "/build/$IMAGE_TAG" from the start.
-UPLOADED_FILES=$(aws $AWS_CLI_ARGS s3 ls $S3_DESTINATION/ --recursive | awk '{print $4}')
+# Get a list of all uploaded files in the S3 destination.
+# The output will be in a table format with columns for date, time, size, and path.
+UPLOADED_FILES_TABLE=$(aws $AWS_CLI_ARGS s3 ls "$S3_DESTINATION/" --recursive)
 catch_error $? "aws s3 ls $S3_DESTINATION/ --recursive"
+
+# Extract the object path, by removing columns 1,2 and 3, then trimming the leading whitespace.
+# This leaves just the file paths (compatible with paths that have spaces).
+UPLOADED_FILES=$(echo "$UPLOADED_FILES_TABLE" | awk '{ $1=$2=$3=""; sub(/^[[:space:]]+/, ""); print }')
+catch_error $? "awk processing uploaded files"
 
 
 # ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
@@ -284,6 +290,7 @@ fi
 # ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
 
 echo "Assets pushed to:            $S3_DESTINATION"
+echo "Assets count:                $UPLOADED_FILES_COUNT"
 echo "Manifest pushed to:          $S3_MANIFEST"
 echo "Summary pushed to:           $S3_SUMMARY"
 echo "Builds deleted:              $BUILDS_TO_DELETE_COUNT"
