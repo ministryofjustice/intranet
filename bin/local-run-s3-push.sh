@@ -28,3 +28,6 @@ docker run --rm -it \
   -e AWS_S3_BUCKET \
   -e AWS_ENDPOINT_URL=http://host.docker.internal:9000 \
   intranet-s3-push:latest
+  # --read-only \
+  # --tmpfs  /home/s3pusher/.aws:uid=3001,gid=3001,mode=0775 \
+  # --tmpfs  /home/s3pusher/tmp:uid=3001,gid=3001,mode=0775 \

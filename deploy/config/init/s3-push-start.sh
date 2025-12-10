@@ -1,17 +1,57 @@
 #!/bin/sh
 
-export AWS_CLI_ARGS=""
+
+# ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
+# 0️⃣ Validate environment variables
+# ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
+
+echo "Validating environment variables..."
+
+# Validate the $IMAGE_TAG environment variable, it should be 40 hexadecimal characters.
+if [ -z "$IMAGE_TAG" ] || [ ${#IMAGE_TAG} -ne 40 ] || echo "$IMAGE_TAG" | grep -qi '[^a-f0-9]'; then
+  echo "Error: IMAGE_TAG environment variable is not set correctly. It must be a 40 character hexadecimal string."
+  exit 1
+fi
+
+# If $AWS_ENDPOINT_URL is set, allow only URI-safe characters to prevent shell injection.
+if [ -n "$AWS_ENDPOINT_URL" ]; then
+  case "$AWS_ENDPOINT_URL" in
+    *[!A-Za-z0-9.:/_-]*)
+      echo "Error: AWS_ENDPOINT_URL contains invalid characters."
+      exit 1
+      ;;
+  esac
+fi
+
+
+# ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
+# 1️⃣ Setup script variables
+# ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
+
 # Truncate $IMAGE_TAG to 8 chars.
 export IMAGE_TAG=$(echo $IMAGE_TAG | cut -c1-8)
+# File paths on the local filesystem.
+export LOCAL_MANIFEST="./tmp/manifest.json"
+export LOCAL_SUMMARY="./tmp/summary.jsonl"
+export LOCAL_SUMMARY_TMP="./tmp/summary-tmp.jsonl"
+# S3 paths
 export S3_DESTINATION="s3://$AWS_S3_BUCKET/build/$IMAGE_TAG"
 export S3_MANIFESTS="s3://$AWS_S3_BUCKET/build/manifests/"
 export S3_MANIFEST="s3://$AWS_S3_BUCKET/build/manifests/$IMAGE_TAG.json"
 export S3_SUMMARY="s3://$AWS_S3_BUCKET/build/manifests/summary.jsonl"
+# Current timestamp
 export TIMESTAMP=$(date +%s)
+# AWS CLI arguments
+export AWS_CLI_ARGS=""
+# If $AWS_ENDPOINT_URL is set and it's not an empty string, append to the AWS CLI args.
+# This allows for localhost testing with minio.
+if [ -n "$AWS_ENDPOINT_URL" ]; then
+  export AWS_CLI_ARGS="$AWS_CLI_ARGS --endpoint-url $AWS_ENDPOINT_URL"
+fi
 
 
 # ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
-# 1️⃣ Function to handle errors
+# 2️⃣ Function to handle errors
 # ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
 
 # Accepts 2 arguments, the return code of the aws command and the command itself.
@@ -26,17 +66,6 @@ catch_error() {
     exit $1
   fi
 }
-
-
-# ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
-# 2️⃣ Prepare CLI arguments
-# ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
-
-# If $AWS_ENDPOINT_URL is set and it's not an empty string, append to the AWS CLI args.
-# This allows for localhost testing with minio.
-if [ -n "$AWS_ENDPOINT_URL" ]; then
-  export AWS_CLI_ARGS="$AWS_CLI_ARGS --endpoint-url $AWS_ENDPOINT_URL"
-fi
 
 
 # ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
@@ -56,9 +85,15 @@ catch_error $? "aws s3 sync ./public $S3_DESTINATION"
 
 echo "Fetching list of uploaded files..."
 
-# Get an array of all the files that were uploaded, remove "/build/$IMAGE_TAG" from the start.
-UPLOADED_FILES=$(aws $AWS_CLI_ARGS s3 ls $S3_DESTINATION/ --recursive | awk '{print $4}')
+# Get a list of all uploaded files in the S3 destination.
+# The output will be in a table format with columns for date, time, size, and path.
+UPLOADED_FILES_TABLE=$(aws $AWS_CLI_ARGS s3 ls "$S3_DESTINATION/" --recursive)
 catch_error $? "aws s3 ls $S3_DESTINATION/ --recursive"
+
+# Extract the object path, by removing columns 1,2 and 3, then trimming the leading whitespace.
+# This leaves just the file paths (compatible with paths that have spaces).
+UPLOADED_FILES=$(echo "$UPLOADED_FILES_TABLE" | awk '{ $1=$2=$3=""; sub(/^[[:space:]]+/, ""); print }')
+catch_error $? "awk processing uploaded files"
 
 
 # ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
@@ -85,10 +120,10 @@ fi
 echo "Copying manifest to $S3_MANIFEST..."
 
 # Use jq to parse the line-seperated $UPLOADED_FILES variable into a json array.
-echo "$UPLOADED_FILES" | jq -R -s '{timestamp: '$TIMESTAMP', build: "'$IMAGE_TAG'", files: split("\n")[:-1]}' > ./mainfest.json
+echo "$UPLOADED_FILES" | jq -R -s '{timestamp: '$TIMESTAMP', build: "'$IMAGE_TAG'", files: split("\n")[:-1]}' > $LOCAL_MANIFEST
 
-aws $AWS_CLI_ARGS s3 cp ./mainfest.json $S3_MANIFEST
-catch_error $? "aws s3 cp ./mainfest.json $S3_MANIFEST"
+aws $AWS_CLI_ARGS s3 cp $LOCAL_MANIFEST $S3_MANIFEST
+catch_error $? "aws s3 cp $LOCAL_MANIFEST $S3_MANIFEST"
 
 
 # ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
@@ -105,19 +140,19 @@ SUMMARY_EXISTS=$(echo "$MANIFESTS_LS" | grep -q "^summary.jsonl$" && echo "true"
 
 if [ "$SUMMARY_EXISTS" = "true" ]; then
   echo "Summary file exists. Downloading..."
-  aws $AWS_CLI_ARGS s3 cp $S3_SUMMARY ./summary.jsonl
-  catch_error $? "aws s3 cp $S3_SUMMARY ./summary.jsonl"
+  aws $AWS_CLI_ARGS s3 cp $S3_SUMMARY $LOCAL_SUMMARY
+  catch_error $? "aws s3 cp $S3_SUMMARY $LOCAL_SUMMARY"
 else
   echo "Summary file does not exist. Creating..."
-  touch ./summary.jsonl
+  touch "$LOCAL_SUMMARY"
 fi
 
 echo "Appending manifest to summary..."
-echo '{"timestamp": '$TIMESTAMP', "build": "'$IMAGE_TAG'"}' >> ./summary.jsonl
+echo '{"timestamp": '$TIMESTAMP', "build": "'$IMAGE_TAG'"}' >> $LOCAL_SUMMARY
 
 echo "Copying summary to S3..."
-aws $AWS_CLI_ARGS s3 cp --cache-control 'no-cache' ./summary.jsonl $S3_SUMMARY
-catch_error $? "aws s3 cp ./summary.jsonl $S3_SUMMARY"
+aws $AWS_CLI_ARGS s3 cp --cache-control 'no-cache' $LOCAL_SUMMARY $S3_SUMMARY
+catch_error $? "aws s3 cp $LOCAL_SUMMARY $S3_SUMMARY"
 
 
 # ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
@@ -142,13 +177,13 @@ delete_build () {
   # 🅐 Remove the build from the summary file first.
   echo "Removing build $1 from $S3_SUMMARY..."
 
-  cat ./summary.jsonl | jq -s -c 'map(select(.build != "'$1'")) .[]' > ./summary-tmp.jsonl
+  cat "$LOCAL_SUMMARY" | jq -s -c 'map(select(.build != "'$1'")) .[]' > $LOCAL_SUMMARY_TMP
   catch_error $? "jq removing build from summary"
-  mv ./summary-tmp.jsonl ./summary.jsonl
+  mv $LOCAL_SUMMARY_TMP $LOCAL_SUMMARY
 
   # 🅑 Copy the revised summary to S3
-  aws $AWS_CLI_ARGS s3 cp --cache-control 'no-cache' ./summary.jsonl $S3_SUMMARY
-  catch_error $? "aws s3 cp ./summary.jsonl $S3_SUMMARY"
+  aws $AWS_CLI_ARGS s3 cp --cache-control 'no-cache' $LOCAL_SUMMARY $S3_SUMMARY
+  catch_error $? "aws s3 cp $LOCAL_SUMMARY $S3_SUMMARY"
 
   # Next, delete the build folder from the S3 bucket.
   echo "Removing build $1 from s3://$AWS_S3_BUCKET/build/$1..."
@@ -167,7 +202,7 @@ delete_build () {
 }
 
 BUILDS_TO_DELETE=$(
-  cat ./summary.jsonl |
+  cat $LOCAL_SUMMARY |
   jq -s -c -r '
     # Identfy the entries where the deleteAfter property is set 
     # and the current time is greater than the deleteAfter value.
@@ -199,15 +234,13 @@ fi
 # it accepts a variable of build tags (seperated by line breaks) as an argument.
 
 flag_builds () {
-
-  echo "Marking the following builds for deletion: $BUILDS_TO_FLAG_CSV"
-
   # 🅐 Prepare a csv string to use in jq.
   BUILDS_TO_FLAG_CSV=$(echo $1 | tr '\n' ',' | sed 's/,$//')
+  echo "Marking the following builds for deletion: $BUILDS_TO_FLAG_CSV"
   DELETE_AFTER=$(expr $TIMESTAMP + 86400) # 24 hours from now
-  
+
   # 🅑 Use jq to transform the contents of summary.jsonl
-  cat ./summary.jsonl | jq -s -c '
+  cat $LOCAL_SUMMARY | jq -s -c '
     map(
       if .build | IN ('$BUILDS_TO_FLAG_CSV') then
         . + {deleteAfter: '$DELETE_AFTER'}
@@ -216,21 +249,21 @@ flag_builds () {
       end
     )
     .[]
-  ' > ./summary-tmp.jsonl
+  ' > $LOCAL_SUMMARY_TMP
   catch_error $? "jq setting deleteAfter property"
 
-  mv ./summary-tmp.jsonl ./summary.jsonl
+  mv $LOCAL_SUMMARY_TMP $LOCAL_SUMMARY
   
   # 🅒 Copy the updated file to S3
   echo "Copying summary (with builds flagged for deletion) to S3..."
-  aws $AWS_CLI_ARGS s3 cp --cache-control 'no-cache' ./summary.jsonl $S3_SUMMARY
-  catch_error $? "aws s3 cp ./summary.jsonl $S3_SUMMARY"
+  aws $AWS_CLI_ARGS s3 cp --cache-control 'no-cache' $LOCAL_SUMMARY $S3_SUMMARY
+  catch_error $? "aws s3 cp $LOCAL_SUMMARY $S3_SUMMARY"
 
 }
 
 # Get the oldest builds (excluding the newest 5), they will be flagged for deletion.
 BUILDS_TO_FLAG=$(
-  cat ./summary.jsonl |
+  cat $LOCAL_SUMMARY |
   jq -s -c '
     unique_by(.build) |
     sort_by(.timestamp) |
@@ -257,6 +290,7 @@ fi
 # ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
 
 echo "Assets pushed to:            $S3_DESTINATION"
+echo "Assets count:                $UPLOADED_FILES_COUNT"
 echo "Manifest pushed to:          $S3_MANIFEST"
 echo "Summary pushed to:           $S3_SUMMARY"
 echo "Builds deleted:              $BUILDS_TO_DELETE_COUNT"

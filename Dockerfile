@@ -339,6 +339,10 @@ USER 3001
 # Go home...
 WORKDIR /home/s3pusher
 
+# Create .aws directory for AWS CLI configuration and a tmp directory for other temp files.
+# This will be the only writable location in the read-only container.
+RUN mkdir -p .aws && mkdir -p tmp
+
 # Grab assets for pushing to s3
 COPY --from=build-fpm-composer /var/www/html/vendor-assets ./
 COPY --from=assets-build /node/dist public/app/themes/clarity/dist/
