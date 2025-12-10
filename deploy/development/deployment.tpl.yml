@@ -123,7 +123,7 @@ items:
                 - name: OPENSEARCH_URL
                   valueFrom:
                     secretKeyRef:
-                      name: central-digital-product-team-opensearch-proxy-url
+                      name: opensearch-output
                       key: proxy_url
                 - name: BASIC_AUTH
                   valueFrom:
