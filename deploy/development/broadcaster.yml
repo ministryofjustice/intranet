@@ -15,10 +15,26 @@ spec:
       labels:
         app: intranet-dev-pod-broadcaster
     spec:
+      securityContext:
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
       serviceAccountName: pod-broadcaster-serviceaccount
       containers:
         - name: pod-broadcaster
           image: ghcr.io/ministryofjustice/kubernetes-pod-broadcaster:latest
+          imagePullPolicy: Always
+          ports:
+            - name: http
+              containerPort: 1993
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: http
           resources:
             limits:
               cpu: 200m
@@ -28,6 +44,13 @@ spec:
               memory: 32Mi
           securityContext:
             runAsUser: 1000
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]
+            runAsNonRoot: true
+            seccompProfile:
+              type: RuntimeDefault
+            readOnlyRootFilesystem: true
           # Run the 'cluster' task, it passes the cluster cert to deno.
           command: ["/bin/sh", "-c"]
           args: ["deno task cluster"]
