@@ -1,5 +1,5 @@
 # A one time job to run the s3-push container once.
-# It will already be built and available at: ${ECR_URL}:${IMAGE_TAG_S3_PUSHER}
+# It will already be built and available at: ${ECR_URL}:${IMAGE_TAG_S3_PUSH}
 
 apiVersion: batch/v1
 kind: Job
