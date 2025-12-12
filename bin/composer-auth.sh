@@ -15,19 +15,18 @@ if [ -n "$COMPOSER_TOKEN" ]; then
   composer config --global github-oauth.github.com "$COMPOSER_TOKEN"
 fi
 
-if [ -n "$AS3CF_PRO_USER" ] && [ -n "$AS3CF_PRO_PASS" ] && [ -n "$ACF_PRO_LICENSE" ] && [ -n "$ACF_PRO_PASS" ]
+if [ -n "$ACF_PRO_LICENSE" ] && [ -n "$ACF_PRO_PASS" ]
 then
   rm -f auth.json
 	cat <<- EOF >> auth.json
 		{
 			"http-basic": {
-				"composer.deliciousbrains.com": {"username": "$AS3CF_PRO_USER","password": "$AS3CF_PRO_PASS"},
 				"connect.advancedcustomfields.com": {"username": "$ACF_PRO_LICENSE", "password": "$ACF_PRO_PASS"}
 			}
 		}
 	EOF
 else
-	echo "FATAL: AS3CF_PRO_USER, AS3CF_PRO_PASS, ACF_PRO_LICENSE or, ACF_PRO_PASS were not available."
+	echo "FATAL: ACF_PRO_LICENSE or, ACF_PRO_PASS were not available."
 fi
 
 ## check for auth.json
