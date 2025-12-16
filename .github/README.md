@@ -34,16 +34,16 @@ us to test and debug our deployments to the Cloud Platform.
 
 ### Setup
 
-In a terminal, move to the directory where you want to install the application. You may then run:
+In a terminal, move to the directory where you want to install the application. 
+Then run one of the following commands to clone the repository:
 
 ```bash
+# With https
 git clone https://github.com/ministryofjustice/intranet.git
-```
-
-or, using SSH:
-
-```bash
-git clone git@github.com:ministryofjustice/justice-gov-uk.git
+# SSH
+git clone git@github.com:ministryofjustice/intranet.git
+# GitHub CLI
+gh repo clone ministryofjustice/intranet
 ```
 
 Change directories:
