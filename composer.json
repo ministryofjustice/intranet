@@ -151,6 +151,12 @@
         }
     },
     "scripts": {
+        "pre-install-cmd": [
+            "bin/composer-auth.sh"
+        ],
+        "pre-update-cmd": [
+            "bin/composer-auth.sh"
+        ],
         "post-install-cmd": [
             "bin/composer-post-install.sh"
         ],
