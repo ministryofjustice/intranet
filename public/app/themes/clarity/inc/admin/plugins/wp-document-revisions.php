@@ -8,6 +8,8 @@
 
 namespace MOJ\Intranet;
 
+use WP_Error;
+
 if (!defined('ABSPATH')) {
     exit;
 }
@@ -53,7 +55,10 @@ class WPDocumentRevisions
         add_filter('wp_document_revisions_get_revisions', [$this, 'filterGetMostRecentRevision'], 10, 2);
         // Filter the get_latest_revision result to correct the author.
         add_filter('wp_document_revisions_get_latest_revision', [$this, 'filterGetLatestRevision'], 10, 2);
+        // Filter wp_die handler for documents - to change 403 to 404 for missing document files.
+        add_filter('wp_die_handler', [$this, 'filterWpDieHandler']);
     }
+
 
     /**
      * Update the document's permalink, specifically preview links that are not correctly structured.
@@ -280,5 +285,61 @@ class WPDocumentRevisions
         $revision->post_author = $this->getMostRecentRevisionAuthor('id');
 
         return $revision;
+    }
+
+
+    /**
+     * Filter the wp_die handler to use a custom wrapper for documents.
+     *
+     * @param callable $handler The original wp_die handler.
+     * @return callable The filtered wp_die handler.
+     */
+    public function filterWpDieHandler(callable $handler): callable
+    {
+        global $post;
+
+        // If we are dealing with a document post type, and wpDieWrapper has not already been applied.
+        if ($post?->post_type === 'document' && empty($post->wp_die_handler_middleware_done)) {
+            return [$this, 'wpDieWrapper'];
+        }
+
+        // Otherwise, return the original handler.
+        return $handler;
+    }
+
+
+    /**
+     * Custom wp_die handler wrapper for documents.
+     *
+     * When a document is missing a file, we want to change the response code from 403 to 404.
+     * This wrapper checks for that specific case and modifies the response code accordingly.
+     *
+     * This can be tested by creating a document, and not uploading a file to it.
+     * Then publish the document and click the preview link, the resulting error should be a 404, not a 403.
+     *
+     * @param string|WP_Error $message The message to display.
+     * @param string $title The title of the error.
+     * @param string|array $args Additional arguments.
+     * @return void
+     */
+    public function wpDieWrapper($message, $title, string|array $args = []): void
+    {
+        global $post;
+
+        // Create a `wp_die_handler_middleware_done` property on the global $post object.
+        // In `filterWpDieHandler`, this property is checked to avoid re-wrapping the wp_die handler.
+        // This is essential to prevent an infinite loop.
+        $post->wp_die_handler_middleware_done = true;
+
+        // There is a specific case where we want to change the response code from 403 to 404.
+        // This is when the message is 'No document file is attached.' and the response code is 403.
+        // See: `wp-document-revisions/includes/class-wp-document-revisions.php`
+        $target_message = esc_html__('No document file is attached.', 'wp-document-revisions');
+        if ($message === $target_message && is_array($args) && $args['response'] === 403) {
+            $args['response'] = 404;
+        }
+
+        // Finally call the original wp_die function with the (possibly) modified message and args.
+        wp_die($message, $title, $args);
     }
 }
