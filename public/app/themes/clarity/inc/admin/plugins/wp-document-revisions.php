@@ -299,7 +299,7 @@ class WPDocumentRevisions
         global $post;
 
         // If we are dealing with a document post type, and wpDieWrapper has not already been applied.
-        if ($post?->post_type === 'document' && empty($post->wp_die_handler_middleware_done)) {
+        if ($post?->post_type === 'document' && empty($post->wpdr_die_wrapper_applied)) {
             return [$this, 'wpDieWrapper'];
         }
 
@@ -326,10 +326,10 @@ class WPDocumentRevisions
     {
         global $post;
 
-        // Create a `wp_die_handler_middleware_done` property on the global $post object.
+        // Create a `wpdr_die_wrapper_applied` property on the global $post object.
         // In `filterWpDieHandler`, this property is checked to avoid re-wrapping the wp_die handler.
         // This is essential to prevent an infinite loop.
-        $post->wp_die_handler_middleware_done = true;
+        $post->wpdr_die_wrapper_applied = true;
 
         // There is a specific case where we want to change the response code from 403 to 404.
         // This is when the message is 'No document file is attached.' and the response code is 403.
