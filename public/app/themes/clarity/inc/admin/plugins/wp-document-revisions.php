@@ -339,7 +339,7 @@ class WPDocumentRevisions
             $args['response'] = 404;
         }
 
-        // Finally call the original wp_die function with the (possibly) modified message and args.
+        // Finally re-call wp_die function with the message and (possibly) modified args.
         wp_die($message, $title, $args);
     }
 }
