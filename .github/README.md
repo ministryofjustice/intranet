@@ -98,7 +98,7 @@ make bash
 
 Next, you can import the local database with a WP_CLI import command.
 
-Place a copy of the local database at the root of the project, named `local.sql`, then run:
+Place a copy of the local database at the root of the project, named `intranet-local.sql.gz.enc`, then run:
 
 ```bash
 openssl enc -d -aes-256-cbc -pbkdf2 -iter 100000 -salt -in intranet-local.sql.gz.enc -out intranet-local.sql.gz
