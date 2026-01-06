@@ -291,6 +291,11 @@ class WPDocumentRevisions
     /**
      * Filter the wp_die handler to use a custom wrapper for documents.
      *
+     * The reason for the custom wrapper is that the WP Document Revisions plugin
+     * calls wp_die with a 403 response code when a document file is missing.
+     * We want to change the response code to 404, but there is no filter in the plugin to do this directly.
+     * So we wrap the wp_die handler and modify the response code when necessary.
+     *
      * @param callable $handler The original wp_die handler.
      * @return callable The filtered wp_die handler.
      */
