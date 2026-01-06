@@ -304,7 +304,7 @@ class WPDocumentRevisions
         global $post;
 
         // If we are dealing with a document post type, and wpDieWrapper has not already been applied.
-        if ($post?->post_type === 'document' && empty($post->wpdr_die_wrapper_applied)) {
+        if (is_object($post) && $post->post_type === 'document' && empty($post->wpdr_die_wrapper_applied)) {
             return [$this, 'wpDieWrapper'];
         }
 
@@ -321,6 +321,9 @@ class WPDocumentRevisions
      *
      * This can be tested by creating a document, and not uploading a file to it.
      * Then publish the document and click the preview link, the resulting error should be a 404, not a 403.
+     *
+     * Note, to prevent an infinite loop, we set a property on the global $post object.
+     * Therefore it is crucial to check that global $post is an object before calling this function.
      *
      * @param string|WP_Error $message The message to display.
      * @param string $title The title of the error.
@@ -340,7 +343,12 @@ class WPDocumentRevisions
         // This is when the message is 'No document file is attached.' and the response code is 403.
         // See: `wp-document-revisions/includes/class-wp-document-revisions.php`
         $target_message = esc_html__('No document file is attached.', 'wp-document-revisions');
-        if ($message === $target_message && is_array($args) && $args['response'] === 403) {
+        if (
+            $message === $target_message &&
+            is_array($args) &&
+            isset($args['response']) &&
+            (int) $args['response'] === 403
+        ) {
             $args['response'] = 404;
         }
 
