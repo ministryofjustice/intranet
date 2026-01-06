@@ -56,7 +56,7 @@ class WPDocumentRevisions
         // Filter the get_latest_revision result to correct the author.
         add_filter('wp_document_revisions_get_latest_revision', [$this, 'filterGetLatestRevision'], 10, 2);
         // Filter wp_die handler for documents - to change 403 to 404 for missing document files.
-        add_filter('wp_die_handler', [$this, 'filterWpDieHandler']);
+        add_filter('wp_die_handler', [self::class, 'filterWpDieHandler']);
     }
 
 
