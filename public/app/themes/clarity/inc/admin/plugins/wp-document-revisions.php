@@ -299,13 +299,13 @@ class WPDocumentRevisions
      * @param callable $handler The original wp_die handler.
      * @return callable The filtered wp_die handler.
      */
-    public function filterWpDieHandler(callable $handler): callable
+    static function filterWpDieHandler(callable $handler): callable
     {
         global $post;
 
         // If we are dealing with a document post type, and wpDieWrapper has not already been applied.
         if (is_object($post) && $post->post_type === 'document' && empty($post->wpdr_die_wrapper_applied)) {
-            return [$this, 'wpDieWrapper'];
+            return [self::class, 'wpDieWrapper'];
         }
 
         // Otherwise, return the original handler.
@@ -330,7 +330,7 @@ class WPDocumentRevisions
      * @param string|array $args Additional arguments.
      * @return void
      */
-    public function wpDieWrapper($message, $title, string|array $args = []): void
+    static function wpDieWrapper($message, $title, string|array $args = []): void
     {
         global $post;
 
