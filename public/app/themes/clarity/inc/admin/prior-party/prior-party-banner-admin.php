@@ -172,6 +172,13 @@ class PriorPartyBannerAdmin
     public function filterValueByPostType(bool|null $value, int $post_id): null|bool
     {
         $post_type = get_post_type($post_id);
+
+        // If post type is a revision, get the parent post type.
+        // This could happen if the user has clicked to preview a revision.
+        if ($parent_id = wp_is_post_revision($post_id)) {
+            $post_type = get_post_type($parent_id);
+        }
+
         $post_type_array = [
             'page',
             'note-from-jo',
