@@ -174,7 +174,7 @@ class PriorPartyBannerAdmin
         $post_type = get_post_type($post_id);
 
         // If post type is a revision, get the parent post type.
-        // This could happen if the user has clicked to preview a revision.
+        // This could happen if the user has clicked to 
         if ($parent_id = wp_is_post_revision($post_id)) {
             $post_type = get_post_type($parent_id);
         }
