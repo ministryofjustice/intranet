@@ -75,7 +75,6 @@
         "ministryofjustice/wp-moj-elasticsearch": "^2.3.0",
         "wpackagist-plugin/elasticpress": "^5.2",
         "alphagov/notifications-php-client": "^6.0",
-        "aws/aws-sdk-php": "^3.133",
         "wpackagist-plugin/query-monitor": "^3.15",
         "wpackagist-plugin/debug-bar": "^1.1",
         "wpackagist-plugin/debug-bar-elasticpress": "^3.1",
