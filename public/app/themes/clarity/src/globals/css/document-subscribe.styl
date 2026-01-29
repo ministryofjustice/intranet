@@ -1,0 +1,119 @@
+.c-logo-bar {
+  z-index: 2;
+}
+.doc-subscribe--dialog {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 32%;
+  background-color: #ebedef;
+  height: 100vh;
+  padding: 120px 50px 0;
+  z-index: 1;
+  font-family: 'nta', sans-serif;
+  font-size: 1.8rem;
+
+  .close {
+    position: absolute;
+    top: 100px;
+    right: 35px;
+    font-size: 2rem;
+    font-weight bold;
+    color: #575757;
+    cursor: pointer;
+
+    &:hover {
+      color: #191919;
+    }
+  }
+
+  h1 {
+    font-weight: bold;
+    margin-bottom: 3px;
+  }
+
+  h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+  }
+
+  p {
+    font-size: 1.6rem;
+    margin-bottom: 12px;
+  }
+
+  input[type="email"] {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  button {
+    background-color: #008000;
+    color: #ffffff;
+    padding: 10px 20px;
+    font-size: 1.5rem;
+    border: none;
+    cursor: pointer;
+    float:right;
+    &:hover {
+      background-color: #026802;
+    }
+  }
+  .doc-subscribe--loading {
+    width: 60px;
+    height: 60px;
+    background-image: url(../images/loading.gif);
+    background-repeat: no-repeat;
+    background-size: contain;
+    display: none;
+
+    &.show {
+      display: block;
+    }
+  }
+  .doc-subscribe--message {
+    font-size: 1.6rem;
+    margin-top: 10px;
+    color: #0c0c0c;
+
+    &.error {
+      color: #ae0808;
+    }
+    &.success {
+      color: #008000;
+    }
+    &.warning {
+      color: #ca7900;
+    }
+    &.info {
+      color: #0553ec;
+    }
+  }
+}
+
+
+.doc-subscribe-link {
+  position:relative;
+
+  &:after {
+    content: " ";
+    background-color: #fff;
+    background-image: url(../images/icons/gear-green.png);
+    background-repeat: no-repeat;
+    background-size: 65%;
+    background-position: center;
+    width: 33px;
+    height: 24px;
+    display: none;
+    position: absolute;
+    padding: 0;
+    cursor: pointer;
+    pointer-events: auto;
+  }
+
+  &:hover:after {
+    display: inline-block;
+  }
+}
+
+
