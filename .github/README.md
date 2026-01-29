@@ -34,10 +34,16 @@ us to test and debug our deployments to the Cloud Platform.
 
 ### Setup
 
-In a terminal, move to the directory where you want to install the application. You may then run:
+In a terminal, move to the directory where you want to install the application. 
+Then run one of the following commands to clone the repository:
 
 ```bash
+# With https
 git clone https://github.com/ministryofjustice/intranet.git
+# SSH
+git clone git@github.com:ministryofjustice/intranet.git
+# GitHub CLI
+gh repo clone ministryofjustice/intranet
 ```
 
 Change directories:
@@ -72,6 +78,11 @@ make
 
 During the `make` process, the Dory proxy will attempt to install. You will be guided though an installation, if needed.
 
+> [!IMPORTANT] 
+> You will be prompted for the ACF Pro license key, this is necessary for the composer install step.
+> Before continuing, edit the .env file at the root of the project. 
+> Update the line `ACF_PRO_LICENSE=license_placeholder` with the actual API key.
+
 ### Services
 
 You will have ten services running in total, all with different access points. They are:
@@ -83,6 +94,18 @@ http://intranet.docker/
 
 ```bash
 make bash
+```
+
+Next, you can import the local database with a WP_CLI import command.
+
+Place a copy of the local database at the root of the project, named `intranet-local.sql.gz.enc`, then run:
+
+```bash
+openssl enc -d -aes-256-cbc -pbkdf2 -iter 100000 -salt -in intranet-local.sql.gz.enc -out intranet-local.sql.gz
+
+gunzip intranet-local.sql.gz
+
+wp db import --defaults intranet-local.sql
 ```
 
 **Node**<br>
@@ -122,8 +145,13 @@ This service acts like a distributed CloudFront service allowing us to imitate a
 
 **CRON**
 
-In production we have a scalable cron container. It's only job right now is to make a head request to `wp-cron.php`
-There is no need to access this container. However, with every running container you can reach the OS.
+In production a Kubernetes CronJob triggers a `wp-cron.php` file every minute.
+
+By triggering the wp-cron.php endpoint in this way, we ensure that when a deployment replica 
+count increases, we do not have multiple instances trying to run scheduled tasks at the same time.
+
+Locally, a cron container is used to replicate this behaviour. There is no need to access this container.
+However, with every running container you can reach the OS.
 
 ```bash
 docker compose exec -it wp-cron ash
@@ -592,14 +620,17 @@ When the JWT_SECRET is rotated, a new JWT token will need to be generated, and t
 
 #### Synergy Endpoints
 
-Two API endpoints are available to facilitate content syndication from the intranet to the Synergy platform.
+Three API endpoints are available to facilitate content syndication from the intranet to the Synergy platform.
 
 - https://intranet.justice.gov.uk/wp-json/synergy/v1/feeds
 - https://intranet.justice.gov.uk/wp-json/synergy/v1/feed?agency={agency}content_type={content_type}
+- https://intranet.justice.gov.uk/wp-json/synergy/v1/feed.csv?agency={agency}content_type={content_type}
 
 The `feeds` endpoint returns a list of available feeds.
 
-The `feed` endpoint returns a specific feed for a given agency and content type. The feed includes pages for the specified agency and content type, along with their metadata.
+The `feed` and `feed.csv` endpoints return a specific feed for a given agency and content type. The feed includes pages and documents for the specified agency and content type, along with their metadata.
+
+To get an aggregate of multiple agencies or content types, the `agency` and/or `content_type` parameters can be set to `all`.
 
 An optional parameter of `modified_after` should be used to get recently modified content. The value should be in ISO date-time format, e.g. `2023-10-01T00:00:00Z`.
 
@@ -670,6 +701,13 @@ This means that your JWT token is valid, but there is an issue with the basic au
 
 Please ensure that you are using the correct username and application password in the Basic Auth headers of your request.
 
+### Access for the Governance Centre of Expertise service.
+
+Automated access for the GCoE team has not yet been implemented. To manually download an export for GCoE, follow the steps:
+
+- Generate a JWT with the role `gcoe`.
+- Set this value as a cookie in requests to the intranet.
+- Visit the endpoint https://intranet.justice.gov.uk/wp-json/synergy/v1/feed.csv
 
 <!-- License -->
 

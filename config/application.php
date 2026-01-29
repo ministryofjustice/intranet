@@ -1,4 +1,7 @@
 <?php
+
+require_once 'env.php';
+
 /**
  * Your base production configuration goes in this file. Environment-specific
  * overrides go in their respective config/environments/{{WP_ENV}}.php file.
@@ -9,7 +12,7 @@
  */
 
 use Roots\WPConfig\Config;
-use function Env\env;
+use function MOJ\Justice\env;
 
 /**
  * @const MOJ_ROOT_DIR string
@@ -84,7 +87,7 @@ if (!env('WP_ENVIRONMENT_TYPE') && in_array(WP_ENV, ['production', 'staging', 'd
 Config::define('WP_HOME', env('WP_HOME'));
 Config::define('WP_SITEURL', env('WP_SITEURL'));
 Config::define('LOOPBACK_URL', env('LOOPBACK_URL') ?? 'http://127.0.0.1:8080');
-Config::define('NGINX_HOST', 'http://' . (env('NGINX_IP') ?? 'nginx') . ':8080');
+Config::define('NGINX_PURGE_CACHE_URL', env('NGINX_PURGE_CACHE_URL') ?? 'http://nginx:8080/purge-cache');
 // Explicitly set cookie paths, to prevent conflicting wordpress_logged_in... wordpress_sec_... cookies.
 Config::define('COOKIEPATH', '/');
 Config::define('SITECOOKIEPATH', '/');
@@ -192,8 +195,6 @@ Config::define('SCRIPT_DEBUG', false);
 ini_set('display_errors', '0');
 // Additional logging for the authentication mu-plugin.
 Config::define('MOJ_AUTH_DEBUG', env('MOJ_AUTH_DEBUG'));
-// Version of the authentication mu-plugin.
-Config::define('MOJ_AUTH_VERSION', env('MOJ_AUTH_VERSION'));
 
 /**
  * WP Redis config.

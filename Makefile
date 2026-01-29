@@ -21,13 +21,18 @@ k8s_pod := kubectl -n $(k8s_nsp) get pod -l app=intranet-local -o jsonpath="{.it
 init: setup key-gen run
 
 d-compose: local-stop
-	docker compose up -d nginx phpmyadmin opensearch-dashboard wp-cron php-fpm
+	docker compose up -d nginx phpmyadmin opensearch-dashboard wp-cron php-fpm redis
 
 d-shell: setup key-gen dory d-compose composer
 
 setup:
 	@chmod +x ./bin/*
 	@[ -f "./.env" ] || cp .env.example .env
+		@if grep -q 'ACF_PRO_LICENSE=license_placeholder' .env; then \
+		printf "Please set ACF_PRO_LICENSE in the .env file. Then press Enter to continue..."; \
+		read _; \
+		printf "\n"; \
+	fi
 
 restart:
 	@docker compose down php-fpm

@@ -15,6 +15,10 @@ on:
       modsec_config:
         required: true
         type: string
+      pipeline:
+        description: 'Define the pipeline in use. One of main or qa'
+        default: 'main'
+        type: string
 
 jobs:
   deploy_environment:
@@ -34,10 +38,9 @@ jobs:
         env:
           TPL_PATH: "deploy/${{ inputs.environment }}"
           ECR_URL: ${{ inputs.registry }}/${{ vars.ECR_REPOSITORY }}
-          IMAGE_TAG_NGINX: "nginx-${{ github.sha }}"
-          IMAGE_TAG_FPM: "fpm-${{ github.sha }}"
-          IMAGE_TAG_CRON: "cron-${{ github.sha }}"
-          IMAGE_TAG_S3_PUSH: "s3-push-${{ github.sha }}"
+          IMAGE_TAG_NGINX: "nginx-${{ inputs.pipeline }}-${{ github.sha }}"
+          IMAGE_TAG_FPM: "fpm-${{ inputs.pipeline }}-${{ github.sha }}"
+          IMAGE_TAG_S3_PUSH: "s3-push-${{ inputs.pipeline }}-${{ github.sha }}"
           GOV_NOTIFY_API_KEY: ${{ secrets.GOV_NOTIFY_API_KEY }}
           ACF_PRO_LICENSE: ${{ secrets.ACF_PRO_LICENSE }}
           AS3CF_PRO_LICENCE: ${{ secrets.AS3CF_PRO_LICENCE }}

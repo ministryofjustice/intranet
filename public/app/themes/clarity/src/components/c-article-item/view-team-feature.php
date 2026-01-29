@@ -8,7 +8,6 @@ $oAuthor       = new Authors();
 $id            = get_the_ID();
 $authors       = $oAuthor->getAuthorInfo($id);
 $thumbnail     = get_the_post_thumbnail_url($id, 'feature-thumbnail');
-$thumbnail_alt = get_post_meta(get_post_thumbnail_id($id), '_wp_attachment_image_alt', true);
 
 ?>
 

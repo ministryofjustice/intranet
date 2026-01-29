@@ -1,5 +1,5 @@
 # A one time job to run the s3-push container once.
-# It will already be built and available at: ${ECR_URL}:${IMAGE_TAG_S3_PUSHER}
+# It will already be built and available at: ${ECR_URL}:${IMAGE_TAG_S3_PUSH}
 
 apiVersion: batch/v1
 kind: Job
@@ -7,21 +7,49 @@ metadata:
   name: ${IMAGE_TAG_S3_PUSH}
   namespace: ${KUBE_NAMESPACE}
   labels:
-    app: ${KUBE_NAMESPACE}
+    app: ${KUBE_NAMESPACE}-s3-push
 spec:
   template:
     metadata:
       labels:
-        app: ${KUBE_NAMESPACE}
+        app: ${KUBE_NAMESPACE}-s3-push
     spec:
       serviceAccountName: ${KUBE_NAMESPACE}-service
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 3001
+        runAsGroup: 3001
+        seccompProfile:
+          type: "RuntimeDefault"
       restartPolicy: Never
       containers:
       - name: s3-push
         image: ${ECR_URL}:${IMAGE_TAG_S3_PUSH}
+        resources:
+          limits:
+            cpu: "2"
+            memory: 256Mi
+          requests:
+            cpu: "1"
+            memory: 128Mi
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities: 
+            drop: ["ALL"]
+          readOnlyRootFilesystem: true
+        volumeMounts:
+        - name: writable-aws
+          mountPath: /home/s3pusher/.aws
+        - name: writable-tmp
+          mountPath: /home/s3pusher/tmp
         env:
         - name: AWS_S3_BUCKET
           valueFrom:
             secretKeyRef:
               name: s3-bucket-output
               key: bucket_name
+      volumes:
+      - name: writable-aws
+        emptyDir: {}
+      - name: writable-tmp
+        emptyDir: {}

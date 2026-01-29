@@ -168,8 +168,8 @@ class AmazonS3AndCloudFrontAssets
     {
         $cached_value = get_transient($this->transient_key);
 
-        if (is_int($cached_value)) {
-            return !!$cached_value;
+        if (false !== $cached_value) {
+            return 1 === (int)$cached_value;
         }
 
         $assets_exist = $this->checkManifestsSummary();
