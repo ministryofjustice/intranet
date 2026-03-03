@@ -74,7 +74,7 @@ bash-cron:
 	docker compose exec wp-cron ash
 
 node:
-	docker compose exec --workdir /node node bash
+	docker compose exec --workdir /node node ash
 
 
 # Remove ignored git files – e.g. composer dependencies and built theme assets
