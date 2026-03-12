@@ -43,7 +43,7 @@ run-name: Software Composition Analysis ⚡️
 
 on:
   schedule:
-    - cron: "0 0 * * *"
+    - cron: "2 2 * * *"
 
   pull_request:
     branches:
