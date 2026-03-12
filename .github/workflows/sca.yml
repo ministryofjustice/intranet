@@ -103,12 +103,12 @@ jobs:
 
       - name: Install
         shell: bash
-        run: npm ci --ignore-scripts --omit=dev --prefix public/app/themes/clarity/package.json
+        run: npm ci --ignore-scripts --omit=dev --prefix public/app/themes/clarity
 
       - name: ⚡️ SCA
         uses: ministryofjustice/devsecops-actions/sca@f965eb1771ec66cfc41d7d57dc607fa6dfbc10ed # v1.4.0
         with:
           token: "${{ secrets.GITHUB_TOKEN }}" # Mandatory
-          dependency-review-config-file: "./.github/dependency-review-config.yml" # Optional
-          docker-images-file: "${{ github.workspace }}/sources.json" # Optional
-          dependency-check-suppression-file: "dependency-check-suppression.xml" # Optional
+          # dependency-review-config-file: "./.github/dependency-review-config.yml" # Optional
+          # docker-images-file: "${{ github.workspace }}/sources.json" # Optional
+          # dependency-check-suppression-file: "dependency-check-suppression.xml" # Optional
