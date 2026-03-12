@@ -52,6 +52,11 @@ on:
   workflow_dispatch:
   branch_protection_rule:
 
+  # Temp rule for debugging.
+  push:
+    branches:
+      - 'add-devsecops-actions'
+
 permissions: {}
 
 env:
