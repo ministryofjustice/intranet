@@ -103,7 +103,7 @@ jobs:
 
       - name: Install
         shell: bash
-        run: npm ci --ignore-scripts --omit=dev --prefix public/app/themes/clarity
+        run: npm ci --ignore-scripts --prefix public/app/themes/clarity
 
       - name: ⚡️ SCA
         uses: ministryofjustice/devsecops-actions/sca@f965eb1771ec66cfc41d7d57dc607fa6dfbc10ed # v1.4.0
