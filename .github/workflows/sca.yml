@@ -43,6 +43,7 @@ run-name: Software Composition Analysis ⚡️
 
 on:
   schedule:
+    # Potential for improvement -  0 0 0 0 0 shouldn't be default
     - cron: "2 2 * * *"
 
   pull_request:
@@ -61,6 +62,7 @@ permissions: {}
 
 env:
   environment: base
+  # Potential for improvement -  set default
   timezone: ${{ vars.TIMEZONE || 'Europe/London' }}
 
 jobs:
@@ -101,7 +103,7 @@ jobs:
 
       - name: Install
         shell: bash
-        run: npm ci --ignore-scripts --omit=dev
+        run: npm ci --ignore-scripts --omit=dev --prefix public/app/themes/clarity/package.json
 
       - name: ⚡️ SCA
         uses: ministryofjustice/devsecops-actions/sca@f965eb1771ec66cfc41d7d57dc607fa6dfbc10ed # v1.4.0
