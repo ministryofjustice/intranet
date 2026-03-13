@@ -245,7 +245,7 @@ class MyMOJ
           [
             'title' => 'Estates portal',
             'icon' => 'home',
-            'url' => 'https://moj-portal.meandmyworkplace.com/?auth_token=9Q5Q42ybcao-KheuE31A4A',
+            'url' => 'https://moj-portal.meandmyworkplace.com/?auth_token=',
             'external' => true,
           ],
         ],
