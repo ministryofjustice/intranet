@@ -37,9 +37,8 @@ on:
     - cron: "11 0 * * *"
 
   push:
-    branches: ["main", "add-devsecops-ossf"]
+    branches: ["main"]
 
-  workflow_dispatch:
   branch_protection_rule:
 
 permissions: {}
