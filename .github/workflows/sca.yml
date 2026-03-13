@@ -5,7 +5,7 @@
 #   in project dependencies and container images.
 #
 # Triggers:
-#   - schedule: Daily at midnight (00:00 UTC)
+#   - schedule: Daily, just past midnight (00:07 UTC)
 #   - pull_request: When PRs target the any branch
 #   - workflow_dispatch: Manual workflow execution
 #   - branch_protection_rule: When branch protection rules are modified
@@ -43,8 +43,8 @@ run-name: Software Composition Analysis ⚡️
 
 on:
   schedule:
-    # Potential for improvement -  0 0 0 0 0 shouldn't be default
-    - cron: "2 2 * * *"
+    # Schedule for 00:07 daily. Skewed from the hour to help prevent system load spikes
+    - cron: "7 0 * * *"
 
   pull_request:
     branches:
@@ -53,16 +53,10 @@ on:
   workflow_dispatch:
   branch_protection_rule:
 
-  # Temp rule for debugging.
-  push:
-    branches:
-      - 'add-devsecops-actions'
-
 permissions: {}
 
 env:
   environment: base
-  # Potential for improvement -  set default
   timezone: ${{ vars.TIMEZONE || 'Europe/London' }}
 
 jobs:
@@ -111,4 +105,6 @@ jobs:
           token: "${{ secrets.GITHUB_TOKEN }}" # Mandatory
           # dependency-review-config-file: "./.github/dependency-review-config.yml" # Optional
           # docker-images-file: "${{ github.workspace }}/sources.json" # Optional
+          # Currently, no suppressions are required. Uncomment the below block and create 
+          # the file in .github to suppress dependency messages.
           # dependency-check-suppression-file: "dependency-check-suppression.xml" # Optional
