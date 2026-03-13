@@ -1,0 +1,8 @@
+# Ignore OAUTH_CLIENT_ID and OAUTH_TENANT_ID, they are not private,
+# they form part of the publicly visible oauth login url.
+deploy/development/config.yml:generic-api-key:16
+deploy/development/config.yml:generic-api-key:17
+deploy/production/config.yml:generic-api-key:16
+deploy/production/config.yml:generic-api-key:17
+deploy/staging/config.yml:generic-api-key:16
+deploy/staging/config.yml:generic-api-key:17
