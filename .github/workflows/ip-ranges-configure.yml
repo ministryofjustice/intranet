@@ -15,7 +15,7 @@ jobs:
       ips_formatted: ${{ steps.get-ips.outputs.ips_formatted }}
     steps:
       - name: "Checkout"
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           repository: 'ministryofjustice/moj-ip-addresses'
           ref: 'main'

@@ -1,0 +1,110 @@
+# Software Composition Analysis (SCA) Workflow
+#
+# Purpose:
+#   Performs automated security composition analysis to identify vulnerabilities
+#   in project dependencies and container images.
+#
+# Triggers:
+#   - schedule: Daily, just past midnight (00:07 UTC)
+#   - pull_request: When PRs target the any branch
+#   - workflow_dispatch: Manual workflow execution
+#   - branch_protection_rule: When branch protection rules are modified
+#
+# Permissions:
+#   - contents: write - Required for updating dependency graphs
+#   - pull-requests: write - Required for creating dependency review comments
+#   - issues: write - Required for creating security advisories
+#   - security-events: write - Required for uploading security scan results
+#   - actions: read - Required for reading workflow run data
+#
+# Jobs:
+#   setup:
+#     - Prepares the infrastructure and environment configuration
+#     - Outputs: environment name and timezone for downstream jobs
+#
+#   sca:
+#     - Checks out the repository code
+#     - Configures Node.js environment
+#     - Installs project dependencies
+#     - Executes SCA scan with dependency review and container image scanning
+#
+# Configuration:
+#   - Environment: base (configurable via env vars)
+#   - Timezone: Configurable via repository variables (TIMEZONE)
+#   - Dependency review config: .github/dependency-review-config.yml
+#   - Docker images config: sources.json
+#
+# Required Variables:
+#   - TIMEZONE: Repository variable defining the timezone for operations
+#   - NODE_VERSION: Node.js version for the runtime environment
+
+name: SCA ⚡️
+run-name: Software Composition Analysis ⚡️
+
+on:
+  schedule:
+    # Schedule for 00:07 daily. Skewed from the hour to help prevent system load spikes
+    - cron: "7 0 * * *"
+
+  pull_request:
+    branches:
+      - "**" # All branches
+
+  workflow_dispatch:
+  branch_protection_rule:
+
+permissions: {}
+
+env:
+  environment: base
+  timezone: ${{ vars.TIMEZONE || 'Europe/London' }}
+
+jobs:
+  setup:
+    name: Infrastructure 🔧
+    runs-on: ["ubuntu-latest"]
+    outputs:
+      environment: ${{ env.environment }}
+      timezone: ${{ env.timezone }}
+    steps:
+      - name: Environment 🧪
+        run: echo "Environment set to ${{ env.environment }}"
+
+      - name: Timezone 🌐
+        run: echo "Timezone set to ${{ env.timezone }}"
+  sca:
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+      security-events: write
+      actions: read
+
+    name: Execute ⚙️
+    runs-on: ["ubuntu-latest"]
+    needs: setup
+    environment:
+      name: ${{ needs.setup.outputs.environment }}
+
+    steps:
+      - name: Repository
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Node
+        uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
+        with:
+          node-version: ${{ vars.NODE_VERSION || 24 }}
+
+      - name: Install
+        shell: bash
+        run: npm ci --ignore-scripts --prefix public/app/themes/clarity
+
+      - name: ⚡️ SCA
+        uses: ministryofjustice/devsecops-actions/sca@f965eb1771ec66cfc41d7d57dc607fa6dfbc10ed # v1.4.0
+        with:
+          token: "${{ secrets.GITHUB_TOKEN }}" # Mandatory
+          # dependency-review-config-file: "./.github/dependency-review-config.yml" # Optional
+          # docker-images-file: "${{ github.workspace }}/sources.json" # Optional
+          # Currently, no suppressions are required. Uncomment the below block and create 
+          # the file in .github to suppress dependency messages.
+          # dependency-check-suppression-file: "dependency-check-suppression.xml" # Optional

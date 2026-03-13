@@ -245,7 +245,9 @@ class MyMOJ
           [
             'title' => 'Estates portal',
             'icon' => 'home',
-            'url' => 'https://moj-portal.meandmyworkplace.com/?auth_token=9Q5Q42ybcao-KheuE31A4A',
+            # This file is not being used, and the service at this URL is shutdown.
+            # We can safely ignore the face that there was a generic secret as a URL query parameter.
+            'url' => 'https://moj-portal.meandmyworkplace.com/',
             'external' => true,
           ],
         ],
