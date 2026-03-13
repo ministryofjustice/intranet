@@ -27,7 +27,7 @@ jobs:
       production: ${{ steps.config.outputs.production }}
     steps:
       - name: "Checkout"
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           repository: 'ministryofjustice/moj-modsec-rules'
           # This is a fine-grained PAT, it's scoped to the moj-modsec private repository with 2 permissions: 
