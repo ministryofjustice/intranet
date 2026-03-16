@@ -1,0 +1,58 @@
+version: 2
+
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "daily"
+      time: "00:12"
+    commit-message:
+      prefix: "chore"
+      include: "scope"
+    labels:
+      - "chore"
+    groups:
+      github-actions:
+        patterns:
+          - "*"
+    assignees:
+      - "hale-platform"
+
+  - package-ecosystem: "docker"
+    directory: "/"
+    schedule:
+      interval: "daily"
+      time: "00:14"
+    commit-message:
+      prefix: "chore"
+      include: "scope"
+    labels:
+      - "chore"
+    groups:
+      docker-packages:
+        patterns:
+          - "*"
+    assignees:
+      - "hale-platform"
+
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "daily"
+      time: "00:16"
+    cooldown:
+      default-days: 3
+      semver-major-days: 30
+      semver-minor-days: 7
+      semver-patch-days: 3
+    commit-message:
+      prefix: "chore"
+      include: "scope"
+    labels:
+      - "chore"
+    groups:
+      npm-packages:
+        patterns:
+          - "*"
+    assignees:
+      - "hale-platform"
