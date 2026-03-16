@@ -31,7 +31,7 @@ jobs:
           echo "result=$(gh pr list --repo ministryofjustice/intranet --draft --state open --json number)" >> "$GITHUB_OUTPUT";
       - name: Verify PR status
         id: eligible
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             const draftPRs = JSON.parse('${{ steps.get-draft-prs.outputs.result }}').map( ( pr ) => pr.number );
