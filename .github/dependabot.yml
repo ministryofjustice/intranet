@@ -15,8 +15,6 @@ updates:
       github-actions:
         patterns:
           - "*"
-    assignees:
-      - "hale-platform"
 
   - package-ecosystem: "docker"
     directory: "/"
@@ -32,8 +30,6 @@ updates:
       docker-packages:
         patterns:
           - "*"
-    assignees:
-      - "hale-platform"
 
   - package-ecosystem: "npm"
     directory: "public/app/themes/clarity"
@@ -54,8 +50,6 @@ updates:
       npm-packages:
         patterns:
           - "*"
-    assignees:
-      - "hale-platform"
 
   - package-ecosystem: "composer"
     directory: "/"
@@ -76,5 +70,3 @@ updates:
       composer-packages:
         patterns:
           - "*"
-    assignees:
-      - "hale-platform"
