@@ -1,0 +1,77 @@
+# OpenSSF Scorecard Security Workflow
+#
+# Purpose:
+#   Runs OpenSSF Scorecard to assess the security posture of the repository
+#   against best practices for open source security.
+#
+# Triggers:
+#   - schedule: Daily at midnight (00:00 UTC)
+#   - push: When code is pushed to the main branch
+#   - branch_protection_rule: When branch protection rules are modified
+#
+# Permissions:
+#   - contents: read - Access repository contents for scanning
+#   - security-events: write - Upload security scan results to GitHub Security
+#   - id-token: write - Required for publishing scorecard results
+#
+# Concurrency:
+#   Ensures only one OSSF scan runs at a time per workflow reference.
+#   Cancels in-progress runs when a new one is triggered.
+#
+# Jobs:
+#   ossf:
+#     - Checks out the repository with full history
+#     - Runs OpenSSF Scorecard security assessment
+#     - Generates results in SARIF format
+#     - Uploads results to GitHub Code Scanning for visibility
+#
+# Output:
+#   Security findings are available in the repository's Security tab
+#   under Code Scanning alerts.
+
+name: 🛡 OpenSSF
+run-name: Open source security foundation scan
+
+on:
+  schedule:
+    - cron: "11 0 * * *"
+
+  push:
+    branches: ["main"]
+
+  branch_protection_rule:
+
+permissions: {}
+
+concurrency:
+  group: ossf-${{ github.workflow }}-${{ github.workflow_ref }}
+  cancel-in-progress: true
+
+jobs:
+  ossf:
+    permissions:
+      contents: read
+      security-events: write
+      id-token: write
+
+    name: Score ⚙️
+    runs-on: ["ubuntu-latest"]
+
+    steps:
+      - name: Repository
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          fetch-depth: 0
+
+      - name: Scan
+        uses: ossf/scorecard-action@4eaacf0543bb3f2c246792bd56e8cdeffafb205a # v2.4.3
+        with:
+          results_file: ossf.sarif
+          results_format: sarif
+          publish_results: true
+
+      - name: Upload
+        if: always()
+        uses: github/codeql-action/upload-sarif@0d579ffd059c29b07949a3cce3983f0780820c98 # v4.32.6
+        with:
+          sarif_file: ossf.sarif
