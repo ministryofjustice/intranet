@@ -22,7 +22,7 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
-      time: "00:14"
+      time: "00:24"
     commit-message:
       prefix: "chore"
       include: "scope"
@@ -36,10 +36,10 @@ updates:
       - "hale-platform"
 
   - package-ecosystem: "npm"
-    directory: "/"
+    directory: "public/app/themes/clarity"
     schedule:
       interval: "daily"
-      time: "00:16"
+      time: "00:36"
     cooldown:
       default-days: 3
       semver-major-days: 30
@@ -52,6 +52,28 @@ updates:
       - "chore"
     groups:
       npm-packages:
+        patterns:
+          - "*"
+    assignees:
+      - "hale-platform"
+
+  - package-ecosystem: "composer"
+    directory: "/"
+    schedule:
+      interval: "daily"
+      time: "00:42"
+    cooldown:
+      default-days: 3
+      semver-major-days: 30
+      semver-minor-days: 7
+      semver-patch-days: 3
+    commit-message:
+      prefix: "chore"
+      include: "scope"
+    labels:
+      - "chore"
+    groups:
+      composer-packages:
         patterns:
           - "*"
     assignees:
