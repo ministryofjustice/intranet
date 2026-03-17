@@ -16,6 +16,9 @@ on:
         description: "Modsec Config. for Production"
         value: ${{ jobs.modsec.outputs.production }}
 
+permissions:
+  contents: read
+
 jobs:
   modsec:
     name: "Build"
