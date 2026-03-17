@@ -20,7 +20,7 @@ ARG version_cron_alpine=3.22
 #    ▄▄  ▄▄     █▀▀  █▀█  █▀▄▀█     ▄▄  ▄▄    #
 #    ░░  ░░     █▀░  █▀▀  █░▀░█     ░░  ░░    #
 
-FROM ministryofjustice/wordpress-base-fpm:0.0.6 AS base-fpm
+FROM ministryofjustice/wordpress-base-fpm:0.0.7 AS base-fpm
 
 # Switch to the alpine's default user, for installing packages
 USER root
