@@ -10,7 +10,7 @@ namespace MOJ\Intranet;
 
 /**
  * Flush posts cache when CMS Tree Page View loads.
- * This ensures fresh menu_order values are displayed after reordering pages.
+ * This ensures menu_order values are fresh to start with.
  */
 add_action('cms_tree_page_view/before_wrapper', function () {
     // Try to flush just the posts group if supported, otherwise flush all
