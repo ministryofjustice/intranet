@@ -37,6 +37,7 @@ require_once 'inc/admin/list-tables.php';
 require_once 'inc/admin/login-with-email.php';
 require_once 'inc/admin/page.php';
 require_once 'inc/admin/permission-display-page.php';
+require_once 'inc/admin/plugins/cms-tree-page-view.php';
 require_once 'inc/admin/plugins/co-authors-plus.php';
 require_once 'inc/admin/plugins/polls.php';
 require_once 'inc/admin/plugins/wordpress-simple-history.php';
