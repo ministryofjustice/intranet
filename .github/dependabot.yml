@@ -49,7 +49,19 @@ updates:
     labels:
       - "chore"
     groups:
-      npm-packages:
+      npm-patch:
+        update-types:
+          - "patch"
+        patterns:
+          - "*"
+      npm-minor:
+        update-types:
+          - "minor"
+        patterns:
+          - "*"
+      npm-major:
+        update-types:
+          - "major"
         patterns:
           - "*"
 
@@ -69,6 +81,18 @@ updates:
     labels:
       - "chore"
     groups:
-      composer-packages:
+      composer-patch:
+        update-types:
+          - "patch"
+        patterns:
+          - "*"
+      composer-minor:
+        update-types:
+          - "minor"
+        patterns:
+          - "*"
+      composer-major:
+        update-types:
+          - "major"
         patterns:
           - "*"
