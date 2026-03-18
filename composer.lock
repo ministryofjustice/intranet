@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "547088f81a79379edfd2e01dacbdea5d",
+    "content-hash": "3287612936b31fda539cb792f4dd44b8",
     "packages": [
         {
             "name": "alphagov/notifications-php-client",
@@ -1137,6 +1137,39 @@
                 }
             ],
             "time": "2025-08-23T21:21:41+00:00"
+        },
+        {
+            "name": "jchristopher/cms-tree-page-view",
+            "version": "v1.6.9",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ministryofjustice/wp-cms-tree-page-view.git",
+                "reference": "f9cc3b7bc56847fca5ad06870637a00b0d2c6924"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ministryofjustice/wp-cms-tree-page-view/zipball/f9cc3b7bc56847fca5ad06870637a00b0d2c6924",
+                "reference": "f9cc3b7bc56847fca5ad06870637a00b0d2c6924",
+                "shasum": ""
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-plugin",
+            "license": [
+                "GPL-2.0-only"
+            ],
+            "authors": [
+                {
+                    "name": "Jon Christopher",
+                    "homepage": "https://jonchristopher.us/"
+                }
+            ],
+            "description": "Adds a CMS-like tree view of all your pages and custom posts to WordPress.",
+            "support": {
+                "source": "https://github.com/ministryofjustice/wp-cms-tree-page-view/tree/v1.6.9"
+            },
+            "time": "2026-03-18T14:03:05+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
@@ -4090,24 +4123,6 @@
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/classic-editor/"
-        },
-        {
-            "name": "wpackagist-plugin/cms-tree-page-view",
-            "version": "1.6.8",
-            "source": {
-                "type": "svn",
-                "url": "https://plugins.svn.wordpress.org/cms-tree-page-view/",
-                "reference": "tags/1.6.8"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/cms-tree-page-view.1.6.8.zip"
-            },
-            "require": {
-                "composer/installers": "^1.0 || ^2.0"
-            },
-            "type": "wordpress-plugin",
-            "homepage": "https://wordpress.org/plugins/cms-tree-page-view/"
         },
         {
             "name": "wpackagist-plugin/co-authors-plus",
