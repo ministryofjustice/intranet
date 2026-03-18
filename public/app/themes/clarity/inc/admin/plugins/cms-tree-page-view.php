@@ -3,33 +3,31 @@
 /**
  * CMS Tree Page View plugin customizations
  *
+ * Handles cache flushing for Redis object cache compatibility.
+ * The normalization logic for duplicate menu_order values is in the plugin itself.
+ *
  * @package Clarity
  */
 
-namespace MOJ\Intranet;
-
 /**
- * Flush posts cache when CMS Tree Page View loads.
- * This ensures menu_order values are fresh to start with.
+ * Flush object cache when CMS Tree Page View loads.
+ *
+ * This ensures fresh menu_order values are displayed after reordering pages,
+ * particularly important when using Redis or other persistent object caches.
  */
 add_action('cms_tree_page_view/before_wrapper', function () {
-    // Try to flush just the posts group if supported, otherwise flush all
-    if (function_exists('wp_cache_supports') && wp_cache_supports('flush_group')) {
-        wp_cache_flush_group('posts');
-    } elseif (function_exists('wp_cache_flush')) {
+    if (function_exists('wp_cache_flush')) {
         wp_cache_flush();
     }
 });
 
 /**
- * Flush posts cache after a page is moved via drag and drop.
+ * Flush object cache after a page is moved via drag and drop.
+ *
  * This ensures subsequent requests get fresh menu_order values from the database.
  */
 add_action('cms_tree_page_view_node_move_finish', function () {
-    // Try to flush just the posts group if supported, otherwise flush all
-    if (function_exists('wp_cache_supports') && wp_cache_supports('flush_group')) {
-        wp_cache_flush_group('posts');
-    } elseif (function_exists('wp_cache_flush')) {
+    if (function_exists('wp_cache_flush')) {
         wp_cache_flush();
     }
 });
