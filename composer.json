@@ -41,6 +41,10 @@
         },
         {
             "type": "vcs",
+            "url": "https://github.com/ministryofjustice/wp-cms-tree-page-view"
+        },
+        {
+            "type": "vcs",
             "url": "https://github.com/ministryofjustice/wp-moj-components"
         },
         {
@@ -58,13 +62,12 @@
         "vlucas/phpdotenv": "^5.5",
         "roots/bedrock-autoloader": "^1.0",
         "roots/bedrock-disallow-indexing": "^2.0",
-        "roots/wordpress": "^6.4",
-        "koodimonni-language/core-en_gb": "^6.4",
+        "roots/wordpress": "6.6.5",
+        "koodimonni-language/core-en_gb": "6.6.5",
         "roots/wp-password-bcrypt": "^1.1.0",
         "roots/wp-config": "^1.0",
         "wpackagist-plugin/classic-editor": "^1.6.0",
         "wpackagist-plugin/totalpoll-lite": "^4.10.0",
-        "wpackagist-plugin/cms-tree-page-view": "^1.6.0",
         "wpackagist-plugin/co-authors-plus": "^3.5.0",
         "wpackagist-plugin/wp-document-revisions": "^3.6.1",
         "wpengine/advanced-custom-fields-pro": "^6.3.5",
@@ -90,7 +93,8 @@
         "microsoft/kiota-authentication-phpleague": "^1.5.2",
         "microsoft/kiota-abstractions": "^1.5.1",
         "deliciousbrains/wp-amazon-s3-and-cloudfront": "^3.2",
-        "bonny/wordpress-simple-history": "dev-main#2c5968b"
+        "bonny/wordpress-simple-history": "dev-main#2c5968b",
+        "jchristopher/cms-tree-page-view": "1.6.9"
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "^3.0.2",
