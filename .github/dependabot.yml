@@ -6,6 +6,8 @@ updates:
     schedule:
       interval: "daily"
       time: "00:12"
+    cooldown:
+      semver-major-days: 14
     commit-message:
       prefix: "chore"
       include: "scope"
