@@ -4216,15 +4216,15 @@
         },
         {
             "name": "wpackagist-plugin/totalpoll-lite",
-            "version": "4.11.0",
+            "version": "4.12.0",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/totalpoll-lite/",
-                "reference": "tags/4.11.0"
+                "reference": "tags/4.12.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/totalpoll-lite.4.11.0.zip"
+                "url": "https://downloads.wordpress.org/plugin/totalpoll-lite.4.12.0.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
