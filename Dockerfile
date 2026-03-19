@@ -13,14 +13,10 @@
 #░░
 #░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
 
-ARG version_nginx=1.28.0
-ARG version_node=24
-ARG version_cron_alpine=3.22
-
 #    ▄▄  ▄▄     █▀▀  █▀█  █▀▄▀█     ▄▄  ▄▄    #
 #    ░░  ░░     █▀░  █▀▀  █░▀░█     ░░  ░░    #
 
-FROM ministryofjustice/wordpress-base-fpm:0.0.7 AS base-fpm
+FROM ministryofjustice/wordpress-base-fpm:0.0.7@sha256:397aa5f03e34a3c16a7f620a5518b7d4bf40ba8ede3fa11c0bf62d12e6ea0d18 AS base-fpm
 
 # Switch to the alpine's default user, for installing packages
 USER root
@@ -64,7 +60,7 @@ WORKDIR /var/www/html
 #    ▄▄  ▄▄     █▄░█  █▀▀  █  █▄░█  ▀▄▀     ▄▄  ▄▄    #
 #    ░░  ░░     █░▀█  █▄█  █  █░▀█  █░█     ░░  ░░    #
 
-FROM nginx:${version_nginx}-alpine AS nginx-module-builder
+FROM nginx:1.28.0-alpine@sha256:ebd7cd95af06f54013757a30a148fb4d63b80d28503c291455b60027b764271c AS nginx-module-builder
 
 SHELL ["/bin/ash", "-exo", "pipefail", "-c"]
 
@@ -84,7 +80,7 @@ RUN printf "#!/bin/sh\\nSETFATTR=true /usr/bin/abuild -F \"\$@\"\\n" > /usr/loca
     echo "BUILT_MODULES=\"$BUILT_MODULES\"" > /tmp/packages/modules.env; \
     cd packages && ls -l
 
-FROM nginxinc/nginx-unprivileged:${version_nginx}-alpine AS base-nginx
+FROM nginxinc/nginx-unprivileged:1.28.0-alpine@sha256:a1eca4b71d8dcdc54cf2c538c80d32be53a7d57fce87fb6fff5b8e0b2c1a5c2a AS base-nginx
 
 USER root
 
@@ -198,7 +194,7 @@ RUN mkdir -p ./vendor-assets && \
 #  █▀█  ▄█  ▄█  ██▄  ░█░  ▄█
 
 
-FROM node:${version_node}-alpine AS assets-build
+FROM node:24-alpine3.23@sha256:e9445c64ace1a9b5cdc60fc98dd82d1e5142985d902f41c2407e8fffe49d46a3 AS assets-build
 
 WORKDIR /node
 COPY ./public/app/themes/clarity /node/
@@ -277,7 +273,7 @@ COPY --from=assets-build --chown=nginx:nginx /node/style.css public/app/themes/c
 #  █▄▄  █▀▄  █▄█  █░▀█
 
 
-FROM alpine:${version_cron_alpine} AS build-cron
+FROM alpine:3.22@sha256:55ae5d250caebc548793f321534bc6a8ef1d116f334f18f4ada1b2daad3251b2 AS build-cron
 
 #  ▒█▀▀█ █▀▀█ █▀▀█ █▀▀█ █▀▀▄ █▀▀ █▀▀█ 　 █
 #  ▒█░░░ █▄▄▀ █░░█ █░░█ █░░█ █▀▀ █▄▄▀ 　 ▀
@@ -322,7 +318,7 @@ ENTRYPOINT ["/bin/sh", "-c", "cron-start"]
 #  █▀▀ █▄█ ▄█ █▀█ ██▄ █▀▄
 
 
-FROM alpine:${version_cron_alpine} AS build-s3-push
+FROM alpine:3.22@sha256:55ae5d250caebc548793f321534bc6a8ef1d116f334f18f4ada1b2daad3251b2 AS build-s3-push
 
 ARG user=s3pusher
 RUN addgroup --gid 3001 ${user} && adduser -D -G ${user} -g "${user} user" -u 3001 ${user}

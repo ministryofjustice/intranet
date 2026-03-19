@@ -15,8 +15,6 @@ updates:
       github-actions:
         patterns:
           - "*"
-    assignees:
-      - "hale-platform"
 
   - package-ecosystem: "docker"
     directory: "/"
@@ -32,8 +30,6 @@ updates:
       docker-packages:
         patterns:
           - "*"
-    assignees:
-      - "hale-platform"
 
   - package-ecosystem: "npm"
     directory: "public/app/themes/clarity"
@@ -51,11 +47,21 @@ updates:
     labels:
       - "chore"
     groups:
-      npm-packages:
+      npm-patch:
+        update-types:
+          - "patch"
         patterns:
           - "*"
-    assignees:
-      - "hale-platform"
+      npm-minor:
+        update-types:
+          - "minor"
+        patterns:
+          - "*"
+      npm-major:
+        update-types:
+          - "major"
+        patterns:
+          - "*"
 
   - package-ecosystem: "composer"
     directory: "/"
@@ -73,8 +79,18 @@ updates:
     labels:
       - "chore"
     groups:
-      composer-packages:
+      composer-patch:
+        update-types:
+          - "patch"
         patterns:
           - "*"
-    assignees:
-      - "hale-platform"
+      composer-minor:
+        update-types:
+          - "minor"
+        patterns:
+          - "*"
+      composer-major:
+        update-types:
+          - "major"
+        patterns:
+          - "*"
