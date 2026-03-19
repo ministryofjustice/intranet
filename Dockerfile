@@ -60,7 +60,7 @@ WORKDIR /var/www/html
 #    ▄▄  ▄▄     █▄░█  █▀▀  █  █▄░█  ▀▄▀     ▄▄  ▄▄    #
 #    ░░  ░░     █░▀█  █▄█  █  █░▀█  █░█     ░░  ░░    #
 
-FROM nginx:1.28.0-alpine@sha256:ebd7cd95af06f54013757a30a148fb4d63b80d28503c291455b60027b764271c AS nginx-module-builder
+FROM nginx:1.28.0-alpine@sha256:30f1c0d78e0ad60901648be663a710bdadf19e4c10ac6782c235200619158284 AS nginx-module-builder
 
 SHELL ["/bin/ash", "-exo", "pipefail", "-c"]
 
