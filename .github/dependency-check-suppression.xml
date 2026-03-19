@@ -10,7 +10,7 @@
       Therefore, it poses no meaningful security risk to your project.
       ]]>
         </notes>
-        <packageUrl regex="true">^pkg:npm/webpack-dev-server@.*$</packageUrl>
+        <packageUrl>pkg:npm/webpack-dev-server@4.15.2</packageUrl>
         <vulnerabilityName>GHSA-4v9v-hfq4-rm2v</vulnerabilityName>
     </suppress>
     <suppress until="2027-03-19Z">
@@ -23,7 +23,7 @@
       is already publicly available. It poses no meaningful security risk.
       ]]>
         </notes>
-        <packageUrl regex="true">^pkg:npm/webpack-dev-server@.*$</packageUrl>
+        <packageUrl>pkg:npm/webpack-dev-server@4.15.2</packageUrl>
         <vulnerabilityName>GHSA-9jgg-88mc-972h</vulnerabilityName>
     </suppress>
     <suppress until="2027-03-19Z">
@@ -36,7 +36,7 @@
       practical security risk to your production application.
       ]]>
         </notes>
-        <packageUrl regex="true">^pkg:npm/elliptic@.*$</packageUrl>
+        <packageUrl>pkg:npm/elliptic@6.6.1</packageUrl>
         <vulnerabilityName>GHSA-848j-6mx2-7j84</vulnerabilityName>
     </suppress>
 </suppressions>
