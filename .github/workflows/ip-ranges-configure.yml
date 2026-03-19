@@ -7,6 +7,9 @@ on:
         description: "IPs Ranges (formatted)"
         value: ${{ jobs.get_ip_ranges.outputs.ips_formatted }}
 
+permissions:
+  contents: read
+
 jobs:
   get_ip_ranges:
     name: "Build"
