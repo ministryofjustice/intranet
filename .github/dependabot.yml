@@ -11,6 +11,7 @@ updates:
       include: "scope"
     labels:
       - "chore"
+      - "github-actions"
     groups:
       github-actions:
         patterns:
@@ -26,6 +27,7 @@ updates:
       include: "scope"
     labels:
       - "chore"
+      - "docker"
     groups:
       docker-packages:
         patterns:
@@ -46,6 +48,8 @@ updates:
       include: "scope"
     labels:
       - "chore"
+      - "npm"
+      - "javascript"
     groups:
       npm-patch:
         update-types:
@@ -78,6 +82,8 @@ updates:
       include: "scope"
     labels:
       - "chore"
+      - "composer"
+      - "php"
     groups:
       composer-patch:
         update-types:
