@@ -60,7 +60,8 @@ WORKDIR /var/www/html
 #    ▄▄  ▄▄     █▄░█  █▀▀  █  █▄░█  ▀▄▀     ▄▄  ▄▄    #
 #    ░░  ░░     █░▀█  █▄█  █  █░▀█  █░█     ░░  ░░    #
 
-FROM nginx:1.28.0-alpine@sha256:ebd7cd95af06f54013757a30a148fb4d63b80d28503c291455b60027b764271c AS nginx-module-builder
+# Use --platform=linux/amd64 flag and match version numbers to ensure module and runtime compatibility.
+FROM --platform=linux/amd64  nginx:1.29.5-alpine@sha256:123827f4a105eee4054d59a0080f7860b2a7e29fe138d132af7850843b54c833 AS nginx-module-builder
 
 SHELL ["/bin/ash", "-exo", "pipefail", "-c"]
 
@@ -74,13 +75,14 @@ RUN printf "#!/bin/sh\\nSETFATTR=true /usr/bin/abuild -F \"\$@\"\\n" > /usr/loca
     git clone --branch ${NGINX_VERSION}-${PKG_RELEASE} https://github.com/nginx/pkg-oss.git pkg-oss && \
     mkdir -p /tmp/packages && \
     cd pkg-oss && \
-    /pkg-oss/build_module.sh -v $NGINX_VERSION -f -y -o /tmp/packages -n cachepurge https://github.com/nginx-modules/ngx_cache_purge/archive/2.5.3.tar.gz; \
+    /pkg-oss/build_module.sh -v $NGINX_VERSION -f -y -o /tmp/packages -n cachepurge https://github.com/nginx-modules/ngx_cache_purge/archive/2.5.6.tar.gz; \
     BUILT_MODULES="$BUILT_MODULES $(echo cachepurge | tr '[A-Z]' '[a-z]' | tr -d '[/_\-\.\t ]')"; \
     cd /tmp && ls -l; \
     echo "BUILT_MODULES=\"$BUILT_MODULES\"" > /tmp/packages/modules.env; \
     cd packages && ls -l
 
-FROM nginxinc/nginx-unprivileged:1.28.0-alpine@sha256:a1eca4b71d8dcdc54cf2c538c80d32be53a7d57fce87fb6fff5b8e0b2c1a5c2a AS base-nginx
+# Use --platform=linux/amd64 flag and match version numbers to ensure module and runtime compatibility.
+FROM --platform=linux/amd64 nginxinc/nginx-unprivileged:1.29.5-alpine@sha256:be85b7aa36f49ad5ca46add107870356adce48a82819178f30151132e1cc0641 AS base-nginx
 
 USER root
 
@@ -194,7 +196,7 @@ RUN mkdir -p ./vendor-assets && \
 #  █▀█  ▄█  ▄█  ██▄  ░█░  ▄█
 
 
-FROM node:24-alpine3.23@sha256:e9445c64ace1a9b5cdc60fc98dd82d1e5142985d902f41c2407e8fffe49d46a3 AS assets-build
+FROM node:25-alpine3.23@sha256:5209bcaca9836eb3448b650396213dbe9d9a34d31840c2ae1f206cb2986a8543 AS assets-build
 
 WORKDIR /node
 COPY ./public/app/themes/clarity /node/
@@ -273,7 +275,7 @@ COPY --from=assets-build --chown=nginx:nginx /node/style.css public/app/themes/c
 #  █▄▄  █▀▄  █▄█  █░▀█
 
 
-FROM alpine:3.22@sha256:55ae5d250caebc548793f321534bc6a8ef1d116f334f18f4ada1b2daad3251b2 AS build-cron
+FROM alpine:3.23@sha256:25109184c71bdad752c8312a8623239686a9a2071e8825f20acb8f2198c3f659 AS build-cron
 
 #  ▒█▀▀█ █▀▀█ █▀▀█ █▀▀█ █▀▀▄ █▀▀ █▀▀█ 　 █
 #  ▒█░░░ █▄▄▀ █░░█ █░░█ █░░█ █▀▀ █▄▄▀ 　 ▀
@@ -318,7 +320,7 @@ ENTRYPOINT ["/bin/sh", "-c", "cron-start"]
 #  █▀▀ █▄█ ▄█ █▀█ ██▄ █▀▄
 
 
-FROM alpine:3.22@sha256:55ae5d250caebc548793f321534bc6a8ef1d116f334f18f4ada1b2daad3251b2 AS build-s3-push
+FROM alpine:3.23@sha256:25109184c71bdad752c8312a8623239686a9a2071e8825f20acb8f2198c3f659 AS build-s3-push
 
 ARG user=s3pusher
 RUN addgroup --gid 3001 ${user} && adduser -D -G ${user} -g "${user} user" -u 3001 ${user}
