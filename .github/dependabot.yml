@@ -11,6 +11,7 @@ updates:
       include: "scope"
     labels:
       - "chore"
+      - "github-actions"
     groups:
       github-actions:
         patterns:
@@ -26,6 +27,7 @@ updates:
       include: "scope"
     labels:
       - "chore"
+      - "docker"
     groups:
       docker-packages:
         patterns:
@@ -46,6 +48,17 @@ updates:
       include: "scope"
     labels:
       - "chore"
+      - "npm"
+      - "javascript"
+    ignore:
+      # Used for deprecated dev tooling
+      - dependency-name: "inquirer"
+      # This does not pose a security risk
+      - dependency-name: "jquery"
+      # Laravel Mix depends on outdated versions,
+      # currently no security risk.
+      - dependency-name: "stylus"
+      - dependency-name: "stylus-loader"
     groups:
       npm-patch:
         update-types:
@@ -78,6 +91,8 @@ updates:
       include: "scope"
     labels:
       - "chore"
+      - "composer"
+      - "php"
     groups:
       composer-patch:
         update-types:
