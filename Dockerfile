@@ -61,7 +61,7 @@ WORKDIR /var/www/html
 #    ░░  ░░     █░▀█  █▄█  █  █░▀█  █░█     ░░  ░░    #
 
 # Use --platform=linux/amd64 flag and match version numbers to ensure module and runtime compatibility.
-FROM --platform=linux/amd64  nginx:1.29.5-alpine@sha256:123827f4a105eee4054d59a0080f7860b2a7e29fe138d132af7850843b54c833 AS nginx-module-builder
+FROM --platform=linux/amd64  nginx:1.29.5-alpine@sha256:1eff5a5f3fcf8431a0abb7eddf5471fec24e5e1905a2581aeacdb07a4479b92b AS nginx-module-builder
 
 SHELL ["/bin/ash", "-exo", "pipefail", "-c"]
 
@@ -82,7 +82,7 @@ RUN printf "#!/bin/sh\\nSETFATTR=true /usr/bin/abuild -F \"\$@\"\\n" > /usr/loca
     cd packages && ls -l
 
 # Use --platform=linux/amd64 flag and match version numbers to ensure module and runtime compatibility.
-FROM --platform=linux/amd64 nginxinc/nginx-unprivileged:1.29.5-alpine@sha256:be85b7aa36f49ad5ca46add107870356adce48a82819178f30151132e1cc0641 AS base-nginx
+FROM --platform=linux/amd64 nginxinc/nginx-unprivileged:1.29.5-alpine@sha256:ccbac1a4c20a8b41c5dd1691bd91d63eda3b7989d643a33fd47841838519bfb9 AS base-nginx
 
 USER root
 
