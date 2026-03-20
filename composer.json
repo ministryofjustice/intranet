@@ -97,7 +97,7 @@
         "jchristopher/cms-tree-page-view": "1.6.9"
     },
     "require-dev": {
-        "squizlabs/php_codesniffer": "^3.0.2",
+        "squizlabs/php_codesniffer": "^4.0.1",
         "php-stubs/wp-cli-stubs": "^2.11"
     },
     "extra": {
