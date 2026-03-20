@@ -60,7 +60,8 @@ WORKDIR /var/www/html
 #    ▄▄  ▄▄     █▄░█  █▀▀  █  █▄░█  ▀▄▀     ▄▄  ▄▄    #
 #    ░░  ░░     █░▀█  █▄█  █  █░▀█  █░█     ░░  ░░    #
 
-FROM nginx:1.29.6-alpine@sha256:f46cb72c7df02710e693e863a983ac42f6a9579058a59a35f1ae36c9958e4ce0 AS nginx-module-builder
+# Use --platform=linux/amd64 flag and match version numbers to ensure module and runtime compatibility.
+FROM --platform=linux/amd64  nginx:1.29.5-alpine@sha256:123827f4a105eee4054d59a0080f7860b2a7e29fe138d132af7850843b54c833 AS nginx-module-builder
 
 SHELL ["/bin/ash", "-exo", "pipefail", "-c"]
 
@@ -74,13 +75,14 @@ RUN printf "#!/bin/sh\\nSETFATTR=true /usr/bin/abuild -F \"\$@\"\\n" > /usr/loca
     git clone --branch ${NGINX_VERSION}-${PKG_RELEASE} https://github.com/nginx/pkg-oss.git pkg-oss && \
     mkdir -p /tmp/packages && \
     cd pkg-oss && \
-    /pkg-oss/build_module.sh -v $NGINX_VERSION -f -y -o /tmp/packages -n cachepurge https://github.com/nginx-modules/ngx_cache_purge/archive/2.5.3.tar.gz; \
+    /pkg-oss/build_module.sh -v $NGINX_VERSION -f -y -o /tmp/packages -n cachepurge https://github.com/nginx-modules/ngx_cache_purge/archive/2.5.6.tar.gz; \
     BUILT_MODULES="$BUILT_MODULES $(echo cachepurge | tr '[A-Z]' '[a-z]' | tr -d '[/_\-\.\t ]')"; \
     cd /tmp && ls -l; \
     echo "BUILT_MODULES=\"$BUILT_MODULES\"" > /tmp/packages/modules.env; \
     cd packages && ls -l
 
-FROM nginxinc/nginx-unprivileged:1.29.5-alpine@sha256:ccbac1a4c20a8b41c5dd1691bd91d63eda3b7989d643a33fd47841838519bfb9 AS base-nginx
+# Use --platform=linux/amd64 flag and match version numbers to ensure module and runtime compatibility.
+FROM --platform=linux/amd64 nginxinc/nginx-unprivileged:1.29.5-alpine@sha256:be85b7aa36f49ad5ca46add107870356adce48a82819178f30151132e1cc0641 AS base-nginx
 
 USER root
 
