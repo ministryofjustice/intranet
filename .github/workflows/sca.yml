@@ -105,6 +105,4 @@ jobs:
           token: "${{ secrets.GITHUB_TOKEN }}" # Mandatory
           # dependency-review-config-file: "./.github/dependency-review-config.yml" # Optional
           # docker-images-file: "${{ github.workspace }}/sources.json" # Optional
-          # Currently, no suppressions are required. Uncomment the below block and create 
-          # the file in .github to suppress dependency messages.
-          # dependency-check-suppression-file: "dependency-check-suppression.xml" # Optional
+          dependency-check-suppression-file: "./.github/dependency-check-suppression.xml"
