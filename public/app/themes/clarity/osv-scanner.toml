@@ -1,0 +1,17 @@
+[[IgnoredVulns]]
+# Elliptic Uses a Cryptographic Primitive with a Risky Implementation
+# https://osv.dev/list?q=GHSA-848j-6mx2-7j84
+id = "GHSA-848j-6mx2-7j84"
+reason = "The vulnerability affects applications that actively use elliptic for cryptographic signing. Laravel‑mix does not, so the issue poses no practical security risk to your production application."
+
+[[IgnoredVulns]]
+# webpack-dev-server users' source code may be stolen when they access a malicious web site
+# https://osv.dev/list?q=GHSA-4v9v-hfq4-rm2v
+id = "GHSA-4v9v-hfq4-rm2v"
+reason = "The vulnerability only applies to developers running webpack‑dev‑server locally and gives access only to code that, in your case, is already open source. Therefore, it poses no meaningful security risk to your project."
+
+[[IgnoredVulns]]
+# webpack-dev-server users' source code may be stolen when they access a malicious web site with non-Chromium based browser
+# https://osv.dev/list?q=GHSA-9jgg-88mc-972h
+id = "GHSA-9jgg-88mc-972h"
+reason = "The vulnerability only impacts developers running webpack-dev-server locally with a non-Chromium browser, and the only asset at risk is source code that is already publicly available. For an open-source project, it poses no meaningful security risk."
