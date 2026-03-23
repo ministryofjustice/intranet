@@ -12,7 +12,7 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-body-size: "250m"
     nginx.ingress.kubernetes.io/auth-type: basic
     nginx.ingress.kubernetes.io/auth-secret: basic-auth-secret
-    nginx.ingress.kubernetes.io/auth-realm: 'Demo User | Authentication Required'
+    nginx.ingress.kubernetes.io/auth-realm: 'Demo User - Authentication Required'
     nginx.ingress.kubernetes.io/server-snippet: |
       location = /health {
         auth_basic off;
