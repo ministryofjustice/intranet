@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d40b2bf5558073276edcf78857b8a3e8",
+    "content-hash": "70e52fbdccdf56dc3a90dcd6b1fe6bb1",
     "packages": [
         {
             "name": "alphagov/notifications-php-client",
@@ -1228,10 +1228,10 @@
         },
         {
             "name": "koodimonni-language/core-en_gb",
-            "version": "6.6.5",
+            "version": "6.9.4",
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/translation/core/6.6.5/en_GB.zip"
+                "url": "https://downloads.wordpress.org/translation/core/6.9.4/en_GB.zip"
             },
             "require": {
                 "koodimonni/composer-dropin-installer": ">=0.2.3"
