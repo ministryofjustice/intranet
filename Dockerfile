@@ -139,16 +139,6 @@ FROM base-nginx AS nginx-dev
 RUN echo "# This is a placeholder because the file is included in php-fpm.conf." > /etc/nginx/server_name.conf
 
 
-#  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
-
-#  ▀█▀  █▀▀  █▀  ▀█▀
-#  ░█░  ██▄  ▄█  ░█░
-
-FROM build-fpm AS test
-RUN make test
-
-
-
 
 #
 #   ▒█▀▀█ █▀▀█ █▀▀█ █▀▀▄ █░░█ █▀▀ ▀▀█▀▀ ░▀░ █▀▀█ █▀▀▄
@@ -238,6 +228,17 @@ USER 101
 # Set towards the end of the Dockerfile to benefit from caching.
 ARG IMAGE_TAG
 ENV IMAGE_TAG=$IMAGE_TAG
+
+
+
+#  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
+
+#  ▀█▀  █▀▀  █▀  ▀█▀
+#  ░█░  ██▄  ▄█  ░█░
+
+FROM build-fpm AS test
+RUN make test
+
 
 
 #  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
