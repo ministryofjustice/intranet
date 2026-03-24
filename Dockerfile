@@ -13,6 +13,9 @@
 #░░
 #░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
 
+
+FROM composer:2@sha256:70ae17623a01528f110dbebd6c5738978a258a178805f334f7c5f32ba5f8b8a1 AS composer
+
 #    ▄▄  ▄▄     █▀▀  █▀█  █▀▄▀█     ▄▄  ▄▄    #
 #    ░░  ░░     █▀░  █▀▀  █░▀░█     ░░  ░░    #
 
@@ -122,7 +125,7 @@ RUN apk add zip
 
 WORKDIR /var/www/html
 
-COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+COPY --from=composer /usr/bin/composer /usr/bin/composer
 
 VOLUME ["/sock"]
 # nginx
@@ -170,7 +173,7 @@ ARG ACF_PRO_PASS
 ARG AS3CF_PRO_USER
 ARG AS3CF_PRO_PASS
 
-COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+COPY --from=composer /usr/bin/composer /usr/bin/composer
 
 COPY ./bin/composer-auth.sh ./bin/composer-post-install.sh ./bin/
 
