@@ -40,7 +40,7 @@ jobs:
         run: snyk iac test --report || true
 
       - name: PHP test
-        uses: snyk/actions/php@master
+        uses: snyk/actions/php@9adf32b1121593767fc3c057af55b55db032dc04 # v1.0.0
         continue-on-error: true
 
         # Build the docker images for testing
