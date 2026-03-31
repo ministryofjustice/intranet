@@ -174,25 +174,44 @@ jobs:
           fi
         continue-on-error: true
 
-      - name: "QA Link"
-        if: ${{ (inputs.environment == 'demo') && (steps.apply.outcome == 'success') }}
-        id: qalink
-        uses: thollander/actions-comment-pull-request@24bffb9b452ba05a4f3f77933840a6a841d1b32b #v3.0.1
-        with:
-          message: '**QA is ready: https://demo.intranet.justice.gov.uk/**'
-          reactions: rocket, heart
-          comment-tag: execution
-          mode: recreate
+      - name: "Resolve PR number"
+        if: inputs.environment == 'demo'
+        id: pr
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          PR_NUMBER=${{ github.event.pull_request.number }}
+          if [ -z "$PR_NUMBER" ]; then
+            PR_NUMBER=$(gh pr list --search "${{ github.sha }}" --state open --json number --jq '.[0].number // empty')
+          fi
+          echo "number=${PR_NUMBER}" >> "$GITHUB_OUTPUT"
 
-      - name: "QA Failed"
-        if: ${{ (inputs.environment == 'demo') && (steps.apply.outcome != 'success') }}
-        uses: thollander/actions-comment-pull-request@24bffb9b452ba05a4f3f77933840a6a841d1b32b #v3.0.1
-        with:
-          message: '**QA failed to build** :broken_heart:'
-          reactions: confused
-          comment-tag: execution
-          mode: recreate
+      - name: "Comment QA status"
+        if: ${{ (inputs.environment == 'demo') && steps.pr.outputs.number }}
+        id: qa-comment
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          PR="${{ steps.pr.outputs.number }}"
+
+          # Delete existing tagged comments
+          COMMENT_IDS=$(gh pr view "$PR" --json comments \
+            --jq '[.comments[] | select(.body | contains("<!-- tag: execution -->")) | .id] | .[]')
+
+          for id in $COMMENT_IDS; do
+            gh api graphql -f query="mutation { deleteIssueComment(input: {id: \"${id}\"}) { clientMutationId } }"
+          done
+
+          # Post new comment
+          if [ "${{ steps.apply.outcome }}" == "success" ]; then
+            MESSAGE='**QA is ready: https://demo.intranet.justice.gov.uk/**'
+          else
+            MESSAGE='**QA failed to build** :broken_heart:'
+          fi
+          printf '%s\n<!-- tag: execution -->' "$MESSAGE" | \
+            gh pr comment "$PR" --body-file -
 
       - name: "Check outcome"
-        if: ${{ (inputs.environment == 'demo') && (steps.qalink.outcome == 'skipped') }}
+        if: ${{ (inputs.environment == 'demo') && (steps.apply.outcome != 'success') }}
         run: exit 1
