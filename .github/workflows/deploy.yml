@@ -193,12 +193,26 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          PR="${{ steps.pr.outputs.number }}"
+
+          # List all comments for debugging
+          echo "::group::All PR comments"
+          gh pr view "$PR" --json comments --jq '.comments[] | {id, author: .author.login, body: (.body[:80])}'
+          echo "::endgroup::"
+
+          # Find tagged comments
+          COMMENT_IDS=$(gh pr view "$PR" --json comments \
+            --jq '[.comments[] | select(.body | contains("<!-- tag: execution -->")) | .id] | .[]')
+
+          echo "Tagged comment IDs found: ${COMMENT_IDS:-none}"
+
           # Delete existing tagged comments
-          gh pr view "${{ steps.pr.outputs.number }}" --json comments \
-            --jq '.comments[] | select(.body | contains("<!-- tag: execution -->")) | .id' | \
-          while read -r id; do
-            gh api graphql -f query="mutation { deleteIssueComment(input: {id: \"${id}\"}) { clientMutationId } }"
+          for id in $COMMENT_IDS; do
+            echo "Deleting comment: $id"
+            gh api graphql -f query="mutation { deleteIssueComment(input: {id: \"${id}\"}) { clientMutationId } }" && \
+              echo "Deleted $id" || echo "Failed to delete $id"
           done
+
           # Post new comment
           if [ "${{ steps.apply.outcome }}" == "success" ]; then
             MESSAGE='**QA is ready: https://demo.intranet.justice.gov.uk/**'
@@ -206,7 +220,7 @@ jobs:
             MESSAGE='**QA failed to build** :broken_heart:'
           fi
           printf '%s\n<!-- tag: execution -->' "$MESSAGE" | \
-            gh pr comment "${{ steps.pr.outputs.number }}" --body-file -
+            gh pr comment "$PR" --body-file -
 
       - name: "Check outcome"
         if: ${{ (inputs.environment == 'demo') && (steps.apply.outcome != 'success') }}
