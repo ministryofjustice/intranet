@@ -195,22 +195,12 @@ jobs:
         run: |
           PR="${{ steps.pr.outputs.number }}"
 
-          # List all comments for debugging
-          echo "::group::All PR comments"
-          gh pr view "$PR" --json comments --jq '.comments[] | {id, author: .author.login, body: (.body[:80])}'
-          echo "::endgroup::"
-
-          # Find tagged comments
+          # Delete existing tagged comments
           COMMENT_IDS=$(gh pr view "$PR" --json comments \
             --jq '[.comments[] | select(.body | contains("<!-- tag: execution -->")) | .id] | .[]')
 
-          echo "Tagged comment IDs found: ${COMMENT_IDS:-none}"
-
-          # Delete existing tagged comments
           for id in $COMMENT_IDS; do
-            echo "Deleting comment: $id"
-            gh api graphql -f query="mutation { deleteIssueComment(input: {id: \"${id}\"}) { clientMutationId } }" && \
-              echo "Deleted $id" || echo "Failed to delete $id"
+            gh api graphql -f query="mutation { deleteIssueComment(input: {id: \"${id}\"}) { clientMutationId } }"
           done
 
           # Post new comment
