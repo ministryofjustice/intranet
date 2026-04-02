@@ -1,0 +1,28 @@
+{
+    "name": "Inline Featured Image",
+    "class": "c-inline-featured-image",
+    "version": "1.0.0",
+    "creator": {
+        "name": "David Brown",
+        "github_username": "earthlingdavey"
+    },
+    "description": "The featured image inline with content",
+    "standard_or_universal": "standard",
+    "parents": "",
+    "children": "",
+    "notes": {
+        "backend": "",
+        "frontend": ""
+    },
+    "backend_classes": {},
+    "has_js": false,
+    "integrated": false,
+    "is_working": false,
+    "example_link": "https://intranet.justice.gov.uk/",
+    "used_on_templates": ["People Promise"],
+    "changelog": [{
+        "date": "2/4/2026",
+        "author": "David Brown",
+        "description": "Created component"
+    }]
+}
