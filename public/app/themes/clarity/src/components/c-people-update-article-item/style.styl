@@ -1,0 +1,101 @@
+// include the toolkit (a suite of variables, classes and mixins)
+@require "../../globals/css/_toolkit";
+
+.c-people-update-article-item {
+  display: flex;
+
+  width: 550px;
+  max-width: 100%;
+  min-height: 280px;
+
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 32px;
+
+  background-color: #F3F2F1;
+  align-items: stretch;
+  flex-wrap: wrap;
+
+  @media only screen and (min-width: 740px) {
+    margin-bottom: 50px;
+    width: 100%;
+    flex-wrap: nowrap;
+  }
+  
+  &--thumbnail {
+    position: relative;
+
+    min-width: 100%;
+    width: 100%;
+    @media only screen and (min-width: 740px) {
+      min-width: 50%;
+      width: 50%;
+    }
+
+    img {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 5 / 3;
+      object-fit: cover;
+      background-color: #D9D9D9;
+
+      @media only screen and (min-width: 740px) {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        aspect-ratio: unset;
+      }
+    }
+
+  }
+
+  &__pillar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    max-width: 100%;
+    padding: 4px 10px;
+
+    font-weight: 700;
+    font-size: 1.4rem;
+
+    background-color: #F3F2F1;
+
+    &--developing-ourselves {
+      background-color: #F190BD;
+    }
+
+    &--belonging {
+      background-color: #4EBFEB;
+    }
+
+    &--feeling-good {
+      background-color: #9DADD1;
+    }
+
+    &--fit-for-the-future {
+      background-color: #B9CF2C;
+    }
+
+    &--great-leaders-at-all-levels {
+      background-color: #FDCD23;
+    }
+  }
+
+  &--text {
+    padding: 24px;
+
+    min-width: 100%;
+    width: 100%;
+    @media only screen and (min-width: 740px) {
+      min-width: 50%;
+      width: 50%;
+    }
+
+    p:last-of-type {
+      margin-bottom: 0;
+    }
+  }
+
+}
