@@ -118,6 +118,7 @@ require_once 'inc/post-types/webchat.php';
 require_once 'inc/post-types/notes-from-jo.php';
 require_once 'inc/post-types/notes-from-amy.php';
 require_once 'inc/post-types/notes-from-antonia.php';
+require_once 'inc/post-types/people-update.php';
 
 require_once 'inc/preselect.php';
 require_once 'inc/rewrite_rules.php';
