@@ -4235,15 +4235,15 @@
         },
         {
             "name": "wpackagist-plugin/wp-document-revisions",
-            "version": "3.6.1",
+            "version": "3.8.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/wp-document-revisions/",
-                "reference": "tags/3.6.1"
+                "reference": "tags/3.8.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wp-document-revisions.3.6.1.zip"
+                "url": "https://downloads.wordpress.org/plugin/wp-document-revisions.3.8.1.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
