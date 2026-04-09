@@ -148,7 +148,7 @@ class Search
             'ID' => $post->ID,
             'post_type' => get_post_type($post->ID),
             'post_title' => $post->post_title,
-            'post_thumbnail' => get_the_post_thumbnail($post->ID, 'feature-thumbnail', 'alt'),
+            'post_thumbnail' => get_the_post_thumbnail($post->ID, 'feature-thumbnail'),
             'post_content' => apply_filters('the_content', get_post_field('post_content', $post->ID)),
             'opg_pillar_slug' => is_array($pillars) && isset($pillars[0]) ? esc_attr($pillars[0]->slug) : null,
             'opg_pillar_name' => is_array($pillars) && isset($pillars[0]) ? esc_html($pillars[0]->name) : null

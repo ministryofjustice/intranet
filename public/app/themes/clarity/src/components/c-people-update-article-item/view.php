@@ -14,7 +14,7 @@ $pillar = is_array($pillars) && isset($pillars[0]) ? $pillars[0] : null;
 <article class="c-people-update-article-item">
 
   <div href="<?= esc_url(get_permalink($id)) ?>" class="c-people-update-article-item--thumbnail">
-    <?php the_post_thumbnail('feature-thumbnail', 'alt'); ?>
+    <?php the_post_thumbnail('feature-thumbnail'); ?>
     <?php if ($pillar) : ?>
       <span class="c-people-update-article-item__pillar c-people-update-article-item__pillar--<?= esc_attr($pillar->slug) ?>">
         <?= esc_html($pillar->name) ?>
