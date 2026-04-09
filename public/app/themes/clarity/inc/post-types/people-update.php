@@ -38,7 +38,7 @@ add_action('init', function () {
         ],
         'description' => 'Contains People Promise Updates, created for OPG',
         'public' => true,
-        'show_in_rest' => true,
+        'show_in_rest' => false,
         'show_in_menu' => $is_opg,
         'supports' => [
             'title',
@@ -47,10 +47,6 @@ add_action('init', function () {
             'thumbnail',
             'excerpt'
         ],
-        'rewrite' => array(
-            'slug' => 'people-promise',
-            'with_front' => false,
-        ),
         'delete_with_user' => false,
     ]);
 });
@@ -74,6 +70,7 @@ add_filter('theme_templates', function ($templates) {
     // Remove page_people_promise.php from the dropdown list.
     if (isset($templates['page_people_promise.php'])) {
         unset($templates['page_people_promise.php']);
+        unset($templates['page_people_promise_archive.php']);
     }
 
     return $templates;
