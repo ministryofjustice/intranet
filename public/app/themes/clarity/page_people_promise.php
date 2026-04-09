@@ -9,6 +9,7 @@
 defined('ABSPATH') || die();
 
 get_header();
+
 ?>
 
 <main role="main" id="maincontent" class="u-wrapper l-main">
@@ -17,7 +18,7 @@ get_header();
 
   <?php get_template_part('src/components/c-inline-featured-image/view'); ?>
 
-  <?php get_template_part('src/components/c-people-updates/view');  ?>
+  <?php get_template_part('src/components/c-people-updates/view', 'highlights');  ?>
 
 </main>
 
