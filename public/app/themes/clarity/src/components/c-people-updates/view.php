@@ -6,39 +6,26 @@
 
 defined('ABSPATH') || die();
 
-echo '<div class="c-people-updates">';
 
-// Loop for the last 3 months
-for ($i = 0; $i < 3; $i++) {
+// Query all posts
+$query = new WP_Query([
+  'post_type'      => 'people-update',
+  'posts_per_page' => -1,
+  'orderby'        => 'date',
+  'order'          => 'DESC',
+]);
 
-  // Get Year + Month for each offset month
-  $year  = date('Y', strtotime("-$i month"));
-  $month = date('m', strtotime("-$i month"));
+?>
 
-  // Month name for heading
-  $month_name = date('F', strtotime("$year-$month-01"));
+<div id="content" class="c-people-updates">
 
-  // Query posts for that specific month
-  $args = [
-    'post_type'      => 'people-update',
-    'posts_per_page' => -1,
-    'year'           => $year,
-    'monthnum'       => $month,
-    'orderby'        => 'date',
-    'order'          => 'DESC',
-  ];
+  <?php if ($query->have_posts()) : ?>
+    <?php while ($query->have_posts()) : ?>
+      <?php $query->the_post(); ?>
+      <?php get_template_part('src/components/c-people-update-article-item/view'); ?>
+    <?php endwhile; ?>
+  <?php endif; ?>
 
-  $query = new WP_Query($args);
+  <?php wp_reset_postdata(); ?>
 
-  if ($query->have_posts()) {
-    echo "<h2 class='o-title o-title--section'>{$month_name} highlights</h2>";
-    while ($query->have_posts()) {
-      $query->the_post();
-      get_template_part('src/components/c-people-update-article-item/view');
-    }
-  }
-
-  wp_reset_postdata();
-}
-
-echo '</div>';
+</div>
