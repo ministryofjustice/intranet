@@ -35,10 +35,15 @@ class Search
     public function hooks(): void
     {
         // Add functions to handle AJAX requests.
+        // Primary search.
         add_action('wp_ajax_load_search_results', [$this, 'loadSearchResults']);
         add_action('wp_ajax_nopriv_load_search_results', [$this, 'loadSearchResults']);
+        // `event` post type.
         add_action('wp_ajax_load_events_filter_results', [$this, 'loadEventSearchResults']);
         add_action('wp_ajax_nopriv_load_events_filter_results', [$this, 'loadEventSearchResults']);
+        // `people-update` post type.
+        add_action('wp_ajax_load_people_update_filter_results', [$this, 'loadPeopleUpdateSearchResults']);
+        add_action('wp_ajax_nopriv_load_people_update_filter_results', [$this, 'loadPeopleUpdateSearchResults']);
 
         // Add templates to the footer.
         add_action('wp_footer', [$this, 'addAjaxTemplates']);
@@ -56,18 +61,18 @@ class Search
             exit('Access not allowed.');
         }
 
-        
-        $agency_term_id =(new Agency())->getCurrentAgency()['wp_tag_id'];
-        
+
+        $agency_term_id = (new Agency())->getCurrentAgency()['wp_tag_id'];
+
         $filter_options = [
             'keyword_search' => sanitize_text_field($_POST['keywords_filter'] ?? ''),
             'date_filter' => $_POST['date_filter'] == 'all' ? '' : sanitize_text_field($_POST['date_filter']),
         ];
-        
-        
+
+
         if (isset($_POST['termID'])) {
             $tax_id = sanitize_text_field($_POST['termID']);
-            
+
             $filter_options['region_filter'] = $tax_id;
         }
 
@@ -133,6 +138,20 @@ class Search
             'permalink' => get_permalink($post->ID),
             'post_thumbnail' => get_the_post_thumbnail_url($post->ID, 'user-thumb'),
             'post_thumbnail_alt' => get_post_meta(get_post_thumbnail_id($post->ID), '_wp_attachment_image_alt', true),
+        ];
+    }
+
+    public function mapPeopleUpdateResult(\WP_Post $post)
+    {
+        $pillars = get_the_terms($post->ID, 'opg_pillar');
+        return [
+            'ID' => $post->ID,
+            'post_type' => get_post_type($post->ID),
+            'post_title' => $post->post_title,
+            'post_thumbnail' => get_the_post_thumbnail($post->ID, 'feature-thumbnail'),
+            'post_content' => apply_filters('the_content', get_post_field('post_content', $post->ID)),
+            'opg_pillar_slug' => is_array($pillars) && isset($pillars[0]) ? esc_attr($pillars[0]->slug) : null,
+            'opg_pillar_name' => is_array($pillars) && isset($pillars[0]) ? esc_html($pillars[0]->name) : null
         ];
     }
 
@@ -232,6 +251,51 @@ class Search
     }
 
 
+
+    /**
+     * Load results for people-updates.
+     * 
+     * @return void
+     */
+
+    public function loadPeopleUpdateSearchResults(): void
+    {
+        if (!wp_verify_nonce($_POST['_nonce'], 'search_filter_nonce')) {
+            exit('Access not allowed.');
+        }
+
+        $query_args = [
+            'post_type'      => 'people-update',
+            'posts_per_page' => -1,
+            'orderby'        => 'date',
+            'order'          => 'DESC',
+        ];
+
+        if (isset($_POST['opg_pillar']) && 'any' !== trim($_POST['opg_pillar'])) {
+            $query_args['tax_query'] = [
+                [
+                    'taxonomy' => 'opg_pillar',
+                    'field'    => 'slug',
+                    'terms'    => sanitize_text_field($_POST['opg_pillar'])
+                ],
+            ];
+        }
+
+        $query = new WP_Query($query_args);
+
+        wp_send_json([
+            'aggregates' => [
+                'totalResults' =>  $query->found_posts,
+                'resultsPerPage' => -1,
+                'currentPage' => 1,
+            ],
+            'results' =>  [
+                'templateName' => "c-people-update-article-item",
+                'posts' => array_map([$this, 'mapPeopleUpdateResult'], $query->posts),
+            ]
+        ]);
+    }
+
     /**
      * Add AJAX templates to the footer.
      * 
@@ -258,6 +322,10 @@ class Search
 
         if (is_page_template('page_events.php')) {
             get_template_part('src/components/c-events-item/view-list.ajax');
+        }
+
+        if (is_page_template('page_people_update_archive.php')) {
+            get_template_part('src/components/c-people-update-article-item/view-list.ajax');
         }
     }
 }
