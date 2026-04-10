@@ -51,8 +51,7 @@ add_action('init', function () {
             'title',
             'editor',
             'revisions',
-            'thumbnail',
-            'excerpt'
+            'thumbnail'
         ],
         'delete_with_user' => false,
     ]);
