@@ -43,6 +43,10 @@ add_action('init', function () {
         'public' => true,
         'show_in_rest' => false,
         'show_in_menu' => $is_opg,
+        'rewrite' => array(
+            'slug' => 'people-promise-update',
+            'with_front' => false,
+        ),
         'supports' => [
             'title',
             'editor',
@@ -86,3 +90,13 @@ add_filter('theme_templates', function ($templates) {
 
     return $templates;
 });
+
+// On the edit screen, hide the permalink if the people-update has been published. There is no public single view.
+add_filter('get_sample_permalink_html',  function ($return, $post_id) {
+    // Is the post published?
+    if (get_post_type($post_id) === 'people-update' && get_post_status($post_id) === 'publish') {
+        return '';
+    }
+
+    return $return;
+}, 10, 2);
