@@ -100,7 +100,7 @@ jobs:
         run: npm ci --ignore-scripts --prefix public/app/themes/clarity
 
       - name: ⚡️ SCA
-        uses: ministryofjustice/devsecops-actions/sca@f965eb1771ec66cfc41d7d57dc607fa6dfbc10ed # v1.4.0
+        uses: ministryofjustice/devsecops-actions/sca@8c77d3a65a46d1d4b5416eafae5b84371ecd797d # v1.5.0
         with:
           token: "${{ secrets.GITHUB_TOKEN }}" # Mandatory
           # dependency-review-config-file: "./.github/dependency-review-config.yml" # Optional
