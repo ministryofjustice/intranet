@@ -324,7 +324,7 @@ class Search
             get_template_part('src/components/c-events-item/view-list.ajax');
         }
 
-        if (is_page_template('page_people_promise_archive.php')) {
+        if (is_page_template('page_people_update_archive.php')) {
             get_template_part('src/components/c-people-update-article-item/view-list.ajax');
         }
     }

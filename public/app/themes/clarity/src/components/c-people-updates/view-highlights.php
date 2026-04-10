@@ -44,7 +44,7 @@ function get_query_by_months_ago($months_ago)
  * Get the archive ID based on the archive:
  *
  * - being a child page of the highlights page.
- * - having the `page_people_promise_archive.php` template.
+ * - having the `page_people_update_archive.php` template.
  */
 function get_archive_id($post_id)
 {
@@ -56,7 +56,7 @@ function get_archive_id($post_id)
     'fields' => 'ids',
     'meta_query' => [[
       'key'   => '_wp_page_template',
-      'value' => 'page_people_promise_archive.php'
+      'value' => 'page_people_update_archive.php'
     ]]
   ]);
 

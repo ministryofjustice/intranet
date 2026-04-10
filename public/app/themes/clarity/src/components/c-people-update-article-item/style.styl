@@ -16,7 +16,7 @@
   align-items: stretch;
   flex-wrap: wrap;
 
-  @media only screen and (min-width: 740px) {
+  +above(m) {
     margin-bottom: 50px;
     width: 100%;
     flex-wrap: nowrap;
@@ -27,19 +27,20 @@
 
     min-width: 100%;
     width: 100%;
-    @media only screen and (min-width: 740px) {
+    +above(m) {
       min-width: 50%;
       width: 50%;
     }
 
     img {
+      display: block;
       width: 100%;
       height: auto;
       aspect-ratio: 5 / 3;
       object-fit: cover;
       background-color: #D9D9D9;
 
-      @media only screen and (min-width: 740px) {
+      +above(m) {
         position: absolute;
         inset: 0;
         width: 100%;
@@ -88,7 +89,7 @@
 
     min-width: 100%;
     width: 100%;
-    @media only screen and (min-width: 740px) {
+    +above(m) {
       min-width: 50%;
       width: 50%;
     }

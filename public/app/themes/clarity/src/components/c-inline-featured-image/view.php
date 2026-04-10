@@ -1,5 +1,7 @@
 <?php
 
+defined('ABSPATH') || die();
+
 $post_object    = get_post($id);
 $thumbnail_type = 'intranet-large';
 $thumbnail_id   = get_post_thumbnail_id($id);
@@ -13,8 +15,7 @@ if (is_array($thumbnail)) {
 
 $featured_img = "<img src='" . esc_url($thumbnail_url) . "' alt='" . esc_attr($alt_text ?? '')  . "'>";
 
-
-
+// Get the content so that we can parse it into 3 distinct parts - for the layout.
 $content = apply_filters('the_content', get_post_field('post_content', $id));
 
 $pattern = '/^(.*?(?:<h[1-6][^>]*>.*?<\/h[1-6]>|\z))((?:\s*<p>.*?<\/p>){0,2})(.*)$/sx';
@@ -34,18 +35,18 @@ $rest_of_content    = trim($matches[3] ?? '');
   <!-- c-rich-text-block starts here -->
   <section class="c-rich-text-block">
 
-    <?= $before_and_heading; ?>
+    <?= wp_kses_post($before_and_heading); ?>
 
     <div class="c-inline-featured-image__row">
       <div class="c-inline-featured-image__column--text">
-        <?= $paragraphs_after;  ?>
+        <?= wp_kses_post($paragraphs_after);  ?>
       </div>
       <div class="c-inline-featured-image__column--image">
         <img src="<?= esc_url($thumbnail_url) ?>" alt="<?=  esc_attr($alt_text ?? '') ?>">
       </div>
     </div>
 
-    <?= $rest_of_content; ?>
+    <?= wp_kses_post($rest_of_content); ?>
 
   </section>
   <!-- c-rich-text-block ends here -->

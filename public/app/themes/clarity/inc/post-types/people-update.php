@@ -2,8 +2,11 @@
 
 defined('ABSPATH') || die();
 
-add_action('init', function () {
+/**
+ *  Register `people-update` post type (People Promise update)
+ */
 
+add_action('init', function () {
     $is_opg = Agency_Context::current_user_can_have_context() && Agency_Context::get_agency_context() === 'opg';
 
     register_post_type('people-update', [
@@ -23,7 +26,7 @@ add_action('init', function () {
             'not_found_in_trash' => 'No updates found in Trash',
             'archives' => 'Update Archives',
             'attributes' => 'Update Attributes',
-            'uploaded_to_this_item' => 'Uploaded to this note',
+            'uploaded_to_this_item' => 'Uploaded to this update',
             'filter_items_list' => 'Filter People Promise Update list',
             'filter_by_date' => 'Filter People Promise Update by date',
             'items_list_navigation' => 'People Promise Update list navigation',
@@ -34,7 +37,7 @@ add_action('init', function () {
             'item_scheduled' => 'Update scheduled.',
             'item_updated' => 'People Promise Update, updated.',
             'item_link' => 'Update Link',
-            'item_link_description' => 'A link to a note.',
+            'item_link_description' => 'A link to a update.',
         ],
         'description' => 'Contains People Promise Updates, created for OPG',
         'public' => true,
@@ -51,7 +54,7 @@ add_action('init', function () {
     ]);
 });
 
-// On page edit screen, show People Promise in the dropdown only when agency is OPG.
+// On page edit screen, show People Promise and People Promise Archive in the dropdown only when agency is OPG.
 add_filter('theme_templates', function ($templates) {
 
     $is_opg = Agency_Context::current_user_can_have_context() && Agency_Context::get_agency_context() === 'opg';
@@ -61,16 +64,24 @@ add_filter('theme_templates', function ($templates) {
         return $templates;
     }
 
-
-    if (get_page_template_slug() === 'page_people_promise.php') {
-        // Current template is 'page_people_promise.php', do nothing - else we could break a page.
-        return $templates;
+    // Remove page_people_update_highlights.php from the dropdown list. If:
+    // - it's not the current template
+    // - it's in the $templates array
+    if (
+        get_page_template_slug() !== 'page_people_update_highlights.php'
+        && isset($templates['page_people_update_highlights.php'])
+    ) {
+        unset($templates['page_people_update_highlights.php']);
     }
 
-    // Remove page_people_promise.php from the dropdown list.
-    if (isset($templates['page_people_promise.php'])) {
-        unset($templates['page_people_promise.php']);
-        unset($templates['page_people_promise_archive.php']);
+    // Remove page_people_update_archive.php from the dropdown list. If:
+    // - it's not the current template
+    // - it's in the $templates array
+    if (
+        get_page_template_slug() !== 'page_people_update_archive.php'
+        &&  isset($templates['page_people_update_archive.php'])
+    ) {
+        unset($templates['page_people_update_archive.php']);
     }
 
     return $templates;

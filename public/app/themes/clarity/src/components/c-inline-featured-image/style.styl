@@ -4,7 +4,7 @@
 .c-inline-featured-image {
 
   margin-bottom: 6rem;
-  @media only screen and (min-width: 740px) {
+  +above(m) {
     margin-bottom: 10rem;
   }
 
@@ -19,14 +19,14 @@
     justify-content: center;
     flex-wrap: wrap;
 
-    @media only screen and (min-width: 740px) {
+    +above(m) {
       align-items: center;
       flex-wrap: nowrap;
     }
   }
 
   &__column--text {
-    @media only screen and (min-width: 740px) {
+    +above(m) {
       width: 75%;
       flex-shrink: 1;
     }

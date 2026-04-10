@@ -2,7 +2,7 @@
 
 /***
  *
- * Template name: People Promise
+ * Template name: People Promise highlights
  * Template Post Type: page
  */
 
