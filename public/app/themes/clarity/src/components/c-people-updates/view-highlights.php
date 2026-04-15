@@ -72,7 +72,7 @@ function get_archive_id($post_id)
     <?php [$query, $month_name] = get_query_by_months_ago($months_ago); ?>
 
     <?php if ($query->have_posts()) : ?>
-      <h2 class='o-title o-title--section'><?= esc_html($month_name) ?> highlights</h2>
+      <h2 class='o-title o-title--section'><?= esc_html($month_name) ?> updates</h2>
 
       <?php while ($query->have_posts()) : ?>
         <?php $query->the_post(); ?>
@@ -86,7 +86,7 @@ function get_archive_id($post_id)
   <?php $archive = get_archive_id($post->ID); ?>
   <?php if ($archive) : ?>
     <a class="o-button c-people-updates__archive-button" href="<?= get_permalink($archive) ?>">
-      View archived posts
+      View all updates
     </a>
   <?php endif; ?>
 
