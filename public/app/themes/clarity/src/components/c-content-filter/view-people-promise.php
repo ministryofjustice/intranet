@@ -11,7 +11,11 @@ defined('ABSPATH') || die();
  */
 
 $pillar_options = [
-    ['All', 'any'], // default option
+    [
+      'All',  // Label
+      'any',  // Value
+      false   // Checked
+    ], // default option
 ];
 
 $terms = get_terms([
@@ -23,7 +27,8 @@ if (!is_wp_error($terms)) {
     foreach ($terms as $term) {
         $pillar_options[] = [
             $term->name, // Label
-            $term->slug  // Value
+            $term->slug, // Value
+            false        // Checked
         ];
     }
 }
