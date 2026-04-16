@@ -19,11 +19,11 @@ defined('ABSPATH') || exit;
 
         <div href="${permalink}" class="c-people-update-article-item--thumbnail">
             ${post_thumbnail}
-            ${?opg_pillar_name}
-                <span class="c-people-update-article-item__pillar c-people-update-article-item__pillar--${opg_pillar_slug}">
-                    ${opg_pillar_name}
+            ${?pillar_name}
+                <span class="c-people-update-article-item__pillar c-people-update-article-item__pillar--${pillar_slug}">
+                    ${pillar_name}
                 </span>
-            ${/?opg_pillar_name}
+            ${/?pillar_name}
         </div>
 
         <div href="${permalink}" class="c-people-update-article-item--text">

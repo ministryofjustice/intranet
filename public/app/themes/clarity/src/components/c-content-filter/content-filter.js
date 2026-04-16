@@ -72,7 +72,7 @@ export default (function ($) {
     $section.find("#ff_clear").on("click", function (e) {
       e.preventDefault();
 
-      $('input[name="opg_pillar"]').prop("checked", false);
+      $('input[type="radio"]').prop("checked", false);
       $form.submit();
     });
   };
