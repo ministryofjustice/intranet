@@ -78,7 +78,7 @@ export const renderResults = ({
 }) => {
   // Remove all articles if page is 1.
   if (currentPage === 1) {
-    $(".c-article-item, .c-events-item-list").remove();
+    $(".c-article-item, .c-events-item-list, .c-people-update-article-item").remove();
   }
 
   // Load an instance of the AjaxTemplating class.
