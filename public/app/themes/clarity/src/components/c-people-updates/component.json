@@ -1,0 +1,27 @@
+{
+    "name": "People promise updates listing page",
+    "class": "c-people-updates",
+    "version": "1.0.0",
+    "creator": {
+        "name": "David Brown",
+        "github_username": "earthlingdavey"
+    },
+    "description": "A listing page to show people promise updates from the previous three months.",
+    "standard_or_universal": "universal",
+    "parents": "",
+    "children": "c-people-update-article-item",
+    "notes": {
+        "backend": "",
+        "frontend": ""
+    },
+    "has_js": false,
+    "integrated": false,
+    "is_working": false,
+    "example_link": "https://intranet.justice.gov.uk/",
+    "used_on_templates": ["People Promise archive", "People Promise highlights"],
+    "changelog": [{
+        "date": "2/4/2026",
+        "author": "David Brown",
+        "description": "Created component"
+    }]
+}

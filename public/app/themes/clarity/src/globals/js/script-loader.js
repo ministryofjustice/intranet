@@ -5,6 +5,7 @@
  */
 
 // component script registration
+import "../../components/c-content-filter/content-filter.js";
 import "../../components/c-feedback-form/feedback-form.js";
 import "../../components/c-gallery-lightbox/feature-video.js";
 import "../../components/c-left-hand-menu/left-hand-menu.js";
@@ -36,6 +37,7 @@ jQuery(function ($) {
     $('.c-news-list > .js-article-item').moji_equaliser();
 
     // Load component scripts
+    $('.js-content-filter').mojContentFilter();
     $('.js-tabbed-content-container').mojTabbedContent();
     $('.js-reveal').moji_feedbackForm();
     $('.js-blog-content-ajaxfilter').moji_ajaxFilter();

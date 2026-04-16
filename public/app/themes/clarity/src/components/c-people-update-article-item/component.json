@@ -1,0 +1,27 @@
+{
+    "name": "People Update Article Item",
+    "class": "c-people-update-article-item",
+    "version": "1.0.0",
+    "creator": {
+        "name": "David Brown",
+        "github_username": "earthlingdavey"
+    },
+    "description": "A single article item for the people-update post type",
+    "standard_or_universal": "universal",
+    "parents": "",
+    "children": "No Child components",
+    "notes": {
+        "backend": "",
+        "frontend": ""
+    },
+    "has_js": false,
+    "integrated": false,
+    "is_working": false,
+    "example_link": "https://intranet.justice.gov.uk/",
+    "used_on_templates": ["People Promise archive", "People Promise highlights"],
+    "changelog": [{
+        "date": "2/4/2026",
+        "author": "David Brown",
+        "description": "Created component"
+    }]
+}
