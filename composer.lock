@@ -497,16 +497,16 @@
         },
         {
             "name": "deliciousbrains/wp-amazon-s3-and-cloudfront",
-            "version": "3.3.0",
+            "version": "3.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/deliciousbrains/wp-amazon-s3-and-cloudfront.git",
-                "reference": "8c3eb38dd21a90ffc242d169fafee83898dcf24f"
+                "reference": "97c81d1735fced6e8a32c2385c3ef25095dc260c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/deliciousbrains/wp-amazon-s3-and-cloudfront/zipball/8c3eb38dd21a90ffc242d169fafee83898dcf24f",
-                "reference": "8c3eb38dd21a90ffc242d169fafee83898dcf24f",
+                "url": "https://api.github.com/repos/deliciousbrains/wp-amazon-s3-and-cloudfront/zipball/97c81d1735fced6e8a32c2385c3ef25095dc260c",
+                "reference": "97c81d1735fced6e8a32c2385c3ef25095dc260c",
                 "shasum": ""
             },
             "require": {
@@ -530,9 +530,9 @@
             ],
             "support": {
                 "issues": "https://github.com/deliciousbrains/wp-amazon-s3-and-cloudfront/issues",
-                "source": "https://github.com/deliciousbrains/wp-amazon-s3-and-cloudfront/tree/3.3.0"
+                "source": "https://github.com/deliciousbrains/wp-amazon-s3-and-cloudfront/tree/3.3.1"
             },
-            "time": "2026-02-03T10:23:45+00:00"
+            "time": "2026-04-15T13:13:15+00:00"
         },
         {
             "name": "doctrine/annotations",
