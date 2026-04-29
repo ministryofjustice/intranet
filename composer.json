@@ -68,7 +68,7 @@
         "roots/wp-config": "^1.0",
         "wpackagist-plugin/classic-editor": "^1.6.0",
         "wpackagist-plugin/totalpoll-lite": "^4.10.0",
-        "wpackagist-plugin/co-authors-plus": "^3.5.0",
+        "wpackagist-plugin/co-authors-plus": "^4.0.1",
         "wpackagist-plugin/wp-document-revisions": "^3.6.1",
         "wpengine/advanced-custom-fields-pro": "^6.3.5",
         "ministryofjustice/like-button-for-wordpress": "dev-main",
