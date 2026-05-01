@@ -19,7 +19,7 @@ FROM composer:2@sha256:dc292c5c0f95f526b051d4c341bf08e7e2b18504c74625e3203d7f123
 #    ▄▄  ▄▄     █▀▀  █▀█  █▀▄▀█     ▄▄  ▄▄    #
 #    ░░  ░░     █▀░  █▀▀  █░▀░█     ░░  ░░    #
 
-FROM ministryofjustice/wordpress-base-fpm:0.0.7@sha256:397aa5f03e34a3c16a7f620a5518b7d4bf40ba8ede3fa11c0bf62d12e6ea0d18 AS base-fpm
+FROM ministryofjustice/wordpress-base-fpm:0.0.8@sha256:c79c88d84a02b8999336bcbda8b3e5077b453a2446940fe916cd9f95ce8fa849 AS base-fpm
 
 # Switch to the alpine's default user, for installing packages
 USER root
@@ -85,7 +85,7 @@ RUN printf "#!/bin/sh\\nSETFATTR=true /usr/bin/abuild -F \"\$@\"\\n" > /usr/loca
     cd packages && ls -l
 
 # Use --platform=linux/amd64 flag and match version numbers to ensure module and runtime compatibility.
-FROM --platform=linux/amd64 nginxinc/nginx-unprivileged:1.29.5-alpine@sha256:f99cc61bf1719f30230602036314ff6ba5dcede8965c5ed3ded71b8bbced3723 AS base-nginx
+FROM --platform=linux/amd64 nginxinc/nginx-unprivileged:1.29.8-alpine@sha256:f35982400455b4f359083ba9d1ef573fbbe4221a6a8a194dc7a14beb4e2cd3dc AS base-nginx
 
 USER root
 
