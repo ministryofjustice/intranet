@@ -19,7 +19,7 @@ FROM composer:2@sha256:dc292c5c0f95f526b051d4c341bf08e7e2b18504c74625e3203d7f123
 #    ▄▄  ▄▄     █▀▀  █▀█  █▀▄▀█     ▄▄  ▄▄    #
 #    ░░  ░░     █▀░  █▀▀  █░▀░█     ░░  ░░    #
 
-FROM ministryofjustice/wordpress-base-fpm:0.0.7@sha256:397aa5f03e34a3c16a7f620a5518b7d4bf40ba8ede3fa11c0bf62d12e6ea0d18 AS base-fpm
+FROM ministryofjustice/wordpress-base-fpm:0.0.8@sha256:c79c88d84a02b8999336bcbda8b3e5077b453a2446940fe916cd9f95ce8fa849 AS base-fpm
 
 # Switch to the alpine's default user, for installing packages
 USER root
