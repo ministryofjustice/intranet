@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9aad8e464ad4640215246f7e4e715705",
+    "content-hash": "7e58fe597cb2c4cd0252ac3df8cd5779",
     "packages": [
         {
             "name": "alphagov/notifications-php-client",
@@ -4163,15 +4163,15 @@
         },
         {
             "name": "wpackagist-plugin/debug-bar-elasticpress",
-            "version": "3.1.1",
+            "version": "4.0.0",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/debug-bar-elasticpress/",
-                "reference": "tags/3.1.1"
+                "reference": "tags/4.0.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/debug-bar-elasticpress.3.1.1.zip"
+                "url": "https://downloads.wordpress.org/plugin/debug-bar-elasticpress.4.0.0.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"

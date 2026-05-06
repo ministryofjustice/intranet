@@ -80,7 +80,7 @@
         "alphagov/notifications-php-client": "^7.0",
         "wpackagist-plugin/query-monitor": "^4.0",
         "wpackagist-plugin/debug-bar": "^1.1",
-        "wpackagist-plugin/debug-bar-elasticpress": "^3.1",
+        "wpackagist-plugin/debug-bar-elasticpress": "^4.0",
         "stayallive/wp-sentry": "^8.3.1",
         "ext-mysqli": "*",
         "ext-openssl": "*",
