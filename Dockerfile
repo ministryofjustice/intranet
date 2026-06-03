@@ -14,7 +14,7 @@
 #░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
 
 
-FROM composer:2.9.8@sha256:b09bccd91a78fe8a9ab4b33d707b862e8fe54fec17782e32683ad2a69c46867d AS composer
+FROM composer:2.10.0@sha256:1b73755de4f19775ba6087fd5313664493e06fab72b6fc27dc2044e87bb7c4c3 AS composer
 
 #    ▄▄  ▄▄     █▀▀  █▀█  █▀▄▀█     ▄▄  ▄▄    #
 #    ░░  ░░     █▀░  █▀▀  █░▀░█     ░░  ░░    #
@@ -85,7 +85,7 @@ RUN printf "#!/bin/sh\\nSETFATTR=true /usr/bin/abuild -F \"\$@\"\\n" > /usr/loca
     cd packages && ls -l
 
 # Use --platform=linux/amd64 flag and match version numbers to ensure module and runtime compatibility.
-FROM --platform=linux/amd64 nginxinc/nginx-unprivileged:1.29.8-alpine@sha256:53ffe9cc959fc72aeed04a85d517099a42bfcc5f5f0b07a2b1048e08abf2f1eb AS base-nginx
+FROM --platform=linux/amd64 nginxinc/nginx-unprivileged:1.31.1-alpine@sha256:02c985e54bee40c14c6de677226f394d96c661944185d407e77ca73602f15e1b AS base-nginx
 
 USER root
 
