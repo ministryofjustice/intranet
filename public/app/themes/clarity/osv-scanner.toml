@@ -15,3 +15,9 @@ reason = "The vulnerability only applies to developers running webpack‑dev‑s
 # https://osv.dev/list?q=GHSA-9jgg-88mc-972h
 id = "GHSA-9jgg-88mc-972h"
 reason = "The vulnerability only impacts developers running webpack-dev-server locally with a non-Chromium browser, and the only asset at risk is source code that is already publicly available. For an open-source project, it poses no meaningful security risk."
+
+[[IgnoredVulns]]
+# uuid: Missing buffer bounds check in v3/v5/v6 when buf is provided
+# https://osv.dev/vulnerability/GHSA-w5hq-g745-h8pq
+id = "GHSA-w5hq-g745-h8pq"
+reason = "uuid is a transitive dependency of node-notifier and sockjs (build tooling only). It is not used directly in application source code and is never shipped to users. The vulnerability requires calling v3(), v5(), or v6() with a caller-provided buffer at an out-of-range offset, which does not occur in this context. It poses no meaningful security risk to your project."
