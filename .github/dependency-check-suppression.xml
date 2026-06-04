@@ -39,4 +39,19 @@
         <packageUrl>pkg:npm/elliptic@6.6.1</packageUrl>
         <vulnerabilityName>GHSA-848j-6mx2-7j84</vulnerabilityName>
     </suppress>
+    <suppress until="2027-06-03Z">
+        <notes>
+            <![CDATA[
+      file name: uuid:8.3.2
+      Also suppressed in public/app/themes/clarity/osv-scanner.toml.
+      uuid is a transitive dependency of node-notifier and sockjs (build tooling only).
+      It is not used directly in application source code and is never shipped to users.
+      The vulnerability requires calling v3(), v5(), or v6() with a caller-provided
+      buffer at an out-of-range offset, which does not occur in this context.
+      It poses no meaningful security risk to your project.
+      ]]>
+        </notes>
+        <packageUrl>pkg:npm/uuid@8.3.2</packageUrl>
+        <vulnerabilityName>GHSA-w5hq-g745-h8pq</vulnerabilityName>
+    </suppress>
 </suppressions>
