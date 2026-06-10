@@ -279,7 +279,7 @@ COPY --from=assets-build --chown=nginx:nginx /node/style.css public/app/themes/c
 #  █▄▄  █▀▄  █▄█  █░▀█
 
 
-FROM alpine:3.23@sha256:5b10f432ef3da1b8d4c7eb6c487f2f5a8f096bc91145e68878dd4a5019afde11 AS build-cron
+FROM alpine:3.24@sha256:8ddefa941e689fc29abcdeb8dae3b3c6d139cc08ce9a52633931160701770685 AS build-cron
 
 #  ▒█▀▀█ █▀▀█ █▀▀█ █▀▀█ █▀▀▄ █▀▀ █▀▀█ 　 █
 #  ▒█░░░ █▄▄▀ █░░█ █░░█ █░░█ █▀▀ █▄▄▀ 　 ▀
@@ -324,7 +324,7 @@ ENTRYPOINT ["/bin/sh", "-c", "cron-start"]
 #  █▀▀ █▄█ ▄█ █▀█ ██▄ █▀▄
 
 
-FROM alpine:3.23@sha256:5b10f432ef3da1b8d4c7eb6c487f2f5a8f096bc91145e68878dd4a5019afde11 AS build-s3-push
+FROM alpine:3.24@sha256:8ddefa941e689fc29abcdeb8dae3b3c6d139cc08ce9a52633931160701770685 AS build-s3-push
 
 ARG user=s3pusher
 RUN addgroup --gid 3001 ${user} && adduser -D -G ${user} -g "${user} user" -u 3001 ${user}
