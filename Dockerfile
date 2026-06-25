@@ -64,7 +64,7 @@ WORKDIR /var/www/html
 #    ░░  ░░     █░▀█  █▄█  █  █░▀█  █░█     ░░  ░░    #
 
 # Use --platform=linux/amd64 flag and match version numbers to ensure module and runtime compatibility.
-FROM --platform=linux/amd64  nginx:1.31.1-alpine@sha256:8b1e78743a03dbb2c95171cc58639fef29abc8816598e27fb910ed2e621e589a AS nginx-module-builder
+FROM --platform=linux/amd64  nginx:1.31.2-alpine@sha256:54f2a904c251d5a34adf545a72d32515a15e08418dae0266e23be2e18c66fefa AS nginx-module-builder
 
 SHELL ["/bin/ash", "-exo", "pipefail", "-c"]
 
