@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9aad8e464ad4640215246f7e4e715705",
+    "content-hash": "ea0acb395f79dd0b3971d6eef7fc0477",
     "packages": [
         {
             "name": "alphagov/notifications-php-client",
@@ -4137,15 +4137,15 @@
         },
         {
             "name": "wpackagist-plugin/co-authors-plus",
-            "version": "3.6.1",
+            "version": "4.0.2",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/co-authors-plus/",
-                "reference": "tags/3.6.1"
+                "reference": "tags/4.0.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/co-authors-plus.3.6.1.zip"
+                "url": "https://downloads.wordpress.org/plugin/co-authors-plus.4.0.2.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
