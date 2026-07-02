@@ -25,6 +25,8 @@ jobs:
       pull-requests: write
       id-token: write
     secrets: inherit
+    with:
+      pipeline: ${{ github.event.ref == 'refs/heads/dev' && 'dev' || 'main' }}
 
   get_ip_ranges:
     name: "IP Ranges"
@@ -50,6 +52,7 @@ jobs:
       registry: ${{ needs.image.outputs.registry }}
       ips_formatted: ${{ needs.get_ip_ranges.outputs.ips_formatted }}
       modsec_config: ${{ needs.modsec_config.outputs.development }}
+      pipeline: dev
     permissions:
       contents: read
       pull-requests: write
