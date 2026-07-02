@@ -351,10 +351,12 @@ This application is deployed to MoJ Cloud Platform, using GitHub Actions.
 The relevant workflows can be found at:
 
 - [.github/workflows/integration.yml](./.github/workflows/integration.yml)
+- [.github/workflows/integration-qa.yml](/.github/workflows/integration-qa.yml)
 - [.github/workflows/ip-ranges-configure.yml](/.github/workflows/ip-ranges-configure.yml)
 - [.github/workflows/modsec-config.yml](/.github/workflows/modsec-config.yml)
 - [.github/workflows/build.yml](/.github/workflows/build.yml)
 - [.github/workflows/deploy.yml](/.github/workflows/deploy.yml)
+- [.github/workflows/sync-dev-with-main.yml](/.github/workflows/sync-dev-with-main.yml)
 
 Kubernetes manifests are located in the [deploy](/deploy) directory.
 
@@ -368,6 +370,32 @@ There is a sub directory for each of the Cloud Platform environments:
 > [!NOTE]
 > The demo environment has been used to offer a quality assurance (QA) step for branch deployments (pull_requests).
 > It is not used for production deployments and is not a staging environment.
+
+### Branch to environment mapping
+
+Deployments are triggered from [integration.yml](./workflows/integration.yml) (pushes) and
+[integration-qa.yml](./workflows/integration-qa.yml) (pull requests):
+
+| Trigger | Environment(s) | Pipeline tag |
+| --- | --- | --- |
+| Push to `dev` | `development` | `dev` |
+| Push to `main` | `staging` then `production` | `main` |
+| Pull request (non-draft) | `demo` (QA) | `qa` |
+
+The `development` and `production` environments have GitHub
+[deployment branch policies](https://github.com/ministryofjustice/intranet/settings/environments) that
+restrict which branch may deploy to them — `dev` for `development`, `main` for `staging`/`production`.
+
+The pipeline tag is baked into the built image tags (`<component>-<pipeline>-<sha>`) so each pipeline's
+images are retained separately by the ECR lifecycle policy, preventing `dev` deploys from rotating
+`main` (staging/production) images out of the registry.
+
+### Syncing dev with main
+
+`dev` is the deployment branch for the `development` environment. To bring it back in line with `main`
+(for example after a hotfix has gone straight to `main`), run the
+[Sync dev with main](/.github/workflows/sync-dev-with-main.yml) workflow manually
+(`workflow_dispatch`). It opens (or updates) a PR whose merge makes `dev` identical to `main`.
 
 ## Azure Setup
 
