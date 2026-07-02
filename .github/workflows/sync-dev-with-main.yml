@@ -1,0 +1,64 @@
+name: "Sync dev with main"
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  open_sync_pr:
+    name: "Open PR: main -> dev"
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          fetch-depth: 0
+
+      - name: "Create or update PR"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          BASE="dev"
+          HEAD="main"
+          SYNC_BRANCH="chore/sync-dev-with-main"
+
+          # Bail out if dev already matches main exactly.
+          if git diff --quiet "origin/${BASE}" "origin/${HEAD}"; then
+            echo "dev already matches main - nothing to do."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Build a branch that sits on top of dev but whose tree is
+          # exactly main's. Merging it makes dev identical to main,
+          # regardless of the merge strategy used.
+          git checkout -B "$SYNC_BRANCH" "origin/${BASE}"
+          git read-tree -m -u "origin/${HEAD}"
+          git commit -m "Sync dev with main"
+          git push --force origin "$SYNC_BRANCH"
+
+          # Reuse the existing PR if one is already open (the force-push
+          # above already updated it); otherwise open a new one.
+          EXISTING=$(gh pr list --base "$BASE" --head "$SYNC_BRANCH" --state open --json number --jq '.[0].number // empty')
+          if [ -n "$EXISTING" ]; then
+            URL="${{ github.server_url }}/${{ github.repository }}/pull/${EXISTING}"
+            echo "PR already open: ${URL}"
+          else
+            URL=$(gh pr create \
+              --base "$BASE" \
+              --head "$SYNC_BRANCH" \
+              --title "Sync dev with main" \
+              --body "Automated PR to bring \`dev\` in line with \`main\`. Merging this makes \`dev\` identical to \`main\`. Triggered manually via the *Sync dev with main* workflow.")
+            echo "Opened PR: ${URL}"
+          fi
+
+          echo "${URL}" >> "$GITHUB_STEP_SUMMARY"
