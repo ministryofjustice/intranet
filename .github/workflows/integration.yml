@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - 'main'
+      - 'dev'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -18,7 +19,6 @@ permissions:
 jobs:
   image:
     name: "Image"
-    if: github.event.ref == 'refs/heads/main'
     uses: ./.github/workflows/build.yml
     permissions:
       contents: read
@@ -28,7 +28,6 @@ jobs:
 
   get_ip_ranges:
     name: "IP Ranges"
-    if: github.event.ref == 'refs/heads/main'
     uses: ./.github/workflows/ip-ranges-configure.yml
     permissions:
       contents: read
@@ -36,7 +35,6 @@ jobs:
 
   modsec_config:
     name: "Modsec"
-    if: github.event.ref == 'refs/heads/main'
     uses: ./.github/workflows/modsec-config.yml
     permissions:
       contents: read
@@ -44,7 +42,7 @@ jobs:
 
   deploy_dev:
     name: "Development"
-    if: github.event.ref == 'refs/heads/main'
+    if: github.event.ref == 'refs/heads/dev'
     uses: ./.github/workflows/deploy.yml
     needs: [image, get_ip_ranges, modsec_config]
     with:
@@ -59,7 +57,7 @@ jobs:
 
   deploy_staging:
     name: "Staging"
-    needs: [image, deploy_dev, get_ip_ranges, modsec_config]
+    needs: [image, get_ip_ranges, modsec_config]
     if: github.event.ref == 'refs/heads/main'
     uses: ./.github/workflows/deploy.yml
     with:
