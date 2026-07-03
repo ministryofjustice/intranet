@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b212015ed497072bae6a3cfa75e8432f",
+    "content-hash": "12e3d47663cfab65718e8a638be2234e",
     "packages": [
         {
             "name": "alphagov/notifications-php-client",
@@ -4144,24 +4144,6 @@
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/query-monitor/"
-        },
-        {
-            "name": "wpackagist-plugin/totalpoll-lite",
-            "version": "4.11.0",
-            "source": {
-                "type": "svn",
-                "url": "https://plugins.svn.wordpress.org/totalpoll-lite/",
-                "reference": "tags/4.11.0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/totalpoll-lite.4.11.0.zip"
-            },
-            "require": {
-                "composer/installers": "^1.0 || ^2.0"
-            },
-            "type": "wordpress-plugin",
-            "homepage": "https://wordpress.org/plugins/totalpoll-lite/"
         },
         {
             "name": "wpackagist-plugin/wp-document-revisions",
