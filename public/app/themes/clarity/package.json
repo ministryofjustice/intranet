@@ -27,7 +27,7 @@
         "node-notifier": "^10.0.1"
     },
     "devDependencies": {
-        "cssnano": "7.1.9",
+        "cssnano": "8.0.1",
         "globby": "16.2.0",
         "inquirer": "^8.2.7",
         "jeet": "^7.2.0",
@@ -37,7 +37,7 @@
         "resolve-url-loader": "^5.0.0",
         "rupture": "^0.7.1",
         "sass": "^1.100.0",
-        "sass-loader": "16.0.8",
+        "sass-loader": "17.0.0",
         "stylus": "0.63.0",
         "stylus-loader": "7.1.2"
     },
