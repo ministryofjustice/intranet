@@ -1620,16 +1620,16 @@
         },
         {
             "name": "ministryofjustice/wp-moj-components",
-            "version": "3.5.2",
+            "version": "3.5.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ministryofjustice/wp-moj-components.git",
-                "reference": "3fc07fbc127f6e3b6450342bd11bbaa627aac0e4"
+                "reference": "efc98b8cad54fde6a5c271d9fecba80749ba8fde"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ministryofjustice/wp-moj-components/zipball/3fc07fbc127f6e3b6450342bd11bbaa627aac0e4",
-                "reference": "3fc07fbc127f6e3b6450342bd11bbaa627aac0e4",
+                "url": "https://api.github.com/repos/ministryofjustice/wp-moj-components/zipball/efc98b8cad54fde6a5c271d9fecba80749ba8fde",
+                "reference": "efc98b8cad54fde6a5c271d9fecba80749ba8fde",
                 "shasum": ""
             },
             "require": {
@@ -1685,10 +1685,10 @@
             ],
             "description": "A plugin to introduce global functions to a collection of WP sites",
             "support": {
-                "source": "https://github.com/ministryofjustice/wp-moj-components/tree/3.5.2",
+                "source": "https://github.com/ministryofjustice/wp-moj-components/tree/3.5.3",
                 "issues": "https://github.com/ministryofjustice/wp-moj-components/issues"
             },
-            "time": "2025-10-23T15:19:57+00:00"
+            "time": "2026-07-03T13:17:58+00:00"
         },
         {
             "name": "ministryofjustice/wp-moj-elasticsearch",
