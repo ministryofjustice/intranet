@@ -51,7 +51,7 @@ add_filter('rest_request_after_callbacks', function ($response, $handler, $reque
     }
     foreach ($response->get_error_codes() as $code) {
         $data = $response->get_error_data($code);
-        if (!empty($data['skip-log'])) {
+        if (is_array($data) && !empty($data['skip-log'])) {
             continue;
         }
         $message = $response->get_error_message($code);
