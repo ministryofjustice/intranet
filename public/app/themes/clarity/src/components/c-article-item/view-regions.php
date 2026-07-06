@@ -28,9 +28,7 @@ $thumbnail_url  = $thumbnail[0];
     } else {
         ?>
         <a href="<?= get_the_permalink($id) ?>" class="thumb_image">
-          <img src="
-          <?= $authors[0]['thumbnail_url'] ?>
-        " alt="<?= $alt_text ?>">
+          <img src="<?= esc_url($authors[0]['thumbnail_url'] ?? '') ?>" alt="<?= esc_attr($alt_text ?? '') ?>">
         </a>
         <?php
     }

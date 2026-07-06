@@ -11,7 +11,7 @@ if ($campaign_on_off_button) { ?>
 <section class="c-campaign-hub-banner">
     
     <a href="<?= esc_url($campaign_hub_banner_url) ?>">
-    <img src="<?= $campaign_hub_banner[0] ?? '' ?>" class="campaign-banner" alt="<?= esc_attr($campaign_hub_banner_alt_text); ?>" />
+    <img src="<?= esc_url($campaign_hub_banner[0] ?? '') ?>" class="campaign-banner" alt="<?= esc_attr($campaign_hub_banner_alt_text ?? '') ?>" />
     </a>
     
 </section>

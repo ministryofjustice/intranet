@@ -31,60 +31,38 @@ class SynergyFeedApi
     use User;
     use Utils;
 
-    public $agencies = ['all'];
-
-    public $content_types = ['all'];
-
-    public $feeds_response = [];
-
-
     public function __construct()
     {
-        // Initialise the agencies and content types properties.
-        $this->initProperties();
-
         // Register the REST API routes.
         add_action('rest_api_init', [$this, 'registerRoutes']);
 
         // Allow a subset of users to create an application password for themselves.
-        add_filter('rest_authentication_errors', [$this, 'allowUserRestRouteForAdmins'], 11);
+        add_filter('rest_authentication_errors', [__CLASS__, 'allowUserRestRouteForAdmins'], 11);
     }
 
 
     /**
-     * Initialise the properties of the SynergyFeedApi class.
-     * 
-     * This method populates the `agencies` and `content_types` properties with the values from the `BASE_URIS` constant.
-     * 
-     * @return void
+     * Get the feeds information for the Synergy API.
+     *
+     * @return array The feeds information.
      */
-    public function initProperties(): void
+    public static function getFeeds()
     {
         // Initialise the feeds endpoint response, with some default values.
-        $this->feeds_response = [
+        $feeds_response = [
             'timestamp' => date(\DateTime::ATOM),
             'items_count' => 0,
             'items' => [],
         ];
 
-        foreach ($this::BASE_URIS as $uri => $data) {
-            // Add the agency to the enum for the 'agency' parameter in the REST API route.
-            if (!in_array($data['agency'], $this->agencies)) {
-                $this->agencies[] = $data['agency'];
-            }
-
-            // Add the content type to the enum for the 'content_type' parameter in the REST API route.
-            if (!in_array($data['content_type'], $this->content_types)) {
-                $this->content_types[] = $data['content_type'];
-            }
-
+        foreach (self::BASE_URIS as $uri => $data) {
             $query = http_build_query([
                 'agency' => $data['agency'],
                 'content_type' => $data['content_type'],
             ]);
 
             // Add this entry to the feeds response.
-            $this->feeds_response['items'][] = [
+            $feeds_response['items'][] = [
                 'feed_csv' => get_home_url(null, '/wp-json/synergy/v1/feed.csv?' . $query),
                 'feed_json' => get_home_url(null, '/wp-json/synergy/v1/feed?' . $query),
                 'base_permalink' => get_home_url(null, $uri),
@@ -93,7 +71,9 @@ class SynergyFeedApi
         }
 
         // Count the items in the feeds response.
-        $this->feeds_response['items_count'] = count($this->feeds_response['items']);
+        $feeds_response['items_count'] = count($feeds_response['items']);
+
+        return $feeds_response;
     }
 
 
@@ -107,11 +87,11 @@ class SynergyFeedApi
      * @param string $content_type The content type to match.
      * @return array|null The base URI array(s) if found, null otherwise.
      */
-    public function getBaseUrisFromProperties($agency, $content_type): array|null
+    public static function getBaseUrisFromProperties($agency, $content_type): array|null
     {
         // Find the base URI that matches the agency and content type.
         $filtered_uris = array_filter(
-            $this::BASE_URIS,
+            self::BASE_URIS,
             function ($base_uri) use ($agency, $content_type) {
                 $agency_match = 'all' ===  $agency || $agency === $base_uri['agency'];
                 $content_type_match = 'all' === $content_type || $content_type === $base_uri['content_type'];
@@ -148,7 +128,7 @@ class SynergyFeedApi
 
         $content_type = $request->get_param('content_type');
 
-        $base_uris = $this->getBaseUrisFromProperties($agency, $content_type);
+        $base_uris = self::getBaseUrisFromProperties($agency, $content_type);
 
         // Construct a request ID, this will be used in the CSV filename to help identify the request.
         $request_id = "{$agency}_{$content_type}";
@@ -196,7 +176,7 @@ class SynergyFeedApi
             $data['items'][] = $this->formatPagePayload($page, $agency, $content_type, $format, $breadcrumbs_from_parent);
 
             // Get all descendants of the page.
-            $descendants = $this->getAllDescendants($page->ID);
+            $descendants = self::getAllDescendants($page->ID);
 
             // Map over the descendants and format them.
             $descendants_formatted = array_map(function ($descendant) use ($format, $agency, $content_type, $breadcrumbs_from_parent) {
@@ -213,7 +193,7 @@ class SynergyFeedApi
         // Loop over the pages, and add documents to the items.
         foreach ($data['items'] as &$item) {
             // Get the documents from the content of the page.
-            $document_ids = $this->getDocumentsFromContent(get_home_url(), $item['content']);
+            $document_ids = self::getDocumentsFromContent(get_home_url(), $item['content']);
 
             // Add document_ids to a linked documents column
             $item['linked_ids'] = $document_ids;
@@ -221,7 +201,7 @@ class SynergyFeedApi
             $breadcrumbs_from_parent = $item['breadcrumbs'];
 
             foreach ($document_ids as $document_id) {
-                $exists_in_document_formatted = $this->arrayFind(
+                $exists_in_document_formatted = self::arrayFind(
                     $documents_formatted,
                     fn($i) => $i['id'] === $document_id
                 );
@@ -406,7 +386,7 @@ class SynergyFeedApi
      * @param int $page_id The ID of the page to get descendants for.
      * @return array An array of page objects representing the descendants.
      */
-    public function getAllDescendants(int $page_id): array
+    public static function getAllDescendants(int $page_id): array
     {
         $get_pages_args = [
             'child_of' => $page_id,

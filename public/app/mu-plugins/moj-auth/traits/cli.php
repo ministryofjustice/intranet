@@ -8,6 +8,7 @@
  * 
  * Usage:
  *  run: wp gen-jwt intranet-archive
+ *       wp gen-jwt gcoe
  *       wp gen-jwt synergy
  */
 
@@ -21,6 +22,7 @@ trait AuthCli
 
     const VALID_ROLES = [
         'intranet-archive',
+        'gcoe',
         'synergy',
     ];
 
@@ -39,7 +41,7 @@ trait AuthCli
     }
 
     /**
-     * Generate a JWT token for the intranet-archive or synergy service.
+     * Generate a JWT token for the intranet-archive, GCoE, or Synergy service.
      * 
      * @param array $args The arguments passed to the command.
      * @return void

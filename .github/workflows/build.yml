@@ -21,29 +21,18 @@ jobs:
     permissions:
       id-token: write
       contents: read
-      pull-requests: write
     steps:
       - name: "Checkout"
-        uses: actions/checkout@v4
-
-      - name: "Comment PR to indicate build start"
-        if: github.event_name == 'pull_request'
-        uses: thollander/actions-comment-pull-request@v3
-        with:
-          message: |
-            The QA environment is being updated...
-          comment-tag: to_delete_on_completion
-          mode: delete-on-completion
-          reactions: eyes
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
 
       - name: "Configuring AWS credentials"
-        uses: aws-actions/configure-aws-credentials@v4
+        uses: aws-actions/configure-aws-credentials@254c19bd240aabef8777f48595e9d2d7b972184b # v6.2.1
         with:
           role-to-assume: ${{ secrets.ECR_ROLE_TO_ASSUME }}
           aws-region: ${{ vars.ECR_REGION }}
 
       - name: "Logging into ECR"
-        uses: aws-actions/amazon-ecr-login@v2
+        uses: aws-actions/amazon-ecr-login@d539f0932e70871a027e9d5a9d8fc38589180a64 # v2.1.6
         id: ecr-login
 
       - name: "Build & Push to ECR"
@@ -72,19 +61,10 @@ jobs:
             --target build-s3-push .
 
           # ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
-
-          git clone https://github.com/ministryofjustice/kubernetes-pod-broadcaster /tmp/pod-broadcaster
-          cd /tmp/pod-broadcaster
-
-          docker image build \
-            -t $REGISTRY/$REPOSITORY:pod-broadcaster-$PIPELINE_TAG-$IMAGE_TAG .
-
-          # ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
           
           docker image push $REGISTRY/$REPOSITORY:fpm-$PIPELINE_TAG-$IMAGE_TAG
           docker image push $REGISTRY/$REPOSITORY:nginx-$PIPELINE_TAG-$IMAGE_TAG
           docker image push $REGISTRY/$REPOSITORY:s3-push-$PIPELINE_TAG-$IMAGE_TAG
-          docker image push $REGISTRY/$REPOSITORY:pod-broadcaster-$PIPELINE_TAG-$IMAGE_TAG
           
           # ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
 

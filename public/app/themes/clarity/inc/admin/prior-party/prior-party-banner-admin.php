@@ -172,6 +172,13 @@ class PriorPartyBannerAdmin
     public function filterValueByPostType(bool|null $value, int $post_id): null|bool
     {
         $post_type = get_post_type($post_id);
+
+        // If post type is a revision, get the parent post type.
+        // This could happen if the user has clicked to 
+        if ($parent_id = wp_is_post_revision($post_id)) {
+            $post_type = get_post_type($parent_id);
+        }
+
         $post_type_array = [
             'page',
             'note-from-jo',
@@ -264,7 +271,7 @@ class PriorPartyBannerAdmin
 
             // display the banner
             echo '<div class="prior-party-banner">
-                    <div class="prior-party-banner__text">' . $this->banner["banner_content"] . '</div>
+                    <div class="prior-party-banner__text">' . wp_strip_all_tags($this->banner["banner_content"]) . '</div>
                   </div>
                   <div class="prior-party-banner__dates">
                     <div class="banner__date start">Active: <span>' . $start->format($this->date_format) . '</span></div>
@@ -391,7 +398,7 @@ class PriorPartyBannerAdmin
             echo '<div class="ppb-banners__row" data-reference="' . $banner['reference'] . '">';
             echo '<div class="ppb-banner__col ppb-banners__title">
                     <div class="prior-party-banner">
-                        <div class="prior-party-banner__text">' . $banner['banner_content'] . '</div>
+                        <div class="prior-party-banner__text">' . wp_strip_all_tags($banner['banner_content']) . '</div>
                     </div>
                   </div>';
 

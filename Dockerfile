@@ -13,14 +13,13 @@
 #░░
 #░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
 
-ARG version_nginx=1.26.3
-ARG version_node=22
-ARG version_cron_alpine=3.19.1
+
+FROM composer:2.10.1@sha256:7725eb4545c438629ae8bde3ef0bb9a5038ef566126ad878442a69007242d267 AS composer
 
 #    ▄▄  ▄▄     █▀▀  █▀█  █▀▄▀█     ▄▄  ▄▄    #
 #    ░░  ░░     █▀░  █▀▀  █░▀░█     ░░  ░░    #
 
-FROM ministryofjustice/wordpress-base-fpm:latest AS base-fpm
+FROM ministryofjustice/wordpress-base-fpm:0.0.8@sha256:c79c88d84a02b8999336bcbda8b3e5077b453a2446940fe916cd9f95ce8fa849 AS base-fpm
 
 # Switch to the alpine's default user, for installing packages
 USER root
@@ -35,9 +34,9 @@ RUN mkdir /sock && \
     chown nginx:nginx /sock
 
 # Copy our init. script(s) and set them to executable
-COPY deploy/config/init/fpm-*.sh /usr/local/bin/docker-entrypoint.d/
+COPY bin/fpm-init.sh /usr/local/bin/
 
-RUN chmod +x /usr/local/bin/docker-entrypoint.d/*
+RUN chmod +x /usr/local/bin/fpm-init.sh
 
 # Copy our healthcheck scripts and set them to executable
 COPY bin/fpm-liveness.sh bin/fpm-readiness.sh bin/fpm-status.sh /usr/local/bin/fpm-health/
@@ -64,7 +63,8 @@ WORKDIR /var/www/html
 #    ▄▄  ▄▄     █▄░█  █▀▀  █  █▄░█  ▀▄▀     ▄▄  ▄▄    #
 #    ░░  ░░     █░▀█  █▄█  █  █░▀█  █░█     ░░  ░░    #
 
-FROM nginx:${version_nginx}-alpine AS nginx-module-builder
+# Use --platform=linux/amd64 flag and match version numbers to ensure module and runtime compatibility.
+FROM --platform=linux/amd64  nginx:1.31.2-alpine@sha256:54f2a904c251d5a34adf545a72d32515a15e08418dae0266e23be2e18c66fefa AS nginx-module-builder
 
 SHELL ["/bin/ash", "-exo", "pipefail", "-c"]
 
@@ -78,13 +78,14 @@ RUN printf "#!/bin/sh\\nSETFATTR=true /usr/bin/abuild -F \"\$@\"\\n" > /usr/loca
     git clone --branch ${NGINX_VERSION}-${PKG_RELEASE} https://github.com/nginx/pkg-oss.git pkg-oss && \
     mkdir -p /tmp/packages && \
     cd pkg-oss && \
-    /pkg-oss/build_module.sh -v $NGINX_VERSION -f -y -o /tmp/packages -n cachepurge https://github.com/nginx-modules/ngx_cache_purge/archive/2.5.3.tar.gz; \
+    /pkg-oss/build_module.sh -v $NGINX_VERSION -f -y -o /tmp/packages -n cachepurge https://github.com/nginx-modules/ngx_cache_purge/archive/2.5.6.tar.gz; \
     BUILT_MODULES="$BUILT_MODULES $(echo cachepurge | tr '[A-Z]' '[a-z]' | tr -d '[/_\-\.\t ]')"; \
     cd /tmp && ls -l; \
     echo "BUILT_MODULES=\"$BUILT_MODULES\"" > /tmp/packages/modules.env; \
     cd packages && ls -l
 
-FROM nginxinc/nginx-unprivileged:${version_nginx}-alpine AS base-nginx
+# Use --platform=linux/amd64 flag and match version numbers to ensure module and runtime compatibility.
+FROM --platform=linux/amd64 nginxinc/nginx-unprivileged:1.31.2-alpine@sha256:054e14f543eb688809d59ec2ad1644d1a61678e247c87a318ad605977eb37eaf AS base-nginx
 
 USER root
 
@@ -124,7 +125,7 @@ RUN apk add zip
 
 WORKDIR /var/www/html
 
-COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+COPY --from=composer /usr/bin/composer /usr/bin/composer
 
 VOLUME ["/sock"]
 # nginx
@@ -139,16 +140,6 @@ USER 101
 FROM base-nginx AS nginx-dev
 
 RUN echo "# This is a placeholder because the file is included in php-fpm.conf." > /etc/nginx/server_name.conf
-
-
-#  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
-
-#  ▀█▀  █▀▀  █▀  ▀█▀
-#  ░█░  ██▄  ▄█  ░█░
-
-FROM build-fpm AS test
-RUN make test
-
 
 
 
@@ -172,7 +163,7 @@ ARG ACF_PRO_PASS
 ARG AS3CF_PRO_USER
 ARG AS3CF_PRO_PASS
 
-COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+COPY --from=composer /usr/bin/composer /usr/bin/composer
 
 COPY ./bin/composer-auth.sh ./bin/composer-post-install.sh ./bin/
 
@@ -198,7 +189,7 @@ RUN mkdir -p ./vendor-assets && \
 #  █▀█  ▄█  ▄█  ██▄  ░█░  ▄█
 
 
-FROM node:${version_node}-alpine AS assets-build
+FROM node:25-alpine3.23@sha256:bdf2cca6fe3dabd014ea60163eca3f0f7015fbd5c7ee1b0e9ccb4ced6eb02ef4 AS assets-build
 
 WORKDIR /node
 COPY ./public/app/themes/clarity /node/
@@ -242,6 +233,17 @@ ARG IMAGE_TAG
 ENV IMAGE_TAG=$IMAGE_TAG
 
 
+
+#  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
+
+#  ▀█▀  █▀▀  █▀  ▀█▀
+#  ░█░  ██▄  ▄█  ░█░
+
+FROM build-fpm AS test
+RUN make test
+
+
+
 #  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
 
 #  █▄░█  █▀▀  █  █▄░█  ▀▄▀
@@ -277,7 +279,7 @@ COPY --from=assets-build --chown=nginx:nginx /node/style.css public/app/themes/c
 #  █▄▄  █▀▄  █▄█  █░▀█
 
 
-FROM alpine:${version_cron_alpine} AS build-cron
+FROM alpine:3.24@sha256:28bd5fe8b56d1bd048e5babf5b10710ebe0bae67db86916198a6eec434943f8b AS build-cron
 
 #  ▒█▀▀█ █▀▀█ █▀▀█ █▀▀█ █▀▀▄ █▀▀ █▀▀█ 　 █
 #  ▒█░░░ █▄▄▀ █░░█ █░░█ █░░█ █▀▀ █▄▄▀ 　 ▀
@@ -322,7 +324,7 @@ ENTRYPOINT ["/bin/sh", "-c", "cron-start"]
 #  █▀▀ █▄█ ▄█ █▀█ ██▄ █▀▄
 
 
-FROM alpine:${version_cron_alpine} AS build-s3-push
+FROM alpine:3.24@sha256:28bd5fe8b56d1bd048e5babf5b10710ebe0bae67db86916198a6eec434943f8b AS build-s3-push
 
 ARG user=s3pusher
 RUN addgroup --gid 3001 ${user} && adduser -D -G ${user} -g "${user} user" -u 3001 ${user}
@@ -338,6 +340,10 @@ USER 3001
 
 # Go home...
 WORKDIR /home/s3pusher
+
+# Create .aws directory for AWS CLI configuration and a tmp directory for other temp files.
+# This will be the only writable location in the read-only container.
+RUN mkdir -p .aws && mkdir -p tmp
 
 # Grab assets for pushing to s3
 COPY --from=build-fpm-composer /var/www/html/vendor-assets ./

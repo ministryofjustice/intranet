@@ -34,10 +34,16 @@ us to test and debug our deployments to the Cloud Platform.
 
 ### Setup
 
-In a terminal, move to the directory where you want to install the application. You may then run:
+In a terminal, move to the directory where you want to install the application. 
+Then run one of the following commands to clone the repository:
 
 ```bash
+# With https
 git clone https://github.com/ministryofjustice/intranet.git
+# SSH
+git clone git@github.com:ministryofjustice/intranet.git
+# GitHub CLI
+gh repo clone ministryofjustice/intranet
 ```
 
 Change directories:
@@ -72,6 +78,11 @@ make
 
 During the `make` process, the Dory proxy will attempt to install. You will be guided though an installation, if needed.
 
+> [!IMPORTANT] 
+> You will be prompted for the ACF Pro license key, this is necessary for the composer install step.
+> Before continuing, edit the .env file at the root of the project. 
+> Update the line `ACF_PRO_LICENSE=license_placeholder` with the actual API key.
+
 ### Services
 
 You will have ten services running in total, all with different access points. They are:
@@ -83,6 +94,18 @@ http://intranet.docker/
 
 ```bash
 make bash
+```
+
+Next, you can import the local database with a WP_CLI import command.
+
+Place a copy of the local database at the root of the project, named `intranet-local.sql.gz.enc`, then run:
+
+```bash
+openssl enc -d -aes-256-cbc -pbkdf2 -iter 100000 -salt -in intranet-local.sql.gz.enc -out intranet-local.sql.gz
+
+gunzip intranet-local.sql.gz
+
+wp db import --defaults intranet-local.sql
 ```
 
 **Node**<br>
@@ -328,10 +351,12 @@ This application is deployed to MoJ Cloud Platform, using GitHub Actions.
 The relevant workflows can be found at:
 
 - [.github/workflows/integration.yml](./.github/workflows/integration.yml)
+- [.github/workflows/integration-qa.yml](/.github/workflows/integration-qa.yml)
 - [.github/workflows/ip-ranges-configure.yml](/.github/workflows/ip-ranges-configure.yml)
 - [.github/workflows/modsec-config.yml](/.github/workflows/modsec-config.yml)
 - [.github/workflows/build.yml](/.github/workflows/build.yml)
 - [.github/workflows/deploy.yml](/.github/workflows/deploy.yml)
+- [.github/workflows/sync-dev-with-main.yml](/.github/workflows/sync-dev-with-main.yml)
 
 Kubernetes manifests are located in the [deploy](/deploy) directory.
 
@@ -345,6 +370,32 @@ There is a sub directory for each of the Cloud Platform environments:
 > [!NOTE]
 > The demo environment has been used to offer a quality assurance (QA) step for branch deployments (pull_requests).
 > It is not used for production deployments and is not a staging environment.
+
+### Branch to environment mapping
+
+Deployments are triggered from [integration.yml](./workflows/integration.yml) (pushes) and
+[integration-qa.yml](./workflows/integration-qa.yml) (pull requests):
+
+| Trigger | Environment(s) | Pipeline tag |
+| --- | --- | --- |
+| Push to `dev` | `development` | `dev` |
+| Push to `main` | `staging` then `production` | `main` |
+| Pull request (non-draft) | `demo` (QA) | `qa` |
+
+The `development` and `production` environments have GitHub
+[deployment branch policies](https://github.com/ministryofjustice/intranet/settings/environments) that
+restrict which branch may deploy to them — `dev` for `development`, `main` for `staging`/`production`.
+
+The pipeline tag is baked into the built image tags (`<component>-<pipeline>-<sha>`) so each pipeline's
+images are retained separately by the ECR lifecycle policy, preventing `dev` deploys from rotating
+`main` (staging/production) images out of the registry.
+
+### Syncing dev with main
+
+`dev` is the deployment branch for the `development` environment. To bring it back in line with `main`
+(for example after a hotfix has gone straight to `main`), run the
+[Sync dev with main](/.github/workflows/sync-dev-with-main.yml) workflow manually
+(`workflow_dispatch`). It opens (or updates) a PR whose merge makes `dev` identical to `main`.
 
 ## Azure Setup
 
@@ -678,6 +729,13 @@ This means that your JWT token is valid, but there is an issue with the basic au
 
 Please ensure that you are using the correct username and application password in the Basic Auth headers of your request.
 
+### Access for the Governance Centre of Expertise service.
+
+Automated access for the GCoE team has not yet been implemented. To manually download an export for GCoE, follow the steps:
+
+- Generate a JWT with the role `gcoe`.
+- Set this value as a cookie in requests to the intranet.
+- Visit the endpoint https://intranet.justice.gov.uk/wp-json/synergy/v1/feed.csv
 
 <!-- License -->
 

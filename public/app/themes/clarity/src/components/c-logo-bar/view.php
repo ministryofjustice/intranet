@@ -27,7 +27,7 @@ if (!empty($header_logo)) {
   <div class="u-wrapper">
         <div class="u-wrapper__stack--left">
             <a href="/" rel="home">
-            <img class="c-logo-bar__logo" aria-hidden="true" src="<?= $logo ?>" alt="" />
+            <img class="c-logo-bar__logo" aria-hidden="true" src="<?= esc_url($logo) ?>" alt="" />
             <!--  We hide the full header if the user hasn't selected an agency  -->
             <!--  Default to 'Ministry of Justice' in the logo bar in this case  -->
             <span class="agency-title l-half-section"><?= $simpleHeader ? 'Ministry of Justice' : $activeAgency['label'] ?></span>

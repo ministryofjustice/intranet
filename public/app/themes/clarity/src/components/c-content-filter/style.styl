@@ -64,6 +64,66 @@
     }
   }
 
+  &.c-content-filter--people-promise {
+    margin-top: 2rem;
+    margin-bottom: 5rem;
+
+    +above(m) {
+      margin-top: 4rem;
+      margin-bottom: 5rem;
+    }
+
+    .c-content-filter__toggle {
+      margin-bottom: 2rem;
+      padding-left: 0;
+      padding-right: 0;
+
+      &[aria-expanded="true"] {
+        outline: 3px solid $linkFocus;
+        background-color: $linkFocus;
+      }
+    }
+
+    .c-input-container {
+      clearfix();
+    }
+
+    form {
+      margin-bottom: 2rem;
+      +above(m) {
+        margin-bottom: 5rem;
+      }
+    }
+
+    #ff_state {
+      display: none;
+      margin-bottom: 1rem;
+      +above(m) {
+        margin-bottom: 2.5rem;
+      }
+    }
+    .c-content-filter__clear {
+      display: none;
+    }
+
+    &.c-content-filter--collapsed {
+
+      form {
+        display: none;
+      }
+
+      &.c-content-filter--has-filter {
+        #ff_state {
+          display: block!important;
+        }
+        .c-content-filter__clear {
+          display: block!important;
+        }
+      }
+    }
+  }
+
+
 
 
 

@@ -1,0 +1,18 @@
+# This is NOT the default gitleaks config. The default gitleaks config is located
+# here: https://github.com/gitleaks/gitleaks/blob/master/config/gitleaks.toml
+# This gitleaks config extends the default config and ignores generic-api-key
+# false positives in `public/app/themes/clarity/inc/admin/acf-field-group.php`
+
+title = "Intranet"
+
+[extend]
+useDefault = true
+
+# Only ignore the file for the specific rule: generic-api-key
+[[rules]]
+id = "generic-api-key"
+
+  [rules.allowlist]
+  paths = [
+    '''(^|/)public/app/themes/clarity/inc/admin/acf-field-group.php'''
+  ]

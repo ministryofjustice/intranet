@@ -37,6 +37,7 @@ require_once 'inc/admin/list-tables.php';
 require_once 'inc/admin/login-with-email.php';
 require_once 'inc/admin/page.php';
 require_once 'inc/admin/permission-display-page.php';
+require_once 'inc/admin/plugins/cms-tree-page-view.php';
 require_once 'inc/admin/plugins/co-authors-plus.php';
 require_once 'inc/admin/plugins/polls.php';
 require_once 'inc/admin/plugins/wordpress-simple-history.php';
@@ -66,6 +67,9 @@ require_once 'inc/amazon-s3-and-cloudfront-for-minio.php';
 require_once 'inc/amazon-s3-and-cloudfront-signing.php';
 require_once 'inc/amazon-s3-and-cloudfront.php';
 
+require_once 'inc/api/gcoe-feed-api/gcoe-feed-api.php';
+require_once 'inc/api/synergy-feed-api/synergy-feed-api.php';
+
 require_once 'inc/api/campaign-api.php';
 require_once 'inc/api/get-blogroll-rest-api.php';
 require_once 'inc/api/get-campaign-posts-api.php';
@@ -74,7 +78,6 @@ require_once 'inc/api/get-campaign-news-api.php';
 require_once 'inc/api/get-category-news-api.php';
 require_once 'inc/api/intranet-v1-api.php';
 require_once 'inc/api/register-api-fields.php';
-require_once 'inc/api/synergy-feed-api/synergy-feed-api.php';
 
 
 require_once 'inc/admin-branding.php';
@@ -115,6 +118,7 @@ require_once 'inc/post-types/webchat.php';
 require_once 'inc/post-types/notes-from-jo.php';
 require_once 'inc/post-types/notes-from-amy.php';
 require_once 'inc/post-types/notes-from-antonia.php';
+require_once 'inc/post-types/people-update.php';
 
 require_once 'inc/preselect.php';
 require_once 'inc/rewrite_rules.php';

@@ -147,4 +147,26 @@ trait Constants
             'content_type' => 'guidance',
         ],
     ];
+
+    // Derived from BASE_URIS agency values, prepended with 'all'.
+    const AGENCIES = [
+        'all',
+        'hq',
+        'cica',
+        'jac',
+        'judicial-office',
+        'law-commission',
+        'hmcts',
+        'laa',
+        'opg'
+    ];
+
+    // Derived from BASE_URIS content_type values, prepended with 'all'.
+    const CONTENT_TYPES = [
+        'all',
+        'hr',
+        'finance',
+        'commercial',
+        'guidance'
+    ];
 }

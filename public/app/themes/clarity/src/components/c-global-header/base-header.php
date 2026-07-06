@@ -54,6 +54,15 @@ $activeAgency = $oAgency->getCurrentAgency() ? $oAgency->getCurrentAgency() : 'h
       });
     </script>
 </head>
+<body
+    <?php
+    /**
+     * Adds agency specific classes to the page.
+     */
+    $agency_class      = 'agency-' . $agency_shortcode;
+    body_class($class = $agency_class);
+    ?>
+>
 <?php
 if (! defined('GT_CODE')) {
     define('GT_CODE', 'GTM-P545JM');
@@ -71,15 +80,6 @@ if (! defined('GT_CODE')) {
   })(window,document,'script','dataLayer','<?php echo GT_CODE; ?>');
 </script>
 <!-- End Google Tag Manager -->
-<body
-    <?php
-    /**
-     * Adds agency specific classes to the page.
-     */
-    $agency_class      = 'agency-' . $agency_shortcode;
-    body_class($class = $agency_class);
-    ?>
->
 <a class="u-skip-link" href="#maincontent">Skip to main content</a>
 
 <?php

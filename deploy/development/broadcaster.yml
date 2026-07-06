@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: intranet-dev-pod-broadcaster
+  namespace: intranet-dev
+  labels:
+    app: intranet-dev-pod-broadcaster
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: intranet-dev-pod-broadcaster
+  template:
+    metadata:
+      labels:
+        app: intranet-dev-pod-broadcaster
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+      serviceAccountName: pod-broadcaster-serviceaccount
+      containers:
+        - name: pod-broadcaster
+          image: ghcr.io/ministryofjustice/kubernetes-pod-broadcaster:latest
+          imagePullPolicy: Always
+          ports:
+            - name: http
+              containerPort: 1993
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: http
+          resources:
+            limits:
+              cpu: 200m
+              memory: 64Mi
+            requests:
+              cpu: 50m
+              memory: 32Mi
+          securityContext:
+            runAsUser: 1000
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]
+            runAsNonRoot: true
+            seccompProfile:
+              type: RuntimeDefault
+            readOnlyRootFilesystem: true
+          # Run the 'cluster' task, it passes the cluster cert to deno.
+          command: ["/bin/sh", "-c"]
+          args: ["deno task cluster"]
+          env:
+            - name: NAMESPACE
+              value: intranet-dev
+            - name: LABEL_SELECTOR
+              value: app=intranet-dev
+            - name: DEBUG
+              value: "true"

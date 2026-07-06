@@ -4,7 +4,6 @@
  */
 
  $id            = get_the_ID();
- $thumbnail_alt = get_post_meta(get_post_thumbnail_id($id), '_wp_attachment_image_alt', true);
 ?>
 
 <article class="c-news-article-item">

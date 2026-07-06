@@ -23,6 +23,7 @@ add_filter('menu_order', function ($menu_order) {
         'edit.php?post_type=page',
         'edit.php',
         'edit.php?post_type=event',
+        'edit.php?post_type=people-update',
         'edit.php?post_type=webchat',
         'edit-comments.php',
         'upload.php',

@@ -16,7 +16,7 @@ if (isset($_GET['send_back'])) {
 
 // Temporarily filtering out JAC/PB until site is ready to go live
 // 10th Jan 2024: Parole Board added to exclude list: https://dsdmoj.atlassian.net/jira/software/c/projects/CDPT/boards/1154?selectedIssue=CDPT-1170
-$excluded = ['pb'];
+$excluded = ['pb', 'wales-office'];
 $integrated = [];
 $external = [];
 
@@ -61,7 +61,14 @@ array_map(function($key, array $agency) use (&$integrated, &$external) {
                             } else {
                                 $extra_class = '';
                             }
-                            echo '<li class="c-intranet-switcher__switch c-intranet-switcher__switch--' . $agency_id . $extra_class . ' "><a href="'. $url .'?agency=' . $agency_id . '">' . $agency['label'] . '</a></li>';
+                            printf(
+                                '<li class="c-intranet-switcher__switch c-intranet-switcher__switch--%s %s"><a href="%s?agency=%s">%s</a></li>',
+                                esc_attr($agency_id),
+                                esc_attr($extra_class),
+                                esc_url($url),
+                                esc_attr($agency_id),
+                                esc_html($agency['label'])
+                            );
                         }
                     ?>
                 </ul>

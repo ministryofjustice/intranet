@@ -4,7 +4,7 @@ metadata:
   name: intranet-demo
   namespace: intranet-demo
 data:
-  WP_ENV: "production"
+  WP_ENV: "demo"
   WP_HOME: 'https://demo.intranet.justice.gov.uk'
   WP_SITEURL: 'https://demo.intranet.justice.gov.uk/wp'
   AWS_CLOUDFRONT_HOST: 'cdn.demo.intranet.justice.gov.uk'
