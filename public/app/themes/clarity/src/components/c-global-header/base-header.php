@@ -49,8 +49,12 @@ $activeAgency = $oAgency->getCurrentAgency() ? $oAgency->getCurrentAgency() : 'h
       }
       document.addEventListener('DOMContentLoaded', function() {
         <!-- Ensure the correct agency cookie gets picked up -->
+        var valid_agencies = <?php echo json_encode(array_keys($oAgency->getList())); ?>;
         var agency_cookie = readCookie("dw_agency");
-        if (agency_cookie !== null && agency_cookie !== '<?php echo $agency_shortcode; ?>') { window.location.reload(true); }
+        // Only reload if the cookie is a known agency that differs from the one rendered.
+        // An unknown value (e.g. a removed agency) is normalised to 'hq' server-side, so
+        // reloading on it would never resolve and would cause an infinite refresh loop.
+        if (agency_cookie !== null && agency_cookie !== '<?php echo $agency_shortcode; ?>' && valid_agencies.indexOf(agency_cookie) !== -1) { window.location.reload(true); }
       });
     </script>
 </head>
