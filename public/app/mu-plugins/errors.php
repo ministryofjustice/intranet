@@ -26,7 +26,7 @@ add_action('wp_error_added', function (string|int $code, string $message, mixed 
     if (defined('REST_REQUEST') && REST_REQUEST) {
         return;
     }
-    if (!empty($data['skip-log'])) {
+    if (is_array($data) && !empty($data['skip-log'])) {
         return;
     }
     if (is_array($message) || is_object($message)) {
