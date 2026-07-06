@@ -16,7 +16,7 @@ if (isset($_GET['send_back'])) {
 
 // Temporarily filtering out JAC/PB until site is ready to go live
 // 10th Jan 2024: Parole Board added to exclude list: https://dsdmoj.atlassian.net/jira/software/c/projects/CDPT/boards/1154?selectedIssue=CDPT-1170
-$excluded = ['pb'];
+$excluded = ['pb', 'wales-office'];
 $integrated = [];
 $external = [];
 

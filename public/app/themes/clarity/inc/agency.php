@@ -167,6 +167,14 @@ class Agency
                     ]
                 ]
             ],
+            'wales-office' => [
+                'shortcode' => 'wales-office',
+                'label' => 'Wales Office',
+                'abbreviation' => 'WO',
+                'is_integrated' => true,
+                'contact_email_address' => 'Director@ukgovwales.gov.uk',
+                'links' => []
+            ],
             'yjbrh' => [
                 'shortcode' => 'yjbrh',
                 'label' => 'Youth Justice Board Resource Hub',
