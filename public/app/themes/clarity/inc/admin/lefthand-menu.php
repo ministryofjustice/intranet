@@ -145,7 +145,8 @@ function global_remove_menu_items()
 /**
  * Removes the Connectors (AL/LLM) submenu entry.
  */
-add_action( 'admin_menu',
+add_action(
+    'admin_menu',
     static function () {
         remove_submenu_page('options-general.php', 'options-connectors.php');
     },
@@ -155,7 +156,8 @@ add_action( 'admin_menu',
 /**
  * Redirects direct visits to the Connectors (AL/LLM) page.
  */
-add_action( 'load-options-connectors.php',
+add_action(
+    'load-options-connectors.php',
     static function () {
         wp_safe_redirect(admin_url());
         exit;
