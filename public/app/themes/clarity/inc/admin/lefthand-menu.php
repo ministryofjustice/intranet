@@ -148,7 +148,9 @@ function global_remove_menu_items()
 add_action(
     'admin_menu',
     static function () {
-        remove_submenu_page('options-general.php', 'options-connectors.php');
+        if (function_exists('wp_supports_ai') && !wp_supports_ai()) {
+            remove_submenu_page('options-general.php', 'options-connectors.php');
+        }
     },
     999
 );
@@ -159,7 +161,9 @@ add_action(
 add_action(
     'load-options-connectors.php',
     static function () {
-        wp_safe_redirect(admin_url());
-        exit;
+        if (function_exists('wp_supports_ai') && !wp_supports_ai()) {
+            wp_safe_redirect(admin_url());
+            exit;
+        }
     }
 );
