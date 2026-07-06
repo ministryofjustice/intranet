@@ -150,7 +150,7 @@ Config::define('DISALLOW_FILE_MODS', true);
 // Limit the number of post revisions
 Config::define('WP_POST_REVISIONS', env('WP_POST_REVISIONS') ?? true);
 
-// Disable WordPress 7's LLM-related features 
+// Disable WordPress 7's LLM-related features
 Config::define('WP_AI_SUPPORT', false);
 
 // API key for notifications.service.gov.uk email service
