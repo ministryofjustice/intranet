@@ -36,6 +36,7 @@ add_filter('menu_order', function ($menu_order) {
         'themes.php',
         'plugins.php',
         'users.php',
+        'profile.php',
         'tools.php',
         'options-general.php',
         'edit.php?post_type=acf-field-group',
