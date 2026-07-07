@@ -56,7 +56,6 @@ require_once 'inc/admin/users/add-acf-capabilities.php';
 require_once 'inc/admin/users/add-notes-from-perm-sec.php';
 require_once 'inc/admin/users/protect-key-pages.php';
 require_once 'inc/admin/users/remove-agency-admin-admin-access.php';
-require_once 'inc/admin/users/user-access-and-security.php';
 require_once 'inc/admin/wp-admin-bar.php';
 
 require_once 'inc/about-us.php';

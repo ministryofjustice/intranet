@@ -40,7 +40,6 @@ function clarity_permissions_dashboard()
 
     $roles             = $current_user->roles;
     $role              = array_shift($roles);
-    $user_login_record = get_user_meta($current_user->ID, 'user_login_record', false);
     $user_data         = get_userdata(get_current_user_id());
 
     $context  = Agency_Context::get_agency_context();
