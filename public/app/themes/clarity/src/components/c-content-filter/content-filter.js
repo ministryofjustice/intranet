@@ -73,7 +73,7 @@ export default (function ($) {
       e.preventDefault();
 
       $('input[type="radio"]').prop("checked", false);
-      $form.submit();
+      $form.trigger('submit');
     });
   };
 
