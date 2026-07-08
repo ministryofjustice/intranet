@@ -24,7 +24,7 @@ export default (function ($) {
         });
 
         detectNotes();
-        $(window).scroll(detectNotes);
+        $(window).on('scroll', detectNotes);
 
         function detectNotes() {
             notes.forEach((note, index) => {

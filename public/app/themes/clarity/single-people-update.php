@@ -9,6 +9,7 @@ defined('ABSPATH') || die();
 // Redirect to home, if this page is hit, and it's not a preview.
 if(!is_preview()) {
   wp_safe_redirect('/');
+  exit;
 }
 
 get_header();
