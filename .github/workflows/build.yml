@@ -8,7 +8,7 @@ on:
         value: ${{ jobs.image_build.outputs.registry }}
     inputs:
       pipeline:
-        description: 'Define the pipeline in use. One of main or qa'
+        description: 'Define the pipeline in use. One of main or demo, dev, or main'
         default: 'main'
         type: string
 
