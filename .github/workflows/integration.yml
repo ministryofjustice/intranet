@@ -4,8 +4,9 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - 'main'
+      - 'demo'
       - 'dev'
+      - 'main'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -26,7 +27,7 @@ jobs:
       id-token: write
     secrets: inherit
     with:
-      pipeline: ${{ github.event.ref == 'refs/heads/dev' && 'dev' || 'main' }}
+      pipeline: ${{ github.ref_name }}
 
   get_ip_ranges:
     name: "IP Ranges"
@@ -44,7 +45,7 @@ jobs:
 
   deploy_dev:
     name: "Development"
-    if: github.event.ref == 'refs/heads/dev'
+    if: github.ref_name == 'dev'
     uses: ./.github/workflows/deploy.yml
     needs: [image, get_ip_ranges, modsec_config]
     with:
@@ -58,10 +59,26 @@ jobs:
       pull-requests: write
     secrets: inherit
 
+  deploy_demo:
+    name: "Demo"
+    if: github.ref_name == 'demo'
+    uses: ./.github/workflows/deploy.yml
+    needs: [image, get_ip_ranges, modsec_config]
+    with:
+      environment: demo
+      registry: ${{ needs.image.outputs.registry }}
+      ips_formatted: ${{ needs.get_ip_ranges.outputs.ips_formatted }}
+      modsec_config: ${{ needs.modsec_config.outputs.development }}
+      pipeline: demo
+    permissions:
+      contents: read
+      pull-requests: write
+    secrets: inherit
+
   deploy_staging:
     name: "Staging"
     needs: [image, get_ip_ranges, modsec_config]
-    if: github.event.ref == 'refs/heads/main'
+    if: github.ref_name == 'main'
     uses: ./.github/workflows/deploy.yml
     with:
       environment: staging
@@ -76,7 +93,7 @@ jobs:
   deploy_production:
     name: "Production"
     needs: [image, deploy_staging, get_ip_ranges, modsec_config]
-    if: github.event.ref == 'refs/heads/main'
+    if: github.ref_name == 'main'
     uses: ./.github/workflows/deploy.yml
     with:
       environment: production
