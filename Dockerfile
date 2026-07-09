@@ -84,7 +84,8 @@ RUN rm -rf /usr/src/wordpress/wp-content \
     /usr/src/wordpress/readme.html
 
 RUN mkdir -p /var/www/html/public/wp && \
-    cp -a /usr/src/wordpress/. /var/www/html/public/wp/
+    cp -a /usr/src/wordpress/. /var/www/html/public/wp/ && \
+    chown -R 101:101 /var/www/html/public/wp
 
 # Copy the modified entrypoint, to allow init. scripts.
 COPY bin/docker-php-entrypoint /usr/local/bin/

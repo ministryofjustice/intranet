@@ -7,6 +7,7 @@ volumes:
     driver: local
   minio_storage: ~
   cdn_node_modules: ~
+  wpcore:
 
 services:
   php-fpm:
@@ -16,6 +17,7 @@ services:
       target: fpm-dev
     volumes:
       - .:/var/www/html
+      - wpcore:/var/www/html/public/wp
       - php-socket:/sock
       ### Deploy scripts
       - ./deploy/config/php-pool.conf:/usr/local/etc/php-fpm.d/pool.conf
@@ -50,8 +52,8 @@ services:
       - ./public/app/mu-plugins:/var/www/html/public/app/mu-plugins
       - ./public/app/themes/clarity/screenshot.png:/var/www/html/public/app/themes/clarity/screenshot.png
       - ./public/app/themes/clarity/error-pages:/var/www/html/public/app/themes/clarity/error-pages
-      - ./public/wp:/var/www/html/public/wp
       - ./public/index.php:/var/www/html/public/index.php
+      - wpcore:/var/www/html/public/wp
     environment:
       VIRTUAL_HOST: ${SERVER_NAME}
       VIRTUAL_PORT: 8080
