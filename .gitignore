@@ -48,3 +48,8 @@ public/app/ewww
 .env
 .env.*
 !.env.example
+
+############################
+# WordPress runtime content
+############################
+wordpress/

@@ -18,9 +18,17 @@ services:
       - .:/var/www/html
       - php-socket:/sock
       ### Deploy scripts
-      - ./deploy/config/php-pool.conf:/usr/local/etc/php-fpm.d/pool.conf
+      # - ./deploy/config/php-pool.conf:/usr/local/etc/php-fpm.d/pool.conf
+      # - ./wordpress:/var/www/html
+      # - ./opt/scripts:/opt/scripts
+      - ./deploy/config/local/php-local.ini:/usr/local/etc/php/conf.d/zz-local.ini
+      -  ./deploy/config/local/www.local.conf:/usr/local/etc/php-fpm.d/www.conf
+      - ./vendor:/usr/local/lib/php/vendor
+      - ./config:/usr/local/lib/php/config
     env_file:
       - .env
+    environment:
+      WORDPRESS_CONFIG_EXTRA: "require_once '/usr/local/lib/php/vendor/autoload.php'; require_once '/usr/local/lib/php/config/application.php';"
     depends_on:
       mariadb:
         condition: service_healthy
@@ -37,6 +45,7 @@ services:
       context: .
       target: nginx-dev
     volumes:
+      # - ./wordpress:/var/www/html
       - dist:/var/www/html/public/app/themes/clarity/dist
       - php-socket:/sock
       ### Deploy scripts
@@ -61,6 +70,7 @@ services:
       - "8080:8080"
     depends_on:
       - node
+      # - php-fpm
 
   node:
     container_name: intranet-node

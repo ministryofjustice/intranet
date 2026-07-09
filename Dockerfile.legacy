@@ -19,14 +19,13 @@ FROM composer:2.10.1@sha256:7725eb4545c438629ae8bde3ef0bb9a5038ef566126ad878442a
 #    ▄▄  ▄▄     █▀▀  █▀█  █▀▄▀█     ▄▄  ▄▄    #
 #    ░░  ░░     █▀░  █▀▀  █░▀░█     ░░  ░░    #
 
-FROM wordpress:7.0-php8.4-fpm-alpine AS base-fpm
+FROM ministryofjustice/wordpress-base-fpm:0.0.8@sha256:c79c88d84a02b8999336bcbda8b3e5077b453a2446940fe916cd9f95ce8fa849 AS base-fpm
 
 # Switch to the alpine's default user, for installing packages
 USER root
 
 RUN apk update && \
-    apk add strace \
-    perl
+    apk add strace
 
 # Make the Nginx user available in this container
 RUN addgroup -g 101 -S nginx; adduser -u 101 -S -D -G nginx nginx
@@ -48,21 +47,15 @@ RUN chmod +x /usr/local/bin/fpm-health/*
 WORKDIR /usr/local/etc/php-fpm.d
 
 ## Clean PHP pools; leave docker.conf in situe
-# RUN rm zz-docker.conf && \
-#     rm www.conf.default && \
-#     rm www.conf
+RUN rm zz-docker.conf && \
+    rm www.conf.default && \
+    rm www.conf
 
 ## Set our pool configuration
-# COPY deploy/config/php-pool.conf pool.conf
-
-
+COPY deploy/config/php-pool.conf pool.conf    
 
 # Don't log every request.
 RUN perl -pi -e 's#^(?=access\.log\b)#;#' /usr/local/etc/php-fpm.d/docker.conf
-
-RUN mkdir -p /var/www/html/public
-
-RUN cp -a /usr/src/wordpress /var/www/html/public/wp
 
 WORKDIR /var/www/html
 

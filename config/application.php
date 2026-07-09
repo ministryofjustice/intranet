@@ -107,34 +107,36 @@ if (env('DB_SSL')) {
     Config::define('MYSQL_CLIENT_FLAGS', MYSQLI_CLIENT_SSL);
 }
 
-Config::define('DB_NAME', env('DB_NAME'));
-Config::define('DB_USER', env('DB_USER'));
-Config::define('DB_PASSWORD', env('DB_PASSWORD'));
-Config::define('DB_HOST', env('DB_HOST') ?: 'localhost');
-Config::define('DB_CHARSET', 'utf8mb4');
-Config::define('DB_COLLATE', '');
-$table_prefix = env('DB_PREFIX') ?: 'wp_';
+// Config::define('DB_NAME', env('DB_NAME'));
+// Config::define('DB_USER', env('DB_USER'));
+// Config::define('DB_PASSWORD', env('DB_PASSWORD'));
+// Config::define('DB_HOST', env('DB_HOST') ?: 'localhost');
+// Config::define('DB_CHARSET', 'utf8mb4');
+// Config::define('DB_COLLATE', '');
+// $table_prefix = env('DB_PREFIX') ?: 'wp_';
 
-if (env('DATABASE_URL')) {
-    $dsn = (object)parse_url(env('DATABASE_URL'));
+// if (env('DATABASE_URL')) {
+//     $dsn = (object)parse_url(env('DATABASE_URL'));
 
-    Config::define('DB_NAME', substr($dsn->path, 1));
-    Config::define('DB_USER', $dsn->user);
-    Config::define('DB_PASSWORD', $dsn->pass ?? null);
-    Config::define('DB_HOST', isset($dsn->port) ? "$dsn->host:$dsn->port" : $dsn->host);
-}
+//     Config::define('DB_NAME', substr($dsn->path, 1));
+//     Config::define('DB_USER', $dsn->user);
+//     Config::define('DB_PASSWORD', $dsn->pass ?? null);
+//     Config::define('DB_HOST', isset($dsn->port) ? "$dsn->host:$dsn->port" : $dsn->host);
+// }
 
 /**
  * Authentication Unique Keys and Salts
  */
-Config::define('AUTH_KEY', env('AUTH_KEY'));
-Config::define('SECURE_AUTH_KEY', env('SECURE_AUTH_KEY'));
-Config::define('LOGGED_IN_KEY', env('LOGGED_IN_KEY'));
-Config::define('NONCE_KEY', env('NONCE_KEY'));
-Config::define('AUTH_SALT', env('AUTH_SALT'));
-Config::define('SECURE_AUTH_SALT', env('SECURE_AUTH_SALT'));
-Config::define('LOGGED_IN_SALT', env('LOGGED_IN_SALT'));
-Config::define('NONCE_SALT', env('NONCE_SALT'));
+// Config::define('AUTH_KEY', env('AUTH_KEY'));
+// Config::define('SECURE_AUTH_KEY', env('SECURE_AUTH_KEY'));
+// Config::define('LOGGED_IN_KEY', env('LOGGED_IN_KEY'));
+// Config::define('NONCE_KEY', env('NONCE_KEY'));
+// Config::define('AUTH_SALT', env('AUTH_SALT'));
+// Config::define('SECURE_AUTH_SALT', env('SECURE_AUTH_SALT'));
+// Config::define('LOGGED_IN_SALT', env('LOGGED_IN_SALT'));
+// Config::define('NONCE_SALT', env('NONCE_SALT'));
+
+error_log('before custom settings');
 
 /**
  * Custom Settings
@@ -243,6 +245,9 @@ if (file_exists(__DIR__ . '/wp-offload-media.php')) {
     require_once __DIR__ . '/wp-offload-media.php';
 }
 
+error_log('before env');
+
+
 /**
  * Environment-specific settings
  */
@@ -256,13 +261,15 @@ if (file_exists($env_config)) {
 Config::apply();
 
 // settings are dependent on a plugin
-if (file_exists(MOJ_ROOT_DIR . '/public/app/plugins/wp-sentry/wp-sentry.php')) {
-    require_once __DIR__ . '/wp-sentry.php';
-}
+// if (file_exists(MOJ_ROOT_DIR . '/public/app/plugins/wp-sentry/wp-sentry.php')) {
+//     require_once __DIR__ . '/wp-sentry.php';
+// }
+
+error_log('here');
 
 /**
  * Bootstrap WordPress
  */
-if (!defined('ABSPATH')) {
-    define('ABSPATH', $webroot_dir . '/wp/');
-}
+// if (!defined('ABSPATH')) {
+//     define('ABSPATH', $webroot_dir . '/wp/');
+// }
