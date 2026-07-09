@@ -29,6 +29,8 @@ RUN apk update && \
     apk add strace \
     ca-certificates \
     fcgi \
+    mariadb-client \
+    htop \
     perl
 
 # Install PHPRedis build dependencies
@@ -44,8 +46,6 @@ RUN apk del .build-deps
 # Install wp-cli
 RUN curl -o /usr/local/bin/wp https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
     chmod +x /usr/local/bin/wp
-
-# TODO - php and nginx settings.
 
 # Make the Nginx user available in this container
 RUN addgroup -g 101 -S nginx; adduser -u 101 -S -D -G nginx nginx
