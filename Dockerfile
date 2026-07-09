@@ -265,7 +265,6 @@ ARG path="/var/www/html"
 COPY --from=build-fpm-composer ${path}/public/app/mu-plugins public/app/mu-plugins
 COPY --from=build-fpm-composer ${path}/public/app/plugins public/app/plugins
 COPY --from=build-fpm-composer ${path}/public/app/languages public/app/languages
-# COPY --from=build-fpm-composer ${path}/public/wp public/wp
 COPY --from=build-fpm-composer ${path}/vendor vendor
 
 # non-root
