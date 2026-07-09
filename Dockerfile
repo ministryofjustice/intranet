@@ -28,6 +28,7 @@ USER root
 RUN apk update && \
     apk add strace \
     ca-certificates \
+    fcgi \
     perl
 
 # Install PHPRedis build dependencies
@@ -76,6 +77,12 @@ COPY deploy/config/php-pool.conf pool.conf
 # Don't log every request.
 RUN perl -pi -e 's#^(?=access\.log\b)#;#' /usr/local/etc/php-fpm.d/docker.conf
 
+# Set timezone
+ENV TZ=Europe/London
+RUN apk add dpkg tzdata && \
+    ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
+RUN printf '[Date]\ndate.timezone="%s"\n' $TZ > /usr/local/etc/php/conf.d/tzone.ini
 
 # Trim the pristine WordPress source that the entrypoint copies into public/wp:
 # drop wp-content (managed separately) plus the root .htaccess and readme.html.

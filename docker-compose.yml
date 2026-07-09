@@ -52,6 +52,7 @@ services:
       - ./public/app/mu-plugins:/var/www/html/public/app/mu-plugins
       - ./public/app/themes/clarity/screenshot.png:/var/www/html/public/app/themes/clarity/screenshot.png
       - ./public/app/themes/clarity/error-pages:/var/www/html/public/app/themes/clarity/error-pages
+      ### PHP
       - ./public/index.php:/var/www/html/public/index.php
       - wpcore:/var/www/html/public/wp
     environment:
