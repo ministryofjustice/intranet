@@ -19,12 +19,11 @@ FROM composer:2.10.1@sha256:7725eb4545c438629ae8bde3ef0bb9a5038ef566126ad878442a
 #    ▄▄  ▄▄     █▀▀  █▀█  █▀▄▀█     ▄▄  ▄▄    #
 #    ░░  ░░     █▀░  █▀▀  █░▀░█     ░░  ░░    #
 
-# Latest images at https://hub.docker.com/_/wordpress
-FROM wordpress:7.0-php8.4-fpm-alpine AS base-fpm
+# Official WordPress image (Alpine, php-fpm): https://hub.docker.com/_/wordpress
+# PHPRedis + igbinary, WP-CLI, mariadb-client, fcgi and the timezone are layered on below.
+FROM wordpress:7.0-php8.4-fpm-alpine@sha256:29fdb128683527006459d3ccbf3f49e1b47314067562f3366c93299626a3f2db AS base-fpm
 
-# Switch to the alpine's default user, for installing packages
-USER root
-
+# Install additional Alpine packages
 RUN apk update && \
     apk add strace \
     ca-certificates \
@@ -50,6 +49,7 @@ RUN curl -o /usr/local/bin/wp https://raw.githubusercontent.com/wp-cli/builds/gh
 # Make the Nginx user available in this container
 RUN addgroup -g 101 -S nginx; adduser -u 101 -S -D -G nginx nginx
 
+# Create socket for requests
 RUN mkdir /sock && \
     chown nginx:nginx /sock
 
@@ -99,6 +99,7 @@ COPY bin/docker-php-entrypoint /usr/local/bin/
 
 RUN chmod +x /usr/local/bin/docker-php-entrypoint
 
+# Restore the workdir
 WORKDIR /var/www/html
 
 ENTRYPOINT ["/usr/local/bin/docker-php-entrypoint"]
