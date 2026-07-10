@@ -48,12 +48,12 @@ function feedback_form()
 
         $submit_data = [
             'date' => current_time('d-m-Y g:i'),
-            'name' => sanitize_text_field($_POST['fbf_name'] ?? ''),
-            'email_creator' => sanitize_email($_POST['fbf_email'] ?? ''),
-            'message' => sanitize_text_field($_POST['fbf_message'] ?? ''),
-            'agency' => sanitize_text_field($_POST['fbf_agency'] ?? ''),
+            'name' => sanitize_text_field($_POST['fbf_name']),
+            'email_creator' => sanitize_text_field($_POST['fbf_email']),
+            'message' => sanitize_text_field($_POST['fbf_message']),
+            'agency' => sanitize_text_field($_POST['fbf_agency']),
             'page_url' => get_permalink(),
-            'user_agent' => sanitize_text_field($_SERVER['HTTP_USER_AGENT'] ?? '')
+            'user_agent' => $_SERVER['HTTP_USER_AGENT']
         ];
 
         // send feedback to communications team

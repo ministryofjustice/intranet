@@ -27,7 +27,7 @@ jQuery(
 							// The buttons get "disabled" added to them on submit. Remove that class.
 							jQuery( '#major-publishing-actions' ).find( ':button, :submit, a.submitdelete, #post-preview' ).removeClass( 'disabled' )
 							// Focus on the title field.
-							jQuery( '#title' ).trigger( 'focus' )
+							jQuery( '#title' ).focus()
 							return false
 						}
 					}

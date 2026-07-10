@@ -35,10 +35,7 @@ class Remove_Agency_Admin_Administrator_Access
                 if (isset($args[0]) && $args[0] == $user_id) {
                     break;
                 } elseif (!isset($args[0])) {
-                    // No target user to inspect: deny and stop (avoids reading an
-                    // undefined $args[0] below - a PHP 8.x "Undefined array key" warning).
                     $caps[] = 'do_not_allow';
-                    break;
                 }
                 $other = new WP_User(absint($args[0]));
                 if ($other->has_cap('administrator')) {

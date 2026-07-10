@@ -44,7 +44,7 @@ jQuery(document).ready(function ($) {
 
                 // init
                 fixed.hide();
-                $(window).on("scroll", function () {
+                $(window).bind("scroll", function () {
                     const offset = $(this).scrollTop();
                     const width = JQ.header.outerWidth();
 
@@ -59,7 +59,7 @@ jQuery(document).ready(function ($) {
                 });
             },
             resize: function () {
-                $(window).on("resize", function () {
+                $(window).bind("resize", function () {
                     const width = JQ.header.outerWidth();
 
                     if (JQ.fixed.is(":visible")) {
@@ -84,11 +84,11 @@ jQuery(document).ready(function ($) {
 
             JQ.search.clear.addClass('disabled').on('click', function (e) {
                 e.preventDefault();
-                JQ.search.input.val("").trigger('keyup').trigger('focus');
+                JQ.search.input.val("").keyup().focus();
             });
 
 
-            JQ.search.input.on('keyup', this.delay(function () {
+            JQ.search.input.keyup(this.delay(function () {
                 if (this.value.length < 2) {
                     JQ.totalCount.text(JQ.rows.length);
                     JQ.search.clear.addClass('disabled');
@@ -126,12 +126,12 @@ jQuery(document).ready(function ($) {
 
                 JQ.totalCount.text(remaining);
 
-            }, delay_time)).on('focus', function () {
+            }, delay_time)).focus(function () {
                 this.value = "";
                 $(this).css({
                     "color": "#1d1d1d"
                 });
-                $(this).off('focus');
+                $(this).unbind('focus');
             }).css({
                 "color": "#C0C0C0"
             });
@@ -225,7 +225,7 @@ jQuery(document).ready(function ($) {
      */
     JQ.rows.on('keydown', function (e) {
         if (e.which === 13) {
-            $(this).trigger('click');
+            $(this).click();
         }
     });
 

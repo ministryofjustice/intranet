@@ -40,12 +40,6 @@ class SimpleHistory
         // Remove the sidebar boxes we don't want
         add_filter('simple_history/SidebarDropin/default_sidebar_boxes', [$this, 'removeUnnecessarySideboxes'], 10, 1);
 
-        // Hide Simple History menu for non-administrators.
-        add_action('admin_menu', [$this, 'removeMenuForNonAdmins'], 999);
-
-        // Block all Simple History pages for non-administrators.
-        add_action('admin_init', [$this, 'redirectPagesForNonAdmins']);
-
         // Allow certain rest routes to be accessed by admins only.
         add_filter('rest_authentication_errors', [$this, 'allowUserRestRouteForAdmins'], 11);
 
@@ -69,47 +63,6 @@ class SimpleHistory
 
         // Metadata logging - add custom context for ACF fields
         // add_filter('simple_history/post_logger/context', [$this, 'handleAcfContext'], 10, 5);
-    }
-
-    /**
-     * Remove the Simple History top-level menu (and its submenus) for
-     * non-administrators.
-     *
-     * remove_menu_page() only hides the links; redirectPagesForNonAdmins()
-     * enforces access to the pages themselves.
-     *
-     * @return void
-     */
-    public function removeMenuForNonAdmins()
-    {
-        if (current_user_can('administrator')) {
-            return;
-        }
-
-        remove_menu_page(Simple_History\Simple_History::MENU_PAGE_SLUG);
-    }
-
-    /**
-     * Redirect non-administrators away from any Simple History admin page to
-     * the dashboard. Matches every page slug beginning with "simple_history"
-     * so newly added Simple History pages are covered automatically.
-     *
-     * @return void
-     */
-    public function redirectPagesForNonAdmins()
-    {
-        if (current_user_can('administrator')) {
-            return;
-        }
-
-        $page = sanitize_text_field(wp_unslash($_GET['page'] ?? ''));
-
-        if (strpos($page, 'simple_history') !== 0) {
-            return;
-        }
-
-        wp_safe_redirect(admin_url());
-        exit;
     }
 
     /**

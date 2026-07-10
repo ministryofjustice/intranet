@@ -17,7 +17,7 @@ add_action('admin_menu', 'clarity_add_permissions_dashboard');
 function clarity_add_permissions_dashboard()
 {
 
-    $hook = add_submenu_page(
+    add_submenu_page(
         'profile.php',
         'Permissions',
         'Your Account Access and Permissions',
@@ -26,15 +26,6 @@ function clarity_add_permissions_dashboard()
         'clarity_permissions_dashboard',
         10
     );
-
-    // Core can't resolve this profile.php-parented page's title, so $title is null
-    // when admin-header.php runs strip_tags($title) (PHP 8.x deprecation). Set it on
-    // the page's load hook, before the header renders. The hook suffix is role
-    // dependent (users_page_* for admins, admin_page_* for others), so we must use
-    // the hook name add_submenu_page() returns rather than hardcoding it.
-    add_action("load-{$hook}", function () {
-        $GLOBALS['title'] = 'Your Account Access and Permissions';
-    });
 }
 
 /**
@@ -49,6 +40,7 @@ function clarity_permissions_dashboard()
 
     $roles             = $current_user->roles;
     $role              = array_shift($roles);
+    $user_login_record = get_user_meta($current_user->ID, 'user_login_record', false);
     $user_data         = get_userdata(get_current_user_id());
 
     $context  = Agency_Context::get_agency_context();

@@ -16,7 +16,7 @@ class ProtectKeyPages
     const KEY_TEMPLATES = [
         'page_blog.php',
         'page_blogroll.php',
-        'page_delete_user.php',
+        'page_deleteuser.php',
         'page_events.php',
         'page_guidance_and_support_index.php',
         'page_home.php',
