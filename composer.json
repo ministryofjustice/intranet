@@ -6,11 +6,9 @@
     "config": {
         "preferred-install": "dist",
         "allow-plugins": {
-            "johnpbloch/wordpress-core-installer": true,
             "koodimonni/composer-dropin-installer": true,
             "composer/installers": true,
             "php-http/discovery": true,
-            "roots/wordpress-core-installer": true,
             "tbachert/spi": false
         }
     },
@@ -62,12 +60,9 @@
         "vlucas/phpdotenv": "^5.5",
         "roots/bedrock-autoloader": "^1.0",
         "roots/bedrock-disallow-indexing": "^2.0",
-        "roots/wordpress": "6.6.5",
-        "koodimonni-language/core-en_gb": "6.6.5",
-        "roots/wp-password-bcrypt": "^1.1.0",
+        "koodimonni-language/core-en_gb": "7.0",
         "roots/wp-config": "^1.0",
         "wpackagist-plugin/classic-editor": "^1.6.0",
-        "wpackagist-plugin/totalpoll-lite": "^4.10.0",
         "wpackagist-plugin/co-authors-plus": "^3.5.0",
         "wpackagist-plugin/wp-document-revisions": "^3.6.1",
         "wpengine/advanced-custom-fields-pro": "^6.3.5",
@@ -129,7 +124,6 @@
                 "vendor:koodimonni-theme-language"
             ]
         },
-        "wordpress-install-dir": "public/wp",
         "meta-comments": {
             "description": [
                 "As comments are not allowed in composer.json, use this section for comments.",

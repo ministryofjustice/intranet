@@ -19,17 +19,37 @@ FROM composer:2.10.2@sha256:098c43210b4efc3f46d8734dbc7204ee8c159c48ab03511fc5bf
 #    ▄▄  ▄▄     █▀▀  █▀█  █▀▄▀█     ▄▄  ▄▄    #
 #    ░░  ░░     █▀░  █▀▀  █░▀░█     ░░  ░░    #
 
-FROM ministryofjustice/wordpress-base-fpm:0.0.8@sha256:c79c88d84a02b8999336bcbda8b3e5077b453a2446940fe916cd9f95ce8fa849 AS base-fpm
+# Official WordPress image (Alpine, php-fpm): https://hub.docker.com/_/wordpress
+# PHPRedis + igbinary, WP-CLI, mariadb-client, fcgi and the timezone are layered on below.
+FROM wordpress:7.0.1-php8.4-fpm-alpine@sha256:29fdb128683527006459d3ccbf3f49e1b47314067562f3366c93299626a3f2db AS base-fpm
 
-# Switch to the alpine's default user, for installing packages
-USER root
-
+# Install additional Alpine packages
 RUN apk update && \
-    apk add strace
+    apk add strace \
+    ca-certificates \
+    fcgi \
+    mariadb-client \
+    htop \
+    perl
+
+# Install PHPRedis build dependencies
+RUN apk add --no-cache --virtual .build-deps pcre-dev $PHPIZE_DEPS
+
+# Install and enable PHPRedis
+RUN pecl install redis igbinary \
+    && docker-php-ext-enable redis igbinary
+
+# Delete PHPRedis build dependencies
+RUN apk del .build-deps
+
+# Install wp-cli
+RUN curl -o /usr/local/bin/wp https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
+    chmod +x /usr/local/bin/wp
 
 # Make the Nginx user available in this container
 RUN addgroup -g 101 -S nginx; adduser -u 101 -S -D -G nginx nginx
 
+# Create socket for requests
 RUN mkdir /sock && \
     chown nginx:nginx /sock
 
@@ -57,8 +77,33 @@ COPY deploy/config/php-pool.conf pool.conf
 # Don't log every request.
 RUN perl -pi -e 's#^(?=access\.log\b)#;#' /usr/local/etc/php-fpm.d/docker.conf
 
+# Set timezone
+ENV TZ=Europe/London
+RUN apk add dpkg tzdata && \
+    ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
+RUN printf '[Date]\ndate.timezone="%s"\n' $TZ > /usr/local/etc/php/conf.d/tzone.ini
+
+# Trim the pristine WordPress source that the entrypoint copies into public/wp:
+# drop wp-content (managed separately) plus the root .htaccess and readme.html.
+RUN rm -rf /usr/src/wordpress/wp-content \
+    /usr/src/wordpress/.htaccess \
+    /usr/src/wordpress/readme.html
+
+RUN mkdir -p /var/www/html/public/wp && \
+    cp -a /usr/src/wordpress/. /var/www/html/public/wp/ && \
+    chown -R 101:101 /var/www/html/public
+
+# Copy the modified entrypoint, to allow init. scripts.
+COPY bin/docker-php-entrypoint /usr/local/bin/
+
+RUN chmod +x /usr/local/bin/docker-php-entrypoint
+
+# Restore the workdir
 WORKDIR /var/www/html
 
+ENTRYPOINT ["/usr/local/bin/docker-php-entrypoint"]
+CMD ["php-fpm"]
 
 #    ▄▄  ▄▄     █▄░█  █▀▀  █  █▄░█  ▀▄▀     ▄▄  ▄▄    #
 #    ░░  ░░     █░▀█  █▄█  █  █░▀█  █░█     ░░  ░░    #
@@ -221,7 +266,6 @@ ARG path="/var/www/html"
 COPY --from=build-fpm-composer ${path}/public/app/mu-plugins public/app/mu-plugins
 COPY --from=build-fpm-composer ${path}/public/app/plugins public/app/plugins
 COPY --from=build-fpm-composer ${path}/public/app/languages public/app/languages
-COPY --from=build-fpm-composer ${path}/public/wp public/wp
 COPY --from=build-fpm-composer ${path}/vendor vendor
 
 # non-root
@@ -264,7 +308,7 @@ WORKDIR /var/www/html
 COPY public/index.php public/index.php
 
 # Only take what Nginx needs (cached configuration)
-COPY --from=build-fpm-composer /var/www/html/public/wp/wp-admin/index.php public/wp/wp-admin/index.php
+COPY --from=base-fpm /var/www/html/public/wp public/wp/
 COPY --from=build-fpm-composer /var/www/html/vendor-assets ./
 
 # Grab assets for Nginx

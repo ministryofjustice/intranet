@@ -222,6 +222,7 @@ class Maintenance
             $logout_url = wp_login_url() . '?mode=maintenance';
             wp_logout();
             wp_redirect($logout_url, 302);
+            exit;
         }
     }
 }

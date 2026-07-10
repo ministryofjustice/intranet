@@ -15,13 +15,13 @@ export default (function ($) {
 
         });
 
-        $(".view-by-grid").click(function () {
+        $(".view-by-grid").on('click', function () {
             $(".c-condolences-list").addClass('grid-view');
             $(".view-by-grid").addClass('current');
             $(".view-by-list").removeClass('current');
         });
 
-        $(".view-by-list").click(function () {
+        $(".view-by-list").on('click', function () {
             $(".c-condolences-list").removeClass('grid-view');
             $(".view-by-list").addClass('current');
             $(".view-by-grid").removeClass('current');

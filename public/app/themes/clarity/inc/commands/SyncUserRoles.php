@@ -31,6 +31,7 @@ class SyncUserRoles
         require_once $theme_dir . '/inc/admin/users/add-team-author.php';
         require_once $theme_dir . '/inc/admin/users/add-team-lead.php';
         require_once $theme_dir . '/inc/admin/users/delete-roles.php';
+        require_once $theme_dir . '/inc/admin/users/update-administrator.php';
 
         WP_CLI::log('SyncUserRoles complete');
     }
