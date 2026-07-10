@@ -162,6 +162,12 @@ docker compose exec -it wp-cron ash
 > There is no need to install application software on your computer.<br>
 > All required software is built within the services - all services are ephemeral.
 
+**Docker image**
+
+The PHP-FPM image builds on the official [WordPress `fpm-alpine` image](https://hub.docker.com/_/wordpress),
+layering PHPRedis + igbinary, WP-CLI, the MariaDB client, `fcgi` and the Europe/London timezone on top.
+See the [Dockerfile](/Dockerfile) for the exact base tag and the other build stages.
+
 **Composer**
 
 We match the process that occurs in production CI locally to ensure we test against the same criteria.
@@ -174,7 +180,7 @@ make composer-update
 ```
 
 This will fire off a set of checks, ensuring composer updates and all static assets are distributed correctly.
-For more information, review [Dockerfile](https://github.com/ministryofjustice/intranet/blob/develop/Dockerfile#L125) 
+For more information, review [Dockerfile](https://github.com/ministryofjustice/intranet/blob/develop/Dockerfile#L201) 
 and [local assets files](https://github.com/ministryofjustice/intranet/blob/develop/bin/local-composer-assets.sh#L10).
 
 #### Volumes
