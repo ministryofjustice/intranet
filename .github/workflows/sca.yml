@@ -106,3 +106,5 @@ jobs:
           # dependency-review-config-file: "./.github/dependency-review-config.yml" # Optional
           # docker-images-file: "${{ github.workspace }}/sources.json" # Optional
           dependency-check-suppression-file: "./.github/dependency-check-suppression.xml"
+          # npm has retired the NodeAuditAnalyzer NPM Audit API
+          disable-node-audit: "true"
