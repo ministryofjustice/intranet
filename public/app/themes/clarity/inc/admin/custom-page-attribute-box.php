@@ -131,7 +131,7 @@ function clarity_custom_page_attribute_box($post)
          if (e.keyCode==8) updateResults();
       });
 
-      jQuery(".parentlink").click(function() {
+      jQuery(".parentlink").on('click', function() {
         var parentid = jQuery(this).attr('parentid');
         var parentname = jQuery(this).attr('parentname');
         jQuery("#pageparent-filterbox").val(parentname);
@@ -247,7 +247,7 @@ function pageparent_ajax_check_parent()
         // add page selection to input field
         echo '<script language="javascript" type="text/javascript">
 
-        jQuery(".parentlink").bind(\'click\', function() {
+        jQuery(".parentlink").on(\'click\', function() {
           var parentid = jQuery(this).attr(\'parentid\');
           var parentname = jQuery(this).attr(\'parentname\');
 
