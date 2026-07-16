@@ -28,7 +28,7 @@
     },
     "devDependencies": {
         "cssnano": "7.1.9",
-        "globby": "16.2.0",
+        "globby": "16.2.2",
         "inquirer": "^8.2.7",
         "jeet": "^7.2.0",
         "js-yaml": "^4.2.0",
