@@ -7,7 +7,6 @@ on:
       - 'demo'
       - 'dev'
       - 'main'
-      - 'dev'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
