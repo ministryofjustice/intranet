@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "48f5cf286fc1e13c332302b9881f4270",
+    "content-hash": "18822e09c6e9dca11f63847617763bf7",
     "packages": [
         {
             "name": "alphagov/notifications-php-client",
@@ -1516,12 +1516,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ministryofjustice/notify-for-wordpress.git",
-                "reference": "f20cd2a27b8ef7d2525e1ade70dfbbbd0dec6cb2"
+                "reference": "b3d5a967eb19f0e15a241925feca503fa4a79af4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ministryofjustice/notify-for-wordpress/zipball/f20cd2a27b8ef7d2525e1ade70dfbbbd0dec6cb2",
-                "reference": "f20cd2a27b8ef7d2525e1ade70dfbbbd0dec6cb2",
+                "url": "https://api.github.com/repos/ministryofjustice/notify-for-wordpress/zipball/b3d5a967eb19f0e15a241925feca503fa4a79af4",
+                "reference": "b3d5a967eb19f0e15a241925feca503fa4a79af4",
                 "shasum": ""
             },
             "require": {
@@ -1560,7 +1560,7 @@
                 "security": "https://security-guidance.service.justice.gov.uk/.well-known/security.txt",
                 "source": "https://github.com/ministryofjustice/notify-for-wordpress/tree/main"
             },
-            "time": "2025-10-28T11:29:47+00:00"
+            "time": "2026-07-08T08:49:31+00:00"
         },
         {
             "name": "ministryofjustice/php-markdown-extra",
@@ -1620,16 +1620,16 @@
         },
         {
             "name": "ministryofjustice/wp-moj-components",
-            "version": "3.5.3",
+            "version": "3.5.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ministryofjustice/wp-moj-components.git",
-                "reference": "efc98b8cad54fde6a5c271d9fecba80749ba8fde"
+                "reference": "53ed5134b5874b4bef44c100030a72a1a28a214a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ministryofjustice/wp-moj-components/zipball/efc98b8cad54fde6a5c271d9fecba80749ba8fde",
-                "reference": "efc98b8cad54fde6a5c271d9fecba80749ba8fde",
+                "url": "https://api.github.com/repos/ministryofjustice/wp-moj-components/zipball/53ed5134b5874b4bef44c100030a72a1a28a214a",
+                "reference": "53ed5134b5874b4bef44c100030a72a1a28a214a",
                 "shasum": ""
             },
             "require": {
@@ -1685,10 +1685,10 @@
             ],
             "description": "A plugin to introduce global functions to a collection of WP sites",
             "support": {
-                "source": "https://github.com/ministryofjustice/wp-moj-components/tree/3.5.3",
+                "source": "https://github.com/ministryofjustice/wp-moj-components/tree/3.5.4",
                 "issues": "https://github.com/ministryofjustice/wp-moj-components/issues"
             },
-            "time": "2026-07-03T13:17:58+00:00"
+            "time": "2026-07-14T14:35:27+00:00"
         },
         {
             "name": "ministryofjustice/wp-moj-elasticsearch",
@@ -3858,15 +3858,15 @@
         },
         {
             "name": "wpackagist-plugin/classic-editor",
-            "version": "1.6.7",
+            "version": "1.7.0",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/classic-editor/",
-                "reference": "tags/1.6.7"
+                "reference": "tags/1.7.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/classic-editor.1.6.7.zip"
+                "url": "https://downloads.wordpress.org/plugin/classic-editor.1.7.0.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"

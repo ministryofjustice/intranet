@@ -1,6 +1,6 @@
 <!-- c-dynamic-style starts here -->
 <?php
-    $campaign_colour = get_field('dw_campaign_colour');
+    $campaign_colour = sanitize_hex_color(get_field('dw_campaign_colour')) ?: '#3c3c3b';
 ?>
 <style>
 .page-template-page_campaign .l-main .c-rich-text-block h2 strong,
