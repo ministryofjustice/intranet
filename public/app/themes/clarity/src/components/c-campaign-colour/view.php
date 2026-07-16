@@ -1,6 +1,6 @@
 <!-- c-campaign-colour starts here -->
 <?php
-$campaign_colour = sanitize_hex_color(get_field('dw_campaign_colour')) ?: '#1d1d1d';
+$campaign_colour = sanitize_hex_color(get_field('dw_campaign_colour')) ?: '#3c3c3b';
 $excerpt         = get_field('dw_excerpt');
 ?>
 
