@@ -1,6 +1,6 @@
 <!-- c-dynamic-style starts here -->
 <?php
-    $campaign_colour = get_field('dw_campaign_colour');
+    $campaign_colour = get_field('dw_campaign_colour') ?: '#1d1d1d';
 ?>
 <style>
 .page-template-page_campaign .l-main .c-rich-text-block h2 strong,
@@ -15,11 +15,11 @@
   display: inline-block;
   width: 100%;
   margin: 10px 0 0;
-  border: 1px solid <?= $campaign_colour ?>;
+  border: 1px solid <?= sanitize_hex_color($campaign_colour) ?>;
 }
 
 .l-main .c-rich-text-block .example {
-  border-left-color: <?= $campaign_colour ?>;
+  border-left-color: <?= sanitize_hex_color($campaign_colour) ?>;
 }
 </style>
 <!-- c-dynamic-style ends here -->
