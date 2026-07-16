@@ -1,6 +1,6 @@
 <!-- c-campaign-colour starts here -->
 <?php
-$campaign_colour = get_field('dw_campaign_colour') ?: '#1d1d1d';
+$campaign_colour = sanitize_hex_color(get_field('dw_campaign_colour')) ?: '#1d1d1d';
 $excerpt         = get_field('dw_excerpt');
 ?>
 
@@ -11,7 +11,7 @@ h1,
 .page-template-page_campaign_content .template-container h4,
 .page-template-page_campaign_content .template-container h5,
 .page-template-page_campaign_content .template-container h6 {
-  color: <?= sanitize_hex_color($campaign_colour) ?>;
+  color: <?= $campaign_colour ?>;
 }
 
 .campaign-banner {
@@ -19,18 +19,18 @@ h1,
 }
 
 .page-template-page_campaign_content .template-container blockquote {
-  border-left-color: <?= sanitize_hex_color($campaign_colour) ?>;
+  border-left-color: <?= $campaign_colour ?>;
 }
 
 .page-template-page_campaign_content .template-container hr {
   display: inline-block;
   width: 100%;
   margin: 10px 0 0;
-  border: 1px solid <?= sanitize_hex_color($campaign_colour) ?>;
+  border: 1px solid <?= $campaign_colour ?>;
 }
 
 .page-template-page_campaign_content .example {
-  border-left-color: <?= sanitize_hex_color($campaign_colour) ?>;
+  border-left-color: <?= $campaign_colour ?>;
 }
 </style>
 <!-- c-campaign-colour ends here -->
