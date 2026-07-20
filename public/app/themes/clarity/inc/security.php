@@ -84,6 +84,7 @@ class Security
         add_filter('pre_http_request', [$this, 'handleLoopbackRequests'], 10, 3);
         add_filter('pre_http_request', [$this, 'blockHostRequests'], 10, 3);
         add_filter('pre_http_request', [$this, 'logUnknownHostRequests'], 15, 3);
+        add_filter('rest_pre_dispatch', [$this, 'requireAuthenticationForRestBatch'], -1000, 3);
     }
 
     /**
@@ -199,6 +200,29 @@ class Security
 
         return $response;
     }
+
+
+    /**
+     * Reject anonymous requests to the core REST batch endpoint.
+     *
+     * @param mixed           $result  Pre-calculated dispatch result.
+     * @param WP_REST_Server  $server  REST server instance.
+     * @param WP_REST_Request $request Current REST request.
+     * @return mixed|WP_Error
+     */
+    function requireAuthenticationForRestBatch($result, $server, $request)
+    {
+        if ('/batch/v1' !== strtolower(untrailingslashit($request->get_route())) || is_user_logged_in()) {
+            return $result;
+        }
+
+        return new \WP_Error(
+            'rest_batch_authentication_required',
+            'Authentication is required to use the batch API.',
+            array( 'status' => 401 )
+        );
+    }
+
 }
 
 new Security();
