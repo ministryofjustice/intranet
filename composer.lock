@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "48f5cf286fc1e13c332302b9881f4270",
+    "content-hash": "84ad5f650bb4ab1dd2d3e6ed4695436f",
     "packages": [
         {
             "name": "alphagov/notifications-php-client",
@@ -1235,10 +1235,10 @@
         },
         {
             "name": "koodimonni-language/core-en_gb",
-            "version": "7.0",
+            "version": "7.0.2",
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/translation/core/7.0/en_GB.zip"
+                "url": "https://downloads.wordpress.org/translation/core/7.0.2/en_GB.zip"
             },
             "require": {
                 "koodimonni/composer-dropin-installer": ">=0.2.3"
@@ -1516,12 +1516,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ministryofjustice/notify-for-wordpress.git",
-                "reference": "f20cd2a27b8ef7d2525e1ade70dfbbbd0dec6cb2"
+                "reference": "b3d5a967eb19f0e15a241925feca503fa4a79af4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ministryofjustice/notify-for-wordpress/zipball/f20cd2a27b8ef7d2525e1ade70dfbbbd0dec6cb2",
-                "reference": "f20cd2a27b8ef7d2525e1ade70dfbbbd0dec6cb2",
+                "url": "https://api.github.com/repos/ministryofjustice/notify-for-wordpress/zipball/b3d5a967eb19f0e15a241925feca503fa4a79af4",
+                "reference": "b3d5a967eb19f0e15a241925feca503fa4a79af4",
                 "shasum": ""
             },
             "require": {
@@ -1560,7 +1560,7 @@
                 "security": "https://security-guidance.service.justice.gov.uk/.well-known/security.txt",
                 "source": "https://github.com/ministryofjustice/notify-for-wordpress/tree/main"
             },
-            "time": "2025-10-28T11:29:47+00:00"
+            "time": "2026-07-08T08:49:31+00:00"
         },
         {
             "name": "ministryofjustice/php-markdown-extra",
@@ -1620,16 +1620,16 @@
         },
         {
             "name": "ministryofjustice/wp-moj-components",
-            "version": "3.5.3",
+            "version": "3.5.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ministryofjustice/wp-moj-components.git",
-                "reference": "efc98b8cad54fde6a5c271d9fecba80749ba8fde"
+                "reference": "53ed5134b5874b4bef44c100030a72a1a28a214a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ministryofjustice/wp-moj-components/zipball/efc98b8cad54fde6a5c271d9fecba80749ba8fde",
-                "reference": "efc98b8cad54fde6a5c271d9fecba80749ba8fde",
+                "url": "https://api.github.com/repos/ministryofjustice/wp-moj-components/zipball/53ed5134b5874b4bef44c100030a72a1a28a214a",
+                "reference": "53ed5134b5874b4bef44c100030a72a1a28a214a",
                 "shasum": ""
             },
             "require": {
@@ -1685,10 +1685,10 @@
             ],
             "description": "A plugin to introduce global functions to a collection of WP sites",
             "support": {
-                "source": "https://github.com/ministryofjustice/wp-moj-components/tree/3.5.3",
+                "source": "https://github.com/ministryofjustice/wp-moj-components/tree/3.5.4",
                 "issues": "https://github.com/ministryofjustice/wp-moj-components/issues"
             },
-            "time": "2026-07-03T13:17:58+00:00"
+            "time": "2026-07-14T14:35:27+00:00"
         },
         {
             "name": "ministryofjustice/wp-moj-elasticsearch",
@@ -3390,16 +3390,16 @@
         },
         {
             "name": "symfony/polyfill-ctype",
-            "version": "v1.33.0",
+            "version": "v1.37.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-ctype.git",
-                "reference": "a3cc8b044a6ea513310cbd48ef7333b384945638"
+                "reference": "141046a8f9477948ff284fa65be2095baafb94f2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/a3cc8b044a6ea513310cbd48ef7333b384945638",
-                "reference": "a3cc8b044a6ea513310cbd48ef7333b384945638",
+                "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/141046a8f9477948ff284fa65be2095baafb94f2",
+                "reference": "141046a8f9477948ff284fa65be2095baafb94f2",
                 "shasum": ""
             },
             "require": {
@@ -3449,7 +3449,7 @@
                 "portable"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-ctype/tree/v1.33.0"
+                "source": "https://github.com/symfony/polyfill-ctype/tree/v1.37.0"
             },
             "funding": [
                 {
@@ -3469,20 +3469,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-09-09T11:45:10+00:00"
+            "time": "2026-04-10T16:19:22+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",
-            "version": "v1.33.0",
+            "version": "v1.38.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "6d857f4d76bd4b343eac26d6b539585d2bc56493"
+                "reference": "d3d318bad5e7a1bfbd026009c8bfb8d8f99ae6b6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/6d857f4d76bd4b343eac26d6b539585d2bc56493",
-                "reference": "6d857f4d76bd4b343eac26d6b539585d2bc56493",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/d3d318bad5e7a1bfbd026009c8bfb8d8f99ae6b6",
+                "reference": "d3d318bad5e7a1bfbd026009c8bfb8d8f99ae6b6",
                 "shasum": ""
             },
             "require": {
@@ -3534,7 +3534,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.33.0"
+                "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.38.2"
             },
             "funding": [
                 {
@@ -3554,7 +3554,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-12-23T08:48:59+00:00"
+            "time": "2026-05-27T06:59:30+00:00"
         },
         {
             "name": "symfony/polyfill-php80",
@@ -3774,16 +3774,16 @@
         },
         {
             "name": "vlucas/phpdotenv",
-            "version": "v5.6.3",
+            "version": "v5.6.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vlucas/phpdotenv.git",
-                "reference": "955e7815d677a3eaa7075231212f2110983adecc"
+                "reference": "416df702837983f8d5ff48c9c3fee4f5f57b980b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vlucas/phpdotenv/zipball/955e7815d677a3eaa7075231212f2110983adecc",
-                "reference": "955e7815d677a3eaa7075231212f2110983adecc",
+                "url": "https://api.github.com/repos/vlucas/phpdotenv/zipball/416df702837983f8d5ff48c9c3fee4f5f57b980b",
+                "reference": "416df702837983f8d5ff48c9c3fee4f5f57b980b",
                 "shasum": ""
             },
             "require": {
@@ -3842,7 +3842,7 @@
             ],
             "support": {
                 "issues": "https://github.com/vlucas/phpdotenv/issues",
-                "source": "https://github.com/vlucas/phpdotenv/tree/v5.6.3"
+                "source": "https://github.com/vlucas/phpdotenv/tree/v5.6.4"
             },
             "funding": [
                 {
@@ -3854,19 +3854,19 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-12-27T19:49:13+00:00"
+            "time": "2026-07-06T19:11:50+00:00"
         },
         {
             "name": "wpackagist-plugin/classic-editor",
-            "version": "1.6.7",
+            "version": "1.7.0",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/classic-editor/",
-                "reference": "tags/1.6.7"
+                "reference": "tags/1.7.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/classic-editor.1.6.7.zip"
+                "url": "https://downloads.wordpress.org/plugin/classic-editor.1.7.0.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -3876,15 +3876,15 @@
         },
         {
             "name": "wpackagist-plugin/co-authors-plus",
-            "version": "3.6.1",
+            "version": "4.1.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/co-authors-plus/",
-                "reference": "tags/3.6.1"
+                "reference": "tags/4.1.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/co-authors-plus.3.6.1.zip"
+                "url": "https://downloads.wordpress.org/plugin/co-authors-plus.4.1.1.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -3948,15 +3948,15 @@
         },
         {
             "name": "wpackagist-plugin/query-monitor",
-            "version": "4.0.6",
+            "version": "4.0.7",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/query-monitor/",
-                "reference": "tags/4.0.6"
+                "reference": "tags/4.0.7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/query-monitor.4.0.6.zip"
+                "url": "https://downloads.wordpress.org/plugin/query-monitor.4.0.7.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"

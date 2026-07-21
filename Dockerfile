@@ -14,14 +14,16 @@
 #░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
 
 
-FROM composer:2.10.2@sha256:098c43210b4efc3f46d8734dbc7204ee8c159c48ab03511fc5bfa513a08be042 AS composer
+FROM composer:2.10.2@sha256:5946476338742b200bb9ff88f8be56275ddae4b3949c72305cb0dbf10cfcb760 AS composer
+
+FROM nginxinc/nginx-unprivileged:1.31.3-alpine@sha256:18d67281256ded39ff65e010ae4f831be18f19356f83c60bc546492c7eb6dd23 AS nginx-unprivileged
 
 #    ▄▄  ▄▄     █▀▀  █▀█  █▀▄▀█     ▄▄  ▄▄    #
 #    ░░  ░░     █▀░  █▀▀  █░▀░█     ░░  ░░    #
 
 # Official WordPress image (Alpine, php-fpm): https://hub.docker.com/_/wordpress
 # PHPRedis + igbinary, WP-CLI, mariadb-client, fcgi and the timezone are layered on below.
-FROM wordpress:7.0.1-php8.4-fpm-alpine@sha256:29fdb128683527006459d3ccbf3f49e1b47314067562f3366c93299626a3f2db AS base-fpm
+FROM wordpress:7.0.2-php8.4-fpm-alpine@sha256:1d64606dae40c09ed3c39c23f9a8eec94cfac0040e94ba7b7bd07703ba5fa7a9 AS base-fpm
 
 # Install additional Alpine packages
 RUN apk update && \
@@ -108,8 +110,9 @@ CMD ["php-fpm"]
 #    ▄▄  ▄▄     █▄░█  █▀▀  █  █▄░█  ▀▄▀     ▄▄  ▄▄    #
 #    ░░  ░░     █░▀█  █▄█  █  █░▀█  █░█     ░░  ░░    #
 
-# Use --platform=linux/amd64 flag and match version numbers to ensure module and runtime compatibility.
-FROM --platform=linux/amd64  nginx:1.31.2-alpine@sha256:54f2a904c251d5a34adf545a72d32515a15e08418dae0266e23be2e18c66fefa AS nginx-module-builder
+FROM nginx-unprivileged AS nginx-module-builder
+
+USER root
 
 SHELL ["/bin/ash", "-exo", "pipefail", "-c"]
 
@@ -123,14 +126,13 @@ RUN printf "#!/bin/sh\\nSETFATTR=true /usr/bin/abuild -F \"\$@\"\\n" > /usr/loca
     git clone --branch ${NGINX_VERSION}-${PKG_RELEASE} https://github.com/nginx/pkg-oss.git pkg-oss && \
     mkdir -p /tmp/packages && \
     cd pkg-oss && \
-    /pkg-oss/build_module.sh -v $NGINX_VERSION -f -y -o /tmp/packages -n cachepurge https://github.com/nginx-modules/ngx_cache_purge/archive/2.5.6.tar.gz; \
+    /pkg-oss/build_module.sh -v $NGINX_VERSION -f -y -o /tmp/packages -n cachepurge https://github.com/nginx-modules/ngx_cache_purge/archive/3.0.2.tar.gz; \
     BUILT_MODULES="$BUILT_MODULES $(echo cachepurge | tr '[A-Z]' '[a-z]' | tr -d '[/_\-\.\t ]')"; \
     cd /tmp && ls -l; \
     echo "BUILT_MODULES=\"$BUILT_MODULES\"" > /tmp/packages/modules.env; \
     cd packages && ls -l
 
-# Use --platform=linux/amd64 flag and match version numbers to ensure module and runtime compatibility.
-FROM --platform=linux/amd64 nginxinc/nginx-unprivileged:1.31.2-alpine@sha256:592b23aa79a6e6c08ba4b20f1fff700e1328895705966722608e115d62e52d39 AS base-nginx
+FROM nginx-unprivileged AS base-nginx
 
 USER root
 
