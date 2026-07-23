@@ -3298,7 +3298,7 @@
             ),
             'admin_only' => 0,
             'post_type' => array(
-                0 => 'page',
+                0 => 'post',
             ),
             'taxonomy' => '',
             'allow_null' => 0,
