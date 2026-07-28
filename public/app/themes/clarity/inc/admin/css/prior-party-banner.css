@@ -276,12 +276,12 @@ Prior Party Posts
 
 }
 .ppb-post-col.ppb-posts__status.tick {
-    background-image: url('icon_tick.svg');
+    background-image: url('../images/icon_tick.svg');
     background-size: 42%;
 }
 
 .ppb-post-col.ppb-posts__status.cross {
-    background-image: url('icon_cross.svg');
+    background-image: url('../images/icon_cross.svg');
     background-size: 26%;
 }
 .ppb-post-col.ppb-posts__status.tick.hide-icon,

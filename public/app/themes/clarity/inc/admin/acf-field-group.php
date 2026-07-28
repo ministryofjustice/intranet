@@ -1754,7 +1754,9 @@
                 'id' => '',
             ),
             'admin_only' => 0,
-            'post_type' => '',
+            'post_type' => array(
+                0 => 'post',
+            ),
             'taxonomy' => '',
             'allow_null' => 0,
             'multiple' => 0,
@@ -1905,7 +1907,9 @@
                 'id' => '',
             ),
             'admin_only' => 0,
-            'post_type' => '',
+            'post_type' => array(
+                0 => 'post',
+            ),
             'taxonomy' => '',
             'allow_null' => 0,
             'multiple' => 0,
@@ -3140,7 +3144,9 @@
                 'id' => '',
             ),
             'admin_only' => 0,
-            'post_type' => '',
+            'post_type' => array(
+                0 => 'post',
+            ),
             'taxonomy' => '',
             'allow_null' => 0,
             'multiple' => 0,
@@ -3291,7 +3297,9 @@
                 'id' => '',
             ),
             'admin_only' => 0,
-            'post_type' => '',
+            'post_type' => array(
+                0 => 'post',
+            ),
             'taxonomy' => '',
             'allow_null' => 0,
             'multiple' => 0,
