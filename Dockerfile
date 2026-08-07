@@ -44,6 +44,22 @@ RUN pecl install redis igbinary \
 # Delete PHPRedis build dependencies
 RUN apk del .build-deps
 
+# Install a patched version of WordPress core, prior to release on Docker Hub.
+# Minimal implementation, edit the following 2 arguments directly.
+ARG PATCH_WORDPRESS_VERSION="7.0.3"
+# Get value from https://wordpress.org/wordpress-<WORDPRESS_VERSION>.tar.gz.sha1
+ARG PATCH_WORDPRESS_SHA1="344b74d7cbf13c55ba0f12cad207c06cfee4368a"
+# Download and extract script from: https://github.com/docker-library/wordpress/blob/master/Dockerfile.template
+RUN set -ex; \
+	if [ -n "$PATCH_WORDPRESS_VERSION" ] && [ -n "$PATCH_WORDPRESS_SHA1" ]; then \
+		curl -o wordpress.tar.gz -fL "https://wordpress.org/wordpress-$PATCH_WORDPRESS_VERSION.tar.gz"; \
+		echo "$PATCH_WORDPRESS_SHA1 *wordpress.tar.gz" | sha1sum -c -; \
+		tar -xzf wordpress.tar.gz -C /usr/src/; \
+		rm wordpress.tar.gz; \
+        chown -R www-data:www-data /usr/src/wordpress; \
+        echo "Patched WordPress core to $PATCH_WORDPRESS_VERSION"; \
+	fi
+
 # Install wp-cli
 RUN curl -o /usr/local/bin/wp https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
     chmod +x /usr/local/bin/wp
