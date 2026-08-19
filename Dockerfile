@@ -386,34 +386,10 @@ ENTRYPOINT ["/bin/sh", "-c", "cron-start"]
 #  █▀▀ █▄█ ▄█ █▀█ ██▄ █▀▄
 
 
-FROM alpine:3.24@sha256:28bd5fe8b56d1bd048e5babf5b10710ebe0bae67db86916198a6eec434943f8b AS build-s3-push
+# Assets destined for s3, assembled into the layout that s3-push-start.sh expects.
+# Nothing runs from this stage - it is extracted onto the runner with docker create & docker cp,
+# and the push itself is done by the deploy workflow.
+FROM scratch AS build-s3-assets
 
-ARG user=s3pusher
-RUN addgroup --gid 3001 ${user} && adduser -D -G ${user} -g "${user} user" -u 3001 ${user}
-
-RUN apk add --no-cache aws-cli jq
-
-WORKDIR /usr/bin
-
-COPY deploy/config/init/s3-push-start.sh ./s3-push-start
-RUN chmod +x s3-push-start
-
-USER 3001
-
-# Go home...
-WORKDIR /home/s3pusher
-
-# Create .aws directory for AWS CLI configuration and a tmp directory for other temp files.
-# This will be the only writable location in the read-only container.
-RUN mkdir -p .aws && mkdir -p tmp
-
-# Grab assets for pushing to s3
-COPY --from=build-fpm-composer /var/www/html/vendor-assets ./
-COPY --from=assets-build /node/dist public/app/themes/clarity/dist/
-
-# Set IMAGE_TAG at build time, we don't want this container to be run with an incorrect IMAGE_TAG.
-# Set towards the end of the Dockerfile to benefit from caching.
-ARG IMAGE_TAG
-ENV IMAGE_TAG=$IMAGE_TAG
-
-ENTRYPOINT ["/bin/sh", "-c", "s3-push-start"]
+COPY --from=build-fpm-composer /var/www/html/vendor-assets /assets/
+COPY --from=assets-build /node/dist /assets/public/app/themes/clarity/dist/
