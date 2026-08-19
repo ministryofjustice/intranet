@@ -71,11 +71,11 @@
         "ministryofjustice/php-markdown-extra": "dev-main",
         "ministryofjustice/wp-moj-components": "^3.5",
         "ministryofjustice/wp-moj-elasticsearch": "^2.3.0",
-        "wpackagist-plugin/elasticpress": "^5.2",
+        "wpackagist-plugin/elasticpress": "^5.3",
         "alphagov/notifications-php-client": "^7.0",
         "wpackagist-plugin/query-monitor": "^4.0",
         "wpackagist-plugin/debug-bar": "^1.1",
-        "wpackagist-plugin/debug-bar-elasticpress": "^3.1",
+        "wpackagist-plugin/debug-bar-elasticpress": "^4.0",
         "stayallive/wp-sentry": "^8.3.1",
         "ext-mysqli": "*",
         "ext-openssl": "*",
@@ -88,7 +88,7 @@
         "microsoft/kiota-authentication-phpleague": "^2.0.2",
         "microsoft/kiota-abstractions": "^2.0.2",
         "deliciousbrains/wp-amazon-s3-and-cloudfront": "^3.2",
-        "bonny/wordpress-simple-history": "dev-main#2c5968b",
+        "wpackagist-plugin/simple-history": "5.30.0",
         "jchristopher/cms-tree-page-view": "1.6.9"
     },
     "require-dev": {
@@ -130,12 +130,12 @@
                 "After adding comments here, run a benign composer command like ",
                 "`composer update paragonie/random_compat` to update composer.lock's hash."
             ],
-            "bonny/wordpress-simple-history": [
-                "The package `bonny/wordpress-simple-history` is pinned to a specific commit.",
+            "wpackagist-plugin/simple-history": [
+                "The package `wpackagist-plugin/simple-history` is pinned to an exact version.",
                 "This gives developers the opportunity to review the code of each release.",
                 "When a new version is released, developers should check the diff between",
-                "the pinned commit and the new version. There is a compare view on GitHub.",
-                "e.g. https://github.com/bonny/WordPress-Simple-History/compare/b8cc09b...475f3baa",
+                "the pinned tag and the new tag. There is a compare view on GitHub.",
+                "e.g. https://github.com/bonny/WordPress-Simple-History/compare/5.29.0...5.30.0",
                 "If the changes are acceptable, the pinned version can be updated."
             ],
             "replace.paragonie/random_compat": [
