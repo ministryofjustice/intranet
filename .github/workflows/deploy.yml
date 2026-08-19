@@ -27,6 +27,7 @@ jobs:
     permissions:
       contents: read
       pull-requests: write
+      id-token: write
     environment: ${{ inputs.environment }}
     env:
       KUBE_NAMESPACE: ${{ secrets.KUBE_NAMESPACE }}
@@ -35,13 +36,40 @@ jobs:
       - name: "Checkout"
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
+      ## Assets are built & exported by build.yml - keep the artifact name in step with it.
+      - name: "Download s3 assets"
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: s3-assets
+          ## Nb. defaults to the workspace, which already has a public/ directory of its own.
+          path: ${{ runner.temp }}/dl
+
+      - name: "Extract s3 assets"
+        run: |
+          mkdir -p "$RUNNER_TEMP/s3-assets"
+          tar -C "$RUNNER_TEMP/s3-assets" -xf "$RUNNER_TEMP/dl/s3-assets.tar"
+
+      - name: "Configuring AWS credentials"
+        uses: aws-actions/configure-aws-credentials@e6de054238d6b7531b4efff3b6587d9aade6a06c # v6.2.3
+        with:
+          role-to-assume: ${{ secrets.S3_ROLE_TO_ASSUME }}
+          aws-region: ${{ vars.S3_REGION }}
+
+      ## Runs before the manifests are applied, so that a failed push stops the deployment
+      ## rather than rolling out pods whose assets never reached the CDN.
+      - name: "Push assets to S3"
+        working-directory: ${{ runner.temp }}/s3-assets
+        env:
+          IMAGE_TAG: ${{ github.sha }}
+          AWS_S3_BUCKET: ${{ vars.S3_BUCKET_NAME }}
+        run: sh "$GITHUB_WORKSPACE/deploy/config/init/s3-push-start.sh"
+
       - name: "Inject environment variables"
         env:
           TPL_PATH: "deploy/${{ inputs.environment }}"
           ECR_URL: ${{ inputs.registry }}/${{ vars.ECR_REPOSITORY }}
           IMAGE_TAG_NGINX: "nginx-${{ inputs.pipeline }}-${{ github.sha }}"
           IMAGE_TAG_FPM: "fpm-${{ inputs.pipeline }}-${{ github.sha }}"
-          IMAGE_TAG_S3_PUSH: "s3-push-${{ inputs.pipeline }}-${{ github.sha }}"
           GOV_NOTIFY_API_KEY: ${{ secrets.GOV_NOTIFY_API_KEY }}
           ACF_PRO_LICENSE: ${{ secrets.ACF_PRO_LICENSE }}
           AS3CF_PRO_LICENCE: ${{ secrets.AS3CF_PRO_LICENCE }}
@@ -147,8 +175,7 @@ jobs:
           < "$TPL_PATH"/ingress.tpl.yml envsubst '${MODSEC_CONFIG}' > "$TPL_PATH"/ingress.yaml
           < "$TPL_PATH"/secret.tpl.yml envsubst > "$TPL_PATH"/secret.yaml
           < "$TPL_PATH"/deployment.tpl.yml envsubst > "$TPL_PATH"/deployment.yaml
-          < "$TPL_PATH"/job.tpl.yml envsubst > "$TPL_PATH"/job.yaml
-          
+
           ## Remove template files before apply
           rm "$TPL_PATH"/*.tpl.yml
 

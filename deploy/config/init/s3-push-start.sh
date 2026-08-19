@@ -30,6 +30,8 @@ fi
 
 # Truncate $IMAGE_TAG to 8 chars.
 export IMAGE_TAG=$(echo $IMAGE_TAG | cut -c1-8)
+# Scratch space for the manifest and summary files.
+mkdir -p ./tmp
 # File paths on the local filesystem.
 export LOCAL_MANIFEST="./tmp/manifest.json"
 export LOCAL_SUMMARY="./tmp/summary.jsonl"
