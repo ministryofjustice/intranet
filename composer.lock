@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3a5c9e47fc89208f18e567dd9bfc75c0",
+    "content-hash": "b07218f768e6b4bca8686e84a5fef3b7",
     "packages": [
         {
             "name": "alphagov/notifications-php-client",
@@ -3719,15 +3719,15 @@
         },
         {
             "name": "wpackagist-plugin/debug-bar-elasticpress",
-            "version": "3.1.1",
+            "version": "4.0.0",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/debug-bar-elasticpress/",
-                "reference": "tags/3.1.1"
+                "reference": "tags/4.0.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/debug-bar-elasticpress.3.1.1.zip"
+                "url": "https://downloads.wordpress.org/plugin/debug-bar-elasticpress.4.0.0.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -3773,15 +3773,15 @@
         },
         {
             "name": "wpackagist-plugin/wp-document-revisions",
-            "version": "3.6.1",
+            "version": "5.4.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/wp-document-revisions/",
-                "reference": "tags/3.6.1"
+                "reference": "tags/5.4.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wp-document-revisions.3.6.1.zip"
+                "url": "https://downloads.wordpress.org/plugin/wp-document-revisions.5.4.1.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
