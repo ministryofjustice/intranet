@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3a5c9e47fc89208f18e567dd9bfc75c0",
+    "content-hash": "564cd877c4221893fbde9e02c3556cee",
     "packages": [
         {
             "name": "alphagov/notifications-php-client",
@@ -1083,10 +1083,10 @@
         },
         {
             "name": "koodimonni-language/core-en_gb",
-            "version": "7.0.2",
+            "version": "7.1",
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/translation/core/7.0.2/en_GB.zip"
+                "url": "https://downloads.wordpress.org/translation/core/7.1/en_GB.zip"
             },
             "require": {
                 "koodimonni/composer-dropin-installer": ">=0.2.3"
@@ -3737,15 +3737,15 @@
         },
         {
             "name": "wpackagist-plugin/elasticpress",
-            "version": "5.2.0",
+            "version": "5.3.3",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/elasticpress/",
-                "reference": "tags/5.2.0"
+                "reference": "tags/5.3.3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/elasticpress.5.2.0.zip"
+                "url": "https://downloads.wordpress.org/plugin/elasticpress.5.3.3.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -3791,10 +3791,10 @@
         },
         {
             "name": "wpengine/advanced-custom-fields-pro",
-            "version": "6.3.6",
+            "version": "6.8.8",
             "dist": {
                 "type": "zip",
-                "url": "https://connect.advancedcustomfields.com/v2/plugins/composer_download?s=composer&p=pro&t=6.3.6"
+                "url": "https://connect.advancedcustomfields.com/v2/plugins/composer_download?s=composer&p=pro&t=6.8.8"
             },
             "require": {
                 "composer/installers": "~1.0 || ~2.0"
