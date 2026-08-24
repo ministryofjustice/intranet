@@ -16,14 +16,14 @@
 
 FROM composer:2.10.2@sha256:4d71c3c2109c61d5415544264b59ad4087e4c5b7244481723664138fd36d5040 AS composer
 
-FROM nginxinc/nginx-unprivileged:1.31.3-alpine@sha256:a6c3ec0c0d249d68b0682df854d4a9e222b90fb607dc3fcf2f1d2fcbc85d347e AS nginx-unprivileged
+FROM nginxinc/nginx-unprivileged:1.31.3-alpine@sha256:f972e5322b9797dc2a6b830030094426437b1ae7032e4644496395336ac6fdac AS nginx-unprivileged
 
 #    ▄▄  ▄▄     █▀▀  █▀█  █▀▄▀█     ▄▄  ▄▄    #
 #    ░░  ░░     █▀░  █▀▀  █░▀░█     ░░  ░░    #
 
 # Official WordPress image (Alpine, php-fpm): https://hub.docker.com/_/wordpress
 # PHPRedis + igbinary, WP-CLI, mariadb-client, fcgi and the timezone are layered on below.
-FROM wordpress:7.0.4-php8.4-fpm-alpine@sha256:f5fa744c5d40e14cb89d7a12c9e06a406672cd044f73e7db83bb88c7e503d51c AS base-fpm
+FROM wordpress:7.1.0-php8.4-fpm-alpine@sha256:dd3cfa9b12df82a3bf3e8df811cb79d5d2d9239dd62c6ed671116c433654bca3 AS base-fpm
 
 # Install additional Alpine packages
 RUN apk update && \
