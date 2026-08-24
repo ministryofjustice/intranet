@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b25078c4cbebafe52f016959c3740116",
+    "content-hash": "75a4b9a6e13237aaa3db7d7fcab16131",
     "packages": [
         {
             "name": "alphagov/notifications-php-client",
@@ -1008,10 +1008,10 @@
         },
         {
             "name": "koodimonni-language/core-en_gb",
-            "version": "7.0.2",
+            "version": "7.1",
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/translation/core/7.0.2/en_GB.zip"
+                "url": "https://downloads.wordpress.org/translation/core/7.1/en_GB.zip"
             },
             "require": {
                 "koodimonni/composer-dropin-installer": ">=0.2.3"
@@ -3734,10 +3734,10 @@
         },
         {
             "name": "wpengine/advanced-custom-fields-pro",
-            "version": "6.3.6",
+            "version": "6.8.8",
             "dist": {
                 "type": "zip",
-                "url": "https://connect.advancedcustomfields.com/v2/plugins/composer_download?s=composer&p=pro&t=6.3.6"
+                "url": "https://connect.advancedcustomfields.com/v2/plugins/composer_download?s=composer&p=pro&t=6.8.8"
             },
             "require": {
                 "composer/installers": "~1.0 || ~2.0"
