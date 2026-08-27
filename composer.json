@@ -60,7 +60,7 @@
         "vlucas/phpdotenv": "^5.5",
         "roots/bedrock-autoloader": "^1.0",
         "roots/bedrock-disallow-indexing": "^2.0",
-        "koodimonni-language/core-en_gb": "7.0.2",
+        "koodimonni-language/core-en_gb": "7.1",
         "roots/wp-config": "^1.0",
         "wpackagist-plugin/classic-editor": "^1.7.0",
         "wpackagist-plugin/co-authors-plus": "^4.1.1",
@@ -88,7 +88,7 @@
         "microsoft/kiota-authentication-phpleague": "^2.0.2",
         "microsoft/kiota-abstractions": "^2.0.2",
         "deliciousbrains/wp-amazon-s3-and-cloudfront": "^3.2",
-        "wpackagist-plugin/simple-history": "5.30.0",
+        "wpackagist-plugin/simple-history": "5.31.0",
         "jchristopher/cms-tree-page-view": "1.6.9"
     },
     "require-dev": {
