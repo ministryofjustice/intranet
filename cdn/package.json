@@ -20,7 +20,7 @@
     "homepage": "https://github.com/ministryofjustice/intranet/#readme",
     "dependencies": {
         "cookie-parser": "^1.4.6",
-        "express": "^4.19.0",
+        "express": "^5.1.0",
         "http-proxy-middleware": "^3.0.0"
     },
     "author": ""
