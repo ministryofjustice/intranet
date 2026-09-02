@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b25078c4cbebafe52f016959c3740116",
+    "content-hash": "126759a596cd6e32a143880b58add472",
     "packages": [
         {
             "name": "alphagov/notifications-php-client",
@@ -3662,15 +3662,15 @@
         },
         {
             "name": "wpackagist-plugin/elasticpress",
-            "version": "5.3.3",
+            "version": "5.3.4",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/elasticpress/",
-                "reference": "tags/5.3.3"
+                "reference": "tags/5.3.4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/elasticpress.5.3.3.zip"
+                "url": "https://downloads.wordpress.org/plugin/elasticpress.5.3.4.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
