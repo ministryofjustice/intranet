@@ -27,6 +27,7 @@ class Agency
         *
         *  - shortcode (string) - agency code
         *  - label (string) - the full name of the agency
+        *  - logo_bar_label (string) (optional) - the name of the agency to be shown beside the header logo
         *  - abbreviation (string) - short name, such as HMCTS
         *  - blog url (string) (optional) - custom url for main menu blog
         *  - is_integrated (boolean) - whether the agency is already integrated into the intranet or not
@@ -170,6 +171,7 @@ class Agency
             'wales-office' => [
                 'shortcode' => 'wales-office',
                 'label' => 'Wales Office',
+                'logo_bar_label' => 'Wales Office | Swyddfa Cymru',
                 'abbreviation' => 'WO',
                 'is_integrated' => true,
                 'contact_email_address' => 'Director@ukgovwales.gov.uk',

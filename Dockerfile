@@ -23,7 +23,7 @@ FROM nginxinc/nginx-unprivileged:1.31.3-alpine@sha256:a6c3ec0c0d249d68b0682df854
 
 # Official WordPress image (Alpine, php-fpm): https://hub.docker.com/_/wordpress
 # PHPRedis + igbinary, WP-CLI, mariadb-client, fcgi and the timezone are layered on below.
-FROM wordpress:7.0.2-php8.4-fpm-alpine@sha256:a0bb47ed4a9a98835f6bc4c2b63f0167402f3bb47d2c77248238ab98a7f1029a AS base-fpm
+FROM wordpress:7.0.4-php8.4-fpm-alpine@sha256:f5fa744c5d40e14cb89d7a12c9e06a406672cd044f73e7db83bb88c7e503d51c AS base-fpm
 
 # Install additional Alpine packages
 RUN apk update && \
@@ -46,9 +46,9 @@ RUN apk del .build-deps
 
 # Install a patched version of WordPress core, prior to release on Docker Hub.
 # Minimal implementation, edit the following 2 arguments directly.
-ARG PATCH_WORDPRESS_VERSION="7.0.3"
+ARG PATCH_WORDPRESS_VERSION=""
 # Get value from https://wordpress.org/wordpress-<WORDPRESS_VERSION>.tar.gz.sha1
-ARG PATCH_WORDPRESS_SHA1="344b74d7cbf13c55ba0f12cad207c06cfee4368a"
+ARG PATCH_WORDPRESS_SHA1=""
 # Download and extract script from: https://github.com/docker-library/wordpress/blob/master/Dockerfile.template
 RUN set -ex; \
 	if [ -n "$PATCH_WORDPRESS_VERSION" ] && [ -n "$PATCH_WORDPRESS_SHA1" ]; then \
@@ -386,10 +386,34 @@ ENTRYPOINT ["/bin/sh", "-c", "cron-start"]
 #  █▀▀ █▄█ ▄█ █▀█ ██▄ █▀▄
 
 
-# Assets destined for s3, assembled into the layout that s3-push-start.sh expects.
-# Nothing runs from this stage - it is extracted onto the runner with docker create & docker cp,
-# and the push itself is done by the deploy workflow.
-FROM scratch AS build-s3-assets
+FROM alpine:3.24@sha256:28bd5fe8b56d1bd048e5babf5b10710ebe0bae67db86916198a6eec434943f8b AS build-s3-push
 
-COPY --from=build-fpm-composer /var/www/html/vendor-assets /assets/
-COPY --from=assets-build /node/dist /assets/public/app/themes/clarity/dist/
+ARG user=s3pusher
+RUN addgroup --gid 3001 ${user} && adduser -D -G ${user} -g "${user} user" -u 3001 ${user}
+
+RUN apk add --no-cache aws-cli jq
+
+WORKDIR /usr/bin
+
+COPY deploy/config/init/s3-push-start.sh ./s3-push-start
+RUN chmod +x s3-push-start
+
+USER 3001
+
+# Go home...
+WORKDIR /home/s3pusher
+
+# Create .aws directory for AWS CLI configuration and a tmp directory for other temp files.
+# This will be the only writable location in the read-only container.
+RUN mkdir -p .aws && mkdir -p tmp
+
+# Grab assets for pushing to s3
+COPY --from=build-fpm-composer /var/www/html/vendor-assets ./
+COPY --from=assets-build /node/dist public/app/themes/clarity/dist/
+
+# Set IMAGE_TAG at build time, we don't want this container to be run with an incorrect IMAGE_TAG.
+# Set towards the end of the Dockerfile to benefit from caching.
+ARG IMAGE_TAG
+ENV IMAGE_TAG=$IMAGE_TAG
+
+ENTRYPOINT ["/bin/sh", "-c", "s3-push-start"]

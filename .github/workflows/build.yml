@@ -53,11 +53,19 @@ jobs:
             --build-arg AS3CF_PRO_USER="$AS3CF_PRO_USER"   --build-arg AS3CF_PRO_PASS="$AS3CF_PRO_PASS" \
             --target build-nginx .
 
-          # ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
+          docker image build \
+            -t $REGISTRY/$REPOSITORY:s3-push-$PIPELINE_TAG-$IMAGE_TAG \
+            --build-arg ACF_PRO_LICENSE --build-arg ACF_PRO_PASS   \
+            --build-arg AS3CF_PRO_USER  --build-arg AS3CF_PRO_PASS \
+            --build-arg IMAGE_TAG \
+            --target build-s3-push .
 
+          # ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
+          
           docker image push $REGISTRY/$REPOSITORY:fpm-$PIPELINE_TAG-$IMAGE_TAG
           docker image push $REGISTRY/$REPOSITORY:nginx-$PIPELINE_TAG-$IMAGE_TAG
-
+          docker image push $REGISTRY/$REPOSITORY:s3-push-$PIPELINE_TAG-$IMAGE_TAG
+          
           # ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
 
         env:
@@ -69,48 +77,3 @@ jobs:
           ACF_PRO_PASS: ${{ secrets.ACF_PRO_PASS }}
           AS3CF_PRO_USER: ${{ secrets.AS3CF_PRO_USER }}
           AS3CF_PRO_PASS: ${{ secrets.AS3CF_PRO_PASS }}
-
-      # The assets are pushed to s3 by the deploy workflow, which needs them on the runner.
-      # Extracted from a scratch image rather than exported with buildx, so that the build
-      # shares the daemon's layer cache with the fpm & nginx builds above.
-      - name: "Export s3 assets"
-        run: |
-
-          docker image build \
-            -t intranet-s3-assets:$IMAGE_TAG \
-            --build-arg ACF_PRO_LICENSE="$ACF_PRO_LICENSE" --build-arg ACF_PRO_PASS="$ACF_PRO_PASS"     \
-            --build-arg AS3CF_PRO_USER="$AS3CF_PRO_USER"   --build-arg AS3CF_PRO_PASS="$AS3CF_PRO_PASS" \
-            --target build-s3-assets .
-
-          mkdir -p "$RUNNER_TEMP/s3-assets"
-
-          ## `docker create` rejects an image with no command, so pass one. It is never run.
-          CID=$(docker create intranet-s3-assets:$IMAGE_TAG /noop)
-          trap 'docker rm "$CID" > /dev/null 2>&1 || true' EXIT
-
-          ## Nb. no `-a`, so the uid 101 files from vendor-assets land owned by the runner.
-          docker cp "$CID:/assets/." "$RUNNER_TEMP/s3-assets/"
-
-          echo "Exported $(find "$RUNNER_TEMP/s3-assets/public" -type f | wc -l) files."
-
-          ## Tar before upload - actions/upload-artifact skips hidden files by default,
-          ## and some vendor assets are dotfiles.
-          tar -C "$RUNNER_TEMP/s3-assets" -cf "$RUNNER_TEMP/s3-assets.tar" .
-
-        env:
-          IMAGE_TAG: ${{ github.sha }}
-          ACF_PRO_LICENSE: ${{ secrets.ACF_PRO_LICENSE }}
-          ACF_PRO_PASS: ${{ secrets.ACF_PRO_PASS }}
-          AS3CF_PRO_USER: ${{ secrets.AS3CF_PRO_USER }}
-          AS3CF_PRO_PASS: ${{ secrets.AS3CF_PRO_PASS }}
-
-      ## Downloaded by deploy.yml - keep the artifact name in step with that workflow.
-      - name: "Upload s3 assets"
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
-        with:
-          name: s3-assets
-          path: ${{ runner.temp }}/s3-assets.tar
-          ## Artifacts outlive the run, so a re-run would otherwise fail on a name clash.
-          overwrite: true
-          if-no-files-found: error
-          retention-days: 7
