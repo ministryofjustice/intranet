@@ -71,7 +71,7 @@
         "ministryofjustice/php-markdown-extra": "dev-main",
         "ministryofjustice/wp-moj-components": "^3.5",
         "ministryofjustice/wp-moj-elasticsearch": "^2.3.0",
-        "wpackagist-plugin/elasticpress": "^5.3",
+        "wpackagist-plugin/elasticpress": "^5.3.4",
         "alphagov/notifications-php-client": "^7.0",
         "wpackagist-plugin/query-monitor": "^4.0",
         "wpackagist-plugin/debug-bar": "^1.1",
