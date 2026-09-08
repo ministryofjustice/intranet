@@ -4,6 +4,7 @@ namespace MOJ_Intranet\Taxonomies;
 
 use Agency_Context;
 use Agency_Editor;
+use MOJ_Intranet\List_Tables\Listing_Query;
 use Region_Context;
 
 class Agency extends Taxonomy
@@ -98,7 +99,6 @@ class Agency extends Taxonomy
         if (Agency_Context::current_user_can_have_context()) {
             // Post filtering
             add_filter('parse_query', array($this, 'filter_posts_by_agency'));
-            add_filter('pre_months_dropdown_query', array($this, 'filter_months_dropdown'), 10, 2);
             add_filter('wp_count_posts', array($this, 'filter_post_counts'), 10, 3);
 
             foreach ($this->object_types as $object_type) {
@@ -255,61 +255,6 @@ class Agency extends Taxonomy
     }
 
     /**
-     * Build the SQL that a post listing would run, without running it.
-     *
-     * Letting WP_Query assemble the query means every filter that shapes the
-     * listing is inherited: the agency filter in filter_posts_by_agency(), the
-     * region filter in Region::filter_posts_by_region(), Co-Authors Plus'
-     * rewriting of author queries, and anything added later. Rebuilding those
-     * conditions by hand would mean keeping a second copy of them in step.
-     *
-     * The query is short circuited before it executes, so this costs no query
-     * of its own; the caller aggregates over the returned SQL instead.
-     *
-     * @param string $post_type
-     * @param string $fields The SELECT list for the inner query.
-     * @param array $args Additional WP_Query arguments.
-     * @return string SQL, already prepared. Do not pass it through wpdb::prepare().
-     */
-    protected function get_listing_request($post_type, $fields, $args = array())
-    {
-        // WP_Query applies two rounds of clause filters and re-reads the field
-        // list after each, so the list is set in both. posts_clauses_request is
-        // the later one and therefore the one that decides.
-        $select = function ($clauses) use ($fields) {
-            $clauses['fields'] = $fields;
-            return $clauses;
-        };
-
-        // Returning an array stops WP_Query hitting the database. $query->request
-        // is already assembled by this point.
-        $skip = function () {
-            return array();
-        };
-
-        add_filter('posts_clauses', $select, PHP_INT_MAX);
-        add_filter('posts_clauses_request', $select, PHP_INT_MAX);
-        add_filter('posts_pre_query', $skip, PHP_INT_MAX);
-
-        $query = new \WP_Query(array_merge(array(
-            'post_type'              => $post_type,
-            'posts_per_page'         => -1,
-            'orderby'                => 'none',
-            'no_found_rows'          => true,
-            'ignore_sticky_posts'    => true,
-            'cache_results'          => false,
-            'update_post_meta_cache' => false,
-            'update_post_term_cache' => false,
-        ), $args));
-
-        remove_filter('posts_pre_query', $skip, PHP_INT_MAX);
-        remove_filter('posts_clauses_request', $select, PHP_INT_MAX);
-        remove_filter('posts_clauses', $select, PHP_INT_MAX);
-
-        return $query->request;
-    }
-
-    /**
      * Is this the listing currently on screen?
      *
      * The corrections below only apply to the counts and dates shown above the
@@ -371,7 +316,7 @@ class Agency extends Taxonomy
         // and recurse until the request runs out of stack.
         $this->counts_memo[$memo_key] = $counts;
 
-        $request = $this->get_listing_request(
+        $request = Listing_Query::request(
             $post_type,
             "{$wpdb->posts}.ID, {$wpdb->posts}.post_status",
             $args
@@ -441,7 +386,7 @@ class Agency extends Taxonomy
         // Counted with COUNT() rather than WP_Query's found_posts, because the
         // SQL_CALC_FOUND_ROWS that found_posts relies on takes seconds over the
         // joins an author query can accumulate.
-        $request = $this->get_listing_request(
+        $request = Listing_Query::request(
             $screen->post_type,
             "{$wpdb->posts}.ID",
             array(
@@ -533,59 +478,6 @@ class Agency extends Taxonomy
         }
 
         return $rebuilt;
-    }
-
-    /**
-     * Restrict the "Filter by date" dropdown to months which contain posts
-     * belonging to the current agency context.
-     *
-     * WP_List_Table::months_dropdown() builds its list with a plain post_type
-     * and post_status query, which knows nothing about the filters applied to
-     * the listing. The result is a dropdown offering months that return an empty
-     * list once selected.
-     *
-     * @param object[]|false $months Short-circuit value. False to let core query.
-     * @param string $post_type
-     * @return object[]|false
-     */
-    public function filter_months_dropdown($months, $post_type)
-    {
-        global $wpdb;
-
-        if (!$this->is_current_listing($post_type)) {
-            return $months;
-        }
-
-        // Mirror the post_status handling in WP_List_Table::months_dropdown().
-        if (isset($_GET['post_status']) && $_GET['post_status'] == 'trash') {
-            $statuses = array('trash');
-        } else {
-            $statuses = array_diff(get_post_stati(), array('auto-draft', 'trash'));
-        }
-
-        $request = $this->get_listing_request(
-            $post_type,
-            "{$wpdb->posts}.ID, {$wpdb->posts}.post_date",
-            array('post_status' => array_values($statuses))
-        );
-
-        if (empty($request)) {
-            return $months;
-        }
-
-        // $request is already prepared, so it is not passed through prepare().
-        $results = $wpdb->get_results(
-            "SELECT DISTINCT YEAR(post_date) AS year, MONTH(post_date) AS month
-             FROM ($request) AS filtered
-             ORDER BY year DESC, month DESC"
-        );
-
-        if ($wpdb->last_error) {
-            // Fall back to the unfiltered dropdown rather than showing no dates.
-            return $months;
-        }
-
-        return $results;
     }
 
     /**
