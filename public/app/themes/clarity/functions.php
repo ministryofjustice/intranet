@@ -11,6 +11,7 @@
  */
 
 if (defined('WP_CLI') && WP_CLI) {
+    require_once 'inc/commands/ContentCleanup.php';
     require_once 'inc/commands/DocumentRevisionReconcile.php';
     require_once 'inc/commands/FindDocumentRefs.php';
     require_once 'inc/commands/SyncUserRoles.php';
