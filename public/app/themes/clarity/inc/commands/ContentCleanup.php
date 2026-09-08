@@ -86,7 +86,7 @@ if (defined('WP_CLI') && WP_CLI) {
                 WP_CLI::error($this->before->get_error_message());
             }
 
-            if ($assoc_args['dry-run'] ?? '' === 'false') {
+            if (($assoc_args['dry-run'] ?? '') === 'false') {
                 $this->dry_run = false;
             }
 
@@ -142,9 +142,6 @@ if (defined('WP_CLI') && WP_CLI) {
 
         public function report()
         {
-            // Here, lets get:
-            // Posts tagged with just $agency
-            // Posts tagged with $agency and others
             // TODO - work out who published.
 
             foreach ($this->post_type_objects as $post_type => $post_type_obj) {
@@ -172,18 +169,21 @@ if (defined('WP_CLI') && WP_CLI) {
                 $posts_with_exclusivity = array_combine(
                     $posts,
                     array_map(
-                        fn(int $post_id) => count(
-                            wp_get_post_terms($post_id, 'agency', ['fields' => 'ids'])
-                        ) === 1,
+                        fn(int $post_id) => [
+                            // Is the agency the only one tagged for this post?
+                            'exclusive' => count(
+                                wp_get_post_terms($post_id, 'agency', ['fields' => 'ids'])
+                            ) === 1,
+                        ],
                         $posts
                     )
                 );
 
                 $all_count = count($posts_with_exclusivity);
 
-                $exclusive_count = count(
-                    array_filter($posts_with_exclusivity)
-                );
+                $exclusive_count =  count(
+                        array_filter($posts_with_exclusivity, fn($p) => $p['exclusive'])
+                    );
 
                 $non_exclusive_count = $all_count - $exclusive_count;
 
@@ -192,8 +192,8 @@ if (defined('WP_CLI') && WP_CLI) {
 
                 WP_CLI::line(sprintf('%s (%s)', $label, $post_type));
                 WP_CLI::line(sprintf('  Tagged with "%s": %d', $this->agency, $all_count));
-                WP_CLI::line(sprintf('  Tagged only with "%s": %d', $this->agency, $exclusive_count));
-                WP_CLI::line(sprintf('  Tagged with "%s" and other agencies: %d', $this->agency, $non_exclusive_count));
+                WP_CLI::line(sprintf('    Tagged with "%s" and other agencies: %d', $this->agency, $non_exclusive_count));
+                WP_CLI::line(sprintf('    Tagged only with "%s": %d', $this->agency, $exclusive_count));
             }
         }
     }
