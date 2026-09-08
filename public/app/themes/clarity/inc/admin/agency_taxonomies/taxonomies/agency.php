@@ -26,6 +26,14 @@ class Agency extends Taxonomy
         'note-from-antonia',
     );
 
+    /**
+     * Post counts already worked out during this request, keyed by post type
+     * and permission. WP_Posts_List_Table asks for them more than once per page.
+     *
+     * @var array
+     */
+    protected $counts_memo = array();
+
     protected $args = array(
         'labels' => array(
             'name' => 'Agencies',
@@ -90,6 +98,16 @@ class Agency extends Taxonomy
         if (Agency_Context::current_user_can_have_context()) {
             // Post filtering
             add_filter('parse_query', array($this, 'filter_posts_by_agency'));
+            add_filter('pre_months_dropdown_query', array($this, 'filter_months_dropdown'), 10, 2);
+            add_filter('wp_count_posts', array($this, 'filter_post_counts'), 10, 3);
+
+            foreach ($this->object_types as $object_type) {
+                if ($object_type == 'user') {
+                    continue;
+                }
+
+                add_filter('views_edit-' . $object_type, array($this, 'filter_status_views'), 11);
+            }
 
             // Auto-tag agency
             add_action('save_post', array($this, 'set_agency_terms_on_save_post'));
@@ -234,6 +252,340 @@ class Agency extends Taxonomy
         }
 
         $is_checked = ( isset($_GET['show-hq-posts']) && $_GET['show-hq-posts'] == '1' );
+    }
+
+    /**
+     * Build the SQL that a post listing would run, without running it.
+     *
+     * Letting WP_Query assemble the query means every filter that shapes the
+     * listing is inherited: the agency filter in filter_posts_by_agency(), the
+     * region filter in Region::filter_posts_by_region(), Co-Authors Plus'
+     * rewriting of author queries, and anything added later. Rebuilding those
+     * conditions by hand would mean keeping a second copy of them in step.
+     *
+     * The query is short circuited before it executes, so this costs no query
+     * of its own; the caller aggregates over the returned SQL instead.
+     *
+     * @param string $post_type
+     * @param string $fields The SELECT list for the inner query.
+     * @param array $args Additional WP_Query arguments.
+     * @return string SQL, already prepared. Do not pass it through wpdb::prepare().
+     */
+    protected function get_listing_request($post_type, $fields, $args = array())
+    {
+        // WP_Query applies two rounds of clause filters and re-reads the field
+        // list after each, so the list is set in both. posts_clauses_request is
+        // the later one and therefore the one that decides.
+        $select = function ($clauses) use ($fields) {
+            $clauses['fields'] = $fields;
+            return $clauses;
+        };
+
+        // Returning an array stops WP_Query hitting the database. $query->request
+        // is already assembled by this point.
+        $skip = function () {
+            return array();
+        };
+
+        add_filter('posts_clauses', $select, PHP_INT_MAX);
+        add_filter('posts_clauses_request', $select, PHP_INT_MAX);
+        add_filter('posts_pre_query', $skip, PHP_INT_MAX);
+
+        $query = new \WP_Query(array_merge(array(
+            'post_type'              => $post_type,
+            'posts_per_page'         => -1,
+            'orderby'                => 'none',
+            'no_found_rows'          => true,
+            'ignore_sticky_posts'    => true,
+            'cache_results'          => false,
+            'update_post_meta_cache' => false,
+            'update_post_term_cache' => false,
+        ), $args));
+
+        remove_filter('posts_pre_query', $skip, PHP_INT_MAX);
+        remove_filter('posts_clauses_request', $select, PHP_INT_MAX);
+        remove_filter('posts_clauses', $select, PHP_INT_MAX);
+
+        return $query->request;
+    }
+
+    /**
+     * Is this the listing currently on screen?
+     *
+     * The corrections below only apply to the counts and dates shown above the
+     * listing being viewed. Other callers of wp_count_posts() during the same
+     * request, such as the At a Glance dashboard widget or a plugin asking about
+     * a different post type, keep their site wide answers.
+     *
+     * @param string $post_type
+     * @return bool
+     */
+    protected function is_current_listing($post_type)
+    {
+        global $pagenow, $typenow;
+
+        return $pagenow == 'edit.php'
+            && $post_type == $typenow
+            && in_array($post_type, $this->object_types);
+    }
+
+    /**
+     * Make the post status counts above the listing agency aware.
+     *
+     * wp_count_posts() counts every post of the type, so the "All", "Published",
+     * "Drafts" etc. totals describe the whole site while the listing beneath them
+     * is restricted by filter_posts_by_agency() and, for some post types, by
+     * Region::filter_posts_by_region().
+     *
+     * @param object $counts
+     * @param string $post_type
+     * @param string $perm
+     * @return object
+     */
+    public function filter_post_counts($counts, $post_type, $perm)
+    {
+        global $wpdb;
+
+        if (!$this->is_current_listing($post_type)) {
+            return $counts;
+        }
+
+        $memo_key = $post_type . '|' . $perm;
+
+        if (isset($this->counts_memo[$memo_key])) {
+            return $this->counts_memo[$memo_key];
+        }
+
+        $args = array(
+            // Every status, so the Bin link keeps its count.
+            'post_status' => get_post_stati(),
+        );
+
+        if ($perm) {
+            $args['perm'] = $perm;
+        }
+
+        // Seeded before the inner query runs. That query fires parse_query,
+        // posts_clauses and the_posts, and a callback on any of them that calls
+        // wp_count_posts() for this same post type would otherwise re-enter here
+        // and recurse until the request runs out of stack.
+        $this->counts_memo[$memo_key] = $counts;
+
+        $request = $this->get_listing_request(
+            $post_type,
+            "{$wpdb->posts}.ID, {$wpdb->posts}.post_status",
+            $args
+        );
+
+        if (empty($request)) {
+            return $counts;
+        }
+
+        // $request is already prepared, so it is not passed through prepare().
+        $results = $wpdb->get_results(
+            "SELECT post_status, COUNT(DISTINCT ID) AS num_posts FROM ($request) AS counted GROUP BY post_status",
+            ARRAY_A
+        );
+
+        if ($wpdb->last_error) {
+            return $counts;
+        }
+
+        $context_counts = array();
+
+        foreach ((array) $results as $row) {
+            $context_counts[$row['post_status']] = (int) $row['num_posts'];
+        }
+
+        // Callers expect every registered status to be present.
+        $this->counts_memo[$memo_key] = (object) array_merge(
+            array_fill_keys(get_post_stati(), 0),
+            $context_counts
+        );
+
+        return $this->counts_memo[$memo_key];
+    }
+
+    /**
+     * Make the "Mine" count above the listing agency aware.
+     *
+     * This one cannot be corrected through filter_post_counts(): the count comes
+     * from WP_Posts_List_Table::$user_posts_count, a private property set by its
+     * own query, so the rendered link is amended here instead.
+     *
+     * Core only renders the link when that private count differs from the total
+     * above it. The total is now agency scoped while the private count is not,
+     * so the two can coincide and core drops the link even though the user does
+     * have posts here. The entry is therefore rebuilt when it is missing.
+     *
+     * Runs late so that a link added by another plugin during load-edit.php is
+     * already in $views and can be given its count.
+     *
+     * @param string[] $views
+     * @return string[]
+     */
+    public function filter_status_views($views)
+    {
+        global $wpdb;
+
+        $screen = get_current_screen();
+
+        if (!$screen || !$this->is_current_listing($screen->post_type)) {
+            return $views;
+        }
+
+        // Counted through WP_Query so the listing's own filtering is respected,
+        // including any rewriting of author queries. Counting post_author
+        // directly overstates the total, which is the flaw in core's count.
+        //
+        // Counted with COUNT() rather than WP_Query's found_posts, because the
+        // SQL_CALC_FOUND_ROWS that found_posts relies on takes seconds over the
+        // joins an author query can accumulate.
+        $request = $this->get_listing_request(
+            $screen->post_type,
+            "{$wpdb->posts}.ID",
+            array(
+                'post_status' => 'any',
+                'author'      => get_current_user_id(),
+            )
+        );
+
+        if (empty($request)) {
+            return $views;
+        }
+
+        // $request is already prepared, so it is not passed through prepare().
+        $count = (int) $wpdb->get_var("SELECT COUNT(DISTINCT ID) FROM ($request) AS counted");
+
+        if ($wpdb->last_error) {
+            return $views;
+        }
+
+        $count_html = '<span class="count">(' . number_format_i18n($count) . ')</span>';
+
+        // The common case: core rendered the link, so only the number changes.
+        // Leaves the link untouched if core's markup ever changes.
+        if (isset($views['mine']) && preg_match('/<span class="count">\([^)]*\)<\/span>/', $views['mine'])) {
+            $views['mine'] = preg_replace(
+                '/<span class="count">\([^)]*\)<\/span>/',
+                $count_html,
+                $views['mine'],
+                1
+            );
+
+            return $views;
+        }
+
+        // Nothing worth linking to, and core did not render the link either.
+        if (!isset($views['mine']) && !$count) {
+            return $views;
+        }
+
+        // Either core dropped the link, or something else supplied one with no
+        // count. Build the entry so a number is always shown, matching the
+        // markup of WP_List_Table::get_views_links().
+        $user_id = get_current_user_id();
+
+        $url = add_query_arg(
+            array(
+                'post_type' => $screen->post_type,
+                'author'    => $user_id,
+            ),
+            'edit.php'
+        );
+
+        $is_current = isset($_GET['author']) && $user_id === (int) $_GET['author'];
+
+        $mine = sprintf(
+            '<a href="%s"%s>%s</a>',
+            esc_url($url),
+            $is_current ? ' class="current" aria-current="page"' : '',
+            sprintf(
+                /* translators: %s: Number of posts. */
+                _nx(
+                    'Mine <span class="count">(%s)</span>',
+                    'Mine <span class="count">(%s)</span>',
+                    $count,
+                    'posts'
+                ),
+                number_format_i18n($count)
+            )
+        );
+
+        // Core places "Mine" directly after "All".
+        $rebuilt = array();
+
+        foreach ($views as $key => $view) {
+            if ($key == 'mine') {
+                // Dropped here and re-added in core's position below.
+                continue;
+            }
+
+            $rebuilt[$key] = $view;
+
+            if ($key == 'all') {
+                $rebuilt['mine'] = $mine;
+            }
+        }
+
+        if (!isset($rebuilt['mine'])) {
+            $rebuilt['mine'] = $mine;
+        }
+
+        return $rebuilt;
+    }
+
+    /**
+     * Restrict the "Filter by date" dropdown to months which contain posts
+     * belonging to the current agency context.
+     *
+     * WP_List_Table::months_dropdown() builds its list with a plain post_type
+     * and post_status query, which knows nothing about the filters applied to
+     * the listing. The result is a dropdown offering months that return an empty
+     * list once selected.
+     *
+     * @param object[]|false $months Short-circuit value. False to let core query.
+     * @param string $post_type
+     * @return object[]|false
+     */
+    public function filter_months_dropdown($months, $post_type)
+    {
+        global $wpdb;
+
+        if (!$this->is_current_listing($post_type)) {
+            return $months;
+        }
+
+        // Mirror the post_status handling in WP_List_Table::months_dropdown().
+        if (isset($_GET['post_status']) && $_GET['post_status'] == 'trash') {
+            $statuses = array('trash');
+        } else {
+            $statuses = array_diff(get_post_stati(), array('auto-draft', 'trash'));
+        }
+
+        $request = $this->get_listing_request(
+            $post_type,
+            "{$wpdb->posts}.ID, {$wpdb->posts}.post_date",
+            array('post_status' => array_values($statuses))
+        );
+
+        if (empty($request)) {
+            return $months;
+        }
+
+        // $request is already prepared, so it is not passed through prepare().
+        $results = $wpdb->get_results(
+            "SELECT DISTINCT YEAR(post_date) AS year, MONTH(post_date) AS month
+             FROM ($request) AS filtered
+             ORDER BY year DESC, month DESC"
+        );
+
+        if ($wpdb->last_error) {
+            // Fall back to the unfiltered dropdown rather than showing no dates.
+            return $months;
+        }
+
+        return $results;
     }
 
     /**
