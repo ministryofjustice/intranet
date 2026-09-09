@@ -9,6 +9,7 @@ $list_tables = array(
     'users' => 'Users',
     'agency-posts' => 'Agency_Posts',
     'date-range' => 'Date_Range',
+    'agency-scope' => 'Agency_Scope',
 );
 
 require_once 'list-tables/list-table.php';
