@@ -131,6 +131,7 @@ class Agency_Scope
         $only = 0;
         $denied = 0;
         $unchanged = 0;
+        $failed = 0;
 
         foreach ((array) $post_ids as $post_id) {
             $post_id = (int) $post_id;
@@ -158,7 +159,15 @@ class Agency_Scope
                 continue;
             }
 
-            wp_remove_object_terms($post_id, $term->term_id, 'agency');
+            $result = wp_remove_object_terms($post_id, $term->term_id, 'agency');
+
+            if (true !== $result) {
+                // Counted separately: a failure is neither a removal nor a post
+                // that was left alone, and the totals have to keep adding up.
+                $failed++;
+                continue;
+            }
+
             $removed++;
         }
 
@@ -169,6 +178,7 @@ class Agency_Scope
                 'agency_only'      => $only,
                 'agency_denied'    => $denied,
                 'agency_unchanged' => $unchanged,
+                'agency_failed'    => $failed,
             ),
             $sendback
         );
@@ -192,6 +202,7 @@ class Agency_Scope
         $only = (int) ($_GET['agency_only'] ?? 0);
         $denied = (int) ($_GET['agency_denied'] ?? 0);
         $unchanged = (int) ($_GET['agency_unchanged'] ?? 0);
+        $failed = (int) ($_GET['agency_failed'] ?? 0);
 
         $context = Agency_Context::get_agency_context();
         $term = $context ? get_term_by('slug', $context, 'agency') : false;
@@ -244,9 +255,21 @@ class Agency_Scope
             );
         }
 
+        if ($failed) {
+            $messages[] = sprintf(
+                /* translators: %s: Number of posts. */
+                _n(
+                    '%s post could not be changed. Please try it again.',
+                    '%s posts could not be changed. Please try them again.',
+                    $failed
+                ),
+                number_format_i18n($failed)
+            );
+        }
+
         wp_admin_notice(
             implode(' ', $messages),
-            array('type' => ($only || $denied || $unchanged) ? 'warning' : 'success')
+            array('type' => ($only || $denied || $unchanged || $failed) ? 'warning' : 'success')
         );
     }
 
@@ -353,10 +376,15 @@ class Agency_Scope
         );
 
         foreach ($options as $value => $label) {
+            // The selected state is emitted as a literal rather than by passing
+            // the requested value through to the output. requested_scope()
+            // already restricts it to two known values, but keeping request
+            // data out of the markup altogether makes that plain to a reader
+            // and to static analysis.
             printf(
                 '<option value="%s"%s>%s</option>',
                 esc_attr($value),
-                selected($selected, $value, false),
+                $value === $selected ? ' selected="selected"' : '',
                 esc_html($label)
             );
         }

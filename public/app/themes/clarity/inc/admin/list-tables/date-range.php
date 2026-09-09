@@ -240,7 +240,7 @@ class Date_Range
             return;
         }
 
-        $months = Listing_Query::months($post_type);
+        $months = $this->with_requested_months(Listing_Query::months($post_type));
 
         if (empty($months)) {
             return;
@@ -409,6 +409,59 @@ class Date_Range
     protected function is_inverted($after, $before)
     {
         return ($after['year'] * 100 + $after['month']) > ($before['year'] * 100 + $before['month']);
+    }
+
+    /**
+     * Add any requested bound the listing itself cannot offer.
+     *
+     * The options are the months that hold posts, so a bound naming any other
+     * month, from a shared link, a hand written URL, or a month that only has
+     * posts under a different agency, would leave both selects showing their
+     * open ended default while the listing was still filtered. The filter would
+     * be in force with nothing on screen to say so, and no way to clear it.
+     *
+     * Such a bound is added to the list so that it shows as selected and can be
+     * changed. It carries no posts, so it cannot make an empty selection
+     * reachable from the control itself.
+     *
+     * @param object[] $months
+     * @return object[]
+     */
+    protected function with_requested_months($months)
+    {
+        $known = array();
+
+        foreach ($months as $month) {
+            $known[sprintf('%04d%02d', $month->year, $month->month)] = true;
+        }
+
+        foreach (array('m_after', 'm_before') as $name) {
+            $requested = $this->requested_month($name);
+
+            if (!$requested) {
+                continue;
+            }
+
+            $key = sprintf('%04d%02d', $requested['year'], $requested['month']);
+
+            if (isset($known[$key])) {
+                continue;
+            }
+
+            $months[] = (object) array(
+                'year'  => $requested['year'],
+                'month' => $requested['month'],
+            );
+
+            $known[$key] = true;
+        }
+
+        // Newest first, as the listing's own months already are.
+        usort($months, function ($a, $b) {
+            return ($b->year * 100 + $b->month) <=> ($a->year * 100 + $a->month);
+        });
+
+        return $months;
     }
 
     /**
