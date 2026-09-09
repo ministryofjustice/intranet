@@ -70,8 +70,13 @@ class Listing_Query
      * Every month returned is one the listing can actually show, which is what
      * stops a date filter offering a selection that comes back empty.
      *
+     * An empty array is a real answer: the listing holds nothing. Failure is
+     * reported as false instead, so a caller can tell "no months" from "could
+     * not find out" and does not fall back to a wider list that would offer
+     * dates the listing cannot show.
+     *
      * @param string $post_type
-     * @return object[] Rows with year and month properties.
+     * @return object[]|false Rows with year and month properties, or false on failure.
      */
     public static function months($post_type)
     {
@@ -91,7 +96,7 @@ class Listing_Query
         );
 
         if (empty($request)) {
-            return array();
+            return false;
         }
 
         // $request is already prepared, so it is not passed through prepare().
@@ -102,7 +107,7 @@ class Listing_Query
         );
 
         if ($wpdb->last_error) {
-            return array();
+            return false;
         }
 
         return (array) $results;

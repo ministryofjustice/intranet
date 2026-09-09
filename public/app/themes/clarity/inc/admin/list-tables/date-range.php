@@ -199,8 +199,10 @@ class Date_Range
 
         $context_months = Listing_Query::months($post_type);
 
-        // Fall back to core's list rather than showing no dates at all.
-        return empty($context_months) ? $months : $context_months;
+        // Only a failure falls back to core's list. An agency with nothing to
+        // show gets the empty list it should: core's would be every month the
+        // whole site holds, and every one of them would come back empty here.
+        return false === $context_months ? $months : $context_months;
     }
 
     /**
@@ -240,7 +242,11 @@ class Date_Range
             return;
         }
 
-        $months = $this->with_requested_months(Listing_Query::months($post_type));
+        $months = Listing_Query::months($post_type);
+
+        // A failed lookup is treated as no months; any requested bound is still
+        // added below so an active filter stays visible.
+        $months = $this->with_requested_months(false === $months ? array() : $months);
 
         if (empty($months)) {
             return;

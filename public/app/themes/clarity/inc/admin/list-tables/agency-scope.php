@@ -105,8 +105,9 @@ class Agency_Scope
      *
      * The listing has already been narrowed to shared posts, but a selection
      * can go stale: another editor may have removed the other agency while this
-     * page was open. Each post is checked again here, and any that would be
-     * left with no agency is skipped and reported.
+     * page was open. Each post is checked again here, and again after the
+     * removal in case the last other tag went in between, so that a post is
+     * never left without an agency. Anything skipped is reported.
      *
      * @param string $sendback
      * @param string $doaction
@@ -165,6 +166,20 @@ class Agency_Scope
                 // Counted separately: a failure is neither a removal nor a post
                 // that was left alone, and the totals have to keep adding up.
                 $failed++;
+                continue;
+            }
+
+            // The count above and the removal are two steps, so someone working
+            // in another agency context can take the last remaining tag in
+            // between and leave the post with none. Reading back afterwards and
+            // restoring the tag holds the guarantee this action rests on: it
+            // never leaves a post without an agency. Appending rather than
+            // setting, so a tag added in the meantime is not overwritten.
+            $remaining = wp_get_object_terms($post_id, 'agency', array('fields' => 'ids'));
+
+            if (!is_wp_error($remaining) && empty($remaining)) {
+                wp_set_object_terms($post_id, array($term->term_id), 'agency', true);
+                $only++;
                 continue;
             }
 
