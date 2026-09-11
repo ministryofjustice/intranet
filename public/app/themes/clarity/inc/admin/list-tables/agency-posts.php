@@ -2,10 +2,6 @@
 
 namespace MOJ_Intranet\List_Tables;
 
-use Agency_Editor;
-use Agency_Context;
-use Region_Context;
-
 /**
  * Adjustments to list tables for all post types which have agency taxonomy.
  */
