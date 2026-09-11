@@ -57,8 +57,36 @@ class Agency_Scope
             }
 
             add_filter('bulk_actions-edit-' . $post_type, [$this, 'add_bulk_action']);
+            add_filter('bulk_actions-edit-' . $post_type, [$this, 'restrict_trash_action']);
             add_filter('handle_bulk_actions-edit-' . $post_type, [$this, 'handle_bulk_action'], 10, 3);
         }
+    }
+
+    /**
+     * Offer "Move to Bin" outside HQ only while the listing is showing posts
+     * tagged with this agency alone.
+     *
+     * Binning a post removes it for every agency it is tagged with, so an
+     * agency other than HQ may only bin the posts that are its own alone.
+     *
+     * @param array $actions
+     * @return array
+     */
+    public function restrict_trash_action($actions)
+    {
+        $screen = get_current_screen();
+
+        if (!$screen ||
+            !$this->applies_to($screen->post_type) ||
+            Agency_Context::get_agency_context() === 'hq' ||
+            $this->requested_scope() === self::SCOPE_ONLY
+        ) {
+            return $actions;
+        }
+
+        unset($actions['trash']);
+
+        return $actions;
     }
 
     /**
