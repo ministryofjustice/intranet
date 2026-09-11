@@ -42,18 +42,18 @@ class Date_Range
         // back to the listing, and set_screen_options() redirects and exits
         // (admin.php:116) long before load-edit.php (admin.php:390) would run.
         // Core only carries its own "mode" field across that redirect.
-        add_action('wp_loaded', array($this, 'save_preference'));
-        add_filter('screen_settings', array($this, 'render_screen_option'), 10, 2);
+        add_action('wp_loaded', [$this, 'save_preference']);
+        add_filter('screen_settings', [$this, 'render_screen_option'], 10, 2);
 
         // Keep core's month dropdown accurate while it is the chosen control.
-        add_filter('pre_months_dropdown_query', array($this, 'filter_months_dropdown'), 10, 2);
+        add_filter('pre_months_dropdown_query', [$this, 'filter_months_dropdown'], 10, 2);
 
         // Replace it with the range control when that is the chosen one.
-        add_filter('disable_months_dropdown', array($this, 'disable_months_dropdown'), 10, 2);
-        add_action('restrict_manage_posts', array($this, 'render_filter'), 10, 2);
+        add_filter('disable_months_dropdown', [$this, 'disable_months_dropdown'], 10, 2);
+        add_action('restrict_manage_posts', [$this, 'render_filter'], 10, 2);
 
-        add_filter('parse_query', array($this, 'filter_posts_by_date_range'));
-        add_action('admin_notices', array($this, 'render_inverted_range_notice'));
+        add_filter('parse_query', [$this, 'filter_posts_by_date_range']);
+        add_action('admin_notices', [$this, 'render_inverted_range_notice']);
     }
 
     /**
@@ -69,8 +69,8 @@ class Date_Range
     {
         global $pagenow, $typenow;
 
-        return $pagenow == 'edit.php'
-            && $post_type == $typenow
+        return $pagenow === 'edit.php'
+            && $post_type === $typenow
             && is_object_in_taxonomy($post_type, 'agency');
     }
 
@@ -87,7 +87,7 @@ class Date_Range
             return self::MODE_RANGE;
         }
 
-        return $this->preference() == self::MODE_RANGE ? self::MODE_RANGE : self::MODE_MONTH;
+        return $this->preference();
     }
 
     /**
@@ -99,7 +99,7 @@ class Date_Range
     {
         $stored = get_user_meta(get_current_user_id(), self::SETTING, true);
 
-        return $stored == self::MODE_RANGE ? self::MODE_RANGE : self::MODE_MONTH;
+        return $stored === self::MODE_RANGE ? self::MODE_RANGE : self::MODE_MONTH;
     }
 
     /**
@@ -113,7 +113,7 @@ class Date_Range
 
         // Runs on wp_loaded, which is reached before auth_redirect(), so the
         // request is not necessarily authenticated yet.
-        if (!get_current_user_id() || $pagenow != 'edit.php' || empty($_POST[self::SETTING])) {
+        if (!get_current_user_id() || $pagenow !== 'edit.php' || empty($_POST[self::SETTING])) {
             return;
         }
 
@@ -125,7 +125,7 @@ class Date_Range
             return;
         }
 
-        $mode = $_POST[self::SETTING] == self::MODE_RANGE ? self::MODE_RANGE : self::MODE_MONTH;
+        $mode = $_POST[self::SETTING] === self::MODE_RANGE ? self::MODE_RANGE : self::MODE_MONTH;
 
         update_user_meta(get_current_user_id(), self::SETTING, $mode);
 
@@ -135,7 +135,7 @@ class Date_Range
         // effect. Only this request is affected.
         add_filter('wp_redirect', function ($location) use ($mode) {
             return remove_query_arg(
-                $mode == self::MODE_RANGE ? array('m') : array('m_after', 'm_before'),
+                $mode === self::MODE_RANGE ? ['m'] : ['m_after', 'm_before'],
                 $location
             );
         });
@@ -159,10 +159,10 @@ class Date_Range
 
         $mode = $this->preference();
 
-        $options = array(
+        $options = [
             self::MODE_MONTH => __('Single month'),
             self::MODE_RANGE => __('Date range'),
-        );
+        ];
 
         $fieldset = '<fieldset class="metabox-prefs"><legend>' . __('Filter by date') . '</legend>';
 
@@ -193,7 +193,7 @@ class Date_Range
      */
     public function filter_months_dropdown($months, $post_type)
     {
-        if (!$this->applies_to($post_type) || $this->mode() != self::MODE_MONTH) {
+        if (!$this->applies_to($post_type) || $this->mode() !== self::MODE_MONTH) {
             return $months;
         }
 
@@ -215,7 +215,7 @@ class Date_Range
      */
     public function disable_months_dropdown($disable, $post_type)
     {
-        if (!$this->applies_to($post_type) || $this->mode() != self::MODE_RANGE) {
+        if (!$this->applies_to($post_type) || $this->mode() !== self::MODE_RANGE) {
             return $disable;
         }
 
@@ -235,9 +235,9 @@ class Date_Range
      */
     public function render_filter($post_type, $which)
     {
-        if ($which != 'top' ||
+        if ($which !== 'top' ||
             !$this->applies_to($post_type) ||
-            $this->mode() != self::MODE_RANGE
+            $this->mode() !== self::MODE_RANGE
         ) {
             return;
         }
@@ -246,7 +246,7 @@ class Date_Range
 
         // A failed lookup is treated as no months; any requested bound is still
         // added below so an active filter stays visible.
-        $months = $this->with_requested_months(false === $months ? array() : $months);
+        $months = $this->with_requested_months(false === $months ? [] : $months);
 
         if (empty($months)) {
             return;
@@ -254,10 +254,10 @@ class Date_Range
 
         global $wp_locale;
 
-        $selects = array(
-            'm_after'  => array(__('From: earliest'), __('Filter by date, from')),
-            'm_before' => array(__('To: latest'), __('Filter by date, to')),
-        );
+        $selects = [
+            'm_after'  => [__('From: earliest'), __('Filter by date, from')],
+            'm_before' => [__('To: latest'), __('Filter by date, to')],
+        ];
 
         foreach ($selects as $name => $labels) {
             $month_arg = $this->requested_month($name);
@@ -401,7 +401,7 @@ class Date_Range
                 '<strong>' . esc_html($describe($after)) . '</strong>',
                 '<strong>' . esc_html($describe($before)) . '</strong>'
             ),
-            array('type' => 'warning')
+            ['type' => 'warning']
         );
     }
 
@@ -435,13 +435,13 @@ class Date_Range
      */
     protected function with_requested_months($months)
     {
-        $known = array();
+        $known = [];
 
         foreach ($months as $month) {
             $known[sprintf('%04d%02d', $month->year, $month->month)] = true;
         }
 
-        foreach (array('m_after', 'm_before') as $name) {
+        foreach (['m_after', 'm_before'] as $name) {
             $requested = $this->requested_month($name);
 
             if (!$requested) {
@@ -454,10 +454,10 @@ class Date_Range
                 continue;
             }
 
-            $months[] = (object) array(
+            $months[] = (object) [
                 'year'  => $requested['year'],
                 'month' => $requested['month'],
-            );
+            ];
 
             $known[$key] = true;
         }
@@ -495,7 +495,7 @@ class Date_Range
         // replaces the dropdown, so an m left over in the URL, from filtering
         // by month before switching, would filter the listing with nothing to
         // show for it. The range is the only date filter in this mode.
-        if ($this->mode() == self::MODE_RANGE) {
+        if ($this->mode() === self::MODE_RANGE) {
             $query->query_vars['m'] = 0;
         }
 
@@ -506,7 +506,7 @@ class Date_Range
             return $query;
         }
 
-        $date_query = array('inclusive' => true);
+        $date_query = ['inclusive' => true];
 
         if ($after) {
             $date_query['after'] = $after;
@@ -516,7 +516,7 @@ class Date_Range
             $date_query['before'] = $before;
         }
 
-        $query->query_vars['date_query'] = array($date_query);
+        $query->query_vars['date_query'] = [$date_query];
 
         return $query;
     }
@@ -541,9 +541,9 @@ class Date_Range
             return false;
         }
 
-        return array(
+        return [
             'year'  => (int) $parts[1],
             'month' => $month,
-        );
+        ];
     }
 }

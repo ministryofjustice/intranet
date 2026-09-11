@@ -26,7 +26,7 @@ class Listing_Query
      * @param array $args Additional WP_Query arguments.
      * @return string SQL, already prepared. Do not pass it through wpdb::prepare().
      */
-    public static function request($post_type, $fields, $args = array())
+    public static function request($post_type, $fields, $args = [])
     {
         // posts_clauses_request is the later of the two rounds of clause
         // filters, and WP_Query re-reads the field list after each, so the list
@@ -39,14 +39,14 @@ class Listing_Query
         // Returning an array stops WP_Query hitting the database. The request
         // is already assembled by this point.
         $skip = function () {
-            return array();
+            return [];
         };
 
         add_filter('posts_clauses', $select, PHP_INT_MAX);
         add_filter('posts_clauses_request', $select, PHP_INT_MAX);
         add_filter('posts_pre_query', $skip, PHP_INT_MAX);
 
-        $query = new \WP_Query(array_merge(array(
+        $query = new \WP_Query(array_merge([
             'post_type'              => $post_type,
             'posts_per_page'         => -1,
             'orderby'                => 'none',
@@ -55,7 +55,7 @@ class Listing_Query
             'cache_results'          => false,
             'update_post_meta_cache' => false,
             'update_post_term_cache' => false,
-        ), $args));
+        ], $args));
 
         remove_filter('posts_pre_query', $skip, PHP_INT_MAX);
         remove_filter('posts_clauses_request', $select, PHP_INT_MAX);
@@ -76,23 +76,23 @@ class Listing_Query
      * dates the listing cannot show.
      *
      * @param string $post_type
-     * @return object[]|false Rows with year and month properties, or false on failure.
+     * @return object[]|false Rows with integer year and month properties, or false on failure.
      */
     public static function months($post_type)
     {
         global $wpdb;
 
         // Mirror the post_status handling in WP_List_Table::months_dropdown().
-        if (isset($_GET['post_status']) && $_GET['post_status'] == 'trash') {
-            $statuses = array('trash');
+        if (isset($_GET['post_status']) && $_GET['post_status'] === 'trash') {
+            $statuses = ['trash'];
         } else {
-            $statuses = array_diff(get_post_stati(), array('auto-draft', 'trash'));
+            $statuses = array_diff(get_post_stati(), ['auto-draft', 'trash']);
         }
 
         $request = self::request(
             $post_type,
             "{$wpdb->posts}.ID, {$wpdb->posts}.post_date",
-            array('post_status' => array_values($statuses))
+            ['post_status' => array_values($statuses)]
         );
 
         if (empty($request)) {
@@ -110,6 +110,13 @@ class Listing_Query
             return false;
         }
 
-        return (array) $results;
+        // wpdb returns strings. Cast so rows compare cleanly with months built
+        // elsewhere, such as Date_Range::with_requested_months().
+        return array_map(function ($row) {
+            return (object) [
+                'year'  => (int) $row->year,
+                'month' => (int) $row->month,
+            ];
+        }, (array) $results);
     }
 }

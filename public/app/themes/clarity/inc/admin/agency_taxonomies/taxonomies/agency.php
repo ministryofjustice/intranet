@@ -324,7 +324,7 @@ class Agency extends Taxonomy
             return $counts;
         }
 
-        $context_counts = array();
+        $context_counts = [];
 
         foreach ((array) $results as $row) {
             $context_counts[$row['post_status']] = (int) $row['num_posts'];
@@ -377,10 +377,10 @@ class Agency extends Taxonomy
         $request = Listing_Query::request(
             $screen->post_type,
             "{$wpdb->posts}.ID",
-            array(
+            [
                 'post_status' => 'any',
                 'author'      => get_current_user_id(),
-            )
+            ]
         );
 
         if (empty($request)) {
@@ -420,10 +420,10 @@ class Agency extends Taxonomy
         $user_id = get_current_user_id();
 
         $url = add_query_arg(
-            array(
+            [
                 'post_type' => $screen->post_type,
                 'author'    => $user_id,
-            ),
+            ],
             'edit.php'
         );
 
@@ -446,17 +446,17 @@ class Agency extends Taxonomy
         );
 
         // Core places "Mine" directly after "All".
-        $rebuilt = array();
+        $rebuilt = [];
 
         foreach ($views as $key => $view) {
-            if ($key == 'mine') {
+            if ($key === 'mine') {
                 // Dropped here and re-added in core's position below.
                 continue;
             }
 
             $rebuilt[$key] = $view;
 
-            if ($key == 'all') {
+            if ($key === 'all') {
                 $rebuilt['mine'] = $mine;
             }
         }

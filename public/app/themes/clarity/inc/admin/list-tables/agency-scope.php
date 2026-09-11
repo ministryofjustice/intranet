@@ -30,12 +30,12 @@ class Agency_Scope
     public function __construct()
     {
         // After the date controls, which render at the default priority.
-        add_action('restrict_manage_posts', array($this, 'render_filter'), 11, 2);
-        add_filter('parse_query', array($this, 'filter_posts_by_scope'));
+        add_action('restrict_manage_posts', [$this, 'render_filter'], 11, 2);
+        add_filter('parse_query', [$this, 'filter_posts_by_scope']);
 
         // On admin_init, by which point the taxonomy knows its post types.
-        add_action('admin_init', array($this, 'register_bulk_action'));
-        add_action('admin_notices', array($this, 'render_result_notice'));
+        add_action('admin_init', [$this, 'register_bulk_action']);
+        add_action('admin_notices', [$this, 'render_result_notice']);
     }
 
     /**
@@ -56,8 +56,8 @@ class Agency_Scope
                 continue;
             }
 
-            add_filter('bulk_actions-edit-' . $post_type, array($this, 'add_bulk_action'));
-            add_filter('handle_bulk_actions-edit-' . $post_type, array($this, 'handle_bulk_action'), 10, 3);
+            add_filter('bulk_actions-edit-' . $post_type, [$this, 'add_bulk_action']);
+            add_filter('handle_bulk_actions-edit-' . $post_type, [$this, 'handle_bulk_action'], 10, 3);
         }
     }
 
@@ -143,7 +143,7 @@ class Agency_Scope
                 continue;
             }
 
-            $terms = wp_get_object_terms($post_id, 'agency', array('fields' => 'ids'));
+            $terms = wp_get_object_terms($post_id, 'agency', ['fields' => 'ids']);
 
             if (is_wp_error($terms) || !in_array($term->term_id, $terms)) {
                 // Counted, not passed over in silence: every selected post has
@@ -175,10 +175,10 @@ class Agency_Scope
             // restoring the tag holds the guarantee this action rests on: it
             // never leaves a post without an agency. Appending rather than
             // setting, so a tag added in the meantime is not overwritten.
-            $remaining = wp_get_object_terms($post_id, 'agency', array('fields' => 'ids'));
+            $remaining = wp_get_object_terms($post_id, 'agency', ['fields' => 'ids']);
 
             if (!is_wp_error($remaining) && empty($remaining)) {
-                wp_set_object_terms($post_id, array($term->term_id), 'agency', true);
+                wp_set_object_terms($post_id, [$term->term_id], 'agency', true);
                 $only++;
                 continue;
             }
@@ -187,14 +187,14 @@ class Agency_Scope
         }
 
         return add_query_arg(
-            array(
+            [
                 'agency_selected'  => $selected,
                 'agency_removed'   => $removed,
                 'agency_only'      => $only,
                 'agency_denied'    => $denied,
                 'agency_unchanged' => $unchanged,
                 'agency_failed'    => $failed,
-            ),
+            ],
             $sendback
         );
     }
@@ -223,7 +223,7 @@ class Agency_Scope
         $term = $context ? get_term_by('slug', $context, 'agency') : false;
         $name = $term ? $term->name : $context;
 
-        $messages = array(
+        $messages = [
             sprintf(
                 /* translators: 1: Agency name, 2: Number of posts, 3: Number selected. */
                 _n(
@@ -235,7 +235,7 @@ class Agency_Scope
                 number_format_i18n($removed),
                 number_format_i18n($selected)
             ),
-        );
+        ];
 
         if ($unchanged) {
             $messages[] = sprintf(
@@ -284,7 +284,7 @@ class Agency_Scope
 
         wp_admin_notice(
             implode(' ', $messages),
-            array('type' => ($only || $denied || $unchanged || $failed) ? 'warning' : 'success')
+            ['type' => ($only || $denied || $unchanged || $failed) ? 'warning' : 'success']
         );
     }
 
@@ -298,8 +298,8 @@ class Agency_Scope
     {
         global $pagenow, $typenow;
 
-        return $pagenow == 'edit.php'
-            && $post_type == $typenow
+        return $pagenow === 'edit.php'
+            && $post_type === $typenow
             && is_object_in_taxonomy($post_type, 'agency')
             && Agency_Context::current_user_can_have_context();
     }
@@ -317,7 +317,7 @@ class Agency_Scope
             return false;
         }
 
-        return in_array($scope, array(self::SCOPE_ONLY, self::SCOPE_SHARED), true) ? $scope : false;
+        return in_array($scope, [self::SCOPE_ONLY, self::SCOPE_SHARED], true) ? $scope : false;
     }
 
     /**
@@ -330,20 +330,20 @@ class Agency_Scope
         $context = Agency_Context::get_agency_context();
 
         if (empty($context)) {
-            return array();
+            return [];
         }
 
-        $slugs = get_terms(array(
+        $slugs = get_terms([
             'taxonomy'   => 'agency',
             'hide_empty' => false,
             'fields'     => 'slugs',
-        ));
+        ]);
 
         if (is_wp_error($slugs)) {
-            return array();
+            return [];
         }
 
-        return array_values(array_diff($slugs, array($context)));
+        return array_values(array_diff($slugs, [$context]));
     }
 
     /**
@@ -356,7 +356,7 @@ class Agency_Scope
      */
     public function render_filter($post_type, $which)
     {
-        if ($which != 'top' || !$this->applies_to($post_type)) {
+        if ($which !== 'top' || !$this->applies_to($post_type)) {
             return;
         }
 
@@ -372,14 +372,14 @@ class Agency_Scope
 
         // "Tagged", matching the front end's "Content tagged as: CICA, HMCTS..."
         // and the bulk action that removes the tag.
-        $options = array(
+        $options = [
             /* translators: %s: Agency name. */
             ''                 => sprintf(__('Tagged %s'), $name),
             /* translators: %s: Agency name. */
             self::SCOPE_ONLY   => sprintf(__('Tagged %s only'), $name),
             /* translators: %s: Agency name. */
             self::SCOPE_SHARED => sprintf(__('Tagged %s and others'), $name),
-        );
+        ];
 
         $selected = (string) $this->requested_scope();
 
@@ -435,15 +435,15 @@ class Agency_Scope
         // filter_posts_by_agency() has already limited the listing to the
         // current agency, so carrying one of the others is what separates a
         // shared post from one held alone.
-        $tax_query = $query->query_vars['tax_query'] ?? array();
+        $tax_query = $query->query_vars['tax_query'] ?? [];
 
-        $tax_query[] = array(
+        $tax_query[] = [
             'taxonomy'         => 'agency',
             'field'            => 'slug',
             'terms'            => $others,
-            'operator'         => $scope == self::SCOPE_ONLY ? 'NOT IN' : 'IN',
+            'operator'         => $scope === self::SCOPE_ONLY ? 'NOT IN' : 'IN',
             'include_children' => false,
-        );
+        ];
 
         $query->query_vars['tax_query'] = $tax_query;
 
