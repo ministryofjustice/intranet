@@ -177,7 +177,16 @@ class Date_Range
             );
         }
 
-        return $settings . $fieldset . '</fieldset>';
+        // Core's set_screen_options() sends the user back to wp_get_referer(),
+        // and this form is the one core form without a referer field, so the
+        // Referer header is all it has. Browsers cut that header down to the
+        // origin once the page URL passes 4096 characters, which a listing
+        // reaches after a large selection or a large bulk action, and the
+        // save then lands on the site's front page. The field is read before
+        // the header, so with it the save always returns to the listing.
+        $referer = wp_referer_field(false);
+
+        return $settings . $fieldset . '</fieldset>' . $referer;
     }
 
     /**
