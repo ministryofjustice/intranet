@@ -55,7 +55,7 @@
         }
     ],
     "require": {
-        "php": ">=8.2",
+        "php": ">=8.4",
         "composer/installers": "2.* || 1.*",
         "vlucas/phpdotenv": "^5.5",
         "roots/bedrock-autoloader": "^1.0",
