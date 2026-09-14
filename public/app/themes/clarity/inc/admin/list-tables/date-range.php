@@ -544,14 +544,19 @@ class Date_Range
             return false;
         }
 
+        $year = (int) $parts[1];
         $month = (int) $parts[2];
 
-        if ($month < 1 || $month > 12) {
+        // Year 0000 passes the pattern but no post can carry it, and
+        // render_filter() offers no option for it, so accepting it would put a
+        // filter in force that empties the listing with nothing on screen to
+        // show why. Treated like any other value the control cannot express.
+        if ($year < 1 || $month < 1 || $month > 12) {
             return false;
         }
 
         return [
-            'year'  => (int) $parts[1],
+            'year'  => $year,
             'month' => $month,
         ];
     }

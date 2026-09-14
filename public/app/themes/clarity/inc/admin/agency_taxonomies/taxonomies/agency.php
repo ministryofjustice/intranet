@@ -394,8 +394,12 @@ class Agency extends Taxonomy
             return $views;
         }
 
-        // Nothing worth linking to, and core did not render the link either.
-        if (!isset($views['mine']) && !$count) {
+        // Nothing worth linking to. Core never renders a zero count either, so
+        // a link it did render, counted against the whole site, comes out too:
+        // this user's posts of the type all sit under another agency.
+        if (!$count) {
+            unset($views['mine']);
+
             return $views;
         }
 
@@ -454,6 +458,14 @@ class Agency extends Taxonomy
                 continue;
             }
 
+            if ($key === 'all') {
+                // Core only adds all_posts=1 to "All" when it renders "Mine"
+                // itself. Without it, a user who cannot edit others' posts of
+                // the type is forced back to their own posts when they click
+                // "All", which would then show the same posts as "Mine".
+                $view = $this->add_all_posts_arg($view);
+            }
+
             $rebuilt[$key] = $view;
 
             if ($key === 'all') {
@@ -466,6 +478,30 @@ class Agency extends Taxonomy
         }
 
         return $rebuilt;
+    }
+
+    /**
+     * Add all_posts=1 to the href of a rendered "All" view link, as core does
+     * in WP_Posts_List_Table::get_views() whenever it renders "Mine".
+     *
+     * The link is left untouched if its markup is not what core produces.
+     *
+     * @param string $view
+     * @return string
+     */
+    protected function add_all_posts_arg($view)
+    {
+        if (!preg_match('/href="([^"]*)"/', $view, $match)) {
+            return $view;
+        }
+
+        $href = html_entity_decode($match[1], ENT_QUOTES);
+
+        return str_replace(
+            $match[0],
+            'href="' . esc_url(add_query_arg('all_posts', 1, $href)) . '"',
+            $view
+        );
     }
 
     /**
