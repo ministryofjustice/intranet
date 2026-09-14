@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Custom Simple History loggers for the Clarity theme.
+ * Simple History logger for the theme's "Remove <agency> tag" bulk action.
  *
  * Loaded by SimpleHistory::registerLoggers() once the plugin has asked for
  * custom loggers, so the plugin's classes are known to exist by then.

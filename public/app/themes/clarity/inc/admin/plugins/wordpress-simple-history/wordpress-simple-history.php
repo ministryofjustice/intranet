@@ -64,7 +64,7 @@ class SimpleHistory
         // Hide promotional elements
         add_action('admin_head', [$this, 'inlineStyles']);
 
-        // Register the theme's own loggers, see loggers.php.
+        // Register the theme's own loggers, one file each in this directory.
         add_action('simple_history/add_custom_logger', [$this, 'registerLoggers']);
 
         // Metadata logging - ignore some custom fields
@@ -77,7 +77,7 @@ class SimpleHistory
     /**
      * Register the theme's loggers with Simple History.
      *
-     * The loggers extend the plugin's Logger class, so their file is only
+     * The loggers extend the plugin's Logger class, so their files are only
      * required here, once the plugin has asked for custom loggers, rather than
      * at the top of this file where the plugin might not be active.
      *
@@ -86,9 +86,11 @@ class SimpleHistory
      */
     public function registerLoggers($simple_history)
     {
-        require_once __DIR__ . '/loggers.php';
+        require_once __DIR__ . '/agency-tag-logger.php';
+        require_once __DIR__ . '/bulk-trash-logger.php';
 
         $simple_history->register_logger(Loggers\Agency_Tag_Logger::class);
+        $simple_history->register_logger(Loggers\Bulk_Trash_Logger::class);
     }
 
     /**
