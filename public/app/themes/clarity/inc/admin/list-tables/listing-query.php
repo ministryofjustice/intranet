@@ -19,6 +19,12 @@ namespace MOJ_Intranet\List_Tables;
 class Listing_Query
 {
     /**
+     * Query variable that marks the query built by months(), so a filter that
+     * narrows the listing can choose to narrow the month list to match.
+     */
+    const MONTHS_QUERY_VAR = 'moj_listing_months';
+
+    /**
      * Build the SQL a listing would run, without running it.
      *
      * @param string $post_type
@@ -92,7 +98,10 @@ class Listing_Query
         $request = self::request(
             $post_type,
             "{$wpdb->posts}.ID, {$wpdb->posts}.post_date",
-            ['post_status' => array_values($statuses)]
+            [
+                'post_status'          => array_values($statuses),
+                self::MONTHS_QUERY_VAR => true,
+            ]
         );
 
         if (empty($request)) {

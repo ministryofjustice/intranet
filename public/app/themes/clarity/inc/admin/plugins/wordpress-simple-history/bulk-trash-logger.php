@@ -100,9 +100,12 @@ class Bulk_Trash_Logger extends Logger
      * record it before core acts on it.
      *
      * Mirrors how edit.php reads the request: WP_List_Table::current_action()
-     * for the action, then the same precedence for the post IDs. The nonce is
-     * checked here too, without dying, so that a request core is about to
-     * reject is not recorded as if it had happened.
+     * for the action, then the same precedence for the post IDs. Only the
+     * "action" field is read, as core does: the bottom selector's "action2"
+     * is kept in step with the top one by common.js, and a request carrying
+     * only action2 does nothing in core, so there is nothing to record. The
+     * nonce is checked here too, without dying, so that a request core is
+     * about to reject is not recorded as if it had happened.
      *
      * @return void
      */

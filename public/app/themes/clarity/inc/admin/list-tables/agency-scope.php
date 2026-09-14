@@ -107,6 +107,7 @@ class Agency_Scope
 
         if (!$screen ||
             !$this->applies_to($screen->post_type) ||
+            !$this->current_user_can_remove_tag() ||
             $this->requested_scope() !== self::SCOPE_SHARED
         ) {
             return $actions;
@@ -153,7 +154,9 @@ class Agency_Scope
     {
         global $typenow;
 
-        if ($doaction !== self::BULK_ACTION) {
+        // The capability is checked again here, not only when the action is
+        // offered, since a request can be made without the dropdown.
+        if ($doaction !== self::BULK_ACTION || !$this->current_user_can_remove_tag()) {
             return $sendback;
         }
 
@@ -259,8 +262,21 @@ class Agency_Scope
                 // is not overwritten.
                 $remaining = wp_get_object_terms($post_id, 'agency', ['fields' => 'ids']);
 
-                if (!is_wp_error($remaining) && empty($remaining)) {
-                    wp_set_object_terms($post_id, [$term->term_id], 'agency', true);
+                if (is_wp_error($remaining) || empty($remaining)) {
+                    // Put the tag back whether the post was found with none or
+                    // the read failed: an unknown state is treated as the
+                    // worst one, so the guarantee holds either way.
+                    $restored = wp_set_object_terms($post_id, [$term->term_id], 'agency', true);
+
+                    if (is_wp_error($restored) || is_wp_error($remaining)) {
+                        // A failed restore may have left the post with no
+                        // agency, and a failed read means nothing is known.
+                        // Both are reported as failures to be retried, and
+                        // reach the audit log through the finished action.
+                        $failed_ids[] = $post_id;
+                        continue;
+                    }
+
                     $only++;
                     continue;
                 }
@@ -389,6 +405,21 @@ class Agency_Scope
             implode(' ', $messages),
             ['type' => ($only || $denied || $unchanged || $failed) ? 'warning' : 'success']
         );
+    }
+
+    /**
+     * May the current user take an agency tag off posts?
+     *
+     * This is the bulk form of the "Opt-out" quick action, which
+     * Taxonomies\Agency offers only to users with opt_in_content. Having an
+     * agency context is not enough on its own: regional editors have one
+     * without that capability.
+     *
+     * @return bool
+     */
+    protected function current_user_can_remove_tag()
+    {
+        return current_user_can('opt_in_content');
     }
 
     /**
@@ -524,7 +555,13 @@ class Agency_Scope
     {
         global $typenow;
 
-        if (!$this->applies_to($typenow) || !$query->is_main_query()) {
+        // The listing itself, and the query that finds the months the date
+        // controls can offer: those have to agree with the listing or the
+        // controls offer months that come back empty. The status counts are
+        // deliberately left out, see the docblock.
+        $scoped = $query->is_main_query() || $query->get(Listing_Query::MONTHS_QUERY_VAR);
+
+        if (!$this->applies_to($typenow) || !$scoped) {
             return $query;
         }
 
