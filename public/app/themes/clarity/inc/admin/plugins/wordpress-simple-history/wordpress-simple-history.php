@@ -64,11 +64,31 @@ class SimpleHistory
         // Hide promotional elements
         add_action('admin_head', [$this, 'inlineStyles']);
 
+        // Register the theme's own loggers, see loggers.php.
+        add_action('simple_history/add_custom_logger', [$this, 'registerLoggers']);
+
         // Metadata logging - ignore some custom fields
         add_filter('simple_history/post_logger/meta_keys_to_ignore', [$this, 'filterOutEventsMetaKeys'], 10, 1);
 
         // Metadata logging - add custom context for ACF fields
         // add_filter('simple_history/post_logger/context', [$this, 'handleAcfContext'], 10, 5);
+    }
+
+    /**
+     * Register the theme's loggers with Simple History.
+     *
+     * The loggers extend the plugin's Logger class, so their file is only
+     * required here, once the plugin has asked for custom loggers, rather than
+     * at the top of this file where the plugin might not be active.
+     *
+     * @param Simple_History\Simple_History $simple_history
+     * @return void
+     */
+    public function registerLoggers($simple_history)
+    {
+        require_once __DIR__ . '/loggers.php';
+
+        $simple_history->register_logger(Loggers\Agency_Tag_Logger::class);
     }
 
     /**

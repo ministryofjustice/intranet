@@ -137,6 +137,13 @@ class Agency_Scope
      * removal in case the last other tag went in between, so that a post is
      * never left without an agency. Anything skipped is reported.
      *
+     * The work is done in two passes, sorting first and changing second, so
+     * that the posts about to lose the tag are known, and announced, before
+     * the first of them is touched. Term removals are not transactional: a
+     * request that dies part way through leaves the posts already handled
+     * untagged. Announcing the list ahead of the changes lets an audit log
+     * name every post that might have been altered even then.
+     *
      * @param string $sendback
      * @param string $doaction
      * @param int[] $post_ids
@@ -144,6 +151,8 @@ class Agency_Scope
      */
     public function handle_bulk_action($sendback, $doaction, $post_ids)
     {
+        global $typenow;
+
         if ($doaction !== self::BULK_ACTION) {
             return $sendback;
         }
@@ -156,12 +165,12 @@ class Agency_Scope
         }
 
         $selected = 0;
-        $removed = 0;
         $only = 0;
         $denied = 0;
         $unchanged = 0;
-        $failed = 0;
+        $eligible_ids = [];
 
+        // First pass: sort the selection without changing anything.
         foreach ((array) $post_ids as $post_id) {
             $post_id = (int) $post_id;
             $selected++;
@@ -188,40 +197,106 @@ class Agency_Scope
                 continue;
             }
 
-            $result = wp_remove_object_terms($post_id, $term->term_id, 'agency');
+            $eligible_ids[] = $post_id;
+        }
 
-            if (true !== $result) {
-                // Counted separately: a failure is neither a removal nor a post
-                // that was left alone, and the totals have to keep adding up.
-                $failed++;
-                continue;
+        $removed_ids = [];
+        $failed_ids = [];
+
+        if (!empty($eligible_ids)) {
+            $details = [
+                'term_id'     => (int) $term->term_id,
+                'agency_slug' => $term->slug,
+                'agency_name' => $term->name,
+                'post_type'   => $typenow,
+                'selected'    => $selected,
+                'denied'      => $denied,
+                'unchanged'   => $unchanged,
+            ];
+
+            /**
+             * Fires before the first tag is removed.
+             *
+             * Listeners that record the change should do so here rather than
+             * waiting for the finished action, which will not fire if the
+             * request dies during the removals.
+             *
+             * @param array $details {
+             *     @type int    $term_id     The agency term being removed.
+             *     @type string $agency_slug
+             *     @type string $agency_name
+             *     @type string $post_type   The post type of the listing.
+             *     @type int[]  $post_ids    Every post about to lose the tag.
+             *     @type int    $selected    How many posts were selected.
+             *     @type int    $only        Skipped: no other agency tag.
+             *     @type int    $denied      Skipped: user cannot edit.
+             *     @type int    $unchanged   Skipped: not tagged with this agency.
+             * }
+             */
+            do_action('clarity/agency_scope/agency_tag_removal_started', $details + [
+                'post_ids' => $eligible_ids,
+                'only'     => $only,
+            ]);
+
+            // Second pass: the changes.
+            foreach ($eligible_ids as $post_id) {
+                $result = wp_remove_object_terms($post_id, $term->term_id, 'agency');
+
+                if (true !== $result) {
+                    // Counted separately: a failure is neither a removal nor a
+                    // post that was left alone, and the totals have to keep
+                    // adding up.
+                    $failed_ids[] = $post_id;
+                    continue;
+                }
+
+                // The sorting above and the removal are two steps, so someone
+                // working in another agency context can take the last remaining
+                // tag in between and leave the post with none. Reading back
+                // afterwards and restoring the tag holds the guarantee this
+                // action rests on: it never leaves a post without an agency.
+                // Appending rather than setting, so a tag added in the meantime
+                // is not overwritten.
+                $remaining = wp_get_object_terms($post_id, 'agency', ['fields' => 'ids']);
+
+                if (!is_wp_error($remaining) && empty($remaining)) {
+                    wp_set_object_terms($post_id, [$term->term_id], 'agency', true);
+                    $only++;
+                    continue;
+                }
+
+                $removed_ids[] = $post_id;
             }
 
-            // The count above and the removal are two steps, so someone working
-            // in another agency context can take the last remaining tag in
-            // between and leave the post with none. Reading back afterwards and
-            // restoring the tag holds the guarantee this action rests on: it
-            // never leaves a post without an agency. Appending rather than
-            // setting, so a tag added in the meantime is not overwritten.
-            $remaining = wp_get_object_terms($post_id, 'agency', ['fields' => 'ids']);
-
-            if (!is_wp_error($remaining) && empty($remaining)) {
-                wp_set_object_terms($post_id, [$term->term_id], 'agency', true);
-                $only++;
-                continue;
-            }
-
-            $removed++;
+            /**
+             * Fires after the removals, with the outcome.
+             *
+             * Same keys as the started action, where $post_ids now holds only
+             * the posts that actually lost the tag, plus:
+             *
+             * @param array $details {
+             *     @type int[] $failed_ids Posts the removal failed on.
+             *     @type int   $removed    How many posts lost the tag.
+             *     @type int   $failed     How many removals failed.
+             * }
+             */
+            do_action('clarity/agency_scope/agency_tag_removal_finished', $details + [
+                'post_ids'   => $removed_ids,
+                'failed_ids' => $failed_ids,
+                'only'       => $only,
+                'removed'    => count($removed_ids),
+                'failed'     => count($failed_ids),
+            ]);
         }
 
         return add_query_arg(
             [
                 'agency_selected'  => $selected,
-                'agency_removed'   => $removed,
+                'agency_removed'   => count($removed_ids),
                 'agency_only'      => $only,
                 'agency_denied'    => $denied,
                 'agency_unchanged' => $unchanged,
-                'agency_failed'    => $failed,
+                'agency_failed'    => count($failed_ids),
             ],
             $sendback
         );
