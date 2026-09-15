@@ -71,12 +71,13 @@ function clarity_admin_enqueue($hook): void
             null,
             false
         );
+        // Load in the footer, so that the colour field exists when the script runs.
         wp_enqueue_script(
             'colour-contrast-checker',
             mix_asset('/js/colour-contrast-checker.js'),
-            array(),
+            array('jquery'),
             null,
-            false
+            true
         );
         wp_localize_script('colour-contrast-checker', 'mojAjax', ['ajaxurl' => admin_url('admin-ajax.php')]);
     endif;
