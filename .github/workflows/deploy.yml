@@ -57,11 +57,13 @@ jobs:
 
       ## Runs before the manifests are applied, so that a failed push stops the deployment
       ## rather than rolling out pods whose assets never reached the CDN.
+      ## Upload only - the build is added to the summary (and old builds pruned) after apply.
       - name: "Push assets to S3"
         working-directory: ${{ runner.temp }}/s3-assets
         env:
           IMAGE_TAG: ${{ github.sha }}
           AWS_S3_BUCKET: ${{ vars.S3_BUCKET_NAME }}
+          S3_PUSH_UPLOAD_ONLY: "true"
         run: sh "$GITHUB_WORKSPACE/deploy/config/init/s3-push-start.sh"
 
       - name: "Inject environment variables"
@@ -195,3 +197,12 @@ jobs:
         id: apply
         run: |
           kubectl -n ${KUBE_NAMESPACE} apply -f deploy/${{ inputs.environment }}
+
+      ## Only after a successful apply, so failed or cancelled deploys don't count towards the
+      ## retained builds. Re-running the sync is a no-op, the assets were pushed above.
+      - name: "Publish S3 build summary"
+        working-directory: ${{ runner.temp }}/s3-assets
+        env:
+          IMAGE_TAG: ${{ github.sha }}
+          AWS_S3_BUCKET: ${{ vars.S3_BUCKET_NAME }}
+        run: sh "$GITHUB_WORKSPACE/deploy/config/init/s3-push-start.sh"

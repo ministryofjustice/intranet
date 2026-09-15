@@ -127,6 +127,16 @@ echo "$UPLOADED_FILES" | jq -R -s '{timestamp: '$TIMESTAMP', build: "'$IMAGE_TAG
 aws $AWS_CLI_ARGS s3 cp $LOCAL_MANIFEST $S3_MANIFEST
 catch_error $? "aws s3 cp $LOCAL_MANIFEST $S3_MANIFEST"
 
+# When S3_PUSH_UPLOAD_ONLY is true, stop here. The summary & lifecycle steps are run
+# by a later invocation, once the deployment has been applied.
+if [ "$S3_PUSH_UPLOAD_ONLY" = "true" ]; then
+  echo "Assets pushed to:            $S3_DESTINATION"
+  echo "Assets count:                $UPLOADED_FILES_COUNT"
+  echo "Manifest pushed to:          $S3_MANIFEST"
+  echo "Upload only, skipping summary and lifecycle steps."
+  exit 0
+fi
+
 
 # ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
 # 7️⃣ Append this manifest to the summary
