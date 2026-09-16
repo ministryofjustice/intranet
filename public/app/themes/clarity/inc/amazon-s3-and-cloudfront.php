@@ -52,28 +52,49 @@ class AmazonS3AndCloudFrontTweaks
             return;
         }
 
-        // Replace '/app/uploads/' with '/media/'.
-        $media_uri = str_replace('/app/uploads/', '/media/', $_SERVER['REQUEST_URI']);
+        // Get the decoded path without the query string, e.g. `/app/uploads/2026/04/Barley-300x200.png`.
+        $path = rawurldecode(strtok($_SERVER['REQUEST_URI'], '?'));
+        $file = wp_basename($path);
 
         // Make it an absolute URL for `attachment_url_to_postid`.
-        $absolute_url = get_home_url(null, $media_uri);
+        // Use the local uploads URL, as WordPress can resolve it without relying on WP Offload Media.
+        $absolute_url = get_home_url(null, $path);
 
         // Get the attachment id from the url.
         $attachment_id = attachment_url_to_postid($absolute_url);
+        $size = 'full';
+
+        // Sized image URLs, e.g. `Barley-300x200.png`, are resolved via the full size URL, e.g. `Barley.png`.
+        if (!$attachment_id && preg_match('/^(.+)-\d+x\d+(\.[a-z0-9]+)$/i', $absolute_url, $matches)) {
+            // Large uploads are stored as e.g. `Barley-scaled.png`, but their sizes are named after `Barley.png`.
+            $attachment_id = attachment_url_to_postid($matches[1] . $matches[2])
+                ?: attachment_url_to_postid($matches[1] . '-scaled' . $matches[2]);
+
+            $sizes = $attachment_id ? (wp_get_attachment_metadata($attachment_id)['sizes'] ?? []) : [];
+            $matching_sizes = is_array($sizes) ? array_filter($sizes, fn($s) => ($s['file'] ?? '') === $file) : [];
+
+            // If the size no longer exists, e.g. after a theme change, fall back to the full size.
+            $size = array_key_first($matching_sizes) ?? 'full';
+        }
 
         if (!$attachment_id) {
             return;
         }
 
         // Get the url from the attachment id.
-        $cdn_url = wp_get_attachment_url($attachment_id);
+        $cdn_url = $size === 'full' ? wp_get_attachment_url($attachment_id) : wp_get_attachment_image_url($attachment_id, $size);
 
-        if (!$cdn_url) {
+        // Don't redirect to a local url, e.g. if the attachment hasn't been offloaded.
+        if (!$cdn_url || str_contains($cdn_url, '/app/uploads/')) {
             return;
         }
 
+        // Only redirect permanently to the requested file. Another file, e.g. the full size because the
+        // requested size is missing or wasn't offloaded, may change, so don't let browsers cache the redirect.
+        $status = rawurldecode(wp_basename(parse_url($cdn_url, PHP_URL_PATH))) === $file ? 301 : 302;
+
         // Redirect to the CDN URL.
-        wp_redirect($cdn_url, 301);
+        wp_redirect($cdn_url, $status);
         exit;
     }
 }
