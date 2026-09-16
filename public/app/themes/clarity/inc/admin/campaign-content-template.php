@@ -9,8 +9,9 @@ function dw_add_contrast_message($field)
 {
 
     if (! empty($field['wrapper']) && ! empty($field['wrapper']['class']) && strpos($field['wrapper']['class'], 'colour_check') !== false) {
-        echo '<div class="acf-error-message contrast_invalid_message"><p>To choose an accessible colour, go to http://colorsafe.co for help picking an accessible colour.</p></div>';
-        echo '<div class="acf-error-message contrast_valid_message"><p>The colour you have entered meets our AA accessibility requirements.</p></div>';
+        // Hidden until colour-contrast-checker.js has checked the value.
+        echo '<div class="notice notice-error inline contrast_invalid_message" style="display: none;"><p>To choose an accessible colour, go to http://colorsafe.co for help picking an accessible colour.</p></div>';
+        echo '<div class="notice notice-success inline contrast_valid_message" style="display: none;"><p>The colour you have entered meets our AA accessibility requirements.</p></div>';
     }
 }
 
@@ -19,8 +20,8 @@ add_action('wp_ajax_nopriv_check_colour_contrast', 'dw_check_colour_contrast');
 
 function dw_check_colour_contrast()
 {
-    $colour1  = $_GET['colour1'];
-    $colour2  = $_GET['colour2'];
+    $colour1  = is_string($_GET['colour1'] ?? null) ? sanitize_hex_color(wp_unslash($_GET['colour1'])) : '';
+    $colour2  = is_string($_GET['colour2'] ?? null) ? sanitize_hex_color(wp_unslash($_GET['colour2'])) : '';
     $success  = false;
     $contrast = 0;
 
