@@ -20,8 +20,8 @@ add_action('wp_ajax_nopriv_check_colour_contrast', 'dw_check_colour_contrast');
 
 function dw_check_colour_contrast()
 {
-    $colour1  = sanitize_hex_color($_GET['colour1'] ?? '');
-    $colour2  = sanitize_hex_color($_GET['colour2'] ?? '');
+    $colour1  = is_string($_GET['colour1'] ?? null) ? sanitize_hex_color(wp_unslash($_GET['colour1'])) : '';
+    $colour2  = is_string($_GET['colour2'] ?? null) ? sanitize_hex_color(wp_unslash($_GET['colour2'])) : '';
     $success  = false;
     $contrast = 0;
 
