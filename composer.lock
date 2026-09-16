@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "126759a596cd6e32a143880b58add472",
+    "content-hash": "a63033392caf44094e0ef04ae7d37bbf",
     "packages": [
         {
             "name": "alphagov/notifications-php-client",
@@ -3734,10 +3734,10 @@
         },
         {
             "name": "wpengine/advanced-custom-fields-pro",
-            "version": "6.3.6",
+            "version": "6.8.10",
             "dist": {
                 "type": "zip",
-                "url": "https://connect.advancedcustomfields.com/v2/plugins/composer_download?s=composer&p=pro&t=6.3.6"
+                "url": "https://connect.advancedcustomfields.com/v2/plugins/composer_download?s=composer&p=pro&t=6.8.10"
             },
             "require": {
                 "composer/installers": "~1.0 || ~2.0"

@@ -65,7 +65,7 @@
         "wpackagist-plugin/classic-editor": "^1.7.0",
         "wpackagist-plugin/co-authors-plus": "^4.1.1",
         "wpackagist-plugin/wp-document-revisions": "^3.6.1",
-        "wpengine/advanced-custom-fields-pro": "^6.3.5",
+        "wpengine/advanced-custom-fields-pro": "^6.8.10",
         "ministryofjustice/like-button-for-wordpress": "dev-main",
         "ministryofjustice/notify-for-wordpress": "dev-main",
         "ministryofjustice/php-markdown-extra": "dev-main",
