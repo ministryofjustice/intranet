@@ -32,8 +32,33 @@ class AmazonS3AndCloudFrontTweaks
         add_filter('as3cf_update_as3cf_files_table_interval', fn() => 1);
         add_filter('as3cf_update_as3cf_files_table_time_limit', fn() => 30);
 
+        // Don't persist the plugin's object cache while its upgrades are running.
+        add_action('as3cf_init', [$this, 'maybeDisablePersistentCache']);
+
         // Redirect legacy URLs to cdn URLs.
         add_action('template_redirect', [$this, 'maybeRedirect404s']);
+    }
+
+    /**
+     * Keep WP Offload Media's object cache in memory only, while its upgrade routines are running.
+     *
+     * The plugin caches every item and file that it saves. The 3.4 files table migration saves every item,
+     * so these cache entries (~90KB per item, for an hour) fill Redis faster than they expire.
+     * On dev, this pushed ElastiCache into swap and caused connection timeouts.
+     *
+     * @param \Amazon_S3_And_CloudFront $as3cf
+     *
+     * @return void
+     */
+
+    public function maybeDisablePersistentCache($as3cf): void
+    {
+        // `is_upgraded` was added in 3.4.0, so check it exists in case of a rollback.
+        if (!is_object($as3cf) || !method_exists($as3cf, 'is_upgraded') || $as3cf->is_upgraded()) {
+            return;
+        }
+
+        wp_cache_add_non_persistent_groups(apply_filters('as3cf_object_cache_group', $as3cf->get_plugin_prefix()));
     }
 
     /**
