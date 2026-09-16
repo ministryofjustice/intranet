@@ -26,6 +26,12 @@ class AmazonS3AndCloudFrontTweaks
         // 750 items take ~20 secs, so decrease interval from 2 to 1 minute.
         add_filter('as3cf_update_as3cf_items_table_interval', fn() => 1);
 
+        // Speed up the 3.4 files table migration, from 500 items per 20 secs every 2 minutes.
+        // Up to 30 secs every minute, below WordPress's 60 sec cron lock and nginx's 60 sec fastcgi timeout.
+        add_filter('as3cf_update_as3cf_files_table_batch_size', fn() => 2000);
+        add_filter('as3cf_update_as3cf_files_table_interval', fn() => 1);
+        add_filter('as3cf_update_as3cf_files_table_time_limit', fn() => 30);
+
         // Redirect legacy URLs to cdn URLs.
         add_action('template_redirect', [$this, 'maybeRedirect404s']);
     }
