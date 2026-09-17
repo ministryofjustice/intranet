@@ -57,6 +57,8 @@ class WPDocumentRevisions
         add_action('admin_menu', [$this, 'hideValidateStructureSubmenu'], 30);
         // Return 404, not 403, when a document has no file to serve.
         add_filter('document_no_document_response_code', fn() => 404);
+        // Never ask editors to review the plugin on WordPress.org - treat the prompt as already dismissed.
+        add_filter('get_user_metadata', fn($value, $object_id, $meta_key) => $meta_key === 'wpdr_review_dismissed' ? [1] : $value, 10, 3);
         // Always disable the plugin's text extraction and AI features, and hide their meta box.
         $this->disableTextExtractionAndAi();
     }
