@@ -12,8 +12,9 @@ verify_composer_package_version() {
   fi
 }
 
+ROOT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 
-MOJ_COMPONENTS_FILE=/var/www/html/public/app/mu-plugins/wp-moj-components/component/Introduce/Introduce.php
+MOJ_COMPONENTS_FILE=$ROOT_DIR/public/app/mu-plugins/wp-moj-components/component/Introduce/Introduce.php
 MOJ_COMPONENTS_SEARCH_EMAIL="justice\.web@digital\.justice\.gov\.uk"
 MOJ_COMPONENTS_REPLACE_EMAIL="intranet-support@digital.justice.gov.uk"
 
@@ -42,7 +43,7 @@ fi
 verify_composer_package_version "wpackagist-plugin/wp-document-revisions" "5.4.2"
 
 # Since v4, the document and revision metaboxes live in the admin-editor trait, and call methods on `$wpdr`.
-DOCUMENT_REVISIONS_FILE=/var/www/html/public/app/mu-plugins/wp-document-revisions/includes/trait-wp-document-revisions-admin-editor.php
+DOCUMENT_REVISIONS_FILE=$ROOT_DIR/public/app/mu-plugins/wp-document-revisions/includes/trait-wp-document-revisions-admin-editor.php
 
 DOCUMENT_REVISIONS_SEARCH_1="\$revisions    = \$wpdr->get_revisions( \$post->ID );"
 DOCUMENT_REVISIONS_REPLACE_1="\$revisions    = apply_filters('wp_document_revisions_get_revisions', \$wpdr->get_revisions( \$post->ID ), 'revision_metabox');"
@@ -52,20 +53,17 @@ DOCUMENT_REVISIONS_SEARCH_2="\$latest_version = \$wpdr->get_latest_revision( \$p
 DOCUMENT_REVISIONS_REPLACE_2="\$latest_version = apply_filters('wp_document_revisions_get_latest_revision', \$wpdr->get_latest_revision( \$post->ID ), 'document_metabox');"
 DOCUMENT_REVISIONS_PATCHED_2="apply_filters('wp_document_revisions_get_latest_revision'"
 
-# The file must exist - the theme depends on these filters to show the correct revision author.
-if [ ! -f "$DOCUMENT_REVISIONS_FILE" ] ; then
-  echo "wp-document-revisions file not found: $DOCUMENT_REVISIONS_FILE - review composer-post-install.sh."
-  exit 1;
-fi
+# If the file exists, then replace the search strings.
+if [ -f "$DOCUMENT_REVISIONS_FILE" ] ; then
+  echo "Adding wp_document_revisions_get_revisions filter to wp-document-revisions..."
+  sed -i "s/$DOCUMENT_REVISIONS_SEARCH_1/$DOCUMENT_REVISIONS_REPLACE_1/g" $DOCUMENT_REVISIONS_FILE
 
-echo "Adding wp_document_revisions_get_revisions filter to wp-document-revisions..."
-sed -i "s/$DOCUMENT_REVISIONS_SEARCH_1/$DOCUMENT_REVISIONS_REPLACE_1/g" $DOCUMENT_REVISIONS_FILE
+  echo "Adding wp_document_revisions_get_latest_revision filter to wp-document-revisions..."
+  sed -i "s/$DOCUMENT_REVISIONS_SEARCH_2/$DOCUMENT_REVISIONS_REPLACE_2/g" $DOCUMENT_REVISIONS_FILE
 
-echo "Adding wp_document_revisions_get_latest_revision filter to wp-document-revisions..."
-sed -i "s/$DOCUMENT_REVISIONS_SEARCH_2/$DOCUMENT_REVISIONS_REPLACE_2/g" $DOCUMENT_REVISIONS_FILE
-
-# sed does not fail when there is no match, so verify that both filters are now present.
-if ! grep -qF "$DOCUMENT_REVISIONS_PATCHED_1" "$DOCUMENT_REVISIONS_FILE" || ! grep -qF "$DOCUMENT_REVISIONS_PATCHED_2" "$DOCUMENT_REVISIONS_FILE" ; then
-  echo "Failed to add filters to wp-document-revisions - review composer-post-install.sh."
-  exit 1;
+  # sed does not fail when there is no match, so verify that both filters are now present.
+  if ! grep -qF "$DOCUMENT_REVISIONS_PATCHED_1" "$DOCUMENT_REVISIONS_FILE" || ! grep -qF "$DOCUMENT_REVISIONS_PATCHED_2" "$DOCUMENT_REVISIONS_FILE" ; then
+    echo "Failed to add filters to wp-document-revisions - review composer-post-install.sh."
+    exit 1;
+  fi
 fi
