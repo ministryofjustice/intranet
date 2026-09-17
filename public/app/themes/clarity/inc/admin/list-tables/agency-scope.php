@@ -27,6 +27,9 @@ class Agency_Scope
 
     const BULK_ACTION = 'remove_agency';
 
+    // Limit the bulk action to specific post types.
+    const BULK_ACTION_POST_TYPES = ['event', 'news', 'post'];
+
     public function __construct()
     {
         // After the date controls, which render at the default priority.
@@ -39,20 +42,14 @@ class Agency_Scope
     }
 
     /**
-     * Offer the bulk action on every listing the agency taxonomy applies to.
+     * Offer the bulk action on specified post types.
      *
      * @return void
      */
     public function register_bulk_action()
     {
-        $taxonomy = get_taxonomy('agency');
-
-        if (!$taxonomy) {
-            return;
-        }
-
-        foreach ($taxonomy->object_type as $post_type) {
-            if (!post_type_exists($post_type)) {
+        foreach (self::BULK_ACTION_POST_TYPES as $post_type) {
+            if (!in_array($post_type, self::BULK_ACTION_POST_TYPES, true)) {
                 continue;
             }
 
