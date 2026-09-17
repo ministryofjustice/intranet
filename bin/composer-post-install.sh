@@ -59,24 +59,36 @@ if grep -q  $TREE_VIEW_SEARCH $TREE_VIEW_FILE ; then
   sed -i "s/$TREE_VIEW_SEARCH/$TREE_VIEW_REPLACE/g" $TREE_VIEW_FILE
 fi
 
-# Check that the version of wp-document-revisions is ont that's been confirmed to work.
-verify_composer_package_version "wpackagist-plugin/wp-document-revisions" "3.6.1"
+# Check that the version of wp-document-revisions is one that's been confirmed to work.
+verify_composer_package_version "wpackagist-plugin/wp-document-revisions" "5.4.2"
 
-DOCUMENT_REVISIONS_FILE=/var/www/html/public/app/mu-plugins/wp-document-revisions/includes/class-wp-document-revisions-admin.php
+# Since v4, the document and revision metaboxes live in the admin-editor trait, and call methods on `$wpdr`.
+DOCUMENT_REVISIONS_FILE=/var/www/html/public/app/mu-plugins/wp-document-revisions/includes/trait-wp-document-revisions-admin-editor.php
 
-DOCUMENT_REVISIONS_SEARCH_1="\$revisions    = \$this->get_revisions( \$post->ID );"
-DOCUMENT_REVISIONS_REPLACE_1="\$revisions    = apply_filters('wp_document_revisions_get_revisions', \$this->get_revisions( \$post->ID ), 'revision_metabox');"
+DOCUMENT_REVISIONS_SEARCH_1="\$revisions    = \$wpdr->get_revisions( \$post->ID );"
+DOCUMENT_REVISIONS_REPLACE_1="\$revisions    = apply_filters('wp_document_revisions_get_revisions', \$wpdr->get_revisions( \$post->ID ), 'revision_metabox');"
+DOCUMENT_REVISIONS_PATCHED_1="apply_filters('wp_document_revisions_get_revisions'"
 
-DOCUMENT_REVISIONS_SEARCH_2="\$latest_version = \$this->get_latest_revision( \$post->ID );"
-DOCUMENT_REVISIONS_REPLACE_2="\$latest_version = apply_filters('wp_document_revisions_get_latest_revision', \$this->get_latest_revision( \$post->ID ), 'document_metabox');"
+DOCUMENT_REVISIONS_SEARCH_2="\$latest_version = \$wpdr->get_latest_revision( \$post->ID );"
+DOCUMENT_REVISIONS_REPLACE_2="\$latest_version = apply_filters('wp_document_revisions_get_latest_revision', \$wpdr->get_latest_revision( \$post->ID ), 'document_metabox');"
+DOCUMENT_REVISIONS_PATCHED_2="apply_filters('wp_document_revisions_get_latest_revision'"
 
-# If the file exists, then replace the search strings.
-if [ -f "$DOCUMENT_REVISIONS_FILE" ] ; then
-  echo "Adding wp_document_revisions_get_revisions filter to wp-document-revisions..."
-  sed -i "s/$DOCUMENT_REVISIONS_SEARCH_1/$DOCUMENT_REVISIONS_REPLACE_1/g" $DOCUMENT_REVISIONS_FILE
+# The file must exist - the theme depends on these filters to show the correct revision author.
+if [ ! -f "$DOCUMENT_REVISIONS_FILE" ] ; then
+  echo "wp-document-revisions file not found: $DOCUMENT_REVISIONS_FILE - review composer-post-install.sh."
+  exit 1;
+fi
 
-  echo "Adding wp_document_revisions_get_latest_revision filter to wp-document-revisions..."
-  sed -i "s/$DOCUMENT_REVISIONS_SEARCH_2/$DOCUMENT_REVISIONS_REPLACE_2/g" $DOCUMENT_REVISIONS_FILE
+echo "Adding wp_document_revisions_get_revisions filter to wp-document-revisions..."
+sed -i "s/$DOCUMENT_REVISIONS_SEARCH_1/$DOCUMENT_REVISIONS_REPLACE_1/g" $DOCUMENT_REVISIONS_FILE
+
+echo "Adding wp_document_revisions_get_latest_revision filter to wp-document-revisions..."
+sed -i "s/$DOCUMENT_REVISIONS_SEARCH_2/$DOCUMENT_REVISIONS_REPLACE_2/g" $DOCUMENT_REVISIONS_FILE
+
+# sed does not fail when there is no match, so verify that both filters are now present.
+if ! grep -qF "$DOCUMENT_REVISIONS_PATCHED_1" "$DOCUMENT_REVISIONS_FILE" || ! grep -qF "$DOCUMENT_REVISIONS_PATCHED_2" "$DOCUMENT_REVISIONS_FILE" ; then
+  echo "Failed to add filters to wp-document-revisions - review composer-post-install.sh."
+  exit 1;
 fi
 
 # Modify the 'Requires Plugins' line from debug-bar-elasticpress plugin since it is incompatible with elasticpress being a MU plugin.

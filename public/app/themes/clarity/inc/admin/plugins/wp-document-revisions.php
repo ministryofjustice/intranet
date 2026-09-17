@@ -57,6 +57,71 @@ class WPDocumentRevisions
         add_filter('wp_document_revisions_get_latest_revision', [$this, 'filterGetLatestRevision'], 10, 2);
         // Filter wp_die handler for documents - to change 403 to 404 for missing document files.
         add_filter('wp_die_handler', [self::class, 'filterWpDieHandler']);
+        // Always disable the plugin's text extraction and AI features, and hide their meta box.
+        $this->disableTextExtractionAndAi();
+    }
+
+    /**
+     * Disable text extraction and AI summaries, added in WP Document Revisions v5.
+     *
+     * The constants in config/application.php already stop the work, but the plugin's hooks stay registered.
+     * Here we remove those hooks, so that:
+     * - the "Text Extraction & AI" meta box is not shown on the document edit screen.
+     * - no extraction or AI summary cron events are scheduled or run.
+     * - the AI summary REST routes are not registered.
+     * - the AI pre-fill script is not enqueued.
+     *
+     * @return void
+     */
+    private function disableTextExtractionAndAi(): void
+    {
+        // Plugin hooks to remove, as class => [[hook, method, priority], ...].
+        $plugin_hooks = [
+            'WP_Document_Revisions_Text_Extraction_Opt_Out' => [
+                ['add_meta_boxes_document', 'register_meta_box', 10],
+                ['save_post_document', 'save', 10],
+            ],
+            'WP_Document_Revisions_Text_Extractor_Scheduler' => [
+                ['add_attachment', 'maybe_schedule', 10],
+                ['wpdr_extract_text_async', 'run', 10],
+            ],
+            'WP_Document_Revisions_AI_Summary' => [
+                ['wpdr_text_extracted', 'maybe_schedule', 10],
+                ['wpdr_generate_ai_summary', 'run', 10],
+            ],
+            'WP_Document_Revisions_AI_Summary_REST' => [
+                ['rest_api_init', 'register_routes', 10],
+            ],
+            'WP_Document_Revisions_AI_Summary_Prefill' => [
+                ['admin_enqueue_scripts', 'maybe_enqueue', 10],
+            ],
+        ];
+
+        foreach ($plugin_hooks as $class => $hooks) {
+            // Skip if the plugin, or this class, isn't loaded.
+            if (!class_exists($class)) {
+                continue;
+            }
+
+            foreach ($hooks as [$hook, $method, $priority]) {
+                remove_action($hook, [$class, $method], $priority);
+            }
+        }
+
+        // Backstops, in case a future plugin version registers these features differently.
+        // No text extractors means no text is extracted.
+        add_filter('wpdr_text_extractors', '__return_empty_array', PHP_INT_MAX);
+        // Report AI summaries as unavailable.
+        add_filter('wpdr_ai_summary_available', '__return_false', PHP_INT_MAX);
+
+        // Remove the meta box, after all other callbacks have added meta boxes.
+        add_action('add_meta_boxes_document', function () {
+            $meta_box_id = class_exists('WP_Document_Revisions_Text_Extraction_Opt_Out')
+                ? \WP_Document_Revisions_Text_Extraction_Opt_Out::META_BOX_ID
+                : 'wpdr-text-extraction-opt-out';
+
+            remove_meta_box($meta_box_id, 'document', 'side');
+        }, PHP_INT_MAX);
     }
 
 
@@ -103,6 +168,22 @@ class WPDocumentRevisions
     }
 
     /**
+     * Get the plugin's existing WP_Document_Revisions instance.
+     *
+     * Don't create a new instance, the constructor registers all of the plugin's hooks again.
+     *
+     * @return \WP_Document_Revisions|null The instance, or null if the plugin isn't loaded.
+     */
+    private function getWpDocumentRevisions(): ?\WP_Document_Revisions
+    {
+        if (!$this->wp_document_revisions && class_exists('WP_Document_Revisions')) {
+            $this->wp_document_revisions = \WP_Document_Revisions::$instance;
+        }
+
+        return $this->wp_document_revisions;
+    }
+
+    /**
      * Extract the date from the file path.
      * 
      * @param string $file The file path.
@@ -146,12 +227,8 @@ class WPDocumentRevisions
             return $file;
         }
 
-        if (!$this->wp_document_revisions) {
-            // Make sure we are dealing with a document.
-            $this->wp_document_revisions = new \WP_Document_Revisions();
-        }
-
-        if (!$this->wp_document_revisions->verify_post_type($attachment_id)) {
+        // Make sure we are dealing with a document.
+        if (!$this->getWpDocumentRevisions()?->verify_post_type($attachment_id)) {
             return $file;
         }
 
@@ -208,13 +285,13 @@ class WPDocumentRevisions
             return 0;
         }
 
-        // If we haven't already set the wp_document_revisions object, do so now.
-        if (!$this->wp_document_revisions) {
-            $this->wp_document_revisions = new \WP_Document_Revisions();
+        // If the plugin isn't loaded, return 0.
+        if (!$this->getWpDocumentRevisions()) {
+            return 0;
         }
 
         // Get the revisions for the current post - the first in the array is the document, technically not a revision.
-        $document_revisions = $this->wp_document_revisions->get_revisions($post_id);
+        $document_revisions = $this->getWpDocumentRevisions()->get_revisions($post_id);
 
         // In an edge case we might not have any revisions. If so, return 0.
         if (empty($document_revisions) || !is_array($document_revisions)) {
