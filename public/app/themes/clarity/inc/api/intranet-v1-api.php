@@ -12,7 +12,8 @@ function add_custom_post_type_rest_support()
 
     $post_type_names = array (
         'guest_author',
-        'document',
+        // 'document' is intentionally excluded. Exposing it lets editors change a document's attachment
+        // via REST, bypassing WP Document Revisions' ownership checks. It had no consumers.
         'webchat',
         'event',
         'news',
