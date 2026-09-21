@@ -153,6 +153,10 @@ Config::define('WP_POST_REVISIONS', env('WP_POST_REVISIONS') ?? true);
 // Disable WordPress 7's LLM-related features
 Config::define('WP_AI_SUPPORT', false);
 
+// Disable WP Document Revisions text extraction (cron parsing of PDF/DOCX files) and AI summary pre-fill.
+Config::define('WPDR_TEXT_EXTRACTION', false);
+Config::define('WPDR_AI_SUMMARY_PREFILL', false);
+
 // API key for notifications.service.gov.uk email service
 Config::define('GOV_NOTIFY_API_KEY', env('GOV_NOTIFY_API_KEY') ?? null);
 

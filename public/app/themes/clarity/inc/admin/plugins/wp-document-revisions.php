@@ -8,8 +8,6 @@
 
 namespace MOJ\Intranet;
 
-use WP_Error;
-
 if (!defined('ABSPATH')) {
     exit;
 }
@@ -55,8 +53,77 @@ class WPDocumentRevisions
         add_filter('wp_document_revisions_get_revisions', [$this, 'filterGetMostRecentRevision'], 10, 2);
         // Filter the get_latest_revision result to correct the author.
         add_filter('wp_document_revisions_get_latest_revision', [$this, 'filterGetLatestRevision'], 10, 2);
-        // Filter wp_die handler for documents - to change 403 to 404 for missing document files.
-        add_filter('wp_die_handler', [self::class, 'filterWpDieHandler']);
+        // Hide the Validate Structure sub-menu from non-admins.
+        add_action('admin_menu', [$this, 'hideValidateStructureSubmenu'], 30);
+        // Return 404, not 403, when a document has no file to serve.
+        add_filter('document_no_document_response_code', fn() => 404);
+        // Never ask editors to review the plugin on WordPress.org - treat the prompt as already dismissed.
+        add_filter('get_user_metadata', fn($value, $object_id, $meta_key) => $meta_key === 'wpdr_review_dismissed' ? [1] : $value, 10, 3);
+        // Always disable the plugin's text extraction and AI features, and hide their meta box.
+        $this->disableTextExtractionAndAi();
+    }
+
+    /**
+     * Disable text extraction and AI summaries, added in WP Document Revisions v5.
+     *
+     * The constants in config/application.php already stop the work, but the plugin's hooks stay registered.
+     * Here we remove those hooks, so that:
+     * - the "Text Extraction & AI" meta box is not shown on the document edit screen.
+     * - no extraction or AI summary cron events are scheduled or run.
+     * - the AI summary REST routes are not registered.
+     * - the AI pre-fill script is not enqueued.
+     *
+     * @return void
+     */
+    private function disableTextExtractionAndAi(): void
+    {
+        // Plugin hooks to remove, as class => [[hook, method, priority], ...].
+        $plugin_hooks = [
+            'WP_Document_Revisions_Text_Extraction_Opt_Out' => [
+                ['add_meta_boxes_document', 'register_meta_box', 10],
+                ['save_post_document', 'save', 10],
+            ],
+            'WP_Document_Revisions_Text_Extractor_Scheduler' => [
+                ['add_attachment', 'maybe_schedule', 10],
+                ['wpdr_extract_text_async', 'run', 10],
+            ],
+            'WP_Document_Revisions_AI_Summary' => [
+                ['wpdr_text_extracted', 'maybe_schedule', 10],
+                ['wpdr_generate_ai_summary', 'run', 10],
+            ],
+            'WP_Document_Revisions_AI_Summary_REST' => [
+                ['rest_api_init', 'register_routes', 10],
+            ],
+            'WP_Document_Revisions_AI_Summary_Prefill' => [
+                ['admin_enqueue_scripts', 'maybe_enqueue', 10],
+            ],
+        ];
+
+        foreach ($plugin_hooks as $class => $hooks) {
+            // Skip if the plugin, or this class, isn't loaded.
+            if (!class_exists($class)) {
+                continue;
+            }
+
+            foreach ($hooks as [$hook, $method, $priority]) {
+                remove_action($hook, [$class, $method], $priority);
+            }
+        }
+
+        // Backstops, in case a future plugin version registers these features differently.
+        // No text extractors means no text is extracted.
+        add_filter('wpdr_text_extractors', '__return_empty_array', PHP_INT_MAX);
+        // Report AI summaries as unavailable.
+        add_filter('wpdr_ai_summary_available', '__return_false', PHP_INT_MAX);
+
+        // Remove the meta box, after all other callbacks have added meta boxes.
+        add_action('add_meta_boxes_document', function () {
+            $meta_box_id = class_exists('WP_Document_Revisions_Text_Extraction_Opt_Out')
+                ? \WP_Document_Revisions_Text_Extraction_Opt_Out::META_BOX_ID
+                : 'wpdr-text-extraction-opt-out';
+
+            remove_meta_box($meta_box_id, 'document', 'side');
+        }, PHP_INT_MAX);
     }
 
 
@@ -103,6 +170,22 @@ class WPDocumentRevisions
     }
 
     /**
+     * Get the plugin's existing WP_Document_Revisions instance.
+     *
+     * Don't create a new instance, the constructor registers all of the plugin's hooks again.
+     *
+     * @return \WP_Document_Revisions|null The instance, or null if the plugin isn't loaded.
+     */
+    private function getWpDocumentRevisions(): ?\WP_Document_Revisions
+    {
+        if (!$this->wp_document_revisions && class_exists('WP_Document_Revisions')) {
+            $this->wp_document_revisions = \WP_Document_Revisions::$instance;
+        }
+
+        return $this->wp_document_revisions;
+    }
+
+    /**
      * Extract the date from the file path.
      * 
      * @param string $file The file path.
@@ -146,12 +229,8 @@ class WPDocumentRevisions
             return $file;
         }
 
-        if (!$this->wp_document_revisions) {
-            // Make sure we are dealing with a document.
-            $this->wp_document_revisions = new \WP_Document_Revisions();
-        }
-
-        if (!$this->wp_document_revisions->verify_post_type($attachment_id)) {
+        // Make sure we are dealing with a document.
+        if (!$this->getWpDocumentRevisions()?->verify_post_type($attachment_id)) {
             return $file;
         }
 
@@ -208,13 +287,13 @@ class WPDocumentRevisions
             return 0;
         }
 
-        // If we haven't already set the wp_document_revisions object, do so now.
-        if (!$this->wp_document_revisions) {
-            $this->wp_document_revisions = new \WP_Document_Revisions();
+        // If the plugin isn't loaded, return 0.
+        if (!$this->getWpDocumentRevisions()) {
+            return 0;
         }
 
         // Get the revisions for the current post - the first in the array is the document, technically not a revision.
-        $document_revisions = $this->wp_document_revisions->get_revisions($post_id);
+        $document_revisions = $this->getWpDocumentRevisions()->get_revisions($post_id);
 
         // In an edge case we might not have any revisions. If so, return 0.
         if (empty($document_revisions) || !is_array($document_revisions)) {
@@ -287,72 +366,16 @@ class WPDocumentRevisions
         return $revision;
     }
 
-
     /**
-     * Filter the wp_die handler to use a custom wrapper for documents.
+     * Hide the Validate Structure sub-menu from non-admins.
      *
-     * The reason for the custom wrapper is that the WP Document Revisions plugin
-     * calls wp_die with a 403 response code when a document file is missing.
-     * We want to change the response code to 404, but there is no filter in the plugin to do this directly.
-     * So we wrap the wp_die handler and modify the response code when necessary.
-     *
-     * @param callable $handler The original wp_die handler.
-     * @return callable The filtered wp_die handler.
-     */
-    static function filterWpDieHandler(callable $handler): callable
-    {
-        global $post;
-
-        // If we are dealing with a document post type, and wpDieWrapper has not already been applied.
-        if (is_object($post) && $post->post_type === 'document' && empty($post->wpdr_die_wrapper_applied)) {
-            return [self::class, 'wpDieWrapper'];
-        }
-
-        // Otherwise, return the original handler.
-        return $handler;
-    }
-
-
-    /**
-     * Custom wp_die handler wrapper for documents.
-     *
-     * When a document is missing a file, we want to change the response code from 403 to 404.
-     * This wrapper checks for that specific case and modifies the response code accordingly.
-     *
-     * This can be tested by creating a document, and not uploading a file to it.
-     * Then publish the document and click the preview link, the resulting error should be a 404, not a 403.
-     *
-     * Note, to prevent an infinite loop, we set a property on the global $post object.
-     * Therefore it is crucial to check that global $post is an object before calling this function.
-     *
-     * @param string|WP_Error $message The message to display.
-     * @param string $title The title of the error.
-     * @param string|array $args Additional arguments.
      * @return void
      */
-    static function wpDieWrapper($message, $title, string|array $args = []): void
+
+    public function hideValidateStructureSubmenu()
     {
-        global $post;
-
-        // Create a `wpdr_die_wrapper_applied` property on the global $post object.
-        // In `filterWpDieHandler`, this property is checked to avoid re-wrapping the wp_die handler.
-        // This is essential to prevent an infinite loop.
-        $post->wpdr_die_wrapper_applied = true;
-
-        // There is a specific case where we want to change the response code from 403 to 404.
-        // This is when the message is 'No document file is attached.' and the response code is 403.
-        // See: `wp-document-revisions/includes/class-wp-document-revisions.php`
-        $target_message = esc_html__('No document file is attached.', 'wp-document-revisions');
-        if (
-            $message === $target_message &&
-            is_array($args) &&
-            isset($args['response']) &&
-            (int) $args['response'] === 403
-        ) {
-            $args['response'] = 404;
+        if (!current_user_can('administrator')) {
+            remove_submenu_page('edit.php?post_type=document', 'wpdr_validate');
         }
-
-        // Finally re-call wp_die function with the message and (possibly) modified args.
-        wp_die($message, $title, $args);
     }
 }
