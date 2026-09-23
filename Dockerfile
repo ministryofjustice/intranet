@@ -14,16 +14,16 @@
 #░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
 
 
-FROM composer:2.10.2@sha256:5946476338742b200bb9ff88f8be56275ddae4b3949c72305cb0dbf10cfcb760 AS composer
+FROM composer:2.10.3@sha256:d8f6343d3fae98107426bc49163ccad46ef85aabd4a27d80a74401fab4aba332 AS composer
 
-FROM nginxinc/nginx-unprivileged:1.31.3-alpine@sha256:18d67281256ded39ff65e010ae4f831be18f19356f83c60bc546492c7eb6dd23 AS nginx-unprivileged
+FROM nginxinc/nginx-unprivileged:1.31.5-alpine@sha256:2ddec616f1cb58bcac057aa388f28cb81e35137641ef4226d321714499329bd1 AS nginx-unprivileged
 
 #    ▄▄  ▄▄     █▀▀  █▀█  █▀▄▀█     ▄▄  ▄▄    #
 #    ░░  ░░     █▀░  █▀▀  █░▀░█     ░░  ░░    #
 
 # Official WordPress image (Alpine, php-fpm): https://hub.docker.com/_/wordpress
 # PHPRedis + igbinary, WP-CLI, mariadb-client, fcgi and the timezone are layered on below.
-FROM wordpress:7.0.2-php8.4-fpm-alpine@sha256:1d64606dae40c09ed3c39c23f9a8eec94cfac0040e94ba7b7bd07703ba5fa7a9 AS base-fpm
+FROM wordpress:7.0.4-php8.4-fpm-alpine@sha256:f5fa744c5d40e14cb89d7a12c9e06a406672cd044f73e7db83bb88c7e503d51c AS base-fpm
 
 # Install additional Alpine packages
 RUN apk update && \
@@ -43,6 +43,22 @@ RUN pecl install redis igbinary \
 
 # Delete PHPRedis build dependencies
 RUN apk del .build-deps
+
+# Install a patched version of WordPress core, prior to release on Docker Hub.
+# Minimal implementation, edit the following 2 arguments directly.
+ARG PATCH_WORDPRESS_VERSION="7.0.6"
+# Get value from https://wordpress.org/wordpress-<WORDPRESS_VERSION>.tar.gz.sha1
+ARG PATCH_WORDPRESS_SHA1="18bfb0b6a009836f83389fe50538ca559dff2044"
+# Download and extract script from: https://github.com/docker-library/wordpress/blob/master/Dockerfile.template
+RUN set -ex; \
+	if [ -n "$PATCH_WORDPRESS_VERSION" ] && [ -n "$PATCH_WORDPRESS_SHA1" ]; then \
+		curl -o wordpress.tar.gz -fL "https://wordpress.org/wordpress-$PATCH_WORDPRESS_VERSION.tar.gz"; \
+		echo "$PATCH_WORDPRESS_SHA1 *wordpress.tar.gz" | sha1sum -c -; \
+		tar -xzf wordpress.tar.gz -C /usr/src/; \
+		rm wordpress.tar.gz; \
+        chown -R www-data:www-data /usr/src/wordpress; \
+        echo "Patched WordPress core to $PATCH_WORDPRESS_VERSION"; \
+	fi
 
 # Install wp-cli
 RUN curl -o /usr/local/bin/wp https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
