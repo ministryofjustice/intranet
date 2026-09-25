@@ -168,3 +168,19 @@ add_action(
         }
     }
 );
+
+/**
+ * Redirects visits to the Connectors page via ?page=options-connectors (e.g. admin-post.php),
+ * which bypass the load-options-connectors.php hook above.
+ * Runs before core's wp_options_connectors_intercept_render (admin_init, priority 10).
+ */
+add_action(
+    'admin_init',
+    static function () {
+        if (($_GET['page'] ?? '') === 'options-connectors' && function_exists('wp_supports_ai') && !wp_supports_ai()) {
+            wp_safe_redirect(admin_url());
+            exit;
+        }
+    },
+    1
+);
