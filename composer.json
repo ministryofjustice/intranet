@@ -60,7 +60,7 @@
         "vlucas/phpdotenv": "^5.5",
         "roots/bedrock-autoloader": "^1.0",
         "roots/bedrock-disallow-indexing": "^2.0",
-        "koodimonni-language/core-en_gb": "7.1.2",
+        "koodimonni-language/core-en_gb": "7.0.6",
         "roots/wp-config": "^1.0",
         "wpackagist-plugin/classic-editor": "^1.7.0",
         "wpackagist-plugin/co-authors-plus": "^4.1.1",
@@ -130,12 +130,12 @@
                 "After adding comments here, run a benign composer command like ",
                 "`composer update paragonie/random_compat` to update composer.lock's hash."
             ],
-            "bonny/wordpress-simple-history": [
-                "The package `bonny/wordpress-simple-history` is pinned to a specific commit.",
+            "wpackagist-plugin/simple-history": [
+                "The package `wpackagist-plugin/simple-history` is pinned to an exact version.",
                 "This gives developers the opportunity to review the code of each release.",
                 "When a new version is released, developers should check the diff between",
-                "the pinned commit and the new version. There is a compare view on GitHub.",
-                "e.g. https://github.com/bonny/WordPress-Simple-History/compare/b8cc09b...475f3baa",
+                "the pinned tag and the new tag. There is a compare view on GitHub.",
+                "e.g. https://github.com/bonny/WordPress-Simple-History/compare/5.29.0...5.30.0",
                 "If the changes are acceptable, the pinned version can be updated."
             ],
             "wpackagist-plugin/wp-document-revisions": [
