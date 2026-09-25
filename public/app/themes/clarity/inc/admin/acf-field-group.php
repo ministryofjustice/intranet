@@ -2072,7 +2072,7 @@
         array(
             'key' => 'field_62444fe8c5576',
             'label' => 'Select page in JAC',
-            'name' => 'feature_item_left_pag_jac',
+            'name' => 'feature_item_left_pages__jac',
             'type' => 'post_object',
             'instructions' => '',
             'required' => 0,
