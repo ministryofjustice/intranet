@@ -61,6 +61,28 @@ class WPDocumentRevisions
         add_filter('get_user_metadata', fn($value, $object_id, $meta_key) => $meta_key === 'wpdr_review_dismissed' ? [1] : $value, 10, 3);
         // Always disable the plugin's text extraction and AI features, and hide their meta box.
         $this->disableTextExtractionAndAi();
+        // Don't expose documents to AI tooling via the Abilities API.
+        $this->disableAbilities();
+    }
+
+    /**
+     * Disable the plugin's Abilities API integration, added in WP Document Revisions v5.
+     *
+     * The plugin registers document abilities (e.g. get-document-info, override-document-lock),
+     * which are exposed via the wp-abilities/v1 REST routes to any logged-in user.
+     *
+     * @return void
+     */
+    private function disableAbilities(): void
+    {
+        $wpdr = $this->getWpDocumentRevisions();
+
+        if (!$wpdr) {
+            return;
+        }
+
+        remove_action('wp_abilities_api_categories_init', [$wpdr, 'register_ability_category']);
+        remove_action('wp_abilities_api_init', [$wpdr, 'register_abilities']);
     }
 
     /**

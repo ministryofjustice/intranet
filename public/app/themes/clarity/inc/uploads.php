@@ -68,6 +68,10 @@ function hide_media_view_link($actions, $post)
     return $actions;
 }
 
+// Disable client-side media processing (WP 7.1), it's on by default for HTTPS sites.
+// It adds crossorigin="anonymous" to audio/video in the media modal, which breaks CDN previews.
+add_filter('wp_client_side_media_processing_enabled', '__return_false');
+
 add_filter('wp_check_filetype_and_ext', 'moj_disable_real_mime_check', 10, 4);
 
 //Disable the real mime check to avoid conflicts with mimetypes reported by PHP and extension
