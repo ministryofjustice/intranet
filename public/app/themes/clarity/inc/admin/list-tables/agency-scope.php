@@ -407,16 +407,18 @@ class Agency_Scope
     /**
      * May the current user take an agency tag off posts?
      *
-     * This is the bulk form of the "Opt-out" quick action, which
-     * Taxonomies\Agency offers only to users with opt_in_content. Having an
-     * agency context is not enough on its own: regional editors have one
-     * without that capability.
+     * Limited to agency admins. The action is only offered on shared posts,
+     * and Agency_Editor::get_post_agency() treats any post with more than one
+     * agency as owned by HQ. Taxonomies\Agency then denies edit_post on it to
+     * everyone without manage_agencies, so an agency editor outside HQ would
+     * have every selected post skipped. Agency admins are exempt from that
+     * restriction, and can act on shared posts in any agency context.
      *
      * @return bool
      */
     protected function current_user_can_remove_tag()
     {
-        return current_user_can('opt_in_content');
+        return current_user_can('manage_agencies');
     }
 
     /**
