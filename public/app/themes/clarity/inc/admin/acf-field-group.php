@@ -1719,6 +1719,7 @@
                 'ppo' => 'PPO',
                 'ospt' => 'OSPT',
                 'jac' => 'JAC',
+                'wales-office' => 'WO',
             ),
             'allow_null' => 0,
             'other_choice' => 0,
@@ -2100,6 +2101,120 @@
             ),
             'taxonomy' => array(
                 0 => 'agency:jac',
+            ),
+            'allow_null' => 0,
+            'multiple' => 0,
+            'return_format' => 'object',
+            'ui' => 1,
+        ),
+        array(
+            'key' => 'field_6a3e7ef556f36',
+            'label' => 'Select blog in WO',
+            'name' => 'feature_item_left_post__wales-office',
+            'type' => 'post_object',
+            'instructions' => '',
+            'required' => 0,
+            'conditional_logic' => array(
+                array(
+                    array(
+                        'field' => 'field_5b6966b5ddfb7',
+                        'operator' => '==',
+                        'value' => 'post',
+                    ),
+                    array(
+                        'field' => 'field_5b696b695a61a',
+                        'operator' => '==',
+                        'value' => 'wales-office',
+                    ),
+                ),
+            ),
+            'wrapper' => array(
+                'width' => '',
+                'class' => '',
+                'id' => '',
+            ),
+            'admin_only' => 0,
+            'post_type' => array(
+                0 => 'post',
+            ),
+            'taxonomy' => array(
+                0 => 'agency:wales-office',
+            ),
+            'allow_null' => 0,
+            'multiple' => 0,
+            'return_format' => 'object',
+            'ui' => 1,
+        ),
+        array(
+            'key' => 'field_36523dc45e888',
+            'label' => 'Select news article in WO',
+            'name' => 'feature_item_left_news__wales-office',
+            'type' => 'post_object',
+            'instructions' => '',
+            'required' => 0,
+            'conditional_logic' => array(
+                array(
+                    array(
+                        'field' => 'field_5b6966b5ddfb7',
+                        'operator' => '==',
+                        'value' => 'news',
+                    ),
+                    array(
+                        'field' => 'field_5b696b695a61a',
+                        'operator' => '==',
+                        'value' => 'wales-office',
+                    ),
+                ),
+            ),
+            'wrapper' => array(
+                'width' => '',
+                'class' => '',
+                'id' => '',
+            ),
+            'admin_only' => 0,
+            'post_type' => array(
+                0 => 'news',
+            ),
+            'taxonomy' => array(
+                0 => 'agency:wales-office',
+            ),
+            'allow_null' => 0,
+            'multiple' => 0,
+            'return_format' => 'object',
+            'ui' => 1,
+        ),
+        array(
+            'key' => 'field_f6220c3ed84bb',
+            'label' => 'Select page in WO',
+            'name' => 'feature_item_left_pages__wales-office',
+            'type' => 'post_object',
+            'instructions' => '',
+            'required' => 0,
+            'conditional_logic' => array(
+                array(
+                    array(
+                        'field' => 'field_5b6966b5ddfb7',
+                        'operator' => '==',
+                        'value' => 'pages',
+                    ),
+                    array(
+                        'field' => 'field_5b696b695a61a',
+                        'operator' => '==',
+                        'value' => 'wales-office',
+                    ),
+                ),
+            ),
+            'wrapper' => array(
+                'width' => '',
+                'class' => '',
+                'id' => '',
+            ),
+            'admin_only' => 0,
+            'post_type' => array(
+                0 => 'page',
+            ),
+            'taxonomy' => array(
+                0 => 'agency:wales-office',
             ),
             'allow_null' => 0,
             'multiple' => 0,
@@ -3109,6 +3224,7 @@
                 'ppo' => 'PPO',
                 'ospt' => 'OSPT',
                 'jac' => 'JAC',
+                'wales-office' => 'WO',
             ),
             'allow_null' => 0,
             'other_choice' => 0,
@@ -3490,6 +3606,120 @@
             ),
             'taxonomy' => array(
                 0 => 'agency:jac',
+            ),
+            'allow_null' => 0,
+            'multiple' => 0,
+            'return_format' => 'object',
+            'ui' => 1,
+        ),
+        array(
+            'key' => 'field_df8881c0ead4d',
+            'label' => 'Select blog in WO',
+            'name' => 'feature_item_right_post__wales-office',
+            'type' => 'post_object',
+            'instructions' => '',
+            'required' => 0,
+            'conditional_logic' => array(
+                array(
+                    array(
+                        'field' => 'field_5b698d5376087',
+                        'operator' => '==',
+                        'value' => 'post',
+                    ),
+                    array(
+                        'field' => 'field_5b698d9976088',
+                        'operator' => '==',
+                        'value' => 'wales-office',
+                    ),
+                ),
+            ),
+            'wrapper' => array(
+                'width' => '',
+                'class' => '',
+                'id' => '',
+            ),
+            'admin_only' => 0,
+            'post_type' => array(
+                0 => 'post',
+            ),
+            'taxonomy' => array(
+                0 => 'agency:wales-office',
+            ),
+            'allow_null' => 0,
+            'multiple' => 0,
+            'return_format' => 'object',
+            'ui' => 1,
+        ),
+        array(
+            'key' => 'field_2eed6d8b50fec',
+            'label' => 'Select news article in WO',
+            'name' => 'feature_item_right_news__wales-office',
+            'type' => 'post_object',
+            'instructions' => '',
+            'required' => 0,
+            'conditional_logic' => array(
+                array(
+                    array(
+                        'field' => 'field_5b698d5376087',
+                        'operator' => '==',
+                        'value' => 'news',
+                    ),
+                    array(
+                        'field' => 'field_5b698d9976088',
+                        'operator' => '==',
+                        'value' => 'wales-office',
+                    ),
+                ),
+            ),
+            'wrapper' => array(
+                'width' => '',
+                'class' => '',
+                'id' => '',
+            ),
+            'admin_only' => 0,
+            'post_type' => array(
+                0 => 'news',
+            ),
+            'taxonomy' => array(
+                0 => 'agency:wales-office',
+            ),
+            'allow_null' => 0,
+            'multiple' => 0,
+            'return_format' => 'object',
+            'ui' => 1,
+        ),
+        array(
+            'key' => 'field_eddb1a660cda8',
+            'label' => 'Select page in WO',
+            'name' => 'feature_item_right_pages__wales-office',
+            'type' => 'post_object',
+            'instructions' => '',
+            'required' => 0,
+            'conditional_logic' => array(
+                array(
+                    array(
+                        'field' => 'field_5b698d5376087',
+                        'operator' => '==',
+                        'value' => 'pages',
+                    ),
+                    array(
+                        'field' => 'field_5b698d9976088',
+                        'operator' => '==',
+                        'value' => 'wales-office',
+                    ),
+                ),
+            ),
+            'wrapper' => array(
+                'width' => '',
+                'class' => '',
+                'id' => '',
+            ),
+            'admin_only' => 0,
+            'post_type' => array(
+                0 => 'page',
+            ),
+            'taxonomy' => array(
+                0 => 'agency:wales-office',
             ),
             'allow_null' => 0,
             'multiple' => 0,
