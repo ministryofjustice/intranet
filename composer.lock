@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4e038affd14a7e72bbf38e64c98bb118",
+    "content-hash": "b7c05c0a6a8d3db1544c8458975686a8",
     "packages": [
         {
             "name": "alphagov/notifications-php-client",
@@ -1017,10 +1017,10 @@
         },
         {
             "name": "koodimonni-language/core-en_gb",
-            "version": "7.0.6",
+            "version": "7.1.2",
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/translation/core/7.0.6/en_GB.zip"
+                "url": "https://downloads.wordpress.org/translation/core/7.1.2/en_GB.zip"
             },
             "require": {
                 "koodimonni/composer-dropin-installer": ">=0.2.3"
@@ -3710,15 +3710,15 @@
         },
         {
             "name": "wpackagist-plugin/simple-history",
-            "version": "5.33.0",
+            "version": "5.34.0",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/simple-history/",
-                "reference": "tags/5.33.0"
+                "reference": "tags/5.34.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/simple-history.5.33.0.zip"
+                "url": "https://downloads.wordpress.org/plugin/simple-history.5.34.0.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
