@@ -66,6 +66,7 @@ class WPDocumentRevisions
 
         /*
          * TEMPORARY WORKAROUND - DELETE once WP Document Revisions fixes its slow Media Library query upstream.
+         * https://github.com/wp-document-revisions/wp-document-revisions/issues/725
          * See "TEMPORARY WORKAROUND" at the bottom of this class for details and removal steps.
          */
         // Replace the plugin's slow "hide documents from the Media Library" SQL, list view and grid (Ajax).
@@ -423,7 +424,7 @@ class WPDocumentRevisions
      * the exact SQL below. Any upstream change to that SQL (a fix, a different fix, or renamed or
      * removed methods) leaves the plugin's own filters untouched.
      *
-     * Upstream: https://github.com/wp-document-revisions/wp-document-revisions
+     * Upstream issue: https://github.com/wp-document-revisions/wp-document-revisions/issues/725
      */
 
     /**
