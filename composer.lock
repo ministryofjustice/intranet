@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5ef10632882efc2111b7998063b2d947",
+    "content-hash": "ef1338fc00b3c0443f8c6e8863bfafbe",
     "packages": [
         {
             "name": "alphagov/notifications-php-client",
@@ -423,16 +423,16 @@
         },
         {
             "name": "deliciousbrains/wp-amazon-s3-and-cloudfront",
-            "version": "3.4.2",
+            "version": "3.4.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/deliciousbrains/wp-amazon-s3-and-cloudfront.git",
-                "reference": "8cf0aa8c0a518f97b340bfbbed7d6af2c3b2737a"
+                "reference": "5a67b53cb3ae60773dc52d7a0e036631b988c4e3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/deliciousbrains/wp-amazon-s3-and-cloudfront/zipball/8cf0aa8c0a518f97b340bfbbed7d6af2c3b2737a",
-                "reference": "8cf0aa8c0a518f97b340bfbbed7d6af2c3b2737a",
+                "url": "https://api.github.com/repos/deliciousbrains/wp-amazon-s3-and-cloudfront/zipball/5a67b53cb3ae60773dc52d7a0e036631b988c4e3",
+                "reference": "5a67b53cb3ae60773dc52d7a0e036631b988c4e3",
                 "shasum": ""
             },
             "require": {
@@ -456,9 +456,9 @@
             ],
             "support": {
                 "issues": "https://github.com/deliciousbrains/wp-amazon-s3-and-cloudfront/issues",
-                "source": "https://github.com/deliciousbrains/wp-amazon-s3-and-cloudfront/tree/3.4.2"
+                "source": "https://github.com/deliciousbrains/wp-amazon-s3-and-cloudfront/tree/3.4.3"
             },
-            "time": "2026-09-07T15:37:49+00:00"
+            "time": "2026-09-21T08:24:58+00:00"
         },
         {
             "name": "firebase/php-jwt",
@@ -3674,15 +3674,15 @@
         },
         {
             "name": "wpackagist-plugin/elasticpress",
-            "version": "5.3.4",
+            "version": "5.3.5",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/elasticpress/",
-                "reference": "tags/5.3.4"
+                "reference": "tags/5.3.5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/elasticpress.5.3.4.zip"
+                "url": "https://downloads.wordpress.org/plugin/elasticpress.5.3.5.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -3728,15 +3728,15 @@
         },
         {
             "name": "wpackagist-plugin/wp-document-revisions",
-            "version": "5.4.2",
+            "version": "5.4.3",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/wp-document-revisions/",
-                "reference": "tags/5.4.2"
+                "reference": "tags/5.4.3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wp-document-revisions.5.4.2.zip"
+                "url": "https://downloads.wordpress.org/plugin/wp-document-revisions.5.4.3.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -3860,16 +3860,16 @@
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "4.0.2",
+            "version": "4.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPCSStandards/PHP_CodeSniffer.git",
-                "reference": "74ee2d4df09b70996c1e0fafca7079fc0bbb9ec0"
+                "reference": "bbdc3d0532623e21838b7041a4364383a8126f96"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPCSStandards/PHP_CodeSniffer/zipball/74ee2d4df09b70996c1e0fafca7079fc0bbb9ec0",
-                "reference": "74ee2d4df09b70996c1e0fafca7079fc0bbb9ec0",
+                "url": "https://api.github.com/repos/PHPCSStandards/PHP_CodeSniffer/zipball/bbdc3d0532623e21838b7041a4364383a8126f96",
+                "reference": "bbdc3d0532623e21838b7041a4364383a8126f96",
                 "shasum": ""
             },
             "require": {
@@ -3940,7 +3940,7 @@
                     "type": "thanks_dev"
                 }
             ],
-            "time": "2026-08-06T01:00:52+00:00"
+            "time": "2026-08-06T02:45:27+00:00"
         }
     ],
     "aliases": [],
