@@ -67,11 +67,20 @@ class WPDocumentRevisions
         /*
          * TEMPORARY WORKAROUND - DELETE once WP Document Revisions fixes its slow Media Library query upstream.
          * https://github.com/wp-document-revisions/wp-document-revisions/issues/725
-         * See "TEMPORARY WORKAROUND" at the bottom of this class for details and removal steps.
+         * See "TEMPORARY WORKAROUND - slow Media Library query" at the bottom of this class for details and removal steps.
          */
         // Replace the plugin's slow "hide documents from the Media Library" SQL, list view and grid (Ajax).
         add_action('admin_init', [$this, 'replaceMediaLibraryFilter'], 11);
         add_filter('ajax_query_attachments_args', [$this, 'replaceMediaLibraryFilterForGrid'], 11);
+        /* END TEMPORARY WORKAROUND */
+
+        /*
+         * TEMPORARY WORKAROUND - DELETE once WP Document Revisions shows the Revision Log for older documents.
+         * https://github.com/wp-document-revisions/wp-document-revisions/issues/726
+         * See "TEMPORARY WORKAROUND - missing Revision Log" at the bottom of this class for details and removal steps.
+         */
+        // Before the plugin decides whether to add the Revision Log meta box (add_meta_boxes_document, priority 10).
+        add_action('add_meta_boxes_document', [$this, 'populateDocumentAttachmentMeta'], 9);
         /* END TEMPORARY WORKAROUND */
     }
 
@@ -538,6 +547,53 @@ class WPDocumentRevisions
                 SELECT wpdr_document.ID FROM {$wpdb->posts} wpdr_document WHERE wpdr_document.post_type = 'document'
             )
         )";
+    }
+
+    /* END TEMPORARY WORKAROUND */
+
+    /*
+     * =============================================================================================
+     * TEMPORARY WORKAROUND - missing Revision Log in WP Document Revisions (5.4.2).
+     * =============================================================================================
+     *
+     * The plugin only adds the Revision Log meta box when the document has _document_attachment_id
+     * post meta. Documents created before v5 don't have it, their attachment ID is in post_content.
+     * The plugin tries to fill in the meta when the edit screen renders, but it reads post_content
+     * after its own content_edit_pre filter has stripped the ID out, so it never succeeds.
+     * The meta is only written when the document is saved, so older documents have no Revision Log
+     * until an editor saves a new revision.
+     *
+     * This fills in the meta from the raw post_content, before the plugin checks for it.
+     * Each older document is fixed the first time it's opened, after that this does nothing.
+     *
+     * DELETE this section, and its hook at the bottom of hooks(), once the plugin fixes this upstream.
+     * Safe to keep until then: it only writes the meta when it's missing and an ID is found,
+     * using the plugin's own populate_attachment_meta().
+     *
+     * Upstream issue: https://github.com/wp-document-revisions/wp-document-revisions/issues/726
+     */
+
+    /**
+     * Fill in a document's _document_attachment_id meta from its raw post_content, if it's missing.
+     *
+     * @param \WP_Post $post The document being edited.
+     * @return void
+     */
+    public function populateDocumentAttachmentMeta($post): void
+    {
+        $wpdr = $this->getWpDocumentRevisions();
+
+        if (!$wpdr || !($post instanceof \WP_Post) || !method_exists($wpdr, 'populate_attachment_meta')) {
+            return;
+        }
+
+        // The meta is already set, e.g. on newer documents, or once the plugin is fixed.
+        if (absint(get_post_meta($post->ID, '_document_attachment_id', true)) > 0) {
+            return;
+        }
+
+        // Read the raw content - the 'edit' context content has had the attachment ID stripped.
+        $wpdr->populate_attachment_meta($post->ID, get_post_field('post_content', $post->ID, 'raw'));
     }
 
     /* END TEMPORARY WORKAROUND */
