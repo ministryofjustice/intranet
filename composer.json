@@ -60,7 +60,7 @@
         "vlucas/phpdotenv": "^5.5",
         "roots/bedrock-autoloader": "^1.0",
         "roots/bedrock-disallow-indexing": "^2.0",
-        "koodimonni-language/core-en_gb": "7.0.6",
+        "koodimonni-language/core-en_gb": "7.1.2",
         "roots/wp-config": "^1.0",
         "wpackagist-plugin/classic-editor": "^1.7.0",
         "wpackagist-plugin/co-authors-plus": "^4.1.1",
@@ -143,7 +143,9 @@
                 "bin/composer-post-install.sh verifies this version and patches the plugin source,",
                 "so composer install fails if a different version is installed.",
                 "When a new version is released, review the diff and check the patches still apply,",
-                "then update the pinned version here and in bin/composer-post-install.sh."
+                "then update the pinned version here and in bin/composer-post-install.sh.",
+                "Also check the TEMPORARY WORKAROUND in public/app/themes/clarity/inc/admin/plugins/wp-document-revisions.php,",
+                "delete it if the new version fixes the slow Media Library query."
             ],
             "replace.paragonie/random_compat": [
                 "The `paragonie/random_compat` package is a dependency of `league/oauth2-client`.",
