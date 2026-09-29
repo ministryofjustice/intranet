@@ -55,6 +55,9 @@ class SimpleHistory
         // Allow only administrators to view the settings page.
         add_filter('simple_history/view_settings_capability', fn() => 'administrator');
 
+        // Don't expose the event log to AI tooling via the Abilities API.
+        add_filter('simple_history/abilities/enabled', '__return_false');
+
         // Don't show the dashboard widget.
         add_filter('simple_history_show_on_dashboard', '__return_false');
 

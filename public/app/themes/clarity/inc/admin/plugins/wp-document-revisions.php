@@ -61,6 +61,47 @@ class WPDocumentRevisions
         add_filter('get_user_metadata', fn($value, $object_id, $meta_key) => $meta_key === 'wpdr_review_dismissed' ? [1] : $value, 10, 3);
         // Always disable the plugin's text extraction and AI features, and hide their meta box.
         $this->disableTextExtractionAndAi();
+        // Don't expose documents to AI tooling via the Abilities API.
+        $this->disableAbilities();
+
+        /*
+         * TEMPORARY WORKAROUND - DELETE once WP Document Revisions fixes its slow Media Library query upstream.
+         * https://github.com/wp-document-revisions/wp-document-revisions/issues/725
+         * See "TEMPORARY WORKAROUND - slow Media Library query" at the bottom of this class for details and removal steps.
+         */
+        // Replace the plugin's slow "hide documents from the Media Library" SQL, list view and grid (Ajax).
+        add_action('admin_init', [$this, 'replaceMediaLibraryFilter'], 11);
+        add_filter('ajax_query_attachments_args', [$this, 'replaceMediaLibraryFilterForGrid'], 11);
+        /* END TEMPORARY WORKAROUND */
+
+        /*
+         * TEMPORARY WORKAROUND - DELETE once WP Document Revisions shows the Revision Log for older documents.
+         * https://github.com/wp-document-revisions/wp-document-revisions/issues/726
+         * See "TEMPORARY WORKAROUND - missing Revision Log" at the bottom of this class for details and removal steps.
+         */
+        // Before the plugin decides whether to add the Revision Log meta box (add_meta_boxes_document, priority 10).
+        add_action('add_meta_boxes_document', [$this, 'populateDocumentAttachmentMeta'], 9);
+        /* END TEMPORARY WORKAROUND */
+    }
+
+    /**
+     * Disable the plugin's Abilities API integration, added in WP Document Revisions v5.
+     *
+     * The plugin registers document abilities (e.g. get-document-info, override-document-lock),
+     * which are exposed via the wp-abilities/v1 REST routes to any logged-in user.
+     *
+     * @return void
+     */
+    private function disableAbilities(): void
+    {
+        $wpdr = $this->getWpDocumentRevisions();
+
+        if (!$wpdr) {
+            return;
+        }
+
+        remove_action('wp_abilities_api_categories_init', [$wpdr, 'register_ability_category']);
+        remove_action('wp_abilities_api_init', [$wpdr, 'register_abilities']);
     }
 
     /**
@@ -125,7 +166,6 @@ class WPDocumentRevisions
             remove_meta_box($meta_box_id, 'document', 'side');
         }, PHP_INT_MAX);
     }
-
 
     /**
      * Update the document's permalink, specifically preview links that are not correctly structured.
@@ -378,4 +418,183 @@ class WPDocumentRevisions
             remove_submenu_page('edit.php?post_type=document', 'wpdr_validate');
         }
     }
+
+    /*
+     * =============================================================================================
+     * TEMPORARY WORKAROUND - slow Media Library query in WP Document Revisions (5.4.2).
+     * =============================================================================================
+     *
+     * DELETE this section, and its hooks at the bottom of hooks(), once the plugin fixes the query
+     * upstream. How to tell: after a plugin update, isOriginalMediaLibraryFilter() returns false,
+     * and the workaround stops doing anything by itself. It's then safe to delete, no other code
+     * uses these methods.
+     *
+     * Safe with upstream changes: the plugin's filters are only replaced when they still produce
+     * the exact SQL below. Any upstream change to that SQL (a fix, a different fix, or renamed or
+     * removed methods) leaves the plugin's own filters untouched.
+     *
+     * Upstream issue: https://github.com/wp-document-revisions/wp-document-revisions/issues/725
+     */
+
+    /**
+     * The plugin's original, slow, Media Library SQL, copied from WP Document Revisions 5.4.2
+     * (includes/trait-wp-document-revisions-admin-settings.php, filter_media_join/filter_media_where).
+     *
+     * @return array{join: string, where: string}
+     */
+    private function originalMediaLibrarySql(): array
+    {
+        global $wpdb;
+
+        return [
+            'join' => " LEFT OUTER JOIN {$wpdb->posts} wpdr_post_parent ON wpdr_post_parent.ID = {$wpdb->posts}.post_parent",
+            'where' => " AND ( wpdr_post_parent.post_type IS NULL OR wpdr_post_parent.post_type != 'document' )",
+        ];
+    }
+
+    /**
+     * Is the plugin still using its original, slow, Media Library filter?
+     *
+     * Calls the plugin's filters with an empty string and compares their output to the known SQL.
+     * Both filters only append a string, so calling them has no side effects.
+     *
+     * @param object $admin The plugin's admin instance.
+     * @return bool True if both filters produce the original SQL.
+     */
+    private function isOriginalMediaLibraryFilter(object $admin): bool
+    {
+        if (!method_exists($admin, 'filter_media_join') || !method_exists($admin, 'filter_media_where')) {
+            return false;
+        }
+
+        $original = $this->originalMediaLibrarySql();
+
+        return $admin->filter_media_join('') === $original['join']
+            && $admin->filter_media_where('') === $original['where'];
+    }
+
+    /**
+     * Replace the plugin's Media Library document filter with a faster, equivalent one.
+     *
+     * The plugin hides document attachments by LEFT JOINing wp_posts to itself on post_parent,
+     * then checking the parent's post_type. post_parent isn't in the index used for the
+     * attachment query, so every attachment's full row is read, taking 3s+ warm and 10s+ cold.
+     *
+     * The replacement excludes the same rows by ID, using a subquery that only needs indexes:
+     * type_status_author for document IDs, and post_parent (which includes ID) for their children.
+     * Verified identical IDs and found_rows to the plugin's query, at ~0.1-0.3s.
+     *
+     * Only runs when the plugin has added its filters (upload.php, media-upload.php and the grid's Ajax),
+     * and they still produce the original SQL.
+     *
+     * @return void
+     */
+    public function replaceMediaLibraryFilter(): void
+    {
+        $admin = $this->getWpDocumentRevisions()?->admin ?? null;
+
+        if (!is_object($admin)) {
+            return;
+        }
+
+        $join_priority = has_filter('posts_join_paged', [$admin, 'filter_media_join']);
+        $where_priority = has_filter('posts_where_paged', [$admin, 'filter_media_where']);
+
+        // The plugin didn't add its filters for this request, so there's nothing to replace.
+        if (false === $join_priority || false === $where_priority) {
+            return;
+        }
+
+        // The plugin's SQL has changed, e.g. fixed upstream. Leave it alone.
+        if (!$this->isOriginalMediaLibraryFilter($admin)) {
+            return;
+        }
+
+        remove_filter('posts_join_paged', [$admin, 'filter_media_join'], $join_priority);
+        remove_filter('posts_where_paged', [$admin, 'filter_media_where'], $where_priority);
+
+        add_filter('posts_where_paged', [$this, 'excludeDocumentAttachments'], $where_priority);
+    }
+
+    /**
+     * Replace the plugin's Media Library document filter, for the grid view's Ajax query.
+     *
+     * @param array $query The attachment query arguments.
+     * @return array The unchanged query arguments.
+     */
+    public function replaceMediaLibraryFilterForGrid(array $query): array
+    {
+        $this->replaceMediaLibraryFilter();
+
+        return $query;
+    }
+
+    /**
+     * Exclude attachments whose parent is a document.
+     *
+     * Equivalent to the plugin's filter_media_join() + filter_media_where(), without the join.
+     *
+     * @param string $where The WHERE clause.
+     * @return string The filtered WHERE clause.
+     */
+    public function excludeDocumentAttachments(string $where): string
+    {
+        global $wpdb;
+
+        return $where . " AND {$wpdb->posts}.ID NOT IN (
+            SELECT wpdr_child.ID FROM {$wpdb->posts} wpdr_child
+            WHERE wpdr_child.post_parent IN (
+                SELECT wpdr_document.ID FROM {$wpdb->posts} wpdr_document WHERE wpdr_document.post_type = 'document'
+            )
+        )";
+    }
+
+    /* END TEMPORARY WORKAROUND */
+
+    /*
+     * =============================================================================================
+     * TEMPORARY WORKAROUND - missing Revision Log in WP Document Revisions (5.4.2).
+     * =============================================================================================
+     *
+     * The plugin only adds the Revision Log meta box when the document has _document_attachment_id
+     * post meta. Documents created before v5 don't have it, their attachment ID is in post_content.
+     * The plugin tries to fill in the meta when the edit screen renders, but it reads post_content
+     * after its own content_edit_pre filter has stripped the ID out, so it never succeeds.
+     * The meta is only written when the document is saved, so older documents have no Revision Log
+     * until an editor saves a new revision.
+     *
+     * This fills in the meta from the raw post_content, before the plugin checks for it.
+     * Each older document is fixed the first time it's opened, after that this does nothing.
+     *
+     * DELETE this section, and its hook at the bottom of hooks(), once the plugin fixes this upstream.
+     * Safe to keep until then: it only writes the meta when it's missing and an ID is found,
+     * using the plugin's own populate_attachment_meta().
+     *
+     * Upstream issue: https://github.com/wp-document-revisions/wp-document-revisions/issues/726
+     */
+
+    /**
+     * Fill in a document's _document_attachment_id meta from its raw post_content, if it's missing.
+     *
+     * @param \WP_Post $post The document being edited.
+     * @return void
+     */
+    public function populateDocumentAttachmentMeta($post): void
+    {
+        $wpdr = $this->getWpDocumentRevisions();
+
+        if (!$wpdr || !($post instanceof \WP_Post) || !method_exists($wpdr, 'populate_attachment_meta')) {
+            return;
+        }
+
+        // The meta is already set, e.g. on newer documents, or once the plugin is fixed.
+        if (absint(get_post_meta($post->ID, '_document_attachment_id', true)) > 0) {
+            return;
+        }
+
+        // Read the raw content - the 'edit' context content has had the attachment ID stripped.
+        $wpdr->populate_attachment_meta($post->ID, get_post_field('post_content', $post->ID, 'raw'));
+    }
+
+    /* END TEMPORARY WORKAROUND */
 }
