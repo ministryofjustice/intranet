@@ -88,7 +88,7 @@
         "microsoft/kiota-authentication-phpleague": "^2.0.2",
         "microsoft/kiota-abstractions": "^2.0.2",
         "deliciousbrains/wp-amazon-s3-and-cloudfront": "^3.2",
-        "wpackagist-plugin/simple-history": "5.33.0",
+        "wpackagist-plugin/simple-history": "5.34.0",
         "jchristopher/cms-tree-page-view": "1.6.9"
     },
     "require-dev": {
