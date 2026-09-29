@@ -4,7 +4,7 @@ metadata:
   name: wp-cron-trigger
   namespace: intranet-dev
   labels:
-    app: intranet-dev
+    app: intranet-dev-cron
     component: cron-trigger
 spec:
   schedule: "* 6-21 * * *" # Every minute, between 6am and 9:59pm
@@ -13,14 +13,14 @@ spec:
   jobTemplate:
     metadata:
       labels:
-        app: intranet-dev
+        app: intranet-dev-cron
         component: cron-trigger
     spec:
       backoffLimit: 0 # Ensures no retries on failure
       template:
         metadata:
           labels:
-            app: intranet-dev
+            app: intranet-dev-cron
             component: cron-trigger
         spec:
           securityContext:
