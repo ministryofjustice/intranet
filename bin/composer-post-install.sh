@@ -38,10 +38,6 @@ if grep -q "$MOJ_COMPONENTS_SEARCH_PARAGRAPH_2" "$MOJ_COMPONENTS_FILE" ; then
   sed -i "s/$MOJ_COMPONENTS_SEARCH_PARAGRAPH_2/$MOJ_COMPONENTS_REPLACE_PARAGRAPH_2/g" "$MOJ_COMPONENTS_FILE"
 fi
 
-
-# Check that the version of wp-document-revisions is one that's been confirmed to work.
-verify_composer_package_version "wpackagist-plugin/wp-document-revisions" "5.4.3"
-
 # Since v4, the document and revision metaboxes live in the admin-editor trait, and call methods on `$wpdr`.
 DOCUMENT_REVISIONS_FILE=$ROOT_DIR/public/app/mu-plugins/wp-document-revisions/includes/trait-wp-document-revisions-admin-editor.php
 

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c4f7dff264429a9fa433beaa3f832208",
+    "content-hash": "c52881c34f58f608cacc5092edec0e2f",
     "packages": [
         {
             "name": "alphagov/notifications-php-client",
@@ -3728,15 +3728,15 @@
         },
         {
             "name": "wpackagist-plugin/wp-document-revisions",
-            "version": "5.4.3",
+            "version": "5.7.2",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/wp-document-revisions/",
-                "reference": "tags/5.4.3"
+                "reference": "tags/5.7.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wp-document-revisions.5.4.3.zip"
+                "url": "https://downloads.wordpress.org/plugin/wp-document-revisions.5.7.2.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
