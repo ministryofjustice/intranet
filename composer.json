@@ -64,7 +64,7 @@
         "roots/wp-config": "^1.0",
         "wpackagist-plugin/classic-editor": "^1.7.0",
         "wpackagist-plugin/co-authors-plus": "^4.1.1",
-        "wpackagist-plugin/wp-document-revisions": "5.4.3",
+        "wpackagist-plugin/wp-document-revisions": "5.7.2",
         "wpengine/advanced-custom-fields-pro": "^6.8.10",
         "ministryofjustice/like-button-for-wordpress": "dev-main",
         "ministryofjustice/notify-for-wordpress": "dev-main",
@@ -140,12 +140,11 @@
             ],
             "wpackagist-plugin/wp-document-revisions": [
                 "The package `wpackagist-plugin/wp-document-revisions` is pinned to an exact version.",
-                "bin/composer-post-install.sh verifies this version and patches the plugin source,",
+                "bin/composer-post-install.sh verifies this version,",
                 "so composer install fails if a different version is installed.",
-                "When a new version is released, review the diff and check the patches still apply,",
-                "then update the pinned version here and in bin/composer-post-install.sh.",
-                "Also check the TEMPORARY WORKAROUND in public/app/themes/clarity/inc/admin/plugins/wp-document-revisions.php,",
-                "delete it if the new version fixes the slow Media Library query."
+                "When a new version is released, review the diff and check the theme's integration in",
+                "public/app/themes/clarity/inc/admin/plugins/wp-document-revisions.php still works,",
+                "then update the pinned version here and in bin/composer-post-install.sh."
             ],
             "replace.paragonie/random_compat": [
                 "The `paragonie/random_compat` package is a dependency of `league/oauth2-client`.",
