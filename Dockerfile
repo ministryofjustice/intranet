@@ -23,7 +23,7 @@ FROM nginxinc/nginx-unprivileged:1.31.5-alpine@sha256:19c132c9ab02d3b783f478743d
 
 # Official WordPress image (Alpine, php-fpm): https://hub.docker.com/_/wordpress
 # PHPRedis + igbinary, WP-CLI, mariadb-client, fcgi and the timezone are layered on below.
-FROM wordpress:7.1.2-php8.4-fpm-alpine@sha256:2e3cdc5320a5a04f42833fdd6d6e765845a9d482408ba4adbabfb378eeda6b0e AS base-fpm
+FROM wordpress:7.1.2-php8.4-fpm-alpine@sha256:8101333b563f37263711c9e45936e4d03451f297743ed60ce90056abb76acc59 AS base-fpm
 
 # Install additional Alpine packages
 RUN apk update && \
@@ -46,9 +46,9 @@ RUN apk del .build-deps
 
 # Install a patched version of WordPress core, prior to release on Docker Hub.
 # Minimal implementation, edit the following 2 arguments directly.
-ARG PATCH_WORDPRESS_VERSION=""
+ARG PATCH_WORDPRESS_VERSION="7.1.3"
 # Get value from https://wordpress.org/wordpress-<WORDPRESS_VERSION>.tar.gz.sha1
-ARG PATCH_WORDPRESS_SHA1=""
+ARG PATCH_WORDPRESS_SHA1="491a78c7676b15dffcc69130c6054b8f49228a91"
 # Download and extract script from: https://github.com/docker-library/wordpress/blob/master/Dockerfile.template
 RUN set -ex; \
 	if [ -n "$PATCH_WORDPRESS_VERSION" ] && [ -n "$PATCH_WORDPRESS_SHA1" ]; then \
