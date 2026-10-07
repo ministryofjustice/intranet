@@ -14,16 +14,16 @@
 #░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
 
 
-FROM composer:2.10.3@sha256:d8f6343d3fae98107426bc49163ccad46ef85aabd4a27d80a74401fab4aba332 AS composer
+FROM composer:2.10.3@sha256:9715c7f69044da2a212a5fbde29ee7da24e364d426560ae6367b060236f847d7 AS composer
 
-FROM nginxinc/nginx-unprivileged:1.31.5-alpine@sha256:2ddec616f1cb58bcac057aa388f28cb81e35137641ef4226d321714499329bd1 AS nginx-unprivileged
+FROM nginxinc/nginx-unprivileged:1.31.5-alpine@sha256:19c132c9ab02d3b783f478743dafc7a7f42e27aa7d2bdcbec1bb1128ca8f2a07 AS nginx-unprivileged
 
 #    ▄▄  ▄▄     █▀▀  █▀█  █▀▄▀█     ▄▄  ▄▄    #
 #    ░░  ░░     █▀░  █▀▀  █░▀░█     ░░  ░░    #
 
 # Official WordPress image (Alpine, php-fpm): https://hub.docker.com/_/wordpress
 # PHPRedis + igbinary, WP-CLI, mariadb-client, fcgi and the timezone are layered on below.
-FROM wordpress:7.0.4-php8.4-fpm-alpine@sha256:f5fa744c5d40e14cb89d7a12c9e06a406672cd044f73e7db83bb88c7e503d51c AS base-fpm
+FROM wordpress:7.1.2-php8.4-fpm-alpine@sha256:8101333b563f37263711c9e45936e4d03451f297743ed60ce90056abb76acc59 AS base-fpm
 
 # Install additional Alpine packages
 RUN apk update && \
@@ -46,9 +46,9 @@ RUN apk del .build-deps
 
 # Install a patched version of WordPress core, prior to release on Docker Hub.
 # Minimal implementation, edit the following 2 arguments directly.
-ARG PATCH_WORDPRESS_VERSION="7.0.6"
+ARG PATCH_WORDPRESS_VERSION="7.1.3"
 # Get value from https://wordpress.org/wordpress-<WORDPRESS_VERSION>.tar.gz.sha1
-ARG PATCH_WORDPRESS_SHA1="18bfb0b6a009836f83389fe50538ca559dff2044"
+ARG PATCH_WORDPRESS_SHA1="491a78c7676b15dffcc69130c6054b8f49228a91"
 # Download and extract script from: https://github.com/docker-library/wordpress/blob/master/Dockerfile.template
 RUN set -ex; \
 	if [ -n "$PATCH_WORDPRESS_VERSION" ] && [ -n "$PATCH_WORDPRESS_SHA1" ]; then \
@@ -341,7 +341,7 @@ COPY --from=assets-build --chown=nginx:nginx /node/style.css public/app/themes/c
 #  █▄▄  █▀▄  █▄█  █░▀█
 
 
-FROM alpine:3.24@sha256:28bd5fe8b56d1bd048e5babf5b10710ebe0bae67db86916198a6eec434943f8b AS build-cron
+FROM alpine:3.24@sha256:294b683cb724975bec92580e1e685676bd4b50bda910ddb8c51d4cabeaec77e6 AS build-cron
 
 #  ▒█▀▀█ █▀▀█ █▀▀█ █▀▀█ █▀▀▄ █▀▀ █▀▀█ 　 █
 #  ▒█░░░ █▄▄▀ █░░█ █░░█ █░░█ █▀▀ █▄▄▀ 　 ▀
@@ -386,7 +386,7 @@ ENTRYPOINT ["/bin/sh", "-c", "cron-start"]
 #  █▀▀ █▄█ ▄█ █▀█ ██▄ █▀▄
 
 
-FROM alpine:3.24@sha256:28bd5fe8b56d1bd048e5babf5b10710ebe0bae67db86916198a6eec434943f8b AS build-s3-push
+FROM alpine:3.24@sha256:294b683cb724975bec92580e1e685676bd4b50bda910ddb8c51d4cabeaec77e6 AS build-s3-push
 
 ARG user=s3pusher
 RUN addgroup --gid 3001 ${user} && adduser -D -G ${user} -g "${user} user" -u 3001 ${user}
