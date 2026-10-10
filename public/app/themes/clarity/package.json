@@ -24,7 +24,7 @@
     "homepage": "https://github.com/ministryofjustice/intranet/#readme",
     "dependencies": {
         "jquery": "^3.7.1",
-        "node-notifier": "^10.0.1"
+        "node-notifier": "^11.0.0"
     },
     "devDependencies": {
         "cssnano": "7.1.9",
