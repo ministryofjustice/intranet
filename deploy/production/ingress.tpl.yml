@@ -30,15 +30,13 @@ metadata:
         auth_basic off;
         return 301 https://raw.githubusercontent.com/ministryofjustice/security-guidance/main/contact/vulnerability-disclosure-security.txt;
       }
-      {{- /*
-      Holding page: every request outside /.well-known/ is answered by the
-      ingress itself and never reaches WordPress. It sits first in the snippet,
-      so it also takes precedence over the host redirects and /bold below.
-      /.well-known/ is left alone for security.txt and cert-manager ACME
-      challenges. The HTML is one single-quoted nginx string, so it must not
-      contain a single quote, and every line must stay indented under the
-      server-snippet key or the YAML block ends early.
-      */}}
+      # Holding page: every request outside /.well-known/ is answered by the
+      # ingress itself and never reaches WordPress. It sits first in the snippet,
+      # so it also takes precedence over the host redirects and /bold below.
+      # /.well-known/ is left alone for security.txt and cert-manager ACME
+      # challenges. The HTML is one single-quoted nginx string, so it must not
+      # contain a single quote, and every line must stay indented under the
+      # server-snippet key or the YAML block ends early.
       if ($uri !~ ^/\.well-known/) {
         rewrite ^ /__holding-page last;
       }
