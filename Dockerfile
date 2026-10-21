@@ -102,6 +102,9 @@ RUN apk add dpkg tzdata && \
 
 RUN printf '[Date]\ndate.timezone="%s"\n' $TZ > /usr/local/etc/php/conf.d/tzone.ini
 
+# Disable session upload progress tracking.
+RUN printf '[Session]\nsession.upload_progress.enabled = Off\n' > /usr/local/etc/php/conf.d/session.ini
+
 # Trim the pristine WordPress source that the entrypoint copies into public/wp:
 # drop wp-content (managed separately) plus the root .htaccess and readme.html.
 RUN rm -rf /usr/src/wordpress/wp-content \
