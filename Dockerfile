@@ -23,7 +23,7 @@ FROM nginxinc/nginx-unprivileged:1.31.5-alpine@sha256:19c132c9ab02d3b783f478743d
 
 # Official WordPress image (Alpine, php-fpm): https://hub.docker.com/_/wordpress
 # PHPRedis + igbinary, WP-CLI, mariadb-client, fcgi and the timezone are layered on below.
-FROM wordpress:7.1.2-php8.4-fpm-alpine@sha256:8101333b563f37263711c9e45936e4d03451f297743ed60ce90056abb76acc59 AS base-fpm
+FROM wordpress:7.1.3-php8.4-fpm-alpine@sha256:2fb3c5710d619fce58e7561d8d976fbc01ff9e1f5de0a70f393c39de583044c9 AS base-fpm
 
 # Install additional Alpine packages
 RUN apk update && \
@@ -46,9 +46,9 @@ RUN apk del .build-deps
 
 # Install a patched version of WordPress core, prior to release on Docker Hub.
 # Minimal implementation, edit the following 2 arguments directly.
-ARG PATCH_WORDPRESS_VERSION="7.1.3"
+ARG PATCH_WORDPRESS_VERSION=""
 # Get value from https://wordpress.org/wordpress-<WORDPRESS_VERSION>.tar.gz.sha1
-ARG PATCH_WORDPRESS_SHA1="491a78c7676b15dffcc69130c6054b8f49228a91"
+ARG PATCH_WORDPRESS_SHA1=""
 # Download and extract script from: https://github.com/docker-library/wordpress/blob/master/Dockerfile.template
 RUN set -ex; \
 	if [ -n "$PATCH_WORDPRESS_VERSION" ] && [ -n "$PATCH_WORDPRESS_SHA1" ]; then \
@@ -104,6 +104,11 @@ RUN printf '[Date]\ndate.timezone="%s"\n' $TZ > /usr/local/etc/php/conf.d/tzone.
 
 # Disable session upload progress tracking.
 RUN printf '[Session]\nsession.upload_progress.enabled = Off\n' > /usr/local/etc/php/conf.d/session.ini
+
+# Log every PHP error level for the CLI (wp-cli), which does not read the PHP-FPM pool file.
+# The base image's error-logging.ini already logs to stderr with display off, but narrows
+# error_reporting. This file loads after it. The pool sets the same for web requests.
+RUN printf '[PHP]\nerror_reporting = E_ALL\n' > /usr/local/etc/php/conf.d/zz-error-reporting.ini
 
 # Trim the pristine WordPress source that the entrypoint copies into public/wp:
 # drop wp-content (managed separately) plus the root .htaccess and readme.html.
