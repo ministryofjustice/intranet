@@ -39,7 +39,7 @@ metadata:
       contain a single quote, and every line must stay indented under the
       server-snippet key or the YAML block ends early.
       */}}
-      if ($uri !~ ^/\.well-known/) {
+      if ($uri !~ ^/\.well-known/ && $uri != /__holding-page) {
         rewrite ^ /__holding-page last;
       }
       location = /__holding-page {
