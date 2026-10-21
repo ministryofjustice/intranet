@@ -9,9 +9,8 @@ metadata:
     nginx.ingress.kubernetes.io/enable-modsecurity: "true"
     nginx.ingress.kubernetes.io/modsecurity-snippet:  |
       ${MODSEC_CONFIG}
-      # Block all multipart/form-data POSTs (file uploads) at the ingress, before the body is read.
-      SecRule REQUEST_METHOD "@streq POST" "id:9001000,phase:1,deny,status:403,log,msg:'multipart/form-data POST blocked',chain"
-        SecRule REQUEST_HEADERS:Content-Type "@rx ^\s*multipart/form-data" "t:none,t:lowercase"
+      # Block any request whose Content-Type mentions multipart (any method, any case), before the body is read.
+      SecRule REQUEST_HEADERS:Content-Type "@contains multipart" "id:9001000,phase:1,deny,status:403,log,t:none,t:lowercase,msg:'multipart request blocked'"
     nginx.ingress.kubernetes.io/proxy-body-size: "250m"
     nginx.ingress.kubernetes.io/auth-type: basic
     nginx.ingress.kubernetes.io/auth-secret: basic-auth-secret
