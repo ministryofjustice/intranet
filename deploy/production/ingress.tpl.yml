@@ -58,6 +58,12 @@ metadata:
               <h1>Thanks for visiting the Intranet</h1>
               <p>Unfortunately the Intranet is currently down following the major incident involving the technology PHP.</p>
               <p>Our platform team is working on putting the appropriate protections in place and hope to have the intranet back up ASAP.</p>
+              <ul>
+                <li><a href="https://app.matrixbooking.com/login/">Room booking</a></li>
+                <li><a href="https://ccsportal.ctmnorth.co.uk">Travel Booking</a></li>
+                <li><a href="https://moj.myhub.sscl.com/">MyHub/SOP</a></li>
+                <li><a href="https://mojprod.service-now.com/moj_sp">Technology Portal</a></li>
+              </ul>
             </main>
           </body>
         </html>
