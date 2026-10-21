@@ -30,6 +30,39 @@ metadata:
         auth_basic off;
         return 301 https://raw.githubusercontent.com/ministryofjustice/security-guidance/main/contact/vulnerability-disclosure-security.txt;
       }
+      {{- /*
+      Holding page: every request outside /.well-known/ is answered by the
+      ingress itself and never reaches WordPress. It sits first in the snippet,
+      so it also takes precedence over the host redirects and /bold below.
+      /.well-known/ is left alone for security.txt and cert-manager ACME
+      challenges. The HTML is one single-quoted nginx string, so it must not
+      contain a single quote, and every line must stay indented under the
+      server-snippet key or the YAML block ends early.
+      */}}
+      if ($uri !~ ^/\.well-known/) {
+        rewrite ^ /__holding-page last;
+      }
+      location = /__holding-page {
+        internal;
+        default_type text/html;
+        add_header Cache-Control "no-store" always;
+        return 200 '<!DOCTYPE html>
+        <html lang="en">
+          <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <title>Error, service unavailable</title>
+          </head>
+          <body>
+            <main style="max-width: 1000px;margin: 1rem auto;font-family: sans-serif;font-size: 1.2rem;">
+              <h1>Thanks for visiting the Intranet</h1>
+              <p>Unfortunately the Intranet is currently down following the major incident involving the technology PHP.</p>
+              <p>Our platform team is working on putting the appropriate protections in place and hope to have the intranet back up ASAP.</p>
+            </main>
+          </body>
+        </html>
+        ';
+      }
 spec:
   ingressClassName: modsec
   tls:
