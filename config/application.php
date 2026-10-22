@@ -199,7 +199,26 @@ Config::define('WP_DEBUG_DISPLAY', false);
 Config::define('WP_DEBUG_LOG', true);
 Config::define('WP_DEBUG_LOG', '/dev/stderr');
 Config::define('SCRIPT_DEBUG', false);
-ini_set('display_errors', '0');
+
+/**
+ * PHP errors: log every level and never display them, in every environment.
+ *
+ * The PHP-FPM pool and the CLI ini set E_ALL with display_errors off. But
+ * wp_debug_mode() narrows the level when WP_DEBUG is false, and sets
+ * display_errors from WP_DEBUG_DISPLAY. WP-CLI swaps in its own copy that
+ * does the same. Both run through this filter before any drop-in or plugin
+ * loads, so a last callback here puts the level and display back.
+ *
+ * Append to $wp_filter rather than replacing it, to keep hooks WP-CLI has registered.
+ */
+$GLOBALS['wp_filter']['enable_wp_debug_mode_checks'][PHP_INT_MAX][] = [
+    'accepted_args' => 0,
+    'function' => function () {
+        error_reporting(E_ALL);
+        ini_set('display_errors', '0');
+        return false;
+    },
+];
 // Additional logging for the authentication mu-plugin.
 Config::define('MOJ_AUTH_DEBUG', env('MOJ_AUTH_DEBUG'));
 
