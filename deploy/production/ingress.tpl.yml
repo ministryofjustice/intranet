@@ -11,7 +11,8 @@ metadata:
       ${MODSEC_CONFIG}
       # Block any request whose Content-Type mentions multipart (any method, any case), before the body is read.
       SecRule REQUEST_HEADERS:Content-Type "@contains multipart" "id:9001000,phase:1,deny,status:403,log,t:none,t:lowercase,ctl:ruleEngine=On,msg:multipart-request-blocked"
-    nginx.ingress.kubernetes.io/proxy-body-size: "250m"
+    # Matches post_max_size in php-pool.conf, so larger bodies never reach PHP.
+    nginx.ingress.kubernetes.io/proxy-body-size: "32m"
     # Set vhost so that WP doesn't see prod-intranet.apps... and redirect.
     nginx.ingress.kubernetes.io/upstream-vhost: intranet.justice.gov.uk
     nginx.ingress.kubernetes.io/server-snippet: |
