@@ -430,11 +430,27 @@ and pick the target branch. It opens (or updates) a PR whose merge makes that br
    - Description: `Staging-Intranet`
    - Expires: `18 months`
 9. Set a reminder to update the client secret before it expires.
-10. Copy the `Value` value, make it available as environment variable `OAUTH_CLIENT_SECRET`.
+10. Copy the `Value` value, make it available as environment secret `OAUTH_CLIENT_SECRET`.
 11. Make a request the Identity Team, that `User.Read` API permissions be added to the app.
 
 The oauth2 flow should now work with the Azure AD/Entra ID application.
 You can get an Access Token, Refresh Token and an expiry of the token.
+
+### Rotating the client secret
+
+When a client secret is about to expire, you will get an email with 15 days' notice from IDAM. 
+In the previous section about how to register an application, you should have also set a reminder for when a client secret is about to expire. 
+
+To create a new client secret and rotate it, follow these steps. 
+
+1. Follow the link, in the useful links section above, to the relevant app (staging or production). 
+2. Navigate to Manage > Certificates & secrets.
+3. Click to create a new secret. 
+4. Set an appropriate name and expiry. 
+5. Copy the `Value` value, make it available as environment secret `OAUTH_CLIENT_SECRET`.
+6. Redeploy your application so that the environment secret is used as part of the deployment.
+7. If your redeploy does not include any code changes, you will need to restart the Kubernetes deployment in order to get the new secret into each pod. 
+8. After a successful redeployment, and once you have confirmed that the new secret is being used, you may delete the old client secret in the Entra app UI.
 
 ### Development Tenant
 
