@@ -362,7 +362,7 @@ The relevant workflows can be found at:
 - [.github/workflows/modsec-config.yml](/.github/workflows/modsec-config.yml)
 - [.github/workflows/build.yml](/.github/workflows/build.yml)
 - [.github/workflows/deploy.yml](/.github/workflows/deploy.yml)
-- [.github/workflows/sync-dev-with-main.yml](/.github/workflows/sync-dev-with-main.yml)
+- [.github/workflows/sync-with-main.yml](/.github/workflows/sync-with-main.yml)
 
 Kubernetes manifests are located in the [deploy](/deploy) directory.
 
@@ -385,6 +385,7 @@ Deployments are triggered from [integration.yml](./workflows/integration.yml) (p
 | Trigger | Environment(s) | Pipeline tag |
 | --- | --- | --- |
 | Push to `dev` | `development` | `dev` |
+| Push to `demo` | `demo` | `demo` |
 | Push to `main` | `staging` then `production` | `main` |
 | Pull request (non-draft) | `demo` (QA) | `qa` |
 
@@ -396,12 +397,12 @@ The pipeline tag is baked into the built image tags (`<component>-<pipeline>-<sh
 images are retained separately by the ECR lifecycle policy, preventing `dev` deploys from rotating
 `main` (staging/production) images out of the registry.
 
-### Syncing dev with main
+### Syncing dev or demo with main
 
-`dev` is the deployment branch for the `development` environment. To bring it back in line with `main`
-(for example after a hotfix has gone straight to `main`), run the
-[Sync dev with main](/.github/workflows/sync-dev-with-main.yml) workflow manually
-(`workflow_dispatch`). It opens (or updates) a PR whose merge makes `dev` identical to `main`.
+`dev` and `demo` are the deployment branches for the `development` and `demo` environments. To bring
+one back in line with `main` (for example after a hotfix has gone straight to `main`), run the
+[Sync branch with main](/.github/workflows/sync-with-main.yml) workflow manually (`workflow_dispatch`)
+and pick the target branch. It opens (or updates) a PR whose merge makes that branch identical to `main`.
 
 ## Azure Setup
 
