@@ -450,7 +450,8 @@ To create a new client secret and rotate it, follow these steps.
 5. Copy the `Value` value, make it available as environment secret `OAUTH_CLIENT_SECRET`.
 6. Redeploy your application so that the environment secret is used as part of the deployment.
 7. If your redeploy does not include any code changes, you will need to restart the Kubernetes deployment in order to get the new secret into each pod. 
-8. After a successful redeployment, and once you have confirmed that the new secret is being used, you may delete the old client secret in the Entra app UI.
+8. Wait for a successful redeployment, and confirm that the new secret is being used in the pod(s).
+9. Delete the old client secret in the Entra app UI.
 
 ### Development Tenant
 
@@ -460,6 +461,16 @@ The App is on the development tenant, any you'll need to use a development email
 
 The `OAUTH_*` values are stored in a shared note in 1password. 
 They can be copied to `.env` to use oauth locally.
+
+### Rotating the client secret for a development tenant app
+
+1. Open a request for a new client secret by posting a message in the Staff Identity slack channel. 
+    The request should include:
+    - Client ID: `51266573-d4eb-41db-8ebe-a9548aa4f01e`
+    - Tenant ID: `0bb413d7-160d-4839-868a-f3d46537f6af`
+2. Once the request has been granted, copy the value, make it available as environment secret `OAUTH_CLIENT_SECRET`.
+3. Redeploy your application so that the environment secret is used as part of the deployment.
+4. Wait for a successful redeployment, and confirm that the new secret is being used in the pod(s).
 
 ## Access control
 

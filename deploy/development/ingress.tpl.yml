@@ -29,7 +29,7 @@ metadata:
         return 301 https://raw.githubusercontent.com/ministryofjustice/security-guidance/main/contact/vulnerability-disclosure-security.txt;
       }
 spec:
-  ingressClassName: modsec-non-prod
+  ingressClassName: modsec-non-prod-v2
   tls:
   - hosts:
     - dev-intranet.apps.live.cloud-platform.service.justice.gov.uk
