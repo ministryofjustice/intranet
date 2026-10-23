@@ -4,6 +4,7 @@ name: "PoC: eMudhra CA trust on hosted runners"
 # Shows whether GitHub-hosted Ubuntu runners trust the compromised eMudhra
 # intermediates, and whether upgrading ca-certificates fixes it.
 # Test hosts: https://emudhra.we-have-a-problem.com/#users
+# Every check appends to a results table; the last step prints it and adds it to the run summary.
 
 on:
   push:
@@ -23,73 +24,101 @@ jobs:
         os: ['ubuntu-24.04', 'ubuntu-26.04']
     env:
       HOSTS: "dv-g3b-emudhra.we-have-a-problem.com dv-g3b-aaa-emudhra.we-have-a-problem.com"
-      NODE_CHECK: |
-        for (const h of process.argv.slice(1)) {
-          try { const r = await fetch(`https://${h}/`); console.log(`  ${h}: TRUSTED (HTTP ${r.status}) - vulnerable`); }
-          catch (e) { console.log(`  ${h}: REJECTED (${e.cause?.code ?? e.message}) - safe`); }
-        }
+      RESULTS: /tmp/emudhra-results.md
+      CHECK_SH: /tmp/emudhra-check.sh
 
     steps:
-      - name: "Runner image and packages"
+      - name: "Set up checks"
         run: |
-          echo "Image: $ImageOS $ImageVersion"
-          dpkg-query -W ca-certificates
-          echo "System node: $(node -v)"
-          find / -path "*/externals/node*/bin/node" 2>/dev/null || true
+          cat > "$CHECK_SH" <<'SH'
+          NODE_CHECK='for (const h of process.argv.slice(1)) {
+            try { const r = await fetch(`https://${h}/`); console.log(`${h}|TRUSTED (HTTP ${r.status})`); }
+            catch (e) { console.log(`${h}|REJECTED (${e.cause?.code ?? e.message})`); }
+          }'
+
+          # record <phase> <client> <host> <result>
+          record() {
+            case "$4" in TRUSTED*) verdict="❌ vulnerable" ;; *) verdict="✅ safe" ;; esac
+            echo "| $1 | $2 | ${3%%.*} | $4 | $verdict |" >> "$RESULTS"
+            echo "$1 / $2 / $3: $4"
+          }
+
+          # check_curl <phase>
+          check_curl() {
+            for h in $HOSTS; do
+              if curl -sS -o /dev/null --max-time 15 "https://$h/" 2>/dev/null; then
+                record "$1" "curl" "$h" "TRUSTED"
+              else
+                record "$1" "curl" "$h" "REJECTED (curl exit $?)"
+              fi
+            done
+          }
+
+          # check_node <phase> <label> <node binary> [node flags...]
+          check_node() {
+            phase=$1 label=$2 bin=$3; shift 3
+            "$bin" "$@" --input-type=module -e "$NODE_CHECK" $HOSTS | while IFS='|' read -r h result; do
+              record "$phase" "$label" "$h" "$result"
+            done
+          }
+
+          runner_nodes() { find / -path "*/externals/node*/bin/node" 2>/dev/null; }
+          SH
+
+          {
+            echo "## ${{ matrix.os }}"
+            echo
+            echo "- Image: \`$ImageOS $ImageVersion\`"
+            echo "- ca-certificates (before): \`$(dpkg-query -W -f='${Version}' ca-certificates)\`"
+            echo "- System node: \`$(node -v)\`"
+            . "$CHECK_SH"
+            for n in $(runner_nodes); do echo "- Runner's bundled node: \`$n\` \`$($n -v)\`"; done
+            echo
+            echo "| Phase | Client | Host | Result | Verdict |"
+            echo "|---|---|---|---|---|"
+          } > "$RESULTS"
+          cat "$RESULTS"
 
       - name: "Before: curl (system store)"
-        run: |
-          for h in $HOSTS; do
-            if curl -sS -o /dev/null --max-time 15 "https://$h/" 2>/dev/null; then
-              echo "  $h: TRUSTED - vulnerable"
-            else
-              echo "  $h: REJECTED (curl exit $?) - safe"
-            fi
-          done
+        run: . "$CHECK_SH" && check_curl "1 before"
 
       - name: "Before: Node (bundled store)"
-        run: node --input-type=module -e "$NODE_CHECK" $HOSTS
+        run: . "$CHECK_SH" && check_node "1 before" "node" "$(command -v node)"
 
       - name: "Before: Actions runner's bundled Node (used by JS actions)"
         run: |
-          for n in $(find / -path "*/externals/node*/bin/node" 2>/dev/null); do
-            [ -x "$n" ] || continue
-            echo "$n $($n -v)"
-            $n --input-type=module -e "$NODE_CHECK" $HOSTS
-          done
+          . "$CHECK_SH"
+          for n in $(runner_nodes); do check_node "1 before" "runner $($n -v)" "$n"; done
 
       - name: "Upgrade ca-certificates"
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y -qq --only-upgrade ca-certificates
-          dpkg-query -W ca-certificates
+          echo "| 2 upgrade | apt | — | ca-certificates now \`$(dpkg-query -W -f='${Version}' ca-certificates)\` | |" >> "$RESULTS"
 
       - name: "After: curl (system store)"
-        run: |
-          for h in $HOSTS; do
-            if curl -sS -o /dev/null --max-time 15 "https://$h/" 2>/dev/null; then
-              echo "  $h: TRUSTED - vulnerable"
-            else
-              echo "  $h: REJECTED (curl exit $?) - safe"
-            fi
-          done
+        run: . "$CHECK_SH" && check_curl "3 after"
 
       - name: "After: Node bundled store (expected unchanged)"
-        run: node --input-type=module -e "$NODE_CHECK" $HOSTS
+        run: . "$CHECK_SH" && check_node "3 after" "node" "$(command -v node)"
 
       - name: "After: Node with --use-system-ca"
-        run: node --use-system-ca --input-type=module -e "$NODE_CHECK" $HOSTS
+        run: . "$CHECK_SH" && check_node "3 after" "node --use-system-ca" "$(command -v node)" --use-system-ca
 
       - name: "After: Node with --use-openssl-ca (system store only)"
-        run: node --use-openssl-ca --input-type=module -e "$NODE_CHECK" $HOSTS
+        run: . "$CHECK_SH" && check_node "3 after" "node --use-openssl-ca" "$(command -v node)" --use-openssl-ca
         env:
           SSL_CERT_FILE: /etc/ssl/certs/ca-certificates.crt
 
       - name: "After: Actions runner's bundled Node with --use-openssl-ca"
         run: |
-          for n in $(find / -path "*/externals/node*/bin/node" 2>/dev/null); do
-            echo "$n $($n -v)"
-            $n --use-openssl-ca --input-type=module -e "$NODE_CHECK" $HOSTS
-          done
+          . "$CHECK_SH"
+          for n in $(runner_nodes); do check_node "3 after" "runner $($n -v) --use-openssl-ca" "$n" --use-openssl-ca; done
         env:
           SSL_CERT_FILE: /etc/ssl/certs/ca-certificates.crt
+
+      - name: "Results"
+        if: always()
+        run: |
+          cat "$RESULTS"
+          cat "$RESULTS" >> "$GITHUB_STEP_SUMMARY"
