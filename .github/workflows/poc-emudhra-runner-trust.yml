@@ -28,6 +28,12 @@ jobs:
       CHECK_SH: /tmp/emudhra-check.sh
 
     steps:
+      # Same PHP/Composer setup as php-composer-test.yml.
+      - name: "Setup PHP"
+        uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # 2.40.0
+        with:
+          php-version: '8.4'
+
       - name: "Set up checks"
         run: |
           cat > "$CHECK_SH" <<'SH'
@@ -38,7 +44,11 @@ jobs:
 
           # record <phase> <client> <host> <result>
           record() {
-            case "$4" in TRUSTED*) verdict="❌ vulnerable" ;; *) verdict="✅ safe" ;; esac
+            case "$4" in
+              TRUSTED*) verdict="❌ vulnerable" ;;
+              REJECTED*) verdict="✅ safe" ;;
+              *) verdict="⚠️ inconclusive" ;;
+            esac
             echo "| $1 | $2 | ${3%%.*} | $4 | $verdict |" >> "$RESULTS"
             echo "$1 / $2 / $3: $4"
           }
@@ -62,6 +72,26 @@ jobs:
             done
           }
 
+          # check_composer <phase>
+          # Points a throwaway project at a composer repository on each test host. A TLS failure
+          # means the cert was rejected; any HTTP-level response (404, unparseable packages.json)
+          # means the TLS handshake succeeded, i.e. the cert was trusted.
+          check_composer() {
+            for h in $HOSTS; do
+              d=$(mktemp -d)
+              printf '{"repositories":[{"type":"composer","url":"https://%s"},{"packagist.org":false}],"require":{"poc/emudhra-check":"*"}}' "$h" > "$d/composer.json"
+              out=$(cd "$d" && COMPOSER_HOME="$d/home" composer update --dry-run --no-interaction 2>&1 || true)
+              reason=$(echo "$out" | grep -oiE "curl error [0-9]+|SSL certificate problem: [a-z ]+|HTTP/[0-9.]+ [0-9]+|could not be (parsed|downloaded)" | head -1)
+              if echo "$out" | grep -qiE "certificate|ssl|curl error 60"; then
+                record "$1" "composer" "$h" "REJECTED ($reason)"
+              elif echo "$out" | grep -qiE "packages.json|HTTP/"; then
+                record "$1" "composer" "$h" "TRUSTED ($reason)"
+              else
+                record "$1" "composer" "$h" "ERROR ($(echo "$out" | grep -m1 -v '^\s*$' | sed 's/|/ /g' | cut -c1-110))"
+              fi
+            done
+          }
+
           runner_nodes() { find / -path "*/externals/node*/bin/node" 2>/dev/null; }
           SH
 
@@ -71,6 +101,8 @@ jobs:
             echo "- Image: \`$ImageOS $ImageVersion\`"
             echo "- ca-certificates (before): \`$(dpkg-query -W -f='${Version}' ca-certificates)\`"
             echo "- System node: \`$(node -v)\`"
+            echo "- PHP: \`$(php -r 'echo PHP_VERSION;')\`, $(composer --version 2>/dev/null | head -1)"
+            echo "- PHP openssl default cafile: \`$(php -r 'echo openssl_get_cert_locations()["default_cert_file"];')\`"
             . "$CHECK_SH"
             for n in $(runner_nodes); do echo "- Runner's bundled node: \`$n\` \`$($n -v)\`"; done
             echo
@@ -81,6 +113,9 @@ jobs:
 
       - name: "Before: curl (system store)"
         run: . "$CHECK_SH" && check_curl "1 before"
+
+      - name: "Before: composer (as in php-composer-test.yml)"
+        run: . "$CHECK_SH" && check_composer "1 before"
 
       - name: "Before: Node (bundled store)"
         run: . "$CHECK_SH" && check_node "1 before" "node" "$(command -v node)"
@@ -98,6 +133,9 @@ jobs:
 
       - name: "After: curl (system store)"
         run: . "$CHECK_SH" && check_curl "3 after"
+
+      - name: "After: composer"
+        run: . "$CHECK_SH" && check_composer "3 after"
 
       - name: "After: Node bundled store (expected unchanged)"
         run: . "$CHECK_SH" && check_node "3 after" "node" "$(command -v node)"
