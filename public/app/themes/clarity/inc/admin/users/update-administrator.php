@@ -5,7 +5,10 @@ global $wp_roles;
 $capabilities = [
     'administrator' => [
         // Add ACF homepage feature capability called 'homepage_all_access'
-        'homepage_all_access' => true
+        'homepage_all_access' => true,
+        // Events (enable bulk delete)
+        'delete_events' => true,
+        'delete_published_events' => true
     ]
 ];
 
