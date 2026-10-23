@@ -17,11 +17,10 @@ items:
       labels:
         app: ${KUBE_NAMESPACE}
     spec:
-      replicas: 4
       strategy:
         type: RollingUpdate
         rollingUpdate:
-          maxUnavailable: 50%
+          maxUnavailable: 0
           maxSurge: 50%
       selector:
         matchLabels:
@@ -73,6 +72,11 @@ items:
                 httpGet:
                   path: /liveness
                   port: 8080
+              # Keep serving while the pod is removed from Service endpoints and the ingress, before nginx gets SIGQUIT.
+              lifecycle:
+                preStop:
+                  exec:
+                    command: ["sleep", "10"]
               env:
                 - name: IPS_FORMATTED
                   valueFrom:
@@ -183,6 +187,11 @@ items:
                   command:
                   - /usr/local/bin/fpm-health/fpm-liveness.sh
                 periodSeconds: 10
+              # Match nginx's preStop, so fpm doesn't exit while nginx is still accepting requests.
+              lifecycle:
+                preStop:
+                  exec:
+                    command: ["sleep", "10"]
 
   # Next in the list, define a Job to run initialization tasks using the same FPM container definition.
   # This reuses the fpm container definition above via a YAML alias to avoid duplication.
@@ -229,3 +238,4 @@ items:
             startupProbe: null
             readinessProbe: null
             livenessProbe: null
+            lifecycle: null

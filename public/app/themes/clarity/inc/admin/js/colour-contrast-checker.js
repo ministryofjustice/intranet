@@ -1,4 +1,4 @@
-;(function ($) {
+jQuery(function ($) {
   $('.colour_check input').each(function () {
     checkContrast($(this))
   })
@@ -26,11 +26,16 @@
           },
           success: function (data) {
             if (data.success) {
+              // Ignore late responses for a value that has since been changed.
+              if (input.val().replace('#', '').toLowerCase() !== colour.replace('#', '').toLowerCase()) {
+                return
+              }
+
               if (data.contrast >= 500) {
                 input.parents('.acf-input').children('.contrast_invalid_message').hide()
-                input.parents('.acf-input').children('.contrast_valid_message').css('display', 'inline-block')
+                input.parents('.acf-input').children('.contrast_valid_message').show()
               } else {
-                input.parents('.acf-input').children('.contrast_invalid_message').css('display', 'inline-block')
+                input.parents('.acf-input').children('.contrast_invalid_message').show()
                 input.parents('.acf-input').children('.contrast_valid_message').hide()
               }
             } else {
@@ -50,4 +55,4 @@
       input.parents('.acf-input').children('.contrast_valid_message').hide()
     }
   }
-})(jQuery)
+})

@@ -115,7 +115,9 @@ $capabilities = array(
     'edit_published_events' => true,
     'publish_events' => true,
     'delete_event' => true,
+    'delete_events' => true,
     'delete_others_events' => true,
+    'delete_published_events' => true,
 
     // news
     'edit_news' => true,
