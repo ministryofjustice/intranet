@@ -1,0 +1,81 @@
+name: "PoC: eMudhra CA trust on hosted runners"
+
+# Temporary proof of concept - delete this file and branch once done.
+# Shows whether GitHub-hosted Ubuntu runners trust the compromised eMudhra
+# intermediates, and whether upgrading ca-certificates fixes it.
+# Test hosts: https://emudhra.we-have-a-problem.com/#users
+
+on:
+  push:
+    branches:
+      - 'poc/emudhra-runner-trust'
+
+permissions: {}
+
+jobs:
+  check:
+    name: "${{ matrix.os }}"
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        os: ['ubuntu-24.04', 'ubuntu-26.04']
+    env:
+      HOSTS: "dv-g3b-emudhra.we-have-a-problem.com dv-g3b-aaa-emudhra.we-have-a-problem.com"
+      NODE_CHECK: |
+        for (const h of process.argv.slice(1)) {
+          try { const r = await fetch(`https://${h}/`); console.log(`  ${h}: TRUSTED (HTTP ${r.status}) - vulnerable`); }
+          catch (e) { console.log(`  ${h}: REJECTED (${e.cause?.code ?? e.message}) - safe`); }
+        }
+
+    steps:
+      - name: "Runner image and packages"
+        run: |
+          echo "Image: $ImageOS $ImageVersion"
+          dpkg-query -W ca-certificates
+          echo "System node: $(node -v)"
+          ls -d /home/runner/actions-runner/*/externals/node*/bin/node 2>/dev/null || true
+
+      - name: "Before: curl (system store)"
+        run: |
+          for h in $HOSTS; do
+            if curl -sS -o /dev/null --max-time 15 "https://$h/" 2>/dev/null; then
+              echo "  $h: TRUSTED - vulnerable"
+            else
+              echo "  $h: REJECTED (curl exit $?) - safe"
+            fi
+          done
+
+      - name: "Before: Node (bundled store)"
+        run: node --input-type=module -e "$NODE_CHECK" $HOSTS
+
+      - name: "Before: Actions runner's bundled Node (used by JS actions)"
+        run: |
+          for n in /home/runner/actions-runner/*/externals/node*/bin/node; do
+            [ -x "$n" ] || continue
+            echo "$n $($n -v)"
+            $n --input-type=module -e "$NODE_CHECK" $HOSTS
+          done
+
+      - name: "Upgrade ca-certificates"
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq --only-upgrade ca-certificates
+          dpkg-query -W ca-certificates
+
+      - name: "After: curl (system store)"
+        run: |
+          for h in $HOSTS; do
+            if curl -sS -o /dev/null --max-time 15 "https://$h/" 2>/dev/null; then
+              echo "  $h: TRUSTED - vulnerable"
+            else
+              echo "  $h: REJECTED (curl exit $?) - safe"
+            fi
+          done
+
+      - name: "After: Node bundled store (expected unchanged)"
+        run: node --input-type=module -e "$NODE_CHECK" $HOSTS
+
+      - name: "After: Node with --use-system-ca"
+        run: node --use-system-ca --input-type=module -e "$NODE_CHECK" $HOSTS
