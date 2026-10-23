@@ -16,14 +16,14 @@
 
 FROM composer:2.10.3@sha256:9715c7f69044da2a212a5fbde29ee7da24e364d426560ae6367b060236f847d7 AS composer
 
-FROM nginxinc/nginx-unprivileged:1.31.5-alpine@sha256:19c132c9ab02d3b783f478743dafc7a7f42e27aa7d2bdcbec1bb1128ca8f2a07 AS nginx-unprivileged
+FROM nginxinc/nginx-unprivileged:1.31.7-alpine@sha256:b5047b9b76845eac124358373c6852377c52e4b05834a47647e955dd91cb8f1e AS nginx-unprivileged
 
 #    ▄▄  ▄▄     █▀▀  █▀█  █▀▄▀█     ▄▄  ▄▄    #
 #    ░░  ░░     █▀░  █▀▀  █░▀░█     ░░  ░░    #
 
 # Official WordPress image (Alpine, php-fpm): https://hub.docker.com/_/wordpress
 # PHPRedis + igbinary, WP-CLI, mariadb-client, fcgi and the timezone are layered on below.
-FROM wordpress:7.1.2-php8.4-fpm-alpine@sha256:8101333b563f37263711c9e45936e4d03451f297743ed60ce90056abb76acc59 AS base-fpm
+FROM wordpress:7.1.3-php8.4-fpm-alpine@sha256:e9b158e9ac43e52028ce81065d27eedb5c1a0c4359a9ea2ff044a45e36894b25 AS base-fpm
 
 # Install additional Alpine packages
 RUN apk update && \
@@ -46,9 +46,9 @@ RUN apk del .build-deps
 
 # Install a patched version of WordPress core, prior to release on Docker Hub.
 # Minimal implementation, edit the following 2 arguments directly.
-ARG PATCH_WORDPRESS_VERSION="7.1.3"
+ARG PATCH_WORDPRESS_VERSION=""
 # Get value from https://wordpress.org/wordpress-<WORDPRESS_VERSION>.tar.gz.sha1
-ARG PATCH_WORDPRESS_SHA1="491a78c7676b15dffcc69130c6054b8f49228a91"
+ARG PATCH_WORDPRESS_SHA1=""
 # Download and extract script from: https://github.com/docker-library/wordpress/blob/master/Dockerfile.template
 RUN set -ex; \
 	if [ -n "$PATCH_WORDPRESS_VERSION" ] && [ -n "$PATCH_WORDPRESS_SHA1" ]; then \
@@ -104,6 +104,11 @@ RUN printf '[Date]\ndate.timezone="%s"\n' $TZ > /usr/local/etc/php/conf.d/tzone.
 
 # Disable session upload progress tracking.
 RUN printf '[Session]\nsession.upload_progress.enabled = Off\n' > /usr/local/etc/php/conf.d/session.ini
+
+# Log every PHP error level for the CLI (wp-cli), which does not read the PHP-FPM pool file.
+# The base image's error-logging.ini already logs to stderr with display off, but narrows
+# error_reporting. This file loads after it. The pool sets the same for web requests.
+RUN printf '[PHP]\nerror_reporting = E_ALL\n' > /usr/local/etc/php/conf.d/zz-error-reporting.ini
 
 # Trim the pristine WordPress source that the entrypoint copies into public/wp:
 # drop wp-content (managed separately) plus the root .htaccess and readme.html.
@@ -389,10 +394,34 @@ ENTRYPOINT ["/bin/sh", "-c", "cron-start"]
 #  █▀▀ █▄█ ▄█ █▀█ ██▄ █▀▄
 
 
-# Assets destined for s3, assembled into the layout that s3-push-start.sh expects.
-# Nothing runs from this stage - it is extracted onto the runner with docker create & docker cp,
-# and the push itself is done by the deploy workflow.
-FROM scratch AS build-s3-assets
+FROM alpine:3.24@sha256:294b683cb724975bec92580e1e685676bd4b50bda910ddb8c51d4cabeaec77e6 AS build-s3-push
 
-COPY --from=build-fpm-composer /var/www/html/vendor-assets /assets/
-COPY --from=assets-build /node/dist /assets/public/app/themes/clarity/dist/
+ARG user=s3pusher
+RUN addgroup --gid 3001 ${user} && adduser -D -G ${user} -g "${user} user" -u 3001 ${user}
+
+RUN apk add --no-cache aws-cli jq
+
+WORKDIR /usr/bin
+
+COPY deploy/config/init/s3-push-start.sh ./s3-push-start
+RUN chmod +x s3-push-start
+
+USER 3001
+
+# Go home...
+WORKDIR /home/s3pusher
+
+# Create .aws directory for AWS CLI configuration and a tmp directory for other temp files.
+# This will be the only writable location in the read-only container.
+RUN mkdir -p .aws && mkdir -p tmp
+
+# Grab assets for pushing to s3
+COPY --from=build-fpm-composer /var/www/html/vendor-assets ./
+COPY --from=assets-build /node/dist public/app/themes/clarity/dist/
+
+# Set IMAGE_TAG at build time, we don't want this container to be run with an incorrect IMAGE_TAG.
+# Set towards the end of the Dockerfile to benefit from caching.
+ARG IMAGE_TAG
+ENV IMAGE_TAG=$IMAGE_TAG
+
+ENTRYPOINT ["/bin/sh", "-c", "s3-push-start"]

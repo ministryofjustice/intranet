@@ -19,14 +19,12 @@ class WPDocumentRevisions
 {
 
     private $home_url = '';
-    private $site_url = '';
     private $document_url_regex = '';
     private $wp_document_revisions = null;
 
     public function __construct()
     {
         // Set class properties.
-        $this->site_url = get_site_url();
         $this->home_url = get_home_url();
 
         // Set the document URL regex - optional home_url, followed by /documents/.
@@ -42,25 +40,40 @@ class WPDocumentRevisions
 
     public function hooks(): void
     {
-        add_filter('document_permalink', [$this, 'filterPermalink'], 10, 2);
         // Filter to remove trailing slash from the document's URL.
         add_filter('user_trailingslashit', [$this, 'filterTrailingSlash'], 10, 2);
         // Filter using gzip, always return false, let nginx handle gzipping where necessary.
         add_filter('document_serve_use_gzip', '__return_false', null, 2);
         // Filter to retry missing files.
         add_filter('get_attached_file', [$this, 'retryFilesNotFound'], 15, 2);
-        // Filter the document get_revisions result to correct the author.
-        add_filter('wp_document_revisions_get_revisions', [$this, 'filterGetMostRecentRevision'], 10, 2);
-        // Filter the get_latest_revision result to correct the author.
-        add_filter('wp_document_revisions_get_latest_revision', [$this, 'filterGetLatestRevision'], 10, 2);
         // Hide the Validate Structure sub-menu from non-admins.
         add_action('admin_menu', [$this, 'hideValidateStructureSubmenu'], 30);
-        // Return 404, not 403, when a document has no file to serve.
-        add_filter('document_no_document_response_code', fn() => 404);
         // Never ask editors to review the plugin on WordPress.org - treat the prompt as already dismissed.
         add_filter('get_user_metadata', fn($value, $object_id, $meta_key) => $meta_key === 'wpdr_review_dismissed' ? [1] : $value, 10, 3);
         // Always disable the plugin's text extraction and AI features, and hide their meta box.
         $this->disableTextExtractionAndAi();
+        // Don't expose documents to AI tooling via the Abilities API.
+        $this->disableAbilities();
+    }
+
+    /**
+     * Disable the plugin's Abilities API integration, added in WP Document Revisions v5.
+     *
+     * The plugin registers document abilities (e.g. get-document-info, override-document-lock),
+     * which are exposed via the wp-abilities/v1 REST routes to any logged-in user.
+     *
+     * @return void
+     */
+    private function disableAbilities(): void
+    {
+        $wpdr = $this->getWpDocumentRevisions();
+
+        if (!$wpdr) {
+            return;
+        }
+
+        remove_action('wp_abilities_api_categories_init', [$wpdr, 'register_ability_category']);
+        remove_action('wp_abilities_api_init', [$wpdr, 'register_abilities']);
     }
 
     /**
@@ -124,26 +137,6 @@ class WPDocumentRevisions
 
             remove_meta_box($meta_box_id, 'document', 'side');
         }, PHP_INT_MAX);
-    }
-
-
-    /**
-     * Update the document's permalink, specifically preview links that are not correctly structured.
-     * 
-     * @param string $link The permalink.
-     * @param null|object|array $document The document.
-     * 
-     * @return string The filtered permalink.
-     */
-    public function filterPermalink(string $link, null|object|array $document)
-    {
-        // Do nothing if the document is published.
-        if (get_post_status($document) === 'publish') {
-            return $link;
-        }
-
-        // Remove unnecessary `/wp` from the link.
-        return str_replace($this->site_url, $this->home_url, $link);
     }
 
     /**
@@ -263,107 +256,6 @@ class WPDocumentRevisions
 
         // If the file still doesn't exist, return the original file.
         return $file;
-    }
-
-    /**
-     * Get the most recent revision author.
-     * 
-     * @param string $format The format to return the author in.
-     * @param int|null $post_id The post ID.
-     * @return int|string The author ID or display name.
-     */
-    public function getMostRecentRevisionAuthor(string $format = 'id', int|null $post_id = null): int|string
-    {
-        // Only allow 'id' or 'displayname' as formats.
-        if (!in_array($format, ['id', 'displayname'])) {
-            return 0;
-        }
-
-        // If we don't have a post ID, but we are in the loop, get the post ID.
-        $post_id = $post_id ?: get_the_ID();
-
-        // If we still don't have a post ID, return 0.
-        if (!$post_id) {
-            return 0;
-        }
-
-        // If the plugin isn't loaded, return 0.
-        if (!$this->getWpDocumentRevisions()) {
-            return 0;
-        }
-
-        // Get the revisions for the current post - the first in the array is the document, technically not a revision.
-        $document_revisions = $this->getWpDocumentRevisions()->get_revisions($post_id);
-
-        // In an edge case we might not have any revisions. If so, return 0.
-        if (empty($document_revisions) || !is_array($document_revisions)) {
-            return 0;
-        }
-
-        // Get the most recent revision, if there are no revisions, use the original document.
-        $most_recent = $document_revisions[1] ?? $document_revisions[0];
-
-        // If we can't find the author, return the 0;
-        if (!$most_recent?->post_author || !is_numeric($most_recent->post_author)) {
-            return 0;
-        }
-
-        // Return the author ID or display name.
-        if ($format === 'id') {
-            return (int) $most_recent->post_author;
-        }
-
-        return get_user_by('ID', $most_recent->post_author)?->display_name ?? 0;
-    }
-
-    /**
-     * Filter the get_revisions result to correct the author.
-     *
-     * When this filter is called in the context of 'revision_metabox',
-     * it is used to correct the author on the first row of the revisions table.
-     *
-     * @param false|array $revisions The revisions.
-     * @param string $context The context.
-     * @return false|array The filtered revisions.
-     */
-    public function filterGetMostRecentRevision($revisions, string $context)
-    {
-        if ('revision_metabox' !== $context) {
-            return $revisions;
-        }
-
-        if (empty($revisions) || !is_array($revisions) || !isset($revisions[1]?->post_author)) {
-            return $revisions;
-        }
-
-        $revisions[0]->post_author = $revisions[1]->post_author;
-
-        return $revisions;
-    }
-
-    /**
-     * Filter the get_latest_revision result to correct the author.
-     * 
-     * When this filter is called in the context of 'document_metabox',
-     * it is used to correct the author in the string 'Checked in x ago by y'.
-     * 
-     * @param false|WP_Post $revision The revision.
-     * @param string $context The context.
-     * @return false|WP_Post The filtered revision.
-     */
-    public function filterGetLatestRevision($revision, string $context)
-    {
-        if ('document_metabox' !== $context) {
-            return $revision;
-        }
-
-        if (empty($revision) || !is_object($revision)) {
-            return $revision;
-        }
-
-        $revision->post_author = $this->getMostRecentRevisionAuthor('id');
-
-        return $revision;
     }
 
     /**
