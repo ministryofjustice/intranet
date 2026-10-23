@@ -443,7 +443,7 @@ In the previous section about how to register an application, you should have al
 To create a new client secret and rotate it, follow these steps. 
 
 1. Follow the link, in the useful links section above, to the relevant app (staging or production). 
-2. Navigate to Manage > Secrets and Certificates.
+2. Navigate to Manage > Certificates & secrets.
 3. Click to create a new secret. 
 4. Set an appropriate name and expiry. 
 5. Copy the `Value` value, make it available as environment secret `OAUTH_CLIENT_SECRET`.
