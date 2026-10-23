@@ -468,10 +468,10 @@ They can be copied to `.env` to use oauth locally.
     The request should include:
     - Client ID: `51266573-d4eb-41db-8ebe-a9548aa4f01e`
     - Tenant ID: `0bb413d7-160d-4839-868a-f3d46537f6af`
-2. Once the request has been granted, copy the value, make it available as environment secret `OAUTH_CLIENT_SECRET`.
+2. Once the request has been granted, copy the value and make it available as environment secret `OAUTH_CLIENT_SECRET`.
 3. Redeploy your application so that the environment secret is used as part of the deployment.
 4. Wait for a successful redeployment, and confirm that the new secret is being used in the pod(s).
-
+5. Update the shared 1Password note with the new `OAUTH_CLIENT_SECRET` value.
 ## Access control
 
 To view the intranet content, visitors must meet one of the following criteria.
