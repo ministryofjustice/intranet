@@ -135,7 +135,7 @@ class CacheHandler
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_TIMEOUT_MS, 10); // Set a short timeout
+        curl_setopt($ch, CURLOPT_TIMEOUT_MS, 50); // Short timeout, but long enough for DNS + connect so the request is sent
         curl_setopt($ch, CURLOPT_HTTPHEADER, ['Host: ' . parse_url(home_url(), PHP_URL_HOST)]);
 
         // Loop through each URL to purge.
