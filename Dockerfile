@@ -23,7 +23,7 @@ FROM nginxinc/nginx-unprivileged:1.31.7-alpine@sha256:b5047b9b76845eac124358373c
 
 # Official WordPress image (Alpine, php-fpm): https://hub.docker.com/_/wordpress
 # PHPRedis + igbinary, WP-CLI, mariadb-client, fcgi and the timezone are layered on below.
-FROM wordpress:7.1.3-php8.4-fpm-alpine@sha256:e9b158e9ac43e52028ce81065d27eedb5c1a0c4359a9ea2ff044a45e36894b25 AS base-fpm
+FROM wordpress:7.1.4-php8.4-fpm-alpine@sha256:d3dd20e58ada4d172fe6a580b31885d20f9514363ef8147ff9a48181ed4977d9 AS base-fpm
 
 # Install additional Alpine packages
 RUN apk update && \
