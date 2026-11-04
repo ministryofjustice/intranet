@@ -430,11 +430,28 @@ and pick the target branch. It opens (or updates) a PR whose merge makes that br
    - Description: `Staging-Intranet`
    - Expires: `18 months`
 9. Set a reminder to update the client secret before it expires.
-10. Copy the `Value` value, make it available as environment variable `OAUTH_CLIENT_SECRET`.
+10. Copy the `Value` value, make it available as environment secret `OAUTH_CLIENT_SECRET`.
 11. Make a request the Identity Team, that `User.Read` API permissions be added to the app.
 
 The oauth2 flow should now work with the Azure AD/Entra ID application.
 You can get an Access Token, Refresh Token and an expiry of the token.
+
+### Rotating the client secret
+
+When a client secret is about to expire, you will get an email with 15 days' notice from IDAM. 
+In the previous section about how to register an application, you should have also set a reminder for when a client secret is about to expire. 
+
+To create a new client secret and rotate it, follow these steps. 
+
+1. Follow the link, in the useful links section above, to the relevant app (staging or production). 
+2. Navigate to Manage > Certificates & secrets.
+3. Click to create a new secret. 
+4. Set an appropriate name and expiry. 
+5. Copy the `Value` value, make it available as environment secret `OAUTH_CLIENT_SECRET`.
+6. Redeploy your application so that the environment secret is used as part of the deployment.
+7. If your redeploy does not include any code changes, you will need to restart the Kubernetes deployment in order to get the new secret into each pod. 
+8. Wait for a successful redeployment, and confirm that the new secret is being used in the pod(s).
+9. Delete the old client secret in the Entra app UI.
 
 ### Development Tenant
 
@@ -445,6 +462,16 @@ The App is on the development tenant, any you'll need to use a development email
 The `OAUTH_*` values are stored in a shared note in 1password. 
 They can be copied to `.env` to use oauth locally.
 
+### Rotating the client secret for a development tenant app
+
+1. Open a request for a new client secret by posting a message in the Staff Identity slack channel. 
+    The request should include:
+    - Client ID: `51266573-d4eb-41db-8ebe-a9548aa4f01e`
+    - Tenant ID: `0bb413d7-160d-4839-868a-f3d46537f6af`
+2. Once the request has been granted, copy the value and make it available as environment secret `OAUTH_CLIENT_SECRET`.
+3. Redeploy your application so that the environment secret is used as part of the deployment.
+4. Wait for a successful redeployment, and confirm that the new secret is being used in the pod(s).
+5. Update the shared 1Password note with the new `OAUTH_CLIENT_SECRET` value.
 ## Access control
 
 To view the intranet content, visitors must meet one of the following criteria.
