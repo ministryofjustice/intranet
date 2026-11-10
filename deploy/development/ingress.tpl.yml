@@ -12,7 +12,6 @@ metadata:
     # - SecDefaultAction phase 1, 2 and 4: log matches, tagged with the team and environment.
     # - SecAuditEngine On: log more than warnings and errors.
     # - SecRuleEngine On: block requests that match a deny rule, or the core rule set anomaly threshold.
-    # - 9001000: block any request whose Content-Type mentions multipart, for everyone, before the body is read.
     # - 9001010: block PHP serialized objects in cookies, for everyone (like-button plugin unserialize).
     # - 9001001: editors. The theme sets the moj_config cookie to MOJ_CONFIG for users who can edit
     #   posts. It sets tx.moj_config, so the non-editor rules below never match editors, even in
@@ -21,7 +20,7 @@ metadata:
     # - 9001100: skip all checks on password fields, and SQLi/RCE/LFI checks on free text fields
     #   (comment, feedback, register name, search). WordPress stores and escapes these safely.
     # - 9001110: only GET, HEAD and POST.
-    # - 9001120: no multipart requests (file uploads).
+    # - 9001120: no multipart requests (file uploads), editors can upload.
     # - 9001130: POST to WordPress files only for wp-login.php, wp-comments-post.php and admin-ajax.php.
     #   POST to front end pages (feedback, register, delete account) is allowed. No REST API or xmlrpc.
     # - 9001140: no POST with the rest_route query parameter (REST API without /wp-json/).
@@ -33,8 +32,6 @@ metadata:
       SecDefaultAction "phase:4,pass,log,tag:github_team=hale-platform,tag:environment=intranet-dev"
       SecAuditEngine On
       SecRuleEngine On
-
-      SecRule REQUEST_HEADERS:Content-Type "@contains multipart" "id:9001000,phase:1,deny,status:403,log,t:none,t:lowercase,msg:multipart-request-blocked"
 
       SecRule REQUEST_COOKIES "@rx [OC]:\+?\d+:" "id:9001010,phase:1,deny,status:403,log,t:none,t:urlDecodeUni,msg:serialized-object-cookie"
 

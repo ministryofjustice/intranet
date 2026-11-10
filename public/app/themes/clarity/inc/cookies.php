@@ -134,16 +134,21 @@ add_action('init', function () {
 
 
 /**
- * This runs after wp_login, at which point current_user_can() cannot be used.
+ * This runs whenever WordPress sets the login cookie: login, re-login, and user switching.
+ * Give the moj_config cookie the same expiry as the login, so it does not expire while
+ * an editor is still logged in. Otherwise the ingress would treat their next request,
+ * e.g. a save or heartbeat POST, as from a non-editor.
  *
- * Action: wp_login
+ * Action: set_logged_in_cookie
  *
- * @param string $user_login
- * @param WP_User $user
+ * @param string $logged_in_cookie
+ * @param int $expire
+ * @param int $expiration When the login expires.
+ * @param int $user_id
  */
-add_action('wp_login', function ($user_login, WP_User $user) {
-    moj_set_config_cookie(!empty($user->allcaps['edit_posts']));
-}, 10, 2);
+add_action('set_logged_in_cookie', function ($logged_in_cookie, $expire, $expiration, $user_id) {
+    moj_set_config_cookie(user_can($user_id, 'edit_posts'), (int) $expiration);
+}, 10, 4);
 
 
 /**
@@ -160,8 +165,9 @@ add_action('wp_logout', function () {
  * Set or delete the moj_config cookie.
  *
  * @param bool $active To set the cookie, or delete it.
+ * @param ?int $expiration When the cookie expires, if not passed, when the current login expires.
  */
-function moj_set_config_cookie(bool $active): void
+function moj_set_config_cookie(bool $active, ?int $expiration = null): void
 {
     // Return if doing cron
     if (wp_doing_cron()) {
@@ -174,12 +180,17 @@ function moj_set_config_cookie(bool $active): void
     // Never set an empty value, delete the cookie instead.
     $active = $active && $secret !== '';
 
-    if ($active && is_string($current) && hash_equals($secret, $current)) {
+    // Already set, unless a new expiry was passed in.
+    if ($active && $expiration === null && is_string($current) && hash_equals($secret, $current)) {
         return;
     }
 
     if (!$active && $current === null) {
         return;
+    }
+
+    if ($active && $expiration === null) {
+        $expiration = wp_parse_auth_cookie('', 'logged_in')['expiration'] ?? time() + DAY_IN_SECONDS;
     }
 
     $options = [
@@ -188,7 +199,7 @@ function moj_set_config_cookie(bool $active): void
         'httponly' => true,
         'secure' => is_ssl(),
         'samesite' => 'Lax',
-        'expires' => ($active ? time() + DAY_IN_SECONDS : 1),
+        'expires' => ($active ? (int) $expiration : 1),
     ];
 
     // Belt and braces: make sure a response that sets or deletes this cookie is never cached.
