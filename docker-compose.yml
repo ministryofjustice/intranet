@@ -67,7 +67,7 @@ services:
 
   node:
     container_name: intranet-node
-    image: node:25-alpine3.23@sha256:bdf2cca6fe3dabd014ea60163eca3f0f7015fbd5c7ee1b0e9ccb4ced6eb02ef4
+    image: node:24-alpine3.24@sha256:06d7adf3e0ef61a13f1d28682726366f97a15aa1888c934d3ecec86c33918b53
     working_dir: /node
     command: ash -c "npm i && npm run watch"
     volumes:
@@ -155,9 +155,13 @@ services:
     depends_on:
       - opensearch
 
+  # MinIO's images were removed from Docker Hub, so use Chainguard's build.
+  # The -dev variant includes sh, bash and mc, which the healthcheck and minio-init need.
+  # Run as root (like the old image) so existing root-owned minio_storage volumes stay writable.
   minio:
     container_name: intranet-minio
-    image: minio/minio
+    image: cgr.dev/chainguard/minio:latest-dev@sha256:8f59bd1942294673d828b7c0121dba660ebfffac80156e2d34db080c697c2bef
+    user: root
     ports:
       - "9000:9000" # The AWS S3 compatible API.
       - "9001:9001" # The Minio web console.
@@ -178,7 +182,7 @@ services:
 
   minio-init:
     container_name: intranet-minio-init
-    image: minio/mc
+    image: cgr.dev/chainguard/minio:latest-dev@sha256:8f59bd1942294673d828b7c0121dba660ebfffac80156e2d34db080c697c2bef
     depends_on:
       minio:
         condition: service_healthy
@@ -192,7 +196,7 @@ services:
 
   cdn:
     container_name: intranet-cdn
-    image: node:25-alpine3.23@sha256:bdf2cca6fe3dabd014ea60163eca3f0f7015fbd5c7ee1b0e9ccb4ced6eb02ef4
+    image: node:24-alpine3.24@sha256:06d7adf3e0ef61a13f1d28682726366f97a15aa1888c934d3ecec86c33918b53
     working_dir: /node
     command: ash -c "npm i && npm run watch"
     volumes:
