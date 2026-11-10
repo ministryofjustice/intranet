@@ -9,9 +9,9 @@ metadata:
     nginx.ingress.kubernetes.io/enable-modsecurity: "true"
     # ModSecurity rules. Comments live here, not in the snippet: ingress-nginx renders the snippet as one
     # single-quoted nginx parameter, which must stay under 4096 bytes and contain no single quotes.
-    # - SecDefaultAction phase 2 and 4: log matches, tagged with the team.
+    # - SecDefaultAction phase 1, 2 and 4: log matches, tagged with the team and environment.
     # - SecAuditEngine On: log more than warnings and errors.
-    # - SecRuleEngine DetectionOnly: monitor mode, rules with ctl:ruleEngine=On still block.
+    # - SecRuleEngine On: block requests that match a deny rule, or the core rule set anomaly threshold.
     # - 9001000: block any request whose Content-Type mentions multipart, for everyone, before the body is read.
     # - 9001010: block PHP serialized objects in cookies, for everyone (like-button plugin unserialize).
     # - 9001001: editors. The theme sets the moj_config cookie to MOJ_CONFIG for users who can edit
@@ -28,14 +28,15 @@ metadata:
     # - 9001150: admin-ajax.php only for the front end actions (search filters, news lists, likes).
     # - 9001160: comment and like IDs must be numbers.
     nginx.ingress.kubernetes.io/modsecurity-snippet: |
-      SecDefaultAction "phase:2,pass,log,tag:github_team=central-digital-product-team"
-      SecDefaultAction "phase:4,pass,log,tag:github_team=central-digital-product-team"
+      SecDefaultAction "phase:1,pass,log,tag:github_team=hale-platform,tag:environment=intranet-dev"
+      SecDefaultAction "phase:2,pass,log,tag:github_team=hale-platform,tag:environment=intranet-dev"
+      SecDefaultAction "phase:4,pass,log,tag:github_team=hale-platform,tag:environment=intranet-dev"
       SecAuditEngine On
-      SecRuleEngine DetectionOnly
+      SecRuleEngine On
 
-      SecRule REQUEST_HEADERS:Content-Type "@contains multipart" "id:9001000,phase:1,deny,status:403,log,t:none,t:lowercase,ctl:ruleEngine=On,msg:multipart-request-blocked"
+      SecRule REQUEST_HEADERS:Content-Type "@contains multipart" "id:9001000,phase:1,deny,status:403,log,t:none,t:lowercase,msg:multipart-request-blocked"
 
-      SecRule REQUEST_COOKIES "@rx [OC]:\+?\d+:" "id:9001010,phase:1,deny,status:403,log,t:none,t:urlDecodeUni,ctl:ruleEngine=On,msg:serialized-object-cookie"
+      SecRule REQUEST_COOKIES "@rx [OC]:\+?\d+:" "id:9001010,phase:1,deny,status:403,log,t:none,t:urlDecodeUni,msg:serialized-object-cookie"
 
       SecRule REQUEST_COOKIES:moj_config "@streq ${MOJ_CONFIG}" "id:9001001,phase:1,allow,nolog,t:none,setvar:tx.moj_config=1,ctl:ruleEngine=DetectionOnly"
 
