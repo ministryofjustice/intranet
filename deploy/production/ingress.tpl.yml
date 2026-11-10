@@ -11,8 +11,8 @@ metadata:
     # single-quoted nginx parameter, which must stay under 4096 bytes and contain no single quotes.
     # - SecDefaultAction phase 1, 2 and 4: log matches, tagged with the team and environment.
     # - SecAuditEngine On: log more than warnings and errors.
-    # - SecRuleEngine DetectionOnly: monitor mode, log what would be blocked. Rules with ctl:ruleEngine=On still block.
-    # - 9001010: block PHP serialized objects in cookies, for everyone (like-button plugin unserialize), even in DetectionOnly.
+    # - SecRuleEngine On: block requests that match a deny rule, or the core rule set anomaly threshold.
+    # - 9001010: block PHP serialized objects in cookies, for everyone (like-button plugin unserialize).
     # - 9001001: editors. The theme sets the moj_config cookie to MOJ_CONFIG for users who can edit
     #   posts. It sets tx.moj_config, so the non-editor rules below never match editors, even in
     #   DetectionOnly mode where allow does not run. Keep phase 1 rules for everyone above it.
@@ -31,9 +31,9 @@ metadata:
       SecDefaultAction "phase:2,pass,log,tag:github_team=hale-platform,tag:environment=intranet-production"
       SecDefaultAction "phase:4,pass,log,tag:github_team=hale-platform,tag:environment=intranet-production"
       SecAuditEngine On
-      SecRuleEngine DetectionOnly
+      SecRuleEngine On
 
-      SecRule REQUEST_COOKIES "@rx [OC]:\+?\d+:" "id:9001010,phase:1,deny,status:403,log,t:none,t:urlDecodeUni,ctl:ruleEngine=On,msg:serialized-object-cookie"
+      SecRule REQUEST_COOKIES "@rx [OC]:\+?\d+:" "id:9001010,phase:1,deny,status:403,log,t:none,t:urlDecodeUni,msg:serialized-object-cookie"
 
       SecRule REQUEST_COOKIES:moj_config "@streq ${MOJ_CONFIG}" "id:9001001,phase:1,allow,nolog,t:none,setvar:tx.moj_config=1,ctl:ruleEngine=DetectionOnly"
 
