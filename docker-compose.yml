@@ -67,7 +67,7 @@ services:
 
   node:
     container_name: intranet-node
-    image: node:24-alpine3.24@sha256:06d7adf3e0ef61a13f1d28682726366f97a15aa1888c934d3ecec86c33918b53
+    image: node:26-alpine3.24@sha256:8996bb5821d62a8fd9bb27c1cb07462f3fdce6e47d640c6a881ead0b064ce216
     working_dir: /node
     command: ash -c "npm i && npm run watch"
     volumes:
@@ -88,7 +88,7 @@ services:
 
   mariadb:
     container_name: intranet-mariadb
-    image: mariadb:10
+    image: mariadb:12
     healthcheck:
       test: [ "CMD-SHELL", "bash", "-c", "echo > /dev/tcp/localhost/3306" ]
       interval: 1s
@@ -160,7 +160,7 @@ services:
   # Run as root (like the old image) so existing root-owned minio_storage volumes stay writable.
   minio:
     container_name: intranet-minio
-    image: cgr.dev/chainguard/minio:latest-dev@sha256:8f59bd1942294673d828b7c0121dba660ebfffac80156e2d34db080c697c2bef
+    image: cgr.dev/chainguard/minio:latest-dev@sha256:99d9c9437fc6cefa47ea66eb0fbccfaa521272f5885fbd0520e0334415b767f7
     user: root
     ports:
       - "9000:9000" # The AWS S3 compatible API.
@@ -182,7 +182,7 @@ services:
 
   minio-init:
     container_name: intranet-minio-init
-    image: cgr.dev/chainguard/minio:latest-dev@sha256:8f59bd1942294673d828b7c0121dba660ebfffac80156e2d34db080c697c2bef
+    image: cgr.dev/chainguard/minio:latest-dev@sha256:99d9c9437fc6cefa47ea66eb0fbccfaa521272f5885fbd0520e0334415b767f7
     depends_on:
       minio:
         condition: service_healthy
@@ -196,7 +196,7 @@ services:
 
   cdn:
     container_name: intranet-cdn
-    image: node:24-alpine3.24@sha256:06d7adf3e0ef61a13f1d28682726366f97a15aa1888c934d3ecec86c33918b53
+    image: node:26-alpine3.24@sha256:8996bb5821d62a8fd9bb27c1cb07462f3fdce6e47d640c6a881ead0b064ce216
     working_dir: /node
     command: ash -c "npm i && npm run watch"
     volumes:
