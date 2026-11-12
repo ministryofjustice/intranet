@@ -10,30 +10,21 @@ metadata:
     # ModSecurity rules. Comments live here, not in the snippet: ingress-nginx renders the snippet as one
     # single-quoted nginx parameter, which must stay under 4096 bytes and contain no single quotes.
     # - SecDefaultAction phase 1, 2 and 4: log matches, tagged with the team and environment.
-    # - SecAuditEngine On: log more than warnings and errors.
+    # - SecAuditEngine RelevantOnly: log only requests that match a rule or get an error status.
     # - SecRuleEngine On: block requests that match a deny rule, or the core rule set anomaly threshold.
-    # - 9001010: block PHP serialized objects in cookies, for everyone (like-button plugin unserialize).
     # - 9001001: editors. The theme sets the moj_config cookie to MOJ_CONFIG for users who can edit
     #   posts. It sets tx.moj_config, so the non-editor rules below never match editors, even in
     #   DetectionOnly mode where allow does not run. Keep phase 1 rules for everyone above it.
     # Non-editors:
     # - 9001100: skip all checks on password fields, and SQLi/RCE/LFI checks on free text fields
     #   (comment, feedback, register name, search). WordPress stores and escapes these safely.
-    # - 9001110: only GET, HEAD and POST.
     # - 9001120: no multipart requests (file uploads), editors can upload.
-    # - 9001130: POST to WordPress files only for wp-login.php, wp-comments-post.php and admin-ajax.php.
-    #   POST to front end pages (feedback, register, delete account) is allowed. No REST API or xmlrpc.
-    # - 9001140: no POST with the rest_route query parameter (REST API without /wp-json/).
-    # - 9001150: admin-ajax.php only for the front end actions (search filters, news lists, likes).
-    # - 9001160: comment and like IDs must be numbers.
     nginx.ingress.kubernetes.io/modsecurity-snippet: |
       SecDefaultAction "phase:1,pass,log,tag:github_team=hale-platform,tag:environment=intranet-dev"
       SecDefaultAction "phase:2,pass,log,tag:github_team=hale-platform,tag:environment=intranet-dev"
       SecDefaultAction "phase:4,pass,log,tag:github_team=hale-platform,tag:environment=intranet-dev"
-      SecAuditEngine On
+      SecAuditEngine RelevantOnly
       SecRuleEngine On
-
-      SecRule REQUEST_COOKIES "@rx [OC]:\+?\d+:" "id:9001010,phase:1,deny,status:403,log,t:none,t:urlDecodeUni,msg:serialized-object-cookie"
 
       SecRule REQUEST_COOKIES:moj_config "@streq ${MOJ_CONFIG}" "id:9001001,phase:1,allow,nolog,t:none,setvar:tx.moj_config=1,ctl:ruleEngine=DetectionOnly"
 
@@ -49,27 +40,9 @@ metadata:
         ctl:ruleRemoveTargetByTag=attack-sqli;ARGS:s,ctl:ruleRemoveTargetByTag=attack-rce;ARGS:s,ctl:ruleRemoveTargetByTag=attack-lfi;ARGS:s,\
         ctl:ruleRemoveTargetByTag=attack-sqli;ARGS:keywords_filter,ctl:ruleRemoveTargetByTag=attack-rce;ARGS:keywords_filter,ctl:ruleRemoveTargetByTag=attack-lfi;ARGS:keywords_filter"
 
-      SecRule &TX:moj_config "@eq 0" "id:9001110,phase:1,deny,status:405,log,msg:method-not-allowed,chain"
-        SecRule REQUEST_METHOD "!@rx ^(?:GET|HEAD|POST)$" "t:none"
-
       SecRule &TX:moj_config "@eq 0" "id:9001120,phase:1,deny,status:403,log,msg:multipart-not-allowed,chain"
         SecRule REQUEST_HEADERS:Content-Type "@contains multipart" "t:none,t:lowercase"
 
-      SecRule &TX:moj_config "@eq 0" "id:9001130,phase:1,deny,status:403,log,msg:post-route-not-allowed,chain"
-        SecRule REQUEST_METHOD "@streq POST" "t:none,chain"
-          SecRule REQUEST_FILENAME "@rx ^/(?:wp/|wp-json/|xmlrpc\.php)" "t:none,t:urlDecodeUni,t:normalizePath,chain"
-            SecRule REQUEST_FILENAME "!@rx ^/wp/(?:wp-login\.php|wp-comments-post\.php|wp-admin/admin-ajax\.php)$" "t:none,t:urlDecodeUni,t:normalizePath"
-
-      SecRule &TX:moj_config "@eq 0" "id:9001140,phase:1,deny,status:403,log,msg:rest-route-not-allowed,chain"
-        SecRule REQUEST_METHOD "@streq POST" "t:none,chain"
-          SecRule ARGS_GET_NAMES "@streq rest_route" "t:none"
-
-      SecRule &TX:moj_config "@eq 0" "id:9001150,phase:2,deny,status:403,log,msg:ajax-action-not-allowed,chain"
-        SecRule REQUEST_FILENAME "@streq /wp/wp-admin/admin-ajax.php" "t:none,t:urlDecodeUni,t:normalizePath,chain"
-          SecRule ARGS:action "!@rx ^(?:load_search_results|load_events_filter_results|load_people_update_filter_results|get_news_api|get_category_news_api|get_campaign_news_api|get_campaign_post_api|get_blogroll_posts_api|get_blogroll_post|like_button_ajax_action)$" "t:none"
-
-      SecRule &TX:moj_config "@eq 0" "id:9001160,phase:2,deny,status:403,log,msg:numeric-arg-invalid,chain"
-        SecRule ARGS:comment_post_ID|ARGS:comment_parent|ARGS:postID|ARGS:commentID|ARGS:likeCountValue|ARGS:likeCommentCountValue "!@rx ^\d{0,20}$" "t:none"
     # Matches post_max_size in php-pool.conf, so larger bodies never reach PHP.
     nginx.ingress.kubernetes.io/proxy-body-size: "32m"
     nginx.ingress.kubernetes.io/server-snippet: |
