@@ -88,7 +88,7 @@ services:
 
   mariadb:
     container_name: intranet-mariadb
-    image: mariadb:10
+    image: mariadb:12
     healthcheck:
       test: [ "CMD-SHELL", "bash", "-c", "echo > /dev/tcp/localhost/3306" ]
       interval: 1s
@@ -160,7 +160,7 @@ services:
   # Run as root (like the old image) so existing root-owned minio_storage volumes stay writable.
   minio:
     container_name: intranet-minio
-    image: cgr.dev/chainguard/minio:latest-dev@sha256:8f59bd1942294673d828b7c0121dba660ebfffac80156e2d34db080c697c2bef
+    image: cgr.dev/chainguard/minio:latest-dev@sha256:49d6b44887490f56906ff6ffc6b730ae6072b5d50ec479295a66bd056f3f063c
     user: root
     ports:
       - "9000:9000" # The AWS S3 compatible API.
@@ -182,7 +182,7 @@ services:
 
   minio-init:
     container_name: intranet-minio-init
-    image: cgr.dev/chainguard/minio:latest-dev@sha256:8f59bd1942294673d828b7c0121dba660ebfffac80156e2d34db080c697c2bef
+    image: cgr.dev/chainguard/minio:latest-dev@sha256:49d6b44887490f56906ff6ffc6b730ae6072b5d50ec479295a66bd056f3f063c
     depends_on:
       minio:
         condition: service_healthy
