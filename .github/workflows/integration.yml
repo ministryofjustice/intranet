@@ -36,23 +36,15 @@ jobs:
       contents: read
     secrets: inherit
 
-  modsec_config:
-    name: "Modsec"
-    uses: ./.github/workflows/modsec-config.yml
-    permissions:
-      contents: read
-    secrets: inherit
-
   deploy_dev:
     name: "Development"
     if: github.ref_name == 'dev'
     uses: ./.github/workflows/deploy.yml
-    needs: [image, get_ip_ranges, modsec_config]
+    needs: [image, get_ip_ranges]
     with:
       environment: development
       registry: ${{ needs.image.outputs.registry }}
       ips_formatted: ${{ needs.get_ip_ranges.outputs.ips_formatted }}
-      modsec_config: ${{ needs.modsec_config.outputs.development }}
       pipeline: dev
     permissions:
       contents: read
@@ -63,12 +55,11 @@ jobs:
     name: "Demo"
     if: github.ref_name == 'demo'
     uses: ./.github/workflows/deploy.yml
-    needs: [image, get_ip_ranges, modsec_config]
+    needs: [image, get_ip_ranges]
     with:
       environment: demo
       registry: ${{ needs.image.outputs.registry }}
       ips_formatted: ${{ needs.get_ip_ranges.outputs.ips_formatted }}
-      modsec_config: ${{ needs.modsec_config.outputs.development }}
       pipeline: demo
     permissions:
       contents: read
@@ -77,14 +68,13 @@ jobs:
 
   deploy_staging:
     name: "Staging"
-    needs: [image, get_ip_ranges, modsec_config]
+    needs: [image, get_ip_ranges]
     if: github.ref_name == 'main'
     uses: ./.github/workflows/deploy.yml
     with:
       environment: staging
       registry: ${{ needs.image.outputs.registry }}
       ips_formatted: ${{ needs.get_ip_ranges.outputs.ips_formatted }}
-      modsec_config: ${{ needs.modsec_config.outputs.staging }}
     permissions:
       contents: read
       pull-requests: write
@@ -92,14 +82,13 @@ jobs:
 
   deploy_production:
     name: "Production"
-    needs: [image, deploy_staging, get_ip_ranges, modsec_config]
+    needs: [image, deploy_staging, get_ip_ranges]
     if: github.ref_name == 'main'
     uses: ./.github/workflows/deploy.yml
     with:
       environment: production
       registry: ${{ needs.image.outputs.registry }}
       ips_formatted: ${{ needs.get_ip_ranges.outputs.ips_formatted }}
-      modsec_config: ${{ needs.modsec_config.outputs.production }}
     permissions:
       contents: read
       pull-requests: write

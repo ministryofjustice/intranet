@@ -12,9 +12,6 @@ on:
       ips_formatted:
         required: true
         type: string
-      modsec_config:
-        required: true
-        type: string
       pipeline:
         description: 'Define the pipeline in use. One of demo, dev, or main'
         default: 'main'
@@ -132,18 +129,11 @@ jobs:
           ## Modsec config
           ## - - - - - - - - - - -
 
-          export MODSEC_CONFIG=$(
-            echo -n "${{ inputs.modsec_config }}" | 
-            openssl enc -aes-256-cbc -pbkdf2 -base64 -d -salt -k "${{ secrets.WORKFLOW_ENCRYPTION_KEY }}" |
-            base64 --decode
-          );
-
           ## A rule in ingress.tpl.yml compares the moj_config cookie to MOJ_CONFIG.
           ## Empty would match requests with an empty cookie, and quotes or spaces
           ## would break the modsecurity-snippet. e.g. openssl rand -hex 32
-          ## Only required where the ingress uses it.
 
-          if grep -q '${MOJ_CONFIG}' "$TPL_PATH"/ingress.tpl.yml && ! [[ "$MOJ_CONFIG" =~ ^[A-Za-z0-9]{32,}$ ]]; then
+          if ! [[ "$MOJ_CONFIG" =~ ^[A-Za-z0-9]{32,}$ ]]; then
             echo "MOJ_CONFIG must be at least 32 letters and numbers."
             exit 1
           fi
@@ -153,9 +143,9 @@ jobs:
           ## Perform find/replace
           ## - - - - - - - - - - -
 
-          ## Only replace $MODSEC_CONFIG and $MOJ_CONFIG in ingress.tpl.yml
+          ## Only replace $MOJ_CONFIG in ingress.tpl.yml
 
-          < "$TPL_PATH"/ingress.tpl.yml envsubst '${MODSEC_CONFIG} ${MOJ_CONFIG}' > "$TPL_PATH"/ingress.yaml
+          < "$TPL_PATH"/ingress.tpl.yml envsubst '${MOJ_CONFIG}' > "$TPL_PATH"/ingress.yaml
           < "$TPL_PATH"/secret.tpl.yml envsubst > "$TPL_PATH"/secret.yaml
           < "$TPL_PATH"/deployment.tpl.yml envsubst > "$TPL_PATH"/deployment.yaml
           < "$TPL_PATH"/job.tpl.yml envsubst > "$TPL_PATH"/job.yaml
