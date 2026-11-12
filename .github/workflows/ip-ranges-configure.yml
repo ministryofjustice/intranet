@@ -30,8 +30,8 @@ jobs:
         id: get-ips
         shell: bash
         run: |
-          # Install yq package from snap.
-          sudo snap install yq
+          # yq (mikefarah v4) is preinstalled on GitHub's Ubuntu runners.
+          yq --version
 
           # Transform IPs into nginx geo format. 1 IP range per line, each range is followed by its value.
           # @see https://nginx.org/en/docs/http/ngx_http_geo_module.html
