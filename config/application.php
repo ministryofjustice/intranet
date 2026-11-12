@@ -192,6 +192,9 @@ Config::define('INTRANET_ARCHIVE_URL', env('INTRANET_ARCHIVE_URL'));
 // Set the shared secret for the Intranet Archive.
 Config::define('INTRANET_ARCHIVE_SHARED_SECRET', env('INTRANET_ARCHIVE_SHARED_SECRET'));
 
+// Set the value of the moj_config cookie, it must match the ingress config.
+Config::define('MOJ_CONFIG', env('MOJ_CONFIG'));
+
 /**
  * Debugging Settings
  */

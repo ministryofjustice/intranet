@@ -359,7 +359,6 @@ The relevant workflows can be found at:
 - [.github/workflows/integration.yml](./.github/workflows/integration.yml)
 - [.github/workflows/integration-qa.yml](/.github/workflows/integration-qa.yml)
 - [.github/workflows/ip-ranges-configure.yml](/.github/workflows/ip-ranges-configure.yml)
-- [.github/workflows/modsec-config.yml](/.github/workflows/modsec-config.yml)
 - [.github/workflows/build.yml](/.github/workflows/build.yml)
 - [.github/workflows/deploy.yml](/.github/workflows/deploy.yml)
 - [.github/workflows/sync-with-main.yml](/.github/workflows/sync-with-main.yml)

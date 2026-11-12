@@ -7,10 +7,42 @@ metadata:
     external-dns.alpha.kubernetes.io/set-identifier: intranet-dev-ingress-intranet-dev-green
     external-dns.alpha.kubernetes.io/aws-weight: "100"
     nginx.ingress.kubernetes.io/enable-modsecurity: "true"
+    # ModSecurity rules. Comments live here, not in the snippet: ingress-nginx renders the snippet as one
+    # single-quoted nginx parameter, which must stay under 4096 bytes and contain no single quotes.
+    # - SecDefaultAction phase 1, 2 and 4: log matches, tagged with the team and environment.
+    # - SecAuditEngine RelevantOnly: log only requests that match a rule or get an error status.
+    # - SecRuleEngine On: block requests that match a deny rule, or the core rule set anomaly threshold.
+    # - 9001001: editors. The theme sets the moj_config cookie to MOJ_CONFIG for users who can edit
+    #   posts. It sets tx.moj_config, so the non-editor rules below never match editors, even in
+    #   DetectionOnly mode where allow does not run. Keep phase 1 rules for everyone above it.
+    # Non-editors:
+    # - 9001100: skip all checks on password fields, and SQLi/RCE/LFI checks on free text fields
+    #   (comment, feedback, register name, search). WordPress stores and escapes these safely.
+    # - 9001120: no multipart requests (file uploads), editors can upload.
     nginx.ingress.kubernetes.io/modsecurity-snippet: |
-      ${MODSEC_CONFIG}
-      # Block any request whose Content-Type mentions multipart (any method, any case), before the body is read.
-      SecRule REQUEST_HEADERS:Content-Type "@contains multipart" "id:9001000,phase:1,deny,status:403,log,t:none,t:lowercase,ctl:ruleEngine=On,msg:multipart-request-blocked"
+      SecDefaultAction "phase:1,pass,log,tag:github_team=hale-platform,tag:environment=intranet-dev"
+      SecDefaultAction "phase:2,pass,log,tag:github_team=hale-platform,tag:environment=intranet-dev"
+      SecDefaultAction "phase:4,pass,log,tag:github_team=hale-platform,tag:environment=intranet-dev"
+      SecAuditEngine RelevantOnly
+      SecRuleEngine On
+
+      SecRule REQUEST_COOKIES:moj_config "@streq ${MOJ_CONFIG}" "id:9001001,phase:1,allow,nolog,t:none,setvar:tx.moj_config=1,ctl:ruleEngine=DetectionOnly"
+
+      SecAction "id:9001100,phase:1,pass,nolog,\
+        ctl:ruleRemoveTargetByTag=OWASP_CRS;ARGS:pwd,\
+        ctl:ruleRemoveTargetByTag=OWASP_CRS;ARGS:pass1,\
+        ctl:ruleRemoveTargetByTag=OWASP_CRS;ARGS:pass2,\
+        ctl:ruleRemoveTargetByTag=OWASP_CRS;ARGS:post_password,\
+        ctl:ruleRemoveTargetByTag=attack-sqli;ARGS:comment,ctl:ruleRemoveTargetByTag=attack-rce;ARGS:comment,ctl:ruleRemoveTargetByTag=attack-lfi;ARGS:comment,\
+        ctl:ruleRemoveTargetByTag=attack-sqli;ARGS:fbf_message,ctl:ruleRemoveTargetByTag=attack-rce;ARGS:fbf_message,ctl:ruleRemoveTargetByTag=attack-lfi;ARGS:fbf_message,\
+        ctl:ruleRemoveTargetByTag=attack-sqli;ARGS:fbf_name,ctl:ruleRemoveTargetByTag=attack-rce;ARGS:fbf_name,ctl:ruleRemoveTargetByTag=attack-lfi;ARGS:fbf_name,\
+        ctl:ruleRemoveTargetByTag=attack-sqli;ARGS:first_name,ctl:ruleRemoveTargetByTag=attack-rce;ARGS:first_name,ctl:ruleRemoveTargetByTag=attack-lfi;ARGS:first_name,\
+        ctl:ruleRemoveTargetByTag=attack-sqli;ARGS:s,ctl:ruleRemoveTargetByTag=attack-rce;ARGS:s,ctl:ruleRemoveTargetByTag=attack-lfi;ARGS:s,\
+        ctl:ruleRemoveTargetByTag=attack-sqli;ARGS:keywords_filter,ctl:ruleRemoveTargetByTag=attack-rce;ARGS:keywords_filter,ctl:ruleRemoveTargetByTag=attack-lfi;ARGS:keywords_filter"
+
+      SecRule &TX:moj_config "@eq 0" "id:9001120,phase:1,deny,status:403,log,msg:multipart-not-allowed,chain"
+        SecRule REQUEST_HEADERS:Content-Type "@contains multipart" "t:none,t:lowercase"
+
     # Matches post_max_size in php-pool.conf, so larger bodies never reach PHP.
     nginx.ingress.kubernetes.io/proxy-body-size: "32m"
     nginx.ingress.kubernetes.io/server-snippet: |
