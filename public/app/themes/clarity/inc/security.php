@@ -114,6 +114,15 @@ class Security
         unset($headers['X-Pingback']);
 
         $headers['X-Powered-By'] = 'Justice Digital';
+
+        // On search pages, send only the origin as the Referer. Otherwise every request from the
+        // results page (images, pagination, result links, admin-ajax) carries the search term in
+        // its Referer header, where ModSecurity inspects it and can block the request.
+        // is_search() works here because, since WordPress 6.1, the main query runs before send_headers.
+        if (is_search()) {
+            $headers['Referrer-Policy'] = 'strict-origin';
+        }
+
         return $headers;
     }
 
