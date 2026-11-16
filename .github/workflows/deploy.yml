@@ -131,10 +131,11 @@ jobs:
 
           ## A rule in ingress.tpl.yml compares the moj_config cookie to MOJ_CONFIG.
           ## Empty would match requests with an empty cookie, and quotes or spaces
-          ## would break the modsecurity-snippet. e.g. openssl rand -hex 32
+          ## would break the modsecurity-snippet. e.g. `openssl rand -hex 32`
+          ## Lower limit for security, upper limit to fit inside ingress annotations. 
 
-          if ! [[ "$MOJ_CONFIG" =~ ^[A-Za-z0-9]{32,}$ ]]; then
-            echo "MOJ_CONFIG must be at least 32 letters and numbers."
+          if ! [[ "$MOJ_CONFIG" =~ ^[A-Za-z0-9]{32,96}$ ]]; then
+            echo "MOJ_CONFIG must be between 32 and 96 letters and numbers."
             exit 1
           fi
 
