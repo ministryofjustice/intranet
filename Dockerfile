@@ -14,7 +14,7 @@
 #░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░  ░░
 
 
-FROM composer:2.10.3@sha256:9715c7f69044da2a212a5fbde29ee7da24e364d426560ae6367b060236f847d7 AS composer
+FROM composer:2.11.1@sha256:8de2184c6de224f4689e8f80ed5f5edaf0030b6b8b7839a22a2bcb6722ac87d0 AS composer
 
 FROM nginxinc/nginx-unprivileged:1.31.7-alpine@sha256:b5047b9b76845eac124358373c6852377c52e4b05834a47647e955dd91cb8f1e AS nginx-unprivileged
 
@@ -23,7 +23,7 @@ FROM nginxinc/nginx-unprivileged:1.31.7-alpine@sha256:b5047b9b76845eac124358373c
 
 # Official WordPress image (Alpine, php-fpm): https://hub.docker.com/_/wordpress
 # PHPRedis + igbinary, WP-CLI, mariadb-client, fcgi and the timezone are layered on below.
-FROM wordpress:7.1.4-php8.4-fpm-alpine@sha256:d3dd20e58ada4d172fe6a580b31885d20f9514363ef8147ff9a48181ed4977d9 AS base-fpm
+FROM wordpress:7.1.5-php8.4-fpm-alpine@sha256:a96c2667f885443b9c652061186448ae5d80d191feb50431e940a6e740bc8a2f AS base-fpm
 
 # Install additional Alpine packages
 RUN apk update && \
@@ -260,7 +260,7 @@ RUN mkdir -p ./vendor-assets && \
 #  █▀█  ▄█  ▄█  ██▄  ░█░  ▄█
 
 
-FROM node:25-alpine3.23@sha256:bdf2cca6fe3dabd014ea60163eca3f0f7015fbd5c7ee1b0e9ccb4ced6eb02ef4 AS assets-build
+FROM node:24-alpine3.24@sha256:a34ab6d7f6f4813f4d0c5469d74685604b962fbdbf5793a7bc7b4998ecb867c8 AS assets-build
 
 WORKDIR /node
 COPY ./public/app/themes/clarity /node/
