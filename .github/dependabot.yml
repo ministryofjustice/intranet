@@ -33,6 +33,22 @@ updates:
         patterns:
           - "*"
 
+  - package-ecosystem: "docker-compose"
+    directory: "/"
+    schedule:
+      interval: "daily"
+      time: "00:30"
+    commit-message:
+      prefix: "chore"
+      include: "scope"
+    labels:
+      - "chore"
+      - "docker"
+    groups:
+      docker-compose-packages:
+        patterns:
+          - "*"
+
   - package-ecosystem: "npm"
     directory: "public/app/themes/clarity"
     schedule:
