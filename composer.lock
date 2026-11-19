@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c52881c34f58f608cacc5092edec0e2f",
+    "content-hash": "b785cecfafa716e080d4300314861a45",
     "packages": [
         {
             "name": "alphagov/notifications-php-client",
@@ -1017,10 +1017,10 @@
         },
         {
             "name": "koodimonni-language/core-en_gb",
-            "version": "7.1.2",
+            "version": "7.1.5",
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/translation/core/7.1.2/en_GB.zip"
+                "url": "https://downloads.wordpress.org/translation/core/7.1.5/en_GB.zip"
             },
             "require": {
                 "koodimonni/composer-dropin-installer": ">=0.2.3"
@@ -1252,18 +1252,19 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ministryofjustice/like-button-for-wordpress.git",
-                "reference": "a67d6e0b2c24e82c4283429abbc08fe3bf867c41"
+                "reference": "6b39b1500df6e2f8eeedfefadb21cec3d1ec7b44"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ministryofjustice/like-button-for-wordpress/zipball/a67d6e0b2c24e82c4283429abbc08fe3bf867c41",
-                "reference": "a67d6e0b2c24e82c4283429abbc08fe3bf867c41",
+                "url": "https://api.github.com/repos/ministryofjustice/like-button-for-wordpress/zipball/6b39b1500df6e2f8eeedfefadb21cec3d1ec7b44",
+                "reference": "6b39b1500df6e2f8eeedfefadb21cec3d1ec7b44",
                 "shasum": ""
             },
             "require": {
                 "composer/installers": "^1.4",
                 "php": ">=7.4"
             },
+            "default-branch": true,
             "type": "wordpress-plugin",
             "extra": {
                 "installer-name": "like-button-for-wordpress"
@@ -1289,8 +1290,7 @@
                 "issues": "https://github.com/ministryofjustice/like-button-for-wordpress/issues",
                 "source": "https://github.com/ministryofjustice/like-button-for-wordpress/tree/main"
             },
-            "abandoned": true,
-            "time": "2023-05-30T08:59:40+00:00"
+            "time": "2026-11-11T16:43:54+00:00"
         },
         {
             "name": "ministryofjustice/notify-for-wordpress",
@@ -3960,5 +3960,5 @@
         "ext-zlib": "*"
     },
     "platform-dev": {},
-    "plugin-api-version": "2.9.0"
+    "plugin-api-version": "2.11.0"
 }
