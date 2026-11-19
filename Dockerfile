@@ -23,7 +23,7 @@ FROM nginxinc/nginx-unprivileged:1.31.7-alpine@sha256:b5047b9b76845eac124358373c
 
 # Official WordPress image (Alpine, php-fpm): https://hub.docker.com/_/wordpress
 # PHPRedis + igbinary, WP-CLI, mariadb-client, fcgi and the timezone are layered on below.
-FROM wordpress:7.1.4-php8.4-fpm-alpine@sha256:e329a2bddc97916a320c3b128552bf7b0bb3ea873d2b58b2481613c6fac3c3c7 AS base-fpm
+FROM wordpress:7.1.4-php8.4-fpm-alpine@sha256:191fb92b84890fb5286bbb7a2802a7f135229a6784540d8f434319dc542e8ff3 AS base-fpm
 
 # Install additional Alpine packages
 RUN apk update && \
@@ -260,7 +260,7 @@ RUN mkdir -p ./vendor-assets && \
 #  █▀█  ▄█  ▄█  ██▄  ░█░  ▄█
 
 
-FROM node:24-alpine3.24@sha256:a34ab6d7f6f4813f4d0c5469d74685604b962fbdbf5793a7bc7b4998ecb867c8 AS assets-build
+FROM node:24-alpine3.24@sha256:116b800c3754b440ee0aa3ed2f20f5bf3d99a554bfd9adeea09ea8017f6e85f5 AS assets-build
 
 WORKDIR /node
 COPY ./public/app/themes/clarity /node/
@@ -349,7 +349,7 @@ COPY --from=assets-build --chown=nginx:nginx /node/style.css public/app/themes/c
 #  █▄▄  █▀▄  █▄█  █░▀█
 
 
-FROM alpine:3.24@sha256:294b683cb724975bec92580e1e685676bd4b50bda910ddb8c51d4cabeaec77e6 AS build-cron
+FROM alpine:3.24@sha256:f59abe656b692d901e184be3445e084786602108599d2a51d229c0f5a48c71bf AS build-cron
 
 #  ▒█▀▀█ █▀▀█ █▀▀█ █▀▀█ █▀▀▄ █▀▀ █▀▀█ 　 █
 #  ▒█░░░ █▄▄▀ █░░█ █░░█ █░░█ █▀▀ █▄▄▀ 　 ▀
@@ -394,7 +394,7 @@ ENTRYPOINT ["/bin/sh", "-c", "cron-start"]
 #  █▀▀ █▄█ ▄█ █▀█ ██▄ █▀▄
 
 
-FROM alpine:3.24@sha256:294b683cb724975bec92580e1e685676bd4b50bda910ddb8c51d4cabeaec77e6 AS build-s3-push
+FROM alpine:3.24@sha256:f59abe656b692d901e184be3445e084786602108599d2a51d229c0f5a48c71bf AS build-s3-push
 
 ARG user=s3pusher
 RUN addgroup --gid 3001 ${user} && adduser -D -G ${user} -g "${user} user" -u 3001 ${user}
