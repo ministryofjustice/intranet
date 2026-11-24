@@ -11,7 +11,7 @@ metadata:
     # single-quoted nginx parameter, which must stay under 4096 bytes and contain no single quotes.
     # - SecDefaultAction phase 1, 2 and 4: log matches, tagged with the team and environment.
     # - SecAuditEngine RelevantOnly: log only requests that match a rule or get an error status.
-    # - SecRuleEngine DetectionOnly: monitor mode, log what would be blocked. No rule overrides this, so nothing blocks.
+    # - SecRuleEngine On: block requests that match a deny rule, or the core rule set anomaly threshold.
     # - 9001100: everyone. Skip all checks on password fields, so passwords never reach the audit logs,
     #   and SQLi/RCE/LFI checks on free text fields (comment, feedback, register name, search), which
     #   WordPress stores and escapes safely. Editors are never blocked, so for them this only reduces log noise.
@@ -27,7 +27,7 @@ metadata:
       SecDefaultAction "phase:2,pass,log,tag:github_team=hale-platform,tag:environment=intranet-production"
       SecDefaultAction "phase:4,pass,log,tag:github_team=hale-platform,tag:environment=intranet-production"
       SecAuditEngine RelevantOnly
-      SecRuleEngine DetectionOnly
+      SecRuleEngine On
 
       SecAction "id:9001100,phase:1,pass,nolog,\
         ctl:ruleRemoveTargetByTag=OWASP_CRS;ARGS:pwd,\
