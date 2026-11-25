@@ -17,6 +17,14 @@ metadata:
     #   WordPress stores and escapes safely. Editors are never blocked, so for them this only reduces log noise.
     #   On comment, feedback and search, also skip 941390 and 933160. They block a bracket after words like
     #   alert, confirm, import, file or system, e.g. "please confirm (by Friday)". Output there is escaped.
+    #   Also skip all checks on cookies the server sets and verifies: CloudFront-* (signed by us, checked by
+    #   CloudFront, base64 with ~ and - trips 932270) and jwt (signed, checked by moj-auth). This also keeps
+    #   their values out of the audit logs.
+    # - SecRuleUpdateTargetById 932130, 933135: everyone. Skip PostHog cookie names, ph_<project key>_posthog.
+    #   These cookies are set outside this codebase. Nevertheless, they are sent as part of requests to this
+    #   service, and a name containing ${...} trips both rules. The app never reads ph_* cookies.
+    # - SecRuleUpdateTargetById 942290: everyone. Skip PostHog cookie values (JSON with $-prefixed keys), as on
+    #   hale-platform. Cloud Platform already removes 942290 for every service, so this only applies if they restore it.
     # - 9001001: editors. The theme sets the moj_config cookie to MOJ_CONFIG for users who can edit
     #   posts. It sets tx.moj_config, so the non-editor rules below never match editors, even in
     #   DetectionOnly mode where allow does not run. Keep phase 1 rules for everyone above it.
@@ -34,12 +42,20 @@ metadata:
         ctl:ruleRemoveTargetByTag=OWASP_CRS;ARGS:pass1,\
         ctl:ruleRemoveTargetByTag=OWASP_CRS;ARGS:pass2,\
         ctl:ruleRemoveTargetByTag=OWASP_CRS;ARGS:post_password,\
+        ctl:ruleRemoveTargetByTag=OWASP_CRS;REQUEST_COOKIES:CloudFront-Policy,\
+        ctl:ruleRemoveTargetByTag=OWASP_CRS;REQUEST_COOKIES:CloudFront-Signature,\
+        ctl:ruleRemoveTargetByTag=OWASP_CRS;REQUEST_COOKIES:CloudFront-Key-Pair-Id,\
+        ctl:ruleRemoveTargetByTag=OWASP_CRS;REQUEST_COOKIES:jwt,\
         ctl:ruleRemoveTargetByTag=attack-sqli;ARGS:comment,ctl:ruleRemoveTargetByTag=attack-rce;ARGS:comment,ctl:ruleRemoveTargetByTag=attack-lfi;ARGS:comment,ctl:ruleRemoveTargetById=941390;ARGS:comment,ctl:ruleRemoveTargetById=933160;ARGS:comment,\
         ctl:ruleRemoveTargetByTag=attack-sqli;ARGS:fbf_message,ctl:ruleRemoveTargetByTag=attack-rce;ARGS:fbf_message,ctl:ruleRemoveTargetByTag=attack-lfi;ARGS:fbf_message,ctl:ruleRemoveTargetById=941390;ARGS:fbf_message,ctl:ruleRemoveTargetById=933160;ARGS:fbf_message,\
         ctl:ruleRemoveTargetByTag=attack-sqli;ARGS:fbf_name,ctl:ruleRemoveTargetByTag=attack-rce;ARGS:fbf_name,ctl:ruleRemoveTargetByTag=attack-lfi;ARGS:fbf_name,\
         ctl:ruleRemoveTargetByTag=attack-sqli;ARGS:first_name,ctl:ruleRemoveTargetByTag=attack-rce;ARGS:first_name,ctl:ruleRemoveTargetByTag=attack-lfi;ARGS:first_name,\
         ctl:ruleRemoveTargetByTag=attack-sqli;ARGS:s,ctl:ruleRemoveTargetByTag=attack-rce;ARGS:s,ctl:ruleRemoveTargetByTag=attack-lfi;ARGS:s,ctl:ruleRemoveTargetById=941390;ARGS:s,ctl:ruleRemoveTargetById=933160;ARGS:s,\
         ctl:ruleRemoveTargetByTag=attack-sqli;ARGS:keywords_filter,ctl:ruleRemoveTargetByTag=attack-rce;ARGS:keywords_filter,ctl:ruleRemoveTargetByTag=attack-lfi;ARGS:keywords_filter,ctl:ruleRemoveTargetById=941390;ARGS:keywords_filter,ctl:ruleRemoveTargetById=933160;ARGS:keywords_filter"
+
+      SecRuleUpdateTargetById 932130 "!REQUEST_COOKIES_NAMES:/^ph_.*_posthog$/"
+      SecRuleUpdateTargetById 933135 "!REQUEST_COOKIES_NAMES:/^ph_.*_posthog$/"
+      SecRuleUpdateTargetById 942290 "!REQUEST_COOKIES:/^ph_.*_posthog$/"
 
       SecRule REQUEST_COOKIES:moj_config "@streq ${MOJ_CONFIG}" "id:9001001,phase:1,allow,nolog,t:none,setvar:tx.moj_config=1,ctl:ruleEngine=DetectionOnly"
 
