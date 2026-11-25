@@ -134,6 +134,30 @@ function my_admin_only_prepare_field($field)
 
 add_filter('acf/prepare_field', 'my_admin_only_prepare_field');
 
+/**
+ * Show the profile Avatar field only to users who can edit posts.
+ *
+ * Without upload_files, ACF swaps in its basic uploader, which makes the whole user form
+ * multipart/form-data, even when no file is chosen. The ingress refuses multipart requests
+ * from non-editors (rule 9001120), so subscribers could not save their profile at all.
+ * The basic uploader also saves files to the media library without checking upload_files.
+ *
+ * edit_posts is the same check that gives users the moj_config cookie (see cookies.php),
+ * so anyone who sees the field can also send multipart requests.
+ * Subscriber avatars aren't displayed anywhere: comments use avatar_size false, and only
+ * post authors show one (see check_local_avatar). A hidden field isn't submitted,
+ * so existing avatars are kept.
+ *
+ * @param array $field The ACF field.
+ * @return array|false The field, or false to hide it.
+ */
+function dw_acf_avatar_editors_only($field)
+{
+    return current_user_can('edit_posts') ? $field : false;
+}
+
+add_filter('acf/prepare_field/key=field_583c0c51ccd38', 'dw_acf_avatar_editors_only');
+
 
 // hide drafts
 add_filter('acf/fields/post_object/query', 'relationship_options_filter', 10, 3);
