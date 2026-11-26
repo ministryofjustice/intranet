@@ -134,6 +134,26 @@ function my_admin_only_prepare_field($field)
 
 add_filter('acf/prepare_field', 'my_admin_only_prepare_field');
 
+/**
+ * Show the profile Avatar field only to users who can edit posts.
+ *
+ * This filter turns off the Avatar upload field for users with the
+ * subscriber role. This is fine, because a subscriber's avatar is
+ * never shown on the frontend of the site.
+ *
+ * This is important, otherwise subscriber's profile edit screen is
+ * a multipart POST request, and any update is blocked by modsec rules.
+ *
+ * @param array $field The ACF field.
+ * @return array|false The field, or false to hide it.
+ */
+function dw_acf_avatar_editors_only($field)
+{
+    return current_user_can('edit_posts') ? $field : false;
+}
+
+add_filter('acf/prepare_field/key=field_583c0c51ccd38', 'dw_acf_avatar_editors_only');
+
 
 // hide drafts
 add_filter('acf/fields/post_object/query', 'relationship_options_filter', 10, 3);
