@@ -63,7 +63,7 @@ metadata:
         SecRule REQUEST_HEADERS:Content-Type "@contains multipart" "t:none,t:lowercase"
 
     # Matches post_max_size in php-pool.conf, so larger bodies never reach PHP.
-    nginx.ingress.kubernetes.io/proxy-body-size: "250m"
+    nginx.ingress.kubernetes.io/proxy-body-size: "256m"
     # Set vhost so that WP doesn't see prod-intranet.apps... and redirect.
     nginx.ingress.kubernetes.io/upstream-vhost: intranet.justice.gov.uk
     nginx.ingress.kubernetes.io/server-snippet: |
