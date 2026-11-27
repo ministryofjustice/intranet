@@ -63,7 +63,7 @@ metadata:
         SecRule REQUEST_HEADERS:Content-Type "@contains multipart" "t:none,t:lowercase"
 
     # Matches post_max_size in php-pool.conf, so larger bodies never reach PHP.
-    nginx.ingress.kubernetes.io/proxy-body-size: "32m"
+    nginx.ingress.kubernetes.io/proxy-body-size: "250m"
     nginx.ingress.kubernetes.io/server-snippet: |
       if ($host = 'dev-intranet.apps.live.cloud-platform.service.justice.gov.uk') {
         return 301 https://dev.intranet.justice.gov.uk;
